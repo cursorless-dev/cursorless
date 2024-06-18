@@ -1,11 +1,14 @@
 languageId: javascript
 command:
-  version: 1
+  version: 5
   spokenForm: take every attribute
-  action: setSelection
+  action: {name: setSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: attribute, includeSiblings: true}
+      modifiers:
+        - type: everyScope
+          scopeType: {type: attribute}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

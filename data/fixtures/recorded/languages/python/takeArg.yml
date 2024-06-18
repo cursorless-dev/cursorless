@@ -1,11 +1,14 @@
 languageId: python
 command:
-  version: 1
+  version: 5
   spokenForm: take arg
-  action: setSelection
+  action: {name: setSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

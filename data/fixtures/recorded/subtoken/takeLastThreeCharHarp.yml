@@ -1,13 +1,17 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: take last three chars harp
-  action: setSelection
+  action: {name: setSelection}
   targets:
     - type: primitive
-      selectionType: token
-      modifier: {type: subpiece, pieceType: character, anchor: -3, active: -1}
+      modifiers:
+        - type: ordinalScope
+          scopeType: {type: character}
+          start: -3
+          length: 3
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |+
 

@@ -1,11 +1,14 @@
 languageId: python
 command:
-  version: 1
+  version: 5
   spokenForm: chuck type
-  action: remove
+  action: {name: remove}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: "foo: str = 'hello'"
   selections:

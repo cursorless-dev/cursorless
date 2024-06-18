@@ -1,12 +1,15 @@
 languageId: scss
 command:
-  version: 1
+  version: 5
   spokenForm: change state harp
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: statement}
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     a .child-selector {

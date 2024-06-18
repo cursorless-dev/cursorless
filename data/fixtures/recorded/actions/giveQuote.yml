@@ -1,11 +1,12 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: give double quote
-  action: deselect
+  action: {name: deselect}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: '"'}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     "hello"

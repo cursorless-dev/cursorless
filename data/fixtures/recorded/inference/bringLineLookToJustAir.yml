@@ -1,15 +1,19 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 5
   spokenForm: bring line look to just air
-  action: replaceWithTarget
+  action: {name: replaceWithTarget}
   targets:
     - type: primitive
-      selectionType: line
+      modifiers:
+        - type: containingScope
+          scopeType: {type: line}
       mark: {type: decoratedSymbol, symbolColor: default, character: l}
     - type: primitive
-      modifier: {type: toRawSelection}
+      modifiers:
+        - {type: toRawSelection}
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     hello there

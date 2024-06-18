@@ -1,11 +1,14 @@
 languageId: clojure
 command:
-  version: 1
+  version: 5
   spokenForm: change map
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: map, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: map}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: "{:foo \"bar\"}"
   selections:

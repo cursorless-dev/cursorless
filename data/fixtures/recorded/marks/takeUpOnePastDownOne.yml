@@ -1,15 +1,19 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: take up one past down one
-  action: setSelection
+  action: {name: setSelection}
   targets:
-    - type: primitive
-      selectionType: line
-      mark:
-        type: lineNumber
-        anchor: {lineNumber: -1, type: relative}
-        active: {lineNumber: 1, type: relative}
+    - type: range
+      active:
+        type: primitive
+        mark: {type: lineNumber, lineNumberType: relative, lineNumber: 1}
+      excludeAnchor: false
+      excludeActive: false
+      anchor:
+        type: primitive
+        mark: {type: lineNumber, lineNumberType: relative, lineNumber: -1}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

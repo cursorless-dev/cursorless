@@ -1,14 +1,14 @@
 languageId: typescript
 command:
+  version: 5
   spokenForm: clone funk
-  version: 2
+  action: {name: insertCopyAfter}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: namedFunction}
   usePrePhraseSnapshot: true
-  action: {name: insertCopyAfter}
 initialState:
   documentContents: |-
     function myFunk() {

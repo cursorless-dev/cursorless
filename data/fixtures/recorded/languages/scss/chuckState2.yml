@@ -1,11 +1,14 @@
 languageId: scss
 command:
-  version: 1
+  version: 5
   spokenForm: chuck state
-  action: remove
+  action: {name: remove}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: statement}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     @keyframes important1 {

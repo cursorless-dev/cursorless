@@ -1,11 +1,14 @@
 languageId: scala
 command:
-  version: 0
+  version: 5
   spokenForm: change comment
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: comment, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: comment}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     /*

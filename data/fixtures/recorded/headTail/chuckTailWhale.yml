@@ -1,14 +1,14 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: chuck tail whale
-  version: 2
+  action: {name: remove}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
       modifiers:
         - {type: extendThroughEndOf}
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: "    hello world whatever"
   selections:

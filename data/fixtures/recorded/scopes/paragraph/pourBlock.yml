@@ -1,14 +1,14 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: pour block
-  version: 2
+  action: {name: editNewLineAfter}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: paragraph}
   usePrePhraseSnapshot: true
-  action: {name: editNewLineAfter}
 initialState:
   documentContents: |2
         hello there

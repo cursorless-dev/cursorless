@@ -1,14 +1,14 @@
 languageId: typescript
 command:
+  version: 5
   spokenForm: pour every arg
-  version: 2
+  action: {name: editNewLineAfter}
   targets:
     - type: primitive
       modifiers:
         - type: everyScope
           scopeType: {type: argumentOrParameter}
   usePrePhraseSnapshot: true
-  action: {name: editNewLineAfter}
 initialState:
   documentContents: |-
     function whatever(a: number, b: number, c: number) {

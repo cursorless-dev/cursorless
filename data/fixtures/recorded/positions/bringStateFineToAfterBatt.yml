@@ -1,7 +1,8 @@
 languageId: typescript
 command:
+  version: 5
   spokenForm: bring state fine after state bat
-  version: 2
+  action: {name: replaceWithTarget}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
@@ -15,7 +16,6 @@ command:
         - type: containingScope
           scopeType: {type: statement}
   usePrePhraseSnapshot: true
-  action: {name: replaceWithTarget}
 initialState:
   documentContents: |
     let foo;

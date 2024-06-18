@@ -1,12 +1,10 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: change each past start of its line
-  version: 3
+  action: {name: clearAndSetSelection}
   targets:
     - type: range
-      anchor:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: e}
       active:
         type: primitive
         modifiers:
@@ -16,8 +14,10 @@ command:
             scopeType: {type: line}
       excludeAnchor: false
       excludeActive: false
+      anchor:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: e}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
     const value = "Hello world";

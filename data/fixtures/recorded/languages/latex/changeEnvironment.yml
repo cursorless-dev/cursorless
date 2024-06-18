@@ -1,11 +1,14 @@
 languageId: latex
 command:
-  version: 1
+  version: 5
   spokenForm: change environment
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: environment, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: environment}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     \begin{itemize}

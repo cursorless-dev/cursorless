@@ -1,12 +1,13 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 5
   spokenForm: bring whale
-  action: replaceWithTarget
+  action: {name: replaceWithTarget}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
-    - {type: primitive, isImplicit: true}
+    - {type: implicit}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: foo world
   selections:

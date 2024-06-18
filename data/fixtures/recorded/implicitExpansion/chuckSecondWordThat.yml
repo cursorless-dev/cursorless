@@ -1,19 +1,17 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: chuck second sub that
-  version: 2
+  action: {name: remove}
   targets:
     - type: primitive
       modifiers:
-        - type: ordinalRange
+        - type: ordinalScope
           scopeType: {type: word}
-          anchor: 1
-          active: 1
-          excludeAnchor: false
-          excludeActive: false
+          start: 1
+          length: 1
       mark: {type: that}
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: helloWorld
   selections:

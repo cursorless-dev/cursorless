@@ -1,15 +1,12 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: take row one
-  action: setSelection
+  action: {name: setSelection}
   targets:
     - type: primitive
-      selectionType: line
-      mark:
-        type: lineNumber
-        anchor: {lineNumber: 0, type: modulo100}
-        active: {lineNumber: 0, type: modulo100}
+      mark: {type: lineNumber, lineNumberType: modulo100, lineNumber: 0}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |+
 

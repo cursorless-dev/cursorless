@@ -1,7 +1,8 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: bring block air before bat and drum and after bat and drum
-  version: 2
+  action: {name: replaceWithTarget}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
@@ -23,7 +24,6 @@ command:
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: d}
   usePrePhraseSnapshot: true
-  action: {name: replaceWithTarget}
 initialState:
   documentContents: |-
     aaa

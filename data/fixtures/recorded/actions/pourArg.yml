@@ -1,7 +1,7 @@
 languageId: typescript
 command:
+  version: 5
   spokenForm: pour arg
-  version: 2
   action: {name: editNewLineAfter}
   targets:
     - type: primitive

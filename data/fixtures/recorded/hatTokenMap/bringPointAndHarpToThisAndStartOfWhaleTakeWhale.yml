@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  version: 3
+  version: 5
   spokenForm: bring dot and harp to just this and start of whale take whale
   action: {name: replaceWithTarget}
   targets:

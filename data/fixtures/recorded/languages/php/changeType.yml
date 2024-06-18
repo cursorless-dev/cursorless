@@ -1,11 +1,14 @@
 languageId: php
 command:
-  version: 1
+  version: 5
   spokenForm: change type
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     <?php

@@ -1,12 +1,12 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: highlight fine
-  version: 2
+  action: {name: highlight}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
   usePrePhraseSnapshot: true
-  action: {name: highlight}
 initialState:
   documentContents: |2
 

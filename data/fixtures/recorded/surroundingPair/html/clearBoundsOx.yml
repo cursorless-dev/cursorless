@@ -1,12 +1,14 @@
 languageId: html
 command:
-  version: 1
+  version: 5
   spokenForm: change bounds odd
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: excludeInterior}
+      modifiers:
+        - {type: excludeInterior}
       mark: {type: decoratedSymbol, symbolColor: default, character: o}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     <html>

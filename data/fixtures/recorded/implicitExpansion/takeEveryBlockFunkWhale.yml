@@ -1,7 +1,8 @@
 languageId: typescript
 command:
+  version: 5
   spokenForm: take every block funk whale
-  version: 2
+  action: {name: setSelection}
   targets:
     - type: primitive
       modifiers:
@@ -11,7 +12,6 @@ command:
           scopeType: {type: namedFunction}
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
 initialState:
   documentContents: |-
     function whatever() {

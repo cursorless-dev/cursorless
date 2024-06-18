@@ -1,7 +1,8 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: paste after line sun and after block look and before line sun
-  version: 2
+  action: {name: pasteFromClipboard}
   targets:
     - type: list
       elements:
@@ -24,7 +25,6 @@ command:
             - type: containingScope
               scopeType: {type: line}
   usePrePhraseSnapshot: true
-  action: {name: pasteFromClipboard}
 initialState:
   documentContents: |-
     testing

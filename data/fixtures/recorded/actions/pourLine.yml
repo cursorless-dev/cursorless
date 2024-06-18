@@ -1,15 +1,15 @@
 languageId: python
 postEditorOpenSleepTimeMs: 200
 command:
+  version: 5
   spokenForm: pour line
-  version: 2
+  action: {name: editNewLineAfter}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: line}
   usePrePhraseSnapshot: true
-  action: {name: editNewLineAfter}
 initialState:
   documentContents: |
     class MyClass:
