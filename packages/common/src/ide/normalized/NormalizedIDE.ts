@@ -47,6 +47,7 @@ export class NormalizedIDE extends PassthroughIDEBase {
         "experimental.hatStability",
       ),
       snippetsDir: getFixturePath("cursorless-snippets"),
+      keyboardTargetFollowsSelection: false,
     });
   }
 
