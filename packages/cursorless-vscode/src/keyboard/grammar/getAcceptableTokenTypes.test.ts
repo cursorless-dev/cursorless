@@ -61,6 +61,7 @@ const testCases: TestCase[] = [
             direction: "forward",
             scopeType: MISSING,
           },
+          mode: "replace",
         },
       },
       {
@@ -74,6 +75,7 @@ const testCases: TestCase[] = [
             direction: "forward",
             scopeType: MISSING,
           },
+          mode: "replace",
         },
       },
       {
@@ -87,6 +89,7 @@ const testCases: TestCase[] = [
             direction: "forward",
             scopeType: MISSING,
           },
+          mode: "replace",
         },
       },
     ],
@@ -107,6 +110,7 @@ const testCases: TestCase[] = [
               type: NEXT,
             },
           },
+          mode: "replace",
         },
       },
       {
@@ -120,6 +124,7 @@ const testCases: TestCase[] = [
             direction: "forward",
             scopeType: MISSING,
           },
+          mode: "replace",
         },
       },
     ],

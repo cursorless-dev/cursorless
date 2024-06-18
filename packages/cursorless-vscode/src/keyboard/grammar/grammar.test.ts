@@ -72,7 +72,7 @@ const testCases: TestCase[] = [
   },
   {
     tokens: [
-      { type: "makeRange", value: "makeRange" },
+      { type: "targetingMode", value: "makeRange" },
       { type: "color", value: "green" },
     ],
     expected: {
@@ -80,7 +80,7 @@ const testCases: TestCase[] = [
         decoratedMark: {
           color: "green",
         },
-        mode: "extend",
+        mode: "makeRange",
       },
       type: "targetDecoratedMark",
     },
@@ -103,6 +103,7 @@ const testCases: TestCase[] = [
             type: "namedFunction",
           },
         },
+        mode: "replace",
       },
       type: "modifyTarget",
     },
@@ -124,6 +125,7 @@ const testCases: TestCase[] = [
             type: "namedFunction",
           },
         },
+        mode: "replace",
       },
       type: "modifyTarget",
     },
@@ -135,6 +137,7 @@ const testCases: TestCase[] = [
         modifier: {
           type: "excludeInterior",
         },
+        mode: "replace",
       },
       type: "modifyTarget",
     },
@@ -154,6 +157,7 @@ const testCases: TestCase[] = [
             },
           ],
         },
+        mode: "replace",
       },
       type: "modifyTarget",
     },

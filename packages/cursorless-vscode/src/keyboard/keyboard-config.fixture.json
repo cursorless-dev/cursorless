@@ -65,6 +65,9 @@
     "fa": "makeList",
     "-": "backward"
   },
+  "cursorless.experimental.keyboard.modal.keybindings.specialMark": {
+    "mc": "cursor"
+  },
   "cursorless.experimental.keyboard.modal.keybindings.modifier": {
     "n": "nextPrev",
     "*": "every",
