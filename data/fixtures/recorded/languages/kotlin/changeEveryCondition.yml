@@ -1,0 +1,59 @@
+languageId: kotlin
+command:
+  version: 7
+  spokenForm: change every condition
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: condition}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    class Test {
+        fun main() {
+            val f = fun(i: Int, j: Int) { i + j }
+            val s = f(1, 2)
+            when (s) {
+                1 -> print("x == 1")
+                2 -> print("x == 2")
+                else -> {
+                    print("x is neither 1 nor 2")
+                }
+            }
+            if (true) {
+                return;
+            }
+        }
+    }
+  selections:
+    - anchor: {line: 5, character: 32}
+      active: {line: 5, character: 32}
+  marks: {}
+finalState:
+  documentContents: |-
+    class Test {
+        fun main() {
+            val f = fun(i: Int, j: Int) { i + j }
+            val s = f(1, 2)
+            when (s) {
+                 -> print("x == 1")
+                 -> print("x == 2")
+                 -> {
+                    print("x is neither 1 nor 2")
+                }
+            }
+            if (true) {
+                return;
+            }
+        }
+    }
+  selections:
+    - anchor: {line: 5, character: 12}
+      active: {line: 5, character: 12}
+    - anchor: {line: 6, character: 12}
+      active: {line: 6, character: 12}
+    - anchor: {line: 7, character: 12}
+      active: {line: 7, character: 12}
