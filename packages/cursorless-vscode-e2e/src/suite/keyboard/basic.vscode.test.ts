@@ -84,6 +84,14 @@ const testCases: TestCase[] = [
     finalContent: "((a))\n",
   },
   {
+    name: "slice range",
+    initialContent: "aaa bbb\nccc ddd",
+    // keyboard air
+    // keyboard slice past cap
+    keySequence: ["da", "fs", "dc", "st", "c"],
+    finalContent: " bbb\n ddd",
+  },
+  {
     name: "simple mark",
     initialContent: "aaa bbb",
     // keyboard air
@@ -94,7 +102,7 @@ const testCases: TestCase[] = [
   {
     name: "simple mark range",
     initialContent: "aaa bbb ccc",
-    // keyboard air
+    // keyboard bat
     // keyboard past this
     keySequence: ["db", "fk", "mc", "c"],
     finalContent: "aaa ",
@@ -102,7 +110,7 @@ const testCases: TestCase[] = [
   {
     name: "simple mark list",
     initialContent: "aaa bbb ccc",
-    // keyboard air
+    // keyboard bat
     // keyboard and this
     keySequence: ["db", "fa", "mc", "c"],
     finalContent: "aaa  ",

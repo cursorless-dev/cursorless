@@ -15,7 +15,11 @@ import KeyboardCommandsModal from "./KeyboardCommandsModal";
 import KeyboardHandler from "./KeyboardHandler";
 import { SimpleKeyboardActionDescriptor } from "./KeyboardActionType";
 
-export type TargetingMode = "replace" | "makeRange" | "makeList";
+export type TargetingMode =
+  | "replace"
+  | "makeRange"
+  | "makeVerticalRange"
+  | "makeList";
 
 interface TargetDecoratedMarkArgument {
   color?: HatColor;
@@ -112,6 +116,15 @@ export default class KeyboardCommandsTargeted {
           active: target,
           excludeActive: false,
           excludeAnchor: false,
+        };
+      case "makeVerticalRange":
+        return {
+          type: "range",
+          anchor: getKeyboardTarget(),
+          active: target,
+          excludeActive: false,
+          excludeAnchor: false,
+          rangeType: "vertical",
         };
       case "makeList":
         return {

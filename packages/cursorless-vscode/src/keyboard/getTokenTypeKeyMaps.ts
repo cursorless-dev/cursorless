@@ -55,7 +55,7 @@ export function getTokenTypeKeyMaps(
     targetingMode: config.getTokenKeyMap(
       "targetingMode",
       "misc",
-      only("makeRange", "makeList"),
+      only("makeRange", "makeVerticalRange", "makeList"),
     ),
     combineColorAndShape: config.getTokenKeyMap(
       "combineColorAndShape",

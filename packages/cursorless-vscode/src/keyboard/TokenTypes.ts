@@ -31,6 +31,7 @@ type ModifierType =
 export type MiscValue =
   | "combineColorAndShape"
   | "makeRange"
+  | "makeVerticalRange"
   | "makeList"
   | "forward"
   | "backward";
@@ -65,7 +66,7 @@ export interface TokenTypeValueMap {
   wrap: SpecificKeyboardActionDescriptor<"wrap">;
 
   // misc config section
-  targetingMode: "makeRange" | "makeList";
+  targetingMode: "makeRange" | "makeVerticalRange" | "makeList";
   combineColorAndShape: "combineColorAndShape";
   direction: "forward" | "backward";
 

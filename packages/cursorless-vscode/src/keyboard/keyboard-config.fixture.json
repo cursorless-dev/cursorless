@@ -62,6 +62,7 @@
   "cursorless.experimental.keyboard.modal.keybindings.misc": {
     "fx": "combineColorAndShape",
     "fk": "makeRange",
+    "fs": "makeVerticalRange",
     "fa": "makeList",
     "-": "backward"
   },
