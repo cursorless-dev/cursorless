@@ -1,18 +1,16 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: chuck last char
-  version: 2
+  action: {name: remove}
   targets:
     - type: primitive
       modifiers:
-        - type: ordinalRange
+        - type: ordinalScope
           scopeType: {type: character}
-          anchor: -1
-          active: -1
-          excludeAnchor: false
-          excludeActive: false
+          start: -1
+          length: 1
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: aña
   selections:

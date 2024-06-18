@@ -1,14 +1,14 @@
 languageId: typescript
 command:
+  version: 5
   spokenForm: change class
-  version: 2
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: class}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: abstract class Foo {}
   selections:

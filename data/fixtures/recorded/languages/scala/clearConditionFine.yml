@@ -1,12 +1,15 @@
 languageId: scala
 command:
-  version: 1
+  version: 5
   spokenForm: change condition fine
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: condition, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: condition}
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     class Example() {

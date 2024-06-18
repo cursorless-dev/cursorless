@@ -1,14 +1,14 @@
 languageId: rust
 command:
+  version: 5
   spokenForm: change subject
-  version: 2
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: private.switchStatementSubject}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 spokenFormError: >-
   simple scope type type with id private.switchStatementSubject; this is a
   private spoken form currently only for internal experimentation

@@ -1,11 +1,14 @@
 languageId: go
 command:
-  version: 1
+  version: 5
   spokenForm: chuck arg
-  action: remove
+  action: {name: remove}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: "func add(x, y int) int {\n\t return add(x, add(1, 2))\n}"
   selections:

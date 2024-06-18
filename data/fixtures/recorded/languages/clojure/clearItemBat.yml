@@ -1,12 +1,15 @@
 languageId: clojure
 command:
-  version: 1
+  version: 5
   spokenForm: change item bat
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
       mark: {type: decoratedSymbol, symbolColor: default, character: b}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     {

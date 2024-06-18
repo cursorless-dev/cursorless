@@ -1,14 +1,14 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: change white
-  version: 3
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: customRegex, regex: '\p{Zs}+'}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 spokenFormError: >-
   custom regex with id \p{Zs}+; please see
   https://www.cursorless.org/docs/user/customization/ for more information

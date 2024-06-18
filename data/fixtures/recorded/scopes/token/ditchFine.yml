@@ -1,12 +1,12 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: chuck fine
-  version: 3
+  action: {name: remove}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: |2
         foo   

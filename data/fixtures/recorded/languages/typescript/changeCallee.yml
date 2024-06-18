@@ -1,11 +1,14 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: change callee
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionCallee}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: foo`hello ${bar}`;
   selections:

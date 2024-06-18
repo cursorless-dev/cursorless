@@ -1,14 +1,14 @@
 languageId: typescriptreact
 command:
+  version: 5
   spokenForm: change pair
-  version: 3
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: surroundingPair, delimiter: any}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: <div>(category.count)</div>
   selections:

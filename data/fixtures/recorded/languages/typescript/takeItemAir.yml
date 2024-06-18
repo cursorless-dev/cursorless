@@ -1,12 +1,15 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: take item air
-  action: setSelection
+  action: {name: setSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionItem}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

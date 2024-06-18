@@ -1,7 +1,11 @@
 languageId: typescript
 command:
+  version: 5
   spokenForm: snippet funk after zip and before fine
-  version: 2
+  action:
+    name: insertSnippet
+    args:
+      - {type: named, name: functionDeclaration}
   targets:
     - type: list
       elements:
@@ -14,9 +18,6 @@ command:
             - {type: position, position: before}
           mark: {type: decoratedSymbol, symbolColor: default, character: f}
   usePrePhraseSnapshot: true
-  action:
-    name: insertSnippet
-    args: [functionDeclaration]
 initialState:
   documentContents: |-
     const foo = "bar";

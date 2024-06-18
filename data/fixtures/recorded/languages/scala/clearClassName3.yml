@@ -1,11 +1,14 @@
 languageId: scala
 command:
-  version: 0
+  version: 5
   spokenForm: change class name
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: className, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: className}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     trait Greeter {

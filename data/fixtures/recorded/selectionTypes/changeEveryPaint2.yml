@@ -1,14 +1,14 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: change every paint
-  version: 2
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: everyScope
           scopeType: {type: nonWhitespaceSequence}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: foo(aa|aa-().c_d bb|bb-().'')
   selections:

@@ -1,7 +1,8 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: change bounds token
-  version: 2
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
@@ -9,7 +10,6 @@ command:
         - type: containingScope
           scopeType: {type: token}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: (aaa)
   selections:

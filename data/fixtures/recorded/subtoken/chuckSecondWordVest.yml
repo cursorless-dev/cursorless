@@ -1,12 +1,17 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: chuck second sub vest
-  action: remove
+  action: {name: remove}
   targets:
     - type: primitive
-      modifier: {type: subpiece, pieceType: word, anchor: 1, active: 1}
+      modifiers:
+        - type: ordinalScope
+          scopeType: {type: word}
+          start: 1
+          length: 1
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

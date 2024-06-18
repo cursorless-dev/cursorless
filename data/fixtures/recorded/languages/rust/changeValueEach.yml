@@ -1,7 +1,8 @@
 languageId: rust
 command:
+  version: 5
   spokenForm: change value each
-  version: 2
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: e}
@@ -9,7 +10,6 @@ command:
         - type: containingScope
           scopeType: {type: value}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
     #[cfg_attr(feature = "serde")]

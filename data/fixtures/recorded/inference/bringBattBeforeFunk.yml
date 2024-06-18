@@ -1,7 +1,8 @@
 languageId: typescript
 command:
+  version: 5
   spokenForm: bring bat before funk
-  version: 3
+  action: {name: replaceWithTarget}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: b}
@@ -11,7 +12,6 @@ command:
         - type: containingScope
           scopeType: {type: namedFunction}
   usePrePhraseSnapshot: true
-  action: {name: replaceWithTarget}
 initialState:
   documentContents: |-
     function foo() {

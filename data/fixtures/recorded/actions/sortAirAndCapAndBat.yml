@@ -1,8 +1,8 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: sort air and cap and bat
-  action: sortTargets
+  action: {name: sortTargets}
   targets:
     - type: list
       elements:
@@ -12,6 +12,7 @@ command:
           mark: {type: decoratedSymbol, symbolColor: default, character: c}
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: b}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

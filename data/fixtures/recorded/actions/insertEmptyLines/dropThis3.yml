@@ -1,12 +1,12 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: drop this
-  version: 2
+  action: {name: insertEmptyLineBefore}
   targets:
     - type: primitive
       mark: {type: cursor}
   usePrePhraseSnapshot: false
-  action: {name: insertEmptyLineBefore}
 initialState:
   documentContents: hello
   selections:

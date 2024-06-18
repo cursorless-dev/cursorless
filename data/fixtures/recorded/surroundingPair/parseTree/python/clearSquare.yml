@@ -1,11 +1,15 @@
 languageId: python
 command:
-  version: 1
+  version: 5
   spokenForm: change inside box
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: squareBrackets, delimiterInclusion: interiorOnly}
+      modifiers:
+        - {type: interiorOnly}
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: squareBrackets}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     a[222]

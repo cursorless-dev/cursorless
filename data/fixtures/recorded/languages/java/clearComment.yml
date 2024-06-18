@@ -1,14 +1,14 @@
 languageId: java
 command:
+  version: 5
   spokenForm: change comment
-  version: 2
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: comment}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: /* Hello world */
   selections:

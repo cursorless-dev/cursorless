@@ -1,14 +1,14 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: drink block
-  version: 2
+  action: {name: editNewLineBefore}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: paragraph}
   usePrePhraseSnapshot: true
-  action: {name: editNewLineBefore}
 initialState:
   documentContents: |2
         hello there

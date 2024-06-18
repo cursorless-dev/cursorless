@@ -1,14 +1,14 @@
 languageId: latex
 command:
+  version: 5
   spokenForm: change round
-  version: 2
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: surroundingPair, delimiter: parentheses}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: hello (there)
   selections:

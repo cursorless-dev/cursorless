@@ -1,10 +1,13 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: chuck block harp between fine
-  version: 2
   action: {name: remove}
   targets:
-    - type: range
+    - active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: f}
+      type: range
       excludeAnchor: true
       excludeActive: true
       anchor:
@@ -13,9 +16,6 @@ command:
         modifiers:
           - type: containingScope
             scopeType: {type: paragraph}
-      active:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: f}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |

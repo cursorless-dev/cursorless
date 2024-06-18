@@ -1,11 +1,14 @@
 languageId: cpp
 command:
-  version: 1
+  version: 5
   spokenForm: take type
-  action: setSelection
+  action: {name: setSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: type}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     int f(int a) {

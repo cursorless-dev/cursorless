@@ -1,13 +1,15 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: phones sun
-  action: replace
+  action:
+    name: replace
+    args:
+      - [sum]
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: s}
-  extraArgs:
-    - [sum]
+  usePrePhraseSnapshot: false
 spokenFormError: Action 'replace'
 initialState:
   documentContents: |

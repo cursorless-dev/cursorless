@@ -1,13 +1,16 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: bring odd to state
-  action: replaceWithTarget
+  action: {name: replaceWithTarget}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: o}
     - type: primitive
-      modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: statement}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     const foo = "hello";

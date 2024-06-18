@@ -1,18 +1,21 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: take odd past state
-  action: setSelection
+  action: {name: setSelection}
   targets:
-    - type: range
-      start:
+    - active:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: statement}
+      type: range
+      excludeAnchor: false
+      excludeActive: false
+      anchor:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: o}
-      end:
-        type: primitive
-        modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
-      excludeStart: false
-      excludeEnd: false
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     const foo = "hello";

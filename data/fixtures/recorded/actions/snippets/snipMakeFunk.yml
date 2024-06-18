@@ -1,16 +1,16 @@
 languageId: typescript
 command:
+  version: 5
   spokenForm: snippet make funk
-  version: 2
+  action:
+    name: generateSnippet
+    args: [snippetTest1]
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: namedFunction}
   usePrePhraseSnapshot: true
-  action:
-    name: generateSnippet
-    args: [snippetTest1]
 spokenFormError: generateSnippet.snippetName
 initialState:
   documentContents: |2-
