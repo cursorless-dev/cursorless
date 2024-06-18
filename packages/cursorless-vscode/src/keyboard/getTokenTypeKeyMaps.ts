@@ -68,6 +68,11 @@ export function getTokenTypeKeyMaps(
     // modifier config section
     every: config.getTokenKeyMap("every", "modifier", only("every")),
     nextPrev: config.getTokenKeyMap("nextPrev", "modifier", only("nextPrev")),
+    headTail: config.getTokenKeyMap(
+      "headTail",
+      "modifier",
+      only("extendThroughStartOf", "extendThroughEndOf"),
+    ),
     simpleModifier: config.getTokenKeyMap(
       "simpleModifier",
       "modifier",
