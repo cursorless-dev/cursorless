@@ -157,6 +157,7 @@ const testCases: TestCase[] = [
             },
           ],
         },
+        mode: "replace",
       },
       type: "modifyTarget",
     },
