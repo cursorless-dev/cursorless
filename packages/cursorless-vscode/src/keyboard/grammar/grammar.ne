@@ -53,6 +53,12 @@ main -> %vscodeCommand {% command("vscodeCommand", ["command"]) %}
 # "inside", "bounds"
 modifier -> %simpleModifier {% capture({ type: $0 }) %}
 
+# "head" / "tail"
+# FIXME: Support "head inside curly" (ie multiple modifiers)
+modifier -> %headTail modifier {%
+  ([type, modifier]) => ({ type, modifiers: [modifier] })
+%}
+
 # "funk"
 modifier -> scopeType {% capture({ type: "containingScope", scopeType: $0 }) %}
 

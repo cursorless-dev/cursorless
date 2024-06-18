@@ -72,7 +72,9 @@
     "n": "nextPrev",
     "*": "every",
     "mi": "interiorOnly",
-    "mb": "excludeInterior"
+    "mb": "excludeInterior",
+    "mh": "extendThroughStartOf",
+    "mt": "extendThroughEndOf"
   },
   "cursorless.experimental.keyboard.modal.keybindings.vscodeCommand": {
     "va": "editor.action.addCommentLine",
