@@ -28,7 +28,7 @@ export function getIterationScope(
       )
     ) {
       return {
-        range: surroundingTarget.getInteriorStrict()[0].contentRange,
+        range: surroundingTarget.getInterior()[0].contentRange,
         boundary: getBoundary(surroundingTarget),
       };
     }
@@ -107,7 +107,7 @@ function useInteriorOfSurroundingTarget(
 }
 
 function getBoundary(surroundingTarget: SurroundingPairTarget): [Range, Range] {
-  return surroundingTarget.getBoundaryStrict().map((t) => t.contentRange) as [
+  return surroundingTarget.getBoundary().map((t) => t.contentRange) as [
     Range,
     Range,
   ];

@@ -22,4 +22,13 @@ initialState:
     - anchor: {line: 2, character: 7}
       active: {line: 2, character: 7}
   marks: {}
-thrownError: {name: NoContainingScopeError}
+finalState:
+  documentContents: |-
+    [
+      function myFunk() {
+        // aaa
+      }
+    ]
+  selections:
+    - anchor: {line: 2, character: 7}
+      active: {line: 2, character: 7}
