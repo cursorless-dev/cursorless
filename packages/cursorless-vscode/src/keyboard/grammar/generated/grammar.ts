@@ -23,6 +23,7 @@ declare var digit: any;
 import { capture, UNUSED as _, argPositions } from "@cursorless/cursorless-engine"
 import { command } from "../command"
 import { keyboardLexer } from "../keyboardLexer";
+import { RelativeScopeModifier } from "@cursorless/common";
 
 const { $0, $1, $2 } = argPositions;
 
@@ -93,7 +94,7 @@ const grammar: Grammar = {
     {"name": "modifier$ebnf$2", "symbols": ["number"], "postprocess": id},
     {"name": "modifier$ebnf$2", "symbols": [], "postprocess": () => null},
     {"name": "modifier", "symbols": ["modifier$ebnf$1", (keyboardLexer.has("nextPrev") ? {type: "nextPrev"} : nextPrev), "modifier$ebnf$2", "scopeType"], "postprocess": 
-        ([offset, _, length, scopeType]) => ({
+        ([offset, _, length, scopeType]): RelativeScopeModifier => ({
           type: "relativeScope",
           offset: offset?.number ?? 1,
           direction: offset?.direction ?? "forward",
@@ -102,7 +103,7 @@ const grammar: Grammar = {
         })
         },
     {"name": "modifier", "symbols": ["offset", "scopeType"], "postprocess": 
-        ([offset, scopeType]) => ({
+        ([offset, scopeType]): RelativeScopeModifier => ({
           type: "relativeScope",
           offset: 0,
           direction: offset?.direction ?? "forward",
