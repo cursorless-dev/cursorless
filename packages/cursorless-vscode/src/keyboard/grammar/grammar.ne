@@ -3,6 +3,7 @@
 import { capture, UNUSED as _, argPositions } from "@cursorless/cursorless-engine"
 import { command } from "../command"
 import { keyboardLexer } from "../keyboardLexer";
+import { RelativeScopeModifier } from "@cursorless/common";
 
 const { $0, $1, $2 } = argPositions;
 %}
@@ -68,7 +69,7 @@ modifier -> %every scopeType {% capture({ type: "everyScope", scopeType: $1 }) %
 # "[third] next [two] funks"
 # "[third] previous [two] funks"
 modifier -> offset:? %nextPrev number:? scopeType {%
-  ([offset, _, length, scopeType]) => ({
+  ([offset, _, length, scopeType]): RelativeScopeModifier => ({
     type: "relativeScope",
     offset: offset?.number ?? 1,
     direction: offset?.direction ?? "forward",
@@ -79,7 +80,7 @@ modifier -> offset:? %nextPrev number:? scopeType {%
 
 # "three funks [backward]"
 modifier -> offset scopeType {%
-  ([offset, scopeType]) => ({
+  ([offset, scopeType]): RelativeScopeModifier => ({
     type: "relativeScope",
     offset: 0,
     direction: offset?.direction ?? "forward",
