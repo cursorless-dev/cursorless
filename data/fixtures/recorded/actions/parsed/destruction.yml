@@ -1,0 +1,35 @@
+languageId: plaintext
+command:
+  version: 7
+  spokenForm: destruction
+  action:
+    name: parsed
+    content: chuck block
+    targets: []
+  usePrePhraseSnapshot: true
+spokenFormError: Action 'parsed'
+initialState:
+  documentContents: |-
+    aaa
+    bbb
+
+    ccc
+    ddd
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |-
+    ccc
+    ddd
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - type: RawSelectionTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 0}
+      isReversed: false
+      hasExplicitRange: true

@@ -3,11 +3,6 @@ import { unitTestSetup } from "../test/unitTestSetup";
 import { NearleyLexer, NearleyToken } from "./constructLexerWithoutWhitespace";
 import { lexer } from "./lexer";
 
-interface Token {
-  type: string;
-  value: string;
-}
-
 interface Fixture {
   input: string;
   expectedOutput: NearleyToken[];

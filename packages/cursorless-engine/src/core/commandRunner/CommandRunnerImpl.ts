@@ -18,6 +18,7 @@ import { Debug } from "../Debug";
 import { getCommandFallback } from "../getCommandFallback";
 import { inferFullTargetDescriptor } from "../inferFullTargetDescriptor";
 import { selectionToStoredTarget } from "./selectionToStoredTarget";
+import { parseAction } from "../../customCommandGrammar/parseCommand";
 
 export class CommandRunnerImpl implements CommandRunner {
   private inferenceContext: InferenceContext;
@@ -91,10 +92,13 @@ export class CommandRunnerImpl implements CommandRunner {
 
   private runAction(
     actionDescriptor: ActionDescriptor,
+    keepInferenceState = false,
   ): Promise<ActionReturnValue> {
     // Prepare to run the action by resetting the inference context and
     // defaulting the final stages to an empty array
-    this.inferenceContext.reset();
+    if (!keepInferenceState) {
+      this.inferenceContext.reset();
+    }
     this.finalStages = [];
 
     switch (actionDescriptor.name) {
@@ -198,7 +202,8 @@ export class CommandRunnerImpl implements CommandRunner {
         );
 
       case "parsed":
-        throw Error(`${actionDescriptor.name} is not a supported action`);
+        this.inferenceContext.setPlaceholderTargets(actionDescriptor.targets);
+        return this.runAction(parseAction(actionDescriptor.content), true);
 
       default: {
         const action = this.actions[actionDescriptor.name];
@@ -252,11 +257,22 @@ export class CommandRunnerImpl implements CommandRunner {
  */
 class InferenceContext {
   private previousTargets: PartialTargetDescriptor[] = [];
+  private placeholderTargets: PartialTargetDescriptor[] = [];
 
   constructor(private debug: Debug) {}
 
+  setPlaceholderTargets(placeholderTargets: PartialTargetDescriptor[]) {
+    this.placeholderTargets = placeholderTargets;
+  }
+
   run(target: PartialTargetDescriptor) {
-    const ret = inferFullTargetDescriptor(target, this.previousTargets);
+    const ret = inferFullTargetDescriptor(
+      {
+        previousTargets: this.previousTargets,
+        placeholderTargets: this.placeholderTargets,
+      },
+      target,
+    );
 
     if (this.debug.active) {
       this.debug.log("Full target:");
@@ -269,6 +285,7 @@ class InferenceContext {
 
   reset() {
     this.previousTargets = [];
+    this.placeholderTargets = [];
   }
 }
 

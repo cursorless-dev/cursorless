@@ -1,0 +1,40 @@
+languageId: plaintext
+command:
+  version: 7
+  spokenForm: destroy air
+  action:
+    name: parsed
+    content: chuck block <target>
+    targets:
+      - type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: true
+spokenFormError: Action 'parsed'
+initialState:
+  documentContents: |-
+    aaa
+    bbb
+
+    ccc
+    ddd
+  selections:
+    - anchor: {line: 4, character: 3}
+      active: {line: 4, character: 3}
+  marks:
+    default.a:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 3}
+finalState:
+  documentContents: |-
+    ccc
+    ddd
+  selections:
+    - anchor: {line: 1, character: 3}
+      active: {line: 1, character: 3}
+  thatMark:
+    - type: RawSelectionTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 0}
+      isReversed: false
+      hasExplicitRange: true
