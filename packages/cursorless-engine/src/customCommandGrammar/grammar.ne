@@ -3,12 +3,13 @@
 import { capture } from "../../util/grammarHelpers";
 import { lexer } from "../lexer";
 import {
-  simpleActionDescriptor,
-  partialPrimitiveTargetDescriptor,
   containingScopeModifier,
+  partialPrimitiveTargetDescriptor,
+  createPlaceholderMark,
+  simpleActionDescriptor,
+  simplePartialMark,
   simpleScopeType,
   surroundingPairScopeType,
-  simplePartialMark,
 } from "../grammarUtil";
 %}
 @lexer lexer
@@ -68,5 +69,5 @@ mark -> %simpleMarkType {%
 %}
 
 mark -> %placeholderMark {%
-  ([placeholderMark]) => simplePartialMark(placeholderMark)
+  ([placeholderMark]) => createPlaceholderMark(placeholderMark)
 %}

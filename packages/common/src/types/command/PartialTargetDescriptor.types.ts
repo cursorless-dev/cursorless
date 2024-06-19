@@ -24,6 +24,7 @@ export interface LastCursorPositionMark {
 
 export interface PlaceholderMark {
   type: "placeholder";
+  index: number;
 }
 
 export type SimplePartialMark =
@@ -31,8 +32,7 @@ export type SimplePartialMark =
   | KeyboardMark
   | SourceMark
   | NothingMark
-  | LastCursorPositionMark
-  | PlaceholderMark;
+  | LastCursorPositionMark;
 
 export interface DecoratedSymbolMark {
   type: "decoratedSymbol";

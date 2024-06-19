@@ -133,11 +133,7 @@ function upgradeAction(
         target: upgradeTarget(targets[0]),
       };
     case "parsed":
-      return {
-        name,
-        content: action.args![0] as string,
-        target: upgradeTarget(targets[0]),
-      };
+      throw Error("Parsed action should not be present in V5");
     default:
       return {
         name,

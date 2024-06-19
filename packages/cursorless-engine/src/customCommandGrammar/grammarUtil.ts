@@ -1,4 +1,5 @@
 import {
+  PlaceholderMark,
   type ContainingScopeModifier,
   type Modifier,
   type PartialMark,
@@ -58,4 +59,8 @@ export function simplePartialMark(
   type: SimplePartialMark["type"],
 ): SimplePartialMark {
   return { type };
+}
+
+export function createPlaceholderMark(index: number): PlaceholderMark {
+  return { type: "placeholder", index };
 }

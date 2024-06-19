@@ -1,5 +1,6 @@
 import * as assert from "assert";
 import { unitTestSetup } from "../test/unitTestSetup";
+import { NearleyLexer, NearleyToken } from "./constructLexerWithoutWhitespace";
 import { lexer } from "./lexer";
 
 interface Token {
@@ -9,7 +10,7 @@ interface Token {
 
 interface Fixture {
   input: string;
-  expectedOutput: Token[];
+  expectedOutput: NearleyToken[];
 }
 
 const fixtures: Fixture[] = [
@@ -72,11 +73,15 @@ const fixtures: Fixture[] = [
     ],
   },
   {
-    input: "<target>",
+    input: "<target> <target>",
     expectedOutput: [
       {
         type: "placeholderMark",
-        value: "placeholder",
+        value: 0,
+      },
+      {
+        type: "placeholderMark",
+        value: 1,
       },
     ],
   },
@@ -88,7 +93,7 @@ suite("custom grammar: lexer", () => {
   fixtures.forEach(({ input, expectedOutput }) => {
     test(input, () => {
       assert.deepStrictEqual(
-        Array.from(lexer.reset(input)).map(({ type, value }) => ({
+        Array.from(iterateTokens(lexer, input)).map(({ type, value }) => ({
           type,
           value,
         })),
@@ -97,3 +102,16 @@ suite("custom grammar: lexer", () => {
     });
   });
 });
+
+function* iterateTokens(lexer: NearleyLexer, input: string) {
+  lexer.reset(input);
+
+  let token;
+  while (true) {
+    token = lexer.next();
+    if (!token) {
+      break;
+    }
+    yield token;
+  }
+}

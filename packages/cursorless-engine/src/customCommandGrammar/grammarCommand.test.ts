@@ -53,7 +53,7 @@ const testCases: TestCase[] = [
         modifiers: [
           { type: "containingScope", scopeType: { type: "paragraph" } },
         ],
-        mark: { type: "placeholder" },
+        mark: { type: "placeholder", index: 0 },
       },
     },
   },

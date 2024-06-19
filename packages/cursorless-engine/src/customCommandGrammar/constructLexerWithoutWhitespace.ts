@@ -1,12 +1,41 @@
 import moo, { type Lexer, type LexerState, type Rules, type Token } from "moo";
 
-export function constructLexerWithoutWhitespace(rules: Rules): Lexer {
+export interface NearleyToken {
+  value: any;
+  [key: string]: any;
+}
+
+export interface NearleyLexer {
+  reset: (chunk: any, info?: any) => NearleyLexer;
+  next: () => NearleyToken | undefined;
+  save: () => any;
+  formatError: (token: any, message: string) => string;
+  has: (tokenType: any) => boolean;
+}
+
+export function constructLexerWithoutWhitespace(rules: Rules): NearleyLexer {
   const lexer = moo.compile(rules);
   return new LexerWithoutWhitespace(lexer);
 }
 
-class LexerWithoutWhitespace implements Lexer {
+interface State {
+  placeholderIndex: number;
+  mooState: LexerState;
+}
+
+class LexerWithoutWhitespace implements NearleyLexer {
+  private placeholderIndex = 0;
+
   constructor(private lexer: Lexer) {}
+
+  reset(chunk?: string, state?: State): this {
+    const { placeholderIndex = 0, mooState } = state ?? {};
+
+    this.lexer.reset(chunk, mooState);
+    this.placeholderIndex = placeholderIndex;
+
+    return this;
+  }
 
   formatError(token: Token, message?: string): string {
     return this.lexer.formatError(token, message);
@@ -16,48 +45,32 @@ class LexerWithoutWhitespace implements Lexer {
     return this.lexer.has(tokenType);
   }
 
-  save(): LexerState {
-    return this.lexer.save();
+  save(): State {
+    return {
+      placeholderIndex: this.placeholderIndex,
+      mooState: this.lexer.save(),
+    };
   }
 
-  pushState(state: string): void {
-    this.lexer.pushState(state);
-  }
+  next(): NearleyToken | undefined {
+    const rawToken = this.lexer.next();
 
-  popState(): void {
-    this.lexer.popState();
-  }
-
-  setState(state: string): void {
-    this.lexer.setState(state);
-  }
-
-  reset(chunk?: string, state?: LexerState): this {
-    this.lexer.reset(chunk, state);
-    return this;
-  }
-
-  next(): Token | undefined {
-    const token = this.lexer.next();
-    if (token != null && this.skipToken(token)) {
+    if (this.skipToken(rawToken)) {
       return this.next();
     }
-    return token;
-  }
 
-  *[Symbol.iterator](): Iterator<Token> {
-    for (const token of this.lexer) {
-      if (!this.skipToken(token)) {
-        yield token;
-      }
-    }
+    return rawToken?.type === "placeholderMark"
+      ? { type: "placeholderMark", value: this.placeholderIndex++ }
+      : rawToken;
   }
 
   transform({ value }: Token) {
     return value;
   }
 
-  private skipToken(token: Token) {
-    return token.type === "ws";
+  private skipToken(token: Token | undefined) {
+    return token?.type === "ws";
   }
+
+
 }

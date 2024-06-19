@@ -12,12 +12,13 @@ declare var placeholderMark: any;
 import { capture } from "../../util/grammarHelpers";
 import { lexer } from "../lexer";
 import {
-  simpleActionDescriptor,
-  partialPrimitiveTargetDescriptor,
   containingScopeModifier,
+  partialPrimitiveTargetDescriptor,
+  createPlaceholderMark,
+  simpleActionDescriptor,
+  simplePartialMark,
   simpleScopeType,
   surroundingPairScopeType,
-  simplePartialMark,
 } from "../grammarUtil";
 
 interface NearleyToken {
@@ -88,7 +89,7 @@ const grammar: Grammar = {
         ([simpleMarkType]) => simplePartialMark(simpleMarkType)
         },
     {"name": "mark", "symbols": [(lexer.has("placeholderMark") ? {type: "placeholderMark"} : placeholderMark)], "postprocess": 
-        ([placeholderMark]) => simplePartialMark(placeholderMark)
+        ([placeholderMark]) => createPlaceholderMark(placeholderMark)
         }
   ],
   ParserStart: "main",

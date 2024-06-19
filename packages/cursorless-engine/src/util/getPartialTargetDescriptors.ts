@@ -23,6 +23,8 @@ export function getPartialTargetDescriptors(
     case "replace":
     case "editNew":
       return getPartialTargetDescriptorsFromDestination(action.destination);
+    case "parsed":
+      return action.targets ?? [];
     default:
       return [action.target];
   }
