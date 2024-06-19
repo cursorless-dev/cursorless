@@ -1,6 +1,11 @@
-import { simpleScopeTypeTypes, surroundingPairNames } from "@cursorless/common";
+import {
+  simpleActionNames,
+  simpleScopeTypeTypes,
+  surroundingPairNames,
+} from "@cursorless/common";
 import moo from "moo";
 import { defaultSpokenFormMap } from "../spokenForms/defaultSpokenFormMap";
+import { actions } from "../generateSpokenForm/defaultSpokenForms/actions";
 
 interface Token {
   type: string;
@@ -10,6 +15,16 @@ interface Token {
 const tokens: Record<string, Token> = {};
 
 // FIXME: Remove the duplication below?
+
+for (const simpleActionName of simpleActionNames) {
+  const spokenForm = actions[simpleActionName];
+  if (spokenForm != null) {
+    tokens[spokenForm] = {
+      type: "simpleActionName",
+      value: simpleActionName,
+    };
+  }
+}
 
 for (const simpleScopeTypeType of simpleScopeTypeTypes) {
   const { spokenForms } =

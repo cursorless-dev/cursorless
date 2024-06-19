@@ -3,11 +3,21 @@
 // Bypasses TS6133. Allow declared but unused functions.
 // @ts-ignore
 function id(d: any[]): any { return d[0]; }
+declare var simpleActionName: any;
+declare var ws: any;
 declare var simpleScopeTypeType: any;
 declare var pairedDelimiter: any;
 
 import { capture } from "../../util/grammarHelpers";
 import { lexer } from "../lexer";
+import {
+  command,
+  simpleActionDescriptor,
+  partialPrimitiveTargetDescriptor,
+  containingScopeModifier,
+  simpleScopeType,
+  surroundingPairScopeType,
+} from "../grammarUtil";
 
 interface NearleyToken {
   value: any;
@@ -39,10 +49,29 @@ interface Grammar {
 const grammar: Grammar = {
   Lexer: lexer,
   ParserRules: [
-    {"name": "main", "symbols": ["scopeType"]},
-    {"name": "scopeType", "symbols": [(lexer.has("simpleScopeTypeType") ? {type: "simpleScopeTypeType"} : simpleScopeTypeType)], "postprocess": capture("type")},
+    {"name": "main", "symbols": ["action"], "postprocess":  
+        ([action]) => action
+        },
+    {"name": "action", "symbols": [(lexer.has("simpleActionName") ? {type: "simpleActionName"} : simpleActionName), (lexer.has("ws") ? {type: "ws"} : ws), "target"], "postprocess": 
+        ([simpleActionName, ws, target]) => simpleActionDescriptor(simpleActionName, target)
+        },
+    {"name": "target", "symbols": ["primitiveTarget"], "postprocess": 
+        ([primitiveTarget]) => primitiveTarget
+        },
+    {"name": "primitiveTarget", "symbols": ["modifier"], "postprocess": 
+        ([modifier]) => partialPrimitiveTargetDescriptor(modifier)
+        },
+    {"name": "modifier", "symbols": ["containingScopeModifier"], "postprocess": 
+        ([containingScopeModifier]) => containingScopeModifier
+        },
+    {"name": "containingScopeModifier", "symbols": ["scopeType"], "postprocess": 
+        ([scopeType]) => containingScopeModifier(scopeType)
+        },
+    {"name": "scopeType", "symbols": [(lexer.has("simpleScopeTypeType") ? {type: "simpleScopeTypeType"} : simpleScopeTypeType)], "postprocess": 
+        ([simpleScopeTypeType]) => simpleScopeType(simpleScopeTypeType) 
+        },
     {"name": "scopeType", "symbols": [(lexer.has("pairedDelimiter") ? {type: "pairedDelimiter"} : pairedDelimiter)], "postprocess": 
-        ([delimiter]) => ({ type: "surroundingPair", delimiter })
+        ([delimiter]) => surroundingPairScopeType(delimiter) 
         }
   ],
   ParserStart: "main",

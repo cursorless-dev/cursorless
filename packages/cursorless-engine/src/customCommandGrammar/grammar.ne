@@ -2,13 +2,53 @@
 @{%
 import { capture } from "../../util/grammarHelpers";
 import { lexer } from "../lexer";
+import {
+  command,
+  simpleActionDescriptor,
+  partialPrimitiveTargetDescriptor,
+  containingScopeModifier,
+  simpleScopeType,
+  surroundingPairScopeType,
+} from "../grammarUtil";
 %}
 @lexer lexer
 
-main -> scopeType
+main -> action {% 
+  ([action]) => action
+%}
+
+# --------------------------- Actions ---------------------------
+
+action -> %simpleActionName %ws target {%
+  ([simpleActionName, ws, target]) => simpleActionDescriptor(simpleActionName, target)
+%}
+
+# --------------------------- Targets ---------------------------
+
+target -> primitiveTarget {%
+  ([primitiveTarget]) => primitiveTarget
+%}
+
+primitiveTarget -> modifier {%
+  ([modifier]) => partialPrimitiveTargetDescriptor(modifier)
+%}
+
+# --------------------------- Modifiers ---------------------------
+
+modifier -> containingScopeModifier {%
+  ([containingScopeModifier]) => containingScopeModifier
+%}
+
+containingScopeModifier -> scopeType {%
+  ([scopeType]) => containingScopeModifier(scopeType)
+%}
 
 # --------------------------- Scope types ---------------------------
-scopeType -> %simpleScopeTypeType {% capture("type") %}
+
+scopeType -> %simpleScopeTypeType {%
+  ([simpleScopeTypeType]) => simpleScopeType(simpleScopeTypeType) 
+%}
+
 scopeType -> %pairedDelimiter {%
-  ([delimiter]) => ({ type: "surroundingPair", delimiter })
+  ([delimiter]) => surroundingPairScopeType(delimiter) 
 %}

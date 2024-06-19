@@ -7,7 +7,7 @@ import { DestinationDescriptor } from "./DestinationDescriptor.types";
 /**
  * A simple action takes only a single target and no other arguments.
  */
-const simpleActionNames = [
+export const simpleActionNames = [
   "breakLine",
   "clearAndSetSelection",
   "copyToClipboard",

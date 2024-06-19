@@ -59,7 +59,7 @@ const fixtures: Fixture[] = [
   },
 ];
 
-suite("custom grammar lexer", () => {
+suite("custom grammar: lexer", () => {
   unitTestSetup();
 
   fixtures.forEach(({ input, expectedOutput }) => {
