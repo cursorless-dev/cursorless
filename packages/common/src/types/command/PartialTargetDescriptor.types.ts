@@ -22,6 +22,13 @@ export interface LastCursorPositionMark {
   type: "lastCursorPosition";
 }
 
+export type SimplePartialMark =
+  | ThatMark
+  | KeyboardMark
+  | SourceMark
+  | NothingMark
+  | LastCursorPositionMark;
+
 export interface DecoratedSymbolMark {
   type: "decoratedSymbol";
   symbolColor: string;

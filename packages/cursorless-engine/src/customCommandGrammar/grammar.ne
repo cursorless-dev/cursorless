@@ -8,6 +8,7 @@ import {
   containingScopeModifier,
   simpleScopeType,
   surroundingPairScopeType,
+  simplePartialMark
 } from "../grammarUtil";
 %}
 @lexer lexer
@@ -29,7 +30,11 @@ target -> primitiveTarget {%
 %}
 
 primitiveTarget -> modifier {%
-  ([modifier]) => partialPrimitiveTargetDescriptor(modifier)
+  (modifiers) => partialPrimitiveTargetDescriptor(modifiers)
+%}
+
+primitiveTarget -> mark {%
+  ([mark]) => partialPrimitiveTargetDescriptor(undefined, mark)
 %}
 
 # --------------------------- Modifiers ---------------------------
@@ -50,4 +55,10 @@ scopeType -> %simpleScopeTypeType {%
 
 scopeType -> %pairedDelimiter {%
   ([delimiter]) => surroundingPairScopeType(delimiter)
+%}
+
+# --------------------------- Marks ---------------------------
+
+mark -> %simplePartialMarkType {%
+  ([simplePartialMarkType]) => simplePartialMark(simplePartialMarkType)
 %}

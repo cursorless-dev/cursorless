@@ -20,6 +20,16 @@ const testCases: TestCase[] = [
       },
     },
   },
+  {
+    input: "change this",
+    expectedOutput: {
+      name: "clearAndSetSelection",
+      target: {
+        type: "primitive",
+        mark: { type: "cursor" },
+      },
+    },
+  },
 ];
 
 suite("custom grammar: actions", () => {

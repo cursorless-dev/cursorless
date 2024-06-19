@@ -1,11 +1,13 @@
 import {
   type ContainingScopeModifier,
   type Modifier,
+  type PartialMark,
   type PartialPrimitiveTargetDescriptor,
   type PartialTargetDescriptor,
   type ScopeType,
   type SimpleActionDescriptor,
   type SimpleActionName,
+  type SimplePartialMark,
   type SimpleScopeType,
   type SimpleScopeTypeType,
   type SurroundingPairName,
@@ -20,12 +22,17 @@ export function simpleActionDescriptor(
 }
 
 export function partialPrimitiveTargetDescriptor(
-  modifier: Modifier,
+  modifiers?: Modifier[],
+  mark?: PartialMark,
 ): PartialPrimitiveTargetDescriptor {
-  return {
-    type: "primitive",
-    modifiers: [modifier],
-  };
+  const target: PartialPrimitiveTargetDescriptor = { type: "primitive" };
+  if (modifiers != null) {
+    target.modifiers = modifiers;
+  }
+  if (mark != null) {
+    target.mark = mark;
+  }
+  return target;
 }
 
 export function containingScopeModifier(
@@ -45,4 +52,10 @@ export function surroundingPairScopeType(
   delimiter: SurroundingPairName,
 ): SurroundingPairScopeType {
   return { type: "surroundingPair", delimiter };
+}
+
+export function simplePartialMark(
+  type: SimplePartialMark["type"],
+): SimplePartialMark {
+  return { type };
 }

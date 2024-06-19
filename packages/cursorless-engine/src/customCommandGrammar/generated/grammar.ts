@@ -7,6 +7,7 @@ declare var simpleActionName: any;
 declare var ws: any;
 declare var simpleScopeTypeType: any;
 declare var pairedDelimiter: any;
+declare var simplePartialMarkType: any;
 
 import { capture } from "../../util/grammarHelpers";
 import { lexer } from "../lexer";
@@ -16,6 +17,7 @@ import {
   containingScopeModifier,
   simpleScopeType,
   surroundingPairScopeType,
+  simplePartialMark
 } from "../grammarUtil";
 
 interface NearleyToken {
@@ -58,7 +60,10 @@ const grammar: Grammar = {
         ([primitiveTarget]) => primitiveTarget
         },
     {"name": "primitiveTarget", "symbols": ["modifier"], "postprocess": 
-        ([modifier]) => partialPrimitiveTargetDescriptor(modifier)
+        (modifiers) => partialPrimitiveTargetDescriptor(modifiers)
+        },
+    {"name": "primitiveTarget", "symbols": ["mark"], "postprocess": 
+        ([mark]) => partialPrimitiveTargetDescriptor(undefined, mark)
         },
     {"name": "modifier", "symbols": ["containingScopeModifier"], "postprocess": 
         ([containingScopeModifier]) => containingScopeModifier
@@ -71,6 +76,9 @@ const grammar: Grammar = {
         },
     {"name": "scopeType", "symbols": [(lexer.has("pairedDelimiter") ? {type: "pairedDelimiter"} : pairedDelimiter)], "postprocess": 
         ([delimiter]) => surroundingPairScopeType(delimiter)
+        },
+    {"name": "mark", "symbols": [(lexer.has("simplePartialMarkType") ? {type: "simplePartialMarkType"} : simplePartialMarkType)], "postprocess": 
+        ([simplePartialMarkType]) => simplePartialMark(simplePartialMarkType)
         }
   ],
   ParserStart: "main",

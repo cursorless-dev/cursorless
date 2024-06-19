@@ -66,6 +66,15 @@ const fixtures: Fixture[] = [
       },
     ],
   },
+  {
+    input: "this",
+    expectedOutput: [
+      {
+        type: "simplePartialMarkType",
+        value: "cursor",
+      },
+    ],
+  },
 ];
 
 suite("custom grammar: lexer", () => {

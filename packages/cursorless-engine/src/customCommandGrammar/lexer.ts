@@ -4,8 +4,9 @@ import {
   surroundingPairNames,
 } from "@cursorless/common";
 import moo from "moo";
-import { defaultSpokenFormMap } from "../spokenForms/defaultSpokenFormMap";
 import { actions } from "../generateSpokenForm/defaultSpokenForms/actions";
+import { marks } from "../generateSpokenForm/defaultSpokenForms/marks";
+import { defaultSpokenFormMap } from "../spokenForms/defaultSpokenFormMap";
 
 interface Token {
   type: string;
@@ -15,6 +16,15 @@ interface Token {
 const tokens: Record<string, Token> = {};
 
 // FIXME: Remove the duplication below?
+
+for (const [mark, spokenForm] of Object.entries(marks)) {
+  if (spokenForm != null) {
+    tokens[spokenForm] = {
+      type: "simplePartialMarkType",
+      value: mark,
+    };
+  }
+}
 
 for (const simpleActionName of simpleActionNames) {
   const spokenForm = actions[simpleActionName];
