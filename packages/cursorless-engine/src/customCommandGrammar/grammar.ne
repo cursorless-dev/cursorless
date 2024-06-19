@@ -16,9 +16,7 @@ import {
 %}
 @lexer lexer
 
-main -> action {%
-  ([action]) => action
-%}
+main -> action {% id %}
 
 # --------------------------- Actions ---------------------------
 
