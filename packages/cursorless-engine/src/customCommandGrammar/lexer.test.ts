@@ -14,6 +14,15 @@ interface Fixture {
 
 const fixtures: Fixture[] = [
   {
+    input: "chuck",
+    expectedOutput: [
+      {
+        type: "simpleActionName",
+        value: "remove",
+      },
+    ],
+  },
+  {
     input: "funk",
     expectedOutput: [
       {
