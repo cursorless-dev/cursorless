@@ -18,7 +18,7 @@ import {
   containingScopeModifier,
   simpleScopeType,
   surroundingPairScopeType,
-  simplePartialMark
+  simplePartialMark,
 } from "../grammarUtil";
 
 interface NearleyToken {
@@ -60,14 +60,22 @@ const grammar: Grammar = {
     {"name": "target", "symbols": ["primitiveTarget"], "postprocess": 
         ([primitiveTarget]) => primitiveTarget
         },
-    {"name": "primitiveTarget", "symbols": ["modifier"], "postprocess": 
-        ([modifier]) => partialPrimitiveTargetDescriptor([modifier])
+    {"name": "primitiveTarget", "symbols": ["modifiers"], "postprocess": 
+        ([modifiers]) => partialPrimitiveTargetDescriptor(modifiers)
         },
     {"name": "primitiveTarget", "symbols": ["mark"], "postprocess": 
         ([mark]) => partialPrimitiveTargetDescriptor(undefined, mark)
         },
-    {"name": "primitiveTarget", "symbols": ["modifier", (lexer.has("ws") ? {type: "ws"} : ws), "mark"], "postprocess": 
-        ([modifier, ws, mark]) => partialPrimitiveTargetDescriptor([modifier], mark)
+    {"name": "primitiveTarget", "symbols": ["modifiers", (lexer.has("ws") ? {type: "ws"} : ws), "mark"], "postprocess": 
+        ([modifiers, ws, mark]) => partialPrimitiveTargetDescriptor(modifiers, mark)
+        },
+    {"name": "modifiers$ebnf$1", "symbols": []},
+    {"name": "modifiers$ebnf$1", "symbols": ["modifiers$ebnf$1", "additionalModifier"], "postprocess": (d) => d[0].concat([d[1]])},
+    {"name": "modifiers", "symbols": ["modifier", "modifiers$ebnf$1"], "postprocess": 
+        ([modifier, rest]) => [modifier, ...rest]
+        },
+    {"name": "additionalModifier", "symbols": [(lexer.has("ws") ? {type: "ws"} : ws), "modifier"], "postprocess": 
+        ([_, modifier]) => modifier
         },
     {"name": "modifier", "symbols": ["containingScopeModifier"], "postprocess": 
         ([containingScopeModifier]) => containingScopeModifier

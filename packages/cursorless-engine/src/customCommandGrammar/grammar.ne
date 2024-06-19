@@ -8,7 +8,7 @@ import {
   containingScopeModifier,
   simpleScopeType,
   surroundingPairScopeType,
-  simplePartialMark
+  simplePartialMark,
 } from "../grammarUtil";
 %}
 @lexer lexer
@@ -29,19 +29,27 @@ target -> primitiveTarget {%
   ([primitiveTarget]) => primitiveTarget
 %}
 
-primitiveTarget -> modifier {%
-  ([modifier]) => partialPrimitiveTargetDescriptor([modifier])
+primitiveTarget -> modifiers {%
+  ([modifiers]) => partialPrimitiveTargetDescriptor(modifiers)
 %}
 
 primitiveTarget -> mark {%
   ([mark]) => partialPrimitiveTargetDescriptor(undefined, mark)
 %}
 
-primitiveTarget -> modifier %ws mark {%
-  ([modifier, ws, mark]) => partialPrimitiveTargetDescriptor([modifier], mark)
+primitiveTarget -> modifiers %ws mark {%
+  ([modifiers, ws, mark]) => partialPrimitiveTargetDescriptor(modifiers, mark)
 %}
 
 # --------------------------- Modifiers ---------------------------
+
+modifiers -> modifier additionalModifier:* {%
+  ([modifier, rest]) => [modifier, ...rest]
+%}
+
+additionalModifier -> %ws modifier {%
+  ([_, modifier]) => modifier
+%}
 
 modifier -> containingScopeModifier {%
   ([containingScopeModifier]) => containingScopeModifier
