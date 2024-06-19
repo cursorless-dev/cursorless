@@ -197,6 +197,9 @@ export class CommandRunnerImpl implements CommandRunner {
           actionDescriptor.options,
         );
 
+      case "parsed":
+        throw Error(`${actionDescriptor.name} is not a supported action`);
+
       default: {
         const action = this.actions[actionDescriptor.name];
         this.finalStages = action.getFinalStages?.() ?? [];

@@ -132,6 +132,12 @@ function upgradeAction(
         options: action.args?.[0] as GetTextActionOptions | undefined,
         target: upgradeTarget(targets[0]),
       };
+    case "parsed":
+      return {
+        name,
+        content: action.args![0] as string,
+        target: upgradeTarget(targets[0]),
+      };
     default:
       return {
         name,

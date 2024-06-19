@@ -48,7 +48,7 @@ export class MarkStageFactoryImpl implements MarkStageFactory {
       case "explicit":
         return new ExplicitMarkStage(mark);
       case "placeholder":
-        throw Error(`${mark.type} not supported`);
+        throw Error(`Mark ${mark.type} not supported`);
     }
   }
 }

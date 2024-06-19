@@ -89,6 +89,7 @@ export async function getCommandFallback(
     case "insertSnippet":
     case "generateSnippet":
     case "wrapWithSnippet":
+    case "parsed":
       return null;
 
     default:
