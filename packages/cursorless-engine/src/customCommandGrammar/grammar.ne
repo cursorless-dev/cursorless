@@ -3,9 +3,11 @@
 import { capture } from "../../util/grammarHelpers";
 import { lexer } from "../lexer";
 import {
+  bringMoveActionDescriptor,
   containingScopeModifier,
   partialPrimitiveTargetDescriptor,
   createPlaceholderMark,
+  primitiveDestinationDescriptor,
   simpleActionDescriptor,
   simplePartialMark,
   simpleScopeType,
@@ -24,11 +26,21 @@ action -> %simpleActionName target {%
   ([simpleActionName, target]) => simpleActionDescriptor(simpleActionName, target)
 %}
 
+action -> %bringMove target destination {%
+  ([bringMove, target, destination]) => bringMoveActionDescriptor(bringMove, target, destination)
+%}
+
+# --------------------------- Destinations ---------------------------
+
+destination -> primitiveDestination {% id %}
+
+destination -> %insertionMode target {%
+  ([insertionMode, target]) => primitiveDestinationDescriptor(insertionMode, target)
+%}
+
 # --------------------------- Targets ---------------------------
 
-target -> primitiveTarget {%
-  ([primitiveTarget]) => primitiveTarget
-%}
+target -> primitiveTarget {% id %}
 
 primitiveTarget -> modifier:+ {%
   ([modifiers]) => partialPrimitiveTargetDescriptor(modifiers)

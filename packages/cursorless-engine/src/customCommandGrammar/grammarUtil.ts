@@ -1,5 +1,11 @@
 import {
+  BringMoveActionDescriptor,
+  DestinationDescriptor,
+  InsertionMode,
+  PartialListTargetDescriptor,
+  PartialRangeTargetDescriptor,
   PlaceholderMark,
+  PrimitiveDestinationDescriptor,
   type ContainingScopeModifier,
   type Modifier,
   type PartialMark,
@@ -22,6 +28,14 @@ export function simpleActionDescriptor(
   return { name, target };
 }
 
+export function bringMoveActionDescriptor(
+  name: BringMoveActionDescriptor["name"],
+  source: PartialTargetDescriptor,
+  destination: DestinationDescriptor,
+): BringMoveActionDescriptor {
+  return { name, source, destination };
+}
+
 export function partialPrimitiveTargetDescriptor(
   modifiers?: Modifier[],
   mark?: PartialMark,
@@ -34,6 +48,16 @@ export function partialPrimitiveTargetDescriptor(
     target.mark = mark;
   }
   return target;
+}
+
+export function primitiveDestinationDescriptor(
+  insertionMode: InsertionMode,
+  target:
+    | PartialPrimitiveTargetDescriptor
+    | PartialListTargetDescriptor
+    | PartialRangeTargetDescriptor,
+): PrimitiveDestinationDescriptor {
+  return { type: "primitive", insertionMode, target };
 }
 
 export function containingScopeModifier(

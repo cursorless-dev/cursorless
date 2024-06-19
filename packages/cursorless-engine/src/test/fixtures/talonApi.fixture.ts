@@ -172,6 +172,28 @@ const parsedActionAir: ActionDescriptor = {
     },
   ],
 };
+const parsedActionAirPlusBat: ActionDescriptor = {
+  name: "parsed",
+  content: "bring block <target> after <target>",
+  targets: [
+    {
+      type: "primitive",
+      mark: {
+        type: "decoratedSymbol",
+        symbolColor: "default",
+        character: "a",
+      },
+    },
+    {
+      type: "primitive",
+      mark: {
+        type: "decoratedSymbol",
+        symbolColor: "default",
+        character: "b",
+      },
+    },
+  ],
+};
 
 /**
  * These test our Talon api using dummy spoken forms defined in
@@ -226,6 +248,7 @@ export const talonApiFixture = [
   ),
   spokenFormTest("test api parsed", parsedActionNoTargets),
   spokenFormTest("test api parsed air and bat", parsedActionAir),
+  spokenFormTest("test api parsed air plus bat", parsedActionAirPlusBat),
 ];
 
 function decoratedPrimitiveTarget(

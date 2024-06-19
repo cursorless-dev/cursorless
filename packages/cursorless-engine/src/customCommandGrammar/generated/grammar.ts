@@ -4,6 +4,8 @@
 // @ts-ignore
 function id(d: any[]): any { return d[0]; }
 declare var simpleActionName: any;
+declare var bringMove: any;
+declare var insertionMode: any;
 declare var simpleScopeTypeType: any;
 declare var pairedDelimiter: any;
 declare var simpleMarkType: any;
@@ -12,9 +14,11 @@ declare var placeholderMark: any;
 import { capture } from "../../util/grammarHelpers";
 import { lexer } from "../lexer";
 import {
+  bringMoveActionDescriptor,
   containingScopeModifier,
   partialPrimitiveTargetDescriptor,
   createPlaceholderMark,
+  primitiveDestinationDescriptor,
   simpleActionDescriptor,
   simplePartialMark,
   simpleScopeType,
@@ -57,9 +61,14 @@ const grammar: Grammar = {
     {"name": "action", "symbols": [(lexer.has("simpleActionName") ? {type: "simpleActionName"} : simpleActionName), "target"], "postprocess": 
         ([simpleActionName, target]) => simpleActionDescriptor(simpleActionName, target)
         },
-    {"name": "target", "symbols": ["primitiveTarget"], "postprocess": 
-        ([primitiveTarget]) => primitiveTarget
+    {"name": "action", "symbols": [(lexer.has("bringMove") ? {type: "bringMove"} : bringMove), "target", "destination"], "postprocess": 
+        ([bringMove, target, destination]) => bringMoveActionDescriptor(bringMove, target, destination)
         },
+    {"name": "destination", "symbols": ["primitiveDestination"], "postprocess": id},
+    {"name": "destination", "symbols": [(lexer.has("insertionMode") ? {type: "insertionMode"} : insertionMode), "target"], "postprocess": 
+        ([insertionMode, target]) => primitiveDestinationDescriptor(insertionMode, target)
+        },
+    {"name": "target", "symbols": ["primitiveTarget"], "postprocess": id},
     {"name": "primitiveTarget$ebnf$1", "symbols": ["modifier"]},
     {"name": "primitiveTarget$ebnf$1", "symbols": ["primitiveTarget$ebnf$1", "modifier"], "postprocess": (d) => d[0].concat([d[1]])},
     {"name": "primitiveTarget", "symbols": ["primitiveTarget$ebnf$1"], "postprocess": 

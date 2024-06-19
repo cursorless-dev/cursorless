@@ -39,3 +39,5 @@ test api alternate highlight nothing:
 test api parsed: user.cursorless_custom_command("chuck block")
 test api parsed <user.cursorless_target>:
     user.cursorless_custom_command("chuck block <target>", cursorless_target)
+test api parsed <user.cursorless_target> plus <user.cursorless_target>:
+    user.cursorless_custom_command("bring block <target> after <target>", cursorless_target_1, cursorless_target_2)

@@ -13,7 +13,7 @@ export interface NearleyLexer {
   has: (tokenType: any) => boolean;
 }
 
-export function constructLexerWithoutWhitespace(rules: Rules): NearleyLexer {
+export function constructLexer(rules: Rules): NearleyLexer {
   const lexer = moo.compile(rules);
   return new LexerWithoutWhitespace(lexer);
 }
@@ -71,6 +71,4 @@ class LexerWithoutWhitespace implements NearleyLexer {
   private skipToken(token: Token | undefined) {
     return token?.type === "ws";
   }
-
-
 }

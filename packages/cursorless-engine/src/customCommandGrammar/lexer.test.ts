@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import { unitTestSetup } from "../test/unitTestSetup";
-import { NearleyLexer, NearleyToken } from "./constructLexerWithoutWhitespace";
+import { NearleyLexer, NearleyToken } from "./constructLexer";
 import { lexer } from "./lexer";
 
 interface Fixture {

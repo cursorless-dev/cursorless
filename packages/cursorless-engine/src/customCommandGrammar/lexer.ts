@@ -1,4 +1,6 @@
 import {
+  BringMoveActionDescriptor,
+  InsertionMode,
   simpleActionNames,
   simpleScopeTypeTypes,
   surroundingPairNames,
@@ -6,7 +8,8 @@ import {
 import { actions } from "../generateSpokenForm/defaultSpokenForms/actions";
 import { marks } from "../generateSpokenForm/defaultSpokenForms/marks";
 import { defaultSpokenFormMap } from "../spokenForms/defaultSpokenFormMap";
-import { constructLexerWithoutWhitespace } from "./constructLexerWithoutWhitespace";
+import { constructLexer } from "./constructLexer";
+import { connectives } from "../generateSpokenForm/defaultSpokenForms/connectives";
 
 interface Token {
   type: string;
@@ -25,6 +28,34 @@ for (const simpleActionName of simpleActionNames) {
       value: simpleActionName,
     };
   }
+}
+
+const bringMoveActionNames: BringMoveActionDescriptor["name"][] = [
+  "replaceWithTarget",
+  "moveToTarget",
+];
+
+for (const bringMoveActionName of bringMoveActionNames) {
+  const spokenForm = actions[bringMoveActionName];
+  if (spokenForm != null) {
+    tokens[spokenForm] = {
+      type: "bringMove",
+      value: bringMoveActionName,
+    };
+  }
+}
+
+const insertionModes: InsertionMode[] = ["before", "after", "to"];
+
+for (const insertionMode of insertionModes) {
+  const spokenForm =
+    connectives[
+      insertionMode === "to" ? "sourceDestinationConnective" : insertionMode
+    ];
+  tokens[spokenForm] = {
+    type: "insertionMode",
+    value: insertionMode,
+  };
 }
 
 for (const simpleScopeTypeType of simpleScopeTypeTypes) {
@@ -62,7 +93,7 @@ tokens["<target>"] = {
   value: "placeholder",
 };
 
-export const lexer = constructLexerWithoutWhitespace({
+export const lexer = constructLexer({
   ws: /[ \t]+/,
   token: {
     match: Object.keys(tokens),

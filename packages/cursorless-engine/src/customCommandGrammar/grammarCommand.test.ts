@@ -57,6 +57,66 @@ const testCases: TestCase[] = [
       },
     },
   },
+  {
+    input: "move token after <target>",
+    expectedOutput: {
+      name: "moveToTarget",
+      source: {
+        type: "primitive",
+        modifiers: [
+          {
+            type: "containingScope",
+            scopeType: {
+              type: "token",
+            },
+          },
+        ],
+      },
+      destination: {
+        type: "primitive",
+        insertionMode: "after",
+        target: {
+          type: "primitive",
+          mark: {
+            type: "placeholder",
+            index: 0,
+          },
+        },
+      },
+    },
+  },
+  {
+    input: "bring token to line",
+    expectedOutput: {
+      name: "replaceWithTarget",
+      source: {
+        type: "primitive",
+        modifiers: [
+          {
+            type: "containingScope",
+            scopeType: {
+              type: "token",
+            },
+          },
+        ],
+      },
+      destination: {
+        type: "primitive",
+        insertionMode: "to",
+        target: {
+          type: "primitive",
+          modifiers: [
+            {
+              type: "containingScope",
+              scopeType: {
+                type: "line",
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
 ];
 
 suite("custom grammar: actions", () => {
@@ -64,7 +124,11 @@ suite("custom grammar: actions", () => {
     test(input, () => {
       //   console.log(JSON.stringify(parseAction(input), null, 4));
       //   assert.ok(true);
-      assert.deepStrictEqual(parseAction(input), expectedOutput);
+      assert.deepStrictEqual(
+        parseAction(input),
+        expectedOutput,
+        JSON.stringify(parseAction(input), null, 4),
+      );
     });
   });
 });
