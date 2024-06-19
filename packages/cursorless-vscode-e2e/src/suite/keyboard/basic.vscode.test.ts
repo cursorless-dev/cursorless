@@ -70,6 +70,12 @@ const testCases: TestCase[] = [
     finalContent: "()",
   },
   {
+    name: "inside tail curly bat",
+    initialContent: "{(aaa bbb ccc)}",
+    keySequence: ["db", "mt", "wb", "mi", "c"],
+    finalContent: "{(aaa }",
+  },
+  {
     name: "wrap",
     initialContent: "a",
     // round wrap air

@@ -1,9 +1,4 @@
-import {
-  HeadModifier,
-  Modifier,
-  Range,
-  TailModifier,
-} from "@cursorless/common";
+import { HeadModifier, TailModifier } from "@cursorless/common";
 import { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 import { ModifierStage } from "../PipelineStages.types";
@@ -11,17 +6,16 @@ import {
   getModifierStagesFromTargetModifiers,
   processModifierStages,
 } from "../TargetPipelineRunner";
-import { TokenTarget } from "../targets";
+import { HeadTailTarget } from "../targets";
 
-abstract class HeadTailStage implements ModifierStage {
+export class HeadTailStage implements ModifierStage {
   constructor(
     private modifierStageFactory: ModifierStageFactory,
-    private isReversed: boolean,
-    private modifiers?: Modifier[],
+    private modifier: HeadModifier | TailModifier,
   ) {}
 
   run(target: Target): Target[] {
-    const modifiers = this.modifiers ?? [
+    const modifiers = this.modifier.modifiers ?? [
       {
         type: "containingScope",
         scopeType: { type: "line" },
@@ -35,47 +29,15 @@ abstract class HeadTailStage implements ModifierStage {
     const modifiedTargets = processModifierStages(modifierStages, [target]);
 
     return modifiedTargets.map((modifiedTarget) => {
-      const contentRange = this.constructContentRange(
-        target.contentRange,
-        modifiedTarget.contentRange,
-      );
+      const isHead = this.modifier.type === "extendThroughStartOf";
 
-      return new TokenTarget({
+      return new HeadTailTarget({
         editor: target.editor,
-        isReversed: this.isReversed,
-        contentRange,
+        isReversed: isHead,
+        inputTarget: target,
+        modifiedTarget,
+        isHead,
       });
     });
-  }
-
-  protected abstract constructContentRange(
-    originalRange: Range,
-    modifiedRange: Range,
-  ): Range;
-}
-
-export class HeadStage extends HeadTailStage {
-  constructor(
-    modifierStageFactory: ModifierStageFactory,
-    modifier: HeadModifier,
-  ) {
-    super(modifierStageFactory, true, modifier.modifiers);
-  }
-
-  protected constructContentRange(originalRange: Range, modifiedRange: Range) {
-    return new Range(modifiedRange.start, originalRange.end);
-  }
-}
-
-export class TailStage extends HeadTailStage {
-  constructor(
-    modifierStageFactory: ModifierStageFactory,
-    modifier: TailModifier,
-  ) {
-    super(modifierStageFactory, false, modifier.modifiers);
-  }
-
-  protected constructContentRange(originalRange: Range, modifiedRange: Range) {
-    return new Range(originalRange.start, modifiedRange.end);
   }
 }
