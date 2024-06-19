@@ -20,7 +20,7 @@ const tokens: Record<string, Token> = {};
 for (const [mark, spokenForm] of Object.entries(marks)) {
   if (spokenForm != null) {
     tokens[spokenForm] = {
-      type: "simplePartialMarkType",
+      type: "simpleMarkType",
       value: mark,
     };
   }

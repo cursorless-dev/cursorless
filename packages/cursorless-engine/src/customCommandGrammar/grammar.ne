@@ -59,6 +59,6 @@ scopeType -> %pairedDelimiter {%
 
 # --------------------------- Marks ---------------------------
 
-mark -> %simplePartialMarkType {%
-  ([simplePartialMarkType]) => simplePartialMark(simplePartialMarkType)
+mark -> %simpleMarkType {%
+  ([simpleMarkType]) => simplePartialMark(simpleMarkType)
 %}

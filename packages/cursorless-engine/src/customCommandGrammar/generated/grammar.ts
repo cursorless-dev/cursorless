@@ -7,7 +7,7 @@ declare var simpleActionName: any;
 declare var ws: any;
 declare var simpleScopeTypeType: any;
 declare var pairedDelimiter: any;
-declare var simplePartialMarkType: any;
+declare var simpleMarkType: any;
 
 import { capture } from "../../util/grammarHelpers";
 import { lexer } from "../lexer";
@@ -77,8 +77,8 @@ const grammar: Grammar = {
     {"name": "scopeType", "symbols": [(lexer.has("pairedDelimiter") ? {type: "pairedDelimiter"} : pairedDelimiter)], "postprocess": 
         ([delimiter]) => surroundingPairScopeType(delimiter)
         },
-    {"name": "mark", "symbols": [(lexer.has("simplePartialMarkType") ? {type: "simplePartialMarkType"} : simplePartialMarkType)], "postprocess": 
-        ([simplePartialMarkType]) => simplePartialMark(simplePartialMarkType)
+    {"name": "mark", "symbols": [(lexer.has("simpleMarkType") ? {type: "simpleMarkType"} : simpleMarkType)], "postprocess": 
+        ([simpleMarkType]) => simplePartialMark(simpleMarkType)
         }
   ],
   ParserStart: "main",

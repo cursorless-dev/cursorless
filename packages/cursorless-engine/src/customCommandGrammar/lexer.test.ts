@@ -70,7 +70,7 @@ const fixtures: Fixture[] = [
     input: "this",
     expectedOutput: [
       {
-        type: "simplePartialMarkType",
+        type: "simpleMarkType",
         value: "cursor",
       },
     ],
