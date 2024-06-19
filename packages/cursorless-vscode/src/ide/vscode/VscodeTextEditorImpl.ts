@@ -57,7 +57,7 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
 
   async setSelections(
     rawSelections: Selection[],
-    { focusEditor = false }: SetSelectionsOpts = {},
+    { focusEditor = false, revealRange = true }: SetSelectionsOpts = {},
   ): Promise<void> {
     const selections = uniqWithHash(
       rawSelections,
@@ -86,6 +86,10 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
       // old selection persists
       this.editor.selections = selections;
       await vscodeFocusEditor(this);
+    }
+
+    if (revealRange) {
+      await this.revealRange(this.selections[0]);
     }
   }
 

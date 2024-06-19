@@ -93,6 +93,7 @@ export class CallbackAction {
     if (options.setSelection) {
       await editableEditor.setSelections(targetSelections, {
         focusEditor: true,
+        revealRange: false,
       });
     }
 
