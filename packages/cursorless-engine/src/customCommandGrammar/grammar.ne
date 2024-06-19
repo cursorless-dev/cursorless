@@ -13,7 +13,7 @@ import {
 %}
 @lexer lexer
 
-main -> action {% 
+main -> action {%
   ([action]) => action
 %}
 
@@ -46,9 +46,9 @@ containingScopeModifier -> scopeType {%
 # --------------------------- Scope types ---------------------------
 
 scopeType -> %simpleScopeTypeType {%
-  ([simpleScopeTypeType]) => simpleScopeType(simpleScopeTypeType) 
+  ([simpleScopeTypeType]) => simpleScopeType(simpleScopeTypeType)
 %}
 
 scopeType -> %pairedDelimiter {%
-  ([delimiter]) => surroundingPairScopeType(delimiter) 
+  ([delimiter]) => surroundingPairScopeType(delimiter)
 %}
