@@ -3,7 +3,6 @@
 import { capture } from "../../util/grammarHelpers";
 import { lexer } from "../lexer";
 import {
-  command,
   simpleActionDescriptor,
   partialPrimitiveTargetDescriptor,
   containingScopeModifier,

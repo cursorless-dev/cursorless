@@ -11,7 +11,6 @@ declare var pairedDelimiter: any;
 import { capture } from "../../util/grammarHelpers";
 import { lexer } from "../lexer";
 import {
-  command,
   simpleActionDescriptor,
   partialPrimitiveTargetDescriptor,
   containingScopeModifier,
@@ -49,7 +48,7 @@ interface Grammar {
 const grammar: Grammar = {
   Lexer: lexer,
   ParserRules: [
-    {"name": "main", "symbols": ["action"], "postprocess":  
+    {"name": "main", "symbols": ["action"], "postprocess": 
         ([action]) => action
         },
     {"name": "action", "symbols": [(lexer.has("simpleActionName") ? {type: "simpleActionName"} : simpleActionName), (lexer.has("ws") ? {type: "ws"} : ws), "target"], "postprocess": 
@@ -68,10 +67,10 @@ const grammar: Grammar = {
         ([scopeType]) => containingScopeModifier(scopeType)
         },
     {"name": "scopeType", "symbols": [(lexer.has("simpleScopeTypeType") ? {type: "simpleScopeTypeType"} : simpleScopeTypeType)], "postprocess": 
-        ([simpleScopeTypeType]) => simpleScopeType(simpleScopeTypeType) 
+        ([simpleScopeTypeType]) => simpleScopeType(simpleScopeTypeType)
         },
     {"name": "scopeType", "symbols": [(lexer.has("pairedDelimiter") ? {type: "pairedDelimiter"} : pairedDelimiter)], "postprocess": 
-        ([delimiter]) => surroundingPairScopeType(delimiter) 
+        ([delimiter]) => surroundingPairScopeType(delimiter)
         }
   ],
   ParserStart: "main",

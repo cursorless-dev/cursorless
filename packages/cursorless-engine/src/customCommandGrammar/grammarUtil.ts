@@ -15,14 +15,6 @@ import {
   type SurroundingPairScopeType,
 } from "@cursorless/common";
 
-export function command(action: ActionDescriptor): CommandLatest {
-  return {
-    version: LATEST_VERSION,
-    usePrePhraseSnapshot: false,
-    action,
-  };
-}
-
 export function simpleActionDescriptor(
   name: SimpleActionName,
   target: PartialTargetDescriptor,
