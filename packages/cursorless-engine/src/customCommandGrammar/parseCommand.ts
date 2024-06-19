@@ -33,7 +33,7 @@ export function parseScopeType(input: string): ScopeType {
 }
 
 /**
- * Given a textual representation of a action, parse it into a action descriptor.
+ * Given a textual representation of a action, parse it into an action descriptor.
  *
  * @param input A textual representation of a action
  * @returns A parsed action descriptor
