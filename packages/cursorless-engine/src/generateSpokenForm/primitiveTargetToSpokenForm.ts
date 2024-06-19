@@ -313,9 +313,10 @@ export class PrimitiveTargetSpokenFormGenerator {
         // a spoken form for these; we may deprecate this construct entirely
         throw Error(`Mark '${mark.type}' is not fully implemented`);
       }
+      case "placeholder":
+        return "<target>";
       case "explicit":
       case "keyboard":
-      case "placeholder":
         throw new NoSpokenFormError(`Mark '${mark.type}'`);
 
       default:
