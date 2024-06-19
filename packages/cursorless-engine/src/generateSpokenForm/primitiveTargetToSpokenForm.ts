@@ -315,6 +315,7 @@ export class PrimitiveTargetSpokenFormGenerator {
       }
       case "explicit":
       case "keyboard":
+      case "placeholder":
         throw new NoSpokenFormError(`Mark '${mark.type}'`);
 
       default:

@@ -17,15 +17,6 @@ const tokens: Record<string, Token> = {};
 
 // FIXME: Remove the duplication below?
 
-for (const [mark, spokenForm] of Object.entries(marks)) {
-  if (spokenForm != null) {
-    tokens[spokenForm] = {
-      type: "simpleMarkType",
-      value: mark,
-    };
-  }
-}
-
 for (const simpleActionName of simpleActionNames) {
   const spokenForm = actions[simpleActionName];
   if (spokenForm != null) {
@@ -56,6 +47,20 @@ for (const pairedDelimiter of surroundingPairNames) {
     };
   }
 }
+
+for (const [mark, spokenForm] of Object.entries(marks)) {
+  if (spokenForm != null) {
+    tokens[spokenForm] = {
+      type: "simpleMarkType",
+      value: mark,
+    };
+  }
+}
+
+tokens["<target>"] = {
+  type: "placeholderMark",
+  value: "placeholder",
+};
 
 export const lexer = moo.compile({
   ws: /[ \t]+/,

@@ -47,6 +47,8 @@ export class MarkStageFactoryImpl implements MarkStageFactory {
         return new TargetMarkStage(this.targetPipelineRunner, mark);
       case "explicit":
         return new ExplicitMarkStage(mark);
+      case "placeholder":
+        throw Error(`${mark.type} not supported`);
     }
   }
 }

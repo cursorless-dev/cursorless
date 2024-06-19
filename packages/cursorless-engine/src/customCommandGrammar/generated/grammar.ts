@@ -8,6 +8,7 @@ declare var ws: any;
 declare var simpleScopeTypeType: any;
 declare var pairedDelimiter: any;
 declare var simpleMarkType: any;
+declare var placeholderMark: any;
 
 import { capture } from "../../util/grammarHelpers";
 import { lexer } from "../lexer";
@@ -60,10 +61,13 @@ const grammar: Grammar = {
         ([primitiveTarget]) => primitiveTarget
         },
     {"name": "primitiveTarget", "symbols": ["modifier"], "postprocess": 
-        (modifiers) => partialPrimitiveTargetDescriptor(modifiers)
+        ([modifier]) => partialPrimitiveTargetDescriptor([modifier])
         },
     {"name": "primitiveTarget", "symbols": ["mark"], "postprocess": 
         ([mark]) => partialPrimitiveTargetDescriptor(undefined, mark)
+        },
+    {"name": "primitiveTarget", "symbols": ["modifier", (lexer.has("ws") ? {type: "ws"} : ws), "mark"], "postprocess": 
+        ([modifier, ws, mark]) => partialPrimitiveTargetDescriptor([modifier], mark)
         },
     {"name": "modifier", "symbols": ["containingScopeModifier"], "postprocess": 
         ([containingScopeModifier]) => containingScopeModifier
@@ -79,6 +83,9 @@ const grammar: Grammar = {
         },
     {"name": "mark", "symbols": [(lexer.has("simpleMarkType") ? {type: "simpleMarkType"} : simpleMarkType)], "postprocess": 
         ([simpleMarkType]) => simplePartialMark(simpleMarkType)
+        },
+    {"name": "mark", "symbols": [(lexer.has("placeholderMark") ? {type: "placeholderMark"} : placeholderMark)], "postprocess": 
+        ([placeholderMark]) => simplePartialMark(placeholderMark)
         }
   ],
   ParserStart: "main",

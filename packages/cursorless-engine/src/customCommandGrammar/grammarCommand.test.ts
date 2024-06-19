@@ -30,6 +30,19 @@ const testCases: TestCase[] = [
       },
     },
   },
+  {
+    input: "take block <target>",
+    expectedOutput: {
+      name: "setSelection",
+      target: {
+        type: "primitive",
+        modifiers: [
+          { type: "containingScope", scopeType: { type: "paragraph" } },
+        ],
+        mark: { type: "placeholder" },
+      },
+    },
+  },
 ];
 
 suite("custom grammar: actions", () => {

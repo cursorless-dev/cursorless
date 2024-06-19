@@ -22,12 +22,17 @@ export interface LastCursorPositionMark {
   type: "lastCursorPosition";
 }
 
+export interface PlaceholderMark {
+  type: "placeholder";
+}
+
 export type SimplePartialMark =
   | ThatMark
   | KeyboardMark
   | SourceMark
   | NothingMark
-  | LastCursorPositionMark;
+  | LastCursorPositionMark
+  | PlaceholderMark;
 
 export interface DecoratedSymbolMark {
   type: "decoratedSymbol";
@@ -85,7 +90,8 @@ export type PartialMark =
   | NothingMark
   | LineNumberMark
   | RangeMark
-  | ExplicitMark;
+  | ExplicitMark
+  | PlaceholderMark;
 
 export const simpleSurroundingPairNames = [
   "angleBrackets",

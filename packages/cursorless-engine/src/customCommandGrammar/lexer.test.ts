@@ -75,6 +75,15 @@ const fixtures: Fixture[] = [
       },
     ],
   },
+  {
+    input: "<target>",
+    expectedOutput: [
+      {
+        type: "placeholderMark",
+        value: "placeholder",
+      },
+    ],
+  },
 ];
 
 suite("custom grammar: lexer", () => {

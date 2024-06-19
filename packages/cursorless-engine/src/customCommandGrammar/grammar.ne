@@ -30,11 +30,15 @@ target -> primitiveTarget {%
 %}
 
 primitiveTarget -> modifier {%
-  (modifiers) => partialPrimitiveTargetDescriptor(modifiers)
+  ([modifier]) => partialPrimitiveTargetDescriptor([modifier])
 %}
 
 primitiveTarget -> mark {%
   ([mark]) => partialPrimitiveTargetDescriptor(undefined, mark)
+%}
+
+primitiveTarget -> modifier %ws mark {%
+  ([modifier, ws, mark]) => partialPrimitiveTargetDescriptor([modifier], mark)
 %}
 
 # --------------------------- Modifiers ---------------------------
@@ -61,4 +65,8 @@ scopeType -> %pairedDelimiter {%
 
 mark -> %simpleMarkType {%
   ([simpleMarkType]) => simplePartialMark(simpleMarkType)
+%}
+
+mark -> %placeholderMark {%
+  ([placeholderMark]) => simplePartialMark(placeholderMark)
 %}
