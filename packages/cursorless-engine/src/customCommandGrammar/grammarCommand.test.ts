@@ -122,8 +122,6 @@ const testCases: TestCase[] = [
 suite("custom grammar: actions", () => {
   testCases.forEach(({ input, expectedOutput }) => {
     test(input, () => {
-      //   console.log(JSON.stringify(parseAction(input), null, 4));
-      //   assert.ok(true);
       assert.deepStrictEqual(
         parseAction(input),
         expectedOutput,
