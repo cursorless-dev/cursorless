@@ -8,8 +8,8 @@ import {
 import { actions } from "../generateSpokenForm/defaultSpokenForms/actions";
 import { marks } from "../generateSpokenForm/defaultSpokenForms/marks";
 import { defaultSpokenFormMap } from "../spokenForms/defaultSpokenFormMap";
-import { constructLexer } from "./constructLexer";
 import { connectives } from "../generateSpokenForm/defaultSpokenForms/connectives";
+import { CommandLexer } from "./CommandLexer";
 
 interface Token {
   type: string;
@@ -93,7 +93,7 @@ tokens["<target>"] = {
   value: "placeholder",
 };
 
-export const lexer = constructLexer({
+export const lexer = new CommandLexer({
   ws: /[ \t]+/,
   token: {
     match: Object.keys(tokens),

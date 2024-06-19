@@ -286,7 +286,17 @@ function fillPlaceholders(
         placeholderTargets: [],
         previousTargets: [],
       },
-      context.placeholderTargets[mark.index],
+      indexArrayStrict(context.placeholderTargets, mark.index, "targets"),
     ),
   };
+}
+
+function indexArrayStrict<T>(arr: T[], idx: number, name: string): T {
+  if (idx >= arr.length) {
+    throw Error(
+      `Expected at least ${idx + 1} ${name} but received only ${arr.length}`,
+    );
+  }
+
+  return arr[idx];
 }

@@ -1,4 +1,9 @@
-import moo, { type Lexer, type LexerState, type Rules, type Token } from "moo";
+import moo, {
+  type Lexer as MooLexer,
+  type LexerState as MooLexerState,
+  type Rules,
+  type Token as MooToken,
+} from "moo";
 
 export interface NearleyToken {
   value: any;
@@ -13,47 +18,45 @@ export interface NearleyLexer {
   has: (tokenType: any) => boolean;
 }
 
-export function constructLexer(rules: Rules): NearleyLexer {
-  const lexer = moo.compile(rules);
-  return new LexerWithoutWhitespace(lexer);
-}
-
 interface State {
   placeholderIndex: number;
-  mooState: LexerState;
+  mooState: MooLexerState;
 }
 
-class LexerWithoutWhitespace implements NearleyLexer {
+export class CommandLexer implements NearleyLexer {
   private placeholderIndex = 0;
+  private mooLexer: MooLexer;
 
-  constructor(private lexer: Lexer) {}
+  constructor(rules: Rules) {
+    this.mooLexer = moo.compile(rules);
+  }
 
   reset(chunk?: string, state?: State): this {
     const { placeholderIndex = 0, mooState } = state ?? {};
 
-    this.lexer.reset(chunk, mooState);
+    this.mooLexer.reset(chunk, mooState);
     this.placeholderIndex = placeholderIndex;
 
     return this;
   }
 
-  formatError(token: Token, message?: string): string {
-    return this.lexer.formatError(token, message);
+  formatError(token: MooToken, message?: string): string {
+    return this.mooLexer.formatError(token, message);
   }
 
   has(tokenType: string): boolean {
-    return this.lexer.has(tokenType);
+    return this.mooLexer.has(tokenType);
   }
 
   save(): State {
     return {
       placeholderIndex: this.placeholderIndex,
-      mooState: this.lexer.save(),
+      mooState: this.mooLexer.save(),
     };
   }
 
   next(): NearleyToken | undefined {
-    const rawToken = this.lexer.next();
+    const rawToken = this.mooLexer.next();
 
     if (this.skipToken(rawToken)) {
       return this.next();
@@ -64,11 +67,11 @@ class LexerWithoutWhitespace implements NearleyLexer {
       : rawToken;
   }
 
-  transform({ value }: Token) {
+  transform({ value }: MooToken) {
     return value;
   }
 
-  private skipToken(token: Token | undefined) {
+  private skipToken(token: MooToken | undefined) {
     return token?.type === "ws";
   }
 }

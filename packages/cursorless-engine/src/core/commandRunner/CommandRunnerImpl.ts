@@ -92,7 +92,7 @@ export class CommandRunnerImpl implements CommandRunner {
 
   private runAction(
     actionDescriptor: ActionDescriptor,
-    keepInferenceState = false,
+    { keepInferenceState = false }: { keepInferenceState?: boolean } = {},
   ): Promise<ActionReturnValue> {
     // Prepare to run the action by resetting the inference context and
     // defaulting the final stages to an empty array
@@ -203,7 +203,9 @@ export class CommandRunnerImpl implements CommandRunner {
 
       case "parsed":
         this.inferenceContext.setPlaceholderTargets(actionDescriptor.targets);
-        return this.runAction(parseAction(actionDescriptor.content), true);
+        return this.runAction(parseAction(actionDescriptor.content), {
+          keepInferenceState: true,
+        });
 
       default: {
         const action = this.actions[actionDescriptor.name];
