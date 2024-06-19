@@ -37,8 +37,8 @@ export function bringMoveActionDescriptor(
 }
 
 export function partialPrimitiveTargetDescriptor(
-  modifiers?: Modifier[],
-  mark?: PartialMark,
+  modifiers: Modifier[] | undefined,
+  mark: PartialMark | undefined,
 ): PartialPrimitiveTargetDescriptor {
   const target: PartialPrimitiveTargetDescriptor = { type: "primitive" };
   if (modifiers != null) {
