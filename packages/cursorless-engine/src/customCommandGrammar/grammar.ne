@@ -19,8 +19,8 @@ main -> action {%
 
 # --------------------------- Actions ---------------------------
 
-action -> %simpleActionName _ target {%
-  ([simpleActionName, _, target]) => simpleActionDescriptor(simpleActionName, target)
+action -> %simpleActionName target {%
+  ([simpleActionName, target]) => simpleActionDescriptor(simpleActionName, target)
 %}
 
 # --------------------------- Targets ---------------------------
@@ -37,18 +37,14 @@ primitiveTarget -> mark {%
   ([mark]) => partialPrimitiveTargetDescriptor(undefined, mark)
 %}
 
-primitiveTarget -> modifiers _ mark {%
-  ([modifiers, _, mark]) => partialPrimitiveTargetDescriptor(modifiers, mark)
+primitiveTarget -> modifiers mark {%
+  ([modifiers, mark]) => partialPrimitiveTargetDescriptor(modifiers, mark)
 %}
 
 # --------------------------- Modifiers ---------------------------
 
-modifiers -> modifier additionalModifier:* {%
-  ([modifier, rest]) => [modifier, ...rest]
-%}
-
-additionalModifier -> _ modifier {%
-  ([_, modifier]) => modifier
+modifiers -> modifier:+ {%
+  ([modifiers]) => modifiers
 %}
 
 modifier -> containingScopeModifier {%
@@ -78,5 +74,3 @@ mark -> %simpleMarkType {%
 mark -> %placeholderMark {%
   ([placeholderMark]) => simplePartialMark(placeholderMark)
 %}
-
-_ -> [ \t]:+

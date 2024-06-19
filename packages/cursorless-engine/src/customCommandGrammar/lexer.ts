@@ -3,10 +3,11 @@ import {
   simpleScopeTypeTypes,
   surroundingPairNames,
 } from "@cursorless/common";
-import moo from "moo";
+import moo, { type Lexer } from "moo";
 import { actions } from "../generateSpokenForm/defaultSpokenForms/actions";
 import { marks } from "../generateSpokenForm/defaultSpokenForms/marks";
 import { defaultSpokenFormMap } from "../spokenForms/defaultSpokenFormMap";
+import { constructLexerWithoutWhitespace } from "./constructLexerWithoutWhitespace";
 
 interface Token {
   type: string;
@@ -62,13 +63,15 @@ tokens["<target>"] = {
   value: "placeholder",
 };
 
-export const lexer = moo.compile({
-  _: /[ \t]+/,
-  token: {
-    match: Object.keys(tokens),
-    type: (text) => tokens[text].type,
-    value: (text) => tokens[text].value,
-  },
-});
+export const lexer: Lexer = constructLexerWithoutWhitespace(
+  moo.compile({
+    ws: /[ \t]+/,
+    token: {
+      match: Object.keys(tokens),
+      type: (text) => tokens[text].type,
+      value: (text) => tokens[text].value,
+    },
+  }),
+);
 
 (lexer as any).transform = (token: { value: string }) => token.value;

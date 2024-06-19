@@ -48,10 +48,6 @@ const fixtures: Fixture[] = [
         value: "statement",
       },
       {
-        type: "_",
-        value: " ",
-      },
-      {
         type: "simpleScopeTypeType",
         value: "name",
       },
