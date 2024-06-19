@@ -29,7 +29,7 @@ target -> primitiveTarget {%
   ([primitiveTarget]) => primitiveTarget
 %}
 
-primitiveTarget -> modifiers {%
+primitiveTarget -> modifier:+ {%
   ([modifiers]) => partialPrimitiveTargetDescriptor(modifiers)
 %}
 
@@ -37,15 +37,11 @@ primitiveTarget -> mark {%
   ([mark]) => partialPrimitiveTargetDescriptor(undefined, mark)
 %}
 
-primitiveTarget -> modifiers mark {%
+primitiveTarget -> modifier:+ mark {%
   ([modifiers, mark]) => partialPrimitiveTargetDescriptor(modifiers, mark)
 %}
 
 # --------------------------- Modifiers ---------------------------
-
-modifiers -> modifier:+ {%
-  ([modifiers]) => modifiers
-%}
 
 modifier -> containingScopeModifier {%
   ([containingScopeModifier]) => containingScopeModifier

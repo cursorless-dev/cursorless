@@ -59,19 +59,18 @@ const grammar: Grammar = {
     {"name": "target", "symbols": ["primitiveTarget"], "postprocess": 
         ([primitiveTarget]) => primitiveTarget
         },
-    {"name": "primitiveTarget", "symbols": ["modifiers"], "postprocess": 
+    {"name": "primitiveTarget$ebnf$1", "symbols": ["modifier"]},
+    {"name": "primitiveTarget$ebnf$1", "symbols": ["primitiveTarget$ebnf$1", "modifier"], "postprocess": (d) => d[0].concat([d[1]])},
+    {"name": "primitiveTarget", "symbols": ["primitiveTarget$ebnf$1"], "postprocess": 
         ([modifiers]) => partialPrimitiveTargetDescriptor(modifiers)
         },
     {"name": "primitiveTarget", "symbols": ["mark"], "postprocess": 
         ([mark]) => partialPrimitiveTargetDescriptor(undefined, mark)
         },
-    {"name": "primitiveTarget", "symbols": ["modifiers", "mark"], "postprocess": 
+    {"name": "primitiveTarget$ebnf$2", "symbols": ["modifier"]},
+    {"name": "primitiveTarget$ebnf$2", "symbols": ["primitiveTarget$ebnf$2", "modifier"], "postprocess": (d) => d[0].concat([d[1]])},
+    {"name": "primitiveTarget", "symbols": ["primitiveTarget$ebnf$2", "mark"], "postprocess": 
         ([modifiers, mark]) => partialPrimitiveTargetDescriptor(modifiers, mark)
-        },
-    {"name": "modifiers$ebnf$1", "symbols": ["modifier"]},
-    {"name": "modifiers$ebnf$1", "symbols": ["modifiers$ebnf$1", "modifier"], "postprocess": (d) => d[0].concat([d[1]])},
-    {"name": "modifiers", "symbols": ["modifiers$ebnf$1"], "postprocess": 
-        ([modifiers]) => modifiers
         },
     {"name": "modifier", "symbols": ["containingScopeModifier"], "postprocess": 
         ([containingScopeModifier]) => containingScopeModifier
