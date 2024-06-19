@@ -63,7 +63,7 @@ tokens["<target>"] = {
 };
 
 export const lexer = moo.compile({
-  ws: /[ \t]+/,
+  _: /[ \t]+/,
   token: {
     match: Object.keys(tokens),
     type: (text) => tokens[text].type,

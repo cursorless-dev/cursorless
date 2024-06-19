@@ -4,7 +4,6 @@
 // @ts-ignore
 function id(d: any[]): any { return d[0]; }
 declare var simpleActionName: any;
-declare var ws: any;
 declare var simpleScopeTypeType: any;
 declare var pairedDelimiter: any;
 declare var simpleMarkType: any;
@@ -54,8 +53,8 @@ const grammar: Grammar = {
     {"name": "main", "symbols": ["action"], "postprocess": 
         ([action]) => action
         },
-    {"name": "action", "symbols": [(lexer.has("simpleActionName") ? {type: "simpleActionName"} : simpleActionName), (lexer.has("ws") ? {type: "ws"} : ws), "target"], "postprocess": 
-        ([simpleActionName, ws, target]) => simpleActionDescriptor(simpleActionName, target)
+    {"name": "action", "symbols": [(lexer.has("simpleActionName") ? {type: "simpleActionName"} : simpleActionName), "_", "target"], "postprocess": 
+        ([simpleActionName, _, target]) => simpleActionDescriptor(simpleActionName, target)
         },
     {"name": "target", "symbols": ["primitiveTarget"], "postprocess": 
         ([primitiveTarget]) => primitiveTarget
@@ -66,15 +65,15 @@ const grammar: Grammar = {
     {"name": "primitiveTarget", "symbols": ["mark"], "postprocess": 
         ([mark]) => partialPrimitiveTargetDescriptor(undefined, mark)
         },
-    {"name": "primitiveTarget", "symbols": ["modifiers", (lexer.has("ws") ? {type: "ws"} : ws), "mark"], "postprocess": 
-        ([modifiers, ws, mark]) => partialPrimitiveTargetDescriptor(modifiers, mark)
+    {"name": "primitiveTarget", "symbols": ["modifiers", "_", "mark"], "postprocess": 
+        ([modifiers, _, mark]) => partialPrimitiveTargetDescriptor(modifiers, mark)
         },
     {"name": "modifiers$ebnf$1", "symbols": []},
     {"name": "modifiers$ebnf$1", "symbols": ["modifiers$ebnf$1", "additionalModifier"], "postprocess": (d) => d[0].concat([d[1]])},
     {"name": "modifiers", "symbols": ["modifier", "modifiers$ebnf$1"], "postprocess": 
         ([modifier, rest]) => [modifier, ...rest]
         },
-    {"name": "additionalModifier", "symbols": [(lexer.has("ws") ? {type: "ws"} : ws), "modifier"], "postprocess": 
+    {"name": "additionalModifier", "symbols": ["_", "modifier"], "postprocess": 
         ([_, modifier]) => modifier
         },
     {"name": "modifier", "symbols": ["containingScopeModifier"], "postprocess": 
@@ -94,7 +93,10 @@ const grammar: Grammar = {
         },
     {"name": "mark", "symbols": [(lexer.has("placeholderMark") ? {type: "placeholderMark"} : placeholderMark)], "postprocess": 
         ([placeholderMark]) => simplePartialMark(placeholderMark)
-        }
+        },
+    {"name": "_$ebnf$1", "symbols": [/[ \t]/]},
+    {"name": "_$ebnf$1", "symbols": ["_$ebnf$1", /[ \t]/], "postprocess": (d) => d[0].concat([d[1]])},
+    {"name": "_", "symbols": ["_$ebnf$1"]}
   ],
   ParserStart: "main",
 };

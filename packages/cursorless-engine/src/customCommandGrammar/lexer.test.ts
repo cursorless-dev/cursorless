@@ -48,7 +48,7 @@ const fixtures: Fixture[] = [
         value: "statement",
       },
       {
-        type: "ws",
+        type: "_",
         value: " ",
       },
       {
