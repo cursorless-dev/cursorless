@@ -1,7 +1,4 @@
 import {
-  LATEST_VERSION,
-  type ActionDescriptor,
-  type CommandLatest,
   type ContainingScopeModifier,
   type Modifier,
   type PartialPrimitiveTargetDescriptor,
