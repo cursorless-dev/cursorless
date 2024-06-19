@@ -41,7 +41,7 @@ destination -> %insertionMode target {%
 target -> primitiveTarget {% id %}
 
 primitiveTarget -> modifier:+ {%
-  ([modifiers]) => partialPrimitiveTargetDescriptor(modifiers)
+  ([modifiers]) => partialPrimitiveTargetDescriptor(modifiers, undefined)
 %}
 
 primitiveTarget -> mark {%

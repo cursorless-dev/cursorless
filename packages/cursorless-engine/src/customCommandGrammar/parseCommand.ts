@@ -10,7 +10,7 @@ function getScopeTypeParser(): Parser {
 }
 
 function getActionParser(): Parser {
-  return new Parser(Grammar.fromCompiled({ ...grammar }));
+  return new Parser(Grammar.fromCompiled(grammar));
 }
 
 /**

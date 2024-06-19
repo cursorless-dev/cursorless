@@ -55,9 +55,7 @@ interface Grammar {
 const grammar: Grammar = {
   Lexer: lexer,
   ParserRules: [
-    {"name": "main", "symbols": ["action"], "postprocess": 
-        ([action]) => action
-        },
+    {"name": "main", "symbols": ["action"], "postprocess": id},
     {"name": "action", "symbols": [(lexer.has("simpleActionName") ? {type: "simpleActionName"} : simpleActionName), "target"], "postprocess": 
         ([simpleActionName, target]) => simpleActionDescriptor(simpleActionName, target)
         },
@@ -72,7 +70,7 @@ const grammar: Grammar = {
     {"name": "primitiveTarget$ebnf$1", "symbols": ["modifier"]},
     {"name": "primitiveTarget$ebnf$1", "symbols": ["primitiveTarget$ebnf$1", "modifier"], "postprocess": (d) => d[0].concat([d[1]])},
     {"name": "primitiveTarget", "symbols": ["primitiveTarget$ebnf$1"], "postprocess": 
-        ([modifiers]) => partialPrimitiveTargetDescriptor(modifiers)
+        ([modifiers]) => partialPrimitiveTargetDescriptor(modifiers, undefined)
         },
     {"name": "primitiveTarget", "symbols": ["mark"], "postprocess": 
         ([mark]) => partialPrimitiveTargetDescriptor(undefined, mark)
