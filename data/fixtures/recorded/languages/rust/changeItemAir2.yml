@@ -1,7 +1,8 @@
 languageId: rust
 command:
+  version: 5
   spokenForm: change item air
-  version: 3
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
@@ -9,7 +10,6 @@ command:
           scopeType: {type: collectionItem}
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
     type T = (&'static str, &'static str);

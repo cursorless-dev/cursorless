@@ -1,11 +1,14 @@
 languageId: rust
 command:
-  version: 1
+  version: 5
   spokenForm: chuck comment
-  action: remove
+  action: {name: remove}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: comment, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: comment}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     /*

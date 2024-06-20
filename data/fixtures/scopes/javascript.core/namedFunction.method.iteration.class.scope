@@ -1,0 +1,12 @@
+class MyClass {
+  myFunk() { }
+}
+---
+
+[Range] =
+[Domain] = 0:0-2:1
+  >---------------
+0| class MyClass {
+1|   myFunk() { }
+2| }
+   -<

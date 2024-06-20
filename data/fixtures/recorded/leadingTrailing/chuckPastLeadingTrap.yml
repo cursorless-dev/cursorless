@@ -1,19 +1,19 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: chuck past leading trap
-  version: 2
+  action: {name: remove}
   targets:
-    - type: range
-      anchor: {type: primitive, isImplicit: true}
-      active:
+    - active:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: t}
         modifiers:
           - {type: leading}
+      type: range
       excludeAnchor: false
       excludeActive: false
+      anchor: {type: implicit}
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: hello there
   selections:

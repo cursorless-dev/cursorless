@@ -1,19 +1,22 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: take harp past parse tree string each
-  action: setSelection
+  action: {name: setSelection}
   targets:
-    - type: range
-      start:
+    - active:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: string}
+        mark: {type: decoratedSymbol, symbolColor: default, character: e}
+      type: range
+      excludeAnchor: false
+      excludeActive: false
+      anchor:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: h}
-      end:
-        type: primitive
-        modifier: {type: containingScope, scopeType: string}
-        mark: {type: decoratedSymbol, symbolColor: default, character: e}
-      excludeStart: false
-      excludeEnd: false
+  usePrePhraseSnapshot: false
 spokenFormError: >-
   simple scope type type with id string; this is a private spoken form currently
   only for internal experimentation

@@ -53,8 +53,26 @@ export interface TextEditor {
   isEqual(other: TextEditor): boolean;
 }
 
+export interface SetSelectionsOpts {
+  focusEditor?: boolean;
+  revealRange?: boolean;
+}
+
 export interface EditableTextEditor extends TextEditor {
-  setSelections(selections: Selection[]): Promise<void>;
+  /**
+   * Set the selections in this text editor, optionally focusing the editor
+   * and/or revealing the ranges.
+   *
+   * Note that if your editor requires unique selections, you should deduplicate
+   * them in your implementation of this method.
+   *
+   * @param selections The new selections
+   * @param opts The options for setting the selections
+   */
+  setSelections(
+    selections: Selection[],
+    opts?: SetSelectionsOpts,
+  ): Promise<void>;
 
   options: TextEditorOptions;
 

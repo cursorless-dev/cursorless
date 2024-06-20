@@ -146,6 +146,7 @@ export async function activate(
     scopeVisualizer,
     keyboardCommands,
     hats,
+    storedTargets,
   );
 
   new ReleaseNotes(vscodeApi, context, normalizedIde.messages).maybeShow();

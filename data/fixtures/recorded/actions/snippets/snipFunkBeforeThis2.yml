@@ -1,16 +1,17 @@
 languageId: typescript
 command:
+  version: 5
   spokenForm: snippet funk before this
-  version: 2
+  action:
+    name: insertSnippet
+    args:
+      - {type: named, name: functionDeclaration}
   targets:
     - type: primitive
       mark: {type: cursor}
       modifiers:
         - {type: position, position: before}
   usePrePhraseSnapshot: true
-  action:
-    name: insertSnippet
-    args: [functionDeclaration]
 initialState:
   documentContents: "    const foo = \"bar\";"
   selections:

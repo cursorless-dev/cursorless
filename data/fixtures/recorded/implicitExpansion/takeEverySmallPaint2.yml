@@ -1,14 +1,14 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: take every short paint
-  version: 2
+  action: {name: setSelection}
   targets:
     - type: primitive
       modifiers:
         - type: everyScope
           scopeType: {type: boundedNonWhitespaceSequence}
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
 initialState:
   documentContents: (hello world-whatever testing) testing now
   selections:

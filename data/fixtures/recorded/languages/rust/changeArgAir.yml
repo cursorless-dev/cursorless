@@ -1,7 +1,8 @@
 languageId: rust
 command:
+  version: 5
   spokenForm: change arg air
-  version: 2
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
@@ -9,7 +10,6 @@ command:
         - type: containingScope
           scopeType: {type: argumentOrParameter}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
     fn foo(x: &'a mut u32) -> &'static mut u16 {}

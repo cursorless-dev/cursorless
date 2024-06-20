@@ -1,7 +1,8 @@
 languageId: rust
 command:
+  version: 5
   spokenForm: chuck arg trap
-  version: 2
+  action: {name: remove}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: t}
@@ -9,7 +10,6 @@ command:
         - type: containingScope
           scopeType: {type: argumentOrParameter}
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: |
     struct S<'a, 'b: 'a, T> {};

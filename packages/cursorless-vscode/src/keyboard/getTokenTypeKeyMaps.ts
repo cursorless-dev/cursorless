@@ -52,8 +52,11 @@ export function getTokenTypeKeyMaps(
     ),
 
     // misc config section
-    makeRange: config.getTokenKeyMap("makeRange", "misc", only("makeRange")),
-    makeList: config.getTokenKeyMap("makeList", "misc", only("makeList")),
+    targetingMode: config.getTokenKeyMap(
+      "targetingMode",
+      "misc",
+      only("makeRange", "makeVerticalRange", "makeList"),
+    ),
     combineColorAndShape: config.getTokenKeyMap(
       "combineColorAndShape",
       "misc",
@@ -68,6 +71,22 @@ export function getTokenTypeKeyMaps(
     // modifier config section
     every: config.getTokenKeyMap("every", "modifier", only("every")),
     nextPrev: config.getTokenKeyMap("nextPrev", "modifier", only("nextPrev")),
+    headTail: config.getTokenKeyMap(
+      "headTail",
+      "modifier",
+      only("extendThroughStartOf", "extendThroughEndOf"),
+    ),
+    simpleModifier: config.getTokenKeyMap(
+      "simpleModifier",
+      "modifier",
+      only("interiorOnly", "excludeInterior"),
+    ),
+
+    // mark config section
+    simpleSpecialMark: config.getTokenKeyMap(
+      "simpleSpecialMark",
+      "specialMark",
+    ),
 
     digit: Object.fromEntries(
       range(10).map((value) => [

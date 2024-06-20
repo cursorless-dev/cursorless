@@ -11,4 +11,5 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 export const markdownScopeSupport: LanguageScopeSupportFacetMap = {
   "comment.line": supported,
   "comment.block": supported,
+  notebookCell: supported,
 };

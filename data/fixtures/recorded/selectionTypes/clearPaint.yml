@@ -1,10 +1,14 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 5
   spokenForm: change paint
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
-    - {type: primitive, selectionType: nonWhitespaceSequence}
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: nonWhitespaceSequence}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     const r = /a[b]*(c)/;

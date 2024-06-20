@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: bring harp after file
-  version: 2
   action: {name: replaceWithTarget}
   targets:
     - type: primitive

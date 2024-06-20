@@ -1,12 +1,14 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 5
   spokenForm: change bounds each
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: excludeInterior}
+      modifiers:
+        - {type: excludeInterior}
       mark: {type: decoratedSymbol, symbolColor: default, character: e}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     <html id="(hello)">

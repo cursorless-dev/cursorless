@@ -1,11 +1,14 @@
 languageId: markdown
 command:
-  version: 1
+  version: 5
   spokenForm: change one section
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: sectionLevelOne, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: sectionLevelOne}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     # Hello world

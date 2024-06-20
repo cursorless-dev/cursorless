@@ -1,13 +1,17 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 5
   spokenForm: chuck first char whale
-  action: remove
+  action: {name: remove}
   targets:
     - type: primitive
-      selectionType: token
-      modifier: {type: subpiece, pieceType: character, anchor: 0, active: 0, excludeAnchor: false, excludeActive: false}
+      modifiers:
+        - type: ordinalScope
+          scopeType: {type: character}
+          start: 0
+          length: 1
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: foo world whatever
   selections:

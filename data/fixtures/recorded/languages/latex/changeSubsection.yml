@@ -1,11 +1,14 @@
 languageId: latex
 command:
-  version: 1
+  version: 5
   spokenForm: change subsection
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: subSection, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: subSection}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     \subsection{1}

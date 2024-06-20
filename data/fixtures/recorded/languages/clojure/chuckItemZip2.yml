@@ -1,12 +1,15 @@
 languageId: clojure
 command:
-  version: 1
+  version: 5
   spokenForm: chuck item zip
-  action: remove
+  action: {name: remove}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
       mark: {type: decoratedSymbol, symbolColor: default, character: z}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     {

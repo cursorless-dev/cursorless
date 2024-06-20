@@ -8,7 +8,6 @@ import { Target } from "../typings/target.types";
 import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
 import { unifyRemovalTargets } from "../util/unifyRanges";
 import { SimpleAction, ActionReturnValue } from "./actions.types";
-import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 
 export default class Delete implements SimpleAction {
   constructor(private rangeUpdater: RangeUpdater) {
@@ -51,10 +50,7 @@ export default class Delete implements SimpleAction {
         [cursorSelections, editSelections],
       );
 
-    await setSelectionsWithoutFocusingEditor(
-      editableEditor,
-      updatedCursorSelections,
-    );
+    await editableEditor.setSelections(updatedCursorSelections);
 
     return zip(targets, updatedEditSelections).map(
       ([target, range]) =>

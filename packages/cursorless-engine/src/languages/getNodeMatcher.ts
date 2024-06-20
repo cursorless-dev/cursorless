@@ -11,7 +11,6 @@ import { selectionWithEditorFromRange } from "../util/selectionUtils";
 import clojure from "./clojure";
 import { LegacyLanguageId } from "./LegacyLanguageId";
 import csharp from "./csharp";
-import go from "./go";
 import latex from "./latex";
 import markdown from "./markdown";
 import php from "./php";
@@ -52,7 +51,6 @@ export const languageMatchers: Record<
   clojure,
   csharp,
   css: scss,
-  go,
   latex,
   markdown,
   php,

@@ -63,6 +63,19 @@ const testCases: TestCase[] = [
     finalContent: "a +  + b",
   },
   {
+    name: "inside",
+    initialContent: "(aaa)",
+    // change inside air
+    keySequence: ["da", "mi", "c"],
+    finalContent: "()",
+  },
+  {
+    name: "inside tail curly bat",
+    initialContent: "{(aaa bbb ccc)}",
+    keySequence: ["db", "mt", "wb", "mi", "c"],
+    finalContent: "{(aaa }",
+  },
+  {
     name: "wrap",
     initialContent: "a",
     // round wrap air
@@ -75,6 +88,82 @@ const testCases: TestCase[] = [
     // round wrap air; round wrap <keyboard target>
     keySequence: ["da", "aw", "wp", "aw", "wp"],
     finalContent: "((a))\n",
+  },
+  {
+    name: "slice range",
+    initialContent: "aaa bbb\nccc ddd",
+    // keyboard air
+    // keyboard slice past cap
+    keySequence: ["da", "fs", "dc", "st", "c"],
+    finalContent: " bbb\n ddd",
+  },
+  {
+    name: "simple mark",
+    initialContent: "aaa bbb",
+    // keyboard air
+    // keyboard this
+    keySequence: ["da", "mc", "c"],
+    finalContent: "aaa ",
+  },
+  {
+    name: "simple mark range",
+    initialContent: "aaa bbb ccc",
+    // keyboard bat
+    // keyboard past this
+    keySequence: ["db", "fk", "mc", "c"],
+    finalContent: "aaa ",
+  },
+  {
+    name: "simple mark list",
+    initialContent: "aaa bbb ccc",
+    // keyboard bat
+    // keyboard and this
+    keySequence: ["db", "fa", "mc", "c"],
+    finalContent: "aaa  ",
+  },
+  {
+    name: "modifier range",
+    initialContent: "aaa bbb ccc ddd",
+    // clear bat past its next token
+    keySequence: ["db", "fk", "n", "st", "c"],
+    finalContent: "aaa  ddd",
+  },
+  {
+    name: "modifier list",
+    initialContent: "aaa bbb ccc ddd",
+    // clear bat and its second next token
+    keySequence: ["db", "fa", "2", "n", "st", "c"],
+    finalContent: "aaa  ccc ",
+  },
+  {
+    name: "repeat command",
+    initialContent: "aaa bbb ccc ddd",
+    // keyboard air
+    // keyboard next token twice
+    // clear keyboard
+    keySequence: ["da", "nst", " ", "c"],
+    finalContent: "aaa bbb  ddd",
+  },
+  {
+    name: "keyboard undo",
+    initialContent: "aaa bbb",
+    // keyboard air
+    // keyboard bat
+    // undo keyboard
+    // clear
+    keySequence: ["da", "db", "vu", "c"],
+    finalContent: " bbb",
+  },
+  {
+    name: "keyboard redo",
+    initialContent: "aaa bbb",
+    // keyboard air
+    // keyboard bat
+    // undo keyboard
+    // redo keyboard
+    // clear
+    keySequence: ["da", "db", "vu", "vr", "c"],
+    finalContent: "aaa ",
   },
 ];
 

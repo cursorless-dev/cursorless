@@ -1,11 +1,14 @@
 languageId: java
 command:
-  version: 1
+  version: 5
   spokenForm: take comment
-  action: setSelection
+  action: {name: setSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: comment}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: comment}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

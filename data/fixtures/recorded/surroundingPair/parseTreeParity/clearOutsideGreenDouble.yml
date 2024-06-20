@@ -1,12 +1,15 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: change pair blue double quote
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: any}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: any}
       mark: {type: decoratedSymbol, symbolColor: blue, character: '"'}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: "\"\""
   selections:

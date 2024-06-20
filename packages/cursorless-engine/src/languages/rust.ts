@@ -156,15 +156,11 @@ const nodeMatchers: Partial<
     ),
     leadingMatcher(["*.match_pattern![condition]"], ["if"]),
   ),
-  functionCall: ["call_expression", "macro_invocation", "struct_expression"],
-  functionCallee: "call_expression[function]",
-  list: ["array_expression", "tuple_expression"],
   collectionItem: argumentMatcher(
     "array_expression",
     "tuple_expression",
     "tuple_type",
   ),
-  namedFunction: "function_item",
   type: cascadingMatcher(
     leadingMatcher(
       [
@@ -191,8 +187,6 @@ const nodeMatchers: Partial<
       "array_type[element]",
     ),
   ),
-  functionName: ["function_item[name]"],
-  anonymousFunction: "closure_expression",
   argumentOrParameter: argumentMatcher(
     "arguments",
     "parameters",
@@ -221,8 +215,6 @@ const nodeMatchers: Partial<
     ),
     trailingMatcher(["field_initializer[name]", "field_pattern[name]"], [":"]),
   ),
-  class: ["struct_item", "struct_expression", "enum_item"],
-  className: ["struct_item[name]", "enum_item[name]", "trait_item[name]"],
   value: cascadingMatcher(
     leadingMatcher(["let_declaration[value]"], ["="]),
     leadingMatcher(
@@ -238,7 +230,6 @@ const nodeMatchers: Partial<
     matcher(patternFinder("else_clause"), elseExtractor("if_expression")),
     matcher(patternFinder("if_expression"), elseIfExtractor()),
   ),
-  ["private.switchStatementSubject"]: "match_expression[value]",
 };
 
 export default createPatternMatchers(nodeMatchers);

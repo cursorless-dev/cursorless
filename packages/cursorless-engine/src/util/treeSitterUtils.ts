@@ -27,8 +27,8 @@ export function getChildNodesForFieldName(
   let hasNext = true;
 
   while (hasNext) {
-    if (treeCursor.currentFieldName() === fieldName) {
-      ret.push(treeCursor.currentNode());
+    if (treeCursor.currentFieldName === fieldName) {
+      ret.push(treeCursor.currentNode);
     }
 
     hasNext = treeCursor.gotoNextSibling();

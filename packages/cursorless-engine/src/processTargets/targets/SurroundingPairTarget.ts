@@ -47,7 +47,7 @@ export class SurroundingPairTarget extends BaseTarget<SurroundingPairTargetParam
     return getTokenRemovalRange(this);
   }
 
-  getInteriorStrict() {
+  getInterior() {
     return [
       new InteriorTarget({
         editor: this.editor,
@@ -57,7 +57,7 @@ export class SurroundingPairTarget extends BaseTarget<SurroundingPairTargetParam
     ];
   }
 
-  getBoundaryStrict() {
+  getBoundary() {
     return this.boundary_.map(
       (contentRange) =>
         new TokenTarget({

@@ -1,11 +1,14 @@
 languageId: csharp
 command:
-  version: 1
+  version: 5
   spokenForm: change call
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: functionCall, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionCall}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: Taxi t = new Taxi();
   selections:

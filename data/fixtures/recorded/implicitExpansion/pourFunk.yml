@@ -1,14 +1,14 @@
 languageId: typescript
 command:
+  version: 5
   spokenForm: pour funk
-  version: 2
+  action: {name: editNewLineAfter}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: namedFunction}
   usePrePhraseSnapshot: true
-  action: {name: editNewLineAfter}
 initialState:
   documentContents: |-
     function myFunk() {

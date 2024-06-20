@@ -1,12 +1,15 @@
 languageId: ruby
 command:
-  version: 1
+  version: 5
   spokenForm: change arg whale
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: a(hello, world)
   selections:

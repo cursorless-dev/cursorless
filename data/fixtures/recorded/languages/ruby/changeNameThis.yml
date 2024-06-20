@@ -1,12 +1,15 @@
 languageId: ruby
 command:
-  version: 1
+  version: 5
   spokenForm: change name this
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: name, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
       mark: {type: cursor}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: a = "hello"
   selections:

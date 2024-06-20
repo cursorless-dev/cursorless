@@ -1,13 +1,17 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: take last two subs harp
-  action: setSelection
+  action: {name: setSelection}
   targets:
     - type: primitive
-      selectionType: token
-      modifier: {type: subpiece, pieceType: word, anchor: -2, active: -1}
+      modifiers:
+        - type: ordinalScope
+          scopeType: {type: word}
+          start: -2
+          length: 2
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |+
 

@@ -1,0 +1,51 @@
+<?php
+    "aaa";
+    'aaa';
+    `aaa`;
+    "aaa $bbb ccc"
+    `aaa $bbb ccc`;
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 1:5-1:8
+       >---<
+1|     "aaa";
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] =
+[#2 Domain] = 2:5-2:8
+       >---<
+2|     'aaa';
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] =
+[#3 Removal] =
+[#3 Domain] = 3:5-3:8
+       >---<
+3|     `aaa`;
+
+[#3 Insertion delimiter] = " "
+
+
+[#4 Content] =
+[#4 Removal] =
+[#4 Domain] = 4:5-4:17
+       >------------<
+4|     "aaa $bbb ccc"
+
+[#4 Insertion delimiter] = " "
+
+
+[#5 Content] =
+[#5 Removal] =
+[#5 Domain] = 5:5-5:17
+       >------------<
+5|     `aaa $bbb ccc`;
+
+[#5 Insertion delimiter] = " "

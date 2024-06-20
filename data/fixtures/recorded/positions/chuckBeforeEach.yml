@@ -1,12 +1,14 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 5
   spokenForm: chuck leading each
-  action: remove
+  action: {name: remove}
   targets:
     - type: primitive
-      position: before
+      modifiers:
+        - {type: leading}
       mark: {type: decoratedSymbol, symbolColor: default, character: e}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     "hello "

@@ -277,3 +277,94 @@
   (if_statement) @branch.iteration
   (#not-parent-type? @branch.iteration if_statement)
 )
+
+(if_statement) @ifStatement
+
+[
+  (call_expression)
+  (composite_literal)
+] @functionCall
+
+(call_expression
+  function: (_) @functionCallee
+) @_.domain
+(composite_literal
+  type: (_) @functionCallee
+) @_.domain
+
+(keyed_element
+  .
+  (_) @collectionKey
+  .
+  (_) @value
+) @_.domain
+
+(return_statement
+  (expression_list) @value
+) @_.domain
+
+(literal_value) @collectionKey.iteration @value.iteration
+
+[
+  (pointer_type)
+  (qualified_type)
+  (type_identifier)
+] @type
+
+(function_declaration
+  result: (_) @type
+) @_.domain
+(method_declaration
+  result: (_) @type
+) @_.domain
+
+;;!! if true {}
+(
+  (_
+    condition: (_) @condition
+  ) @_.domain
+  (#not-type? @condition parenthesized_expression)
+)
+
+;;!! if (true) {}
+(
+  (_
+    condition: (parenthesized_expression) @condition
+  ) @_.domain
+  (#child-range! @condition 0 -1 true true)
+)
+
+;;!! func add(x int, y int) int {}
+(
+  (parameter_list
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#not-type? @argumentOrParameter "comment")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
+;;!! add(1, 2)
+(
+  (argument_list
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#not-type? @argumentOrParameter "comment")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
+(parameter_list
+  "(" @argumentOrParameter.iteration.start.endOf
+  ")" @argumentOrParameter.iteration.end.startOf
+) @argumentOrParameter.iteration.domain
+(argument_list
+  "(" @argumentOrParameter.iteration.start.endOf
+  ")" @argumentOrParameter.iteration.end.startOf
+) @argumentOrParameter.iteration.domain

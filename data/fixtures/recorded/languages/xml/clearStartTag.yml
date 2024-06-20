@@ -1,11 +1,14 @@
 languageId: xml
 command:
-  version: 1
+  version: 5
   spokenForm: change start tag
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: xmlStartTag, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: xmlStartTag}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: <note>foo</note>
   selections:

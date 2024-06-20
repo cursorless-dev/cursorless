@@ -101,7 +101,7 @@ export class Debug {
     cursor: TreeCursor,
     index: number,
   ) {
-    const field = cursor.currentFieldName();
+    const field = cursor.currentFieldName;
     const fieldText = field != null ? `${field}: ` : "";
     const indent = " ".repeat(index);
     const nodeIsLast = index === nodes.length - 1;
@@ -133,7 +133,7 @@ export class Debug {
 
   private cursorGoToChildWithId(cursor: TreeCursor, id: number): boolean {
     cursor.gotoFirstChild();
-    while (cursor.currentNode().id !== id) {
+    while (cursor.currentNode.id !== id) {
       if (!cursor.gotoNextSibling()) {
         return false;
       }

@@ -1,7 +1,8 @@
 languageId: rust
 command:
+  version: 5
   spokenForm: chuck type plex
-  version: 2
+  action: {name: remove}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: x}
@@ -9,7 +10,6 @@ command:
         - type: containingScope
           scopeType: {type: type}
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: |
     const X: [u8; 2] = [0, 0];

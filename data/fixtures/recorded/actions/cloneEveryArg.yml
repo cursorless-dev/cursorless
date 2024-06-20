@@ -1,14 +1,14 @@
 languageId: typescript
 command:
+  version: 5
   spokenForm: clone every arg
-  version: 2
+  action: {name: insertCopyAfter}
   targets:
     - type: primitive
       modifiers:
         - type: everyScope
           scopeType: {type: argumentOrParameter}
   usePrePhraseSnapshot: true
-  action: {name: insertCopyAfter}
 initialState:
   documentContents: "function myFunk(a: number, b: number) {}"
   selections:

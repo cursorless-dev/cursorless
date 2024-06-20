@@ -1,21 +1,21 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: chuck inside each past whale
-  version: 2
+  action: {name: remove}
   targets:
-    - type: range
+    - active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      type: range
+      excludeAnchor: false
+      excludeActive: false
       anchor:
         type: primitive
         modifiers:
           - {type: interiorOnly}
         mark: {type: decoratedSymbol, symbolColor: default, character: e}
-      active:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: w}
-      excludeAnchor: false
-      excludeActive: false
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: |
     ( hello world )

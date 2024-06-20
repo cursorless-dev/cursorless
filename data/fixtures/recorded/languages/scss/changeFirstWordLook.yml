@@ -1,19 +1,17 @@
 languageId: scss
 command:
+  version: 5
   spokenForm: change first sub look
-  version: 2
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: l}
       modifiers:
-        - type: ordinalRange
+        - type: ordinalScope
           scopeType: {type: word}
-          anchor: 0
-          active: 0
-          excludeAnchor: false
-          excludeActive: false
+          start: 0
+          length: 1
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |2-
      .long-bem-class-name {

@@ -1,14 +1,16 @@
-import { Modifier, SurroundingPairName } from "@cursorless/common";
+import { Modifier, PartialMark, SurroundingPairName } from "@cursorless/common";
+import { surroundingPairsDelimiters } from "@cursorless/cursorless-engine";
+import { isString } from "lodash";
 import * as vscode from "vscode";
 import { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 import {
   SimpleKeyboardActionDescriptor,
   SpecificKeyboardActionDescriptor,
 } from "./KeyboardActionType";
-import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
+import KeyboardCommandsTargeted, {
+  TargetingMode,
+} from "./KeyboardCommandsTargeted";
 import { ModalVscodeCommandDescriptor } from "./TokenTypes";
-import { surroundingPairsDelimiters } from "@cursorless/cursorless-engine";
-import { isString } from "lodash";
 
 /**
  * This class defines the keyboard commands available to our modal keyboard
@@ -89,8 +91,18 @@ export class KeyboardCommandHandler {
     );
   }
 
-  modifyTarget({ modifier }: { modifier: Modifier }) {
-    this.targeted.targetModifier(modifier);
+  modifyTarget({
+    modifier,
+    mode,
+  }: {
+    modifier: Modifier;
+    mode?: TargetingMode;
+  }) {
+    this.targeted.targetModifier(modifier, mode);
+  }
+
+  targetMark({ mark, mode }: { mark: PartialMark; mode?: TargetingMode }) {
+    this.targeted.targetMark(mark, mode);
   }
 }
 
@@ -99,7 +111,7 @@ interface DecoratedMarkArg {
     color?: HatColor;
     shape?: HatShape;
   };
-  mode: "replace" | "extend" | "append";
+  mode: TargetingMode;
 }
 
 interface WrapActionArg {
