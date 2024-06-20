@@ -20,7 +20,6 @@ export class KeyboardConfig {
   }
 
   private getCursorStyle(): TextEditorCursorStyle {
-    
     const mapper: Record<string, TextEditorCursorStyle> = {
       line: TextEditorCursorStyle.Line,
       block: TextEditorCursorStyle.Block,
