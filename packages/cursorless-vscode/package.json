@@ -889,7 +889,7 @@
                   "editNew",
                   "editNewLineAfter",
                   "editNewLineBefore",
-                  "exiecuteCommand",
+                  "executeCommand",
                   "extractVariable",
                   "findInDocument",
                   "findInWorkspace",
