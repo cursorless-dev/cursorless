@@ -24,11 +24,17 @@ export function getPartialTargetDescriptors(
     case "editNew":
       return getPartialTargetDescriptorsFromDestination(action.destination);
     case "parsed":
-      // FIXME: The args might actually be targets; not sure how to handle
-      return [];
+      // FIXME: This is a hack
+      return action.arguments.filter(isPartialTargetDescriptor);
     default:
       return [action.target];
   }
+}
+
+function isPartialTargetDescriptor(
+  arg: unknown,
+): arg is PartialTargetDescriptor {
+  return typeof arg === "object" && arg != null && "type" in arg;
 }
 
 function getPartialTargetDescriptorsFromDestination(
