@@ -16,6 +16,7 @@ export interface NearleyLexer {
   save: () => any;
   formatError: (token: any, message: string) => string;
   has: (tokenType: any) => boolean;
+  transform({ value }: NearleyToken): string;
 }
 
 interface State {
@@ -61,7 +62,7 @@ export class CommandLexer implements NearleyLexer {
     return token;
   }
 
-  transform({ value }: MooToken) {
+  transform({ value }: NearleyToken) {
     return value;
   }
 
