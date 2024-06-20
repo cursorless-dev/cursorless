@@ -9,6 +9,7 @@ import {
 } from "@cursorless/common";
 import { CommandRunner } from "../../CommandRunner";
 import { ActionRecord, ActionReturnValue } from "../../actions/actions.types";
+import { parseAndFillOutAction } from "../../customCommandGrammar/parseAndFillOutAction";
 import { StoredTargetMap } from "../../index";
 import { TargetPipelineRunner } from "../../processTargets";
 import { ModifierStage } from "../../processTargets/PipelineStages.types";
@@ -18,7 +19,6 @@ import { Debug } from "../Debug";
 import { getCommandFallback } from "../getCommandFallback";
 import { inferFullTargetDescriptor } from "../inferFullTargetDescriptor";
 import { selectionToStoredTarget } from "./selectionToStoredTarget";
-import { parseAction } from "../../customCommandGrammar/parseCommand";
 
 export class CommandRunnerImpl implements CommandRunner {
   private inferenceContext: InferenceContext;
@@ -202,10 +202,12 @@ export class CommandRunnerImpl implements CommandRunner {
         );
 
       case "parsed":
-        this.inferenceContext.setPlaceholderTargets(actionDescriptor.targets);
-        return this.runAction(parseAction(actionDescriptor.content), {
-          keepInferenceState: true,
-        });
+        return this.runAction(
+          parseAndFillOutAction(
+            actionDescriptor.content,
+            actionDescriptor.targets,
+          ),
+        );
 
       default: {
         const action = this.actions[actionDescriptor.name];

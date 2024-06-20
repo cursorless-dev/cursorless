@@ -19,12 +19,10 @@ export interface NearleyLexer {
 }
 
 interface State {
-  placeholderIndex: number;
   mooState: MooLexerState;
 }
 
 export class CommandLexer implements NearleyLexer {
-  private placeholderIndex = 0;
   private mooLexer: MooLexer;
 
   constructor(rules: Rules) {
@@ -32,10 +30,9 @@ export class CommandLexer implements NearleyLexer {
   }
 
   reset(chunk?: string, state?: State): this {
-    const { placeholderIndex = 0, mooState } = state ?? {};
+    const { mooState } = state ?? {};
 
     this.mooLexer.reset(chunk, mooState);
-    this.placeholderIndex = placeholderIndex;
 
     return this;
   }
@@ -50,21 +47,18 @@ export class CommandLexer implements NearleyLexer {
 
   save(): State {
     return {
-      placeholderIndex: this.placeholderIndex,
       mooState: this.mooLexer.save(),
     };
   }
 
   next(): NearleyToken | undefined {
-    const rawToken = this.mooLexer.next();
+    const token = this.mooLexer.next();
 
-    if (this.skipToken(rawToken)) {
+    if (this.skipToken(token)) {
       return this.next();
     }
 
-    return rawToken?.type === "placeholderMark"
-      ? { type: "placeholderMark", value: this.placeholderIndex++ }
-      : rawToken;
+    return token;
   }
 
   transform({ value }: MooToken) {

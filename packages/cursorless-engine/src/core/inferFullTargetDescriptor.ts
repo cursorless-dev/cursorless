@@ -118,10 +118,13 @@ function inferPrimitiveTarget(
   context: InferenceContext,
   target: PartialPrimitiveTargetDescriptor,
 ): PrimitiveTargetDescriptor {
-  const mark = fillPlaceholders(context, target.mark) ??
-    (shouldInferPreviousMark(target) ? getPreviousMark(context) : null) ?? {
-      type: "cursor",
-    };
+  const mark = handleTargetMark(
+    context,
+    target.mark ??
+      (shouldInferPreviousMark(target) ? getPreviousMark(context) : null) ?? {
+        type: "cursor",
+      },
+  );
 
   const modifiers =
     getPreservedModifiers(target) ??
@@ -187,7 +190,7 @@ function getLineNumberMarkModifiers(
  * @returns True if this target has a line number mark
  */
 function isLineNumberMark(target: PartialPrimitiveTargetDescriptor): boolean {
-  const isLineNumber = (mark?: Mark) => mark?.type === "lineNumber";
+  const isLineNumber = (mark?: PartialMark) => mark?.type === "lineNumber";
   if (isLineNumber(target.mark)) {
     return true;
   }
@@ -199,7 +202,7 @@ function isLineNumberMark(target: PartialPrimitiveTargetDescriptor): boolean {
 
 function getPreviousMark({
   previousTargets,
-}: InferenceContext): Mark | undefined {
+}: InferenceContext): PartialMark | undefined {
   return getPreviousTargetAttribute(
     previousTargets,
     (target: PartialPrimitiveTargetDescriptor) => target.mark,
@@ -271,32 +274,20 @@ function getPreviousTargetAttribute<T>(
   return undefined;
 }
 
-function fillPlaceholders(
-  context: InferenceContext,
-  mark: PartialMark | undefined,
-): Mark | undefined {
-  if (mark == null || mark.type !== "placeholder") {
-    return mark;
+function handleTargetMark(context: InferenceContext, mark: PartialMark): Mark {
+  switch (mark.type) {
+    case "range":
+      return {
+        ...mark,
+        anchor: handleTargetMark(context, mark.anchor),
+        active: handleTargetMark(context, mark.active),
+      };
+    case "target":
+      return {
+        type: "target",
+        target: inferFullTargetDescriptor(context, mark.target),
+      };
+    default:
+      return mark;
   }
-
-  return {
-    type: "target",
-    target: inferFullTargetDescriptor(
-      {
-        placeholderTargets: [],
-        previousTargets: [],
-      },
-      indexArrayStrict(context.placeholderTargets, mark.index, "targets"),
-    ),
-  };
-}
-
-function indexArrayStrict<T>(arr: T[], idx: number, name: string): T {
-  if (idx >= arr.length) {
-    throw Error(
-      `Expected at least ${idx + 1} ${name} but received only ${arr.length}`,
-    );
-  }
-
-  return arr[idx];
 }

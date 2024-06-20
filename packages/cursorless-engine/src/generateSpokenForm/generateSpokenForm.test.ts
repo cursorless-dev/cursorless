@@ -1,5 +1,4 @@
 import {
-  LATEST_VERSION,
   TestCaseFixtureLegacy,
   getRecordedTestPaths,
   serializeTestFixture,
@@ -55,31 +54,6 @@ suite("Generate spoken forms", () => {
 
     assert(spokenForm.type === "success");
     assert.equal(spokenForm.spokenForms, "bar");
-  });
-
-  test("generate spoken form for command with placeholder", () => {
-    const generator = new SpokenFormGenerator(spokenFormMap);
-
-    const spokenForm = generator.processCommand({
-      action: {
-        name: "setSelection",
-        target: {
-          type: "primitive",
-          modifiers: [
-            { type: "containingScope", scopeType: { type: "paragraph" } },
-          ],
-          mark: {
-            type: "placeholder",
-            index: 0,
-          },
-        },
-      },
-      version: LATEST_VERSION,
-      usePrePhraseSnapshot: false,
-    });
-
-    assert(spokenForm.type === "success");
-    assert.equal(spokenForm.spokenForms, "take block <target>");
   });
 });
 

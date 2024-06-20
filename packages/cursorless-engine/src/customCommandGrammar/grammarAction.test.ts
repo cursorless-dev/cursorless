@@ -1,10 +1,11 @@
 import { type ActionDescriptor } from "@cursorless/common";
 import assert from "assert";
 import { parseAction } from "./parseCommand";
+import { WithPlaceholders } from "./WithPlaceholders";
 
 interface TestCase {
   input: string;
-  expectedOutput: ActionDescriptor;
+  expectedOutput: WithPlaceholders<ActionDescriptor>;
 }
 
 const testCases: TestCase[] = [
@@ -45,7 +46,7 @@ const testCases: TestCase[] = [
     },
   },
   {
-    input: "take block <target>",
+    input: "take block $1",
     expectedOutput: {
       name: "setSelection",
       target: {
@@ -53,33 +54,43 @@ const testCases: TestCase[] = [
         modifiers: [
           { type: "containingScope", scopeType: { type: "paragraph" } },
         ],
-        mark: { type: "placeholder", index: 0 },
+        mark: { type: "target", target: { type: "placeholder", index: 0 } },
       },
     },
   },
   {
-    input: "move token after <target>",
+    input: "move $1 after line $2",
     expectedOutput: {
       name: "moveToTarget",
       source: {
         type: "primitive",
-        modifiers: [
-          {
-            type: "containingScope",
-            scopeType: {
-              type: "token",
-            },
+        mark: {
+          type: "target",
+          target: {
+            type: "placeholder",
+            index: 0,
           },
-        ],
+        },
       },
       destination: {
         type: "primitive",
         insertionMode: "after",
         target: {
           type: "primitive",
+          modifiers: [
+            {
+              type: "containingScope",
+              scopeType: {
+                type: "line",
+              },
+            },
+          ],
           mark: {
-            type: "placeholder",
-            index: 0,
+            type: "target",
+            target: {
+              type: "placeholder",
+              index: 1,
+            },
           },
         },
       },

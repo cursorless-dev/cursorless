@@ -1,5 +1,6 @@
 import { ScopeType, type ActionDescriptor } from "@cursorless/common";
 import { Grammar, Parser } from "nearley";
+import { WithPlaceholders } from "./WithPlaceholders";
 import grammar from "./generated/grammar";
 
 function getScopeTypeParser(): Parser {
@@ -38,7 +39,7 @@ export function parseScopeType(input: string): ScopeType {
  * @param input A textual representation of a action
  * @returns A parsed action descriptor
  */
-export function parseAction(input: string): ActionDescriptor {
+export function parseAction(input: string): WithPlaceholders<ActionDescriptor> {
   const parser = getActionParser();
   parser.feed(input);
 
@@ -48,5 +49,5 @@ export function parseAction(input: string): ActionDescriptor {
     );
   }
 
-  return parser.results[0] as ActionDescriptor;
+  return parser.results[0] as WithPlaceholders<ActionDescriptor>;
 }

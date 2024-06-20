@@ -68,15 +68,15 @@ const fixtures: Fixture[] = [
     ],
   },
   {
-    input: "<target> <target>",
+    input: "$1 $2",
     expectedOutput: [
       {
-        type: "placeholderMark",
-        value: 0,
+        type: "placeholder",
+        value: "1",
       },
       {
-        type: "placeholderMark",
-        value: 1,
+        type: "placeholder",
+        value: "2",
       },
     ],
   },

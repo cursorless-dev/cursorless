@@ -4,7 +4,7 @@ import {
   InsertionMode,
   PartialListTargetDescriptor,
   PartialRangeTargetDescriptor,
-  PlaceholderMark,
+  PartialTargetMark,
   PrimitiveDestinationDescriptor,
   type ContainingScopeModifier,
   type Modifier,
@@ -20,6 +20,7 @@ import {
   type SurroundingPairName,
   type SurroundingPairScopeType,
 } from "@cursorless/common";
+import { Placeholder } from "./WithPlaceholders";
 
 export function simpleActionDescriptor(
   name: SimpleActionName,
@@ -85,6 +86,12 @@ export function simplePartialMark(
   return { type };
 }
 
-export function createPlaceholderMark(index: number): PlaceholderMark {
-  return { type: "placeholder", index };
+export function createPlaceholder(index: string): Placeholder {
+  return { type: "placeholder", index: parseInt(index) - 1 };
+}
+
+export function createTargetMark(
+  target: PartialTargetDescriptor,
+): PartialTargetMark {
+  return { type: "target", target };
 }

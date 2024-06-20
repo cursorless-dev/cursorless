@@ -9,7 +9,7 @@ declare var insertionMode: any;
 declare var simpleScopeTypeType: any;
 declare var pairedDelimiter: any;
 declare var simpleMarkType: any;
-declare var placeholderMark: any;
+declare var placeholder: any;
 
 import { capture } from "../../util/grammarHelpers";
 import { lexer } from "../lexer";
@@ -17,7 +17,8 @@ import {
   bringMoveActionDescriptor,
   containingScopeModifier,
   partialPrimitiveTargetDescriptor,
-  createPlaceholderMark,
+  createPlaceholder,
+  createTargetMark,
   primitiveDestinationDescriptor,
   simpleActionDescriptor,
   simplePartialMark,
@@ -95,8 +96,11 @@ const grammar: Grammar = {
     {"name": "mark", "symbols": [(lexer.has("simpleMarkType") ? {type: "simpleMarkType"} : simpleMarkType)], "postprocess": 
         ([simpleMarkType]) => simplePartialMark(simpleMarkType)
         },
-    {"name": "mark", "symbols": [(lexer.has("placeholderMark") ? {type: "placeholderMark"} : placeholderMark)], "postprocess": 
-        ([placeholderMark]) => createPlaceholderMark(placeholderMark)
+    {"name": "mark", "symbols": ["placeholder"], "postprocess": 
+        ([placeholder]) => createTargetMark(placeholder)
+        },
+    {"name": "placeholder", "symbols": [(lexer.has("placeholder") ? {type: "placeholder"} : placeholder)], "postprocess": 
+        ([placeholder]) => createPlaceholder(placeholder)
         }
   ],
   ParserStart: "main",

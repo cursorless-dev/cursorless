@@ -6,7 +6,8 @@ import {
   bringMoveActionDescriptor,
   containingScopeModifier,
   partialPrimitiveTargetDescriptor,
-  createPlaceholderMark,
+  createPlaceholder,
+  createTargetMark,
   primitiveDestinationDescriptor,
   simpleActionDescriptor,
   simplePartialMark,
@@ -78,6 +79,10 @@ mark -> %simpleMarkType {%
   ([simpleMarkType]) => simplePartialMark(simpleMarkType)
 %}
 
-mark -> %placeholderMark {%
-  ([placeholderMark]) => createPlaceholderMark(placeholderMark)
+mark -> placeholder {%
+  ([placeholder]) => createTargetMark(placeholder)
+%}
+
+placeholder -> %placeholder {%
+  ([placeholder]) => createPlaceholder(placeholder)
 %}

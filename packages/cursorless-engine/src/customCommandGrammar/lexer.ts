@@ -88,13 +88,12 @@ for (const [mark, spokenForm] of Object.entries(marks)) {
   }
 }
 
-tokens["<target>"] = {
-  type: "placeholderMark",
-  value: "placeholder",
-};
-
 export const lexer = new CommandLexer({
   ws: /[ \t]+/,
+  placeholder: {
+    match: /\$\d+/,
+    value: (text) => text.slice(1),
+  },
   token: {
     match: Object.keys(tokens),
     type: (text) => tokens[text].type,
