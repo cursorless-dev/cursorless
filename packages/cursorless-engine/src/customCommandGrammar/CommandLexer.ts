@@ -11,7 +11,7 @@ export interface NearleyToken {
 }
 
 export interface NearleyLexer {
-  reset: (chunk: any, info?: any) => NearleyLexer;
+  reset: (chunk: any, info?: any) => this;
   next: () => NearleyToken | undefined;
   save: () => any;
   formatError: (token: any, message: string) => string;
