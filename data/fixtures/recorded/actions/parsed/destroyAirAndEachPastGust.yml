@@ -4,8 +4,8 @@ command:
   spokenForm: destroy air and each past gust
   action:
     name: parsed
-    content: chuck block <target>
-    targets:
+    content: chuck block $1
+    arguments:
       - type: list
         elements:
           - type: primitive

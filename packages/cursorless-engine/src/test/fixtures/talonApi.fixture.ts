@@ -143,12 +143,12 @@ function getTextAction(options: GetTextActionOptions): ActionDescriptor {
 const parsedActionNoTargets: ActionDescriptor = {
   name: "parsed",
   content: "chuck block",
-  targets: [],
+  arguments: [],
 };
 const parsedActionAir: ActionDescriptor = {
   name: "parsed",
-  content: "chuck block <target>",
-  targets: [
+  content: "chuck block $1",
+  arguments: [
     {
       type: "list",
       elements: [
@@ -174,8 +174,8 @@ const parsedActionAir: ActionDescriptor = {
 };
 const parsedActionAirPlusBat: ActionDescriptor = {
   name: "parsed",
-  content: "bring block <target> after <target>",
-  targets: [
+  content: "bring block $1 after $2",
+  arguments: [
     {
       type: "primitive",
       mark: {

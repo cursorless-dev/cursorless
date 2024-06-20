@@ -223,7 +223,7 @@ export interface GetTextActionDescriptor {
 interface ParsedActionDescriptor {
   name: "parsed";
   content: string;
-  targets: PartialTargetDescriptor[];
+  arguments: unknown[];
 }
 
 export type ActionDescriptor =

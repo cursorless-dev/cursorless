@@ -24,7 +24,8 @@ export function getPartialTargetDescriptors(
     case "editNew":
       return getPartialTargetDescriptorsFromDestination(action.destination);
     case "parsed":
-      return action.targets;
+      // FIXME: The args might actually be targets; not sure how to handle
+      return [];
     default:
       return [action.target];
   }

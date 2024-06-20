@@ -92,13 +92,10 @@ export class CommandRunnerImpl implements CommandRunner {
 
   private runAction(
     actionDescriptor: ActionDescriptor,
-    { keepInferenceState = false }: { keepInferenceState?: boolean } = {},
   ): Promise<ActionReturnValue> {
     // Prepare to run the action by resetting the inference context and
     // defaulting the final stages to an empty array
-    if (!keepInferenceState) {
-      this.inferenceContext.reset();
-    }
+    this.inferenceContext.reset();
     this.finalStages = [];
 
     switch (actionDescriptor.name) {
@@ -205,7 +202,7 @@ export class CommandRunnerImpl implements CommandRunner {
         return this.runAction(
           parseAndFillOutAction(
             actionDescriptor.content,
-            actionDescriptor.targets,
+            actionDescriptor.arguments,
           ),
         );
 
@@ -261,22 +258,11 @@ export class CommandRunnerImpl implements CommandRunner {
  */
 class InferenceContext {
   private previousTargets: PartialTargetDescriptor[] = [];
-  private placeholderTargets: PartialTargetDescriptor[] = [];
 
   constructor(private debug: Debug) {}
 
-  setPlaceholderTargets(placeholderTargets: PartialTargetDescriptor[]) {
-    this.placeholderTargets = placeholderTargets;
-  }
-
   run(target: PartialTargetDescriptor) {
-    const ret = inferFullTargetDescriptor(
-      {
-        previousTargets: this.previousTargets,
-        placeholderTargets: this.placeholderTargets,
-      },
-      target,
-    );
+    const ret = inferFullTargetDescriptor(target, this.previousTargets);
 
     if (this.debug.active) {
       this.debug.log("Full target:");
@@ -289,7 +275,6 @@ class InferenceContext {
 
   reset() {
     this.previousTargets = [];
-    this.placeholderTargets = [];
   }
 }
 

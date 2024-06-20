@@ -1,3 +1,4 @@
+import { indexArrayStrict } from "../core/indexArrayStrict";
 import { Placeholder, WithPlaceholders } from "./WithPlaceholders";
 
 export function fillPlaceholders<T>(
@@ -9,6 +10,10 @@ export function fillPlaceholders<T>(
   }
 
   if (typeof input === "object" && input != null) {
+    if (isPlaceholder(input)) {
+      return indexArrayStrict(values, input.index, "placeholder value") as T;
+    }
+
     const result: Partial<T> = {};
     for (const key in input) {
       if (Object.prototype.hasOwnProperty.call(input, key)) {
@@ -16,10 +21,6 @@ export function fillPlaceholders<T>(
       }
     }
     return result as T;
-  }
-
-  if (isPlaceholder(input)) {
-    return values[input.index] as T;
   }
 
   return input as T;

@@ -15,11 +15,6 @@ import {
 } from "../typings/TargetDescriptor";
 import { handleHoistedModifiers } from "./handleHoistedModifiers";
 
-interface InferenceContext {
-  previousTargets: PartialTargetDescriptor[];
-  placeholderTargets: PartialTargetDescriptor[];
-}
-
 /**
  * Performs inference on the partial target provided by the user, using previous
  * targets, global defaults, and action-specific defaults to fill out any
@@ -35,58 +30,46 @@ interface InferenceContext {
  * target pipeline runner.
  */
 export function inferFullTargetDescriptor(
-  context: InferenceContext,
   target: PartialTargetDescriptor,
+  previousTargets: PartialTargetDescriptor[],
 ): TargetDescriptor {
   switch (target.type) {
     case "list":
-      return inferListTarget(context, target);
+      return inferListTarget(target, previousTargets);
     case "range":
-      return inferRangeTargetWithHoist(context, target);
+      return inferRangeTargetWithHoist(target, previousTargets);
     case "primitive":
-      return inferPrimitiveTarget(context, target);
+      return inferPrimitiveTarget(target, previousTargets);
     case "implicit":
       return target;
   }
 }
 
-function addPreviousTargets(
-  context: InferenceContext,
-  ...targets: PartialTargetDescriptor[]
-): InferenceContext {
-  return {
-    ...context,
-    previousTargets: context.previousTargets.concat(targets),
-  };
-}
-
 function inferListTarget(
-  context: InferenceContext,
   target: PartialListTargetDescriptor,
+  previousTargets: PartialTargetDescriptor[],
 ): ListTargetDescriptor {
   return {
     ...target,
     elements: target.elements.map((element, index) => {
-      const newContext = addPreviousTargets(
-        context,
-        ...target.elements.slice(0, index),
+      const elementPreviousTargets = previousTargets.concat(
+        target.elements.slice(0, index),
       );
-
       switch (element.type) {
         case "range":
-          return inferRangeTargetWithHoist(newContext, element);
+          return inferRangeTargetWithHoist(element, elementPreviousTargets);
         case "primitive":
-          return inferPrimitiveTarget(newContext, element);
+          return inferPrimitiveTarget(element, elementPreviousTargets);
       }
     }),
   };
 }
 
 function inferRangeTargetWithHoist(
-  context: InferenceContext,
   target: PartialRangeTargetDescriptor,
+  previousTargets: PartialTargetDescriptor[],
 ): RangeTargetDescriptor | PrimitiveTargetDescriptor {
-  const fullTarget = inferRangeTarget(context, target);
+  const fullTarget = inferRangeTarget(target, previousTargets);
 
   const isAnchorMarkImplicit =
     target.anchor.type === "implicit" || target.anchor.mark == null;
@@ -95,8 +78,8 @@ function inferRangeTargetWithHoist(
 }
 
 function inferRangeTarget(
-  context: InferenceContext,
   target: PartialRangeTargetDescriptor,
+  previousTargets: PartialTargetDescriptor[],
 ): RangeTargetDescriptor {
   return {
     type: "range",
@@ -106,30 +89,31 @@ function inferRangeTarget(
     anchor:
       target.anchor.type === "implicit"
         ? target.anchor
-        : inferPrimitiveTarget(context, target.anchor),
+        : inferPrimitiveTarget(target.anchor, previousTargets),
     active: inferPrimitiveTarget(
-      addPreviousTargets(context, target.anchor),
       target.active,
+      previousTargets.concat(target.anchor),
     ),
   };
 }
 
 function inferPrimitiveTarget(
-  context: InferenceContext,
   target: PartialPrimitiveTargetDescriptor,
+  previousTargets: PartialTargetDescriptor[],
 ): PrimitiveTargetDescriptor {
   const mark = handleTargetMark(
-    context,
     target.mark ??
-      (shouldInferPreviousMark(target) ? getPreviousMark(context) : null) ?? {
+      (shouldInferPreviousMark(target)
+        ? getPreviousMark(previousTargets)
+        : null) ?? {
         type: "cursor",
       },
   );
 
   const modifiers =
     getPreservedModifiers(target) ??
-    getPreviousPreservedModifiers(context) ??
-    getPreviousLineNumberMarkModifiers(context) ??
+    getPreviousPreservedModifiers(previousTargets) ??
+    getPreviousLineNumberMarkModifiers(previousTargets) ??
     [];
 
   return {
@@ -200,24 +184,24 @@ function isLineNumberMark(target: PartialPrimitiveTargetDescriptor): boolean {
   return false;
 }
 
-function getPreviousMark({
-  previousTargets,
-}: InferenceContext): PartialMark | undefined {
+function getPreviousMark(
+  previousTargets: PartialTargetDescriptor[],
+): PartialMark | undefined {
   return getPreviousTargetAttribute(
     previousTargets,
     (target: PartialPrimitiveTargetDescriptor) => target.mark,
   );
 }
 
-function getPreviousPreservedModifiers({
-  previousTargets,
-}: InferenceContext): Modifier[] | undefined {
+function getPreviousPreservedModifiers(
+  previousTargets: PartialTargetDescriptor[],
+): Modifier[] | undefined {
   return getPreviousTargetAttribute(previousTargets, getPreservedModifiers);
 }
 
-function getPreviousLineNumberMarkModifiers({
-  previousTargets,
-}: InferenceContext): Modifier[] | undefined {
+function getPreviousLineNumberMarkModifiers(
+  previousTargets: PartialTargetDescriptor[],
+): Modifier[] | undefined {
   return getPreviousTargetAttribute(
     previousTargets,
     getLineNumberMarkModifiers,
@@ -274,18 +258,18 @@ function getPreviousTargetAttribute<T>(
   return undefined;
 }
 
-function handleTargetMark(context: InferenceContext, mark: PartialMark): Mark {
+function handleTargetMark(mark: PartialMark): Mark {
   switch (mark.type) {
     case "range":
       return {
         ...mark,
-        anchor: handleTargetMark(context, mark.anchor),
-        active: handleTargetMark(context, mark.active),
+        anchor: handleTargetMark(mark.anchor),
+        active: handleTargetMark(mark.active),
       };
     case "target":
       return {
         type: "target",
-        target: inferFullTargetDescriptor(context, mark.target),
+        target: inferFullTargetDescriptor(mark.target, []),
       };
     default:
       return mark;

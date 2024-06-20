@@ -4,8 +4,8 @@ command:
   spokenForm: destroy air
   action:
     name: parsed
-    content: chuck block <target>
-    targets:
+    content: chuck block $1
+    arguments:
       - type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: a}
   usePrePhraseSnapshot: true

@@ -1,10 +1,9 @@
-from typing import Optional
+from typing import Any, Optional
 
 from talon import Module, actions
 
 from .targets.target_types import (
     CursorlessDestination,
-    CursorlessTarget,
     InsertionMode,
     ListTarget,
     PrimitiveDestination,
@@ -29,19 +28,15 @@ class Actions:
 class CommandActions:
     def cursorless_custom_command(
         content: str,  # pyright: ignore [reportGeneralTypeIssues]
-        target1: Optional[CursorlessTarget] = None,
-        target2: Optional[CursorlessTarget] = None,
-        target3: Optional[CursorlessTarget] = None,
+        arg1: Optional[Any] = None,
+        arg2: Optional[Any] = None,
+        arg3: Optional[Any] = None,
     ):
         """Cursorless: Run custom parsed command"""
         actions.user.private_cursorless_command_and_wait(
             {
                 "name": "parsed",
                 "content": content,
-                "targets": [
-                    target
-                    for target in [target1, target2, target3]
-                    if target is not None
-                ],
+                "arguments": [arg for arg in [arg1, arg2, arg3] if arg is not None],
             }
         )

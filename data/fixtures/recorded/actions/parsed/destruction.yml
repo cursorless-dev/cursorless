@@ -5,7 +5,7 @@ command:
   action:
     name: parsed
     content: chuck block
-    targets: []
+    arguments: []
   usePrePhraseSnapshot: true
 spokenFormError: Action 'parsed'
 initialState:
