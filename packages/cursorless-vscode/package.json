@@ -861,6 +861,18 @@
           "description": "Directory containing snippets for use in Cursorless",
           "type": "string"
         },
+        "cursorless.experimental.keyboard.modal.cursorStyle": {
+          "description": "Color to use for the additional cursor when in keyboard mode",
+          "type": "string",
+          "enum": [
+            "line",
+            "block",
+            "underline",
+            "lineThin",
+            "blockOutline",
+            "underlineThin"
+          ]
+        },
         "cursorless.experimental.keyboard.modal.keybindings.action": {
           "description": "Define modal keybindings for actions",
           "type": "object",
@@ -877,7 +889,7 @@
                   "editNew",
                   "editNewLineAfter",
                   "editNewLineBefore",
-                  "executeCommand",
+                  "exiecuteCommand",
                   "extractVariable",
                   "findInDocument",
                   "findInWorkspace",

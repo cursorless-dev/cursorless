@@ -2,6 +2,7 @@ import { mapValues, pickBy } from "lodash";
 import { KeyMap, SectionName, TokenType } from "./TokenTypeHelpers";
 import { SectionTypes, TokenTypeValueMap } from "./TokenTypes";
 import { VscodeApi } from "@cursorless/vscode-common";
+import { TextEditorCursorStyle } from "vscode";
 
 const LEGACY_PLURAL_SECTION_NAMES: Record<string, string> = {
   action: "actions",
@@ -12,7 +13,29 @@ const LEGACY_PLURAL_SECTION_NAMES: Record<string, string> = {
 };
 
 export class KeyboardConfig {
-  constructor(private vscodeApi: VscodeApi) {}
+  cursorStyle: TextEditorCursorStyle;
+
+  constructor(private vscodeApi: VscodeApi) {
+    this.cursorStyle = this.getCursorStyle();
+  }
+
+  private getCursorStyle(): TextEditorCursorStyle {
+    
+    const mapper: Record<string, TextEditorCursorStyle> = {
+      line: TextEditorCursorStyle.Line,
+      block: TextEditorCursorStyle.Block,
+      underline: TextEditorCursorStyle.Underline,
+      lineThin: TextEditorCursorStyle.LineThin,
+      blockOutline: TextEditorCursorStyle.BlockOutline,
+      underlineThin: TextEditorCursorStyle.UnderlineThin,
+    };
+
+    const rawCursorStyle = this.vscodeApi.workspace
+      .getConfiguration("cursorless.experimental.keyboard.modal")
+      .get<keyof typeof mapper>("cursorStyle")!;
+
+    return mapper[rawCursorStyle] ?? TextEditorCursorStyle.BlockOutline;
+  }
 
   /**
    * Returns a keymap for a given config section that is intended to be further
