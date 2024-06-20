@@ -1,6 +1,14 @@
 import { indexArrayStrict } from "../core/indexArrayStrict";
 import { Placeholder, WithPlaceholders } from "./WithPlaceholders";
 
+/**
+ * Given an input with placeholders, fills in the placeholders with the given
+ * values.
+ *
+ * @param input The input to fill placeholders in
+ * @param values The values to fill the placeholders with
+ * @returns The input with the placeholders filled in
+ */
 export function fillPlaceholders<T>(
   input: WithPlaceholders<T>,
   values: unknown[],
