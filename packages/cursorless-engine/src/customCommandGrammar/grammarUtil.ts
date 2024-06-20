@@ -20,28 +20,30 @@ import {
   type SurroundingPairName,
   type SurroundingPairScopeType,
 } from "@cursorless/common";
-import { Placeholder } from "./WithPlaceholders";
+import { Placeholder, WithPlaceholders } from "./WithPlaceholders";
 
 export function simpleActionDescriptor(
   name: SimpleActionName,
-  target: PartialTargetDescriptor,
-): SimpleActionDescriptor {
+  target: WithPlaceholders<PartialTargetDescriptor>,
+): WithPlaceholders<SimpleActionDescriptor> {
   return { name, target };
 }
 
 export function bringMoveActionDescriptor(
   name: BringMoveActionDescriptor["name"],
-  source: PartialTargetDescriptor,
-  destination: DestinationDescriptor,
-): BringMoveActionDescriptor {
+  source: WithPlaceholders<PartialTargetDescriptor>,
+  destination: WithPlaceholders<DestinationDescriptor>,
+): WithPlaceholders<BringMoveActionDescriptor> {
   return { name, source, destination };
 }
 
 export function partialPrimitiveTargetDescriptor(
   modifiers: Modifier[] | undefined,
-  mark: PartialMark | undefined,
-): PartialPrimitiveTargetDescriptor {
-  const target: PartialPrimitiveTargetDescriptor = { type: "primitive" };
+  mark: WithPlaceholders<PartialMark> | undefined,
+): WithPlaceholders<PartialPrimitiveTargetDescriptor> {
+  const target: WithPlaceholders<PartialPrimitiveTargetDescriptor> = {
+    type: "primitive",
+  };
   if (modifiers != null) {
     target.modifiers = modifiers;
   }
@@ -53,11 +55,12 @@ export function partialPrimitiveTargetDescriptor(
 
 export function primitiveDestinationDescriptor(
   insertionMode: InsertionMode,
-  target:
+  target: WithPlaceholders<
     | PartialPrimitiveTargetDescriptor
     | PartialListTargetDescriptor
-    | PartialRangeTargetDescriptor,
-): PrimitiveDestinationDescriptor {
+    | PartialRangeTargetDescriptor
+  >,
+): WithPlaceholders<PrimitiveDestinationDescriptor> {
   return { type: "primitive", insertionMode, target };
 }
 
