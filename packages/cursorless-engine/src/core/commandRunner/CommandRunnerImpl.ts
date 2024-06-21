@@ -9,6 +9,7 @@ import {
 } from "@cursorless/common";
 import { CommandRunner } from "../../CommandRunner";
 import { ActionRecord, ActionReturnValue } from "../../actions/actions.types";
+import { parseAndFillOutAction } from "../../customCommandGrammar/parseAndFillOutAction";
 import { StoredTargetMap } from "../../index";
 import { TargetPipelineRunner } from "../../processTargets";
 import { ModifierStage } from "../../processTargets/PipelineStages.types";
@@ -195,6 +196,14 @@ export class CommandRunnerImpl implements CommandRunner {
         return this.actions.getText.run(
           this.getTargets(actionDescriptor.target),
           actionDescriptor.options,
+        );
+
+      case "parsed":
+        return this.runAction(
+          parseAndFillOutAction(
+            actionDescriptor.content,
+            actionDescriptor.arguments,
+          ),
         );
 
       default: {

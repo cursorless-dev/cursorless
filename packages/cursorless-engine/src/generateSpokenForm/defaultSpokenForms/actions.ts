@@ -66,6 +66,7 @@ export const actions = {
   executeCommand: null,
   getText: null,
   replace: null,
+  parsed: null,
   ["private.getTargets"]: null,
   ["private.setKeyboardTarget"]: null,
 
