@@ -1,4 +1,4 @@
-import { RangeMark } from "@cursorless/common";
+import { RangeMark } from "../../typings/TargetDescriptor";
 import { Target } from "../../typings/target.types";
 import { MarkStageFactory } from "../MarkStageFactory";
 import { MarkStage } from "../PipelineStages.types";

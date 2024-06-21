@@ -1,9 +1,10 @@
 import {
+  PartialMark,
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
   getKey,
 } from "@cursorless/common";
-import { PrimitiveTargetDescriptor } from "../typings/TargetDescriptor";
+import { Mark, PrimitiveTargetDescriptor } from "../typings/TargetDescriptor";
 
 export function extractTargetKeys(target: PartialTargetDescriptor): string[] {
   switch (target.type) {
@@ -27,12 +28,20 @@ export function extractTargetKeys(target: PartialTargetDescriptor): string[] {
 function extractPrimitiveTargetKeys(
   ...targets: (PrimitiveTargetDescriptor | PartialPrimitiveTargetDescriptor)[]
 ) {
-  const keys: string[] = [];
-  targets.forEach((target) => {
-    if (target.mark?.type === "decoratedSymbol") {
-      const { character, symbolColor } = target.mark;
-      keys.push(getKey(symbolColor, character));
-    }
-  });
-  return keys;
+  return targets.flatMap((target) =>
+    target.mark == null ? [] : extractMarkKeys(target.mark),
+  );
+}
+
+function extractMarkKeys(mark: PartialMark | Mark): string[] {
+  switch (mark.type) {
+    case "range":
+      return [...extractMarkKeys(mark.anchor), ...extractMarkKeys(mark.active)];
+    case "target":
+      return extractTargetKeys(mark.target);
+    case "decoratedSymbol":
+      return [getKey(mark.symbolColor, mark.character)];
+    default:
+      return [];
+  }
 }

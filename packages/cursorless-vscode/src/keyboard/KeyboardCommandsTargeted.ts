@@ -193,6 +193,7 @@ export default class KeyboardCommandsTargeted {
           case "replace":
           case "editNew":
           case "getText":
+          case "parsed":
             throw Error(`Unsupported keyboard action: ${name}`);
           case "replaceWithTarget":
           case "moveToTarget":
