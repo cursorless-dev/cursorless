@@ -107,3 +107,22 @@
 (switch_statement
   value: (_) @private.switchStatementSubject
 ) @_.domain
+
+(_
+  condition: (_) @condition
+) @_.domain
+(while_statement
+  .
+  (_) @condition
+) @_.domain
+(do_statement
+  "while"
+  .
+  (_) @condition
+) @_.domain
+(switch_section
+  (case_switch_label
+    .
+    (_) @condition
+  )
+) @_.domain

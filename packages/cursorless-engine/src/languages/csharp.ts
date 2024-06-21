@@ -85,10 +85,6 @@ const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
   ...getMapMatchers,
-  condition: cascadingMatcher(
-    conditionMatcher("*[condition]"),
-    patternMatcher("while_statement[0]"),
-  ),
   argumentOrParameter: matcher(
     nodeFinder(
       (node) =>

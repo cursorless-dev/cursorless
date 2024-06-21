@@ -10,14 +10,17 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   ifStatement: supported,
-  class: supported,
-  className: supported,
+  switchStatementSubject: supported,
   anonymousFunction: supported,
+
+  class: supported,
   "class.iteration.document": supported,
   "class.iteration.block": supported,
+
+  className: supported,
   "className.iteration.document": supported,
   "className.iteration.block": supported,
-  switchStatementSubject: supported,
+
   functionCall: supported,
   "functionCall.constructor": supported,
   functionCallee: supported,
@@ -30,9 +33,17 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   functionName: supported,
   "functionName.constructor": supported,
   "functionName.method": supported,
+
   //   "name.function": supported,
   //   "name.method": supported,
   // "name.constructor": supported,
+
+  "condition.for": supported,
+  "condition.while": supported,
+  "condition.doWhile": supported,
+  "condition.if": supported,
+  "condition.switchCase": supported,
+  "condition.ternary": supported,
 
   regularExpression: unsupported,
 };
