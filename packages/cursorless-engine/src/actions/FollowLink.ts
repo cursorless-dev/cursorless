@@ -26,16 +26,7 @@ export default class FollowLink implements SimpleAction {
 
     const openedLink = await ide()
       .getEditableTextEditor(target.editor)
-      .openLink(target.contentRange);
-
-    if (!openedLink) {
-      let commandId = this.openInSplit
-        ? "editor.action.revealDefinitionAside"
-        : "editor.action.revealDefinition";
-      await this.actions.executeCommand.run(targets, commandId, {
-        restoreSelection: !this.openInSplit,
-      });
-    }
+      .openLink(target.contentRange, { openInSplit: this.openInSplit });
 
     return {
       thatSelections: createThatMark(targets),

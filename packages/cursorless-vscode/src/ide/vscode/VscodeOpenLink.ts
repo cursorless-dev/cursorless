@@ -1,9 +1,11 @@
 import * as vscode from "vscode";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
+import { OpenLinkOptions } from "../../../../common/src/types/TextEditor";
 
 export default async function vscodeOpenLink(
   editor: VscodeTextEditorImpl,
   location: vscode.Position | vscode.Range | undefined,
+  options?: OpenLinkOptions,
 ): Promise<boolean> {
   const rawEditor = editor.vscodeEditor;
   const links = await getLinksForEditor(rawEditor);
@@ -11,13 +13,17 @@ export default async function vscodeOpenLink(
   const filteredLinks = links.filter((link) =>
     link.range.contains(actualLocation),
   );
+  const openInSplit = options?.openInSplit === true;
 
   if (filteredLinks.length > 1) {
     throw Error("Multiple links found at location");
   }
 
   if (filteredLinks.length === 0) {
-    return false;
+    let commandId = openInSplit
+      ? "editor.action.revealDefinitionAside"
+      : "editor.action.revealDefinition";
+    await vscode.commands.executeCommand(commandId);
   }
 
   try {

@@ -163,7 +163,7 @@
           "type": "action",
           "variations": [
             {
-              "spokenForm": "follow aside <target>",
+              "spokenForm": "follow split <target>",
               "description": "Follow link in a split"
             }
           ]

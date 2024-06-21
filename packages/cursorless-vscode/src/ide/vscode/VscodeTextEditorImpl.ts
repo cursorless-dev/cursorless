@@ -2,6 +2,7 @@ import {
   BreakpointDescriptor,
   Edit,
   EditableTextEditor,
+  OpenLinkOptions,
   Position,
   Range,
   RevealLineAt,
@@ -149,10 +150,14 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     return vscodeEditNewNotebookCellBelow(this);
   }
 
-  public openLink(location?: Position | Range): Promise<boolean> {
+  public openLink(
+    location?: Position | Range,
+    options?: OpenLinkOptions,
+  ): Promise<boolean> {
     return vscodeOpenLink(
       this,
       location != null ? toVscodePositionOrRange(location) : undefined,
+      options,
     );
   }
 

@@ -58,6 +58,9 @@ export interface SetSelectionsOpts {
   revealRange?: boolean;
 }
 
+export type OpenLinkOptions = {
+  openInSplit: boolean;
+};
 export interface EditableTextEditor extends TextEditor {
   /**
    * Set the selections in this text editor, optionally focusing the editor
@@ -122,9 +125,13 @@ export interface EditableTextEditor extends TextEditor {
   /**
    * Open link at location.
    * @param location Position or range
+   * @param options Options for opening the link.
    * @return True if a link was opened
    */
-  openLink(location?: Position | Range): Promise<boolean>;
+  openLink(
+    location?: Position | Range,
+    options?: OpenLinkOptions,
+  ): Promise<boolean>;
 
   /**
    * Fold ranges
