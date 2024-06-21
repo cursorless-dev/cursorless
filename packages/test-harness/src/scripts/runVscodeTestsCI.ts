@@ -1,5 +1,5 @@
 /**
- * This file can be run from node to run tests in CI
+ * This file can be run from node to run vscode tests in CI
  */
 
 import { getCursorlessRepoRoot } from "@cursorless/common";

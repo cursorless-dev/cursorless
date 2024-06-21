@@ -45,6 +45,9 @@ export async function createCursorlessEngine(
 
   const rangeUpdater = new RangeUpdater();
 
+  // NOTE: do not await on snippet loading and hats initialization because we don't want to
+  // block extension activation
+
   const snippets = new Snippets();
   snippets.init();
 

@@ -8,7 +8,7 @@ import { glob } from "glob";
  * Type of test to run, eg unit, vscode, talon
  */
 export enum TestType {
-  /** Unit tests can be run without VSCode or Talon */
+  /** Unit tests can be run without VSCode or Talon or Neovim */
   unit,
 
   /** VSCode tests must be run from VSCode context */
@@ -16,6 +16,9 @@ export enum TestType {
 
   /** Talon tests require a running Talon instance */
   talon,
+
+  /** Neovim tests must be run from Neovim context */
+  neovim,
 }
 
 export function runAllTests(...types: TestType[]) {
@@ -23,6 +26,10 @@ export function runAllTests(...types: TestType[]) {
     path.join(getCursorlessRepoRoot(), "packages"),
     (files) =>
       files.filter((f) => {
+        if (f.endsWith("neovim.test.cjs")) {
+          return types.includes(TestType.neovim);
+        }
+
         if (f.endsWith("vscode.test.cjs")) {
           return types.includes(TestType.vscode);
         }

@@ -1,0 +1,19 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "out"
+  },
+  "references": [
+    {
+      "path": "../common"
+    },
+    {
+      "path": "../neovim-common"
+    },
+    {
+      "path": "../neovim-registry"
+    }
+  ],
+  "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"]
+}

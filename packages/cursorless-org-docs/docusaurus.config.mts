@@ -159,7 +159,7 @@ const config: Config = {
     prism: {
       theme: themes.github,
       darkTheme: themes.dracula,
-      additionalLanguages: ["bash", "diff", "json", "python"],
+      additionalLanguages: ["bash", "diff", "json", "python", "lua"],
     },
     colorMode: {
       respectPrefersColorScheme: true,
