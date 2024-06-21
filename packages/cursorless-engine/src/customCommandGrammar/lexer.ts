@@ -90,9 +90,9 @@ for (const [mark, spokenForm] of Object.entries(marks)) {
 
 export const lexer = new CommandLexer({
   ws: /[ \t]+/,
-  placeholder: {
-    match: /\$\d+/,
-    value: (text) => text.slice(1),
+  placeholderTarget: {
+    match: /<target\d*>/,
+    value: (text) => text.slice(7, -1),
   },
   token: {
     match: Object.keys(tokens),

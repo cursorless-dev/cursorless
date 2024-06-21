@@ -3,6 +3,7 @@ import {
   DestinationDescriptor,
   PartialTargetDescriptor,
 } from "@cursorless/common";
+import { parseAndFillOutAction } from "../customCommandGrammar/parseAndFillOutAction";
 
 export function getPartialTargetDescriptors(
   action: ActionDescriptor,
@@ -24,17 +25,12 @@ export function getPartialTargetDescriptors(
     case "editNew":
       return getPartialTargetDescriptorsFromDestination(action.destination);
     case "parsed":
-      // FIXME: This is a hack
-      return action.arguments.filter(isPartialTargetDescriptor);
+      return getPartialTargetDescriptors(
+        parseAndFillOutAction(action.content, action.arguments),
+      );
     default:
       return [action.target];
   }
-}
-
-function isPartialTargetDescriptor(
-  arg: unknown,
-): arg is PartialTargetDescriptor {
-  return typeof arg === "object" && arg != null && "type" in arg;
 }
 
 function getPartialTargetDescriptorsFromDestination(

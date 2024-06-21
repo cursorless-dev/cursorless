@@ -147,7 +147,7 @@ const parsedActionNoTargets: ActionDescriptor = {
 };
 const parsedActionAir: ActionDescriptor = {
   name: "parsed",
-  content: "chuck block $1",
+  content: "chuck block <target>",
   arguments: [
     {
       type: "list",
@@ -174,7 +174,7 @@ const parsedActionAir: ActionDescriptor = {
 };
 const parsedActionAirPlusBat: ActionDescriptor = {
   name: "parsed",
-  content: "bring block $1 after $2",
+  content: "bring block <target1> after <target2>",
   arguments: [
     {
       type: "primitive",

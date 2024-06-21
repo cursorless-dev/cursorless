@@ -46,7 +46,7 @@ const testCases: TestCase[] = [
     },
   },
   {
-    input: "take block $1",
+    input: "take block <target>",
     expectedOutput: {
       name: "setSelection",
       target: {
@@ -59,7 +59,7 @@ const testCases: TestCase[] = [
     },
   },
   {
-    input: "move $1 after line $2",
+    input: "move <target1> after line <target2>",
     expectedOutput: {
       name: "moveToTarget",
       source: {

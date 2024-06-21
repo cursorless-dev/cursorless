@@ -4,7 +4,7 @@ command:
   spokenForm: big bring air plus cap
   action:
     name: parsed
-    content: bring block $1 after $2
+    content: bring block <target1> after <target2>
     arguments:
       - type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: a}

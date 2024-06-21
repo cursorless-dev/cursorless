@@ -20,7 +20,7 @@ import {
   type SurroundingPairName,
   type SurroundingPairScopeType,
 } from "@cursorless/common";
-import { Placeholder, WithPlaceholders } from "./WithPlaceholders";
+import { WithPlaceholders } from "./WithPlaceholders";
 
 export function simpleActionDescriptor(
   name: SimpleActionName,
@@ -89,12 +89,14 @@ export function simplePartialMark(
   return { type };
 }
 
-export function createPlaceholder(index: string): Placeholder {
-  return { type: "placeholder", index: parseInt(index) - 1 };
-}
-
-export function createTargetMark(
-  target: PartialTargetDescriptor,
-): PartialTargetMark {
-  return { type: "target", target };
+export function createPlaceholderTarget(
+  index: string,
+): WithPlaceholders<PartialTargetMark> {
+  return {
+    type: "target",
+    target: {
+      type: "placeholder",
+      index: index.length === 0 ? 0 : parseInt(index) - 1,
+    },
+  };
 }

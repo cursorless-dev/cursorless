@@ -68,14 +68,18 @@ const fixtures: Fixture[] = [
     ],
   },
   {
-    input: "$1 $2",
+    input: "<target> <target1> <target2>",
     expectedOutput: [
       {
-        type: "placeholder",
+        type: "placeholderTarget",
+        value: "",
+      },
+      {
+        type: "placeholderTarget",
         value: "1",
       },
       {
-        type: "placeholder",
+        type: "placeholderTarget",
         value: "2",
       },
     ],
