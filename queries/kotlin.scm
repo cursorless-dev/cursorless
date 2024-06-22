@@ -27,6 +27,9 @@
 (object_declaration
   (type_identifier) @name @className
 ) @class @_.domain
+(companion_object
+  (type_identifier) @name @className
+) @class @_.domain
 
 (function_declaration
   (simple_identifier) @name @functionName
@@ -34,6 +37,7 @@
 (secondary_constructor) @namedFunction
 
 (anonymous_function) @anonymousFunction
+(lambda_literal) @anonymousFunction
 
 (if_expression) @ifStatement
 
@@ -48,6 +52,9 @@
   (call_expression)
   (constructor_invocation)
   (constructor_delegation_call)
+  (enum_entry
+    (value_arguments)
+  )
 ] @functionCall
 
 (when_entry) @branch
@@ -133,3 +140,306 @@
   (when_subject) @private.switchStatementSubject
   (#child-range! @private.switchStatementSubject 0 -1 true true)
 ) @_.domain
+
+(type_alias
+  "typealias"
+  .
+  (_) @name.start
+  (_)? @name.end
+  .
+  "="
+  .
+  (_) @value.start @type.start
+) @value.end.endOf @type.end.endOf @_.domain
+
+(class_parameter
+  (simple_identifier) @name
+) @_.domain
+
+(class_parameter
+  ":"
+  .
+  (_) @type.start
+  (_)? @type.end
+  .
+  "="
+  (_) @value
+) @_.domain
+
+;; Known issue: this won't work with multiple-node types.
+(class_parameter
+  ":"
+  .
+  (_) @type
+  .
+) @_.domain
+
+;; (type_parameter
+;;   (type_identifier) @name @type
+;; ) @name.domain
+
+;; (type_parameter
+;;   ":"
+;;   .
+;;   (_) @type.start
+;; ) @type.end.endOf
+
+;; (type_constraint
+;;   (type_identifier) @name @type
+;; ) @name.domain
+
+;; (type_constraint
+;;   ":"
+;;   .
+;;   (_) @type.start
+;; ) @type.end.endOf
+
+;; TODO Resume tests here
+
+;; Function declarations with type constraints
+(function_declaration
+  ":"
+  .
+  (_) @type.start
+  (_)? @type.end
+  .
+  (type_constraints)
+) @_.domain
+
+;; Function declarations with no type constraints but with body
+(
+  (function_declaration
+    ":"
+    .
+    (_) @type.start
+    (_)? @type.end
+    .
+    (function_body)
+  ) @_.domain
+  (#not-type? @type.end "type_constraints")
+)
+
+;; Function declaration without body or type constraints
+(
+  (function_declaration
+    ":"
+    .
+    (_) @type.start
+    (_)? @type.end
+    .
+  ) @_.domain
+  (#not-type? @type.end "function_body")
+  (#not-type? @type.end "type_constraints")
+)
+
+(variable_declaration
+  (simple_identifier) @name
+) @_.domain
+
+(variable_declaration
+  ":"
+  .
+  (_) @type.start
+) @type.end.endOf @_.domain
+
+(property_declaration
+  (variable_declaration
+    (simple_identifier) @name
+  )
+) @_.domain
+
+(property_declaration
+  "="
+  .
+  (_) @value
+) @_.domain
+
+(property_declaration
+  (property_delegate
+    (_) @value
+  )
+) @_.domain
+
+(property_declaration
+  (variable_declaration
+    ":"
+    .
+    (_) @type.start
+  ) @type.end.endOf
+) @_.domain
+
+(for_statement
+  (variable_declaration
+    (simple_identifier) @name
+  )
+) @_.domain
+
+(for_statement
+  "in"
+  .
+  (_) @value
+) @_.domain
+
+(for_statement
+  (variable_declaration
+    ":"
+    .
+    (_) @type.start
+  ) @type.end.endOf
+) @_.domain
+
+(when_subject
+  (variable_declaration
+    (simple_identifier) @name
+  )
+) @_.domain
+
+(when_subject
+  "="
+  .
+  (_) @value
+) @_.domain
+
+(when_subject
+  (variable_declaration
+    ":"
+    .
+    (_) @type.start
+  ) @type.end.endOf
+) @_.domain
+
+(getter
+  ":"
+  .
+  (_) @type.start
+  (_)? @type.end
+  (function_body)
+) @_.domain
+
+(setter
+  ":"
+  .
+  (_) @type.start
+  (_)? @type.end
+  (function_body)
+) @_.domain
+
+(parameter_with_optional_type
+  (simple_identifier) @name
+) @_.domain
+
+(parameter_with_optional_type
+  ":"
+  .
+  (_) @type.start
+) @type.end.endOf @_.domain
+
+;; Function parameter without default
+(function_value_parameters
+  (parameter
+    (simple_identifier) @name
+    ":"
+    .
+    (_) @type.start
+  ) @type.end.endOf @_.domain
+)
+
+;; Function parameter with default
+(function_value_parameters
+  (parameter
+    (simple_identifier) @name
+    ":"
+    .
+    (_) @type.start
+  ) @type.end.endOf @_.domain.start
+  .
+  "="
+  .
+  (_) @value @_.domain.end
+)
+
+(type_arguments
+  (type_projection) @type
+)
+
+(anonymous_function
+  ":"
+  .
+  (_) @type.start
+  (_)? @type.end
+  .
+  (function_body)
+) @_.domain
+
+(
+  (anonymous_function
+    ":"
+    .
+    (_) @type.start
+    (_)? @type.end
+    .
+  ) @_.domain
+  (#not-type? @type.end "function_body")
+)
+
+(catch_block
+  (simple_identifier) @name
+  ":"
+  .
+  (_) @type.start
+  (_)? @type.end
+  .
+  ")"
+) @_.domain
+
+(jump_expression
+  [
+    "return"
+    "throw"
+  ]
+  .
+  (_) @value
+) @_.domain
+
+;; TODO fix Cursorless error
+;; (jump_expression
+;;   "return@"
+;;   .
+;;   (label)
+;;   .
+;;   (_) @value
+;; ) @_.domain
+
+(_
+  (function_body
+    "="
+    .
+    (_) @value
+  )
+) @_.domain
+
+(assignment
+  (directly_assignable_expression) @name
+  (_) @value
+  .
+) @_.domain
+
+(value_argument
+  (simple_identifier) @name
+  "="
+  .
+  (_) @value.start
+) @value.end.endOf @_.domain
+
+(class_body
+  .
+  "{" @type.iteration.start.endOf
+  "}" @type.iteration.end.startOf
+  .
+)
+
+;; TODO add more type iteration scopes
+
+;; TODO add functionCallee and argumentOrParameter, looking at functionCall
+
+;; TODO add (label) support
