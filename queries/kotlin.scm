@@ -194,14 +194,19 @@
 ;;   (_) @type.start
 ;; ) @type.end.endOf
 
-;; TODO Resume tests here
-
 ;; Function declarations with type constraints
 (function_declaration
   ":"
   .
+  (_) @type
+  .
+  (type_constraints)
+) @_.domain
+(function_declaration
+  ":"
+  .
   (_) @type.start
-  (_)? @type.end
+  (_) @type.end
   .
   (type_constraints)
 ) @_.domain
@@ -211,8 +216,17 @@
   (function_declaration
     ":"
     .
+    (_) @type
+    .
+    (function_body)
+  ) @_.domain
+)
+(
+  (function_declaration
+    ":"
+    .
     (_) @type.start
-    (_)? @type.end
+    (_) @type.end
     .
     (function_body)
   ) @_.domain
@@ -224,8 +238,16 @@
   (function_declaration
     ":"
     .
+    (_) @type
+    .
+  ) @_.domain
+)
+(
+  (function_declaration
+    ":"
+    .
     (_) @type.start
-    (_)? @type.end
+    (_) @type.end
     .
   ) @_.domain
   (#not-type? @type.end "function_body")
@@ -241,6 +263,8 @@
   .
   (_) @type.start
 ) @type.end.endOf @_.domain
+
+(multi_variable_declaration) @name.iteration @type.iteration
 
 (property_declaration
   (variable_declaration
@@ -268,6 +292,10 @@
   ) @type.end.endOf
 ) @_.domain
 
+(property_declaration
+  (multi_variable_declaration) @name.iteration @type.iteration
+) @name.iteration.domain @type.iteration.domain
+
 (for_statement
   (variable_declaration
     (simple_identifier) @name
@@ -287,6 +315,10 @@
     (_) @type.start
   ) @type.end.endOf
 ) @_.domain
+
+(for_statement
+  (multi_variable_declaration) @name.iteration @type.iteration
+) @name.iteration.domain @type.iteration.domain
 
 (when_subject
   (variable_declaration
@@ -375,8 +407,16 @@
   (anonymous_function
     ":"
     .
+    (_) @type
+    .
+  ) @_.domain
+)
+(
+  (anonymous_function
+    ":"
+    .
     (_) @type.start
-    (_)? @type.end
+    (_) @type.end
     .
   ) @_.domain
   (#not-type? @type.end "function_body")
@@ -401,7 +441,7 @@
   (_) @value
 ) @_.domain
 
-;; TODO fix Cursorless error
+;; Disabled due to Cursorless error.
 ;; (jump_expression
 ;;   "return@"
 ;;   .
@@ -430,6 +470,13 @@
   .
   (_) @value.start
 ) @value.end.endOf @_.domain
+
+(infix_expression
+  (_) @collectionKey
+  (simple_identifier) @_dummy
+  (#eq? @_dummy "to")
+  (_) @value
+) @_.domain
 
 (class_body
   .
