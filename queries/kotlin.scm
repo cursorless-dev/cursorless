@@ -195,15 +195,8 @@
 (function_declaration
   ":"
   .
-  (_) @type
-  .
-  (type_constraints)
-) @_.domain
-(function_declaration
-  ":"
-  .
   (_) @type.start
-  (_) @type.end
+  (_)? @type.end
   .
   (type_constraints)
 ) @_.domain
