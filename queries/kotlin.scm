@@ -1,22 +1,29 @@
+;;
+;; Declarations and statements
+;;
+
 ;; Define @statement based on parent node, because a statement can be an arbitrary expression (with
 ;; no expression_statement parent node) and we don't want every nested expression to be a statement.
 (source_file
   (_) @statement
   (#not-type? @statement import_list)
 )
-(
-  (import_header) @statement
-)
+
+(import_header) @statement
+
 (statements
   (_) @statement
 )
+
 (control_structure_body
   (_) @statement
   (#not-type? @statement statements)
 )
+
 (class_body
   (_) @statement
 )
+
 (enum_class_body
   (_) @statement
 )
@@ -24,9 +31,11 @@
 (class_declaration
   (type_identifier) @name @className
 ) @class @_.domain
+
 (object_declaration
   (type_identifier) @name @className
 ) @class @_.domain
+
 (companion_object
   (type_identifier) @name @className
 ) @class @_.domain
@@ -36,10 +45,15 @@
 ) @namedFunction @_.domain
 (secondary_constructor) @namedFunction
 
-(anonymous_function) @anonymousFunction
-(lambda_literal) @anonymousFunction
-
 (if_expression) @ifStatement
+
+;;
+;; Literals and comments
+;;
+
+(anonymous_function) @anonymousFunction
+
+(lambda_literal) @anonymousFunction
 
 (string_literal) @string @textFragment
 
@@ -48,14 +62,9 @@
   (multiline_comment)
 ] @comment @textFragment
 
-[
-  (call_expression)
-  (constructor_invocation)
-  (constructor_delegation_call)
-  (enum_entry
-    (value_arguments)
-  )
-] @functionCall
+;;
+;; Branches and conditions
+;;
 
 (when_entry) @branch
 
@@ -64,6 +73,7 @@
     (when_condition)
     "else"
   ] @condition
+  (#allow-multiple! @condition)
 ) @_.domain
 
 (when_expression) @branch.iteration @condition.iteration
@@ -78,6 +88,7 @@
   ")"
 ) @_.domain
 
+;; If branch
 (if_expression
   "if" @branch.start @branch.removal.start
   .
@@ -95,6 +106,7 @@
 ?
 )
 
+;; Else-if branch
 (if_expression
   "else" @branch.start @condition.domain.start
   (control_structure_body
@@ -112,6 +124,7 @@
   )
 )
 
+;; Else branch
 (if_expression
   "else" @branch.start
   (control_structure_body) @branch.end
@@ -140,6 +153,10 @@
   (when_subject) @private.switchStatementSubject
   (#child-range! @private.switchStatementSubject 0 -1 true true)
 ) @_.domain
+
+;;
+;; Name, value, type, and key
+;;
 
 (type_alias
   "typealias"
@@ -173,26 +190,6 @@
   (_) @type
   .
 ) @_.domain
-
-;; (type_parameter
-;;   (type_identifier) @name @type
-;; ) @name.domain
-
-;; (type_parameter
-;;   ":"
-;;   .
-;;   (_) @type.start
-;; ) @type.end.endOf
-
-;; (type_constraint
-;;   (type_identifier) @name @type
-;; ) @name.domain
-
-;; (type_constraint
-;;   ":"
-;;   .
-;;   (_) @type.start
-;; ) @type.end.endOf
 
 ;; Function declarations with type constraints
 (function_declaration
@@ -393,6 +390,12 @@
 (type_arguments
   (type_projection) @type
 )
+(type_arguments
+  .
+  "<" @type.iteration.start.endOf
+  ">" @type.iteration.end.startOf
+  .
+)
 
 (anonymous_function
   ":"
@@ -441,7 +444,7 @@
   (_) @value
 ) @_.domain
 
-;; Disabled due to Cursorless error.
+;; Disabled due to Cursorless error ("invalid capture") caused by "return@"
 ;; (jump_expression
 ;;   "return@"
 ;;   .
@@ -478,15 +481,154 @@
   (_) @value
 ) @_.domain
 
-(class_body
+;;
+;; Function call, callee, arguments, and parameters
+;;
+
+[
+  (call_expression)
+  (constructor_invocation)
+  (constructor_delegation_call)
+  (enum_entry
+    (value_arguments)
+  )
+] @functionCall
+
+(value_arguments
+  (value_argument)? @_.leading.endOf
   .
-  "{" @type.iteration.start.endOf
-  "}" @type.iteration.end.startOf
+  (value_argument) @argumentOrParameter
   .
+  (value_argument)? @_.trailing.startOf
 )
 
-;; TODO add more type iteration scopes
+(call_expression
+  (_) @functionCallee.start
+  (call_suffix
+    (type_arguments)? @functionCallee.end
+  )
+) @_.domain.start
 
-;; TODO add functionCallee and argumentOrParameter, looking at functionCall
+(call_suffix
+  (annotated_lambda) @argumentOrParameter
+)
 
-;; TODO add (label) support
+;; Note: trailing lambda mixed with regular arguments doesn't work due to bad tree sitter parse.
+(call_expression
+  (call_suffix) @argumentOrParameter.iteration
+) @argumentOrParameter.iteration.domain
+
+(constructor_invocation
+  (user_type) @functionCallee
+) @_.domain
+
+(constructor_invocation
+  (value_arguments
+    "(" @argumentOrParameter.iteration.start.endOf
+    ")" @argumentOrParameter.iteration.end.startOf
+  )
+) @argumentOrParameter.iteration.domain
+
+(constructor_delegation_call
+  [
+    "this"
+    "super"
+  ] @functionCallee
+) @_.domain
+
+(constructor_delegation_call
+  (value_arguments
+    "(" @argumentOrParameter.iteration.start.endOf
+    ")" @argumentOrParameter.iteration.end.startOf
+  )
+) @argumentOrParameter.iteration.domain
+
+(enum_entry
+  (simple_identifier) @functionCallee
+  (value_arguments)
+) @_.domain
+
+(enum_entry
+  (value_arguments
+    "(" @argumentOrParameter.iteration.start.endOf
+    ")" @argumentOrParameter.iteration.end.startOf
+  )
+) @argumentOrParameter.iteration.domain
+
+(function_value_parameters
+  (_)? @_.leading.endOf
+  .
+  [
+    ","
+    "("
+  ]
+  .
+  (parameter_modifiers)? @argumentOrParameter.start
+  .
+  (parameter) @argumentOrParameter.end
+  .
+  [
+    ","
+    ")"
+  ]
+  .
+  (_)? @_.trailing.startOf
+)
+
+(function_value_parameters
+  (_)? @_.leading.endOf
+  .
+  [
+    ","
+    "("
+  ]
+  .
+  (parameter_modifiers)? @argumentOrParameter.start.startOf
+  .
+  (parameter) @argumentOrParameter.start
+  .
+  (_) @argumentOrParameter.end
+  (#not-type? @argumentOrParameter.end "parameter" "parameter_modifiers")
+  .
+  [
+    ","
+    ")"
+  ]
+  .
+  (_)? @_.trailing.startOf
+)
+
+(_
+  (function_value_parameters) @argumentOrParameter.iteration
+) @argumentOrParameter.iteration.domain
+
+(primary_constructor
+  (class_parameter)? @_.leading.endOf
+  .
+  (class_parameter) @argumentOrParameter
+  .
+  (class_parameter)? @_.trailing.startOf
+)
+
+(class_declaration
+  (primary_constructor) @argumentOrParameter.iteration
+) @argumentOrParameter.iteration.domain
+
+(parameter_with_optional_type) @argumentOrParameter
+
+;; There is only one parameter allowed, but we treat it as iterable for consistency.
+(setter
+  (parameter_with_optional_type) @argumentOrParameter.iteration
+) @argumentOrParameter.iteration.domain
+
+(lambda_parameters
+  (_)? @_.leading.endOf
+  .
+  (_) @argumentOrParameter
+  .
+  (_)? @_.trailing.startOf
+)
+
+(lambda_literal
+  (lambda_parameters) @argumentOrParameter.iteration
+) @argumentOrParameter.iteration.domain
