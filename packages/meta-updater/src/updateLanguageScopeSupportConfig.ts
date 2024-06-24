@@ -54,15 +54,14 @@ export function updateLanguageScopeSupportConfig(
       ),
   );
 
-  return pre + languageContents.join("\n\n");
+  return pre + languageContents.join("\n\n") + "\n";
 }
 
 function getContentForLanguage(
   scopeSupport: LanguageScopeSupportFacetMap,
   languageId: string,
 ) {
-  const lines = [`### ${languageId}`, ""];
-
+  const lines = [`### ${languageId}`];
   const scopesSorted = [...scopeSupportFacets].sort();
 
   const supportedScopes = scopesSorted.filter(
@@ -100,7 +99,7 @@ function getContentForLanguage(
     ),
   );
 
-  return lines.join("\n");
+  return lines.join("\n\n");
 }
 
 function getContentForSupportLevel(
@@ -110,6 +109,7 @@ function getContentForSupportLevel(
 ): string {
   return [
     `#### ${title}`,
+    "",
     description,
     "",
     ...facets.map((facet) => `- ${facet}`),
