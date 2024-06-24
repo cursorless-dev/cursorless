@@ -28,7 +28,7 @@ export const updater = async (workspaceDir: string) => {
     files: {
       ["package.json"]: updatePackageJson.bind(null, context),
       ["tsconfig.json"]: updateTSConfig.bind(null, context),
-      ["docs/contributing/language-scope-support.md"]:
+      ["docs/contributing/scope-support-per-language.md"]:
         updateLanguageScopeSupportConfig.bind(null, context),
     },
     formats: {
