@@ -34,10 +34,6 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "functionName.constructor": supported,
   "functionName.method": supported,
 
-  //   "name.function": supported,
-  //   "name.method": supported,
-  // "name.constructor": supported,
-
   "condition.for": supported,
   "condition.while": supported,
   "condition.doWhile": supported,
@@ -45,5 +41,5 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "condition.switchCase": supported,
   "condition.ternary": supported,
 
-  regularExpression: unsupported,
+  regularExpression: notApplicable,
 };
