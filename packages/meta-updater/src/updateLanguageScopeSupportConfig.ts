@@ -61,9 +61,10 @@ function getContentForLanguage(
     (facet) => scopeSupport[facet] === ScopeSupportFacetLevel.supportedLegacy,
   );
   const unsupportedScopes = scopesSorted.filter(
-    (facet) =>
-      scopeSupport[facet] === ScopeSupportFacetLevel.unsupported ||
-      scopeSupport[facet] == null,
+    (facet) => scopeSupport[facet] === ScopeSupportFacetLevel.unsupported,
+  );
+  const unspecifiedScopes = scopesSorted.filter(
+    (facet) => scopeSupport[facet] == null,
   );
   lines.push(
     getContentForSupportLevel(
@@ -89,7 +90,17 @@ function getContentForLanguage(
         unsupportedScopes,
         languageId,
         "Unsupported facets",
-        "These facets are not supported yet and needs a developer to implement them\\\n_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_",
+        "These facets are not supported yet and needs a developer to implement them",
+      ),
+    );
+  }
+  if (unspecifiedScopes.length > 0) {
+    lines.push(
+      getContentForSupportLevel(
+        unspecifiedScopes,
+        languageId,
+        "Unspecified facets",
+        "These facets are unspecified\\\n_Note that in many instances we actually do support these scopes, but we have not yet updated `languageScopeSupport` to reflect this fact_",
       ),
     );
   }

@@ -30,10 +30,10 @@ These facets are supported
 - value.assignment
 - value.variable
 
-### c - Unsupported facets
+### c - Unspecified facets
 
-These facets are not supported yet and needs a developer to implement them\
-_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+These facets are unspecified\
+_Note that in many instances we actually do support these scopes, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -153,10 +153,10 @@ These facets are supported
 
 - comment.line
 
-### clojure - Unsupported facets
+### clojure - Unspecified facets
 
-These facets are not supported yet and needs a developer to implement them\
-_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+These facets are unspecified\
+_Note that in many instances we actually do support these scopes, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -324,10 +324,10 @@ These facets are supported
 - value.assignment
 - value.variable
 
-### cpp - Unsupported facets
+### cpp - Unspecified facets
 
-These facets are not supported yet and needs a developer to implement them\
-_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+These facets are unspecified\
+_Note that in many instances we actually do support these scopes, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -454,10 +454,10 @@ These facets are supported
 - className.iteration.document
 - ifStatement
 
-### csharp - Unsupported facets
+### csharp - Unspecified facets
 
-These facets are not supported yet and needs a developer to implement them\
-_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+These facets are unspecified\
+_Note that in many instances we actually do support these scopes, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - argument.actual
 - argument.actual.constructor
@@ -599,8 +599,14 @@ These facets are supported
 
 ### css - Unsupported facets
 
-These facets are not supported yet and needs a developer to implement them\
-_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+These facets are not supported yet and needs a developer to implement them
+
+- comment.line
+
+### css - Unspecified facets
+
+These facets are unspecified\
+_Note that in many instances we actually do support these scopes, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -631,7 +637,6 @@ _Note that in many instances we actually do support this scope, but we have not 
 - className.iteration.block
 - className.iteration.document
 - command
-- comment.line
 - condition.doWhile
 - condition.for
 - condition.if
@@ -741,10 +746,10 @@ These facets are supported
 
 - comment.line
 
-### go - Unsupported facets
+### go - Unspecified facets
 
-These facets are not supported yet and needs a developer to implement them\
-_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+These facets are unspecified\
+_Note that in many instances we actually do support these scopes, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -895,10 +900,10 @@ These facets are supported
 - tags
 - value.attribute
 
-### html - Unsupported facets
+### html - Unspecified facets
 
-These facets are not supported yet and needs a developer to implement them\
-_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+These facets are unspecified\
+_Note that in many instances we actually do support these scopes, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - argument.actual.constructor
 - argument.actual.constructor.iteration
@@ -995,10 +1000,10 @@ These facets are supported
 - type.typeArgument.iteration
 - value.foreach
 
-### java - Unsupported facets
+### java - Unspecified facets
 
-These facets are not supported yet and needs a developer to implement them\
-_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+These facets are unspecified\
+_Note that in many instances we actually do support these scopes, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual.constructor
@@ -1215,10 +1220,10 @@ These facets are supported
 - value.return.lambda
 - value.variable
 
-### javascript - Unsupported facets
+### javascript - Unspecified facets
 
-These facets are not supported yet and needs a developer to implement them\
-_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+These facets are unspecified\
+_Note that in many instances we actually do support these scopes, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - branch.loop
 - branch.try.iteration
@@ -1350,10 +1355,10 @@ These facets are supported
 - value.return.lambda
 - value.variable
 
-### javascriptreact - Unsupported facets
+### javascriptreact - Unspecified facets
 
-These facets are not supported yet and needs a developer to implement them\
-_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+These facets are unspecified\
+_Note that in many instances we actually do support these scopes, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - branch.loop
 - branch.try.iteration
@@ -1395,10 +1400,10 @@ These facets are supported
 - comment.line
 - map
 
-### json - Unsupported facets
+### json - Unspecified facets
 
-These facets are not supported yet and needs a developer to implement them\
-_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+These facets are unspecified\
+_Note that in many instances we actually do support these scopes, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -1542,10 +1547,10 @@ These facets are supported
 - comment.line
 - map
 
-### jsonc - Unsupported facets
+### jsonc - Unspecified facets
 
-These facets are not supported yet and needs a developer to implement them\
-_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+These facets are unspecified\
+_Note that in many instances we actually do support these scopes, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -1689,10 +1694,10 @@ These facets are supported
 - comment.line
 - map
 
-### jsonl - Unsupported facets
+### jsonl - Unspecified facets
 
-These facets are not supported yet and needs a developer to implement them\
-_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+These facets are unspecified\
+_Note that in many instances we actually do support these scopes, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -1840,10 +1845,10 @@ These facets are supported
 - startTag
 - tags
 
-### latex - Unsupported facets
+### latex - Unspecified facets
 
-These facets are not supported yet and needs a developer to implement them\
-_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+These facets are unspecified\
+_Note that in many instances we actually do support these scopes, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -1988,10 +1993,10 @@ These facets are supported
 - value.assignment
 - value.variable
 
-### lua - Unsupported facets
+### lua - Unspecified facets
 
-These facets are not supported yet and needs a developer to implement them\
-_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+These facets are unspecified\
+_Note that in many instances we actually do support these scopes, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -2128,10 +2133,10 @@ These facets are supported
 - comment.line
 - notebookCell
 
-### markdown - Unsupported facets
+### markdown - Unspecified facets
 
-These facets are not supported yet and needs a developer to implement them\
-_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+These facets are unspecified\
+_Note that in many instances we actually do support these scopes, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -2275,10 +2280,10 @@ These facets are supported
 - comment.line
 - textFragment.string.singleLine
 
-### php - Unsupported facets
+### php - Unspecified facets
 
-These facets are not supported yet and needs a developer to implement them\
-_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+These facets are unspecified\
+_Note that in many instances we actually do support these scopes, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -2444,10 +2449,10 @@ These facets are supported with the legacy implementation and should be migrated
 - argument.formal
 - argument.formal.iteration
 
-### python - Unsupported facets
+### python - Unspecified facets
 
-These facets are not supported yet and needs a developer to implement them\
-_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+These facets are unspecified\
+_Note that in many instances we actually do support these scopes, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - argument.actual.constructor
 - argument.actual.constructor.iteration
@@ -2568,10 +2573,10 @@ These facets are supported
 - comment.block
 - comment.line
 
-### ruby - Unsupported facets
+### ruby - Unspecified facets
 
-These facets are not supported yet and needs a developer to implement them\
-_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+These facets are unspecified\
+_Note that in many instances we actually do support these scopes, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -2714,10 +2719,10 @@ These facets are supported
 
 - ifStatement
 
-### rust - Unsupported facets
+### rust - Unspecified facets
 
-These facets are not supported yet and needs a developer to implement them\
-_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+These facets are unspecified\
+_Note that in many instances we actually do support these scopes, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -2861,10 +2866,10 @@ These facets are supported
 
 - ifStatement
 
-### scala - Unsupported facets
+### scala - Unspecified facets
 
-These facets are not supported yet and needs a developer to implement them\
-_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+These facets are unspecified\
+_Note that in many instances we actually do support these scopes, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -3008,10 +3013,10 @@ These facets are supported
 
 - statement
 
-### scm - Unsupported facets
+### scm - Unspecified facets
 
-These facets are not supported yet and needs a developer to implement them\
-_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+These facets are unspecified\
+_Note that in many instances we actually do support these scopes, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -3163,10 +3168,10 @@ These facets are supported
 - namedFunction.iteration.document
 - string.singleLine
 
-### scss - Unsupported facets
+### scss - Unspecified facets
 
-These facets are not supported yet and needs a developer to implement them\
-_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+These facets are unspecified\
+_Note that in many instances we actually do support these scopes, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -3302,10 +3307,10 @@ These facets are supported
 
 - command
 
-### talon - Unsupported facets
+### talon - Unspecified facets
 
-These facets are not supported yet and needs a developer to implement them\
-_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+These facets are unspecified\
+_Note that in many instances we actually do support these scopes, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -3547,10 +3552,10 @@ These facets are supported
 - value.typeAlias
 - value.variable
 
-### typescript - Unsupported facets
+### typescript - Unspecified facets
 
-These facets are not supported yet and needs a developer to implement them\
-_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+These facets are unspecified\
+_Note that in many instances we actually do support these scopes, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - attribute
 - branch.loop
@@ -3701,10 +3706,10 @@ These facets are supported
 - value.typeAlias
 - value.variable
 
-### typescriptreact - Unsupported facets
+### typescriptreact - Unspecified facets
 
-These facets are not supported yet and needs a developer to implement them\
-_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+These facets are unspecified\
+_Note that in many instances we actually do support these scopes, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - branch.loop
 - branch.try.iteration
@@ -3743,10 +3748,10 @@ These facets are supported
 
 - comment.block
 
-### xml - Unsupported facets
+### xml - Unspecified facets
 
-These facets are not supported yet and needs a developer to implement them\
-_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+These facets are unspecified\
+_Note that in many instances we actually do support these scopes, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -3890,10 +3895,10 @@ These facets are supported
 
 - comment.line
 
-### yaml - Unsupported facets
+### yaml - Unspecified facets
 
-These facets are not supported yet and needs a developer to implement them\
-_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+These facets are unspecified\
+_Note that in many instances we actually do support these scopes, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
