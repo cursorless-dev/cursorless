@@ -5,6 +5,7 @@
 ### c
 
 #### Supported facets
+
 These facets are supported
 
 - class
@@ -30,7 +31,9 @@ These facets are supported
 - type.field
 - value.assignment
 - value.variable
+
 #### Unsupported facets
+
 These facets are not supported yet a needs a developer to implement them
 
 - anonymousFunction
@@ -146,10 +149,13 @@ These facets are not supported yet a needs a developer to implement them
 ### clojure
 
 #### Supported facets
+
 These facets are supported
 
 - comment.line
+
 #### Unsupported facets
+
 These facets are not supported yet a needs a developer to implement them
 
 - anonymousFunction
@@ -289,6 +295,7 @@ These facets are not supported yet a needs a developer to implement them
 ### cpp
 
 #### Supported facets
+
 These facets are supported
 
 - class
@@ -316,7 +323,9 @@ These facets are supported
 - value.argument.formal.iteration
 - value.assignment
 - value.variable
+
 #### Unsupported facets
+
 These facets are not supported yet a needs a developer to implement them
 
 - anonymousFunction
@@ -432,6 +441,7 @@ These facets are not supported yet a needs a developer to implement them
 ### csharp
 
 #### Supported facets
+
 These facets are supported
 
 - anonymousFunction
@@ -442,7 +452,9 @@ These facets are supported
 - className.iteration.block
 - className.iteration.document
 - ifStatement
+
 #### Unsupported facets
+
 These facets are not supported yet a needs a developer to implement them
 
 - argument.actual
@@ -575,13 +587,16 @@ These facets are not supported yet a needs a developer to implement them
 ### css
 
 #### Supported facets
+
 These facets are supported
 
 - comment.block
 - name.iteration.block
 - name.iteration.document
 - string.singleLine
+
 #### Unsupported facets
+
 These facets are not supported yet a needs a developer to implement them
 
 - anonymousFunction
@@ -718,10 +733,13 @@ These facets are not supported yet a needs a developer to implement them
 ### go
 
 #### Supported facets
+
 These facets are supported
 
 - comment.line
+
 #### Unsupported facets
+
 These facets are not supported yet a needs a developer to implement them
 
 - anonymousFunction
@@ -861,6 +879,7 @@ These facets are not supported yet a needs a developer to implement them
 ### html
 
 #### Supported facets
+
 These facets are supported
 
 - attribute
@@ -871,7 +890,9 @@ These facets are supported
 - startTag
 - tags
 - value.attribute
+
 #### Unsupported facets
+
 These facets are not supported yet a needs a developer to implement them
 
 - argument.actual.constructor
@@ -950,6 +971,7 @@ These facets are not supported yet a needs a developer to implement them
 ### java
 
 #### Supported facets
+
 These facets are supported
 
 - argument.actual
@@ -967,7 +989,9 @@ These facets are supported
 - type.typeArgument
 - type.typeArgument.iteration
 - value.foreach
+
 #### Unsupported facets
+
 These facets are not supported yet a needs a developer to implement them
 
 - anonymousFunction
@@ -1088,6 +1112,7 @@ These facets are not supported yet a needs a developer to implement them
 ### javascript
 
 #### Supported facets
+
 These facets are supported
 
 - anonymousFunction
@@ -1183,7 +1208,9 @@ These facets are supported
 - value.return
 - value.return.lambda
 - value.variable
+
 #### Unsupported facets
+
 These facets are not supported yet a needs a developer to implement them
 
 - branch.loop
@@ -1219,6 +1246,7 @@ These facets are not supported yet a needs a developer to implement them
 ### javascriptreact
 
 #### Supported facets
+
 These facets are supported
 
 - anonymousFunction
@@ -1314,7 +1342,9 @@ These facets are supported
 - value.return
 - value.return.lambda
 - value.variable
+
 #### Unsupported facets
+
 These facets are not supported yet a needs a developer to implement them
 
 - branch.loop
@@ -1350,12 +1380,15 @@ These facets are not supported yet a needs a developer to implement them
 ### json
 
 #### Supported facets
+
 These facets are supported
 
 - comment.block
 - comment.line
 - map
+
 #### Unsupported facets
+
 These facets are not supported yet a needs a developer to implement them
 
 - anonymousFunction
@@ -1493,12 +1526,15 @@ These facets are not supported yet a needs a developer to implement them
 ### jsonc
 
 #### Supported facets
+
 These facets are supported
 
 - comment.block
 - comment.line
 - map
+
 #### Unsupported facets
+
 These facets are not supported yet a needs a developer to implement them
 
 - anonymousFunction
@@ -1636,12 +1672,15 @@ These facets are not supported yet a needs a developer to implement them
 ### jsonl
 
 #### Supported facets
+
 These facets are supported
 
 - comment.block
 - comment.line
 - map
+
 #### Unsupported facets
+
 These facets are not supported yet a needs a developer to implement them
 
 - anonymousFunction
@@ -1779,6 +1818,7 @@ These facets are not supported yet a needs a developer to implement them
 ### latex
 
 #### Supported facets
+
 These facets are supported
 
 - comment.block
@@ -1788,7 +1828,9 @@ These facets are supported
 - environment
 - startTag
 - tags
+
 #### Unsupported facets
+
 These facets are not supported yet a needs a developer to implement them
 
 - anonymousFunction
@@ -1922,6 +1964,7 @@ These facets are not supported yet a needs a developer to implement them
 ### lua
 
 #### Supported facets
+
 These facets are supported
 
 - branch.if
@@ -1932,7 +1975,9 @@ These facets are supported
 - namedFunction
 - value.assignment
 - value.variable
+
 #### Unsupported facets
+
 These facets are not supported yet a needs a developer to implement them
 
 - anonymousFunction
@@ -2063,12 +2108,15 @@ These facets are not supported yet a needs a developer to implement them
 ### markdown
 
 #### Supported facets
+
 These facets are supported
 
 - comment.block
 - comment.line
 - notebookCell
+
 #### Unsupported facets
+
 These facets are not supported yet a needs a developer to implement them
 
 - anonymousFunction
@@ -2206,12 +2254,15 @@ These facets are not supported yet a needs a developer to implement them
 ### php
 
 #### Supported facets
+
 These facets are supported
 
 - comment.block
 - comment.line
 - textFragment.string.singleLine
+
 #### Unsupported facets
+
 These facets are not supported yet a needs a developer to implement them
 
 - anonymousFunction
@@ -2349,6 +2400,7 @@ These facets are not supported yet a needs a developer to implement them
 ### python
 
 #### Supported facets
+
 These facets are supported
 
 - anonymousFunction
@@ -2367,14 +2419,18 @@ These facets are supported
 - value.resource
 - value.resource.iteration
 - value.yield
+
 #### Supported Legacy facets
+
 These facets are supported with the legacy implementation and should be migrated to the new implementation
 
 - argument.actual
 - argument.actual.iteration
 - argument.formal
 - argument.formal.iteration
+
 #### Unsupported facets
+
 These facets are not supported yet a needs a developer to implement them
 
 - argument.actual.constructor
@@ -2490,11 +2546,14 @@ These facets are not supported yet a needs a developer to implement them
 ### ruby
 
 #### Supported facets
+
 These facets are supported
 
 - comment.block
 - comment.line
+
 #### Unsupported facets
+
 These facets are not supported yet a needs a developer to implement them
 
 - anonymousFunction
@@ -2633,10 +2692,13 @@ These facets are not supported yet a needs a developer to implement them
 ### rust
 
 #### Supported facets
+
 These facets are supported
 
 - ifStatement
+
 #### Unsupported facets
+
 These facets are not supported yet a needs a developer to implement them
 
 - anonymousFunction
@@ -2776,10 +2838,13 @@ These facets are not supported yet a needs a developer to implement them
 ### scala
 
 #### Supported facets
+
 These facets are supported
 
 - ifStatement
+
 #### Unsupported facets
+
 These facets are not supported yet a needs a developer to implement them
 
 - anonymousFunction
@@ -2919,10 +2984,13 @@ These facets are not supported yet a needs a developer to implement them
 ### scm
 
 #### Supported facets
+
 These facets are supported
 
 - statement
+
 #### Unsupported facets
+
 These facets are not supported yet a needs a developer to implement them
 
 - anonymousFunction
@@ -3062,6 +3130,7 @@ These facets are not supported yet a needs a developer to implement them
 ### scss
 
 #### Supported facets
+
 These facets are supported
 
 - comment.block
@@ -3073,7 +3142,9 @@ These facets are supported
 - namedFunction.iteration
 - namedFunction.iteration.document
 - string.singleLine
+
 #### Unsupported facets
+
 These facets are not supported yet a needs a developer to implement them
 
 - anonymousFunction
@@ -3205,10 +3276,13 @@ These facets are not supported yet a needs a developer to implement them
 ### talon
 
 #### Supported facets
+
 These facets are supported
 
 - command
+
 #### Unsupported facets
+
 These facets are not supported yet a needs a developer to implement them
 
 - anonymousFunction
@@ -3348,6 +3422,7 @@ These facets are not supported yet a needs a developer to implement them
 ### typescript
 
 #### Supported facets
+
 These facets are supported
 
 - anonymousFunction
@@ -3449,7 +3524,9 @@ These facets are supported
 - value.return.lambda
 - value.typeAlias
 - value.variable
+
 #### Unsupported facets
+
 These facets are not supported yet a needs a developer to implement them
 
 - attribute
@@ -3491,6 +3568,7 @@ These facets are not supported yet a needs a developer to implement them
 ### typescriptreact
 
 #### Supported facets
+
 These facets are supported
 
 - anonymousFunction
@@ -3599,7 +3677,9 @@ These facets are supported
 - value.return.lambda
 - value.typeAlias
 - value.variable
+
 #### Unsupported facets
+
 These facets are not supported yet a needs a developer to implement them
 
 - branch.loop
@@ -3634,10 +3714,13 @@ These facets are not supported yet a needs a developer to implement them
 ### xml
 
 #### Supported facets
+
 These facets are supported
 
 - comment.block
+
 #### Unsupported facets
+
 These facets are not supported yet a needs a developer to implement them
 
 - anonymousFunction
@@ -3777,10 +3860,13 @@ These facets are not supported yet a needs a developer to implement them
 ### yaml
 
 #### Supported facets
+
 These facets are supported
 
 - comment.line
+
 #### Unsupported facets
+
 These facets are not supported yet a needs a developer to implement them
 
 - anonymousFunction
