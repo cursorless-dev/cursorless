@@ -89,7 +89,7 @@ function getContentForLanguage(
         unsupportedScopes,
         languageId,
         "Unsupported facets",
-        "These facets are not supported yet a needs a developer to implement them\\\n_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_",
+        "These facets are not supported yet and needs a developer to implement them\\\n_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_",
       ),
     );
   }
