@@ -5,8 +5,10 @@
 import { readWantedLockfile } from "@pnpm/lockfile-file";
 import { createUpdateOptions } from "@pnpm/meta-updater";
 import { Context } from "./Context";
+import { updateLanguageScopeSupportConfig } from "./updateLanguageScopeSupportConfig";
 import { updatePackageJson } from "./updatePackageJson";
 import { updateTSConfig } from "./updateTSConfig";
+import { textFormat } from "./textFormat";
 
 export const updater = async (workspaceDir: string) => {
   const pnpmLockfile = await readWantedLockfile(workspaceDir, {
@@ -23,7 +25,14 @@ export const updater = async (workspaceDir: string) => {
   };
 
   return createUpdateOptions({
-    ["package.json"]: updatePackageJson.bind(null, context),
-    ["tsconfig.json"]: updateTSConfig.bind(null, context),
+    files: {
+      ["package.json"]: updatePackageJson.bind(null, context),
+      ["tsconfig.json"]: updateTSConfig.bind(null, context),
+      ["docs/contributing/language-scope-support.md"]:
+        updateLanguageScopeSupportConfig.bind(null, context),
+    },
+    formats: {
+      md: textFormat,
+    },
   });
 };

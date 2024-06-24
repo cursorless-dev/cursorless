@@ -1,6 +1,6 @@
 import { SimpleScopeTypeType } from "../types/command/PartialTargetDescriptor.types";
 
-const scopeSupportFacets = [
+export const scopeSupportFacets = [
   "command",
 
   "element",
