@@ -8,10 +8,7 @@ import {
   createPatternMatchers,
   matcher,
 } from "../util/nodeMatchers";
-import {
-  argumentSelectionExtractor,
-  childRangeSelector,
-} from "../util/nodeSelectors";
+import { childRangeSelector } from "../util/nodeSelectors";
 
 export const getTypeNode = (node: SyntaxNode) =>
   node.children.find((child) => child.type === "type") ?? null;
