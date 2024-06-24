@@ -34,18 +34,6 @@ export function updateLanguageScopeSupportConfig(
     return null;
   }
 
-  const header = "## Scope support per language";
-
-  const indexHeader = actual.indexOf(header);
-
-  if (indexHeader === -1) {
-    throw new Error(
-      `Expected to find header "${header}" in language-scope-support.md`,
-    );
-  }
-
-  const pre = actual.substring(0, indexHeader + header.length) + "\n\n";
-
   const languageContents = Object.entries(languageScopeSupport).map(
     ([languageId, scopeSupport]) =>
       getContentForLanguage(
@@ -54,14 +42,16 @@ export function updateLanguageScopeSupportConfig(
       ),
   );
 
-  return pre + languageContents.join("\n\n") + "\n";
+  const header = "# Scope support per language";
+
+  return `${header}\n\n${languageContents.join("\n\n")}\n`;
 }
 
 function getContentForLanguage(
   scopeSupport: LanguageScopeSupportFacetMap,
   languageId: string,
 ) {
-  const lines = [`### ${languageId}`];
+  const lines = [`## ${languageId}`];
   const scopesSorted = [...scopeSupportFacets].sort();
 
   const supportedScopes = scopesSorted.filter(
@@ -78,6 +68,7 @@ function getContentForLanguage(
   lines.push(
     getContentForSupportLevel(
       supportedScopes,
+      languageId,
       "Supported facets",
       "These facets are supported",
     ),
@@ -86,6 +77,7 @@ function getContentForLanguage(
     lines.push(
       getContentForSupportLevel(
         supportedLegacyScopes,
+        languageId,
         "Supported Legacy facets",
         "These facets are supported with the legacy implementation and should be migrated to the new implementation",
       ),
@@ -94,8 +86,9 @@ function getContentForLanguage(
   lines.push(
     getContentForSupportLevel(
       unsupportedScopes,
+      languageId,
       "Unsupported facets",
-      "These facets are not supported yet a needs a developer to implement them",
+      "These facets are not supported yet a needs a developer to implement them\\\n_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_",
     ),
   );
 
@@ -104,11 +97,12 @@ function getContentForLanguage(
 
 function getContentForSupportLevel(
   facets: ScopeSupportFacet[],
+  languageId: string,
   title: string,
   description: string,
 ): string {
   return [
-    `#### ${title}`,
+    `### ${languageId} - ${title}`,
     "",
     description,
     "",

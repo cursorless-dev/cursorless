@@ -1,10 +1,8 @@
-# Language scope support
+# Scope support per language
 
-## Scope support per language
+## c
 
-### c
-
-#### Supported facets
+### c - Supported facets
 
 These facets are supported
 
@@ -32,9 +30,10 @@ These facets are supported
 - value.assignment
 - value.variable
 
-#### Unsupported facets
+### c - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them
+These facets are not supported yet a needs a developer to implement them\
+_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -146,601 +145,18 @@ These facets are not supported yet a needs a developer to implement them
 - value.typeAlias
 - value.yield
 
-### clojure
+## clojure
 
-#### Supported facets
-
-These facets are supported
-
-- comment.line
-
-#### Unsupported facets
-
-These facets are not supported yet a needs a developer to implement them
-
-- anonymousFunction
-- argument.actual
-- argument.actual.constructor
-- argument.actual.constructor.iteration
-- argument.actual.iteration
-- argument.actual.method
-- argument.actual.method.iteration
-- argument.formal
-- argument.formal.constructor
-- argument.formal.constructor.iteration
-- argument.formal.iteration
-- argument.formal.method
-- argument.formal.method.iteration
-- attribute
-- branch.if
-- branch.if.iteration
-- branch.loop
-- branch.switchCase
-- branch.switchCase.iteration
-- branch.ternary
-- branch.try
-- branch.try.iteration
-- class
-- class.iteration.block
-- class.iteration.document
-- className
-- className.iteration.block
-- className.iteration.document
-- command
-- comment.block
-- condition.doWhile
-- condition.for
-- condition.if
-- condition.switchCase
-- condition.ternary
-- condition.while
-- element
-- endTag
-- environment
-- fieldAccess
-- functionCall
-- functionCall.constructor
-- functionCallee
-- functionCallee.constructor
-- functionName
-- functionName.constructor
-- functionName.iteration
-- functionName.iteration.document
-- functionName.method
-- functionName.method.iteration.class
-- ifStatement
-- key.attribute
-- key.mapPair
-- key.mapPair.iteration
-- list
-- map
-- name.argument.formal
-- name.argument.formal.constructor
-- name.argument.formal.constructor.iteration
-- name.argument.formal.iteration
-- name.argument.formal.method
-- name.argument.formal.method.iteration
-- name.assignment
-- name.assignment.pattern
-- name.class
-- name.constructor
-- name.field
-- name.foreach
-- name.function
-- name.iteration.block
-- name.iteration.document
-- name.method
-- name.resource
-- name.resource.iteration
-- name.variable
-- name.variable.pattern
-- namedFunction
-- namedFunction.constructor
-- namedFunction.iteration
-- namedFunction.iteration.document
-- namedFunction.method
-- namedFunction.method.iteration.class
-- notebookCell
-- regularExpression
-- startTag
-- statement
-- statement.class
-- statement.iteration.block
-- statement.iteration.document
-- string.multiLine
-- string.singleLine
-- switchStatementSubject
-- tags
-- textFragment.comment.block
-- textFragment.comment.line
-- textFragment.string.multiLine
-- textFragment.string.singleLine
-- type.alias
-- type.argument.formal
-- type.argument.formal.constructor
-- type.argument.formal.constructor.iteration
-- type.argument.formal.iteration
-- type.argument.formal.method
-- type.argument.formal.method.iteration
-- type.cast
-- type.class
-- type.field
-- type.field.iteration
-- type.foreach
-- type.interface
-- type.return
-- type.typeArgument
-- type.typeArgument.iteration
-- type.variable
-- value.argument.formal
-- value.argument.formal.constructor
-- value.argument.formal.constructor.iteration
-- value.argument.formal.iteration
-- value.argument.formal.method
-- value.argument.formal.method.iteration
-- value.assignment
-- value.attribute
-- value.field
-- value.foreach
-- value.mapPair
-- value.mapPair.iteration
-- value.resource
-- value.resource.iteration
-- value.return
-- value.return.lambda
-- value.typeAlias
-- value.variable
-- value.yield
-
-### cpp
-
-#### Supported facets
-
-These facets are supported
-
-- class
-- className
-- comment.block
-- comment.line
-- functionName
-- ifStatement
-- name.argument.formal
-- name.argument.formal.iteration
-- name.assignment
-- name.class
-- name.field
-- name.function
-- name.variable
-- namedFunction
-- statement.class
-- string.singleLine
-- textFragment.comment.block
-- textFragment.comment.line
-- textFragment.string.singleLine
-- type.class
-- type.field
-- value.argument.formal
-- value.argument.formal.iteration
-- value.assignment
-- value.variable
-
-#### Unsupported facets
-
-These facets are not supported yet a needs a developer to implement them
-
-- anonymousFunction
-- argument.actual
-- argument.actual.constructor
-- argument.actual.constructor.iteration
-- argument.actual.iteration
-- argument.actual.method
-- argument.actual.method.iteration
-- argument.formal
-- argument.formal.constructor
-- argument.formal.constructor.iteration
-- argument.formal.iteration
-- argument.formal.method
-- argument.formal.method.iteration
-- attribute
-- branch.if
-- branch.if.iteration
-- branch.loop
-- branch.switchCase
-- branch.switchCase.iteration
-- branch.ternary
-- branch.try
-- branch.try.iteration
-- class.iteration.block
-- class.iteration.document
-- className.iteration.block
-- className.iteration.document
-- command
-- condition.doWhile
-- condition.for
-- condition.if
-- condition.switchCase
-- condition.ternary
-- condition.while
-- element
-- endTag
-- environment
-- fieldAccess
-- functionCall
-- functionCall.constructor
-- functionCallee
-- functionCallee.constructor
-- functionName.constructor
-- functionName.iteration
-- functionName.iteration.document
-- functionName.method
-- functionName.method.iteration.class
-- key.attribute
-- key.mapPair
-- key.mapPair.iteration
-- list
-- map
-- name.argument.formal.constructor
-- name.argument.formal.constructor.iteration
-- name.argument.formal.method
-- name.argument.formal.method.iteration
-- name.assignment.pattern
-- name.constructor
-- name.foreach
-- name.iteration.block
-- name.iteration.document
-- name.method
-- name.resource
-- name.resource.iteration
-- name.variable.pattern
-- namedFunction.constructor
-- namedFunction.iteration
-- namedFunction.iteration.document
-- namedFunction.method
-- namedFunction.method.iteration.class
-- notebookCell
-- regularExpression
-- startTag
-- statement
-- statement.iteration.block
-- statement.iteration.document
-- string.multiLine
-- switchStatementSubject
-- tags
-- textFragment.string.multiLine
-- type.alias
-- type.argument.formal
-- type.argument.formal.constructor
-- type.argument.formal.constructor.iteration
-- type.argument.formal.iteration
-- type.argument.formal.method
-- type.argument.formal.method.iteration
-- type.cast
-- type.field.iteration
-- type.foreach
-- type.interface
-- type.return
-- type.typeArgument
-- type.typeArgument.iteration
-- type.variable
-- value.argument.formal.constructor
-- value.argument.formal.constructor.iteration
-- value.argument.formal.method
-- value.argument.formal.method.iteration
-- value.attribute
-- value.field
-- value.foreach
-- value.mapPair
-- value.mapPair.iteration
-- value.resource
-- value.resource.iteration
-- value.return
-- value.return.lambda
-- value.typeAlias
-- value.yield
-
-### csharp
-
-#### Supported facets
-
-These facets are supported
-
-- anonymousFunction
-- class
-- class.iteration.block
-- class.iteration.document
-- className
-- className.iteration.block
-- className.iteration.document
-- ifStatement
-
-#### Unsupported facets
-
-These facets are not supported yet a needs a developer to implement them
-
-- argument.actual
-- argument.actual.constructor
-- argument.actual.constructor.iteration
-- argument.actual.iteration
-- argument.actual.method
-- argument.actual.method.iteration
-- argument.formal
-- argument.formal.constructor
-- argument.formal.constructor.iteration
-- argument.formal.iteration
-- argument.formal.method
-- argument.formal.method.iteration
-- attribute
-- branch.if
-- branch.if.iteration
-- branch.loop
-- branch.switchCase
-- branch.switchCase.iteration
-- branch.ternary
-- branch.try
-- branch.try.iteration
-- command
-- comment.block
-- comment.line
-- condition.doWhile
-- condition.for
-- condition.if
-- condition.switchCase
-- condition.ternary
-- condition.while
-- element
-- endTag
-- environment
-- fieldAccess
-- functionCall
-- functionCall.constructor
-- functionCallee
-- functionCallee.constructor
-- functionName
-- functionName.constructor
-- functionName.iteration
-- functionName.iteration.document
-- functionName.method
-- functionName.method.iteration.class
-- key.attribute
-- key.mapPair
-- key.mapPair.iteration
-- list
-- map
-- name.argument.formal
-- name.argument.formal.constructor
-- name.argument.formal.constructor.iteration
-- name.argument.formal.iteration
-- name.argument.formal.method
-- name.argument.formal.method.iteration
-- name.assignment
-- name.assignment.pattern
-- name.class
-- name.constructor
-- name.field
-- name.foreach
-- name.function
-- name.iteration.block
-- name.iteration.document
-- name.method
-- name.resource
-- name.resource.iteration
-- name.variable
-- name.variable.pattern
-- namedFunction
-- namedFunction.constructor
-- namedFunction.iteration
-- namedFunction.iteration.document
-- namedFunction.method
-- namedFunction.method.iteration.class
-- notebookCell
-- regularExpression
-- startTag
-- statement
-- statement.class
-- statement.iteration.block
-- statement.iteration.document
-- string.multiLine
-- string.singleLine
-- switchStatementSubject
-- tags
-- textFragment.comment.block
-- textFragment.comment.line
-- textFragment.string.multiLine
-- textFragment.string.singleLine
-- type.alias
-- type.argument.formal
-- type.argument.formal.constructor
-- type.argument.formal.constructor.iteration
-- type.argument.formal.iteration
-- type.argument.formal.method
-- type.argument.formal.method.iteration
-- type.cast
-- type.class
-- type.field
-- type.field.iteration
-- type.foreach
-- type.interface
-- type.return
-- type.typeArgument
-- type.typeArgument.iteration
-- type.variable
-- value.argument.formal
-- value.argument.formal.constructor
-- value.argument.formal.constructor.iteration
-- value.argument.formal.iteration
-- value.argument.formal.method
-- value.argument.formal.method.iteration
-- value.assignment
-- value.attribute
-- value.field
-- value.foreach
-- value.mapPair
-- value.mapPair.iteration
-- value.resource
-- value.resource.iteration
-- value.return
-- value.return.lambda
-- value.typeAlias
-- value.variable
-- value.yield
-
-### css
-
-#### Supported facets
-
-These facets are supported
-
-- comment.block
-- name.iteration.block
-- name.iteration.document
-- string.singleLine
-
-#### Unsupported facets
-
-These facets are not supported yet a needs a developer to implement them
-
-- anonymousFunction
-- argument.actual
-- argument.actual.constructor
-- argument.actual.constructor.iteration
-- argument.actual.iteration
-- argument.actual.method
-- argument.actual.method.iteration
-- argument.formal
-- argument.formal.constructor
-- argument.formal.constructor.iteration
-- argument.formal.iteration
-- argument.formal.method
-- argument.formal.method.iteration
-- attribute
-- branch.if
-- branch.if.iteration
-- branch.loop
-- branch.switchCase
-- branch.switchCase.iteration
-- branch.ternary
-- branch.try
-- branch.try.iteration
-- class
-- class.iteration.block
-- class.iteration.document
-- className
-- className.iteration.block
-- className.iteration.document
-- command
-- comment.line
-- condition.doWhile
-- condition.for
-- condition.if
-- condition.switchCase
-- condition.ternary
-- condition.while
-- element
-- endTag
-- environment
-- fieldAccess
-- functionCall
-- functionCall.constructor
-- functionCallee
-- functionCallee.constructor
-- functionName
-- functionName.constructor
-- functionName.iteration
-- functionName.iteration.document
-- functionName.method
-- functionName.method.iteration.class
-- ifStatement
-- key.attribute
-- key.mapPair
-- key.mapPair.iteration
-- list
-- map
-- name.argument.formal
-- name.argument.formal.constructor
-- name.argument.formal.constructor.iteration
-- name.argument.formal.iteration
-- name.argument.formal.method
-- name.argument.formal.method.iteration
-- name.assignment
-- name.assignment.pattern
-- name.class
-- name.constructor
-- name.field
-- name.foreach
-- name.function
-- name.method
-- name.resource
-- name.resource.iteration
-- name.variable
-- name.variable.pattern
-- namedFunction
-- namedFunction.constructor
-- namedFunction.iteration
-- namedFunction.iteration.document
-- namedFunction.method
-- namedFunction.method.iteration.class
-- notebookCell
-- regularExpression
-- startTag
-- statement
-- statement.class
-- statement.iteration.block
-- statement.iteration.document
-- string.multiLine
-- switchStatementSubject
-- tags
-- textFragment.comment.block
-- textFragment.comment.line
-- textFragment.string.multiLine
-- textFragment.string.singleLine
-- type.alias
-- type.argument.formal
-- type.argument.formal.constructor
-- type.argument.formal.constructor.iteration
-- type.argument.formal.iteration
-- type.argument.formal.method
-- type.argument.formal.method.iteration
-- type.cast
-- type.class
-- type.field
-- type.field.iteration
-- type.foreach
-- type.interface
-- type.return
-- type.typeArgument
-- type.typeArgument.iteration
-- type.variable
-- value.argument.formal
-- value.argument.formal.constructor
-- value.argument.formal.constructor.iteration
-- value.argument.formal.iteration
-- value.argument.formal.method
-- value.argument.formal.method.iteration
-- value.assignment
-- value.attribute
-- value.field
-- value.foreach
-- value.mapPair
-- value.mapPair.iteration
-- value.resource
-- value.resource.iteration
-- value.return
-- value.return.lambda
-- value.typeAlias
-- value.variable
-- value.yield
-
-### go
-
-#### Supported facets
+### clojure - Supported facets
 
 These facets are supported
 
 - comment.line
 
-#### Unsupported facets
+### clojure - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them
+These facets are not supported yet a needs a developer to implement them\
+_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -876,9 +292,597 @@ These facets are not supported yet a needs a developer to implement them
 - value.variable
 - value.yield
 
-### html
+## cpp
 
-#### Supported facets
+### cpp - Supported facets
+
+These facets are supported
+
+- class
+- className
+- comment.block
+- comment.line
+- functionName
+- ifStatement
+- name.argument.formal
+- name.argument.formal.iteration
+- name.assignment
+- name.class
+- name.field
+- name.function
+- name.variable
+- namedFunction
+- statement.class
+- string.singleLine
+- textFragment.comment.block
+- textFragment.comment.line
+- textFragment.string.singleLine
+- type.class
+- type.field
+- value.argument.formal
+- value.argument.formal.iteration
+- value.assignment
+- value.variable
+
+### cpp - Unsupported facets
+
+These facets are not supported yet a needs a developer to implement them\
+_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+
+- anonymousFunction
+- argument.actual
+- argument.actual.constructor
+- argument.actual.constructor.iteration
+- argument.actual.iteration
+- argument.actual.method
+- argument.actual.method.iteration
+- argument.formal
+- argument.formal.constructor
+- argument.formal.constructor.iteration
+- argument.formal.iteration
+- argument.formal.method
+- argument.formal.method.iteration
+- attribute
+- branch.if
+- branch.if.iteration
+- branch.loop
+- branch.switchCase
+- branch.switchCase.iteration
+- branch.ternary
+- branch.try
+- branch.try.iteration
+- class.iteration.block
+- class.iteration.document
+- className.iteration.block
+- className.iteration.document
+- command
+- condition.doWhile
+- condition.for
+- condition.if
+- condition.switchCase
+- condition.ternary
+- condition.while
+- element
+- endTag
+- environment
+- fieldAccess
+- functionCall
+- functionCall.constructor
+- functionCallee
+- functionCallee.constructor
+- functionName.constructor
+- functionName.iteration
+- functionName.iteration.document
+- functionName.method
+- functionName.method.iteration.class
+- key.attribute
+- key.mapPair
+- key.mapPair.iteration
+- list
+- map
+- name.argument.formal.constructor
+- name.argument.formal.constructor.iteration
+- name.argument.formal.method
+- name.argument.formal.method.iteration
+- name.assignment.pattern
+- name.constructor
+- name.foreach
+- name.iteration.block
+- name.iteration.document
+- name.method
+- name.resource
+- name.resource.iteration
+- name.variable.pattern
+- namedFunction.constructor
+- namedFunction.iteration
+- namedFunction.iteration.document
+- namedFunction.method
+- namedFunction.method.iteration.class
+- notebookCell
+- regularExpression
+- startTag
+- statement
+- statement.iteration.block
+- statement.iteration.document
+- string.multiLine
+- switchStatementSubject
+- tags
+- textFragment.string.multiLine
+- type.alias
+- type.argument.formal
+- type.argument.formal.constructor
+- type.argument.formal.constructor.iteration
+- type.argument.formal.iteration
+- type.argument.formal.method
+- type.argument.formal.method.iteration
+- type.cast
+- type.field.iteration
+- type.foreach
+- type.interface
+- type.return
+- type.typeArgument
+- type.typeArgument.iteration
+- type.variable
+- value.argument.formal.constructor
+- value.argument.formal.constructor.iteration
+- value.argument.formal.method
+- value.argument.formal.method.iteration
+- value.attribute
+- value.field
+- value.foreach
+- value.mapPair
+- value.mapPair.iteration
+- value.resource
+- value.resource.iteration
+- value.return
+- value.return.lambda
+- value.typeAlias
+- value.yield
+
+## csharp
+
+### csharp - Supported facets
+
+These facets are supported
+
+- anonymousFunction
+- class
+- class.iteration.block
+- class.iteration.document
+- className
+- className.iteration.block
+- className.iteration.document
+- ifStatement
+
+### csharp - Unsupported facets
+
+These facets are not supported yet a needs a developer to implement them\
+_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+
+- argument.actual
+- argument.actual.constructor
+- argument.actual.constructor.iteration
+- argument.actual.iteration
+- argument.actual.method
+- argument.actual.method.iteration
+- argument.formal
+- argument.formal.constructor
+- argument.formal.constructor.iteration
+- argument.formal.iteration
+- argument.formal.method
+- argument.formal.method.iteration
+- attribute
+- branch.if
+- branch.if.iteration
+- branch.loop
+- branch.switchCase
+- branch.switchCase.iteration
+- branch.ternary
+- branch.try
+- branch.try.iteration
+- command
+- comment.block
+- comment.line
+- condition.doWhile
+- condition.for
+- condition.if
+- condition.switchCase
+- condition.ternary
+- condition.while
+- element
+- endTag
+- environment
+- fieldAccess
+- functionCall
+- functionCall.constructor
+- functionCallee
+- functionCallee.constructor
+- functionName
+- functionName.constructor
+- functionName.iteration
+- functionName.iteration.document
+- functionName.method
+- functionName.method.iteration.class
+- key.attribute
+- key.mapPair
+- key.mapPair.iteration
+- list
+- map
+- name.argument.formal
+- name.argument.formal.constructor
+- name.argument.formal.constructor.iteration
+- name.argument.formal.iteration
+- name.argument.formal.method
+- name.argument.formal.method.iteration
+- name.assignment
+- name.assignment.pattern
+- name.class
+- name.constructor
+- name.field
+- name.foreach
+- name.function
+- name.iteration.block
+- name.iteration.document
+- name.method
+- name.resource
+- name.resource.iteration
+- name.variable
+- name.variable.pattern
+- namedFunction
+- namedFunction.constructor
+- namedFunction.iteration
+- namedFunction.iteration.document
+- namedFunction.method
+- namedFunction.method.iteration.class
+- notebookCell
+- regularExpression
+- startTag
+- statement
+- statement.class
+- statement.iteration.block
+- statement.iteration.document
+- string.multiLine
+- string.singleLine
+- switchStatementSubject
+- tags
+- textFragment.comment.block
+- textFragment.comment.line
+- textFragment.string.multiLine
+- textFragment.string.singleLine
+- type.alias
+- type.argument.formal
+- type.argument.formal.constructor
+- type.argument.formal.constructor.iteration
+- type.argument.formal.iteration
+- type.argument.formal.method
+- type.argument.formal.method.iteration
+- type.cast
+- type.class
+- type.field
+- type.field.iteration
+- type.foreach
+- type.interface
+- type.return
+- type.typeArgument
+- type.typeArgument.iteration
+- type.variable
+- value.argument.formal
+- value.argument.formal.constructor
+- value.argument.formal.constructor.iteration
+- value.argument.formal.iteration
+- value.argument.formal.method
+- value.argument.formal.method.iteration
+- value.assignment
+- value.attribute
+- value.field
+- value.foreach
+- value.mapPair
+- value.mapPair.iteration
+- value.resource
+- value.resource.iteration
+- value.return
+- value.return.lambda
+- value.typeAlias
+- value.variable
+- value.yield
+
+## css
+
+### css - Supported facets
+
+These facets are supported
+
+- comment.block
+- name.iteration.block
+- name.iteration.document
+- string.singleLine
+
+### css - Unsupported facets
+
+These facets are not supported yet a needs a developer to implement them\
+_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+
+- anonymousFunction
+- argument.actual
+- argument.actual.constructor
+- argument.actual.constructor.iteration
+- argument.actual.iteration
+- argument.actual.method
+- argument.actual.method.iteration
+- argument.formal
+- argument.formal.constructor
+- argument.formal.constructor.iteration
+- argument.formal.iteration
+- argument.formal.method
+- argument.formal.method.iteration
+- attribute
+- branch.if
+- branch.if.iteration
+- branch.loop
+- branch.switchCase
+- branch.switchCase.iteration
+- branch.ternary
+- branch.try
+- branch.try.iteration
+- class
+- class.iteration.block
+- class.iteration.document
+- className
+- className.iteration.block
+- className.iteration.document
+- command
+- comment.line
+- condition.doWhile
+- condition.for
+- condition.if
+- condition.switchCase
+- condition.ternary
+- condition.while
+- element
+- endTag
+- environment
+- fieldAccess
+- functionCall
+- functionCall.constructor
+- functionCallee
+- functionCallee.constructor
+- functionName
+- functionName.constructor
+- functionName.iteration
+- functionName.iteration.document
+- functionName.method
+- functionName.method.iteration.class
+- ifStatement
+- key.attribute
+- key.mapPair
+- key.mapPair.iteration
+- list
+- map
+- name.argument.formal
+- name.argument.formal.constructor
+- name.argument.formal.constructor.iteration
+- name.argument.formal.iteration
+- name.argument.formal.method
+- name.argument.formal.method.iteration
+- name.assignment
+- name.assignment.pattern
+- name.class
+- name.constructor
+- name.field
+- name.foreach
+- name.function
+- name.method
+- name.resource
+- name.resource.iteration
+- name.variable
+- name.variable.pattern
+- namedFunction
+- namedFunction.constructor
+- namedFunction.iteration
+- namedFunction.iteration.document
+- namedFunction.method
+- namedFunction.method.iteration.class
+- notebookCell
+- regularExpression
+- startTag
+- statement
+- statement.class
+- statement.iteration.block
+- statement.iteration.document
+- string.multiLine
+- switchStatementSubject
+- tags
+- textFragment.comment.block
+- textFragment.comment.line
+- textFragment.string.multiLine
+- textFragment.string.singleLine
+- type.alias
+- type.argument.formal
+- type.argument.formal.constructor
+- type.argument.formal.constructor.iteration
+- type.argument.formal.iteration
+- type.argument.formal.method
+- type.argument.formal.method.iteration
+- type.cast
+- type.class
+- type.field
+- type.field.iteration
+- type.foreach
+- type.interface
+- type.return
+- type.typeArgument
+- type.typeArgument.iteration
+- type.variable
+- value.argument.formal
+- value.argument.formal.constructor
+- value.argument.formal.constructor.iteration
+- value.argument.formal.iteration
+- value.argument.formal.method
+- value.argument.formal.method.iteration
+- value.assignment
+- value.attribute
+- value.field
+- value.foreach
+- value.mapPair
+- value.mapPair.iteration
+- value.resource
+- value.resource.iteration
+- value.return
+- value.return.lambda
+- value.typeAlias
+- value.variable
+- value.yield
+
+## go
+
+### go - Supported facets
+
+These facets are supported
+
+- comment.line
+
+### go - Unsupported facets
+
+These facets are not supported yet a needs a developer to implement them\
+_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+
+- anonymousFunction
+- argument.actual
+- argument.actual.constructor
+- argument.actual.constructor.iteration
+- argument.actual.iteration
+- argument.actual.method
+- argument.actual.method.iteration
+- argument.formal
+- argument.formal.constructor
+- argument.formal.constructor.iteration
+- argument.formal.iteration
+- argument.formal.method
+- argument.formal.method.iteration
+- attribute
+- branch.if
+- branch.if.iteration
+- branch.loop
+- branch.switchCase
+- branch.switchCase.iteration
+- branch.ternary
+- branch.try
+- branch.try.iteration
+- class
+- class.iteration.block
+- class.iteration.document
+- className
+- className.iteration.block
+- className.iteration.document
+- command
+- comment.block
+- condition.doWhile
+- condition.for
+- condition.if
+- condition.switchCase
+- condition.ternary
+- condition.while
+- element
+- endTag
+- environment
+- fieldAccess
+- functionCall
+- functionCall.constructor
+- functionCallee
+- functionCallee.constructor
+- functionName
+- functionName.constructor
+- functionName.iteration
+- functionName.iteration.document
+- functionName.method
+- functionName.method.iteration.class
+- ifStatement
+- key.attribute
+- key.mapPair
+- key.mapPair.iteration
+- list
+- map
+- name.argument.formal
+- name.argument.formal.constructor
+- name.argument.formal.constructor.iteration
+- name.argument.formal.iteration
+- name.argument.formal.method
+- name.argument.formal.method.iteration
+- name.assignment
+- name.assignment.pattern
+- name.class
+- name.constructor
+- name.field
+- name.foreach
+- name.function
+- name.iteration.block
+- name.iteration.document
+- name.method
+- name.resource
+- name.resource.iteration
+- name.variable
+- name.variable.pattern
+- namedFunction
+- namedFunction.constructor
+- namedFunction.iteration
+- namedFunction.iteration.document
+- namedFunction.method
+- namedFunction.method.iteration.class
+- notebookCell
+- regularExpression
+- startTag
+- statement
+- statement.class
+- statement.iteration.block
+- statement.iteration.document
+- string.multiLine
+- string.singleLine
+- switchStatementSubject
+- tags
+- textFragment.comment.block
+- textFragment.comment.line
+- textFragment.string.multiLine
+- textFragment.string.singleLine
+- type.alias
+- type.argument.formal
+- type.argument.formal.constructor
+- type.argument.formal.constructor.iteration
+- type.argument.formal.iteration
+- type.argument.formal.method
+- type.argument.formal.method.iteration
+- type.cast
+- type.class
+- type.field
+- type.field.iteration
+- type.foreach
+- type.interface
+- type.return
+- type.typeArgument
+- type.typeArgument.iteration
+- type.variable
+- value.argument.formal
+- value.argument.formal.constructor
+- value.argument.formal.constructor.iteration
+- value.argument.formal.iteration
+- value.argument.formal.method
+- value.argument.formal.method.iteration
+- value.assignment
+- value.attribute
+- value.field
+- value.foreach
+- value.mapPair
+- value.mapPair.iteration
+- value.resource
+- value.resource.iteration
+- value.return
+- value.return.lambda
+- value.typeAlias
+- value.variable
+- value.yield
+
+## html
+
+### html - Supported facets
 
 These facets are supported
 
@@ -891,9 +895,10 @@ These facets are supported
 - tags
 - value.attribute
 
-#### Unsupported facets
+### html - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them
+These facets are not supported yet a needs a developer to implement them\
+_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - argument.actual.constructor
 - argument.actual.constructor.iteration
@@ -968,9 +973,9 @@ These facets are not supported yet a needs a developer to implement them
 - value.variable
 - value.yield
 
-### java
+## java
 
-#### Supported facets
+### java - Supported facets
 
 These facets are supported
 
@@ -990,9 +995,10 @@ These facets are supported
 - type.typeArgument.iteration
 - value.foreach
 
-#### Unsupported facets
+### java - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them
+These facets are not supported yet a needs a developer to implement them\
+_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual.constructor
@@ -1109,143 +1115,9 @@ These facets are not supported yet a needs a developer to implement them
 - value.variable
 - value.yield
 
-### javascript
+## javascript
 
-#### Supported facets
-
-These facets are supported
-
-- anonymousFunction
-- argument.actual
-- argument.actual.constructor
-- argument.actual.constructor.iteration
-- argument.actual.iteration
-- argument.actual.method
-- argument.actual.method.iteration
-- argument.formal
-- argument.formal.constructor
-- argument.formal.constructor.iteration
-- argument.formal.iteration
-- argument.formal.method
-- argument.formal.method.iteration
-- attribute
-- branch.if
-- branch.if.iteration
-- branch.switchCase
-- branch.switchCase.iteration
-- branch.ternary
-- branch.try
-- class
-- className
-- comment.block
-- comment.line
-- condition.doWhile
-- condition.for
-- condition.if
-- condition.switchCase
-- condition.ternary
-- condition.while
-- element
-- endTag
-- fieldAccess
-- functionCall
-- functionCall.constructor
-- functionCallee
-- functionCallee.constructor
-- functionName
-- functionName.constructor
-- functionName.iteration.document
-- functionName.method
-- functionName.method.iteration.class
-- ifStatement
-- key.attribute
-- key.mapPair
-- key.mapPair.iteration
-- list
-- map
-- name.argument.formal
-- name.argument.formal.constructor
-- name.argument.formal.constructor.iteration
-- name.argument.formal.iteration
-- name.argument.formal.method
-- name.argument.formal.method.iteration
-- name.assignment
-- name.assignment.pattern
-- name.class
-- name.constructor
-- name.field
-- name.foreach
-- name.function
-- name.method
-- name.variable
-- name.variable.pattern
-- namedFunction
-- namedFunction.constructor
-- namedFunction.iteration.document
-- namedFunction.method
-- namedFunction.method.iteration.class
-- regularExpression
-- startTag
-- statement
-- statement.iteration.block
-- statement.iteration.document
-- string.multiLine
-- string.singleLine
-- switchStatementSubject
-- tags
-- value.argument.formal
-- value.argument.formal.constructor
-- value.argument.formal.constructor.iteration
-- value.argument.formal.iteration
-- value.argument.formal.method
-- value.argument.formal.method.iteration
-- value.assignment
-- value.attribute
-- value.field
-- value.foreach
-- value.mapPair
-- value.mapPair.iteration
-- value.return
-- value.return.lambda
-- value.variable
-
-#### Unsupported facets
-
-These facets are not supported yet a needs a developer to implement them
-
-- branch.loop
-- branch.try.iteration
-- class.iteration.block
-- class.iteration.document
-- className.iteration.block
-- className.iteration.document
-- environment
-- functionName.iteration
-- name.iteration.block
-- name.iteration.document
-- name.resource
-- name.resource.iteration
-- namedFunction.iteration
-- notebookCell
-- statement.class
-- textFragment.comment.block
-- textFragment.comment.line
-- textFragment.string.multiLine
-- textFragment.string.singleLine
-- type.alias
-- type.cast
-- type.class
-- type.field.iteration
-- type.typeArgument
-- type.typeArgument.iteration
-- value.resource
-- value.resource.iteration
-- value.typeAlias
-- value.yield
-
-### javascriptreact
-
-#### Supported facets
+### javascript - Supported facets
 
 These facets are supported
 
@@ -1343,9 +1215,10 @@ These facets are supported
 - value.return.lambda
 - value.variable
 
-#### Unsupported facets
+### javascript - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them
+These facets are not supported yet a needs a developer to implement them\
+_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - branch.loop
 - branch.try.iteration
@@ -1377,9 +1250,144 @@ These facets are not supported yet a needs a developer to implement them
 - value.typeAlias
 - value.yield
 
-### json
+## javascriptreact
 
-#### Supported facets
+### javascriptreact - Supported facets
+
+These facets are supported
+
+- anonymousFunction
+- argument.actual
+- argument.actual.constructor
+- argument.actual.constructor.iteration
+- argument.actual.iteration
+- argument.actual.method
+- argument.actual.method.iteration
+- argument.formal
+- argument.formal.constructor
+- argument.formal.constructor.iteration
+- argument.formal.iteration
+- argument.formal.method
+- argument.formal.method.iteration
+- attribute
+- branch.if
+- branch.if.iteration
+- branch.switchCase
+- branch.switchCase.iteration
+- branch.ternary
+- branch.try
+- class
+- className
+- comment.block
+- comment.line
+- condition.doWhile
+- condition.for
+- condition.if
+- condition.switchCase
+- condition.ternary
+- condition.while
+- element
+- endTag
+- fieldAccess
+- functionCall
+- functionCall.constructor
+- functionCallee
+- functionCallee.constructor
+- functionName
+- functionName.constructor
+- functionName.iteration.document
+- functionName.method
+- functionName.method.iteration.class
+- ifStatement
+- key.attribute
+- key.mapPair
+- key.mapPair.iteration
+- list
+- map
+- name.argument.formal
+- name.argument.formal.constructor
+- name.argument.formal.constructor.iteration
+- name.argument.formal.iteration
+- name.argument.formal.method
+- name.argument.formal.method.iteration
+- name.assignment
+- name.assignment.pattern
+- name.class
+- name.constructor
+- name.field
+- name.foreach
+- name.function
+- name.method
+- name.variable
+- name.variable.pattern
+- namedFunction
+- namedFunction.constructor
+- namedFunction.iteration.document
+- namedFunction.method
+- namedFunction.method.iteration.class
+- regularExpression
+- startTag
+- statement
+- statement.iteration.block
+- statement.iteration.document
+- string.multiLine
+- string.singleLine
+- switchStatementSubject
+- tags
+- value.argument.formal
+- value.argument.formal.constructor
+- value.argument.formal.constructor.iteration
+- value.argument.formal.iteration
+- value.argument.formal.method
+- value.argument.formal.method.iteration
+- value.assignment
+- value.attribute
+- value.field
+- value.foreach
+- value.mapPair
+- value.mapPair.iteration
+- value.return
+- value.return.lambda
+- value.variable
+
+### javascriptreact - Unsupported facets
+
+These facets are not supported yet a needs a developer to implement them\
+_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+
+- branch.loop
+- branch.try.iteration
+- class.iteration.block
+- class.iteration.document
+- className.iteration.block
+- className.iteration.document
+- environment
+- functionName.iteration
+- name.iteration.block
+- name.iteration.document
+- name.resource
+- name.resource.iteration
+- namedFunction.iteration
+- notebookCell
+- statement.class
+- textFragment.comment.block
+- textFragment.comment.line
+- textFragment.string.multiLine
+- textFragment.string.singleLine
+- type.alias
+- type.cast
+- type.class
+- type.field.iteration
+- type.typeArgument
+- type.typeArgument.iteration
+- value.resource
+- value.resource.iteration
+- value.typeAlias
+- value.yield
+
+## json
+
+### json - Supported facets
 
 These facets are supported
 
@@ -1387,9 +1395,10 @@ These facets are supported
 - comment.line
 - map
 
-#### Unsupported facets
+### json - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them
+These facets are not supported yet a needs a developer to implement them\
+_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -1523,9 +1532,9 @@ These facets are not supported yet a needs a developer to implement them
 - value.variable
 - value.yield
 
-### jsonc
+## jsonc
 
-#### Supported facets
+### jsonc - Supported facets
 
 These facets are supported
 
@@ -1533,9 +1542,10 @@ These facets are supported
 - comment.line
 - map
 
-#### Unsupported facets
+### jsonc - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them
+These facets are not supported yet a needs a developer to implement them\
+_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -1669,9 +1679,9 @@ These facets are not supported yet a needs a developer to implement them
 - value.variable
 - value.yield
 
-### jsonl
+## jsonl
 
-#### Supported facets
+### jsonl - Supported facets
 
 These facets are supported
 
@@ -1679,9 +1689,10 @@ These facets are supported
 - comment.line
 - map
 
-#### Unsupported facets
+### jsonl - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them
+These facets are not supported yet a needs a developer to implement them\
+_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -1815,9 +1826,9 @@ These facets are not supported yet a needs a developer to implement them
 - value.variable
 - value.yield
 
-### latex
+## latex
 
-#### Supported facets
+### latex - Supported facets
 
 These facets are supported
 
@@ -1829,9 +1840,10 @@ These facets are supported
 - startTag
 - tags
 
-#### Unsupported facets
+### latex - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them
+These facets are not supported yet a needs a developer to implement them\
+_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -1961,9 +1973,9 @@ These facets are not supported yet a needs a developer to implement them
 - value.variable
 - value.yield
 
-### lua
+## lua
 
-#### Supported facets
+### lua - Supported facets
 
 These facets are supported
 
@@ -1976,9 +1988,10 @@ These facets are supported
 - value.assignment
 - value.variable
 
-#### Unsupported facets
+### lua - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them
+These facets are not supported yet a needs a developer to implement them\
+_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -2105,9 +2118,9 @@ These facets are not supported yet a needs a developer to implement them
 - value.typeAlias
 - value.yield
 
-### markdown
+## markdown
 
-#### Supported facets
+### markdown - Supported facets
 
 These facets are supported
 
@@ -2115,9 +2128,10 @@ These facets are supported
 - comment.line
 - notebookCell
 
-#### Unsupported facets
+### markdown - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them
+These facets are not supported yet a needs a developer to implement them\
+_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -2251,9 +2265,9 @@ These facets are not supported yet a needs a developer to implement them
 - value.variable
 - value.yield
 
-### php
+## php
 
-#### Supported facets
+### php - Supported facets
 
 These facets are supported
 
@@ -2261,9 +2275,10 @@ These facets are supported
 - comment.line
 - textFragment.string.singleLine
 
-#### Unsupported facets
+### php - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them
+These facets are not supported yet a needs a developer to implement them\
+_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -2397,9 +2412,9 @@ These facets are not supported yet a needs a developer to implement them
 - value.variable
 - value.yield
 
-### python
+## python
 
-#### Supported facets
+### python - Supported facets
 
 These facets are supported
 
@@ -2420,7 +2435,7 @@ These facets are supported
 - value.resource.iteration
 - value.yield
 
-#### Supported Legacy facets
+### python - Supported Legacy facets
 
 These facets are supported with the legacy implementation and should be migrated to the new implementation
 
@@ -2429,9 +2444,10 @@ These facets are supported with the legacy implementation and should be migrated
 - argument.formal
 - argument.formal.iteration
 
-#### Unsupported facets
+### python - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them
+These facets are not supported yet a needs a developer to implement them\
+_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - argument.actual.constructor
 - argument.actual.constructor.iteration
@@ -2543,18 +2559,19 @@ These facets are not supported yet a needs a developer to implement them
 - value.typeAlias
 - value.variable
 
-### ruby
+## ruby
 
-#### Supported facets
+### ruby - Supported facets
 
 These facets are supported
 
 - comment.block
 - comment.line
 
-#### Unsupported facets
+### ruby - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them
+These facets are not supported yet a needs a developer to implement them\
+_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -2689,163 +2706,18 @@ These facets are not supported yet a needs a developer to implement them
 - value.variable
 - value.yield
 
-### rust
+## rust
 
-#### Supported facets
-
-These facets are supported
-
-- ifStatement
-
-#### Unsupported facets
-
-These facets are not supported yet a needs a developer to implement them
-
-- anonymousFunction
-- argument.actual
-- argument.actual.constructor
-- argument.actual.constructor.iteration
-- argument.actual.iteration
-- argument.actual.method
-- argument.actual.method.iteration
-- argument.formal
-- argument.formal.constructor
-- argument.formal.constructor.iteration
-- argument.formal.iteration
-- argument.formal.method
-- argument.formal.method.iteration
-- attribute
-- branch.if
-- branch.if.iteration
-- branch.loop
-- branch.switchCase
-- branch.switchCase.iteration
-- branch.ternary
-- branch.try
-- branch.try.iteration
-- class
-- class.iteration.block
-- class.iteration.document
-- className
-- className.iteration.block
-- className.iteration.document
-- command
-- comment.block
-- comment.line
-- condition.doWhile
-- condition.for
-- condition.if
-- condition.switchCase
-- condition.ternary
-- condition.while
-- element
-- endTag
-- environment
-- fieldAccess
-- functionCall
-- functionCall.constructor
-- functionCallee
-- functionCallee.constructor
-- functionName
-- functionName.constructor
-- functionName.iteration
-- functionName.iteration.document
-- functionName.method
-- functionName.method.iteration.class
-- key.attribute
-- key.mapPair
-- key.mapPair.iteration
-- list
-- map
-- name.argument.formal
-- name.argument.formal.constructor
-- name.argument.formal.constructor.iteration
-- name.argument.formal.iteration
-- name.argument.formal.method
-- name.argument.formal.method.iteration
-- name.assignment
-- name.assignment.pattern
-- name.class
-- name.constructor
-- name.field
-- name.foreach
-- name.function
-- name.iteration.block
-- name.iteration.document
-- name.method
-- name.resource
-- name.resource.iteration
-- name.variable
-- name.variable.pattern
-- namedFunction
-- namedFunction.constructor
-- namedFunction.iteration
-- namedFunction.iteration.document
-- namedFunction.method
-- namedFunction.method.iteration.class
-- notebookCell
-- regularExpression
-- startTag
-- statement
-- statement.class
-- statement.iteration.block
-- statement.iteration.document
-- string.multiLine
-- string.singleLine
-- switchStatementSubject
-- tags
-- textFragment.comment.block
-- textFragment.comment.line
-- textFragment.string.multiLine
-- textFragment.string.singleLine
-- type.alias
-- type.argument.formal
-- type.argument.formal.constructor
-- type.argument.formal.constructor.iteration
-- type.argument.formal.iteration
-- type.argument.formal.method
-- type.argument.formal.method.iteration
-- type.cast
-- type.class
-- type.field
-- type.field.iteration
-- type.foreach
-- type.interface
-- type.return
-- type.typeArgument
-- type.typeArgument.iteration
-- type.variable
-- value.argument.formal
-- value.argument.formal.constructor
-- value.argument.formal.constructor.iteration
-- value.argument.formal.iteration
-- value.argument.formal.method
-- value.argument.formal.method.iteration
-- value.assignment
-- value.attribute
-- value.field
-- value.foreach
-- value.mapPair
-- value.mapPair.iteration
-- value.resource
-- value.resource.iteration
-- value.return
-- value.return.lambda
-- value.typeAlias
-- value.variable
-- value.yield
-
-### scala
-
-#### Supported facets
+### rust - Supported facets
 
 These facets are supported
 
 - ifStatement
 
-#### Unsupported facets
+### rust - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them
+These facets are not supported yet a needs a developer to implement them\
+_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -2981,17 +2853,165 @@ These facets are not supported yet a needs a developer to implement them
 - value.variable
 - value.yield
 
-### scm
+## scala
 
-#### Supported facets
+### scala - Supported facets
+
+These facets are supported
+
+- ifStatement
+
+### scala - Unsupported facets
+
+These facets are not supported yet a needs a developer to implement them\
+_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
+
+- anonymousFunction
+- argument.actual
+- argument.actual.constructor
+- argument.actual.constructor.iteration
+- argument.actual.iteration
+- argument.actual.method
+- argument.actual.method.iteration
+- argument.formal
+- argument.formal.constructor
+- argument.formal.constructor.iteration
+- argument.formal.iteration
+- argument.formal.method
+- argument.formal.method.iteration
+- attribute
+- branch.if
+- branch.if.iteration
+- branch.loop
+- branch.switchCase
+- branch.switchCase.iteration
+- branch.ternary
+- branch.try
+- branch.try.iteration
+- class
+- class.iteration.block
+- class.iteration.document
+- className
+- className.iteration.block
+- className.iteration.document
+- command
+- comment.block
+- comment.line
+- condition.doWhile
+- condition.for
+- condition.if
+- condition.switchCase
+- condition.ternary
+- condition.while
+- element
+- endTag
+- environment
+- fieldAccess
+- functionCall
+- functionCall.constructor
+- functionCallee
+- functionCallee.constructor
+- functionName
+- functionName.constructor
+- functionName.iteration
+- functionName.iteration.document
+- functionName.method
+- functionName.method.iteration.class
+- key.attribute
+- key.mapPair
+- key.mapPair.iteration
+- list
+- map
+- name.argument.formal
+- name.argument.formal.constructor
+- name.argument.formal.constructor.iteration
+- name.argument.formal.iteration
+- name.argument.formal.method
+- name.argument.formal.method.iteration
+- name.assignment
+- name.assignment.pattern
+- name.class
+- name.constructor
+- name.field
+- name.foreach
+- name.function
+- name.iteration.block
+- name.iteration.document
+- name.method
+- name.resource
+- name.resource.iteration
+- name.variable
+- name.variable.pattern
+- namedFunction
+- namedFunction.constructor
+- namedFunction.iteration
+- namedFunction.iteration.document
+- namedFunction.method
+- namedFunction.method.iteration.class
+- notebookCell
+- regularExpression
+- startTag
+- statement
+- statement.class
+- statement.iteration.block
+- statement.iteration.document
+- string.multiLine
+- string.singleLine
+- switchStatementSubject
+- tags
+- textFragment.comment.block
+- textFragment.comment.line
+- textFragment.string.multiLine
+- textFragment.string.singleLine
+- type.alias
+- type.argument.formal
+- type.argument.formal.constructor
+- type.argument.formal.constructor.iteration
+- type.argument.formal.iteration
+- type.argument.formal.method
+- type.argument.formal.method.iteration
+- type.cast
+- type.class
+- type.field
+- type.field.iteration
+- type.foreach
+- type.interface
+- type.return
+- type.typeArgument
+- type.typeArgument.iteration
+- type.variable
+- value.argument.formal
+- value.argument.formal.constructor
+- value.argument.formal.constructor.iteration
+- value.argument.formal.iteration
+- value.argument.formal.method
+- value.argument.formal.method.iteration
+- value.assignment
+- value.attribute
+- value.field
+- value.foreach
+- value.mapPair
+- value.mapPair.iteration
+- value.resource
+- value.resource.iteration
+- value.return
+- value.return.lambda
+- value.typeAlias
+- value.variable
+- value.yield
+
+## scm
+
+### scm - Supported facets
 
 These facets are supported
 
 - statement
 
-#### Unsupported facets
+### scm - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them
+These facets are not supported yet a needs a developer to implement them\
+_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -3127,9 +3147,9 @@ These facets are not supported yet a needs a developer to implement them
 - value.variable
 - value.yield
 
-### scss
+## scss
 
-#### Supported facets
+### scss - Supported facets
 
 These facets are supported
 
@@ -3143,9 +3163,10 @@ These facets are supported
 - namedFunction.iteration.document
 - string.singleLine
 
-#### Unsupported facets
+### scss - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them
+These facets are not supported yet a needs a developer to implement them\
+_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -3273,17 +3294,18 @@ These facets are not supported yet a needs a developer to implement them
 - value.variable
 - value.yield
 
-### talon
+## talon
 
-#### Supported facets
+### talon - Supported facets
 
 These facets are supported
 
 - command
 
-#### Unsupported facets
+### talon - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them
+These facets are not supported yet a needs a developer to implement them\
+_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -3419,9 +3441,9 @@ These facets are not supported yet a needs a developer to implement them
 - value.variable
 - value.yield
 
-### typescript
+## typescript
 
-#### Supported facets
+### typescript - Supported facets
 
 These facets are supported
 
@@ -3525,9 +3547,10 @@ These facets are supported
 - value.typeAlias
 - value.variable
 
-#### Unsupported facets
+### typescript - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them
+These facets are not supported yet a needs a developer to implement them\
+_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - attribute
 - branch.loop
@@ -3565,9 +3588,9 @@ These facets are not supported yet a needs a developer to implement them
 - value.resource.iteration
 - value.yield
 
-### typescriptreact
+## typescriptreact
 
-#### Supported facets
+### typescriptreact - Supported facets
 
 These facets are supported
 
@@ -3678,9 +3701,10 @@ These facets are supported
 - value.typeAlias
 - value.variable
 
-#### Unsupported facets
+### typescriptreact - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them
+These facets are not supported yet a needs a developer to implement them\
+_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - branch.loop
 - branch.try.iteration
@@ -3711,17 +3735,18 @@ These facets are not supported yet a needs a developer to implement them
 - value.resource.iteration
 - value.yield
 
-### xml
+## xml
 
-#### Supported facets
+### xml - Supported facets
 
 These facets are supported
 
 - comment.block
 
-#### Unsupported facets
+### xml - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them
+These facets are not supported yet a needs a developer to implement them\
+_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
@@ -3857,17 +3882,18 @@ These facets are not supported yet a needs a developer to implement them
 - value.variable
 - value.yield
 
-### yaml
+## yaml
 
-#### Supported facets
+### yaml - Supported facets
 
 These facets are supported
 
 - comment.line
 
-#### Unsupported facets
+### yaml - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them
+These facets are not supported yet a needs a developer to implement them\
+_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
 - argument.actual
