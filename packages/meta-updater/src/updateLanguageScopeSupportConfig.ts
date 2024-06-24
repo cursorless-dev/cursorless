@@ -83,14 +83,16 @@ function getContentForLanguage(
       ),
     );
   }
-  lines.push(
-    getContentForSupportLevel(
-      unsupportedScopes,
-      languageId,
-      "Unsupported facets",
-      "These facets are not supported yet a needs a developer to implement them\\\n_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_",
-    ),
-  );
+  if (unsupportedScopes.length > 0) {
+    lines.push(
+      getContentForSupportLevel(
+        unsupportedScopes,
+        languageId,
+        "Unsupported facets",
+        "These facets are not supported yet a needs a developer to implement them\\\n_Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_",
+      ),
+    );
+  }
 
   return lines.join("\n\n");
 }
