@@ -331,6 +331,34 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "branch",
   },
 
+  "collectionItem.import": {
+    description: "An import statement",
+    scopeType: "collectionItem",
+  },
+  "collectionItem.importFrom": {
+    description: "An import-from statement",
+    scopeType: "collectionItem",
+  },
+  "collectionItem.globalVariablesDeclaration": {
+    description: "A global variables declaration",
+    scopeType: "collectionItem",
+  },
+  "collectionItem.import.iteration": {
+    description: "Iteration scope for import statements",
+    scopeType: "collectionItem",
+    isIteration: true,
+  },
+  "collectionItem.importFrom.iteration": {
+    description: "Iteration scope for import-from statements",
+    scopeType: "collectionItem",
+    isIteration: true,
+  },
+  "collectionItem.globalVariablesDeclaration.iteration": {
+    description: "Iteration scope for global variables declarations",
+    scopeType: "collectionItem",
+    isIteration: true,
+  },
+
   "condition.if": {
     description: "A condition in an if statement",
     scopeType: "condition",

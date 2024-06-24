@@ -38,20 +38,6 @@ function itemNodeFinder(
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
-  collectionItem: cascadingMatcher(
-    matcher(
-      itemNodeFinder("import_from_statement", "dotted_name", true),
-      argumentSelectionExtractor(),
-    ),
-    matcher(
-      itemNodeFinder("import_statement", "dotted_name", false),
-      argumentSelectionExtractor(),
-    ),
-    matcher(
-      itemNodeFinder("global_statement", "identifier"),
-      argumentSelectionExtractor(),
-    ),
-  ),
   argumentOrParameter: cascadingMatcher(
     argumentMatcher("parameters", "argument_list"),
     matcher(patternFinder("call.generator_expression!"), childRangeSelector()),
