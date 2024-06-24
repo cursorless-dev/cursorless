@@ -32,7 +32,7 @@ These facets are supported
 
 ### c - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them\
+These facets are not supported yet and needs a developer to implement them\
 _Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
@@ -155,7 +155,7 @@ These facets are supported
 
 ### clojure - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them\
+These facets are not supported yet and needs a developer to implement them\
 _Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
@@ -326,7 +326,7 @@ These facets are supported
 
 ### cpp - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them\
+These facets are not supported yet and needs a developer to implement them\
 _Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
@@ -456,7 +456,7 @@ These facets are supported
 
 ### csharp - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them\
+These facets are not supported yet and needs a developer to implement them\
 _Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - argument.actual
@@ -599,7 +599,7 @@ These facets are supported
 
 ### css - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them\
+These facets are not supported yet and needs a developer to implement them\
 _Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
@@ -743,7 +743,7 @@ These facets are supported
 
 ### go - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them\
+These facets are not supported yet and needs a developer to implement them\
 _Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
@@ -897,7 +897,7 @@ These facets are supported
 
 ### html - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them\
+These facets are not supported yet and needs a developer to implement them\
 _Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - argument.actual.constructor
@@ -997,7 +997,7 @@ These facets are supported
 
 ### java - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them\
+These facets are not supported yet and needs a developer to implement them\
 _Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
@@ -1217,7 +1217,7 @@ These facets are supported
 
 ### javascript - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them\
+These facets are not supported yet and needs a developer to implement them\
 _Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - branch.loop
@@ -1352,7 +1352,7 @@ These facets are supported
 
 ### javascriptreact - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them\
+These facets are not supported yet and needs a developer to implement them\
 _Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - branch.loop
@@ -1397,7 +1397,7 @@ These facets are supported
 
 ### json - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them\
+These facets are not supported yet and needs a developer to implement them\
 _Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
@@ -1544,7 +1544,7 @@ These facets are supported
 
 ### jsonc - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them\
+These facets are not supported yet and needs a developer to implement them\
 _Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
@@ -1691,7 +1691,7 @@ These facets are supported
 
 ### jsonl - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them\
+These facets are not supported yet and needs a developer to implement them\
 _Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
@@ -1842,7 +1842,7 @@ These facets are supported
 
 ### latex - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them\
+These facets are not supported yet and needs a developer to implement them\
 _Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
@@ -1990,7 +1990,7 @@ These facets are supported
 
 ### lua - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them\
+These facets are not supported yet and needs a developer to implement them\
 _Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
@@ -2130,7 +2130,7 @@ These facets are supported
 
 ### markdown - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them\
+These facets are not supported yet and needs a developer to implement them\
 _Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
@@ -2277,7 +2277,7 @@ These facets are supported
 
 ### php - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them\
+These facets are not supported yet and needs a developer to implement them\
 _Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
@@ -2446,7 +2446,7 @@ These facets are supported with the legacy implementation and should be migrated
 
 ### python - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them\
+These facets are not supported yet and needs a developer to implement them\
 _Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - argument.actual.constructor
@@ -2570,7 +2570,7 @@ These facets are supported
 
 ### ruby - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them\
+These facets are not supported yet and needs a developer to implement them\
 _Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
@@ -2716,7 +2716,7 @@ These facets are supported
 
 ### rust - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them\
+These facets are not supported yet and needs a developer to implement them\
 _Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
@@ -2863,7 +2863,7 @@ These facets are supported
 
 ### scala - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them\
+These facets are not supported yet and needs a developer to implement them\
 _Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
@@ -3010,7 +3010,7 @@ These facets are supported
 
 ### scm - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them\
+These facets are not supported yet and needs a developer to implement them\
 _Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
@@ -3165,7 +3165,7 @@ These facets are supported
 
 ### scss - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them\
+These facets are not supported yet and needs a developer to implement them\
 _Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
@@ -3304,7 +3304,7 @@ These facets are supported
 
 ### talon - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them\
+These facets are not supported yet and needs a developer to implement them\
 _Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
@@ -3549,7 +3549,7 @@ These facets are supported
 
 ### typescript - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them\
+These facets are not supported yet and needs a developer to implement them\
 _Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - attribute
@@ -3703,7 +3703,7 @@ These facets are supported
 
 ### typescriptreact - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them\
+These facets are not supported yet and needs a developer to implement them\
 _Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - branch.loop
@@ -3745,7 +3745,7 @@ These facets are supported
 
 ### xml - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them\
+These facets are not supported yet and needs a developer to implement them\
 _Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
@@ -3892,7 +3892,7 @@ These facets are supported
 
 ### yaml - Unsupported facets
 
-These facets are not supported yet a needs a developer to implement them\
+These facets are not supported yet and needs a developer to implement them\
 _Note that in many instances we actually do support this scope, but we have not yet updated `languageScopeSupport` to reflect this fact_
 
 - anonymousFunction
