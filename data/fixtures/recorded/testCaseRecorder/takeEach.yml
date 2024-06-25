@@ -1,12 +1,7 @@
 languageId: plaintext
 command:
-<<<<<<<< HEAD:data/fixtures/recorded/testCaseRecorder/takeEach.yml
   version: 6
   spokenForm: take each
-========
-  version: 7
-  spokenForm: take harp
->>>>>>>> main:data/fixtures/recorded/testCaseRecorder/takeHarp.yml
   action:
     name: setSelection
     target:
