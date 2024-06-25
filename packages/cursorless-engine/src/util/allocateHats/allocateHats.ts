@@ -172,6 +172,7 @@ function getTokenRemainingHatCandidates(
   }
   return candidates;
 }
+// Testing
 
 /**
  * @param token The token that received the hat
