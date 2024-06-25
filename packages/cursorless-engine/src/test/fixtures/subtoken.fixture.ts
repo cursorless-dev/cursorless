@@ -88,9 +88,4 @@ export const subtokenFixture: Fixture[] = [
     input: "thisIsATest",
     expectedOutput: ["this", "Is", "A", "Test"],
   },
-  // TODO: Handle this correctly?
-  // {
-  //   input: "NSURLSession",
-  //   expectedOutput: ["NS", "URL", "Session"],
-  // },
 ];
