@@ -95,7 +95,7 @@ async function testCaseRecorderGracefulError() {
     }
 
     await initalizeEditor(hatTokenMap);
-    await takeHarp();
+    await takeEach();
     await stopRecording();
     await checkRecordedTest(tmpdir);
   } finally {
@@ -110,7 +110,7 @@ async function runAndCheckTestCaseRecorder(
 ) {
   await initalizeEditor(hatTokenMap);
   await startRecording(...extraArgs);
-  await takeHarp();
+  await takeEach();
   await stopRecording();
   await checkRecordedTest(tmpdir);
 }
@@ -134,10 +134,10 @@ async function stopRecording() {
   await vscode.commands.executeCommand("cursorless.recordTestCase");
 }
 
-async function takeHarp() {
+async function takeEach() {
   await runCursorlessCommand({
     version: LATEST_VERSION,
-    spokenForm: "take harp",
+    spokenForm: "take each",
     usePrePhraseSnapshot: false,
     action: {
       name: "setSelection",
