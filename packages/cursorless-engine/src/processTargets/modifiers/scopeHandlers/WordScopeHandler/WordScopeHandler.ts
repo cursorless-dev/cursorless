@@ -16,6 +16,8 @@ export class WordScopeHandler extends NestedScopeHandler {
     domain,
   }: TargetScope): TargetScope[] {
     const { document } = editor;
+    // FIXME: Switch to using getMatchesInRange once we are able to properly
+    // mock away vscode for the unit tests in subtoken.test.ts
     const offset = document.offsetAt(domain.start);
     const matches = this.wordTokenizer.splitIdentifier(
       document.getText(domain),
