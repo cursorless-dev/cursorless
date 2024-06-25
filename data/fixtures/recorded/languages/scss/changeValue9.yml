@@ -1,0 +1,28 @@
+languageId: scss
+command:
+  version: 5
+  spokenForm: change value
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    a[data-lang^="tel"] {
+      color: rgba(0, 255, 0, 0.5);
+    }
+  selections:
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 16}
+  marks: {}
+finalState:
+  documentContents: |-
+    a[data-lang^=] {
+      color: rgba(0, 255, 0, 0.5);
+    }
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}

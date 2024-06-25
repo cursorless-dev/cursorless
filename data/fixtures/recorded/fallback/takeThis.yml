@@ -1,0 +1,26 @@
+languageId: plaintext
+focusedElementType: other
+command:
+  version: 7
+  spokenForm: take this
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      mark: {type: cursor}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: foo
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: foo
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+fallback:
+  action: setSelection
+  modifiers:
+    - {type: containingTokenIfEmpty}

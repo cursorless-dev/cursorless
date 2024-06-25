@@ -1,0 +1,28 @@
+languageId: rust
+command:
+  version: 5
+  spokenForm: change item near
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: 'n'}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    let x = [None, Some(1)];
+  selections:
+    - anchor: {line: 0, character: 24}
+      active: {line: 0, character: 24}
+  marks:
+    default.n:
+      start: {line: 0, character: 9}
+      end: {line: 0, character: 13}
+finalState:
+  documentContents: |
+    let x = [, Some(1)];
+  selections:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}

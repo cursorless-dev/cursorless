@@ -1,0 +1,28 @@
+languageId: clojure
+command:
+  version: 5
+  spokenForm: change name
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    (defn say-hello
+      [name]
+      (println (str "Hello, " name)))
+  selections:
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
+  marks: {}
+finalState:
+  documentContents: |-
+    (defn 
+      [name]
+      (println (str "Hello, " name)))
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

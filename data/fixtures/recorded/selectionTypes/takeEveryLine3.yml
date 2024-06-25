@@ -1,0 +1,40 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: take every line
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: line}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+
+    a
+
+    b   c
+    d   e
+    f   g
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 4, character: 5}
+  marks: {}
+finalState:
+  documentContents: |
+
+    a
+
+    b   c
+    d   e
+    f   g
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 1}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 5}
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 5}

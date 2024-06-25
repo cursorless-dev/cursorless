@@ -1,0 +1,28 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change pair right square
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: any}
+      mark: {type: decoratedSymbol, symbolColor: default, character: ']'}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    [(hello)  (whatever)]
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.]:
+      start: {line: 0, character: 20}
+      end: {line: 0, character: 21}
+finalState:
+  documentContents: |+
+
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

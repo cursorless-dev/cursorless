@@ -1,0 +1,40 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: take every paint
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: nonWhitespaceSequence}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    first test-block
+    for testing
+
+    second test-block
+    for testing
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 3, character: 9}
+  marks: {}
+finalState:
+  documentContents: |-
+    first test-block
+    for testing
+
+    second test-block
+    for testing
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 16}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 3}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 11}
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 6}
+    - anchor: {line: 3, character: 7}
+      active: {line: 3, character: 17}

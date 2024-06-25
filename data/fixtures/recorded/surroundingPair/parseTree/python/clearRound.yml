@@ -1,0 +1,27 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: change inside round
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - {type: interiorOnly}
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: parentheses}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    class a(object):
+        pass
+  selections:
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}
+  marks: {}
+finalState:
+  documentContents: |
+    class a():
+        pass
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

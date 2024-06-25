@@ -1,0 +1,47 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: move line air
+  action: {name: moveToTarget}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: line}
+    - {type: implicit}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    a a a
+    b b b
+    c c c
+  selections:
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 1}
+finalState:
+  documentContents: |-
+    b b b
+    c c c
+    a a a
+  selections:
+    - anchor: {line: 2, character: 5}
+      active: {line: 2, character: 5}
+ide:
+  flashes:
+    - style: pendingDelete
+      range: {type: line, start: 0, end: 0}
+    - style: pendingModification0
+      range:
+        type: character
+        start: {line: 3, character: 0}
+        end: {line: 3, character: 0}
+    - style: pendingModification0
+      range:
+        type: character
+        start: {line: 2, character: 0}
+        end: {line: 2, character: 5}

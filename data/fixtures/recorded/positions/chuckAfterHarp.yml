@@ -1,0 +1,33 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: chuck trailing harp
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - {type: trailing}
+      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    "hello "
+    " hello"
+    " hello "
+    return a.b
+  selections:
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
+  marks:
+    default.h:
+      start: {line: 2, character: 2}
+      end: {line: 2, character: 7}
+finalState:
+  documentContents: |
+    "hello "
+    " hello"
+    " hello"
+    return a.b
+  selections:
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}

@@ -1,0 +1,26 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: chuck type red
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+      mark: {type: decoratedSymbol, symbolColor: default, character: r}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "const hello: string = \"hello\";"
+  selections:
+    - anchor: {line: 0, character: 30}
+      active: {line: 0, character: 30}
+  marks:
+    default.r:
+      start: {line: 0, character: 13}
+      end: {line: 0, character: 19}
+finalState:
+  documentContents: const hello = "hello";
+  selections:
+    - anchor: {line: 0, character: 22}
+      active: {line: 0, character: 22}

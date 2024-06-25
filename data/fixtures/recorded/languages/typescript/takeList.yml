@@ -1,0 +1,26 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: take list
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: list}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+
+    const value = [1, 2, 3]
+  selections:
+    - anchor: {line: 1, character: 16}
+      active: {line: 1, character: 16}
+  marks: {}
+finalState:
+  documentContents: |
+
+    const value = [1, 2, 3]
+  selections:
+    - anchor: {line: 1, character: 14}
+      active: {line: 1, character: 23}

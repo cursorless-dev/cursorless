@@ -1,0 +1,28 @@
+languageId: scala
+command:
+  version: 5
+  spokenForm: change class name
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: className}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    trait Greeter {
+      def greet(name: String): Unit
+    }
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks: {}
+finalState:
+  documentContents: |-
+    trait  {
+      def greet(name: String): Unit
+    }
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

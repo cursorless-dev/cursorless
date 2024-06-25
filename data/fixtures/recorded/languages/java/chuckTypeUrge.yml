@@ -1,0 +1,36 @@
+languageId: java
+command:
+  version: 5
+  spokenForm: chuck type urge
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+      mark: {type: decoratedSymbol, symbolColor: default, character: u}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    public class Java {
+        private Java(String name) {
+            String value = "hello";
+        }
+    }
+  selections:
+    - anchor: {line: 3, character: 1}
+      active: {line: 3, character: 1}
+  marks:
+    default.u:
+      start: {line: 2, character: 15}
+      end: {line: 2, character: 20}
+finalState:
+  documentContents: |-
+    public class Java {
+        private Java(String name) {
+            value = "hello";
+        }
+    }
+  selections:
+    - anchor: {line: 3, character: 1}
+      active: {line: 3, character: 1}

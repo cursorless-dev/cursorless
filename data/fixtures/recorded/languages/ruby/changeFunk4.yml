@@ -1,0 +1,34 @@
+languageId: ruby
+command:
+  version: 5
+  spokenForm: change funk
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: namedFunction}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    class Test
+      class << self
+        def hello_world
+          puts "hi"
+        end
+      end
+    end
+  selections:
+    - anchor: {line: 3, character: 6}
+      active: {line: 3, character: 6}
+  marks: {}
+finalState:
+  documentContents: |-
+    class Test
+      class << self
+        
+      end
+    end
+  selections:
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}

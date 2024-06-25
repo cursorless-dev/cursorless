@@ -1,0 +1,133 @@
+struct aaa {};
+union bbb {};
+enum ccc {};
+
+typedef struct {} ggg;
+typedef union {} iii;
+typedef enum {} lll;
+---
+
+[#1 Content] = 0:7-0:10
+         >---<
+0| struct aaa {};
+
+[#1 Removal] = 0:7-0:11
+         >----<
+0| struct aaa {};
+
+[#1 Leading delimiter] = 0:6-0:7
+        >-<
+0| struct aaa {};
+
+[#1 Trailing delimiter] = 0:10-0:11
+            >-<
+0| struct aaa {};
+
+[#1 Domain] = 0:0-0:14
+  >--------------<
+0| struct aaa {};
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:6-1:9
+        >---<
+1| union bbb {};
+
+[#2 Removal] = 1:6-1:10
+        >----<
+1| union bbb {};
+
+[#2 Leading delimiter] = 1:5-1:6
+       >-<
+1| union bbb {};
+
+[#2 Trailing delimiter] = 1:9-1:10
+           >-<
+1| union bbb {};
+
+[#2 Domain] = 1:0-1:13
+  >-------------<
+1| union bbb {};
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] = 2:5-2:8
+       >---<
+2| enum ccc {};
+
+[#3 Removal] = 2:5-2:9
+       >----<
+2| enum ccc {};
+
+[#3 Leading delimiter] = 2:4-2:5
+      >-<
+2| enum ccc {};
+
+[#3 Trailing delimiter] = 2:8-2:9
+          >-<
+2| enum ccc {};
+
+[#3 Domain] = 2:0-2:12
+  >------------<
+2| enum ccc {};
+
+[#3 Insertion delimiter] = " "
+
+
+[#4 Content] = 4:18-4:21
+                    >---<
+4| typedef struct {} ggg;
+
+[#4 Removal] = 4:17-4:21
+                   >----<
+4| typedef struct {} ggg;
+
+[#4 Leading delimiter] = 4:17-4:18
+                   >-<
+4| typedef struct {} ggg;
+
+[#4 Domain] = 4:0-4:22
+  >----------------------<
+4| typedef struct {} ggg;
+
+[#4 Insertion delimiter] = " "
+
+
+[#5 Content] = 5:17-5:20
+                   >---<
+5| typedef union {} iii;
+
+[#5 Removal] = 5:16-5:20
+                  >----<
+5| typedef union {} iii;
+
+[#5 Leading delimiter] = 5:16-5:17
+                  >-<
+5| typedef union {} iii;
+
+[#5 Domain] = 5:0-5:21
+  >---------------------<
+5| typedef union {} iii;
+
+[#5 Insertion delimiter] = " "
+
+
+[#6 Content] = 6:16-6:19
+                  >---<
+6| typedef enum {} lll;
+
+[#6 Removal] = 6:15-6:19
+                 >----<
+6| typedef enum {} lll;
+
+[#6 Leading delimiter] = 6:15-6:16
+                 >-<
+6| typedef enum {} lll;
+
+[#6 Domain] = 6:0-6:20
+  >--------------------<
+6| typedef enum {} lll;
+
+[#6 Insertion delimiter] = " "

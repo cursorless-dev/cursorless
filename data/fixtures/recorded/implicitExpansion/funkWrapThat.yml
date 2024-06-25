@@ -1,0 +1,34 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: funk wrap that
+  action:
+    name: wrapWithSnippet
+    args:
+      - {type: named, name: functionDeclaration, variableName: body}
+  targets:
+    - type: primitive
+      mark: {type: that}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    const whatever = "hello";
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks: {}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 23}
+        end: {line: 0, character: 23}
+      isReversed: false
+      hasExplicitRange: false
+finalState:
+  documentContents: |
+    function () {
+        const whatever = "hello";
+    }
+  selections:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}

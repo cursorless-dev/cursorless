@@ -1,0 +1,25 @@
+command:
+  version: 5
+  spokenForm: change short paint paren
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: (}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: boundedNonWhitespaceSequence}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: foo(aa|aa-.c_d bb|bb-.'')
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.(:
+      start: {line: 0, character: 3}
+      end: {line: 0, character: 4}
+finalState:
+  documentContents: " bb|bb-.'')"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

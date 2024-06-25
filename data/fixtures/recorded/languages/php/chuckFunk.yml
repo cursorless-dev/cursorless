@@ -1,0 +1,30 @@
+languageId: php
+command:
+  version: 6
+  spokenForm: chuck funk
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: namedFunction}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    <?php
+
+    $myFunk = function() {
+
+    };
+  selections:
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
+  marks: {}
+finalState:
+  documentContents: |+
+    <?php
+
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}

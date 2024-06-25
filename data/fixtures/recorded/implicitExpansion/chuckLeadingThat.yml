@@ -1,0 +1,29 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: chuck leading that
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - {type: leading}
+      mark: {type: that}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: " hello"
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+  marks: {}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 6}
+        end: {line: 0, character: 6}
+      isReversed: false
+      hasExplicitRange: false
+finalState:
+  documentContents: hello
+  selections:
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}

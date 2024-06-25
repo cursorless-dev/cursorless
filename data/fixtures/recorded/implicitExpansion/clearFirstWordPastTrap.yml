@@ -1,0 +1,36 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change first sub past trap
+  action: {name: clearAndSetSelection}
+  targets:
+    - active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: t}
+      type: range
+      excludeAnchor: false
+      excludeActive: false
+      anchor:
+        type: primitive
+        modifiers:
+          - type: ordinalScope
+            scopeType: {type: word}
+            start: 0
+            length: 1
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    helloWorld
+    testingThere
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+  marks:
+    default.t:
+      start: {line: 1, character: 0}
+      end: {line: 1, character: 12}
+finalState:
+  documentContents: There
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

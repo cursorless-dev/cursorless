@@ -1,0 +1,20 @@
+export type Aaa = Bbb;
+---
+
+[Content] = 0:18-0:21
+                    >---<
+0| export type Aaa = Bbb;
+
+[Removal] = 0:17-0:21
+                   >----<
+0| export type Aaa = Bbb;
+
+[Leading delimiter] = 0:17-0:18
+                   >-<
+0| export type Aaa = Bbb;
+
+[Domain] = 0:0-0:22
+  >----------------------<
+0| export type Aaa = Bbb;
+
+[Insertion delimiter] = " "

@@ -1,0 +1,43 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: chuck third char whale past second char harp
+  action: {name: remove}
+  targets:
+    - active:
+        type: primitive
+        modifiers:
+          - type: ordinalScope
+            scopeType: {type: character}
+            start: 1
+            length: 1
+        mark: {type: decoratedSymbol, symbolColor: default, character: h}
+      type: range
+      excludeAnchor: false
+      excludeActive: false
+      anchor:
+        type: primitive
+        modifiers:
+          - type: ordinalScope
+            scopeType: {type: character}
+            start: 2
+            length: 1
+        mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: foo world whatever
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 9}
+  marks:
+    default.w:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 9}
+    default.h:
+      start: {line: 0, character: 10}
+      end: {line: 0, character: 18}
+finalState:
+  documentContents: foo woatever
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 6}

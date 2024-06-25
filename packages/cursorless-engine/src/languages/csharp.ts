@@ -6,7 +6,6 @@ import {
   leadingMatcher,
   matcher,
   trailingMatcher,
-  typeMatcher,
   conditionMatcher,
   patternMatcher,
 } from "../util/nodeMatchers";
@@ -134,26 +133,21 @@ const getMapMatchers = {
       (node: SyntaxNode) => node.childForFieldName("initializer"),
     ]),
   ),
-  string: typeMatcher("string_literal"),
 };
 
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
   ...getMapMatchers,
-  ifStatement: "if_statement",
-  class: "class_declaration",
-  className: "class_declaration[name]",
   condition: cascadingMatcher(
     conditionMatcher("*[condition]"),
     patternMatcher("while_statement[0]"),
   ),
-  switchStatementSubject: [
+  ["private.switchStatementSubject"]: [
     "switch_statement.tuple_expression!",
     "switch_statement[value]",
   ],
   statement: STATEMENT_TYPES,
-  anonymousFunction: "lambda_expression",
   functionCall: ["invocation_expression", "object_creation_expression"],
   functionCallee: cascadingMatcher(
     patternMatcher("invocation_expression[function]"),
@@ -171,7 +165,6 @@ const nodeMatchers: Partial<
   ),
   namedFunction: NAMED_FUNCTION_TYPES,
   functionName: NAMED_FUNCTION_TYPES.map((t) => t + "[name]"),
-  comment: "comment",
   regularExpression: "regex",
   type: trailingMatcher(["*[type]"]),
   name: [

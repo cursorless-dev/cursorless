@@ -1,0 +1,28 @@
+languageId: latex
+command:
+  version: 5
+  spokenForm: change part
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: part}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    \part{1}
+    \chapter{child}
+    some text
+    \part{2}
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |
+
+    \part{2}
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

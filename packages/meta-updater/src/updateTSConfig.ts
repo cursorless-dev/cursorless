@@ -1,10 +1,12 @@
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import normalizePath from "normalize-path";
 import path from "path";
-import exists from "path-exists";
-import { TsConfigJson } from "type-fest";
+import { pathExists } from "path-exists";
+import { PackageJson, TsConfigJson } from "type-fest";
 import { toPosixPath } from "./toPosixPath";
 import { Context } from "./Context";
+import { uniq } from "lodash";
+import { readFile } from "fs/promises";
 
 /**
  * Given a tsconfig.json, update it to match our conventions.  This function is
@@ -68,17 +70,28 @@ export async function updateTSConfig(
       continue;
     }
     const relativePath = spec.slice(5);
-    if (!(await exists(path.join(packageDir, relativePath, "tsconfig.json")))) {
-      throw new Error(`No tsconfig found for ${relativePath} in ${packageDir}`);
+    if (
+      !(await pathExists(path.join(packageDir, relativePath, "tsconfig.json")))
+    ) {
+      throw new Error(`No tsconfig found for ${relativePath}`);
+    }
+    if (
+      (
+        JSON.parse(
+          await readFile(path.join(packageDir, relativePath, "package.json"), {
+            encoding: "utf-8",
+          }),
+        ) as PackageJson
+      ).private
+    ) {
+      throw new Error(`Dependency ${relativePath} is private`);
     }
     references.push({ path: relativePath });
   }
 
   return {
     ...input,
-    extends: toPosixPath(
-      path.join(pathFromPackageToRoot, "tsconfig.base.json"),
-    ),
+    extends: getExtends(pathFromPackageToRoot, input.extends),
     compilerOptions: {
       ...(input.compilerOptions ?? {}),
       rootDir: "src",
@@ -91,11 +104,31 @@ export async function updateTSConfig(
 
       ...(input.compilerOptions?.jsx == null ? [] : ["src/**/*.tsx"]),
 
-      ...((await exists(path.join(packageDir, "next.config.js")))
+      ...((await pathExists(path.join(packageDir, "next.config.js")))
         ? ["next-env.d.ts"]
         : []),
 
       toPosixPath(path.join(pathFromPackageToRoot, "typings", "**/*.d.ts")),
     ],
   };
+}
+
+function getExtends(
+  pathFromPackageToRoot: string,
+  inputExtends: string | string[] | undefined,
+) {
+  let extendsList =
+    inputExtends == null
+      ? []
+      : Array.isArray(inputExtends)
+        ? [...inputExtends]
+        : [inputExtends];
+
+  extendsList.push(
+    toPosixPath(path.join(pathFromPackageToRoot, "tsconfig.base.json")),
+  );
+
+  extendsList = uniq(extendsList);
+
+  return extendsList.length === 1 ? extendsList[0] : extendsList;
 }

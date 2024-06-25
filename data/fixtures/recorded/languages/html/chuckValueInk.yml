@@ -1,0 +1,32 @@
+languageId: html
+command:
+  version: 5
+  spokenForm: chuck value sit
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+      mark: {type: decoratedSymbol, symbolColor: default, character: i}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    <html id="value">
+        
+    </html>
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+  marks:
+    default.i:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 8}
+finalState:
+  documentContents: |-
+    <html id>
+        
+    </html>
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

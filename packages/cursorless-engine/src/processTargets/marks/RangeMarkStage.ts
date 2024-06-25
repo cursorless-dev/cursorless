@@ -1,10 +1,10 @@
-import { RangeMark } from "@cursorless/common";
+import { RangeMark } from "../../typings/TargetDescriptor";
 import { Target } from "../../typings/target.types";
 import { MarkStageFactory } from "../MarkStageFactory";
 import { MarkStage } from "../PipelineStages.types";
 import { targetsToContinuousTarget } from "../TargetPipelineRunner";
 
-export default class RangeMarkStage implements MarkStage {
+export class RangeMarkStage implements MarkStage {
   constructor(
     private markStageFactory: MarkStageFactory,
     private mark: RangeMark,

@@ -1,0 +1,33 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: chuck first two chars whale take whale
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: ordinalScope
+          scopeType: {type: character}
+          start: 0
+          length: 2
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: false
+marksToCheck: [default.w]
+initialState:
+  documentContents: hello world
+  selections:
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}
+  marks:
+    default.w:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 11}
+finalState:
+  documentContents: hello rld
+  selections:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}
+  marks:
+    default.w:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 9}

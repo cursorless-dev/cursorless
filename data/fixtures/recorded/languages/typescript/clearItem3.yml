@@ -1,0 +1,22 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: change item
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "let foo: { a: string, b: string };"
+  selections:
+    - anchor: {line: 0, character: 22}
+      active: {line: 0, character: 22}
+  marks: {}
+finalState:
+  documentContents: "let foo: { a: string,  };"
+  selections:
+    - anchor: {line: 0, character: 22}
+      active: {line: 0, character: 22}

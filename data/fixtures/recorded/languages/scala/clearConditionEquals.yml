@@ -1,0 +1,32 @@
+languageId: scala
+command:
+  version: 5
+  spokenForm: change condition equals
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: condition}
+      mark: {type: decoratedSymbol, symbolColor: default, character: '='}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    class Example() {
+      if (1 + 2 == 3) println("wow")
+    }
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.=:
+      start: {line: 1, character: 12}
+      end: {line: 1, character: 14}
+finalState:
+  documentContents: |
+    class Example() {
+      if () println("wow")
+    }
+  selections:
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 6}

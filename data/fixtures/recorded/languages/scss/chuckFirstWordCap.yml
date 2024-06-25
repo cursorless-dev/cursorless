@@ -1,0 +1,34 @@
+languageId: scss
+command:
+  version: 5
+  spokenForm: chuck first sub cap
+  action: {name: remove}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: c}
+      modifiers:
+        - type: ordinalScope
+          scopeType: {type: word}
+          start: 0
+          length: 1
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |2-
+     .child-selector {
+       height: 10px;
+     }
+  selections:
+    - anchor: {line: 2, character: 2}
+      active: {line: 2, character: 2}
+  marks:
+    default.c:
+      start: {line: 0, character: 2}
+      end: {line: 0, character: 16}
+finalState:
+  documentContents: |2-
+     .selector {
+       height: 10px;
+     }
+  selections:
+    - anchor: {line: 2, character: 2}
+      active: {line: 2, character: 2}

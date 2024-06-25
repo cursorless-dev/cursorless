@@ -1,0 +1,41 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: define vest
+  action:
+    name: executeCommand
+    args:
+      - editor.action.revealDefinition
+      - {restoreSelection: false}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: v}
+  usePrePhraseSnapshot: false
+spokenFormError: Action 'executeCommand'
+initialState:
+  documentContents: |
+    const value = "value";
+
+    console.log(value);
+  selections:
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
+  marks:
+    default.v:
+      start: {line: 2, character: 12}
+      end: {line: 2, character: 17}
+finalState:
+  documentContents: |
+    const value = "value";
+
+    console.log(value);
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 2, character: 12}
+        end: {line: 2, character: 17}
+      isReversed: false
+      hasExplicitRange: false

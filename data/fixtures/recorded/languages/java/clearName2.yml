@@ -1,0 +1,32 @@
+languageId: java
+command:
+  version: 5
+  spokenForm: change name
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    public class MyClass {
+        void myFunk () {
+
+        }
+    }
+  selections:
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
+  marks: {}
+finalState:
+  documentContents: |
+    public class MyClass {
+        void  () {
+
+        }
+    }
+  selections:
+    - anchor: {line: 1, character: 9}
+      active: {line: 1, character: 9}

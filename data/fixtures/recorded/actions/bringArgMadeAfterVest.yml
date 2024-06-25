@@ -1,0 +1,56 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: bring arg made after vest
+  action: {name: replaceWithTarget}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: v}
+      modifiers:
+        - {type: position, position: after}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    function myFunk(
+        name: string,
+        value: number
+    ) {}
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.m:
+      start: {line: 1, character: 4}
+      end: {line: 1, character: 8}
+    default.v:
+      start: {line: 2, character: 4}
+      end: {line: 2, character: 9}
+finalState:
+  documentContents: |-
+    function myFunk(
+        name: string,
+        value: number,
+        name: string
+    ) {}
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 3, character: 4}
+        end: {line: 3, character: 16}
+      isReversed: false
+      hasExplicitRange: true
+  sourceMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 1, character: 4}
+        end: {line: 1, character: 16}
+      isReversed: false
+      hasExplicitRange: true

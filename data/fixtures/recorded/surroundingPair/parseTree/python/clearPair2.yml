@@ -1,0 +1,23 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: change bounds
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - {type: excludeInterior}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "{1: [(1), (2), (3)]}"
+  selections:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}
+  marks: {}
+finalState:
+  documentContents: "{1: (1), (2), (3)}"
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}

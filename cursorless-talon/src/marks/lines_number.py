@@ -1,39 +1,32 @@
 from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Any
 
-from talon import Context, Module
+from talon import Module
 
 from ..targets.range_target import RangeConnective
+from .mark_types import LineNumber, LineNumberMark, LineNumberType
 
 mod = Module()
-ctx = Context()
 
 mod.list("cursorless_line_direction", desc="Supported directions for line modifier")
 
 
 @dataclass
 class CustomizableTerm:
-    defaultSpokenForm: str
     cursorlessIdentifier: str
-    type: str
-    formatter: Callable
+    type: LineNumberType
+    formatter: Callable[[int], int]
 
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
 # See https://www.cursorless.org/docs/user/customization/
 directions = [
-    CustomizableTerm(
-        "row", "lineNumberModulo100", "modulo100", lambda number: number - 1
-    ),
-    CustomizableTerm("up", "lineNumberRelativeUp", "relative", lambda number: -number),
-    CustomizableTerm(
-        "down", "lineNumberRelativeDown", "relative", lambda number: number
-    ),
+    CustomizableTerm("lineNumberModulo100", "modulo100", lambda number: number - 1),
+    CustomizableTerm("lineNumberRelativeUp", "relative", lambda number: -number),
+    CustomizableTerm("lineNumberRelativeDown", "relative", lambda number: number),
 ]
 
 directions_map = {d.cursorlessIdentifier: d for d in directions}
-DEFAULT_DIRECTIONS = {d.defaultSpokenForm: d.cursorlessIdentifier for d in directions}
 
 
 @mod.capture(
@@ -42,15 +35,13 @@ DEFAULT_DIRECTIONS = {d.defaultSpokenForm: d.cursorlessIdentifier for d in direc
         "[<user.cursorless_range_connective> <user.private_cursorless_number_small>]"
     )
 )
-def cursorless_line_number(m) -> dict[str, Any]:
+def cursorless_line_number(m) -> LineNumber:
     direction = directions_map[m.cursorless_line_direction]
-    anchor = create_line_number_mark(
-        direction.type, direction.formatter(m.private_cursorless_number_small_list[0])
-    )
-    if len(m.private_cursorless_number_small_list) > 1:
+    numbers: list[int] = m.private_cursorless_number_small_list
+    anchor = create_line_number_mark(direction.type, direction.formatter(numbers[0]))
+    if len(numbers) > 1:
         active = create_line_number_mark(
-            direction.type,
-            direction.formatter(m.private_cursorless_number_small_list[1]),
+            direction.type, direction.formatter(numbers[1])
         )
         range_connective: RangeConnective = m.cursorless_range_connective
         return {
@@ -63,9 +54,9 @@ def cursorless_line_number(m) -> dict[str, Any]:
     return anchor
 
 
-def create_line_number_mark(line_number_type: str, line_number: int) -> dict[str, Any]:
+def create_line_number_mark(type: LineNumberType, line_number: int) -> LineNumberMark:
     return {
         "type": "lineNumber",
-        "lineNumberType": line_number_type,
+        "lineNumberType": type,
         "lineNumber": line_number,
     }

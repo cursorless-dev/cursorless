@@ -1,0 +1,22 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: change type
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "const foo: string = new Bar()"
+  selections:
+    - anchor: {line: 0, character: 24}
+      active: {line: 0, character: 24}
+  marks: {}
+finalState:
+  documentContents: "const foo: string = new ()"
+  selections:
+    - anchor: {line: 0, character: 24}
+      active: {line: 0, character: 24}

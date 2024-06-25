@@ -1,0 +1,32 @@
+languageId: css
+command:
+  version: 5
+  spokenForm: change unit one
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: unit}
+      mark: {type: decoratedSymbol, symbolColor: default, character: '1'}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |2-
+     .child-selector {
+      height: 10Q;
+    }
+  selections:
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}
+  marks:
+    default.1:
+      start: {line: 1, character: 10}
+      end: {line: 1, character: 13}
+finalState:
+  documentContents: |2-
+     .child-selector {
+      height: 10;
+    }
+  selections:
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 12}

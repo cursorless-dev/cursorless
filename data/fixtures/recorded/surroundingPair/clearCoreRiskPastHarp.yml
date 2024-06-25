@@ -1,0 +1,37 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change inside red past harp
+  action: {name: clearAndSetSelection}
+  targets:
+    - active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: h}
+      type: range
+      excludeAnchor: false
+      excludeActive: false
+      anchor:
+        type: primitive
+        modifiers:
+          - {type: interiorOnly}
+        mark: {type: decoratedSymbol, symbolColor: default, character: r}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    ( hello world )
+    [ hello world ]
+  selections:
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 15}
+  marks:
+    default.r:
+      start: {line: 0, character: 8}
+      end: {line: 0, character: 13}
+    default.h:
+      start: {line: 1, character: 2}
+      end: {line: 1, character: 7}
+finalState:
+  documentContents: (  ]
+  selections:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}

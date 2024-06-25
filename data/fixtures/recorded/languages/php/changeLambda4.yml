@@ -1,0 +1,28 @@
+languageId: php
+command:
+  version: 5
+  spokenForm: change lambda
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: anonymousFunction}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    <?php
+
+    myFunc(fn() => 'Hello world');
+  selections:
+    - anchor: {line: 2, character: 22}
+      active: {line: 2, character: 22}
+  marks: {}
+finalState:
+  documentContents: |-
+    <?php
+
+    myFunc();
+  selections:
+    - anchor: {line: 2, character: 7}
+      active: {line: 2, character: 7}

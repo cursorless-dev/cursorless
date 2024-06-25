@@ -1,0 +1,28 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: take every arg air
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: argumentOrParameter}
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: foo(bar(baz, bongo), bazman)
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 8}
+      end: {line: 0, character: 11}
+finalState:
+  documentContents: foo(bar(baz, bongo), bazman)
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 11}
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 18}

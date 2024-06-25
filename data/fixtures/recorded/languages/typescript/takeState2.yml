@@ -1,0 +1,28 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: take state
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: statement}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    if (true) {
+
+    }
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks: {}
+finalState:
+  documentContents: |-
+    if (true) {
+
+    }
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 2, character: 1}

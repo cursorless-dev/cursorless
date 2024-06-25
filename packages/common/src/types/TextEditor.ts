@@ -1,10 +1,10 @@
 import type {
+  Edit,
   Position,
   Range,
   RevealLineAt,
   Selection,
   TextDocument,
-  TextEditorEdit,
   TextEditorOptions,
 } from "..";
 
@@ -53,8 +53,26 @@ export interface TextEditor {
   isEqual(other: TextEditor): boolean;
 }
 
+export interface SetSelectionsOpts {
+  focusEditor?: boolean;
+  revealRange?: boolean;
+}
+
 export interface EditableTextEditor extends TextEditor {
-  selections: Selection[];
+  /**
+   * Set the selections in this text editor, optionally focusing the editor
+   * and/or revealing the ranges.
+   *
+   * Note that if your editor requires unique selections, you should deduplicate
+   * them in your implementation of this method.
+   *
+   * @param selections The new selections
+   * @param opts The options for setting the selections
+   */
+  setSelections(
+    selections: Selection[],
+    opts?: SetSelectionsOpts,
+  ): Promise<void>;
 
   options: TextEditorOptions;
 
@@ -81,18 +99,11 @@ export interface EditableTextEditor extends TextEditor {
   /**
    * Perform an edit on the document associated with this text editor.
    *
-   * The given callback-function is invoked with an {@link TextEditorEdit edit-builder} which must
-   * be used to make edits. Note that the edit-builder is only valid while the
-   * callback executes.
-   *
-   * @param callback A function which can create edits using an {@link TextEditorEdit edit-builder}.
-   * @param options The undo/redo behavior around this edit. By default, undo stops will be created before and after this edit.
+   * @param edits the list of edits that need to be applied to the document
+   *        (note that the implementation might need to sort them in reverse order)
    * @return A promise that resolves with a value indicating if the edits could be applied.
    */
-  edit(
-    callback: (editBuilder: TextEditorEdit) => void,
-    options?: { undoStopBefore: boolean; undoStopAfter: boolean },
-  ): Promise<boolean>;
+  edit(edits: Edit[]): Promise<boolean>;
 
   /**
    * Edit a new new notebook cell above.

@@ -1,7 +1,19 @@
-import { Range, TextDocument } from "@cursorless/common";
+import {
+  Disposable,
+  FileSystem,
+  Notifier,
+  Range,
+  TextDocument,
+  getCursorlessRepoRoot,
+  isTesting,
+  showError,
+} from "@cursorless/common";
+import { join } from "path";
 import { SyntaxNode } from "web-tree-sitter";
-import { TreeSitter } from "..";
+import { TreeSitter } from "../typings/TreeSitter";
+import { ide } from "../singletons/ide.singleton";
 import { LanguageDefinition } from "./LanguageDefinition";
+import { toString } from "lodash";
 
 /**
  * Sentinel value to indicate that a language doesn't have
@@ -14,6 +26,8 @@ const LANGUAGE_UNDEFINED = Symbol("LANGUAGE_UNDEFINED");
  * constructing them as necessary
  */
 export class LanguageDefinitions {
+  private notifier: Notifier = new Notifier();
+
   /**
    * Maps from language id to {@link LanguageDefinition} or
    * {@link LANGUAGE_UNDEFINED} if language doesn't have new-style definitions.
@@ -28,8 +42,82 @@ export class LanguageDefinitions {
     string,
     LanguageDefinition | typeof LANGUAGE_UNDEFINED
   > = new Map();
+  private queryDir: string;
+  private disposables: Disposable[] = [];
 
-  constructor(private treeSitter: TreeSitter) {}
+  constructor(
+    private fileSystem: FileSystem,
+    private treeSitter: TreeSitter,
+  ) {
+    ide().onDidOpenTextDocument((document) => {
+      this.loadLanguage(document.languageId);
+    });
+    ide().onDidChangeVisibleTextEditors((editors) => {
+      editors.forEach(({ document }) => this.loadLanguage(document.languageId));
+    });
+
+    // Use the repo root as the root for development mode, so that we can
+    // we can make hot-reloading work for the queries
+    this.queryDir =
+      ide().runMode === "development"
+        ? join(getCursorlessRepoRoot(), "queries")
+        : "queries";
+
+    if (ide().runMode === "development") {
+      this.disposables.push(
+        fileSystem.watchDir(this.queryDir, () => {
+          this.reloadLanguageDefinitions();
+        }),
+      );
+    }
+  }
+
+  public async init(): Promise<void> {
+    await this.loadAllLanguages();
+  }
+
+  private async loadAllLanguages(): Promise<void> {
+    const languageIds = ide().visibleTextEditors.map(
+      ({ document }) => document.languageId,
+    );
+
+    try {
+      await Promise.all(
+        languageIds.map((languageId) => this.loadLanguage(languageId)),
+      );
+    } catch (err) {
+      showError(
+        ide().messages,
+        "Failed to load language definitions",
+        toString(err),
+      );
+      if (isTesting()) {
+        throw err;
+      }
+    }
+  }
+
+  public async loadLanguage(languageId: string): Promise<void> {
+    if (this.languageDefinitions.has(languageId)) {
+      return;
+    }
+
+    const definition =
+      (await LanguageDefinition.create(
+        this.treeSitter,
+        this.fileSystem,
+        this.queryDir,
+        languageId,
+      )) ?? LANGUAGE_UNDEFINED;
+
+    this.languageDefinitions.set(languageId, definition);
+  }
+
+  private async reloadLanguageDefinitions(): Promise<void> {
+    this.languageDefinitions.clear();
+    await this.loadAllLanguages();
+    this.notifier.notifyListeners();
+  }
 
   /**
    * Get a language definition for the given language id, if the language
@@ -40,14 +128,13 @@ export class LanguageDefinitions {
    * the given language id doesn't have a new-style query definition
    */
   get(languageId: string): LanguageDefinition | undefined {
-    let definition = this.languageDefinitions.get(languageId);
+    const definition = this.languageDefinitions.get(languageId);
 
     if (definition == null) {
-      definition =
-        LanguageDefinition.create(this.treeSitter, languageId) ??
-        LANGUAGE_UNDEFINED;
-
-      this.languageDefinitions.set(languageId, definition);
+      throw new Error(
+        "Expected language definition entry is missing for languageId " +
+          languageId,
+      );
     }
 
     return definition === LANGUAGE_UNDEFINED ? undefined : definition;
@@ -58,5 +145,11 @@ export class LanguageDefinitions {
    */
   public getNodeAtLocation(document: TextDocument, range: Range): SyntaxNode {
     return this.treeSitter.getNodeAtLocation(document, range);
+  }
+
+  onDidChangeDefinition = this.notifier.registerListener;
+
+  dispose() {
+    this.disposables.forEach((disposable) => disposable.dispose());
   }
 }

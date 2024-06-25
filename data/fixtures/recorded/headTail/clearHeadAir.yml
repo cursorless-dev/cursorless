@@ -1,0 +1,25 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change head air
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      modifiers:
+        - {type: extendThroughStartOf}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "    hello world whatever"
+  selections:
+    - anchor: {line: 0, character: 24}
+      active: {line: 0, character: 24}
+  marks:
+    default.a:
+      start: {line: 0, character: 16}
+      end: {line: 0, character: 24}
+finalState:
+  documentContents: "    "
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}

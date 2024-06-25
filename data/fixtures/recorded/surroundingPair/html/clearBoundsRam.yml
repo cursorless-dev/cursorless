@@ -1,0 +1,37 @@
+languageId: html
+command:
+  version: 5
+  spokenForm: change bounds red
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - {type: excludeInterior}
+      mark: {type: decoratedSymbol, symbolColor: default, character: r}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    <html>
+        <body>
+            <hr/>
+        </body>
+    </html>
+  selections:
+    - anchor: {line: 4, character: 7}
+      active: {line: 4, character: 7}
+  marks:
+    default.r:
+      start: {line: 2, character: 9}
+      end: {line: 2, character: 11}
+finalState:
+  documentContents: |-
+    <html>
+        <body>
+            hr
+        </body>
+    </html>
+  selections:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
+    - anchor: {line: 2, character: 10}
+      active: {line: 2, character: 10}

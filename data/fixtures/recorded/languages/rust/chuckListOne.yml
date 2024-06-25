@@ -1,0 +1,26 @@
+languageId: rust
+command:
+  version: 5
+  spokenForm: chuck list one
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: list}
+      mark: {type: decoratedSymbol, symbolColor: default, character: '1'}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: let x = [1, 2, 3];
+  selections:
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}
+  marks:
+    default.1:
+      start: {line: 0, character: 9}
+      end: {line: 0, character: 10}
+finalState:
+  documentContents: let x =;
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

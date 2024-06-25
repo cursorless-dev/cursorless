@@ -1,4 +1,8 @@
-import { ActionDescriptor, CommandV6 } from "@cursorless/common";
+import {
+  ActionDescriptor,
+  CommandResponse,
+  CommandV6,
+} from "@cursorless/common";
 
 export interface SpokenFormTest {
   /**
@@ -12,23 +16,31 @@ export interface SpokenFormTest {
    * `user.private_cursorless_run_rpc_command_get` action to return the given
    * value.
    */
-  mockedGetValue: unknown | undefined;
+  mockedGetValue: CommandResponse | undefined;
 
   /**
    * The sequence of Cursorless commands that should be executed when
    * {@link spokenForm} is spoken.
    */
   commands: CommandV6[];
+
+  /**
+   * If `true`, use community snippets instead of Cursorless snippets
+   */
+  useCommunitySnippets: boolean;
 }
 
 export function spokenFormTest(
   spokenForm: string,
   action: ActionDescriptor,
+  mockedGetValue?: unknown,
+  { useCommunitySnippets = false }: SpokenFormTestOpts = {},
 ): SpokenFormTest {
   return {
     spokenForm,
-    mockedGetValue: undefined,
+    mockedGetValue: wrapMockedGetValue(mockedGetValue),
     commands: [command(spokenForm, action)],
+    useCommunitySnippets,
   };
 }
 
@@ -36,12 +48,20 @@ export function multiActionSpokenFormTest(
   spokenForm: string,
   actions: ActionDescriptor[],
   mockedGetValue?: unknown,
+  { useCommunitySnippets = false }: SpokenFormTestOpts = {},
 ): SpokenFormTest {
   return {
     spokenForm,
-    mockedGetValue,
+    mockedGetValue: wrapMockedGetValue(mockedGetValue),
     commands: actions.map((action) => command(spokenForm, action)),
+    useCommunitySnippets,
   };
+}
+
+function wrapMockedGetValue(
+  mockedGetValue: unknown,
+): CommandResponse | undefined {
+  return mockedGetValue == null ? undefined : { returnValue: mockedGetValue };
 }
 
 function command(spokenForm: string, action: ActionDescriptor): CommandV6 {
@@ -51,4 +71,8 @@ function command(spokenForm: string, action: ActionDescriptor): CommandV6 {
     usePrePhraseSnapshot: true,
     action,
   };
+}
+
+export interface SpokenFormTestOpts {
+  useCommunitySnippets?: boolean;
 }

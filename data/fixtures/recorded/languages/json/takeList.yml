@@ -1,0 +1,30 @@
+languageId: json
+command:
+  version: 5
+  spokenForm: take list
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: list}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+
+    {
+        "foo": [1, 2, 3]
+    }
+  selections:
+    - anchor: {line: 2, character: 19}
+      active: {line: 2, character: 19}
+  marks: {}
+finalState:
+  documentContents: |
+
+    {
+        "foo": [1, 2, 3]
+    }
+  selections:
+    - anchor: {line: 2, character: 11}
+      active: {line: 2, character: 20}

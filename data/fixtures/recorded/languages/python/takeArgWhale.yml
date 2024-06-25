@@ -1,0 +1,26 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: take arg whale
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "\" \".join((word for word in word_list), (word for word in word_list))"
+  selections:
+    - anchor: {line: 0, character: 68}
+      active: {line: 0, character: 68}
+  marks:
+    default.w:
+      start: {line: 0, character: 49}
+      end: {line: 0, character: 53}
+finalState:
+  documentContents: "\" \".join((word for word in word_list), (word for word in word_list))"
+  selections:
+    - anchor: {line: 0, character: 39}
+      active: {line: 0, character: 67}

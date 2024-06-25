@@ -9,7 +9,11 @@ of a document. See the
 [docs](https://github.com/pokey/vscode-parse-tree/#adding-a-new-language) there
 for how to add support for a new parser
 
-## 2. Define parse tree patterns in Cursorless
+## 2. Ensure file type is supported by VSCode
+
+If you are adding support for a new language that isn't natively detected by VSCode, you will need to add the appropriate extension to the list of dependencies. The list of languages officially supported by VSCode is listed [in the VSCode docs](https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers). If your language is in that list, you can skip this step and proceed to step 3. If your language is not in that list, you need to find a VSCode extension that adds support for your language, and add the id of the given extension to [`packages/common/src/extensionDependencies.ts`](../../packages/common/src/extensionDependencies.ts) and then re-run `pnpm init-vscode-sandbox` to ensure it is installed. If you do not do this you will encounter errors when attempting to execute cursorless commands in the next step. See [#1895](https://github.com/cursorless-dev/cursorless/issues/1895) for more info.
+
+## 3. Define parse tree patterns in Cursorless
 
 First a few notes / tips:
 
@@ -34,6 +38,6 @@ tree to get the scopes that the user expects. Fortunately, the tree-sitter query
 Test cases can be automatically recorded, which should speed things up a lot.
 See the [docs](test-case-recorder.md) for the test case recorder. It will also
 likely be helpful to look at the existing recorded test cases (eg
-[java](../../packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/languages/java)) to see how
+[java](../../data/fixtures/recorded/languages/java)) to see how
 they
 should end up looking when they're recorded.

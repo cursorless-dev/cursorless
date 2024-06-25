@@ -1,0 +1,28 @@
+languageId: scala
+command:
+  version: 5
+  spokenForm: chuck type fine
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    class TypesAhoy(foo: String) {}
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.f:
+      start: {line: 0, character: 16}
+      end: {line: 0, character: 19}
+finalState:
+  documentContents: |
+    class TypesAhoy(foo) {}
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

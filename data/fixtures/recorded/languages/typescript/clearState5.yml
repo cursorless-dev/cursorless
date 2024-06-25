@@ -1,0 +1,40 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: change state
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: statement}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    abstract class Foo {
+        value: string;
+        abstract bar(): void;
+        baz() { }
+    }
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}
+  marks: {}
+finalState:
+  documentContents: |-
+    abstract class Foo {
+        
+        
+        
+    }
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}

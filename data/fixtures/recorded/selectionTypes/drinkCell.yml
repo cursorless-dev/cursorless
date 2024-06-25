@@ -1,0 +1,29 @@
+languageId: python
+postCommandSleepTimeMs: 400
+command:
+  version: 5
+  spokenForm: drink cell
+  action: {name: editNewLineBefore}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: notebookCell}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    # %%
+    print("hello")
+  selections:
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 12}
+  marks: {}
+finalState:
+  documentContents: |-
+    # %%
+
+    # %%
+    print("hello")
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

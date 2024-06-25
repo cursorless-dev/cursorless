@@ -1,0 +1,26 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: take arg
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+
+    my_funk(1, 2, 3)
+  selections:
+    - anchor: {line: 1, character: 8}
+      active: {line: 1, character: 8}
+  marks: {}
+finalState:
+  documentContents: |-
+
+    my_funk(1, 2, 3)
+  selections:
+    - anchor: {line: 1, character: 8}
+      active: {line: 1, character: 9}

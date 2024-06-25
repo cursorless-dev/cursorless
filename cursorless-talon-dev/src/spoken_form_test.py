@@ -33,6 +33,8 @@ commands_run = []
 
 mockedGetValue = ""
 
+community_snippets_tag_name = "user.cursorless_use_community_snippets"
+
 
 @ctx.action_class("user")
 class UserActions:
@@ -40,17 +42,23 @@ class UserActions:
         return True
 
     def private_cursorless_run_rpc_command_and_wait(
-        command_id: str, arg1: Any, arg2: Any = None
+        command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
+        arg1: Any,
+        arg2: Any = None,
     ):
         commands_run.append(arg1)
 
     def private_cursorless_run_rpc_command_no_wait(
-        command_id: str, arg1: Any, arg2: Any = None
+        command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
+        arg1: Any,
+        arg2: Any = None,
     ):
         commands_run.append(arg1)
 
     def private_cursorless_run_rpc_command_get(
-        command_id: str, arg1: Any, arg2: Any = None
+        command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
+        arg1: Any,
+        arg2: Any = None,
     ) -> Any:
         commands_run.append(arg1)
         return mockedGetValue
@@ -58,7 +66,7 @@ class UserActions:
 
 @mod.action_class
 class Actions:
-    def private_cursorless_spoken_form_test_mode(enable: bool):
+    def private_cursorless_spoken_form_test_mode(enable: bool):  # pyright: ignore [reportGeneralTypeIssues]
         """Enable/disable Cursorless spoken form test mode"""
         global saved_modes, saved_microphone
 
@@ -82,8 +90,23 @@ class Actions:
                 "Cursorless spoken form tests are done. Talon microphone is re-enabled."
             )
 
+    def private_cursorless_use_community_snippets(enable: bool):  # pyright: ignore [reportGeneralTypeIssues]
+        """Enable/disable cursorless community snippets in test mode"""
+        if enable:
+            tags = set(ctx.tags)
+            tags.add(community_snippets_tag_name)
+            ctx.tags = list(tags)
+        else:
+            tags = set(ctx.tags)
+            tags.remove(community_snippets_tag_name)
+            ctx.tags = list(tags)
+        # Note: Test harness hangs if we don't print anything because it's
+        # waiting for stdout
+        print(f"Set community snippet enablement to {enable}")
+
     def private_cursorless_spoken_form_test(
-        phrase: str, mockedGetValue_: Optional[str]
+        phrase: str,  # pyright: ignore [reportGeneralTypeIssues]
+        mockedGetValue_: Optional[str],
     ):
         """Run Cursorless spoken form test"""
         global commands_run, mockedGetValue
@@ -96,6 +119,25 @@ class Actions:
             print(json.dumps(commands_run))
         except Exception as e:
             print(f"{e.__class__.__name__}: {e}")
+
+    def private_cursorless_test_extract_decorated_marks(target: Any):
+        """Run test for Cursorless private extract decorated marks api"""
+        marks = actions.user.cursorless_private_extract_decorated_marks(target)
+        all_decorated_marks_target = actions.user.cursorless_private_build_list_target(
+            [
+                actions.user.cursorless_private_build_primitive_target([], mark)
+                for mark in marks
+            ]
+        )
+        actions.user.cursorless_private_action_highlight(
+            all_decorated_marks_target, "highlight1"
+        )
+
+    def private_cursorless_test_alternate_highlight_nothing():
+        """Run test for Cursorless private highlight nothing api"""
+        actions.user.cursorless_private_action_highlight(
+            actions.user.cursorless_private_target_nothing(), "highlight1"
+        )
 
 
 def enable_modes():

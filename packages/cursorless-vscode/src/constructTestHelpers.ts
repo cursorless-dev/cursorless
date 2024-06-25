@@ -1,42 +1,50 @@
 import {
-  CommandServerApi,
   ExcludableSnapshotField,
   ExtraSnapshotField,
+  FakeCommandServerApi,
   HatTokenMap,
   IDE,
   NormalizedIDE,
+  ScopeProvider,
   SerializedMarks,
+  StoredTargetKey,
   TargetPlainObject,
   TestCaseSnapshot,
   TextEditor,
 } from "@cursorless/common";
 import {
-  StoredTargetKey,
   StoredTargetMap,
   plainObjectToTarget,
   takeSnapshot,
 } from "@cursorless/cursorless-engine";
-import { TestHelpers } from "@cursorless/vscode-common";
+import { VscodeTestHelpers } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
+import { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
 import { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { toVscodeEditor } from "./ide/vscode/toVscodeEditor";
 import { vscodeApi } from "./vscodeApi";
 
 export function constructTestHelpers(
-  commandServerApi: CommandServerApi | null,
+  commandServerApi: FakeCommandServerApi,
   storedTargets: StoredTargetMap,
   hatTokenMap: HatTokenMap,
   vscodeIDE: VscodeIDE,
   normalizedIde: NormalizedIDE,
+  fileSystem: VscodeFileSystem,
+  scopeProvider: ScopeProvider,
   injectIde: (ide: IDE) => void,
   runIntegrationTests: () => Promise<void>,
-): TestHelpers | undefined {
+): VscodeTestHelpers | undefined {
   return {
     commandServerApi: commandServerApi!,
     ide: normalizedIde,
     injectIde,
+    scopeProvider,
 
     toVscodeEditor,
+    fromVscodeEditor(editor: vscode.TextEditor): TextEditor {
+      return vscodeIDE.fromVscodeEditor(editor);
+    },
 
     // FIXME: Remove this once we have a better way to get this function
     // accessible from our tests
@@ -46,7 +54,6 @@ export function constructTestHelpers(
       editor: TextEditor,
       ide: IDE,
       marks: SerializedMarks | undefined,
-      forceRealClipboard: boolean,
     ): Promise<TestCaseSnapshot> {
       return takeSnapshot(
         storedTargets,
@@ -57,20 +64,20 @@ export function constructTestHelpers(
         marks,
         undefined,
         undefined,
-        forceRealClipboard ? vscodeIDE.clipboard : undefined,
       );
     },
 
+    cursorlessTalonStateJsonPath: fileSystem.cursorlessTalonStateJsonPath,
+    cursorlessCommandHistoryDirPath: fileSystem.cursorlessCommandHistoryDirPath,
+
     setStoredTarget(
-      editor: vscode.TextEditor,
+      editor: TextEditor,
       key: StoredTargetKey,
       targets: TargetPlainObject[] | undefined,
     ): void {
       storedTargets.set(
         key,
-        targets?.map((target) =>
-          plainObjectToTarget(vscodeIDE.fromVscodeEditor(editor), target),
-        ),
+        targets?.map((target) => plainObjectToTarget(editor, target)),
       );
     },
     hatTokenMap,

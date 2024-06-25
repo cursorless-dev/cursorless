@@ -1,0 +1,30 @@
+languageId: css
+command:
+  version: 5
+  spokenForm: change state air
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: statement}
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    a {
+      height: 10px;
+      color: red;
+    }
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+  marks:
+    default.a:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 1}
+finalState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

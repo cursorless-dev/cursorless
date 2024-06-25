@@ -1,0 +1,31 @@
+languageId: scala
+command:
+  version: 5
+  spokenForm: change parse tree string
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: string}
+  usePrePhraseSnapshot: false
+spokenFormError: >-
+  simple scope type type with id string; this is a private spoken form currently
+  only for internal experimentation
+initialState:
+  documentContents: |
+    class ExampleClass() {
+      val string = "example string"
+    }
+  selections:
+    - anchor: {line: 1, character: 24}
+      active: {line: 1, character: 24}
+  marks: {}
+finalState:
+  documentContents: |
+    class ExampleClass() {
+      val string = 
+    }
+  selections:
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 15}

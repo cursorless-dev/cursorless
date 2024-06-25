@@ -1,0 +1,30 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: chuck past start of trap
+  action: {name: remove}
+  targets:
+    - active:
+        type: primitive
+        modifiers:
+          - {type: position, position: start}
+        mark: {type: decoratedSymbol, symbolColor: default, character: t}
+      type: range
+      excludeAnchor: false
+      excludeActive: false
+      anchor: {type: implicit}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: hello there
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+  marks:
+    default.t:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 11}
+finalState:
+  documentContents: hello ere
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

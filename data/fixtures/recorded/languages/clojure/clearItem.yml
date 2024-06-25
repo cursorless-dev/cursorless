@@ -1,0 +1,32 @@
+languageId: clojure
+command:
+  version: 5
+  spokenForm: change item
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    {
+        :bongo {
+            :foo "bar",
+            ;; hello
+            :baz "whatever",
+        }
+    }
+  selections:
+    - anchor: {line: 3, character: 13}
+      active: {line: 3, character: 13}
+  marks: {}
+finalState:
+  documentContents: |-
+    {
+        
+    }
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

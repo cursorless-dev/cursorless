@@ -1,0 +1,25 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: bring this to whale
+  action: {name: replaceWithTarget}
+  targets:
+    - type: primitive
+      mark: {type: cursor}
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: hello world
+  selections:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}
+  marks:
+    default.w:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 11}
+finalState:
+  documentContents: hello hello
+  selections:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}

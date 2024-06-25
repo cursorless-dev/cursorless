@@ -1,0 +1,28 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: change key
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionKey}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    {
+        foo: "bar"
+    }
+  selections:
+    - anchor: {line: 1, character: 10}
+      active: {line: 1, character: 10}
+  marks: {}
+finalState:
+  documentContents: |-
+    {
+        : "bar"
+    }
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

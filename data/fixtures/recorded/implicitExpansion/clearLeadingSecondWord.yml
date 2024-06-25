@@ -1,0 +1,21 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change leading second sub
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - {type: leading}
+        - type: ordinalScope
+          scopeType: {type: word}
+          start: 1
+          length: 1
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: helloWorld
+  selections:
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
+  marks: {}
+thrownError: {name: NoDelimiterError}

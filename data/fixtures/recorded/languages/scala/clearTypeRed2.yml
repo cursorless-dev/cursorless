@@ -1,0 +1,32 @@
+languageId: scala
+command:
+  version: 5
+  spokenForm: change type red
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+      mark: {type: decoratedSymbol, symbolColor: default, character: r}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    class TypesAhoy() {
+      val foo: List[String] = List("foo")
+    }
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.r:
+      start: {line: 1, character: 16}
+      end: {line: 1, character: 22}
+finalState:
+  documentContents: |
+    class TypesAhoy() {
+      val foo:  = List("foo")
+    }
+  selections:
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 11}

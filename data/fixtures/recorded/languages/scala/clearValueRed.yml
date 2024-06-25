@@ -1,0 +1,32 @@
+languageId: scala
+command:
+  version: 5
+  spokenForm: change value red
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+      mark: {type: decoratedSymbol, symbolColor: default, character: r}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    class Example() {
+      val bar = "bar" + "smang"
+    }
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.r:
+      start: {line: 1, character: 13}
+      end: {line: 1, character: 16}
+finalState:
+  documentContents: |
+    class Example() {
+      val bar = 
+    }
+  selections:
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 12}

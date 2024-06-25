@@ -1,0 +1,21 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: change round
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: parentheses}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: ((hello))
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+finalState:
+  documentContents: ()
+  selections:
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}

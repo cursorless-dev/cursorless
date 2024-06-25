@@ -1,0 +1,57 @@
+```python
+def foo():
+    pass
+```
+
+```
+hello
+```
+
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-3:3
+  >---------
+0| ```python
+1| def foo():
+2|     pass
+3| ```
+   ---<
+
+[#1 Interior: Content] = 1:0-2:8
+  >----------
+1| def foo():
+2|     pass
+   --------<
+[#1 Interior: Removal] = 0:9-3:0
+           >
+0| ```python
+1| def foo():
+2|     pass
+3| ```
+   <
+
+[#1 Insertion delimiter] = "\n\n"
+
+
+[#2 Content] =
+[#2 Removal] =
+[#2 Domain] = 5:0-7:3
+  >---
+5| ```
+6| hello
+7| ```
+   ---<
+
+[#2 Interior: Content] = 6:0-6:5
+  >-----<
+6| hello
+[#2 Interior: Removal] = 5:3-7:0
+     >
+5| ```
+6| hello
+7| ```
+   <
+
+[#2 Insertion delimiter] = "\n\n"

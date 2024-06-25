@@ -1,0 +1,33 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change second between third item
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: range
+          anchor:
+            type: ordinalScope
+            scopeType: {type: collectionItem}
+            start: 1
+            length: 1
+          active:
+            type: ordinalScope
+            scopeType: {type: collectionItem}
+            start: 2
+            length: 1
+          excludeAnchor: true
+          excludeActive: true
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: a, b, c, d
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: a, bc, d
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}

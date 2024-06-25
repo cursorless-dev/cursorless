@@ -1,0 +1,30 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: bring harp to start of whale
+  action: {name: replaceWithTarget}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+    - type: primitive
+      modifiers:
+        - {type: position, position: start}
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: foo world whatever
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 9}
+  marks:
+    default.h:
+      start: {line: 0, character: 10}
+      end: {line: 0, character: 18}
+    default.w:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 9}
+finalState:
+  documentContents: foo whateverworld whatever
+  selections:
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 17}

@@ -1,0 +1,26 @@
+languageId: clojure
+command:
+  version: 5
+  spokenForm: change item zip
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+      mark: {type: decoratedSymbol, symbolColor: default, character: z}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "{:foo \"bar\", :baz \"whatever\"}"
+  selections:
+    - anchor: {line: 0, character: 29}
+      active: {line: 0, character: 29}
+  marks:
+    default.z:
+      start: {line: 0, character: 14}
+      end: {line: 0, character: 17}
+finalState:
+  documentContents: "{:foo \"bar\", }"
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}

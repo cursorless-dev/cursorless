@@ -1,0 +1,33 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: chuck leading air
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - {type: leading}
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    "hello "
+    " hello"
+    " hello "
+    return a.b
+  selections:
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
+  marks:
+    default.a:
+      start: {line: 3, character: 7}
+      end: {line: 3, character: 8}
+finalState:
+  documentContents: |
+    "hello "
+    " hello"
+    " hello "
+    returna.b
+  selections:
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}

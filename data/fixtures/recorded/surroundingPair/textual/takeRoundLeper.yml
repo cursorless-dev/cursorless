@@ -1,0 +1,26 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change round paren
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: parentheses}
+      mark: {type: decoratedSymbol, symbolColor: default, character: (}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: (hello)
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  marks:
+    default.(:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 1}
+finalState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

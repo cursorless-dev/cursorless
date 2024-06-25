@@ -1,0 +1,26 @@
+languageId: rust
+command:
+  version: 5
+  spokenForm: chuck type plex
+  action: {name: remove}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: x}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "let x: u32 = 1;"
+  selections:
+    - anchor: {line: 0, character: 15}
+      active: {line: 0, character: 15}
+  marks:
+    default.x:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 5}
+finalState:
+  documentContents: let x = 1;
+  selections:
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}

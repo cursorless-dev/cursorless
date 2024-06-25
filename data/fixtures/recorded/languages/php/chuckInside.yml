@@ -1,0 +1,27 @@
+languageId: php
+command:
+  version: 5
+  spokenForm: chuck inside
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - {type: interiorOnly}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    <?php
+
+    "hello world";
+  selections:
+    - anchor: {line: 2, character: 7}
+      active: {line: 2, character: 7}
+  marks: {}
+finalState:
+  documentContents: |-
+    <?php
+
+    "";
+  selections:
+    - anchor: {line: 2, character: 1}
+      active: {line: 2, character: 1}

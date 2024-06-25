@@ -1,0 +1,25 @@
+languageId: go
+command:
+  version: 5
+  spokenForm: take parse tree string
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: string}
+  usePrePhraseSnapshot: false
+spokenFormError: >-
+  simple scope type type with id string; this is a private spoken form currently
+  only for internal experimentation
+initialState:
+  documentContents: x := "hello world"
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+  marks: {}
+finalState:
+  documentContents: x := "hello world"
+  selections:
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 18}

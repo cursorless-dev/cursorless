@@ -1,0 +1,22 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: take short paint
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: boundedNonWhitespaceSequence}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: foo[0](bar.test, baz-other-test) something[]
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+  marks: {}
+finalState:
+  documentContents: foo[0](bar.test, baz-other-test) something[]
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 16}

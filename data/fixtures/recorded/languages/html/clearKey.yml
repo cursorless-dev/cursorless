@@ -1,0 +1,28 @@
+languageId: html
+command:
+  version: 5
+  spokenForm: change key
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionKey}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    <html id="value">
+        
+    </html>
+  selections:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}
+  marks: {}
+finalState:
+  documentContents: |-
+    <html ="value">
+        
+    </html>
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

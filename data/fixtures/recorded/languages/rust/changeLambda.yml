@@ -1,0 +1,27 @@
+languageId: rust
+command:
+  version: 5
+  spokenForm: change lambda
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: anonymousFunction}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    let expensive_closure = |num| {
+        println!("calculating slowly...");
+        thread::sleep(Duration::from_secs(2));
+        num
+    };
+  selections:
+    - anchor: {line: 2, character: 7}
+      active: {line: 2, character: 7}
+  marks: {}
+finalState:
+  documentContents: let expensive_closure = ;
+  selections:
+    - anchor: {line: 0, character: 24}
+      active: {line: 0, character: 24}

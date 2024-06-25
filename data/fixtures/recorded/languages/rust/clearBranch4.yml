@@ -1,0 +1,34 @@
+languageId: rust
+command:
+  version: 5
+  spokenForm: change branch
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: branch}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    if n < 0 {
+        print!("{} is negative", n);
+    } else if n > 0 {
+        print!("{} is positive", n);
+    } else {
+        print!("{} is zero", n);
+    }
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |2-
+     else if n > 0 {
+        print!("{} is positive", n);
+    } else {
+        print!("{} is zero", n);
+    }
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

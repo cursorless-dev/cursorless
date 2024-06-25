@@ -1,0 +1,37 @@
+languageId: cpp
+command:
+  version: 5
+  spokenForm: change subject
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: private.switchStatementSubject}
+  usePrePhraseSnapshot: false
+spokenFormError: >-
+  simple scope type type with id private.switchStatementSubject; this is a
+  private spoken form currently only for internal experimentation
+initialState:
+  documentContents: |
+    int main() {
+      switch (int i = rand() % 100; i) {
+        default:
+        break;
+      }
+    }
+  selections:
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}
+  marks: {}
+finalState:
+  documentContents: |
+    int main() {
+      switch (int i = rand() % 100; ) {
+        default:
+        break;
+      }
+    }
+  selections:
+    - anchor: {line: 1, character: 32}
+      active: {line: 1, character: 32}

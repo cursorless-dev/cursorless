@@ -1,0 +1,24 @@
+languageId: ruby
+command:
+  version: 5
+  spokenForm: chuck item
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    %w(hello world)
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+  marks: {}
+finalState:
+  documentContents: |
+    %w(world)
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}

@@ -1,0 +1,22 @@
+languageId: clojure
+command:
+  version: 5
+  spokenForm: change callee
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionCallee}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: (  (fn [message] (println message))  "Hello world!" )
+  selections:
+    - anchor: {line: 0, character: 45}
+      active: {line: 0, character: 45}
+  marks: {}
+finalState:
+  documentContents: (    "Hello world!" )
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}

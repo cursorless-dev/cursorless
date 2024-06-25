@@ -7,7 +7,7 @@ const CAMEL_REGEX = /\p{Lu}?\p{Ll}+|\p{Lu}+(?!\p{Ll})|\p{N}+/gu;
  * This class encapsulates word-splitting logic.
  * It is used by the {@link WordScopeHandler} and the hat allocator.
  */
-export default class WordTokenizer {
+export class WordTokenizer {
   private wordRegex: RegExp;
 
   constructor(languageId: string) {

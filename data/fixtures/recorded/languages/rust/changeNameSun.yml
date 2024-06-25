@@ -1,0 +1,26 @@
+languageId: rust
+command:
+  version: 5
+  spokenForm: change name sun
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: s}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: enum Some {}
+  selections:
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 12}
+  marks:
+    default.s:
+      start: {line: 0, character: 5}
+      end: {line: 0, character: 9}
+finalState:
+  documentContents: enum  {}
+  selections:
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}

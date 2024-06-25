@@ -1,9 +1,12 @@
 import {
   ActionType,
   CommandLatest,
+  CommandResponse,
   EnforceUndefined,
   extractTargetedMarks,
   ExtraSnapshotField,
+  Fallback,
+  FocusedElementType,
   marksToPlainObject,
   PartialTargetDescriptor,
   PlainSpyIDERecordedValues,
@@ -23,6 +26,7 @@ import { ide } from "../singletons/ide.singleton";
 import { extractTargetKeys } from "../testUtil/extractTargetKeys";
 import { takeSnapshot } from "../testUtil/takeSnapshot";
 import { getPartialTargetDescriptors } from "../util/getPartialTargetDescriptors";
+import { unsafeKeys } from "../util/object";
 
 export class TestCase {
   private languageId: string;
@@ -31,6 +35,7 @@ export class TestCase {
   private finalState?: TestCaseSnapshot;
   thrownError?: ThrownError;
   private returnValue?: unknown;
+  private fallback?: Fallback;
   private targetKeys: string[];
   private _awaitingFinalMarkInfo: boolean;
   private marksToCheck?: string[];
@@ -39,6 +44,7 @@ export class TestCase {
 
   constructor(
     command: CommandLatest,
+    private focusedElementType: FocusedElementType | undefined,
     private hatTokenMap: ReadOnlyHatMap,
     private storedTargets: StoredTargetMap,
     private spyIde: SpyIDE,
@@ -122,7 +128,7 @@ export class TestCase {
       visibleRanges: !visibleRangeActions.includes(this.command.action.name),
     };
 
-    return Object.keys(excludedFields).filter((field) => excludedFields[field]);
+    return unsafeKeys(excludedFields).filter((field) => excludedFields[field]);
   }
 
   toYaml() {
@@ -134,6 +140,10 @@ export class TestCase {
     }
     const fixture: EnforceUndefined<TestCaseFixture> = {
       languageId: this.languageId,
+      focusedElementType:
+        this.focusedElementType === "textEditor"
+          ? undefined
+          : this.focusedElementType,
       postEditorOpenSleepTimeMs: undefined,
       postCommandSleepTimeMs: undefined,
       command: this.command,
@@ -142,6 +152,7 @@ export class TestCase {
       initialState: this.initialState,
       finalState: this.finalState,
       returnValue: this.returnValue,
+      fallback: this.fallback,
       thrownError: this.thrownError,
       ide: this.spyIdeValues,
     };
@@ -161,9 +172,16 @@ export class TestCase {
     );
   }
 
-  async recordFinalState(returnValue: unknown) {
+  async recordFinalState(returnValue: CommandResponse) {
     const excludeFields = this.getExcludedFields(false);
-    this.returnValue = returnValue;
+
+    if ("returnValue" in returnValue) {
+      this.returnValue = returnValue.returnValue;
+    }
+    if ("fallback" in returnValue) {
+      this.fallback = returnValue.fallback;
+    }
+
     this.finalState = await takeSnapshot(
       this.storedTargets,
       excludeFields,

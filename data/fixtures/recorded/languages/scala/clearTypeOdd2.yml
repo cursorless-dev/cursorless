@@ -1,0 +1,32 @@
+languageId: scala
+command:
+  version: 5
+  spokenForm: change type odd
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+      mark: {type: decoratedSymbol, symbolColor: default, character: o}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    class TypesAhoy() {
+      def example(foo: List[String]): List[String] = foo
+    }
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.o:
+      start: {line: 1, character: 49}
+      end: {line: 1, character: 52}
+finalState:
+  documentContents: |
+    class TypesAhoy() {
+      def example(foo: List[String]):  = foo
+    }
+  selections:
+    - anchor: {line: 1, character: 34}
+      active: {line: 1, character: 34}

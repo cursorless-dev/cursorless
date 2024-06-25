@@ -1,0 +1,22 @@
+languageId: clojure
+command:
+  version: 5
+  spokenForm: change callee
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionCallee}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: (apply f '(1 2 3 4))
+  selections:
+    - anchor: {line: 0, character: 15}
+      active: {line: 0, character: 16}
+  marks: {}
+finalState:
+  documentContents: ( f '(1 2 3 4))
+  selections:
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}

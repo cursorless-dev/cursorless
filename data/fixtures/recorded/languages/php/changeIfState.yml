@@ -1,0 +1,29 @@
+languageId: php
+command:
+  version: 5
+  spokenForm: change if state
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: ifStatement}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    <?php
+
+    if (true) {
+        return;
+    }
+  selections:
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}
+  marks: {}
+finalState:
+  documentContents: |+
+    <?php
+
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}

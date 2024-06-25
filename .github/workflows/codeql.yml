@@ -45,7 +45,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
@@ -96,5 +96,5 @@ jobs:
         # Learn more about CodeQL language support at https://aka.ms/codeql-docs/language-support
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Do nothing
+        run: "true"

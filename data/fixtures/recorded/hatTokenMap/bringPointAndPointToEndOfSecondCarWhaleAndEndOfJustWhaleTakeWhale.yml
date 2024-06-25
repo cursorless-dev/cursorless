@@ -1,0 +1,55 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: >-
+    bring dot and dot to end of second char whale and end of just whale take
+    whale
+  action: {name: replaceWithTarget}
+  targets:
+    - type: list
+      elements:
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: .}
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: .}
+    - type: list
+      elements:
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: w}
+          modifiers:
+            - {type: position, position: end}
+            - type: ordinalScope
+              scopeType: {type: character}
+              start: 1
+              length: 1
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: w}
+          modifiers:
+            - {type: position, position: end}
+            - {type: toRawSelection}
+  usePrePhraseSnapshot: false
+marksToCheck: [default.w]
+initialState:
+  documentContents: hello. world
+  selections:
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 12}
+  marks:
+    default..:
+      start: {line: 0, character: 5}
+      end: {line: 0, character: 6}
+    default.w:
+      start: {line: 0, character: 7}
+      end: {line: 0, character: 12}
+finalState:
+  documentContents: hello. wo.rld.
+  selections:
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}
+  marks:
+    default..:
+      start: {line: 0, character: 5}
+      end: {line: 0, character: 6}
+    default.w:
+      start: {line: 0, character: 7}
+      end: {line: 0, character: 13}

@@ -1,0 +1,14 @@
+lambda x: x
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:11
+  >-----------<
+0| lambda x: x
+
+[Interior] = 0:10-0:11
+            >-<
+0| lambda x: x
+
+[Insertion delimiter] = "\n"

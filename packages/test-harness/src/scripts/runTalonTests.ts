@@ -1,6 +1,6 @@
 /**
  * Runs all Talon tests.
  */
-import { TestType, runAllTests } from "../util/runAllTests";
+import { TestType, runAllTests } from "../runAllTests";
 
 runAllTests(TestType.talon);

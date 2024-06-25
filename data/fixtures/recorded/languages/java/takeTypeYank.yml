@@ -1,0 +1,38 @@
+languageId: java
+command:
+  version: 5
+  spokenForm: take type yank
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+      mark: {type: decoratedSymbol, symbolColor: default, character: 'y'}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    public class MyClass {
+        private MyClass () {
+            Map<String, String> map = new HashMap<String, String>();
+            List<String> list = new ArrayList<String>();
+        }
+    }
+  selections:
+    - anchor: {line: 3, character: 8}
+      active: {line: 3, character: 20}
+  marks:
+    default.y:
+      start: {line: 3, character: 32}
+      end: {line: 3, character: 41}
+finalState:
+  documentContents: |-
+    public class MyClass {
+        private MyClass () {
+            Map<String, String> map = new HashMap<String, String>();
+            List<String> list = new ArrayList<String>();
+        }
+    }
+  selections:
+    - anchor: {line: 3, character: 32}
+      active: {line: 3, character: 49}

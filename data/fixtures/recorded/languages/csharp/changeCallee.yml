@@ -1,0 +1,22 @@
+languageId: csharp
+command:
+  version: 5
+  spokenForm: change callee
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionCallee}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: TestMotorcycle moto = new TestMotorcycle();
+  selections:
+    - anchor: {line: 0, character: 41}
+      active: {line: 0, character: 41}
+  marks: {}
+finalState:
+  documentContents: TestMotorcycle moto = new ();
+  selections:
+    - anchor: {line: 0, character: 26}
+      active: {line: 0, character: 26}

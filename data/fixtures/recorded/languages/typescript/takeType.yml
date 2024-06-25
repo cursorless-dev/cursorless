@@ -1,0 +1,26 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: take type
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+
+    const value: string = "Hello world";
+  selections:
+    - anchor: {line: 1, character: 29}
+      active: {line: 1, character: 29}
+  marks: {}
+finalState:
+  documentContents: |
+
+    const value: string = "Hello world";
+  selections:
+    - anchor: {line: 1, character: 13}
+      active: {line: 1, character: 19}

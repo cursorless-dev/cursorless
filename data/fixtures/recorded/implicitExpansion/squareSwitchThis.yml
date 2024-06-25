@@ -1,0 +1,22 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: box repack this
+  action:
+    name: rewrapWithPairedDelimiter
+    args: ['[', ']']
+  targets:
+    - type: primitive
+      mark: {type: cursor}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: (aaa bbb)
+  selections:
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}
+  marks: {}
+finalState:
+  documentContents: "[aaa bbb]"
+  selections:
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}

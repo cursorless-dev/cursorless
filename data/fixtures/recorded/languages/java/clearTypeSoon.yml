@@ -1,0 +1,38 @@
+languageId: java
+command:
+  version: 5
+  spokenForm: change type sun
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+      mark: {type: decoratedSymbol, symbolColor: default, character: s}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    public class MyClass {
+        private MyClass () {
+            Map<String, String> map = new HashMap<String, String>();
+            List<String> list = new ArrayList<String>();
+        }
+    }
+  selections:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 27}
+  marks:
+    default.s:
+      start: {line: 2, character: 12}
+      end: {line: 2, character: 18}
+finalState:
+  documentContents: |-
+    public class MyClass {
+        private MyClass () {
+            Map<, String> map = new HashMap<String, String>();
+            List<String> list = new ArrayList<String>();
+        }
+    }
+  selections:
+    - anchor: {line: 2, character: 12}
+      active: {line: 2, character: 12}

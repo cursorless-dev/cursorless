@@ -1,0 +1,31 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: change subject
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: private.switchStatementSubject}
+  usePrePhraseSnapshot: true
+spokenFormError: >-
+  simple scope type type with id private.switchStatementSubject; this is a
+  private spoken form currently only for internal experimentation
+initialState:
+  documentContents: |
+    match 0:
+        case [0]:
+            pass
+  selections:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
+  marks: {}
+finalState:
+  documentContents: |
+    match :
+        case [0]:
+            pass
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

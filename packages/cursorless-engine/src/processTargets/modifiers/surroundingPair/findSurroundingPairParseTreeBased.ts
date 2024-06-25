@@ -66,7 +66,10 @@ export function findSurroundingPairParseTreeBased(
 ) {
   const document: TextDocument = editor.document;
 
-  const individualDelimiters = getIndividualDelimiters(delimiters);
+  const individualDelimiters = getIndividualDelimiters(
+    document.languageId,
+    delimiters,
+  );
 
   const delimiterTextToDelimiterInfoMap = Object.fromEntries(
     individualDelimiters.map((individualDelimiter) => [
@@ -180,7 +183,7 @@ function findSurroundingPairContainedInNode(
    */
   const possibleDelimiterNodes = node
     .descendantsOfType(individualDelimiters.map(({ text }) => text))
-    .filter((node) => !(node.text === "" && node.hasError()));
+    .filter((node) => !(node.text === "" && node.hasError));
 
   /**
    * A list of all delimiter occurrences, generated from the delimiter nodes.
@@ -246,6 +249,6 @@ function inferDelimiterSide(delimiterNode: SyntaxNode) {
   return delimiterNode.parent?.firstChild?.equals(delimiterNode)
     ? "left"
     : delimiterNode.parent?.lastChild?.equals(delimiterNode)
-    ? "right"
-    : ("unknown" as const);
+      ? "right"
+      : ("unknown" as const);
 }

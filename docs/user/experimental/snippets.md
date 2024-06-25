@@ -88,11 +88,21 @@ Note that each snippet can use `insertionScopeTypes` to indicate that it will au
 | `"snippet funk"`    | Function; phrase becomes name           | Function                     | ✅                       |
 | `"snippet link"`    | Markdown link; phrase becomes link text |                              | ✅                       |
 
+## Using community snippets
+
+The community Talon files now support their own snippet format. If you'd like to use these snippets for wrapping / cursorless insertion instead of snippets defined in Cursorless, add following line to your `settings.talon` file:
+
+```talon
+tag(): user.cursorless_use_community_snippets
+```
+
+Note that this line will also disable any Cursorless snippets defined in your Cursorless customization CSVs. You will need to migrate your Cursorless snippets to the new community snippet format [described in community](https://github.com/talonhub/community/blob/main/core/snippets/README.md). If you'd be interested in a tool to help with this migration, please leave a comment on [cursorless-dev/cursorless#2149](https://github.com/cursorless-dev/cursorless/issues/2149), ideally with a link to your custom snippets for us to look at.
+
 ## Customizing spoken forms
 
 As usual, the spoken forms for these snippets can be [customized by csv](../customization.md). The csvs are in the files in `cursorless-settings/experimental` with `snippet` in their name.
 
-In addition, you can change the term `"snippet"` (for snippet insertion) using actions.csv. Keep in mind that if you change it to `"snip"`, you may want to turn off the built-in knausj `"snip"` commands to avoid conflicts.
+In addition, you can change the term `"snippet"` (for snippet insertion) using actions.csv. Keep in mind that if you change it to `"snip"`, you may want to turn off the built-in community `"snip"` commands to avoid conflicts.
 
 ## Adding your own snippets
 
@@ -100,7 +110,7 @@ To define your own snippets, proceed as follows:
 
 ### Define snippets in vscode
 
-1. In your VSCode Cursorless settings (say `"cursorless settings"`), set the `cursorless.experimental.snippetsDir` setting to a directory in which you'd like to create your snippets.
+1. In your VSCode Cursorless settings (say `"cursorless settings"`), set the `cursorless.experimental.snippetsDir` setting to a directory in which you'd like to create your snippets. You can use the `${userHome}` vairable to refer to your user home directory.
 2. Add snippets to the directory in files ending in `.cursorless-snippets`. See the [documentation](snippet-format.md) for the cursorless snippet format.
 
 ### 2. Add snippet to spoken forms csvs

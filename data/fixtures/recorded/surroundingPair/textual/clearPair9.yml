@@ -1,0 +1,22 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change pair
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: any}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: ("hello",  "world")
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}
+  marks: {}
+finalState:
+  documentContents: ("hello",  )
+  selections:
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}

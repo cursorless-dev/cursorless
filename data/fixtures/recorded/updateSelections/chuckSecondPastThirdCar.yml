@@ -1,0 +1,33 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: chuck second past third char
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: range
+          anchor:
+            type: ordinalScope
+            scopeType: {type: character}
+            start: 1
+            length: 1
+          active:
+            type: ordinalScope
+            scopeType: {type: character}
+            start: 2
+            length: 1
+          excludeAnchor: false
+          excludeActive: false
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: foo world whatever
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 9}
+  marks: {}
+finalState:
+  documentContents: foo wld whatever
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 7}

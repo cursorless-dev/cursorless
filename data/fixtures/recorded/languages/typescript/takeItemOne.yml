@@ -1,0 +1,30 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: take item one
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+      mark: {type: decoratedSymbol, symbolColor: default, character: '1'}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+
+    const value = [1, 2, 3]
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.1:
+      start: {line: 1, character: 15}
+      end: {line: 1, character: 16}
+finalState:
+  documentContents: |
+
+    const value = [1, 2, 3]
+  selections:
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 16}

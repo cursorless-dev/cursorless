@@ -1,6 +1,8 @@
 import {
   CommandComplete,
   CommandLatest,
+  CommandResponse,
+  CommandServerApi,
   DecoratedSymbolMark,
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   extractTargetedMarks,
@@ -26,61 +28,16 @@ import { access, readFile } from "fs/promises";
 import { invariant } from "immutability-helper";
 import { merge } from "lodash";
 import * as path from "path";
-import { ide, injectIde } from "../singletons/ide.singleton";
-import { takeSnapshot } from "../testUtil/takeSnapshot";
-import { TestCase } from "./TestCase";
-import { StoredTargetMap } from "../core/StoredTargets";
 import { CommandRunner } from "../CommandRunner";
-import { generateSpokenForm } from "../generateSpokenForm";
+import { StoredTargetMap } from "../core/StoredTargets";
+import { SpokenFormGenerator } from "../generateSpokenForm";
+import { ide, injectIde } from "../singletons/ide.singleton";
+import { defaultSpokenFormMap } from "../spokenForms/defaultSpokenFormMap";
+import { takeSnapshot } from "../testUtil/takeSnapshot";
+import { RecordTestCaseCommandOptions } from "./RecordTestCaseCommandOptions";
+import { TestCase } from "./TestCase";
 
 const CALIBRATION_DISPLAY_DURATION_MS = 50;
-
-interface RecordTestCaseCommandArg {
-  /**
-   * If this is set to `true`, then for each test case that we record, we expect
-   * that the user will issue a second command in each phrase, which refers to a
-   * decorated mark whose range we'd like to check that it got updated properly
-   * during the previous command. We use this functionality in order to check
-   * that the token range update works properly. For example, you might say
-   * `"chuck second car ox air take air"` to check that removing a character
-   * from a token properly updates the token.
-   */
-  isHatTokenMapTest?: boolean;
-
-  /** If true decorations will be added to the test fixture */
-  isDecorationsTest?: boolean;
-
-  /**
-   * The directory in which to store the test cases that we record. If left out
-   * the user will be prompted to select a directory within the default recorded
-   * test case directory.
-   */
-  directory?: string;
-
-  /**
-   * If `true`, don't show a little pop up each time to indicate we've recorded a
-   * test case
-   */
-  isSilent?: boolean;
-
-  extraSnapshotFields?: ExtraSnapshotField[];
-
-  /**
-   * Whether to flash a background for calibrating a video recording
-   */
-  showCalibrationDisplay?: boolean;
-
-  /**
-   * Whether we should record a tests which yield errors in addition to tests
-   * which do not error.
-   */
-  recordErrors?: boolean;
-
-  /**
-   * Whether to capture the `that` mark returned by the action.
-   */
-  captureFinalThatMark?: boolean;
-}
 
 const TIMING_CALIBRATION_HIGHLIGHT_ID = "timingCalibration";
 
@@ -105,8 +62,10 @@ export class TestCaseRecorder {
   private captureFinalThatMark: boolean = false;
   private spyIde: SpyIDE | undefined;
   private originalIde: IDE | undefined;
+  private spokenFormGenerator = new SpokenFormGenerator(defaultSpokenFormMap);
 
   constructor(
+    private commandServerApi: CommandServerApi | null,
     private hatTokenMap: HatTokenMap,
     private storedTargets: StoredTargetMap,
   ) {
@@ -124,20 +83,20 @@ export class TestCaseRecorder {
     this.takeSnapshot = this.takeSnapshot.bind(this);
   }
 
-  async toggle(arg?: RecordTestCaseCommandArg) {
+  async toggle(options?: RecordTestCaseCommandOptions) {
     if (this.active) {
       showInfo(ide().messages, "recordStop", "Stopped recording test cases");
       this.stop();
     } else {
-      return await this.start(arg);
+      return await this.start(options);
     }
   }
 
-  async recordOneThenPause(arg?: RecordTestCaseCommandArg) {
+  async recordOneThenPause(options?: RecordTestCaseCommandOptions) {
     this.pauseAfterNextCommand = true;
     this.paused = false;
     if (!this.active) {
-      return await this.start(arg);
+      return await this.start(options);
     }
   }
 
@@ -168,9 +127,8 @@ export class TestCaseRecorder {
       const keys = targetedMarks.map(({ character, symbolColor }) =>
         getKey(symbolColor, character),
       );
-      const readableHatMap = await this.hatTokenMap.getReadableMap(
-        usePrePhraseSnapshot,
-      );
+      const readableHatMap =
+        await this.hatTokenMap.getReadableMap(usePrePhraseSnapshot);
       marks = marksToPlainObject(extractTargetedMarks(keys, readableHatMap));
     } else {
       marks = undefined;
@@ -194,8 +152,8 @@ export class TestCaseRecorder {
     return this.active && !this.paused;
   }
 
-  async start(arg?: RecordTestCaseCommandArg) {
-    const { directory, ...explicitConfig } = arg ?? {};
+  async start(options?: RecordTestCaseCommandOptions) {
+    const { directory, ...explicitConfig } = options ?? {};
 
     /**
      * A list of paths of every parent directory between the root fixture
@@ -227,7 +185,7 @@ export class TestCaseRecorder {
 
     // Look for a `config.json` file in ancestors of the recording directory,
     // and merge it with the config provided when calling the command.
-    const config: RecordTestCaseCommandArg = merge(
+    const config: RecordTestCaseCommandOptions = merge(
       {},
       ...(await Promise.all(
         parentDirectories.map((parent) =>
@@ -321,16 +279,23 @@ export class TestCaseRecorder {
       this.spyIde = new SpyIDE(this.originalIde);
       injectIde(this.spyIde!);
 
-      const spokenForm = generateSpokenForm(command);
+      const spokenForm = this.spokenFormGenerator.processCommand(command);
 
       this.testCase = new TestCase(
         {
           ...command,
+
+          // If spoken form is an error, we just use the spoken form that they
+          // actually used. If it is a success, we use the first spoken form
+          // that from our generator, which will almost always be the only spoken
+          // form. If there are multiple, there will be a test failure so we can
+          // cross that bridge if it happens.
           spokenForm:
             spokenForm.type === "success"
-              ? spokenForm.value
+              ? spokenForm.spokenForms[0]
               : command.spokenForm,
         },
+        await this.commandServerApi?.getFocusedElementType(),
         hatTokenMap,
         this.storedTargets,
         this.spyIde,
@@ -360,7 +325,7 @@ export class TestCaseRecorder {
     }
   }
 
-  async postCommandHook(returnValue: any) {
+  async postCommandHook(returnValue: CommandResponse) {
     if (this.testCase == null) {
       // If test case is null then this means that this was just a follow up
       // command for a navigation map test
@@ -498,6 +463,9 @@ export class TestCaseRecorder {
     readableHatMap: ReadOnlyHatMap,
     runner: CommandRunner,
   ): CommandRunner {
+    if (!this.isActive()) {
+      return runner;
+    }
     return {
       run: async (commandComplete: CommandComplete) => {
         try {
@@ -532,7 +500,7 @@ function capitalize(str: string) {
 
 async function readJsonIfExists(
   path: string,
-): Promise<RecordTestCaseCommandArg> {
+): Promise<RecordTestCaseCommandOptions> {
   let rawText: string;
 
   try {

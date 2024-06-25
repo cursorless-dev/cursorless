@@ -1,0 +1,30 @@
+languageId: rust
+command:
+  version: 5
+  spokenForm: change key drum
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: d}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionKey}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    if let User { first_name: "John", last_name: "Doe" } = user {
+    }
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+  marks:
+    default.d:
+      start: {line: 0, character: 46}
+      end: {line: 0, character: 49}
+finalState:
+  documentContents: |
+    if let User { first_name: "John", : "Doe" } = user {
+    }
+  selections:
+    - anchor: {line: 0, character: 34}
+      active: {line: 0, character: 34}

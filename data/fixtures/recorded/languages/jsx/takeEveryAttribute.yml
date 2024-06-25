@@ -1,0 +1,32 @@
+languageId: javascript
+command:
+  version: 5
+  spokenForm: take every attribute
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: attribute}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+
+    const Foo = (
+      <div id="bar" name="foo">bar</div>
+    );
+  selections:
+    - anchor: {line: 2, character: 7}
+      active: {line: 2, character: 15}
+  marks: {}
+finalState:
+  documentContents: |
+
+    const Foo = (
+      <div id="bar" name="foo">bar</div>
+    );
+  selections:
+    - anchor: {line: 2, character: 7}
+      active: {line: 2, character: 15}
+    - anchor: {line: 2, character: 16}
+      active: {line: 2, character: 26}

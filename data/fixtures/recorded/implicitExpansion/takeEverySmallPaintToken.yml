@@ -1,0 +1,26 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: take every short paint token
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: boundedNonWhitespaceSequence}
+        - type: containingScope
+          scopeType: {type: token}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: (hello world-whatever testing) testing now
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 10}
+  marks: {}
+finalState:
+  documentContents: (hello world-whatever testing) testing now
+  selections:
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 21}

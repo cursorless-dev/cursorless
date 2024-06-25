@@ -1,0 +1,42 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: clone up arg
+  action: {name: insertCopyBefore}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    function foo(bar: number) {
+        
+    }
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}
+  marks: {}
+finalState:
+  documentContents: |-
+    function foo(bar: number, bar: number) {
+        
+    }
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 13}
+        end: {line: 0, character: 24}
+      isReversed: false
+      hasExplicitRange: true
+  sourceMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 26}
+        end: {line: 0, character: 37}
+      isReversed: false
+      hasExplicitRange: true

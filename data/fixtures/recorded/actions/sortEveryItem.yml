@@ -1,0 +1,47 @@
+languageId: markdown
+command:
+  version: 5
+  spokenForm: sort every item
+  action: {name: sortTargets}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: 90, 11, 9, 3
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: 3, 9, 11, 90
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 1}
+      isReversed: false
+      hasExplicitRange: true
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 3}
+        end: {line: 0, character: 4}
+      isReversed: false
+      hasExplicitRange: true
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 6}
+        end: {line: 0, character: 8}
+      isReversed: false
+      hasExplicitRange: true
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 10}
+        end: {line: 0, character: 12}
+      isReversed: false
+      hasExplicitRange: true

@@ -1,0 +1,38 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: replace vest with whatever
+  action:
+    name: replace
+    args:
+      - [whatever]
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: v}
+  usePrePhraseSnapshot: false
+spokenFormError: Action 'replace'
+initialState:
+  documentContents: |
+
+    const value = "hello_world";
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.v:
+      start: {line: 1, character: 6}
+      end: {line: 1, character: 11}
+finalState:
+  documentContents: |
+
+    const whatever = "hello_world";
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 1, character: 6}
+        end: {line: 1, character: 14}
+      isReversed: false
+      hasExplicitRange: true

@@ -1,43 +1,59 @@
 import {
   CURSORLESS_COMMAND_ID,
   CursorlessCommandId,
+  FileSystem,
   isTesting,
 } from "@cursorless/common";
 import {
   CommandApi,
+  StoredTargetMap,
   TestCaseRecorder,
+  analyzeCommandHistory,
   showCheatsheet,
   updateDefaults,
+  type ScopeTestRecorder,
 } from "@cursorless/cursorless-engine";
 import * as vscode from "vscode";
+import { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
 import { showDocumentation, showQuickPick } from "./commands";
 import { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
 import { KeyboardCommands } from "./keyboard/KeyboardCommands";
-import { ScopeVisualizerCommandApi } from "./ScopeVisualizerCommandApi";
+import { logQuickActions } from "./logQuickActions";
 
 export function registerCommands(
   extensionContext: vscode.ExtensionContext,
   vscodeIde: VscodeIDE,
   commandApi: CommandApi,
+  fileSystem: FileSystem,
   testCaseRecorder: TestCaseRecorder,
-  scopeVisualizer: ScopeVisualizerCommandApi,
+  scopeTestRecorder: ScopeTestRecorder,
+  scopeVisualizer: ScopeVisualizer,
   keyboardCommands: KeyboardCommands,
   hats: VscodeHats,
+  storedTargets: StoredTargetMap,
 ): void {
+  const runCommandWrapper = async (run: () => Promise<unknown>) => {
+    try {
+      return await run();
+    } catch (e) {
+      if (!isTesting()) {
+        const err = e as Error;
+        console.error(err.stack);
+        vscodeIde.handleCommandError(err);
+      }
+      throw e;
+    }
+  };
+
   const commands: Record<CursorlessCommandId, (...args: any[]) => any> = {
     // The core Cursorless command
     [CURSORLESS_COMMAND_ID]: async (...args: unknown[]) => {
-      try {
-        return await commandApi.runCommandSafe(...args);
-      } catch (e) {
-        if (!isTesting()) {
-          const err = e as Error;
-          console.error(err.stack);
-          vscodeIde.handleCommandError(err);
-        }
-        throw e;
-      }
+      return runCommandWrapper(() => commandApi.runCommandSafe(...args));
+    },
+
+    ["cursorless.repeatPreviousCommand"]: async () => {
+      return runCommandWrapper(() => commandApi.repeatPreviousCommand());
     },
 
     // Cheatsheet commands
@@ -52,9 +68,17 @@ export function registerCommands(
     ["cursorless.resumeRecording"]: testCaseRecorder.resume,
     ["cursorless.takeSnapshot"]: testCaseRecorder.takeSnapshot,
 
+    // Scope test recorder commands
+    ["cursorless.recordScopeTests.showUnimplementedFacets"]:
+      scopeTestRecorder.showUnimplementedFacets,
+    ["cursorless.recordScopeTests.saveActiveDocument"]:
+      scopeTestRecorder.saveActiveDocument,
+
     // Other commands
     ["cursorless.showQuickPick"]: showQuickPick,
     ["cursorless.showDocumentation"]: showDocumentation,
+
+    ["cursorless.private.logQuickActions"]: logQuickActions,
 
     // Hats
     ["cursorless.toggleDecorations"]: hats.toggle,
@@ -63,6 +87,10 @@ export function registerCommands(
     // Scope visualizer
     ["cursorless.showScopeVisualizer"]: scopeVisualizer.start,
     ["cursorless.hideScopeVisualizer"]: scopeVisualizer.stop,
+
+    // Command history
+    ["cursorless.analyzeCommandHistory"]: () =>
+      analyzeCommandHistory(fileSystem.cursorlessCommandHistoryDirPath),
 
     // General keyboard commands
     ["cursorless.keyboard.escape"]:
@@ -73,7 +101,7 @@ export function registerCommands(
       keyboardCommands.targeted.targetDecoratedMark,
 
     ["cursorless.keyboard.targeted.targetScope"]:
-      keyboardCommands.targeted.targetScopeType,
+      keyboardCommands.targeted.modifyTargetContainingScope,
 
     ["cursorless.keyboard.targeted.targetSelection"]:
       keyboardCommands.targeted.targetSelection,
@@ -88,6 +116,9 @@ export function registerCommands(
     ["cursorless.keyboard.modal.modeOn"]: keyboardCommands.modal.modeOn,
     ["cursorless.keyboard.modal.modeOff"]: keyboardCommands.modal.modeOff,
     ["cursorless.keyboard.modal.modeToggle"]: keyboardCommands.modal.modeToggle,
+
+    ["cursorless.keyboard.undoTarget"]: () => storedTargets.undo("keyboard"),
+    ["cursorless.keyboard.redoTarget"]: () => storedTargets.redo("keyboard"),
   };
 
   extensionContext.subscriptions.push(

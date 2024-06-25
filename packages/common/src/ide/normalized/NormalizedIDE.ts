@@ -1,7 +1,6 @@
 import { getFixturePath } from "../../index";
 import { GeneralizedRange } from "../../types/GeneralizedRange";
 import { TextEditor } from "../../types/TextEditor";
-import FakeClipboard from "../fake/FakeClipboard";
 import FakeConfiguration from "../fake/FakeConfiguration";
 import FakeGlobalState from "../fake/FakeGlobalState";
 import FakeIDE from "../fake/FakeIDE";
@@ -13,7 +12,6 @@ import { QuickPickOptions } from "../types/QuickPickOptions";
 export class NormalizedIDE extends PassthroughIDEBase {
   configuration: FakeConfiguration;
   globalState: FakeGlobalState;
-  clipboard: FakeClipboard;
 
   constructor(
     original: IDE,
@@ -25,8 +23,6 @@ export class NormalizedIDE extends PassthroughIDEBase {
     this.messages = isSilent ? fakeIde.messages : original.messages;
     this.configuration = fakeIde.configuration;
     this.globalState = fakeIde.globalState;
-    this.clipboard = fakeIde.clipboard;
-
     this.initializeConfiguration();
   }
 
@@ -51,6 +47,7 @@ export class NormalizedIDE extends PassthroughIDEBase {
         "experimental.hatStability",
       ),
       snippetsDir: getFixturePath("cursorless-snippets"),
+      keyboardTargetFollowsSelection: false,
     });
   }
 

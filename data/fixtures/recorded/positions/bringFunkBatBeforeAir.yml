@@ -1,0 +1,51 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: bring funk bat before air
+  action: {name: replaceWithTarget}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: namedFunction}
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      modifiers:
+        - {type: position, position: before}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |2
+        def aaa():
+
+            pass
+
+        def bbb():
+
+            pass
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.b:
+      start: {line: 4, character: 8}
+      end: {line: 4, character: 11}
+    default.a:
+      start: {line: 0, character: 8}
+      end: {line: 0, character: 11}
+finalState:
+  documentContents: |2
+        def bbb():
+
+            pass
+
+        def aaa():
+
+            pass
+
+        def bbb():
+
+            pass
+  selections:
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}

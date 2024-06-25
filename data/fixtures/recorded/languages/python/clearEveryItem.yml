@@ -1,0 +1,26 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: change every item
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: from talon import Context, Module, actions
+  selections:
+    - anchor: {line: 0, character: 25}
+      active: {line: 0, character: 25}
+  marks: {}
+finalState:
+  documentContents: "from talon import , , "
+  selections:
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}
+    - anchor: {line: 0, character: 22}
+      active: {line: 0, character: 22}

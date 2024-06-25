@@ -1,0 +1,22 @@
+languageId: csharp
+command:
+  version: 5
+  spokenForm: change name
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: String a = "hello";
+  selections:
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 12}
+  marks: {}
+finalState:
+  documentContents: String  = "hello";
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}

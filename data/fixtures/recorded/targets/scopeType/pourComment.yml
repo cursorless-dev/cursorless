@@ -1,0 +1,23 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: pour comment
+  action: {name: editNewLineAfter}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: comment}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: // Testing comment
+  selections:
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}
+  marks: {}
+finalState:
+  documentContents: |
+    // Testing comment
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

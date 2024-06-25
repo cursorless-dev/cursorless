@@ -1,0 +1,32 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: take every value
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    {
+        foo: "hello",
+        bar,
+    }
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+  marks: {}
+finalState:
+  documentContents: |-
+    {
+        foo: "hello",
+        bar,
+    }
+  selections:
+    - anchor: {line: 1, character: 9}
+      active: {line: 1, character: 16}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 7}

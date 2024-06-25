@@ -1,0 +1,51 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: bring air after bat slice fine
+  action: {name: replaceWithTarget}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+    - active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: f}
+      type: range
+      rangeType: vertical
+      excludeAnchor: false
+      excludeActive: false
+      anchor:
+        type: primitive
+        modifiers:
+          - {type: position, position: after}
+        mark: {type: decoratedSymbol, symbolColor: default, character: b}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    a
+
+    b   c
+    d   e
+    f   g
+  selections:
+    - anchor: {line: 5, character: 0}
+      active: {line: 5, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 1}
+    default.b:
+      start: {line: 2, character: 0}
+      end: {line: 2, character: 1}
+    default.f:
+      start: {line: 4, character: 0}
+      end: {line: 4, character: 1}
+finalState:
+  documentContents: |
+    a
+
+    b a   c
+    d a   e
+    f a   g
+  selections:
+    - anchor: {line: 5, character: 0}
+      active: {line: 5, character: 0}

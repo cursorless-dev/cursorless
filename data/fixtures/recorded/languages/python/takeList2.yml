@@ -1,0 +1,26 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: take list
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: list}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+
+    value = {1, 2, 3}
+  selections:
+    - anchor: {line: 1, character: 9}
+      active: {line: 1, character: 9}
+  marks: {}
+finalState:
+  documentContents: |
+
+    value = {1, 2, 3}
+  selections:
+    - anchor: {line: 1, character: 8}
+      active: {line: 1, character: 17}

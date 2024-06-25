@@ -1,0 +1,32 @@
+languageId: scala
+command:
+  version: 5
+  spokenForm: change type fine
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    class Example(foo: String) {
+      def str(bar: String): String = foo + bar
+    }
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.f:
+      start: {line: 1, character: 33}
+      end: {line: 1, character: 36}
+finalState:
+  documentContents: |-
+    class Example(foo: String) {
+      def str(bar: String):  = foo + bar
+    }
+  selections:
+    - anchor: {line: 1, character: 24}
+      active: {line: 1, character: 24}

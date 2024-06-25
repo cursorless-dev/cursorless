@@ -1,0 +1,29 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: take parse tree string
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: string}
+  usePrePhraseSnapshot: false
+spokenFormError: >-
+  simple scope type type with id string; this is a private spoken form currently
+  only for internal experimentation
+initialState:
+  documentContents: |
+
+    const value: string = "Hello world";
+  selections:
+    - anchor: {line: 1, character: 29}
+      active: {line: 1, character: 29}
+  marks: {}
+finalState:
+  documentContents: |
+
+    const value: string = "Hello world";
+  selections:
+    - anchor: {line: 1, character: 22}
+      active: {line: 1, character: 35}

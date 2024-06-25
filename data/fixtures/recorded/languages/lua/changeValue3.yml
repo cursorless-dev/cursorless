@@ -1,0 +1,41 @@
+languageId: lua
+command:
+  version: 6
+  spokenForm: change value
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    local person = {
+        name = "John",
+        age = 30,
+        hobbies = {"reading", "gaming", "programming"},
+        address = {
+            street = "123 Main St",
+            city = "Example City"
+        }
+    }
+  selections:
+    - anchor: {line: 5, character: 11}
+      active: {line: 5, character: 11}
+  marks: {}
+finalState:
+  documentContents: |-
+    local person = {
+        name = "John",
+        age = 30,
+        hobbies = {"reading", "gaming", "programming"},
+        address = {
+            street = ,
+            city = "Example City"
+        }
+    }
+  selections:
+    - anchor: {line: 5, character: 17}
+      active: {line: 5, character: 17}

@@ -1,0 +1,26 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: change callee paren
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionCallee}
+      mark: {type: decoratedSymbol, symbolColor: default, character: (}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: test()()
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+  marks:
+    default.(:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 7}
+finalState:
+  documentContents: ()
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

@@ -1,0 +1,30 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: take name
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+
+    function myFunk (name: string) {
+
+    }
+  selections:
+    - anchor: {line: 1, character: 22}
+      active: {line: 1, character: 22}
+  marks: {}
+finalState:
+  documentContents: |
+
+    function myFunk (name: string) {
+
+    }
+  selections:
+    - anchor: {line: 1, character: 17}
+      active: {line: 1, character: 21}

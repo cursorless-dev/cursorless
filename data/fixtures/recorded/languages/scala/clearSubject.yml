@@ -1,0 +1,31 @@
+languageId: scala
+command:
+  version: 5
+  spokenForm: change subject
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: private.switchStatementSubject}
+  usePrePhraseSnapshot: true
+spokenFormError: >-
+  simple scope type type with id private.switchStatementSubject; this is a
+  private spoken form currently only for internal experimentation
+initialState:
+  documentContents: |
+    def matchTest(x: Int): String = x match {
+      case 0 => "zero"
+    }
+  selections:
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 15}
+  marks: {}
+finalState:
+  documentContents: |
+    def matchTest(x: Int): String =  match {
+      case 0 => "zero"
+    }
+  selections:
+    - anchor: {line: 0, character: 32}
+      active: {line: 0, character: 32}

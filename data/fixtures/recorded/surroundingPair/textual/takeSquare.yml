@@ -1,0 +1,21 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change box
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: squareBrackets}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "[(hello)]"
+  selections:
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}
+finalState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

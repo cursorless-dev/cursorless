@@ -1,0 +1,26 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: take arg drum
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+      mark: {type: decoratedSymbol, symbolColor: default, character: d}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "\" \".join((word for word in word_list), \"words\")"
+  selections:
+    - anchor: {line: 0, character: 47}
+      active: {line: 0, character: 47}
+  marks:
+    default.d:
+      start: {line: 0, character: 19}
+      end: {line: 0, character: 23}
+finalState:
+  documentContents: "\" \".join((word for word in word_list), \"words\")"
+  selections:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 37}

@@ -2,7 +2,7 @@ import { EmbeddedVideo } from "../components/embedded-video";
 import Head from "next/head";
 import Button from "../components/Button";
 import { TITLE, YOUTUBE_SLUG } from "../components/constants";
-import Social from "../components/Social";
+import IndexSocial from "../components/IndexSocial";
 import Logo from "./logo.svg";
 
 // See https://github.com/vercel/next.js/discussions/12325#discussioncomment-1116108
@@ -19,9 +19,9 @@ export default function LandingPage() {
     <>
       <Head>
         <title>{TITLE}</title>
-        <Social />
+        <IndexSocial />
       </Head>
-      <main className="items-center justify-center text-salmon-900 dark:text-salmon-100 font-mono font-bold tracking-[0.18em] overflow-auto fixed top-0 bottom-0 left-0 right-0 p-2 sm:p-0 sm:flex ">
+      <main className="text-salmon-900 dark:text-salmon-100 font-monoWide fixed bottom-0 left-0 right-0 top-0 items-center justify-center overflow-auto p-2 font-bold tracking-[0.18em] sm:flex sm:p-0 ">
         {/*
         Note that the font scale gets applied to this element so that all nested elements can use
         `em` units and will automatically be scaled.
@@ -29,25 +29,25 @@ export default function LandingPage() {
         units instead
         */}
         <div
-          className={`h-full flex flex-col text-[10px] sm:m-auto ${smallScaling} ${stretchedScaling}`}
+          className={`flex h-full flex-col text-[10px] sm:m-auto ${smallScaling} ${stretchedScaling}`}
         >
-          <div className="flex-1 flex flex-col">
+          <div className="flex flex-1 flex-col">
             <header className="flex flex-row items-center ">
-              <div className="align-middle mr-auto text-2xl uppercase">
+              <div className="mr-auto align-middle text-2xl uppercase">
                 Cursorless
               </div>
               <Logo
                 title="Logo"
-                className="align-middle w-[30px] h-[30px] sm:w-[4em] sm:h-[4em]"
+                className="h-[30px] w-[30px] align-middle sm:h-[4em] sm:w-[4em]"
               />
             </header>
             <Slogan />
           </div>
-          <div className="border-[0.5px] border-salmon-100 p-[1px]">
+          <div className="border-salmon-100 border-[0.5px] p-[1px]">
             <EmbeddedVideo youtubeSlug={YOUTUBE_SLUG} />
           </div>
-          <div className="flex-1 flex flex-col">
-            <div className="flex flex-row justify-around sm:justify-center w-full my-auto sm:gap-[12.8em]">
+          <div className="flex flex-1 flex-col">
+            <div className="my-auto flex w-full flex-row justify-around sm:justify-center sm:gap-[12.8em]">
               <Button text="Docs" href="/docs" isExternal={false} />{" "}
               <Button
                 text="Donate"
@@ -65,7 +65,7 @@ export default function LandingPage() {
 
 function Slogan() {
   return (
-    <h1 className="text-lg leading-[1.048888] uppercase text-center my-auto">
+    <h1 className="my-auto text-center text-lg uppercase leading-[1.048888]">
       <span className="inline-block">Voice coding</span>{" "}
       <span className="inline-block">at the speed of thought</span>
     </h1>
@@ -74,7 +74,7 @@ function Slogan() {
 
 function NetlifyFooter() {
   return (
-    <footer className="text-center text-xs tracking-widest font-light">
+    <footer className="text-center text-xs font-light tracking-widest">
       <span className="uppercase dark:opacity-50">
         This site is powered by{" "}
       </span>

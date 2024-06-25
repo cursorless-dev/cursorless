@@ -1,0 +1,28 @@
+languageId: html
+command:
+  version: 5
+  spokenForm: pour element
+  action: {name: editNewLineAfter}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: xmlElement}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    <html>
+        
+    </html>
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+  marks: {}
+finalState:
+  documentContents: |
+    <html>
+        
+    </html>
+  selections:
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}

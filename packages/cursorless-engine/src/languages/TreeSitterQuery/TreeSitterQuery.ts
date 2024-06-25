@@ -63,15 +63,14 @@ export class TreeSitterQuery {
 
   matches(
     document: TextDocument,
-    start: Position,
-    end: Position,
+    start?: Position,
+    end?: Position,
   ): QueryMatch[] {
     return this.query
-      .matches(
-        this.treeSitter.getTree(document).rootNode,
-        positionToPoint(start),
-        positionToPoint(end),
-      )
+      .matches(this.treeSitter.getTree(document).rootNode, {
+        startPosition: start == null ? undefined : positionToPoint(start),
+        endPosition: end == null ? undefined : positionToPoint(end),
+      })
       .map(
         ({ pattern, captures }): MutableQueryMatch => ({
           patternIdx: pattern,

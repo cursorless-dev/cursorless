@@ -1,0 +1,44 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: take vest past line air
+  action: {name: setSelection}
+  targets:
+    - active:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: line}
+        mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      type: range
+      excludeAnchor: false
+      excludeActive: false
+      anchor:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: v}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+
+    const value = "Hello world";
+
+    const value = "Hello world";
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.v:
+      start: {line: 1, character: 6}
+      end: {line: 1, character: 11}
+    default.a:
+      start: {line: 3, character: 6}
+      end: {line: 3, character: 11}
+finalState:
+  documentContents: |
+
+    const value = "Hello world";
+
+    const value = "Hello world";
+  selections:
+    - anchor: {line: 1, character: 6}
+      active: {line: 3, character: 28}

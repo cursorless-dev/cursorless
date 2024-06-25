@@ -1,0 +1,34 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change last token round
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: ordinalScope
+          scopeType: {type: token}
+          start: -1
+          length: 1
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: parentheses}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    hello (
+        there
+        now
+    ) testing
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+  marks: {}
+finalState:
+  documentContents: |-
+    hello (
+        there
+        now
+     testing
+  selections:
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}

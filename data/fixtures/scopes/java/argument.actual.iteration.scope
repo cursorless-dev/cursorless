@@ -1,0 +1,10 @@
+myFunk(5, "hello");
+---
+
+[Range] = 0:7-0:17
+         >----------<
+0| myFunk(5, "hello");
+
+[Domain] = 0:6-0:18
+        >------------<
+0| myFunk(5, "hello");

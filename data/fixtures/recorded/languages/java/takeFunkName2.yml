@@ -1,0 +1,34 @@
+languageId: java
+command:
+  version: 5
+  spokenForm: take funk name
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionName}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+
+    public class MyClass {
+        public MyClass () {
+
+        }
+    }
+  selections:
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
+  marks: {}
+finalState:
+  documentContents: |
+
+    public class MyClass {
+        public MyClass () {
+
+        }
+    }
+  selections:
+    - anchor: {line: 2, character: 11}
+      active: {line: 2, character: 18}

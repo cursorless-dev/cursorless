@@ -1,0 +1,22 @@
+languageId: css
+command:
+  version: 5
+  spokenForm: chuck value
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "@namespace url(http://www.w3.org/1999/xhtml);"
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+  marks: {}
+finalState:
+  documentContents: "@namespace;"
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

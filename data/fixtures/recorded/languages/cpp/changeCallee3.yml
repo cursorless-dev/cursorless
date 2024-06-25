@@ -1,0 +1,22 @@
+languageId: cpp
+command:
+  version: 5
+  spokenForm: change callee
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionCallee}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: Car carObj1("X5", 1999);
+  selections:
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}
+  marks: {}
+finalState:
+  documentContents: " carObj1(\"X5\", 1999);"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

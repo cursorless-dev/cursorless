@@ -42,6 +42,9 @@ export interface Target {
   /** If this selection has a delimiter use it for inserting before or after the target. For example, new line for a line or paragraph and comma for a list or argument */
   readonly insertionDelimiter: string;
 
+  /** Optional prefix. For example, dash or asterisk for a markdown item */
+  readonly prefixRange?: Range;
+
   /** If true this target should be treated as a line */
   readonly isLine: boolean;
 
@@ -129,8 +132,8 @@ export interface Target {
   /** Internal target that should be used for the that mark */
   readonly thatTarget: Target;
 
-  getInteriorStrict(): Target[];
-  getBoundaryStrict(): Target[];
+  getInterior(): Target[] | undefined;
+  getBoundary(): Target[] | undefined;
   /** The range of the delimiter before the content selection */
   getLeadingDelimiterTarget(): Target | undefined;
   /** The range of the delimiter after the content selection */
@@ -152,12 +155,33 @@ export interface Target {
   getRemovalHighlightRange(): Range;
   withThatTarget(thatTarget: Target): Target;
   withContentRange(contentRange: Range): Target;
-  createContinuousRangeTarget(
+
+  /**
+   * Targets use this function to determine what happens when a range target is
+   * created from two targets of the same type. This function is called by
+   * {@link createContinuousRangeTarget} to create the range target if both
+   * sides of the range are included and are of the same type.
+   *
+   * The newly created range target can inherit some of the args from the two
+   * targets. Trailing delimiter should come from end target, leading from start
+   * target, etc.
+   *
+   * If for whatever reason it doesn't make sense to create a rich range target
+   * from the two targets, this function should return null. For example,
+   * {@link ScopeTypeTarget} returns null if the two targets have different
+   * scope types, and {@link UntypedTarget} returns null because it never makes
+   * sense to create a rich range target from two untyped targets.
+   *
+   * @param isReversed Indicates whether the range is reversed.
+   * @param endTarget The end target of the range.
+   * @returns The new target of the same type as the two targets, corresponding
+   * to an inclusive range between the two targets.
+   */
+  maybeCreateRichRangeTarget(
     isReversed: boolean,
-    endTarget: Target,
-    includeStart: boolean,
-    includeEnd: boolean,
-  ): Target;
+    endTarget: ThisType<this> & Target,
+  ): (ThisType<this> & Target) | null;
+
   /** Constructs removal edit */
   constructRemovalEdit(): EditWithRangeUpdater;
   isEqual(target: Target): boolean;

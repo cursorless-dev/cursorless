@@ -1,0 +1,26 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: change type whale
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "const foo: string = new Bar<number>(foo);"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.w:
+      start: {line: 0, character: 20}
+      end: {line: 0, character: 23}
+finalState:
+  documentContents: "const foo:  = new Bar<number>(foo);"
+  selections:
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}

@@ -1,0 +1,37 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change bounds bat
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - {type: excludeInterior}
+      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    <html>
+        <body>
+            <hr/>
+        </body>
+    </html>
+  selections:
+    - anchor: {line: 4, character: 7}
+      active: {line: 4, character: 7}
+  marks:
+    default.b:
+      start: {line: 3, character: 6}
+      end: {line: 3, character: 10}
+finalState:
+  documentContents: |-
+    <html>
+        <body>
+            <hr/>
+        body
+    </html>
+  selections:
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}
+    - anchor: {line: 3, character: 8}
+      active: {line: 3, character: 8}

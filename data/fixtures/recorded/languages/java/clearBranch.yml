@@ -1,0 +1,41 @@
+languageId: java
+command:
+  version: 5
+  spokenForm: change branch
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: branch}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    class Aaa {
+      static void bbb() {
+        switch ("0") {
+          case ("0"):
+            break;
+          case ("1"):
+            break;
+        }
+      }
+    }
+  selections:
+    - anchor: {line: 4, character: 12}
+      active: {line: 4, character: 12}
+  marks: {}
+finalState:
+  documentContents: |-
+    class Aaa {
+      static void bbb() {
+        switch ("0") {
+          
+          case ("1"):
+            break;
+        }
+      }
+    }
+  selections:
+    - anchor: {line: 3, character: 6}
+      active: {line: 3, character: 6}

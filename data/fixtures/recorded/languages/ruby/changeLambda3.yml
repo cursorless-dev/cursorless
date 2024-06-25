@@ -1,0 +1,24 @@
+languageId: ruby
+command:
+  version: 5
+  spokenForm: change lambda
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: anonymousFunction}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    [1,2,3].each { |i| puts i }
+  selections:
+    - anchor: {line: 0, character: 26}
+      active: {line: 0, character: 26}
+  marks: {}
+finalState:
+  documentContents: |
+    [1,2,3].each 
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}

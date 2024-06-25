@@ -1,0 +1,32 @@
+languageId: html
+command:
+  version: 5
+  spokenForm: change round
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: parentheses}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    <html>
+        <head>
+            <script>(hello)</script>
+        </head>
+    </html>
+  selections:
+    - anchor: {line: 2, character: 19}
+      active: {line: 2, character: 19}
+  marks: {}
+finalState:
+  documentContents: |-
+    <html>
+        <head>
+            <script></script>
+        </head>
+    </html>
+  selections:
+    - anchor: {line: 2, character: 16}
+      active: {line: 2, character: 16}

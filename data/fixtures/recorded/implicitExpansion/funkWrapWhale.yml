@@ -1,0 +1,30 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: funk wrap whale
+  action:
+    name: wrapWithSnippet
+    args:
+      - {type: named, name: functionDeclaration, variableName: body}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    const whatever = "hello";
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.w:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 14}
+finalState:
+  documentContents: |
+    function () {
+        const whatever = "hello";
+    }
+  selections:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}

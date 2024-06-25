@@ -1,0 +1,34 @@
+languageId: css
+command:
+  version: 5
+  spokenForm: change every arg
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    a {
+      width: calc(100% - 80px);
+      clip-path: ellipse(115px 55px at 50% 40%);
+    }
+     
+  selections:
+    - anchor: {line: 2, character: 25}
+      active: {line: 2, character: 25}
+  marks: {}
+finalState:
+  documentContents: |-
+    a {
+      width: calc(100% - 80px);
+      clip-path: ellipse( at );
+    }
+     
+  selections:
+    - anchor: {line: 2, character: 21}
+      active: {line: 2, character: 21}
+    - anchor: {line: 2, character: 25}
+      active: {line: 2, character: 25}

@@ -1,0 +1,46 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: chuck block each until look
+  action: {name: remove}
+  targets:
+    - active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: l}
+      type: range
+      excludeAnchor: false
+      excludeActive: true
+      anchor:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: e}
+        modifiers:
+          - type: containingScope
+            scopeType: {type: paragraph}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    hello there
+    hello there
+
+
+        hello there
+        hello there
+            hello 
+  selections:
+    - anchor: {line: 4, character: 9}
+      active: {line: 4, character: 9}
+  marks:
+    default.e:
+      start: {line: 1, character: 6}
+      end: {line: 1, character: 11}
+    default.l:
+      start: {line: 4, character: 4}
+      end: {line: 4, character: 9}
+finalState:
+  documentContents: |2-
+        hello there
+        hello there
+            hello 
+  selections:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}

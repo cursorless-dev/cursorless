@@ -1,0 +1,44 @@
+languageId: java
+command:
+  version: 5
+  spokenForm: change call
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionCall}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    class Point {
+      int x, y;
+      Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+      }
+
+      Point() {
+        this(0, 0);
+      }
+    }
+  selections:
+    - anchor: {line: 8, character: 12}
+      active: {line: 8, character: 12}
+  marks: {}
+finalState:
+  documentContents: |-
+    class Point {
+      int x, y;
+      Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+      }
+
+      Point() {
+        
+      }
+    }
+  selections:
+    - anchor: {line: 8, character: 4}
+      active: {line: 8, character: 4}

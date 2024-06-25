@@ -1,0 +1,27 @@
+languageId: html
+command:
+  version: 5
+  spokenForm: change end tag
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: xmlEndTag}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    <html>
+        
+    </html>
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+  marks: {}
+finalState:
+  documentContents: |
+    <html>
+        
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}

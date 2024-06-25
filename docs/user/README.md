@@ -8,7 +8,7 @@ Welcome to Cursorless! You may find it helpful to start with the [tutorial video
 
 This guide assumes you've already [installed Cursorless](installation.md).
 
-Once you understand the concepts, you can pull up a cheatsheet for reference using either `"cursorless reference"` or `"cursorless cheatsheet"` commands within VSCode.
+Once you understand the concepts, you can pull up a cheatsheet for reference by saying either `"cursorless reference"` or `"cursorless cheatsheet"` with VSCode focused.
 
 You can get back to these docs by saying `"cursorless docs"`, `"cursorless help"` within VSCode.
 
@@ -66,7 +66,7 @@ The following colors are supported. Note that to target the default (gray) hat y
 
 You can enable or disable colors in your VSCode settings, by searching for `cursorless.hatEnablement.colors` and checking the box next to the internal ID for the given shape as listed above. To navigate to your VSCode settings, either say "show settings", or go to File --> Preferences --> Settings.
 
-You can also tweak the visible colors for any of these colors in your VSCode settings, by searching for `cursorless.colors` and changing the hex color code next to the internal ID for the given shape as listed above. Note that you can configure different colors for dark and light themes.
+You can also tweak the visible colors for any of these colors in your VSCode settings, by searching for `cursorless.colors` and changing the hex color code next to the internal ID for the given shape as listed above. Note that you can configure different colors for dark and light themes. See our [visual accessibility guide](visualAccessibility.md) for more on visual accessibility.
 
 If you find these color names unintuitive / tough to remember, their
 spoken forms can be [customized](customization.md) like any other spoken form
@@ -82,16 +82,16 @@ The following shapes are supported. Note that to target the default (dot) shape 
 | Spoken form | Shape                                           | Internal ID  | Enabled by default? |
 | ----------- | ----------------------------------------------- | ------------ | ------------------- |
 | N/A         | ![Default](../../images/hats/default.svg)       | `default`    | ✅                  |
-| `"ex"`      | ![Ex](../../images/hats/ex.svg)                 | `ex`         | ❌                  |
+| `"bolt"`    | ![Bolt](../../images/hats/bolt.svg)             | `bolt`       | ❌                  |
+| `"curve"`   | ![Curve](../../images/hats/curve.svg)           | `curve`      | ❌                  |
 | `"fox"`     | ![Fox](../../images/hats/fox.svg)               | `fox`        | ❌                  |
+| `"frame"`   | ![Frame](../../images/hats/frame.svg)           | `frame`      | ❌                  |
+| `"play"`    | ![Play](../../images/hats/play.svg)             | `play`       | ❌                  |
 | `"wing"`    | ![Wing](../../images/hats/wing.svg)             | `wing`       | ❌                  |
 | `"hole"`    | ![Hole](../../images/hats/hole.svg)             | `hole`       | ❌                  |
-| `"frame"`   | ![Frame](../../images/hats/frame.svg)           | `frame`      | ❌                  |
-| `"curve"`   | ![Curve](../../images/hats/curve.svg)           | `curve`      | ❌                  |
-| `"eye"`     | ![Eye](../../images/hats/eye.svg)               | `eye`        | ❌                  |
-| `"play"`    | ![Play](../../images/hats/play.svg)             | `play`       | ❌                  |
+| `"ex"`      | ![Ex](../../images/hats/ex.svg)                 | `ex`         | ❌                  |
 | `"cross"`   | ![Crosshairs](../../images/hats/crosshairs.svg) | `crosshairs` | ❌                  |
-| `"bolt"`    | ![Bolt](../../images/hats/bolt.svg)             | `bolt`       | ❌                  |
+| `"eye"`     | ![Eye](../../images/hats/eye.svg)               | `eye`        | ❌                  |
 
 You can enable or disable shapes in your VSCode settings, by searching for `cursorless.hatEnablement.shapes` and checking the box next to the internal ID for the given shape as listed above. To navigate to your VSCode settings, either say "show settings", or go to File --> Preferences --> Settings.
 
@@ -184,7 +184,9 @@ We support several modifiers that allow you to refer to scopes relative to the i
 
 Here is a diagram of the possible relative / ordinal modifiers using the `funk` scope as an example:
 
-![Relative ordinal diagram](images/relative_ordinal.png)
+<div class="dark-mode-invert">
+  ![Relative ordinal diagram](images/relative_ordinal.png)
+</div>
 
 ([Image source](https://github.com/cursorless-dev/cursorless/blob/main/docs/user/images/relative_ordinal.tex))
 
@@ -205,29 +207,47 @@ And here is a table of the spoken forms:
 | `"previous [number] [scope]s"` | previous `[number]` instances of `[scope]`                          | `"take previous three funks"` |
 | `"previous [scope]"`           | Previous instance of `[scope]`                                      | `"take previous funk"`        |
 
+You can prefix the modifier with `"every"` to yield multiple targets rather than a range. For example, `"take every two tokens"` selects two tokens as separate selections.
+
 ##### `"every"`
 
-The command `"every"` can be used to select a syntactic element and all of its matching siblings.
+The modifier `"every"` can be used to select a syntactic element and all of its matching siblings.
 
 - `"take every key air"`
 - `"take every funk air"`
 - `"take every key"` (if cursor is currently within a key)
 
-For example, the command `take every key [blue] air` will select every key in the map/object/dict including the token with a blue hat over the letter 'a'.
+For example, the command `"take every key [blue] air"` will select every key in the map/object/dict including the token with a blue hat over the letter 'a'.
+
+###### Use with relative / ordinal modifiers
+
+The modifier `every` can also be used to cause [relative / ordinal modifiers](#previous--next--ordinal--number) to yield multiple targets rather than a range:
+
+- `"take every two tokens"` selects two tokens as separate selections
+- `"pre every first two lines"` puts a cursor before each of first two lines in block (results in multiple cursors)
+
+##### `"grand"`
+
+The modifier `"grand"` can be used to select the parent of the containing syntactic element.
+
+- `"take grand statement air"`
+- `"take grand funk air"`
+
+For example, the command `"take grand statement [blue] air"` will select that parent statement of the statement containing the token with a blue hat over the letter 'a'.
 
 ##### Sub-token modifiers
 
-###### `"word"`
+###### `"sub"`
 
-If you need to refer to the individual words within a `camelCase`/`snake_case` token, you can use the `"word"` modifier. For example,
+If you need to refer to the individual words within a `camelCase`/`snake_case` token, you can use the `"sub"` modifier. For example,
 
-- `"second word air"`
-- `"second past fourth word air"`
-- `"last word air"`
+- `"second sub air"`
+- `"second past fourth sub air"`
+- `"last sub air"`
 
 For example, the following command:
 
-    "take second past fourth word blue air"
+    "take second past fourth sub blue air"
 
 Selects the second, third and fourth word in the token containing letter 'a' with a blue hat.
 
@@ -351,6 +371,15 @@ If your cursor is touching a token, you can say `"take every instance"` to selec
 
 Pro tip: if you say eg `"take five instances air"`, and it turns out you need more, you can say eg `"take that and next two instances that"` to select the next two instances after the last instance you selected.
 
+###### Experimental: `"from"`
+
+We have experimental support for prefixing a command with `"from <target>"` to narrow the range within which `"every instance"` searches, or to set the start point from which `"next instance"` searches. For example:
+
+- `"from funk take every instance air"`: selects all instances of the token with a hat over the letter `a` in the current function
+- `"from air take next instance bat"`: selects the next instance of the token with a hat over the letter `b` starting from the token with a hat over the letter `a`
+
+Note that the `"from"` modifier is not enabled by default; you must remove the `-` at the start of the line starting with `-from` in your `experimental/experimental_actions.csv` [settings csv](./customization.md). Note also that this feature is considered experimental and may change in the future.
+
 ##### `"just"`
 
 The `"just"` modifier strips the target of any semantic information, treating it as just a raw range, with the following effects:
@@ -367,7 +396,7 @@ The `"just"` modifier strips the target of any semantic information, treating it
 
   - `"chuck just line"` will delete only the content of the current line, without removing the line ending, resulting in a blank line, unlike the default behaviour of `"chuck line"` that removes the line entirely, leaving no blank line.
 
-- A raw range does not have its own insertion delimitiers.
+- A raw range does not have its own insertion delimiters.
   - For example, `"paste after just air"` will paste directly after the air token, without inserting a space, as opposed to the way `"paste after air"` would insert a space before the pasted content.
   - If you use `"just"` on the destination of a `"bring"` command, it will inherit its insertion delimiters from the source of the `"bring"` action. For example, in the command `"bring arg air and bat after just paren"`, the `"air"` and `"bat"` arguments will be joined by commas. In contrast, `"bring arg air and bat after token paren"` would join the arguments with spaces.
 - In the case of [`"instance"`](#instance), by default `"every instance air"` will only consider instances of the air token that are themselves full tokens, but `"every instance just air"` doesn't have such a restriction, because we've stripped air of its semantic "token-ness".
@@ -377,15 +406,6 @@ Some examples:
 - `"chuck just air"`: deletes just the air token, leaving spaces undisturbed.
 - `"chuck just line"`: deletes just the content of the line, leaving a blank line.
 - `"bring bat after just air"`: results in something like `aaabbb` where the bat token was copied after the air token with no delimeter between them.
-
-###### Experimental: `"from"`
-
-We have experimental support for prefixing a command with `"from <target>"` to narrow the range within which `"every instance"` searches, or to set the start point from which `"next instance"` searches. For example:
-
-- `"from funk take every instance air"`: selects all instances of the token with a hat over the letter `a` in the current function
-- `"from air take next instance bat"`: selects the next instance of the token with a hat over the letter `b` starting from the token with a hat over the letter `a`
-
-Note that the `"from"` modifier is not enabled by default; you must remove the `-` at the start of the line starting with `-from` in your `experimental/experimental_actions.csv` [settings csv](./customization.md). Note also that this feature is considered experimental and may change in the future.
 
 ##### Surrounding pair
 
@@ -500,11 +520,12 @@ In any cursorless command, the action defines what happens to the specified targ
 
 Despite the name cursorless, some of the most basic commands in cursorless are for moving the cursor.
 
-Note that when combined with list targets, these commands will result in multiple cursors
+Note that when combined with list targets, `take`/`pre`/`post` commands will result in multiple cursors.
 
-- `"take <TARGET>"`: Selects the given target
-- `"pre <TARGET>"`: Places the cursor before the given target
-- `"post <TARGET>"`: Places the cursor after the given target
+- `"pre <TARGET>"`: Places the cursor before the given target.
+- `"post <TARGET>"`: Places the cursor after the given target.
+- `"take <TARGET>"`: Selects the given target.
+- `"give <TARGET>"`: Deselects the given target.
 
 eg:
 `pre blue air`
@@ -553,10 +574,11 @@ Copies the token containing letter 'a' with a blue hat.
 
 ### Swap
 
-Swaps two targets. If the first target is omitted, it will target the current selection. If the targets are list targets they will be zipped together.
+Swaps two targets. If the first target is omitted, it will target the current selection. If `<Target 1>` and `<Target 2>` each consist of multiple targets, they will be zipped together.
 
 - `"swap <TARGET 1> with <TARGET 2>"`
 - `"swap with <TARGET>"`
+- `"swap air and bat with cap and drum"` is equivalent to `"swap air with cap"` and `"swap bat with drum"`
 
 eg:
 `swap blue air with green bat`
@@ -573,14 +595,23 @@ For example:
 - `"indent air"`
 - `"dedent funk bat"`
 
+### Increment / decrement
+
+- `"increment <TARGET>"`: increment number target. eg change `1` to `2`.
+- `"decrement <TARGET>"`: decrement number target. eg change `2` to `1`.
+
 ### Insert empty lines
 
 - `"drink <TARGET>"`: Inserts a new line above the target line, and moves the cursor to the newly created line
 - `"pour <TARGET>"`: Inserts a new line below the target line, and moves the cursor to the newly created line
 
-eg:
-`pour blue air`
-Insert empty line below the token containing letter 'a' with a blue hat.
+eg: `pour blue air` will insert empty line below the token containing letter 'a' with a blue hat and moves the cursor to the new line.
+
+Note: `"drink"` and `"pour"` are actually a bit more versatile than just lines.
+If you use a [syntactic scope](#syntactic-scopes) modifier on the target, then`"drink"` and `"pour"` will do the
+appropriate insertions to prepare the text for a new instance of that scope.
+
+eg: `pour item air` will insert a comma and space after the air item, and place the cursor after the inserted characters.
 
 ### Homophones
 
@@ -674,6 +705,8 @@ Each of these commands performs a vscode action of the same or a similar name on
 - `"reference <TARGET>"` search the workspace for all references to the target
 - `"hover <TARGET>"` displays the tooltip that would appear if you hovered the mouse over the target
 - `"quick fix <TARGET>"` displays quick fixes and refactors suggested by the vscode
+- `"scout <TARGET>"` search the document for the target
+- `"scout all <TARGET>"` search the workspace for the target
 
 eg:
 `define blue air`
@@ -698,6 +731,27 @@ eg:
 `extract call air`
 
 Extracts the function call containing the decorated 'a' into its own variable.
+
+### Join
+
+Join multiple lines together.
+
+- `"join <TARGET>"`
+
+eg:
+
+- `join air`: Join the line with the token containing the letter 'a' with its next line.
+- `join block air`: Joines all lines in the paragraph with the token containing the letter 'a' together into a single line.
+
+### Break
+
+Break line in two.
+
+- `"break <TARGET>"`
+
+eg:
+
+- `break air`: Break the line with the token containing the letter 'a'. 'a' is now the first token on the new line.
 
 ## Paired delimiters
 

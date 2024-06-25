@@ -1,0 +1,22 @@
+languageId: latex
+command:
+  version: 5
+  spokenForm: change arg
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: \usepackage[utf8]{inputenc}
+  selections:
+    - anchor: {line: 0, character: 22}
+      active: {line: 0, character: 22}
+  marks: {}
+finalState:
+  documentContents: \usepackage[utf8]{}
+  selections:
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}

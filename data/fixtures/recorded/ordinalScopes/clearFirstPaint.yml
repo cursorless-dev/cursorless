@@ -1,0 +1,27 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change first paint
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: ordinalScope
+          scopeType: {type: customRegex, regex: '[^\s"''`]+'}
+          start: 0
+          length: 1
+  usePrePhraseSnapshot: true
+spokenFormError: >-
+  custom regex with id [^\s"'`]+; please see
+  https://www.cursorless.org/docs/user/customization/ for more information
+initialState:
+  documentContents: aaa-bbb ccc-ddd eee-fff ggg-hhh
+  selections:
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 20}
+  marks: {}
+finalState:
+  documentContents: aaa-bbb  eee-fff ggg-hhh
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

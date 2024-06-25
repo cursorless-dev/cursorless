@@ -1,0 +1,44 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: bring bat before funk
+  action: {name: replaceWithTarget}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+    - type: primitive
+      modifiers:
+        - {type: position, position: before}
+        - type: containingScope
+          scopeType: {type: namedFunction}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    function foo() {
+        return "";
+    }
+
+    function bar() {
+        return "";
+    }
+  selections:
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 12}
+  marks:
+    default.b:
+      start: {line: 4, character: 9}
+      end: {line: 4, character: 12}
+finalState:
+  documentContents: |-
+    bar
+
+    function foo() {
+        return "";
+    }
+
+    function bar() {
+        return "";
+    }
+  selections:
+    - anchor: {line: 3, character: 12}
+      active: {line: 3, character: 12}

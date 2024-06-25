@@ -1,0 +1,36 @@
+languageId: clojure
+command:
+  version: 5
+  spokenForm: change every key
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: collectionKey}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+
+    {
+        :foo "bar",
+        ;; hello
+        :baz "whatever",
+    }
+  selections:
+    - anchor: {line: 4, character: 13}
+      active: {line: 4, character: 13}
+  marks: {}
+finalState:
+  documentContents: |-
+
+    {
+         "bar",
+        ;; hello
+         "whatever",
+    }
+  selections:
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
+    - anchor: {line: 4, character: 4}
+      active: {line: 4, character: 4}

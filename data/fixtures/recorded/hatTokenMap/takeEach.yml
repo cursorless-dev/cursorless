@@ -1,0 +1,32 @@
+languageId: plaintext
+command:
+<<<<<<<< HEAD:data/fixtures/recorded/hatTokenMap/takeEach.yml
+  version: 1
+  spokenForm: take each
+  action: setSelection
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: e}
+========
+  version: 5
+  spokenForm: take harp
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+  usePrePhraseSnapshot: false
+>>>>>>>> main:data/fixtures/recorded/hatTokenMap/takeHarp.yml
+initialState:
+  documentContents: hello world
+  selections:
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}
+  marks:
+    default.e:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 5}
+finalState:
+  documentContents: hello world
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 5}

@@ -1,19 +1,12 @@
-import * as semver from "semver";
+import { getCellIndex } from "@cursorless/vscode-common";
 import {
   commands,
   NotebookDocument,
   TextEditor,
-  version,
   ViewColumn,
   window,
 } from "vscode";
-import { getCellIndex } from "@cursorless/vscode-common";
 import { getNotebookFromCellDocument } from "./notebook/notebook";
-import {
-  focusNotebookCellLegacy,
-  isVscodeLegacyNotebookVersion,
-} from "./notebook/notebookLegacy";
-import type { VscodeIDE } from "./VscodeIDE";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
 const columnFocusCommands = {
@@ -30,20 +23,30 @@ const columnFocusCommands = {
   [ViewColumn.Beside]: "",
 };
 
+/**
+ * Focus editor. Returns true if selection needs to be set again.
+ */
 export default async function vscodeFocusEditor(
-  ide: VscodeIDE,
   editor: VscodeTextEditorImpl,
-) {
+): Promise<void> {
   const viewColumn = getViewColumn(editor.vscodeEditor);
   if (viewColumn != null) {
     await commands.executeCommand(columnFocusCommands[viewColumn]);
+
+    if (editor.isDiffEditorOriginal && !editor.isActive) {
+      // There is no way of directly focusing the left hand side of a diff
+      // editor. Switch side if needed.
+
+      await commands.executeCommand("diffEditor.switchSide");
+    } else if (editor.isSearchEditor) {
+      // Focusing the search editor brings focus back to the input field. This
+      // command moves selection into the actual editor text.
+
+      await commands.executeCommand("search.action.focusNextSearchResult");
+    }
   } else {
     // If the view column is null we see if it's a notebook and try to see if we
     // can just move around in the notebook to focus the correct editor
-
-    if (isVscodeLegacyNotebookVersion()) {
-      return await focusNotebookCellLegacy(ide, editor);
-    }
 
     await focusNotebookCell(editor);
   }
@@ -53,17 +56,14 @@ function getViewColumn(editor: TextEditor): ViewColumn | undefined {
   if (editor.viewColumn != null) {
     return editor.viewColumn;
   }
-  // TODO: tabGroups is not available on older versions of vscode we still support.
-  // Remove any cast as soon as version is updated.
-  if (semver.lt(version, "1.67.0")) {
-    return undefined;
-  }
   const uri = editor.document.uri.toString();
-  const tabGroup = (window as any)?.tabGroups?.all?.find(
-    (tabGroup: any) =>
-      tabGroup?.tabs.find(
-        (tab: any) => tab?.input?.modified?.toString() === uri,
-      ),
+  const tabGroup = window.tabGroups.all.find((tabGroup) =>
+    tabGroup.tabs.find(
+      (tab: any) =>
+        tab.input.uri?.toString() === uri ||
+        tab.input.original?.toString() === uri ||
+        tab.input.modified?.toString() === uri,
+    ),
   );
   return tabGroup?.viewColumn;
 }

@@ -1,0 +1,28 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: change funk name
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionName}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    abstract class Foo {
+        protected abstract bar(): void;
+      }
+  selections:
+    - anchor: {line: 1, character: 30}
+      active: {line: 1, character: 30}
+  marks: {}
+finalState:
+  documentContents: |-
+    abstract class Foo {
+        protected abstract (): void;
+      }
+  selections:
+    - anchor: {line: 1, character: 23}
+      active: {line: 1, character: 23}

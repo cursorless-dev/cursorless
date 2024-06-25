@@ -1,0 +1,41 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: clone near past whale
+  action: {name: insertCopyAfter}
+  targets:
+    - active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      type: range
+      excludeAnchor: false
+      excludeActive: false
+      anchor:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: 'n'}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |+
+    hello now
+    whatever
+
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.n:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 9}
+    default.w:
+      start: {line: 1, character: 0}
+      end: {line: 1, character: 8}
+finalState:
+  documentContents: |+
+    hello now
+    whatever
+    hello now
+    whatever
+
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}

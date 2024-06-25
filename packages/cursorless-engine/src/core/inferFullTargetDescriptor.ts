@@ -1,6 +1,7 @@
 import {
   Modifier,
   PartialListTargetDescriptor,
+  PartialMark,
   PartialPrimitiveTargetDescriptor,
   PartialRangeTargetDescriptor,
   PartialTargetDescriptor,
@@ -100,16 +101,19 @@ function inferPrimitiveTarget(
   target: PartialPrimitiveTargetDescriptor,
   previousTargets: PartialTargetDescriptor[],
 ): PrimitiveTargetDescriptor {
-  const mark = target.mark ??
-    (shouldInferPreviousMark(target)
-      ? getPreviousMark(previousTargets)
-      : null) ?? {
-      type: "cursor",
-    };
+  const mark = handleTargetMark(
+    target.mark ??
+      (shouldInferPreviousMark(target)
+        ? getPreviousMark(previousTargets)
+        : null) ?? {
+        type: "cursor",
+      },
+  );
 
   const modifiers =
     getPreservedModifiers(target) ??
     getPreviousPreservedModifiers(previousTargets) ??
+    getPreviousLineNumberMarkModifiers(previousTargets) ??
     [];
 
   return {
@@ -142,10 +146,15 @@ function getPreservedModifiers(
     target.modifiers?.filter(
       (modifier) => modifier.type !== "inferPreviousMark",
     ) ?? [];
-  if (preservedModifiers.length !== 0) {
-    return preservedModifiers;
-  }
-  // In the absence of any other modifiers line number marks are infer as a containing line scope
+  return preservedModifiers.length !== 0 ? preservedModifiers : undefined;
+}
+
+/**
+ * `"row five past air"` => `"row five past line air"`
+ */
+function getLineNumberMarkModifiers(
+  target: PartialPrimitiveTargetDescriptor,
+): Modifier[] | undefined {
   if (isLineNumberMark(target)) {
     return [
       {
@@ -165,7 +174,7 @@ function getPreservedModifiers(
  * @returns True if this target has a line number mark
  */
 function isLineNumberMark(target: PartialPrimitiveTargetDescriptor): boolean {
-  const isLineNumber = (mark?: Mark) => mark?.type === "lineNumber";
+  const isLineNumber = (mark?: PartialMark) => mark?.type === "lineNumber";
   if (isLineNumber(target.mark)) {
     return true;
   }
@@ -177,7 +186,7 @@ function isLineNumberMark(target: PartialPrimitiveTargetDescriptor): boolean {
 
 function getPreviousMark(
   previousTargets: PartialTargetDescriptor[],
-): Mark | undefined {
+): PartialMark | undefined {
   return getPreviousTargetAttribute(
     previousTargets,
     (target: PartialPrimitiveTargetDescriptor) => target.mark,
@@ -188,6 +197,15 @@ function getPreviousPreservedModifiers(
   previousTargets: PartialTargetDescriptor[],
 ): Modifier[] | undefined {
   return getPreviousTargetAttribute(previousTargets, getPreservedModifiers);
+}
+
+function getPreviousLineNumberMarkModifiers(
+  previousTargets: PartialTargetDescriptor[],
+): Modifier[] | undefined {
+  return getPreviousTargetAttribute(
+    previousTargets,
+    getLineNumberMarkModifiers,
+  );
 }
 
 /**
@@ -238,4 +256,22 @@ function getPreviousTargetAttribute<T>(
     }
   }
   return undefined;
+}
+
+function handleTargetMark(mark: PartialMark): Mark {
+  switch (mark.type) {
+    case "range":
+      return {
+        ...mark,
+        anchor: handleTargetMark(mark.anchor),
+        active: handleTargetMark(mark.active),
+      };
+    case "target":
+      return {
+        type: "target",
+        target: inferFullTargetDescriptor(mark.target, []),
+      };
+    default:
+      return mark;
+  }
 }

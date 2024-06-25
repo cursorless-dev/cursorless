@@ -1,0 +1,30 @@
+languageId: php
+command:
+  version: 5
+  spokenForm: change class
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: class}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    <?php
+
+    class MyClass
+    {
+
+    }
+  selections:
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
+  marks: {}
+finalState:
+  documentContents: |+
+    <?php
+
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}

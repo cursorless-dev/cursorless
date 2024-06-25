@@ -1,0 +1,22 @@
+languageId: scss
+command:
+  version: 5
+  spokenForm: change callee
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionCallee}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "margin-left: pow(4, 3)"
+  selections:
+    - anchor: {line: 0, character: 19}
+      active: {line: 0, character: 19}
+  marks: {}
+finalState:
+  documentContents: "margin-left: (4, 3)"
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}

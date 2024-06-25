@@ -1,0 +1,29 @@
+languageId: html
+command:
+  version: 5
+  spokenForm: change tags
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: xmlBothTags}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    <html>
+        
+    </html>
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+  marks: {}
+finalState:
+  documentContents: |2
+
+        
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}

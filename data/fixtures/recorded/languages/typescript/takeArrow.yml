@@ -1,0 +1,30 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: take lambda
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: anonymousFunction}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+
+    const value = () => {
+
+    }
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+  marks: {}
+finalState:
+  documentContents: |
+
+    const value = () => {
+
+    }
+  selections:
+    - anchor: {line: 1, character: 14}
+      active: {line: 3, character: 1}

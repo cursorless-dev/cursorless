@@ -1,8 +1,21 @@
 [tool.black]
-target-version = ["py39"]
+target-version = ["py311"]
+force-exclude = '''
+(
+  ^/vendor/
+  | ^/data/playground/
+)
+'''
 
 [tool.ruff]
+target-version = "py311"
+extend-exclude = ["vendor", "data/playground/**/*.py"]
+
+[tool.ruff.lint]
 select = ["E", "F", "C4", "I001", "UP", "SIM"]
-ignore = ["E501", "SIM105", "UP035"]
-target-version = "py39"
-extend-exclude = ["vendor"]
+ignore = ["E501", "SIM105", "UP007", "UP035"]
+
+[tool.pyright]
+reportSelfClsParameterName = false
+reportMissingModuleSource = false
+exclude = ["**/node_modules", "**/__pycache__", "**/.*", "**/vendor", "data/playground"]

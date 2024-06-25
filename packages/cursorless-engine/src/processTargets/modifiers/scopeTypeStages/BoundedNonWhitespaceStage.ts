@@ -15,9 +15,7 @@ import { processSurroundingPair } from "../surroundingPair";
  * Expand the target until reaching a white space or surrounding pair.
  * If there is no surrounding pair defaults to the non white space sequence
  */
-export default class BoundedNonWhitespaceSequenceStage
-  implements ModifierStage
-{
+export class BoundedNonWhitespaceSequenceStage implements ModifierStage {
   constructor(
     private languageDefinitions: LanguageDefinitions,
     private modifierStageFactory: ModifierStageFactory,
@@ -44,7 +42,7 @@ export default class BoundedNonWhitespaceSequenceStage
 
     const targets = paintTargets.flatMap((paintTarget) => {
       const contentRange = paintTarget.contentRange.intersection(
-        pairInfo.getInteriorStrict()[0].contentRange,
+        pairInfo.getInterior()[0].contentRange,
       );
 
       if (contentRange == null || contentRange.isEmpty) {

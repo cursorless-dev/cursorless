@@ -1,0 +1,32 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: give bat
+  action: {name: deselect}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: a b c d
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 1}
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 7}
+  marks:
+    default.b:
+      start: {line: 0, character: 2}
+      end: {line: 0, character: 3}
+finalState:
+  documentContents: a b c d
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 1}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 2}
+        end: {line: 0, character: 3}
+      isReversed: false
+      hasExplicitRange: false

@@ -1,0 +1,21 @@
+languageId: xml
+command:
+  version: 5
+  spokenForm: change inside
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - {type: interiorOnly}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: <note>foo</note>
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+  marks: {}
+finalState:
+  documentContents: <>foo</note>
+  selections:
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}

@@ -1,0 +1,22 @@
+languageId: clojure
+command:
+  version: 5
+  spokenForm: take value
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "{:bar {:foo \"bar\"}}"
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+  marks: {}
+finalState:
+  documentContents: "{:bar {:foo \"bar\"}}"
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 18}

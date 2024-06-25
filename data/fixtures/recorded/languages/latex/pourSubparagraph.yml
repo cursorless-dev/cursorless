@@ -1,0 +1,29 @@
+languageId: latex
+command:
+  version: 5
+  spokenForm: pour subparagraph
+  action: {name: editNewLineAfter}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: subParagraph}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    \subparagraph{Section}
+
+    Hello World!
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |+
+    \subparagraph{Section}
+
+    Hello World!
+
+  selections:
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}

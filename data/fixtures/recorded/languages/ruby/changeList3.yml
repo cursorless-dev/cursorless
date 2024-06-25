@@ -1,0 +1,22 @@
+languageId: ruby
+command:
+  version: 5
+  spokenForm: change list
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: list}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: a = %i(1, 2, 3)
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+  marks: {}
+finalState:
+  documentContents: "a = "
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}

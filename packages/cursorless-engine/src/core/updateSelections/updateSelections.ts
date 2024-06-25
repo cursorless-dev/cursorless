@@ -1,12 +1,12 @@
 import {
-  RangeExpansionBehavior,
+  Edit,
   EditableTextEditor,
   Range,
+  RangeExpansionBehavior,
   Selection,
   TextDocument,
 } from "@cursorless/common";
 import { flatten } from "lodash";
-import { Edit } from "../../typings/Types";
 import {
   FullSelectionInfo,
   SelectionInfo,
@@ -258,7 +258,7 @@ export async function performEditsAndUpdateSelections(
     document,
     originalSelections,
   );
-  return performEditsAndUpdateInternal(
+  return performEditsAndUpdateFullSelectionInfos(
     rangeUpdater,
     editor,
     edits,
@@ -307,7 +307,7 @@ export async function performEditsAndUpdateRanges(
 ): Promise<Range[][]> {
   const document = editor.document;
   const selectionInfoMatrix = rangesToSelectionInfos(document, originalRanges);
-  return performEditsAndUpdateInternal(
+  return performEditsAndUpdateFullSelectionInfos(
     rangeUpdater,
     editor,
     edits,
@@ -315,22 +315,7 @@ export async function performEditsAndUpdateRanges(
   );
 }
 
-async function performEditsAndUpdateInternal(
-  rangeUpdater: RangeUpdater,
-  editor: EditableTextEditor,
-  edits: Edit[],
-  selectionInfoMatrix: FullSelectionInfo[][],
-) {
-  await performEditsAndUpdateFullSelectionInfos(
-    rangeUpdater,
-    editor,
-    edits,
-    selectionInfoMatrix,
-  );
-  return selectionInfosToSelections(selectionInfoMatrix);
-}
-
-// TODO: Remove this function if we don't end up using it for the next couple use cases, eg `that` mark and cursor history
+// FIXME: Remove this function if we don't end up using it for the next couple use cases, eg `that` mark and cursor history
 export async function performEditsAndUpdateSelectionInfos(
   rangeUpdater: RangeUpdater,
   editor: EditableTextEditor,
@@ -363,7 +348,7 @@ export async function performEditsAndUpdateFullSelectionInfos(
   originalSelectionInfos: FullSelectionInfo[][],
 ): Promise<Selection[][]> {
   // NB: We do everything using VSCode listeners.  We can associate changes
-  // with our changes just by looking at their offets / text in order to
+  // with our changes just by looking at their offsets / text in order to
   // recover isReplace.  We need to do this because VSCode does some fancy
   // stuff, and returns the changes in a nice order
   // Note that some additional weird edits like whitespace things can be
@@ -397,12 +382,10 @@ export async function performEditsAndUpdateFullSelectionInfos(
     }
   };
 
-  await callFunctionAndUpdateSelectionInfos(
+  return await callFunctionAndUpdateSelectionInfos(
     rangeUpdater,
     func,
     editor.document,
     originalSelectionInfos,
   );
-
-  return selectionInfosToSelections(originalSelectionInfos);
 }

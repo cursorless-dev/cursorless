@@ -1,0 +1,39 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change second char look past end of its token
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: range
+      active:
+        type: primitive
+        modifiers:
+          - {type: position, position: end}
+          - {type: inferPreviousMark}
+          - type: containingScope
+            scopeType: {type: token}
+      excludeAnchor: false
+      excludeActive: false
+      anchor:
+        type: primitive
+        modifiers:
+          - type: ordinalScope
+            scopeType: {type: character}
+            start: 1
+            length: 1
+        mark: {type: decoratedSymbol, symbolColor: default, character: l}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "    hello there"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.l:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 9}
+finalState:
+  documentContents: "    h there"
+  selections:
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}

@@ -1,0 +1,28 @@
+languageId: rust
+command:
+  version: 5
+  spokenForm: chuck call near
+  action: {name: remove}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: 'n'}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionCall}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    let user = User::new();
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.n:
+      start: {line: 0, character: 17}
+      end: {line: 0, character: 20}
+finalState:
+  documentContents: |
+    let user =;
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

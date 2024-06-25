@@ -1,0 +1,56 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: bring line bat past end of its funk to this
+  action: {name: replaceWithTarget}
+  targets:
+    - type: range
+      active:
+        type: primitive
+        modifiers:
+          - {type: position, position: end}
+          - {type: inferPreviousMark}
+          - type: containingScope
+            scopeType: {type: namedFunction}
+      excludeAnchor: false
+      excludeActive: false
+      anchor:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: line}
+        mark: {type: decoratedSymbol, symbolColor: default, character: b}
+    - type: primitive
+      mark: {type: cursor}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    function foo() {
+        const bar = "hello";
+
+        const baz = "hi";
+    }
+
+    const bongo = "bazman";
+  selections:
+    - anchor: {line: 6, character: 0}
+      active: {line: 6, character: 0}
+  marks:
+    default.b:
+      start: {line: 1, character: 10}
+      end: {line: 1, character: 13}
+finalState:
+  documentContents: |-
+    function foo() {
+        const bar = "hello";
+
+        const baz = "hi";
+    }
+
+    const bar = "hello";
+
+        const baz = "hi";
+    }
+  selections:
+    - anchor: {line: 6, character: 0}
+      active: {line: 6, character: 0}

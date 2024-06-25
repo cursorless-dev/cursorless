@@ -1,0 +1,30 @@
+languageId: cpp
+command:
+  version: 5
+  spokenForm: take every arg
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    int f(int a, int b) {
+        return f(a, b);
+    }
+  selections:
+    - anchor: {line: 1, character: 16}
+      active: {line: 1, character: 16}
+  marks: {}
+finalState:
+  documentContents: |-
+    int f(int a, int b) {
+        return f(a, b);
+    }
+  selections:
+    - anchor: {line: 1, character: 13}
+      active: {line: 1, character: 14}
+    - anchor: {line: 1, character: 16}
+      active: {line: 1, character: 17}

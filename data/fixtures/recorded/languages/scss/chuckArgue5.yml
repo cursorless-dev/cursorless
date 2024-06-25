@@ -1,0 +1,28 @@
+languageId: scss
+command:
+  version: 5
+  spokenForm: chuck arg
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    .micro {
+      width: sum(50px, 30px, 100px);
+    }
+  selections:
+    - anchor: {line: 1, character: 14}
+      active: {line: 1, character: 14}
+  marks: {}
+finalState:
+  documentContents: |-
+    .micro {
+      width: sum(30px, 100px);
+    }
+  selections:
+    - anchor: {line: 1, character: 13}
+      active: {line: 1, character: 13}

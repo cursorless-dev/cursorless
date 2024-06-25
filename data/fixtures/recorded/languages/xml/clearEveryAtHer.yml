@@ -1,0 +1,24 @@
+languageId: xml
+command:
+  version: 5
+  spokenForm: change every attribute
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: attribute}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: <note bar="back" bongo="badman">foo</note>
+  selections:
+    - anchor: {line: 0, character: 26}
+      active: {line: 0, character: 26}
+  marks: {}
+finalState:
+  documentContents: <note  >foo</note>
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}

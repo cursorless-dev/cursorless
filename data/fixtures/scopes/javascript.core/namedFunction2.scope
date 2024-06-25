@@ -1,0 +1,10 @@
+const myFunk = function() { }
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:29
+  >-----------------------------<
+0| const myFunk = function() { }
+
+[Insertion delimiter] = "\n\n"

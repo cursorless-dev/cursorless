@@ -1,0 +1,48 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: clone up every arg
+  action: {name: insertCopyBefore}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "function myFunk(a: number, b: number) {}"
+  selections:
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}
+  marks: {}
+finalState:
+  documentContents: "function myFunk(a: number, a: number, b: number, b: number) {}"
+  selections:
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 16}
+        end: {line: 0, character: 25}
+      isReversed: false
+      hasExplicitRange: true
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 38}
+        end: {line: 0, character: 47}
+      isReversed: false
+      hasExplicitRange: true
+  sourceMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 27}
+        end: {line: 0, character: 36}
+      isReversed: false
+      hasExplicitRange: true
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 49}
+        end: {line: 0, character: 58}
+      isReversed: false
+      hasExplicitRange: true

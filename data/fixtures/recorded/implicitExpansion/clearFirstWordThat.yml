@@ -1,0 +1,32 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change first sub that
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: ordinalScope
+          scopeType: {type: word}
+          start: 0
+          length: 1
+      mark: {type: that}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: aaaBbbCcc ddd
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}
+  marks: {}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 3}
+        end: {line: 0, character: 9}
+      isReversed: false
+      hasExplicitRange: true
+finalState:
+  documentContents: aaaCcc ddd
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}

@@ -1,0 +1,25 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: chuck trailing drum
+  action: {name: remove}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: d}
+      modifiers:
+        - {type: trailing}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: hello world whatever
+  selections:
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 6}
+  marks:
+    default.d:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 11}
+finalState:
+  documentContents: hello worldwhatever
+  selections:
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 6}

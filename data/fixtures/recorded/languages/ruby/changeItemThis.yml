@@ -1,0 +1,23 @@
+languageId: ruby
+command:
+  version: 5
+  spokenForm: change item this
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+      mark: {type: cursor}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "[1, 2, 3]"
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  marks: {}
+finalState:
+  documentContents: "[1, , 3]"
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}

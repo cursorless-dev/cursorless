@@ -1,0 +1,30 @@
+languageId: rust
+command:
+  version: 5
+  spokenForm: chuck funk made
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: namedFunction}
+      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    fn main() {
+        println!("Hello, world!");
+    }
+  selections:
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
+  marks:
+    default.m:
+      start: {line: 0, character: 3}
+      end: {line: 0, character: 7}
+finalState:
+  documentContents: |+
+
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

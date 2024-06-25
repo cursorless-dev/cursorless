@@ -1,0 +1,40 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: take condition
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: condition}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    if (true) {
+
+    }
+    for (let i = 0; i < length; ++i) {
+
+    }
+    while (true) {
+
+    }
+  selections:
+    - anchor: {line: 7, character: 0}
+      active: {line: 7, character: 0}
+  marks: {}
+finalState:
+  documentContents: |-
+    if (true) {
+
+    }
+    for (let i = 0; i < length; ++i) {
+
+    }
+    while (true) {
+
+    }
+  selections:
+    - anchor: {line: 6, character: 7}
+      active: {line: 6, character: 11}

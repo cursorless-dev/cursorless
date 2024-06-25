@@ -1,0 +1,33 @@
+languageId: php
+command:
+  version: 5
+  spokenForm: else wrap this
+  action:
+    name: wrapWithSnippet
+    args:
+      - {type: named, name: ifElseStatement, variableName: alternative}
+  targets:
+    - type: primitive
+      mark: {type: cursor}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    <?php
+
+    $foo = "Hello world";
+  selections:
+    - anchor: {line: 2, character: 7}
+      active: {line: 2, character: 7}
+  marks: {}
+finalState:
+  documentContents: |-
+    <?php
+
+    if () {
+        
+    } else {
+        $foo = "Hello world";
+    }
+  selections:
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}

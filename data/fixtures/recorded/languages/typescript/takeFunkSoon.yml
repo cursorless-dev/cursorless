@@ -1,0 +1,30 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: take funk sun
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: namedFunction}
+      mark: {type: decoratedSymbol, symbolColor: default, character: s}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    const myFunk = function() {
+    }
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+  marks:
+    default.s:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 5}
+finalState:
+  documentContents: |
+    const myFunk = function() {
+    }
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 1, character: 1}

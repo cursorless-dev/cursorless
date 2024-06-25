@@ -1,0 +1,26 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: take pair bat
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: any}
+      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: const r = /a[b]*/;
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.b:
+      start: {line: 0, character: 13}
+      end: {line: 0, character: 14}
+finalState:
+  documentContents: const r = /a[b]*/;
+  selections:
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 15}

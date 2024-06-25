@@ -1,4 +1,4 @@
-(comment) @comment
+(comment) @comment @textFragment
 (hash) @map
 (regex) @regularExpression
 (call) @functionCall
@@ -13,17 +13,40 @@
   (if) @ifStatement
 ) @_.iteration
 
+[
+  (method)
+  (singleton_method)
+] @namedFunction
 
-(_
-  [(method) (singleton_method)] @namedFunction
-) @_.iteration
+(class) @class
 
-(_
-  (class) @class
-) @_.iteration
+(class) @namedFunction.iteration @class.iteration
+(program) @namedFunction.iteration @class.iteration @className.iteration
 
-(_
-  (class
-    name: (_) @className
-  ) @_.domain
-) @_.iteration
+(class) @functionName.iteration @name.iteration
+(program) @functionName.iteration @name.iteration
+
+(class
+  name: (_) @className @name
+) @_.domain
+
+(string) @string
+
+[
+  (string_content)
+  (heredoc_content)
+] @textFragment
+
+(method
+  name: (_) @functionName @name
+) @_.domain
+(singleton_method
+  name: (_) @functionName @name
+) @_.domain
+
+(assignment
+  left: (_) @name
+) @_.domain
+(operator_assignment
+  left: (_) @name
+) @_.domain

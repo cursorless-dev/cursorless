@@ -1,0 +1,22 @@
+languageId: go
+command:
+  version: 5
+  spokenForm: change callee
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionCallee}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: object.test[1]();
+  selections:
+    - anchor: {line: 0, character: 15}
+      active: {line: 0, character: 15}
+  marks: {}
+finalState:
+  documentContents: ();
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

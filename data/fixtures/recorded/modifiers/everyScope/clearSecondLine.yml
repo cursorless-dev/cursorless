@@ -1,0 +1,28 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change second line
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: ordinalScope
+          scopeType: {type: line}
+          start: 1
+          length: 1
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    aaa bbb ccc
+    ddd eee fff
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 7}
+  marks: {}
+finalState:
+  documentContents: |+
+    aaa bbb ccc
+
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

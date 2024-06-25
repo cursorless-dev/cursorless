@@ -1,0 +1,26 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: pour sub air
+  action: {name: editNewLineAfter}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: word}
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: aaa_bbb
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 7}
+finalState:
+  documentContents: aaa_bbb_
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

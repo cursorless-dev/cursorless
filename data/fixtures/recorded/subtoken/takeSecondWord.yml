@@ -1,0 +1,24 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: take second sub
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: ordinalScope
+          scopeType: {type: word}
+          start: 1
+          length: 1
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: ;helloThere;
+  selections:
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}
+  marks: {}
+finalState:
+  documentContents: ;helloThere;
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 11}

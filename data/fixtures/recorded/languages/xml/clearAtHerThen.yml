@@ -1,0 +1,22 @@
+languageId: xml
+command:
+  version: 5
+  spokenForm: change attribute
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: attribute}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: <note bar="back">foo</note>
+  selections:
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}
+  marks: {}
+finalState:
+  documentContents: <note >foo</note>
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

@@ -1,0 +1,26 @@
+languageId: java
+command:
+  version: 5
+  spokenForm: take list
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: list}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+
+    int[] values = {1, 2, 3};
+  selections:
+    - anchor: {line: 1, character: 17}
+      active: {line: 1, character: 17}
+  marks: {}
+finalState:
+  documentContents: |
+
+    int[] values = {1, 2, 3};
+  selections:
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 24}

@@ -7,18 +7,19 @@
     "build": "esbuild ./src/index.ts --conditions=cursorless:bundler --bundle --outfile=dist/index.cjs --format=cjs --platform=node",
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo"
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",
-    "@pnpm/lockfile-file": "7.0.5",
+    "@pnpm/lockfile-file": "9.0.2",
     "@pnpm/logger": "^5.0.0",
-    "@pnpm/types": "8.9.0",
-    "@types/normalize-path": "^3.0.0",
+    "@pnpm/types": "10.0.0",
+    "@types/normalize-path": "^3.0.2",
     "js-yaml": "^4.1.0",
+    "lodash": "^4.17.21",
     "normalize-path": "^3.0.0",
-    "path-exists": "^4.0.0",
-    "type-fest": "3.6.1"
+    "path-exists": "^5.0.0",
+    "type-fest": "4.14.0"
   },
   "main": "./out/index.js",
   "types": "./out/index.d.ts",
@@ -30,7 +31,9 @@
     }
   },
   "devDependencies": {
-    "@types/js-yaml": "^4.0.2",
-    "esbuild": "^0.17.11"
-  }
+    "@types/js-yaml": "^4.0.9",
+    "@types/lodash": "4.17.0",
+    "esbuild": "^0.20.2"
+  },
+  "type": "module"
 }

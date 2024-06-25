@@ -1,10 +1,10 @@
-import { imap } from "itertools";
-import { NestedScopeHandler } from ".";
-import { generateMatchesInRange } from "../../../util/getMatchesInRange";
 import { Direction, ScopeType } from "@cursorless/common";
+import { imap } from "itertools";
+import { NestedScopeHandler } from "./NestedScopeHandler";
 import { getMatcher } from "../../../tokenizer";
-import { testRegex } from "../../../util/regex";
+import { generateMatchesInRange } from "../../../util/getMatchesInRange";
 import { PlainTarget } from "../../targets";
+import { isPreferredOverHelper } from "./isPreferredOverHelper";
 import type { TargetScope } from "./scope.types";
 
 /**
@@ -14,9 +14,10 @@ import type { TargetScope } from "./scope.types";
  */
 const SPLIT_REGEX = /\p{L}\p{M}*|[\p{N}\p{P}\p{S}\p{Z}\p{C}]/gu;
 
+const PREFERRED_SYMBOLS_REGEX = /[$]/g;
 const NONWHITESPACE_REGEX = /\p{L}\p{M}*|[\p{N}\p{P}\p{S}]/gu;
 
-export default class CharacterScopeHandler extends NestedScopeHandler {
+export class CharacterScopeHandler extends NestedScopeHandler {
   public readonly scopeType = { type: "character" } as const;
   public readonly iterationScopeType = { type: "token" } as const;
 
@@ -49,33 +50,13 @@ export default class CharacterScopeHandler extends NestedScopeHandler {
     scopeA: TargetScope,
     scopeB: TargetScope,
   ): boolean | undefined {
-    const {
-      editor: { document },
-    } = scopeA;
     const { identifierMatcher } = getMatcher(this.languageId);
-
-    const aText = document.getText(scopeA.domain);
-    const bText = document.getText(scopeB.domain);
-
-    // Regexes indicating preferences.  We prefer identifiers, then
-    // nonwhitespace.
-    const matchers = [identifierMatcher, NONWHITESPACE_REGEX];
-
-    for (const matcher of matchers) {
-      // NB: Don't directly use `test` here because global regexes are stateful
-      // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec#finding_successive_matches
-      const aMatchesRegex = testRegex(matcher, aText);
-      const bMatchesRegex = testRegex(matcher, bText);
-
-      if (aMatchesRegex && !bMatchesRegex) {
-        return true;
-      }
-
-      if (bMatchesRegex && !aMatchesRegex) {
-        return false;
-      }
-    }
-
-    return undefined;
+    // Regexes indicating preferences. We prefer identifiers, preferred
+    // symbols, then nonwhitespace.
+    return isPreferredOverHelper(scopeA, scopeB, [
+      identifierMatcher,
+      PREFERRED_SYMBOLS_REGEX,
+      NONWHITESPACE_REGEX,
+    ]);
   }
 }

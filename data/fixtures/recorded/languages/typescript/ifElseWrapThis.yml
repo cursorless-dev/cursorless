@@ -1,0 +1,28 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: if else wrap this
+  action:
+    name: wrapWithSnippet
+    args:
+      - {type: named, name: ifElseStatement, variableName: consequence}
+  targets:
+    - type: primitive
+      mark: {type: cursor}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: const foo = "hello";
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+  marks: {}
+finalState:
+  documentContents: |-
+    if () {
+        const foo = "hello";
+    } else {
+        
+    }
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}

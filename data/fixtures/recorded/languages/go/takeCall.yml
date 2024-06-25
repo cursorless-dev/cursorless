@@ -1,0 +1,22 @@
+languageId: go
+command:
+  version: 5
+  spokenForm: take call
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionCall}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: add(1, 2)
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: add(1, 2)
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 9}

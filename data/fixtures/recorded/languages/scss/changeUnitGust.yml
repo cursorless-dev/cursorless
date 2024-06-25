@@ -1,0 +1,32 @@
+languageId: css
+command:
+  version: 5
+  spokenForm: change unit gust
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: unit}
+      mark: {type: decoratedSymbol, symbolColor: default, character: g}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |2-
+     .child-selector {
+      height: 10rem;
+    }
+  selections:
+    - anchor: {line: 2, character: 1}
+      active: {line: 2, character: 1}
+  marks:
+    default.g:
+      start: {line: 1, character: 2}
+      end: {line: 1, character: 8}
+finalState:
+  documentContents: |2-
+     .child-selector {
+      height: 10;
+    }
+  selections:
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 12}

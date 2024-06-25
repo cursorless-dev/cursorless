@@ -1,0 +1,23 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: change inside box
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - {type: interiorOnly}
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: squareBrackets}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: const [bongo, baz] = [foo, bar]
+  selections:
+    - anchor: {line: 0, character: 22}
+      active: {line: 0, character: 22}
+  marks: {}
+finalState:
+  documentContents: const [bongo, baz] = []
+  selections:
+    - anchor: {line: 0, character: 22}
+      active: {line: 0, character: 22}

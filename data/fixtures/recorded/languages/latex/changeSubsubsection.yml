@@ -1,0 +1,28 @@
+languageId: latex
+command:
+  version: 5
+  spokenForm: change subsubsection
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: subSubSection}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    \subsubsection{1}
+    \paragraph{child}
+    some text
+    \subsubsection{2}
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |-
+
+    \subsubsection{2}
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

@@ -1,33 +1,64 @@
 import re
+import typing
+from collections.abc import Mapping, Sequence
+from typing import Optional, TypedDict
 
 from talon import registry
 
 from ..conventions import get_cursorless_list_name
 
 
-def get_list(name, type, descriptions=None):
+class Variation(TypedDict):
+    spokenForm: str
+    description: str
+
+
+class ListItemDescriptor(TypedDict):
+    id: str
+    type: str
+    variations: list[Variation]
+
+
+def get_list(
+    name: str, type: str, descriptions: Optional[Mapping[str, str]] = None
+) -> list[ListItemDescriptor]:
     if descriptions is None:
         descriptions = {}
 
     items = get_raw_list(name)
-    item_dict = items if isinstance(items, dict) else {item: item for item in items}
 
-    return make_dict_readable(type, item_dict, descriptions)
+    return make_dict_readable(type, items, descriptions)
 
 
-def get_lists(names: list[str], type: str, descriptions=None):
+def get_lists(
+    names: Sequence[str], type: str, descriptions: Optional[Mapping[str, str]] = None
+) -> list[ListItemDescriptor]:
     return [item for name in names for item in get_list(name, type, descriptions)]
 
 
-def get_raw_list(name):
+def get_raw_list(name: str) -> Mapping[str, str]:
     cursorless_list_name = get_cursorless_list_name(name)
-    return registry.lists[cursorless_list_name][0].copy()
+    return typing.cast(dict[str, str], registry.lists[cursorless_list_name][0]).copy()
 
 
-def make_dict_readable(type: str, dict, descriptions=None):
-    if descriptions is None:
-        descriptions = {}
+def get_spoken_form_from_list(list_name: str, value: str) -> str:
+    """Get the spoken form of a value from a list.
 
+    Args:
+        list_name (str): The name of the list.
+        value (str): The value to look up.
+
+    Returns:
+        str: The spoken form of the value.
+    """
+    return next(
+        spoken_form for spoken_form, v in get_raw_list(list_name).items() if v == value
+    )
+
+
+def make_dict_readable(
+    type: str, dict: Mapping[str, str], descriptions: Mapping[str, str]
+) -> list[ListItemDescriptor]:
     return [
         {
             "id": value,
@@ -43,9 +74,13 @@ def make_dict_readable(type: str, dict, descriptions=None):
     ]
 
 
-def make_readable(text):
+def make_readable(text: str) -> str:
+    text, is_private = (
+        (text[8:], True) if text.startswith("private.") else (text, False)
+    )
     text = text.replace(".", " ")
-    return de_camel(text).lower().capitalize()
+    text = de_camel(text).lower().capitalize()
+    return f"{text} (PRIVATE)" if is_private else text
 
 
 def de_camel(text: str) -> str:

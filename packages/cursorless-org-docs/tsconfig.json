@@ -1,8 +1,9 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": ["@tsconfig/docusaurus/tsconfig.json", "../../tsconfig.base.json"],
   "compilerOptions": {
     "rootDir": "src",
     "esModuleInterop": true,
+    "emitDeclarationOnly": false,
     "outDir": "out"
   },
   "references": [],

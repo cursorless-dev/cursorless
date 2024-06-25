@@ -1,0 +1,32 @@
+languageId: rust
+command:
+  version: 5
+  spokenForm: chuck name fine
+  action: {name: remove}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    match user {
+        User { first_name: "John", last_name: last_name } => {}
+    }
+  selections:
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
+  marks:
+    default.f:
+      start: {line: 1, character: 11}
+      end: {line: 1, character: 21}
+finalState:
+  documentContents: |
+    match user {
+        User { "John", last_name: last_name } => {}
+    }
+  selections:
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}

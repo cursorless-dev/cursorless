@@ -1,0 +1,58 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: bring arg whale before look
+  action: {name: replaceWithTarget}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: l}
+      modifiers:
+        - {type: position, position: before}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    function myFunk(
+        name: string,
+        value: number,
+        whatever: boolean
+    ) {}
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.w:
+      start: {line: 3, character: 4}
+      end: {line: 3, character: 12}
+    default.l:
+      start: {line: 2, character: 4}
+      end: {line: 2, character: 9}
+finalState:
+  documentContents: |-
+    function myFunk(
+        name: string,
+        whatever: boolean,
+        value: number,
+        whatever: boolean
+    ) {}
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 2, character: 4}
+        end: {line: 2, character: 21}
+      isReversed: false
+      hasExplicitRange: true
+  sourceMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 4, character: 4}
+        end: {line: 4, character: 21}
+      isReversed: false
+      hasExplicitRange: true

@@ -1,0 +1,40 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: drink arg
+  action: {name: editNewLineBefore}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    function myFunk(
+        name: string,
+        value: number,
+        stuff: boolean
+    ) {}
+  selections:
+    - anchor: {line: 2, character: 9}
+      active: {line: 2, character: 9}
+  marks: {}
+finalState:
+  documentContents: |-
+    function myFunk(
+        name: string,
+        ,
+        value: number,
+        stuff: boolean
+    ) {}
+  selections:
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 3, character: 4}
+        end: {line: 3, character: 17}
+      isReversed: false
+      hasExplicitRange: true

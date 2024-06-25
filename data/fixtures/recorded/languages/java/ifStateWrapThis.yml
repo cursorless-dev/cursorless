@@ -1,0 +1,26 @@
+languageId: java
+command:
+  version: 5
+  spokenForm: if wrap this
+  action:
+    name: wrapWithSnippet
+    args:
+      - {type: named, name: ifStatement, variableName: consequence}
+  targets:
+    - type: primitive
+      mark: {type: cursor}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: int foo = 0;
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+  marks: {}
+finalState:
+  documentContents: |-
+    if () {
+        int foo = 0;
+    }
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}

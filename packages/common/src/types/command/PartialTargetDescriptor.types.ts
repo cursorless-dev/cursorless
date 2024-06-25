@@ -6,6 +6,10 @@ export interface ThatMark {
   type: "that";
 }
 
+export interface KeyboardMark {
+  type: "keyboard";
+}
+
 export interface SourceMark {
   type: "source";
 }
@@ -17,6 +21,13 @@ export interface NothingMark {
 export interface LastCursorPositionMark {
   type: "lastCursorPosition";
 }
+
+export type SimplePartialMark =
+  | ThatMark
+  | KeyboardMark
+  | SourceMark
+  | NothingMark
+  | LastCursorPositionMark;
 
 export interface DecoratedSymbolMark {
   type: "decoratedSymbol";
@@ -35,13 +46,15 @@ export interface LineNumberMark {
 /**
  * Constructs a range between {@link anchor} and {@link active}
  */
-export interface RangeMark {
+export interface RangeMarkFor<T> {
   type: "range";
-  anchor: PartialMark;
-  active: PartialMark;
+  anchor: T;
+  active: T;
   excludeAnchor: boolean;
   excludeActive: boolean;
 }
+
+export type PartialRangeMark = RangeMarkFor<PartialMark>;
 
 interface SimplePosition {
   readonly line: number;
@@ -65,98 +78,138 @@ export interface ExplicitMark {
   range: SimpleRange;
 }
 
+/**
+ * Can be used when constructing a primitive target that applies modifiers to
+ * the output of some other complex target descriptor.  For example, we use this
+ * to apply the hoisted modifiers to the output of a range target when we hoist
+ * the "every funk" modifier on a command like "take every funk air until bat".
+ */
+export interface PartialTargetMark {
+  type: "target";
+
+  /**
+   * The target descriptor that will be used to generate the targets output by
+   * this mark.
+   */
+  target: PartialTargetDescriptor;
+}
+
 export type PartialMark =
   | CursorMark
   | ThatMark
   | SourceMark
+  | KeyboardMark
   | DecoratedSymbolMark
   | NothingMark
   | LineNumberMark
-  | RangeMark
-  | ExplicitMark;
+  | PartialRangeMark
+  | ExplicitMark
+  | PartialTargetMark;
 
+export const simpleSurroundingPairNames = [
+  "angleBrackets",
+  "backtickQuotes",
+  "curlyBrackets",
+  "doubleQuotes",
+  "escapedDoubleQuotes",
+  "escapedParentheses",
+  "escapedSquareBrackets",
+  "escapedSingleQuotes",
+  "parentheses",
+  "singleQuotes",
+  "squareBrackets",
+] as const;
+export const complexSurroundingPairNames = [
+  "string",
+  "any",
+  "collectionBoundary",
+] as const;
+export const surroundingPairNames = [
+  ...simpleSurroundingPairNames,
+  ...complexSurroundingPairNames,
+];
 export type SimpleSurroundingPairName =
-  | "angleBrackets"
-  | "backtickQuotes"
-  | "curlyBrackets"
-  | "doubleQuotes"
-  | "escapedDoubleQuotes"
-  | "escapedParentheses"
-  | "escapedSquareBrackets"
-  | "escapedSingleQuotes"
-  | "parentheses"
-  | "singleQuotes"
-  | "squareBrackets";
+  (typeof simpleSurroundingPairNames)[number];
 export type ComplexSurroundingPairName =
-  | "string"
-  | "any"
-  | "collectionBoundary";
+  (typeof complexSurroundingPairNames)[number];
 export type SurroundingPairName =
   | SimpleSurroundingPairName
   | ComplexSurroundingPairName;
 
-export type SimpleScopeTypeType =
-  | "argumentOrParameter"
-  | "anonymousFunction"
-  | "attribute"
-  | "branch"
-  | "class"
-  | "className"
-  | "collectionItem"
-  | "collectionKey"
-  | "comment"
-  | "functionCall"
-  | "functionCallee"
-  | "functionName"
-  | "ifStatement"
-  | "instance"
-  | "list"
-  | "map"
-  | "name"
-  | "namedFunction"
-  | "regularExpression"
-  | "statement"
-  | "string"
-  | "type"
-  | "value"
-  | "condition"
-  | "section"
-  | "sectionLevelOne"
-  | "sectionLevelTwo"
-  | "sectionLevelThree"
-  | "sectionLevelFour"
-  | "sectionLevelFive"
-  | "sectionLevelSix"
-  | "selector"
-  | "switchStatementSubject"
-  | "unit"
-  | "xmlBothTags"
-  | "xmlElement"
-  | "xmlEndTag"
-  | "xmlStartTag"
-  | "notebookCell"
+export const simpleScopeTypeTypes = [
+  "argumentOrParameter",
+  "anonymousFunction",
+  "attribute",
+  "branch",
+  "class",
+  "className",
+  "collectionItem",
+  "collectionKey",
+  "comment",
+  "private.fieldAccess",
+  "functionCall",
+  "functionCallee",
+  "functionName",
+  "ifStatement",
+  "instance",
+  "list",
+  "map",
+  "name",
+  "namedFunction",
+  "regularExpression",
+  "statement",
+  "string",
+  "type",
+  "value",
+  "condition",
+  "section",
+  "sectionLevelOne",
+  "sectionLevelTwo",
+  "sectionLevelThree",
+  "sectionLevelFour",
+  "sectionLevelFive",
+  "sectionLevelSix",
+  "selector",
+  "private.switchStatementSubject",
+  "unit",
+  "xmlBothTags",
+  "xmlElement",
+  "xmlEndTag",
+  "xmlStartTag",
   // Latex scope types
-  | "part"
-  | "chapter"
-  | "subSection"
-  | "subSubSection"
-  | "namedParagraph"
-  | "subParagraph"
-  | "environment"
+  "part",
+  "chapter",
+  "subSection",
+  "subSubSection",
+  "namedParagraph",
+  "subParagraph",
+  "environment",
   // Text based scopes
-  | "character"
-  | "word"
-  | "token"
-  | "identifier"
-  | "line"
-  | "sentence"
-  | "paragraph"
-  | "document"
-  | "nonWhitespaceSequence"
-  | "boundedNonWhitespaceSequence"
-  | "url"
+  "character",
+  "word",
+  "token",
+  "identifier",
+  "line",
+  "sentence",
+  "paragraph",
+  "document",
+  "nonWhitespaceSequence",
+  "boundedNonWhitespaceSequence",
+  "url",
+  "notebookCell",
   // Talon
-  | "command";
+  "command",
+  // Private scope types
+  "textFragment",
+] as const;
+
+export function isSimpleScopeType(
+  scopeType: ScopeType,
+): scopeType is SimpleScopeType {
+  return (simpleScopeTypeTypes as readonly string[]).includes(scopeType.type);
+}
+
+export type SimpleScopeTypeType = (typeof simpleScopeTypeTypes)[number];
 
 export interface SimpleScopeType {
   type: SimpleScopeTypeType;
@@ -185,11 +238,17 @@ export interface OneOfScopeType {
   scopeTypes: ScopeType[];
 }
 
+export interface GlyphScopeType {
+  type: "glyph";
+  character: string;
+}
+
 export type ScopeType =
   | SimpleScopeType
   | SurroundingPairScopeType
   | CustomRegexScopeType
-  | OneOfScopeType;
+  | OneOfScopeType
+  | GlyphScopeType;
 
 export interface ContainingSurroundingPairModifier
   extends ContainingScopeModifier {
@@ -210,6 +269,10 @@ export interface InteriorOnlyModifier {
 
 export interface ExcludeInteriorModifier {
   type: "excludeInterior";
+}
+
+export interface VisibleModifier {
+  type: "visible";
 }
 
 export interface ContainingScopeModifier {
@@ -237,6 +300,9 @@ export interface OrdinalScopeModifier {
 
   /** The number of scopes to include.  Will always be positive.  If greater than 1, will include scopes after {@link start} */
   length: number;
+
+  /** If true, yields individual targets instead of contiguous range. Defaults to `false` */
+  isEvery?: boolean;
 }
 
 export type Direction = "forward" | "backward";
@@ -262,6 +328,9 @@ export interface RelativeScopeModifier {
   /** Indicates which direction both {@link offset} and {@link length} go
    * relative to input target  */
   direction: Direction;
+
+  /** If true use individual targets instead of combined range */
+  isEvery?: boolean;
 }
 
 /**
@@ -355,6 +424,7 @@ export type Modifier =
   | EndOfModifier
   | InteriorOnlyModifier
   | ExcludeInteriorModifier
+  | VisibleModifier
   | ContainingScopeModifier
   | EveryScopeModifier
   | OrdinalScopeModifier

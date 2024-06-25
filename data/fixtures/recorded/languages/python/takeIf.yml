@@ -1,0 +1,28 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: take if state
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: ifStatement}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+
+    if True:
+        return
+  selections:
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
+  marks: {}
+finalState:
+  documentContents: |-
+
+    if True:
+        return
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 2, character: 10}

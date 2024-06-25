@@ -20,7 +20,7 @@ const DEFAULT_REQUIREMENTS: Omit<ScopeIteratorRequirements, "distalPosition"> =
 /**
  * All scope handlers should derive from this base class
  */
-export default abstract class BaseScopeHandler implements ScopeHandler {
+export abstract class BaseScopeHandler implements ScopeHandler {
   public abstract readonly scopeType: ScopeType | undefined;
   public abstract readonly iterationScopeType: ScopeType | CustomScopeType;
 

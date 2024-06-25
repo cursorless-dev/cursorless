@@ -1,0 +1,34 @@
+languageId: rust
+command:
+  version: 5
+  spokenForm: chuck key air
+  action: {name: remove}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionKey}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    let user = User {
+        first_name: "John",
+        last_name: last_name,
+    }
+  selections:
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
+  marks:
+    default.a:
+      start: {line: 2, character: 15}
+      end: {line: 2, character: 24}
+finalState:
+  documentContents: |
+    let user = User {
+        first_name: "John",
+        last_name,
+    }
+  selections:
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}

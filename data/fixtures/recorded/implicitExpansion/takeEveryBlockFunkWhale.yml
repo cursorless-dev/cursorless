@@ -1,0 +1,48 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: take every block funk whale
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: paragraph}
+        - type: containingScope
+          scopeType: {type: namedFunction}
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    function whatever() {
+        const testing = "hello";
+
+        const again = "hello";
+    }
+
+    function another() {
+        const testing = "hello";
+    }
+  selections:
+    - anchor: {line: 6, character: 16}
+      active: {line: 6, character: 16}
+  marks:
+    default.w:
+      start: {line: 0, character: 9}
+      end: {line: 0, character: 17}
+finalState:
+  documentContents: |-
+    function whatever() {
+        const testing = "hello";
+
+        const again = "hello";
+    }
+
+    function another() {
+        const testing = "hello";
+    }
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 1, character: 28}
+    - anchor: {line: 3, character: 4}
+      active: {line: 4, character: 1}

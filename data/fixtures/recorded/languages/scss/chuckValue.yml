@@ -1,0 +1,22 @@
+languageId: scss
+command:
+  version: 5
+  spokenForm: chuck value
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "@namespace prefix \"XML-namespace-URL\";"
+  selections:
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 16}
+  marks: {}
+finalState:
+  documentContents: "@namespace;"
+  selections:
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}

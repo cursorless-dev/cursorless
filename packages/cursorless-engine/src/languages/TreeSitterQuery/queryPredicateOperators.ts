@@ -1,5 +1,5 @@
-import { Range } from "@cursorless/common";
-import z from "zod";
+import { Range, adjustPosition } from "@cursorless/common";
+import { z } from "zod";
 import { makeRangeFromPositions } from "../../util/nodeSelectors";
 import { MutableQueryCapture } from "./QueryCapture";
 import { QueryPredicateOperator } from "./QueryPredicateOperator";
@@ -16,17 +16,6 @@ class NotType extends QueryPredicateOperator<NotType> {
   schema = z.tuple([q.node, q.string]).rest(q.string);
   run({ node }: MutableQueryCapture, ...types: string[]) {
     return !types.includes(node.type);
-  }
-}
-
-/**
- * A predicate operator that returns true if the nodes range is not empty.
- */
-class NotEmpty extends QueryPredicateOperator<NotEmpty> {
-  name = "not-empty?" as const;
-  schema = z.tuple([q.node]);
-  run({ range }: MutableQueryCapture) {
-    return !range.isEmpty;
   }
 }
 
@@ -54,6 +43,22 @@ class IsNthChild extends QueryPredicateOperator<IsNthChild> {
   schema = z.tuple([q.node, q.integer]);
   run({ node }: MutableQueryCapture, n: number) {
     return node.parent?.children.findIndex((n) => n.id === node.id) === n;
+  }
+}
+
+/**
+ * A predicate operator that returns true if the node has more than 1 child of
+ * type {@link type} (inclusive).  For example, `(has-multiple-children-of-type?
+ * @foo bar)` will accept the match if the `@foo` capture has 2 or more children
+ * of type `bar`.
+ */
+class HasMultipleChildrenOfType extends QueryPredicateOperator<HasMultipleChildrenOfType> {
+  name = "has-multiple-children-of-type?" as const;
+  schema = z.tuple([q.node, q.string]);
+
+  run({ node }: MutableQueryCapture, type: string) {
+    const count = node.children.filter((n) => n.type === type).length;
+    return count > 1;
   }
 }
 
@@ -134,13 +139,61 @@ class ShrinkToMatch extends QueryPredicateOperator<ShrinkToMatch> {
   }
 }
 
+/**
+ * A predicate operator that modifies the range of the match by trimming trailing whitespace,
+ * similar to the javascript trimEnd function.
+ */
+class TrimEnd extends QueryPredicateOperator<TrimEnd> {
+  name = "trim-end!" as const;
+  schema = z.tuple([q.node]);
+
+  run(nodeInfo: MutableQueryCapture) {
+    const { document, range } = nodeInfo;
+    const text = document.getText(range);
+    const whitespaceLength = text.length - text.trimEnd().length;
+    nodeInfo.range = new Range(
+      range.start,
+      adjustPosition(document, range.end, -whitespaceLength),
+    );
+    return true;
+  }
+}
+
+/**
+ * Indicates that it is ok for multiple captures to have the same domain but
+ * different targets.  For example, if we have the query `(#allow-multiple!
+ * @foo)`, then if we define the query so that `@foo` appears multiple times
+ * with the same domain but different targets, then the given domain will end up
+ * with multiple targets. The canonical example is `tags` in HTML / jsx.
+ *
+ * This operator is allowed to be applied to a capture that doesn't actually
+ * appear; ie we can make it so that we allow multiple if the capture appears in
+ * the pattern.
+ */
 class AllowMultiple extends QueryPredicateOperator<AllowMultiple> {
   name = "allow-multiple!" as const;
   schema = z.tuple([q.node]);
 
+  protected allowMissingNode(): boolean {
+    return true;
+  }
+
   run(nodeInfo: MutableQueryCapture) {
     nodeInfo.allowMultiple = true;
 
+    return true;
+  }
+}
+
+/**
+ * A predicate operator that logs a node, for debugging.
+ */
+class Log extends QueryPredicateOperator<Log> {
+  name = "log!" as const;
+  schema = z.tuple([q.node]);
+
+  run(nodeInfo: MutableQueryCapture) {
+    console.log(`#log!: ${nodeInfo.name}@${nodeInfo.range}`);
     return true;
   }
 }
@@ -161,13 +214,47 @@ class InsertionDelimiter extends QueryPredicateOperator<InsertionDelimiter> {
   }
 }
 
+/**
+ * A predicate operator that sets the insertion delimiter of {@link nodeInfo} to
+ * either {@link insertionDelimiterConsequence} or
+ * {@link insertionDelimiterAlternative} depending on whether
+ * {@link conditionNodeInfo} is single or multiline, respectively. For example,
+ *
+ * ```scm
+ * (#single-or-multi-line-delimiter! @foo @bar ", " ",\n")
+ * ```
+ *
+ * will set the insertion delimiter of the `@foo` capture to `", "` if the
+ * `@bar` capture is a single line and `",\n"` otherwise.
+ */
+class SingleOrMultilineDelimiter extends QueryPredicateOperator<SingleOrMultilineDelimiter> {
+  name = "single-or-multi-line-delimiter!" as const;
+  schema = z.tuple([q.node, q.node, q.string, q.string]);
+
+  run(
+    nodeInfo: MutableQueryCapture,
+    conditionNodeInfo: MutableQueryCapture,
+    insertionDelimiterConsequence: string,
+    insertionDelimiterAlternative: string,
+  ) {
+    nodeInfo.insertionDelimiter = conditionNodeInfo.range.isSingleLine
+      ? insertionDelimiterConsequence
+      : insertionDelimiterAlternative;
+
+    return true;
+  }
+}
+
 export const queryPredicateOperators = [
+  new Log(),
   new NotType(),
-  new NotEmpty(),
+  new TrimEnd(),
   new NotParentType(),
   new IsNthChild(),
   new ChildRange(),
   new ShrinkToMatch(),
   new AllowMultiple(),
   new InsertionDelimiter(),
+  new SingleOrMultilineDelimiter(),
+  new HasMultipleChildrenOfType(),
 ];

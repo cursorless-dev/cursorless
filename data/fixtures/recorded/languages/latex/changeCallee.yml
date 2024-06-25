@@ -1,0 +1,22 @@
+languageId: latex
+command:
+  version: 5
+  spokenForm: change callee
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionCallee}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: \href{https://some.url}{some text} \LaTeX
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+  marks: {}
+finalState:
+  documentContents: "{https://some.url}{some text} \\LaTeX"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

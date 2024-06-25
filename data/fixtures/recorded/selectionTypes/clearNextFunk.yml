@@ -1,0 +1,30 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: change next funk
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: relativeScope
+          scopeType: {type: namedFunction}
+          offset: 1
+          length: 1
+          direction: forward
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    function foo() {}
+
+    function bar() {}
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |+
+    function foo() {}
+
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}

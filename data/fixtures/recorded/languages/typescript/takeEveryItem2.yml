@@ -1,0 +1,32 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: take every item
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+
+    const value = [1, 2, 3, foo];
+  selections:
+    - anchor: {line: 1, character: 17}
+      active: {line: 1, character: 17}
+  marks: {}
+finalState:
+  documentContents: |
+
+    const value = [1, 2, 3, foo];
+  selections:
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 16}
+    - anchor: {line: 1, character: 18}
+      active: {line: 1, character: 19}
+    - anchor: {line: 1, character: 21}
+      active: {line: 1, character: 22}
+    - anchor: {line: 1, character: 24}
+      active: {line: 1, character: 27}

@@ -1,0 +1,54 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: take every item
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    [
+        a b, (c, d),
+        e f, {g, h},
+        i j, [k, l],
+        m n, <o, p>,
+    ]
+  selections:
+    - anchor: {line: 1, character: 10}
+      active: {line: 1, character: 10}
+    - anchor: {line: 2, character: 10}
+      active: {line: 2, character: 10}
+    - anchor: {line: 3, character: 10}
+      active: {line: 3, character: 10}
+    - anchor: {line: 4, character: 10}
+      active: {line: 4, character: 10}
+  marks: {}
+finalState:
+  documentContents: |-
+    [
+        a b, (c, d),
+        e f, {g, h},
+        i j, [k, l],
+        m n, <o, p>,
+    ]
+  selections:
+    - anchor: {line: 1, character: 10}
+      active: {line: 1, character: 11}
+    - anchor: {line: 1, character: 13}
+      active: {line: 1, character: 14}
+    - anchor: {line: 2, character: 10}
+      active: {line: 2, character: 11}
+    - anchor: {line: 2, character: 13}
+      active: {line: 2, character: 14}
+    - anchor: {line: 3, character: 10}
+      active: {line: 3, character: 11}
+    - anchor: {line: 3, character: 13}
+      active: {line: 3, character: 14}
+    - anchor: {line: 4, character: 10}
+      active: {line: 4, character: 11}
+    - anchor: {line: 4, character: 13}
+      active: {line: 4, character: 14}

@@ -1,0 +1,28 @@
+languageId: rust
+command:
+  version: 5
+  spokenForm: chuck value zero
+  action: {name: remove}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: '0'}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    let x: u32 = 0;
+  selections:
+    - anchor: {line: 0, character: 15}
+      active: {line: 0, character: 15}
+  marks:
+    default.0:
+      start: {line: 0, character: 13}
+      end: {line: 0, character: 14}
+finalState:
+  documentContents: |
+    let x: u32;
+  selections:
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}

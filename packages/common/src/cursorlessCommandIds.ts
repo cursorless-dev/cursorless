@@ -24,11 +24,15 @@ class VisibleCommand extends Command implements CommandDescription {
 
 export const cursorlessCommandIds = [
   "cursorless.command",
+  "cursorless.repeatPreviousCommand",
   "cursorless.internal.updateCheatsheetDefaults",
+  "cursorless.private.logQuickActions",
   "cursorless.keyboard.escape",
   "cursorless.keyboard.modal.modeOff",
   "cursorless.keyboard.modal.modeOn",
   "cursorless.keyboard.modal.modeToggle",
+  "cursorless.keyboard.undoTarget",
+  "cursorless.keyboard.redoTarget",
   "cursorless.keyboard.targeted.clearTarget",
   "cursorless.keyboard.targeted.runActionOnTarget",
   "cursorless.keyboard.targeted.targetHat",
@@ -39,6 +43,8 @@ export const cursorlessCommandIds = [
   "cursorless.recordTestCase",
   "cursorless.recordOneTestCaseThenPause",
   "cursorless.resumeRecording",
+  "cursorless.recordScopeTests.showUnimplementedFacets",
+  "cursorless.recordScopeTests.saveActiveDocument",
   "cursorless.showCheatsheet",
   "cursorless.showDocumentation",
   "cursorless.showQuickPick",
@@ -46,6 +52,7 @@ export const cursorlessCommandIds = [
   "cursorless.toggleDecorations",
   "cursorless.showScopeVisualizer",
   "cursorless.hideScopeVisualizer",
+  "cursorless.analyzeCommandHistory",
 ] as const satisfies readonly `cursorless.${string}`[];
 
 export type CursorlessCommandId = (typeof cursorlessCommandIds)[number];
@@ -68,9 +75,27 @@ export const cursorlessCommandDescriptions: Record<
   ["cursorless.resumeRecording"]: new VisibleCommand(
     "Resume test case recording",
   ),
+  ["cursorless.recordScopeTests.showUnimplementedFacets"]: new VisibleCommand(
+    "Bulk record unimplemented scope facets",
+  ),
+  ["cursorless.recordScopeTests.saveActiveDocument"]: new VisibleCommand(
+    "Bulk save scope tests for the active document",
+  ),
   ["cursorless.showDocumentation"]: new VisibleCommand("Show documentation"),
+  ["cursorless.showScopeVisualizer"]: new VisibleCommand(
+    "Show the scope visualizer",
+  ),
+  ["cursorless.hideScopeVisualizer"]: new VisibleCommand(
+    "Hide the scope visualizer",
+  ),
+  ["cursorless.analyzeCommandHistory"]: new VisibleCommand(
+    "Analyze collected command history",
+  ),
 
   ["cursorless.command"]: new HiddenCommand("The core cursorless command"),
+  ["cursorless.repeatPreviousCommand"]: new VisibleCommand(
+    "Repeat the previous Cursorless command",
+  ),
   ["cursorless.showQuickPick"]: new HiddenCommand(
     "Pop up a quick pick of all cursorless commands",
   ),
@@ -78,7 +103,10 @@ export const cursorlessCommandDescriptions: Record<
     "Display the cursorless cheatsheet",
   ),
   ["cursorless.internal.updateCheatsheetDefaults"]: new HiddenCommand(
-    "Update the default values of the cheatsheet payload used on the website and for local development. Be sure to run this on stock knausj and cursorless.",
+    "Update the default values of the cheatsheet payload used on the website and for local development. Be sure to run this on stock community and cursorless.",
+  ),
+  ["cursorless.private.logQuickActions"]: new HiddenCommand(
+    "Log the quick actions available at the current cursor position",
   ),
   ["cursorless.takeSnapshot"]: new HiddenCommand(
     "Take a snapshot of the current editor state",
@@ -110,10 +138,10 @@ export const cursorlessCommandDescriptions: Record<
   ["cursorless.keyboard.modal.modeToggle"]: new HiddenCommand(
     "Toggle the cursorless modal mode",
   ),
-  ["cursorless.showScopeVisualizer"]: new HiddenCommand(
-    "Show the scope visualizer",
+  ["cursorless.keyboard.undoTarget"]: new HiddenCommand(
+    "Undo keyboard targeting changes",
   ),
-  ["cursorless.hideScopeVisualizer"]: new HiddenCommand(
-    "Hide the scope visualizer",
+  ["cursorless.keyboard.redoTarget"]: new HiddenCommand(
+    "Redo keyboard targeting changes",
   ),
 };

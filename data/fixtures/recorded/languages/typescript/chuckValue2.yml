@@ -1,0 +1,85 @@
+languageId: typescript
+command:
+  version: 6
+  spokenForm: chuck value
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    const aaa: number = 0;
+    let bbb: number = 0;
+    var hhh: number = 0;
+    const ddd: number = 0, eee: number = 0;
+    let fff: number = 0, ggg: number = 0;
+    var iii: number = 0;
+    export const jjj: number = 0;
+    export let kkk: number = 0;
+    export var lll: number = 0;
+    export const mmm: number = 0, nnn: number = 0;
+    export let ooo: number = 0, ppp: number = 0;
+  selections:
+    - anchor: {line: 0, character: 22}
+      active: {line: 0, character: 22}
+    - anchor: {line: 1, character: 20}
+      active: {line: 1, character: 20}
+    - anchor: {line: 2, character: 20}
+      active: {line: 2, character: 20}
+    - anchor: {line: 3, character: 39}
+      active: {line: 3, character: 39}
+    - anchor: {line: 4, character: 37}
+      active: {line: 4, character: 37}
+    - anchor: {line: 5, character: 20}
+      active: {line: 5, character: 20}
+    - anchor: {line: 6, character: 29}
+      active: {line: 6, character: 29}
+    - anchor: {line: 7, character: 27}
+      active: {line: 7, character: 27}
+    - anchor: {line: 8, character: 27}
+      active: {line: 8, character: 27}
+    - anchor: {line: 9, character: 46}
+      active: {line: 9, character: 46}
+    - anchor: {line: 10, character: 44}
+      active: {line: 10, character: 44}
+  marks: {}
+finalState:
+  documentContents: |-
+    const aaa: number;
+    let bbb: number;
+    var hhh: number;
+    const ddd: number, eee: number;
+    let fff: number, ggg: number;
+    var iii: number;
+    export const jjj: number;
+    export let kkk: number;
+    export var lll: number;
+    export const mmm: number, nnn: number;
+    export let ooo: number, ppp: number;
+  selections:
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}
+    - anchor: {line: 1, character: 16}
+      active: {line: 1, character: 16}
+    - anchor: {line: 2, character: 16}
+      active: {line: 2, character: 16}
+    - anchor: {line: 3, character: 31}
+      active: {line: 3, character: 31}
+    - anchor: {line: 4, character: 29}
+      active: {line: 4, character: 29}
+    - anchor: {line: 5, character: 16}
+      active: {line: 5, character: 16}
+    - anchor: {line: 6, character: 25}
+      active: {line: 6, character: 25}
+    - anchor: {line: 7, character: 23}
+      active: {line: 7, character: 23}
+    - anchor: {line: 8, character: 23}
+      active: {line: 8, character: 23}
+    - anchor: {line: 9, character: 38}
+      active: {line: 9, character: 38}
+    - anchor: {line: 10, character: 36}
+      active: {line: 10, character: 36}

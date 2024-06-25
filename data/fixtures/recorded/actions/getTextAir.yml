@@ -1,0 +1,37 @@
+languageId: plaintext
+command:
+  version: 6
+  action:
+    name: getText
+    options: {showDecorations: false}
+    target:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: true
+spokenFormError: Action 'getText'
+initialState:
+  documentContents: |
+    foo bar baz
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 7}
+finalState:
+  documentContents: |
+    foo bar baz
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 4}
+        end: {line: 0, character: 7}
+      isReversed: false
+      hasExplicitRange: false
+returnValue: [bar]
+ide:
+  flashes: []

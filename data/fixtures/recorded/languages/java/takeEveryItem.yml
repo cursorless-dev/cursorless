@@ -1,0 +1,30 @@
+languageId: java
+command:
+  version: 5
+  spokenForm: take every item
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+
+    int[] values = {1, 2, 3};
+  selections:
+    - anchor: {line: 1, character: 17}
+      active: {line: 1, character: 17}
+  marks: {}
+finalState:
+  documentContents: |
+
+    int[] values = {1, 2, 3};
+  selections:
+    - anchor: {line: 1, character: 16}
+      active: {line: 1, character: 17}
+    - anchor: {line: 1, character: 19}
+      active: {line: 1, character: 20}
+    - anchor: {line: 1, character: 22}
+      active: {line: 1, character: 23}

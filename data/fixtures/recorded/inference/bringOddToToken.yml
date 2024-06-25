@@ -1,0 +1,33 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: bring odd to token
+  action: {name: replaceWithTarget}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: o}
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: token}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    const foo = "hello";
+
+    const bar = "hello";
+  selections:
+    - anchor: {line: 2, character: 18}
+      active: {line: 2, character: 18}
+  marks:
+    default.o:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 5}
+finalState:
+  documentContents: |-
+    const foo = "hello";
+
+    const bar = "const";
+  selections:
+    - anchor: {line: 2, character: 18}
+      active: {line: 2, character: 18}

@@ -1,0 +1,24 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change every item token
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: collectionItem}
+        - type: containingScope
+          scopeType: {type: token}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: aaa bbb, ccc
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: ", ccc"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

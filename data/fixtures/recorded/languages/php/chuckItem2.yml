@@ -1,0 +1,28 @@
+languageId: php
+command:
+  version: 5
+  spokenForm: chuck item
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    <?php
+
+    [1, 2, 3];
+  selections:
+    - anchor: {line: 2, character: 7}
+      active: {line: 2, character: 7}
+  marks: {}
+finalState:
+  documentContents: |-
+    <?php
+
+    [1, 2];
+  selections:
+    - anchor: {line: 2, character: 5}
+      active: {line: 2, character: 5}

@@ -1,4 +1,4 @@
-from ..get_list import get_raw_list
+from ..get_list import get_raw_list, get_spoken_form_from_list
 
 FORMATTERS = {
     "rangeExclusive": lambda start, end: f"between {start} and {end}",
@@ -10,16 +10,10 @@ FORMATTERS = {
 
 
 def get_compound_targets():
-    list_connective_term = next(
-        spoken_form
-        for spoken_form, value in get_raw_list("list_connective").items()
-        if value == "listConnective"
+    list_connective_term = get_spoken_form_from_list(
+        "list_connective", "listConnective"
     )
-    vertical_range_term = next(
-        spoken_form
-        for spoken_form, value in get_raw_list("range_type").items()
-        if value == "verticalRange"
-    )
+    vertical_range_term = get_spoken_form_from_list("range_type", "verticalRange")
 
     return [
         {

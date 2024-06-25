@@ -1,5 +1,3 @@
-from dataclasses import dataclass
-
 from talon import Module
 
 mod = Module()
@@ -9,23 +7,11 @@ mod.list(
     desc="A range modifier that indicates the specific type of the range",
 )
 
-
-@dataclass
-class RangeType:
-    defaultSpokenForm: str
-    cursorlessIdentifier: str
-    type: str
-
-
-# NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://www.cursorless.org/docs/user/customization/
-
-range_type_list = [
-    RangeType("slice", "verticalRange", "vertical"),
-]
-
-range_type_map = {t.cursorlessIdentifier: t.type for t in range_type_list}
-range_types = {t.defaultSpokenForm: t.cursorlessIdentifier for t in range_type_list}
+# Maps from the id we use in the spoken form csv to the modifier type
+# expected by Cursorless extension
+range_type_map = {
+    "verticalRange": "vertical",
+}
 
 
 @mod.capture(rule="{user.cursorless_range_type}")

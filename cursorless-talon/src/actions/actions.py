@@ -1,20 +1,68 @@
-from talon import Module, actions, app
+from typing import Callable, Union
 
-from ..csv_overrides import init_csv_and_watch_changes
-from ..targets.target_types import CursorlessTarget, ImplicitDestination
-from .actions_callback import callback_action_defaults, callback_action_map
-from .actions_simple import (
-    no_wait_actions,
-    no_wait_actions_post_sleep,
-    simple_action_defaults,
+from talon import Module, actions
+
+from ..targets.target_types import (
+    CursorlessDestination,
+    CursorlessExplicitTarget,
+    CursorlessTarget,
+    ImplicitDestination,
 )
 from .bring_move import BringMoveTargets
 from .execute_command import cursorless_execute_command_action
+from .homophones import cursorless_homophones_action
+from .replace import cursorless_replace_action
 
 mod = Module()
 
+mod.list(
+    "cursorless_simple_action",
+    desc="Cursorless internal: simple actions",
+)
 
-mod.list("cursorless_experimental_action", "Experimental actions")
+mod.list(
+    "cursorless_callback_action",
+    desc="Cursorless internal: actions implemented via a callback function",
+)
+
+mod.list(
+    "cursorless_custom_action",
+    desc="Cursorless internal: user-defined custom actions",
+)
+
+mod.list(
+    "cursorless_experimental_action",
+    desc="Cursorless internal: experimental actions",
+)
+
+ACTION_LIST_NAMES = [
+    "simple_action",
+    "callback_action",
+    "paste_action",
+    "bring_move_action",
+    "swap_action",
+    "wrap_action",
+    "insert_snippet_action",
+    "reformat_action",
+    "call_action",
+    "experimental_action",
+    "custom_action",
+]
+
+callback_actions: dict[str, Callable[[CursorlessExplicitTarget], None]] = {
+    "nextHomophone": cursorless_homophones_action,
+}
+
+# Don't wait for these actions to finish, usually because they hang on some kind of user interaction
+no_wait_actions = [
+    "generateSnippet",
+    "rename",
+]
+
+# These are actions that we don't wait for, but still want to have a post action sleep
+no_wait_actions_post_sleep = {
+    "rename": 0.3,
+}
 
 
 @mod.capture(
@@ -22,10 +70,11 @@ mod.list("cursorless_experimental_action", "Experimental actions")
         "{user.cursorless_simple_action} |"
         "{user.cursorless_experimental_action} |"
         "{user.cursorless_callback_action} |"
+        "{user.cursorless_call_action} |"
         "{user.cursorless_custom_action}"
     )
 )
-def cursorless_action_or_ide_command(m) -> dict:
+def cursorless_action_or_ide_command(m) -> dict[str, str]:
     try:
         value = m.cursorless_custom_action
         type = "ide_command"
@@ -40,14 +89,16 @@ def cursorless_action_or_ide_command(m) -> dict:
 
 @mod.action_class
 class Actions:
-    def cursorless_command(action_name: str, target: CursorlessTarget):
+    def cursorless_command(action_name: str, target: CursorlessExplicitTarget):  # pyright: ignore [reportGeneralTypeIssues]
         """Perform cursorless command on target"""
-        if action_name in callback_action_map:
-            callback_action_map[action_name](target)
+        if action_name in callback_actions:
+            callback_actions[action_name](target)
         elif action_name in ["replaceWithTarget", "moveToTarget"]:
-            actions.user.cursorless_bring_move(
+            actions.user.private_cursorless_bring_move(
                 action_name, BringMoveTargets(target, ImplicitDestination())
             )
+        elif action_name == "callAsFunction":
+            actions.user.private_cursorless_call(target)
         elif action_name in no_wait_actions:
             action = {"name": action_name, "target": target}
             actions.user.private_cursorless_command_no_wait(action)
@@ -57,7 +108,7 @@ class Actions:
             action = {"name": action_name, "target": target}
             actions.user.private_cursorless_command_and_wait(action)
 
-    def cursorless_vscode_command(command_id: str, target: CursorlessTarget):
+    def cursorless_vscode_command(command_id: str, target: CursorlessTarget):  # pyright: ignore [reportGeneralTypeIssues]
         """
         Perform vscode command on cursorless target
 
@@ -65,12 +116,22 @@ class Actions:
         """
         return actions.user.cursorless_ide_command(command_id, target)
 
-    def cursorless_ide_command(command_id: str, target: CursorlessTarget):
+    def cursorless_ide_command(command_id: str, target: CursorlessTarget):  # pyright: ignore [reportGeneralTypeIssues]
         """Perform ide command on cursorless target"""
         return cursorless_execute_command_action(command_id, target)
 
+    def cursorless_insert(
+        destination: CursorlessDestination,  # pyright: ignore [reportGeneralTypeIssues]
+        text: Union[str, list[str]],
+    ):
+        """Perform text insertion on Cursorless destination"""
+        if isinstance(text, str):
+            text = [text]
+        cursorless_replace_action(destination, text)
+
     def private_cursorless_action_or_ide_command(
-        instruction: dict, target: CursorlessTarget
+        instruction: dict[str, str],  # pyright: ignore [reportGeneralTypeIssues]
+        target: CursorlessTarget,
     ):
         """Perform cursorless action or ide command on target (internal use only)"""
         type = instruction["type"]
@@ -79,33 +140,3 @@ class Actions:
             actions.user.cursorless_command(value, target)
         elif type == "ide_command":
             actions.user.cursorless_ide_command(value, target)
-
-
-default_values = {
-    "simple_action": simple_action_defaults,
-    "callback_action": callback_action_defaults,
-    "paste_action": {"paste": "pasteFromClipboard"},
-    "bring_move_action": {"bring": "replaceWithTarget", "move": "moveToTarget"},
-    "swap_action": {"swap": "swapTargets"},
-    "wrap_action": {"wrap": "wrapWithPairedDelimiter", "repack": "rewrap"},
-    "insert_snippet_action": {"snippet": "insertSnippet"},
-    "reformat_action": {"format": "applyFormatter"},
-}
-
-
-ACTION_LIST_NAMES = list(default_values.keys()) + ["experimental_action"]
-
-
-def on_ready() -> None:
-    init_csv_and_watch_changes("actions", default_values)
-    init_csv_and_watch_changes(
-        "experimental/experimental_actions",
-        {
-            "experimental_action": {
-                "-from": "experimental.setInstanceReference",
-            }
-        },
-    )
-
-
-app.register("ready", on_ready)
