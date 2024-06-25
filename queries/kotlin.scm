@@ -487,12 +487,15 @@
   )
 ] @functionCall
 
-(value_arguments
-  (value_argument)? @_.leading.endOf
-  .
-  (value_argument) @argumentOrParameter
-  .
-  (value_argument)? @_.trailing.startOf
+(
+  (value_arguments
+    (_)? @_.leading.endOf
+    .
+    (value_argument) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
 (call_expression
@@ -548,59 +551,88 @@
   )
 ) @argumentOrParameter.iteration.domain
 
-(function_value_parameters
-  (_)? @_.leading.endOf
-  .
-  [
-    ","
-    "("
-  ]
-  .
-  (parameter_modifiers)? @argumentOrParameter.start
-  .
-  (parameter) @argumentOrParameter.end
-  .
-  [
-    ","
-    ")"
-  ]
-  .
-  (_)? @_.trailing.startOf
+(
+  (function_value_parameters
+    (_)? @_.leading.endOf
+    .
+    [
+      ","
+      "("
+    ]
+    .
+    [
+      (line_comment)
+      (multiline_comment)
+    ] *
+    .
+    (parameter_modifiers)? @argumentOrParameter.start
+    .
+    (parameter) @argumentOrParameter.end
+    .
+    [
+      (line_comment)
+      (multiline_comment)
+    ] *
+    .
+    [
+      ","
+      ")"
+    ]
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @argumentOrParameter.end @_dummy ", " ",\n")
 )
 
-(function_value_parameters
-  (_)? @_.leading.endOf
-  .
-  [
-    ","
-    "("
-  ]
-  .
-  (parameter_modifiers)? @argumentOrParameter.start.startOf
-  .
-  (parameter) @argumentOrParameter.start
-  .
-  (_) @argumentOrParameter.end
-  (#not-type? @argumentOrParameter.end "parameter" "parameter_modifiers")
-  .
-  [
-    ","
-    ")"
-  ]
-  .
-  (_)? @_.trailing.startOf
+(
+  (function_value_parameters
+    (_)? @_.leading.endOf
+    .
+    [
+      ","
+      "("
+    ]
+    .
+    [
+      (line_comment)
+      (multiline_comment)
+    ] *
+    .
+    (parameter_modifiers)? @argumentOrParameter.start.startOf
+    .
+    (parameter) @argumentOrParameter.start
+    .
+    (_) @argumentOrParameter.end
+    (#not-type? @argumentOrParameter.end "parameter" "parameter_modifiers")
+    .
+    [
+      (line_comment)
+      (multiline_comment)
+    ] *
+    .
+    [
+      ","
+      ")"
+    ]
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @argumentOrParameter.end @_dummy ", " ",\n")
 )
 
 (_
   (function_value_parameters) @argumentOrParameter.iteration
 ) @argumentOrParameter.iteration.domain
 
-(primary_constructor
-  (class_parameter)? @_.leading.endOf
-  .
-  (class_parameter) @argumentOrParameter
-  .
-  (class_parameter)? @_.trailing.startOf
+(
+  (primary_constructor
+    (_)? @_.leading.endOf
+    .
+    (class_parameter) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
 (class_declaration
@@ -614,12 +646,18 @@
   (parameter_with_optional_type) @argumentOrParameter.iteration
 ) @argumentOrParameter.iteration.domain
 
-(lambda_parameters
-  (_)? @_.leading.endOf
-  .
-  (_) @argumentOrParameter
-  .
-  (_)? @_.trailing.startOf
+(
+  (lambda_parameters
+    (_)? @_.leading.endOf
+    .
+    [
+      (variable_declaration)
+      (multi_variable_declaration)
+    ] @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
 (lambda_literal
