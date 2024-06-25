@@ -1,10 +1,11 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 7
   spokenForm: take harp
-  action: {name: setSelection}
-  targets:
-    - type: primitive
+  action:
+    name: setSelection
+    target:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
   usePrePhraseSnapshot: false
 initialState:
