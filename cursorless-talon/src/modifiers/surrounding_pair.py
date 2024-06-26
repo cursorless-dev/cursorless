@@ -30,33 +30,17 @@ mod.list(
         "{user.cursorless_surrounding_pair_scope_type}"
     )
 )
-def cursorless_surrounding_pair_scope_type(m) -> str:
+def cursorless_surrounding_pair_scope_type(m) -> dict[str, Any]:
     """Surrounding pair scope type"""
+
     try:
-        return m.cursorless_surrounding_pair_scope_type
+        delimiter = m.cursorless_surrounding_pair_scope_type
     except AttributeError:
-        return m.cursorless_selectable_paired_delimiter
-
-
-@mod.capture(
-    rule="[{user.cursorless_delimiter_force_direction}] <user.cursorless_surrounding_pair_scope_type>"
-)
-def cursorless_surrounding_pair(m) -> dict[str, Any]:
-    """Expand to containing surrounding pair"""
-    try:
-        surrounding_pair_scope_type = m.cursorless_surrounding_pair_scope_type
-    except AttributeError:
-        surrounding_pair_scope_type = "any"
-
-    scope_type = {
-        "type": "surroundingPair",
-        "delimiter": surrounding_pair_scope_type,
-    }
-
-    with suppress(AttributeError):
-        scope_type["forceDirection"] = m.cursorless_delimiter_force_direction
+        delimiter = m.cursorless_selectable_paired_delimiter
 
     return {
-        "type": "containingScope",
-        "scopeType": scope_type,
+        "type": "surroundingPair",
+        "delimiter": delimiter,
     }
+
+

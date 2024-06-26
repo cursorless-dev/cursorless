@@ -77,7 +77,7 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
       case "glyph":
         return new GlyphScopeHandler(this, scopeType, languageId);
       case "surroundingPair":
-        return new SurroundingPairScopeHandler(scopeType, languageId);
+        return new SurroundingPairScopeHandler(this, scopeType, languageId);
       case "custom":
         return scopeType.scopeHandler;
       case "instance":
