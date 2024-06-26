@@ -8,7 +8,6 @@ import { Target } from "../../../typings/target.types";
 import { ModifierStageFactory } from "../../ModifierStageFactory";
 import { ModifierStage } from "../../PipelineStages.types";
 import { TokenTarget } from "../../targets";
-import { processSurroundingPair } from "../surroundingPair";
 
 /**
  * Intersection of NonWhitespaceSequenceStage and a surrounding pair
@@ -27,22 +26,27 @@ export class BoundedNonWhitespaceSequenceStage implements ModifierStage {
       type: this.modifier.type,
       scopeType: { type: "nonWhitespaceSequence" },
     });
-
-    const paintTargets = paintStage.run(target);
-
-    const pairInfo = processSurroundingPair(this.languageDefinitions, target, {
-      type: "surroundingPair",
-      delimiter: "any",
-      requireStrongContainment: true,
+    const pairStage = this.modifierStageFactory.create({
+      type: "containingScope",
+      scopeType: {
+        type: "surroundingPair",
+        delimiter: "any",
+        requireStrongContainment: true,
+      },
     });
 
-    if (pairInfo == null) {
+    const pairTargets = pairStage.run(target);
+    const paintTargets = paintStage.run(target);
+
+    if (pairTargets.length > 0) {
       return paintTargets;
     }
 
+    const pairTarget = pairTargets[0];
+
     const targets = paintTargets.flatMap((paintTarget) => {
       const contentRange = paintTarget.contentRange.intersection(
-        pairInfo.getInterior()[0].contentRange,
+        pairTarget.getInterior()![0].contentRange,
       );
 
       if (contentRange == null || contentRange.isEmpty) {

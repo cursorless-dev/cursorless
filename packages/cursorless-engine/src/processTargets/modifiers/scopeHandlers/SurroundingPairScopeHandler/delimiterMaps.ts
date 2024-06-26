@@ -2,7 +2,7 @@ import {
   ComplexSurroundingPairName,
   SimpleSurroundingPairName,
 } from "@cursorless/common";
-import { unsafeKeys } from "../../../util/object";
+import { unsafeKeys } from "../../../../util/object";
 
 type IndividualDelimiterText = string | string[];
 
@@ -43,14 +43,6 @@ const delimiterToTextOverrides: Record<string, Partial<DelimiterMap>> = {
       ['"', "[["],
       ['"', "]]"],
     ],
-  },
-
-  python: {
-    // FIXME: We technically can't distinguish between single and double quotes
-    // now, but we'll revisit all this; see
-    // https://github.com/cursorless-dev/cursorless/issues/1812#issuecomment-1691493746
-    singleQuotes: ["string_start", "string_end"],
-    doubleQuotes: ["string_start", "string_end"],
   },
 };
 

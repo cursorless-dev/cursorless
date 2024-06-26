@@ -14,6 +14,7 @@ import {
 } from "./RegexScopeHandler";
 import { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 import { SentenceScopeHandler } from "./SentenceScopeHandler/SentenceScopeHandler";
+import { SurroundingPairScopeHandler } from "./SurroundingPairScopeHandler";
 import { TokenScopeHandler } from "./TokenScopeHandler";
 import { WordScopeHandler } from "./WordScopeHandler/WordScopeHandler";
 import type { CustomScopeType, ScopeHandler } from "./scopeHandler.types";
@@ -75,6 +76,8 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
         return new CustomRegexScopeHandler(this, scopeType, languageId);
       case "glyph":
         return new GlyphScopeHandler(this, scopeType, languageId);
+      case "surroundingPair":
+        return new SurroundingPairScopeHandler(scopeType, languageId);
       case "custom":
         return scopeType.scopeHandler;
       case "instance":

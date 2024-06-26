@@ -1,7 +1,22 @@
-import { SimpleSurroundingPairName, isString } from "@cursorless/common";
+import {
+  SimpleSurroundingPairName,
+  isString,
+  type ComplexSurroundingPairName,
+  type SurroundingPairName,
+} from "@cursorless/common";
 import { IndividualDelimiter } from "./types";
-import { getSimpleDelimiterMap } from "./delimiterMaps";
+import { complexDelimiterMap, getSimpleDelimiterMap } from "./delimiterMaps";
 import { concat, uniq } from "lodash";
+
+export function getIndividualDelimiters(
+  delimiter: SurroundingPairName,
+  languageId: string,
+) {
+  const delimiters = complexDelimiterMap[
+    delimiter as ComplexSurroundingPairName
+  ] ?? [delimiter];
+  return getSimpleIndividualDelimiters(languageId, delimiters);
+}
 
 /**
  * Given a list of delimiters, returns a list where each element corresponds to
@@ -13,7 +28,7 @@ import { concat, uniq } from "lodash";
  * @returns A list of information about all possible left / right delimiter
  * instances
  */
-export function getIndividualDelimiters(
+function getSimpleIndividualDelimiters(
   languageId: string | undefined,
   delimiters: SimpleSurroundingPairName[],
 ): IndividualDelimiter[] {

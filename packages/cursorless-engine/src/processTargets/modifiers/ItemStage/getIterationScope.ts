@@ -1,9 +1,8 @@
 import { Range, TextEditor, TextLine } from "@cursorless/common";
-import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import { Target } from "../../../typings/target.types";
-import { PlainTarget, SurroundingPairTarget } from "../../targets";
+import type { ModifierStageFactory } from "../../ModifierStageFactory";
+import { PlainTarget } from "../../targets";
 import { fitRangeToLineContent } from "../scopeHandlers";
-import { processSurroundingPair } from "../surroundingPair";
 
 /**
  * Get the iteration scope range for item scope.
@@ -13,28 +12,28 @@ import { processSurroundingPair } from "../surroundingPair";
  * @returns The stage iteration scope and optional surrounding pair boundaries
  */
 export function getIterationScope(
-  languageDefinitions: LanguageDefinitions,
+  modifierStageFactory: ModifierStageFactory,
   target: Target,
 ): { range: Range; boundary?: [Range, Range] } {
-  let surroundingTarget = getSurroundingPair(languageDefinitions, target);
+  let surroundingTarget = getSurroundingPair(modifierStageFactory, target);
 
   // Iteration is necessary in case of in valid surrounding targets (nested strings, content range adjacent to delimiter)
   while (surroundingTarget != null) {
     if (
       useInteriorOfSurroundingTarget(
-        languageDefinitions,
+        modifierStageFactory,
         target,
         surroundingTarget,
       )
     ) {
       return {
-        range: surroundingTarget.getInterior()[0].contentRange,
+        range: surroundingTarget.getInterior()![0].contentRange,
         boundary: getBoundary(surroundingTarget),
       };
     }
 
     surroundingTarget = getParentSurroundingPair(
-      languageDefinitions,
+      modifierStageFactory,
       target.editor,
       surroundingTarget,
     );
@@ -47,9 +46,9 @@ export function getIterationScope(
 }
 
 function useInteriorOfSurroundingTarget(
-  languageDefinitions: LanguageDefinitions,
+  modifierStageFactory: ModifierStageFactory,
   target: Target,
-  surroundingTarget: SurroundingPairTarget,
+  surroundingTarget: Target,
 ): boolean {
   const { contentRange } = target;
 
@@ -91,7 +90,7 @@ function useInteriorOfSurroundingTarget(
   // We don't look for items inside strings.
   // A non-string surrounding pair that is inside a surrounding string is fine.
   const surroundingStringTarget = getStringSurroundingPair(
-    languageDefinitions,
+    modifierStageFactory,
     surroundingTarget,
   );
   if (
@@ -106,8 +105,8 @@ function useInteriorOfSurroundingTarget(
   return true;
 }
 
-function getBoundary(surroundingTarget: SurroundingPairTarget): [Range, Range] {
-  return surroundingTarget.getBoundary().map((t) => t.contentRange) as [
+function getBoundary(surroundingTarget: Target): [Range, Range] {
+  return surroundingTarget.getBoundary()!.map((t) => t.contentRange) as [
     Range,
     Range,
   ];
@@ -125,19 +124,19 @@ function characterIsWhitespaceOrMissing(
 }
 
 function getParentSurroundingPair(
-  languageDefinitions: LanguageDefinitions,
+  modifierStageFactory: ModifierStageFactory,
   editor: TextEditor,
-  target: SurroundingPairTarget,
+  target: Target,
 ) {
   const startOffset = editor.document.offsetAt(target.contentRange.start);
   // Can't have a parent; already at start of document
   if (startOffset === 0) {
-    return null;
+    return undefined;
   }
   // Step out of this pair and see if we have a parent
   const position = editor.document.positionAt(startOffset - 1);
   return getSurroundingPair(
-    languageDefinitions,
+    modifierStageFactory,
     new PlainTarget({
       editor,
       contentRange: new Range(position, position),
@@ -147,23 +146,33 @@ function getParentSurroundingPair(
 }
 
 function getSurroundingPair(
-  languageDefinitions: LanguageDefinitions,
+  modifierStageFactory: ModifierStageFactory,
   target: Target,
 ) {
-  return processSurroundingPair(languageDefinitions, target, {
-    type: "surroundingPair",
-    delimiter: "collectionBoundary",
-    requireStrongContainment: true,
+  const pairStage = modifierStageFactory.create({
+    type: "containingScope",
+    scopeType: {
+      type: "surroundingPair",
+      delimiter: "collectionBoundary",
+      requireStrongContainment: true,
+    },
   });
+  const targets = pairStage.run(target);
+  return targets.length > 0 ? targets[0] : undefined;
 }
 
 function getStringSurroundingPair(
-  languageDefinitions: LanguageDefinitions,
+  modifierStageFactory: ModifierStageFactory,
   target: Target,
 ) {
-  return processSurroundingPair(languageDefinitions, target, {
-    type: "surroundingPair",
-    delimiter: "string",
-    requireStrongContainment: true,
+  const pairStage = modifierStageFactory.create({
+    type: "containingScope",
+    scopeType: {
+      type: "surroundingPair",
+      delimiter: "string",
+      requireStrongContainment: true,
+    },
   });
+  const targets = pairStage.run(target);
+  return targets.length > 0 ? targets[0] : undefined;
 }
