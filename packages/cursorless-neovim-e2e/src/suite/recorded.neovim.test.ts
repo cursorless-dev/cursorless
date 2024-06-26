@@ -67,9 +67,8 @@ async function openNewTestEditor(
   await client.command(":enew");
 
   if (!openBeside) {
-    // close all the other buffers
-    // @see: https://stackoverflow.com/questions/4545275/vim-close-all-buffers-but-this-one
-    await client.command(":BufOnly!");
+    // close all the other buffers (<C-^> is needed because e# fails on unnamed buffers)
+    await client.command("execute '%bd!' | execute 'normal! \\<C-^>'");
   }
 
   // standardise newlines so we can easily split the lines

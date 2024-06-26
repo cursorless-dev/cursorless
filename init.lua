@@ -13,7 +13,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   "hands-free-vim/talon.nvim",
-  "vim-scripts/BufOnly.vim",
 })
 
 local repo_root = os.getenv("CURSORLESS_REPO_ROOT")
