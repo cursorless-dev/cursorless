@@ -16,6 +16,7 @@ import { getDelimiterRegex } from "./getDelimiterRegex";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";
 import { getSurroundingPairOccurrences } from "./getSurroundingPairOccurrences";
 import type { SurroundingPairOccurrence } from "./types";
+import { compareTargetScopes } from "../compareTargetScopes";
 
 export class SurroundingPairScopeHandler extends BaseScopeHandler {
   public readonly iterationScopeType;
@@ -38,7 +39,7 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
     editor: TextEditor,
     position: Position,
     direction: Direction,
-    _hints: ScopeIteratorRequirements,
+    hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
     const individualDelimiters = getIndividualDelimiters(
       this.scopeType.delimiter,
@@ -46,7 +47,7 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
     );
     const delimiterRegex = getDelimiterRegex(individualDelimiters);
 
-    if (this.scopeType.forceDirection != null) {
+    if (this.scopeType.forceDirection === "left") {
       // TODO: Better handling of this?
       throw Error(
         "forceDirection not supported. Use 'take previous pair' instead",
@@ -65,27 +66,37 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
     );
 
     const positionOffset = editor.document.offsetAt(position);
+    const { requireStrongContainment } = this.scopeType;
 
-    for (let i = 0; i < surroundingPairs.length; ++i) {
-      const pair = surroundingPairs[i];
+    const scopes: TargetScope[] = [];
 
+    surroundingPairs.forEach((pair, i) => {
       if (direction === "forward") {
         if (pair.rightEnd < positionOffset) {
-          continue;
+          return;
         }
-        if (
-          pair.rightEnd === positionOffset &&
-          surroundingPairs[i + 1]?.rightStart === positionOffset
-        ) {
-          continue;
+        // In the case of (()|) don't yield the pair to the left
+        if (pair.rightEnd === positionOffset && hints.skipAncestorScopes) {
+          const nextPair = surroundingPairs[i + 1];
+          if (nextPair != null && nextPair.leftStart < pair.leftStart) {
+            return;
+          }
         }
       } else {
         if (pair.leftStart > positionOffset) {
-          continue;
+          return;
         }
       }
+      if (requireStrongContainment && !stronglyContains(positionOffset, pair)) {
+        return;
+      }
+      scopes.push(createTargetScope(editor, pair));
+    });
 
-      yield createTargetScope(editor, pair);
+    scopes.sort((a, b) => compareTargetScopes(direction, position, a, b));
+
+    for (const scope of scopes) {
+      yield scope;
     }
   }
 }
@@ -125,4 +136,8 @@ function createTargetScope(
       }),
     ],
   };
+}
+
+function stronglyContains(position: number, pair: SurroundingPairOccurrence) {
+  return position >= pair.leftEnd && position <= pair.rightStart;
 }

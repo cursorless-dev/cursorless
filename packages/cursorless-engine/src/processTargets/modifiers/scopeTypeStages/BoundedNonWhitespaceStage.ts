@@ -26,23 +26,13 @@ export class BoundedNonWhitespaceSequenceStage implements ModifierStage {
       type: this.modifier.type,
       scopeType: { type: "nonWhitespaceSequence" },
     });
-    const pairStage = this.modifierStageFactory.create({
-      type: "containingScope",
-      scopeType: {
-        type: "surroundingPair",
-        delimiter: "any",
-        requireStrongContainment: true,
-      },
-    });
 
-    const pairTargets = pairStage.run(target);
     const paintTargets = paintStage.run(target);
+    const pairTarget = this.getPairTarget(target);
 
-    if (pairTargets.length > 0) {
+    if (pairTarget == null) {
       return paintTargets;
     }
-
-    const pairTarget = pairTargets[0];
 
     const targets = paintTargets.flatMap((paintTarget) => {
       const contentRange = paintTarget.contentRange.intersection(
@@ -67,5 +57,21 @@ export class BoundedNonWhitespaceSequenceStage implements ModifierStage {
     }
 
     return targets;
+  }
+
+  private getPairTarget(target: Target) {
+    const pairStage = this.modifierStageFactory.create({
+      type: "containingScope",
+      scopeType: {
+        type: "surroundingPair",
+        delimiter: "any",
+        requireStrongContainment: true,
+      },
+    });
+    try {
+      return pairStage.run(target)[0];
+    } catch (_error) {
+      return undefined;
+    }
   }
 }

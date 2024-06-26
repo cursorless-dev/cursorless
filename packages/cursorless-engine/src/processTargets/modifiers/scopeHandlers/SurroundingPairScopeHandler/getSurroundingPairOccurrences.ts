@@ -47,7 +47,5 @@ export function getSurroundingPairOccurrences(
     }
   }
 
-  result.sort((a, b) => a.leftStart - b.leftStart);
-
   return result;
 }
