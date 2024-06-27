@@ -157,8 +157,12 @@ function getSurroundingPair(
       requireStrongContainment: true,
     },
   });
-  const targets = pairStage.run(target);
-  return targets.length > 0 ? targets[0] : undefined;
+  try {
+    const targets = pairStage.run(target);
+    return targets.length > 0 ? targets[0] : undefined;
+  } catch (error) {
+    return undefined;
+  }
 }
 
 function getStringSurroundingPair(
@@ -173,6 +177,10 @@ function getStringSurroundingPair(
       requireStrongContainment: true,
     },
   });
-  const targets = pairStage.run(target);
-  return targets.length > 0 ? targets[0] : undefined;
+  try {
+    const targets = pairStage.run(target);
+    return targets.length > 0 ? targets[0] : undefined;
+  } catch (error) {
+    return undefined;
+  }
 }
