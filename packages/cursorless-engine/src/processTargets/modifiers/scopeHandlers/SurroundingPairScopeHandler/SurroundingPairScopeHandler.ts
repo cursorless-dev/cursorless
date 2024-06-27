@@ -57,7 +57,7 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
     }
 
     const delimiterOccurrences = getDelimiterOccurrences(
-      editor.document.getText(),
+      editor.document,
       individualDelimiters,
       delimiterRegex,
     );
@@ -71,29 +71,28 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
       delimiterOccurrences,
     );
 
-    const positionOffset = editor.document.offsetAt(position);
     const { requireStrongContainment } = this.scopeType;
 
     const scopes: TargetScope[] = [];
 
     surroundingPairs.forEach((pair, i) => {
       if (direction === "forward") {
-        if (pair.rightEnd < positionOffset) {
+        if (pair.rightEnd.isBefore(position)) {
           return;
         }
         // In the case of (()|) don't yield the pair to the left
-        if (pair.rightEnd === positionOffset && hints.skipAncestorScopes) {
+        if (pair.rightEnd.isEqual(position) && hints.skipAncestorScopes) {
           const nextPair = surroundingPairs[i + 1];
           if (nextPair != null && nextPair.leftStart < pair.leftStart) {
             return;
           }
         }
       } else {
-        if (pair.leftStart > positionOffset) {
+        if (pair.leftStart.isAfter(position)) {
           return;
         }
       }
-      if (requireStrongContainment && !stronglyContains(positionOffset, pair)) {
+      if (requireStrongContainment && !stronglyContains(position, pair)) {
         return;
       }
       scopes.push(createTargetScope(editor, pair));
@@ -111,23 +110,10 @@ function createTargetScope(
   editor: TextEditor,
   pair: SurroundingPairOccurrence,
 ): TargetScope {
-  const { document } = editor;
-  const contentRange = new Range(
-    document.positionAt(pair.leftStart),
-    document.positionAt(pair.rightEnd),
-  );
-  const interiorRange = new Range(
-    document.positionAt(pair.leftEnd),
-    document.positionAt(pair.rightStart),
-  );
-  const leftRange = new Range(
-    document.positionAt(pair.leftStart),
-    document.positionAt(pair.leftEnd),
-  );
-  const rightRange = new Range(
-    document.positionAt(pair.rightStart),
-    document.positionAt(pair.rightEnd),
-  );
+  const contentRange = new Range(pair.leftStart, pair.rightEnd);
+  const interiorRange = new Range(pair.leftEnd, pair.rightStart);
+  const leftRange = new Range(pair.leftStart, pair.leftEnd);
+  const rightRange = new Range(pair.rightStart, pair.rightEnd);
 
   return {
     editor,
@@ -144,6 +130,6 @@ function createTargetScope(
   };
 }
 
-function stronglyContains(position: number, pair: SurroundingPairOccurrence) {
+function stronglyContains(position: Position, pair: SurroundingPairOccurrence) {
   return position >= pair.leftEnd && position <= pair.rightStart;
 }

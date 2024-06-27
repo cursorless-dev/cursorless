@@ -1,4 +1,4 @@
-import { SimpleSurroundingPairName } from "@cursorless/common";
+import { SimpleSurroundingPairName, type Position } from "@cursorless/common";
 
 /**
  * Used to indicate whether a particular side of the delimiter is left or right
@@ -30,14 +30,14 @@ export interface IndividualDelimiter {
 export interface DelimiterOccurrence {
   delimiter: SimpleSurroundingPairName;
   side: DelimiterSide;
-  start: number;
-  end: number;
+  start: Position;
+  end: Position;
 }
 
 export interface SurroundingPairOccurrence {
   delimiter: SimpleSurroundingPairName;
-  leftStart: number;
-  leftEnd: number;
-  rightStart: number;
-  rightEnd: number;
+  leftStart: Position;
+  leftEnd: Position;
+  rightStart: Position;
+  rightEnd: Position;
 }

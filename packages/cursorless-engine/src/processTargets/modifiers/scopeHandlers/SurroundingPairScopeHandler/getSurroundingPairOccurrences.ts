@@ -1,23 +1,11 @@
 import type { Range, SimpleScopeTypeType } from "@cursorless/common";
-import type {
-  QueryCapture,
-  QueryMatch,
-} from "../../../../languages/TreeSitterQuery/QueryCapture";
+import type { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
 import { findCaptureByName } from "../TreeSitterScopeHandler/captureUtils";
 import type {
   DelimiterOccurrence,
   IndividualDelimiter,
   SurroundingPairOccurrence,
 } from "./types";
-
-function getCaptures(
-  queryMatches: QueryMatch[],
-  captureName: SimpleScopeTypeType,
-): Range[] {
-  return queryMatches
-    .map((match) => findCaptureByName(match, captureName)?.range)
-    .filter((capture): capture is Range => capture != null);
-}
 
 export function getSurroundingPairOccurrences(
   queryMatches: QueryMatch[],
@@ -26,8 +14,8 @@ export function getSurroundingPairOccurrences(
 ): SurroundingPairOccurrence[] {
   const result: SurroundingPairOccurrence[] = [];
 
-  const textFragments = getCaptures(queryMatches, "textFragment");
-  const delimitersDisqualifiers = getCaptures(
+  //   const textFragments = getCaptureRanges(queryMatches, "textFragment");
+  const delimitersDisqualifiers = getCaptureRanges(
     queryMatches,
     "disqualifyDelimiter",
   );
@@ -40,7 +28,15 @@ export function getSurroundingPairOccurrences(
   );
 
   for (const occurrence of delimiterOccurrences) {
-    // TODO: Use Tree sitter to disqualify delimiter occurrences
+    const occurrenceIsDisqualified = delimitersDisqualifiers.some(
+      (range) =>
+        range.start.isEqual(occurrence.start) &&
+        range.end.isEqual(occurrence.end),
+    );
+
+    if (occurrenceIsDisqualified) {
+      continue;
+    }
 
     const side: "left" | "right" = (() => {
       if (occurrence.side === "unknown") {
@@ -70,4 +66,13 @@ export function getSurroundingPairOccurrences(
   }
 
   return result;
+}
+
+function getCaptureRanges(
+  queryMatches: QueryMatch[],
+  captureName: SimpleScopeTypeType,
+): Range[] {
+  return queryMatches
+    .map((match) => findCaptureByName(match, captureName)?.range)
+    .filter((capture): capture is Range => capture != null);
 }
