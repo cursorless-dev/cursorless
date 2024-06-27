@@ -6,9 +6,11 @@ import {
   TextEditor,
   type ScopeType,
 } from "@cursorless/common";
+import type { LanguageDefinitions } from "../../../../languages/LanguageDefinitions";
 import { SurroundingPairTarget } from "../../../targets";
 import { BaseScopeHandler } from "../BaseScopeHandler";
 import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
+import { compareTargetScopes } from "../compareTargetScopes";
 import { TargetScope } from "../scope.types";
 import { ScopeIteratorRequirements } from "../scopeHandler.types";
 import { getDelimiterOccurrences } from "./getDelimiterOccurrences";
@@ -16,7 +18,6 @@ import { getDelimiterRegex } from "./getDelimiterRegex";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";
 import { getSurroundingPairOccurrences } from "./getSurroundingPairOccurrences";
 import type { SurroundingPairOccurrence } from "./types";
-import { compareTargetScopes } from "../compareTargetScopes";
 
 export class SurroundingPairScopeHandler extends BaseScopeHandler {
   public readonly iterationScopeType;
@@ -24,6 +25,7 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
 
   constructor(
     private scopeHandlerFactory: ScopeHandlerFactory,
+    private languageDefinitions: LanguageDefinitions,
     public readonly scopeType: SurroundingPairScopeType,
     private languageId: string,
   ) {
@@ -60,7 +62,11 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
       delimiterRegex,
     );
 
+    const languageDefinition = this.languageDefinitions.get(this.languageId);
+    const matches = languageDefinition?.getMatches(editor.document) ?? [];
+
     const surroundingPairs = getSurroundingPairOccurrences(
+      matches,
       individualDelimiters,
       delimiterOccurrences,
     );

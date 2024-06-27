@@ -1,14 +1,36 @@
+import type { Range, SimpleScopeTypeType } from "@cursorless/common";
+import type {
+  QueryCapture,
+  QueryMatch,
+} from "../../../../languages/TreeSitterQuery/QueryCapture";
+import { findCaptureByName } from "../TreeSitterScopeHandler/captureUtils";
 import type {
   DelimiterOccurrence,
   IndividualDelimiter,
   SurroundingPairOccurrence,
 } from "./types";
 
+function getCaptures(
+  queryMatches: QueryMatch[],
+  captureName: SimpleScopeTypeType,
+): Range[] {
+  return queryMatches
+    .map((match) => findCaptureByName(match, captureName)?.range)
+    .filter((capture): capture is Range => capture != null);
+}
+
 export function getSurroundingPairOccurrences(
+  queryMatches: QueryMatch[],
   individualDelimiters: IndividualDelimiter[],
   delimiterOccurrences: DelimiterOccurrence[],
 ): SurroundingPairOccurrence[] {
   const result: SurroundingPairOccurrence[] = [];
+
+  const textFragments = getCaptures(queryMatches, "textFragment");
+  const delimitersDisqualifiers = getCaptures(
+    queryMatches,
+    "disqualifyDelimiter",
+  );
 
   const openDelimiters = new Map<string, DelimiterOccurrence[]>(
     individualDelimiters.map((individualDelimiter) => [

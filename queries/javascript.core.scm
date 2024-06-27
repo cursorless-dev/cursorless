@@ -728,3 +728,10 @@
   "(" @argumentOrParameter.iteration.start.endOf
   ")" @argumentOrParameter.iteration.end.startOf
 ) @argumentOrParameter.iteration.domain
+
+(_
+  operator: "<" @disqualifyDelimiter
+)
+(_
+  operator: ">" @disqualifyDelimiter
+)

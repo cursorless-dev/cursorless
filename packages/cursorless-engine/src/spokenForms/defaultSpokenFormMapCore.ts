@@ -98,6 +98,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
 
     string: isPrivate("parse tree string"),
     textFragment: isPrivate("text fragment"),
+    disqualifyDelimiter: isPrivate("disqualify delimiter"),
     ["private.fieldAccess"]: isPrivate("access"),
     ["private.switchStatementSubject"]: isPrivate("subject"),
   },

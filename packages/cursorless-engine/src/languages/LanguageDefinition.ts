@@ -3,6 +3,7 @@ import {
   ScopeType,
   SimpleScopeType,
   showError,
+  type TextDocument,
 } from "@cursorless/common";
 import { basename, dirname, join } from "path";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
@@ -76,6 +77,10 @@ export class LanguageDefinition {
     }
 
     return new TreeSitterScopeHandler(this.query, scopeType as SimpleScopeType);
+  }
+
+  getMatches(document: TextDocument) {
+    return this.query.matches(document);
   }
 }
 
