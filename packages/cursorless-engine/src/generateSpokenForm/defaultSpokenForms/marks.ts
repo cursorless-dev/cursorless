@@ -40,6 +40,7 @@ export const marks = {
   decoratedSymbol: null,
   lineNumber: null,
   range: null,
+  target: null,
 } as const satisfies Record<MarkType, string | null>;
 
 export const lineDirections = {

@@ -1,11 +1,14 @@
 languageId: css
 command:
-  version: 1
+  version: 5
   spokenForm: chuck arg
-  action: remove
+  action: {name: remove}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     div {

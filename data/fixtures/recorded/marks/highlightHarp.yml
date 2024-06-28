@@ -1,11 +1,12 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 5
   spokenForm: highlight harp
-  action: highlight
+  action: {name: highlight}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: hello world
   selections:

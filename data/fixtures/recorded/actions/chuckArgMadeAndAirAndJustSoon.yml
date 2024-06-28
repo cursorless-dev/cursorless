@@ -1,19 +1,23 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: chuck arg made and air and just sun
-  action: remove
+  action: {name: remove}
   targets:
     - type: list
       elements:
         - type: primitive
-          modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+          modifiers:
+            - type: containingScope
+              scopeType: {type: argumentOrParameter}
           mark: {type: decoratedSymbol, symbolColor: default, character: m}
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: a}
         - type: primitive
-          modifier: {type: toRawSelection}
+          modifiers:
+            - {type: toRawSelection}
           mark: {type: decoratedSymbol, symbolColor: default, character: s}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: "function myFunk(value: string, name: string, age: number) { };"
   selections:

@@ -1,21 +1,21 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: change inside red past harp
-  version: 2
+  action: {name: clearAndSetSelection}
   targets:
-    - type: range
+    - active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: h}
+      type: range
+      excludeAnchor: false
+      excludeActive: false
       anchor:
         type: primitive
         modifiers:
           - {type: interiorOnly}
         mark: {type: decoratedSymbol, symbolColor: default, character: r}
-      active:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: h}
-      excludeAnchor: false
-      excludeActive: false
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
     ( hello world )

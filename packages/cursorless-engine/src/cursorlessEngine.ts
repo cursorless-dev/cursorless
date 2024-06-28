@@ -30,6 +30,7 @@ import { ScopeSupportChecker } from "./scopeProviders/ScopeSupportChecker";
 import { ScopeSupportWatcher } from "./scopeProviders/ScopeSupportWatcher";
 import { injectIde } from "./singletons/ide.singleton";
 import { TreeSitter } from "./typings/TreeSitter";
+import { KeyboardTargetUpdater } from "./KeyboardTargetUpdater";
 
 export async function createCursorlessEngine(
   treeSitter: TreeSitter,
@@ -57,6 +58,8 @@ export async function createCursorlessEngine(
 
   const storedTargets = new StoredTargetMap();
 
+  const keyboardTargetUpdater = new KeyboardTargetUpdater(storedTargets);
+
   const languageDefinitions = new LanguageDefinitions(fileSystem, treeSitter);
   await languageDefinitions.init();
 
@@ -66,40 +69,50 @@ export async function createCursorlessEngine(
     talonSpokenForms,
   );
 
-  ide.disposeOnExit(rangeUpdater, languageDefinitions, hatTokenMap, debug);
+  ide.disposeOnExit(
+    rangeUpdater,
+    languageDefinitions,
+    hatTokenMap,
+    debug,
+    keyboardTargetUpdater,
+  );
 
   const commandRunnerDecorators: CommandRunnerDecorator[] = [];
+
+  let previousCommand: Command | undefined = undefined;
+
+  const runCommandClosure = (command: Command) => {
+    previousCommand = command;
+    return runCommand(
+      treeSitter,
+      commandServerApi,
+      debug,
+      hatTokenMap,
+      snippets,
+      storedTargets,
+      languageDefinitions,
+      rangeUpdater,
+      commandRunnerDecorators,
+      command,
+    );
+  };
 
   return {
     commandApi: {
       runCommand(command: Command) {
-        return runCommand(
-          treeSitter,
-          commandServerApi,
-          debug,
-          hatTokenMap,
-          snippets,
-          storedTargets,
-          languageDefinitions,
-          rangeUpdater,
-          commandRunnerDecorators,
-          command,
-        );
+        return runCommandClosure(command);
       },
 
-      async runCommandSafe(...args: unknown[]) {
-        return runCommand(
-          treeSitter,
-          commandServerApi,
-          debug,
-          hatTokenMap,
-          snippets,
-          storedTargets,
-          languageDefinitions,
-          rangeUpdater,
-          commandRunnerDecorators,
-          ensureCommandShape(args),
-        );
+      runCommandSafe(...args: unknown[]) {
+        return runCommandClosure(ensureCommandShape(args));
+      },
+
+      repeatPreviousCommand() {
+        if (previousCommand == null) {
+          throw new Error("No previous command");
+        }
+
+        return runCommandClosure(previousCommand);
       },
     },
     scopeProvider: createScopeProvider(

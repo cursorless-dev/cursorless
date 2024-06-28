@@ -1,12 +1,15 @@
 languageId: java
 command:
-  version: 1
+  version: 5
   spokenForm: try wrap this
-  action: wrapWithSnippet
+  action:
+    name: wrapWithSnippet
+    args:
+      - {type: named, name: tryCatchStatement, variableName: body}
   targets:
     - type: primitive
       mark: {type: cursor}
-  extraArgs: [tryCatchStatement.body]
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     if (true) {

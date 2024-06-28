@@ -1,16 +1,19 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: take vest and line air
-  action: setSelection
+  action: {name: setSelection}
   targets:
     - type: list
       elements:
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: v}
         - type: primitive
-          selectionType: line
+          modifiers:
+            - type: containingScope
+              scopeType: {type: line}
           mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

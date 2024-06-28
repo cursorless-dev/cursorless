@@ -1,11 +1,14 @@
 languageId: rust
 command:
-  version: 1
+  version: 5
   spokenForm: change class
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: class, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: class}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     struct Point<T> {

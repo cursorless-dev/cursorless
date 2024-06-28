@@ -1,11 +1,14 @@
 languageId: latex
 command:
-  version: 1
+  version: 5
   spokenForm: change subparagraph
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: subParagraph, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: subParagraph}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     \subparagraph{1}

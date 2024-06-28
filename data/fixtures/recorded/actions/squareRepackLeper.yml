@@ -1,12 +1,14 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 5
   spokenForm: box repack paren
-  action: rewrapWithPairedDelimiter
+  action:
+    name: rewrapWithPairedDelimiter
+    args: ['[', ']']
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: (}
-  extraArgs: ['[', ']']
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     (hello)

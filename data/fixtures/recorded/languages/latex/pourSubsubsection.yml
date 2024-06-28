@@ -1,6 +1,6 @@
 languageId: latex
 command:
-  version: 4
+  version: 5
   spokenForm: pour subsubsection
   action: {name: editNewLineAfter}
   targets:

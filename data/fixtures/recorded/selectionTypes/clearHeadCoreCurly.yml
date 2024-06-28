@@ -1,7 +1,8 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: change head inside curly
-  version: 2
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
@@ -11,7 +12,6 @@ command:
             - type: containingScope
               scopeType: {type: surroundingPair, delimiter: curlyBrackets}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
     {

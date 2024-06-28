@@ -1,8 +1,8 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: bring air and bat and cap after item each
-  action: replaceWithTarget
+  action: {name: replaceWithTarget}
   targets:
     - type: list
       elements:
@@ -13,9 +13,12 @@ command:
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: c}
     - type: primitive
-      position: after
-      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: false}
+      modifiers:
+        - {type: position, position: after}
+        - type: containingScope
+          scopeType: {type: collectionItem}
       mark: {type: decoratedSymbol, symbolColor: default, character: e}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     a

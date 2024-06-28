@@ -117,6 +117,10 @@
         "enablement": "false"
       },
       {
+        "command": "cursorless.repeatPreviousCommand",
+        "title": "Cursorless: Repeat the previous Cursorless command"
+      },
+      {
         "command": "cursorless.showQuickPick",
         "title": "Cursorless: Pop up a quick pick of all cursorless commands",
         "enablement": "false"
@@ -184,6 +188,16 @@
       {
         "command": "cursorless.keyboard.modal.modeToggle",
         "title": "Cursorless: Toggle the cursorless modal mode",
+        "enablement": "false"
+      },
+      {
+        "command": "cursorless.keyboard.undoTarget",
+        "title": "Cursorless: Undo keyboard targeting changes",
+        "enablement": "false"
+      },
+      {
+        "command": "cursorless.keyboard.redoTarget",
+        "title": "Cursorless: Redo keyboard targeting changes",
         "enablement": "false"
       }
     ],

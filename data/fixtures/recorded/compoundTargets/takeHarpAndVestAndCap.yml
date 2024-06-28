@@ -1,8 +1,8 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: take harp and vest and cap
-  action: setSelection
+  action: {name: setSelection}
   targets:
     - type: list
       elements:
@@ -12,6 +12,7 @@ command:
           mark: {type: decoratedSymbol, symbolColor: default, character: v}
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: c}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

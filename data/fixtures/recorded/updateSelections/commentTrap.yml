@@ -1,11 +1,12 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: comment trap
-  action: toggleLineComment
+  action: {name: toggleLineComment}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: t}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     'hello'

@@ -16,6 +16,8 @@ export type CommandLatest = Command & {
   version: typeof LATEST_VERSION;
 };
 
+export type CommandVersion = Command["version"];
+
 export type Command =
   | CommandV0
   | CommandV1

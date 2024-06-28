@@ -1,11 +1,12 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 5
   spokenForm: chuck air
-  action: remove
+  action: {name: remove}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     "hello "

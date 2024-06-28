@@ -1,6 +1,7 @@
 import {
   Modifier,
   PartialListTargetDescriptor,
+  PartialMark,
   PartialPrimitiveTargetDescriptor,
   PartialRangeTargetDescriptor,
   PartialTargetDescriptor,
@@ -100,12 +101,14 @@ function inferPrimitiveTarget(
   target: PartialPrimitiveTargetDescriptor,
   previousTargets: PartialTargetDescriptor[],
 ): PrimitiveTargetDescriptor {
-  const mark = target.mark ??
-    (shouldInferPreviousMark(target)
-      ? getPreviousMark(previousTargets)
-      : null) ?? {
-      type: "cursor",
-    };
+  const mark = handleTargetMark(
+    target.mark ??
+      (shouldInferPreviousMark(target)
+        ? getPreviousMark(previousTargets)
+        : null) ?? {
+        type: "cursor",
+      },
+  );
 
   const modifiers =
     getPreservedModifiers(target) ??
@@ -171,7 +174,7 @@ function getLineNumberMarkModifiers(
  * @returns True if this target has a line number mark
  */
 function isLineNumberMark(target: PartialPrimitiveTargetDescriptor): boolean {
-  const isLineNumber = (mark?: Mark) => mark?.type === "lineNumber";
+  const isLineNumber = (mark?: PartialMark) => mark?.type === "lineNumber";
   if (isLineNumber(target.mark)) {
     return true;
   }
@@ -183,7 +186,7 @@ function isLineNumberMark(target: PartialPrimitiveTargetDescriptor): boolean {
 
 function getPreviousMark(
   previousTargets: PartialTargetDescriptor[],
-): Mark | undefined {
+): PartialMark | undefined {
   return getPreviousTargetAttribute(
     previousTargets,
     (target: PartialPrimitiveTargetDescriptor) => target.mark,
@@ -253,4 +256,22 @@ function getPreviousTargetAttribute<T>(
     }
   }
   return undefined;
+}
+
+function handleTargetMark(mark: PartialMark): Mark {
+  switch (mark.type) {
+    case "range":
+      return {
+        ...mark,
+        anchor: handleTargetMark(mark.anchor),
+        active: handleTargetMark(mark.active),
+      };
+    case "target":
+      return {
+        type: "target",
+        target: inferFullTargetDescriptor(mark.target, []),
+      };
+    default:
+      return mark;
+  }
 }

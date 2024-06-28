@@ -1,8 +1,8 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: give harp and whale
-  action: deselect
+  action: {name: deselect}
   targets:
     - type: list
       elements:
@@ -10,6 +10,7 @@ command:
           mark: {type: decoratedSymbol, symbolColor: default, character: h}
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: hello world
   selections:

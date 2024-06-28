@@ -1,12 +1,15 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 5
   spokenForm: change pair fine
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: any}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: any}
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: (<user.foo>  <user.bar>)
   selections:

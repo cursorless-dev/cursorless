@@ -1,14 +1,20 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 5
   spokenForm: chuck past end of line
-  action: remove
+  action: {name: remove}
   targets:
-    - type: range
-      start: {type: primitive, isImplicit: true}
-      end: {type: primitive, position: after, insideOutsideType: inside, selectionType: line}
-      excludeStart: false
-      excludeEnd: false
+    - active:
+        type: primitive
+        modifiers:
+          - {type: position, position: end}
+          - type: containingScope
+            scopeType: {type: line}
+      type: range
+      excludeAnchor: false
+      excludeActive: false
+      anchor: {type: implicit}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: hello there
   selections:

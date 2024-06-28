@@ -1,11 +1,14 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 5
   spokenForm: take left quad
-  action: setSelection
+  action: {name: setSelection}
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: doubleQuotes, forceDirection: left}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: doubleQuotes, forceDirection: left}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     hello world whatever "testing testing testing

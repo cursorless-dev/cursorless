@@ -1,19 +1,19 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: box repack past whale
-  version: 2
-  targets:
-    - type: range
-      anchor: {type: primitive}
-      active:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: w}
-      excludeAnchor: false
-      excludeActive: false
-  usePrePhraseSnapshot: true
   action:
     name: rewrapWithPairedDelimiter
     args: ['[', ']']
+  targets:
+    - active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      type: range
+      excludeAnchor: false
+      excludeActive: false
+      anchor: {type: implicit}
+  usePrePhraseSnapshot: true
 initialState:
   documentContents: (hello world there)
   selections:

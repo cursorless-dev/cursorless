@@ -1,11 +1,14 @@
 languageId: scala
 command:
-  version: 0
+  version: 5
   spokenForm: change parse tree string
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: string, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: string}
+  usePrePhraseSnapshot: false
 spokenFormError: >-
   simple scope type type with id string; this is a private spoken form currently
   only for internal experimentation

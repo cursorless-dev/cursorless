@@ -14,19 +14,28 @@ export interface SectionTypes {
   action: PolymorphicKeyboardActionDescriptor;
   color: HatColor;
   misc: MiscValue;
+  specialMark: SpecialMark;
   scope: SimpleScopeTypeType;
   pairedDelimiter: SurroundingPairName;
   shape: HatShape;
   vscodeCommand: ModalVscodeCommandDescriptor;
   modifier: ModifierType;
 }
-type ModifierType = "nextPrev" | "every";
+type ModifierType =
+  | "nextPrev"
+  | "every"
+  | "interiorOnly"
+  | "excludeInterior"
+  | "extendThroughStartOf"
+  | "extendThroughEndOf";
 export type MiscValue =
   | "combineColorAndShape"
   | "makeRange"
+  | "makeVerticalRange"
   | "makeList"
   | "forward"
   | "backward";
+export type SpecialMark = "cursor";
 
 /**
  * Maps from token type used in parser to the type of values that the token type
@@ -57,14 +66,18 @@ export interface TokenTypeValueMap {
   wrap: SpecificKeyboardActionDescriptor<"wrap">;
 
   // misc config section
-  makeRange: "makeRange";
-  makeList: "makeList";
+  targetingMode: "makeRange" | "makeVerticalRange" | "makeList";
   combineColorAndShape: "combineColorAndShape";
   direction: "forward" | "backward";
 
   // modifier config section
   nextPrev: "nextPrev";
   every: "every";
+  headTail: "extendThroughStartOf" | "extendThroughEndOf";
+  simpleModifier: "interiorOnly" | "excludeInterior";
+
+  // mark config section
+  simpleSpecialMark: SpecialMark;
 
   digit: number;
 }

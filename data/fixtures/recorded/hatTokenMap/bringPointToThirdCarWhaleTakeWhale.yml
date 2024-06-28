@@ -1,15 +1,19 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 5
   spokenForm: bring dot to third char whale take whale
-  action: replaceWithTarget
+  action: {name: replaceWithTarget}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: .}
     - type: primitive
-      selectionType: token
-      modifier: {type: subpiece, pieceType: character, anchor: 2, active: 2, excludeAnchor: false, excludeActive: false}
+      modifiers:
+        - type: ordinalScope
+          scopeType: {type: character}
+          start: 2
+          length: 1
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: false
 marksToCheck: [default.w]
 initialState:
   documentContents: hello. world whatever

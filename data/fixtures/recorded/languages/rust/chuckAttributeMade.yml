@@ -1,7 +1,8 @@
 languageId: rust
 command:
+  version: 5
   spokenForm: chuck attribute made
-  version: 2
+  action: {name: remove}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: m}
@@ -9,7 +10,6 @@ command:
         - type: containingScope
           scopeType: {type: attribute}
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: "fn foo(x: &mut u32) {}"
   selections:

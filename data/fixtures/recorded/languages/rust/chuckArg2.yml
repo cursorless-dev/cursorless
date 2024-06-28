@@ -1,11 +1,14 @@
 languageId: rust
 command:
-  version: 0
+  version: 5
   spokenForm: chuck arg
-  action: remove
+  action: {name: remove}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     fn add(x: i32, y: i32) -> {

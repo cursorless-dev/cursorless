@@ -1,12 +1,14 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: round wrap this
-  action: wrapWithPairedDelimiter
+  action:
+    name: wrapWithPairedDelimiter
+    args: [(, )]
   targets:
     - type: primitive
       mark: {type: cursor}
-  extraArgs: [(, )]
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

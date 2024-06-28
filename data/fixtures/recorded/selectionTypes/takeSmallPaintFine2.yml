@@ -1,7 +1,8 @@
 languageId: python
 command:
+  version: 5
   spokenForm: take short paint fine
-  version: 2
+  action: {name: setSelection}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
@@ -9,7 +10,6 @@ command:
         - type: containingScope
           scopeType: {type: boundedNonWhitespaceSequence}
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
 initialState:
   documentContents: "[baz, foo[0], bar]"
   selections:

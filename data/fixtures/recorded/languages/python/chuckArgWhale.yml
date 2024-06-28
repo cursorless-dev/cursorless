@@ -1,12 +1,15 @@
 languageId: python
 command:
-  version: 1
+  version: 5
   spokenForm: chuck arg whale
-  action: remove
+  action: {name: remove}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: "\" \".join(word for word in word_list)"
   selections:

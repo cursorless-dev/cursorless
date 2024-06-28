@@ -1,11 +1,14 @@
 languageId: html
 command:
-  version: 1
+  version: 5
   spokenForm: change element
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: xmlElement, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: xmlElement}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     <html>
