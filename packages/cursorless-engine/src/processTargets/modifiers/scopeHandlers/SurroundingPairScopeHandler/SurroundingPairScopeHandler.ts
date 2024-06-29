@@ -49,10 +49,10 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
     );
     const delimiterRegex = getDelimiterRegex(individualDelimiters);
 
-    if (this.scopeType.forceDirection === "left") {
+    if (this.scopeType.forceDirection != null) {
       // TODO: Better handling of this?
       throw Error(
-        "forceDirection not supported. Use 'take previous pair' instead",
+        "forceDirection not supported. Use 'next pair' or 'previous pair' instead",
       );
     }
 
@@ -83,7 +83,7 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
         // In the case of (()|) don't yield the pair to the left
         if (pair.rightEnd.isEqual(position) && hints.skipAncestorScopes) {
           const nextPair = surroundingPairs[i + 1];
-          if (nextPair != null && nextPair.leftStart < pair.leftStart) {
+          if (nextPair != null && nextPair.rightStart.isEqual(position)) {
             return;
           }
         }
