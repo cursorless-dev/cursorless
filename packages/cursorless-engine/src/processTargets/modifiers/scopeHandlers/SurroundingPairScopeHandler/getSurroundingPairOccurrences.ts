@@ -60,7 +60,9 @@ export function getSurroundingPairOccurrences(
         occurrence.isSingleLine &&
         openDelimiter.start.line !== occurrence.start.line
       ) {
-        openDelimiters.get(occurrence.delimiter)!.push(occurrence);
+        if (occurrence.side !== "right") {
+          openDelimiters.get(occurrence.delimiter)!.push(occurrence);
+        }
         continue;
       }
 
