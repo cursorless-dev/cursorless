@@ -20,12 +20,14 @@ export function getDelimiterOccurrences(
     const text = match[0];
     const start = match.index!;
     const end = start + text.length;
-    const { delimiter, side } = delimiterTextToDelimiterInfoMap[text];
+    const { delimiter, side, isSingleLine } =
+      delimiterTextToDelimiterInfoMap[text];
     return {
-      start: document.positionAt(start),
-      end: document.positionAt(end),
       delimiter,
       side,
+      isSingleLine,
+      start: document.positionAt(start),
+      end: document.positionAt(end),
     };
   });
 }

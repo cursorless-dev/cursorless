@@ -34,7 +34,8 @@ function getSimpleIndividualDelimiters(
 ): IndividualDelimiter[] {
   const delimiterToText = getSimpleDelimiterMap(languageId);
   return delimiters.flatMap((delimiter) => {
-    const [leftDelimiter, rightDelimiter] = delimiterToText[delimiter];
+    const [leftDelimiter, rightDelimiter, isSingleLine] =
+      delimiterToText[delimiter];
 
     // Allow for the fact that a delimiter might have multiple ways to indicate
     // its opening / closing
@@ -62,6 +63,7 @@ function getSimpleIndividualDelimiters(
               ? "right"
               : "unknown",
         delimiter,
+        isSingleLine: isSingleLine ?? false,
       };
     });
   });

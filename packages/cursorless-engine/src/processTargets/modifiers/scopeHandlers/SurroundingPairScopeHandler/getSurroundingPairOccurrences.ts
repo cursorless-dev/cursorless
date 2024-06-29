@@ -51,7 +51,16 @@ export function getSurroundingPairOccurrences(
       openDelimiters.get(occurrence.delimiter)!.push(occurrence);
     } else {
       const openDelimiter = openDelimiters.get(occurrence.delimiter)!.pop();
+
       if (openDelimiter == null) {
+        continue;
+      }
+
+      if (
+        occurrence.isSingleLine &&
+        openDelimiter.start.line !== occurrence.start.line
+      ) {
+        openDelimiters.get(occurrence.delimiter)!.push(occurrence);
         continue;
       }
 

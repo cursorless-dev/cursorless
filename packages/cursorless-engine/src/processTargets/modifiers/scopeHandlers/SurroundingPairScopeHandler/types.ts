@@ -25,11 +25,17 @@ export interface IndividualDelimiter {
    * Which delimiter this represents
    */
   delimiter: SimpleSurroundingPairName;
+
+  /**
+   * Whether the delimiter is a single line delimiter
+   */
+  isSingleLine: boolean;
 }
 
 export interface DelimiterOccurrence {
   delimiter: SimpleSurroundingPairName;
   side: DelimiterSide;
+  isSingleLine: boolean;
   start: Position;
   end: Position;
 }

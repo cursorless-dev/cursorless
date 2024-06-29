@@ -8,7 +8,8 @@ type IndividualDelimiterText = string | string[];
 
 type DelimiterMap = Record<
   SimpleSurroundingPairName,
-  [IndividualDelimiterText, IndividualDelimiterText]
+  | [IndividualDelimiterText, IndividualDelimiterText]
+  | [IndividualDelimiterText, IndividualDelimiterText, boolean]
 >;
 
 const delimiterToText: DelimiterMap = Object.freeze({
@@ -18,13 +19,13 @@ const delimiterToText: DelimiterMap = Object.freeze({
   ],
   backtickQuotes: ["`", "`"],
   curlyBrackets: [["{", "${"], "}"],
-  doubleQuotes: ['"', '"'],
-  escapedDoubleQuotes: ['\\"', '\\"'],
+  doubleQuotes: ['"', '"', true],
+  escapedDoubleQuotes: ['\\"', '\\"', true],
   escapedParentheses: ["\\(", "\\)"],
   escapedSquareBrackets: ["\\[", "\\]"],
-  escapedSingleQuotes: ["\\'", "\\'"],
+  escapedSingleQuotes: ["\\'", "\\'", true],
   parentheses: [["(", "$("], ")"],
-  singleQuotes: ["'", "'"],
+  singleQuotes: ["'", "'", true],
   squareBrackets: ["[", "]"],
 });
 
@@ -88,7 +89,8 @@ export function getSimpleDelimiterMap(
   languageId: string | undefined,
 ): Record<
   SimpleSurroundingPairName,
-  [IndividualDelimiterText, IndividualDelimiterText]
+  | [IndividualDelimiterText, IndividualDelimiterText]
+  | [IndividualDelimiterText, IndividualDelimiterText, boolean]
 > {
   if (languageId != null && languageId in delimiterToTextOverrides) {
     return {
