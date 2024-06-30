@@ -113,11 +113,12 @@ export const simpleSurroundingPairNames = [
   "doubleQuotes",
   "escapedDoubleQuotes",
   "escapedParentheses",
-  "escapedSquareBrackets",
   "escapedSingleQuotes",
+  "escapedSquareBrackets",
   "parentheses",
   "singleQuotes",
   "squareBrackets",
+  "tripleDoubleQuotes",
 ] as const;
 export const complexSurroundingPairNames = [
   "string",

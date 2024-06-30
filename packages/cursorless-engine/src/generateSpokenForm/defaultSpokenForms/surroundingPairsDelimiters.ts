@@ -15,6 +15,7 @@ export const surroundingPairsDelimiters: Record<
   backtickQuotes: ["`", "`"],
   squareBrackets: ["[", "]"],
   singleQuotes: ["'", "'"],
+  tripleDoubleQuotes: ['"""', '"""'],
   whitespace: [" ", " "],
 
   any: null,

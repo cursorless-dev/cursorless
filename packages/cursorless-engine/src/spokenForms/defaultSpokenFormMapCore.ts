@@ -27,6 +27,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     backtickQuotes: "skis",
     squareBrackets: "box",
     singleQuotes: "twin",
+    tripleDoubleQuotes: isPrivate("triple quotes"),
     any: "pair",
     string: "string",
     whitespace: "void",

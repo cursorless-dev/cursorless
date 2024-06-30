@@ -19,6 +19,7 @@ const delimiterToText: DelimiterMap = Object.freeze({
   ],
   backtickQuotes: ["`", "`"],
   curlyBrackets: [["{", "${"], "}"],
+  tripleDoubleQuotes: [[], []],
   doubleQuotes: ['"', '"', true],
   escapedDoubleQuotes: ['\\"', '\\"', true],
   escapedParentheses: ["\\(", "\\)"],
@@ -45,6 +46,10 @@ const delimiterToTextOverrides: Record<string, Partial<DelimiterMap>> = {
       ['"', "]]"],
     ],
   },
+
+  python: {
+    tripleDoubleQuotes: ['"""', '"""'],
+  },
 };
 
 export const leftToRightMap: Record<string, string> = Object.fromEntries(
@@ -60,7 +65,12 @@ export const complexDelimiterMap: Record<
   SimpleSurroundingPairName[]
 > = {
   any: unsafeKeys(delimiterToText),
-  string: ["singleQuotes", "doubleQuotes", "backtickQuotes"],
+  string: [
+    "singleQuotes",
+    "doubleQuotes",
+    "backtickQuotes",
+    "tripleDoubleQuotes",
+  ],
   collectionBoundary: [
     "parentheses",
     "squareBrackets",
