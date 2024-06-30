@@ -119,6 +119,7 @@ export const simpleSurroundingPairNames = [
   "singleQuotes",
   "squareBrackets",
   "tripleDoubleQuotes",
+  "tripleSingleQuotes",
 ] as const;
 export const complexSurroundingPairNames = [
   "string",

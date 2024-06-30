@@ -20,6 +20,7 @@ const delimiterToText: DelimiterMap = Object.freeze({
   backtickQuotes: ["`", "`"],
   curlyBrackets: [["{", "${"], "}"],
   tripleDoubleQuotes: [[], []],
+  tripleSingleQuotes: [[], []],
   doubleQuotes: ['"', '"', true],
   escapedDoubleQuotes: ['\\"', '\\"', true],
   escapedParentheses: ["\\(", "\\)"],
@@ -48,7 +49,9 @@ const delimiterToTextOverrides: Record<string, Partial<DelimiterMap>> = {
   },
 
   python: {
-    tripleDoubleQuotes: ['"""', '"""'],
+    doubleQuotes: [['"', 'f"'], '"', true],
+    tripleDoubleQuotes: [['"""', 'f"""'], '"""'],
+    tripleSingleQuotes: [["'''", "f'''"], "'''"],
   },
 };
 
@@ -66,10 +69,11 @@ export const complexDelimiterMap: Record<
 > = {
   any: unsafeKeys(delimiterToText),
   string: [
-    "singleQuotes",
-    "doubleQuotes",
-    "backtickQuotes",
     "tripleDoubleQuotes",
+    "tripleSingleQuotes",
+    "doubleQuotes",
+    "singleQuotes",
+    "backtickQuotes",
   ],
   collectionBoundary: [
     "parentheses",
