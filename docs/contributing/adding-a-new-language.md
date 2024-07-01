@@ -37,4 +37,4 @@ You can file a PR with just these changes to get the ball rolling.
 
 ## 4. Define your language's scopes
 
-Follow the instructions in [Adding a new scope](adding-a-new-scope) to define the scopes for your language. Note that you can file a PR for each added scopes, or do a couple at a time, but it's best not to do them all at once, as smaller PRs make the review process easier.
+Follow the instructions in [Adding a new scope](./adding-a-new-scope.md) to define the scopes for your language. Note that you can file a PR for each added scopes, or do a couple at a time, but it's best _**not**_ to do them all at once, as smaller PRs make the review process easier.

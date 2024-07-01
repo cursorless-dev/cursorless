@@ -62,6 +62,16 @@ Then add parse tree patterns for the given scope to your language's `.scm` file 
 - Use the command `"parse tree <target>"` to see the parse tree for a given target. For example `"parse tree line"` will show you the parse tree for the current line, as well as all of its ancestors. This will generate a markdown file with parse tree info, which you can then use to write your patterns. You might find it helpful to open a markdown preview of the file.
 - You will likely want to look at `node-types.json` for your language, (eg [java](https://github.com/tree-sitter/tree-sitter-java/blob/master/src/node-types.json)). This file is generated from the language's `grammar.js`, which might also be helpful to look at (eg [java](https://github.com/tree-sitter/tree-sitter-java/blob/master/grammar.js)).
 
+## 6. Update the tests
+
+The tests generated in step 4 only include the code example. Now that you've told Cursorless how to find the scope, we can automatically update the test cases to indicate where the scope should appear in your code examples.
+
+1. Say `"debug edit subset"` and alter the file to include just the name of your language
+2. Run the `Update fixtures subset` launch configuration to update your fixtures.
+3. Check that the fixtures now look as expected, and no other tests for your language have been altered. The VSCode source control side bar is useful for this purpose.
+
+## 7. File a PR!
+
 ## Examples
 
 Here are a few example PRs adding scopes. Note that in each case the PR also introduced a new facet, but in many cases you will just be able to use an existing facet.

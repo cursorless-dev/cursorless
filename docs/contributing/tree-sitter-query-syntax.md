@@ -4,7 +4,7 @@ We use the tree-sitter query language to define our parse tree patterns. In addi
 
 ## Relationships
 
-In addition to the node corresponding to the scope itself (which we call its _content range_), you can tag different aspects of the scope. Assuming the internal identifier of our scope is `foo`, we can tag the following aspects of the scope:
+In addition to the node corresponding to the scope itself (which we call its _content range_), you can tag different aspects / relationships of the scope. Assuming the internal identifier of our scope is `foo`, we can tag the following aspects of the scope:
 
 - `@foo.domain` indicates the domain of the scope. For example, you could use `@collectionKey.domain` to indicate that the domain of a key is the containing item, which would allow you to say `"take key"` from within the value of a key-value pair to select the key.
 - `@foo.leading` and `@foo.trailing` indicate the leading and trailing delimiters of the scope. For example, you could use `@collectionKey.trailing` to include all the way up to the start of the value as the trailing delimiter, so that `"chuck key"` will leave just the value.
