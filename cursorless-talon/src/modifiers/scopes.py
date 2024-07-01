@@ -45,7 +45,6 @@ def cursorless_scope_type(m) -> dict[str, str]:
 
 @mod.capture(
     rule="{user.cursorless_scope_type_plural}"
-    # TODO: Add plural form of surrounding pair
     " | <user.cursorless_surrounding_pair_scope_type>"
     " | <user.cursorless_glyph_scope_type_plural>"
     " | {user.cursorless_custom_regex_scope_type_plural}"
