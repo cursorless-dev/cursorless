@@ -52,6 +52,7 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
     const delimiterRegex = getDelimiterRegex(individualDelimiters);
 
     if (this.scopeType.forceDirection != null) {
+      //  DEPRECATED @ 2024-07-01
       const msg =
         "forceDirection not supported. Use 'next pair' or 'previous pair' instead";
       void showError(ide().messages, "deprecatedForceDirection", msg);
