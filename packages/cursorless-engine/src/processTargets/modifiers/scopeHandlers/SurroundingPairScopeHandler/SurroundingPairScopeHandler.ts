@@ -8,7 +8,6 @@ import {
 } from "@cursorless/common";
 import type { LanguageDefinitions } from "../../../../languages/LanguageDefinitions";
 import { BaseScopeHandler } from "../BaseScopeHandler";
-import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
 import { compareTargetScopes } from "../compareTargetScopes";
 import { TargetScope } from "../scope.types";
 import { ScopeIteratorRequirements } from "../scopeHandler.types";
