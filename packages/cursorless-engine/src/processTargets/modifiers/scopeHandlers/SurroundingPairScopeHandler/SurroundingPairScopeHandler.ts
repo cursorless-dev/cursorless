@@ -1,14 +1,12 @@
 import {
   Direction,
   Position,
-  Range,
   SurroundingPairScopeType,
   TextEditor,
   showError,
   type ScopeType,
 } from "@cursorless/common";
 import type { LanguageDefinitions } from "../../../../languages/LanguageDefinitions";
-import { SurroundingPairTarget } from "../../../targets";
 import { BaseScopeHandler } from "../BaseScopeHandler";
 import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
 import { compareTargetScopes } from "../compareTargetScopes";
@@ -18,8 +16,9 @@ import { getDelimiterOccurrences } from "./getDelimiterOccurrences";
 import { getDelimiterRegex } from "./getDelimiterRegex";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";
 import { getSurroundingPairOccurrences } from "./getSurroundingPairOccurrences";
-import type { SurroundingPairOccurrence } from "./types";
 import { ide } from "../../../../singletons/ide.singleton";
+import { createTargetScope } from "./createTargetScope";
+import { stronglyContains } from "./stronglyContains";
 
 export class SurroundingPairScopeHandler extends BaseScopeHandler {
   public readonly iterationScopeType;
@@ -134,35 +133,4 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
     }
     return undefined;
   }
-}
-
-function createTargetScope(
-  editor: TextEditor,
-  pair: SurroundingPairOccurrence,
-): TargetScope {
-  const contentRange = new Range(pair.leftStart, pair.rightEnd);
-  const interiorRange = new Range(pair.leftEnd, pair.rightStart);
-  const leftRange = new Range(pair.leftStart, pair.leftEnd);
-  const rightRange = new Range(pair.rightStart, pair.rightEnd);
-
-  return {
-    editor,
-    domain: contentRange,
-    getTargets: (isReversed) => [
-      new SurroundingPairTarget({
-        editor,
-        isReversed,
-        contentRange,
-        interiorRange,
-        boundary: [leftRange, rightRange],
-      }),
-    ],
-  };
-}
-
-function stronglyContains(position: Position, pair: SurroundingPairOccurrence) {
-  return (
-    position.isAfterOrEqual(pair.leftEnd) &&
-    position.isBeforeOrEqual(pair.rightStart)
-  );
 }
