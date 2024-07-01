@@ -32,6 +32,9 @@ export interface IndividualDelimiter {
   isSingleLine: boolean;
 }
 
+/**
+ * A occurrence of a surrounding pair delimiter in the document
+ */
 export interface DelimiterOccurrence {
   delimiter: SimpleSurroundingPairName;
   side: DelimiterSide;
@@ -40,6 +43,9 @@ export interface DelimiterOccurrence {
   end: Position;
 }
 
+/**
+ * A occurrence of a surrounding pair (both delimiters) in the document
+ */
 export interface SurroundingPairOccurrence {
   delimiter: SimpleSurroundingPairName;
   leftStart: Position;
