@@ -7,6 +7,10 @@ export function getDelimiterOccurrences(
   individualDelimiters: IndividualDelimiter[],
   delimiterRegex: RegExp,
 ): DelimiterOccurrence[] {
+  if (individualDelimiters.length === 0) {
+    return [];
+  }
+
   const delimiterTextToDelimiterInfoMap = Object.fromEntries(
     individualDelimiters.map((individualDelimiter) => [
       individualDelimiter.text,

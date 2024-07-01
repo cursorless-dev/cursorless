@@ -41,7 +41,7 @@ function getExpectedScope(scopeSupport: ScopeSupport): ScopeSupportInfo {
     iterationScopeSupport:
       scopeSupport === ScopeSupport.unsupported
         ? ScopeSupport.unsupported
-        : ScopeSupport.supportedLegacy,
+        : ScopeSupport.supportedAndPresentInEditor,
     scopeType: { type: "surroundingPair", delimiter: "parentheses" },
     spokenForm: {
       spokenForms: ["round"],
