@@ -53,9 +53,11 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
 
     if (this.scopeType.forceDirection != null) {
       //  DEPRECATED @ 2024-07-01
-      const msg =
-        "forceDirection not supported. Use 'next pair' or 'previous pair' instead";
-      void showError(ide().messages, "deprecatedForceDirection", msg);
+      void showError(
+        ide().messages,
+        "deprecatedForceDirection",
+        "forceDirection not supported. Use 'next pair' or 'previous pair' instead",
+      );
       return;
     }
 
