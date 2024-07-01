@@ -73,12 +73,14 @@ export interface ScopeHandler {
    * ties.
    * @param scopeA A scope
    * @param scopeB Another scope
+   * @param position The input position
    * @returns A boolean indicating if {@link scopeA} is preferred over
    * {@link scopeB}.  A value of `undefined` indicates no preference.
    */
   isPreferredOver?(
     scopeA: TargetScope,
     scopeB: TargetScope,
+    position: Position,
   ): boolean | undefined;
 
   /**

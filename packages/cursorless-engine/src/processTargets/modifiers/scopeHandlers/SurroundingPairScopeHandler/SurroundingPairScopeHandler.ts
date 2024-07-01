@@ -80,7 +80,7 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
         if (pair.rightEnd.isBefore(position)) {
           return;
         }
-        // In the case of (()|) don't yield the pair to the left
+        // In the case of `(()|)` don't yield the pair to the left
         if (pair.rightEnd.isEqual(position) && hints.skipAncestorScopes) {
           const nextPair = surroundingPairs[i + 1];
           if (nextPair != null && nextPair.rightStart.isEqual(position)) {
@@ -103,6 +103,21 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
     for (const scope of scopes) {
       yield scope;
     }
+  }
+
+  isPreferredOver(
+    scopeA: TargetScope,
+    scopeB: TargetScope,
+    position: Position,
+  ): boolean | undefined {
+    // In the case of `(  [  )|  ]` we prefer the one we're actually touching
+    if (
+      scopeA.domain.end.isEqual(position) &&
+      !scopeB.domain.start.isEqual(position)
+    ) {
+      return true;
+    }
+    return undefined;
   }
 }
 
