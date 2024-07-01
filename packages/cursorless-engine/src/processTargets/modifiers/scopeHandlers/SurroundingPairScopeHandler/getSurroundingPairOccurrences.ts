@@ -1,6 +1,4 @@
-import type { Range, SimpleScopeTypeType } from "@cursorless/common";
-import type { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
-import { findCaptureByName } from "../TreeSitterScopeHandler/captureUtils";
+import type { TargetScope } from "../scope.types";
 import type {
   DelimiterOccurrence,
   IndividualDelimiter,
@@ -8,16 +6,14 @@ import type {
 } from "./types";
 
 export function getSurroundingPairOccurrences(
-  queryMatches: QueryMatch[],
+  disqualifyDelimiters: TargetScope[],
   individualDelimiters: IndividualDelimiter[],
   delimiterOccurrences: DelimiterOccurrence[],
 ): SurroundingPairOccurrence[] {
   const result: SurroundingPairOccurrence[] = [];
 
-  //   const textFragments = getCaptureRanges(queryMatches, "textFragment");
-  const delimitersDisqualifiers = getCaptureRanges(
-    queryMatches,
-    "disqualifyDelimiter",
+  const disqualifiedRanges = disqualifyDelimiters.flatMap(
+    (disqualifyDelimiters) => disqualifyDelimiters.domain,
   );
 
   const openDelimiters = new Map<string, DelimiterOccurrence[]>(
@@ -28,7 +24,7 @@ export function getSurroundingPairOccurrences(
   );
 
   for (const occurrence of delimiterOccurrences) {
-    const occurrenceIsDisqualified = delimitersDisqualifiers.some(
+    const occurrenceIsDisqualified = disqualifiedRanges.some(
       (range) =>
         range.start.isEqual(occurrence.start) &&
         range.end.isEqual(occurrence.end),
@@ -60,7 +56,7 @@ export function getSurroundingPairOccurrences(
         occurrence.isSingleLine &&
         openDelimiter.start.line !== occurrence.start.line
       ) {
-        if (occurrence.side !== "right") {
+        if (occurrence.side === "unknown") {
           openDelimiters.get(occurrence.delimiter)!.push(occurrence);
         }
         continue;
@@ -77,13 +73,4 @@ export function getSurroundingPairOccurrences(
   }
 
   return result;
-}
-
-function getCaptureRanges(
-  queryMatches: QueryMatch[],
-  captureName: SimpleScopeTypeType,
-): Range[] {
-  return queryMatches
-    .map((match) => findCaptureByName(match, captureName)?.range)
-    .filter((capture): capture is Range => capture != null);
 }

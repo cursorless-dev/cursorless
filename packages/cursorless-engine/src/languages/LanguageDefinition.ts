@@ -78,10 +78,6 @@ export class LanguageDefinition {
 
     return new TreeSitterScopeHandler(this.query, scopeType as SimpleScopeType);
   }
-
-  getMatches(document: TextDocument) {
-    return this.query.matches(document);
-  }
 }
 
 /**

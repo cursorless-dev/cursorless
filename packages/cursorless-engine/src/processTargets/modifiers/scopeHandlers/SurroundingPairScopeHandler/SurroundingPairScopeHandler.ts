@@ -62,11 +62,8 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
       delimiterRegex,
     );
 
-    const languageDefinition = this.languageDefinitions.get(this.languageId);
-    const matches = languageDefinition?.getMatches(editor.document) ?? [];
-
     const surroundingPairs = getSurroundingPairOccurrences(
-      matches,
+      this.getDisqualifyDelimiters(editor),
       individualDelimiters,
       delimiterOccurrences,
     );
@@ -103,6 +100,19 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
     for (const scope of scopes) {
       yield scope;
     }
+  }
+
+  private getDisqualifyDelimiters(editor: TextEditor): TargetScope[] {
+    const languageDefinition = this.languageDefinitions.get(this.languageId);
+    const handler = languageDefinition?.getScopeHandler({
+      type: "disqualifyDelimiter",
+    });
+    if (handler == null) {
+      return [];
+    }
+    return Array.from(
+      handler.generateScopes(editor, new Position(0, 0), "forward"),
+    );
   }
 
   isPreferredOver(
