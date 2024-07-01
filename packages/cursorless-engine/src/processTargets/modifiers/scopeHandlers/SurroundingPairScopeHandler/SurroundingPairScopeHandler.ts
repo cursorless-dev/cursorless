@@ -4,6 +4,7 @@ import {
   Range,
   SurroundingPairScopeType,
   TextEditor,
+  showError,
   type ScopeType,
 } from "@cursorless/common";
 import type { LanguageDefinitions } from "../../../../languages/LanguageDefinitions";
@@ -18,6 +19,7 @@ import { getDelimiterRegex } from "./getDelimiterRegex";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";
 import { getSurroundingPairOccurrences } from "./getSurroundingPairOccurrences";
 import type { SurroundingPairOccurrence } from "./types";
+import { ide } from "../../../../singletons/ide.singleton";
 
 export class SurroundingPairScopeHandler extends BaseScopeHandler {
   public readonly iterationScopeType;
@@ -50,10 +52,10 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
     const delimiterRegex = getDelimiterRegex(individualDelimiters);
 
     if (this.scopeType.forceDirection != null) {
-      // TODO: Better handling of this?
-      throw Error(
-        "forceDirection not supported. Use 'next pair' or 'previous pair' instead",
-      );
+      const msg =
+        "forceDirection not supported. Use 'next pair' or 'previous pair' instead";
+      void showError(ide().messages, "deprecatedForceDirection", msg);
+      return;
     }
 
     const delimiterOccurrences = getDelimiterOccurrences(
