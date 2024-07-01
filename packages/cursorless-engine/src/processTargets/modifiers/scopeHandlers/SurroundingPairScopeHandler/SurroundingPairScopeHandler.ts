@@ -146,5 +146,8 @@ function createTargetScope(
 }
 
 function stronglyContains(position: Position, pair: SurroundingPairOccurrence) {
-  return position >= pair.leftEnd && position <= pair.rightStart;
+  return (
+    position.isAfterOrEqual(pair.leftEnd) &&
+    position.isBeforeOrEqual(pair.rightStart)
+  );
 }
