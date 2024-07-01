@@ -12,10 +12,6 @@ export function getSurroundingPairOccurrences(
 ): SurroundingPairOccurrence[] {
   const result: SurroundingPairOccurrence[] = [];
 
-  const disqualifiedRanges = disqualifiedDelimiterScopes.flatMap(
-    (disqualifyDelimiters) => disqualifyDelimiters.domain,
-  );
-
   const openDelimiters = new Map<string, DelimiterOccurrence[]>(
     individualDelimiters.map((individualDelimiter) => [
       individualDelimiter.delimiter,
@@ -24,10 +20,10 @@ export function getSurroundingPairOccurrences(
   );
 
   for (const occurrence of delimiterOccurrences) {
-    const occurrenceIsDisqualified = disqualifiedRanges.some(
-      (range) =>
-        range.start.isEqual(occurrence.start) &&
-        range.end.isEqual(occurrence.end),
+    const occurrenceIsDisqualified = disqualifiedDelimiterScopes.some(
+      (scope) =>
+        scope.domain.start.isEqual(occurrence.start) &&
+        scope.domain.end.isEqual(occurrence.end),
     );
 
     if (occurrenceIsDisqualified) {

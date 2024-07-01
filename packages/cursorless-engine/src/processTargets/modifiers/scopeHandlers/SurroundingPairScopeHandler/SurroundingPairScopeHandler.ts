@@ -120,7 +120,7 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
     scopeB: TargetScope,
     position: Position,
   ): boolean | undefined {
-    // In the case of `(  [  )|  ]` we prefer the one we're actually touching
+    // In the case of `( [ )| ]` we prefer the one we're actually touching
     if (
       scopeA.domain.end.isEqual(position) &&
       !scopeB.domain.start.isEqual(position)
