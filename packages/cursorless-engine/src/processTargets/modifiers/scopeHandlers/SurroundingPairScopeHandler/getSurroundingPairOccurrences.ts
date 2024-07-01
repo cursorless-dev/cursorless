@@ -6,13 +6,13 @@ import type {
 } from "./types";
 
 export function getSurroundingPairOccurrences(
-  disqualifyDelimiters: TargetScope[],
+  disqualifiedDelimiterScopes: TargetScope[],
   individualDelimiters: IndividualDelimiter[],
   delimiterOccurrences: DelimiterOccurrence[],
 ): SurroundingPairOccurrence[] {
   const result: SurroundingPairOccurrence[] = [];
 
-  const disqualifiedRanges = disqualifyDelimiters.flatMap(
+  const disqualifiedRanges = disqualifiedDelimiterScopes.flatMap(
     (disqualifyDelimiters) => disqualifyDelimiters.domain,
   );
 

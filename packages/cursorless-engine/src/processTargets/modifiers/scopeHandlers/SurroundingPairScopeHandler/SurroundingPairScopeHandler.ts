@@ -63,7 +63,7 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
     );
 
     const surroundingPairs = getSurroundingPairOccurrences(
-      this.getDisqualifyDelimiters(editor),
+      this.getDisqualifiedDelimiterScopes(editor),
       individualDelimiters,
       delimiterOccurrences,
     );
@@ -102,7 +102,7 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
     }
   }
 
-  private getDisqualifyDelimiters(editor: TextEditor): TargetScope[] {
+  private getDisqualifiedDelimiterScopes(editor: TextEditor): TargetScope[] {
     const languageDefinition = this.languageDefinitions.get(this.languageId);
     const handler = languageDefinition?.getScopeHandler({
       type: "disqualifyDelimiter",
