@@ -1,4 +1,3 @@
-from contextlib import suppress
 from typing import Any
 
 from talon import Context, Module
@@ -42,5 +41,3 @@ def cursorless_surrounding_pair_scope_type(m) -> dict[str, Any]:
         "type": "surroundingPair",
         "delimiter": delimiter,
     }
-
-

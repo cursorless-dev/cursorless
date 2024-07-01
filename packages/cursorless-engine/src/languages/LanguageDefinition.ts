@@ -3,7 +3,6 @@ import {
   ScopeType,
   SimpleScopeType,
   showError,
-  type TextDocument,
 } from "@cursorless/common";
 import { basename, dirname, join } from "path";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
