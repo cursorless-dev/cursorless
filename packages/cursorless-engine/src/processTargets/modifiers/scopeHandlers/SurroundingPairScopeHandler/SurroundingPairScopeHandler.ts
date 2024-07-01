@@ -25,7 +25,6 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
   protected isHierarchical = true;
 
   constructor(
-    private scopeHandlerFactory: ScopeHandlerFactory,
     private languageDefinitions: LanguageDefinitions,
     public readonly scopeType: SurroundingPairScopeType,
     private languageId: string,
