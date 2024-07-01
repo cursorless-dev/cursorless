@@ -119,3 +119,7 @@
 (method_declaration
   name: (_) @name
 ) @_.domain
+
+(array_element_initializer
+  "=>" @disqualifyDelimiter
+)

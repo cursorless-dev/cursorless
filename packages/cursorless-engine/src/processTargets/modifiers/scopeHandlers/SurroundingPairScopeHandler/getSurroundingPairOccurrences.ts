@@ -22,8 +22,8 @@ export function getSurroundingPairOccurrences(
   for (const occurrence of delimiterOccurrences) {
     const occurrenceIsDisqualified = disqualifiedDelimiterScopes.some(
       (scope) =>
-        scope.domain.start.isEqual(occurrence.start) &&
-        scope.domain.end.isEqual(occurrence.end),
+        scope.domain.contains(occurrence.start) &&
+        scope.domain.contains(occurrence.end),
     );
 
     if (occurrenceIsDisqualified) {
