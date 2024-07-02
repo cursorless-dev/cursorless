@@ -18,14 +18,6 @@ export default async function vscodeOpenLink(
     throw Error("Multiple links found at location");
   }
 
-  if (filteredLinks.length === 0) {
-    const commandId = options?.openInSplit
-      ? "editor.action.revealDefinitionAside"
-      : "editor.action.revealDefinition";
-    await vscode.commands.executeCommand(commandId);
-    return false;
-  }
-
   try {
     await openLink(filteredLinks[0]);
   } catch (err) {
@@ -38,6 +30,15 @@ export default async function vscodeOpenLink(
         : new vscode.Selection(actualLocation, actualLocation),
     ];
     await editor.focus();
+
+    if (filteredLinks.length === 0) {
+      const commandId = options?.openInSplit
+        ? "editor.action.revealDefinitionAside"
+        : "editor.action.revealDefinition";
+
+      await vscode.commands.executeCommand(commandId);
+      return false;
+    }
 
     // Run the open link command
     await vscode.commands.executeCommand("editor.action.openLink");
