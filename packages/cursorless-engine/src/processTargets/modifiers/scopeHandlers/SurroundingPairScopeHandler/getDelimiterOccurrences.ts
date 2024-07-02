@@ -1,8 +1,11 @@
 import type { TextDocument } from "@cursorless/common";
+import type { LanguageDefinition } from "../../../../languages/LanguageDefinition";
 import { matchAll } from "../../../../util/regex";
+import { getCaptureRanges } from "./getCaptureRanges";
 import type { DelimiterOccurrence, IndividualDelimiter } from "./types";
 
 export function getDelimiterOccurrences(
+  languageDefinition: LanguageDefinition | undefined,
   document: TextDocument,
   individualDelimiters: IndividualDelimiter[],
   delimiterRegex: RegExp,
@@ -10,6 +13,13 @@ export function getDelimiterOccurrences(
   if (individualDelimiters.length === 0) {
     return [];
   }
+
+  const queryMatches = languageDefinition?.getMatches(document) ?? [];
+  const disqualifyDelimiters = getCaptureRanges(
+    queryMatches,
+    "disqualifyDelimiter",
+  );
+  const textFragments = getCaptureRanges(queryMatches, "textFragment");
 
   const delimiterTextToDelimiterInfoMap = Object.fromEntries(
     individualDelimiters.map((individualDelimiter) => [
@@ -22,16 +32,26 @@ export function getDelimiterOccurrences(
 
   return matchAll(text, delimiterRegex, (match): DelimiterOccurrence => {
     const text = match[0];
-    const start = match.index!;
-    const end = start + text.length;
+    const startOffset = match.index!;
+    const endOffset = startOffset + text.length;
+    const start = document.positionAt(startOffset);
+    const end = document.positionAt(endOffset);
+    const isDisqualified = disqualifyDelimiters.some(
+      (range) => range.contains(start) && range.contains(end),
+    );
+    const textFragment = textFragments.find(
+      (range) => range.contains(start) && range.contains(end),
+    );
     const { delimiter, side, isSingleLine } =
       delimiterTextToDelimiterInfoMap[text];
     return {
       delimiter,
       side,
       isSingleLine,
-      start: document.positionAt(start),
-      end: document.positionAt(end),
+      isDisqualified,
+      textFragment,
+      start,
+      end,
     };
   });
 }

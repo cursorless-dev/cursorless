@@ -1,4 +1,3 @@
-import type { TargetScope } from "../scope.types";
 import type {
   DelimiterOccurrence,
   IndividualDelimiter,
@@ -6,7 +5,6 @@ import type {
 } from "./types";
 
 export function getSurroundingPairOccurrences(
-  disqualifiedDelimiterScopes: TargetScope[],
   individualDelimiters: IndividualDelimiter[],
   delimiterOccurrences: DelimiterOccurrence[],
 ): SurroundingPairOccurrence[] {
@@ -20,13 +18,7 @@ export function getSurroundingPairOccurrences(
   );
 
   for (const occurrence of delimiterOccurrences) {
-    const occurrenceIsDisqualified = disqualifiedDelimiterScopes.some(
-      (scope) =>
-        scope.domain.contains(occurrence.start) &&
-        scope.domain.contains(occurrence.end),
-    );
-
-    if (occurrenceIsDisqualified) {
+    if (occurrence.isDisqualified) {
       continue;
     }
 
@@ -51,6 +43,35 @@ export function getSurroundingPairOccurrences(
       if (
         occurrence.isSingleLine &&
         openDelimiter.start.line !== occurrence.start.line
+      ) {
+        if (occurrence.side === "unknown") {
+          openDelimiters.get(occurrence.delimiter)!.push(occurrence);
+        }
+        continue;
+      }
+
+      if (
+        occurrence.textFragment != null &&
+        openDelimiter.textFragment != null
+      ) {
+        if (!occurrence.textFragment.isRangeEqual(openDelimiter.textFragment)) {
+          if (occurrence.side === "unknown") {
+            openDelimiters.get(occurrence.delimiter)!.push(occurrence);
+          }
+          continue;
+        }
+      } else if (
+        occurrence.textFragment == null &&
+        openDelimiter.textFragment != null
+      ) {
+        openDelimiters.get(occurrence.delimiter)!.push(openDelimiter);
+        if (occurrence.side === "unknown") {
+          openDelimiters.get(occurrence.delimiter)!.push(occurrence);
+        }
+        continue;
+      } else if (
+        occurrence.textFragment != null &&
+        openDelimiter.textFragment == null
       ) {
         if (occurrence.side === "unknown") {
           openDelimiters.get(occurrence.delimiter)!.push(occurrence);
