@@ -62,11 +62,7 @@ export function allocateHats(
    * Lookup tables with information about which graphemes / hats appear in which
    * tokens
    */
-  const context = getHatRankingContext(
-    rankedTokens,
-    tokenOldHatMap,
-    tokenGraphemeSplitter,
-  );
+  const context = getHatRankingContext(rankedTokens, tokenOldHatMap);
 
   /* All initially enabled hat styles. */
   const enabledHatStyleNames = Object.keys(enabledHatStyles);
@@ -83,10 +79,25 @@ export function allocateHats(
     () => [...enabledHatStyleNames],
   );
 
+  // For every token, add that token's score to all the graphemes in the token.
+  // TODO: move "graphemes for tokens" into getRankedTokens
+  // to avoid recalculating it every time.
+  const graphemePopularity = new DefaultMap<string, number>(() => 0);
+  rankedTokens.forEach(({ token }) => {
+    tokenGraphemeSplitter
+      .getTokenGraphemes(token.text)
+      .forEach(({ text: graphemeText }) => {
+        graphemePopularity.set(
+          graphemeText,
+          graphemePopularity.get(graphemeText) + 1,
+        );
+      });
+  });
+
   // Iterate through tokens in order of decreasing rank, assigning each one a
   // hat
   return rankedTokens
-    .map<TokenHat | undefined>(({ token, rank: tokenRank }) => {
+    .map<TokenHat | undefined>(({ token }) => {
       /**
        * All hats for the graphemes in this token that weren't taken by a
        * higher ranked token
@@ -101,10 +112,20 @@ export function allocateHats(
       const chosenHat = chooseTokenHat(
         context,
         hatStability,
-        tokenRank,
         tokenOldHatMap.get(token),
+        graphemePopularity,
         tokenRemainingHatCandidates,
       );
+
+      // Remove the token from the grapheme popularity contest.
+      tokenGraphemeSplitter
+        .getTokenGraphemes(token.text)
+        .forEach(({ text: graphemeText }) => {
+          graphemePopularity.set(
+            graphemeText,
+            graphemePopularity.get(graphemeText) - 1,
+          );
+        });
 
       // If there are no hats left for the graphemes in this token, the token
       // will get no hat
