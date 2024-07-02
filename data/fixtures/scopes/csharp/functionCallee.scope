@@ -1,0 +1,13 @@
+moto.StartEngine();
+---
+
+[Content] =
+[Removal] = 0:0-0:16
+  >----------------<
+0| moto.StartEngine();
+
+[Domain] = 0:0-0:18
+  >------------------<
+0| moto.StartEngine();
+
+[Insertion delimiter] = " "

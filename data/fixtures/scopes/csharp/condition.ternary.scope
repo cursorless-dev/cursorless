@@ -1,0 +1,20 @@
+1 < 5 ? foo : bar;
+---
+
+[Content] = 0:0-0:5
+  >-----<
+0| 1 < 5 ? foo : bar;
+
+[Removal] = 0:0-0:6
+  >------<
+0| 1 < 5 ? foo : bar;
+
+[Trailing delimiter] = 0:5-0:6
+       >-<
+0| 1 < 5 ? foo : bar;
+
+[Domain] = 0:0-0:17
+  >-----------------<
+0| 1 < 5 ? foo : bar;
+
+[Insertion delimiter] = " "
