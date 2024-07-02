@@ -1,0 +1,33 @@
+languageId: kotlin
+command:
+  version: 7
+  spokenForm: change funk
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: namedFunction}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    class Test(x: Int, y: Int) {
+      constructor() : this(0, 0)
+
+      fun a() {}
+    }
+  selections:
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 11}
+  marks: {}
+finalState:
+  documentContents: |-
+    class Test(x: Int, y: Int) {
+      
+
+      fun a() {}
+    }
+  selections:
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}

@@ -1,0 +1,43 @@
+languageId: kotlin
+command:
+  version: 7
+  spokenForm: change condition
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: condition}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    // while loops
+    fun main() {
+        print("test")
+        while (false) {
+            print("while")
+        }
+        do {
+            print("do")
+        } while (false)
+    }
+  selections:
+    - anchor: {line: 4, character: 8}
+      active: {line: 4, character: 8}
+  marks: {}
+finalState:
+  documentContents: |
+    // while loops
+    fun main() {
+        print("test")
+        while () {
+            print("while")
+        }
+        do {
+            print("do")
+        } while (false)
+    }
+  selections:
+    - anchor: {line: 3, character: 11}
+      active: {line: 3, character: 11}

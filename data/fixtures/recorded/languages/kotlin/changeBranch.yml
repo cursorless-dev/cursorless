@@ -1,0 +1,55 @@
+languageId: kotlin
+command:
+  version: 7
+  spokenForm: change branch
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: branch}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    class Test {
+        fun main() {
+            val f = fun(i: Int, j: Int) { i + j }
+            val s = f(1, 2)
+            when (s) {
+                1 -> print("x == 1")
+                2 -> print("x == 2")
+                else -> {
+                    print("x is neither 1 nor 2")
+                }
+            }
+            if (true) {
+                return;
+            }
+        }
+    }
+  selections:
+    - anchor: {line: 5, character: 20}
+      active: {line: 5, character: 20}
+  marks: {}
+finalState:
+  documentContents: |-
+    class Test {
+        fun main() {
+            val f = fun(i: Int, j: Int) { i + j }
+            val s = f(1, 2)
+            when (s) {
+                
+                2 -> print("x == 2")
+                else -> {
+                    print("x is neither 1 nor 2")
+                }
+            }
+            if (true) {
+                return;
+            }
+        }
+    }
+  selections:
+    - anchor: {line: 5, character: 12}
+      active: {line: 5, character: 12}

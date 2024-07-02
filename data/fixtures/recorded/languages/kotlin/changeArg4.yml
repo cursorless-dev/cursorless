@@ -1,0 +1,33 @@
+languageId: kotlin
+command:
+  version: 7
+  spokenForm: change arg
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    enum class Color(val hex: String) {
+        RED("#FF0000"),
+        GREEN("#00FF00"),
+        BLUE("#0000FF")
+    }
+  selections:
+    - anchor: {line: 1, character: 8}
+      active: {line: 1, character: 8}
+  marks: {}
+finalState:
+  documentContents: |-
+    enum class Color(val hex: String) {
+        RED(),
+        GREEN("#00FF00"),
+        BLUE("#0000FF")
+    }
+  selections:
+    - anchor: {line: 1, character: 8}
+      active: {line: 1, character: 8}

@@ -1,0 +1,23 @@
+languageId: kotlin
+command:
+  version: 7
+  spokenForm: change type
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: typealias Predicate<T> = (T) -> Boolean
+  selections:
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
+  marks: {}
+finalState:
+  documentContents: "typealias Predicate<T> = "
+  selections:
+    - anchor: {line: 0, character: 25}
+      active: {line: 0, character: 25}

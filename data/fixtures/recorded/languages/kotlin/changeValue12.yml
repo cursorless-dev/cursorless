@@ -1,0 +1,37 @@
+languageId: kotlin
+command:
+  version: 7
+  spokenForm: change value
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    fun display(name: String, age: Int) {
+        println("Name: $name, Age: $age")
+    }
+
+    fun main() {
+        display(name = "Alice", age = 25)
+    }
+  selections:
+    - anchor: {line: 5, character: 12}
+      active: {line: 5, character: 12}
+  marks: {}
+finalState:
+  documentContents: |
+    fun display(name: String, age: Int) {
+        println("Name: $name, Age: $age")
+    }
+
+    fun main() {
+        display(name = , age = 25)
+    }
+  selections:
+    - anchor: {line: 5, character: 19}
+      active: {line: 5, character: 19}

@@ -1,0 +1,29 @@
+languageId: kotlin
+command:
+  version: 7
+  spokenForm: change name
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    fun add(a: Int, b: Int) {
+        return a + b;
+    }
+  selections:
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 12}
+  marks: {}
+finalState:
+  documentContents: |-
+    fun add(: Int, b: Int) {
+        return a + b;
+    }
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

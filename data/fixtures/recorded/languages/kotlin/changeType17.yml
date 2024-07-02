@@ -1,0 +1,37 @@
+languageId: kotlin
+command:
+  version: 7
+  spokenForm: change type
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    fun main() {
+        val x = 5
+        when (val result: Int = x * 2) {
+            10 -> println("Ten")
+            else -> println("Not ten")
+        }
+    }
+  selections:
+    - anchor: {line: 2, character: 33}
+      active: {line: 2, character: 33}
+  marks: {}
+finalState:
+  documentContents: |-
+    fun main() {
+        val x = 5
+        when (val result:  = x * 2) {
+            10 -> println("Ten")
+            else -> println("Not ten")
+        }
+    }
+  selections:
+    - anchor: {line: 2, character: 22}
+      active: {line: 2, character: 22}

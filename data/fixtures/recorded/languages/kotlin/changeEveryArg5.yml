@@ -1,0 +1,25 @@
+languageId: kotlin
+command:
+  version: 7
+  spokenForm: change every arg
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "val lambda = { x: Int, y: Int -> x * y }"
+  selections:
+    - anchor: {line: 0, character: 34}
+      active: {line: 0, character: 34}
+  marks: {}
+finalState:
+  documentContents: val lambda = { ,  -> x * y }
+  selections:
+    - anchor: {line: 0, character: 15}
+      active: {line: 0, character: 15}
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}

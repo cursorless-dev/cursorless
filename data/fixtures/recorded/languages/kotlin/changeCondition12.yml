@@ -1,0 +1,43 @@
+languageId: kotlin
+command:
+  version: 7
+  spokenForm: change condition
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: condition}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    fun describeColor(color: String): String {
+        return when (color) {
+            "red", "blue", "green" -> "Primary color"
+            "yellow", "orange" -> "Secondary color"
+            "black", "white" -> "Neutral color"
+            else -> "Unknown color"
+        }
+    }
+  selections:
+    - anchor: {line: 2, character: 49}
+      active: {line: 2, character: 49}
+  marks: {}
+finalState:
+  documentContents: |-
+    fun describeColor(color: String): String {
+        return when (color) {
+            , ,  -> "Primary color"
+            "yellow", "orange" -> "Secondary color"
+            "black", "white" -> "Neutral color"
+            else -> "Unknown color"
+        }
+    }
+  selections:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
+    - anchor: {line: 2, character: 10}
+      active: {line: 2, character: 10}
+    - anchor: {line: 2, character: 12}
+      active: {line: 2, character: 12}

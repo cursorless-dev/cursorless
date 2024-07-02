@@ -1,0 +1,29 @@
+languageId: kotlin
+command:
+  version: 7
+  spokenForm: change type
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    fun greet(name: String) {
+        println("Hello, $name!")
+    }
+  selections:
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}
+  marks: {}
+finalState:
+  documentContents: |
+    fun greet(name: ) {
+        println("Hello, $name!")
+    }
+  selections:
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 16}
