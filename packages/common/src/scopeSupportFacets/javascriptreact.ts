@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 import { javascriptScopeSupport } from "./javascript";
 import {
   LanguageScopeSupportFacetMap,
