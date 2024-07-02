@@ -1,4 +1,4 @@
-import { FlashStyle } from "@cursorless/common";
+import { FlashStyle, OpenLinkOptions } from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import {
@@ -6,14 +6,10 @@ import {
   ensureSingleTarget,
   flashTargets,
 } from "../util/targetUtils";
-import { Actions } from "./Actions";
-import { SimpleAction, ActionReturnValue } from "./actions.types";
+import { ActionReturnValue, SimpleAction } from "./actions.types";
 
 export default class FollowLink implements SimpleAction {
-  constructor(
-    private actions: Actions,
-    private options: { openInSplit: boolean },
-  ) {
+  constructor(private options: OpenLinkOptions) {
     this.run = this.run.bind(this);
   }
 
