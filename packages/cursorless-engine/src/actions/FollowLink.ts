@@ -13,10 +13,10 @@ export default class FollowLink implements SimpleAction {
   openInSplit = false;
   constructor(
     private actions: Actions,
-    { openInSplit }: { openInSplit: boolean },
+    private options: { openInSplit: boolean },
   ) {
     this.run = this.run.bind(this);
-    this.openInSplit = openInSplit;
+    this.options = options;
   }
 
   async run(targets: Target[]): Promise<ActionReturnValue> {
@@ -26,7 +26,7 @@ export default class FollowLink implements SimpleAction {
 
     const openedLink = await ide()
       .getEditableTextEditor(target.editor)
-      .openLink(target.contentRange, { openInSplit: this.openInSplit });
+      .openLink(target.contentRange, this.options);
 
     return {
       thatSelections: createThatMark(targets),
