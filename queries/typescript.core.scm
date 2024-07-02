@@ -5,7 +5,7 @@
 ;; import javascript.core.scm
 
 ;;!! function aaa(bbb = "ddd") {}
-;;!               ^^^-------------
+;;!               ^^^--------
 (required_parameter
   (identifier) @_.leading.endOf
   value: (_) @value
@@ -20,7 +20,7 @@
 ) @_.domain
 
 ;;!! function aaa(bbb?: Ccc = "ddd") {}
-;;!               ^^^-------------
+;;!               ^^^--------------
 (optional_parameter
   type: (_) @_.leading.endOf
   value: (_) @value
