@@ -95,4 +95,5 @@ export abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
 
 export interface ExtendedTargetScope extends TargetScope {
   allowMultiple: boolean;
+  contiguous: boolean;
 }

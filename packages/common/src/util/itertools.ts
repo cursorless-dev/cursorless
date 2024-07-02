@@ -65,3 +65,17 @@ export function isEmptyIterable(iterable: Iterable<unknown>): boolean {
 
   return true;
 }
+
+/**
+ * Returns the first element of the given iterable, or `undefined` if the
+ * iterable is empty
+ * @param iterable The iterable to get the first element of
+ * @returns The first element of the iterable, or `undefined` if the iterable
+ * is empty
+ */
+export function next<T>(generator: Iterable<T>): T | undefined {
+  for (const value of generator) {
+    return value;
+  }
+  return undefined;
+}
