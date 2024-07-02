@@ -4,19 +4,38 @@
 
 ;; import javascript.core.scm
 
-;;!! function aaa(bbb?: Ccc = "ddd") {}
-;;!               ^^^--------------
-(optional_parameter
-  (identifier) @name
-  type: (_)? @value.leading.endOf
-  value: (_)? @value
+;;!! function aaa(bbb = "ddd") {}
+;;!               ^^^-------------
+(required_parameter
+  (identifier) @_.leading.endOf
+  value: (_) @value
+  !type
 ) @_.domain
 
 ;;!! function aaa(bbb: Ccc = "ddd") {}
 ;;!               ^^^-------------
 (required_parameter
-  (identifier) @name @value.leading.endOf
-  value: (_)? @value
+  type: (_) @_.leading.endOf
+  value: (_) @value
+) @_.domain
+
+;;!! function aaa(bbb?: Ccc = "ddd") {}
+;;!               ^^^-------------
+(optional_parameter
+  type: (_) @_.leading.endOf
+  value: (_) @value
+) @_.domain
+
+;;!! function aaa(bbb: Ccc = "ddd") {}
+;;!               ^^^-------------
+(required_parameter
+  (identifier) @name
+) @_.domain
+
+;;!! function aaa(bbb?: Ccc) {}
+;;!               ^^^------
+(optional_parameter
+  (identifier) @name
 ) @_.domain
 
 ;; Define these here because these node types don't exist in javascript.
