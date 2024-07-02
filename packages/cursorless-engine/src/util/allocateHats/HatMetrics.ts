@@ -15,6 +15,12 @@ export type HatMetric = (hat: HatCandidate) => number;
 export const negativePenalty: HatMetric = ({ penalty }) => -penalty;
 
 /**
+ * @returns A metric that penalizes graphemes that are the first letter of a word within a token
+ */
+export const avoidFirstLetter: HatMetric = ({ isFirstLetter }) =>
+  isFirstLetter ? -1 : 0;
+
+/**
  * @param hatOldTokenRanks A map from a hat candidate (grapheme+style combination) to the score of the
  * token that used the given hat in the previous hat allocation.
  * @returns A metric that returns Infinity if the hat candidate is not in use in

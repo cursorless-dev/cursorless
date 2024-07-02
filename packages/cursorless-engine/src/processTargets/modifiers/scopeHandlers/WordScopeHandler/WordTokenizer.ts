@@ -4,10 +4,8 @@ import { matchText } from "../../../../util/regex";
 const CAMEL_REGEX = /\p{Lu}?\p{Ll}+|\p{Lu}+(?!\p{Ll})|\p{N}+/gu;
 
 /**
- * This class just encapsulates the word-splitting logic from
- * {@link WordScopeHandler}.  We could probably just inline it into that class,
- * but for now we need it here because we can't yet properly mock away vscode
- * for the unit tests in subtoken.test.ts.
+ * This class encapsulates word-splitting logic.
+ * It is used by the {@link WordScopeHandler} and the hat allocator.
  */
 export class WordTokenizer {
   private wordRegex: RegExp;

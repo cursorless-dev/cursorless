@@ -9,6 +9,7 @@ import {
   Token,
   TokenHat,
 } from "@cursorless/common";
+import { WordTokenizer } from "../../processTargets/modifiers/scopeHandlers/WordScopeHandler/WordTokenizer";
 import { Grapheme, TokenGraphemeSplitter } from "../../tokenGraphemeSplitter";
 import { chooseTokenHat } from "./chooseTokenHat";
 import { getHatRankingContext } from "./getHatRankingContext";
@@ -18,6 +19,7 @@ export interface HatCandidate {
   grapheme: Grapheme;
   style: HatStyleName;
   penalty: number;
+  isFirstLetter: boolean;
 }
 
 /**
@@ -149,6 +151,10 @@ function getTokenRemainingHatCandidates(
   // Use iteration here instead of functional constructs,
   // because this is a hot path and we want to avoid allocating arrays
   // and calling tiny functions lots of times.
+  const words = new WordTokenizer(
+    token.editor.document.languageId,
+  ).splitIdentifier(token.text);
+  const firstLetters = new Set<number>(words.map((word) => word.index));
   const candidates: HatCandidate[] = [];
   const graphemes = tokenGraphemeSplitter.getTokenGraphemes(token.text);
   for (const grapheme of graphemes) {
@@ -160,6 +166,7 @@ function getTokenRemainingHatCandidates(
         grapheme,
         style,
         penalty: enabledHatStyles[style].penalty,
+        isFirstLetter: firstLetters.has(grapheme.tokenStartOffset),
       });
     }
   }
