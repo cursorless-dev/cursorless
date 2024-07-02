@@ -1,0 +1,13 @@
+def for(name: str, value: int):
+    pass
+---
+
+[Range] = 0:8-0:29
+          >---------------------<
+0| def for(name: str, value: int):
+
+[Domain] = 0:0-1:8
+  >-------------------------------
+0| def for(name: str, value: int):
+1|     pass
+   --------<
