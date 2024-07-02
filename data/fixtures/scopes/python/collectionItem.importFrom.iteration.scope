@@ -1,0 +1,10 @@
+from foo import bar, baz
+---
+
+[Range] = 0:16-0:24
+                  >--------<
+0| from foo import bar, baz
+
+[Domain] = 0:0-0:24
+  >------------------------<
+0| from foo import bar, baz

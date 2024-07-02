@@ -85,6 +85,13 @@ const scopeSupportFacets = [
   "branch.ternary",
   "branch.loop",
 
+  "collectionItem.import",
+  "collectionItem.import.iteration",
+  "collectionItem.importFrom",
+  "collectionItem.importFrom.iteration",
+  "collectionItem.globalVariablesDeclaration",
+  "collectionItem.globalVariablesDeclaration.iteration",
+
   "condition.if",
   "condition.while",
   "condition.doWhile",

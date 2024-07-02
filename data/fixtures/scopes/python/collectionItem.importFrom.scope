@@ -1,0 +1,17 @@
+from foo import bar
+---
+
+[Content] =
+[Domain] = 0:16-0:19
+                  >---<
+0| from foo import bar
+
+[Removal] = 0:15-0:19
+                 >----<
+0| from foo import bar
+
+[Leading delimiter] = 0:15-0:16
+                 >-<
+0| from foo import bar
+
+[Insertion delimiter] = ", "
