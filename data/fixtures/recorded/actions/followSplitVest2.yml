@@ -1,0 +1,35 @@
+languageId: typescript
+command:
+  version: 7
+  spokenForm: follow split vest
+  action:
+    name: followLinkAside
+    target:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: v}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    const value = "value";
+    console.log(value);
+  selections:
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 15}
+  marks:
+    default.v:
+      start: {line: 1, character: 12}
+      end: {line: 1, character: 17}
+finalState:
+  documentContents: |-
+    const value = "value";
+    console.log(value);
+  selections:
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 17}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 1, character: 12}
+        end: {line: 1, character: 17}
+      isReversed: false
+      hasExplicitRange: true
