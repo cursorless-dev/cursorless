@@ -5,7 +5,7 @@ import { OpenLinkOptions } from "../../../../common/src/types/TextEditor";
 export default async function vscodeOpenLink(
   editor: VscodeTextEditorImpl,
   location: vscode.Position | vscode.Range | undefined,
-  options: OpenLinkOptions,
+  options?: OpenLinkOptions,
 ): Promise<boolean> {
   const rawEditor = editor.vscodeEditor;
   const links = await getLinksForEditor(rawEditor);
@@ -19,7 +19,7 @@ export default async function vscodeOpenLink(
   }
 
   if (filteredLinks.length === 0) {
-    let commandId = options.openInSplit
+    let commandId = options?.openInSplit
       ? "editor.action.revealDefinitionAside"
       : "editor.action.revealDefinition";
     await vscode.commands.executeCommand(commandId);
