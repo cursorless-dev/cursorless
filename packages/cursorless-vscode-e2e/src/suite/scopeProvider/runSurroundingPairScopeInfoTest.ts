@@ -1,7 +1,7 @@
 import { ScopeSupport, ScopeSupportInfo } from "@cursorless/common";
 import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
 import * as sinon from "sinon";
-import { commands } from "vscode";
+import { Position, commands } from "vscode";
 import { assertCalledWithScopeInfo } from "./assertCalledWithScopeInfo";
 
 /**
@@ -19,8 +19,13 @@ export async function runSurroundingPairScopeInfoTest() {
   try {
     await assertCalledWithScopeInfo(fake, unsupported);
 
-    await openNewEditor("");
-    await assertCalledWithScopeInfo(fake, legacy);
+    const editor = await openNewEditor("");
+    await assertCalledWithScopeInfo(fake, supported);
+
+    await editor.edit((editBuilder) => {
+      editBuilder.insert(new Position(0, 0), "()");
+    });
+    await assertCalledWithScopeInfo(fake, present);
 
     await commands.executeCommand("workbench.action.closeAllEditors");
     await assertCalledWithScopeInfo(fake, unsupported);
@@ -36,7 +41,7 @@ function getExpectedScope(scopeSupport: ScopeSupport): ScopeSupportInfo {
     iterationScopeSupport:
       scopeSupport === ScopeSupport.unsupported
         ? ScopeSupport.unsupported
-        : ScopeSupport.supportedLegacy,
+        : ScopeSupport.supportedAndPresentInEditor,
     scopeType: { type: "surroundingPair", delimiter: "parentheses" },
     spokenForm: {
       spokenForms: ["round"],
@@ -47,4 +52,5 @@ function getExpectedScope(scopeSupport: ScopeSupport): ScopeSupportInfo {
 }
 
 const unsupported = getExpectedScope(ScopeSupport.unsupported);
-const legacy = getExpectedScope(ScopeSupport.supportedLegacy);
+const supported = getExpectedScope(ScopeSupport.supportedButNotPresentInEditor);
+const present = getExpectedScope(ScopeSupport.supportedAndPresentInEditor);

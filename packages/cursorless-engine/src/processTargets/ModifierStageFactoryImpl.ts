@@ -2,7 +2,6 @@ import {
   ContainingScopeModifier,
   EveryScopeModifier,
   Modifier,
-  SurroundingPairModifier,
 } from "@cursorless/common";
 import { StoredTargetMap } from "../core/StoredTargets";
 import { LanguageDefinitions } from "../languages/LanguageDefinitions";
@@ -29,7 +28,6 @@ import { EndOfStage, StartOfStage } from "./modifiers/PositionStage";
 import { RangeModifierStage } from "./modifiers/RangeModifierStage";
 import { RawSelectionStage } from "./modifiers/RawSelectionStage";
 import { RelativeScopeStage } from "./modifiers/RelativeScopeStage";
-import { SurroundingPairStage } from "./modifiers/SurroundingPairStage";
 import { VisibleStage } from "./modifiers/VisibleStage";
 import { ScopeHandlerFactory } from "./modifiers/scopeHandlers/ScopeHandlerFactory";
 import { BoundedNonWhitespaceSequenceStage } from "./modifiers/scopeTypeStages/BoundedNonWhitespaceStage";
@@ -80,19 +78,16 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
         if (modifier.scopeType.type === "instance") {
           return new InstanceStage(this, this.storedTargets, modifier);
         }
-
         return new EveryScopeStage(this, this.scopeHandlerFactory, modifier);
       case "ordinalScope":
         if (modifier.scopeType.type === "instance") {
           return new InstanceStage(this, this.storedTargets, modifier);
         }
-
         return new OrdinalScopeStage(this, modifier);
       case "relativeScope":
         if (modifier.scopeType.type === "instance") {
           return new InstanceStage(this, this.storedTargets, modifier);
         }
-
         return new RelativeScopeStage(this, this.scopeHandlerFactory, modifier);
       case "keepContentFilter":
         return new KeepContentFilterStage(modifier);
@@ -137,12 +132,7 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
           modifier,
         );
       case "collectionItem":
-        return new ItemStage(this.languageDefinitions, modifier);
-      case "surroundingPair":
-        return new SurroundingPairStage(
-          this.languageDefinitions,
-          modifier as SurroundingPairModifier,
-        );
+        return new ItemStage(this.languageDefinitions, this, modifier);
       default:
         // Default to containing syntax scope using tree sitter
         return new LegacyContainingSyntaxScopeStage(

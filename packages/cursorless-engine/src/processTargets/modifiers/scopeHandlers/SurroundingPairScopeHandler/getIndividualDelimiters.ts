@@ -1,7 +1,22 @@
-import { SimpleSurroundingPairName, isString } from "@cursorless/common";
+import {
+  SimpleSurroundingPairName,
+  isString,
+  type ComplexSurroundingPairName,
+  type SurroundingPairName,
+} from "@cursorless/common";
 import { IndividualDelimiter } from "./types";
-import { getSimpleDelimiterMap } from "./delimiterMaps";
+import { complexDelimiterMap, getSimpleDelimiterMap } from "./delimiterMaps";
 import { concat, uniq } from "lodash";
+
+export function getIndividualDelimiters(
+  delimiter: SurroundingPairName,
+  languageId: string,
+) {
+  const delimiters = complexDelimiterMap[
+    delimiter as ComplexSurroundingPairName
+  ] ?? [delimiter];
+  return getSimpleIndividualDelimiters(languageId, delimiters);
+}
 
 /**
  * Given a list of delimiters, returns a list where each element corresponds to
@@ -13,13 +28,14 @@ import { concat, uniq } from "lodash";
  * @returns A list of information about all possible left / right delimiter
  * instances
  */
-export function getIndividualDelimiters(
+function getSimpleIndividualDelimiters(
   languageId: string | undefined,
   delimiters: SimpleSurroundingPairName[],
 ): IndividualDelimiter[] {
   const delimiterToText = getSimpleDelimiterMap(languageId);
   return delimiters.flatMap((delimiter) => {
-    const [leftDelimiter, rightDelimiter] = delimiterToText[delimiter];
+    const [leftDelimiter, rightDelimiter, isSingleLine] =
+      delimiterToText[delimiter];
 
     // Allow for the fact that a delimiter might have multiple ways to indicate
     // its opening / closing
@@ -47,6 +63,7 @@ export function getIndividualDelimiters(
               ? "right"
               : "unknown",
         delimiter,
+        isSingleLine: isSingleLine ?? false,
       };
     });
   });

@@ -113,11 +113,13 @@ export const simpleSurroundingPairNames = [
   "doubleQuotes",
   "escapedDoubleQuotes",
   "escapedParentheses",
-  "escapedSquareBrackets",
   "escapedSingleQuotes",
+  "escapedSquareBrackets",
   "parentheses",
   "singleQuotes",
   "squareBrackets",
+  "tripleDoubleQuotes",
+  "tripleSingleQuotes",
 ] as const;
 export const complexSurroundingPairNames = [
   "string",
@@ -201,6 +203,7 @@ export const simpleScopeTypeTypes = [
   "command",
   // Private scope types
   "textFragment",
+  "disqualifyDelimiter",
 ] as const;
 
 export function isSimpleScopeType(

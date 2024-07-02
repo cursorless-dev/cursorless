@@ -2,13 +2,14 @@ import {
   ComplexSurroundingPairName,
   SimpleSurroundingPairName,
 } from "@cursorless/common";
-import { unsafeKeys } from "../../../util/object";
+import { unsafeKeys } from "../../../../util/object";
 
 type IndividualDelimiterText = string | string[];
 
 type DelimiterMap = Record<
   SimpleSurroundingPairName,
-  [IndividualDelimiterText, IndividualDelimiterText]
+  | [IndividualDelimiterText, IndividualDelimiterText]
+  | [IndividualDelimiterText, IndividualDelimiterText, boolean]
 >;
 
 const delimiterToText: DelimiterMap = Object.freeze({
@@ -18,13 +19,15 @@ const delimiterToText: DelimiterMap = Object.freeze({
   ],
   backtickQuotes: ["`", "`"],
   curlyBrackets: [["{", "${"], "}"],
-  doubleQuotes: ['"', '"'],
-  escapedDoubleQuotes: ['\\"', '\\"'],
+  tripleDoubleQuotes: [[], []],
+  tripleSingleQuotes: [[], []],
+  doubleQuotes: ['"', '"', true],
+  escapedDoubleQuotes: ['\\"', '\\"', true],
   escapedParentheses: ["\\(", "\\)"],
   escapedSquareBrackets: ["\\[", "\\]"],
-  escapedSingleQuotes: ["\\'", "\\'"],
+  escapedSingleQuotes: ["\\'", "\\'", true],
   parentheses: [["(", "$("], ")"],
-  singleQuotes: ["'", "'"],
+  singleQuotes: ["'", "'", true],
   squareBrackets: ["[", "]"],
 });
 
@@ -46,11 +49,9 @@ const delimiterToTextOverrides: Record<string, Partial<DelimiterMap>> = {
   },
 
   python: {
-    // FIXME: We technically can't distinguish between single and double quotes
-    // now, but we'll revisit all this; see
-    // https://github.com/cursorless-dev/cursorless/issues/1812#issuecomment-1691493746
-    singleQuotes: ["string_start", "string_end"],
-    doubleQuotes: ["string_start", "string_end"],
+    doubleQuotes: [['"', 'f"'], '"', true],
+    tripleDoubleQuotes: [['"""', 'f"""'], '"""'],
+    tripleSingleQuotes: [["'''", "f'''"], "'''"],
   },
 };
 
@@ -67,7 +68,13 @@ export const complexDelimiterMap: Record<
   SimpleSurroundingPairName[]
 > = {
   any: unsafeKeys(delimiterToText),
-  string: ["singleQuotes", "doubleQuotes", "backtickQuotes"],
+  string: [
+    "tripleDoubleQuotes",
+    "tripleSingleQuotes",
+    "doubleQuotes",
+    "singleQuotes",
+    "backtickQuotes",
+  ],
   collectionBoundary: [
     "parentheses",
     "squareBrackets",
@@ -96,7 +103,8 @@ export function getSimpleDelimiterMap(
   languageId: string | undefined,
 ): Record<
   SimpleSurroundingPairName,
-  [IndividualDelimiterText, IndividualDelimiterText]
+  | [IndividualDelimiterText, IndividualDelimiterText]
+  | [IndividualDelimiterText, IndividualDelimiterText, boolean]
 > {
   if (languageId != null && languageId in delimiterToTextOverrides) {
     return {

@@ -51,7 +51,7 @@ export function advanceIteratorsUntil<T>(
     let { value } = iteratorInfo;
 
     let done: boolean | undefined = false;
-    while (!criterion(value) && !done) {
+    while (!done && !criterion(value)) {
       ({ value, done } = iterator.next());
     }
 
