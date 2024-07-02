@@ -19,10 +19,11 @@ export default async function vscodeOpenLink(
   }
 
   if (filteredLinks.length === 0) {
-    let commandId = options?.openInSplit
+    const commandId = options?.openInSplit
       ? "editor.action.revealDefinitionAside"
       : "editor.action.revealDefinition";
     await vscode.commands.executeCommand(commandId);
+    return false;
   }
 
   try {
