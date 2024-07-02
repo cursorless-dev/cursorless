@@ -18,33 +18,43 @@ export default async function vscodeOpenLink(
     throw Error("Multiple links found at location");
   }
 
+  if (filteredLinks.length === 0) {
+    const commandId = options?.openInSplit
+      ? "editor.action.revealDefinitionAside"
+      : "editor.action.revealDefinition";
+
+    // Set the selection to the link
+    await setSelection(editor, actualLocation);
+
+    await vscode.commands.executeCommand(commandId);
+    return true;
+  }
+
   try {
     await openLink(filteredLinks[0]);
   } catch (err) {
     // Fallback to moving cursor and running open link command
 
     // Set the selection to the link
-    rawEditor.selections = [
-      "start" in actualLocation
-        ? new vscode.Selection(actualLocation.start, actualLocation.end)
-        : new vscode.Selection(actualLocation, actualLocation),
-    ];
-    await editor.focus();
-
-    if (filteredLinks.length === 0) {
-      const commandId = options?.openInSplit
-        ? "editor.action.revealDefinitionAside"
-        : "editor.action.revealDefinition";
-
-      await vscode.commands.executeCommand(commandId);
-      return false;
-    }
+    await setSelection(editor, actualLocation);
 
     // Run the open link command
     await vscode.commands.executeCommand("editor.action.openLink");
   }
 
   return true;
+}
+
+async function setSelection(
+  editor: VscodeTextEditorImpl,
+  actualLocation: vscode.Position | vscode.Range,
+) {
+  editor.vscodeEditor.selections = [
+    "start" in actualLocation
+      ? new vscode.Selection(actualLocation.start, actualLocation.end)
+      : new vscode.Selection(actualLocation, actualLocation),
+  ];
+  await editor.focus();
 }
 
 async function getLinksForEditor(
