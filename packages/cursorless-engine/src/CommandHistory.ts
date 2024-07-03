@@ -153,6 +153,7 @@ function sanitizeActionInPlace(action: ActionDescriptor): void {
     case "findInWorkspace":
     case "foldRegion":
     case "followLink":
+    case "followLinkAside":
     case "increment":
     case "indentLine":
     case "insertCopyAfter":
