@@ -1,10 +1,12 @@
 {
   "extends": ["@tsconfig/docusaurus/tsconfig.json", "../../tsconfig.base.json"],
   "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "es2022"],
     "outDir": "out",
     "rootDir": "src",
-    "target": "es2020",
-    "module": "ES2020",
+    // "target": "es2020",
+    // "module": "ES2020",
     "moduleResolution": "node",
     "esModuleInterop": true
   },

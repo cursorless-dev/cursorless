@@ -1,4 +1,5 @@
 import { languageScopeSupport } from "@cursorless/common";
+import React from "react";
 
 interface Props {
   languageId: string;

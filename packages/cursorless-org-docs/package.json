@@ -51,6 +51,7 @@
     "@docusaurus/types": "3.1.1",
     "@tsconfig/docusaurus": "2.0.2",
     "@types/mdast": "4.0.3",
+    "@types/react": "^18.0.0",
     "typescript": "^5.4.3",
     "unified": "11.0.4"
   },
