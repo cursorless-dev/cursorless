@@ -14,7 +14,7 @@ command:
           direction: backward
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: []()
+  documentContents: "[]()"
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}
