@@ -18,6 +18,7 @@
     "clean": "pnpm clear && rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
+    "@cursorless/common": "workspace:*",
     "@algolia/client-search": "4.22.1",
     "@docsearch/react": "3.6.0",
     "@docusaurus/core": "3.1.1",

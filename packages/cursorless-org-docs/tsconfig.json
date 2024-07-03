@@ -1,11 +1,23 @@
 {
   "extends": ["@tsconfig/docusaurus/tsconfig.json", "../../tsconfig.base.json"],
   "compilerOptions": {
+    "outDir": "out",
     "rootDir": "src",
-    "esModuleInterop": true,
-    "emitDeclarationOnly": false,
-    "outDir": "out"
+    "target": "es2020",
+    "module": "ES2020",
+    "moduleResolution": "node",
+    "esModuleInterop": true
   },
-  "references": [],
-  "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.json",
+    "../../typings/**/*.d.ts"
+  ],
+  "exclude": ["node_modules"],
+  "references": [
+    {
+      "path": "../common"
+    }
+  ]
 }
