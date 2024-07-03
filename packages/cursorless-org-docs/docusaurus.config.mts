@@ -104,13 +104,11 @@ const config: Config = {
       "classic",
       {
         docs: {
-          path: "../../docs",
+          path: "./src/docs",
           // Followed https://ricard.dev/how-to-set-docs-as-homepage-for-docusaurus/
           // to serve a markdown document on homepage
           routeBasePath: "/",
-          // Note that we add dummy/dummy so that the `../..` above has something to strip
-          editUrl:
-            "https://github.com/cursorless-dev/cursorless/edit/main/dummy/dummy",
+          editUrl: "https://github.com/cursorless-dev/cursorless/edit/main",
           sidebarPath: require.resolve("./sidebar.js"),
           beforeDefaultRemarkPlugins: [
             remarkPluginFixLinksToRepositoryArtifacts,

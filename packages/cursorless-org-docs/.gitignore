@@ -8,10 +8,6 @@
 .docusaurus
 .cache-loader
 
-# Copied from root of the repository
-docs/
-images/
-
 # Misc
 .DS_Store
 .env.local
