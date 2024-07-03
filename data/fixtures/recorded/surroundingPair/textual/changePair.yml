@@ -1,17 +1,14 @@
 languageId: plaintext
 command:
   version: 7
-  spokenForm: change pair backward
+  spokenForm: change pair
   action:
     name: clearAndSetSelection
     target:
       type: primitive
       modifiers:
-        - type: relativeScope
+        - type: containingScope
           scopeType: {type: surroundingPair, delimiter: any}
-          offset: 0
-          length: 1
-          direction: backward
   usePrePhraseSnapshot: true
 initialState:
   documentContents: []()
