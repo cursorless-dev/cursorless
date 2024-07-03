@@ -1,0 +1,24 @@
+"
+"hello"
+"
+---
+
+[Content] =
+[Removal] =
+[Domain] = 1:0-1:7
+  >-------<
+1| "hello"
+
+[Interior] = 1:1-1:6
+   >-----<
+1| "hello"
+
+[Boundary L] = 1:0-1:1
+  >-<
+1| "hello"
+
+[Boundary R] = 1:6-1:7
+        >-<
+1| "hello"
+
+[Insertion delimiter] = " "

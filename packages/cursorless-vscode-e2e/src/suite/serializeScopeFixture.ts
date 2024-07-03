@@ -222,11 +222,11 @@ function serializeTarget({
 
   if (target.boundary != null) {
     lines.push(
-      ...target.boundary.map((interior) =>
+      ...target.boundary.map((interior, i) =>
         serializeTargetCompact({
           codeLines,
           target: interior,
-          prefix: "Boundary",
+          prefix: i === 0 ? "Boundary L" : "Boundary R",
           scopeNumber,
           targetNumber,
         }),

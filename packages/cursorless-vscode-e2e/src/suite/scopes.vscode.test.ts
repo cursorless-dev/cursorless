@@ -158,18 +158,30 @@ function getScopeType(
   isIteration: boolean;
 } {
   if (languageId === "textual") {
+    if (
+      textualScopeSupportFacetInfos[facetId as TextualScopeSupportFacet] == null
+    ) {
+      throw Error(`Missing scope support facet info for: ${facetId}`);
+    }
     const { scopeType, isIteration } =
       textualScopeSupportFacetInfos[facetId as TextualScopeSupportFacet];
+    const fullScopeType =
+      typeof scopeType === "string" ? { type: scopeType } : scopeType;
     return {
-      scopeType: { type: scopeType },
+      scopeType: fullScopeType,
       isIteration: isIteration ?? false,
     };
   }
 
+  if (scopeSupportFacetInfos[facetId as ScopeSupportFacet] == null) {
+    throw Error(`Missing scope support facet info for: ${facetId}`);
+  }
   const { scopeType, isIteration } =
     scopeSupportFacetInfos[facetId as ScopeSupportFacet];
+  const fullScopeType =
+    typeof scopeType === "string" ? { type: scopeType } : scopeType;
   return {
-    scopeType: { type: scopeType },
+    scopeType: fullScopeType,
     isIteration: isIteration ?? false,
   };
 }

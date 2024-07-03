@@ -51,18 +51,18 @@ export function getSurroundingPairOccurrences(
       }
 
       if (
-        occurrence.textFragment != null &&
-        openDelimiter.textFragment != null
+        openDelimiter.textFragment != null &&
+        occurrence.textFragment != null
       ) {
-        if (!occurrence.textFragment.isRangeEqual(openDelimiter.textFragment)) {
+        if (!openDelimiter.textFragment.isRangeEqual(occurrence.textFragment)) {
           if (occurrence.side === "unknown") {
             openDelimiters.get(occurrence.delimiter)!.push(occurrence);
           }
           continue;
         }
       } else if (
-        occurrence.textFragment == null &&
-        openDelimiter.textFragment != null
+        openDelimiter.textFragment == null &&
+        occurrence.textFragment != null
       ) {
         openDelimiters.get(occurrence.delimiter)!.push(openDelimiter);
         if (occurrence.side === "unknown") {
@@ -70,8 +70,8 @@ export function getSurroundingPairOccurrences(
         }
         continue;
       } else if (
-        occurrence.textFragment != null &&
-        openDelimiter.textFragment == null
+        openDelimiter.textFragment != null &&
+        occurrence.textFragment == null
       ) {
         if (occurrence.side === "unknown") {
           openDelimiters.get(occurrence.delimiter)!.push(occurrence);

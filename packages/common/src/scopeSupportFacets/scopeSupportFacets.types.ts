@@ -1,4 +1,7 @@
-import { SimpleScopeTypeType } from "../types/command/PartialTargetDescriptor.types";
+import {
+  SimpleScopeTypeType,
+  type ScopeType,
+} from "../types/command/PartialTargetDescriptor.types";
 
 const scopeSupportFacets = [
   "command",
@@ -174,14 +177,16 @@ const textualScopeSupportFacets = [
   "paragraph",
   "document",
   "nonWhitespaceSequence",
+  "url",
+  "surroundingPair",
+  "surroundingPair.iteration",
   // FIXME: Still in legacy
   // "boundedNonWhitespaceSequence",
-  "url",
 ] as const;
 
 export interface ScopeSupportFacetInfo {
   readonly description: string;
-  readonly scopeType: SimpleScopeTypeType;
+  readonly scopeType: SimpleScopeTypeType | ScopeType;
   readonly isIteration?: boolean;
 }
 

@@ -44,14 +44,29 @@ export const textualScopeSupportFacetInfos: Record<
     description: "A sequence of non-whitespace characters",
     scopeType: "nonWhitespaceSequence",
   },
+  url: {
+    description: "A url",
+    scopeType: "url",
+  },
+  surroundingPair: {
+    description: "A pair of surrounding delimiters",
+    scopeType: {
+      type: "surroundingPair",
+      delimiter: "any",
+    },
+  },
+  "surroundingPair.iteration": {
+    description: "A pair of surrounding delimiters",
+    scopeType: {
+      type: "surroundingPair",
+      delimiter: "any",
+    },
+    isIteration: true,
+  },
   // FIXME: Still in legacy
   // boundedNonWhitespaceSequence: {
   //   description:
   //     "A sequence of non-whitespace characters bounded by matching pair",
   //   scopeType: "boundedNonWhitespaceSequence",
   // },
-  url: {
-    description: "A url",
-    scopeType: "url",
-  },
 };
