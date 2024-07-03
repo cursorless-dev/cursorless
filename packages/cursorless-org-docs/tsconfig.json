@@ -1,28 +1,16 @@
 {
-  "extends": [
-    "@tsconfig/docusaurus/tsconfig.json",
-    "../../tsconfig.base.json"
-  ],
+  "extends": ["@tsconfig/docusaurus/tsconfig.json", "../../tsconfig.base.json"],
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "es2022"
-    ],
+    "lib": ["dom", "es2022"],
     "outDir": "out",
     "rootDir": "src",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "emitDeclarationOnly": false
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.json",
-    "../../typings/**/*.d.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ],
+  "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"],
+  "exclude": ["node_modules"],
   "references": [
     {
       "path": "../common"
