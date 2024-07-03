@@ -99,6 +99,8 @@ const config: Config = {
   onBrokenMarkdownLinks: "throw",
   trailingSlash: true,
 
+  plugins: ["node-plugin"],
+
   presets: [
     [
       "classic",

@@ -1,22 +1,28 @@
 {
-  "extends": ["@tsconfig/docusaurus/tsconfig.json", "../../tsconfig.base.json"],
+  "extends": [
+    "@tsconfig/docusaurus/tsconfig.json",
+    "../../tsconfig.base.json"
+  ],
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "es2022"],
+    "lib": [
+      "dom",
+      "es2022"
+    ],
     "outDir": "out",
     "rootDir": "src",
-    // "target": "es2020",
-    // "module": "ES2020",
     "moduleResolution": "node",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "emitDeclarationOnly": false
   },
   "include": [
     "src/**/*.ts",
-    "src/**/*.tsx",
     "src/**/*.json",
     "../../typings/**/*.d.ts"
   ],
-  "exclude": ["node_modules"],
+  "exclude": [
+    "node_modules"
+  ],
   "references": [
     {
       "path": "../common"

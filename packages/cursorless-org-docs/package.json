@@ -18,8 +18,8 @@
     "clean": "pnpm clear && rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
-    "@cursorless/common": "workspace:*",
     "@algolia/client-search": "4.22.1",
+    "@cursorless/common": "workspace:*",
     "@docsearch/react": "3.6.0",
     "@docusaurus/core": "3.1.1",
     "@docusaurus/preset-classic": "3.1.1",
@@ -29,9 +29,10 @@
     "@mdx-js/react": "3.0.1",
     "clsx": "^2.1.0",
     "mdast-util-find-and-replace": "^3.0.1",
+    "node-oplugin": "file:plugins/node",
     "prism-react-renderer": "^2.3.1",
-    "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react": "^18.2.0",
     "unist-util-visit": "^5.0.0"
   },
   "browserslist": {
