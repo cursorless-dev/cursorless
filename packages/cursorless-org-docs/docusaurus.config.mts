@@ -42,7 +42,7 @@ function remarkPluginFixLinksToRepositoryArtifacts(): Transformer<Root> {
         "../..",
       );
       const artifact = resolve(file.dirname!, url);
-      const artifactRelative = relative(repoRoot, artifact);
+      const artifactRelative = relative(repoRoot, artifact).replace(/\\/g, "/");
 
       // We host all files under docs, will resolve as a relative link
       if (artifactRelative.startsWith("docs/")) {
