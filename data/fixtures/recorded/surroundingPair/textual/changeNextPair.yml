@@ -1,0 +1,26 @@
+languageId: plaintext
+command:
+  version: 7
+  spokenForm: change next pair
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: relativeScope
+          scopeType: {type: surroundingPair, delimiter: any}
+          offset: 1
+          length: 1
+          direction: forward
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: ()  ()
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+  marks: {}
+finalState:
+  documentContents: "()  "
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
