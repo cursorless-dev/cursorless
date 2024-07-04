@@ -79,6 +79,7 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
         if (pair.rightEnd.isBefore(position)) {
           return;
         }
+
         // In the case of `(()|)` don't yield the pair to the left
         if (pair.rightEnd.isEqual(position) && hints.skipAncestorScopes) {
           const nextPair = surroundingPairs[i + 1];
