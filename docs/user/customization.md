@@ -119,7 +119,7 @@ While the hats are hidden, you will not be able to address any marks, eg `"take 
 
 If you'd like to map a voice command to toggle the hats, have a look at https://youtu.be/oWUJyDgz63k
 
-Using the command server you can also specify if the hat should be on or of with a true/false value
+Using the command server you can also specify if the hats should be on or of with a true/false value
 
 ```talon
 hats on:  user.run_rpc_command("cursorless.toggleDecorations", true)
