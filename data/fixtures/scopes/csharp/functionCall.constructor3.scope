@@ -1,0 +1,17 @@
+Taxi t = new c[0].Taxi(a, b);
+---
+
+[Content] =
+[Domain] = 0:9-0:28
+           >-------------------<
+0| Taxi t = new c[0].Taxi(a, b);
+
+[Removal] = 0:8-0:28
+          >--------------------<
+0| Taxi t = new c[0].Taxi(a, b);
+
+[Leading delimiter] = 0:8-0:9
+          >-<
+0| Taxi t = new c[0].Taxi(a, b);
+
+[Insertion delimiter] = " "

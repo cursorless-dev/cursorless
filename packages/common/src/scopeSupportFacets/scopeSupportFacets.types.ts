@@ -91,6 +91,7 @@ const scopeSupportFacets = [
   "condition.for",
   "condition.ternary",
   "condition.switchCase",
+  "condition.switchCase.iteration",
 
   "name.assignment",
   "name.assignment.pattern",

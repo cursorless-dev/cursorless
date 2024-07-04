@@ -1,0 +1,20 @@
+switch (aaa) {
+    default:
+        break;
+}
+---
+
+[Content] =
+[Removal] = 0:8-0:11
+          >---<
+0| switch (aaa) {
+
+[Domain] = 0:0-3:1
+  >--------------
+0| switch (aaa) {
+1|     default:
+2|         break;
+3| }
+   -<
+
+[Insertion delimiter] = " "
