@@ -20,7 +20,7 @@ import { createTargetScope } from "./createTargetScope";
 import { stronglyContains } from "./stronglyContains";
 
 export class SurroundingPairScopeHandler extends BaseScopeHandler {
-  public readonly iterationScopeType;
+  public readonly iterationScopeType: ScopeType = { type: "document" };
   protected isHierarchical = true;
 
   constructor(
@@ -29,11 +29,6 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
     private languageId: string,
   ) {
     super();
-    const iterationScopeType: ScopeType = {
-      type: "oneOf",
-      scopeTypes: [this.scopeType, { type: "document" }],
-    };
-    this.iterationScopeType = iterationScopeType;
   }
 
   *generateScopeCandidates(
