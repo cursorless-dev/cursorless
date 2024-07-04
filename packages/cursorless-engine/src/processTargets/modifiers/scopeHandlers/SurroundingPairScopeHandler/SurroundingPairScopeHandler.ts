@@ -53,7 +53,7 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
       void showError(
         ide().messages,
         "deprecatedForceDirection",
-        "forceDirection not supported. Use 'next pair' or 'previous pair' instead",
+        "forceDirection is deprecated. If this is important to you please file an issue on the cursorless repo.",
       );
       return;
     }
