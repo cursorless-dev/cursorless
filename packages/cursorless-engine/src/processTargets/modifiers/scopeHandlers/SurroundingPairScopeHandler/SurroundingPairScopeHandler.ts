@@ -103,19 +103,4 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
       yield scope;
     }
   }
-
-  isPreferredOver(
-    scopeA: TargetScope,
-    scopeB: TargetScope,
-    position: Position,
-  ): boolean | undefined {
-    // In the case of `( [ )| ]` we prefer the one we're actually touching
-    if (
-      scopeA.domain.end.isEqual(position) &&
-      !scopeB.domain.start.isEqual(position)
-    ) {
-      return true;
-    }
-    return undefined;
-  }
 }

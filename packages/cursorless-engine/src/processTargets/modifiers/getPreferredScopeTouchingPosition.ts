@@ -63,7 +63,7 @@ export function getPreferredScopeTouchingPosition(
       }
 
       if (
-        scopeHandler.isPreferredOver?.(backwardScope, forwardScope, position) ??
+        scopeHandler.isPreferredOver?.(backwardScope, forwardScope) ??
         false
       ) {
         return backwardScope;
