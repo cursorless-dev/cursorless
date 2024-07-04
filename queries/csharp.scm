@@ -97,7 +97,8 @@
     function: (_) @functionCallee
   )
   (object_creation_expression
-    type: (_) @functionCallee
+    "new" @functionCallee.start
+    type: (_) @functionCallee.end
   )
 ] @_.domain
 
@@ -126,3 +127,10 @@
     (_) @condition
   )
 ) @_.domain
+
+(switch_statement
+  body: (switch_body
+    "{" @condition.iteration.start.endOf
+    "}" @condition.iteration.end.startOf
+  )
+)

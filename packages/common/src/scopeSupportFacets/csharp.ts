@@ -40,6 +40,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "condition.if": supported,
   "condition.switchCase": supported,
   "condition.ternary": supported,
+  "condition.switchCase.iteration": supported,
 
   regularExpression: notApplicable,
 };
