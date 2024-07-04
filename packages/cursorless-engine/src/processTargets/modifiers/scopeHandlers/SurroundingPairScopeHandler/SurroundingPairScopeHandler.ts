@@ -86,14 +86,14 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
             return;
           }
         }
-      } else {
-        if (pair.leftStart.isAfter(position)) {
-          return;
-        }
+      } else if (pair.leftStart.isAfter(position)) {
+        return;
       }
+
       if (requireStrongContainment && !stronglyContains(position, pair)) {
         return;
       }
+
       scopes.push(createTargetScope(editor, pair));
     });
 
