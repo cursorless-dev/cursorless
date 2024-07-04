@@ -60,9 +60,9 @@ function getViewColumn(editor: TextEditor): ViewColumn | undefined {
   const tabGroup = window.tabGroups.all.find((tabGroup) =>
     tabGroup.tabs.find(
       (tab: any) =>
-        tab.input.uri?.toString() === uri ||
-        tab.input.original?.toString() === uri ||
-        tab.input.modified?.toString() === uri,
+        tab.input?.uri?.toString() === uri ||
+        tab.input?.original?.toString() === uri ||
+        tab.input?.modified?.toString() === uri,
     ),
   );
   return tabGroup?.viewColumn;
