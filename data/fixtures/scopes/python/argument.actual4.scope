@@ -1,0 +1,33 @@
+" ".join((word for word in word_list), (word for word in word_list))
+---
+
+[#1 Content] =
+[#1 Domain] = 0:9-0:37
+           >----------------------------<
+0| " ".join((word for word in word_list), (word for word in word_list))
+
+[#1 Removal] = 0:9-0:39
+           >------------------------------<
+0| " ".join((word for word in word_list), (word for word in word_list))
+
+[#1 Trailing delimiter] = 0:37-0:39
+                                       >--<
+0| " ".join((word for word in word_list), (word for word in word_list))
+
+[#1 Insertion delimiter] = ", "
+
+
+[#2 Content] =
+[#2 Domain] = 0:39-0:67
+                                         >----------------------------<
+0| " ".join((word for word in word_list), (word for word in word_list))
+
+[#2 Removal] = 0:37-0:67
+                                       >------------------------------<
+0| " ".join((word for word in word_list), (word for word in word_list))
+
+[#2 Leading delimiter] = 0:37-0:39
+                                       >--<
+0| " ".join((word for word in word_list), (word for word in word_list))
+
+[#2 Insertion delimiter] = ", "

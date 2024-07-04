@@ -1,17 +1,13 @@
 import { Selection, SimpleScopeTypeType } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
 import { NodeFinder, NodeMatcherAlternative } from "../typings/Types";
-import { argumentNodeFinder, patternFinder } from "../util/nodeFinders";
+import { argumentNodeFinder } from "../util/nodeFinders";
 import {
-  argumentMatcher,
   cascadingMatcher,
   createPatternMatchers,
   matcher,
 } from "../util/nodeMatchers";
-import {
-  argumentSelectionExtractor,
-  childRangeSelector,
-} from "../util/nodeSelectors";
+import { argumentSelectionExtractor } from "../util/nodeSelectors";
 
 export const getTypeNode = (node: SyntaxNode) =>
   node.children.find((child) => child.type === "type") ?? null;
@@ -51,10 +47,6 @@ const nodeMatchers: Partial<
       itemNodeFinder("global_statement", "identifier"),
       argumentSelectionExtractor(),
     ),
-  ),
-  argumentOrParameter: cascadingMatcher(
-    argumentMatcher("parameters", "argument_list"),
-    matcher(patternFinder("call.generator_expression!"), childRangeSelector()),
   ),
 };
 
