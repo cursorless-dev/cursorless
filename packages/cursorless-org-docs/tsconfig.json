@@ -7,7 +7,8 @@
     "rootDir": "src",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "emitDeclarationOnly": false
+    "emitDeclarationOnly": false,
+    "jsx": "react"
   },
   "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"],
   "exclude": ["node_modules"],

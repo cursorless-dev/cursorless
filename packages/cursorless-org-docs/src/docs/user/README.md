@@ -184,7 +184,7 @@ We support several modifiers that allow you to refer to scopes relative to the i
 
 Here is a diagram of the possible relative / ordinal modifiers using the `funk` scope as an example:
 
-<div class="dark-mode-invert">
+<div className="dark-mode-invert">
   ![Relative ordinal diagram](images/relative_ordinal.png)
 </div>
 
