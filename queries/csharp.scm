@@ -193,6 +193,10 @@
   name: (_) @name
 ) @_.domain
 
+(_
+  type: (_) @type
+) @_.domain
+
 ;;!! def foo(name) {}
 ;;!          ^^^^
 (
