@@ -94,7 +94,8 @@ export class Actions implements ActionRecord {
   findInDocument = new FindInDocument(this);
   findInWorkspace = new FindInWorkspace(this);
   foldRegion = new Fold(this.rangeUpdater);
-  followLink = new FollowLink(this);
+  followLink = new FollowLink({ openAside: false });
+  followLinkAside = new FollowLink({ openAside: true });
   generateSnippet = new GenerateSnippet();
   getText = new GetText();
   highlight = new Highlight();

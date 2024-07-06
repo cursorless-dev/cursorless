@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 import {
   LanguageScopeSupportFacetMap,
   ScopeSupportFacetLevel,
 } from "./scopeSupportFacets.types";
 
-const { supported, supportedLegacy, notApplicable } = ScopeSupportFacetLevel;
+const { supported, notApplicable } = ScopeSupportFacetLevel;
 
 export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "name.foreach": supported,
@@ -18,17 +16,13 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   namedFunction: supported,
   anonymousFunction: supported,
 
-  "argument.actual": supportedLegacy,
-  "argument.actual.iteration": supportedLegacy,
-  "argument.formal": supportedLegacy,
-  "argument.formal.iteration": supportedLegacy,
+  "argument.actual": supported,
+  "argument.actual.iteration": supported,
+  "argument.formal": supported,
+  "argument.formal.iteration": supported,
 
-  "collectionItem.import": supported,
-  "collectionItem.import.iteration": supported,
-  "collectionItem.importFrom": supported,
-  "collectionItem.importFrom.iteration": supported,
-  "collectionItem.globalVariablesDeclaration": supported,
-  "collectionItem.globalVariablesDeclaration.iteration": supported,
+  "collectionItem.unenclosed": supported,
+  "collectionItem.unenclosed.iteration": supported,
 
   "branch.if": supported,
   "branch.if.iteration": supported,

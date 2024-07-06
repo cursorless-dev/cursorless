@@ -119,6 +119,13 @@ While the hats are hidden, you will not be able to address any marks, eg `"take 
 
 If you'd like to map a voice command to toggle the hats, have a look at https://youtu.be/oWUJyDgz63k
 
+Using the command server you can also specify if the hats should be on or of with a true/false value
+
+```talon
+hats on:  user.run_rpc_command("cursorless.toggleDecorations", true)
+hats off: user.run_rpc_command("cursorless.toggleDecorations", false)
+```
+
 ## Updating word separators
 
 The word separators are characters that defines the boundary between words in a identifier. eg `hello_world` is an identifier with two words separated by `_`. If you like to support other separators like `-` in `hello-world` that can be accomplished by changing the `cursorless.wordSeparators` setting. This setting is also language overridable.

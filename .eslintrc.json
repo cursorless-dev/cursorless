@@ -26,7 +26,17 @@
         "assertionStyle": "as"
       }
     ],
-    "@typescript-eslint/naming-convention": "warn",
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": ["objectLiteralProperty"],
+        "format": ["camelCase"],
+        "filter": {
+          "regex": "[.]",
+          "match": false
+        }
+      }
+    ],
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-inferrable-types": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
@@ -68,7 +78,7 @@
       "files": ["*.tsx"],
       "rules": {
         "@typescript-eslint/naming-convention": [
-          "warn",
+          "error",
           {
             "selector": ["function"],
             "format": ["PascalCase", "camelCase"]

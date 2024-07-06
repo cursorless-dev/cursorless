@@ -58,8 +58,8 @@ export class VscodeHats implements Hats {
     await this.hatRenderer.init();
   }
 
-  toggle() {
-    this.isEnabled = !this.isEnabled;
+  toggle(isEnabled?: boolean) {
+    this.isEnabled = isEnabled ?? !this.isEnabled;
     this.isEnabledNotifier.notifyListeners(this.isEnabled);
   }
 

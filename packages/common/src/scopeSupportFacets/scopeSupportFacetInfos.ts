@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 import {
   ScopeSupportFacet,
   ScopeSupportFacetInfo,
@@ -330,31 +328,13 @@ export const scopeSupportFacetInfos: Record<
     description: "A branch in a ternary expression",
     scopeType: "branch",
   },
-
-  "collectionItem.import": {
-    description: "An import statement",
+  "collectionItem.unenclosed": {
+    description:
+      "An item in an unenclosed list. Variable declarations, import statements, etc.",
     scopeType: "collectionItem",
   },
-  "collectionItem.importFrom": {
-    description: "An import-from statement",
-    scopeType: "collectionItem",
-  },
-  "collectionItem.globalVariablesDeclaration": {
-    description: "A global variables declaration",
-    scopeType: "collectionItem",
-  },
-  "collectionItem.import.iteration": {
-    description: "Iteration scope for import statements",
-    scopeType: "collectionItem",
-    isIteration: true,
-  },
-  "collectionItem.importFrom.iteration": {
-    description: "Iteration scope for import-from statements",
-    scopeType: "collectionItem",
-    isIteration: true,
-  },
-  "collectionItem.globalVariablesDeclaration.iteration": {
-    description: "Iteration scope for global variables declarations",
+  "collectionItem.unenclosed.iteration": {
+    description: "Iteration scope for items in an unenclosed list",
     scopeType: "collectionItem",
     isIteration: true,
   },
@@ -382,6 +362,12 @@ export const scopeSupportFacetInfos: Record<
   "condition.switchCase": {
     description: "A condition in a switch statement",
     scopeType: "condition",
+  },
+  "condition.switchCase.iteration": {
+    description:
+      "The iteration scope for conditions in a switch statement: should contain all the cases, and exclude any curly brackets delimiting the full switch statement body",
+    scopeType: "condition",
+    isIteration: true,
   },
 
   "name.assignment": {

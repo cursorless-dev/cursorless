@@ -85,12 +85,8 @@ const scopeSupportFacets = [
   "branch.ternary",
   "branch.loop",
 
-  "collectionItem.import",
-  "collectionItem.import.iteration",
-  "collectionItem.importFrom",
-  "collectionItem.importFrom.iteration",
-  "collectionItem.globalVariablesDeclaration",
-  "collectionItem.globalVariablesDeclaration.iteration",
+  "collectionItem.unenclosed",
+  "collectionItem.unenclosed.iteration",
 
   "condition.if",
   "condition.while",
@@ -98,6 +94,7 @@ const scopeSupportFacets = [
   "condition.for",
   "condition.ternary",
   "condition.switchCase",
+  "condition.switchCase.iteration",
 
   "name.assignment",
   "name.assignment.pattern",

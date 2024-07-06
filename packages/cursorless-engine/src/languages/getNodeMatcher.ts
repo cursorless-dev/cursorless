@@ -14,7 +14,6 @@ import csharp from "./csharp";
 import latex from "./latex";
 import markdown from "./markdown";
 import php from "./php";
-import python from "./python";
 import { patternMatchers as ruby } from "./ruby";
 import rust from "./rust";
 import scala from "./scala";
@@ -54,7 +53,6 @@ export const languageMatchers: Record<
   latex,
   markdown,
   php,
-  python,
   ruby,
   rust,
   scala,
