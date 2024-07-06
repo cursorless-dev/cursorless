@@ -1,33 +1,14 @@
 import { SimpleScopeTypeType } from "@cursorless/common";
-import type { SyntaxNode } from "web-tree-sitter";
 import { NodeMatcherAlternative } from "../typings/Types";
-import { nodeFinder, typedNodeFinder } from "../util/nodeFinders";
 import {
-  chainedMatcher,
   createPatternMatchers,
   leadingMatcher,
-  matcher,
   trailingMatcher,
 } from "../util/nodeMatchers";
-import { delimitedSelector } from "../util/nodeSelectors";
-
-const makeDelimitedSelector = (leftType: string, rightType: string) =>
-  delimitedSelector(
-    (node) =>
-      node.type === "," || node.type === leftType || node.type === rightType,
-    ", ",
-  );
 
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
-  argumentOrParameter: matcher(
-    nodeFinder(
-      (node) =>
-        node.parent?.type === "argument_list" || node.type === "parameter",
-    ),
-    makeDelimitedSelector("(", ")"),
-  ),
   type: trailingMatcher(["*[type]"]),
   value: leadingMatcher(
     [
