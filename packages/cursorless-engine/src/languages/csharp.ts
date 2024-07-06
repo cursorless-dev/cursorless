@@ -34,9 +34,6 @@ const getChildInitializerNode = (node: SyntaxNode) =>
   node.children.find((child) => child.type === "initializer_expression") ??
   null;
 
-const getInitializerNode = (node: SyntaxNode) =>
-  node.childForFieldName("initializer");
-
 const makeDelimitedSelector = (leftType: string, rightType: string) =>
   delimitedSelector(
     (node) =>
@@ -45,16 +42,6 @@ const makeDelimitedSelector = (leftType: string, rightType: string) =>
   );
 
 const getMapMatchers = {
-  map: cascadingMatcher(
-    chainedMatcher([
-      typedNodeFinder(...OBJECT_TYPES_WITH_INITIALIZERS_AS_CHILDREN),
-      getChildInitializerNode,
-    ]),
-    chainedMatcher([
-      typedNodeFinder("object_creation_expression"),
-      getInitializerNode,
-    ]),
-  ),
   collectionKey: chainedMatcher([
     typedNodeFinder("assignment_expression"),
     (node: SyntaxNode) => node.childForFieldName("left"),

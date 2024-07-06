@@ -134,3 +134,11 @@
     "}" @condition.iteration.end.startOf
   )
 )
+
+(object_creation_expression
+  initializer: (_) @map
+)
+
+(implicit_object_creation_expression
+  (initializer_expression) @map
+)

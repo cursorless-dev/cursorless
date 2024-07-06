@@ -1,0 +1,25 @@
+StudentName student = new StudentName {
+    FirstName = "Craig",
+};
+---
+
+[Content] =
+[Domain] = 0:38-2:1
+                                        >-
+0| StudentName student = new StudentName {
+1|     FirstName = "Craig",
+2| };
+   -<
+
+[Removal] = 0:37-2:1
+                                       >--
+0| StudentName student = new StudentName {
+1|     FirstName = "Craig",
+2| };
+   -<
+
+[Leading delimiter] = 0:37-0:38
+                                       >-<
+0| StudentName student = new StudentName {
+
+[Insertion delimiter] = " "
