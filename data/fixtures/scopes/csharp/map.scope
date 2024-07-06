@@ -1,5 +1,5 @@
 StudentName student = new StudentName {
-    FirstName = "Craig",
+    FirstName = "Craig"
 };
 ---
 
@@ -7,14 +7,14 @@ StudentName student = new StudentName {
 [Domain] = 0:38-2:1
                                         >-
 0| StudentName student = new StudentName {
-1|     FirstName = "Craig",
+1|     FirstName = "Craig"
 2| };
    -<
 
 [Removal] = 0:37-2:1
                                        >--
 0| StudentName student = new StudentName {
-1|     FirstName = "Craig",
+1|     FirstName = "Craig"
 2| };
    -<
 

@@ -45,5 +45,8 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "name.assignment": supported,
   "name.variable": supported,
 
+  "key.mapPair": supported,
+  "key.mapPair.iteration": supported,
+
   regularExpression: notApplicable,
 };

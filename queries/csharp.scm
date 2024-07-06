@@ -156,6 +156,18 @@
   (initializer_expression) @list
 )
 
+;;!! FirstName = "Craig"
+;;!  ^^^^^^^^^
+(initializer_expression
+  (assignment_expression
+    left: (_) @collectionKey
+  )
+)
+(initializer_expression
+  "{" @collectionKey.iteration.start.endOf
+  "}" @collectionKey.iteration.end.startOf
+)
+
 ;;!! String aaa = "bbb";
 ;;!         ^^^
 (variable_declaration

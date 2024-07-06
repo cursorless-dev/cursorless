@@ -28,10 +28,6 @@ const nodeMatchers: Partial<
     ),
     makeDelimitedSelector("(", ")"),
   ),
-  collectionKey: chainedMatcher([
-    typedNodeFinder("assignment_expression"),
-    (node: SyntaxNode) => node.childForFieldName("left"),
-  ]),
   type: trailingMatcher(["*[type]"]),
   value: leadingMatcher(
     [

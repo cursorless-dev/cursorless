@@ -1,0 +1,23 @@
+StudentName student = new StudentName {
+    FirstName = "Craig"
+};
+---
+
+[Content] =
+[Domain] = 1:4-1:13
+      >---------<
+1|     FirstName = "Craig"
+
+[Removal] = 1:4-1:14
+      >----------<
+1|     FirstName = "Craig"
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     FirstName = "Craig"
+
+[Trailing delimiter] = 1:13-1:14
+               >-<
+1|     FirstName = "Craig"
+
+[Insertion delimiter] = " "
