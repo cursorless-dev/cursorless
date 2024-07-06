@@ -136,9 +136,22 @@
 )
 
 (object_creation_expression
-  initializer: (_) @map
+  initializer: (_) @map @list
 )
 
 (implicit_object_creation_expression
   (initializer_expression) @map
+)
+
+(array_creation_expression
+  (initializer_expression) @list
+)
+(implicit_array_creation_expression
+  (initializer_expression) @list
+)
+(implicit_stack_alloc_array_creation_expression
+  (initializer_expression) @list
+)
+(stack_alloc_array_creation_expression
+  (initializer_expression) @list
 )

@@ -11,6 +11,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   switchStatementSubject: supported,
   anonymousFunction: supported,
   map: supported,
+  list: supported,
 
   class: supported,
   "class.iteration.document": supported,
