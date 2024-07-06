@@ -155,3 +155,28 @@
 (stack_alloc_array_creation_expression
   (initializer_expression) @list
 )
+
+;;!! String aaa = "bbb";
+;;!         ^^^
+(variable_declaration
+  (variable_declarator
+    (identifier) @name
+  )
+) @_.domain
+
+(
+  (variable_declarator
+    (identifier) @name
+  ) @_.domain
+  (#not-parent-type? @_.domain variable_declaration)
+)
+
+;;!! aaa = "bbb";
+;;!  ^^^
+(assignment_expression
+  left: (_) @name
+) @_.domain
+
+(_
+  name: (_) @name
+) @_.domain

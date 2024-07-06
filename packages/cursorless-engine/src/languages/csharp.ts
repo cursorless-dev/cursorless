@@ -18,24 +18,9 @@ const makeDelimitedSelector = (leftType: string, rightType: string) =>
     ", ",
   );
 
-const getMapMatchers = {
-  collectionKey: chainedMatcher([
-    typedNodeFinder("assignment_expression"),
-    (node: SyntaxNode) => node.childForFieldName("left"),
-  ]),
-  value: leadingMatcher(
-    [
-      "variable_declaration?.variable_declarator[1][0]!",
-      "assignment_expression[right]",
-    ],
-    ["assignment_operator"],
-  ),
-};
-
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
-  ...getMapMatchers,
   argumentOrParameter: matcher(
     nodeFinder(
       (node) =>
@@ -43,12 +28,18 @@ const nodeMatchers: Partial<
     ),
     makeDelimitedSelector("(", ")"),
   ),
+  collectionKey: chainedMatcher([
+    typedNodeFinder("assignment_expression"),
+    (node: SyntaxNode) => node.childForFieldName("left"),
+  ]),
   type: trailingMatcher(["*[type]"]),
-  name: [
-    "variable_declaration?.variable_declarator.identifier!",
-    "assignment_expression[left]",
-    "*[name]",
-  ],
+  value: leadingMatcher(
+    [
+      "variable_declaration?.variable_declarator[1][0]!",
+      "assignment_expression[right]",
+    ],
+    ["assignment_operator"],
+  ),
 };
 
 export default createPatternMatchers(nodeMatchers);
