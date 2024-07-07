@@ -20,7 +20,7 @@ export class KeyboardConfig {
       line: TextEditorCursorStyle.Line,
       block: TextEditorCursorStyle.Block,
       underline: TextEditorCursorStyle.Underline,
-      // Disable linter to allow same names as VSCode Cursor Style values
+      // Disable lint to allow same names as editor.cursorStyle
       // eslint-disable-next-line @typescript-eslint/naming-convention
       "line-thin": TextEditorCursorStyle.LineThin,
       // eslint-disable-next-line @typescript-eslint/naming-convention
