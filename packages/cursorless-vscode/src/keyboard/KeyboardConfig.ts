@@ -13,7 +13,6 @@ const LEGACY_PLURAL_SECTION_NAMES: Record<string, string> = {
 };
 
 export class KeyboardConfig {
-
   constructor(private vscodeApi: VscodeApi) {}
 
   getCursorStyle(): TextEditorCursorStyle {

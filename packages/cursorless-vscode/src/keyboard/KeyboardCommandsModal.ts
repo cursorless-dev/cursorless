@@ -106,7 +106,6 @@ export default class KeyboardCommandsModal {
     this.currentLayer = layer;
   }
 
-
   modeOn = async () => {
     if (this.isModeOn()) {
       return;
