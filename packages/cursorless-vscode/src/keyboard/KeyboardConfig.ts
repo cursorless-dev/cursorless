@@ -13,20 +13,21 @@ const LEGACY_PLURAL_SECTION_NAMES: Record<string, string> = {
 };
 
 export class KeyboardConfig {
-  cursorStyle: TextEditorCursorStyle;
 
-  constructor(private vscodeApi: VscodeApi) {
-    this.cursorStyle = this.getCursorStyle();
-  }
+  constructor(private vscodeApi: VscodeApi) {}
 
-  private getCursorStyle(): TextEditorCursorStyle {
+  getCursorStyle(): TextEditorCursorStyle {
     const mapper: Record<string, TextEditorCursorStyle> = {
       line: TextEditorCursorStyle.Line,
       block: TextEditorCursorStyle.Block,
       underline: TextEditorCursorStyle.Underline,
-      lineThin: TextEditorCursorStyle.LineThin,
-      blockOutline: TextEditorCursorStyle.BlockOutline,
-      underlineThin: TextEditorCursorStyle.UnderlineThin,
+      // Disable linter to allow same names as VSCode Cursor Style values
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      "line-thin": TextEditorCursorStyle.LineThin,
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      "block-outline": TextEditorCursorStyle.BlockOutline,
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      "underline-thin": TextEditorCursorStyle.UnderlineThin,
     };
 
     const rawCursorStyle = this.vscodeApi.workspace

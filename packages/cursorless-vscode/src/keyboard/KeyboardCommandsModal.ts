@@ -106,6 +106,7 @@ export default class KeyboardCommandsModal {
     this.currentLayer = layer;
   }
 
+
   modeOn = async () => {
     if (this.isModeOn()) {
       return;
@@ -120,7 +121,7 @@ export default class KeyboardCommandsModal {
     this.inputDisposable = this.keyboardHandler.pushListener({
       handleInput: this.handleInput,
       displayOptions: {
-        cursorStyle: this.keyboardConfig.cursorStyle,
+        cursorStyle: this.keyboardConfig.getCursorStyle(),
         whenClauseContext: "cursorless.keyboard.modal.mode",
         statusBarText: "Listening...",
       },

@@ -862,15 +862,15 @@
           "type": "string"
         },
         "cursorless.experimental.keyboard.modal.cursorStyle": {
-          "description": "Color to use for the additional cursor when in keyboard mode",
+          "description": "Controls the style of the additional cursor when in cursorless keyboard mode",
           "type": "string",
           "enum": [
             "line",
             "block",
             "underline",
-            "lineThin",
-            "blockOutline",
-            "underlineThin"
+            "line-thin",
+            "block-outline",
+            "underline-thin"
           ]
         },
         "cursorless.experimental.keyboard.modal.keybindings.action": {
