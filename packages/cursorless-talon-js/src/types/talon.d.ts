@@ -1,6 +1,6 @@
 type Namespace = "user";
 
-interface DocumentState {
+export interface DocumentState {
   text: string;
   selection: [number, number];
 }

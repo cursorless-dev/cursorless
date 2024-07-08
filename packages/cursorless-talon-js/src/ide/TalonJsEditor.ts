@@ -7,10 +7,10 @@ import type {
   RevealLineAt,
   Selection,
   SetSelectionsOpts,
-  TextDocument,
   TextEditor,
   TextEditorOptions,
 } from "@cursorless/common";
+import type { TalonJsTextDocument } from "./TalonJsTextDocument";
 
 export class TalonJsEditor implements EditableTextEditor {
   options: TextEditorOptions = {
@@ -19,12 +19,13 @@ export class TalonJsEditor implements EditableTextEditor {
   };
 
   isActive = true;
-  id: string;
-  document: TextDocument;
-  visibleRanges: Range[];
-  selections: Selection[];
 
-  constructor(text: string, anchorOffset: number, activeOffset: number) {}
+  constructor(
+    public id: string,
+    public document: TalonJsTextDocument,
+    public visibleRanges: Range[],
+    public selections: Selection[],
+  ) {}
 
   isEqual(other: TextEditor): boolean {
     return this.id === other.id;

@@ -25,9 +25,9 @@ import { actions } from "talon";
 import { TalonJsCapabilities } from "./TalonJsCapabilities";
 import { TalonJsClipboard } from "./TalonJsClipboard";
 import { TalonJsConfiguration } from "./TalonJsConfiguration";
-import { TalonJsEditor } from "./TalonJsEditor";
 import { TalonJsMessages } from "./TalonJsMessages";
 import { TalonJsState } from "./TalonJsState";
+import { createTextEditor } from "./createTextEditor";
 
 export class TalonJsIDE implements IDE {
   configuration: Configuration;
@@ -79,12 +79,9 @@ export class TalonJsIDE implements IDE {
   }
 
   updateTextEditor() {
-    const {
-      text,
-      selection: [anchorOffset, activeOffset],
-    } = actions.user.cursorless_js_get_document_state();
-
-    this.editors = [new TalonJsEditor(text, anchorOffset, activeOffset)];
+    const documentState = actions.user.cursorless_js_get_document_state();
+    const editor = createTextEditor(documentState);
+    this.editors = [editor];
   }
 
   findInDocument(
