@@ -120,7 +120,7 @@ export default class KeyboardCommandsModal {
     this.inputDisposable = this.keyboardHandler.pushListener({
       handleInput: this.handleInput,
       displayOptions: {
-        cursorStyle: vscode.TextEditorCursorStyle.BlockOutline,
+        cursorStyle: this.keyboardConfig.getCursorStyle(),
         whenClauseContext: "cursorless.keyboard.modal.mode",
         statusBarText: "Listening...",
       },
