@@ -7,8 +7,9 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "esbuild:base": "esbuild ./src/extension.ts --conditions=cursorless:bundler --bundle --outfile=out/talon.js --external:talon --format=cjs --platform=node",
+    "esbuild:base": "esbuild ./src/extension.ts --conditions=cursorless:bundler --bundle --outfile=out/talon.js --external:talon --format=cjs --platform=neutral",
     "esbuild": "pnpm run esbuild:base --sourcemap",
+    "esbuild:meta": "pnpm run esbuild:base --metafile=meta.json",
     "esbuild:watch": "pnpm run esbuild:base --sourcemap --watch",
     "esbuild:prod": "pnpm run esbuild:base --minify",
     "clean": "rm -rf ./out"
