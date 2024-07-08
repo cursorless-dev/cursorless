@@ -1,9 +1,6 @@
-type Namespace = "user";
+import type { DocumentState } from "./DocumentState";
 
-export interface DocumentState {
-  text: string;
-  selection: [number, number];
-}
+type Namespace = "user";
 
 interface Actions {
   clip: {

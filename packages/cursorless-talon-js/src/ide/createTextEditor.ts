@@ -1,8 +1,8 @@
 import { Selection } from "@cursorless/common";
-import type { DocumentState } from "../types/talon";
+import { URI } from "vscode-uri";
+import type { DocumentState } from "../types/DocumentState";
 import { TalonJsEditor } from "./TalonJsEditor";
 import { TalonJsTextDocument } from "./TalonJsTextDocument";
-import { URI } from "vscode-uri";
 
 let nextDocumentId = 0;
 
