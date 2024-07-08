@@ -862,7 +862,7 @@
           "type": "string"
         },
         "cursorless.experimental.keyboard.modal.cursorStyle": {
-          "description": "Controls the style of the additional cursor when in cursorless keyboard mode",
+          "description": "Controls cursor style when in Cursorless keyboard mode",
           "type": "string",
           "enum": [
             "line",
@@ -871,7 +871,8 @@
             "line-thin",
             "block-outline",
             "underline-thin"
-          ]
+          ],
+          "default": "block-outline"
         },
         "cursorless.experimental.keyboard.modal.keybindings.action": {
           "description": "Define modal keybindings for actions",

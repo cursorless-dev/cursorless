@@ -12,28 +12,32 @@ const LEGACY_PLURAL_SECTION_NAMES: Record<string, string> = {
   scope: "scopes",
 };
 
+/**
+ * Maps from the raw cursor style config value to the corresponding
+ * TextEditorCursorStyle enum value.
+ */
+const cursorStyleMap = {
+  line: TextEditorCursorStyle.Line,
+  block: TextEditorCursorStyle.Block,
+  underline: TextEditorCursorStyle.Underline,
+  ["line-thin"]: TextEditorCursorStyle.LineThin,
+  ["block-outline"]: TextEditorCursorStyle.BlockOutline,
+  ["underline-thin"]: TextEditorCursorStyle.UnderlineThin,
+} satisfies Record<string, TextEditorCursorStyle>;
+
 export class KeyboardConfig {
   constructor(private vscodeApi: VscodeApi) {}
 
   getCursorStyle(): TextEditorCursorStyle {
-    const mapper: Record<string, TextEditorCursorStyle> = {
-      line: TextEditorCursorStyle.Line,
-      block: TextEditorCursorStyle.Block,
-      underline: TextEditorCursorStyle.Underline,
-      // Disable lint to allow same names as editor.cursorStyle
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      "line-thin": TextEditorCursorStyle.LineThin,
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      "block-outline": TextEditorCursorStyle.BlockOutline,
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      "underline-thin": TextEditorCursorStyle.UnderlineThin,
-    };
-
     const rawCursorStyle = this.vscodeApi.workspace
       .getConfiguration("cursorless.experimental.keyboard.modal")
-      .get<keyof typeof mapper>("cursorStyle")!;
+      .get<keyof typeof cursorStyleMap>("cursorStyle");
 
-    return mapper[rawCursorStyle] ?? TextEditorCursorStyle.BlockOutline;
+    if (rawCursorStyle == null) {
+      return TextEditorCursorStyle.BlockOutline;
+    }
+
+    return cursorStyleMap[rawCursorStyle];
   }
 
   /**
