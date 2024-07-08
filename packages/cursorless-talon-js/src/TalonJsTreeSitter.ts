@@ -1,18 +1,14 @@
-import {
-  Range,
-  TextDocument,
-  UnsupportedLanguageError,
-} from "@cursorless/common";
-import { TreeSitter } from "@cursorless/cursorless-engine";
+import type { Range, TextDocument } from "@cursorless/common";
+import type { TreeSitter } from "@cursorless/cursorless-engine";
 import type { Language, SyntaxNode, Tree } from "web-tree-sitter";
 
 export class TalonJsTreeSitter implements TreeSitter {
-  getNodeAtLocation(document: TextDocument, _range: Range): SyntaxNode {
-    throw new UnsupportedLanguageError(document.languageId);
+  getNodeAtLocation(_document: TextDocument, _range: Range): SyntaxNode {
+    throw Error("getNodeAtLocation not implemented");
   }
 
-  getTree(document: TextDocument): Tree {
-    throw new UnsupportedLanguageError(document.languageId);
+  getTree(_document: TextDocument): Tree {
+    throw Error("getTree not implemented");
   }
 
   loadLanguage(_languageId: string): Promise<boolean> {

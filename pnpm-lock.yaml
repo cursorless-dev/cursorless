@@ -457,6 +457,10 @@ importers:
       '@cursorless/cursorless-engine':
         specifier: workspace:*
         version: link:../cursorless-engine
+    devDependencies:
+      esbuild:
+        specifier: ^0.20.2
+        version: 0.20.2
 
   packages/cursorless-vscode:
     dependencies:
