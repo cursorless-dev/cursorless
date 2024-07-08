@@ -25,6 +25,7 @@ import { TalonJsClipboard } from "./TalonJsClipboard";
 import { TalonJsConfiguration } from "./TalonJsConfiguration";
 import { TalonJsMessages } from "./TalonJsMessages";
 import { TalonJsState } from "./TalonJsState";
+import { pull } from "lodash";
 
 export class TalonJsIDE implements IDE {
   configuration: Configuration;
@@ -32,6 +33,7 @@ export class TalonJsIDE implements IDE {
   globalState: State;
   clipboard: Clipboard;
   capabilities: Capabilities;
+  private disposables: Disposable[] = [];
 
   constructor() {
     this.configuration = new TalonJsConfiguration();
@@ -58,7 +60,7 @@ export class TalonJsIDE implements IDE {
   }
 
   get activeTextEditor(): TextEditor | undefined {
-    throw new Error("activeTextEditor not implemented.");
+    return this.activeEditableTextEditor;
   }
 
   get activeEditableTextEditor(): EditableTextEditor | undefined {
@@ -69,60 +71,56 @@ export class TalonJsIDE implements IDE {
     throw new Error("visibleTextEditors not implemented.");
   }
 
-  disposeOnExit(...disposables: Disposable[]): () => void {
-    throw new Error("disposeOnExit not implemented.");
-  }
-
   getEditableTextEditor(editor: TextEditor): EditableTextEditor {
-    throw new Error("getEditableTextEditor not implemented.");
+    return editor as EditableTextEditor;
   }
 
   findInDocument(
-    query: string,
-    editor?: TextEditor | undefined,
+    _query: string,
+    _editor?: TextEditor | undefined,
   ): Promise<void> {
     throw new Error("findInDocument not implemented.");
   }
 
-  findInWorkspace(query: string): Promise<void> {
+  findInWorkspace(_query: string): Promise<void> {
     throw new Error("findInWorkspace not implemented.");
   }
 
-  openTextDocument(path: string): Promise<TextEditor> {
+  openTextDocument(_path: string): Promise<TextEditor> {
     throw new Error("openTextDocument not implemented.");
   }
 
   openUntitledTextDocument(
-    options?: OpenUntitledTextDocumentOptions | undefined,
+    _options?: OpenUntitledTextDocumentOptions | undefined,
   ): Promise<TextEditor> {
     throw new Error("openUntitledTextDocument not implemented.");
   }
 
   showInputBox(
-    options?: InputBoxOptions | undefined,
+    _options?: InputBoxOptions | undefined,
   ): Promise<string | undefined> {
     throw new Error("showInputBox not implemented.");
   }
 
   showQuickPick(
-    items: readonly string[],
-    options?: QuickPickOptions | undefined,
+    _items: readonly string[],
+    _options?: QuickPickOptions | undefined,
   ): Promise<string | undefined> {
     throw new Error("showQuickPick not implemented.");
   }
 
-  executeCommand<T>(command: string, ...args: any[]): Promise<T | undefined> {
+  executeCommand<T>(_command: string, ..._args: any[]): Promise<T | undefined> {
     throw new Error("executeCommand not implemented.");
   }
 
-  flashRanges(flashDescriptors: FlashDescriptor[]): Promise<void> {
+  flashRanges(_flashDescriptors: FlashDescriptor[]): Promise<void> {
     throw new Error("flashRanges not implemented.");
   }
 
   setHighlightRanges(
-    highlightId: string | undefined,
-    editor: TextEditor,
-    ranges: GeneralizedRange[],
+    _highlightId: string | undefined,
+    _editor: TextEditor,
+    _ranges: GeneralizedRange[],
   ): Promise<void> {
     throw new Error("setHighlightRanges not implemented.");
   }
@@ -167,5 +165,11 @@ export class TalonJsIDE implements IDE {
     _listener: (event: TextEditorVisibleRangesChangeEvent) => void,
   ): Disposable {
     throw new Error("onDidChangeTextEditorVisibleRanges not implemented.");
+  }
+
+  disposeOnExit(...disposables: Disposable[]): () => void {
+    this.disposables.push(...disposables);
+
+    return () => pull(this.disposables, ...disposables);
   }
 }

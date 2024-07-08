@@ -14,32 +14,31 @@ async function activate(): Promise<void> {
   const hats = new TalonJsHats();
   const fileSystem = new TalonJsFileSystem();
   const treeSitter = new TalonJsTreeSitter();
-
   const commandServerApi = new FakeCommandServerApi();
 
-  print("activate talon.js");
+  const { commandApi } = await createCursorlessEngine(
+    treeSitter,
+    talonJsIDE,
+    hats,
+    commandServerApi,
+    fileSystem,
+  );
 
-  //   const { commandApi } = await createCursorlessEngine(
-  //     treeSitter,
-  //     talonJsIDE,
-  //     hats,
-  //     commandServerApi,
-  //     fileSystem,
-  //   );
-
-  //   registerCommands(commandApi);
+  registerCommands(commandApi);
 }
 
-// function registerCommands(commandApi: CommandApi) {
-//   const ctx = new Context();
+function registerCommands(commandApi: CommandApi) {
+  const ctx = new Context();
 
-//   ctx.action_class("user", {
-//     cursorless_js_command(...args: unknown[]) {
-//       print("cursorless_js_command");
-//       print(args);
-//     //   return commandApi.runCommandSafe(...args);
-//     },
-//   });
-// }
+  ctx.action_class("user", {
+    cursorless_js_command(...args: unknown[]) {
+      print("cursorless_js_command");
+      print(args);
+      return commandApi.runCommandSafe(...args);
+    },
+  });
+}
+
+print("activate talon.js");
 
 void activate();

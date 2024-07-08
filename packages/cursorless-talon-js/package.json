@@ -7,7 +7,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "esbuild:base": "esbuild ./src/extension.ts --conditions=cursorless:bundler --bundle --outfile=out/talon.js --external:talon --format=cjs --platform=neutral",
+    "esbuild:base": "esbuild ./src/extension.ts --conditions=cursorless:bundler --bundle --outfile=out/talon.js --external:talon --format=cjs --platform=node",
     "esbuild": "pnpm run esbuild:base --sourcemap",
     "esbuild:meta": "pnpm run esbuild:base --metafile=meta.json",
     "esbuild:watch": "pnpm run esbuild:base --sourcemap --watch",
@@ -16,9 +16,11 @@
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",
-    "@cursorless/cursorless-engine": "workspace:*"
+    "@cursorless/cursorless-engine": "workspace:*",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
+    "@types/lodash": "4.17.0",
     "esbuild": "^0.20.2"
   }
 }

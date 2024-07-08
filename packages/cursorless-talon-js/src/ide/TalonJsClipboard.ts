@@ -1,11 +1,12 @@
+import { actions } from "talon";
 import type { Clipboard } from "@cursorless/common";
 
 export class TalonJsClipboard implements Clipboard {
-  readText(): Promise<string> {
-    throw new Error("readText not implemented.");
+  async readText(): Promise<string> {
+    return actions.clip.text();
   }
 
-  writeText(value: string): Promise<void> {
-    throw new Error("writeText not implemented.");
+  async writeText(value: string): Promise<void> {
+    actions.clip.set_text(value);
   }
 }

@@ -1,16 +1,11 @@
-import type { State } from "@cursorless/common";
+import type { State, StateData, StateKey } from "@cursorless/common";
 
 export class TalonJsState implements State {
-  get<K extends "hideInferenceWarning">(
-    key: K,
-  ): { hideInferenceWarning: boolean }[K] {
-    throw new Error("get not implemented.");
+  get<K extends StateKey>(_key: K): StateData[K] {
+    throw new Error("state.get not implemented.");
   }
 
-  set<K extends "hideInferenceWarning">(
-    key: K,
-    value: { hideInferenceWarning: boolean }[K],
-  ): Promise<void> {
-    throw new Error("set not implemented.");
+  async set<K extends StateKey>(_key: K, _value: StateData[K]): Promise<void> {
+    throw new Error("state.set not implemented.");
   }
 }

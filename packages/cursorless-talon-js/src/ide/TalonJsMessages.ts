@@ -1,12 +1,26 @@
-import type { MessageType, Messages } from "@cursorless/common";
+import { actions } from "talon";
+import { MessageType, type Messages } from "@cursorless/common";
 
 export class TalonJsMessages implements Messages {
-  showMessage(
+  async showMessage(
     type: MessageType,
-    id: string,
+    _id: string,
     message: string,
     ...options: string[]
   ): Promise<string | undefined> {
-    throw new Error("showMessage not implemented.");
+    if (options.length > 0) {
+      throw Error(`Message options are not supported in TalonJsMessages.`);
+    }
+    switch (type) {
+      case MessageType.info:
+        actions.app.notify(message, "Cursorless");
+        break;
+      case MessageType.warning:
+        actions.app.notify(message, "[WARNING] Cursorless");
+        break;
+      case MessageType.error:
+        actions.app.notify(message, "[ERROR] Cursorless");
+    }
+    return undefined;
   }
 }
