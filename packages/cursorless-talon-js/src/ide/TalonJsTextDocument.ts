@@ -23,7 +23,7 @@ export class TalonJsTextDocument implements TextDocument {
   ) {
     this.version = 0;
     this.eol = content.includes("\r\n") ? "CRLF" : "LF";
-    this.lines = createLines(content, this.eol);
+    this.lines = createLines(content);
   }
 
   get lineCount(): number {
@@ -44,30 +44,45 @@ export class TalonJsTextDocument implements TextDocument {
   }
 
   offsetAt(position: Position): number {
-    throw new Error("Method not implemented.");
+    let offset = 0;
+    for (const line of this.lines) {
+      if (position.line === line.lineNumber) {
+        return offset + Math.min(position.character, line.range.end.character);
+      }
+      offset += line.text.length;
+    }
+    return offset;
   }
 
   positionAt(offset: number): Position {
-    throw new Error("Method not implemented.");
+    let currentOffset = 0;
+    for (const line of this.lines) {
+      if (currentOffset + line.text.length >= offset) {
+        return new Position(line.lineNumber, offset - currentOffset);
+      }
+      currentOffset += line.text.length;
+    }
+    return this.lines[this.lines.length - 1].range.end;
   }
 
-  getText(range?: Range | undefined): string {
-    throw new Error("Method not implemented.");
+  getText(range?: Range): string {
+    if (range == null) {
+      return this.content;
+    }
+    const startOffset = this.offsetAt(range.start);
+    const endOffset = this.offsetAt(range.end);
+    return this.content.slice(startOffset, endOffset);
   }
 }
 
-function createLines(content: string, eol: EndOfLine): TextLine[] {
+function createLines(content: string): TextLine[] {
   const lines = content.split(/\r\n|\n/);
-  const eolLength = eol === "CRLF" ? 2 : 1;
   const result: TextLine[] = [];
 
   for (const line of lines) {
     const start = new Position(result.length, 0);
     const end = new Position(start.line, line.length);
-    const endIncludingLineBreak = new Position(
-      start.line,
-      line.length + eolLength,
-    );
+    const endIncludingLineBreak = new Position(start.line + 1, 0);
     const firstNonWhitespaceCharacterIndex = getLeadingWhitespace(line).length;
     const lastNonWhitespaceCharacterIndex =
       line.length - getTrailingWhitespace(line).length;

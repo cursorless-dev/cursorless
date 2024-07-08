@@ -35,108 +35,108 @@ export class TalonJsEditor implements EditableTextEditor {
     selections: Selection[],
     opts?: SetSelectionsOpts | undefined,
   ): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error("setSelections not implemented.");
   }
 
   revealRange(range: Range): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error("revealRange not implemented.");
   }
 
   revealLine(lineNumber: number, at: RevealLineAt): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error("revealLine not implemented.");
   }
 
   focus(): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error("focus not implemented.");
   }
 
   edit(edits: Edit[]): Promise<boolean> {
-    throw new Error("Method not implemented.");
+    throw new Error("edit not implemented.");
   }
 
   editNewNotebookCellAbove(): Promise<(selection: Selection) => Selection> {
-    throw new Error("Method not implemented.");
+    throw new Error("editNewNotebookCellAbove not implemented.");
   }
 
   editNewNotebookCellBelow(): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error("editNewNotebookCellBelow not implemented.");
   }
 
   openLink(range: Range, options?: OpenLinkOptions | undefined): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error("openLink not implemented.");
   }
 
   fold(ranges?: Range[] | undefined): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error("fold not implemented.");
   }
 
   unfold(ranges?: Range[] | undefined): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error("unfold not implemented.");
   }
 
   clipboardCopy(ranges?: Range[] | undefined): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error("clipboardCopy not implemented.");
   }
 
   clipboardPaste(ranges?: Range[] | undefined): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error("clipboardPaste not implemented.");
   }
 
   toggleBreakpoint(
     descriptors?: BreakpointDescriptor[] | undefined,
   ): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error("toggleBreakpoint not implemented.");
   }
 
   toggleLineComment(ranges?: Range[] | undefined): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error("toggleLineComment not implemented.");
   }
 
   indentLine(ranges?: Range[] | undefined): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error("indentLine not implemented.");
   }
 
   outdentLine(ranges?: Range[] | undefined): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error("outdentLine not implemented.");
   }
 
   insertLineAfter(ranges?: Range[] | undefined): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error("insertLineAfter not implemented.");
   }
 
   insertSnippet(snippet: string, ranges?: Range[] | undefined): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error("insertSnippet not implemented.");
   }
 
   rename(range?: Range | undefined): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error("rename not implemented.");
   }
 
   showReferences(range?: Range | undefined): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error("showReferences not implemented.");
   }
 
   quickFix(range?: Range | undefined): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error("quickFix not implemented.");
   }
 
   revealDefinition(range?: Range | undefined): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error("revealDefinition not implemented.");
   }
 
   revealTypeDefinition(range?: Range | undefined): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error("revealTypeDefinition not implemented.");
   }
 
   showHover(range?: Range | undefined): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error("showHover not implemented.");
   }
 
   showDebugHover(range?: Range | undefined): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error("showDebugHover not implemented.");
   }
 
   extractVariable(range?: Range | undefined): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error("extractVariable not implemented.");
   }
 }
