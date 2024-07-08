@@ -20,12 +20,14 @@ import type {
   TextEditorVisibleRangesChangeEvent,
   WorkspaceFolder,
 } from "@cursorless/common";
+import { pull } from "lodash";
+import { actions } from "talon";
 import { TalonJsCapabilities } from "./TalonJsCapabilities";
 import { TalonJsClipboard } from "./TalonJsClipboard";
 import { TalonJsConfiguration } from "./TalonJsConfiguration";
+import { TalonJsEditor } from "./TalonJsEditor";
 import { TalonJsMessages } from "./TalonJsMessages";
 import { TalonJsState } from "./TalonJsState";
-import { pull } from "lodash";
 
 export class TalonJsIDE implements IDE {
   configuration: Configuration;
@@ -34,6 +36,7 @@ export class TalonJsIDE implements IDE {
   clipboard: Clipboard;
   capabilities: Capabilities;
   private disposables: Disposable[] = [];
+  private editors: EditableTextEditor[] = [];
 
   constructor() {
     this.configuration = new TalonJsConfiguration();
@@ -51,12 +54,12 @@ export class TalonJsIDE implements IDE {
     throw new Error("cursorlessVersion not implemented.");
   }
 
-  get runMode(): RunMode {
-    throw new Error("runMode not implemented.");
-  }
-
   get workspaceFolders(): readonly WorkspaceFolder[] | undefined {
     throw new Error("workspaceFolders not implemented.");
+  }
+
+  get runMode(): RunMode {
+    return "production";
   }
 
   get activeTextEditor(): TextEditor | undefined {
@@ -64,15 +67,24 @@ export class TalonJsIDE implements IDE {
   }
 
   get activeEditableTextEditor(): EditableTextEditor | undefined {
-    throw new Error("activeEditableTextEditor not implemented.");
+    return this.editors[0];
   }
 
   get visibleTextEditors(): TextEditor[] {
-    throw new Error("visibleTextEditors not implemented.");
+    return this.editors;
   }
 
   getEditableTextEditor(editor: TextEditor): EditableTextEditor {
     return editor as EditableTextEditor;
+  }
+
+  updateTextEditor() {
+    const {
+      text,
+      selection: [anchorOffset, activeOffset],
+    } = actions.user.cursorless_js_get_document_state();
+
+    this.editors = [new TalonJsEditor(text, anchorOffset, activeOffset)];
   }
 
   findInDocument(

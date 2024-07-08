@@ -1,5 +1,10 @@
 type Namespace = "user";
 
+interface DocumentState {
+  text: string;
+  selection: [number, number];
+}
+
 interface Actions {
   clip: {
     set_text(text: string): void;
@@ -9,7 +14,8 @@ interface Actions {
     notify(body: string, title: string): void;
   };
   user: {
-    cursorless_js_command(...args: unknown[]): void;
+    cursorless_js_run_command(...args: unknown[]): unknown;
+    cursorless_js_get_document_state(): DocumentState;
   };
 }
 

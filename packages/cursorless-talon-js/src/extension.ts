@@ -1,4 +1,8 @@
-import { FakeCommandServerApi } from "@cursorless/common";
+import {
+  FakeCommandServerApi,
+  FakeIDE,
+  NormalizedIDE,
+} from "@cursorless/common";
 import {
   createCursorlessEngine,
   type CommandApi,
@@ -16,24 +20,34 @@ async function activate(): Promise<void> {
   const treeSitter = new TalonJsTreeSitter();
   const commandServerApi = new FakeCommandServerApi();
 
+  const normalizedIde =
+    talonJsIDE.runMode === "production"
+      ? talonJsIDE
+      : new NormalizedIDE(
+          talonJsIDE,
+          new FakeIDE(),
+          talonJsIDE.runMode === "test",
+        );
+
   const { commandApi } = await createCursorlessEngine(
     treeSitter,
-    talonJsIDE,
+    normalizedIde,
     hats,
     commandServerApi,
     fileSystem,
   );
 
-  registerCommands(commandApi);
+  registerCommands(talonJsIDE, commandApi);
 }
 
-function registerCommands(commandApi: CommandApi) {
+function registerCommands(talonJsIDE: TalonJsIDE, commandApi: CommandApi) {
   const ctx = new Context();
 
   ctx.action_class("user", {
-    cursorless_js_command(...args: unknown[]) {
-      print("cursorless_js_command");
+    cursorless_js_run_command(...args: unknown[]) {
+      print("cursorless_js_run_command");
       print(args);
+      talonJsIDE.updateTextEditor();
       return commandApi.runCommandSafe(...args);
     },
   });
