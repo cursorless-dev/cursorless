@@ -1,0 +1,16 @@
+{
+  "name": "@cursorless/cursorless-talon-js",
+  "version": "1.0.0",
+  "description": "cursorless in talon js",
+  "main": "./out/index.cjs",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "clean": "rm -rf ./out"
+  },
+  "dependencies": {
+    "@cursorless/common": "workspace:*",
+    "@cursorless/cursorless-engine": "workspace:*"
+  }
+}

@@ -21,6 +21,9 @@
       "path": "./packages/cursorless-org-docs"
     },
     {
+      "path": "./packages/cursorless-talon-js"
+    },
+    {
       "path": "./packages/cursorless-vscode"
     },
     {
