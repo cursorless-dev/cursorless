@@ -10,6 +10,7 @@ import {
 import { Context } from "talon";
 import { TalonJsFileSystem } from "./TalonJsFileSystem";
 import { TalonJsHats } from "./TalonJsHats";
+import { TalonJsSnippets } from "./TalonJsSnippets";
 import { TalonJsTreeSitter } from "./TalonJsTreeSitter";
 import { TalonJsIDE } from "./ide/TalonJsIDE";
 
@@ -18,6 +19,7 @@ async function activate(): Promise<void> {
   const hats = new TalonJsHats();
   const fileSystem = new TalonJsFileSystem();
   const treeSitter = new TalonJsTreeSitter();
+  const snippets = new TalonJsSnippets();
   const commandServerApi = new FakeCommandServerApi();
 
   const normalizedIde =
@@ -35,6 +37,7 @@ async function activate(): Promise<void> {
     hats,
     commandServerApi,
     fileSystem,
+    snippets,
   );
 
   registerCommands(talonJsIDE, commandApi);
