@@ -1,7 +1,7 @@
 import { showError, Snippet, SnippetMap, walkFiles } from "@cursorless/common";
 import { readFile, stat } from "fs/promises";
 import { max } from "lodash";
-import { join } from "path";
+import { join } from "pathe";
 import { ide } from "../singletons/ide.singleton";
 import { mergeStrict } from "../util/object";
 import { mergeSnippets } from "./mergeSnippets";

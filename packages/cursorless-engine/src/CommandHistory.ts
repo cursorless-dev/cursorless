@@ -13,7 +13,7 @@ import type {
 } from "@cursorless/cursorless-engine";
 import { produce } from "immer";
 import * as fs from "node:fs/promises";
-import * as path from "node:path";
+import * as path from "pathe";
 import { v4 as uuid } from "uuid";
 
 const filePrefix = "cursorlessCommandHistory";

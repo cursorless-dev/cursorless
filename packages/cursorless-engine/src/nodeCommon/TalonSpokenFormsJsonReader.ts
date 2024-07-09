@@ -1,7 +1,7 @@
 import { Disposable, FileSystem, Notifier } from "@cursorless/common";
 import { readFile } from "fs/promises";
 
-import * as path from "path";
+import * as path from "pathe";
 import {
   NeedsInitialTalonUpdateError,
   SpokenFormEntry,

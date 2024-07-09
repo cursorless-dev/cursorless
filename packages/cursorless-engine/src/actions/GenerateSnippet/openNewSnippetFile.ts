@@ -1,5 +1,5 @@
 import { open } from "fs/promises";
-import { join } from "path";
+import { join } from "pathe";
 import { ide } from "../../singletons/ide.singleton";
 
 /**

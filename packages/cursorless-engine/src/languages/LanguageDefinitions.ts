@@ -8,7 +8,7 @@ import {
   isTesting,
   showError,
 } from "@cursorless/common";
-import { join } from "path";
+import { join } from "pathe";
 import { SyntaxNode } from "web-tree-sitter";
 import { TreeSitter } from "../typings/TreeSitter";
 import { ide } from "../singletons/ide.singleton";

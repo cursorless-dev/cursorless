@@ -204,6 +204,9 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
+      pathe:
+        specifier: ^1.1.2
+        version: 1.1.2
       vscode-uri:
         specifier: ^3.0.8
         version: 3.0.8
@@ -271,6 +274,9 @@ importers:
       node-html-parser:
         specifier: ^6.1.12
         version: 6.1.12
+      pathe:
+        specifier: ^1.1.2
+        version: 1.1.2
       sbd:
         specifier: ^1.0.19
         version: 1.0.19
@@ -472,6 +478,9 @@ importers:
       nearley:
         specifier: 2.20.1
         version: 2.20.1(patch_hash=mg2fc7wgvzub3myuz6m74hllma)
+      pathe:
+        specifier: ^1.1.2
+        version: 1.1.2
       semver:
         specifier: ^7.6.0
         version: 7.6.0
@@ -646,6 +655,9 @@ importers:
       glob:
         specifier: ^10.3.10
         version: 10.3.10
+      pathe:
+        specifier: ^1.1.2
+        version: 1.1.2
     devDependencies:
       '@types/glob':
         specifier: ^8.1.0
@@ -7230,6 +7242,9 @@ packages:
   path-type@4.0.0:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
     engines: {node: '>=8'}
+
+  pathe@1.1.2:
+    resolution: {integrity: sha512-whLdWMYL2TwI08hn8/ZqAbrVemu0LNaNNJZX73O6qaIdCTfXutsLhMkjdENX0qhsQ9uIimo4/aQOmXkoon2nDQ==}
 
   pathval@2.0.0:
     resolution: {integrity: sha512-vE7JKRyES09KiunauX7nd2Q9/L7lhok4smP9RZTDeD4MVs72Dp2qNFVz39Nz5a0FVEW0BJR6C0DYrq6unoziZA==}
@@ -18343,6 +18358,8 @@ snapshots:
   path-to-regexp@6.2.1: {}
 
   path-type@4.0.0: {}
+
+  pathe@1.1.2: {}
 
   pathval@2.0.0: {}
 

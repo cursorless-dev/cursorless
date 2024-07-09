@@ -2,7 +2,7 @@ import { readFile, writeFile } from "fs/promises";
 import { parse } from "node-html-parser";
 import { sortBy } from "lodash";
 import { ide } from "../singletons/ide.singleton";
-import path from "path";
+import path from "pathe";
 import { getCursorlessRepoRoot } from "@cursorless/common";
 import { produce } from "immer";
 

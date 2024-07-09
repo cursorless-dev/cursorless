@@ -27,7 +27,7 @@ import * as fs from "fs";
 import { access, readFile } from "fs/promises";
 import { invariant } from "immutability-helper";
 import { merge } from "lodash";
-import * as path from "path";
+import * as path from "pathe";
 import { CommandRunner } from "../CommandRunner";
 import { StoredTargetMap } from "../core/StoredTargets";
 import { SpokenFormGenerator } from "../generateSpokenForm";

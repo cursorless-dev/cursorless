@@ -1,4 +1,4 @@
-import * as path from "path";
+import * as path from "pathe";
 import { readdir } from "fs/promises";
 import { flatten } from "lodash";
 
