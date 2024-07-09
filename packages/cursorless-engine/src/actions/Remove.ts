@@ -2,12 +2,12 @@ import { FlashStyle, Selection, TextEditor } from "@cursorless/common";
 import { flatten, zip } from "lodash";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import { RawSelectionTarget } from "../processTargets/targets";
+import { UntypedTarget } from "../processTargets/targets";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
 import { unifyRemovalTargets } from "../util/unifyRanges";
-import { SimpleAction, ActionReturnValue } from "./actions.types";
+import { ActionReturnValue, SimpleAction } from "./actions.types";
 
 export default class Delete implements SimpleAction {
   constructor(private rangeUpdater: RangeUpdater) {
@@ -54,10 +54,12 @@ export default class Delete implements SimpleAction {
 
     return zip(targets, updatedEditSelections).map(
       ([target, range]) =>
-        new RawSelectionTarget({
+        new UntypedTarget({
           editor: target!.editor,
           isReversed: target!.isReversed,
           contentRange: range!,
+          hasExplicitRange: true,
+          isToken: false,
         }),
     );
   }
