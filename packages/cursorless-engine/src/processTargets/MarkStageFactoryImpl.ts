@@ -30,7 +30,7 @@ export class MarkStageFactoryImpl implements MarkStageFactory {
   create(mark: Mark): MarkStage {
     switch (mark.type) {
       case "cursor":
-        return new CursorStage(mark);
+        return new CursorStage();
       case "that":
       case "source":
       case "keyboard":
