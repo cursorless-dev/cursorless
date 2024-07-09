@@ -330,11 +330,12 @@ export const scopeSupportFacetInfos: Record<
   },
   "collectionItem.unenclosed": {
     description:
-      "An item in an unenclosed list. Variable declarations, import statements, etc.",
+      "An item in a comma-separated list without enclosing delimiters. This could be multi-variable declarations, import statements, etc.",
     scopeType: "collectionItem",
   },
   "collectionItem.unenclosed.iteration": {
-    description: "Iteration scope for items in an unenclosed list",
+    description:
+      "Iteration scope for items in a comma-separated list without enclosing delimiters",
     scopeType: "collectionItem",
     isIteration: true,
   },
