@@ -6,9 +6,7 @@ import {
   showWarning,
 } from "@cursorless/common";
 import { groupBy, map, sum } from "lodash";
-import { asyncIteratorToList } from "./asyncIteratorToList";
 import { canonicalizeAndValidateCommand } from "./core/commandVersionUpgrades/canonicalizeAndValidateCommand";
-import { generateCommandHistoryEntries } from "./generateCommandHistoryEntries";
 import { ide } from "./singletons/ide.singleton";
 import { getPartialTargetDescriptors } from "./util/getPartialTargetDescriptors";
 import { getPartialPrimitiveTargets } from "./util/getPrimitiveTargets";
@@ -97,9 +95,7 @@ function getMonth(entry: CommandHistoryEntry): string {
   return entry.date.slice(0, 7);
 }
 
-export async function analyzeCommandHistory(dir: string) {
-  const entries = await asyncIteratorToList(generateCommandHistoryEntries(dir));
-
+export async function analyzeCommandHistory(entries: CommandHistoryEntry[]) {
   if (entries.length === 0) {
     const TAKE_ME_THERE = "Show me";
     const result = await showWarning(

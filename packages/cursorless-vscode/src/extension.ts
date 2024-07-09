@@ -11,7 +11,6 @@ import {
   TextDocument,
 } from "@cursorless/common";
 import {
-  CommandHistory,
   createCursorlessEngine,
   ScopeTestRecorder,
   TestCaseRecorder,
@@ -51,6 +50,7 @@ import {
 import { StatusBarItem } from "./StatusBarItem";
 import { storedTargetHighlighter } from "./storedTargetHighlighter";
 import { vscodeApi } from "./vscodeApi";
+import { VscodeCommandHistory } from "./VscodeCommandHistory";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -102,7 +102,7 @@ export async function activate(
   );
 
   addCommandRunnerDecorator(
-    new CommandHistory(normalizedIde, commandServerApi, fileSystem),
+    new VscodeCommandHistory(normalizedIde, commandServerApi, fileSystem),
   );
 
   const testCaseRecorder = new TestCaseRecorder(

@@ -1,10 +1,18 @@
 import { CommandHistoryEntry } from "@cursorless/common";
+import { analyzeCommandHistory } from "@cursorless/cursorless-engine";
 import { glob } from "glob";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 
-export async function* generateCommandHistoryEntries(dir: string) {
+export async function analyzeVscodeCommandHistory(dir: string) {
+  const entries = await getCommandHistoryEntries(dir);
+  await analyzeCommandHistory(entries);
+}
+
+async function getCommandHistoryEntries(dir: string) {
   const files = await glob("*.jsonl", { cwd: dir });
+
+  const entries: CommandHistoryEntry[] = [];
 
   for (const file of files) {
     const filePath = path.join(dir, file);
@@ -16,7 +24,9 @@ export async function* generateCommandHistoryEntries(dir: string) {
         continue;
       }
 
-      yield JSON.parse(line) as CommandHistoryEntry;
+      entries.push(JSON.parse(line));
     }
   }
+
+  return entries;
 }

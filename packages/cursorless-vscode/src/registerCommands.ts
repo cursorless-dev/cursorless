@@ -8,13 +8,13 @@ import {
   CommandApi,
   StoredTargetMap,
   TestCaseRecorder,
-  analyzeCommandHistory,
   showCheatsheet,
   updateDefaults,
   type ScopeTestRecorder,
 } from "@cursorless/cursorless-engine";
 import * as vscode from "vscode";
 import { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
+import { analyzeVscodeCommandHistory } from "./analyzeVscodeCommandHistory";
 import { showDocumentation, showQuickPick } from "./commands";
 import { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
@@ -90,7 +90,7 @@ export function registerCommands(
 
     // Command history
     ["cursorless.analyzeCommandHistory"]: () =>
-      analyzeCommandHistory(fileSystem.cursorlessCommandHistoryDirPath),
+      analyzeVscodeCommandHistory(fileSystem.cursorlessCommandHistoryDirPath),
 
     // General keyboard commands
     ["cursorless.keyboard.escape"]:

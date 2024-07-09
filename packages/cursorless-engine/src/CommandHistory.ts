@@ -3,7 +3,6 @@ import {
   CommandComplete,
   CommandHistoryEntry,
   CommandServerApi,
-  FileSystem,
   IDE,
   ReadOnlyHatMap,
 } from "@cursorless/common";
@@ -12,8 +11,6 @@ import type {
   CommandRunnerDecorator,
 } from "@cursorless/cursorless-engine";
 import { produce } from "immer";
-import * as fs from "node:fs/promises";
-import * as path from "node:path";
 import { v4 as uuid } from "uuid";
 
 const filePrefix = "cursorlessCommandHistory";
@@ -22,18 +19,14 @@ const filePrefix = "cursorlessCommandHistory";
  * When user opts in, this class sanitizes and appends each Cursorless command
  * to a local log file in `.cursorless/commandHistory` dir.
  */
-export class CommandHistory implements CommandRunnerDecorator {
-  private readonly dirPath: string;
+export abstract class CommandHistory implements CommandRunnerDecorator {
   private currentPhraseSignal = "";
   private currentPhraseId = "";
 
   constructor(
     private ide: IDE,
     private commandServerApi: CommandServerApi | null,
-    fileSystem: FileSystem,
-  ) {
-    this.dirPath = fileSystem.cursorlessCommandHistoryDirPath;
-  }
+  ) {}
 
   wrapCommandRunner(
     _readableHatMap: ReadOnlyHatMap,
@@ -59,13 +52,14 @@ export class CommandHistory implements CommandRunnerDecorator {
     };
   }
 
+  protected abstract appendFile(fileName: string, data: string): Promise<void>;
+
   private async appendToLog(
     command: CommandComplete,
     thrownError?: Error,
   ): Promise<void> {
     const date = new Date();
     const fileName = `${filePrefix}_${getMonthDate(date)}.jsonl`;
-    const file = path.join(this.dirPath, fileName);
 
     const historyItem: CommandHistoryEntry = {
       id: uuid(),
@@ -77,8 +71,7 @@ export class CommandHistory implements CommandRunnerDecorator {
     };
     const data = JSON.stringify(historyItem) + "\n";
 
-    await fs.mkdir(this.dirPath, { recursive: true });
-    await fs.appendFile(file, data, "utf8");
+    await this.appendFile(fileName, data);
   }
 
   private async getPhraseId(): Promise<string | undefined> {
