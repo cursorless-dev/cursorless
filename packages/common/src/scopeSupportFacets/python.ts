@@ -21,6 +21,9 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal": supported,
   "argument.formal.iteration": supported,
 
+  "collectionItem.unenclosed": supported,
+  "collectionItem.unenclosed.iteration": supported,
+
   "branch.if": supported,
   "branch.if.iteration": supported,
   "branch.switchCase": supported,
