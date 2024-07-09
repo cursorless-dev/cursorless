@@ -148,10 +148,10 @@ export class LanguageDefinitions {
   public getNodeAtLocation(
     document: TextDocument,
     range: Range,
-  ): SyntaxNode | null {
+  ): SyntaxNode | undefined {
     return this.treeSitter != null
       ? this.treeSitter.getNodeAtLocation(document, range)
-      : null;
+      : undefined;
   }
 
   onDidChangeDefinition = this.notifier.registerListener;

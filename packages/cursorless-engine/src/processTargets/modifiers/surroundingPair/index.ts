@@ -68,7 +68,7 @@ function processSurroundingPairCore(
     scopeType.delimiter as ComplexSurroundingPairName
   ] ?? [scopeType.delimiter];
 
-  let node: SyntaxNode | null;
+  let node: SyntaxNode | undefined;
 
   try {
     node = languageDefinitions.getNodeAtLocation(document, range);
