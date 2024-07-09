@@ -1,0 +1,15 @@
+`
+foo
+`
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:1-2:0
+   >
+0| `
+1| foo
+2| `
+   <
+
+[Insertion delimiter] = " "
