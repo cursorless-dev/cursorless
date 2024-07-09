@@ -52,8 +52,8 @@ export class Debug {
   }
 
   private enableDebugLog() {
+    this.active = true;
     if (this.treeSitter != null) {
-      this.active = true;
       this.disposableSelection = ide().onDidChangeTextEditorSelection(
         this.logBranchTypes,
       );
