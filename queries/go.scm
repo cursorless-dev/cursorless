@@ -30,11 +30,13 @@
 ] @statement
 
 (
-  [
-    (interpreted_string_literal)
-    (raw_string_literal)
-  ] @string @textFragment
+  (interpreted_string_literal) @string @textFragment
   (#child-range! @textFragment 0 -1 true true)
+)
+
+(
+  (raw_string_literal) @string @textFragment
+  (#character-range! @textFragment 1 -1)
 )
 
 (comment) @comment @textFragment
