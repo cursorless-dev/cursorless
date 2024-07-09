@@ -1,4 +1,4 @@
-import { pickBy, values } from "lodash";
+import { pickBy, values } from "lodash-es";
 import { GeneralizedRange } from "../../types/GeneralizedRange";
 import { TextEditor } from "../../types/TextEditor";
 import PassthroughIDEBase from "../PassthroughIDEBase";

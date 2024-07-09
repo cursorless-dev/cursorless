@@ -1,4 +1,4 @@
-import { mapValues, pickBy } from "lodash";
+import { mapValues, pickBy } from "lodash-es";
 import { KeyMap, SectionName, TokenType } from "./TokenTypeHelpers";
 import { SectionTypes, TokenTypeValueMap } from "./TokenTypes";
 import { VscodeApi } from "@cursorless/vscode-common";
