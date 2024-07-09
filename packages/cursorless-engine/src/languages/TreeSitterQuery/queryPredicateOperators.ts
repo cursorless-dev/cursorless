@@ -98,6 +98,23 @@ class ChildRange extends QueryPredicateOperator<ChildRange> {
   }
 }
 
+class CharacterRange extends QueryPredicateOperator<CharacterRange> {
+  name = "character-range!" as const;
+  schema = z.union([
+    z.tuple([q.node, q.integer]),
+    z.tuple([q.node, q.integer, q.integer]),
+  ]);
+
+  run(nodeInfo: MutableQueryCapture, startOffset: number, endOffset?: number) {
+    nodeInfo.range = new Range(
+      nodeInfo.range.start.translate(undefined, startOffset),
+      nodeInfo.range.end.translate(undefined, endOffset ?? 0),
+    );
+
+    return true;
+  }
+}
+
 /**
  * A predicate operator that modifies the range of the match to shrink to regex
  * match.  For example, `(#shrink-to-match! @foo "\\S+")` will modify the range
@@ -252,6 +269,7 @@ export const queryPredicateOperators = [
   new NotParentType(),
   new IsNthChild(),
   new ChildRange(),
+  new CharacterRange(),
   new ShrinkToMatch(),
   new AllowMultiple(),
   new InsertionDelimiter(),
