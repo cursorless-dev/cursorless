@@ -43,7 +43,7 @@ export class HatTokenMapImpl implements HatTokenMap {
     rangeUpdater: RangeUpdater,
     private debug: Debug,
     hats: Hats,
-    private commandServerApi: CommandServerApi | null,
+    private commandServerApi: CommandServerApi | undefined,
   ) {
     ide().disposeOnExit(this);
     this.activeMap = new IndividualHatMap(rangeUpdater);
@@ -153,5 +153,26 @@ export class HatTokenMapImpl implements HatTokenMap {
 
     this.prePhraseMapSnapshot = this.activeMap.clone();
     this.prePhraseMapsSnapshotTimestamp = hrtime.bigint();
+  }
+}
+
+export class DisabledHatTokenMap implements HatTokenMap {
+  async allocateHats() {
+    // Do nothing
+  }
+
+  async getReadableMap() {
+    return {
+      getEntries() {
+        return [];
+      },
+      getToken() {
+        throw new Error("Hat map is disabled");
+      },
+    };
+  }
+
+  dispose() {
+    // Do nothing
   }
 }

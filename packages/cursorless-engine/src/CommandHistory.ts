@@ -29,7 +29,7 @@ export class CommandHistory implements CommandRunnerDecorator {
 
   constructor(
     private ide: IDE,
-    private commandServerApi: CommandServerApi | null,
+    private commandServerApi: CommandServerApi | undefined,
     fileSystem: FileSystem,
   ) {
     this.dirPath = fileSystem.cursorlessCommandHistoryDirPath;

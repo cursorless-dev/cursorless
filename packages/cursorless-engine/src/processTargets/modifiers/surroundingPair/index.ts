@@ -75,7 +75,7 @@ function processSurroundingPairCore(
 
     // Error nodes are unreliable and should be ignored. Fall back to text based
     // algorithm.
-    if (nodeHasError(node)) {
+    if (node == null || nodeHasError(node)) {
       return findSurroundingPairTextBased(
         editor,
         range,

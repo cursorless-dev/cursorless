@@ -93,13 +93,13 @@ export async function activate(
     runIntegrationTests,
     addCommandRunnerDecorator,
     customSpokenFormGenerator,
-  } = await createCursorlessEngine(
+  } = await createCursorlessEngine({
     treeSitter,
-    normalizedIde,
+    ide: normalizedIde,
     hats,
     commandServerApi,
     fileSystem,
-  );
+  });
 
   addCommandRunnerDecorator(
     new CommandHistory(normalizedIde, commandServerApi, fileSystem),

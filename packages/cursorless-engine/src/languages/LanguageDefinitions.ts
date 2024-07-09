@@ -46,8 +46,8 @@ export class LanguageDefinitions {
   private disposables: Disposable[] = [];
 
   constructor(
-    private fileSystem: FileSystem,
-    private treeSitter: TreeSitter,
+    private fileSystem?: FileSystem,
+    private treeSitter?: TreeSitter,
   ) {
     ide().onDidOpenTextDocument((document) => {
       this.loadLanguage(document.languageId);
@@ -63,7 +63,7 @@ export class LanguageDefinitions {
         ? join(getCursorlessRepoRoot(), "queries")
         : "queries";
 
-    if (ide().runMode === "development") {
+    if (fileSystem != null && ide().runMode === "development") {
       this.disposables.push(
         fileSystem.watchDir(this.queryDir, () => {
           this.reloadLanguageDefinitions();
@@ -103,12 +103,14 @@ export class LanguageDefinitions {
     }
 
     const definition =
-      (await LanguageDefinition.create(
-        this.treeSitter,
-        this.fileSystem,
-        this.queryDir,
-        languageId,
-      )) ?? LANGUAGE_UNDEFINED;
+      (this.treeSitter != null && this.fileSystem != null
+        ? await LanguageDefinition.create(
+            this.treeSitter,
+            this.fileSystem,
+            this.queryDir,
+            languageId,
+          )
+        : null) ?? LANGUAGE_UNDEFINED;
 
     this.languageDefinitions.set(languageId, definition);
   }
@@ -143,8 +145,13 @@ export class LanguageDefinitions {
   /**
    * @deprecated Only for use in legacy containing scope stage
    */
-  public getNodeAtLocation(document: TextDocument, range: Range): SyntaxNode {
-    return this.treeSitter.getNodeAtLocation(document, range);
+  public getNodeAtLocation(
+    document: TextDocument,
+    range: Range,
+  ): SyntaxNode | null {
+    return this.treeSitter != null
+      ? this.treeSitter.getNodeAtLocation(document, range)
+      : null;
   }
 
   onDidChangeDefinition = this.notifier.registerListener;

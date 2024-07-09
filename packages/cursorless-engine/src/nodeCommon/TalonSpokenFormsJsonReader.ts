@@ -75,3 +75,17 @@ export class TalonSpokenFormsJsonReader implements TalonSpokenForms {
 function isErrnoException(error: any): error is NodeJS.ErrnoException {
   return error instanceof Error && "code" in error;
 }
+
+export class DisabledTalonSpokenFormsJsonReader implements TalonSpokenForms {
+  getSpokenFormEntries(): Promise<SpokenFormEntry[]> {
+    return Promise.resolve([]);
+  }
+
+  onDidChange(): Disposable {
+    return {
+      dispose() {
+        // Do nothing
+      },
+    };
+  }
+}

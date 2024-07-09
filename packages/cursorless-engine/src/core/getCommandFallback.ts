@@ -10,7 +10,7 @@ import {
 import type { ActionReturnValue } from "../actions/actions.types";
 
 export async function getCommandFallback(
-  commandServerApi: CommandServerApi | null,
+  commandServerApi: CommandServerApi | undefined,
   runAction: (actionDescriptor: ActionDescriptor) => Promise<ActionReturnValue>,
   command: CommandComplete,
 ): Promise<Fallback | null> {

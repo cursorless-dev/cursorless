@@ -14,19 +14,19 @@ import { unsafeKeys } from "./util/object";
  * @param languageDefinitions The language definitions instance
  */
 export async function runIntegrationTests(
-  treeSitter: TreeSitter,
+  treeSitter: TreeSitter | undefined,
   languageDefinitions: LanguageDefinitions,
 ) {
   await assertNoScopesBothLegacyAndNew(treeSitter, languageDefinitions);
 }
 
 async function assertNoScopesBothLegacyAndNew(
-  treeSitter: TreeSitter,
+  treeSitter: TreeSitter | undefined,
   languageDefinitions: LanguageDefinitions,
 ) {
   const errors: string[] = [];
   for (const languageId of legacyLanguageIds) {
-    await treeSitter.loadLanguage(languageId);
+    await treeSitter?.loadLanguage(languageId);
     await languageDefinitions.loadLanguage(languageId);
 
     unsafeKeys(languageMatchers[languageId] ?? {}).map((scopeTypeType) => {

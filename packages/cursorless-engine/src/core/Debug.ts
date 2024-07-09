@@ -11,7 +11,7 @@ export class Debug {
   private disposableSelection?: Disposable;
   active: boolean;
 
-  constructor(private treeSitter: TreeSitter) {
+  constructor(private treeSitter?: TreeSitter) {
     ide().disposeOnExit(this);
 
     this.evaluateSetting = this.evaluateSetting.bind(this);
@@ -68,7 +68,7 @@ export class Debug {
 
   private evaluateSetting() {
     const debugEnabled = ide().configuration.getOwnConfiguration("debug");
-    if (debugEnabled) {
+    if (debugEnabled && this.treeSitter != null) {
       this.enableDebugLog();
     } else {
       this.disableDebugLog();
@@ -78,7 +78,7 @@ export class Debug {
   private logBranchTypes(event: TextEditorSelectionChangeEvent) {
     let node: SyntaxNode;
     try {
-      node = this.treeSitter.getNodeAtLocation(
+      node = this.treeSitter!.getNodeAtLocation(
         ide().activeTextEditor!.document,
         event.selections[0],
       );
