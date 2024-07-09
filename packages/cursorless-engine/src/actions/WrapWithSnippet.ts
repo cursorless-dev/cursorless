@@ -19,7 +19,7 @@ export default class WrapWithSnippet {
 
   constructor(
     private rangeUpdater: RangeUpdater,
-    private snippets: Snippets,
+    private snippets: Snippets | undefined,
     private modifierStageFactory: ModifierStageFactory,
   ) {
     this.run = this.run.bind(this);
@@ -47,6 +47,10 @@ export default class WrapWithSnippet {
     snippetDescription: WrapWithSnippetArg,
   ): ScopeType | undefined {
     if (snippetDescription.type === "named") {
+      if (this.snippets == null) {
+        return undefined;
+      }
+
       const { name, variableName } = snippetDescription;
 
       const snippet = this.snippets.getSnippetStrict(name);
@@ -68,6 +72,10 @@ export default class WrapWithSnippet {
     targets: Target[],
   ): string {
     if (snippetDescription.type === "named") {
+      if (this.snippets == null) {
+        throw Error("Named snippets are not enabled");
+      }
+
       const { name } = snippetDescription;
 
       const snippet = this.snippets.getSnippetStrict(name);

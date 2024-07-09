@@ -10,11 +10,10 @@ import { CommandRunner } from "./CommandRunner";
 import { Actions } from "./actions/Actions";
 import { CommandRunnerDecorator } from "./api/CursorlessEngineApi";
 import { Debug } from "./core/Debug";
-import { Snippets } from "./core/Snippets";
 import { CommandRunnerImpl } from "./core/commandRunner/CommandRunnerImpl";
 import { canonicalizeAndValidateCommand } from "./core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
-import { StoredTargetMap, TreeSitter } from "./index";
+import { StoredTargetMap, TreeSitter, type Snippets } from "./index";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
 import { TargetPipelineRunner } from "./processTargets";
 import { MarkStageFactoryImpl } from "./processTargets/MarkStageFactoryImpl";
@@ -38,7 +37,7 @@ export async function runCommand(
   commandServerApi: CommandServerApi | null,
   debug: Debug,
   hatTokenMap: HatTokenMap,
-  snippets: Snippets,
+  snippets: Snippets | undefined,
   storedTargets: StoredTargetMap,
   languageDefinitions: LanguageDefinitions,
   rangeUpdater: RangeUpdater,
@@ -96,7 +95,7 @@ function createCommandRunner(
   debug: Debug,
   storedTargets: StoredTargetMap,
   readableHatMap: ReadOnlyHatMap,
-  snippets: Snippets,
+  snippets: Snippets | undefined,
   rangeUpdater: RangeUpdater,
 ): CommandRunner {
   const modifierStageFactory = new ModifierStageFactoryImpl(

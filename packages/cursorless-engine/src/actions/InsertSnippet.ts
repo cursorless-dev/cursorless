@@ -31,7 +31,7 @@ export default class InsertSnippet {
 
   constructor(
     private rangeUpdater: RangeUpdater,
-    private snippets: Snippets,
+    private snippets: Snippets | undefined,
     private actions: Actions,
     private modifierStageFactory: ModifierStageFactory,
   ) {
@@ -56,6 +56,10 @@ export default class InsertSnippet {
 
   private getScopeTypes(snippetDescription: InsertSnippetArg): ScopeType[] {
     if (snippetDescription.type === "named") {
+      if (this.snippets == null) {
+        return [];
+      }
+
       const { name } = snippetDescription;
 
       const snippet = this.snippets.getSnippetStrict(name);
@@ -76,6 +80,10 @@ export default class InsertSnippet {
     targets: Target[],
   ) {
     if (snippetDescription.type === "named") {
+      if (this.snippets == null) {
+        throw Error("Named snippets are not enabled");
+      }
+
       const { name } = snippetDescription;
 
       const snippet = this.snippets.getSnippetStrict(name);
