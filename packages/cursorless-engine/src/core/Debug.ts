@@ -52,10 +52,12 @@ export class Debug {
   }
 
   private enableDebugLog() {
-    this.active = true;
-    this.disposableSelection = ide().onDidChangeTextEditorSelection(
-      this.logBranchTypes,
-    );
+    if (this.treeSitter != null) {
+      this.active = true;
+      this.disposableSelection = ide().onDidChangeTextEditorSelection(
+        this.logBranchTypes,
+      );
+    }
   }
 
   private disableDebugLog() {
@@ -68,7 +70,7 @@ export class Debug {
 
   private evaluateSetting() {
     const debugEnabled = ide().configuration.getOwnConfiguration("debug");
-    if (debugEnabled && this.treeSitter != null) {
+    if (debugEnabled) {
       this.enableDebugLog();
     } else {
       this.disableDebugLog();
