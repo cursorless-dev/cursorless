@@ -59,7 +59,7 @@ export function registerCommands(
     },
 
     // Cheatsheet commands
-    ["cursorless.showCheatsheet"]: (args) => showCheatsheet(vscodeIde, args),
+    ["cursorless.showCheatsheet"]: (arg) => showCheatsheet(vscodeIde, arg),
     ["cursorless.internal.updateCheatsheetDefaults"]: updateDefaults,
 
     // Testcase recorder commands
