@@ -1,0 +1,8 @@
+for name, param in signature.parameters.items():
+    pass
+---
+
+[Range] =
+[Domain] = 0:4-0:15
+      >-----------<
+0| for name, param in signature.parameters.items():
