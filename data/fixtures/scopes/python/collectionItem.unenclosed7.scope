@@ -1,34 +1,34 @@
-for name, param in signature.parameters.items():
+for key, value in map.items():
     pass
 ---
 
 [#1 Content] =
-[#1 Domain] = 0:4-0:8
-      >----<
-0| for name, param in signature.parameters.items():
+[#1 Domain] = 0:4-0:7
+      >---<
+0| for key, value in map.items():
 
-[#1 Removal] = 0:4-0:10
-      >------<
-0| for name, param in signature.parameters.items():
+[#1 Removal] = 0:4-0:9
+      >-----<
+0| for key, value in map.items():
 
-[#1 Trailing delimiter] = 0:8-0:10
-          >--<
-0| for name, param in signature.parameters.items():
+[#1 Trailing delimiter] = 0:7-0:9
+         >--<
+0| for key, value in map.items():
 
 [#1 Insertion delimiter] = ", "
 
 
 [#2 Content] =
-[#2 Domain] = 0:10-0:15
-            >-----<
-0| for name, param in signature.parameters.items():
+[#2 Domain] = 0:9-0:14
+           >-----<
+0| for key, value in map.items():
 
-[#2 Removal] = 0:8-0:15
-          >-------<
-0| for name, param in signature.parameters.items():
+[#2 Removal] = 0:7-0:14
+         >-------<
+0| for key, value in map.items():
 
-[#2 Leading delimiter] = 0:8-0:10
-          >--<
-0| for name, param in signature.parameters.items():
+[#2 Leading delimiter] = 0:7-0:9
+         >--<
+0| for key, value in map.items():
 
 [#2 Insertion delimiter] = ", "
