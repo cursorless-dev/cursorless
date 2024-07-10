@@ -8,16 +8,7 @@
   "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"],
   "references": [
     {
-      "path": "../cursorless-cheatsheet"
-    },
-    {
       "path": "../common"
-    },
-    {
-      "path": "../cursorless-engine"
-    },
-    {
-      "path": "../vscode-common"
     }
   ]
 }

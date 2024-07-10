@@ -15,6 +15,9 @@
       "path": "./packages/cursorless-engine"
     },
     {
+      "path": "./packages/cursorless-cheatsheet"
+    },
+    {
       "path": "./packages/cursorless-org"
     },
     {
