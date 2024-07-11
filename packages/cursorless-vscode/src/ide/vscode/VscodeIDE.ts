@@ -17,7 +17,7 @@ import {
   fromVscodeRange,
   fromVscodeSelection,
 } from "@cursorless/vscode-common";
-import { pull } from "lodash";
+import { pull } from "lodash-es";
 import { v4 as uuid } from "uuid";
 import * as vscode from "vscode";
 import { ExtensionContext, WorkspaceFolder, window, workspace } from "vscode";

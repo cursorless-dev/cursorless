@@ -22,12 +22,12 @@
     "@cursorless/common": "workspace:*",
     "@cursorless/vscode-common": "workspace:*",
     "immer": "^10.0.4",
-    "lodash": "^4.17.21"
+    "lodash-es": "^4.17.21"
   },
   "devDependencies": {
     "@types/chai": "^4.3.14",
     "@types/js-yaml": "^4.0.9",
-    "@types/lodash": "4.17.0",
+    "@types/lodash-es": "4.17.0",
     "@types/mocha": "^10.0.6",
     "@types/sinon": "^17.0.3",
     "@types/vscode": "1.75.1",

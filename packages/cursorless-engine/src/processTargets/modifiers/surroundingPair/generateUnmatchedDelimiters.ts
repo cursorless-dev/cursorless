@@ -1,4 +1,4 @@
-import { range } from "lodash";
+import { range } from "lodash-es";
 import { SimpleSurroundingPairName } from "@cursorless/common";
 import {
   DelimiterOccurrence,
