@@ -17,6 +17,7 @@ import {
   TestCaseRecorder,
   TreeSitter,
 } from "@cursorless/cursorless-engine";
+import { FileSystemCommandHistoryStorage } from "@cursorless/file-system-common";
 import {
   CursorlessApi,
   getCommandServerApi,
@@ -105,8 +106,12 @@ export async function activate(
     snippets,
   );
 
+  const commandHistoryStorage = new FileSystemCommandHistoryStorage(
+    fileSystem.cursorlessCommandHistoryDirPath,
+  );
+
   addCommandRunnerDecorator(
-    new CommandHistory(normalizedIde, commandServerApi, fileSystem),
+    new CommandHistory(normalizedIde, commandHistoryStorage, commandServerApi),
   );
 
   const testCaseRecorder = new TestCaseRecorder(
@@ -144,7 +149,7 @@ export async function activate(
     context,
     vscodeIDE,
     commandApi,
-    fileSystem,
+    commandHistoryStorage,
     testCaseRecorder,
     scopeTestRecorder,
     scopeVisualizer,
