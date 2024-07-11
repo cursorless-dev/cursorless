@@ -259,6 +259,9 @@ importers:
       node-html-parser:
         specifier: ^6.1.12
         version: 6.1.12
+      pathe:
+        specifier: ^1.1.2
+        version: 1.1.2
     devDependencies:
       '@types/lodash-es':
         specifier: 4.17.0
