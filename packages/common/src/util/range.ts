@@ -1,4 +1,4 @@
-import { range as lodashRange } from "lodash";
+import { range as lodashRange } from "lodash-es";
 import { Range } from "../types/Range";
 import { TextEditor } from "../types/TextEditor";
 

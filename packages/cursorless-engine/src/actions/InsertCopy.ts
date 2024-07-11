@@ -5,7 +5,7 @@ import {
   TextEditor,
   toCharacterRange,
 } from "@cursorless/common";
-import { flatten, zip } from "lodash";
+import { flatten, zip } from "lodash-es";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../core/updateSelections/updateSelections";
 import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";

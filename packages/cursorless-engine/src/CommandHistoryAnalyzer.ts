@@ -6,7 +6,7 @@ import {
   showWarning,
   type CommandHistoryStorage,
 } from "@cursorless/common";
-import { groupBy, map, sum } from "lodash";
+import { groupBy, map, sum } from "lodash-es";
 import { canonicalizeAndValidateCommand } from "./core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { ide } from "./singletons/ide.singleton";
 import { getPartialTargetDescriptors } from "./util/getPartialTargetDescriptors";

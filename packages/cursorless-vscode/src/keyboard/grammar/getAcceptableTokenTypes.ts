@@ -1,5 +1,5 @@
 import nearley, { State } from "nearley";
-import { isEqual, times } from "lodash";
+import { isEqual, times } from "lodash-es";
 import { CommandRulePostProcessor } from "./CommandRulePostProcessor";
 import { DefaultMap, uniqWithHash } from "@cursorless/common";
 import { KeyboardCommandHandler } from "../KeyboardCommandHandler";

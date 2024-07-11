@@ -201,7 +201,7 @@ importers:
 
   packages/common:
     dependencies:
-      lodash:
+      lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
       vscode-uri:
@@ -214,7 +214,7 @@ importers:
       '@types/js-yaml':
         specifier: ^4.0.9
         version: 4.0.9
-      '@types/lodash':
+      '@types/lodash-es':
         specifier: 4.17.0
         version: 4.17.0
       '@types/mocha':
@@ -259,7 +259,7 @@ importers:
       itertools:
         specifier: ^2.2.5
         version: 2.2.5
-      lodash:
+      lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
       moo:
@@ -287,7 +287,7 @@ importers:
       '@types/js-yaml':
         specifier: ^4.0.9
         version: 4.0.9
-      '@types/lodash':
+      '@types/lodash-es':
         specifier: 4.17.0
         version: 4.17.0
       '@types/mocha':
@@ -469,7 +469,7 @@ importers:
       itertools:
         specifier: ^2.2.5
         version: 2.2.5
-      lodash:
+      lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
       nearley:
@@ -503,7 +503,7 @@ importers:
       '@types/js-yaml':
         specifier: ^4.0.9
         version: 4.0.9
-      '@types/lodash':
+      '@types/lodash-es':
         specifier: 4.17.0
         version: 4.17.0
       '@types/mocha':
@@ -563,7 +563,7 @@ importers:
       immer:
         specifier: ^10.0.4
         version: 10.0.4
-      lodash:
+      lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
     devDependencies:
@@ -573,7 +573,7 @@ importers:
       '@types/js-yaml':
         specifier: ^4.0.9
         version: 4.0.9
-      '@types/lodash':
+      '@types/lodash-es':
         specifier: 4.17.0
         version: 4.17.0
       '@types/mocha':
@@ -631,7 +631,7 @@ importers:
       js-yaml:
         specifier: ^4.1.0
         version: 4.1.0
-      lodash:
+      lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
       normalize-path:
@@ -647,7 +647,7 @@ importers:
       '@types/js-yaml':
         specifier: ^4.0.9
         version: 4.0.9
-      '@types/lodash':
+      '@types/lodash-es':
         specifier: 4.17.0
         version: 4.17.0
       esbuild:
@@ -2779,6 +2779,9 @@ packages:
 
   '@types/jsonfile@6.1.4':
     resolution: {integrity: sha512-D5qGUYwjvnNNextdU59/+fI+spnwtTFmyQP0h+PfIOSkNfpU6AOICUOkm4i0OnSk+NyjdPJrxCDro0sJsWlRpQ==}
+
+  '@types/lodash-es@4.17.0':
+    resolution: {integrity: sha512-h8lkWQSgT4qjs9PcIhcL2nWubZeXRVzjZxYlRFmcX9BW1PIk5qRc0djtRWZqtM+GDDFhwBt0ztRu72D/YxIcEw==}
 
   '@types/lodash@4.17.0':
     resolution: {integrity: sha512-t7dhREVv6dbNj0q17X12j7yDG4bD/DHYX7o5/DbDxobP0HnGPgpRz2Ej77aL7TZT3DSw13fqUTj8J4mMnqa7WA==}
@@ -6242,6 +6245,9 @@ packages:
   locate-path@7.2.0:
     resolution: {integrity: sha512-gvVijfZvn7R+2qyPX8mAuKcFGDf6Nc61GdvGafQsHL0sBIxfKzA+usWn4GFC/bk+QdwPUD4kWFJLhElipq+0VA==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+
+  lodash-es@4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
 
   lodash.debounce@4.0.8:
     resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
@@ -12656,6 +12662,10 @@ snapshots:
     dependencies:
       '@types/node': 18.18.2
 
+  '@types/lodash-es@4.17.0':
+    dependencies:
+      '@types/lodash': 4.17.0
+
   '@types/lodash@4.17.0': {}
 
   '@types/mdast@4.0.3':
@@ -16866,6 +16876,8 @@ snapshots:
   locate-path@7.2.0:
     dependencies:
       p-locate: 6.0.0
+
+  lodash-es@4.17.21: {}
 
   lodash.debounce@4.0.8: {}
 

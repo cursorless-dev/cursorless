@@ -1,4 +1,4 @@
-import { pick, sortedUniq, toPairs } from "lodash";
+import { pick, sortedUniq, toPairs } from "lodash-es";
 import { Grammar, Parser } from "nearley";
 import * as vscode from "vscode";
 import { KeyboardCommandsModalLayer } from "./KeyboardCommandsModalLayer";
