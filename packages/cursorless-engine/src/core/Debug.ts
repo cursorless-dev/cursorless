@@ -5,7 +5,6 @@ import type { Disposable, IDE } from "@cursorless/common";
  */
 export class Debug {
   private disposableConfiguration?: Disposable;
-  private disposableSelection?: Disposable;
   active: boolean;
 
   constructor(private ide: IDE) {
@@ -42,9 +41,6 @@ export class Debug {
     if (this.disposableConfiguration) {
       this.disposableConfiguration.dispose();
     }
-    if (this.disposableSelection) {
-      this.disposableSelection.dispose();
-    }
   }
 
   private enableDebugLog() {
@@ -53,10 +49,6 @@ export class Debug {
 
   private disableDebugLog() {
     this.active = false;
-    if (this.disposableSelection) {
-      this.disposableSelection.dispose();
-      this.disposableSelection = undefined;
-    }
   }
 
   private evaluateSetting() {
