@@ -1,8 +1,11 @@
-import type { TalonSpokenForms } from "../scopeProviders/TalonSpokenForms";
+import type {
+  SpokenFormEntry,
+  TalonSpokenForms,
+} from "../scopeProviders/TalonSpokenForms";
 
 export class DisabledTalonSpokenForms implements TalonSpokenForms {
-  getSpokenFormEntries() {
-    return Promise.resolve(null);
+  getSpokenFormEntries(): Promise<SpokenFormEntry[]> {
+    throw Error("Talon spoken forms are not implemented.");
   }
 
   onDidChange() {

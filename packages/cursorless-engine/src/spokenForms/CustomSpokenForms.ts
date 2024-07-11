@@ -72,17 +72,9 @@ export class CustomSpokenForms {
   onDidChangeCustomSpokenForms = this.notifier.registerListener;
 
   private async updateSpokenFormMaps(): Promise<void> {
-    let allCustomEntries: SpokenFormEntry[] | null;
+    let allCustomEntries: SpokenFormEntry[];
     try {
       allCustomEntries = await this.talonSpokenForms.getSpokenFormEntries();
-
-      // This indicates that custom spoken forms are not enabled in this editor.
-      if (allCustomEntries == null) {
-        this.spokenFormMap_ = { ...defaultSpokenFormMap };
-        this.notifier.notifyListeners();
-        return;
-      }
-
       if (allCustomEntries.length === 0) {
         throw new Error("Custom spoken forms list empty");
       }
