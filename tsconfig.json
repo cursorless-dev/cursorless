@@ -30,9 +30,6 @@
       "path": "./packages/meta-updater"
     },
     {
-      "path": "./packages/node-common"
-    },
-    {
       "path": "./packages/test-harness"
     },
     {
