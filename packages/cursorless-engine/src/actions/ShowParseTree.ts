@@ -8,15 +8,11 @@ import { flashTargets } from "../util/targetUtils";
 import type { ActionReturnValue } from "./actions.types";
 
 export default class ShowParseTree {
-  constructor(private treeSitter?: TreeSitter) {
+  constructor(private treeSitter: TreeSitter) {
     this.run = this.run.bind(this);
   }
 
   async run(targets: Target[]): Promise<ActionReturnValue> {
-    if (this.treeSitter == null) {
-      throw new Error("Tree-sitter is not available");
-    }
-
     await flashTargets(ide(), targets, FlashStyle.referenced);
 
     const results: string[] = ["# Cursorless parse tree"];

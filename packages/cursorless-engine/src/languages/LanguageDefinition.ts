@@ -1,10 +1,10 @@
 import {
-  FileSystem,
   ScopeType,
   SimpleScopeType,
   showError,
+  type LanguageDefinitionsProvider,
 } from "@cursorless/common";
-import { basename, dirname, join } from "pathe";
+import { dirname, join } from "pathe";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
 import { ide } from "../singletons/ide.singleton";
 import { TreeSitter } from "../typings/TreeSitter";
@@ -36,16 +36,13 @@ export class LanguageDefinition {
    * id doesn't have a new-style query definition
    */
   static async create(
+    provider: LanguageDefinitionsProvider,
     treeSitter: TreeSitter,
-    fileSystem: FileSystem,
-    queryDir: string,
     languageId: string,
   ): Promise<LanguageDefinition | undefined> {
-    const languageQueryPath = join(queryDir, `${languageId}.scm`);
-
     const rawLanguageQueryString = await readQueryFileAndImports(
-      fileSystem,
-      languageQueryPath,
+      provider,
+      `${languageId}.scm`,
     );
 
     if (rawLanguageQueryString == null) {
@@ -91,12 +88,12 @@ export class LanguageDefinition {
  * @returns The text of the query file, with all imports inlined
  */
 async function readQueryFileAndImports(
-  fileSystem: FileSystem,
-  languageQueryPath: string,
+  provider: LanguageDefinitionsProvider,
+  languageFilename: string,
 ) {
   // Seed the map with the query file itself
   const rawQueryStrings: Record<string, string | null> = {
-    [languageQueryPath]: null,
+    [languageFilename]: null,
   };
 
   const doValidation = ide().runMode !== "production";
@@ -105,17 +102,15 @@ async function readQueryFileAndImports(
   // encounter an import in a query file, we add it to the map with a value
   // of null, so that it will be read on the next iteration
   while (Object.values(rawQueryStrings).some((v) => v == null)) {
-    for (const [queryPath, rawQueryString] of Object.entries(rawQueryStrings)) {
+    for (const [filename, rawQueryString] of Object.entries(rawQueryStrings)) {
       if (rawQueryString != null) {
         continue;
       }
 
-      const fileName = basename(queryPath);
-
-      let rawQuery = await fileSystem.readBundledFile(queryPath);
+      let rawQuery = await provider.readQueryFile(filename);
 
       if (rawQuery == null) {
-        if (queryPath === languageQueryPath) {
+        if (filename === languageFilename) {
           // If this is the main query file, then we know that this language
           // just isn't defined using new-style queries
           return undefined;
@@ -124,7 +119,7 @@ async function readQueryFileAndImports(
         showError(
           ide().messages,
           "LanguageDefinition.readQueryFileAndImports.queryNotFound",
-          `Could not find imported query file ${queryPath}`,
+          `Could not find imported query file ${filename}`,
         );
 
         if (ide().runMode === "test") {
@@ -136,10 +131,10 @@ async function readQueryFileAndImports(
       }
 
       if (doValidation) {
-        validateQueryCaptures(fileName, rawQuery);
+        validateQueryCaptures(filename, rawQuery);
       }
 
-      rawQueryStrings[queryPath] = rawQuery;
+      rawQueryStrings[filename] = rawQuery;
       matchAll(
         rawQuery,
         // Matches lines like:
@@ -154,10 +149,10 @@ async function readQueryFileAndImports(
           const relativeImportPath = match[1];
 
           if (doValidation) {
-            validateImportSyntax(fileName, relativeImportPath, match[0]);
+            validateImportSyntax(filename, relativeImportPath, match[0]);
           }
 
-          const importQueryPath = join(dirname(queryPath), relativeImportPath);
+          const importQueryPath = join(dirname(filename), relativeImportPath);
           rawQueryStrings[importQueryPath] =
             rawQueryStrings[importQueryPath] ?? null;
         },

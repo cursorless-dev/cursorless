@@ -14,14 +14,14 @@ import { unsafeKeys } from "./util/object";
  * @param languageDefinitions The language definitions instance
  */
 export async function runIntegrationTests(
-  treeSitter: TreeSitter | undefined,
+  treeSitter: TreeSitter,
   languageDefinitions: LanguageDefinitions,
 ) {
   await assertNoScopesBothLegacyAndNew(treeSitter, languageDefinitions);
 }
 
 async function assertNoScopesBothLegacyAndNew(
-  treeSitter: TreeSitter | undefined,
+  treeSitter: TreeSitter,
   languageDefinitions: LanguageDefinitions,
 ) {
   const errors: string[] = [];

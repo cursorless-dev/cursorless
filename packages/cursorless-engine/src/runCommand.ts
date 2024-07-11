@@ -33,7 +33,7 @@ import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandler
  * 5. Call {@link CommandRunnerImpl.run} to run the actual command.
  */
 export async function runCommand(
-  treeSitter: TreeSitter | undefined,
+  treeSitter: TreeSitter,
   commandServerApi: CommandServerApi,
   debug: Debug,
   hatTokenMap: HatTokenMap,
@@ -89,7 +89,7 @@ async function unwrapLegacyCommandResponse(
 }
 
 function createCommandRunner(
-  treeSitter: TreeSitter | undefined,
+  treeSitter: TreeSitter,
   commandServerApi: CommandServerApi,
   languageDefinitions: LanguageDefinitions,
   debug: Debug,

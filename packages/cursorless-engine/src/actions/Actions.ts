@@ -68,7 +68,7 @@ import { Decrement, Increment } from "./incrementDecrement";
  */
 export class Actions implements ActionRecord {
   constructor(
-    private treeSitter: TreeSitter | undefined,
+    private treeSitter: TreeSitter,
     private snippets: Snippets,
     private rangeUpdater: RangeUpdater,
     private modifierStageFactory: ModifierStageFactory,

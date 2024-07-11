@@ -1,19 +1,19 @@
 import {
   Disposable,
-  FileSystem,
   Notifier,
   Range,
   TextDocument,
-  getCursorlessRepoRoot,
   isTesting,
   showError,
+  type IDE,
+  type LanguageDefinitionsProvider,
+  type Listener,
 } from "@cursorless/common";
-import { join } from "pathe";
-import { SyntaxNode } from "web-tree-sitter";
-import { TreeSitter } from "../typings/TreeSitter";
-import { ide } from "../singletons/ide.singleton";
-import { LanguageDefinition } from "./LanguageDefinition";
 import { toString } from "lodash-es";
+import { SyntaxNode } from "web-tree-sitter";
+import { ide } from "../singletons/ide.singleton";
+import { TreeSitter } from "../typings/TreeSitter";
+import { LanguageDefinition } from "./LanguageDefinition";
 
 /**
  * Sentinel value to indicate that a language doesn't have
@@ -21,11 +21,37 @@ import { toString } from "lodash-es";
  */
 const LANGUAGE_UNDEFINED = Symbol("LANGUAGE_UNDEFINED");
 
+export interface LanguageDefinitions extends Disposable {
+  init(): Promise<void>;
+
+  onDidChangeDefinition: (listener: Listener) => Disposable;
+
+  loadLanguage(languageId: string): Promise<void>;
+
+  /**
+   * Get a language definition for the given language id, if the language
+   * has a new-style query definition, or return undefined if the language doesn't
+   *
+   * @param languageId The language id for which to get a language definition
+   * @returns A language definition for the given language id, or undefined if
+   * the given language id doesn't have a new-style query definition
+   */
+  get(languageId: string): LanguageDefinition | undefined;
+
+  /**
+   * @deprecated Only for use in legacy containing scope stage
+   */
+  getNodeAtLocation(
+    document: TextDocument,
+    range: Range,
+  ): SyntaxNode | undefined;
+}
+
 /**
  * Keeps a map from language ids to  {@link LanguageDefinition} instances,
  * constructing them as necessary
  */
-export class LanguageDefinitions {
+export class LanguageDefinitionsImpl implements LanguageDefinitions {
   private notifier: Notifier = new Notifier();
 
   /**
@@ -42,34 +68,23 @@ export class LanguageDefinitions {
     string,
     LanguageDefinition | typeof LANGUAGE_UNDEFINED
   > = new Map();
-  private queryDir: string;
   private disposables: Disposable[] = [];
 
   constructor(
-    private fileSystem?: FileSystem,
-    private treeSitter?: TreeSitter,
+    ide: IDE,
+    private provider: LanguageDefinitionsProvider,
+    private treeSitter: TreeSitter,
   ) {
-    ide().onDidOpenTextDocument((document) => {
+    ide.onDidOpenTextDocument((document) => {
       this.loadLanguage(document.languageId);
     });
-    ide().onDidChangeVisibleTextEditors((editors) => {
+    ide.onDidChangeVisibleTextEditors((editors) => {
       editors.forEach(({ document }) => this.loadLanguage(document.languageId));
     });
 
-    // Use the repo root as the root for development mode, so that we can
-    // we can make hot-reloading work for the queries
-    this.queryDir =
-      ide().runMode === "development"
-        ? join(getCursorlessRepoRoot(), "queries")
-        : "queries";
-
-    if (fileSystem != null && ide().runMode === "development") {
-      this.disposables.push(
-        fileSystem.watchDir(this.queryDir, () => {
-          this.reloadLanguageDefinitions();
-        }),
-      );
-    }
+    this.disposables.push(
+      provider.onChanges(() => this.reloadLanguageDefinitions()),
+    );
   }
 
   public async init(): Promise<void> {
@@ -103,14 +118,11 @@ export class LanguageDefinitions {
     }
 
     const definition =
-      (this.treeSitter != null && this.fileSystem != null
-        ? await LanguageDefinition.create(
-            this.treeSitter,
-            this.fileSystem,
-            this.queryDir,
-            languageId,
-          )
-        : null) ?? LANGUAGE_UNDEFINED;
+      (await LanguageDefinition.create(
+        this.provider,
+        this.treeSitter,
+        languageId,
+      )) ?? LANGUAGE_UNDEFINED;
 
     this.languageDefinitions.set(languageId, definition);
   }
@@ -121,14 +133,6 @@ export class LanguageDefinitions {
     this.notifier.notifyListeners();
   }
 
-  /**
-   * Get a language definition for the given language id, if the language
-   * has a new-style query definition, or return undefined if the language doesn't
-   *
-   * @param languageId The language id for which to get a language definition
-   * @returns A language definition for the given language id, or undefined if
-   * the given language id doesn't have a new-style query definition
-   */
   get(languageId: string): LanguageDefinition | undefined {
     const definition = this.languageDefinitions.get(languageId);
 
@@ -142,16 +146,11 @@ export class LanguageDefinitions {
     return definition === LANGUAGE_UNDEFINED ? undefined : definition;
   }
 
-  /**
-   * @deprecated Only for use in legacy containing scope stage
-   */
   public getNodeAtLocation(
     document: TextDocument,
     range: Range,
   ): SyntaxNode | undefined {
-    return this.treeSitter != null
-      ? this.treeSitter.getNodeAtLocation(document, range)
-      : undefined;
+    return this.treeSitter.getNodeAtLocation(document, range);
   }
 
   onDidChangeDefinition = this.notifier.registerListener;
