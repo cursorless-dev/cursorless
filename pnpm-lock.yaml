@@ -606,6 +606,13 @@ importers:
       '@cursorless/cursorless-engine':
         specifier: workspace:*
         version: link:../cursorless-engine
+      glob:
+        specifier: ^10.3.10
+        version: 10.3.10
+    devDependencies:
+      '@types/glob':
+        specifier: ^8.1.0
+        version: 8.1.0
 
   packages/meta-updater:
     dependencies:
