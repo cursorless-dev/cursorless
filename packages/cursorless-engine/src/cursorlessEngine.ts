@@ -1,7 +1,6 @@
 import {
   Command,
   CommandServerApi,
-  ensureCommandShape,
   FileSystem,
   Hats,
   IDE,
@@ -15,10 +14,10 @@ import {
 } from "./api/CursorlessEngineApi";
 import { Debug } from "./core/Debug";
 import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
-import { KeyboardTargetUpdater } from "./KeyboardTargetUpdater";
 import type { Snippets } from "./core/Snippets";
 import { StoredTargetMap } from "./core/StoredTargets";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
+import { DisabledSnippets } from "./disabledComponents/DisabledSnippets";
 import { DisabledTalonSpokenForms } from "./disabledComponents/DisabledTalonSpokenForms";
 import { CustomSpokenFormGeneratorImpl } from "./generateSpokenForm/CustomSpokenFormGeneratorImpl";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
@@ -34,7 +33,6 @@ import { ScopeSupportWatcher } from "./scopeProviders/ScopeSupportWatcher";
 import { type TalonSpokenForms } from "./scopeProviders/TalonSpokenForms";
 import { injectIde } from "./singletons/ide.singleton";
 import { TreeSitter } from "./typings/TreeSitter";
-import { DisabledSnippets } from "./disabledComponents/DisabledSnippets";
 
 export async function createCursorlessEngine(
   treeSitter: TreeSitter,
