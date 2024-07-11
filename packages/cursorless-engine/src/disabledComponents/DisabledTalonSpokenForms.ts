@@ -2,7 +2,7 @@ import type { TalonSpokenForms } from "../scopeProviders/TalonSpokenForms";
 
 export class DisabledTalonSpokenForms implements TalonSpokenForms {
   getSpokenFormEntries() {
-    return Promise.resolve([]);
+    return Promise.resolve(null);
   }
 
   onDidChange() {

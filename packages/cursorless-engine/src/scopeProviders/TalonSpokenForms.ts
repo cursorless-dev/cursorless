@@ -9,7 +9,7 @@ import {
  * the user's custom spoken forms to the Cursorless engine.
  */
 export interface TalonSpokenForms {
-  getSpokenFormEntries(): Promise<SpokenFormEntry[]>;
+  getSpokenFormEntries(): Promise<SpokenFormEntry[] | null>;
   onDidChange: Notifier["registerListener"];
 }
 
