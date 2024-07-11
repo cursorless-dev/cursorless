@@ -43,10 +43,6 @@ export class LegacyContainingSyntaxScopeStage implements ModifierStage {
       target.contentRange,
     );
 
-    if (node == null) {
-      throw new NoContainingScopeError(this.modifier.scopeType.type);
-    }
-
     const scopeNodes = findNearestContainingAncestorNode(node, nodeMatcher, {
       editor: target.editor,
       selection: new Selection(
