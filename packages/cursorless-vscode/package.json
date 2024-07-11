@@ -1240,6 +1240,7 @@
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",
+    "@cursorless/cursorless-cheatsheet": "workspace:*",
     "@cursorless/cursorless-engine": "workspace:*",
     "@cursorless/file-system-common": "workspace:*",
     "@cursorless/vscode-common": "workspace:*",

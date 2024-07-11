@@ -245,6 +245,25 @@ importers:
         specifier: ^17.0.1
         version: 17.0.1
 
+  packages/cursorless-cheatsheet:
+    dependencies:
+      '@cursorless/common':
+        specifier: workspace:*
+        version: link:../common
+      immer:
+        specifier: ^10.0.4
+        version: 10.0.4
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
+      node-html-parser:
+        specifier: ^6.1.12
+        version: 6.1.12
+    devDependencies:
+      '@types/lodash-es':
+        specifier: 4.17.0
+        version: 4.17.0
+
   packages/cursorless-engine:
     dependencies:
       '@cursorless/common':
@@ -460,6 +479,9 @@ importers:
       '@cursorless/common':
         specifier: workspace:*
         version: link:../common
+      '@cursorless/cursorless-cheatsheet':
+        specifier: workspace:*
+        version: link:../cursorless-cheatsheet
       '@cursorless/cursorless-engine':
         specifier: workspace:*
         version: link:../cursorless-engine

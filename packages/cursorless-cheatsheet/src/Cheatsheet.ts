@@ -1,10 +1,9 @@
-import { readFile, writeFile } from "fs/promises";
-import { parse } from "node-html-parser";
-import { sortBy } from "lodash-es";
-import { ide } from "../singletons/ide.singleton";
-import * as path from "pathe";
-import { getCursorlessRepoRoot } from "@cursorless/common";
+import { getCursorlessRepoRoot, type IDE } from "@cursorless/common";
+import { readFile, writeFile } from "node:fs/promises";
 import { produce } from "immer";
+import { sortBy } from "lodash-es";
+import { parse } from "node-html-parser";
+import * as path from "pathe";
 
 /**
  * The argument expected by the cheatsheet command.
@@ -27,16 +26,15 @@ interface CheatSheetCommandArg {
   outputPath: string;
 }
 
-export async function showCheatsheet({
-  version,
-  spokenFormInfo,
-  outputPath,
-}: CheatSheetCommandArg) {
+export async function showCheatsheet(
+  ide: IDE,
+  { version, spokenFormInfo, outputPath }: CheatSheetCommandArg,
+) {
   if (version !== 0) {
     throw new Error(`Unsupported cheatsheet api version: ${version}`);
   }
 
-  const cheatsheetPath = path.join(ide().assetsRoot, "cheatsheet.html");
+  const cheatsheetPath = path.join(ide.assetsRoot, "cheatsheet.html");
 
   const cheatsheetContent = (await readFile(cheatsheetPath)).toString();
 
