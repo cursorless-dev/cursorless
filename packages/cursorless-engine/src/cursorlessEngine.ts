@@ -69,7 +69,7 @@ export async function createCursorlessEngine(
   const keyboardTargetUpdater = new KeyboardTargetUpdater(storedTargets);
 
   const languageDefinitions = treeSitterQueryProvider
-    ? new LanguageDefinitionsImpl(ide, treeSitterQueryProvider, treeSitter)
+    ? new LanguageDefinitionsImpl(ide, treeSitter, treeSitterQueryProvider)
     : new DisabledLanguageDefinitions();
   await languageDefinitions.init();
 

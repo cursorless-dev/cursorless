@@ -72,8 +72,8 @@ export class LanguageDefinitionsImpl implements LanguageDefinitions {
 
   constructor(
     private ide: IDE,
-    private treeSitterQueryProvider: RawTreeSitterQueryProvider,
     private treeSitter: TreeSitter,
+    private treeSitterQueryProvider: RawTreeSitterQueryProvider,
   ) {
     ide.onDidOpenTextDocument((document) => {
       this.loadLanguage(document.languageId);
