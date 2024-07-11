@@ -3,7 +3,7 @@ import { assert } from "chai";
 import * as vscode from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../../endToEndTestSetup";
 import sinon from "sinon";
-import * as path from "path";
+import * as path from "pathe";
 import { getCursorlessRepoRoot } from "@cursorless/common";
 import { readFile } from "node:fs/promises";
 

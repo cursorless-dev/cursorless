@@ -628,6 +628,9 @@ importers:
       mocha:
         specifier: ^10.3.0
         version: 10.3.0
+      pathe:
+        specifier: ^1.1.2
+        version: 1.1.2
       sinon:
         specifier: ^17.0.1
         version: 17.0.1

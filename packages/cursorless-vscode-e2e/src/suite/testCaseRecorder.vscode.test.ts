@@ -14,8 +14,7 @@ import { assert } from "chai";
 import * as crypto from "crypto";
 import { mkdir, readdir, readFile, rm } from "fs/promises";
 import * as os from "os";
-import * as path from "path";
-import { basename } from "path";
+import * as path from "pathe";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
@@ -158,7 +157,7 @@ async function checkRecordedTest(tmpdir: string) {
   assert.lengthOf(paths, 1);
 
   const actualRecordedTestPath = paths[0];
-  assert.equal(basename(actualRecordedTestPath), "takeHarp.yml");
+  assert.equal(path.basename(actualRecordedTestPath), "takeHarp.yml");
 
   const expected = (
     await readFile(
