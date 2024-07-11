@@ -107,8 +107,8 @@ export async function activate(
     addCommandRunnerDecorator,
     customSpokenFormGenerator,
   } = await createCursorlessEngine({
-    treeSitter,
     ide: normalizedIde,
+    treeSitter,
     hats,
     commandServerApi,
     talonSpokenForms,

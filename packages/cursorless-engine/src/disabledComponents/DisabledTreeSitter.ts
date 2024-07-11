@@ -11,11 +11,11 @@ export class DisabledTreeSitter implements TreeSitter {
     throw new Error("Tree sitter not provided");
   }
 
-  getLanguage(_languageId: string): Language | undefined {
-    return undefined;
-  }
-
   loadLanguage(_languageId: string): Promise<boolean> {
     return Promise.resolve(false);
+  }
+
+  getLanguage(_languageId: string): Language | undefined {
+    throw new Error("Tree sitter not provided");
   }
 }

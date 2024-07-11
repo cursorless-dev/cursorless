@@ -63,19 +63,18 @@ export async function createCursorlessEngine({
   injectIde(ide);
 
   const debug = new Debug(ide);
-
   const rangeUpdater = new RangeUpdater();
+  const storedTargets = new StoredTargetMap();
+  const keyboardTargetUpdater = new KeyboardTargetUpdater(storedTargets);
+  const customSpokenFormGenerator = new CustomSpokenFormGeneratorImpl(
+    talonSpokenForms,
+  );
 
   const hatTokenMap =
     hats != null
       ? new HatTokenMapImpl(rangeUpdater, debug, hats, commandServerApi)
       : new DisabledHatTokenMap();
-
   void hatTokenMap.allocateHats();
-
-  const storedTargets = new StoredTargetMap();
-
-  const keyboardTargetUpdater = new KeyboardTargetUpdater(storedTargets);
 
   const languageDefinitions =
     languageDefinitionsProvider != null
@@ -87,10 +86,6 @@ export async function createCursorlessEngine({
       : new DisabledLanguageDefinitions();
   await languageDefinitions.init();
 
-  const customSpokenFormGenerator = new CustomSpokenFormGeneratorImpl(
-    talonSpokenForms,
-  );
-
   ide.disposeOnExit(
     rangeUpdater,
     languageDefinitions,
@@ -100,7 +95,6 @@ export async function createCursorlessEngine({
   );
 
   const commandRunnerDecorators: CommandRunnerDecorator[] = [];
-
   let previousCommand: Command | undefined = undefined;
 
   const runCommandClosure = (command: Command) => {
