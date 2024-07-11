@@ -96,7 +96,7 @@ export class Actions implements ActionRecord {
   foldRegion = new Fold(this.rangeUpdater);
   followLink = new FollowLink({ openAside: false });
   followLinkAside = new FollowLink({ openAside: true });
-  generateSnippet = new GenerateSnippet();
+  generateSnippet = new GenerateSnippet(this.snippets);
   getText = new GetText();
   highlight = new Highlight();
   increment = new Increment(this);
