@@ -20,7 +20,7 @@ import {
   ThrownError,
   Token,
 } from "@cursorless/common";
-import { pick } from "lodash";
+import { pick } from "lodash-es";
 import { StoredTargetMap } from "..";
 import { ide } from "../singletons/ide.singleton";
 import { extractTargetKeys } from "../testUtil/extractTargetKeys";

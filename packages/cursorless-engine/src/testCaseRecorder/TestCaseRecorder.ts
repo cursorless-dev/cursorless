@@ -26,7 +26,7 @@ import {
 import * as fs from "fs";
 import { access, readFile } from "fs/promises";
 import { invariant } from "immutability-helper";
-import { merge } from "lodash";
+import { merge } from "lodash-es";
 import * as path from "path";
 import { CommandRunner } from "../CommandRunner";
 import { StoredTargetMap } from "../core/StoredTargets";

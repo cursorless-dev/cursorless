@@ -1,4 +1,4 @@
-import { isEqual, range, sortBy, uniqWith } from "lodash";
+import { isEqual, range, sortBy, uniqWith } from "lodash-es";
 import TrieSearch, { TrieSearchOptions } from "trie-search";
 
 export interface KeyValuePair<T> {
