@@ -17,6 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "lodash-es": "^4.17.21",
+    "pathe": "^1.1.2",
     "vscode-uri": "^3.0.8"
   },
   "devDependencies": {
