@@ -457,6 +457,9 @@ importers:
       '@cursorless/cursorless-engine':
         specifier: workspace:*
         version: link:../cursorless-engine
+      '@cursorless/file-system-common':
+        specifier: workspace:*
+        version: link:../file-system-common
       '@cursorless/vscode-common':
         specifier: workspace:*
         version: link:../vscode-common
@@ -594,6 +597,12 @@ importers:
       sinon:
         specifier: ^17.0.1
         version: 17.0.1
+
+  packages/file-system-common:
+    dependencies:
+      '@cursorless/common':
+        specifier: workspace:*
+        version: link:../common
 
   packages/meta-updater:
     dependencies:

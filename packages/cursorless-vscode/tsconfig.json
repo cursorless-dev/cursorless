@@ -14,6 +14,9 @@
       "path": "../cursorless-engine"
     },
     {
+      "path": "../file-system-common"
+    },
+    {
       "path": "../vscode-common"
     }
   ]
