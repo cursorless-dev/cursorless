@@ -5,7 +5,7 @@ import {
   IDE,
   ScopeProvider,
   ensureCommandShape,
-  type RawTreeSitterQueryProvider,
+  type FileSystem,
 } from "@cursorless/common";
 import { KeyboardTargetUpdater } from "./KeyboardTargetUpdater";
 import {
@@ -19,15 +19,10 @@ import { StoredTargetMap } from "./core/StoredTargets";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
 import { DisabledCommandServerApi } from "./disabledComponents/DisabledCommandServerApi";
 import { DisabledHatTokenMap } from "./disabledComponents/DisabledHatTokenMap";
-import { DisabledLanguageDefinitions } from "./disabledComponents/DisabledLanguageDefinitions";
 import { DisabledSnippets } from "./disabledComponents/DisabledSnippets";
 import { DisabledTalonSpokenForms } from "./disabledComponents/DisabledTalonSpokenForms";
-import { DisabledTreeSitter } from "./disabledComponents/DisabledTreeSitter";
 import { CustomSpokenFormGeneratorImpl } from "./generateSpokenForm/CustomSpokenFormGeneratorImpl";
-import {
-  LanguageDefinitions,
-  LanguageDefinitionsImpl,
-} from "./languages/LanguageDefinitions";
+import { LanguageDefinitions } from "./languages/LanguageDefinitions";
 import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
 import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
 import { runCommand } from "./runCommand";
@@ -44,8 +39,8 @@ import { TreeSitter } from "./typings/TreeSitter";
 interface Props {
   ide: IDE;
   hats?: Hats;
-  languageDefinitionsProvider?: RawTreeSitterQueryProvider;
-  treeSitter?: TreeSitter;
+  treeSitter: TreeSitter;
+  fileSystem: FileSystem;
   commandServerApi?: CommandServerApi;
   talonSpokenForms?: TalonSpokenForms;
   snippets?: Snippets;
@@ -54,8 +49,8 @@ interface Props {
 export async function createCursorlessEngine({
   ide,
   hats,
-  languageDefinitionsProvider,
-  treeSitter = new DisabledTreeSitter(),
+  treeSitter,
+  fileSystem,
   commandServerApi = new DisabledCommandServerApi(),
   talonSpokenForms = new DisabledTalonSpokenForms(),
   snippets = new DisabledSnippets(),
@@ -76,14 +71,7 @@ export async function createCursorlessEngine({
       : new DisabledHatTokenMap();
   void hatTokenMap.allocateHats();
 
-  const languageDefinitions =
-    languageDefinitionsProvider != null
-      ? new LanguageDefinitionsImpl(
-          ide,
-          languageDefinitionsProvider,
-          treeSitter,
-        )
-      : new DisabledLanguageDefinitions();
+  const languageDefinitions = new LanguageDefinitions(fileSystem, treeSitter);
   await languageDefinitions.init();
 
   ide.disposeOnExit(

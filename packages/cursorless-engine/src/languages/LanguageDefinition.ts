@@ -1,12 +1,12 @@
 import {
+  FileSystem,
   ScopeType,
   SimpleScopeType,
   showError,
-  type IDE,
-  type RawTreeSitterQueryProvider,
 } from "@cursorless/common";
-import { dirname, join } from "pathe";
+import { basename, dirname, join } from "pathe";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
+import { ide } from "../singletons/ide.singleton";
 import { TreeSitter } from "../typings/TreeSitter";
 import { matchAll } from "../util/regex";
 import { TreeSitterQuery } from "./TreeSitterQuery";
@@ -36,15 +36,16 @@ export class LanguageDefinition {
    * id doesn't have a new-style query definition
    */
   static async create(
-    ide: IDE,
-    treeSitterQueryProvider: RawTreeSitterQueryProvider,
     treeSitter: TreeSitter,
+    fileSystem: FileSystem,
+    queryDir: string,
     languageId: string,
   ): Promise<LanguageDefinition | undefined> {
+    const languageQueryPath = join(queryDir, `${languageId}.scm`);
+
     const rawLanguageQueryString = await readQueryFileAndImports(
-      ide,
-      treeSitterQueryProvider,
-      `${languageId}.scm`,
+      fileSystem,
+      languageQueryPath,
     );
 
     if (rawLanguageQueryString == null) {
@@ -90,42 +91,43 @@ export class LanguageDefinition {
  * @returns The text of the query file, with all imports inlined
  */
 async function readQueryFileAndImports(
-  ide: IDE,
-  provider: RawTreeSitterQueryProvider,
-  languageQueryName: string,
+  fileSystem: FileSystem,
+  languageQueryPath: string,
 ) {
   // Seed the map with the query file itself
   const rawQueryStrings: Record<string, string | null> = {
-    [languageQueryName]: null,
+    [languageQueryPath]: null,
   };
 
-  const doValidation = ide.runMode !== "production";
+  const doValidation = ide().runMode !== "production";
 
   // Keep reading imports until we've read all the imports. Every time we
   // encounter an import in a query file, we add it to the map with a value
   // of null, so that it will be read on the next iteration
   while (Object.values(rawQueryStrings).some((v) => v == null)) {
-    for (const [queryName, rawQueryString] of Object.entries(rawQueryStrings)) {
+    for (const [queryPath, rawQueryString] of Object.entries(rawQueryStrings)) {
       if (rawQueryString != null) {
         continue;
       }
 
-      let rawQuery = await provider.readQuery(queryName);
+      const fileName = basename(queryPath);
+
+      let rawQuery = await fileSystem.readBundledFile(queryPath);
 
       if (rawQuery == null) {
-        if (queryName === languageQueryName) {
+        if (queryPath === languageQueryPath) {
           // If this is the main query file, then we know that this language
           // just isn't defined using new-style queries
           return undefined;
         }
 
         showError(
-          ide.messages,
+          ide().messages,
           "LanguageDefinition.readQueryFileAndImports.queryNotFound",
-          `Could not find imported query file ${queryName}`,
+          `Could not find imported query file ${queryPath}`,
         );
 
-        if (ide.runMode === "test") {
+        if (ide().runMode === "test") {
           throw new Error("Invalid import statement");
         }
 
@@ -134,10 +136,10 @@ async function readQueryFileAndImports(
       }
 
       if (doValidation) {
-        validateQueryCaptures(queryName, rawQuery);
+        validateQueryCaptures(fileName, rawQuery);
       }
 
-      rawQueryStrings[queryName] = rawQuery;
+      rawQueryStrings[queryPath] = rawQuery;
       matchAll(
         rawQuery,
         // Matches lines like:
@@ -152,10 +154,10 @@ async function readQueryFileAndImports(
           const relativeImportPath = match[1];
 
           if (doValidation) {
-            validateImportSyntax(ide, queryName, relativeImportPath, match[0]);
+            validateImportSyntax(fileName, relativeImportPath, match[0]);
           }
 
-          const importQueryPath = join(dirname(queryName), relativeImportPath);
+          const importQueryPath = join(dirname(queryPath), relativeImportPath);
           rawQueryStrings[importQueryPath] =
             rawQueryStrings[importQueryPath] ?? null;
         },
@@ -167,7 +169,6 @@ async function readQueryFileAndImports(
 }
 
 function validateImportSyntax(
-  ide: IDE,
   file: string,
   relativeImportPath: string,
   actual: string,
@@ -176,12 +177,12 @@ function validateImportSyntax(
 
   if (actual !== canonicalSyntax) {
     showError(
-      ide.messages,
+      ide().messages,
       "LanguageDefinition.readQueryFileAndImports.malformedImport",
       `Malformed import statement in ${file}: "${actual}". Import statements must be of the form "${canonicalSyntax}"`,
     );
 
-    if (ide.runMode === "test") {
+    if (ide().runMode === "test") {
       throw new Error("Invalid import statement");
     }
   }

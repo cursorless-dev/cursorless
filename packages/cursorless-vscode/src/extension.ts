@@ -19,7 +19,6 @@ import {
 } from "@cursorless/cursorless-engine";
 import {
   FileSystemCommandHistoryStorage,
-  FileSystemLanguageDefinitionsProvider,
   FileSystemTalonSpokenForms,
 } from "@cursorless/file-system-common";
 import {
@@ -89,10 +88,6 @@ export async function activate(
 
   const treeSitter = createTreeSitter(parseTreeApi);
   const talonSpokenForms = new FileSystemTalonSpokenForms(fileSystem);
-  const languageDefinitionsProvider = new FileSystemLanguageDefinitionsProvider(
-    normalizedIde,
-    fileSystem,
-  );
 
   const snippets = new VscodeSnippets(normalizedIde);
   void snippets.init();
@@ -113,7 +108,7 @@ export async function activate(
     commandServerApi,
     talonSpokenForms,
     snippets,
-    languageDefinitionsProvider,
+    fileSystem,
   });
 
   const commandHistoryStorage = new FileSystemCommandHistoryStorage(
