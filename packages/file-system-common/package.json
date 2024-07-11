@@ -24,6 +24,10 @@
     }
   },
   "dependencies": {
-    "@cursorless/common": "workspace:*"
+    "@cursorless/common": "workspace:*",
+    "glob": "^10.3.10"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0"
   }
 }
