@@ -52,7 +52,7 @@ export async function createCursorlessEngine({
   hats,
   treeSitter,
   commandServerApi,
-  snippets,
+  snippets = new DisabledSnippets(),
 }: Props): Promise<CursorlessEngine> {
   injectIde(ide);
 
@@ -82,8 +82,6 @@ export async function createCursorlessEngine({
   const customSpokenFormGenerator = new CustomSpokenFormGeneratorImpl(
     talonSpokenForms,
   );
-
-  snippets = snippets ?? new DisabledSnippets();
 
   ide.disposeOnExit(
     rangeUpdater,
