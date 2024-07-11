@@ -37,7 +37,7 @@ export async function runCommand(
   commandServerApi: CommandServerApi | null,
   debug: Debug,
   hatTokenMap: HatTokenMap,
-  snippets: Snippets | undefined,
+  snippets: Snippets,
   storedTargets: StoredTargetMap,
   languageDefinitions: LanguageDefinitions,
   rangeUpdater: RangeUpdater,
@@ -95,7 +95,7 @@ function createCommandRunner(
   debug: Debug,
   storedTargets: StoredTargetMap,
   readableHatMap: ReadOnlyHatMap,
-  snippets: Snippets | undefined,
+  snippets: Snippets,
   rangeUpdater: RangeUpdater,
 ): CommandRunner {
   const modifierStageFactory = new ModifierStageFactoryImpl(

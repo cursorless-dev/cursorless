@@ -31,6 +31,7 @@ import { ScopeSupportChecker } from "./scopeProviders/ScopeSupportChecker";
 import { ScopeSupportWatcher } from "./scopeProviders/ScopeSupportWatcher";
 import { injectIde } from "./singletons/ide.singleton";
 import { TreeSitter } from "./typings/TreeSitter";
+import { DisabledSnippets } from "./disabledComponents/DisabledSnippets";
 
 export async function createCursorlessEngine(
   treeSitter: TreeSitter,
@@ -38,7 +39,7 @@ export async function createCursorlessEngine(
   hats: Hats,
   commandServerApi: CommandServerApi | null,
   fileSystem: FileSystem,
-  snippets: Snippets | undefined,
+  snippets: Snippets | undefined = new DisabledSnippets(),
 ): Promise<CursorlessEngine> {
   injectIde(ide);
 
