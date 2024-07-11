@@ -30,7 +30,7 @@ import {
 } from "@cursorless/vscode-common";
 import * as crypto from "crypto";
 import * as os from "os";
-import * as path from "path";
+import * as path from "pathe";
 import * as vscode from "vscode";
 import { constructTestHelpers } from "./constructTestHelpers";
 import { FakeFontMeasurements } from "./ide/vscode/hats/FakeFontMeasurements";

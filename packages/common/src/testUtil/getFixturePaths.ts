@@ -1,5 +1,5 @@
 import * as yaml from "js-yaml";
-import * as path from "path";
+import * as path from "pathe";
 import { walkFilesSync } from "../util/walkSync";
 import { getCursorlessRepoRoot } from "./getCursorlessRepoRoot";
 import { TestCaseFixtureLegacy } from "../types/TestCaseFixture";

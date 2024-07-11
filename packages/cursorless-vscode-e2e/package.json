@@ -34,6 +34,7 @@
     "chai": "^5.1.0",
     "js-yaml": "^4.1.0",
     "mocha": "^10.3.0",
+    "pathe": "^1.1.2",
     "sinon": "^17.0.1"
   },
   "types": "./out/index.d.ts",

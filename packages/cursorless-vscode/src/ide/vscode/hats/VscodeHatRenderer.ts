@@ -8,7 +8,7 @@ import {
 import { VscodeApi } from "@cursorless/vscode-common";
 import { cloneDeep, isEqual } from "lodash-es";
 import * as fs from "fs/promises";
-import * as path from "node:path";
+import * as path from "pathe";
 import * as vscode from "vscode";
 import { vscodeGetConfigurationString } from "../VscodeConfiguration";
 import VscodeEnabledHatStyleManager, {

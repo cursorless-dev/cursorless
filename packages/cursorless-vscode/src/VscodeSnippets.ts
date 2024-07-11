@@ -12,7 +12,7 @@ import {
 } from "@cursorless/cursorless-engine";
 import { readFile, stat, open } from "fs/promises";
 import { max } from "lodash-es";
-import { join } from "path";
+import { join } from "pathe";
 
 const CURSORLESS_SNIPPETS_SUFFIX = ".cursorless-snippets";
 const SNIPPET_DIR_REFRESH_INTERVAL_MS = 1000;

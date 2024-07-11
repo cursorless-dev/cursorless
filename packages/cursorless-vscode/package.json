@@ -1248,6 +1248,7 @@
     "itertools": "^2.2.5",
     "lodash-es": "^4.17.21",
     "nearley": "2.20.1",
+    "pathe": "^1.1.2",
     "semver": "^7.6.0",
     "tinycolor2": "1.6.0",
     "trie-search": "2.0.0",

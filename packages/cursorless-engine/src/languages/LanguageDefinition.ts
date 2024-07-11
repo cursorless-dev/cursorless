@@ -4,7 +4,7 @@ import {
   SimpleScopeType,
   showError,
 } from "@cursorless/common";
-import { basename, dirname, join } from "path";
+import { basename, dirname, join } from "pathe";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
 import { ide } from "../singletons/ide.singleton";
 import { TreeSitter } from "../typings/TreeSitter";

@@ -1,7 +1,7 @@
 import { getCursorlessRepoRoot } from "@cursorless/common";
 import * as parser from "fast-xml-parser";
 import { promises as fsp, readdirSync } from "fs";
-import * as path from "path";
+import * as path from "pathe";
 
 async function main() {
   const directory = path.join(getCursorlessRepoRoot(), "images/hats");

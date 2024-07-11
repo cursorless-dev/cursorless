@@ -1,5 +1,5 @@
 import { promises as fsp } from "fs";
-import * as path from "path";
+import * as path from "pathe";
 import * as yaml from "js-yaml";
 import { mkdir, rename } from "fs/promises";
 import { TestCaseFixture } from "@cursorless/common";

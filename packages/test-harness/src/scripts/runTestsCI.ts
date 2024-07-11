@@ -3,7 +3,7 @@
  */
 
 import { getCursorlessRepoRoot } from "@cursorless/common";
-import * as path from "path";
+import * as path from "pathe";
 import { launchVscodeAndRunTests } from "../launchVscodeAndRunTests";
 
 (async () => {

@@ -1,6 +1,6 @@
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import normalizePath from "normalize-path";
-import path from "path";
+import * as path from "path";
 import { pathExists } from "path-exists";
 import { PackageJson, TsConfigJson } from "type-fest";
 import { toPosixPath } from "./toPosixPath";
