@@ -105,15 +105,15 @@ async function readQueryFileAndImports(
   // encounter an import in a query file, we add it to the map with a value
   // of null, so that it will be read on the next iteration
   while (Object.values(rawQueryStrings).some((v) => v == null)) {
-    for (const [filename, rawQueryString] of Object.entries(rawQueryStrings)) {
+    for (const [queryName, rawQueryString] of Object.entries(rawQueryStrings)) {
       if (rawQueryString != null) {
         continue;
       }
 
-      let rawQuery = await provider.readQuery(filename);
+      let rawQuery = await provider.readQuery(queryName);
 
       if (rawQuery == null) {
-        if (filename === languageFilename) {
+        if (queryName === languageFilename) {
           // If this is the main query file, then we know that this language
           // just isn't defined using new-style queries
           return undefined;
@@ -122,7 +122,7 @@ async function readQueryFileAndImports(
         showError(
           ide.messages,
           "LanguageDefinition.readQueryFileAndImports.queryNotFound",
-          `Could not find imported query file ${filename}`,
+          `Could not find imported query file ${queryName}`,
         );
 
         if (ide.runMode === "test") {
@@ -134,10 +134,10 @@ async function readQueryFileAndImports(
       }
 
       if (doValidation) {
-        validateQueryCaptures(filename, rawQuery);
+        validateQueryCaptures(queryName, rawQuery);
       }
 
-      rawQueryStrings[filename] = rawQuery;
+      rawQueryStrings[queryName] = rawQuery;
       matchAll(
         rawQuery,
         // Matches lines like:
@@ -152,10 +152,10 @@ async function readQueryFileAndImports(
           const relativeImportPath = match[1];
 
           if (doValidation) {
-            validateImportSyntax(ide, filename, relativeImportPath, match[0]);
+            validateImportSyntax(ide, queryName, relativeImportPath, match[0]);
           }
 
-          const importQueryPath = join(dirname(filename), relativeImportPath);
+          const importQueryPath = join(dirname(queryName), relativeImportPath);
           rawQueryStrings[importQueryPath] =
             rawQueryStrings[importQueryPath] ?? null;
         },
