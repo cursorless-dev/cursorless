@@ -7,12 +7,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 
 export class FileSystemCommandHistoryStorage implements CommandHistoryStorage {
-  constructor(private dir: string) {
-    this.cursorlessCommandHistoryDirPath = join(
-      this.cursorlessDir,
-      "commandHistory",
-    );
-  }
+  constructor(private dir: string) {}
 
   async appendEntry(
     fileName: string,
