@@ -4,6 +4,7 @@ import {
   PartialPrimitiveTargetDescriptor,
   ScopeType,
   showWarning,
+  type CommandHistoryStorage,
 } from "@cursorless/common";
 import { groupBy, map, sum } from "lodash";
 import { canonicalizeAndValidateCommand } from "./core/commandVersionUpgrades/canonicalizeAndValidateCommand";
@@ -95,7 +96,11 @@ function getMonth(entry: CommandHistoryEntry): string {
   return entry.date.slice(0, 7);
 }
 
-export async function analyzeCommandHistory(entries: CommandHistoryEntry[]) {
+export async function analyzeCommandHistory(
+  commandHistoryStorage: CommandHistoryStorage,
+) {
+  const entries = await commandHistoryStorage.getEntries();
+
   if (entries.length === 0) {
     const TAKE_ME_THERE = "Show me";
     const result = await showWarning(

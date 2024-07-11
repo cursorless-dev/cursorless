@@ -70,7 +70,7 @@ export class CommandHistory implements CommandRunnerDecorator {
       command: produce(command, sanitizeCommandInPlace),
     };
 
-    await this.storage.append(fileName, historyItem);
+    await this.storage.appendEntry(fileName, historyItem);
   }
 
   private async getPhraseId(): Promise<string | undefined> {

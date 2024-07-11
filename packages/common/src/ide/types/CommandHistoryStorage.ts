@@ -1,7 +1,6 @@
 import type { CommandHistoryEntry } from "../../types/commandHistory";
 
 export interface CommandHistoryStorage {
-  append(fileName: string, entry: CommandHistoryEntry): Promise<void>;
+  appendEntry(fileName: string, entry: CommandHistoryEntry): Promise<void>;
+  getEntries(): Promise<CommandHistoryEntry[]>;
 }
-
-// const data = JSON.stringify(historyItem) + "\n";
