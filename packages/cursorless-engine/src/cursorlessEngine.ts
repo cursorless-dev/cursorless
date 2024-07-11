@@ -39,7 +39,7 @@ export async function createCursorlessEngine(
   hats: Hats,
   commandServerApi: CommandServerApi | null,
   fileSystem: FileSystem,
-  snippets: Snippets | undefined = new DisabledSnippets(),
+  snippets: Snippets = new DisabledSnippets(),
 ): Promise<CursorlessEngine> {
   injectIde(ide);
 
