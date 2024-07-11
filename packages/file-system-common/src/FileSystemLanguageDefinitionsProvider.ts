@@ -37,7 +37,7 @@ export class FileSystemLanguageDefinitionsProvider
 
   onChanges = this.notifier.registerListener;
 
-  readQueryFile(filename: string): Promise<string | undefined> {
+  readQuery(filename: string): Promise<string | undefined> {
     const queryPath = path.join(this.queryDir, filename);
     return this.fileSystem.readBundledFile(queryPath);
   }

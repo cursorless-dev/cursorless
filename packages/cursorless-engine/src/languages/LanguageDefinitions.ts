@@ -71,7 +71,7 @@ export class LanguageDefinitionsImpl implements LanguageDefinitions {
   private disposables: Disposable[] = [];
 
   constructor(
-    ide: IDE,
+    private ide: IDE,
     private provider: LanguageDefinitionsProvider,
     private treeSitter: TreeSitter,
   ) {
@@ -119,6 +119,7 @@ export class LanguageDefinitionsImpl implements LanguageDefinitions {
 
     const definition =
       (await LanguageDefinition.create(
+        this.ide,
         this.provider,
         this.treeSitter,
         languageId,

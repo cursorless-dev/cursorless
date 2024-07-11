@@ -1,6 +1,13 @@
 import { Disposable } from "@cursorless/common";
 
 export interface LanguageDefinitionsProvider {
+  /**
+   * Listen for changes to language definitions
+   */
   onChanges(listener: () => void): Disposable;
-  readQueryFile(filename: string): Promise<string | undefined>;
+
+  /**
+   * Read a query definition. The query name is the name of one of our `.scm` files.
+   */
+  readQuery(name: string): Promise<string | undefined>;
 }
