@@ -106,9 +106,9 @@ export async function activate(
     treeSitter,
     hats,
     commandServerApi,
+    fileSystem,
     talonSpokenForms,
     snippets,
-    fileSystem,
   });
 
   const commandHistoryStorage = new FileSystemCommandHistoryStorage(

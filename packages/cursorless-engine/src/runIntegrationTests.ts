@@ -26,7 +26,7 @@ async function assertNoScopesBothLegacyAndNew(
 ) {
   const errors: string[] = [];
   for (const languageId of legacyLanguageIds) {
-    await treeSitter?.loadLanguage(languageId);
+    await treeSitter.loadLanguage(languageId);
     await languageDefinitions.loadLanguage(languageId);
 
     unsafeKeys(languageMatchers[languageId] ?? {}).map((scopeTypeType) => {

@@ -68,14 +68,14 @@ function processSurroundingPairCore(
     scopeType.delimiter as ComplexSurroundingPairName
   ] ?? [scopeType.delimiter];
 
-  let node: SyntaxNode | undefined;
+  let node: SyntaxNode | null;
 
   try {
     node = languageDefinitions.getNodeAtLocation(document, range);
 
     // Error nodes are unreliable and should be ignored. Fall back to text based
     // algorithm.
-    if (node == null || nodeHasError(node)) {
+    if (nodeHasError(node)) {
       return findSurroundingPairTextBased(
         editor,
         range,

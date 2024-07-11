@@ -83,6 +83,7 @@ export async function createCursorlessEngine({
   );
 
   const commandRunnerDecorators: CommandRunnerDecorator[] = [];
+
   let previousCommand: Command | undefined = undefined;
 
   const runCommandClosure = (command: Command) => {
