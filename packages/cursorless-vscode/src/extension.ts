@@ -102,7 +102,9 @@ export async function activate(
     fileSystem,
   );
 
-  const commandHistoryStorage = new FileSystemCommandHistoryStorage(fileSystem);
+  const commandHistoryStorage = new FileSystemCommandHistoryStorage(
+    fileSystem.cursorlessCommandHistoryDirPath,
+  );
 
   addCommandRunnerDecorator(
     new CommandHistory(normalizedIde, commandHistoryStorage, commandServerApi),

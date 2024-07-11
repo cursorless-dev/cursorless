@@ -1,17 +1,17 @@
 import type {
   CommandHistoryEntry,
   CommandHistoryStorage,
-  FileSystem,
 } from "@cursorless/common";
 import { glob } from "glob";
 import fs from "node:fs/promises";
 import path from "node:path";
 
 export class FileSystemCommandHistoryStorage implements CommandHistoryStorage {
-  private readonly dir: string;
-
-  constructor(fileSystem: FileSystem) {
-    this.dir = fileSystem.cursorlessCommandHistoryDirPath;
+  constructor(private dir: string) {
+    this.cursorlessCommandHistoryDirPath = join(
+      this.cursorlessDir,
+      "commandHistory",
+    );
   }
 
   async appendEntry(
