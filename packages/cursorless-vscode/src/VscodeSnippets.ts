@@ -11,7 +11,7 @@ import {
   type Snippets,
 } from "@cursorless/cursorless-engine";
 import { readFile, stat, open } from "fs/promises";
-import { max } from "lodash";
+import { max } from "lodash-es";
 import { join } from "path";
 
 const CURSORLESS_SNIPPETS_SUFFIX = ".cursorless-snippets";
