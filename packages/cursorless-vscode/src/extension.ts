@@ -17,7 +17,10 @@ import {
   TestCaseRecorder,
   TreeSitter,
 } from "@cursorless/cursorless-engine";
-import { FileSystemTalonSpokenForms } from "@cursorless/file-system-common";
+import {
+  FileSystemCommandHistoryStorage,
+  FileSystemTalonSpokenForms,
+} from "@cursorless/file-system-common";
 import {
   CursorlessApi,
   getCommandServerApi,
@@ -52,7 +55,7 @@ import {
 import { StatusBarItem } from "./StatusBarItem";
 import { storedTargetHighlighter } from "./storedTargetHighlighter";
 import { vscodeApi } from "./vscodeApi";
-import { FileSystemCommandHistoryStorage } from "@cursorless/file-system-common";
+import { VscodeSnippets } from "./VscodeSnippets";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -86,12 +89,14 @@ export async function activate(
   const treeSitter: TreeSitter = createTreeSitter(parseTreeApi);
   const talonSpokenForms = new FileSystemTalonSpokenForms(fileSystem);
 
+  const snippets = new VscodeSnippets(normalizedIde);
+  void snippets.init();
+
   const {
     commandApi,
     storedTargets,
     hatTokenMap,
     scopeProvider,
-    snippets,
     injectIde,
     runIntegrationTests,
     addCommandRunnerDecorator,
@@ -103,6 +108,7 @@ export async function activate(
     commandServerApi,
     fileSystem,
     talonSpokenForms,
+    snippets,
   );
 
   const commandHistoryStorage = new FileSystemCommandHistoryStorage(

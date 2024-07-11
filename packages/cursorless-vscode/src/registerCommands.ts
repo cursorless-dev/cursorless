@@ -5,12 +5,14 @@ import {
   type CommandHistoryStorage,
 } from "@cursorless/common";
 import {
+  showCheatsheet,
+  updateDefaults,
+} from "@cursorless/cursorless-cheatsheet";
+import {
   CommandApi,
   StoredTargetMap,
   TestCaseRecorder,
   analyzeCommandHistory,
-  showCheatsheet,
-  updateDefaults,
   type ScopeTestRecorder,
 } from "@cursorless/cursorless-engine";
 import * as vscode from "vscode";
@@ -57,7 +59,7 @@ export function registerCommands(
     },
 
     // Cheatsheet commands
-    ["cursorless.showCheatsheet"]: showCheatsheet,
+    ["cursorless.showCheatsheet"]: (arg) => showCheatsheet(vscodeIde, arg),
     ["cursorless.internal.updateCheatsheetDefaults"]: updateDefaults,
 
     // Testcase recorder commands
