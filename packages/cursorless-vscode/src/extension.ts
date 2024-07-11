@@ -17,6 +17,7 @@ import {
   TestCaseRecorder,
   TreeSitter,
 } from "@cursorless/cursorless-engine";
+import { FileSystemCommandHistoryStorage } from "@cursorless/file-system-common";
 import {
   CursorlessApi,
   getCommandServerApi,
@@ -26,7 +27,7 @@ import {
 } from "@cursorless/vscode-common";
 import * as crypto from "crypto";
 import * as os from "os";
-import * as path from "path";
+import * as path from "pathe";
 import * as vscode from "vscode";
 import { constructTestHelpers } from "./constructTestHelpers";
 import { FakeFontMeasurements } from "./ide/vscode/hats/FakeFontMeasurements";
@@ -51,6 +52,7 @@ import {
 import { StatusBarItem } from "./StatusBarItem";
 import { storedTargetHighlighter } from "./storedTargetHighlighter";
 import { vscodeApi } from "./vscodeApi";
+import { VscodeSnippets } from "./VscodeSnippets";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -83,12 +85,14 @@ export async function activate(
 
   const treeSitter: TreeSitter = createTreeSitter(parseTreeApi);
 
+  const snippets = new VscodeSnippets(normalizedIde);
+  void snippets.init();
+
   const {
     commandApi,
     storedTargets,
     hatTokenMap,
     scopeProvider,
-    snippets,
     injectIde,
     runIntegrationTests,
     addCommandRunnerDecorator,
@@ -99,10 +103,15 @@ export async function activate(
     hats,
     commandServerApi,
     fileSystem,
+    snippets,
   });
 
+  const commandHistoryStorage = new FileSystemCommandHistoryStorage(
+    fileSystem.cursorlessCommandHistoryDirPath,
+  );
+
   addCommandRunnerDecorator(
-    new CommandHistory(normalizedIde, commandServerApi, fileSystem),
+    new CommandHistory(normalizedIde, commandHistoryStorage, commandServerApi),
   );
 
   const testCaseRecorder = new TestCaseRecorder(
@@ -140,7 +149,7 @@ export async function activate(
     context,
     vscodeIDE,
     commandApi,
-    fileSystem,
+    commandHistoryStorage,
     testCaseRecorder,
     scopeTestRecorder,
     scopeVisualizer,

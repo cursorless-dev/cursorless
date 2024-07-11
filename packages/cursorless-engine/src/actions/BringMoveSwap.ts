@@ -5,7 +5,7 @@ import {
   Selection,
   TextEditor,
 } from "@cursorless/common";
-import { flatten } from "lodash";
+import { flatten } from "lodash-es";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import {
   getSelectionInfo,

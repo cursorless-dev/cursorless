@@ -1,7 +1,7 @@
 import { SimpleSurroundingPairName, isString } from "@cursorless/common";
 import { IndividualDelimiter } from "./types";
 import { getSimpleDelimiterMap } from "./delimiterMaps";
-import { concat, uniq } from "lodash";
+import { concat, uniq } from "lodash-es";
 
 /**
  * Given a list of delimiters, returns a list where each element corresponds to

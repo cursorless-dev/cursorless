@@ -201,9 +201,12 @@ importers:
 
   packages/common:
     dependencies:
-      lodash:
+      lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
+      pathe:
+        specifier: ^1.1.2
+        version: 1.1.2
       vscode-uri:
         specifier: ^3.0.8
         version: 3.0.8
@@ -214,7 +217,7 @@ importers:
       '@types/js-yaml':
         specifier: ^4.0.9
         version: 4.0.9
-      '@types/lodash':
+      '@types/lodash-es':
         specifier: 4.17.0
         version: 4.17.0
       '@types/mocha':
@@ -242,6 +245,28 @@ importers:
         specifier: ^17.0.1
         version: 17.0.1
 
+  packages/cursorless-cheatsheet:
+    dependencies:
+      '@cursorless/common':
+        specifier: workspace:*
+        version: link:../common
+      immer:
+        specifier: ^10.0.4
+        version: 10.0.4
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
+      node-html-parser:
+        specifier: ^6.1.12
+        version: 6.1.12
+      pathe:
+        specifier: ^1.1.2
+        version: 1.1.2
+    devDependencies:
+      '@types/lodash-es':
+        specifier: 4.17.0
+        version: 4.17.0
+
   packages/cursorless-engine:
     dependencies:
       '@cursorless/common':
@@ -259,7 +284,7 @@ importers:
       itertools:
         specifier: ^2.2.5
         version: 2.2.5
-      lodash:
+      lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
       moo:
@@ -271,6 +296,9 @@ importers:
       node-html-parser:
         specifier: ^6.1.12
         version: 6.1.12
+      pathe:
+        specifier: ^1.1.2
+        version: 1.1.2
       sbd:
         specifier: ^1.0.19
         version: 1.0.19
@@ -287,7 +315,7 @@ importers:
       '@types/js-yaml':
         specifier: ^4.0.9
         version: 4.0.9
-      '@types/lodash':
+      '@types/lodash-es':
         specifier: 4.17.0
         version: 4.17.0
       '@types/mocha':
@@ -454,9 +482,15 @@ importers:
       '@cursorless/common':
         specifier: workspace:*
         version: link:../common
+      '@cursorless/cursorless-cheatsheet':
+        specifier: workspace:*
+        version: link:../cursorless-cheatsheet
       '@cursorless/cursorless-engine':
         specifier: workspace:*
         version: link:../cursorless-engine
+      '@cursorless/file-system-common':
+        specifier: workspace:*
+        version: link:../file-system-common
       '@cursorless/vscode-common':
         specifier: workspace:*
         version: link:../vscode-common
@@ -466,12 +500,15 @@ importers:
       itertools:
         specifier: ^2.2.5
         version: 2.2.5
-      lodash:
+      lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
       nearley:
         specifier: 2.20.1
         version: 2.20.1(patch_hash=mg2fc7wgvzub3myuz6m74hllma)
+      pathe:
+        specifier: ^1.1.2
+        version: 1.1.2
       semver:
         specifier: ^7.6.0
         version: 7.6.0
@@ -500,7 +537,7 @@ importers:
       '@types/js-yaml':
         specifier: ^4.0.9
         version: 4.0.9
-      '@types/lodash':
+      '@types/lodash-es':
         specifier: 4.17.0
         version: 4.17.0
       '@types/mocha':
@@ -560,7 +597,7 @@ importers:
       immer:
         specifier: ^10.0.4
         version: 10.0.4
-      lodash:
+      lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
     devDependencies:
@@ -570,7 +607,7 @@ importers:
       '@types/js-yaml':
         specifier: ^4.0.9
         version: 4.0.9
-      '@types/lodash':
+      '@types/lodash-es':
         specifier: 4.17.0
         version: 4.17.0
       '@types/mocha':
@@ -591,9 +628,28 @@ importers:
       mocha:
         specifier: ^10.3.0
         version: 10.3.0
+      pathe:
+        specifier: ^1.1.2
+        version: 1.1.2
       sinon:
         specifier: ^17.0.1
         version: 17.0.1
+
+  packages/file-system-common:
+    dependencies:
+      '@cursorless/common':
+        specifier: workspace:*
+        version: link:../common
+      glob:
+        specifier: ^10.3.10
+        version: 10.3.10
+      pathe:
+        specifier: ^1.1.2
+        version: 1.1.2
+    devDependencies:
+      '@types/glob':
+        specifier: ^8.1.0
+        version: 8.1.0
 
   packages/meta-updater:
     dependencies:
@@ -615,7 +671,7 @@ importers:
       js-yaml:
         specifier: ^4.1.0
         version: 4.1.0
-      lodash:
+      lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
       normalize-path:
@@ -631,7 +687,7 @@ importers:
       '@types/js-yaml':
         specifier: ^4.0.9
         version: 4.0.9
-      '@types/lodash':
+      '@types/lodash-es':
         specifier: 4.17.0
         version: 4.17.0
       esbuild:
@@ -646,6 +702,9 @@ importers:
       glob:
         specifier: ^10.3.10
         version: 10.3.10
+      pathe:
+        specifier: ^1.1.2
+        version: 1.1.2
     devDependencies:
       '@types/glob':
         specifier: ^8.1.0
@@ -2763,6 +2822,9 @@ packages:
 
   '@types/jsonfile@6.1.4':
     resolution: {integrity: sha512-D5qGUYwjvnNNextdU59/+fI+spnwtTFmyQP0h+PfIOSkNfpU6AOICUOkm4i0OnSk+NyjdPJrxCDro0sJsWlRpQ==}
+
+  '@types/lodash-es@4.17.0':
+    resolution: {integrity: sha512-h8lkWQSgT4qjs9PcIhcL2nWubZeXRVzjZxYlRFmcX9BW1PIk5qRc0djtRWZqtM+GDDFhwBt0ztRu72D/YxIcEw==}
 
   '@types/lodash@4.17.0':
     resolution: {integrity: sha512-t7dhREVv6dbNj0q17X12j7yDG4bD/DHYX7o5/DbDxobP0HnGPgpRz2Ej77aL7TZT3DSw13fqUTj8J4mMnqa7WA==}
@@ -6227,6 +6289,9 @@ packages:
     resolution: {integrity: sha512-gvVijfZvn7R+2qyPX8mAuKcFGDf6Nc61GdvGafQsHL0sBIxfKzA+usWn4GFC/bk+QdwPUD4kWFJLhElipq+0VA==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
+  lodash-es@4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
+
   lodash.debounce@4.0.8:
     resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
 
@@ -7230,6 +7295,9 @@ packages:
   path-type@4.0.0:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
     engines: {node: '>=8'}
+
+  pathe@1.1.2:
+    resolution: {integrity: sha512-whLdWMYL2TwI08hn8/ZqAbrVemu0LNaNNJZX73O6qaIdCTfXutsLhMkjdENX0qhsQ9uIimo4/aQOmXkoon2nDQ==}
 
   pathval@2.0.0:
     resolution: {integrity: sha512-vE7JKRyES09KiunauX7nd2Q9/L7lhok4smP9RZTDeD4MVs72Dp2qNFVz39Nz5a0FVEW0BJR6C0DYrq6unoziZA==}
@@ -12640,6 +12708,10 @@ snapshots:
     dependencies:
       '@types/node': 18.18.2
 
+  '@types/lodash-es@4.17.0':
+    dependencies:
+      '@types/lodash': 4.17.0
+
   '@types/lodash@4.17.0': {}
 
   '@types/mdast@4.0.3':
@@ -16851,6 +16923,8 @@ snapshots:
     dependencies:
       p-locate: 6.0.0
 
+  lodash-es@4.17.21: {}
+
   lodash.debounce@4.0.8: {}
 
   lodash.get@4.4.2: {}
@@ -18343,6 +18417,8 @@ snapshots:
   path-to-regexp@6.2.1: {}
 
   path-type@4.0.0: {}
+
+  pathe@1.1.2: {}
 
   pathval@2.0.0: {}
 

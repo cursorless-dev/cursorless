@@ -1,5 +1,4 @@
 export * from "./testUtil/plainObjectToTarget";
-export * from "./core/Cheatsheet";
 export * from "./testUtil/takeSnapshot";
 export * from "./testCaseRecorder/TestCaseRecorder";
 export * from "./core/StoredTargets";
@@ -12,3 +11,6 @@ export * from "./CommandHistory";
 export * from "./CommandHistoryAnalyzer";
 export * from "./util/grammarHelpers";
 export * from "./ScopeTestRecorder";
+export * from "./core/Snippets";
+export * from "./core/mergeSnippets";
+export * from "./util/object";

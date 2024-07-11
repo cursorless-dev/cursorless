@@ -7,24 +7,26 @@ import {
   IDE,
   ScopeProvider,
 } from "@cursorless/common";
-import { KeyboardTargetUpdater } from "./KeyboardTargetUpdater";
 import {
   CommandRunnerDecorator,
   CursorlessEngine,
 } from "./api/CursorlessEngineApi";
 import { Debug } from "./core/Debug";
-import { DisabledHatTokenMap, HatTokenMapImpl } from "./core/HatTokenMapImpl";
-import { Snippets } from "./core/Snippets";
+import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
+import type { Snippets } from "./core/Snippets";
 import { StoredTargetMap } from "./core/StoredTargets";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
+import { DisabledHatTokenMap } from "./disabledComponents/DisabledHatTokenMap";
+import { DisabledSnippets } from "./disabledComponents/DisabledSnippets";
 import { CustomSpokenFormGeneratorImpl } from "./generateSpokenForm/CustomSpokenFormGeneratorImpl";
+import { KeyboardTargetUpdater } from "./KeyboardTargetUpdater";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
 import {
   DisabledTalonSpokenFormsJsonReader,
   TalonSpokenFormsJsonReader,
 } from "./nodeCommon/TalonSpokenFormsJsonReader";
-import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
 import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
+import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
 import { runCommand } from "./runCommand";
 import { runIntegrationTests } from "./runIntegrationTests";
 import { ScopeInfoProvider } from "./scopeProviders/ScopeInfoProvider";
@@ -41,6 +43,7 @@ interface Props {
   hats?: Hats;
   treeSitter?: TreeSitter;
   commandServerApi?: CommandServerApi;
+  snippets?: Snippets;
 }
 
 export async function createCursorlessEngine({
@@ -49,15 +52,13 @@ export async function createCursorlessEngine({
   hats,
   treeSitter,
   commandServerApi,
+  snippets,
 }: Props): Promise<CursorlessEngine> {
   injectIde(ide);
 
   const debug = new Debug(treeSitter);
 
   const rangeUpdater = new RangeUpdater();
-
-  const snippets = new Snippets();
-  void snippets.init();
 
   const hatTokenMap =
     hats != null
@@ -81,6 +82,8 @@ export async function createCursorlessEngine({
   const customSpokenFormGenerator = new CustomSpokenFormGeneratorImpl(
     talonSpokenForms,
   );
+
+  snippets = snippets ?? new DisabledSnippets();
 
   ide.disposeOnExit(
     rangeUpdater,
@@ -136,7 +139,6 @@ export async function createCursorlessEngine({
     customSpokenFormGenerator,
     storedTargets,
     hatTokenMap,
-    snippets,
     injectIde,
     runIntegrationTests: () =>
       runIntegrationTests(treeSitter, languageDefinitions),

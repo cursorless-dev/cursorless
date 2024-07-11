@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import * as path from "path";
+import * as path from "pathe";
 import { getCursorlessRepoRoot } from "@cursorless/common";
 
 /**

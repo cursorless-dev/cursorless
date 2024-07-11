@@ -1,4 +1,4 @@
-import { pull } from "lodash";
+import { pull } from "lodash-es";
 import type { EditableTextEditor, TextEditor } from "../..";
 import { GeneralizedRange } from "../../types/GeneralizedRange";
 import { TextDocument } from "../../types/TextDocument";
