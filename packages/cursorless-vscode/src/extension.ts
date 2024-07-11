@@ -17,6 +17,7 @@ import {
   TestCaseRecorder,
   TreeSitter,
 } from "@cursorless/cursorless-engine";
+import { FileSystemTalonSpokenForms } from "@cursorless/file-system-common";
 import {
   CursorlessApi,
   getCommandServerApi,
@@ -38,7 +39,6 @@ import {
   createVscodeScopeVisualizer,
   VscodeScopeVisualizer,
 } from "./ide/vscode/VSCodeScopeVisualizer";
-import { VscodeTalonSpokenForms } from "./ide/vscode/VscodeTalonSpokenForms";
 import { KeyboardCommands } from "./keyboard/KeyboardCommands";
 import { registerCommands } from "./registerCommands";
 import { ReleaseNotes } from "./ReleaseNotes";
@@ -83,7 +83,7 @@ export async function activate(
     : await getCommandServerApi();
 
   const treeSitter: TreeSitter = createTreeSitter(parseTreeApi);
-  const talonSpokenForms = new VscodeTalonSpokenForms(fileSystem);
+  const talonSpokenForms = new FileSystemTalonSpokenForms(fileSystem);
 
   const {
     commandApi,
