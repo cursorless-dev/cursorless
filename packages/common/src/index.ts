@@ -31,7 +31,7 @@ export * from "./ide/types/QuickPickOptions";
 export * from "./ide/types/events.types";
 export * from "./ide/types/Paths";
 export * from "./ide/types/CommandHistoryStorage";
-export * from "./ide/types/LanguageDefinitionsProvider";
+export * from "./ide/types/RawTreeSitterQueryProvider";
 export * from "./ide/types/FileSystem.types";
 export * from "./types/RangeExpansionBehavior";
 export * from "./types/InputBoxOptions";

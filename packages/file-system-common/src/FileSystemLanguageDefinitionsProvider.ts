@@ -3,13 +3,13 @@ import {
   type Disposable,
   type FileSystem,
   type IDE,
-  type LanguageDefinitionsProvider,
+  type RawTreeSitterQueryProvider,
   Notifier,
 } from "@cursorless/common";
 import path from "pathe";
 
 export class FileSystemLanguageDefinitionsProvider
-  implements LanguageDefinitionsProvider
+  implements RawTreeSitterQueryProvider
 {
   private queryDir: string;
   private notifier: Notifier = new Notifier();

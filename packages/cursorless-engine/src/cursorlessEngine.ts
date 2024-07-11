@@ -5,7 +5,7 @@ import {
   IDE,
   ScopeProvider,
   ensureCommandShape,
-  type LanguageDefinitionsProvider,
+  type RawTreeSitterQueryProvider,
 } from "@cursorless/common";
 import { KeyboardTargetUpdater } from "./KeyboardTargetUpdater";
 import {
@@ -44,7 +44,7 @@ import { TreeSitter } from "./typings/TreeSitter";
 interface Props {
   ide: IDE;
   hats?: Hats;
-  languageDefinitionsProvider?: LanguageDefinitionsProvider;
+  languageDefinitionsProvider?: RawTreeSitterQueryProvider;
   treeSitter?: TreeSitter;
   commandServerApi?: CommandServerApi;
   talonSpokenForms?: TalonSpokenForms;

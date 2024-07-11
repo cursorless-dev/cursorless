@@ -1,6 +1,6 @@
 import { Disposable } from "@cursorless/common";
 
-export interface LanguageDefinitionsProvider {
+export interface RawTreeSitterQueryProvider {
   /**
    * Listen for changes to language definitions
    */

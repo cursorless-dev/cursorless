@@ -6,7 +6,7 @@ import {
   isTesting,
   showError,
   type IDE,
-  type LanguageDefinitionsProvider,
+  type RawTreeSitterQueryProvider,
   type Listener,
 } from "@cursorless/common";
 import { toString } from "lodash-es";
@@ -72,7 +72,7 @@ export class LanguageDefinitionsImpl implements LanguageDefinitions {
 
   constructor(
     private ide: IDE,
-    private provider: LanguageDefinitionsProvider,
+    private treeSitterQueryProvider: RawTreeSitterQueryProvider,
     private treeSitter: TreeSitter,
   ) {
     ide.onDidOpenTextDocument((document) => {
@@ -83,7 +83,7 @@ export class LanguageDefinitionsImpl implements LanguageDefinitions {
     });
 
     this.disposables.push(
-      provider.onChanges(() => this.reloadLanguageDefinitions()),
+      treeSitterQueryProvider.onChanges(() => this.reloadLanguageDefinitions()),
     );
   }
 
@@ -120,7 +120,7 @@ export class LanguageDefinitionsImpl implements LanguageDefinitions {
     const definition =
       (await LanguageDefinition.create(
         this.ide,
-        this.provider,
+        this.treeSitterQueryProvider,
         this.treeSitter,
         languageId,
       )) ?? LANGUAGE_UNDEFINED;

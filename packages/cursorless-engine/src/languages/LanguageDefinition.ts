@@ -3,7 +3,7 @@ import {
   SimpleScopeType,
   showError,
   type IDE,
-  type LanguageDefinitionsProvider,
+  type RawTreeSitterQueryProvider,
 } from "@cursorless/common";
 import { dirname, join } from "pathe";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
@@ -37,13 +37,13 @@ export class LanguageDefinition {
    */
   static async create(
     ide: IDE,
-    provider: LanguageDefinitionsProvider,
+    treeSitterQueryProvider: RawTreeSitterQueryProvider,
     treeSitter: TreeSitter,
     languageId: string,
   ): Promise<LanguageDefinition | undefined> {
     const rawLanguageQueryString = await readQueryFileAndImports(
       ide,
-      provider,
+      treeSitterQueryProvider,
       `${languageId}.scm`,
     );
 
@@ -91,7 +91,7 @@ export class LanguageDefinition {
  */
 async function readQueryFileAndImports(
   ide: IDE,
-  provider: LanguageDefinitionsProvider,
+  provider: RawTreeSitterQueryProvider,
   languageQueryName: string,
 ) {
   // Seed the map with the query file itself
