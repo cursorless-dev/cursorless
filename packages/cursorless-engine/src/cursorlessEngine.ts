@@ -18,12 +18,14 @@ import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
 import type { Snippets } from "./core/Snippets";
 import { StoredTargetMap } from "./core/StoredTargets";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
+import { DisabledLanguageDefinitions } from "./disabledComponents/DisabledLanguageDefinitions";
 import { DisabledSnippets } from "./disabledComponents/DisabledSnippets";
 import { DisabledTalonSpokenForms } from "./disabledComponents/DisabledTalonSpokenForms";
+import { DisabledTreeSitter } from "./disabledComponents/DisabledTreeSitter";
 import { CustomSpokenFormGeneratorImpl } from "./generateSpokenForm/CustomSpokenFormGeneratorImpl";
 import {
-  type LanguageDefinitions,
   LanguageDefinitionsImpl,
+  type LanguageDefinitions,
 } from "./languages/LanguageDefinitions";
 import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
 import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
@@ -39,13 +41,13 @@ import { injectIde } from "./singletons/ide.singleton";
 import { TreeSitter } from "./typings/TreeSitter";
 
 export async function createCursorlessEngine(
-  treeSitter: TreeSitter,
+  treeSitter: TreeSitter = new DisabledTreeSitter(),
   ide: IDE,
   hats: Hats,
   commandServerApi: CommandServerApi | null,
   fileSystem: FileSystem,
   talonSpokenForms: TalonSpokenForms | undefined,
-  treeSitterQueryProvider: RawTreeSitterQueryProvider,
+  treeSitterQueryProvider: RawTreeSitterQueryProvider | undefined,
   snippets: Snippets = new DisabledSnippets(),
 ): Promise<CursorlessEngine> {
   injectIde(ide);
@@ -66,11 +68,9 @@ export async function createCursorlessEngine(
 
   const keyboardTargetUpdater = new KeyboardTargetUpdater(storedTargets);
 
-  const languageDefinitions = new LanguageDefinitionsImpl(
-    ide,
-    treeSitterQueryProvider,
-    treeSitter,
-  );
+  const languageDefinitions = treeSitterQueryProvider
+    ? new LanguageDefinitionsImpl(ide, treeSitterQueryProvider, treeSitter)
+    : new DisabledLanguageDefinitions();
   await languageDefinitions.init();
 
   const customSpokenFormGenerator = new CustomSpokenFormGeneratorImpl(
