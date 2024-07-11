@@ -92,11 +92,11 @@ export class LanguageDefinition {
 async function readQueryFileAndImports(
   ide: IDE,
   provider: LanguageDefinitionsProvider,
-  languageFilename: string,
+  languageQueryName: string,
 ) {
   // Seed the map with the query file itself
   const rawQueryStrings: Record<string, string | null> = {
-    [languageFilename]: null,
+    [languageQueryName]: null,
   };
 
   const doValidation = ide.runMode !== "production";
@@ -113,7 +113,7 @@ async function readQueryFileAndImports(
       let rawQuery = await provider.readQuery(queryName);
 
       if (rawQuery == null) {
-        if (queryName === languageFilename) {
+        if (queryName === languageQueryName) {
           // If this is the main query file, then we know that this language
           // just isn't defined using new-style queries
           return undefined;
