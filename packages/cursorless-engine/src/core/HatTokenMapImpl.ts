@@ -43,7 +43,7 @@ export class HatTokenMapImpl implements HatTokenMap {
     rangeUpdater: RangeUpdater,
     private debug: Debug,
     hats: Hats,
-    private commandServerApi: CommandServerApi | undefined,
+    private commandServerApi: CommandServerApi,
   ) {
     ide().disposeOnExit(this);
     this.activeMap = new IndividualHatMap(rangeUpdater);
@@ -130,7 +130,7 @@ export class HatTokenMapImpl implements HatTokenMap {
   }
 
   private async maybeTakePrePhraseSnapshot() {
-    const phraseStartSignal = this.commandServerApi?.signals?.prePhrase;
+    const phraseStartSignal = this.commandServerApi.signals.prePhrase;
 
     if (phraseStartSignal != null) {
       const newSignalVersion = await phraseStartSignal.getVersion();

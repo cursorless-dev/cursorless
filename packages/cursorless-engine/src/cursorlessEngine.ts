@@ -17,6 +17,7 @@ import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
 import type { Snippets } from "./core/Snippets";
 import { StoredTargetMap } from "./core/StoredTargets";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
+import { createDisabledCommandServerApi } from "./disabledComponents/DisabledCommandServerApi";
 import { DisabledHatTokenMap } from "./disabledComponents/DisabledHatTokenMap";
 import { DisabledSnippets } from "./disabledComponents/DisabledSnippets";
 import { DisabledTalonSpokenForms } from "./disabledComponents/DisabledTalonSpokenForms";
@@ -50,7 +51,7 @@ export async function createCursorlessEngine({
   fileSystem,
   hats,
   treeSitter,
-  commandServerApi,
+  commandServerApi = createDisabledCommandServerApi(),
   talonSpokenForms = new DisabledTalonSpokenForms(),
   snippets = new DisabledSnippets(),
 }: Props): Promise<CursorlessEngine> {

@@ -10,11 +10,11 @@ import {
 import type { ActionReturnValue } from "../actions/actions.types";
 
 export async function getCommandFallback(
-  commandServerApi: CommandServerApi | undefined,
+  commandServerApi: CommandServerApi,
   runAction: (actionDescriptor: ActionDescriptor) => Promise<ActionReturnValue>,
   command: CommandComplete,
 ): Promise<Fallback | null> {
-  const focusedElementType = await commandServerApi?.getFocusedElementType();
+  const focusedElementType = await commandServerApi.getFocusedElementType();
 
   if (focusedElementType == null || focusedElementType === "textEditor") {
     return null;
