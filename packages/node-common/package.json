@@ -1,0 +1,30 @@
+{
+  "name": "@cursorless/node-common",
+  "version": "1.0.0",
+  "description": "Cursorless common utilities for node",
+  "main": "./out/index.js",
+  "scripts": {
+    "compile:tsc": "tsc --build",
+    "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=esm --bundle --packages=external --outfile=./out/index.js",
+    "compile": "pnpm compile:tsc && pnpm compile:esbuild",
+    "watch:tsc": "pnpm compile:tsc --watch",
+    "watch:esbuild": "pnpm compile:esbuild --watch",
+    "watch": "pnpm run --filter @cursorless/node-common --parallel '/^watch:.*/'",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "type": "module",
+  "types": "./out/index.d.ts",
+  "exports": {
+    ".": {
+      "cursorless:bundler": "./src/index.ts",
+      "default": "./out/index.js"
+    }
+  },
+  "dependencies": {
+    "@cursorless/common": "workspace:*",
+    "@cursorless/cursorless-engine": "workspace:*"
+  }
+}

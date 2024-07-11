@@ -1,12 +1,17 @@
-import { Disposable, FileSystem, Notifier } from "@cursorless/common";
+import {
+  Disposable,
+  FileSystem,
+  Notifier,
+  type Listener,
+} from "@cursorless/common";
 import { readFile } from "fs/promises";
 
-import * as path from "path";
 import {
   NeedsInitialTalonUpdateError,
   SpokenFormEntry,
   TalonSpokenForms,
-} from "../scopeProviders/TalonSpokenForms";
+} from "@cursorless/cursorless-engine";
+import * as path from "path";
 
 interface TalonSpokenFormsPayload {
   version: number;
@@ -31,7 +36,9 @@ export class TalonSpokenFormsJsonReader implements TalonSpokenForms {
    * @param callback The callback to run when the scope ranges change
    * @returns A {@link Disposable} which will stop the callback from running
    */
-  onDidChange = this.notifier.registerListener;
+  onDidChange(listener: Listener) {
+    return this.notifier.registerListener(listener);
+  }
 
   async getSpokenFormEntries(): Promise<SpokenFormEntry[]> {
     let payload: TalonSpokenFormsPayload;

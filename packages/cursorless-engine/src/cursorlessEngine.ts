@@ -4,9 +4,10 @@ import {
   FileSystem,
   Hats,
   IDE,
-  ensureCommandShape,
   ScopeProvider,
+  ensureCommandShape,
 } from "@cursorless/common";
+import { KeyboardTargetUpdater } from "./KeyboardTargetUpdater";
 import {
   CommandRunnerDecorator,
   CursorlessEngine,
@@ -18,7 +19,6 @@ import { StoredTargetMap } from "./core/StoredTargets";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
 import { CustomSpokenFormGeneratorImpl } from "./generateSpokenForm/CustomSpokenFormGeneratorImpl";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
-import { TalonSpokenFormsJsonReader } from "./nodeCommon/TalonSpokenFormsJsonReader";
 import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
 import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
 import { runCommand } from "./runCommand";
@@ -28,9 +28,12 @@ import { ScopeRangeProvider } from "./scopeProviders/ScopeRangeProvider";
 import { ScopeRangeWatcher } from "./scopeProviders/ScopeRangeWatcher";
 import { ScopeSupportChecker } from "./scopeProviders/ScopeSupportChecker";
 import { ScopeSupportWatcher } from "./scopeProviders/ScopeSupportWatcher";
+import {
+  DisabledTalonSpokenForms,
+  type TalonSpokenForms,
+} from "./scopeProviders/TalonSpokenForms";
 import { injectIde } from "./singletons/ide.singleton";
 import { TreeSitter } from "./typings/TreeSitter";
-import { KeyboardTargetUpdater } from "./KeyboardTargetUpdater";
 
 export async function createCursorlessEngine(
   treeSitter: TreeSitter,
@@ -38,6 +41,7 @@ export async function createCursorlessEngine(
   hats: Hats,
   commandServerApi: CommandServerApi | null,
   fileSystem: FileSystem,
+  talonSpokenForms: TalonSpokenForms | undefined,
 ): Promise<CursorlessEngine> {
   injectIde(ide);
 
@@ -63,10 +67,8 @@ export async function createCursorlessEngine(
   const languageDefinitions = new LanguageDefinitions(fileSystem, treeSitter);
   await languageDefinitions.init();
 
-  const talonSpokenForms = new TalonSpokenFormsJsonReader(fileSystem);
-
   const customSpokenFormGenerator = new CustomSpokenFormGeneratorImpl(
-    talonSpokenForms,
+    talonSpokenForms ?? new DisabledTalonSpokenForms(),
   );
 
   ide.disposeOnExit(

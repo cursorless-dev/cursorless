@@ -51,6 +51,7 @@ import {
 import { StatusBarItem } from "./StatusBarItem";
 import { storedTargetHighlighter } from "./storedTargetHighlighter";
 import { vscodeApi } from "./vscodeApi";
+import { TalonSpokenFormsJsonReader } from "@cursorless/node-common";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -82,6 +83,7 @@ export async function activate(
     : await getCommandServerApi();
 
   const treeSitter: TreeSitter = createTreeSitter(parseTreeApi);
+  const talonSpokenForms = new TalonSpokenFormsJsonReader(fileSystem);
 
   const {
     commandApi,
@@ -99,6 +101,7 @@ export async function activate(
     hats,
     commandServerApi,
     fileSystem,
+    talonSpokenForms,
   );
 
   addCommandRunnerDecorator(

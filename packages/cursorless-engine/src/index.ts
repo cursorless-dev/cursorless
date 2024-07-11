@@ -12,3 +12,4 @@ export * from "./CommandHistory";
 export * from "./CommandHistoryAnalyzer";
 export * from "./util/grammarHelpers";
 export * from "./ScopeTestRecorder";
+export * from "./scopeProviders/TalonSpokenForms";
