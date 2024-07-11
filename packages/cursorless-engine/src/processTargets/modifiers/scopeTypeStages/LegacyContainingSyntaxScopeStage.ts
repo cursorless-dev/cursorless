@@ -38,10 +38,14 @@ export class LegacyContainingSyntaxScopeStage implements ModifierStage {
       this.modifier.type === "everyScope",
     );
 
-    const node: SyntaxNode | null = this.languageDefinitions.getNodeAtLocation(
+    const node = this.languageDefinitions.getNodeAtLocation(
       target.editor.document,
       target.contentRange,
     );
+
+    if (node == null) {
+      throw new NoContainingScopeError(this.modifier.scopeType.type);
+    }
 
     const scopeNodes = findNearestContainingAncestorNode(node, nodeMatcher, {
       editor: target.editor,

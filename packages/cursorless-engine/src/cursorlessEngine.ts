@@ -6,6 +6,7 @@ import {
   IDE,
   ScopeProvider,
   ensureCommandShape,
+  type RawTreeSitterQueryProvider,
 } from "@cursorless/common";
 import { KeyboardTargetUpdater } from "./KeyboardTargetUpdater";
 import {
@@ -20,7 +21,10 @@ import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
 import { DisabledSnippets } from "./disabledComponents/DisabledSnippets";
 import { DisabledTalonSpokenForms } from "./disabledComponents/DisabledTalonSpokenForms";
 import { CustomSpokenFormGeneratorImpl } from "./generateSpokenForm/CustomSpokenFormGeneratorImpl";
-import { LanguageDefinitions } from "./languages/LanguageDefinitions";
+import {
+  LanguageDefinitions,
+  LanguageDefinitionsImpl,
+} from "./languages/LanguageDefinitions";
 import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
 import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
 import { runCommand } from "./runCommand";
@@ -41,6 +45,7 @@ export async function createCursorlessEngine(
   commandServerApi: CommandServerApi | null,
   fileSystem: FileSystem,
   talonSpokenForms: TalonSpokenForms | undefined,
+  treeSitterQueryProvider: RawTreeSitterQueryProvider,
   snippets: Snippets = new DisabledSnippets(),
 ): Promise<CursorlessEngine> {
   injectIde(ide);
@@ -61,7 +66,11 @@ export async function createCursorlessEngine(
 
   const keyboardTargetUpdater = new KeyboardTargetUpdater(storedTargets);
 
-  const languageDefinitions = new LanguageDefinitions(fileSystem, treeSitter);
+  const languageDefinitions = new LanguageDefinitionsImpl(
+    ide,
+    treeSitterQueryProvider,
+    treeSitter,
+  );
   await languageDefinitions.init();
 
   const customSpokenFormGenerator = new CustomSpokenFormGeneratorImpl(

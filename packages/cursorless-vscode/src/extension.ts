@@ -19,6 +19,7 @@ import {
 } from "@cursorless/cursorless-engine";
 import {
   FileSystemCommandHistoryStorage,
+  FileSystemRawTreeSitterQueryProvider,
   FileSystemTalonSpokenForms,
 } from "@cursorless/file-system-common";
 import {
@@ -92,6 +93,11 @@ export async function activate(
   const snippets = new VscodeSnippets(normalizedIde);
   void snippets.init();
 
+  const treeSitterProvider = new FileSystemRawTreeSitterQueryProvider(
+    normalizedIde,
+    fileSystem,
+  );
+
   const {
     commandApi,
     storedTargets,
@@ -108,6 +114,7 @@ export async function activate(
     commandServerApi,
     fileSystem,
     talonSpokenForms,
+    treeSitterProvider,
     snippets,
   );
 
