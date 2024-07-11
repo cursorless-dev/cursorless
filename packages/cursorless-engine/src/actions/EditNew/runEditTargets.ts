@@ -3,7 +3,7 @@ import {
   RangeExpansionBehavior,
   Selection,
 } from "@cursorless/common";
-import { zip } from "lodash";
+import { zip } from "lodash-es";
 import { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../../core/updateSelections/updateSelections";
 import { EditDestination, State } from "./EditNew.types";

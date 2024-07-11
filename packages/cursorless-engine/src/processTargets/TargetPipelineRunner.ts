@@ -6,7 +6,7 @@ import {
   ScopeType,
   uniqWithHash,
 } from "@cursorless/common";
-import { zip } from "lodash";
+import { zip } from "lodash-es";
 import {
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
