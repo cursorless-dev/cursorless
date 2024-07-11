@@ -146,10 +146,7 @@ export class LanguageDefinitionsImpl implements LanguageDefinitions {
     return definition === LANGUAGE_UNDEFINED ? undefined : definition;
   }
 
-  public getNodeAtLocation(
-    document: TextDocument,
-    range: Range,
-  ): SyntaxNode | undefined {
+  public getNodeAtLocation(document: TextDocument, range: Range): SyntaxNode {
     return this.treeSitter.getNodeAtLocation(document, range);
   }
 
