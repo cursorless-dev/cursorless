@@ -1,22 +1,22 @@
 {
-  "name": "@cursorless/cursorless-cheatsheet",
-  "version": "0.1.0",
-  "description": "Cursorless cheatsheet implementation",
-  "type": "module",
+  "name": "@cursorless/file-system-common",
+  "version": "1.0.0",
+  "description": "Package containing common file system utilities",
   "main": "./out/index.js",
-  "types": "./out/index.d.ts",
   "scripts": {
     "compile:tsc": "tsc --build",
     "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=esm --bundle --packages=external --outfile=./out/index.js",
     "compile": "pnpm compile:tsc && pnpm compile:esbuild",
     "watch:tsc": "pnpm compile:tsc --watch",
     "watch:esbuild": "pnpm compile:esbuild --watch",
-    "watch": "pnpm run --filter @cursorless/cursorless-cheatsheet --parallel '/^watch:.*/'",
+    "watch": "pnpm run --filter @cursorless/file-system-common --parallel '/^watch:.*/'",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
+  "type": "module",
+  "types": "./out/index.d.ts",
   "exports": {
     ".": {
       "cursorless:bundler": "./src/index.ts",
@@ -24,12 +24,6 @@
     }
   },
   "dependencies": {
-    "@cursorless/common": "workspace:*",
-    "immer": "^10.0.4",
-    "lodash-es": "^4.17.21",
-    "node-html-parser": "^6.1.12"
-  },
-  "devDependencies": {
-    "@types/lodash-es": "4.17.0"
+    "@cursorless/common": "workspace:*"
   }
 }

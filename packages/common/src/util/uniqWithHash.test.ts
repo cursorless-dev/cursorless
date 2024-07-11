@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import * as fc from "fast-check";
-import { uniqWith } from "lodash";
+import { uniqWith } from "lodash-es";
 import { uniqWithHash } from "./uniqWithHash";
 
 // known good but slow (quadratic!)

@@ -1,5 +1,5 @@
 import { Range, TextEditor } from "@cursorless/common";
-import { last } from "lodash";
+import { last } from "lodash-es";
 import { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
 
 /**

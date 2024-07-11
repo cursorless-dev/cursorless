@@ -1,9 +1,9 @@
 import { getCursorlessRepoRoot, type IDE } from "@cursorless/common";
 import { readFile, writeFile } from "fs/promises";
 import { produce } from "immer";
-import { sortBy } from "lodash";
+import { sortBy } from "lodash-es";
 import { parse } from "node-html-parser";
-import path from "path";
+import * as path from "path";
 
 /**
  * The argument expected by the cheatsheet command.

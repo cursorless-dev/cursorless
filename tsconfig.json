@@ -30,6 +30,9 @@
       "path": "./packages/cursorless-vscode-e2e"
     },
     {
+      "path": "./packages/file-system-common"
+    },
+    {
       "path": "./packages/meta-updater"
     },
     {

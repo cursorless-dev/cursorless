@@ -1,4 +1,4 @@
-import { isString } from "lodash";
+import { isString } from "lodash-es";
 
 export const UNUSED = Symbol("unused");
 export type Unused = typeof UNUSED;

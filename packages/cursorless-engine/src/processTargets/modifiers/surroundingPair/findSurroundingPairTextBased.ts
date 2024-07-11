@@ -1,5 +1,5 @@
 import { Range, TextDocument, TextEditor } from "@cursorless/common";
-import { escapeRegExp, findLast, uniq } from "lodash";
+import { escapeRegExp, findLast, uniq } from "lodash-es";
 import { matchAll } from "../../../util/regex";
 import {
   SimpleSurroundingPairName,
