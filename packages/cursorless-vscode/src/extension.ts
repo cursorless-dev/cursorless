@@ -52,6 +52,7 @@ import {
 import { StatusBarItem } from "./StatusBarItem";
 import { storedTargetHighlighter } from "./storedTargetHighlighter";
 import { vscodeApi } from "./vscodeApi";
+import { FileSystemCommandHistoryStorage } from "@cursorless/file-system-common";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -104,8 +105,12 @@ export async function activate(
     talonSpokenForms,
   );
 
+  const commandHistoryStorage = new FileSystemCommandHistoryStorage(
+    fileSystem.cursorlessCommandHistoryDirPath,
+  );
+
   addCommandRunnerDecorator(
-    new CommandHistory(normalizedIde, commandServerApi, fileSystem),
+    new CommandHistory(normalizedIde, commandHistoryStorage, commandServerApi),
   );
 
   const testCaseRecorder = new TestCaseRecorder(
@@ -143,7 +148,7 @@ export async function activate(
     context,
     vscodeIDE,
     commandApi,
-    fileSystem,
+    commandHistoryStorage,
     testCaseRecorder,
     scopeTestRecorder,
     scopeVisualizer,

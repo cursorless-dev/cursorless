@@ -1,8 +1,8 @@
 import {
   CURSORLESS_COMMAND_ID,
   CursorlessCommandId,
-  FileSystem,
   isTesting,
+  type CommandHistoryStorage,
 } from "@cursorless/common";
 import {
   CommandApi,
@@ -25,7 +25,7 @@ export function registerCommands(
   extensionContext: vscode.ExtensionContext,
   vscodeIde: VscodeIDE,
   commandApi: CommandApi,
-  fileSystem: FileSystem,
+  commandHistoryStorage: CommandHistoryStorage,
   testCaseRecorder: TestCaseRecorder,
   scopeTestRecorder: ScopeTestRecorder,
   scopeVisualizer: ScopeVisualizer,
@@ -90,7 +90,7 @@ export function registerCommands(
 
     // Command history
     ["cursorless.analyzeCommandHistory"]: () =>
-      analyzeCommandHistory(fileSystem.cursorlessCommandHistoryDirPath),
+      analyzeCommandHistory(commandHistoryStorage),
 
     // General keyboard commands
     ["cursorless.keyboard.escape"]:
