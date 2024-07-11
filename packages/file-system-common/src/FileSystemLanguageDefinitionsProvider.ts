@@ -6,7 +6,7 @@ import {
   type RawTreeSitterQueryProvider,
   Notifier,
 } from "@cursorless/common";
-import path from "pathe";
+import * as path from "pathe";
 
 export class FileSystemRawTreeSitterQueryProvider
   implements RawTreeSitterQueryProvider
