@@ -96,7 +96,11 @@ def make_serializable(value: Any) -> Any:
         return [make_serializable(v) for v in value]
     if dataclasses.is_dataclass(value):
         items = {
-            **{k: v for k, v in value.__class__.__dict__.items() if k[0] != "_"},
+            **{
+                k: v
+                for k, v in vars(type(value)).items()
+                if not k.startswith("_") and not isinstance(v, property)
+            },
             **value.__dict__,
         }
         return {k: make_serializable(v) for k, v in items.items() if v is not None}
