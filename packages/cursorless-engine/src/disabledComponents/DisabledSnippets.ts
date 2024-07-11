@@ -16,4 +16,8 @@ export class DisabledSnippets implements Snippets {
   getSnippetStrict(_snippetName: string): Snippet {
     throw new Error("Snippets are not implemented.");
   }
+
+  openNewSnippetFile(_snippetName: string): Promise<void> {
+    throw new Error("Snippets are not implemented.");
+  }
 }

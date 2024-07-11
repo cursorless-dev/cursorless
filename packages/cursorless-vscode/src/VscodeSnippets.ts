@@ -10,7 +10,7 @@ import {
   mergeStrict,
   type Snippets,
 } from "@cursorless/cursorless-engine";
-import { readFile, stat } from "fs/promises";
+import { readFile, stat, open } from "fs/promises";
 import { max } from "lodash";
 import { join } from "path";
 
@@ -242,8 +242,27 @@ export class VscodeSnippets implements Snippets {
 
     return snippet;
   }
+
+  async openNewSnippetFile(snippetName: string) {
+    const userSnippetsDir = this.ide.configuration.getOwnConfiguration(
+      "experimental.snippetsDir",
+    );
+
+    if (!userSnippetsDir) {
+      throw new Error("User snippets dir not configured.");
+    }
+
+    const path = join(userSnippetsDir, `${snippetName}.cursorless-snippets`);
+    await touch(path);
+    await this.ide.openTextDocument(path);
+  }
 }
 
 function getSnippetPaths(snippetsDir: string) {
   return walkFiles(snippetsDir, CURSORLESS_SNIPPETS_SUFFIX);
+}
+
+async function touch(path: string) {
+  const file = await open(path, "w");
+  await file.close();
 }

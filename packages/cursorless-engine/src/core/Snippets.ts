@@ -27,4 +27,10 @@ export interface Snippets {
    * @returns The named snippet
    */
   getSnippetStrict(snippetName: string): Snippet;
+
+  /**
+   * Opens a new snippet file in the users snippet directory.
+   * @param snippetName The name of the snippet
+   */
+  openNewSnippetFile(snippetName: string): Promise<void>;
 }
