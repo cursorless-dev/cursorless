@@ -38,7 +38,7 @@ export class LegacyContainingSyntaxScopeStage implements ModifierStage {
       this.modifier.type === "everyScope",
     );
 
-    const node = this.languageDefinitions.getNodeAtLocation(
+    const node: SyntaxNode | null = this.languageDefinitions.getNodeAtLocation(
       target.editor.document,
       target.contentRange,
     );
