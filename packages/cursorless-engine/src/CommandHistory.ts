@@ -5,6 +5,7 @@ import {
   CommandServerApi,
   IDE,
   ReadOnlyHatMap,
+  type CommandHistoryStorage,
 } from "@cursorless/common";
 import type {
   CommandRunner,
@@ -19,12 +20,13 @@ const filePrefix = "cursorlessCommandHistory";
  * When user opts in, this class sanitizes and appends each Cursorless command
  * to a local log file in `.cursorless/commandHistory` dir.
  */
-export abstract class CommandHistory implements CommandRunnerDecorator {
+export class CommandHistory implements CommandRunnerDecorator {
   private currentPhraseSignal = "";
   private currentPhraseId = "";
 
   constructor(
     private ide: IDE,
+    private storage: CommandHistoryStorage,
     private commandServerApi: CommandServerApi | null,
   ) {}
 
@@ -52,8 +54,6 @@ export abstract class CommandHistory implements CommandRunnerDecorator {
     };
   }
 
-  protected abstract appendFile(fileName: string, data: string): Promise<void>;
-
   private async appendToLog(
     command: CommandComplete,
     thrownError?: Error,
@@ -69,9 +69,8 @@ export abstract class CommandHistory implements CommandRunnerDecorator {
       phraseId: await this.getPhraseId(),
       command: produce(command, sanitizeCommandInPlace),
     };
-    const data = JSON.stringify(historyItem) + "\n";
 
-    await this.appendFile(fileName, data);
+    await this.storage.append(fileName, historyItem);
   }
 
   private async getPhraseId(): Promise<string | undefined> {
