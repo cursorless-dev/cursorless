@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",
+    "@cursorless/cursorless-engine": "workspace:*",
     "glob": "^10.3.10",
     "pathe": "^1.1.2"
   },

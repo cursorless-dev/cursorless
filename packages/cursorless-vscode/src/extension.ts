@@ -17,7 +17,10 @@ import {
   TestCaseRecorder,
   TreeSitter,
 } from "@cursorless/cursorless-engine";
-import { FileSystemCommandHistoryStorage } from "@cursorless/file-system-common";
+import {
+  FileSystemCommandHistoryStorage,
+  FileSystemTalonSpokenForms,
+} from "@cursorless/file-system-common";
 import {
   CursorlessApi,
   getCommandServerApi,
@@ -84,6 +87,7 @@ export async function activate(
     : await getCommandServerApi();
 
   const treeSitter: TreeSitter = createTreeSitter(parseTreeApi);
+  const talonSpokenForms = new FileSystemTalonSpokenForms(fileSystem);
 
   const snippets = new VscodeSnippets(normalizedIde);
   void snippets.init();
@@ -103,6 +107,7 @@ export async function activate(
     hats,
     commandServerApi,
     fileSystem,
+    talonSpokenForms,
     snippets,
   });
 
