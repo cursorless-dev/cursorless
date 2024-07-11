@@ -1,5 +1,9 @@
-import { CompositeKeyMap, HatStability, TokenHat } from "@cursorless/common";
-import { memoize, min } from "lodash";
+import {
+  CompositeKeyMap,
+  DefaultMap,
+  HatStability,
+  TokenHat,
+} from "@cursorless/common";
 import { HatCandidate } from "./allocateHats";
 
 /**
@@ -37,26 +41,10 @@ export function hatOldTokenRank(
   };
 }
 
-/**
- * @param tokenRank The rank of the current token, so that we don't consider
- * higher ranked tokens (which already have been assigned hats)
- * @param graphemeTokenRanks A map from graphemes to an ordered list of the
- * ranks of tokens containing the grapheme
- * @returns A metric which returns the minimum token rank among lower ranked
- * tokens that contain the hat's grapheme (or Infinity if the grapheme doesn't
- * appear in any lower ranked tokens)
- */
-export function minimumTokenRankContainingGrapheme(
-  tokenRank: number,
-  graphemeTokenRanks: { [key: string]: number[] },
+export function leastPopularGrapheme(
+  graphemePopularity: DefaultMap<string, number>,
 ): HatMetric {
-  const coreMetric = memoize((graphemeText: string): number => {
-    return (
-      min(graphemeTokenRanks[graphemeText].filter((r) => r > tokenRank)) ??
-      Infinity
-    );
-  });
-  return ({ grapheme: { text } }) => coreMetric(text);
+  return ({ grapheme: { text } }) => -graphemePopularity.get(text);
 }
 
 /**
