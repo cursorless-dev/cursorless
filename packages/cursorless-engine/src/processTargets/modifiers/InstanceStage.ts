@@ -8,7 +8,7 @@ import {
   TextEditor,
 } from "@cursorless/common";
 import { flatmap, ifilter, imap, itake } from "itertools";
-import { escapeRegExp } from "lodash";
+import { escapeRegExp } from "lodash-es";
 import type { Target } from "../../typings/target.types";
 import { generateMatchesInRange } from "../../util/getMatchesInRange";
 import { ModifierStageFactory } from "../ModifierStageFactory";

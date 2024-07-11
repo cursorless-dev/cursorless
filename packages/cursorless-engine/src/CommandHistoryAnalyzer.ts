@@ -5,7 +5,7 @@ import {
   ScopeType,
   showWarning,
 } from "@cursorless/common";
-import { groupBy, map, sum } from "lodash";
+import { groupBy, map, sum } from "lodash-es";
 import { asyncIteratorToList } from "./asyncIteratorToList";
 import { canonicalizeAndValidateCommand } from "./core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { generateCommandHistoryEntries } from "./generateCommandHistoryEntries";

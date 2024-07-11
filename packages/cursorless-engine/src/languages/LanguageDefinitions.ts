@@ -13,7 +13,7 @@ import { SyntaxNode } from "web-tree-sitter";
 import { TreeSitter } from "../typings/TreeSitter";
 import { ide } from "../singletons/ide.singleton";
 import { LanguageDefinition } from "./LanguageDefinition";
-import { toString } from "lodash";
+import { toString } from "lodash-es";
 
 /**
  * Sentinel value to indicate that a language doesn't have
