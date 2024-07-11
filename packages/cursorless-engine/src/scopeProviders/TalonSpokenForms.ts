@@ -13,16 +13,6 @@ export interface TalonSpokenForms {
   onDidChange: Notifier["registerListener"];
 }
 
-export class DisabledTalonSpokenForms implements TalonSpokenForms {
-  getSpokenFormEntries() {
-    return Promise.resolve([]);
-  }
-
-  onDidChange() {
-    return { dispose: () => {} };
-  }
-}
-
 /**
  * The types of entries for which we currently support getting custom spoken
  * forms from Talon.
