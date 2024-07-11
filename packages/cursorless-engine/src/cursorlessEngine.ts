@@ -56,7 +56,7 @@ export async function createCursorlessEngine({
 }: Props): Promise<CursorlessEngine> {
   injectIde(ide);
 
-  const debug = new Debug(treeSitter);
+  const debug = new Debug(ide);
 
   const rangeUpdater = new RangeUpdater();
 

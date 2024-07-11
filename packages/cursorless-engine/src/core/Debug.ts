@@ -1,7 +1,4 @@
-import { Disposable, TextEditorSelectionChangeEvent } from "@cursorless/common";
-import type { SyntaxNode, TreeCursor } from "web-tree-sitter";
-import { ide } from "../singletons/ide.singleton";
-import { TreeSitter } from "../typings/TreeSitter";
+import type { Disposable, IDE } from "@cursorless/common";
 
 /**
  * Debug logger
@@ -11,14 +8,13 @@ export class Debug {
   private disposableSelection?: Disposable;
   active: boolean;
 
-  constructor(private treeSitter?: TreeSitter) {
-    ide().disposeOnExit(this);
+  constructor(private ide: IDE) {
+    ide.disposeOnExit(this);
 
     this.evaluateSetting = this.evaluateSetting.bind(this);
-    this.logBranchTypes = this.logBranchTypes.bind(this);
     this.active = true;
 
-    switch (ide().runMode) {
+    switch (ide.runMode) {
       // Development mode. Always enable.
       case "development":
         this.enableDebugLog();
@@ -31,7 +27,7 @@ export class Debug {
       case "production":
         this.evaluateSetting();
         this.disposableConfiguration =
-          ide().configuration.onDidChangeConfiguration(this.evaluateSetting);
+          ide.configuration.onDidChangeConfiguration(this.evaluateSetting);
         break;
     }
   }
@@ -53,11 +49,6 @@ export class Debug {
 
   private enableDebugLog() {
     this.active = true;
-    if (this.treeSitter != null) {
-      this.disposableSelection = ide().onDidChangeTextEditorSelection(
-        this.logBranchTypes,
-      );
-    }
   }
 
   private disableDebugLog() {
@@ -69,77 +60,11 @@ export class Debug {
   }
 
   private evaluateSetting() {
-    const debugEnabled = ide().configuration.getOwnConfiguration("debug");
+    const debugEnabled = this.ide.configuration.getOwnConfiguration("debug");
     if (debugEnabled) {
       this.enableDebugLog();
     } else {
       this.disableDebugLog();
     }
-  }
-
-  private logBranchTypes(event: TextEditorSelectionChangeEvent) {
-    let node: SyntaxNode;
-    try {
-      node = this.treeSitter!.getNodeAtLocation(
-        ide().activeTextEditor!.document,
-        event.selections[0],
-      );
-    } catch (error) {
-      return;
-    }
-
-    const ancestors: SyntaxNode[] = [node];
-    while (node.parent != null) {
-      ancestors.unshift(node.parent);
-      node = node.parent;
-    }
-
-    const cursor = node.tree.walk();
-    this.printCursorLocationInfo(ancestors, cursor, 0);
-  }
-
-  private printCursorLocationInfo(
-    nodes: SyntaxNode[],
-    cursor: TreeCursor,
-    index: number,
-  ) {
-    const field = cursor.currentFieldName;
-    const fieldText = field != null ? `${field}: ` : "";
-    const indent = " ".repeat(index);
-    const nodeIsLast = index === nodes.length - 1;
-    const { nodeIsNamed } = cursor;
-    let text = `${indent}${fieldText}`;
-
-    if (nodeIsNamed) {
-      text += `(${cursor.nodeType}`;
-      if (nodeIsLast) {
-        text += ")";
-      }
-    } else {
-      text += `"${cursor.nodeType}"`;
-    }
-
-    console.log(text);
-
-    if (
-      !nodeIsLast &&
-      this.cursorGoToChildWithId(cursor, nodes[index + 1].id)
-    ) {
-      this.printCursorLocationInfo(nodes, cursor, index + 1);
-    }
-
-    if (nodeIsNamed && !nodeIsLast) {
-      console.log(`${indent})`);
-    }
-  }
-
-  private cursorGoToChildWithId(cursor: TreeCursor, id: number): boolean {
-    cursor.gotoFirstChild();
-    while (cursor.currentNode.id !== id) {
-      if (!cursor.gotoNextSibling()) {
-        return false;
-      }
-    }
-    return true;
   }
 }
