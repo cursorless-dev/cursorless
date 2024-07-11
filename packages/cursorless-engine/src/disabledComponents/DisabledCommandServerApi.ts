@@ -1,19 +1,15 @@
 import type { CommandServerApi } from "@cursorless/common";
 
-const DisabledCommandServerApi: CommandServerApi = {
+export class DisabledCommandServerApi implements CommandServerApi {
   getFocusedElementType() {
     return Promise.resolve(undefined);
-  },
+  }
 
-  signals: {
+  readonly signals = {
     prePhrase: {
       getVersion() {
         return Promise.resolve(null);
       },
     },
-  },
-};
-
-export function createDisabledCommandServerApi() {
-  return DisabledCommandServerApi;
+  };
 }

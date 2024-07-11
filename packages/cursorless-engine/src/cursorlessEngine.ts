@@ -17,10 +17,12 @@ import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
 import type { Snippets } from "./core/Snippets";
 import { StoredTargetMap } from "./core/StoredTargets";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
-import { createDisabledCommandServerApi } from "./disabledComponents/DisabledCommandServerApi";
+import { DisabledCommandServerApi } from "./disabledComponents/DisabledCommandServerApi";
 import { DisabledHatTokenMap } from "./disabledComponents/DisabledHatTokenMap";
+import { DisabledLanguageDefinitions } from "./disabledComponents/DisabledLanguageDefinitions";
 import { DisabledSnippets } from "./disabledComponents/DisabledSnippets";
 import { DisabledTalonSpokenForms } from "./disabledComponents/DisabledTalonSpokenForms";
+import { DisabledTreeSitter } from "./disabledComponents/DisabledTreeSitter";
 import { CustomSpokenFormGeneratorImpl } from "./generateSpokenForm/CustomSpokenFormGeneratorImpl";
 import {
   LanguageDefinitions,
@@ -38,8 +40,6 @@ import { ScopeSupportWatcher } from "./scopeProviders/ScopeSupportWatcher";
 import { type TalonSpokenForms } from "./scopeProviders/TalonSpokenForms";
 import { injectIde } from "./singletons/ide.singleton";
 import { TreeSitter } from "./typings/TreeSitter";
-import { DisabledLanguageDefinitions } from "./disabledComponents/DisabledLanguageDefinitions";
-import { DisabledTreeSitter } from "./disabledComponents/DisabledTreeSitter";
 
 interface Props {
   ide: IDE;
@@ -56,7 +56,7 @@ export async function createCursorlessEngine({
   hats,
   languageDefinitionsProvider,
   treeSitter = new DisabledTreeSitter(),
-  commandServerApi = createDisabledCommandServerApi(),
+  commandServerApi = new DisabledCommandServerApi(),
   talonSpokenForms = new DisabledTalonSpokenForms(),
   snippets = new DisabledSnippets(),
 }: Props): Promise<CursorlessEngine> {

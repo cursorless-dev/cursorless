@@ -6,7 +6,7 @@ import {
   type LanguageDefinitionsProvider,
   Notifier,
 } from "@cursorless/common";
-import path from "node:path";
+import path from "pathe";
 
 export class FileSystemLanguageDefinitionsProvider
   implements LanguageDefinitionsProvider
