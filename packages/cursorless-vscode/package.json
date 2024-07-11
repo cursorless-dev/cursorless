@@ -1240,6 +1240,7 @@
   "dependencies": {
     "@cursorless/common": "workspace:*",
     "@cursorless/cursorless-engine": "workspace:*",
+    "@cursorless/file-system-common": "workspace:*",
     "@cursorless/vscode-common": "workspace:*",
     "immer": "^10.0.4",
     "itertools": "^2.2.5",

@@ -1,9 +1,8 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "target": "es2020",
-    "outDir": "out",
-    "rootDir": "src"
+    "rootDir": "src",
+    "outDir": "out"
   },
   "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"],
   "references": [
@@ -12,12 +11,6 @@
     },
     {
       "path": "../cursorless-engine"
-    },
-    {
-      "path": "../file-system-common"
-    },
-    {
-      "path": "../vscode-common"
     }
   ]
 }
