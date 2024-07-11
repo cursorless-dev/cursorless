@@ -548,6 +548,19 @@
   (#insertion-delimiter! @collectionItem ", ")
 )
 
+;;!! for key, value in map.items():
+;;!      ^^^  ^^^^^
+(
+  (pattern_list
+    (identifier)? @_.leading.endOf
+    .
+    (identifier) @collectionItem
+    .
+    (identifier)? @_.trailing.startOf
+  )
+  (#insertion-delimiter! @collectionItem ", ")
+)
+
 (import_statement
   .
   (_) @collectionItem.iteration.start.startOf
@@ -563,6 +576,9 @@
   .
   (_) @collectionItem.iteration.start.startOf
 ) @collectionItem.iteration.end.endOf @collectionItem.iteration.domain
+
+(pattern_list) @collectionItem.iteration
+
 ;;!! def foo(name) {}
 ;;!          ^^^^
 (
