@@ -45,7 +45,7 @@ interface Props {
   ide: IDE;
   hats?: Hats;
   treeSitterQueryProvider?: RawTreeSitterQueryProvider;
-  treeSitter: TreeSitter;
+  treeSitter?: TreeSitter;
   commandServerApi?: CommandServerApi;
   talonSpokenForms?: TalonSpokenForms;
   snippets?: Snippets;

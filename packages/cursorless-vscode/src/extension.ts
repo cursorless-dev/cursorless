@@ -97,6 +97,7 @@ export async function activate(
     normalizedIde,
     fileSystem,
   );
+  context.subscriptions.push(treeSitterQueryProvider);
 
   const {
     commandApi,
