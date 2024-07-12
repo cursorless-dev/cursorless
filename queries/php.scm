@@ -107,9 +107,22 @@
   (object_creation_expression)
 ] @functionCall
 
+;;!! $value = 2;
+;;!  ^^^^^^
+;;!           ^
 (assignment_expression
-  left: (_) @name
+  left: (_) @name @value.leading.endOf
+  right: (_) @value
 ) @_.domain
+
+;;!! $value += 2;
+;;!  ^^^^^^
+;;!            ^
+(augmented_assignment_expression
+  left: (_) @name @value.leading.endOf
+  right: (_) @value
+) @_.domain
+
 (class_declaration
   name: (_) @name
 ) @_.domain
@@ -118,4 +131,26 @@
 ) @_.domain
 (method_declaration
   name: (_) @name
+) @_.domain
+
+;;!! ['num' => 1];
+;;!   ^^^^^
+;;!            ^
+(array_element_initializer
+  (_) @collectionKey @value.leading.endOf
+  (_) @value @collectionKey.trailing.startOf
+) @_.domain
+
+;;!! return 2;
+;;!         ^
+(return_statement
+  "return" @_.leading.endOf
+  (_) @value
+) @_.domain
+
+;;!! yield 2;
+;;!        ^
+(yield_expression
+  "yield" @_.leading.endOf
+  (_) @value
 ) @_.domain

@@ -1,0 +1,21 @@
+<?php
+$value = 2;
+---
+
+[Content] = 1:9-1:10
+           >-<
+1| $value = 2;
+
+[Removal] = 1:6-1:10
+        >----<
+1| $value = 2;
+
+[Leading delimiter] = 1:6-1:9
+        >---<
+1| $value = 2;
+
+[Domain] = 1:0-1:10
+  >----------<
+1| $value = 2;
+
+[Insertion delimiter] = " "
