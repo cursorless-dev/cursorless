@@ -21,7 +21,7 @@ import {
   simpleSelectionExtractor,
   unwrapSelectionExtractor,
 } from "./nodeSelectors";
-import { unsafeKeys } from "../../../common/src/util/object";
+import { unsafeKeys } from "@cursorless/common/src/util/object";
 
 export function matcher(
   finder: NodeFinder,
