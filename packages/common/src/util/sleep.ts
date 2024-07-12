@@ -1,5 +1,3 @@
-import { promisify } from "util";
-
 /**
  * Sleep function that returns a promise that resolves when the sleep is
  * complete.
@@ -8,6 +6,10 @@ import { promisify } from "util";
  * on failure, and this function will sleep the same amount of time every time
  * the test is retried.  Prefer {@link sleepWithBackoff} instead.
  */
-const sleep = promisify(setTimeout);
+function sleep(timeout: number): Promise<void> {
+  return new Promise((resolve) => {
+    setTimeout(resolve, timeout);
+  });
+}
 
 export default sleep;
