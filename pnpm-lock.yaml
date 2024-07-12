@@ -488,9 +488,9 @@ importers:
       '@cursorless/cursorless-engine':
         specifier: workspace:*
         version: link:../cursorless-engine
-      '@cursorless/file-system-common':
+      '@cursorless/node-common':
         specifier: workspace:*
-        version: link:../file-system-common
+        version: link:../node-common
       '@cursorless/vscode-common':
         specifier: workspace:*
         version: link:../vscode-common
@@ -635,25 +635,6 @@ importers:
         specifier: ^17.0.1
         version: 17.0.1
 
-  packages/file-system-common:
-    dependencies:
-      '@cursorless/common':
-        specifier: workspace:*
-        version: link:../common
-      '@cursorless/cursorless-engine':
-        specifier: workspace:*
-        version: link:../cursorless-engine
-      glob:
-        specifier: ^10.3.10
-        version: 10.3.10
-      pathe:
-        specifier: ^1.1.2
-        version: 1.1.2
-    devDependencies:
-      '@types/glob':
-        specifier: ^8.1.0
-        version: 8.1.0
-
   packages/meta-updater:
     dependencies:
       '@cursorless/common':
@@ -696,6 +677,21 @@ importers:
       esbuild:
         specifier: ^0.20.2
         version: 0.20.2
+
+  packages/node-common:
+    dependencies:
+      '@cursorless/common':
+        specifier: workspace:*
+        version: link:../common
+      '@cursorless/cursorless-engine':
+        specifier: workspace:*
+        version: link:../cursorless-engine
+      glob:
+        specifier: ^10.3.10
+        version: 10.3.10
+      pathe:
+        specifier: ^1.1.2
+        version: 1.1.2
 
   packages/test-harness:
     dependencies:

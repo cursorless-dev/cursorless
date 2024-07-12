@@ -19,7 +19,7 @@ import {
 import {
   FileSystemCommandHistoryStorage,
   FileSystemTalonSpokenForms,
-} from "@cursorless/file-system-common";
+} from "@cursorless/node-common";
 import {
   CursorlessApi,
   getCommandServerApi,
