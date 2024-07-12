@@ -1,11 +1,11 @@
 import {
   Command,
   CommandServerApi,
-  FileSystem,
   Hats,
   IDE,
   ScopeProvider,
   ensureCommandShape,
+  type FileSystem,
 } from "@cursorless/common";
 import { KeyboardTargetUpdater } from "./KeyboardTargetUpdater";
 import {
@@ -17,6 +17,8 @@ import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
 import type { Snippets } from "./core/Snippets";
 import { StoredTargetMap } from "./core/StoredTargets";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
+import { DisabledCommandServerApi } from "./disabledComponents/DisabledCommandServerApi";
+import { DisabledHatTokenMap } from "./disabledComponents/DisabledHatTokenMap";
 import { DisabledSnippets } from "./disabledComponents/DisabledSnippets";
 import { DisabledTalonSpokenForms } from "./disabledComponents/DisabledTalonSpokenForms";
 import { CustomSpokenFormGeneratorImpl } from "./generateSpokenForm/CustomSpokenFormGeneratorImpl";
@@ -34,39 +36,44 @@ import { type TalonSpokenForms } from "./scopeProviders/TalonSpokenForms";
 import { injectIde } from "./singletons/ide.singleton";
 import { TreeSitter } from "./typings/TreeSitter";
 
-export async function createCursorlessEngine(
-  treeSitter: TreeSitter,
-  ide: IDE,
-  hats: Hats,
-  commandServerApi: CommandServerApi | null,
-  fileSystem: FileSystem,
-  talonSpokenForms: TalonSpokenForms | undefined,
-  snippets: Snippets = new DisabledSnippets(),
-): Promise<CursorlessEngine> {
+interface Props {
+  ide: IDE;
+  hats?: Hats;
+  treeSitter: TreeSitter;
+  fileSystem: FileSystem;
+  commandServerApi?: CommandServerApi;
+  talonSpokenForms?: TalonSpokenForms;
+  snippets?: Snippets;
+}
+
+export async function createCursorlessEngine({
+  ide,
+  hats,
+  treeSitter,
+  fileSystem,
+  commandServerApi = new DisabledCommandServerApi(),
+  talonSpokenForms = new DisabledTalonSpokenForms(),
+  snippets = new DisabledSnippets(),
+}: Props): Promise<CursorlessEngine> {
   injectIde(ide);
 
-  const debug = new Debug(treeSitter);
-
+  const debug = new Debug(ide);
   const rangeUpdater = new RangeUpdater();
 
-  const hatTokenMap = new HatTokenMapImpl(
-    rangeUpdater,
-    debug,
-    hats,
-    commandServerApi,
-  );
-  void hatTokenMap.allocateHats();
-
   const storedTargets = new StoredTargetMap();
-
   const keyboardTargetUpdater = new KeyboardTargetUpdater(storedTargets);
+  const customSpokenFormGenerator = new CustomSpokenFormGeneratorImpl(
+    talonSpokenForms,
+  );
+
+  const hatTokenMap =
+    hats != null
+      ? new HatTokenMapImpl(rangeUpdater, debug, hats, commandServerApi)
+      : new DisabledHatTokenMap();
+  void hatTokenMap.allocateHats();
 
   const languageDefinitions = new LanguageDefinitions(fileSystem, treeSitter);
   await languageDefinitions.init();
-
-  const customSpokenFormGenerator = new CustomSpokenFormGeneratorImpl(
-    talonSpokenForms ?? new DisabledTalonSpokenForms(),
-  );
 
   ide.disposeOnExit(
     rangeUpdater,
