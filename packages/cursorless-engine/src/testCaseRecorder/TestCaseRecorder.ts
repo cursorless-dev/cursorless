@@ -20,7 +20,7 @@ import {
   SpyIDE,
   TextEditorOptions,
   toLineRange,
-  type RecordedTestStorage,
+  type TestCaseRecorderStorage,
 } from "@cursorless/common";
 import { invariant } from "immutability-helper";
 import { merge } from "lodash-es";
@@ -65,7 +65,7 @@ export class TestCaseRecorder {
     private commandServerApi: CommandServerApi | undefined,
     private hatTokenMap: HatTokenMap,
     private storedTargets: StoredTargetMap,
-    private storage: RecordedTestStorage,
+    private storage: TestCaseRecorderStorage,
   ) {
     this.fixtureRoot = this.storage.getFixtureRoot();
 

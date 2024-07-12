@@ -1,7 +1,7 @@
 import type {
   IDE,
   RecordTestCaseCommandOptions,
-  RecordedTestStorage,
+  TestCaseRecorderStorage,
 } from "@cursorless/common";
 import * as fs from "node:fs/promises";
 import * as path from "pathe";
@@ -9,7 +9,7 @@ import { getRecordedTestsDirPath } from "./getFixturePaths";
 import { walkFiles } from "./walkAsync";
 import { existsSync } from "node:fs";
 
-export class FileSystemRecordedTestsStorage implements RecordedTestStorage {
+export class FileSystemRecordedTestsStorage implements TestCaseRecorderStorage {
   constructor(private ide: IDE) {}
 
   getFixtureRoot(): string | null {
