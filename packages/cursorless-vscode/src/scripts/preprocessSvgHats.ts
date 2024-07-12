@@ -1,6 +1,6 @@
 import { getCursorlessRepoRoot } from "@cursorless/common";
 import * as parser from "fast-xml-parser";
-import { promises as fsp, readdirSync } from "fs";
+import * as fs from "fs/promises";
 import * as path from "pathe";
 
 async function main() {
@@ -12,12 +12,14 @@ async function main() {
     format: true,
   });
 
-  for (const dirent of readdirSync(directory, { withFileTypes: true })) {
+  const files = await fs.readdir(directory, { withFileTypes: true });
+
+  for (const dirent of files) {
     if (!dirent.isFile() || !dirent.name.endsWith(".svg")) {
       continue;
     }
     const filePath = path.join(directory, dirent.name);
-    const rawSvg = await fsp.readFile(filePath, { encoding: "utf8" });
+    const rawSvg = await fs.readFile(filePath, { encoding: "utf8" });
     const svgJson = new parser.XMLParser({ ignoreAttributes: false }).parse(
       rawSvg,
     );
@@ -37,7 +39,7 @@ async function main() {
       .replace(/fill="(?!none)[^"]+"/g, 'fill="#666666"')
       .replace(/fill:(?!none)[^;]+;/g, "fill:#666666;");
 
-    await fsp.writeFile(filePath, outputSvg);
+    await fs.writeFile(filePath, outputSvg);
   }
 }
 
