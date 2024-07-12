@@ -203,7 +203,7 @@ export default class VscodeHatRenderer {
       .getConfiguration("cursorless")
       .get<IndividualHatAdjustmentMap>("individualHatAdjustments")!;
 
-    performPr1868ShapeUpdateInit(
+    await performPr1868ShapeUpdateInit(
       this.extensionContext,
       this.vscodeApi,
       this.messages,
@@ -310,7 +310,7 @@ export default class VscodeHatRenderer {
       svg.match(/fill="(?!none)[^"]+"/) == null &&
       svg.match(/fill:(?!none)[^;]+;/) == null
     ) {
-      vscode.window.showErrorMessage(
+      void vscode.window.showErrorMessage(
         `Raw svg '${shape}' is missing 'fill' property`,
       );
       isOk = false;
@@ -319,7 +319,7 @@ export default class VscodeHatRenderer {
     const viewBoxMatch = svg.match(/viewBox="([^"]+)"/);
 
     if (viewBoxMatch == null) {
-      vscode.window.showErrorMessage(
+      void vscode.window.showErrorMessage(
         `Raw svg '${shape}' is missing 'viewBox' property`,
       );
       isOk = false;

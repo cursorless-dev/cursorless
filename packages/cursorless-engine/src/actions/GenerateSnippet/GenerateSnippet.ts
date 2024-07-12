@@ -61,7 +61,7 @@ export default class GenerateSnippet {
     // immediately starts saying the name of the snippet (eg command chain
     // "snippet make funk camel my function"), we're more likely to
     // win the race and have the input box ready for them
-    flashTargets(ide(), targets, FlashStyle.referenced);
+    void flashTargets(ide(), targets, FlashStyle.referenced);
 
     if (snippetName == null) {
       snippetName = await ide().showInputBox({

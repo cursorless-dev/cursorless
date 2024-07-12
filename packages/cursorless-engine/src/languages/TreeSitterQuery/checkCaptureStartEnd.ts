@@ -39,7 +39,7 @@ export function checkCaptureStartEnd(
     .at(0);
   if (lastStart != null && firstEnd != null) {
     if (lastStart.isAfter(firstEnd)) {
-      showError(
+      void showError(
         messages,
         "TreeSitterQuery.checkCaptures.badOrder",
         `Start capture must be before end capture: ${captures}`,
@@ -57,7 +57,7 @@ export function checkCaptureStartEnd(
   if (regularCount > 0 && (startCount > 0 || endCount > 0)) {
     // Found a mix of regular captures and start/end captures, which is not
     // allowed
-    showError(
+    void showError(
       messages,
       "TreeSitterQuery.checkCaptures.mixRegularStartEnd",
       `Please do not mix regular captures and start/end captures: ${captures.map(
@@ -69,7 +69,7 @@ export function checkCaptureStartEnd(
 
   if (regularCount > 1) {
     // Found duplicate captures
-    showError(
+    void showError(
       messages,
       "TreeSitterQuery.checkCaptures.duplicate",
       `A capture with the same name may only appear once in a single pattern: ${captures.map(

@@ -85,7 +85,11 @@ export class TestCaseRecorder {
 
   async toggle(options?: RecordTestCaseCommandOptions) {
     if (this.active) {
-      showInfo(ide().messages, "recordStop", "Stopped recording test cases");
+      void showInfo(
+        ide().messages,
+        "recordStop",
+        "Stopped recording test cases",
+      );
       this.stop();
     } else {
       return await this.start(options);
@@ -138,7 +142,7 @@ export class TestCaseRecorder {
       undefined,
       ["clipboard"],
       this.active ? this.extraSnapshotFields : undefined,
-      ide().activeTextEditor,
+      ide().activeTextEditor!,
       ide(),
       marks,
       this.active ? { startTimestamp: this.startTimestamp } : undefined,
@@ -218,7 +222,7 @@ export class TestCaseRecorder {
     this.isErrorTest = isErrorTest;
     this.paused = false;
 
-    showInfo(
+    void showInfo(
       ide().messages,
       "recordStart",
       `Recording test cases for following commands in:\n${this.targetDirectory}`,
@@ -358,22 +362,26 @@ export class TestCaseRecorder {
         message += ` Spoken form error: ${this.testCase!.spokenFormError}`;
       }
 
-      showInfo(ide().messages, "testCaseSaved", message, "View", "Delete").then(
-        async (action) => {
-          if (action === "View") {
-            await ide().openTextDocument(outPath);
-          }
-          if (action === "Delete") {
-            await fs.unlink(outPath, (err) => {
-              if (err) {
-                console.log(`failed to delete ${outPath}: ${err}`);
-              } else {
-                console.log(`deleted ${outPath}`);
-              }
-            });
-          }
-        },
-      );
+      void showInfo(
+        ide().messages,
+        "testCaseSaved",
+        message,
+        "View",
+        "Delete",
+      ).then(async (action) => {
+        if (action === "View") {
+          await ide().openTextDocument(outPath);
+        }
+        if (action === "Delete") {
+          fs.unlink(outPath, (err) => {
+            if (err) {
+              console.log(`failed to delete ${outPath}: ${err}`);
+            } else {
+              console.log(`deleted ${outPath}`);
+            }
+          });
+        }
+      });
     }
 
     this.testCase = null;
@@ -396,7 +404,7 @@ export class TestCaseRecorder {
     } catch (err) {
       const errorMessage =
         '"Cursorless record" must be run from within cursorless directory';
-      showError(ide().messages, "promptSubdirectoryError", errorMessage);
+      void showError(ide().messages, "promptSubdirectoryError", errorMessage);
       throw new Error(errorMessage);
     }
 

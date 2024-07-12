@@ -91,7 +91,7 @@ export function validateQueryCaptures(file: string, rawQuery: string): void {
 
   const message = errors.join("\n");
 
-  showError(
+  void showError(
     ide().messages,
     "validateQueryCaptures.invalidCaptureName",
     message,

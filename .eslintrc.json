@@ -4,6 +4,7 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
+    // "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:import/typescript",
     "prettier"
   ],
@@ -93,7 +94,6 @@
     "import/resolver": {
       "typescript": {
         "alwaysTryTypes": true, // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
-
         "project": ["tsconfig.json", "packages/*/tsconfig.json"]
       }
     }
@@ -105,6 +105,8 @@
     "**/vendor/**/*.js",
     "**/out/**",
     "**/generated/**",
-    "/packages/*/jest.config.ts"
+    "/packages/*/jest.config.ts",
+    "/packages/cursorless-org-docs/docusaurus.config.mts",
+    "/packages/cursorless-org/mdx-components.tsx"
   ]
 }

@@ -20,7 +20,7 @@ abstract class Find implements SimpleAction {
     let query: string;
     if (text.length > 200) {
       query = text.substring(0, 200);
-      showWarning(
+      void showWarning(
         ide().messages,
         "truncatedSearchText",
         "Search text is longer than 200 characters; truncating",

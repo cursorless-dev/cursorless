@@ -14,7 +14,7 @@ abstract class SortBase implements SimpleAction {
 
   async run(targets: Target[]): Promise<ActionReturnValue> {
     if (targets.length < 2) {
-      showWarning(
+      void showWarning(
         ide().messages,
         "tooFewTargets",
         'This action works on multiple targets, e.g. "sort every line block" instead of "sort block".',
