@@ -1,5 +1,10 @@
 import { Disposable } from "@cursorless/common";
 
+/**
+ * Provides raw tree-sitter queries. These are usually read from `.scm` files
+ * on the filesystem, but this class abstracts away the details of how the
+ * queries are stored.
+ */
 export interface RawTreeSitterQueryProvider {
   /**
    * Listen for changes to queries. For now, this is only used during
