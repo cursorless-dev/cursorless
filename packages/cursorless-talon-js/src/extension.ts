@@ -1,26 +1,13 @@
-import {
-  FakeCommandServerApi,
-  FakeIDE,
-  NormalizedIDE,
-} from "@cursorless/common";
+import { FakeIDE, NormalizedIDE } from "@cursorless/common";
 import {
   createCursorlessEngine,
   type CommandApi,
 } from "@cursorless/cursorless-engine";
 import { Context } from "talon";
-import { TalonJsFileSystem } from "./TalonJsFileSystem";
-import { TalonJsHats } from "./TalonJsHats";
-import { TalonJsSnippets } from "./TalonJsSnippets";
-import { TalonJsTreeSitter } from "./TalonJsTreeSitter";
 import { TalonJsIDE } from "./ide/TalonJsIDE";
 
 async function activate(): Promise<void> {
   const talonJsIDE = new TalonJsIDE();
-  const hats = new TalonJsHats();
-  const fileSystem = new TalonJsFileSystem();
-  const treeSitter = new TalonJsTreeSitter();
-  const snippets = new TalonJsSnippets();
-  const commandServerApi = new FakeCommandServerApi();
 
   const normalizedIde =
     talonJsIDE.runMode === "production"
@@ -31,14 +18,7 @@ async function activate(): Promise<void> {
           talonJsIDE.runMode === "test",
         );
 
-  const { commandApi } = await createCursorlessEngine(
-    treeSitter,
-    normalizedIde,
-    hats,
-    commandServerApi,
-    fileSystem,
-    snippets,
-  );
+  const { commandApi } = await createCursorlessEngine({ ide: normalizedIde });
 
   registerCommands(talonJsIDE, commandApi);
 }
