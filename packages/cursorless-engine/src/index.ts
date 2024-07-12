@@ -11,7 +11,6 @@ export * from "./CommandHistory";
 export * from "./CommandHistoryAnalyzer";
 export * from "./util/grammarHelpers";
 export * from "./ScopeTestRecorder";
-export * from "@cursorless/common/src/types/TalonSpokenForms";
 export * from "./core/Snippets";
 export * from "./core/mergeSnippets";
 export * from "./util/object";

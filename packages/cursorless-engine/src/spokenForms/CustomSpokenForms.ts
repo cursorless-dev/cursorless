@@ -10,7 +10,7 @@ import {
   SUPPORTED_ENTRY_TYPES,
   SpokenFormEntry,
   TalonSpokenForms,
-} from "@cursorless/common/src/types/TalonSpokenForms";
+} from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
 import { SpokenFormMap, SpokenFormMapEntry } from "./SpokenFormMap";
 import { SpokenFormMapKeyTypes, SpokenFormType } from "@cursorless/common";

@@ -16,8 +16,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@cursorless/common": "workspace:*",
-    "@cursorless/node-test": "workspace:*"
+    "@cursorless/common": "workspace:*"
   },
   "devDependencies": {
     "@types/vscode": "1.75.1"
