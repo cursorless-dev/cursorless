@@ -88,12 +88,16 @@ const scopeSupportFacets = [
   "branch.ternary",
   "branch.loop",
 
+  "collectionItem.unenclosed",
+  "collectionItem.unenclosed.iteration",
+
   "condition.if",
   "condition.while",
   "condition.doWhile",
   "condition.for",
   "condition.ternary",
   "condition.switchCase",
+  "condition.switchCase.iteration",
 
   "name.assignment",
   "name.assignment.pattern",

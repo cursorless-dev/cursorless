@@ -134,7 +134,7 @@ importers:
     devDependencies:
       '@effortlessmotion/html-webpack-inline-source-plugin':
         specifier: 1.0.3
-        version: 1.0.3(html-webpack-plugin@5.6.0(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))))(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0)))
+        version: 1.0.3(html-webpack-plugin@5.6.0(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4)))(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4))
       '@testing-library/react':
         specifier: 14.2.2
         version: 14.2.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -161,10 +161,10 @@ importers:
         version: 10.4.19(postcss@8.4.38)
       css-loader:
         specifier: 6.10.0
-        version: 6.10.0(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0)))
+        version: 6.10.0(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4))
       html-webpack-plugin:
         specifier: 5.6.0
-        version: 5.6.0(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0)))
+        version: 5.6.0(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4))
       jest:
         specifier: 29.7.0
         version: 29.7.0(@types/node@18.18.2)(ts-node@10.9.2(@types/node@18.18.2)(typescript@5.4.3))
@@ -173,16 +173,16 @@ importers:
         version: 8.4.38
       postcss-loader:
         specifier: 8.1.1
-        version: 8.1.1(postcss@8.4.38)(typescript@5.4.3)(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0)))
+        version: 8.1.1(postcss@8.4.38)(typescript@5.4.3)(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4))
       style-loader:
         specifier: 3.3.4
-        version: 3.3.4(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0)))
+        version: 3.3.4(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4))
       tailwindcss:
         specifier: 3.4.1
         version: 3.4.1(ts-node@10.9.2(@types/node@18.18.2)(typescript@5.4.3))
       ts-loader:
         specifier: 9.5.1
-        version: 9.5.1(typescript@5.4.3)(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0)))
+        version: 9.5.1(typescript@5.4.3)(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4))
       ts-node:
         specifier: 10.9.2
         version: 10.9.2(@types/node@18.18.2)(typescript@5.4.3)
@@ -191,7 +191,7 @@ importers:
         version: 5.4.3
       webpack:
         specifier: 5.91.0
-        version: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))
+        version: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4)
       webpack-cli:
         specifier: 5.1.4
         version: 5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0)
@@ -201,9 +201,12 @@ importers:
 
   packages/common:
     dependencies:
-      lodash:
+      lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
+      pathe:
+        specifier: ^1.1.2
+        version: 1.1.2
       vscode-uri:
         specifier: ^3.0.8
         version: 3.0.8
@@ -214,7 +217,7 @@ importers:
       '@types/js-yaml':
         specifier: ^4.0.9
         version: 4.0.9
-      '@types/lodash':
+      '@types/lodash-es':
         specifier: 4.17.0
         version: 4.17.0
       '@types/mocha':
@@ -242,6 +245,28 @@ importers:
         specifier: ^17.0.1
         version: 17.0.1
 
+  packages/cursorless-cheatsheet:
+    dependencies:
+      '@cursorless/common':
+        specifier: workspace:*
+        version: link:../common
+      immer:
+        specifier: ^10.0.4
+        version: 10.0.4
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
+      node-html-parser:
+        specifier: ^6.1.12
+        version: 6.1.12
+      pathe:
+        specifier: ^1.1.2
+        version: 1.1.2
+    devDependencies:
+      '@types/lodash-es':
+        specifier: 4.17.0
+        version: 4.17.0
+
   packages/cursorless-engine:
     dependencies:
       '@cursorless/common':
@@ -259,7 +284,7 @@ importers:
       itertools:
         specifier: ^2.2.5
         version: 2.2.5
-      lodash:
+      lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
       moo:
@@ -271,6 +296,9 @@ importers:
       node-html-parser:
         specifier: ^6.1.12
         version: 6.1.12
+      pathe:
+        specifier: ^1.1.2
+        version: 1.1.2
       sbd:
         specifier: ^1.0.19
         version: 1.0.19
@@ -287,7 +315,7 @@ importers:
       '@types/js-yaml':
         specifier: ^4.0.9
         version: 4.0.9
-      '@types/lodash':
+      '@types/lodash-es':
         specifier: 4.17.0
         version: 4.17.0
       '@types/mocha':
@@ -454,9 +482,15 @@ importers:
       '@cursorless/common':
         specifier: workspace:*
         version: link:../common
+      '@cursorless/cursorless-cheatsheet':
+        specifier: workspace:*
+        version: link:../cursorless-cheatsheet
       '@cursorless/cursorless-engine':
         specifier: workspace:*
         version: link:../cursorless-engine
+      '@cursorless/file-system-common':
+        specifier: workspace:*
+        version: link:../file-system-common
       '@cursorless/vscode-common':
         specifier: workspace:*
         version: link:../vscode-common
@@ -466,12 +500,15 @@ importers:
       itertools:
         specifier: ^2.2.5
         version: 2.2.5
-      lodash:
+      lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
       nearley:
         specifier: 2.20.1
         version: 2.20.1(patch_hash=mg2fc7wgvzub3myuz6m74hllma)
+      pathe:
+        specifier: ^1.1.2
+        version: 1.1.2
       semver:
         specifier: ^7.6.0
         version: 7.6.0
@@ -500,7 +537,7 @@ importers:
       '@types/js-yaml':
         specifier: ^4.0.9
         version: 4.0.9
-      '@types/lodash':
+      '@types/lodash-es':
         specifier: 4.17.0
         version: 4.17.0
       '@types/mocha':
@@ -560,7 +597,7 @@ importers:
       immer:
         specifier: ^10.0.4
         version: 10.0.4
-      lodash:
+      lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
     devDependencies:
@@ -570,7 +607,7 @@ importers:
       '@types/js-yaml':
         specifier: ^4.0.9
         version: 4.0.9
-      '@types/lodash':
+      '@types/lodash-es':
         specifier: 4.17.0
         version: 4.17.0
       '@types/mocha':
@@ -591,9 +628,31 @@ importers:
       mocha:
         specifier: ^10.3.0
         version: 10.3.0
+      pathe:
+        specifier: ^1.1.2
+        version: 1.1.2
       sinon:
         specifier: ^17.0.1
         version: 17.0.1
+
+  packages/file-system-common:
+    dependencies:
+      '@cursorless/common':
+        specifier: workspace:*
+        version: link:../common
+      '@cursorless/cursorless-engine':
+        specifier: workspace:*
+        version: link:../cursorless-engine
+      glob:
+        specifier: ^10.3.10
+        version: 10.3.10
+      pathe:
+        specifier: ^1.1.2
+        version: 1.1.2
+    devDependencies:
+      '@types/glob':
+        specifier: ^8.1.0
+        version: 8.1.0
 
   packages/meta-updater:
     dependencies:
@@ -615,7 +674,7 @@ importers:
       js-yaml:
         specifier: ^4.1.0
         version: 4.1.0
-      lodash:
+      lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
       normalize-path:
@@ -631,7 +690,7 @@ importers:
       '@types/js-yaml':
         specifier: ^4.0.9
         version: 4.0.9
-      '@types/lodash':
+      '@types/lodash-es':
         specifier: 4.17.0
         version: 4.17.0
       esbuild:
@@ -646,6 +705,9 @@ importers:
       glob:
         specifier: ^10.3.10
         version: 10.3.10
+      pathe:
+        specifier: ^1.1.2
+        version: 1.1.2
     devDependencies:
       '@types/glob':
         specifier: ^8.1.0
@@ -1778,6 +1840,7 @@ packages:
   '@humanwhocodes/config-array@0.11.14':
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
     engines: {node: '>=10.10.0'}
+    deprecated: Use @eslint/config-array instead
 
   '@humanwhocodes/module-importer@1.0.1':
     resolution: {integrity: sha512-bxveV4V8v5Yb4ncFTT3rPSgZBOpCkjfK0y4oVVVJwIuDVBRMDXrPyXRL988i5ap9m9bnyEEjWfm5WkBmtffLfA==}
@@ -1785,6 +1848,7 @@ packages:
 
   '@humanwhocodes/object-schema@2.0.3':
     resolution: {integrity: sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==}
+    deprecated: Use @eslint/object-schema instead
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -2763,6 +2827,9 @@ packages:
 
   '@types/jsonfile@6.1.4':
     resolution: {integrity: sha512-D5qGUYwjvnNNextdU59/+fI+spnwtTFmyQP0h+PfIOSkNfpU6AOICUOkm4i0OnSk+NyjdPJrxCDro0sJsWlRpQ==}
+
+  '@types/lodash-es@4.17.0':
+    resolution: {integrity: sha512-h8lkWQSgT4qjs9PcIhcL2nWubZeXRVzjZxYlRFmcX9BW1PIk5qRc0djtRWZqtM+GDDFhwBt0ztRu72D/YxIcEw==}
 
   '@types/lodash@4.17.0':
     resolution: {integrity: sha512-t7dhREVv6dbNj0q17X12j7yDG4bD/DHYX7o5/DbDxobP0HnGPgpRz2Ej77aL7TZT3DSw13fqUTj8J4mMnqa7WA==}
@@ -6227,6 +6294,9 @@ packages:
     resolution: {integrity: sha512-gvVijfZvn7R+2qyPX8mAuKcFGDf6Nc61GdvGafQsHL0sBIxfKzA+usWn4GFC/bk+QdwPUD4kWFJLhElipq+0VA==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
+  lodash-es@4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
+
   lodash.debounce@4.0.8:
     resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
 
@@ -7230,6 +7300,9 @@ packages:
   path-type@4.0.0:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
     engines: {node: '>=8'}
+
+  pathe@1.1.2:
+    resolution: {integrity: sha512-whLdWMYL2TwI08hn8/ZqAbrVemu0LNaNNJZX73O6qaIdCTfXutsLhMkjdENX0qhsQ9uIimo4/aQOmXkoon2nDQ==}
 
   pathval@2.0.0:
     resolution: {integrity: sha512-vE7JKRyES09KiunauX7nd2Q9/L7lhok4smP9RZTDeD4MVs72Dp2qNFVz39Nz5a0FVEW0BJR6C0DYrq6unoziZA==}
@@ -11090,13 +11163,13 @@ snapshots:
       effect: 2.0.0-next.62
       fast-check: 3.15.0
 
-  '@effortlessmotion/html-webpack-inline-source-plugin@1.0.3(html-webpack-plugin@5.6.0(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))))(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0)))':
+  '@effortlessmotion/html-webpack-inline-source-plugin@1.0.3(html-webpack-plugin@5.6.0(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4)))(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4))':
     dependencies:
       escape-string-regexp: 4.0.0
-      html-webpack-plugin: 5.6.0(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0)))
+      html-webpack-plugin: 5.6.0(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4))
       slash: 3.0.0
       source-map-url: 0.4.1
-      webpack: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))
+      webpack: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4)
 
   '@esbuild/aix-ppc64@0.20.2':
     optional: true
@@ -12640,6 +12713,10 @@ snapshots:
     dependencies:
       '@types/node': 18.18.2
 
+  '@types/lodash-es@4.17.0':
+    dependencies:
+      '@types/lodash': 4.17.0
+
   '@types/lodash@4.17.0': {}
 
   '@types/mdast@4.0.3':
@@ -12796,7 +12873,7 @@ snapshots:
     dependencies:
       '@types/node': 18.18.2
       tapable: 2.2.1
-      webpack: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))
+      webpack: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4)
     transitivePeerDependencies:
       - '@swc/core'
       - esbuild
@@ -13026,14 +13103,14 @@ snapshots:
       '@webassemblyjs/ast': 1.12.1
       '@xtuc/long': 4.2.2
 
-  '@webpack-cli/configtest@2.1.1(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0)))':
+  '@webpack-cli/configtest@2.1.1(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4))':
     dependencies:
-      webpack: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))
+      webpack: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4)
       webpack-cli: 5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0)
 
   '@webpack-cli/generators@3.0.7(encoding@0.1.13)(mem-fs@2.3.0)(prettier@3.2.5)(webpack-cli@5.1.4)(webpack@5.91.0)':
     dependencies:
-      webpack: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))
+      webpack: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4)
       webpack-cli: 5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0)
       yeoman-environment: 3.19.3
       yeoman-generator: 5.10.0(encoding@0.1.13)(mem-fs@2.3.0)(yeoman-environment@3.19.3)
@@ -13045,14 +13122,14 @@ snapshots:
       - mem-fs
       - supports-color
 
-  '@webpack-cli/info@2.0.2(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0)))':
+  '@webpack-cli/info@2.0.2(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4))':
     dependencies:
-      webpack: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))
+      webpack: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4)
       webpack-cli: 5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0)
 
-  '@webpack-cli/serve@2.0.5(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))(webpack-dev-server@5.0.4(webpack-cli@5.1.4)(webpack@5.91.0))(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0)))':
+  '@webpack-cli/serve@2.0.5(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))(webpack-dev-server@5.0.4(webpack-cli@5.1.4)(webpack@5.91.0))(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4))':
     dependencies:
-      webpack: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))
+      webpack: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4)
       webpack-cli: 5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0)
     optionalDependencies:
       webpack-dev-server: 5.0.4(webpack-cli@5.1.4)(webpack@5.91.0)
@@ -14131,7 +14208,7 @@ snapshots:
     dependencies:
       hyphenate-style-name: 1.0.4
 
-  css-loader@6.10.0(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))):
+  css-loader@6.10.0(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4)):
     dependencies:
       icss-utils: 5.1.0(postcss@8.4.38)
       postcss: 8.4.38
@@ -14142,7 +14219,7 @@ snapshots:
       postcss-value-parser: 4.2.0
       semver: 7.6.0
     optionalDependencies:
-      webpack: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))
+      webpack: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4)
 
   css-loader@6.10.0(webpack@5.91.0(esbuild@0.20.2)):
     dependencies:
@@ -15780,7 +15857,7 @@ snapshots:
 
   html-void-elements@3.0.0: {}
 
-  html-webpack-plugin@5.6.0(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))):
+  html-webpack-plugin@5.6.0(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4)):
     dependencies:
       '@types/html-minifier-terser': 6.1.0
       html-minifier-terser: 6.1.0
@@ -15788,7 +15865,7 @@ snapshots:
       pretty-error: 4.0.0
       tapable: 2.2.1
     optionalDependencies:
-      webpack: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))
+      webpack: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4)
 
   html-webpack-plugin@5.6.0(webpack@5.91.0(esbuild@0.20.2)):
     dependencies:
@@ -16850,6 +16927,8 @@ snapshots:
   locate-path@7.2.0:
     dependencies:
       p-locate: 6.0.0
+
+  lodash-es@4.17.21: {}
 
   lodash.debounce@4.0.8: {}
 
@@ -18344,6 +18423,8 @@ snapshots:
 
   path-type@4.0.0: {}
 
+  pathe@1.1.2: {}
+
   pathval@2.0.0: {}
 
   periscopic@3.1.0:
@@ -18457,14 +18538,14 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  postcss-loader@8.1.1(postcss@8.4.38)(typescript@5.4.3)(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))):
+  postcss-loader@8.1.1(postcss@8.4.38)(typescript@5.4.3)(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4)):
     dependencies:
       cosmiconfig: 9.0.0(typescript@5.4.3)
       jiti: 1.21.0
       postcss: 8.4.38
       semver: 7.6.0
     optionalDependencies:
-      webpack: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))
+      webpack: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4)
     transitivePeerDependencies:
       - typescript
 
@@ -19852,9 +19933,9 @@ snapshots:
 
   strnum@1.0.5: {}
 
-  style-loader@3.3.4(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))):
+  style-loader@3.3.4(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4)):
     dependencies:
-      webpack: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))
+      webpack: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4)
 
   style-to-object@0.4.4:
     dependencies:
@@ -19988,14 +20069,14 @@ snapshots:
       mkdirp: 1.0.4
       yallist: 4.0.0
 
-  terser-webpack-plugin@5.3.10(esbuild@0.20.2)(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))):
+  terser-webpack-plugin@5.3.10(esbuild@0.20.2)(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.25
       jest-worker: 27.5.1
       schema-utils: 3.3.0
       serialize-javascript: 6.0.2
       terser: 5.29.2
-      webpack: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))
+      webpack: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4)
     optionalDependencies:
       esbuild: 0.20.2
 
@@ -20122,7 +20203,7 @@ snapshots:
       babel-jest: 29.7.0(@babel/core@7.24.3)
       esbuild: 0.20.2
 
-  ts-loader@9.5.1(typescript@5.4.3)(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))):
+  ts-loader@9.5.1(typescript@5.4.3)(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4)):
     dependencies:
       chalk: 4.1.2
       enhanced-resolve: 5.16.0
@@ -20130,7 +20211,7 @@ snapshots:
       semver: 7.6.0
       source-map: 0.7.4
       typescript: 5.4.3
-      webpack: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))
+      webpack: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4)
 
   ts-node@10.9.2(@types/node@18.18.2)(typescript@5.4.3):
     dependencies:
@@ -20506,9 +20587,9 @@ snapshots:
   webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0):
     dependencies:
       '@discoveryjs/json-ext': 0.5.7
-      '@webpack-cli/configtest': 2.1.1(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0)))
-      '@webpack-cli/info': 2.0.2(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0)))
-      '@webpack-cli/serve': 2.0.5(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))(webpack-dev-server@5.0.4(webpack-cli@5.1.4)(webpack@5.91.0))(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0)))
+      '@webpack-cli/configtest': 2.1.1(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4))
+      '@webpack-cli/info': 2.0.2(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4))
+      '@webpack-cli/serve': 2.0.5(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))(webpack-dev-server@5.0.4(webpack-cli@5.1.4)(webpack@5.91.0))(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4))
       colorette: 2.0.20
       commander: 10.0.1
       cross-spawn: 7.0.3
@@ -20517,7 +20598,7 @@ snapshots:
       import-local: 3.1.0
       interpret: 3.1.1
       rechoir: 0.8.0
-      webpack: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))
+      webpack: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4)
       webpack-merge: 5.10.0
     optionalDependencies:
       '@webpack-cli/generators': 3.0.7(encoding@0.1.13)(mem-fs@2.3.0)(prettier@3.2.5)(webpack-cli@5.1.4)(webpack@5.91.0)
@@ -20532,7 +20613,7 @@ snapshots:
       schema-utils: 4.2.0
       webpack: 5.91.0(esbuild@0.20.2)
 
-  webpack-dev-middleware@7.1.1(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))):
+  webpack-dev-middleware@7.1.1(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4)):
     dependencies:
       colorette: 2.0.20
       memfs: 4.8.0
@@ -20541,7 +20622,7 @@ snapshots:
       range-parser: 1.2.1
       schema-utils: 4.2.0
     optionalDependencies:
-      webpack: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))
+      webpack: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4)
 
   webpack-dev-server@4.15.2(webpack@5.91.0(esbuild@0.20.2)):
     dependencies:
@@ -20613,10 +20694,10 @@ snapshots:
       serve-index: 1.9.1
       sockjs: 0.3.24
       spdy: 4.0.2
-      webpack-dev-middleware: 7.1.1(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0)))
+      webpack-dev-middleware: 7.1.1(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4))
       ws: 8.16.0
     optionalDependencies:
-      webpack: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0))
+      webpack: 5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4)
       webpack-cli: 5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0)
     transitivePeerDependencies:
       - bufferutil
@@ -20663,7 +20744,7 @@ snapshots:
       - esbuild
       - uglify-js
 
-  webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0)):
+  webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4):
     dependencies:
       '@types/eslint-scope': 3.7.7
       '@types/estree': 1.0.5
@@ -20686,7 +20767,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 3.3.0
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.10(esbuild@0.20.2)(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4(@webpack-cli/generators@3.0.7)(webpack-dev-server@5.0.4)(webpack@5.91.0)))
+      terser-webpack-plugin: 5.3.10(esbuild@0.20.2)(webpack@5.91.0(esbuild@0.20.2)(webpack-cli@5.1.4))
       watchpack: 2.4.1
       webpack-sources: 3.2.3
     optionalDependencies:

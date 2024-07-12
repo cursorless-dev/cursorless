@@ -1,15 +1,18 @@
 import * as vscode from "vscode";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
+import { OpenLinkOptions, Range } from "@cursorless/common";
+import { toVscodePositionOrRange } from "@cursorless/vscode-common";
 
 export default async function vscodeOpenLink(
   editor: VscodeTextEditorImpl,
-  location: vscode.Position | vscode.Range | undefined,
-): Promise<boolean> {
+  range: Range,
+  { openAside }: OpenLinkOptions,
+): Promise<void> {
   const rawEditor = editor.vscodeEditor;
   const links = await getLinksForEditor(rawEditor);
-  const actualLocation = location ?? getSelection(rawEditor);
+  const vscodeRange = toVscodePositionOrRange(range);
   const filteredLinks = links.filter((link) =>
-    link.range.contains(actualLocation),
+    link.range.contains(vscodeRange),
   );
 
   if (filteredLinks.length > 1) {
@@ -17,27 +20,33 @@ export default async function vscodeOpenLink(
   }
 
   if (filteredLinks.length === 0) {
-    return false;
+    await runCommandAtRange(
+      editor,
+      openAside
+        ? "editor.action.revealDefinitionAside"
+        : "editor.action.revealDefinition",
+      range,
+    );
+    return;
   }
 
   try {
-    await openLink(filteredLinks[0]);
+    await openLink(filteredLinks[0], openAside);
   } catch (err) {
     // Fallback to moving cursor and running open link command
-
-    // Set the selection to the link
-    rawEditor.selections = [
-      "start" in actualLocation
-        ? new vscode.Selection(actualLocation.start, actualLocation.end)
-        : new vscode.Selection(actualLocation, actualLocation),
-    ];
-    await editor.focus();
-
-    // Run the open link command
-    await vscode.commands.executeCommand("editor.action.openLink");
+    await runCommandAtRange(editor, "editor.action.openLink", range);
   }
+}
 
-  return true;
+async function runCommandAtRange(
+  editor: VscodeTextEditorImpl,
+  command: string,
+  range: Range,
+) {
+  await editor.setSelections([range.toSelection(false)], {
+    focusEditor: true,
+  });
+  await vscode.commands.executeCommand(command);
 }
 
 async function getLinksForEditor(
@@ -49,30 +58,30 @@ async function getLinksForEditor(
   ))!;
 }
 
-function openLink(link: vscode.DocumentLink) {
+function openLink(link: vscode.DocumentLink, openAside: boolean) {
   if (link.target == null) {
     throw Error("Document link is missing uri");
   }
-  return openUri(link.target);
+  return openUri(link.target, openAside);
 }
 
-async function openUri(uri: vscode.Uri) {
+async function openUri(uri: vscode.Uri, openAside: boolean) {
   switch (uri.scheme) {
     case "http":
     case "https":
       await vscode.env.openExternal(uri);
       break;
     case "file":
-      await vscode.window.showTextDocument(uri);
+      await vscode.window.showTextDocument(
+        uri,
+        openAside
+          ? {
+              viewColumn: vscode.ViewColumn.Beside,
+            }
+          : undefined,
+      );
       break;
     default:
       throw Error(`Unknown uri scheme '${uri.scheme}'`);
   }
-}
-
-function getSelection(editor: vscode.TextEditor) {
-  if (editor.selections.length > 1) {
-    throw Error("Can't open links for multiple selections");
-  }
-  return editor.selection;
 }

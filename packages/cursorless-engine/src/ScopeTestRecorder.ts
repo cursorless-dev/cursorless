@@ -11,7 +11,7 @@ import {
 } from "@cursorless/common";
 import * as fs from "node:fs";
 import * as fsPromises from "node:fs/promises";
-import * as path from "node:path";
+import * as path from "pathe";
 
 export class ScopeTestRecorder {
   constructor(private ide: IDE) {

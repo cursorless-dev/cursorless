@@ -18,23 +18,21 @@ import {
   TestCaseFixtureLegacy,
   TestCaseSnapshot,
   TextEditor,
-  TokenHat,
   clientSupportsFallback,
-  extractTargetedMarks,
-  marksToPlainObject,
+  loadFixture,
   omitByDeep,
-  plainObjectToRange,
   rangeToPlainObject,
   serializeTestFixture,
+  serializedMarksToTokenHats,
   shouldUpdateFixtures,
   splitKey,
   spyIDERecordedValuesToPlainObject,
   storedTargetKeys,
 } from "@cursorless/common";
 import { assert } from "chai";
-import * as yaml from "js-yaml";
-import { isUndefined } from "lodash";
+import { isUndefined } from "lodash-es";
 import { promises as fsp } from "node:fs";
+import { getSnapshotForComparison } from "./getSnapshotForComparison";
 
 function createPosition(position: PositionPlainObject) {
   return new Position(position.line, position.character);
@@ -123,9 +121,7 @@ export async function runRecordedTest({
   testHelpers,
   runCursorlessCommand,
 }: RunRecordedTestOpts) {
-  const buffer = await fsp.readFile(path);
-  const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
-  const excludeFields: ExcludableSnapshotField[] = [];
+  const fixture = await loadFixture(path);
 
   // FIXME The snapshot gets messed up with timing issues when running the recorded tests
   // "Couldn't find token default.a"
@@ -162,7 +158,10 @@ export async function runRecordedTest({
 
   // Ensure that the expected hats are present
   await hatTokenMap.allocateHats(
-    getTokenHats(fixture.initialState.marks, spyIde.activeTextEditor!),
+    serializedMarksToTokenHats(
+      fixture.initialState.marks,
+      spyIde.activeTextEditor!,
+    ),
   );
 
   const readableHatMap = await hatTokenMap.getReadableMap(usePrePhraseSnapshot);
@@ -217,35 +216,11 @@ export async function runRecordedTest({
     await sleepWithBackoff(fixture.postCommandSleepTimeMs);
   }
 
-  const marks =
-    fixture.finalState?.marks == null
-      ? undefined
-      : marksToPlainObject(
-          extractTargetedMarks(
-            Object.keys(fixture.finalState.marks),
-            readableHatMap,
-          ),
-        );
-
-  if (fixture.finalState?.clipboard == null) {
-    excludeFields.push("clipboard");
-  }
-
-  for (const storedTargetKey of storedTargetKeys) {
-    const key = `${storedTargetKey}Mark` as const;
-    if (fixture.finalState?.[key] == null) {
-      excludeFields.push(key);
-    }
-  }
-
-  // FIXME Visible ranges are not asserted, see:
-  // https://github.com/cursorless-dev/cursorless/issues/160
-  const { visibleRanges, ...resultState } = await takeSnapshot(
-    excludeFields,
-    [],
-    spyIde.activeTextEditor!,
+  const resultState = await getSnapshotForComparison(
+    fixture.finalState,
+    readableHatMap,
     spyIde,
-    marks,
+    takeSnapshot,
   );
 
   const rawSpyIdeValues = spyIde.getSpyValues(fixture.ide?.flashes != null);
@@ -311,36 +286,5 @@ function checkMarks(
     const currentToken = hatTokenMap.getToken(hatStyle, character);
     assert(currentToken != null, `Mark "${hatStyle} ${character}" not found`);
     assert.deepStrictEqual(rangeToPlainObject(currentToken.range), token);
-  });
-}
-
-function getTokenHats(
-  marks: SerializedMarks | undefined,
-  editor: TextEditor,
-): TokenHat[] {
-  if (marks == null) {
-    return [];
-  }
-
-  return Object.entries(marks).map(([key, token]) => {
-    const { hatStyle, character } = splitKey(key);
-    const range = plainObjectToRange(token);
-
-    return {
-      hatStyle,
-      grapheme: character,
-      token: {
-        editor,
-        range,
-        offsets: {
-          start: editor.document.offsetAt(range.start),
-          end: editor.document.offsetAt(range.end),
-        },
-        text: editor.document.getText(range),
-      },
-
-      // NB: We don't care about the hat range for this test
-      hatRange: range,
-    };
   });
 }

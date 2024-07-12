@@ -1,5 +1,5 @@
-import { sortBy } from "lodash";
 import type { Offsets } from "./Offsets";
+import { sortBy } from "lodash-es";
 
 /**
  * For each edit in {@link edits} replaces the given {@link Edit.offsets} in

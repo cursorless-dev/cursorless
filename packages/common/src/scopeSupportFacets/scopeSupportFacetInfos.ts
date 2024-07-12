@@ -328,6 +328,17 @@ export const scopeSupportFacetInfos: Record<
     description: "A branch in a ternary expression",
     scopeType: "branch",
   },
+  "collectionItem.unenclosed": {
+    description:
+      "An item in a comma-separated list without enclosing delimiters. This could be multi-variable declarations, import statements, etc.",
+    scopeType: "collectionItem",
+  },
+  "collectionItem.unenclosed.iteration": {
+    description:
+      "Iteration scope for items in a comma-separated list without enclosing delimiters",
+    scopeType: "collectionItem",
+    isIteration: true,
+  },
 
   "condition.if": {
     description: "A condition in an if statement",
@@ -352,6 +363,12 @@ export const scopeSupportFacetInfos: Record<
   "condition.switchCase": {
     description: "A condition in a switch statement",
     scopeType: "condition",
+  },
+  "condition.switchCase.iteration": {
+    description:
+      "The iteration scope for conditions in a switch statement: should contain all the cases, and exclude any curly brackets delimiting the full switch statement body",
+    scopeType: "condition",
+    isIteration: true,
   },
 
   "name.assignment": {

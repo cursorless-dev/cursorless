@@ -1,5 +1,5 @@
 import { readFileSync } from "node:fs";
-import { groupBy, type Dictionary } from "lodash";
+import { groupBy } from "lodash-es";
 import {
   getScopeTestConfigPaths,
   getScopeTestPaths,
@@ -58,7 +58,7 @@ export function getScopeTestPathsRecursively(): ScopeTestPath[] {
 }
 
 function addTestPathsForLanguageRecursively(
-  languages: Dictionary<ScopeTestPath[]>,
+  languages: Record<string, ScopeTestPath[]>,
   configs: Record<string, ScopeTestConfig | undefined>,
   result: ScopeTestPath[],
   usedLanguageIds: Set<string>,

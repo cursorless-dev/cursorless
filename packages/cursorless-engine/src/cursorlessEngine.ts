@@ -4,21 +4,23 @@ import {
   FileSystem,
   Hats,
   IDE,
-  ensureCommandShape,
   ScopeProvider,
+  ensureCommandShape,
 } from "@cursorless/common";
+import { KeyboardTargetUpdater } from "./KeyboardTargetUpdater";
 import {
   CommandRunnerDecorator,
   CursorlessEngine,
 } from "./api/CursorlessEngineApi";
 import { Debug } from "./core/Debug";
 import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
-import { Snippets } from "./core/Snippets";
+import type { Snippets } from "./core/Snippets";
 import { StoredTargetMap } from "./core/StoredTargets";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
+import { DisabledSnippets } from "./disabledComponents/DisabledSnippets";
+import { DisabledTalonSpokenForms } from "./disabledComponents/DisabledTalonSpokenForms";
 import { CustomSpokenFormGeneratorImpl } from "./generateSpokenForm/CustomSpokenFormGeneratorImpl";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
-import { TalonSpokenFormsJsonReader } from "./nodeCommon/TalonSpokenFormsJsonReader";
 import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
 import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
 import { runCommand } from "./runCommand";
@@ -28,9 +30,9 @@ import { ScopeRangeProvider } from "./scopeProviders/ScopeRangeProvider";
 import { ScopeRangeWatcher } from "./scopeProviders/ScopeRangeWatcher";
 import { ScopeSupportChecker } from "./scopeProviders/ScopeSupportChecker";
 import { ScopeSupportWatcher } from "./scopeProviders/ScopeSupportWatcher";
+import { type TalonSpokenForms } from "./scopeProviders/TalonSpokenForms";
 import { injectIde } from "./singletons/ide.singleton";
 import { TreeSitter } from "./typings/TreeSitter";
-import { KeyboardTargetUpdater } from "./KeyboardTargetUpdater";
 
 export async function createCursorlessEngine(
   treeSitter: TreeSitter,
@@ -38,15 +40,14 @@ export async function createCursorlessEngine(
   hats: Hats,
   commandServerApi: CommandServerApi | null,
   fileSystem: FileSystem,
+  talonSpokenForms: TalonSpokenForms | undefined,
+  snippets: Snippets = new DisabledSnippets(),
 ): Promise<CursorlessEngine> {
   injectIde(ide);
 
   const debug = new Debug(treeSitter);
 
   const rangeUpdater = new RangeUpdater();
-
-  const snippets = new Snippets();
-  snippets.init();
 
   const hatTokenMap = new HatTokenMapImpl(
     rangeUpdater,
@@ -63,10 +64,8 @@ export async function createCursorlessEngine(
   const languageDefinitions = new LanguageDefinitions(fileSystem, treeSitter);
   await languageDefinitions.init();
 
-  const talonSpokenForms = new TalonSpokenFormsJsonReader(fileSystem);
-
   const customSpokenFormGenerator = new CustomSpokenFormGeneratorImpl(
-    talonSpokenForms,
+    talonSpokenForms ?? new DisabledTalonSpokenForms(),
   );
 
   ide.disposeOnExit(
@@ -123,7 +122,6 @@ export async function createCursorlessEngine(
     customSpokenFormGenerator,
     storedTargets,
     hatTokenMap,
-    snippets,
     injectIde,
     runIntegrationTests: () =>
       runIntegrationTests(treeSitter, languageDefinitions),

@@ -27,4 +27,14 @@ async function runTest() {
   await vscode.commands.executeCommand("cursorless.toggleDecorations");
   await hatTokenMap.allocateHats();
   assert((await hatTokenMap.getReadableMap(false)).getEntries().length !== 0);
+
+  // Check that hats disappear when turned off
+  await vscode.commands.executeCommand("cursorless.toggleDecorations", false);
+  await hatTokenMap.allocateHats();
+  assert((await hatTokenMap.getReadableMap(false)).getEntries().length === 0);
+
+  // Check that hats reappear when turned back on
+  await vscode.commands.executeCommand("cursorless.toggleDecorations", true);
+  await hatTokenMap.allocateHats();
+  assert((await hatTokenMap.getReadableMap(false)).getEntries().length !== 0);
 }

@@ -4,9 +4,9 @@ import {
   type ComplexSurroundingPairName,
   type SurroundingPairName,
 } from "@cursorless/common";
-import { IndividualDelimiter } from "./types";
+import { concat, uniq } from "lodash-es";
 import { complexDelimiterMap, getSimpleDelimiterMap } from "./delimiterMaps";
-import { concat, uniq } from "lodash";
+import { IndividualDelimiter } from "./types";
 
 export function getIndividualDelimiters(
   delimiter: SurroundingPairName,

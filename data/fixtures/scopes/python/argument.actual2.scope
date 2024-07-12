@@ -1,0 +1,10 @@
+" ".join(word for word in word_list)
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:9-0:35
+           >--------------------------<
+0| " ".join(word for word in word_list)
+
+[Insertion delimiter] = " "

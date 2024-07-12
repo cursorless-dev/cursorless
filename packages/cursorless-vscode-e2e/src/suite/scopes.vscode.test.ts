@@ -12,7 +12,7 @@ import {
 } from "@cursorless/common";
 import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
 import { assert } from "chai";
-import { groupBy, uniq } from "lodash";
+import { groupBy, uniq } from "lodash-es";
 import { promises as fsp } from "node:fs";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 import {

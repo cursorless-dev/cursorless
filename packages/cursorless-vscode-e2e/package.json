@@ -22,18 +22,19 @@
     "@cursorless/common": "workspace:*",
     "@cursorless/vscode-common": "workspace:*",
     "immer": "^10.0.4",
-    "lodash": "^4.17.21"
+    "lodash-es": "^4.17.21"
   },
   "devDependencies": {
     "@types/chai": "^4.3.14",
     "@types/js-yaml": "^4.0.9",
-    "@types/lodash": "4.17.0",
+    "@types/lodash-es": "4.17.0",
     "@types/mocha": "^10.0.6",
     "@types/sinon": "^17.0.3",
     "@types/vscode": "1.75.1",
     "chai": "^5.1.0",
     "js-yaml": "^4.1.0",
     "mocha": "^10.3.0",
+    "pathe": "^1.1.2",
     "sinon": "^17.0.1"
   },
   "types": "./out/index.d.ts",

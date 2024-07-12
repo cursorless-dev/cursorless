@@ -1,4 +1,4 @@
-import { pick, sortedUniq, toPairs } from "lodash";
+import { pick, sortedUniq, toPairs } from "lodash-es";
 import { Grammar, Parser } from "nearley";
 import * as vscode from "vscode";
 import { KeyboardCommandsModalLayer } from "./KeyboardCommandsModalLayer";
@@ -120,7 +120,7 @@ export default class KeyboardCommandsModal {
     this.inputDisposable = this.keyboardHandler.pushListener({
       handleInput: this.handleInput,
       displayOptions: {
-        cursorStyle: vscode.TextEditorCursorStyle.BlockOutline,
+        cursorStyle: this.keyboardConfig.getCursorStyle(),
         whenClauseContext: "cursorless.keyboard.modal.mode",
         statusBarText: "Listening...",
       },

@@ -9,7 +9,6 @@ export const legacyLanguageIds = [
   "latex",
   "markdown",
   "php",
-  "python",
   "ruby",
   "rust",
   "scala",

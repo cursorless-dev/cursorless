@@ -2,7 +2,7 @@ import {
   BreakpointDescriptor,
   Edit,
   EditableTextEditor,
-  Position,
+  OpenLinkOptions,
   Range,
   RevealLineAt,
   Selection,
@@ -16,7 +16,6 @@ import {
 import {
   fromVscodeRange,
   fromVscodeSelection,
-  toVscodePositionOrRange,
   toVscodeRange,
   toVscodeSelection,
 } from "@cursorless/vscode-common";
@@ -149,11 +148,11 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     return vscodeEditNewNotebookCellBelow(this);
   }
 
-  public openLink(location?: Position | Range): Promise<boolean> {
-    return vscodeOpenLink(
-      this,
-      location != null ? toVscodePositionOrRange(location) : undefined,
-    );
+  public openLink(
+    range: Range,
+    options: OpenLinkOptions = { openAside: false },
+  ): Promise<void> {
+    return vscodeOpenLink(this, range, options);
   }
 
   public fold(ranges?: Range[]): Promise<void> {
