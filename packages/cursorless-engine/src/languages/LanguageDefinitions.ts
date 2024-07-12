@@ -70,7 +70,7 @@ export class LanguageDefinitionsImpl
   > = new Map();
   private disposables: Disposable[] = [];
 
-  constructor(
+  private constructor(
     private ide: IDE,
     private treeSitter: TreeSitter,
     private treeSitterQueryProvider: RawTreeSitterQueryProvider,
