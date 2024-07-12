@@ -75,3 +75,61 @@
   (#trim-end! @notebookCell)
   (#insertion-delimiter! @notebookCell "\n\n")
 )
+
+;;!! # H1
+;;!! ## H2
+(
+  (section) @section @_.removal
+  (#trim-end! @section)
+)
+
+;;!! # H1
+(
+  (section
+    (atx_heading
+      (atx_h1_marker)
+    )
+  ) @sectionLevelOne @_.removal
+  (#trim-end! @sectionLevelOne)
+)
+;;!! ## H2
+(
+  (section
+    (atx_heading
+      (atx_h2_marker)
+    )
+  ) @sectionLevelTwo @_.removal
+  (#trim-end! @sectionLevelTwo)
+)
+(
+  (section
+    (atx_heading
+      (atx_h3_marker)
+    )
+  ) @sectionLevelThree @_.removal
+  (#trim-end! @sectionLevelThree)
+)
+(
+  (section
+    (atx_heading
+      (atx_h4_marker)
+    )
+  ) @sectionLevelFour @_.removal
+  (#trim-end! @sectionLevelFour)
+)
+(
+  (section
+    (atx_heading
+      (atx_h5_marker)
+    )
+  ) @sectionLevelFive @_.removal
+  (#trim-end! @sectionLevelFive)
+)
+(
+  (section
+    (atx_heading
+      (atx_h6_marker)
+    )
+  ) @sectionLevelSix @_.removal
+  (#trim-end! @sectionLevelSix)
+)

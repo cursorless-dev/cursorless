@@ -168,10 +168,12 @@ class TrimEnd extends QueryPredicateOperator<TrimEnd> {
     const { document, range } = nodeInfo;
     const text = document.getText(range);
     const whitespaceLength = text.length - text.trimEnd().length;
-    nodeInfo.range = new Range(
-      range.start,
-      adjustPosition(document, range.end, -whitespaceLength),
-    );
+    if (whitespaceLength > 0) {
+      nodeInfo.range = new Range(
+        range.start,
+        adjustPosition(document, range.end, -whitespaceLength),
+      );
+    }
     return true;
   }
 }
