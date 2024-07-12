@@ -48,7 +48,7 @@ export function serializeTargetRange(
   // Output the range with each line prefixed by `n| `, eg:
   // `3| const foo = // "bar"`
   for (let lineNumber = start.line; lineNumber <= end.line; ++lineNumber) {
-    const codeLine = codeLines[lineNumber]!;
+    const codeLine = codeLines[lineNumber];
 
     lines.push(
       codeLine.length > 0 ? `${lineNumber}| ${codeLine}` : `${lineNumber}|`,

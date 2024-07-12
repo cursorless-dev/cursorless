@@ -52,10 +52,10 @@ async function runCommandAtRange(
 async function getLinksForEditor(
   editor: vscode.TextEditor,
 ): Promise<vscode.DocumentLink[]> {
-  return (await vscode.commands.executeCommand(
+  return await vscode.commands.executeCommand(
     "vscode.executeLinkProvider",
     editor.document.uri,
-  ))!;
+  );
 }
 
 function openLink(link: vscode.DocumentLink, openAside: boolean) {

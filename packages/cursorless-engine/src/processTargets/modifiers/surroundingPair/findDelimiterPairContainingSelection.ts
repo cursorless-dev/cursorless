@@ -74,7 +74,7 @@ export function findDelimiterPairContainingSelection(
     if (rightNext.done) {
       return null;
     }
-    const rightDelimiterOccurrence = rightNext.value!;
+    const rightDelimiterOccurrence = rightNext.value;
 
     // Then scan left until we find an unmatched delimiter matching the
     // delimiter we found in our rightward pass.
@@ -85,7 +85,7 @@ export function findDelimiterPairContainingSelection(
     if (leftNext.done) {
       return null;
     }
-    const leftDelimiterOccurrence = leftNext.value!;
+    const leftDelimiterOccurrence = leftNext.value;
 
     // If left delimiter is left of our selection, we return it.  Otherwise
     // loop back and continue scanning outwards.

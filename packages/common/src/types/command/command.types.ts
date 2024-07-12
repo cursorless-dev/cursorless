@@ -10,7 +10,7 @@ import type { CommandV5 } from "./legacy/CommandV5.types";
 
 export type CommandComplete = Required<Omit<CommandLatest, "spokenForm">> &
   Pick<CommandLatest, "spokenForm">;
-export const LATEST_VERSION = 7 as const;
+export const LATEST_VERSION = 7;
 
 export type CommandLatest = Command & {
   version: typeof LATEST_VERSION;

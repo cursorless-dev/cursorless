@@ -80,7 +80,7 @@ export function validateQueryCaptures(file: string, rawQuery: string): void {
     }
 
     if (!allowedCaptures.has(captureName)) {
-      const lineNumber = match.input!.slice(0, match.index!).split("\n").length;
+      const lineNumber = match.input.slice(0, match.index).split("\n").length;
       errors.push(`${file}(${lineNumber}) invalid capture '@${captureName}'.`);
     }
   }
