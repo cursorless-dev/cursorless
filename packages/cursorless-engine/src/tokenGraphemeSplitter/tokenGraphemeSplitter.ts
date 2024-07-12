@@ -1,4 +1,4 @@
-import { deburr, escapeRegExp } from "lodash";
+import { deburr, escapeRegExp } from "lodash-es";
 import { ide } from "../singletons/ide.singleton";
 import {
   TokenHatSplittingMode,

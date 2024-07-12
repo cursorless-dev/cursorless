@@ -1,5 +1,5 @@
 import { isTesting } from "@cursorless/common";
-import { pickBy } from "lodash";
+import { pickBy } from "lodash-es";
 import * as vscode from "vscode";
 import { HatStyleInfo, HatStyleMap } from "@cursorless/common";
 import { Listener, Notifier } from "@cursorless/common";

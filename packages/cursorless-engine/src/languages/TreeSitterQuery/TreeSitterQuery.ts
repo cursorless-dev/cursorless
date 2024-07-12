@@ -6,7 +6,7 @@ import { getNodeRange } from "../../util/nodeSelectors";
 import { MutableQueryMatch, QueryCapture, QueryMatch } from "./QueryCapture";
 import { parsePredicates } from "./parsePredicates";
 import { predicateToString } from "./predicateToString";
-import { groupBy, uniq } from "lodash";
+import { groupBy, uniq } from "lodash-es";
 import { checkCaptureStartEnd } from "./checkCaptureStartEnd";
 import { rewriteStartOfEndOf } from "./rewriteStartOfEndOf";
 

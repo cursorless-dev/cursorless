@@ -1,5 +1,5 @@
 import { Modifier } from "@cursorless/common";
-import { findLastIndex } from "lodash";
+import { findLastIndex } from "lodash-es";
 import {
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,

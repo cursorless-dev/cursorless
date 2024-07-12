@@ -30,7 +30,7 @@ import {
   storedTargetKeys,
 } from "@cursorless/common";
 import { assert } from "chai";
-import { isUndefined } from "lodash";
+import { isUndefined } from "lodash-es";
 import { promises as fsp } from "node:fs";
 import { getSnapshotForComparison } from "./getSnapshotForComparison";
 

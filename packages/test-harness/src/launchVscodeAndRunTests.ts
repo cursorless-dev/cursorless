@@ -1,5 +1,5 @@
 import * as cp from "child_process";
-import * as path from "path";
+import * as path from "pathe";
 import * as os from "os";
 import {
   downloadAndUnzipVSCode,

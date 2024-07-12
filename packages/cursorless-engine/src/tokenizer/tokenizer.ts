@@ -1,4 +1,4 @@
-import { escapeRegExp } from "lodash";
+import { escapeRegExp } from "lodash-es";
 import { ide } from "../singletons/ide.singleton";
 import { matchAll } from "../util/regex";
 import { LanguageTokenizerComponents } from "./tokenizer.types";

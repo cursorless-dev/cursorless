@@ -2,7 +2,7 @@ import { ScopeType, ScopeTypeInfo } from "@cursorless/common";
 import * as sinon from "sinon";
 import { assert } from "chai";
 import { sleepWithBackoff } from "../../endToEndTestSetup";
-import { isEqual } from "lodash";
+import { isEqual } from "lodash-es";
 
 export async function assertCalledWithScopeInfo<T extends ScopeTypeInfo>(
   fake: sinon.SinonSpy<[scopeInfos: T[]], void>,

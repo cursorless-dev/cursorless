@@ -18,6 +18,11 @@ import {
   TreeSitter,
 } from "@cursorless/cursorless-engine";
 import {
+  FileSystemCommandHistoryStorage,
+  FileSystemRawTreeSitterQueryProvider,
+  FileSystemTalonSpokenForms,
+} from "@cursorless/file-system-common";
+import {
   CursorlessApi,
   getCommandServerApi,
   getParseTreeApi,
@@ -26,7 +31,7 @@ import {
 } from "@cursorless/vscode-common";
 import * as crypto from "crypto";
 import * as os from "os";
-import * as path from "path";
+import * as path from "pathe";
 import * as vscode from "vscode";
 import { constructTestHelpers } from "./constructTestHelpers";
 import { FakeFontMeasurements } from "./ide/vscode/hats/FakeFontMeasurements";
@@ -51,6 +56,7 @@ import {
 import { StatusBarItem } from "./StatusBarItem";
 import { storedTargetHighlighter } from "./storedTargetHighlighter";
 import { vscodeApi } from "./vscodeApi";
+import { VscodeSnippets } from "./VscodeSnippets";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -81,28 +87,43 @@ export async function activate(
     ? fakeCommandServerApi
     : await getCommandServerApi();
 
-  const treeSitter: TreeSitter = createTreeSitter(parseTreeApi);
+  const treeSitter = createTreeSitter(parseTreeApi);
+  const talonSpokenForms = new FileSystemTalonSpokenForms(fileSystem);
+
+  const snippets = new VscodeSnippets(normalizedIde);
+  void snippets.init();
+
+  const treeSitterQueryProvider = new FileSystemRawTreeSitterQueryProvider(
+    normalizedIde,
+    fileSystem,
+  );
+  context.subscriptions.push(treeSitterQueryProvider);
 
   const {
     commandApi,
     storedTargets,
     hatTokenMap,
     scopeProvider,
-    snippets,
     injectIde,
     runIntegrationTests,
     addCommandRunnerDecorator,
     customSpokenFormGenerator,
-  } = await createCursorlessEngine(
-    treeSitter,
-    normalizedIde,
+  } = await createCursorlessEngine({
+    ide: normalizedIde,
     hats,
+    treeSitterQueryProvider,
+    treeSitter,
     commandServerApi,
-    fileSystem,
+    talonSpokenForms,
+    snippets,
+  });
+
+  const commandHistoryStorage = new FileSystemCommandHistoryStorage(
+    fileSystem.cursorlessCommandHistoryDirPath,
   );
 
   addCommandRunnerDecorator(
-    new CommandHistory(normalizedIde, commandServerApi, fileSystem),
+    new CommandHistory(normalizedIde, commandHistoryStorage, commandServerApi),
   );
 
   const testCaseRecorder = new TestCaseRecorder(
@@ -140,7 +161,7 @@ export async function activate(
     context,
     vscodeIDE,
     commandApi,
-    fileSystem,
+    commandHistoryStorage,
     testCaseRecorder,
     scopeTestRecorder,
     scopeVisualizer,

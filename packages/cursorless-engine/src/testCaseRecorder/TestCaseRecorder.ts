@@ -26,8 +26,8 @@ import {
 import * as fs from "fs";
 import { access, readFile } from "fs/promises";
 import { invariant } from "immutability-helper";
-import { merge } from "lodash";
-import * as path from "path";
+import { merge } from "lodash-es";
+import * as path from "pathe";
 import { CommandRunner } from "../CommandRunner";
 import { StoredTargetMap } from "../core/StoredTargets";
 import { SpokenFormGenerator } from "../generateSpokenForm";
@@ -65,7 +65,7 @@ export class TestCaseRecorder {
   private spokenFormGenerator = new SpokenFormGenerator(defaultSpokenFormMap);
 
   constructor(
-    private commandServerApi: CommandServerApi | null,
+    private commandServerApi: CommandServerApi | undefined,
     private hatTokenMap: HatTokenMap,
     private storedTargets: StoredTargetMap,
   ) {

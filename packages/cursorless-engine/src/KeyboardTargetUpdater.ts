@@ -1,7 +1,7 @@
 import { Disposable } from "@cursorless/common";
 import { Debouncer } from "./core/Debouncer";
 import { StoredTargetMap } from "./core/StoredTargets";
-import { PlainTarget } from "./processTargets/targets";
+import { CursorStage } from "./processTargets/marks/CursorStage";
 import { ide } from "./singletons/ide.singleton";
 
 export class KeyboardTargetUpdater {
@@ -49,17 +49,7 @@ export class KeyboardTargetUpdater {
       return;
     }
 
-    this.storedTargets.set(
-      "keyboard",
-      activeEditor.selections.map(
-        (selection) =>
-          new PlainTarget({
-            contentRange: selection,
-            editor: activeEditor,
-            isReversed: selection.isReversed,
-          }),
-      ),
-    );
+    this.storedTargets.set("keyboard", new CursorStage().run());
   }
 
   dispose() {

@@ -1,4 +1,4 @@
-import { isString, range } from "lodash";
+import { isString, range } from "lodash-es";
 import {
   KeyboardActionType,
   PolymorphicKeyboardActionDescriptor,

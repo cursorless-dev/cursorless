@@ -5,7 +5,7 @@ import {
   Range,
   TextEditor,
 } from "@cursorless/common";
-import { flatten, zip } from "lodash";
+import { flatten, zip } from "lodash-es";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";

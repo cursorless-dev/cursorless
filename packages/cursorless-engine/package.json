@@ -26,10 +26,11 @@
     "immer": "^10.0.4",
     "immutability-helper": "^3.1.1",
     "itertools": "^2.2.5",
-    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "moo": "0.5.2",
     "nearley": "2.20.1",
     "node-html-parser": "^6.1.12",
+    "pathe": "^1.1.2",
     "sbd": "^1.0.19",
     "uuid": "^9.0.1",
     "zod": "3.22.4"
@@ -37,7 +38,7 @@
   "devDependencies": {
     "@types/glob": "^8.1.0",
     "@types/js-yaml": "^4.0.9",
-    "@types/lodash": "4.17.0",
+    "@types/lodash-es": "4.17.0",
     "@types/mocha": "^10.0.6",
     "@types/moo": "0.5.9",
     "@types/nearley": "2.11.5",

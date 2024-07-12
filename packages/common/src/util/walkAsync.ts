@@ -1,6 +1,6 @@
-import * as path from "path";
+import * as path from "pathe";
 import { readdir } from "fs/promises";
-import { flatten } from "lodash";
+import { flatten } from "lodash-es";
 
 /**
  * Note: Returns full paths

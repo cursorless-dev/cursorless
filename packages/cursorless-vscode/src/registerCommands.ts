@@ -1,16 +1,18 @@
 import {
   CURSORLESS_COMMAND_ID,
   CursorlessCommandId,
-  FileSystem,
   isTesting,
+  type CommandHistoryStorage,
 } from "@cursorless/common";
+import {
+  showCheatsheet,
+  updateDefaults,
+} from "@cursorless/cursorless-cheatsheet";
 import {
   CommandApi,
   StoredTargetMap,
   TestCaseRecorder,
   analyzeCommandHistory,
-  showCheatsheet,
-  updateDefaults,
   type ScopeTestRecorder,
 } from "@cursorless/cursorless-engine";
 import * as vscode from "vscode";
@@ -25,7 +27,7 @@ export function registerCommands(
   extensionContext: vscode.ExtensionContext,
   vscodeIde: VscodeIDE,
   commandApi: CommandApi,
-  fileSystem: FileSystem,
+  commandHistoryStorage: CommandHistoryStorage,
   testCaseRecorder: TestCaseRecorder,
   scopeTestRecorder: ScopeTestRecorder,
   scopeVisualizer: ScopeVisualizer,
@@ -57,7 +59,7 @@ export function registerCommands(
     },
 
     // Cheatsheet commands
-    ["cursorless.showCheatsheet"]: showCheatsheet,
+    ["cursorless.showCheatsheet"]: (arg) => showCheatsheet(vscodeIde, arg),
     ["cursorless.internal.updateCheatsheetDefaults"]: updateDefaults,
 
     // Testcase recorder commands
@@ -90,7 +92,7 @@ export function registerCommands(
 
     // Command history
     ["cursorless.analyzeCommandHistory"]: () =>
-      analyzeCommandHistory(fileSystem.cursorlessCommandHistoryDirPath),
+      analyzeCommandHistory(commandHistoryStorage),
 
     // General keyboard commands
     ["cursorless.keyboard.escape"]:

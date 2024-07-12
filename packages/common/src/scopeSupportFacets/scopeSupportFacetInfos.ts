@@ -328,6 +328,17 @@ export const scopeSupportFacetInfos: Record<
     description: "A branch in a ternary expression",
     scopeType: "branch",
   },
+  "collectionItem.unenclosed": {
+    description:
+      "An item in a comma-separated list without enclosing delimiters. This could be multi-variable declarations, import statements, etc.",
+    scopeType: "collectionItem",
+  },
+  "collectionItem.unenclosed.iteration": {
+    description:
+      "Iteration scope for items in a comma-separated list without enclosing delimiters",
+    scopeType: "collectionItem",
+    isIteration: true,
+  },
 
   "condition.if": {
     description: "A condition in an if statement",

@@ -1,7 +1,7 @@
 // Copies files into `dist` directory for packaging
 import { copy, exists } from "fs-extra";
 import { lstat, mkdir, readFile, rm, writeFile } from "fs/promises";
-import * as path from "path";
+import * as path from "pathe";
 import { assets } from "./assets";
 import { Context } from "./context";
 

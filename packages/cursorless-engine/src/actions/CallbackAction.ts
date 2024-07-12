@@ -1,5 +1,5 @@
 import { EditableTextEditor, FlashStyle, TextEditor } from "@cursorless/common";
-import { flatten } from "lodash";
+import { flatten } from "lodash-es";
 import { selectionToStoredTarget } from "../core/commandRunner/selectionToStoredTarget";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
