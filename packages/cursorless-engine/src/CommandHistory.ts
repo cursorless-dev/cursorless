@@ -27,7 +27,7 @@ export class CommandHistory implements CommandRunnerDecorator {
   constructor(
     private ide: IDE,
     private storage: CommandHistoryStorage,
-    private commandServerApi: CommandServerApi | null,
+    private commandServerApi: CommandServerApi | undefined,
   ) {}
 
   wrapCommandRunner(

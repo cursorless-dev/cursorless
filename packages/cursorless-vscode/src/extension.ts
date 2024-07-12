@@ -87,13 +87,13 @@ export async function activate(
     ? fakeCommandServerApi
     : await getCommandServerApi();
 
-  const treeSitter: TreeSitter = createTreeSitter(parseTreeApi);
+  const treeSitter = createTreeSitter(parseTreeApi);
   const talonSpokenForms = new FileSystemTalonSpokenForms(fileSystem);
 
   const snippets = new VscodeSnippets(normalizedIde);
   void snippets.init();
 
-  const treeSitterProvider = new FileSystemRawTreeSitterQueryProvider(
+  const treeSitterQueryProvider = new FileSystemRawTreeSitterQueryProvider(
     normalizedIde,
     fileSystem,
   );
@@ -107,16 +107,15 @@ export async function activate(
     runIntegrationTests,
     addCommandRunnerDecorator,
     customSpokenFormGenerator,
-  } = await createCursorlessEngine(
-    treeSitter,
-    normalizedIde,
+  } = await createCursorlessEngine({
+    ide: normalizedIde,
     hats,
+    treeSitter,
+    treeSitterQueryProvider,
     commandServerApi,
-    fileSystem,
     talonSpokenForms,
-    treeSitterProvider,
     snippets,
-  );
+  });
 
   const commandHistoryStorage = new FileSystemCommandHistoryStorage(
     fileSystem.cursorlessCommandHistoryDirPath,
