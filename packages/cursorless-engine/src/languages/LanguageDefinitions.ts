@@ -5,7 +5,6 @@ import {
   Range,
   TextDocument,
   getCursorlessRepoRoot,
-  isTesting,
   showError,
 } from "@cursorless/common";
 import { join } from "pathe";
@@ -91,7 +90,7 @@ export class LanguageDefinitions {
         "Failed to load language definitions",
         toString(err),
       );
-      if (isTesting()) {
+      if (ide().runMode === "test") {
         throw err;
       }
     }
