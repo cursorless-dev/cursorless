@@ -3,7 +3,6 @@ import {
   FakeCommandServerApi,
   FakeIDE,
   IDE,
-  isTesting,
   NormalizedIDE,
   Range,
   ScopeProvider,
@@ -21,7 +20,7 @@ import {
   FileSystemCommandHistoryStorage,
   FileSystemRawTreeSitterQueryProvider,
   FileSystemTalonSpokenForms,
-} from "@cursorless/file-system-common";
+} from "@cursorless/node-common";
 import {
   CursorlessApi,
   getCommandServerApi,
@@ -83,9 +82,10 @@ export async function activate(
         );
 
   const fakeCommandServerApi = new FakeCommandServerApi();
-  const commandServerApi = isTesting()
-    ? fakeCommandServerApi
-    : await getCommandServerApi();
+  const commandServerApi =
+    normalizedIde.runMode === "test"
+      ? fakeCommandServerApi
+      : await getCommandServerApi();
 
   const treeSitter = createTreeSitter(parseTreeApi);
   const talonSpokenForms = new FileSystemTalonSpokenForms(fileSystem);
@@ -173,19 +173,20 @@ export async function activate(
   new ReleaseNotes(vscodeApi, context, normalizedIde.messages).maybeShow();
 
   return {
-    testHelpers: isTesting()
-      ? constructTestHelpers(
-          fakeCommandServerApi,
-          storedTargets,
-          hatTokenMap,
-          vscodeIDE,
-          normalizedIde as NormalizedIDE,
-          fileSystem,
-          scopeProvider,
-          injectIde,
-          runIntegrationTests,
-        )
-      : undefined,
+    testHelpers:
+      normalizedIde.runMode === "test"
+        ? constructTestHelpers(
+            fakeCommandServerApi,
+            storedTargets,
+            hatTokenMap,
+            vscodeIDE,
+            normalizedIde as NormalizedIDE,
+            fileSystem,
+            scopeProvider,
+            injectIde,
+            runIntegrationTests,
+          )
+        : undefined,
 
     experimental: {
       registerThirdPartySnippets: snippets.registerThirdPartySnippets,
@@ -210,9 +211,10 @@ async function createVscodeIde(context: vscode.ExtensionContext) {
   // extension initialization, probably by returning a function from extension
   // init that has parameters consisting of test configuration, and have that
   // function do the actual initialization.
-  const cursorlessDir = isTesting()
-    ? path.join(os.tmpdir(), crypto.randomBytes(16).toString("hex"))
-    : path.join(os.homedir(), ".cursorless");
+  const cursorlessDir =
+    vscodeIDE.runMode === "test"
+      ? path.join(os.tmpdir(), crypto.randomBytes(16).toString("hex"))
+      : path.join(os.homedir(), ".cursorless");
 
   const fileSystem = new VscodeFileSystem(
     context,

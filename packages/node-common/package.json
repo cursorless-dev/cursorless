@@ -1,7 +1,7 @@
 {
-  "name": "@cursorless/file-system-common",
+  "name": "@cursorless/node-common",
   "version": "1.0.0",
-  "description": "Package containing common file system utilities",
+  "description": "Package containing node utilities",
   "main": "./out/index.js",
   "scripts": {
     "compile:tsc": "tsc --build",
@@ -9,7 +9,7 @@
     "compile": "pnpm compile:tsc && pnpm compile:esbuild",
     "watch:tsc": "pnpm compile:tsc --watch",
     "watch:esbuild": "pnpm compile:esbuild --watch",
-    "watch": "pnpm run --filter @cursorless/file-system-common --parallel '/^watch:.*/'",
+    "watch": "pnpm run --filter @cursorless/node-common --parallel '/^watch:.*/'",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "keywords": [],
@@ -29,7 +29,5 @@
     "glob": "^10.3.10",
     "pathe": "^1.1.2"
   },
-  "devDependencies": {
-    "@types/glob": "^8.1.0"
-  }
+  "devDependencies": {}
 }

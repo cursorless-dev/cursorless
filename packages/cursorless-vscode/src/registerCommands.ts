@@ -1,7 +1,6 @@
 import {
   CURSORLESS_COMMAND_ID,
   CursorlessCommandId,
-  isTesting,
   type CommandHistoryStorage,
 } from "@cursorless/common";
 import {
@@ -39,7 +38,7 @@ export function registerCommands(
     try {
       return await run();
     } catch (e) {
-      if (!isTesting()) {
+      if (vscodeIde.runMode !== "test") {
         const err = e as Error;
         console.error(err.stack);
         vscodeIde.handleCommandError(err);

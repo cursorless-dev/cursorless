@@ -3,7 +3,6 @@ import {
   Notifier,
   Range,
   TextDocument,
-  isTesting,
   showError,
   type IDE,
   type RawTreeSitterQueryProvider,
@@ -117,7 +116,7 @@ export class LanguageDefinitionsImpl
         "Failed to load language definitions",
         toString(err),
       );
-      if (isTesting()) {
+      if (this.ide.runMode === "test") {
         throw err;
       }
     }
