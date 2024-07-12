@@ -55,7 +55,7 @@ export async function createCursorlessEngine(
     hats,
     commandServerApi,
   );
-  hatTokenMap.allocateHats();
+  void hatTokenMap.allocateHats();
 
   const storedTargets = new StoredTargetMap();
 

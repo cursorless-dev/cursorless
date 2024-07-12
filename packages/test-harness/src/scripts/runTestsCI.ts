@@ -6,7 +6,7 @@ import { getCursorlessRepoRoot } from "@cursorless/common";
 import * as path from "pathe";
 import { launchVscodeAndRunTests } from "../launchVscodeAndRunTests";
 
-(async () => {
+void (async () => {
   // Note that we run all extension tests, including unit tests, in VSCode, even though
   // unit tests could be run separately.
   const extensionTestsPath = path.resolve(

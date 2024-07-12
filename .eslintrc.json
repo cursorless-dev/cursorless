@@ -102,6 +102,7 @@
     "**/vendor/**/*.ts",
     "**/vendor/**/*.js",
     "**/out/**",
-    "**/generated/**"
+    "**/generated/**",
+    "**/typings/**"
   ]
 }

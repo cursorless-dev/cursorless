@@ -3,4 +3,4 @@
  */
 import { TestType, runAllTests } from "../runAllTests";
 
-runAllTests(TestType.unit);
+void runAllTests(TestType.unit);

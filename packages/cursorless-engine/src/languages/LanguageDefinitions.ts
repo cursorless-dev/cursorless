@@ -50,7 +50,7 @@ export class LanguageDefinitions {
     private treeSitter: TreeSitter,
   ) {
     ide().onDidOpenTextDocument((document) => {
-      this.loadLanguage(document.languageId);
+      void this.loadLanguage(document.languageId);
     });
     ide().onDidChangeVisibleTextEditors((editors) => {
       editors.forEach(({ document }) => this.loadLanguage(document.languageId));
@@ -66,7 +66,7 @@ export class LanguageDefinitions {
     if (ide().runMode === "development") {
       this.disposables.push(
         fileSystem.watchDir(this.queryDir, () => {
-          this.reloadLanguageDefinitions();
+          void this.reloadLanguageDefinitions();
         }),
       );
     }
@@ -86,7 +86,7 @@ export class LanguageDefinitions {
         languageIds.map((languageId) => this.loadLanguage(languageId)),
       );
     } catch (err) {
-      showError(
+      void showError(
         ide().messages,
         "Failed to load language definitions",
         toString(err),

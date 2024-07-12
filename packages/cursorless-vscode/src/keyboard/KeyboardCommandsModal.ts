@@ -63,8 +63,8 @@ export default class KeyboardCommandsModal {
           )
         ) {
           if (this.isModeOn()) {
-            this.modeOff();
-            this.modeOn();
+            void this.modeOff();
+            void this.modeOn();
           }
           this.layerCache.clear();
           this.processKeyMap();
@@ -184,10 +184,12 @@ export default class KeyboardCommandsModal {
       const [{ type, arg }] = this.parser.results;
 
       // Run the command
-      this.keyboardCommandHandler[type as keyof KeyboardCommandHandler](arg);
+      void this.keyboardCommandHandler[type as keyof KeyboardCommandHandler](
+        arg,
+      );
     } catch (err) {
       if (!(err instanceof KeySequenceCancelledError)) {
-        vscode.window.showErrorMessage((err as Error).message);
+        void vscode.window.showErrorMessage((err as Error).message);
         throw err;
       }
     } finally {
@@ -210,9 +212,9 @@ export default class KeyboardCommandsModal {
 
   modeToggle = () => {
     if (this.isModeOn()) {
-      this.modeOff();
+      void this.modeOff();
     } else {
-      this.modeOn();
+      void this.modeOn();
     }
   };
 
