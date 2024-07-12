@@ -4,6 +4,7 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:import/typescript",
     "prettier"
   ],
@@ -38,7 +39,6 @@
         }
       }
     ],
-    "@typescript-eslint/no-floating-promises": "error",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-inferrable-types": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
