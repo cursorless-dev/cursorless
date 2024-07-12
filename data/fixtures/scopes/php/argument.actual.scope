@@ -1,0 +1,34 @@
+<?php
+myFunc(2, "foo")
+---
+
+[#1 Content] =
+[#1 Domain] = 1:7-1:8
+         >-<
+1| myFunc(2, "foo")
+
+[#1 Removal] = 1:7-1:10
+         >---<
+1| myFunc(2, "foo")
+
+[#1 Trailing delimiter] = 1:8-1:10
+          >--<
+1| myFunc(2, "foo")
+
+[#1 Insertion delimiter] = ", "
+
+
+[#2 Content] =
+[#2 Domain] = 1:10-1:15
+            >-----<
+1| myFunc(2, "foo")
+
+[#2 Removal] = 1:8-1:15
+          >-------<
+1| myFunc(2, "foo")
+
+[#2 Leading delimiter] = 1:8-1:10
+          >--<
+1| myFunc(2, "foo")
+
+[#2 Insertion delimiter] = ", "

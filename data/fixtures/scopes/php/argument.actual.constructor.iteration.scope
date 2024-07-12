@@ -1,0 +1,11 @@
+<?php
+new MyClass(2, "foo")
+---
+
+[Range] = 1:12-1:20
+              >--------<
+1| new MyClass(2, "foo")
+
+[Domain] = 1:11-1:21
+             >----------<
+1| new MyClass(2, "foo")

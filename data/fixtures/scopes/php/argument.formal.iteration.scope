@@ -1,0 +1,11 @@
+<?php
+function myFunc($value, string $name) { }
+---
+
+[Range] = 1:16-1:36
+                  >--------------------<
+1| function myFunc($value, string $name) { }
+
+[Domain] = 1:0-1:41
+  >-----------------------------------------<
+1| function myFunc($value, string $name) { }

@@ -1,10 +1,8 @@
-import { Selection, TextEditor } from "@cursorless/common";
+import { Selection, SimpleScopeTypeType, TextEditor } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import { SimpleScopeTypeType } from "@cursorless/common";
 import { NodeMatcherAlternative, SelectionWithContext } from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";
 import {
-  argumentMatcher,
   cascadingMatcher,
   createPatternMatchers,
   leadingMatcher,
@@ -80,7 +78,5 @@ const nodeMatchers: Partial<
   ),
 
   collectionKey: trailingMatcher(["array_element_initializer[0]"], ["=>"]),
-
-  argumentOrParameter: argumentMatcher("arguments", "formal_parameters"),
 };
 export default createPatternMatchers(nodeMatchers);

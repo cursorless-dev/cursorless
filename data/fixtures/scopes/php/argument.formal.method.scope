@@ -1,0 +1,36 @@
+<?php
+class MyClass {
+    function myFunc($value, string $name) { }
+}
+---
+
+[#1 Content] =
+[#1 Domain] = 2:20-2:26
+                      >------<
+2|     function myFunc($value, string $name) { }
+
+[#1 Removal] = 2:20-2:28
+                      >--------<
+2|     function myFunc($value, string $name) { }
+
+[#1 Trailing delimiter] = 2:26-2:28
+                            >--<
+2|     function myFunc($value, string $name) { }
+
+[#1 Insertion delimiter] = ", "
+
+
+[#2 Content] =
+[#2 Domain] = 2:28-2:40
+                              >------------<
+2|     function myFunc($value, string $name) { }
+
+[#2 Removal] = 2:26-2:40
+                            >--------------<
+2|     function myFunc($value, string $name) { }
+
+[#2 Leading delimiter] = 2:26-2:28
+                            >--<
+2|     function myFunc($value, string $name) { }
+
+[#2 Insertion delimiter] = ", "

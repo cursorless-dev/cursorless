@@ -1,0 +1,13 @@
+<?php
+class MyClass {
+    function __construct($name, $value) { }
+}
+---
+
+[Range] = 2:25-2:38
+                           >-------------<
+2|     function __construct($name, $value) { }
+
+[Domain] = 2:4-2:43
+      >---------------------------------------<
+2|     function __construct($name, $value) { }

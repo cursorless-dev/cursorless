@@ -1,0 +1,34 @@
+<?php
+new MyClass(2, "foo")
+---
+
+[#1 Content] =
+[#1 Domain] = 1:12-1:13
+              >-<
+1| new MyClass(2, "foo")
+
+[#1 Removal] = 1:12-1:15
+              >---<
+1| new MyClass(2, "foo")
+
+[#1 Trailing delimiter] = 1:13-1:15
+               >--<
+1| new MyClass(2, "foo")
+
+[#1 Insertion delimiter] = ", "
+
+
+[#2 Content] =
+[#2 Domain] = 1:15-1:20
+                 >-----<
+1| new MyClass(2, "foo")
+
+[#2 Removal] = 1:13-1:20
+               >-------<
+1| new MyClass(2, "foo")
+
+[#2 Leading delimiter] = 1:13-1:15
+               >--<
+1| new MyClass(2, "foo")
+
+[#2 Insertion delimiter] = ", "
