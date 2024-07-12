@@ -22,6 +22,8 @@ export const SUPPORTED_ENTRY_TYPES = [
   "complexScopeTypeType",
   "customRegex",
   "pairedDelimiter",
+  "action",
+  "customAction",
 ] as const;
 
 type SupportedEntryType = (typeof SUPPORTED_ENTRY_TYPES)[number];
