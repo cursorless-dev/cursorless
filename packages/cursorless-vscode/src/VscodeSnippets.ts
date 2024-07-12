@@ -1,16 +1,11 @@
-import {
-  showError,
-  Snippet,
-  SnippetMap,
-  walkFiles,
-  type IDE,
-} from "@cursorless/common";
+import { showError, Snippet, SnippetMap, type IDE } from "@cursorless/common";
 import {
   mergeSnippets,
   mergeStrict,
   type Snippets,
 } from "@cursorless/cursorless-engine";
-import { readFile, stat, open } from "fs/promises";
+import { walkFiles } from "@cursorless/node-common";
+import { open, readFile, stat } from "fs/promises";
 import { max } from "lodash-es";
 import { join } from "pathe";
 

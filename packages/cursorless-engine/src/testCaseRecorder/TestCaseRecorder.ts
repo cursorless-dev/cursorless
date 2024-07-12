@@ -23,6 +23,7 @@ import {
 } from "@cursorless/common";
 import { invariant } from "immutability-helper";
 import { merge } from "lodash-es";
+import * as path from "pathe";
 import { CommandRunner } from "../CommandRunner";
 import { StoredTargetMap } from "../core/StoredTargets";
 import { SpokenFormGenerator } from "../generateSpokenForm";
@@ -31,6 +32,7 @@ import { defaultSpokenFormMap } from "../spokenForms/defaultSpokenFormMap";
 import { takeSnapshot } from "../testUtil/takeSnapshot";
 import { RecordTestCaseCommandOptions } from "./RecordTestCaseCommandOptions";
 import { TestCase } from "./TestCase";
+import type { FileSystemRecordedTestsStorage } from "@cursorless/node-common";
 
 const CALIBRATION_DISPLAY_DURATION_MS = 50;
 
@@ -63,13 +65,9 @@ export class TestCaseRecorder {
     private commandServerApi: CommandServerApi | undefined,
     private hatTokenMap: HatTokenMap,
     private storedTargets: StoredTargetMap,
+    private storage: FileSystemRecordedTestsStorage,
   ) {
-    const { runMode } = ide();
-
-    this.fixtureRoot =
-      runMode === "development" || runMode === "test"
-        ? getRecordedTestsDirPath()
-        : null;
+    this.fixtureRoot = this.storage.getFixtureRoot();
 
     this.toggle = this.toggle.bind(this);
     this.recordOneThenPause = this.recordOneThenPause.bind(this);
@@ -140,7 +138,7 @@ export class TestCaseRecorder {
       metadata,
     );
 
-    await this.writeToFile(outPath, serialize(snapshot));
+    await this.storage.saveTestCase(outPath, serialize(snapshot));
   }
 
   isActive() {
@@ -184,7 +182,7 @@ export class TestCaseRecorder {
       {},
       ...(await Promise.all(
         parentDirectories.map((parent) =>
-          readJsonIfExists(path.join(parent, "config.json")),
+          this.storage.getCommandOptions(path.join(parent, "config.json")),
         ),
       )),
       explicitConfig,
@@ -340,14 +338,23 @@ export class TestCaseRecorder {
   }
 
   async finishTestCase(): Promise<void> {
-    const outPath = this.calculateFilePath(this.testCase!);
-    const fixture = this.testCase!.toYaml();
-    await this.writeToFile(outPath, fixture);
+    if (this.targetDirectory == null) {
+      throw new Error("Target directory isn't defined");
+    }
+    if (this.testCase == null) {
+      throw new Error("Test case is null");
+    }
+
+    const filename = camelize(this.testCase.command.spokenForm ?? "command");
+    const outPath = await this.storage.calculateFilePath(
+      this.targetDirectory,
+      filename,
+    );
+    const fixture = this.testCase.toYaml();
+    await this.storage.saveTestCase(outPath, fixture);
 
     if (!this.isSilent) {
-      let message = `"${
-        this.testCase!.command.spokenForm
-      }" Cursorless test case saved.`;
+      let message = `"${this.testCase.command.spokenForm}" Cursorless test case saved.`;
 
       if (this.testCase!.spokenFormError != null) {
         message += ` Spoken form error: ${this.testCase!.spokenFormError}`;
@@ -359,13 +366,12 @@ export class TestCaseRecorder {
             await ide().openTextDocument(outPath);
           }
           if (action === "Delete") {
-            await fs.unlink(outPath, (err) => {
-              if (err) {
-                console.log(`failed to delete ${outPath}: ${err}`);
-              } else {
-                console.log(`deleted ${outPath}`);
-              }
-            });
+            try {
+              await this.storage.removeTestCase(outPath);
+              console.log(`deleted ${outPath}`);
+            } catch (err) {
+              console.warn(`failed to delete ${outPath}: ${err}`);
+            }
           }
         },
       );
@@ -378,59 +384,28 @@ export class TestCaseRecorder {
     }
   }
 
-  private async writeToFile(outPath: string, fixture: string) {
-    fs.writeFileSync(outPath, fixture);
-  }
-
   private async promptSubdirectory(): Promise<string | undefined> {
-    try {
-      if (this.fixtureRoot == null) {
-        throw Error();
-      }
-      await access(this.fixtureRoot);
-    } catch (err) {
+    if (this.fixtureRoot == null || !this.storage.hasAccess(this.fixtureRoot)) {
       const errorMessage =
         '"Cursorless record" must be run from within cursorless directory';
       showError(ide().messages, "promptSubdirectoryError", errorMessage);
       throw new Error(errorMessage);
     }
 
-    const subdirectorySelection = await ide().showQuickPick(
-      walkDirsSync(this.fixtureRoot).concat("/"),
-      {
-        title: "Select directory for new test cases",
-        unknownValues: {
-          allowed: true,
-          newValueTemplate: "Create new directory '{}' →",
-        },
+    const files = await this.storage.walkDir(this.fixtureRoot);
+    const subdirectorySelection = await ide().showQuickPick(files.concat("/"), {
+      title: "Select directory for new test cases",
+      unknownValues: {
+        allowed: true,
+        newValueTemplate: "Create new directory '{}' →",
       },
-    );
+    });
 
     if (subdirectorySelection == null) {
       return undefined;
     }
 
     return path.join(this.fixtureRoot, subdirectorySelection);
-  }
-
-  private calculateFilePath(testCase: TestCase): string {
-    if (this.targetDirectory == null) {
-      throw new Error("Target directory isn't defined");
-    }
-
-    if (!fs.existsSync(this.targetDirectory)) {
-      fs.mkdirSync(this.targetDirectory, { recursive: true });
-    }
-
-    const filename = camelize(testCase.command.spokenForm ?? "command");
-    let filePath = path.join(this.targetDirectory, `${filename}.yml`);
-
-    let i = 2;
-    while (fs.existsSync(filePath)) {
-      filePath = path.join(this.targetDirectory, `${filename}${i++}.yml`);
-    }
-
-    return filePath;
   }
 
   async commandErrorHook(error: Error) {
@@ -491,22 +466,4 @@ function camelize(str: string) {
 
 function capitalize(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
-async function readJsonIfExists(
-  path: string,
-): Promise<RecordTestCaseCommandOptions> {
-  let rawText: string;
-
-  try {
-    rawText = await readFile(path, { encoding: "utf-8" });
-  } catch (err) {
-    if ((err as NodeJS.ErrnoException).code === "ENOENT") {
-      return {};
-    }
-
-    throw err;
-  }
-
-  return JSON.parse(rawText);
 }

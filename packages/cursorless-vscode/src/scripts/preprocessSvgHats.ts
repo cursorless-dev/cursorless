@@ -1,4 +1,4 @@
-import { getCursorlessRepoRoot } from "@cursorless/common";
+import { getCursorlessRepoRoot } from "@cursorless/node-common";
 import * as parser from "fast-xml-parser";
 import { promises as fsp, readdirSync } from "fs";
 import * as path from "pathe";
