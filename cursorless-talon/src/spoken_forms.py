@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from typing import Callable, Concatenate, ParamSpec, TypeVar
 
-from talon import app, fs
+from talon import app, cron, fs, registry
 
 from .actions.actions import ACTION_LIST_NAMES
 from .csv_overrides import (
@@ -10,6 +10,10 @@ from .csv_overrides import (
     ListToSpokenForms,
     SpokenFormEntry,
     init_csv_and_watch_changes,
+)
+from .get_grapheme_spoken_form_entries import (
+    get_grapheme_spoken_form_entries,
+    grapheme_capture_name,
 )
 from .marks.decorated_mark import init_hats
 from .spoken_forms_output import SpokenFormsOutput
@@ -99,14 +103,17 @@ def update():
     def update_spoken_forms_output():
         spoken_forms_output.write(
             [
-                {
-                    "type": LIST_TO_TYPE_MAP[entry.list_name],
-                    "id": entry.id,
-                    "spokenForms": entry.spoken_forms,
-                }
-                for spoken_form_list in custom_spoken_forms.values()
-                for entry in spoken_form_list
-                if entry.list_name in LIST_TO_TYPE_MAP
+                *[
+                    {
+                        "type": LIST_TO_TYPE_MAP[entry.list_name],
+                        "id": entry.id,
+                        "spokenForms": entry.spoken_forms,
+                    }
+                    for spoken_form_list in custom_spoken_forms.values()
+                    for entry in spoken_form_list
+                    if entry.list_name in LIST_TO_TYPE_MAP
+                ],
+                *get_grapheme_spoken_form_entries(),
             ]
         )
 
@@ -184,8 +191,29 @@ def on_watch(path, flags):
         update()
 
 
+update_captures_cron = None
+
+
+def update_captures_debounced(updated_captures: set[str]):
+    if grapheme_capture_name not in updated_captures:
+        return
+
+    global update_captures_cron
+    cron.cancel(update_captures_cron)
+    update_captures_cron = cron.after("100ms", update_captures)
+
+
+def update_captures():
+    global update_captures_cron
+    update_captures_cron = None
+
+    update()
+
+
 def on_ready():
     update()
+
+    registry.register("update_captures", update_captures_debounced)
 
     fs.watch(str(JSON_FILE.parent), on_watch)
 

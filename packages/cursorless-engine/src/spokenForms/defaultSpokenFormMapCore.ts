@@ -1,4 +1,5 @@
 import { DefaultSpokenFormMapDefinition } from "./defaultSpokenFormMap.types";
+import { graphemeDefaultSpokenForms } from "./graphemes";
 import { isDisabledByDefault, isPrivate } from "./spokenFormMapUtil";
 
 /**
@@ -211,4 +212,5 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     // nextHomophone: "phones",
   },
   customAction: {},
+  grapheme: graphemeDefaultSpokenForms,
 };

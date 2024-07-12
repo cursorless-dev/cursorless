@@ -24,6 +24,7 @@ export const SUPPORTED_ENTRY_TYPES = [
   "pairedDelimiter",
   "action",
   "customAction",
+  "grapheme",
 ] as const;
 
 type SupportedEntryType = (typeof SUPPORTED_ENTRY_TYPES)[number];
