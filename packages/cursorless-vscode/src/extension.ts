@@ -110,8 +110,8 @@ export async function activate(
   } = await createCursorlessEngine({
     ide: normalizedIde,
     hats,
-    treeSitter,
     treeSitterQueryProvider,
+    treeSitter,
     commandServerApi,
     talonSpokenForms,
     snippets,
