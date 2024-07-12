@@ -119,3 +119,48 @@
 (method_declaration
   name: (_) @name
 ) @_.domain
+
+;;!! (string $str)
+;;!   ^^^^^^
+;;!          ^^^^
+(simple_parameter
+  type: (_) @type
+  name: (_) @name
+) @_.domain
+
+;;!! (array ...$nums)
+;;!   ^^^^^
+;;!            ^^^^^
+(variadic_parameter
+  type: (_) @type
+  name: (_) @name
+) @_.domain
+
+;;!! catch (Exception $e) {}
+;;!         ^^^^^^^^^
+(catch_clause
+  type: (_) @type
+  name: (_) @name
+) @_.domain
+
+(formal_parameters
+  "(" @type.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
+  ")" @type.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+) @_.domain
+
+;;!! (string) $str;
+;;!   ^^^^^^
+(cast_expression
+  type: (_) @type
+  value: (_) @_.removal.end.startOf
+) @_.removal.start.startOf @_.domain
+
+;;!! public string $value;
+;;!         ^^^^^^
+;;!                ^^^^^^
+(property_declaration
+  type: (_) @type
+  (property_element
+    (variable_name) @name
+  )
+) @_.domain

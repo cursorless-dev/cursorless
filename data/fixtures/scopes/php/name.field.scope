@@ -1,0 +1,49 @@
+<?php
+class MyClass {
+    public string $value;
+}
+---
+
+[#1 Content] = 1:6-1:13
+        >-------<
+1| class MyClass {
+
+[#1 Removal] = 1:6-1:14
+        >--------<
+1| class MyClass {
+
+[#1 Leading delimiter] = 1:5-1:6
+       >-<
+1| class MyClass {
+
+[#1 Trailing delimiter] = 1:13-1:14
+               >-<
+1| class MyClass {
+
+[#1 Domain] = 1:0-3:1
+  >---------------
+1| class MyClass {
+2|     public string $value;
+3| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 2:18-2:24
+                    >------<
+2|     public string $value;
+
+[#2 Removal] = 2:17-2:24
+                   >-------<
+2|     public string $value;
+
+[#2 Leading delimiter] = 2:17-2:18
+                   >-<
+2|     public string $value;
+
+[#2 Domain] = 2:4-2:25
+      >---------------------<
+2|     public string $value;
+
+[#2 Insertion delimiter] = " "

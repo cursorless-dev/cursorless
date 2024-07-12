@@ -1,14 +1,10 @@
-import { Selection, TextEditor } from "@cursorless/common";
+import { Selection, SimpleScopeTypeType, TextEditor } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import { SimpleScopeTypeType } from "@cursorless/common";
 import { NodeMatcherAlternative, SelectionWithContext } from "../typings/Types";
-import { patternFinder } from "../util/nodeFinders";
 import {
   argumentMatcher,
-  cascadingMatcher,
   createPatternMatchers,
   leadingMatcher,
-  matcher,
   trailingMatcher,
 } from "../util/nodeMatchers";
 import { getNodeRange } from "../util/nodeSelectors";
@@ -63,11 +59,6 @@ function castTypeExtractor(
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
-  type: cascadingMatcher(
-    trailingMatcher(["~cast_expression[type]"]),
-    matcher(patternFinder("cast_expression[type]"), castTypeExtractor),
-  ),
-
   value: leadingMatcher(
     [
       "array_element_initializer[1]",
