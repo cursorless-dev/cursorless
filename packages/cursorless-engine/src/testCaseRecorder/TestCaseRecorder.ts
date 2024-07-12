@@ -20,6 +20,7 @@ import {
   SpyIDE,
   TextEditorOptions,
   toLineRange,
+  type RecordedTestStorage,
 } from "@cursorless/common";
 import { invariant } from "immutability-helper";
 import { merge } from "lodash-es";
@@ -32,7 +33,6 @@ import { defaultSpokenFormMap } from "../spokenForms/defaultSpokenFormMap";
 import { takeSnapshot } from "../testUtil/takeSnapshot";
 import { RecordTestCaseCommandOptions } from "./RecordTestCaseCommandOptions";
 import { TestCase } from "./TestCase";
-import type { FileSystemRecordedTestsStorage } from "@cursorless/node-common";
 
 const CALIBRATION_DISPLAY_DURATION_MS = 50;
 
@@ -65,7 +65,7 @@ export class TestCaseRecorder {
     private commandServerApi: CommandServerApi | undefined,
     private hatTokenMap: HatTokenMap,
     private storedTargets: StoredTargetMap,
-    private storage: FileSystemRecordedTestsStorage,
+    private storage: RecordedTestStorage,
   ) {
     this.fixtureRoot = this.storage.getFixtureRoot();
 
