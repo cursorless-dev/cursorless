@@ -11,7 +11,6 @@ import {
 } from "@cursorless/common";
 import { toString } from "lodash-es";
 import { SyntaxNode } from "web-tree-sitter";
-import { ide } from "../singletons/ide.singleton";
 import { TreeSitter } from "../typings/TreeSitter";
 import { LanguageDefinition } from "./LanguageDefinition";
 
@@ -104,7 +103,7 @@ export class LanguageDefinitionsImpl
   }
 
   private async loadAllLanguages(): Promise<void> {
-    const languageIds = ide().visibleTextEditors.map(
+    const languageIds = this.ide.visibleTextEditors.map(
       ({ document }) => document.languageId,
     );
 
@@ -114,7 +113,7 @@ export class LanguageDefinitionsImpl
       );
     } catch (err) {
       showError(
-        ide().messages,
+        this.ide.messages,
         "Failed to load language definitions",
         toString(err),
       );
