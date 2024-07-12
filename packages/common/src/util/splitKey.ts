@@ -4,7 +4,7 @@ export function splitKey(key: string) {
   const [hatStyle, character] = key.split(".");
 
   return {
-    hatStyle: hatStyle as HatStyleName,
+    hatStyle: hatStyle,
     // If the character is `.` then it will appear as a zero length string
     // due to the way the split on `.` works
     character: character.length === 0 ? "." : character,

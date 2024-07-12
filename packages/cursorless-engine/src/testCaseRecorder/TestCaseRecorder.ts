@@ -138,7 +138,7 @@ export class TestCaseRecorder {
       undefined,
       ["clipboard"],
       this.active ? this.extraSnapshotFields : undefined,
-      ide().activeTextEditor!,
+      ide().activeTextEditor,
       ide(),
       marks,
       this.active ? { startTimestamp: this.startTimestamp } : undefined,
@@ -277,7 +277,7 @@ export class TestCaseRecorder {
       // Otherwise, we are starting a new test case
       this.originalIde = ide();
       this.spyIde = new SpyIDE(this.originalIde);
-      injectIde(this.spyIde!);
+      injectIde(this.spyIde);
 
       const spokenForm = this.spokenFormGenerator.processCommand(command);
 

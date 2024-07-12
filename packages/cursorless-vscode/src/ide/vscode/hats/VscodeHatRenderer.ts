@@ -361,7 +361,7 @@ export default class VscodeHatRenderer {
       return svg;
     }
     const pathData = pathMatch[1];
-    const pathEnd = pathMatch.index! + pathMatch[0].length;
+    const pathEnd = pathMatch.index + pathMatch[0].length;
 
     // Construct the stroke path and clipPath elements
     const clipPathElem = `<clipPath id="clipPath"><path d="${pathData}" /></clipPath>`;

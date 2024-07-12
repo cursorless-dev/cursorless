@@ -87,7 +87,7 @@ function constructTarget(
     leadingDelimiterRange != null || trailingDelimiterRange != null;
   const insertionDelimiter = isInDelimitedList
     ? editor.document.getText(
-        (leadingDelimiterRange ?? trailingDelimiterRange)!,
+        (leadingDelimiterRange ?? trailingDelimiterRange,
       )
     : "";
 

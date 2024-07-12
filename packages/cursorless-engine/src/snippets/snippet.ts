@@ -191,7 +191,7 @@ function findMatchingSnippetDefinitionForSingleTarget(
 
       return (
         matchingTarget != null &&
-        !(excludeDescendantScopeTypes ?? []).includes(matchingScopeType!)
+        !(excludeDescendantScopeTypes ?? []).includes(matchingScopeType)
       );
     }
 

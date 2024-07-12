@@ -17,7 +17,7 @@ export function usingSetting<T>(
   factory: (value: T) => Disposable,
 ): Disposable {
   const runFactoryWithLatestConfig = () =>
-    factory(vscodeApi.workspace.getConfiguration(section).get<T>(setting)!);
+    factory(vscodeApi.workspace.getConfiguration(section).get<T>(setting));
 
   let disposable = runFactoryWithLatestConfig();
   const configurationDisposable = vscodeApi.workspace.onDidChangeConfiguration(

@@ -82,7 +82,7 @@ class InsertCopy implements SimpleAction {
     );
 
     const insertionRanges = zip(edits, updatedEditSelections).map(
-      ([edit, selection]) => edit!.updateRange(selection!),
+      ([edit, selection]) => edit!.updateRange(selection),
     );
 
     await editableEditor.setSelections(updatedCursorSelections);

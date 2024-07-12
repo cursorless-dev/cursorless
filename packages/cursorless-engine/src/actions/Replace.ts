@@ -81,14 +81,14 @@ export default class Replace {
           );
 
         for (const [edit, selection] of zip(edits, updatedContentSelections)) {
-          sourceTargets.push(edit!.target.withContentRange(selection!));
+          sourceTargets.push(edit!.target.withContentRange(selection));
         }
 
         for (const [edit, selection] of zip(edits, updatedEditSelections)) {
           thatSelections.push({
             editor,
             selection: edit!.edit
-              .updateRange(selection!)
+              .updateRange(selection)
               .toSelection(selection!.isReversed),
           });
         }
