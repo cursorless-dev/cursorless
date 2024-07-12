@@ -491,6 +491,9 @@ importers:
       '@cursorless/node-common':
         specifier: workspace:*
         version: link:../node-common
+      '@cursorless/test-case-recorder':
+        specifier: workspace:*
+        version: link:../test-case-recorder
       '@cursorless/vscode-common':
         specifier: workspace:*
         version: link:../vscode-common
@@ -717,6 +720,31 @@ importers:
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
+
+  packages/test-case-recorder:
+    dependencies:
+      '@cursorless/common':
+        specifier: workspace:*
+        version: link:../common
+      '@cursorless/cursorless-engine':
+        specifier: workspace:*
+        version: link:../cursorless-engine
+      '@cursorless/node-common':
+        specifier: workspace:*
+        version: link:../node-common
+      glob:
+        specifier: ^10.3.10
+        version: 10.3.10
+      immutability-helper:
+        specifier: ^3.1.1
+        version: 3.1.1
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
+    devDependencies:
+      '@types/lodash-es':
+        specifier: 4.17.0
+        version: 4.17.0
 
   packages/test-harness:
     dependencies:

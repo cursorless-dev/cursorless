@@ -5,12 +5,12 @@ import {
   TextDocument,
   showError,
   type IDE,
-  type RawTreeSitterQueryProvider,
   type Listener,
+  type RawTreeSitterQueryProvider,
+  type TreeSitter,
 } from "@cursorless/common";
 import { toString } from "lodash-es";
-import { SyntaxNode } from "web-tree-sitter";
-import { TreeSitter } from "../typings/TreeSitter";
+import type { SyntaxNode } from "web-tree-sitter";
 import { LanguageDefinition } from "./LanguageDefinition";
 
 /**

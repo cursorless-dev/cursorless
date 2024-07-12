@@ -4,10 +4,10 @@ import {
   showError,
   type IDE,
   type RawTreeSitterQueryProvider,
+  type TreeSitter,
 } from "@cursorless/common";
 import { dirname, join } from "pathe";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
-import { TreeSitter } from "../typings/TreeSitter";
 import { matchAll } from "../util/regex";
 import { TreeSitterQuery } from "./TreeSitterQuery";
 import { validateQueryCaptures } from "./TreeSitterQuery/validateQueryCaptures";

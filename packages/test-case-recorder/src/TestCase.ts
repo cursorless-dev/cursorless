@@ -19,14 +19,15 @@ import {
   TestCaseSnapshot,
   ThrownError,
   Token,
+  unsafeKeys,
 } from "@cursorless/common";
+import {
+  extractTargetKeys,
+  getPartialTargetDescriptors,
+  takeSnapshot,
+  type StoredTargetMap,
+} from "@cursorless/cursorless-engine";
 import { pick } from "lodash-es";
-import { StoredTargetMap } from "..";
-import { ide } from "../singletons/ide.singleton";
-import { extractTargetKeys } from "../testUtil/extractTargetKeys";
-import { takeSnapshot } from "../testUtil/takeSnapshot";
-import { getPartialTargetDescriptors } from "../util/getPartialTargetDescriptors";
-import { unsafeKeys } from "../util/object";
 
 export class TestCase {
   private languageId: string;
@@ -55,7 +56,7 @@ export class TestCase {
     private extraSnapshotFields?: ExtraSnapshotField[],
     public readonly spokenFormError?: string,
   ) {
-    const activeEditor = ide().activeTextEditor!;
+    const activeEditor = this.spyIde.activeTextEditor!;
     this.command = command;
     this.partialTargetDescriptors = getPartialTargetDescriptors(command.action);
     this.targetKeys = this.partialTargetDescriptors
@@ -165,8 +166,8 @@ export class TestCase {
       this.storedTargets,
       excludeFields,
       this.extraSnapshotFields,
-      ide().activeTextEditor!,
-      ide(),
+      this.spyIde.activeTextEditor!,
+      this.spyIde,
       this.getMarks(),
       { startTimestamp: this.startTimestamp },
     );
@@ -186,8 +187,8 @@ export class TestCase {
       this.storedTargets,
       excludeFields,
       this.extraSnapshotFields,
-      ide().activeTextEditor!,
-      ide(),
+      this.spyIde.activeTextEditor!,
+      this.spyIde,
       this.isHatTokenMapTest ? this.getMarks() : undefined,
       { startTimestamp: this.startTimestamp },
     );

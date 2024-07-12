@@ -1,9 +1,8 @@
-import { languageMatchers } from "./languages/getNodeMatcher";
-import { TreeSitter } from "./typings/TreeSitter";
-import { legacyLanguageIds } from "./languages/LegacyLanguageId";
+import { unsafeKeys, type TreeSitter } from "@cursorless/common";
+import assert from "node:assert";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
-import assert from "assert";
-import { unsafeKeys } from "./util/object";
+import { legacyLanguageIds } from "./languages/LegacyLanguageId";
+import { languageMatchers } from "./languages/getNodeMatcher";
 
 /**
  * Run tests that require multiple components to be instantiated, as well as a

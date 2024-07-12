@@ -5,6 +5,7 @@ import {
   HatTokenMap,
   ReadOnlyHatMap,
   clientSupportsFallback,
+  type TreeSitter,
 } from "@cursorless/common";
 import { CommandRunner } from "./CommandRunner";
 import { Actions } from "./actions/Actions";
@@ -13,7 +14,7 @@ import { Debug } from "./core/Debug";
 import { CommandRunnerImpl } from "./core/commandRunner/CommandRunnerImpl";
 import { canonicalizeAndValidateCommand } from "./core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
-import { StoredTargetMap, TreeSitter, type Snippets } from "./index";
+import { StoredTargetMap, type Snippets } from "./index";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
 import { TargetPipelineRunner } from "./processTargets";
 import { MarkStageFactoryImpl } from "./processTargets/MarkStageFactoryImpl";

@@ -8,22 +8,21 @@ import {
   ScopeProvider,
   ScopeType,
   TextDocument,
+  type TreeSitter,
 } from "@cursorless/common";
 import {
   CommandHistory,
   ScopeTestRecorder,
-  TestCaseRecorder,
-  TreeSitter,
   createCursorlessEngine,
 } from "@cursorless/cursorless-engine";
 import {
   FileSystemCommandHistoryStorage,
   FileSystemRawTreeSitterQueryProvider,
-  FileSystemRecordedTestsStorage,
   FileSystemScopeTestRecorderStorage,
   FileSystemTalonSpokenForms,
   getFixturePath,
 } from "@cursorless/node-common";
+import { TestCaseRecorder } from "@cursorless/test-case-recorder";
 import {
   CursorlessApi,
   ParseTreeApi,
@@ -134,7 +133,6 @@ export async function activate(
     commandServerApi,
     hatTokenMap,
     storedTargets,
-    new FileSystemRecordedTestsStorage(normalizedIde),
   );
   addCommandRunnerDecorator(testCaseRecorder);
 

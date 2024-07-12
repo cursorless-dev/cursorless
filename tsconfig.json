@@ -39,6 +39,9 @@
       "path": "./packages/node-test"
     },
     {
+      "path": "./packages/test-case-recorder"
+    },
+    {
       "path": "./packages/test-harness"
     },
     {

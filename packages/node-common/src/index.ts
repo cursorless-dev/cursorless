@@ -1,6 +1,5 @@
 export * from "./FileSystemCommandHistoryStorage";
 export * from "./FileSystemLanguageDefinitionsProvider";
-export * from "./FileSystemRecordedTestsStorage";
 export * from "./FileSystemScopeTestRecorderStorage";
 export * from "./FileSystemTalonSpokenForms";
 export * from "./getCursorlessRepoRoot";
@@ -8,3 +7,4 @@ export * from "./getFixturePaths";
 export * from "./getScopeTestPathsRecursively";
 export * from "./nodeGetRunMode";
 export * from "./walkAsync";
+export * from "./walkSync";

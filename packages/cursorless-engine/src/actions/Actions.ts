@@ -1,7 +1,7 @@
+import type { TreeSitter } from "@cursorless/common";
 import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
-import { TreeSitter } from "../typings/TreeSitter";
 import { BreakLine } from "./BreakLine";
 import { Bring, Move, Swap } from "./BringMoveSwap";
 import Call from "./Call";

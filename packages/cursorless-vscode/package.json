@@ -1243,6 +1243,7 @@
     "@cursorless/cursorless-cheatsheet": "workspace:*",
     "@cursorless/cursorless-engine": "workspace:*",
     "@cursorless/node-common": "workspace:*",
+    "@cursorless/test-case-recorder": "workspace:*",
     "@cursorless/vscode-common": "workspace:*",
     "immer": "^10.0.4",
     "itertools": "^2.2.5",
