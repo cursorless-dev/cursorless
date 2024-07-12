@@ -85,7 +85,7 @@ export class ScopeTestRecorder {
     for (const { facet, content } of facetsToAdd) {
       const fullContent = `${content}---\n`;
 
-      this.storage.saveScopeFacetTest(languageId, facet, fullContent);
+      await this.storage.saveScopeFacetTest(languageId, facet, fullContent);
     }
 
     await showInfo(
