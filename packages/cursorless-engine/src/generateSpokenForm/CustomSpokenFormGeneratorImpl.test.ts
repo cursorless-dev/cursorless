@@ -19,6 +19,11 @@ suite("CustomSpokenFormGeneratorImpl", async function () {
               id: "setSelection",
               spokenForms: ["bar"],
             },
+            {
+              type: "grapheme",
+              id: "a",
+              spokenForms: ["alabaster"],
+            },
           ];
         },
         onDidChange: () => ({ dispose() {} }),
@@ -33,7 +38,7 @@ suite("CustomSpokenFormGeneratorImpl", async function () {
         }),
         {
           type: "success",
-          spokenForms: ["foo air"],
+          spokenForms: ["foo alabaster"],
         },
       );
       assert.deepStrictEqual(
