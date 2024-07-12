@@ -261,7 +261,11 @@ export default class KeyboardHandler {
     this.disposables.push(this.typeCommandDisposable);
 
     if (whenClauseContext != null) {
-      vscode.commands.executeCommand("setContext", whenClauseContext, true);
+      void vscode.commands.executeCommand(
+        "setContext",
+        whenClauseContext,
+        true,
+      );
     }
 
     this.activeListener = listenerEntry;
@@ -279,7 +283,11 @@ export default class KeyboardHandler {
     const { whenClauseContext } = this.activeListener.listener.displayOptions;
 
     if (whenClauseContext != null) {
-      vscode.commands.executeCommand("setContext", whenClauseContext, false);
+      void vscode.commands.executeCommand(
+        "setContext",
+        whenClauseContext,
+        false,
+      );
     }
 
     this.activeListener = undefined;
@@ -320,7 +328,7 @@ export default class KeyboardHandler {
   }
 
   private ensureGlobalWhenClauseContext() {
-    vscode.commands.executeCommand(
+    void vscode.commands.executeCommand(
       "setContext",
       GLOBAL_WHEN_CLAUSE_CONTEXT,
       this.activeListener != null,

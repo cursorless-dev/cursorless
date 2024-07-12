@@ -109,7 +109,7 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
 
   getChildren(element?: MyTreeItem): MyTreeItem[] {
     if (element == null) {
-      this.possiblyShowUpdateTalonMessage();
+      void this.possiblyShowUpdateTalonMessage();
       return getSupportCategories();
     }
 

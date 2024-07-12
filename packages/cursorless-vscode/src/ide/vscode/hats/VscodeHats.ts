@@ -67,7 +67,7 @@ export class VscodeHats implements Hats {
     return this.hatRenderer.forceRecomputeDecorationStyles();
   }
 
-  private handleHatDecorationMapUpdated() {
+  private async handleHatDecorationMapUpdated() {
     if (
       this.hatRanges.some(
         ({ styleName }) => !(styleName in this.enabledHatStyles),
@@ -81,7 +81,7 @@ export class VscodeHats implements Hats {
       return;
     }
 
-    this.applyHatDecorations();
+    await this.applyHatDecorations();
   }
 
   async setHatRanges(hatRanges: HatRange[]): Promise<void> {

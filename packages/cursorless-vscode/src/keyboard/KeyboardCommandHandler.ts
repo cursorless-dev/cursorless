@@ -35,7 +35,7 @@ export class KeyboardCommandHandler {
   constructor(private targeted: KeyboardCommandsTargeted) {}
 
   targetDecoratedMark({ decoratedMark, mode }: DecoratedMarkArg) {
-    this.targeted.targetDecoratedMark({ ...decoratedMark, mode });
+    void this.targeted.targetDecoratedMark({ ...decoratedMark, mode });
   }
 
   async vscodeCommand({
@@ -75,12 +75,12 @@ export class KeyboardCommandHandler {
   }: {
     actionDescriptor: SimpleKeyboardActionDescriptor;
   }) {
-    this.targeted.performSimpleActionOnTarget(actionDescriptor);
+    void this.targeted.performSimpleActionOnTarget(actionDescriptor);
   }
 
   performWrapActionOnTarget({ actionDescriptor, delimiter }: WrapActionArg) {
     const [left, right] = surroundingPairsDelimiters[delimiter]!;
-    this.targeted.performActionOnTarget(
+    void this.targeted.performActionOnTarget(
       (target) => ({
         name: "wrapWithPairedDelimiter",
         target,
@@ -98,11 +98,11 @@ export class KeyboardCommandHandler {
     modifier: Modifier;
     mode?: TargetingMode;
   }) {
-    this.targeted.targetModifier(modifier, mode);
+    void this.targeted.targetModifier(modifier, mode);
   }
 
   targetMark({ mark, mode }: { mark: PartialMark; mode?: TargetingMode }) {
-    this.targeted.targetMark(mark, mode);
+    void this.targeted.targetMark(mark, mode);
   }
 }
 
