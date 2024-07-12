@@ -18,6 +18,7 @@ import {
 } from "@cursorless/cursorless-engine";
 import {
   FileSystemCommandHistoryStorage,
+  FileSystemRawTreeSitterQueryProvider,
   FileSystemTalonSpokenForms,
 } from "@cursorless/node-common";
 import {
@@ -86,11 +87,17 @@ export async function activate(
       ? fakeCommandServerApi
       : await getCommandServerApi();
 
-  const treeSitter: TreeSitter = createTreeSitter(parseTreeApi);
+  const treeSitter = createTreeSitter(parseTreeApi);
   const talonSpokenForms = new FileSystemTalonSpokenForms(fileSystem);
 
   const snippets = new VscodeSnippets(normalizedIde);
   void snippets.init();
+
+  const treeSitterQueryProvider = new FileSystemRawTreeSitterQueryProvider(
+    normalizedIde,
+    fileSystem,
+  );
+  context.subscriptions.push(treeSitterQueryProvider);
 
   const {
     commandApi,
@@ -101,15 +108,15 @@ export async function activate(
     runIntegrationTests,
     addCommandRunnerDecorator,
     customSpokenFormGenerator,
-  } = await createCursorlessEngine(
-    treeSitter,
-    normalizedIde,
+  } = await createCursorlessEngine({
+    ide: normalizedIde,
     hats,
+    treeSitterQueryProvider,
+    treeSitter,
     commandServerApi,
-    fileSystem,
     talonSpokenForms,
     snippets,
-  );
+  });
 
   const commandHistoryStorage = new FileSystemCommandHistoryStorage(
     fileSystem.cursorlessCommandHistoryDirPath,

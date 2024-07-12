@@ -1,4 +1,5 @@
 import {
+  ActionType,
   CommandComplete,
   Disposable,
   Listener,
@@ -52,6 +53,10 @@ export class CustomSpokenFormGeneratorImpl
 
   scopeTypeToSpokenForm(scopeType: ScopeType) {
     return this.spokenFormGenerator.processScopeType(scopeType);
+  }
+
+  actionIdToSpokenForm(actionId: ActionType) {
+    return this.customSpokenForms.spokenFormMap.action[actionId];
   }
 
   getCustomRegexScopeTypes() {

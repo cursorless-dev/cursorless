@@ -24,7 +24,7 @@ export interface ParseTreeApi {
 export async function getExtensionApi<T>(extensionId: string) {
   const extension = vscode.extensions.getExtension(extensionId);
 
-  return extension == null ? null : ((await extension.activate()) as T);
+  return extension == null ? undefined : ((await extension.activate()) as T);
 }
 
 export async function getExtensionApiStrict<T>(extensionId: string) {

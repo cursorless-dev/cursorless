@@ -84,12 +84,11 @@ export class CustomSpokenForms {
         this.needsInitialTalonUpdate_ = true;
       } else {
         console.error("Error loading custom spoken forms", err);
+        const msg = (err as Error).message.replace(/\.$/, "");
         showError(
           ide().messages,
           "CustomSpokenForms.updateSpokenFormMaps",
-          `Error loading custom spoken forms: ${
-            (err as Error).message
-          }}}. Falling back to default spoken forms.`,
+          `Error loading custom spoken forms: ${msg}. Falling back to default spoken forms.`,
         );
       }
 

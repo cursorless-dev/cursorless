@@ -65,7 +65,7 @@ export class TestCaseRecorder {
   private spokenFormGenerator = new SpokenFormGenerator(defaultSpokenFormMap);
 
   constructor(
-    private commandServerApi: CommandServerApi | null,
+    private commandServerApi: CommandServerApi | undefined,
     private hatTokenMap: HatTokenMap,
     private storedTargets: StoredTargetMap,
   ) {
