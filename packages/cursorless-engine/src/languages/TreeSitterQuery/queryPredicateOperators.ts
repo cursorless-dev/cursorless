@@ -202,6 +202,18 @@ class AllowMultiple extends QueryPredicateOperator<AllowMultiple> {
   }
 }
 
+/** Indicates that it's okay for this scope to extend contiguously through its siblings of same type. */
+class Contiguous extends QueryPredicateOperator<Contiguous> {
+  name = "contiguous!" as const;
+  schema = z.tuple([q.node]);
+
+  run(nodeInfo: MutableQueryCapture) {
+    nodeInfo.contiguous = true;
+
+    return true;
+  }
+}
+
 /**
  * A predicate operator that logs a node, for debugging.
  */
@@ -272,6 +284,7 @@ export const queryPredicateOperators = [
   new CharacterRange(),
   new ShrinkToMatch(),
   new AllowMultiple(),
+  new Contiguous(),
   new InsertionDelimiter(),
   new SingleOrMultilineDelimiter(),
   new HasMultipleChildrenOfType(),

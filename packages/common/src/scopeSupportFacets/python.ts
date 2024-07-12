@@ -24,6 +24,8 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "collectionItem.unenclosed": supported,
   "collectionItem.unenclosed.iteration": supported,
 
+  "comment.line": supported,
+  "comment.block": supported,
   "branch.if": supported,
   "branch.if.iteration": supported,
   "branch.switchCase": supported,

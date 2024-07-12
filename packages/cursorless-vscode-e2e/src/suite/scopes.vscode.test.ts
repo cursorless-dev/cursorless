@@ -157,19 +157,17 @@ function getScopeType(
   scopeType: ScopeType;
   isIteration: boolean;
 } {
-  if (languageId === "textual") {
-    const { scopeType, isIteration } =
-      textualScopeSupportFacetInfos[facetId as TextualScopeSupportFacet];
-    return {
-      scopeType: { type: scopeType },
-      isIteration: isIteration ?? false,
-    };
+  const facetInfo =
+    languageId === "textual"
+      ? textualScopeSupportFacetInfos[facetId as TextualScopeSupportFacet]
+      : scopeSupportFacetInfos[facetId as ScopeSupportFacet];
+
+  if (facetInfo == null) {
+    throw Error(`Unknown facet '${facetId}'`);
   }
 
-  const { scopeType, isIteration } =
-    scopeSupportFacetInfos[facetId as ScopeSupportFacet];
   return {
-    scopeType: { type: scopeType },
-    isIteration: isIteration ?? false,
+    scopeType: { type: facetInfo.scopeType },
+    isIteration: facetInfo.isIteration ?? false,
   };
 }

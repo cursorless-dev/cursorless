@@ -433,7 +433,15 @@
 
 ;;!! // comment
 ;;!  ^^^^^^^^^^
-(comment) @comment
+(
+  (comment) @comment
+  (#match? @comment "^//")
+  (#contiguous! @comment)
+)
+(
+  (comment) @comment
+  (#not-match? @comment "^//")
+)
 
 ;;!! /\w+/
 ;;!  ^^^^^

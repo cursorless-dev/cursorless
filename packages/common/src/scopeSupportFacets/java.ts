@@ -21,6 +21,9 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.actual": supported,
   "argument.actual.iteration": supported,
 
+  "comment.line": supported,
+  "comment.block": supported,
+
   element: notApplicable,
   tags: notApplicable,
   attribute: notApplicable,

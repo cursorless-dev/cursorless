@@ -7,10 +7,12 @@ import {
 import { basename, dirname, join } from "pathe";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
 import { ide } from "../singletons/ide.singleton";
-import { TreeSitter } from "../typings/TreeSitter";
+import type { TreeSitter } from "../typings/TreeSitter";
 import { matchAll } from "../util/regex";
 import { TreeSitterQuery } from "./TreeSitterQuery";
 import { validateQueryCaptures } from "./TreeSitterQuery/validateQueryCaptures";
+import type { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
+import { ContiguousScopeHandler } from "../processTargets/modifiers/scopeHandlers/ContiguousScopeHandler";
 
 /**
  * Represents a language definition for a single language, including the
@@ -70,12 +72,21 @@ export class LanguageDefinition {
    * undefined if the given scope type / language id combination is still using
    * legacy pathways
    */
-  getScopeHandler(scopeType: ScopeType) {
+  getScopeHandler(scopeType: ScopeType): ScopeHandler | undefined {
     if (!this.query.captureNames.includes(scopeType.type)) {
       return undefined;
     }
 
-    return new TreeSitterScopeHandler(this.query, scopeType as SimpleScopeType);
+    const scopeHandler = new TreeSitterScopeHandler(
+      this.query,
+      scopeType as SimpleScopeType,
+    );
+
+    if (useContiguousScopeHandler(scopeType)) {
+      return new ContiguousScopeHandler(scopeHandler);
+    }
+
+    return scopeHandler;
   }
 }
 
@@ -166,6 +177,18 @@ async function readQueryFileAndImports(
   }
 
   return Object.values(rawQueryStrings).join("\n");
+}
+
+/**
+ * Returns true if the given scope type should use a contiguous scope handler.
+ */
+function useContiguousScopeHandler(scopeType: ScopeType): boolean {
+  switch (scopeType.type) {
+    case "comment":
+      return true;
+    default:
+      return false;
+  }
 }
 
 function validateImportSyntax(
