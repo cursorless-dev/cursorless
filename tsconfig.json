@@ -36,6 +36,9 @@
       "path": "./packages/node-common"
     },
     {
+      "path": "./packages/node-test"
+    },
+    {
       "path": "./packages/test-harness"
     },
     {

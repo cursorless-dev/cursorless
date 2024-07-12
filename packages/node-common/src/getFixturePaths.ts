@@ -1,9 +1,6 @@
-import * as yaml from "js-yaml";
-import * as path from "pathe";
-import { walkFilesSync } from "../util/walkSync";
-import { getCursorlessRepoRoot } from "./getCursorlessRepoRoot";
-import { TestCaseFixtureLegacy } from "../types/TestCaseFixture";
-import { readFile } from "node:fs/promises";
+import * as path from "path";
+import { walkFilesSync } from "./walkSync";
+import { getCursorlessRepoRoot } from "@cursorless/node-common";
 
 export function getFixturesPath() {
   return path.join(getCursorlessRepoRoot(), "data", "fixtures");
@@ -69,11 +66,4 @@ function pathToName(relativeDir: string, filePath: string) {
   return path
     .relative(relativeDir, filePath.substring(0, filePath.lastIndexOf(".")))
     .replaceAll("\\", "/");
-}
-
-export async function loadFixture(
-  path: string,
-): Promise<TestCaseFixtureLegacy> {
-  const buffer = await readFile(path);
-  return yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
 }

@@ -250,6 +250,9 @@ importers:
       '@cursorless/common':
         specifier: workspace:*
         version: link:../common
+      '@cursorless/node-common':
+        specifier: workspace:*
+        version: link:../node-common
       immer:
         specifier: ^10.0.4
         version: 10.0.4
@@ -272,6 +275,9 @@ importers:
       '@cursorless/common':
         specifier: workspace:*
         version: link:../common
+      '@cursorless/node-common':
+        specifier: workspace:*
+        version: link:../node-common
       glob:
         specifier: ^10.3.10
         version: 10.3.10
@@ -591,6 +597,12 @@ importers:
       '@cursorless/common':
         specifier: workspace:*
         version: link:../common
+      '@cursorless/node-common':
+        specifier: workspace:*
+        version: link:../node-common
+      '@cursorless/node-test':
+        specifier: workspace:*
+        version: link:../node-test
       '@cursorless/vscode-common':
         specifier: workspace:*
         version: link:../vscode-common
@@ -683,21 +695,52 @@ importers:
       '@cursorless/common':
         specifier: workspace:*
         version: link:../common
-      '@cursorless/cursorless-engine':
-        specifier: workspace:*
-        version: link:../cursorless-engine
       glob:
         specifier: ^10.3.10
         version: 10.3.10
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
       pathe:
         specifier: ^1.1.2
         version: 1.1.2
+    devDependencies:
+      '@types/lodash-es':
+        specifier: 4.17.0
+        version: 4.17.0
+
+  packages/node-test:
+    devDependencies:
+      '@cursorless/common':
+        specifier: workspace:*
+        version: link:../common
+      '@cursorless/node-common':
+        specifier: workspace:*
+        version: link:../node-common
+      '@types/chai':
+        specifier: ^4.3.14
+        version: 4.3.14
+      '@types/js-yaml':
+        specifier: ^4.0.9
+        version: 4.0.9
+      '@types/lodash-es':
+        specifier: 4.17.0
+        version: 4.17.0
+      js-yaml:
+        specifier: ^4.1.0
+        version: 4.1.0
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
 
   packages/test-harness:
     dependencies:
       '@cursorless/common':
         specifier: workspace:*
         version: link:../common
+      '@cursorless/node-common':
+        specifier: workspace:*
+        version: link:../node-common
       glob:
         specifier: ^10.3.10
         version: 10.3.10
@@ -723,6 +766,9 @@ importers:
       '@cursorless/common':
         specifier: workspace:*
         version: link:../common
+      '@cursorless/node-test':
+        specifier: workspace:*
+        version: link:../node-test
     devDependencies:
       '@types/vscode':
         specifier: 1.75.1

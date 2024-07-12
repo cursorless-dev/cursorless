@@ -8,6 +8,7 @@ import {
   ScopeProvider,
   ScopeType,
   TextDocument,
+  getFixturePath,
 } from "@cursorless/common";
 import {
   CommandHistory,
@@ -19,6 +20,7 @@ import {
 import {
   FileSystemCommandHistoryStorage,
   FileSystemRawTreeSitterQueryProvider,
+  FileSystemScopeTestRecorderStorage,
   FileSystemTalonSpokenForms,
 } from "@cursorless/node-common";
 import {
@@ -79,6 +81,7 @@ export async function activate(
           vscodeIDE,
           new FakeIDE(),
           vscodeIDE.runMode === "test",
+          getFixturePath("cursorless-snippets"),
         );
 
   const fakeCommandServerApi = new FakeCommandServerApi();
@@ -133,7 +136,10 @@ export async function activate(
   );
   addCommandRunnerDecorator(testCaseRecorder);
 
-  const scopeTestRecorder = new ScopeTestRecorder(normalizedIde);
+  const scopeTestRecorder = new ScopeTestRecorder(
+    normalizedIde,
+    new FileSystemScopeTestRecorderStorage(),
+  );
 
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
   const keyboardCommands = KeyboardCommands.create(

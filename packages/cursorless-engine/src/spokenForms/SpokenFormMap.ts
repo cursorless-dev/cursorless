@@ -2,7 +2,7 @@ import {
   SpokenFormType,
   PartialSpokenFormTypes,
   SpokenFormMapKeyTypes,
-} from "./SpokenFormType";
+} from "../../../common/src/types/SpokenFormType";
 
 export interface SpokenFormMapEntry {
   /**

@@ -10,10 +10,13 @@ import {
   SUPPORTED_ENTRY_TYPES,
   SpokenFormEntry,
   TalonSpokenForms,
-} from "../scopeProviders/TalonSpokenForms";
+} from "../../../common/src/types/TalonSpokenForms";
 import { ide } from "../singletons/ide.singleton";
 import { SpokenFormMap, SpokenFormMapEntry } from "./SpokenFormMap";
-import { SpokenFormMapKeyTypes, SpokenFormType } from "./SpokenFormType";
+import {
+  SpokenFormMapKeyTypes,
+  SpokenFormType,
+} from "../../../common/src/types/SpokenFormType";
 import {
   defaultSpokenFormInfoMap,
   defaultSpokenFormMap,

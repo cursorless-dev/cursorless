@@ -22,6 +22,7 @@
   "license": "MIT",
   "dependencies": {
     "@cursorless/common": "workspace:*",
+    "@cursorless/node-common": "workspace:*",
     "glob": "^10.3.10",
     "immer": "^10.0.4",
     "immutability-helper": "^3.1.1",

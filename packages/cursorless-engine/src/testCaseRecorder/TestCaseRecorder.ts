@@ -8,7 +8,6 @@ import {
   extractTargetedMarks,
   ExtraSnapshotField,
   getKey,
-  getRecordedTestsDirPath,
   HatTokenMap,
   IDE,
   marksToPlainObject,
@@ -21,13 +20,9 @@ import {
   SpyIDE,
   TextEditorOptions,
   toLineRange,
-  walkDirsSync,
 } from "@cursorless/common";
-import * as fs from "fs";
-import { access, readFile } from "fs/promises";
 import { invariant } from "immutability-helper";
 import { merge } from "lodash-es";
-import * as path from "pathe";
 import { CommandRunner } from "../CommandRunner";
 import { StoredTargetMap } from "../core/StoredTargets";
 import { SpokenFormGenerator } from "../generateSpokenForm";

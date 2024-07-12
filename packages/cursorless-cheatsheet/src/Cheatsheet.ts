@@ -1,4 +1,5 @@
-import { getCursorlessRepoRoot, type IDE } from "@cursorless/common";
+import { type IDE } from "@cursorless/common";
+import { getCursorlessRepoRoot } from "@cursorless/node-common";
 import { readFile, writeFile } from "node:fs/promises";
 import { produce } from "immer";
 import { sortBy } from "lodash-es";

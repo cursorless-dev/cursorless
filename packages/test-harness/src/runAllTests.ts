@@ -1,6 +1,6 @@
 import Mocha from "mocha";
 import * as path from "pathe";
-import { getCursorlessRepoRoot } from "@cursorless/common";
+import { getCursorlessRepoRoot } from "@cursorless/node-common";
 import { runTestSubset, testSubsetGrepString } from "./testSubset";
 import { glob } from "glob";
 

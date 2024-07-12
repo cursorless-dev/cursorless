@@ -1,12 +1,12 @@
 import {
-  getCursorlessRepoRoot,
+  Notifier,
   type Disposable,
   type FileSystem,
   type IDE,
   type RawTreeSitterQueryProvider,
-  Notifier,
 } from "@cursorless/common";
 import * as path from "pathe";
+import { getCursorlessRepoRoot } from "./getCursorlessRepoRoot";
 
 export class FileSystemRawTreeSitterQueryProvider
   implements RawTreeSitterQueryProvider

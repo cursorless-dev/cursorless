@@ -20,6 +20,8 @@
   "license": "MIT",
   "dependencies": {
     "@cursorless/common": "workspace:*",
+    "@cursorless/node-common": "workspace:*",
+    "@cursorless/node-test": "workspace:*",
     "@cursorless/vscode-common": "workspace:*",
     "immer": "^10.0.4",
     "lodash-es": "^4.17.21"

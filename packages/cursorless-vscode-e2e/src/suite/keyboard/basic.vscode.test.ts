@@ -4,7 +4,7 @@ import * as vscode from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../../endToEndTestSetup";
 import sinon from "sinon";
 import * as path from "pathe";
-import { getCursorlessRepoRoot } from "@cursorless/common";
+import { getCursorlessRepoRoot } from "@cursorless/node-common";
 import { readFile } from "node:fs/promises";
 
 interface TestCase {

@@ -2,7 +2,7 @@
  * This file can be run from node to run tests in CI
  */
 
-import { getCursorlessRepoRoot } from "@cursorless/common";
+import { getCursorlessRepoRoot } from "@cursorless/node-common";
 import * as path from "pathe";
 import { launchVscodeAndRunTests } from "../launchVscodeAndRunTests";
 

@@ -3,9 +3,9 @@ import {
   HatStability,
   TextEditor,
   asyncSafety,
-  getRecordedTestPaths,
-  runRecordedTest,
 } from "@cursorless/common";
+import { getRecordedTestPaths } from "@cursorless/node-common";
+import { runRecordedTest } from "@cursorless/node-test";
 import {
   getCursorlessApi,
   openNewEditor,

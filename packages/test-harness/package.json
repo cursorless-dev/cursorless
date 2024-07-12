@@ -23,6 +23,7 @@
   "license": "MIT",
   "dependencies": {
     "@cursorless/common": "workspace:*",
+    "@cursorless/node-common": "workspace:*",
     "glob": "^10.3.10",
     "pathe": "^1.1.2"
   },

@@ -1,4 +1,4 @@
-import { SpeakableSurroundingPairName } from "../../spokenForms/SpokenFormType";
+import { SpeakableSurroundingPairName } from "../../../../common/src/types/SpokenFormType";
 
 export const surroundingPairsDelimiters: Record<
   SpeakableSurroundingPairName,
