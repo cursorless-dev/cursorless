@@ -99,10 +99,11 @@
     }
   },
   "ignorePatterns": [
+    "/typings/**",
+    "/data/playground/**",
     "**/vendor/**/*.ts",
     "**/vendor/**/*.js",
     "**/out/**",
-    "**/generated/**",
-    "**/typings/**"
+    "**/generated/**"
   ]
 }
