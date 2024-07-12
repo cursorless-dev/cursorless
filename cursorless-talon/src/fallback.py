@@ -56,6 +56,7 @@ def perform_fallback(fallback: dict):
         return action_callback()
     except ValueError as ex:
         actions.app.notify(str(ex))
+        raise ex
 
 
 def get_action_callback(fallback: dict) -> Callable:
