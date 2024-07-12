@@ -26,7 +26,7 @@ export class CommandRunnerImpl implements CommandRunner {
   private noAutomaticTokenExpansion: boolean | undefined;
 
   constructor(
-    private commandServerApi: CommandServerApi | null,
+    private commandServerApi: CommandServerApi,
     private debug: Debug,
     private storedTargets: StoredTargetMap,
     private pipelineRunner: TargetPipelineRunner,

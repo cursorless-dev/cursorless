@@ -86,7 +86,7 @@ export async function activate(
     ? fakeCommandServerApi
     : await getCommandServerApi();
 
-  const treeSitter: TreeSitter = createTreeSitter(parseTreeApi);
+  const treeSitter = createTreeSitter(parseTreeApi);
   const talonSpokenForms = new FileSystemTalonSpokenForms(fileSystem);
 
   const snippets = new VscodeSnippets(normalizedIde);
@@ -101,15 +101,15 @@ export async function activate(
     runIntegrationTests,
     addCommandRunnerDecorator,
     customSpokenFormGenerator,
-  } = await createCursorlessEngine(
+  } = await createCursorlessEngine({
+    ide: normalizedIde,
     treeSitter,
-    normalizedIde,
     hats,
     commandServerApi,
     fileSystem,
     talonSpokenForms,
     snippets,
-  );
+  });
 
   const commandHistoryStorage = new FileSystemCommandHistoryStorage(
     fileSystem.cursorlessCommandHistoryDirPath,
