@@ -20,7 +20,7 @@ import type {
   TextEditorVisibleRangesChangeEvent,
   WorkspaceFolder,
 } from "@cursorless/common";
-import { pull } from "lodash";
+import { pull } from "lodash-es";
 import { actions } from "talon";
 import { TalonJsCapabilities } from "./TalonJsCapabilities";
 import { TalonJsClipboard } from "./TalonJsClipboard";

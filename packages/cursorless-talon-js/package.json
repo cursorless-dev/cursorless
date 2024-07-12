@@ -17,11 +17,11 @@
   "dependencies": {
     "@cursorless/common": "workspace:*",
     "@cursorless/cursorless-engine": "workspace:*",
-    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "vscode-uri": "^3.0.8"
   },
   "devDependencies": {
-    "@types/lodash": "4.17.0",
+    "@types/lodash-es": "4.17.0",
     "esbuild": "^0.20.2"
   }
 }
