@@ -4,6 +4,7 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
+    // We want to enable this in the long run. For now there are a lot of errors that needs to be handled.
     // "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:import/typescript",
     "prettier"
