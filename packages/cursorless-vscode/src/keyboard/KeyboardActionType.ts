@@ -42,7 +42,7 @@ const keyboardActionNames: KeyboardActionType[] = [
     (
       actionName,
     ): actionName is Exclude<KeyboardActionType, ExtraKeyboardActionType> =>
-      !excludedKeyboardActionNames.includes(actionName),
+      !excludedKeyboardActionNames.includes(actionName as any),
   ),
   ...extraKeyboardActionNames,
 ];

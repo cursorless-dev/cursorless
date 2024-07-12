@@ -189,6 +189,10 @@ function findMatchingSnippetDefinitionForSingleTarget(
         }
       }
 
+      if (matchingScopeType == null) {
+        return false;
+      }
+
       return (
         matchingTarget != null &&
         !(excludeDescendantScopeTypes ?? []).includes(matchingScopeType)
