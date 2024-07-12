@@ -104,6 +104,7 @@
     "**/vendor/**/*.ts",
     "**/vendor/**/*.js",
     "**/out/**",
-    "**/generated/**"
+    "**/generated/**",
+    "/packages/*/jest.config.ts"
   ]
 }

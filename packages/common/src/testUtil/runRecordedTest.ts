@@ -151,7 +151,7 @@ export async function runRecordedTest({
   }
 
   if (fixture.initialState.clipboard) {
-    spyIde.clipboard.writeText(fixture.initialState.clipboard);
+    await spyIde.clipboard.writeText(fixture.initialState.clipboard);
   }
 
   commandServerApi.setFocusedElementType(fixture.focusedElementType);

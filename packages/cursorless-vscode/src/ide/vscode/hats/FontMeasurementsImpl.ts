@@ -21,7 +21,7 @@ export class FontMeasurementsImpl implements FontMeasurements {
   constructor(private extensionContext: vscode.ExtensionContext) {}
 
   clearCache() {
-    this.extensionContext.globalState.update("fontRatios", undefined);
+    void this.extensionContext.globalState.update("fontRatios", undefined);
   }
 
   async calculate() {
@@ -35,7 +35,7 @@ export class FontMeasurementsImpl implements FontMeasurements {
 
     if (fontRatiosCache == null || fontRatiosCache.fontFamily !== fontFamily) {
       const fontRatios = await getFontRatios(this.extensionContext);
-      this.extensionContext.globalState.update("fontRatios", {
+      void this.extensionContext.globalState.update("fontRatios", {
         ...fontRatios,
         fontFamily,
       });
