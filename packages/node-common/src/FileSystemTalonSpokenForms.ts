@@ -7,8 +7,8 @@ import {
   TalonSpokenForms,
   type Listener,
 } from "@cursorless/common";
-import { readFile } from "fs/promises";
-import * as path from "pathe";
+import { readFile } from "node:fs/promises";
+import * as path from "node:path";
 
 interface TalonSpokenFormsPayload {
   version: number;

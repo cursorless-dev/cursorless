@@ -4,7 +4,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { produce } from "immer";
 import { sortBy } from "lodash-es";
 import { parse } from "node-html-parser";
-import * as path from "pathe";
+import * as path from "path";
 
 /**
  * The argument expected by the cheatsheet command.

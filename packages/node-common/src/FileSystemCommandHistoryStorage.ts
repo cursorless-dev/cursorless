@@ -4,7 +4,7 @@ import type {
 } from "@cursorless/common";
 import { glob } from "glob";
 import * as fs from "node:fs/promises";
-import * as path from "pathe";
+import * as path from "node:path";
 
 export class FileSystemCommandHistoryStorage implements CommandHistoryStorage {
   constructor(private dir: string) {}

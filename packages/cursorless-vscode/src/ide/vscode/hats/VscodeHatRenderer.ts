@@ -6,9 +6,9 @@ import {
 } from "@cursorless/common";
 import { walkFiles } from "@cursorless/node-common";
 import { VscodeApi } from "@cursorless/vscode-common";
-import * as fs from "fs/promises";
+import * as fs from "node:fs/promises";
 import { cloneDeep, isEqual } from "lodash-es";
-import * as path from "pathe";
+import * as path from "node:path";
 import * as vscode from "vscode";
 import { vscodeGetConfigurationString } from "../VscodeConfiguration";
 import VscodeEnabledHatStyleManager, {

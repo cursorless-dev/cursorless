@@ -8,9 +8,9 @@ import {
   resolveCliArgsFromVSCodeExecutablePath,
   runTests,
 } from "@vscode/test-electron";
-import * as cp from "child_process";
-import * as os from "os";
-import * as path from "pathe";
+import * as cp from "node:child_process";
+import * as os from "node:os";
+import * as path from "node:path";
 
 /**
  * Downloads and launches VSCode, instructing it to run the test runner

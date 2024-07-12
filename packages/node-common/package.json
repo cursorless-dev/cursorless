@@ -26,7 +26,6 @@
   "dependencies": {
     "@cursorless/common": "workspace:*",
     "glob": "^10.3.10",
-    "pathe": "^1.1.2",
     "lodash-es": "^4.17.21"
   },
   "devDependencies": {

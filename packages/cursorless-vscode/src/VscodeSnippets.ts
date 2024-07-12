@@ -5,9 +5,9 @@ import {
   type Snippets,
 } from "@cursorless/cursorless-engine";
 import { walkFiles } from "@cursorless/node-common";
-import { open, readFile, stat } from "fs/promises";
+import { open, readFile, stat } from "node:fs/promises";
 import { max } from "lodash-es";
-import { join } from "pathe";
+import { join } from "node:path";
 
 const CURSORLESS_SNIPPETS_SUFFIX = ".cursorless-snippets";
 const SNIPPET_DIR_REFRESH_INTERVAL_MS = 1000;

@@ -4,7 +4,7 @@ import type {
   TestCaseRecorderStorage,
 } from "@cursorless/common";
 import * as fs from "node:fs/promises";
-import * as path from "pathe";
+import * as path from "node:path";
 import { getRecordedTestsDirPath } from "./getFixturePaths";
 import { walkFiles } from "./walkAsync";
 import { existsSync } from "node:fs";
