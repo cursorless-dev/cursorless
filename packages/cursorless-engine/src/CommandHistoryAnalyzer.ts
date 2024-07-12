@@ -36,7 +36,7 @@ class Period {
   toString(): string {
     const avgCommandsPerDay = Math.round(this.countCommands / this.dates.size);
     const percentageDecoratedMarkCommands = Math.round(
-      this.countDecoratedMarkCommands / this.countCommands,
+      (100 * this.countDecoratedMarkCommands) / this.countCommands,
     );
     const meta = [
       `Command count: ${this.countCommands}`,
