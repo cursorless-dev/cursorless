@@ -163,7 +163,7 @@ export async function activate(
     storedTargets,
   );
 
-  new ReleaseNotes(vscodeApi, context, normalizedIde.messages).maybeShow();
+  void new ReleaseNotes(vscodeApi, context, normalizedIde.messages).maybeShow();
 
   return {
     testHelpers: isTesting()
