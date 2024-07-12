@@ -21,9 +21,7 @@ import { LanguageDefinition } from "./LanguageDefinition";
  */
 const LANGUAGE_UNDEFINED = Symbol("LANGUAGE_UNDEFINED");
 
-export interface LanguageDefinitions extends Disposable {
-  init(): Promise<void>;
-
+export interface LanguageDefinitions {
   onDidChangeDefinition: (listener: Listener) => Disposable;
 
   loadLanguage(languageId: string): Promise<void>;
@@ -51,7 +49,9 @@ export interface LanguageDefinitions extends Disposable {
  * Keeps a map from language ids to  {@link LanguageDefinition} instances,
  * constructing them as necessary
  */
-export class LanguageDefinitionsImpl implements LanguageDefinitions {
+export class LanguageDefinitionsImpl
+  implements LanguageDefinitions, Disposable
+{
   private notifier: Notifier = new Notifier();
 
   /**
@@ -87,8 +87,20 @@ export class LanguageDefinitionsImpl implements LanguageDefinitions {
     );
   }
 
-  public async init(): Promise<void> {
-    await this.loadAllLanguages();
+  public static async create(
+    ide: IDE,
+    treeSitter: TreeSitter,
+    treeSitterQueryProvider: RawTreeSitterQueryProvider,
+  ) {
+    const instance = new LanguageDefinitionsImpl(
+      ide,
+      treeSitter,
+      treeSitterQueryProvider,
+    );
+
+    await instance.loadAllLanguages();
+
+    return instance;
   }
 
   private async loadAllLanguages(): Promise<void> {

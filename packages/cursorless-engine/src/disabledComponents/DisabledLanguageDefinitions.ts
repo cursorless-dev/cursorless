@@ -4,10 +4,6 @@ import type { LanguageDefinition } from "../languages/LanguageDefinition";
 import type { LanguageDefinitions } from "../languages/LanguageDefinitions";
 
 export class DisabledLanguageDefinitions implements LanguageDefinitions {
-  init(): Promise<void> {
-    return Promise.resolve();
-  }
-
   onDidChangeDefinition(_listener: Listener) {
     return { dispose: () => {} };
   }

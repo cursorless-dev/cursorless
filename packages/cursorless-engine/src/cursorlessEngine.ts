@@ -87,9 +87,12 @@ export async function createCursorlessEngine({
   void hatTokenMap.allocateHats();
 
   const languageDefinitions = treeSitterQueryProvider
-    ? new LanguageDefinitionsImpl(ide, treeSitter, treeSitterQueryProvider)
+    ? await LanguageDefinitionsImpl.create(
+        ide,
+        treeSitter,
+        treeSitterQueryProvider,
+      )
     : new DisabledLanguageDefinitions();
-  await languageDefinitions.init();
 
   ide.disposeOnExit(
     rangeUpdater,
