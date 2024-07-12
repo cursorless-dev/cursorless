@@ -21,19 +21,32 @@ class Period {
   private readonly actions: Record<string, number> = {};
   private readonly modifiers: Record<string, number> = {};
   private readonly scopeTypes: Record<string, number> = {};
-  private count: number = 0;
+  private readonly dates = new Set<string>();
+  private readonly countCommands: number;
+  private countDecoratedMarkCommands: number = 0;
 
   constructor(period: string, entries: CommandHistoryEntry[]) {
     this.period = period;
+    this.countCommands = entries.length;
     for (const entry of entries) {
       this.append(entry);
     }
   }
 
   toString(): string {
+    const avgCommandsPerDay = Math.round(this.countCommands / this.dates.size);
+    const percentageDecoratedMarkCommands = Math.round(
+      this.countDecoratedMarkCommands / this.countCommands,
+    );
+    const meta = [
+      `Command count: ${this.countCommands}`,
+      `Days usage: ${this.dates.size}`,
+      `Average commands / day: ${avgCommandsPerDay}`,
+      `Commands with hats: ${this.countDecoratedMarkCommands} (${percentageDecoratedMarkCommands}%)`,
+    ].join("\n");
     return [
       `# ${this.period}`,
-      `Total command count: ${this.count}`,
+      meta,
       this.serializeMap("Actions", this.actions),
       this.serializeMap("Modifiers", this.modifiers),
       this.serializeMap("Scope types", this.scopeTypes),
@@ -51,13 +64,30 @@ class Period {
   }
 
   private append(entry: CommandHistoryEntry) {
-    this.count++;
+    this.dates.add(entry.date);
     const command = canonicalizeAndValidateCommand(entry.command);
     this.incrementAction(command.action.name);
 
-    this.parsePrimitiveTargets(
-      getPartialPrimitiveTargets(getPartialTargetDescriptors(command.action)),
+    const partialPrimitiveTargets = getPartialPrimitiveTargets(
+      getPartialTargetDescriptors(command.action),
     );
+
+    if (this.hasDecoratedMark(partialPrimitiveTargets)) {
+      this.countDecoratedMarkCommands++;
+    }
+
+    this.parsePrimitiveTargets(partialPrimitiveTargets);
+  }
+
+  private hasDecoratedMark(
+    partialPrimitiveTargets: PartialPrimitiveTargetDescriptor[],
+  ) {
+    for (const target of partialPrimitiveTargets) {
+      if (target.mark?.type === "decoratedSymbol") {
+        return true;
+      }
+    }
+    return false;
   }
 
   private parsePrimitiveTargets(
