@@ -1,4 +1,4 @@
-import { escapeRegExp, uniq } from "lodash";
+import { escapeRegExp, uniq } from "lodash-es";
 import type { IndividualDelimiter } from "./types";
 
 export function getDelimiterRegex(individualDelimiters: IndividualDelimiter[]) {
