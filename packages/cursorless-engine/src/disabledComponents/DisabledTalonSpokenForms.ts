@@ -1,7 +1,4 @@
-import type {
-  SpokenFormEntry,
-  TalonSpokenForms,
-} from "@cursorless/common/src/types/TalonSpokenForms";
+import type { SpokenFormEntry, TalonSpokenForms } from "@cursorless/common";
 
 export class DisabledTalonSpokenForms implements TalonSpokenForms {
   getSpokenFormEntries(): Promise<SpokenFormEntry[]> {

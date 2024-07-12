@@ -47,6 +47,7 @@ export * from "./types/TextEditorEdit";
 export * from "./types/TextEditorOptions";
 export * from "./types/TextLine";
 export * from "./types/Token";
+export * from "./types/SpokenFormType";
 export * from "./types/HatTokenMap";
 export * from "./types/ScopeProvider";
 export * from "./types/SpokenForm";

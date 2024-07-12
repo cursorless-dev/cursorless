@@ -13,10 +13,7 @@ import {
 } from "@cursorless/common/src/types/TalonSpokenForms";
 import { ide } from "../singletons/ide.singleton";
 import { SpokenFormMap, SpokenFormMapEntry } from "./SpokenFormMap";
-import {
-  SpokenFormMapKeyTypes,
-  SpokenFormType,
-} from "@cursorless/common/src/types/SpokenFormType";
+import { SpokenFormMapKeyTypes, SpokenFormType } from "@cursorless/common";
 import {
   defaultSpokenFormInfoMap,
   defaultSpokenFormMap,
