@@ -19,6 +19,7 @@ import {
 } from "@cursorless/cursorless-engine";
 import {
   FileSystemCommandHistoryStorage,
+  FileSystemRawTreeSitterQueryProvider,
   FileSystemTalonSpokenForms,
 } from "@cursorless/file-system-common";
 import {
@@ -92,6 +93,12 @@ export async function activate(
   const snippets = new VscodeSnippets(normalizedIde);
   void snippets.init();
 
+  const treeSitterQueryProvider = new FileSystemRawTreeSitterQueryProvider(
+    normalizedIde,
+    fileSystem,
+  );
+  context.subscriptions.push(treeSitterQueryProvider);
+
   const {
     commandApi,
     storedTargets,
@@ -103,10 +110,10 @@ export async function activate(
     customSpokenFormGenerator,
   } = await createCursorlessEngine({
     ide: normalizedIde,
-    treeSitter,
     hats,
+    treeSitterQueryProvider,
+    treeSitter,
     commandServerApi,
-    fileSystem,
     talonSpokenForms,
     snippets,
   });
