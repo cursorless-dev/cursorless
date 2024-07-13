@@ -31,22 +31,21 @@ export interface Token {
 	len: number;
 }
 
+const _table: { [ch: number]: TokenType } = {
+    [CharCode.DollarSign]: TokenType.Dollar,
+    [CharCode.Colon]: TokenType.Colon,
+    [CharCode.Comma]: TokenType.Comma,
+    [CharCode.OpenCurlyBrace]: TokenType.CurlyOpen,
+    [CharCode.CloseCurlyBrace]: TokenType.CurlyClose,
+    [CharCode.Backslash]: TokenType.Backslash,
+    [CharCode.Slash]: TokenType.Forwardslash,
+    [CharCode.Pipe]: TokenType.Pipe,
+    [CharCode.Plus]: TokenType.Plus,
+    [CharCode.Dash]: TokenType.Dash,
+    [CharCode.QuestionMark]: TokenType.QuestionMark,
+};
 
 export class Scanner {
-
-	// private static _table: { [ch: number]: TokenType } = {
-	// 	[CharCode.DollarSign]: TokenType.Dollar,
-	// 	[CharCode.Colon]: TokenType.Colon,
-	// 	[CharCode.Comma]: TokenType.Comma,
-	// 	[CharCode.OpenCurlyBrace]: TokenType.CurlyOpen,
-	// 	[CharCode.CloseCurlyBrace]: TokenType.CurlyClose,
-	// 	[CharCode.Backslash]: TokenType.Backslash,
-	// 	[CharCode.Slash]: TokenType.Forwardslash,
-	// 	[CharCode.Pipe]: TokenType.Pipe,
-	// 	[CharCode.Plus]: TokenType.Plus,
-	// 	[CharCode.Dash]: TokenType.Dash,
-	// 	[CharCode.QuestionMark]: TokenType.QuestionMark,
-	// };
 
 	static isDigitCharacter(ch: number): boolean {
 		return ch >= CharCode.Digit0 && ch <= CharCode.Digit9;
@@ -82,7 +81,7 @@ export class Scanner {
 		let type: TokenType;
 
 		// static types
-		type = Scanner._table[ch];
+		type = _table[ch];
 		if (typeof type === 'number') {
 			this.pos += 1;
 			return { type, pos, len: 1 };
@@ -119,7 +118,7 @@ export class Scanner {
 			ch = this.value.charCodeAt(pos + len);
 		} while (
 			!isNaN(ch)
-			&& typeof Scanner._table[ch] === 'undefined' // not static token
+			&& typeof _table[ch] === 'undefined' // not static token
 			&& !Scanner.isDigitCharacter(ch) // not number
 			&& !Scanner.isVariableCharacter(ch) // not variable
 		);
