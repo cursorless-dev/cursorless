@@ -104,7 +104,7 @@ export class HatTokenMapImpl implements HatTokenMap {
       }
 
       if (
-        Math.abs(Date.now() - this.prePhraseMapsSnapshotTimestamp!) >
+        performance.now() - this.prePhraseMapsSnapshotTimestamp! >
         PRE_PHRASE_SNAPSHOT_MAX_AGE_MS
       ) {
         console.error(
@@ -147,6 +147,6 @@ export class HatTokenMapImpl implements HatTokenMap {
     }
 
     this.prePhraseMapSnapshot = this.activeMap.clone();
-    this.prePhraseMapsSnapshotTimestamp = Date.now();
+    this.prePhraseMapsSnapshotTimestamp = performance.now();
   }
 }
