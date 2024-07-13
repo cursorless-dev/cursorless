@@ -9,4 +9,6 @@ esbuild \
     --bundle \
     --sourcemap \
     --external:talon \
-    --external:postcss
+    --external:postcss \
+    $@ \
+    # --minify \
