@@ -2,7 +2,6 @@ import { languageMatchers } from "./languages/getNodeMatcher";
 import { TreeSitter } from "./typings/TreeSitter";
 import { legacyLanguageIds } from "./languages/LegacyLanguageId";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
-import assert from "assert";
 import { unsafeKeys } from "./util/object";
 
 /**
@@ -42,5 +41,7 @@ async function assertNoScopesBothLegacyAndNew(
     });
   }
 
-  assert.deepStrictEqual(errors, []);
+  if (errors.length > 0) {
+    throw Error(errors.join("\n"));
+  }
 }
