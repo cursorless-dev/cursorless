@@ -2,11 +2,11 @@
 
 esbuild \
     ./src/extension.ts \
-    --sourcemap \
+    --outfile=./out/talon.js \
+    --platform=neutral \
+    --main-fields=main \
     --format=esm \
     --bundle \
-    --platform=neutral \
+    --sourcemap \
     --external:talon \
-    --external:postcss \
-    --main-fields=main \
-    --outfile=./out/talon.js
+    --external:postcss
