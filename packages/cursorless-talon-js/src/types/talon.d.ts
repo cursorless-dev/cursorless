@@ -11,9 +11,14 @@ interface Actions {
     notify(body: string, title: string): void;
   };
   user: {
-    private_cursorless_command_no_wait(action: unknown): void;
-    private_cursorless_command_and_wait(action: unknown): Promise<void>;
-    private_cursorless_command_get(action: unknown): Promise<unknown>;
+    private_cursorless_run_rpc_command_no_wait(
+      commandId: string,
+      command: unknown,
+    ): void;
+    private_cursorless_run_rpc_command_get(
+      commandId: string,
+      command: unknown,
+    ): Promise<unknown>;
     cursorless_js_get_document_state(): DocumentState;
   };
 }
