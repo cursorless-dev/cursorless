@@ -29,7 +29,7 @@ const delimiterToText: DelimiterMap = Object.freeze({
 });
 
 // FIXME: Probably remove these as part of
-// https://github.com/cursorless-dev/cursorless/issues//commonuecomment-1691493746
+// https://github.com/cursorless-dev/cursorless/issues/1812#issuecomment-1691493746
 const delimiterToTextOverrides: Record<string, Partial<DelimiterMap>> = {
   nix: {
     singleQuotes: ["''", "''"],
