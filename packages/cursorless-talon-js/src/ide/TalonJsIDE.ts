@@ -28,6 +28,7 @@ import { TalonJsConfiguration } from "./TalonJsConfiguration";
 import { TalonJsMessages } from "./TalonJsMessages";
 import { TalonJsState } from "./TalonJsState";
 import { createTextEditor } from "./createTextEditor";
+import { TalonJsEditor } from "./TalonJsEditor";
 
 export class TalonJsIDE implements IDE {
   configuration: Configuration;
@@ -75,7 +76,10 @@ export class TalonJsIDE implements IDE {
   }
 
   getEditableTextEditor(editor: TextEditor): EditableTextEditor {
-    return editor as EditableTextEditor;
+    if (editor instanceof TalonJsEditor) {
+      return editor;
+    }
+    throw Error(`Unsupported text editor type: ${editor}`);
   }
 
   updateTextEditor() {
