@@ -6,7 +6,6 @@ import {
   type RawTreeSitterQueryProvider,
   type TreeSitter,
 } from "@cursorless/common";
-import { dirname, join } from "pathe";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
 import { matchAll } from "../util/regex";
 import { TreeSitterQuery } from "./TreeSitterQuery";
@@ -149,15 +148,13 @@ async function readQueryFileAndImports(
         // if the developer uses the wrong syntax
         /^[^\S\r\n]*;;?[^\S\r\n]*(?:import|include)[^\S\r\n]+['"]?([\w|/.]+)['"]?[^\S\r\n]*$/gm,
         (match) => {
-          const relativeImportPath = match[1];
+          const importName = match[1];
 
           if (doValidation) {
-            validateImportSyntax(ide, queryName, relativeImportPath, match[0]);
+            validateImportSyntax(ide, queryName, importName, match[0]);
           }
 
-          const importQueryPath = join(dirname(queryName), relativeImportPath);
-          rawQueryStrings[importQueryPath] =
-            rawQueryStrings[importQueryPath] ?? null;
+          rawQueryStrings[importName] = rawQueryStrings[importName] ?? null;
         },
       );
     }
@@ -169,10 +166,10 @@ async function readQueryFileAndImports(
 function validateImportSyntax(
   ide: IDE,
   file: string,
-  relativeImportPath: string,
+  importName: string,
   actual: string,
 ) {
-  const canonicalSyntax = `;; import ${relativeImportPath}`;
+  const canonicalSyntax = `;; import ${importName}`;
 
   if (actual !== canonicalSyntax) {
     showError(

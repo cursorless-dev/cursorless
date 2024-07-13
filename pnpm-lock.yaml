@@ -296,9 +296,6 @@ importers:
       node-html-parser:
         specifier: ^6.1.12
         version: 6.1.12
-      pathe:
-        specifier: ^1.1.2
-        version: 1.1.2
       sbd:
         specifier: ^1.0.19
         version: 1.0.19
@@ -7349,9 +7346,6 @@ packages:
   path-type@4.0.0:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
     engines: {node: '>=8'}
-
-  pathe@1.1.2:
-    resolution: {integrity: sha512-whLdWMYL2TwI08hn8/ZqAbrVemu0LNaNNJZX73O6qaIdCTfXutsLhMkjdENX0qhsQ9uIimo4/aQOmXkoon2nDQ==}
 
   pathval@2.0.0:
     resolution: {integrity: sha512-vE7JKRyES09KiunauX7nd2Q9/L7lhok4smP9RZTDeD4MVs72Dp2qNFVz39Nz5a0FVEW0BJR6C0DYrq6unoziZA==}
@@ -18471,8 +18465,6 @@ snapshots:
   path-to-regexp@6.2.1: {}
 
   path-type@4.0.0: {}
-
-  pathe@1.1.2: {}
 
   pathval@2.0.0: {}
 
