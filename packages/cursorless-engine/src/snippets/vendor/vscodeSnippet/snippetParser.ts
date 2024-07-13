@@ -34,19 +34,19 @@ export interface Token {
 
 export class Scanner {
 
-	private static _table: { [ch: number]: TokenType } = {
-		[CharCode.DollarSign]: TokenType.Dollar,
-		[CharCode.Colon]: TokenType.Colon,
-		[CharCode.Comma]: TokenType.Comma,
-		[CharCode.OpenCurlyBrace]: TokenType.CurlyOpen,
-		[CharCode.CloseCurlyBrace]: TokenType.CurlyClose,
-		[CharCode.Backslash]: TokenType.Backslash,
-		[CharCode.Slash]: TokenType.Forwardslash,
-		[CharCode.Pipe]: TokenType.Pipe,
-		[CharCode.Plus]: TokenType.Plus,
-		[CharCode.Dash]: TokenType.Dash,
-		[CharCode.QuestionMark]: TokenType.QuestionMark,
-	};
+	// private static _table: { [ch: number]: TokenType } = {
+	// 	[CharCode.DollarSign]: TokenType.Dollar,
+	// 	[CharCode.Colon]: TokenType.Colon,
+	// 	[CharCode.Comma]: TokenType.Comma,
+	// 	[CharCode.OpenCurlyBrace]: TokenType.CurlyOpen,
+	// 	[CharCode.CloseCurlyBrace]: TokenType.CurlyClose,
+	// 	[CharCode.Backslash]: TokenType.Backslash,
+	// 	[CharCode.Slash]: TokenType.Forwardslash,
+	// 	[CharCode.Pipe]: TokenType.Pipe,
+	// 	[CharCode.Plus]: TokenType.Plus,
+	// 	[CharCode.Dash]: TokenType.Dash,
+	// 	[CharCode.QuestionMark]: TokenType.QuestionMark,
+	// };
 
 	static isDigitCharacter(ch: number): boolean {
 		return ch >= CharCode.Digit0 && ch <= CharCode.Digit9;
