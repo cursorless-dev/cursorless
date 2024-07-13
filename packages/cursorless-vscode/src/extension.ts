@@ -12,17 +12,18 @@ import {
 } from "@cursorless/common";
 import {
   CommandHistory,
-  ScopeTestRecorder,
   createCursorlessEngine,
 } from "@cursorless/cursorless-engine";
 import {
   FileSystemCommandHistoryStorage,
   FileSystemRawTreeSitterQueryProvider,
-  FileSystemScopeTestRecorderStorage,
   FileSystemTalonSpokenForms,
   getFixturePath,
 } from "@cursorless/node-common";
-import { TestCaseRecorder } from "@cursorless/test-case-recorder";
+import {
+  ScopeTestRecorder,
+  TestCaseRecorder,
+} from "@cursorless/test-case-recorder";
 import {
   CursorlessApi,
   ParseTreeApi,
@@ -136,10 +137,7 @@ export async function activate(
   );
   addCommandRunnerDecorator(testCaseRecorder);
 
-  const scopeTestRecorder = new ScopeTestRecorder(
-    normalizedIde,
-    new FileSystemScopeTestRecorderStorage(),
-  );
+  const scopeTestRecorder = new ScopeTestRecorder(normalizedIde);
 
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
   const keyboardCommands = KeyboardCommands.create(

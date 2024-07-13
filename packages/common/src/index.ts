@@ -31,7 +31,6 @@ export * from "./ide/types/Paths";
 export * from "./ide/types/CommandHistoryStorage";
 export * from "./ide/types/RawTreeSitterQueryProvider";
 export * from "./ide/types/FileSystem.types";
-export * from "./ide/types/ScopeTestRecorderStorage";
 export * from "./types/RangeExpansionBehavior";
 export * from "./types/InputBoxOptions";
 export * from "./types/Position";

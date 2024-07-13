@@ -1,18 +1,22 @@
 import {
   ScopeSupportFacetLevel,
+  groupBy,
   languageScopeSupport,
   scopeSupportFacetInfos,
   showInfo,
   type IDE,
   type ScopeSupportFacet,
-  type ScopeTestRecorderStorage,
 } from "@cursorless/common";
+import {
+  getScopeTestPathsRecursively,
+  getScopeTestsDirPath,
+} from "@cursorless/node-common";
+import * as fs from "node:fs";
+import * as fsPromises from "node:fs/promises";
+import * as path from "node:path";
 
 export class ScopeTestRecorder {
-  constructor(
-    private ide: IDE,
-    private storage: ScopeTestRecorderStorage,
-  ) {
+  constructor(private ide: IDE) {
     this.showUnimplementedFacets = this.showUnimplementedFacets.bind(this);
     this.saveActiveDocument = this.saveActiveDocument.bind(this);
   }
@@ -25,8 +29,7 @@ export class ScopeTestRecorder {
     }
 
     const supportedScopeFacets = getSupportedScopeFacets(languageId);
-    const existingScopeTestFacets =
-      this.storage.getTestedScopeFacets(languageId);
+    const existingScopeTestFacets = getExistingScopeFacetTest(languageId);
 
     const missingScopeFacets = supportedScopeFacets.filter(
       (facet) => !existingScopeTestFacets.has(facet),
@@ -82,10 +85,20 @@ export class ScopeTestRecorder {
       facetsToAdd.push({ facet, content });
     }
 
+    const langDirectory = path.join(getScopeTestsDirPath(), languageId);
+
+    await fsPromises.mkdir(langDirectory, { recursive: true });
+
     for (const { facet, content } of facetsToAdd) {
       const fullContent = `${content}---\n`;
+      let filePath = path.join(langDirectory, `${facet}.scope`);
+      let i = 2;
 
-      await this.storage.saveScopeFacetTest(languageId, facet, fullContent);
+      while (fs.existsSync(filePath)) {
+        filePath = path.join(langDirectory, `${facet}${i++}.scope`);
+      }
+
+      await fsPromises.writeFile(filePath, fullContent, "utf-8");
     }
 
     await showInfo(
@@ -116,4 +129,12 @@ function getSupportedScopeFacets(languageId: string): ScopeSupportFacet[] {
   return scopeFacets.filter(
     (facet) => scopeSupport[facet] === ScopeSupportFacetLevel.supported,
   );
+}
+
+function getExistingScopeFacetTest(languageId: string): Set<string> {
+  const testPaths = getScopeTestPathsRecursively();
+  const languages = groupBy(testPaths, (test) => test.languageId);
+  const testPathsForLanguage = languages.get(languageId) ?? [];
+  const facets = testPathsForLanguage.map((test) => test.facet);
+  return new Set(facets);
 }
