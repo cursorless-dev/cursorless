@@ -5,11 +5,12 @@ const options: esbuild.BuildOptions = {
   outfile: "out/talon.js",
   platform: "neutral",
   bundle: true,
-  external: ["esbuild", "talon"],
+  external: ["talon", "postcss", "process", "node:assert", "util"],
+  format: "esm",
   mainFields: ["main"],
+  minify: false,
+  //   packages: "external",
 };
-
-// esbuild ./src/extension.ts --conditions=cursorless:bundler --bundle --outfile=out/talon.js --external:talon --format=cjs --platform=neutral --main-fields=main
 
 async function build() {
   await esbuild.build({

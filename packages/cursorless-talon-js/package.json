@@ -2,21 +2,19 @@
   "name": "@cursorless/cursorless-talon-js",
   "version": "1.0.0",
   "description": "cursorless in talon js",
-  "main": "./out/talon.js",
-  "private": true,
+  "main": "./out/index.js",
   "license": "MIT",
   "type": "module",
+  "private": true,
   "scripts": {
-    "esbuild:base": "tsx esbuild.ts",
-    "esbuild": "pnpm run esbuild:base --sourcemap",
-    "esbuild:meta": "pnpm run esbuild:base --metafile=meta.json",
-    "esbuild:watch": "pnpm run esbuild:base --sourcemap --watch",
-    "esbuild:prod": "pnpm run esbuild:base --minify",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
-    "depcruise": "depcruise --no-config --exclude '^node_modules' src/extension.ts > dependencies.json",
-    "depcruise_dot": "depcruise --no-config --exclude '^node_modules' --output-type dot src/extension.ts > dependencies.dot",
-    "ts_dependency_graph": "ts_dependency_graph -v --start src/extension.ts > dependencies.txt",
-    "madge": "madge src/extension.ts > madge.txt"
+    "compile:tsc": "tsc --build",
+    "compile:esbuild": "tsx esbuild.ts",
+    "compile:esbuild2": "esbuild ./src/extension.ts --sourcemap --format=esm --bundle --platform=neutral --external:talon --external:postcss --main-fields=main --outfile=./out/talon.js",
+    "compile": "pnpm compile:tsc && pnpm compile:esbuild",
+    "watch:tsc": "pnpm compile:tsc --watch",
+    "watch:esbuild": "pnpm compile:esbuild --watch",
+    "watch": "pnpm run --filter @cursorless/cursorless-talon-js --parallel '/^watch:.*/'",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",
@@ -25,9 +23,6 @@
     "vscode-uri": "^3.0.8"
   },
   "devDependencies": {
-    "@types/lodash-es": "4.17.0",
-    "dependency-cruiser": "^16.3.6",
-    "ts_dependency_graph": "^2.1.1",
-    "madge": "^7.0.0"
+    "@types/lodash-es": "4.17.0"
   }
 }

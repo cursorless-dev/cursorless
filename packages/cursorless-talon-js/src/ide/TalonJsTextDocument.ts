@@ -4,11 +4,9 @@ import {
   Range,
   TextDocument,
   TextLine,
-} from "@cursorless/common";
-import {
   getLeadingWhitespace,
   getTrailingWhitespace,
-} from "@cursorless/cursorless-engine";
+} from "@cursorless/common";
 import type { URI } from "vscode-uri";
 
 export class TalonJsTextDocument implements TextDocument {
@@ -25,6 +23,8 @@ export class TalonJsTextDocument implements TextDocument {
     this.eol = content.includes("\r\n") ? "CRLF" : "LF";
     this.lines = createLines(content);
   }
+
+  filename: string = "untitled";
 
   get lineCount(): number {
     return this.lines.length;

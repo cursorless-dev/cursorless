@@ -110,3 +110,4 @@ export * from "./scopeSupportFacets/scopeSupportFacetInfos";
 export * from "./scopeSupportFacets/textualScopeSupportFacetInfos";
 export * from "./scopeSupportFacets/languageScopeSupport";
 export * from "./StoredTargetKey";
+export * from "./util/regex";

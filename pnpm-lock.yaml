@@ -471,15 +471,6 @@ importers:
       '@types/lodash-es':
         specifier: 4.17.0
         version: 4.17.0
-      dependency-cruiser:
-        specifier: ^16.3.6
-        version: 16.3.6
-      madge:
-        specifier: ^7.0.0
-        version: 7.0.0(typescript@5.5.3)
-      ts_dependency_graph:
-        specifier: ^2.1.1
-        version: 2.1.1
 
   packages/cursorless-vscode:
     dependencies:

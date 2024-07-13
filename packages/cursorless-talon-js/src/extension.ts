@@ -16,6 +16,7 @@ async function activate(): Promise<void> {
           talonJsIDE,
           new FakeIDE(),
           talonJsIDE.runMode === "test",
+          "",
         );
 
   const { commandApi } = await createCursorlessEngine({ ide: normalizedIde });
