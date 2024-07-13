@@ -4,8 +4,7 @@ import {
   TextEditor,
   asyncSafety,
 } from "@cursorless/common";
-import { getRecordedTestPaths } from "@cursorless/node-common";
-import { runRecordedTest } from "@cursorless/node-test";
+import { getRecordedTestPaths, runRecordedTest } from "@cursorless/node-common";
 import {
   getCursorlessApi,
   openNewEditor,

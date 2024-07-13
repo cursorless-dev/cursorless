@@ -29,6 +29,10 @@
     "lodash-es": "^4.17.21"
   },
   "devDependencies": {
-    "@types/lodash-es": "4.17.0"
+    "@types/chai": "^4.3.14",
+    "@types/js-yaml": "^4.0.9",
+    "@types/lodash-es": "4.17.0",
+    "chai": "^5.1.0",
+    "js-yaml": "^4.1.0"
   }
 }

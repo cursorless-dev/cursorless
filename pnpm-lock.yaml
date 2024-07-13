@@ -208,9 +208,6 @@ importers:
         specifier: ^3.0.8
         version: 3.0.8
     devDependencies:
-      '@types/chai':
-        specifier: ^4.3.14
-        version: 4.3.14
       '@types/js-yaml':
         specifier: ^4.0.9
         version: 4.0.9
@@ -220,12 +217,6 @@ importers:
       '@types/mocha':
         specifier: ^10.0.6
         version: 10.0.6
-      '@types/sinon':
-        specifier: ^17.0.3
-        version: 17.0.3
-      chai:
-        specifier: ^5.1.0
-        version: 5.1.0
       cross-spawn:
         specifier: 7.0.3
         version: 7.0.3
@@ -238,9 +229,6 @@ importers:
       mocha:
         specifier: ^10.3.0
         version: 10.3.0
-      sinon:
-        specifier: ^17.0.1
-        version: 17.0.1
 
   packages/cursorless-cheatsheet:
     dependencies:
@@ -272,9 +260,6 @@ importers:
       '@cursorless/node-common':
         specifier: workspace:*
         version: link:../node-common
-      glob:
-        specifier: ^10.3.10
-        version: 10.3.10
       immer:
         specifier: ^10.0.4
         version: 10.0.4
@@ -293,9 +278,6 @@ importers:
       nearley:
         specifier: 2.20.1
         version: 2.20.1(patch_hash=mg2fc7wgvzub3myuz6m74hllma)
-      node-html-parser:
-        specifier: ^6.1.12
-        version: 6.1.12
       sbd:
         specifier: ^1.0.19
         version: 1.0.19
@@ -306,9 +288,6 @@ importers:
         specifier: 3.22.4
         version: 3.22.4
     devDependencies:
-      '@types/glob':
-        specifier: ^8.1.0
-        version: 8.1.0
       '@types/js-yaml':
         specifier: ^4.0.9
         version: 4.0.9
@@ -494,9 +473,6 @@ importers:
       '@cursorless/vscode-common':
         specifier: workspace:*
         version: link:../vscode-common
-      immer:
-        specifier: ^10.0.4
-        version: 10.0.4
       itertools:
         specifier: ^2.2.5
         version: 2.2.5
@@ -522,24 +498,15 @@ importers:
         specifier: ^3.0.8
         version: 3.0.8
     devDependencies:
-      '@types/chai':
-        specifier: ^4.3.14
-        version: 4.3.14
       '@types/fs-extra':
         specifier: 11.0.4
         version: 11.0.4
-      '@types/glob':
-        specifier: ^8.1.0
-        version: 8.1.0
       '@types/js-yaml':
         specifier: ^4.0.9
         version: 4.0.9
       '@types/lodash-es':
         specifier: 4.17.0
         version: 4.17.0
-      '@types/mocha':
-        specifier: ^10.0.6
-        version: 10.0.6
       '@types/nearley':
         specifier: 2.11.5
         version: 2.11.5(patch_hash=5bomp3nnmdzdyzcgrxyr5kymae)
@@ -561,9 +528,6 @@ importers:
       '@types/vscode':
         specifier: 1.75.1
         version: 1.75.1
-      chai:
-        specifier: ^5.1.0
-        version: 5.1.0
       esbuild:
         specifier: ^0.20.2
         version: 0.20.2
@@ -573,12 +537,6 @@ importers:
       fs-extra:
         specifier: 11.2.0
         version: 11.2.0
-      glob:
-        specifier: ^10.3.10
-        version: 10.3.10
-      mocha:
-        specifier: ^10.3.0
-        version: 10.3.0
       sinon:
         specifier: ^17.0.1
         version: 17.0.1
@@ -591,9 +549,6 @@ importers:
       '@cursorless/node-common':
         specifier: workspace:*
         version: link:../node-common
-      '@cursorless/node-test':
-        specifier: workspace:*
-        version: link:../node-test
       '@cursorless/vscode-common':
         specifier: workspace:*
         version: link:../vscode-common
@@ -690,18 +645,6 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
     devDependencies:
-      '@types/lodash-es':
-        specifier: 4.17.0
-        version: 4.17.0
-
-  packages/node-test:
-    devDependencies:
-      '@cursorless/common':
-        specifier: workspace:*
-        version: link:../common
-      '@cursorless/node-common':
-        specifier: workspace:*
-        version: link:../node-common
       '@types/chai':
         specifier: ^4.3.14
         version: 4.3.14
@@ -711,12 +654,12 @@ importers:
       '@types/lodash-es':
         specifier: 4.17.0
         version: 4.17.0
+      chai:
+        specifier: ^5.1.0
+        version: 5.1.0
       js-yaml:
         specifier: ^4.1.0
         version: 4.1.0
-      lodash-es:
-        specifier: ^4.17.21
-        version: 4.17.21
 
   packages/test-case-recorder:
     dependencies:

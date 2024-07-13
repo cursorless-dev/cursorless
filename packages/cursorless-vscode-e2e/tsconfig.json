@@ -12,9 +12,6 @@
       "path": "../node-common"
     },
     {
-      "path": "../node-test"
-    },
-    {
       "path": "../vscode-common"
     }
   ],

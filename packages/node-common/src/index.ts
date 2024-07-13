@@ -6,5 +6,6 @@ export * from "./getCursorlessRepoRoot";
 export * from "./getFixturePaths";
 export * from "./getScopeTestPathsRecursively";
 export * from "./nodeGetRunMode";
+export * from "./runRecordedTest";
 export * from "./walkAsync";
 export * from "./walkSync";
