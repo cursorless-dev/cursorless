@@ -53,7 +53,9 @@ async function activate(): Promise<void> {
 
   try {
     ide = new TalonJsIDE();
+
     const engine = await createCursorlessEngine({ ide });
+
     commandApi = engine.commandApi;
   } catch (error) {
     print(error);

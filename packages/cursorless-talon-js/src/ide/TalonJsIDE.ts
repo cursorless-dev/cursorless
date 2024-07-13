@@ -137,43 +137,43 @@ export class TalonJsIDE implements IDE {
   onDidChangeTextDocument(
     _listener: (event: TextDocumentChangeEvent) => void,
   ): Disposable {
-    throw new Error("onDidChangeTextDocument not implemented.");
+    return { dispose: () => {} };
   }
 
   onDidOpenTextDocument(
     _listener: (document: TextDocument) => void,
   ): Disposable {
-    throw new Error("onDidOpenTextDocument not implemented.");
+    return { dispose: () => {} };
   }
 
   onDidCloseTextDocument(
     _listener: (document: TextDocument) => void,
   ): Disposable {
-    throw new Error("onDidCloseTextDocument not implemented.");
+    return { dispose: () => {} };
   }
 
   onDidChangeActiveTextEditor(
     _listener: (editor: TextEditor | undefined) => void,
   ): Disposable {
-    throw new Error("onDidChangeActiveTextEditor not implemented.");
+    return { dispose: () => {} };
   }
 
   onDidChangeVisibleTextEditors(
     _listener: (editors: TextEditor[]) => void,
   ): Disposable {
-    throw new Error("onDidChangeVisibleTextEditors not implemented.");
+    return { dispose: () => {} };
   }
 
   onDidChangeTextEditorSelection(
     _listener: (event: TextEditorSelectionChangeEvent) => void,
   ): Disposable {
-    throw new Error("onDidChangeTextEditorSelection not implemented.");
+    return { dispose: () => {} };
   }
 
   onDidChangeTextEditorVisibleRanges(
     _listener: (event: TextEditorVisibleRangesChangeEvent) => void,
   ): Disposable {
-    throw new Error("onDidChangeTextEditorVisibleRanges not implemented.");
+    return { dispose: () => {} };
   }
 
   disposeOnExit(...disposables: Disposable[]): () => void {
