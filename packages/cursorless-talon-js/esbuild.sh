@@ -12,3 +12,5 @@ esbuild \
     --external:postcss \
     $@ \
     # --minify \
+
+sed -i '1s/^/import { Context as DefaultContext } from "talon"\n/' out/talon.js
