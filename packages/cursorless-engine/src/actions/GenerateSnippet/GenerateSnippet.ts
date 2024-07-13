@@ -1,14 +1,13 @@
-import { FlashStyle, Range } from "@cursorless/common";
+import { FlashStyle, Range, matchAll } from "@cursorless/common";
 import type { Snippets } from "../../core/Snippets";
 import { Offsets } from "../../processTargets/modifiers/surroundingPair/types";
 import { ide } from "../../singletons/ide.singleton";
 import type { Target } from "../../typings/target.types";
-import { matchAll } from "../../util/regex";
 import { ensureSingleTarget, flashTargets } from "../../util/targetUtils";
 import type { ActionReturnValue } from "../actions.types";
+import Substituter from "./Substituter";
 import { constructSnippetBody } from "./constructSnippetBody";
 import { editText } from "./editText";
-import Substituter from "./Substituter";
 
 /**
  * This action can be used to automatically create a snippet from a target. Any

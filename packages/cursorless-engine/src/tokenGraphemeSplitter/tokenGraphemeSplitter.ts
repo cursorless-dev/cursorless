@@ -1,11 +1,11 @@
-import { deburr, escapeRegExp } from "lodash-es";
-import { ide } from "../singletons/ide.singleton";
 import {
-  TokenHatSplittingMode,
   Disposable,
   Notifier,
+  TokenHatSplittingMode,
+  matchAll,
 } from "@cursorless/common";
-import { matchAll } from "../util/regex";
+import { deburr, escapeRegExp } from "lodash-es";
+import { ide } from "../singletons/ide.singleton";
 
 /**
  * A list of all symbols that are speakable by default in community.

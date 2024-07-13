@@ -55,6 +55,7 @@ export * from "./types/TalonSpokenForms";
 export * from "./types/TestHelpers";
 export * from "./types/TreeSitter";
 export * from "./util/textFormatters";
+export * from "./util/regex";
 export * from "./util/serializedMarksToTokenHats";
 export * from "./types/snippet.types";
 export * from "./testUtil/fromPlainObject";
