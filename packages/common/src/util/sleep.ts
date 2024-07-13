@@ -6,10 +6,6 @@
  * on failure, and this function will sleep the same amount of time every time
  * the test is retried.  Prefer {@link sleepWithBackoff} instead.
  */
-function sleep(timeout: number): Promise<void> {
-  return new Promise((resolve) => {
-    setTimeout(resolve, timeout);
-  });
+export default function sleep(timeout: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, timeout));
 }
-
-export default sleep;
