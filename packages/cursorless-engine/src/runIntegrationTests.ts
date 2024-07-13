@@ -1,5 +1,4 @@
 import { unsafeKeys, type TreeSitter } from "@cursorless/common";
-import assert from "node:assert";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
 import { legacyLanguageIds } from "./languages/LegacyLanguageId";
 import { languageMatchers } from "./languages/getNodeMatcher";
@@ -41,5 +40,7 @@ async function assertNoScopesBothLegacyAndNew(
     });
   }
 
-  assert.deepStrictEqual(errors, []);
+  if (errors.length > 0) {
+    throw Error(errors.join("\n"));
+  }
 }
