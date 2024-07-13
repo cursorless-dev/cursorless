@@ -1,9 +1,9 @@
+import { Context } from "talon";
 import { FakeIDE, NormalizedIDE } from "@cursorless/common";
 // import {
 //   createCursorlessEngine,
 //   type CommandApi,
 // } from "@cursorless/cursorless-engine";
-import { Context } from "talon";
 import { TalonJsIDE } from "./ide/TalonJsIDE";
 
 async function activate(): Promise<void> {
