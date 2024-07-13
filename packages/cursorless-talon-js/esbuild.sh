@@ -4,8 +4,7 @@ esbuild \
     ./src/extension.ts \
     --outfile=./out/talon.js \
     --platform=neutral \
-    --main-fields=main \
-    --main-fields=module \
+    --main-fields=main,module \
     --format=esm \
     --conditions=cursorless:bundler \
     --bundle \
