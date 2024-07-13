@@ -1,5 +1,5 @@
 export * from "./FileSystemCommandHistoryStorage";
-export * from "./FileSystemLanguageDefinitionsProvider";
+export * from "./FileSystemRawTreeSitterQueryProvider";
 export * from "./FileSystemTalonSpokenForms";
 export * from "./getCursorlessRepoRoot";
 export * from "./getFixturePaths";
