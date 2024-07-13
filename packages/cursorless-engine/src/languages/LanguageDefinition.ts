@@ -146,7 +146,7 @@ async function readQueryFileAndImports(
         // but is very lenient about whitespace and quotes, and also allows
         // include instead of import, so that we can throw a nice error message
         // if the developer uses the wrong syntax
-        /^[^\S\r\n]*;;?[^\S\r\n]*(?:import|include)[^\S\r\n]+['"]?([\w|/.]+)['"]?[^\S\r\n]*$/gm,
+        /^[^\S\r\n]*;;?[^\S\r\n]*(?:import|include)[^\S\r\n]+['"]?([\w|/\\.]+)['"]?[^\S\r\n]*$/gm,
         (match) => {
           const importName = match[1];
 
@@ -169,8 +169,19 @@ function validateImportSyntax(
   importName: string,
   actual: string,
 ) {
-  const canonicalSyntax = `;; import ${importName}`;
+  let isError = false;
 
+  if (/[/\\]/g.test(importName)) {
+    showError(
+      ide.messages,
+      "LanguageDefinition.readQueryFileAndImports.invalidImport",
+      `Invalid import statement in ${file}: "${actual}". Relative import paths not supported`,
+    );
+
+    isError = true;
+  }
+
+  const canonicalSyntax = `;; import ${importName}`;
   if (actual !== canonicalSyntax) {
     showError(
       ide.messages,
@@ -178,8 +189,10 @@ function validateImportSyntax(
       `Malformed import statement in ${file}: "${actual}". Import statements must be of the form "${canonicalSyntax}"`,
     );
 
-    if (ide.runMode === "test") {
-      throw new Error("Invalid import statement");
-    }
+    isError = true;
+  }
+
+  if (isError && ide.runMode === "test") {
+    throw new Error("Invalid import statement");
   }
 }
