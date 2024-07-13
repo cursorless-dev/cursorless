@@ -11,7 +11,7 @@ import {
   toVscodePosition,
   toVscodeRange,
 } from "@cursorless/vscode-common";
-import path from "node:path";
+import * as path from "node:path";
 import * as vscode from "vscode";
 import type { URI } from "vscode-uri";
 import VscodeTextLineImpl from "./VscodeTextLineImpl";
