@@ -1,5 +1,5 @@
 import { MatchedText, matchRegex, testRegex } from "@cursorless/common";
-import * as sbd from "sbd";
+// import * as sbd from "sbd";
 
 // A sentence starts with a letter with adjacent leading symbols. Whitespace excluded.
 const leadingOffsetRegex = /\S*\p{L}/u;
@@ -15,30 +15,32 @@ const leadingOffsetRegex = /\S*\p{L}/u;
  */
 const skipPartRegex = /(\r?\n[^\p{L}]*\r?\n)|(?<=[.!?])(\s*\r?\n)/gu;
 
-const options: sbd.Options = {
-  ["newline_boundaries"]: false,
-  ["preserve_whitespace"]: true,
-};
+// const options: sbd.Options = {
+//   ["newline_boundaries"]: false,
+//   ["preserve_whitespace"]: true,
+// };
 
 export class SentenceSegmenter {
-  *segment(text: string): Iterable<MatchedText> {
-    const sentences = sbd.sentences(text, options);
-    let index = 0;
+  segment(text: string): Iterable<MatchedText> {
+    throw Error(`SentenceSegmenter not implemented.`);
+    // const sentences = sbd.sentences(text, options);
 
-    for (const sentence of sentences) {
-      const parts = sentence.split(skipPartRegex).filter((p) => p != null);
+    // let index = 0;
 
-      for (const part of parts) {
-        if (!skipPart(part)) {
-          const segment = createSegment(part, index);
-          if (segment != null) {
-            yield segment;
-          }
-        }
+    // for (const sentence of sentences) {
+    //   const parts = sentence.split(skipPartRegex).filter((p) => p != null);
 
-        index += part.length;
-      }
-    }
+    //   for (const part of parts) {
+    //     if (!skipPart(part)) {
+    //       const segment = createSegment(part, index);
+    //       if (segment != null) {
+    //         yield segment;
+    //       }
+    //     }
+
+    //     index += part.length;
+    //   }
+    // }
   }
 }
 

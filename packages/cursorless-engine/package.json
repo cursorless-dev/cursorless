@@ -29,7 +29,6 @@
     "lodash-es": "^4.17.21",
     "moo": "0.5.2",
     "nearley": "2.20.1",
-    "sbd": "^1.0.19",
     "uuid": "^9.0.1",
     "zod": "3.22.4"
   },
@@ -39,7 +38,6 @@
     "@types/mocha": "^10.0.6",
     "@types/moo": "0.5.9",
     "@types/nearley": "2.11.5",
-    "@types/sbd": "^1.0.5",
     "@types/sinon": "^17.0.3",
     "@types/uuid": "^9.0.8",
     "js-yaml": "^4.1.0",

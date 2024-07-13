@@ -1,6 +1,8 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "target": "ES6",
+    "lib": ["ES6"],
     "rootDir": "src",
     "outDir": "out",
     "typeRoots": ["src/types", "node_modules/@types"]
