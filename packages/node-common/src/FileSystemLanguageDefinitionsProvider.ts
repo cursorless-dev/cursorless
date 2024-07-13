@@ -39,9 +39,7 @@ export class FileSystemRawTreeSitterQueryProvider
 
   readQuery(filename: string): Promise<string | undefined> {
     if (filename !== path.basename(filename)) {
-      throw Error(
-        `${filename} should only be a file name and not a relative path`,
-      );
+      throw Error(`${filename} should be a filename and not a relative path`);
     }
     const queryPath = path.join(this.queryDir, filename);
     return this.fileSystem.readBundledFile(queryPath);
