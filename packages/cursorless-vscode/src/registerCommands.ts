@@ -1,7 +1,6 @@
 import {
   CURSORLESS_COMMAND_ID,
   CursorlessCommandId,
-  isTesting,
   type CommandHistoryStorage,
 } from "@cursorless/common";
 import {
@@ -11,10 +10,12 @@ import {
 import {
   CommandApi,
   StoredTargetMap,
-  TestCaseRecorder,
   analyzeCommandHistory,
-  type ScopeTestRecorder,
 } from "@cursorless/cursorless-engine";
+import type {
+  ScopeTestRecorder,
+  TestCaseRecorder,
+} from "@cursorless/test-case-recorder";
 import * as vscode from "vscode";
 import { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
 import { showDocumentation, showQuickPick } from "./commands";
@@ -39,7 +40,7 @@ export function registerCommands(
     try {
       return await run();
     } catch (e) {
-      if (!isTesting()) {
+      if (vscodeIde.runMode !== "test") {
         const err = e as Error;
         console.error(err.stack);
         vscodeIde.handleCommandError(err);

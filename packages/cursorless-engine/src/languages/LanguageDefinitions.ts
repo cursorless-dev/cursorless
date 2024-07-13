@@ -3,15 +3,14 @@ import {
   Notifier,
   Range,
   TextDocument,
-  isTesting,
   showError,
   type IDE,
-  type RawTreeSitterQueryProvider,
   type Listener,
+  type RawTreeSitterQueryProvider,
+  type TreeSitter,
 } from "@cursorless/common";
 import { toString } from "lodash-es";
-import { SyntaxNode } from "web-tree-sitter";
-import { TreeSitter } from "../typings/TreeSitter";
+import type { SyntaxNode } from "web-tree-sitter";
 import { LanguageDefinition } from "./LanguageDefinition";
 
 /**
@@ -117,7 +116,7 @@ export class LanguageDefinitionsImpl
         "Failed to load language definitions",
         toString(err),
       );
-      if (isTesting()) {
+      if (this.ide.runMode === "test") {
         throw err;
       }
     }

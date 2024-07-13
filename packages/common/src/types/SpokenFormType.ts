@@ -1,4 +1,5 @@
 import {
+  ActionType,
   ModifierType,
   SimpleScopeTypeType,
   SurroundingPairName,
@@ -33,6 +34,19 @@ export interface SpokenFormMapKeyTypes {
    */
   modifierExtra: ModifierExtra;
   customRegex: string;
+
+  action: ActionType;
+
+  /**
+   * These actions correspond to id's of app commands. Eg in VSCode, you can have
+   * custom actions corresponding to id's of VSCode commands.
+   */
+  customAction: string;
+
+  /**
+   * Individual characters / graphemes, eg `a` or `/`.
+   */
+  grapheme: string;
 }
 
 /**

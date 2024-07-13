@@ -1,5 +1,5 @@
+import { MatchedText, matchRegex, testRegex } from "@cursorless/common";
 import * as sbd from "sbd";
-import { MatchedText, matchRegex, testRegex } from "../../../../util/regex";
 
 // A sentence starts with a letter with adjacent leading symbols. Whitespace excluded.
 const leadingOffsetRegex = /\S*\p{L}/u;

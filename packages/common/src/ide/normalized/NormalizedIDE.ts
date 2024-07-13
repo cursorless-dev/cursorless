@@ -1,4 +1,3 @@
-import { getFixturePath } from "../../index";
 import { GeneralizedRange } from "../../types/GeneralizedRange";
 import { TextEditor } from "../../types/TextEditor";
 import FakeConfiguration from "../fake/FakeConfiguration";
@@ -17,6 +16,7 @@ export class NormalizedIDE extends PassthroughIDEBase {
     original: IDE,
     public fakeIde: FakeIDE,
     private isSilent: boolean,
+    private cursorlessSnippetsDir: string,
   ) {
     super(original);
 
@@ -46,7 +46,7 @@ export class NormalizedIDE extends PassthroughIDEBase {
       hatStability: this.configuration.getOwnConfiguration(
         "experimental.hatStability",
       ),
-      snippetsDir: getFixturePath("cursorless-snippets"),
+      snippetsDir: this.cursorlessSnippetsDir,
       keyboardTargetFollowsSelection: false,
     });
   }

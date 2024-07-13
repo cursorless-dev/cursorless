@@ -2,15 +2,15 @@ import {
   CommandVersion,
   LATEST_VERSION,
   TestCaseFixtureLegacy,
-  getRecordedTestPaths,
 } from "@cursorless/common";
+import { getRecordedTestPaths } from "@cursorless/node-common";
+import { checkMarks } from "./checkMarks";
+import { transformFile } from "./transformFile";
+import { canonicalize } from "./transformations/canonicalize";
 import { identity } from "./transformations/identity";
 import { upgrade } from "./transformations/upgrade";
-import { transformFile } from "./transformFile";
 import { FixtureTransformation } from "./types";
 import { upgradeDecorations } from "./upgradeDecorations";
-import { checkMarks } from "./checkMarks";
-import { canonicalize } from "./transformations/canonicalize";
 
 const AVAILABLE_TRANSFORMATIONS: Record<string, FixtureTransformation> = {
   upgrade,

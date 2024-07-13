@@ -1,16 +1,14 @@
 import {
   Disposable,
   FileSystem,
-  Notifier,
-  type Listener,
-} from "@cursorless/common";
-import { readFile } from "fs/promises";
-import {
   NeedsInitialTalonUpdateError,
+  Notifier,
   SpokenFormEntry,
   TalonSpokenForms,
-} from "@cursorless/cursorless-engine";
-import * as path from "pathe";
+  type Listener,
+} from "@cursorless/common";
+import { readFile } from "node:fs/promises";
+import * as path from "node:path";
 
 interface TalonSpokenFormsPayload {
   version: number;

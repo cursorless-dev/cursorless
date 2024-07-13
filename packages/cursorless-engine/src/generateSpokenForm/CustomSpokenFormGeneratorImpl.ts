@@ -1,4 +1,5 @@
 import {
+  ActionType,
   CommandComplete,
   Disposable,
   Listener,
@@ -7,7 +8,7 @@ import {
 import { SpokenFormGenerator } from "./generateSpokenForm";
 import { CustomSpokenFormGenerator } from "../api/CursorlessEngineApi";
 import { CustomSpokenForms } from "../spokenForms/CustomSpokenForms";
-import { TalonSpokenForms } from "../scopeProviders/TalonSpokenForms";
+import { TalonSpokenForms } from "@cursorless/common";
 
 /**
  * Simple facade that combines the {@link CustomSpokenForms} and
@@ -52,6 +53,10 @@ export class CustomSpokenFormGeneratorImpl
 
   scopeTypeToSpokenForm(scopeType: ScopeType) {
     return this.spokenFormGenerator.processScopeType(scopeType);
+  }
+
+  actionIdToSpokenForm(actionId: ActionType) {
+    return this.customSpokenForms.spokenFormMap.action[actionId];
   }
 
   getCustomRegexScopeTypes() {

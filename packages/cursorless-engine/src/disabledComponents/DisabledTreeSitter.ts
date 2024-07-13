@@ -1,6 +1,5 @@
-import type { TextDocument, Range } from "@cursorless/common";
-import type { SyntaxNode, Tree, Language } from "web-tree-sitter";
-import type { TreeSitter } from "../typings/TreeSitter";
+import type { Range, TextDocument, TreeSitter } from "@cursorless/common";
+import type { Language, SyntaxNode, Tree } from "web-tree-sitter";
 
 export class DisabledTreeSitter implements TreeSitter {
   getTree(_document: TextDocument): Tree {

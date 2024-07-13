@@ -1,10 +1,12 @@
 import {
-  getFixturePath,
-  getRecordedTestsDirPath,
   HatTokenMap,
   LATEST_VERSION,
   SimpleActionName,
 } from "@cursorless/common";
+import {
+  getFixturePath,
+  getRecordedTestsDirPath,
+} from "@cursorless/node-common";
 import {
   getCursorlessApi,
   openNewEditor,
@@ -12,9 +14,9 @@ import {
 } from "@cursorless/vscode-common";
 import { assert } from "chai";
 import * as crypto from "crypto";
-import { mkdir, readdir, readFile, rm } from "fs/promises";
-import * as os from "os";
-import * as path from "pathe";
+import { mkdir, readFile, readdir, rm } from "node:fs/promises";
+import * as os from "node:os";
+import * as path from "node:path";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
