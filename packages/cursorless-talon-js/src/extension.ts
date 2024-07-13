@@ -1,3 +1,4 @@
+import "./polyfill";
 import { FakeIDE, NormalizedIDE } from "@cursorless/common";
 import {
   createCursorlessEngine,
