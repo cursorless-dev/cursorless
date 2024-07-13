@@ -11,7 +11,9 @@ interface Actions {
     notify(body: string, title: string): void;
   };
   user: {
-    cursorless_js_run_command(...args: unknown[]): unknown;
+    private_cursorless_command_no_wait(action: unknown): void;
+    private_cursorless_command_and_wait(action: unknown): Promise<void>;
+    private_cursorless_command_get(action: unknown): Promise<unknown>;
     cursorless_js_get_document_state(): DocumentState;
   };
 }

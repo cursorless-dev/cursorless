@@ -5,7 +5,7 @@ esbuild \
     --outfile=./out/talon.js \
     --platform=neutral \
     --main-fields=main \
-    --format=esm \
+    --format=cjs \
     --bundle \
     --sourcemap \
     --external:talon \
