@@ -8,8 +8,7 @@
   "private": true,
   "scripts": {
     "compile:tsc": "tsc --build",
-    "compile:esbuild": "tsx esbuild.ts",
-    "compile:esbuild2": "esbuild ./src/extension.ts --sourcemap --format=esm --bundle --platform=neutral --external:talon --external:postcss --main-fields=main --outfile=./out/talon.js",
+    "compile:esbuild": "sh esbuild.sh",
     "compile": "pnpm compile:tsc && pnpm compile:esbuild",
     "watch:tsc": "pnpm compile:tsc --watch",
     "watch:esbuild": "pnpm compile:esbuild --watch",
