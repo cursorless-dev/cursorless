@@ -8,44 +8,34 @@ import {
   ScopeProvider,
   ScopeType,
   TextDocument,
+  type TreeSitter,
 } from "@cursorless/common";
 import {
   CommandHistory,
   createCursorlessEngine,
-  ScopeTestRecorder,
-  TestCaseRecorder,
-  TreeSitter,
 } from "@cursorless/cursorless-engine";
 import {
   FileSystemCommandHistoryStorage,
   FileSystemRawTreeSitterQueryProvider,
   FileSystemTalonSpokenForms,
+  getFixturePath,
 } from "@cursorless/node-common";
 import {
+  ScopeTestRecorder,
+  TestCaseRecorder,
+} from "@cursorless/test-case-recorder";
+import {
   CursorlessApi,
+  ParseTreeApi,
   getCommandServerApi,
   getParseTreeApi,
-  ParseTreeApi,
   toVscodeRange,
 } from "@cursorless/vscode-common";
 import * as crypto from "crypto";
-import * as os from "os";
-import * as path from "pathe";
+import * as os from "node:os";
+import * as path from "node:path";
 import * as vscode from "vscode";
-import { constructTestHelpers } from "./constructTestHelpers";
-import { FakeFontMeasurements } from "./ide/vscode/hats/FakeFontMeasurements";
-import { FontMeasurementsImpl } from "./ide/vscode/hats/FontMeasurementsImpl";
-import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
-import { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
-import { VscodeIDE } from "./ide/vscode/VscodeIDE";
-import {
-  createVscodeScopeVisualizer,
-  VscodeScopeVisualizer,
-} from "./ide/vscode/VSCodeScopeVisualizer";
-import { KeyboardCommands } from "./keyboard/KeyboardCommands";
-import { registerCommands } from "./registerCommands";
 import { ReleaseNotes } from "./ReleaseNotes";
-import { revisualizeOnCustomRegexChange } from "./revisualizeOnCustomRegexChange";
 import { ScopeTreeProvider } from "./ScopeTreeProvider";
 import {
   ScopeVisualizer,
@@ -53,9 +43,22 @@ import {
   VisualizationType,
 } from "./ScopeVisualizerCommandApi";
 import { StatusBarItem } from "./StatusBarItem";
+import { VscodeSnippets } from "./VscodeSnippets";
+import { constructTestHelpers } from "./constructTestHelpers";
+import {
+  VscodeScopeVisualizer,
+  createVscodeScopeVisualizer,
+} from "./ide/vscode/VSCodeScopeVisualizer";
+import { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
+import { VscodeIDE } from "./ide/vscode/VscodeIDE";
+import { FakeFontMeasurements } from "./ide/vscode/hats/FakeFontMeasurements";
+import { FontMeasurementsImpl } from "./ide/vscode/hats/FontMeasurementsImpl";
+import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
+import { KeyboardCommands } from "./keyboard/KeyboardCommands";
+import { registerCommands } from "./registerCommands";
+import { revisualizeOnCustomRegexChange } from "./revisualizeOnCustomRegexChange";
 import { storedTargetHighlighter } from "./storedTargetHighlighter";
 import { vscodeApi } from "./vscodeApi";
-import { VscodeSnippets } from "./VscodeSnippets";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -79,6 +82,7 @@ export async function activate(
           vscodeIDE,
           new FakeIDE(),
           vscodeIDE.runMode === "test",
+          getFixturePath("cursorless-snippets"),
         );
 
   const fakeCommandServerApi = new FakeCommandServerApi();

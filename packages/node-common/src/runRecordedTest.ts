@@ -1,12 +1,7 @@
 import {
   Command,
   CommandResponse,
-  ExcludableSnapshotField,
-  ExtraSnapshotField,
-  FakeCommandServerApi,
   Fallback,
-  HatTokenMap,
-  IDE,
   Position,
   PositionPlainObject,
   ReadOnlyHatMap,
@@ -14,12 +9,10 @@ import {
   SelectionPlainObject,
   SerializedMarks,
   SpyIDE,
-  TargetPlainObject,
   TestCaseFixtureLegacy,
-  TestCaseSnapshot,
   TextEditor,
   clientSupportsFallback,
-  loadFixture,
+  getSnapshotForComparison,
   omitByDeep,
   rangeToPlainObject,
   serializeTestFixture,
@@ -28,11 +21,12 @@ import {
   splitKey,
   spyIDERecordedValuesToPlainObject,
   storedTargetKeys,
+  type TestHelpers,
 } from "@cursorless/common";
 import { assert } from "chai";
 import { isUndefined } from "lodash-es";
 import { promises as fsp } from "node:fs";
-import { getSnapshotForComparison } from "./getSnapshotForComparison";
+import { loadFixture } from "./loadFixture";
 
 function createPosition(position: PositionPlainObject) {
   return new Position(position.line, position.character);
@@ -42,28 +36,6 @@ function createSelection(selection: SelectionPlainObject): Selection {
   const active = createPosition(selection.active);
   const anchor = createPosition(selection.anchor);
   return new Selection(anchor, active);
-}
-
-export interface TestHelpers {
-  hatTokenMap: HatTokenMap;
-
-  // FIXME: Remove this once we have a better way to get this function
-  // accessible from our tests
-  takeSnapshot(
-    excludeFields: ExcludableSnapshotField[],
-    extraFields: ExtraSnapshotField[],
-    editor: TextEditor,
-    ide: IDE,
-    marks: SerializedMarks | undefined,
-  ): Promise<TestCaseSnapshot>;
-
-  setStoredTarget(
-    editor: TextEditor,
-    key: string,
-    targets: TargetPlainObject[] | undefined,
-  ): void;
-
-  commandServerApi: FakeCommandServerApi;
 }
 
 interface RunRecordedTestOpts {

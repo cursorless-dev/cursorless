@@ -1,4 +1,4 @@
-import { SpeakableSurroundingPairName } from "../../spokenForms/SpokenFormType";
+import { SpeakableSurroundingPairName } from "@cursorless/common";
 
 export const surroundingPairsDelimiters: Record<
   SpeakableSurroundingPairName,

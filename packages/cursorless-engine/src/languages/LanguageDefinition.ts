@@ -1,14 +1,13 @@
 import {
   ScopeType,
   SimpleScopeType,
+  matchAll,
   showError,
   type IDE,
   type RawTreeSitterQueryProvider,
+  type TreeSitter,
 } from "@cursorless/common";
-import { dirname, join } from "pathe";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
-import { TreeSitter } from "../typings/TreeSitter";
-import { matchAll } from "../util/regex";
 import { TreeSitterQuery } from "./TreeSitterQuery";
 import { validateQueryCaptures } from "./TreeSitterQuery/validateQueryCaptures";
 
@@ -147,17 +146,15 @@ async function readQueryFileAndImports(
         // but is very lenient about whitespace and quotes, and also allows
         // include instead of import, so that we can throw a nice error message
         // if the developer uses the wrong syntax
-        /^[^\S\r\n]*;;?[^\S\r\n]*(?:import|include)[^\S\r\n]+['"]?([\w|/.]+)['"]?[^\S\r\n]*$/gm,
+        /^[^\S\r\n]*;;?[^\S\r\n]*(?:import|include)[^\S\r\n]+['"]?([\w|/\\.]+)['"]?[^\S\r\n]*$/gm,
         (match) => {
-          const relativeImportPath = match[1];
+          const importName = match[1];
 
           if (doValidation) {
-            validateImportSyntax(ide, queryName, relativeImportPath, match[0]);
+            validateImportSyntax(ide, queryName, importName, match[0]);
           }
 
-          const importQueryPath = join(dirname(queryName), relativeImportPath);
-          rawQueryStrings[importQueryPath] =
-            rawQueryStrings[importQueryPath] ?? null;
+          rawQueryStrings[importName] = rawQueryStrings[importName] ?? null;
         },
       );
     }
@@ -169,11 +166,22 @@ async function readQueryFileAndImports(
 function validateImportSyntax(
   ide: IDE,
   file: string,
-  relativeImportPath: string,
+  importName: string,
   actual: string,
 ) {
-  const canonicalSyntax = `;; import ${relativeImportPath}`;
+  let isError = false;
 
+  if (/[/\\]/g.test(importName)) {
+    showError(
+      ide.messages,
+      "LanguageDefinition.readQueryFileAndImports.invalidImport",
+      `Invalid import statement in ${file}: "${actual}". Relative import paths not supported`,
+    );
+
+    isError = true;
+  }
+
+  const canonicalSyntax = `;; import ${importName}`;
   if (actual !== canonicalSyntax) {
     showError(
       ide.messages,
@@ -181,8 +189,10 @@ function validateImportSyntax(
       `Malformed import statement in ${file}: "${actual}". Import statements must be of the form "${canonicalSyntax}"`,
     );
 
-    if (ide.runMode === "test") {
-      throw new Error("Invalid import statement");
-    }
+    isError = true;
+  }
+
+  if (isError && ide.runMode === "test") {
+    throw new Error("Invalid import statement");
   }
 }

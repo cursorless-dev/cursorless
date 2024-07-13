@@ -8,7 +8,7 @@ import {
 import { SpokenFormGenerator } from "./generateSpokenForm";
 import { CustomSpokenFormGenerator } from "../api/CursorlessEngineApi";
 import { CustomSpokenForms } from "../spokenForms/CustomSpokenForms";
-import { TalonSpokenForms } from "../scopeProviders/TalonSpokenForms";
+import { TalonSpokenForms } from "@cursorless/common";
 
 /**
  * Simple facade that combines the {@link CustomSpokenForms} and

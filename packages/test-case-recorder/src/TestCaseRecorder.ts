@@ -8,7 +8,6 @@ import {
   extractTargetedMarks,
   ExtraSnapshotField,
   getKey,
-  getRecordedTestsDirPath,
   HatTokenMap,
   IDE,
   marksToPlainObject,
@@ -21,19 +20,22 @@ import {
   SpyIDE,
   TextEditorOptions,
   toLineRange,
-  walkDirsSync,
 } from "@cursorless/common";
-import * as fs from "fs";
-import { access, readFile } from "fs/promises";
+import {
+  CommandRunner,
+  defaultSpokenFormMap,
+  ide,
+  injectIde,
+  SpokenFormGenerator,
+  StoredTargetMap,
+  takeSnapshot,
+} from "@cursorless/cursorless-engine";
+import { getRecordedTestsDirPath, walkDirsSync } from "@cursorless/node-common";
 import { invariant } from "immutability-helper";
 import { merge } from "lodash-es";
-import * as path from "pathe";
-import { CommandRunner } from "../CommandRunner";
-import { StoredTargetMap } from "../core/StoredTargets";
-import { SpokenFormGenerator } from "../generateSpokenForm";
-import { ide, injectIde } from "../singletons/ide.singleton";
-import { defaultSpokenFormMap } from "../spokenForms/defaultSpokenFormMap";
-import { takeSnapshot } from "../testUtil/takeSnapshot";
+import * as fs from "node:fs";
+import { access, readFile } from "node:fs/promises";
+import * as path from "node:path";
 import { RecordTestCaseCommandOptions } from "./RecordTestCaseCommandOptions";
 import { TestCase } from "./TestCase";
 

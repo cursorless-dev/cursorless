@@ -8,9 +8,6 @@
   "references": [
     {
       "path": "../common"
-    },
-    {
-      "path": "../cursorless-engine"
     }
   ]
 }

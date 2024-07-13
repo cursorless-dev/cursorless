@@ -1,7 +1,7 @@
 {
-  "name": "@cursorless/node-common",
+  "name": "@cursorless/test-case-recorder",
   "version": "1.0.0",
-  "description": "Package containing node utilities",
+  "description": "Package containing the test case recorder",
   "main": "./out/index.js",
   "scripts": {
     "compile:tsc": "tsc --build",
@@ -9,7 +9,7 @@
     "compile": "pnpm compile:tsc && pnpm compile:esbuild",
     "watch:tsc": "pnpm compile:tsc --watch",
     "watch:esbuild": "pnpm compile:esbuild --watch",
-    "watch": "pnpm run --filter @cursorless/node-common --parallel '/^watch:.*/'",
+    "watch": "pnpm run --filter @cursorless/test-case-recorder --parallel '/^watch:.*/'",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "keywords": [],
@@ -25,14 +25,13 @@
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",
+    "@cursorless/cursorless-engine": "workspace:*",
+    "@cursorless/node-common": "workspace:*",
     "glob": "^10.3.10",
+    "immutability-helper": "^3.1.1",
     "lodash-es": "^4.17.21"
   },
   "devDependencies": {
-    "@types/chai": "^4.3.14",
-    "@types/js-yaml": "^4.0.9",
-    "@types/lodash-es": "4.17.0",
-    "chai": "^5.1.0",
-    "js-yaml": "^4.1.0"
+    "@types/lodash-es": "4.17.0"
   }
 }

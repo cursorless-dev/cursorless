@@ -1,10 +1,10 @@
 import { storedTargetKeys } from "../StoredTargetKey";
 import SpyIDE from "../ide/spy/SpyIDE";
 import { ReadOnlyHatMap } from "../types/HatTokenMap";
+import type { TestHelpers } from "../types/TestHelpers";
 import { marksToPlainObject } from "../util/toPlainObject";
 import { ExcludableSnapshotField, TestCaseSnapshot } from "./TestCaseSnapshot";
 import { extractTargetedMarks } from "./extractTargetedMarks";
-import { TestHelpers } from "./runRecordedTest";
 
 /**
  * Get the state of the editor to compare with the expected state of a test case

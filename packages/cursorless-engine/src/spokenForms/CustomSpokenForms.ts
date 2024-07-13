@@ -1,19 +1,18 @@
 import {
   CustomRegexScopeType,
   Disposable,
+  NeedsInitialTalonUpdateError,
   Notifier,
+  SUPPORTED_ENTRY_TYPES,
+  SpokenFormEntry,
+  SpokenFormMapKeyTypes,
+  SpokenFormType,
+  TalonSpokenForms,
   showError,
 } from "@cursorless/common";
 import { isEqual } from "lodash-es";
-import {
-  NeedsInitialTalonUpdateError,
-  SUPPORTED_ENTRY_TYPES,
-  SpokenFormEntry,
-  TalonSpokenForms,
-} from "../scopeProviders/TalonSpokenForms";
 import { ide } from "../singletons/ide.singleton";
 import { SpokenFormMap, SpokenFormMapEntry } from "./SpokenFormMap";
-import { SpokenFormMapKeyTypes, SpokenFormType } from "./SpokenFormType";
 import {
   defaultSpokenFormInfoMap,
   defaultSpokenFormMap,

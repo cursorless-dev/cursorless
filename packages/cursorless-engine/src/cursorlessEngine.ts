@@ -6,6 +6,8 @@ import {
   ScopeProvider,
   ensureCommandShape,
   type RawTreeSitterQueryProvider,
+  type TalonSpokenForms,
+  type TreeSitter,
 } from "@cursorless/common";
 import { KeyboardTargetUpdater } from "./KeyboardTargetUpdater";
 import {
@@ -37,9 +39,7 @@ import { ScopeRangeProvider } from "./scopeProviders/ScopeRangeProvider";
 import { ScopeRangeWatcher } from "./scopeProviders/ScopeRangeWatcher";
 import { ScopeSupportChecker } from "./scopeProviders/ScopeSupportChecker";
 import { ScopeSupportWatcher } from "./scopeProviders/ScopeSupportWatcher";
-import { type TalonSpokenForms } from "./scopeProviders/TalonSpokenForms";
 import { injectIde } from "./singletons/ide.singleton";
-import { TreeSitter } from "./typings/TreeSitter";
 
 interface Props {
   ide: IDE;

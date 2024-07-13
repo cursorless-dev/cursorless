@@ -10,10 +10,12 @@ import {
 import {
   CommandApi,
   StoredTargetMap,
-  TestCaseRecorder,
   analyzeCommandHistory,
-  type ScopeTestRecorder,
 } from "@cursorless/cursorless-engine";
+import type {
+  ScopeTestRecorder,
+  TestCaseRecorder,
+} from "@cursorless/test-case-recorder";
 import * as vscode from "vscode";
 import { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
 import { showDocumentation, showQuickPick } from "./commands";
