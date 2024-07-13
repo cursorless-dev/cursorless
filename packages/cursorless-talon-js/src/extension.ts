@@ -3,7 +3,6 @@ import { FakeIDE, NormalizedIDE } from "@cursorless/common";
 //   createCursorlessEngine,
 //   type CommandApi,
 // } from "@cursorless/cursorless-engine";
-import { Context } from "talon";
 import { TalonJsIDE } from "./ide/TalonJsIDE";
 
 async function activate(): Promise<void> {
