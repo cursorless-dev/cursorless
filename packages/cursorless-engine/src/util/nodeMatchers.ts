@@ -1,5 +1,5 @@
+import { SimpleScopeTypeType, unsafeKeys } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import { SimpleScopeTypeType } from "@cursorless/common";
 import {
   NodeFinder,
   NodeMatcher,
@@ -21,7 +21,6 @@ import {
   simpleSelectionExtractor,
   unwrapSelectionExtractor,
 } from "./nodeSelectors";
-import { unsafeKeys } from "@cursorless/common/src/util/object";
 
 export function matcher(
   finder: NodeFinder,
