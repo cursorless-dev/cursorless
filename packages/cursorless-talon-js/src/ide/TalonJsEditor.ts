@@ -10,6 +10,7 @@ import type {
   TextEditor,
   TextEditorOptions,
 } from "@cursorless/common";
+import { actions } from "talon";
 import type { TalonJsTextDocument } from "./TalonJsTextDocument";
 
 export class TalonJsEditor implements EditableTextEditor {
@@ -33,9 +34,18 @@ export class TalonJsEditor implements EditableTextEditor {
 
   setSelections(
     selections: Selection[],
-    opts?: SetSelectionsOpts | undefined,
+    _opts?: SetSelectionsOpts | undefined,
   ): Promise<void> {
-    throw new Error("setSelections not implemented.");
+    if (selections.length !== 1) {
+      throw Error(
+        `TalonJsEditor.setSelections only supports one selection. Found: ${selections.length}`,
+      );
+    }
+    const selection = selections[0];
+    const anchor = this.document.offsetAt(selection.anchor);
+    const active = this.document.offsetAt(selection.active);
+    actions.user.cursorless_js_set_selection({ anchor, active });
+    return Promise.resolve();
   }
 
   revealRange(range: Range): Promise<void> {
