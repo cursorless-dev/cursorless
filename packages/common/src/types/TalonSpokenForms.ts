@@ -42,3 +42,10 @@ export class NeedsInitialTalonUpdateError extends Error {
     this.name = "NeedsInitialTalonUpdateError";
   }
 }
+
+export class DisabledSpokenFormsError extends Error {
+  constructor() {
+    super("Spoken forms are disabled");
+    this.name = "DisabledSpokenFormsError";
+  }
+}
