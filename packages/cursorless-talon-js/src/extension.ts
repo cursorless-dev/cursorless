@@ -3,7 +3,7 @@ import {
   createCursorlessEngine,
   type CommandApi,
 } from "@cursorless/cursorless-engine";
-import { Context } from "talon";
+import { Context, actions } from "talon";
 import { TalonJsIDE } from "./ide/TalonJsIDE";
 
 const ctx = new Context();
@@ -45,7 +45,8 @@ async function runCommand(
       throw Error(`Unknown command ID: ${commandId}`);
     }
 
-    ide.updateTextEditor();
+    const documentState = actions.user.cursorless_js_get_document_state();
+    ide.updateTextEditors(documentState);
 
     return await commandApi.runCommandSafe(command);
   } catch (error) {

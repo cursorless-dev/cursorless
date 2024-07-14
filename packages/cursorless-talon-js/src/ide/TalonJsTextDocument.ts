@@ -17,11 +17,11 @@ export class TalonJsTextDocument implements TextDocument {
   constructor(
     public readonly uri: URI,
     public readonly languageId: string,
-    private content: string,
+    private text: string,
   ) {
     this.version = 0;
-    this.eol = content.includes("\r\n") ? "CRLF" : "LF";
-    this.lines = createLines(content);
+    this.eol = text.includes("\r\n") ? "CRLF" : "LF";
+    this.lines = createLines(text);
   }
 
   filename: string = "untitled";
@@ -33,6 +33,12 @@ export class TalonJsTextDocument implements TextDocument {
   get range(): Range {
     const { end } = this.lines[this.lines.length - 1].range;
     return new Range(0, 0, end.line, end.character);
+  }
+
+  setTextInternal(text: string): void {
+    this.text = text;
+    this.version++;
+    this.lines = createLines(text);
   }
 
   lineAt(lineOrPosition: number | Position): TextLine {
@@ -67,11 +73,11 @@ export class TalonJsTextDocument implements TextDocument {
 
   getText(range?: Range): string {
     if (range == null) {
-      return this.content;
+      return this.text;
     }
     const startOffset = this.offsetAt(range.start);
     const endOffset = this.offsetAt(range.end);
-    return this.content.slice(startOffset, endOffset);
+    return this.text.slice(startOffset, endOffset);
   }
 }
 

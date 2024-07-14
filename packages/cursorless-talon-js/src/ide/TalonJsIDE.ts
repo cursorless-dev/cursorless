@@ -1,4 +1,4 @@
-import type {
+import {
   Capabilities,
   Clipboard,
   Configuration,
@@ -8,7 +8,9 @@ import type {
   GeneralizedRange,
   IDE,
   InputBoxOptions,
+  Listener,
   Messages,
+  Notifier,
   OpenUntitledTextDocumentOptions,
   QuickPickOptions,
   RunMode,
@@ -21,14 +23,14 @@ import type {
   WorkspaceFolder,
 } from "@cursorless/common";
 import { pull } from "lodash-es";
-import { actions } from "talon";
+import type { DocumentState } from "../types/types";
 import { TalonJsCapabilities } from "./TalonJsCapabilities";
 import { TalonJsClipboard } from "./TalonJsClipboard";
 import { TalonJsConfiguration } from "./TalonJsConfiguration";
+import { TalonJsEditor } from "./TalonJsEditor";
 import { TalonJsMessages } from "./TalonJsMessages";
 import { TalonJsState } from "./TalonJsState";
 import { createTextEditor } from "./createTextEditor";
-import { TalonJsEditor } from "./TalonJsEditor";
 
 export class TalonJsIDE implements IDE {
   configuration: Configuration;
@@ -38,6 +40,9 @@ export class TalonJsIDE implements IDE {
   capabilities: Capabilities;
   private disposables: Disposable[] = [];
   private editors: EditableTextEditor[] = [];
+
+  private onDidChangeTextDocumentNotifier: Notifier<[TextDocumentChangeEvent]> =
+    new Notifier();
 
   constructor() {
     this.configuration = new TalonJsConfiguration();
@@ -82,10 +87,8 @@ export class TalonJsIDE implements IDE {
     throw Error(`Unsupported text editor type: ${editor}`);
   }
 
-  updateTextEditor() {
-    const documentState = actions.user.cursorless_js_get_document_state();
-    const editor = createTextEditor(documentState);
-    this.editors = [editor];
+  updateTextEditors(documentState: DocumentState) {
+    this.editors = [createTextEditor(this, documentState)];
   }
 
   findInDocument(
@@ -139,9 +142,13 @@ export class TalonJsIDE implements IDE {
   }
 
   onDidChangeTextDocument(
-    _listener: (event: TextDocumentChangeEvent) => void,
+    listener: Listener<[TextDocumentChangeEvent]>,
   ): Disposable {
-    return { dispose: () => {} };
+    return this.onDidChangeTextDocumentNotifier.registerListener(listener);
+  }
+
+  emitDidChangeTextDocument(event: TextDocumentChangeEvent) {
+    this.onDidChangeTextDocumentNotifier.notifyListeners(event);
   }
 
   onDidOpenTextDocument(

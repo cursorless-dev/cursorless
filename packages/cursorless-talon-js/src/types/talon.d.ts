@@ -24,6 +24,7 @@ interface Actions {
     ): Promise<unknown>;
     cursorless_js_get_document_state(): DocumentState;
     cursorless_js_set_selection(selection: OffsetSelection): void;
+    cursorless_js_set_text(text: string): void;
   };
 }
 

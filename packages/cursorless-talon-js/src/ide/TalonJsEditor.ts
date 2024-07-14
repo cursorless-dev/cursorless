@@ -11,7 +11,12 @@ import type {
   TextEditorOptions,
 } from "@cursorless/common";
 import { actions } from "talon";
+import type { OffsetSelection } from "../types/types";
+import type { TalonJsIDE } from "./TalonJsIDE";
 import type { TalonJsTextDocument } from "./TalonJsTextDocument";
+import { createSelection } from "./createTextEditor";
+import { performEdits } from "./performEdits";
+import { setSelections } from "./setSelections";
 
 export class TalonJsEditor implements EditableTextEditor {
   options: TextEditorOptions = {
@@ -22,6 +27,7 @@ export class TalonJsEditor implements EditableTextEditor {
   isActive = true;
 
   constructor(
+    private ide: TalonJsIDE,
     public id: string,
     public document: TalonJsTextDocument,
     public visibleRanges: Range[],
@@ -36,20 +42,15 @@ export class TalonJsEditor implements EditableTextEditor {
     selections: Selection[],
     _opts?: SetSelectionsOpts | undefined,
   ): Promise<void> {
-    if (selections.length !== 1) {
-      throw Error(
-        `TalonJsEditor.setSelections only supports one selection. Found: ${selections.length}`,
-      );
-    }
-    const selection = selections[0];
-    const anchor = this.document.offsetAt(selection.anchor);
-    const active = this.document.offsetAt(selection.active);
-    actions.user.cursorless_js_set_selection({ anchor, active });
-    return Promise.resolve();
+    return setSelections(this.document, selections);
   }
 
-  edit(_edits: Edit[]): Promise<boolean> {
-    throw new Error("edit not implemented.");
+  setSelectionInternal(selection: OffsetSelection): void {
+    this.selections = [createSelection(this.document, selection)];
+  }
+
+  edit(edits: Edit[]): Promise<boolean> {
+    return performEdits(this.ide, this, edits);
   }
 
   insertLineAfter(_ranges?: Range[] | undefined): Promise<void> {

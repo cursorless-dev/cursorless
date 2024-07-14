@@ -20,3 +20,7 @@ global.console = {
   error: print,
   warn: print,
 };
+
+global.setTimeout = (callback: () => void, _delay: number) => {
+  callback();
+};
