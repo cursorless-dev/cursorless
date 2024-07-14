@@ -9,7 +9,7 @@ import {
 } from "@cursorless/common";
 import { pull } from "lodash-es";
 
-import { CustomSpokenFormGeneratorImpl } from "../generateSpokenForm/CustomSpokenFormGeneratorImpl";
+import type { CustomSpokenFormGenerator } from "../api/CursorlessEngineApi";
 import { scopeTypeToString } from "./scopeTypeToString";
 
 /**
@@ -20,9 +20,7 @@ export class ScopeInfoProvider {
   private listeners: ScopeTypeInfoEventCallback[] = [];
   private scopeInfos!: ScopeTypeInfo[];
 
-  constructor(
-    private customSpokenFormGenerator: CustomSpokenFormGeneratorImpl,
-  ) {
+  constructor(private customSpokenFormGenerator: CustomSpokenFormGenerator) {
     this.disposable = customSpokenFormGenerator.onDidChangeCustomSpokenForms(
       () => this.onChange(),
     );
