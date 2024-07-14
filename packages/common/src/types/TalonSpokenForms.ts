@@ -42,3 +42,10 @@ export class NeedsInitialTalonUpdateError extends Error {
     this.name = "NeedsInitialTalonUpdateError";
   }
 }
+
+export class DisabledCustomSpokenFormsError extends Error {
+  constructor() {
+    super("Custom spoken forms are not currently supported in this ide");
+    this.name = "DisabledCustomSpokenFormsError";
+  }
+}
