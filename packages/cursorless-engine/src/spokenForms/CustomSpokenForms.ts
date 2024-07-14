@@ -1,5 +1,6 @@
 import {
   CustomRegexScopeType,
+  DisabledCustomSpokenFormsError,
   Disposable,
   NeedsInitialTalonUpdateError,
   Notifier,
@@ -81,6 +82,8 @@ export class CustomSpokenForms {
       if (err instanceof NeedsInitialTalonUpdateError) {
         // Handle case where spokenForms.json doesn't exist yet
         this.needsInitialTalonUpdate_ = true;
+      } else if (err instanceof DisabledCustomSpokenFormsError) {
+        // Do nothing: this ide doesn't currently support custom spoken forms
       } else {
         console.error("Error loading custom spoken forms", err);
         const msg = (err as Error).message.replace(/\.$/, "");
