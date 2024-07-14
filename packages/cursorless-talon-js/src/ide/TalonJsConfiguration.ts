@@ -30,13 +30,8 @@ const CONFIGURATION_DEFAULTS: CursorlessConfiguration = {
 export class TalonJsConfiguration implements Configuration {
   getOwnConfiguration<Path extends Paths<CursorlessConfiguration>>(
     path: Path,
-    scope?: ConfigurationScope | undefined,
+    _scope?: ConfigurationScope | undefined,
   ): GetFieldType<CursorlessConfiguration, Path> {
-    if (scope != null) {
-      throw new Error(
-        "getOwnConfiguration doesn't support configuration scope parameter",
-      );
-    }
     return get(CONFIGURATION_DEFAULTS, path) as GetFieldType<
       CursorlessConfiguration,
       Path

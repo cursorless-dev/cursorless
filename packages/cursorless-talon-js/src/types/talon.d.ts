@@ -3,12 +3,15 @@ import type { DocumentState, OffsetSelection } from "./types";
 type Namespace = "user";
 
 interface Actions {
+  app: {
+    notify(body: string, title: string): void;
+  };
   clip: {
     set_text(text: string): void;
     text(): string;
   };
-  app: {
-    notify(body: string, title: string): void;
+  edit: {
+    line_insert_down(): void;
   };
   user: {
     private_cursorless_run_rpc_command_no_wait(

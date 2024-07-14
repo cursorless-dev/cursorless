@@ -48,105 +48,112 @@ export class TalonJsEditor implements EditableTextEditor {
     return Promise.resolve();
   }
 
-  revealRange(range: Range): Promise<void> {
-    throw new Error("revealRange not implemented.");
+  edit(_edits: Edit[]): Promise<boolean> {
+    throw new Error("edit not implemented.");
   }
 
-  revealLine(lineNumber: number, at: RevealLineAt): Promise<void> {
-    throw new Error("revealLine not implemented.");
+  insertLineAfter(_ranges?: Range[] | undefined): Promise<void> {
+    actions.edit.line_insert_down();
+    return Promise.resolve();
   }
 
   focus(): Promise<void> {
     throw new Error("focus not implemented.");
   }
 
-  edit(edits: Edit[]): Promise<boolean> {
-    throw new Error("edit not implemented.");
+  revealRange(_range: Range): Promise<void> {
+    throw new Error("revealRange not implemented.");
   }
 
-  editNewNotebookCellAbove(): Promise<(selection: Selection) => Selection> {
+  revealLine(_lineNumber: number, _at: RevealLineAt): Promise<void> {
+    throw new Error("revealLine not implemented.");
+  }
+
+  openLink(
+    _range: Range,
+    _options?: OpenLinkOptions | undefined,
+  ): Promise<void> {
+    throw new Error("openLink not implemented.");
+  }
+
+  fold(_ranges?: Range[] | undefined): Promise<void> {
+    throw new Error("fold not implemented.");
+  }
+
+  unfold(_ranges?: Range[] | undefined): Promise<void> {
+    throw new Error("unfold not implemented.");
+  }
+
+  clipboardCopy(_ranges?: Range[] | undefined): Promise<void> {
+    throw new Error("clipboardCopy not implemented.");
+  }
+
+  clipboardPaste(_ranges?: Range[] | undefined): Promise<void> {
+    throw new Error("clipboardPaste not implemented.");
+  }
+
+  toggleBreakpoint(
+    _descriptors?: BreakpointDescriptor[] | undefined,
+  ): Promise<void> {
+    throw new Error("toggleBreakpoint not implemented.");
+  }
+
+  toggleLineComment(_ranges?: Range[] | undefined): Promise<void> {
+    throw new Error("toggleLineComment not implemented.");
+  }
+
+  indentLine(_ranges?: Range[] | undefined): Promise<void> {
+    throw new Error("indentLine not implemented.");
+  }
+
+  outdentLine(_ranges?: Range[] | undefined): Promise<void> {
+    throw new Error("outdentLine not implemented.");
+  }
+
+  insertSnippet(
+    _snippet: string,
+    _ranges?: Range[] | undefined,
+  ): Promise<void> {
+    throw new Error("insertSnippet not implemented.");
+  }
+
+  rename(_range?: Range | undefined): Promise<void> {
+    throw new Error("rename not implemented.");
+  }
+
+  showReferences(_range?: Range | undefined): Promise<void> {
+    throw new Error("showReferences not implemented.");
+  }
+
+  quickFix(_range?: Range | undefined): Promise<void> {
+    throw new Error("quickFix not implemented.");
+  }
+
+  revealDefinition(_range?: Range | undefined): Promise<void> {
+    throw new Error("revealDefinition not implemented.");
+  }
+
+  revealTypeDefinition(_range?: Range | undefined): Promise<void> {
+    throw new Error("revealTypeDefinition not implemented.");
+  }
+
+  showHover(_range?: Range | undefined): Promise<void> {
+    throw new Error("showHover not implemented.");
+  }
+
+  showDebugHover(_range?: Range | undefined): Promise<void> {
+    throw new Error("showDebugHover not implemented.");
+  }
+
+  extractVariable(_range?: Range | undefined): Promise<void> {
+    throw new Error("extractVariable not implemented.");
+  }
+
+  editNewNotebookCellAbove(): Promise<(_selection: Selection) => Selection> {
     throw new Error("editNewNotebookCellAbove not implemented.");
   }
 
   editNewNotebookCellBelow(): Promise<void> {
     throw new Error("editNewNotebookCellBelow not implemented.");
-  }
-
-  openLink(range: Range, options?: OpenLinkOptions | undefined): Promise<void> {
-    throw new Error("openLink not implemented.");
-  }
-
-  fold(ranges?: Range[] | undefined): Promise<void> {
-    throw new Error("fold not implemented.");
-  }
-
-  unfold(ranges?: Range[] | undefined): Promise<void> {
-    throw new Error("unfold not implemented.");
-  }
-
-  clipboardCopy(ranges?: Range[] | undefined): Promise<void> {
-    throw new Error("clipboardCopy not implemented.");
-  }
-
-  clipboardPaste(ranges?: Range[] | undefined): Promise<void> {
-    throw new Error("clipboardPaste not implemented.");
-  }
-
-  toggleBreakpoint(
-    descriptors?: BreakpointDescriptor[] | undefined,
-  ): Promise<void> {
-    throw new Error("toggleBreakpoint not implemented.");
-  }
-
-  toggleLineComment(ranges?: Range[] | undefined): Promise<void> {
-    throw new Error("toggleLineComment not implemented.");
-  }
-
-  indentLine(ranges?: Range[] | undefined): Promise<void> {
-    throw new Error("indentLine not implemented.");
-  }
-
-  outdentLine(ranges?: Range[] | undefined): Promise<void> {
-    throw new Error("outdentLine not implemented.");
-  }
-
-  insertLineAfter(ranges?: Range[] | undefined): Promise<void> {
-    throw new Error("insertLineAfter not implemented.");
-  }
-
-  insertSnippet(snippet: string, ranges?: Range[] | undefined): Promise<void> {
-    throw new Error("insertSnippet not implemented.");
-  }
-
-  rename(range?: Range | undefined): Promise<void> {
-    throw new Error("rename not implemented.");
-  }
-
-  showReferences(range?: Range | undefined): Promise<void> {
-    throw new Error("showReferences not implemented.");
-  }
-
-  quickFix(range?: Range | undefined): Promise<void> {
-    throw new Error("quickFix not implemented.");
-  }
-
-  revealDefinition(range?: Range | undefined): Promise<void> {
-    throw new Error("revealDefinition not implemented.");
-  }
-
-  revealTypeDefinition(range?: Range | undefined): Promise<void> {
-    throw new Error("revealTypeDefinition not implemented.");
-  }
-
-  showHover(range?: Range | undefined): Promise<void> {
-    throw new Error("showHover not implemented.");
-  }
-
-  showDebugHover(range?: Range | undefined): Promise<void> {
-    throw new Error("showDebugHover not implemented.");
-  }
-
-  extractVariable(range?: Range | undefined): Promise<void> {
-    throw new Error("extractVariable not implemented.");
   }
 }

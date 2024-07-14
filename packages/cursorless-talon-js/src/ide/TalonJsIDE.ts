@@ -127,7 +127,7 @@ export class TalonJsIDE implements IDE {
   }
 
   flashRanges(_flashDescriptors: FlashDescriptor[]): Promise<void> {
-    throw new Error("flashRanges not implemented.");
+    return Promise.resolve();
   }
 
   setHighlightRanges(

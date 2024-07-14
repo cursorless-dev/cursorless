@@ -26,13 +26,7 @@ ctx.action_class("user", {
     commandId: string,
     command: unknown,
   ): Promise<unknown> {
-    print("private_cursorless_run_rpc_command_get pre");
-
-    const res = await runCommand(commandId, command);
-
-    print("private_cursorless_run_rpc_command_get post");
-
-    return res;
+    return await runCommand(commandId, command);
   },
 });
 
@@ -40,21 +34,19 @@ async function runCommand(
   commandId: string,
   command: unknown,
 ): Promise<unknown> {
-  if (ide == null) {
-    throw Error("ide is not initialized.");
-  }
-  if (commandApi == null) {
-    throw Error("commandApi is not initialized.");
-  }
-  if (commandId !== "cursorless.command") {
-    throw Error(`Unknown command ID: ${commandId}`);
-  }
-
-  //   print(JSON.stringify(command, null, 2));
-
-  ide.updateTextEditor();
-
   try {
+    if (ide == null) {
+      throw Error("ide is not initialized.");
+    }
+    if (commandApi == null) {
+      throw Error("commandApi is not initialized.");
+    }
+    if (commandId !== "cursorless.command") {
+      throw Error(`Unknown command ID: ${commandId}`);
+    }
+
+    ide.updateTextEditor();
+
     return await commandApi.runCommandSafe(command);
   } catch (error) {
     print(error);
@@ -74,8 +66,6 @@ async function activate(): Promise<void> {
   } catch (error) {
     print(error);
   }
-
-  print("talon.js activated");
 }
 
 void activate();
