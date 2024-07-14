@@ -45,7 +45,7 @@ export class NeedsInitialTalonUpdateError extends Error {
 
 export class `DisabledCustomSpokenFormsError` extends Error {
   constructor() {
-    super("Spoken forms are disabled");
+    super("Custom spoken forms are not currently supported in this ide");
     this.name = "DisabledSpokenFormsError";
   }
 }
