@@ -38,7 +38,7 @@ export class TalonJsEditor implements EditableTextEditor {
 
   async setSelections(
     selections: Selection[],
-    _opts?: SetSelectionsOpts | undefined,
+    _opts?: SetSelectionsOpts,
   ): Promise<void> {
     await setSelections(this.document, selections);
     this.selections = selections;
@@ -48,9 +48,8 @@ export class TalonJsEditor implements EditableTextEditor {
     return performEdits(this.ide, this, edits);
   }
 
-  insertLineAfter(_ranges?: Range[] | undefined): Promise<void> {
-    actions.edit.line_insert_down();
-    return Promise.resolve();
+  insertLineAfter(_ranges?: Range[]): Promise<void> {
+    throw Error("insertLineAfter not implemented.");
   }
 
   focus(): Promise<void> {
