@@ -84,7 +84,7 @@ export class CustomSpokenForms {
         this.needsInitialTalonUpdate_ = true;
       }
       if (err instanceof DisabledSpokenFormsError) {
-        // Handle case where spoken forms are disabled
+        // Handle case where custom spoken forms are disabled
       } else {
         console.error("Error loading custom spoken forms", err);
         const msg = (err as Error).message.replace(/\.$/, "");
