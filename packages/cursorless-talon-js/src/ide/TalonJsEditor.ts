@@ -11,10 +11,8 @@ import type {
   TextEditorOptions,
 } from "@cursorless/common";
 import { actions } from "talon";
-import type { OffsetSelection } from "../types/types";
 import type { TalonJsIDE } from "./TalonJsIDE";
 import type { TalonJsTextDocument } from "./TalonJsTextDocument";
-import { createSelection } from "./createTextEditor";
 import { performEdits } from "./performEdits";
 import { setSelections } from "./setSelections";
 
@@ -38,15 +36,12 @@ export class TalonJsEditor implements EditableTextEditor {
     return this.id === other.id;
   }
 
-  setSelections(
+  async setSelections(
     selections: Selection[],
     _opts?: SetSelectionsOpts | undefined,
   ): Promise<void> {
-    return setSelections(this.document, selections);
-  }
-
-  setSelectionInternal(selection: OffsetSelection): void {
-    this.selections = [createSelection(this.document, selection)];
+    await setSelections(this.document, selections);
+    this.selections = selections;
   }
 
   edit(edits: Edit[]): Promise<boolean> {

@@ -52,8 +52,6 @@ export async function performEdits(
 
   document.setTextInternal(result);
 
-  //   editor.updateInternal({ text: result, selection: editor.selections[0] });
-
   actions.user.cursorless_js_set_text(result);
 
   return true;
