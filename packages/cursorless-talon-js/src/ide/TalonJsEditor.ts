@@ -10,7 +10,6 @@ import type {
   TextEditor,
   TextEditorOptions,
 } from "@cursorless/common";
-import { actions } from "talon";
 import type { TalonJsIDE } from "./TalonJsIDE";
 import type { TalonJsTextDocument } from "./TalonJsTextDocument";
 import { performEdits } from "./performEdits";
