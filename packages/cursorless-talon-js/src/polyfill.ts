@@ -14,3 +14,9 @@ class Collator {
 }
 
 global.Intl = { Collator };
+
+global.console = {
+  log: print,
+  error: print,
+  warn: print,
+};

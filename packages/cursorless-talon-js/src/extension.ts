@@ -22,15 +22,24 @@ ctx.action_class("user", {
     void runCommand(commandId, command);
   },
 
-  private_cursorless_run_rpc_command_get(
+  async private_cursorless_run_rpc_command_get(
     commandId: string,
     command: unknown,
   ): Promise<unknown> {
-    return runCommand(commandId, command);
+    print("private_cursorless_run_rpc_command_get pre");
+
+    const res = await runCommand(commandId, command);
+
+    print("private_cursorless_run_rpc_command_get post");
+
+    return res;
   },
 });
 
-function runCommand(commandId: string, command: unknown): Promise<unknown> {
+async function runCommand(
+  commandId: string,
+  command: unknown,
+): Promise<unknown> {
   if (ide == null) {
     throw Error("ide is not initialized.");
   }
@@ -41,12 +50,12 @@ function runCommand(commandId: string, command: unknown): Promise<unknown> {
     throw Error(`Unknown command ID: ${commandId}`);
   }
 
-  print(JSON.stringify(command, null, 2));
+  //   print(JSON.stringify(command, null, 2));
 
   ide.updateTextEditor();
 
   try {
-    return commandApi.runCommandSafe(command);
+    return await commandApi.runCommandSafe(command);
   } catch (error) {
     print(error);
     throw error;
