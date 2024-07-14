@@ -31,21 +31,26 @@ ctx.action_class("user", {
 });
 
 function runCommand(commandId: string, command: unknown): Promise<unknown> {
-  if (commandId !== "cursorless.command") {
-    throw Error(`Unknown command ID: ${commandId}`);
+  if (ide == null) {
+    throw Error("ide is not initialized.");
   }
   if (commandApi == null) {
     throw Error("commandApi is not initialized.");
   }
-  if (ide == null) {
-    throw Error("ide is not initialized.");
+  if (commandId !== "cursorless.command") {
+    throw Error(`Unknown command ID: ${commandId}`);
   }
 
   print(JSON.stringify(command, null, 2));
 
   ide.updateTextEditor();
 
-  return commandApi.runCommandSafe(command);
+  try {
+    return commandApi.runCommandSafe(command);
+  } catch (error) {
+    print(error);
+    throw error;
+  }
 }
 
 async function activate(): Promise<void> {
