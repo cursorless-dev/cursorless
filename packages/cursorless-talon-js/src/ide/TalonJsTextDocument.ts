@@ -12,16 +12,19 @@ import type { URI } from "vscode-uri";
 export class TalonJsTextDocument implements TextDocument {
   version: number;
   eol: EndOfLine;
+  text: string;
   private lines: TextLine[];
 
   constructor(
     public readonly uri: URI,
     public readonly languageId: string,
-    private text: string,
+    text: string,
   ) {
-    this.version = 0;
-    this.eol = text.includes("\r\n") ? "CRLF" : "LF";
-    this.lines = createLines(text);
+    this.text = "";
+    this.eol = "LF";
+    this.lines = [];
+    this.version = -1;
+    this.setTextInternal(text);
   }
 
   filename: string = "untitled";
@@ -37,6 +40,7 @@ export class TalonJsTextDocument implements TextDocument {
 
   setTextInternal(text: string): void {
     this.text = text;
+    this.eol = text.includes("\r\n") ? "CRLF" : "LF";
     this.version++;
     this.lines = createLines(text);
   }
