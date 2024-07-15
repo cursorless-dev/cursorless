@@ -19,19 +19,8 @@ export async function runInsertLineAfterTargets(
   rangeUpdater: RangeUpdater,
   editor: EditableTextEditor,
   state: State,
+  destinations: EditDestination[],
 ): Promise<State> {
-  const destinations: EditDestination[] = state.destinations
-    .map((destination, index) => {
-      const actionType = destination.getEditNewActionType();
-      if (actionType === "insertLineAfter") {
-        return {
-          destination,
-          index,
-        };
-      }
-    })
-    .filter((destination): destination is EditDestination => !!destination);
-
   if (destinations.length === 0) {
     return state;
   }

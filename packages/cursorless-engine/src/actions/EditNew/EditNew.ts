@@ -1,3 +1,4 @@
+import { partition } from "lodash-es";
 import { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
 import { ide } from "../../singletons/ide.singleton";
 import { Destination } from "../../typings/target.types";
@@ -43,12 +44,38 @@ export class EditNew {
       ) as undefined[],
     };
 
-    state = await runInsertLineAfterTargets(
+    const allIndexedDestinations = state.destinations.map(
+      (destination, index) => ({
+        destination,
+        index,
+      }),
+    );
+
+    let editDestinations = allIndexedDestinations;
+
+    if (ide().capabilities.commands.insertLineAfter) {
+      const partitionedDestinations = partition(
+        allIndexedDestinations,
+        ({ destination }) =>
+          destination.getEditNewActionType() === "insertLineAfter",
+      );
+
+      state = await runInsertLineAfterTargets(
+        this.rangeUpdater,
+        editableEditor,
+        state,
+        partitionedDestinations[0],
+      );
+
+      editDestinations = partitionedDestinations[1];
+    }
+
+    state = await runEditTargets(
       this.rangeUpdater,
       editableEditor,
       state,
+      editDestinations,
     );
-    state = await runEditTargets(this.rangeUpdater, editableEditor, state);
 
     const newSelections = state.destinations.map((destination, index) =>
       state.cursorRanges[index]!.toSelection(destination.target.isReversed),
