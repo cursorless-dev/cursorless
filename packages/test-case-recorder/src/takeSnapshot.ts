@@ -2,16 +2,16 @@ import {
   ExcludableSnapshotField,
   ExtraContext,
   ExtraSnapshotField,
-  hrtimeBigintToSeconds,
   IDE,
   rangeToPlainObject,
   selectionToPlainObject,
   SerializedMarks,
+  storedTargetKeys,
   TestCaseSnapshot,
   TextEditor,
 } from "@cursorless/common";
-import { type StoredTargetMap } from "../core/StoredTargets";
-import { storedTargetKeys } from "@cursorless/common";
+import type { StoredTargetMap } from "@cursorless/cursorless-engine";
+import { hrtimeBigintToSeconds } from "./timeUtils";
 
 export async function takeSnapshot(
   storedTargets: StoredTargetMap | undefined,
