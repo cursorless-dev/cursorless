@@ -9,7 +9,6 @@ export { HatStability } from "./ide/types/HatStability";
 export * from "./util";
 export * from "./ide/util/messages";
 export { getKey, splitKey } from "./util/splitKey";
-export { hrtimeBigintToSeconds } from "./util/timeUtils";
 export * from "./util/disposableFrom";
 export * from "./util/camelCaseToAllDown";
 export { Notifier } from "./util/Notifier";

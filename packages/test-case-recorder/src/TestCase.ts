@@ -24,10 +24,10 @@ import {
 import {
   extractTargetKeys,
   getPartialTargetDescriptors,
-  takeSnapshot,
   type StoredTargetMap,
 } from "@cursorless/cursorless-engine";
 import { pick } from "lodash-es";
+import { takeSnapshot } from "./takeSnapshot";
 
 export class TestCase {
   private languageId: string;
