@@ -2,7 +2,7 @@ import {
   BreakpointDescriptor,
   Edit,
   EditableTextEditor,
-  Position,
+  OpenLinkOptions,
   Range,
   RevealLineAt,
   Selection,
@@ -117,7 +117,7 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
     throw Error("editNewNotebookCellBelow Not implemented");
   }
 
-  public openLink(location?: Position | Range): Promise<boolean> {
+  public openLink(_range: Range, _options?: OpenLinkOptions): Promise<void> {
     throw Error("openLink Not implemented");
   }
 

@@ -31,7 +31,9 @@
     "@cursorless/common": "workspace:*",
     "@cursorless/cursorless-engine": "workspace:*",
     "@cursorless/neovim-common": "workspace:*",
-    "@cursorless/neovim-registry": "workspace:*"
+    "@cursorless/neovim-registry": "workspace:*",
+    "@cursorless/node-common": "workspace:*",
+    "@cursorless/test-case-recorder": "workspace:*"
   },
   "devDependencies": {
     "@types/chai": "^4.3.14",

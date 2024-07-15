@@ -14,7 +14,4 @@ export interface NeovimTestHelpers extends TestHelpers {
   scopeProvider: ScopeProvider;
 
   runIntegrationTests(): Promise<void>;
-
-  cursorlessTalonStateJsonPath: string;
-  cursorlessCommandHistoryDirPath: string;
 }

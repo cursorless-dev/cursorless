@@ -336,6 +336,12 @@ importers:
       '@cursorless/neovim-registry':
         specifier: workspace:*
         version: link:../neovim-registry
+      '@cursorless/node-common':
+        specifier: workspace:*
+        version: link:../node-common
+      '@cursorless/test-case-recorder':
+        specifier: workspace:*
+        version: link:../test-case-recorder
     devDependencies:
       '@types/chai':
         specifier: ^4.3.14
@@ -370,6 +376,12 @@ importers:
       '@cursorless/neovim-registry':
         specifier: workspace:*
         version: link:../neovim-registry
+      '@cursorless/node-common':
+        specifier: workspace:*
+        version: link:../node-common
+      '@cursorless/test-case-recorder':
+        specifier: workspace:*
+        version: link:../test-case-recorder
     devDependencies:
       '@types/chai':
         specifier: ^4.3.14
