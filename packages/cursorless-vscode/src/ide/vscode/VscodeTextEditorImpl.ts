@@ -190,10 +190,8 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     await vscode.commands.executeCommand("editor.action.outdentLines");
   }
 
-  public async insertLineAfter(ranges?: Range[]): Promise<void> {
-    if (ranges != null) {
-      await this.setSelections(ranges.map((range) => range.toSelection(false)));
-    }
+  public async insertLineAfter(ranges: Range[]): Promise<void> {
+    await this.setSelections(ranges.map((range) => range.toSelection(false)));
     await this.focus();
     await vscode.commands.executeCommand("editor.action.insertLineAfter");
   }

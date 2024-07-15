@@ -4,6 +4,7 @@ import {
   Selection,
   TextEditor,
 } from "@cursorless/common";
+import { ide } from "../../singletons/ide.singleton";
 import { EditWithRangeUpdater } from "../../typings/Types";
 import {
   Destination,
@@ -73,7 +74,8 @@ export class DestinationImpl implements Destination {
       this.insertionMode === "after" &&
       this.target.contentRange.isSingleLine &&
       this.insertionDelimiter === "\n" &&
-      this.insertionPrefix == null
+      this.insertionPrefix == null &&
+      ide().capabilities.commands.insertLineAfter != null
     ) {
       // If the target that we're wrapping is not a single line, then we
       // want to compute indentation based on the entire target.  Otherwise,
