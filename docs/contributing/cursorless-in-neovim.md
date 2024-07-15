@@ -24,12 +24,11 @@ On Windows, open the Control Panel, navigate to `User Accounts > User Accounts`.
 
 This step is only required on Windows if you don't run VSCode with Administrator privileges.
 
-Open a `cmd.exe` with Administrator privileges and create the symbolic links between the source folders and the built folder:
+Open a `cmd.exe` with Administrator privileges and create the symbolic links between the source folders and the `cursorless.nvim` destination folder:
 
 ```bat
-mkdir C:\path\to\cursorless\dist\cursorless.nvim\node
-mklink /D C:\path\to\cursorless\dist\cursorless.nvim\node\cursorless-neovim C:\path\to\cursorless\packages\cursorless-neovim
-mklink /D C:\path\to\cursorless\dist\cursorless.nvim\node\test-harness C:\path\to\cursorless\packages\test-harness
+mklink /D C:\path\to\cursorless\cursorless.nvim\node\cursorless-neovim C:\path\to\cursorless\packages\cursorless-neovim
+mklink /D C:\path\to\cursorless\cursorless.nvim\node\test-harness C:\path\to\cursorless\packages\test-harness
 ```
 
 Note that the `C:\path\to\cursorless` path above should match your cloned cursorless repository.

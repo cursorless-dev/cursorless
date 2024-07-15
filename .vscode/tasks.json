@@ -153,9 +153,14 @@
         "Neovim: ESBuild",
         "Neovim: Populate dist",
         "TSBuild",
-        "Build test harness",
-        "Neovim: Show logs"
+        "Build test harness"
       ],
+      "osx": {
+        "dependsOn": ["Neovim: Show logs"]
+      },
+      "linux": {
+        "dependsOn": ["Neovim: Show logs"]
+      },
       "group": "build"
     },
     {
@@ -190,8 +195,7 @@
       "windows": {
         "command": "powershell",
         "args": [
-          // -u does not work on Windows yet, so the system init.lua is used instead of the workspace one (see #2454)
-          "(New-Object -ComObject WScript.Shell).Run(\"\"\"nvim\"\"\", 1, $false)"
+          "(New-Object -ComObject WScript.Shell).Run(\"\"\"${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.bat\"\"\", 1, $false)"
         ]
       },
       "osx": {
