@@ -1,22 +1,22 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: chuck block air until bat
-  version: 2
+  action: {name: remove}
   targets:
-    - type: range
+    - active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      type: range
+      excludeAnchor: false
+      excludeActive: true
       anchor:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: a}
         modifiers:
           - type: containingScope
             scopeType: {type: paragraph}
-      active:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: b}
-      excludeAnchor: false
-      excludeActive: true
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: |
 

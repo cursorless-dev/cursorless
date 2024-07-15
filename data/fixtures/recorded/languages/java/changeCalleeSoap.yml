@@ -1,12 +1,15 @@
 languageId: java
 command:
-  version: 1
+  version: 5
   spokenForm: change callee sun
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionCallee}
       mark: {type: decoratedSymbol, symbolColor: default, character: s}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: someFunction();
   selections:

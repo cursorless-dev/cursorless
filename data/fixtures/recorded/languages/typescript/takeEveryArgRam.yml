@@ -1,12 +1,15 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: take every arg red
-  action: setSelection
+  action: {name: setSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
+      modifiers:
+        - type: everyScope
+          scopeType: {type: argumentOrParameter}
       mark: {type: decoratedSymbol, symbolColor: default, character: r}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: foo(bar(baz, bongo), bazman)
   selections:

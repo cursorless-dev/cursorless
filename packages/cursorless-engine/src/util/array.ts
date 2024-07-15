@@ -1,4 +1,4 @@
-import { range } from "lodash";
+import { range } from "lodash-es";
 
 /**
  * Creates a new array repeating the given array n times

@@ -1,11 +1,12 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: puff vest
-  action: insertEmptyLinesAround
+  action: {name: insertEmptyLinesAround}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

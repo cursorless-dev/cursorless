@@ -1,17 +1,20 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 5
   spokenForm: spaghetti wrap past gust
-  action: wrapWithSnippet
+  action:
+    name: wrapWithSnippet
+    args:
+      - {type: named, name: spaghetti, variableName: foo}
   targets:
-    - type: range
-      start: {type: primitive}
-      end:
+    - active:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: g}
-      excludeStart: false
-      excludeEnd: false
-  extraArgs: [spaghetti.foo]
+      type: range
+      excludeAnchor: false
+      excludeActive: false
+      anchor: {type: implicit}
+  usePrePhraseSnapshot: false
 spokenFormError: Named wrap with snippet 'spaghetti.foo'
 initialState:
   documentContents: grace hopper

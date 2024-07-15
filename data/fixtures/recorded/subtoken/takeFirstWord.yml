@@ -1,12 +1,16 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: take first sub
-  action: setSelection
+  action: {name: setSelection}
   targets:
     - type: primitive
-      selectionType: token
-      modifier: {type: subpiece, pieceType: word, anchor: 0, active: 0}
+      modifiers:
+        - type: ordinalScope
+          scopeType: {type: word}
+          start: 0
+          length: 1
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: ;helloThere;
   selections:

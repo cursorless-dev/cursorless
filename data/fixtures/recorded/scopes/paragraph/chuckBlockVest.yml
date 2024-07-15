@@ -1,12 +1,15 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 5
   spokenForm: chuck block vest
-  action: remove
+  action: {name: remove}
   targets:
     - type: primitive
-      selectionType: paragraph
+      modifiers:
+        - type: containingScope
+          scopeType: {type: paragraph}
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

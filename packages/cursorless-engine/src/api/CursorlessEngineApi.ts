@@ -7,7 +7,6 @@ import type {
   ScopeProvider,
 } from "@cursorless/common";
 import type { CommandRunner } from "../CommandRunner";
-import type { Snippets } from "../core/Snippets";
 import type { StoredTargetMap } from "../core/StoredTargets";
 
 export interface CursorlessEngine {
@@ -16,7 +15,6 @@ export interface CursorlessEngine {
   customSpokenFormGenerator: CustomSpokenFormGenerator;
   storedTargets: StoredTargetMap;
   hatTokenMap: HatTokenMap;
-  snippets: Snippets;
   injectIde: (ide: IDE | undefined) => void;
   runIntegrationTests: () => Promise<void>;
   addCommandRunnerDecorator: (
@@ -46,6 +44,11 @@ export interface CommandApi {
    * the command args are of the correct shape.
    */
   runCommandSafe(...args: unknown[]): Promise<CommandResponse | unknown>;
+
+  /**
+   * Repeats the previous command.
+   */
+  repeatPreviousCommand(): Promise<CommandResponse | unknown>;
 }
 
 export interface CommandRunnerDecorator {

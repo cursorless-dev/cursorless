@@ -1,17 +1,20 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 5
   spokenForm: bring line harp and whale
-  action: replaceWithTarget
+  action: {name: replaceWithTarget}
   targets:
     - type: list
       elements:
         - type: primitive
-          selectionType: line
+          modifiers:
+            - type: containingScope
+              scopeType: {type: line}
           mark: {type: decoratedSymbol, symbolColor: default, character: h}
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: w}
-    - {type: primitive, isImplicit: true}
+    - {type: implicit}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |+
     hello

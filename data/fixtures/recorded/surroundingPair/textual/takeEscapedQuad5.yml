@@ -1,11 +1,14 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 5
   spokenForm: change escaped quad
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: escapedDoubleQuotes}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: escapedDoubleQuotes}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: \"hello\"
   selections:

@@ -1,20 +1,25 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 5
   spokenForm: chuck link made past link air
-  action: remove
+  action: {name: remove}
   targets:
-    - type: range
-      start:
+    - active:
         type: primitive
-        selectionType: url
-        mark: {type: decoratedSymbol, symbolColor: default, character: m}
-      end:
-        type: primitive
-        selectionType: url
+        modifiers:
+          - type: containingScope
+            scopeType: {type: url}
         mark: {type: decoratedSymbol, symbolColor: default, character: a}
-      excludeStart: false
-      excludeEnd: false
+      type: range
+      excludeAnchor: false
+      excludeActive: false
+      anchor:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: url}
+        mark: {type: decoratedSymbol, symbolColor: default, character: m}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: >
     https://www.atomiccommits.io/consistent-hashing

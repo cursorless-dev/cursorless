@@ -1,6 +1,5 @@
 import type {
   Edit,
-  Position,
   Range,
   RevealLineAt,
   Selection,
@@ -55,7 +54,12 @@ export interface TextEditor {
 
 export interface SetSelectionsOpts {
   focusEditor?: boolean;
+  revealRange?: boolean;
 }
+
+export type OpenLinkOptions = {
+  openAside: boolean;
+};
 
 export interface EditableTextEditor extends TextEditor {
   /**
@@ -121,9 +125,9 @@ export interface EditableTextEditor extends TextEditor {
   /**
    * Open link at location.
    * @param location Position or range
-   * @return True if a link was opened
+   * @param options Options for opening the link.
    */
-  openLink(location?: Position | Range): Promise<boolean>;
+  openLink(range: Range, options?: OpenLinkOptions): Promise<void>;
 
   /**
    * Fold ranges

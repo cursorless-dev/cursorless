@@ -1,12 +1,15 @@
 languageId: rust
 command:
-  version: 1
+  version: 5
   spokenForm: chuck funk name fine
-  action: remove
+  action: {name: remove}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: functionName, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionName}
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     fn main() {

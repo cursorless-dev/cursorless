@@ -11,6 +11,7 @@
       "type": "extensionHost",
       "request": "launch",
       "env": {
+        "CURSORLESS_MODE": "development",
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },
       "args": [
@@ -29,7 +30,7 @@
       "type": "extensionHost",
       "request": "launch",
       "env": {
-        "CURSORLESS_TEST": "true",
+        "CURSORLESS_MODE": "test",
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },
       "args": [
@@ -49,7 +50,7 @@
       "type": "extensionHost",
       "request": "launch",
       "env": {
-        "CURSORLESS_TEST": "true",
+        "CURSORLESS_MODE": "test",
         "CURSORLESS_RUN_TEST_SUBSET": "true",
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },
@@ -70,7 +71,7 @@
       "type": "extensionHost",
       "request": "launch",
       "env": {
-        "CURSORLESS_TEST": "true",
+        "CURSORLESS_MODE": "test",
         "CURSORLESS_TEST_UPDATE_FIXTURES": "true",
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },
@@ -91,7 +92,7 @@
       "type": "extensionHost",
       "request": "launch",
       "env": {
-        "CURSORLESS_TEST": "true",
+        "CURSORLESS_MODE": "test",
         "CURSORLESS_TEST_UPDATE_FIXTURES": "true",
         "CURSORLESS_RUN_TEST_SUBSET": "true",
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
@@ -134,7 +135,7 @@
       "request": "launch",
       "program": "${workspaceFolder}/packages/test-harness/dist/runTalonTests.cjs",
       "env": {
-        "CURSORLESS_TEST": "true",
+        "CURSORLESS_MODE": "test",
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
@@ -150,7 +151,7 @@
       "request": "launch",
       "program": "${workspaceFolder}/packages/test-harness/dist/runTalonTests.cjs",
       "env": {
-        "CURSORLESS_TEST": "true",
+        "CURSORLESS_MODE": "test",
         "CURSORLESS_RUN_TEST_SUBSET": "true",
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },
@@ -169,7 +170,7 @@
       "request": "launch",
       "program": "${workspaceFolder}/packages/test-harness/dist/runUnitTestsOnly.cjs",
       "env": {
-        "CURSORLESS_TEST": "true",
+        "CURSORLESS_MODE": "test",
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
@@ -185,7 +186,7 @@
       "request": "launch",
       "program": "${workspaceFolder}/packages/test-harness/dist/runUnitTestsOnly.cjs",
       "env": {
-        "CURSORLESS_TEST": "true",
+        "CURSORLESS_MODE": "test",
         "CURSORLESS_TEST_UPDATE_FIXTURES": "true",
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },

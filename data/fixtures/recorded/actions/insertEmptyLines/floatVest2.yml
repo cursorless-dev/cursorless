@@ -1,12 +1,12 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: float vest
-  version: 2
+  action: {name: insertEmptyLineAfter}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
   usePrePhraseSnapshot: true
-  action: {name: insertEmptyLineAfter}
 initialState:
   documentContents: |2
 

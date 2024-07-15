@@ -1,12 +1,11 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: bring whale before file
-  version: 2
   action: {name: replaceWithTarget}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
-      modifiers: []
     - type: primitive
       modifiers:
         - {type: position, position: before}

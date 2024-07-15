@@ -2,7 +2,7 @@ import { omitByDeep } from "@cursorless/common";
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import { readFile } from "fs/promises";
 import * as yaml from "js-yaml";
-import { isUndefined } from "lodash";
+import { isUndefined } from "lodash-es";
 import { join } from "path";
 import { PackageJson } from "type-fest";
 import { Context } from "./Context";

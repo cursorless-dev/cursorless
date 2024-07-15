@@ -1,11 +1,12 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 5
   spokenForm: clone vest
-  action: insertCopyAfter
+  action: {name: insertCopyAfter}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: "    const value = \"Hello world\";"
   selections:

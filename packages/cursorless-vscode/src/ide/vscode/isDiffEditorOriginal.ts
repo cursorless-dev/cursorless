@@ -1,4 +1,4 @@
-import { TextEditor, window } from "vscode";
+import { TabInputTextDiff, TextEditor, window } from "vscode";
 
 /**
  * @param editor The editor to check
@@ -10,6 +10,10 @@ export function isDiffEditorOriginal(editor: TextEditor): boolean {
   }
   const uri = editor.document.uri.toString();
   return window.tabGroups.all.some((tabGroup) =>
-    tabGroup.tabs.find((tab: any) => tab.input.original?.toString() === uri),
+    tabGroup.tabs.find(
+      (tab) =>
+        tab.input instanceof TabInputTextDiff &&
+        tab.input.original.toString() === uri,
+    ),
   );
 }

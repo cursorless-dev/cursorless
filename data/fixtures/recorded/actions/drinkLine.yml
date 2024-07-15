@@ -1,14 +1,14 @@
 languageId: python
 command:
+  version: 5
   spokenForm: drink line
-  version: 2
+  action: {name: editNewLineBefore}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: line}
   usePrePhraseSnapshot: true
-  action: {name: editNewLineBefore}
 initialState:
   documentContents: |
     class MyClass:

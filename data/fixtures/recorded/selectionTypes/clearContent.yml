@@ -1,13 +1,13 @@
 languageId: markdown
 command:
+  version: 5
   spokenForm: change content
-  version: 3
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - {type: keepContentFilter}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
 

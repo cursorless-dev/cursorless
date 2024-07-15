@@ -6,7 +6,7 @@ import {
   ScopeType,
   disposableFrom,
 } from "@cursorless/common";
-import { pull } from "lodash";
+import { pull } from "lodash-es";
 
 import { Debouncer } from "../core/Debouncer";
 import { LanguageDefinitions } from "../languages/LanguageDefinitions";

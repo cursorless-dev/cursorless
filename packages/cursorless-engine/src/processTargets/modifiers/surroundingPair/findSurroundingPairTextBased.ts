@@ -1,11 +1,13 @@
-import { Range, TextDocument, TextEditor } from "@cursorless/common";
-import { escapeRegExp, findLast, uniq } from "lodash";
-import { matchAll } from "../../../util/regex";
 import {
+  Range,
   SimpleSurroundingPairName,
   SurroundingPairName,
   SurroundingPairScopeType,
+  TextDocument,
+  TextEditor,
+  matchAll,
 } from "@cursorless/common";
+import { escapeRegExp, findLast, uniq } from "lodash-es";
 import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairCore } from "./findSurroundingPairCore";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";

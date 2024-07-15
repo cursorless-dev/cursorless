@@ -1,14 +1,15 @@
 languageId: typescript
 command:
+  version: 5
   spokenForm: funk wrap this
-  version: 2
+  action:
+    name: wrapWithSnippet
+    args:
+      - {type: named, name: functionDeclaration, variableName: body}
   targets:
     - type: primitive
       mark: {type: cursor}
   usePrePhraseSnapshot: true
-  action:
-    name: wrapWithSnippet
-    args: [functionDeclaration.body]
 initialState:
   documentContents: const whatever = "hello";
   selections:

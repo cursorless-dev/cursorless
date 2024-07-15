@@ -1,11 +1,14 @@
 languageId: css
 command:
-  version: 1
+  version: 5
   spokenForm: change item
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     a {

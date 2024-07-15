@@ -1,13 +1,17 @@
-import { Position, TextDocument, showError } from "@cursorless/common";
+import {
+  Position,
+  TextDocument,
+  showError,
+  type TreeSitter,
+} from "@cursorless/common";
 import { Point, Query } from "web-tree-sitter";
 import { ide } from "../../singletons/ide.singleton";
-import { TreeSitter } from "../../typings/TreeSitter";
+import { groupBy, uniq } from "lodash-es";
 import { getNodeRange } from "../../util/nodeSelectors";
 import { MutableQueryMatch, QueryCapture, QueryMatch } from "./QueryCapture";
+import { checkCaptureStartEnd } from "./checkCaptureStartEnd";
 import { parsePredicates } from "./parsePredicates";
 import { predicateToString } from "./predicateToString";
-import { groupBy, uniq } from "lodash";
-import { checkCaptureStartEnd } from "./checkCaptureStartEnd";
 import { rewriteStartOfEndOf } from "./rewriteStartOfEndOf";
 
 /**

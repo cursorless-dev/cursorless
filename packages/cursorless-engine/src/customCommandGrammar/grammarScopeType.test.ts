@@ -1,6 +1,6 @@
 import assert from "assert";
 import { ScopeType } from "@cursorless/common";
-import { parseScopeType } from "./parseScopeType";
+import { parseScopeType } from "./parseCommand";
 
 interface TestCase {
   input: string;

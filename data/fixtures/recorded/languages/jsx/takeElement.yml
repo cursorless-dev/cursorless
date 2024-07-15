@@ -1,11 +1,14 @@
 languageId: javascript
 command:
-  version: 1
+  version: 5
   spokenForm: take element
-  action: setSelection
+  action: {name: setSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: xmlElement}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: xmlElement}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

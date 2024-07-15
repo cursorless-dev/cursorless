@@ -1,23 +1,24 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 5
   spokenForm: bring air to end of bat slice fine
-  action: replaceWithTarget
+  action: {name: replaceWithTarget}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
-    - type: range
-      start:
-        type: primitive
-        position: after
-        insideOutsideType: inside
-        mark: {type: decoratedSymbol, symbolColor: default, character: b}
-      end:
+    - active:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: f}
-      excludeStart: false
-      excludeEnd: false
+      type: range
       rangeType: vertical
+      excludeAnchor: false
+      excludeActive: false
+      anchor:
+        type: primitive
+        modifiers:
+          - {type: position, position: end}
+        mark: {type: decoratedSymbol, symbolColor: default, character: b}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     a

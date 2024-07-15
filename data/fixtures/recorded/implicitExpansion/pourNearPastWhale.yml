@@ -1,19 +1,19 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: pour near past whale
-  version: 2
+  action: {name: editNewLineAfter}
   targets:
-    - type: range
+    - active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      type: range
+      excludeAnchor: false
+      excludeActive: false
       anchor:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: 'n'}
-      active:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: w}
-      excludeAnchor: false
-      excludeActive: false
   usePrePhraseSnapshot: true
-  action: {name: editNewLineAfter}
 initialState:
   documentContents: |
     hello now

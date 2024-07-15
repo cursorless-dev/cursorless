@@ -22,7 +22,7 @@ export class DocumentTarget extends BaseTarget<CommonTargetParameters> {
     return this.contentRange;
   }
 
-  getInteriorStrict() {
+  getInterior() {
     return [
       // Use plain target instead of interior target since we want the same content and removal range for a document interior.
       new PlainTarget({

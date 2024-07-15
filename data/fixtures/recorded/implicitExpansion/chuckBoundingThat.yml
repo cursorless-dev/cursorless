@@ -1,14 +1,14 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: chuck bounds that
-  version: 2
+  action: {name: remove}
   targets:
     - type: primitive
       modifiers:
         - {type: excludeInterior}
       mark: {type: that}
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: (hello )
   selections:

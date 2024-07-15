@@ -6,7 +6,7 @@ import {
   Selection,
   TextDocument,
 } from "@cursorless/common";
-import { flatten } from "lodash";
+import { flatten } from "lodash-es";
 import {
   FullSelectionInfo,
   SelectionInfo,

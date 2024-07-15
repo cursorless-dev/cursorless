@@ -1,12 +1,15 @@
 languageId: python
 command:
-  version: 1
+  version: 5
   spokenForm: take value zero
-  action: setSelection
+  action: {name: setSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
       mark: {type: decoratedSymbol, symbolColor: default, character: '0'}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     {

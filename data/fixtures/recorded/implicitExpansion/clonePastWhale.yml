@@ -1,17 +1,17 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: clone past whale
-  version: 2
+  action: {name: insertCopyAfter}
   targets:
-    - type: range
-      anchor: {type: primitive}
-      active:
+    - active:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      type: range
       excludeAnchor: false
       excludeActive: false
+      anchor: {type: implicit}
   usePrePhraseSnapshot: true
-  action: {name: insertCopyAfter}
 initialState:
   documentContents: |-
     hello

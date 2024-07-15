@@ -1,7 +1,8 @@
 languageId: html
 command:
+  version: 5
   spokenForm: chuck inside element
-  version: 2
+  action: {name: remove}
   targets:
     - type: primitive
       modifiers:
@@ -9,7 +10,6 @@ command:
         - type: containingScope
           scopeType: {type: xmlElement}
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: |-
     <div>

@@ -1,6 +1,6 @@
 languageId: rust
 command:
-  version: 3
+  version: 5
   spokenForm: change arg
   action: {name: clearAndSetSelection}
   targets:

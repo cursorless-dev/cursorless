@@ -1,15 +1,10 @@
 languageId: typescript
 command:
+  version: 5
   spokenForm: bring line bat past end of its funk to this
-  version: 3
+  action: {name: replaceWithTarget}
   targets:
     - type: range
-      anchor:
-        type: primitive
-        modifiers:
-          - type: containingScope
-            scopeType: {type: line}
-        mark: {type: decoratedSymbol, symbolColor: default, character: b}
       active:
         type: primitive
         modifiers:
@@ -19,10 +14,15 @@ command:
             scopeType: {type: namedFunction}
       excludeAnchor: false
       excludeActive: false
+      anchor:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: line}
+        mark: {type: decoratedSymbol, symbolColor: default, character: b}
     - type: primitive
       mark: {type: cursor}
   usePrePhraseSnapshot: true
-  action: {name: replaceWithTarget}
 initialState:
   documentContents: |-
     function foo() {

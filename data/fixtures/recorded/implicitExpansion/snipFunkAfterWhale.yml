@@ -1,16 +1,17 @@
 languageId: typescript
 command:
+  version: 5
   spokenForm: snippet funk after whale
-  version: 2
+  action:
+    name: insertSnippet
+    args:
+      - {type: named, name: functionDeclaration}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
       modifiers:
         - {type: position, position: after}
   usePrePhraseSnapshot: true
-  action:
-    name: insertSnippet
-    args: [functionDeclaration]
 initialState:
   documentContents: |+
     function myFunction() {

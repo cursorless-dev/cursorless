@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  version: 4
+  version: 5
   spokenForm: change this slice bat
   action: {name: clearAndSetSelection}
   targets:

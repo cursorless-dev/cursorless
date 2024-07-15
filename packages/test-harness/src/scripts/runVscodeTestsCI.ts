@@ -2,8 +2,8 @@
  * This file can be run from node to run vscode tests in CI
  */
 
-import { getCursorlessRepoRoot } from "@cursorless/common";
-import * as path from "path";
+import { getCursorlessRepoRoot } from "@cursorless/node-common";
+import * as path from "node:path";
 import { launchVscodeAndRunTests } from "../launchVscodeAndRunTests";
 
 (async () => {

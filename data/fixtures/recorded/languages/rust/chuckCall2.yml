@@ -1,11 +1,14 @@
 languageId: rust
 command:
-  version: 1
+  version: 5
   spokenForm: chuck call
-  action: remove
+  action: {name: remove}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: functionCall, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionCall}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: something(1)
   selections:

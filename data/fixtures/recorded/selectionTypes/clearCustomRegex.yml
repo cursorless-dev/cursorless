@@ -1,14 +1,14 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: change custom regex
-  version: 2
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: customRegex, regex: '[\w/_.]+'}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 spokenFormError: >-
   custom regex with id [\w/_.]+; please see
   https://www.cursorless.org/docs/user/customization/ for more information

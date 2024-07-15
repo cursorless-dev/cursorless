@@ -1,7 +1,8 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: bring harp after line trap and block sun
-  version: 2
+  action: {name: replaceWithTarget}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
@@ -19,7 +20,6 @@ command:
             - type: containingScope
               scopeType: {type: paragraph}
   usePrePhraseSnapshot: true
-  action: {name: replaceWithTarget}
 initialState:
   documentContents: |-
     hello

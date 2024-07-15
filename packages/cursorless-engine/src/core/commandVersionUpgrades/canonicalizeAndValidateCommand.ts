@@ -2,12 +2,13 @@ import {
   ActionType,
   Command,
   CommandComplete,
-  CommandLatest,
+  CommandVersion,
   EnforceUndefined,
   LATEST_VERSION,
   OutdatedExtensionError,
   PartialTargetDescriptor,
 } from "@cursorless/common";
+import { produce } from "immer";
 import { getPartialTargetDescriptors } from "../../util/getPartialTargetDescriptors";
 import canonicalizeTargetsInPlace from "./canonicalizeTargetsInPlace";
 import { upgradeV0ToV1 } from "./upgradeV0ToV1";
@@ -17,7 +18,6 @@ import { upgradeV3ToV4 } from "./upgradeV3ToV4";
 import { upgradeV4ToV5 } from "./upgradeV4ToV5/upgradeV4ToV5";
 import { upgradeV5ToV6 } from "./upgradeV5ToV6";
 import { upgradeV6ToV7 } from "./upgradeV6ToV7";
-import { produce } from "immer";
 
 /**
  * Given a command argument which comes from the client, normalize it so that it
@@ -29,7 +29,7 @@ import { produce } from "immer";
 export function canonicalizeAndValidateCommand(
   command: Command,
 ): EnforceUndefined<CommandComplete> {
-  const commandUpgraded = upgradeCommand(command);
+  const commandUpgraded = upgradeCommand(command, LATEST_VERSION);
   const { action, usePrePhraseSnapshot = false, spokenForm } = commandUpgraded;
 
   return {
@@ -45,12 +45,15 @@ export function canonicalizeAndValidateCommand(
   };
 }
 
-function upgradeCommand(command: Command): CommandLatest {
+export function upgradeCommand<V extends CommandVersion>(
+  command: Command,
+  minimumVersion: V,
+): Command & { version: V } {
   if (command.version > LATEST_VERSION) {
     throw new OutdatedExtensionError();
   }
 
-  while (command.version < LATEST_VERSION) {
+  while (command.version < minimumVersion) {
     switch (command.version) {
       case 0:
         command = upgradeV0ToV1(command);
@@ -80,11 +83,9 @@ function upgradeCommand(command: Command): CommandLatest {
     }
   }
 
-  if (command.version !== LATEST_VERSION) {
-    throw new Error("Command is not latest version");
-  }
-
-  return command;
+  return command as Command & {
+    version: V;
+  };
 }
 
 /**

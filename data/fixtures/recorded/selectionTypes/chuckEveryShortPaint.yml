@@ -1,14 +1,14 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: chuck every short paint
-  version: 2
+  action: {name: remove}
   targets:
     - type: primitive
       modifiers:
         - type: everyScope
           scopeType: {type: boundedNonWhitespaceSequence}
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: some.text.here some-other-text word()[]
   selections:

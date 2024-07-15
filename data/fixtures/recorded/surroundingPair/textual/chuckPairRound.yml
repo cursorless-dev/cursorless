@@ -1,11 +1,15 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 5
   spokenForm: chuck bounds round
-  action: remove
+  action: {name: remove}
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: parentheses, delimiterInclusion: excludeInterior}
+      modifiers:
+        - {type: excludeInterior}
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: parentheses}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: (hello)
   selections:

@@ -2,7 +2,7 @@ import {
   BreakpointDescriptor,
   Edit,
   EditableTextEditor,
-  Position,
+  OpenLinkOptions,
   Range,
   RevealLineAt,
   Selection,
@@ -16,7 +16,6 @@ import {
 import {
   fromVscodeRange,
   fromVscodeSelection,
-  toVscodePositionOrRange,
   toVscodeRange,
   toVscodeSelection,
 } from "@cursorless/vscode-common";
@@ -57,7 +56,7 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
 
   async setSelections(
     rawSelections: Selection[],
-    { focusEditor = false }: SetSelectionsOpts = {},
+    { focusEditor = false, revealRange = true }: SetSelectionsOpts = {},
   ): Promise<void> {
     const selections = uniqWithHash(
       rawSelections,
@@ -86,6 +85,10 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
       // old selection persists
       this.editor.selections = selections;
       await vscodeFocusEditor(this);
+    }
+
+    if (revealRange) {
+      await this.revealRange(this.selections[0]);
     }
   }
 
@@ -145,11 +148,11 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     return vscodeEditNewNotebookCellBelow(this);
   }
 
-  public openLink(location?: Position | Range): Promise<boolean> {
-    return vscodeOpenLink(
-      this,
-      location != null ? toVscodePositionOrRange(location) : undefined,
-    );
+  public openLink(
+    range: Range,
+    options: OpenLinkOptions = { openAside: false },
+  ): Promise<void> {
+    return vscodeOpenLink(this, range, options);
   }
 
   public fold(ranges?: Range[]): Promise<void> {

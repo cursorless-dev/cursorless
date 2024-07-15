@@ -1,13 +1,16 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 5
   spokenForm: chuck leading line air
-  action: remove
+  action: {name: remove}
   targets:
     - type: primitive
-      position: before
-      selectionType: line
+      modifiers:
+        - {type: leading}
+        - type: containingScope
+          scopeType: {type: line}
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
 

@@ -1,15 +1,20 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: bring map air to token harp
-  action: replaceWithTarget
+  action: {name: replaceWithTarget}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: map, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: map}
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
     - type: primitive
-      selectionType: token
+      modifiers:
+        - type: containingScope
+          scopeType: {type: token}
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |2-
         hello

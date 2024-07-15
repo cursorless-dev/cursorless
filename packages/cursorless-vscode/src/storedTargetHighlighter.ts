@@ -7,7 +7,7 @@ import {
 import { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { VscodeFancyRangeHighlighter } from "./ide/vscode/VSCodeScopeVisualizer/VscodeFancyRangeHighlighter";
 import { getColorsFromConfig } from "./ide/vscode/VSCodeScopeVisualizer/getColorsFromConfig";
-import { mapValues } from "lodash";
+import { mapValues } from "lodash-es";
 import { usingSetting } from "./usingSetting";
 
 const targetColorMap: Partial<Record<StoredTargetKey, ScopeRangeType>> = {

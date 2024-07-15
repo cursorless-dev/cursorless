@@ -22,6 +22,13 @@ export interface LastCursorPositionMark {
   type: "lastCursorPosition";
 }
 
+export type SimplePartialMark =
+  | ThatMark
+  | KeyboardMark
+  | SourceMark
+  | NothingMark
+  | LastCursorPositionMark;
+
 export interface DecoratedSymbolMark {
   type: "decoratedSymbol";
   symbolColor: string;
@@ -39,13 +46,15 @@ export interface LineNumberMark {
 /**
  * Constructs a range between {@link anchor} and {@link active}
  */
-export interface RangeMark {
+export interface RangeMarkFor<T> {
   type: "range";
-  anchor: PartialMark;
-  active: PartialMark;
+  anchor: T;
+  active: T;
   excludeAnchor: boolean;
   excludeActive: boolean;
 }
+
+export type PartialRangeMark = RangeMarkFor<PartialMark>;
 
 interface SimplePosition {
   readonly line: number;
@@ -69,6 +78,22 @@ export interface ExplicitMark {
   range: SimpleRange;
 }
 
+/**
+ * Can be used when constructing a primitive target that applies modifiers to
+ * the output of some other complex target descriptor.  For example, we use this
+ * to apply the hoisted modifiers to the output of a range target when we hoist
+ * the "every funk" modifier on a command like "take every funk air until bat".
+ */
+export interface PartialTargetMark {
+  type: "target";
+
+  /**
+   * The target descriptor that will be used to generate the targets output by
+   * this mark.
+   */
+  target: PartialTargetDescriptor;
+}
+
 export type PartialMark =
   | CursorMark
   | ThatMark
@@ -77,8 +102,9 @@ export type PartialMark =
   | DecoratedSymbolMark
   | NothingMark
   | LineNumberMark
-  | RangeMark
-  | ExplicitMark;
+  | PartialRangeMark
+  | ExplicitMark
+  | PartialTargetMark;
 
 export const simpleSurroundingPairNames = [
   "angleBrackets",

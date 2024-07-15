@@ -1,11 +1,12 @@
 languageId: markdown
 command:
-  version: 1
+  version: 5
   spokenForm: give bat
-  action: deselect
+  action: {name: deselect}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: b}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: a b.
   selections:

@@ -1,5 +1,5 @@
 import { TextEditor } from "@cursorless/common";
-import { flatten } from "lodash";
+import { flatten } from "lodash-es";
 import { Token } from "@cursorless/common";
 import { getDisplayLineMap } from "./getDisplayLineMap";
 import { getTokenComparator } from "./getTokenComparator";

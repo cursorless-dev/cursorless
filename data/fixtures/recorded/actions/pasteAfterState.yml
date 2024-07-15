@@ -1,7 +1,8 @@
 languageId: typescript
 command:
+  version: 5
   spokenForm: paste after state
-  version: 2
+  action: {name: pasteFromClipboard}
   targets:
     - type: primitive
       modifiers:
@@ -9,7 +10,6 @@ command:
         - type: containingScope
           scopeType: {type: statement}
   usePrePhraseSnapshot: true
-  action: {name: pasteFromClipboard}
 initialState:
   documentContents: const whatever = "hello";
   selections:
