@@ -136,9 +136,14 @@
       "dependsOn": [
         "Neovim: Launch neovim",
         "Neovim: ESBuild",
-        "Neovim: Populate dist",
-        "Neovim: Show logs"
+        "Neovim: Populate dist"
       ],
+      "osx": {
+        "dependsOn": ["Neovim: Show logs"]
+      },
+      "linux": {
+        "dependsOn": ["Neovim: Show logs"]
+      },
       "group": "build"
     },
     {
@@ -185,7 +190,7 @@
       "windows": {
         "command": "powershell",
         "args": [
-          // TODO: Add -u here to use the custom config
+          // -u does not work on Windows yet, so the system init.lua is used instead of the workspace one (see #2454)
           "(New-Object -ComObject WScript.Shell).Run(\"\"\"nvim\"\"\", 1, $false)"
         ]
       },
@@ -237,13 +242,24 @@
       }
     },
     {
+      // NOTE: We don't have a way on Windows atm due to command with argument inside Run() not working
+      // so we need to show logs outside of vscode (see #2454)
       "label": "Neovim: Show logs",
       "type": "process",
-      "command": "tail",
-      "args": [
-        "-f",
-        "${workspaceFolder}/packages/cursorless-neovim/out/nvim_node.log"
-      ]
+      "osx": {
+        "command": "tail",
+        "args": [
+          "-f",
+          "${workspaceFolder}/packages/cursorless-neovim/out/nvim_node.log"
+        ]
+      },
+      "linux": {
+        "command": "tail",
+        "args": [
+          "-f",
+          "${workspaceFolder}/packages/cursorless-neovim/out/nvim_node.log"
+        ]
+      }
     },
 
     // cursorless.org
