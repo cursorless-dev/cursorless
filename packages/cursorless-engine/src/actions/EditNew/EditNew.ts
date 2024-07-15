@@ -1,4 +1,3 @@
-import { partition } from "lodash-es";
 import { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
 import { ide } from "../../singletons/ide.singleton";
 import { Destination } from "../../typings/target.types";
@@ -44,37 +43,22 @@ export class EditNew {
       ) as undefined[],
     };
 
-    const allIndexedDestinations = state.destinations.map(
-      (destination, index) => ({
-        destination,
-        index,
-      }),
-    );
+    const useInsertLineAfter =
+      ide().capabilities.commands.insertLineAfter != null;
 
-    let editDestinations = allIndexedDestinations;
-
-    if (ide().capabilities.commands.insertLineAfter) {
-      const partitionedDestinations = partition(
-        allIndexedDestinations,
-        ({ destination }) =>
-          destination.getEditNewActionType() === "insertLineAfter",
-      );
-
+    if (useInsertLineAfter) {
       state = await runInsertLineAfterTargets(
         this.rangeUpdater,
         editableEditor,
         state,
-        partitionedDestinations[0],
       );
-
-      editDestinations = partitionedDestinations[1];
     }
 
     state = await runEditTargets(
       this.rangeUpdater,
       editableEditor,
       state,
-      editDestinations,
+      !useInsertLineAfter,
     );
 
     const newSelections = state.destinations.map((destination, index) =>
