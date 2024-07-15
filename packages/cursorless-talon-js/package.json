@@ -12,6 +12,7 @@
     "compile": "pnpm compile:tsc && pnpm compile:esbuild",
     "watch:tsc": "pnpm compile:tsc --watch",
     "watch:esbuild": "pnpm compile:esbuild --watch",
+    "esbuild:meta": "pnpm run compile:esbuild --metafile=meta.json",
     "watch": "pnpm run --filter @cursorless/cursorless-talon-js --parallel '/^watch:.*/'",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
