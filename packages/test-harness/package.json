@@ -6,7 +6,7 @@
   "main": "./out/index.js",
   "scripts": {
     "test": "env CURSORLESS_MODE=test my-ts-node src/scripts/runTestsCI.ts",
-    "build:base": "esbuild --sourcemap --conditions=cursorless:bundler --bundle --external:vscode --format=cjs --platform=node",
+    "build:base": "esbuild --sourcemap --conditions=cursorless:bundler --bundle --external:vscode --external:./reporters/parallel-buffered --external:./worker.js --format=cjs --platform=node",
     "build": "pnpm run build:runner && pnpm run build:tests && pnpm run build:unit && pnpm run build:talon",
     "build:runner": "pnpm run build:base ./src/runners/extensionTestsVscode.ts --outfile=dist/extensionTestsVscode.cjs",
     "build:unit": "pnpm run build:base ./src/scripts/runUnitTestsOnly.ts --outfile=dist/runUnitTestsOnly.cjs",
