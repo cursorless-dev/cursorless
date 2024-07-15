@@ -223,7 +223,7 @@
       "windows": {
         "command": "powershell",
         "args": [
-          "(New-Object -ComObject WScript.Shell).Run(\"\"\"nvim\"\"\", 1, $false)"
+          "(New-Object -ComObject WScript.Shell).Run(\"\"\"${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.bat\"\"\", 1, $false)"
         ]
       },
       "osx": {
