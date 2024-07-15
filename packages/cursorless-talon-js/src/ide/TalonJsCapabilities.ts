@@ -17,7 +17,6 @@ const COMMAND_CAPABILITIES: CommandCapabilityMap = {
   highlight: undefined,
   unfold: undefined,
   showReferences: undefined,
-  insertLineAfter: undefined,
 };
 
 export class TalonJsCapabilities implements Capabilities {

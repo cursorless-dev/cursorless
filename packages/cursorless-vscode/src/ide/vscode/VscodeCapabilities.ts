@@ -16,7 +16,6 @@ const COMMAND_CAPABILITIES: CommandCapabilityMap = {
   highlight: { acceptsLocation: true },
   unfold: { acceptsLocation: true },
   showReferences: { acceptsLocation: false },
-  insertLineAfter: { acceptsLocation: true },
 };
 
 export class VscodeCapabilities implements Capabilities {

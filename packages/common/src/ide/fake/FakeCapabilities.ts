@@ -17,6 +17,5 @@ export class FakeCapabilities implements Capabilities {
     highlight: { acceptsLocation: true },
     unfold: undefined,
     showReferences: undefined,
-    insertLineAfter: undefined,
   };
 }
