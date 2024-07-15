@@ -67,11 +67,11 @@ export class ToggleLineComment extends SimpleIdeCommandAction {
   command: CommandId = "toggleLineComment";
 }
 
-export class IndentLine extends SimpleIdeCommandAction {
+export class IndentLineSimpleAction extends SimpleIdeCommandAction {
   command: CommandId = "indentLine";
 }
 
-export class OutdentLine extends SimpleIdeCommandAction {
+export class OutdentLineSimpleAction extends SimpleIdeCommandAction {
   command: CommandId = "outdentLine";
 }
 
@@ -147,6 +147,8 @@ function callback(
       return editor.fold(ranges);
     case "unfold":
       return editor.unfold(ranges);
+    case "insertLineAfter":
+      return editor.insertLineAfter(ranges);
 
     // Single target actions
     case "rename":
