@@ -11,7 +11,8 @@ interface Actions {
     text(): string;
   };
   edit: {
-    line_insert_down(): void;
+    copy(): void;
+    paste(): void;
   };
   user: {
     private_cursorless_run_rpc_command_no_wait(

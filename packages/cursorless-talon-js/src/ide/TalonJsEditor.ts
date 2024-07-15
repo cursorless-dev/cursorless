@@ -14,6 +14,7 @@ import type { TalonJsIDE } from "./TalonJsIDE";
 import type { TalonJsTextDocument } from "./TalonJsTextDocument";
 import { performEdits } from "./performEdits";
 import { setSelections } from "./setSelections";
+import { actions } from "talon";
 
 export class TalonJsEditor implements EditableTextEditor {
   options: TextEditorOptions = {
@@ -47,6 +48,14 @@ export class TalonJsEditor implements EditableTextEditor {
     return performEdits(this.ide, this, edits);
   }
 
+  async clipboardCopy(_ranges?: Range[]): Promise<void> {
+    actions.edit.copy();
+  }
+
+  async clipboardPaste(_ranges?: Range[]): Promise<void> {
+    actions.edit.paste();
+  }
+
   insertLineAfter(_ranges?: Range[]): Promise<void> {
     throw Error("insertLineAfter not implemented.");
   }
@@ -76,14 +85,6 @@ export class TalonJsEditor implements EditableTextEditor {
 
   unfold(_ranges?: Range[] | undefined): Promise<void> {
     throw new Error("unfold not implemented.");
-  }
-
-  clipboardCopy(_ranges?: Range[] | undefined): Promise<void> {
-    throw new Error("clipboardCopy not implemented.");
-  }
-
-  clipboardPaste(_ranges?: Range[] | undefined): Promise<void> {
-    throw new Error("clipboardPaste not implemented.");
   }
 
   toggleBreakpoint(
