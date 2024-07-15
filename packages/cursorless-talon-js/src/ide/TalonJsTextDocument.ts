@@ -59,7 +59,7 @@ export class TalonJsTextDocument implements TextDocument {
       if (position.line === line.lineNumber) {
         return offset + Math.min(position.character, line.range.end.character);
       }
-      offset += line.text.length;
+      offset += line.text.length + 1;
     }
     return offset;
   }
@@ -90,6 +90,8 @@ function createLines(text: string): TextLine[] {
   const result: TextLine[] = [];
 
   for (const line of lines) {
+    print(`'${line}'`);
+    print(line.length);
     const start = new Position(result.length, 0);
     const end = new Position(start.line, line.length);
     const endIncludingLineBreak = new Position(start.line + 1, 0);
