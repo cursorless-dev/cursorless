@@ -10,11 +10,12 @@ import type {
   TextEditor,
   TextEditorOptions,
 } from "@cursorless/common";
+import { actions } from "talon";
 import type { TalonJsIDE } from "./TalonJsIDE";
 import type { TalonJsTextDocument } from "./TalonJsTextDocument";
+import { indentLine, outdentLine } from "./indentLine";
 import { performEdits } from "./performEdits";
 import { setSelections } from "./setSelections";
-import { actions } from "talon";
 
 export class TalonJsEditor implements EditableTextEditor {
   options: TextEditorOptions = {
@@ -56,6 +57,14 @@ export class TalonJsEditor implements EditableTextEditor {
     actions.edit.paste();
   }
 
+  indentLine(ranges: Range[]): Promise<void> {
+    return indentLine(this.ide, this, ranges);
+  }
+
+  outdentLine(ranges: Range[]): Promise<void> {
+    return outdentLine(this.ide, this, ranges);
+  }
+
   insertLineAfter(_ranges?: Range[]): Promise<void> {
     throw Error("insertLineAfter not implemented.");
   }
@@ -95,14 +104,6 @@ export class TalonJsEditor implements EditableTextEditor {
 
   toggleLineComment(_ranges?: Range[] | undefined): Promise<void> {
     throw new Error("toggleLineComment not implemented.");
-  }
-
-  indentLine(_ranges?: Range[] | undefined): Promise<void> {
-    throw new Error("indentLine not implemented.");
-  }
-
-  outdentLine(_ranges?: Range[] | undefined): Promise<void> {
-    throw new Error("outdentLine not implemented.");
   }
 
   insertSnippet(

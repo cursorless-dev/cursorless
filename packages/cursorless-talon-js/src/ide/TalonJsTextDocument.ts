@@ -85,8 +85,8 @@ export class TalonJsTextDocument implements TextDocument {
   }
 }
 
-function createLines(content: string): TextLine[] {
-  const lines = content.split(/\r\n|\n/);
+function createLines(text: string): TextLine[] {
+  const lines = text.split(/\r?\n/g);
   const result: TextLine[] = [];
 
   for (const line of lines) {
