@@ -22,6 +22,7 @@ import {
   TextEditorVisibleRangesChangeEvent,
   WorkspaceFolder,
 } from "@cursorless/common";
+import { actions } from "talon";
 import { pull } from "lodash-es";
 import type { EditorState } from "../types/types";
 import { TalonJsCapabilities } from "./TalonJsCapabilities";
@@ -87,11 +88,16 @@ export class TalonJsIDE implements IDE {
     this.editors = [createTextEditor(this, editorState)];
   }
 
-  findInDocument(
-    _query: string,
-    _editor?: TextEditor | undefined,
+  async findInDocument(
+    query: string,
+    editor?: TextEditor | undefined,
   ): Promise<void> {
-    throw new Error("findInDocument not implemented.");
+    if (editor != null) {
+      throw new Error(
+        "findInDocument not implemented for other than active editor.",
+      );
+    }
+    actions.edit.find(query);
   }
 
   findInWorkspace(_query: string): Promise<void> {

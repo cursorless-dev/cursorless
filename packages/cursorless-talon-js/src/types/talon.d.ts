@@ -10,6 +10,9 @@ interface Actions {
     set_text(text: string): void;
     text(): string;
   };
+  edit: {
+    find(text?: string): void;
+  };
   user: {
     private_cursorless_run_rpc_command_no_wait(
       commandId: string,
