@@ -12,14 +12,35 @@ export async function performEdits(
 ): Promise<TextDocumentContentChangeEvent[]> {
   edits.sort((a, b) => b.range.start.compareTo(a.range.start));
 
+  const changes = createChangeEvents(document, edits);
+  let result = document.getText();
+
+  for (const change of changes) {
+    const { text, rangeOffset, rangeLength } = change;
+
+    result =
+      result.slice(0, rangeOffset) +
+      text +
+      result.slice(rangeOffset + rangeLength);
+  }
+
+  document.setTextInternal(result);
+
+  return changes;
+}
+
+function createChangeEvents(
+  document: TextDocument,
+  edits: Edit[],
+): TextDocumentContentChangeEvent[] {
   const changes: TextDocumentContentChangeEvent[] = [];
 
   for (const edit of edits) {
     const previousChange = changes[changes.length - 1];
     const intersection = previousChange?.range.intersection(edit.range);
 
-    // Overlapping removal ranges are just merged.
     if (intersection != null && !intersection.isEmpty) {
+      // Overlapping removal ranges are just merged.
       if (!previousChange.text && !edit.text) {
         changes[changes.length - 1] = createChangeEvent(
           document,
@@ -35,19 +56,6 @@ export async function performEdits(
 
     changes.push(createChangeEvent(document, edit.range, edit.text));
   }
-
-  let result = document.getText();
-
-  for (const change of changes) {
-    const { rangeOffset, rangeLength, text } = change;
-
-    result =
-      result.slice(0, rangeOffset) +
-      text +
-      result.slice(rangeOffset + rangeLength);
-  }
-
-  document.setTextInternal(result);
 
   return changes;
 }
