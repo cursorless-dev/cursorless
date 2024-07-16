@@ -45,8 +45,7 @@ export class InMemoryTextDocument implements TextDocument {
   }
 
   get range(): Range {
-    const { end } = this._lines[this._lines.length - 1].range;
-    return new Range(0, 0, end.line, end.character);
+    return new Range(this._lines[0].range.start, this._lines.at(-1)!.range.end);
   }
 
   setTextInternal(text: string): void {
@@ -59,7 +58,7 @@ export class InMemoryTextDocument implements TextDocument {
   lineAt(lineOrPosition: number | Position): TextLine {
     const value =
       typeof lineOrPosition === "number" ? lineOrPosition : lineOrPosition.line;
-    const index = Math.min(Math.max(value, 0), this._lines.length - 1);
+    const index = Math.min(Math.max(value, 0), this.lineCount - 1);
     return this._lines[index];
   }
 
@@ -67,7 +66,7 @@ export class InMemoryTextDocument implements TextDocument {
     if (position.isBefore(this._lines[0].range.start)) {
       return 0;
     }
-    if (position.isAfter(this._lines[this.lineCount - 1].range.end)) {
+    if (position.isAfter(this._lines.at(-1)!.range.end)) {
       return this._text.length;
     }
 
@@ -88,7 +87,7 @@ export class InMemoryTextDocument implements TextDocument {
       return this._lines[0].range.start;
     }
     if (offset >= this._text.length) {
-      return this._lines[this.lineCount - 1].range.end;
+      return this._lines.at(-1)!.range.end;
     }
 
     let currentOffset = 0;
