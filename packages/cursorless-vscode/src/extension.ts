@@ -1,5 +1,6 @@
 import {
   Disposable,
+  EnforceUndefined,
   FakeCommandServerApi,
   FakeIDE,
   IDE,
@@ -12,12 +13,14 @@ import {
 } from "@cursorless/common";
 import {
   CommandHistory,
+  EngineProps,
   createCursorlessEngine,
 } from "@cursorless/cursorless-engine";
 import {
   FileSystemCommandHistoryStorage,
   FileSystemRawTreeSitterQueryProvider,
   FileSystemTalonSpokenForms,
+  FileSystemTutorialContentProvider,
   getFixturePath,
 } from "@cursorless/node-common";
 import {
@@ -59,6 +62,7 @@ import { registerCommands } from "./registerCommands";
 import { revisualizeOnCustomRegexChange } from "./revisualizeOnCustomRegexChange";
 import { storedTargetHighlighter } from "./storedTargetHighlighter";
 import { vscodeApi } from "./vscodeApi";
+import { VscodeTutorial } from "./VscodeTutorial";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -103,6 +107,19 @@ export async function activate(
   );
   context.subscriptions.push(treeSitterQueryProvider);
 
+  const engineProps: EnforceUndefined<EngineProps> = {
+    ide: normalizedIde,
+    hats,
+    treeSitterQueryProvider,
+    treeSitter,
+    commandServerApi,
+    talonSpokenForms,
+    tutorialContentProvider: new FileSystemTutorialContentProvider(
+      normalizedIde.assetsRoot,
+    ),
+    snippets,
+  };
+
   const {
     commandApi,
     storedTargets,
@@ -112,15 +129,8 @@ export async function activate(
     runIntegrationTests,
     addCommandRunnerDecorator,
     customSpokenFormGenerator,
-  } = await createCursorlessEngine({
-    ide: normalizedIde,
-    hats,
-    treeSitterQueryProvider,
-    treeSitter,
-    commandServerApi,
-    talonSpokenForms,
-    snippets,
-  });
+    tutorial,
+  } = await createCursorlessEngine(engineProps);
 
   const commandHistoryStorage = new FileSystemCommandHistoryStorage(
     fileSystem.cursorlessCommandHistoryDirPath,
@@ -161,6 +171,14 @@ export async function activate(
 
   context.subscriptions.push(storedTargetHighlighter(vscodeIDE, storedTargets));
 
+  const vscodeTutorial = new VscodeTutorial(
+    context,
+    vscodeApi,
+    tutorial,
+    scopeVisualizer,
+    fileSystem,
+  );
+
   registerCommands(
     context,
     vscodeIDE,
@@ -171,6 +189,7 @@ export async function activate(
     scopeVisualizer,
     keyboardCommands,
     hats,
+    vscodeTutorial,
     storedTargets,
   );
 
@@ -189,6 +208,7 @@ export async function activate(
             scopeProvider,
             injectIde,
             runIntegrationTests,
+            vscodeTutorial,
           )
         : undefined,
 

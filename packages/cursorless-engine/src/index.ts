@@ -1,4 +1,5 @@
 export * from "./testUtil/plainObjectToTarget";
+export * from "./api/Tutorial";
 export * from "./core/StoredTargets";
 export * from "./cursorlessEngine";
 export * from "./generateSpokenForm/defaultSpokenForms/surroundingPairsDelimiters";

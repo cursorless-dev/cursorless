@@ -4,6 +4,7 @@ import {
   Hats,
   IDE,
   ScopeProvider,
+  TutorialContentProvider,
   ensureCommandShape,
   type RawTreeSitterQueryProvider,
   type TalonSpokenForms,
@@ -18,6 +19,7 @@ import { Debug } from "./core/Debug";
 import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
 import type { Snippets } from "./core/Snippets";
 import { StoredTargetMap } from "./core/StoredTargets";
+import { TutorialImpl } from "./tutorial/TutorialImpl";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
 import { DisabledCommandServerApi } from "./disabledComponents/DisabledCommandServerApi";
 import { DisabledHatTokenMap } from "./disabledComponents/DisabledHatTokenMap";
@@ -40,14 +42,17 @@ import { ScopeRangeWatcher } from "./scopeProviders/ScopeRangeWatcher";
 import { ScopeSupportChecker } from "./scopeProviders/ScopeSupportChecker";
 import { ScopeSupportWatcher } from "./scopeProviders/ScopeSupportWatcher";
 import { injectIde } from "./singletons/ide.singleton";
+import { DisabledTutorial } from "./disabledComponents/DisabledTutorial";
+import { Tutorial } from "./api/Tutorial";
 
-interface Props {
+export interface EngineProps {
   ide: IDE;
   hats?: Hats;
   treeSitterQueryProvider?: RawTreeSitterQueryProvider;
   treeSitter?: TreeSitter;
   commandServerApi?: CommandServerApi;
   talonSpokenForms?: TalonSpokenForms;
+  tutorialContentProvider?: TutorialContentProvider;
   snippets?: Snippets;
 }
 
@@ -58,8 +63,9 @@ export async function createCursorlessEngine({
   treeSitter = new DisabledTreeSitter(),
   commandServerApi = new DisabledCommandServerApi(),
   talonSpokenForms = new DisabledTalonSpokenForms(),
+  tutorialContentProvider,
   snippets = new DisabledSnippets(),
-}: Props): Promise<CursorlessEngine> {
+}: EngineProps): Promise<CursorlessEngine> {
   injectIde(ide);
 
   const debug = new Debug(ide);
@@ -84,15 +90,33 @@ export async function createCursorlessEngine({
       )
     : new DisabledLanguageDefinitions();
 
-  ide.disposeOnExit(
-    rangeUpdater,
-    languageDefinitions,
-    hatTokenMap,
-    debug,
-    keyboardTargetUpdater,
-  );
-
   const commandRunnerDecorators: CommandRunnerDecorator[] = [];
+
+  const addCommandRunnerDecorator = (decorator: CommandRunnerDecorator) => {
+    commandRunnerDecorators.push(decorator);
+  };
+
+  let tutorial: Tutorial;
+  if (tutorialContentProvider != null) {
+    const tutorialImpl = new TutorialImpl(
+      hatTokenMap,
+      customSpokenFormGenerator,
+      tutorialContentProvider,
+    );
+    ide.disposeOnExit(tutorialImpl);
+    addCommandRunnerDecorator(tutorialImpl);
+    tutorial = tutorialImpl;
+  } else {
+    tutorial = new DisabledTutorial();
+  }
+
+  ide.disposeOnExit(
+    debug,
+    hatTokenMap,
+    keyboardTargetUpdater,
+    languageDefinitions,
+    rangeUpdater,
+  );
 
   let previousCommand: Command | undefined = undefined;
 
@@ -141,9 +165,8 @@ export async function createCursorlessEngine({
     injectIde,
     runIntegrationTests: () =>
       runIntegrationTests(treeSitter, languageDefinitions),
-    addCommandRunnerDecorator: (decorator: CommandRunnerDecorator) => {
-      commandRunnerDecorators.push(decorator);
-    },
+    addCommandRunnerDecorator,
+    tutorial,
   };
 }
 

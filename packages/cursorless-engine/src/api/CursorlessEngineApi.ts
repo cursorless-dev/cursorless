@@ -8,6 +8,7 @@ import type {
 } from "@cursorless/common";
 import type { CommandRunner } from "../CommandRunner";
 import type { StoredTargetMap } from "../core/StoredTargets";
+import { Tutorial } from "./Tutorial";
 
 export interface CursorlessEngine {
   commandApi: CommandApi;
@@ -15,6 +16,7 @@ export interface CursorlessEngine {
   customSpokenFormGenerator: CustomSpokenFormGenerator;
   storedTargets: StoredTargetMap;
   hatTokenMap: HatTokenMap;
+  tutorial: Tutorial;
   injectIde: (ide: IDE | undefined) => void;
   runIntegrationTests: () => Promise<void>;
   addCommandRunnerDecorator: (

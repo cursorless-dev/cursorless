@@ -1,6 +1,7 @@
 export * from "./FileSystemCommandHistoryStorage";
 export * from "./FileSystemRawTreeSitterQueryProvider";
 export * from "./FileSystemTalonSpokenForms";
+export * from "./FileSystemTutorialContentProvider";
 export * from "./getCursorlessRepoRoot";
 export * from "./getFixturePaths";
 export * from "./getScopeTestPathsRecursively";
@@ -8,3 +9,4 @@ export * from "./nodeGetRunMode";
 export * from "./runRecordedTest";
 export * from "./walkAsync";
 export * from "./walkSync";
+export * from "./loadFixture";

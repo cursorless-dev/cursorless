@@ -57,6 +57,11 @@
     "views": {
       "cursorless": [
         {
+          "type": "webview",
+          "id": "cursorless.tutorial",
+          "name": "Tutorial"
+        },
+        {
           "id": "cursorless.scopes",
           "name": "Scopes"
         }
@@ -110,6 +115,36 @@
       {
         "command": "cursorless.analyzeCommandHistory",
         "title": "Cursorless: Analyze collected command history"
+      },
+      {
+        "command": "cursorless.tutorial.start",
+        "title": "Cursorless: Start a tutorial",
+        "enablement": "false"
+      },
+      {
+        "command": "cursorless.tutorial.next",
+        "title": "Cursorless: Tutorial next"
+      },
+      {
+        "command": "cursorless.tutorial.previous",
+        "title": "Cursorless: Tutorial previous"
+      },
+      {
+        "command": "cursorless.tutorial.restart",
+        "title": "Cursorless: Tutorial restart"
+      },
+      {
+        "command": "cursorless.tutorial.resume",
+        "title": "Cursorless: Tutorial resume"
+      },
+      {
+        "command": "cursorless.tutorial.list",
+        "title": "Cursorless: Tutorial list"
+      },
+      {
+        "command": "cursorless.docsOpened",
+        "title": "Cursorless: Used by talon to notify us that the docs have been opened; for use with tutorial",
+        "enablement": "false"
       },
       {
         "command": "cursorless.command",
@@ -1192,8 +1227,8 @@
   },
   "funding": "https://github.com/sponsors/pokey",
   "scripts": {
-    "build": "pnpm run esbuild:prod && pnpm -F cheatsheet-local build:prod && pnpm run populate-dist",
-    "build:dev": "pnpm generate-grammar && pnpm run esbuild && pnpm -F cheatsheet-local build && pnpm run populate-dist",
+    "build": "pnpm run esbuild:prod && pnpm -F cheatsheet-local build:prod && pnpm -F cursorless-vscode-tutorial-webview build:prod && pnpm run populate-dist",
+    "build:dev": "pnpm generate-grammar && pnpm run esbuild && pnpm -F cheatsheet-local build && pnpm -F cursorless-vscode-tutorial-webview build && pnpm run populate-dist",
     "esbuild:base": "esbuild ./src/extension.ts --conditions=cursorless:bundler --bundle --outfile=dist/extension.cjs --external:vscode --format=cjs --platform=node",
     "install-local": "bash ./scripts/install-local.sh",
     "install-from-pr": "bash ./scripts/install-from-pr.sh",

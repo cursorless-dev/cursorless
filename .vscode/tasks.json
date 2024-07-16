@@ -33,6 +33,16 @@
       "group": "build"
     },
     {
+      "label": "Build tutorial webview",
+      "type": "npm",
+      "script": "build:dev",
+      "path": "packages/cursorless-vscode-tutorial-webview",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "group": "build"
+    },
+    {
       "label": "Build test harness",
       "type": "npm",
       "script": "build",
@@ -57,6 +67,7 @@
       "type": "npm",
       "script": "populate-dist",
       "path": "packages/cursorless-vscode",
+      "dependsOn": ["Build tutorial webview"],
       "presentation": {
         "reveal": "silent"
       },
@@ -101,6 +112,17 @@
     {
       "label": "watch",
       "dependsOn": ["Watch esbuild", "Watch typescript"],
+      "group": "build"
+    },
+    {
+      "label": "watch tutorial",
+      "type": "npm",
+      "script": "watch:tailwind",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "never"
+      },
+      "path": "packages/cursorless-vscode-tutorial-webview",
       "group": "build"
     },
     {

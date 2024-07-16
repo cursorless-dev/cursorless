@@ -52,6 +52,13 @@ export const cursorlessCommandIds = [
   "cursorless.toggleDecorations",
   "cursorless.showScopeVisualizer",
   "cursorless.hideScopeVisualizer",
+  "cursorless.tutorial.start",
+  "cursorless.tutorial.next",
+  "cursorless.tutorial.previous",
+  "cursorless.tutorial.restart",
+  "cursorless.tutorial.resume",
+  "cursorless.tutorial.list",
+  "cursorless.docsOpened",
   "cursorless.analyzeCommandHistory",
 ] as const satisfies readonly `cursorless.${string}`[];
 
@@ -92,6 +99,15 @@ export const cursorlessCommandDescriptions: Record<
     "Analyze collected command history",
   ),
 
+  ["cursorless.tutorial.start"]: new HiddenCommand("Start a tutorial"),
+  ["cursorless.tutorial.next"]: new VisibleCommand("Tutorial next"),
+  ["cursorless.tutorial.previous"]: new VisibleCommand("Tutorial previous"),
+  ["cursorless.tutorial.restart"]: new VisibleCommand("Tutorial restart"),
+  ["cursorless.tutorial.resume"]: new VisibleCommand("Tutorial resume"),
+  ["cursorless.tutorial.list"]: new VisibleCommand("Tutorial list"),
+  ["cursorless.docsOpened"]: new HiddenCommand(
+    "Used by talon to notify us that the docs have been opened; for use with tutorial",
+  ),
   ["cursorless.command"]: new HiddenCommand("The core cursorless command"),
   ["cursorless.repeatPreviousCommand"]: new VisibleCommand(
     "Repeat the previous Cursorless command",

@@ -30,6 +30,9 @@
       "path": "./packages/cursorless-vscode-e2e"
     },
     {
+      "path": "./packages/cursorless-vscode-tutorial-webview"
+    },
+    {
       "path": "./packages/meta-updater"
     },
     {
