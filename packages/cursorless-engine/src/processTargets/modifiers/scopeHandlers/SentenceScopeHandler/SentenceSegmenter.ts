@@ -1,5 +1,5 @@
 import { MatchedText, matchRegex, testRegex } from "@cursorless/common";
-import * as sbd from "@cursorless/sentence-parser";
+import * as parser from "@cursorless/sentence-parser";
 
 // A sentence starts with a letter with adjacent leading symbols. Whitespace excluded.
 const leadingOffsetRegex = /\S*\p{L}/u;
@@ -15,14 +15,14 @@ const leadingOffsetRegex = /\S*\p{L}/u;
  */
 const skipPartRegex = /(\r?\n[^\p{L}]*\r?\n)|(?<=[.!?])(\s*\r?\n)/gu;
 
-const options: sbd.Options = {
+const options: parser.Options = {
   newlineBoundaries: false,
   preserveWhitespace: true,
 };
 
 export class SentenceSegmenter {
   *segment(text: string): Iterable<MatchedText> {
-    const sentences = sbd.sentences(text, options);
+    const sentences = parser.sentences(text, options);
     let index = 0;
 
     for (const sentence of sentences) {
