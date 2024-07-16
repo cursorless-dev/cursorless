@@ -12,6 +12,9 @@
     },
     {
       "path": "../node-common"
+    },
+    {
+      "path": "../sentence-parser"
     }
   ]
 }

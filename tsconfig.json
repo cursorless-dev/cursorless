@@ -36,6 +36,9 @@
       "path": "./packages/node-common"
     },
     {
+      "path": "./packages/sentence-parser"
+    },
+    {
       "path": "./packages/test-case-recorder"
     },
     {
