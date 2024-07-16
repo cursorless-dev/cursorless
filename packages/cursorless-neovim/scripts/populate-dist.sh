@@ -10,11 +10,14 @@ test_harness_node_in_dir="$CURSORLESS_REPO_ROOT/packages/test-harness"
 if [[ "${CI:-x}" == "true" ]]; then
   # If running in CI, only copy the necessary files for testing
   out_dir="$CURSORLESS_REPO_ROOT/dist/cursorless.nvim"
+  echo "-1"
   mkdir -p "$out_dir"
 
   # XXX - remove test on CI
   echo "0"
   ls -lR "$cursorless_nvim_dir"
+  echo "0bis"
+  ls -lR "$CURSORLESS_REPO_ROOT/dist/"
 
   # copy static files such as .lua dependencies and command-server
   cp -r "$cursorless_nvim_dir/*" "$out_dir"
