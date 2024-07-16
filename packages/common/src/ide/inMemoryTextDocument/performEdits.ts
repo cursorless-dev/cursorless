@@ -10,8 +10,6 @@ export async function performEdits(
   document: InMemoryTextDocument,
   edits: Edit[],
 ): Promise<TextDocumentContentChangeEvent[]> {
-  edits.sort((a, b) => b.range.start.compareTo(a.range.start));
-
   const changes = createChangeEvents(document, edits);
   let result = document.getText();
 
@@ -34,6 +32,8 @@ function createChangeEvents(
   edits: Edit[],
 ): TextDocumentContentChangeEvent[] {
   const changes: TextDocumentContentChangeEvent[] = [];
+
+  edits.sort((a, b) => b.range.start.compareTo(a.range.start));
 
   for (const edit of edits) {
     const previousChange = changes[changes.length - 1];
