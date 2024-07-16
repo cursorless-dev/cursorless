@@ -19,20 +19,14 @@ const leadingOffsetRegex = /\S*\p{L}/u;
 const skipPartRegex = /(\r?\n[^\p{L}]*\r?\n)|(?<=[.!?])(\s*\r?\n)/gu;
 
 const options: SentenceParserOptions = {
-    newlineBoundaries: false,
-    preserveWhitespace: true,
-  };
-
-export class SentenceSegmenter {
-  segment(text: string): Iterable<MatchedText> {
-    throw Error(`SentenceSegmenter not implemented.`);
-    // const sentences = sbd.sentences(text, options);
+  newlineBoundaries: false,
+  preserveWhitespace: true,
+};
 
 export class SentenceSegmenter {
   *segment(text: string): Iterable<MatchedText> {
     const sentences = getSentences(text, options);
     let index = 0;
-
 
     for (const sentence of sentences) {
       const parts = sentence.split(skipPartRegex).filter((p) => p != null);
