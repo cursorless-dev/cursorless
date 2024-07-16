@@ -67,11 +67,11 @@ export class ToggleLineComment extends SimpleIdeCommandAction {
   command: CommandId = "toggleLineComment";
 }
 
-export class IndentLineSimpleAction extends SimpleIdeCommandAction {
+export class IndentLine extends SimpleIdeCommandAction {
   command: CommandId = "indentLine";
 }
 
-export class OutdentLineSimpleAction extends SimpleIdeCommandAction {
+export class OutdentLine extends SimpleIdeCommandAction {
   command: CommandId = "outdentLine";
 }
 

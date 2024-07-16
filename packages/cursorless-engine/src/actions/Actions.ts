@@ -17,7 +17,6 @@ import GenerateSnippet from "./GenerateSnippet";
 import GetTargets from "./GetTargets";
 import GetText from "./GetText";
 import Highlight from "./Highlight";
-import { IndentLine, OutdentLine } from "./IndentLine";
 import {
   CopyContentAfter as InsertCopyAfter,
   CopyContentBefore as InsertCopyBefore,
@@ -45,6 +44,8 @@ import {
   CopyToClipboard,
   ExtractVariable,
   Fold,
+  IndentLine,
+  OutdentLine,
   Rename,
   RevealDefinition,
   RevealTypeDefinition,
