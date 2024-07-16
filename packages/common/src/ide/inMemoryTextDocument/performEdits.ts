@@ -8,9 +8,10 @@ import type { InMemoryTextDocument } from "./InMemoryTextDocument";
 
 export async function performEdits(
   document: InMemoryTextDocument,
-  edits: Edit[],
+  edits: readonly Edit[],
 ): Promise<TextDocumentContentChangeEvent[]> {
   const changes = createChangeEvents(document, edits);
+
   let result = document.getText();
 
   for (const change of changes) {
@@ -29,13 +30,15 @@ export async function performEdits(
 
 function createChangeEvents(
   document: TextDocument,
-  edits: Edit[],
+  edits: readonly Edit[],
 ): TextDocumentContentChangeEvent[] {
   const changes: TextDocumentContentChangeEvent[] = [];
 
-  edits.sort((a, b) => b.range.start.compareTo(a.range.start));
+  const sortedEdits = [...edits].sort((a, b) =>
+    b.range.start.compareTo(a.range.start),
+  );
 
-  for (const edit of edits) {
+  for (const edit of sortedEdits) {
     const previousChange = changes[changes.length - 1];
     const intersection = previousChange?.range.intersection(edit.range);
 
