@@ -72,6 +72,7 @@ export class InMemoryTextDocument implements TextDocument {
     }
 
     let offset = 0;
+
     for (const line of this._lines) {
       if (position.line === line.lineNumber) {
         return offset + Math.min(position.character, line.range.end.character);
@@ -91,13 +92,15 @@ export class InMemoryTextDocument implements TextDocument {
     }
 
     let currentOffset = 0;
+
     for (const line of this._lines) {
       if (currentOffset + line.text.length >= offset) {
         return new Position(line.lineNumber, offset - currentOffset);
       }
       currentOffset += line.text.length + line.eolLength;
     }
-    return this._lines[this._lines.length - 1].range.end;
+
+    throw Error(`Couldn't find position for offset ${offset}`);
   }
 
   getText(range?: Range): string {
