@@ -62,14 +62,10 @@ export async function launchNeovimAndRunTests() {
         stdio: "inherit",
         env: {
           ...process.env,
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          // NVIM_NODE_HOST_DEBUG: "1",
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          NVIM_NODE_LOG_FILE: logName,
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          NVIM_NODE_LOG_LEVEL: "debug",
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          CURSORLESS_MODE: "test",
+          // ["NVIM_NODE_HOST_DEBUG"]: "1",
+          ["NVIM_NODE_LOG_FILE"]: logName,
+          ["NVIM_NODE_LOG_LEVEL"]: "debug",
+          ["CURSORLESS_MODE"]: "test",
         },
       });
       console.log(`status: ${status}`);
