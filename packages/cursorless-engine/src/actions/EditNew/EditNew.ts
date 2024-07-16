@@ -43,11 +43,13 @@ export class EditNew {
       ) as undefined[],
     };
 
-    const useInsertLineAfter =
-      ide().capabilities.commands.insertLineAfter != null;
+    const insertLineAfterCapability =
+      ide().capabilities.commands.insertLineAfter;
+    const useInsertLineAfter = insertLineAfterCapability != null;
 
     if (useInsertLineAfter) {
       state = await runInsertLineAfterTargets(
+        insertLineAfterCapability,
         this.rangeUpdater,
         editableEditor,
         state,

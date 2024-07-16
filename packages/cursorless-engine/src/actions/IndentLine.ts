@@ -31,7 +31,7 @@ abstract class IndentLineBase {
       return this.runSimpleCommandAction(targets);
     }
 
-    await flashTargets(ide(), targets, FlashStyle.referenced);
+    await flashTargets(ide(), targets, FlashStyle.pendingModification0);
 
     const thatTargets = flatten(
       await runOnTargetsForEachEditor(targets, this.runForEditor),

@@ -1,7 +1,6 @@
-import { EditableTextEditor } from "@cursorless/common";
+import { CommandCapabilities, EditableTextEditor } from "@cursorless/common";
 import { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
 import { callFunctionAndUpdateRanges } from "../../core/updateSelections/updateSelections";
-import { ide } from "../../singletons/ide.singleton";
 import { EditDestination, State } from "./EditNew.types";
 
 /**
@@ -16,6 +15,7 @@ import { EditDestination, State } from "./EditNew.types";
  * @returns An updated `state` object
  */
 export async function runInsertLineAfterTargets(
+  { acceptsLocation }: CommandCapabilities,
   rangeUpdater: RangeUpdater,
   editor: EditableTextEditor,
   state: State,
@@ -40,17 +40,11 @@ export async function runInsertLineAfterTargets(
     ({ destination }) => destination.contentRange,
   );
 
-  const capabilities = ide().capabilities.commands.insertLineAfter;
-
-  if (capabilities == null) {
-    throw Error("Action insertLineAfter is not supported by your ide");
-  }
-
   const [updatedTargetRanges, updatedThatRanges] =
     await callFunctionAndUpdateRanges(
       rangeUpdater,
       async () => {
-        if (capabilities.acceptsLocation) {
+        if (acceptsLocation) {
           await editor.insertLineAfter(contentRanges);
         } else {
           await editor.setSelections(
