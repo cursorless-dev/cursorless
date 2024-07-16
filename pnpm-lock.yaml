@@ -260,6 +260,9 @@ importers:
       '@cursorless/node-common':
         specifier: workspace:*
         version: link:../node-common
+      '@cursorless/sentence-parser':
+        specifier: workspace:*
+        version: link:../sentence-parser
       immer:
         specifier: ^10.0.4
         version: 10.0.4
@@ -278,9 +281,6 @@ importers:
       nearley:
         specifier: 2.20.1
         version: 2.20.1(patch_hash=mg2fc7wgvzub3myuz6m74hllma)
-      sbd:
-        specifier: ^1.0.19
-        version: 1.0.19
       uuid:
         specifier: ^9.0.1
         version: 9.0.1
@@ -303,9 +303,6 @@ importers:
       '@types/nearley':
         specifier: 2.11.5
         version: 2.11.5(patch_hash=5bomp3nnmdzdyzcgrxyr5kymae)
-      '@types/sbd':
-        specifier: ^1.0.5
-        version: 1.0.5
       '@types/sinon':
         specifier: ^17.0.3
         version: 17.0.3
@@ -660,6 +657,15 @@ importers:
       js-yaml:
         specifier: ^4.1.0
         version: 4.1.0
+
+  packages/sentence-parser:
+    devDependencies:
+      '@types/mocha':
+        specifier: ^10.0.6
+        version: 10.0.6
+      mocha:
+        specifier: ^10.3.0
+        version: 10.3.0
 
   packages/test-case-recorder:
     dependencies:
@@ -2921,9 +2927,6 @@ packages:
 
   '@types/sax@1.2.7':
     resolution: {integrity: sha512-rO73L89PJxeYM3s3pPPjiPgVVcymqU490g0YO5n5By0k2Erzj6tay/4lr1CHAAU4JyOWd1rpQ8bCf6cZfHU96A==}
-
-  '@types/sbd@1.0.5':
-    resolution: {integrity: sha512-60PxBBWhg0C3yb5bTP+wwWYGTKMcuB0S6mTEa1sedMC79tYY0Ei7YjU4qsWzGn++lWscLQde16SnElJrf5/aTw==}
 
   '@types/scheduler@0.23.0':
     resolution: {integrity: sha512-YIoDCTH3Af6XM5VuwGG/QL/CJqga1Zm3NkU3HZ4ZHK2fRMPYP1VczsTUqtsf43PH/iJNVlPHAo2oWX7BSdB2Hw==}
@@ -7217,9 +7220,6 @@ packages:
   parse-numeric-range@1.3.0:
     resolution: {integrity: sha512-twN+njEipszzlMJd4ONUYgSfZPDxgHhT9Ahed5uTigpQn90FggW4SA/AIPq/6a149fTbE9qBEcSwE3FAEp6wQQ==}
 
-  parse-srcset@1.0.2:
-    resolution: {integrity: sha512-/2qh0lav6CmI15FzA3i/2Bzk2zCgQhGMkvhOhKNcBVQ1ldgpbfiNTVslmooUmWJcADi1f1kIeynbDRVzNlfR6Q==}
-
   parse5-htmlparser2-tree-adapter@7.0.0:
     resolution: {integrity: sha512-B77tOZrqqfUfnVcOrUvfdLbz4pu4RopLD/4vmu3HUPswwTA8OH0EMW9BlWR2B0RCoiZRAHEUu7IxeP1Pd1UU+g==}
 
@@ -8258,18 +8258,12 @@ packages:
   safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
-  sanitize-html@2.13.0:
-    resolution: {integrity: sha512-Xff91Z+4Mz5QiNSLdLWwjgBDm5b1RU6xBT0+12rapjiaR7SwfRdjw8f+6Rir2MXKLrDicRFHdb51hGOAxmsUIA==}
-
   sax@1.3.0:
     resolution: {integrity: sha512-0s+oAmw9zLl1V1cS9BtZN7JAd0cW5e0QH4W3LWEK6a4LaLEA2OTpGYWDY+6XasBLtz6wkm3u1xRw95mRuJ59WA==}
 
   saxes@6.0.0:
     resolution: {integrity: sha512-xAg7SOnEhrm5zI3puOOKyy1OMcMlIJZYNJY7xLBwSze0UjhPLnWfj2GF2EpT0jmzaJKIWKHLsaSSajf35bcYnA==}
     engines: {node: '>=v12.22.7'}
-
-  sbd@1.0.19:
-    resolution: {integrity: sha512-b5RyZMGSrFuIB4AHdbv12uYHS8YGEJ36gtuvG3RflbJGY+T0dXmAL0E4vZjQqT2RsX0v+ZwVqhV2zsGr5aFK9w==}
 
   scheduler@0.23.0:
     resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
@@ -12800,8 +12794,6 @@ snapshots:
   '@types/sax@1.2.7':
     dependencies:
       '@types/node': 18.18.2
-
-  '@types/sbd@1.0.5': {}
 
   '@types/scheduler@0.23.0': {}
 
@@ -18352,8 +18344,6 @@ snapshots:
 
   parse-numeric-range@1.3.0: {}
 
-  parse-srcset@1.0.2: {}
-
   parse5-htmlparser2-tree-adapter@7.0.0:
     dependencies:
       domhandler: 5.0.3
@@ -19396,24 +19386,11 @@ snapshots:
 
   safer-buffer@2.1.2: {}
 
-  sanitize-html@2.13.0:
-    dependencies:
-      deepmerge: 4.3.1
-      escape-string-regexp: 4.0.0
-      htmlparser2: 8.0.2
-      is-plain-object: 5.0.0
-      parse-srcset: 1.0.2
-      postcss: 8.4.38
-
   sax@1.3.0: {}
 
   saxes@6.0.0:
     dependencies:
       xmlchars: 2.2.0
-
-  sbd@1.0.19:
-    dependencies:
-      sanitize-html: 2.13.0
 
   scheduler@0.23.0:
     dependencies:
