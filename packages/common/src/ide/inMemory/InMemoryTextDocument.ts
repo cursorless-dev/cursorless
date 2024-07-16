@@ -4,22 +4,23 @@ import {
   Range,
   TextDocument,
   TextLine,
-  getLeadingWhitespace,
-  getTrailingWhitespace,
 } from "@cursorless/common";
 import type { URI } from "vscode-uri";
+import { InMemoryTextLine } from "./InMemoryTextLine";
 
 export class InMemoryTextDocument implements TextDocument {
   private _version: number;
   private _eol: EndOfLine;
   private _text: string;
-  private _lines: TextLine[];
+  private _lines: InMemoryTextLine[];
+  readonly filename: string;
 
   constructor(
     public readonly uri: URI,
     public readonly languageId: string,
     text: string,
   ) {
+    this.filename = uri.path.replace(/\\|\//g, "");
     this._text = "";
     this._eol = "LF";
     this._version = -1;
@@ -27,10 +28,8 @@ export class InMemoryTextDocument implements TextDocument {
     this.setTextInternal(text);
   }
 
-  readonly filename: string = "untitled";
-
   get version(): number {
-    return this.version;
+    return this._version;
   }
 
   get lineCount(): number {
@@ -58,31 +57,45 @@ export class InMemoryTextDocument implements TextDocument {
   }
 
   lineAt(lineOrPosition: number | Position): TextLine {
-    const index = Math.min(
-      typeof lineOrPosition === "number" ? lineOrPosition : lineOrPosition.line,
-      this._lines.length - 1,
-    );
+    const value =
+      typeof lineOrPosition === "number" ? lineOrPosition : lineOrPosition.line;
+    const index = Math.min(Math.max(value, 0), this._lines.length - 1);
     return this._lines[index];
   }
 
   offsetAt(position: Position): number {
+    if (position.isBefore(this._lines[0].range.start)) {
+      return 0;
+    }
+    if (position.isAfter(this._lines[this.lineCount - 1].range.end)) {
+      return this._text.length;
+    }
+
     let offset = 0;
     for (const line of this._lines) {
       if (position.line === line.lineNumber) {
         return offset + Math.min(position.character, line.range.end.character);
       }
-      offset += line.text.length + 1;
+      offset += line.text.length + line.eolLength;
     }
-    return offset;
+
+    throw Error(`Couldn't find offset for position ${position}`);
   }
 
   positionAt(offset: number): Position {
+    if (offset < 0) {
+      return this._lines[0].range.start;
+    }
+    if (offset >= this._text.length) {
+      return this._lines[this.lineCount - 1].range.end;
+    }
+
     let currentOffset = 0;
     for (const line of this._lines) {
       if (currentOffset + line.text.length >= offset) {
         return new Position(line.lineNumber, offset - currentOffset);
       }
-      currentOffset += line.text.length;
+      currentOffset += line.text.length + line.eolLength;
     }
     return this._lines[this._lines.length - 1].range.end;
   }
@@ -97,27 +110,18 @@ export class InMemoryTextDocument implements TextDocument {
   }
 }
 
-function createLines(text: string): TextLine[] {
-  const lines = text.split(/\r?\n/g);
-  const result: TextLine[] = [];
+function createLines(text: string): InMemoryTextLine[] {
+  const documentParts = text.split(/(\r?\n)/g);
+  const result: InMemoryTextLine[] = [];
 
-  for (const line of lines) {
-    const start = new Position(result.length, 0);
-    const end = new Position(start.line, line.length);
-    const endIncludingLineBreak = new Position(start.line + 1, 0);
-    const firstNonWhitespaceCharacterIndex = getLeadingWhitespace(line).length;
-    const lastNonWhitespaceCharacterIndex =
-      line.length - getTrailingWhitespace(line).length;
-    const isEmptyOrWhitespace = /^\s*$/.test(line);
-    result.push({
-      lineNumber: start.line,
-      text: line,
-      range: new Range(start, end),
-      rangeIncludingLineBreak: new Range(start, endIncludingLineBreak),
-      firstNonWhitespaceCharacterIndex,
-      lastNonWhitespaceCharacterIndex,
-      isEmptyOrWhitespace,
-    });
+  for (let i = 0; i < documentParts.length; i += 2) {
+    result.push(
+      new InMemoryTextLine(
+        result.length,
+        documentParts[i],
+        documentParts[i + 1],
+      ),
+    );
   }
 
   return result;
