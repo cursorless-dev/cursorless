@@ -81,9 +81,9 @@ export async function launchNeovimAndRunTests() {
     const subprocess = cp.spawn(cli, [`--headless`], {
       env: {
         ...process.env,
-        NVIM_NODE_LOG_FILE: logName,
-        NVIM_NODE_LOG_LEVEL: "info", // default for testing
-        CURSORLESS_MODE: "test",
+        ["NVIM_NODE_LOG_FILE"]: logName,
+        ["NVIM_NODE_LOG_LEVEL"]: "info", // default for testing
+        ["CURSORLESS_MODE"]: "test",
       },
     });
     console.log("nvim started done");
