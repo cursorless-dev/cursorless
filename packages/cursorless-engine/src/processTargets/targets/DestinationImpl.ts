@@ -184,11 +184,19 @@ function getIndentationString(editor: TextEditor, range: Range) {
   let indentationString = "";
   for (let i = range.start.line; i <= range.end.line; ++i) {
     const line = editor.document.lineAt(i);
-    if (line.isEmptyOrWhitespace) {
-      if (line.range.isEmpty || !range.isSingleLine) {
-        continue;
-      }
+    if (
+      line.range.isEmpty ||
+      (line.isEmptyOrWhitespace && !range.isSingleLine)
+    ) {
+      // Skip empty lines. If the range is a single line, we want to include the
+      // indentation of the line even if it is all whitespace so that you can
+      // "drink line" on an indented but empty line and get the same
+      // indentation. If the range is not a single line, we want to skip any
+      // lines that are all whitespace to avoid including a random line of
+      // whitespace in the indentation.
+      continue;
     }
+
     if (line.firstNonWhitespaceCharacterIndex < length) {
       length = line.firstNonWhitespaceCharacterIndex;
       indentationString = line.text.slice(0, length);
