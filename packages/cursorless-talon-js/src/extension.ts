@@ -67,6 +67,8 @@ async function activate(): Promise<void> {
   } catch (error) {
     print(error);
   }
+
+  print("talon.js activated");
 }
 
 void activate();
