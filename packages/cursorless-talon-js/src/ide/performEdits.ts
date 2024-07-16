@@ -63,14 +63,13 @@ export async function performEdits(
       result.slice(rangeOffset + rangeLength);
   }
 
+  actions.user.cursorless_js_set_text(result);
+  document.setTextInternal(result);
+
   ide.emitDidChangeTextDocument({
     document,
     contentChanges: changes,
   });
-
-  document.setTextInternal(result);
-
-  actions.user.cursorless_js_set_text(result);
 
   return true;
 }

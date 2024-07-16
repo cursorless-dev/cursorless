@@ -49,12 +49,19 @@ export class TalonJsEditor implements EditableTextEditor {
     return performEdits(this.ide, this, edits);
   }
 
-  async clipboardCopy(_ranges?: Range[]): Promise<void> {
-    actions.edit.copy();
+  async clipboardCopy(ranges: Range[]): Promise<void> {
+    const text = ranges.map((range) => this.document.getText(range)).join("\n");
+    actions.clip.set_text(text);
   }
 
-  async clipboardPaste(_ranges?: Range[]): Promise<void> {
-    actions.edit.paste();
+  async clipboardPaste(): Promise<void> {
+    const text = actions.clip.text();
+    const edits = this.selections.map((range) => ({
+      range,
+      text,
+      isReplace: true,
+    }));
+    await performEdits(this.ide, this, edits);
   }
 
   indentLine(ranges: Range[]): Promise<void> {

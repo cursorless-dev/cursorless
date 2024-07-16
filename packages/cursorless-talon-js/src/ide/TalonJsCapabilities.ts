@@ -3,7 +3,7 @@ import type { Capabilities, CommandCapabilityMap } from "@cursorless/common";
 const COMMAND_CAPABILITIES: CommandCapabilityMap = {
   indentLine: { acceptsLocation: true },
   outdentLine: { acceptsLocation: true },
-  clipboardCopy: { acceptsLocation: false },
+  clipboardCopy: { acceptsLocation: true },
 
   toggleLineComment: undefined,
   rename: undefined,
