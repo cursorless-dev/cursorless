@@ -19,6 +19,22 @@ suite("InMemoryTextDocument", () => {
     assert.equal(document.version, 0);
   });
 
+  test("filename", () => {
+    const document1 = new InMemoryTextDocument(
+      URI.parse("cursorless-dummy://dummy/foo.ts"),
+      "",
+      "",
+    );
+    const document2 = new InMemoryTextDocument(
+      URI.file("dummy\\bar.ts"),
+      "",
+      "",
+    );
+
+    assert.equal(document1.filename, "foo.ts");
+    assert.equal(document2.filename, "bar.ts");
+  });
+
   test("CRLF", () => {
     const document = new InMemoryTextDocument(
       uri,

@@ -20,7 +20,7 @@ export class InMemoryTextDocument implements TextDocument {
     public readonly languageId: string,
     text: string,
   ) {
-    this.filename = uri.path.replace(/\\|\//g, "");
+    this.filename = uri.path.split(/\\|\//g).pop() ?? "";
     this._text = "";
     this._eol = "LF";
     this._version = -1;
