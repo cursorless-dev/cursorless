@@ -11,6 +11,9 @@ if [[ "${CI:-x}" == "true" ]]; then
   # If running in CI, only copy the necessary files for testing
   out_dir="$CURSORLESS_REPO_ROOT/dist/cursorless.nvim"
 
+  # XXX - remove test on CI
+  ls -lR "$cursorless_nvim_dir"
+
   # copy static files such as .lua dependencies and command-server
   cp -r "$cursorless_nvim_dir/*" "$out_dir"
 
