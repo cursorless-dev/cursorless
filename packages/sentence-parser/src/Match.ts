@@ -148,7 +148,7 @@ export function isDottedAbbreviation(word: string) {
   return matches && matches[0].length > 0;
 }
 
-// TODO look for next words, if multiple are capitalized,
+// FIXME look for next words, if multiple are capitalized,
 // then it's probably not a sentence ending
 export function isCustomAbbreviation(str: string) {
   if (str.length <= 3) {
