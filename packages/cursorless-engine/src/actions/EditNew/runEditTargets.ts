@@ -25,11 +25,11 @@ export async function runEditTargets(
   rangeUpdater: RangeUpdater,
   editor: EditableTextEditor,
   state: State,
+  useAllDestinations: boolean,
 ): Promise<State> {
   const destinations: EditDestination[] = state.destinations
     .map((destination, index) => {
-      const actionType = destination.getEditNewActionType();
-      if (actionType === "edit") {
+      if (useAllDestinations || destination.getEditNewActionType() === "edit") {
         return {
           destination,
           index,
