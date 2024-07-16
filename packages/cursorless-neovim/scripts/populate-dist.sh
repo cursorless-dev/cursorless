@@ -20,7 +20,7 @@ if [[ "${CI:-x}" == "true" ]]; then
   ls -lR "$CURSORLESS_REPO_ROOT/dist/"
 
   # copy static files such as .lua dependencies and command-server
-  cp -r "$cursorless_nvim_dir/*" "$out_dir"
+  cp -r "$cursorless_nvim_dir/"* "$out_dir"
   echo "1"
 
   # Populate cursorless-neovim
