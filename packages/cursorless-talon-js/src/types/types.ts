@@ -4,7 +4,7 @@ export interface OffsetSelection {
   active: number;
 }
 
-export interface DocumentState {
+export interface EditorState {
   text: string;
   selection: OffsetSelection;
 }

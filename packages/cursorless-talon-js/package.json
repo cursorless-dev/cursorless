@@ -7,11 +7,11 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "compile:esbuild": "pnpm run esbuild:base",
+    "esbuild:dev": "pnpm run esbuild:base src/mainDevelopment.ts",
+    "esbuild:prod": "pnpm run esbuild:base --minify src/mainProduction.ts",
+    "esbuild:watch": "pnpm run esbuild:base --watch src/mainDevelopment.ts",
+    "esbuild:meta": "pnpm run esbuild:base --metafile=meta.json src/mainDevelopment.ts",
     "esbuild:base": "sh esbuild.sh",
-    "esbuild:prod": "pnpm run esbuild:base --minify",
-    "esbuild:watch": "pnpm run esbuild:base --watch",
-    "esbuild:meta": "pnpm run esbuild:base --metafile=meta.json",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {

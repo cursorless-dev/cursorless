@@ -1,4 +1,5 @@
 import "./polyfill";
+import type { RunMode } from "@cursorless/common";
 import {
   createCursorlessEngine,
   type CommandApi,
@@ -45,8 +46,8 @@ async function runCommand(
       throw Error(`Unknown command ID: ${commandId}`);
     }
 
-    const documentState = actions.user.cursorless_js_get_document_state();
-    ide.updateTextEditors(documentState);
+    const editorState = actions.user.cursorless_js_get_editor_state();
+    ide.updateTextEditors(editorState);
 
     return await commandApi.runCommandSafe(command);
   } catch (error) {
@@ -55,11 +56,11 @@ async function runCommand(
   }
 }
 
-async function activate(): Promise<void> {
-  print("activate talon.js");
+export async function activate(runMode: RunMode): Promise<void> {
+  print(`activate talon.js @ ${runMode}`);
 
   try {
-    ide = new TalonJsIDE();
+    ide = new TalonJsIDE(runMode);
 
     const engine = await createCursorlessEngine({ ide });
 
@@ -70,5 +71,3 @@ async function activate(): Promise<void> {
 
   print("talon.js activated");
 }
-
-void activate();

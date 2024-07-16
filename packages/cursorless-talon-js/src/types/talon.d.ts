@@ -1,4 +1,4 @@
-import type { DocumentState, OffsetSelection } from "./types";
+import type { EditorState, OffsetSelection } from "./types";
 
 type Namespace = "user";
 
@@ -23,7 +23,7 @@ interface Actions {
       commandId: string,
       command: unknown,
     ): Promise<unknown>;
-    cursorless_js_get_document_state(): DocumentState;
+    cursorless_js_get_editor_state(): EditorState;
     cursorless_js_set_selection(selection: OffsetSelection): void;
     cursorless_js_set_text(text: string): void;
   };

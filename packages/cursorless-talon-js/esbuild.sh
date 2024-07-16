@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 esbuild \
-    ./src/extension.ts \
-    --outfile=./out/talon.js \
+    --outfile=out/talon.js \
     --platform=neutral \
     --main-fields=main,module \
     --format=esm \

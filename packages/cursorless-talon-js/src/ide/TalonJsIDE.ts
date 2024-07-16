@@ -23,7 +23,7 @@ import {
   WorkspaceFolder,
 } from "@cursorless/common";
 import { pull } from "lodash-es";
-import type { DocumentState } from "../types/types";
+import type { EditorState } from "../types/types";
 import { TalonJsCapabilities } from "./TalonJsCapabilities";
 import { TalonJsClipboard } from "./TalonJsClipboard";
 import { TalonJsConfiguration } from "./TalonJsConfiguration";
@@ -44,7 +44,7 @@ export class TalonJsIDE implements IDE {
   private onDidChangeTextDocumentNotifier: Notifier<[TextDocumentChangeEvent]> =
     new Notifier();
 
-  constructor() {
+  constructor(public runMode: RunMode) {
     this.configuration = new TalonJsConfiguration();
     this.messages = new TalonJsMessages();
     this.globalState = new TalonJsState();
@@ -62,10 +62,6 @@ export class TalonJsIDE implements IDE {
 
   get workspaceFolders(): readonly WorkspaceFolder[] | undefined {
     throw new Error("workspaceFolders not implemented.");
-  }
-
-  get runMode(): RunMode {
-    return "production";
   }
 
   get activeTextEditor(): TextEditor | undefined {
@@ -87,8 +83,8 @@ export class TalonJsIDE implements IDE {
     throw Error(`Unsupported text editor type: ${editor}`);
   }
 
-  updateTextEditors(documentState: DocumentState) {
-    this.editors = [createTextEditor(this, documentState)];
+  updateTextEditors(editorState: EditorState) {
+    this.editors = [createTextEditor(this, editorState)];
   }
 
   findInDocument(
