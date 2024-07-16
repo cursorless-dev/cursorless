@@ -1,4 +1,5 @@
 import "./polyfill";
+
 import type { RunMode } from "@cursorless/common";
 import { createCursorlessEngine } from "@cursorless/cursorless-engine";
 import { TalonJsIDE } from "./ide/TalonJsIDE";
