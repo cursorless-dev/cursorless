@@ -10,8 +10,7 @@ esbuild \
     --bundle \
     --sourcemap \
     --external:talon \
-    $@ \
-    # --minify \
+    $@
 
 
 if [ $? -ne 0 ]; then

@@ -7,13 +7,11 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "compile:tsc": "tsc --build",
-    "compile:esbuild": "sh esbuild.sh",
-    "compile": "pnpm compile:tsc && pnpm compile:esbuild",
-    "watch:tsc": "pnpm compile:tsc --watch",
-    "watch:esbuild": "pnpm compile:esbuild --watch",
-    "esbuild:meta": "pnpm run compile:esbuild --metafile=meta.json",
-    "watch": "pnpm run --filter @cursorless/cursorless-talon-js --parallel '/^watch:.*/'",
+    "compile:esbuild": "pnpm run esbuild:base",
+    "esbuild:base": "sh esbuild.sh",
+    "esbuild:prod": "pnpm run esbuild:base --minify",
+    "esbuild:watch": "pnpm run esbuild:base --watch",
+    "esbuild:meta": "pnpm run esbuild:base --metafile=meta.json",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
