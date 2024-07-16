@@ -12,22 +12,26 @@ if [[ "${CI:-x}" == "true" ]]; then
   out_dir="$CURSORLESS_REPO_ROOT/dist/cursorless.nvim"
 
   # XXX - remove test on CI
+  echo "0"
   ls -lR "$cursorless_nvim_dir"
 
   # copy static files such as .lua dependencies and command-server
   cp -r "$cursorless_nvim_dir/*" "$out_dir"
+  echo "1"
 
   # Populate cursorless-neovim
   cursorless_neovim_node_out_dir="$out_dir/node/cursorless-neovim"
   mkdir -p "$cursorless_neovim_node_out_dir/out"
   cp "$cursorless_neovim_node_in_dir/package.json" "$cursorless_neovim_node_out_dir"
   cp "$cursorless_neovim_node_in_dir/out/index.cjs" "$cursorless_neovim_node_out_dir/out"
+  echo "2"
 
   # Populate test-harness
   test_harness_node_out_dir="$out_dir/node/test-harness"
   mkdir -p "$test_harness_node_out_dir/out"
   cp "$test_harness_node_in_dir/package.json" "$test_harness_node_out_dir"
   cp "$test_harness_node_in_dir/out/index.cjs" "$test_harness_node_out_dir/out"
+  echo "3"
 else
   # Symlink so we inherit the .map files as well, but only if uname doesn't
   # start with "MINGW" (Windows Git Bash)
