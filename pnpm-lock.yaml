@@ -260,6 +260,9 @@ importers:
       '@cursorless/node-common':
         specifier: workspace:*
         version: link:../node-common
+      '@cursorless/sentence-parser':
+        specifier: workspace:*
+        version: link:../sentence-parser
       immer:
         specifier: ^10.0.4
         version: 10.0.4
@@ -673,6 +676,15 @@ importers:
       js-yaml:
         specifier: ^4.1.0
         version: 4.1.0
+
+  packages/sentence-parser:
+    devDependencies:
+      '@types/mocha':
+        specifier: ^10.0.6
+        version: 10.0.6
+      mocha:
+        specifier: ^10.3.0
+        version: 10.3.0
 
   packages/test-case-recorder:
     dependencies:

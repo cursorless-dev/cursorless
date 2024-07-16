@@ -16,7 +16,7 @@ export class NormalizedIDE extends PassthroughIDEBase {
     original: IDE,
     public fakeIde: FakeIDE,
     private isSilent: boolean,
-    private cursorlessSnippetsDir: string,
+    private cursorlessSnippetsDir?: string,
   ) {
     super(original);
 
