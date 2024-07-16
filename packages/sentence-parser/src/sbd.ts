@@ -8,20 +8,23 @@ const whiteSpaceCheck = new RegExp("\\S", "");
 const addNewLineBoundaries = new RegExp("\\n+|[-#=_+*]{4,}", "g");
 const splitIntoWords = new RegExp("\\S+|\\n", "g");
 
-export interface Options {
+export interface SentenceParserOptions {
   newlineBoundaries?: boolean;
   preserveWhitespace?: boolean;
   abbreviations?: string[];
 }
 
-const defaultOptions: Options = {
+const defaultOptions: SentenceParserOptions = {
   newlineBoundaries: false,
   preserveWhitespace: false,
   abbreviations: undefined,
 };
 
 // Split the entry into sentences.
-export function sentences(text: string, user_options?: Options) {
+export function getSentences(
+  text: string,
+  user_options?: SentenceParserOptions,
+) {
   if (!text) {
     return [];
   }
@@ -31,7 +34,7 @@ export function sentences(text: string, user_options?: Options) {
     return [];
   }
 
-  const options: Options = {
+  const options: SentenceParserOptions = {
     ...defaultOptions,
     ...user_options,
   };

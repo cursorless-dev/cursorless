@@ -5,7 +5,7 @@ suite("sentence-parser: Save newlines", function () {
   suite("Basic", function () {
     const entry =
       "First sentence... Another list: \n - green \n - blue \n - red";
-    const sentences = parser.sentences(entry);
+    const sentences = parser.getSentences(entry);
 
     test("second sentence should have newlines", function () {
       assert.equal(sentences[1], "Another list: \n - green \n - blue \n - red");
@@ -15,7 +15,7 @@ suite("sentence-parser: Save newlines", function () {
   suite("Sentence without lists", function () {
     const entry =
       "First sentence... Another sentence.\nThis is a new paragraph.";
-    const sentences = parser.sentences(entry);
+    const sentences = parser.getSentences(entry);
 
     test("second sentence should have newlines", function () {
       assert.equal(sentences.length, 3);
@@ -25,7 +25,7 @@ suite("sentence-parser: Save newlines", function () {
   suite("With option to use newlines as sentence boundaries", function () {
     const entry =
       "First sentence... Another list: \n - green \n - blue \n - red";
-    const sentences = parser.sentences(entry, { newlineBoundaries: true });
+    const sentences = parser.getSentences(entry, { newlineBoundaries: true });
 
     test("second sentence should have newlines", function () {
       assert.equal(sentences.length, 5);
@@ -38,7 +38,7 @@ suite("sentence-parser: Save newlines", function () {
         \
         Peter Piper Picked a peck of pickled peppers. A peck of pickled peppers peter piper picked.";
 
-    const sentences = parser.sentences(entry);
+    const sentences = parser.getSentences(entry);
 
     test("Should have 3 sentences ending in periods", function () {
       assert.equal(sentences[0], "How now brown cow.");
@@ -54,7 +54,7 @@ suite("sentence-parser: Save newlines", function () {
 
         Peter Piper Picked a peck of pickled peppers. A peck of pickled peppers peter piper picked.`;
 
-    const sentences = parser.sentences(entry, { newlineBoundaries: true });
+    const sentences = parser.getSentences(entry, { newlineBoundaries: true });
 
     test("Should have 3 sentences ending in periods", function () {
       assert.equal(sentences[0], "How now brown cow.");
