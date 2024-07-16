@@ -1,7 +1,5 @@
-import {
-  getCursorlessRepoRoot,
-  getEnvironmentVariableStrict,
-} from "@cursorless/common";
+import { getEnvironmentVariableStrict } from "@cursorless/common";
+import { getCursorlessRepoRoot } from "@cursorless/node-common";
 import * as cp from "child_process";
 import { copyFile, mkdirSync, readdirSync } from "fs";
 import process from "node:process";

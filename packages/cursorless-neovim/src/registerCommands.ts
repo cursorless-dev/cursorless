@@ -64,6 +64,8 @@ export async function registerCommands(
       }
     },
 
+    ["cursorless.repeatPreviousCommand"]: dummyCommandHandler,
+
     // Cheatsheet commands
     ["cursorless.showCheatsheet"]: dummyCommandHandler,
     ["cursorless.internal.updateCheatsheetDefaults"]: dummyCommandHandler,
@@ -110,6 +112,9 @@ export async function registerCommands(
     ["cursorless.keyboard.modal.modeOn"]: dummyCommandHandler,
     ["cursorless.keyboard.modal.modeOff"]: dummyCommandHandler,
     ["cursorless.keyboard.modal.modeToggle"]: dummyCommandHandler,
+
+    ["cursorless.keyboard.undoTarget"]: dummyCommandHandler,
+    ["cursorless.keyboard.redoTarget"]: dummyCommandHandler,
   };
 
   Object.entries(commands).map(([commandId, callback]) =>
