@@ -23,7 +23,7 @@ const defaultOptions: SentenceParserOptions = {
 // Split the entry into sentences.
 export function getSentences(
   text: string,
-  user_options?: SentenceParserOptions,
+  userOptions?: SentenceParserOptions,
 ) {
   if (!text) {
     return [];
@@ -36,7 +36,7 @@ export function getSentences(
 
   const options: SentenceParserOptions = {
     ...defaultOptions,
-    ...user_options,
+    ...userOptions,
   };
 
   Match.setAbbreviations(options.abbreviations);
