@@ -43,7 +43,7 @@ function createChangeEvents(
   const sortedEdits = edits
     .map((edit, index) => ({ edit, index }))
     .sort((a, b) => {
-      // Edit starting at the same position are sorted in reverse given order.
+      // Edits starting at the same position are sorted in reverse given order.
       if (a.edit.range.start.isEqual(b.edit.range.start)) {
         return b.index - a.index;
       }
