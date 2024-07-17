@@ -1,3 +1,6 @@
+import * as assert from "node:assert";
+import { createDocument } from "./createDocument";
+
 interface TestCaseFixture {
   input: string;
   expectedRanges: string;
@@ -17,3 +20,16 @@ export const textDocumentRangeFixtures: TestCaseFixture[] = [
     expectedRanges: "0:0-0:3, 1:0-1:3, 2:0-2:3",
   },
 ];
+
+suite("InMemoryTextDocument fixtures", () => {
+  for (const fixture of textDocumentRangeFixtures) {
+    const name = fixture.input.replace(/\n/g, "\\n").replace(/\r/g, "\\r");
+    test(name, () => {
+      const document = createDocument(fixture.input);
+      const documentLineRanges = [...Array(document.lineCount).keys()]
+        .map((i) => document.lineAt(i).range.toString())
+        .join(", ");
+      assert.deepEqual(documentLineRanges, fixture.expectedRanges);
+    });
+  }
+});

@@ -9,7 +9,7 @@ import type { InMemoryTextDocument } from "./InMemoryTextDocument";
 export async function performEdits(
   document: InMemoryTextDocument,
   edits: readonly Edit[],
-): Promise<TextDocumentContentChangeEvent[]> {
+) {
   const changes = createChangeEvents(document, edits);
 
   let result = document.getText();
@@ -23,9 +23,7 @@ export async function performEdits(
       result.slice(rangeOffset + rangeLength);
   }
 
-  document.setTextInternal(result);
-
-  return changes;
+  return { text: result, changes };
 }
 
 function createChangeEvents(

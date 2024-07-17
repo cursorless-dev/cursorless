@@ -4,6 +4,9 @@ import {
   Range,
   TextDocument,
   TextLine,
+  performEdits,
+  type Edit,
+  type TextDocumentContentChangeEvent,
 } from "@cursorless/common";
 import type { URI } from "vscode-uri";
 import { InMemoryTextLine } from "./InMemoryTextLine";
@@ -48,7 +51,7 @@ export class InMemoryTextDocument implements TextDocument {
     return new Range(this._lines[0].range.start, this._lines.at(-1)!.range.end);
   }
 
-  setTextInternal(text: string): void {
+  private setTextInternal(text: string): void {
     this._text = text;
     this._eol = text.includes("\r\n") ? "CRLF" : "LF";
     this._version++;
@@ -109,6 +112,12 @@ export class InMemoryTextDocument implements TextDocument {
     const startOffset = this.offsetAt(range.start);
     const endOffset = this.offsetAt(range.end);
     return this.text.slice(startOffset, endOffset);
+  }
+
+  async edit(edits: Edit[]): Promise<TextDocumentContentChangeEvent[]> {
+    const { text, changes } = await performEdits(this, edits);
+    this.setTextInternal(text);
+    return changes;
   }
 }
 

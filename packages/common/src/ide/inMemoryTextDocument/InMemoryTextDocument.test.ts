@@ -3,15 +3,7 @@ import { URI } from "vscode-uri";
 import { Position } from "../../types/Position";
 import { Range } from "../../types/Range";
 import { InMemoryTextDocument } from "./InMemoryTextDocument";
-import { textDocumentRangeFixtures } from "./fixtures";
-
-function createDocument(text: string): InMemoryTextDocument {
-  return new InMemoryTextDocument(
-    URI.parse("cursorless-dummy://dummy/untitled"),
-    "plaintext",
-    text,
-  );
-}
+import { createDocument } from "./createDocument";
 
 suite("InMemoryTextDocument", () => {
   test("constructor", () => {
@@ -128,15 +120,4 @@ suite("InMemoryTextDocument", () => {
     assert.equal(document.positionAt(document.text.length).toString(), "2:0");
     assert.equal(document.positionAt(100).toString(), "2:0");
   });
-
-  for (const fixture of textDocumentRangeFixtures) {
-    const name = fixture.input.replace(/\n/g, "\\n").replace(/\r/g, "\\r");
-    test(`Fixture: ${name}`, () => {
-      const document = createDocument(fixture.input);
-      const documentLineRanges = [...Array(document.lineCount).keys()]
-        .map((i) => document.lineAt(i).range.toString())
-        .join(", ");
-      assert.deepEqual(documentLineRanges, fixture.expectedRanges);
-    });
-  }
 });
