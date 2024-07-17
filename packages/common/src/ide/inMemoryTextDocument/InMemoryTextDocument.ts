@@ -1,15 +1,13 @@
-import {
-  EndOfLine,
-  Position,
-  Range,
-  TextDocument,
-  TextLine,
-  performEdits,
-  type Edit,
-  type TextDocumentContentChangeEvent,
-} from "@cursorless/common";
 import type { URI } from "vscode-uri";
+import type { Edit } from "../../types/Edit";
+import { Position } from "../../types/Position";
+import { Range } from "../../types/Range";
+import type { TextDocument } from "../../types/TextDocument";
+import type { TextLine } from "../../types/TextLine";
+import type { TextDocumentContentChangeEvent } from "../types/Events";
+import type { EndOfLine } from "../types/ide.types";
 import { InMemoryTextLine } from "./InMemoryTextLine";
+import { performEdits } from "./performEdits";
 
 export class InMemoryTextDocument implements TextDocument {
   private _version: number;

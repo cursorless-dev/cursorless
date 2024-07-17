@@ -1,13 +1,10 @@
-import {
-  Edit,
-  type Range,
-  type TextDocument,
-  type TextDocumentContentChangeEvent,
-} from "@cursorless/common";
-import type { InMemoryTextDocument } from "./InMemoryTextDocument";
+import type { Edit } from "../../types/Edit";
+import type { Range } from "../../types/Range";
+import type { TextDocument } from "../../types/TextDocument";
+import type { TextDocumentContentChangeEvent } from "../types/Events";
 
 export async function performEdits(
-  document: InMemoryTextDocument,
+  document: TextDocument,
   edits: readonly Edit[],
 ) {
   const changes = createChangeEvents(document, edits);
