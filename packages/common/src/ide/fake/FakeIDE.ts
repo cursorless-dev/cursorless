@@ -23,7 +23,7 @@ import FakeConfiguration from "./FakeConfiguration";
 import FakeGlobalState from "./FakeGlobalState";
 import FakeMessages from "./FakeMessages";
 
-export default class FakeIDE implements IDE {
+export class FakeIDE implements IDE {
   configuration: FakeConfiguration = new FakeConfiguration();
   messages: FakeMessages = new FakeMessages();
   globalState: FakeGlobalState = new FakeGlobalState();

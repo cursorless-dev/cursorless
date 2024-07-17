@@ -17,7 +17,7 @@ export interface SpyIDERecordedValues {
   highlights?: Highlight[];
 }
 
-export default class SpyIDE extends PassthroughIDEBase {
+export class SpyIDE extends PassthroughIDEBase {
   messages: SpyMessages;
   private flashes: FlashDescriptor[] = [];
   private highlights: Highlight[] = [];
