@@ -149,8 +149,9 @@ export interface EditableTextEditor extends TextEditor {
 
   /**
    * Paste clipboard content
+   * @param ranges A list of {@link Range ranges}
    */
-  clipboardPaste(): Promise<void>;
+  clipboardPaste(ranges?: Range[]): Promise<void>;
 
   /**
    * Toggle breakpoints. For each of the descriptors in {@link descriptors},

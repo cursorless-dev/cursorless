@@ -175,7 +175,7 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     await vscode.commands.executeCommand("editor.action.clipboardCopyAction");
   }
 
-  public async clipboardPaste(): Promise<void> {
+  public async clipboardPaste(ranges?: Range[]): Promise<void> {
     // We add these sleeps here to workaround a bug in VSCode. See #1521
     await sleep(100);
     await vscode.commands.executeCommand("editor.action.clipboardPasteAction");
