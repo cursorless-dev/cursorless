@@ -1,4 +1,5 @@
-from typing import Any, Tuple
+from typing import Any
+
 from talon import Module, ui
 from talon.windows.ax import TextRange
 
@@ -65,8 +66,6 @@ class Actions:
         el.value_pattern.value = text
 
 
-
-
 def set_selection(document_range: TextRange, anchor: int, active: int):
     # This happens in slack, for example. The document range starts with a
     # newline and selecting first character we'll make the selection go outside
@@ -86,7 +85,7 @@ def set_selection(document_range: TextRange, anchor: int, active: int):
 
 def get_selection(
     document_range: TextRange, selection_range: TextRange, caret_range: TextRange
-) -> Tuple[int, int]:
+) -> tuple[int, int]:
     range_before_selection = document_range.clone()
     range_before_selection.move_endpoint_by_range(
         "End",
