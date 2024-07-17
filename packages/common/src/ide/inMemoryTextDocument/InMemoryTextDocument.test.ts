@@ -1,14 +1,20 @@
 import * as assert from "node:assert";
 import { URI } from "vscode-uri";
 import { Position } from "../../types/Position";
+import { Range } from "../../types/Range";
 import { InMemoryTextDocument } from "./InMemoryTextDocument";
 
-const uri = URI.parse("cursorless-dummy://dummy/untitled");
-const languageId = "plaintext";
+function createDocument(text: string): InMemoryTextDocument {
+  return new InMemoryTextDocument(
+    URI.parse("cursorless-dummy://dummy/untitled"),
+    "plaintext",
+    text,
+  );
+}
 
 suite("InMemoryTextDocument", () => {
   test("constructor", () => {
-    const document = new InMemoryTextDocument(uri, languageId, "hello\nworld");
+    const document = createDocument("hello\nworld");
 
     assert.equal(document.uri.toString(), "cursorless-dummy://dummy/untitled");
     assert.equal(document.languageId, "plaintext");
@@ -36,22 +42,26 @@ suite("InMemoryTextDocument", () => {
   });
 
   test("CRLF", () => {
-    const document = new InMemoryTextDocument(
-      uri,
-      languageId,
-      "foo\nbar\r\nbaz",
-    );
+    const document = createDocument("foo\nbar\r\nbaz");
 
     assert.equal(document.lineCount, 3);
     assert.equal(document.eol, "CRLF");
   });
 
+  test("getText", () => {
+    const document = createDocument("foo\nbar\r\nbaz");
+
+    assert.equal(document.getText(), document.text);
+    assert.equal(document.getText(document.range), document.text);
+    assert.equal(document.getText(new Range(0, 0, 0, 0)), "");
+    assert.equal(document.getText(new Range(0, 0, 0, 3)), "foo");
+    assert.equal(document.getText(new Range(1, 0, 2, 0)), "bar\r\n");
+    assert.equal(document.getText(new Range(0, 3, 1, 0)), "\n");
+    assert.equal(document.getText(new Range(1, 3, 2, 0)), "\r\n");
+  });
+
   test("lineAt", () => {
-    const document = new InMemoryTextDocument(
-      uri,
-      languageId,
-      "hello  \n  world\n  ",
-    );
+    const document = createDocument("hello  \n  world\n  ");
 
     assert.equal(document.lineCount, 3);
 
@@ -90,11 +100,7 @@ suite("InMemoryTextDocument", () => {
   });
 
   test("offsetAt", () => {
-    const document = new InMemoryTextDocument(
-      uri,
-      languageId,
-      "hello  \n  world\r\n",
-    );
+    const document = createDocument("hello  \n  world\r\n");
 
     assert.equal(document.offsetAt(new Position(-1, 0)), 0);
     assert.equal(document.offsetAt(new Position(0, -1)), 0);
@@ -109,11 +115,7 @@ suite("InMemoryTextDocument", () => {
   });
 
   test("positionAt", () => {
-    const document = new InMemoryTextDocument(
-      uri,
-      languageId,
-      "hello  \n  world\r\n",
-    );
+    const document = createDocument("hello  \n  world\r\n");
 
     assert.equal(document.positionAt(-1), "0:0");
     assert.equal(document.positionAt(0).toString(), "0:0");
