@@ -25,7 +25,6 @@ class Actions:
 
     def private_cursorless_notify_docs_opened():
         """Notify the ide that the docs were opened in case the tutorial is waiting for that event"""
-        ...
 
     def private_cursorless_show_command_statistics():
         """Show Cursorless command statistics"""
