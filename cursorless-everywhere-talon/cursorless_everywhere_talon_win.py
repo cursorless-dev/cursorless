@@ -26,13 +26,14 @@ class Actions:
         text_pattern = el.text_pattern2
         document_range = text_pattern.document_range
         caret_range = text_pattern.caret_range
-        selection_range = text_pattern.selection[0]
-        anchor, active = get_selection(document_range, selection_range, caret_range)
+        selection_ranges = text_pattern.selection
+        selections: list[OffsetSelection] = []
 
-        return EditorState(
-            document_range.text,
-            [OffsetSelection(anchor=anchor, active=active)],
-        )
+        for selection_range in selection_ranges:
+            anchor, active = get_selection(document_range, selection_range, caret_range)
+            selections.append(OffsetSelection(anchor, active))
+
+        return EditorState(document_range.text, selections)
 
     def cursorless_everywhere_set_selection(
         selection: dict[str, int],  # pyright: ignore [reportGeneralTypeIssues]
