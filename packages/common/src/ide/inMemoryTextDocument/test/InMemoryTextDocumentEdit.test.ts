@@ -26,6 +26,25 @@ suite("InMemoryTextDocument edit", () => {
     assert.equal(document.text, "hello!\nworld");
   });
 
+  test("multiple inserts", () => {
+    const document = createTestDocument("");
+
+    const changes = document.edit([
+      { range: new Range(0, 0, 0, 0), text: "aaa" },
+      { range: new Range(0, 0, 0, 0), text: "bbb" },
+      { range: new Range(0, 0, 0, 0), text: "ccc" },
+    ]);
+
+    assert.equal(document.text, "aaabbbccc");
+
+    assert.equal(changes[0].range.toString(), "0:0-0:0");
+    assert.equal(changes[0].text, "ccc");
+    assert.equal(changes[1].range.toString(), "0:0-0:0");
+    assert.equal(changes[1].text, "bbb");
+    assert.equal(changes[2].range.toString(), "0:0-0:0");
+    assert.equal(changes[2].text, "aaa");
+  });
+
   test("multiple", () => {
     const document = createTestDocument(text);
     document.edit([
