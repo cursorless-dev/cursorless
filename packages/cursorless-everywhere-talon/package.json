@@ -11,7 +11,9 @@
     "esbuild:prod": "pnpm run esbuild:base --minify src/mainProduction.ts",
     "esbuild:watch": "pnpm run esbuild:base --watch src/mainDevelopment.ts",
     "esbuild:meta": "pnpm run esbuild:base --metafile=meta.json src/mainDevelopment.ts",
-    "esbuild:base": "sh esbuild.sh",
+    "esbuild:base": "bash scripts/esbuild.sh",
+    "build": "pnpm run clean && pnpm run esbuild:prod && pnpm run populate-dist",
+    "populate-dist": "bash scripts/populate-dist.sh",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
