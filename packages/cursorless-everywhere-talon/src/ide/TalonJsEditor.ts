@@ -2,6 +2,7 @@ import type {
   BreakpointDescriptor,
   Edit,
   EditableTextEditor,
+  InMemoryTextDocument,
   OpenLinkOptions,
   Range,
   RevealLineAt,
@@ -12,9 +13,7 @@ import type {
 } from "@cursorless/common";
 import { actions } from "talon";
 import type { TalonJsIDE } from "./TalonJsIDE";
-import type { TalonJsTextDocument } from "./TalonJsTextDocument";
-import { indentLine, outdentLine } from "./indentLine";
-import { performEdits } from "./performEdits";
+import { talonJsPerformEdits } from "./talonJsPerformEdits";
 import { setSelections } from "./setSelections";
 
 export class TalonJsEditor implements EditableTextEditor {
@@ -28,7 +27,7 @@ export class TalonJsEditor implements EditableTextEditor {
   constructor(
     private ide: TalonJsIDE,
     public id: string,
-    public document: TalonJsTextDocument,
+    public document: InMemoryTextDocument,
     public visibleRanges: Range[],
     public selections: Selection[],
   ) {}
@@ -46,7 +45,8 @@ export class TalonJsEditor implements EditableTextEditor {
   }
 
   edit(edits: Edit[]): Promise<boolean> {
-    return performEdits(this.ide, this, edits);
+    talonJsPerformEdits(this.ide, this.document, edits);
+    return Promise.resolve(true);
   }
 
   async clipboardCopy(ranges: Range[]): Promise<void> {
@@ -61,15 +61,15 @@ export class TalonJsEditor implements EditableTextEditor {
       text,
       isReplace: true,
     }));
-    await performEdits(this.ide, this, edits);
+    talonJsPerformEdits(this.ide, this.document, edits);
   }
 
-  indentLine(ranges: Range[]): Promise<void> {
-    return indentLine(this.ide, this, ranges);
+  indentLine(_ranges: Range[]): Promise<void> {
+    throw Error(`indentLine not implemented.`);
   }
 
-  outdentLine(ranges: Range[]): Promise<void> {
-    return outdentLine(this.ide, this, ranges);
+  outdentLine(_ranges: Range[]): Promise<void> {
+    throw Error(`outdentLine not implemented.`);
   }
 
   insertLineAfter(_ranges?: Range[]): Promise<void> {

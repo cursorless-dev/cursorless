@@ -1,9 +1,12 @@
-import { Selection, type TextDocument } from "@cursorless/common";
+import {
+  InMemoryTextDocument,
+  Selection,
+  type TextDocument,
+} from "@cursorless/common";
 import { URI } from "vscode-uri";
 import type { EditorState, OffsetSelection } from "../types/types";
 import { TalonJsEditor } from "./TalonJsEditor";
 import type { TalonJsIDE } from "./TalonJsIDE";
-import { TalonJsTextDocument } from "./TalonJsTextDocument";
 
 let nextId = 0;
 
@@ -14,7 +17,7 @@ export function createTextEditor(
   const id = String(nextId++);
   const uri = URI.parse(`talon-js://${id}`);
   const languageId = "plaintext";
-  const document = new TalonJsTextDocument(uri, languageId, editorState.text);
+  const document = new InMemoryTextDocument(uri, languageId, editorState.text);
   const visibleRanges = [document.range];
   const selections = editorState.selections.map((selection) =>
     createSelection(document, selection),
