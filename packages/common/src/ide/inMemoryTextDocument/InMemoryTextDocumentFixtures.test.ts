@@ -1,3 +1,4 @@
+import range from "lodash-es/range";
 import * as assert from "node:assert";
 import { createDocument } from "./createDocument";
 
@@ -26,7 +27,7 @@ suite("InMemoryTextDocument fixtures", () => {
     const name = fixture.input.replace(/\n/g, "\\n").replace(/\r/g, "\\r");
     test(name, () => {
       const document = createDocument(fixture.input);
-      const documentLineRanges = [...Array(document.lineCount).keys()]
+      const documentLineRanges = range(document.lineCount)
         .map((i) => document.lineAt(i).range.toString())
         .join(", ");
       assert.deepEqual(documentLineRanges, fixture.expectedRanges);
