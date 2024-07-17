@@ -8,3 +8,4 @@ export * from "./nodeGetRunMode";
 export * from "./runRecordedTest";
 export * from "./walkAsync";
 export * from "./walkSync";
+export * from "./loadFixture";

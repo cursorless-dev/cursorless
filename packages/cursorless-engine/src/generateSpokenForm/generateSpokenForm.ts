@@ -5,9 +5,14 @@ import {
   InsertionMode,
   PartialTargetDescriptor,
   ScopeType,
+  SpokenForm,
+  SpokenFormMapKeyTypes,
+  SpokenFormType,
   camelCaseToAllDown,
 } from "@cursorless/common";
+import { SpokenFormMap } from "../spokenForms/SpokenFormMap";
 import { NoSpokenFormError } from "./NoSpokenFormError";
+import { SpokenFormComponent } from "./SpokenFormComponent";
 import { connectives } from "./defaultSpokenForms/connectives";
 import { surroundingPairDelimitersToSpokenForm } from "./defaultSpokenForms/modifiers";
 import {
@@ -15,14 +20,11 @@ import {
   wrapperSnippetToSpokenForm,
 } from "./defaultSpokenForms/snippets";
 import { getRangeConnective } from "./getRangeConnective";
-import { SpokenFormMap } from "../spokenForms/SpokenFormMap";
-import { PrimitiveTargetSpokenFormGenerator } from "./primitiveTargetToSpokenForm";
 import {
   SpokenFormComponentMap,
   getSpokenFormComponentMap,
 } from "./getSpokenFormComponentMap";
-import { SpokenFormComponent } from "./SpokenFormComponent";
-import { SpokenForm } from "@cursorless/common";
+import { PrimitiveTargetSpokenFormGenerator } from "./primitiveTargetToSpokenForm";
 
 export class SpokenFormGenerator {
   private primitiveGenerator: PrimitiveTargetSpokenFormGenerator;
@@ -34,6 +36,23 @@ export class SpokenFormGenerator {
     this.primitiveGenerator = new PrimitiveTargetSpokenFormGenerator(
       this.spokenFormMap,
     );
+  }
+
+  getSpokenFormForSingleTerm<T extends SpokenFormType>(
+    type: T,
+    id: SpokenFormMapKeyTypes[T],
+  ): SpokenForm {
+    return this.componentsToSpokenForm(() => {
+      const value = this.spokenFormMap[type][
+        id as unknown as keyof SpokenFormComponentMap[T]
+      ] as SpokenFormComponent;
+
+      if (value == null) {
+        throw new NoSpokenFormError(`${type} with id ${id}`);
+      }
+
+      return value;
+    });
   }
 
   /**
