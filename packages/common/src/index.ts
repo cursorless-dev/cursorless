@@ -30,7 +30,7 @@ export * from "./ide/types/Paths";
 export * from "./ide/types/CommandHistoryStorage";
 export * from "./ide/types/RawTreeSitterQueryProvider";
 export * from "./ide/types/FileSystem.types";
-export * from "./ide/inMemoryTextDocument";
+export * from "./ide/inMemoryTextDocument/InMemoryTextDocument";
 export * from "./types/RangeExpansionBehavior";
 export * from "./types/InputBoxOptions";
 export * from "./types/Position";
