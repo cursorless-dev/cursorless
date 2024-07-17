@@ -40,9 +40,16 @@ function createChangeEvents(
    * Edits sorted in reverse document order so that edits don't interfere with
    * each other.
    */
-  const sortedEdits = [...edits].sort(
-    (a, b) => -a.range.start.compareTo(b.range.start),
-  );
+  const sortedEdits = edits
+    .map((edit, index) => ({ edit, index }))
+    .sort((a, b) => {
+      // Edit starting at the same position are sorted in reverse given order.
+      if (a.edit.range.start.isEqual(b.edit.range.start)) {
+        return b.index - a.index;
+      }
+      return b.edit.range.start.compareTo(a.edit.range.start);
+    })
+    .map(({ edit }) => edit);
 
   for (const edit of sortedEdits) {
     const previousChange = changes[changes.length - 1];
