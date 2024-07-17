@@ -11,14 +11,14 @@ export function createTextEditor(
   ide: TalonJsIDE,
   editorState: EditorState,
 ): TalonJsEditor {
-  const { text, selection } = editorState;
-
   const id = String(nextId++);
   const uri = URI.parse(`talon-js://${id}`);
   const languageId = "plaintext";
-  const document = new TalonJsTextDocument(uri, languageId, text);
+  const document = new TalonJsTextDocument(uri, languageId, editorState.text);
   const visibleRanges = [document.range];
-  const selections = [createSelection(document, selection)];
+  const selections = editorState.selections.map((selection) =>
+    createSelection(document, selection),
+  );
 
   return new TalonJsEditor(ide, id, document, visibleRanges, selections);
 }

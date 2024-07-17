@@ -42,7 +42,7 @@ async function runCommand(
       throw Error(`Unknown command ID: ${commandId}`);
     }
 
-    const editorState = actions.user.cursorless_js_get_editor_state();
+    const editorState = actions.user.cursorless_everywhere_get_editor_state();
     ide.updateTextEditors(editorState);
 
     return await commandApi.runCommandSafe(command);

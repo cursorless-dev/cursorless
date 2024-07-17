@@ -1,7 +1,7 @@
 // Place your settings in this file to overwrite default and user settings.
 {
   "[python]": {
-    "editor.defaultFormatter": "charliermarsh.ruff"
+    "editor.defaultFormatter": "ms-python.black-formatter"
   },
   "[scm]": {
     "editor.defaultFormatter": "AndreasArvidsson.andreas-talon"

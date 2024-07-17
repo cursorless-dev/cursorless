@@ -15,7 +15,7 @@ export function setSelections(
   const anchor = document.offsetAt(selection.anchor);
   const active = document.offsetAt(selection.active);
 
-  actions.user.cursorless_js_set_selection({ anchor, active });
+  actions.user.cursorless_everywhere_set_selection({ anchor, active });
 
   return Promise.resolve();
 }

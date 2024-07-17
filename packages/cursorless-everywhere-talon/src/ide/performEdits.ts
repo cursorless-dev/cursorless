@@ -63,7 +63,7 @@ export async function performEdits(
       result.slice(rangeOffset + rangeLength);
   }
 
-  actions.user.cursorless_js_set_text(result);
+  actions.user.cursorless_everywhere_set_text(result);
   document.setTextInternal(result);
 
   ide.emitDidChangeTextDocument({

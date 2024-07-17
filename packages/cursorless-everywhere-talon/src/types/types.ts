@@ -6,5 +6,5 @@ export interface OffsetSelection {
 
 export interface EditorState {
   text: string;
-  selection: OffsetSelection;
+  selections: OffsetSelection[];
 }

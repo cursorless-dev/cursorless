@@ -22,9 +22,9 @@ interface Actions {
       commandId: string,
       command: unknown,
     ): Promise<unknown>;
-    cursorless_js_get_editor_state(): EditorState;
-    cursorless_js_set_selection(selection: OffsetSelection): void;
-    cursorless_js_set_text(text: string): void;
+    cursorless_everywhere_get_editor_state(): EditorState;
+    cursorless_everywhere_set_selection(selection: OffsetSelection): void;
+    cursorless_everywhere_set_text(text: string): void;
   };
 }
 
