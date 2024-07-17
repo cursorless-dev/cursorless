@@ -4,7 +4,7 @@ import { createTestDocument } from "./createTestDocument";
 
 const text = "hello\nworld";
 
-suite("InMemoryTextDocument edit", () => {
+suite("InMemoryTextDocument.edit", () => {
   test("change", () => {
     const document = createTestDocument(text);
     document.edit([{ range: new Range(0, 0, 0, 5), text: "goodbye" }]);
