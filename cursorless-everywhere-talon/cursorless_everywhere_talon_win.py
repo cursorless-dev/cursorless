@@ -1,6 +1,5 @@
-from typing import Any
+from talon import Context, app, ui
 
-from talon import Context, ui, app
 from .cursorless_everywhere_talon import EditorState, OffsetSelection
 
 if app.platform == "windows":
