@@ -85,6 +85,16 @@
           }
         ]
       }
+    },
+    {
+      "files": [
+        "packages/common/**/*.ts",
+        "packages/cursorless-engine/**/*.ts"
+      ],
+      "excludedFiles": ["**/testUtil/**", "**/scripts/**", "*.test.ts"],
+      "rules": {
+        "import/no-nodejs-modules": "error"
+      }
     }
   ],
   "settings": {
