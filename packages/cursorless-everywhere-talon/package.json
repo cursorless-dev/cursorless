@@ -1,5 +1,5 @@
 {
-  "name": "@cursorless/cursorless-talon-js",
+  "name": "@cursorless/cursorless-everywhere-talon",
   "version": "1.0.0",
   "description": "cursorless in talon js",
   "main": "./out/index.js",

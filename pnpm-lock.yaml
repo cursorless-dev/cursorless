@@ -319,6 +319,25 @@ importers:
         specifier: ^17.0.1
         version: 17.0.1
 
+  packages/cursorless-everywhere-talon:
+    dependencies:
+      '@cursorless/common':
+        specifier: workspace:*
+        version: link:../common
+      '@cursorless/cursorless-engine':
+        specifier: workspace:*
+        version: link:../cursorless-engine
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
+      vscode-uri:
+        specifier: ^3.0.8
+        version: 3.0.8
+    devDependencies:
+      '@types/lodash-es':
+        specifier: 4.17.0
+        version: 4.17.0
+
   packages/cursorless-org:
     dependencies:
       '@cursorless/cheatsheet':
@@ -449,25 +468,6 @@ importers:
       unified:
         specifier: 11.0.4
         version: 11.0.4
-
-  packages/cursorless-talon-js:
-    dependencies:
-      '@cursorless/common':
-        specifier: workspace:*
-        version: link:../common
-      '@cursorless/cursorless-engine':
-        specifier: workspace:*
-        version: link:../cursorless-engine
-      lodash-es:
-        specifier: ^4.17.21
-        version: 4.17.21
-      vscode-uri:
-        specifier: ^3.0.8
-        version: 3.0.8
-    devDependencies:
-      '@types/lodash-es':
-        specifier: 4.17.0
-        version: 4.17.0
 
   packages/cursorless-vscode:
     dependencies:

@@ -18,13 +18,13 @@
       "path": "./packages/cursorless-engine"
     },
     {
+      "path": "./packages/cursorless-everywhere-talon"
+    },
+    {
       "path": "./packages/cursorless-org"
     },
     {
       "path": "./packages/cursorless-org-docs"
-    },
-    {
-      "path": "./packages/cursorless-talon-js"
     },
     {
       "path": "./packages/cursorless-vscode"
