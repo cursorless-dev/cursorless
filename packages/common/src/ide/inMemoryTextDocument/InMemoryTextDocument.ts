@@ -112,8 +112,8 @@ export class InMemoryTextDocument implements TextDocument {
     return this.text.slice(startOffset, endOffset);
   }
 
-  async edit(edits: Edit[]): Promise<TextDocumentContentChangeEvent[]> {
-    const { text, changes } = await performEdits(this, edits);
+  edit(edits: Edit[]): TextDocumentContentChangeEvent[] {
+    const { text, changes } = performEdits(this, edits);
     this.setTextInternal(text);
     return changes;
   }

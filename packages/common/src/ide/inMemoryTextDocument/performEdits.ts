@@ -3,10 +3,17 @@ import type { Range } from "../../types/Range";
 import type { TextDocument } from "../../types/TextDocument";
 import type { TextDocumentContentChangeEvent } from "../types/Events";
 
-export async function performEdits(
-  document: TextDocument,
-  edits: readonly Edit[],
-) {
+/**
+ * Apply a series of edits to a document. Note that this function does not
+ * modify the document itself, but rather returns a new string with the edits
+ * applied.
+ *
+ * @param document The document to apply the edits to.
+ * @param edits The edits to apply.
+ * @returns An object containing the new text of the document and the changes
+ * that were made.
+ */
+export function performEdits(document: TextDocument, edits: readonly Edit[]) {
   const changes = createChangeEvents(document, edits);
 
   let result = document.getText();
@@ -29,8 +36,12 @@ function createChangeEvents(
 ): TextDocumentContentChangeEvent[] {
   const changes: TextDocumentContentChangeEvent[] = [];
 
-  const sortedEdits = [...edits].sort((a, b) =>
-    b.range.start.compareTo(a.range.start),
+  /**
+   * Edits sorted in reverse document order so that edits don't interfere with
+   * each other.
+   */
+  const sortedEdits = [...edits].sort(
+    (a, b) => -a.range.start.compareTo(b.range.start),
   );
 
   for (const edit of sortedEdits) {
