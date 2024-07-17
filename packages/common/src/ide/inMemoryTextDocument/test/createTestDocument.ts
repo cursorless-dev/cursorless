@@ -1,7 +1,7 @@
 import { URI } from "vscode-uri";
-import { InMemoryTextDocument } from "./InMemoryTextDocument";
+import { InMemoryTextDocument } from "../InMemoryTextDocument";
 
-export function createDocument(text: string): InMemoryTextDocument {
+export function createTestDocument(text: string): InMemoryTextDocument {
   return new InMemoryTextDocument(
     URI.parse("cursorless-dummy://dummy/untitled"),
     "plaintext",

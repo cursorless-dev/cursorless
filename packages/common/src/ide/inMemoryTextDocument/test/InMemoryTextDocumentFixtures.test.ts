@@ -1,6 +1,6 @@
 import range from "lodash-es/range";
 import * as assert from "node:assert";
-import { createDocument } from "./createDocument";
+import { createTestDocument } from "./createTestDocument";
 
 interface TestCaseFixture {
   input: string;
@@ -26,7 +26,7 @@ suite("InMemoryTextDocument fixtures", () => {
   for (const fixture of textDocumentRangeFixtures) {
     const name = fixture.input.replace(/\n/g, "\\n").replace(/\r/g, "\\r");
     test(name, () => {
-      const document = createDocument(fixture.input);
+      const document = createTestDocument(fixture.input);
       const documentLineRanges = range(document.lineCount)
         .map((i) => document.lineAt(i).range.toString())
         .join(", ");

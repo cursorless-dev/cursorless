@@ -1,34 +1,34 @@
 import * as assert from "node:assert";
-import { Range } from "../..";
-import { createDocument } from "./createDocument";
+import { Range } from "../../..";
+import { createTestDocument } from "./createTestDocument";
 
 const text = "hello\nworld";
 
 suite("InMemoryTextDocument edit", () => {
-  test("change", async () => {
-    const document = createDocument(text);
-    await document.edit([{ range: new Range(0, 0, 0, 5), text: "goodbye" }]);
+  test("change", () => {
+    const document = createTestDocument(text);
+    document.edit([{ range: new Range(0, 0, 0, 5), text: "goodbye" }]);
 
     assert.equal(document.text, "goodbye\nworld");
   });
 
-  test("remove", async () => {
-    const document = createDocument(text);
-    await document.edit([{ range: new Range(0, 0, 1, 0), text: "" }]);
+  test("remove", () => {
+    const document = createTestDocument(text);
+    document.edit([{ range: new Range(0, 0, 1, 0), text: "" }]);
 
     assert.equal(document.text, "world");
   });
 
-  test("insert", async () => {
-    const document = createDocument(text);
-    await document.edit([{ range: new Range(0, 5, 0, 5), text: "!" }]);
+  test("insert", () => {
+    const document = createTestDocument(text);
+    document.edit([{ range: new Range(0, 5, 0, 5), text: "!" }]);
 
     assert.equal(document.text, "hello!\nworld");
   });
 
-  test("multiple", async () => {
-    const document = createDocument(text);
-    await document.edit([
+  test("multiple", () => {
+    const document = createTestDocument(text);
+    document.edit([
       { range: new Range(0, 5, 0, 5), text: "!" },
       { range: new Range(1, 0, 1, 1), text: "" },
       { range: new Range(0, 0, 0, 5), text: "goodbye" },
@@ -37,9 +37,9 @@ suite("InMemoryTextDocument edit", () => {
     assert.equal(document.text, "goodbye!\norld");
   });
 
-  test("remove overlapping", async () => {
-    const document = createDocument(text);
-    const changes = await document.edit([
+  test("remove overlapping", () => {
+    const document = createTestDocument(text);
+    const changes = document.edit([
       { range: new Range(0, 0, 0, 4), text: "" },
       { range: new Range(0, 1, 1, 1), text: "" },
     ]);
@@ -49,11 +49,11 @@ suite("InMemoryTextDocument edit", () => {
     assert.equal(changes[0].range.toString(), "0:0-1:1");
   });
 
-  test("change overlapping", async () => {
-    const document = createDocument(text);
+  test("change overlapping", () => {
+    const document = createTestDocument(text);
 
     try {
-      await document.edit([
+      document.edit([
         { range: new Range(0, 0, 0, 4), text: " " },
         { range: new Range(0, 1, 1, 1), text: "" },
       ]);
