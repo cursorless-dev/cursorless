@@ -1,0 +1,34 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: chuck branch
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: branch}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    if (true) {
+      const whatever = "hello";
+    } else if (false) {
+      const whatever = "hello";
+    } else {
+      const whatever = "hello";
+    }
+  selections:
+    - anchor: {line: 2, character: 2}
+      active: {line: 2, character: 2}
+  marks: {}
+finalState:
+  documentContents: |-
+    if (true) {
+      const whatever = "hello";
+    } else {
+      const whatever = "hello";
+    }
+  selections:
+    - anchor: {line: 2, character: 2}
+      active: {line: 2, character: 2}

@@ -1,0 +1,27 @@
+languageId: plaintext
+command:
+  version: 6
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+    destination:
+      type: list
+      destinations: []
+  usePrePhraseSnapshot: true
+spokenFormError: List destination with < 2 elements
+initialState:
+  documentContents: aaa bbb
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+  marks:
+    default.a:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 3}
+finalState:
+  documentContents: aaa bbb
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}

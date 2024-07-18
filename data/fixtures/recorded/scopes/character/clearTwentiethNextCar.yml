@@ -1,0 +1,25 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change twentieth next char
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: relativeScope
+          scopeType: {type: character}
+          offset: 20
+          length: 1
+          direction: forward
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: abcdefghijklmnopqrstuvwxyz
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: abcdefghijklmnopqrstvwxyz
+  selections:
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}

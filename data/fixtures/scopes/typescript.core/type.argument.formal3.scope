@@ -1,0 +1,20 @@
+function myFunk(value?: number) { }
+---
+
+[Content] = 0:24-0:30
+                          >------<
+0| function myFunk(value?: number) { }
+
+[Removal] = 0:22-0:30
+                        >--------<
+0| function myFunk(value?: number) { }
+
+[Leading delimiter] = 0:22-0:24
+                        >--<
+0| function myFunk(value?: number) { }
+
+[Domain] = 0:16-0:30
+                  >--------------<
+0| function myFunk(value?: number) { }
+
+[Insertion delimiter] = " "

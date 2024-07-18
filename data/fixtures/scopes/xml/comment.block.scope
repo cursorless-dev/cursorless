@@ -1,0 +1,10 @@
+<!-- aaa -->
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:12
+  >------------<
+0| <!-- aaa -->
+
+[Insertion delimiter] = "\n"

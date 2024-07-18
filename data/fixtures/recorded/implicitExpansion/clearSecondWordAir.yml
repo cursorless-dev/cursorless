@@ -1,0 +1,28 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change second sub air
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      modifiers:
+        - type: ordinalScope
+          scopeType: {type: word}
+          start: 1
+          length: 1
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: aaaBbbCccDdd
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 12}
+finalState:
+  documentContents: aaaCccDdd
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}

@@ -1,0 +1,29 @@
+languageId: talon
+command:
+  version: 6
+  spokenForm: clone command
+  action:
+    name: insertCopyAfter
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: command}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    foo:
+        "bar"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |-
+    foo:
+        "bar"
+    foo:
+        "bar"
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}

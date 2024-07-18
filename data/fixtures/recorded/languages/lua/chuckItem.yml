@@ -1,0 +1,23 @@
+languageId: lua
+command:
+  version: 6
+  spokenForm: chuck item
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: local table = {1, 2, 3}
+  selections:
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}
+  marks: {}
+finalState:
+  documentContents: local table = {1, 3}
+  selections:
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}

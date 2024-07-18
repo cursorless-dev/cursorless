@@ -1,0 +1,33 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change previous block
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: relativeScope
+          scopeType: {type: paragraph}
+          offset: 1
+          length: 1
+          direction: backward
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+
+    aaa
+
+    bbb
+  selections:
+    - anchor: {line: 3, character: 1}
+      active: {line: 3, character: 1}
+  marks: {}
+finalState:
+  documentContents: |
+
+
+
+    bbb
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

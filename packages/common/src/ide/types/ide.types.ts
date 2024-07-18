@@ -22,6 +22,10 @@ import { State } from "./State";
 
 export type RunMode = "production" | "development" | "test";
 export type HighlightId = string;
+export interface OpenUntitledTextDocumentOptions {
+  language?: string;
+  content?: string;
+}
 
 export interface IDE {
   readonly configuration: Configuration;
@@ -36,6 +40,11 @@ export interface IDE {
    * @returns A function that can be called to deregister the disposables
    */
   disposeOnExit(...disposables: Disposable[]): () => void;
+
+  /**
+   * The version of the cursorless extension
+   */
+  readonly cursorlessVersion: string;
 
   /**
    * The root directory of this shipped code.  Can be used to access bundled
@@ -91,6 +100,13 @@ export interface IDE {
   ): Disposable;
 
   /**
+   * Find occurrences of query string in the active document.
+   * @param query The string query to search for
+   * @param editor The editor to search in. If not provided, uses the active editor.
+   */
+  findInDocument(query: string, editor?: TextEditor): Promise<void>;
+
+  /**
    * Find occurrences of query string in all files in the workspace
    * @param query The string query to search for
    */
@@ -104,6 +120,17 @@ export interface IDE {
    * @return An editor for the text document at the given path
    */
   openTextDocument(path: string): Promise<TextEditor>;
+
+  /**
+   * Opens an untitled document.
+   *
+   * @see {@link openTextDocument}
+   * @param options optional language and documents content
+   * @return An editor
+   */
+  openUntitledTextDocument(
+    options?: OpenUntitledTextDocumentOptions,
+  ): Promise<TextEditor>;
 
   /**
    * An event that is emitted when a {@link TextDocument text document} is opened or when the language id

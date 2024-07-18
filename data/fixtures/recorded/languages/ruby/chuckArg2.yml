@@ -1,0 +1,24 @@
+languageId: ruby
+command:
+  version: 5
+  spokenForm: chuck arg
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    [1, 2, 3].each_with_the_next { |n, i| }
+  selections:
+    - anchor: {line: 0, character: 33}
+      active: {line: 0, character: 33}
+  marks: {}
+finalState:
+  documentContents: |
+    [1, 2, 3].each_with_the_next { |i| }
+  selections:
+    - anchor: {line: 0, character: 32}
+      active: {line: 0, character: 32}

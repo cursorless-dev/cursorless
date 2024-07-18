@@ -1,5 +1,4 @@
-import { IDE, ScopeType } from "@cursorless/common";
-import { ScopeProvider } from "@cursorless/cursorless-engine";
+import { IDE, ScopeProvider, ScopeType } from "@cursorless/common";
 import { VisualizationType } from "../../../ScopeVisualizerCommandApi";
 import { VscodeIterationScopeVisualizer } from "./VscodeIterationScopeVisualizer";
 import {

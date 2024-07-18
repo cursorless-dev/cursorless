@@ -21,7 +21,7 @@ export function compareSnippetDefinitions(
     b.definition.scope,
   );
 
-  // Prefer the more specific snippet definitino, no matter the origin
+  // Prefer the more specific snippet definition, no matter the origin
   if (scopeComparision !== 0) {
     return scopeComparision;
   }

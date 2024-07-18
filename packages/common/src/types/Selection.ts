@@ -72,4 +72,16 @@ export class Selection extends Range {
       this.anchor.isEqual(other.anchor) && this.active.isEqual(other.active)
     );
   }
+
+  /**
+   * Return a concise string representation of the selection
+   * @returns concise representation
+   **/
+  public concise(): string {
+    return `${this.anchor.concise()}->${this.active.concise()}`;
+  }
+
+  public toString(): string {
+    return this.concise();
+  }
 }

@@ -6,8 +6,13 @@ import { GetFieldType, Paths } from "./Paths";
 export type CursorlessConfiguration = {
   tokenHatSplittingMode: TokenHatSplittingMode;
   wordSeparators: string[];
-  experimental: { snippetsDir: string | undefined; hatStability: HatStability };
+  experimental: {
+    snippetsDir: string | undefined;
+    hatStability: HatStability;
+    keyboardTargetFollowsSelection: boolean;
+  };
   decorationDebounceDelayMs: number;
+  commandHistory: boolean;
   debug: boolean;
 };
 
@@ -25,7 +30,9 @@ export const CONFIGURATION_DEFAULTS: CursorlessConfiguration = {
   experimental: {
     snippetsDir: undefined,
     hatStability: HatStability.balanced,
+    keyboardTargetFollowsSelection: false,
   },
+  commandHistory: false,
   debug: false,
 };
 

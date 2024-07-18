@@ -1,0 +1,24 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: bring fine
+  action: {name: replaceWithTarget}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+    - {type: implicit}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: foo world
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  marks:
+    default.f:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 3}
+finalState:
+  documentContents: foo fooworld
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}

@@ -1,0 +1,21 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change trailing
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - {type: trailing}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: aaa bbb ccc
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+  marks: {}
+finalState:
+  documentContents: aaa bbbccc
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}

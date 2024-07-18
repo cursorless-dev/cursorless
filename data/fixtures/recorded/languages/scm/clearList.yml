@@ -1,0 +1,22 @@
+languageId: scm
+command:
+  version: 5
+  spokenForm: change list
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: list}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "[(aaa) (bbb)] @ccc"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: " @ccc"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

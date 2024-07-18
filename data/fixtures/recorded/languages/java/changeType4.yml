@@ -1,0 +1,33 @@
+languageId: java
+command:
+  version: 6
+  spokenForm: change type
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    public class MyClass {
+        private MyClass (String hello) {
+            int[] values = new int[5];
+        }
+    }
+  selections:
+    - anchor: {line: 2, character: 27}
+      active: {line: 2, character: 27}
+  marks: {}
+finalState:
+  documentContents: |-
+    public class MyClass {
+        private MyClass (String hello) {
+            int[] values = new [5];
+        }
+    }
+  selections:
+    - anchor: {line: 2, character: 27}
+      active: {line: 2, character: 27}

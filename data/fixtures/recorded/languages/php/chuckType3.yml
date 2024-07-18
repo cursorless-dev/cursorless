@@ -1,0 +1,32 @@
+languageId: php
+command:
+  version: 5
+  spokenForm: chuck type
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    <?php
+
+    function myFunc(array ...$nums) {
+
+    }
+  selections:
+    - anchor: {line: 2, character: 25}
+      active: {line: 2, character: 25}
+  marks: {}
+finalState:
+  documentContents: |-
+    <?php
+
+    function myFunc(...$nums) {
+
+    }
+  selections:
+    - anchor: {line: 2, character: 19}
+      active: {line: 2, character: 19}

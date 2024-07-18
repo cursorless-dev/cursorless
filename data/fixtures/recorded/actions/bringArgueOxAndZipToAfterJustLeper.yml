@@ -1,0 +1,75 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: bring arg odd and zip after just paren
+  action: {name: replaceWithTarget}
+  targets:
+    - type: list
+      elements:
+        - type: primitive
+          modifiers:
+            - type: containingScope
+              scopeType: {type: argumentOrParameter}
+          mark: {type: decoratedSymbol, symbolColor: default, character: o}
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: z}
+    - type: primitive
+      modifiers:
+        - {type: position, position: after}
+        - {type: toRawSelection}
+      mark: {type: decoratedSymbol, symbolColor: default, character: (}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    function helloWorld(foo: string, bar: number, baz: string) {
+
+    }
+
+    function bongo() {
+        
+    }
+  selections:
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
+  marks:
+    default.o:
+      start: {line: 0, character: 20}
+      end: {line: 0, character: 23}
+    default.z:
+      start: {line: 0, character: 46}
+      end: {line: 0, character: 49}
+    default.(:
+      start: {line: 4, character: 14}
+      end: {line: 4, character: 15}
+finalState:
+  documentContents: |-
+    function helloWorld(foo: string, bar: number, baz: string) {
+
+    }
+
+    function bongo(foo: string, baz: string) {
+        
+    }
+  selections:
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 4, character: 15}
+        end: {line: 4, character: 39}
+      isReversed: false
+      hasExplicitRange: true
+  sourceMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 20}
+        end: {line: 0, character: 31}
+      isReversed: false
+      hasExplicitRange: true
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 46}
+        end: {line: 0, character: 57}
+      isReversed: false
+      hasExplicitRange: true

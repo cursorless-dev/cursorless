@@ -1,11 +1,5 @@
 from talon import Module
 
-# NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://www.cursorless.org/docs/user/customization/
-interior_modifiers = {
-    "inside": "interiorOnly",
-}
-
 mod = Module()
 
 mod.list(

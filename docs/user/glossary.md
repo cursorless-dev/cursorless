@@ -16,7 +16,7 @@ The [range](#range) within which a [scope](#scope) is valid/active. For example,
 
 ## Iteration scope
 
-A canonical [range](#range) for a given [scope type](#scope-type) that defines a list of sibling [scopes](#scope). For example, the iteration scope for `"arg"` is an argument list. The iteration scope is used for things like `"every"`, to select all sibling scopes. This allows us to say things like `"take every arg"`, `"pre every line"`, etc.
+The canonical [scope](#scope-type) for a given [scope type](#scope-type) that defines the iteration range when `"every <scope>"` or eg `"first <scope>"` are issued without an explicit input range. For example, the iteration scope for `"arg"` is an argument list. Thus, when you say `"take every arg"`, you'll get every argument in the argument list containing your cursor, and `"take every arg air"` will select every argument in the argument list containing the `"air"` token. Note that the iteration scope can be ignored by giving an explicit range, eg `"take every arg air file"`, `"take every arg air past bat"`, etc.
 
 ## Insertion delimiter
 

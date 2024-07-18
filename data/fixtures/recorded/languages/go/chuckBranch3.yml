@@ -1,0 +1,23 @@
+languageId: go
+command:
+  version: 6
+  spokenForm: chuck branch
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: branch}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "if x {\n\tx++\n} else if y {\n\ty++\n} else {\n\tx--\n}"
+  selections:
+    - anchor: {line: 4, character: 7}
+      active: {line: 4, character: 7}
+  marks: {}
+finalState:
+  documentContents: "if x {\n\tx++\n} else if y {\n\ty++\n}"
+  selections:
+    - anchor: {line: 4, character: 1}
+      active: {line: 4, character: 1}

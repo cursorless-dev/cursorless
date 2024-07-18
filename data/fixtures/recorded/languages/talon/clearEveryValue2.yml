@@ -1,0 +1,30 @@
+languageId: talon
+command:
+  version: 5
+  spokenForm: change every value
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    settings():
+        speech.debug = 1
+        speech.timeout = 0.4
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+  marks: {}
+finalState:
+  documentContents: |-
+    settings():
+        speech.debug = 
+        speech.timeout = 
+  selections:
+    - anchor: {line: 1, character: 19}
+      active: {line: 1, character: 19}
+    - anchor: {line: 2, character: 21}
+      active: {line: 2, character: 21}

@@ -1,0 +1,28 @@
+languageId: rust
+command:
+  version: 5
+  spokenForm: change condition
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: condition}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    while let Some(i) = number {
+      println!("Matched {:?}!", i);
+    }
+  selections:
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}
+  marks: {}
+finalState:
+  documentContents: |-
+    while  {
+      println!("Matched {:?}!", i);
+    }
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

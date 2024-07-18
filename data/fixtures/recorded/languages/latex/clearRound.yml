@@ -1,0 +1,22 @@
+languageId: latex
+command:
+  version: 5
+  spokenForm: change round
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: parentheses}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: hello (there)
+  selections:
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
+  marks: {}
+finalState:
+  documentContents: "hello "
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

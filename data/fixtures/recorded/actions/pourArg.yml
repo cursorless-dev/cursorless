@@ -1,0 +1,31 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: pour arg
+  action: {name: editNewLineAfter}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    function helloWorld(foo: string, bar: number, baz: string) {}
+  selections:
+    - anchor: {line: 0, character: 40}
+      active: {line: 0, character: 40}
+  marks: {}
+finalState:
+  documentContents: |
+    function helloWorld(foo: string, bar: number, , baz: string) {}
+  selections:
+    - anchor: {line: 0, character: 46}
+      active: {line: 0, character: 46}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 33}
+        end: {line: 0, character: 44}
+      isReversed: false
+      hasExplicitRange: true

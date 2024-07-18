@@ -1,0 +1,45 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: bring harp to second char fine past third char harp
+  action: {name: replaceWithTarget}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+    - active:
+        type: primitive
+        modifiers:
+          - type: ordinalScope
+            scopeType: {type: character}
+            start: 2
+            length: 1
+        mark: {type: decoratedSymbol, symbolColor: default, character: h}
+      type: range
+      excludeAnchor: false
+      excludeActive: false
+      anchor:
+        type: primitive
+        modifiers:
+          - type: ordinalScope
+            scopeType: {type: character}
+            start: 1
+            length: 1
+        mark: {type: decoratedSymbol, symbolColor: default, character: f}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: foo world whateverspaghetti
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 9}
+  marks:
+    default.h:
+      start: {line: 0, character: 10}
+      end: {line: 0, character: 27}
+    default.f:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 3}
+finalState:
+  documentContents: fwhateverspaghettiteverspaghetti
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 9}

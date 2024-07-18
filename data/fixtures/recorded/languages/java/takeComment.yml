@@ -1,0 +1,26 @@
+languageId: java
+command:
+  version: 5
+  spokenForm: take comment
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: comment}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+
+    // Hello world
+  selections:
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}
+  marks: {}
+finalState:
+  documentContents: |
+
+    // Hello world
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 14}

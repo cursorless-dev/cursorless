@@ -1,0 +1,28 @@
+languageId: scss
+command:
+  version: 5
+  spokenForm: chuck arg
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    @function invert($color, $amount: 100%) {
+      $inverse: change-color($color, $hue: hue($color) + 180);
+    }
+  selections:
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}
+  marks: {}
+finalState:
+  documentContents: |
+    @function invert($amount: 100%) {
+      $inverse: change-color($color, $hue: hue($color) + 180);
+    }
+  selections:
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}

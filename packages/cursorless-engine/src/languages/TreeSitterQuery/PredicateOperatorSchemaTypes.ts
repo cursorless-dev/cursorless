@@ -1,4 +1,4 @@
-import z from "zod";
+import { z } from "zod";
 import {
   SchemaInputType,
   SchemaOutputType,
@@ -40,8 +40,8 @@ type PredicateParameterType<T extends SchemaOutputType> = T extends {
 }
   ? MutableQueryCapture
   : T extends { value: infer V }
-  ? V
-  : never;
+    ? V
+    : never;
 
 // These two types work together to convert a list of operands from the type
 // output by our schema validator to the type that will be passed to the `accept`

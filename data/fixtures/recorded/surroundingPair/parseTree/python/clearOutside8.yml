@@ -1,0 +1,22 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: change pair
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: any}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: f"Hello, {name + 's'}!"
+  selections:
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 16}
+  marks: {}
+finalState:
+  documentContents: f"Hello, !"
+  selections:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}

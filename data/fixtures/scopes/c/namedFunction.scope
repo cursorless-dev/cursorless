@@ -1,0 +1,10 @@
+int f(int a, int b) { }
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:23
+  >-----------------------<
+0| int f(int a, int b) { }
+
+[Insertion delimiter] = "\n\n"

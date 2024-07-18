@@ -1,10 +1,10 @@
 import { TextEditor, Position } from "@cursorless/common";
 import { Direction, ScopeType } from "@cursorless/common";
 import { DocumentTarget } from "../../targets";
-import BaseScopeHandler from "./BaseScopeHandler";
+import { BaseScopeHandler } from "./BaseScopeHandler";
 import { TargetScope } from "./scope.types";
 
-export default class DocumentScopeHandler extends BaseScopeHandler {
+export class DocumentScopeHandler extends BaseScopeHandler {
   public readonly scopeType = { type: "document" } as const;
   public readonly iterationScopeType = { type: "document" } as const;
   protected readonly isHierarchical = false;

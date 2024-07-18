@@ -33,13 +33,13 @@ interface LineNumberMark {
  */
 interface RangeMark {
   type: "range";
-  anchor: Mark;
-  active: Mark;
+  anchor: MarkV4;
+  active: MarkV4;
   excludeAnchor?: boolean;
   excludeActive?: boolean;
 }
 
-type Mark =
+export type MarkV4 =
   | CursorMark
   | ThatMark
   | SourceMark
@@ -255,13 +255,13 @@ interface PositionModifier {
 
 export interface PartialPrimitiveTargetDescriptorV4 {
   type: "primitive";
-  mark?: Mark;
-  modifiers?: Modifier[];
+  mark?: MarkV4;
+  modifiers?: ModifierV4[];
 }
 
 interface HeadTailModifier {
   type: "extendThroughStartOf" | "extendThroughEndOf";
-  modifiers?: Modifier[];
+  modifiers?: ModifierV4[];
 }
 
 /**
@@ -274,7 +274,7 @@ interface ModifyIfUntypedModifier {
   /**
    * The modifier to apply if the target is untyped
    */
-  modifier: Modifier;
+  modifier: ModifierV4;
 }
 
 /**
@@ -288,7 +288,7 @@ interface CascadingModifier {
   /**
    * The modifiers to try in turn
    */
-  modifiers: Modifier[];
+  modifiers: ModifierV4[];
 }
 
 /**
@@ -297,13 +297,13 @@ interface CascadingModifier {
  */
 interface RangeModifier {
   type: "range";
-  anchor: Modifier;
-  active: Modifier;
+  anchor: ModifierV4;
+  active: ModifierV4;
   excludeAnchor?: boolean;
   excludeActive?: boolean;
 }
 
-type Modifier =
+export type ModifierV4 =
   | PositionModifier
   | InteriorOnlyModifier
   | ExcludeInteriorModifier

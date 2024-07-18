@@ -1,0 +1,23 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change inside file
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - {type: interiorOnly}
+        - type: containingScope
+          scopeType: {type: document}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "\r\n abc \r\n"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: "\r\n  \r\n"
+  selections:
+    - anchor: {line: 1, character: 1}
+      active: {line: 1, character: 1}

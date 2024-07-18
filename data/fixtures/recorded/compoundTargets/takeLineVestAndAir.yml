@@ -1,0 +1,33 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: take line vest and air
+  action: {name: setSelection}
+  targets:
+    - type: list
+      elements:
+        - type: primitive
+          modifiers:
+            - type: containingScope
+              scopeType: {type: line}
+          mark: {type: decoratedSymbol, symbolColor: default, character: v}
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "    value = {a:2}"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.v:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 9}
+    default.a:
+      start: {line: 0, character: 13}
+      end: {line: 0, character: 14}
+finalState:
+  documentContents: "    value = {a:2}"
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 17}

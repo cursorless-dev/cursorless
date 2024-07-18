@@ -1,4 +1,5 @@
-import { StoredTargetKey, StoredTargetMap } from "../../core/StoredTargets";
+import { StoredTargetKey } from "@cursorless/common";
+import { StoredTargetMap } from "../../core/StoredTargets";
 import { Target } from "../../typings/target.types";
 import { MarkStage } from "../PipelineStages.types";
 

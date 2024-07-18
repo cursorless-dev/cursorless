@@ -1,5 +1,5 @@
-import { Range } from "@cursorless/common";
-import z from "zod";
+import { Range, adjustPosition } from "@cursorless/common";
+import { z } from "zod";
 import { makeRangeFromPositions } from "../../util/nodeSelectors";
 import { MutableQueryCapture } from "./QueryCapture";
 import { QueryPredicateOperator } from "./QueryPredicateOperator";
@@ -47,36 +47,18 @@ class IsNthChild extends QueryPredicateOperator<IsNthChild> {
 }
 
 /**
- * A predicate operator that modifies the range of the match to be a zero-width
- * range at the start of the node.  For example, `(#start-position! @foo)` will
- * modify the range of the `@foo` capture to be a zero-width range at the start
- * of the `@foo` node.
+ * A predicate operator that returns true if the node has more than 1 child of
+ * type {@link type} (inclusive).  For example, `(has-multiple-children-of-type?
+ * @foo bar)` will accept the match if the `@foo` capture has 2 or more children
+ * of type `bar`.
  */
-class StartPosition extends QueryPredicateOperator<StartPosition> {
-  name = "start-position!" as const;
-  schema = z.tuple([q.node]);
+class HasMultipleChildrenOfType extends QueryPredicateOperator<HasMultipleChildrenOfType> {
+  name = "has-multiple-children-of-type?" as const;
+  schema = z.tuple([q.node, q.string]);
 
-  run(nodeInfo: MutableQueryCapture) {
-    nodeInfo.range = new Range(nodeInfo.range.start, nodeInfo.range.start);
-
-    return true;
-  }
-}
-
-/**
- * A predicate operator that modifies the range of the match to be a zero-width
- * range at the end of the node.  For example, `(#end-position! @foo)` will
- * modify the range of the `@foo` capture to be a zero-width range at the end of
- * the `@foo` node.
- */
-class EndPosition extends QueryPredicateOperator<EndPosition> {
-  name = "end-position!" as const;
-  schema = z.tuple([q.node]);
-
-  run(nodeInfo: MutableQueryCapture) {
-    nodeInfo.range = new Range(nodeInfo.range.end, nodeInfo.range.end);
-
-    return true;
+  run({ node }: MutableQueryCapture, type: string) {
+    const count = node.children.filter((n) => n.type === type).length;
+    return count > 1;
   }
 }
 
@@ -116,9 +98,102 @@ class ChildRange extends QueryPredicateOperator<ChildRange> {
   }
 }
 
+class CharacterRange extends QueryPredicateOperator<CharacterRange> {
+  name = "character-range!" as const;
+  schema = z.union([
+    z.tuple([q.node, q.integer]),
+    z.tuple([q.node, q.integer, q.integer]),
+  ]);
+
+  run(nodeInfo: MutableQueryCapture, startOffset: number, endOffset?: number) {
+    nodeInfo.range = new Range(
+      nodeInfo.range.start.translate(undefined, startOffset),
+      nodeInfo.range.end.translate(undefined, endOffset ?? 0),
+    );
+
+    return true;
+  }
+}
+
+/**
+ * A predicate operator that modifies the range of the match to shrink to regex
+ * match.  For example, `(#shrink-to-match! @foo "\\S+")` will modify the range
+ * of the `@foo` capture to exclude whitespace.
+ *
+ * If convenient, you can use a special capture group called `keep` to indicate
+ * the part of the match that should be kept.  For example,
+ *
+ * ```
+ * (#shrink-to-match! @foo "^\s+(?<keep>.*)$")
+ * ```
+ *
+ * will modify the range of the `@foo` capture to skip any leading whitespace.
+ */
+class ShrinkToMatch extends QueryPredicateOperator<ShrinkToMatch> {
+  name = "shrink-to-match!" as const;
+  schema = z.tuple([q.node, q.string]);
+
+  run(nodeInfo: MutableQueryCapture, pattern: string) {
+    const { document, range } = nodeInfo;
+    const text = document.getText(range);
+    const match = text.match(new RegExp(pattern, "ds"));
+
+    if (match?.index == null) {
+      throw Error(`No match for pattern '${pattern}'`);
+    }
+
+    const [startOffset, endOffset] =
+      match.indices?.groups?.keep ?? match.indices![0];
+
+    const baseOffset = document.offsetAt(range.start);
+
+    nodeInfo.range = new Range(
+      document.positionAt(baseOffset + startOffset),
+      document.positionAt(baseOffset + endOffset),
+    );
+
+    return true;
+  }
+}
+
+/**
+ * A predicate operator that modifies the range of the match by trimming trailing whitespace,
+ * similar to the javascript trimEnd function.
+ */
+class TrimEnd extends QueryPredicateOperator<TrimEnd> {
+  name = "trim-end!" as const;
+  schema = z.tuple([q.node]);
+
+  run(nodeInfo: MutableQueryCapture) {
+    const { document, range } = nodeInfo;
+    const text = document.getText(range);
+    const whitespaceLength = text.length - text.trimEnd().length;
+    nodeInfo.range = new Range(
+      range.start,
+      adjustPosition(document, range.end, -whitespaceLength),
+    );
+    return true;
+  }
+}
+
+/**
+ * Indicates that it is ok for multiple captures to have the same domain but
+ * different targets.  For example, if we have the query `(#allow-multiple!
+ * @foo)`, then if we define the query so that `@foo` appears multiple times
+ * with the same domain but different targets, then the given domain will end up
+ * with multiple targets. The canonical example is `tags` in HTML / jsx.
+ *
+ * This operator is allowed to be applied to a capture that doesn't actually
+ * appear; ie we can make it so that we allow multiple if the capture appears in
+ * the pattern.
+ */
 class AllowMultiple extends QueryPredicateOperator<AllowMultiple> {
   name = "allow-multiple!" as const;
   schema = z.tuple([q.node]);
+
+  protected allowMissingNode(): boolean {
+    return true;
+  }
 
   run(nodeInfo: MutableQueryCapture) {
     nodeInfo.allowMultiple = true;
@@ -127,12 +202,77 @@ class AllowMultiple extends QueryPredicateOperator<AllowMultiple> {
   }
 }
 
+/**
+ * A predicate operator that logs a node, for debugging.
+ */
+class Log extends QueryPredicateOperator<Log> {
+  name = "log!" as const;
+  schema = z.tuple([q.node]);
+
+  run(nodeInfo: MutableQueryCapture) {
+    console.log(`#log!: ${nodeInfo.name}@${nodeInfo.range}`);
+    return true;
+  }
+}
+
+/**
+ * A predicate operator that sets the insertion delimiter of the match. For
+ * example, `(#insertion-delimiter! @foo ", ")` will set the insertion delimiter
+ * of the `@foo` capture to `", "`.
+ */
+class InsertionDelimiter extends QueryPredicateOperator<InsertionDelimiter> {
+  name = "insertion-delimiter!" as const;
+  schema = z.tuple([q.node, q.string]);
+
+  run(nodeInfo: MutableQueryCapture, insertionDelimiter: string) {
+    nodeInfo.insertionDelimiter = insertionDelimiter;
+
+    return true;
+  }
+}
+
+/**
+ * A predicate operator that sets the insertion delimiter of {@link nodeInfo} to
+ * either {@link insertionDelimiterConsequence} or
+ * {@link insertionDelimiterAlternative} depending on whether
+ * {@link conditionNodeInfo} is single or multiline, respectively. For example,
+ *
+ * ```scm
+ * (#single-or-multi-line-delimiter! @foo @bar ", " ",\n")
+ * ```
+ *
+ * will set the insertion delimiter of the `@foo` capture to `", "` if the
+ * `@bar` capture is a single line and `",\n"` otherwise.
+ */
+class SingleOrMultilineDelimiter extends QueryPredicateOperator<SingleOrMultilineDelimiter> {
+  name = "single-or-multi-line-delimiter!" as const;
+  schema = z.tuple([q.node, q.node, q.string, q.string]);
+
+  run(
+    nodeInfo: MutableQueryCapture,
+    conditionNodeInfo: MutableQueryCapture,
+    insertionDelimiterConsequence: string,
+    insertionDelimiterAlternative: string,
+  ) {
+    nodeInfo.insertionDelimiter = conditionNodeInfo.range.isSingleLine
+      ? insertionDelimiterConsequence
+      : insertionDelimiterAlternative;
+
+    return true;
+  }
+}
+
 export const queryPredicateOperators = [
+  new Log(),
   new NotType(),
+  new TrimEnd(),
   new NotParentType(),
   new IsNthChild(),
-  new StartPosition(),
-  new EndPosition(),
   new ChildRange(),
+  new CharacterRange(),
+  new ShrinkToMatch(),
   new AllowMultiple(),
+  new InsertionDelimiter(),
+  new SingleOrMultilineDelimiter(),
+  new HasMultipleChildrenOfType(),
 ];

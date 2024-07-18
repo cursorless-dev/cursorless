@@ -1,0 +1,23 @@
+languageId: go
+command:
+  version: 6
+  spokenForm: clone branch
+  action:
+    name: insertCopyAfter
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: branch}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "if x {\n\tx++\n} else if y {\n\ty++\n} else {\n\tx--\n}"
+  selections:
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
+  marks: {}
+finalState:
+  documentContents: "if x {\n\tx++\n} else if y {\n\ty++\n} else if y {\n\ty++\n} else {\n\tx--\n}"
+  selections:
+    - anchor: {line: 4, character: 4}
+      active: {line: 4, character: 4}

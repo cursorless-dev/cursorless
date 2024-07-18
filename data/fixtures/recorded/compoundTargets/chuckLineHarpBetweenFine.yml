@@ -1,0 +1,44 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: chuck line harp between fine
+  action: {name: remove}
+  targets:
+    - active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: f}
+      type: range
+      excludeAnchor: true
+      excludeActive: true
+      anchor:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: h}
+        modifiers:
+          - type: containingScope
+            scopeType: {type: line}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+
+    hello world
+
+
+    foo bar
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.h:
+      start: {line: 1, character: 0}
+      end: {line: 1, character: 5}
+    default.f:
+      start: {line: 4, character: 0}
+      end: {line: 4, character: 3}
+finalState:
+  documentContents: |
+
+    hello world
+    foo bar
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

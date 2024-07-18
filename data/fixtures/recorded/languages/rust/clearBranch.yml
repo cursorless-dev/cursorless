@@ -1,0 +1,30 @@
+languageId: rust
+command:
+  version: 5
+  spokenForm: change branch
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: branch}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    match user {
+        User { first_name: "John" } => {},
+        User { first_name } if first_name.starts_with("P") => {}
+    }
+  selections:
+    - anchor: {line: 1, character: 26}
+      active: {line: 1, character: 26}
+  marks: {}
+finalState:
+  documentContents: |-
+    match user {
+        
+        User { first_name } if first_name.starts_with("P") => {}
+    }
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

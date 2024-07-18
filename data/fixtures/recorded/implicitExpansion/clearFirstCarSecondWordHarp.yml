@@ -1,0 +1,32 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change first char second sub harp
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: ordinalScope
+          scopeType: {type: character}
+          start: 0
+          length: 1
+        - type: ordinalScope
+          scopeType: {type: word}
+          start: 1
+          length: 1
+      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: helloWorld
+  selections:
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
+  marks:
+    default.h:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 10}
+finalState:
+  documentContents: helloorld
+  selections:
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}

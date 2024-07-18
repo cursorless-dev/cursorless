@@ -1,5 +1,5 @@
 import { showWarning } from "@cursorless/common";
-import { shuffle } from "lodash";
+import { shuffle } from "lodash-es";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Actions } from "./Actions";
@@ -35,10 +35,12 @@ abstract class SortBase implements SimpleAction {
 
     const sortedTexts = this.sortTexts(unsortedTexts);
 
-    return this.actions.replace.run(
+    const { thatSelections } = await this.actions.replace.run(
       sortedTargets.map((target) => target.toDestination("to")),
       sortedTexts,
     );
+
+    return { thatSelections };
   }
 }
 

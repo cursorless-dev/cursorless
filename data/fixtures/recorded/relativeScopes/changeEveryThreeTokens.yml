@@ -1,0 +1,31 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: change every three tokens
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: relativeScope
+          scopeType: {type: token}
+          offset: 0
+          length: 3
+          direction: forward
+          isEvery: true
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: aaa bbb ccc ddd
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: "   ddd"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}

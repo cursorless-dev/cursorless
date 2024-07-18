@@ -1,28 +1,29 @@
+import { pull } from "lodash-es";
 import type { EditableTextEditor, TextEditor } from "../..";
-import { pull } from "lodash";
 import { GeneralizedRange } from "../../types/GeneralizedRange";
 import { TextDocument } from "../../types/TextDocument";
 import type { TextDocumentChangeEvent } from "../types/Events";
+import { FlashDescriptor } from "../types/FlashDescriptor";
+import { QuickPickOptions } from "../types/QuickPickOptions";
 import {
   Event,
   TextEditorSelectionChangeEvent,
   TextEditorVisibleRangesChangeEvent,
 } from "../types/events.types";
-import { FlashDescriptor } from "../types/FlashDescriptor";
 import type {
   Disposable,
   IDE,
+  OpenUntitledTextDocumentOptions,
   RunMode,
   WorkspaceFolder,
 } from "../types/ide.types";
-import { QuickPickOptions } from "../types/QuickPickOptions";
 import { FakeCapabilities } from "./FakeCapabilities";
 import FakeClipboard from "./FakeClipboard";
 import FakeConfiguration from "./FakeConfiguration";
 import FakeGlobalState from "./FakeGlobalState";
 import FakeMessages from "./FakeMessages";
 
-export default class FakeIDE implements IDE {
+export class FakeIDE implements IDE {
   configuration: FakeConfiguration = new FakeConfiguration();
   messages: FakeMessages = new FakeMessages();
   globalState: FakeGlobalState = new FakeGlobalState();
@@ -30,6 +31,7 @@ export default class FakeIDE implements IDE {
   capabilities: FakeCapabilities = new FakeCapabilities();
 
   runMode: RunMode = "test";
+  cursorlessVersion: string = "0.0.0";
   workspaceFolders: readonly WorkspaceFolder[] | undefined = undefined;
   private disposables: Disposable[] = [];
   private assetsRoot_: string | undefined;
@@ -84,11 +86,21 @@ export default class FakeIDE implements IDE {
     throw Error("Not implemented");
   }
 
+  public findInDocument(_query: string, _editor: TextEditor): Promise<void> {
+    throw Error("Not implemented");
+  }
+
   public findInWorkspace(_query: string): Promise<void> {
     throw Error("Not implemented");
   }
 
   public openTextDocument(_path: string): Promise<TextEditor> {
+    throw Error("Not implemented");
+  }
+
+  public openUntitledTextDocument(
+    _options: OpenUntitledTextDocumentOptions,
+  ): Promise<TextEditor> {
     throw Error("Not implemented");
   }
 

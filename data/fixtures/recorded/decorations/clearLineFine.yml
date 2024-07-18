@@ -1,0 +1,39 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change line fine
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: line}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |2
+
+        foo ooo    
+        bar    
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.f:
+      start: {line: 1, character: 4}
+      end: {line: 1, character: 7}
+finalState:
+  documentContents: |2
+
+            
+        bar    
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+ide:
+  flashes:
+    - style: pendingDelete
+      range:
+        type: character
+        start: {line: 1, character: 4}
+        end: {line: 1, character: 11}

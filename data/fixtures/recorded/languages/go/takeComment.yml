@@ -1,0 +1,22 @@
+languageId: go
+command:
+  version: 5
+  spokenForm: take comment
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: comment}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: // Hello World
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: // Hello World
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 14}

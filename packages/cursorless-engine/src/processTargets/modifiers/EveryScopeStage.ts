@@ -65,7 +65,7 @@ export class EveryScopeStage implements ModifierStage {
       ) {
         // If the only scope that came back completely contains the input target
         // range, we treat the input as if it had no explicit range, expanding
-        // to default iteration socpe below
+        // to default iteration scope below
         scopes = undefined;
       }
     }
@@ -73,16 +73,30 @@ export class EveryScopeStage implements ModifierStage {
     if (scopes == null) {
       // If target had no explicit range, or was contained by a single target
       // instance, expand to iteration scope before overlapping
-      scopes = this.getDefaultIterationRange(
-        scopeHandler,
-        this.scopeHandlerFactory,
-        target,
-      ).flatMap((iterationRange) =>
-        getScopesOverlappingRange(scopeHandler, editor, iterationRange),
-      );
+      try {
+        scopes = this.getDefaultIterationRange(
+          scopeHandler,
+          this.scopeHandlerFactory,
+          target,
+        ).flatMap((iterationRange) =>
+          getScopesOverlappingRange(scopeHandler, editor, iterationRange),
+        );
+      } catch (error) {
+        if (!(error instanceof NoContainingScopeError)) {
+          throw error;
+        }
+        scopes = [];
+      }
     }
 
     if (scopes.length === 0) {
+      if (scopeType.type === "collectionItem") {
+        // For `collectionItem`, fall back to generic implementation
+        return this.modifierStageFactory
+          .getLegacyScopeStage(this.modifier)
+          .run(target);
+      }
+
       throw new NoContainingScopeError(scopeType.type);
     }
 

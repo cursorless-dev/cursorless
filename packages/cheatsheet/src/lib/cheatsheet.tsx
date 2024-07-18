@@ -17,14 +17,14 @@ export const CheatsheetPage: React.FC<CheatsheetPageProps> = ({
 }) => {
   return (
     <main className="dark:text-stone-100">
-      <h1 className="text-2xl md:text-3xl text-center mt-2 mb-1 xl:mt-4">
+      <h1 className="mb-1 mt-2 text-center text-2xl md:text-3xl xl:mt-4">
         Cursorless Cheatsheet{" "}
-        <span className="text-sm inline-block align-middle">
+        <span className="inline-block align-middle text-sm">
           <SmartLink to="#legend">
             <FontAwesomeIcon icon={faCircleQuestion} />
           </SmartLink>
         </span>
-        <small className="text-sm block">
+        <small className="block text-sm">
           See the{" "}
           <SmartLink to={"https://www.cursorless.org/docs/"}>
             full documentation
@@ -42,7 +42,7 @@ type CheatsheetProps = {
 };
 
 const Cheatsheet: React.FC<CheatsheetProps> = ({ cheatsheetInfo }) => (
-  <div className="p-2 gap-2 md:p-3 md:gap-3 xl:p-4 xl:gap-4 columns-1 md:columns-2 xl:columns-3 xl:max-w-[1600px] xl:mx-auto">
+  <div className="columns-1 gap-2 p-2 md:columns-2 md:gap-3 md:p-3 xl:mx-auto xl:max-w-[1600px] xl:columns-3 xl:gap-4 xl:p-4">
     {cheatsheetInfo.sections
       .filter((section) => section.items.length > 0)
       .map((section) => (
@@ -64,7 +64,7 @@ type CheatsheetSectionProps = {
 };
 
 const CheatsheetSection: React.FC<CheatsheetSectionProps> = ({ children }) => (
-  <section className=" break-inside-avoid mb-5 md:mb-3 xl:mb-4 last:mb-0">
+  <section className=" mb-5 break-inside-avoid last:mb-0 md:mb-3 xl:mb-4">
     {children}
   </section>
 );

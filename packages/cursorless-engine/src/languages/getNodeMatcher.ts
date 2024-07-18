@@ -10,21 +10,14 @@ import { notSupported } from "../util/nodeMatchers";
 import { selectionWithEditorFromRange } from "../util/selectionUtils";
 import clojure from "./clojure";
 import { LegacyLanguageId } from "./LegacyLanguageId";
-import cpp from "./cpp";
 import csharp from "./csharp";
-import go from "./go";
-import { patternMatchers as html } from "./html";
-import java from "./java";
-import { patternMatchers as json } from "./json";
 import latex from "./latex";
 import markdown from "./markdown";
 import php from "./php";
-import python from "./python";
 import { patternMatchers as ruby } from "./ruby";
 import rust from "./rust";
 import scala from "./scala";
 import { patternMatchers as scss } from "./scss";
-import { patternMatchers as typescript } from "./typescript";
 
 export function getNodeMatcher(
   languageId: string,
@@ -40,7 +33,7 @@ export function getNodeMatcher(
   const matcher = matchers[scopeTypeType];
 
   if (matcher == null) {
-    return notSupported;
+    return notSupported(scopeTypeType);
   }
 
   if (includeSiblings) {
@@ -52,31 +45,18 @@ export function getNodeMatcher(
 
 export const languageMatchers: Record<
   LegacyLanguageId,
-  Record<SimpleScopeTypeType, NodeMatcher>
+  Partial<Record<SimpleScopeTypeType, NodeMatcher>>
 > = {
-  c: cpp,
-  cpp,
-  css: scss,
-  csharp,
   clojure,
-  go,
-  html,
-  java,
-  javascript: typescript,
-  javascriptreact: typescript,
-  json,
-  jsonc: json,
+  csharp,
+  css: scss,
   latex,
   markdown,
   php,
-  python,
   ruby,
+  rust,
   scala,
   scss,
-  rust,
-  typescript,
-  typescriptreact: typescript,
-  xml: html,
 };
 
 function matcherIncludeSiblings(matcher: NodeMatcher): NodeMatcher {

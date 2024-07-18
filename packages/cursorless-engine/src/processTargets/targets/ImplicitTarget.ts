@@ -1,4 +1,5 @@
-import { BaseTarget, CommonTargetParameters } from ".";
+import { EnforceUndefined } from "@cursorless/common";
+import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
 
 /**
  * A target that was not explicitly spoken by the user. For example:
@@ -6,7 +7,7 @@ import { BaseTarget, CommonTargetParameters } from ".";
  * - The implicit destination in the command `"bring air"`
  * - The implicit anchor in the range `"take past air"`
  */
-export default class ImplicitTarget extends BaseTarget<CommonTargetParameters> {
+export class ImplicitTarget extends BaseTarget<CommonTargetParameters> {
   type = "ImplicitTarget";
   insertionDelimiter = "";
   isRaw = true;
@@ -18,5 +19,6 @@ export default class ImplicitTarget extends BaseTarget<CommonTargetParameters> {
   getTrailingDelimiterTarget = () => undefined;
   getRemovalRange = () => this.contentRange;
 
-  protected getCloneParameters = () => this.state;
+  protected getCloneParameters: () => EnforceUndefined<CommonTargetParameters> =
+    () => this.state;
 }

@@ -1,0 +1,24 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: highlight nothing
+  action: {name: highlight}
+  targets:
+    - type: primitive
+      mark: {type: nothing}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark: []
+ide:
+  highlights:
+    - ranges: []

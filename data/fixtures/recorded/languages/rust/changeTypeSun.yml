@@ -1,0 +1,32 @@
+languageId: rust
+command:
+  version: 5
+  spokenForm: change type sun
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: s}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    fn main() -> Result<(), Error> {
+        
+    }
+  selections:
+    - anchor: {line: 2, character: 1}
+      active: {line: 2, character: 1}
+  marks:
+    default.s:
+      start: {line: 0, character: 13}
+      end: {line: 0, character: 19}
+finalState:
+  documentContents: |
+    fn main() ->  {
+        
+    }
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}

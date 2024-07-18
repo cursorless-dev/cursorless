@@ -1,0 +1,25 @@
+\begin{quote}
+    Hello
+\end{quote}
+---
+
+[.1 Content] =
+[.1 Removal] = 0:0-0:13
+  >-------------<
+0| \begin{quote}
+
+[.1 Insertion delimiter] = " "
+
+[.2 Content] =
+[.2 Removal] = 2:0-2:11
+  >-----------<
+2| \end{quote}
+
+[.2 Insertion delimiter] = " "
+
+[Domain] = 0:0-2:11
+  >-------------
+0| \begin{quote}
+1|     Hello
+2| \end{quote}
+   -----------<

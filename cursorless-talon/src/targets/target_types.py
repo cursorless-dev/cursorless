@@ -1,0 +1,74 @@
+from dataclasses import dataclass
+from typing import Any, Literal, Optional, Union
+
+from ..marks.mark_types import Mark
+
+RangeTargetType = Literal["vertical"]
+
+
+@dataclass
+class PrimitiveTarget:
+    type = "primitive"
+    mark: Optional[Mark]
+    modifiers: Optional[list[dict[str, Any]]]
+
+
+@dataclass
+class ImplicitTarget:
+    type = "implicit"
+
+
+@dataclass
+class RangeTarget:
+    type = "range"
+    anchor: Union[PrimitiveTarget, ImplicitTarget]
+    active: PrimitiveTarget
+    excludeAnchor: bool
+    excludeActive: bool
+    rangeType: Optional[RangeTargetType]
+
+
+@dataclass
+class ListTarget:
+    type = "list"
+    elements: list[Union[PrimitiveTarget, RangeTarget]]
+
+
+CursorlessTarget = Union[
+    ListTarget,
+    RangeTarget,
+    PrimitiveTarget,
+    ImplicitTarget,
+]
+CursorlessExplicitTarget = Union[
+    ListTarget,
+    RangeTarget,
+    PrimitiveTarget,
+]
+
+InsertionMode = Literal["to", "before", "after"]
+
+
+@dataclass
+class PrimitiveDestination:
+    type = "primitive"
+    insertionMode: InsertionMode
+    target: Union[ListTarget, RangeTarget, PrimitiveTarget]
+
+
+@dataclass
+class ImplicitDestination:
+    type = "implicit"
+
+
+@dataclass
+class ListDestination:
+    type = "list"
+    destinations: list[PrimitiveDestination]
+
+
+CursorlessDestination = Union[
+    ListDestination,
+    PrimitiveDestination,
+    ImplicitDestination,
+]

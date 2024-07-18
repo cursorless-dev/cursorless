@@ -1,0 +1,24 @@
+languageId: go
+command:
+  version: 5
+  spokenForm: take every key
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: collectionKey}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "map[string]string{\"air\": \"bat\", \"cap\": \"drum\"}"
+  selections:
+    - anchor: {line: 0, character: 42}
+      active: {line: 0, character: 42}
+  marks: {}
+finalState:
+  documentContents: "map[string]string{\"air\": \"bat\", \"cap\": \"drum\"}"
+  selections:
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 23}
+    - anchor: {line: 0, character: 32}
+      active: {line: 0, character: 37}

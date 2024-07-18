@@ -1,0 +1,26 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change pair fine
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: any}
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: (<user.foo>  <user.bar>)
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 23}
+  marks:
+    default.f:
+      start: {line: 0, character: 7}
+      end: {line: 0, character: 10}
+finalState:
+  documentContents: (  <user.bar>)
+  selections:
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}

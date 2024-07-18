@@ -1,0 +1,34 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: box repack funk
+  action:
+    name: rewrapWithPairedDelimiter
+    args: ['[', ']']
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: namedFunction}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    {
+      function myFunk() {
+        // aaa
+      }
+    }
+  selections:
+    - anchor: {line: 2, character: 7}
+      active: {line: 2, character: 7}
+  marks: {}
+finalState:
+  documentContents: |-
+    [
+      function myFunk() {
+        // aaa
+      }
+    ]
+  selections:
+    - anchor: {line: 2, character: 7}
+      active: {line: 2, character: 7}

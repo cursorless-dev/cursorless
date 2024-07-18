@@ -1,0 +1,29 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change near
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: 'n'}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    ñ
+    ñ
+    n
+  selections:
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
+  marks:
+    default.n:
+      start: {line: 2, character: 0}
+      end: {line: 2, character: 1}
+finalState:
+  documentContents: |+
+    ñ
+    ñ
+
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}

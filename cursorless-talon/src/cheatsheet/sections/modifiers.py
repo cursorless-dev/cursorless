@@ -1,14 +1,19 @@
+from itertools import chain
+from typing import TypedDict
+
 from ..get_list import get_raw_list, make_dict_readable
 
 MODIFIER_LIST_NAMES = [
     "simple_modifier",
     "interior_modifier",
     "head_tail_modifier",
-    "simple_scope_modifier",
+    "every_scope_modifier",
+    "ancestor_scope_modifier",
     "first_modifier",
     "last_modifier",
     "previous_next_modifier",
     "forward_backward_modifier",
+    "position",
 ]
 
 
@@ -21,6 +26,7 @@ def get_modifiers():
         "extendThroughStartOf",
         "extendThroughEndOf",
         "every",
+        "ancestor",
         "first",
         "last",
         "previous",
@@ -48,6 +54,8 @@ def get_modifiers():
                 "toRawSelection": "No inference",
                 "leading": "Leading delimiter range",
                 "trailing": "Trailing delimiter range",
+                "start": "Empty position at start of target",
+                "end": "Empty position at end of target",
             },
         ),
         {
@@ -99,6 +107,16 @@ def get_modifiers():
             ],
         },
         {
+            "id": "ancestor",
+            "type": "modifier",
+            "variations": [
+                {
+                    "spokenForm": f"{complex_modifiers['ancestor']} <scope>",
+                    "description": "Grandparent containing instance of <scope>",
+                },
+            ],
+        },
+        {
             "id": "relativeScope",
             "type": "modifier",
             "variations": [
@@ -119,10 +137,6 @@ def get_modifiers():
                     "description": "<ordinal> instance of <scope> after target",
                 },
                 {
-                    "spokenForm": f"{complex_modifiers['previous']} <number> <scope>s",
-                    "description": "previous <number> instances of <scope>",
-                },
-                {
                     "spokenForm": f"<scope> {complex_modifiers['backward']}",
                     "description": "single instance of <scope> including target, going backwards",
                 },
@@ -130,18 +144,25 @@ def get_modifiers():
                     "spokenForm": f"<scope> {complex_modifiers['forward']}",
                     "description": "single instance of <scope> including target, going forwards",
                 },
-                {
-                    "spokenForm": f"<number> <scope>s {complex_modifiers['backward']}",
-                    "description": "<number> instances of <scope> including target, going backwards",
-                },
-                {
-                    "spokenForm": "<number> <scope>s",
-                    "description": "<number> instances of <scope> including target, going forwards",
-                },
-                {
-                    "spokenForm": f"{complex_modifiers['next']} <number> <scope>s",
-                    "description": "next <number> instances of <scope>",
-                },
+                *generateOptionalEvery(
+                    complex_modifiers["every"],
+                    {
+                        "spokenForm": f"<number> <scope>s {complex_modifiers['backward']}",
+                        "description": "<number> instances of <scope> including target, going backwards",
+                    },
+                    {
+                        "spokenForm": "<number> <scope>s",
+                        "description": "<number> instances of <scope> including target, going forwards",
+                    },
+                    {
+                        "spokenForm": f"{complex_modifiers['previous']} <number> <scope>s",
+                        "description": "previous <number> instances of <scope>",
+                    },
+                    {
+                        "spokenForm": f"{complex_modifiers['next']} <number> <scope>s",
+                        "description": "next <number> instances of <scope>",
+                    },
+                ),
             ],
         },
         {
@@ -156,14 +177,40 @@ def get_modifiers():
                     "spokenForm": f"<ordinal> {complex_modifiers['last']} <scope>",
                     "description": "<ordinal>-to-last instance of <scope> in iteration scope",
                 },
-                {
-                    "spokenForm": f"{complex_modifiers['first']} <number> <scope>s",
-                    "description": "First <number> instances of <scope> in iteration scope",
-                },
-                {
-                    "spokenForm": f"{complex_modifiers['last']} <number> <scope>s",
-                    "description": "Last <number> instances of <scope> in iteration scope",
-                },
+                *generateOptionalEvery(
+                    complex_modifiers["every"],
+                    {
+                        "spokenForm": f"{complex_modifiers['first']} <number> <scope>s",
+                        "description": "first <number> instances of <scope> in iteration scope",
+                    },
+                    {
+                        "spokenForm": f"{complex_modifiers['last']} <number> <scope>s",
+                        "description": "last <number> instances of <scope> in iteration scope",
+                    },
+                ),
             ],
         },
     ]
+
+
+class Entry(TypedDict):
+    spokenForm: str
+    description: str
+
+
+def generateOptionalEvery(every: str, *entries: Entry) -> list[Entry]:
+    return list(
+        chain.from_iterable(
+            [
+                {
+                    "spokenForm": entry["spokenForm"],
+                    "description": f"{entry['description']}, as contiguous range",
+                },
+                {
+                    "spokenForm": f"{every} {entry['spokenForm']}",
+                    "description": f"{entry['description']}, as individual targets",
+                },
+            ]
+            for entry in entries
+        )
+    )

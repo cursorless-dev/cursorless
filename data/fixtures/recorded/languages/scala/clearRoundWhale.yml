@@ -1,0 +1,32 @@
+languageId: scala
+command:
+  version: 5
+  spokenForm: change round whale
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: parentheses}
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    class Example() {
+      val example = "some (wrapped text) to test"
+    }
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.w:
+      start: {line: 1, character: 23}
+      end: {line: 1, character: 30}
+finalState:
+  documentContents: |
+    class Example() {
+      val example = "some  to test"
+    }
+  selections:
+    - anchor: {line: 1, character: 22}
+      active: {line: 1, character: 22}

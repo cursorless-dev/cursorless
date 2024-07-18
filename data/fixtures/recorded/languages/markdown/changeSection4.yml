@@ -1,0 +1,30 @@
+languageId: markdown
+command:
+  version: 5
+  spokenForm: change section
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: section}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    # Hello world
+
+    Testing testing
+
+    # Some test
+  selections:
+    - anchor: {line: 2, character: 11}
+      active: {line: 2, character: 11}
+  marks: {}
+finalState:
+  documentContents: |-
+
+
+    # Some test
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

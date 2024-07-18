@@ -33,13 +33,13 @@ interface LineNumberMark {
  */
 interface RangeMark {
   type: "range";
-  anchor: PartialMark;
-  active: PartialMark;
-  excludeAnchor?: boolean;
-  excludeActive?: boolean;
+  anchor: PartialMarkV5;
+  active: PartialMarkV5;
+  excludeAnchor: boolean;
+  excludeActive: boolean;
 }
 
-type PartialMark =
+export type PartialMarkV5 =
   | CursorMark
   | ThatMark
   | SourceMark
@@ -256,7 +256,7 @@ export interface PositionModifierV5 {
 
 export interface PartialPrimitiveTargetDescriptorV5 {
   type: "primitive";
-  mark?: PartialMark;
+  mark?: PartialMarkV5;
   modifiers?: ModifierV5[];
 }
 
@@ -300,8 +300,8 @@ interface RangeModifier {
   type: "range";
   anchor: ModifierV5;
   active: ModifierV5;
-  excludeAnchor?: boolean;
-  excludeActive?: boolean;
+  excludeAnchor: boolean;
+  excludeActive: boolean;
 }
 
 export type ModifierV5 =

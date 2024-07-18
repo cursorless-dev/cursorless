@@ -1,0 +1,28 @@
+languageId: rust
+command:
+  version: 5
+  spokenForm: chuck arg
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    fn add(x: i32, y: i32) -> {
+        add(x, 30);
+    }
+  selections:
+    - anchor: {line: 1, character: 9}
+      active: {line: 1, character: 9}
+  marks: {}
+finalState:
+  documentContents: |-
+    fn add(x: i32, y: i32) -> {
+        add(30);
+    }
+  selections:
+    - anchor: {line: 1, character: 8}
+      active: {line: 1, character: 8}

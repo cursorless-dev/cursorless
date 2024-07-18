@@ -1,0 +1,27 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change bounds air
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      modifiers:
+        - {type: excludeInterior}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: (aaa bbb)
+  selections:
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}
+  marks:
+    default.a:
+      start: {line: 0, character: 1}
+      end: {line: 0, character: 4}
+finalState:
+  documentContents: aaa bbb
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}

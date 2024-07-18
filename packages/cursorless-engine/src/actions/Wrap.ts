@@ -1,4 +1,5 @@
 import {
+  Edit,
   FlashStyle,
   RangeExpansionBehavior,
   Selection,
@@ -10,10 +11,8 @@ import {
   performEditsAndUpdateFullSelectionInfos,
 } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
-import { Edit } from "../typings/Types";
 import { Target } from "../typings/target.types";
 import { FullSelectionInfo } from "../typings/updateSelections";
-import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import { ActionReturnValue } from "./actions.types";
 
@@ -111,7 +110,7 @@ export default class Wrap {
           ],
         );
 
-        setSelectionsWithoutFocusingEditor(editableEditor, cursorSelections);
+        await editableEditor.setSelections(cursorSelections);
 
         await ide().flashRanges(
           delimiterSelections.map((selection) => ({

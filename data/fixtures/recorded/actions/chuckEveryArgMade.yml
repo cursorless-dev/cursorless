@@ -1,0 +1,33 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: chuck every arg made
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: argumentOrParameter}
+      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "function myFunk(value: string, name: string, age: number) { };"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.m:
+      start: {line: 0, character: 31}
+      end: {line: 0, character: 35}
+finalState:
+  documentContents: function myFunk() { };
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - type: RawSelectionTarget
+      contentRange:
+        start: {line: 0, character: 16}
+        end: {line: 0, character: 16}
+      isReversed: false
+      hasExplicitRange: true

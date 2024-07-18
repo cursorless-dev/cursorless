@@ -1,0 +1,21 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change two tokens backward
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: relativeScope
+          scopeType: {type: token}
+          offset: 0
+          length: 2
+          direction: backward
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: aaa bbb  ccc
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+  marks: {}
+thrownError: {name: NoContainingScopeError}
