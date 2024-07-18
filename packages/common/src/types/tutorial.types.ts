@@ -1,5 +1,3 @@
-import { ScopeType } from "./command/PartialTargetDescriptor.types";
-import { Disposable } from "../ide/types/ide.types";
 
 export type TutorialId = "unit-1-basics" | "unit-2-basic-coding";
 
@@ -76,27 +74,3 @@ export type TutorialState =
   | LoadingState
   | ActiveTutorialNoErrorsState
   | ActiveTutorialErrorsState;
-
-export interface Tutorial {
-  start(id: TutorialId | number): Promise<void>;
-  next(): Promise<void>;
-  previous(): Promise<void>;
-  restart(): Promise<void>;
-  resume(): Promise<void>;
-  list(): Promise<void>;
-
-  onState(callback: (state: TutorialState) => void): Disposable;
-  readonly state: TutorialState;
-
-  /**
-   * Call this when the user opens the documentation so that the tutorial can
-   * advance to the next step if it's waiting for that.
-   */
-  docsOpened(): void;
-
-  /**
-   * Call this when the user visualizes a scope type so that the tutorial can
-   * advance to the next step if it's waiting for that.
-   */
-  scopeTypeVisualized(scopeType: ScopeType | undefined): void;
-}

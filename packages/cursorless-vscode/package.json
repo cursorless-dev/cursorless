@@ -142,7 +142,7 @@
         "title": "Cursorless: Tutorial list"
       },
       {
-        "command": "cursorless.docsOpened",
+        "command": "cursorless.documentationOpened",
         "title": "Cursorless: Used by talon to notify us that the docs have been opened; for use with tutorial",
         "enablement": "false"
       },

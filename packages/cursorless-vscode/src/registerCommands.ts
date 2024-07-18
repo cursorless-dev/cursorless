@@ -131,7 +131,7 @@ export function registerCommands(
     ["cursorless.tutorial.restart"]: tutorial.restart,
     ["cursorless.tutorial.resume"]: tutorial.resume,
     ["cursorless.tutorial.list"]: tutorial.list,
-    ["cursorless.docsOpened"]: tutorial.docsOpened,
+    ["cursorless.documentationOpened"]: tutorial.documentationOpened,
   };
 
   extensionContext.subscriptions.push(

@@ -1,9 +1,4 @@
-import {
-  FileSystem,
-  Tutorial,
-  TutorialId,
-  TutorialState,
-} from "@cursorless/common";
+import { FileSystem, TutorialId, TutorialState } from "@cursorless/common";
 import { getCursorlessRepoRoot } from "@cursorless/node-common";
 import { SpyWebViewEvent, VscodeApi } from "@cursorless/vscode-common";
 import path from "node:path";
@@ -18,6 +13,7 @@ import {
 } from "vscode";
 import { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
 import { SpyWebviewView } from "./SpyWebviewView";
+import { Tutorial } from "@cursorless/cursorless-tutorial";
 
 const VSCODE_TUTORIAL_WEBVIEW_ID = "cursorless.tutorial";
 
@@ -34,7 +30,7 @@ export class VscodeTutorial implements WebviewViewProvider {
   ) {
     this.onState = this.onState.bind(this);
     this.start = this.start.bind(this);
-    this.docsOpened = this.docsOpened.bind(this);
+    this.documentationOpened = this.documentationOpened.bind(this);
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
     this.restart = this.restart.bind(this);
@@ -125,8 +121,8 @@ export class VscodeTutorial implements WebviewViewProvider {
     this.revealTutorial();
   }
 
-  docsOpened() {
-    this.tutorial.docsOpened();
+  documentationOpened() {
+    this.tutorial.documentationOpened();
     this.revealTutorial();
   }
 

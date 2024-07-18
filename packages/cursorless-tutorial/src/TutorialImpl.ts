@@ -8,7 +8,6 @@ import {
   ReadOnlyHatMap,
   ScopeType,
   TextEditor,
-  Tutorial,
   TutorialContentProvider,
   TutorialId,
   TutorialState,
@@ -25,6 +24,7 @@ import { loadTutorial } from "./loadTutorial";
 import { setupStep } from "./setupStep";
 import { tutorialWrapCommandRunner } from "./tutorialWrapCommandRunner";
 import { TutorialContent } from "./types/tutorial.types";
+import { Tutorial } from "./Tutorial";
 
 export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
   /**
@@ -202,7 +202,7 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
     await this.setupStep();
   }
 
-  docsOpened() {
+  documentationOpened() {
     if (this.state_.type === "doingTutorial") {
       const currentStep = this.currentTutorial!.steps[this.state_.stepNumber];
       if (currentStep.trigger?.type === "help") {

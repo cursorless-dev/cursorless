@@ -77,4 +77,6 @@ class Actions:
 @ctx.action_class("user")
 class CursorlessActions:
     def private_cursorless_notify_docs_opened():
-        actions.user.private_cursorless_run_rpc_command_no_wait("cursorless.docsOpened")
+        actions.user.private_cursorless_run_rpc_command_no_wait(
+            "cursorless.documentationOpened"
+        )

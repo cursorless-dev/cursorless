@@ -1,7 +1,8 @@
-import { CommandComplete, Tutorial } from "@cursorless/common";
+import { CommandComplete } from "@cursorless/common";
 import { CommandRunner } from "@cursorless/cursorless-engine";
 import { isEqual } from "lodash-es";
 import { TutorialContent } from "./types/tutorial.types";
+import { Tutorial } from "./Tutorial";
 
 /**
  * If the tutorial is currently active and we are in a step that is waiting
