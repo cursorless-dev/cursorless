@@ -7,10 +7,8 @@ mod.tag(
     "Application supporting cursorless commands",
 )
 
-global_ctx = Context()
-
-cursorless_ctx = Context()
-cursorless_ctx.matches = r"""
+ctx = Context()
+ctx.matches = r"""
 tag: user.cursorless
 """
 
@@ -25,6 +23,7 @@ class Actions:
 
     def private_cursorless_notify_docs_opened():
         """Notify the ide that the docs were opened in case the tutorial is waiting for that event"""
+        actions.skip()
 
     def private_cursorless_show_command_statistics():
         """Show Cursorless command statistics"""
@@ -75,14 +74,7 @@ class Actions:
         )
 
 
-@global_ctx.action_class("user")
-class GlobalActions:
-    def private_cursorless_notify_docs_opened():
-        # Do nothing if we're not in a Cursorless context
-        pass
-
-
-@cursorless_ctx.action_class("user")
+@ctx.action_class("user")
 class CursorlessActions:
     def private_cursorless_notify_docs_opened():
         actions.user.private_cursorless_run_rpc_command_no_wait("cursorless.docsOpened")
