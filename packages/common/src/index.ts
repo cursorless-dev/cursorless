@@ -1,5 +1,6 @@
 export * from "./cursorlessCommandIds";
 export * from "./cursorlessSideBarIds";
+export * from "./Debouncer";
 export * from "./errors";
 export * from "./extensionDependencies";
 export * from "./FakeCommandServerApi";
