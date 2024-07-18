@@ -1,3 +1,4 @@
+import { CURSORLESS_COMMAND_ID } from "@cursorless/common";
 import type { CommandApi } from "@cursorless/cursorless-engine";
 import { Context, actions } from "talon";
 import type { TalonJsIDE } from "./ide/TalonJsIDE";
@@ -38,7 +39,7 @@ async function runCommand(
     if (commandApi == null) {
       throw Error("commandApi is not initialized.");
     }
-    if (commandId !== "cursorless.command") {
+    if (commandId !== CURSORLESS_COMMAND_ID) {
       throw Error(`Unknown command ID: ${commandId}`);
     }
 

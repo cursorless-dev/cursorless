@@ -14,18 +14,21 @@ export interface TalonActions {
     find(text?: string): void;
   };
   user: {
-    private_cursorless_run_rpc_command_no_wait(
-      commandId: string,
-      command: unknown,
-    ): void;
-    private_cursorless_run_rpc_command_get(
-      commandId: string,
-      command: unknown,
-    ): Promise<unknown>;
     cursorless_everywhere_get_editor_state(): EditorState;
     cursorless_everywhere_set_selection(selection: OffsetSelection): void;
     cursorless_everywhere_set_text(text: string): void;
   };
+}
+
+export interface TalonContextActions {
+  private_cursorless_run_rpc_command_no_wait(
+    commandId: string,
+    command: unknown,
+  ): void;
+  private_cursorless_run_rpc_command_get(
+    commandId: string,
+    command: unknown,
+  ): Promise<unknown>;
 }
 
 export interface TalonContext {
@@ -33,10 +36,7 @@ export interface TalonContext {
   tags: string[];
   settings: Record<string, string | number | boolean>;
   lists: Record<string, Record<string, string> | string[]>;
-  action_class(
-    name: TalonNamespace,
-    actions: Partial<TalonActions[TalonNamespace]>,
-  ): void;
+  action_class(name: "user", actions: TalonContextActions): void;
 }
 
 export interface TalonSettings {
@@ -44,6 +44,12 @@ export interface TalonSettings {
     name: string,
     defaultValue?: T,
   ): T | null;
+}
+
+export interface TalonTestHelpers {
+  contextActions: TalonContextActions;
+  setEditorState(editorState: EditorState): void;
+  getFinalEditorState(): EditorState;
 }
 
 declare module "talon" {
@@ -55,9 +61,8 @@ declare module "talon" {
     tags: string[];
     settings: Record<string, string | number | boolean>;
     lists: Record<string, Record<string, string> | string[]>;
-    action_class(
-      name: TalonNamespace,
-      actions: Partial<TalonActions[TalonNamespace]>,
-    ): void;
+    action_class(name: "user", actions: TalonContextActions): void;
   }
+
+  const getTestHelpers: () => TalonTestHelpers;
 }

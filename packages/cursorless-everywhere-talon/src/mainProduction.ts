@@ -1,3 +1,3 @@
 import { activate } from "./extension";
 
-void activate("production");
+await activate("production");
