@@ -17,7 +17,7 @@ win.title: /cursorless/
 
 ^debug generate subset$:
     user.run_rpc_command("workbench.action.tasks.runTask", "Generate test subset file")
-^debug edit subset$:
+debug edit subset:
     user.run_rpc_command("commands.openFolder", "./packages/test-harness/testSubsetGrep.properties")
 
 debug {user.cursorless_launch_configuration}:
