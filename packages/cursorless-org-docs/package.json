@@ -30,8 +30,8 @@
     "clsx": "^2.1.0",
     "mdast-util-find-and-replace": "^3.0.1",
     "prism-react-renderer": "^2.3.1",
+    "react": "^18.3.1",
     "react-dom": "^18.2.0",
-    "react": "^18.2.0",
     "unist-util-visit": "^5.0.0"
   },
   "browserslist": {
@@ -51,7 +51,7 @@
     "@docusaurus/types": "3.1.1",
     "@tsconfig/docusaurus": "2.0.2",
     "@types/mdast": "4.0.3",
-    "@types/react": "18.2.71",
+    "@types/react": "18.3.3",
     "typescript": "^5.5.3",
     "unified": "11.0.4"
   },
