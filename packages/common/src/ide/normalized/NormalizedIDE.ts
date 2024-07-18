@@ -2,7 +2,7 @@ import { GeneralizedRange } from "../../types/GeneralizedRange";
 import { TextEditor } from "../../types/TextEditor";
 import FakeConfiguration from "../fake/FakeConfiguration";
 import FakeGlobalState from "../fake/FakeGlobalState";
-import FakeIDE from "../fake/FakeIDE";
+import { FakeIDE } from "../fake/FakeIDE";
 import PassthroughIDEBase from "../PassthroughIDEBase";
 import { FlashDescriptor } from "../types/FlashDescriptor";
 import type { IDE } from "../types/ide.types";
@@ -16,7 +16,7 @@ export class NormalizedIDE extends PassthroughIDEBase {
     original: IDE,
     public fakeIde: FakeIDE,
     private isSilent: boolean,
-    private cursorlessSnippetsDir: string | undefined,
+    private cursorlessSnippetsDir?: string,
   ) {
     super(original);
 

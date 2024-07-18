@@ -1,5 +1,3 @@
-import { ide } from "../singletons/ide.singleton";
-
 /**
  * Debounces a callback.  Uses the `decorationDebounceDelayMs` configuration
  * value to determine the debounce delay.
@@ -10,7 +8,7 @@ export class Debouncer {
   constructor(
     /** The callback to debounce */
     private callback: () => void,
-    private debounceDelayMs?: number,
+    private debounceDelayMs: number,
   ) {
     this.run = this.run.bind(this);
   }
@@ -20,14 +18,10 @@ export class Debouncer {
       clearTimeout(this.timeoutHandle);
     }
 
-    const decorationDebounceDelayMs =
-      this.debounceDelayMs ??
-      ide().configuration.getOwnConfiguration("decorationDebounceDelayMs");
-
     this.timeoutHandle = setTimeout(() => {
       this.callback();
       this.timeoutHandle = null;
-    }, decorationDebounceDelayMs);
+    }, this.debounceDelayMs);
   }
 
   dispose() {

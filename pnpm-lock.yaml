@@ -260,6 +260,9 @@ importers:
       '@cursorless/node-common':
         specifier: workspace:*
         version: link:../node-common
+      '@cursorless/sentence-parser':
+        specifier: workspace:*
+        version: link:../sentence-parser
       immer:
         specifier: ^10.0.4
         version: 10.0.4
@@ -773,6 +776,15 @@ importers:
       js-yaml:
         specifier: ^4.1.0
         version: 4.1.0
+
+  packages/sentence-parser:
+    devDependencies:
+      '@types/mocha':
+        specifier: ^10.0.6
+        version: 10.0.6
+      mocha:
+        specifier: ^10.3.0
+        version: 10.3.0
 
   packages/test-case-recorder:
     dependencies:
@@ -15521,7 +15533,7 @@ packages:
     dependencies:
       xmlchars: 2.2.0
     dev: true
-
+    
   /sbd@1.0.19:
     resolution: {integrity: sha512-b5RyZMGSrFuIB4AHdbv12uYHS8YGEJ36gtuvG3RflbJGY+T0dXmAL0E4vZjQqT2RsX0v+ZwVqhV2zsGr5aFK9w==}
     dependencies:
