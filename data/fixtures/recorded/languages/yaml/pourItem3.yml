@@ -1,0 +1,25 @@
+languageId: yaml
+command:
+  version: 6
+  spokenForm: pour item
+  action:
+    name: editNewLineAfter
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    values: { foo: bar }
+  selections:
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
+  marks: {}
+finalState:
+  documentContents: |
+    values: { foo: bar,  }
+  selections:
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}

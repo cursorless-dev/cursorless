@@ -1,0 +1,26 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: take map
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: map}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+
+    const value = { a: 1, b: 2, c: 3 };
+  selections:
+    - anchor: {line: 1, character: 17}
+      active: {line: 1, character: 17}
+  marks: {}
+finalState:
+  documentContents: |
+
+    const value = { a: 1, b: 2, c: 3 };
+  selections:
+    - anchor: {line: 1, character: 14}
+      active: {line: 1, character: 34}

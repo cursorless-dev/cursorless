@@ -1,0 +1,30 @@
+languageId: yaml
+command:
+  version: 6
+  spokenForm: chuck item
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    foo:
+      - 0
+      - 1
+      - 2
+  selections:
+    - anchor: {line: 2, character: 3}
+      active: {line: 2, character: 3}
+  marks: {}
+finalState:
+  documentContents: |-
+    foo:
+      - 0
+      - 2
+  selections:
+    - anchor: {line: 2, character: 2}
+      active: {line: 2, character: 2}

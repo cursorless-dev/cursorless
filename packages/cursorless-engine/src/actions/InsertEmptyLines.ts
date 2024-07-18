@@ -1,14 +1,13 @@
 import { FlashStyle, Range, Selection, toLineRange } from "@cursorless/common";
-import { flatten } from "lodash";
+import { flatten } from "lodash-es";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
-import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
-import { Action, ActionReturnValue } from "./actions.types";
+import { SimpleAction, ActionReturnValue } from "./actions.types";
 
-class InsertEmptyLines implements Action {
+class InsertEmptyLines implements SimpleAction {
   constructor(
     private rangeUpdater: RangeUpdater,
     private insertAbove: boolean,
@@ -41,7 +40,7 @@ class InsertEmptyLines implements Action {
     }));
   }
 
-  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+  async run(targets: Target[]): Promise<ActionReturnValue> {
     const results = flatten(
       await runOnTargetsForEachEditor(targets, async (editor, targets) => {
         const ranges = this.getRanges(targets);
@@ -61,10 +60,7 @@ class InsertEmptyLines implements Action {
             ],
           );
 
-        setSelectionsWithoutFocusingEditor(
-          editableEditor,
-          updatedCursorSelections,
-        );
+        await editableEditor.setSelections(updatedCursorSelections);
 
         return {
           thatMark: updatedThatSelections.map((selection) => ({

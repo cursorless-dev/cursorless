@@ -10,16 +10,16 @@ export const HAT_COLORS = [
 ] as const;
 
 export const HAT_NON_DEFAULT_SHAPES = [
-  "ex",
+  "bolt",
+  "curve",
   "fox",
+  "frame",
+  "play",
   "wing",
   "hole",
-  "frame",
-  "curve",
-  "eye",
-  "play",
-  "bolt",
+  "ex",
   "crosshairs",
+  "eye",
 ] as const;
 
 export const HAT_SHAPES = ["default", ...HAT_NON_DEFAULT_SHAPES] as const;

@@ -1,0 +1,32 @@
+languageId: rust
+command:
+  version: 5
+  spokenForm: change arg eight
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: '8'}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    enum E {
+        C(u8, u16, u32),
+    }
+  selections:
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
+  marks:
+    default.8:
+      start: {line: 1, character: 6}
+      end: {line: 1, character: 8}
+finalState:
+  documentContents: |
+    enum E {
+        C(, u16, u32),
+    }
+  selections:
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 6}

@@ -58,7 +58,7 @@ export class IndividualHatMap implements ReadOnlyHatMap {
   }
 
   /**
-   * Overwrites the hat assignemnt for this hat token map.
+   * Overwrites the hat assignment for this hat token map.
    *
    * @param tokenHats The new hat assignments
    */

@@ -1,0 +1,41 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: custom insert after whale
+  action:
+    name: insertSnippet
+    args:
+      - type: custom
+        body: "dummy snippet hole1: ($hole1), hole2: ($hole2)"
+        scopeTypes:
+          - {type: line}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      modifiers:
+        - {type: position, position: after}
+  usePrePhraseSnapshot: true
+spokenFormError: Custom insertion snippet
+initialState:
+  documentContents: hello world
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.w:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 11}
+finalState:
+  documentContents: |-
+    hello world
+    dummy snippet hole1: (), hole2: ()
+  selections:
+    - anchor: {line: 1, character: 22}
+      active: {line: 1, character: 22}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 1, character: 0}
+        end: {line: 1, character: 34}
+      isReversed: false
+      hasExplicitRange: true

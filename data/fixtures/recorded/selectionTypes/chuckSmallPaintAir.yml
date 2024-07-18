@@ -1,0 +1,26 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: chuck short paint air
+  action: {name: remove}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: boundedNonWhitespaceSequence}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: some amount of text
+  selections:
+    - anchor: {line: 0, character: 19}
+      active: {line: 0, character: 19}
+  marks:
+    default.a:
+      start: {line: 0, character: 5}
+      end: {line: 0, character: 11}
+finalState:
+  documentContents: some of text
+  selections:
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 12}

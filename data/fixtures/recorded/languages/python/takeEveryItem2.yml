@@ -1,0 +1,30 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: take every item
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+
+    value = {1, 2, 3}
+  selections:
+    - anchor: {line: 1, character: 9}
+      active: {line: 1, character: 9}
+  marks: {}
+finalState:
+  documentContents: |
+
+    value = {1, 2, 3}
+  selections:
+    - anchor: {line: 1, character: 9}
+      active: {line: 1, character: 10}
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 13}
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 16}

@@ -1,0 +1,40 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: change near past end of its state
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: range
+      active:
+        type: primitive
+        modifiers:
+          - {type: position, position: end}
+          - {type: inferPreviousMark}
+          - type: containingScope
+            scopeType: {type: statement}
+      excludeAnchor: false
+      excludeActive: false
+      anchor:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: 'n'}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    const foo = "hello";
+
+    const bar = "hello";
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+  marks:
+    default.n:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 5}
+finalState:
+  documentContents: |-
+
+
+    const bar = "hello";
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

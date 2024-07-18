@@ -1,12 +1,12 @@
 import type { Range } from "@cursorless/common";
-import type { Target } from "../../typings/target.types";
+import type { Destination } from "../../typings/target.types";
 
 /**
- * Internal type to be used for storing a reference to a target that will use an
- * edit action to insert a new target
+ * Internal type to be used for storing a reference to a destination that will use an
+ * edit action to insert a new destination
  */
-export interface EditTarget {
-  target: Target;
+export interface EditDestination {
+  destination: Destination;
 
   /**
    * The original index of this target in the original list of targets passed
@@ -25,9 +25,9 @@ export interface EditTarget {
  */
 export interface State {
   /**
-   * This field stores the original targets.
+   * This field stores the original destinations.
    */
-  targets: Target[];
+  destinations: Destination[];
 
   /**
    * We use this field to track the desired `thatMark` at the end, updating it

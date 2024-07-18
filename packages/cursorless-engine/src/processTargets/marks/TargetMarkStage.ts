@@ -1,4 +1,4 @@
-import { TargetPipelineRunner } from "..";
+import { TargetPipelineRunner } from "../TargetPipelineRunner";
 import { TargetMark } from "../../typings/TargetDescriptor";
 import { Target } from "../../typings/target.types";
 import { MarkStage } from "../PipelineStages.types";

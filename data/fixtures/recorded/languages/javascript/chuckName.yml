@@ -1,0 +1,67 @@
+languageId: javascript
+command:
+  version: 6
+  spokenForm: chuck name
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    const aaa = 0;
+    let bbb = 0;
+    var hhh = 0;
+    ccc = 0;
+    kkk += 1;
+    const ddd = 0, eee = 0;
+    let fff = 0, ggg = 0;
+    var iii = 0;
+  selections:
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 12}
+    - anchor: {line: 2, character: 12}
+      active: {line: 2, character: 12}
+    - anchor: {line: 3, character: 8}
+      active: {line: 3, character: 8}
+    - anchor: {line: 4, character: 9}
+      active: {line: 4, character: 9}
+    - anchor: {line: 5, character: 23}
+      active: {line: 5, character: 23}
+    - anchor: {line: 6, character: 21}
+      active: {line: 6, character: 21}
+    - anchor: {line: 7, character: 12}
+      active: {line: 7, character: 12}
+  marks: {}
+finalState:
+  documentContents: |-
+    0;
+    0;
+    0;
+    0;
+    1;
+    0, 0;
+    0, 0;
+    0;
+  selections:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}
+    - anchor: {line: 2, character: 2}
+      active: {line: 2, character: 2}
+    - anchor: {line: 3, character: 2}
+      active: {line: 3, character: 2}
+    - anchor: {line: 4, character: 2}
+      active: {line: 4, character: 2}
+    - anchor: {line: 5, character: 5}
+      active: {line: 5, character: 5}
+    - anchor: {line: 6, character: 5}
+      active: {line: 6, character: 5}
+    - anchor: {line: 7, character: 2}
+      active: {line: 7, character: 2}

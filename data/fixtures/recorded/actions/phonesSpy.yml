@@ -1,0 +1,38 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: phones sun
+  action:
+    name: replace
+    args:
+      - [sum]
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: s}
+  usePrePhraseSnapshot: false
+spokenFormError: Action 'replace'
+initialState:
+  documentContents: |
+
+    const value = "some";
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.s:
+      start: {line: 1, character: 15}
+      end: {line: 1, character: 19}
+finalState:
+  documentContents: |
+
+    const value = "sum";
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 1, character: 15}
+        end: {line: 1, character: 18}
+      isReversed: false
+      hasExplicitRange: true

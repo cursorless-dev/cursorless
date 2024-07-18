@@ -3,19 +3,18 @@ import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { ensureSingleTarget } from "../util/targetUtils";
 import { Actions } from "./Actions";
-import { Action, ActionReturnValue } from "./actions.types";
+import { ActionReturnValue, SimpleAction } from "./actions.types";
 
-export class FindInWorkspace implements Action {
+abstract class Find implements SimpleAction {
   constructor(private actions: Actions) {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+  async run(targets: Target[]): Promise<ActionReturnValue> {
     ensureSingleTarget(targets);
 
-    const { returnValue, thatTargets } = await this.actions.getText.run([
-      targets,
-    ]);
+    const { returnValue, thatTargets } =
+      await this.actions.getText.run(targets);
     const [text] = returnValue as [string];
 
     let query: string;
@@ -30,8 +29,22 @@ export class FindInWorkspace implements Action {
       query = text;
     }
 
-    await ide().findInWorkspace(query);
+    await this.find(query);
 
     return { thatTargets };
+  }
+
+  protected abstract find(query: string): Promise<void>;
+}
+
+export class FindInDocument extends Find {
+  protected find(query: string): Promise<void> {
+    return ide().findInDocument(query);
+  }
+}
+
+export class FindInWorkspace extends Find {
+  protected find(query: string): Promise<void> {
+    return ide().findInWorkspace(query);
   }
 }

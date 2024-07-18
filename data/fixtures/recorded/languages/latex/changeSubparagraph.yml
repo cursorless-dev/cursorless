@@ -1,0 +1,27 @@
+languageId: latex
+command:
+  version: 5
+  spokenForm: change subparagraph
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: subParagraph}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    \subparagraph{1}
+    some text
+    \subparagraph{2}
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |
+
+    \subparagraph{2}
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

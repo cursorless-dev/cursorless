@@ -5,18 +5,17 @@ import {
   TextEditor,
   toCharacterRange,
 } from "@cursorless/common";
-import { flatten, zip } from "lodash";
+import { flatten, zip } from "lodash-es";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../core/updateSelections/updateSelections";
 import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { containingLineIfUntypedModifier } from "../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
-import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
-import { Action, ActionReturnValue } from "./actions.types";
+import { SimpleAction, ActionReturnValue } from "./actions.types";
 
-class InsertCopy implements Action {
+class InsertCopy implements SimpleAction {
   getFinalStages = () => [
     this.modifierStageFactory.create(containingLineIfUntypedModifier),
   ];
@@ -30,7 +29,7 @@ class InsertCopy implements Action {
     this.runForEditor = this.runForEditor.bind(this);
   }
 
-  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+  async run(targets: Target[]): Promise<ActionReturnValue> {
     const results = flatten(
       await runOnTargetsForEachEditor(targets, this.runForEditor),
     );
@@ -55,7 +54,7 @@ class InsertCopy implements Action {
     // isBefore is inverted because we want the selections to stay with what is to the user the "copy"
     const position = this.isBefore ? "after" : "before";
     const edits = targets.flatMap((target) =>
-      target.toPositionTarget(position).constructChangeEdit(target.contentText),
+      target.toDestination(position).constructChangeEdit(target.contentText),
     );
 
     const cursorSelections = { selections: editor.selections };
@@ -72,7 +71,7 @@ class InsertCopy implements Action {
     const editableEditor = ide().getEditableTextEditor(editor);
 
     const [
-      updatedEditorSelections,
+      updatedCursorSelections,
       updatedContentSelections,
       updatedEditSelections,
     ]: Selection[][] = await performEditsAndUpdateSelectionsWithBehavior(
@@ -86,8 +85,17 @@ class InsertCopy implements Action {
       ([edit, selection]) => edit!.updateRange(selection!),
     );
 
-    setSelectionsWithoutFocusingEditor(editableEditor, updatedEditorSelections);
-    await editableEditor.revealRange(editor.selections[0]);
+    await editableEditor.setSelections(updatedCursorSelections);
+    const primarySelection = editor.selections[0];
+
+    if (
+      updatedContentSelections.some(
+        (selection) => selection.intersection(primarySelection) != null,
+      )
+    ) {
+      // If the original target contained the user's cursor, reveal it in case it got pushed off screen
+      await editableEditor.revealRange(primarySelection);
+    }
 
     return {
       sourceMark: createThatMark(targets, insertionRanges),

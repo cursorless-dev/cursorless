@@ -1,0 +1,48 @@
+languageId: markdown
+command:
+  version: 5
+  spokenForm: bring section made after this
+  action: {name: replaceWithTarget}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: section}
+      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+    - type: primitive
+      mark: {type: cursor}
+      modifiers:
+        - {type: position, position: after}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    # Some section
+
+    Some text
+
+    # Another section
+
+    Another text
+  selections:
+    - anchor: {line: 4, character: 9}
+      active: {line: 4, character: 9}
+  marks:
+    default.m:
+      start: {line: 2, character: 0}
+      end: {line: 2, character: 4}
+finalState:
+  documentContents: |-
+    # Some section
+
+    Some text
+
+    # Another section
+
+    Another text
+
+    # Some section
+
+    Some text
+  selections:
+    - anchor: {line: 4, character: 9}
+      active: {line: 4, character: 9}

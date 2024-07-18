@@ -1,0 +1,22 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change sentence
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: sentence}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: " Foo foo. Bar bar!"
+  selections:
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}
+  marks: {}
+finalState:
+  documentContents: "  Bar bar!"
+  selections:
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}

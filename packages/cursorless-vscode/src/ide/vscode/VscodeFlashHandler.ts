@@ -10,7 +10,10 @@ import VscodeHighlights from "./VscodeHighlights";
 import { VscodeIDE } from "./VscodeIDE";
 
 export default class VscodeFlashHandler {
-  constructor(private ide: VscodeIDE, private highlights: VscodeHighlights) {}
+  constructor(
+    private ide: VscodeIDE,
+    private highlights: VscodeHighlights,
+  ) {}
 
   async flashRanges(flashDescriptors: FlashDescriptor[]): Promise<void> {
     const flashMap = groupBy(flashDescriptors, ({ style }) => style);

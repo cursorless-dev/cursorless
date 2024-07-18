@@ -31,7 +31,7 @@ abstract class SimpleIdeCommandAction {
   }
 
   async run(
-    targets: [Target[]],
+    targets: Target[],
     { showDecorations }: Options = {},
   ): Promise<ActionReturnValue> {
     const capabilities = ide().capabilities.commands[this.command];
@@ -147,6 +147,8 @@ function callback(
       return editor.fold(ranges);
     case "unfold":
       return editor.unfold(ranges);
+    case "insertLineAfter":
+      return editor.insertLineAfter(ranges);
 
     // Single target actions
     case "rename":

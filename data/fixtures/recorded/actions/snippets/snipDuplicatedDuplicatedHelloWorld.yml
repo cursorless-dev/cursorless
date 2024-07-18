@@ -1,0 +1,34 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: snippet duplicated duplicated hello world
+  action:
+    name: insertSnippet
+    args:
+      - type: named
+        name: duplicatedVariableTest
+        substitutions: {duplicated: hello world}
+  targets:
+    - {type: implicit}
+  usePrePhraseSnapshot: true
+spokenFormError: Named insertion snippet 'duplicatedVariableTest'
+initialState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: >-
+    This variable: 'hello_world' is duplicated here: 'hello_world', but '' is
+    unique!
+  selections:
+    - anchor: {line: 0, character: 69}
+      active: {line: 0, character: 69}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 81}
+      isReversed: false
+      hasExplicitRange: true

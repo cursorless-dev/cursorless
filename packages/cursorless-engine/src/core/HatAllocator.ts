@@ -3,43 +3,48 @@ import { ide } from "../singletons/ide.singleton";
 import tokenGraphemeSplitter from "../singletons/tokenGraphemeSplitter.singleton";
 import { allocateHats } from "../util/allocateHats";
 import { IndividualHatMap } from "./IndividualHatMap";
+import { DecorationDebouncer } from "../util/DecorationDebouncer";
 
 interface Context {
   getActiveMap(): Promise<IndividualHatMap>;
 }
 
 export class HatAllocator {
-  private timeoutHandle: NodeJS.Timeout | null = null;
   private disposables: Disposable[] = [];
 
-  constructor(private hats: Hats, private context: Context) {
+  constructor(
+    private hats: Hats,
+    private context: Context,
+  ) {
     ide().disposeOnExit(this);
 
-    this.allocateHatsDebounced = this.allocateHatsDebounced.bind(this);
+    const debouncer = new DecorationDebouncer(ide().configuration, () =>
+      this.allocateHats(),
+    );
 
     this.disposables.push(
-      this.hats.onDidChangeEnabledHatStyles(this.allocateHatsDebounced),
-      this.hats.onDidChangeIsEnabled(this.allocateHatsDebounced),
+      this.hats.onDidChangeEnabledHatStyles(debouncer.run),
+      this.hats.onDidChangeIsEnabled(debouncer.run),
 
       // An event that fires when a text document opens
-      ide().onDidOpenTextDocument(this.allocateHatsDebounced),
+      ide().onDidOpenTextDocument(debouncer.run),
       // An event that fires when a text document closes
-      ide().onDidCloseTextDocument(this.allocateHatsDebounced),
+      ide().onDidCloseTextDocument(debouncer.run),
       // An Event which fires when the active editor has changed. Note that the event also fires when the active editor changes to undefined.
-      ide().onDidChangeActiveTextEditor(this.allocateHatsDebounced),
+      ide().onDidChangeActiveTextEditor(debouncer.run),
       // An Event which fires when the array of visible editors has changed.
-      ide().onDidChangeVisibleTextEditors(this.allocateHatsDebounced),
+      ide().onDidChangeVisibleTextEditors(debouncer.run),
       // An event that is emitted when a text document is changed. This usually happens when the contents changes but also when other things like the dirty-state changes.
-      ide().onDidChangeTextDocument(this.allocateHatsDebounced),
+      ide().onDidChangeTextDocument(debouncer.run),
       // An Event which fires when the selection in an editor has changed.
-      ide().onDidChangeTextEditorSelection(this.allocateHatsDebounced),
+      ide().onDidChangeTextEditorSelection(debouncer.run),
       // An Event which fires when the visible ranges of an editor has changed.
-      ide().onDidChangeTextEditorVisibleRanges(this.allocateHatsDebounced),
+      ide().onDidChangeTextEditorVisibleRanges(debouncer.run),
       // Re-draw hats on grapheme splitting algorithm change in case they
       // changed their token hat splitting setting.
-      tokenGraphemeSplitter().registerAlgorithmChangeListener(
-        this.allocateHatsDebounced,
-      ),
+      tokenGraphemeSplitter().registerAlgorithmChangeListener(debouncer.run),
+
+      debouncer,
     );
   }
 
@@ -75,26 +80,7 @@ export class HatAllocator {
     );
   }
 
-  allocateHatsDebounced() {
-    if (this.timeoutHandle != null) {
-      clearTimeout(this.timeoutHandle);
-    }
-
-    const decorationDebounceDelayMs = ide().configuration.getOwnConfiguration(
-      "decorationDebounceDelayMs",
-    );
-
-    this.timeoutHandle = setTimeout(() => {
-      this.allocateHats();
-      this.timeoutHandle = null;
-    }, decorationDebounceDelayMs);
-  }
-
   dispose() {
     this.disposables.forEach(({ dispose }) => dispose());
-
-    if (this.timeoutHandle != null) {
-      clearTimeout(this.timeoutHandle);
-    }
   }
 }

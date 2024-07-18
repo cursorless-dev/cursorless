@@ -8,14 +8,14 @@ import {
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Actions } from "./Actions";
-import { Action, ActionReturnValue } from "./actions.types";
+import { SimpleAction, ActionReturnValue } from "./actions.types";
 
-export class CutToClipboard implements Action {
+export class CutToClipboard implements SimpleAction {
   constructor(private actions: Actions) {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+  async run(targets: Target[]): Promise<ActionReturnValue> {
     await ide().flashRanges(
       targets.flatMap((target) => {
         const { editor, contentRange } = target;
@@ -55,9 +55,9 @@ export class CutToClipboard implements Action {
 
     const options = { showDecorations: false };
 
-    await this.actions.copyToClipboard.run([targets], options);
+    await this.actions.copyToClipboard.run(targets, options);
 
-    const { thatTargets } = await this.actions.remove.run([targets], options);
+    const { thatTargets } = await this.actions.remove.run(targets, options);
 
     return { thatTargets };
   }

@@ -1,0 +1,40 @@
+languageId: typescript
+command:
+  version: 6
+  spokenForm: if wrap cap
+  action:
+    name: wrapWithSnippet
+    snippetDescription:
+      type: custom
+      body: "if ($1) {\n\t$0\n}"
+      scopeType: {type: statement}
+      variableName: "0"
+    target:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: c}
+  usePrePhraseSnapshot: true
+spokenFormError: Custom wrap with snippet
+initialState:
+  documentContents: const value = 2;
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.c:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 5}
+finalState:
+  documentContents: |-
+    if () {
+        const value = 2;
+    }
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 2, character: 1}
+      isReversed: false
+      hasExplicitRange: true

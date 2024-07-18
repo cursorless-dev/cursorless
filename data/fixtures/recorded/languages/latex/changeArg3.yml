@@ -1,0 +1,24 @@
+languageId: latex
+command:
+  version: 5
+  spokenForm: change arg
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    \href{https://some.url}{some text}
+  selections:
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}
+  marks: {}
+finalState:
+  documentContents: |
+    \href{}{some text}
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

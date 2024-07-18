@@ -1,0 +1,32 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: bring whale before just this
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+    destination:
+      type: primitive
+      insertionMode: before
+      target:
+        type: primitive
+        modifiers:
+          - {type: toRawSelection}
+        mark: {type: cursor}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: foo world
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+  marks:
+    default.w:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 9}
+finalState:
+  documentContents: fooworld world
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

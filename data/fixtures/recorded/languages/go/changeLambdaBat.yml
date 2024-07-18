@@ -1,0 +1,27 @@
+languageId: go
+command:
+  version: 6
+  spokenForm: change lambda bat
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: anonymousFunction}
+      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: _ = func() { /* body */ }
+  selections:
+    - anchor: {line: 0, character: 25}
+      active: {line: 0, character: 25}
+  marks:
+    default.b:
+      start: {line: 0, character: 16}
+      end: {line: 0, character: 20}
+finalState:
+  documentContents: "_ = "
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}

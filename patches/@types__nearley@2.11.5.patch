@@ -1,0 +1,50 @@
+diff --git a/index.d.ts b/index.d.ts
+index 5cca1013513217cf5ec46c04e60cbb1dc2c7b2f1..289ca02c4bf917b0f6dacfe2d60d2e91a77bcf77 100644
+--- a/index.d.ts
++++ b/index.d.ts
+@@ -1,5 +1,18 @@
+ export as namespace nearley;
+ 
++export interface State {
++    rule: Rule;
++    dot: number;
++    wantedBy: State[];
++    left?: State;
++    right?: State;
++    data: any;
++}
++
++export interface Column {
++    scannable: State[];
++}
++
+ export class Parser {
+     /**
+      * Reserved token for indicating a parse fail.
+@@ -19,6 +32,8 @@ export class Parser {
+      */
+     results: any[];
+ 
++    table: Column[];
++
+     constructor(grammar: Grammar, options?: ParserOptions);
+ 
+     /**
+@@ -30,7 +45,7 @@ export class Parser {
+      * @throws If there are no possible parsings, nearley will throw an error
+      * whose offset property is the index of the offending token.
+      */
+-    feed(chunk: string): this;
++    feed(chunk: string | any[]): this;
+     finish(): any[];
+     restore(column: { [key: string]: any; lexerState: LexerState }): void;
+     save(): { [key: string]: any; lexerState: LexerState };
+@@ -83,7 +98,7 @@ export interface Lexer {
+     /**
+      * Sets the internal buffer to data, and restores line/col/state info taken from save().
+      */
+-    reset(data: string, state?: LexerState): void;
++    reset(data: string | any[], state?: LexerState): void;
+     /**
+      * Returns e.g. {type, value, line, col, …}. Only the value attribute is required.
+      */

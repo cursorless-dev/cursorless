@@ -1,0 +1,11 @@
+def foo():
+    global bar, baz
+---
+
+[Range] = 1:11-1:19
+             >--------<
+1|     global bar, baz
+
+[Domain] = 1:4-1:19
+      >---------------<
+1|     global bar, baz

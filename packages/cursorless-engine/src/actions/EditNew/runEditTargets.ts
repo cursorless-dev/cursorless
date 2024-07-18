@@ -3,10 +3,10 @@ import {
   RangeExpansionBehavior,
   Selection,
 } from "@cursorless/common";
-import { zip } from "lodash";
+import { zip } from "lodash-es";
 import { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../../core/updateSelections/updateSelections";
-import { EditTarget, State } from "./EditNew.types";
+import { EditDestination, State } from "./EditNew.types";
 
 /**
  * Handle targets that will use an edit action to insert a new target, and
@@ -25,24 +25,26 @@ export async function runEditTargets(
   rangeUpdater: RangeUpdater,
   editor: EditableTextEditor,
   state: State,
+  useAllDestinations: boolean,
 ): Promise<State> {
-  const targets: EditTarget[] = state.targets
-    .map((target, index) => {
-      const actionType = target.getEditNewActionType();
-      if (actionType === "edit") {
+  const destinations: EditDestination[] = state.destinations
+    .map((destination, index) => {
+      if (useAllDestinations || destination.getEditNewActionType() === "edit") {
         return {
-          target,
+          destination,
           index,
         };
       }
     })
-    .filter((target): target is EditTarget => !!target);
+    .filter((destination): destination is EditDestination => !!destination);
 
-  if (targets.length === 0) {
+  if (destinations.length === 0) {
     return state;
   }
 
-  const edits = targets.map((target) => target.target.constructChangeEdit(""));
+  const edits = destinations.map((destination) =>
+    destination.destination.constructChangeEdit(""),
+  );
 
   const thatSelections = {
     selections: state.thatRanges.map((r) => r.toSelection(false)),
@@ -86,14 +88,14 @@ export async function runEditTargets(
   });
 
   // Add cursor positions for our edit targets.
-  targets.forEach((delimiterTarget, index) => {
+  destinations.forEach((delimiterTarget, index) => {
     const edit = edits[index];
     const range = edit.updateRange(updatedEditSelections[index]);
     updatedCursorRanges[delimiterTarget.index] = range;
   });
 
   return {
-    targets: state.targets,
+    destinations: state.destinations,
     thatRanges: updatedThatSelections,
     cursorRanges: updatedCursorRanges,
   };

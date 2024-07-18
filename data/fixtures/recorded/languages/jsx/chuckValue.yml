@@ -1,0 +1,23 @@
+languageId: javascriptreact
+command:
+  version: 6
+  spokenForm: chuck value
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: <aaa bbb="ccc"/>
+  selections:
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}
+  marks: {}
+finalState:
+  documentContents: <aaa bbb/>
+  selections:
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}

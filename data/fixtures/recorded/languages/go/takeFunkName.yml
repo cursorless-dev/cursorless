@@ -1,0 +1,22 @@
+languageId: go
+command:
+  version: 5
+  spokenForm: take funk name
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionName}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "func add(x, y int, z int) int {\n\treturn x + y\n}"
+  selections:
+    - anchor: {line: 1, character: 9}
+      active: {line: 1, character: 9}
+  marks: {}
+finalState:
+  documentContents: "func add(x, y int, z int) int {\n\treturn x + y\n}"
+  selections:
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 8}

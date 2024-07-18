@@ -1,0 +1,28 @@
+languageId: rust
+command:
+  version: 5
+  spokenForm: change type urge
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: u}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    const X: [u8; 2] = [0, 0];
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.u:
+      start: {line: 0, character: 10}
+      end: {line: 0, character: 12}
+finalState:
+  documentContents: |
+    const X: [; 2] = [0, 0];
+  selections:
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}

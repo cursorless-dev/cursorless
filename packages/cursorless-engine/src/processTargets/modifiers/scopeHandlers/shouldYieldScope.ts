@@ -31,9 +31,17 @@ export function shouldYieldScope(
     checkRequirements(initialPosition, requirements, previousScope, scope) &&
     // Note that we're using `currentPosition` instead of `initialPosition`
     // below, because we want to filter out scopes that are strictly contained
-    // by previous scopes.
+    // by previous scopes.  However, if we want to include descendant scopes,
+    // then we do use the initial position
     (previousScope == null ||
-      compareTargetScopes(direction, currentPosition, previousScope, scope) < 0)
+      compareTargetScopes(
+        direction,
+        requirements.includeDescendantScopes
+          ? initialPosition
+          : currentPosition,
+        previousScope,
+        scope,
+      ) < 0)
   );
 }
 

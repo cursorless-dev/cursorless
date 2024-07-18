@@ -1,0 +1,28 @@
+languageId: cpp
+command:
+  version: 5
+  spokenForm: take call
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionCall}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    int f(int a, int b) {
+        return f(a, b);
+    }
+  selections:
+    - anchor: {line: 1, character: 14}
+      active: {line: 1, character: 14}
+  marks: {}
+finalState:
+  documentContents: |-
+    int f(int a, int b) {
+        return f(a, b);
+    }
+  selections:
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 18}

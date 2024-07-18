@@ -1,0 +1,22 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change item
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "[1, [2, 3]];"
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 10}
+  marks: {}
+finalState:
+  documentContents: "[1, ];"
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}

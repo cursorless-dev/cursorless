@@ -1,13 +1,18 @@
-import { Position, TextDocument, showError } from "@cursorless/common";
+import {
+  Position,
+  TextDocument,
+  showError,
+  type TreeSitter,
+} from "@cursorless/common";
 import { Point, Query } from "web-tree-sitter";
 import { ide } from "../../singletons/ide.singleton";
-import { TreeSitter } from "../../typings/TreeSitter";
+import { groupBy, uniq } from "lodash-es";
 import { getNodeRange } from "../../util/nodeSelectors";
 import { MutableQueryMatch, QueryCapture, QueryMatch } from "./QueryCapture";
+import { checkCaptureStartEnd } from "./checkCaptureStartEnd";
 import { parsePredicates } from "./parsePredicates";
 import { predicateToString } from "./predicateToString";
-import { groupBy, uniq } from "lodash";
-import { checkCaptureStartEnd } from "./checkCaptureStartEnd";
+import { rewriteStartOfEndOf } from "./rewriteStartOfEndOf";
 
 /**
  * Wrapper around a tree-sitter query that provides a more convenient API, and
@@ -62,22 +67,23 @@ export class TreeSitterQuery {
 
   matches(
     document: TextDocument,
-    start: Position,
-    end: Position,
+    start?: Position,
+    end?: Position,
   ): QueryMatch[] {
     return this.query
-      .matches(
-        this.treeSitter.getTree(document).rootNode,
-        positionToPoint(start),
-        positionToPoint(end),
-      )
+      .matches(this.treeSitter.getTree(document).rootNode, {
+        startPosition: start == null ? undefined : positionToPoint(start),
+        endPosition: end == null ? undefined : positionToPoint(end),
+      })
       .map(
         ({ pattern, captures }): MutableQueryMatch => ({
           patternIdx: pattern,
           captures: captures.map(({ name, node }) => ({
             name,
             node,
+            document,
             range: getNodeRange(node),
+            insertionDelimiter: undefined,
             allowMultiple: false,
           })),
         }),
@@ -95,6 +101,7 @@ export class TreeSitterQuery {
         const captures: QueryCapture[] = Object.entries(
           groupBy(match.captures, ({ name }) => normalizeCaptureName(name)),
         ).map(([name, captures]) => {
+          captures = rewriteStartOfEndOf(captures);
           const capturesAreValid = checkCaptureStartEnd(
             captures,
             ide().messages,
@@ -110,6 +117,9 @@ export class TreeSitterQuery {
               .map(({ range }) => range)
               .reduce((accumulator, range) => range.union(accumulator)),
             allowMultiple: captures.some((capture) => capture.allowMultiple),
+            insertionDelimiter: captures.find(
+              (capture) => capture.insertionDelimiter != null,
+            )?.insertionDelimiter,
           };
         });
 
@@ -123,7 +133,7 @@ export class TreeSitterQuery {
 }
 
 function normalizeCaptureName(name: string): string {
-  return name.replace(/\.(start|end)$/, "");
+  return name.replace(/(\.(start|end))?(\.(startOf|endOf))?$/, "");
 }
 
 function positionToPoint(start: Position): Point {

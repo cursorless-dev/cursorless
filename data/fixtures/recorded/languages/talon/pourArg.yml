@@ -1,0 +1,23 @@
+languageId: talon
+command:
+  version: 6
+  spokenForm: pour arg
+  action:
+    name: editNewLineAfter
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "test: user.do_stuff(5, 7)"
+  selections:
+    - anchor: {line: 0, character: 21}
+      active: {line: 0, character: 21}
+  marks: {}
+finalState:
+  documentContents: "test: user.do_stuff(5, , 7)"
+  selections:
+    - anchor: {line: 0, character: 23}
+      active: {line: 0, character: 23}

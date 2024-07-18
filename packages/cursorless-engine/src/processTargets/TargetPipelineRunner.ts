@@ -1,5 +1,12 @@
-import { ImplicitTargetDescriptor, Modifier, Range } from "@cursorless/common";
-import { uniqWith, zip } from "lodash";
+import {
+  Direction,
+  ImplicitTargetDescriptor,
+  Modifier,
+  Range,
+  ScopeType,
+  uniqWithHash,
+} from "@cursorless/common";
+import { zip } from "lodash-es";
 import {
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
@@ -9,9 +16,15 @@ import { Target } from "../typings/target.types";
 import { MarkStageFactory } from "./MarkStageFactory";
 import { ModifierStageFactory } from "./ModifierStageFactory";
 import { MarkStage, ModifierStage } from "./PipelineStages.types";
-import ImplicitStage from "./marks/ImplicitStage";
+import { createContinuousRangeTarget } from "./createContinuousRangeTarget";
+import { ImplicitStage } from "./marks/ImplicitStage";
 import { ContainingTokenIfUntypedEmptyStage } from "./modifiers/ConditionalModifierStages";
-import { PlainTarget, PositionTarget } from "./targets";
+import { PlainTarget } from "./targets";
+
+interface TargetPipelineRunnerOpts {
+  actionFinalStages?: ModifierStage[];
+  noAutomaticTokenExpansion?: boolean;
+}
 
 export class TargetPipelineRunner {
   constructor(
@@ -24,8 +37,7 @@ export class TargetPipelineRunner {
    * concrete representation usable by actions. Conceptually, the input will be
    * something like "the function call argument containing the cursor" and the
    * output will be something like "line 3, characters 5 through 10".
-   * @param targets The abstract target representations provided by the user
-   * @param actionPrePositionStages Modifier stages contributed by the action
+   * @param target The abstract target representations provided by the user
    * @param actionFinalStages Modifier stages contributed by the action that
    * should run at the end of the modifier pipeline
    * @returns A list of lists of typed selections, one list per input target.
@@ -35,15 +47,16 @@ export class TargetPipelineRunner {
    */
   run(
     target: TargetDescriptor,
-    actionPrePositionStages?: ModifierStage[],
-    actionFinalStages?: ModifierStage[],
+    {
+      actionFinalStages = [],
+      noAutomaticTokenExpansion = false,
+    }: TargetPipelineRunnerOpts = {},
   ): Target[] {
     return new TargetPipeline(
       this.modifierStageFactory,
       this.markStageFactory,
       target,
-      actionPrePositionStages ?? [],
-      actionFinalStages ?? [],
+      { actionFinalStages, noAutomaticTokenExpansion },
     ).run();
   }
 }
@@ -53,8 +66,7 @@ class TargetPipeline {
     private modifierStageFactory: ModifierStageFactory,
     private markStageFactory: MarkStageFactory,
     private target: TargetDescriptor,
-    private actionPrePositionStages: ModifierStage[],
-    private actionFinalStages: ModifierStage[],
+    private opts: Required<TargetPipelineRunnerOpts>,
   ) {}
 
   /**
@@ -152,29 +164,20 @@ class TargetPipeline {
     return [
       targetsToContinuousTarget(
         excludeAnchor
-          ? this.modifierStageFactory
-              .create({
-                type: "relativeScope",
-                scopeType: exclusionScopeType,
-                direction: isReversed ? "backward" : "forward",
-                length: 1,
-                offset: 1,
-              })
-              // NB: The following line assumes that content range is always
-              // contained by domain, so that "every" will properly reconstruct
-              // the target from the content range.
-              .run(anchorTarget)[0]
+          ? getExcludedScope(
+              this.modifierStageFactory,
+              anchorTarget,
+              exclusionScopeType,
+              isReversed ? "backward" : "forward",
+            )
           : anchorTarget,
         excludeActive
-          ? this.modifierStageFactory
-              .create({
-                type: "relativeScope",
-                scopeType: exclusionScopeType,
-                direction: isReversed ? "forward" : "backward",
-                length: 1,
-                offset: 1,
-              })
-              .run(activeTarget)[0]
+          ? getExcludedScope(
+              this.modifierStageFactory,
+              activeTarget,
+              exclusionScopeType,
+              isReversed ? "forward" : "backward",
+            )
           : activeTarget,
         false,
         false,
@@ -205,24 +208,14 @@ class TargetPipeline {
     targetDescriptor: PrimitiveTargetDescriptor | ImplicitTargetDescriptor,
   ): Target[] {
     let markStage: MarkStage;
-    let nonPositionModifierStages: ModifierStage[];
-    let positionModifierStages: ModifierStage[];
+    let targetModifierStages: ModifierStage[];
 
     if (targetDescriptor.type === "implicit") {
       markStage = new ImplicitStage();
-      nonPositionModifierStages = [];
-      positionModifierStages = [];
+      targetModifierStages = [];
     } else {
       markStage = this.markStageFactory.create(targetDescriptor.mark);
-      positionModifierStages =
-        targetDescriptor.positionModifier == null
-          ? []
-          : [
-              this.modifierStageFactory.create(
-                targetDescriptor.positionModifier,
-              ),
-            ];
-      nonPositionModifierStages = getModifierStagesFromTargetModifiers(
+      targetModifierStages = getModifierStagesFromTargetModifiers(
         this.modifierStageFactory,
         targetDescriptor.modifiers,
       );
@@ -235,14 +228,14 @@ class TargetPipeline {
      * The modifier pipeline that will be applied to construct our final targets
      */
     const modifierStages = [
-      ...nonPositionModifierStages,
-      ...this.actionPrePositionStages,
-      ...positionModifierStages,
-      ...this.actionFinalStages,
+      ...targetModifierStages,
+      ...this.opts.actionFinalStages,
 
       // This performs auto-expansion to token when you say eg "take this" with an
       // empty selection
-      new ContainingTokenIfUntypedEmptyStage(this.modifierStageFactory),
+      ...(this.opts.noAutomaticTokenExpansion
+        ? []
+        : [new ContainingTokenIfUntypedEmptyStage(this.modifierStageFactory)]),
     ];
 
     // Run all targets through the modifier stages
@@ -276,6 +269,28 @@ export function processModifierStages(
   return targets;
 }
 
+function getExcludedScope(
+  modifierStageFactory: ModifierStageFactory,
+  target: Target,
+  scopeType: ScopeType,
+  direction: Direction,
+): Target {
+  return (
+    modifierStageFactory
+      .create({
+        type: "relativeScope",
+        scopeType,
+        direction,
+        length: 1,
+        offset: 1,
+      })
+      // NB: The following line assumes that content range is always
+      // contained by domain, so that "every" will properly reconstruct
+      // the target from the content range.
+      .run(target)[0]
+  );
+}
+
 function calcIsReversed(anchor: Target, active: Target) {
   if (anchor.contentRange.start.isAfter(active.contentRange.start)) {
     return true;
@@ -287,7 +302,11 @@ function calcIsReversed(anchor: Target, active: Target) {
 }
 
 function uniqTargets(array: Target[]): Target[] {
-  return uniqWith(array, (a, b) => a.isEqual(b));
+  return uniqWithHash(
+    array,
+    (a, b) => a.isEqual(b),
+    (a) => a.contentRange.concise(),
+  );
 }
 
 function ensureSingleEditor(anchorTarget: Target, activeTarget: Target) {
@@ -310,8 +329,9 @@ export function targetsToContinuousTarget(
   const excludeStart = isReversed ? excludeActive : excludeAnchor;
   const excludeEnd = isReversed ? excludeAnchor : excludeActive;
 
-  return startTarget.createContinuousRangeTarget(
+  return createContinuousRangeTarget(
     isReversed,
+    startTarget,
     endTarget,
     !excludeStart,
     !excludeEnd,
@@ -347,17 +367,14 @@ function targetsToVerticalTarget(
       anchorTarget.contentRange.end.character,
     );
 
-    if (anchorTarget instanceof PositionTarget) {
-      results.push(anchorTarget.withContentRange(contentRange));
-    } else {
-      results.push(
-        new PlainTarget({
-          editor: anchorTarget.editor,
-          isReversed: anchorTarget.isReversed,
-          contentRange,
-        }),
-      );
-    }
+    results.push(
+      new PlainTarget({
+        editor: anchorTarget.editor,
+        isReversed: anchorTarget.isReversed,
+        contentRange,
+        insertionDelimiter: anchorTarget.insertionDelimiter,
+      }),
+    );
 
     if (i === activeLine) {
       return results;

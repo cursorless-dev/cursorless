@@ -1,0 +1,47 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: chuck arg made and air and just sun
+  action: {name: remove}
+  targets:
+    - type: list
+      elements:
+        - type: primitive
+          modifiers:
+            - type: containingScope
+              scopeType: {type: argumentOrParameter}
+          mark: {type: decoratedSymbol, symbolColor: default, character: m}
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: a}
+        - type: primitive
+          modifiers:
+            - {type: toRawSelection}
+          mark: {type: decoratedSymbol, symbolColor: default, character: s}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "function myFunk(value: string, name: string, age: number) { };"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.m:
+      start: {line: 0, character: 31}
+      end: {line: 0, character: 35}
+    default.a:
+      start: {line: 0, character: 45}
+      end: {line: 0, character: 48}
+    default.s:
+      start: {line: 0, character: 23}
+      end: {line: 0, character: 29}
+finalState:
+  documentContents: function myFunk(value:) { };
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - type: RawSelectionTarget
+      contentRange:
+        start: {line: 0, character: 22}
+        end: {line: 0, character: 22}
+      isReversed: false
+      hasExplicitRange: true

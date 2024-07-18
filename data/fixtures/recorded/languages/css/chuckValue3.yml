@@ -1,0 +1,28 @@
+languageId: css
+command:
+  version: 5
+  spokenForm: chuck value
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    a { 
+      margin-top: 150px !important; 
+    }
+  selections:
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 7}
+  marks: {}
+finalState:
+  documentContents: |
+    a { 
+      margin-top:; 
+    }
+  selections:
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 7}

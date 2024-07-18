@@ -1,0 +1,32 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: chuck second sub that
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: ordinalScope
+          scopeType: {type: word}
+          start: 1
+          length: 1
+      mark: {type: that}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: helloWorld
+  selections:
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
+  marks: {}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 10}
+        end: {line: 0, character: 10}
+      isReversed: false
+      hasExplicitRange: false
+finalState:
+  documentContents: hello
+  selections:
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}

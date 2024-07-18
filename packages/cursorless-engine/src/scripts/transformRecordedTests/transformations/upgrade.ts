@@ -1,17 +1,16 @@
-import { TestCaseFixture, TestCaseFixtureLegacy } from "@cursorless/common";
-import { flow } from "lodash";
-import { canonicalizeAndValidateCommand } from "../../../core/commandVersionUpgrades/canonicalizeAndValidateCommand";
-import { cleanUpTestCaseCommand } from "../../../testUtil/cleanUpTestCaseCommand";
-import { reorderFields } from "./reorderFields";
+import {
+  CommandVersion,
+  LATEST_VERSION,
+  TestCaseFixtureLegacy,
+} from "@cursorless/common";
+import { upgradeCommand } from "../../../core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 
-export const upgrade = flow(upgradeCommand, reorderFields);
-
-function upgradeCommand(fixture: TestCaseFixtureLegacy): TestCaseFixture {
+export function upgrade(
+  fixture: TestCaseFixtureLegacy,
+  minimumVersion: CommandVersion = LATEST_VERSION,
+): TestCaseFixtureLegacy {
   return {
     ...fixture,
-    command: flow(
-      canonicalizeAndValidateCommand,
-      cleanUpTestCaseCommand,
-    )(fixture.command),
+    command: upgradeCommand(fixture.command, minimumVersion),
   };
 }

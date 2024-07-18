@@ -1,0 +1,40 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: chuck start of block past start of file
+  action:
+    name: remove
+    target:
+      type: range
+      anchor:
+        type: primitive
+        modifiers:
+          - {type: startOf}
+          - type: containingScope
+            scopeType: {type: paragraph}
+      active:
+        type: primitive
+        modifiers:
+          - {type: startOf}
+          - type: containingScope
+            scopeType: {type: document}
+      excludeAnchor: false
+      excludeActive: false
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    foo
+
+    bar
+    baz
+  selections:
+    - anchor: {line: 3, character: 3}
+      active: {line: 3, character: 3}
+  marks: {}
+finalState:
+  documentContents: |-
+    bar
+    baz
+  selections:
+    - anchor: {line: 1, character: 3}
+      active: {line: 1, character: 3}

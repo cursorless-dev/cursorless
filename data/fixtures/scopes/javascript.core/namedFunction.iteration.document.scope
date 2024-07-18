@@ -1,0 +1,12 @@
+// Before
+function myFunk() { }
+// After
+---
+
+[Range] =
+[Domain] = 0:0-2:8
+  >---------
+0| // Before
+1| function myFunk() { }
+2| // After
+   --------<

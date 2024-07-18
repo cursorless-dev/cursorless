@@ -1,0 +1,68 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: bring block air before bat and drum and after bat and drum
+  action: {name: replaceWithTarget}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: paragraph}
+    - type: list
+      elements:
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: b}
+          modifiers:
+            - {type: position, position: before}
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: d}
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: b}
+          modifiers:
+            - {type: position, position: after}
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: d}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    aaa
+
+        bbb
+            ccc
+
+            ddd
+        eee
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 3}
+    default.b:
+      start: {line: 2, character: 4}
+      end: {line: 2, character: 7}
+    default.d:
+      start: {line: 5, character: 8}
+      end: {line: 5, character: 11}
+finalState:
+  documentContents: |-
+    aaa
+
+        aaa
+
+        bbb
+            ccc
+
+        aaa
+
+        aaa
+
+            ddd
+        eee
+
+        aaa
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

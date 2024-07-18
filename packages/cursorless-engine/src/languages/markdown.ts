@@ -1,47 +1,10 @@
-import { Range, Selection, TextEditor } from "@cursorless/common";
+import { SimpleScopeTypeType, TextEditor } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import { getMatchesInRange } from "../util/getMatchesInRange";
-import { SimpleScopeTypeType } from "@cursorless/common";
-import {
-  NodeFinder,
-  NodeMatcherAlternative,
-  SelectionWithContext,
-} from "../typings/Types";
+import { NodeFinder, NodeMatcherAlternative } from "../typings/Types";
 import { leadingSiblingNodeFinder, patternFinder } from "../util/nodeFinders";
 import { createPatternMatchers, matcher } from "../util/nodeMatchers";
-import {
-  extendUntilNextMatchingSiblingOrLast,
-  getNodeRange,
-  selectWithLeadingDelimiter,
-} from "../util/nodeSelectors";
+import { extendUntilNextMatchingSiblingOrLast } from "../util/nodeSelectors";
 import { shrinkRangeToFitContent } from "../util/selectionUtils";
-
-/**
- * Given a node representing the text of a section heading (without leading
- * marker), will return the content range as the text without the leading
- * whitespace, and the outside range includes the leading marker, so that
- * "chuck name" deletes the heading
- * @param editor The editor containing the node
- * @param node The node to extract from; will be the content of the heading without the leading marker
- * @returns The selection with context
- */
-function nameExtractor(
-  editor: TextEditor,
-  node: SyntaxNode,
-): SelectionWithContext {
-  const range = getNodeRange(node);
-  const contentRange = range.isEmpty
-    ? range
-    : range.with(range.start.translate(0, 1));
-  const removalRange = getNodeRange(node.parent!);
-
-  return {
-    selection: new Selection(contentRange.start, contentRange.end),
-    context: {
-      removalRange,
-    },
-  };
-}
 
 const HEADING_MARKER_TYPES = [
   "atx_h1_marker",
@@ -98,54 +61,9 @@ function sectionMatcher(...patterns: string[]) {
   return matcher(leadingSiblingNodeFinder(finder), sectionExtractor);
 }
 
-const itemLeadingDelimiterExtractor = selectWithLeadingDelimiter(
-  "list_marker_parenthesis",
-  "list_marker_dot",
-  "list_marker_star",
-  "list_marker_minus",
-  "list_marker_plus",
-);
-
-function excludeTrailingNewline(editor: TextEditor, range: Range) {
-  const matches = getMatchesInRange(/\r?\n\s*$/g, editor, range);
-
-  if (matches.length > 0) {
-    return new Range(range.start, matches[0].start);
-  }
-
-  return range;
-}
-
-function itemExtractor(
-  editor: TextEditor,
-  node: SyntaxNode,
-): SelectionWithContext {
-  const { selection } = itemLeadingDelimiterExtractor(editor, node);
-  const line = editor.document.lineAt(selection.start);
-  const leadingRange = new Range(line.range.start, selection.start);
-  const indent = editor.document.getText(leadingRange);
-
-  return {
-    context: {
-      containingListDelimiter: `\n${indent}`,
-      leadingDelimiterRange: leadingRange,
-    },
-    selection: excludeTrailingNewline(editor, selection).toSelection(
-      selection.isReversed,
-    ),
-  };
-}
-
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
-  list: ["list"],
-  comment: "html_block",
-  name: matcher(
-    leadingSiblingNodeFinder(patternFinder("atx_heading[heading_content]")),
-    nameExtractor,
-  ),
-  collectionItem: matcher(patternFinder("list_item.paragraph!"), itemExtractor),
   section: sectionMatcher("atx_heading"),
   sectionLevelOne: sectionMatcher("atx_heading.atx_h1_marker"),
   sectionLevelTwo: sectionMatcher("atx_heading.atx_h2_marker"),

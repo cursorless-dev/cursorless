@@ -1,0 +1,46 @@
+languageId: java
+command:
+  version: 6
+  spokenForm: chuck branch
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: branch}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    public class MyClass {
+        void myFunk () {
+            if (true) {
+            
+            }
+            else if (false) {
+            
+            }
+            else {
+            
+            }
+        }
+    }
+  selections:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
+  marks: {}
+finalState:
+  documentContents: |-
+    public class MyClass {
+        void myFunk () {
+            if (false) {
+            
+            }
+            else {
+            
+            }
+        }
+    }
+  selections:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}

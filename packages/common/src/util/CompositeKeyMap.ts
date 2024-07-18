@@ -35,4 +35,9 @@ export class CompositeKeyMap<K, V> {
     delete this.map[this.hash(key)];
     return this;
   }
+
+  clear(): this {
+    this.map = {};
+    return this;
+  }
 }

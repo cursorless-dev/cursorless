@@ -1,0 +1,28 @@
+languageId: css
+command:
+  version: 5
+  spokenForm: change unit
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: unit}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    div {
+        padding-left: 25px 50px 75px 100px;
+    }  
+  selections:
+    - anchor: {line: 1, character: 34}
+      active: {line: 1, character: 34}
+  marks: {}
+finalState:
+  documentContents: |-
+    div {
+        padding-left: 25px 50px 75px 100;
+    }  
+  selections:
+    - anchor: {line: 1, character: 36}
+      active: {line: 1, character: 36}

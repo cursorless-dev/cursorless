@@ -1,0 +1,30 @@
+languageId: rust
+command:
+  version: 5
+  spokenForm: change name fine
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    #[cfg_attr(feature = "serde")]
+    struct Test
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+  marks:
+    default.f:
+      start: {line: 0, character: 11}
+      end: {line: 0, character: 18}
+finalState:
+  documentContents: |
+    #[cfg_attr( = "serde")]
+    struct Test
+  selections:
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}

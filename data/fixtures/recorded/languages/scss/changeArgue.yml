@@ -1,0 +1,30 @@
+languageId: scss
+command:
+  version: 5
+  spokenForm: change arg
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+
+    .double {
+      transform: translate(-50%, -50%);
+    }
+  selections:
+    - anchor: {line: 2, character: 25}
+      active: {line: 2, character: 25}
+  marks: {}
+finalState:
+  documentContents: |-
+
+    .double {
+      transform: translate(, -50%);
+    }
+  selections:
+    - anchor: {line: 2, character: 23}
+      active: {line: 2, character: 23}

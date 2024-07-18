@@ -1,0 +1,21 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: take inside
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - {type: interiorOnly}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: ( hello )
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+  marks: {}
+finalState:
+  documentContents: ( hello )
+  selections:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 7}

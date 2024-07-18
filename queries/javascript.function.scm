@@ -1,7 +1,7 @@
 ;; Anonymous functions
 [
   ;;!! function() {}
-  (function
+  (function_expression
     !name
   )
 
@@ -19,7 +19,7 @@
 (export_statement
   [
     ;;!! export default function() {}
-    (function
+    (function_expression
       !name
     )
 
@@ -53,7 +53,7 @@
       (variable_declarator
         name: (_) @functionName
         value: [
-          (function
+          (function_expression
             !name
           )
           (generator_function
@@ -73,7 +73,7 @@
       (variable_declarator
         name: (_) @functionName
         value: [
-          (function
+          (function_expression
             !name
           )
           (generator_function
@@ -107,7 +107,7 @@
       (variable_declarator
         name: (_) @functionName
         value: [
-          (function
+          (function_expression
             !name
           )
           (generator_function
@@ -126,7 +126,7 @@
 ;; see javascript.scm.
 [
   ;;!! (function foo() {})
-  (function
+  (function_expression
     name: (_) @functionName
   )
 
@@ -147,7 +147,7 @@
   (assignment_expression
     left: (_) @functionName
     right: [
-      (function
+      (function_expression
         !name
       )
       (generator_function

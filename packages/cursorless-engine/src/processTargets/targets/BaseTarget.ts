@@ -1,24 +1,19 @@
 import type {
   EnforceUndefined,
+  InsertionMode,
   TargetPlainObject,
-  TargetPosition,
 } from "@cursorless/common";
 import {
-  NoContainingScopeError,
   Range,
   Selection,
   TextEditor,
   rangeToPlainObject,
 } from "@cursorless/common";
-import { isEqual } from "lodash";
+import { isEqual } from "lodash-es";
 import type { EditWithRangeUpdater } from "../../typings/Types";
-import type { EditNewActionType, Target } from "../../typings/target.types";
-import { isSameType } from "../../util/typeUtils";
-import { toPositionTarget } from "../modifiers/toPositionTarget";
-import {
-  createContinuousRange,
-  createContinuousRangeUntypedTarget,
-} from "../targetUtil/createContinuousRange";
+import type { Destination, Target } from "../../typings/target.types";
+import { DestinationImpl } from "./DestinationImpl";
+import { createContinuousRange } from "./util/createContinuousRange";
 
 /** Parameters supported by all target classes */
 export interface MinimumTargetParameters {
@@ -42,7 +37,7 @@ export interface CloneWithParameters {
  *
  * @template TParameters The constructor parameters.
  */
-export default abstract class BaseTarget<
+export abstract class BaseTarget<
   in out TParameters extends MinimumTargetParameters,
 > implements Target
 {
@@ -91,24 +86,12 @@ export default abstract class BaseTarget<
     return this.state.contentRange;
   }
 
-  constructChangeEdit(text: string): EditWithRangeUpdater {
-    return {
-      range: this.contentRange,
-      text,
-      updateRange: (range) => range,
-    };
-  }
-
   constructRemovalEdit(): EditWithRangeUpdater {
     return {
       range: this.getRemovalRange(),
       text: "",
       updateRange: (range) => range,
     };
-  }
-
-  getEditNewActionType(): EditNewActionType {
-    return "edit";
   }
 
   getRemovalHighlightRange(): Range {
@@ -123,11 +106,11 @@ export default abstract class BaseTarget<
     return this.cloneWith({ contentRange });
   }
 
-  getInteriorStrict(): Target[] {
-    throw new NoContainingScopeError("interior");
+  getInterior(): Target[] | undefined {
+    return undefined;
   }
-  getBoundaryStrict(): Target[] {
-    throw new NoContainingScopeError("boundary");
+  getBoundary(): Target[] | undefined {
+    return undefined;
   }
 
   private cloneWith(parameters: CloneWithParameters) {
@@ -141,34 +124,17 @@ export default abstract class BaseTarget<
 
   protected abstract getCloneParameters(): EnforceUndefined<TParameters>;
 
-  createContinuousRangeTarget(
+  maybeCreateRichRangeTarget(
     isReversed: boolean,
-    endTarget: Target,
-    includeStart: boolean,
-    includeEnd: boolean,
-  ): Target {
-    if (isSameType(this, endTarget)) {
-      const constructor = Object.getPrototypeOf(this).constructor;
+    endTarget: ThisType<this> & Target,
+  ): (ThisType<this> & Target) | null {
+    const { constructor } = Object.getPrototypeOf(this);
 
-      return new constructor({
-        ...this.getCloneParameters(),
-        isReversed,
-        contentRange: createContinuousRange(
-          this,
-          endTarget,
-          includeStart,
-          includeEnd,
-        ),
-      });
-    }
-
-    return createContinuousRangeUntypedTarget(
+    return new constructor({
+      ...this.getCloneParameters(),
       isReversed,
-      this,
-      endTarget,
-      includeStart,
-      includeEnd,
-    );
+      contentRange: createContinuousRange(this, endTarget, true, true),
+    });
   }
 
   isEqual(otherTarget: Target): boolean {
@@ -199,8 +165,8 @@ export default abstract class BaseTarget<
     };
   }
 
-  toPositionTarget(position: TargetPosition): Target {
-    return toPositionTarget(this, position);
+  toDestination(insertionMode: InsertionMode): Destination {
+    return new DestinationImpl(this, insertionMode);
   }
 
   /**

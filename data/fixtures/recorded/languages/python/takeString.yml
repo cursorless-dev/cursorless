@@ -1,0 +1,29 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: take parse tree string
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: string}
+  usePrePhraseSnapshot: false
+spokenFormError: >-
+  simple scope type type with id string; this is a private spoken form currently
+  only for internal experimentation
+initialState:
+  documentContents: |
+
+    value = "hello world"
+  selections:
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 15}
+  marks: {}
+finalState:
+  documentContents: |
+
+    value = "hello world"
+  selections:
+    - anchor: {line: 1, character: 8}
+      active: {line: 1, character: 21}

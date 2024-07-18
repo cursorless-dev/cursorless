@@ -1,10 +1,16 @@
-from talon import Module, actions
+from talon import actions
 
-mod = Module()
+from ..targets.target_types import CursorlessDestination
 
 
-@mod.action_class
-class Actions:
-    def cursorless_replace(target: dict, texts: list[str]):
-        """Replace targets with texts"""
-        actions.user.cursorless_single_target_command("replace", target, texts)
+def cursorless_replace_action(
+    destination: CursorlessDestination, replace_with: list[str]
+):
+    """Execute Cursorless replace action. Replace targets with texts"""
+    actions.user.private_cursorless_command_and_wait(
+        {
+            "name": "replace",
+            "replaceWith": replace_with,
+            "destination": destination,
+        }
+    )

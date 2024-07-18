@@ -1,0 +1,50 @@
+languageId: talon
+command:
+  version: 5
+  spokenForm: change every value
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    tag(): user.some_tag
+
+    settings():
+        speech.debug = 1
+
+    command: "command"
+    key(enter): "enter"
+    gamepad(north): "north"
+    face(smile): "smile"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |-
+    tag(): 
+
+    settings():
+        
+
+    command: 
+    key(enter): 
+    gamepad(north): 
+    face(smile): 
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}
+    - anchor: {line: 5, character: 9}
+      active: {line: 5, character: 9}
+    - anchor: {line: 6, character: 12}
+      active: {line: 6, character: 12}
+    - anchor: {line: 7, character: 16}
+      active: {line: 7, character: 16}
+    - anchor: {line: 8, character: 13}
+      active: {line: 8, character: 13}

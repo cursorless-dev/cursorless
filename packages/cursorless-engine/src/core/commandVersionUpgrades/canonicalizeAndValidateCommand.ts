@@ -2,24 +2,22 @@ import {
   ActionType,
   Command,
   CommandComplete,
-  CommandLatest,
+  CommandVersion,
   EnforceUndefined,
   LATEST_VERSION,
-  Modifier,
   OutdatedExtensionError,
   PartialTargetDescriptor,
-  showWarning,
-  SimpleScopeTypeType,
 } from "@cursorless/common";
-import { ide } from "../../singletons/ide.singleton";
-import { getPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
-import canonicalizeActionName from "./canonicalizeActionName";
-import canonicalizeTargets from "./canonicalizeTargets";
+import { produce } from "immer";
+import { getPartialTargetDescriptors } from "../../util/getPartialTargetDescriptors";
+import canonicalizeTargetsInPlace from "./canonicalizeTargetsInPlace";
 import { upgradeV0ToV1 } from "./upgradeV0ToV1";
 import { upgradeV1ToV2 } from "./upgradeV1ToV2";
 import { upgradeV2ToV3 } from "./upgradeV2ToV3";
 import { upgradeV3ToV4 } from "./upgradeV3ToV4";
 import { upgradeV4ToV5 } from "./upgradeV4ToV5/upgradeV4ToV5";
+import { upgradeV5ToV6 } from "./upgradeV5ToV6";
+import { upgradeV6ToV7 } from "./upgradeV6ToV7";
 
 /**
  * Given a command argument which comes from the client, normalize it so that it
@@ -31,37 +29,31 @@ import { upgradeV4ToV5 } from "./upgradeV4ToV5/upgradeV4ToV5";
 export function canonicalizeAndValidateCommand(
   command: Command,
 ): EnforceUndefined<CommandComplete> {
-  const commandUpgraded = upgradeCommand(command);
-  const {
-    action,
-    targets: inputPartialTargets,
-    usePrePhraseSnapshot = false,
-    spokenForm,
-  } = commandUpgraded;
-
-  const actionName = canonicalizeActionName(action.name);
-  const partialTargets = canonicalizeTargets(inputPartialTargets);
-
-  validateCommand(actionName, partialTargets);
+  const commandUpgraded = upgradeCommand(command, LATEST_VERSION);
+  const { action, usePrePhraseSnapshot = false, spokenForm } = commandUpgraded;
 
   return {
     version: LATEST_VERSION,
     spokenForm,
-    action: {
-      name: actionName,
-      args: action.args ?? [],
-    },
-    targets: partialTargets,
+    action: produce(action, (draft) => {
+      const partialTargets = getPartialTargetDescriptors(draft);
+
+      canonicalizeTargetsInPlace(partialTargets);
+      validateCommand(action.name, partialTargets);
+    }),
     usePrePhraseSnapshot,
   };
 }
 
-function upgradeCommand(command: Command): CommandLatest {
+export function upgradeCommand<V extends CommandVersion>(
+  command: Command,
+  minimumVersion: V,
+): Command & { version: V } {
   if (command.version > LATEST_VERSION) {
     throw new OutdatedExtensionError();
   }
 
-  while (command.version < LATEST_VERSION) {
+  while (command.version < minimumVersion) {
     switch (command.version) {
       case 0:
         command = upgradeV0ToV1(command);
@@ -78,6 +70,12 @@ function upgradeCommand(command: Command): CommandLatest {
       case 4:
         command = upgradeV4ToV5(command);
         break;
+      case 5:
+        command = upgradeV5ToV6(command);
+        break;
+      case 6:
+        command = upgradeV6ToV7(command);
+        break;
       default:
         throw new Error(
           `Can't upgrade from unknown version ${command.version}`,
@@ -85,67 +83,19 @@ function upgradeCommand(command: Command): CommandLatest {
     }
   }
 
-  if (command.version !== LATEST_VERSION) {
-    throw new Error("Command is not latest version");
-  }
-
-  return command;
+  return command as Command & {
+    version: V;
+  };
 }
 
+/**
+ * Validates the given action. Today, this function is a no-op, but in the
+ * future it may perform additional validation.
+ *
+ * @param _actionName The name of the action
+ * @param _partialTargets The partial targets of the action
+ */
 function validateCommand(
-  actionName: ActionType,
-  partialTargets: PartialTargetDescriptor[],
-) {
-  if (
-    usesScopeType("notebookCell", partialTargets) &&
-    !["editNewLineBefore", "editNewLineAfter"].includes(actionName)
-  ) {
-    throw new Error(
-      "The notebookCell scope type is currently only supported with the actions editNewLineAbove and editNewLineBelow",
-    );
-  }
-}
-
-function usesScopeType(
-  scopeTypeType: SimpleScopeTypeType,
-  partialTargets: PartialTargetDescriptor[],
-) {
-  return getPartialPrimitiveTargets(partialTargets).some((partialTarget) =>
-    partialTarget.modifiers?.find(
-      (mod: Modifier) =>
-        (mod.type === "containingScope" || mod.type === "everyScope") &&
-        mod.scopeType.type === scopeTypeType,
-    ),
-  );
-}
-
-export function checkForOldInference(
-  partialTargets: PartialTargetDescriptor[],
-) {
-  const hasOldInference = partialTargets.some((target) => {
-    return (
-      target.type === "range" &&
-      target.active.mark == null &&
-      target.active.modifiers?.some((m) => m.type === "position") &&
-      !target.active.modifiers?.some((m) => m.type === "inferPreviousMark")
-    );
-  });
-
-  if (hasOldInference) {
-    const { globalState, messages } = ide();
-    const hideInferenceWarning = globalState.get("hideInferenceWarning");
-
-    if (!hideInferenceWarning) {
-      showWarning(
-        messages,
-        "deprecatedPositionInference",
-        'The "past start of" / "past end of" form has changed behavior.  For the old behavior, update cursorless-talon (https://www.cursorless.org/docs/user/updating/), and then you can now say "past start of its" / "past end of its". For example, "take air past end of its line".  You may also consider using "head" / "tail" instead; see https://www.cursorless.org/docs/#head-and-tail',
-        "Don't show again",
-      ).then((pressed) => {
-        if (pressed) {
-          globalState.set("hideInferenceWarning", true);
-        }
-      });
-    }
-  }
-}
+  _actionName: ActionType,
+  _partialTargets: PartialTargetDescriptor[],
+): void {}

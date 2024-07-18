@@ -4,9 +4,9 @@ import { containingLineIfUntypedModifier } from "../processTargets/modifiers/com
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
-import { Action, ActionReturnValue } from "./actions.types";
+import { SimpleAction, ActionReturnValue } from "./actions.types";
 
-export default class ToggleBreakpoint implements Action {
+export default class ToggleBreakpoint implements SimpleAction {
   getFinalStages = () => [
     this.modifierStageFactory.create(containingLineIfUntypedModifier),
   ];
@@ -15,7 +15,7 @@ export default class ToggleBreakpoint implements Action {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [Target[], Target[]]): Promise<ActionReturnValue> {
+  async run(targets: Target[]): Promise<ActionReturnValue> {
     const thatTargets = targets.map(({ thatTarget }) => thatTarget);
 
     await flashTargets(ide(), thatTargets, FlashStyle.referenced);

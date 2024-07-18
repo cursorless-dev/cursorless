@@ -55,12 +55,14 @@ function upgradeModifier(modifier: ModifierV0V1): ModifierV2[] {
         scopeType: rest,
       } as const;
 
-      if (delimiterInclusion === "interiorOnly") {
-        return [{ type: "interiorOnly" }, surroundingPairModifier];
-      }
-
-      if (delimiterInclusion === "excludeInterior") {
-        return [{ type: "excludeInterior" }, surroundingPairModifier];
+      if (
+        delimiterInclusion === "interiorOnly" ||
+        delimiterInclusion === "excludeInterior"
+      ) {
+        if (surroundingPairModifier.scopeType.delimiter === "any") {
+          return [{ type: delimiterInclusion }];
+        }
+        return [{ type: delimiterInclusion }, surroundingPairModifier];
       }
 
       return [surroundingPairModifier];

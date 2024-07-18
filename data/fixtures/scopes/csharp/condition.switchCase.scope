@@ -1,0 +1,25 @@
+switch(value) {
+    case x:
+        break;
+}
+---
+
+[Content] = 1:9-1:10
+           >-<
+1|     case x:
+
+[Removal] = 1:8-1:10
+          >--<
+1|     case x:
+
+[Leading delimiter] = 1:8-1:9
+          >-<
+1|     case x:
+
+[Domain] = 1:4-2:14
+      >-------
+1|     case x:
+2|         break;
+   --------------<
+
+[Insertion delimiter] = " "

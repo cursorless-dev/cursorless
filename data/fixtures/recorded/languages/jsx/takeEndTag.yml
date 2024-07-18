@@ -1,0 +1,30 @@
+languageId: javascript
+command:
+  version: 5
+  spokenForm: take end tag
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: xmlEndTag}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+
+    const Foo = (
+      <div id="bar" name="foo">bar</div>
+    );
+  selections:
+    - anchor: {line: 2, character: 15}
+      active: {line: 2, character: 15}
+  marks: {}
+finalState:
+  documentContents: |
+
+    const Foo = (
+      <div id="bar" name="foo">bar</div>
+    );
+  selections:
+    - anchor: {line: 2, character: 30}
+      active: {line: 2, character: 36}

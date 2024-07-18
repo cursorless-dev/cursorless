@@ -1,0 +1,34 @@
+languageId: rust
+command:
+  version: 5
+  spokenForm: chuck attribute made
+  action: {name: remove}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: attribute}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    fn f() {
+        let x = vec![];
+        let y = &mut x;
+    }
+  selections:
+    - anchor: {line: 2, character: 19}
+      active: {line: 2, character: 19}
+  marks:
+    default.m:
+      start: {line: 2, character: 13}
+      end: {line: 2, character: 16}
+finalState:
+  documentContents: |-
+    fn f() {
+        let x = vec![];
+        let y = &x;
+    }
+  selections:
+    - anchor: {line: 2, character: 15}
+      active: {line: 2, character: 15}

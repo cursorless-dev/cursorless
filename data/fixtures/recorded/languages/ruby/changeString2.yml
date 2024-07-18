@@ -1,0 +1,25 @@
+languageId: ruby
+command:
+  version: 5
+  spokenForm: change string
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: string}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    a = %Q(Multi
+    Line
+    String)
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+  marks: {}
+finalState:
+  documentContents: "a = "
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}

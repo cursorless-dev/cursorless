@@ -2,7 +2,6 @@ import { FlashStyle } from "@cursorless/common";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
 import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
-import { containingSurroundingPairIfUntypedModifier } from "../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import {
@@ -10,13 +9,12 @@ import {
   flashTargets,
   runOnTargetsForEachEditor,
 } from "../util/targetUtils";
-import { Action, ActionReturnValue } from "./actions.types";
+import { ActionReturnValue } from "./actions.types";
+import { getContainingSurroundingPairIfNoBoundaryStage } from "../processTargets/modifiers/InteriorStage";
 
-export default class Rewrap implements Action {
+export default class Rewrap {
   getFinalStages = () => [
-    this.modifierStageFactory.create(
-      containingSurroundingPairIfUntypedModifier,
-    ),
+    getContainingSurroundingPairIfNoBoundaryStage(this.modifierStageFactory),
   ];
 
   constructor(
@@ -27,12 +25,12 @@ export default class Rewrap implements Action {
   }
 
   async run(
-    [targets]: [Target[]],
+    targets: Target[],
     left: string,
     right: string,
   ): Promise<ActionReturnValue> {
     const boundaryTargets = targets.flatMap((target) => {
-      const boundary = target.getBoundaryStrict();
+      const boundary = target.getBoundary()!;
 
       if (boundary.length !== 2) {
         throw Error("Target must have an opening and closing delimiter");

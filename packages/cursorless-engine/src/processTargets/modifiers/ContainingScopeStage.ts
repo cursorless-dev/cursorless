@@ -54,6 +54,13 @@ export class ContainingScopeStage implements ModifierStage {
     );
 
     if (containingScope == null) {
+      if (scopeType.type === "collectionItem") {
+        // For `collectionItem`, fall back to generic implementation
+        return this.modifierStageFactory
+          .getLegacyScopeStage(this.modifier)
+          .run(target);
+      }
+
       throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
 

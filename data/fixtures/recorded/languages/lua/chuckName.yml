@@ -1,0 +1,25 @@
+languageId: lua
+command:
+  version: 6
+  spokenForm: chuck name
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    local a = 42
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+  marks: {}
+finalState:
+  documentContents: |
+    42
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

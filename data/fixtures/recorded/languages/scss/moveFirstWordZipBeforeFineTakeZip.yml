@@ -1,0 +1,43 @@
+languageId: scss
+command:
+  version: 5
+  spokenForm: move first sub zip before fine take zip
+  action: {name: moveToTarget}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: z}
+      modifiers:
+        - type: ordinalScope
+          scopeType: {type: word}
+          start: 0
+          length: 1
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+      modifiers:
+        - {type: position, position: before}
+  usePrePhraseSnapshot: true
+marksToCheck: [default.z]
+initialState:
+  documentContents: foo-bar baz-bongo
+  selections:
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}
+  marks:
+    default.z:
+      start: {line: 0, character: 8}
+      end: {line: 0, character: 17}
+    default.f:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 7}
+finalState:
+  documentContents: baz-foo-bar bongo
+  selections:
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}
+  marks:
+    default.z:
+      start: {line: 0, character: 12}
+      end: {line: 0, character: 17}
+    default.f:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 11}

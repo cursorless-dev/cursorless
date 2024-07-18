@@ -1,0 +1,45 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: bring harp to fourth char whale past second char harp
+  action: {name: replaceWithTarget}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+    - active:
+        type: primitive
+        modifiers:
+          - type: ordinalScope
+            scopeType: {type: character}
+            start: 1
+            length: 1
+        mark: {type: decoratedSymbol, symbolColor: default, character: h}
+      type: range
+      excludeAnchor: false
+      excludeActive: false
+      anchor:
+        type: primitive
+        modifiers:
+          - type: ordinalScope
+            scopeType: {type: character}
+            start: 3
+            length: 1
+        mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: foo world whatever
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 9}
+  marks:
+    default.h:
+      start: {line: 0, character: 10}
+      end: {line: 0, character: 18}
+    default.w:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 9}
+finalState:
+  documentContents: foo worwhateveratever
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 9}

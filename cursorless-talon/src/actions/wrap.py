@@ -1,47 +1,55 @@
-from dataclasses import dataclass
-from typing import Literal, Union
-
 from talon import Module, actions
 
-from ..paired_delimiter import paired_delimiters_map
-
-
-@dataclass
-class Wrapper:
-    type: Literal["pairedDelimiter", "snippet"]
-    extra_args: list[Union[str, dict]]
-
+from ..targets.target_types import CursorlessTarget
 
 mod = Module()
 
 mod.list("cursorless_wrap_action", desc="Cursorless wrap action")
 
 
-@mod.capture(
-    rule="<user.cursorless_wrapper_paired_delimiter> | {user.cursorless_wrapper_snippet}"
-)
-def cursorless_wrapper(m) -> Wrapper:
-    try:
-        paired_delimiter_info = paired_delimiters_map[
-            m.cursorless_wrapper_paired_delimiter
-        ]
-        return Wrapper(
-            type="pairedDelimiter",
-            extra_args=[paired_delimiter_info.left, paired_delimiter_info.right],
+@mod.action_class
+class Actions:
+    def private_cursorless_wrap_with_paired_delimiter(
+        action_name: str,  # pyright: ignore [reportGeneralTypeIssues]
+        target: CursorlessTarget,
+        paired_delimiter: list[str],
+    ):
+        """Execute Cursorless wrap/rewrap with paired delimiter action"""
+        if action_name == "rewrap":
+            action_name = "rewrapWithPairedDelimiter"
+
+        actions.user.private_cursorless_command_and_wait(
+            {
+                "name": action_name,
+                "left": paired_delimiter[0],
+                "right": paired_delimiter[1],
+                "target": target,
+            }
         )
-    except AttributeError:
-        snippet_name, variable_name = parse_snippet_location(
-            m.cursorless_wrapper_snippet
-        )
-        return Wrapper(
-            type="snippet",
-            extra_args=[
-                {
+
+    def private_cursorless_wrap_with_snippet(
+        action_name: str,  # pyright: ignore [reportGeneralTypeIssues]
+        target: CursorlessTarget,
+        snippet_location: str,
+    ):
+        """Execute Cursorless wrap with snippet action"""
+        if action_name == "wrapWithPairedDelimiter":
+            action_name = "wrapWithSnippet"
+        elif action_name == "rewrap":
+            raise Exception("Rewrapping with snippet not supported")
+
+        snippet_name, variable_name = parse_snippet_location(snippet_location)
+
+        actions.user.private_cursorless_command_and_wait(
+            {
+                "name": action_name,
+                "snippetDescription": {
                     "type": "named",
                     "name": snippet_name,
                     "variableName": variable_name,
-                }
-            ],
+                },
+                "target": target,
+            }
         )
 
 
@@ -50,26 +58,3 @@ def parse_snippet_location(snippet_location: str) -> tuple[str, str]:
     if snippet_name is None or variable_name is None:
         raise Exception("Snippet location missing '.'")
     return (snippet_name, variable_name)
-
-
-# Maps from (action_type, wrapper_type) to action name
-action_map: dict[tuple[str, Literal["pairedDelimiter", "snippet"]], str] = {
-    ("wrapWithPairedDelimiter", "pairedDelimiter"): "wrapWithPairedDelimiter",
-    # This is awkward because we used an action name which was to verbose previously
-    ("wrapWithPairedDelimiter", "snippet"): "wrapWithSnippet",
-    ("rewrap", "pairedDelimiter"): "rewrapWithPairedDelimiter",
-    # Not yet supported
-    ("rewrap", "snippet"): "rewrapWithSnippet",
-}
-
-
-@mod.action_class
-class Actions:
-    def cursorless_wrap(action_type: str, target: dict, cursorless_wrapper: Wrapper):
-        """Perform cursorless wrap action"""
-        wrapper_type = cursorless_wrapper.type
-        action = action_map[(action_type, wrapper_type)]
-
-        actions.user.cursorless_single_target_command_with_arg_list(
-            action, target, cursorless_wrapper.extra_args
-        )

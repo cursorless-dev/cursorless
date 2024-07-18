@@ -1,0 +1,30 @@
+languageId: shellscript
+command:
+  version: 5
+  spokenForm: change third sub dash
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: ordinalScope
+          scopeType: {type: word}
+          start: 2
+          length: 1
+      mark: {type: decoratedSymbol, symbolColor: default, character: '-'}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |2
+     npm version patch --force --commit-hooks false --git-tag-version false
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.-:
+      start: {line: 0, character: 48}
+      end: {line: 0, character: 65}
+finalState:
+  documentContents: |2
+     npm version patch --force --commit-hooks false --git-tag- false
+  selections:
+    - anchor: {line: 0, character: 58}
+      active: {line: 0, character: 58}

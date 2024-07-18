@@ -2,12 +2,19 @@ import {
   ImplicitTargetDescriptor,
   Modifier,
   PartialMark,
+  PartialRangeMark,
   PartialRangeType,
-  PositionModifier,
+  PartialTargetMark,
+  RangeMarkFor,
   ScopeType,
 } from "@cursorless/common";
 
-export type Mark = PartialMark | TargetMark;
+export type Mark =
+  | Exclude<PartialMark, PartialTargetMark | PartialRangeMark>
+  | TargetMark
+  | RangeMark;
+
+export type RangeMark = RangeMarkFor<Mark>;
 
 export interface PrimitiveTargetDescriptor {
   type: "primitive";
@@ -26,13 +33,6 @@ export interface PrimitiveTargetDescriptor {
    * character of the name.
    */
   modifiers: Modifier[];
-
-  /**
-   * We separate the positional modifier from the other modifiers because it
-   * behaves differently and and makes the target behave like a destination for
-   * example for bring.  This change is the first step toward #803
-   */
-  positionModifier?: PositionModifier;
 }
 
 /**

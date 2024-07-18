@@ -1,0 +1,38 @@
+languageId: php
+command:
+  version: 6
+  spokenForm: change funk
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: namedFunction}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    <?php
+
+    class MyClass
+    {
+        public function helloWorld()
+        {
+
+        }
+    }
+  selections:
+    - anchor: {line: 6, character: 0}
+      active: {line: 6, character: 0}
+  marks: {}
+finalState:
+  documentContents: |-
+    <?php
+
+    class MyClass
+    {
+        
+    }
+  selections:
+    - anchor: {line: 4, character: 4}
+      active: {line: 4, character: 4}

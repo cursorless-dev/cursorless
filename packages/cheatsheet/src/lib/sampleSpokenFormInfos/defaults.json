@@ -15,12 +15,26 @@
           ]
         },
         {
+          "id": "breakLine",
+          "type": "action",
+          "variations": [
+            {
+              "spokenForm": "break <target>",
+              "description": "Break line"
+            }
+          ]
+        },
+        {
           "id": "callAsFunction",
           "type": "action",
           "variations": [
             {
               "spokenForm": "call <target>",
               "description": "Call <target> on selection"
+            },
+            {
+              "spokenForm": "call <target 1> on <target 2>",
+              "description": "Call <target 1> on <target 2>"
             }
           ]
         },
@@ -55,6 +69,16 @@
           ]
         },
         {
+          "id": "decrement",
+          "type": "action",
+          "variations": [
+            {
+              "spokenForm": "decrement <target>",
+              "description": "Decrement"
+            }
+          ]
+        },
+        {
           "id": "deselect",
           "type": "action",
           "variations": [
@@ -70,7 +94,7 @@
           "variations": [
             {
               "spokenForm": "pour <target>",
-              "description": "Edit new line after"
+              "description": "Edit new line/scope after"
             }
           ]
         },
@@ -80,7 +104,7 @@
           "variations": [
             {
               "spokenForm": "drink <target>",
-              "description": "Edit new line before"
+              "description": "Edit new line/scope before"
             }
           ]
         },
@@ -135,6 +159,16 @@
           ]
         },
         {
+          "id": "followLinkAside",
+          "type": "action",
+          "variations": [
+            {
+              "spokenForm": "follow split <target>",
+              "description": "Follow link aside"
+            }
+          ]
+        },
+        {
           "id": "generateSnippet",
           "type": "action",
           "variations": [
@@ -151,6 +185,16 @@
             {
               "spokenForm": "highlight <target>",
               "description": "Highlight"
+            }
+          ]
+        },
+        {
+          "id": "increment",
+          "type": "action",
+          "variations": [
+            {
+              "spokenForm": "increment <target>",
+              "description": "Increment"
             }
           ]
         },
@@ -225,16 +269,26 @@
           ]
         },
         {
+          "id": "joinLines",
+          "type": "action",
+          "variations": [
+            {
+              "spokenForm": "join <target>",
+              "description": "Join lines"
+            }
+          ]
+        },
+        {
           "id": "moveToTarget",
           "type": "action",
           "variations": [
             {
-              "spokenForm": "move <target 1> to <target 2>",
-              "description": "Move <target 1> to <target 2>"
+              "spokenForm": "move <target> <destination>",
+              "description": "Move <target> to <destination>"
             },
             {
               "spokenForm": "move <target>",
-              "description": "Move <target> to selection"
+              "description": "Move <target> to cursor position"
             }
           ]
         },
@@ -263,8 +317,8 @@
           "type": "action",
           "variations": [
             {
-              "spokenForm": "paste <target>",
-              "description": "Paste from clipboard"
+              "spokenForm": "paste <destination>",
+              "description": "Paste from clipboard at <destination>"
             }
           ]
         },
@@ -303,12 +357,12 @@
           "type": "action",
           "variations": [
             {
-              "spokenForm": "bring <target 1> to <target 2>",
-              "description": "Replace <target 2> with <target 1>"
+              "spokenForm": "bring <target> <destination>",
+              "description": "Copy <target> to <destination>"
             },
             {
               "spokenForm": "bring <target>",
-              "description": "Replace selection with <target>"
+              "description": "Insert copy of <target> at cursor"
             }
           ]
         },
@@ -647,9 +701,55 @@
       ]
     },
     {
+      "name": "Destinations",
+      "id": "destinations",
+      "items": [
+        {
+          "id": "destination_after",
+          "type": "destination",
+          "variations": [
+            {
+              "spokenForm": "after <target>",
+              "description": "Insert after <target>"
+            }
+          ]
+        },
+        {
+          "id": "destination_before",
+          "type": "destination",
+          "variations": [
+            {
+              "spokenForm": "before <target>",
+              "description": "Insert before <target>"
+            }
+          ]
+        },
+        {
+          "id": "destination_to",
+          "type": "destination",
+          "variations": [
+            {
+              "spokenForm": "to <target>",
+              "description": "Replace <target>"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "Modifiers",
       "id": "modifiers",
       "items": [
+        {
+          "id": "ancestor",
+          "type": "modifier",
+          "variations": [
+            {
+              "spokenForm": "grand <scope>",
+              "description": "Grandparent containing instance of <scope>"
+            }
+          ]
+        },
         {
           "id": "containingScope",
           "type": "modifier",
@@ -657,6 +757,16 @@
             {
               "spokenForm": "<scope>",
               "description": "Containing instance of <scope>"
+            }
+          ]
+        },
+        {
+          "id": "end",
+          "type": "modifier",
+          "variations": [
+            {
+              "spokenForm": "end of",
+              "description": "Empty position at end of target"
             }
           ]
         },
@@ -772,11 +882,19 @@
             },
             {
               "spokenForm": "first <number> <scope>s",
-              "description": "First <number> instances of <scope> in iteration scope"
+              "description": "first <number> instances of <scope> in iteration scope, as contiguous range"
+            },
+            {
+              "spokenForm": "every first <number> <scope>s",
+              "description": "first <number> instances of <scope> in iteration scope, as individual targets"
             },
             {
               "spokenForm": "last <number> <scope>s",
-              "description": "Last <number> instances of <scope> in iteration scope"
+              "description": "last <number> instances of <scope> in iteration scope, as contiguous range"
+            },
+            {
+              "spokenForm": "every last <number> <scope>s",
+              "description": "last <number> instances of <scope> in iteration scope, as individual targets"
             }
           ]
         },
@@ -801,10 +919,6 @@
               "description": "<ordinal> instance of <scope> after target"
             },
             {
-              "spokenForm": "previous <number> <scope>s",
-              "description": "previous <number> instances of <scope>"
-            },
-            {
               "spokenForm": "<scope> backward",
               "description": "single instance of <scope> including target, going backwards"
             },
@@ -814,15 +928,45 @@
             },
             {
               "spokenForm": "<number> <scope>s backward",
-              "description": "<number> instances of <scope> including target, going backwards"
+              "description": "<number> instances of <scope> including target, going backwards, as contiguous range"
+            },
+            {
+              "spokenForm": "every <number> <scope>s backward",
+              "description": "<number> instances of <scope> including target, going backwards, as individual targets"
             },
             {
               "spokenForm": "<number> <scope>s",
-              "description": "<number> instances of <scope> including target, going forwards"
+              "description": "<number> instances of <scope> including target, going forwards, as contiguous range"
+            },
+            {
+              "spokenForm": "every <number> <scope>s",
+              "description": "<number> instances of <scope> including target, going forwards, as individual targets"
+            },
+            {
+              "spokenForm": "previous <number> <scope>s",
+              "description": "previous <number> instances of <scope>, as contiguous range"
+            },
+            {
+              "spokenForm": "every previous <number> <scope>s",
+              "description": "previous <number> instances of <scope>, as individual targets"
             },
             {
               "spokenForm": "next <number> <scope>s",
-              "description": "next <number> instances of <scope>"
+              "description": "next <number> instances of <scope>, as contiguous range"
+            },
+            {
+              "spokenForm": "every next <number> <scope>s",
+              "description": "next <number> instances of <scope>, as individual targets"
+            }
+          ]
+        },
+        {
+          "id": "start",
+          "type": "modifier",
+          "variations": [
+            {
+              "spokenForm": "start of",
+              "description": "Empty position at start of target"
             }
           ]
         },
@@ -843,6 +987,16 @@
             {
               "spokenForm": "trailing",
               "description": "Trailing delimiter range"
+            }
+          ]
+        },
+        {
+          "id": "visible",
+          "type": "modifier",
+          "variations": [
+            {
+              "spokenForm": "visible",
+              "description": "Visible"
             }
           ]
         }
@@ -985,46 +1139,44 @@
       ]
     },
     {
-      "name": "Positions",
-      "id": "positions",
+      "name": "Scope visualizer",
+      "id": "scopeVisualizer",
       "items": [
         {
-          "id": "after",
-          "type": "position",
+          "id": "hideScopeVisualizer",
+          "type": "command",
           "variations": [
             {
-              "spokenForm": "after",
-              "description": "After"
+              "spokenForm": "visualize nothing",
+              "description": "Hide scope visualizer"
             }
           ]
         },
         {
-          "id": "before",
-          "type": "position",
+          "id": "show_scope_sidebar",
+          "type": "command",
           "variations": [
             {
-              "spokenForm": "before",
-              "description": "Before"
+              "spokenForm": "bar cursorless",
+              "description": "Show cursorless sidebar"
             }
           ]
         },
         {
-          "id": "end",
-          "type": "position",
+          "id": "show_scope_visualizer",
+          "type": "command",
           "variations": [
             {
-              "spokenForm": "end of",
-              "description": "End"
-            }
-          ]
-        },
-        {
-          "id": "start",
-          "type": "position",
-          "variations": [
+              "spokenForm": "visualize <scope>",
+              "description": "Visualize <scope>"
+            },
             {
-              "spokenForm": "start of",
-              "description": "Start"
+              "spokenForm": "visualize <scope> removal",
+              "description": "Visualize <scope> removal range"
+            },
+            {
+              "spokenForm": "visualize <scope> iteration",
+              "description": "Visualize <scope> iteration range"
             }
           ]
         }
@@ -1070,7 +1222,7 @@
           "variations": [
             {
               "spokenForm": "short paint",
-              "description": "Bounded non whitespace sequence"
+              "description": "Non whitespace sequence stopped by surrounding pair delimeters"
             }
           ]
         },
@@ -1145,6 +1297,16 @@
           ]
         },
         {
+          "id": "command",
+          "type": "scopeType",
+          "variations": [
+            {
+              "spokenForm": "command",
+              "description": "Command"
+            }
+          ]
+        },
+        {
           "id": "comment",
           "type": "scopeType",
           "variations": [
@@ -1211,6 +1373,16 @@
             {
               "spokenForm": "funk name",
               "description": "Function name"
+            }
+          ]
+        },
+        {
+          "id": "glyph",
+          "type": "scopeType",
+          "variations": [
+            {
+              "spokenForm": "glyph <character>",
+              "description": "Instance of single character <character>"
             }
           ]
         },
@@ -1375,6 +1547,16 @@
           ]
         },
         {
+          "id": "sentence",
+          "type": "scopeType",
+          "variations": [
+            {
+              "spokenForm": "sentence",
+              "description": "Sentence"
+            }
+          ]
+        },
+        {
           "id": "statement",
           "type": "scopeType",
           "variations": [
@@ -1469,7 +1651,7 @@
           "type": "scopeType",
           "variations": [
             {
-              "spokenForm": "word",
+              "spokenForm": "sub",
               "description": "Word"
             }
           ]

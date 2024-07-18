@@ -1,0 +1,32 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: clone funk
+  action: {name: insertCopyAfter}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: namedFunction}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    function myFunk() {
+      // aaa
+    }
+  selections:
+    - anchor: {line: 1, character: 5}
+      active: {line: 1, character: 5}
+  marks: {}
+finalState:
+  documentContents: |-
+    function myFunk() {
+      // aaa
+    }
+
+    function myFunk() {
+      // aaa
+    }
+  selections:
+    - anchor: {line: 5, character: 5}
+      active: {line: 5, character: 5}

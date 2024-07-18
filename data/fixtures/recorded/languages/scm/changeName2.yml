@@ -1,0 +1,23 @@
+languageId: scm
+command:
+  version: 6
+  spokenForm: change name
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "eee: (aaa) @bbb @ccc @ddd"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: "eee: (aaa) "
+  selections:
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}

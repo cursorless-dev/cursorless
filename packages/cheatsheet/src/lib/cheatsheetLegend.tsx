@@ -16,7 +16,7 @@ const cheatsheetLegend: CheatsheetLegend = [
   {
     term: "modifier",
     definition: "Cursorless modifier",
-    link: "https://www.cursorless.org/docs/#modifiers",
+    link: "#modifiers",
     id: "modifier",
   },
   {
@@ -30,6 +30,12 @@ const cheatsheetLegend: CheatsheetLegend = [
     definition: "Cursorless target",
     link: "https://www.cursorless.org/docs/#targets",
     id: "target",
+  },
+  {
+    term: "destination",
+    definition: "Cursorless destination",
+    link: "#destinations",
+    id: "destination",
   },
   {
     term: "scope",

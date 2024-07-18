@@ -1,7 +1,7 @@
-import { EditableTextEditor } from "@cursorless/common";
+import { CommandCapabilities, EditableTextEditor } from "@cursorless/common";
 import { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
 import { callFunctionAndUpdateRanges } from "../../core/updateSelections/updateSelections";
-import { EditTarget, State } from "./EditNew.types";
+import { EditDestination, State } from "./EditNew.types";
 
 /**
  * Handle targets that will use a VSCode command to insert a new target, eg
@@ -15,47 +15,65 @@ import { EditTarget, State } from "./EditNew.types";
  * @returns An updated `state` object
  */
 export async function runInsertLineAfterTargets(
+  { acceptsLocation }: CommandCapabilities,
   rangeUpdater: RangeUpdater,
   editor: EditableTextEditor,
   state: State,
 ): Promise<State> {
-  const targets: EditTarget[] = state.targets
-    .map((target, index) => {
-      const actionType = target.getEditNewActionType();
+  const destinations: EditDestination[] = state.destinations
+    .map((destination, index) => {
+      const actionType = destination.getEditNewActionType();
       if (actionType === "insertLineAfter") {
         return {
-          target,
+          destination,
           index,
         };
       }
     })
-    .filter((target): target is EditTarget => !!target);
+    .filter((destination): destination is EditDestination => !!destination);
 
-  if (targets.length === 0) {
+  if (destinations.length === 0) {
     return state;
   }
 
-  const contentRanges = targets.map(({ target }) => target.contentRange);
+  const contentRanges = destinations.map(
+    ({ destination }) => destination.contentRange,
+  );
 
   const [updatedTargetRanges, updatedThatRanges] =
     await callFunctionAndUpdateRanges(
       rangeUpdater,
-      () => editor.insertLineAfter(contentRanges),
+      async () => {
+        if (acceptsLocation) {
+          await editor.insertLineAfter(contentRanges);
+        } else {
+          await editor.setSelections(
+            contentRanges.map((range) => range.toSelection(false)),
+          );
+          await editor.focus();
+          await editor.insertLineAfter();
+        }
+      },
       editor.document,
-      [state.targets.map(({ contentRange }) => contentRange), state.thatRanges],
+      [
+        state.destinations.map(({ contentRange }) => contentRange),
+        state.thatRanges,
+      ],
     );
 
   // For each of the given command targets, the cursor will go where it ended
   // up after running the command.  We add it to the state so that any
   // potential edit targets can update them after we return from this function.
   const cursorRanges = [...state.cursorRanges];
-  targets.forEach((commandTarget, index) => {
+  destinations.forEach((commandTarget, index) => {
     cursorRanges[commandTarget.index] = editor.selections[index];
   });
 
   return {
-    targets: state.targets.map((target, index) =>
-      target.withContentRange(updatedTargetRanges[index]),
+    destinations: state.destinations.map((destination, index) =>
+      destination.withTarget(
+        destination.target.withContentRange(updatedTargetRanges[index]),
+      ),
     ),
     thatRanges: updatedThatRanges,
     cursorRanges,

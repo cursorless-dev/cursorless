@@ -1,0 +1,24 @@
+languageId: ruby
+command:
+  version: 5
+  spokenForm: change every key
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: collectionKey}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: h = {"1" => "one", "2" => "two" }
+  selections:
+    - anchor: {line: 0, character: 28}
+      active: {line: 0, character: 28}
+  marks: {}
+finalState:
+  documentContents: h = { => "one",  => "two" }
+  selections:
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 16}

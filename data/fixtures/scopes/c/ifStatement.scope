@@ -1,0 +1,19 @@
+void func() {
+    if (true) { }
+}
+---
+
+[Content] =
+[Domain] = 1:4-1:17
+      >-------------<
+1|     if (true) { }
+
+[Removal] = 1:0-1:17
+  >-----------------<
+1|     if (true) { }
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     if (true) { }
+
+[Insertion delimiter] = "\n"

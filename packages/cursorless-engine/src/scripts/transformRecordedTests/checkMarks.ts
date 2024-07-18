@@ -1,18 +1,21 @@
 import { FakeIDE, TestCaseFixtureLegacy } from "@cursorless/common";
-import { extractTargetKeys } from "../../testUtil/extractTargetKeys";
-import { upgrade } from "./transformations/upgrade";
-import assert = require("assert");
-import { uniq } from "lodash";
-import tokenGraphemeSplitter from "../../singletons/tokenGraphemeSplitter.singleton";
+import { uniq } from "lodash-es";
 import { injectIde } from "../../singletons/ide.singleton";
+import tokenGraphemeSplitter from "../../singletons/tokenGraphemeSplitter.singleton";
+import { extractTargetKeys } from "../../testUtil/extractTargetKeys";
+import { getPartialTargetDescriptors } from "../../util/getPartialTargetDescriptors";
+import assert from "assert";
+import { canonicalize } from "./transformations/canonicalize";
 
 export function checkMarks(originalFixture: TestCaseFixtureLegacy): undefined {
-  const command = upgrade(originalFixture).command;
+  const command = canonicalize(originalFixture).command;
 
   injectIde(new FakeIDE());
   const graphemeSplitter = tokenGraphemeSplitter();
 
-  const targetedMarks = command.targets.map(extractTargetKeys).flat();
+  const targetedMarks = getPartialTargetDescriptors(command.action)
+    .map(extractTargetKeys)
+    .flat();
   const normalizeGraphemes = (key: string): string =>
     graphemeSplitter
       .getTokenGraphemes(key)
@@ -24,9 +27,7 @@ export function checkMarks(originalFixture: TestCaseFixtureLegacy): undefined {
     ...(originalFixture.marksToCheck ?? []),
   ];
 
-  const actualMarks = Object.keys(
-    originalFixture.initialState.marks ?? {},
-  ) as string[];
+  const actualMarks = Object.keys(originalFixture.initialState.marks ?? {});
 
   assert.deepStrictEqual(
     uniq(actualMarks.map(normalizeGraphemes)).sort(),

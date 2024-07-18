@@ -1,0 +1,32 @@
+languageId: scala
+command:
+  version: 5
+  spokenForm: chuck type trap
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+      mark: {type: decoratedSymbol, symbolColor: default, character: t}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    class TypesAhoy() {
+      def example(foo: String): String = "example"
+    }
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.t:
+      start: {line: 1, character: 28}
+      end: {line: 1, character: 34}
+finalState:
+  documentContents: |
+    class TypesAhoy() {
+      def example(foo: String) = "example"
+    }
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

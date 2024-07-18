@@ -1,4 +1,4 @@
-import { FlashStyle, ScopeType } from "@cursorless/common";
+import { FlashStyle, ScopeType, WrapWithSnippetArg } from "@cursorless/common";
 import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
@@ -12,22 +12,9 @@ import {
 import { SnippetParser } from "../snippets/vendor/vscodeSnippet/snippetParser";
 import { Target } from "../typings/target.types";
 import { ensureSingleEditor, flashTargets } from "../util/targetUtils";
-import { Action, ActionReturnValue } from "./actions.types";
+import { ActionReturnValue } from "./actions.types";
 
-interface NamedSnippetArg {
-  type: "named";
-  name: string;
-  variableName: string;
-}
-interface CustomSnippetArg {
-  type: "custom";
-  body: string;
-  variableName?: string;
-  scopeType?: ScopeType;
-}
-type WrapWithSnippetArg = NamedSnippetArg | CustomSnippetArg;
-
-export default class WrapWithSnippet implements Action {
+export default class WrapWithSnippet {
   private snippetParser = new SnippetParser();
 
   constructor(
@@ -98,7 +85,7 @@ export default class WrapWithSnippet implements Action {
   }
 
   async run(
-    [targets]: [Target[]],
+    targets: Target[],
     snippetDescription: WrapWithSnippetArg,
   ): Promise<ActionReturnValue> {
     const editor = ide().getEditableTextEditor(ensureSingleEditor(targets));

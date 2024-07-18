@@ -139,7 +139,7 @@ There's too much new stuff in this release to fit in a highlights reel, so we'll
 - Improve and unify selection updating behaviour to handle overlapping ranges [\#138](https://github.com/cursorless-dev/cursorless/issues/138)
 - Duplicate symbols after VS Code update [\#111](https://github.com/cursorless-dev/cursorless/issues/111)
 - Fold action not working properly with multiple list elements [\#39](https://github.com/cursorless-dev/cursorless/issues/39)
-- The `clear` command clashes with Knausj commands [\#68](https://github.com/pokey/cursorless-talon/issues/68)
+- The `clear` command clashes with community commands [\#68](https://github.com/pokey/cursorless-talon/issues/68)
 
 **Closed issues:**
 

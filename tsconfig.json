@@ -12,6 +12,9 @@
       "path": "./packages/common"
     },
     {
+      "path": "./packages/cursorless-cheatsheet"
+    },
+    {
       "path": "./packages/cursorless-engine"
     },
     {
@@ -28,6 +31,15 @@
     },
     {
       "path": "./packages/meta-updater"
+    },
+    {
+      "path": "./packages/node-common"
+    },
+    {
+      "path": "./packages/sentence-parser"
+    },
+    {
+      "path": "./packages/test-case-recorder"
     },
     {
       "path": "./packages/test-harness"

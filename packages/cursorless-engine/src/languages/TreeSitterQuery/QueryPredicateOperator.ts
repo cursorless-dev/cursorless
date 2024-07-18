@@ -1,5 +1,5 @@
 import { PredicateOperand } from "web-tree-sitter";
-import z from "zod";
+import { z } from "zod";
 import {
   AcceptFunctionArgs,
   HasSchema,
@@ -48,6 +48,21 @@ export abstract class QueryPredicateOperator<T extends HasSchema> {
   ): boolean;
 
   /**
+   * Whether it is ok for a node argument to be missing.  If true, then the
+   * operator will just accept the pattern if the given node is missing.  If
+   * false, then the operator will throw an error if the node is missing.
+   *
+   * This is useful if we want to set some flag on a node, but only if it's
+   * present.
+   *
+   * @returns A boolean indicating whether it is ok for a node argument to be
+   * missing.
+   */
+  protected allowMissingNode(): boolean {
+    return false;
+  }
+
+  /**
    * Given a list of operands, return a predicate function that can be used to
    * test whether a given match satisfies the predicate.
    *
@@ -62,8 +77,21 @@ export abstract class QueryPredicateOperator<T extends HasSchema> {
     return result.success
       ? {
           success: true,
-          predicate: (match: MutableQueryMatch) =>
-            this.run(...this.constructAcceptArgs(result.data, match)),
+          predicate: (match: MutableQueryMatch) => {
+            try {
+              const acceptArgs = this.constructAcceptArgs(result.data, match);
+              return this.run(...acceptArgs);
+            } catch (err) {
+              if (
+                err instanceof CaptureNotFoundError &&
+                this.allowMissingNode()
+              ) {
+                return true;
+              }
+
+              throw err;
+            }
+          },
         }
       : {
           success: false,
@@ -89,13 +117,7 @@ export abstract class QueryPredicateOperator<T extends HasSchema> {
         );
 
         if (capture == null) {
-          // FIXME: We could allow some predicates to be forgiving,
-          // because it's possible to have a capture on an optional nodeInfo.
-          // In that case we'd prob just return `true` if any capture was
-          // `null`, but we should check that the given capture name
-          // appears statically in the given pattern.  But we don't yet
-          // have a use case so let's leave it for now.
-          throw new Error(`Could not find capture ${operand.name}`);
+          throw new CaptureNotFoundError(operand.name);
         }
 
         return capture;
@@ -117,3 +139,9 @@ interface FailedPredicateResult {
 }
 
 type PredicateResult = SuccessfulPredicateResult | FailedPredicateResult;
+
+class CaptureNotFoundError extends Error {
+  constructor(operandName: string) {
+    super(`Could not find capture ${operandName}`);
+  }
+}

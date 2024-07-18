@@ -1,10 +1,36 @@
-from typing import Any, Optional
+from dataclasses import dataclass
+from typing import Any, Optional, Union
 
-from talon import Module, actions, app
+from talon import Module, actions
 
-from .csv_overrides import init_csv_and_watch_changes
+from .targets.target_types import (
+    CursorlessDestination,
+    CursorlessTarget,
+    ImplicitDestination,
+)
+
+
+@dataclass
+class InsertionSnippet:
+    name: str
+    destination: CursorlessDestination
+
+
+@dataclass
+class CommunityInsertionSnippet:
+    body: str
+    scopes: list[str] | None = None
+
+
+@dataclass
+class CommunityWrapperSnippet:
+    body: str
+    variable_name: str
+    scope: str | None = None
+
 
 mod = Module()
+
 mod.list("cursorless_insert_snippet_action", desc="Cursorless insert snippet action")
 
 # Deprecated tag; we should probably remove this and notify users that they
@@ -12,6 +38,11 @@ mod.list("cursorless_insert_snippet_action", desc="Cursorless insert snippet act
 mod.tag(
     "cursorless_experimental_snippets",
     desc="tag for enabling experimental snippet support",
+)
+
+mod.tag(
+    "cursorless_use_community_snippets",
+    "If active use community snippets instead of Cursorless snippets",
 )
 
 mod.list("cursorless_wrapper_snippet", desc="Cursorless wrapper snippet")
@@ -27,103 +58,138 @@ mod.list("cursorless_phrase_terminator", "Contains term used to terminate a phra
 
 
 @mod.capture(
-    rule="{user.cursorless_insertion_snippet_no_phrase} | {user.cursorless_insertion_snippet_single_phrase}"
+    rule="({user.cursorless_insertion_snippet_no_phrase} | {user.cursorless_insertion_snippet_single_phrase}) [<user.cursorless_destination>]"
 )
-def cursorless_insertion_snippet(m) -> dict:
+def cursorless_insertion_snippet(m) -> InsertionSnippet:
     try:
         name = m.cursorless_insertion_snippet_no_phrase
     except AttributeError:
         name = m.cursorless_insertion_snippet_single_phrase.split(".")[0]
 
-    return {"type": "named", "name": name}
+    try:
+        destination = m.cursorless_destination
+    except AttributeError:
+        destination = ImplicitDestination()
+
+    return InsertionSnippet(name, destination)
 
 
-# NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://www.cursorless.org/docs/user/customization/
-wrapper_snippets = {
-    "else": "ifElseStatement.alternative",
-    "funk": "functionDeclaration.body",
-    "if else": "ifElseStatement.consequence",
-    "if": "ifStatement.consequence",
-    "try": "tryCatchStatement.body",
-    "link": "link.text",
-}
+def wrap_with_snippet(snippet_description: dict, target: CursorlessTarget):
+    actions.user.private_cursorless_command_and_wait(
+        {
+            "name": "wrapWithSnippet",
+            "snippetDescription": snippet_description,
+            "target": target,
+        },
+    )
 
-# NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://www.cursorless.org/docs/user/customization/
-insertion_snippets_no_phrase = {
-    "if": "ifStatement",
-    "if else": "ifElseStatement",
-    "try": "tryCatchStatement",
-}
 
-# NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://www.cursorless.org/docs/user/customization/
-insertion_snippets_single_phrase = {
-    "funk": "functionDeclaration.name",
-    "link": "link.text",
-}
+def insert_snippet(snippet_description: dict, destination: CursorlessDestination):
+    actions.user.private_cursorless_command_and_wait(
+        {
+            "name": "insertSnippet",
+            "snippetDescription": snippet_description,
+            "destination": destination,
+        },
+    )
+
+
+def insert_named_snippet(
+    name: str,
+    destination: CursorlessDestination,
+    substitutions: Optional[dict] = None,
+):
+    snippet: dict = {
+        "type": "named",
+        "name": name,
+    }
+    if substitutions is not None:
+        snippet["substitutions"] = substitutions
+    insert_snippet(snippet, destination)
+
+
+def insert_custom_snippet(
+    body: str,
+    destination: CursorlessDestination,
+    scope_types: Optional[list[dict]] = None,
+):
+    snippet: dict = {
+        "type": "custom",
+        "body": body,
+    }
+
+    if scope_types:
+        snippet["scopeTypes"] = scope_types
+
+    insert_snippet(snippet, destination)
 
 
 @mod.action_class
 class Actions:
-    def private_cursorless_insert_snippet_with_phrase(
-        action: str, snippet_description: str, text: str
-    ):
-        """Perform cursorless wrap action"""
-        snippet_name, snippet_variable = snippet_description.split(".")
-        actions.user.cursorless_implicit_target_command(
-            action,
-            {
-                "type": "named",
-                "name": snippet_name,
-                "substitutions": {snippet_variable: text},
-            },
+    def private_cursorless_insert_snippet(insertion_snippet: InsertionSnippet):  # pyright: ignore [reportGeneralTypeIssues]
+        """Execute Cursorless insert snippet action"""
+        insert_named_snippet(
+            insertion_snippet.name,
+            insertion_snippet.destination,
         )
 
-    def cursorless_insert_snippet_by_name(name: str):
-        """Inserts a named snippet"""
-        actions.user.cursorless_implicit_target_command(
-            "insertSnippet",
+    def private_cursorless_insert_snippet_with_phrase(
+        snippet_description: str,  # pyright: ignore [reportGeneralTypeIssues]
+        text: str,
+    ):
+        """Cursorless: Insert snippet <snippet_description> with phrase <text>"""
+        snippet_name, snippet_variable = snippet_description.split(".")
+        insert_named_snippet(
+            snippet_name,
+            ImplicitDestination(),
+            {snippet_variable: text},
+        )
+
+    def cursorless_insert_snippet_by_name(name: str):  # pyright: ignore [reportGeneralTypeIssues]
+        """Cursorless: Insert named snippet <name>"""
+        insert_named_snippet(
+            name,
+            ImplicitDestination(),
+        )
+
+    def cursorless_insert_snippet(
+        body: str,  # pyright: ignore [reportGeneralTypeIssues]
+        destination: CursorlessDestination = ImplicitDestination(),
+        scope_type: Optional[Union[str, list[str]]] = None,
+    ):
+        """Cursorless: Insert custom snippet <body>"""
+        if isinstance(scope_type, str):
+            scope_type = [scope_type]
+
+        if scope_type is not None:
+            scope_types = [{"type": st} for st in scope_type]
+        else:
+            scope_types = None
+
+        insert_custom_snippet(body, destination, scope_types)
+
+    def cursorless_wrap_with_snippet_by_name(
+        name: str,  # pyright: ignore [reportGeneralTypeIssues]
+        variable_name: str,
+        target: CursorlessTarget,
+    ):
+        """Cursorless: Wrap target with a named snippet <name>"""
+        wrap_with_snippet(
             {
                 "type": "named",
                 "name": name,
+                "variableName": variable_name,
             },
-        )
-
-    def cursorless_insert_snippet(body: str):
-        """Inserts a custom snippet"""
-        actions.user.cursorless_implicit_target_command(
-            "insertSnippet",
-            {
-                "type": "custom",
-                "body": body,
-            },
-        )
-
-    def cursorless_wrap_with_snippet_by_name(
-        name: str, variable_name: str, target: dict
-    ):
-        """Wrap target with a named snippet"""
-        actions.user.cursorless_single_target_command_with_arg_list(
-            "wrapWithSnippet",
             target,
-            [
-                {
-                    "type": "named",
-                    "name": name,
-                    "variableName": variable_name,
-                }
-            ],
         )
 
     def cursorless_wrap_with_snippet(
-        body: str,
-        target: dict,
+        body: str,  # pyright: ignore [reportGeneralTypeIssues]
+        target: CursorlessTarget,
         variable_name: Optional[str] = None,
         scope: Optional[str] = None,
     ):
-        """Wrap target with a custom snippet"""
+        """Cursorless: Wrap target with custom snippet <body>"""
         snippet_arg: dict[str, Any] = {
             "type": "custom",
             "body": body,
@@ -132,45 +198,27 @@ class Actions:
             snippet_arg["scopeType"] = {"type": scope}
         if variable_name is not None:
             snippet_arg["variableName"] = variable_name
-
-        actions.user.cursorless_single_target_command_with_arg_list(
-            "wrapWithSnippet",
+        wrap_with_snippet(
+            snippet_arg,
             target,
-            [snippet_arg],
         )
 
+    def private_cursorless_insert_community_snippet(
+        name: str,  # pyright: ignore [reportGeneralTypeIssues]
+        destination: CursorlessDestination,
+    ):
+        """Cursorless: Insert community snippet <name>"""
+        snippet: CommunityInsertionSnippet = actions.user.get_insertion_snippet(name)
+        actions.user.cursorless_insert_snippet(
+            snippet.body, destination, snippet.scopes
+        )
 
-def on_ready():
-    init_csv_and_watch_changes(
-        "experimental/wrapper_snippets",
-        {
-            "wrapper_snippet": wrapper_snippets,
-        },
-        allow_unknown_values=True,
-        default_list_name="wrapper_snippet",
-    )
-    init_csv_and_watch_changes(
-        "experimental/insertion_snippets",
-        {
-            "insertion_snippet_no_phrase": insertion_snippets_no_phrase,
-        },
-        allow_unknown_values=True,
-        default_list_name="insertion_snippet_no_phrase",
-    )
-    init_csv_and_watch_changes(
-        "experimental/insertion_snippets_single_phrase",
-        {
-            "insertion_snippet_single_phrase": insertion_snippets_single_phrase,
-        },
-        allow_unknown_values=True,
-        default_list_name="insertion_snippet_single_phrase",
-    )
-    init_csv_and_watch_changes(
-        "experimental/miscellaneous",
-        {
-            "phrase_terminator": {"over": "phraseTerminator"},
-        },
-    )
-
-
-app.register("ready", on_ready)
+    def private_cursorless_wrap_with_community_snippet(
+        name: str,  # pyright: ignore [reportGeneralTypeIssues]
+        target: CursorlessTarget,
+    ):
+        """Cursorless: Wrap target with community snippet <name>"""
+        snippet: CommunityWrapperSnippet = actions.user.get_wrapper_snippet(name)
+        actions.user.cursorless_wrap_with_snippet(
+            snippet.body, target, snippet.variable_name, snippet.scope
+        )
