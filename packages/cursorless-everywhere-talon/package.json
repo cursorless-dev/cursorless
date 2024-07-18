@@ -12,7 +12,7 @@
     "esbuild:watch": "pnpm run esbuild:base --watch src/mainDevelopment.ts",
     "esbuild:meta": "pnpm run esbuild:base --metafile=meta.json src/mainDevelopment.ts",
     "esbuild:base": "bash scripts/esbuild.sh",
-    "build": "pnpm run clean && pnpm run esbuild:prod && pnpm run populate-dist",
+    "build_disabled": "pnpm run clean && pnpm run esbuild:prod && pnpm run populate-dist",
     "compile": "tsc --build",
     "populate-dist": "bash scripts/populate-dist.sh",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
