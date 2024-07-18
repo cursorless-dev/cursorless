@@ -1,0 +1,37 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: box repack look past trap
+  action:
+    name: rewrapWithPairedDelimiter
+    args: ['[', ']']
+  targets:
+    - active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: t}
+      type: range
+      excludeAnchor: false
+      excludeActive: false
+      anchor:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: l}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    (hello there now)
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.l:
+      start: {line: 0, character: 1}
+      end: {line: 0, character: 6}
+    default.t:
+      start: {line: 0, character: 7}
+      end: {line: 0, character: 12}
+finalState:
+  documentContents: |
+    [hello there now]
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

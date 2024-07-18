@@ -1,0 +1,19 @@
+* {
+    color: "foo"
+}
+---
+
+[Content] =
+[Domain] = 1:11-1:16
+             >-----<
+1|     color: "foo"
+
+[Removal] = 1:10-1:16
+            >------<
+1|     color: "foo"
+
+[Leading delimiter] = 1:10-1:11
+            >-<
+1|     color: "foo"
+
+[Insertion delimiter] = " "

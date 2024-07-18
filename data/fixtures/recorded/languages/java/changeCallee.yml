@@ -1,0 +1,22 @@
+languageId: java
+command:
+  version: 5
+  spokenForm: change callee
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionCallee}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: new test().bar();
+  selections:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}
+  marks: {}
+finalState:
+  documentContents: ().bar();
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

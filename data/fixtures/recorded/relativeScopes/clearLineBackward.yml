@@ -1,0 +1,28 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change line backward
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: relativeScope
+          scopeType: {type: line}
+          offset: 0
+          length: 1
+          direction: backward
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    aaa bbb
+    ccc ddd
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks: {}
+finalState:
+  documentContents: |
+    aaa bbb
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

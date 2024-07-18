@@ -1,0 +1,27 @@
+languageId: go
+command:
+  version: 6
+  spokenForm: change map trap
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: map}
+      mark: {type: decoratedSymbol, symbolColor: default, character: t}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: _ = &T{}
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.t:
+      start: {line: 0, character: 5}
+      end: {line: 0, character: 6}
+finalState:
+  documentContents: "_ = "
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}

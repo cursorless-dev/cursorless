@@ -1,0 +1,22 @@
+languageId: go
+command:
+  version: 5
+  spokenForm: take list
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: list}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: x := []string{"a", "b"}
+  selections:
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 16}
+  marks: {}
+finalState:
+  documentContents: x := []string{"a", "b"}
+  selections:
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 23}

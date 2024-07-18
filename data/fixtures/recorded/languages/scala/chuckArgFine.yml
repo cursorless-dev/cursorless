@@ -1,0 +1,28 @@
+languageId: scala
+command:
+  version: 5
+  spokenForm: chuck arg fine
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    class ExampleClass(foo: Int, bar: Int) {}
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.f:
+      start: {line: 0, character: 19}
+      end: {line: 0, character: 22}
+finalState:
+  documentContents: |
+    class ExampleClass(bar: Int) {}
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

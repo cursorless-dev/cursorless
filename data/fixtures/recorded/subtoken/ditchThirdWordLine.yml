@@ -1,0 +1,26 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: chuck third sub line
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: ordinalScope
+          scopeType: {type: word}
+          start: 2
+          length: 1
+        - type: containingScope
+          scopeType: {type: line}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: apiV1 api_v_1
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: apiV api_v_1
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

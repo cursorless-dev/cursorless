@@ -1,0 +1,10 @@
+() => 0
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:7
+  >-------<
+0| () => 0
+
+[Insertion delimiter] = "\n"

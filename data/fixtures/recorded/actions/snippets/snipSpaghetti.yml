@@ -1,0 +1,30 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: snippet spaghetti
+  action:
+    name: insertSnippet
+    args:
+      - {type: named, name: spaghetti}
+  targets:
+    - {type: implicit}
+  usePrePhraseSnapshot: false
+spokenFormError: Named insertion snippet 'spaghetti'
+initialState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: My friend  likes to eat spaghetti!
+  selections:
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 34}
+      isReversed: false
+      hasExplicitRange: true

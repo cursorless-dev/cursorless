@@ -1,0 +1,40 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: chuck arg made and air
+  action: {name: remove}
+  targets:
+    - type: list
+      elements:
+        - type: primitive
+          modifiers:
+            - type: containingScope
+              scopeType: {type: argumentOrParameter}
+          mark: {type: decoratedSymbol, symbolColor: default, character: m}
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "function myFunk(value: string, name: string, age: number) { };"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.m:
+      start: {line: 0, character: 31}
+      end: {line: 0, character: 35}
+    default.a:
+      start: {line: 0, character: 45}
+      end: {line: 0, character: 48}
+finalState:
+  documentContents: "function myFunk(value: string) { };"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - type: RawSelectionTarget
+      contentRange:
+        start: {line: 0, character: 29}
+        end: {line: 0, character: 29}
+      isReversed: false
+      hasExplicitRange: true

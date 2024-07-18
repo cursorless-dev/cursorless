@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 import { InsertSnippetArg, WrapWithSnippetArg } from "@cursorless/common";
 import { NoSpokenFormError } from "../NoSpokenFormError";
 

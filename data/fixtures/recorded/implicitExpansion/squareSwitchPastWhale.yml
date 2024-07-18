@@ -1,0 +1,30 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: box repack past whale
+  action:
+    name: rewrapWithPairedDelimiter
+    args: ['[', ']']
+  targets:
+    - active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      type: range
+      excludeAnchor: false
+      excludeActive: false
+      anchor: {type: implicit}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: (hello world there)
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+  marks:
+    default.w:
+      start: {line: 0, character: 7}
+      end: {line: 0, character: 12}
+finalState:
+  documentContents: "[hello world there]"
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}

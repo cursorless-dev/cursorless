@@ -1,0 +1,28 @@
+languageId: ruby
+command:
+  version: 5
+  spokenForm: chuck arg
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    def self.hello(name)
+
+    end
+  selections:
+    - anchor: {line: 0, character: 15}
+      active: {line: 0, character: 15}
+  marks: {}
+finalState:
+  documentContents: |-
+    def self.hello()
+
+    end
+  selections:
+    - anchor: {line: 0, character: 15}
+      active: {line: 0, character: 15}

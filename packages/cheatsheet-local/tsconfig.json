@@ -8,14 +8,11 @@
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "module": "es6",
     "target": "es5",
     "allowJs": true
   },
   "ts-node": {
-    "compilerOptions": {
-      "module": "CommonJS"
-    }
+    "esm": true
   },
   "references": [
     {

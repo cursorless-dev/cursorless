@@ -1,4 +1,4 @@
-import assert = require("assert");
+import assert from "assert";
 import { isGeneralizedRangeEqual } from "./GeneralizedRange";
 import { Position } from "./Position";
 

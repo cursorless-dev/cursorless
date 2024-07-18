@@ -4,11 +4,11 @@ import {
   Modifier,
   SurroundingPairModifier,
 } from "@cursorless/common";
-import { StoredTargetMap } from "..";
+import { StoredTargetMap } from "../core/StoredTargets";
 import { LanguageDefinitions } from "../languages/LanguageDefinitions";
 import { ModifierStageFactory } from "./ModifierStageFactory";
 import { ModifierStage } from "./PipelineStages.types";
-import CascadingStage from "./modifiers/CascadingStage";
+import { CascadingStage } from "./modifiers/CascadingStage";
 import { ModifyIfUntypedStage } from "./modifiers/ConditionalModifierStages";
 import { ContainingScopeStage } from "./modifiers/ContainingScopeStage";
 import { EveryScopeStage } from "./modifiers/EveryScopeStage";
@@ -16,27 +16,29 @@ import {
   KeepContentFilterStage,
   KeepEmptyFilterStage,
 } from "./modifiers/FilterStages";
-import { HeadStage, TailStage } from "./modifiers/HeadTailStage";
-import InstanceStage from "./modifiers/InstanceStage";
+import { HeadTailStage } from "./modifiers/HeadTailStage";
+import { InstanceStage } from "./modifiers/InstanceStage";
 import {
   ExcludeInteriorStage,
   InteriorOnlyStage,
 } from "./modifiers/InteriorStage";
-import ItemStage from "./modifiers/ItemStage";
+import { ItemStage } from "./modifiers/ItemStage";
 import { LeadingStage, TrailingStage } from "./modifiers/LeadingTrailingStages";
 import { OrdinalScopeStage } from "./modifiers/OrdinalScopeStage";
 import { EndOfStage, StartOfStage } from "./modifiers/PositionStage";
-import RangeModifierStage from "./modifiers/RangeModifierStage";
-import RawSelectionStage from "./modifiers/RawSelectionStage";
-import RelativeScopeStage from "./modifiers/RelativeScopeStage";
-import SurroundingPairStage from "./modifiers/SurroundingPairStage";
+import { RangeModifierStage } from "./modifiers/RangeModifierStage";
+import { RawSelectionStage } from "./modifiers/RawSelectionStage";
+import { RelativeScopeStage } from "./modifiers/RelativeScopeStage";
+import { SurroundingPairStage } from "./modifiers/SurroundingPairStage";
+import { VisibleStage } from "./modifiers/VisibleStage";
 import { ScopeHandlerFactory } from "./modifiers/scopeHandlers/ScopeHandlerFactory";
-import BoundedNonWhitespaceSequenceStage from "./modifiers/scopeTypeStages/BoundedNonWhitespaceStage";
-import ContainingSyntaxScopeStage, {
+import { BoundedNonWhitespaceSequenceStage } from "./modifiers/scopeTypeStages/BoundedNonWhitespaceStage";
+import {
+  LegacyContainingSyntaxScopeStage,
   SimpleContainingScopeModifier,
   SimpleEveryScopeModifier,
-} from "./modifiers/scopeTypeStages/ContainingSyntaxScopeStage";
-import NotebookCellStage from "./modifiers/scopeTypeStages/NotebookCellStage";
+} from "./modifiers/scopeTypeStages/LegacyContainingSyntaxScopeStage";
+import { NotebookCellStage } from "./modifiers/scopeTypeStages/NotebookCellStage";
 
 export class ModifierStageFactoryImpl implements ModifierStageFactory {
   constructor(
@@ -54,9 +56,8 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
       case "endOf":
         return new EndOfStage();
       case "extendThroughStartOf":
-        return new HeadStage(this, modifier);
       case "extendThroughEndOf":
-        return new TailStage(this, modifier);
+        return new HeadTailStage(this, modifier);
       case "toRawSelection":
         return new RawSelectionStage(modifier);
       case "interiorOnly":
@@ -67,6 +68,8 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
         return new LeadingStage(this, modifier);
       case "trailing":
         return new TrailingStage(this, modifier);
+      case "visible":
+        return new VisibleStage(modifier);
       case "containingScope":
         return new ContainingScopeStage(
           this,
@@ -142,7 +145,7 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
         );
       default:
         // Default to containing syntax scope using tree sitter
-        return new ContainingSyntaxScopeStage(
+        return new LegacyContainingSyntaxScopeStage(
           this.languageDefinitions,
           modifier as SimpleContainingScopeModifier | SimpleEveryScopeModifier,
         );

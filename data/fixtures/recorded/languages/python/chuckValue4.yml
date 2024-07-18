@@ -1,0 +1,27 @@
+languageId: python
+command:
+  version: 6
+  spokenForm: chuck value
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    if (x := 0) < 1:
+        pass
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  marks: {}
+finalState:
+  documentContents: |-
+    if (x) < 1:
+        pass
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}

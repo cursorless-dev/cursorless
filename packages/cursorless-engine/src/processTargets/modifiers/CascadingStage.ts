@@ -7,7 +7,7 @@ import { ModifierStage } from "../PipelineStages.types";
  * Tries each of the given modifiers in turn until one of them doesn't throw an
  * error, returning the output from the first modifier not throwing an error.
  */
-export default class CascadingStage implements ModifierStage {
+export class CascadingStage implements ModifierStage {
   private nestedStages_?: ModifierStage[];
 
   constructor(

@@ -1,0 +1,37 @@
+languageId: scss
+command:
+  version: 5
+  spokenForm: change leading last sub look
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: l}
+      modifiers:
+        - {type: leading}
+        - type: ordinalScope
+          scopeType: {type: word}
+          start: -1
+          length: 1
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |2-
+     .long-bem-class-name {
+       height: 10px;
+     }
+     
+  selections:
+    - anchor: {line: 3, character: 1}
+      active: {line: 3, character: 1}
+  marks:
+    default.l:
+      start: {line: 0, character: 2}
+      end: {line: 0, character: 21}
+finalState:
+  documentContents: |2-
+     .long-bem-classname {
+       height: 10px;
+     }
+     
+  selections:
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 16}

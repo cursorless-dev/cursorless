@@ -1,0 +1,29 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: take tail
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - {type: extendThroughEndOf}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+
+    const value = "Hello world";
+
+    const value = "Hello world";
+  selections:
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 6}
+  marks: {}
+finalState:
+  documentContents: |
+
+    const value = "Hello world";
+
+    const value = "Hello world";
+  selections:
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 28}

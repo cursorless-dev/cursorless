@@ -1,0 +1,26 @@
+languageId: clojure
+command:
+  version: 5
+  spokenForm: change key whale
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionKey}
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "{:foo \"bar\", :baz \"whatever\"}"
+  selections:
+    - anchor: {line: 0, character: 29}
+      active: {line: 0, character: 29}
+  marks:
+    default.w:
+      start: {line: 0, character: 19}
+      end: {line: 0, character: 27}
+finalState:
+  documentContents: "{:foo \"bar\",  \"whatever\"}"
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}

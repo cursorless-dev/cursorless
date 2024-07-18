@@ -1,13 +1,15 @@
-import { imap } from "itertools";
-import { NestedScopeHandler } from ".";
-import { generateMatchesInRange } from "../../../util/getMatchesInRange";
 import { Direction } from "@cursorless/common";
+import { imap } from "itertools";
+import { NestedScopeHandler } from "./NestedScopeHandler";
 import { getMatcher } from "../../../tokenizer";
-import { testRegex } from "../../../util/regex";
+import { generateMatchesInRange } from "../../../util/getMatchesInRange";
 import { TokenTarget } from "../../targets";
+import { isPreferredOverHelper } from "./isPreferredOverHelper";
 import type { TargetScope } from "./scope.types";
 
-export default class TokenScopeHandler extends NestedScopeHandler {
+const PREFERRED_SYMBOLS_REGEX = /[$]/g;
+
+export class TokenScopeHandler extends NestedScopeHandler {
   public readonly scopeType = { type: "token" } as const;
   public readonly iterationScopeType = { type: "line" } as const;
 
@@ -37,17 +39,12 @@ export default class TokenScopeHandler extends NestedScopeHandler {
     scopeA: TargetScope,
     scopeB: TargetScope,
   ): boolean | undefined {
-    const {
-      editor: { document },
-    } = scopeA;
-    const { identifierMatcher } = getMatcher(document.languageId);
-
-    // NB: Don't directly use `test` here because global regexes are stateful
-    // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec#finding_successive_matches
-    return testRegex(identifierMatcher, document.getText(scopeA.domain))
-      ? true
-      : testRegex(identifierMatcher, document.getText(scopeB.domain))
-      ? false
-      : undefined;
+    const { identifierMatcher } = getMatcher(this.languageId);
+    // Regexes indicating preferences. We prefer identifiers then preferred
+    // symbols.
+    return isPreferredOverHelper(scopeA, scopeB, [
+      identifierMatcher,
+      PREFERRED_SYMBOLS_REGEX,
+    ]);
   }
 }

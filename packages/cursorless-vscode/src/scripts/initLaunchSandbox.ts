@@ -6,7 +6,7 @@
 import { extensionDependencies } from "@cursorless/common";
 import * as cp from "child_process";
 
-const extraExtensions = ["pokey.command-server", "pokey.talon"];
+const extraExtensions = ["pokey.command-server"];
 
 async function main() {
   try {
@@ -17,12 +17,19 @@ async function main() {
       ),
     ];
 
+    if (process.argv.includes("--force")) {
+      args.push("--force");
+    }
+
     // Install extension dependencies
-    const process = cp.spawn("code", args, { stdio: "inherit", shell: true });
+    const subprocess = cp.spawn("code", args, {
+      stdio: "inherit",
+      shell: true,
+    });
 
     await new Promise<void>((resolve, reject) => {
-      process.on("error", reject);
-      process.on("exit", (code) => {
+      subprocess.on("error", reject);
+      subprocess.on("exit", (code) => {
         if (code === 0) {
           resolve();
         } else {

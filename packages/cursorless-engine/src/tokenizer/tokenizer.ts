@@ -1,6 +1,6 @@
-import { escapeRegExp } from "lodash";
+import { matchAll } from "@cursorless/common";
+import { escapeRegExp } from "lodash-es";
 import { ide } from "../singletons/ide.singleton";
-import { matchAll } from "../util/regex";
 import { LanguageTokenizerComponents } from "./tokenizer.types";
 
 const REPEATABLE_SYMBOLS = [
@@ -43,7 +43,7 @@ const FIXED_TOKENS = [
 export const IDENTIFIER_WORD_REGEXES = ["\\p{L}", "\\p{M}", "\\p{N}"];
 const SINGLE_SYMBOLS_REGEX = "[^\\s\\w]";
 // Accepts digits dot digits if not preceded or followed by a digit or dot. The
-// negative lookahed / lookbehind are to prevent matching numbers in semantic
+// negative lookahead / lookbehind are to prevent matching numbers in semantic
 // versions (eg 1.2.3)
 const NUMBERS_REGEX = "(?<![.\\d])\\d+\\.\\d+(?![.\\d])";
 

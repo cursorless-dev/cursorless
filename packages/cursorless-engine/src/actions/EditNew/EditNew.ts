@@ -1,7 +1,6 @@
 import { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
 import { ide } from "../../singletons/ide.singleton";
 import { Destination } from "../../typings/target.types";
-import { setSelectionsAndFocusEditor } from "../../util/setSelectionsAndFocusEditor";
 import { createThatMark, ensureSingleEditor } from "../../util/targetUtils";
 import { Actions } from "../Actions";
 import { ActionReturnValue } from "../actions.types";
@@ -44,17 +43,30 @@ export class EditNew {
       ) as undefined[],
     };
 
-    state = await runInsertLineAfterTargets(
+    const insertLineAfterCapability =
+      ide().capabilities.commands.insertLineAfter;
+    const useInsertLineAfter = insertLineAfterCapability != null;
+
+    if (useInsertLineAfter) {
+      state = await runInsertLineAfterTargets(
+        insertLineAfterCapability,
+        this.rangeUpdater,
+        editableEditor,
+        state,
+      );
+    }
+
+    state = await runEditTargets(
       this.rangeUpdater,
       editableEditor,
       state,
+      !useInsertLineAfter,
     );
-    state = await runEditTargets(this.rangeUpdater, editableEditor, state);
 
     const newSelections = state.destinations.map((destination, index) =>
       state.cursorRanges[index]!.toSelection(destination.target.isReversed),
     );
-    await setSelectionsAndFocusEditor(editableEditor, newSelections);
+    await editableEditor.setSelections(newSelections, { focusEditor: true });
 
     return {
       thatSelections: createThatMark(

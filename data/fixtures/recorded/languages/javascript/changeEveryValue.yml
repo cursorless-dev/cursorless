@@ -1,0 +1,33 @@
+languageId: javascript
+command:
+  version: 6
+  spokenForm: change every value
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    function aaa() {
+        const bbb = 0;
+        const ccc = 0;
+    }
+  selections:
+    - anchor: {line: 2, character: 18}
+      active: {line: 2, character: 18}
+  marks: {}
+finalState:
+  documentContents: |-
+    function aaa() {
+        const bbb = ;
+        const ccc = ;
+    }
+  selections:
+    - anchor: {line: 1, character: 16}
+      active: {line: 1, character: 16}
+    - anchor: {line: 2, character: 16}
+      active: {line: 2, character: 16}

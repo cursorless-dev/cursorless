@@ -1,0 +1,23 @@
+languageId: typescript
+command:
+  version: 6
+  spokenForm: change type
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: const map = {} as Record<string, number>;
+  selections:
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}
+  marks: {}
+finalState:
+  documentContents: const map = {} as ;
+  selections:
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}

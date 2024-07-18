@@ -1,0 +1,28 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: take down one
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      mark: {type: lineNumber, lineNumberType: relative, lineNumber: 1}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+
+    const value = "Hello world";
+
+    const value = "Hello world";
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |
+
+    const value = "Hello world";
+
+    const value = "Hello world";
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 28}

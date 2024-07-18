@@ -1,0 +1,23 @@
+languageId: typescriptreact
+command:
+  version: 6
+  spokenForm: change item
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: <div value={[1, 2]}>
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}
+  marks: {}
+finalState:
+  documentContents: <div value={[, 2]}>
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}

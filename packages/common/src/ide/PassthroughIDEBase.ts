@@ -10,7 +10,13 @@ import {
   TextEditorVisibleRangesChangeEvent,
 } from "./types/events.types";
 import { FlashDescriptor } from "./types/FlashDescriptor";
-import { Disposable, IDE, RunMode, WorkspaceFolder } from "./types/ide.types";
+import {
+  Disposable,
+  IDE,
+  OpenUntitledTextDocumentOptions,
+  RunMode,
+  WorkspaceFolder,
+} from "./types/ide.types";
 import { Messages } from "./types/Messages";
 import { QuickPickOptions } from "./types/QuickPickOptions";
 import { State } from "./types/State";
@@ -117,6 +123,10 @@ export default class PassthroughIDEBase implements IDE {
     return this.original.visibleTextEditors;
   }
 
+  public get cursorlessVersion(): string {
+    return this.original.cursorlessVersion;
+  }
+
   public get assetsRoot(): string {
     return this.original.assetsRoot;
   }
@@ -129,12 +139,22 @@ export default class PassthroughIDEBase implements IDE {
     return this.original.workspaceFolders;
   }
 
+  public findInDocument(query: string, editor?: TextEditor): Promise<void> {
+    return this.original.findInDocument(query, editor);
+  }
+
   public findInWorkspace(query: string): Promise<void> {
     return this.original.findInWorkspace(query);
   }
 
   public openTextDocument(path: string): Promise<TextEditor> {
     return this.original.openTextDocument(path);
+  }
+
+  public openUntitledTextDocument(
+    options?: OpenUntitledTextDocumentOptions,
+  ): Promise<TextEditor> {
+    return this.original.openUntitledTextDocument(options);
   }
 
   public showQuickPick(

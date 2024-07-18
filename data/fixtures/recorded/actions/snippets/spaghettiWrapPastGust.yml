@@ -1,0 +1,39 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: spaghetti wrap past gust
+  action:
+    name: wrapWithSnippet
+    args:
+      - {type: named, name: spaghetti, variableName: foo}
+  targets:
+    - active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: g}
+      type: range
+      excludeAnchor: false
+      excludeActive: false
+      anchor: {type: implicit}
+  usePrePhraseSnapshot: false
+spokenFormError: Named wrap with snippet 'spaghetti.foo'
+initialState:
+  documentContents: grace hopper
+  selections:
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 12}
+  marks:
+    default.g:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 5}
+finalState:
+  documentContents: My friend grace hopper likes to eat spaghetti!
+  selections:
+    - anchor: {line: 0, character: 46}
+      active: {line: 0, character: 46}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 46}
+      isReversed: true
+      hasExplicitRange: true

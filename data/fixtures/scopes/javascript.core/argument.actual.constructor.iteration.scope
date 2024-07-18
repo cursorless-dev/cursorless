@@ -1,0 +1,10 @@
+new Aaa(bbb, ccc)
+---
+
+[Range] = 0:8-0:16
+          >--------<
+0| new Aaa(bbb, ccc)
+
+[Domain] = 0:7-0:17
+         >----------<
+0| new Aaa(bbb, ccc)

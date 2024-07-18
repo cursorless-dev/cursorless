@@ -1,0 +1,28 @@
+languageId: php
+command:
+  version: 5
+  spokenForm: chuck value
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    <?php
+
+    yield $value;
+  selections:
+    - anchor: {line: 2, character: 9}
+      active: {line: 2, character: 9}
+  marks: {}
+finalState:
+  documentContents: |-
+    <?php
+
+    yield;
+  selections:
+    - anchor: {line: 2, character: 5}
+      active: {line: 2, character: 5}

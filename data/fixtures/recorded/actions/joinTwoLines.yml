@@ -1,0 +1,38 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: join two lines
+  action:
+    name: joinLines
+    target:
+      type: primitive
+      modifiers:
+        - type: relativeScope
+          scopeType: {type: line}
+          offset: 0
+          length: 2
+          direction: forward
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    aaa
+    bbb
+    ccc
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |-
+    aaa bbb
+    ccc
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 7}
+      isReversed: false
+      hasExplicitRange: true

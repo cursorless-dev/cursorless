@@ -1,0 +1,22 @@
+languageId: go
+command:
+  version: 5
+  spokenForm: take arg
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "func add(x int, y int) int {\n\treturn x + y\n}"
+  selections:
+    - anchor: {line: 0, character: 19}
+      active: {line: 0, character: 19}
+  marks: {}
+finalState:
+  documentContents: "func add(x int, y int) int {\n\treturn x + y\n}"
+  selections:
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 21}

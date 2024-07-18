@@ -1,0 +1,71 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: bring air and bat and cap
+  action: {name: replaceWithTarget}
+  targets:
+    - type: list
+      elements:
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: a}
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: b}
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: c}
+    - {type: implicit}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |+
+    a
+    b
+    c
+
+  selections:
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 1}
+    default.b:
+      start: {line: 1, character: 0}
+      end: {line: 1, character: 1}
+    default.c:
+      start: {line: 2, character: 0}
+      end: {line: 2, character: 1}
+finalState:
+  documentContents: |-
+    a
+    b
+    c
+
+    a b c
+  selections:
+    - anchor: {line: 4, character: 5}
+      active: {line: 4, character: 5}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 4, character: 0}
+        end: {line: 4, character: 5}
+      isReversed: false
+      hasExplicitRange: true
+  sourceMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 1}
+      isReversed: false
+      hasExplicitRange: true
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 1, character: 0}
+        end: {line: 1, character: 1}
+      isReversed: false
+      hasExplicitRange: true
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 2, character: 0}
+        end: {line: 2, character: 1}
+      isReversed: false
+      hasExplicitRange: true

@@ -1,0 +1,41 @@
+diff --git a/lib/theme/SearchBar/index.js b/lib/theme/SearchBar/index.js
+index 4df023cb619433b59c64b31e3fd832f833aba7c7..c63d1a23f53d7dbccd0f7667a5740e76bbe7bf73 100644
+--- a/lib/theme/SearchBar/index.js
++++ b/lib/theme/SearchBar/index.js
+@@ -4,6 +4,7 @@
+  * This source code is licensed under the MIT license found in the
+  * LICENSE file in the root directory of this source tree.
+  */
++import useIsBrowser from '@docusaurus/useIsBrowser';
+ import React, {useCallback, useMemo, useRef, useState} from 'react';
+ import {createPortal} from 'react-dom';
+ import {DocSearchButton, useDocSearchKeyboardEvents} from '@docsearch/react';
+@@ -51,10 +52,28 @@ function DocSearch({contextualSearch, externalUrlRegex, ...props}) {
+       mergeFacetFilters(contextualSearchFacetFilters, configFacetFilters)
+     : // ... or use config facetFilters
+       configFacetFilters;
++
++  const isBrowser = useIsBrowser()
++
++  // Tweak search so that we prefer:
++  // - the same lvl0 as the current doc (eg "For users"),
++  // - docs that are not api docs.
++  // Note that the below lvl0 query was written to match the query used by the
++  // crawler at https://crawler.algolia.com/admin/crawlers
++  const lvl0 =
++    (isBrowser
++      ? document.querySelector(".navbar__item.navbar__link--active")
++          ?.textContent
++      : null) ?? "Documentation";
++
+   // We let user override default searchParameters if she wants to
+   const searchParameters = {
+     ...props.searchParameters,
+     facetFilters,
++    optionalFilters: [
++      `hierarchy.lvl0: ${lvl0}`,
++      "is_api: no"
++    ],
+   };
+   const history = useHistory();
+   const searchContainer = useRef(null);

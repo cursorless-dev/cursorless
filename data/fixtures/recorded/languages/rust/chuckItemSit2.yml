@@ -1,0 +1,28 @@
+languageId: rust
+command:
+  version: 5
+  spokenForm: chuck item sit
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+      mark: {type: decoratedSymbol, symbolColor: default, character: i}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    type T = (&'static str, &'static str);
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.i:
+      start: {line: 0, character: 26}
+      end: {line: 0, character: 32}
+finalState:
+  documentContents: |
+    type T = (&'static str);
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

@@ -1,0 +1,26 @@
+languageId: clojure
+command:
+  version: 5
+  spokenForm: take value bat
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "{:foo \"bar\"}"
+  selections:
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 12}
+  marks:
+    default.b:
+      start: {line: 0, character: 7}
+      end: {line: 0, character: 10}
+finalState:
+  documentContents: "{:foo \"bar\"}"
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 11}

@@ -1,0 +1,30 @@
+languageId: rust
+command:
+  version: 5
+  spokenForm: change value
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    fn foo() -> i32 {
+        println!("hello")
+        return 3
+    }
+  selections:
+    - anchor: {line: 1, character: 14}
+      active: {line: 1, character: 14}
+  marks: {}
+finalState:
+  documentContents: |-
+    fn foo() -> i32 {
+        println!("hello")
+        return 
+    }
+  selections:
+    - anchor: {line: 2, character: 11}
+      active: {line: 2, character: 11}

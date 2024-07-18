@@ -1,0 +1,28 @@
+languageId: php
+command:
+  version: 5
+  spokenForm: change call
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionCall}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    <?php
+
+    myFunk(1, 2, 3);
+  selections:
+    - anchor: {line: 2, character: 6}
+      active: {line: 2, character: 6}
+  marks: {}
+finalState:
+  documentContents: |-
+    <?php
+
+    ;
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}

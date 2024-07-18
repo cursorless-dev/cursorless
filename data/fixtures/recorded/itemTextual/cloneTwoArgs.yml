@@ -1,0 +1,26 @@
+languageId: typescript
+command:
+  version: 6
+  spokenForm: clone two args
+  action:
+    name: insertCopyAfter
+    target:
+      type: primitive
+      modifiers:
+        - type: relativeScope
+          scopeType: {type: argumentOrParameter}
+          offset: 0
+          length: 2
+          direction: forward
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: aaa(bbb, ccc)
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  marks: {}
+finalState:
+  documentContents: aaa(bbb, ccc, bbb, ccc)
+  selections:
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}

@@ -1,0 +1,30 @@
+languageId: rust
+command:
+  version: 5
+  spokenForm: change key jury
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: j}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionKey}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    if let User { first_name: "John", last_name: "Doe" } = user {
+    }
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+  marks:
+    default.j:
+      start: {line: 0, character: 27}
+      end: {line: 0, character: 31}
+finalState:
+  documentContents: |
+    if let User { : "John", last_name: "Doe" } = user {
+    }
+  selections:
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}

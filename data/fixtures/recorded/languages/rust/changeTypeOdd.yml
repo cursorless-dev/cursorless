@@ -1,0 +1,32 @@
+languageId: rust
+command:
+  version: 5
+  spokenForm: change type odd
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: o}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    struct S {
+        n: Option<u64>,
+    }
+  selections:
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
+  marks:
+    default.o:
+      start: {line: 1, character: 7}
+      end: {line: 1, character: 13}
+finalState:
+  documentContents: |
+    struct S {
+        n: ,
+    }
+  selections:
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 7}

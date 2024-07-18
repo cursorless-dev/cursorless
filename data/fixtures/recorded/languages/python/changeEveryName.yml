@@ -1,0 +1,33 @@
+languageId: python
+command:
+  version: 6
+  spokenForm: change every name
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    aaa = bbb
+    aaa: str = bbb
+    aaa: str
+  selections:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
+  marks: {}
+finalState:
+  documentContents: |2-
+     = bbb
+    : str = bbb
+    : str
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}

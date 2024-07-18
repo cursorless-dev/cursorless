@@ -17,7 +17,6 @@ import {
 import {
   childRangeSelector,
   delimitedSelector,
-  getNodeRange,
   simpleSelectionExtractor,
 } from "../util/nodeSelectors";
 
@@ -109,7 +108,6 @@ function unitMatcher(
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
-  ifStatement: "if_statement",
   condition: conditionMatcher("condition"),
   statement: cascadingMatcher(
     patternMatcher(...STATEMENT_TYPES),
@@ -118,12 +116,6 @@ const nodeMatchers: Partial<
       childRangeSelector([], ["attribute_name", "string_value"]),
     ),
   ),
-  string: "string_value",
-  functionCall: "call_expression",
-  functionCallee: "call_expression.function_name!",
-  namedFunction: ["mixin_statement", "function_statement"],
-  functionName: ["mixin_statement.name!", "function_statement.name!"],
-  comment: ["comment", "single_line_comment"],
   argumentOrParameter: cascadingMatcher(
     matcher(
       patternFinder("arguments.*!", "parameters.*!"),
@@ -135,15 +127,6 @@ const nodeMatchers: Partial<
       ),
     ),
   ),
-  name: [
-    "function_statement.name!",
-    "declaration.property_name!",
-    "declaration.variable_name!",
-    "mixin_statement.name!",
-    "attribute_selector.attribute_name!",
-    "parameter.variable_name!",
-  ],
-  selector: ["rule_set.selectors!"],
   collectionKey: trailingMatcher(["declaration.property_name!"], [":"]),
   value: cascadingMatcher(
     matcher(
@@ -163,18 +146,6 @@ const nodeMatchers: Partial<
     ),
   ),
   unit: cascadingMatcher(patternMatcher("integer_value.unit!"), unitMatcher),
-  collectionItem: "declaration",
 };
 
 export const patternMatchers = createPatternMatchers(nodeMatchers);
-
-export function stringTextFragmentExtractor(
-  node: SyntaxNode,
-  _selection: SelectionWithEditor,
-) {
-  if (node.type === "string_value") {
-    return getNodeRange(node);
-  }
-
-  return null;
-}

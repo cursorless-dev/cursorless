@@ -1,0 +1,23 @@
+languageId: java
+command:
+  version: 6
+  spokenForm: change condition
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: condition}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: do {} while(true);
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: do {} while();
+  selections:
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 12}

@@ -35,10 +35,12 @@ export const marks = {
   source: "source",
   nothing: "nothing",
 
+  keyboard: null,
   explicit: null,
   decoratedSymbol: null,
   lineNumber: null,
   range: null,
+  target: null,
 } as const satisfies Record<MarkType, string | null>;
 
 export const lineDirections = {

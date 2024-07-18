@@ -1,0 +1,26 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: change type air
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "const foo: string = new Bar<number>(foo);"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 24}
+      end: {line: 0, character: 27}
+finalState:
+  documentContents: "const foo: string = new (foo);"
+  selections:
+    - anchor: {line: 0, character: 24}
+      active: {line: 0, character: 24}

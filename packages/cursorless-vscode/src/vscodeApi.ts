@@ -1,5 +1,5 @@
-import { workspace, window } from "vscode";
 import { VscodeApi } from "@cursorless/vscode-common";
+import { commands, env, window, workspace } from "vscode";
 
 /**
  * A very thin wrapper around the VSCode API that allows us to mock it for
@@ -11,6 +11,8 @@ import { VscodeApi } from "@cursorless/vscode-common";
 export const vscodeApi: VscodeApi = {
   workspace,
   window,
+  env,
+  commands,
   editor: {
     setDecorations(editor, ...args) {
       return editor.setDecorations(...args);

@@ -1,0 +1,28 @@
+languageId: yaml
+command:
+  version: 6
+  spokenForm: drink item
+  action:
+    name: editNewLineBefore
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    foo: 0
+    bar: 1
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks: {}
+finalState:
+  documentContents: |-
+    foo: 0
+
+    bar: 1
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

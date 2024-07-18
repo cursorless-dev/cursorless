@@ -1,0 +1,26 @@
+languageId: rust
+command:
+  version: 5
+  spokenForm: chuck attribute made
+  action: {name: remove}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: attribute}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "fn foo(x: &mut u32) {}"
+  selections:
+    - anchor: {line: 0, character: 21}
+      active: {line: 0, character: 21}
+  marks:
+    default.m:
+      start: {line: 0, character: 11}
+      end: {line: 0, character: 14}
+finalState:
+  documentContents: "fn foo(x: &u32) {}"
+  selections:
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}

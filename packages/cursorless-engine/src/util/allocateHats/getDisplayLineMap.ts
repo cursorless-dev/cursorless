@@ -1,5 +1,5 @@
 import { TextEditor } from "@cursorless/common";
-import { concat, flatten, flow, range, uniq } from "lodash";
+import { concat, flatten, flow, range, uniq } from "lodash-es";
 
 /**
  * Returns a map from line numbers in the file to display lines, which skip

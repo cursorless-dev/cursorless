@@ -1,0 +1,17 @@
+int value = getValue();
+---
+
+[Content] =
+[Domain] = 0:12-0:22
+              >----------<
+0| int value = getValue();
+
+[Removal] = 0:11-0:22
+             >-----------<
+0| int value = getValue();
+
+[Leading delimiter] = 0:11-0:12
+             >-<
+0| int value = getValue();
+
+[Insertion delimiter] = " "

@@ -1,0 +1,32 @@
+languageId: rust
+command:
+  version: 5
+  spokenForm: change type trap
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: t}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: >
+    fn some_function<T: Display + Clone, U: Clone + Debug>(t: &T, u: &U) -> i32
+    {
+
+    }
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+  marks:
+    default.t:
+      start: {line: 0, character: 17}
+      end: {line: 0, character: 18}
+finalState:
+  documentContents: |
+    fn some_function<T: , U: Clone + Debug>(t: &T, u: &U) -> i32 {
+    }
+  selections:
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}

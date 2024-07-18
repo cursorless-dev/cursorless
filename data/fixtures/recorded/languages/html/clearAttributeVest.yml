@@ -1,0 +1,32 @@
+languageId: html
+command:
+  version: 5
+  spokenForm: change attribute vest
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: attribute}
+      mark: {type: decoratedSymbol, symbolColor: default, character: v}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    <html id="value">
+        
+    </html>
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+  marks:
+    default.v:
+      start: {line: 0, character: 10}
+      end: {line: 0, character: 15}
+finalState:
+  documentContents: |-
+    <html >
+        
+    </html>
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

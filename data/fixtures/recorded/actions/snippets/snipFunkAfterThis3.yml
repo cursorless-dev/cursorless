@@ -1,0 +1,42 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: snippet funk after this
+  action:
+    name: insertSnippet
+    args:
+      - {type: named, name: functionDeclaration}
+  targets:
+    - type: primitive
+      mark: {type: cursor}
+      modifiers:
+        - {type: position, position: after}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    function helloWorld() {
+        const whatever = "hello";
+    }
+  selections:
+    - anchor: {line: 1, character: 19}
+      active: {line: 1, character: 19}
+  marks: {}
+finalState:
+  documentContents: |-
+    function helloWorld() {
+        const whatever = "hello";
+    }
+
+    function () {
+        
+    }
+  selections:
+    - anchor: {line: 4, character: 9}
+      active: {line: 4, character: 9}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 4, character: 0}
+        end: {line: 6, character: 1}
+      isReversed: false
+      hasExplicitRange: true

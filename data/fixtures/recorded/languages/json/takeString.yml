@@ -1,0 +1,33 @@
+languageId: json
+command:
+  version: 5
+  spokenForm: take parse tree string
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: string}
+  usePrePhraseSnapshot: false
+spokenFormError: >-
+  simple scope type type with id string; this is a private spoken form currently
+  only for internal experimentation
+initialState:
+  documentContents: |
+
+    {
+        "foo": "bar"
+    }
+  selections:
+    - anchor: {line: 2, character: 12}
+      active: {line: 2, character: 12}
+  marks: {}
+finalState:
+  documentContents: |
+
+    {
+        "foo": "bar"
+    }
+  selections:
+    - anchor: {line: 2, character: 11}
+      active: {line: 2, character: 16}
