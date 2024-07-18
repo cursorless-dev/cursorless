@@ -9,6 +9,7 @@ suite("InMemoryTextDocument.edit", () => {
     const document = createTestDocument(text);
     document.edit([{ range: new Range(0, 0, 0, 5), text: "goodbye" }]);
 
+    assert.equal(document.version, 1);
     assert.equal(document.text, "goodbye\nworld");
   });
 
@@ -16,6 +17,7 @@ suite("InMemoryTextDocument.edit", () => {
     const document = createTestDocument(text);
     document.edit([{ range: new Range(0, 0, 1, 0), text: "" }]);
 
+    assert.equal(document.version, 1);
     assert.equal(document.text, "world");
   });
 
@@ -23,6 +25,7 @@ suite("InMemoryTextDocument.edit", () => {
     const document = createTestDocument(text);
     document.edit([{ range: new Range(0, 5, 0, 5), text: "!" }]);
 
+    assert.equal(document.version, 1);
     assert.equal(document.text, "hello!\nworld");
   });
 
@@ -35,6 +38,7 @@ suite("InMemoryTextDocument.edit", () => {
       { range: new Range(0, 0, 0, 0), text: "ccc" },
     ]);
 
+    assert.equal(document.version, 1);
     assert.equal(document.text, "aaabbbccc");
 
     assert.equal(changes[0].range.toString(), "0:0-0:0");
@@ -53,6 +57,7 @@ suite("InMemoryTextDocument.edit", () => {
       { range: new Range(0, 0, 0, 5), text: "goodbye" },
     ]);
 
+    assert.equal(document.version, 1);
     assert.equal(document.text, "goodbye!\norld");
   });
 
@@ -63,6 +68,7 @@ suite("InMemoryTextDocument.edit", () => {
       { range: new Range(0, 1, 1, 1), text: "" },
     ]);
 
+    assert.equal(document.version, 1);
     assert.equal(document.text, "orld");
     assert.equal(changes.length, 1);
     assert.equal(changes[0].range.toString(), "0:0-1:1");
