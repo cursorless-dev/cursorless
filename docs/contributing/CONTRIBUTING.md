@@ -54,11 +54,9 @@ extension](#running--testing-extension-locally). You may also find the [VSCode A
 ## Running / testing extension locally
 
 In order to test out your local version of the extension or to run unit tests
-locally, you need to run the extension in debug mode. To do so you need to:
-
-1. Open the Cursorless repository in VSCode (with your regular default profile, _**not**_ with the `cursorlessDevelopment` profile)
-2. Run the `workbench.action.debug.selectandstart` command in VSCode
-3. Select either "Run Extension" or "Extension Tests".
+locally, you need to run the extension in debug mode. To do so you need to run
+the `workbench.action.debug.selectandstart` command in VSCode and then select either "Run
+Extension" or "Extension Tests".
 
 ### Running a subset of tests
 
