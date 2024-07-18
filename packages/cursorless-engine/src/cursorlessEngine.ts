@@ -84,19 +84,15 @@ export async function createCursorlessEngine({
       )
     : new DisabledLanguageDefinitions();
 
-  const commandRunnerDecorators: CommandRunnerDecorator[] = [];
-
-  const addCommandRunnerDecorator = (decorator: CommandRunnerDecorator) => {
-    commandRunnerDecorators.push(decorator);
-  };
-
   ide.disposeOnExit(
-    debug,
-    hatTokenMap,
-    keyboardTargetUpdater,
-    languageDefinitions,
     rangeUpdater,
+    languageDefinitions,
+    hatTokenMap,
+    debug,
+    keyboardTargetUpdater,
   );
+
+  const commandRunnerDecorators: CommandRunnerDecorator[] = [];
 
   let previousCommand: Command | undefined = undefined;
 
@@ -145,7 +141,9 @@ export async function createCursorlessEngine({
     injectIde,
     runIntegrationTests: () =>
       runIntegrationTests(treeSitter, languageDefinitions),
-    addCommandRunnerDecorator,
+    addCommandRunnerDecorator: (decorator: CommandRunnerDecorator) => {
+      commandRunnerDecorators.push(decorator);
+    },
   };
 }
 
