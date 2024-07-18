@@ -1,6 +1,6 @@
 import { Modifier, PartialMark, SurroundingPairName } from "@cursorless/common";
 import { surroundingPairsDelimiters } from "@cursorless/cursorless-engine";
-import { isString } from "lodash";
+import { isString } from "lodash-es";
 import * as vscode from "vscode";
 import { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 import {

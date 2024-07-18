@@ -9,6 +9,9 @@
       "path": "../common"
     },
     {
+      "path": "../node-common"
+    },
+    {
       "path": "../vscode-common"
     }
   ],

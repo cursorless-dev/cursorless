@@ -1,5 +1,5 @@
 import { showWarning } from "@cursorless/common";
-import { shuffle } from "lodash";
+import { shuffle } from "lodash-es";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Actions } from "./Actions";

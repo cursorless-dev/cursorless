@@ -2,6 +2,7 @@ import { getCellIndex } from "@cursorless/vscode-common";
 import {
   commands,
   NotebookDocument,
+  TabInputTextDiff,
   TextEditor,
   ViewColumn,
   window,
@@ -58,12 +59,15 @@ function getViewColumn(editor: TextEditor): ViewColumn | undefined {
   }
   const uri = editor.document.uri.toString();
   const tabGroup = window.tabGroups.all.find((tabGroup) =>
-    tabGroup.tabs.find(
-      (tab: any) =>
-        tab.input.uri?.toString() === uri ||
-        tab.input.original?.toString() === uri ||
-        tab.input.modified?.toString() === uri,
-    ),
+    tabGroup.tabs.find((tab) => {
+      if (tab.input instanceof TabInputTextDiff) {
+        return (
+          tab.input.original.toString() === uri ||
+          tab.input.modified.toString() === uri
+        );
+      }
+      return (tab as any).input?.uri?.toString() === uri;
+    }),
   );
   return tabGroup?.viewColumn;
 }

@@ -44,7 +44,7 @@
             buildInputs = [ pkgs.bashInteractive ];
             shellHook = ''
               if [ ! -f .git/hooks/pre-commit ]; then
-                pre-commit install
+                echo "You can run 'pre-commit install' to install git commit hooks if you want them."
               fi
 
               pnpm install

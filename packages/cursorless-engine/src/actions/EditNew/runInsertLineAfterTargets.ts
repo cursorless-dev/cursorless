@@ -1,4 +1,4 @@
-import { EditableTextEditor } from "@cursorless/common";
+import { CommandCapabilities, EditableTextEditor } from "@cursorless/common";
 import { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
 import { callFunctionAndUpdateRanges } from "../../core/updateSelections/updateSelections";
 import { EditDestination, State } from "./EditNew.types";
@@ -15,6 +15,7 @@ import { EditDestination, State } from "./EditNew.types";
  * @returns An updated `state` object
  */
 export async function runInsertLineAfterTargets(
+  { acceptsLocation }: CommandCapabilities,
   rangeUpdater: RangeUpdater,
   editor: EditableTextEditor,
   state: State,
@@ -42,7 +43,17 @@ export async function runInsertLineAfterTargets(
   const [updatedTargetRanges, updatedThatRanges] =
     await callFunctionAndUpdateRanges(
       rangeUpdater,
-      () => editor.insertLineAfter(contentRanges),
+      async () => {
+        if (acceptsLocation) {
+          await editor.insertLineAfter(contentRanges);
+        } else {
+          await editor.setSelections(
+            contentRanges.map((range) => range.toSelection(false)),
+          );
+          await editor.focus();
+          await editor.insertLineAfter();
+        }
+      },
       editor.document,
       [
         state.destinations.map(({ contentRange }) => contentRange),

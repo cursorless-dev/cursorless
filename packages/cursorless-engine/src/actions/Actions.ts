@@ -1,7 +1,7 @@
+import type { TreeSitter } from "@cursorless/common";
 import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
-import { TreeSitter } from "../typings/TreeSitter";
 import { BreakLine } from "./BreakLine";
 import { Bring, Move, Swap } from "./BringMoveSwap";
 import Call from "./Call";
@@ -96,7 +96,7 @@ export class Actions implements ActionRecord {
   foldRegion = new Fold(this.rangeUpdater);
   followLink = new FollowLink({ openAside: false });
   followLinkAside = new FollowLink({ openAside: true });
-  generateSnippet = new GenerateSnippet();
+  generateSnippet = new GenerateSnippet(this.snippets);
   getText = new GetText();
   highlight = new Highlight();
   increment = new Increment(this);

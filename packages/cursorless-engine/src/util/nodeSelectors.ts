@@ -1,5 +1,5 @@
 import { Position, Range, Selection, TextEditor } from "@cursorless/common";
-import { identity, maxBy } from "lodash";
+import { identity, maxBy } from "lodash-es";
 import type { Point, SyntaxNode } from "web-tree-sitter";
 import {
   NodeFinder,

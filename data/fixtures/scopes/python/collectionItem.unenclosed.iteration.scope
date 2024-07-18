@@ -1,0 +1,10 @@
+import foo, bar
+---
+
+[Range] = 0:7-0:15
+         >--------<
+0| import foo, bar
+
+[Domain] = 0:0-0:15
+  >---------------<
+0| import foo, bar

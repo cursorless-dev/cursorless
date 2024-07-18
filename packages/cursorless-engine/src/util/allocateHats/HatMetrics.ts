@@ -1,5 +1,5 @@
 import { CompositeKeyMap, HatStability, TokenHat } from "@cursorless/common";
-import { memoize, min } from "lodash";
+import { memoize, min } from "lodash-es";
 import { HatCandidate } from "./allocateHats";
 
 /**

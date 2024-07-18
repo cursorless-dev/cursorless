@@ -9,7 +9,7 @@ import {
   TextEditor,
   rangeToPlainObject,
 } from "@cursorless/common";
-import { isEqual } from "lodash";
+import { isEqual } from "lodash-es";
 import type { EditWithRangeUpdater } from "../../typings/Types";
 import type { Destination, Target } from "../../typings/target.types";
 import { DestinationImpl } from "./DestinationImpl";

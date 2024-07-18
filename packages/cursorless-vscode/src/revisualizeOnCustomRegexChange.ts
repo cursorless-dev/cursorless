@@ -4,7 +4,7 @@ import {
   ScopeTypeInfo,
   disposableFrom,
 } from "@cursorless/common";
-import { isEqual } from "lodash";
+import { isEqual } from "lodash-es";
 import {
   ScopeVisualizer,
   VisualizationType,

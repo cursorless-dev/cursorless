@@ -1,4 +1,4 @@
-import { get } from "lodash";
+import { get } from "lodash-es";
 import { Notifier } from "../../util/Notifier";
 import {
   Configuration,

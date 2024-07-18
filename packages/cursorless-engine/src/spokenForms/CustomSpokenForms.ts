@@ -1,19 +1,19 @@
 import {
   CustomRegexScopeType,
+  DisabledCustomSpokenFormsError,
   Disposable,
-  Notifier,
-  showError,
-} from "@cursorless/common";
-import { isEqual } from "lodash";
-import {
   NeedsInitialTalonUpdateError,
+  Notifier,
   SUPPORTED_ENTRY_TYPES,
   SpokenFormEntry,
+  SpokenFormMapKeyTypes,
+  SpokenFormType,
   TalonSpokenForms,
-} from "../scopeProviders/TalonSpokenForms";
+  showError,
+} from "@cursorless/common";
+import { isEqual } from "lodash-es";
 import { ide } from "../singletons/ide.singleton";
 import { SpokenFormMap, SpokenFormMapEntry } from "./SpokenFormMap";
-import { SpokenFormMapKeyTypes, SpokenFormType } from "./SpokenFormType";
 import {
   defaultSpokenFormInfoMap,
   defaultSpokenFormMap,
@@ -82,14 +82,15 @@ export class CustomSpokenForms {
       if (err instanceof NeedsInitialTalonUpdateError) {
         // Handle case where spokenForms.json doesn't exist yet
         this.needsInitialTalonUpdate_ = true;
+      } else if (err instanceof DisabledCustomSpokenFormsError) {
+        // Do nothing: this ide doesn't currently support custom spoken forms
       } else {
         console.error("Error loading custom spoken forms", err);
+        const msg = (err as Error).message.replace(/\.$/, "");
         showError(
           ide().messages,
           "CustomSpokenForms.updateSpokenFormMaps",
-          `Error loading custom spoken forms: ${
-            (err as Error).message
-          }}}. Falling back to default spoken forms.`,
+          `Error loading custom spoken forms: ${msg}. Falling back to default spoken forms.`,
         );
       }
 

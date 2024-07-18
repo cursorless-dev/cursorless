@@ -15,10 +15,10 @@ import {
 import {
   StoredTargetMap,
   plainObjectToTarget,
-  takeSnapshot,
 } from "@cursorless/cursorless-engine";
 import { VscodeTestHelpers } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
+import { takeSnapshot } from "@cursorless/test-case-recorder";
 import { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
 import { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { toVscodeEditor } from "./ide/vscode/toVscodeEditor";
