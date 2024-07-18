@@ -1,15 +1,16 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 5
   spokenForm: bring harp to start of whale take whale
-  action: replaceWithTarget
+  action: {name: replaceWithTarget}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
     - type: primitive
-      position: before
-      insideOutsideType: inside
+      modifiers:
+        - {type: position, position: start}
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: false
 marksToCheck: [default.w]
 initialState:
   documentContents: hello. world whatever

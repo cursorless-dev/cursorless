@@ -1,7 +1,8 @@
 languageId: typescript
 command:
+  version: 5
   spokenForm: bring arg whale before look
-  version: 2
+  action: {name: replaceWithTarget}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
@@ -13,7 +14,6 @@ command:
       modifiers:
         - {type: position, position: before}
   usePrePhraseSnapshot: true
-  action: {name: replaceWithTarget}
 initialState:
   documentContents: |-
     function myFunk(

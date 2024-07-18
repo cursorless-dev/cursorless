@@ -1,12 +1,15 @@
 languageId: python
 command:
-  version: 1
+  version: 5
   spokenForm: if wrap this
-  action: wrapWithSnippet
+  action:
+    name: wrapWithSnippet
+    args:
+      - {type: named, name: ifStatement, variableName: consequence}
   targets:
     - type: primitive
       mark: {type: cursor}
-  extraArgs: [ifStatement.consequence]
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: foo = "hello"
   selections:

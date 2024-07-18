@@ -10,7 +10,7 @@ import {
   toCharacterRange,
   toLineRange,
 } from "@cursorless/common";
-import { zip } from "lodash";
+import { zip } from "lodash-es";
 import { Destination, Target } from "../typings/target.types";
 import { SelectionWithEditor } from "../typings/Types";
 

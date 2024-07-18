@@ -1,18 +1,19 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: give equals past colon
-  action: deselect
+  action: {name: deselect}
   targets:
-    - type: range
-      start:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: '='}
-      end:
+    - active:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: ':'}
-      excludeStart: false
-      excludeEnd: false
+      type: range
+      excludeAnchor: false
+      excludeActive: false
+      anchor:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: '='}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     const values: string = "hello"

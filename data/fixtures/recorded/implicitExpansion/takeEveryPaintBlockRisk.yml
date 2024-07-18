@@ -1,7 +1,8 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: take every paint block red
-  version: 2
+  action: {name: setSelection}
   targets:
     - type: primitive
       modifiers:
@@ -11,7 +12,6 @@ command:
           scopeType: {type: paragraph}
       mark: {type: decoratedSymbol, symbolColor: default, character: r}
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
 initialState:
   documentContents: |-
     first test-block

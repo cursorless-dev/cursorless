@@ -1,14 +1,14 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: change head air
-  version: 2
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
       modifiers:
         - {type: extendThroughStartOf}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: "    hello world whatever"
   selections:

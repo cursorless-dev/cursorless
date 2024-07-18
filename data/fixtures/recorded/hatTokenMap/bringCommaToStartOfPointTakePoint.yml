@@ -1,15 +1,16 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: bring comma to start of dot take dot
-  action: replaceWithTarget
+  action: {name: replaceWithTarget}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: ','}
     - type: primitive
-      position: before
-      insideOutsideType: inside
+      modifiers:
+        - {type: position, position: start}
       mark: {type: decoratedSymbol, symbolColor: default, character: .}
+  usePrePhraseSnapshot: false
 marksToCheck: [default..]
 initialState:
   documentContents: " . , hello"

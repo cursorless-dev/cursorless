@@ -1,11 +1,14 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: take condition
-  action: setSelection
+  action: {name: setSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: condition, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: condition}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     if (true) {

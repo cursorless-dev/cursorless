@@ -1,12 +1,12 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: change special
-  version: 2
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: �}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
     😄

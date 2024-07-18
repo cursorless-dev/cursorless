@@ -132,6 +132,8 @@ function upgradeAction(
         options: action.args?.[0] as GetTextActionOptions | undefined,
         target: upgradeTarget(targets[0]),
       };
+    case "parsed":
+      throw Error("Parsed action should not be present in V5");
     default:
       return {
         name,

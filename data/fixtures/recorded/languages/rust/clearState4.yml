@@ -1,14 +1,14 @@
 languageId: rust
 command:
+  version: 5
   spokenForm: change state
-  version: 2
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: statement}
   usePrePhraseSnapshot: false
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
     fn foo() {

@@ -1,7 +1,8 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: take every token each
-  version: 2
+  action: {name: setSelection}
   targets:
     - type: primitive
       modifiers:
@@ -9,7 +10,6 @@ command:
           scopeType: {type: token}
       mark: {type: decoratedSymbol, symbolColor: default, character: e}
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
 initialState:
   documentContents: |-
     first test-block

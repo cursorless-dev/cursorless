@@ -1,7 +1,8 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: pour line harp and block whale
-  version: 2
+  action: {name: editNewLineAfter}
   targets:
     - type: list
       elements:
@@ -16,7 +17,6 @@ command:
             - type: containingScope
               scopeType: {type: paragraph}
   usePrePhraseSnapshot: true
-  action: {name: editNewLineAfter}
 initialState:
   documentContents: |2-
         hello

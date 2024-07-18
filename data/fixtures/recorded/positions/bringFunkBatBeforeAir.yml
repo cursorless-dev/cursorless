@@ -1,7 +1,8 @@
 languageId: python
 command:
+  version: 5
   spokenForm: bring funk bat before air
-  version: 2
+  action: {name: replaceWithTarget}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: b}
@@ -13,7 +14,6 @@ command:
       modifiers:
         - {type: position, position: before}
   usePrePhraseSnapshot: true
-  action: {name: replaceWithTarget}
 initialState:
   documentContents: |2
         def aaa():

@@ -1,12 +1,15 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 5
   spokenForm: change paint bat
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      selectionType: nonWhitespaceSequence
+      modifiers:
+        - type: containingScope
+          scopeType: {type: nonWhitespaceSequence}
       mark: {type: decoratedSymbol, symbolColor: default, character: b}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     const r = /a[b]*(c)/;

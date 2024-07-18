@@ -16,7 +16,7 @@ import {
   KeepContentFilterStage,
   KeepEmptyFilterStage,
 } from "./modifiers/FilterStages";
-import { HeadStage, TailStage } from "./modifiers/HeadTailStage";
+import { HeadTailStage } from "./modifiers/HeadTailStage";
 import { InstanceStage } from "./modifiers/InstanceStage";
 import {
   ExcludeInteriorStage,
@@ -56,9 +56,8 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
       case "endOf":
         return new EndOfStage();
       case "extendThroughStartOf":
-        return new HeadStage(this, modifier);
       case "extendThroughEndOf":
-        return new TailStage(this, modifier);
+        return new HeadTailStage(this, modifier);
       case "toRawSelection":
         return new RawSelectionStage(modifier);
       case "interiorOnly":

@@ -1,19 +1,20 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 5
   spokenForm: post bat slice until fine
-  action: setSelectionAfter
+  action: {name: setSelectionAfter}
   targets:
-    - type: range
-      start:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: b}
-      end:
+    - active:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: f}
-      excludeStart: false
-      excludeEnd: true
+      type: range
       rangeType: vertical
+      excludeAnchor: false
+      excludeActive: true
+      anchor:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: b}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     a

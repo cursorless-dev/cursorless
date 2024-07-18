@@ -1,12 +1,12 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: carve fine
-  version: 2
+  action: {name: cutToClipboard}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
   usePrePhraseSnapshot: true
-  action: {name: cutToClipboard}
 initialState:
   documentContents: |2
 

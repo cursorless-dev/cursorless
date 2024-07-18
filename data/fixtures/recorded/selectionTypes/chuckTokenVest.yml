@@ -1,12 +1,15 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: chuck token vest
-  action: remove
+  action: {name: remove}
   targets:
     - type: primitive
-      selectionType: token
+      modifiers:
+        - type: containingScope
+          scopeType: {type: token}
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

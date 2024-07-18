@@ -1,12 +1,11 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: bring harp after file
-  version: 2
   action: {name: replaceWithTarget}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
-      modifiers: []
     - type: primitive
       modifiers:
         - {type: position, position: after}

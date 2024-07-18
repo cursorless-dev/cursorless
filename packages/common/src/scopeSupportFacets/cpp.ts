@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 import { cScopeSupport } from "./c";
 import {
   LanguageScopeSupportFacetMap,

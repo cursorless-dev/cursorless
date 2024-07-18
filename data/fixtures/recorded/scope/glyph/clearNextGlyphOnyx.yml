@@ -13,7 +13,7 @@ command:
           length: 1
           direction: forward
   usePrePhraseSnapshot: true
-spokenFormError: Unknown character 'å'
+spokenFormError: grapheme 'å'
 initialState:
   documentContents: abå
   selections:

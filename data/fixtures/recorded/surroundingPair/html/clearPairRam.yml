@@ -1,12 +1,15 @@
 languageId: html
 command:
-  version: 1
+  version: 5
   spokenForm: change pair red
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: any}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: any}
       mark: {type: decoratedSymbol, symbolColor: default, character: r}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     <html>

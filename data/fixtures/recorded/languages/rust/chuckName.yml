@@ -1,11 +1,14 @@
 languageId: rust
 command:
-  version: 1
+  version: 5
   spokenForm: chuck name
-  action: remove
+  action: {name: remove}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: name, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: "let mut array: [i32; 3] = [0; 3];"
   selections:

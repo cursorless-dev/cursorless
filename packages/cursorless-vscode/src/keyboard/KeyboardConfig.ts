@@ -1,7 +1,8 @@
-import { mapValues, pickBy } from "lodash";
+import { mapValues, pickBy } from "lodash-es";
 import { KeyMap, SectionName, TokenType } from "./TokenTypeHelpers";
 import { SectionTypes, TokenTypeValueMap } from "./TokenTypes";
 import { VscodeApi } from "@cursorless/vscode-common";
+import { TextEditorCursorStyle } from "vscode";
 
 const LEGACY_PLURAL_SECTION_NAMES: Record<string, string> = {
   action: "actions",
@@ -11,8 +12,33 @@ const LEGACY_PLURAL_SECTION_NAMES: Record<string, string> = {
   scope: "scopes",
 };
 
+/**
+ * Maps from the raw cursor style config value to the corresponding
+ * TextEditorCursorStyle enum value.
+ */
+const cursorStyleMap = {
+  line: TextEditorCursorStyle.Line,
+  block: TextEditorCursorStyle.Block,
+  underline: TextEditorCursorStyle.Underline,
+  ["line-thin"]: TextEditorCursorStyle.LineThin,
+  ["block-outline"]: TextEditorCursorStyle.BlockOutline,
+  ["underline-thin"]: TextEditorCursorStyle.UnderlineThin,
+} satisfies Record<string, TextEditorCursorStyle>;
+
 export class KeyboardConfig {
   constructor(private vscodeApi: VscodeApi) {}
+
+  getCursorStyle(): TextEditorCursorStyle {
+    const rawCursorStyle = this.vscodeApi.workspace
+      .getConfiguration("cursorless.experimental.keyboard.modal")
+      .get<keyof typeof cursorStyleMap>("cursorStyle");
+
+    if (rawCursorStyle == null) {
+      return TextEditorCursorStyle.BlockOutline;
+    }
+
+    return cursorStyleMap[rawCursorStyle];
+  }
 
   /**
    * Returns a keymap for a given config section that is intended to be further

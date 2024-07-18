@@ -1,23 +1,23 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: take inside red past just harp
-  version: 2
+  action: {name: setSelection}
   targets:
-    - type: range
+    - active:
+        type: primitive
+        modifiers:
+          - {type: toRawSelection}
+        mark: {type: decoratedSymbol, symbolColor: default, character: h}
+      type: range
+      excludeAnchor: false
+      excludeActive: false
       anchor:
         type: primitive
         modifiers:
           - {type: interiorOnly}
         mark: {type: decoratedSymbol, symbolColor: default, character: r}
-      active:
-        type: primitive
-        modifiers:
-          - {type: toRawSelection}
-        mark: {type: decoratedSymbol, symbolColor: default, character: h}
-      excludeAnchor: false
-      excludeActive: false
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
 initialState:
   documentContents: |-
     ( hello world )

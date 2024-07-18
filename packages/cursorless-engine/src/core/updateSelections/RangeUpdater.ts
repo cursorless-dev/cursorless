@@ -5,7 +5,7 @@ import type {
   TextDocumentChangeEvent,
   TextDocumentContentChangeEvent,
 } from "@cursorless/common";
-import { pull } from "lodash";
+import { pull } from "lodash-es";
 import { ide } from "../../singletons/ide.singleton";
 import {
   ExtendedTextDocumentChangeEvent,

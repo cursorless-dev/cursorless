@@ -62,12 +62,20 @@
   "cursorless.experimental.keyboard.modal.keybindings.misc": {
     "fx": "combineColorAndShape",
     "fk": "makeRange",
+    "fs": "makeVerticalRange",
     "fa": "makeList",
     "-": "backward"
   },
+  "cursorless.experimental.keyboard.modal.keybindings.specialMark": {
+    "mc": "cursor"
+  },
   "cursorless.experimental.keyboard.modal.keybindings.modifier": {
     "n": "nextPrev",
-    "*": "every"
+    "*": "every",
+    "mi": "interiorOnly",
+    "mb": "excludeInterior",
+    "mh": "extendThroughStartOf",
+    "mt": "extendThroughEndOf"
   },
   "cursorless.experimental.keyboard.modal.keybindings.vscodeCommand": {
     "va": "editor.action.addCommentLine",
@@ -80,7 +88,10 @@
       "executeAtTarget": true,
       "keepChangedSelection": true,
       "exitCursorlessMode": true
-    }
+    },
+    " ": "cursorless.repeatPreviousCommand",
+    "vu": "cursorless.keyboard.undoTarget",
+    "vr": "cursorless.keyboard.redoTarget"
   },
   "cursorless.experimental.keyboard.modal.keybindings.pairedDelimiter": {
     "wl": "angleBrackets",

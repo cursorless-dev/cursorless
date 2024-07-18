@@ -1,0 +1,34 @@
+def foo():
+    global bar, baz
+---
+
+[#1 Content] =
+[#1 Domain] = 1:11-1:14
+             >---<
+1|     global bar, baz
+
+[#1 Removal] = 1:11-1:16
+             >-----<
+1|     global bar, baz
+
+[#1 Trailing delimiter] = 1:14-1:16
+                >--<
+1|     global bar, baz
+
+[#1 Insertion delimiter] = ", "
+
+
+[#2 Content] =
+[#2 Domain] = 1:16-1:19
+                  >---<
+1|     global bar, baz
+
+[#2 Removal] = 1:14-1:19
+                >-----<
+1|     global bar, baz
+
+[#2 Leading delimiter] = 1:14-1:16
+                >--<
+1|     global bar, baz
+
+[#2 Insertion delimiter] = ", "

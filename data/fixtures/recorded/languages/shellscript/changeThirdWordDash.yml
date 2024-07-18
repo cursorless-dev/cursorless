@@ -1,19 +1,17 @@
 languageId: shellscript
 command:
+  version: 5
   spokenForm: change third sub dash
-  version: 2
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
-        - type: ordinalRange
+        - type: ordinalScope
           scopeType: {type: word}
-          anchor: 2
-          active: 2
-          excludeAnchor: false
-          excludeActive: false
+          start: 2
+          length: 1
       mark: {type: decoratedSymbol, symbolColor: default, character: '-'}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |2
      npm version patch --force --commit-hooks false --git-tag-version false

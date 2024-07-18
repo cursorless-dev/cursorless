@@ -1,11 +1,14 @@
 languageId: ruby
 command:
-  version: 1
+  version: 5
   spokenForm: change regex
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: regularExpression, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: regularExpression}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: a = /.*/
   selections:

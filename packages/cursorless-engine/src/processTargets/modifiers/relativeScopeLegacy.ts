@@ -1,5 +1,5 @@
 import { Range, RelativeScopeModifier } from "@cursorless/common";
-import { findLastIndex } from "lodash";
+import { findLastIndex } from "lodash-es";
 import { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 import { UntypedTarget } from "../targets";

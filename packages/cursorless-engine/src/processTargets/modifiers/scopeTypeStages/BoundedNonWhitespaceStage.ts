@@ -42,7 +42,7 @@ export class BoundedNonWhitespaceSequenceStage implements ModifierStage {
 
     const targets = paintTargets.flatMap((paintTarget) => {
       const contentRange = paintTarget.contentRange.intersection(
-        pairInfo.getInteriorStrict()[0].contentRange,
+        pairInfo.getInterior()[0].contentRange,
       );
 
       if (contentRange == null || contentRange.isEmpty) {

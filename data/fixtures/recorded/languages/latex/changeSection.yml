@@ -1,11 +1,14 @@
 languageId: latex
 command:
-  version: 1
+  version: 5
   spokenForm: change section
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: section, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: section}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     \section{1}

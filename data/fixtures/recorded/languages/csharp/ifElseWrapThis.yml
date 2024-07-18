@@ -1,12 +1,15 @@
 languageId: csharp
 command:
-  version: 1
+  version: 5
   spokenForm: if else wrap this
-  action: wrapWithSnippet
+  action:
+    name: wrapWithSnippet
+    args:
+      - {type: named, name: ifElseStatement, variableName: consequence}
   targets:
     - type: primitive
       mark: {type: cursor}
-  extraArgs: [ifElseStatement.consequence]
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: int foo = 0;
   selections:

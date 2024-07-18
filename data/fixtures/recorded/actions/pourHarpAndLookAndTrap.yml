@@ -1,7 +1,8 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: pour harp and look and trap
-  version: 2
+  action: {name: editNewLineAfter}
   targets:
     - type: list
       elements:
@@ -12,7 +13,6 @@ command:
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: t}
   usePrePhraseSnapshot: true
-  action: {name: editNewLineAfter}
 initialState:
   documentContents: |
     hello world there now

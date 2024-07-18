@@ -1,11 +1,14 @@
 languageId: css
 command:
-  version: 1
+  version: 5
   spokenForm: change unit
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: unit, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: unit}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |2-
      .child-selector {
