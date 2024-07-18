@@ -30,6 +30,7 @@ import NeovimMessages from "./NeovimMessages";
 import { NeovimTextEditorImpl } from "./NeovimTextEditorImpl";
 import path from "path";
 import { URI } from "vscode-uri";
+import { nodeGetRunMode } from "@cursorless/node-common";
 
 import {
   bufferGetSelections,
@@ -112,21 +113,9 @@ export class NeovimIDE implements IDE {
     return this.assetsRoot_;
   }
 
-  // See https://code.visualstudio.com/api/references/vscode-api#ExtensionMode
+  //
   get runMode(): RunMode {
-    const runMode = process.env.CURSORLESS_MODE;
-    const ret =
-      runMode == null
-        ? "production"
-        : runMode === "test"
-          ? "test"
-          : runMode === "development"
-            ? "development"
-            : "unknown";
-    if (ret === "unknown") {
-      throw Error("Invalid runMode");
-    }
-    return ret;
+    return nodeGetRunMode();
   }
 
   get activeTextEditor(): TextEditor | undefined {

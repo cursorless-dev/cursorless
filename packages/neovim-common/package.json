@@ -25,6 +25,7 @@
   "dependencies": {
     "@cursorless/common": "workspace:*",
     "@cursorless/neovim-registry": "workspace:*",
+    "@cursorless/node-common": "workspace:*",
     "@types/lodash": "4.17.0",
     "@types/uuid": "^9.0.8",
     "@types/vscode": "1.75.1",
