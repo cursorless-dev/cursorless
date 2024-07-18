@@ -62,6 +62,7 @@ suite("InMemoryTextDocument", () => {
     assert.equal(document.offsetAt(new Position(0, 0)), 0);
     assert.equal(document.offsetAt(new Position(0, 7)), 7);
     assert.equal(document.offsetAt(new Position(0, 100)), 7);
+    assert.equal(document.offsetAt(new Position(1, -100)), 8);
     assert.equal(document.offsetAt(new Position(1, 0)), 8);
     assert.equal(document.offsetAt(new Position(1, 2)), 10);
     assert.equal(document.offsetAt(new Position(2, 0)), 17);
@@ -74,11 +75,21 @@ suite("InMemoryTextDocument", () => {
 
     assert.equal(document.positionAt(-1), "0:0");
     assert.equal(document.positionAt(0).toString(), "0:0");
+    assert.equal(document.positionAt(6).toString(), "0:6");
     assert.equal(document.positionAt(7).toString(), "0:7");
     assert.equal(document.positionAt(8).toString(), "1:0");
     assert.equal(document.positionAt(10).toString(), "1:2");
     assert.equal(document.positionAt(17).toString(), "2:0");
     assert.equal(document.positionAt(document.text.length).toString(), "2:0");
     assert.equal(document.positionAt(100).toString(), "2:0");
+  });
+
+  test("positionAt CRLF", () => {
+    const document = createTestDocument("a\r\nb");
+
+    assert.equal(document.positionAt(0).toString(), "0:0");
+    assert.equal(document.positionAt(1).toString(), "0:1");
+    assert.equal(document.positionAt(2).toString(), "0:1");
+    assert.equal(document.positionAt(3).toString(), "1:0");
   });
 });

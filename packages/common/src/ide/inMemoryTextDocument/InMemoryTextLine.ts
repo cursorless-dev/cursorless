@@ -9,15 +9,16 @@ export class InMemoryTextLine implements TextLine {
   readonly firstNonWhitespaceCharacterIndex: number;
   readonly lastNonWhitespaceCharacterIndex: number;
   readonly isEmptyOrWhitespace: boolean;
-  readonly eolLength: number;
+  readonly lengthIncludingEol: number;
 
   constructor(
     public lineNumber: number,
+    public offset: number,
     public text: string,
     eol: string | undefined,
   ) {
     this.isEmptyOrWhitespace = /^\s*$/.test(text);
-    this.eolLength = eol?.length ?? 0;
+    this.lengthIncludingEol = text.length + (eol?.length ?? 0);
     const start = new Position(lineNumber, 0);
     const end = new Position(lineNumber, text.length);
     const endIncludingLineBreak =
