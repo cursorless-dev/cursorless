@@ -1,4 +1,3 @@
-
 export type TutorialId = "unit-1-basics" | "unit-2-basic-coding";
 
 interface BaseTutorialInfo {
