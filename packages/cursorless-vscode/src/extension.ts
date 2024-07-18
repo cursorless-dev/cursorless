@@ -3,6 +3,7 @@ import {
   EnforceUndefined,
   FakeCommandServerApi,
   FakeIDE,
+  HatTokenMap,
   IDE,
   NormalizedIDE,
   Range,
@@ -13,13 +14,17 @@ import {
 } from "@cursorless/common";
 import {
   CommandHistory,
+  CommandRunnerDecorator,
+  CustomSpokenFormGenerator,
   EngineProps,
   createCursorlessEngine,
 } from "@cursorless/cursorless-engine";
+import { TutorialImpl } from "@cursorless/cursorless-tutorial";
 import {
   FileSystemCommandHistoryStorage,
   FileSystemRawTreeSitterQueryProvider,
   FileSystemTalonSpokenForms,
+  FileSystemTutorialContentProvider,
   getFixturePath,
 } from "@cursorless/node-common";
 import {
@@ -46,6 +51,7 @@ import {
 } from "./ScopeVisualizerCommandApi";
 import { StatusBarItem } from "./StatusBarItem";
 import { VscodeSnippets } from "./VscodeSnippets";
+import { VscodeTutorial } from "./VscodeTutorial";
 import { constructTestHelpers } from "./constructTestHelpers";
 import {
   VscodeScopeVisualizer,
@@ -165,6 +171,16 @@ export async function activate(
 
   context.subscriptions.push(storedTargetHighlighter(vscodeIDE, storedTargets));
 
+  const vscodeTutorial = createTutorial(
+    context,
+    normalizedIde,
+    scopeVisualizer,
+    fileSystem,
+    addCommandRunnerDecorator,
+    hatTokenMap,
+    customSpokenFormGenerator,
+  );
+
   registerCommands(
     context,
     vscodeIDE,
@@ -175,6 +191,7 @@ export async function activate(
     scopeVisualizer,
     keyboardCommands,
     hats,
+    vscodeTutorial,
     storedTargets,
   );
 
@@ -193,6 +210,7 @@ export async function activate(
             scopeProvider,
             injectIde,
             runIntegrationTests,
+            vscodeTutorial,
           )
         : undefined,
 
@@ -200,6 +218,37 @@ export async function activate(
       registerThirdPartySnippets: snippets.registerThirdPartySnippets,
     },
   };
+}
+
+function createTutorial(
+  context: vscode.ExtensionContext,
+  ide: IDE,
+  scopeVisualizer: ScopeVisualizer,
+  fileSystem: VscodeFileSystem,
+  addCommandRunnerDecorator: (
+    commandRunnerDecorator: CommandRunnerDecorator,
+  ) => void,
+  hatTokenMap: HatTokenMap,
+  customSpokenFormGenerator: CustomSpokenFormGenerator,
+) {
+  const contentProvider = new FileSystemTutorialContentProvider(ide.assetsRoot);
+
+  const tutorial = new TutorialImpl(
+    ide,
+    hatTokenMap,
+    customSpokenFormGenerator,
+    contentProvider,
+  );
+  ide.disposeOnExit(tutorial);
+  addCommandRunnerDecorator(tutorial);
+
+  return new VscodeTutorial(
+    context,
+    vscodeApi,
+    tutorial,
+    scopeVisualizer,
+    fileSystem,
+  );
 }
 
 async function createVscodeIde(context: vscode.ExtensionContext) {

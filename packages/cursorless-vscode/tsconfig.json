@@ -17,6 +17,9 @@
       "path": "../cursorless-engine"
     },
     {
+      "path": "../cursorless-tutorial"
+    },
+    {
       "path": "../node-common"
     },
     {
