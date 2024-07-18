@@ -1,5 +1,6 @@
 import {
   Disposable,
+  EnforceUndefined,
   FakeCommandServerApi,
   FakeIDE,
   IDE,
@@ -12,6 +13,7 @@ import {
 } from "@cursorless/common";
 import {
   CommandHistory,
+  EngineProps,
   createCursorlessEngine,
 } from "@cursorless/cursorless-engine";
 import {
@@ -103,6 +105,16 @@ export async function activate(
   );
   context.subscriptions.push(treeSitterQueryProvider);
 
+  const engineProps: EnforceUndefined<EngineProps> = {
+    ide: normalizedIde,
+    hats,
+    treeSitterQueryProvider,
+    treeSitter,
+    commandServerApi,
+    talonSpokenForms,
+    snippets,
+  };
+
   const {
     commandApi,
     storedTargets,
@@ -112,15 +124,7 @@ export async function activate(
     runIntegrationTests,
     addCommandRunnerDecorator,
     customSpokenFormGenerator,
-  } = await createCursorlessEngine({
-    ide: normalizedIde,
-    hats,
-    treeSitterQueryProvider,
-    treeSitter,
-    commandServerApi,
-    talonSpokenForms,
-    snippets,
-  });
+  } = await createCursorlessEngine(engineProps);
 
   const commandHistoryStorage = new FileSystemCommandHistoryStorage(
     fileSystem.cursorlessCommandHistoryDirPath,

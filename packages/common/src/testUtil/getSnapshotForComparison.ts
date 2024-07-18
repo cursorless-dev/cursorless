@@ -1,5 +1,5 @@
 import { storedTargetKeys } from "../StoredTargetKey";
-import SpyIDE from "../ide/spy/SpyIDE";
+import { SpyIDE } from "../ide/spy/SpyIDE";
 import { ReadOnlyHatMap } from "../types/HatTokenMap";
 import type { TestHelpers } from "../types/TestHelpers";
 import { marksToPlainObject } from "../util/toPlainObject";

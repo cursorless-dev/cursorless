@@ -56,7 +56,17 @@ export class CustomSpokenFormGeneratorImpl
   }
 
   actionIdToSpokenForm(actionId: ActionType) {
-    return this.customSpokenForms.spokenFormMap.action[actionId];
+    return this.spokenFormGenerator.getSpokenFormForSingleTerm(
+      "action",
+      actionId,
+    );
+  }
+
+  graphemeToSpokenForm(grapheme: string) {
+    return this.spokenFormGenerator.getSpokenFormForSingleTerm(
+      "grapheme",
+      grapheme,
+    );
   }
 
   getCustomRegexScopeTypes() {

@@ -41,7 +41,7 @@ import { ScopeSupportChecker } from "./scopeProviders/ScopeSupportChecker";
 import { ScopeSupportWatcher } from "./scopeProviders/ScopeSupportWatcher";
 import { injectIde } from "./singletons/ide.singleton";
 
-interface Props {
+export interface EngineProps {
   ide: IDE;
   hats?: Hats;
   treeSitterQueryProvider?: RawTreeSitterQueryProvider;
@@ -59,13 +59,13 @@ export async function createCursorlessEngine({
   commandServerApi = new DisabledCommandServerApi(),
   talonSpokenForms = new DisabledTalonSpokenForms(),
   snippets = new DisabledSnippets(),
-}: Props): Promise<CursorlessEngine> {
+}: EngineProps): Promise<CursorlessEngine> {
   injectIde(ide);
 
   const debug = new Debug(ide);
   const rangeUpdater = new RangeUpdater();
   const storedTargets = new StoredTargetMap();
-  const keyboardTargetUpdater = new KeyboardTargetUpdater(storedTargets);
+  const keyboardTargetUpdater = new KeyboardTargetUpdater(ide, storedTargets);
   const customSpokenFormGenerator = new CustomSpokenFormGeneratorImpl(
     talonSpokenForms,
   );
