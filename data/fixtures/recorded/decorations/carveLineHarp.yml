@@ -1,0 +1,37 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: carve line harp
+  action: {name: cutToClipboard}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: line}
+      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |2
+        hello world
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.h:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 9}
+finalState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  clipboard: hello world
+ide:
+  flashes:
+    - style: referenced
+      range:
+        type: character
+        start: {line: 0, character: 4}
+        end: {line: 0, character: 15}
+    - style: pendingDelete
+      range: {type: line, start: 0, end: 0}

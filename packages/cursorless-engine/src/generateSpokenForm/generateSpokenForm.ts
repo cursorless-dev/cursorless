@@ -5,10 +5,14 @@ import {
   InsertionMode,
   PartialTargetDescriptor,
   ScopeType,
+  SpokenForm,
+  SpokenFormMapKeyTypes,
+  SpokenFormType,
   camelCaseToAllDown,
 } from "@cursorless/common";
+import { SpokenFormMap } from "../spokenForms/SpokenFormMap";
 import { NoSpokenFormError } from "./NoSpokenFormError";
-import { actions } from "./defaultSpokenForms/actions";
+import { SpokenFormComponent } from "./SpokenFormComponent";
 import { connectives } from "./defaultSpokenForms/connectives";
 import { surroundingPairDelimitersToSpokenForm } from "./defaultSpokenForms/modifiers";
 import {
@@ -16,14 +20,11 @@ import {
   wrapperSnippetToSpokenForm,
 } from "./defaultSpokenForms/snippets";
 import { getRangeConnective } from "./getRangeConnective";
-import { SpokenFormMap } from "../spokenForms/SpokenFormMap";
-import { PrimitiveTargetSpokenFormGenerator } from "./primitiveTargetToSpokenForm";
 import {
   SpokenFormComponentMap,
   getSpokenFormComponentMap,
 } from "./getSpokenFormComponentMap";
-import { SpokenFormComponent } from "./SpokenFormComponent";
-import { SpokenForm } from "@cursorless/common";
+import { PrimitiveTargetSpokenFormGenerator } from "./primitiveTargetToSpokenForm";
 
 export class SpokenFormGenerator {
   private primitiveGenerator: PrimitiveTargetSpokenFormGenerator;
@@ -35,6 +36,23 @@ export class SpokenFormGenerator {
     this.primitiveGenerator = new PrimitiveTargetSpokenFormGenerator(
       this.spokenFormMap,
     );
+  }
+
+  getSpokenFormForSingleTerm<T extends SpokenFormType>(
+    type: T,
+    id: SpokenFormMapKeyTypes[T],
+  ): SpokenForm {
+    return this.componentsToSpokenForm(() => {
+      const value = this.spokenFormMap[type][
+        id as unknown as keyof SpokenFormComponentMap[T]
+      ] as SpokenFormComponent;
+
+      if (value == null) {
+        throw new NoSpokenFormError(`${type} with id ${id}`);
+      }
+
+      return value;
+    });
   }
 
   /**
@@ -103,6 +121,7 @@ export class SpokenFormGenerator {
       case "getText":
       case "replace":
       case "executeCommand":
+      case "parsed":
       case "private.getTargets":
       case "private.setKeyboardTarget":
         throw new NoSpokenFormError(`Action '${action.name}'`);
@@ -110,14 +129,14 @@ export class SpokenFormGenerator {
       case "replaceWithTarget":
       case "moveToTarget":
         return [
-          actions[action.name],
+          this.spokenFormMap.action[action.name],
           this.handleTarget(action.source),
           this.handleDestination(action.destination),
         ];
 
       case "swapTargets":
         return [
-          actions[action.name],
+          this.spokenFormMap.action[action.name],
           this.handleTarget(action.target1),
           connectives.swapConnective,
           this.handleTarget(action.target2),
@@ -125,10 +144,13 @@ export class SpokenFormGenerator {
 
       case "callAsFunction":
         if (action.argument.type === "implicit") {
-          return [actions[action.name], this.handleTarget(action.callee)];
+          return [
+            this.spokenFormMap.action[action.name],
+            this.handleTarget(action.callee),
+          ];
         }
         return [
-          actions[action.name],
+          this.spokenFormMap.action[action.name],
           this.handleTarget(action.callee),
           "on",
           this.handleTarget(action.argument),
@@ -142,19 +164,19 @@ export class SpokenFormGenerator {
             action.left,
             action.right,
           ),
-          actions[action.name],
+          this.spokenFormMap.action[action.name],
           this.handleTarget(action.target),
         ];
 
       case "pasteFromClipboard":
         return [
-          actions[action.name],
+          this.spokenFormMap.action[action.name],
           this.handleDestination(action.destination),
         ];
 
       case "insertSnippet":
         return [
-          actions[action.name],
+          this.spokenFormMap.action[action.name],
           insertionSnippetToSpokenForm(action.snippetDescription),
           this.handleDestination(action.destination),
         ];
@@ -163,12 +185,15 @@ export class SpokenFormGenerator {
         if (action.snippetName != null) {
           throw new NoSpokenFormError(`${action.name}.snippetName`);
         }
-        return [actions[action.name], this.handleTarget(action.target)];
+        return [
+          this.spokenFormMap.action[action.name],
+          this.handleTarget(action.target),
+        ];
 
       case "wrapWithSnippet":
         return [
           wrapperSnippetToSpokenForm(action.snippetDescription),
-          actions[action.name],
+          this.spokenFormMap.action[action.name],
           this.handleTarget(action.target),
         ];
 
@@ -176,11 +201,17 @@ export class SpokenFormGenerator {
         if (action.highlightId != null) {
           throw new NoSpokenFormError(`${action.name}.highlightId`);
         }
-        return [actions[action.name], this.handleTarget(action.target)];
+        return [
+          this.spokenFormMap.action[action.name],
+          this.handleTarget(action.target),
+        ];
       }
 
       default: {
-        return [actions[action.name], this.handleTarget(action.target)];
+        return [
+          this.spokenFormMap.action[action.name],
+          this.handleTarget(action.target),
+        ];
       }
     }
   }

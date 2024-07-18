@@ -2,11 +2,19 @@ import {
   ImplicitTargetDescriptor,
   Modifier,
   PartialMark,
+  PartialRangeMark,
   PartialRangeType,
+  PartialTargetMark,
+  RangeMarkFor,
   ScopeType,
 } from "@cursorless/common";
 
-export type Mark = PartialMark | TargetMark;
+export type Mark =
+  | Exclude<PartialMark, PartialTargetMark | PartialRangeMark>
+  | TargetMark
+  | RangeMark;
+
+export type RangeMark = RangeMarkFor<Mark>;
 
 export interface PrimitiveTargetDescriptor {
   type: "primitive";

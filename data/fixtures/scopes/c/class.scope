@@ -1,0 +1,61 @@
+struct aaa { int bbb; };
+union bbb { int ccc; };
+enum ccc { ddd, eee };
+
+typedef struct { int fff; } ggg;
+typedef union { int hhh; } iii;
+typedef enum { jjj, kkk } lll;
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-0:24
+  >------------------------<
+0| struct aaa { int bbb; };
+
+[#1 Insertion delimiter] = "\n\n"
+
+
+[#2 Content] =
+[#2 Removal] =
+[#2 Domain] = 1:0-1:23
+  >-----------------------<
+1| union bbb { int ccc; };
+
+[#2 Insertion delimiter] = "\n\n"
+
+
+[#3 Content] =
+[#3 Removal] =
+[#3 Domain] = 2:0-2:22
+  >----------------------<
+2| enum ccc { ddd, eee };
+
+[#3 Insertion delimiter] = "\n\n"
+
+
+[#4 Content] =
+[#4 Removal] =
+[#4 Domain] = 4:0-4:32
+  >--------------------------------<
+4| typedef struct { int fff; } ggg;
+
+[#4 Insertion delimiter] = "\n\n"
+
+
+[#5 Content] =
+[#5 Removal] =
+[#5 Domain] = 5:0-5:31
+  >-------------------------------<
+5| typedef union { int hhh; } iii;
+
+[#5 Insertion delimiter] = "\n\n"
+
+
+[#6 Content] =
+[#6 Removal] =
+[#6 Domain] = 6:0-6:30
+  >------------------------------<
+6| typedef enum { jjj, kkk } lll;
+
+[#6 Insertion delimiter] = "\n\n"

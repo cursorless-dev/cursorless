@@ -1,4 +1,4 @@
-import { sumBy } from "lodash";
+import { sumBy } from "lodash-es";
 import getOffsetsForDeleteOrReplace from "./getOffsetsForDeleteOrReplace";
 import getOffsetsForEmptyRangeInsert from "./getOffsetsForEmptyRangeInsert";
 import getOffsetsForNonEmptyRangeInsert from "./getOffsetsForNonEmptyRangeInsert";

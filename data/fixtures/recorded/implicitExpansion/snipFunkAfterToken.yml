@@ -1,0 +1,36 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: snippet funk after token
+  action:
+    name: insertSnippet
+    args:
+      - {type: named, name: functionDeclaration}
+  targets:
+    - type: primitive
+      modifiers:
+        - {type: position, position: after}
+        - type: containingScope
+          scopeType: {type: token}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |+
+    function myFunction() {
+        const whatever = "hello";
+    }
+
+  selections:
+    - anchor: {line: 1, character: 10}
+      active: {line: 1, character: 18}
+  marks: {}
+finalState:
+  documentContents: |+
+    function myFunction() {
+        const whatever function () {
+            
+        } = "hello";
+    }
+
+  selections:
+    - anchor: {line: 1, character: 28}
+      active: {line: 1, character: 28}

@@ -1,0 +1,26 @@
+languageId: ruby
+command:
+  version: 5
+  spokenForm: change arg whale
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: a.call(hello, world)
+  selections:
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}
+  marks:
+    default.w:
+      start: {line: 0, character: 14}
+      end: {line: 0, character: 19}
+finalState:
+  documentContents: a.call(hello, )
+  selections:
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}

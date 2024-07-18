@@ -9,7 +9,7 @@ import {
 } from "@cursorless/common";
 import { CustomSpokenFormGenerator } from "@cursorless/cursorless-engine";
 import { VscodeApi } from "@cursorless/vscode-common";
-import { isEqual } from "lodash";
+import { isEqual } from "lodash-es";
 import type {
   Disposable,
   Event,

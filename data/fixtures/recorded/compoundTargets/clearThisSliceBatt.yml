@@ -1,0 +1,37 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change this slice bat
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: range
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      excludeAnchor: false
+      excludeActive: false
+      rangeType: vertical
+      anchor:
+        type: primitive
+        mark: {type: cursor}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    aa
+    bb
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 1}
+  marks:
+    default.b:
+      start: {line: 1, character: 0}
+      end: {line: 1, character: 2}
+finalState:
+  documentContents: |-
+    a
+    b
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

@@ -1,5 +1,5 @@
 import { Direction, Position, TextEditor, showError } from "@cursorless/common";
-import { uniqWith } from "lodash";
+import { uniqWith } from "lodash-es";
 import { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
 import { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
 import { BaseScopeHandler } from "../BaseScopeHandler";

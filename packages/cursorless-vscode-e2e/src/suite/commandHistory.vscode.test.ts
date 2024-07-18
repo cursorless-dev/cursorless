@@ -12,10 +12,10 @@ import {
 import { assert } from "chai";
 import { existsSync } from "node:fs";
 import { readFile, readdir, rm } from "node:fs/promises";
-import path from "node:path";
+import * as path from "node:path";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-import produce from "immer";
+import { produce } from "immer";
 
 /*
  * All tests in this file are running against the latest version of the command

@@ -1,0 +1,21 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: pour this
+  action: {name: editNewLineAfter}
+  targets:
+    - type: primitive
+      mark: {type: cursor}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: aaa bbb
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |
+    aaa bbb
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

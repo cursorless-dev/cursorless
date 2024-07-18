@@ -9,6 +9,12 @@
   "references": [
     {
       "path": "../common"
+    },
+    {
+      "path": "../node-common"
+    },
+    {
+      "path": "../sentence-parser"
     }
   ]
 }

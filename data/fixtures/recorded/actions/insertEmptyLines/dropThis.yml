@@ -1,0 +1,32 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: drop this
+  action: {name: insertEmptyLineBefore}
+  targets:
+    - type: primitive
+      mark: {type: cursor}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |+
+
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 1, character: 0}
+        end: {line: 1, character: 0}
+      isReversed: false
+      hasExplicitRange: true
+ide:
+  flashes:
+    - style: justAdded
+      range: {type: line, start: 0, end: 0}

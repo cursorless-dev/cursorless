@@ -1,0 +1,30 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: take funk
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: namedFunction}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+
+    let foo = function() {
+
+    }
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+  marks: {}
+finalState:
+  documentContents: |
+
+    let foo = function() {
+
+    }
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 3, character: 1}

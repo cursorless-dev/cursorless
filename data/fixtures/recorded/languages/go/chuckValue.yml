@@ -1,0 +1,22 @@
+languageId: go
+command:
+  version: 5
+  spokenForm: chuck value
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: " return true"
+  selections:
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}
+  marks: {}
+finalState:
+  documentContents: " return"
+  selections:
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}

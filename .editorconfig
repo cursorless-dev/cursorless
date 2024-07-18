@@ -22,7 +22,7 @@ insert_final_newline = false
 # with a line that has trailing white space. Many of our recorded
 # tests use strings with trailing white space to represent the final
 # document contents. For example
-# packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/languages/ruby/changeCondition.yml
+# data/fixtures/recorded/languages/ruby/changeCondition.yml
 trim_trailing_whitespace = false
 
 [Makefile]

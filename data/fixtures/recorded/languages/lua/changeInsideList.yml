@@ -1,0 +1,26 @@
+languageId: lua
+command:
+  version: 6
+  spokenForm: change inside list
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: interiorOnly}
+        - type: containingScope
+          scopeType: {type: list}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    foo = {"a", "b", "c"},
+  selections:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}
+  marks: {}
+finalState:
+  documentContents: |
+    foo = {},
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}

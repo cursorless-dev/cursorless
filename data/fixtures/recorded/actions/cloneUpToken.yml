@@ -1,0 +1,43 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: clone up token
+  action: {name: insertCopyBefore}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: token}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: hello world
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+  marks: {}
+finalState:
+  documentContents: hello world world
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 6}
+        end: {line: 0, character: 11}
+      isReversed: false
+      hasExplicitRange: true
+  sourceMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 12}
+        end: {line: 0, character: 17}
+      isReversed: false
+      hasExplicitRange: true
+ide:
+  flashes:
+    - style: justAdded
+      range:
+        type: character
+        start: {line: 0, character: 6}
+        end: {line: 0, character: 11}

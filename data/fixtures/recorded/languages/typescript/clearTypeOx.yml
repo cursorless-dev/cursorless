@@ -1,0 +1,26 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: change type odd
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+      mark: {type: decoratedSymbol, symbolColor: default, character: o}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "const foo: string = new Bar<number>(foo);"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.o:
+      start: {line: 0, character: 36}
+      end: {line: 0, character: 39}
+finalState:
+  documentContents: "const foo:  = new Bar<number>(foo);"
+  selections:
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}

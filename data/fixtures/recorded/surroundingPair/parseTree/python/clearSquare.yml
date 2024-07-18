@@ -1,0 +1,25 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: change inside box
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - {type: interiorOnly}
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: squareBrackets}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    a[222]
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+  marks: {}
+finalState:
+  documentContents: |
+    a[]
+  selections:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}

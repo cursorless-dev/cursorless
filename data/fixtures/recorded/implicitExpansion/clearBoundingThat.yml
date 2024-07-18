@@ -1,0 +1,33 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: change bounds that
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - {type: excludeInterior}
+      mark: {type: that}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    (hello now)
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks: {}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 1}
+        end: {line: 0, character: 6}
+      isReversed: false
+      hasExplicitRange: true
+finalState:
+  documentContents: |
+    hello now
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}

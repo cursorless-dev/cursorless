@@ -1,0 +1,28 @@
+languageId: rust
+command:
+  version: 5
+  spokenForm: chuck string
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: string}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    fn main() {
+        println!("Hello, world!");
+    }
+  selections:
+    - anchor: {line: 1, character: 25}
+      active: {line: 1, character: 25}
+  marks: {}
+finalState:
+  documentContents: |-
+    fn main() {
+        println!();
+    }
+  selections:
+    - anchor: {line: 1, character: 13}
+      active: {line: 1, character: 13}

@@ -1,0 +1,36 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: chuck fine past dot
+  action: {name: remove}
+  targets:
+    - type: range
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: .}
+      excludeAnchor: false
+      excludeActive: false
+      anchor:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: f}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |2
+       foo
+       bar.   
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+  marks:
+    default.f:
+      start: {line: 0, character: 3}
+      end: {line: 0, character: 6}
+    default..:
+      start: {line: 1, character: 6}
+      end: {line: 1, character: 7}
+finalState:
+  documentContents: |+
+
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

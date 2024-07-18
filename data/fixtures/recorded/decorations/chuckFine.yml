@@ -1,0 +1,36 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: chuck fine
+  action: {name: remove}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |2
+
+        foo ooo    
+        bar    
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.f:
+      start: {line: 1, character: 4}
+      end: {line: 1, character: 7}
+finalState:
+  documentContents: |2
+
+        ooo    
+        bar    
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+ide:
+  flashes:
+    - style: pendingDelete
+      range:
+        type: character
+        start: {line: 1, character: 4}
+        end: {line: 1, character: 8}

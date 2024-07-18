@@ -1,0 +1,36 @@
+languageId: php
+command:
+  version: 5
+  spokenForm: change type
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    <?php
+
+    try {
+
+    } catch (Exception $e) {
+
+    }
+  selections:
+    - anchor: {line: 4, character: 20}
+      active: {line: 4, character: 20}
+  marks: {}
+finalState:
+  documentContents: |-
+    <?php
+
+    try {
+
+    } catch ( $e) {
+
+    }
+  selections:
+    - anchor: {line: 4, character: 9}
+      active: {line: 4, character: 9}

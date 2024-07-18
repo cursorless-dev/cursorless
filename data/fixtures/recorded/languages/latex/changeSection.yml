@@ -1,0 +1,28 @@
+languageId: latex
+command:
+  version: 5
+  spokenForm: change section
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: section}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    \section{1}
+    \subsection{child}
+    some text
+    \section{2}
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |
+
+    \section{2}
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

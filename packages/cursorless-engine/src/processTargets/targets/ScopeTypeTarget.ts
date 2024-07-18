@@ -78,9 +78,9 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
     return undefined;
   }
 
-  getInteriorStrict() {
+  getInterior() {
     if (this.interiorRange_ == null) {
-      return super.getInteriorStrict();
+      return super.getInterior();
     }
     return [
       new InteriorTarget({
@@ -95,8 +95,8 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
     return this.removalRange_ != null
       ? this.removalRange_
       : this.hasDelimiterRange_
-      ? getDelimitedSequenceRemovalRange(this)
-      : getTokenRemovalRange(this);
+        ? getDelimitedSequenceRemovalRange(this)
+        : getTokenRemovalRange(this);
   }
 
   maybeCreateRichRangeTarget(

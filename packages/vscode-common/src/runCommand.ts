@@ -1,6 +1,12 @@
-import { Command, CURSORLESS_COMMAND_ID } from "@cursorless/common";
+import {
+  Command,
+  CommandResponse,
+  CURSORLESS_COMMAND_ID,
+} from "@cursorless/common";
 import * as vscode from "vscode";
 
-export function runCursorlessCommand(command: Command) {
-  return vscode.commands.executeCommand(CURSORLESS_COMMAND_ID, command);
+export async function runCursorlessCommand(
+  command: Command,
+): Promise<CommandResponse | unknown> {
+  return await vscode.commands.executeCommand(CURSORLESS_COMMAND_ID, command);
 }

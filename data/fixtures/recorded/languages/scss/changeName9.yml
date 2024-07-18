@@ -1,0 +1,28 @@
+languageId: scss
+command:
+  version: 5
+  spokenForm: change name
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    @mixin foo($foo: 123) {
+
+    }
+  selections:
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}
+  marks: {}
+finalState:
+  documentContents: |-
+    @mixin foo(: 123) {
+
+    }
+  selections:
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}

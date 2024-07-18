@@ -1,0 +1,23 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: chuck vest
+  action: {name: remove}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: v}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "\r\nconst value = \"Hello world\";\r\n"
+  selections:
+    - anchor: {line: 1, character: 28}
+      active: {line: 1, character: 28}
+  marks:
+    default.v:
+      start: {line: 1, character: 6}
+      end: {line: 1, character: 11}
+finalState:
+  documentContents: "\r\nconst = \"Hello world\";\r\n"
+  selections:
+    - anchor: {line: 1, character: 22}
+      active: {line: 1, character: 22}

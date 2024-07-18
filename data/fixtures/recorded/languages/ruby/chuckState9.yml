@@ -1,0 +1,32 @@
+languageId: ruby
+command:
+  version: 5
+  spokenForm: chuck state
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: statement}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    begin
+      a = 10
+    ensure 
+      a = 10
+    end
+  selections:
+    - anchor: {line: 1, character: 5}
+      active: {line: 1, character: 5}
+  marks: {}
+finalState:
+  documentContents: |-
+    begin
+
+    ensure 
+      a = 10
+    end
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

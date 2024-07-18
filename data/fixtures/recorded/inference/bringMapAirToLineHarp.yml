@@ -1,0 +1,38 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: bring map air to line harp
+  action: {name: replaceWithTarget}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: map}
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: line}
+      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |2-
+        hello world
+        value = {a:2}
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.a:
+      start: {line: 1, character: 13}
+      end: {line: 1, character: 14}
+    default.h:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 9}
+finalState:
+  documentContents: |2-
+        {a:2}
+        value = {a:2}
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

@@ -1,0 +1,22 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: change pair
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: any}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: function hello<Foo>() {}
+  selections:
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}
+  marks: {}
+finalState:
+  documentContents: function hello() {}
+  selections:
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}

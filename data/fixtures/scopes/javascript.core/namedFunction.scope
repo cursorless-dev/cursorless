@@ -1,0 +1,10 @@
+function myFunk() { }
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:21
+  >---------------------<
+0| function myFunk() { }
+
+[Insertion delimiter] = "\n\n"

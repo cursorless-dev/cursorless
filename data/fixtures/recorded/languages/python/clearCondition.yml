@@ -1,0 +1,22 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: change condition
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: condition}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: aaa if bbb else ccc
+  selections:
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 16}
+  marks: {}
+finalState:
+  documentContents: aaa if  else ccc
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}

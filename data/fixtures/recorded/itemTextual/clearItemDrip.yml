@@ -1,0 +1,26 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: change item comma
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+      mark: {type: decoratedSymbol, symbolColor: default, character: ','}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: foo(hello, world)
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}
+  marks:
+    default.,:
+      start: {line: 0, character: 9}
+      end: {line: 0, character: 10}
+finalState:
+  documentContents: foo()
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}

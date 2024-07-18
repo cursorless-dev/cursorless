@@ -1,14 +1,13 @@
-import { FlashStyle, isTesting, Range } from "@cursorless/common";
+import { FlashStyle, Range, matchAll } from "@cursorless/common";
+import type { Snippets } from "../../core/Snippets";
 import { Offsets } from "../../processTargets/modifiers/surroundingPair/types";
 import { ide } from "../../singletons/ide.singleton";
-import { Target } from "../../typings/target.types";
-import { matchAll } from "../../util/regex";
+import type { Target } from "../../typings/target.types";
 import { ensureSingleTarget, flashTargets } from "../../util/targetUtils";
-import { ActionReturnValue } from "../actions.types";
+import type { ActionReturnValue } from "../actions.types";
+import Substituter from "./Substituter";
 import { constructSnippetBody } from "./constructSnippetBody";
 import { editText } from "./editText";
-import { openNewSnippetFile } from "./openNewSnippetFile";
-import Substituter from "./Substituter";
 
 /**
  * This action can be used to automatically create a snippet from a target. Any
@@ -46,7 +45,7 @@ import Substituter from "./Substituter";
  * confusing escaping.
  */
 export default class GenerateSnippet {
-  constructor() {
+  constructor(private snippets: Snippets) {
     this.run = this.run.bind(this);
   }
 
@@ -220,13 +219,15 @@ export default class GenerateSnippet {
 
     const editableEditor = ide().getEditableTextEditor(editor);
 
-    if (isTesting()) {
+    if (ide().runMode === "test") {
       // If we're testing, we just overwrite the current document
-      editableEditor.selections = [editor.document.range.toSelection(false)];
+      await editableEditor.setSelections([
+        editor.document.range.toSelection(false),
+      ]);
     } else {
       // Otherwise, we create and open a new document for the snippet in the
       // user snippets dir
-      await openNewSnippetFile(snippetName);
+      await this.snippets.openNewSnippetFile(snippetName);
     }
 
     // Insert the meta-snippet

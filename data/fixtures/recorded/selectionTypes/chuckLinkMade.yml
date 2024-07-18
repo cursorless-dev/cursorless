@@ -1,0 +1,29 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: chuck link made
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: url}
+      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: >
+    https://www.atomiccommits.io/consistent-hashing
+    https://www.atomiccommits.io/consistent-hashing#code
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.m:
+      start: {line: 0, character: 12}
+      end: {line: 0, character: 25}
+finalState:
+  documentContents: |
+    https://www.atomiccommits.io/consistent-hashing#code
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

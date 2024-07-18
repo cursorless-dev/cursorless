@@ -1,0 +1,32 @@
+languageId: rust
+command:
+  version: 5
+  spokenForm: chuck name jury
+  action: {name: remove}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: j}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    match user {
+        User { first_name: "John", last_name: last_name } => {}
+    }
+  selections:
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
+  marks:
+    default.j:
+      start: {line: 1, character: 24}
+      end: {line: 1, character: 28}
+finalState:
+  documentContents: |
+    match user {
+        User { "John", last_name: last_name } => {}
+    }
+  selections:
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}

@@ -1,0 +1,43 @@
+languageId: java
+command:
+  version: 5
+  spokenForm: change subject
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: private.switchStatementSubject}
+  usePrePhraseSnapshot: true
+spokenFormError: >-
+  simple scope type type with id private.switchStatementSubject; this is a
+  private spoken form currently only for internal experimentation
+initialState:
+  documentContents: |
+    class Aaa {
+
+      static void bbb() {
+        switch ("0") {
+          case ("0"):
+            break;
+        }
+      }
+    }
+  selections:
+    - anchor: {line: 4, character: 17}
+      active: {line: 4, character: 17}
+  marks: {}
+finalState:
+  documentContents: |
+    class Aaa {
+
+      static void bbb() {
+        switch () {
+          case ("0"):
+            break;
+        }
+      }
+    }
+  selections:
+    - anchor: {line: 3, character: 12}
+      active: {line: 3, character: 12}

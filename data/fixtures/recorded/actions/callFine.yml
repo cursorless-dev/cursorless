@@ -1,0 +1,47 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: call fine
+  action: {name: callAsFunction}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+    - {type: implicit}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    foo;
+    bar;
+    baz;
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 3}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 3}
+  marks:
+    default.f:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 3}
+finalState:
+  documentContents: |-
+    foo;
+    foo(bar);
+    foo(baz);
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 7}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 7}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 1, character: 0}
+        end: {line: 1, character: 8}
+      isReversed: false
+      hasExplicitRange: true
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 2, character: 0}
+        end: {line: 2, character: 8}
+      isReversed: false
+      hasExplicitRange: true

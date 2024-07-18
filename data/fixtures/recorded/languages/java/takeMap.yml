@@ -1,0 +1,38 @@
+languageId: java
+command:
+  version: 5
+  spokenForm: take map
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: map}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+
+    List<String> value = new ArrayList() {
+        {
+            add("a");
+            add("b");
+            add("c");
+        }
+    };
+  selections:
+    - anchor: {line: 3, character: 8}
+      active: {line: 3, character: 8}
+  marks: {}
+finalState:
+  documentContents: |
+
+    List<String> value = new ArrayList() {
+        {
+            add("a");
+            add("b");
+            add("c");
+        }
+    };
+  selections:
+    - anchor: {line: 2, character: 4}
+      active: {line: 6, character: 5}

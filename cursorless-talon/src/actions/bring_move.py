@@ -35,7 +35,7 @@ def cursorless_bring_move_targets(m) -> BringMoveTargets:
 
 @mod.action_class
 class Actions:
-    def private_cursorless_bring_move(action_name: str, targets: BringMoveTargets):
+    def private_cursorless_bring_move(action_name: str, targets: BringMoveTargets):  # pyright: ignore [reportGeneralTypeIssues]
         """Execute Cursorless move/bring action"""
         actions.user.private_cursorless_command_and_wait(
             {

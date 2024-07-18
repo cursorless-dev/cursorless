@@ -1,0 +1,22 @@
+languageId: go
+command:
+  version: 5
+  spokenForm: take value
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "map[string]string{\"air\": \"bat\", \"cap\": \"drum\"}"
+  selections:
+    - anchor: {line: 0, character: 27}
+      active: {line: 0, character: 27}
+  marks: {}
+finalState:
+  documentContents: "map[string]string{\"air\": \"bat\", \"cap\": \"drum\"}"
+  selections:
+    - anchor: {line: 0, character: 25}
+      active: {line: 0, character: 30}

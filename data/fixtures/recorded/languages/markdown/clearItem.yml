@@ -1,0 +1,28 @@
+languageId: markdown
+command:
+  version: 5
+  spokenForm: change item
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+
+    - hello world
+    - whatever now
+  selections:
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 12}
+  marks: {}
+finalState:
+  documentContents: |-
+
+    - 
+    - whatever now
+  selections:
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}

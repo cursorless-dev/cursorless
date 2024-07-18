@@ -8,7 +8,6 @@ import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
 import { stat, unlink, writeFile } from "fs/promises";
 import * as sinon from "sinon";
 import { commands } from "vscode";
-import { sleepWithBackoff } from "../../endToEndTestSetup";
 import {
   assertCalledWithScopeInfo,
   assertCalledWithoutScopeInfo,
@@ -35,14 +34,12 @@ export async function runCustomRegexScopeInfoTest() {
       cursorlessTalonStateJsonPath,
       JSON.stringify(spokenFormJsonContents),
     );
-    await sleepWithBackoff(50);
     await assertCalledWithScopeInfo(fake, unsupported);
 
     await openNewEditor(contents);
     await assertCalledWithScopeInfo(fake, present);
 
     await unlink(cursorlessTalonStateJsonPath);
-    await sleepWithBackoff(100);
     await assertCalledWithoutScopeInfo(fake, scopeType);
   } finally {
     disposable.dispose();

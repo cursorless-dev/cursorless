@@ -9,7 +9,7 @@ import { NodeMatcherAlternative, NodeFinder } from "../typings/Types";
 import { SimpleScopeTypeType } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
 import { delimitedSelector } from "../util/nodeSelectors";
-import { identity } from "lodash";
+import { identity } from "lodash-es";
 import { getChildNodesForFieldName } from "../util/treeSitterUtils";
 import { patternFinder } from "../util/nodeFinders";
 
@@ -133,9 +133,6 @@ const ifStatementMatcher = matcher(ifStatementFinder);
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
-  comment: "comment",
-  map: "map_lit",
-
   collectionKey: matcher(mapParityNodeFinder(0)),
   collectionItem: cascadingMatcher(
     // Treat each key value pair as a single item if we're in a map
@@ -160,11 +157,6 @@ const nodeMatchers: Partial<
       nodeIndex !== 0 ? nodeIndex : -1,
     ),
   ),
-
-  // A list is either a vector literal or a quoted list literal
-  list: ["vec_lit", "quoting_lit.list_lit"],
-
-  string: "str_lit",
 
   functionCall: functionCallPattern,
   functionCallee: chainedMatcher([

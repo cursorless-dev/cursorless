@@ -1,0 +1,28 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: chuck paint bat
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: nonWhitespaceSequence}
+      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    const r = /a[b]*(c)/;
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.b:
+      start: {line: 0, character: 13}
+      end: {line: 0, character: 14}
+finalState:
+  documentContents: |
+    const r =
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

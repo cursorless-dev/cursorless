@@ -1,0 +1,14 @@
+lambda: pass
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:12
+  >------------<
+0| lambda: pass
+
+[Interior] = 0:8-0:12
+          >----<
+0| lambda: pass
+
+[Insertion delimiter] = "\n"

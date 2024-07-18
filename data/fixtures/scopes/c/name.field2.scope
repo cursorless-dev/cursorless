@@ -1,0 +1,20 @@
+union { int bbb; };
+---
+
+[Content] = 0:12-0:15
+              >---<
+0| union { int bbb; };
+
+[Removal] = 0:11-0:15
+             >----<
+0| union { int bbb; };
+
+[Leading delimiter] = 0:11-0:12
+             >-<
+0| union { int bbb; };
+
+[Domain] = 0:8-0:16
+          >--------<
+0| union { int bbb; };
+
+[Insertion delimiter] = " "

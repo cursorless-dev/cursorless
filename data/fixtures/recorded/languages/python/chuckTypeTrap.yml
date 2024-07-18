@@ -1,0 +1,30 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: chuck type trap
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+      mark: {type: decoratedSymbol, symbolColor: default, character: t}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    def my_funk(value: str) -> str:
+        pass
+  selections:
+    - anchor: {line: 1, character: 8}
+      active: {line: 1, character: 8}
+  marks:
+    default.t:
+      start: {line: 0, character: 27}
+      end: {line: 0, character: 30}
+finalState:
+  documentContents: |-
+    def my_funk(value: str):
+        pass
+  selections:
+    - anchor: {line: 1, character: 8}
+      active: {line: 1, character: 8}

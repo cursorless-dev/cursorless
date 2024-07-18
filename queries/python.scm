@@ -262,8 +262,8 @@
 (comment) @comment @textFragment
 
 (string
-  _ @textFragment.start.endOf
-  _ @textFragment.end.startOf
+  (string_start) @textFragment.start.endOf
+  (string_end) @textFragment.end.startOf
 ) @string
 
 [
@@ -359,7 +359,9 @@
 
 ;;!! lambda _: pass
 ;;!  ^^^^^^^^^^^^^^
-(lambda) @anonymousFunction
+(lambda
+  body: (_) @anonymousFunction.interior
+) @anonymousFunction
 
 ;;!! match value:
 ;;!        ^^^^^
@@ -385,10 +387,10 @@
   condition: (_) @condition
 ) @_.domain
 
-;;!! match value:
+;;!! case value:
 ;;!        ^^^^^
 (case_clause
-  pattern: (_) @condition.start
+  (case_pattern) @condition.start
   guard: (_)? @condition.end
 ) @_.domain
 
@@ -475,7 +477,10 @@
 
 ;;!! except: pass
 ;;!  ^^^^^^^^^^^^
-(except_clause) @branch
+[
+  (except_clause)
+  (except_group_clause)
+] @branch
 
 ;;!! finally: pass
 ;;!  ^^^^^^^^^^^^^
@@ -500,3 +505,132 @@
 )
 
 (for_statement) @branch.iteration
+
+;;!! import foo, bar
+;;!         ^^^  ^^^
+(
+  (import_statement
+    name: (_)? @_.leading.endOf
+    .
+    name: (_) @collectionItem
+    .
+    name: (_)? @_.trailing.startOf
+  )
+  (#insertion-delimiter! @collectionItem ", ")
+)
+
+;;!! from foo import bar, baz
+;;!                  ^^^  ^^^
+(
+  (import_from_statement
+    [
+      name: (_)? @_.leading.endOf
+      "import" @_.leading.endOf
+    ]
+    .
+    name: (_) @collectionItem
+    .
+    name: (_)? @_.trailing.startOf
+  )
+  (#insertion-delimiter! @collectionItem ", ")
+)
+
+;;!! global foo, bar
+;;!         ^^^  ^^^
+(
+  (global_statement
+    (identifier)? @_.leading.endOf
+    .
+    (identifier) @collectionItem
+    .
+    (identifier)? @_.trailing.startOf
+  )
+  (#insertion-delimiter! @collectionItem ", ")
+)
+
+;;!! for key, value in map.items():
+;;!      ^^^  ^^^^^
+(
+  (pattern_list
+    (identifier)? @_.leading.endOf
+    .
+    (identifier) @collectionItem
+    .
+    (identifier)? @_.trailing.startOf
+  )
+  (#insertion-delimiter! @collectionItem ", ")
+)
+
+(import_statement
+  .
+  (_) @collectionItem.iteration.start.startOf
+) @collectionItem.iteration.end.endOf @collectionItem.iteration.domain
+
+(import_from_statement
+  "import"
+  .
+  (_) @collectionItem.iteration.start.startOf
+) @collectionItem.iteration.end.endOf @collectionItem.iteration.domain
+
+(global_statement
+  .
+  (_) @collectionItem.iteration.start.startOf
+) @collectionItem.iteration.end.endOf @collectionItem.iteration.domain
+
+(pattern_list) @collectionItem.iteration
+
+;;!! def foo(name) {}
+;;!          ^^^^
+(
+  (parameters
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#not-type? @argumentOrParameter "comment")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
+;;!! foo("bar")
+;;!      ^^^^^
+(
+  (argument_list
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#not-type? @argumentOrParameter "comment")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
+;;!! " ".join(word for word in word_list)
+;;!!          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+(call
+  (generator_expression
+    "(" @argumentOrParameter.start.endOf
+    ")" @argumentOrParameter.end.startOf
+  )
+)
+
+(_
+  (parameters
+    "(" @argumentOrParameter.iteration.start.endOf
+    ")" @argumentOrParameter.iteration.end.startOf
+  )
+) @argumentOrParameter.iteration.domain
+
+(argument_list
+  "(" @argumentOrParameter.iteration.start.endOf
+  ")" @argumentOrParameter.iteration.end.startOf
+) @argumentOrParameter.iteration.domain
+
+(call
+  (generator_expression
+    "(" @argumentOrParameter.iteration.start.endOf
+    ")" @argumentOrParameter.iteration.end.startOf
+  )
+) @argumentOrParameter.iteration.domain

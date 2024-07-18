@@ -1,0 +1,24 @@
+int aaa = 0;
+---
+
+[Content] = 0:4-0:7
+      >---<
+0| int aaa = 0;
+
+[Removal] = 0:0-0:10
+  >----------<
+0| int aaa = 0;
+
+[Leading delimiter] = 0:3-0:4
+     >-<
+0| int aaa = 0;
+
+[Trailing delimiter] = 0:7-0:8
+         >-<
+0| int aaa = 0;
+
+[Domain] = 0:0-0:12
+  >------------<
+0| int aaa = 0;
+
+[Insertion delimiter] = " "

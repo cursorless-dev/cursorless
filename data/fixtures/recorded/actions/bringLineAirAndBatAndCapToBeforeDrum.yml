@@ -1,0 +1,84 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: bring line air and bat and cap before drum
+  action: {name: replaceWithTarget}
+  targets:
+    - type: list
+      elements:
+        - type: primitive
+          modifiers:
+            - type: containingScope
+              scopeType: {type: line}
+          mark: {type: decoratedSymbol, symbolColor: default, character: a}
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: b}
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: c}
+    - type: primitive
+      modifiers:
+        - {type: position, position: before}
+      mark: {type: decoratedSymbol, symbolColor: default, character: d}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    a
+    b
+    c
+
+    d
+  selections:
+    - anchor: {line: 5, character: 0}
+      active: {line: 5, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 1}
+    default.b:
+      start: {line: 1, character: 0}
+      end: {line: 1, character: 1}
+    default.c:
+      start: {line: 2, character: 0}
+      end: {line: 2, character: 1}
+    default.d:
+      start: {line: 4, character: 0}
+      end: {line: 4, character: 1}
+finalState:
+  documentContents: |
+    a
+    b
+    c
+
+    a
+    b
+    c
+    d
+  selections:
+    - anchor: {line: 8, character: 0}
+      active: {line: 8, character: 0}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 4, character: 0}
+        end: {line: 6, character: 1}
+      isReversed: false
+      hasExplicitRange: true
+  sourceMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 1}
+      isReversed: false
+      hasExplicitRange: true
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 1, character: 0}
+        end: {line: 1, character: 1}
+      isReversed: false
+      hasExplicitRange: true
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 2, character: 0}
+        end: {line: 2, character: 1}
+      isReversed: false
+      hasExplicitRange: true

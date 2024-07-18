@@ -1,0 +1,32 @@
+languageId: javascript
+command:
+  version: 5
+  spokenForm: take tags
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: xmlBothTags}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+
+    const Foo = (
+      <div id="bar" name="foo">bar</div>
+    );
+  selections:
+    - anchor: {line: 2, character: 15}
+      active: {line: 2, character: 15}
+  marks: {}
+finalState:
+  documentContents: |
+
+    const Foo = (
+      <div id="bar" name="foo">bar</div>
+    );
+  selections:
+    - anchor: {line: 2, character: 2}
+      active: {line: 2, character: 27}
+    - anchor: {line: 2, character: 30}
+      active: {line: 2, character: 36}

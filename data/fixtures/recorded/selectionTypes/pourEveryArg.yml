@@ -1,0 +1,32 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: pour every arg
+  action: {name: editNewLineAfter}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    function whatever(a: number, b: number, c: number) {
+        
+    }
+  selections:
+    - anchor: {line: 0, character: 29}
+      active: {line: 0, character: 29}
+  marks: {}
+finalState:
+  documentContents: |-
+    function whatever(a: number, , b: number, , c: number, ) {
+        
+    }
+  selections:
+    - anchor: {line: 0, character: 29}
+      active: {line: 0, character: 29}
+    - anchor: {line: 0, character: 42}
+      active: {line: 0, character: 42}
+    - anchor: {line: 0, character: 55}
+      active: {line: 0, character: 55}

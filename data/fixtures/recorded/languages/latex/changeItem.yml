@@ -1,0 +1,30 @@
+languageId: latex
+command:
+  version: 5
+  spokenForm: change item
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    \begin{itemize}
+        \item one \LaTeX
+        \item two \LaTeX
+    \end{itemize}
+  selections:
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 11}
+  marks: {}
+finalState:
+  documentContents: |-
+    \begin{itemize}
+        \item 
+        \item two \LaTeX
+    \end{itemize}
+  selections:
+    - anchor: {line: 1, character: 10}
+      active: {line: 1, character: 10}

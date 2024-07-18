@@ -1,0 +1,27 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: bring whale after this
+  action: {name: replaceWithTarget}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+    - type: primitive
+      modifiers:
+        - {type: position, position: after}
+      mark: {type: cursor}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: foo world
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+  marks:
+    default.w:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 9}
+finalState:
+  documentContents: foo world world
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}

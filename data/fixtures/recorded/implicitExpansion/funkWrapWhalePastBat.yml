@@ -1,0 +1,42 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: funk wrap whale past bat
+  action:
+    name: wrapWithSnippet
+    args:
+      - {type: named, name: functionDeclaration, variableName: body}
+  targets:
+    - active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      type: range
+      excludeAnchor: false
+      excludeActive: false
+      anchor:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    const whatever = "hello";
+    const bar = "hello";
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+  marks:
+    default.w:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 14}
+    default.b:
+      start: {line: 1, character: 6}
+      end: {line: 1, character: 9}
+finalState:
+  documentContents: |
+    function () {
+        const whatever = "hello";
+        const bar = "hello";
+    }
+  selections:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}

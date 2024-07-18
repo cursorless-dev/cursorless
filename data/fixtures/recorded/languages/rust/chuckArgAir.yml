@@ -1,0 +1,28 @@
+languageId: rust
+command:
+  version: 5
+  spokenForm: chuck arg air
+  action: {name: remove}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    struct S<'a, 'b: 'a, T>;
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 10}
+      end: {line: 0, character: 11}
+finalState:
+  documentContents: |
+    struct S<'b: 'a, T>;
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

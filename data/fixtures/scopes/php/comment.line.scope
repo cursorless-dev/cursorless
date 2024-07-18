@@ -1,0 +1,19 @@
+<?php
+    // Hello world!
+?>
+---
+
+[Content] =
+[Domain] = 1:4-1:19
+      >---------------<
+1|     // Hello world!
+
+[Removal] = 1:0-1:19
+  >-------------------<
+1|     // Hello world!
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     // Hello world!
+
+[Insertion delimiter] = "\n"

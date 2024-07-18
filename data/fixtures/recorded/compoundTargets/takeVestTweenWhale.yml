@@ -1,0 +1,37 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: take vest between whale
+  action: {name: setSelection}
+  targets:
+    - active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      type: range
+      excludeAnchor: true
+      excludeActive: true
+      anchor:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: v}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+
+    const value = "Hello world";
+  selections:
+    - anchor: {line: 1, character: 26}
+      active: {line: 1, character: 11}
+  marks:
+    default.v:
+      start: {line: 1, character: 6}
+      end: {line: 1, character: 11}
+    default.w:
+      start: {line: 1, character: 21}
+      end: {line: 1, character: 26}
+finalState:
+  documentContents: |
+
+    const value = "Hello world";
+  selections:
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 21}

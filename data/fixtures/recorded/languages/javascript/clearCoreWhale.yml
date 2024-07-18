@@ -1,0 +1,25 @@
+languageId: javascript
+command:
+  version: 5
+  spokenForm: change inside whale
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - {type: interiorOnly}
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "'(hello world) testing'"
+  selections:
+    - anchor: {line: 0, character: 22}
+      active: {line: 0, character: 22}
+  marks:
+    default.w:
+      start: {line: 0, character: 8}
+      end: {line: 0, character: 13}
+finalState:
+  documentContents: "'() testing'"
+  selections:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}

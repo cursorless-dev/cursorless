@@ -26,11 +26,12 @@ def cursorless_relative_scope_singular(m) -> dict[str, Any]:
         getattr(m, "ordinals_small", 1),
         1,
         m.cursorless_relative_direction,
+        False,
     )
 
 
 @mod.capture(
-    rule="<user.cursorless_relative_direction> <user.private_cursorless_number_small> <user.cursorless_scope_type_plural>"
+    rule="[{user.cursorless_every_scope_modifier}] <user.cursorless_relative_direction> <user.private_cursorless_number_small> <user.cursorless_scope_type_plural>"
 )
 def cursorless_relative_scope_plural(m) -> dict[str, Any]:
     """Relative previous/next plural scope. `next three funks`"""
@@ -39,11 +40,12 @@ def cursorless_relative_scope_plural(m) -> dict[str, Any]:
         1,
         m.private_cursorless_number_small,
         m.cursorless_relative_direction,
+        hasattr(m, "cursorless_every_scope_modifier"),
     )
 
 
 @mod.capture(
-    rule="<user.private_cursorless_number_small> <user.cursorless_scope_type_plural> [{user.cursorless_forward_backward_modifier}]"
+    rule="[{user.cursorless_every_scope_modifier}] <user.private_cursorless_number_small> <user.cursorless_scope_type_plural> [{user.cursorless_forward_backward_modifier}]"
 )
 def cursorless_relative_scope_count(m) -> dict[str, Any]:
     """Relative count scope. `three funks`"""
@@ -52,6 +54,7 @@ def cursorless_relative_scope_count(m) -> dict[str, Any]:
         0,
         m.private_cursorless_number_small,
         getattr(m, "cursorless_forward_backward_modifier", "forward"),
+        hasattr(m, "cursorless_every_scope_modifier"),
     )
 
 
@@ -65,6 +68,7 @@ def cursorless_relative_scope_one_backward(m) -> dict[str, Any]:
         0,
         1,
         m.cursorless_forward_backward_modifier,
+        False,
     )
 
 
@@ -82,12 +86,19 @@ def cursorless_relative_scope(m) -> dict[str, Any]:
 
 
 def create_relative_scope_modifier(
-    scope_type: dict, offset: int, length: int, direction: str
+    scope_type: dict,
+    offset: int,
+    length: int,
+    direction: str,
+    is_every: bool,
 ) -> dict[str, Any]:
-    return {
+    res = {
         "type": "relativeScope",
         "scopeType": scope_type,
         "offset": offset,
         "length": length,
         "direction": direction,
     }
+    if is_every:
+        res["isEvery"] = True
+    return res

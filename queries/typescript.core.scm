@@ -4,15 +4,37 @@
 
 ;; import javascript.core.scm
 
-;;!! function aaa(bbb?: Ccc = "ddd") {}
-;;!               ^^^--------------
-(optional_parameter
-  (identifier) @name
+;;!! function aaa(bbb = "ddd") {}
+;;!               ^^^--------
+(required_parameter
+  (identifier) @_.leading.endOf
+  value: (_) @value
+  !type
 ) @_.domain
 
 ;;!! function aaa(bbb: Ccc = "ddd") {}
 ;;!               ^^^-------------
 (required_parameter
+  type: (_) @_.leading.endOf
+  value: (_) @value
+) @_.domain
+
+;;!! function aaa(bbb?: Ccc = "ddd") {}
+;;!               ^^^--------------
+(optional_parameter
+  type: (_) @_.leading.endOf
+  value: (_) @value
+) @_.domain
+
+;;!! function aaa(bbb: Ccc = "ddd") {}
+;;!               ^^^-------------
+(required_parameter
+  (identifier) @name
+) @_.domain
+
+;;!! function aaa(bbb?: Ccc) {}
+;;!               ^^^------
+(optional_parameter
   (identifier) @name
 ) @_.domain
 
@@ -44,7 +66,7 @@
     (public_field_definition
       name: (_) @functionName
       value: [
-        (function
+        (function_expression
           !name
         )
         (generator_function
@@ -60,18 +82,42 @@
 
 (
   ;;!! (public | private | protected) foo = ...;
-  ;;!  -------------------------------^^^-------
+  ;;!  -----------------------------------------
   (public_field_definition
-    name: (_) @name
+    name: (_) @name @value.leading.endOf
+    !type
+    value: (_)? @value @name.trailing.startOf
+  ) @_.domain.start
+  .
+  ";"? @_.domain.end
+)
+
+(
+  ;;!! (public | private | protected) foo: Bar = ...;
+  ;;!  ----------------------------------------------
+  (public_field_definition
+    name: (_) @name @type.leading.endOf
     type: (_
       ":"
       (_) @type
-    )?
+    ) @value.leading.endOf
     value: (_)? @value
   ) @_.domain.start
   .
   ";"? @_.domain.end
 )
+
+(
+  (type_alias_declaration
+    value: (_) @value
+  ) @_.domain
+  (#not-parent-type? @_.domain export_statement)
+)
+(export_statement
+  (type_alias_declaration
+    value: (_) @value
+  )
+) @_.domain
 
 [
   (interface_declaration)
@@ -152,15 +198,27 @@
         (_) @type
       ) @type.removal
     ) @_.domain
-  ) @dummy
-  (#has-multiple-children-of-type? @dummy variable_declarator)
+  ) @_dummy
+  (#has-multiple-children-of-type? @_dummy variable_declarator)
 )
 
-;;!! function ccc(aaa: string, bbb?: string) {}
-;;!                    ^^^^^^        ^^^^^^
+;;!! function ccc(aaa: string) {}
+;;!                    ^^^^^^
 (formal_parameters
-  (_
+  (required_parameter
     pattern: (_) @_.leading.endOf
+    type: (_
+      ":"
+      (_) @type
+    )
+  ) @_.domain
+)
+
+;;!! function ccc(aaa?: string) {}
+;;!                     ^^^^^^
+(formal_parameters
+  (optional_parameter
+    "?" @_.leading.endOf
     type: (_
       ":"
       (_) @type
@@ -194,8 +252,8 @@
 ;;!                  ^^^^^^  ^^^^^^
 (type_arguments
   (_) @type
-  (#not-parent-type? @dummy type_assertion)
-) @dummy
+  (#not-parent-type? @_dummy type_assertion)
+) @_dummy
 
 ;;!! function foo<A>() {}
 ;;!               ^
@@ -231,6 +289,15 @@
 (as_expression
   (_) @_.leading.endOf
   (_) @type
+) @_.domain
+
+;;!! aaa as const
+;;!         ^^^
+;;!     xxxxxxx
+;;!  ----------
+(as_expression
+  (_) @_.leading.endOf
+  "const" @type
 ) @_.domain
 
 ;;!! aaa satisfies Bbb

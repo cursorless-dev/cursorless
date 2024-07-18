@@ -1,0 +1,33 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: take inside pair
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - {type: interiorOnly}
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: any}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    async (editor, targets) => {
+        const edits = targets.map((target, i) =>(
+        text: i%2 === 0?left:right
+        )
+    }
+  selections:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
+  marks: {}
+finalState:
+  documentContents: |
+    async (editor, targets) => {
+        const edits = targets.map((target, i) =>(
+        text: i%2 === 0?left:right
+        )
+    }
+  selections:
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 30}

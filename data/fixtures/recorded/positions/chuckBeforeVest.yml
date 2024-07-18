@@ -1,0 +1,29 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: chuck leading vest
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - {type: leading}
+      mark: {type: decoratedSymbol, symbolColor: default, character: v}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+
+    const value = "Hello world";
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.v:
+      start: {line: 1, character: 6}
+      end: {line: 1, character: 11}
+finalState:
+  documentContents: |
+
+    constvalue = "Hello world";
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

@@ -1,5 +1,5 @@
+import { SimpleScopeTypeType, unsafeKeys } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import { SimpleScopeTypeType } from "@cursorless/common";
 import {
   NodeFinder,
   NodeMatcher,
@@ -21,7 +21,6 @@ import {
   simpleSelectionExtractor,
   unwrapSelectionExtractor,
 } from "./nodeSelectors";
-import { unsafeKeys } from "./object";
 
 export function matcher(
   finder: NodeFinder,
@@ -169,12 +168,11 @@ export function cascadingMatcher(...matchers: NodeMatcher[]): NodeMatcher {
   };
 }
 
-export const notSupported: NodeMatcher = (
-  _selection: SelectionWithEditor,
-  _node: SyntaxNode,
-) => {
-  throw new Error("Node type not supported");
-};
+export function notSupported(scopeTypeType: SimpleScopeTypeType): NodeMatcher {
+  return (_selection: SelectionWithEditor, _node: SyntaxNode) => {
+    throw new Error(`Node type '${scopeTypeType}' not supported`);
+  };
+}
 
 export function createPatternMatchers(
   nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>>,

@@ -1,12 +1,4 @@
-import * as semver from "semver";
-import { version } from "vscode";
-import { TextDocument } from "vscode";
-import { getNotebookFromCellDocumentLegacy } from "./notebookLegacy";
-import { getNotebookFromCellDocumentCurrent } from "./notebookCurrent";
-
-export function isVscodeLegacyNotebookVersion() {
-  return semver.lt(version, "1.68.0");
-}
+import { TextDocument, window } from "vscode";
 
 /**
  * Given a document corresponding to a single cell, retrieve the notebook
@@ -16,9 +8,17 @@ export function isVscodeLegacyNotebookVersion() {
  * given cell
  */
 export function getNotebookFromCellDocument(document: TextDocument) {
-  if (isVscodeLegacyNotebookVersion()) {
-    return getNotebookFromCellDocumentLegacy(document);
-  } else {
-    return getNotebookFromCellDocumentCurrent(document);
-  }
+  const { notebookEditor } =
+    window.visibleNotebookEditors
+      .flatMap((notebookEditor) =>
+        notebookEditor.notebook.getCells().map((cell) => ({
+          notebookEditor,
+          cell,
+        })),
+      )
+      .find(
+        ({ cell }) => cell.document.uri.toString() === document.uri.toString(),
+      ) ?? {};
+
+  return notebookEditor;
 }

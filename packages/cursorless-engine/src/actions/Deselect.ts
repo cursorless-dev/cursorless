@@ -1,6 +1,5 @@
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
-import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import { SimpleAction, ActionReturnValue } from "./actions.types";
 
@@ -24,10 +23,7 @@ export default class Deselect implements SimpleAction {
         throw new SelectionRequiredError();
       }
 
-      setSelectionsWithoutFocusingEditor(
-        ide().getEditableTextEditor(editor),
-        newSelections,
-      );
+      await ide().getEditableTextEditor(editor).setSelections(newSelections);
     });
 
     return {

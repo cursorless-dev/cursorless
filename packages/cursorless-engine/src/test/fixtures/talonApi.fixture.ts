@@ -93,10 +93,6 @@ const wrapWithSnippetByNameAction: ActionDescriptor = {
     variableName: "body",
   },
 };
-const parseTreeAction: ActionDescriptor = {
-  name: "private.showParseTree",
-  target: decoratedPrimitiveTarget("a"),
-};
 const alternateHighlightAirAndBatAction: ActionDescriptor = {
   name: "highlight",
   target: {
@@ -143,6 +139,61 @@ function getTextAction(options: GetTextActionOptions): ActionDescriptor {
     target: decoratedPrimitiveTarget("a"),
   };
 }
+
+const parsedActionNoTargets: ActionDescriptor = {
+  name: "parsed",
+  content: "chuck block",
+  arguments: [],
+};
+const parsedActionAir: ActionDescriptor = {
+  name: "parsed",
+  content: "chuck block <target>",
+  arguments: [
+    {
+      type: "list",
+      elements: [
+        {
+          type: "primitive",
+          mark: {
+            type: "decoratedSymbol",
+            symbolColor: "default",
+            character: "a",
+          },
+        },
+        {
+          type: "primitive",
+          mark: {
+            type: "decoratedSymbol",
+            symbolColor: "default",
+            character: "b",
+          },
+        },
+      ],
+    },
+  ],
+};
+const parsedActionAirPlusBat: ActionDescriptor = {
+  name: "parsed",
+  content: "bring block <target1> after <target2>",
+  arguments: [
+    {
+      type: "primitive",
+      mark: {
+        type: "decoratedSymbol",
+        symbolColor: "default",
+        character: "a",
+      },
+    },
+    {
+      type: "primitive",
+      mark: {
+        type: "decoratedSymbol",
+        symbolColor: "default",
+        character: "b",
+      },
+    },
+  ],
+};
 
 /**
  * These test our Talon api using dummy spoken forms defined in
@@ -195,6 +246,9 @@ export const talonApiFixture = [
     "test api alternate highlight nothing",
     alternateHighlightNothingAction,
   ),
+  spokenFormTest("test api parsed", parsedActionNoTargets),
+  spokenFormTest("test api parsed air and bat", parsedActionAir),
+  spokenFormTest("test api parsed air plus bat", parsedActionAirPlusBat),
 ];
 
 function decoratedPrimitiveTarget(

@@ -10,6 +10,10 @@ tag: user.cursorless
     user.run_rpc_command("cursorless.recordTestCase")
 {user.cursorless_homophone} record one:
     user.run_rpc_command("cursorless.recordOneTestCaseThenPause")
+{user.cursorless_homophone} record scope:
+    user.run_rpc_command("cursorless.recordScopeTests.showUnimplementedFacets")
+{user.cursorless_homophone} save scope:
+    user.run_rpc_command("cursorless.recordScopeTests.saveActiveDocument")
 {user.cursorless_homophone} pause:
     user.run_rpc_command("cursorless.pauseRecording")
 {user.cursorless_homophone} resume:

@@ -1,8 +1,8 @@
-from ..get_list import get_lists, get_raw_list
+from ..get_list import get_lists, get_spoken_form_from_list
 
 
 def get_scopes():
-    complex_scopes = get_raw_list("glyph_scope_type")
+    glyph_spoken_form = get_spoken_form_from_list("glyph_scope_type", "glyph")
     return [
         *get_lists(
             ["scope_type"],
@@ -17,7 +17,7 @@ def get_scopes():
             "type": "scopeType",
             "variations": [
                 {
-                    "spokenForm": f"{complex_scopes['glyph']} <character>",
+                    "spokenForm": f"{glyph_spoken_form} <character>",
                     "description": "Instance of single character <character>",
                 },
             ],

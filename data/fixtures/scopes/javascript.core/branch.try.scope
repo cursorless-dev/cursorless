@@ -1,0 +1,45 @@
+try {
+
+}
+catch(error) {
+
+}
+finally {
+
+}
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-2:1
+  >-----
+0| try {
+1|
+2| }
+   -<
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Removal] =
+[#2 Domain] = 3:0-5:1
+  >--------------
+3| catch(error) {
+4|
+5| }
+   -<
+
+[#2 Insertion delimiter] = "\n"
+
+
+[#3 Content] =
+[#3 Removal] =
+[#3 Domain] = 6:0-8:1
+  >---------
+6| finally {
+7|
+8| }
+   -<
+
+[#3 Insertion delimiter] = "\n"

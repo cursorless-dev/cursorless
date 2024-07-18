@@ -44,18 +44,27 @@ def cursorless_ordinal_range(m) -> dict[str, Any]:
 
 
 @mod.capture(
-    rule="({user.cursorless_first_modifier} | {user.cursorless_last_modifier}) <user.private_cursorless_number_small> <user.cursorless_scope_type_plural>"
+    rule=(
+        "[{user.cursorless_every_scope_modifier}] "
+        "({user.cursorless_first_modifier} | {user.cursorless_last_modifier}) "
+        "<user.private_cursorless_number_small> <user.cursorless_scope_type_plural>"
+    ),
 )
 def cursorless_first_last(m) -> dict[str, Any]:
     """First/last `n` scopes; eg "first three funks"""
-    if m[0] == "first":
+    is_every = hasattr(m, "cursorless_every_scope_modifier")
+    if hasattr(m, "cursorless_first_modifier"):
         return create_ordinal_scope_modifier(
-            m.cursorless_scope_type_plural, 0, m.private_cursorless_number_small
+            m.cursorless_scope_type_plural,
+            0,
+            m.private_cursorless_number_small,
+            is_every,
         )
     return create_ordinal_scope_modifier(
         m.cursorless_scope_type_plural,
         -m.private_cursorless_number_small,
         m.private_cursorless_number_small,
+        is_every,
     )
 
 
@@ -65,10 +74,18 @@ def cursorless_ordinal_scope(m) -> dict[str, Any]:
     return m[0]
 
 
-def create_ordinal_scope_modifier(scope_type: dict, start: int, length: int = 1):
-    return {
+def create_ordinal_scope_modifier(
+    scope_type: dict,
+    start: int,
+    length: int = 1,
+    is_every: bool = False,
+):
+    res = {
         "type": "ordinalScope",
         "scopeType": scope_type,
         "start": start,
         "length": length,
     }
+    if is_every:
+        res["isEvery"] = True
+    return res

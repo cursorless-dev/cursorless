@@ -16,9 +16,17 @@ let retryCount = -1;
  */
 let previousTestTitle = "";
 
-export function endToEndTestSetup(suite: Mocha.Suite) {
-  suite.timeout("100s");
-  suite.retries(5);
+interface EndToEndTestSetupOpts {
+  retries?: number;
+  timeout?: string | number;
+}
+
+export function endToEndTestSetup(
+  suite: Mocha.Suite,
+  { retries = 5, timeout = "100s" }: EndToEndTestSetupOpts = {},
+) {
+  suite.timeout(timeout);
+  suite.retries(retries);
 
   let ide: IDE;
   let injectIde: (ide: IDE) => void;
@@ -28,7 +36,9 @@ export function endToEndTestSetup(suite: Mocha.Suite) {
     const title = this.test!.fullTitle();
     retryCount = title === previousTestTitle ? retryCount + 1 : 0;
     previousTestTitle = title;
-    ({ ide, injectIde } = (await getCursorlessApi()).testHelpers!);
+    const testHelpers = (await getCursorlessApi()).testHelpers!;
+    ({ ide, injectIde } = testHelpers);
+    testHelpers.commandServerApi.setFocusedElementType(undefined);
     spy = new SpyIDE(ide);
     injectIde(spy);
   });

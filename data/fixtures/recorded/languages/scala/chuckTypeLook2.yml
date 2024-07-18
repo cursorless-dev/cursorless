@@ -1,0 +1,32 @@
+languageId: scala
+command:
+  version: 5
+  spokenForm: chuck type look
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+      mark: {type: decoratedSymbol, symbolColor: default, character: l}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    class TypesAhoy() {
+      def example(foo: List[String]): List[String] = foo
+    }
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.l:
+      start: {line: 1, character: 19}
+      end: {line: 1, character: 23}
+finalState:
+  documentContents: |
+    class TypesAhoy() {
+      def example(foo): List[String] = foo
+    }
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

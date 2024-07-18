@@ -1,0 +1,31 @@
+languageId: markdown
+command:
+  version: 5
+  spokenForm: change previous token
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: relativeScope
+          scopeType: {type: token}
+          offset: 1
+          length: 1
+          direction: backward
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    aaa
+    bbb
+    ccc
+  selections:
+    - anchor: {line: 2, character: 1}
+      active: {line: 2, character: 1}
+  marks: {}
+finalState:
+  documentContents: |-
+    aaa
+
+    ccc
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
