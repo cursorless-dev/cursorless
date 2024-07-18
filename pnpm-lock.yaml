@@ -421,9 +421,6 @@ importers:
       mdast-util-find-and-replace:
         specifier: ^3.0.1
         version: 3.0.1
-      node-plugin:
-        specifier: file:plugins/node
-        version: file:packages/cursorless-org-docs/plugins/node
       prism-react-renderer:
         specifier: ^2.3.1
         version: 2.3.1(react@18.2.0)
@@ -6896,9 +6893,6 @@ packages:
 
   node-int64@0.4.0:
     resolution: {integrity: sha512-O5lz91xSOeoXP6DulyHfllpq+Eg00MWitZIbtPfoSEvqIHdl5gfcY6hYzDWnj0qD5tz52PI08u9qUvSVeUBeHw==}
-
-  node-plugin@file:packages/cursorless-org-docs/plugins/node:
-    resolution: {directory: packages/cursorless-org-docs/plugins/node, type: directory}
 
   node-releases@2.0.17:
     resolution: {integrity: sha512-Ww6ZlOiEQfPfXM45v17oabk77Z7mg5bOt7AjDyzy7RjK9OrLrLC8dyZQoAPEOtFX9SaNf1Tdvr5gRJWdTJj7GA==}
@@ -18280,8 +18274,6 @@ snapshots:
       he: 1.2.0
 
   node-int64@0.4.0: {}
-
-  node-plugin@file:packages/cursorless-org-docs/plugins/node: {}
 
   node-releases@2.0.17: {}
 
