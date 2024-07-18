@@ -16,6 +16,7 @@ const COMMAND_CAPABILITIES: CommandCapabilityMap = {
   highlight: { acceptsLocation: true },
   unfold: undefined,
   showReferences: undefined,
+  insertLineAfter: undefined,
 };
 
 export class NeovimCapabilities implements Capabilities {
