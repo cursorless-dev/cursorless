@@ -35,6 +35,11 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
    */
   private editor?: TextEditor;
 
+  /**
+   * The current highlight ranges that are being used to display the tutorial,
+   * if any. We store these so that we can remove them when user has gone off
+   * the tutorial path and then restore them when they come back.
+   */
   private highlightRanges: CharacterRange[] = [];
 
   /**
