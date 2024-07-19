@@ -3,7 +3,7 @@ local M = {}
 -- Get the first and last visible line of the current window/buffer
 -- @see https://vi.stackexchange.com/questions/28471/get-first-and-last-visible-line-from-other-buffer-than-current
 -- w0/w$ are indexed from 1, similarly to what is shown in neovim
--- e.g. :lua print(dump_table(require('talon.cursorless').window_get_visible_lines()))"
+-- e.g. :lua print(vim.inspect(require('cursorless').window_get_visible_lines()))"
 --   window_get_visible_lines
 --  { [1] = 28, [2] = 74 }
 function M.window_get_visible_lines()
@@ -15,7 +15,7 @@ end
 -- https://neovim.io/doc/user/api.html#nvim_win_get_cursor()
 --
 -- luacheck:ignore 631
--- e.g. run in command mode :vmap <c-a> <Cmd>lua print(vim.inspect(require('talon.cursorless').buffer_get_selection()))<Cr>
+-- e.g. run in command mode :vmap <c-a> <Cmd>lua print(vim.inspect(require('cursorless').buffer_get_selection()))<Cr>
 -- then go in visual mode with "v" and select "hello" on the first line and continue selection with "air"
 -- on the second line.
 -- Then hit ctrl+b and it will show the selection
@@ -89,7 +89,7 @@ end
 
 -- https://www.reddit.com/r/neovim/comments/p4u4zy/how_to_pass_visual_selection_range_to_lua_function/
 -- luacheck:ignore 631
--- e.g. run in command mode :vmap <c-b> <Cmd>lua print(vim.inspect(require('talon.cursorless').buffer_get_selection_text()))<Cr>
+-- e.g. run in command mode :vmap <c-b> <Cmd>lua print(vim.inspect(require('cursorless').buffer_get_selection_text()))<Cr>
 -- then go in visual mode with "v" and select "hello" on the first line and continue selection with "air"
 -- on the second line.
 -- Then hit ctrl+b and it will show the selection
