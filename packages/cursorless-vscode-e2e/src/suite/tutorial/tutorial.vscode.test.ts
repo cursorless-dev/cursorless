@@ -29,7 +29,7 @@ suite("tutorial", async function () {
   );
 });
 
-const BASICS_TUTORIAL_ID = "unit-1-basics";
+const BASICS_TUTORIAL_ID = "tutorial-1-basics";
 
 async function runBasicTutorialTest(spyIde: SpyIDE) {
   const cursorlessApi = await getCursorlessApi();
@@ -100,7 +100,7 @@ async function runBasicTutorialTest(spyIde: SpyIDE) {
         data: {
           type: "doingTutorial",
           hasErrors: false,
-          id: "unit-1-basics",
+          id: "tutorial-1-basics",
           stepNumber: 0,
           stepContent: [
             [
@@ -189,14 +189,14 @@ async function runBasicTutorialTest(spyIde: SpyIDE) {
         type: "pickingTutorial",
         tutorials: [
           {
-            id: "unit-1-basics",
+            id: "tutorial-1-basics",
             title: "Introduction",
             version: 0,
             stepCount: 11,
             currentStep: 1,
           },
           {
-            id: "unit-2-basic-coding",
+            id: "tutorial-2-basic-coding",
             title: "Basic coding",
             version: 0,
             stepCount: 11,
