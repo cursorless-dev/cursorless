@@ -115,9 +115,31 @@
       "type": "npm",
       "script": "populate-dist",
       "path": "packages/cursorless-vscode",
+      "dependsOn": ["VSCode: Build tutorial webview"],
       "presentation": {
         "reveal": "silent"
       },
+      "group": "build"
+    },
+    {
+      "label": "VSCode: Build tutorial webview",
+      "type": "npm",
+      "script": "build:dev",
+      "path": "packages/cursorless-vscode-tutorial-webview",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "group": "build"
+    },
+    {
+      "label": "VSCode: Watch tutorial",
+      "type": "npm",
+      "script": "watch:tailwind",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "never"
+      },
+      "path": "packages/cursorless-vscode-tutorial-webview",
       "group": "build"
     },
     {
