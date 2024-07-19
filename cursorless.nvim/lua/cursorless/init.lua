@@ -107,8 +107,13 @@ local function setup()
   configure_command_server_shortcut()
 end
 
+local cursorless = require("cursorless.cursorless")
 local M = {
   setup = setup,
+  window_get_visible_lines = cursorless.window_get_visible_lines,
+  buffer_get_selection = cursorless.buffer_get_selection,
+  buffer_get_selection_text = cursorless.buffer_get_selection_text,
+  select_range = cursorless.select_range,
 }
 
 return M
