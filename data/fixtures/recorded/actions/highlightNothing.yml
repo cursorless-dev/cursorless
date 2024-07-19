@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  version: 4
+  version: 5
   spokenForm: highlight nothing
   action: {name: highlight}
   targets:

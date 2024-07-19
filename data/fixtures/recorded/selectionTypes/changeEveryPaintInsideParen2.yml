@@ -1,7 +1,8 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: change every paint inside paren
-  version: 2
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: (}
@@ -10,7 +11,6 @@ command:
           scopeType: {type: nonWhitespaceSequence}
         - {type: interiorOnly}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: foo(aa|aa-().c_d bb|bb-().'') { return 1; }
   selections:

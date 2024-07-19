@@ -17,7 +17,7 @@ import {
   fromVscodeRange,
   fromVscodeSelection,
 } from "@cursorless/vscode-common";
-import { pull } from "lodash";
+import { pull } from "lodash-es";
 import { v4 as uuid } from "uuid";
 import * as vscode from "vscode";
 import { ExtensionContext, WorkspaceFolder, window, workspace } from "vscode";
@@ -62,7 +62,7 @@ export class VscodeIDE implements IDE {
     return await vscodeShowQuickPick(items, options);
   }
 
-  async setHighlightRanges(
+  setHighlightRanges(
     highlightId: HighlightId | undefined,
     editor: TextEditor,
     ranges: GeneralizedRange[],
@@ -78,7 +78,7 @@ export class VscodeIDE implements IDE {
     );
   }
 
-  async flashRanges(flashDescriptors: FlashDescriptor[]): Promise<void> {
+  flashRanges(flashDescriptors: FlashDescriptor[]): Promise<void> {
     return this.flashHandler.flashRanges(flashDescriptors);
   }
 

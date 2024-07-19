@@ -24,12 +24,15 @@ class VisibleCommand extends Command implements CommandDescription {
 
 export const cursorlessCommandIds = [
   "cursorless.command",
+  "cursorless.repeatPreviousCommand",
   "cursorless.internal.updateCheatsheetDefaults",
   "cursorless.private.logQuickActions",
   "cursorless.keyboard.escape",
   "cursorless.keyboard.modal.modeOff",
   "cursorless.keyboard.modal.modeOn",
   "cursorless.keyboard.modal.modeToggle",
+  "cursorless.keyboard.undoTarget",
+  "cursorless.keyboard.redoTarget",
   "cursorless.keyboard.targeted.clearTarget",
   "cursorless.keyboard.targeted.runActionOnTarget",
   "cursorless.keyboard.targeted.targetHat",
@@ -90,6 +93,9 @@ export const cursorlessCommandDescriptions: Record<
   ),
 
   ["cursorless.command"]: new HiddenCommand("The core cursorless command"),
+  ["cursorless.repeatPreviousCommand"]: new VisibleCommand(
+    "Repeat the previous Cursorless command",
+  ),
   ["cursorless.showQuickPick"]: new HiddenCommand(
     "Pop up a quick pick of all cursorless commands",
   ),
@@ -131,5 +137,11 @@ export const cursorlessCommandDescriptions: Record<
   ),
   ["cursorless.keyboard.modal.modeToggle"]: new HiddenCommand(
     "Toggle the cursorless modal mode",
+  ),
+  ["cursorless.keyboard.undoTarget"]: new HiddenCommand(
+    "Undo keyboard targeting changes",
+  ),
+  ["cursorless.keyboard.redoTarget"]: new HiddenCommand(
+    "Redo keyboard targeting changes",
   ),
 };

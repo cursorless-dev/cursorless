@@ -1,19 +1,19 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: chuck fine past dot
-  version: 3
+  action: {name: remove}
   targets:
     - type: range
-      anchor:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: f}
       active:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: .}
       excludeAnchor: false
       excludeActive: false
+      anchor:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: f}
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: |2
        foo

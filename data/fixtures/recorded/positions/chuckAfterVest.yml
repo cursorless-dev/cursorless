@@ -1,12 +1,14 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 5
   spokenForm: chuck trailing vest
-  action: remove
+  action: {name: remove}
   targets:
     - type: primitive
-      position: after
+      modifiers:
+        - {type: trailing}
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

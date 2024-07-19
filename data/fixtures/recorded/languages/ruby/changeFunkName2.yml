@@ -1,14 +1,14 @@
 languageId: ruby
 command:
+  version: 5
   spokenForm: change funk name
-  version: 2
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: functionName}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
     def Thing.hello_world

@@ -46,3 +46,44 @@ You can now say eg `"echo air past bat"`.
 See the [Talon-side api docs](./customization.md#cursorless-public-api) for more on creating custom Cursorless commands
 
 :::
+
+## How do I run a custom Python transformation on a target?
+
+1. Add the transformation to a Python file in your Talon user directory:
+
+   ```python
+    from talon import Module
+
+    mod = Module()
+
+
+    @mod.action_class
+    class Actions:
+        def hello(text: str) -> str:
+            """Returns a greeting for the given text."""
+            return f"Hello, {text}!"
+   ```
+
+2. Add a spoken form to your `vscode.talon`:
+
+   ```talon
+   hello <user.cursorless_target>:
+       old = user.cursorless_get_text(cursorless_target, true)
+       new = user.hello(old)
+       destination = user.cursorless_create_destination(cursorless_target)
+       user.cursorless_insert(destination, new)
+   ```
+
+Now, for example if you have a target `aardvark` with a hat over the `a`, you can say `"hello air"` to replace it with `Hello, aardvark!`.
+
+:::info
+
+See the [Talon-side api docs](./customization.md#cursorless-public-api) for more on creating custom Cursorless commands
+
+:::
+
+:::info
+
+Notice how we use `cursorless_create_destination` to create a destination for the result of the transformation. The `cursorless_insert` action expects a destination, so that it knows whether to replace, insert before, or insert after the target. See [Destinations](reference/destinations.md) for more information.
+
+:::

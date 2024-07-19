@@ -5,7 +5,7 @@ import type {
   TextDocumentChangeEvent,
   TextDocumentContentChangeEvent,
 } from "@cursorless/common";
-import { pull } from "lodash";
+import { pull } from "lodash-es";
 import { ide } from "../../singletons/ide.singleton";
 import {
   ExtendedTextDocumentChangeEvent,
@@ -96,7 +96,6 @@ export class RangeUpdater {
   private listenForDocumentChanges() {
     this.disposable = ide().onDidChangeTextDocument(
       (event: TextDocumentChangeEvent) => {
-        const changes = event.contentChanges;
         const documentReplaceEditLists = this.getDocumentReplaceEditLists(
           event.document,
         );

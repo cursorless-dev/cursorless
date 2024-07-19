@@ -1,7 +1,5 @@
-import {
-  getCursorlessRepoRoot,
-  getEnvironmentVariableStrict,
-} from "@cursorless/common";
+import { getEnvironmentVariableStrict } from "@cursorless/common";
+import { getCursorlessRepoRoot } from "@cursorless/node-common";
 import * as cp from "child_process";
 import { copyFile, mkdirSync, readdirSync } from "fs";
 import process from "node:process";
@@ -64,10 +62,10 @@ export async function launchNeovimAndRunTests() {
         stdio: "inherit",
         env: {
           ...process.env,
-          // "NVIM_NODE_HOST_DEBUG": "1",
-          NVIM_NODE_LOG_FILE: logName,
-          NVIM_NODE_LOG_LEVEL: "debug",
-          CURSORLESS_MODE: "test",
+          // ["NVIM_NODE_HOST_DEBUG"]: "1",
+          ["NVIM_NODE_LOG_FILE"]: logName,
+          ["NVIM_NODE_LOG_LEVEL"]: "debug",
+          ["CURSORLESS_MODE"]: "test",
         },
       });
       console.log(`status: ${status}`);
@@ -83,9 +81,9 @@ export async function launchNeovimAndRunTests() {
     const subprocess = cp.spawn(cli, [`--headless`], {
       env: {
         ...process.env,
-        NVIM_NODE_LOG_FILE: logName,
-        NVIM_NODE_LOG_LEVEL: "info", // default for testing
-        CURSORLESS_MODE: "test",
+        ["NVIM_NODE_LOG_FILE"]: logName,
+        ["NVIM_NODE_LOG_LEVEL"]: "info", // default for testing
+        ["CURSORLESS_MODE"]: "test",
       },
     });
     console.log("nvim started done");

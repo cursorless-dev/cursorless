@@ -1,14 +1,14 @@
 import { FakeIDE, TestCaseFixtureLegacy } from "@cursorless/common";
-import { uniq } from "lodash";
+import { uniq } from "lodash-es";
 import { injectIde } from "../../singletons/ide.singleton";
 import tokenGraphemeSplitter from "../../singletons/tokenGraphemeSplitter.singleton";
 import { extractTargetKeys } from "../../testUtil/extractTargetKeys";
 import { getPartialTargetDescriptors } from "../../util/getPartialTargetDescriptors";
-import { upgrade } from "./transformations/upgrade";
 import assert from "assert";
+import { canonicalize } from "./transformations/canonicalize";
 
 export function checkMarks(originalFixture: TestCaseFixtureLegacy): undefined {
-  const command = upgrade(originalFixture).command;
+  const command = canonicalize(originalFixture).command;
 
   injectIde(new FakeIDE());
   const graphemeSplitter = tokenGraphemeSplitter();

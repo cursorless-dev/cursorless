@@ -5,7 +5,7 @@ import {
   ScopeType,
 } from "@cursorless/common";
 import { imap } from "itertools";
-import { escapeRegExp } from "lodash";
+import { escapeRegExp } from "lodash-es";
 import { NestedScopeHandler } from "./NestedScopeHandler";
 import { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 import { generateMatchesInRange } from "../../../util/getMatchesInRange";

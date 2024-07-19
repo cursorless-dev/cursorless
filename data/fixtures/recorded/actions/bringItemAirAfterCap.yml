@@ -1,7 +1,8 @@
 languageId: typescript
 command:
+  version: 5
   spokenForm: bring item air after cap
-  version: 2
+  action: {name: replaceWithTarget}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
@@ -13,7 +14,6 @@ command:
       modifiers:
         - {type: position, position: after}
   usePrePhraseSnapshot: true
-  action: {name: replaceWithTarget}
 initialState:
   documentContents: |-
     [

@@ -35,20 +35,19 @@
 (function_definition
   declarator: (_
     declarator: (_
-      namespace: (_) @className
+      scope: (_) @className
     )
   )
 ) @_.domain
 
 (lambda_expression) @anonymousFunction
-(attribute) @attribute
+(attribute_declaration) @attribute
 
 ;; >  curl https://raw.githubusercontent.com/tree-sitter/tree-sitter-cpp/master/src/node-types.json | jq '[.[] | select(.type == "_type_specifier") | .subtypes[].type]'
 [
   (auto)
   (decltype)
   (dependent_type)
-  (scoped_type_identifier)
   (template_type)
 ] @type
 

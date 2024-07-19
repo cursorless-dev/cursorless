@@ -1,11 +1,14 @@
 languageId: go
 command:
-  version: 1
+  version: 5
   spokenForm: take funk name
-  action: setSelection
+  action: {name: setSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: functionName, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionName}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: "func add(x, y int, z int) int {\n\treturn x + y\n}"
   selections:

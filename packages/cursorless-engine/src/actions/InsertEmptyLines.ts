@@ -1,10 +1,9 @@
 import { FlashStyle, Range, Selection, toLineRange } from "@cursorless/common";
-import { flatten } from "lodash";
+import { flatten } from "lodash-es";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
-import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import { SimpleAction, ActionReturnValue } from "./actions.types";
 
@@ -61,10 +60,7 @@ class InsertEmptyLines implements SimpleAction {
             ],
           );
 
-        await setSelectionsWithoutFocusingEditor(
-          editableEditor,
-          updatedCursorSelections,
-        );
+        await editableEditor.setSelections(updatedCursorSelections);
 
         return {
           thatMark: updatedThatSelections.map((selection) => ({

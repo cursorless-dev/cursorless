@@ -1,0 +1,19 @@
+class Program {
+    public void foo() { }
+}
+---
+
+[Content] =
+[Removal] = 1:16-1:19
+                  >---<
+1|     public void foo() { }
+
+[Leading delimiter] = 1:15-1:16
+                 >-<
+1|     public void foo() { }
+
+[Domain] = 1:4-1:25
+      >---------------------<
+1|     public void foo() { }
+
+[Insertion delimiter] = " "

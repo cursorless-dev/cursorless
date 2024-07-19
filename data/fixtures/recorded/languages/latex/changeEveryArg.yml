@@ -1,11 +1,14 @@
 languageId: latex
 command:
-  version: 1
+  version: 5
   spokenForm: change every arg
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
+      modifiers:
+        - type: everyScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     \href{https://some.url}{some text}

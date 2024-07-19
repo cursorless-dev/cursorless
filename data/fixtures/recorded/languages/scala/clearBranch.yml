@@ -1,6 +1,6 @@
 languageId: scala
 command:
-  version: 3
+  version: 5
   spokenForm: change branch
   action: {name: clearAndSetSelection}
   targets:

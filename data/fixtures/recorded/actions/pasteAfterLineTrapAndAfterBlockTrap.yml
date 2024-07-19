@@ -1,7 +1,8 @@
 languageId: python
 command:
+  version: 5
   spokenForm: paste after line trap and after block trap
-  version: 2
+  action: {name: pasteFromClipboard}
   targets:
     - type: list
       elements:
@@ -18,7 +19,6 @@ command:
             - type: containingScope
               scopeType: {type: paragraph}
   usePrePhraseSnapshot: true
-  action: {name: pasteFromClipboard}
 initialState:
   documentContents: |
     if True:

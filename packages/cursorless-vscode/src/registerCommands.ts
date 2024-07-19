@@ -1,17 +1,21 @@
 import {
   CURSORLESS_COMMAND_ID,
   CursorlessCommandId,
-  FileSystem,
-  isTesting,
+  type CommandHistoryStorage,
 } from "@cursorless/common";
 import {
-  CommandApi,
-  TestCaseRecorder,
-  analyzeCommandHistory,
   showCheatsheet,
   updateDefaults,
-  type ScopeTestRecorder,
+} from "@cursorless/cursorless-cheatsheet";
+import {
+  CommandApi,
+  StoredTargetMap,
+  analyzeCommandHistory,
 } from "@cursorless/cursorless-engine";
+import type {
+  ScopeTestRecorder,
+  TestCaseRecorder,
+} from "@cursorless/test-case-recorder";
 import * as vscode from "vscode";
 import { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
 import { showDocumentation, showQuickPick } from "./commands";
@@ -24,30 +28,39 @@ export function registerCommands(
   extensionContext: vscode.ExtensionContext,
   vscodeIde: VscodeIDE,
   commandApi: CommandApi,
-  fileSystem: FileSystem,
+  commandHistoryStorage: CommandHistoryStorage,
   testCaseRecorder: TestCaseRecorder,
   scopeTestRecorder: ScopeTestRecorder,
   scopeVisualizer: ScopeVisualizer,
   keyboardCommands: KeyboardCommands,
   hats: VscodeHats,
+  storedTargets: StoredTargetMap,
 ): void {
+  const runCommandWrapper = async (run: () => Promise<unknown>) => {
+    try {
+      return await run();
+    } catch (e) {
+      if (vscodeIde.runMode !== "test") {
+        const err = e as Error;
+        console.error(err.stack);
+        vscodeIde.handleCommandError(err);
+      }
+      throw e;
+    }
+  };
+
   const commands: Record<CursorlessCommandId, (...args: any[]) => any> = {
     // The core Cursorless command
     [CURSORLESS_COMMAND_ID]: async (...args: unknown[]) => {
-      try {
-        return await commandApi.runCommandSafe(...args);
-      } catch (e) {
-        if (!isTesting()) {
-          const err = e as Error;
-          console.error(err.stack);
-          vscodeIde.handleCommandError(err);
-        }
-        throw e;
-      }
+      return runCommandWrapper(() => commandApi.runCommandSafe(...args));
+    },
+
+    ["cursorless.repeatPreviousCommand"]: async () => {
+      return runCommandWrapper(() => commandApi.repeatPreviousCommand());
     },
 
     // Cheatsheet commands
-    ["cursorless.showCheatsheet"]: showCheatsheet,
+    ["cursorless.showCheatsheet"]: (arg) => showCheatsheet(vscodeIde, arg),
     ["cursorless.internal.updateCheatsheetDefaults"]: updateDefaults,
 
     // Testcase recorder commands
@@ -80,7 +93,7 @@ export function registerCommands(
 
     // Command history
     ["cursorless.analyzeCommandHistory"]: () =>
-      analyzeCommandHistory(fileSystem.cursorlessCommandHistoryDirPath),
+      analyzeCommandHistory(commandHistoryStorage),
 
     // General keyboard commands
     ["cursorless.keyboard.escape"]:
@@ -106,6 +119,9 @@ export function registerCommands(
     ["cursorless.keyboard.modal.modeOn"]: keyboardCommands.modal.modeOn,
     ["cursorless.keyboard.modal.modeOff"]: keyboardCommands.modal.modeOff,
     ["cursorless.keyboard.modal.modeToggle"]: keyboardCommands.modal.modeToggle,
+
+    ["cursorless.keyboard.undoTarget"]: () => storedTargets.undo("keyboard"),
+    ["cursorless.keyboard.redoTarget"]: () => storedTargets.redo("keyboard"),
   };
 
   extensionContext.subscriptions.push(

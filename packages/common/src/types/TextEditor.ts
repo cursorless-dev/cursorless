@@ -1,6 +1,5 @@
 import type {
   Edit,
-  Position,
   Range,
   RevealLineAt,
   Selection,
@@ -53,8 +52,30 @@ export interface TextEditor {
   isEqual(other: TextEditor): boolean;
 }
 
+export interface SetSelectionsOpts {
+  focusEditor?: boolean;
+  revealRange?: boolean;
+}
+
+export type OpenLinkOptions = {
+  openAside: boolean;
+};
+
 export interface EditableTextEditor extends TextEditor {
-  setSelections(selections: Selection[]): Promise<void>;
+  /**
+   * Set the selections in this text editor, optionally focusing the editor
+   * and/or revealing the ranges.
+   *
+   * Note that if your editor requires unique selections, you should deduplicate
+   * them in your implementation of this method.
+   *
+   * @param selections The new selections
+   * @param opts The options for setting the selections
+   */
+  setSelections(
+    selections: Selection[],
+    opts?: SetSelectionsOpts,
+  ): Promise<void>;
 
   options: TextEditorOptions;
 
@@ -104,9 +125,9 @@ export interface EditableTextEditor extends TextEditor {
   /**
    * Open link at location.
    * @param location Position or range
-   * @return True if a link was opened
+   * @param options Options for opening the link.
    */
-  openLink(location?: Position | Range): Promise<boolean>;
+  openLink(range: Range, options?: OpenLinkOptions): Promise<void>;
 
   /**
    * Fold ranges

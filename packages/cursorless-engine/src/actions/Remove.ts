@@ -1,5 +1,5 @@
 import { FlashStyle, Selection, TextEditor } from "@cursorless/common";
-import { flatten, zip } from "lodash";
+import { flatten, zip } from "lodash-es";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { RawSelectionTarget } from "../processTargets/targets";
@@ -8,7 +8,6 @@ import { Target } from "../typings/target.types";
 import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
 import { unifyRemovalTargets } from "../util/unifyRanges";
 import { SimpleAction, ActionReturnValue } from "./actions.types";
-import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 
 export default class Delete implements SimpleAction {
   constructor(private rangeUpdater: RangeUpdater) {
@@ -51,10 +50,7 @@ export default class Delete implements SimpleAction {
         [cursorSelections, editSelections],
       );
 
-    await setSelectionsWithoutFocusingEditor(
-      editableEditor,
-      updatedCursorSelections,
-    );
+    await editableEditor.setSelections(updatedCursorSelections);
 
     return zip(targets, updatedEditSelections).map(
       ([target, range]) =>

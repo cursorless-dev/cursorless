@@ -7,6 +7,7 @@ import {
 } from "@cursorless/common";
 import { URI } from "vscode-uri";
 import NeovimTextLineImpl from "./NeovimTextLineImpl";
+import path from "node:path";
 
 export class NeovimTextDocumentImpl implements TextDocument {
   private _uri: URI;
@@ -21,6 +22,10 @@ export class NeovimTextDocumentImpl implements TextDocument {
 
   get uri(): URI {
     return this._uri;
+  }
+
+  get filename(): string {
+    return path.basename(this._uri.path);
   }
 
   get languageId(): string {

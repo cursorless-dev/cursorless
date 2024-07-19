@@ -41,3 +41,37 @@
 )
 
 (list) @collectionItem.iteration
+
+;;!! ```
+;;!  ^^^
+;;!! hello
+;;!  -----
+;;!  #####
+;;!! ```
+;;!  ^^^
+(
+  (fenced_code_block
+    (fenced_code_block_delimiter) @_.interior.start.endOf
+    .
+    (block_continuation)
+    (fenced_code_block_delimiter) @_.interior.end.startOf
+  ) @notebookCell
+  (#trim-end! @notebookCell)
+  (#insertion-delimiter! @notebookCell "\n\n")
+)
+
+;;!! ```python
+;;!  ^^^^^^^^^
+;;!! pass
+;;!  ----
+;;!  ####
+;;!! ```
+;;!  ^^^
+(
+  (fenced_code_block
+    (info_string) @_.interior.start.endOf
+    (fenced_code_block_delimiter) @_.interior.end.startOf
+  ) @notebookCell
+  (#trim-end! @notebookCell)
+  (#insertion-delimiter! @notebookCell "\n\n")
+)

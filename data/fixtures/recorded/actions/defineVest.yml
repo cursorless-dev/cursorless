@@ -1,14 +1,16 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: define vest
-  action: executeCommand
+  action:
+    name: executeCommand
+    args:
+      - editor.action.revealDefinition
+      - {restoreSelection: false}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
-  extraArgs:
-    - editor.action.revealDefinition
-    - {restoreSelection: false}
+  usePrePhraseSnapshot: false
 spokenFormError: Action 'executeCommand'
 initialState:
   documentContents: |

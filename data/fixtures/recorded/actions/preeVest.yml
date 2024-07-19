@@ -1,11 +1,12 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: pre vest
-  action: setSelectionBefore
+  action: {name: setSelectionBefore}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

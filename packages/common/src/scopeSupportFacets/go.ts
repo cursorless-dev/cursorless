@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 import {
   LanguageScopeSupportFacetMap,
   ScopeSupportFacetLevel,
@@ -10,4 +8,8 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const goScopeSupport: LanguageScopeSupportFacetMap = {
   "comment.line": supported,
+
+  "textFragment.string.singleLine": supported,
+  "textFragment.string.multiLine": supported,
+  "textFragment.comment.line": supported,
 };

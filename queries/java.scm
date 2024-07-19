@@ -155,6 +155,28 @@
   alternative: (block) @branch.end
 )
 
+(
+  (if_statement) @branch.iteration
+  (#not-parent-type? @branch.iteration "if_statement")
+)
+
+;;!! try {}
+;;!  ^^^^^^
+(try_statement
+  "try" @branch.start
+  body: (_) @branch.end
+)
+
+;;!! catch (Exception e) {}
+;;!  ^^^^^^^^^^^^^^^^^^^^^^
+(catch_clause) @branch
+
+;;!! finally {}
+;;!  ^^^^^^^^^^
+(finally_clause) @branch
+
+(try_statement) @branch.iteration
+
 ;;!! for (int i = 0; i < 5; ++i) {}
 ;;!                  ^^^^^
 ;;!  ------------------------------

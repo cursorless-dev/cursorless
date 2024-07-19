@@ -1,13 +1,14 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: move vest to cap
-  action: moveToTarget
+  action: {name: moveToTarget}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: c}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

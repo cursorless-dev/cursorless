@@ -1,11 +1,14 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: take regex
-  action: setSelection
+  action: {name: setSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: regularExpression}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: regularExpression}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

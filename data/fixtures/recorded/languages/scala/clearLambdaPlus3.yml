@@ -1,12 +1,15 @@
 languageId: scala
 command:
-  version: 0
+  version: 5
   spokenForm: change lambda plus
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: anonymousFunction, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: anonymousFunction}
       mark: {type: decoratedSymbol, symbolColor: default, character: +}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     class ExampleClass() {

@@ -1,12 +1,12 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: change this
-  version: 3
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       mark: {type: cursor}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: aaa
   selections:

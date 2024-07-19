@@ -1,18 +1,19 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: take whale until vest
-  action: setSelection
+  action: {name: setSelection}
   targets:
-    - type: range
-      start:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: w}
-      end:
+    - active:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: v}
-      excludeStart: false
-      excludeEnd: true
+      type: range
+      excludeAnchor: false
+      excludeActive: true
+      anchor:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

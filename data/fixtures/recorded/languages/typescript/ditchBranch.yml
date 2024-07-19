@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  version: 3
+  version: 5
   spokenForm: chuck branch
   action: {name: remove}
   targets:

@@ -23,6 +23,7 @@
       "float": "insertEmptyLineAfter",
       "fold": "foldRegion",
       "follow": "followLink",
+      "follow split": "followLinkAside",
       "give": "deselect",
       "highlight": "highlight",
       "hover": "showHover",

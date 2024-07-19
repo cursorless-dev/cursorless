@@ -2,6 +2,7 @@ import { getCellIndex } from "@cursorless/vscode-common";
 import {
   commands,
   NotebookDocument,
+  TabInputTextDiff,
   TextEditor,
   ViewColumn,
   window,
@@ -23,19 +24,27 @@ const columnFocusCommands = {
   [ViewColumn.Beside]: "",
 };
 
-export default async function vscodeFocusEditor(editor: VscodeTextEditorImpl) {
-  // Focusing the search editor brings focus back to the input field.
-  // FIXME: This is a hack. There is no way to focus the search editor. If we
-  // could figure out if the editor was not focused, we could issue
-  // `search.action.focusNextSearchResult`.
-  // Issue: https://github.com/cursorless-dev/cursorless/issues/1722
-  if (editor.document.uri.scheme === "search-editor") {
-    return;
-  }
-
+/**
+ * Focus editor. Returns true if selection needs to be set again.
+ */
+export default async function vscodeFocusEditor(
+  editor: VscodeTextEditorImpl,
+): Promise<void> {
   const viewColumn = getViewColumn(editor.vscodeEditor);
   if (viewColumn != null) {
     await commands.executeCommand(columnFocusCommands[viewColumn]);
+
+    if (editor.isDiffEditorOriginal && !editor.isActive) {
+      // There is no way of directly focusing the left hand side of a diff
+      // editor. Switch side if needed.
+
+      await commands.executeCommand("diffEditor.switchSide");
+    } else if (editor.isSearchEditor) {
+      // Focusing the search editor brings focus back to the input field. This
+      // command moves selection into the actual editor text.
+
+      await commands.executeCommand("search.action.focusNextSearchResult");
+    }
   } else {
     // If the view column is null we see if it's a notebook and try to see if we
     // can just move around in the notebook to focus the correct editor
@@ -50,10 +59,15 @@ function getViewColumn(editor: TextEditor): ViewColumn | undefined {
   }
   const uri = editor.document.uri.toString();
   const tabGroup = window.tabGroups.all.find((tabGroup) =>
-    tabGroup.tabs.find(
-      (tab: any) =>
-        (tab?.input?.uri ?? tab?.input?.modified)?.toString() === uri,
-    ),
+    tabGroup.tabs.find((tab) => {
+      if (tab.input instanceof TabInputTextDiff) {
+        return (
+          tab.input.original.toString() === uri ||
+          tab.input.modified.toString() === uri
+        );
+      }
+      return (tab as any).input?.uri?.toString() === uri;
+    }),
   );
   return tabGroup?.viewColumn;
 }

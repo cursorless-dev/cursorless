@@ -1,7 +1,8 @@
 languageId: typescript
 command:
+  version: 5
   spokenForm: change head funk
-  version: 2
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
@@ -10,7 +11,6 @@ command:
             - type: containingScope
               scopeType: {type: namedFunction}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
     function whatever() {

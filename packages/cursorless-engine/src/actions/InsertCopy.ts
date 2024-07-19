@@ -5,14 +5,13 @@ import {
   TextEditor,
   toCharacterRange,
 } from "@cursorless/common";
-import { flatten, zip } from "lodash";
+import { flatten, zip } from "lodash-es";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../core/updateSelections/updateSelections";
 import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { containingLineIfUntypedModifier } from "../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
-import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
 import { SimpleAction, ActionReturnValue } from "./actions.types";
 
@@ -86,10 +85,7 @@ class InsertCopy implements SimpleAction {
       ([edit, selection]) => edit!.updateRange(selection!),
     );
 
-    await setSelectionsWithoutFocusingEditor(
-      editableEditor,
-      updatedCursorSelections,
-    );
+    await editableEditor.setSelections(updatedCursorSelections);
     const primarySelection = editor.selections[0];
 
     if (

@@ -28,7 +28,9 @@
   "dependencies": {
     "@cursorless/common": "workspace:*",
     "@cursorless/neovim-common": "workspace:*",
-    "@cursorless/neovim-registry": "workspace:*"
+    "@cursorless/neovim-registry": "workspace:*",
+    "@cursorless/node-common": "workspace:*",
+    "@cursorless/test-case-recorder": "workspace:*"
   },
   "types": "./out/index.d.ts",
   "type": "module"

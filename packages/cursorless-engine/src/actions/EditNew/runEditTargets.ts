@@ -3,7 +3,7 @@ import {
   RangeExpansionBehavior,
   Selection,
 } from "@cursorless/common";
-import { zip } from "lodash";
+import { zip } from "lodash-es";
 import { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../../core/updateSelections/updateSelections";
 import { EditDestination, State } from "./EditNew.types";
@@ -25,11 +25,11 @@ export async function runEditTargets(
   rangeUpdater: RangeUpdater,
   editor: EditableTextEditor,
   state: State,
+  useAllDestinations: boolean,
 ): Promise<State> {
   const destinations: EditDestination[] = state.destinations
     .map((destination, index) => {
-      const actionType = destination.getEditNewActionType();
-      if (actionType === "edit") {
+      if (useAllDestinations || destination.getEditNewActionType() === "edit") {
         return {
           destination,
           index,

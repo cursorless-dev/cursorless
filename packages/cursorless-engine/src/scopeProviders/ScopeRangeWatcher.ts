@@ -7,12 +7,12 @@ import {
   ScopeRanges,
   showError,
 } from "@cursorless/common";
-import { pull } from "lodash";
+import { pull } from "lodash-es";
 
-import { Debouncer } from "../core/Debouncer";
 import { LanguageDefinitions } from "../languages/LanguageDefinitions";
 import { ide } from "../singletons/ide.singleton";
 import { ScopeRangeProvider } from "./ScopeRangeProvider";
+import { DecorationDebouncer } from "../util/DecorationDebouncer";
 
 /**
  * Watches for changes to the scope ranges of visible editors and notifies
@@ -20,7 +20,6 @@ import { ScopeRangeProvider } from "./ScopeRangeProvider";
  */
 export class ScopeRangeWatcher {
   private disposables: Disposable[] = [];
-  private debouncer = new Debouncer(() => this.onChange());
   private listeners: (() => void)[] = [];
 
   constructor(
@@ -32,20 +31,24 @@ export class ScopeRangeWatcher {
     this.onDidChangeIterationScopeRanges =
       this.onDidChangeIterationScopeRanges.bind(this);
 
+    const debouncer = new DecorationDebouncer(ide().configuration, () =>
+      this.onChange(),
+    );
+
     this.disposables.push(
       // An Event which fires when the array of visible editors has changed.
-      ide().onDidChangeVisibleTextEditors(this.debouncer.run),
+      ide().onDidChangeVisibleTextEditors(debouncer.run),
       // An event that fires when a text document opens
-      ide().onDidOpenTextDocument(this.debouncer.run),
+      ide().onDidOpenTextDocument(debouncer.run),
       // An Event that fires when a text document closes
-      ide().onDidCloseTextDocument(this.debouncer.run),
+      ide().onDidCloseTextDocument(debouncer.run),
       // An event that is emitted when a text document is changed. This usually
       // happens when the contents changes but also when other things like the
       // dirty-state changes.
-      ide().onDidChangeTextDocument(this.debouncer.run),
-      ide().onDidChangeTextEditorVisibleRanges(this.debouncer.run),
+      ide().onDidChangeTextDocument(debouncer.run),
+      ide().onDidChangeTextEditorVisibleRanges(debouncer.run),
       languageDefinitions.onDidChangeDefinition(this.onChange),
-      this.debouncer,
+      debouncer,
     );
   }
 

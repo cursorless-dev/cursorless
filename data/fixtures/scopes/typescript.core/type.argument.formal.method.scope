@@ -1,0 +1,22 @@
+class MyClass {
+  myFunk(value: number) { }
+}
+---
+
+[Content] = 1:16-1:22
+                  >------<
+1|   myFunk(value: number) { }
+
+[Removal] = 1:14-1:22
+                >--------<
+1|   myFunk(value: number) { }
+
+[Leading delimiter] = 1:14-1:16
+                >--<
+1|   myFunk(value: number) { }
+
+[Domain] = 1:9-1:22
+           >-------------<
+1|   myFunk(value: number) { }
+
+[Insertion delimiter] = " "

@@ -1,7 +1,8 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: take every item air
-  version: 2
+  action: {name: setSelection}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
@@ -9,7 +10,6 @@ command:
         - type: everyScope
           scopeType: {type: collectionItem}
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
 initialState:
   documentContents: |-
     [

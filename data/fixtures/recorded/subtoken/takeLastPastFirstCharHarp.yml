@@ -1,13 +1,26 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: take last past first char harp
-  action: setSelection
+  action: {name: setSelection}
   targets:
     - type: primitive
-      selectionType: token
-      modifier: {type: subpiece, pieceType: character, anchor: -1, active: 0}
+      modifiers:
+        - type: range
+          anchor:
+            type: ordinalScope
+            scopeType: {type: character}
+            start: -1
+            length: 1
+          active:
+            type: ordinalScope
+            scopeType: {type: character}
+            start: 0
+            length: 1
+          excludeAnchor: false
+          excludeActive: false
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |+
 

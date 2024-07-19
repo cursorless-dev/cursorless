@@ -1,22 +1,29 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: take second char look past second char trap
-  action: setSelection
+  action: {name: setSelection}
   targets:
-    - type: range
-      start:
+    - active:
         type: primitive
-        selectionType: token
-        modifier: {type: subpiece, pieceType: character, anchor: 1, active: 1}
-        mark: {type: decoratedSymbol, symbolColor: default, character: l}
-      end:
-        type: primitive
-        selectionType: token
-        modifier: {type: subpiece, pieceType: character, anchor: 1, active: 1}
+        modifiers:
+          - type: ordinalScope
+            scopeType: {type: character}
+            start: 1
+            length: 1
         mark: {type: decoratedSymbol, symbolColor: default, character: t}
-      excludeStart: false
-      excludeEnd: false
+      type: range
+      excludeAnchor: false
+      excludeActive: false
+      anchor:
+        type: primitive
+        modifiers:
+          - type: ordinalScope
+            scopeType: {type: character}
+            start: 1
+            length: 1
+        mark: {type: decoratedSymbol, symbolColor: default, character: l}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: "    hello there"
   selections:

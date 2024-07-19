@@ -1,14 +1,14 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: box repack this
-  version: 2
+  action:
+    name: rewrapWithPairedDelimiter
+    args: ['[', ']']
   targets:
     - type: primitive
       mark: {type: cursor}
   usePrePhraseSnapshot: true
-  action:
-    name: rewrapWithPairedDelimiter
-    args: ['[', ']']
 initialState:
   documentContents: (aaa bbb)
   selections:

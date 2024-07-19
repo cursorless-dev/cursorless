@@ -1,0 +1,11 @@
+{
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "excludedFiles": ["*.test.ts"],
+      "rules": {
+        "import/no-nodejs-modules": "error"
+      }
+    }
+  ]
+}

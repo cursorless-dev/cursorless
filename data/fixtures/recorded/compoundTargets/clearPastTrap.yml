@@ -1,16 +1,17 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 5
   spokenForm: change past trap
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
-    - type: range
-      start: {type: primitive, isImplicit: true}
-      end:
+    - active:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: t}
-      excludeStart: false
-      excludeEnd: false
+      type: range
+      excludeAnchor: false
+      excludeActive: false
+      anchor: {type: implicit}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: hello there
   selections:

@@ -4,7 +4,7 @@ import {
   generalizedRangeTouches,
 } from "@cursorless/common";
 
-import { max } from "lodash";
+import { max } from "lodash-es";
 import { DifferentiatedGeneralizedRange } from "./decorationStyle.types";
 
 /**

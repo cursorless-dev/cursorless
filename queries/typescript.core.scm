@@ -4,15 +4,37 @@
 
 ;; import javascript.core.scm
 
-;;!! function aaa(bbb?: Ccc = "ddd") {}
-;;!               ^^^--------------
-(optional_parameter
-  (identifier) @name
+;;!! function aaa(bbb = "ddd") {}
+;;!               ^^^--------
+(required_parameter
+  (identifier) @_.leading.endOf
+  value: (_) @value
+  !type
 ) @_.domain
 
 ;;!! function aaa(bbb: Ccc = "ddd") {}
 ;;!               ^^^-------------
 (required_parameter
+  type: (_) @_.leading.endOf
+  value: (_) @value
+) @_.domain
+
+;;!! function aaa(bbb?: Ccc = "ddd") {}
+;;!               ^^^--------------
+(optional_parameter
+  type: (_) @_.leading.endOf
+  value: (_) @value
+) @_.domain
+
+;;!! function aaa(bbb: Ccc = "ddd") {}
+;;!               ^^^-------------
+(required_parameter
+  (identifier) @name
+) @_.domain
+
+;;!! function aaa(bbb?: Ccc) {}
+;;!               ^^^------
+(optional_parameter
   (identifier) @name
 ) @_.domain
 
@@ -44,7 +66,7 @@
     (public_field_definition
       name: (_) @functionName
       value: [
-        (function
+        (function_expression
           !name
         )
         (generator_function
@@ -180,11 +202,23 @@
   (#has-multiple-children-of-type? @_dummy variable_declarator)
 )
 
-;;!! function ccc(aaa: string, bbb?: string) {}
-;;!                    ^^^^^^        ^^^^^^
+;;!! function ccc(aaa: string) {}
+;;!                    ^^^^^^
 (formal_parameters
-  (_
+  (required_parameter
     pattern: (_) @_.leading.endOf
+    type: (_
+      ":"
+      (_) @type
+    )
+  ) @_.domain
+)
+
+;;!! function ccc(aaa?: string) {}
+;;!                     ^^^^^^
+(formal_parameters
+  (optional_parameter
+    "?" @_.leading.endOf
     type: (_
       ":"
       (_) @type
@@ -255,6 +289,15 @@
 (as_expression
   (_) @_.leading.endOf
   (_) @type
+) @_.domain
+
+;;!! aaa as const
+;;!         ^^^
+;;!     xxxxxxx
+;;!  ----------
+(as_expression
+  (_) @_.leading.endOf
+  "const" @type
 ) @_.domain
 
 ;;!! aaa satisfies Bbb

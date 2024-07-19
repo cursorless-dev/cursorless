@@ -5,15 +5,17 @@
   "main": "./out/index.cjs",
   "private": true,
   "scripts": {
-    "compile:tsc": "tsc --build",
-    "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=cjs --conditions=cursorless:bundler --bundle --outfile=./out/index.cjs --platform=node",
-    "build": "pnpm populate-cursorless-nvim",
-    "compile": "pnpm compile:tsc && pnpm compile:esbuild && pnpm populate-cursorless-nvim",
-    "populate-cursorless-nvim": "bash ./scripts/populate-cursorless-nvim.sh",
-    "watch:tsc": "pnpm compile:tsc --watch",
-    "watch:esbuild": "pnpm compile:esbuild --watch",
+    "build": "pnpm run esbuild:prod && pnpm run populate-dist",
+    "compile": "tsc --build",
+    "esbuild:base": "esbuild ./src/index.ts --format=cjs --conditions=cursorless:bundler --bundle --outfile=./out/index.cjs --platform=node",
+    "esbuild": "pnpm run esbuild:base --sourcemap",
+    "esbuild:prod": "pnpm run esbuild:base --minify",
+    "populate-dist": "bash ./scripts/populate-dist.sh",
+    "populate-dist:prod": "bash ./scripts/populate-dist.sh",
+    "watch:tsc": "pnpm compile --watch",
+    "watch:esbuild": "pnpm esbuild --watch",
     "watch": "pnpm run --filter @cursorless/cursorless-neovim --parallel '/^watch:.*/'",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build ../../dist"
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "keywords": [],
   "author": "",
@@ -29,7 +31,9 @@
     "@cursorless/common": "workspace:*",
     "@cursorless/cursorless-engine": "workspace:*",
     "@cursorless/neovim-common": "workspace:*",
-    "@cursorless/neovim-registry": "workspace:*"
+    "@cursorless/neovim-registry": "workspace:*",
+    "@cursorless/node-common": "workspace:*",
+    "@cursorless/test-case-recorder": "workspace:*"
   },
   "devDependencies": {
     "@types/chai": "^4.3.14",

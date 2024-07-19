@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  version: 3
+  version: 5
   spokenForm: copy second token
   action: {name: copyToClipboard}
   targets:
@@ -10,6 +10,7 @@ command:
           scopeType: {type: token}
           start: 1
           length: 1
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

@@ -1,9 +1,10 @@
 languageId: plaintext
 command:
+  version: 5
   spokenForm: >-
     bring dot and harp to end of second char whale and end of just whale take
     whale
-  version: 2
+  action: {name: replaceWithTarget}
   targets:
     - type: list
       elements:
@@ -17,19 +18,16 @@ command:
           mark: {type: decoratedSymbol, symbolColor: default, character: w}
           modifiers:
             - {type: position, position: end}
-            - type: ordinalRange
+            - type: ordinalScope
               scopeType: {type: character}
-              anchor: 1
-              active: 1
-              excludeAnchor: false
-              excludeActive: false
+              start: 1
+              length: 1
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: w}
           modifiers:
             - {type: position, position: end}
             - {type: toRawSelection}
   usePrePhraseSnapshot: false
-  action: {name: replaceWithTarget}
 marksToCheck: [default.w]
 initialState:
   documentContents: hello. world

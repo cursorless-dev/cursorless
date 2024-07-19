@@ -1,10 +1,14 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: chuck file
-  action: remove
+  action: {name: remove}
   targets:
-    - {type: primitive, selectionType: document}
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: document}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

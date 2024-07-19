@@ -1,8 +1,8 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: bring air and bat and cap
-  action: replaceWithTarget
+  action: {name: replaceWithTarget}
   targets:
     - type: list
       elements:
@@ -12,7 +12,8 @@ command:
           mark: {type: decoratedSymbol, symbolColor: default, character: b}
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: c}
-    - {type: primitive, isImplicit: true}
+    - {type: implicit}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |+
     a

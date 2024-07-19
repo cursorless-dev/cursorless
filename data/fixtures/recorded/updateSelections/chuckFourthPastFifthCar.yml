@@ -1,12 +1,25 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 5
   spokenForm: chuck fourth past fifth char
-  action: remove
+  action: {name: remove}
   targets:
     - type: primitive
-      selectionType: token
-      modifier: {type: subpiece, pieceType: character, anchor: 3, active: 4, excludeAnchor: false, excludeActive: false}
+      modifiers:
+        - type: range
+          anchor:
+            type: ordinalScope
+            scopeType: {type: character}
+            start: 3
+            length: 1
+          active:
+            type: ordinalScope
+            scopeType: {type: character}
+            start: 4
+            length: 1
+          excludeAnchor: false
+          excludeActive: false
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: foo world whatever
   selections:

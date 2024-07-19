@@ -119,6 +119,13 @@ While the hats are hidden, you will not be able to address any marks, eg `"take 
 
 If you'd like to map a voice command to toggle the hats, have a look at https://youtu.be/oWUJyDgz63k
 
+Using the command server you can also specify if the hats should be on or of with a true/false value
+
+```talon
+hats on:  user.run_rpc_command("cursorless.toggleDecorations", true)
+hats off: user.run_rpc_command("cursorless.toggleDecorations", false)
+```
+
 ## Updating word separators
 
 The word separators are characters that defines the boundary between words in a identifier. eg `hello_world` is an identifier with two words separated by `_`. If you like to support other separators like `-` in `hello-world` that can be accomplished by changing the `cursorless.wordSeparators` setting. This setting is also language overridable.
@@ -142,6 +149,9 @@ Cursorless exposes a couple talon actions and captures that you can use to defin
 - `<user.cursorless_target>`
   Represents a cursorless target, such as `"air"`, `"this"`, `"air past bat"`, `"air and bat"`, `"funk air past token bat and class cap"`, etc
 
+- `<user.cursorless_destination>`
+  Represents a cursorless destination, such as `"to air"`, `"before this"`, `"after air and bat"`, etc
+
 ### Public Talon actions
 
 - `user.cursorless_command(action_id: str, target: cursorless_target)`:
@@ -158,6 +168,8 @@ Cursorless exposes a couple talon actions and captures that you can use to defin
 - `user.cursorless_insert(destination: CursorlessDestination, text: Union[str, List[str]])`:
   Insert text at destination.
   eg: `user.cursorless_insert(cursorless_destination, "hello")`
+- `user.cursorless_create_destination(target: CursorlessTarget, insertion_mode: Literal["to", "before", "after"] = "to") -> CursorlessDestination`:
+  Create a destination from a target. The insertion mode can be `to`, `before`, or `after`, and defaults to `to`, which will replace the target. See [How do I run a custom Python transformation on a target?](./how-to.md#how-do-i-run-a-custom-python-transformation-on-a-target) for example usage.
 - `user.cursorless_reformat(target: CursorlessTarget, formatters: str)`
   Reformat target with specified formatters.
   eg: `user.cursorless_reformat(cursorless_target, "ALL_CAPS")`

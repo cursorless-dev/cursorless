@@ -1,4 +1,4 @@
-import { sortedIndexBy } from "lodash";
+import { sortedIndexBy } from "lodash-es";
 import {
   SimpleSurroundingPairName,
   SurroundingPairScopeType,

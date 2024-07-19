@@ -15,13 +15,9 @@ import {
 import {
   StoredTargetMap,
   plainObjectToTarget,
-  takeSnapshot,
 } from "@cursorless/cursorless-engine";
-import {
-  NeovimFileSystem,
-  NeovimIDE,
-  NeovimTestHelpers,
-} from "@cursorless/neovim-common";
+import { NeovimIDE, NeovimTestHelpers } from "@cursorless/neovim-common";
+import { takeSnapshot } from "@cursorless/test-case-recorder";
 
 export function constructTestHelpers(
   commandServerApi: FakeCommandServerApi,
@@ -29,7 +25,6 @@ export function constructTestHelpers(
   hatTokenMap: HatTokenMap,
   neovimIDE: NeovimIDE,
   normalizedIde: NormalizedIDE,
-  fileSystem: NeovimFileSystem,
   scopeProvider: ScopeProvider,
   injectIde: (ide: IDE) => void,
   runIntegrationTests: () => Promise<void>,
@@ -61,9 +56,6 @@ export function constructTestHelpers(
         undefined,
       );
     },
-
-    cursorlessTalonStateJsonPath: fileSystem.cursorlessTalonStateJsonPath,
-    cursorlessCommandHistoryDirPath: fileSystem.cursorlessCommandHistoryDirPath,
 
     setStoredTarget(
       editor: TextEditor,

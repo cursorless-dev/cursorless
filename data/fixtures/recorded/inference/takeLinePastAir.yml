@@ -1,16 +1,21 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: take line past air
-  action: setSelection
+  action: {name: setSelection}
   targets:
-    - type: range
-      start: {type: primitive, selectionType: line}
-      end:
+    - active:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: a}
-      excludeStart: false
-      excludeEnd: false
+      type: range
+      excludeAnchor: false
+      excludeActive: false
+      anchor:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: line}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

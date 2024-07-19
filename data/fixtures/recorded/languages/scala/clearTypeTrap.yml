@@ -1,12 +1,15 @@
 languageId: scala
 command:
-  version: 1
+  version: 5
   spokenForm: change type trap
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
       mark: {type: decoratedSymbol, symbolColor: default, character: t}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     class TypesAhoy() {

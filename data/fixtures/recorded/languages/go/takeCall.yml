@@ -1,11 +1,14 @@
 languageId: go
 command:
-  version: 1
+  version: 5
   spokenForm: take call
-  action: setSelection
+  action: {name: setSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: functionCall, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionCall}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: add(1, 2)
   selections:

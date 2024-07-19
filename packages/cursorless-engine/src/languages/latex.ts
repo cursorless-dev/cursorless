@@ -108,7 +108,7 @@ function extendToNamedSiblingIfExists(
   let endIndex = node.endIndex;
   const sibling = node.nextNamedSibling;
 
-  if (sibling != null && sibling.isNamed()) {
+  if (sibling != null && sibling.isNamed) {
     endIndex = sibling.endIndex;
   }
 
