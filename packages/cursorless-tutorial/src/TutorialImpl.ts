@@ -1,4 +1,5 @@
 import {
+  CharacterRange,
   Debouncer,
   Disposable,
   HatTokenMap,
@@ -26,11 +27,15 @@ import { tutorialWrapCommandRunner } from "./tutorialWrapCommandRunner";
 import { TutorialContent } from "./types/tutorial.types";
 import { Tutorial } from "./Tutorial";
 
+const HIGHLIGHT_COLOR = "highlight0";
+
 export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
   /**
    * The current editor that is being used to display the tutorial, if any.
    */
   private editor?: TextEditor;
+
+  private highlightRanges: CharacterRange[] = [];
 
   /**
    * The current state of the tutorial, as exposed by {@link Tutorial.state}.
@@ -294,13 +299,38 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
   }
 
   private async setupStep() {
-    this.editor = await setupStep(
+    const { editor, highlightRanges } = await setupStep(
       this.ide,
       this.hatTokenMap,
       this.editor,
       this.state,
       this.currentTutorial,
     );
+
+    if (this.editor !== editor && this.editor != null) {
+      this.ide.setHighlightRanges(HIGHLIGHT_COLOR, this.editor, []);
+    }
+
+    this.editor = editor;
+    this.highlightRanges = highlightRanges;
+    this.ensureHighlights();
+  }
+
+  private ensureHighlights() {
+    if (this.editor != null) {
+      if (
+        this.state_.type === "doingTutorial" &&
+        this.state_.preConditionsMet
+      ) {
+        this.ide.setHighlightRanges(
+          HIGHLIGHT_COLOR,
+          this.editor,
+          this.highlightRanges,
+        );
+      } else {
+        this.ide.setHighlightRanges(HIGHLIGHT_COLOR, this.editor, []);
+      }
+    }
   }
 
   private async checkPreconditions() {
@@ -318,6 +348,7 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
           ...this.state_,
           preConditionsMet,
         });
+        this.ensureHighlights();
       }
     }
   }

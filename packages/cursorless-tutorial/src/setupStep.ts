@@ -1,4 +1,5 @@
 import {
+  CharacterRange,
   HatTokenMap,
   IDE,
   TestCaseSnapshot,
@@ -11,7 +12,10 @@ import {
 } from "@cursorless/common";
 import { TutorialContent } from "./types/tutorial.types";
 
-const HIGHLIGHT_COLOR = "highlight0";
+interface HighlightedEditor {
+  editor: TextEditor | undefined;
+  highlightRanges: CharacterRange[];
+}
 
 /**
  * Set up the current step. For example, if the current step requires that the
@@ -34,22 +38,16 @@ export async function setupStep(
   editor: TextEditor | undefined,
   state: TutorialState,
   currentTutorial: TutorialContent | undefined,
-): Promise<TextEditor | undefined> {
+): Promise<HighlightedEditor> {
   if (state.type !== "doingTutorial") {
-    if (editor != null) {
-      ide.setHighlightRanges(HIGHLIGHT_COLOR, editor, []);
-    }
-    return undefined;
+    return { editor: undefined, highlightRanges: [] };
   }
 
   const { initialState: snapshot, languageId = "plaintext" } =
     currentTutorial!.steps[state.stepNumber];
 
   if (snapshot == null) {
-    if (editor != null) {
-      ide.setHighlightRanges(HIGHLIGHT_COLOR, editor, []);
-    }
-    return editor;
+    return { editor, highlightRanges: [] };
   }
 
   return await applySnapshot(ide, hatTokenMap, editor, snapshot, languageId);
@@ -61,7 +59,7 @@ async function applySnapshot(
   editor: TextEditor | undefined,
   snapshot: TestCaseSnapshot,
   languageId: string,
-) {
+): Promise<HighlightedEditor> {
   const retry = editor != null;
 
   try {
@@ -98,17 +96,14 @@ async function applySnapshot(
       serializedMarksToTokenHats(snapshot.marks, editor),
     );
 
-    ide.setHighlightRanges(
-      HIGHLIGHT_COLOR,
-      editor,
-      Object.values(snapshot.marks ?? {}).map((range) =>
-        toCharacterRange(plainObjectToRange(range)),
-      ),
-    );
-
     await editableEditor.focus();
 
-    return editor;
+    return {
+      editor,
+      highlightRanges: Object.values(snapshot.marks ?? {}).map((range) =>
+        toCharacterRange(plainObjectToRange(range)),
+      ),
+    };
   } catch (err) {
     if (retry) {
       return await applySnapshot(
