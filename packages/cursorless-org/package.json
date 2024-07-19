@@ -35,7 +35,7 @@
     "http-server": "14.1.1",
     "postcss": "8.4.38",
     "tailwindcss": "3.4.1",
-    "typescript": "^5.4.3"
+    "typescript": "^5.5.3"
   },
   "license": "MIT",
   "main": "./out/index.js",
