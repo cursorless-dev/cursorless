@@ -83,11 +83,11 @@ const testCases: TestCase[] = [
     finalContent: "(a)",
   },
   {
-    name: "preserve keyboard target",
+    name: "set keyboard target to cursor",
     initialContent: "a\n",
     // round wrap air; round wrap <keyboard target>
     keySequence: ["da", "aw", "wp", "aw", "wp"],
-    finalContent: "((a))\n",
+    finalContent: "(a)\n()",
   },
   {
     name: "slice range",

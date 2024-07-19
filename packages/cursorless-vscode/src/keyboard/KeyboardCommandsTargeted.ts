@@ -261,12 +261,7 @@ export default class KeyboardCommandsTargeted {
     } else {
       // If we're not exiting cursorless mode, preserve the keyboard mark
       // FIXME: Better to just not clobber the keyboard mark on each action?
-      await setKeyboardTarget({
-        type: "primitive",
-        mark: {
-          type: "that",
-        },
-      });
+      await this.targetSelection();
     }
 
     return returnValue;

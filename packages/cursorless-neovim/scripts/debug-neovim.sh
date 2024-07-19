@@ -10,4 +10,4 @@ export NVIM_NODE_LOG_FILE="${workspaceFolder}/packages/cursorless-neovim/out/nvi
 export NVIM_NODE_LOG_LEVEL="info"
 export CURSORLESS_MODE="${cursorless_mode}"
 
-nvim -u "${workspaceFolder}/init.lua"
+command nvim -u "${workspaceFolder}/init.lua"
