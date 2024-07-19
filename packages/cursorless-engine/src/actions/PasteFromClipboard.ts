@@ -74,11 +74,7 @@ export class PasteFromClipboard {
       destination.constructChangeEdit(text),
     );
 
-    // const cursorSelections = editor.selections;
-    // const editSelections = edits.map(({ range }) => range.toSelection(false));
-    const cursorSelections = {
-      selections: editor.selections,
-    };
+    const cursorSelections = { selections: editor.selections };
     const editSelections = {
       selections: edits.map(({ range }) => range.toSelection(false)),
       rangeBehavior: RangeExpansionBehavior.openOpen,
