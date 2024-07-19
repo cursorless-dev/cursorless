@@ -261,12 +261,9 @@
           "-f",
           "${workspaceFolder}/packages/cursorless-neovim/out/nvim_node.log"
         ]
-      },
-      "windows": {
-        // NOTE: We don't have a way on Windows atm due to command with argument inside Run() not working
-        // so we need to show logs outside of vscode (see #2454)
-        "command": "echo"
       }
+      // NOTE: We don't have a way on Windows atm due to command with argument inside Run() not working
+      // so we need to show logs outside of vscode (see #2454)
     },
 
     // cursorless.org
