@@ -26,7 +26,7 @@ import VscodeClipboard from "./VscodeClipboard";
 import VscodeConfiguration from "./VscodeConfiguration";
 import { forwardEvent, vscodeOnDidChangeTextDocument } from "./VscodeEvents";
 import VscodeFlashHandler from "./VscodeFlashHandler";
-import VscodeGlobalState from "./VscodeGlobalState";
+import VscodeStorage from "./VscodeStorage";
 import VscodeHighlights, { HighlightStyle } from "./VscodeHighlights";
 import VscodeMessages from "./VscodeMessages";
 import { vscodeRunMode } from "./VscodeRunMode";
@@ -36,7 +36,7 @@ import { vscodeShowQuickPick } from "./vscodeShowQuickPick";
 
 export class VscodeIDE implements IDE {
   readonly configuration: VscodeConfiguration;
-  readonly globalState: VscodeGlobalState;
+  readonly storage: VscodeStorage;
   readonly messages: VscodeMessages;
   readonly clipboard: VscodeClipboard;
   readonly capabilities: VscodeCapabilities;
@@ -46,7 +46,7 @@ export class VscodeIDE implements IDE {
 
   constructor(private extensionContext: ExtensionContext) {
     this.configuration = new VscodeConfiguration(this);
-    this.globalState = new VscodeGlobalState(extensionContext);
+    this.storage = new VscodeStorage(extensionContext);
     this.messages = new VscodeMessages();
     this.clipboard = new VscodeClipboard();
     this.highlights = new VscodeHighlights(extensionContext);

@@ -20,13 +20,13 @@ import type {
 import { FakeCapabilities } from "./FakeCapabilities";
 import FakeClipboard from "./FakeClipboard";
 import FakeConfiguration from "./FakeConfiguration";
-import FakeGlobalState from "./FakeGlobalState";
+import FakeStorage from "./FakeStorage";
 import FakeMessages from "./FakeMessages";
 
 export class FakeIDE implements IDE {
   configuration: FakeConfiguration = new FakeConfiguration();
   messages: FakeMessages = new FakeMessages();
-  globalState: FakeGlobalState = new FakeGlobalState();
+  storage: FakeStorage = new FakeStorage();
   clipboard: FakeClipboard = new FakeClipboard();
   capabilities: FakeCapabilities = new FakeCapabilities();
 

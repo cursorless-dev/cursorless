@@ -1,7 +1,7 @@
 import { GeneralizedRange } from "../../types/GeneralizedRange";
 import { TextEditor } from "../../types/TextEditor";
 import FakeConfiguration from "../fake/FakeConfiguration";
-import FakeGlobalState from "../fake/FakeGlobalState";
+import FakeStorage from "../fake/FakeStorage";
 import { FakeIDE } from "../fake/FakeIDE";
 import PassthroughIDEBase from "../PassthroughIDEBase";
 import { FlashDescriptor } from "../types/FlashDescriptor";
@@ -10,7 +10,7 @@ import { QuickPickOptions } from "../types/QuickPickOptions";
 
 export class NormalizedIDE extends PassthroughIDEBase {
   configuration: FakeConfiguration;
-  globalState: FakeGlobalState;
+  storage: FakeStorage;
 
   constructor(
     original: IDE,
@@ -22,7 +22,7 @@ export class NormalizedIDE extends PassthroughIDEBase {
 
     this.messages = isSilent ? fakeIde.messages : original.messages;
     this.configuration = fakeIde.configuration;
-    this.globalState = fakeIde.globalState;
+    this.storage = fakeIde.storage;
     this.initializeConfiguration();
   }
 
