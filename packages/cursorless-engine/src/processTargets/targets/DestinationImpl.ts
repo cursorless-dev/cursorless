@@ -197,12 +197,12 @@ function getIndentationString(editor: TextEditor, range: Range) {
       continue;
     }
 
-    const position = line.isEmptyOrWhitespace
-      ? line.range.end
+    const trimmedPosition = line.isEmptyOrWhitespace
+      ? line.rangeTrimmed.end
       : line.rangeTrimmed.start;
 
-    if (position.character < length) {
-      length = position.character;
+    if (trimmedPosition.character < length) {
+      length = trimmedPosition.character;
       indentationString = line.text.slice(0, length);
     }
   }
