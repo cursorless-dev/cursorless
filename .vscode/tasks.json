@@ -136,14 +136,9 @@
       "dependsOn": [
         "Neovim: Launch neovim",
         "Neovim: ESBuild",
-        "Neovim: Populate dist"
+        "Neovim: Populate dist",
+        "Neovim: Show logs"
       ],
-      "osx": {
-        "dependsOn": ["Neovim: Show logs"]
-      },
-      "linux": {
-        "dependsOn": ["Neovim: Show logs"]
-      },
       "group": "build"
     },
     {
@@ -153,14 +148,9 @@
         "Neovim: ESBuild",
         "Neovim: Populate dist",
         "TSBuild",
-        "Build test harness"
+        "Build test harness",
+        "Neovim: Show logs"
       ],
-      "osx": {
-        "dependsOn": ["Neovim: Show logs"]
-      },
-      "linux": {
-        "dependsOn": ["Neovim: Show logs"]
-      },
       "group": "build"
     },
     {
@@ -246,8 +236,6 @@
       }
     },
     {
-      // NOTE: We don't have a way on Windows atm due to command with argument inside Run() not working
-      // so we need to show logs outside of vscode (see #2454)
       "label": "Neovim: Show logs",
       "type": "process",
       "osx": {
@@ -263,6 +251,11 @@
           "-f",
           "${workspaceFolder}/packages/cursorless-neovim/out/nvim_node.log"
         ]
+      },
+      "windows": {
+        // NOTE: We don't have a way on Windows atm due to command with argument inside Run() not working
+        // so we need to show logs outside of vscode (see #2454)
+        "command": "echo"
       }
     },
 
