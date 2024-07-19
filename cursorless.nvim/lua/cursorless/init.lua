@@ -89,7 +89,7 @@ local function setup(user_config)
 end
 
 local cursorless = require("cursorless.cursorless")
-local M = {
+M = {
   setup = setup,
   config = require("cursorless.config").get_config,
   window_get_visible_lines = cursorless.window_get_visible_lines,
