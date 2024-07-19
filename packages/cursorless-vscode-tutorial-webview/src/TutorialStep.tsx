@@ -67,6 +67,9 @@ export const TutorialStep: FunctionComponent<TutorialStepProps> = ({
                 <ArrowLeftIcon size={12} />
               </span>
             </button>
+            <span className="text-2xs">
+              {state.stepNumber + 1} / {state.stepCount}{" "}
+            </span>
             <button
               onClick={() =>
                 vscode.postMessage({

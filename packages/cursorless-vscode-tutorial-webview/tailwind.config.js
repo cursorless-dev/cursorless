@@ -8,6 +8,10 @@ export const content = [".", ...references].map(
   (dir) => `${dir}/src/**/*!(*.stories|*.spec).{ts,tsx,html}`,
 );
 export const theme = {
-  extend: {},
+  extend: {
+    fontSize: {
+      ["2xs"]: "0.625rem",
+    },
+  },
 };
 export const plugins = [];
