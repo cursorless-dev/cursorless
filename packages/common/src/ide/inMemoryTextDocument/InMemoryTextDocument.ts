@@ -59,48 +59,43 @@ export class InMemoryTextDocument implements TextDocument {
   lineAt(lineOrPosition: number | Position): TextLine {
     const value =
       typeof lineOrPosition === "number" ? lineOrPosition : lineOrPosition.line;
-    const index = Math.min(Math.max(value, 0), this.lineCount - 1);
+    const index = clamp(value, 0, this.lineCount - 1);
     return this._lines[index];
   }
 
   offsetAt(position: Position): number {
-    if (position.isBefore(this._lines[0].range.start)) {
+    if (position.line < 0) {
       return 0;
     }
-    if (position.isAfter(this._lines.at(-1)!.range.end)) {
+    if (position.line > this._lines.length - 1) {
       return this._text.length;
     }
 
-    let offset = 0;
+    const line = this._lines[position.line];
 
-    for (const line of this._lines) {
-      if (position.line === line.lineNumber) {
-        return offset + Math.min(position.character, line.range.end.character);
-      }
-      offset += line.text.length + line.eolLength;
-    }
-
-    throw Error(`Couldn't find offset for position ${position}`);
+    return line.offset + clamp(position.character, 0, line.text.length);
   }
 
   positionAt(offset: number): Position {
-    if (offset < 0) {
-      return this._lines[0].range.start;
+    if (offset <= 0) {
+      return this.range.start;
     }
     if (offset >= this._text.length) {
-      return this._lines.at(-1)!.range.end;
+      return this.range.end;
     }
 
-    let currentOffset = 0;
+    const line = this._lines.find(
+      (line) => offset < line.offset + line.lengthIncludingEol,
+    );
 
-    for (const line of this._lines) {
-      if (currentOffset + line.text.length >= offset) {
-        return new Position(line.lineNumber, offset - currentOffset);
-      }
-      currentOffset += line.text.length + line.eolLength;
+    if (line == null) {
+      throw Error(`Couldn't find line for offset ${offset}`);
     }
 
-    throw Error(`Couldn't find position for offset ${offset}`);
+    return new Position(
+      line.lineNumber,
+      Math.min(offset - line.offset, line.text.length),
+    );
   }
 
   getText(range?: Range): string {
@@ -122,16 +117,22 @@ export class InMemoryTextDocument implements TextDocument {
 function createLines(text: string): InMemoryTextLine[] {
   const documentParts = text.split(/(\r?\n)/g);
   const result: InMemoryTextLine[] = [];
+  let offset = 0;
 
   for (let i = 0; i < documentParts.length; i += 2) {
-    result.push(
-      new InMemoryTextLine(
-        result.length,
-        documentParts[i],
-        documentParts[i + 1],
-      ),
+    const line = new InMemoryTextLine(
+      result.length,
+      offset,
+      documentParts[i],
+      documentParts[i + 1],
     );
+    result.push(line);
+    offset += line.lengthIncludingEol;
   }
 
   return result;
+}
+
+function clamp(value: number, min: number, max: number): number {
+  return Math.min(Math.max(value, min), max);
 }
