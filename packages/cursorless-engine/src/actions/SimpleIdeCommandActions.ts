@@ -58,7 +58,7 @@ abstract class SimpleIdeCommandAction {
   }
 }
 
-export class CopyToClipboard extends SimpleIdeCommandAction {
+export class CopyToClipboardSimple extends SimpleIdeCommandAction {
   command: CommandId = "clipboardCopy";
   ensureSingleEditor = true;
 }
