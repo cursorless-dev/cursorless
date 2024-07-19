@@ -35,7 +35,8 @@ Note that the `C:\path\to\cursorless` path above should match your cloned cursor
 
 ## Running / testing extension locally
 
-In order to test out your local version of the extension or to run unit tests locally, you need to run the extension in debug mode. To do so you need to run the `workbench.action.debug.selectandstart` command in VSCode and then select either "Run neovim extension" or "Run neovim extension tests".
+In order to test out your local version of the extension or to run unit tests locally, you need to run the extension in
+debug mode. To do so you need to run the `workbench.action.debug.selectandstart` (aka `Debug: Select and Start Debugging`) command in VSCode and then select either "Neovim: Run" or "Neovim: Test".
 
 The debug logs are written in `C:\path\to\cursorless\packages\cursorless-neovim\out\nvim_node.log`.
 

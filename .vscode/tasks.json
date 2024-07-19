@@ -205,7 +205,12 @@
           "tell app \"Terminal\" to do script \"${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.sh ${workspaceFolder} development\" activate"
         ]
       },
-      // TODO: Add linux
+      "linux": {
+        "command": "packages/cursorless-neovim/scripts/linux-terminal.sh",
+        "args": [
+          "${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.sh ${workspaceFolder} development"
+        ]
+      },
       "group": "build",
       "options": {
         "env": {
@@ -233,7 +238,12 @@
           "tell app \"Terminal\" to do script \"${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.sh ${workspaceFolder} test\" activate"
         ]
       },
-      // TODO: Add linux
+      "linux": {
+        "command": "packages/cursorless-neovim/scripts/linux-terminal.sh",
+        "args": [
+          "${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.sh ${workspaceFolder} test"
+        ]
+      },
       "group": "build",
       "options": {
         "env": {
