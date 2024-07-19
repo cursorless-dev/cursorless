@@ -11,6 +11,8 @@
     "composite": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    "strict": true
+    "strict": true,
+    "rootDir": "${configDir}/src",
+    "outDir": "${configDir}/out"
   }
 }
