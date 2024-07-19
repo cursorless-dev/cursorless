@@ -1,4 +1,4 @@
-import { Range, TextLine } from "@cursorless/common";
+import { Position, Range, TextLine } from "@cursorless/common";
 import { fromVscodeRange } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
 
@@ -21,12 +21,16 @@ export default class VscodeTextLineImpl implements TextLine {
     return fromVscodeRange(this.line.rangeIncludingLineBreak);
   }
 
-  get firstNonWhitespaceCharacterIndex(): number {
-    return this.line.firstNonWhitespaceCharacterIndex;
-  }
-
-  get lastNonWhitespaceCharacterIndex(): number {
-    return this.line.text.trimEnd().length;
+  get rangeTrimmed(): Range {
+    return this.line.isEmptyOrWhitespace
+      ? this.range
+      : new Range(
+          new Position(
+            this.lineNumber,
+            this.line.firstNonWhitespaceCharacterIndex,
+          ),
+          new Position(this.lineNumber, this.line.text.trimEnd().length),
+        );
   }
 
   get isEmptyOrWhitespace(): boolean {

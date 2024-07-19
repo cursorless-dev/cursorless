@@ -52,12 +52,7 @@ function getEdits(editor: TextEditor, contentRanges: Range[]): Edit[] {
     );
     for (const [line1, line2] of pairwise(lineIter)) {
       edits.push({
-        range: new Range(
-          line1.range.end.line,
-          line1.lastNonWhitespaceCharacterIndex,
-          line2.range.start.line,
-          line2.firstNonWhitespaceCharacterIndex,
-        ),
+        range: new Range(line1.rangeTrimmed.end, line2.rangeTrimmed.start),
         text: line2.isEmptyOrWhitespace ? "" : " ",
         isReplace: true,
       });

@@ -4,11 +4,10 @@ import type { TextLine } from "../../types/TextLine";
 import { getLeadingWhitespace, getTrailingWhitespace } from "../../util/regex";
 
 export class InMemoryTextLine implements TextLine {
+  readonly isEmptyOrWhitespace: boolean;
   readonly range: Range;
   readonly rangeIncludingLineBreak: Range;
-  readonly firstNonWhitespaceCharacterIndex: number;
-  readonly lastNonWhitespaceCharacterIndex: number;
-  readonly isEmptyOrWhitespace: boolean;
+  readonly rangeTrimmed: Range;
   readonly lengthIncludingEol: number;
 
   constructor(
@@ -23,10 +22,13 @@ export class InMemoryTextLine implements TextLine {
     const end = new Position(lineNumber, text.length);
     const endIncludingLineBreak =
       eol != null ? new Position(lineNumber + 1, 0) : end;
-    this.firstNonWhitespaceCharacterIndex = getLeadingWhitespace(text).length;
-    this.lastNonWhitespaceCharacterIndex =
-      text.length - getTrailingWhitespace(text).length;
     this.range = new Range(start, end);
     this.rangeIncludingLineBreak = new Range(start, endIncludingLineBreak);
+    this.rangeTrimmed = this.isEmptyOrWhitespace
+      ? this.range
+      : new Range(
+          start.translate(undefined, getLeadingWhitespace(text).length),
+          end.translate(undefined, -getTrailingWhitespace(text).length),
+        );
   }
 }

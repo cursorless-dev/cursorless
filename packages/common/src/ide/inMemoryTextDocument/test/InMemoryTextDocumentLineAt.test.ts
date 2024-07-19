@@ -47,26 +47,23 @@ suite("InMemoryTextDocument.lineAt", () => {
     assert.equal(line0.lineNumber, 0);
     assert.equal(line0.text, "hello  ");
     assert.equal(line0.isEmptyOrWhitespace, false);
-    assert.equal(line0.firstNonWhitespaceCharacterIndex, 0);
-    assert.equal(line0.lastNonWhitespaceCharacterIndex, 5);
     assert.equal(line0.range.toString(), "0:0-0:7");
     assert.equal(line0.rangeIncludingLineBreak.toString(), "0:0-1:0");
+    assert.equal(line0.rangeTrimmed.toString(), "0:0-0:5");
 
     assert.equal(line1.lineNumber, 1);
     assert.equal(line1.text, "  world");
     assert.equal(line1.isEmptyOrWhitespace, false);
-    assert.equal(line1.firstNonWhitespaceCharacterIndex, 2);
-    assert.equal(line1.lastNonWhitespaceCharacterIndex, 7);
     assert.equal(line1.range.toString(), "1:0-1:7");
     assert.equal(line1.rangeIncludingLineBreak.toString(), "1:0-2:0");
+    assert.equal(line1.rangeTrimmed.toString(), "1:2-1:7");
 
     assert.equal(line2.lineNumber, 2);
     assert.equal(line2.text, "  ");
     assert.equal(line2.isEmptyOrWhitespace, true);
-    assert.equal(line2.firstNonWhitespaceCharacterIndex, 2);
-    assert.equal(line2.lastNonWhitespaceCharacterIndex, 0);
     assert.equal(line2.range.toString(), "2:0-2:2");
     assert.equal(line2.rangeIncludingLineBreak.toString(), "2:0-2:2");
+    assert.equal(line2.rangeTrimmed.toString(), "2:0-2:2");
 
     assert.equal(lineUnderflow.lineNumber, 0);
     assert.equal(lineOverflow.lineNumber, 2);
