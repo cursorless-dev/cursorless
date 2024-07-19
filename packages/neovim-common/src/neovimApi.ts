@@ -13,7 +13,7 @@ export async function bufferGetSelections(
   window: Window,
   client: NeovimClient,
 ): Promise<Selection[]> {
-  const luaCode = `return require("cursorless.cursorless").buffer_get_selection()`;
+  const luaCode = `return require("cursorless").buffer_get_selection()`;
   // Note lines are indexed from 1, similarly to what is shown in neovim
   // and columns are also indexed from 1
   const [startLine, startCol, endLine, endCol, reverse] =
@@ -60,7 +60,7 @@ export async function bufferSetSelections(
   // cursorless has 0-based lines/columns, but neovim has 1-based lines and 0-based columns
   // also, experience shows we need to subtract 1 from the end character to stop on it in visual mode (instead of after it)
   // https://neovim.io/doc/user/api.html#nvim_win_set_cursor()
-  const luaCode = `return require("cursorless.cursorless").select_range(${
+  const luaCode = `return require("cursorless").select_range(${
     selections[0].start.line + 1
   }, ${selections[0].start.character}, ${selections[0].end.line + 1}, ${
     selections[0].end.character
@@ -85,7 +85,7 @@ export async function windowGetVisibleRanges(
 ): Promise<Range[]> {
   // Get the first and last visible lines of the current window
   // Note they are indexed from 1, similarly to what is shown in neovim*
-  const luaCode = `return require("cursorless.cursorless").window_get_visible_lines()`;
+  const luaCode = `return require("cursorless").window_get_visible_lines()`;
   const [firstLine, lastLine] = (await client.executeLua(luaCode, [])) as [
     number,
     number,
@@ -116,7 +116,7 @@ export async function getCursorlessNvimPath(
  * https://stackoverflow.com/questions/11489428/how-can-i-make-vim-paste-from-and-copy-to-the-systems-clipboard?page=1&tab=scoredesc#tab-top
  * https://stackoverflow.com/questions/30691466/what-is-difference-between-vims-clipboard-unnamed-and-unnamedplus-settings
  */
-export async function putToClipboard(data: string, client: NeovimClient) {
+export async function setClipboard(data: string, client: NeovimClient) {
   await client.callFunction("setreg", ["*", data]);
 }
 
@@ -124,7 +124,7 @@ export async function putToClipboard(data: string, client: NeovimClient) {
  * Return the string from the operating system clipboard
  * https://vimdoc.sourceforge.net/htmldoc/eval.html#getreg()
  */
-export async function getFromClipboard(client: NeovimClient): Promise<string> {
+export async function getClipboard(client: NeovimClient): Promise<string> {
   return await client.callFunction("getreg", ["*"]);
 }
 

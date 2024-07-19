@@ -3,7 +3,7 @@ local M = {}
 -- Get the first and last visible line of the current window/buffer
 -- @see https://vi.stackexchange.com/questions/28471/get-first-and-last-visible-line-from-other-buffer-than-current
 -- w0/w$ are indexed from 1, similarly to what is shown in neovim
--- e.g. :lua print(dump_table(require('talon.cursorless').window_get_visible_lines()))"
+-- e.g. :lua print(vim.inspect(require('cursorless').window_get_visible_lines()))"
 --   window_get_visible_lines
 --  { [1] = 28, [2] = 74 }
 function M.window_get_visible_lines()
@@ -15,10 +15,10 @@ end
 -- To manually test follow these steps:
 -- 1. In command mode :vmap <c-a> <Cmd>lua print(vim.inspect(require('cursorless').buffer_get_selection()))<Cr>
 -- 2. type "hello" on the first line and "world" on the second line
--- 3. Enter visual mode and select "hello" on the first line and continue selection with "air"
+-- 3. Enter visual mode and select "hello" on the first line and continue selection with "world"
 --    on the second line.
--- 4. Hit ctrl+b to show the selection: {1, 1, 2, 5, false}
--- 5. Hit 'o' to swap the cursor position and hit ctrl+b again: {1, 1, 2, 5, true}
+-- 4. Hit ctrl+a to show the selection: {1, 1, 2, 5, false}
+-- 5. Hit 'o' to swap the cursor position and hit ctrl+a again: {1, 1, 2, 5, true}
 --
 -- If you want to directly see how it is parsed in the node extension:
 -- 1. run in command mode :vmap <c-a> <Cmd>:call CursorlessLoadExtension()<Cr>
