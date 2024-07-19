@@ -1,6 +1,6 @@
+list: user.cursorless_launch_configuration
 app: vscode
 win.title: /cursorless/
-list: user.cursorless_launch_configuration
 -
 extension: "VSCode: Run"
 test: "VSCode: Test"
