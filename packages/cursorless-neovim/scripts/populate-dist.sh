@@ -2,6 +2,9 @@
 set -euo pipefail
 
 echo "Populating dist directory..."
+if [ ! -e "${CURSORLESS_REPO_ROOT-nonexistent}" ]; then
+  CURSORLESS_REPO_ROOT=$(git rev-parse --show-toplevel)
+fi
 echo "CURSORLESS_REPO_ROOT: $CURSORLESS_REPO_ROOT"
 cursorless_nvim_dir="$CURSORLESS_REPO_ROOT/cursorless.nvim"
 cursorless_neovim_node_in_dir="$CURSORLESS_REPO_ROOT/packages/cursorless-neovim"

@@ -17,6 +17,9 @@ require("lazy").setup({
 })
 
 local repo_root = os.getenv("CURSORLESS_REPO_ROOT")
+if not repo_root then
+  error("CURSORLESS_REPO_ROOT is not set. Run via debug-neovim.sh script.")
+end
 vim.opt.runtimepath:append(repo_root .. "/cursorless.nvim")
 
 require("talon").setup()
