@@ -21,7 +21,7 @@ export class CopyToClipboard implements SimpleAction {
 
   async run(
     targets: Target[],
-    options: Options = {},
+    options: Options = { showDecorations: true },
   ): Promise<ActionReturnValue> {
     if (ide().capabilities.commands.clipboardCopy != null) {
       const simpleAction = new CopyToClipboardSimple(this.rangeUpdater);

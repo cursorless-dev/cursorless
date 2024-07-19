@@ -108,3 +108,4 @@ export * from "./util/toPlainObject";
 export * from "./util/type";
 export * from "./util/typeUtils";
 export * from "./util/uniqWithHash";
+export * from "./util/zipStrict";

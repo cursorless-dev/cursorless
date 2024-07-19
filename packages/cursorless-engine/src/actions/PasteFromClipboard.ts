@@ -2,25 +2,121 @@ import {
   FlashStyle,
   RangeExpansionBehavior,
   toCharacterRange,
+  zipStrict,
+  type Selection,
+  type TextEditor,
 } from "@cursorless/common";
+import flatten from "lodash-es/flatten";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import {
   callFunctionAndUpdateSelections,
   callFunctionAndUpdateSelectionsWithBehavior,
+  performEditsAndUpdateSelectionsWithBehavior,
 } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
-import { Destination } from "../typings/target.types";
-import { ensureSingleEditor } from "../util/targetUtils";
-import { Actions } from "./Actions";
-import { ActionReturnValue } from "./actions.types";
+import type { Destination } from "../typings/target.types";
+import { ensureSingleEditor, runForEachEditor } from "../util/targetUtils";
+import type { Actions } from "./Actions";
+import type { ActionReturnValue } from "./actions.types";
+
+interface DestinationWithText {
+  destination: Destination;
+  text: string;
+}
 
 export class PasteFromClipboard {
   constructor(
     private rangeUpdater: RangeUpdater,
     private actions: Actions,
-  ) {}
+  ) {
+    this.run = this.run.bind(this);
+    this.runForEditor = this.runForEditor.bind(this);
+  }
 
   async run(destinations: Destination[]): Promise<ActionReturnValue> {
+    if (ide().capabilities.commands.clipboardPaste != null) {
+      return this.runBySettingSelection(destinations);
+    }
+
+    return this.runByEdit(destinations);
+  }
+
+  private async runByEdit(
+    destinations: Destination[],
+  ): Promise<ActionReturnValue> {
+    const text = await ide().clipboard.readText();
+    const textLines = text.split(/\r?\n/g);
+
+    const destinationsWithText: DestinationWithText[] =
+      destinations.length === textLines.length
+        ? zipStrict(destinations, textLines).map(([destination, text]) => ({
+            destination,
+            text,
+          }))
+        : destinations.map((destination) => ({ destination, text }));
+
+    const thatSelections = flatten(
+      await runForEachEditor(
+        destinationsWithText,
+        ({ destination }) => destination.editor,
+        this.runForEditor,
+      ),
+    );
+
+    return { thatSelections };
+  }
+
+  private async runForEditor(
+    editor: TextEditor,
+    destinationsWithText: DestinationWithText[],
+  ) {
+    const edits = destinationsWithText.map(({ destination, text }) =>
+      destination.constructChangeEdit(text),
+    );
+
+    // const cursorSelections = editor.selections;
+    // const editSelections = edits.map(({ range }) => range.toSelection(false));
+    const cursorSelections = {
+      selections: editor.selections,
+    };
+    const editSelections = {
+      selections: edits.map(({ range }) => range.toSelection(false)),
+      rangeBehavior: RangeExpansionBehavior.openOpen,
+    };
+    const editableEditor = ide().getEditableTextEditor(editor);
+
+    const [updatedCursorSelections, updatedEditSelections]: Selection[][] =
+      await performEditsAndUpdateSelectionsWithBehavior(
+        this.rangeUpdater,
+        editableEditor,
+        edits,
+        [cursorSelections, editSelections],
+      );
+
+    await editableEditor.setSelections(updatedCursorSelections);
+
+    const thatTargetSelections = zipStrict(edits, updatedEditSelections).map(
+      ([edit, selection]) =>
+        edit.updateRange(selection).toSelection(selection.isReversed),
+    );
+
+    await ide().flashRanges(
+      thatTargetSelections.map((selection) => ({
+        editor,
+        range: toCharacterRange(selection),
+        style: FlashStyle.justAdded,
+      })),
+    );
+
+    return thatTargetSelections.map((selection) => ({
+      editor: editor,
+      selection,
+    }));
+  }
+
+  private async runBySettingSelection(
+    destinations: Destination[],
+  ): Promise<ActionReturnValue> {
     const editor = ide().getEditableTextEditor(
       ensureSingleEditor(destinations),
     );
