@@ -104,6 +104,12 @@ export class VscodeTutorial implements WebviewViewProvider {
         case "list":
           this.list();
           break;
+        case "previous":
+          this.previous();
+          break;
+        case "next":
+          this.next();
+          break;
       }
     });
   }

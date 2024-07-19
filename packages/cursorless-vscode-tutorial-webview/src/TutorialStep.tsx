@@ -1,8 +1,10 @@
 import { ActiveTutorialNoErrorsState } from "@cursorless/common";
 import { type FunctionComponent } from "react";
-import { Command } from "./Command";
 import { WebviewApi } from "vscode-webview";
+import { ArrowLeftIcon } from "./ArrowLeftIcon";
+import { ArrowRightIcon } from "./ArrowRightIcon";
 import { CloseIcon } from "./CloseIcon";
+import { Command } from "./Command";
 import { ProgressBar } from "./ProgressBar";
 
 interface TutorialStepProps {
@@ -34,24 +36,50 @@ export const TutorialStep: FunctionComponent<TutorialStepProps> = ({
         </button>
       </div>
       {state.preConditionsMet ? (
-        state.stepContent.map((paragraph, i) => (
-          <div key={i} className="mt-1">
-            {paragraph.map((fragment, j) => {
-              switch (fragment.type) {
-                case "string":
-                  return <span key={j}>{fragment.value}</span>;
-                case "command":
-                  return <Command spokenForm={fragment.value} />;
-                case "term":
-                  return <span>"{fragment.value}"</span>;
-                default: {
-                  // Ensure we handle all cases
-                  const _unused: never = fragment;
+        <>
+          {state.stepContent.map((paragraph, i) => (
+            <div key={i} className="mt-1">
+              {paragraph.map((fragment, j) => {
+                switch (fragment.type) {
+                  case "string":
+                    return <span key={j}>{fragment.value}</span>;
+                  case "command":
+                    return <Command spokenForm={fragment.value} />;
+                  case "term":
+                    return <span>"{fragment.value}"</span>;
+                  default: {
+                    // Ensure we handle all cases
+                    const _unused: never = fragment;
+                  }
                 }
+              })}
+            </div>
+          ))}
+          <div className="mt-2 flex w-full flex-row justify-between">
+            <button
+              onClick={() =>
+                vscode.postMessage({
+                  type: "previous",
+                })
               }
-            })}
+            >
+              <span>
+                <ArrowLeftIcon size={12} />
+              </span>
+            </button>
+            <button
+              onClick={() =>
+                vscode.postMessage({
+                  type: "next",
+                })
+              }
+            >
+              <span>
+                <ArrowRightIcon size={12} />
+              </span>
+            </button>
           </div>
-        ))
+        </>
       ) : (
         <>
           <div>Whoops! Looks like you've stepped off the beaten path.</div>
