@@ -16,25 +16,13 @@ const whiteSpaceTests: [string, number, number][] = [
 suite("TextLine", function () {
   this.timeout("100s");
   this.retries(5);
-  whiteSpaceTests.forEach(
-    ([
-      text,
-      firstNonWhitespaceCharacterIndex,
-      lastNonWhitespaceCharacterIndex,
-    ]) => {
-      test(`whitespace '${text}'`, async () => {
-        const editor = await openNewEditor(text);
-        const line = new VscodeTextLineImpl(editor.document.lineAt(0));
+  whiteSpaceTests.forEach(([text, trimmedStart, trimmedEnd]) => {
+    test(`whitespace '${text}'`, async () => {
+      const editor = await openNewEditor(text);
+      const line = new VscodeTextLineImpl(editor.document.lineAt(0));
 
-        assert.equal(
-          line.rangeTrimmed.start.character,
-          firstNonWhitespaceCharacterIndex,
-        );
-        assert.equal(
-          line.rangeTrimmed.end.character,
-          lastNonWhitespaceCharacterIndex,
-        );
-      });
-    },
-  );
+      assert.equal(line.rangeTrimmed.start.character, trimmedStart);
+      assert.equal(line.rangeTrimmed.end.character, trimmedEnd);
+    });
+  });
 });
