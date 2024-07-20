@@ -486,6 +486,11 @@ export const scopeSupportFacetInfos: Record<
     description: "Value (RHS) of a variable declaration",
     scopeType: "value",
   },
+  "value.variable.pattern": {
+    description:
+      "Value (RHS) of a variable declaration with pattern destructuring",
+    scopeType: "value",
+  },
   "value.mapPair": {
     description: "Value (RHS) of a key-value pair in a map",
     scopeType: "value",

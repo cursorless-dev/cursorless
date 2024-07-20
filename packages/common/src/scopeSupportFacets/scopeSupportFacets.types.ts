@@ -123,6 +123,7 @@ const scopeSupportFacets = [
 
   "value.assignment",
   "value.variable",
+  "value.variable.pattern",
   "value.mapPair",
   "value.mapPair.iteration",
   "value.attribute",

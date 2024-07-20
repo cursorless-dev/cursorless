@@ -352,6 +352,14 @@
   (#not-parent-type? @_.domain expression_statement)
 )
 
+;;!! function funk({ value = 2 })
+;;!                  ^^^^^
+;;!                          ^
+(object_assignment_pattern
+  left: (_) @name @value.leading.endOf
+  right: (_) @value
+) @_.domain
+
 ;;!! const aaa = {bbb};
 ;;!               ^^^
 (shorthand_property_identifier) @collectionKey @value
