@@ -2,8 +2,6 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "target": "ES2022",
-    "rootDir": "src",
-    "outDir": "out",
     "noEmit": true,
     "emitDeclarationOnly": false,
     "typeRoots": ["src/types", "node_modules/@types"]
