@@ -103,6 +103,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "value.mapPair.iteration": supported,
   "value.assignment": supported,
   "value.variable": supported,
+  "value.variable.pattern": supported,
   "value.foreach": supported,
   "value.return": supported,
   "value.return.lambda": supported,
