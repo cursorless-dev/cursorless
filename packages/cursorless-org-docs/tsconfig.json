@@ -3,8 +3,6 @@
   "compilerOptions": {
     "target": "es5",
     "lib": ["dom", "es2022"],
-    "outDir": "out",
-    "rootDir": "src",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "emitDeclarationOnly": false,

@@ -11,6 +11,7 @@ from .sections.get_scope_visualizer import get_scope_visualizer
 from .sections.modifiers import get_modifiers
 from .sections.scopes import get_scopes
 from .sections.special_marks import get_special_marks
+from .sections.tutorial import get_tutorial_entries
 
 mod = Module()
 ctx = Context()
@@ -37,6 +38,7 @@ class Actions:
 
     def private_cursorless_open_instructions():
         """Open web page with cursorless instructions"""
+        actions.user.private_cursorless_notify_docs_opened()
         webbrowser.open(instructions_url)
 
 
@@ -149,6 +151,11 @@ def cursorless_cheat_sheet_get_json():
                 "name": "Shapes",
                 "id": "shapes",
                 "items": get_list("hat_shape", "hatShape"),
+            },
+            {
+                "name": "Tutorial",
+                "id": "tutorial",
+                "items": get_tutorial_entries(),
             },
         ]
     }

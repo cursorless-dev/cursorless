@@ -456,6 +456,25 @@ importers:
         specifier: 11.0.4
         version: 11.0.4
 
+  packages/cursorless-tutorial:
+    dependencies:
+      '@cursorless/common':
+        specifier: workspace:*
+        version: link:../common
+      '@cursorless/cursorless-engine':
+        specifier: workspace:*
+        version: link:../cursorless-engine
+      immer:
+        specifier: ^10.0.4
+        version: 10.0.4
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
+    devDependencies:
+      '@types/lodash-es':
+        specifier: 4.17.0
+        version: 4.17.0
+
   packages/cursorless-vscode:
     dependencies:
       '@cursorless/common':
@@ -467,6 +486,9 @@ importers:
       '@cursorless/cursorless-engine':
         specifier: workspace:*
         version: link:../cursorless-engine
+      '@cursorless/cursorless-tutorial':
+        specifier: workspace:*
+        version: link:../cursorless-tutorial
       '@cursorless/node-common':
         specifier: workspace:*
         version: link:../node-common
@@ -592,6 +614,31 @@ importers:
       sinon:
         specifier: ^17.0.1
         version: 17.0.1
+
+  packages/cursorless-vscode-tutorial-webview:
+    dependencies:
+      '@cursorless/common':
+        specifier: workspace:*
+        version: link:../common
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
+    devDependencies:
+      '@types/react':
+        specifier: 18.2.71
+        version: 18.2.71
+      '@types/react-dom':
+        specifier: 18.2.22
+        version: 18.2.22
+      '@types/vscode-webview':
+        specifier: 1.57.5
+        version: 1.57.5
+      tailwindcss:
+        specifier: 3.4.1
+        version: 3.4.1(ts-node@10.9.2(@types/node@18.18.2)(typescript@5.5.3))
 
   packages/meta-updater:
     dependencies:
@@ -2942,6 +2989,9 @@ packages:
 
   '@types/vinyl@2.0.11':
     resolution: {integrity: sha512-vPXzCLmRp74e9LsP8oltnWKTH+jBwt86WgRUb4Pc9Lf3pkMVGyvIo2gm9bODeGfCay2DBB/hAWDuvf07JcK4rw==}
+
+  '@types/vscode-webview@1.57.5':
+    resolution: {integrity: sha512-iBAUYNYkz+uk1kdsq05fEcoh8gJmwT3lqqFPN7MGyjQ3HVloViMdo7ZJ8DFIP8WOK74PjOEilosqAyxV2iUFUw==}
 
   '@types/vscode@1.75.1':
     resolution: {integrity: sha512-emg7wdsTFzdi+elvoyoA+Q8keEautdQHyY5LNmHVM4PTpY8JgOTVADrGVyXGepJ6dVW2OS5/xnLUWh+nZxvdiA==}
@@ -13096,6 +13146,8 @@ snapshots:
     dependencies:
       '@types/expect': 1.20.4
       '@types/node': 18.18.2
+
+  '@types/vscode-webview@1.57.5': {}
 
   '@types/vscode@1.75.1': {}
 
