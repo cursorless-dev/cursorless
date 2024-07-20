@@ -27,10 +27,16 @@
       "path": "./packages/cursorless-org-docs"
     },
     {
+      "path": "./packages/cursorless-tutorial"
+    },
+    {
       "path": "./packages/cursorless-vscode"
     },
     {
       "path": "./packages/cursorless-vscode-e2e"
+    },
+    {
+      "path": "./packages/cursorless-vscode-tutorial-webview"
     },
     {
       "path": "./packages/meta-updater"
