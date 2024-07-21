@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-if [[ "$OSTYPE" != "linux-gnu"* ]]; then
-    echo "quickjs tests are only supported on Linux"
-    exit 0
-fi
-
 esbuild \
     --outfile=testOut/talon \
     --platform=neutral \
