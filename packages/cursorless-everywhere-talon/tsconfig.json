@@ -14,6 +14,5 @@
       "path": "../cursorless-engine"
     }
   ],
-  "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"],
-  "exclude": ["src/test"]
+  "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"]
 }
