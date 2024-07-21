@@ -13,7 +13,8 @@
     "esbuild:meta": "pnpm run esbuild:base --metafile=meta.json src/mainDevelopment.ts",
     "esbuild:base": "bash scripts/esbuild.sh",
     "test:quickjs": "bash scripts/test-quickjs.sh",
-    "compile": "tsc --build && pnpm run esbuild:prod",
+    "compile": "tsc --build",
+    "compile:esbuild": "pnpm run esbuild:prod",
     "build": "pnpm run populate-dist",
     "populate-dist": "bash scripts/populate-dist.sh",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
