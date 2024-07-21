@@ -45,13 +45,15 @@ abstract class SortBase implements SimpleAction {
 }
 
 export class Sort extends SortBase {
-  private collator = new Intl.Collator(undefined, {
+  private readonly options: Intl.CollatorOptions = {
     numeric: true,
     caseFirst: "upper",
-  });
+  };
 
   protected sortTexts(texts: string[]) {
-    return texts.sort(this.collator.compare);
+    return texts.sort((a, b) => {
+      return a.localeCompare(b, undefined, this.options);
+    });
   }
 }
 
