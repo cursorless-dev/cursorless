@@ -31,6 +31,7 @@ async function activateInternal(runMode?: RunMode): Promise<void> {
     registerCommands(ide, commandApi);
   } catch (error) {
     print(error);
+    throw error;
   }
 
   print("talon.js activated");
