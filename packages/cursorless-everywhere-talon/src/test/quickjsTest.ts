@@ -3,10 +3,10 @@ import { activate } from "cursorless.mjs";
 import type { ActionDescriptor, CommandLatest } from "@cursorless/common";
 
 async function runTests() {
+  await activate();
+
   console.log();
   console.log("Running quickjs tests");
-
-  await activate();
 
   await test("testTake", testTake);
   await test("testChuck", testChuck);
