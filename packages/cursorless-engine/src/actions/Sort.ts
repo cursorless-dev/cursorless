@@ -45,15 +45,13 @@ abstract class SortBase implements SimpleAction {
 }
 
 export class Sort extends SortBase {
-  private readonly options: Intl.CollatorOptions = {
-    numeric: true,
-    caseFirst: "upper",
-  };
-
   protected sortTexts(texts: string[]) {
-    return texts.sort((a, b) => {
-      return a.localeCompare(b, undefined, this.options);
-    });
+    return texts.sort((a, b) =>
+      a.localeCompare(b, undefined, {
+        numeric: true,
+        caseFirst: "upper",
+      }),
+    );
   }
 }
 
