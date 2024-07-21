@@ -38,6 +38,9 @@ class Actions:
     def cursorless_everywhere_set_selection(
         selections: list[dict[str, int]],  # pyright: ignore [reportGeneralTypeIssues]
     ):
+        if len(selections) != 1:
+            raise ValueError("Only single selection supported")
+
         selection = selections[0]
         anchor = selection["anchor"]
         active = selection["active"]
