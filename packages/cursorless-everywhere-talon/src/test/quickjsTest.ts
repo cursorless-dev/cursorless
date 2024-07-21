@@ -1,11 +1,11 @@
 import { getTestHelpers } from "talon";
-import { activateTest } from "cursorless.mjs";
+import { activate } from "cursorless.mjs";
 import type { ActionDescriptor, CommandLatest } from "@cursorless/common";
 
 async function runTests() {
   print("Running quickjs tests");
 
-  await activateTest();
+  await activate();
 
   await test("testTake", testTake);
   await test("testChuck", testChuck);
