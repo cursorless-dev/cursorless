@@ -9,7 +9,7 @@ let ide: TalonJsIDE | undefined;
 let commandApi: CommandApi | undefined;
 
 ctx.matches = `
-not tag: user.cursorless
+not app: vscode
 `;
 
 ctx.action_class("user", {

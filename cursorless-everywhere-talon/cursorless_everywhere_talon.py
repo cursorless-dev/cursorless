@@ -40,12 +40,12 @@ class Actions:
     ):
         """Get the focused editor element state"""
 
-    def cursorless_everywhere_set_selection(
-        selection: dict[str, int],  # pyright: ignore [reportGeneralTypeIssues]
+    def cursorless_everywhere_set_selections(
+        selections: list[dict[str, int]],  # pyright: ignore [reportGeneralTypeIssues]
     ):
         """Set focused element selection"""
 
     def cursorless_everywhere_set_text(
-        text: str,  # pyright: ignore [reportGeneralTypeIssues]
+        changes: dict,  # pyright: ignore [reportGeneralTypeIssues]
     ):
         """Set focused element text"""

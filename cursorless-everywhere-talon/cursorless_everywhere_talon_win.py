@@ -36,8 +36,9 @@ class Actions:
         return EditorState(document_range.text, selections)
 
     def cursorless_everywhere_set_selection(
-        selection: dict[str, int],  # pyright: ignore [reportGeneralTypeIssues]
+        selections: list[dict[str, int]],  # pyright: ignore [reportGeneralTypeIssues]
     ):
+        selection = selections[0]
         anchor = selection["anchor"]
         active = selection["active"]
 
@@ -54,9 +55,10 @@ class Actions:
         set_selection(document_range, anchor, active)
 
     def cursorless_everywhere_set_text(
-        text: str,  # pyright: ignore [reportGeneralTypeIssues]
+        changes: dict,  # pyright: ignore [reportGeneralTypeIssues]
     ):
         """Set focused element text"""
+        text = changes["text"]
         print(f"Setting text to '{text}'")
 
         el = ui.focused_element()
