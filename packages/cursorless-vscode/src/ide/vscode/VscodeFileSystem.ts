@@ -4,7 +4,7 @@ import {
   PathChangeListener,
   RunMode,
 } from "@cursorless/common";
-import { isAbsolute, join } from "pathe";
+import { isAbsolute, join } from "node:path";
 import * as vscode from "vscode";
 
 export class VscodeFileSystem implements FileSystem {

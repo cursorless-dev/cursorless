@@ -1,6 +1,5 @@
-import type { TextDocument } from "@cursorless/common";
+import { matchAll, type TextDocument } from "@cursorless/common";
 import type { LanguageDefinition } from "../../../../languages/LanguageDefinition";
-import { matchAll } from "../../../../util/regex";
 import { getCaptureRanges } from "./getCaptureRanges";
 import type { DelimiterOccurrence, IndividualDelimiter } from "./types";
 

@@ -1,16 +1,16 @@
-import * as cp from "child_process";
-import * as path from "pathe";
-import * as os from "os";
+import {
+  extensionDependencies,
+  getEnvironmentVariableStrict,
+} from "@cursorless/common";
+import { getCursorlessRepoRoot } from "@cursorless/node-common";
 import {
   downloadAndUnzipVSCode,
   resolveCliArgsFromVSCodeExecutablePath,
   runTests,
 } from "@vscode/test-electron";
-import {
-  extensionDependencies,
-  getCursorlessRepoRoot,
-} from "@cursorless/common";
-import { getEnvironmentVariableStrict } from "@cursorless/common";
+import * as cp from "node:child_process";
+import * as os from "node:os";
+import * as path from "node:path";
 
 /**
  * Downloads and launches VSCode, instructing it to run the test runner

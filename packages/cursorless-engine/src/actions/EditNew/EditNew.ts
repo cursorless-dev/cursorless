@@ -43,12 +43,25 @@ export class EditNew {
       ) as undefined[],
     };
 
-    state = await runInsertLineAfterTargets(
+    const insertLineAfterCapability =
+      ide().capabilities.commands.insertLineAfter;
+    const useInsertLineAfter = insertLineAfterCapability != null;
+
+    if (useInsertLineAfter) {
+      state = await runInsertLineAfterTargets(
+        insertLineAfterCapability,
+        this.rangeUpdater,
+        editableEditor,
+        state,
+      );
+    }
+
+    state = await runEditTargets(
       this.rangeUpdater,
       editableEditor,
       state,
+      !useInsertLineAfter,
     );
-    state = await runEditTargets(this.rangeUpdater, editableEditor, state);
 
     const newSelections = state.destinations.map((destination, index) =>
       state.cursorRanges[index]!.toSelection(destination.target.isReversed),

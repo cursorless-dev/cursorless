@@ -1,8 +1,7 @@
-import { FlashStyle, isTesting, Range } from "@cursorless/common";
+import { FlashStyle, matchAll, Range } from "@cursorless/common";
 import type { Snippets } from "../../core/Snippets";
 import { ide } from "../../singletons/ide.singleton";
 import type { Target } from "../../typings/target.types";
-import { matchAll } from "../../util/regex";
 import { ensureSingleTarget, flashTargets } from "../../util/targetUtils";
 import type { ActionReturnValue } from "../actions.types";
 import { constructSnippetBody } from "./constructSnippetBody";
@@ -220,7 +219,7 @@ export default class GenerateSnippet {
 
     const editableEditor = ide().getEditableTextEditor(editor);
 
-    if (isTesting()) {
+    if (ide().runMode === "test") {
       // If we're testing, we just overwrite the current document
       await editableEditor.setSelections([
         editor.document.range.toSelection(false),
