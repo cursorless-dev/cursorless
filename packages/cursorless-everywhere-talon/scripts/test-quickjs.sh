@@ -21,4 +21,6 @@ curl -o qjs.zip https://bellard.org/quickjs/binary_releases/quickjs-linux-x86_64
 
 unzip qjs.zip
 
+export CURSORLESS_MODE=test
+
 ./qjs -I cursorless.mjs quickjsTest.js

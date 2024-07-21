@@ -9,12 +9,12 @@
   "scripts": {
     "esbuild:dev": "pnpm run esbuild:base src/mainDevelopment.ts",
     "esbuild:prod": "pnpm run esbuild:base --minify src/mainProduction.ts",
-    "esbuild:test": "pnpm run esbuild:base --minify src/mainTest.ts",
     "esbuild:watch": "pnpm run esbuild:base --watch src/mainDevelopment.ts",
     "esbuild:meta": "pnpm run esbuild:base --metafile=meta.json src/mainDevelopment.ts",
     "esbuild:base": "bash scripts/esbuild.sh",
-    "test:quickjs": "pnpm run esbuild:test && bash scripts/test-quickjs.sh",
-    "compile": "tsc --build && pnpm run esbuild:test",
+    "test:quickjs": "bash scripts/test-quickjs.sh",
+    "compile": "tsc --build && pnpm run esbuild:prod",
+    "build": "pnpm run populate-dist",
     "populate-dist": "bash scripts/populate-dist.sh",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
