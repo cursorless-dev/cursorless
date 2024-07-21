@@ -48,7 +48,7 @@ async function runCommand(
 
     return await commandApi.runCommandSafe(command);
   } catch (error) {
-    print(error);
+    console.error(error);
     throw error;
   }
 }

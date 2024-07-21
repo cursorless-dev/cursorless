@@ -3,7 +3,7 @@ import { activate } from "cursorless.mjs";
 import type { ActionDescriptor, CommandLatest } from "@cursorless/common";
 
 async function runTests() {
-  print("Running quickjs tests");
+  console.log("Running quickjs tests");
 
   await activate();
 
@@ -83,10 +83,10 @@ const assert = {
 async function test(name: string, fn: () => Promise<void>) {
   try {
     await fn();
-    print(`    * ${name}`);
+    console.log(`    * ${name}`);
   } catch (error) {
-    print(`    x ${name}`);
-    print(error);
+    console.error(`    x ${name}`);
+    console.error(error);
   }
 }
 

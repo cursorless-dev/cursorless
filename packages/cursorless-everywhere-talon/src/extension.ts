@@ -19,7 +19,7 @@ export function activate(runMode?: RunMode): Promise<void> {
 async function activateInternal(runMode?: RunMode): Promise<void> {
   runMode = runMode ?? (await getRunMode());
 
-  print(`activate talon.js @ ${runMode}`);
+  console.debug(`activate talon.js @ ${runMode}`);
 
   try {
     const ide = new TalonJsIDE(runMode);
@@ -30,9 +30,9 @@ async function activateInternal(runMode?: RunMode): Promise<void> {
 
     registerCommands(ide, commandApi);
   } catch (error) {
-    print(error);
+    console.error(error);
     throw error;
   }
 
-  print("talon.js activated");
+  console.debug("talon.js activated");
 }

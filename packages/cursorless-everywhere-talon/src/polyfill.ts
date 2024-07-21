@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 const global = globalThis as any;
 
 global.process = {
@@ -13,12 +12,14 @@ class Collator {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 global.Intl = { Collator };
 
 global.console = {
   log: print,
   error: print,
   warn: print,
+  debug: print,
 };
 
 global.setTimeout = (callback: () => void, _delay: number) => {

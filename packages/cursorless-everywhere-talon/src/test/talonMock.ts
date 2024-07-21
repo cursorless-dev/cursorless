@@ -13,7 +13,7 @@ let _finalEditorState: EditorState | undefined;
 export const actions: TalonActions = {
   app: {
     notify: function (_body: string, _title: string): void {
-      print(`app.notify: ${_title}: ${_body}`);
+      console.log(`app.notify: ${_title}: ${_body}`);
     },
   },
   clip: {
