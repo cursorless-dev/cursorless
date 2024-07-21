@@ -1,23 +1,7 @@
-describe("cursorless tests", function()
+describe("cursorless.nvim tests", function()
   local cursorless = require("cursorless.cursorless")
 
-  local get_selected_text = function()
-    local _, ls, cs = unpack(vim.fn.getpos("v"))
-    local _, le, ce = unpack(vim.fn.getpos("."))
-    return vim.api.nvim_buf_get_text(0, ls - 1, cs - 1, le - 1, ce, {})
-  end
-
-  local function convert_table_entries(tbl, func)
-    local mapped = {}
-    for k, v in pairs(tbl) do
-      mapped[k] = func(v)
-    end
-    return mapped
-  end
-
   describe("window_get_visible_lines()", function()
-    before_each(function() end)
-
     it("Can read one visible line", function()
       local pos = vim.api.nvim_win_get_cursor(0)[2]
       local line = vim.api.nvim_get_current_line()
@@ -45,7 +29,7 @@ describe("cursorless tests", function()
       vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.split(lines, "\n"))
       cursorless.select_range(1, 2, 1, 4)
 
-      assert(table.concat(get_selected_text()) == "llo")
+      assert(table.concat(_G.get_selected_text()) == "llo")
     end)
   end)
   describe("buffer_get_selection()", function()
@@ -57,11 +41,14 @@ describe("cursorless tests", function()
         cursorless.select_range(1, 2, 1, 4)
         assert(
           table.concat(
-            convert_table_entries(cursorless.buffer_get_selection(), tostring),
+            _G.convert_table_entries(
+              cursorless.buffer_get_selection(),
+              tostring
+            ),
             ", "
           )
             == table.concat(
-              convert_table_entries({ 1, 3, 1, 5, false }, tostring),
+              _G.convert_table_entries({ 1, 3, 1, 5, false }, tostring),
               ", "
             )
         )
@@ -75,17 +62,23 @@ describe("cursorless tests", function()
         cursorless.select_range(1, 4, 1, 2)
         print(
           table.concat(
-            convert_table_entries(cursorless.buffer_get_selection(), tostring),
+            _G.convert_table_entries(
+              cursorless.buffer_get_selection(),
+              tostring
+            ),
             ", "
           )
         )
         assert(
           table.concat(
-            convert_table_entries(cursorless.buffer_get_selection(), tostring),
+            _G.convert_table_entries(
+              cursorless.buffer_get_selection(),
+              tostring
+            ),
             ", "
           )
             == table.concat(
-              convert_table_entries({ 1, 3, 1, 5, true }, tostring),
+              _G.convert_table_entries({ 1, 3, 1, 5, true }, tostring),
               ", "
             )
         )
