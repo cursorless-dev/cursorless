@@ -1,7 +1,9 @@
 import type { RunMode } from "@cursorless/common";
 
-export function getRunMode(): RunMode {
-  const mode = getCursorlessModeEnv();
+const ENV_NAME = "CURSORLESS_MODE";
+
+export async function getRunMode(): Promise<RunMode> {
+  const mode = await getCursorlessModeEnv();
 
   switch (mode) {
     case undefined:
@@ -13,14 +15,15 @@ export function getRunMode(): RunMode {
       return "test";
     default:
       throw new Error(
-        `Unexpected value for environment variable CURSORLESS_MODE: ${mode}`,
+        `Unexpected value for environment variable ${ENV_NAME}: ${mode}`,
       );
   }
 }
 
-function getCursorlessModeEnv(): string | undefined {
+async function getCursorlessModeEnv(): Promise<string | undefined> {
   try {
-    return getenv("CURSORLESS_MODE");
+    const std = await import("std");
+    return std.getenv(ENV_NAME);
   } catch (_ex) {
     return undefined;
   }

@@ -17,7 +17,7 @@ export function activate(runMode?: RunMode): Promise<void> {
 }
 
 async function activateInternal(runMode?: RunMode): Promise<void> {
-  runMode = runMode ?? getRunMode();
+  runMode = runMode ?? (await getRunMode());
 
   print(`activate talon.js @ ${runMode}`);
 

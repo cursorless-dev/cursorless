@@ -64,5 +64,5 @@ declare module "talon" {
     action_class(name: "user", actions: TalonContextActions): void;
   }
 
-  const getTestHelpers: () => TalonTestHelpers;
+  function getTestHelpers(): TalonTestHelpers;
 }

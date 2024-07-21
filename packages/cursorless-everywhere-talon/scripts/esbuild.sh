@@ -8,6 +8,7 @@ esbuild \
     --conditions=cursorless:bundler \
     --bundle \
     --sourcemap \
+    --external:std \
     --external:talon \
     $@
 
