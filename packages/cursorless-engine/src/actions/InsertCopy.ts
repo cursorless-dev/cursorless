@@ -1,19 +1,18 @@
 import {
   FlashStyle,
   RangeExpansionBehavior,
-  Selection,
   TextEditor,
   toCharacterRange,
 } from "@cursorless/common";
 import { flatten, zip } from "lodash-es";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { performEditsAndUpdateSelectionsWithBehavior } from "../core/updateSelections/updateSelections";
+import { EditsUpdater } from "../core/updateSelections/updateSelections";
 import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { containingLineIfUntypedModifier } from "../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
-import { SimpleAction, ActionReturnValue } from "./actions.types";
+import { ActionReturnValue, SimpleAction } from "./actions.types";
 
 class InsertCopy implements SimpleAction {
   getFinalStages = () => [
@@ -56,36 +55,25 @@ class InsertCopy implements SimpleAction {
     const edits = targets.flatMap((target) =>
       target.toDestination(position).constructChangeEdit(target.contentText),
     );
-
-    const cursorSelections = { selections: editor.selections };
-    const contentSelections = {
-      selections: targets.map(({ contentSelection }) => contentSelection),
-    };
-    const editSelections = {
-      selections: edits.map(
-        ({ range }) => new Selection(range.start, range.end),
-      ),
-      rangeBehavior: RangeExpansionBehavior.openOpen,
-    };
-
+    const contentSelections = targets.map(
+      ({ contentSelection }) => contentSelection,
+    );
+    const editRanges = edits.map(({ range }) => range);
     const editableEditor = ide().getEditableTextEditor(editor);
 
-    const [
-      updatedCursorSelections,
-      updatedContentSelections,
-      updatedEditSelections,
-    ]: Selection[][] = await performEditsAndUpdateSelectionsWithBehavior(
-      this.rangeUpdater,
-      editableEditor,
-      edits,
-      [cursorSelections, contentSelections, editSelections],
+    const {
+      selections: [updatedContentSelections],
+      ranges: [updatedEditRanges],
+    } = await new EditsUpdater(this.rangeUpdater, editableEditor, edits)
+      .selections(contentSelections)
+      .ranges(editRanges, RangeExpansionBehavior.openOpen)
+      .updateEditorSelections()
+      .run();
+
+    const insertionRanges = zip(edits, updatedEditRanges).map(([edit, range]) =>
+      edit!.updateRange(range!),
     );
 
-    const insertionRanges = zip(edits, updatedEditSelections).map(
-      ([edit, selection]) => edit!.updateRange(selection!),
-    );
-
-    await editableEditor.setSelections(updatedCursorSelections);
     const primarySelection = editor.selections[0];
 
     if (

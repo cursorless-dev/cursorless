@@ -7,7 +7,7 @@ import {
 } from "@cursorless/common";
 import { flatten, zip } from "lodash-es";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
+import { EditsUpdater } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
@@ -25,13 +25,14 @@ export class BreakLine {
       await runOnTargetsForEachEditor(targets, async (editor, targets) => {
         const contentRanges = targets.map(({ contentRange }) => contentRange);
         const edits = getEdits(editor, contentRanges);
+        const editableEditor = ide().getEditableTextEditor(editor);
 
-        const [updatedRanges] = await performEditsAndUpdateRanges(
-          this.rangeUpdater,
-          ide().getEditableTextEditor(editor),
-          edits,
-          [contentRanges],
-        );
+        const {
+          ranges: [updatedRanges],
+        } = await new EditsUpdater(this.rangeUpdater, editableEditor, edits)
+          .ranges(contentRanges)
+          .updateEditorSelections()
+          .run();
 
         return zip(targets, updatedRanges).map(([target, range]) => ({
           editor: target!.editor,

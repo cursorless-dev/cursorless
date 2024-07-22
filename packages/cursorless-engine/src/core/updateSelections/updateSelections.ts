@@ -19,6 +19,11 @@ interface SelectionsWithBehavior {
   rangeBehavior?: RangeExpansionBehavior;
 }
 
+interface RangesWithBehavior {
+  ranges: readonly Range[];
+  rangeBehavior: RangeExpansionBehavior;
+}
+
 /**
  * Given a selection, this function creates a `SelectionInfo` object that can
  * be passed in to any of the commands that update selections.
@@ -104,25 +109,6 @@ function rangesToSelectionInfos(
       getSelectionInfoInternal(document, range, false, rangeBehavior),
     ),
   );
-}
-
-function fillOutSelectionInfos(
-  document: TextDocument,
-  selectionInfoMatrix: SelectionInfo[][],
-): selectionInfoMatrix is FullSelectionInfo[][] {
-  selectionInfoMatrix.forEach((selectionInfos) =>
-    selectionInfos.map((selectionInfo) => {
-      const { range } = selectionInfo;
-      Object.assign(selectionInfo, {
-        offsets: {
-          start: document.offsetAt(range.start),
-          end: document.offsetAt(range.end),
-        },
-        text: document.getText(range),
-      });
-    }),
-  );
-  return true;
 }
 
 function selectionInfosToSelections(
@@ -238,98 +224,95 @@ export function callFunctionAndUpdateSelectionsWithBehavior(
   );
 }
 
-/**
- * Performs a list of edits and returns the given selections updated based on
- * the applied edits
- * @param rangeUpdater A RangeUpdate instance that will perform actual range updating
- * @param editor The editor containing the selections
- * @param edits A list of edits to apply
- * @param originalSelections The selections to update
- * @returns The updated selections
- */
-export async function performEditsAndUpdateSelections(
-  rangeUpdater: RangeUpdater,
-  editor: EditableTextEditor,
-  edits: Edit[],
-  originalSelections: (readonly Selection[])[],
-) {
-  const document = editor.document;
-  const selectionInfoMatrix = selectionsToSelectionInfos(
-    document,
-    originalSelections,
-  );
-  return performEditsAndUpdateFullSelectionInfos(
-    rangeUpdater,
-    editor,
-    edits,
-    selectionInfoMatrix,
-  );
-}
+export class EditsUpdater {
+  private _selections: SelectionsWithBehavior[] = [];
+  private _ranges: RangesWithBehavior[] = [];
+  private _updateEditorSelections = false;
 
-/**
- * Performs a list of edits and returns the given selections updated based on
- * the applied edits
- * @param rangeUpdater A RangeUpdate instance that will perform actual range updating
- * @param editor The editor containing the selections
- * @param edits A list of edits to apply
- * @param originalSelections The selections to update
- * @param rangeBehavior How selections should behave with respect to insertions on either end
- * @returns The updated selections
- */
-export function performEditsAndUpdateSelectionsWithBehavior(
-  rangeUpdater: RangeUpdater,
-  editor: EditableTextEditor,
-  edits: Edit[],
-  originalSelections: SelectionsWithBehavior[],
-) {
-  return performEditsAndUpdateFullSelectionInfos(
-    rangeUpdater,
-    editor,
-    edits,
-    originalSelections.map((selectionsWithBehavior) =>
-      selectionsWithBehavior.selections.map((selection) =>
-        getSelectionInfo(
-          editor.document,
-          selection,
-          selectionsWithBehavior.rangeBehavior ??
-            RangeExpansionBehavior.closedClosed,
+  constructor(
+    private rangeUpdater: RangeUpdater,
+    private editor: EditableTextEditor,
+    private edits: Edit[],
+  ) {}
+
+  selections(
+    selections: Selection[],
+    rangeBehavior: RangeExpansionBehavior = RangeExpansionBehavior.closedClosed,
+  ): this {
+    this._selections.push({ selections, rangeBehavior });
+    return this;
+  }
+
+  ranges(
+    ranges: Range[],
+    rangeBehavior: RangeExpansionBehavior = RangeExpansionBehavior.closedClosed,
+  ): this {
+    this._ranges.push({ ranges, rangeBehavior });
+    return this;
+  }
+
+  updateEditorSelections(): this {
+    this._updateEditorSelections = true;
+    return this;
+  }
+
+  async run(): Promise<{
+    selections: Selection[][];
+    ranges: Range[][];
+  }> {
+    const allSelections = this._updateEditorSelections
+      ? this._selections.concat({
+          selections: this.editor.selections,
+          rangeBehavior: RangeExpansionBehavior.closedClosed,
+        })
+      : this._selections;
+
+    const selectionInfos = allSelections.map(({ selections, rangeBehavior }) =>
+      selections.map(
+        (selection) =>
+          getSelectionInfo(
+            this.editor.document,
+            selection,
+            rangeBehavior ?? RangeExpansionBehavior.closedClosed,
+          ),
+        //   getSelectionInfo(this.editor.document, selection, rangeBehavior),
+      ),
+    );
+    const rangeInfos = this._ranges.map(({ ranges, rangeBehavior }) =>
+      ranges.map((range) =>
+        getSelectionInfoInternal(
+          this.editor.document,
+          range,
+          true,
+          rangeBehavior,
         ),
       ),
-    ),
-  );
-}
+    );
 
-export async function performEditsAndUpdateRanges(
-  rangeUpdater: RangeUpdater,
-  editor: EditableTextEditor,
-  edits: Edit[],
-  originalRanges: (readonly Range[])[],
-): Promise<Range[][]> {
-  const document = editor.document;
-  const selectionInfoMatrix = rangesToSelectionInfos(document, originalRanges);
-  return performEditsAndUpdateFullSelectionInfos(
-    rangeUpdater,
-    editor,
-    edits,
-    selectionInfoMatrix,
-  );
-}
+    const updatedSelectionsMatrix =
+      await performEditsAndUpdateFullSelectionInfos(
+        this.rangeUpdater,
+        this.editor,
+        this.edits,
+        selectionInfos.concat(rangeInfos),
+      );
 
-// FIXME: Remove this function if we don't end up using it for the next couple use cases, eg `that` mark and cursor history
-export async function performEditsAndUpdateSelectionInfos(
-  rangeUpdater: RangeUpdater,
-  editor: EditableTextEditor,
-  edits: Edit[],
-  originalSelectionInfos: SelectionInfo[][],
-): Promise<Selection[][]> {
-  fillOutSelectionInfos(editor.document, originalSelectionInfos);
+    const updatedSelections = updatedSelectionsMatrix.slice(
+      0,
+      selectionInfos.length,
+    );
+    const updatedRanges = updatedSelectionsMatrix.slice(selectionInfos.length);
 
-  return await performEditsAndUpdateFullSelectionInfos(
-    rangeUpdater,
-    editor,
-    edits,
-    originalSelectionInfos as FullSelectionInfo[][],
-  );
+    if (this._updateEditorSelections) {
+      const updatedEditorSelections = updatedSelections.pop()!;
+      await this.editor.setSelections(updatedEditorSelections);
+    }
+
+    return {
+      selections: updatedSelections,
+      ranges: updatedRanges,
+    };
+  }
 }
 
 /**

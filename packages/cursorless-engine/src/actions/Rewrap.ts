@@ -1,6 +1,7 @@
 import { FlashStyle } from "@cursorless/common";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
+import { EditsUpdater } from "../core/updateSelections/updateSelections";
+import { getContainingSurroundingPairIfNoBoundaryStage } from "../processTargets/modifiers/InteriorStage";
 import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
@@ -10,7 +11,6 @@ import {
   runOnTargetsForEachEditor,
 } from "../util/targetUtils";
 import { ActionReturnValue } from "./actions.types";
-import { getContainingSurroundingPairIfNoBoundaryStage } from "../processTargets/modifiers/InteriorStage";
 
 export default class Rewrap {
   getFinalStages = () => [
@@ -49,17 +49,15 @@ export default class Rewrap {
           range: target.contentRange,
           text: i % 2 === 0 ? left : right,
         }));
+        const editableEditor = ide().getEditableTextEditor(editor);
 
-        const [updatedSourceRanges, updatedThatRanges] =
-          await performEditsAndUpdateRanges(
-            this.rangeUpdater,
-            ide().getEditableTextEditor(editor),
-            edits,
-            [
-              targets.map((target) => target.thatTarget.contentRange),
-              targets.map((target) => target.contentRange),
-            ],
-          );
+        const {
+          ranges: [updatedSourceRanges, updatedThatRanges],
+        } = await new EditsUpdater(this.rangeUpdater, editableEditor, edits)
+          .ranges(targets.map((target) => target.thatTarget.contentRange))
+          .ranges(targets.map((target) => target.contentRange))
+          .updateEditorSelections()
+          .run();
 
         return {
           sourceMark: createThatMark(targets, updatedSourceRanges),

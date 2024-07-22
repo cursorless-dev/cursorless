@@ -1,11 +1,7 @@
-import {
-  EditableTextEditor,
-  RangeExpansionBehavior,
-  Selection,
-} from "@cursorless/common";
+import { EditableTextEditor, RangeExpansionBehavior } from "@cursorless/common";
 import { zip } from "lodash-es";
 import { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
-import { performEditsAndUpdateSelectionsWithBehavior } from "../../core/updateSelections/updateSelections";
+import { EditsUpdater } from "../../core/updateSelections/updateSelections";
 import { EditDestination, State } from "./EditNew.types";
 
 /**
@@ -46,10 +42,6 @@ export async function runEditTargets(
     destination.destination.constructChangeEdit(""),
   );
 
-  const thatSelections = {
-    selections: state.thatRanges.map((r) => r.toSelection(false)),
-  };
-
   // We need to remove undefined cursor locations.  Note that these undefined
   // locations will be the locations where our edit targets will go.  The only
   // cursor positions defined at this point will have come from command targets
@@ -59,44 +51,35 @@ export async function runEditTargets(
     .filter(({ range }) => range != null);
 
   const cursorIndices = cursorInfos.map(({ index }) => index);
+  const cursorRanges = cursorInfos.map(({ range }) => range!);
+  const editRanges = edits.map((edit) => edit.range);
 
-  const cursorSelections = {
-    selections: cursorInfos.map(({ range }) => range!.toSelection(false)),
-  };
+  const {
+    ranges: [updatedThatRanges, updatedCursorRanges, updatedEditRanges],
+  } = await new EditsUpdater(rangeUpdater, editor, edits)
+    .ranges(state.thatRanges)
+    .ranges(cursorRanges)
+    .ranges(editRanges, RangeExpansionBehavior.openOpen)
+    // .updateEditorSelections()
+    .run();
 
-  const editSelections = {
-    selections: edits.map((edit) => edit.range.toSelection(false)),
-    rangeBehavior: RangeExpansionBehavior.openOpen,
-  };
-
-  const [
-    updatedThatSelections,
-    updatedCursorSelections,
-    updatedEditSelections,
-  ]: Selection[][] = await performEditsAndUpdateSelectionsWithBehavior(
-    rangeUpdater,
-    editor,
-    edits,
-    [thatSelections, cursorSelections, editSelections],
-  );
-
-  const updatedCursorRanges = [...state.cursorRanges];
+  const finalCursorRanges = [...state.cursorRanges];
 
   // Update the cursor positions for the command targets
-  zip(cursorIndices, updatedCursorSelections).forEach(([index, selection]) => {
-    updatedCursorRanges[index!] = selection;
+  zip(cursorIndices, updatedCursorRanges).forEach(([index, range]) => {
+    finalCursorRanges[index!] = range;
   });
 
   // Add cursor positions for our edit targets.
   destinations.forEach((delimiterTarget, index) => {
     const edit = edits[index];
-    const range = edit.updateRange(updatedEditSelections[index]);
-    updatedCursorRanges[delimiterTarget.index] = range;
+    const range = edit.updateRange(updatedEditRanges[index]);
+    finalCursorRanges[delimiterTarget.index] = range;
   });
 
   return {
     destinations: state.destinations,
-    thatRanges: updatedThatSelections,
-    cursorRanges: updatedCursorRanges,
+    thatRanges: updatedThatRanges,
+    cursorRanges: finalCursorRanges,
   };
 }

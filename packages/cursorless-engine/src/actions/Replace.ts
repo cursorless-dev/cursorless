@@ -5,7 +5,7 @@ import {
 } from "@cursorless/common";
 import { zip } from "lodash-es";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { performEditsAndUpdateSelectionsWithBehavior } from "../core/updateSelections/updateSelections";
+import { EditsUpdater } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
 import { SelectionWithEditor } from "../typings/Types";
 import { Destination, Target } from "../typings/target.types";
@@ -63,33 +63,34 @@ export default class Replace {
     await runForEachEditor(
       edits,
       (edit) => edit.editor,
-      async (editor, edits) => {
-        const contentSelections = {
-          selections: edits.map(({ target }) => target.contentSelection),
-        };
-        const editSelections = {
-          selections: edits.map(({ edit }) => edit.range.toSelection(false)),
-          rangeBehavior: RangeExpansionBehavior.openOpen,
-        };
+      async (editor, editWrappers) => {
+        const edits = editWrappers.map(({ edit }) => edit);
+        const contentSelections = editWrappers.map(
+          ({ target }) => target.contentSelection,
+        );
+        const editRanges = edits.map(({ range }) => range);
+        const editableEditor = ide().getEditableTextEditor(editor);
 
-        const [updatedContentSelections, updatedEditSelections] =
-          await performEditsAndUpdateSelectionsWithBehavior(
-            this.rangeUpdater,
-            ide().getEditableTextEditor(editor),
-            edits.map(({ edit }) => edit),
-            [contentSelections, editSelections],
-          );
+        const {
+          selections: [updatedContentSelections],
+          ranges: [updatedEditRanges],
+        } = await new EditsUpdater(this.rangeUpdater, editableEditor, edits)
+          .selections(contentSelections)
+          .ranges(editRanges, RangeExpansionBehavior.openOpen)
+          .updateEditorSelections()
+          .run();
 
-        for (const [edit, selection] of zip(edits, updatedContentSelections)) {
-          sourceTargets.push(edit!.target.withContentRange(selection!));
+        for (const [wrapper, selection] of zip(
+          editWrappers,
+          updatedContentSelections,
+        )) {
+          sourceTargets.push(wrapper!.target.withContentRange(selection!));
         }
 
-        for (const [edit, selection] of zip(edits, updatedEditSelections)) {
+        for (const [wrapper, range] of zip(editWrappers, updatedEditRanges)) {
           thatSelections.push({
             editor,
-            selection: edit!.edit
-              .updateRange(selection!)
-              .toSelection(selection!.isReversed),
+            selection: wrapper!.edit.updateRange(range!).toSelection(false),
           });
         }
       },
