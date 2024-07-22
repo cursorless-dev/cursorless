@@ -47,6 +47,7 @@ import {
 import { StatusBarItem } from "./StatusBarItem";
 import { VscodeSnippets } from "./VscodeSnippets";
 import { constructTestHelpers } from "./constructTestHelpers";
+import { createTutorial } from "./createTutorial";
 import {
   VscodeScopeVisualizer,
   createVscodeScopeVisualizer,
@@ -167,6 +168,16 @@ export async function activate(
 
   context.subscriptions.push(storedTargetHighlighter(vscodeIDE, storedTargets));
 
+  const vscodeTutorial = createTutorial(
+    context,
+    normalizedIde,
+    scopeVisualizer,
+    fileSystem,
+    addCommandRunnerDecorator,
+    hatTokenMap,
+    customSpokenFormGenerator,
+  );
+
   registerCommands(
     context,
     vscodeIDE,
@@ -177,6 +188,7 @@ export async function activate(
     scopeVisualizer,
     keyboardCommands,
     hats,
+    vscodeTutorial,
     storedTargets,
   );
 
@@ -195,6 +207,7 @@ export async function activate(
             scopeProvider,
             injectIde,
             runIntegrationTests,
+            vscodeTutorial,
           )
         : undefined,
 
