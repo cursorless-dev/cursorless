@@ -55,12 +55,27 @@ jobs:
         if: runner.os == 'Linux' && matrix.app_version == 'stable'
         env:
           NEOVIM_PATH: ${{ steps.vim.outputs.executable }}
-      - uses: lunarmodules/busted@v2.2.0
+      - name: Set up Lua
+        uses: leafo/gh-actions-lua@v9
+        with:
+          luaVersion: "luajit-2.1.0-beta3"
+        if: runner.os == 'Linux' && matrix.app_version == 'stable'
+      - name: Set up Luarocks
+        uses: leafo/gh-actions-luarocks@v4
+        with:
+          luaVersion: "5.1"
+        if: runner.os == 'Linux' && matrix.app_version == 'stable'
+      - name: Install Busted
+        run: |
+          luarocks install busted
+          luarocks install luafilesystem
+        if: runner.os == 'Linux' && matrix.app_version == 'stable'
+      - name: Run cursorless.nvim busted lua tests
+        run: |
+          cd cursorless.nvim
+          busted --run unit
         if: runner.os == 'Linux' && matrix.app_version == 'stable'
         id: neovimLuaTests
-      - name: Run neovim lua unit tests
-        run: xvfb-run -a cd cursorless.nvim && busted --run unit
-        if: runner.os == 'Linux' && matrix.app_version == 'stable'
       - name: Create vscode dist that can be installed locally
         run: pnpm -F @cursorless/cursorless-vscode populate-dist --local-install
         if: runner.os == 'Linux' && matrix.app_version == 'stable'
