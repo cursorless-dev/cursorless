@@ -19,7 +19,7 @@ export interface IndividualDelimiter {
   /**
    * Which delimiter this represents
    */
-  delimiter: SimpleSurroundingPairName;
+  delimiterName: SimpleSurroundingPairName;
 
   /**
    * Whether the delimiter can only appear as part of a pair that is on a single

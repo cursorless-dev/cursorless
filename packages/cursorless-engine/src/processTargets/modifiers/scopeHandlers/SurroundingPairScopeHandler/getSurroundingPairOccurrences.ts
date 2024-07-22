@@ -1,3 +1,4 @@
+import { DefaultMap, SimpleSurroundingPairName } from "@cursorless/common";
 import type {
   DelimiterOccurrence,
   IndividualDelimiter,
@@ -5,93 +6,103 @@ import type {
 } from "./types";
 
 export function getSurroundingPairOccurrences(
-  individualDelimiters: IndividualDelimiter[],
+  acceptableDelimiters: IndividualDelimiter[],
   delimiterOccurrences: DelimiterOccurrence[],
 ): SurroundingPairOccurrence[] {
   const result: SurroundingPairOccurrence[] = [];
 
-  const openDelimiters = new Map<string, DelimiterOccurrence[]>(
-    individualDelimiters.map((individualDelimiter) => [
-      individualDelimiter.delimiter,
-      [],
-    ]),
-  );
+  /**
+   * A map from delimiter names to occurrences of the opening delimiter
+   */
+  const openingDelimiterOccurrences = new DefaultMap<
+    SimpleSurroundingPairName,
+    DelimiterOccurrence[]
+  >(() => []);
 
   for (const occurrence of delimiterOccurrences) {
     const {
-      delimiterInfo: { delimiter, side: sideRaw, isSingleLine },
+      delimiterInfo: { delimiterName, side: sideRaw, isSingleLine },
       isDisqualified,
+      textFragmentRange,
+      range,
     } = occurrence;
 
     if (isDisqualified) {
       continue;
     }
 
+    let openingDelimiters = openingDelimiterOccurrences.get(delimiterName);
+
+    if (isSingleLine) {
+      // If single line, remove all opening delimiters that are not on the same line
+      // as occurrence
+      openingDelimiters = openingDelimiters.filter(
+        (openingDelimiter) =>
+          openingDelimiter.range.start.line === range.start.line,
+      );
+      openingDelimiterOccurrences.set(delimiterName, openingDelimiters);
+    }
+
+    const relevantOpeningDelimiters = openingDelimiters.filter(
+      (openingDelimiter) =>
+        (textFragmentRange == null &&
+          openingDelimiter.textFragmentRange == null) ||
+        (textFragmentRange != null &&
+          openingDelimiter.textFragmentRange != null &&
+          openingDelimiter.textFragmentRange.isRangeEqual(textFragmentRange)),
+    );
+
     const side: "left" | "right" = (() => {
       if (sideRaw === "unknown") {
-        return openDelimiters.get(delimiter)!.length % 2 === 0
-          ? "left"
-          : "right";
+        return relevantOpeningDelimiters.length % 2 === 0 ? "left" : "right";
       }
       return sideRaw;
     })();
 
     if (side === "left") {
-      openDelimiters.get(delimiter)!.push(occurrence);
+      openingDelimiters.push(occurrence);
     } else {
-      const openDelimiter = openDelimiters.get(delimiter)!.pop();
+      const openingDelimiter = openingDelimiters.pop();
 
-      if (openDelimiter == null) {
+      if (openingDelimiter == null) {
         continue;
       }
 
       if (
-        isSingleLine &&
-        openDelimiter.range.start.line !== occurrence.range.start.line
-      ) {
-        if (sideRaw === "unknown") {
-          openDelimiters.get(delimiter)!.push(occurrence);
-        }
-        continue;
-      }
-
-      if (
-        openDelimiter.textFragmentRange != null &&
-        occurrence.textFragmentRange != null
+        openingDelimiter.textFragmentRange != null &&
+        textFragmentRange != null
       ) {
         if (
-          !openDelimiter.textFragmentRange.isRangeEqual(
-            occurrence.textFragmentRange,
-          )
+          !openingDelimiter.textFragmentRange.isRangeEqual(textFragmentRange)
         ) {
           if (sideRaw === "unknown") {
-            openDelimiters.get(delimiter)!.push(occurrence);
+            openingDelimiters.push(occurrence);
           }
           continue;
         }
       } else if (
-        openDelimiter.textFragmentRange == null &&
-        occurrence.textFragmentRange != null
+        openingDelimiter.textFragmentRange == null &&
+        textFragmentRange != null
       ) {
-        openDelimiters.get(delimiter)!.push(openDelimiter);
+        openingDelimiters.push(openingDelimiter);
         if (sideRaw === "unknown") {
-          openDelimiters.get(delimiter)!.push(occurrence);
+          openingDelimiters.push(occurrence);
         }
         continue;
       } else if (
-        openDelimiter.textFragmentRange != null &&
-        occurrence.textFragmentRange == null
+        openingDelimiter.textFragmentRange != null &&
+        textFragmentRange == null
       ) {
         if (sideRaw === "unknown") {
-          openDelimiters.get(delimiter)!.push(occurrence);
+          openingDelimiters.push(occurrence);
         }
         continue;
       }
 
       result.push({
-        delimiter,
-        left: openDelimiter.range,
-        right: occurrence.range,
+        delimiter: delimiterName,
+        left: openingDelimiter.range,
+        right: range,
       });
     }
   }
