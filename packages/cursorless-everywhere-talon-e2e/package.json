@@ -15,8 +15,9 @@
   "type": "module",
   "dependencies": {
     "@cursorless/common": "workspace:*",
+    "@cursorless/cursorless-everywhere-talon-core": "workspace:*",
     "@cursorless/node-common": "workspace:*",
-    "@cursorless/cursorless-everywhere-talon-core": "workspace:*"
+    "@cursorless/test-case-recorder": "workspace:*"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.6",

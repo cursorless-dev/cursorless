@@ -1,74 +1,71 @@
-// import {
-//   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
-//   HatStability,
-//   TextEditor,
-//   asyncSafety,
-// } from "@cursorless/common";
-// import { getRecordedTestPaths, runRecordedTest } from "@cursorless/node-common";
-// import {
-//   getCursorlessApi,
-//   openNewEditor,
-//   runCursorlessCommand,
-// } from "@cursorless/vscode-common";
-// import * as vscode from "vscode";
-// import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
-// import { setupFake } from "./setupFake";
-
-import { activate } from "@cursorless/cursorless-everywhere-talon-core";
-import assert from "node:assert";
+import {
+  asyncSafety,
+  CURSORLESS_COMMAND_ID,
+  DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
+  type Command,
+  type TextEditor,
+} from "@cursorless/common";
+import {
+  activate,
+  type TalonJsIDE,
+} from "@cursorless/cursorless-everywhere-talon-core";
+import { getRecordedTestPaths, runRecordedTest } from "@cursorless/node-common";
+import { constructTestHelpers } from "./constructTestHelpers";
+import { endToEndTestSetup } from "./endToEndTestSetUp";
 import talonMock from "./talonMock";
 
-suite("recorded test cases", async function () {
-  const { testHelpers } = await activate(talonMock, "test");
-  const { ide } = testHelpers!;
+suite("TalonJS: Recorded test cases", async function () {
+  const ide = await activate(talonMock, "test");
+  const ideTestHelpers = ide.testHelpers!;
+  const { getSpy } = endToEndTestSetup(this, ideTestHelpers);
 
-  test("recorded test cases", async function () {
-    console.log(ide.runMode);
-    assert.ok("testing testing testing");
-  });
-
-  //   const { getSpy } = endToEndTestSetup(this);
-
-  //   suiteSetup(async () => {
-  //     // Necessary because opening a notebook opens the panel for some reason
-  //     await vscode.commands.executeCommand("workbench.action.closePanel");
-  //     const { ide } = (await getCursorlessApi()).testHelpers!;
-  //     setupFake(ide, HatStability.stable);
-  //   });
-
-  //   getRecordedTestPaths().forEach(({ name, path }) =>
-  //     test(
-  //       name,
-  //       asyncSafety(
-  //         async () =>
-  //           await runRecordedTest({
-  //             path,
-  //             spyIde: getSpy()!,
-
-  //             openNewTestEditor,
-
-  //             sleepWithBackoff,
-  //             testHelpers: (await getCursorlessApi()).testHelpers!,
-  //             runCursorlessCommand,
-  //           }),
-  //       ),
-  //     ),
-  //   );
+  getRecordedTestPaths().forEach(({ name, path }) =>
+    test(
+      name,
+      asyncSafety(
+        async () =>
+          await runRecordedTest({
+            path,
+            spyIde: getSpy(),
+            openNewTestEditor: (content, languageId) =>
+              openNewTestEditor(ideTestHelpers.talonJsIDE, content, languageId),
+            sleepWithBackoff,
+            testHelpers: constructTestHelpers(ideTestHelpers),
+            runCursorlessCommand,
+          }),
+      ),
+    ),
+  );
 });
 
-// async function openNewTestEditor(
-//   content: string,
-//   languageId: string,
-// ): Promise<TextEditor> {
-//   const { fromVscodeEditor } = (await getCursorlessApi()).testHelpers!;
+function sleepWithBackoff(_ms: number): Promise<void> {
+  return Promise.resolve();
+}
 
-//   const editor = await openNewEditor(content, {
-//     languageId,
-//     openBeside: false,
-//   });
+function runCursorlessCommand(command: Command) {
+  return talonMock
+    .getTestHelpers()
+    .contextActions.private_cursorless_run_rpc_command_get(
+      CURSORLESS_COMMAND_ID,
+      command,
+    );
+}
 
-//   // Override any user settings and make sure tests run with default tabs.
-//   editor.options = DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST;
+async function openNewTestEditor(
+  ide: TalonJsIDE,
+  content: string,
+  languageId: string,
+): Promise<TextEditor> {
+  ide.updateTextEditors({
+    text: content,
+    languageId,
+    selections: [],
+  });
 
-//   return fromVscodeEditor(editor);
-// }
+  const editor = ide.activeTextEditor!;
+
+  // Override any user settings and make sure tests run with default tabs.
+  editor.options = DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST;
+
+  return editor;
+}

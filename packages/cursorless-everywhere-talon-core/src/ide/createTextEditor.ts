@@ -18,7 +18,7 @@ export function createTextEditor(
 ): TalonJsEditor {
   const id = String(nextId++);
   const uri = URI.parse(`talon-js://${id}`);
-  const languageId = "plaintext";
+  const languageId = editorState.languageId ?? "plaintext";
   const document = new InMemoryTextDocument(uri, languageId, editorState.text);
   const visibleRanges = [document.range];
   const selections = editorState.selections.map((selection) =>

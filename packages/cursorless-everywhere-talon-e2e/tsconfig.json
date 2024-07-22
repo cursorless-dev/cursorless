@@ -14,6 +14,9 @@
     },
     {
       "path": "../node-common"
+    },
+    {
+      "path": "../test-case-recorder"
     }
   ]
 }

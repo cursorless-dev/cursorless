@@ -1,4 +1,6 @@
-import type { IDE } from "@cursorless/common";
+import type { IDE, NormalizedIDE, TestHelpers } from "@cursorless/common";
+import type { StoredTargetMap } from "@cursorless/cursorless-engine";
+import type { TalonJsIDE } from "../ide/TalonJsIDE";
 
 export interface OffsetSelection {
   // Document offsets
@@ -8,6 +10,7 @@ export interface OffsetSelection {
 
 export interface EditorState {
   text: string;
+  languageId?: string;
   selections: OffsetSelection[];
 }
 
@@ -22,8 +25,13 @@ export interface EditorChanges {
   changes: EditorChange[];
 }
 
+export interface TalonJsTestHelpers extends Omit<TestHelpers, "takeSnapshot"> {
+  talonJsIDE: TalonJsIDE;
+  ide: NormalizedIDE;
+  storedTargets: StoredTargetMap;
+  injectIde: (ide: IDE) => void;
+}
+
 export interface ActivateReturnValue {
-  testHelpers?: {
-    ide: IDE;
-  };
+  testHelpers?: TalonJsTestHelpers;
 }

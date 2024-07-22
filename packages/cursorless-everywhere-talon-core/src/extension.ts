@@ -1,14 +1,32 @@
 import "./polyfill";
 
-import type { RunMode } from "@cursorless/common";
+import {
+  FakeCommandServerApi,
+  FakeIDE,
+  NormalizedIDE,
+  type RunMode,
+} from "@cursorless/common";
 import { createCursorlessEngine } from "@cursorless/cursorless-engine";
+import { constructTestHelpers } from "./constructTestHelpers";
 import { getRunMode } from "./ide/getRunMode";
 import { TalonJsIDE } from "./ide/TalonJsIDE";
 import { registerCommands } from "./registerCommands";
-import type { ActivateReturnValue } from "./types/types";
 import type { Talon } from "./types/talon.types";
+import type { ActivateReturnValue } from "./types/types";
 
 export async function activate(
+  talon: Talon,
+  runMode?: RunMode,
+): Promise<ActivateReturnValue> {
+  try {
+    return await activateHelper(talon, runMode);
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+async function activateHelper(
   talon: Talon,
   runMode?: RunMode,
 ): Promise<ActivateReturnValue> {
@@ -16,22 +34,39 @@ export async function activate(
 
   console.debug(`activate talon.js @ ${runMode}`);
 
-  try {
-    const ide = new TalonJsIDE(talon, runMode);
+  const talonJsIDE = new TalonJsIDE(talon, runMode);
 
-    const engine = await createCursorlessEngine({ ide });
+  const normalizedIde =
+    talonJsIDE.runMode === "production"
+      ? talonJsIDE
+      : new NormalizedIDE(
+          talonJsIDE,
+          new FakeIDE(),
+          talonJsIDE.runMode === "test",
+        );
 
-    const commandApi = engine.commandApi;
+  const fakeCommandServerApi = new FakeCommandServerApi();
+  const commandServerApi =
+    normalizedIde.runMode === "test" ? fakeCommandServerApi : undefined;
 
-    registerCommands(talon, ide, commandApi);
+  const { commandApi, injectIde, hatTokenMap, storedTargets } =
+    await createCursorlessEngine({ ide: normalizedIde, commandServerApi });
 
-    const testHelpers = runMode === "test" ? { ide } : undefined;
+  registerCommands(talon, talonJsIDE, commandApi);
 
-    return { testHelpers };
-  } catch (error) {
-    console.error(error);
-    throw error;
-  } finally {
-    console.debug("talon.js activated");
-  }
+  const testHelpers =
+    runMode === "test"
+      ? constructTestHelpers({
+          talonJsIDE,
+          normalizedIde: normalizedIde as NormalizedIDE,
+          injectIde,
+          hatTokenMap,
+          commandServerApi: fakeCommandServerApi,
+          storedTargets,
+        })
+      : undefined;
+
+  console.debug("talon.js activated");
+
+  return { testHelpers };
 }
