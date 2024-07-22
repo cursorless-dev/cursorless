@@ -1,8 +1,6 @@
 import {
   asyncSafety,
-  CURSORLESS_COMMAND_ID,
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
-  type Command,
   type TextEditor,
 } from "@cursorless/common";
 import { canonicalizeAndValidateCommand } from "@cursorless/cursorless-engine";
