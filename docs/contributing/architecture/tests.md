@@ -31,7 +31,9 @@ packages/test-harness/src/config/init.lua
   -> TestHarnessRun() -> run() -> runAllTests() -> Mocha + packages/cursorless-neovim-e2e/src/suite/recorded.neovim.test.ts
 ```
 
-4. **Lua unit tests for neovim**: tests lua functions. They need to be executed in neovim. There is no such tests for VSCode because we assume the functions provided by [VSCode APIs](https://code.visualstudio.com/api/references/vscode-api) have already been tested by Microsoft and work properly.
+4. **Lua unit tests for neovim**: tests lua functions. They need to be executed in neovim. There is no such test for VSCode because we assume the functions provided by [VSCode APIs](https://code.visualstudio.com/api/references/vscode-api) have already been tested by Microsoft and work properly
+
+5. **Cursorless tests for Talon**: XXX
 
 ## 1. Cursorless tests for VSCode
 
@@ -45,7 +47,9 @@ XXX
 
 ### 3.1 Cursorless tests for neovim locally
 
-It starts by running the `Neovim: Test` launch config from `.vscode/launch.json`. This dictates VSCode to attach to the `node` process that is spawned by `nvim` (more on this later). Note that it will only attach when the dependencies have been solved, which are indicated by the `"Neovim: Build extension and tests"` task:
+This is supported on Windows, Linux and OSX.
+
+It starts by running the `Neovim: Test` launch config from `.vscode/launch.json`. This dictates VSCode to attach to the `node` process that is spawned by `nvim` (more on this later). Note that it will only attach when the dependencies have been solved, which is indicated by the `"Neovim: Build extension and tests"` task:
 
 ```json
     {
@@ -58,7 +62,7 @@ It starts by running the `Neovim: Test` launch config from `.vscode/launch.json`
     },
 ```
 
-This effectively runs a series of tasks from `.vscode/tasks.json`:
+This effectively runs a series of dependency tasks from `.vscode/tasks.json`:
 
 ```json
     {
@@ -77,7 +81,7 @@ This effectively runs a series of tasks from `.vscode/tasks.json`:
 
 Most of the tasks deal with building the Cursorless code except `"Neovim: Launch neovim (test)"` and `"Neovim: Show logs"` which are self explanatory.
 
-The `Neovim: Launch neovim (test)` task effectively starts `nvim` in the background. It is important because it means VSCode won't wait for `nvim` to exit before considering the task to be finished. For example, for Windows it executes the `debug-neovim.bat` script. :
+The `Neovim: Launch neovim (test)` task effectively starts `nvim` as a detached process. It is important because it means VSCode won't wait for `nvim` to exit before considering the task as finished. For example, for Windows it executes the `debug-neovim.bat` script :
 
 ```json
     {
@@ -130,7 +134,7 @@ local function setup(user_config)
   load_extensions()
 ```
 
-First, it calls `register_functions()` to expose the node functions `CursorlessLoadExtension()` and `TestHarnessRun()` into the vim namespace. This effectively instructs the `nvim` process to load the `node` process:
+First, it calls `register_functions()` to expose the node functions `CursorlessLoadExtension()` and `TestHarnessRun()` into the vim namespace. A side effect is that the `nvim` process loads the `node` process:
 
 ```lua
 local function register_functions()
@@ -157,7 +161,7 @@ local function register_functions()
   })
 ```
 
-Then, it calls `load_extensions()`. This loads the Cursorless neovim plugin (`CursorlessLoadExtension()`) and starts the tests (`TestHarnessRun()`) which ends up calling the previously registered node functions.
+Then, it calls `load_extensions()`. This calls the vim functions in order to load the Cursorless neovim plugin (`CursorlessLoadExtension()`) and start the tests (`TestHarnessRun()`) which ends up calling the previously registered node functions.
 
 ```lua
 local function load_extensions()
@@ -190,13 +194,32 @@ export async function run(plugin: NvimPlugin): Promise<void> {
     console.log(`==== TESTS FINISHED: code: ${code}`);
 ```
 
-This ends up calling `runAllTests()` from `packages/test-harness/src/runAllTests.ts`.
+This ends up calling `runAllTests()` which calls `runTestsInDir()` from `packages/test-harness/src/runAllTests.ts`.
 
-This ends up using the [Mocha API](https://mochajs.org/) to execute tests which names end with `neovim.test.cjs` (Cursorless tests for neovim) and `test.cjs` (Cursorless unit tests).
+This ends up using the [Mocha API](https://mochajs.org/) to execute tests which names end with `neovim.test.cjs` (Cursorless tests for neovim) and `test.cjs` (Cursorless unit tests):
 
-Consequently, the recorded tests from `data/fixtures/recorded` are executed when `packages/cursorless-neovim-e2e/src/suite/recorded.neovim.test.ts` is invoked.
+```ts
+async function runTestsInDir(
+  testRoot: string,
+  filterFiles: (files: string[]) => string[],
+): Promise<void> {
+  // Create the mocha test
+  const mocha = new Mocha({
+    ...
+  });
+  ...
+  try {
+    // Run the mocha test
+    await new Promise<void>((c, e) => {
+      mocha.run((failures) => {
+  ...
+```
+
+Consequently, the recorded tests from `data/fixtures/recorded/` are executed when `packages/cursorless-neovim-e2e/src/suite/recorded.neovim.test.ts` is invoked.
 
 ### 3.2 Cursorless tests for neovim on CI
+
+This is supported on Linux only.
 
 It starts from `.github/workflows/test.yml` which currently only tests the latest stable neovim version on Linux:
 
@@ -252,7 +275,7 @@ export async function launchNeovimAndRunTests() {
         console.log(`done: ${done}`);
 ```
 
-At that stage, we are in a similar situation to the "Cursorless tests for neovim locally" case where `nvim` is started with the `packages/test-harness/src/config/init.lua` config file. Similarly, this `init.lua` adds the local `cursorless.nvim` relative path to the runtime path and initializes Cursorless:
+At this stage, we are in a similar situation to the "Cursorless tests for neovim locally" case where `nvim` is started with the `packages/test-harness/src/config/init.lua` config file. Similarly, this `init.lua` adds the local `cursorless.nvim` relative path to the runtime path and initializes Cursorless:
 
 ```lua
 local repo_root = os.getenv("CURSORLESS_REPO_ROOT")
@@ -262,12 +285,16 @@ vim.opt.runtimepath:append(repo_root .. "/dist/cursorless.nvim")
 require("cursorless").setup()
 ```
 
-This ends up calling `setup()` from `dist/cursorless.nvim/lua/cursorless/init.lua`, which ends up triggering `TestHarnessRun()` and finally the recorded tests from `recorded.neovim.test.ts`.
+This ends up calling `setup()` from `dist/cursorless.nvim/lua/cursorless/init.lua`, which ends up triggering `TestHarnessRun()` and finally the recorded tests from `recorded.neovim.test.ts` using the Mocha API.
 
 NOTE: Because `NVIM_NODE_HOST_DEBUG` is not set on CI, `nvim` loads entirely right away and tests are executed.
 
 NOTE: CI uses `dist/cursorless.nvim/` (and not `cursorless.nvim/`), since the symlinks in `cursorless.nvim/` are only created locally in order to get symbols loaded, which we don't need on CI.
 
 ## 4. Lua unit tests for neovim
+
+XXX
+
+## 5. Cursorless tests for Talon
 
 XXX
