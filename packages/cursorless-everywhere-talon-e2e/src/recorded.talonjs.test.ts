@@ -14,7 +14,7 @@
 // import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 // import { setupFake } from "./setupFake";
 
-import { activate } from "@cursorless/cursorless-everywhere-talon";
+import { activate } from "@cursorless/cursorless-everywhere-talon-core";
 import assert from "node:assert";
 
 suite("recorded test cases", async function () {

@@ -1,14 +1,12 @@
 import type {
-  TalonActions,
-  TalonContext,
-  TalonContextActions,
-  TalonTestHelpers,
-} from "../types/talon";
-import type {
   EditorChanges,
   EditorState,
   OffsetSelection,
-} from "../types/types";
+  TalonActions,
+  TalonContext,
+  TalonContextActions,
+} from "@cursorless/cursorless-everywhere-talon-core";
+import type { TalonTestHelpers } from "talon";
 
 let _contextActions: TalonContextActions | undefined;
 let _editorState: EditorState | undefined;
