@@ -1,3 +1,5 @@
+import type { IDE } from "@cursorless/common";
+
 export interface OffsetSelection {
   // Document offsets
   anchor: number;
@@ -18,4 +20,10 @@ export interface EditorChange {
 export interface EditorChanges {
   text: string;
   changes: EditorChange[];
+}
+
+export interface ActivateReturnValue {
+  testHelpers?: {
+    ide: IDE;
+  };
 }

@@ -145,6 +145,24 @@
       ]
     },
 
+    // Talon everywhere/JS launch configs
+    {
+      "name": "TalonJS: Test",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/packages/test-harness/dist/runTalonJsTests.cjs",
+      "env": {
+        "CURSORLESS_MODE": "test",
+        "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
+      },
+      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
+      "preLaunchTask": "VSCode: Build extension and tests",
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+      ]
+    },
+
     // Unit tests launch configs
     {
       "name": "Unit tests: Test",

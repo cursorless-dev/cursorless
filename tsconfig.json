@@ -21,6 +21,12 @@
       "path": "./packages/cursorless-everywhere-talon"
     },
     {
+      "path": "./packages/cursorless-everywhere-talon-core"
+    },
+    {
+      "path": "./packages/cursorless-everywhere-talon-e2e"
+    },
+    {
       "path": "./packages/cursorless-org"
     },
     {

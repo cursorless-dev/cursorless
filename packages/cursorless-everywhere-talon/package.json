@@ -21,11 +21,7 @@
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",
-    "@cursorless/cursorless-engine": "workspace:*",
-    "lodash-es": "^4.17.21",
-    "vscode-uri": "^3.0.8"
+    "@cursorless/cursorless-everywhere-talon-core": "workspace:*"
   },
-  "devDependencies": {
-    "@types/lodash-es": "4.17.0"
-  }
+  "devDependencies": {}
 }

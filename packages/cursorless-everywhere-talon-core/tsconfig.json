@@ -2,8 +2,6 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "target": "ES2022",
-    "noEmit": true,
-    "emitDeclarationOnly": false,
     "typeRoots": ["src/types", "node_modules/@types"]
   },
   "references": [
@@ -11,7 +9,7 @@
       "path": "../common"
     },
     {
-      "path": "../cursorless-everywhere-talon-core"
+      "path": "../cursorless-engine"
     }
   ],
   "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"]
