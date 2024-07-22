@@ -10,6 +10,9 @@
       "path": "../common"
     },
     {
+      "path": "../cursorless-engine"
+    },
+    {
       "path": "../cursorless-everywhere-talon-core"
     },
     {

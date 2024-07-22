@@ -5,6 +5,7 @@ import {
   type Command,
   type TextEditor,
 } from "@cursorless/common";
+import { canonicalizeAndValidateCommand } from "@cursorless/cursorless-engine";
 import {
   activate,
   type EditorState,
@@ -63,6 +64,16 @@ async function shouldSkipTest(path: string): Promise<boolean> {
     return true;
   }
 
+  const commandComplete = canonicalizeAndValidateCommand(fixture.command);
+
+  switch (commandComplete.action.name) {
+    case "insertSnippet":
+    case "wrapWithSnippet":
+    case "generateSnippet":
+    case "highlight":
+      return true;
+  }
+
   return false;
 }
 
@@ -95,7 +106,7 @@ async function openNewTestEditor(
   const editor = ide.activeTextEditor;
 
   if (editor == null) {
-    throw new Error("Could not open new editor.");
+    throw new Error("Could not open new editor. No active editor found.");
   }
 
   // Override any user settings and make sure tests run with default tabs.

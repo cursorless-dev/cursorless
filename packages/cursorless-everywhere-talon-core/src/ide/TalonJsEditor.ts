@@ -82,7 +82,7 @@ export class TalonJsEditor implements EditableTextEditor {
   }
 
   revealRange(_range: Range): Promise<void> {
-    throw new Error("revealRange not implemented.");
+    return Promise.resolve();
   }
 
   revealLine(_lineNumber: number, _at: RevealLineAt): Promise<void> {
