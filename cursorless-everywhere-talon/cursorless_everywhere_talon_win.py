@@ -1,6 +1,6 @@
 from talon import Context, app, ui
 
-from .cursorless_everywhere_talon import EditorState, OffsetSelection
+from .cursorless_everywhere_talon import EditorChanges, EditorState, OffsetSelection
 
 if app.platform == "windows":
     from talon.windows.ax import TextRange
@@ -17,7 +17,7 @@ os: windows
 
 @ctx.action_class("user")
 class Actions:
-    def private_cursorless_everywhere_get_editor_state() -> EditorState:
+    def cursorless_everywhere_get_editor_state() -> EditorState:
         el = ui.focused_element()
 
         if "Text2" not in el.patterns:
@@ -31,12 +31,20 @@ class Actions:
 
         for selection_range in selection_ranges:
             anchor, active = get_selection(document_range, selection_range, caret_range)
-            selections.append(OffsetSelection(anchor, active))
+            selections.append(
+                {
+                    "anchor": anchor,
+                    "active": active,
+                }
+            )
 
-        return EditorState(document_range.text, selections)
+        return {
+            "text": document_range.text,
+            "selections": selections,
+        }
 
-    def cursorless_everywhere_set_selection(
-        selections: list[dict[str, int]],  # pyright: ignore [reportGeneralTypeIssues]
+    def cursorless_everywhere_set_selections(
+        selections: list[OffsetSelection],  # pyright: ignore [reportGeneralTypeIssues]
     ):
         if len(selections) != 1:
             raise ValueError("Only single selection supported")
@@ -58,7 +66,7 @@ class Actions:
         set_selection(document_range, anchor, active)
 
     def cursorless_everywhere_set_text(
-        changes: dict,  # pyright: ignore [reportGeneralTypeIssues]
+        changes: EditorChanges,  # pyright: ignore [reportGeneralTypeIssues]
     ):
         """Set focused element text"""
         text = changes["text"]

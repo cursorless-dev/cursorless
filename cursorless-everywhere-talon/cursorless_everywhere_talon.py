@@ -1,28 +1,27 @@
-from dataclasses import dataclass
-from typing import Any
+from typing import TypedDict
 
-from talon import Module, actions
+from talon import Module
 
 
-@dataclass
-class OffsetSelection:
+class OffsetSelection(TypedDict):
     anchor: int
     active: int
 
-    def to_dict(self) -> dict[str, int]:
-        return {"anchor": self.anchor, "active": self.active}
 
-
-@dataclass
-class EditorState:
+class EditorState(TypedDict):
     text: str
     selections: list[OffsetSelection]
 
-    def to_dict(self) -> dict[str, Any]:
-        return {
-            "text": self.text,
-            "selections": [s.to_dict() for s in self.selections],
-        }
+
+class EditorChange(TypedDict):
+    text: str
+    rangeOffset: int
+    rangeLength: int
+
+
+class EditorChanges(TypedDict):
+    text: str
+    changes: list[EditorChange]
 
 
 mod = Module()
@@ -30,22 +29,15 @@ mod = Module()
 
 @mod.action_class
 class Actions:
-    def cursorless_everywhere_get_editor_state() -> dict[str, Any]:
-        """Get the focused editor element state"""
-        state = actions.user.private_cursorless_everywhere_get_editor_state()
-        return state.to_dict()
-
-    def private_cursorless_everywhere_get_editor_state() -> (
-        EditorState  # pyright: ignore [reportReturnType]
-    ):
+    def cursorless_everywhere_get_editor_state() -> EditorState:  # pyright: ignore [reportReturnType]
         """Get the focused editor element state"""
 
     def cursorless_everywhere_set_selections(
-        selections: list[dict[str, int]],  # pyright: ignore [reportGeneralTypeIssues]
+        selections: list[OffsetSelection],  # pyright: ignore [reportGeneralTypeIssues]
     ):
-        """Set focused element selection"""
+        """Set focused element selections"""
 
     def cursorless_everywhere_set_text(
-        changes: dict,  # pyright: ignore [reportGeneralTypeIssues]
+        changes: EditorChanges,  # pyright: ignore [reportGeneralTypeIssues]
     ):
         """Set focused element text"""

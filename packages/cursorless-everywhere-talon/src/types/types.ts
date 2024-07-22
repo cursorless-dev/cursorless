@@ -10,9 +10,9 @@ export interface EditorState {
 }
 
 export interface EditorChange {
+  readonly text: string;
   readonly rangeOffset: number;
   readonly rangeLength: number;
-  readonly text: string;
 }
 
 export interface EditorChanges {
