@@ -1,59 +1,49 @@
 import { CURSORLESS_COMMAND_ID } from "@cursorless/common";
 import type { CommandApi } from "@cursorless/cursorless-engine";
-import { Context, actions } from "talon";
 import type { TalonJsIDE } from "./ide/TalonJsIDE";
+import type { Talon } from "./types/talon.types";
 
-const ctx = new Context();
+export function registerCommands(
+  talon: Talon,
+  ide: TalonJsIDE,
+  commandApi: CommandApi,
+) {
+  const ctx = talon.createContext();
+  ctx.matches = "not app: vscode";
 
-let ide: TalonJsIDE | undefined;
-let commandApi: CommandApi | undefined;
+  ctx.action_class("user", {
+    private_cursorless_run_rpc_command_no_wait(
+      commandId: string,
+      command: unknown,
+    ): void {
+      void runCommand(commandId, command);
+    },
 
-ctx.matches = `
-not app: vscode
-`;
+    async private_cursorless_run_rpc_command_get(
+      commandId: string,
+      command: unknown,
+    ): Promise<unknown> {
+      return await runCommand(commandId, command);
+    },
+  });
 
-ctx.action_class("user", {
-  private_cursorless_run_rpc_command_no_wait(
-    commandId: string,
-    command: unknown,
-  ): void {
-    void runCommand(commandId, command);
-  },
-
-  async private_cursorless_run_rpc_command_get(
+  async function runCommand(
     commandId: string,
     command: unknown,
   ): Promise<unknown> {
-    return await runCommand(commandId, command);
-  },
-});
+    try {
+      if (commandId !== CURSORLESS_COMMAND_ID) {
+        throw Error(`Unknown command ID: ${commandId}`);
+      }
 
-async function runCommand(
-  commandId: string,
-  command: unknown,
-): Promise<unknown> {
-  try {
-    if (ide == null) {
-      throw Error("ide is not initialized.");
-    }
-    if (commandApi == null) {
-      throw Error("commandApi is not initialized.");
-    }
-    if (commandId !== CURSORLESS_COMMAND_ID) {
-      throw Error(`Unknown command ID: ${commandId}`);
-    }
+      const editorState =
+        talon.actions.user.cursorless_everywhere_get_editor_state();
+      ide.updateTextEditors(editorState);
 
-    const editorState = actions.user.cursorless_everywhere_get_editor_state();
-    ide.updateTextEditors(editorState);
-
-    return await commandApi.runCommandSafe(command);
-  } catch (error) {
-    console.error(error);
-    throw error;
+      return await commandApi.runCommandSafe(command);
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
-}
-
-export function registerCommands(ide_: TalonJsIDE, commandApi_: CommandApi) {
-  ide = ide_;
-  commandApi = commandApi_;
 }

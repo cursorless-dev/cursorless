@@ -11,10 +11,10 @@ import type {
   TextEditor,
   TextEditorOptions,
 } from "@cursorless/common";
-import { actions } from "talon";
+import type { Talon } from "../types/talon.types";
+import { setSelections } from "./setSelections";
 import type { TalonJsIDE } from "./TalonJsIDE";
 import { talonJsPerformEdits } from "./talonJsPerformEdits";
-import { setSelections } from "./setSelections";
 
 export class TalonJsEditor implements EditableTextEditor {
   options: TextEditorOptions = {
@@ -25,6 +25,7 @@ export class TalonJsEditor implements EditableTextEditor {
   isActive = true;
 
   constructor(
+    private talon: Talon,
     private ide: TalonJsIDE,
     public id: string,
     public document: InMemoryTextDocument,
@@ -40,28 +41,28 @@ export class TalonJsEditor implements EditableTextEditor {
     selections: Selection[],
     _opts?: SetSelectionsOpts,
   ): Promise<void> {
-    await setSelections(this.document, selections);
+    await setSelections(this.talon, this.document, selections);
     this.selections = selections;
   }
 
   edit(edits: Edit[]): Promise<boolean> {
-    talonJsPerformEdits(this.ide, this.document, edits);
+    talonJsPerformEdits(this.talon, this.ide, this.document, edits);
     return Promise.resolve(true);
   }
 
   async clipboardCopy(ranges: Range[]): Promise<void> {
     const text = ranges.map((range) => this.document.getText(range)).join("\n");
-    actions.clip.set_text(text);
+    this.talon.actions.clip.set_text(text);
   }
 
   async clipboardPaste(): Promise<void> {
-    const text = actions.clip.text();
+    const text = this.talon.actions.clip.text();
     const edits = this.selections.map((range) => ({
       range,
       text,
       isReplace: true,
     }));
-    talonJsPerformEdits(this.ide, this.document, edits);
+    talonJsPerformEdits(this.talon, this.ide, this.document, edits);
   }
 
   indentLine(_ranges: Range[]): Promise<void> {

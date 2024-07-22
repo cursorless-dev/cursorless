@@ -22,8 +22,8 @@ import {
   TextEditorVisibleRangesChangeEvent,
   WorkspaceFolder,
 } from "@cursorless/common";
-import { actions } from "talon";
 import { pull } from "lodash-es";
+import type { Talon } from "../types/talon.types";
 import type { EditorState } from "../types/types";
 import { TalonJsCapabilities } from "./TalonJsCapabilities";
 import { TalonJsClipboard } from "./TalonJsClipboard";
@@ -45,11 +45,14 @@ export class TalonJsIDE implements IDE {
   private onDidChangeTextDocumentNotifier: Notifier<[TextDocumentChangeEvent]> =
     new Notifier();
 
-  constructor(public runMode: RunMode) {
+  constructor(
+    private talon: Talon,
+    public runMode: RunMode,
+  ) {
     this.configuration = new TalonJsConfiguration();
-    this.messages = new TalonJsMessages();
+    this.messages = new TalonJsMessages(talon);
     this.globalState = new TalonJsState();
-    this.clipboard = new TalonJsClipboard();
+    this.clipboard = new TalonJsClipboard(talon);
     this.capabilities = new TalonJsCapabilities();
   }
 
@@ -85,7 +88,7 @@ export class TalonJsIDE implements IDE {
   }
 
   updateTextEditors(editorState: EditorState) {
-    this.editors = [createTextEditor(this, editorState)];
+    this.editors = [createTextEditor(this.talon, this, editorState)];
   }
 
   async findInDocument(
@@ -97,7 +100,7 @@ export class TalonJsIDE implements IDE {
         "findInDocument not implemented for other than active editor.",
       );
     }
-    actions.edit.find(query);
+    this.talon.actions.edit.find(query);
   }
 
   findInWorkspace(_query: string): Promise<void> {

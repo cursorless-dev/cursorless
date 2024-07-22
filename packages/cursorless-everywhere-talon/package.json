@@ -12,7 +12,6 @@
     "esbuild:watch": "pnpm run esbuild:base --watch src/mainDevelopment.ts",
     "esbuild:meta": "pnpm run esbuild:base --metafile=meta.json src/mainDevelopment.ts",
     "esbuild:base": "bash scripts/esbuild.sh",
-    "test:quickjs": "bash scripts/test-quickjs.sh",
     "compile": "tsc --build",
     "compile:esbuild": "pnpm run esbuild:prod",
     "build": "pnpm run populate-dist",

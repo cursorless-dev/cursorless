@@ -1,7 +1,9 @@
-import { actions } from "talon";
 import { MessageType, type Messages } from "@cursorless/common";
+import type { Talon } from "../types/talon.types";
 
 export class TalonJsMessages implements Messages {
+  constructor(private talon: Talon) {}
+
   async showMessage(
     type: MessageType,
     _id: string,
@@ -13,13 +15,13 @@ export class TalonJsMessages implements Messages {
     }
     switch (type) {
       case MessageType.info:
-        actions.app.notify(message, "Cursorless");
+        this.talon.actions.app.notify(message, "Cursorless");
         break;
       case MessageType.warning:
-        actions.app.notify(message, "[WARNING] Cursorless");
+        this.talon.actions.app.notify(message, "[WARNING] Cursorless");
         break;
       case MessageType.error:
-        actions.app.notify(message, "[ERROR] Cursorless");
+        this.talon.actions.app.notify(message, "[ERROR] Cursorless");
     }
     return undefined;
   }

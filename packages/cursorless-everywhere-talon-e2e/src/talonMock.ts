@@ -2,17 +2,19 @@ import type {
   EditorChanges,
   EditorState,
   OffsetSelection,
+  Talon,
   TalonActions,
   TalonContext,
   TalonContextActions,
+  TalonSettings,
 } from "@cursorless/cursorless-everywhere-talon-core";
-import type { TalonTestHelpers } from "talon";
+import type { TalonTestHelpers } from "./types/talon";
 
 let _contextActions: TalonContextActions | undefined;
 let _editorState: EditorState | undefined;
 let _finalEditorState: EditorState | undefined;
 
-export const actions: TalonActions = {
+const actions: TalonActions = {
   app: {
     notify(_body: string, _title: string): void {
       console.log(`app.notify: ${_title}: ${_body}`);
@@ -53,7 +55,13 @@ export const actions: TalonActions = {
   },
 };
 
-export class Context implements TalonContext {
+const settings: TalonSettings = {
+  get(_name, _defaultValue) {
+    throw Error("settings.get not implemented.");
+  },
+};
+
+class Context implements TalonContext {
   matches = "";
   tags = [];
   settings = {};
@@ -64,7 +72,11 @@ export class Context implements TalonContext {
   }
 }
 
-export function getTestHelpers(): TalonTestHelpers {
+function createContext(): TalonContext {
+  return new Context();
+}
+
+function getTestHelpers(): TalonTestHelpers {
   if (_contextActions == null) {
     throw new Error("Context actions not set.");
   }
@@ -82,3 +94,16 @@ export function getTestHelpers(): TalonTestHelpers {
     },
   };
 }
+
+interface TalonInTests extends Talon {
+  getTestHelpers(): TalonTestHelpers;
+}
+
+const talonMock: TalonInTests = {
+  actions,
+  settings,
+  createContext,
+  getTestHelpers,
+};
+
+export default talonMock;

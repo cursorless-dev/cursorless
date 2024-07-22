@@ -3,8 +3,8 @@
 esbuild \
     --outfile=out/talon.js \
     --platform=neutral \
-    --main-fields=main,module \
     --format=esm \
+    --main-fields=main,module \
     --conditions=cursorless:bundler \
     --bundle \
     --sourcemap \

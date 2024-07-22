@@ -1,9 +1,10 @@
 import { Edit, type InMemoryTextDocument } from "@cursorless/common";
-import { actions } from "talon";
+import type { Talon } from "../types/talon.types";
 import type { EditorChanges } from "../types/types";
 import type { TalonJsIDE } from "./TalonJsIDE";
 
 export function talonJsPerformEdits(
+  talon: Talon,
   ide: TalonJsIDE,
   document: InMemoryTextDocument,
   edits: Edit[],
@@ -19,7 +20,7 @@ export function talonJsPerformEdits(
     })),
   };
 
-  actions.user.cursorless_everywhere_set_text(editorChanges);
+  talon.actions.user.cursorless_everywhere_set_text(editorChanges);
 
   ide.emitDidChangeTextDocument({
     document,

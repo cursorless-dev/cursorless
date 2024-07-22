@@ -1,12 +1,14 @@
-import { actions } from "talon";
 import type { Clipboard } from "@cursorless/common";
+import type { Talon } from "../types/talon.types";
 
 export class TalonJsClipboard implements Clipboard {
+  constructor(private talon: Talon) {}
+
   async readText(): Promise<string> {
-    return actions.clip.text();
+    return this.talon.actions.clip.text();
   }
 
   async writeText(value: string): Promise<void> {
-    actions.clip.set_text(value);
+    this.talon.actions.clip.set_text(value);
   }
 }

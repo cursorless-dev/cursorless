@@ -1,7 +1,8 @@
 import type { Selection, TextDocument } from "@cursorless/common";
-import { actions } from "talon";
+import type { Talon } from "../types/talon.types";
 
 export function setSelections(
+  talon: Talon,
   document: TextDocument,
   selections: Selection[],
 ): Promise<void> {
@@ -10,7 +11,7 @@ export function setSelections(
     active: document.offsetAt(selection.active),
   }));
 
-  actions.user.cursorless_everywhere_set_selections(selectionOffsets);
+  talon.actions.user.cursorless_everywhere_set_selections(selectionOffsets);
 
   return Promise.resolve();
 }

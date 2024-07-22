@@ -1,21 +1,15 @@
 #!/usr/bin/env bash
 
-echo $ esbuild ... src/test/talonMock.ts
+echo $ esbuild ... src/quickjsTest.ts
 esbuild \
-    --outfile=testOut/talon \
+    --outfile=testOut/quickjsTest.mjs \
     --platform=neutral \
     --format=esm \
-    src/test/talonMock.ts
-
-echo $ esbuild ... src/test/quickjsTest.ts
-esbuild \
-    --outfile=testOut/quickjsTest.js \
-    --platform=neutral \
-    --format=esm \
-    src/test/quickjsTest.ts
-
-echo $ cp -r out/talon.js testOut/cursorless.mjs
-cp -r out/talon.js testOut/cursorless.mjs
+    --main-fields=main,module \
+    --conditions=cursorless:bundler \
+    --bundle \
+    --external:std \
+    src/quickjsTest.ts
 
 echo $ cd testOut
 cd testOut
@@ -30,6 +24,7 @@ curl -o $QUICKJS_FILE $QUICKJS_URL
 echo $ unzip $QUICKJS_FILE
 unzip $QUICKJS_FILE
 
-echo $ ./qjs -I cursorless.mjs quickjsTest.js
 export CURSORLESS_MODE=test
-./qjs -I cursorless.mjs quickjsTest.js
+
+echo $ ./qjs -I quickjsTest.mjs
+./qjs -I quickjsTest.mjs

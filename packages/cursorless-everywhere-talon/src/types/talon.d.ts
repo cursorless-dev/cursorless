@@ -1,14 +1,19 @@
 import type {
-  EditorState,
+  TalonActions,
+  TalonContext,
   TalonContextActions,
+  TalonSettings,
 } from "@cursorless/cursorless-everywhere-talon-core";
 
-export interface TalonTestHelpers {
-  contextActions: TalonContextActions;
-  setEditorState(editorState: EditorState): void;
-  getFinalEditorState(): EditorState;
-}
-
 declare module "talon" {
-  function getTestHelpers(): TalonTestHelpers;
+  const actions: TalonActions;
+  const settings: TalonSettings;
+
+  class Context implements TalonContext {
+    matches: string;
+    tags: string[];
+    settings: Record<string, string | number | boolean>;
+    lists: Record<string, Record<string, string> | string[]>;
+    action_class(name: "user", actions: TalonContextActions): void;
+  }
 }

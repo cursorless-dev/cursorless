@@ -1,21 +1,15 @@
+import "./polyfill";
+
 import type { RunMode } from "@cursorless/common";
 import { createCursorlessEngine } from "@cursorless/cursorless-engine";
 import { getRunMode } from "./ide/getRunMode";
 import { TalonJsIDE } from "./ide/TalonJsIDE";
 import { registerCommands } from "./registerCommands";
 import type { ActivateReturnValue } from "./types/types";
+import type { Talon } from "./types/talon.types";
 
-let promise: Promise<ActivateReturnValue> | undefined;
-
-export function activate(runMode?: RunMode): Promise<ActivateReturnValue> {
-  if (promise == null) {
-    promise = activateInternal(runMode);
-  }
-
-  return promise;
-}
-
-async function activateInternal(
+export async function activate(
+  talon: Talon,
   runMode?: RunMode,
 ): Promise<ActivateReturnValue> {
   runMode = runMode ?? (await getRunMode());
@@ -23,13 +17,13 @@ async function activateInternal(
   console.debug(`activate talon.js @ ${runMode}`);
 
   try {
-    const ide = new TalonJsIDE(runMode);
+    const ide = new TalonJsIDE(talon, runMode);
 
     const engine = await createCursorlessEngine({ ide });
 
     const commandApi = engine.commandApi;
 
-    registerCommands(ide, commandApi);
+    registerCommands(talon, ide, commandApi);
 
     const testHelpers = runMode === "test" ? { ide } : undefined;
 

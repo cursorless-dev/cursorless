@@ -1,3 +1,5 @@
+declare function print(...objs: any): void;
+
 declare namespace console {
   function debug(...objs: any): void;
   function log(...objs: any): void;

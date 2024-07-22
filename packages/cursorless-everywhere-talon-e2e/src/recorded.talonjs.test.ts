@@ -18,11 +18,13 @@ import { activate } from "@cursorless/cursorless-everywhere-talon-core";
 import assert from "node:assert";
 
 suite("recorded test cases", async function () {
-  const { testHelpers } = await activate("test");
-  const { ide } = testHelpers!;
+  console.log("before");
+  console.log(activate);
+  //   const { testHelpers } = await activate("test");
+  //   const { ide } = testHelpers!;
 
   test("recorded test cases", async function () {
-    console.log(ide.runMode);
+    // console.log(ide.runMode);
     assert.fail("Not implemented");
   });
 

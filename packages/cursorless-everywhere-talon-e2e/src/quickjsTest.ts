@@ -1,9 +1,10 @@
-import { getTestHelpers } from "talon";
-import { activate } from "cursorless.mjs";
 import type { ActionDescriptor, CommandLatest } from "@cursorless/common";
+import { activate } from "@cursorless/cursorless-everywhere-talon-core";
+import * as std from "std";
+import talonMock from "./talonMock";
 
 async function runTests() {
-  await activate();
+  await activate(talonMock, "test");
 
   console.log();
   console.log("Running quickjs tests");
@@ -13,7 +14,7 @@ async function runTests() {
 }
 
 async function testTake() {
-  const testHelpers = getTestHelpers();
+  const testHelpers = talonMock.getTestHelpers();
   const initialText = "Hello, world!";
 
   testHelpers.setEditorState({
@@ -38,7 +39,7 @@ async function testTake() {
 }
 
 async function testChuck() {
-  const testHelpers = getTestHelpers();
+  const testHelpers = talonMock.getTestHelpers();
 
   testHelpers.setEditorState({
     text: "Hello, world!",
@@ -67,10 +68,12 @@ function runAction(action: ActionDescriptor) {
     usePrePhraseSnapshot: false,
     action,
   };
-  return getTestHelpers().contextActions.private_cursorless_run_rpc_command_get(
-    "cursorless.command",
-    command,
-  );
+  return talonMock
+    .getTestHelpers()
+    .contextActions.private_cursorless_run_rpc_command_get(
+      "cursorless.command",
+      command,
+    );
 }
 
 const assert = {
@@ -92,3 +95,5 @@ async function test(name: string, fn: () => Promise<void>) {
 }
 
 await runTests();
+
+std.exit(0);
