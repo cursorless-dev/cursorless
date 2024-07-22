@@ -51,6 +51,8 @@ function createChangeEvents(
     })
     .map(({ edit }) => edit);
 
+  const eol = document.eol === "LF" ? "\n" : "\r\n";
+
   for (const edit of sortedEdits) {
     const previousChange = changes[changes.length - 1];
     const intersection = previousChange?.range.intersection(edit.range);
@@ -70,7 +72,9 @@ function createChangeEvents(
       throw Error("Overlapping ranges are not allowed!");
     }
 
-    changes.push(createChangeEvent(document, edit.range, edit.text));
+    const text = edit.text.replace(/\r?\n/g, eol);
+
+    changes.push(createChangeEvent(document, edit.range, text));
   }
 
   return changes;
