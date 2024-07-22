@@ -8,6 +8,7 @@ on:
     types: [opened, synchronize, reopened]
   merge_group:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
   test:
