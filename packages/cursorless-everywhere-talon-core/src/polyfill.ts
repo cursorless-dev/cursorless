@@ -6,7 +6,7 @@ if (global.process == null) {
   };
 }
 
-if (global.console == null) {
+if (typeof print !== "undefined") {
   global.console = {
     log: print,
     error: print,
