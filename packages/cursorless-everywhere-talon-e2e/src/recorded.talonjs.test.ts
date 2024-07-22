@@ -22,8 +22,8 @@ import talonMock from "./talonMock";
 
 suite("TalonJS: Recorded test cases", async function () {
   const ide = await activate(talonMock, "test");
-  const ideTestHelpers = ide.testHelpers!;
-  const { getSpy } = endToEndTestSetup(this, ideTestHelpers);
+  const testHelpers = ide.testHelpers!;
+  const { getSpy } = endToEndTestSetup(this, testHelpers);
 
   const tests = getRecordedTestPaths();
 
@@ -40,10 +40,10 @@ suite("TalonJS: Recorded test cases", async function () {
           path,
           spyIde: getSpy(),
           openNewTestEditor: (content, languageId) =>
-            openNewTestEditor(ideTestHelpers.talonJsIDE, content, languageId),
+            openNewTestEditor(testHelpers.talonJsIDE, content, languageId),
           sleepWithBackoff,
-          testHelpers: constructTestHelpers(ideTestHelpers),
-          runCursorlessCommand,
+          testHelpers: constructTestHelpers(testHelpers),
+          runCursorlessCommand: (command) => testHelpers.runCommand(command),
         });
       }),
     );
@@ -81,15 +81,6 @@ function sleepWithBackoff(_ms: number): Promise<void> {
   return Promise.resolve();
 }
 
-function runCursorlessCommand(command: Command) {
-  return talonMock
-    .getTestHelpers()
-    .contextActions.private_cursorless_run_rpc_command_get(
-      CURSORLESS_COMMAND_ID,
-      command,
-    );
-}
-
 async function openNewTestEditor(
   ide: TalonJsIDE,
   content: string,
@@ -98,7 +89,7 @@ async function openNewTestEditor(
   const editorState: EditorState = {
     text: content,
     languageId,
-    selections: [],
+    selections: [{ anchor: 0, active: 0 }],
   };
   ide.updateTextEditors(editorState);
   talonMock.getTestHelpers().setEditorState(editorState);

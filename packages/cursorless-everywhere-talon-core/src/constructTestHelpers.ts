@@ -1,4 +1,6 @@
 import type {
+  Command,
+  CommandResponse,
   FakeCommandServerApi,
   HatTokenMap,
   IDE,
@@ -9,6 +11,7 @@ import type {
 } from "@cursorless/common";
 import {
   plainObjectToTarget,
+  type CommandApi,
   type StoredTargetMap,
 } from "@cursorless/cursorless-engine";
 import type { TalonJsIDE } from "./ide/TalonJsIDE";
@@ -18,6 +21,7 @@ interface Args {
   talonJsIDE: TalonJsIDE;
   normalizedIde: NormalizedIDE;
   injectIde: (ide: IDE) => void;
+  commandApi: CommandApi;
   hatTokenMap: HatTokenMap;
   commandServerApi: FakeCommandServerApi;
   storedTargets: StoredTargetMap;
@@ -27,6 +31,7 @@ export function constructTestHelpers({
   talonJsIDE,
   normalizedIde,
   injectIde,
+  commandApi,
   hatTokenMap,
   commandServerApi,
   storedTargets,
@@ -38,6 +43,10 @@ export function constructTestHelpers({
     hatTokenMap,
     storedTargets,
     injectIde,
+
+    runCommand(command: Command): Promise<CommandResponse | unknown> {
+      return commandApi.runCommand(command);
+    },
 
     setStoredTarget(
       editor: TextEditor,

@@ -1,4 +1,10 @@
-import type { IDE, NormalizedIDE, TestHelpers } from "@cursorless/common";
+import type {
+  Command,
+  CommandResponse,
+  IDE,
+  NormalizedIDE,
+  TestHelpers,
+} from "@cursorless/common";
 import type { StoredTargetMap } from "@cursorless/cursorless-engine";
 import type { TalonJsIDE } from "../ide/TalonJsIDE";
 
@@ -30,6 +36,7 @@ export interface TalonJsTestHelpers extends Omit<TestHelpers, "takeSnapshot"> {
   ide: NormalizedIDE;
   storedTargets: StoredTargetMap;
   injectIde: (ide: IDE) => void;
+  runCommand(command: Command): Promise<CommandResponse | unknown>;
 }
 
 export interface ActivateReturnValue {

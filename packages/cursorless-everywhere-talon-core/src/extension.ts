@@ -60,6 +60,7 @@ async function activateHelper(
           talonJsIDE,
           normalizedIde: normalizedIde as NormalizedIDE,
           injectIde,
+          commandApi,
           hatTokenMap,
           commandServerApi: fakeCommandServerApi,
           storedTargets,
