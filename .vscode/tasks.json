@@ -288,7 +288,7 @@
       // so we need to show logs outside of vscode (see #2454)
     },
     {
-      "label": "Neovim: Run cursorless.nvim lua tests",
+      "label": "Neovim: Test Lua",
       "type": "shell",
       "command": "busted --run unit",
       "options": {
