@@ -21,6 +21,5 @@
   "dependencies": {
     "@cursorless/common": "workspace:*",
     "@cursorless/cursorless-everywhere-talon-core": "workspace:*"
-  },
-  "devDependencies": {}
+  }
 }

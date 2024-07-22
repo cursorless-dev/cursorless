@@ -1,15 +1,19 @@
 const global = globalThis as any;
 
-global.process = {
-  env: {},
-};
+if (global.process == null) {
+  global.process = {
+    env: {},
+  };
+}
 
-global.console = {
-  log: print,
-  error: print,
-  warn: print,
-  debug: print,
-};
+if (global.console == null) {
+  global.console = {
+    log: print,
+    error: print,
+    warn: print,
+    debug: print,
+  };
+}
 
 global.setTimeout = (callback: () => void, _delay: number) => {
   callback();

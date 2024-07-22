@@ -16,16 +16,15 @@
 
 import { activate } from "@cursorless/cursorless-everywhere-talon-core";
 import assert from "node:assert";
+import talonMock from "./talonMock";
 
 suite("recorded test cases", async function () {
-  console.log("before");
-  console.log(activate);
-  //   const { testHelpers } = await activate("test");
-  //   const { ide } = testHelpers!;
+  const { testHelpers } = await activate(talonMock, "test");
+  const { ide } = testHelpers!;
 
   test("recorded test cases", async function () {
-    // console.log(ide.runMode);
-    assert.fail("Not implemented");
+    console.log(ide.runMode);
+    assert.ok("testing testing testing");
   });
 
   //   const { getSpy } = endToEndTestSetup(this);
