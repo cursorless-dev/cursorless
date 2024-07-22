@@ -1,0 +1,59 @@
+languageId: python
+command:
+  version: 6
+  spokenForm: chuck arg blue vest
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+      mark: {type: decoratedSymbol, symbolColor: blue, character: v}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    def print_color(color, invert=False):
+        if invert:
+            print(invert_color(color))
+        else:
+            print(color)
+
+
+    def invert_color(color):
+        if color == "black":
+            return "white"
+        if color == "white":
+            return "black"
+        return color
+
+
+    print_color("black")
+  selections:
+    - anchor: {line: 12, character: 16}
+      active: {line: 12, character: 16}
+  marks:
+    blue.v:
+      start: {line: 0, character: 23}
+      end: {line: 0, character: 29}
+finalState:
+  documentContents: |
+    def print_color(color):
+        if invert:
+            print(invert_color(color))
+        else:
+            print(color)
+
+
+    def invert_color(color):
+        if color == "black":
+            return "white"
+        if color == "white":
+            return "black"
+        return color
+
+
+    print_color("black")
+  selections:
+    - anchor: {line: 12, character: 16}
+      active: {line: 12, character: 16}

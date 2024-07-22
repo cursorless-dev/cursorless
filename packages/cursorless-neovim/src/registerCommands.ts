@@ -112,9 +112,17 @@ export async function registerCommands(
     ["cursorless.keyboard.modal.modeOn"]: dummyCommandHandler,
     ["cursorless.keyboard.modal.modeOff"]: dummyCommandHandler,
     ["cursorless.keyboard.modal.modeToggle"]: dummyCommandHandler,
-
     ["cursorless.keyboard.undoTarget"]: dummyCommandHandler,
     ["cursorless.keyboard.redoTarget"]: dummyCommandHandler,
+
+    // Tutorial commands
+    ["cursorless.tutorial.start"]: dummyCommandHandler,
+    ["cursorless.tutorial.next"]: dummyCommandHandler,
+    ["cursorless.tutorial.previous"]: dummyCommandHandler,
+    ["cursorless.tutorial.restart"]: dummyCommandHandler,
+    ["cursorless.tutorial.resume"]: dummyCommandHandler,
+    ["cursorless.tutorial.list"]: dummyCommandHandler,
+    ["cursorless.documentationOpened"]: dummyCommandHandler,
   };
 
   Object.entries(commands).map(([commandId, callback]) =>

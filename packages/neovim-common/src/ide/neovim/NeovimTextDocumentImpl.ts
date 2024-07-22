@@ -89,14 +89,11 @@ export class NeovimTextDocumentImpl implements TextDocument {
     }
     // console.debug(`lineAt() line=${line}`);
 
-    if (
-      typeof line !== "number" ||
-      line < 0 ||
-      line >= this._lines.length ||
-      Math.floor(line) !== line
-    ) {
+    if (typeof line !== "number" || line < 0 || Math.floor(line) !== line) {
       throw new Error("Illegal value for `line`");
     }
+    // The position is adjusted if it is outside range
+    line = Math.min(line, this._lines.length - 1);
 
     return new NeovimTextLineImpl(
       line,
