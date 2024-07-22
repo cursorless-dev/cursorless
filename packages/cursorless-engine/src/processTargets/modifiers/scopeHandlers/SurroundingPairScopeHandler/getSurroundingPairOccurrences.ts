@@ -1,12 +1,7 @@
 import { DefaultMap, SimpleSurroundingPairName } from "@cursorless/common";
-import type {
-  DelimiterOccurrence,
-  IndividualDelimiter,
-  SurroundingPairOccurrence,
-} from "./types";
+import type { DelimiterOccurrence, SurroundingPairOccurrence } from "./types";
 
 export function getSurroundingPairOccurrences(
-  acceptableDelimiters: IndividualDelimiter[],
   delimiterOccurrences: DelimiterOccurrence[],
 ): SurroundingPairOccurrence[] {
   const result: SurroundingPairOccurrence[] = [];
@@ -21,7 +16,7 @@ export function getSurroundingPairOccurrences(
 
   for (const occurrence of delimiterOccurrences) {
     const {
-      delimiterInfo: { delimiterName, side: sideRaw, isSingleLine },
+      delimiterInfo: { delimiterName, side, isSingleLine },
       isDisqualified,
       textFragmentRange,
       range,
@@ -52,55 +47,25 @@ export function getSurroundingPairOccurrences(
           openingDelimiter.textFragmentRange.isRangeEqual(textFragmentRange)),
     );
 
-    const side: "left" | "right" = (() => {
-      if (sideRaw === "unknown") {
-        return relevantOpeningDelimiters.length % 2 === 0 ? "left" : "right";
-      }
-      return sideRaw;
-    })();
-
-    if (side === "left") {
+    if (
+      side === "left" ||
+      (side === "unknown" && relevantOpeningDelimiters.length % 2 === 0)
+    ) {
       openingDelimiters.push(occurrence);
     } else {
-      const openingDelimiter = openingDelimiters.pop();
+      const openingDelimiter = relevantOpeningDelimiters.at(-1);
 
       if (openingDelimiter == null) {
         continue;
       }
 
-      if (
-        openingDelimiter.textFragmentRange != null &&
-        textFragmentRange != null
-      ) {
-        if (
-          !openingDelimiter.textFragmentRange.isRangeEqual(textFragmentRange)
-        ) {
-          if (sideRaw === "unknown") {
-            openingDelimiters.push(occurrence);
-          }
-          continue;
-        }
-      } else if (
-        openingDelimiter.textFragmentRange == null &&
-        textFragmentRange != null
-      ) {
-        openingDelimiters.push(openingDelimiter);
-        if (sideRaw === "unknown") {
-          openingDelimiters.push(occurrence);
-        }
-        continue;
-      } else if (
-        openingDelimiter.textFragmentRange != null &&
-        textFragmentRange == null
-      ) {
-        if (sideRaw === "unknown") {
-          openingDelimiters.push(occurrence);
-        }
-        continue;
-      }
+      openingDelimiters.splice(
+        openingDelimiters.lastIndexOf(openingDelimiter),
+        1,
+      );
 
       result.push({
-        delimiter: delimiterName,
+        delimiterName: delimiterName,
         left: openingDelimiter.range,
         right: range,
       });

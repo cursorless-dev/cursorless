@@ -60,10 +60,8 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
       delimiterRegex,
     );
 
-    const surroundingPairs = getSurroundingPairOccurrences(
-      individualDelimiters,
-      delimiterOccurrences,
-    );
+    const surroundingPairs =
+      getSurroundingPairOccurrences(delimiterOccurrences);
 
     const { requireStrongContainment } = this.scopeType;
 

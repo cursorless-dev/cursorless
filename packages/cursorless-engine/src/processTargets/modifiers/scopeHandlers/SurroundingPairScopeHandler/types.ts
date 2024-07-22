@@ -65,7 +65,7 @@ export interface DelimiterOccurrence {
  * A occurrence of a surrounding pair (both delimiters) in the document
  */
 export interface SurroundingPairOccurrence {
-  delimiter: SimpleSurroundingPairName;
+  delimiterName: SimpleSurroundingPairName;
   left: Range;
   right: Range;
 }
