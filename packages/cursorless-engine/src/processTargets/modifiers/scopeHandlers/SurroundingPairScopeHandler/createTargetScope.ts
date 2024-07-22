@@ -8,12 +8,9 @@ import type { SurroundingPairOccurrence } from "./types";
  */
 export function createTargetScope(
   editor: TextEditor,
-  pair: SurroundingPairOccurrence,
+  { left, right }: SurroundingPairOccurrence,
 ): TargetScope {
-  const contentRange = new Range(pair.leftStart, pair.rightEnd);
-  const interiorRange = new Range(pair.leftEnd, pair.rightStart);
-  const leftRange = new Range(pair.leftStart, pair.leftEnd);
-  const rightRange = new Range(pair.rightStart, pair.rightEnd);
+  const contentRange = new Range(left.start, right.end);
 
   return {
     editor,
@@ -23,8 +20,8 @@ export function createTargetScope(
         editor,
         isReversed,
         contentRange,
-        interiorRange,
-        boundary: [leftRange, rightRange],
+        interiorRange: new Range(left.end, right.start),
+        boundary: [left, right],
       }),
     ],
   };

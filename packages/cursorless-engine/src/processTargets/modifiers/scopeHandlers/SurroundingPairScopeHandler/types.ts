@@ -1,8 +1,4 @@
-import {
-  SimpleSurroundingPairName,
-  type Position,
-  type Range,
-} from "@cursorless/common";
+import { SimpleSurroundingPairName, type Range } from "@cursorless/common";
 
 /**
  * Used to indicate whether a particular side of the delimiter is left or right
@@ -16,11 +12,6 @@ export type DelimiterSide = "unknown" | "left" | "right";
  */
 export interface IndividualDelimiter {
   /**
-   * The text that can be used to represent this side of the delimiter, eg "("
-   */
-  text: string;
-
-  /**
    * Which side of the delimiter this refers to
    */
   side: DelimiterSide;
@@ -31,22 +22,43 @@ export interface IndividualDelimiter {
   delimiter: SimpleSurroundingPairName;
 
   /**
-   * Whether the delimiter is a single line delimiter
+   * Whether the delimiter can only appear as part of a pair that is on a single
+   * line
    */
   isSingleLine: boolean;
+
+  /**
+   * The text that can be used to represent this side of the delimiter, eg "("
+   */
+  text: string;
 }
 
 /**
  * A occurrence of a surrounding pair delimiter in the document
  */
 export interface DelimiterOccurrence {
-  delimiter: SimpleSurroundingPairName;
-  side: DelimiterSide;
-  isSingleLine: boolean;
+  /**
+   * Information about the delimiter itself
+   */
+  delimiterInfo: IndividualDelimiter;
+
+  /**
+   * The range of the delimiter in the document
+   */
+  range: Range;
+
+  /**
+   * If `true`, this delimiter is disqualified from being considered as a
+   * surrounding pair delimiter, because it has been tagged as such based on a
+   * parse tree query.
+   */
   isDisqualified: boolean;
-  textFragment?: Range;
-  start: Position;
-  end: Position;
+
+  /**
+   * If the delimiter is part of a text fragment, eg a string or comment, this
+   * will be the range of the text fragment.
+   */
+  textFragmentRange?: Range;
 }
 
 /**
@@ -54,8 +66,6 @@ export interface DelimiterOccurrence {
  */
 export interface SurroundingPairOccurrence {
   delimiter: SimpleSurroundingPairName;
-  leftStart: Position;
-  leftEnd: Position;
-  rightStart: Position;
-  rightEnd: Position;
+  left: Range;
+  right: Range;
 }

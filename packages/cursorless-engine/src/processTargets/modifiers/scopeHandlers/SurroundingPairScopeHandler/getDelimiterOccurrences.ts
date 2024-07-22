@@ -1,4 +1,4 @@
-import { matchAll, type TextDocument } from "@cursorless/common";
+import { matchAll, Range, type TextDocument } from "@cursorless/common";
 import type { LanguageDefinition } from "../../../../languages/LanguageDefinition";
 import { getCaptureRanges } from "./getCaptureRanges";
 import type { DelimiterOccurrence, IndividualDelimiter } from "./types";
@@ -31,26 +31,16 @@ export function getDelimiterOccurrences(
 
   return matchAll(text, delimiterRegex, (match): DelimiterOccurrence => {
     const text = match[0];
-    const startOffset = match.index!;
-    const endOffset = startOffset + text.length;
-    const start = document.positionAt(startOffset);
-    const end = document.positionAt(endOffset);
-    const isDisqualified = disqualifyDelimiters.some(
-      (range) => range.contains(start) && range.contains(end),
+    const range = new Range(
+      document.positionAt(match.index!),
+      document.positionAt(match.index! + text.length),
     );
-    const textFragment = textFragments.find(
-      (range) => range.contains(start) && range.contains(end),
-    );
-    const { delimiter, side, isSingleLine } =
-      delimiterTextToDelimiterInfoMap[text];
+
     return {
-      delimiter,
-      side,
-      isSingleLine,
-      isDisqualified,
-      textFragment,
-      start,
-      end,
+      delimiterInfo: delimiterTextToDelimiterInfoMap[text],
+      isDisqualified: disqualifyDelimiters.some((r) => r.contains(range)),
+      textFragmentRange: textFragments.find((r) => r.contains(range)),
+      range,
     };
   });
 }

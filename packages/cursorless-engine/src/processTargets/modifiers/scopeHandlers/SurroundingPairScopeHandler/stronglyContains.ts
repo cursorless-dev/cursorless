@@ -9,7 +9,7 @@ export function stronglyContains(
   pair: SurroundingPairOccurrence,
 ) {
   return (
-    position.isAfterOrEqual(pair.leftEnd) &&
-    position.isBeforeOrEqual(pair.rightStart)
+    position.isAfterOrEqual(pair.left.end) &&
+    position.isBeforeOrEqual(pair.right.start)
   );
 }

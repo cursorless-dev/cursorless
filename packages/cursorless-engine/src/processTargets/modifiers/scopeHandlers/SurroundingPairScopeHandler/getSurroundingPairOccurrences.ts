@@ -18,73 +18,80 @@ export function getSurroundingPairOccurrences(
   );
 
   for (const occurrence of delimiterOccurrences) {
-    if (occurrence.isDisqualified) {
+    const {
+      delimiterInfo: { delimiter, side: sideRaw, isSingleLine },
+      isDisqualified,
+    } = occurrence;
+
+    if (isDisqualified) {
       continue;
     }
 
     const side: "left" | "right" = (() => {
-      if (occurrence.side === "unknown") {
-        return openDelimiters.get(occurrence.delimiter)!.length % 2 === 0
+      if (sideRaw === "unknown") {
+        return openDelimiters.get(delimiter)!.length % 2 === 0
           ? "left"
           : "right";
       }
-      return occurrence.side;
+      return sideRaw;
     })();
 
     if (side === "left") {
-      openDelimiters.get(occurrence.delimiter)!.push(occurrence);
+      openDelimiters.get(delimiter)!.push(occurrence);
     } else {
-      const openDelimiter = openDelimiters.get(occurrence.delimiter)!.pop();
+      const openDelimiter = openDelimiters.get(delimiter)!.pop();
 
       if (openDelimiter == null) {
         continue;
       }
 
       if (
-        occurrence.isSingleLine &&
-        openDelimiter.start.line !== occurrence.start.line
+        isSingleLine &&
+        openDelimiter.range.start.line !== occurrence.range.start.line
       ) {
-        if (occurrence.side === "unknown") {
-          openDelimiters.get(occurrence.delimiter)!.push(occurrence);
+        if (sideRaw === "unknown") {
+          openDelimiters.get(delimiter)!.push(occurrence);
         }
         continue;
       }
 
       if (
-        openDelimiter.textFragment != null &&
-        occurrence.textFragment != null
+        openDelimiter.textFragmentRange != null &&
+        occurrence.textFragmentRange != null
       ) {
-        if (!openDelimiter.textFragment.isRangeEqual(occurrence.textFragment)) {
-          if (occurrence.side === "unknown") {
-            openDelimiters.get(occurrence.delimiter)!.push(occurrence);
+        if (
+          !openDelimiter.textFragmentRange.isRangeEqual(
+            occurrence.textFragmentRange,
+          )
+        ) {
+          if (sideRaw === "unknown") {
+            openDelimiters.get(delimiter)!.push(occurrence);
           }
           continue;
         }
       } else if (
-        openDelimiter.textFragment == null &&
-        occurrence.textFragment != null
+        openDelimiter.textFragmentRange == null &&
+        occurrence.textFragmentRange != null
       ) {
-        openDelimiters.get(occurrence.delimiter)!.push(openDelimiter);
-        if (occurrence.side === "unknown") {
-          openDelimiters.get(occurrence.delimiter)!.push(occurrence);
+        openDelimiters.get(delimiter)!.push(openDelimiter);
+        if (sideRaw === "unknown") {
+          openDelimiters.get(delimiter)!.push(occurrence);
         }
         continue;
       } else if (
-        openDelimiter.textFragment != null &&
-        occurrence.textFragment == null
+        openDelimiter.textFragmentRange != null &&
+        occurrence.textFragmentRange == null
       ) {
-        if (occurrence.side === "unknown") {
-          openDelimiters.get(occurrence.delimiter)!.push(occurrence);
+        if (sideRaw === "unknown") {
+          openDelimiters.get(delimiter)!.push(occurrence);
         }
         continue;
       }
 
       result.push({
-        delimiter: occurrence.delimiter,
-        leftStart: openDelimiter.start,
-        leftEnd: openDelimiter.end,
-        rightStart: occurrence.start,
-        rightEnd: occurrence.end,
+        delimiter,
+        left: openDelimiter.range,
+        right: occurrence.range,
       });
     }
   }
