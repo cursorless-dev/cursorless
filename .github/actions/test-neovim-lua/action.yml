@@ -7,8 +7,6 @@ runs:
       with:
         luaVersion: "luajit-2.1.0-beta3"
     - uses: leafo/gh-actions-luarocks@v4
-      with:
-        luaVersion: "5.1"
     - shell: bash
       run: |
         luarocks install busted
