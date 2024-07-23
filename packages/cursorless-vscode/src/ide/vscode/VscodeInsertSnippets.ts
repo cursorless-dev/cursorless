@@ -13,7 +13,7 @@ export async function vscodeInsertSnippet(
 
   await editor.focus();
 
-  // NB: We used the command "editor.action.insertSnippet" instead of calling editor.insertSnippet
+  // NB: We use the command "editor.action.insertSnippet" instead of calling editor.insertSnippet
   // because the latter doesn't support special variables like CLIPBOARD
   await vscode.commands.executeCommand("editor.action.insertSnippet", {
     snippet,
