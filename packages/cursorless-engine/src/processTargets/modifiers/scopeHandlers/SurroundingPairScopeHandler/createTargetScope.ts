@@ -8,22 +8,25 @@ import type { SurroundingPairOccurrence } from "./types";
  */
 export function createTargetScope(
   editor: TextEditor,
-  { left, right }: SurroundingPairOccurrence,
+  { openingDelimiterRange, closingDelimiterRange }: SurroundingPairOccurrence,
   requireStrongContainment: boolean,
 ): TargetScope {
-  const contentRange = new Range(left.start, right.end);
-  const interiorRange = new Range(left.end, right.start);
+  const fullRange = openingDelimiterRange.union(closingDelimiterRange);
+  const interiorRange = new Range(
+    openingDelimiterRange.end,
+    closingDelimiterRange.start,
+  );
 
   return {
     editor,
-    domain: requireStrongContainment ? interiorRange : contentRange,
+    domain: requireStrongContainment ? interiorRange : fullRange,
     getTargets: (isReversed) => [
       new SurroundingPairTarget({
         editor,
         isReversed,
-        contentRange,
+        contentRange: fullRange,
         interiorRange,
-        boundary: [left, right],
+        boundary: [openingDelimiterRange, closingDelimiterRange],
       }),
     ],
   };

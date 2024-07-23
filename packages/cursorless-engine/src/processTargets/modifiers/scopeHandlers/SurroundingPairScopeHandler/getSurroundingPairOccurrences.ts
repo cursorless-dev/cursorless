@@ -78,8 +78,8 @@ export function getSurroundingPairOccurrences(
 
       result.push({
         delimiterName: delimiterName,
-        left: openingDelimiter.range,
-        right: range,
+        openingDelimiterRange: openingDelimiter.range,
+        closingDelimiterRange: range,
       });
     }
   }

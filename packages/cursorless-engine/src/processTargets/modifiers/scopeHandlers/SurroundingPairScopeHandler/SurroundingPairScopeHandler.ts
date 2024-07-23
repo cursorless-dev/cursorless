@@ -99,8 +99,8 @@ function maybeApplyEmptyTargetHack(
     return surroundingPairs.filter(
       (pair, i) =>
         !(
-          pair.right.end.isEqual(position) &&
-          surroundingPairs[i + 1]?.right.start.isEqual(position)
+          pair.closingDelimiterRange.end.isEqual(position) &&
+          surroundingPairs[i + 1]?.closingDelimiterRange.start.isEqual(position)
         ),
     );
   }

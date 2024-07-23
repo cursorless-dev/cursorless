@@ -66,6 +66,6 @@ export interface DelimiterOccurrence {
  */
 export interface SurroundingPairOccurrence {
   delimiterName: SimpleSurroundingPairName;
-  left: Range;
-  right: Range;
+  openingDelimiterRange: Range;
+  closingDelimiterRange: Range;
 }
