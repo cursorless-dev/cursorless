@@ -31,7 +31,8 @@ packages/test-harness/src/config/init.lua
   -> TestHarnessRun() -> run() -> runAllTests() -> Mocha + packages/cursorless-neovim-e2e/src/suite/recorded.neovim.test.ts
 ```
 
-4. **Lua unit tests for neovim**: tests lua functions. They need to be executed in neovim. There is no such test for VSCode because we assume the functions provided by [VSCode APIs](https://code.visualstudio.com/api/references/vscode-api) have already been tested by Microsoft and work properly
+4. **Lua unit tests for neovim**: tests lua functions implemented in cursorless.nvim. These tests are
+   executed inside neovim.
 
 5. **Cursorless tests for Talon**: XXX
 
@@ -293,7 +294,26 @@ NOTE: CI uses `dist/cursorless.nvim/` (and not `cursorless.nvim/`), since the sy
 
 ## 4. Lua unit tests for neovim
 
-XXX
+Many of the cursorless.nvim lua functions are run in order to complete cursorless actions and so are already
+indirectly tested by the tests described in the [prevous section](#3.-cursorless-tests-for-neovim). Nevertheless, we run
+more specific unit tests in order to give better visibility into exactly which functions are failing.
+
+The [busted](https://github.com/lunarmodules/busted) framework is used to test lua functions defined in cursorless.nvim.
+This relies on a `./cursorless.nvim/.busted` file which directs busted to use a shell wrapper
+`.cursorless.nvim/test/nvim-shim.sh` as its lua interpreter. It also declares that test specifications files are in
+`./cursorless.nvim/test/unit/`. Any file in that folder ending with `_spec.lua` contains tests and will be executed
+by neovim's lua interpreter, which allows neovim's internal API to be exposed to the tests.
+
+The `nvim-shim.sh` script sets up an enclosed neovim environment by using [XDG Base
+Directory](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html) environment variables (Linux
+only) pointing to a temp directory. This allows loading any helpers and (optional) plugins needed to run
+the tests.
+
+Afterwards, the shim will used `nvim` to execute whatever test spec file was passed by busted. Different tests rely on
+the same custom helper functions. These functions are exposed as globals in a file called `helpers.lua` placed in `nvim/plugin/` insnide the isolated XDG environment. These helpers themselves also have their own unit tests that will be run by busted.
+
+This busted setup was inspired by this [blog
+post](https://hiphish.github.io/blog/2024/01/29/testing-neovim-plugins-with-busted/), which goes into greater detail.
 
 ## 5. Cursorless tests for Talon
 
