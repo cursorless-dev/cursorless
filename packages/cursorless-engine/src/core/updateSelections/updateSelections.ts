@@ -14,6 +14,79 @@ import {
 import { performDocumentEdits } from "../../util/performDocumentEdits";
 import { RangeUpdater } from "./RangeUpdater";
 
+// const {
+//     sourceEditRanges: updatedSourceEditRanges,
+//     destinationEditRanges: updatedDestinationEditRanges,
+//   } = await performEditsAndUpdateSelections({
+//     rangeUpdator,
+//     editor: editableEditor,
+//     edits: filteredEdits.map(({ edit }) => edit),
+//     // callback: async () => {...do whatever},
+//     selections: {
+//       sourceEditRanges,
+//       destinationEditRanges: {
+//         selections: destinationEditRanges,
+//         behavior: RangeExpansionBehavior.openOpen,
+//       },
+//     },
+//     // preserveEditorSelections: true,
+//   });
+
+type SelectionsOrRanges = readonly Selection[] | readonly Range[];
+
+interface SelectionsWithBehavior2 {
+  selections: SelectionsOrRanges;
+  behavior: RangeExpansionBehavior;
+}
+
+interface BaseProps {
+  rangeUpdater: RangeUpdater;
+  editor: EditableTextEditor;
+  preserveEditorSelections?: boolean;
+  selections: Record<string, SelectionsOrRanges | SelectionsWithBehavior2>;
+}
+
+interface EditProps extends BaseProps {
+  edits: Edit[];
+}
+
+interface CallbackProps extends BaseProps {
+  callback: () => Promise<void>;
+}
+
+type UpdaterProps = EditProps | CallbackProps;
+
+export function performEditsAndUpdateSelections({
+  rangeUpdater,
+  editor,
+  selections,
+  preserveEditorSelections,
+  ...rest
+}: UpdaterProps) {
+  for (const key in selections) {
+    const value = selections[key];
+
+    const { selectionsOrRanges, behavior } = (() => {
+      if ("selections" in value) {
+        const { selections, behavior } = value;
+        return { selectionsOrRanges: selections, behavior };
+      }
+      return {
+        selectionsOrRanges: value,
+        behavior: RangeExpansionBehavior.closedClosed,
+      };
+    })();
+
+    console.log(selectionsOrRanges, behavior);
+  }
+
+  if ("edits" in rest) {
+    const { edits } = rest;
+  } else {
+    const { callback } = rest;
+  }
+}
+
 abstract class Updater {
   protected _selections: SelectionsWithBehavior[] = [];
   protected _ranges: RangesWithBehavior[] = [];
