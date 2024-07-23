@@ -14,7 +14,7 @@ extension](#running--testing-extension-locally). You may also find the [VSCode A
 
 ### Steps
 
-1. Clone [`cursorless`](https://github.com/cursorless-dev/cursorless)
+1. Clone [`cursorless`](https://github.com/cursorless-dev/cursorless) locally. Note that it doesn't matter where you clone it, as long as you _**do not**_ clone it into your Talon user directory.
 2. Open the newly created `cursorless` directory in VSCode. If you're on Windows, don't use WSL (see [#919](https://github.com/cursorless-dev/cursorless/issues/919) for discussion / workaround).
 3. Run the following in the terminal:
 
