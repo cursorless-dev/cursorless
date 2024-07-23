@@ -8,7 +8,6 @@ import {
 } from "@cursorless/common";
 import { createCursorlessEngine } from "@cursorless/cursorless-engine";
 import { constructTestHelpers } from "./constructTestHelpers";
-import { getRunMode } from "./ide/getRunMode";
 import { TalonJsIDE } from "./ide/TalonJsIDE";
 import { TalonJsTestHats } from "./ide/TalonJsTestHats";
 import { registerCommands } from "./registerCommands";
@@ -17,7 +16,7 @@ import type { ActivateReturnValue } from "./types/types";
 
 export async function activate(
   talon: Talon,
-  runMode?: RunMode,
+  runMode: RunMode,
 ): Promise<ActivateReturnValue> {
   try {
     return await activateHelper(talon, runMode);
@@ -29,10 +28,8 @@ export async function activate(
 
 async function activateHelper(
   talon: Talon,
-  runMode?: RunMode,
+  runMode: RunMode,
 ): Promise<ActivateReturnValue> {
-  runMode = runMode ?? (await getRunMode());
-
   console.debug(`activate talon.js @ ${runMode}`);
 
   const isTesting = runMode === "test";
