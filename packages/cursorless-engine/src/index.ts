@@ -16,3 +16,4 @@ export * from "./testUtil/extractTargetKeys";
 export * from "./testUtil/plainObjectToTarget";
 export * from "./util/getPartialTargetDescriptors";
 export * from "./util/grammarHelpers";
+export * from "./util/selectionUtils";

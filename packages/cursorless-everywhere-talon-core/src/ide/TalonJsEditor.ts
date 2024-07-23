@@ -11,7 +11,7 @@ import type {
   TextEditor,
   TextEditorOptions,
 } from "@cursorless/common";
-import { selectionsEqual } from "@cursorless/cursorless-engine/src/util/selectionUtils";
+import { selectionsEqual } from "@cursorless/cursorless-engine";
 import type { Talon } from "../types/talon.types";
 import { setSelections } from "./setSelections";
 import type { TalonJsIDE } from "./TalonJsIDE";
