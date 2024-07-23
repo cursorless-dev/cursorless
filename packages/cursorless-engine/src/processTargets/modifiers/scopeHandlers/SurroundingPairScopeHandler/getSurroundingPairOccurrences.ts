@@ -1,6 +1,13 @@
 import { DefaultMap, SimpleSurroundingPairName } from "@cursorless/common";
 import type { DelimiterOccurrence, SurroundingPairOccurrence } from "./types";
 
+/**
+ * Given a list of occurrences of delimiters, returns a list of occurrences of
+ * surrounding pairs by matching opening and closing delimiters.
+ *
+ * @param delimiterOccurrences A list of occurrences of delimiters
+ * @returns A list of occurrences of surrounding pairs
+ */
 export function getSurroundingPairOccurrences(
   delimiterOccurrences: DelimiterOccurrence[],
 ): SurroundingPairOccurrence[] {
@@ -38,6 +45,11 @@ export function getSurroundingPairOccurrences(
       openingDelimiterOccurrences.set(delimiterName, openingDelimiters);
     }
 
+    /**
+     * A list of opening delimiters that are relevant to the current occurrence.
+     * We exclude delimiters that are not in the same text fragment range as the
+     * current occurrence.
+     */
     const relevantOpeningDelimiters = openingDelimiters.filter(
       (openingDelimiter) =>
         (textFragmentRange == null &&

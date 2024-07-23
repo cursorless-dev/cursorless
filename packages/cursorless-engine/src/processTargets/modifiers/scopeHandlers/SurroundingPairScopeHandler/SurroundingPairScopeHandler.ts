@@ -8,16 +8,15 @@ import {
 } from "@cursorless/common";
 import type { LanguageDefinitions } from "../../../../languages/LanguageDefinitions";
 import { BaseScopeHandler } from "../BaseScopeHandler";
-import { compareTargetScopes } from "../compareTargetScopes";
 import { TargetScope } from "../scope.types";
 import { ScopeIteratorRequirements } from "../scopeHandler.types";
 import { getDelimiterOccurrences } from "./getDelimiterOccurrences";
-import { getDelimiterRegex } from "./getDelimiterRegex";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";
 import { getSurroundingPairOccurrences } from "./getSurroundingPairOccurrences";
 import { ide } from "../../../../singletons/ide.singleton";
 import { createTargetScope } from "./createTargetScope";
-import { stronglyContains } from "./stronglyContains";
+import { compareTargetScopes } from "../compareTargetScopes";
+import { SurroundingPairOccurrence } from "./types";
 
 export class SurroundingPairScopeHandler extends BaseScopeHandler {
   public readonly iterationScopeType: ScopeType = { type: "document" };
@@ -37,12 +36,6 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
     direction: Direction,
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
-    const individualDelimiters = getIndividualDelimiters(
-      this.scopeType.delimiter,
-      this.languageId,
-    );
-    const delimiterRegex = getDelimiterRegex(individualDelimiters);
-
     if (this.scopeType.forceDirection != null) {
       //  DEPRECATED @ 2024-07-01
       void showError(
@@ -56,45 +49,61 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
     const delimiterOccurrences = getDelimiterOccurrences(
       this.languageDefinitions.get(this.languageId),
       editor.document,
-      individualDelimiters,
-      delimiterRegex,
+      getIndividualDelimiters(this.scopeType.delimiter, this.languageId),
     );
 
-    const surroundingPairs =
-      getSurroundingPairOccurrences(delimiterOccurrences);
+    let surroundingPairs = getSurroundingPairOccurrences(delimiterOccurrences);
 
-    const { requireStrongContainment } = this.scopeType;
+    surroundingPairs = maybeApplyEmptyTargetHack(
+      direction,
+      hints,
+      position,
+      surroundingPairs,
+    );
 
-    const scopes: TargetScope[] = [];
-
-    surroundingPairs.forEach((pair, i) => {
-      if (direction === "forward") {
-        if (pair.right.end.isBefore(position)) {
-          return;
-        }
-
-        // In the case of `(()|)` don't yield the pair to the left
-        if (pair.right.end.isEqual(position) && hints.skipAncestorScopes) {
-          const nextPair = surroundingPairs[i + 1];
-          if (nextPair != null && nextPair.right.start.isEqual(position)) {
-            return;
-          }
-        }
-      } else if (pair.left.start.isAfter(position)) {
-        return;
-      }
-
-      if (requireStrongContainment && !stronglyContains(position, pair)) {
-        return;
-      }
-
-      scopes.push(createTargetScope(editor, pair));
-    });
-
-    scopes.sort((a, b) => compareTargetScopes(direction, position, a, b));
-
-    for (const scope of scopes) {
-      yield scope;
-    }
+    yield* surroundingPairs
+      .map((pair) =>
+        createTargetScope(
+          editor,
+          pair,
+          this.scopeType.requireStrongContainment ?? false,
+        ),
+      )
+      .sort((a, b) => compareTargetScopes(direction, position, a, b));
   }
+}
+
+/**
+ * Applies the empty target hack, if appropriate. We are trying to detect that
+ * we are in a situation where the target is empty and the user has asked for
+ * containing scope. We use this so that in the case of `(()|)`, "take pair"
+ * yields the bigger pair, to be consistent with the way VSCode highlights the
+ * pair adjacent to your cursor.
+ *
+ * FIXME: This is a hack. We're basically using a heuristic to guess that we're
+ * being called from containing scope stage with empty target, but we really
+ * can't assume this.
+ */
+function maybeApplyEmptyTargetHack(
+  direction: Direction,
+  hints: ScopeIteratorRequirements,
+  position: Position,
+  surroundingPairs: SurroundingPairOccurrence[],
+): SurroundingPairOccurrence[] {
+  if (
+    direction === "forward" &&
+    hints.containment === "required" &&
+    hints.allowAdjacentScopes &&
+    hints.skipAncestorScopes
+  ) {
+    return surroundingPairs.filter(
+      (pair, i) =>
+        !(
+          pair.right.end.isEqual(position) &&
+          surroundingPairs[i + 1]?.right.start.isEqual(position)
+        ),
+    );
+  }
+
+  return surroundingPairs;
 }
