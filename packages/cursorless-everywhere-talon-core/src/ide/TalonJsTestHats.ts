@@ -21,7 +21,7 @@ export class TalonJsTestHats implements Hats {
   enabledHatStyles: HatStyleMap = Object.fromEntries(
     HAT_COLORS.map((color) => [
       color,
-      { penalty: color === "default" ? 0 : 1, color },
+      { penalty: color === "default" ? 0 : 1 },
     ]),
   );
 
