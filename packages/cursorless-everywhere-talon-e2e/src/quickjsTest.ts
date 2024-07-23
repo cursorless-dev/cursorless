@@ -3,6 +3,8 @@ import { activate } from "@cursorless/cursorless-everywhere-talon-core";
 import * as std from "std";
 import talonMock from "./talonMock";
 
+let hasFailed = false;
+
 async function runTests() {
   await activate(talonMock, "test");
 
@@ -11,6 +13,8 @@ async function runTests() {
 
   await test("testTake", testTake);
   await test("testChuck", testChuck);
+
+  std.exit(hasFailed ? 1 : 0);
 }
 
 async function testTake() {
@@ -91,9 +95,8 @@ async function test(name: string, fn: () => Promise<void>) {
   } catch (error) {
     console.error(`    x ${name}`);
     console.error(error);
+    hasFailed = true;
   }
 }
 
 await runTests();
-
-std.exit(0);
