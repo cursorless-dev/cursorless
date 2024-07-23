@@ -29,6 +29,20 @@ suite("InMemoryTextDocument.edit", () => {
     assert.equal(document.text, "hello!\nworld");
   });
 
+  test("insert LF", () => {
+    const document = createTestDocument("a\nb");
+    document.edit([{ range: new Range(1, 1, 1, 1), text: "\n" }]);
+
+    assert.equal(document.text, "a\nb\n");
+  });
+
+  test("insert CRLF", () => {
+    const document = createTestDocument("a\r\nb");
+    document.edit([{ range: new Range(1, 1, 1, 1), text: "\n" }]);
+
+    assert.equal(document.text, "a\r\nb\r\n");
+  });
+
   test("multiple inserts", () => {
     const document = createTestDocument("");
 
