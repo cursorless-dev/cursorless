@@ -37,21 +37,17 @@ async function activateHelper(
 
   const talonJsIDE = new TalonJsIDE(talon, runMode);
 
+  const isTesting = runMode === "test";
+
   const normalizedIde =
-    talonJsIDE.runMode === "production"
+    runMode === "production"
       ? talonJsIDE
-      : new NormalizedIDE(
-          talonJsIDE,
-          new FakeIDE(),
-          talonJsIDE.runMode === "test",
-        );
+      : new NormalizedIDE(talonJsIDE, new FakeIDE(), isTesting);
 
   const fakeCommandServerApi = new FakeCommandServerApi();
-  const commandServerApi =
-    normalizedIde.runMode === "test" ? fakeCommandServerApi : undefined;
+  const commandServerApi = isTesting ? fakeCommandServerApi : undefined;
 
-  const hats =
-    normalizedIde.runMode === "test" ? new TalonJsTestHats() : undefined;
+  const hats = isTesting ? new TalonJsTestHats() : undefined;
 
   const { commandApi, injectIde, hatTokenMap, storedTargets } =
     await createCursorlessEngine({
@@ -62,18 +58,17 @@ async function activateHelper(
 
   registerCommands(talon, talonJsIDE, commandApi);
 
-  const testHelpers =
-    runMode === "test"
-      ? constructTestHelpers({
-          talonJsIDE,
-          normalizedIde: normalizedIde as NormalizedIDE,
-          injectIde,
-          commandApi,
-          hatTokenMap,
-          commandServerApi: fakeCommandServerApi,
-          storedTargets,
-        })
-      : undefined;
+  const testHelpers = isTesting
+    ? constructTestHelpers({
+        talonJsIDE,
+        normalizedIde: normalizedIde as NormalizedIDE,
+        injectIde,
+        commandApi,
+        hatTokenMap,
+        commandServerApi: fakeCommandServerApi,
+        storedTargets,
+      })
+    : undefined;
 
   console.debug("talon.js activated");
 
