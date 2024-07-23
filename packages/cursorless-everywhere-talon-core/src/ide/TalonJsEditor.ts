@@ -11,6 +11,7 @@ import type {
   TextEditor,
   TextEditorOptions,
 } from "@cursorless/common";
+import { selectionsEqual } from "../../../cursorless-engine/src/util/selectionUtils";
 import type { Talon } from "../types/talon.types";
 import { setSelections } from "./setSelections";
 import type { TalonJsIDE } from "./TalonJsIDE";
@@ -41,8 +42,10 @@ export class TalonJsEditor implements EditableTextEditor {
     selections: Selection[],
     _opts?: SetSelectionsOpts,
   ): Promise<void> {
-    await setSelections(this.talon, this.document, selections);
-    this.selections = selections;
+    if (!selectionsEqual(this.selections, selections)) {
+      await setSelections(this.talon, this.document, selections);
+      this.selections = selections;
+    }
   }
 
   edit(edits: Edit[]): Promise<boolean> {

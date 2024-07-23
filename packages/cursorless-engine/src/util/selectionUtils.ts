@@ -47,3 +47,9 @@ export function shrinkRangeToFitContent(editor: TextEditor, range: Range) {
   const end = document.positionAt(endOffset);
   return new Range(start, end);
 }
+
+export function selectionsEqual(a: Selection[], b: Selection[]): boolean {
+  return (
+    a.length === b.length && a.every((selection, i) => selection.isEqual(b[i]))
+  );
+}
