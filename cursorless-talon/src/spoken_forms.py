@@ -133,7 +133,10 @@ def update():
         handle_csv("target_connectives.csv"),
         handle_csv("modifiers.csv"),
         handle_csv("positions.csv"),
-        handle_csv("paired_delimiters.csv"),
+        handle_csv(
+            "paired_delimiters.csv",
+            pluralize_lists=["surrounding_pair_scope_type_plural"],
+        ),
         handle_csv("special_marks.csv"),
         handle_csv("scope_visualizer.csv"),
         handle_csv("experimental/experimental_actions.csv"),

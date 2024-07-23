@@ -45,7 +45,7 @@ def cursorless_scope_type(m) -> dict[str, str]:
 
 @mod.capture(
     rule="{user.cursorless_scope_type_plural}"
-    " | <user.cursorless_surrounding_pair_scope_type>"
+    " | <user.cursorless_surrounding_pair_scope_type_plural>"
     " | <user.cursorless_glyph_scope_type_plural>"
     " | {user.cursorless_custom_regex_scope_type_plural}"
 )
@@ -57,7 +57,7 @@ def cursorless_scope_type_plural(m) -> dict[str, str]:
         pass
 
     try:
-        return m.cursorless_surrounding_pair_scope_type
+        return m.cursorless_surrounding_pair_scope_type_plural
     except AttributeError:
         pass
 
