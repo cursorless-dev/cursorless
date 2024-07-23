@@ -1,4 +1,9 @@
-import { Range, TextEditor, TextLine } from "@cursorless/common";
+import {
+  Range,
+  TextEditor,
+  TextLine,
+  type SurroundingPairScopeType,
+} from "@cursorless/common";
 import { Target } from "../../../typings/target.types";
 import type { ModifierStageFactory } from "../../ModifierStageFactory";
 import { PlainTarget } from "../../targets";
@@ -15,7 +20,10 @@ export function getIterationScope(
   modifierStageFactory: ModifierStageFactory,
   target: Target,
 ): { range: Range; boundary?: [Range, Range] } {
-  let surroundingTarget = getSurroundingPair(modifierStageFactory, target);
+  let surroundingTarget = getBoundarySurroundingPair(
+    modifierStageFactory,
+    target,
+  );
 
   // Iteration is necessary in case of in valid surrounding targets (nested strings, content range adjacent to delimiter)
   while (surroundingTarget != null) {
@@ -135,7 +143,7 @@ function getParentSurroundingPair(
   }
   // Step out of this pair and see if we have a parent
   const position = editor.document.positionAt(startOffset - 1);
-  return getSurroundingPair(
+  return getBoundarySurroundingPair(
     modifierStageFactory,
     new PlainTarget({
       editor,
@@ -145,42 +153,49 @@ function getParentSurroundingPair(
   );
 }
 
-function getSurroundingPair(
+function getBoundarySurroundingPair(
   modifierStageFactory: ModifierStageFactory,
   target: Target,
 ) {
-  const pairStage = modifierStageFactory.create({
-    type: "containingScope",
-    scopeType: {
-      type: "surroundingPair",
-      delimiter: "collectionBoundary",
-      requireStrongContainment: true,
-    },
+  return getSurroundingPair(modifierStageFactory, target, {
+    type: "surroundingPair",
+    delimiter: "collectionBoundary",
+    requireStrongContainment: true,
   });
-  try {
-    const targets = pairStage.run(target);
-    return targets.length > 0 ? targets[0] : undefined;
-  } catch (error) {
-    return undefined;
-  }
 }
 
 function getStringSurroundingPair(
   modifierStageFactory: ModifierStageFactory,
   target: Target,
 ) {
+  return getSurroundingPair(modifierStageFactory, target, {
+    type: "surroundingPair",
+    delimiter: "string",
+    requireStrongContainment: true,
+  });
+}
+
+function getSurroundingPair(
+  modifierStageFactory: ModifierStageFactory,
+  target: Target,
+  scopeType: SurroundingPairScopeType,
+) {
   const pairStage = modifierStageFactory.create({
     type: "containingScope",
-    scopeType: {
-      type: "surroundingPair",
-      delimiter: "string",
-      requireStrongContainment: true,
-    },
+    scopeType,
   });
-  try {
-    const targets = pairStage.run(target);
-    return targets.length > 0 ? targets[0] : undefined;
-  } catch (error) {
+  const targets = (() => {
+    try {
+      return pairStage.run(target);
+    } catch (_error) {
+      return [];
+    }
+  })();
+  if (targets.length === 0) {
     return undefined;
   }
+  if (targets.length > 1) {
+    throw Error("Expected only one surrounding pair target");
+  }
+  return targets[0];
 }
