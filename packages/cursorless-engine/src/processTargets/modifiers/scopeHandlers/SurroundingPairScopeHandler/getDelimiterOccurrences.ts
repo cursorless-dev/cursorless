@@ -1,6 +1,5 @@
 import { matchAll, Range, type TextDocument } from "@cursorless/common";
 import type { LanguageDefinition } from "../../../../languages/LanguageDefinition";
-import { getCaptureRanges } from "./getCaptureRanges";
 import type { DelimiterOccurrence, IndividualDelimiter } from "./types";
 import { getDelimiterRegex } from "./getDelimiterRegex";
 
@@ -23,12 +22,10 @@ export function getDelimiterOccurrences(
 
   const delimiterRegex = getDelimiterRegex(individualDelimiters);
 
-  const queryMatches = languageDefinition?.getMatches(document) ?? [];
-  const disqualifyDelimiters = getCaptureRanges(
-    queryMatches,
-    "disqualifyDelimiter",
-  );
-  const textFragments = getCaptureRanges(queryMatches, "textFragment");
+  const disqualifyDelimiters =
+    languageDefinition?.getCaptureRanges(document, "disqualifyDelimiter") ?? [];
+  const textFragments =
+    languageDefinition?.getCaptureRanges(document, "textFragment") ?? [];
 
   const delimiterTextToDelimiterInfoMap = Object.fromEntries(
     individualDelimiters.map((individualDelimiter) => [
