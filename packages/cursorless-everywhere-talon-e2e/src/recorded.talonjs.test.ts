@@ -29,7 +29,7 @@ suite("TalonJS: Recorded test cases", async function () {
     test(
       name,
       asyncSafety(async () => {
-        const shouldSkip = await shouldSkipTest(path);
+        const shouldSkip = await shouldSkipTest(path, name);
         if (shouldSkip) {
           this.ctx.skip();
         }
@@ -48,15 +48,12 @@ suite("TalonJS: Recorded test cases", async function () {
   }
 });
 
-async function shouldSkipTest(path: string): Promise<boolean> {
-  const fixture = await loadFixture(path);
-
-  if (
-    fixture.initialState.marks != null &&
-    Object.keys(fixture.initialState.marks).length > 0
-  ) {
+async function shouldSkipTest(path: string, name: string): Promise<boolean> {
+  if (name.startsWith("recorded/hatTokenMap")) {
     return true;
   }
+
+  const fixture = await loadFixture(path);
 
   if (fixture.languageId !== "plaintext") {
     return true;
@@ -69,6 +66,8 @@ async function shouldSkipTest(path: string): Promise<boolean> {
     case "wrapWithSnippet":
     case "generateSnippet":
     case "highlight":
+    case "findInDocument":
+    case "findInWorkspace":
       return true;
   }
 

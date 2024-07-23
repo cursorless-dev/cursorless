@@ -13,6 +13,7 @@ import type { TalonTestHelpers } from "./types/talon";
 let _contextActions: TalonContextActions | undefined;
 let _editorState: EditorState | undefined;
 let _finalEditorState: EditorState | undefined;
+let _clipboard = "";
 
 const actions: TalonActions = {
   app: {
@@ -21,11 +22,11 @@ const actions: TalonActions = {
     },
   },
   clip: {
-    set_text(_text: string): void {
-      throw new Error("clip.set_text not implemented.");
+    set_text(text: string): void {
+      _clipboard = text;
     },
     text(): string {
-      throw new Error("clip.text not implemented.");
+      return _clipboard;
     },
   },
   edit: {
