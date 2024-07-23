@@ -6,7 +6,7 @@ import type {
   Listener,
 } from "@cursorless/common";
 
-export const HAT_COLORS = [
+const HAT_COLORS = [
   "default",
   "blue",
   "green",
