@@ -2,11 +2,11 @@
 
 Tests in Cursorless are done in various ways depending on what is tested.
 
-1. **Cursorless tests for VSCode**: tests the actions (`take`, `chuck`, etc.) inside VSCode
+1. **Cursorless tests for VSCode**: tests the actions (`take`, `chuck`, etc.) inside VSCode.
 
-2. **Cursorless unit tests**: tests specific TypeScript functions (`toggle decorations`, `visible multiple regions`, etc.). These tests don't rely on VSCode or neovim
+2. **Cursorless unit tests**: tests specific TypeScript functions (`toggle decorations`, `visible multiple regions`, etc.). These tests don't rely on VSCode or neovim.
 
-3. **Cursorless tests for neovim**: tests the actions (`take`, `chuck`, etc.) inside neovim. 99% of them are the same as the "Cursorless tests for VSCode" except some new ones are needed in order to test all actions, due to no hats being supported yet in neovim (and the fact that lots of "Cursorless tests for VSCode" rely on hats)
+3. **Cursorless tests for neovim**: tests the actions (`take`, `chuck`, etc.) inside neovim. 99% of them are the same as the "Cursorless tests for VSCode" except some new ones are needed in order to test all actions, due to no hats being supported yet in neovim (and the fact that lots of "Cursorless tests for VSCode" rely on hats).
 
 ```
 // 3.1 Cursorless tests for neovim locally
@@ -33,6 +33,24 @@ packages/test-harness/src/config/init.lua
 
 4. **Lua unit tests for neovim**: tests lua functions implemented in cursorless.nvim. These tests are
    executed inside neovim.
+
+```
+// 4.1 Lua unit tests for neovim locally
+launch.json -> .vscode/tasks.json -> cd cursorless.nvim && busted --run unit
+
+cursorless.nvim/.busted
+  -> lua interpreter: cursorless.nvim/test/nvim-shim.sh -> nvim -l <spec_script>
+  -> test specification files: cursorless.nvim/test/unit/*_spec.lua
+```
+
+```
+// 4.2 Lua unit tests for neovim on CI
+.github/workflows/test.yml -> .github/actions/test-neovim-lua/action.yml -> cd cursorless.nvim && busted --run unit
+
+cursorless.nvim/.busted
+  -> lua interpreter: cursorless.nvim/test/nvim-shim.sh -> nvim -l <spec_script>
+  -> test specification files: cursorless.nvim/test/unit/*_spec.lua
+```
 
 5. **Cursorless tests for Talon**: XXX
 
@@ -294,23 +312,37 @@ NOTE: CI uses `dist/cursorless.nvim/` (and not `cursorless.nvim/`), since the sy
 
 ## 4. Lua unit tests for neovim
 
-Many of the cursorless.nvim lua functions are run in order to complete cursorless actions and so are already
-indirectly tested by the tests described in the [prevous section](#3.-cursorless-tests-for-neovim). Nevertheless, we run
+This is supported on Linux only, both locally and on CI.
+
+Many of the cursorless.nvim lua functions are run in order to complete Cursorless actions and so are already
+indirectly tested by the tests described in the [previous section](#3-cursorless-tests-for-neovim). Nevertheless, we run
 more specific unit tests in order to give better visibility into exactly which functions are failing.
 
 The [busted](https://github.com/lunarmodules/busted) framework is used to test lua functions defined in cursorless.nvim.
-This relies on a `./cursorless.nvim/.busted` file which directs busted to use a shell wrapper
-`.cursorless.nvim/test/nvim-shim.sh` as its lua interpreter. It also declares that test specifications files are in
-`./cursorless.nvim/test/unit/`. Any file in that folder ending with `_spec.lua` contains tests and will be executed
-by neovim's lua interpreter, which allows neovim's internal API to be exposed to the tests.
+This relies on a `cursorless.nvim/.busted` file which directs busted to use a lua interpreter and test specifications files:
 
-The `nvim-shim.sh` script sets up an enclosed neovim environment by using [XDG Base
+```bash
+return {
+    _all = {
+        lua = './test/nvim-shim.sh'
+    },
+    unit = {
+        ROOT = {'./test/unit/'},
+    },
+}
+```
+
+The `.busted` file declares the `cursorless.nvim/test/nvim-shim.sh` shell wrapper as its lua interpreter. This script sets up an enclosed neovim environment by using [XDG Base
 Directory](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html) environment variables (Linux
-only) pointing to a temp directory. This allows loading any helpers and (optional) plugins needed to run
-the tests.
+only) pointing to a temp directory. This allows loading cursorless.nvim, any helpers and (optional) plugins needed to run
+the tests. Consequently, the cursorless.nvim lua functions are exposed to the tests. Afterwards, the shim will use `nvim -l <spec_script>` for each of the [lua test specifications scripts](https://neovim.io/doc/user/starting.html#-l).
 
-Afterwards, the shim will used `nvim` to execute whatever test spec file was passed by busted. Different tests rely on
-the same custom helper functions. These functions are exposed as globals in a file called `helpers.lua` placed in `nvim/plugin/` insnide the isolated XDG environment. These helpers themselves also have their own unit tests that will be run by busted.
+The `.busted` file declares that test specifications files are in
+`cursorless.nvim/test/unit/`. Any file in that folder ending with `_spec.lua` contains tests and will be executed
+by neovim's lua interpreter.
+
+NOTE: Different tests rely on
+the same custom test helper functions. These functions are exposed as globals in a file called `helpers.lua` placed in `nvim/plugin/` inside the isolated XDG environment. These helpers themselves also have their own unit tests that will be run by busted.
 
 This busted setup was inspired by this [blog
 post](https://hiphish.github.io/blog/2024/01/29/testing-neovim-plugins-with-busted/), which goes into greater detail.
