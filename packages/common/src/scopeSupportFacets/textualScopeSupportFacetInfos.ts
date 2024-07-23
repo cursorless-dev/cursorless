@@ -49,14 +49,15 @@ export const textualScopeSupportFacetInfos: Record<
     scopeType: "url",
   },
   surroundingPair: {
-    description: "A pair of surrounding delimiters",
+    description: "A delimiter pair, such as parentheses or quotes",
     scopeType: {
       type: "surroundingPair",
       delimiter: "any",
     },
   },
   "surroundingPair.iteration": {
-    description: "A pair of surrounding delimiters",
+    description:
+      "The iteration scope for delimiter pairs; should be the whole document",
     scopeType: {
       type: "surroundingPair",
       delimiter: "any",

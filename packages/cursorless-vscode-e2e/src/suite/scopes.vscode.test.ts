@@ -104,7 +104,7 @@ async function testLanguageSupport(languageId: string, testedFacets: string[]) {
 
 async function runTest(file: string, languageId: string, facetId: string) {
   const { ide, scopeProvider } = (await getCursorlessApi()).testHelpers!;
-  const { scopeType, isIteration } = getScopeType(languageId, facetId);
+  const { scopeType, isIteration } = getFacetInfo(languageId, facetId);
   const fixture = (await fsp.readFile(file, "utf8"))
     .toString()
     .replaceAll("\r\n", "\n");
@@ -150,36 +150,26 @@ async function runTest(file: string, languageId: string, facetId: string) {
   }
 }
 
-function getScopeType(
+function getFacetInfo(
   languageId: string,
   facetId: string,
 ): {
   scopeType: ScopeType;
   isIteration: boolean;
 } {
-  if (languageId === "textual") {
-    if (
-      textualScopeSupportFacetInfos[facetId as TextualScopeSupportFacet] == null
-    ) {
-      throw Error(`Missing scope support facet info for: ${facetId}`);
-    }
-    const { scopeType, isIteration } =
-      textualScopeSupportFacetInfos[facetId as TextualScopeSupportFacet];
-    const fullScopeType =
-      typeof scopeType === "string" ? { type: scopeType } : scopeType;
-    return {
-      scopeType: fullScopeType,
-      isIteration: isIteration ?? false,
-    };
-  }
+  const facetInfo =
+    languageId === "textual"
+      ? textualScopeSupportFacetInfos[facetId as TextualScopeSupportFacet]
+      : scopeSupportFacetInfos[facetId as ScopeSupportFacet];
 
-  if (scopeSupportFacetInfos[facetId as ScopeSupportFacet] == null) {
+  if (facetInfo == null) {
     throw Error(`Missing scope support facet info for: ${facetId}`);
   }
-  const { scopeType, isIteration } =
-    scopeSupportFacetInfos[facetId as ScopeSupportFacet];
+
+  const { scopeType, isIteration } = facetInfo;
   const fullScopeType =
     typeof scopeType === "string" ? { type: scopeType } : scopeType;
+
   return {
     scopeType: fullScopeType,
     isIteration: isIteration ?? false,

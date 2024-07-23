@@ -1,7 +1,9 @@
 import {
+  Range,
   RawTreeSitterQueryProvider,
   ScopeType,
   SimpleScopeType,
+  SimpleScopeTypeType,
   TreeSitter,
   matchAll,
   showError,
@@ -77,8 +79,25 @@ export class LanguageDefinition {
     return new TreeSitterScopeHandler(this.query, scopeType as SimpleScopeType);
   }
 
-  getMatches(document: TextDocument) {
-    return this.query.matches(document);
+  /**
+   * This is a low-level function that just returns a list of ranges of the given
+   * capture in the document. We use this in our surrounding pair code.
+   *
+   * @param document The document to search
+   * @param captureName The name of a capture to search for
+   * @returns A list of ranges of the given capture in the document
+   */
+  getCaptureRanges(
+    document: TextDocument,
+    captureName: SimpleScopeTypeType,
+  ): Range[] {
+    return this.query
+      .matches(document)
+      .map(
+        (match) =>
+          match.captures.find(({ name }) => name === captureName)?.range,
+      )
+      .filter((capture) => capture != null);
   }
 }
 
