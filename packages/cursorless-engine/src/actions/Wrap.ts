@@ -6,13 +6,9 @@ import {
   toCharacterRange,
 } from "@cursorless/common";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import {
-  getSelectionInfo,
-  performEditsAndUpdateFullSelectionInfos,
-} from "../core/updateSelections/updateSelections";
+import { EditsUpdater } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
-import { FullSelectionInfo } from "../typings/updateSelections";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import { ActionReturnValue } from "./actions.types";
 
@@ -29,7 +25,6 @@ export default class Wrap {
     const results = await runOnTargetsForEachEditor(
       targets,
       async (editor, targets) => {
-        const { document } = editor;
         const boundaries = targets.map((target) => ({
           start: new Selection(
             target.contentRange.start,
@@ -50,67 +45,40 @@ export default class Wrap {
           },
         ]);
 
-        const delimiterSelectionInfos: FullSelectionInfo[] = boundaries.flatMap(
-          ({ start, end }) => {
-            return [
-              getSelectionInfo(
-                document,
-                start,
-                RangeExpansionBehavior.openClosed,
-              ),
-              getSelectionInfo(
-                document,
-                end,
-                RangeExpansionBehavior.closedOpen,
-              ),
-            ];
-          },
-        );
-
-        const cursorSelectionInfos = editor.selections.map((selection) =>
-          getSelectionInfo(
-            document,
-            selection,
-            RangeExpansionBehavior.closedClosed,
-          ),
-        );
-
-        const sourceMarkSelectionInfos = targets.map((target) =>
-          getSelectionInfo(
-            document,
-            target.contentSelection,
-            RangeExpansionBehavior.closedClosed,
-          ),
-        );
-
-        const thatMarkSelectionInfos = targets.map((target) =>
-          getSelectionInfo(
-            document,
-            target.contentSelection,
-            RangeExpansionBehavior.openOpen,
-          ),
-        );
+        const boundariesStartSelections = boundaries.map(({ start }) => start);
+        const boundariesEndSelections = boundaries.map(({ end }) => end);
 
         const editableEditor = ide().getEditableTextEditor(editor);
 
-        const [
-          delimiterSelections,
-          cursorSelections,
-          sourceMarkSelections,
-          thatMarkSelections,
-        ] = await performEditsAndUpdateFullSelectionInfos(
-          this.rangeUpdater,
-          editableEditor,
-          edits,
-          [
-            delimiterSelectionInfos,
-            cursorSelectionInfos,
-            sourceMarkSelectionInfos,
-            thatMarkSelectionInfos,
-          ],
+        const contentSelections = targets.map(
+          (target) => target.contentSelection,
         );
 
-        await editableEditor.setSelections(cursorSelections);
+        const {
+          selections: [
+            delimiterStartSelections,
+            delimiterEndSelections,
+            sourceMarkSelections,
+            thatMarkSelections,
+          ],
+        } = await new EditsUpdater(this.rangeUpdater, editableEditor, edits)
+          .selections(
+            boundariesStartSelections,
+            RangeExpansionBehavior.openClosed,
+          )
+          .selections(
+            boundariesEndSelections,
+            RangeExpansionBehavior.closedOpen,
+          )
+          .selections(contentSelections)
+          .selections(contentSelections, RangeExpansionBehavior.openOpen)
+          .updateEditorSelections()
+          .run();
+
+        const delimiterSelections = [
+          ...delimiterStartSelections,
+          ...delimiterEndSelections,
+        ];
 
         await ide().flashRanges(
           delimiterSelections.map((selection) => ({

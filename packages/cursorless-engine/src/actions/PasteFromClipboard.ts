@@ -4,10 +4,7 @@ import {
   toCharacterRange,
 } from "@cursorless/common";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import {
-  callFunctionAndUpdateSelections,
-  callFunctionAndUpdateSelectionsWithBehavior,
-} from "../core/updateSelections/updateSelections";
+import { CallbackUpdater } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
 import { Destination } from "../typings/target.types";
 import { ensureSingleEditor } from "../util/targetUtils";
@@ -29,32 +26,25 @@ export class PasteFromClipboard {
     // First call editNew in order to insert delimiters if necessary and leave
     // the cursor in the right position. Note that this action will focus the
     // editor containing the targets
-    const [originalCursorSelections] = await callFunctionAndUpdateSelections(
-      this.rangeUpdater,
-      async () => {
-        await this.actions.editNew.run(destinations);
-      },
-      editor.document,
-      [editor.selections],
-    );
+    const callbackEdit = async () => {
+      await this.actions.editNew.run(destinations);
+    };
+    const {
+      selections: [originalCursorSelections],
+    } = await new CallbackUpdater(this.rangeUpdater, editor, callbackEdit)
+      .selections(editor.selections)
+      .run();
 
     // Then use VSCode paste command, using open ranges at the place where we
     // paste in order to capture the pasted text for highlights and `that` mark
-    const [updatedCursorSelections, updatedTargetSelections] =
-      await callFunctionAndUpdateSelectionsWithBehavior(
-        this.rangeUpdater,
-        () => editor.clipboardPaste(),
-        editor.document,
-        [
-          {
-            selections: originalCursorSelections,
-          },
-          {
-            selections: editor.selections,
-            rangeBehavior: RangeExpansionBehavior.openOpen,
-          },
-        ],
-      );
+    const callbackPaste = () => editor.clipboardPaste();
+    const {
+      selections: [updatedCursorSelections, updatedTargetSelections],
+    } = await new CallbackUpdater(this.rangeUpdater, editor, callbackPaste)
+      .selections(originalCursorSelections)
+      .selections(editor.selections, RangeExpansionBehavior.openOpen)
+      .updateEditorSelections()
+      .run();
 
     // Reset cursors on the editor where the edits took place.
     // NB: We don't focus the editor here because we want to focus the original

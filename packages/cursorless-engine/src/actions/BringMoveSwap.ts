@@ -7,10 +7,7 @@ import {
 } from "@cursorless/common";
 import { flatten } from "lodash-es";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import {
-  getSelectionInfo,
-  performEditsAndUpdateFullSelectionInfos,
-} from "../core/updateSelections/updateSelections";
+import { EditsUpdater } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
 import { EditWithRangeUpdater } from "../typings/Types";
 import { Destination, Target } from "../typings/target.types";
@@ -158,64 +155,31 @@ abstract class BringMoveSwap {
               ? edits
               : edits.filter(({ isSource }) => !isSource);
 
-          // Sources should be closedClosed, because they should be logically
-          // the same as the original source.
-          const sourceEditSelectionInfos = sourceEdits.map(
-            ({ edit: { range }, originalTarget }) =>
-              getSelectionInfo(
-                editor.document,
-                range.toSelection(originalTarget.isReversed),
-                RangeExpansionBehavior.closedClosed,
-              ),
+          const sourceEditRanges = sourceEdits.map(({ edit }) => edit.range);
+          const destinationEditRanges = destinationEdits.map(
+            ({ edit }) => edit.range,
           );
-
-          // Destinations should be openOpen, because they should grow to contain
-          // the new text.
-          const destinationEditSelectionInfos = destinationEdits.map(
-            ({ edit: { range }, originalTarget }) =>
-              getSelectionInfo(
-                editor.document,
-                range.toSelection(originalTarget.isReversed),
-                RangeExpansionBehavior.openOpen,
-              ),
-          );
-
-          const cursorSelectionInfos = editor.selections.map((selection) =>
-            getSelectionInfo(
-              editor.document,
-              selection,
-              RangeExpansionBehavior.closedClosed,
-            ),
-          );
-
           const editableEditor = ide().getEditableTextEditor(editor);
 
-          const [
-            updatedSourceEditSelections,
-            updatedDestinationEditSelections,
-            cursorSelections,
-          ]: Selection[][] = await performEditsAndUpdateFullSelectionInfos(
+          const {
+            ranges: [updatedSourceEditRanges, updatedDestinationEditRanges],
+          } = await new EditsUpdater(
             this.rangeUpdater,
             editableEditor,
             filteredEdits.map(({ edit }) => edit),
-            [
-              sourceEditSelectionInfos,
-              destinationEditSelectionInfos,
-              cursorSelectionInfos,
-            ],
-          );
-
-          // NB: We set the selections here because we don't trust vscode to
-          // properly move the cursor on a bring. Sometimes it will smear an
-          // empty selection
-          await editableEditor.setSelections(cursorSelections);
+          )
+            // Sources should be closedClosed, because they should be logically
+            // the same as the original source.
+            .ranges(sourceEditRanges)
+            // Destinations should be openOpen, because they should grow to contain
+            // the new text.
+            .ranges(destinationEditRanges, RangeExpansionBehavior.openOpen)
+            .updateEditorSelections()
+            .run();
 
           const marks = [
-            ...this.getMarks(sourceEdits, updatedSourceEditSelections),
-            ...this.getMarks(
-              destinationEdits,
-              updatedDestinationEditSelections,
-            ),
+            ...this.getMarks(sourceEdits, updatedSourceEditRanges),
+            ...this.getMarks(destinationEdits, updatedDestinationEditRanges),
           ];
 
           // Restore original order before split into source and destination
@@ -231,13 +195,10 @@ abstract class BringMoveSwap {
     );
   }
 
-  private getMarks(
-    edits: ExtendedEdit[],
-    selections: Selection[],
-  ): MarkEntry[] {
+  private getMarks(edits: ExtendedEdit[], ranges: Range[]): MarkEntry[] {
     return edits.map((edit, index): MarkEntry => {
-      const selection = selections[index];
-      const range = edit.edit.updateRange(selection);
+      const originalRange = ranges[index];
+      const range = edit.edit.updateRange(originalRange);
       const target = edit.originalTarget;
       return {
         editor: edit.editor,
