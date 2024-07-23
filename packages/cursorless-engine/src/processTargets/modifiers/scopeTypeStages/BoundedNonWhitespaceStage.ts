@@ -59,7 +59,7 @@ export class BoundedNonWhitespaceSequenceStage implements ModifierStage {
     return targets;
   }
 
-  private getPairTarget(target: Target) {
+  private getPairTarget(target: Target): Target | undefined {
     const pairStage = this.modifierStageFactory.create({
       type: "containingScope",
       scopeType: {
@@ -68,10 +68,16 @@ export class BoundedNonWhitespaceSequenceStage implements ModifierStage {
         requireStrongContainment: true,
       },
     });
-    try {
-      return pairStage.run(target)[0];
-    } catch (_error) {
-      return undefined;
+    const targets = (() => {
+      try {
+        return pairStage.run(target);
+      } catch (_error) {
+        return [];
+      }
+    })();
+    if (targets.length > 1) {
+      throw Error("Expected only one surrounding pair target");
     }
+    return targets[0];
   }
 }

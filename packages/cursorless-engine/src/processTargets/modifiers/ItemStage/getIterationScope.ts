@@ -156,7 +156,7 @@ function getParentSurroundingPair(
 function getBoundarySurroundingPair(
   modifierStageFactory: ModifierStageFactory,
   target: Target,
-) {
+): Target | undefined {
   return getSurroundingPair(modifierStageFactory, target, {
     type: "surroundingPair",
     delimiter: "collectionBoundary",
@@ -167,7 +167,7 @@ function getBoundarySurroundingPair(
 function getStringSurroundingPair(
   modifierStageFactory: ModifierStageFactory,
   target: Target,
-) {
+): Target | undefined {
   return getSurroundingPair(modifierStageFactory, target, {
     type: "surroundingPair",
     delimiter: "string",
@@ -179,7 +179,7 @@ function getSurroundingPair(
   modifierStageFactory: ModifierStageFactory,
   target: Target,
   scopeType: SurroundingPairScopeType,
-) {
+): Target | undefined {
   const pairStage = modifierStageFactory.create({
     type: "containingScope",
     scopeType,
@@ -191,9 +191,6 @@ function getSurroundingPair(
       return [];
     }
   })();
-  if (targets.length === 0) {
-    return undefined;
-  }
   if (targets.length > 1) {
     throw Error("Expected only one surrounding pair target");
   }
