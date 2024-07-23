@@ -35,19 +35,15 @@ async function activateHelper(
 
   console.debug(`activate talon.js @ ${runMode}`);
 
-  const talonJsIDE = new TalonJsIDE(talon, runMode);
-
   const isTesting = runMode === "test";
+  const talonJsIDE = new TalonJsIDE(talon, runMode);
+  const commandServerApi = isTesting ? new FakeCommandServerApi() : undefined;
+  const hats = isTesting ? new TalonJsTestHats() : undefined;
 
   const normalizedIde =
     runMode === "production"
       ? talonJsIDE
       : new NormalizedIDE(talonJsIDE, new FakeIDE(), isTesting);
-
-  const fakeCommandServerApi = new FakeCommandServerApi();
-  const commandServerApi = isTesting ? fakeCommandServerApi : undefined;
-
-  const hats = isTesting ? new TalonJsTestHats() : undefined;
 
   const { commandApi, injectIde, hatTokenMap, storedTargets } =
     await createCursorlessEngine({
@@ -65,7 +61,7 @@ async function activateHelper(
         injectIde,
         commandApi,
         hatTokenMap,
-        commandServerApi: fakeCommandServerApi,
+        commandServerApi: commandServerApi as FakeCommandServerApi,
         storedTargets,
       })
     : undefined;
