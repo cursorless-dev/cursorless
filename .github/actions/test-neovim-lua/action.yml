@@ -1,0 +1,19 @@
+name: "Neovim Lua Tests"
+description: "Set up Neovim Lua environment and run Busted tests"
+runs:
+  using: "composite"
+  steps:
+    - uses: leafo/gh-actions-lua@v9
+      with:
+        luaVersion: "luajit-2.1.0-beta3"
+    - uses: leafo/gh-actions-luarocks@v4
+      with:
+        luaVersion: "5.1"
+    - shell: bash
+      run: |
+        luarocks install busted
+        luarocks install luafilesystem
+    - shell: bash
+      run: |
+        cd cursorless.nvim
+        busted --run unit
