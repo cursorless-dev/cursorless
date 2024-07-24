@@ -48,9 +48,9 @@ jobs:
       - run: pnpm -F @cursorless/test-harness test:talonJs
         if: runner.os != 'Linux'
       - run: xvfb-run -a pnpm -F @cursorless/cursorless-everywhere-talon-e2e test:quickjs
-        if: runner.os == 'Linux' || runner.os == 'Windows'
+        if: runner.os == 'Linux'
       - run: pnpm -F @cursorless/cursorless-everywhere-talon-e2e test:quickjs
-        if: runner.os != 'Linux'
+        if: runner.os == 'Windows'
       - name: Create vscode dist that can be installed locally
         run: pnpm -F @cursorless/cursorless-vscode populate-dist --local-install
         if: runner.os == 'Linux' && matrix.vscode_version == 'stable'
