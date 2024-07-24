@@ -45,11 +45,6 @@ export default class Wrap {
           },
         ]);
 
-        const boundariesStartSelections = boundaries.map(({ start }) => start);
-        const boundariesEndSelections = boundaries.map(({ end }) => end);
-
-        const editableEditor = ide().getEditableTextEditor(editor);
-
         const contentSelections = targets.map(
           (target) => target.contentSelection,
         );
@@ -61,15 +56,15 @@ export default class Wrap {
           thatSelections: thatMarkSelections,
         } = await performEditsAndUpdateSelections({
           rangeUpdater: this.rangeUpdater,
-          editor: editableEditor,
+          editor: ide().getEditableTextEditor(editor),
           edits,
           selections: {
             boundariesStartSelections: {
-              selections: boundariesStartSelections,
+              selections: boundaries.map(({ start }) => start),
               behavior: RangeExpansionBehavior.openClosed,
             },
             boundariesEndSelections: {
-              selections: boundariesEndSelections,
+              selections: boundaries.map(({ end }) => end),
               behavior: RangeExpansionBehavior.closedOpen,
             },
             sourceSelections: {

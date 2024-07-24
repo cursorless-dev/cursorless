@@ -65,23 +65,20 @@ export default class Replace {
       (edit) => edit.editor,
       async (editor, editWrappers) => {
         const edits = editWrappers.map(({ edit }) => edit);
-        const contentSelections = editWrappers.map(
-          ({ target }) => target.contentSelection,
-        );
-        const editRanges = edits.map(({ range }) => range);
-        const editableEditor = ide().getEditableTextEditor(editor);
 
         const {
           contentSelections: updatedContentSelections,
           editRanges: updatedEditRanges,
         } = await performEditsAndUpdateSelections({
           rangeUpdater: this.rangeUpdater,
-          editor: editableEditor,
+          editor: ide().getEditableTextEditor(editor),
           edits,
           selections: {
-            contentSelections,
+            contentSelections: editWrappers.map(
+              ({ target }) => target.contentSelection,
+            ),
             editRanges: {
-              selections: editRanges,
+              selections: edits.map(({ range }) => range),
               behavior: RangeExpansionBehavior.openOpen,
             },
           },

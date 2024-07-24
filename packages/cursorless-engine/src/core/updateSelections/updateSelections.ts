@@ -15,30 +15,47 @@ import {
 import { performDocumentEdits } from "../../util/performDocumentEdits";
 import { RangeUpdater } from "./RangeUpdater";
 
+/** Selections OR ranges */
 type SelectionsOrRanges = readonly Selection[] | readonly Range[];
 
+/** Selections to be updated  with specified expansion behavior */
 interface SelectionsWithBehavior {
+  /** Selections or ranges to be updated */
   selections: SelectionsOrRanges;
+  /** The behavior to use expanding ranges  */
   behavior: RangeExpansionBehavior;
 }
 
+/** Base properties for updating selections */
 interface BaseProps<K extends string> {
+  /** A RangeUpdate instance that will perform actual range updating */
   rangeUpdater: RangeUpdater;
+  /** The editor containing the selections */
   editor: EditableTextEditor;
+  /** Whether to preserve the editor's current selections */
   preserveEditorSelections?: boolean;
+  /** The selections to update */
   selections: Record<K, SelectionsOrRanges | SelectionsWithBehavior>;
 }
 
+/** Updater properties for editor edits */
 interface EditsProps<K extends string> extends BaseProps<K> {
   edits: Edit[];
 }
 
+/** Updater properties for callback */
 interface CallbackProps<K extends string> extends BaseProps<K> {
   callback: () => Promise<void>;
 }
 
+/** Updater properties. Can contain edits OR a callback */
 type UpdaterProps<K extends string> = EditsProps<K> | CallbackProps<K>;
 
+/**
+ * Perform editor edits or call callback and update the selections based on the
+ * changes that occurred.
+ * @returns The initial selections updated based upon the changes that occurred.
+ */
 export async function performEditsAndUpdateSelections<K extends string>({
   rangeUpdater,
   editor,
@@ -50,7 +67,7 @@ export async function performEditsAndUpdateSelections<K extends string>({
 
   const selectionInfos = keys.map((key) => {
     const selectionValue = selections[key];
-    const selectionsWithBehavior = getsSelectionsWithBehavior(selectionValue);
+    const selectionsWithBehavior = getSelectionsWithBehavior(selectionValue);
     return getFullSelectionInfos(
       editor.document,
       selectionsWithBehavior.selections,
