@@ -1,6 +1,6 @@
 import { CommandCapabilities, EditableTextEditor } from "@cursorless/common";
 import { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
-import { CallbackUpdater } from "../../core/updateSelections/updateSelections";
+import { performEditsAndUpdateSelections } from "../../core/updateSelections/updateSelections";
 import { EditDestination, State } from "./EditNew.types";
 
 /**
@@ -39,6 +39,9 @@ export async function runInsertLineAfterTargets(
   const contentRanges = destinations.map(
     ({ destination }) => destination.contentRange,
   );
+  const targetRanges = state.destinations.map(
+    ({ contentRange }) => contentRange,
+  );
 
   const callback = async () => {
     if (acceptsLocation) {
@@ -52,12 +55,17 @@ export async function runInsertLineAfterTargets(
     }
   };
 
-  const {
-    ranges: [updatedTargetRanges, updatedThatRanges],
-  } = await new CallbackUpdater(rangeUpdater, editor, callback)
-    .ranges(state.destinations.map(({ contentRange }) => contentRange))
-    .ranges(state.thatRanges)
-    .run();
+  const { targetRanges: updatedTargetRanges, thatRanges: updatedThatRanges } =
+    await performEditsAndUpdateSelections({
+      rangeUpdater,
+      editor,
+      callback,
+      preserveEditorSelections: true,
+      selections: {
+        targetRanges,
+        thatRanges: state.thatRanges,
+      },
+    });
 
   // For each of the given command targets, the cursor will go where it ended
   // up after running the command.  We add it to the state so that any

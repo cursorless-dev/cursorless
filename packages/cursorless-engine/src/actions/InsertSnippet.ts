@@ -8,7 +8,7 @@ import {
 } from "@cursorless/common";
 import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { CallbackUpdater } from "../core/updateSelections/updateSelections";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { ModifyIfUntypedExplicitStage } from "../processTargets/modifiers/ConditionalModifierStages";
 import { UntypedTarget } from "../processTargets/targets";
@@ -137,16 +137,23 @@ export default class InsertSnippet {
     );
 
     const snippetString = parsedSnippet.toTextmateString();
-    const callback = () => editor.insertSnippet(snippetString);
 
-    const {
-      selections: [updatedTargetSelections],
-    } = await new CallbackUpdater(this.rangeUpdater, editor, callback)
-      .selections(editor.selections, RangeExpansionBehavior.openOpen)
-      .run();
+    const { editorSelections: updatedThatSelections } =
+      await performEditsAndUpdateSelections({
+        rangeUpdater: this.rangeUpdater,
+        editor,
+        callback: () => editor.insertSnippet(snippetString),
+        preserveEditorSelections: true,
+        selections: {
+          editorSelections: {
+            selections: editor.selections,
+            behavior: RangeExpansionBehavior.openOpen,
+          },
+        },
+      });
 
     return {
-      thatSelections: updatedTargetSelections.map((selection) => ({
+      thatSelections: updatedThatSelections.map((selection) => ({
         editor,
         selection,
       })),

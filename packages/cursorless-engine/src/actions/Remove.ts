@@ -1,7 +1,7 @@
 import { FlashStyle, TextEditor } from "@cursorless/common";
 import { flatten, zip } from "lodash-es";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { EditsUpdater } from "../core/updateSelections/updateSelections";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { RawSelectionTarget } from "../processTargets/targets";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
@@ -39,12 +39,15 @@ export default class Delete implements SimpleAction {
     const edits = targets.map((target) => target.constructRemovalEdit());
     const editableEditor = ide().getEditableTextEditor(editor);
 
-    const {
-      ranges: [updatedEditRanges],
-    } = await new EditsUpdater(this.rangeUpdater, editableEditor, edits)
-      .ranges(edits.map(({ range }) => range))
-      .updateEditorSelections()
-      .run();
+    const { editRanges: updatedEditRanges } =
+      await performEditsAndUpdateSelections({
+        rangeUpdater: this.rangeUpdater,
+        editor: editableEditor,
+        edits,
+        selections: {
+          editRanges: edits.map(({ range }) => range),
+        },
+      });
 
     return zip(targets, updatedEditRanges).map(
       ([target, range]) =>

@@ -2,7 +2,7 @@ import { EditableTextEditor, FlashStyle, TextEditor } from "@cursorless/common";
 import { flatten } from "lodash-es";
 import { selectionToStoredTarget } from "../core/commandRunner/selectionToStoredTarget";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { CallbackUpdater } from "../core/updateSelections/updateSelections";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import {
@@ -97,19 +97,24 @@ export class CallbackAction {
       });
     }
 
-    const callback = () => options.callback(editableEditor, targets);
-
     const {
-      selections: [updatedOriginalSelections, updatedTargetSelections],
-    } = await new CallbackUpdater(this.rangeUpdater, editableEditor, callback)
-      .selections(originalSelections)
-      .selections(targetSelections)
-      .run();
+      originalSelections: updatedOriginalSelections,
+      targetSelections: updatedTargetSelections,
+    } = await performEditsAndUpdateSelections({
+      rangeUpdater: this.rangeUpdater,
+      editor: editableEditor,
+      callback: () => options.callback(editableEditor, targets),
+      preserveEditorSelections: true,
+      selections: {
+        originalSelections,
+        targetSelections,
+      },
+    });
 
     // Reset original selections
     if (options.setSelection && options.restoreSelection) {
       // NB: We don't focus the editor here because we'll do that at the
-      // very end. This code can run on multiple editors in the course of
+      // very end. This code can run on mul:truetiple editors in the course of
       // one command, so we want to avoid focusing the editor multiple
       // times.
       await editableEditor.setSelections(updatedOriginalSelections);

@@ -5,7 +5,7 @@ import {
 } from "@cursorless/common";
 import { zip } from "lodash-es";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { EditsUpdater } from "../core/updateSelections/updateSelections";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
 import { SelectionWithEditor } from "../typings/Types";
 import { Destination, Target } from "../typings/target.types";
@@ -72,13 +72,20 @@ export default class Replace {
         const editableEditor = ide().getEditableTextEditor(editor);
 
         const {
-          selections: [updatedContentSelections],
-          ranges: [updatedEditRanges],
-        } = await new EditsUpdater(this.rangeUpdater, editableEditor, edits)
-          .selections(contentSelections)
-          .ranges(editRanges, RangeExpansionBehavior.openOpen)
-          .updateEditorSelections()
-          .run();
+          contentSelections: updatedContentSelections,
+          editRanges: updatedEditRanges,
+        } = await performEditsAndUpdateSelections({
+          rangeUpdater: this.rangeUpdater,
+          editor: editableEditor,
+          edits,
+          selections: {
+            contentSelections,
+            editRanges: {
+              selections: editRanges,
+              behavior: RangeExpansionBehavior.openOpen,
+            },
+          },
+        });
 
         for (const [wrapper, selection] of zip(
           editWrappers,

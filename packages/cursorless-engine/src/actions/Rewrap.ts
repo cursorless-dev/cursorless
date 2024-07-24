@@ -1,6 +1,6 @@
 import { FlashStyle } from "@cursorless/common";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { EditsUpdater } from "../core/updateSelections/updateSelections";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { getContainingSurroundingPairIfNoBoundaryStage } from "../processTargets/modifiers/InteriorStage";
 import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { ide } from "../singletons/ide.singleton";
@@ -49,15 +49,21 @@ export default class Rewrap {
           range: target.contentRange,
           text: i % 2 === 0 ? left : right,
         }));
-        const editableEditor = ide().getEditableTextEditor(editor);
 
         const {
-          ranges: [updatedSourceRanges, updatedThatRanges],
-        } = await new EditsUpdater(this.rangeUpdater, editableEditor, edits)
-          .ranges(targets.map((target) => target.thatTarget.contentRange))
-          .ranges(targets.map((target) => target.contentRange))
-          .updateEditorSelections()
-          .run();
+          sourceRanges: updatedSourceRanges,
+          thatRanges: updatedThatRanges,
+        } = await performEditsAndUpdateSelections({
+          rangeUpdater: this.rangeUpdater,
+          editor: ide().getEditableTextEditor(editor),
+          edits,
+          selections: {
+            sourceRanges: targets.map(
+              (target) => target.thatTarget.contentRange,
+            ),
+            thatRanges: targets.map((target) => target.contentRange),
+          },
+        });
 
         return {
           sourceMark: createThatMark(targets, updatedSourceRanges),

@@ -14,239 +14,112 @@ import {
 import { performDocumentEdits } from "../../util/performDocumentEdits";
 import { RangeUpdater } from "./RangeUpdater";
 
-// const {
-//     sourceEditRanges: updatedSourceEditRanges,
-//     destinationEditRanges: updatedDestinationEditRanges,
-//   } = await performEditsAndUpdateSelections({
-//     rangeUpdator,
-//     editor: editableEditor,
-//     edits: filteredEdits.map(({ edit }) => edit),
-//     // callback: async () => {...do whatever},
-//     selections: {
-//       sourceEditRanges,
-//       destinationEditRanges: {
-//         selections: destinationEditRanges,
-//         behavior: RangeExpansionBehavior.openOpen,
-//       },
-//     },
-//     // preserveEditorSelections: true,
-//   });
-
 type SelectionsOrRanges = readonly Selection[] | readonly Range[];
 
-interface SelectionsWithBehavior2 {
+interface SelectionsWithBehavior {
   selections: SelectionsOrRanges;
   behavior: RangeExpansionBehavior;
 }
 
-interface BaseProps {
+interface BaseProps<K extends string> {
   rangeUpdater: RangeUpdater;
   editor: EditableTextEditor;
   preserveEditorSelections?: boolean;
-  selections: Record<string, SelectionsOrRanges | SelectionsWithBehavior2>;
+  selections: Record<K, SelectionsOrRanges | SelectionsWithBehavior>;
 }
 
-interface EditProps extends BaseProps {
+interface EditsProps<K extends string> extends BaseProps<K> {
   edits: Edit[];
 }
 
-interface CallbackProps extends BaseProps {
+interface CallbackProps<K extends string> extends BaseProps<K> {
   callback: () => Promise<void>;
 }
 
-type UpdaterProps = EditProps | CallbackProps;
+type UpdaterProps<K extends string> = EditsProps<K> | CallbackProps<K>;
 
-export function performEditsAndUpdateSelections({
+export async function performEditsAndUpdateSelections<K extends string>({
   rangeUpdater,
   editor,
   selections,
   preserveEditorSelections,
   ...rest
-}: UpdaterProps) {
-  for (const key in selections) {
-    const value = selections[key];
+}: UpdaterProps<K>): Promise<Record<K, Selection[]>> {
+  const keys = Object.keys(selections) as K[];
 
-    const { selectionsOrRanges, behavior } = (() => {
-      if ("selections" in value) {
-        const { selections, behavior } = value;
-        return { selectionsOrRanges: selections, behavior };
-      }
-      return {
-        selectionsOrRanges: value,
-        behavior: RangeExpansionBehavior.closedClosed,
-      };
-    })();
+  const selectionInfos = keys.map((key) => {
+    const selectionValue = selections[key];
+    const selectionsWithBehavior = getsSelectionsWithBehavior(selectionValue);
+    return getFullSelectionInfos(
+      editor.document,
+      selectionsWithBehavior.selections,
+      selectionsWithBehavior.behavior,
+    );
+  });
 
-    console.log(selectionsOrRanges, behavior);
-  }
-
-  if ("edits" in rest) {
-    const { edits } = rest;
-  } else {
-    const { callback } = rest;
-  }
-}
-
-abstract class Updater {
-  protected _selections: SelectionsWithBehavior[] = [];
-  protected _ranges: RangesWithBehavior[] = [];
-  protected _updateEditorSelections = false;
-
-  constructor(protected editor: EditableTextEditor) {}
-
-  selections(
-    selections: Selection[],
-    rangeBehavior: RangeExpansionBehavior = RangeExpansionBehavior.closedClosed,
-  ): this {
-    this._selections.push({ selections, rangeBehavior });
-    return this;
-  }
-
-  ranges(
-    ranges: Range[],
-    rangeBehavior: RangeExpansionBehavior = RangeExpansionBehavior.closedClosed,
-  ): this {
-    this._ranges.push({ ranges, rangeBehavior });
-    return this;
-  }
-
-  updateEditorSelections(): this {
-    this._updateEditorSelections = true;
-    return this;
-  }
-
-  async run(): Promise<{
-    selections: Selection[][];
-    ranges: Range[][];
-  }> {
-    const allSelections = this._updateEditorSelections
-      ? this._selections.concat({
-          selections: this.editor.selections,
-          rangeBehavior: RangeExpansionBehavior.closedClosed,
-        })
-      : this._selections;
-
-    const selectionInfos = allSelections.map(({ selections, rangeBehavior }) =>
-      selections.map((selection) =>
-        getSelectionInfo(this.editor.document, selection, rangeBehavior),
+  if (!preserveEditorSelections) {
+    selectionInfos.push(
+      getFullSelectionInfos(
+        editor.document,
+        editor.selections,
+        RangeExpansionBehavior.closedClosed,
       ),
     );
+  }
 
-    const rangeInfos = this._ranges.map(({ ranges, rangeBehavior }) =>
-      ranges.map((range) =>
-        getSelectionInfoInternal(
-          this.editor.document,
-          range,
-          true,
-          rangeBehavior,
-        ),
-      ),
-    );
-
-    const updatedSelectionsMatrix = await this.runInternal(
-      selectionInfos.concat(rangeInfos),
-    );
-
-    const updatedSelections = updatedSelectionsMatrix.slice(
-      0,
-      selectionInfos.length,
-    );
-    const updatedRanges = updatedSelectionsMatrix.slice(selectionInfos.length);
-
-    if (this._updateEditorSelections) {
-      const updatedEditorSelections = updatedSelections.pop()!;
-      await this.editor.setSelections(updatedEditorSelections);
+  const updatedSelectionsMatrix = await (() => {
+    if ("edits" in rest) {
+      return performEditsAndUpdateFullSelectionInfos(
+        rangeUpdater,
+        editor,
+        rest.edits,
+        selectionInfos,
+      );
     }
-
-    return {
-      selections: updatedSelections,
-      ranges: updatedRanges,
-    };
-  }
-
-  protected abstract runInternal(
-    selectionInfos: FullSelectionInfo[][],
-  ): Promise<Selection[][]>;
-}
-
-/**
- * Updates selections and ranges in an editor based on a list of edits.
- */
-export class EditsUpdater extends Updater {
-  constructor(
-    private rangeUpdater: RangeUpdater,
-    editor: EditableTextEditor,
-    private edits: Edit[],
-  ) {
-    super(editor);
-  }
-
-  protected runInternal(
-    selectionInfos: FullSelectionInfo[][],
-  ): Promise<Selection[][]> {
-    return performEditsAndUpdateFullSelectionInfos(
-      this.rangeUpdater,
-      this.editor,
-      this.edits,
-      selectionInfos,
-    );
-  }
-}
-
-/**
- * Updates selections and ranges in an editor based on a callback function.
- */
-export class CallbackUpdater extends Updater {
-  constructor(
-    private rangeUpdater: RangeUpdater,
-    editor: EditableTextEditor,
-    private callback: () => Promise<void>,
-  ) {
-    super(editor);
-  }
-
-  protected runInternal(
-    selectionInfos: FullSelectionInfo[][],
-  ): Promise<Selection[][]> {
     return callFunctionAndUpdateFullSelectionInfos(
-      this.rangeUpdater,
-      this.callback,
-      this.editor.document,
+      rangeUpdater,
+      rest.callback,
+      editor.document,
       selectionInfos,
     );
+  })();
+
+  if (!preserveEditorSelections) {
+    await editor.setSelections(updatedSelectionsMatrix.pop()!);
   }
-}
 
-interface SelectionsWithBehavior {
-  selections: readonly Selection[];
-  rangeBehavior: RangeExpansionBehavior;
-}
-
-interface RangesWithBehavior {
-  ranges: readonly Range[];
-  rangeBehavior: RangeExpansionBehavior;
-}
-
-/**
- * Given a selection, this function creates a `SelectionInfo` object that can
- * be passed in to any of the commands that update selections.
- *
- * @param document The document containing the selection
- * @param selection The selection
- * @param rangeBehavior How selection should behave with respect to insertions on either end
- * @returns An object that can be used for selection tracking
- */
-function getSelectionInfo(
-  document: TextDocument,
-  selection: Selection,
-  rangeBehavior: RangeExpansionBehavior,
-): FullSelectionInfo {
-  return getSelectionInfoInternal(
-    document,
-    selection,
-    !selection.isReversed,
-    rangeBehavior,
+  const result = Object.fromEntries(
+    keys.map((key, index) => [key, updatedSelectionsMatrix[index]]),
   );
+
+  return result as Record<K, Selection[]>;
+}
+
+function getFullSelectionInfos(
+  document: TextDocument,
+  selections: readonly Selection[] | readonly Range[],
+  rangeBehavior: RangeExpansionBehavior,
+): FullSelectionInfo[] {
+  return selections.map((selection) =>
+    getSelectionInfoInternal(
+      document,
+      selection,
+      selection instanceof Selection ? !selection.isReversed : true,
+      rangeBehavior,
+    ),
+  );
+}
+
+function getsSelectionsWithBehavior(
+  selections: SelectionsOrRanges | SelectionsWithBehavior,
+): SelectionsWithBehavior {
+  if ("selections" in selections) {
+    return selections;
+  }
+  return {
+    selections,
+    behavior: RangeExpansionBehavior.closedClosed,
+  };
 }
 
 function getSelectionInfoInternal(

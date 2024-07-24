@@ -6,7 +6,7 @@ import {
 } from "@cursorless/common";
 import { flatten, zip } from "lodash-es";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { EditsUpdater } from "../core/updateSelections/updateSelections";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { containingLineIfUntypedModifier } from "../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";
 import { ide } from "../singletons/ide.singleton";
@@ -62,13 +62,20 @@ class InsertCopy implements SimpleAction {
     const editableEditor = ide().getEditableTextEditor(editor);
 
     const {
-      selections: [updatedContentSelections],
-      ranges: [updatedEditRanges],
-    } = await new EditsUpdater(this.rangeUpdater, editableEditor, edits)
-      .selections(contentSelections)
-      .ranges(editRanges, RangeExpansionBehavior.openOpen)
-      .updateEditorSelections()
-      .run();
+      contentSelections: updatedContentSelections,
+      editRanges: updatedEditRanges,
+    } = await performEditsAndUpdateSelections({
+      rangeUpdater: this.rangeUpdater,
+      editor: editableEditor,
+      edits,
+      selections: {
+        contentSelections,
+        editRanges: {
+          selections: editRanges,
+          behavior: RangeExpansionBehavior.openOpen,
+        },
+      },
+    });
 
     const insertionRanges = zip(edits, updatedEditRanges).map(([edit, range]) =>
       edit!.updateRange(range!),

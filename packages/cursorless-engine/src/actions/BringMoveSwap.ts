@@ -7,7 +7,7 @@ import {
 } from "@cursorless/common";
 import { flatten } from "lodash-es";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { EditsUpdater } from "../core/updateSelections/updateSelections";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
 import { EditWithRangeUpdater } from "../typings/Types";
 import { Destination, Target } from "../typings/target.types";
@@ -162,20 +162,24 @@ abstract class BringMoveSwap {
           const editableEditor = ide().getEditableTextEditor(editor);
 
           const {
-            ranges: [updatedSourceEditRanges, updatedDestinationEditRanges],
-          } = await new EditsUpdater(
-            this.rangeUpdater,
-            editableEditor,
-            filteredEdits.map(({ edit }) => edit),
-          )
-            // Sources should be closedClosed, because they should be logically
-            // the same as the original source.
-            .ranges(sourceEditRanges)
-            // Destinations should be openOpen, because they should grow to contain
-            // the new text.
-            .ranges(destinationEditRanges, RangeExpansionBehavior.openOpen)
-            .updateEditorSelections()
-            .run();
+            sourceEditRanges: updatedSourceEditRanges,
+            destinationEditRanges: updatedDestinationEditRanges,
+          } = await performEditsAndUpdateSelections({
+            rangeUpdater: this.rangeUpdater,
+            editor: editableEditor,
+            edits: filteredEdits.map(({ edit }) => edit),
+            selections: {
+              // Sources should be closedClosed, because they should be logically
+              // the same as the original source.
+              sourceEditRanges,
+              // Destinations should be openOpen, because they should grow to contain
+              // the new text.
+              destinationEditRanges: {
+                selections: destinationEditRanges,
+                behavior: RangeExpansionBehavior.openOpen,
+              },
+            },
+          });
 
           const marks = [
             ...this.getMarks(sourceEdits, updatedSourceEditRanges),

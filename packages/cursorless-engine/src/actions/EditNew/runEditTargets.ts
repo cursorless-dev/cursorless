@@ -1,7 +1,7 @@
 import { EditableTextEditor, RangeExpansionBehavior } from "@cursorless/common";
 import { zip } from "lodash-es";
 import { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
-import { EditsUpdater } from "../../core/updateSelections/updateSelections";
+import { performEditsAndUpdateSelections } from "../../core/updateSelections/updateSelections";
 import { EditDestination, State } from "./EditNew.types";
 
 /**
@@ -55,13 +55,23 @@ export async function runEditTargets(
   const editRanges = edits.map((edit) => edit.range);
 
   const {
-    ranges: [updatedThatRanges, updatedCursorRanges, updatedEditRanges],
-  } = await new EditsUpdater(rangeUpdater, editor, edits)
-    .ranges(state.thatRanges)
-    .ranges(cursorRanges)
-    .ranges(editRanges, RangeExpansionBehavior.openOpen)
-    // .updateEditorSelections()
-    .run();
+    thatRanges: updatedThatRanges,
+    cursorRanges: updatedCursorRanges,
+    editRanges: updatedEditRanges,
+  } = await performEditsAndUpdateSelections({
+    rangeUpdater,
+    editor,
+    edits,
+    preserveEditorSelections: true,
+    selections: {
+      thatRanges: state.thatRanges,
+      cursorRanges,
+      editRanges: {
+        selections: editRanges,
+        behavior: RangeExpansionBehavior.openOpen,
+      },
+    },
+  });
 
   const finalCursorRanges = [...state.cursorRanges];
 

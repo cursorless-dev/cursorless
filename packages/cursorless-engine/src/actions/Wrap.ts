@@ -6,7 +6,7 @@ import {
   toCharacterRange,
 } from "@cursorless/common";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { EditsUpdater } from "../core/updateSelections/updateSelections";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
@@ -55,25 +55,30 @@ export default class Wrap {
         );
 
         const {
-          selections: [
-            delimiterStartSelections,
-            delimiterEndSelections,
-            sourceMarkSelections,
-            thatMarkSelections,
-          ],
-        } = await new EditsUpdater(this.rangeUpdater, editableEditor, edits)
-          .selections(
-            boundariesStartSelections,
-            RangeExpansionBehavior.openClosed,
-          )
-          .selections(
-            boundariesEndSelections,
-            RangeExpansionBehavior.closedOpen,
-          )
-          .selections(contentSelections)
-          .selections(contentSelections, RangeExpansionBehavior.openOpen)
-          .updateEditorSelections()
-          .run();
+          boundariesStartSelections: delimiterStartSelections,
+          boundariesEndSelections: delimiterEndSelections,
+          sourceSelections: sourceMarkSelections,
+          thatSelections: thatMarkSelections,
+        } = await performEditsAndUpdateSelections({
+          rangeUpdater: this.rangeUpdater,
+          editor: editableEditor,
+          edits,
+          selections: {
+            boundariesStartSelections: {
+              selections: boundariesStartSelections,
+              behavior: RangeExpansionBehavior.openClosed,
+            },
+            boundariesEndSelections: {
+              selections: boundariesEndSelections,
+              behavior: RangeExpansionBehavior.closedOpen,
+            },
+            sourceSelections: contentSelections,
+            thatSelections: {
+              selections: contentSelections,
+              behavior: RangeExpansionBehavior.openOpen,
+            },
+          },
+        });
 
         const delimiterSelections = [
           ...delimiterStartSelections,

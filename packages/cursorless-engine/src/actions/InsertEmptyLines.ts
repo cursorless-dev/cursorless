@@ -1,7 +1,7 @@
 import { FlashStyle, Range, toLineRange } from "@cursorless/common";
 import { flatten } from "lodash-es";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { EditsUpdater } from "../core/updateSelections/updateSelections";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
@@ -51,13 +51,17 @@ class InsertEmptyLines implements SimpleAction {
         const editableEditor = ide().getEditableTextEditor(editor);
 
         const {
-          selections: [updatedThatSelections],
-          ranges: [lineSelections],
-        } = await new EditsUpdater(this.rangeUpdater, editableEditor, edits)
-          .selections(contentSelections)
-          .ranges(ranges)
-          .updateEditorSelections()
-          .run();
+          contentSelections: updatedThatSelections,
+          ranges: lineSelections,
+        } = await performEditsAndUpdateSelections({
+          rangeUpdater: this.rangeUpdater,
+          editor: editableEditor,
+          edits,
+          selections: {
+            contentSelections,
+            ranges,
+          },
+        });
 
         return {
           thatMark: updatedThatSelections.map((selection) => ({

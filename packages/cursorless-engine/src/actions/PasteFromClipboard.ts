@@ -4,7 +4,7 @@ import {
   toCharacterRange,
 } from "@cursorless/common";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { CallbackUpdater } from "../core/updateSelections/updateSelections";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
 import { Destination } from "../typings/target.types";
 import { ensureSingleEditor } from "../util/targetUtils";
@@ -29,22 +29,35 @@ export class PasteFromClipboard {
     const callbackEdit = async () => {
       await this.actions.editNew.run(destinations);
     };
-    const {
-      selections: [originalCursorSelections],
-    } = await new CallbackUpdater(this.rangeUpdater, editor, callbackEdit)
-      .selections(editor.selections)
-      .run();
+
+    const { cursorSelections: originalCursorSelections } =
+      await performEditsAndUpdateSelections({
+        rangeUpdater: this.rangeUpdater,
+        editor,
+        preserveEditorSelections: true,
+        callback: callbackEdit,
+        selections: {
+          cursorSelections: editor.selections,
+        },
+      });
 
     // Then use VSCode paste command, using open ranges at the place where we
     // paste in order to capture the pasted text for highlights and `that` mark
-    const callbackPaste = () => editor.clipboardPaste();
     const {
-      selections: [updatedCursorSelections, updatedTargetSelections],
-    } = await new CallbackUpdater(this.rangeUpdater, editor, callbackPaste)
-      .selections(originalCursorSelections)
-      .selections(editor.selections, RangeExpansionBehavior.openOpen)
-      .updateEditorSelections()
-      .run();
+      originalCursorSelections: updatedCursorSelections,
+      editorSelections: updatedTargetSelections,
+    } = await performEditsAndUpdateSelections({
+      rangeUpdater: this.rangeUpdater,
+      editor,
+      callback: () => editor.clipboardPaste(),
+      selections: {
+        originalCursorSelections,
+        editorSelections: {
+          selections: editor.selections,
+          behavior: RangeExpansionBehavior.openOpen,
+        },
+      },
+    });
 
     // Reset cursors on the editor where the edits took place.
     // NB: We don't focus the editor here because we want to focus the original
