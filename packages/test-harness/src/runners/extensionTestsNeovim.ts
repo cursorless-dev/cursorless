@@ -1,4 +1,4 @@
-import { TestType, runAllTests } from "./runAllTests";
+import { TestType, runAllTests } from "../runAllTests";
 
 import type { NeovimClient, NvimPlugin } from "neovim";
 
@@ -9,8 +9,6 @@ import type { NeovimClient, NvimPlugin } from "neovim";
  * and the CI test runner action.
  * @returns A promise that resolves when tests have finished running
  */
-// FIXME: this is neovim specific atm so in the future we can support other apps here
-// with an environment variable
 export async function run(plugin: NvimPlugin): Promise<void> {
   /**
    * We need to pass the neovim client to the tests that are executed through mocha,
