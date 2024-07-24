@@ -109,6 +109,10 @@ Some Linux package managers ship with a version of `nvim` too old for Lazy. If t
 
 If you are on Linux, avoid using the snap package for `npm` as it may not be able to globally expose the neovim npm package due to sandboxing. If this is the case, install node via another method (nvm, brew, etc).
 
-## Contributors
+## Contributing
 
-Welcome! So glad you've decided to help make Cursorless in Neovim better. You'll want to start by getting [set up](https://github.com/saidelike/cursorless/blob/nvim-talon/docs/contributing/cursorless-in-neovim.md). You may also find the [Neovim API docs](https://neovim.io/doc/user/api.html) helpful to learn about Neovim extension development.
+Welcome! So glad you've decided to help make Cursorless in Neovim better.
+
+Note that Cursorless is maintained as a monorepo, hosted at [`cursorless`](https://github.com/cursorless-dev/cursorless), and the source of truth for all of the files here lives there, so that's where you'll want to file a PR. We automatically deploy from our monorepo to the [cursorless.nvim repo](https://github.com/hands-free-vim/cursorless.nvim) in CI.
+
+See [the Cursorless neovim contributor docs](https://www.cursorless.org/docs/contributing/cursorless-in-neovim/) to get started.
