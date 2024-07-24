@@ -60,15 +60,6 @@ describe("cursorless.nvim tests", function()
         local lines = "hello world"
         vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.split(lines, "\n"))
         cursorless.select_range(1, 4, 1, 2)
-        print(
-          table.concat(
-            _G.convert_table_entries(
-              cursorless.buffer_get_selection(),
-              tostring
-            ),
-            ", "
-          )
-        )
         assert(
           table.concat(
             _G.convert_table_entries(

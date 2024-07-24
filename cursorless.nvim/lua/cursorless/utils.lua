@@ -58,7 +58,7 @@ end
 -- https://www.baeldung.com/linux/vim-paste-text
 -- e.g. run in command mode :imap <c-b> <Cmd>lua require('cursorless.utils').paste()<Cr>
 function M.paste()
-  vim.cmd([[normal! "+p]])
+  vim.cmd([[silent! normal! "+p]])
 end
 
 return M

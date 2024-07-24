@@ -54,9 +54,9 @@ end
 -- will highlight "llo"
 -- NOTE: works for any mode (n,i,v,nt) except in t mode
 function M.select_range(start_line, start_col, end_line, end_col)
-  vim.cmd([[normal! :noh]])
+  vim.cmd([[silent! normal! :noh]])
   vim.api.nvim_win_set_cursor(0, { start_line, start_col })
-  vim.cmd([[normal v]])
+  vim.cmd([[silent! normal v]])
   vim.api.nvim_win_set_cursor(0, { end_line, end_col })
 end
 

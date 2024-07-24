@@ -30,5 +30,8 @@
   "Lua.diagnostics.globals": ["vim", "talon"],
   "[lua]": {
     "editor.defaultFormatter": "JohnnyMorganz.stylua"
+  },
+  "files.associations": {
+    ".busted": "lua"
   }
 }
