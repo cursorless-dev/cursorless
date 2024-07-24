@@ -155,6 +155,7 @@ def update():
                 "private.fieldAccess",
                 "private.switchStatementSubject",
                 "textFragment",
+                "disqualifyDelimiter",
             ],
             default_list_name="scope_type",
         ),

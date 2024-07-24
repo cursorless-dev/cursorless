@@ -55,3 +55,16 @@
 (match_expression
   value: (_) @private.switchStatementSubject
 ) @_.domain
+
+(binary_expression
+  operator: "<" @disqualifyDelimiter
+)
+(binary_expression
+  operator: "<=" @disqualifyDelimiter
+)
+(binary_expression
+  operator: ">" @disqualifyDelimiter
+)
+(binary_expression
+  operator: ">=" @disqualifyDelimiter
+)

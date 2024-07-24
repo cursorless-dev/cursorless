@@ -296,3 +296,16 @@ local_declaration: (variable_declaration
 ;; Structures and object access
 
 ;; (method_index_expression) @private.fieldAccess
+
+(binary_expression
+  "<" @disqualifyDelimiter
+)
+(binary_expression
+  "<=" @disqualifyDelimiter
+)
+(binary_expression
+  ">" @disqualifyDelimiter
+)
+(binary_expression
+  ">=" @disqualifyDelimiter
+)

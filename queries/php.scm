@@ -123,3 +123,15 @@
 (array_element_initializer
   "=>" @disqualifyDelimiter
 )
+(binary_expression
+  operator: "<" @disqualifyDelimiter
+)
+(binary_expression
+  operator: "<=" @disqualifyDelimiter
+)
+(binary_expression
+  operator: ">" @disqualifyDelimiter
+)
+(binary_expression
+  operator: ">=" @disqualifyDelimiter
+)

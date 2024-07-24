@@ -1,0 +1,84 @@
+val minValue = if (1 < 2) a else b
+val minValue = if (1 > 2) a else b
+val minValue = if (1 <= 2) a else b
+val minValue = if (1 >= 2) a else b
+---
+
+[#1 Content] =
+[#1 Domain] = 0:21-0:22
+                       >-<
+0| val minValue = if (1 < 2) a else b
+
+[#1 Removal] = 0:21-0:23
+                       >--<
+0| val minValue = if (1 < 2) a else b
+
+[#1 Leading delimiter] = 0:20-0:21
+                      >-<
+0| val minValue = if (1 < 2) a else b
+
+[#1 Trailing delimiter] = 0:22-0:23
+                        >-<
+0| val minValue = if (1 < 2) a else b
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Domain] = 1:21-1:22
+                       >-<
+1| val minValue = if (1 > 2) a else b
+
+[#2 Removal] = 1:21-1:23
+                       >--<
+1| val minValue = if (1 > 2) a else b
+
+[#2 Leading delimiter] = 1:20-1:21
+                      >-<
+1| val minValue = if (1 > 2) a else b
+
+[#2 Trailing delimiter] = 1:22-1:23
+                        >-<
+1| val minValue = if (1 > 2) a else b
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] =
+[#3 Domain] = 2:21-2:23
+                       >--<
+2| val minValue = if (1 <= 2) a else b
+
+[#3 Removal] = 2:21-2:24
+                       >---<
+2| val minValue = if (1 <= 2) a else b
+
+[#3 Leading delimiter] = 2:20-2:21
+                      >-<
+2| val minValue = if (1 <= 2) a else b
+
+[#3 Trailing delimiter] = 2:23-2:24
+                         >-<
+2| val minValue = if (1 <= 2) a else b
+
+[#3 Insertion delimiter] = " "
+
+
+[#4 Content] =
+[#4 Domain] = 3:21-3:23
+                       >--<
+3| val minValue = if (1 >= 2) a else b
+
+[#4 Removal] = 3:21-3:24
+                       >---<
+3| val minValue = if (1 >= 2) a else b
+
+[#4 Leading delimiter] = 3:20-3:21
+                      >-<
+3| val minValue = if (1 >= 2) a else b
+
+[#4 Trailing delimiter] = 3:23-3:24
+                         >-<
+3| val minValue = if (1 >= 2) a else b
+
+[#4 Insertion delimiter] = " "

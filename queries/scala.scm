@@ -39,3 +39,7 @@
 (_
   pattern: (_) @name
 ) @_.domain
+
+(infix_expression
+  operator: (operator_identifier) @disqualifyDelimiter
+)

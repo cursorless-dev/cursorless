@@ -79,6 +79,8 @@ const scopeSupportFacets = [
   "textFragment.string.singleLine",
   "textFragment.string.multiLine",
 
+  "disqualifyDelimiter",
+
   "branch.if",
   "branch.if.iteration",
   "branch.try",

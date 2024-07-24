@@ -418,3 +418,16 @@
   "(" @argumentOrParameter.iteration.start.endOf
   ")" @argumentOrParameter.iteration.end.startOf
 ) @argumentOrParameter.iteration.domain
+
+(binary_expression
+  operator: "<" @disqualifyDelimiter
+)
+(binary_expression
+  operator: "<=" @disqualifyDelimiter
+)
+(binary_expression
+  operator: ">" @disqualifyDelimiter
+)
+(binary_expression
+  operator: ">=" @disqualifyDelimiter
+)

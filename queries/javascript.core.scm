@@ -729,9 +729,15 @@
   ")" @argumentOrParameter.iteration.end.startOf
 ) @argumentOrParameter.iteration.domain
 
-(_
+(binary_expression
   operator: "<" @disqualifyDelimiter
 )
-(_
+(binary_expression
+  operator: "<=" @disqualifyDelimiter
+)
+(binary_expression
   operator: ">" @disqualifyDelimiter
+)
+(binary_expression
+  operator: ">=" @disqualifyDelimiter
 )

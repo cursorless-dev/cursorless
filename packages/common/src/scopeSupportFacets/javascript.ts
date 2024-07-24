@@ -13,6 +13,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   regularExpression: supported,
   switchStatementSubject: supported,
   fieldAccess: supported,
+  disqualifyDelimiter: supported,
 
   statement: supported,
   "statement.iteration.document": supported,

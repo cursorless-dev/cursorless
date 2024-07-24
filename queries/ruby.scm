@@ -50,3 +50,16 @@
 (operator_assignment
   left: (_) @name
 ) @_.domain
+
+(binary
+  operator: "<" @disqualifyDelimiter
+)
+(binary
+  operator: "<=" @disqualifyDelimiter
+)
+(binary
+  operator: ">" @disqualifyDelimiter
+)
+(binary
+  operator: ">=" @disqualifyDelimiter
+)

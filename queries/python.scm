@@ -634,3 +634,16 @@
     ")" @argumentOrParameter.iteration.end.startOf
   )
 ) @argumentOrParameter.iteration.domain
+
+(comparison_operator
+  operators: "<" @disqualifyDelimiter
+)
+(comparison_operator
+  operators: "<=" @disqualifyDelimiter
+)
+(comparison_operator
+  operators: ">" @disqualifyDelimiter
+)
+(comparison_operator
+  operators: ">=" @disqualifyDelimiter
+)
