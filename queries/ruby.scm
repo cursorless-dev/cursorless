@@ -52,14 +52,8 @@
 ) @_.domain
 
 (binary
-  operator: "<" @disqualifyDelimiter
+  operator: _ @disqualifyDelimiter
 )
-(binary
-  operator: "<=" @disqualifyDelimiter
-)
-(binary
-  operator: ">" @disqualifyDelimiter
-)
-(binary
-  operator: ">=" @disqualifyDelimiter
+(operator_assignment
+  operator: _ @disqualifyDelimiter
 )

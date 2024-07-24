@@ -57,14 +57,8 @@
 ) @_.domain
 
 (binary_expression
-  operator: "<" @disqualifyDelimiter
+  operator: _ @disqualifyDelimiter
 )
-(binary_expression
-  operator: "<=" @disqualifyDelimiter
-)
-(binary_expression
-  operator: ">" @disqualifyDelimiter
-)
-(binary_expression
-  operator: ">=" @disqualifyDelimiter
+(compound_assignment_expr
+  operator: _ @disqualifyDelimiter
 )

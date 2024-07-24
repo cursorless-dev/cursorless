@@ -636,14 +636,11 @@
 ) @argumentOrParameter.iteration.domain
 
 (comparison_operator
-  operators: "<" @disqualifyDelimiter
+  operators: _ @disqualifyDelimiter
 )
-(comparison_operator
-  operators: "<=" @disqualifyDelimiter
+(binary_operator
+  operator: _ @disqualifyDelimiter
 )
-(comparison_operator
-  operators: ">" @disqualifyDelimiter
-)
-(comparison_operator
-  operators: ">=" @disqualifyDelimiter
+(augmented_assignment
+  operator: _ @disqualifyDelimiter
 )

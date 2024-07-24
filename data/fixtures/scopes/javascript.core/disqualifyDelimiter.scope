@@ -2,6 +2,10 @@
 1 > 2;
 1 <= 2;
 1 >= 2;
+a << 2;
+a >> 2;
+a <<= 2;
+a >>= 2;
 () => 2;
 ---
 
@@ -86,20 +90,100 @@
 
 
 [#5 Content] =
-[#5 Domain] = 4:3-4:5
-     >--<
-4| () => 2;
+[#5 Domain] = 4:2-4:4
+    >--<
+4| a << 2;
 
-[#5 Removal] = 4:3-4:6
-     >---<
-4| () => 2;
+[#5 Removal] = 4:2-4:5
+    >---<
+4| a << 2;
 
-[#5 Leading delimiter] = 4:2-4:3
-    >-<
-4| () => 2;
+[#5 Leading delimiter] = 4:1-4:2
+   >-<
+4| a << 2;
 
-[#5 Trailing delimiter] = 4:5-4:6
-       >-<
-4| () => 2;
+[#5 Trailing delimiter] = 4:4-4:5
+      >-<
+4| a << 2;
 
 [#5 Insertion delimiter] = " "
+
+
+[#6 Content] =
+[#6 Domain] = 5:2-5:4
+    >--<
+5| a >> 2;
+
+[#6 Removal] = 5:2-5:5
+    >---<
+5| a >> 2;
+
+[#6 Leading delimiter] = 5:1-5:2
+   >-<
+5| a >> 2;
+
+[#6 Trailing delimiter] = 5:4-5:5
+      >-<
+5| a >> 2;
+
+[#6 Insertion delimiter] = " "
+
+
+[#7 Content] =
+[#7 Domain] = 6:2-6:5
+    >---<
+6| a <<= 2;
+
+[#7 Removal] = 6:2-6:6
+    >----<
+6| a <<= 2;
+
+[#7 Leading delimiter] = 6:1-6:2
+   >-<
+6| a <<= 2;
+
+[#7 Trailing delimiter] = 6:5-6:6
+       >-<
+6| a <<= 2;
+
+[#7 Insertion delimiter] = " "
+
+
+[#8 Content] =
+[#8 Domain] = 7:2-7:5
+    >---<
+7| a >>= 2;
+
+[#8 Removal] = 7:2-7:6
+    >----<
+7| a >>= 2;
+
+[#8 Leading delimiter] = 7:1-7:2
+   >-<
+7| a >>= 2;
+
+[#8 Trailing delimiter] = 7:5-7:6
+       >-<
+7| a >>= 2;
+
+[#8 Insertion delimiter] = " "
+
+
+[#9 Content] =
+[#9 Domain] = 8:3-8:5
+     >--<
+8| () => 2;
+
+[#9 Removal] = 8:3-8:6
+     >---<
+8| () => 2;
+
+[#9 Leading delimiter] = 8:2-8:3
+    >-<
+8| () => 2;
+
+[#9 Trailing delimiter] = 8:5-8:6
+       >-<
+8| () => 2;
+
+[#9 Insertion delimiter] = " "

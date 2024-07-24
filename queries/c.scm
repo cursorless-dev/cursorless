@@ -245,16 +245,10 @@
 ) @argumentOrParameter.iteration.domain
 
 (binary_expression
-  operator: "<" @disqualifyDelimiter
+  operator: _ @disqualifyDelimiter
 )
-(binary_expression
-  operator: "<=" @disqualifyDelimiter
-)
-(binary_expression
-  operator: ">" @disqualifyDelimiter
-)
-(binary_expression
-  operator: ">=" @disqualifyDelimiter
+(assignment_expression
+  operator: _ @disqualifyDelimiter
 )
 (field_expression
   operator: "->" @disqualifyDelimiter

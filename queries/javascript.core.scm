@@ -730,16 +730,10 @@
 ) @argumentOrParameter.iteration.domain
 
 (binary_expression
-  operator: "<" @disqualifyDelimiter
+  operator: _ @disqualifyDelimiter
 )
-(binary_expression
-  operator: "<=" @disqualifyDelimiter
-)
-(binary_expression
-  operator: ">" @disqualifyDelimiter
-)
-(binary_expression
-  operator: ">=" @disqualifyDelimiter
+(augmented_assignment_expression
+  operator: _ @disqualifyDelimiter
 )
 (arrow_function
   "=>" @disqualifyDelimiter
