@@ -1,24 +1,49 @@
 # Tests
 
-Tests in Cursorless are done in various ways depending on what is tested.
+Tests are critical to Cursorless. Our tests fall broadly into a three categories:
 
-1. **Cursorless tests for VSCode**: tests the actions (`take`, `chuck`, etc.) inside VSCode
+- **Recorded tests** are end-to-end / subcutaneous tests that run a full Cursorless command and check that the ide ends up in the correct state. These represent the bulk of our tests, and are generated automatically using the [test case recorder](../test-case-recorder.md)
+- **Scope tests** check that cursorless scopes are defined correctly for all languages that support the given scope. They consist of a small test document followed by `---`, and then a snapshot of the expected scopes in the given document. They are generated automatically using our scope test recorder, as described in [scope test recorder](../adding-a-new-scope.md#4-add-tests-for-the-given-scope)
+- **Other tests** include unit tests, handwritten subcutaneous / end-to-end tests, etc
 
-2. **Cursorless unit tests**: tests specific TypeScript functions (`toggle decorations`, `visible multiple regions`, etc.). These tests don't rely on VSCode or neovim
+We run the above tests in various contexts, both locally and in CI. The contexts are:
 
-3. **Cursorless tests for neovim**: tests the actions (`take`, `chuck`, etc.) inside neovim. 99% of them are the same as the "Cursorless tests for VSCode" except some new ones are needed in order to test all actions, due to no hats being supported yet in neovim (and the fact that lots of "Cursorless tests for VSCode" rely on hats)
+- **VSCode**: Today, many of our tests must run within a VSCode context. For some of our tests, this is desirable, because they are designed to test that our code works in VSCode. However, many of our tests (such as scope tests and recorded tests) are not really VSCode-specific, but we haven't yet built the machinery to run them in a more isolated context, which would be much faster.
+- **Unit tests**: Many of our tests can run in a neutral context, without requiring an actual ide with editors, etc. Most of these are unit tests in the traditional sense of the word, testing the logic of a small unit of code, such as a function.
+- **Talon**: For each of our recorded tests, we test that saying the spoken form of the command in Talon results in the command payload that we expect. Note that these tests can only be run locally today.
+- **Neovim**: We run a subset of our recorded tests within Neovim to ensure that the given subset of Cursorless works within Neovim. We also have a few lua unit tests that must be run in Neovim. These test the lua functions that Cursorless needs in order to interact with Neovim.
+
+You can get an overview of the available tests by looking at our VSCode launch configs, which include not only our VSCode tests, but all of our tests.
+
+This document focuses on the infrastructure that allows us to run our tests in the above contexts, both locally and in CI.
+
+## VSCode
+
+XXX
+
+## Unit tests
+
+XXX
+
+## Talon
+
+XXX
+
+## Neovim
+
+We'll start with a high-level overview of the architecture of the Cursorless tests for neovim, and then we'll dive into the details. Here is the call path when running Neovim tests locally. Note that `->` indicates one file calling another file:
 
 ```
-// 3.1 Cursorless tests for neovim locally
 launch.json -> .vscode/tasks.json -> nvim -u init.lua
 
 init.lua
   -> CursorlessLoadExtension()
-  -> TestHarnessRun() -> run() -> runAllTests() -> Mocha + packages/cursorless-neovim-e2e/src/suite/recorded.neovim.test.ts
+  -> TestHarnessRun() -> run() -> runAllTests() -> Mocha -> packages/cursorless-neovim-e2e/src/suite/recorded.neovim.test.ts
 ```
 
+And here is the call path when running Neovim tests on CI:
+
 ```
-// 3.2 Cursorless tests for neovim on CI
 .github/workflows/test.yml -> packages/test-harness/package.json -> my-ts-node src/scripts/runNeovimTestsCI.ts -> packages/test-harness/src/launchNeovimAndRunTests.ts
 
 launchNeovimAndRunTests.ts
@@ -31,21 +56,7 @@ packages/test-harness/src/config/init.lua
   -> TestHarnessRun() -> run() -> runAllTests() -> Mocha + packages/cursorless-neovim-e2e/src/suite/recorded.neovim.test.ts
 ```
 
-4. **Lua unit tests for neovim**: tests lua functions. They need to be executed in neovim. There is no such test for VSCode because we assume the functions provided by [VSCode APIs](https://code.visualstudio.com/api/references/vscode-api) have already been tested by Microsoft and work properly
-
-5. **Cursorless tests for Talon**: XXX
-
-## 1. Cursorless tests for VSCode
-
-XXX
-
-## 2. Cursorless unit tests
-
-XXX
-
-## 3. Cursorless tests for neovim
-
-### 3.1 Cursorless tests for neovim locally
+### Running Neovim tests locally
 
 This is supported on Windows, Linux and OSX.
 
@@ -217,7 +228,7 @@ async function runTestsInDir(
 
 Consequently, the recorded tests from `data/fixtures/recorded/` are executed when `packages/cursorless-neovim-e2e/src/suite/recorded.neovim.test.ts` is invoked.
 
-### 3.2 Cursorless tests for neovim on CI
+### Running Neovim tests on CI
 
 This is supported on Linux only.
 
@@ -291,10 +302,6 @@ NOTE: Because `NVIM_NODE_HOST_DEBUG` is not set on CI, `nvim` loads entirely rig
 
 NOTE: CI uses `dist/cursorless.nvim/` (and not `cursorless.nvim/`), since the symlinks in `cursorless.nvim/` are only created locally in order to get symbols loaded, which we don't need on CI.
 
-## 4. Lua unit tests for neovim
-
-XXX
-
-## 5. Cursorless tests for Talon
+### Lua unit tests
 
 XXX
