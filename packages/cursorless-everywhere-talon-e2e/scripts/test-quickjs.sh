@@ -14,9 +14,24 @@ esbuild \
 echo $ cd testOut
 cd testOut
 
-# QUICKJS_URL=https://bellard.org/quickjs/binary_releases/quickjs-win-x86_64-2024-01-13.zip
-QUICKJS_URL=https://bellard.org/quickjs/binary_releases/quickjs-linux-x86_64-2024-01-13.zip
+QUICKJS_URL_WIN=https://bellard.org/quickjs/binary_releases/quickjs-win-x86_64-2024-01-13.zip
+QUICKJS_URL_LINUX=https://bellard.org/quickjs/binary_releases/quickjs-linux-x86_64-2024-01-13.zip
 QUICKJS_FILE=quickjs.zip
+
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    QUICKJS_URL=$QUICKJS_URL_LINUX
+elif [[ "$OSTYPE" == "cygwin" ]]; then
+    QUICKJS_URL=$QUICKJS_URL_LINUX
+elif [[ "$OSTYPE" == "cygwin" ]]; then
+    QUICKJS_URL=$QUICKJS_URL_WIN
+elif [[ "$OSTYPE" == "msys" ]]; then
+    QUICKJS_URL=$QUICKJS_URL_WIN
+elif [[ "$OSTYPE" == "win32" ]]; then
+    QUICKJS_URL=$QUICKJS_URL_WIN
+else
+    echo $OSTYPE
+    exit 
+fi
 
 echo $ curl -o $QUICKJS_FILE $QUICKJS_URL
 curl -o $QUICKJS_FILE $QUICKJS_URL
