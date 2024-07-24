@@ -31,6 +31,38 @@ const delimiterToText: DelimiterMap = Object.freeze({
   squareBrackets: ["[", "]"],
 });
 
+// https://docs.python.org/3/reference/lexical_analysis.html#string-and-bytes-literals
+const pythonPrefixes = [
+  // Base case without a prefix
+  "",
+  // string prefixes
+  "r",
+  "u",
+  "R",
+  "U",
+  "f",
+  "F",
+  "fr",
+  "Fr",
+  "fR",
+  "FR",
+  "rf",
+  "rF",
+  "Rf",
+  "RF",
+  // byte prefixes
+  "b",
+  "B",
+  "br",
+  "Br",
+  "bR",
+  "BR",
+  "rb",
+  "rB",
+  "Rb",
+  "RB",
+];
+
 // FIXME: Probably remove these as part of
 // https://github.com/cursorless-dev/cursorless/issues/1812#issuecomment-1691493746
 const delimiterToTextOverrides: Record<string, Partial<DelimiterMap>> = {
@@ -49,9 +81,10 @@ const delimiterToTextOverrides: Record<string, Partial<DelimiterMap>> = {
   },
 
   python: {
-    doubleQuotes: [['"', 'f"'], '"', true],
-    tripleDoubleQuotes: [['"""', 'f"""'], '"""'],
-    tripleSingleQuotes: [["'''", "f'''"], "'''"],
+    singleQuotes: [pythonPrefixes.map((prefix) => `${prefix}'`), "'", true],
+    doubleQuotes: [pythonPrefixes.map((prefix) => `${prefix}"`), '"', true],
+    tripleSingleQuotes: [pythonPrefixes.map((prefix) => `${prefix}'''`), "'''"],
+    tripleDoubleQuotes: [pythonPrefixes.map((prefix) => `${prefix}"""`), '"""'],
   },
 
   ruby: {
