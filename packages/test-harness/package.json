@@ -12,7 +12,7 @@
     "build:runner": "pnpm run build:base ./src/runners/extensionTestsVscode.ts --outfile=dist/extensionTestsVscode.cjs",
     "build:unit": "pnpm run build:base ./src/scripts/runUnitTestsOnly.ts --outfile=dist/runUnitTestsOnly.cjs",
     "build:talon": "pnpm run build:base ./src/scripts/runTalonTests.ts --outfile=dist/runTalonTests.cjs",
-    "build:talonJs": "pnpm run build:base ./src/scripts/runTalonJsTests.ts --outfile=dist/runTalonJsTests.cjs --external ./reporters/parallel-buffered --external ./worker.js",
+    "build:talonJs": "pnpm run build:base ./src/scripts/runTalonJsTests.ts --outfile=dist/runTalonJsTests.cjs",
     "build:talonJsCI": "pnpm run build:base ./src/scripts/runTalonJsTestsCI.ts --outfile=dist/runTalonJsTestsCI.cjs",
     "build:tests": "bash ./scripts/build-tests.sh",
     "compile": "tsc --build",
