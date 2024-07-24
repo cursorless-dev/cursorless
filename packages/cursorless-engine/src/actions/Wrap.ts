@@ -72,7 +72,10 @@ export default class Wrap {
               selections: boundariesEndSelections,
               behavior: RangeExpansionBehavior.closedOpen,
             },
-            sourceSelections: contentSelections,
+            sourceSelections: {
+              selections: contentSelections,
+              behavior: RangeExpansionBehavior.closedClosed,
+            },
             thatSelections: {
               selections: contentSelections,
               behavior: RangeExpansionBehavior.openOpen,

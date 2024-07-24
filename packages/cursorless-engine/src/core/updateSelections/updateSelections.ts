@@ -5,6 +5,7 @@ import {
   RangeExpansionBehavior,
   Selection,
   TextDocument,
+  unsafeKeys,
 } from "@cursorless/common";
 import { flatten } from "lodash-es";
 import {
@@ -45,7 +46,7 @@ export async function performEditsAndUpdateSelections<K extends string>({
   preserveEditorSelections,
   ...rest
 }: UpdaterProps<K>): Promise<Record<K, Selection[]>> {
-  const keys = Object.keys(selections) as K[];
+  const keys = unsafeKeys(selections);
 
   const selectionInfos = keys.map((key) => {
     const selectionValue = selections[key];
