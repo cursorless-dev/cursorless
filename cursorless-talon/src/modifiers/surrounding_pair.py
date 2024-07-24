@@ -65,10 +65,10 @@ def cursorless_surrounding_pair_scope_type_plural(m) -> dict[str, str]:
 
 
 @mod.capture(
-    rule="[{user.cursorless_delimiter_force_direction}] <user.cursorless_surrounding_pair_scope_type>"
+    rule="{user.cursorless_delimiter_force_direction} <user.cursorless_surrounding_pair_scope_type>"
 )
-def cursorless_surrounding_pair(m) -> dict[str, Any]:
-    """Expand to containing surrounding pair"""
+def cursorless_surrounding_pair_force_direction(m) -> dict[str, Any]:
+    """DEPRECATED: Expand to containing surrounding pair"""
     scope_type = m.cursorless_surrounding_pair_scope_type
 
     with suppress(AttributeError):
