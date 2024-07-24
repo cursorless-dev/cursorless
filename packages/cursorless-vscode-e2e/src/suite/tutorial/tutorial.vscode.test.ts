@@ -164,7 +164,10 @@ async function runBasicTutorialTest(spyIde: SpyIDE) {
   await checkStepSetup(fixtures[0]);
 
   // Test automatic advancing
-  await runCursorlessCommand(fixtures[0].command);
+  await runCursorlessCommand({
+    ...fixtures[0].command,
+    usePrePhraseSnapshot: false,
+  });
   await checkStepSetup(fixtures[1]);
 
   // Test restarting tutorial
