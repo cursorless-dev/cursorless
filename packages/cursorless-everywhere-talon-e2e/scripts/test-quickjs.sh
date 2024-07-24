@@ -20,7 +20,7 @@ QUICKJS_FILE=quickjs.zip
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     QUICKJS_URL=$QUICKJS_URL_LINUX
-elif [[ "$OSTYPE" == "cygwin" ]]; then
+elif [[ "$OSTYPE" == "darwin"* ]]; then
     QUICKJS_URL=$QUICKJS_URL_LINUX
 elif [[ "$OSTYPE" == "cygwin" ]]; then
     QUICKJS_URL=$QUICKJS_URL_WIN
@@ -30,7 +30,7 @@ elif [[ "$OSTYPE" == "win32" ]]; then
     QUICKJS_URL=$QUICKJS_URL_WIN
 else
     echo $OSTYPE
-    exit 
+    exit 1
 fi
 
 echo $ curl -o $QUICKJS_FILE $QUICKJS_URL
