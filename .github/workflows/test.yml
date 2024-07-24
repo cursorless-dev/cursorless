@@ -51,7 +51,7 @@ jobs:
         if: runner.os != 'Linux'
       - name: Cursorless everywhere talon quickjs tests
         run: xvfb-run -a pnpm -F @cursorless/cursorless-everywhere-talon-e2e test:quickjs
-        if: runner.os == 'Linux'
+        if: runner.os == 'Linux' || runner.os == 'Windows'
       - name: Cursorless everywhere talon quickjs tests
         run: pnpm -F @cursorless/cursorless-everywhere-talon-e2e test:quickjs
         if: runner.os != 'Linux'
