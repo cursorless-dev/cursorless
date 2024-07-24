@@ -60,7 +60,7 @@ export async function runInsertLineAfterTargets(
       rangeUpdater,
       editor,
       callback,
-      preserveEditorSelections: true,
+      preserveCursorSelections: true,
       selections: {
         targetRanges,
         thatRanges: state.thatRanges,

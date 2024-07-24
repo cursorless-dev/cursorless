@@ -104,7 +104,7 @@ export class CallbackAction {
       rangeUpdater: this.rangeUpdater,
       editor: editableEditor,
       callback: () => options.callback(editableEditor, targets),
-      preserveEditorSelections: true,
+      preserveCursorSelections: true,
       selections: {
         originalSelections,
         targetSelections,

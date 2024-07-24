@@ -34,7 +34,7 @@ export class PasteFromClipboard {
       await performEditsAndUpdateSelections({
         rangeUpdater: this.rangeUpdater,
         editor,
-        preserveEditorSelections: true,
+        preserveCursorSelections: true,
         callback: callbackEdit,
         selections: {
           cursorSelections: editor.selections,

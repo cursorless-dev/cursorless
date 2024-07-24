@@ -32,8 +32,8 @@ interface BaseProps<K extends string> {
   rangeUpdater: RangeUpdater;
   /** The editor containing the selections */
   editor: EditableTextEditor;
-  /** Whether to preserve the editor's current selections */
-  preserveEditorSelections?: boolean;
+  /** Whether to preserve the editor's current cursor selections */
+  preserveCursorSelections?: boolean;
   /** The selections to update */
   selections: Record<K, SelectionsOrRanges | SelectionsWithBehavior>;
 }
@@ -60,7 +60,7 @@ export async function performEditsAndUpdateSelections<K extends string>({
   rangeUpdater,
   editor,
   selections,
-  preserveEditorSelections,
+  preserveCursorSelections: preserveEditorSelections,
   ...rest
 }: UpdaterProps<K>): Promise<Record<K, Selection[]>> {
   const keys = unsafeKeys(selections);

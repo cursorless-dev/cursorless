@@ -62,7 +62,7 @@ export async function runEditTargets(
     rangeUpdater,
     editor,
     edits,
-    preserveEditorSelections: true,
+    preserveCursorSelections: true,
     selections: {
       thatRanges: state.thatRanges,
       cursorRanges,

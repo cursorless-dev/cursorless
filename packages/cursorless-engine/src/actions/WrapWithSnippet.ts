@@ -110,7 +110,7 @@ export default class WrapWithSnippet {
         rangeUpdater: this.rangeUpdater,
         editor,
         callback,
-        preserveEditorSelections: true,
+        preserveCursorSelections: true,
         selections: {
           targetSelections,
         },

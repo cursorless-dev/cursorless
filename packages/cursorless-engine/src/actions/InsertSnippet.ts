@@ -143,7 +143,7 @@ export default class InsertSnippet {
         rangeUpdater: this.rangeUpdater,
         editor,
         callback: () => editor.insertSnippet(snippetString),
-        preserveEditorSelections: true,
+        preserveCursorSelections: true,
         selections: {
           editorSelections: {
             selections: editor.selections,
