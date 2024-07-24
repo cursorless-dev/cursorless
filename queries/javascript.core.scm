@@ -741,3 +741,6 @@
 (binary_expression
   operator: ">=" @disqualifyDelimiter
 )
+(arrow_function
+  "=>" @disqualifyDelimiter
+)

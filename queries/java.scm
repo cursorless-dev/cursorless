@@ -431,3 +431,6 @@
 (binary_expression
   operator: ">=" @disqualifyDelimiter
 )
+(lambda_expression
+  "->" @disqualifyDelimiter
+)
