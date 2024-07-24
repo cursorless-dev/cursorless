@@ -30,7 +30,7 @@ elif [[ "$OSTYPE" == "win32" ]]; then
     QUICKJS_URL=$QUICKJS_URL_WIN
 else
     echo $OSTYPE
-    exit 
+    exit
 fi
 
 echo $ curl -o $QUICKJS_FILE $QUICKJS_URL
