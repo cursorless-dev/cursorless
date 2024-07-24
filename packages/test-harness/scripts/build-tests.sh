@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-mapfile -t TESTS < <(find .. -name '*.test.ts')
+# Initialize an empty array to hold the test files
+TESTS=()
+
+# Read the output of the find command into the TESTS array
+while IFS= read -r file; do
+    TESTS+=("$file")
+done < <(find .. -name '*.test.ts')
 
 BATCH_SIZE=50
 SIZE=${#TESTS[@]}
