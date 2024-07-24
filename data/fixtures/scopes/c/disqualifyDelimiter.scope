@@ -2,6 +2,7 @@
 1 > 2
 1 <= 2
 1 >= 2
+foo->bar
 ---
 
 [#1 Content] =
@@ -82,3 +83,12 @@
 3| 1 >= 2
 
 [#4 Insertion delimiter] = " "
+
+
+[#5 Content] =
+[#5 Removal] =
+[#5 Domain] = 4:3-4:5
+     >--<
+4| foo->bar
+
+[#5 Insertion delimiter] = " "

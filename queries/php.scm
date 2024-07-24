@@ -120,6 +120,7 @@
   name: (_) @name
 ) @_.domain
 
+(php_tag) @disqualifyDelimiter
 (array_element_initializer
   "=>" @disqualifyDelimiter
 )

@@ -256,3 +256,6 @@
 (binary_expression
   operator: ">=" @disqualifyDelimiter
 )
+(field_expression
+  operator: "->" @disqualifyDelimiter
+)
