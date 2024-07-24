@@ -10,7 +10,7 @@ command:
           scopeType: {type: surroundingPair, delimiter: any}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: "def funk(words:list<str>):"
+  documentContents: "def funk(words:list[str]):"
   selections:
     - anchor: {line: 0, character: 20}
       active: {line: 0, character: 20}
