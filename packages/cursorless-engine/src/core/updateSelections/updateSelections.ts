@@ -111,7 +111,7 @@ function getFullSelectionInfos(
   );
 }
 
-function getsSelectionsWithBehavior(
+function getSelectionsWithBehavior(
   selections: SelectionsOrRanges | SelectionsWithBehavior,
 ): SelectionsWithBehavior {
   if ("selections" in selections) {
