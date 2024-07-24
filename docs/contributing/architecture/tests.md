@@ -224,14 +224,14 @@ This is supported on Linux only.
 It starts from `.github/workflows/test.yml` which currently only tests the latest stable neovim version on Linux:
 
 ```yml
-run: xvfb-run -a pnpm -F @cursorless/test-harness testNeovim
+run: xvfb-run -a pnpm -F @cursorless/test-harness test:neovim
 if: runner.os == 'Linux' && matrix.app_version == 'stable'
 ```
 
 This triggers the script in `packages/test-harness/package.json`:
 
 ```json
-"testNeovim": "env CURSORLESS_MODE=test my-ts-node src/scripts/runNeovimTestsCI.ts",
+"test:neovim": "env CURSORLESS_MODE=test my-ts-node src/scripts/runNeovimTestsCI.ts",
 ```
 
 This ends up calling the default function from `package/test-harness/src/scripts/runNeovimTestsCI.ts` which calls `launchNeovimAndRunTests()` from `packages/test-harness/src/launchNeovimAndRunTests.ts`:

@@ -52,7 +52,7 @@ jobs:
           version: ${{ env.NEOVIM_VERSION }}
           neovim: true
       - name: Run neovim tests
-        run: xvfb-run -a pnpm -F @cursorless/test-harness testNeovim
+        run: xvfb-run -a pnpm -F @cursorless/test-harness test:neovim
         if: runner.os == 'Linux'
         env:
           NEOVIM_PATH: ${{ steps.vim.outputs.executable }}
