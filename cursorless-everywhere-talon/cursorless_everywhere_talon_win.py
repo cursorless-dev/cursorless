@@ -46,8 +46,8 @@ class Actions:
     def cursorless_everywhere_set_selections(
         selections: list[OffsetSelection],  # pyright: ignore [reportGeneralTypeIssues]
     ):
-        # if len(selections) != 1:
-        #     raise ValueError("Only single selection supported")
+        if selections.length != 1:  # pyright: ignore [reportAttributeAccessIssue]
+            raise ValueError("Only single selection supported")
 
         selection = selections[0]
         anchor = selection["anchor"]
