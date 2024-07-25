@@ -269,7 +269,7 @@
     },
     {
       "label": "Neovim: Show logs",
-      "type": "process",
+      "type": "shell",
       "command": "packages/cursorless-neovim/scripts/show-logs.sh",
       "problemMatcher": [],
       "isBackground": true,
