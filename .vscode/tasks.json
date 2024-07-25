@@ -204,12 +204,10 @@
     {
       "label": "Neovim: Launch neovim",
       "type": "process",
-      "windows": {
-        "command": "powershell",
-        "args": [
-          "(New-Object -ComObject WScript.Shell).Run(\"\"\"${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.bat\"\"\", 1, $false)"
-        ]
-      },
+      "command": "packages/cursorless-neovim/scripts/linux-terminal.sh",
+      "args": [
+        "${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.sh ${workspaceFolder} development"
+      ],
       "osx": {
         "command": "osascript",
         "args": [
@@ -217,10 +215,10 @@
           "tell app \"Terminal\" to do script \"${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.sh ${workspaceFolder} development\" activate"
         ]
       },
-      "linux": {
-        "command": "packages/cursorless-neovim/scripts/linux-terminal.sh",
+      "windows": {
+        "command": "powershell",
         "args": [
-          "${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.sh ${workspaceFolder} development"
+          "(New-Object -ComObject WScript.Shell).Run(\"\"\"${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.bat\"\"\", 1, $false)"
         ]
       },
       "group": "build",
@@ -237,12 +235,10 @@
     {
       "label": "Neovim: Launch neovim (test)",
       "type": "process",
-      "windows": {
-        "command": "powershell",
-        "args": [
-          "(New-Object -ComObject WScript.Shell).Run(\"\"\"${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.bat\"\"\", 1, $false)"
-        ]
-      },
+      "command": "packages/cursorless-neovim/scripts/linux-terminal.sh",
+      "args": [
+        "${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.sh ${workspaceFolder} test"
+      ],
       "osx": {
         "command": "osascript",
         "args": [
@@ -250,10 +246,10 @@
           "tell app \"Terminal\" to do script \"${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.sh ${workspaceFolder} test\" activate"
         ]
       },
-      "linux": {
-        "command": "packages/cursorless-neovim/scripts/linux-terminal.sh",
+      "windows": {
+        "command": "powershell",
         "args": [
-          "${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.sh ${workspaceFolder} test"
+          "(New-Object -ComObject WScript.Shell).Run(\"\"\"${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.bat\"\"\", 1, $false)"
         ]
       },
       "group": "build",
@@ -270,20 +266,13 @@
     {
       "label": "Neovim: Show logs",
       "type": "process",
-      "osx": {
-        "command": "tail",
-        "args": [
-          "-f",
-          "${workspaceFolder}/packages/cursorless-neovim/out/nvim_node.log"
-        ]
-      },
-      "linux": {
-        "command": "tail",
-        "args": [
-          "-f",
-          "${workspaceFolder}/packages/cursorless-neovim/out/nvim_node.log"
-        ]
-      }
+      "command": "tail",
+      "args": [
+        "-f",
+        "${workspaceFolder}/packages/cursorless-neovim/out/nvim_node.log"
+      ],
+      "problemMatcher": [],
+      "isBackground": true
       // NOTE: We don't have a way on Windows atm due to command with argument inside Run() not working
       // so we need to show logs outside of vscode (see #2454)
     },

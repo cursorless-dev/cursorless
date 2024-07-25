@@ -1,6 +1,8 @@
 # Cursorless in Neovim
 
-This document describes how to get set up to work on the Cursorless neovim plugin.
+This document describes how to get set up to work on the Cursorless neovim plugin. You may also find the [Neovim API docs](https://neovim.io/doc/user/api.html) helpful to learn about Neovim extension development.
+
+Note that Cursorless is maintained as a monorepo, hosted at [`cursorless`](https://github.com/cursorless-dev/cursorless), and the source of truth for all of the files in cursorless.nvim lives there. We automatically deploy from our monorepo to the [cursorless.nvim repo](https://github.com/hands-free-vim/cursorless.nvim) in CI.
 
 ## Initial setup
 
@@ -50,7 +52,7 @@ running: `busted --run unit`. These tests currently only work on Linux.
 
 ## Sending pull requests
 
-The [cursorless.nvim](https://github.com/hands-free-vim/cursorless.nvim) repo is part of the larger cursorless monorepo, and is currently part of a pending PR to that monorepo only. If you'd like to send a PR to `cursorless.nvim`, please send a PR against the `nvim-talon` branch of this [repo](https://github.com/saidelike/cursorless).
+The source of truth for `cursorless.nvim` lives in the [Cursorless monorepo](https://github.com/cursorless-dev/cursorless/). We automatically push to the [cursorless.nvim](https://github.com/hands-free-vim/cursorless.nvim) repo in CI. If you'd like to contribute to `cursorless.nvim`, please open a PR in the [Cursorless monorepo](https://github.com/cursorless-dev/cursorless/).
 
 ## Frequently asked questions
 
