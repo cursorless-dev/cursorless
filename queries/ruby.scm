@@ -51,9 +51,13 @@
   left: (_) @name
 ) @_.domain
 
-(binary
-  operator: _ @disqualifyDelimiter
-)
-(operator_assignment
-  operator: _ @disqualifyDelimiter
-)
+operator: [
+  "<"
+  "<<"
+  "<<="
+  "<="
+  ">"
+  ">="
+  ">>"
+  ">>="
+] @disqualifyDelimiter

@@ -419,12 +419,16 @@
   ")" @argumentOrParameter.iteration.end.startOf
 ) @argumentOrParameter.iteration.domain
 
-(binary_expression
-  operator: _ @disqualifyDelimiter
-)
-(assignment_expression
-  operator: _ @disqualifyDelimiter
-)
+operator: [
+  "<"
+  "<<"
+  "<<="
+  "<="
+  ">"
+  ">="
+  ">>"
+  ">>="
+] @disqualifyDelimiter
 (lambda_expression
   "->" @disqualifyDelimiter
 )

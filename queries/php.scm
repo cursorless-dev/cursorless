@@ -120,19 +120,20 @@
   name: (_) @name
 ) @_.domain
 
-(php_tag) @disqualifyDelimiter
+operator: [
+  "<"
+  "<<"
+  "<<="
+  "<="
+  ">"
+  ">="
+  ">>"
+  ">>="
+] @disqualifyDelimiter
+(
+  (php_tag) @disqualifyDelimiter
+  (#character-range! @disqualifyDelimiter 0 -4)
+)
 (array_element_initializer
   "=>" @disqualifyDelimiter
-)
-(binary_expression
-  operator: "<" @disqualifyDelimiter
-)
-(binary_expression
-  operator: "<=" @disqualifyDelimiter
-)
-(binary_expression
-  operator: ">" @disqualifyDelimiter
-)
-(binary_expression
-  operator: ">=" @disqualifyDelimiter
 )

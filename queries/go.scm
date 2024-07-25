@@ -371,9 +371,13 @@
   ")" @argumentOrParameter.iteration.end.startOf
 ) @argumentOrParameter.iteration.domain
 
-(binary_expression
-  operator: _ @disqualifyDelimiter
-)
-(assignment_statement
-  operator: _ @disqualifyDelimiter
-)
+operator: [
+  "<"
+  "<<"
+  "<<="
+  "<="
+  ">"
+  ">="
+  ">>"
+  ">>="
+] @disqualifyDelimiter

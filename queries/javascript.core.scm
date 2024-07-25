@@ -729,12 +729,16 @@
   ")" @argumentOrParameter.iteration.end.startOf
 ) @argumentOrParameter.iteration.domain
 
-(binary_expression
-  operator: _ @disqualifyDelimiter
-)
-(augmented_assignment_expression
-  operator: _ @disqualifyDelimiter
-)
+operator: [
+  "<"
+  "<<"
+  "<<="
+  "<="
+  ">"
+  ">="
+  ">>"
+  ">>="
+] @disqualifyDelimiter
 (arrow_function
   "=>" @disqualifyDelimiter
 )

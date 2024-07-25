@@ -56,9 +56,13 @@
   value: (_) @private.switchStatementSubject
 ) @_.domain
 
-(binary_expression
-  operator: _ @disqualifyDelimiter
-)
-(compound_assignment_expr
-  operator: _ @disqualifyDelimiter
-)
+operator: [
+  "<"
+  "<<"
+  "<<="
+  "<="
+  ">"
+  ">="
+  ">>"
+  ">>="
+] @disqualifyDelimiter

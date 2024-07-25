@@ -298,14 +298,10 @@ local_declaration: (variable_declaration
 ;; (method_index_expression) @private.fieldAccess
 
 (binary_expression
-  "<" @disqualifyDelimiter
-)
-(binary_expression
-  "<=" @disqualifyDelimiter
-)
-(binary_expression
-  ">" @disqualifyDelimiter
-)
-(binary_expression
-  ">=" @disqualifyDelimiter
+  [
+    "<"
+    "<="
+    ">"
+    ">="
+  ] @disqualifyDelimiter
 )
