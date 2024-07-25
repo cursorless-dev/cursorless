@@ -13,31 +13,22 @@ export async function run(plugin: NvimPlugin): Promise<void> {
   /**
    * We need to pass the neovim client to the tests that are executed through mocha,
    * so we add it to the global object.
-   * @see https://github.com/mochajs/mocha/issues/3780#issuecomment-583064196
-   * @see https://stackoverflow.com/questions/69427050/how-to-extend-globalthis-global-type
    */
   const client = plugin.nvim as NeovimClient;
   (global as any).additionalParameters = {
     client: client,
   };
   let code = 0;
+  // NOTE: the parsing of the logs below is only done on CI in order to detect success/failure
   try {
     await runAllTests(TestType.neovim, TestType.unit);
     console.log(`==== TESTS FINISHED: code: ${code}`);
-    // console.log(`index.ts: killing neovim with q!`);
-    // await client.command(":q!");
   } catch (error) {
     console.log(`==== TESTS ERROR:`);
     console.error(error);
     code = 1;
     console.log(`==== TESTS FINISHED: code: ${code}`);
-    // https://stackoverflow.com/questions/11828270/how-do-i-exit-vim
-    // console.log(`index.ts: killing neovim with cq!`);
-    // await client.command(":cq!");
   }
-  // XXX: launchNeovimAndRunTests.ts will catch neovim exit code on CI
-
-  // console.log(`index.ts: killing neovim with code ${code}`);
 }
 
 /**
