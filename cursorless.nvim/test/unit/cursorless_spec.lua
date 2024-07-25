@@ -1,8 +1,8 @@
-describe("cursorless.nvim tests", function()
+describe("", function()
   local cursorless = require("cursorless.cursorless")
 
-  describe("window_get_visible_lines()", function()
-    it("Can read one visible line", function()
+  describe("window_get_visible_lines() ->", function()
+    it("can read one visible line", function()
       local pos = vim.api.nvim_win_get_cursor(0)[2]
       local line = vim.api.nvim_get_current_line()
       local nline = line:sub(0, pos) .. "hello" .. line:sub(pos + 1)
@@ -12,7 +12,7 @@ describe("cursorless.nvim tests", function()
       assert(table.concat(visible) == table.concat({ 1, 1 }))
     end)
 
-    it("Can read all lines visible on the window", function()
+    it("can read all lines visible on the window", function()
       local maxlines = vim.api.nvim_win_get_height(0)
       local lines = {}
       for _ = 1, (maxlines + 1) do
@@ -23,8 +23,8 @@ describe("cursorless.nvim tests", function()
       assert(table.concat(visible) == table.concat({ 1, maxlines }))
     end)
   end)
-  describe("select_range()", function()
-    it("Selects the specified range", function()
+  describe("select_range() ->", function()
+    it("selects the specified range", function()
       local lines = "hello world"
       vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.split(lines, "\n"))
       cursorless.select_range(1, 2, 1, 4)
@@ -32,9 +32,9 @@ describe("cursorless.nvim tests", function()
       assert(table.concat(_G.get_selected_text()) == "llo")
     end)
   end)
-  describe("buffer_get_selection()", function()
+  describe("buffer_get_selection() ->", function()
     it(
-      "Can get the forward selection in a format expected by cursorless",
+      "can get the forward selection in a format expected by cursorless",
       function()
         local lines = "hello world"
         vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.split(lines, "\n"))
@@ -55,7 +55,7 @@ describe("cursorless.nvim tests", function()
       end
     )
     it(
-      "Can get the backward selection in a format expected by cursorless",
+      "can get the backward selection in a format expected by cursorless",
       function()
         local lines = "hello world"
         vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.split(lines, "\n"))
