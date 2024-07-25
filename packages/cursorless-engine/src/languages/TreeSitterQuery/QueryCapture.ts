@@ -9,10 +9,18 @@ import { Point } from "web-tree-sitter";
 export interface SimpleSyntaxNode {
   readonly id: number;
   readonly type: string;
+  readonly parent: SimpleSyntaxNode | null;
+  readonly children: Array<SimpleChildSyntaxNode>;
+  readonly hasError: boolean;
+  readonly isError: boolean;
+}
+
+/**
+ * Add start and in position to the simple syntax node. Used by the `child-range!` predicate.
+ */
+interface SimpleChildSyntaxNode extends SimpleSyntaxNode {
   readonly startPosition: Point;
   readonly endPosition: Point;
-  readonly parent: SimpleSyntaxNode | null;
-  readonly children: Array<SimpleSyntaxNode>;
 }
 
 /**
@@ -38,6 +46,11 @@ export interface QueryCapture {
 
   /** The insertion delimiter to use if any */
   readonly insertionDelimiter: string | undefined;
+
+  /**
+   * The tree-sitter node that was captured.
+   */
+  readonly node: SimpleSyntaxNode;
 }
 
 /**
@@ -55,11 +68,6 @@ export interface QueryMatch {
  * internally by the query engine to allow operators to modify the capture.
  */
 export interface MutableQueryCapture extends QueryCapture {
-  /**
-   * The tree-sitter node that was captured.
-   */
-  readonly node: Omit<SimpleSyntaxNode, "startPosition" | "endPosition">;
-
   readonly document: TextDocument;
   range: Range;
   allowMultiple: boolean;

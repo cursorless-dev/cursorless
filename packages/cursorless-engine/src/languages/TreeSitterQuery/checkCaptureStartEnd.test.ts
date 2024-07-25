@@ -5,7 +5,10 @@ import assert from "assert";
 
 interface TestCase {
   name: string;
-  captures: Omit<QueryCapture, "allowMultiple" | "insertionDelimiter">[];
+  captures: Omit<
+    QueryCapture,
+    "allowMultiple" | "insertionDelimiter" | "node"
+  >[];
   isValid: boolean;
   expectedErrorMessageIds: string[];
 }

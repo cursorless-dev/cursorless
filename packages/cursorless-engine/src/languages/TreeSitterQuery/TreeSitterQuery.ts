@@ -113,6 +113,7 @@ export class TreeSitterQuery {
 
           return {
             name,
+            node: captures[0].node,
             range: captures
               .map(({ range }) => range)
               .reduce((accumulator, range) => range.union(accumulator)),

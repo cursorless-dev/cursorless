@@ -1,7 +1,8 @@
 import { matchAll, Range, type TextDocument } from "@cursorless/common";
 import type { LanguageDefinition } from "../../../../languages/LanguageDefinition";
-import type { DelimiterOccurrence, IndividualDelimiter } from "./types";
 import { getDelimiterRegex } from "./getDelimiterRegex";
+import { isContainedInErrorNode } from "./isContainedInErrorNode";
+import type { DelimiterOccurrence, IndividualDelimiter } from "./types";
 
 /**
  * Finds all occurrences of delimiters of a particular kind in a document.
@@ -23,9 +24,9 @@ export function getDelimiterOccurrences(
   const delimiterRegex = getDelimiterRegex(individualDelimiters);
 
   const disqualifyDelimiters =
-    languageDefinition?.getCaptureRanges(document, "disqualifyDelimiter") ?? [];
+    languageDefinition?.getCaptures(document, "disqualifyDelimiter") ?? [];
   const textFragments =
-    languageDefinition?.getCaptureRanges(document, "textFragment") ?? [];
+    languageDefinition?.getCaptures(document, "textFragment") ?? [];
 
   const delimiterTextToDelimiterInfoMap = Object.fromEntries(
     individualDelimiters.map((individualDelimiter) => [
@@ -43,10 +44,18 @@ export function getDelimiterOccurrences(
       document.positionAt(match.index! + text.length),
     );
 
+    const isDisqualified = disqualifyDelimiters.some(
+      (c) => c.range.contains(range) && !isContainedInErrorNode(c.node),
+    );
+
+    const textFragmentRange = textFragments.find((c) =>
+      c.range.contains(range),
+    )?.range;
+
     return {
       delimiterInfo: delimiterTextToDelimiterInfoMap[text],
-      isDisqualified: disqualifyDelimiters.some((r) => r.contains(range)),
-      textFragmentRange: textFragments.find((r) => r.contains(range)),
+      isDisqualified,
+      textFragmentRange,
       range,
     };
   });
