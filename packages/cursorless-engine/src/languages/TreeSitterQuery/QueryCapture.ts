@@ -11,8 +11,6 @@ export interface SimpleSyntaxNode {
   readonly type: string;
   readonly parent: SimpleSyntaxNode | null;
   readonly children: Array<SimpleChildSyntaxNode>;
-  readonly hasError: boolean;
-  readonly isError: boolean;
 }
 
 /**
