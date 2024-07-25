@@ -14,7 +14,7 @@ export interface SimpleSyntaxNode {
 }
 
 /**
- * Add start and in position to the simple syntax node. Used by the `child-range!` predicate.
+ * Add start and end position to the simple syntax node. Used by the `child-range!` predicate.
  */
 interface SimpleChildSyntaxNode extends SimpleSyntaxNode {
   readonly startPosition: Point;
