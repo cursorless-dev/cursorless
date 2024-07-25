@@ -244,12 +244,13 @@
   ")" @argumentOrParameter.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
 ) @argumentOrParameter.iteration.domain
 
-(binary_expression
-  operator: _ @disqualifyDelimiter
-)
-(assignment_expression
-  operator: _ @disqualifyDelimiter
-)
-(field_expression
-  operator: "->" @disqualifyDelimiter
-)
+operator: [
+  "->"
+  "<"
+  "<="
+  "<<="
+  ">"
+  ">="
+  ">>"
+  ">>="
+] @disqualifyDelimiter
