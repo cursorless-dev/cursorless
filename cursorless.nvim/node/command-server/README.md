@@ -1,0 +1,1 @@
+`command-server` is a modified version of the VSCode's command-server that works for Neovim. It can be built by following the instructions from https://github.com/hands-free-vim/command-server/tree/neovim#build
