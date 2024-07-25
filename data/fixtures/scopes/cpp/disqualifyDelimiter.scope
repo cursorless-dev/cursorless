@@ -44,3 +44,7 @@ auto max(int a, int b) -> int;
 [#9 Content] = 8:1-8:3
    >--<
 8| a->b
+
+[#10 Content] = 9:23-9:25
+                         >--<
+9| auto max(int a, int b) -> int;

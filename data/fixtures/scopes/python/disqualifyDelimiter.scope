@@ -39,3 +39,7 @@ def foo() -> int:
 [#8 Content] = 7:2-7:5
     >---<
 7| a >>= 2
+
+[#9 Content] = 8:10-8:12
+            >--<
+8| def foo() -> int:

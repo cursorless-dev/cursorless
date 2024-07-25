@@ -45,3 +45,31 @@ value match { case 0 => "fail" }
 [#8 Content] = 7:21-7:24
                        >---<
 7| val minValue = if (a >>= 2) a else b
+
+[#9 Content] = 8:7-8:9
+         >--<
+8| for (n <- numbers) yield n
+
+[#10 Content] = 9:15-9:17
+                 >--<
+9| def function[T <% String](x: T) = {}
+
+[#11 Content] = 10:13-10:15
+                >--<
+10| def method[T <: BaseType](param: T) = {}
+
+[#12 Content] = 11:13-11:15
+                >--<
+11| def method[T >: BaseType](param: T) = {}
+
+[#13 Content] = 12:19-12:21
+                      >--<
+12| val foo = (x: Int) => x
+
+[#14 Content] = 13:21-13:23
+                        >--<
+13| val func: (Int, Int) => Int = foo
+
+[#15 Content] = 14:21-14:23
+                        >--<
+14| value match { case 0 => "fail" }

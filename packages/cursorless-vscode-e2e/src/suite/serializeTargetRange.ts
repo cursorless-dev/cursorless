@@ -35,8 +35,10 @@ export function serializeTargetRange(
   const { start, end } = range;
   const lines: string[] = [];
 
+  // leading whitespace plus number of characters in the line number
+  const prefixPadding = start.line > 9 ? 3 : 2;
   // Add start of range marker above the first code line
-  const prefix = fill(" ", start.character + 2) + ">";
+  const prefix = fill(" ", start.character + prefixPadding) + ">";
   if (range.isSingleLine) {
     lines.push(prefix + fill("-", end.character - start.character) + "<");
   } else {
@@ -63,6 +65,7 @@ export function serializeTargetRange(
 
   return lines.join("\n");
 }
+
 function fill(character: string, count: number): string {
   return new Array(count + 1).join(character);
 }

@@ -40,3 +40,11 @@ case 85 when 0 then => "Fail" end
 [#8 Content] = 7:2-7:5
     >---<
 7| a >>= 2
+
+[#9 Content] = 8:9-8:11
+           >--<
+8| a = { :b => 2 }
+
+[#10 Content] = 9:20-9:22
+                      >--<
+9| case 85 when 0 then => "Fail" end
