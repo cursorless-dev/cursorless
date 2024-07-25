@@ -16,7 +16,9 @@ esbuild \
 cd testOut
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    brew install quickjs@$QUICKJS_VERSION
+    brew install quickjs
+    # Brew doesn't actually publish different versions of the quickjs binary
+    # brew install quickjs@$QUICKJS_VERSION
     qjs -I quickjsTest.mjs
     exit 0
 fi
