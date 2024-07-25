@@ -85,7 +85,7 @@ export class LanguageDefinition {
    *
    * @param document The document to search
    * @param captureName The name of a capture to search for
-   * @returns A list of ranges of the given capture in the document
+   * @returns A list of captures of the given capture name in the document
    */
   getCaptures(
     document: TextDocument,
