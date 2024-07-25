@@ -27,7 +27,7 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "eslint.workingDirectories": [{ "pattern": "packages/*/" }],
   "Lua.runtime.version": "Lua 5.1",
-  "Lua.diagnostics.globals": ["vim", "talon"],
+  "Lua.diagnostics.globals": ["vim", "talon", "it", "describe"],
   "[lua]": {
     "editor.defaultFormatter": "JohnnyMorganz.stylua"
   },
