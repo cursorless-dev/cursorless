@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-echo $ esbuild ... src/quickjsTest.ts
+QUICKJS_VERSION=2024-01-13
+
 esbuild \
     --outfile=testOut/quickjsTest.mjs \
     --platform=neutral \
@@ -11,11 +13,16 @@ esbuild \
     --external:std \
     src/quickjsTest.ts
 
-echo $ cd testOut
 cd testOut
 
-QUICKJS_URL_WIN=https://bellard.org/quickjs/binary_releases/quickjs-win-x86_64-2024-01-13.zip
-QUICKJS_URL_LINUX=https://bellard.org/quickjs/binary_releases/quickjs-linux-x86_64-2024-01-13.zip
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    brew install quickjs@$QUICKJS_VERSION
+    qjs -I quickjsTest.mjs
+    exit 0
+fi
+
+QUICKJS_URL_WIN=https://bellard.org/quickjs/binary_releases/quickjs-win-x86_64-$QUICKJS_VERSION.zip
+QUICKJS_URL_LINUX=https://bellard.org/quickjs/binary_releases/quickjs-linux-x86_64-$QUICKJS_VERSION.zip
 QUICKJS_FILE=quickjs.zip
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
@@ -31,13 +38,8 @@ else
     exit 1
 fi
 
-echo $ curl -o $QUICKJS_FILE $QUICKJS_URL
 curl -o $QUICKJS_FILE $QUICKJS_URL
 
-echo $ unzip $QUICKJS_FILE
 unzip $QUICKJS_FILE
 
-export CURSORLESS_MODE=test
-
-echo $ ./qjs -I quickjsTest.mjs
 ./qjs -I quickjsTest.mjs
