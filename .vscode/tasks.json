@@ -276,6 +276,14 @@
       // NOTE: We don't have a way on Windows atm due to command with argument inside Run() not working
       // so we need to show logs outside of vscode (see #2454)
     },
+    {
+      "label": "Neovim: Launch neovim (lua test)",
+      "type": "shell",
+      "command": "busted --run unit",
+      "options": {
+        "cwd": "cursorless.nvim"
+      }
+    },
 
     // cursorless.org
     {

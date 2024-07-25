@@ -10,7 +10,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     lazypath,
   })
 end
-vim.opt.rtp:prepend(lazypath)
+vim.opt.runtimepath:prepend(lazypath)
 require("lazy").setup({
   -- Allows title detection by neovim-talon while testing
   "hands-free-vim/talon.nvim",

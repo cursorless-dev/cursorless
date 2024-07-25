@@ -76,7 +76,10 @@
                   '';
                 }))
                 python
+
                 pkgs.neovim
+                pkgs.luajitPackages.busted # for lua testing
+                pkgs.luarocks # pre-commit doesn't auto-install luarocks
               ];
             # To prevent weird broken non-interactive bash terminal
             buildInputs = [ pkgs.bashInteractive ];
