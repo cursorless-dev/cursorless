@@ -9,11 +9,7 @@ export function isContainedInErrorNode(node: SimpleSyntaxNode) {
   let currentNode: SimpleSyntaxNode | null = node.parent;
 
   while (currentNode != null) {
-    if (
-      currentNode.hasError ||
-      currentNode.isError ||
-      currentNode.type === "ERROR"
-    ) {
+    if (currentNode.hasError || currentNode.isError) {
       return true;
     }
     currentNode = currentNode.parent;

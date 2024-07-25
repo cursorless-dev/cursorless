@@ -11,8 +11,8 @@ import {
 } from "@cursorless/common";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
 import { TreeSitterQuery } from "./TreeSitterQuery";
-import { validateQueryCaptures } from "./TreeSitterQuery/validateQueryCaptures";
 import type { QueryCapture } from "./TreeSitterQuery/QueryCapture";
+import { validateQueryCaptures } from "./TreeSitterQuery/validateQueryCaptures";
 
 /**
  * Represents a language definition for a single language, including the
