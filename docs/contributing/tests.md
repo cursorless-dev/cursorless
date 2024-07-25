@@ -2,7 +2,7 @@
 
 Tests are critical to Cursorless. We do not consider a bug fixed or feature added until there is a test (with an exception if writing the test is unreasonably difficult, in which case we'll usually file an issue to track adding a test).
 
-Our tests fall broadly into a three categories:
+Our tests fall broadly into three categories:
 
 - **Recorded tests** are end-to-end / subcutaneous tests that run a full Cursorless command and check that the ide ends up in the correct state. These represent the bulk of our tests, and are generated automatically using the [test case recorder](./test-case-recorder.md).
 - **Scope tests** check that Cursorless scopes are defined correctly for all languages that support the given scope. They consist of a small test document followed by `---`, and then a snapshot of the expected scopes in the given document. They are generated automatically using our [scope test recorder](./adding-a-new-scope.md#4-add-tests-for-the-given-scope).
