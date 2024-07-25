@@ -47,10 +47,8 @@ export interface QueryCapture {
   /** The insertion delimiter to use if any */
   readonly insertionDelimiter: string | undefined;
 
-  /**
-   * The tree-sitter node that was captured.
-   */
-  readonly node: SimpleSyntaxNode;
+  /** Returns true if this node or any of its ancestral nodes has errors */
+  hasError(): boolean;
 }
 
 /**
@@ -68,6 +66,11 @@ export interface QueryMatch {
  * internally by the query engine to allow operators to modify the capture.
  */
 export interface MutableQueryCapture extends QueryCapture {
+  /**
+   * The tree-sitter node that was captured.
+   */
+  readonly node: SimpleSyntaxNode;
+
   readonly document: TextDocument;
   range: Range;
   allowMultiple: boolean;

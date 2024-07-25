@@ -1,7 +1,6 @@
 import { matchAll, Range, type TextDocument } from "@cursorless/common";
 import type { LanguageDefinition } from "../../../../languages/LanguageDefinition";
 import { getDelimiterRegex } from "./getDelimiterRegex";
-import { isContainedInErrorNode } from "./isContainedInErrorNode";
 import type { DelimiterOccurrence, IndividualDelimiter } from "./types";
 
 /**
@@ -45,7 +44,7 @@ export function getDelimiterOccurrences(
     );
 
     const isDisqualified = disqualifyDelimiters.some(
-      (c) => c.range.contains(range) && !isContainedInErrorNode(c.node),
+      (c) => c.range.contains(range) && !c.hasError(),
     );
 
     const textFragmentRange = textFragments.find((c) =>

@@ -9,7 +9,7 @@ import { QueryCapture } from "./QueryCapture";
  * @returns `true` if the captures are valid
  */
 export function checkCaptureStartEnd(
-  captures: Omit<QueryCapture, "node">[],
+  captures: QueryCapture[],
   messages: Messages,
 ): boolean {
   if (captures.length === 1) {

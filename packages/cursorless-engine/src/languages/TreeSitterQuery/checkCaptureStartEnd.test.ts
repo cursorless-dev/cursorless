@@ -7,7 +7,7 @@ interface TestCase {
   name: string;
   captures: Omit<
     QueryCapture,
-    "allowMultiple" | "insertionDelimiter" | "node"
+    "allowMultiple" | "insertionDelimiter" | "hasError"
   >[];
   isValid: boolean;
   expectedErrorMessageIds: string[];
@@ -196,6 +196,7 @@ suite("checkCaptureStartEnd", () => {
           ...capture,
           allowMultiple: false,
           insertionDelimiter: undefined,
+          hasError: () => false,
         })),
         messages,
       );
