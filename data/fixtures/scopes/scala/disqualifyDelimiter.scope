@@ -6,6 +6,13 @@ val minValue = if (a << 2) a else b
 val minValue = if (a >> 2) a else b
 val minValue = if (a <<= 2) a else b
 val minValue = if (a >>= 2) a else b
+for (n <- numbers) yield n
+def function[T <% String](x: T) = {}
+def method[T <: BaseType](param: T) = {}
+def method[T >: BaseType](param: T) = {}
+val foo = (x: Int) => x
+val func: (Int, Int) => Int = foo
+value match { case 0 => "fail" }
 ---
 [#1 Content] = 0:21-0:22
                        >-<

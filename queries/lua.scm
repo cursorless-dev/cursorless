@@ -1,3 +1,5 @@
+;; https://github.com/tree-sitter-grammars/tree-sitter-lua/blob/main/src/grammar.json
+
 ;; Statements
 [
   (variable_declaration)
@@ -300,8 +302,10 @@ local_declaration: (variable_declaration
 (binary_expression
   [
     "<"
+    "<<"
     "<="
     ">"
     ">="
+    ">>"
   ] @disqualifyDelimiter
 )

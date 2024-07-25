@@ -1,3 +1,5 @@
+;; https://github.com/tree-sitter-grammars/tree-sitter-markdown/blob/main/src/grammar.json
+
 (document) @textFragment
 
 (html_block) @comment

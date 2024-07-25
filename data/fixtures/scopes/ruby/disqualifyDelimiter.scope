@@ -6,6 +6,8 @@ a << 2
 a >> 2
 a <<= 2
 a >>= 2
+a = { :b => 2 }
+case 85 when 0 then => "Fail" end
 ---
 [#1 Content] = 0:2-0:3
     >-<

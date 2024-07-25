@@ -8,6 +8,12 @@ a >> 2;
 a <<= 2;
 a >>= 2;
 ['first' => 1];
+$a = <<< EOT;
+$a = <<< 'TEXT';
+foo->bar;
+foo->bar();
+foo?->bar;
+foo?->bar();
 ---
 [#1 Content] = 0:0-0:1
   >-<

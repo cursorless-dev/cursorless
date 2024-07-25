@@ -1,3 +1,5 @@
+;; https://github.com/tree-sitter/tree-sitter-ruby/blob/master/src/grammar.json
+
 (comment) @comment @textFragment
 (hash) @map
 (regex) @regularExpression
@@ -61,3 +63,9 @@ operator: [
   ">>"
   ">>="
 ] @disqualifyDelimiter
+(pair
+  "=>" @disqualifyDelimiter
+)
+(match_pattern
+  "=>" @disqualifyDelimiter
+)
