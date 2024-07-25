@@ -38,7 +38,7 @@ export function serializeTargetRange(
   // Number of characters in the line number + `|`
   const startPadding = start.line > 9 ? 3 : 2;
   // Add start of range marker above the first code line
-  const prefix = fill(" ", start.character + startPadding) + ">";
+  const prefix = fill(" ", startPadding + start.character) + ">";
   if (range.isSingleLine) {
     lines.push(prefix + fill("-", end.character - start.character) + "<");
   } else {
