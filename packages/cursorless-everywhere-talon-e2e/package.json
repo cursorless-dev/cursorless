@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "compile": "tsc --build",
-    "test:quickjs": "bash +x scripts/test-quickjs.sh",
+    "test:quickjs": "bash scripts/test-quickjs.sh",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "keywords": [],

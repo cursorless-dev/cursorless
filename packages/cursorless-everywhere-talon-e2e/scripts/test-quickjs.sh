@@ -3,6 +3,7 @@ set -euo pipefail
 
 QUICKJS_VERSION=2024-01-13
 
+echo $ esbuild ... src/quickjsTest.ts
 esbuild \
     --outfile=testOut/quickjsTest.mjs \
     --platform=neutral \
@@ -13,13 +14,17 @@ esbuild \
     --external:std \
     src/quickjsTest.ts
 
+echo $ cd testOut
 cd testOut
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
     brew install quickjs
     # Brew doesn't actually publish different versions of the quickjs binary
     # brew install quickjs@$QUICKJS_VERSION
+
+    echo $ qjs -I quickjsTest.mjs
     qjs -I quickjsTest.mjs
+
     exit 0
 fi
 
@@ -36,12 +41,15 @@ elif [[ "$OSTYPE" == "msys" ]]; then
 elif [[ "$OSTYPE" == "win32" ]]; then
     QUICKJS_URL=$QUICKJS_URL_WIN
 else
-    echo "Unsupported OS: $OSTYPE"
+    echo "ERROR Unsupported OS: $OSTYPE"
     exit 1
 fi
 
+echo $ curl -o $QUICKJS_FILE $QUICKJS_URL
 curl -o $QUICKJS_FILE $QUICKJS_URL
 
+echo $ unzip $QUICKJS_FILE
 unzip $QUICKJS_FILE
 
+echo $ ./qjs -I quickjsTest.mjs
 ./qjs -I quickjsTest.mjs
