@@ -60,7 +60,8 @@ export function serializeTargetRange(
   // Add end of range marker below the last code line (if this was a multiline
   // range)
   if (!range.isSingleLine) {
-    lines.push("   " + fill("-", end.character) + "<");
+    const padding = end.line > 9 ? "    " : "   ";
+    lines.push(padding + fill("-", end.character) + "<");
   }
 
   return lines.join("\n");
