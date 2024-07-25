@@ -140,7 +140,7 @@ async function runTest(file: string, languageId: string, facetId: string) {
 
     const scopes = scopeProvider.provideScopeRanges(editor, config);
 
-    return serializeScopeFixture(code, scopes);
+    return serializeScopeFixture(facetId, code, scopes);
   })();
 
   if (shouldUpdateFixtures()) {

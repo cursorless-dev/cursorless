@@ -7,15 +7,21 @@ import {
 import { serializeHeader } from "./serializeHeader";
 import { serializeTargetRange } from "./serializeTargetRange";
 
+const contentRangeOnlyFacets = new Set(["disqualifyDelimiter"]);
+
 export function serializeScopeFixture(
+  facetId: string,
   code: string,
   scopes: ScopeRanges[],
 ): string {
   const codeLines = code.split("\n");
 
-  const serializedScopes = scopes.map((scope, index) =>
-    serializeScope(codeLines, scope, scopes.length > 1 ? index + 1 : undefined),
-  );
+  const serializedScopes = scopes.map((scope, index) => {
+    const scopeNumber = scopes.length > 1 ? index + 1 : undefined;
+    return contentRangeOnlyFacets.has(facetId)
+      ? serializeScopeContentRangeOnly(codeLines, scope, scopeNumber)
+      : serializeScope(codeLines, scope, scopeNumber);
+  });
 
   return serializeScopeFixtureHelper(codeLines, serializedScopes);
 }
@@ -80,6 +86,24 @@ function serializeScope(
     }),
     serializeTargetRange(codeLines, domain),
   ].join("\n");
+}
+
+function serializeScopeContentRangeOnly(
+  codeLines: string[],
+  { targets }: ScopeRanges,
+  scopeNumber: number | undefined,
+): string {
+  return targets
+    .flatMap((target, index) => [
+      serializeHeader({
+        header: "Content",
+        scopeNumber,
+        targetNumber: targets.length > 1 ? index + 1 : undefined,
+        range: target.contentRange,
+      }),
+      serializeTargetRange(codeLines, target.contentRange),
+    ])
+    .join("\n");
 }
 
 function serializeIterationScope(
