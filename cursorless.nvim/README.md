@@ -20,7 +20,7 @@
 
 # cursorless.nvim
 
-Very experimental Neovim plugin providing partial Cursorless support. We support much of the core functionality, but many features are not yet implemented, in particular hats and language-specific scopes. Expect some rough edges, but please give it a try, and if you like it, consider [contributing](https://www.cursorless.org/docs/contributing/cursorless-in-neovim/)!
+Very experimental Neovim plugin providing partial Cursorless support. We support much of the core functionality, but many features are not yet implemented, in particular hats ([#2567](https://github.com/cursorless-dev/cursorless/issues/2567)) and language-specific scopes ([#2568](https://github.com/cursorless-dev/cursorless/issues/2568)). Expect some rough edges, but please give it a try, and if you like it, consider [contributing](https://www.cursorless.org/docs/contributing/cursorless-in-neovim/)!
 
 ## Prerequisites
 
