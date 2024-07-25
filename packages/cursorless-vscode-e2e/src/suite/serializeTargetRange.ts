@@ -36,9 +36,9 @@ export function serializeTargetRange(
   const lines: string[] = [];
 
   // Number of characters in the line number + `|`
-  const startPadding = start.line > 9 ? 3 : 2;
+  const startIndent = start.line > 9 ? 3 : 2;
   // Add start of range marker above the first code line
-  const prefix = fill(" ", startPadding + start.character) + ">";
+  const prefix = fill(" ", startIndent + start.character) + ">";
   if (range.isSingleLine) {
     lines.push(prefix + fill("-", end.character - start.character) + "<");
   } else {
@@ -61,8 +61,8 @@ export function serializeTargetRange(
   // range)
   if (!range.isSingleLine) {
     // Number of characters in the line number + `|` + whitespace
-    const endPadding = end.line > 9 ? 4 : 3;
-    lines.push(fill(" ", endPadding) + fill("-", end.character) + "<");
+    const endIndent = end.line > 9 ? 4 : 3;
+    lines.push(fill(" ", endIndent) + fill("-", end.character) + "<");
   }
 
   return lines.join("\n");
