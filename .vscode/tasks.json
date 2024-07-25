@@ -158,8 +158,7 @@
       "dependsOn": [
         "Neovim: Launch neovim",
         "Neovim: ESBuild",
-        "Neovim: Populate dist",
-        "Neovim: Show logs"
+        "Neovim: Populate dist"
       ],
       "group": "build"
     },
@@ -170,8 +169,7 @@
         "Neovim: ESBuild",
         "Neovim: Populate dist",
         "TSBuild",
-        "Build test harness",
-        "Neovim: Show logs"
+        "Build test harness"
       ],
       "group": "build"
     },
@@ -222,6 +220,9 @@
         ]
       },
       "group": "build",
+      "presentation": {
+        "reveal": "silent"
+      },
       "options": {
         "env": {
           "CURSORLESS_REPO_ROOT": "${workspaceFolder}",
@@ -253,6 +254,9 @@
         ]
       },
       "group": "build",
+      "presentation": {
+        "reveal": "silent"
+      },
       "options": {
         "env": {
           "CURSORLESS_REPO_ROOT": "${workspaceFolder}",
@@ -266,13 +270,22 @@
     {
       "label": "Neovim: Show logs",
       "type": "process",
-      "command": "tail",
-      "args": [
-        "-f",
-        "${workspaceFolder}/packages/cursorless-neovim/out/nvim_node.log"
-      ],
+      "command": "packages/cursorless-neovim/scripts/show-logs.sh",
       "problemMatcher": [],
-      "isBackground": true
+      "isBackground": true,
+      "presentation": {
+        "echo": false,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "options": {
+        "env": {
+          "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
+        }
+      }
       // NOTE: We don't have a way on Windows atm due to command with argument inside Run() not working
       // so we need to show logs outside of vscode (see #2454)
     },

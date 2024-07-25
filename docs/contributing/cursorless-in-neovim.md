@@ -37,13 +37,15 @@ Note that the `C:\path\to\cursorless` path above should match your cloned cursor
 
 ## Running / testing extension locally
 
-In order to test out your local version of the extension or to run unit tests locally, you need to run the extension in
-debug mode. To do so you need to run the `workbench.action.debug.selectandstart` (aka `Debug: Select and Start Debugging`) command in VSCode and then select either "Neovim: Run" or "Neovim: Test".
+In order to test out your local version of the extension or to run unit tests locally, you need to run the extension in debug mode. To do so you need to do the following:
 
-The debug logs are written in `C:\path\to\cursorless\packages\cursorless-neovim\out\nvim_node.log`.
+1. Open the Cursorless repository in VSCode (with your regular default profile, _**not**_ with the `cursorlessDevelopment` profile)
+2. Say `"neovim log"` to open the neovim log.
+3. Say `"debug neovim"` to run the extension. If you want to run the tests instead, say `"debug test neovim"`.
 
-NOTE: This will spawn a standalone nvim instance that is independent of VSCode. Consequently after you're done
-debugging, you need to close nvim.
+NOTE: This will spawn a standalone nvim instance that is independent of VSCode. Consequently after you're done debugging, you need to close nvim.
+
+If you don't have the `cursorless-talon-dev` files in your Talon user directory as described in step 6 of [CONTRIBUTING.md](./CONTRIBUTING.md#initial-setup), then you instead need to run the `workbench.action.debug.selectandstart` command in VSCode and then select either "Neovim: Run" or "Neovim: Test".
 
 ### Running lua tests
 
