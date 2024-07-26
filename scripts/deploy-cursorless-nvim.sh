@@ -2,12 +2,7 @@
 # This script is used to push to the cursorless.nvim github production repo
 set -euo pipefail
 
-# Clone current cursorless.nvim main
-mkdir -p dist && cd dist
-git clone 'https://github.com/hands-free-vim/cursorless.nvim.git' cursorless.nvim-remote
-cd -
-
-out_dir=dist/cursorless.nvim-remote
+out_dir="$1"
 
 # Delete the old files
 cd "$out_dir"
