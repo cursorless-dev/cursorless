@@ -7,6 +7,10 @@ import {
 import { serializeHeader } from "./serializeHeader";
 import { serializeTargetRange } from "./serializeTargetRange";
 
+/**
+ * These are special facets that are really only used as scopes for debugging.
+ * In production we only care about the content range, so that's all we test.
+ */
 const contentRangeOnlyFacets = new Set(["disqualifyDelimiter"]);
 
 export function serializeScopeFixture(
