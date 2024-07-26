@@ -6,6 +6,12 @@
       "path": "../common"
     },
     {
+      "path": "../neovim-common"
+    },
+    {
+      "path": "../neovim-registry"
+    },
+    {
       "path": "../node-common"
     }
   ]

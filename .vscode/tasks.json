@@ -152,6 +152,152 @@
       "group": "test"
     },
 
+    // Neovim tasks
+    {
+      "label": "Neovim: Build extension",
+      "dependsOn": [
+        "Neovim: Launch neovim",
+        "Neovim: ESBuild",
+        "Neovim: Populate dist"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "Neovim: Build extension and tests",
+      "dependsOn": [
+        "Neovim: Launch neovim (test)",
+        "Neovim: ESBuild",
+        "Neovim: Populate dist",
+        "TSBuild",
+        "Build test harness"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "Neovim: ESBuild",
+      "type": "npm",
+      "script": "esbuild",
+      "path": "packages/cursorless-neovim",
+      "dependsOn": ["Generate grammar"],
+      "presentation": {
+        "reveal": "silent"
+      },
+      "group": "build"
+    },
+    {
+      "label": "Neovim: Populate dist",
+      "type": "npm",
+      "script": "populate-dist",
+      "path": "packages/cursorless-neovim",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "options": {
+        "env": {
+          "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
+        }
+      },
+      "group": "build"
+    },
+    {
+      "label": "Neovim: Launch neovim",
+      "type": "process",
+      "command": "packages/cursorless-neovim/scripts/linux-terminal.sh",
+      "args": [
+        "${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.sh ${workspaceFolder} development"
+      ],
+      "osx": {
+        "command": "osascript",
+        "args": [
+          "-e",
+          "tell app \"Terminal\" to do script \"${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.sh ${workspaceFolder} development\" activate"
+        ]
+      },
+      "windows": {
+        "command": "powershell",
+        "args": [
+          "(New-Object -ComObject WScript.Shell).Run(\"\"\"${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.bat\"\"\", 1, $false)"
+        ]
+      },
+      "group": "build",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "options": {
+        "env": {
+          "CURSORLESS_REPO_ROOT": "${workspaceFolder}",
+          "NVIM_NODE_HOST_DEBUG": "1",
+          "NVIM_NODE_LOG_FILE": "${workspaceFolder}/packages/cursorless-neovim/out/nvim_node.log",
+          "NVIM_NODE_LOG_LEVEL": "info",
+          "CURSORLESS_MODE": "development"
+        }
+      }
+    },
+    {
+      "label": "Neovim: Launch neovim (test)",
+      "type": "process",
+      "command": "packages/cursorless-neovim/scripts/linux-terminal.sh",
+      "args": [
+        "${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.sh ${workspaceFolder} test"
+      ],
+      "osx": {
+        "command": "osascript",
+        "args": [
+          "-e",
+          "tell app \"Terminal\" to do script \"${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.sh ${workspaceFolder} test\" activate"
+        ]
+      },
+      "windows": {
+        "command": "powershell",
+        "args": [
+          "(New-Object -ComObject WScript.Shell).Run(\"\"\"${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.bat\"\"\", 1, $false)"
+        ]
+      },
+      "group": "build",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "options": {
+        "env": {
+          "CURSORLESS_REPO_ROOT": "${workspaceFolder}",
+          "NVIM_NODE_HOST_DEBUG": "1",
+          "NVIM_NODE_LOG_FILE": "${workspaceFolder}/packages/cursorless-neovim/out/nvim_node.log",
+          "NVIM_NODE_LOG_LEVEL": "info",
+          "CURSORLESS_MODE": "test"
+        }
+      }
+    },
+    {
+      "label": "Neovim: Show logs",
+      "type": "shell",
+      "command": "packages/cursorless-neovim/scripts/show-logs.sh",
+      "problemMatcher": [],
+      "isBackground": true,
+      "presentation": {
+        "echo": false,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "options": {
+        "env": {
+          "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
+        }
+      }
+      // NOTE: We don't have a way on Windows atm due to command with argument inside Run() not working
+      // so we need to show logs outside of vscode (see #2454)
+    },
+    {
+      "label": "Neovim: Launch neovim (lua test)",
+      "type": "shell",
+      "command": "busted --run unit",
+      "options": {
+        "cwd": "cursorless.nvim"
+      }
+    },
+
     // cursorless.org
     {
       "label": "Serve cursorless.org",

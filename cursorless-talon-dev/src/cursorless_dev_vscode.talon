@@ -23,3 +23,12 @@ debug edit subset:
 debug {user.cursorless_launch_configuration}:
     user.run_rpc_command("commands.startDebugging", cursorless_launch_configuration)
     user.run_rpc_command("workbench.debug.action.focusRepl")
+
+neovim log:
+    user.run_rpc_command("workbench.action.tasks.runTask", "Neovim: Show logs")
+debug neovim:
+    user.run_rpc_command("commands.startDebugging", "Neovim: Run")
+    user.run_rpc_command("workbench.action.tasks.showTasks")
+debug test neovim:
+    user.run_rpc_command("commands.startDebugging", "Neovim: Test")
+    user.run_rpc_command("workbench.action.tasks.showTasks")

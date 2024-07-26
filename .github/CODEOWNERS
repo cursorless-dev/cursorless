@@ -1,4 +1,9 @@
-*       @pokey @AndreasArvidsson @phillco
+* @cursorless-dev/code-owners
 
-*keyboard* @pokey @AndreasArvidsson @phillco @josharian
-*Keyboard* @pokey @AndreasArvidsson @phillco @josharian
+*keyboard* @cursorless-dev/code-owners @josharian
+*Keyboard* @cursorless-dev/code-owners @josharian
+
+*neovim* @cursorless-dev/code-owners @saidelike @fidgetingbits
+*Neovim* @cursorless-dev/code-owners @saidelike @fidgetingbits
+*nvim* @cursorless-dev/code-owners @saidelike @fidgetingbits
+*Nvim* @cursorless-dev/code-owners @saidelike @fidgetingbits
