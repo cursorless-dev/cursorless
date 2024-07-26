@@ -290,7 +290,7 @@ export const scopeSupportFacetInfos: Record<
 
   disqualifyDelimiter: {
     description:
-      "A surrounding pair delimiter that is disqualified from using in a surrounding pair. eg operator '<'",
+      "Used to disqualify a token from being treated as a surrounding pair delimiter. This will usually be operators containing `>` or `<`, eg `<`, `<=`, `->`, etc",
     scopeType: "disqualifyDelimiter",
   },
 
