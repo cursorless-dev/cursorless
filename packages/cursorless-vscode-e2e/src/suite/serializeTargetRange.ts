@@ -61,7 +61,7 @@ export function serializeTargetRange(
   // range)
   if (!range.isSingleLine) {
     // Number of characters in the line number + `|` + whitespace
-    const endIndent = end.line > 9 ? 4 : 3;
+    const endIndent = `${end.line}`.length + 2;
     lines.push(fill(" ", endIndent) + fill("-", end.character) + "<");
   }
 
