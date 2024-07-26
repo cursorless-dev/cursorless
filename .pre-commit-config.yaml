@@ -1,7 +1,7 @@
 minimum_pre_commit_version: "2.9.0"
 ci:
   autoupdate_schedule: monthly
-exclude: /vendor/
+exclude: /vendor/|^data/playground/
 repos:
   - repo: meta
     hooks:
