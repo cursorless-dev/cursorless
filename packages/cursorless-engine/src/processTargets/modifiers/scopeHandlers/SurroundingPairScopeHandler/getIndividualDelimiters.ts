@@ -34,8 +34,9 @@ function getSimpleIndividualDelimiters(
 ): IndividualDelimiter[] {
   const delimiterToText = getSimpleDelimiterMap(languageId);
   return delimiters.flatMap((delimiterName) => {
-    const [leftDelimiter, rightDelimiter, isSingleLine] =
+    const [leftDelimiter, rightDelimiter, options] =
       delimiterToText[delimiterName];
+    const { isSingleLine, isUnknownSide } = options ?? {};
 
     // Allow for the fact that a delimiter might have multiple ways to indicate
     // its opening / closing
@@ -52,16 +53,24 @@ function getSimpleIndividualDelimiters(
       const isLeft = leftDelimiters.includes(text);
       const isRight = rightDelimiters.includes(text);
 
+      // If delimiter text is the same for left and right, we say it's side
+      // is "unknown", so must be determined from context.
+      const side = (() => {
+        if (isUnknownSide) {
+          return "unknown";
+        }
+        if (isLeft && !isRight) {
+          return "left";
+        }
+        if (!isLeft && isRight) {
+          return "right";
+        }
+        return "unknown";
+      })();
+
       return {
         text,
-        // If delimiter text is the same for left and right, we say it's side
-        // is "unknown", so must be determined from context.
-        side:
-          isLeft && !isRight
-            ? "left"
-            : isRight && !isLeft
-              ? "right"
-              : "unknown",
+        side,
         delimiterName,
         isSingleLine: isSingleLine ?? false,
       };

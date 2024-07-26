@@ -6,10 +6,15 @@ import {
 
 type IndividualDelimiterText = string | string[];
 
+interface Options {
+  isSingleLine?: boolean;
+  isUnknownSide?: boolean;
+}
+
 type DelimiterMap = Record<
   SimpleSurroundingPairName,
   | [IndividualDelimiterText, IndividualDelimiterText]
-  | [IndividualDelimiterText, IndividualDelimiterText, boolean]
+  | [IndividualDelimiterText, IndividualDelimiterText, Options]
 >;
 
 const delimiterToText: DelimiterMap = Object.freeze({
@@ -21,13 +26,13 @@ const delimiterToText: DelimiterMap = Object.freeze({
   curlyBrackets: [["{", "${"], "}"],
   tripleDoubleQuotes: [[], []],
   tripleSingleQuotes: [[], []],
-  doubleQuotes: ['"', '"', true],
-  escapedDoubleQuotes: ['\\"', '\\"', true],
+  doubleQuotes: ['"', '"', { isSingleLine: true }],
+  escapedDoubleQuotes: ['\\"', '\\"', { isSingleLine: true }],
   escapedParentheses: ["\\(", "\\)"],
   escapedSquareBrackets: ["\\[", "\\]"],
-  escapedSingleQuotes: ["\\'", "\\'", true],
+  escapedSingleQuotes: ["\\'", "\\'", { isSingleLine: true }],
   parentheses: [["(", "$("], ")"],
-  singleQuotes: ["'", "'", true],
+  singleQuotes: ["'", "'", { isSingleLine: true }],
   squareBrackets: ["[", "]"],
 });
 
@@ -81,10 +86,26 @@ const delimiterToTextOverrides: Record<string, Partial<DelimiterMap>> = {
   },
 
   python: {
-    singleQuotes: [pythonPrefixes.map((prefix) => `${prefix}'`), "'", true],
-    doubleQuotes: [pythonPrefixes.map((prefix) => `${prefix}"`), '"', true],
-    tripleSingleQuotes: [pythonPrefixes.map((prefix) => `${prefix}'''`), "'''"],
-    tripleDoubleQuotes: [pythonPrefixes.map((prefix) => `${prefix}"""`), '"""'],
+    singleQuotes: [
+      pythonPrefixes.map((prefix) => `${prefix}'`),
+      "'",
+      { isSingleLine: true, isUnknownSide: true },
+    ],
+    doubleQuotes: [
+      pythonPrefixes.map((prefix) => `${prefix}"`),
+      '"',
+      { isSingleLine: true, isUnknownSide: true },
+    ],
+    tripleSingleQuotes: [
+      pythonPrefixes.map((prefix) => `${prefix}'''`),
+      "'''",
+      { isUnknownSide: true },
+    ],
+    tripleDoubleQuotes: [
+      pythonPrefixes.map((prefix) => `${prefix}"""`),
+      '"""',
+      { isUnknownSide: true },
+    ],
   },
 
   ruby: {
@@ -141,7 +162,7 @@ export function getSimpleDelimiterMap(
 ): Record<
   SimpleSurroundingPairName,
   | [IndividualDelimiterText, IndividualDelimiterText]
-  | [IndividualDelimiterText, IndividualDelimiterText, boolean]
+  | [IndividualDelimiterText, IndividualDelimiterText, Options]
 > {
   if (languageId != null && languageId in delimiterToTextOverrides) {
     return {
