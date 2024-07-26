@@ -103,7 +103,7 @@ interface TalonInTests extends Talon {
 const talonMock: TalonInTests = {
   actions,
   settings,
-  Context: createContext,
+  ["Context"]: createContext,
   getTestHelpers,
 };
 
