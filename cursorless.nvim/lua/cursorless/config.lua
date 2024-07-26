@@ -1,10 +1,15 @@
 local M = {}
 
 local function default_shortcut()
-  local windows_shortcut = "<C-S-F12>"
-  local unix_shortcut = "<C-`>"
-  return require("cursorless.utils").is_platform_windows() and windows_shortcut
-    or unix_shortcut
+  if require("cursorless.utils").is_platform_macos() then
+    return "<C-M-\\>"
+  end
+
+  if require("cursorless.utils").is_platform_windows() then
+    return "<C-S-F12>"
+  end
+
+  return "<C-`>"
 end
 
 local config = {

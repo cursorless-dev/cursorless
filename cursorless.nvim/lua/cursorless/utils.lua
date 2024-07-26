@@ -5,6 +5,11 @@ function M.is_platform_windows()
   return vim.uv.os_uname().version:find("Windows")
 end
 
+-- :lua print(require('cursorless.utils').is_platform_macos())
+function M.is_platform_macos()
+  return vim.uv.os_uname().version:find("Darwin")
+end
+
 -- :lua print(require('cursorless.utils').get_path_separator())
 function M.get_path_separator()
   if M.is_platform_windows() then
