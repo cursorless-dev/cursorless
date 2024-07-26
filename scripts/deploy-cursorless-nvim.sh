@@ -1,18 +1,31 @@
 #!/usr/bin/env bash
-# This script is used to push to the cursorless.nvim github production repo
+# This script is used to push to the cursorless.nvim GitHub production repo
 set -euo pipefail
 
+# Check if staging_dir argument is provided
+if [ $# -eq 0 ]; then
+  echo "Error: No staging directory provided."
+  echo "Usage: $0 <staging_dir>"
+  exit 1
+fi
+
 staging_dir="$1"
+
+# Check if staging_dir exists
+if [ ! -d "$staging_dir" ]; then
+  echo "Error: Staging directory '$staging_dir' does not exist."
+  exit 1
+fi
 
 # Delete the old files
 cd "$staging_dir"
 git rm -r '*'
 cd -
 
-# copy static files
+# Copy static files
 cp -r cursorless.nvim/* "$staging_dir/"
 
-# copy the built .js file
+# Copy the built .js file
 mkdir -p "$staging_dir/node/cursorless-neovim/out"
 cp packages/cursorless-neovim/package.json "$staging_dir/node/cursorless-neovim/"
 cp packages/cursorless-neovim/out/index.cjs "$staging_dir/node/cursorless-neovim/out/"
