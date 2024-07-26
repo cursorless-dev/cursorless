@@ -110,6 +110,24 @@
       ]
     },
 
+    // Neovim launch configs
+    {
+      "name": "Neovim: Run",
+      "request": "attach",
+      "continueOnAttach": true,
+      "skipFiles": ["<node_internals>/**"],
+      "preLaunchTask": "Neovim: Build extension",
+      "type": "node"
+    },
+    {
+      "name": "Neovim: Test",
+      "request": "attach",
+      "continueOnAttach": true,
+      "skipFiles": ["<node_internals>/**"],
+      "preLaunchTask": "Neovim: Build extension and tests",
+      "type": "node"
+    },
+
     // Talon launch configs
     {
       "name": "Talon: Test",
