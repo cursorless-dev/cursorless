@@ -15,10 +15,6 @@ export default async function neovimEdit(
   window: Window,
   edits: Edit[],
 ): Promise<boolean> {
-  // Remove one edit to make sure CI breaks
-  if (edits.length > 0) {
-    edits = edits.slice(0, edits.length - 1);
-  }
   console.debug("neovimEdit() [unsorted]:");
   for (const edit of edits) {
     console.debug(
