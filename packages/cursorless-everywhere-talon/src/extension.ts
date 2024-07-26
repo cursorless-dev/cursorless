@@ -7,7 +7,7 @@ export async function activate(runMode: RunMode): Promise<void> {
     {
       actions,
       settings,
-      createContext: () => new Context(),
+      Context: () => new Context(),
     },
     runMode,
   );

@@ -49,5 +49,5 @@ export interface TalonSettings {
 export interface Talon {
   readonly actions: TalonActions;
   readonly settings: TalonSettings;
-  createContext(): TalonContext;
+  Context(): TalonContext;
 }
