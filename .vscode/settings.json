@@ -25,5 +25,15 @@
   "files.eol": "\n",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.tsdk": "node_modules/typescript/lib",
-  "eslint.workingDirectories": [{ "pattern": "packages/*/" }]
+  "eslint.workingDirectories": [{ "pattern": "packages/*/" }],
+  "Lua.runtime.version": "Lua 5.1",
+  "Lua.diagnostics.globals": ["vim", "talon", "it", "describe"],
+  "Lua.diagnostics.ignoredFiles": "Disable",
+  "Lua.workspace.ignoreDir": ["data/playground/lua/"],
+  "[lua]": {
+    "editor.defaultFormatter": "JohnnyMorganz.stylua"
+  },
+  "files.associations": {
+    ".busted": "lua"
+  }
 }

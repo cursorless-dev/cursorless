@@ -59,7 +59,7 @@ locally, you need to run the extension in debug mode. To do so you need to do th
 1. Open the Cursorless repository in VSCode (with your regular default profile, _**not**_ with the `cursorlessDevelopment` profile)
 2. Say `"debug extension"` to run the extension. If you want to run the tests instead, say `"debug test"`.
 
-If you don't have the `cursorless-talon-dev` files in your Talon user directory as described in step 6 above, then you instead need to run the `workbench.action.debug.selectandstart` command in VSCode and then select either "Run Extension" or "Extension Tests".
+If you don't have the `cursorless-talon-dev` files in your Talon user directory as described in step 6 above, then you instead need to run the `workbench.action.debug.selectandstart` command in VSCode and then select either "VSCode: Run" or "VSCode: Test".
 
 ### Running a subset of tests
 
