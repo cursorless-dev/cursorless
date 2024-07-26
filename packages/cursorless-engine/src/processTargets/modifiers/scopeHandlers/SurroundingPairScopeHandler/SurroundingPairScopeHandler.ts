@@ -19,7 +19,7 @@ import { getSurroundingPairOccurrences } from "./getSurroundingPairOccurrences";
 import { SurroundingPairOccurrence } from "./types";
 
 export class SurroundingPairScopeHandler extends BaseScopeHandler {
-  public readonly iterationScopeType: ScopeType = { type: "document" };
+  public readonly iterationScopeType: ScopeType = { type: "line" };
   protected isHierarchical = true;
 
   constructor(
