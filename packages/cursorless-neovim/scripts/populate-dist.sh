@@ -41,11 +41,11 @@ else
   # https://stackoverflow.com/questions/18641864/git-bash-shell-fails-to-create-symbolic-links/40914277#40914277
   if [[ "$(uname -s)" != MINGW* ]]; then
     cursorless_neovim_node_out_dir="$cursorless_nvim_dir/node/cursorless-neovim"
-    rm -f "$cursorless_neovim_node_out_dir"
+    rm -rf "$cursorless_neovim_node_out_dir"
     ln -s "$cursorless_neovim_node_in_dir" "$cursorless_neovim_node_out_dir"
 
     test_harness_node_out_dir="$cursorless_nvim_dir/node/test-harness"
-    rm -f "$test_harness_node_out_dir"
+    rm -rf "$test_harness_node_out_dir"
     ln -s "$test_harness_node_in_dir" "$test_harness_node_out_dir"
   fi
 fi
