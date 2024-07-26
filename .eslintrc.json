@@ -42,16 +42,16 @@
     "@typescript-eslint/no-non-null-assertion": "off",
     "unused-imports/no-unused-imports": "error",
     "@typescript-eslint/no-unused-vars": [
-      "warn",
+      "error",
       {
         "argsIgnorePattern": "^_",
         "varsIgnorePattern": "^_",
         "ignoreRestSiblings": true
       }
     ],
-    "curly": "warn",
+    "curly": "error",
     "eqeqeq": [
-      "warn",
+      "error",
       "always",
       {
         "null": "never"
@@ -67,7 +67,7 @@
       "error",
       "MemberExpression[object.property.name='constructor'][property.name='name']"
     ],
-    "no-throw-literal": "warn",
+    "no-throw-literal": "error",
     "semi": "off",
     "unicorn/prefer-module": "error",
     "mocha/no-skipped-tests": "error",
