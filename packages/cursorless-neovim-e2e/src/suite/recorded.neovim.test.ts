@@ -60,7 +60,7 @@ async function openNewTestEditor(
   client: NeovimClient,
   neovimIDE: NeovimIDE,
   content: string,
-  { languageId = "plaintext", openBeside = false }: NewEditorOptions = {},
+  { openBeside = false }: NewEditorOptions = {},
 ): Promise<NeovimTextEditorImpl> {
   // open a new buffer
   // @see: https://vi.stackexchange.com/questions/8345/a-built-in-way-to-make-vim-open-a-new-buffer-with-file

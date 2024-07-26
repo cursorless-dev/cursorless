@@ -76,7 +76,6 @@ export async function launchNeovimAndRunTests() {
       process.exit(0);
     }
 
-    const waitLuaFile = `${getCursorlessRepoRoot()}/packages/test-harness/src/config/wait.lua`;
     // https://neovim.io/doc/user/starting.html#--headless
     const subprocess = cp.spawn(cli, [`--headless`], {
       env: {
@@ -128,7 +127,7 @@ export async function launchNeovimAndRunTests() {
         console.log(`done: ${done}`);
         const found = data.match(/.*==== TESTS FINISHED: code: (\d+).*/);
         console.log(`found: ${found}`);
-        if (found !== null) {
+        if (found != null) {
           code = parseInt(found[1]);
           console.log(`code: ${code}`);
         }

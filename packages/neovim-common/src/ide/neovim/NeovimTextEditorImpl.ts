@@ -89,11 +89,11 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
     return this.id === other.id;
   }
 
-  public async revealRange(range: Range): Promise<void> {
+  public async revealRange(_range: Range): Promise<void> {
     // throw Error("revealRange Not implemented");
   }
 
-  public revealLine(lineNumber: number, at: RevealLineAt): Promise<void> {
+  public revealLine(_lineNumber: number, _at: RevealLineAt): Promise<void> {
     throw Error("revealLine Not implemented");
   }
 
@@ -121,15 +121,17 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
     throw Error("openLink Not implemented");
   }
 
-  public fold(ranges?: Range[]): Promise<void> {
+  public fold(_ranges?: Range[]): Promise<void> {
     throw Error("fold Not implemented");
   }
 
-  public unfold(ranges?: Range[]): Promise<void> {
+  public unfold(_ranges?: Range[]): Promise<void> {
     throw Error("unfold Not implemented");
   }
 
-  public toggleBreakpoint(descriptors?: BreakpointDescriptor[]): Promise<void> {
+  public toggleBreakpoint(
+    _descriptors?: BreakpointDescriptor[],
+  ): Promise<void> {
     throw Error("toggleBreakpoint Not implemented");
   }
 
@@ -153,11 +155,11 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
     throw Error("outdentLine Not implemented");
   }
 
-  public async insertLineAfter(ranges?: Range[]): Promise<void> {
+  public async insertLineAfter(_ranges?: Range[]): Promise<void> {
     throw Error("insertLineAfter Not implemented");
   }
 
-  public insertSnippet(snippet: string, ranges?: Range[]): Promise<void> {
+  public insertSnippet(_snippet: string, _ranges?: Range[]): Promise<void> {
     throw Error("insertSnippet Not implemented");
   }
 

@@ -178,7 +178,7 @@ async function neovimInsert(
   const endOfLastLine = lineWhereInsertion.slice(position.character);
 
   // are we only inserting into one existing line?
-  if (newLines.length == 1) {
+  if (newLines.length === 1) {
     const singleLine = startOfFirstLine + newLines[0] + endOfLastLine;
     // update that single line
     await buffer.setLines(singleLine, {
@@ -211,6 +211,7 @@ async function neovimReplace(client: NeovimClient, range: Range, text: string) {
   await neovimInsert(client, range.start, text);
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function isDelete(edit: Edit): boolean {
   return edit.text === "";
 }

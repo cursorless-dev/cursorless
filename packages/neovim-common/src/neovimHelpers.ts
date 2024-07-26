@@ -22,7 +22,7 @@ export async function neovimClipboardCopy(
 
 export async function neovimClipboardPaste(
   client: NeovimClient,
-  ide: IDE,
+  _ide: IDE,
 ): Promise<void> {
   await pasteFromClipboard(client);
 }
