@@ -80,6 +80,8 @@
                 pkgs.neovim
                 pkgs.luajitPackages.busted # for lua testing
                 pkgs.luarocks # pre-commit doesn't auto-install luarocks
+                pkgs.ps
+                pkgs.nodejs
               ];
             # To prevent weird broken non-interactive bash terminal
             buildInputs = [ pkgs.bashInteractive ];
