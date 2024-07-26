@@ -28,6 +28,8 @@
   "eslint.workingDirectories": [{ "pattern": "packages/*/" }],
   "Lua.runtime.version": "Lua 5.1",
   "Lua.diagnostics.globals": ["vim", "talon", "it", "describe"],
+  "Lua.diagnostics.ignoredFiles": "Disable",
+  "Lua.workspace.ignoreDir": ["data/playground/lua/"],
   "[lua]": {
     "editor.defaultFormatter": "JohnnyMorganz.stylua"
   },
