@@ -6,7 +6,7 @@ import { Point } from "web-tree-sitter";
  * {@link MutableQueryCapture} to avoid using range/text and other mutable
  * parameters directly from the node.
  */
-export interface SimpleSyntaxNode {
+interface SimpleSyntaxNode {
   readonly id: number;
   readonly type: string;
   readonly parent: SimpleSyntaxNode | null;
@@ -45,7 +45,7 @@ export interface QueryCapture {
   /** The insertion delimiter to use if any */
   readonly insertionDelimiter: string | undefined;
 
-  /** Returns true if this node or any of its ancestral nodes has errors */
+  /** Returns true if this node or any of its ancestors has errors */
   hasError(): boolean;
 }
 
