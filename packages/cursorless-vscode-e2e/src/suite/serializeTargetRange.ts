@@ -36,7 +36,7 @@ export function serializeTargetRange(
   const lines: string[] = [];
 
   // Number of characters in the line number + `|`
-  const startIndent = start.line > 9 ? 3 : 2;
+  const startIndent = `${start.line}`.length + 1;
   // Add start of range marker above the first code line
   const prefix = fill(" ", startIndent + start.character) + ">";
   if (range.isSingleLine) {
