@@ -68,10 +68,10 @@ jobs:
           GPG_SIGNING_KEY: ${{ secrets.CURSORLESS_BOT_GPG_SIGNING_KEY }}
       - name: git config
         run: |
-          git config user.name cursorless-bot
-          git config user.email 98099035+cursorless-bot@users.noreply.github.com
-          git config user.signingkey A9387720AFC62221
-          git config commit.gpgsign true
+          git config --global user.name cursorless-bot
+          git config --global user.email 98099035+cursorless-bot@users.noreply.github.com
+          git config --global user.signingkey A9387720AFC62221
+          git config --global commit.gpgsign true
       - name: Push compiled files to cursorless.nvim plugin repo
         run: bash -x scripts/deploy-cursorless-nvim.sh
 
