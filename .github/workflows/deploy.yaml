@@ -46,7 +46,7 @@ jobs:
     environment: production
     env:
       CURSORLESS_REPO_ROOT: ${{ github.workspace }}
-      STAGING_DIRECTORY: ${{ github.workspace }}/dist/cursorless.nvim-staging
+      STAGING_DIRECTORY: ${{ github.workspace }}/cursorless.nvim-staging
     steps:
       - uses: actions/checkout@v4
       - run: corepack enable
