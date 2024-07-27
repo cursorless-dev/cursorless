@@ -35,6 +35,11 @@ export interface DecoratedSymbolMark {
   character: string;
 }
 
+export interface LiteralMark {
+  type: "literal";
+  text: string;
+}
+
 export type LineNumberType = "absolute" | "relative" | "modulo100";
 
 export interface LineNumberMark {
@@ -100,6 +105,7 @@ export type PartialMark =
   | SourceMark
   | KeyboardMark
   | DecoratedSymbolMark
+  | LiteralMark
   | NothingMark
   | LineNumberMark
   | PartialRangeMark

@@ -8,6 +8,7 @@ import { CursorStage } from "./marks/CursorStage";
 import { DecoratedSymbolStage } from "./marks/DecoratedSymbolStage";
 import { ExplicitMarkStage } from "./marks/ExplicitMarkStage";
 import { LineNumberStage } from "./marks/LineNumberStage";
+import { LiteralMarkStage } from "./marks/LiteralMarkStage";
 import { NothingStage } from "./marks/NothingStage";
 import { RangeMarkStage } from "./marks/RangeMarkStage";
 import { StoredTargetStage } from "./marks/StoredTargetStage";
@@ -37,6 +38,8 @@ export class MarkStageFactoryImpl implements MarkStageFactory {
         return new StoredTargetStage(this.storedTargets, mark.type);
       case "decoratedSymbol":
         return new DecoratedSymbolStage(this.readableHatMap, mark);
+      case "literal":
+        return new LiteralMarkStage(mark);
       case "lineNumber":
         return new LineNumberStage(mark);
       case "range":
