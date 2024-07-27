@@ -17,7 +17,6 @@ export class LiteralMarkStage implements MarkStage {
 
     const { document } = editor;
     const regex = constructFuzzyRegex(this.mark.text);
-    console.log(regex);
 
     const cursorOffsets = editor.selections.flatMap((selection) =>
       selection.isEmpty
