@@ -1,9 +1,14 @@
-import { matchAll, Range, type LiteralMark } from "@cursorless/common";
+import {
+  matchAll,
+  Range,
+  type LiteralMark,
+  type Position,
+} from "@cursorless/common";
+import escapeRegExp from "lodash-es/escapeRegExp";
 import { ide } from "../../singletons/ide.singleton";
 import { Target } from "../../typings/target.types";
 import { MarkStage } from "../PipelineStages.types";
 import { UntypedTarget } from "../targets";
-import escapeRegExp from "lodash-es/escapeRegExp";
 
 export class LiteralMarkStage implements MarkStage {
   constructor(private mark: LiteralMark) {}
@@ -18,32 +23,29 @@ export class LiteralMarkStage implements MarkStage {
     const { document } = editor;
     const regex = constructFuzzyRegex(this.mark.text);
 
-    const cursorOffsets = editor.selections.flatMap((selection) =>
-      selection.isEmpty
-        ? [document.offsetAt(selection.active)]
-        : [
-            document.offsetAt(selection.anchor),
-            document.offsetAt(selection.active),
-          ],
+    const cursorPositions = editor.selections.flatMap(
+      (selection) => selection.active,
     );
 
     const matches = editor.visibleRanges.flatMap((range) => {
       const rangeOffset = document.offsetAt(range.start);
       const text = document.getText(range);
       return matchAll(text, regex, (match) => {
-        const matchedText = match[0];
-        const startOffset = rangeOffset + match.index!;
-        const endOffset = startOffset + matchedText.length;
-        const distance = cursorOffsets.reduce(
-          (acc, offset) =>
+        const start = document.positionAt(rangeOffset + match.index!);
+        const end = document.positionAt(
+          rangeOffset + match.index! + match[0].length,
+        );
+
+        const distance = cursorPositions.reduce(
+          (acc, position) =>
             Math.min(
               acc,
-              Math.abs(offset - startOffset),
-              Math.abs(offset - endOffset),
+              distanceBetweenPoints(position, start),
+              distanceBetweenPoints(position, end),
             ),
           Infinity,
         );
-        return { startOffset, endOffset, distance };
+        return { start, end, distance };
       });
     });
 
@@ -57,13 +59,11 @@ export class LiteralMarkStage implements MarkStage {
         return a.distance - b.distance;
       }
       // Then sort by document order
-      return a.startOffset - b.startOffset;
+      return a.start.compareTo(b.start);
     });
 
-    const contentRange = new Range(
-      document.positionAt(matches[0].startOffset),
-      document.positionAt(matches[0].endOffset),
-    );
+    const contentRange = new Range(matches[0].start, matches[0].end);
+
     return [
       new UntypedTarget({
         editor,
@@ -73,6 +73,12 @@ export class LiteralMarkStage implements MarkStage {
       }),
     ];
   }
+}
+
+function distanceBetweenPoints(a: Position, b: Position): number {
+  return (
+    Math.abs(a.line - b.line) * 10000 + Math.abs(a.character - b.character)
+  );
 }
 
 export function constructFuzzyRegex(text: string): RegExp {
