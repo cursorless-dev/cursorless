@@ -38,6 +38,7 @@ export const marks = {
   keyboard: null,
   explicit: null,
   decoratedSymbol: null,
+  literal: null,
   lineNumber: null,
   range: null,
   target: null,

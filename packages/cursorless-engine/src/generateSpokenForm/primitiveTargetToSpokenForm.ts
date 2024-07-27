@@ -298,6 +298,10 @@ export class PrimitiveTargetSpokenFormGenerator {
         return this.handleLineNumberMark(mark);
       }
 
+      case "literal": {
+        return mark.text;
+      }
+
       case "range": {
         if (
           mark.anchor.type === "lineNumber" &&
