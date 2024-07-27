@@ -440,10 +440,14 @@
 (regex) @regularExpression
 
 [
-  (string_fragment)
   (comment)
   (regex_pattern)
 ] @textFragment
+
+(
+  (string) @textFragment
+  (#child-range! @textFragment 0 -1 true true)
+)
 
 (
   (template_string) @textFragment

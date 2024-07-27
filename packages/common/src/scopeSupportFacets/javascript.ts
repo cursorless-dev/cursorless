@@ -14,6 +14,11 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   switchStatementSubject: supported,
   fieldAccess: supported,
 
+  "textFragment.string.singleLine": supported,
+  "textFragment.string.multiLine": supported,
+  "textFragment.comment.line": supported,
+  "textFragment.comment.block": supported,
+
   statement: supported,
   "statement.iteration.document": supported,
   "statement.iteration.block": supported,
