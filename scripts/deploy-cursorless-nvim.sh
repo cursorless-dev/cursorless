@@ -23,7 +23,7 @@ git rm -r '*'
 cd -
 
 # Copy static files
-cp -r cursorless.nvim/* "$staging_dir/"
+rsync -avhW --no-compress --exclude test --exclude .busted cursorless.nvim/ "$staging_dir/"
 
 # Copy the built .js file
 mkdir -p "$staging_dir/node/cursorless-neovim/out"
@@ -40,7 +40,6 @@ author_date=$(git log -1 --pretty=format:"%ad" --date=iso-strict HEAD)
 # Push to cursorless.nvim
 cd "$staging_dir"
 
-rm -rf test/ .busted
 git add .
 GIT_AUTHOR_NAME="$author_name" GIT_AUTHOR_EMAIL="$author_email" GIT_AUTHOR_DATE="$author_date" \
   git commit -m "$commit_message" -m "$commit_body" || true
