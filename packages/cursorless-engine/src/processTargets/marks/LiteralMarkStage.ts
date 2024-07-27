@@ -40,8 +40,8 @@ export class LiteralMarkStage implements MarkStage {
           (acc, position) =>
             Math.min(
               acc,
-              distanceBetweenPoints(position, start),
-              distanceBetweenPoints(position, end),
+              distanceBetweenPositions(position, start),
+              distanceBetweenPositions(position, end),
             ),
           Infinity,
         );
@@ -75,7 +75,7 @@ export class LiteralMarkStage implements MarkStage {
   }
 }
 
-function distanceBetweenPoints(a: Position, b: Position): number {
+function distanceBetweenPositions(a: Position, b: Position): number {
   return (
     Math.abs(a.line - b.line) * 10000 + Math.abs(a.character - b.character)
   );
