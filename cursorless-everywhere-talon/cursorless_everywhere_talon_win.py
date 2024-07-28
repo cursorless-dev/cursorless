@@ -1,6 +1,10 @@
 from talon import Context, app, ui
 
-from .cursorless_everywhere_talon import EditorChanges, EditorState, OffsetSelection
+from .cursorless_everywhere_talon import (
+    EditorChanges,
+    EditorState,
+    SelectionOffsets,
+)
 
 if app.platform == "windows":
     from talon.windows.ax import TextRange
@@ -27,7 +31,7 @@ class Actions:
         document_range = text_pattern.document_range
         caret_range = text_pattern.caret_range
         selection_ranges = text_pattern.selection
-        selections: list[OffsetSelection] = []
+        selections: list[SelectionOffsets] = []
 
         for selection_range in selection_ranges:
             anchor, active = get_selection(document_range, selection_range, caret_range)
@@ -44,7 +48,7 @@ class Actions:
         }
 
     def cursorless_everywhere_set_selections(
-        selections: list[OffsetSelection],  # pyright: ignore [reportGeneralTypeIssues]
+        selections: list[SelectionOffsets],  # pyright: ignore [reportGeneralTypeIssues]
     ):
         if selections.length != 1:  # pyright: ignore [reportAttributeAccessIssue]
             raise ValueError("Only single selection supported")

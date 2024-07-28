@@ -3,14 +3,14 @@ from typing import TypedDict
 from talon import Module
 
 
-class OffsetSelection(TypedDict):
+class SelectionOffsets(TypedDict):
     anchor: int
     active: int
 
 
 class EditorState(TypedDict):
     text: str
-    selections: list[OffsetSelection]
+    selections: list[SelectionOffsets]
 
 
 class EditorChange(TypedDict):
@@ -33,7 +33,7 @@ class Actions:
         """Get the focused editor element state"""
 
     def cursorless_everywhere_set_selections(
-        selections: list[OffsetSelection],  # pyright: ignore [reportGeneralTypeIssues]
+        selections: list[SelectionOffsets],  # pyright: ignore [reportGeneralTypeIssues]
     ):
         """Set focused element selections"""
 
