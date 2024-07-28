@@ -1,7 +1,7 @@
 /**
  * This script can be used to add hat tweaks to the currently shipping ones
  */
-import { sum } from "lodash";
+import { sum } from "lodash-es";
 import {
   defaultShapeAdjustments,
   HatAdjustments,

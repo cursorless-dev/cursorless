@@ -3,7 +3,7 @@
  *
  * Based on https://aaronmoat.com/implementing-pythons-defaultdict-in-javascript/
  */
-export default class DefaultMap<K, V> extends Map<K, V> {
+export class DefaultMap<K, V> extends Map<K, V> {
   /**
    * @param getDefaultValue A function that returns the default value for a given key
    */

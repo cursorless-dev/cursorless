@@ -2,7 +2,7 @@ import { omitByDeep } from "@cursorless/common";
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import { readFile } from "fs/promises";
 import * as yaml from "js-yaml";
-import { isUndefined } from "lodash";
+import { isUndefined } from "lodash-es";
 import { join } from "path";
 import { PackageJson } from "type-fest";
 import { Context } from "./Context";
@@ -76,7 +76,11 @@ export async function updatePackageJson(
     ...input,
     name,
     license: "MIT",
-    type: name === "@cursorless/cursorless-org-docs" ? undefined : "module",
+    type:
+      name === "@cursorless/cursorless-org-docs" ||
+      name === "@cursorless/cursorless-neovim"
+        ? undefined
+        : "module",
     scripts: await getScripts(input.scripts, name, packageDir, isRoot, isLib),
     ...exportFields,
     ...extraFields,

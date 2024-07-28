@@ -1,5 +1,5 @@
 import { showWarning } from "@cursorless/common";
-import { shuffle } from "lodash";
+import { shuffle } from "lodash-es";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Actions } from "./Actions";
@@ -45,13 +45,13 @@ abstract class SortBase implements SimpleAction {
 }
 
 export class Sort extends SortBase {
-  private collator = new Intl.Collator(undefined, {
-    numeric: true,
-    caseFirst: "upper",
-  });
-
   protected sortTexts(texts: string[]) {
-    return texts.sort(this.collator.compare);
+    return texts.sort((a, b) =>
+      a.localeCompare(b, undefined, {
+        numeric: true,
+        caseFirst: "upper",
+      }),
+    );
   }
 }
 

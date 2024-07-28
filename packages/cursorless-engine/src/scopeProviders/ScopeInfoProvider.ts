@@ -7,7 +7,7 @@ import {
   simpleScopeTypeTypes,
   surroundingPairNames,
 } from "@cursorless/common";
-import { pull } from "lodash";
+import { pull } from "lodash-es";
 
 import { CustomSpokenFormGeneratorImpl } from "../generateSpokenForm/CustomSpokenFormGeneratorImpl";
 import { scopeTypeToString } from "./scopeTypeToString";
@@ -158,6 +158,7 @@ function isLanguageSpecific(scopeType: ScopeType): boolean {
     case "subParagraph":
     case "environment":
     case "textFragment":
+    case "disqualifyDelimiter":
       return true;
 
     case "character":

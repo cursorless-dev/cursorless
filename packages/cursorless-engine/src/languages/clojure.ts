@@ -9,7 +9,7 @@ import { NodeMatcherAlternative, NodeFinder } from "../typings/Types";
 import { SimpleScopeTypeType } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
 import { delimitedSelector } from "../util/nodeSelectors";
-import { identity } from "lodash";
+import { identity } from "lodash-es";
 import { getChildNodesForFieldName } from "../util/treeSitterUtils";
 import { patternFinder } from "../util/nodeFinders";
 

@@ -11,9 +11,6 @@ import { selectionWithEditorFromRange } from "../util/selectionUtils";
 import clojure from "./clojure";
 import { LegacyLanguageId } from "./LegacyLanguageId";
 import latex from "./latex";
-import markdown from "./markdown";
-import php from "./php";
-import python from "./python";
 import { patternMatchers as ruby } from "./ruby";
 import rust from "./rust";
 import scala from "./scala";
@@ -50,9 +47,6 @@ export const languageMatchers: Record<
   clojure,
   css: scss,
   latex,
-  markdown,
-  php,
-  python,
   ruby,
   rust,
   scala,

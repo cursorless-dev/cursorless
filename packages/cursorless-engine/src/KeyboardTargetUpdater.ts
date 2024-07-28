@@ -1,19 +1,23 @@
-import { Disposable } from "@cursorless/common";
-import { Debouncer } from "./core/Debouncer";
+import { Disposable, IDE } from "@cursorless/common";
 import { StoredTargetMap } from "./core/StoredTargets";
-import { PlainTarget } from "./processTargets/targets";
-import { ide } from "./singletons/ide.singleton";
+import { CursorStage } from "./processTargets/marks/CursorStage";
+import { DecorationDebouncer } from "./util/DecorationDebouncer";
 
 export class KeyboardTargetUpdater {
   private disposables: Disposable[] = [];
   private selectionWatcherDisposable: Disposable | undefined;
-  private debouncer: Debouncer;
+  private debouncer: DecorationDebouncer;
 
-  constructor(private storedTargets: StoredTargetMap) {
-    this.debouncer = new Debouncer(() => this.updateKeyboardTarget());
+  constructor(
+    private ide: IDE,
+    private storedTargets: StoredTargetMap,
+  ) {
+    this.debouncer = new DecorationDebouncer(ide.configuration, () =>
+      this.updateKeyboardTarget(),
+    );
 
     this.disposables.push(
-      ide().configuration.onDidChangeConfiguration(() => this.maybeActivate()),
+      ide.configuration.onDidChangeConfiguration(() => this.maybeActivate()),
 
       this.debouncer,
     );
@@ -22,15 +26,14 @@ export class KeyboardTargetUpdater {
   }
 
   maybeActivate(): void {
-    const isActive = ide().configuration.getOwnConfiguration(
+    const isActive = this.ide.configuration.getOwnConfiguration(
       "experimental.keyboardTargetFollowsSelection",
     );
 
     if (isActive) {
       if (this.selectionWatcherDisposable == null) {
-        this.selectionWatcherDisposable = ide().onDidChangeTextEditorSelection(
-          this.debouncer.run,
-        );
+        this.selectionWatcherDisposable =
+          this.ide.onDidChangeTextEditorSelection(this.debouncer.run);
       }
 
       return;
@@ -43,23 +46,13 @@ export class KeyboardTargetUpdater {
   }
 
   private updateKeyboardTarget() {
-    const activeEditor = ide().activeTextEditor;
+    const activeEditor = this.ide.activeTextEditor;
 
     if (activeEditor == null || this.storedTargets.get("keyboard") == null) {
       return;
     }
 
-    this.storedTargets.set(
-      "keyboard",
-      activeEditor.selections.map(
-        (selection) =>
-          new PlainTarget({
-            contentRange: selection,
-            editor: activeEditor,
-            isReversed: selection.isReversed,
-          }),
-      ),
-    );
+    this.storedTargets.set("keyboard", new CursorStage().run());
   }
 
   dispose() {

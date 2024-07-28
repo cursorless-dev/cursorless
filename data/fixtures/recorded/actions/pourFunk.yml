@@ -1,0 +1,38 @@
+languageId: typescript
+command:
+  version: 7
+  spokenForm: pour funk
+  action:
+    name: editNewLineAfter
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: namedFunction}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |2-
+        function foo() {
+      
+        }
+  selections:
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}
+  marks: {}
+finalState:
+  documentContents: |2-
+        function foo() {
+      
+        }
+
+        
+  selections:
+    - anchor: {line: 4, character: 4}
+      active: {line: 4, character: 4}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 4}
+        end: {line: 2, character: 5}
+      isReversed: false
+      hasExplicitRange: true

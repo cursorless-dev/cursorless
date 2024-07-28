@@ -11,6 +11,7 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   "string.singleLine": supported,
   "name.iteration.block": supported,
   "name.iteration.document": supported,
+  disqualifyDelimiter: supported,
 
   "comment.line": unsupported,
 };

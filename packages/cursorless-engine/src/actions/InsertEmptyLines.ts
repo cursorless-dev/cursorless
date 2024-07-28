@@ -1,11 +1,11 @@
-import { FlashStyle, Range, Selection, toLineRange } from "@cursorless/common";
-import { flatten } from "lodash";
+import { FlashStyle, Range, toLineRange } from "@cursorless/common";
+import { flatten } from "lodash-es";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
-import { SimpleAction, ActionReturnValue } from "./actions.types";
+import { ActionReturnValue, SimpleAction } from "./actions.types";
 
 class InsertEmptyLines implements SimpleAction {
   constructor(
@@ -45,22 +45,23 @@ class InsertEmptyLines implements SimpleAction {
       await runOnTargetsForEachEditor(targets, async (editor, targets) => {
         const ranges = this.getRanges(targets);
         const edits = this.getEdits(ranges);
-
+        const contentSelections = targets.map(
+          (target) => target.thatTarget.contentSelection,
+        );
         const editableEditor = ide().getEditableTextEditor(editor);
 
-        const [updatedThatSelections, lineSelections, updatedCursorSelections] =
-          await performEditsAndUpdateSelections(
-            this.rangeUpdater,
-            editableEditor,
-            edits,
-            [
-              targets.map((target) => target.thatTarget.contentSelection),
-              ranges.map((range) => new Selection(range.start, range.end)),
-              editor.selections,
-            ],
-          );
-
-        await editableEditor.setSelections(updatedCursorSelections);
+        const {
+          contentSelections: updatedThatSelections,
+          ranges: lineSelections,
+        } = await performEditsAndUpdateSelections({
+          rangeUpdater: this.rangeUpdater,
+          editor: editableEditor,
+          edits,
+          selections: {
+            contentSelections,
+            ranges,
+          },
+        });
 
         return {
           thatMark: updatedThatSelections.map((selection) => ({

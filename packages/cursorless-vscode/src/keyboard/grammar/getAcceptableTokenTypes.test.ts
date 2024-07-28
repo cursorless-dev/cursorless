@@ -8,7 +8,7 @@ import {
   NEXT,
   getAcceptableTokenTypes,
 } from "./getAcceptableTokenTypes";
-import { isEqual } from "lodash";
+import { isEqual } from "lodash-es";
 import { stringifyTokens } from "./stringifyTokens";
 
 interface TestCase {

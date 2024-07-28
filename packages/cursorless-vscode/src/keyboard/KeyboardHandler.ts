@@ -1,4 +1,4 @@
-import { pull } from "lodash";
+import { pull } from "lodash-es";
 import * as vscode from "vscode";
 import { Disposable } from "vscode";
 import { StatusBarItem } from "../StatusBarItem";

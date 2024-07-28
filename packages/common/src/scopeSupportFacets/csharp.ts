@@ -12,6 +12,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   anonymousFunction: supported,
   map: supported,
   list: supported,
+  disqualifyDelimiter: supported,
 
   class: supported,
   "class.iteration.document": supported,

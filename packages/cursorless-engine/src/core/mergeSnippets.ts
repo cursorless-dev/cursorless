@@ -1,5 +1,5 @@
 import { Snippet, SnippetMap } from "@cursorless/common";
-import { cloneDeep, groupBy, mapValues, merge } from "lodash";
+import { cloneDeep, groupBy, mapValues, merge } from "lodash-es";
 import { compareSnippetDefinitions } from "./compareSnippetDefinitions";
 
 export function mergeSnippets(

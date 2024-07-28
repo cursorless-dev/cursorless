@@ -6,6 +6,8 @@ import {
 const { supported, notApplicable } = ScopeSupportFacetLevel;
 
 export const javaScopeSupport: LanguageScopeSupportFacetMap = {
+  disqualifyDelimiter: supported,
+
   "name.foreach": supported,
 
   "value.foreach": supported,

@@ -1,6 +1,5 @@
 import {
   asyncSafety,
-  getScopeTestPathsRecursively,
   languageScopeSupport,
   ScopeSupportFacet,
   scopeSupportFacetInfos,
@@ -10,9 +9,10 @@ import {
   TextualScopeSupportFacet,
   textualScopeSupportFacetInfos,
 } from "@cursorless/common";
+import { getScopeTestPathsRecursively } from "@cursorless/node-common";
 import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
 import { assert } from "chai";
-import { groupBy, uniq } from "lodash";
+import { groupBy, uniq } from "lodash-es";
 import { promises as fsp } from "node:fs";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 import {
@@ -104,7 +104,7 @@ async function testLanguageSupport(languageId: string, testedFacets: string[]) {
 
 async function runTest(file: string, languageId: string, facetId: string) {
   const { ide, scopeProvider } = (await getCursorlessApi()).testHelpers!;
-  const { scopeType, isIteration } = getScopeType(languageId, facetId);
+  const { scopeType, isIteration } = getFacetInfo(languageId, facetId);
   const fixture = (await fsp.readFile(file, "utf8"))
     .toString()
     .replaceAll("\r\n", "\n");
@@ -140,7 +140,7 @@ async function runTest(file: string, languageId: string, facetId: string) {
 
     const scopes = scopeProvider.provideScopeRanges(editor, config);
 
-    return serializeScopeFixture(code, scopes);
+    return serializeScopeFixture(facetId, code, scopes);
   })();
 
   if (shouldUpdateFixtures()) {
@@ -150,26 +150,28 @@ async function runTest(file: string, languageId: string, facetId: string) {
   }
 }
 
-function getScopeType(
+function getFacetInfo(
   languageId: string,
   facetId: string,
 ): {
   scopeType: ScopeType;
   isIteration: boolean;
 } {
-  if (languageId === "textual") {
-    const { scopeType, isIteration } =
-      textualScopeSupportFacetInfos[facetId as TextualScopeSupportFacet];
-    return {
-      scopeType: { type: scopeType },
-      isIteration: isIteration ?? false,
-    };
+  const facetInfo =
+    languageId === "textual"
+      ? textualScopeSupportFacetInfos[facetId as TextualScopeSupportFacet]
+      : scopeSupportFacetInfos[facetId as ScopeSupportFacet];
+
+  if (facetInfo == null) {
+    throw Error(`Missing scope support facet info for: ${facetId}`);
   }
 
-  const { scopeType, isIteration } =
-    scopeSupportFacetInfos[facetId as ScopeSupportFacet];
+  const { scopeType, isIteration } = facetInfo;
+  const fullScopeType =
+    typeof scopeType === "string" ? { type: scopeType } : scopeType;
+
   return {
-    scopeType: { type: scopeType },
+    scopeType: fullScopeType,
     isIteration: isIteration ?? false,
   };
 }

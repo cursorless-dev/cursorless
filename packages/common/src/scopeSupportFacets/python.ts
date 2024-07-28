@@ -15,11 +15,15 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "value.resource.iteration": supported,
   namedFunction: supported,
   anonymousFunction: supported,
+  disqualifyDelimiter: supported,
 
   "argument.actual": supported,
   "argument.actual.iteration": supported,
   "argument.formal": supported,
   "argument.formal.iteration": supported,
+
+  "collectionItem.unenclosed": supported,
+  "collectionItem.unenclosed.iteration": supported,
 
   "branch.if": supported,
   "branch.if.iteration": supported,

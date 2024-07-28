@@ -13,6 +13,12 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   regularExpression: supported,
   switchStatementSubject: supported,
   fieldAccess: supported,
+  disqualifyDelimiter: supported,
+
+  "textFragment.string.singleLine": supported,
+  "textFragment.string.multiLine": supported,
+  "textFragment.comment.line": supported,
+  "textFragment.comment.block": supported,
 
   statement: supported,
   "statement.iteration.document": supported,
@@ -103,6 +109,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "value.mapPair.iteration": supported,
   "value.assignment": supported,
   "value.variable": supported,
+  "value.variable.pattern": supported,
   "value.foreach": supported,
   "value.return": supported,
   "value.return.lambda": supported,

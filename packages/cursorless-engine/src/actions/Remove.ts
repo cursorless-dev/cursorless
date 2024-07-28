@@ -1,5 +1,5 @@
-import { FlashStyle, Selection, TextEditor } from "@cursorless/common";
-import { flatten, zip } from "lodash";
+import { FlashStyle, TextEditor } from "@cursorless/common";
+import { flatten, zip } from "lodash-es";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { RawSelectionTarget } from "../processTargets/targets";
@@ -7,7 +7,7 @@ import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
 import { unifyRemovalTargets } from "../util/unifyRanges";
-import { SimpleAction, ActionReturnValue } from "./actions.types";
+import { ActionReturnValue, SimpleAction } from "./actions.types";
 
 export default class Delete implements SimpleAction {
   constructor(private rangeUpdater: RangeUpdater) {
@@ -37,22 +37,19 @@ export default class Delete implements SimpleAction {
 
   private async runForEditor(editor: TextEditor, targets: Target[]) {
     const edits = targets.map((target) => target.constructRemovalEdit());
-
-    const cursorSelections = editor.selections;
-    const editSelections = edits.map(({ range }) => range.toSelection(false));
     const editableEditor = ide().getEditableTextEditor(editor);
 
-    const [updatedCursorSelections, updatedEditSelections]: Selection[][] =
-      await performEditsAndUpdateSelections(
-        this.rangeUpdater,
-        editableEditor,
+    const { editRanges: updatedEditRanges } =
+      await performEditsAndUpdateSelections({
+        rangeUpdater: this.rangeUpdater,
+        editor: editableEditor,
         edits,
-        [cursorSelections, editSelections],
-      );
+        selections: {
+          editRanges: edits.map(({ range }) => range),
+        },
+      });
 
-    await editableEditor.setSelections(updatedCursorSelections);
-
-    return zip(targets, updatedEditSelections).map(
+    return zip(targets, updatedEditRanges).map(
       ([target, range]) =>
         new RawSelectionTarget({
           editor: target!.editor,
