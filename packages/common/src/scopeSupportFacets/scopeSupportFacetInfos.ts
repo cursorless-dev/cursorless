@@ -38,6 +38,11 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "environment",
   },
 
+  section: {
+    description: "A document section",
+    scopeType: "section",
+  },
+
   list: {
     description: "A list/array",
     scopeType: "list",
