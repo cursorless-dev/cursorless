@@ -15,4 +15,5 @@ export const scssScopeSupport: LanguageScopeSupportFacetMap = {
   "functionName.iteration": supported,
   "functionName.iteration.document": supported,
   "comment.line": supported,
+  disqualifyDelimiter: supported,
 };

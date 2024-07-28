@@ -1,11 +1,27 @@
+import { TutorialId } from "../../types/tutorial.types";
+
+interface SingleTutorialProgress {
+  currentStep: number;
+  version: number;
+}
+
+export type TutorialProgress = Partial<
+  Record<TutorialId, SingleTutorialProgress>
+>;
+
+export interface StorageData {
+  hideInferenceWarning: boolean;
+  tutorialProgress: TutorialProgress;
+}
+export type StorageKey = keyof StorageData;
+
 /**
  * A mapping from allowable storage keys to their default values
  */
-export const STORAGE_DEFAULTS = {
+export const STORAGE_DEFAULTS: StorageData = {
   hideInferenceWarning: false,
+  tutorialProgress: {},
 };
-export type StorageData = typeof STORAGE_DEFAULTS;
-export type StorageKey = keyof StorageData;
 
 /**
  * Represents a storage utility. It can store and retrieve values.
