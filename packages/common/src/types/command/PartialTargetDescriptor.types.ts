@@ -243,7 +243,7 @@ export interface SurroundingPairScopeType {
 }
 
 /**
- * This differs from the normal @SurroundingPairScopeType that it is always
+ * This differs from the normal @SurroundingPairScopeType that it always
  * uses `requireStrongContainment` and the content range is the pair interior
  * */
 export interface SurroundingPairInteriorScopeType {
