@@ -73,7 +73,7 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
     this.reparseCurrentTutorial = this.reparseCurrentTutorial.bind(this);
     const debouncer = new Debouncer(() => this.checkPreconditions(), 100);
 
-    this.loadTutorials().then(() => {
+    void this.loadTutorials().then(() => {
       if (this.state_.type === "loading") {
         this.setState(this.getPickingTutorialState());
       }
@@ -107,7 +107,7 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
         currentStep.trigger?.type === "visualize" &&
         isEqual(currentStep.trigger.scopeType, scopeType)
       ) {
-        this.next();
+        void this.next();
       }
     }
   }
@@ -216,7 +216,7 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
     if (this.state_.type === "doingTutorial") {
       const currentStep = this.currentTutorial!.steps[this.state_.stepNumber];
       if (currentStep.trigger?.type === "help") {
-        this.next();
+        void this.next();
       }
     }
   }
@@ -285,7 +285,7 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
     this.state_ = state;
 
     if (state.type === "doingTutorial") {
-      this.ide.globalState.set(
+      void this.ide.globalState.set(
         "tutorialProgress",
         produce(this.ide.globalState.get("tutorialProgress"), (draft) => {
           draft[state.id] = {
@@ -313,7 +313,7 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
     );
 
     if (this.editor !== editor && this.editor != null) {
-      this.ide.setHighlightRanges(HIGHLIGHT_COLOR, this.editor, []);
+      void this.ide.setHighlightRanges(HIGHLIGHT_COLOR, this.editor, []);
     }
 
     this.editor = editor;
@@ -327,13 +327,13 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
         this.state_.type === "doingTutorial" &&
         this.state_.preConditionsMet
       ) {
-        this.ide.setHighlightRanges(
+        void this.ide.setHighlightRanges(
           HIGHLIGHT_COLOR,
           this.editor,
           this.highlightRanges,
         );
       } else {
-        this.ide.setHighlightRanges(HIGHLIGHT_COLOR, this.editor, []);
+        void this.ide.setHighlightRanges(HIGHLIGHT_COLOR, this.editor, []);
       }
     }
   }

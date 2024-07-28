@@ -73,8 +73,8 @@ export class LanguageDefinitionsImpl
     private treeSitter: TreeSitter,
     private treeSitterQueryProvider: RawTreeSitterQueryProvider,
   ) {
-    void ide.onDidOpenTextDocument((document) => {
-      this.loadLanguage(document.languageId);
+    ide.onDidOpenTextDocument((document) => {
+      void this.loadLanguage(document.languageId);
     });
     ide.onDidChangeVisibleTextEditors((editors) => {
       editors.forEach(({ document }) => this.loadLanguage(document.languageId));

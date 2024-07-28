@@ -96,19 +96,19 @@ export class VscodeTutorial implements WebviewViewProvider {
     webview.onDidReceiveMessage((data) => {
       switch (data.type) {
         case "getInitialState":
-          webview.postMessage(this.tutorial.state);
+          void webview.postMessage(this.tutorial.state);
           break;
         case "start":
-          this.start(data.tutorialId);
+          void this.start(data.tutorialId);
           break;
         case "list":
-          this.list();
+          void this.list();
           break;
         case "previous":
-          this.previous();
+          void this.previous();
           break;
         case "next":
-          this.next();
+          void this.next();
           break;
       }
     });
@@ -158,14 +158,14 @@ export class VscodeTutorial implements WebviewViewProvider {
   }
 
   private onState(state: TutorialState) {
-    this.view?.webview.postMessage(state);
+    void this.view?.webview.postMessage(state);
   }
 
   private revealTutorial() {
     if (this.view != null) {
       this.view.show(true);
     } else {
-      this.vscodeApi.commands.executeCommand("cursorless.tutorial.focus");
+      void this.vscodeApi.commands.executeCommand("cursorless.tutorial.focus");
     }
   }
 
