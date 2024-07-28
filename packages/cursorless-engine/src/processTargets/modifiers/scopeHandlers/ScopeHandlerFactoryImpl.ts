@@ -1,5 +1,6 @@
 import type { ScopeType } from "@cursorless/common";
 import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
+import { BoundedNonWhitespaceSequenceScopeHandler } from "./BoundedNonWhitespaceSequenceScopeHandler";
 import { CharacterScopeHandler } from "./CharacterScopeHandler";
 import { DocumentScopeHandler } from "./DocumentScopeHandler";
 import { IdentifierScopeHandler } from "./IdentifierScopeHandler";
@@ -66,6 +67,12 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
         return OneOfScopeHandler.create(this, scopeType, languageId);
       case "nonWhitespaceSequence":
         return new NonWhitespaceSequenceScopeHandler(
+          this,
+          scopeType,
+          languageId,
+        );
+      case "boundedNonWhitespaceSequence":
+        return new BoundedNonWhitespaceSequenceScopeHandler(
           this,
           scopeType,
           languageId,

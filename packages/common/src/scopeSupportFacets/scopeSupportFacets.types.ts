@@ -183,11 +183,10 @@ const textualScopeSupportFacets = [
   "paragraph",
   "document",
   "nonWhitespaceSequence",
+  "boundedNonWhitespaceSequence",
   "url",
   "surroundingPair",
   "surroundingPair.iteration",
-  // FIXME: Still in legacy
-  // "boundedNonWhitespaceSequence",
 ] as const;
 
 export interface ScopeSupportFacetInfo {
