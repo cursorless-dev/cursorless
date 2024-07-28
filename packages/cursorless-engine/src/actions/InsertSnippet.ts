@@ -8,10 +8,7 @@ import {
 } from "@cursorless/common";
 import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import {
-  callFunctionAndUpdateSelectionInfos,
-  getSelectionInfo,
-} from "../core/updateSelections/updateSelections";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { ModifyIfUntypedExplicitStage } from "../processTargets/modifiers/ConditionalModifierStages";
 import { UntypedTarget } from "../processTargets/targets";
@@ -116,13 +113,6 @@ export default class InsertSnippet {
 
     await this.actions.editNew.run(destinations);
 
-    const targetSelectionInfos = editor.selections.map((selection) =>
-      getSelectionInfo(
-        editor.document,
-        selection,
-        RangeExpansionBehavior.openOpen,
-      ),
-    );
     const { body, formatSubstitutions } = this.getSnippetInfo(
       snippetDescription,
       // Use new selection locations instead of original targets because
@@ -148,17 +138,22 @@ export default class InsertSnippet {
 
     const snippetString = parsedSnippet.toTextmateString();
 
-    // NB: We used the command "editor.action.insertSnippet" instead of calling editor.insertSnippet
-    // because the latter doesn't support special variables like CLIPBOARD
-    const [updatedTargetSelections] = await callFunctionAndUpdateSelectionInfos(
-      this.rangeUpdater,
-      () => editor.insertSnippet(snippetString),
-      editor.document,
-      [targetSelectionInfos],
-    );
+    const { editorSelections: updatedThatSelections } =
+      await performEditsAndUpdateSelections({
+        rangeUpdater: this.rangeUpdater,
+        editor,
+        callback: () => editor.insertSnippet(snippetString),
+        preserveCursorSelections: true,
+        selections: {
+          editorSelections: {
+            selections: editor.selections,
+            behavior: RangeExpansionBehavior.openOpen,
+          },
+        },
+      });
 
     return {
-      thatSelections: updatedTargetSelections.map((selection) => ({
+      thatSelections: updatedThatSelections.map((selection) => ({
         editor,
         selection,
       })),

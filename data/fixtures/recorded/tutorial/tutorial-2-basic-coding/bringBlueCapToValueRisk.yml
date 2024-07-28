@@ -1,0 +1,68 @@
+languageId: python
+command:
+  version: 6
+  spokenForm: bring blue cap to value red
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: blue, character: c}
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: value}
+        mark: {type: decoratedSymbol, symbolColor: default, character: r}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    def print_color(color, invert=False):
+        if invert:
+            print(invert_color(color))
+        else:
+            print(color)
+
+
+    def invert_color(color):
+        if color == "black":
+            return "white"
+        if color == "white":
+            return "black"
+        return "black"
+
+
+    print_color("black")
+  selections:
+    - anchor: {line: 12, character: 18}
+      active: {line: 12, character: 18}
+  marks:
+    blue.c:
+      start: {line: 7, character: 17}
+      end: {line: 7, character: 22}
+    default.r:
+      start: {line: 12, character: 4}
+      end: {line: 12, character: 10}
+finalState:
+  documentContents: |
+    def print_color(color, invert=False):
+        if invert:
+            print(invert_color(color))
+        else:
+            print(color)
+
+
+    def invert_color(color):
+        if color == "black":
+            return "white"
+        if color == "white":
+            return "black"
+        return color
+
+
+    print_color("black")
+  selections:
+    - anchor: {line: 12, character: 16}
+      active: {line: 12, character: 16}

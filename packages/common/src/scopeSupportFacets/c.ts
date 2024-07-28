@@ -8,6 +8,7 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const cScopeSupport: LanguageScopeSupportFacetMap = {
   ifStatement: supported,
+  disqualifyDelimiter: supported,
 
   "comment.line": supported,
   "comment.block": supported,

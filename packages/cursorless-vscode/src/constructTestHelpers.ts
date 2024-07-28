@@ -15,14 +15,15 @@ import {
 import {
   StoredTargetMap,
   plainObjectToTarget,
-  takeSnapshot,
 } from "@cursorless/cursorless-engine";
 import { VscodeTestHelpers } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
+import { takeSnapshot } from "@cursorless/test-case-recorder";
 import { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
 import { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { toVscodeEditor } from "./ide/vscode/toVscodeEditor";
 import { vscodeApi } from "./vscodeApi";
+import { VscodeTutorial } from "./VscodeTutorial";
 
 export function constructTestHelpers(
   commandServerApi: FakeCommandServerApi,
@@ -34,6 +35,7 @@ export function constructTestHelpers(
   scopeProvider: ScopeProvider,
   injectIde: (ide: IDE) => void,
   runIntegrationTests: () => Promise<void>,
+  vscodeTutorial: VscodeTutorial,
 ): VscodeTestHelpers | undefined {
   return {
     commandServerApi: commandServerApi!,
@@ -83,5 +85,8 @@ export function constructTestHelpers(
     hatTokenMap,
     runIntegrationTests,
     vscodeApi,
+    getTutorialWebviewEventLog() {
+      return vscodeTutorial.getEventLog();
+    },
   };
 }

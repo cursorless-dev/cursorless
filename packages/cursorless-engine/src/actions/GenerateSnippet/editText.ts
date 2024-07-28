@@ -1,5 +1,5 @@
+import type { Offsets } from "./Offsets";
 import { sortBy } from "lodash-es";
-import { Offsets } from "../../processTargets/modifiers/surroundingPair/types";
 
 /**
  * For each edit in {@link edits} replaces the given {@link Edit.offsets} in

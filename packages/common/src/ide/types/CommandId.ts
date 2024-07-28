@@ -13,4 +13,5 @@ export type CommandId =
   | "revealTypeDefinition"
   | "showHover"
   | "showDebugHover"
-  | "extractVariable";
+  | "extractVariable"
+  | "insertLineAfter";

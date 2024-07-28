@@ -1,3 +1,5 @@
+;; https://github.com/tree-sitter/tree-sitter-css/blob/master/src/grammar.json
+
 (string_value) @string @textFragment
 
 (comment) @comment @textFragment
@@ -25,4 +27,8 @@
   "{" @name.iteration.start.endOf
   "}" @name.iteration.end.startOf
   .
+)
+
+(child_selector
+  ">" @disqualifyDelimiter
 )

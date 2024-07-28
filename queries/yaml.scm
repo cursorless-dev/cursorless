@@ -1,3 +1,5 @@
+;; https://github.com/tree-sitter-grammars/tree-sitter-yaml/blob/master/src/grammar.json
+
 ;; ;;!! foo: bar
 ;; ;;!  ^^^  ^^^
 (_
@@ -75,3 +77,7 @@
 ;;!! # comment
 ;;!  ^^^^^^^^^
 (comment) @comment @textFragment
+
+(block_scalar
+  ">" @disqualifyDelimiter
+)

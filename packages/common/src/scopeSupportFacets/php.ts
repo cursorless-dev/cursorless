@@ -21,4 +21,6 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
   "value.mapPair": supported,
   "value.return": supported,
   "value.yield": supported,
+
+  disqualifyDelimiter: supported,
 };

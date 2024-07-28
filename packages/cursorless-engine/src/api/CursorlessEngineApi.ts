@@ -1,10 +1,15 @@
 import type {
+  ActionType,
   Command,
+  CommandComplete,
   CommandResponse,
+  Disposable,
   HatTokenMap,
   IDE,
   ReadOnlyHatMap,
   ScopeProvider,
+  ScopeType,
+  SpokenForm,
 } from "@cursorless/common";
 import type { CommandRunner } from "../CommandRunner";
 import type { StoredTargetMap } from "../core/StoredTargets";
@@ -29,7 +34,12 @@ export interface CustomSpokenFormGenerator {
    */
   readonly needsInitialTalonUpdate: boolean | undefined;
 
-  onDidChangeCustomSpokenForms: (listener: () => void) => void;
+  onDidChangeCustomSpokenForms(listener: () => void): Disposable;
+
+  commandToSpokenForm(command: CommandComplete): SpokenForm;
+  scopeTypeToSpokenForm(scopeType: ScopeType): SpokenForm;
+  actionIdToSpokenForm(actionId: ActionType): SpokenForm;
+  graphemeToSpokenForm(grapheme: string): SpokenForm;
 }
 
 export interface CommandApi {
