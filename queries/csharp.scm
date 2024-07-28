@@ -251,12 +251,26 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
+;;!! int value = 5
+;;!              ^
+(parameter
+  name: (_) @value.leading.endOf
+  (equals_value_clause
+    (_) @value
+  )
+) @_.domain
+
 (_
   (parameter_list
     "(" @argumentOrParameter.iteration.start.endOf
     ")" @argumentOrParameter.iteration.end.startOf
   )
 ) @argumentOrParameter.iteration.domain
+
+(parameter_list
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+)
 
 (argument_list
   "(" @argumentOrParameter.iteration.start.endOf
