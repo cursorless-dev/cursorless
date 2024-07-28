@@ -14,8 +14,6 @@
     "esbuild:base": "bash scripts/esbuild.sh",
     "compile": "tsc --build",
     "compile:esbuild": "pnpm run esbuild:prod",
-    "build": "pnpm run populate-dist",
-    "populate-dist": "bash scripts/populate-dist.sh",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
