@@ -1,0 +1,11 @@
+<?php
+obj.myFunc(2, "foo")
+---
+
+[Range] = 1:11-1:19
+             >--------<
+1| obj.myFunc(2, "foo")
+
+[Domain] = 1:10-1:20
+            >----------<
+1| obj.myFunc(2, "foo")
