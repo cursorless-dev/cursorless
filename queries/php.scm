@@ -109,9 +109,22 @@
   (object_creation_expression)
 ] @functionCall
 
+;;!! $value = 2;
+;;!  ^^^^^^
+;;!           ^
 (assignment_expression
-  left: (_) @name
+  left: (_) @name @value.leading.endOf
+  right: (_) @value
 ) @_.domain
+
+;;!! $value += 2;
+;;!  ^^^^^^
+;;!            ^
+(augmented_assignment_expression
+  left: (_) @name @value.leading.endOf
+  right: (_) @value
+) @_.domain
+
 (class_declaration
   name: (_) @name
 ) @_.domain
@@ -161,6 +174,73 @@
   "(" @argumentOrParameter.iteration.start.endOf
   ")" @argumentOrParameter.iteration.end.startOf
 ) @argumentOrParameter.iteration.domain
+
+;;!! ['num' => 1];
+;;!   ^^^^^
+;;!            ^
+(array_element_initializer
+  (_) @collectionKey @value.leading.endOf
+  (_) @value @collectionKey.trailing.startOf
+) @_.domain
+
+;;!! return 2;
+;;!         ^
+(return_statement
+  "return" @_.leading.endOf
+  (_) @value
+) @_.domain
+
+;;!! yield 2;
+;;!        ^
+(yield_expression
+  "yield" @_.leading.endOf
+  (_) @value
+) @_.domain
+
+;;!! (string $str)
+;;!   ^^^^^^
+;;!          ^^^^
+(simple_parameter
+  type: (_) @type
+  name: (_) @name
+) @_.domain
+
+;;!! (array ...$nums)
+;;!   ^^^^^
+;;!            ^^^^^
+(variadic_parameter
+  type: (_) @type
+  name: (_) @name
+) @_.domain
+
+;;!! catch (Exception $e) {}
+;;!         ^^^^^^^^^
+(catch_clause
+  type: (_) @type
+  name: (_) @name
+) @_.domain
+
+(formal_parameters
+  "(" @type.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
+  ")" @type.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+) @_.domain
+
+;;!! (string) $str;
+;;!   ^^^^^^
+(cast_expression
+  type: (_) @type
+  value: (_) @_.removal.end.startOf
+) @_.removal.start.startOf @_.domain
+
+;;!! public string $value;
+;;!         ^^^^^^
+;;!                ^^^^^^
+(property_declaration
+  type: (_) @type
+  (property_element
+    (variable_name) @name
+  )
+) @_.domain
 
 operator: [
   "<"

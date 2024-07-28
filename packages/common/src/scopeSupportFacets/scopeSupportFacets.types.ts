@@ -14,6 +14,8 @@ const scopeSupportFacets = [
 
   "environment",
 
+  "section",
+
   "list",
   "map",
   "ifStatement",
@@ -128,6 +130,7 @@ const scopeSupportFacets = [
 
   "value.assignment",
   "value.variable",
+  "value.variable.pattern",
   "value.mapPair",
   "value.mapPair.iteration",
   "value.attribute",
@@ -167,7 +170,6 @@ const scopeSupportFacets = [
   "notebookCell",
 
   // FIXME: Still in legacy
-  // section
   // selector
   // unit
   // collectionItem
