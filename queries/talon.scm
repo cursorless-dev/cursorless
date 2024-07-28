@@ -1,3 +1,5 @@
+;; https://github.com/pokey/tree-sitter-talon/blob/dev/src/grammar.json
+
 ;;!!  foo: "bar"
 ;;!   ^^^^^^^^^^
 ;;!!  edit.left()

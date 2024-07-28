@@ -8,7 +8,6 @@ import { Target } from "../../../typings/target.types";
 import { ModifierStageFactory } from "../../ModifierStageFactory";
 import { ModifierStage } from "../../PipelineStages.types";
 import { TokenTarget } from "../../targets";
-import { processSurroundingPair } from "../surroundingPair";
 
 /**
  * Intersection of NonWhitespaceSequenceStage and a surrounding pair
@@ -29,20 +28,15 @@ export class BoundedNonWhitespaceSequenceStage implements ModifierStage {
     });
 
     const paintTargets = paintStage.run(target);
+    const pairTarget = this.getPairTarget(target);
 
-    const pairInfo = processSurroundingPair(this.languageDefinitions, target, {
-      type: "surroundingPair",
-      delimiter: "any",
-      requireStrongContainment: true,
-    });
-
-    if (pairInfo == null) {
+    if (pairTarget == null) {
       return paintTargets;
     }
 
     const targets = paintTargets.flatMap((paintTarget) => {
       const contentRange = paintTarget.contentRange.intersection(
-        pairInfo.getInterior()[0].contentRange,
+        pairTarget.getInterior()![0].contentRange,
       );
 
       if (contentRange == null || contentRange.isEmpty) {
@@ -63,5 +57,27 @@ export class BoundedNonWhitespaceSequenceStage implements ModifierStage {
     }
 
     return targets;
+  }
+
+  private getPairTarget(target: Target): Target | undefined {
+    const pairStage = this.modifierStageFactory.create({
+      type: "containingScope",
+      scopeType: {
+        type: "surroundingPair",
+        delimiter: "any",
+        requireStrongContainment: true,
+      },
+    });
+    const targets = (() => {
+      try {
+        return pairStage.run(target);
+      } catch (_error) {
+        return [];
+      }
+    })();
+    if (targets.length > 1) {
+      throw Error("Expected only one surrounding pair target");
+    }
+    return targets[0];
   }
 }
