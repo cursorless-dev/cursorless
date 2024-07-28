@@ -39,7 +39,7 @@ export const scopeSupportFacetInfos: Record<
   },
 
   section: {
-    description: "A document section/chapter/subsection/etc",
+    description: "A document section",
     scopeType: "section",
   },
 
