@@ -9,31 +9,31 @@ export type TutorialProgress = Partial<
   Record<TutorialId, SingleTutorialProgress>
 >;
 
-export interface StorageData {
+export interface KeyValueStoreData {
   hideInferenceWarning: boolean;
   tutorialProgress: TutorialProgress;
 }
-export type StorageKey = keyof StorageData;
+export type KeyValueStoreKey = keyof KeyValueStoreData;
 
 /**
  * A mapping from allowable storage keys to their default values
  */
-export const STORAGE_DEFAULTS: StorageData = {
+export const STORAGE_DEFAULTS: KeyValueStoreData = {
   hideInferenceWarning: false,
   tutorialProgress: {},
 };
 
 /**
- * Represents a storage utility. It can store and retrieve values.
+ * Represents a key/value storage utility. It can store and retrieve values.
  */
-export interface Storage {
+export interface KeyValueStore {
   /**
    * Return a value.
    *
    * @param key A string.
    * @return The stored value or the defaultValue.
    */
-  get<K extends StorageKey>(key: K): StorageData[K];
+  get<K extends KeyValueStoreKey>(key: K): KeyValueStoreData[K];
 
   /**
    * Store a value. The value must be JSON-stringifyable.
@@ -41,5 +41,8 @@ export interface Storage {
    * @param key A string.
    * @param value A value. MUST not contain cyclic references.
    */
-  set<K extends StorageKey>(key: K, value: StorageData[K]): Promise<void>;
+  set<K extends KeyValueStoreKey>(
+    key: K,
+    value: KeyValueStoreData[K],
+  ): Promise<void>;
 }

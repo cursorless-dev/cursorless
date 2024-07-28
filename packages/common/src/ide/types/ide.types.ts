@@ -18,7 +18,7 @@ import {
 import { FlashDescriptor } from "./FlashDescriptor";
 import { Messages } from "./Messages";
 import { QuickPickOptions } from "./QuickPickOptions";
-import { Storage } from "./Storage";
+import { KeyValueStore } from "./KeyValueStore";
 
 export type RunMode = "production" | "development" | "test";
 export type HighlightId = string;
@@ -30,7 +30,7 @@ export interface OpenUntitledTextDocumentOptions {
 export interface IDE {
   readonly configuration: Configuration;
   readonly messages: Messages;
-  readonly storage: Storage;
+  readonly keyValueStore: KeyValueStore;
   readonly clipboard: Clipboard;
 
   /**

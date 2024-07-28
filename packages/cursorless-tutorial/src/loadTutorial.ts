@@ -3,7 +3,7 @@ import {
   TutorialContentProvider,
   TutorialId,
   TutorialState,
-  type Storage,
+  type KeyValueStore,
 } from "@cursorless/common";
 import { CustomSpokenFormGenerator } from "@cursorless/cursorless-engine";
 import { TutorialError } from "./TutorialError";
@@ -15,7 +15,7 @@ export async function loadTutorial(
   tutorialId: TutorialId,
   customSpokenFormGenerator: CustomSpokenFormGenerator,
   rawContent: RawTutorialContent,
-  storage: Storage,
+  storage: KeyValueStore,
 ) {
   const parser = new TutorialStepParser(
     contentProvider,

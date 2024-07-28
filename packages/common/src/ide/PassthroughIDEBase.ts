@@ -19,18 +19,18 @@ import type {
 } from "./types/ide.types";
 import type { Messages } from "./types/Messages";
 import type { QuickPickOptions } from "./types/QuickPickOptions";
-import type { Storage } from "./types/Storage";
+import type { KeyValueStore } from "./types/KeyValueStore";
 
 export default class PassthroughIDEBase implements IDE {
   configuration: Configuration;
-  storage: Storage;
+  keyValueStore: KeyValueStore;
   clipboard: Clipboard;
   messages: Messages;
   capabilities: Capabilities;
 
   constructor(private original: IDE) {
     this.configuration = original.configuration;
-    this.storage = original.storage;
+    this.keyValueStore = original.keyValueStore;
     this.clipboard = original.clipboard;
     this.messages = original.messages;
     this.capabilities = original.capabilities;
