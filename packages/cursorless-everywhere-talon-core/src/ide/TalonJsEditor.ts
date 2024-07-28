@@ -1,17 +1,17 @@
-import type {
-  BreakpointDescriptor,
-  Edit,
-  EditableTextEditor,
-  InMemoryTextDocument,
-  OpenLinkOptions,
-  Range,
-  RevealLineAt,
-  Selection,
-  SetSelectionsOpts,
-  TextEditor,
-  TextEditorOptions,
+import {
+  selectionsEqual,
+  type BreakpointDescriptor,
+  type Edit,
+  type EditableTextEditor,
+  type InMemoryTextDocument,
+  type OpenLinkOptions,
+  type Range,
+  type RevealLineAt,
+  type Selection,
+  type SetSelectionsOpts,
+  type TextEditor,
+  type TextEditorOptions,
 } from "@cursorless/common";
-import { selectionsEqual } from "@cursorless/cursorless-engine";
 import type { Talon } from "../types/talon.types";
 import { setSelections } from "./setSelections";
 import type { TalonJsIDE } from "./TalonJsIDE";
