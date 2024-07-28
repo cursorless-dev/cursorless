@@ -101,12 +101,16 @@ def set_selection(document_range: TextRange, anchor: int, active: int):
 def get_selection(
     document_range: TextRange, selection_range: TextRange, caret_range: TextRange
 ) -> tuple[int, int]:
+    # Make copy of the document range to avoid modifying the original
     range_before_selection = document_range.clone()
+    # Move the end of the copy to the start of the selection
+    # range_before_selection.end = selection_range.start
     range_before_selection.move_endpoint_by_range(
         "End",
         "Start",
         target=selection_range,
     )
+    # The selection start offset is the length of the text before the selection
     start = len(range_before_selection.text)
 
     range_after_selection = document_range.clone()
@@ -117,8 +121,10 @@ def get_selection(
     )
     end = len(document_range.text) - len(range_after_selection.text)
 
+    # The selection is reversed if the caret is at the start of the selection
     is_reversed = (
         caret_range.compare_endpoints("Start", "Start", target=selection_range) == 0
     )
 
+    # Return as (anchor, active)
     return (end, start) if is_reversed else (start, end)
