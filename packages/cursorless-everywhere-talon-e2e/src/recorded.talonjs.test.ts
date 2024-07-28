@@ -91,7 +91,7 @@ async function openNewTestEditor(
   ide.updateTextEditors(editorState);
   talonMock.getTestHelpers().setEditorState(editorState);
 
-  const editor = ide.activeTextEditor;
+  const editor = ide.activeEditableTextEditor;
 
   if (editor == null) {
     throw new Error("Could not open new editor. No active editor found.");

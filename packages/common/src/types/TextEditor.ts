@@ -36,7 +36,7 @@ export interface TextEditor {
   /**
    * Text editor options.
    */
-  options: TextEditorOptions;
+  readonly options: TextEditorOptions;
 
   /**
    * True if this text editor is active.
