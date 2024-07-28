@@ -67,7 +67,7 @@ class Actions:
 
         set_selection(document_range, anchor, active)
 
-    def cursorless_everywhere_set_text(
+    def cursorless_everywhere_edit_text(
         changes: EditorChanges,  # pyright: ignore [reportGeneralTypeIssues]
     ):
         """Set focused element text"""

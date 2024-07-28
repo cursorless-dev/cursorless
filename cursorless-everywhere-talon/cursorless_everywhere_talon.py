@@ -37,7 +37,7 @@ class Actions:
     ):
         """Set focused element selections"""
 
-    def cursorless_everywhere_set_text(
+    def cursorless_everywhere_edit_text(
         changes: EditorChanges,  # pyright: ignore [reportGeneralTypeIssues]
     ):
-        """Set focused element text"""
+        """Edit focused element text"""
