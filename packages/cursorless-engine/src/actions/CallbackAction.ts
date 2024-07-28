@@ -2,7 +2,7 @@ import { EditableTextEditor, FlashStyle, TextEditor } from "@cursorless/common";
 import { flatten } from "lodash-es";
 import { selectionToStoredTarget } from "../core/commandRunner/selectionToStoredTarget";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import {
@@ -97,13 +97,19 @@ export class CallbackAction {
       });
     }
 
-    const [updatedOriginalSelections, updatedTargetSelections] =
-      await callFunctionAndUpdateSelections(
-        this.rangeUpdater,
-        () => options.callback(editableEditor, targets),
-        editor.document,
-        [originalSelections, targetSelections],
-      );
+    const {
+      originalSelections: updatedOriginalSelections,
+      targetSelections: updatedTargetSelections,
+    } = await performEditsAndUpdateSelections({
+      rangeUpdater: this.rangeUpdater,
+      editor: editableEditor,
+      callback: () => options.callback(editableEditor, targets),
+      preserveCursorSelections: true,
+      selections: {
+        originalSelections,
+        targetSelections,
+      },
+    });
 
     // Reset original selections
     if (options.setSelection && options.restoreSelection) {

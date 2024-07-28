@@ -44,14 +44,30 @@ export const textualScopeSupportFacetInfos: Record<
     description: "A sequence of non-whitespace characters",
     scopeType: "nonWhitespaceSequence",
   },
+  url: {
+    description: "A url",
+    scopeType: "url",
+  },
+  surroundingPair: {
+    description: "A delimiter pair, such as parentheses or quotes",
+    scopeType: {
+      type: "surroundingPair",
+      delimiter: "any",
+    },
+  },
+  "surroundingPair.iteration": {
+    description:
+      "The iteration scope for delimiter pairs; should be the whole document",
+    scopeType: {
+      type: "surroundingPair",
+      delimiter: "any",
+    },
+    isIteration: true,
+  },
   // FIXME: Still in legacy
   // boundedNonWhitespaceSequence: {
   //   description:
   //     "A sequence of non-whitespace characters bounded by matching pair",
   //   scopeType: "boundedNonWhitespaceSequence",
   // },
-  url: {
-    description: "A url",
-    scopeType: "url",
-  },
 };

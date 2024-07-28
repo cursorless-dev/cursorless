@@ -3,12 +3,14 @@
   "version": "0.1.0",
   "description": "Contains scripts and runners for testing Cursorless",
   "private": true,
-  "main": "./out/index.js",
+  "main": "./out/runners/extensionTestsNeovim.cjs",
   "scripts": {
-    "test": "env CURSORLESS_TEST=true my-ts-node src/scripts/runTestsCI.ts",
-    "build:base": "esbuild --sourcemap --conditions=cursorless:bundler --bundle --external:vscode --format=cjs --platform=node",
-    "build": "pnpm run build:runner && pnpm run build:tests && pnpm run build:unit && pnpm run build:talon",
-    "build:runner": "pnpm run build:base ./src/runners/extensionTestsVscode.ts --outfile=dist/extensionTestsVscode.cjs",
+    "test": "env CURSORLESS_MODE=test my-ts-node src/scripts/runVscodeTestsCI.ts",
+    "test:neovim": "env CURSORLESS_MODE=test my-ts-node src/scripts/runNeovimTestsCI.ts",
+    "build:base": "esbuild --sourcemap --conditions=cursorless:bundler --bundle --external:vscode --external:./reporters/parallel-buffered --external:./worker.js --format=cjs --platform=node",
+    "build": "pnpm run build:runner:vscode && pnpm run build:runner:neovim && pnpm run build:tests && pnpm run build:unit && pnpm run build:talon",
+    "build:runner:vscode": "pnpm run build:base ./src/runners/extensionTestsVscode.ts --outfile=dist/extensionTestsVscode.cjs",
+    "build:runner:neovim": "pnpm run build:base ./src/runners/extensionTestsNeovim.ts --outfile=out/runners/extensionTestsNeovim.cjs",
     "build:unit": "pnpm run build:base ./src/scripts/runUnitTestsOnly.ts --outfile=dist/runUnitTestsOnly.cjs",
     "build:talon": "pnpm run build:base ./src/scripts/runTalonTests.ts --outfile=dist/runTalonTests.cjs",
     "build:tests": "bash ./scripts/build-tests.sh",
@@ -23,20 +25,24 @@
   "license": "MIT",
   "dependencies": {
     "@cursorless/common": "workspace:*",
+    "@cursorless/node-common": "workspace:*",
+    "@cursorless/neovim-common": "workspace:*",
+    "@cursorless/neovim-registry": "workspace:*",
     "glob": "^10.3.10",
-    "pathe": "^1.1.2"
+    "neovim": "5.1.0",
+    "tail": "2.2.6"
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",
     "@types/mocha": "^10.0.6",
+    "@types/tail": "2.2.3",
     "@vscode/test-electron": "^2.3.9",
     "mocha": "^10.3.0"
   },
-  "types": "./out/index.d.ts",
+  "types": "./out/runners/extensionTestsNeovim.d.ts",
   "exports": {
     ".": {
-      "cursorless:bundler": "./src/index.ts",
-      "default": "./out/index.js"
+      "default": "./out/runners/extensionTestsNeovim.cjs"
     }
   },
   "type": "module"

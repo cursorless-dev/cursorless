@@ -1,3 +1,5 @@
+;; https://github.com/tree-sitter/tree-sitter-json/blob/master/src/grammar.json
+
 ;;!! "string"
 ;;!   ^^^^^^
 (string_content) @textFragment

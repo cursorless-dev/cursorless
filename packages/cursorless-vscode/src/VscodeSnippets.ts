@@ -1,18 +1,15 @@
 import {
+  mergeStrict,
   showError,
   Snippet,
   SnippetMap,
-  walkFiles,
   type IDE,
 } from "@cursorless/common";
-import {
-  mergeSnippets,
-  mergeStrict,
-  type Snippets,
-} from "@cursorless/cursorless-engine";
-import { readFile, stat, open } from "fs/promises";
+import { mergeSnippets, type Snippets } from "@cursorless/cursorless-engine";
+import { walkFiles } from "@cursorless/node-common";
 import { max } from "lodash-es";
-import { join } from "pathe";
+import { open, readFile, stat } from "node:fs/promises";
+import { join } from "node:path";
 
 const CURSORLESS_SNIPPETS_SUFFIX = ".cursorless-snippets";
 const SNIPPET_DIR_REFRESH_INTERVAL_MS = 1000;

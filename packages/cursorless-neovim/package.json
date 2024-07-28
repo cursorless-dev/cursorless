@@ -1,0 +1,47 @@
+{
+  "name": "@cursorless/cursorless-neovim",
+  "version": "1.0.0",
+  "description": "cursorless in neovim",
+  "main": "./out/index.cjs",
+  "private": true,
+  "scripts": {
+    "build": "pnpm run esbuild:prod && pnpm run populate-dist",
+    "compile": "tsc --build",
+    "esbuild:base": "esbuild ./src/index.ts --format=cjs --conditions=cursorless:bundler --bundle --outfile=./out/index.cjs --platform=node",
+    "esbuild": "pnpm run esbuild:base --sourcemap",
+    "esbuild:prod": "pnpm run esbuild:base --minify",
+    "populate-dist": "bash ./scripts/populate-dist.sh",
+    "populate-dist:prod": "bash ./scripts/populate-dist.sh",
+    "watch:tsc": "pnpm compile --watch",
+    "watch:esbuild": "pnpm esbuild --watch",
+    "watch": "pnpm run --filter @cursorless/cursorless-neovim --parallel '/^watch:.*/'",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "types": "./out/index.d.ts",
+  "exports": {
+    ".": {
+      "cursorless:bundler": "./src/index.ts",
+      "default": "./out/index.cjs"
+    }
+  },
+  "dependencies": {
+    "@cursorless/common": "workspace:*",
+    "@cursorless/cursorless-engine": "workspace:*",
+    "@cursorless/neovim-common": "workspace:*",
+    "@cursorless/neovim-registry": "workspace:*",
+    "@cursorless/node-common": "workspace:*",
+    "@cursorless/test-case-recorder": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.14",
+    "@types/js-yaml": "^4.0.9",
+    "@types/lodash": "4.17.0",
+    "@types/uuid": "^9.0.8",
+    "lodash": "^4.17.21",
+    "neovim": "5.1.0",
+    "vscode-uri": "^3.0.8"
+  }
+}

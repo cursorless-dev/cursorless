@@ -5,7 +5,9 @@ import {
   IDE,
   ScopeProvider,
   ensureCommandShape,
-  type FileSystem,
+  type RawTreeSitterQueryProvider,
+  type TalonSpokenForms,
+  type TreeSitter,
 } from "@cursorless/common";
 import { KeyboardTargetUpdater } from "./KeyboardTargetUpdater";
 import {
@@ -19,10 +21,15 @@ import { StoredTargetMap } from "./core/StoredTargets";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
 import { DisabledCommandServerApi } from "./disabledComponents/DisabledCommandServerApi";
 import { DisabledHatTokenMap } from "./disabledComponents/DisabledHatTokenMap";
+import { DisabledLanguageDefinitions } from "./disabledComponents/DisabledLanguageDefinitions";
 import { DisabledSnippets } from "./disabledComponents/DisabledSnippets";
 import { DisabledTalonSpokenForms } from "./disabledComponents/DisabledTalonSpokenForms";
+import { DisabledTreeSitter } from "./disabledComponents/DisabledTreeSitter";
 import { CustomSpokenFormGeneratorImpl } from "./generateSpokenForm/CustomSpokenFormGeneratorImpl";
-import { LanguageDefinitions } from "./languages/LanguageDefinitions";
+import {
+  LanguageDefinitionsImpl,
+  type LanguageDefinitions,
+} from "./languages/LanguageDefinitions";
 import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
 import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
 import { runCommand } from "./runCommand";
@@ -32,15 +39,13 @@ import { ScopeRangeProvider } from "./scopeProviders/ScopeRangeProvider";
 import { ScopeRangeWatcher } from "./scopeProviders/ScopeRangeWatcher";
 import { ScopeSupportChecker } from "./scopeProviders/ScopeSupportChecker";
 import { ScopeSupportWatcher } from "./scopeProviders/ScopeSupportWatcher";
-import { type TalonSpokenForms } from "./scopeProviders/TalonSpokenForms";
 import { injectIde } from "./singletons/ide.singleton";
-import { TreeSitter } from "./typings/TreeSitter";
 
-interface Props {
+export interface EngineProps {
   ide: IDE;
   hats?: Hats;
-  treeSitter: TreeSitter;
-  fileSystem: FileSystem;
+  treeSitterQueryProvider?: RawTreeSitterQueryProvider;
+  treeSitter?: TreeSitter;
   commandServerApi?: CommandServerApi;
   talonSpokenForms?: TalonSpokenForms;
   snippets?: Snippets;
@@ -49,19 +54,19 @@ interface Props {
 export async function createCursorlessEngine({
   ide,
   hats,
-  treeSitter,
-  fileSystem,
+  treeSitterQueryProvider,
+  treeSitter = new DisabledTreeSitter(),
   commandServerApi = new DisabledCommandServerApi(),
   talonSpokenForms = new DisabledTalonSpokenForms(),
   snippets = new DisabledSnippets(),
-}: Props): Promise<CursorlessEngine> {
+}: EngineProps): Promise<CursorlessEngine> {
   injectIde(ide);
 
   const debug = new Debug(ide);
   const rangeUpdater = new RangeUpdater();
 
   const storedTargets = new StoredTargetMap();
-  const keyboardTargetUpdater = new KeyboardTargetUpdater(storedTargets);
+  const keyboardTargetUpdater = new KeyboardTargetUpdater(ide, storedTargets);
   const customSpokenFormGenerator = new CustomSpokenFormGeneratorImpl(
     talonSpokenForms,
   );
@@ -72,8 +77,13 @@ export async function createCursorlessEngine({
       : new DisabledHatTokenMap();
   void hatTokenMap.allocateHats();
 
-  const languageDefinitions = new LanguageDefinitions(fileSystem, treeSitter);
-  await languageDefinitions.init();
+  const languageDefinitions = treeSitterQueryProvider
+    ? await LanguageDefinitionsImpl.create(
+        ide,
+        treeSitter,
+        treeSitterQueryProvider,
+      )
+    : new DisabledLanguageDefinitions();
 
   ide.disposeOnExit(
     rangeUpdater,

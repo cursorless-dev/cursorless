@@ -1,7 +1,6 @@
 import {
   CURSORLESS_COMMAND_ID,
   CursorlessCommandId,
-  isTesting,
   type CommandHistoryStorage,
 } from "@cursorless/common";
 import {
@@ -11,12 +10,15 @@ import {
 import {
   CommandApi,
   StoredTargetMap,
-  TestCaseRecorder,
   analyzeCommandHistory,
-  type ScopeTestRecorder,
 } from "@cursorless/cursorless-engine";
+import type {
+  ScopeTestRecorder,
+  TestCaseRecorder,
+} from "@cursorless/test-case-recorder";
 import * as vscode from "vscode";
 import { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
+import { VscodeTutorial } from "./VscodeTutorial";
 import { showDocumentation, showQuickPick } from "./commands";
 import { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
@@ -33,13 +35,14 @@ export function registerCommands(
   scopeVisualizer: ScopeVisualizer,
   keyboardCommands: KeyboardCommands,
   hats: VscodeHats,
+  tutorial: VscodeTutorial,
   storedTargets: StoredTargetMap,
 ): void {
   const runCommandWrapper = async (run: () => Promise<unknown>) => {
     try {
       return await run();
     } catch (e) {
-      if (!isTesting()) {
+      if (vscodeIde.runMode !== "test") {
         const err = e as Error;
         console.error(err.stack);
         vscodeIde.handleCommandError(err);
@@ -118,9 +121,17 @@ export function registerCommands(
     ["cursorless.keyboard.modal.modeOn"]: keyboardCommands.modal.modeOn,
     ["cursorless.keyboard.modal.modeOff"]: keyboardCommands.modal.modeOff,
     ["cursorless.keyboard.modal.modeToggle"]: keyboardCommands.modal.modeToggle,
-
     ["cursorless.keyboard.undoTarget"]: () => storedTargets.undo("keyboard"),
     ["cursorless.keyboard.redoTarget"]: () => storedTargets.redo("keyboard"),
+
+    // Tutorial commands
+    ["cursorless.tutorial.start"]: tutorial.start,
+    ["cursorless.tutorial.next"]: tutorial.next,
+    ["cursorless.tutorial.previous"]: tutorial.previous,
+    ["cursorless.tutorial.restart"]: tutorial.restart,
+    ["cursorless.tutorial.resume"]: tutorial.resume,
+    ["cursorless.tutorial.list"]: tutorial.list,
+    ["cursorless.documentationOpened"]: tutorial.documentationOpened,
   };
 
   extensionContext.subscriptions.push(

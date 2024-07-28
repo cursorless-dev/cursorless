@@ -15,7 +15,7 @@ If you are adding support for a new language that isn't natively detected by VSC
 
 ## 3. Register your language with Cursorless
 
-1. Create a file with your scope support map to indicate which scopes you support. See eg [`markdown.ts`](../../packages/common/src/scopeSupportFacets/markdown.ts). At the start, you can leave the actual scope support table empty, so it will look something like the following (keeping in mind it's best to look at `markdown.ts` or another support file in case the following snippet rots):
+1. Create a file with your scope support map to indicate which scopes you support. See eg [`markdown.ts`](../../packages/common/src/scopeSupportFacets/markdown.ts). At the start, you can leave the actual scope support table empty, so it will look something like the following (keeping in mind it's best to look at [`markdown.ts`](../../packages/common/src/scopeSupportFacets/markdown.ts) or another support file in case the following snippet rots):
 
    ```ts
    import {
@@ -37,4 +37,4 @@ You can file a PR with just these changes to get the ball rolling.
 
 ## 4. Define your language's scopes
 
-Follow the instructions in [Adding a new scope](./adding-a-new-scope.md) to define the scopes for your language. Note that you can file a PR for each added scopes, or do a couple at a time, but it's best _**not**_ to do them all at once, as smaller PRs make the review process easier.
+Follow the instructions in [Adding a new scope](./adding-a-new-scope.md) to define the scopes for your language. Note that you can file a PR for each added scope, or do a couple at a time, but it's best _**not**_ to do them all at once, as smaller PRs make the review process easier.

@@ -1,0 +1,30 @@
+languageId: plaintext
+command:
+  version: 7
+  spokenForm: pre urge
+  action:
+    name: setSelectionBefore
+    target:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: u}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    Welcome Cursorless!
+
+    Notice the hats above each word in this sentence.
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 49}
+  marks:
+    default.u:
+      start: {line: 0, character: 8}
+      end: {line: 0, character: 18}
+finalState:
+  documentContents: |
+    Welcome Cursorless!
+
+    Notice the hats above each word in this sentence.
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

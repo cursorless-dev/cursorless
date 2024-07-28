@@ -1,0 +1,21 @@
+<?php
+yield 2;
+---
+
+[Content] = 1:6-1:7
+        >-<
+1| yield 2;
+
+[Removal] = 1:5-1:7
+       >--<
+1| yield 2;
+
+[Leading delimiter] = 1:5-1:6
+       >-<
+1| yield 2;
+
+[Domain] = 1:0-1:7
+  >-------<
+1| yield 2;
+
+[Insertion delimiter] = " "

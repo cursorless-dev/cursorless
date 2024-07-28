@@ -14,4 +14,5 @@ export const latexScopeSupport: LanguageScopeSupportFacetMap = {
   endTag: supported,
   tags: supported,
   environment: supported,
+  disqualifyDelimiter: supported,
 };

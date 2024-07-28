@@ -108,7 +108,7 @@ export class IndividualHatMap implements ReadOnlyHatMap {
     return Object.entries(this.map);
   }
 
-  getToken(hatStyle: HatStyleName, character: string): Token {
+  getToken(hatStyle: HatStyleName, character: string): Token | undefined {
     this.checkExpired();
     return this.map[
       getKey(hatStyle, tokenGraphemeSplitter().normalizeGrapheme(character))

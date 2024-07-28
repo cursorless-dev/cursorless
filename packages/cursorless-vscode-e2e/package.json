@@ -20,6 +20,7 @@
   "license": "MIT",
   "dependencies": {
     "@cursorless/common": "workspace:*",
+    "@cursorless/node-common": "workspace:*",
     "@cursorless/vscode-common": "workspace:*",
     "immer": "^10.0.4",
     "lodash-es": "^4.17.21"
@@ -34,7 +35,6 @@
     "chai": "^5.1.0",
     "js-yaml": "^4.1.0",
     "mocha": "^10.3.0",
-    "pathe": "^1.1.2",
     "sinon": "^17.0.1"
   },
   "types": "./out/index.d.ts",
