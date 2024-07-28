@@ -7,7 +7,6 @@ export const legacyLanguageIds = [
   "csharp",
   "css",
   "latex",
-  "php",
   "ruby",
   "rust",
   "scala",

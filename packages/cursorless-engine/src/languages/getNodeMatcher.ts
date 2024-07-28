@@ -12,7 +12,6 @@ import clojure from "./clojure";
 import { LegacyLanguageId } from "./LegacyLanguageId";
 import csharp from "./csharp";
 import latex from "./latex";
-import php from "./php";
 import { patternMatchers as ruby } from "./ruby";
 import rust from "./rust";
 import scala from "./scala";
@@ -50,7 +49,6 @@ export const languageMatchers: Record<
   csharp,
   css: scss,
   latex,
-  php,
   ruby,
   rust,
   scala,
