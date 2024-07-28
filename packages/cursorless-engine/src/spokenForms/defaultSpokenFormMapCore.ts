@@ -28,6 +28,8 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     backtickQuotes: "skis",
     squareBrackets: "box",
     singleQuotes: "twin",
+    tripleDoubleQuotes: isPrivate("triple quad"),
+    tripleSingleQuotes: isPrivate("triple twin"),
     any: "pair",
     string: "string",
     whitespace: "void",
@@ -99,6 +101,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
 
     string: isPrivate("parse tree string"),
     textFragment: isPrivate("text fragment"),
+    disqualifyDelimiter: isPrivate("disqualify delimiter"),
     ["private.fieldAccess"]: isPrivate("access"),
     ["private.switchStatementSubject"]: isPrivate("subject"),
   },

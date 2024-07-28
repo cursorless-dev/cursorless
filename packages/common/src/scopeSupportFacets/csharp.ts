@@ -10,6 +10,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   ifStatement: supported,
   switchStatementSubject: supported,
   anonymousFunction: supported,
+  disqualifyDelimiter: supported,
 
   class: supported,
   "class.iteration.document": supported,

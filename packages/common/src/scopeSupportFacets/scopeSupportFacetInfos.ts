@@ -288,6 +288,12 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "textFragment",
   },
 
+  disqualifyDelimiter: {
+    description:
+      "Used to disqualify a token from being treated as a surrounding pair delimiter. This will usually be operators containing `>` or `<`, eg `<`, `<=`, `->`, etc",
+    scopeType: "disqualifyDelimiter",
+  },
+
   "branch.if": {
     description: "An if/elif/else branch",
     scopeType: "branch",
