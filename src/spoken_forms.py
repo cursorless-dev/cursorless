@@ -133,18 +133,29 @@ def update():
         handle_csv("target_connectives.csv"),
         handle_csv("modifiers.csv"),
         handle_csv("positions.csv"),
-        handle_csv("paired_delimiters.csv"),
+        handle_csv(
+            "paired_delimiters.csv",
+            pluralize_lists=[
+                "selectable_only_paired_delimiter",
+                "wrapper_selectable_paired_delimiter",
+            ],
+        ),
         handle_csv("special_marks.csv"),
         handle_csv("scope_visualizer.csv"),
         handle_csv("experimental/experimental_actions.csv"),
         handle_csv("experimental/miscellaneous.csv"),
         handle_csv(
             "modifier_scope_types.csv",
-            pluralize_lists=["scope_type", "glyph_scope_type"],
+            pluralize_lists=[
+                "scope_type",
+                "glyph_scope_type",
+                "surrounding_pair_scope_type",
+            ],
             extra_allowed_values=[
                 "private.fieldAccess",
                 "private.switchStatementSubject",
                 "textFragment",
+                "disqualifyDelimiter",
             ],
             default_list_name="scope_type",
         ),
