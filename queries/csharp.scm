@@ -163,11 +163,11 @@
 (initializer_expression
   (assignment_expression
     left: (_) @collectionKey
-  )
+  ) @_.domain
 )
 (initializer_expression
-  "{" @collectionKey.iteration.start.endOf
-  "}" @collectionKey.iteration.end.startOf
+  "{" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
+  "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
 )
 
 ;;!! String aaa;
