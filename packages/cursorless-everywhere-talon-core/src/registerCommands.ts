@@ -36,6 +36,8 @@ export function registerCommands(
         throw Error(`Unknown command ID: ${commandId}`);
       }
 
+      // We don't have all the document on change events, so we need to make
+      // sure that text editor is up to date before we run the command
       const editorState =
         talon.actions.user.cursorless_everywhere_get_editor_state();
       ide.updateTextEditors(editorState);

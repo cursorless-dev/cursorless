@@ -15,6 +15,10 @@ const HAT_COLORS = [
   "yellow",
 ] as const;
 
+/**
+ * This class is a mock implementation and only used for testing.
+ * It uses the default colars and no extra shapes.
+ */
 export class TalonJsTestHats implements Hats {
   isEnabled = true;
   private hatRanges: HatRange[] = [];
