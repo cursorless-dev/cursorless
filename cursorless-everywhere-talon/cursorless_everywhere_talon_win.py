@@ -57,8 +57,6 @@ class Actions:
         anchor = selection["anchor"]
         active = selection["active"]
 
-        print(f"Setting selection to {anchor}, {active}")
-
         el = ui.focused_element()
 
         if "Text2" not in el.patterns:
@@ -74,7 +72,6 @@ class Actions:
     ):
         """Set focused element text"""
         text = changes["text"]
-        print(f"Setting text to '{text}'")
 
         el = ui.focused_element()
 
