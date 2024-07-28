@@ -26,6 +26,8 @@ class EditorChanges(TypedDict):
 
 mod = Module()
 
+mod.tag("cursorless_everywhere_talon", desc="Enable cursorless everywhere in Talon")
+
 
 @mod.action_class
 class Actions:

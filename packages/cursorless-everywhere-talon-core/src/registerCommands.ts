@@ -9,7 +9,7 @@ export function registerCommands(
   commandApi: CommandApi,
 ) {
   const ctx = new talon.Context();
-  ctx.matches = "not app: vscode";
+  ctx.matches = "tag: user.cursorless_everywhere_talon";
 
   ctx.action_class("user", {
     private_cursorless_run_rpc_command_no_wait(
