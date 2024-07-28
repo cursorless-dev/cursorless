@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+set -euo pipefail
 
 QUICKJS_VERSION=2024-01-13
 
