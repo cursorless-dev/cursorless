@@ -5,7 +5,7 @@ import {
 } from "@cursorless/common";
 import { URI } from "vscode-uri";
 import type { Talon } from "../types/talon.types";
-import type { EditorState, OffsetSelection } from "../types/types";
+import type { EditorState, SelectionOffsets } from "../types/types";
 import { TalonJsEditor } from "./TalonJsEditor";
 import type { TalonJsIDE } from "./TalonJsIDE";
 
@@ -30,7 +30,7 @@ export function createTextEditor(
 
 export function createSelection(
   document: TextDocument,
-  selection: OffsetSelection,
+  selection: SelectionOffsets,
 ) {
   const anchor = document.positionAt(selection.anchor);
   const active = document.positionAt(selection.active);

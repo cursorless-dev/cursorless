@@ -1,7 +1,7 @@
 import type {
   EditorChanges,
   EditorState,
-  OffsetSelection,
+  SelectionOffsets,
   Talon,
   TalonActions,
   TalonContext,
@@ -41,7 +41,7 @@ const actions: TalonActions = {
       }
       return _editorState;
     },
-    cursorless_everywhere_set_selections(selections: OffsetSelection[]): void {
+    cursorless_everywhere_set_selections(selections: SelectionOffsets[]): void {
       if (_finalEditorState == null) {
         throw new Error("Final editor state not set.");
       }

@@ -8,7 +8,7 @@ import type {
 import type { StoredTargetMap } from "@cursorless/cursorless-engine";
 import type { TalonJsIDE } from "../ide/TalonJsIDE";
 
-export interface OffsetSelection {
+export interface SelectionOffsets {
   // Document offsets
   anchor: number;
   active: number;
@@ -17,7 +17,7 @@ export interface OffsetSelection {
 export interface EditorState {
   text: string;
   languageId?: string;
-  selections: OffsetSelection[];
+  selections: SelectionOffsets[];
 }
 
 export interface EditorChange {
