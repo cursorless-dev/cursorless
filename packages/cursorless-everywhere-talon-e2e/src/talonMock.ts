@@ -73,10 +73,6 @@ class Context implements TalonContext {
   }
 }
 
-function createContext(): TalonContext {
-  return new Context();
-}
-
 function getTestHelpers(): TalonTestHelpers {
   if (_contextActions == null) {
     throw new Error("Context actions not set.");
@@ -103,7 +99,7 @@ interface TalonInTests extends Talon {
 const talonMock: TalonInTests = {
   actions,
   settings,
-  ["Context"]: createContext,
+  ["Context"]: Context,
   getTestHelpers,
 };
 

@@ -46,8 +46,12 @@ export interface TalonSettings {
   ): T | null;
 }
 
+interface TalonContextConstructor {
+  new (): TalonContext;
+}
+
 export interface Talon {
   readonly actions: TalonActions;
   readonly settings: TalonSettings;
-  Context(): TalonContext;
+  Context: TalonContextConstructor;
 }

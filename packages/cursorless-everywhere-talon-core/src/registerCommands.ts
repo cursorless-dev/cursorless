@@ -8,7 +8,7 @@ export function registerCommands(
   ide: TalonJsIDE,
   commandApi: CommandApi,
 ) {
-  const ctx = talon.Context();
+  const ctx = new talon.Context();
   ctx.matches = "not app: vscode";
 
   ctx.action_class("user", {
