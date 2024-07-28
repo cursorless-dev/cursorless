@@ -10,7 +10,10 @@ import { TokenTarget } from "../../targets";
 import { BaseScopeHandler } from "./BaseScopeHandler";
 import { compareTargetScopes } from "./compareTargetScopes";
 import type { TargetScope } from "./scope.types";
-import type { ScopeHandler } from "./scopeHandler.types";
+import type {
+  ScopeHandler,
+  ScopeIteratorRequirements,
+} from "./scopeHandler.types";
 import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 
 export class BoundedNonWhitespaceSequenceScopeHandler extends BaseScopeHandler {
@@ -32,6 +35,7 @@ export class BoundedNonWhitespaceSequenceScopeHandler extends BaseScopeHandler {
     editor: TextEditor,
     position: Position,
     direction: Direction,
+    hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
     const paintScopeHandler = this.scopeHandlerFactory.create(
       {
@@ -53,9 +57,7 @@ export class BoundedNonWhitespaceSequenceScopeHandler extends BaseScopeHandler {
       editor,
       position,
       direction,
-      {
-        allowAdjacentScopes: true,
-      },
+      hints,
     );
 
     const scopes = Array.from(paintScopes)
