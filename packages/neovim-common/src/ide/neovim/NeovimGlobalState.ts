@@ -1,14 +1,14 @@
-import type { State, StateData, StateKey } from "@cursorless/common";
-import { STATE_DEFAULTS } from "@cursorless/common";
+import type { Storage, StorageData, StorageKey } from "@cursorless/common";
+import { STORAGE_DEFAULTS } from "@cursorless/common";
 
-export default class NeovimGlobalState implements State {
-  private readonly data: StateData = { ...STATE_DEFAULTS };
+export default class NeovimStorage implements Storage {
+  private readonly data: StorageData = { ...STORAGE_DEFAULTS };
 
-  get<K extends StateKey>(key: K): StateData[K] {
+  get<K extends StorageKey>(key: K): StorageData[K] {
     return this.data[key];
   }
 
-  set<K extends StateKey>(key: K, value: StateData[K]): Promise<void> {
+  set<K extends StorageKey>(key: K, value: StorageData[K]): Promise<void> {
     this.data[key] = value;
     return Promise.resolve();
   }

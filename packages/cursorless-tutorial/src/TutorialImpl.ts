@@ -121,7 +121,7 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
    * tutorial to start.
    */
   getPickingTutorialState(): TutorialState {
-    const tutorialProgress = this.ide.globalState.get("tutorialProgress");
+    const tutorialProgress = this.ide.storage.get("tutorialProgress");
 
     return {
       type: "pickingTutorial",
@@ -169,7 +169,7 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
       tutorialId,
       this.customSpokenFormGenerator,
       this.getRawTutorial(tutorialId),
-      this.ide.globalState,
+      this.ide.storage,
     );
 
     this.currentTutorial = tutorialContent;
@@ -203,7 +203,7 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
       tutorialId,
       this.customSpokenFormGenerator,
       this.getRawTutorial(tutorialId),
-      this.ide.globalState,
+      this.ide.storage,
     );
 
     this.currentTutorial = tutorialContent;
@@ -285,9 +285,9 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
     this.state_ = state;
 
     if (state.type === "doingTutorial") {
-      this.ide.globalState.set(
+      this.ide.storage.set(
         "tutorialProgress",
-        produce(this.ide.globalState.get("tutorialProgress"), (draft) => {
+        produce(this.ide.storage.get("tutorialProgress"), (draft) => {
           draft[state.id] = {
             currentStep: state.stepNumber,
             version: this.currentTutorial!.version,
