@@ -38,6 +38,11 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "environment",
   },
 
+  section: {
+    description: "A document section",
+    scopeType: "section",
+  },
+
   list: {
     description: "A list/array",
     scopeType: "list",
@@ -490,6 +495,11 @@ export const scopeSupportFacetInfos: Record<
   },
   "value.variable": {
     description: "Value (RHS) of a variable declaration",
+    scopeType: "value",
+  },
+  "value.variable.pattern": {
+    description:
+      "Value (RHS) of a variable declaration with pattern destructuring",
     scopeType: "value",
   },
   "value.mapPair": {
