@@ -17,6 +17,9 @@ if (typeof print !== "undefined") {
   };
 }
 
+// In quickjs `setTimeout` is not available.
+// FIXME: Remove reliability on  `setTimeout` in the future.
+// https://github.com/cursorless-dev/cursorless/issues/2596
 global.setTimeout = (callback: () => void, _delay: number) => {
   callback();
 };
