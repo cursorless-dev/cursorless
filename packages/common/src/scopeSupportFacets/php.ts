@@ -11,6 +11,17 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
   "comment.block": supported,
   "textFragment.string.singleLine": supported,
 
+  "name.variable": supported,
+  "name.assignment": supported,
+
+  "key.mapPair": supported,
+
+  "value.variable": supported,
+  "value.assignment": supported,
+  "value.mapPair": supported,
+  "value.return": supported,
+  "value.yield": supported,
+
   "type.argument.formal": supported,
   "type.argument.formal.iteration": supported,
   "type.cast": supported,
