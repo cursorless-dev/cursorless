@@ -92,6 +92,9 @@ function getSurroundingPairInteriors(
     target.editor,
     target.contentRange.start,
     "forward",
+    {
+      distalPosition: target.contentRange.end,
+    },
   );
   return Array.from(surroundingPairScopes).map(
     (scope) => assertSingleTarget(scope).getInterior()![0].contentRange,
