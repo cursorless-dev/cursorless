@@ -1,0 +1,17 @@
+/** 
+* hello
+* world
+*/
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-3:2
+  >----
+0| /** 
+1| * hello
+2| * world
+3| */
+   --<
+
+[Insertion delimiter] = " "

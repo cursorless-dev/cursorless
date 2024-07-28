@@ -1,6 +1,8 @@
 ;; import javascript.function.scm
 ;; import javascript.fieldAccess.scm
 
+;; https://github.com/tree-sitter/tree-sitter-javascript/blob/master/src/grammar.json
+
 ;; `name` scope without `export`
 (
   (_
@@ -440,10 +442,14 @@
 (regex) @regularExpression
 
 [
-  (string_fragment)
   (comment)
   (regex_pattern)
 ] @textFragment
+
+(
+  (string) @textFragment
+  (#child-range! @textFragment 0 -1 true true)
+)
 
 (
   (template_string) @textFragment
@@ -728,3 +734,19 @@
   "(" @argumentOrParameter.iteration.start.endOf
   ")" @argumentOrParameter.iteration.end.startOf
 ) @argumentOrParameter.iteration.domain
+
+operator: [
+  "<"
+  "<<"
+  "<<="
+  "<="
+  ">"
+  ">="
+  ">>"
+  ">>="
+  ">>>"
+  ">>>="
+] @disqualifyDelimiter
+(arrow_function
+  "=>" @disqualifyDelimiter
+)

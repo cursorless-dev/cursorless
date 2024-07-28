@@ -1,7 +1,7 @@
 import { FlashStyle, ScopeType, WrapWithSnippetArg } from "@cursorless/common";
 import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { ModifyIfUntypedStage } from "../processTargets/modifiers/ConditionalModifierStages";
 import { ide } from "../singletons/ide.singleton";
@@ -102,14 +102,19 @@ export default class WrapWithSnippet {
 
     const targetSelections = targets.map((target) => target.contentSelection);
 
-    // NB: We used the command "editor.action.insertSnippet" instead of calling editor.insertSnippet
-    // because the latter doesn't support special variables like CLIPBOARD
-    const [updatedTargetSelections] = await callFunctionAndUpdateSelections(
-      this.rangeUpdater,
-      () => editor.insertSnippet(snippetString, targetSelections),
-      editor.document,
-      [targetSelections],
-    );
+    const callback = () =>
+      editor.insertSnippet(snippetString, targetSelections);
+
+    const { targetSelections: updatedTargetSelections } =
+      await performEditsAndUpdateSelections({
+        rangeUpdater: this.rangeUpdater,
+        editor,
+        callback,
+        preserveCursorSelections: true,
+        selections: {
+          targetSelections,
+        },
+      });
 
     return {
       thatSelections: updatedTargetSelections.map((selection) => ({

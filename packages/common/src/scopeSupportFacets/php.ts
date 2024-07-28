@@ -24,4 +24,6 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.actual.method.iteration": supported,
   "argument.actual": supported,
   "argument.actual.iteration": supported,
+
+  disqualifyDelimiter: supported,
 };

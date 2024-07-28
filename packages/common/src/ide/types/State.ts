@@ -1,11 +1,27 @@
+import { TutorialId } from "../../types/tutorial.types";
+
+interface SingleTutorialProgress {
+  currentStep: number;
+  version: number;
+}
+
+export type TutorialProgress = Partial<
+  Record<TutorialId, SingleTutorialProgress>
+>;
+
+export interface StateData {
+  hideInferenceWarning: boolean;
+  tutorialProgress: TutorialProgress;
+}
+export type StateKey = keyof StateData;
+
 /**
  * A mapping from allowable state keys to their default values
  */
-export const STATE_DEFAULTS = {
+export const STATE_DEFAULTS: StateData = {
   hideInferenceWarning: false,
+  tutorialProgress: {},
 };
-export type StateData = typeof STATE_DEFAULTS;
-export type StateKey = keyof StateData;
 
 /**
  * A state represents a storage utility. It can store and retrieve
