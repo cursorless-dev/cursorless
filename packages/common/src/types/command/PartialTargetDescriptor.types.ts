@@ -224,6 +224,7 @@ export interface CustomRegexScopeType {
 }
 
 export type SurroundingPairDirection = "left" | "right";
+
 export interface SurroundingPairScopeType {
   type: "surroundingPair";
   delimiter: SurroundingPairName;
@@ -241,6 +242,15 @@ export interface SurroundingPairScopeType {
   requireStrongContainment?: boolean;
 }
 
+/**
+ * This differs from the normal @SurroundingPairScopeType that it is always
+ * `requireStrongContainment` and a content range is the interior
+ * */
+export interface SurroundingPairInteriorScopeType {
+  type: "surroundingPairInterior";
+  delimiter: SurroundingPairName;
+}
+
 export interface OneOfScopeType {
   type: "oneOf";
   scopeTypes: ScopeType[];
@@ -254,6 +264,7 @@ export interface GlyphScopeType {
 export type ScopeType =
   | SimpleScopeType
   | SurroundingPairScopeType
+  | SurroundingPairInteriorScopeType
   | CustomRegexScopeType
   | OneOfScopeType
   | GlyphScopeType;
