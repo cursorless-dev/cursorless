@@ -1,5 +1,7 @@
 ;; import css.scm
 
+;; https://github.com/serenadeai/tree-sitter-scss/blob/master/src/grammar.json
+
 (single_line_comment) @comment @textFragment
 
 (if_statement) @ifStatement
@@ -25,4 +27,13 @@
   "{" @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf
   "}" @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf
   .
+)
+
+(binary_expression
+  [
+    "<"
+    "<="
+    ">"
+    ">="
+  ] @disqualifyDelimiter
 )

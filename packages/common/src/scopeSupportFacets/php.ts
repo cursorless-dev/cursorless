@@ -19,4 +19,6 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal": supported,
   "name.argument.formal.iteration": supported,
   "name.field": supported,
+
+  disqualifyDelimiter: supported,
 };

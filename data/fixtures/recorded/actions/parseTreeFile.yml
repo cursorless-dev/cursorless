@@ -10,6 +10,9 @@ command:
         - type: containingScope
           scopeType: {type: document}
   usePrePhraseSnapshot: true
+spokenFormError: >-
+  action with id private.showParseTree; this is a private spoken form currently
+  only for internal experimentation
 initialState:
   documentContents: const value = 2;
   selections:

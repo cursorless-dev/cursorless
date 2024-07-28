@@ -8,4 +8,5 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   ifStatement: supported,
+  disqualifyDelimiter: supported,
 };

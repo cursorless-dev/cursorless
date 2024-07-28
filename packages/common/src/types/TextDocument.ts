@@ -11,6 +11,11 @@ export interface TextDocument {
   readonly uri: URI;
 
   /**
+   * The last portion of the uri.path.
+   */
+  readonly filename: string;
+
+  /**
    * The identifier of the language associated with this document.
    */
   readonly languageId: string;

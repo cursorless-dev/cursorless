@@ -1,0 +1,75 @@
+val minValue = if (1 < 2) a else b
+val minValue = if (1 > 2) a else b
+val minValue = if (1 <= 2) a else b
+val minValue = if (1 >= 2) a else b
+val minValue = if (a << 2) a else b
+val minValue = if (a >> 2) a else b
+val minValue = if (a <<= 2) a else b
+val minValue = if (a >>= 2) a else b
+for (n <- numbers) yield n
+def function[T <% String](x: T) = {}
+def method[T <: BaseType](param: T) = {}
+def method[T >: BaseType](param: T) = {}
+val foo = (x: Int) => x
+val func: (Int, Int) => Int = foo
+value match { case 0 => "fail" }
+---
+[#1 Content] = 0:21-0:22
+                       >-<
+0| val minValue = if (1 < 2) a else b
+
+[#2 Content] = 1:21-1:22
+                       >-<
+1| val minValue = if (1 > 2) a else b
+
+[#3 Content] = 2:21-2:23
+                       >--<
+2| val minValue = if (1 <= 2) a else b
+
+[#4 Content] = 3:21-3:23
+                       >--<
+3| val minValue = if (1 >= 2) a else b
+
+[#5 Content] = 4:21-4:23
+                       >--<
+4| val minValue = if (a << 2) a else b
+
+[#6 Content] = 5:21-5:23
+                       >--<
+5| val minValue = if (a >> 2) a else b
+
+[#7 Content] = 6:21-6:24
+                       >---<
+6| val minValue = if (a <<= 2) a else b
+
+[#8 Content] = 7:21-7:24
+                       >---<
+7| val minValue = if (a >>= 2) a else b
+
+[#9 Content] = 8:7-8:9
+         >--<
+8| for (n <- numbers) yield n
+
+[#10 Content] = 9:15-9:17
+                 >--<
+9| def function[T <% String](x: T) = {}
+
+[#11 Content] = 10:13-10:15
+                >--<
+10| def method[T <: BaseType](param: T) = {}
+
+[#12 Content] = 11:13-11:15
+                >--<
+11| def method[T >: BaseType](param: T) = {}
+
+[#13 Content] = 12:19-12:21
+                      >--<
+12| val foo = (x: Int) => x
+
+[#14 Content] = 13:21-13:23
+                        >--<
+13| val func: (Int, Int) => Int = foo
+
+[#15 Content] = 14:21-14:23
+                        >--<
+14| value match { case 0 => "fail" }

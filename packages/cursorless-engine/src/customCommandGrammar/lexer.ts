@@ -5,7 +5,6 @@ import {
   simpleScopeTypeTypes,
   surroundingPairNames,
 } from "@cursorless/common";
-import { actions } from "../generateSpokenForm/defaultSpokenForms/actions";
 import { marks } from "../generateSpokenForm/defaultSpokenForms/marks";
 import { defaultSpokenFormMap } from "../spokenForms/defaultSpokenFormMap";
 import { connectives } from "../generateSpokenForm/defaultSpokenForms/connectives";
@@ -21,8 +20,8 @@ const tokens: Record<string, Token> = {};
 // FIXME: Remove the duplication below?
 
 for (const simpleActionName of simpleActionNames) {
-  const spokenForm = actions[simpleActionName];
-  if (spokenForm != null) {
+  const { spokenForms } = defaultSpokenFormMap.action[simpleActionName];
+  for (const spokenForm of spokenForms) {
     tokens[spokenForm] = {
       type: "simpleActionName",
       value: simpleActionName,
@@ -36,8 +35,8 @@ const bringMoveActionNames: BringMoveActionDescriptor["name"][] = [
 ];
 
 for (const bringMoveActionName of bringMoveActionNames) {
-  const spokenForm = actions[bringMoveActionName];
-  if (spokenForm != null) {
+  const { spokenForms } = defaultSpokenFormMap.action[bringMoveActionName];
+  for (const spokenForm of spokenForms) {
     tokens[spokenForm] = {
       type: "bringMove",
       value: bringMoveActionName,

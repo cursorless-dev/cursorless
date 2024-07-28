@@ -5,6 +5,7 @@ import {
   HatTokenMap,
   ReadOnlyHatMap,
   clientSupportsFallback,
+  type TreeSitter,
 } from "@cursorless/common";
 import { CommandRunner } from "./CommandRunner";
 import { Actions } from "./actions/Actions";
@@ -13,7 +14,8 @@ import { Debug } from "./core/Debug";
 import { CommandRunnerImpl } from "./core/commandRunner/CommandRunnerImpl";
 import { canonicalizeAndValidateCommand } from "./core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
-import { StoredTargetMap, TreeSitter, type Snippets } from "./index";
+import type { Snippets } from "./core/Snippets";
+import type { StoredTargetMap } from "./core/StoredTargets";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
 import { TargetPipelineRunner } from "./processTargets";
 import { MarkStageFactoryImpl } from "./processTargets/MarkStageFactoryImpl";
@@ -34,7 +36,7 @@ import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandler
  */
 export async function runCommand(
   treeSitter: TreeSitter,
-  commandServerApi: CommandServerApi | null,
+  commandServerApi: CommandServerApi,
   debug: Debug,
   hatTokenMap: HatTokenMap,
   snippets: Snippets,
@@ -90,7 +92,7 @@ async function unwrapLegacyCommandResponse(
 
 function createCommandRunner(
   treeSitter: TreeSitter,
-  commandServerApi: CommandServerApi | null,
+  commandServerApi: CommandServerApi,
   languageDefinitions: LanguageDefinitions,
   debug: Debug,
   storedTargets: StoredTargetMap,
