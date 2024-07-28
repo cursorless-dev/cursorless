@@ -352,9 +352,6 @@ importers:
       '@cursorless/common':
         specifier: workspace:*
         version: link:../common
-      '@cursorless/cursorless-engine':
-        specifier: workspace:*
-        version: link:../cursorless-engine
       '@cursorless/cursorless-everywhere-talon-core':
         specifier: workspace:*
         version: link:../cursorless-everywhere-talon-core

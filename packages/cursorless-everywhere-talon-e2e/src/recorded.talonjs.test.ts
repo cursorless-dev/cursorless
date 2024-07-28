@@ -3,7 +3,6 @@ import {
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   type TextEditor,
 } from "@cursorless/common";
-import { canonicalizeAndValidateCommand } from "@cursorless/cursorless-engine";
 import {
   activate,
   type EditorState,
@@ -59,9 +58,12 @@ async function shouldSkipTest(path: string, name: string): Promise<boolean> {
     return true;
   }
 
-  const commandComplete = canonicalizeAndValidateCommand(fixture.command);
+  const actionName =
+    typeof fixture.command.action === "object"
+      ? fixture.command.action.name
+      : fixture.command.action;
 
-  switch (commandComplete.action.name) {
+  switch (actionName) {
     case "insertSnippet":
     case "wrapWithSnippet":
     case "generateSnippet":

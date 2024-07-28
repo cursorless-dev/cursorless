@@ -15,7 +15,6 @@
   "type": "module",
   "dependencies": {
     "@cursorless/common": "workspace:*",
-    "@cursorless/cursorless-engine": "workspace:*",
     "@cursorless/cursorless-everywhere-talon-core": "workspace:*",
     "@cursorless/node-common": "workspace:*",
     "@cursorless/test-case-recorder": "workspace:*"
