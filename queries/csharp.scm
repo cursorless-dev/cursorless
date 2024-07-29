@@ -277,6 +277,18 @@
   ")" @argumentOrParameter.iteration.end.startOf
 ) @argumentOrParameter.iteration.domain
 
+;; Treat interior of all bodies as iteration scopes for `name`, eg
+;;!! void foo() {   }
+;;!              ***
+(_
+  body: (_
+    .
+    "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+    "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+    .
+  )
+)
+
 operator: [
   "->"
   "<"
