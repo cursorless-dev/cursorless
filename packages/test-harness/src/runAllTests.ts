@@ -17,6 +17,9 @@ export enum TestType {
   /** Talon tests require a running Talon instance */
   talon,
 
+  /** Talon everywhere/JS tests can be run without VSCode or Talon */
+  talonJs,
+
   /** Neovim tests must be run from Neovim context */
   neovim,
 }
@@ -36,6 +39,10 @@ export function runAllTests(...types: TestType[]) {
 
         if (f.endsWith("talon.test.cjs")) {
           return types.includes(TestType.talon);
+        }
+
+        if (f.endsWith("talonjs.test.cjs")) {
+          return types.includes(TestType.talonJs);
         }
 
         return types.includes(TestType.unit);

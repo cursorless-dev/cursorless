@@ -319,6 +319,56 @@ importers:
         specifier: ^17.0.1
         version: 17.0.1
 
+  packages/cursorless-everywhere-talon:
+    dependencies:
+      '@cursorless/common':
+        specifier: workspace:*
+        version: link:../common
+      '@cursorless/cursorless-everywhere-talon-core':
+        specifier: workspace:*
+        version: link:../cursorless-everywhere-talon-core
+
+  packages/cursorless-everywhere-talon-core:
+    dependencies:
+      '@cursorless/common':
+        specifier: workspace:*
+        version: link:../common
+      '@cursorless/cursorless-engine':
+        specifier: workspace:*
+        version: link:../cursorless-engine
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
+      vscode-uri:
+        specifier: ^3.0.8
+        version: 3.0.8
+    devDependencies:
+      '@types/lodash-es':
+        specifier: 4.17.0
+        version: 4.17.0
+
+  packages/cursorless-everywhere-talon-e2e:
+    dependencies:
+      '@cursorless/common':
+        specifier: workspace:*
+        version: link:../common
+      '@cursorless/cursorless-everywhere-talon-core':
+        specifier: workspace:*
+        version: link:../cursorless-everywhere-talon-core
+      '@cursorless/node-common':
+        specifier: workspace:*
+        version: link:../node-common
+      '@cursorless/test-case-recorder':
+        specifier: workspace:*
+        version: link:../test-case-recorder
+    devDependencies:
+      '@types/mocha':
+        specifier: ^10.0.6
+        version: 10.0.6
+      mocha:
+        specifier: ^10.3.0
+        version: 10.3.0
+
   packages/cursorless-neovim:
     dependencies:
       '@cursorless/common':
