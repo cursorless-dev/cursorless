@@ -68,7 +68,11 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
       editor,
       position,
       direction,
-      hints,
+      {
+        ...hints,
+        containment:
+          hints.containment !== "disallowed" ? hints.containment : undefined,
+      },
     );
 
     for (const scope of scopes) {
