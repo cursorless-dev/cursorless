@@ -5,7 +5,7 @@ import {
   TextEditor,
   Range,
 } from "@cursorless/common";
-import { TokenTarget } from "../../targets";
+import { ParagraphTarget, TokenTarget } from "../../targets";
 import { BaseScopeHandler } from "./BaseScopeHandler";
 import { compareTargetScopes } from "./compareTargetScopes";
 import type { TargetScope } from "./scope.types";
@@ -99,9 +99,7 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
         const interiorRange = pairScope.domain;
         const intersection = targetScope.domain.intersection(interiorRange);
         if (intersection != null && !intersection.isEmpty) {
-          allScopes.push(
-            this.createTargetScope(editor, intersection, interiorRange),
-          );
+          allScopes.push(this.createTargetScope(editor, intersection));
         }
       }
 
@@ -114,7 +112,6 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
   protected abstract createTargetScope(
     editor: TextEditor,
     contentRange: Range,
-    interiorRange: Range,
   ): TargetScope;
 }
 
@@ -132,7 +129,6 @@ export class BoundedNonWhitespaceSequenceScopeHandler extends BoundedBaseScopeHa
   protected createTargetScope(
     editor: TextEditor,
     contentRange: Range,
-    _interiorRange: Range,
   ): TargetScope {
     return {
       editor,
@@ -140,6 +136,38 @@ export class BoundedNonWhitespaceSequenceScopeHandler extends BoundedBaseScopeHa
       getTargets(isReversed) {
         return [
           new TokenTarget({
+            editor,
+            isReversed,
+            contentRange,
+          }),
+        ];
+      },
+    };
+  }
+}
+
+export class BoundedParagraphScopeHandler extends BoundedBaseScopeHandler {
+  public readonly scopeType = { type: "boundedParagraph" } as const;
+
+  constructor(
+    scopeHandlerFactory: ScopeHandlerFactory,
+    scopeType: ScopeType,
+    languageId: string,
+  ) {
+    super(scopeHandlerFactory, languageId, { type: "paragraph" });
+  }
+
+  protected createTargetScope(
+    editor: TextEditor,
+    contentRange: Range,
+  ): TargetScope {
+    const domainStart = new Position(contentRange.start.line, 0);
+    return {
+      editor,
+      domain: new Range(domainStart, contentRange.end),
+      getTargets(isReversed) {
+        return [
+          new ParagraphTarget({
             editor,
             isReversed,
             contentRange,
