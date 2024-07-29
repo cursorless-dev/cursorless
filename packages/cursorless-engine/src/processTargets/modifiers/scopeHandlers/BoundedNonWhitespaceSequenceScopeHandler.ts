@@ -18,7 +18,7 @@ import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
   protected readonly isHierarchical = true;
   private readonly targetScopeHandler: ScopeHandler;
-  private readonly surroundingPairScopeHandler: ScopeHandler;
+  private readonly surroundingPairInteriorScopeHandler: ScopeHandler;
 
   constructor(
     private scopeHandlerFactory: ScopeHandlerFactory,
@@ -31,9 +31,9 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
       this.targetScopeType,
       this.languageId,
     )!;
-    this.surroundingPairScopeHandler = this.scopeHandlerFactory.create(
+    this.surroundingPairInteriorScopeHandler = this.scopeHandlerFactory.create(
       {
-        type: "surroundingPair",
+        type: "surroundingPairInterior",
         delimiter: "any",
       },
       this.languageId,
@@ -76,21 +76,30 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
     );
 
     for (const scope of scopes) {
-      const pairScopes = this.surroundingPairScopeHandler.generateScopes(
-        scope.editor,
-        scope.domain.start,
-        "forward",
-        {
-          ...hints,
-          distalPosition: scope.domain.end,
-        },
-      );
+      const pairScopes = (() => {
+        if (hints.containment == null) {
+          return this.surroundingPairInteriorScopeHandler.generateScopes(
+            scope.editor,
+            position,
+            direction,
+            {
+              ...hints,
+              containment: hints.skipAncestorScopes ? "required" : null,
+            },
+          );
+        }
+        return this.surroundingPairInteriorScopeHandler.generateScopes(
+          scope.editor,
+          position,
+          direction,
+          hints,
+        );
+      })();
 
       const allScopes = [scope];
 
       for (const pairScope of pairScopes) {
-        const interiorRange = pairScope.getTargets(false)[0].getInterior()![0]
-          .contentRange;
+        const interiorRange = pairScope.domain;
         const intersection = scope.domain.intersection(interiorRange);
         if (intersection != null && !intersection.isEmpty) {
           allScopes.push(this.createTargetScope(editor, intersection));
