@@ -18,7 +18,7 @@ export type KeyValueStoreKey = keyof KeyValueStoreData;
 /**
  * A mapping from allowable storage keys to their default values
  */
-export const STORAGE_DEFAULTS: KeyValueStoreData = {
+export const KEY_VALUE_STORE_DEFAULTS: KeyValueStoreData = {
   hideInferenceWarning: false,
   tutorialProgress: {},
 };
