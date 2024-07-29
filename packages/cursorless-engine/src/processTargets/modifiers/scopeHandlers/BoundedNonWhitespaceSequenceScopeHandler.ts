@@ -3,7 +3,7 @@ import {
   Position,
   ScopeType,
   TextEditor,
-  type Range,
+  Range,
 } from "@cursorless/common";
 import { ParagraphTarget, TokenTarget } from "../../targets";
 import { BaseScopeHandler } from "./BaseScopeHandler";
@@ -161,9 +161,10 @@ export class BoundedParagraphScopeHandler extends BoundedBaseScopeHandler {
     editor: TextEditor,
     contentRange: Range,
   ): TargetScope {
+    const domainStart = new Position(contentRange.start.line, 0);
     return {
       editor,
-      domain: contentRange,
+      domain: new Range(domainStart, contentRange.end),
       getTargets(isReversed) {
         return [
           new ParagraphTarget({

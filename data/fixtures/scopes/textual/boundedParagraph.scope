@@ -17,8 +17,7 @@
 [#1 Insertion delimiter] = "\n\n"
 
 
-[#2 Content] =
-[#2 Domain] = 1:4-2:7
+[#2 Content] = 1:4-2:7
       >---
 1|     foo
 2|     bar
@@ -30,5 +29,11 @@
 2|     bar
 3| }
    <
+
+[#2 Domain] = 1:0-2:7
+  >-------
+1|     foo
+2|     bar
+   -------<
 
 [#2 Insertion delimiter] = "\n\n"

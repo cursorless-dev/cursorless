@@ -45,8 +45,7 @@ kkk
 [#1 Insertion delimiter] = "\n\n"
 
 
-[#2 Content] =
-[#2 Domain] = 2:4-3:7
+[#2 Content] = 2:4-3:7
       >---
 2|     ccc
 3|     ddd
@@ -68,6 +67,12 @@ kkk
 4|
 5|     eee
    <
+
+[#2 Domain] = 2:0-3:7
+  >-------
+2|     ccc
+3|     ddd
+   -------<
 
 [#2 Insertion delimiter] = "\n\n"
 
