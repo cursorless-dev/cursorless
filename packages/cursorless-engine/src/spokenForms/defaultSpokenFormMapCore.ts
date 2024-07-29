@@ -93,6 +93,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     line: "line",
     sentence: "sentence",
     paragraph: "block",
+    boundedParagraph: "short block",
     document: "file",
     nonWhitespaceSequence: "paint",
     boundedNonWhitespaceSequence: "short paint",

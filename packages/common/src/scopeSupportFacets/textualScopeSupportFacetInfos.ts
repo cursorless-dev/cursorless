@@ -36,6 +36,16 @@ export const textualScopeSupportFacetInfos: Record<
       "A single paragraph(contiguous block of lines) in the document",
     scopeType: "paragraph",
   },
+  boundedParagraph: {
+    description:
+      "A single paragraph(contiguous block of lines) in the document bounded by matching pair",
+    scopeType: "boundedParagraph",
+  },
+  "boundedParagraph.iteration": {
+    description: "Iteration scope for bounded paragraph",
+    scopeType: "boundedParagraph",
+    isIteration: true,
+  },
   document: {
     description: "The entire document",
     scopeType: "document",
@@ -43,6 +53,16 @@ export const textualScopeSupportFacetInfos: Record<
   nonWhitespaceSequence: {
     description: "A sequence of non-whitespace characters",
     scopeType: "nonWhitespaceSequence",
+  },
+  boundedNonWhitespaceSequence: {
+    description:
+      "A sequence of non-whitespace characters bounded by matching pair",
+    scopeType: "boundedNonWhitespaceSequence",
+  },
+  "boundedNonWhitespaceSequence.iteration": {
+    description: "Iteration scope for bounded non-whitespace sequence",
+    scopeType: "boundedNonWhitespaceSequence",
+    isIteration: true,
   },
   url: {
     description: "A url",
@@ -56,18 +76,11 @@ export const textualScopeSupportFacetInfos: Record<
     },
   },
   "surroundingPair.iteration": {
-    description:
-      "The iteration scope for delimiter pairs; should be the whole document",
+    description: "The iteration scope for delimiter pairs",
     scopeType: {
       type: "surroundingPair",
       delimiter: "any",
     },
     isIteration: true,
   },
-  // FIXME: Still in legacy
-  // boundedNonWhitespaceSequence: {
-  //   description:
-  //     "A sequence of non-whitespace characters bounded by matching pair",
-  //   scopeType: "boundedNonWhitespaceSequence",
-  // },
 };
