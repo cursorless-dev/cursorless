@@ -22,7 +22,7 @@ export default class ShowParseTree {
       results.push(parseTree(editor.document, tree, contentRange));
     }
 
-    await ide().openUntitledTextDocument({
+    void ide().openUntitledTextDocument({
       language: "markdown",
       content: results.join("\n\n"),
     });
