@@ -6,7 +6,7 @@ import {
 } from "@cursorless/common";
 import { concat, uniq } from "lodash-es";
 import { complexDelimiterMap, getSimpleDelimiterMap } from "./delimiterMaps";
-import { IndividualDelimiter } from "./types";
+import { DelimiterSide, IndividualDelimiter } from "./types";
 
 /**
  * Given a list of delimiters, returns a list where each element corresponds to
@@ -55,17 +55,17 @@ function getSimpleIndividualDelimiters(
 
       const side = (() => {
         if (isUnknownSide) {
-          return "unknown";
+          return DelimiterSide.unknown;
         }
         if (isLeft && !isRight) {
-          return "left";
+          return DelimiterSide.opening;
         }
         if (!isLeft && isRight) {
-          return "right";
+          return DelimiterSide.closing;
         }
         // If delimiter text is the same for left and right, we say its side
         // is "unknown", so must be determined from context.
-        return "unknown";
+        return DelimiterSide.unknown;
       })();
 
       return {

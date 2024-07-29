@@ -1,5 +1,9 @@
 import { DefaultMap, SimpleSurroundingPairName } from "@cursorless/common";
-import type { DelimiterOccurrence, SurroundingPairOccurrence } from "./types";
+import {
+  DelimiterSide,
+  type DelimiterOccurrence,
+  type SurroundingPairOccurrence,
+} from "./types";
 
 /**
  * Given a list of occurrences of delimiters, returns a list of occurrences of
@@ -60,8 +64,9 @@ export function getSurroundingPairOccurrences(
     );
 
     if (
-      side === "left" ||
-      (side === "unknown" && relevantOpeningDelimiters.length % 2 === 0)
+      side === DelimiterSide.opening ||
+      (side === DelimiterSide.unknown &&
+        relevantOpeningDelimiters.length % 2 === 0)
     ) {
       openingDelimiters.push(occurrence);
     } else {
