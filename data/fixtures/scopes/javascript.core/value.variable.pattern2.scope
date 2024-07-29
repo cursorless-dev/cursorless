@@ -1,0 +1,39 @@
+const { foo = 1 } = opts;
+---
+
+[#1 Content] = 0:20-0:24
+                      >----<
+0| const { foo = 1 } = opts;
+
+[#1 Removal] = 0:17-0:24
+                   >-------<
+0| const { foo = 1 } = opts;
+
+[#1 Leading delimiter] = 0:17-0:20
+                   >---<
+0| const { foo = 1 } = opts;
+
+[#1 Domain] = 0:0-0:25
+  >-------------------------<
+0| const { foo = 1 } = opts;
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 0:14-0:15
+                >-<
+0| const { foo = 1 } = opts;
+
+[#2 Removal] = 0:11-0:15
+             >----<
+0| const { foo = 1 } = opts;
+
+[#2 Leading delimiter] = 0:11-0:14
+             >---<
+0| const { foo = 1 } = opts;
+
+[#2 Domain] = 0:8-0:15
+          >-------<
+0| const { foo = 1 } = opts;
+
+[#2 Insertion delimiter] = " "
