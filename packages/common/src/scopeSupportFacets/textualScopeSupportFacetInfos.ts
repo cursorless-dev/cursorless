@@ -41,6 +41,11 @@ export const textualScopeSupportFacetInfos: Record<
       "A single paragraph(contiguous block of lines) in the document bounded by matching pair",
     scopeType: "boundedParagraph",
   },
+  "boundedParagraph.iteration": {
+    description: "Iteration scope for bounded paragraph",
+    scopeType: "boundedParagraph",
+    isIteration: true,
+  },
   document: {
     description: "The entire document",
     scopeType: "document",
@@ -53,6 +58,11 @@ export const textualScopeSupportFacetInfos: Record<
     description:
       "A sequence of non-whitespace characters bounded by matching pair",
     scopeType: "boundedNonWhitespaceSequence",
+  },
+  "boundedNonWhitespaceSequence.iteration": {
+    description: "Iteration scope for bounded non-whitespace sequence",
+    scopeType: "boundedNonWhitespaceSequence",
+    isIteration: true,
   },
   url: {
     description: "A url",
