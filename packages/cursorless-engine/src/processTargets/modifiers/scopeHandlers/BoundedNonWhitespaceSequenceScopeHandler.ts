@@ -64,7 +64,7 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
     direction: Direction,
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
-    const scopes = this.targetScopeHandler.generateScopes(
+    const targetScopes = this.targetScopeHandler.generateScopes(
       editor,
       position,
       direction,
@@ -76,32 +76,28 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
       },
     );
 
-    const pairhints: ScopeIteratorRequirements = (() => {
-      if (hints.containment == null) {
-        return {
-          ...hints,
-          // For every (skipAncestorScopes=true) we don't want to go outside of the surrounding pair
-          containment: hints.skipAncestorScopes ? "required" : null,
-        };
-      }
-      return hints;
-    })();
-
     const pairScopes = Array.from(
       this.surroundingPairInteriorScopeHandler.generateScopes(
         editor,
         position,
         direction,
-        pairhints,
+        {
+          ...hints,
+          // For every (skipAncestorScopes=true) we don't want to go outside of the surrounding pair
+          containment:
+            hints.containment == null && hints.skipAncestorScopes
+              ? "required"
+              : hints.containment,
+        },
       ),
     );
 
-    for (const scope of scopes) {
-      const allScopes = [scope];
+    for (const targetScope of targetScopes) {
+      const allScopes = [targetScope];
 
       for (const pairScope of pairScopes) {
         const interiorRange = pairScope.domain;
-        const intersection = scope.domain.intersection(interiorRange);
+        const intersection = targetScope.domain.intersection(interiorRange);
         if (intersection != null && !intersection.isEmpty) {
           allScopes.push(this.createTargetScope(editor, intersection));
         }
