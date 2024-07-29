@@ -183,8 +183,6 @@ const textualScopeSupportFacets = [
   "line",
   "sentence",
   "paragraph",
-  "boundedParagraph",
-  "boundedParagraph.iteration",
   "document",
   "nonWhitespaceSequence",
   "boundedNonWhitespaceSequence",

@@ -36,16 +36,6 @@ export const textualScopeSupportFacetInfos: Record<
       "A single paragraph(contiguous block of lines) in the document",
     scopeType: "paragraph",
   },
-  boundedParagraph: {
-    description:
-      "A single paragraph(contiguous block of lines) in the document bounded by matching pair",
-    scopeType: "boundedParagraph",
-  },
-  "boundedParagraph.iteration": {
-    description: "Iteration scope for bounded paragraph",
-    scopeType: "boundedParagraph",
-    isIteration: true,
-  },
   document: {
     description: "The entire document",
     scopeType: "document",
