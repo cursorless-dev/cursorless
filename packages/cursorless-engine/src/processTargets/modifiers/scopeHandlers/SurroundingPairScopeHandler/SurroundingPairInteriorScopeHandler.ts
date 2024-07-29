@@ -48,7 +48,7 @@ export class SurroundingPairInteriorScopeHandler extends BaseScopeHandler {
       editor,
       position,
       direction,
-      { ...hints, containment: "required" },
+      hints,
     );
 
     for (const scope of scopes) {

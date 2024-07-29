@@ -7,7 +7,6 @@ import {
 } from "@cursorless/common";
 import { TokenTarget } from "../../targets";
 import { BaseScopeHandler } from "./BaseScopeHandler";
-import { compareTargetScopes } from "./compareTargetScopes";
 import type { TargetScope } from "./scope.types";
 import type {
   ScopeHandler,
@@ -35,7 +34,7 @@ export class BoundedNonWhitespaceSequenceScopeHandler extends BaseScopeHandler {
 
     this.surroundingPairScopeHandler = this.scopeHandlerFactory.create(
       {
-        type: "surroundingPair",
+        type: "surroundingPairInterior",
         delimiter: "any",
       },
       this.languageId,
@@ -66,44 +65,34 @@ export class BoundedNonWhitespaceSequenceScopeHandler extends BaseScopeHandler {
       position,
       direction,
       hints,
-      //   {
-      //     ...hints,
-      //     allowAdjacentScopes: true,
-      //     containment: undefined,
-      //   },
     );
+    const pairScopes = this.surroundingPairScopeHandler.generateScopes(
+      editor,
+      position,
+      direction,
+      { ...hints, containment: "required" },
+    );
+    const interiorRange = next(pairScopes)?.domain;
 
     for (const scope of scopes) {
-      const pairScopes = this.surroundingPairScopeHandler.generateScopes(
-        scope.editor,
-        // scope.domain.start,
-        // "forward",
-        position,
-        direction,
-        hints,
-        // {
-        // ...hints,
-
-        //   distalPosition: scope.domain.end,
-        // },
-      );
-
-      const allScopes = [scope];
-
-      for (const pairScope of pairScopes) {
-        const interiorRange = pairScope.getTargets(false)[0].getInterior()![0]
-          .contentRange;
+      if (interiorRange != null) {
         const intersection = scope.domain.intersection(interiorRange);
         if (intersection != null && !intersection.isEmpty) {
-          allScopes.push(createTargetScope(editor, intersection));
+          yield createTargetScope(editor, intersection);
+          continue;
         }
       }
 
-      allScopes.sort((a, b) => compareTargetScopes(direction, position, a, b));
-
-      yield* allScopes;
+      yield scope;
     }
   }
+}
+
+function next<T>(iter: Iterable<T>): T | undefined {
+  for (const item of iter) {
+    return item;
+  }
+  return undefined;
 }
 
 function createTargetScope(
