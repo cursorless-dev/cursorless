@@ -8,7 +8,7 @@ export * from "./ide/neovim/NeovimClipboard";
 export * from "./ide/neovim/NeovimConfiguration";
 export * from "./ide/neovim/NeovimEdit";
 export * from "./ide/neovim/NeovimEvents";
-export * from "./ide/neovim/NeovimGlobalState";
+export * from "./ide/neovim/NeovimKeyValueStore";
 export * from "./ide/neovim/NeovimIDE";
 export * from "./ide/neovim/NeovimMessages";
 export * from "./ide/neovim/NeovimTextDocumentImpl";

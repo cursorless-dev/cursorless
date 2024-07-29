@@ -26,7 +26,7 @@ export * from "./ide/types/Messages";
 export * from "./ide/types/Paths";
 export * from "./ide/types/QuickPickOptions";
 export * from "./ide/types/RawTreeSitterQueryProvider";
-export * from "./ide/types/State";
+export * from "./ide/types/KeyValueStore";
 export * from "./ide/types/TutorialContentProvider";
 export * from "./ide/util/messages";
 export * from "./scopeSupportFacets/languageScopeSupport";

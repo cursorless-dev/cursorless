@@ -9,32 +9,31 @@ export type TutorialProgress = Partial<
   Record<TutorialId, SingleTutorialProgress>
 >;
 
-export interface StateData {
+export interface KeyValueStoreData {
   hideInferenceWarning: boolean;
   tutorialProgress: TutorialProgress;
 }
-export type StateKey = keyof StateData;
+export type KeyValueStoreKey = keyof KeyValueStoreData;
 
 /**
- * A mapping from allowable state keys to their default values
+ * A mapping from allowable key value store keys to their default values
  */
-export const STATE_DEFAULTS: StateData = {
+export const KEY_VALUE_STORE_DEFAULTS: KeyValueStoreData = {
   hideInferenceWarning: false,
   tutorialProgress: {},
 };
 
 /**
- * A state represents a storage utility. It can store and retrieve
- * values.
+ * Represents a key/value storage utility. It can store and retrieve values.
  */
-export interface State {
+export interface KeyValueStore {
   /**
    * Return a value.
    *
    * @param key A string.
    * @return The stored value or the defaultValue.
    */
-  get<K extends StateKey>(key: K): StateData[K];
+  get<K extends KeyValueStoreKey>(key: K): KeyValueStoreData[K];
 
   /**
    * Store a value. The value must be JSON-stringifyable.
@@ -42,5 +41,8 @@ export interface State {
    * @param key A string.
    * @param value A value. MUST not contain cyclic references.
    */
-  set<K extends StateKey>(key: K, value: StateData[K]): Promise<void>;
+  set<K extends KeyValueStoreKey>(
+    key: K,
+    value: KeyValueStoreData[K],
+  ): Promise<void>;
 }
