@@ -3,10 +3,10 @@ import type {
   KeyValueStoreData,
   KeyValueStoreKey,
 } from "@cursorless/common";
-import { STORAGE_DEFAULTS } from "@cursorless/common";
+import { KEY_VALUE_STORE_DEFAULTS } from "@cursorless/common";
 
 export default class NeovimKeyValueStore implements KeyValueStore {
-  private readonly data: KeyValueStoreData = { ...STORAGE_DEFAULTS };
+  private readonly data: KeyValueStoreData = { ...KEY_VALUE_STORE_DEFAULTS };
 
   get<K extends KeyValueStoreKey>(key: K): KeyValueStoreData[K] {
     return this.data[key];

@@ -3,10 +3,10 @@ import type {
   KeyValueStoreData,
   KeyValueStoreKey,
 } from "../types/KeyValueStore";
-import { STORAGE_DEFAULTS } from "../types/KeyValueStore";
+import { KEY_VALUE_STORE_DEFAULTS } from "../types/KeyValueStore";
 
 export default class FakeKeyValueStore implements KeyValueStore {
-  private readonly data: KeyValueStoreData = { ...STORAGE_DEFAULTS };
+  private readonly data: KeyValueStoreData = { ...KEY_VALUE_STORE_DEFAULTS };
 
   get<K extends KeyValueStoreKey>(key: K): KeyValueStoreData[K] {
     return this.data[key];

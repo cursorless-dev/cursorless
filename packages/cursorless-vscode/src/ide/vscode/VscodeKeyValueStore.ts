@@ -3,7 +3,7 @@ import type {
   KeyValueStoreData,
   KeyValueStoreKey,
 } from "@cursorless/common";
-import { STORAGE_DEFAULTS } from "@cursorless/common";
+import { KEY_VALUE_STORE_DEFAULTS } from "@cursorless/common";
 import type { ExtensionContext } from "vscode";
 import { VERSION_KEY } from "../../ReleaseNotes";
 import { DONT_SHOW_TALON_UPDATE_MESSAGE_KEY } from "../../ScopeTreeProvider";
@@ -13,7 +13,7 @@ export default class VscodeKeyValueStore implements KeyValueStore {
   constructor(private extensionContext: ExtensionContext) {
     // Mark all keys for synchronization
     extensionContext.globalState.setKeysForSync([
-      ...Object.keys(STORAGE_DEFAULTS),
+      ...Object.keys(KEY_VALUE_STORE_DEFAULTS),
       VERSION_KEY,
       PERFORMED_PR_1868_SHAPE_UPDATE_INIT_KEY,
       DONT_SHOW_TALON_UPDATE_MESSAGE_KEY,
@@ -21,7 +21,10 @@ export default class VscodeKeyValueStore implements KeyValueStore {
   }
 
   get<K extends KeyValueStoreKey>(key: K): KeyValueStoreData[K] {
-    return this.extensionContext.globalState.get(key, STORAGE_DEFAULTS[key]);
+    return this.extensionContext.globalState.get(
+      key,
+      KEY_VALUE_STORE_DEFAULTS[key],
+    );
   }
 
   async set<K extends KeyValueStoreKey>(

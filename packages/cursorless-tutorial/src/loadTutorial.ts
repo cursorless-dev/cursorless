@@ -34,7 +34,7 @@ export async function loadTutorial(
     };
 
     let stepNumber =
-      storage.get("tutorialProgress")[tutorialId]?.currentStep ?? 0;
+      keyValueStore.get("tutorialProgress")[tutorialId]?.currentStep ?? 0;
 
     if (stepNumber >= tutorialContent.steps.length - 1) {
       stepNumber = 0;
