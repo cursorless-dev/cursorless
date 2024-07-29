@@ -70,6 +70,7 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
       direction,
       {
         ...hints,
+        // Don't skip containing paint since it might have non contained nested scopes.
         containment:
           hints.containment !== "disallowed" ? hints.containment : undefined,
       },
@@ -84,6 +85,7 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
             direction,
             {
               ...hints,
+              // For every (skipAncestorScopes=true) we don't want to go outside of the surrounding pair
               containment: hints.skipAncestorScopes ? "required" : null,
             },
           );
