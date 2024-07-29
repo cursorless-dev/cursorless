@@ -93,7 +93,7 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
     );
 
     for (const targetScope of targetScopes) {
-      const allScopes = [targetScope];
+      const allScopes: TargetScope[] = [];
 
       for (const interiorScope of interiorScopes) {
         const domain = targetScope.domain.intersection(interiorScope.domain);
@@ -112,6 +112,11 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
           });
         }
       }
+
+      // NB: We add the target scope last so that if it is identical to
+      // one of our intersection scopes, we prefer that one so that rich ranges
+      // function properly
+      allScopes.push(targetScope);
 
       allScopes.sort((a, b) => compareTargetScopes(direction, position, a, b));
 
