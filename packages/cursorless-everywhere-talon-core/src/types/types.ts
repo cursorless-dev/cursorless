@@ -27,6 +27,10 @@ export interface EditorChange {
 }
 
 export interface EditorEdit {
+  /**
+   * The new document content after the edit. We provide this for platforms
+   * where we can't easily handle {@link changes}.
+   */
   text: string;
   changes: EditorChange[];
 }

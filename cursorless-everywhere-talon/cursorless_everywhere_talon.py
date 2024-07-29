@@ -20,7 +20,12 @@ class EditorChange(TypedDict):
 
 
 class EditorEdit(TypedDict):
+    # The new document content after the edit
     text: str
+
+    # A list of changes that were made to the document. If you can not handle
+    # this, you can ignore it and just replace the entire document with the
+    # value of the `text` field above.
     changes: list[EditorChange]
 
 
