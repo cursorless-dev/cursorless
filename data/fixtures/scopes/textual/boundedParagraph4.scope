@@ -1,0 +1,43 @@
+aaa(bbb) {
+  ccc
+}
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-2:1
+  >----------
+0| aaa(bbb) {
+1|   ccc
+2| }
+   -<
+
+[#1 Insertion delimiter] = "\n\n"
+
+
+[#2 Content] =
+[#2 Domain] = 0:4-0:7
+      >---<
+0| aaa(bbb) {
+
+[#2 Removal] = 0:0-1:0
+  >----------
+0| aaa(bbb) {
+1|   ccc
+   <
+
+[#2 Insertion delimiter] = "\n\n"
+
+
+[#3 Content] =
+[#3 Domain] = 1:2-1:5
+    >---<
+1|   ccc
+
+[#3 Removal] = 1:0-2:0
+  >-----
+1|   ccc
+2| }
+   <
+
+[#3 Insertion delimiter] = "\n\n"
