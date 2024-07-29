@@ -7,6 +7,7 @@ import {
 } from "@cursorless/common";
 import { ParagraphTarget, TokenTarget } from "../../targets";
 import { BaseScopeHandler } from "./BaseScopeHandler";
+import { compareTargetScopes } from "./compareTargetScopes";
 import type { TargetScope } from "./scope.types";
 import type {
   ScopeHandler,
@@ -17,6 +18,7 @@ import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
   protected readonly isHierarchical = true;
   private readonly targetScopeHandler: ScopeHandler;
+  private readonly surroundingPairScopeHandler: ScopeHandler;
 
   constructor(
     private scopeHandlerFactory: ScopeHandlerFactory,
@@ -27,6 +29,13 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
 
     this.targetScopeHandler = this.scopeHandlerFactory.create(
       this.targetScopeType,
+      this.languageId,
+    )!;
+    this.surroundingPairScopeHandler = this.scopeHandlerFactory.create(
+      {
+        type: "surroundingPair",
+        delimiter: "any",
+      },
       this.languageId,
     )!;
   }
@@ -61,52 +70,33 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
       direction,
       hints,
     );
-    const interiorRange = this.getContainingSurroundingPairInterior(
-      editor,
-      position,
-      direction,
-      hints,
-    );
 
     for (const scope of scopes) {
-      if (interiorRange != null) {
+      const pairScopes = this.surroundingPairScopeHandler.generateScopes(
+        scope.editor,
+        scope.domain.start,
+        "forward",
+        {
+          ...hints,
+          distalPosition: scope.domain.end,
+        },
+      );
+
+      const allScopes = [scope];
+
+      for (const pairScope of pairScopes) {
+        const interiorRange = pairScope.getTargets(false)[0].getInterior()![0]
+          .contentRange;
         const intersection = scope.domain.intersection(interiorRange);
-        if (intersection != null) {
-          if (!intersection.isEmpty) {
-            yield this.createTargetScope(editor, intersection);
-          }
-          continue;
+        if (intersection != null && !intersection.isEmpty) {
+          allScopes.push(this.createTargetScope(editor, intersection));
         }
       }
 
-      yield scope;
-    }
-  }
+      allScopes.sort((a, b) => compareTargetScopes(direction, position, a, b));
 
-  private getContainingSurroundingPairInterior(
-    editor: TextEditor,
-    position: Position,
-    direction: Direction,
-    hints: ScopeIteratorRequirements,
-  ): Range | undefined {
-    const surroundingPairInteriorScopeHandler = this.scopeHandlerFactory.create(
-      {
-        type: "surroundingPairInterior",
-        delimiter: "any",
-      },
-      this.languageId,
-    )!;
-    const pairInteriorScopes =
-      surroundingPairInteriorScopeHandler.generateScopes(
-        editor,
-        position,
-        direction,
-        { ...hints, containment: "required" },
-      );
-    for (const interiorScope of pairInteriorScopes) {
-      return interiorScope.domain;
+      yield* allScopes;
     }
-    return undefined;
   }
 
   protected abstract createTargetScope(
