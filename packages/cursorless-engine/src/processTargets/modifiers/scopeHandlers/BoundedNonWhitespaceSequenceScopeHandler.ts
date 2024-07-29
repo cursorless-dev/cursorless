@@ -5,7 +5,7 @@ import {
   TextEditor,
   type Range,
 } from "@cursorless/common";
-import { TokenTarget } from "../../targets";
+import { ParagraphTarget, TokenTarget } from "../../targets";
 import { BaseScopeHandler } from "./BaseScopeHandler";
 import type { TargetScope } from "./scope.types";
 import type {
@@ -109,7 +109,24 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
     return undefined;
   }
 
-  private createTargetScope(
+  protected abstract createTargetScope(
+    editor: TextEditor,
+    contentRange: Range,
+  ): TargetScope;
+}
+
+export class BoundedNonWhitespaceSequenceScopeHandler extends BoundedBaseScopeHandler {
+  public readonly scopeType = { type: "boundedNonWhitespaceSequence" } as const;
+
+  constructor(
+    scopeHandlerFactory: ScopeHandlerFactory,
+    scopeType: ScopeType,
+    languageId: string,
+  ) {
+    super(scopeHandlerFactory, languageId, { type: "nonWhitespaceSequence" });
+  }
+
+  protected createTargetScope(
     editor: TextEditor,
     contentRange: Range,
   ): TargetScope {
@@ -129,18 +146,6 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
   }
 }
 
-export class BoundedNonWhitespaceSequenceScopeHandler extends BoundedBaseScopeHandler {
-  public readonly scopeType = { type: "boundedNonWhitespaceSequence" } as const;
-
-  constructor(
-    scopeHandlerFactory: ScopeHandlerFactory,
-    scopeType: ScopeType,
-    languageId: string,
-  ) {
-    super(scopeHandlerFactory, languageId, { type: "nonWhitespaceSequence" });
-  }
-}
-
 export class BoundedParagraphScopeHandler extends BoundedBaseScopeHandler {
   public readonly scopeType = { type: "boundedParagraph" } as const;
 
@@ -150,5 +155,24 @@ export class BoundedParagraphScopeHandler extends BoundedBaseScopeHandler {
     languageId: string,
   ) {
     super(scopeHandlerFactory, languageId, { type: "paragraph" });
+  }
+
+  protected createTargetScope(
+    editor: TextEditor,
+    contentRange: Range,
+  ): TargetScope {
+    return {
+      editor,
+      domain: contentRange,
+      getTargets(isReversed) {
+        return [
+          new ParagraphTarget({
+            editor,
+            isReversed,
+            contentRange,
+          }),
+        ];
+      },
+    };
   }
 }
