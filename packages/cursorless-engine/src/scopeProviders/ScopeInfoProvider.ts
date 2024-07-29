@@ -168,6 +168,7 @@ function isLanguageSpecific(scopeType: ScopeType): boolean {
     case "line":
     case "sentence":
     case "paragraph":
+    case "boundedParagraph":
     case "document":
     case "nonWhitespaceSequence":
     case "boundedNonWhitespaceSequence":

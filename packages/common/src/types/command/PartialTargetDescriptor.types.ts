@@ -194,6 +194,7 @@ export const simpleScopeTypeTypes = [
   "line",
   "sentence",
   "paragraph",
+  "boundedParagraph",
   "document",
   "nonWhitespaceSequence",
   "boundedNonWhitespaceSequence",

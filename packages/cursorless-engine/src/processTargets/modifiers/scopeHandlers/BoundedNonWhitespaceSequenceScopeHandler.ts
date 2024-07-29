@@ -14,29 +14,19 @@ import type {
 } from "./scopeHandler.types";
 import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 
-export class BoundedNonWhitespaceSequenceScopeHandler extends BaseScopeHandler {
-  public readonly scopeType = { type: "boundedNonWhitespaceSequence" } as const;
+abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
   protected readonly isHierarchical = true;
-  private readonly nonWhitespaceSequenceScopeHandler: ScopeHandler;
-  private readonly surroundingPairInteriorScopeHandler: ScopeHandler;
+  private readonly targetScopeHandler: ScopeHandler;
 
   constructor(
     private scopeHandlerFactory: ScopeHandlerFactory,
-    _scopeType: ScopeType,
     private languageId: string,
+    private targetScopeType: ScopeType,
   ) {
     super();
 
-    this.nonWhitespaceSequenceScopeHandler = this.scopeHandlerFactory.create(
-      { type: "nonWhitespaceSequence" },
-      this.languageId,
-    )!;
-
-    this.surroundingPairInteriorScopeHandler = this.scopeHandlerFactory.create(
-      {
-        type: "surroundingPairInterior",
-        delimiter: "any",
-      },
+    this.targetScopeHandler = this.scopeHandlerFactory.create(
+      this.targetScopeType,
       this.languageId,
     )!;
   }
@@ -45,7 +35,7 @@ export class BoundedNonWhitespaceSequenceScopeHandler extends BaseScopeHandler {
     return {
       type: "oneOf",
       scopeTypes: [
-        { type: "line" },
+        this.targetScopeHandler.iterationScopeType as ScopeType,
         {
           type: "surroundingPairInterior",
           delimiter: "any",
@@ -60,27 +50,25 @@ export class BoundedNonWhitespaceSequenceScopeHandler extends BaseScopeHandler {
     direction: Direction,
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
-    const scopes = this.nonWhitespaceSequenceScopeHandler.generateScopes(
+    const scopes = this.targetScopeHandler.generateScopes(
       editor,
       position,
       direction,
       hints,
     );
-    const pairInteriorScopes =
-      this.surroundingPairInteriorScopeHandler.generateScopes(
-        editor,
-        position,
-        direction,
-        { ...hints, containment: "required" },
-      );
-    const interiorRange = next(pairInteriorScopes)?.domain;
+    const interiorRange = this.getContainingSurroundingPairInterior(
+      editor,
+      position,
+      direction,
+      hints,
+    );
 
     for (const scope of scopes) {
       if (interiorRange != null) {
         const intersection = scope.domain.intersection(interiorRange);
         if (intersection != null) {
           if (!intersection.isEmpty) {
-            yield createTargetScope(editor, intersection);
+            yield this.createTargetScope(editor, intersection);
           }
           continue;
         }
@@ -89,30 +77,73 @@ export class BoundedNonWhitespaceSequenceScopeHandler extends BaseScopeHandler {
       yield scope;
     }
   }
-}
 
-function next<T>(iter: Iterable<T>): T | undefined {
-  for (const item of iter) {
-    return item;
+  private getContainingSurroundingPairInterior(
+    editor: TextEditor,
+    position: Position,
+    direction: Direction,
+    hints: ScopeIteratorRequirements,
+  ): Range | undefined {
+    const surroundingPairInteriorScopeHandler = this.scopeHandlerFactory.create(
+      {
+        type: "surroundingPairInterior",
+        delimiter: "any",
+      },
+      this.languageId,
+    )!;
+    const pairInteriorScopes =
+      surroundingPairInteriorScopeHandler.generateScopes(
+        editor,
+        position,
+        direction,
+        { ...hints, containment: "required" },
+      );
+    for (const interiorScope of pairInteriorScopes) {
+      return interiorScope.domain;
+    }
+    return undefined;
   }
-  return undefined;
+
+  private createTargetScope(
+    editor: TextEditor,
+    contentRange: Range,
+  ): TargetScope {
+    return {
+      editor,
+      domain: contentRange,
+      getTargets(isReversed) {
+        return [
+          new TokenTarget({
+            editor,
+            isReversed,
+            contentRange,
+          }),
+        ];
+      },
+    };
+  }
 }
 
-function createTargetScope(
-  editor: TextEditor,
-  contentRange: Range,
-): TargetScope {
-  return {
-    editor,
-    domain: contentRange,
-    getTargets(isReversed) {
-      return [
-        new TokenTarget({
-          editor,
-          isReversed,
-          contentRange,
-        }),
-      ];
-    },
-  };
+export class BoundedNonWhitespaceSequenceScopeHandler extends BoundedBaseScopeHandler {
+  public readonly scopeType = { type: "boundedNonWhitespaceSequence" } as const;
+
+  constructor(
+    scopeHandlerFactory: ScopeHandlerFactory,
+    scopeType: ScopeType,
+    languageId: string,
+  ) {
+    super(scopeHandlerFactory, languageId, { type: "nonWhitespaceSequence" });
+  }
+}
+
+export class BoundedParagraphScopeHandler extends BoundedBaseScopeHandler {
+  public readonly scopeType = { type: "boundedParagraph" } as const;
+
+  constructor(
+    scopeHandlerFactory: ScopeHandlerFactory,
+    scopeType: ScopeType,
+    languageId: string,
+  ) {
+    super(scopeHandlerFactory, languageId, { type: "paragraph" });
+  }
 }

@@ -1,6 +1,9 @@
 import type { ScopeType } from "@cursorless/common";
 import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
-import { BoundedNonWhitespaceSequenceScopeHandler } from "./BoundedNonWhitespaceSequenceScopeHandler";
+import {
+  BoundedNonWhitespaceSequenceScopeHandler,
+  BoundedParagraphScopeHandler,
+} from "./BoundedNonWhitespaceSequenceScopeHandler";
 import { CharacterScopeHandler } from "./CharacterScopeHandler";
 import { DocumentScopeHandler } from "./DocumentScopeHandler";
 import { IdentifierScopeHandler } from "./IdentifierScopeHandler";
@@ -64,6 +67,8 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
         return new SentenceScopeHandler(this, scopeType, languageId);
       case "paragraph":
         return new ParagraphScopeHandler(scopeType, languageId);
+      case "boundedParagraph":
+        return new BoundedParagraphScopeHandler(this, scopeType, languageId);
       case "document":
         return new DocumentScopeHandler(scopeType, languageId);
       case "oneOf":
