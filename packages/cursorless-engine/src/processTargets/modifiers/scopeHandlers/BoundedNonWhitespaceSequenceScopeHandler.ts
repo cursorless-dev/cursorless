@@ -78,8 +78,10 @@ export class BoundedNonWhitespaceSequenceScopeHandler extends BaseScopeHandler {
     for (const scope of scopes) {
       if (interiorRange != null) {
         const intersection = scope.domain.intersection(interiorRange);
-        if (intersection != null && !intersection.isEmpty) {
-          yield createTargetScope(editor, intersection);
+        if (intersection != null) {
+          if (!intersection.isEmpty) {
+            yield createTargetScope(editor, intersection);
+          }
           continue;
         }
       }
