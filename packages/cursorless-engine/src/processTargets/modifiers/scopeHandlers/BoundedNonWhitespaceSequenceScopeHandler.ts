@@ -18,7 +18,7 @@ export class BoundedNonWhitespaceSequenceScopeHandler extends BaseScopeHandler {
   public readonly scopeType = { type: "boundedNonWhitespaceSequence" } as const;
   protected readonly isHierarchical = true;
   private readonly nonWhitespaceSequenceScopeHandler: ScopeHandler;
-  private readonly surroundingPairScopeHandler: ScopeHandler;
+  private readonly surroundingPairInteriorScopeHandler: ScopeHandler;
 
   constructor(
     private scopeHandlerFactory: ScopeHandlerFactory,
@@ -32,7 +32,7 @@ export class BoundedNonWhitespaceSequenceScopeHandler extends BaseScopeHandler {
       this.languageId,
     )!;
 
-    this.surroundingPairScopeHandler = this.scopeHandlerFactory.create(
+    this.surroundingPairInteriorScopeHandler = this.scopeHandlerFactory.create(
       {
         type: "surroundingPairInterior",
         delimiter: "any",
@@ -66,13 +66,14 @@ export class BoundedNonWhitespaceSequenceScopeHandler extends BaseScopeHandler {
       direction,
       hints,
     );
-    const pairScopes = this.surroundingPairScopeHandler.generateScopes(
-      editor,
-      position,
-      direction,
-      { ...hints, containment: "required" },
-    );
-    const interiorRange = next(pairScopes)?.domain;
+    const pairInteriorScopes =
+      this.surroundingPairInteriorScopeHandler.generateScopes(
+        editor,
+        position,
+        direction,
+        { ...hints, containment: "required" },
+      );
+    const interiorRange = next(pairInteriorScopes)?.domain;
 
     for (const scope of scopes) {
       if (interiorRange != null) {
