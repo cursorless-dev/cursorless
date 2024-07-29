@@ -14,13 +14,13 @@ import {
   OpenUntitledTextDocumentOptions,
   QuickPickOptions,
   RunMode,
-  State,
   TextDocument,
   TextDocumentChangeEvent,
   TextEditor,
   TextEditorSelectionChangeEvent,
   TextEditorVisibleRangesChangeEvent,
   WorkspaceFolder,
+  type KeyValueStore,
 } from "@cursorless/common";
 import { pull } from "lodash-es";
 import type { Talon } from "../types/talon.types";
@@ -30,13 +30,14 @@ import { TalonJsClipboard } from "./TalonJsClipboard";
 import { TalonJsConfiguration } from "./TalonJsConfiguration";
 import { TalonJsEditor } from "./TalonJsEditor";
 import { TalonJsMessages } from "./TalonJsMessages";
-import { TalonJsState } from "./TalonJsState";
+
 import { createTextEditor } from "./createTextEditor";
+import { TalonJsKeyValueStore } from "./TalonJsKeyValueStore";
 
 export class TalonJsIDE implements IDE {
   configuration: Configuration;
   messages: Messages;
-  globalState: State;
+  keyValueStore: KeyValueStore;
   clipboard: Clipboard;
   capabilities: Capabilities;
   private disposables: Disposable[] = [];
@@ -51,7 +52,7 @@ export class TalonJsIDE implements IDE {
   ) {
     this.configuration = new TalonJsConfiguration();
     this.messages = new TalonJsMessages(talon);
-    this.globalState = new TalonJsState();
+    this.keyValueStore = new TalonJsKeyValueStore();
     this.clipboard = new TalonJsClipboard(talon);
     this.capabilities = new TalonJsCapabilities();
   }
