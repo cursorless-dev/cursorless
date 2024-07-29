@@ -13,7 +13,7 @@ command:
 initialState:
   documentContents: |-
     {
-        
+
         foo
         bar
     }
