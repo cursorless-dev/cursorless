@@ -51,27 +51,31 @@ export function chooseTokenHat(
   { hatOldTokenRanks, graphemeTokenRanks }: RankingContext,
   hatStability: HatStability,
   tokenRank: number,
+  forcedTokenHat: TokenHat | undefined,
   oldTokenHat: TokenHat | undefined,
   candidates: HatCandidate[],
 ): HatCandidate | undefined {
   // We narrow down the candidates by a series of criteria until there is only
   // one left
   return maxByFirstDiffering(candidates, [
-    // 1. Discard any hats that are sufficiently worse than the best hat that we
+    // 1. Use forced hat
+    isOldTokenHat(forcedTokenHat),
+
+    // 2. Discard any hats that are sufficiently worse than the best hat that we
     //    wouldn't use them even if they were our old hat
     penaltyEquivalenceClass(hatStability),
 
-    // 2. Use our old hat if it's still in the running
+    // 3. Use our old hat if it's still in the running
     isOldTokenHat(oldTokenHat),
 
-    // 3. Use a free hat if possible; if not, steal the hat of the token with
+    // 4. Use a free hat if possible; if not, steal the hat of the token with
     //    lowest rank
     hatOldTokenRank(hatOldTokenRanks),
 
-    // 4. Narrow to the hats with the lowest penalty
+    // 5. Narrow to the hats with the lowest penalty
     negativePenalty,
 
-    // 5. Prefer hats that sit on a grapheme that doesn't appear in any highly
+    // 6. Prefer hats that sit on a grapheme that doesn't appear in any highly
     //    ranked token
     minimumTokenRankContainingGrapheme(tokenRank, graphemeTokenRanks),
   ])!;

@@ -42,11 +42,17 @@ export interface HatCandidate {
 export function allocateHats(
   tokenGraphemeSplitter: TokenGraphemeSplitter,
   enabledHatStyles: HatStyleMap,
+  forceTokenHats: readonly TokenHat[] | undefined,
   oldTokenHats: readonly TokenHat[],
   hatStability: HatStability,
   activeTextEditor: TextEditor | undefined,
   visibleTextEditors: readonly TextEditor[],
 ): TokenHat[] {
+  /**
+   * Maps from tokens to their assigned hat in previous allocation
+   */
+  const forcedHatMap = getTokenOldHatMap(forceTokenHats ?? []);
+
   /**
    * Maps from tokens to their assigned hat in previous allocation
    */
@@ -64,6 +70,7 @@ export function allocateHats(
    */
   const context = getHatRankingContext(
     rankedTokens,
+    forcedHatMap,
     tokenOldHatMap,
     tokenGraphemeSplitter,
   );
@@ -102,6 +109,7 @@ export function allocateHats(
         context,
         hatStability,
         tokenRank,
+        forcedHatMap.get(token),
         tokenOldHatMap.get(token),
         tokenRemainingHatCandidates,
       );

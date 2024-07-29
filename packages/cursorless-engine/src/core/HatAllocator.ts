@@ -51,18 +51,19 @@ export class HatAllocator {
   /**
    * Allocate hats to the visible tokens.
    *
-   * @param oldTokenHats If supplied, pretend that this allocation was the
+   * @param forceTokenHats If supplied, pretend that this allocation was the
    * previous allocation when trying to maintain stable hats.  This parameter is
    * used for testing.
    */
-  async allocateHats(oldTokenHats?: TokenHat[]) {
+  async allocateHats(forceTokenHats?: TokenHat[]) {
     const activeMap = await this.context.getActiveMap();
 
     const tokenHats = this.hats.isEnabled
       ? allocateHats(
           tokenGraphemeSplitter(),
           this.hats.enabledHatStyles,
-          oldTokenHats ?? activeMap.tokenHats,
+          forceTokenHats,
+          activeMap.tokenHats,
           ide().configuration.getOwnConfiguration("experimental.hatStability"),
           ide().activeTextEditor,
           ide().visibleTextEditors,
