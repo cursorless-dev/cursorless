@@ -68,8 +68,9 @@ kkk
 5|     eee
    <
 
-[#2 Domain] = 2:0-3:7
-  >-------
+[#2 Domain] = 1:5-3:7
+       >
+1| bbb {
 2|     ccc
 3|     ddd
    -------<
@@ -118,9 +119,8 @@ kkk
 [#3 Insertion delimiter] = "\n\n"
 
 
-[#4 Content] =
-[#4 Domain] = 8:0-9:7
-  >-------
+[#4 Content] = 8:4-9:7
+      >---
 8|     ggg
 9|     hhh
    -------<
@@ -141,6 +141,13 @@ kkk
 7|
 8|     ggg
    <
+
+[#4 Domain] = 8:0-10:0
+  >-------
+8|     ggg
+9|     hhh
+10| } iii
+    <
 
 [#4 Insertion delimiter] = "\n\n"
 

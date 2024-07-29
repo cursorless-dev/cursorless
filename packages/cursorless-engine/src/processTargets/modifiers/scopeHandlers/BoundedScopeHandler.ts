@@ -1,11 +1,10 @@
+import { Direction, Position, ScopeType, TextEditor } from "@cursorless/common";
 import {
-  Direction,
-  Position,
-  ScopeType,
-  TextEditor,
-  Range,
-} from "@cursorless/common";
-import { ParagraphTarget, TokenTarget } from "../../targets";
+  BoundedParagraphTarget,
+  InteriorTarget,
+  ParagraphTarget,
+  TokenTarget,
+} from "../../targets";
 import { BaseScopeHandler } from "./BaseScopeHandler";
 import { compareTargetScopes } from "./compareTargetScopes";
 import type { TargetScope } from "./scope.types";
@@ -14,6 +13,7 @@ import type {
   ScopeIteratorRequirements,
 } from "./scopeHandler.types";
 import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
+import { Target } from "../../../typings/target.types";
 
 abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
   protected readonly isHierarchical = true;
@@ -76,7 +76,7 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
       },
     );
 
-    const pairScopes = Array.from(
+    const interiorScopes = Array.from(
       this.surroundingPairInteriorScopeHandler.generateScopes(
         editor,
         position,
@@ -95,11 +95,21 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
     for (const targetScope of targetScopes) {
       const allScopes = [targetScope];
 
-      for (const pairScope of pairScopes) {
-        const interiorRange = pairScope.domain;
-        const intersection = targetScope.domain.intersection(interiorRange);
-        if (intersection != null && !intersection.isEmpty) {
-          allScopes.push(this.createTargetScope(editor, intersection));
+      for (const interiorScope of interiorScopes) {
+        const domain = targetScope.domain.intersection(interiorScope.domain);
+        if (domain != null && !domain.isEmpty) {
+          allScopes.push({
+            editor,
+            domain,
+            getTargets: (isReversed) => {
+              return [
+                this.getTargets(
+                  ensureSingleTarget(targetScope, isReversed),
+                  ensureSingleTarget(interiorScope, isReversed),
+                ),
+              ];
+            },
+          });
         }
       }
 
@@ -109,10 +119,17 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
     }
   }
 
-  protected abstract createTargetScope(
-    editor: TextEditor,
-    contentRange: Range,
-  ): TargetScope;
+  protected abstract getTargets(target: Target, interior: Target): Target;
+}
+
+function ensureSingleTarget(scope: TargetScope, isReversed: boolean): Target {
+  const targets = scope.getTargets(isReversed);
+
+  if (targets.length !== 1) {
+    throw Error(`Expected one target but got ${targets.length}`);
+  }
+
+  return targets[0];
 }
 
 export class BoundedNonWhitespaceSequenceScopeHandler extends BoundedBaseScopeHandler {
@@ -120,29 +137,26 @@ export class BoundedNonWhitespaceSequenceScopeHandler extends BoundedBaseScopeHa
 
   constructor(
     scopeHandlerFactory: ScopeHandlerFactory,
-    scopeType: ScopeType,
+    _scopeType: ScopeType,
     languageId: string,
   ) {
     super(scopeHandlerFactory, languageId, { type: "nonWhitespaceSequence" });
   }
 
-  protected createTargetScope(
-    editor: TextEditor,
-    contentRange: Range,
-  ): TargetScope {
-    return {
-      editor,
-      domain: contentRange,
-      getTargets(isReversed) {
-        return [
-          new TokenTarget({
-            editor,
-            isReversed,
-            contentRange,
-          }),
-        ];
-      },
-    };
+  protected getTargets(target: Target, interior: Target): Target {
+    const contentRange = target.contentRange.intersection(
+      interior.contentRange,
+    );
+
+    if (contentRange == null || contentRange.isEmpty) {
+      throw Error("Expected non empty intersection");
+    }
+
+    return new TokenTarget({
+      editor: target.editor,
+      isReversed: target.isReversed,
+      contentRange,
+    });
   }
 }
 
@@ -157,23 +171,16 @@ export class BoundedParagraphScopeHandler extends BoundedBaseScopeHandler {
     super(scopeHandlerFactory, languageId, { type: "paragraph" });
   }
 
-  protected createTargetScope(
-    editor: TextEditor,
-    contentRange: Range,
-  ): TargetScope {
-    const domainStart = new Position(contentRange.start.line, 0);
-    return {
-      editor,
-      domain: new Range(domainStart, contentRange.end),
-      getTargets(isReversed) {
-        return [
-          new ParagraphTarget({
-            editor,
-            isReversed,
-            contentRange,
-          }),
-        ];
-      },
-    };
+  protected getTargets(target: Target, interior: InteriorTarget): Target {
+    if (!(target instanceof ParagraphTarget)) {
+      throw Error("Expected ParagraphTarget");
+    }
+
+    return new BoundedParagraphTarget({
+      editor: target.editor,
+      isReversed: target.isReversed,
+      paragraphTarget: target,
+      containingInterior: interior,
+    });
   }
 }

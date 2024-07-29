@@ -3,7 +3,7 @@ import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import {
   BoundedNonWhitespaceSequenceScopeHandler,
   BoundedParagraphScopeHandler,
-} from "./BoundedNonWhitespaceSequenceScopeHandler";
+} from "./BoundedScopeHandler";
 import { CharacterScopeHandler } from "./CharacterScopeHandler";
 import { DocumentScopeHandler } from "./DocumentScopeHandler";
 import { IdentifierScopeHandler } from "./IdentifierScopeHandler";
