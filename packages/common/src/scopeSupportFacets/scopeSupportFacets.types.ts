@@ -183,6 +183,7 @@ const textualScopeSupportFacets = [
   "line",
   "sentence",
   "paragraph",
+  "boundedParagraph",
   "document",
   "nonWhitespaceSequence",
   "boundedNonWhitespaceSequence",
