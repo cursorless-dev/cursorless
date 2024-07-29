@@ -39,7 +39,7 @@ export const textualScopeSupportFacetInfos: Record<
   boundedParagraph: {
     description:
       "A single paragraph(contiguous block of lines) in the document bounded by matching pair",
-    scopeType: "paragraph",
+    scopeType: "boundedParagraph",
   },
   document: {
     description: "The entire document",
