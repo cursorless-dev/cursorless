@@ -19,7 +19,7 @@ class EditorChange(TypedDict):
     rangeLength: int
 
 
-class EditorChanges(TypedDict):
+class EditorEdit(TypedDict):
     text: str
     changes: list[EditorChange]
 
@@ -40,6 +40,6 @@ class Actions:
         """Set focused element selections"""
 
     def cursorless_everywhere_edit_text(
-        changes: EditorChanges,  # pyright: ignore [reportGeneralTypeIssues]
+        edit: EditorEdit,  # pyright: ignore [reportGeneralTypeIssues]
     ):
         """Edit focused element text"""

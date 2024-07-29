@@ -1,6 +1,6 @@
 import { Edit, type InMemoryTextDocument } from "@cursorless/common";
 import type { Talon } from "../types/talon.types";
-import type { EditorChanges } from "../types/types";
+import type { EditorEdit } from "../types/types";
 import type { TalonJsIDE } from "./TalonJsIDE";
 
 export function talonJsPerformEdits(
@@ -11,7 +11,7 @@ export function talonJsPerformEdits(
 ) {
   const changes = document.edit(edits);
 
-  const editorChanges: EditorChanges = {
+  const editorEdit: EditorEdit = {
     text: document.text,
     changes: changes.map((change) => ({
       rangeOffset: change.rangeOffset,
@@ -20,7 +20,7 @@ export function talonJsPerformEdits(
     })),
   };
 
-  talon.actions.user.cursorless_everywhere_set_text(editorChanges);
+  talon.actions.user.cursorless_everywhere_edit_text(editorEdit);
 
   ide.emitDidChangeTextDocument({
     document,

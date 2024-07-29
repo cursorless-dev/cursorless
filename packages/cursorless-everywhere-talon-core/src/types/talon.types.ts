@@ -1,4 +1,4 @@
-import type { EditorChanges, EditorState, SelectionOffsets } from "./types";
+import type { EditorEdit, EditorState, SelectionOffsets } from "./types";
 
 export type TalonNamespace = "user";
 
@@ -16,7 +16,7 @@ export interface TalonActions {
   user: {
     cursorless_everywhere_get_editor_state(): EditorState;
     cursorless_everywhere_set_selections(selections: SelectionOffsets[]): void;
-    cursorless_everywhere_set_text(editorChanges: EditorChanges): void;
+    cursorless_everywhere_edit_text(edit: EditorEdit): void;
   };
 }
 

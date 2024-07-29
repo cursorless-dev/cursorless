@@ -26,7 +26,7 @@ export interface EditorChange {
   readonly rangeLength: number;
 }
 
-export interface EditorChanges {
+export interface EditorEdit {
   text: string;
   changes: EditorChange[];
 }

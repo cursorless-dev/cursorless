@@ -1,5 +1,5 @@
 import type {
-  EditorChanges,
+  EditorEdit,
   EditorState,
   SelectionOffsets,
   Talon,
@@ -47,11 +47,11 @@ const actions: TalonActions = {
       }
       _finalEditorState.selections = selections;
     },
-    cursorless_everywhere_set_text(changes: EditorChanges): void {
+    cursorless_everywhere_edit_text(edit: EditorEdit): void {
       if (_finalEditorState == null) {
         throw new Error("Final editor state not set.");
       }
-      _finalEditorState.text = changes.text;
+      _finalEditorState.text = edit.text;
     },
   },
 };

@@ -1,7 +1,7 @@
 from talon import Context, app, ui
 
 from .cursorless_everywhere_talon import (
-    EditorChanges,
+    EditorEdit,
     EditorState,
     SelectionOffsets,
 )
@@ -68,10 +68,9 @@ class Actions:
         set_selection(document_range, anchor, active)
 
     def cursorless_everywhere_edit_text(
-        changes: EditorChanges,  # pyright: ignore [reportGeneralTypeIssues]
+        edit: EditorEdit,  # pyright: ignore [reportGeneralTypeIssues]
     ):
-        """Set focused element text"""
-        text = changes["text"]
+        text = edit["text"]
 
         el = ui.focused_element()
 
