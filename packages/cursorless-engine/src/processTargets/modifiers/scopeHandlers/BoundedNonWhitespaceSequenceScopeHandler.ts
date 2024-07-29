@@ -76,28 +76,27 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
       },
     );
 
-    for (const scope of scopes) {
-      const pairScopes = (() => {
-        if (hints.containment == null) {
-          return this.surroundingPairInteriorScopeHandler.generateScopes(
-            scope.editor,
-            position,
-            direction,
-            {
-              ...hints,
-              // For every (skipAncestorScopes=true) we don't want to go outside of the surrounding pair
-              containment: hints.skipAncestorScopes ? "required" : null,
-            },
-          );
-        }
-        return this.surroundingPairInteriorScopeHandler.generateScopes(
-          scope.editor,
-          position,
-          direction,
-          hints,
-        );
-      })();
+    const pairhints: ScopeIteratorRequirements = (() => {
+      if (hints.containment == null) {
+        return {
+          ...hints,
+          // For every (skipAncestorScopes=true) we don't want to go outside of the surrounding pair
+          containment: hints.skipAncestorScopes ? "required" : null,
+        };
+      }
+      return hints;
+    })();
 
+    const pairScopes = Array.from(
+      this.surroundingPairInteriorScopeHandler.generateScopes(
+        editor,
+        position,
+        direction,
+        pairhints,
+      ),
+    );
+
+    for (const scope of scopes) {
       const allScopes = [scope];
 
       for (const pairScope of pairScopes) {

@@ -1,11 +1,18 @@
-aa(bb)cc(dd)ee
+aa(bb)cc dd(ee)ff
 ---
 
 [#1 Content] =
-[#1 Removal] =
-[#1 Domain] = 0:0-0:14
-  >--------------<
-0| aa(bb)cc(dd)ee
+[#1 Domain] = 0:0-0:8
+  >--------<
+0| aa(bb)cc dd(ee)ff
+
+[#1 Removal] = 0:0-0:9
+  >---------<
+0| aa(bb)cc dd(ee)ff
+
+[#1 Trailing delimiter] = 0:8-0:9
+          >-<
+0| aa(bb)cc dd(ee)ff
 
 [#1 Insertion delimiter] = " "
 
@@ -14,15 +21,31 @@ aa(bb)cc(dd)ee
 [#2 Removal] =
 [#2 Domain] = 0:3-0:5
      >--<
-0| aa(bb)cc(dd)ee
+0| aa(bb)cc dd(ee)ff
 
 [#2 Insertion delimiter] = " "
 
 
 [#3 Content] =
-[#3 Removal] =
-[#3 Domain] = 0:9-0:11
-           >--<
-0| aa(bb)cc(dd)ee
+[#3 Domain] = 0:9-0:17
+           >--------<
+0| aa(bb)cc dd(ee)ff
+
+[#3 Removal] = 0:8-0:17
+          >---------<
+0| aa(bb)cc dd(ee)ff
+
+[#3 Leading delimiter] = 0:8-0:9
+          >-<
+0| aa(bb)cc dd(ee)ff
 
 [#3 Insertion delimiter] = " "
+
+
+[#4 Content] =
+[#4 Removal] =
+[#4 Domain] = 0:12-0:14
+              >--<
+0| aa(bb)cc dd(ee)ff
+
+[#4 Insertion delimiter] = " "
