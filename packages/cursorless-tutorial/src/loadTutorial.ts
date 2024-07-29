@@ -15,7 +15,7 @@ export async function loadTutorial(
   tutorialId: TutorialId,
   customSpokenFormGenerator: CustomSpokenFormGenerator,
   rawContent: RawTutorialContent,
-  storage: KeyValueStore,
+  keyValueStore: KeyValueStore,
 ) {
   const parser = new TutorialStepParser(
     contentProvider,
