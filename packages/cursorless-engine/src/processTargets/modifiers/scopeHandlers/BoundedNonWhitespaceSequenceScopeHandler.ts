@@ -5,7 +5,7 @@ import {
   TextEditor,
   Range,
 } from "@cursorless/common";
-import { ParagraphTarget, TokenTarget } from "../../targets";
+import { TokenTarget } from "../../targets";
 import { BaseScopeHandler } from "./BaseScopeHandler";
 import { compareTargetScopes } from "./compareTargetScopes";
 import type { TargetScope } from "./scope.types";
