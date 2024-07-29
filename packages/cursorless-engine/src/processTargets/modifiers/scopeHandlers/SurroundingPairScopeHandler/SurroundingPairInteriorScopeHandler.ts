@@ -4,7 +4,6 @@ import {
   TextEditor,
   type SurroundingPairInteriorScopeType,
 } from "@cursorless/common";
-import { TokenTarget } from "../../../targets";
 import { BaseScopeHandler } from "../BaseScopeHandler";
 import { TargetScope } from "../scope.types";
 import {
@@ -12,6 +11,7 @@ import {
   type ScopeHandler,
 } from "../scopeHandler.types";
 import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
+import { map } from "itertools";
 
 export class SurroundingPairInteriorScopeHandler extends BaseScopeHandler {
   protected isHierarchical = true;
@@ -38,35 +38,28 @@ export class SurroundingPairInteriorScopeHandler extends BaseScopeHandler {
     return this.surroundingPairScopeHandler.iterationScopeType;
   }
 
-  *generateScopeCandidates(
+  generateScopeCandidates(
     editor: TextEditor,
     position: Position,
     direction: Direction,
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
-    const scopes = this.surroundingPairScopeHandler.generateScopes(
-      editor,
-      position,
-      direction,
-      hints,
-    );
-
-    for (const scope of scopes) {
-      const interiorRange = scope.getTargets(false)[0].getInterior()![0]
-        .contentRange;
-      yield {
+    return map(
+      this.surroundingPairScopeHandler.generateScopes(
         editor,
-        domain: interiorRange,
+        position,
+        direction,
+        hints,
+      ),
+      (scope) => ({
+        editor,
+        domain: scope.domain,
         getTargets(isReversed) {
-          return [
-            new TokenTarget({
-              editor,
-              isReversed,
-              contentRange: interiorRange,
-            }),
-          ];
+          return scope
+            .getTargets(isReversed)
+            .flatMap((target) => target.getInterior()!);
         },
-      };
-    }
+      }),
+    );
   }
 }
