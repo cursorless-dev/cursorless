@@ -108,11 +108,10 @@
     }
   },
   "ignorePatterns": [
-    "/typings/**",
-    "/data/playground/**",
-    "**/vendor/**/*.ts",
-    "**/vendor/**/*.js",
+    "**/generated/**",
     "**/out/**",
-    "**/generated/**"
+    "**/vendor/**/*.js",
+    "**/vendor/**/*.ts",
+    "/data/playground/**"
   ]
 }
