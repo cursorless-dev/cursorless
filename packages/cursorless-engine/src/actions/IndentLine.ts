@@ -1,12 +1,7 @@
-import {
-  FlashStyle,
-  Range,
-  type Selection,
-  type TextEditor,
-} from "@cursorless/common";
+import { FlashStyle, Range, type TextEditor } from "@cursorless/common";
 import { flatten, zip } from "lodash-es";
+import { selectionToStoredTarget } from "../core/commandRunner/selectionToStoredTarget";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
@@ -15,7 +10,7 @@ import {
   OutdentLineSimpleAction,
 } from "./SimpleIdeCommandActions";
 import { ActionReturnValue } from "./actions.types";
-import { selectionToStoredTarget } from "../core/commandRunner/selectionToStoredTarget";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 
 abstract class IndentLineBase {
   constructor(
@@ -60,21 +55,17 @@ abstract class IndentLineBase {
       ? getIndentEdits(editor, targets)
       : getOutdentEdits(editor, targets);
 
-    const cursorSelections = editor.selections;
-    const targetSelections = targets.map(
-      ({ contentSelection }) => contentSelection,
-    );
-    const editableEditor = ide().getEditableTextEditor(editor);
-
-    const [updatedCursorSelections, updatedTargetSelections]: Selection[][] =
-      await performEditsAndUpdateSelections(
-        this.rangeUpdater,
-        editableEditor,
+    const { targetSelections: updatedTargetSelections } =
+      await performEditsAndUpdateSelections({
+        rangeUpdater: this.rangeUpdater,
+        editor: ide().getEditableTextEditor(editor),
         edits,
-        [cursorSelections, targetSelections],
-      );
-
-    await editableEditor.setSelections(updatedCursorSelections);
+        selections: {
+          targetSelections: targets.map(
+            ({ contentSelection }) => contentSelection,
+          ),
+        },
+      });
 
     return zip(targets, updatedTargetSelections).map(([target, range]) =>
       selectionToStoredTarget({
