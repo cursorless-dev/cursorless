@@ -20,8 +20,8 @@ export class FontMeasurementsImpl implements FontMeasurements {
 
   constructor(private extensionContext: vscode.ExtensionContext) {}
 
-  clearCache() {
-    void this.extensionContext.globalState.update("fontRatios", undefined);
+  async clearCache() {
+    await this.extensionContext.globalState.update("fontRatios", undefined);
   }
 
   async calculate() {

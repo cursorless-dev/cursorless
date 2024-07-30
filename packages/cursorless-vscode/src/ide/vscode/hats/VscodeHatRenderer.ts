@@ -95,7 +95,7 @@ export default class VscodeHatRenderer {
   }
 
   public async forceRecomputeDecorationStyles() {
-    this.fontMeasurements.clearCache();
+    await this.fontMeasurements.clearCache();
     await this.recomputeDecorations();
   }
 
@@ -203,7 +203,7 @@ export default class VscodeHatRenderer {
       .getConfiguration("cursorless")
       .get<IndividualHatAdjustmentMap>("individualHatAdjustments")!;
 
-    await performPr1868ShapeUpdateInit(
+    void performPr1868ShapeUpdateInit(
       this.extensionContext,
       this.vscodeApi,
       this.messages,

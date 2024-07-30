@@ -75,9 +75,9 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
     this.reparseCurrentTutorial = this.reparseCurrentTutorial.bind(this);
     const debouncer = new Debouncer(() => this.checkPreconditions(), 100);
 
-    void this.loadTutorials().then(() => {
+    void this.loadTutorials().then(async () => {
       if (this.state_.type === "loading") {
-        this.setState(this.getPickingTutorialState());
+        await this.setState(this.getPickingTutorialState());
       }
     });
 
@@ -176,7 +176,7 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
     );
 
     this.currentTutorial = tutorialContent;
-    this.setState(
+    await this.setState(
       state.hasErrors
         ? {
             ...state,
@@ -211,7 +211,7 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
     );
 
     this.currentTutorial = tutorialContent;
-    this.setState(state);
+    await this.setState(state);
 
     await this.setupStep();
   }
@@ -250,7 +250,7 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
 
     const nextStep = this.currentTutorial!.steps[newStepNumber];
 
-    this.setState({
+    await this.setState({
       type: "doingTutorial",
       hasErrors: false,
       id: this.state_.id,
@@ -281,15 +281,15 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
   }
 
   async list() {
-    this.setState(this.getPickingTutorialState());
+    await this.setState(this.getPickingTutorialState());
     await this.setupStep();
   }
 
-  private setState(state: TutorialState) {
+  private async setState(state: TutorialState) {
     this.state_ = state;
 
     if (state.type === "doingTutorial") {
-      void this.ide.keyValueStore.set(
+      await this.ide.keyValueStore.set(
         "tutorialProgress",
         produce(this.ide.keyValueStore.get("tutorialProgress"), (draft) => {
           draft[state.id] = {
@@ -317,7 +317,7 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
     );
 
     if (this.editor !== editor && this.editor != null) {
-      void this.ide.setHighlightRanges(HIGHLIGHT_COLOR, this.editor, []);
+      await this.ide.setHighlightRanges(HIGHLIGHT_COLOR, this.editor, []);
     }
 
     this.editor = editor;
@@ -353,7 +353,7 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
         currentStep,
       );
       if (preConditionsMet !== this.state_.preConditionsMet) {
-        this.setState({
+        await this.setState({
           ...this.state_,
           preConditionsMet,
         });
