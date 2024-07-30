@@ -6,6 +6,7 @@ import { BreakLine } from "./BreakLine";
 import { Bring, Move, Swap } from "./BringMoveSwap";
 import Call from "./Call";
 import Clear from "./Clear";
+import { CopyToClipboard } from "./CopyToClipboard";
 import { CutToClipboard } from "./CutToClipboard";
 import Deselect from "./Deselect";
 import { EditNew } from "./EditNew";
@@ -42,7 +43,6 @@ import { SetSpecialTarget } from "./SetSpecialTarget";
 import ShowParseTree from "./ShowParseTree";
 import { IndentLine, OutdentLine } from "./IndentLine";
 import {
-  CopyToClipboard,
   ExtractVariable,
   Fold,
   Rename,
@@ -75,7 +75,7 @@ export class Actions implements ActionRecord {
 
   callAsFunction = new Call(this);
   clearAndSetSelection = new Clear(this);
-  copyToClipboard = new CopyToClipboard(this.rangeUpdater);
+  copyToClipboard = new CopyToClipboard(this, this.rangeUpdater);
   cutToClipboard = new CutToClipboard(this);
   decrement = new Decrement(this);
   deselect = new Deselect();
