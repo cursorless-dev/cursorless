@@ -102,7 +102,7 @@ function upgradeAction(
       return {
         name,
         commandId: action.args![0] as string,
-        options: action.args?.[1] as ExecuteCommandOptions,
+        options: action.args?.[1] as ExecuteCommandOptions | undefined,
         target: upgradeTarget(targets[0]),
       };
     case "replace":
@@ -129,7 +129,7 @@ function upgradeAction(
     case "getText":
       return {
         name,
-        options: action.args?.[0] as GetTextActionOptions,
+        options: action.args?.[0] as GetTextActionOptions | undefined,
         target: upgradeTarget(targets[0]),
       };
     case "parsed":
