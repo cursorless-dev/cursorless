@@ -1,18 +1,19 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: chuck harp past air take whale
-  action: {name: remove}
-  targets:
-    - active:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  action:
+    name: remove
+    target:
       type: range
-      excludeAnchor: false
-      excludeActive: false
       anchor:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: h}
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      excludeAnchor: false
+      excludeActive: false
   usePrePhraseSnapshot: false
 marksToCheck: [default.w]
 initialState:

@@ -1,10 +1,11 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: bring air and bat and cap before item each
-  action: {name: replaceWithTarget}
-  targets:
-    - type: list
+  action:
+    name: replaceWithTarget
+    source:
+      type: list
       elements:
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: a}
@@ -12,12 +13,15 @@ command:
           mark: {type: decoratedSymbol, symbolColor: default, character: b}
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: c}
-    - type: primitive
-      modifiers:
-        - {type: position, position: before}
-        - type: containingScope
-          scopeType: {type: collectionItem}
-      mark: {type: decoratedSymbol, symbolColor: default, character: e}
+    destination:
+      type: primitive
+      insertionMode: before
+      target:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: collectionItem}
+        mark: {type: decoratedSymbol, symbolColor: default, character: e}
   usePrePhraseSnapshot: false
 initialState:
   documentContents: |

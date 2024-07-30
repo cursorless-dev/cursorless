@@ -1,13 +1,18 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: bring harp to this
-  action: {name: replaceWithTarget}
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
-    - type: primitive
-      mark: {type: cursor}
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: primitive
+        mark: {type: cursor}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: hello world

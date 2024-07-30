@@ -1,29 +1,36 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: paste after line sun and after block look and before line sun
-  action: {name: pasteFromClipboard}
-  targets:
-    - type: list
-      elements:
+  action:
+    name: pasteFromClipboard
+    destination:
+      type: list
+      destinations:
         - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: s}
-          modifiers:
-            - {type: position, position: after}
-            - type: containingScope
-              scopeType: {type: line}
+          insertionMode: after
+          target:
+            type: primitive
+            modifiers:
+              - type: containingScope
+                scopeType: {type: line}
+            mark: {type: decoratedSymbol, symbolColor: default, character: s}
         - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: l}
-          modifiers:
-            - {type: position, position: after}
-            - type: containingScope
-              scopeType: {type: paragraph}
+          insertionMode: after
+          target:
+            type: primitive
+            modifiers:
+              - type: containingScope
+                scopeType: {type: paragraph}
+            mark: {type: decoratedSymbol, symbolColor: default, character: l}
         - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: s}
-          modifiers:
-            - {type: position, position: before}
-            - type: containingScope
-              scopeType: {type: line}
+          insertionMode: before
+          target:
+            type: primitive
+            modifiers:
+              - type: containingScope
+                scopeType: {type: line}
+            mark: {type: decoratedSymbol, symbolColor: default, character: s}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-

@@ -1,30 +1,35 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: bring harp to second char fine past third char whale
-  action: {name: replaceWithTarget}
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
-    - active:
-        type: primitive
-        modifiers:
-          - type: ordinalScope
-            scopeType: {type: character}
-            start: 2
-            length: 1
-        mark: {type: decoratedSymbol, symbolColor: default, character: w}
-      type: range
-      excludeAnchor: false
-      excludeActive: false
-      anchor:
-        type: primitive
-        modifiers:
-          - type: ordinalScope
-            scopeType: {type: character}
-            start: 1
-            length: 1
-        mark: {type: decoratedSymbol, symbolColor: default, character: f}
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: range
+        anchor:
+          type: primitive
+          modifiers:
+            - type: ordinalScope
+              scopeType: {type: character}
+              start: 1
+              length: 1
+          mark: {type: decoratedSymbol, symbolColor: default, character: f}
+        active:
+          type: primitive
+          modifiers:
+            - type: ordinalScope
+              scopeType: {type: character}
+              start: 2
+              length: 1
+          mark: {type: decoratedSymbol, symbolColor: default, character: w}
+        excludeAnchor: false
+        excludeActive: false
   usePrePhraseSnapshot: false
 initialState:
   documentContents: foo world whatever

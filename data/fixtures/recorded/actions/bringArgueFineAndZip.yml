@@ -1,10 +1,11 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: bring arg fine and zip
-  action: {name: replaceWithTarget}
-  targets:
-    - type: list
+  action:
+    name: replaceWithTarget
+    source:
+      type: list
       elements:
         - type: primitive
           modifiers:
@@ -13,7 +14,7 @@ command:
           mark: {type: decoratedSymbol, symbolColor: default, character: f}
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: z}
-    - {type: implicit}
+    destination: {type: implicit}
   usePrePhraseSnapshot: false
 initialState:
   documentContents: |-

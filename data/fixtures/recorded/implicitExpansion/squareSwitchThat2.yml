@@ -1,12 +1,13 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: box repack that
   action:
     name: rewrapWithPairedDelimiter
-    args: ['[', ']']
-  targets:
-    - type: primitive
+    left: "["
+    right: "]"
+    target:
+      type: primitive
       mark: {type: that}
   usePrePhraseSnapshot: true
 initialState:

@@ -1,21 +1,22 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: chuck block each between look
-  action: {name: remove}
-  targets:
-    - active:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: l}
+  action:
+    name: remove
+    target:
       type: range
-      excludeAnchor: true
-      excludeActive: true
       anchor:
         type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: e}
         modifiers:
           - type: containingScope
             scopeType: {type: paragraph}
+        mark: {type: decoratedSymbol, symbolColor: default, character: e}
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: l}
+      excludeAnchor: true
+      excludeActive: true
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-

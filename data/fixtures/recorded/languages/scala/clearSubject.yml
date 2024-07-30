@@ -1,10 +1,11 @@
 languageId: scala
 command:
-  version: 5
+  version: 6
   spokenForm: change subject
-  action: {name: clearAndSetSelection}
-  targets:
-    - type: primitive
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: private.switchStatementSubject}

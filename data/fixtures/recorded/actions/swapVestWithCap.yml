@@ -1,12 +1,14 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: swap vest with cap
-  action: {name: swapTargets}
-  targets:
-    - type: primitive
+  action:
+    name: swapTargets
+    target1:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
-    - type: primitive
+    target2:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: c}
   usePrePhraseSnapshot: false
 initialState:

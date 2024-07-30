@@ -1,10 +1,11 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: chuck arg made and air
-  action: {name: remove}
-  targets:
-    - type: list
+  action:
+    name: remove
+    target:
+      type: list
       elements:
         - type: primitive
           modifiers:
