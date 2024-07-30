@@ -124,48 +124,48 @@ export class VscodeTutorial implements WebviewViewProvider {
 
   public async start(id: TutorialId | number) {
     await this.tutorial.start(id);
-    this.revealTutorial();
+    await this.revealTutorial();
   }
 
-  documentationOpened() {
+  async documentationOpened() {
     this.tutorial.documentationOpened();
-    this.revealTutorial();
+    await this.revealTutorial();
   }
 
   async next() {
     await this.tutorial.next();
-    this.revealTutorial();
+    await this.revealTutorial();
   }
 
   async previous() {
     await this.tutorial.previous();
-    this.revealTutorial();
+    await this.revealTutorial();
   }
 
   async restart() {
     await this.tutorial.restart();
-    this.revealTutorial();
+    await this.revealTutorial();
   }
 
   async resume() {
     await this.tutorial.resume();
-    this.revealTutorial();
+    await this.revealTutorial();
   }
 
   async list() {
     await this.tutorial.list();
-    this.revealTutorial();
+    await this.revealTutorial();
   }
 
   private onState(state: TutorialState) {
     void this.view?.webview.postMessage(state);
   }
 
-  private revealTutorial() {
+  private async revealTutorial() {
     if (this.view != null) {
       this.view.show(true);
     } else {
-      void this.vscodeApi.commands.executeCommand("cursorless.tutorial.focus");
+      await this.vscodeApi.commands.executeCommand("cursorless.tutorial.focus");
     }
   }
 
