@@ -35,7 +35,7 @@ export class FontMeasurementsImpl implements FontMeasurements {
 
     if (fontRatiosCache == null || fontRatiosCache.fontFamily !== fontFamily) {
       const fontRatios = await getFontRatios(this.extensionContext);
-      void this.extensionContext.globalState.update("fontRatios", {
+      await this.extensionContext.globalState.update("fontRatios", {
         ...fontRatios,
         fontFamily,
       });
