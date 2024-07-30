@@ -57,6 +57,12 @@ export class HatAllocator {
   async allocateHats(forceTokenHats?: TokenHat[]) {
     const activeMap = await this.context.getActiveMap();
 
+    // Forced graphemes won't have been normalized
+    forceTokenHats = forceTokenHats?.map((tokenHat) => ({
+      ...tokenHat,
+      grapheme: tokenGraphemeSplitter().normalizeGrapheme(tokenHat.grapheme),
+    }));
+
     const tokenHats = this.hats.isEnabled
       ? allocateHats({
           tokenGraphemeSplitter: tokenGraphemeSplitter(),
