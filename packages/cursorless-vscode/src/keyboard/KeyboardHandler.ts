@@ -119,7 +119,7 @@ export default class KeyboardHandler {
       }),
     );
 
-    this.ensureState();
+    void this.ensureState();
   }
 
   dispose() {
@@ -154,7 +154,7 @@ export default class KeyboardHandler {
           .reverse()
           .forEach(({ listener }) => listener.handleCancelled());
         this.listeners.splice(index);
-        this.ensureState();
+        void this.ensureState();
       },
     };
 
@@ -162,7 +162,7 @@ export default class KeyboardHandler {
 
     this.listeners.push(listenerEntry);
 
-    this.ensureState();
+    void this.ensureState();
 
     return disposable;
   }
@@ -215,7 +215,7 @@ export default class KeyboardHandler {
    * the state that we control is as expected.  Eg it changes cursor if
    * necessary, sets when clause contexts, etc
    */
-  private ensureState() {
+  private async ensureState() {
     const activeListener =
       this.listeners.length === 0
         ? undefined
@@ -226,15 +226,17 @@ export default class KeyboardHandler {
       return;
     }
 
-    this.disposeOfActiveListener();
-    this.activateListener(activeListener);
+    await this.disposeOfActiveListener();
+    await this.activateListener(activeListener);
 
     this.ensureCursorStyle();
     this.ensureStatusBarText();
-    this.ensureGlobalWhenClauseContext();
+    await this.ensureGlobalWhenClauseContext();
   }
 
-  private activateListener(listenerEntry: ListenerEntry | undefined): void {
+  private async activateListener(
+    listenerEntry: ListenerEntry | undefined,
+  ): Promise<void> {
     if (listenerEntry == null) {
       return;
     }
@@ -261,7 +263,7 @@ export default class KeyboardHandler {
     this.disposables.push(this.typeCommandDisposable);
 
     if (whenClauseContext != null) {
-      void vscode.commands.executeCommand(
+      await vscode.commands.executeCommand(
         "setContext",
         whenClauseContext,
         true,
@@ -271,7 +273,7 @@ export default class KeyboardHandler {
     this.activeListener = listenerEntry;
   }
 
-  private disposeOfActiveListener() {
+  private async disposeOfActiveListener() {
     if (this.activeListener == null) {
       return;
     }
@@ -283,7 +285,7 @@ export default class KeyboardHandler {
     const { whenClauseContext } = this.activeListener.listener.displayOptions;
 
     if (whenClauseContext != null) {
-      void vscode.commands.executeCommand(
+      await vscode.commands.executeCommand(
         "setContext",
         whenClauseContext,
         false,
@@ -328,7 +330,7 @@ export default class KeyboardHandler {
   }
 
   private ensureGlobalWhenClauseContext() {
-    void vscode.commands.executeCommand(
+    return vscode.commands.executeCommand(
       "setContext",
       GLOBAL_WHEN_CLAUSE_CONTEXT,
       this.activeListener != null,
