@@ -147,6 +147,8 @@ function callback(
       return editor.fold(ranges);
     case "unfold":
       return editor.unfold(ranges);
+    case "insertLineAfter":
+      return editor.insertLineAfter(ranges);
 
     // Single target actions
     case "rename":

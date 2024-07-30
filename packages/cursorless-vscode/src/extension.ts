@@ -1,5 +1,6 @@
 import {
   Disposable,
+  EnforceUndefined,
   FakeCommandServerApi,
   FakeIDE,
   IDE,
@@ -12,6 +13,7 @@ import {
 } from "@cursorless/common";
 import {
   CommandHistory,
+  EngineProps,
   createCursorlessEngine,
 } from "@cursorless/cursorless-engine";
 import {
@@ -45,6 +47,7 @@ import {
 import { StatusBarItem } from "./StatusBarItem";
 import { VscodeSnippets } from "./VscodeSnippets";
 import { constructTestHelpers } from "./constructTestHelpers";
+import { createTutorial } from "./createTutorial";
 import {
   VscodeScopeVisualizer,
   createVscodeScopeVisualizer,
@@ -94,6 +97,8 @@ export async function activate(
   const treeSitter = createTreeSitter(parseTreeApi);
   const talonSpokenForms = new FileSystemTalonSpokenForms(fileSystem);
 
+  // NOTE: do not await on snippet loading and hats initialization because we don't want to
+  // block extension activation
   const snippets = new VscodeSnippets(normalizedIde);
   void snippets.init();
 
@@ -102,6 +107,16 @@ export async function activate(
     fileSystem,
   );
   context.subscriptions.push(treeSitterQueryProvider);
+
+  const engineProps: EnforceUndefined<EngineProps> = {
+    ide: normalizedIde,
+    hats,
+    treeSitterQueryProvider,
+    treeSitter,
+    commandServerApi,
+    talonSpokenForms,
+    snippets,
+  };
 
   const {
     commandApi,
@@ -112,15 +127,7 @@ export async function activate(
     runIntegrationTests,
     addCommandRunnerDecorator,
     customSpokenFormGenerator,
-  } = await createCursorlessEngine({
-    ide: normalizedIde,
-    hats,
-    treeSitterQueryProvider,
-    treeSitter,
-    commandServerApi,
-    talonSpokenForms,
-    snippets,
-  });
+  } = await createCursorlessEngine(engineProps);
 
   const commandHistoryStorage = new FileSystemCommandHistoryStorage(
     fileSystem.cursorlessCommandHistoryDirPath,
@@ -161,6 +168,17 @@ export async function activate(
 
   context.subscriptions.push(storedTargetHighlighter(vscodeIDE, storedTargets));
 
+  const vscodeTutorial = createTutorial(
+    context,
+    normalizedIde,
+    scopeVisualizer,
+    fileSystem,
+    addCommandRunnerDecorator,
+    hatTokenMap,
+    customSpokenFormGenerator,
+    hats,
+  );
+
   registerCommands(
     context,
     vscodeIDE,
@@ -171,6 +189,7 @@ export async function activate(
     scopeVisualizer,
     keyboardCommands,
     hats,
+    vscodeTutorial,
     storedTargets,
   );
 
@@ -189,6 +208,7 @@ export async function activate(
             scopeProvider,
             injectIde,
             runIntegrationTests,
+            vscodeTutorial,
           )
         : undefined,
 

@@ -1,0 +1,27 @@
+<?php
+class MyClass {
+    public string $value;
+}
+---
+
+[Content] = 2:11-2:17
+             >------<
+2|     public string $value;
+
+[Removal] = 2:11-2:18
+             >-------<
+2|     public string $value;
+
+[Leading delimiter] = 2:10-2:11
+            >-<
+2|     public string $value;
+
+[Trailing delimiter] = 2:17-2:18
+                   >-<
+2|     public string $value;
+
+[Domain] = 2:4-2:25
+      >---------------------<
+2|     public string $value;
+
+[Insertion delimiter] = " "

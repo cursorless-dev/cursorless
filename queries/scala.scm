@@ -1,3 +1,5 @@
+;; https://github.com/tree-sitter/tree-sitter-scala/blob/master/src/grammar.json
+
 (if_expression) @ifStatement
 
 [
@@ -39,3 +41,26 @@
 (_
   pattern: (_) @name
 ) @_.domain
+
+operator: (operator_identifier) @disqualifyDelimiter
+(enumerator
+  "<-" @disqualifyDelimiter
+)
+(view_bound
+  "<%" @disqualifyDelimiter
+)
+(upper_bound
+  "<:" @disqualifyDelimiter
+)
+(lower_bound
+  ">:" @disqualifyDelimiter
+)
+(lambda_expression
+  "=>" @disqualifyDelimiter
+)
+(function_type
+  "=>" @disqualifyDelimiter
+)
+(case_clause
+  "=>" @disqualifyDelimiter
+)

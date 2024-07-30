@@ -10,28 +10,23 @@ command run, and the final state, all in the form of a yaml document. See
 
 ## Recording new tests
 
-1. Start debugging (F5)
-1. Create a minimal file to use for recording tests. And position your cursor
-   where you'd like. Check out the `initialState.documentContents` field of
-   [existing test cases](../../data/fixtures/recorded) for examples.
-1. Issue the `"cursorless record"` command. Alternately, issue one of the special recording commands listed in
-   - List of target directories is shown. All test cases will be put into the
-     given subdirectory of `data/fixtures/recorded`
-1. Select existing directory or create new one
-   - Select `Create new folder`
-   - If the new directory name contains any `/`, it will create nested
-     subdirectories.
-1. `Recording test cases for following commands` is shown
-1. Issue any cursorless voice command
-   - `"take air"`
-1. `Cursorless test case saved` is shown
-   - File created on disk using spoken words as file name
+1. Run the extension locally by saying `"debug extension"` (as described [in the
+   inital setup
+   documentation](https://www.cursorless.org/docs/contributing/#running--testing-extension-locally)).
+1. Open an editor and fill it out with the content on which you'd like to
+   operate. You can just use an untitled document, or open a real file; it
+   doesn't matter. Please try to keep the file as small as possible, though.
+1. Say `"cursorless record"`. Alternately, issue one of the special recording
+   commands listed in [Test case recorder options](#test-case-recorder-options).
+1. Pick a target directory, or create a new one by just typing the name of the
+   new directory. Using `/` will create nested subdirectories.
+1. Issue any cursorless voice command, eg `"take air"`. This will result in a
+   new test case being generated in the Cursorless directory. You can verify by
+   returning to the main VSCode window and looking at the source control
+   sidebar to see the new yaml file.
 1. Repeat as many cursorless voice commands as you want recorded. Each command
-   you
-   issue will generate a test case in the form of a yaml file.
+   you issue will generate a test case in the form of a new yaml file.
 1. Issue `"cursorless record"` command again to stop recording
-   - `Stopped recording test cases` is shown
-   - You can also just stop the debugger or close the debug window
 
 ## Test case recorder options
 

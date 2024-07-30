@@ -1,0 +1,55 @@
+languageId: python
+command:
+  version: 6
+  spokenForm: pour urge
+  action:
+    name: editNewLineAfter
+    target:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: u}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    def print_color(color, invert=False):
+        if invert:
+            print(invert_color(color))
+        else:
+            print(color)
+
+
+    def invert_color(color):
+        if color == "black":
+            return "white"
+        if color == "white":
+            return "black"
+
+
+    print_color("black")
+  selections:
+    - anchor: {line: 15, character: 0}
+      active: {line: 15, character: 0}
+  marks:
+    default.u:
+      start: {line: 11, character: 8}
+      end: {line: 11, character: 14}
+finalState:
+  documentContents: |
+    def print_color(color, invert=False):
+        if invert:
+            print(invert_color(color))
+        else:
+            print(color)
+
+
+    def invert_color(color):
+        if color == "black":
+            return "white"
+        if color == "white":
+            return "black"
+            
+
+
+    print_color("black")
+  selections:
+    - anchor: {line: 12, character: 8}
+      active: {line: 12, character: 8}

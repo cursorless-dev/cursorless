@@ -1,4 +1,7 @@
-import { SimpleScopeTypeType } from "../types/command/PartialTargetDescriptor.types";
+import {
+  SimpleScopeTypeType,
+  type ScopeType,
+} from "../types/command/PartialTargetDescriptor.types";
 
 const scopeSupportFacets = [
   "command",
@@ -10,6 +13,8 @@ const scopeSupportFacets = [
   "attribute",
 
   "environment",
+
+  "section",
 
   "list",
   "map",
@@ -76,6 +81,8 @@ const scopeSupportFacets = [
   "textFragment.string.singleLine",
   "textFragment.string.multiLine",
 
+  "disqualifyDelimiter",
+
   "branch.if",
   "branch.if.iteration",
   "branch.try",
@@ -123,6 +130,7 @@ const scopeSupportFacets = [
 
   "value.assignment",
   "value.variable",
+  "value.variable.pattern",
   "value.mapPair",
   "value.mapPair.iteration",
   "value.attribute",
@@ -162,7 +170,6 @@ const scopeSupportFacets = [
   "notebookCell",
 
   // FIXME: Still in legacy
-  // section
   // selector
   // unit
   // collectionItem
@@ -176,16 +183,20 @@ const textualScopeSupportFacets = [
   "line",
   "sentence",
   "paragraph",
+  "boundedParagraph",
+  "boundedParagraph.iteration",
   "document",
   "nonWhitespaceSequence",
-  // FIXME: Still in legacy
-  // "boundedNonWhitespaceSequence",
+  "boundedNonWhitespaceSequence",
+  "boundedNonWhitespaceSequence.iteration",
   "url",
+  "surroundingPair",
+  "surroundingPair.iteration",
 ] as const;
 
 export interface ScopeSupportFacetInfo {
   readonly description: string;
-  readonly scopeType: SimpleScopeTypeType;
+  readonly scopeType: SimpleScopeTypeType | ScopeType;
   readonly isIteration?: boolean;
 }
 

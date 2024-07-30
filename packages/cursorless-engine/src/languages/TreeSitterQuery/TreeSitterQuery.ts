@@ -4,12 +4,13 @@ import {
   showError,
   type TreeSitter,
 } from "@cursorless/common";
+import { groupBy, uniq } from "lodash-es";
 import { Point, Query } from "web-tree-sitter";
 import { ide } from "../../singletons/ide.singleton";
-import { groupBy, uniq } from "lodash-es";
 import { getNodeRange } from "../../util/nodeSelectors";
 import { MutableQueryMatch, QueryCapture, QueryMatch } from "./QueryCapture";
 import { checkCaptureStartEnd } from "./checkCaptureStartEnd";
+import { isContainedInErrorNode } from "./isContainedInErrorNode";
 import { parsePredicates } from "./parsePredicates";
 import { predicateToString } from "./predicateToString";
 import { rewriteStartOfEndOf } from "./rewriteStartOfEndOf";
@@ -85,6 +86,7 @@ export class TreeSitterQuery {
             range: getNodeRange(node),
             insertionDelimiter: undefined,
             allowMultiple: false,
+            hasError: () => isContainedInErrorNode(node),
           })),
         }),
       )
@@ -120,6 +122,7 @@ export class TreeSitterQuery {
             insertionDelimiter: captures.find(
               (capture) => capture.insertionDelimiter != null,
             )?.insertionDelimiter,
+            hasError: () => captures.some((capture) => capture.hasError()),
           };
         });
 

@@ -4,6 +4,7 @@ import type { RunMode } from "@cursorless/common";
  * Get the current run mode of the application as defined by the CURSORLESS_MODE
  * environment variable.
  *
+ * @see https://code.visualstudio.com/api/references/vscode-api#ExtensionMode
  * @returns The current run mode of the application
  */
 export function nodeGetRunMode(): RunMode {
