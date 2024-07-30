@@ -1,20 +1,21 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: box repack look past trap
   action:
     name: rewrapWithPairedDelimiter
-    args: ['[', ']']
-  targets:
-    - active:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: t}
+    left: "["
+    right: "]"
+    target:
       type: range
-      excludeAnchor: false
-      excludeActive: false
       anchor:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: l}
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: t}
+      excludeAnchor: false
+      excludeActive: false
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |

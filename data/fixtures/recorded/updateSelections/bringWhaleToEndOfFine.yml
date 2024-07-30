@@ -1,15 +1,20 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: bring whale to end of fine
-  action: {name: replaceWithTarget}
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
-    - type: primitive
-      modifiers:
-        - {type: position, position: end}
-      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: primitive
+        modifiers:
+          - {type: endOf}
+        mark: {type: decoratedSymbol, symbolColor: default, character: f}
   usePrePhraseSnapshot: false
 initialState:
   documentContents: foo world

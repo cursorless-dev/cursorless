@@ -1,13 +1,14 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: change leading whale
-  action: {name: clearAndSetSelection}
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - {type: leading}
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: hello world whatever

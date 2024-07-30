@@ -1,14 +1,15 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: change short paint paren
-  action: {name: clearAndSetSelection}
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: (}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: boundedNonWhitespaceSequence}
+      mark: {type: decoratedSymbol, symbolColor: default, character: (}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: "{foo.bar(hello-world, whatever-now)} test-this"

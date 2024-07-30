@@ -1,13 +1,13 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: alternate highlight harp
   action:
     name: highlight
-    args: [highlight1]
-  targets:
-    - type: primitive
+    target:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
+    highlightId: highlight1
   usePrePhraseSnapshot: true
 spokenFormError: highlight.highlightId
 initialState:

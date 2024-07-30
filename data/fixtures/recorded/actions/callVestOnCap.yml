@@ -1,12 +1,14 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: call vest on cap
-  action: {name: callAsFunction}
-  targets:
-    - type: primitive
+  action:
+    name: callAsFunction
+    callee:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
-    - type: primitive
+    argument:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: c}
   usePrePhraseSnapshot: false
 initialState:

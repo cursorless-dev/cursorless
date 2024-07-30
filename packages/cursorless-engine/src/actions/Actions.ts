@@ -40,12 +40,11 @@ import {
 } from "./SetSelection";
 import { SetSpecialTarget } from "./SetSpecialTarget";
 import ShowParseTree from "./ShowParseTree";
+import { IndentLine, OutdentLine } from "./IndentLine";
 import {
   CopyToClipboard,
   ExtractVariable,
   Fold,
-  IndentLine,
-  OutdentLine,
   Rename,
   RevealDefinition,
   RevealTypeDefinition,

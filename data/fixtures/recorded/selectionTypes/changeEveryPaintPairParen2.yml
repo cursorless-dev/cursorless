@@ -1,16 +1,17 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: change every paint pair paren
-  action: {name: clearAndSetSelection}
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: (}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - type: everyScope
           scopeType: {type: nonWhitespaceSequence}
         - type: containingScope
           scopeType: {type: surroundingPair, delimiter: any}
+      mark: {type: decoratedSymbol, symbolColor: default, character: (}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: foo(aa|aa-().c_d bb|bb-().'') { return 1; }

@@ -1,18 +1,21 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: bring arg whale before look
-  action: {name: replaceWithTarget}
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: argumentOrParameter}
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: l}
-      modifiers:
-        - {type: position, position: before}
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+    destination:
+      type: primitive
+      insertionMode: before
+      target:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: l}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-

@@ -1,13 +1,12 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: funk wrap that
   action:
     name: wrapWithSnippet
-    args:
-      - {type: named, name: functionDeclaration, variableName: body}
-  targets:
-    - type: primitive
+    snippetDescription: {type: named, name: functionDeclaration, variableName: body}
+    target:
+      type: primitive
       mark: {type: that}
   usePrePhraseSnapshot: true
 initialState:

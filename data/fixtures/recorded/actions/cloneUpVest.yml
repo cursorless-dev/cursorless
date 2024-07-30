@@ -1,10 +1,11 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: clone up vest
-  action: {name: insertCopyBefore}
-  targets:
-    - type: primitive
+  action:
+    name: insertCopyBefore
+    target:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
   usePrePhraseSnapshot: false
 initialState:

@@ -1,14 +1,15 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: take item blue red
-  action: {name: setSelection}
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: blue, character: r}
+  action:
+    name: setSelection
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: collectionItem}
+      mark: {type: decoratedSymbol, symbolColor: blue, character: r}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-

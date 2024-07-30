@@ -1,15 +1,18 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: paste before arg zip
-  action: {name: pasteFromClipboard}
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: z}
-      modifiers:
-        - {type: position, position: before}
-        - type: containingScope
-          scopeType: {type: argumentOrParameter}
+  action:
+    name: pasteFromClipboard
+    destination:
+      type: primitive
+      insertionMode: before
+      target:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: argumentOrParameter}
+        mark: {type: decoratedSymbol, symbolColor: default, character: z}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: foo(bar, baz, bongo)
