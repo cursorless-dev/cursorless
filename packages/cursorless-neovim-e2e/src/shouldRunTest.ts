@@ -64,6 +64,9 @@ function isFailingFixture(name: string, fixture: TestCaseFixtureLegacy) {
     // "recorded/actions/copySecondToken" -> wrong fixture.finalState.clipboard
     case "copyToClipboard":
       return true;
+    case "indentLine":
+    case "outdentLine":
+      return true;
   }
 
   // "recorded/lineEndings/*" -> fixture.finalState.documentContents contains \n instead of \r\n

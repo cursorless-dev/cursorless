@@ -1,18 +1,21 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: bring item air after cap
-  action: {name: replaceWithTarget}
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: collectionItem}
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: c}
-      modifiers:
-        - {type: position, position: after}
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+    destination:
+      type: primitive
+      insertionMode: after
+      target:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: c}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-

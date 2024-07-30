@@ -1,23 +1,28 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: bring air to start of bat slice fine
-  action: {name: replaceWithTarget}
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
-    - active:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: f}
-      type: range
-      rangeType: vertical
-      excludeAnchor: false
-      excludeActive: false
-      anchor:
-        type: primitive
-        modifiers:
-          - {type: position, position: start}
-        mark: {type: decoratedSymbol, symbolColor: default, character: b}
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: range
+        anchor:
+          type: primitive
+          modifiers:
+            - {type: startOf}
+          mark: {type: decoratedSymbol, symbolColor: default, character: b}
+        active:
+          type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: f}
+        excludeAnchor: false
+        excludeActive: false
+        rangeType: vertical
   usePrePhraseSnapshot: false
 initialState:
   documentContents: |

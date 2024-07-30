@@ -1,15 +1,16 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: move line air
-  action: {name: moveToTarget}
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  action:
+    name: moveToTarget
+    source:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: line}
-    - {type: implicit}
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+    destination: {type: implicit}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |

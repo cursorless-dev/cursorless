@@ -1,15 +1,20 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: bring harp to start of dot take dot
-  action: {name: replaceWithTarget}
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
-    - type: primitive
-      modifiers:
-        - {type: position, position: start}
-      mark: {type: decoratedSymbol, symbolColor: default, character: .}
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: primitive
+        modifiers:
+          - {type: startOf}
+        mark: {type: decoratedSymbol, symbolColor: default, character: .}
   usePrePhraseSnapshot: false
 marksToCheck: [default..]
 initialState:

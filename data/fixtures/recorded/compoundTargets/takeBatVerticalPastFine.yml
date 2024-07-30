@@ -1,19 +1,20 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: take bat slice fine
-  action: {name: setSelection}
-  targets:
-    - active:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: f}
+  action:
+    name: setSelection
+    target:
       type: range
-      rangeType: vertical
-      excludeAnchor: false
-      excludeActive: false
       anchor:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: f}
+      excludeAnchor: false
+      excludeActive: false
+      rangeType: vertical
   usePrePhraseSnapshot: false
 initialState:
   documentContents: |

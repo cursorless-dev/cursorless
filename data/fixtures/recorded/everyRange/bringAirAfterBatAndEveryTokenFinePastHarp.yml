@@ -1,29 +1,32 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: bring air after bat and every token fine past harp
-  action: {name: replaceWithTarget}
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
-    - type: list
-      elements:
-        - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: b}
-          modifiers:
-            - {type: position, position: after}
-        - type: range
-          anchor:
-            type: primitive
-            modifiers:
-              - type: everyScope
-                scopeType: {type: token}
-            mark: {type: decoratedSymbol, symbolColor: default, character: f}
-          active:
-            type: primitive
-            mark: {type: decoratedSymbol, symbolColor: default, character: h}
-          excludeAnchor: false
-          excludeActive: false
+    destination:
+      type: primitive
+      insertionMode: after
+      target:
+        type: list
+        elements:
+          - type: primitive
+            mark: {type: decoratedSymbol, symbolColor: default, character: b}
+          - type: range
+            anchor:
+              type: primitive
+              modifiers:
+                - type: everyScope
+                  scopeType: {type: token}
+              mark: {type: decoratedSymbol, symbolColor: default, character: f}
+            active:
+              type: primitive
+              mark: {type: decoratedSymbol, symbolColor: default, character: h}
+            excludeAnchor: false
+            excludeActive: false
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |

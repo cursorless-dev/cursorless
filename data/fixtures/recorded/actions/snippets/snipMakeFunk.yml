@@ -1,12 +1,12 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: snippet make funk
   action:
     name: generateSnippet
-    args: [snippetTest1]
-  targets:
-    - type: primitive
+    snippetName: snippetTest1
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: namedFunction}

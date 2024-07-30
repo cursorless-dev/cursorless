@@ -1,10 +1,11 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: drink every arg
-  action: {name: editNewLineBefore}
-  targets:
-    - type: primitive
+  action:
+    name: editNewLineBefore
+    target:
+      type: primitive
       modifiers:
         - type: everyScope
           scopeType: {type: argumentOrParameter}

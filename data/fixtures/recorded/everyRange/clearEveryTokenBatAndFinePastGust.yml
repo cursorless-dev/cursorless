@@ -1,10 +1,11 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: change every token bat and fine past gust
-  action: {name: clearAndSetSelection}
-  targets:
-    - type: list
+  action:
+    name: clearAndSetSelection
+    target:
+      type: list
       elements:
         - type: primitive
           modifiers:

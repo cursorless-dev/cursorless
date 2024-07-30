@@ -1,13 +1,12 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: reformat harp as snake
   action:
     name: getText
-    args:
-      - {showDecorations: false, ensureSingleTarget: null}
-  targets:
-    - type: primitive
+    options: {showDecorations: false, ensureSingleTarget: null}
+    target:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
   usePrePhraseSnapshot: false
 spokenFormError: Action 'getText'

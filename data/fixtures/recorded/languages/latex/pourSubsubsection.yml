@@ -1,10 +1,11 @@
 languageId: latex
 command:
-  version: 5
+  version: 6
   spokenForm: pour subsubsection
-  action: {name: editNewLineAfter}
-  targets:
-    - type: primitive
+  action:
+    name: editNewLineAfter
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: subSubSection}

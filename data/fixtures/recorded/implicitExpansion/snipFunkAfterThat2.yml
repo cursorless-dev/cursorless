@@ -1,16 +1,16 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: snippet funk after that
   action:
     name: insertSnippet
-    args:
-      - {type: named, name: functionDeclaration}
-  targets:
-    - type: primitive
-      mark: {type: that}
-      modifiers:
-        - {type: position, position: after}
+    snippetDescription: {type: named, name: functionDeclaration}
+    destination:
+      type: primitive
+      insertionMode: after
+      target:
+        type: primitive
+        mark: {type: that}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-

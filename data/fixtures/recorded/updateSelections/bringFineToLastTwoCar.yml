@@ -1,17 +1,22 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: bring fine to last two chars
-  action: {name: replaceWithTarget}
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
-    - type: primitive
-      modifiers:
-        - type: ordinalScope
-          scopeType: {type: character}
-          start: -2
-          length: 2
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: primitive
+        modifiers:
+          - type: ordinalScope
+            scopeType: {type: character}
+            start: -2
+            length: 2
   usePrePhraseSnapshot: false
 initialState:
   documentContents: foo world whatever

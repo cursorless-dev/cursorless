@@ -1,10 +1,11 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: drink drum and sun and trap
-  action: {name: editNewLineBefore}
-  targets:
-    - type: list
+  action:
+    name: editNewLineBefore
+    target:
+      type: list
       elements:
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: d}

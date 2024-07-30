@@ -1,10 +1,11 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: take parse tree string harp and each
-  action: {name: setSelection}
-  targets:
-    - type: list
+  action:
+    name: setSelection
+    target:
+      type: list
       elements:
         - type: primitive
           modifiers:

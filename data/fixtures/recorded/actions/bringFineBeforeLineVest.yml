@@ -1,17 +1,21 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: bring fine before line vest
-  action: {name: replaceWithTarget}
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: v}
-      modifiers:
-        - {type: position, position: before}
-        - type: containingScope
-          scopeType: {type: line}
+    destination:
+      type: primitive
+      insertionMode: before
+      target:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: line}
+        mark: {type: decoratedSymbol, symbolColor: default, character: v}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |2

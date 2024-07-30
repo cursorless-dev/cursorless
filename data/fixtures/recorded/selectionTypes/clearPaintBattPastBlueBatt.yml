@@ -1,21 +1,22 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: change paint bat past blue bat
-  action: {name: clearAndSetSelection}
-  targets:
-    - active:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: blue, character: b}
+  action:
+    name: clearAndSetSelection
+    target:
       type: range
-      excludeAnchor: false
-      excludeActive: false
       anchor:
         type: primitive
         modifiers:
           - type: containingScope
             scopeType: {type: nonWhitespaceSequence}
         mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: blue, character: b}
+      excludeAnchor: false
+      excludeActive: false
   usePrePhraseSnapshot: false
 initialState:
   documentContents: |

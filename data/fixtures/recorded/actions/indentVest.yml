@@ -1,10 +1,11 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: indent vest
-  action: {name: indentLine}
-  targets:
-    - type: primitive
+  action:
+    name: indentLine
+    target:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
   usePrePhraseSnapshot: false
 initialState:

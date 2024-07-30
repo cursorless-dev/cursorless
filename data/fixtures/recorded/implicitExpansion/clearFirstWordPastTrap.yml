@@ -1,15 +1,11 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: change first sub past trap
-  action: {name: clearAndSetSelection}
-  targets:
-    - active:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: t}
+  action:
+    name: clearAndSetSelection
+    target:
       type: range
-      excludeAnchor: false
-      excludeActive: false
       anchor:
         type: primitive
         modifiers:
@@ -17,6 +13,11 @@ command:
             scopeType: {type: word}
             start: 0
             length: 1
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: t}
+      excludeAnchor: false
+      excludeActive: false
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-

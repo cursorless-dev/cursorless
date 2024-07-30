@@ -1,10 +1,11 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: copy second token
-  action: {name: copyToClipboard}
-  targets:
-    - type: primitive
+  action:
+    name: copyToClipboard
+    target:
+      type: primitive
       modifiers:
         - type: ordinalScope
           scopeType: {type: token}
