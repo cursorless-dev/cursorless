@@ -89,6 +89,14 @@
           }
         ]
       }
+    },
+    {
+      "files": [
+        "jest.config.ts",
+        "docusaurus.config.mts",
+        "mdx-components.tsx"
+      ],
+      "extends": ["plugin:@typescript-eslint/disable-type-checked"]
     }
   ],
   "settings": {
@@ -105,9 +113,6 @@
     "**/vendor/**/*.ts",
     "**/vendor/**/*.js",
     "**/out/**",
-    "**/generated/**",
-    "/packages/*/jest.config.ts",
-    "/packages/cursorless-org-docs/docusaurus.config.mts",
-    "/packages/cursorless-org/mdx-components.tsx"
+    "**/generated/**"
   ]
 }
