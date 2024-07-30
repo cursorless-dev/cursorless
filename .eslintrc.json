@@ -94,7 +94,8 @@
       "files": [
         "jest.config.ts",
         "docusaurus.config.mts",
-        "mdx-components.tsx"
+        "mdx-components.tsx",
+        "/typings/**"
       ],
       "extends": ["plugin:@typescript-eslint/disable-type-checked"]
     }
