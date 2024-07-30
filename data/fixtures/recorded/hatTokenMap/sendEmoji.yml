@@ -7,7 +7,7 @@ command:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: 😄}
   usePrePhraseSnapshot: true
-spokenFormError: Unknown character '😄'
+spokenFormError: grapheme '😄'
 initialState:
   documentContents: |
     😄

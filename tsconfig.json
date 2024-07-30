@@ -18,10 +18,28 @@
       "path": "./packages/cursorless-engine"
     },
     {
+      "path": "./packages/cursorless-everywhere-talon"
+    },
+    {
+      "path": "./packages/cursorless-everywhere-talon-core"
+    },
+    {
+      "path": "./packages/cursorless-everywhere-talon-e2e"
+    },
+    {
+      "path": "./packages/cursorless-neovim"
+    },
+    {
+      "path": "./packages/cursorless-neovim-e2e"
+    },
+    {
       "path": "./packages/cursorless-org"
     },
     {
       "path": "./packages/cursorless-org-docs"
+    },
+    {
+      "path": "./packages/cursorless-tutorial"
     },
     {
       "path": "./packages/cursorless-vscode"
@@ -30,10 +48,25 @@
       "path": "./packages/cursorless-vscode-e2e"
     },
     {
-      "path": "./packages/file-system-common"
+      "path": "./packages/cursorless-vscode-tutorial-webview"
     },
     {
       "path": "./packages/meta-updater"
+    },
+    {
+      "path": "./packages/neovim-common"
+    },
+    {
+      "path": "./packages/neovim-registry"
+    },
+    {
+      "path": "./packages/node-common"
+    },
+    {
+      "path": "./packages/sentence-parser"
+    },
+    {
+      "path": "./packages/test-case-recorder"
     },
     {
       "path": "./packages/test-harness"

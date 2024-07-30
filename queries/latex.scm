@@ -1,3 +1,5 @@
+;; https://github.com/latex-lsp/tree-sitter-latex/blob/master/src/grammar.json
+
 [
   (block_comment)
   (line_comment)
@@ -26,3 +28,10 @@
   (end) @xmlBothTags
   (#allow-multiple! @xmlBothTags)
 ) @_.domain
+
+(operator
+  [
+    "<"
+    ">"
+  ] @disqualifyDelimiter
+)

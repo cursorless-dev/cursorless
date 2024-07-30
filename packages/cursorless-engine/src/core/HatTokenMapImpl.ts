@@ -5,9 +5,7 @@ import {
   ReadOnlyHatMap,
   TokenHat,
 } from "@cursorless/common";
-import { hrtime } from "process";
 import { ide } from "../singletons/ide.singleton";
-import { abs } from "../util/bigint";
 import { Debug } from "./Debug";
 import { HatAllocator } from "./HatAllocator";
 import { IndividualHatMap } from "./IndividualHatMap";
@@ -16,7 +14,7 @@ import { RangeUpdater } from "./updateSelections/RangeUpdater";
 /**
  * Maximum age for the pre-phrase snapshot before we consider it to be stale
  */
-const PRE_PHRASE_SNAPSHOT_MAX_AGE_NS = BigInt(6e10); // 60 seconds
+const PRE_PHRASE_SNAPSHOT_MAX_AGE_MS = 60000; // 60 seconds
 
 /**
  * Maps from (hatStyle, character) pairs to tokens
@@ -34,7 +32,7 @@ export class HatTokenMapImpl implements HatTokenMap {
    * hat with the same color and shape will refer to the same logical range.
    */
   private prePhraseMapSnapshot?: IndividualHatMap;
-  private prePhraseMapsSnapshotTimestamp: bigint | null = null;
+  private prePhraseMapsSnapshotTimestamp: number | null = null;
 
   private lastSignalVersion: string | null = null;
   private hatAllocator: HatAllocator;
@@ -43,7 +41,7 @@ export class HatTokenMapImpl implements HatTokenMap {
     rangeUpdater: RangeUpdater,
     private debug: Debug,
     hats: Hats,
-    private commandServerApi: CommandServerApi | null,
+    private commandServerApi: CommandServerApi,
   ) {
     ide().disposeOnExit(this);
     this.activeMap = new IndividualHatMap(rangeUpdater);
@@ -106,8 +104,8 @@ export class HatTokenMapImpl implements HatTokenMap {
       }
 
       if (
-        abs(hrtime.bigint() - this.prePhraseMapsSnapshotTimestamp!) >
-        PRE_PHRASE_SNAPSHOT_MAX_AGE_NS
+        performance.now() - this.prePhraseMapsSnapshotTimestamp! >
+        PRE_PHRASE_SNAPSHOT_MAX_AGE_MS
       ) {
         console.error(
           "Navigation map pre-phrase snapshot requested, but snapshot is more than a minute old",
@@ -130,18 +128,15 @@ export class HatTokenMapImpl implements HatTokenMap {
   }
 
   private async maybeTakePrePhraseSnapshot() {
-    const phraseStartSignal = this.commandServerApi?.signals?.prePhrase;
+    const newSignalVersion =
+      await this.commandServerApi.signals.prePhrase.getVersion();
 
-    if (phraseStartSignal != null) {
-      const newSignalVersion = await phraseStartSignal.getVersion();
+    if (newSignalVersion !== this.lastSignalVersion) {
+      this.debug.log("taking snapshot");
+      this.lastSignalVersion = newSignalVersion;
 
-      if (newSignalVersion !== this.lastSignalVersion) {
-        this.debug.log("taking snapshot");
-        this.lastSignalVersion = newSignalVersion;
-
-        if (newSignalVersion != null) {
-          this.takePrePhraseSnapshot();
-        }
+      if (newSignalVersion != null) {
+        this.takePrePhraseSnapshot();
       }
     }
   }
@@ -152,6 +147,6 @@ export class HatTokenMapImpl implements HatTokenMap {
     }
 
     this.prePhraseMapSnapshot = this.activeMap.clone();
-    this.prePhraseMapsSnapshotTimestamp = hrtime.bigint();
+    this.prePhraseMapsSnapshotTimestamp = performance.now();
   }
 }
