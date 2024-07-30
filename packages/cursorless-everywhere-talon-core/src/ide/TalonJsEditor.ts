@@ -69,11 +69,11 @@ export class TalonJsEditor implements EditableTextEditor {
   }
 
   indentLine(_ranges: Range[]): Promise<void> {
-    throw Error(`indentLine not implemented.`);
+    throw Error("indentLine not implemented.");
   }
 
   outdentLine(_ranges: Range[]): Promise<void> {
-    throw Error(`outdentLine not implemented.`);
+    throw Error("outdentLine not implemented.");
   }
 
   insertLineAfter(_ranges?: Range[]): Promise<void> {
