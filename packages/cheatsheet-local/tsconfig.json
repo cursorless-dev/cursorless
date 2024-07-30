@@ -1,8 +1,6 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "out",
     "jsx": "react-jsx",
     "lib": ["es5", "es6", "dom"],
     "allowSyntheticDefaultImports": true,

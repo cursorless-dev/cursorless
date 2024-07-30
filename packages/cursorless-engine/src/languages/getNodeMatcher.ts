@@ -10,10 +10,7 @@ import { notSupported } from "../util/nodeMatchers";
 import { selectionWithEditorFromRange } from "../util/selectionUtils";
 import clojure from "./clojure";
 import { LegacyLanguageId } from "./LegacyLanguageId";
-import csharp from "./csharp";
 import latex from "./latex";
-import markdown from "./markdown";
-import php from "./php";
 import { patternMatchers as ruby } from "./ruby";
 import rust from "./rust";
 import scala from "./scala";
@@ -48,11 +45,8 @@ export const languageMatchers: Record<
   Partial<Record<SimpleScopeTypeType, NodeMatcher>>
 > = {
   clojure,
-  csharp,
   css: scss,
   latex,
-  markdown,
-  php,
   ruby,
   rust,
   scala,

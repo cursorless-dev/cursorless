@@ -1,0 +1,12 @@
+new StudentName {
+    FirstName = "Craig"
+};
+---
+
+[Range] =
+[Domain] = 0:17-2:0
+                   >
+0| new StudentName {
+1|     FirstName = "Craig"
+2| };
+   <

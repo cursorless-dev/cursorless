@@ -7,7 +7,9 @@
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "jrieken.vscode-tree-sitter-query",
-    "wenkokke.tree-sitter-talon",
-    "usernamehw.commands"
+    "wenkokke.talonfmt-vscode",
+    "usernamehw.commands",
+    "sumneko.lua",
+    "JohnnyMorganz.stylua"
   ]
 }

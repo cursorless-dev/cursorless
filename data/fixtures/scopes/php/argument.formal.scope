@@ -1,0 +1,34 @@
+<?php
+function myFunc($value, string $name) { }
+---
+
+[#1 Content] =
+[#1 Domain] = 1:16-1:22
+                  >------<
+1| function myFunc($value, string $name) { }
+
+[#1 Removal] = 1:16-1:24
+                  >--------<
+1| function myFunc($value, string $name) { }
+
+[#1 Trailing delimiter] = 1:22-1:24
+                        >--<
+1| function myFunc($value, string $name) { }
+
+[#1 Insertion delimiter] = ", "
+
+
+[#2 Content] =
+[#2 Domain] = 1:24-1:36
+                          >------------<
+1| function myFunc($value, string $name) { }
+
+[#2 Removal] = 1:22-1:36
+                        >--------------<
+1| function myFunc($value, string $name) { }
+
+[#2 Leading delimiter] = 1:22-1:24
+                        >--<
+1| function myFunc($value, string $name) { }
+
+[#2 Insertion delimiter] = ", "

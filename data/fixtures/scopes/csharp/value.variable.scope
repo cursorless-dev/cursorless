@@ -1,0 +1,20 @@
+String aaa = "bbb";
+---
+
+[Content] = 0:13-0:18
+               >-----<
+0| String aaa = "bbb";
+
+[Removal] = 0:10-0:18
+            >--------<
+0| String aaa = "bbb";
+
+[Leading delimiter] = 0:10-0:13
+            >---<
+0| String aaa = "bbb";
+
+[Domain] = 0:0-0:18
+  >------------------<
+0| String aaa = "bbb";
+
+[Insertion delimiter] = " "

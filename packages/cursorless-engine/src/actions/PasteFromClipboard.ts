@@ -3,16 +3,11 @@ import {
   RangeExpansionBehavior,
   toCharacterRange,
   zipStrict,
-  type Selection,
   type TextEditor,
 } from "@cursorless/common";
 import flatten from "lodash-es/flatten";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import {
-  callFunctionAndUpdateSelections,
-  callFunctionAndUpdateSelectionsWithBehavior,
-  performEditsAndUpdateSelectionsWithBehavior,
-} from "../core/updateSelections/updateSelections";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
 import type { Destination } from "../typings/target.types";
 import { ensureSingleEditor, runForEachEditor } from "../util/targetUtils";
@@ -74,22 +69,18 @@ export class PasteFromClipboard {
       destination.constructChangeEdit(text),
     );
 
-    const cursorSelections = { selections: editor.selections };
-    const editSelections = {
-      selections: edits.map(({ range }) => range.toSelection(false)),
-      rangeBehavior: RangeExpansionBehavior.openOpen,
-    };
-    const editableEditor = ide().getEditableTextEditor(editor);
-
-    const [updatedCursorSelections, updatedEditSelections]: Selection[][] =
-      await performEditsAndUpdateSelectionsWithBehavior(
-        this.rangeUpdater,
-        editableEditor,
+    const { editSelections: updatedEditSelections } =
+      await performEditsAndUpdateSelections({
+        rangeUpdater: this.rangeUpdater,
+        editor: ide().getEditableTextEditor(editor),
         edits,
-        [cursorSelections, editSelections],
-      );
-
-    await editableEditor.setSelections(updatedCursorSelections);
+        selections: {
+          editSelections: {
+            selections: edits.map(({ range }) => range),
+            behavior: RangeExpansionBehavior.openOpen,
+          },
+        },
+      });
 
     const thatTargetSelections = zipStrict(edits, updatedEditSelections).map(
       ([edit, selection]) =>
@@ -121,32 +112,38 @@ export class PasteFromClipboard {
     // First call editNew in order to insert delimiters if necessary and leave
     // the cursor in the right position. Note that this action will focus the
     // editor containing the targets
-    const [originalCursorSelections] = await callFunctionAndUpdateSelections(
-      this.rangeUpdater,
-      async () => {
-        await this.actions.editNew.run(destinations);
-      },
-      editor.document,
-      [editor.selections],
-    );
+    const callbackEdit = async () => {
+      await this.actions.editNew.run(destinations);
+    };
+
+    const { cursorSelections: originalCursorSelections } =
+      await performEditsAndUpdateSelections({
+        rangeUpdater: this.rangeUpdater,
+        editor,
+        preserveCursorSelections: true,
+        callback: callbackEdit,
+        selections: {
+          cursorSelections: editor.selections,
+        },
+      });
 
     // Then use VSCode paste command, using open ranges at the place where we
     // paste in order to capture the pasted text for highlights and `that` mark
-    const [updatedCursorSelections, updatedTargetSelections] =
-      await callFunctionAndUpdateSelectionsWithBehavior(
-        this.rangeUpdater,
-        () => editor.clipboardPaste(),
-        editor.document,
-        [
-          {
-            selections: originalCursorSelections,
-          },
-          {
-            selections: editor.selections,
-            rangeBehavior: RangeExpansionBehavior.openOpen,
-          },
-        ],
-      );
+    const {
+      originalCursorSelections: updatedCursorSelections,
+      editorSelections: updatedTargetSelections,
+    } = await performEditsAndUpdateSelections({
+      rangeUpdater: this.rangeUpdater,
+      editor,
+      callback: () => editor.clipboardPaste(),
+      selections: {
+        originalCursorSelections,
+        editorSelections: {
+          selections: editor.selections,
+          behavior: RangeExpansionBehavior.openOpen,
+        },
+      },
+    });
 
     // Reset cursors on the editor where the edits took place.
     // NB: We don't focus the editor here because we want to focus the original
