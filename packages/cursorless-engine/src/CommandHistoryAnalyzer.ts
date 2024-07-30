@@ -68,11 +68,9 @@ class Period {
     const command = canonicalizeAndValidateCommand(entry.command);
     this.incrementAction(command.action.name);
 
-    const partialPrimitiveTargets = getPartialPrimitiveTargets(
-      getPartialTargetDescriptors(command.action),
+    this.parsePrimitiveTargets(
+      getPartialPrimitiveTargets(getPartialTargetDescriptors(command.action)),
     );
-
-    this.parsePrimitiveTargets(partialPrimitiveTargets);
   }
 
   private parsePrimitiveTargets(
