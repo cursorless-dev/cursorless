@@ -17,10 +17,4 @@ initialState:
     - anchor: {line: 0, character: 21}
       active: {line: 0, character: 21}
   marks: {}
-finalState:
-  documentContents: |-
-    hello world whatever "testing testing testing
-    this is another" test "whatever" whatever
-  selections:
-    - anchor: {line: 0, character: 21}
-      active: {line: 1, character: 16}
+thrownError: {name: NoContainingScopeError}

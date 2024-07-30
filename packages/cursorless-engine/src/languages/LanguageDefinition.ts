@@ -1,14 +1,17 @@
 import {
+  RawTreeSitterQueryProvider,
   ScopeType,
   SimpleScopeType,
+  SimpleScopeTypeType,
+  TreeSitter,
   matchAll,
   showError,
   type IDE,
-  type RawTreeSitterQueryProvider,
-  type TreeSitter,
+  type TextDocument,
 } from "@cursorless/common";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
 import { TreeSitterQuery } from "./TreeSitterQuery";
+import type { QueryCapture } from "./TreeSitterQuery/QueryCapture";
 import { validateQueryCaptures } from "./TreeSitterQuery/validateQueryCaptures";
 
 /**
@@ -74,6 +77,24 @@ export class LanguageDefinition {
     }
 
     return new TreeSitterScopeHandler(this.query, scopeType as SimpleScopeType);
+  }
+
+  /**
+   * This is a low-level function that just returns a list of captures of the given
+   * capture name in the document. We use this in our surrounding pair code.
+   *
+   * @param document The document to search
+   * @param captureName The name of a capture to search for
+   * @returns A list of captures of the given capture name in the document
+   */
+  getCaptures(
+    document: TextDocument,
+    captureName: SimpleScopeTypeType,
+  ): QueryCapture[] {
+    return this.query
+      .matches(document)
+      .map((match) => match.captures.find(({ name }) => name === captureName))
+      .filter((capture) => capture != null);
   }
 }
 

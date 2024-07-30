@@ -22,6 +22,10 @@ mod.list(
     "cursorless_surrounding_pair_scope_type",
     desc="Scope types that can function as surrounding pairs",
 )
+mod.list(
+    "cursorless_surrounding_pair_scope_type_plural",
+    desc="Plural form of scope types that can function as surrounding pairs",
+)
 
 
 @mod.capture(
@@ -30,28 +34,42 @@ mod.list(
         "{user.cursorless_surrounding_pair_scope_type}"
     )
 )
-def cursorless_surrounding_pair_scope_type(m) -> str:
+def cursorless_surrounding_pair_scope_type(m) -> dict[str, str]:
     """Surrounding pair scope type"""
     try:
-        return m.cursorless_surrounding_pair_scope_type
+        delimiter = m.cursorless_surrounding_pair_scope_type
     except AttributeError:
-        return m.cursorless_selectable_paired_delimiter
+        delimiter = m.cursorless_selectable_paired_delimiter
+    return {
+        "type": "surroundingPair",
+        "delimiter": delimiter,
+    }
 
 
 @mod.capture(
-    rule="[{user.cursorless_delimiter_force_direction}] <user.cursorless_surrounding_pair_scope_type>"
+    rule=(
+        "<user.cursorless_selectable_paired_delimiter_plural> |"
+        "{user.cursorless_surrounding_pair_scope_type_plural}"
+    )
 )
-def cursorless_surrounding_pair(m) -> dict[str, Any]:
-    """Expand to containing surrounding pair"""
+def cursorless_surrounding_pair_scope_type_plural(m) -> dict[str, str]:
+    """Plural surrounding pair scope type"""
     try:
-        surrounding_pair_scope_type = m.cursorless_surrounding_pair_scope_type
+        delimiter = m.cursorless_surrounding_pair_scope_type_plural
     except AttributeError:
-        surrounding_pair_scope_type = "any"
-
-    scope_type = {
+        delimiter = m.cursorless_selectable_paired_delimiter_plural
+    return {
         "type": "surroundingPair",
-        "delimiter": surrounding_pair_scope_type,
+        "delimiter": delimiter,
     }
+
+
+@mod.capture(
+    rule="{user.cursorless_delimiter_force_direction} <user.cursorless_surrounding_pair_scope_type>"
+)
+def cursorless_surrounding_pair_force_direction(m) -> dict[str, Any]:
+    """DEPRECATED: Expand to containing surrounding pair"""
+    scope_type = m.cursorless_surrounding_pair_scope_type
 
     with suppress(AttributeError):
         scope_type["forceDirection"] = m.cursorless_delimiter_force_direction

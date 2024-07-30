@@ -9,4 +9,5 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 export const rubyScopeSupport: LanguageScopeSupportFacetMap = {
   "comment.line": supported,
   "comment.block": supported,
+  disqualifyDelimiter: supported,
 };

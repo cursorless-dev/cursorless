@@ -19,5 +19,5 @@ export interface TokenHat {
 
 export interface ReadOnlyHatMap {
   getEntries(): readonly [string, Token][];
-  getToken(hatStyle: HatStyleName, character: string): Token;
+  getToken(hatStyle: HatStyleName, character: string): Token | undefined;
 }

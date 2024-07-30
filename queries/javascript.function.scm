@@ -165,3 +165,17 @@
     (method_definition)
   )
 ] @namedFunction.iteration @functionName.iteration
+
+;;!! { funk: function() { } }
+;;!    ^^^^
+(pair
+  key: (_) @functionName @name
+  value: (function_expression)
+) @_.domain
+
+;;!! { funk: () => { } }
+;;!    ^^^^
+(pair
+  key: (_) @functionName @name
+  value: (arrow_function)
+) @_.domain

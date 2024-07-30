@@ -1,0 +1,30 @@
+<?php
+function myFunc(array ...$nums) { }
+---
+
+[#1 Content] =
+[#1 Removal] = 1:9-1:15
+           >------<
+1| function myFunc(array ...$nums) { }
+
+[#1 Leading delimiter] = 1:8-1:9
+          >-<
+1| function myFunc(array ...$nums) { }
+
+[#1 Domain] = 1:0-1:35
+  >-----------------------------------<
+1| function myFunc(array ...$nums) { }
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] = 1:25-1:30
+                           >-----<
+1| function myFunc(array ...$nums) { }
+
+[#2 Domain] = 1:16-1:30
+                  >--------------<
+1| function myFunc(array ...$nums) { }
+
+[#2 Insertion delimiter] = " "

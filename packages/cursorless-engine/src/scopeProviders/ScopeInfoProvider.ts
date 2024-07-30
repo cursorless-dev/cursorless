@@ -158,6 +158,7 @@ function isLanguageSpecific(scopeType: ScopeType): boolean {
     case "subParagraph":
     case "environment":
     case "textFragment":
+    case "disqualifyDelimiter":
       return true;
 
     case "character":
@@ -167,12 +168,14 @@ function isLanguageSpecific(scopeType: ScopeType): boolean {
     case "line":
     case "sentence":
     case "paragraph":
+    case "boundedParagraph":
     case "document":
     case "nonWhitespaceSequence":
     case "boundedNonWhitespaceSequence":
     case "url":
     case "notebookCell":
     case "surroundingPair":
+    case "surroundingPairInterior":
     case "customRegex":
     case "glyph":
       return false;
