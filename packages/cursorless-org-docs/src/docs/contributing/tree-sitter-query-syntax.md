@@ -21,4 +21,4 @@ In addition to the above aspects, you can also use the following inline operator
 
 ## Query predicate operators
 
-We also support a number of query predicate operators for modifying the scope. See [`queryPredicateOperators.ts`](../../packages/cursorless-engine/src/languages/TreeSitterQuery/queryPredicateOperators.ts) for a list of available operators.
+We also support a number of query predicate operators for modifying the scope. See [`queryPredicateOperators.ts`](../../../../../packages/cursorless-engine/src/languages/TreeSitterQuery/queryPredicateOperators.ts) for a list of available operators.

@@ -79,19 +79,19 @@ minimize syllables.
 
 The following shapes are supported. Note that to target the default (dot) shape you don't need to specify a shape.
 
-| Spoken form | Shape                                           | Internal ID  | Enabled by default? |
-| ----------- | ----------------------------------------------- | ------------ | ------------------- |
-| N/A         | ![Default](../../images/hats/default.svg)       | `default`    | ✅                  |
-| `"bolt"`    | ![Bolt](../../images/hats/bolt.svg)             | `bolt`       | ❌                  |
-| `"curve"`   | ![Curve](../../images/hats/curve.svg)           | `curve`      | ❌                  |
-| `"fox"`     | ![Fox](../../images/hats/fox.svg)               | `fox`        | ❌                  |
-| `"frame"`   | ![Frame](../../images/hats/frame.svg)           | `frame`      | ❌                  |
-| `"play"`    | ![Play](../../images/hats/play.svg)             | `play`       | ❌                  |
-| `"wing"`    | ![Wing](../../images/hats/wing.svg)             | `wing`       | ❌                  |
-| `"hole"`    | ![Hole](../../images/hats/hole.svg)             | `hole`       | ❌                  |
-| `"ex"`      | ![Ex](../../images/hats/ex.svg)                 | `ex`         | ❌                  |
-| `"cross"`   | ![Crosshairs](../../images/hats/crosshairs.svg) | `crosshairs` | ❌                  |
-| `"eye"`     | ![Eye](../../images/hats/eye.svg)               | `eye`        | ❌                  |
+| Spoken form | Shape                                                    | Internal ID  | Enabled by default? |
+| ----------- | -------------------------------------------------------- | ------------ | ------------------- |
+| N/A         | ![Default](../../../../../images/hats/default.svg)       | `default`    | ✅                  |
+| `"bolt"`    | ![Bolt](../../../../../images/hats/bolt.svg)             | `bolt`       | ❌                  |
+| `"curve"`   | ![Curve](../../../../../images/hats/curve.svg)           | `curve`      | ❌                  |
+| `"fox"`     | ![Fox](../../../../../images/hats/fox.svg)               | `fox`        | ❌                  |
+| `"frame"`   | ![Frame](../../../../../images/hats/frame.svg)           | `frame`      | ❌                  |
+| `"play"`    | ![Play](../../../../../images/hats/play.svg)             | `play`       | ❌                  |
+| `"wing"`    | ![Wing](../../../../../images/hats/wing.svg)             | `wing`       | ❌                  |
+| `"hole"`    | ![Hole](../../../../../images/hats/hole.svg)             | `hole`       | ❌                  |
+| `"ex"`      | ![Ex](../../../../../images/hats/ex.svg)                 | `ex`         | ❌                  |
+| `"cross"`   | ![Crosshairs](../../../../../images/hats/crosshairs.svg) | `crosshairs` | ❌                  |
+| `"eye"`     | ![Eye](../../../../../images/hats/eye.svg)               | `eye`        | ❌                  |
 
 You can enable or disable shapes in your VSCode settings, by searching for `cursorless.hatEnablement.shapes` and checking the box next to the internal ID for the given shape as listed above. To navigate to your VSCode settings, either say "show settings", or go to File --> Preferences --> Settings.
 
@@ -143,7 +143,7 @@ Note that if the mark is `"this"`, and you have multiple cursors, the modifiers 
 
 ##### Syntactic scopes
 
-For programming languages where Cursorless has rich parse tree support, we support modifiers that expand to the nearest containing function, class, etc. See [the source code](../../packages/common/src/scopeSupportFacets/languageScopeSupport.ts) for a list of supported languages. Below is a list of supported scope types, keeping in mind that this table can sometimes lag behind the actual list. Your cheatsheet (say `"cursorless cheatsheet"` with VSCode focused) will have the most up-to-date list. It can also be helpful to use the [scope visualizer](./scope-visualizer.md) to visualize the scope types on your own code, though keep in mind that the scope visualizer only works on language scopes that have been upgraded to our next-gen scope engine, so it may not work every time.
+For programming languages where Cursorless has rich parse tree support, we support modifiers that expand to the nearest containing function, class, etc. See [the source code](../../../../../packages/common/src/scopeSupportFacets/languageScopeSupport.ts) for a list of supported languages. Below is a list of supported scope types, keeping in mind that this table can sometimes lag behind the actual list. Your cheatsheet (say `"cursorless cheatsheet"` with VSCode focused) will have the most up-to-date list. It can also be helpful to use the [scope visualizer](./scope-visualizer.md) to visualize the scope types on your own code, though keep in mind that the scope visualizer only works on language scopes that have been upgraded to our next-gen scope engine, so it may not work every time.
 
 | Term           | Syntactic element                                   |
 | -------------- | --------------------------------------------------- |
@@ -184,7 +184,7 @@ We support several modifiers that allow you to refer to scopes relative to the i
 
 Here is a diagram of the possible relative / ordinal modifiers using the `funk` scope as an example:
 
-<div class="dark-mode-invert">
+<div className="dark-mode-invert">
   ![Relative ordinal diagram](images/relative_ordinal.png)
 </div>
 
