@@ -176,6 +176,7 @@ export async function activate(
     addCommandRunnerDecorator,
     hatTokenMap,
     customSpokenFormGenerator,
+    hats,
   );
 
   registerCommands(

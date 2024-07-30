@@ -1,14 +1,20 @@
 import {
   CommandComplete,
+  getKey,
+  Hats,
+  splitKey,
   TutorialContentProvider,
   TutorialId,
 } from "@cursorless/common";
 import {
   CustomSpokenFormGenerator,
   canonicalizeAndValidateCommand,
+  getPartialTargetDescriptors,
+  transformPartialPrimitiveTargets,
 } from "@cursorless/cursorless-engine";
 import { TutorialError } from "../TutorialError";
 import { StepComponent, StepComponentParser } from "../types/StepComponent";
+import { cloneDeep, mapKeys } from "lodash-es";
 
 /**
  * Parses components of the form `{command:takeNear.yml}`. The argument
@@ -19,6 +25,7 @@ export class CursorlessCommandComponentParser implements StepComponentParser {
     private contentProvider: TutorialContentProvider,
     private tutorialId: TutorialId,
     private customSpokenFormGenerator: CustomSpokenFormGenerator,
+    private hats: Hats,
   ) {}
 
   async parse(arg: string): Promise<StepComponent> {
@@ -26,7 +33,40 @@ export class CursorlessCommandComponentParser implements StepComponentParser {
       this.tutorialId,
       arg,
     );
-    const command = canonicalizeAndValidateCommand(fixture.command);
+    const command = cloneDeep(canonicalizeAndValidateCommand(fixture.command));
+
+    transformPartialPrimitiveTargets(
+      getPartialTargetDescriptors(command.action),
+      (target) => {
+        if (target.mark?.type !== "decoratedSymbol") {
+          return target;
+        }
+
+        const color = target.mark.symbolColor;
+
+        if (this.hats.enabledHatStyles[color] === undefined) {
+          target.mark.symbolColor = Object.keys(this.hats.enabledHatStyles)[0];
+        }
+
+        return target;
+      },
+    );
+
+    if (fixture.initialState.marks != null) {
+      fixture.initialState.marks = mapKeys(
+        fixture.initialState.marks,
+        (_value, key) => {
+          const { hatStyle, character } = splitKey(key);
+          if (this.hats.enabledHatStyles[hatStyle] === undefined) {
+            return getKey(
+              Object.keys(this.hats.enabledHatStyles)[0],
+              character,
+            );
+          }
+          return key;
+        },
+      );
+    }
 
     return {
       initialState: fixture.initialState,

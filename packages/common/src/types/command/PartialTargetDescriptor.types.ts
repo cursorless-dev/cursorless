@@ -194,6 +194,7 @@ export const simpleScopeTypeTypes = [
   "line",
   "sentence",
   "paragraph",
+  "boundedParagraph",
   "document",
   "nonWhitespaceSequence",
   "boundedNonWhitespaceSequence",
@@ -224,6 +225,7 @@ export interface CustomRegexScopeType {
 }
 
 export type SurroundingPairDirection = "left" | "right";
+
 export interface SurroundingPairScopeType {
   type: "surroundingPair";
   delimiter: SurroundingPairName;
@@ -241,6 +243,15 @@ export interface SurroundingPairScopeType {
   requireStrongContainment?: boolean;
 }
 
+/**
+ * This differs from the normal @SurroundingPairScopeType that it always
+ * uses `requireStrongContainment` and the content range is the pair interior
+ * */
+export interface SurroundingPairInteriorScopeType {
+  type: "surroundingPairInterior";
+  delimiter: SurroundingPairName;
+}
+
 export interface OneOfScopeType {
   type: "oneOf";
   scopeTypes: ScopeType[];
@@ -254,6 +265,7 @@ export interface GlyphScopeType {
 export type ScopeType =
   | SimpleScopeType
   | SurroundingPairScopeType
+  | SurroundingPairInteriorScopeType
   | CustomRegexScopeType
   | OneOfScopeType
   | GlyphScopeType;

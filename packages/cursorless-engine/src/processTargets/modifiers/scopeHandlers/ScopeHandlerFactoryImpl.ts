@@ -1,5 +1,9 @@
 import type { ScopeType } from "@cursorless/common";
 import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
+import {
+  BoundedNonWhitespaceSequenceScopeHandler,
+  BoundedParagraphScopeHandler,
+} from "./BoundedScopeHandler";
 import { CharacterScopeHandler } from "./CharacterScopeHandler";
 import { DocumentScopeHandler } from "./DocumentScopeHandler";
 import { IdentifierScopeHandler } from "./IdentifierScopeHandler";
@@ -14,7 +18,10 @@ import {
 } from "./RegexScopeHandler";
 import { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 import { SentenceScopeHandler } from "./SentenceScopeHandler/SentenceScopeHandler";
-import { SurroundingPairScopeHandler } from "./SurroundingPairScopeHandler";
+import {
+  SurroundingPairInteriorScopeHandler,
+  SurroundingPairScopeHandler,
+} from "./SurroundingPairScopeHandler";
 import { TokenScopeHandler } from "./TokenScopeHandler";
 import { WordScopeHandler } from "./WordScopeHandler/WordScopeHandler";
 import type { CustomScopeType, ScopeHandler } from "./scopeHandler.types";
@@ -60,12 +67,20 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
         return new SentenceScopeHandler(this, scopeType, languageId);
       case "paragraph":
         return new ParagraphScopeHandler(scopeType, languageId);
+      case "boundedParagraph":
+        return new BoundedParagraphScopeHandler(this, scopeType, languageId);
       case "document":
         return new DocumentScopeHandler(scopeType, languageId);
       case "oneOf":
         return OneOfScopeHandler.create(this, scopeType, languageId);
       case "nonWhitespaceSequence":
         return new NonWhitespaceSequenceScopeHandler(
+          this,
+          scopeType,
+          languageId,
+        );
+      case "boundedNonWhitespaceSequence":
+        return new BoundedNonWhitespaceSequenceScopeHandler(
           this,
           scopeType,
           languageId,
@@ -79,6 +94,12 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
       case "surroundingPair":
         return new SurroundingPairScopeHandler(
           this.languageDefinitions,
+          scopeType,
+          languageId,
+        );
+      case "surroundingPairInterior":
+        return new SurroundingPairInteriorScopeHandler(
+          this,
           scopeType,
           languageId,
         );

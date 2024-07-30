@@ -137,6 +137,158 @@
   )
 )
 
+(object_creation_expression
+  initializer: (_) @map @list
+)
+
+(implicit_object_creation_expression
+  (initializer_expression) @map
+)
+
+(array_creation_expression
+  (initializer_expression) @list
+)
+(implicit_array_creation_expression
+  (initializer_expression) @list
+)
+(implicit_stack_alloc_array_creation_expression
+  (initializer_expression) @list
+)
+(stack_alloc_array_creation_expression
+  (initializer_expression) @list
+)
+
+;;!! FirstName = "Craig"
+;;!  ^^^^^^^^^
+(initializer_expression
+  (assignment_expression
+    left: (_) @collectionKey
+  ) @_.domain
+)
+(initializer_expression
+  "{" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
+  "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+)
+
+;;!! String aaa;
+;;!         ^^^
+(variable_declaration
+  (variable_declarator
+    (identifier) @name
+  )
+) @_.domain
+
+;;!! String aaa = "bbb";
+;;!         ^^^
+(variable_declaration
+  (variable_declarator
+    (identifier) @name @value.leading.endOf
+    (equals_value_clause
+      (_) @value
+    )
+  )
+) @_.domain
+
+(
+  (variable_declarator
+    (identifier) @name
+  ) @_.domain
+  (#not-parent-type? @_.domain variable_declaration)
+)
+
+(
+  (variable_declarator
+    (identifier) @name @value.leading.endOf
+    (equals_value_clause
+      (_) @value
+    )
+  ) @_.domain
+  (#not-parent-type? @_.domain variable_declaration)
+)
+
+;;!! aaa = "bbb";
+;;!  ^^^
+;;!! foo = 2;
+;;!        ^
+(assignment_expression
+  left: (_) @name @value.leading.endOf
+  right: (_) @value
+) @_.domain
+
+(_
+  name: (_) @name
+) @_.domain
+
+(_
+  type: (_) @type
+) @_.domain
+
+;;!! def foo(name) {}
+;;!          ^^^^
+(
+  (parameter_list
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#not-type? @argumentOrParameter "comment")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
+;;!! foo("bar")
+;;!      ^^^^^
+(
+  (argument_list
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#not-type? @argumentOrParameter "comment")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
+;;!! int value = 5
+;;!              ^
+(parameter
+  name: (_) @value.leading.endOf
+  (equals_value_clause
+    (_) @value
+  )
+) @_.domain
+
+(_
+  (parameter_list
+    "(" @argumentOrParameter.iteration.start.endOf
+    ")" @argumentOrParameter.iteration.end.startOf
+  )
+) @argumentOrParameter.iteration.domain
+
+(parameter_list
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+)
+
+(argument_list
+  "(" @argumentOrParameter.iteration.start.endOf
+  ")" @argumentOrParameter.iteration.end.startOf
+) @argumentOrParameter.iteration.domain
+
+;; Treat interior of all bodies as iteration scopes for `name`, eg
+;;!! void foo() {   }
+;;!              ***
+(_
+  body: (_
+    .
+    "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+    "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+    .
+  )
+)
+
 operator: [
   "->"
   "<"

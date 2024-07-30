@@ -1,4 +1,5 @@
 import {
+  Hats,
   TutorialContentProvider,
   TutorialId,
   TutorialStepFragment,
@@ -41,6 +42,7 @@ export class TutorialStepParser {
     contentProvider: TutorialContentProvider,
     tutorialId: TutorialId,
     customSpokenFormGenerator: CustomSpokenFormGenerator,
+    hats: Hats,
   ) {
     this.parseTutorialStep = this.parseTutorialStep.bind(this);
 
@@ -48,6 +50,7 @@ export class TutorialStepParser {
       contentProvider,
       tutorialId,
       customSpokenFormGenerator,
+      hats,
     );
 
     const actionParser = new ActionComponentParser(customSpokenFormGenerator);

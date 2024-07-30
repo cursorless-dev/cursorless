@@ -25,7 +25,7 @@ import { v4 as uuid } from "uuid";
 import { NeovimCapabilities } from "./NeovimCapabilities";
 import NeovimClipboard from "./NeovimClipboard";
 import NeovimConfiguration from "./NeovimConfiguration";
-import NeovimGlobalState from "./NeovimGlobalState";
+import NeovimKeyValueStore from "./NeovimKeyValueStore";
 import NeovimMessages from "./NeovimMessages";
 import { NeovimTextEditorImpl } from "./NeovimTextEditorImpl";
 import path from "path";
@@ -47,7 +47,7 @@ import { getNeovimRegistry } from "@cursorless/neovim-registry";
 
 export class NeovimIDE implements IDE {
   readonly configuration: NeovimConfiguration;
-  readonly globalState: NeovimGlobalState;
+  readonly keyValueStore: NeovimKeyValueStore;
   readonly messages: NeovimMessages;
   readonly clipboard: NeovimClipboard;
   readonly capabilities: NeovimCapabilities;
@@ -65,7 +65,7 @@ export class NeovimIDE implements IDE {
 
   constructor(private client: NeovimClient) {
     this.configuration = new NeovimConfiguration();
-    this.globalState = new NeovimGlobalState();
+    this.keyValueStore = new NeovimKeyValueStore();
     this.messages = new NeovimMessages();
     this.clipboard = new NeovimClipboard(this.client);
     this.capabilities = new NeovimCapabilities();

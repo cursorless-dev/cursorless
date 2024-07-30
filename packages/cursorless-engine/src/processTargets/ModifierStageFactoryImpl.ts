@@ -30,7 +30,6 @@ import { RawSelectionStage } from "./modifiers/RawSelectionStage";
 import { RelativeScopeStage } from "./modifiers/RelativeScopeStage";
 import { VisibleStage } from "./modifiers/VisibleStage";
 import { ScopeHandlerFactory } from "./modifiers/scopeHandlers/ScopeHandlerFactory";
-import { BoundedNonWhitespaceSequenceStage } from "./modifiers/scopeTypeStages/BoundedNonWhitespaceStage";
 import {
   LegacyContainingSyntaxScopeStage,
   SimpleContainingScopeModifier,
@@ -125,12 +124,6 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
     switch (modifier.scopeType.type) {
       case "notebookCell":
         return new NotebookCellStage(modifier);
-      case "boundedNonWhitespaceSequence":
-        return new BoundedNonWhitespaceSequenceStage(
-          this.languageDefinitions,
-          this,
-          modifier,
-        );
       case "collectionItem":
         return new ItemStage(this.languageDefinitions, this, modifier);
       default:

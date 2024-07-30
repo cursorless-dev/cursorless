@@ -1,4 +1,4 @@
-import { HatTokenMap, IDE } from "@cursorless/common";
+import { Hats, HatTokenMap, IDE } from "@cursorless/common";
 import {
   CommandRunnerDecorator,
   CustomSpokenFormGenerator,
@@ -21,6 +21,7 @@ export function createTutorial(
   ) => void,
   hatTokenMap: HatTokenMap,
   customSpokenFormGenerator: CustomSpokenFormGenerator,
+  hats: Hats,
 ) {
   const contentProvider = new FileSystemTutorialContentProvider(ide.assetsRoot);
 
@@ -29,6 +30,7 @@ export function createTutorial(
     hatTokenMap,
     customSpokenFormGenerator,
     contentProvider,
+    hats,
   );
   ide.disposeOnExit(tutorial);
   addCommandRunnerDecorator(tutorial);
