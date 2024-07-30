@@ -1,19 +1,22 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: bring air before bat and cap
-  action: {name: replaceWithTarget}
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
-    - type: list
-      elements:
-        - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: b}
-          modifiers:
-            - {type: position, position: before}
-        - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: c}
+    destination:
+      type: primitive
+      insertionMode: before
+      target:
+        type: list
+        elements:
+          - type: primitive
+            mark: {type: decoratedSymbol, symbolColor: default, character: b}
+          - type: primitive
+            mark: {type: decoratedSymbol, symbolColor: default, character: c}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: aaa bbb ccc ddd

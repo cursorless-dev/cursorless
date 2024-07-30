@@ -1,15 +1,14 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: snippet funk hello world
   action:
     name: insertSnippet
-    args:
-      - type: named
-        name: functionDeclaration
-        substitutions: {name: hello world}
-  targets:
-    - {type: implicit}
+    snippetDescription:
+      type: named
+      name: functionDeclaration
+      substitutions: {name: hello world}
+    destination: {type: implicit}
   usePrePhraseSnapshot: false
 initialState:
   documentContents: ""

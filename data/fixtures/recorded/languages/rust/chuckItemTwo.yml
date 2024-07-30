@@ -1,14 +1,15 @@
 languageId: rust
 command:
-  version: 5
+  version: 6
   spokenForm: chuck item two
-  action: {name: remove}
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: '2'}
+  action:
+    name: remove
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: collectionItem}
+      mark: {type: decoratedSymbol, symbolColor: default, character: '2'}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |

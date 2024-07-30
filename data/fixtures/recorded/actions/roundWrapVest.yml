@@ -1,12 +1,13 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: round wrap vest
   action:
     name: wrapWithPairedDelimiter
-    args: [(, )]
-  targets:
-    - type: primitive
+    left: (
+    right: )
+    target:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
   usePrePhraseSnapshot: false
 initialState:

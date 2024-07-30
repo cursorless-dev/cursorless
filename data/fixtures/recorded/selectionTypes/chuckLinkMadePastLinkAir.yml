@@ -1,24 +1,25 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: chuck link made past link air
-  action: {name: remove}
-  targets:
-    - active:
-        type: primitive
-        modifiers:
-          - type: containingScope
-            scopeType: {type: url}
-        mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  action:
+    name: remove
+    target:
       type: range
-      excludeAnchor: false
-      excludeActive: false
       anchor:
         type: primitive
         modifiers:
           - type: containingScope
             scopeType: {type: url}
         mark: {type: decoratedSymbol, symbolColor: default, character: m}
+      active:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: url}
+        mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      excludeAnchor: false
+      excludeActive: false
   usePrePhraseSnapshot: false
 initialState:
   documentContents: >

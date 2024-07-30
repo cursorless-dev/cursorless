@@ -1,13 +1,11 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: snippet if
   action:
     name: insertSnippet
-    args:
-      - {type: named, name: ifStatement}
-  targets:
-    - {type: implicit}
+    snippetDescription: {type: named, name: ifStatement}
+    destination: {type: implicit}
   usePrePhraseSnapshot: false
 initialState:
   documentContents: |-

@@ -1,10 +1,11 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: chuck value
-  action: {name: remove}
-  targets:
-    - type: primitive
+  action:
+    name: remove
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: value}

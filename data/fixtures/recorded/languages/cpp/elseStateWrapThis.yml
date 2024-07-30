@@ -1,13 +1,12 @@
 languageId: cpp
 command:
-  version: 5
+  version: 6
   spokenForm: else wrap this
   action:
     name: wrapWithSnippet
-    args:
-      - {type: named, name: ifElseStatement, variableName: alternative}
-  targets:
-    - type: primitive
+    snippetDescription: {type: named, name: ifElseStatement, variableName: alternative}
+    target:
+      type: primitive
       mark: {type: cursor}
   usePrePhraseSnapshot: false
 initialState:

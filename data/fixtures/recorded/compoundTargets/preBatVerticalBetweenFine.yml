@@ -1,19 +1,20 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: pre bat slice between fine
-  action: {name: setSelectionBefore}
-  targets:
-    - active:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: f}
+  action:
+    name: setSelectionBefore
+    target:
       type: range
-      rangeType: vertical
-      excludeAnchor: true
-      excludeActive: true
       anchor:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: f}
+      excludeAnchor: true
+      excludeActive: true
+      rangeType: vertical
   usePrePhraseSnapshot: false
 initialState:
   documentContents: |

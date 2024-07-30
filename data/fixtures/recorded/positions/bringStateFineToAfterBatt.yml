@@ -1,20 +1,24 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: bring state fine after state bat
-  action: {name: replaceWithTarget}
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: statement}
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
-      modifiers:
-        - type: containingScope
-          scopeType: {type: statement}
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: b}
-      modifiers:
-        - {type: position, position: after}
-        - type: containingScope
-          scopeType: {type: statement}
+    destination:
+      type: primitive
+      insertionMode: after
+      target:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: statement}
+        mark: {type: decoratedSymbol, symbolColor: default, character: b}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |

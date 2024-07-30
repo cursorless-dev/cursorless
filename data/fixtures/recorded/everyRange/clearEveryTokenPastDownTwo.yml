@@ -1,10 +1,11 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: change every token past down two
-  action: {name: clearAndSetSelection}
-  targets:
-    - type: range
+  action:
+    name: clearAndSetSelection
+    target:
+      type: range
       anchor:
         type: primitive
         modifiers:

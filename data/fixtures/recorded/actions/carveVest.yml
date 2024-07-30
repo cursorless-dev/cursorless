@@ -1,10 +1,11 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: carve vest
-  action: {name: cutToClipboard}
-  targets:
-    - type: primitive
+  action:
+    name: cutToClipboard
+    target:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
   usePrePhraseSnapshot: false
 initialState:

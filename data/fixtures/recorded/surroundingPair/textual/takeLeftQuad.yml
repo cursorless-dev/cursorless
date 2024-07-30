@@ -1,10 +1,11 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: take left quad
-  action: {name: setSelection}
-  targets:
-    - type: primitive
+  action:
+    name: setSelection
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: surroundingPair, delimiter: doubleQuotes, forceDirection: left}

@@ -1,18 +1,19 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: take up one past row four
-  action: {name: setSelection}
-  targets:
-    - type: range
+  action:
+    name: setSelection
+    target:
+      type: range
+      anchor:
+        type: primitive
+        mark: {type: lineNumber, lineNumberType: relative, lineNumber: -1}
       active:
         type: primitive
         mark: {type: lineNumber, lineNumberType: absolute, lineNumber: 3}
       excludeAnchor: false
       excludeActive: false
-      anchor:
-        type: primitive
-        mark: {type: lineNumber, lineNumberType: relative, lineNumber: -1}
   usePrePhraseSnapshot: false
 spokenFormError: Absolute line numbers
 initialState:
