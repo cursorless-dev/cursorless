@@ -37,6 +37,8 @@ export class CopyToClipboard implements SimpleAction {
       );
     }
 
+    // FIXME: We should really keep track of the number of targets from the
+    // original copy, as is done in VSCode.
     const text = targets.map((t) => t.contentText).join("\n");
 
     await ide().clipboard.writeText(text);

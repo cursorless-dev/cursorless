@@ -14,6 +14,10 @@ import { runForEachEditor } from "../util/targetUtils";
 import type { ActionReturnValue } from "./actions.types";
 import { DestinationWithText } from "./PasteFromClipboard";
 
+/**
+ * This action pastes the text from the clipboard into the target editor directly
+ * by reading the clipboard and inserting the text directly into the editor.
+ */
 export class PasteFromClipboardDirectly {
   constructor(private rangeUpdater: RangeUpdater) {
     this.runForEditor = this.runForEditor.bind(this);
@@ -23,6 +27,8 @@ export class PasteFromClipboardDirectly {
     const text = await ide().clipboard.readText();
     const textLines = text.split(/\r?\n/g);
 
+    // FIXME: We should really use the number of targets from the original copy
+    // action, as is done in VSCode.
     const destinationsWithText: DestinationWithText[] =
       destinations.length === textLines.length
         ? zipStrict(destinations, textLines).map(([destination, text]) => ({

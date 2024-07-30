@@ -11,6 +11,10 @@ import { ensureSingleEditor } from "../util/targetUtils";
 import type { Actions } from "./Actions";
 import type { ActionReturnValue } from "./actions.types";
 
+/**
+ * This action pastes the text from the clipboard into the target editor using
+ * the IDE's built-in paste command.
+ */
 export class PasteFromClipboardUsingCommand {
   constructor(
     private rangeUpdater: RangeUpdater,
