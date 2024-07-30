@@ -56,15 +56,15 @@ export default class KeyboardCommandsModal {
 
   init() {
     this.extensionContext.subscriptions.push(
-      vscode.workspace.onDidChangeConfiguration((event) => {
+      vscode.workspace.onDidChangeConfiguration(async (event) => {
         if (
           event.affectsConfiguration(
             "cursorless.experimental.keyboard.modal.keybindings",
           )
         ) {
           if (this.isModeOn()) {
-            void this.modeOff();
-            void this.modeOn();
+            await this.modeOff();
+            await this.modeOn();
           }
           this.layerCache.clear();
           this.processKeyMap();
@@ -212,9 +212,9 @@ export default class KeyboardCommandsModal {
 
   modeToggle = () => {
     if (this.isModeOn()) {
-      void this.modeOff();
+      return this.modeOff();
     } else {
-      void this.modeOn();
+      return this.modeOn();
     }
   };
 
