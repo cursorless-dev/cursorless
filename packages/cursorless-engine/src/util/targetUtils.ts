@@ -106,7 +106,7 @@ export function createThatMark(
             : new Selection(range!.start, range!.end),
         }))
       : targets.map((target) => ({
-          editor: target!.editor,
+          editor: target.editor,
           selection: target.contentSelection,
         }));
   return thatMark;

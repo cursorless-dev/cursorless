@@ -43,7 +43,7 @@ export default class VscodeFlashHandler {
       const ranges = (editorRangeMap.get(editor.id) ?? []).map(
         ({ range }) => range,
       );
-      this.highlights.setHighlightRanges(style, editor, ranges);
+      void this.highlights.setHighlightRanges(style, editor, ranges);
     });
   }
 }

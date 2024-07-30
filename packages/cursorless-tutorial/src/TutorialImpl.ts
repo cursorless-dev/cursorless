@@ -75,7 +75,7 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
     this.reparseCurrentTutorial = this.reparseCurrentTutorial.bind(this);
     const debouncer = new Debouncer(() => this.checkPreconditions(), 100);
 
-    this.loadTutorials().then(() => {
+    void this.loadTutorials().then(async () => {
       if (this.state_.type === "loading") {
         this.setState(this.getPickingTutorialState());
       }
@@ -109,7 +109,7 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
         currentStep.trigger?.type === "visualize" &&
         isEqual(currentStep.trigger.scopeType, scopeType)
       ) {
-        this.next();
+        void this.next();
       }
     }
   }
@@ -220,7 +220,7 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
     if (this.state_.type === "doingTutorial") {
       const currentStep = this.currentTutorial!.steps[this.state_.stepNumber];
       if (currentStep.trigger?.type === "help") {
-        this.next();
+        void this.next();
       }
     }
   }
@@ -287,9 +287,13 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
 
   private setState(state: TutorialState) {
     this.state_ = state;
+    void this.updateTutorialProgress(state);
+    this.notifier.notifyListeners(state);
+  }
 
+  private async updateTutorialProgress(state: TutorialState) {
     if (state.type === "doingTutorial") {
-      this.ide.keyValueStore.set(
+      await this.ide.keyValueStore.set(
         "tutorialProgress",
         produce(this.ide.keyValueStore.get("tutorialProgress"), (draft) => {
           draft[state.id] = {
@@ -299,8 +303,6 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
         }),
       );
     }
-
-    this.notifier.notifyListeners(state);
   }
 
   get state() {
@@ -317,27 +319,27 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
     );
 
     if (this.editor !== editor && this.editor != null) {
-      this.ide.setHighlightRanges(HIGHLIGHT_COLOR, this.editor, []);
+      await this.ide.setHighlightRanges(HIGHLIGHT_COLOR, this.editor, []);
     }
 
     this.editor = editor;
     this.highlightRanges = highlightRanges;
-    this.ensureHighlights();
+    await this.ensureHighlights();
   }
 
-  private ensureHighlights() {
+  private async ensureHighlights() {
     if (this.editor != null) {
       if (
         this.state_.type === "doingTutorial" &&
         this.state_.preConditionsMet
       ) {
-        this.ide.setHighlightRanges(
+        await this.ide.setHighlightRanges(
           HIGHLIGHT_COLOR,
           this.editor,
           this.highlightRanges,
         );
       } else {
-        this.ide.setHighlightRanges(HIGHLIGHT_COLOR, this.editor, []);
+        await this.ide.setHighlightRanges(HIGHLIGHT_COLOR, this.editor, []);
       }
     }
   }
@@ -357,7 +359,7 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
           ...this.state_,
           preConditionsMet,
         });
-        this.ensureHighlights();
+        await this.ensureHighlights();
       }
     }
   }

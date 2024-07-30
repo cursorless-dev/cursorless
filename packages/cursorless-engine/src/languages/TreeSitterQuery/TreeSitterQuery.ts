@@ -49,7 +49,7 @@ export class TreeSitterQuery {
           )}\``,
         ].join(", ");
 
-        showError(
+        void showError(
           ide().messages,
           "TreeSitterQuery.parsePredicates",
           `Error parsing predicate for ${context}: ${error.error}`,

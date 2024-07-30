@@ -68,7 +68,7 @@ function matcherIncludeSiblings(matcher: NodeMatcher): NodeMatcher {
         selectionWithEditorFromRange(selection, match.selection.selection),
         matcher,
       ),
-    ) as NodeMatcherValue[];
+    );
     if (matches.length > 0) {
       return matches;
     }
@@ -83,7 +83,7 @@ function iterateNearestIterableAncestor(
 ) {
   let parent: SyntaxNode | null = node.parent;
   while (parent != null) {
-    const matches = parent!.namedChildren
+    const matches = parent.namedChildren
       .flatMap((sibling) => nodeMatcher(selection, sibling))
       .filter((match) => match != null) as NodeMatcherValue[];
     if (matches.length > 0) {

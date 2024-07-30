@@ -64,6 +64,7 @@ export async function createCursorlessEngine({
 
   const debug = new Debug(ide);
   const rangeUpdater = new RangeUpdater();
+
   const storedTargets = new StoredTargetMap();
   const keyboardTargetUpdater = new KeyboardTargetUpdater(ide, storedTargets);
   const customSpokenFormGenerator = new CustomSpokenFormGeneratorImpl(
