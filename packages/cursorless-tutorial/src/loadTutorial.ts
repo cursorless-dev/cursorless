@@ -1,4 +1,5 @@
 import {
+  Hats,
   RawTutorialContent,
   TutorialContentProvider,
   TutorialId,
@@ -16,11 +17,13 @@ export async function loadTutorial(
   customSpokenFormGenerator: CustomSpokenFormGenerator,
   rawContent: RawTutorialContent,
   keyValueStore: KeyValueStore,
+  hats: Hats,
 ) {
   const parser = new TutorialStepParser(
     contentProvider,
     tutorialId,
     customSpokenFormGenerator,
+    hats,
   );
 
   let tutorialContent: TutorialContent;

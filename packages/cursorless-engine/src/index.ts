@@ -15,4 +15,5 @@ export * from "./spokenForms/defaultSpokenFormMap";
 export * from "./testUtil/extractTargetKeys";
 export * from "./testUtil/plainObjectToTarget";
 export * from "./util/getPartialTargetDescriptors";
+export * from "./util/getPrimitiveTargets";
 export * from "./util/grammarHelpers";

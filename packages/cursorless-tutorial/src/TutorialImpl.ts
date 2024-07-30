@@ -2,6 +2,7 @@ import {
   CharacterRange,
   Debouncer,
   Disposable,
+  Hats,
   HatTokenMap,
   IDE,
   Notifier,
@@ -68,6 +69,7 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
     private hatTokenMap: HatTokenMap,
     private customSpokenFormGenerator: CustomSpokenFormGenerator,
     private contentProvider: TutorialContentProvider,
+    private hats: Hats,
   ) {
     this.setupStep = this.setupStep.bind(this);
     this.reparseCurrentTutorial = this.reparseCurrentTutorial.bind(this);
@@ -170,6 +172,7 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
       this.customSpokenFormGenerator,
       this.getRawTutorial(tutorialId),
       this.ide.keyValueStore,
+      this.hats,
     );
 
     this.currentTutorial = tutorialContent;
@@ -204,6 +207,7 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
       this.customSpokenFormGenerator,
       this.getRawTutorial(tutorialId),
       this.ide.keyValueStore,
+      this.hats,
     );
 
     this.currentTutorial = tutorialContent;
