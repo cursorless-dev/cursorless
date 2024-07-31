@@ -50,6 +50,9 @@ export function endToEndTestSetup(
 
   return {
     getSpy() {
+      if (spy == null) {
+        throw Error("spy is undefined");
+      }
       return spy;
     },
   };

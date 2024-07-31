@@ -1,22 +1,23 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: change air past end of its line
-  action: {name: clearAndSetSelection}
-  targets:
-    - type: range
+  action:
+    name: clearAndSetSelection
+    target:
+      type: range
+      anchor:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: a}
       active:
         type: primitive
         modifiers:
-          - {type: position, position: end}
+          - {type: endOf}
           - {type: inferPreviousMark}
           - type: containingScope
             scopeType: {type: line}
       excludeAnchor: false
       excludeActive: false
-      anchor:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: a}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-

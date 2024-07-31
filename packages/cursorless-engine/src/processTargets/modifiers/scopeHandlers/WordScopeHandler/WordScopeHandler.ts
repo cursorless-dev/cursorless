@@ -86,9 +86,7 @@ function constructTarget(
   const isInDelimitedList =
     leadingDelimiterRange != null || trailingDelimiterRange != null;
   const insertionDelimiter = isInDelimitedList
-    ? editor.document.getText(
-        (leadingDelimiterRange ?? trailingDelimiterRange)!,
-      )
+    ? editor.document.getText(leadingDelimiterRange ?? trailingDelimiterRange)
     : "";
 
   return new SubTokenWordTarget({

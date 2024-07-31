@@ -20,6 +20,16 @@ export interface HatCandidate {
   penalty: number;
 }
 
+interface AllocateHatsOptions {
+  tokenGraphemeSplitter: TokenGraphemeSplitter;
+  enabledHatStyles: HatStyleMap;
+  forceTokenHats: readonly TokenHat[] | undefined;
+  oldTokenHats: readonly TokenHat[];
+  hatStability: HatStability;
+  activeTextEditor: TextEditor | undefined;
+  visibleTextEditors: readonly TextEditor[];
+}
+
 /**
  * Allocates hats to all the visible tokens.  Proceeds by ranking tokens
  * according to desirability (how far they are from the cursor), then assigning
@@ -39,14 +49,21 @@ export interface HatCandidate {
  * @returns A hat assignment, which is a list where each entry contains a token
  * and the hat that it will wear
  */
-export function allocateHats(
-  tokenGraphemeSplitter: TokenGraphemeSplitter,
-  enabledHatStyles: HatStyleMap,
-  oldTokenHats: readonly TokenHat[],
-  hatStability: HatStability,
-  activeTextEditor: TextEditor | undefined,
-  visibleTextEditors: readonly TextEditor[],
-): TokenHat[] {
+export function allocateHats({
+  tokenGraphemeSplitter,
+  enabledHatStyles,
+  forceTokenHats,
+  oldTokenHats,
+  hatStability,
+  activeTextEditor,
+  visibleTextEditors,
+}: AllocateHatsOptions): TokenHat[] {
+  /**
+   * Maps from tokens to their forced hat, if any
+   */
+  const forcedHatMap =
+    forceTokenHats == null ? undefined : getTokenOldHatMap(forceTokenHats);
+
   /**
    * Maps from tokens to their assigned hat in previous allocation
    */
@@ -56,7 +73,11 @@ export function allocateHats(
    * A list of tokens in all visible document, ranked by how likely they are to
    * be used.
    */
-  const rankedTokens = getRankedTokens(activeTextEditor, visibleTextEditors);
+  const rankedTokens = getRankedTokens(
+    activeTextEditor,
+    visibleTextEditors,
+    forcedHatMap,
+  );
 
   /**
    * Lookup tables with information about which graphemes / hats appear in which
@@ -102,6 +123,7 @@ export function allocateHats(
         context,
         hatStability,
         tokenRank,
+        forcedHatMap?.get(token),
         tokenOldHatMap.get(token),
         tokenRemainingHatCandidates,
       );

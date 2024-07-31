@@ -1,14 +1,15 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: change every item air
-  action: {name: clearAndSetSelection}
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - type: everyScope
           scopeType: {type: collectionItem}
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: a, b, c, d

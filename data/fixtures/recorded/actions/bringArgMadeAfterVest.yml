@@ -1,18 +1,21 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: bring arg made after vest
-  action: {name: replaceWithTarget}
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: argumentOrParameter}
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: v}
-      modifiers:
-        - {type: position, position: after}
+      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+    destination:
+      type: primitive
+      insertionMode: after
+      target:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: v}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-

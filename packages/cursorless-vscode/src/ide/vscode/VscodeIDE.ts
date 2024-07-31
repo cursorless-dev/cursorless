@@ -212,9 +212,9 @@ export class VscodeIDE implements IDE {
 
   handleCommandError(err: Error) {
     if (err instanceof OutdatedExtensionError) {
-      this.showUpdateExtensionErrorMessage(err);
+      void this.showUpdateExtensionErrorMessage(err);
     } else {
-      vscode.window.showErrorMessage(err.message);
+      void vscode.window.showErrorMessage(err.message);
     }
   }
 

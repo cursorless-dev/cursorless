@@ -1,15 +1,16 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: move every arg made
-  action: {name: moveToTarget}
-  targets:
-    - type: primitive
+  action:
+    name: moveToTarget
+    source:
+      type: primitive
       modifiers:
         - type: everyScope
           scopeType: {type: argumentOrParameter}
       mark: {type: decoratedSymbol, symbolColor: default, character: m}
-    - {type: implicit}
+    destination: {type: implicit}
   usePrePhraseSnapshot: false
 initialState:
   documentContents: |

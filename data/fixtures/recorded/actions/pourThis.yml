@@ -1,10 +1,11 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: pour this
-  action: {name: editNewLineAfter}
-  targets:
-    - type: primitive
+  action:
+    name: editNewLineAfter
+    target:
+      type: primitive
       mark: {type: cursor}
   usePrePhraseSnapshot: true
 initialState:

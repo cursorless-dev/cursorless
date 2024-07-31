@@ -1,10 +1,11 @@
 languageId: ruby
 command:
-  version: 5
+  version: 6
   spokenForm: chuck every item
-  action: {name: remove}
-  targets:
-    - type: primitive
+  action:
+    name: remove
+    target:
+      type: primitive
       modifiers:
         - type: everyScope
           scopeType: {type: collectionItem}

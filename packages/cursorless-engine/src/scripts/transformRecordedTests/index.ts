@@ -95,4 +95,4 @@ function parseCommandLineArguments(args: string[]) {
   return { transformationName, minimumVersion, paths };
 }
 
-main(process.argv.slice(2));
+void main(process.argv.slice(2));

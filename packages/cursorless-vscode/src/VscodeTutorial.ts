@@ -96,19 +96,19 @@ export class VscodeTutorial implements WebviewViewProvider {
     webview.onDidReceiveMessage((data) => {
       switch (data.type) {
         case "getInitialState":
-          webview.postMessage(this.tutorial.state);
+          void webview.postMessage(this.tutorial.state);
           break;
         case "start":
-          this.start(data.tutorialId);
+          void this.start(data.tutorialId);
           break;
         case "list":
-          this.list();
+          void this.list();
           break;
         case "previous":
-          this.previous();
+          void this.previous();
           break;
         case "next":
-          this.next();
+          void this.next();
           break;
       }
     });
@@ -124,48 +124,48 @@ export class VscodeTutorial implements WebviewViewProvider {
 
   public async start(id: TutorialId | number) {
     await this.tutorial.start(id);
-    this.revealTutorial();
+    await this.revealTutorial();
   }
 
-  documentationOpened() {
+  async documentationOpened() {
     this.tutorial.documentationOpened();
-    this.revealTutorial();
+    await this.revealTutorial();
   }
 
   async next() {
     await this.tutorial.next();
-    this.revealTutorial();
+    await this.revealTutorial();
   }
 
   async previous() {
     await this.tutorial.previous();
-    this.revealTutorial();
+    await this.revealTutorial();
   }
 
   async restart() {
     await this.tutorial.restart();
-    this.revealTutorial();
+    await this.revealTutorial();
   }
 
   async resume() {
     await this.tutorial.resume();
-    this.revealTutorial();
+    await this.revealTutorial();
   }
 
   async list() {
     await this.tutorial.list();
-    this.revealTutorial();
+    await this.revealTutorial();
   }
 
   private onState(state: TutorialState) {
-    this.view?.webview.postMessage(state);
+    void this.view?.webview.postMessage(state);
   }
 
-  private revealTutorial() {
+  private async revealTutorial() {
     if (this.view != null) {
       this.view.show(true);
     } else {
-      this.vscodeApi.commands.executeCommand("cursorless.tutorial.focus");
+      await this.vscodeApi.commands.executeCommand("cursorless.tutorial.focus");
     }
   }
 

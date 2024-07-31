@@ -1,23 +1,29 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: bring air before bat and after cap and drum
-  action: {name: replaceWithTarget}
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
-    - type: list
-      elements:
+    destination:
+      type: list
+      destinations:
         - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: b}
-          modifiers:
-            - {type: position, position: before}
+          insertionMode: before
+          target:
+            type: primitive
+            mark: {type: decoratedSymbol, symbolColor: default, character: b}
         - type: primitive
-          modifiers:
-            - {type: position, position: after}
-          mark: {type: decoratedSymbol, symbolColor: default, character: c}
-        - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: d}
+          insertionMode: after
+          target:
+            type: list
+            elements:
+              - type: primitive
+                mark: {type: decoratedSymbol, symbolColor: default, character: c}
+              - type: primitive
+                mark: {type: decoratedSymbol, symbolColor: default, character: d}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: aaa bbb ccc ddd

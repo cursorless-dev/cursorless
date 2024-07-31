@@ -5,8 +5,6 @@ import {
   CommandV6,
   DestinationDescriptor,
   EnforceUndefined,
-  ExecuteCommandOptions,
-  GetTextActionOptions,
   HighlightActionDescriptor,
   HighlightId,
   ImplicitDestinationDescriptor,
@@ -28,6 +26,8 @@ import {
   PrimitiveDestinationDescriptor,
   ReplaceWith,
   WrapWithSnippetArg,
+  type ExecuteCommandOptions,
+  type GetTextActionOptions,
 } from "@cursorless/common";
 import canonicalizeActionName from "./canonicalizeActionName";
 

@@ -309,7 +309,7 @@ async function enterAndLeaveIsNoOp() {
 
 async function typeText(text: string) {
   for (const char of text) {
-    vscode.commands.executeCommand("type", { text: char });
+    void vscode.commands.executeCommand("type", { text: char });
     // Note we just hack by using sleep because awaiting is too complicated to
     // get right.
     await sleepWithBackoff(100);

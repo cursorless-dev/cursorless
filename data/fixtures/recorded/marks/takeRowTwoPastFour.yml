@@ -1,10 +1,11 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: take row two past four
-  action: {name: setSelection}
-  targets:
-    - type: primitive
+  action:
+    name: setSelection
+    target:
+      type: primitive
       mark:
         type: range
         anchor: {type: lineNumber, lineNumberType: absolute, lineNumber: 1}

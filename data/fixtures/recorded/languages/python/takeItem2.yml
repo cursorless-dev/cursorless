@@ -1,10 +1,11 @@
 languageId: python
 command:
-  version: 5
+  version: 6
   spokenForm: take item
-  action: {name: setSelection}
-  targets:
-    - type: primitive
+  action:
+    name: setSelection
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: collectionItem}

@@ -1,10 +1,11 @@
 languageId: javascriptreact
 command:
-  version: 5
+  version: 6
   spokenForm: change inside element
-  action: {name: clearAndSetSelection}
-  targets:
-    - type: primitive
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - {type: interiorOnly}
         - type: containingScope

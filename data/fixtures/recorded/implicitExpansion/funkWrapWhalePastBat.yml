@@ -1,21 +1,20 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: funk wrap whale past bat
   action:
     name: wrapWithSnippet
-    args:
-      - {type: named, name: functionDeclaration, variableName: body}
-  targets:
-    - active:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: b}
+    snippetDescription: {type: named, name: functionDeclaration, variableName: body}
+    target:
       type: range
-      excludeAnchor: false
-      excludeActive: false
       anchor:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      excludeAnchor: false
+      excludeActive: false
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |

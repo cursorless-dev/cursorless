@@ -1,10 +1,8 @@
 import type { Capabilities, CommandCapabilityMap } from "@cursorless/common";
 
 const COMMAND_CAPABILITIES: CommandCapabilityMap = {
-  indentLine: { acceptsLocation: true },
-  outdentLine: { acceptsLocation: true },
-  clipboardCopy: { acceptsLocation: true },
-
+  clipboardCopy: undefined,
+  clipboardPaste: undefined,
   toggleLineComment: undefined,
   rename: undefined,
   quickFix: undefined,
@@ -18,6 +16,8 @@ const COMMAND_CAPABILITIES: CommandCapabilityMap = {
   unfold: undefined,
   showReferences: undefined,
   insertLineAfter: undefined,
+  indentLine: undefined,
+  outdentLine: undefined,
 };
 
 export class TalonJsCapabilities implements Capabilities {

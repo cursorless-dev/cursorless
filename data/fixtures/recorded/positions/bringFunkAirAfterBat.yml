@@ -1,18 +1,21 @@
 languageId: python
 command:
-  version: 5
+  version: 6
   spokenForm: bring funk air after bat
-  action: {name: replaceWithTarget}
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: namedFunction}
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: b}
-      modifiers:
-        - {type: position, position: after}
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+    destination:
+      type: primitive
+      insertionMode: after
+      target:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: b}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |2

@@ -49,5 +49,5 @@ export function parseAction(input: string): WithPlaceholders<ActionDescriptor> {
     );
   }
 
-  return parser.results[0] as WithPlaceholders<ActionDescriptor>;
+  return parser.results[0];
 }
