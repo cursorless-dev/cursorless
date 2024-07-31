@@ -47,7 +47,7 @@
                   };
                   neovim = prev.neovim.override { withNodeJs = true; };
                   # There is a recent bug that prevents cli --check invocation:
-                  # See: https://github.com/LuaLS/lua-language-server/pull/2775
+                  # See #2613
                   lua-language-server = prev.lua-language-server.overrideAttrs {
                     postPatch =
                       let
