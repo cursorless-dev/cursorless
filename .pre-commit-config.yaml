@@ -91,11 +91,3 @@ repos:
     hooks:
       - id: stylua
         exclude: ^data/playground/lua/.*\.lua$
-  - repo: local
-    hooks:
-      - id: lua-language-server
-        name: lua-language-server
-        files: \.(lua|busted)$
-        entry: scripts/lint-lua.sh
-        language: script
-        pass_filenames: false
