@@ -35,7 +35,7 @@ function check_file() {
 
 # lua-language-server doesn't support single file parsing, so check entire folder
 exit_code=0
-if ! check_file .; then
+if ! check_file "${CURSORLESS_REPO_ROOT}"; then
   exit_code=1
 fi
 
