@@ -21,9 +21,9 @@ export default class VscodeTextLineImpl implements TextLine {
     return fromVscodeRange(this.line.rangeIncludingLineBreak);
   }
 
-  get rangeTrimmed(): Range {
+  get rangeTrimmed(): Range | undefined {
     return this.line.isEmptyOrWhitespace
-      ? this.range
+      ? undefined
       : new Range(
           new Position(
             this.lineNumber,

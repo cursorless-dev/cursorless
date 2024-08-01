@@ -29,10 +29,9 @@ export interface TextLine {
 
   /**
    * The trimmed range which is not a whitespace character as defined by `/\s/`.
-   * **Note** that if a line is all whitespace the full a range of the line is
-   * used.
+   * **Note** that if a line is all whitespace this is undefined.
    */
-  readonly rangeTrimmed: Range;
+  readonly rangeTrimmed: Range | undefined;
 
   /**
    * Whether this line is whitespace only

@@ -7,7 +7,7 @@ export class InMemoryTextLine implements TextLine {
   readonly isEmptyOrWhitespace: boolean;
   readonly range: Range;
   readonly rangeIncludingLineBreak: Range;
-  readonly rangeTrimmed: Range;
+  readonly rangeTrimmed: Range | undefined;
   readonly lengthIncludingEol: number;
 
   constructor(
@@ -25,7 +25,7 @@ export class InMemoryTextLine implements TextLine {
     this.range = new Range(start, end);
     this.rangeIncludingLineBreak = new Range(start, endIncludingLineBreak);
     this.rangeTrimmed = this.isEmptyOrWhitespace
-      ? this.range
+      ? undefined
       : new Range(
           start.translate(undefined, getLeadingWhitespace(text).length),
           end.translate(undefined, -getTrailingWhitespace(text).length),
