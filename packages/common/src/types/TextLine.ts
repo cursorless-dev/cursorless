@@ -28,7 +28,7 @@ export interface TextLine {
   readonly rangeIncludingLineBreak: Range;
 
   /**
-   * The trimmed range which is not a whitespace character as defined by `/\s/`.
+   * The trimmed range, which excludes leading and trailing whitespace (`/\s/`).
    * **Note** that if a line is all whitespace this is undefined.
    */
   readonly rangeTrimmed: Range | undefined;
