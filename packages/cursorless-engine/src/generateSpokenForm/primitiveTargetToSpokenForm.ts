@@ -61,6 +61,12 @@ export class PrimitiveTargetSpokenFormGenerator {
           `Modifier '${modifier.type}' with ancestor index ${modifier.ancestorIndex}`,
         );
 
+      case "preferredScope":
+        return [
+          this.spokenFormMap.simpleModifier.preferredScope,
+          this.handleScopeType(modifier.scopeType),
+        ];
+
       case "everyScope":
         return [
           this.spokenFormMap.simpleModifier.everyScope,
@@ -296,10 +302,6 @@ export class PrimitiveTargetSpokenFormGenerator {
 
       case "lineNumber": {
         return this.handleLineNumberMark(mark);
-      }
-
-      case "literal": {
-        return mark.text;
       }
 
       case "range": {

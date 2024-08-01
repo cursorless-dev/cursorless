@@ -35,11 +35,6 @@ export interface DecoratedSymbolMark {
   character: string;
 }
 
-export interface LiteralMark {
-  type: "literal";
-  text: string;
-}
-
 export type LineNumberType = "absolute" | "relative" | "modulo100";
 
 export interface LineNumberMark {
@@ -105,7 +100,6 @@ export type PartialMark =
   | SourceMark
   | KeyboardMark
   | DecoratedSymbolMark
-  | LiteralMark
   | NothingMark
   | LineNumberMark
   | PartialRangeMark
@@ -287,6 +281,11 @@ export interface ContainingScopeModifier {
   ancestorIndex?: number;
 }
 
+export interface PreferredScopeModifier {
+  type: "preferredScope";
+  scopeType: ScopeType;
+}
+
 export interface EveryScopeModifier {
   type: "everyScope";
   scopeType: ScopeType;
@@ -432,6 +431,7 @@ export type Modifier =
   | ExcludeInteriorModifier
   | VisibleModifier
   | ContainingScopeModifier
+  | PreferredScopeModifier
   | EveryScopeModifier
   | OrdinalScopeModifier
   | RelativeScopeModifier

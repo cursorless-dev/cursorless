@@ -126,6 +126,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     extendThroughStartOf: "head",
     extendThroughEndOf: "tail",
     everyScope: "every",
+    preferredScope: "good",
   },
 
   modifierExtra: {
