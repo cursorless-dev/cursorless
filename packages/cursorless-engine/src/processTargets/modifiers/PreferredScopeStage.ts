@@ -3,8 +3,9 @@ import type { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
 import { getContainingScopeTarget } from "./getContainingScopeTarget";
+import type { TargetScope } from "./scopeHandlers/scope.types";
+import type { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
 import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
-import { getEveryScopeTargets } from "./targetSequenceUtils";
 
 export class PreferredScopeStage implements ModifierStage {
   constructor(
@@ -16,13 +17,22 @@ export class PreferredScopeStage implements ModifierStage {
   run(target: Target): Target[] {
     const { scopeType } = this.modifier;
 
-    const containingTargets = this.tryGetContainingScopeTargets(target);
+    const scopeHandler = this.scopeHandlerFactory.create(
+      this.modifier.scopeType,
+      target.editor.document.languageId,
+    );
+
+    if (scopeHandler == null) {
+      throw Error(`Couldn't create scope handler for: ${scopeType.type}`);
+    }
+
+    const containingTargets = getContainingScopeTarget(target, scopeHandler);
 
     if (containingTargets != null) {
       return containingTargets;
     }
 
-    const closestTargets = this.tryGetClosestScopeTargets(target);
+    const closestTargets = this.tryGetClosestScopeTargets(target, scopeHandler);
 
     if (closestTargets != null) {
       return closestTargets;
@@ -31,39 +41,38 @@ export class PreferredScopeStage implements ModifierStage {
     throw Error(`No scopes found for scope type: ${scopeType.type}`);
   }
 
-  private tryGetContainingScopeTargets(target: Target): Target[] | undefined {
-    const scopeHandler = this.scopeHandlerFactory.create(
-      this.modifier.scopeType,
-      target.editor.document.languageId,
-    );
+  private tryGetClosestScopeTargets(
+    target: Target,
+    scopeHandler: ScopeHandler,
+  ): Target[] | undefined {
+    const { start, end } = target.contentRange;
 
-    if (scopeHandler == null) {
+    const previousScopes = scopeHandler.generateScopes(
+      target.editor,
+      start,
+      "backward",
+    );
+    const nextScopes = scopeHandler.generateScopes(
+      target.editor,
+      end,
+      "forward",
+    );
+    const scopes: TargetScope[] = [
+      next(previousScopes),
+      next(nextScopes),
+    ].filter((scope) => scope != null);
+
+    if (scopes.length === 0) {
       return undefined;
     }
 
-    return getContainingScopeTarget(target, scopeHandler);
-  }
-
-  private tryGetClosestScopeTargets(target: Target): Target[] | undefined {
-    const targets = getEveryScopeTargets(
-      this.modifierStageFactory,
-      target,
-      this.modifier.scopeType,
-    );
-
-    const { active } = target.contentSelection;
-
-    const candidates = targets.map((target) => {
+    const candidates = scopes.map((scope) => {
       const distance = Math.min(
-        distanceBetweenPositions(active, target.contentRange.start),
-        distanceBetweenPositions(active, target.contentRange.end),
+        distanceBetweenPositions(end, scope.domain.start),
+        distanceBetweenPositions(start, scope.domain.end),
       );
-      return { target, distance };
+      return { scope, distance };
     });
-
-    if (candidates.length === 0) {
-      return undefined;
-    }
 
     candidates.sort((a, b) => {
       // First sort by distance to position
@@ -71,11 +80,18 @@ export class PreferredScopeStage implements ModifierStage {
         return a.distance - b.distance;
       }
       // Then sort by document order
-      return a.target.contentRange.start.compareTo(b.target.contentRange.start);
+      return a.scope.domain.start.compareTo(b.scope.domain.start);
     });
 
-    return [candidates[0].target];
+    return candidates[0].scope.getTargets(target.isReversed);
   }
+}
+
+function next(scopes: Iterable<TargetScope>): TargetScope | undefined {
+  for (const scope of scopes) {
+    return scope;
+  }
+  return undefined;
 }
 
 function distanceBetweenPositions(a: Position, b: Position): number {

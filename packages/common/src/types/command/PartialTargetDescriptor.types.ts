@@ -222,6 +222,7 @@ export interface SimpleScopeType {
 export interface CustomRegexScopeType {
   type: "customRegex";
   regex: string;
+  flags?: string;
 }
 
 export type SurroundingPairDirection = "left" | "right";

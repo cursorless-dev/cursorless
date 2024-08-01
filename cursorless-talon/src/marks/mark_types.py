@@ -9,7 +9,7 @@ class DecoratedSymbol(TypedDict):
 
 class LiteralMark(TypedDict):
     type: Literal["literal"]
-    text: str
+    modifier: dict
 
 
 SimpleMark = dict[Literal["type"], str]

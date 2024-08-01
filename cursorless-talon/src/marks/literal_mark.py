@@ -5,10 +5,17 @@ from .mark_types import LiteralMark
 mod = Module()
 
 
-# TODO: Replace literal *heh* with a Talon list
+# FIXME: Replace literal *heh* with a Talon list before we make this public
 @mod.capture(rule=("literal <user.text>"))
 def cursorless_literal_mark(m) -> LiteralMark:
     return {
         "type": "literal",
-        "text": m.text,
+        "modifier": {
+            "type": "preferredScope",
+            "scopeType": {
+                "type": "customRegex",
+                "regex": m.text,
+                "flags": "gui",
+            },
+        },
     }
