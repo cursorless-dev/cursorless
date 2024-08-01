@@ -45,23 +45,16 @@ export default class NeovimTextLineImpl implements TextLine {
     return new Range(this._lineNumber, 0, this._lineNumber + 1, 0);
   }
 
-  get firstNonWhitespaceCharacterIndex(): number {
-    const index = /^(\s*)/.exec(this._text)![1].length;
-    // console.debug(
-    //   `NeovimTextLineImpl.firstNonWhitespaceCharacterIndex=${index}`,
-    // );
-    return index;
-  }
-
-  get lastNonWhitespaceCharacterIndex(): number {
-    const index = this.text.trimEnd().length;
-    // console.debug(
-    //   `NeovimTextLineImpl.lastNonWhitespaceCharacterIndex index=${index}`,
-    // );
-    return index;
+  get rangeTrimmed(): Range | undefined {
+    const startIndex = /^(\s*)/.exec(this._text)![1].length;
+    if (startIndex === this._text.length) {
+      return undefined;
+    }
+    const endIndex = this.text.trimEnd().length;
+    return new Range(this._lineNumber, startIndex, this._lineNumber, endIndex);
   }
 
   get isEmptyOrWhitespace(): boolean {
-    return this.firstNonWhitespaceCharacterIndex === this._text.length;
+    return this.rangeTrimmed == null;
   }
 }
