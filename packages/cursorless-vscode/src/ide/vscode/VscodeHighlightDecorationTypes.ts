@@ -1,7 +1,8 @@
+import type {
+  DecorationRenderOptions,
+  TextEditorDecorationType} from "vscode";
 import {
   DecorationRangeBehavior,
-  DecorationRenderOptions,
-  TextEditorDecorationType,
   ThemeColor,
   window,
 } from "vscode";

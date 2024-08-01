@@ -1,4 +1,4 @@
-import {
+import type {
   ExcludableSnapshotField,
   ExtraSnapshotField,
   FakeCommandServerApi,
@@ -12,11 +12,12 @@ import {
   TestCaseSnapshot,
   TextEditor,
 } from "@cursorless/common";
+import type {
+  StoredTargetMap} from "@cursorless/cursorless-engine";
 import {
-  StoredTargetMap,
   plainObjectToTarget,
 } from "@cursorless/cursorless-engine";
-import { NeovimIDE, NeovimTestHelpers } from "@cursorless/neovim-common";
+import type { NeovimIDE, NeovimTestHelpers } from "@cursorless/neovim-common";
 import { takeSnapshot } from "@cursorless/test-case-recorder";
 
 export function constructTestHelpers(

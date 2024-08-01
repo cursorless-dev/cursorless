@@ -1,21 +1,22 @@
-import {
+import type {
   ActionDescriptor,
   CommandComplete,
   CommandResponse,
   CommandServerApi,
   DestinationDescriptor,
-  PartialTargetDescriptor,
+  PartialTargetDescriptor} from "@cursorless/common";
+import {
   clientSupportsFallback,
 } from "@cursorless/common";
-import { CommandRunner } from "../../CommandRunner";
-import { ActionRecord, ActionReturnValue } from "../../actions/actions.types";
+import type { CommandRunner } from "../../CommandRunner";
+import type { ActionRecord, ActionReturnValue } from "../../actions/actions.types";
 import { parseAndFillOutAction } from "../../customCommandGrammar/parseAndFillOutAction";
-import { StoredTargetMap } from "../../index";
-import { TargetPipelineRunner } from "../../processTargets";
-import { ModifierStage } from "../../processTargets/PipelineStages.types";
-import { SelectionWithEditor } from "../../typings/Types";
-import { Destination, Target } from "../../typings/target.types";
-import { Debug } from "../Debug";
+import type { StoredTargetMap } from "../../index";
+import type { TargetPipelineRunner } from "../../processTargets";
+import type { ModifierStage } from "../../processTargets/PipelineStages.types";
+import type { SelectionWithEditor } from "../../typings/Types";
+import type { Destination, Target } from "../../typings/target.types";
+import type { Debug } from "../Debug";
 import { getCommandFallback } from "../getCommandFallback";
 import { inferFullTargetDescriptor } from "../inferFullTargetDescriptor";
 import { selectionToStoredTarget } from "./selectionToStoredTarget";

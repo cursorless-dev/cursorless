@@ -1,7 +1,8 @@
-import {
+import type {
   HatTokenMap,
-  LATEST_VERSION,
-  SimpleActionName,
+  SimpleActionName} from "@cursorless/common";
+import {
+  LATEST_VERSION
 } from "@cursorless/common";
 import {
   getFixturePath,

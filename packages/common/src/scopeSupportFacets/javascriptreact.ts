@@ -1,6 +1,7 @@
 import { javascriptScopeSupport } from "./javascript";
+import type {
+  LanguageScopeSupportFacetMap} from "./scopeSupportFacets.types";
 import {
-  LanguageScopeSupportFacetMap,
   ScopeSupportFacetLevel,
 } from "./scopeSupportFacets.types";
 

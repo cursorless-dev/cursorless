@@ -1,8 +1,9 @@
+import type {
+  Modifier,
+  SpyIDE} from "@cursorless/common";
 import {
   HatStability,
-  Modifier,
   Range,
-  SpyIDE,
   asyncSafety,
 } from "@cursorless/common";
 import {

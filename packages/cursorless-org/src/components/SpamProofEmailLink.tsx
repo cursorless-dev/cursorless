@@ -1,4 +1,4 @@
-import { EmailAddress } from "../parseEmailAddress";
+import type { EmailAddress } from "../parseEmailAddress";
 
 interface Props extends React.PropsWithChildren {
   address: EmailAddress;

@@ -3,7 +3,7 @@ import {
   RangeExpansionBehavior,
   toCharacterRange,
 } from "@cursorless/common";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
 import type { Destination } from "../typings/target.types";

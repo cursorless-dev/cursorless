@@ -1,7 +1,8 @@
+import type {
+  ScopeSupportInfo,
+  ScopeType} from "@cursorless/common";
 import {
   ScopeSupport,
-  ScopeSupportInfo,
-  ScopeType,
   sleep,
 } from "@cursorless/common";
 import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";

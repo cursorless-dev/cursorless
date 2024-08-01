@@ -1,11 +1,12 @@
-import {
+import type {
   Disposable,
   ScopeProvider,
-  ScopeTypeInfo,
+  ScopeTypeInfo} from "@cursorless/common";
+import {
   disposableFrom,
 } from "@cursorless/common";
 import { isEqual } from "lodash-es";
-import {
+import type {
   ScopeVisualizer,
   VisualizationType,
 } from "./ScopeVisualizerCommandApi";

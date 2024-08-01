@@ -1,6 +1,7 @@
-import { Range } from "@cursorless/common";
+import type { Range } from "@cursorless/common";
 import { shrinkRangeToFitContent } from "../../util/selectionUtils";
-import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
+import type { CommonTargetParameters } from "./BaseTarget";
+import { BaseTarget } from "./BaseTarget";
 import { PlainTarget } from "./PlainTarget";
 
 export class DocumentTarget extends BaseTarget<CommonTargetParameters> {

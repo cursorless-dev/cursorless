@@ -1,4 +1,5 @@
-import { TabInputTextDiff, TextEditor, window } from "vscode";
+import type { TextEditor} from "vscode";
+import { TabInputTextDiff, window } from "vscode";
 
 /**
  * @param editor The editor to check

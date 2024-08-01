@@ -1,4 +1,4 @@
-import { Snippet, SnippetMap } from "@cursorless/common";
+import type { Snippet, SnippetMap } from "@cursorless/common";
 
 /**
  * Handles all cursorless snippets, including core, third-party and

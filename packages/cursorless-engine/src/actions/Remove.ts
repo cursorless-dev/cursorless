@@ -1,13 +1,14 @@
-import { FlashStyle, TextEditor } from "@cursorless/common";
+import type { TextEditor } from "@cursorless/common";
+import { FlashStyle } from "@cursorless/common";
 import { flatten, zip } from "lodash-es";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { RawSelectionTarget } from "../processTargets/targets";
 import { ide } from "../singletons/ide.singleton";
-import { Target } from "../typings/target.types";
+import type { Target } from "../typings/target.types";
 import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
 import { unifyRemovalTargets } from "../util/unifyRanges";
-import { ActionReturnValue, SimpleAction } from "./actions.types";
+import type { ActionReturnValue, SimpleAction } from "./actions.types";
 
 export default class Delete implements SimpleAction {
   constructor(private rangeUpdater: RangeUpdater) {

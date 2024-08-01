@@ -1,4 +1,5 @@
-import { DefaultMap, SimpleSurroundingPairName } from "@cursorless/common";
+import type { SimpleSurroundingPairName } from "@cursorless/common";
+import { DefaultMap } from "@cursorless/common";
 import type { DelimiterOccurrence, SurroundingPairOccurrence } from "./types";
 
 /**

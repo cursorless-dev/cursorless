@@ -6,13 +6,13 @@ import {
   type TextEditor,
 } from "@cursorless/common";
 import { flatten } from "lodash-es";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
 import type { Destination } from "../typings/target.types";
 import { runForEachEditor } from "../util/targetUtils";
 import type { ActionReturnValue } from "./actions.types";
-import { DestinationWithText } from "./PasteFromClipboard";
+import type { DestinationWithText } from "./PasteFromClipboard";
 
 /**
  * This action pastes the text from the clipboard into the target editor directly

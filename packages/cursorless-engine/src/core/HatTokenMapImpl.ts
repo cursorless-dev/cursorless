@@ -1,4 +1,4 @@
-import {
+import type {
   CommandServerApi,
   HatTokenMap,
   Hats,
@@ -6,10 +6,10 @@ import {
   TokenHat,
 } from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
-import { Debug } from "./Debug";
+import type { Debug } from "./Debug";
 import { HatAllocator } from "./HatAllocator";
 import { IndividualHatMap } from "./IndividualHatMap";
-import { RangeUpdater } from "./updateSelections/RangeUpdater";
+import type { RangeUpdater } from "./updateSelections/RangeUpdater";
 
 /**
  * Maximum age for the pre-phrase snapshot before we consider it to be stale

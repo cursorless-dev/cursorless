@@ -1,10 +1,11 @@
+import type {
+  CustomSpokenFormGenerator} from "@cursorless/cursorless-engine";
 import {
-  CustomSpokenFormGenerator,
   parseScopeType,
 } from "@cursorless/cursorless-engine";
 import { getScopeTypeSpokenFormStrict } from "../getScopeTypeSpokenFormStrict";
 import { specialTerms } from "../specialTerms";
-import { StepComponent } from "../types/StepComponent";
+import type { StepComponent } from "../types/StepComponent";
 
 /**
  * Parses components of the form `{visualize:funk}`. Displays the command for

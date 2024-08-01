@@ -2,11 +2,11 @@ import type {
   EnforceUndefined,
   InsertionMode,
   TargetPlainObject,
-} from "@cursorless/common";
-import {
+
   Range,
   Selection,
-  TextEditor,
+  TextEditor} from "@cursorless/common";
+import {
   rangeToPlainObject,
 } from "@cursorless/common";
 import { isEqual } from "lodash-es";

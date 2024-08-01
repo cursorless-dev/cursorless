@@ -1,6 +1,7 @@
-import {
+import type {
   CommandLatest,
-  PartialPrimitiveTargetDescriptor,
+  PartialPrimitiveTargetDescriptor} from "@cursorless/common";
+import {
   splitKey,
 } from "@cursorless/common";
 

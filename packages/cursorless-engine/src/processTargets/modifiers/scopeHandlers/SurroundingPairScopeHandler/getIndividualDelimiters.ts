@@ -1,12 +1,13 @@
+import type {
+  SimpleSurroundingPairName} from "@cursorless/common";
 import {
-  SimpleSurroundingPairName,
   isString,
   type ComplexSurroundingPairName,
   type SurroundingPairName,
 } from "@cursorless/common";
 import { concat, uniq } from "lodash-es";
 import { complexDelimiterMap, getSimpleDelimiterMap } from "./delimiterMaps";
-import { IndividualDelimiter } from "./types";
+import type { IndividualDelimiter } from "./types";
 
 /**
  * Given a list of delimiters, returns a list where each element corresponds to

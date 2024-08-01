@@ -1,15 +1,16 @@
+import type {
+  ScopeType,
+  SimpleScopeTypeType,
+  TextEditor} from "@cursorless/common";
 import {
   Position,
   ScopeSupport,
-  ScopeType,
-  SimpleScopeTypeType,
-  TextEditor,
   isEmptyIterable,
 } from "@cursorless/common";
-import { LegacyLanguageId } from "../languages/LegacyLanguageId";
+import type { LegacyLanguageId } from "../languages/LegacyLanguageId";
 import { languageMatchers } from "../languages/getNodeMatcher";
-import { ScopeHandlerFactory } from "../processTargets/modifiers/scopeHandlers/ScopeHandlerFactory";
-import { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
+import type { ScopeHandlerFactory } from "../processTargets/modifiers/scopeHandlers/ScopeHandlerFactory";
+import type { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
 
 /**
  * Determines the level of support for a given scope type in a given editor.

@@ -1,5 +1,6 @@
+import type {
+  SimpleScopeTypeType} from "../types/command/PartialTargetDescriptor.types";
 import {
-  SimpleScopeTypeType,
   type ScopeType,
 } from "../types/command/PartialTargetDescriptor.types";
 

@@ -1,16 +1,17 @@
-import {
+import type {
   CharacterRange,
   HatTokenMap,
   IDE,
   TestCaseSnapshot,
   TextEditor,
-  TutorialState,
+  TutorialState} from "@cursorless/common";
+import {
   plainObjectToRange,
   plainObjectToSelection,
   serializedMarksToTokenHats,
   toCharacterRange,
 } from "@cursorless/common";
-import { TutorialContent } from "./types/tutorial.types";
+import type { TutorialContent } from "./types/tutorial.types";
 
 interface HighlightedEditor {
   editor: TextEditor | undefined;

@@ -1,18 +1,19 @@
-import {
+import type {
   FlashDescriptor,
   FlashStyle,
   GeneralizedRange,
-  groupBy,
   IDE,
   Range,
+  TextEditor} from "@cursorless/common";
+import {
+  groupBy,
   Selection,
-  TextEditor,
   toCharacterRange,
   toLineRange,
 } from "@cursorless/common";
 import { zip } from "lodash-es";
-import { Destination, Target } from "../typings/target.types";
-import { SelectionWithEditor } from "../typings/Types";
+import type { Destination, Target } from "../typings/target.types";
+import type { SelectionWithEditor } from "../typings/Types";
 
 export function ensureSingleEditor(
   targets: Target[] | Destination[],

@@ -1,6 +1,8 @@
-import { MatchedText, matchRegex, testRegex } from "@cursorless/common";
+import type { MatchedText} from "@cursorless/common";
+import { matchRegex, testRegex } from "@cursorless/common";
+import type {
+  SentenceParserOptions} from "@cursorless/sentence-parser";
 import {
-  SentenceParserOptions,
   getSentences,
 } from "@cursorless/sentence-parser";
 

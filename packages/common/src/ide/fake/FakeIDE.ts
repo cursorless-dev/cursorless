@@ -1,11 +1,11 @@
 import { pull } from "lodash-es";
 import type { EditableTextEditor, TextEditor } from "../..";
-import { GeneralizedRange } from "../../types/GeneralizedRange";
-import { TextDocument } from "../../types/TextDocument";
+import type { GeneralizedRange } from "../../types/GeneralizedRange";
+import type { TextDocument } from "../../types/TextDocument";
 import type { TextDocumentChangeEvent } from "../types/Events";
-import { FlashDescriptor } from "../types/FlashDescriptor";
-import { QuickPickOptions } from "../types/QuickPickOptions";
-import {
+import type { FlashDescriptor } from "../types/FlashDescriptor";
+import type { QuickPickOptions } from "../types/QuickPickOptions";
+import type {
   Event,
   TextEditorSelectionChangeEvent,
   TextEditorVisibleRangesChangeEvent,

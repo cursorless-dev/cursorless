@@ -1,4 +1,4 @@
-import {
+import type {
   ExcludableSnapshotField,
   ExtraSnapshotField,
   FakeCommandServerApi,
@@ -12,18 +12,19 @@ import {
   TestCaseSnapshot,
   TextEditor,
 } from "@cursorless/common";
+import type {
+  StoredTargetMap} from "@cursorless/cursorless-engine";
 import {
-  StoredTargetMap,
   plainObjectToTarget,
 } from "@cursorless/cursorless-engine";
-import { VscodeTestHelpers } from "@cursorless/vscode-common";
-import * as vscode from "vscode";
+import type { VscodeTestHelpers } from "@cursorless/vscode-common";
+import type * as vscode from "vscode";
 import { takeSnapshot } from "@cursorless/test-case-recorder";
-import { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
-import { VscodeIDE } from "./ide/vscode/VscodeIDE";
+import type { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
+import type { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { toVscodeEditor } from "./ide/vscode/toVscodeEditor";
 import { vscodeApi } from "./vscodeApi";
-import { VscodeTutorial } from "./VscodeTutorial";
+import type { VscodeTutorial } from "./VscodeTutorial";
 
 export function constructTestHelpers(
   commandServerApi: FakeCommandServerApi,

@@ -1,6 +1,6 @@
-import { ActiveTutorialNoErrorsState } from "@cursorless/common";
+import type { ActiveTutorialNoErrorsState } from "@cursorless/common";
 import { type FunctionComponent } from "react";
-import { WebviewApi } from "vscode-webview";
+import type { WebviewApi } from "vscode-webview";
 import { ArrowLeftIcon } from "./ArrowLeftIcon";
 import { ArrowRightIcon } from "./ArrowRightIcon";
 import { CloseIcon } from "./CloseIcon";

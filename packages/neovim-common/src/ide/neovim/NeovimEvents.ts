@@ -1,10 +1,11 @@
-import {
+import type {
   Disposable,
-  Position,
-  Range,
   TextDocument,
   TextDocumentChangeEvent,
-  TextDocumentContentChangeEvent,
+  TextDocumentContentChangeEvent} from "@cursorless/common";
+import {
+  Position,
+  Range
 } from "@cursorless/common";
 import { getNeovimRegistry } from "@cursorless/neovim-registry";
 

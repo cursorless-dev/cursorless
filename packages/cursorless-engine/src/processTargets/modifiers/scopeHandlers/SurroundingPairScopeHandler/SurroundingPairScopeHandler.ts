@@ -1,8 +1,9 @@
-import {
+import type {
   Direction,
   Position,
   SurroundingPairScopeType,
-  TextEditor,
+  TextEditor} from "@cursorless/common";
+import {
   showError,
   type ScopeType,
 } from "@cursorless/common";
@@ -10,13 +11,13 @@ import type { LanguageDefinitions } from "../../../../languages/LanguageDefiniti
 import { ide } from "../../../../singletons/ide.singleton";
 import { BaseScopeHandler } from "../BaseScopeHandler";
 import { compareTargetScopes } from "../compareTargetScopes";
-import { TargetScope } from "../scope.types";
-import { ScopeIteratorRequirements } from "../scopeHandler.types";
+import type { TargetScope } from "../scope.types";
+import type { ScopeIteratorRequirements } from "../scopeHandler.types";
 import { createTargetScope } from "./createTargetScope";
 import { getDelimiterOccurrences } from "./getDelimiterOccurrences";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";
 import { getSurroundingPairOccurrences } from "./getSurroundingPairOccurrences";
-import { SurroundingPairOccurrence } from "./types";
+import type { SurroundingPairOccurrence } from "./types";
 
 export class SurroundingPairScopeHandler extends BaseScopeHandler {
   public readonly iterationScopeType: ScopeType = { type: "line" };

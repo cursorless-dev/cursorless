@@ -1,15 +1,16 @@
-import {
+import type {
   Edit,
+  TextEditor} from "@cursorless/common";
+import {
   FlashStyle,
   Position,
-  Range,
-  TextEditor,
+  Range
 } from "@cursorless/common";
 import { flatten, zip } from "lodash-es";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
-import { Target } from "../typings/target.types";
+import type { Target } from "../typings/target.types";
 import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
 import type { ActionReturnValue } from "./actions.types";
 

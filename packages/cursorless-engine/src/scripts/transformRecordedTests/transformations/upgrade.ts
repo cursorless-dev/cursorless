@@ -1,7 +1,8 @@
-import {
+import type {
   CommandVersion,
-  LATEST_VERSION,
-  TestCaseFixtureLegacy,
+  TestCaseFixtureLegacy} from "@cursorless/common";
+import {
+  LATEST_VERSION
 } from "@cursorless/common";
 import { upgradeCommand } from "../../../core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 

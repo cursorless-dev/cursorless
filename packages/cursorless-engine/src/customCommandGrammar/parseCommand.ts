@@ -1,6 +1,7 @@
-import { ScopeType, type ActionDescriptor } from "@cursorless/common";
+import type { ScopeType} from "@cursorless/common";
+import { type ActionDescriptor } from "@cursorless/common";
 import { Grammar, Parser } from "nearley";
-import { WithPlaceholders } from "./WithPlaceholders";
+import type { WithPlaceholders } from "./WithPlaceholders";
 import grammar from "./generated/grammar";
 
 function getScopeTypeParser(): Parser {

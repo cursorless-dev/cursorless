@@ -1,10 +1,10 @@
-import { TestCaseFixtureLegacy } from "../types/TestCaseFixture";
-import { ActionDescriptor } from "../types/command/ActionDescriptor";
-import { CommandV6 } from "../types/command/CommandV6.types";
-import { CommandV7 } from "../types/command/CommandV7.types";
-import { Command } from "../types/command/command.types";
-import { CommandV5 } from "../types/command/legacy/CommandV5.types";
-import { EnforceUndefined } from "../util/typeUtils";
+import type { TestCaseFixtureLegacy } from "../types/TestCaseFixture";
+import type { ActionDescriptor } from "../types/command/ActionDescriptor";
+import type { CommandV6 } from "../types/command/CommandV6.types";
+import type { CommandV7 } from "../types/command/CommandV7.types";
+import type { Command } from "../types/command/command.types";
+import type { CommandV5 } from "../types/command/legacy/CommandV5.types";
+import type { EnforceUndefined } from "../util/typeUtils";
 import { serialize } from "./serialize";
 
 function reorderFields(

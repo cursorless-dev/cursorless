@@ -1,24 +1,25 @@
-import {
+import type {
   ActionType,
   CommandLatest,
   CommandResponse,
   EnforceUndefined,
-  extractTargetedMarks,
   ExtraSnapshotField,
   Fallback,
   FocusedElementType,
-  marksToPlainObject,
   PartialTargetDescriptor,
   PlainSpyIDERecordedValues,
   ReadOnlyHatMap,
   SerializedMarks,
-  serializeTestFixture,
   SpyIDE,
-  spyIDERecordedValuesToPlainObject,
   TestCaseFixture,
   TestCaseSnapshot,
   ThrownError,
-  Token,
+  Token} from "@cursorless/common";
+import {
+  extractTargetedMarks,
+  marksToPlainObject,
+  serializeTestFixture,
+  spyIDERecordedValuesToPlainObject,
   unsafeKeys,
 } from "@cursorless/common";
 import {

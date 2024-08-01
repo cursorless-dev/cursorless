@@ -1,9 +1,10 @@
 import assert from "assert";
 import { Grammar, Parser } from "nearley";
-import { KeyDescriptor } from "../TokenTypeHelpers";
+import type { KeyDescriptor } from "../TokenTypeHelpers";
 import grammar from "./generated/grammar";
+import type {
+  AcceptableTokenType} from "./getAcceptableTokenTypes";
 import {
-  AcceptableTokenType,
   MISSING,
   NEXT,
   getAcceptableTokenTypes,

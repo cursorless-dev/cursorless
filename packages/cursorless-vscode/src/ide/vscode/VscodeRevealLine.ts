@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import { RevealLineAt } from "@cursorless/common";
-import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
+import type { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
 export async function vscodeRevealLine(
   editor: VscodeTextEditorImpl,

@@ -1,18 +1,19 @@
-import {
+import type {
   Disposable,
-  ScopeSupport,
   ScopeSupportEventCallback,
   ScopeSupportInfo,
-  ScopeType,
+  ScopeType} from "@cursorless/common";
+import {
+  ScopeSupport,
   disposableFrom,
 } from "@cursorless/common";
 import { pull } from "lodash-es";
 
-import { LanguageDefinitions } from "../languages/LanguageDefinitions";
+import type { LanguageDefinitions } from "../languages/LanguageDefinitions";
 import { ide } from "../singletons/ide.singleton";
 import { DecorationDebouncer } from "../util/DecorationDebouncer";
-import { ScopeInfoProvider } from "./ScopeInfoProvider";
-import { ScopeSupportChecker } from "./ScopeSupportChecker";
+import type { ScopeInfoProvider } from "./ScopeInfoProvider";
+import type { ScopeSupportChecker } from "./ScopeSupportChecker";
 
 /**
  * Watches for changes to the scope support of the active editor and notifies

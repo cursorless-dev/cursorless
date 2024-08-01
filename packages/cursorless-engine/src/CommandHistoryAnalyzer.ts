@@ -1,8 +1,9 @@
-import {
+import type {
   CommandHistoryEntry,
   Modifier,
   PartialPrimitiveTargetDescriptor,
-  ScopeType,
+  ScopeType} from "@cursorless/common";
+import {
   showWarning,
   type CommandHistoryStorage,
 } from "@cursorless/common";

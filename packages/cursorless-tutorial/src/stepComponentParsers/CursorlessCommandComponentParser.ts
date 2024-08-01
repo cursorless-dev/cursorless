@@ -1,22 +1,24 @@
-import {
+import type {
   CommandComplete,
   CommandLatest,
-  getKey,
   Hats,
   HatStyleMap,
-  splitKey,
   TestCaseSnapshot,
   TutorialContentProvider,
-  TutorialId,
+  TutorialId} from "@cursorless/common";
+import {
+  getKey,
+  splitKey
 } from "@cursorless/common";
+import type {
+  CustomSpokenFormGenerator} from "@cursorless/cursorless-engine";
 import {
   canonicalizeAndValidateCommand,
-  CustomSpokenFormGenerator,
   getPartialTargetDescriptors,
   transformPartialPrimitiveTargets,
 } from "@cursorless/cursorless-engine";
 import { TutorialError } from "../TutorialError";
-import { StepComponent, StepComponentParser } from "../types/StepComponent";
+import type { StepComponent, StepComponentParser } from "../types/StepComponent";
 import { cloneDeep, mapKeys } from "lodash-es";
 import { produce } from "immer";
 

@@ -1,15 +1,16 @@
-import {
+import type {
   Disposable,
   ScopeType,
   ScopeTypeInfo,
   ScopeTypeInfoEventCallback,
-  SurroundingPairScopeType,
+  SurroundingPairScopeType} from "@cursorless/common";
+import {
   simpleScopeTypeTypes,
   surroundingPairNames,
 } from "@cursorless/common";
 import { pull } from "lodash-es";
 
-import { CustomSpokenFormGeneratorImpl } from "../generateSpokenForm/CustomSpokenFormGeneratorImpl";
+import type { CustomSpokenFormGeneratorImpl } from "../generateSpokenForm/CustomSpokenFormGeneratorImpl";
 import { scopeTypeToString } from "./scopeTypeToString";
 
 /**

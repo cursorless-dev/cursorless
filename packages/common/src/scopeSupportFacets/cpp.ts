@@ -1,6 +1,7 @@
 import { cScopeSupport } from "./c";
+import type {
+  LanguageScopeSupportFacetMap} from "./scopeSupportFacets.types";
 import {
-  LanguageScopeSupportFacetMap,
   ScopeSupportFacetLevel,
 } from "./scopeSupportFacets.types";
 

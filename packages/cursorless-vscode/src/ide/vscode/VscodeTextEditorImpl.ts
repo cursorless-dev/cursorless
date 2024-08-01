@@ -1,4 +1,4 @@
-import {
+import type {
   BreakpointDescriptor,
   Edit,
   EditableTextEditor,
@@ -7,10 +7,11 @@ import {
   RevealLineAt,
   Selection,
   SetSelectionsOpts,
-  sleep,
   TextDocument,
   TextEditor,
-  TextEditorOptions,
+  TextEditorOptions} from "@cursorless/common";
+import {
+  sleep,
   uniqWithHash,
 } from "@cursorless/common";
 import {
@@ -23,7 +24,7 @@ import * as vscode from "vscode";
 import vscodeEdit from "./VscodeEdit";
 import vscodeFocusEditor from "./VscodeFocusEditor";
 import { vscodeFold, vscodeUnfold } from "./VscodeFold";
-import { VscodeIDE } from "./VscodeIDE";
+import type { VscodeIDE } from "./VscodeIDE";
 import { vscodeInsertSnippet } from "./VscodeInsertSnippets";
 import {
   vscodeEditNewNotebookCellAbove,

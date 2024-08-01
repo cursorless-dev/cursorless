@@ -1,11 +1,12 @@
-import {
+import type {
   Hats,
   TutorialContentProvider,
   TutorialId,
   TutorialStepFragment,
 } from "@cursorless/common";
+import type {
+  CustomSpokenFormGenerator} from "@cursorless/cursorless-engine";
 import {
-  CustomSpokenFormGenerator,
   parseScopeType,
 } from "@cursorless/cursorless-engine";
 import { getScopeTypeSpokenFormStrict } from "./getScopeTypeSpokenFormStrict";
@@ -15,8 +16,8 @@ import { CursorlessCommandComponentParser } from "./stepComponentParsers/Cursorl
 import { GraphemeComponentParser } from "./stepComponentParsers/GraphemeComponentParser";
 import { parseSpecialComponent } from "./stepComponentParsers/parseSpecialComponent";
 import { parseVisualizeComponent } from "./stepComponentParsers/parseVisualizeComponent";
-import { StepComponent } from "./types/StepComponent";
-import { TutorialStep } from "./types/tutorial.types";
+import type { StepComponent } from "./types/StepComponent";
+import type { TutorialStep } from "./types/tutorial.types";
 
 /**
  * This is trying to catch occurrences of things like `{command:cloneStateInk.yml}`

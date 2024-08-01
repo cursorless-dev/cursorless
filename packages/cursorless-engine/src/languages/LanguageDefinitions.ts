@@ -1,8 +1,9 @@
-import {
+import type {
   Disposable,
-  Notifier,
   Range,
-  TextDocument,
+  TextDocument} from "@cursorless/common";
+import {
+  Notifier,
   showError,
   type IDE,
   type Listener,

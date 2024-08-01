@@ -1,19 +1,20 @@
-import { FileSystem, TutorialId, TutorialState } from "@cursorless/common";
+import type { FileSystem, TutorialId, TutorialState } from "@cursorless/common";
 import { getCursorlessRepoRoot } from "@cursorless/node-common";
-import { SpyWebViewEvent, VscodeApi } from "@cursorless/vscode-common";
+import type { SpyWebViewEvent, VscodeApi } from "@cursorless/vscode-common";
 import path from "node:path";
-import {
+import type {
   CancellationToken,
   ExtensionContext,
-  ExtensionMode,
-  Uri,
   WebviewView,
   WebviewViewProvider,
-  WebviewViewResolveContext,
+  WebviewViewResolveContext} from "vscode";
+import {
+  ExtensionMode,
+  Uri
 } from "vscode";
-import { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
+import type { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
 import { SpyWebviewView } from "./SpyWebviewView";
-import { Tutorial } from "@cursorless/cursorless-tutorial";
+import type { Tutorial } from "@cursorless/cursorless-tutorial";
 
 const VSCODE_TUTORIAL_WEBVIEW_ID = "cursorless.tutorial";
 

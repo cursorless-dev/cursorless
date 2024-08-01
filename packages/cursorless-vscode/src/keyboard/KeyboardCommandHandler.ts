@@ -1,16 +1,17 @@
-import { Modifier, PartialMark, SurroundingPairName } from "@cursorless/common";
+import type { Modifier, PartialMark, SurroundingPairName } from "@cursorless/common";
 import { surroundingPairsDelimiters } from "@cursorless/cursorless-engine";
 import { isString } from "lodash-es";
 import * as vscode from "vscode";
-import { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
-import {
+import type { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
+import type {
   SimpleKeyboardActionDescriptor,
   SpecificKeyboardActionDescriptor,
 } from "./KeyboardActionType";
-import KeyboardCommandsTargeted, {
+import type {
   TargetingMode,
 } from "./KeyboardCommandsTargeted";
-import { ModalVscodeCommandDescriptor } from "./TokenTypes";
+import type KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
+import type { ModalVscodeCommandDescriptor } from "./TokenTypes";
 
 /**
  * This class defines the keyboard commands available to our modal keyboard

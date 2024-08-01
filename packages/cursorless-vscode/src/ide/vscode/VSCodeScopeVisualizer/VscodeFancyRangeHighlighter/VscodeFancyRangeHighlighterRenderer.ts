@@ -1,18 +1,20 @@
 import { CompositeKeyDefaultMap } from "@cursorless/common";
 import { toVscodeRange } from "@cursorless/vscode-common";
-import {
-  DecorationRangeBehavior,
+import type {
   DecorationRenderOptions,
-  TextEditorDecorationType,
+  TextEditorDecorationType} from "vscode";
+import {
+  DecorationRangeBehavior
 } from "vscode";
 import { vscodeApi } from "../../../../vscodeApi";
-import { VscodeTextEditorImpl } from "../../VscodeTextEditorImpl";
-import { RangeTypeColors } from "../RangeTypeColors";
-import {
-  BorderStyle,
+import type { VscodeTextEditorImpl } from "../../VscodeTextEditorImpl";
+import type { RangeTypeColors } from "../RangeTypeColors";
+import type {
   DecorationStyle,
   DifferentiatedStyle,
-  DifferentiatedStyledRangeList,
+  DifferentiatedStyledRangeList} from "./decorationStyle.types";
+import {
+  BorderStyle
 } from "./decorationStyle.types";
 import { getDifferentiatedStyleMapKey } from "./getDifferentiatedStyleMapKey";
 

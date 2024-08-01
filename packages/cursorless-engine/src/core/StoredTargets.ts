@@ -1,6 +1,7 @@
 import { DefaultMap, Notifier } from "@cursorless/common";
-import { Target } from "../typings/target.types";
-import { StoredTargetKey, storedTargetKeys } from "@cursorless/common";
+import type { Target } from "../typings/target.types";
+import type { StoredTargetKey} from "@cursorless/common";
+import { storedTargetKeys } from "@cursorless/common";
 import { UndoStack } from "./UndoStack";
 
 const MAX_HISTORY_LENGTH = 25;

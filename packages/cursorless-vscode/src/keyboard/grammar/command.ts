@@ -1,8 +1,9 @@
-import { KeyboardCommandArgTypes } from "../KeyboardCommandTypeHelpers";
-import { CommandRulePostProcessor } from "./CommandRulePostProcessor";
-import {
+import type { KeyboardCommandArgTypes } from "../KeyboardCommandTypeHelpers";
+import type { CommandRulePostProcessor } from "./CommandRulePostProcessor";
+import type {
   ArgExtractor,
-  Unused,
+  Unused} from "@cursorless/cursorless-engine";
+import {
   getArgExtractors,
   constructPayload,
 } from "@cursorless/cursorless-engine";

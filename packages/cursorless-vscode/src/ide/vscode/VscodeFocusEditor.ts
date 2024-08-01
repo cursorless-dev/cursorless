@@ -1,14 +1,15 @@
 import { getCellIndex } from "@cursorless/vscode-common";
+import type {
+  NotebookDocument,
+  TextEditor} from "vscode";
 import {
   commands,
-  NotebookDocument,
   TabInputTextDiff,
-  TextEditor,
   ViewColumn,
   window,
 } from "vscode";
 import { getNotebookFromCellDocument } from "./notebook/notebook";
-import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
+import type { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
 const columnFocusCommands = {
   [ViewColumn.One]: "workbench.action.focusFirstEditorGroup",

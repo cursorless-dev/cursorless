@@ -1,4 +1,5 @@
-import { CodeAction, commands, window } from "vscode";
+import type { CodeAction} from "vscode";
+import { commands, window } from "vscode";
 
 /**
  * Displays quick actions at the current cursor position in the active text

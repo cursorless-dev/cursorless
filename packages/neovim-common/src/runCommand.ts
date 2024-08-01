@@ -1,6 +1,7 @@
-import {
+import type {
   Command,
-  CommandResponse,
+  CommandResponse} from "@cursorless/common";
+import {
   CURSORLESS_COMMAND_ID,
 } from "@cursorless/common";
 import { getNeovimRegistry } from "@cursorless/neovim-registry";

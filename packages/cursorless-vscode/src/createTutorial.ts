@@ -1,14 +1,14 @@
-import { Hats, HatTokenMap, IDE } from "@cursorless/common";
-import {
+import type { Hats, HatTokenMap, IDE } from "@cursorless/common";
+import type {
   CommandRunnerDecorator,
   CustomSpokenFormGenerator,
 } from "@cursorless/cursorless-engine";
 import { TutorialImpl } from "@cursorless/cursorless-tutorial";
 import { FileSystemTutorialContentProvider } from "@cursorless/node-common";
-import * as vscode from "vscode";
-import { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
+import type * as vscode from "vscode";
+import type { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
 import { VscodeTutorial } from "./VscodeTutorial";
-import { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
+import type { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
 import { vscodeApi } from "./vscodeApi";
 
 export function createTutorial(

@@ -1,12 +1,12 @@
-import {
+import type {
   InsertionMode,
   Range,
   Selection,
   TextEditor,
 } from "@cursorless/common";
-import { EditWithRangeUpdater } from "../../typings/Types";
-import { Destination, EditNewActionType } from "../../typings/target.types";
-import { NotebookCellTarget } from "./NotebookCellTarget";
+import type { EditWithRangeUpdater } from "../../typings/Types";
+import type { Destination, EditNewActionType } from "../../typings/target.types";
+import type { NotebookCellTarget } from "./NotebookCellTarget";
 
 export class NotebookCellDestination implements Destination {
   constructor(

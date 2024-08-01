@@ -1,4 +1,4 @@
-import {
+import type {
   Capabilities,
   Clipboard,
   Configuration,
@@ -10,7 +10,6 @@ import {
   InputBoxOptions,
   Listener,
   Messages,
-  Notifier,
   OpenUntitledTextDocumentOptions,
   QuickPickOptions,
   RunMode,
@@ -19,7 +18,9 @@ import {
   TextEditor,
   TextEditorSelectionChangeEvent,
   TextEditorVisibleRangesChangeEvent,
-  WorkspaceFolder,
+  WorkspaceFolder} from "@cursorless/common";
+import {
+  Notifier,
   type KeyValueStore,
 } from "@cursorless/common";
 import { pull } from "lodash-es";

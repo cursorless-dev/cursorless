@@ -1,6 +1,6 @@
-import { ActionType } from "../types/command/ActionDescriptor";
-import { Command } from "../types/command/command.types";
-import { PartialTargetV0V1 } from "../types/command/legacy/CommandV0V1.types";
+import type { ActionType } from "../types/command/ActionDescriptor";
+import type { Command } from "../types/command/command.types";
+import type { PartialTargetV0V1 } from "../types/command/legacy/CommandV0V1.types";
 import { isString } from "./type";
 
 /**

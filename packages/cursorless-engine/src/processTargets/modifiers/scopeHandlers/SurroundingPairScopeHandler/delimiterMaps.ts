@@ -1,6 +1,7 @@
-import {
+import type {
   ComplexSurroundingPairName,
-  SimpleSurroundingPairName,
+  SimpleSurroundingPairName} from "@cursorless/common";
+import {
   unsafeKeys,
 } from "@cursorless/common";
 

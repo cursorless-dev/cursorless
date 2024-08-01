@@ -1,11 +1,12 @@
-import {
+import type {
   EndOfLine,
-  Position,
-  Range,
   TextDocument,
-  TextLine,
+  TextLine} from "@cursorless/common";
+import {
+  Position,
+  Range
 } from "@cursorless/common";
-import { URI } from "vscode-uri";
+import type { URI } from "vscode-uri";
 import NeovimTextLineImpl from "./NeovimTextLineImpl";
 import path from "node:path";
 

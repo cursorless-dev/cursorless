@@ -3,13 +3,13 @@ import { flatten, zip } from "lodash-es";
 import { selectionToStoredTarget } from "../core/commandRunner/selectionToStoredTarget";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { ide } from "../singletons/ide.singleton";
-import { Target } from "../typings/target.types";
+import type { Target } from "../typings/target.types";
 import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
 import {
   IndentLineSimpleAction,
   OutdentLineSimpleAction,
 } from "./SimpleIdeCommandActions";
-import { ActionReturnValue } from "./actions.types";
+import type { ActionReturnValue } from "./actions.types";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 
 abstract class IndentLineBase {

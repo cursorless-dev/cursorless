@@ -1,11 +1,12 @@
-import { Direction, Position, TextEditor, showError } from "@cursorless/common";
+import type { Direction, Position, TextEditor} from "@cursorless/common";
+import { showError } from "@cursorless/common";
 import { uniqWith } from "lodash-es";
-import { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
-import { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
+import type { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
+import type { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
 import { BaseScopeHandler } from "../BaseScopeHandler";
 import { compareTargetScopes } from "../compareTargetScopes";
-import { TargetScope } from "../scope.types";
-import { ScopeIteratorRequirements } from "../scopeHandler.types";
+import type { TargetScope } from "../scope.types";
+import type { ScopeIteratorRequirements } from "../scopeHandler.types";
 import { mergeAdjacentBy } from "./mergeAdjacentBy";
 import { ide } from "../../../../singletons/ide.singleton";
 

@@ -1,4 +1,4 @@
-import {
+import type {
   BreakpointDescriptor,
   Edit,
   EditableTextEditor,
@@ -13,8 +13,8 @@ import type { NeovimClient, Window } from "neovim";
 import { bufferSetSelections } from "../../neovimApi";
 import { neovimClipboardCopy, neovimClipboardPaste } from "../../neovimHelpers";
 import neovimEdit from "./NeovimEdit";
-import { NeovimIDE } from "./NeovimIDE";
-import { NeovimTextDocumentImpl } from "./NeovimTextDocumentImpl";
+import type { NeovimIDE } from "./NeovimIDE";
+import type { NeovimTextDocumentImpl } from "./NeovimTextDocumentImpl";
 
 export class NeovimTextEditorImpl implements EditableTextEditor {
   private _document: NeovimTextDocumentImpl;

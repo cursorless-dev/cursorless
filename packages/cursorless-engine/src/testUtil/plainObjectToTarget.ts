@@ -1,10 +1,11 @@
-import {
-  plainObjectToRange,
+import type {
   TargetPlainObject,
-  TextEditor,
+  TextEditor} from "@cursorless/common";
+import {
+  plainObjectToRange
 } from "@cursorless/common";
 import { LineTarget, UntypedTarget } from "../processTargets/targets";
-import { Target } from "../typings/target.types";
+import type { Target } from "../typings/target.types";
 
 /**
  * Given a plain object describing a target, constructs a `Target` object.

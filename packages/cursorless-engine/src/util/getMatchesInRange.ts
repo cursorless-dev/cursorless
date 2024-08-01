@@ -1,6 +1,7 @@
+import type {
+  TextEditor} from "@cursorless/common";
 import {
   Range,
-  TextEditor,
   matchAll,
   type Direction,
 } from "@cursorless/common";

@@ -1,5 +1,6 @@
+import type {
+  ScopeType} from "@cursorless/common";
 import {
-  ScopeType,
   camelCaseToAllDown,
   isSimpleScopeType,
 } from "@cursorless/common";

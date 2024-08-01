@@ -5,9 +5,9 @@ import {
   pasteFromClipboard,
   setClipboard,
 } from "@cursorless/neovim-common";
-import { NeovimTextEditorImpl } from "./ide/neovim/NeovimTextEditorImpl";
+import type { NeovimTextEditorImpl } from "./ide/neovim/NeovimTextEditorImpl";
 import type { NeovimClient } from "neovim";
-import { IDE } from "@cursorless/common";
+import type { IDE } from "@cursorless/common";
 
 export async function neovimClipboardCopy(
   client: NeovimClient,

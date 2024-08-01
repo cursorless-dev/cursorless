@@ -1,7 +1,8 @@
-import {
+import type {
   Disposable,
+  TokenHatSplittingMode} from "@cursorless/common";
+import {
   Notifier,
-  TokenHatSplittingMode,
   matchAll,
 } from "@cursorless/common";
 import { deburr, escapeRegExp } from "lodash-es";
