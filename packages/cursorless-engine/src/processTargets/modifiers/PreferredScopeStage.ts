@@ -77,23 +77,23 @@ function getClosestScopeTargets(
 }
 
 function getClosestScope(scopes: Iterable<TargetScope>, position: Position) {
-  let preferredScope: TargetScope | undefined;
-  let preferredDistance = Infinity;
+  let closestScope: TargetScope | undefined;
+  let closestDistance = Infinity;
 
   for (const scope of scopes) {
     const distance = Math.min(
       distanceBetweenPositions(position, scope.domain.start),
       distanceBetweenPositions(position, scope.domain.end),
     );
-    if (distance < preferredDistance) {
-      preferredScope = scope;
-      preferredDistance = distance;
+    if (distance < closestDistance) {
+      closestScope = scope;
+      closestDistance = distance;
     } else {
       break;
     }
   }
 
-  return { scope: preferredScope, distance: preferredDistance };
+  return { scope: closestScope, distance: closestDistance };
 }
 
 function distanceBetweenPositions(a: Position, b: Position): number {
