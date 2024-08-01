@@ -1,12 +1,13 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: bring fine
-  action: {name: replaceWithTarget}
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
-    - {type: implicit}
+    destination: {type: implicit}
   usePrePhraseSnapshot: false
 initialState:
   documentContents: foo world

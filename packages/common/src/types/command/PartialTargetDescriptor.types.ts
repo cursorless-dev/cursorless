@@ -113,11 +113,13 @@ export const simpleSurroundingPairNames = [
   "doubleQuotes",
   "escapedDoubleQuotes",
   "escapedParentheses",
-  "escapedSquareBrackets",
   "escapedSingleQuotes",
+  "escapedSquareBrackets",
   "parentheses",
   "singleQuotes",
   "squareBrackets",
+  "tripleDoubleQuotes",
+  "tripleSingleQuotes",
 ] as const;
 export const complexSurroundingPairNames = [
   "string",
@@ -192,6 +194,7 @@ export const simpleScopeTypeTypes = [
   "line",
   "sentence",
   "paragraph",
+  "boundedParagraph",
   "document",
   "nonWhitespaceSequence",
   "boundedNonWhitespaceSequence",
@@ -201,6 +204,7 @@ export const simpleScopeTypeTypes = [
   "command",
   // Private scope types
   "textFragment",
+  "disqualifyDelimiter",
 ] as const;
 
 export function isSimpleScopeType(
@@ -221,9 +225,15 @@ export interface CustomRegexScopeType {
 }
 
 export type SurroundingPairDirection = "left" | "right";
+
 export interface SurroundingPairScopeType {
   type: "surroundingPair";
   delimiter: SurroundingPairName;
+
+  /**
+   * @deprecated Not supported by next-gen surrounding pairs; we don't believe
+   * anyone uses this
+   */
   forceDirection?: SurroundingPairDirection;
 
   /**
@@ -231,6 +241,15 @@ export interface SurroundingPairScopeType {
    * selection, ie without the edges touching.
    */
   requireStrongContainment?: boolean;
+}
+
+/**
+ * This differs from the normal @SurroundingPairScopeType that it always
+ * uses `requireStrongContainment` and the content range is the pair interior
+ * */
+export interface SurroundingPairInteriorScopeType {
+  type: "surroundingPairInterior";
+  delimiter: SurroundingPairName;
 }
 
 export interface OneOfScopeType {
@@ -246,6 +265,7 @@ export interface GlyphScopeType {
 export type ScopeType =
   | SimpleScopeType
   | SurroundingPairScopeType
+  | SurroundingPairInteriorScopeType
   | CustomRegexScopeType
   | OneOfScopeType
   | GlyphScopeType;

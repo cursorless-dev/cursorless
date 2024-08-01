@@ -35,8 +35,10 @@ export function serializeTargetRange(
   const { start, end } = range;
   const lines: string[] = [];
 
+  // Number of characters in the line number + `|`
+  const startIndent = start.line.toString().length + 1;
   // Add start of range marker above the first code line
-  const prefix = fill(" ", start.character + 2) + ">";
+  const prefix = fill(" ", startIndent + start.character) + ">";
   if (range.isSingleLine) {
     lines.push(prefix + fill("-", end.character - start.character) + "<");
   } else {
@@ -48,7 +50,7 @@ export function serializeTargetRange(
   // Output the range with each line prefixed by `n| `, eg:
   // `3| const foo = // "bar"`
   for (let lineNumber = start.line; lineNumber <= end.line; ++lineNumber) {
-    const codeLine = codeLines[lineNumber]!;
+    const codeLine = codeLines[lineNumber];
 
     lines.push(
       codeLine.length > 0 ? `${lineNumber}| ${codeLine}` : `${lineNumber}|`,
@@ -58,11 +60,14 @@ export function serializeTargetRange(
   // Add end of range marker below the last code line (if this was a multiline
   // range)
   if (!range.isSingleLine) {
-    lines.push("   " + fill("-", end.character) + "<");
+    // Number of characters in the line number + `|` + whitespace
+    const endIndent = end.line.toString().length + 2;
+    lines.push(fill(" ", endIndent) + fill("-", end.character) + "<");
   }
 
   return lines.join("\n");
 }
+
 function fill(character: string, count: number): string {
   return new Array(count + 1).join(character);
 }

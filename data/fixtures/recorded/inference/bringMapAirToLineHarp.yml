@@ -1,19 +1,24 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: bring map air to line harp
-  action: {name: replaceWithTarget}
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: map}
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
-    - type: primitive
-      modifiers:
-        - type: containingScope
-          scopeType: {type: line}
-      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: line}
+        mark: {type: decoratedSymbol, symbolColor: default, character: h}
   usePrePhraseSnapshot: false
 initialState:
   documentContents: |2-

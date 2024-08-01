@@ -1,10 +1,11 @@
 languageId: html
 command:
-  version: 5
+  version: 6
   spokenForm: pour element
-  action: {name: editNewLineAfter}
-  targets:
-    - type: primitive
+  action:
+    name: editNewLineAfter
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: xmlElement}

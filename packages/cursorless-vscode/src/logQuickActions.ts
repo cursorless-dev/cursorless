@@ -12,7 +12,7 @@ export async function logQuickActions(kind?: string) {
   const editor = window.activeTextEditor;
 
   if (editor == null) {
-    window.showErrorMessage("No active editor");
+    void window.showErrorMessage("No active editor");
     return;
   }
 
@@ -33,7 +33,7 @@ export async function logQuickActions(kind?: string) {
     console.log(`${JSON.stringify(availableCodeAction, null, 2)}`);
   });
 
-  window.showInformationMessage(
+  void window.showInformationMessage(
     "Run command 'Developer: Toggle Developer Tools' to see available code actions",
   );
 

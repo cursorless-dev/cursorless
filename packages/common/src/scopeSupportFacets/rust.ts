@@ -8,4 +8,5 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   ifStatement: supported,
+  disqualifyDelimiter: supported,
 };

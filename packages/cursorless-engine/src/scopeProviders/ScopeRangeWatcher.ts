@@ -73,7 +73,7 @@ export class ScopeRangeWatcher {
             config,
           );
         } catch (err) {
-          showError(
+          void showError(
             ide().messages,
             "ScopeRangeWatcher.provide",
             (err as Error).message,

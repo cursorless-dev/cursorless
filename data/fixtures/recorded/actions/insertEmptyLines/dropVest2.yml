@@ -1,10 +1,11 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: drop vest
-  action: {name: insertEmptyLineBefore}
-  targets:
-    - type: primitive
+  action:
+    name: insertEmptyLineBefore
+    target:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
   usePrePhraseSnapshot: true
 initialState:

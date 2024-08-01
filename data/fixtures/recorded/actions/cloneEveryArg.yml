@@ -1,10 +1,11 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: clone every arg
-  action: {name: insertCopyAfter}
-  targets:
-    - type: primitive
+  action:
+    name: insertCopyAfter
+    target:
+      type: primitive
       modifiers:
         - type: everyScope
           scopeType: {type: argumentOrParameter}

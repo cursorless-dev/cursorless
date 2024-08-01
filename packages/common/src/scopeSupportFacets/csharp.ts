@@ -10,6 +10,9 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   ifStatement: supported,
   switchStatementSubject: supported,
   anonymousFunction: supported,
+  map: supported,
+  list: supported,
+  disqualifyDelimiter: supported,
 
   class: supported,
   "class.iteration.document": supported,
@@ -39,6 +42,30 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "condition.switchCase": supported,
   "condition.ternary": supported,
   "condition.switchCase.iteration": supported,
+
+  "name.variable": supported,
+  "name.assignment": supported,
+  "name.argument.formal": supported,
+  "name.argument.formal.iteration": supported,
+
+  "value.variable": supported,
+  "value.assignment": supported,
+  "value.mapPair": supported,
+  "value.mapPair.iteration": supported,
+  "value.argument.formal": supported,
+  "value.argument.formal.iteration": supported,
+
+  "type.variable": supported,
+  "type.argument.formal": supported,
+  "type.argument.formal.iteration": supported,
+
+  "key.mapPair": supported,
+  "key.mapPair.iteration": supported,
+
+  "argument.actual": supported,
+  "argument.actual.iteration": supported,
+  "argument.formal": supported,
+  "argument.formal.iteration": supported,
 
   regularExpression: notApplicable,
 };

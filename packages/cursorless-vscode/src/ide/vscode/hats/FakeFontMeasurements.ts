@@ -5,7 +5,7 @@ export class FakeFontMeasurements implements FontMeasurements {
   characterWidth = 12;
   characterHeight = 12;
 
-  clearCache() {
+  async clearCache() {
     // Do nothing
   }
 

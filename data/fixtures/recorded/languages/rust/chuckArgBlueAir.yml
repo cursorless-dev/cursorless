@@ -1,14 +1,15 @@
 languageId: rust
 command:
-  version: 5
+  version: 6
   spokenForm: chuck arg blue air
-  action: {name: remove}
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: blue, character: a}
+  action:
+    name: remove
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: argumentOrParameter}
+      mark: {type: decoratedSymbol, symbolColor: blue, character: a}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |

@@ -28,7 +28,7 @@ export async function registerCommands(
       const originalMode = await client.mode;
       if (originalMode.mode === "t") {
         // Switch to "nt" so we can easily call lua functions without any problems
-        modeSwitchNormalTerminal(client);
+        void modeSwitchNormalTerminal(client);
       }
 
       try {
@@ -49,7 +49,7 @@ export async function registerCommands(
           ) {
             // if user runs a terminal, and a "bring" command was requested, switch back to "t" mode
             // so the fallback can do its magic
-            modeSwitchTerminal(client);
+            void modeSwitchTerminal(client);
           }
         }
 

@@ -8,4 +8,5 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const yamlScopeSupport: LanguageScopeSupportFacetMap = {
   "comment.line": supported,
+  disqualifyDelimiter: supported,
 };

@@ -1,10 +1,11 @@
 languageId: javascript
 command:
-  version: 5
+  version: 6
   spokenForm: change inside whale
-  action: {name: clearAndSetSelection}
-  targets:
-    - type: primitive
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - {type: interiorOnly}
       mark: {type: decoratedSymbol, symbolColor: default, character: w}

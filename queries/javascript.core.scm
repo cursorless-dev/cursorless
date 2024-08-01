@@ -1,6 +1,8 @@
 ;; import javascript.function.scm
 ;; import javascript.fieldAccess.scm
 
+;; https://github.com/tree-sitter/tree-sitter-javascript/blob/master/src/grammar.json
+
 ;; `name` scope without `export`
 (
   (_
@@ -351,6 +353,14 @@
 
   (#not-parent-type? @_.domain expression_statement)
 )
+
+;;!! function funk({ value = 2 })
+;;!                  ^^^^^
+;;!                          ^
+(object_assignment_pattern
+  left: (_) @name @value.leading.endOf
+  right: (_) @value
+) @_.domain
 
 ;;!! const aaa = {bbb};
 ;;!               ^^^
@@ -732,3 +742,19 @@
   "(" @argumentOrParameter.iteration.start.endOf
   ")" @argumentOrParameter.iteration.end.startOf
 ) @argumentOrParameter.iteration.domain
+
+operator: [
+  "<"
+  "<<"
+  "<<="
+  "<="
+  ">"
+  ">="
+  ">>"
+  ">>="
+  ">>>"
+  ">>>="
+] @disqualifyDelimiter
+(arrow_function
+  "=>" @disqualifyDelimiter
+)

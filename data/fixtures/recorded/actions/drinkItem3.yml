@@ -1,10 +1,11 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: drink item
-  action: {name: editNewLineBefore}
-  targets:
-    - type: primitive
+  action:
+    name: editNewLineBefore
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: collectionItem}

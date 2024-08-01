@@ -1,21 +1,25 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: bring harp after line odd and whale
-  action: {name: replaceWithTarget}
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
-    - type: list
-      elements:
-        - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: o}
-          modifiers:
-            - {type: position, position: after}
-            - type: containingScope
-              scopeType: {type: line}
-        - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: w}
+    destination:
+      type: primitive
+      insertionMode: after
+      target:
+        type: list
+        elements:
+          - type: primitive
+            modifiers:
+              - type: containingScope
+                scopeType: {type: line}
+            mark: {type: decoratedSymbol, symbolColor: default, character: o}
+          - type: primitive
+            mark: {type: decoratedSymbol, symbolColor: default, character: w}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-

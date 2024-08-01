@@ -1,13 +1,13 @@
-import { FlashStyle, Range, matchAll } from "@cursorless/common";
+import { FlashStyle, matchAll, Range } from "@cursorless/common";
 import type { Snippets } from "../../core/Snippets";
-import { Offsets } from "../../processTargets/modifiers/surroundingPair/types";
 import { ide } from "../../singletons/ide.singleton";
 import type { Target } from "../../typings/target.types";
 import { ensureSingleTarget, flashTargets } from "../../util/targetUtils";
 import type { ActionReturnValue } from "../actions.types";
-import Substituter from "./Substituter";
 import { constructSnippetBody } from "./constructSnippetBody";
 import { editText } from "./editText";
+import type { Offsets } from "./Offsets";
+import Substituter from "./Substituter";
 
 /**
  * This action can be used to automatically create a snippet from a target. Any
@@ -60,7 +60,7 @@ export default class GenerateSnippet {
     // immediately starts saying the name of the snippet (eg command chain
     // "snippet make funk camel my function"), we're more likely to
     // win the race and have the input box ready for them
-    flashTargets(ide(), targets, FlashStyle.referenced);
+    void flashTargets(ide(), targets, FlashStyle.referenced);
 
     if (snippetName == null) {
       snippetName = await ide().showInputBox({

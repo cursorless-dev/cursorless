@@ -64,7 +64,7 @@ export class KeyboardConfig {
       if (legacySectionName != null) {
         section = getSection(legacySectionName);
         if (section != null && Object.keys(section).length > 0) {
-          this.vscodeApi.window.showWarningMessage(
+          void this.vscodeApi.window.showWarningMessage(
             `The config section "cursorless.experimental.keyboard.modal.keybindings.${legacySectionName}" is deprecated. Please rename it to "cursorless.experimental.keyboard.modal.keybindings.${sectionName}".`,
           );
         }

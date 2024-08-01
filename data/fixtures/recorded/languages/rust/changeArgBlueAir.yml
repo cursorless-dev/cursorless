@@ -1,14 +1,15 @@
 languageId: rust
 command:
-  version: 5
+  version: 6
   spokenForm: change arg blue air
-  action: {name: clearAndSetSelection}
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: blue, character: a}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: argumentOrParameter}
+      mark: {type: decoratedSymbol, symbolColor: blue, character: a}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |

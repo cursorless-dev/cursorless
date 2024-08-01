@@ -87,7 +87,7 @@ export class CustomSpokenForms {
       } else {
         console.error("Error loading custom spoken forms", err);
         const msg = (err as Error).message.replace(/\.$/, "");
-        showError(
+        void showError(
           ide().messages,
           "CustomSpokenForms.updateSpokenFormMaps",
           `Error loading custom spoken forms: ${msg}. Falling back to default spoken forms.`,
