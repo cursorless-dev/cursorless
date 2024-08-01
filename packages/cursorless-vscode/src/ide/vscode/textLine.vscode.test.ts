@@ -7,8 +7,8 @@ import VscodeTextLineImpl from "./VscodeTextLineImpl";
  *
  * `[text, firstNonWhitespaceCharacterIndex, lastNonWhitespaceCharacterIndex]`
  */
-const whiteSpaceTests: [string, number, number][] = [
-  ["   ", 0, 3],
+const whiteSpaceTests: [string, number | undefined, number | undefined][] = [
+  ["   ", undefined, undefined],
   ["foo", 0, 3],
   [" foo ", 1, 4],
 ];
@@ -21,8 +21,8 @@ suite("TextLine", function () {
       const editor = await openNewEditor(text);
       const line = new VscodeTextLineImpl(editor.document.lineAt(0));
 
-      assert.equal(line.rangeTrimmed.start.character, trimmedStart);
-      assert.equal(line.rangeTrimmed.end.character, trimmedEnd);
+      assert.equal(line.rangeTrimmed?.start?.character, trimmedStart);
+      assert.equal(line.rangeTrimmed?.end?.character, trimmedEnd);
     });
   });
 });
