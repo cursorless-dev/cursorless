@@ -1,13 +1,12 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: if wrap this
   action:
     name: wrapWithSnippet
-    args:
-      - {type: named, name: ifStatement, variableName: consequence}
-  targets:
-    - type: primitive
+    snippetDescription: {type: named, name: ifStatement, variableName: consequence}
+    target:
+      type: primitive
       mark: {type: cursor}
   usePrePhraseSnapshot: false
 initialState:

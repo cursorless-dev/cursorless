@@ -1,15 +1,14 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: snippet spaghetti grace hopper
   action:
     name: insertSnippet
-    args:
-      - type: named
-        name: spaghetti
-        substitutions: {foo: grace hopper}
-  targets:
-    - {type: implicit}
+    snippetDescription:
+      type: named
+      name: spaghetti
+      substitutions: {foo: grace hopper}
+    destination: {type: implicit}
   usePrePhraseSnapshot: false
 spokenFormError: Named insertion snippet 'spaghetti'
 initialState:

@@ -1,19 +1,23 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: bring fine after third char this
-  action: {name: replaceWithTarget}
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
-    - type: primitive
-      modifiers:
-        - {type: position, position: after}
-        - type: ordinalScope
-          scopeType: {type: character}
-          start: 2
-          length: 1
-      mark: {type: cursor}
+    destination:
+      type: primitive
+      insertionMode: after
+      target:
+        type: primitive
+        modifiers:
+          - type: ordinalScope
+            scopeType: {type: character}
+            start: 2
+            length: 1
+        mark: {type: cursor}
   usePrePhraseSnapshot: false
 initialState:
   documentContents: foo world whatever

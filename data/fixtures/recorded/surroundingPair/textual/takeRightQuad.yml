@@ -1,10 +1,11 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: take right quad
-  action: {name: setSelection}
-  targets:
-    - type: primitive
+  action:
+    name: setSelection
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: surroundingPair, delimiter: doubleQuotes, forceDirection: right}
@@ -17,10 +18,4 @@ initialState:
     - anchor: {line: 0, character: 21}
       active: {line: 0, character: 21}
   marks: {}
-finalState:
-  documentContents: |-
-    hello world whatever "testing testing testing
-    this is another" test "whatever" whatever
-  selections:
-    - anchor: {line: 0, character: 21}
-      active: {line: 1, character: 16}
+thrownError: {name: NoContainingScopeError}

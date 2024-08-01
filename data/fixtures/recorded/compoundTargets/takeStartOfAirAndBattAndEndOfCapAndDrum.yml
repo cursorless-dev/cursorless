@@ -1,20 +1,21 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: take start of air and bat and end of cap and drum
-  action: {name: setSelection}
-  targets:
-    - type: list
+  action:
+    name: setSelection
+    target:
+      type: list
       elements:
         - type: primitive
           modifiers:
-            - {type: position, position: start}
+            - {type: startOf}
           mark: {type: decoratedSymbol, symbolColor: default, character: a}
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: b}
         - type: primitive
           modifiers:
-            - {type: position, position: end}
+            - {type: endOf}
           mark: {type: decoratedSymbol, symbolColor: default, character: c}
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: d}

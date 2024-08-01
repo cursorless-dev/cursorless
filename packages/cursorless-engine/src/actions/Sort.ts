@@ -14,7 +14,7 @@ abstract class SortBase implements SimpleAction {
 
   async run(targets: Target[]): Promise<ActionReturnValue> {
     if (targets.length < 2) {
-      showWarning(
+      void showWarning(
         ide().messages,
         "tooFewTargets",
         'This action works on multiple targets, e.g. "sort every line block" instead of "sort block".',
@@ -45,13 +45,13 @@ abstract class SortBase implements SimpleAction {
 }
 
 export class Sort extends SortBase {
-  private collator = new Intl.Collator(undefined, {
-    numeric: true,
-    caseFirst: "upper",
-  });
-
   protected sortTexts(texts: string[]) {
-    return texts.sort(this.collator.compare);
+    return texts.sort((a, b) =>
+      a.localeCompare(b, undefined, {
+        numeric: true,
+        caseFirst: "upper",
+      }),
+    );
   }
 }
 

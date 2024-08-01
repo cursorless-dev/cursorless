@@ -74,7 +74,7 @@ export class LanguageDefinitionsImpl
     private treeSitterQueryProvider: RawTreeSitterQueryProvider,
   ) {
     ide.onDidOpenTextDocument((document) => {
-      this.loadLanguage(document.languageId);
+      void this.loadLanguage(document.languageId);
     });
     ide.onDidChangeVisibleTextEditors((editors) => {
       editors.forEach(({ document }) => this.loadLanguage(document.languageId));
@@ -111,7 +111,7 @@ export class LanguageDefinitionsImpl
         languageIds.map((languageId) => this.loadLanguage(languageId)),
       );
     } catch (err) {
-      showError(
+      void showError(
         this.ide.messages,
         "Failed to load language definitions",
         toString(err),

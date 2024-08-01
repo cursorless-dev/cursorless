@@ -6,7 +6,7 @@ import { Token } from "./Token";
  * Maps from (hatStyle, character) pairs to tokens
  */
 export interface HatTokenMap {
-  allocateHats(oldTokenHats?: TokenHat[]): Promise<void>;
+  allocateHats(forceTokenHats?: TokenHat[]): Promise<void>;
   getReadableMap(usePrePhraseSnapshot: boolean): Promise<ReadOnlyHatMap>;
 }
 
@@ -19,5 +19,5 @@ export interface TokenHat {
 
 export interface ReadOnlyHatMap {
   getEntries(): readonly [string, Token][];
-  getToken(hatStyle: HatStyleName, character: string): Token;
+  getToken(hatStyle: HatStyleName, character: string): Token | undefined;
 }

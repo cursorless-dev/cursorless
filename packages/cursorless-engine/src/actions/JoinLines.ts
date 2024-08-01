@@ -2,7 +2,7 @@ import { Edit, FlashStyle, Range, TextEditor } from "@cursorless/common";
 import { range as iterRange, map, pairwise } from "itertools";
 import { flatten, zip } from "lodash-es";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
@@ -19,14 +19,16 @@ export default class JoinLines {
     const thatSelections = flatten(
       await runOnTargetsForEachEditor(targets, async (editor, targets) => {
         const contentRanges = targets.map(({ contentRange }) => contentRange);
-        const edits = getEdits(editor, contentRanges);
 
-        const [updatedRanges] = await performEditsAndUpdateRanges(
-          this.rangeUpdater,
-          ide().getEditableTextEditor(editor),
-          edits,
-          [contentRanges],
-        );
+        const { contentRanges: updatedRanges } =
+          await performEditsAndUpdateSelections({
+            rangeUpdater: this.rangeUpdater,
+            editor: ide().getEditableTextEditor(editor),
+            edits: getEdits(editor, contentRanges),
+            selections: {
+              contentRanges,
+            },
+          });
 
         return zip(targets, updatedRanges).map(([target, range]) => ({
           editor: target!.editor,

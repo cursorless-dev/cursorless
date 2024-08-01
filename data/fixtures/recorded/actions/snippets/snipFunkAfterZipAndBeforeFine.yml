@@ -1,22 +1,23 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: snippet funk after zip and before fine
   action:
     name: insertSnippet
-    args:
-      - {type: named, name: functionDeclaration}
-  targets:
-    - type: list
-      elements:
+    snippetDescription: {type: named, name: functionDeclaration}
+    destination:
+      type: list
+      destinations:
         - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: z}
-          modifiers:
-            - {type: position, position: after}
+          insertionMode: after
+          target:
+            type: primitive
+            mark: {type: decoratedSymbol, symbolColor: default, character: z}
         - type: primitive
-          modifiers:
-            - {type: position, position: before}
-          mark: {type: decoratedSymbol, symbolColor: default, character: f}
+          insertionMode: before
+          target:
+            type: primitive
+            mark: {type: decoratedSymbol, symbolColor: default, character: f}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-

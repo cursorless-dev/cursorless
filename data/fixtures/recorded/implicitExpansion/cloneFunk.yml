@@ -1,10 +1,11 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: clone funk
-  action: {name: insertCopyAfter}
-  targets:
-    - type: primitive
+  action:
+    name: insertCopyAfter
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: namedFunction}

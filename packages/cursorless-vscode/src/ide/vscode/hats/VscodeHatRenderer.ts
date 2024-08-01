@@ -95,7 +95,7 @@ export default class VscodeHatRenderer {
   }
 
   public async forceRecomputeDecorationStyles() {
-    this.fontMeasurements.clearCache();
+    await this.fontMeasurements.clearCache();
     await this.recomputeDecorations();
   }
 
@@ -203,7 +203,7 @@ export default class VscodeHatRenderer {
       .getConfiguration("cursorless")
       .get<IndividualHatAdjustmentMap>("individualHatAdjustments")!;
 
-    performPr1868ShapeUpdateInit(
+    void performPr1868ShapeUpdateInit(
       this.extensionContext,
       this.vscodeApi,
       this.messages,
@@ -310,7 +310,7 @@ export default class VscodeHatRenderer {
       svg.match(/fill="(?!none)[^"]+"/) == null &&
       svg.match(/fill:(?!none)[^;]+;/) == null
     ) {
-      vscode.window.showErrorMessage(
+      void vscode.window.showErrorMessage(
         `Raw svg '${shape}' is missing 'fill' property`,
       );
       isOk = false;
@@ -319,7 +319,7 @@ export default class VscodeHatRenderer {
     const viewBoxMatch = svg.match(/viewBox="([^"]+)"/);
 
     if (viewBoxMatch == null) {
-      vscode.window.showErrorMessage(
+      void vscode.window.showErrorMessage(
         `Raw svg '${shape}' is missing 'viewBox' property`,
       );
       isOk = false;
@@ -361,7 +361,7 @@ export default class VscodeHatRenderer {
       return svg;
     }
     const pathData = pathMatch[1];
-    const pathEnd = pathMatch.index! + pathMatch[0].length;
+    const pathEnd = pathMatch.index + pathMatch[0].length;
 
     // Construct the stroke path and clipPath elements
     const clipPathElem = `<clipPath id="clipPath"><path d="${pathData}" /></clipPath>`;

@@ -1,10 +1,11 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: copy vest
-  action: {name: copyToClipboard}
-  targets:
-    - type: primitive
+  action:
+    name: copyToClipboard
+    target:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
   usePrePhraseSnapshot: false
 initialState:

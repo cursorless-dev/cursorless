@@ -33,7 +33,7 @@ import { getRecordedTestsDirPath, walkDirsSync } from "@cursorless/node-common";
 import { invariant } from "immutability-helper";
 import { merge } from "lodash-es";
 import * as fs from "node:fs";
-import { access, readFile } from "node:fs/promises";
+import { access, readFile, unlink } from "node:fs/promises";
 import * as path from "node:path";
 import { RecordTestCaseCommandOptions } from "./RecordTestCaseCommandOptions";
 import { takeSnapshot } from "./takeSnapshot";
@@ -87,7 +87,11 @@ export class TestCaseRecorder {
 
   async toggle(options?: RecordTestCaseCommandOptions) {
     if (this.active) {
-      showInfo(ide().messages, "recordStop", "Stopped recording test cases");
+      void showInfo(
+        ide().messages,
+        "recordStop",
+        "Stopped recording test cases",
+      );
       this.stop();
     } else {
       return await this.start(options);
@@ -220,7 +224,7 @@ export class TestCaseRecorder {
     this.isErrorTest = isErrorTest;
     this.paused = false;
 
-    showInfo(
+    void showInfo(
       ide().messages,
       "recordStart",
       `Recording test cases for following commands in:\n${this.targetDirectory}`,
@@ -279,7 +283,7 @@ export class TestCaseRecorder {
       // Otherwise, we are starting a new test case
       this.originalIde = ide();
       this.spyIde = new SpyIDE(this.originalIde);
-      injectIde(this.spyIde!);
+      injectIde(this.spyIde);
 
       const spokenForm = this.spokenFormGenerator.processCommand(command);
 
@@ -360,22 +364,25 @@ export class TestCaseRecorder {
         message += ` Spoken form error: ${this.testCase!.spokenFormError}`;
       }
 
-      showInfo(ide().messages, "testCaseSaved", message, "View", "Delete").then(
-        async (action) => {
-          if (action === "View") {
-            await ide().openTextDocument(outPath);
+      void showInfo(
+        ide().messages,
+        "testCaseSaved",
+        message,
+        "View",
+        "Delete",
+      ).then(async (action) => {
+        if (action === "View") {
+          await ide().openTextDocument(outPath);
+        }
+        if (action === "Delete") {
+          try {
+            await unlink(outPath);
+            console.log(`deleted ${outPath}`);
+          } catch (err) {
+            console.log(`failed to delete ${outPath}: ${err}`);
           }
-          if (action === "Delete") {
-            await fs.unlink(outPath, (err) => {
-              if (err) {
-                console.log(`failed to delete ${outPath}: ${err}`);
-              } else {
-                console.log(`deleted ${outPath}`);
-              }
-            });
-          }
-        },
-      );
+        }
+      });
     }
 
     this.testCase = null;
@@ -398,7 +405,7 @@ export class TestCaseRecorder {
     } catch (err) {
       const errorMessage =
         '"Cursorless record" must be run from within cursorless directory';
-      showError(ide().messages, "promptSubdirectoryError", errorMessage);
+      void showError(ide().messages, "promptSubdirectoryError", errorMessage);
       throw new Error(errorMessage);
     }
 

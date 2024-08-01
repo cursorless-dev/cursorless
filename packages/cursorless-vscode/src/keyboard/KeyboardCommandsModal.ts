@@ -56,15 +56,15 @@ export default class KeyboardCommandsModal {
 
   init() {
     this.extensionContext.subscriptions.push(
-      vscode.workspace.onDidChangeConfiguration((event) => {
+      vscode.workspace.onDidChangeConfiguration(async (event) => {
         if (
           event.affectsConfiguration(
             "cursorless.experimental.keyboard.modal.keybindings",
           )
         ) {
           if (this.isModeOn()) {
-            this.modeOff();
-            this.modeOn();
+            await this.modeOff();
+            await this.modeOn();
           }
           this.layerCache.clear();
           this.processKeyMap();
@@ -184,10 +184,12 @@ export default class KeyboardCommandsModal {
       const [{ type, arg }] = this.parser.results;
 
       // Run the command
-      this.keyboardCommandHandler[type as keyof KeyboardCommandHandler](arg);
+      void this.keyboardCommandHandler[type as keyof KeyboardCommandHandler](
+        arg,
+      );
     } catch (err) {
       if (!(err instanceof KeySequenceCancelledError)) {
-        vscode.window.showErrorMessage((err as Error).message);
+        void vscode.window.showErrorMessage((err as Error).message);
         throw err;
       }
     } finally {
@@ -210,9 +212,9 @@ export default class KeyboardCommandsModal {
 
   modeToggle = () => {
     if (this.isModeOn()) {
-      this.modeOff();
+      return this.modeOff();
     } else {
-      this.modeOn();
+      return this.modeOn();
     }
   };
 

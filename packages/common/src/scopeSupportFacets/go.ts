@@ -8,6 +8,7 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const goScopeSupport: LanguageScopeSupportFacetMap = {
   "comment.line": supported,
+  disqualifyDelimiter: supported,
 
   "textFragment.string.singleLine": supported,
   "textFragment.string.multiLine": supported,

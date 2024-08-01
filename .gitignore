@@ -1,10 +1,13 @@
 out
 dist
+testOut
 node_modules
 .vscode-test/
 *.vsix
 /package-lock.json
 *.DS_Store
+meta.json
+.luacheckcache
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
@@ -42,6 +45,10 @@ next-env.d.ts
 
 # test subset config
 packages/test-harness/testSubsetGrep.properties
+
+# cursorless-neovim
+cursorless.nvim/node/cursorless-neovim
+cursorless.nvim/node/test-harness
 
 # nix
 .direnv/

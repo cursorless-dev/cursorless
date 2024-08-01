@@ -1,0 +1,30 @@
+languageId: plaintext
+command:
+  version: 7
+  spokenForm: post air
+  action:
+    name: setSelectionAfter
+    target:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    Welcome Cursorless!
+
+    Notice the hats above each word in this sentence.
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+  marks:
+    default.a:
+      start: {line: 2, character: 11}
+      end: {line: 2, character: 15}
+finalState:
+  documentContents: |
+    Welcome Cursorless!
+
+    Notice the hats above each word in this sentence.
+  selections:
+    - anchor: {line: 2, character: 15}
+      active: {line: 2, character: 15}

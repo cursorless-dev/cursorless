@@ -38,6 +38,11 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "environment",
   },
 
+  section: {
+    description: "A document section",
+    scopeType: "section",
+  },
+
   list: {
     description: "A list/array",
     scopeType: "list",
@@ -288,6 +293,12 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "textFragment",
   },
 
+  disqualifyDelimiter: {
+    description:
+      "Used to disqualify a token from being treated as a surrounding pair delimiter. This will usually be operators containing `>` or `<`, eg `<`, `<=`, `->`, etc",
+    scopeType: "disqualifyDelimiter",
+  },
+
   "branch.if": {
     description: "An if/elif/else branch",
     scopeType: "branch",
@@ -484,6 +495,11 @@ export const scopeSupportFacetInfos: Record<
   },
   "value.variable": {
     description: "Value (RHS) of a variable declaration",
+    scopeType: "value",
+  },
+  "value.variable.pattern": {
+    description:
+      "Value (RHS) of a variable declaration with pattern destructuring",
     scopeType: "value",
   },
   "value.mapPair": {

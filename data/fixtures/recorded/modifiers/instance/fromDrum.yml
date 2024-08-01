@@ -1,10 +1,11 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: from drum
-  action: {name: experimental.setInstanceReference}
-  targets:
-    - type: primitive
+  action:
+    name: experimental.setInstanceReference
+    target:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: d}
   usePrePhraseSnapshot: true
 initialState:

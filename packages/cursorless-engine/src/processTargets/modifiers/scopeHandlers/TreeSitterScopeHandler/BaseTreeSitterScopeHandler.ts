@@ -61,7 +61,7 @@ export abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
               const message =
                 "Please use #allow-multiple! predicate in your query to allow multiple matches for this scope type";
 
-              showError(
+              void showError(
                 ide().messages,
                 "BaseTreeSitterScopeHandler.allow-multiple",
                 message,

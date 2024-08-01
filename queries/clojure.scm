@@ -1,3 +1,5 @@
+;; https://github.com/sogaiu/tree-sitter-clojure/blob/master/src/grammar.json
+
 (comment) @comment @textFragment
 
 (str_lit) @string @textFragment

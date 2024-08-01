@@ -1,10 +1,11 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: bring arg odd and zip after just paren
-  action: {name: replaceWithTarget}
-  targets:
-    - type: list
+  action:
+    name: replaceWithTarget
+    source:
+      type: list
       elements:
         - type: primitive
           modifiers:
@@ -13,11 +14,14 @@ command:
           mark: {type: decoratedSymbol, symbolColor: default, character: o}
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: z}
-    - type: primitive
-      modifiers:
-        - {type: position, position: after}
-        - {type: toRawSelection}
-      mark: {type: decoratedSymbol, symbolColor: default, character: (}
+    destination:
+      type: primitive
+      insertionMode: after
+      target:
+        type: primitive
+        modifiers:
+          - {type: toRawSelection}
+        mark: {type: decoratedSymbol, symbolColor: default, character: (}
   usePrePhraseSnapshot: false
 initialState:
   documentContents: |-

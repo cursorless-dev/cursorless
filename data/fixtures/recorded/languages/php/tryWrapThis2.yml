@@ -1,13 +1,12 @@
 languageId: php
 command:
-  version: 5
+  version: 6
   spokenForm: try wrap this
   action:
     name: wrapWithSnippet
-    args:
-      - {type: named, name: tryCatchStatement, variableName: body}
-  targets:
-    - type: primitive
+    snippetDescription: {type: named, name: tryCatchStatement, variableName: body}
+    target:
+      type: primitive
       mark: {type: cursor}
   usePrePhraseSnapshot: false
 initialState:

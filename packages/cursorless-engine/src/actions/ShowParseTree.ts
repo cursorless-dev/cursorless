@@ -22,7 +22,8 @@ export default class ShowParseTree {
       results.push(parseTree(editor.document, tree, contentRange));
     }
 
-    ide().openUntitledTextDocument({
+    // FIXME: If we await this our test break. We should probably find out when this actually resolves.
+    void ide().openUntitledTextDocument({
       language: "markdown",
       content: results.join("\n\n"),
     });

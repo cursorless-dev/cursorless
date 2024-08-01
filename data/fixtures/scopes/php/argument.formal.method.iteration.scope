@@ -1,0 +1,13 @@
+<?php
+class MyClass {
+    function myFunc($value, string $name) { }
+}
+---
+
+[Range] = 2:20-2:40
+                      >--------------------<
+2|     function myFunc($value, string $name) { }
+
+[Domain] = 2:4-2:45
+      >-----------------------------------------<
+2|     function myFunc($value, string $name) { }

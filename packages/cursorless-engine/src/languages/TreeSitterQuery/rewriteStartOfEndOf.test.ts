@@ -50,6 +50,8 @@ const testCases: TestCase[] = [
   },
 ];
 
+const hasError = () => false;
+
 function fillOutCapture(capture: NameRange): MutableQueryCapture {
   return {
     ...capture,
@@ -57,6 +59,7 @@ function fillOutCapture(capture: NameRange): MutableQueryCapture {
     insertionDelimiter: undefined,
     document: null as unknown as TextDocument,
     node: null as unknown as SyntaxNode,
+    hasError,
   };
 }
 
