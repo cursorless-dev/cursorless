@@ -32,7 +32,7 @@ export class PreferredScopeStage implements ModifierStage {
       return containingTargets;
     }
 
-    const closestTargets = this.tryGetClosestScopeTargets(target, scopeHandler);
+    const closestTargets = this.getClosestScopeTargets(target, scopeHandler);
 
     if (closestTargets != null) {
       return closestTargets;
@@ -41,7 +41,7 @@ export class PreferredScopeStage implements ModifierStage {
     throw Error(`No scopes found for scope type: ${scopeType.type}`);
   }
 
-  private tryGetClosestScopeTargets(
+  private getClosestScopeTargets(
     target: Target,
     scopeHandler: ScopeHandler,
   ): Target[] | undefined {
