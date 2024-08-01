@@ -29,6 +29,7 @@ jobs:
       VSCODE_LOGS_DIR: ${{ github.workspace }}/artifacts/logs
       CURSORLESS_REPO_ROOT: ${{ github.workspace }}
       TEMP_DIR: ${{ github.workspace }}/temp
+      NODE_OPTIONS: "--max_old_space_size=4096"
     steps:
       - uses: actions/checkout@v4
       - run: corepack enable
