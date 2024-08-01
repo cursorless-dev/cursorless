@@ -45,53 +45,48 @@ export class PreferredScopeStage implements ModifierStage {
     target: Target,
     scopeHandler: ScopeHandler,
   ): Target[] | undefined {
-    const { start, end } = target.contentRange;
-
     const previousScopes = scopeHandler.generateScopes(
       target.editor,
-      start,
+      target.contentRange.start,
       "backward",
     );
     const nextScopes = scopeHandler.generateScopes(
       target.editor,
-      end,
+      target.contentRange.end,
       "forward",
     );
-    const scopes: TargetScope[] = [
-      next(previousScopes),
-      next(nextScopes),
-    ].filter((scope) => scope != null);
 
-    if (scopes.length === 0) {
-      return undefined;
-    }
+    const { active } = target.contentSelection;
+    const previousScope = getPreferredScope(previousScopes, active);
+    const nextScope = getPreferredScope(nextScopes, active);
 
-    const candidates = scopes.map((scope) => {
-      const distance = Math.min(
-        distanceBetweenPositions(end, scope.domain.start),
-        distanceBetweenPositions(start, scope.domain.end),
-      );
-      return { scope, distance };
-    });
+    const preferredScope =
+      previousScope.distance < nextScope.distance
+        ? previousScope.scope
+        : nextScope.scope;
 
-    candidates.sort((a, b) => {
-      // First sort by distance to position
-      if (a.distance !== b.distance) {
-        return a.distance - b.distance;
-      }
-      // Then sort by document order
-      return a.scope.domain.start.compareTo(b.scope.domain.start);
-    });
-
-    return candidates[0].scope.getTargets(target.isReversed);
+    return preferredScope != null
+      ? preferredScope.getTargets(target.isReversed)
+      : undefined;
   }
 }
 
-function next(scopes: Iterable<TargetScope>): TargetScope | undefined {
+function getPreferredScope(scopes: Iterable<TargetScope>, position: Position) {
+  let preferredScope: TargetScope | undefined;
+  let preferredDistance = Infinity;
   for (const scope of scopes) {
-    return scope;
+    const distance = Math.min(
+      distanceBetweenPositions(position, scope.domain.start),
+      distanceBetweenPositions(position, scope.domain.end),
+    );
+    if (distance < preferredDistance) {
+      preferredScope = scope;
+      preferredDistance = distance;
+    } else {
+      break;
+    }
   }
-  return undefined;
+  return { scope: preferredScope, distance: preferredDistance };
 }
 
 function distanceBetweenPositions(a: Position, b: Position): number {
