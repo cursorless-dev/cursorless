@@ -126,7 +126,7 @@ export class DestinationImpl implements Destination {
           ? line.rangeTrimmed?.start ?? line.range.start
           : line.rangeTrimmed?.end ?? line.range.end;
 
-        // Use the full line width including indentation and trailing whitespaces
+        // Use the full line with including indentation and trailing whitespaces
         if (insertionPosition.isEqual(trimmedPosition)) {
           return this.isBefore ? line.range.start : line.range.end;
         }
