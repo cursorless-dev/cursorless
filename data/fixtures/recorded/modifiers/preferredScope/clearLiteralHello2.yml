@@ -1,0 +1,29 @@
+languageId: plaintext
+command:
+  version: 7
+  spokenForm: clear literal hello
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: preferredScope
+          scopeType: {type: customRegex, regex: hello, flags: gui}
+  usePrePhraseSnapshot: true
+spokenFormError: >-
+  custom regex with id hello; please see
+  https://www.cursorless.org/docs/user/customization/ for more information
+initialState:
+  documentContents: |-
+
+    hello
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |+
+
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
