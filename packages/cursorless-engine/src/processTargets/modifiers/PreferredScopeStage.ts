@@ -37,7 +37,7 @@ export class PreferredScopeStage implements ModifierStage {
       return containingTargets;
     }
 
-    const closestTargets = this.getClosestScopeTargets(target, scopeHandler);
+    const closestTargets = getClosestScopeTargets(target, scopeHandler);
 
     if (closestTargets != null) {
       return closestTargets;
@@ -45,35 +45,35 @@ export class PreferredScopeStage implements ModifierStage {
 
     throw Error(`No scopes found for scope type: ${scopeType.type}`);
   }
+}
 
-  private getClosestScopeTargets(
-    target: Target,
-    scopeHandler: ScopeHandler,
-  ): Target[] | undefined {
-    const previousScopes = scopeHandler.generateScopes(
-      target.editor,
-      target.contentRange.start,
-      "backward",
-    );
-    const nextScopes = scopeHandler.generateScopes(
-      target.editor,
-      target.contentRange.end,
-      "forward",
-    );
+function getClosestScopeTargets(
+  target: Target,
+  scopeHandler: ScopeHandler,
+): Target[] | undefined {
+  const previousScopes = scopeHandler.generateScopes(
+    target.editor,
+    target.contentRange.start,
+    "backward",
+  );
+  const nextScopes = scopeHandler.generateScopes(
+    target.editor,
+    target.contentRange.end,
+    "forward",
+  );
 
-    const { active } = target.contentSelection;
-    const previousScope = getPreferredScope(previousScopes, active);
-    const nextScope = getPreferredScope(nextScopes, active);
+  const { active } = target.contentSelection;
+  const previousScope = getPreferredScope(previousScopes, active);
+  const nextScope = getPreferredScope(nextScopes, active);
 
-    const preferredScope =
-      previousScope.distance < nextScope.distance
-        ? previousScope.scope
-        : nextScope.scope;
+  const preferredScope =
+    previousScope.distance < nextScope.distance
+      ? previousScope.scope
+      : nextScope.scope;
 
-    return preferredScope != null
-      ? preferredScope.getTargets(target.isReversed)
-      : undefined;
-  }
+  return preferredScope != null
+    ? preferredScope.getTargets(target.isReversed)
+    : undefined;
 }
 
 function getPreferredScope(scopes: Iterable<TargetScope>, position: Position) {
