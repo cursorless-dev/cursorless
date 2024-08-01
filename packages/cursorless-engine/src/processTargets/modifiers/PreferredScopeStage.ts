@@ -63,8 +63,8 @@ function getClosestScopeTargets(
   );
 
   const { active } = target.contentSelection;
-  const previousScope = getPreferredScope(previousScopes, active);
-  const nextScope = getPreferredScope(nextScopes, active);
+  const previousScope = getClosestScope(previousScopes, active);
+  const nextScope = getClosestScope(nextScopes, active);
 
   const preferredScope =
     previousScope.distance < nextScope.distance
@@ -76,9 +76,10 @@ function getClosestScopeTargets(
     : undefined;
 }
 
-function getPreferredScope(scopes: Iterable<TargetScope>, position: Position) {
+function getClosestScope(scopes: Iterable<TargetScope>, position: Position) {
   let preferredScope: TargetScope | undefined;
   let preferredDistance = Infinity;
+
   for (const scope of scopes) {
     const distance = Math.min(
       distanceBetweenPositions(position, scope.domain.start),
@@ -91,6 +92,7 @@ function getPreferredScope(scopes: Iterable<TargetScope>, position: Position) {
       break;
     }
   }
+
   return { scope: preferredScope, distance: preferredDistance };
 }
 
