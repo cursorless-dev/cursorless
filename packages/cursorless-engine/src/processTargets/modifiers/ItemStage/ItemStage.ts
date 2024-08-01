@@ -2,22 +2,17 @@ import type {
   ContainingScopeModifier,
   EveryScopeModifier,
   SimpleScopeTypeType,
-  TextEditor} from "@cursorless/common";
-import {
-  NoContainingScopeError,
-  Range
+  TextEditor,
 } from "@cursorless/common";
+import { NoContainingScopeError, Range } from "@cursorless/common";
 import type { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import type { Target } from "../../../typings/target.types";
 import { getRangeLength } from "../../../util/rangeUtils";
 import type { ModifierStageFactory } from "../../ModifierStageFactory";
 import type { ModifierStage } from "../../PipelineStages.types";
 import { ScopeTypeTarget } from "../../targets";
-import type {
-  SimpleContainingScopeModifier} from "../scopeTypeStages/LegacyContainingSyntaxScopeStage";
-import {
-  LegacyContainingSyntaxScopeStage
-} from "../scopeTypeStages/LegacyContainingSyntaxScopeStage";
+import type { SimpleContainingScopeModifier } from "../scopeTypeStages/LegacyContainingSyntaxScopeStage";
+import { LegacyContainingSyntaxScopeStage } from "../scopeTypeStages/LegacyContainingSyntaxScopeStage";
 import { getIterationScope } from "./getIterationScope";
 import { tokenizeRange } from "./tokenizeRange";
 

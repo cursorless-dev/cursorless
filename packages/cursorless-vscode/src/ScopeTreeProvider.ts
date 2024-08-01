@@ -2,7 +2,8 @@ import type {
   CursorlessCommandId,
   ScopeProvider,
   ScopeSupportInfo,
-  ScopeTypeInfo} from "@cursorless/common";
+  ScopeTypeInfo,
+} from "@cursorless/common";
 import {
   CURSORLESS_SCOPE_TREE_VIEW_ID,
   ScopeSupport,

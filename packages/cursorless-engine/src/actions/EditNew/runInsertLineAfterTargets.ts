@@ -1,4 +1,7 @@
-import type { CommandCapabilities, EditableTextEditor } from "@cursorless/common";
+import type {
+  CommandCapabilities,
+  EditableTextEditor,
+} from "@cursorless/common";
 import type { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../../core/updateSelections/updateSelections";
 import type { EditDestination, State } from "./EditNew.types";

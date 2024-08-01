@@ -18,11 +18,9 @@ import type {
   TextEditor,
   TextEditorSelectionChangeEvent,
   TextEditorVisibleRangesChangeEvent,
-  WorkspaceFolder} from "@cursorless/common";
-import {
-  Notifier,
-  type KeyValueStore,
+  WorkspaceFolder,
 } from "@cursorless/common";
+import { Notifier, type KeyValueStore } from "@cursorless/common";
 import { pull } from "lodash-es";
 import type { Talon } from "../types/talon.types";
 import type { EditorState } from "../types/types";

@@ -5,7 +5,8 @@ import type {
   PartialListTargetDescriptor,
   PartialRangeTargetDescriptor,
   PartialTargetMark,
-  PrimitiveDestinationDescriptor} from "@cursorless/common";
+  PrimitiveDestinationDescriptor,
+} from "@cursorless/common";
 import {
   type ContainingScopeModifier,
   type Modifier,

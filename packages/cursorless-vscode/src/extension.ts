@@ -5,15 +5,15 @@ import type {
   Range,
   ScopeProvider,
   ScopeType,
-  TextDocument} from "@cursorless/common";
+  TextDocument,
+} from "@cursorless/common";
 import {
   FakeCommandServerApi,
   FakeIDE,
   NormalizedIDE,
   type TreeSitter,
 } from "@cursorless/common";
-import type {
-  EngineProps} from "@cursorless/cursorless-engine";
+import type { EngineProps } from "@cursorless/cursorless-engine";
 import {
   CommandHistory,
   createCursorlessEngine,
@@ -28,9 +28,7 @@ import {
   ScopeTestRecorder,
   TestCaseRecorder,
 } from "@cursorless/test-case-recorder";
-import type {
-  CursorlessApi,
-  ParseTreeApi} from "@cursorless/vscode-common";
+import type { CursorlessApi, ParseTreeApi } from "@cursorless/vscode-common";
 import {
   getCommandServerApi,
   getParseTreeApi,
@@ -51,11 +49,8 @@ import { StatusBarItem } from "./StatusBarItem";
 import { VscodeSnippets } from "./VscodeSnippets";
 import { constructTestHelpers } from "./constructTestHelpers";
 import { createTutorial } from "./createTutorial";
-import type {
-  VscodeScopeVisualizer} from "./ide/vscode/VSCodeScopeVisualizer";
-import {
-  createVscodeScopeVisualizer,
-} from "./ide/vscode/VSCodeScopeVisualizer";
+import type { VscodeScopeVisualizer } from "./ide/vscode/VSCodeScopeVisualizer";
+import { createVscodeScopeVisualizer } from "./ide/vscode/VSCodeScopeVisualizer";
 import { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
 import { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { FakeFontMeasurements } from "./ide/vscode/hats/FakeFontMeasurements";

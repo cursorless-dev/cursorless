@@ -2,11 +2,9 @@ import type {
   Direction,
   Position,
   SurroundingPairScopeType,
-  TextEditor} from "@cursorless/common";
-import {
-  showError,
-  type ScopeType,
+  TextEditor,
 } from "@cursorless/common";
+import { showError, type ScopeType } from "@cursorless/common";
 import type { LanguageDefinitions } from "../../../../languages/LanguageDefinitions";
 import { ide } from "../../../../singletons/ide.singleton";
 import { BaseScopeHandler } from "../BaseScopeHandler";

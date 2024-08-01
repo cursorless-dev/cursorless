@@ -3,11 +3,8 @@ import type { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
 import type { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
 import { ScopeTypeTarget } from "../../../targets/ScopeTypeTarget";
 import type { CustomScopeType } from "../scopeHandler.types";
-import type {
-  ExtendedTargetScope} from "./BaseTreeSitterScopeHandler";
-import {
-  BaseTreeSitterScopeHandler
-} from "./BaseTreeSitterScopeHandler";
+import type { ExtendedTargetScope } from "./BaseTreeSitterScopeHandler";
+import { BaseTreeSitterScopeHandler } from "./BaseTreeSitterScopeHandler";
 import { TreeSitterIterationScopeHandler } from "./TreeSitterIterationScopeHandler";
 import { findCaptureByName, getRelatedRange } from "./captureUtils";
 

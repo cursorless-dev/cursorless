@@ -2,7 +2,8 @@ import type {
   Disposable,
   FileSystem,
   SpokenFormEntry,
-  TalonSpokenForms} from "@cursorless/common";
+  TalonSpokenForms,
+} from "@cursorless/common";
 import {
   NeedsInitialTalonUpdateError,
   Notifier,

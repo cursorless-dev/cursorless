@@ -1,4 +1,8 @@
-import type { IterationScopeRanges, Range, TextEditor } from "@cursorless/common";
+import type {
+  IterationScopeRanges,
+  Range,
+  TextEditor,
+} from "@cursorless/common";
 import { map } from "itertools";
 import type { ModifierStage } from "../processTargets/PipelineStages.types";
 import type { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";

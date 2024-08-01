@@ -5,20 +5,20 @@ import type {
   HatStyleMap,
   TestCaseSnapshot,
   TutorialContentProvider,
-  TutorialId} from "@cursorless/common";
-import {
-  getKey,
-  splitKey
+  TutorialId,
 } from "@cursorless/common";
-import type {
-  CustomSpokenFormGenerator} from "@cursorless/cursorless-engine";
+import { getKey, splitKey } from "@cursorless/common";
+import type { CustomSpokenFormGenerator } from "@cursorless/cursorless-engine";
 import {
   canonicalizeAndValidateCommand,
   getPartialTargetDescriptors,
   transformPartialPrimitiveTargets,
 } from "@cursorless/cursorless-engine";
 import { TutorialError } from "../TutorialError";
-import type { StepComponent, StepComponentParser } from "../types/StepComponent";
+import type {
+  StepComponent,
+  StepComponentParser,
+} from "../types/StepComponent";
 import { cloneDeep, mapKeys } from "lodash-es";
 import { produce } from "immer";
 

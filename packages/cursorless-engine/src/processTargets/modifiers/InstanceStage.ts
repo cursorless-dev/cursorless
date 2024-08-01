@@ -4,10 +4,9 @@ import type {
   OrdinalScopeModifier,
   RelativeScopeModifier,
   ScopeType,
-  TextEditor} from "@cursorless/common";
-import {
-  Range
+  TextEditor,
 } from "@cursorless/common";
+import { Range } from "@cursorless/common";
 import { flatmap, ifilter, imap, itake } from "itertools";
 import { escapeRegExp } from "lodash-es";
 import type { Target } from "../../typings/target.types";

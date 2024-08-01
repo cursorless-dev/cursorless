@@ -8,7 +8,8 @@ import type {
   SerializedMarks,
   SpyIDE,
   TestCaseFixtureLegacy,
-  TextEditor} from "@cursorless/common";
+  TextEditor,
+} from "@cursorless/common";
 import {
   Position,
   Selection,

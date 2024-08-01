@@ -3,10 +3,9 @@ import type {
   GeneralizedRange,
   ScopeSupport,
   TargetRanges,
-  TextEditor} from "@cursorless/common";
-import {
-  toCharacterRange,
+  TextEditor,
 } from "@cursorless/common";
+import { toCharacterRange } from "@cursorless/common";
 import { VscodeScopeVisualizer } from "./VscodeScopeVisualizer";
 import type { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
 

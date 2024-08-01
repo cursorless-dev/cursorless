@@ -1,5 +1,4 @@
-import type {
-  TextEditor} from "@cursorless/common";
+import type { TextEditor } from "@cursorless/common";
 import {
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   HatStability,

@@ -1,6 +1,4 @@
-import type {
-  HatTokenMap,
-  TextEditor} from "@cursorless/common";
+import type { HatTokenMap, TextEditor } from "@cursorless/common";
 import {
   plainObjectToSelection,
   serializedMarksToTokenHats,

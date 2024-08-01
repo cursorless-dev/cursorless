@@ -3,11 +3,9 @@ import type {
   IDE,
   ScopeProvider,
   ScopeType,
-  TextEditor} from "@cursorless/common";
-import {
-  ScopeSupport,
-  showError,
+  TextEditor,
 } from "@cursorless/common";
+import { ScopeSupport, showError } from "@cursorless/common";
 import type {
   ScopeRangeType,
   ScopeVisualizerColorConfig,

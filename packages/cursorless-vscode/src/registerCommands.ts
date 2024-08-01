@@ -1,5 +1,4 @@
-import type {
-  CursorlessCommandId} from "@cursorless/common";
+import type { CursorlessCommandId } from "@cursorless/common";
 import {
   CURSORLESS_COMMAND_ID,
   type CommandHistoryStorage,
@@ -10,10 +9,9 @@ import {
 } from "@cursorless/cursorless-cheatsheet";
 import type {
   CommandApi,
-  StoredTargetMap} from "@cursorless/cursorless-engine";
-import {
-  analyzeCommandHistory,
+  StoredTargetMap,
 } from "@cursorless/cursorless-engine";
+import { analyzeCommandHistory } from "@cursorless/cursorless-engine";
 import type {
   ScopeTestRecorder,
   TestCaseRecorder,

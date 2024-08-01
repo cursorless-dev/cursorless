@@ -4,7 +4,8 @@ import type {
   IDE,
   TestCaseSnapshot,
   TextEditor,
-  TutorialState} from "@cursorless/common";
+  TutorialState,
+} from "@cursorless/common";
 import {
   plainObjectToRange,
   plainObjectToSelection,

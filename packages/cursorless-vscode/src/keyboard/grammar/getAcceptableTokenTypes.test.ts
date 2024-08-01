@@ -2,8 +2,7 @@ import assert from "assert";
 import { Grammar, Parser } from "nearley";
 import type { KeyDescriptor } from "../TokenTypeHelpers";
 import grammar from "./generated/grammar";
-import type {
-  AcceptableTokenType} from "./getAcceptableTokenTypes";
+import type { AcceptableTokenType } from "./getAcceptableTokenTypes";
 import {
   MISSING,
   NEXT,

@@ -10,11 +10,9 @@ import type {
   TextEditor,
   TutorialContentProvider,
   TutorialId,
-  TutorialState} from "@cursorless/common";
-import {
-  Debouncer,
-  Notifier
+  TutorialState,
 } from "@cursorless/common";
+import { Debouncer, Notifier } from "@cursorless/common";
 import type {
   CommandRunner,
   CommandRunnerDecorator,

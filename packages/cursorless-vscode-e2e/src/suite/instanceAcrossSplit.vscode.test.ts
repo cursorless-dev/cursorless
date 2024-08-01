@@ -1,11 +1,5 @@
-import type {
-  Modifier,
-  SpyIDE} from "@cursorless/common";
-import {
-  HatStability,
-  Range,
-  asyncSafety,
-} from "@cursorless/common";
+import type { Modifier, SpyIDE } from "@cursorless/common";
+import { HatStability, Range, asyncSafety } from "@cursorless/common";
 import {
   getCursorlessApi,
   openNewEditor,

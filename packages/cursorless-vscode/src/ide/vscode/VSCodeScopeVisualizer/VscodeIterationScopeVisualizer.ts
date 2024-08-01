@@ -1,10 +1,5 @@
-import type {
-  Disposable,
-  ScopeSupport,
-  TextEditor} from "@cursorless/common";
-import {
-  toCharacterRange,
-} from "@cursorless/common";
+import type { Disposable, ScopeSupport, TextEditor } from "@cursorless/common";
+import { toCharacterRange } from "@cursorless/common";
 import type { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
 import { VscodeScopeVisualizer } from "./VscodeScopeVisualizer";
 

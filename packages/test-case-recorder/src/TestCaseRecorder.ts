@@ -9,7 +9,8 @@ import type {
   IDE,
   ReadOnlyHatMap,
   SerializedMarks,
-  TextEditorOptions} from "@cursorless/common";
+  TextEditorOptions,
+} from "@cursorless/common";
 import {
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   extractTargetedMarks,
@@ -24,12 +25,13 @@ import {
 } from "@cursorless/common";
 import type {
   CommandRunner,
-  StoredTargetMap} from "@cursorless/cursorless-engine";
+  StoredTargetMap,
+} from "@cursorless/cursorless-engine";
 import {
   defaultSpokenFormMap,
   ide,
   injectIde,
-  SpokenFormGenerator
+  SpokenFormGenerator,
 } from "@cursorless/cursorless-engine";
 import { getRecordedTestsDirPath, walkDirsSync } from "@cursorless/node-common";
 import { invariant } from "immutability-helper";

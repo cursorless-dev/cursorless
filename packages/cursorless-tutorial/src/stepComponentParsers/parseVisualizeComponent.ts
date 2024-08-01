@@ -1,8 +1,5 @@
-import type {
-  CustomSpokenFormGenerator} from "@cursorless/cursorless-engine";
-import {
-  parseScopeType,
-} from "@cursorless/cursorless-engine";
+import type { CustomSpokenFormGenerator } from "@cursorless/cursorless-engine";
+import { parseScopeType } from "@cursorless/cursorless-engine";
 import { getScopeTypeSpokenFormStrict } from "../getScopeTypeSpokenFormStrict";
 import { specialTerms } from "../specialTerms";
 import type { StepComponent } from "../types/StepComponent";

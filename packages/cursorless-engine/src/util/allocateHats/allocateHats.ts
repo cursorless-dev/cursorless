@@ -4,13 +4,13 @@ import type {
   HatStyleName,
   TextEditor,
   Token,
-  TokenHat} from "@cursorless/common";
-import {
-  CompositeKeyMap,
-  DefaultMap,
-  Range
+  TokenHat,
 } from "@cursorless/common";
-import type { Grapheme, TokenGraphemeSplitter } from "../../tokenGraphemeSplitter";
+import { CompositeKeyMap, DefaultMap, Range } from "@cursorless/common";
+import type {
+  Grapheme,
+  TokenGraphemeSplitter,
+} from "../../tokenGraphemeSplitter";
 import { chooseTokenHat } from "./chooseTokenHat";
 import { getHatRankingContext } from "./getHatRankingContext";
 import { getRankedTokens } from "./getRankedTokens";

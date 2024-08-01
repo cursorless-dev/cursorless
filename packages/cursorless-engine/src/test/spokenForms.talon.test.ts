@@ -1,10 +1,9 @@
 import type {
   Command,
   CommandLatest,
-  TestCaseFixtureLegacy} from "@cursorless/common";
-import {
-  asyncSafety,
+  TestCaseFixtureLegacy,
 } from "@cursorless/common";
+import { asyncSafety } from "@cursorless/common";
 import { getRecordedTestPaths } from "@cursorless/node-common";
 import assert from "assert";
 import * as yaml from "js-yaml";

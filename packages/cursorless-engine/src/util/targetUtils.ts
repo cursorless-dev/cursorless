@@ -4,7 +4,8 @@ import type {
   GeneralizedRange,
   IDE,
   Range,
-  TextEditor} from "@cursorless/common";
+  TextEditor,
+} from "@cursorless/common";
 import {
   groupBy,
   Selection,

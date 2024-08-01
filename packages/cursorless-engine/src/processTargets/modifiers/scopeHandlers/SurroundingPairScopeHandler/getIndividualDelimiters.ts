@@ -1,5 +1,4 @@
-import type {
-  SimpleSurroundingPairName} from "@cursorless/common";
+import type { SimpleSurroundingPairName } from "@cursorless/common";
 import {
   isString,
   type ComplexSurroundingPairName,

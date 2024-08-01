@@ -1,5 +1,5 @@
 import { getCursorlessApi } from "@cursorless/vscode-common";
-import type { ScopeTypeInfo} from "@cursorless/common";
+import type { ScopeTypeInfo } from "@cursorless/common";
 import { sleep } from "@cursorless/common";
 import * as sinon from "sinon";
 import { assertCalledWithScopeInfo } from "./assertCalledWithScopeInfo";

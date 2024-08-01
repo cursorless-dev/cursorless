@@ -25,7 +25,8 @@ import type {
   PositionModifierV5,
   PrimitiveDestinationDescriptor,
   ReplaceWith,
-  WrapWithSnippetArg} from "@cursorless/common";
+  WrapWithSnippetArg,
+} from "@cursorless/common";
 import {
   type ExecuteCommandOptions,
   type GetTextActionOptions,

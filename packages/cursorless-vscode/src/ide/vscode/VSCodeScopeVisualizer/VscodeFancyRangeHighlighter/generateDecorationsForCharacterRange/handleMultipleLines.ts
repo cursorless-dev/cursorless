@@ -1,10 +1,6 @@
 import { Range } from "@cursorless/common";
-import type {
-  DecorationStyle,
-  StyledRange} from "../decorationStyle.types";
-import {
-  BorderStyle
-} from "../decorationStyle.types";
+import type { DecorationStyle, StyledRange } from "../decorationStyle.types";
+import { BorderStyle } from "../decorationStyle.types";
 import { flatmap } from "itertools";
 import type { LineInfo } from "./generateLineInfos";
 import { generateLineInfos } from "./generateLineInfos";

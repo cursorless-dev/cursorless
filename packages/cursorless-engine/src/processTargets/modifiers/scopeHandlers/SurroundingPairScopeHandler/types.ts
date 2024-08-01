@@ -1,4 +1,4 @@
-import type { SimpleSurroundingPairName} from "@cursorless/common";
+import type { SimpleSurroundingPairName } from "@cursorless/common";
 import { type Range } from "@cursorless/common";
 
 /**

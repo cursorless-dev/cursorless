@@ -1,4 +1,4 @@
-import type { Messages} from "@cursorless/common";
+import type { Messages } from "@cursorless/common";
 import { showError } from "@cursorless/common";
 import type { QueryCapture } from "./QueryCapture";
 

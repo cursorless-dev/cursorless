@@ -1,12 +1,12 @@
-import type { ActionType} from "@cursorless/common";
+import type { ActionType } from "@cursorless/common";
 import { actionNames } from "@cursorless/common";
-import type {
-  CustomSpokenFormGenerator} from "@cursorless/cursorless-engine";
-import {
-  defaultSpokenFormMap,
-} from "@cursorless/cursorless-engine";
+import type { CustomSpokenFormGenerator } from "@cursorless/cursorless-engine";
+import { defaultSpokenFormMap } from "@cursorless/cursorless-engine";
 import { getSpokenFormStrict } from "../getSpokenFormStrict";
-import type { StepComponent, StepComponentParser } from "../types/StepComponent";
+import type {
+  StepComponent,
+  StepComponentParser,
+} from "../types/StepComponent";
 
 /**
  * Parses components of the form `{action:chuck}`.

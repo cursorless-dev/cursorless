@@ -1,4 +1,4 @@
-import type { TreeSitter , TextDocument } from "@cursorless/common";
+import type { TreeSitter, TextDocument } from "@cursorless/common";
 import { FlashStyle, Range } from "@cursorless/common";
 import type { Tree, TreeCursor } from "web-tree-sitter";
 import { ide } from "../singletons/ide.singleton";

@@ -1,4 +1,4 @@
-import type { Configuration} from "@cursorless/common";
+import type { Configuration } from "@cursorless/common";
 import { Debouncer } from "@cursorless/common";
 
 export class DecorationDebouncer {

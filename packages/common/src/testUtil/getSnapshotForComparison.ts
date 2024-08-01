@@ -3,7 +3,10 @@ import type { SpyIDE } from "../ide/spy/SpyIDE";
 import type { ReadOnlyHatMap } from "../types/HatTokenMap";
 import type { TestHelpers } from "../types/TestHelpers";
 import { marksToPlainObject } from "../util/toPlainObject";
-import type { ExcludableSnapshotField, TestCaseSnapshot } from "./TestCaseSnapshot";
+import type {
+  ExcludableSnapshotField,
+  TestCaseSnapshot,
+} from "./TestCaseSnapshot";
 import { extractTargetedMarks } from "./extractTargetedMarks";
 
 /**

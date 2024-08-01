@@ -1,4 +1,4 @@
-import type { IDE} from "@cursorless/common";
+import type { IDE } from "@cursorless/common";
 import { shouldUpdateFixtures, sleep, SpyIDE } from "@cursorless/common";
 import type { NeovimIDE } from "@cursorless/neovim-common";
 import { getCursorlessApi } from "@cursorless/neovim-common";

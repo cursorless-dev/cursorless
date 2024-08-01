@@ -1,9 +1,5 @@
-import type {
-  CommandVersion,
-  TestCaseFixtureLegacy} from "@cursorless/common";
-import {
-  LATEST_VERSION
-} from "@cursorless/common";
+import type { CommandVersion, TestCaseFixtureLegacy } from "@cursorless/common";
+import { LATEST_VERSION } from "@cursorless/common";
 import { getRecordedTestPaths } from "@cursorless/node-common";
 import { checkMarks } from "./checkMarks";
 import { transformFile } from "./transformFile";

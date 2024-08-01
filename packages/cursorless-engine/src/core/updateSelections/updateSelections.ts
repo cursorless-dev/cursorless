@@ -2,7 +2,8 @@ import type {
   Edit,
   EditableTextEditor,
   Range,
-  TextDocument} from "@cursorless/common";
+  TextDocument,
+} from "@cursorless/common";
 import {
   RangeExpansionBehavior,
   Selection,

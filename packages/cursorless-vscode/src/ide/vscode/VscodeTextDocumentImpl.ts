@@ -2,10 +2,9 @@ import type {
   EndOfLine,
   Position,
   TextDocument,
-  TextLine} from "@cursorless/common";
-import {
-  Range
+  TextLine,
 } from "@cursorless/common";
+import { Range } from "@cursorless/common";
 import {
   fromVscodeEndOfLine,
   fromVscodePosition,

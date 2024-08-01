@@ -1,5 +1,4 @@
-import type {
-  Edit} from "@cursorless/common";
+import type { Edit } from "@cursorless/common";
 import {
   FlashStyle,
   RangeExpansionBehavior,

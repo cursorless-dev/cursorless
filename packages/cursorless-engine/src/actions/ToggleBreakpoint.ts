@@ -1,4 +1,4 @@
-import type { BreakpointDescriptor} from "@cursorless/common";
+import type { BreakpointDescriptor } from "@cursorless/common";
 import { FlashStyle } from "@cursorless/common";
 import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { containingLineIfUntypedModifier } from "../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";

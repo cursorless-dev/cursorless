@@ -1,4 +1,4 @@
-import type { TextEditor} from "vscode";
+import type { TextEditor } from "vscode";
 import { TabInputTextDiff, window } from "vscode";
 
 /**

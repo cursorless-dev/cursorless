@@ -1,4 +1,4 @@
-import type { MessageId, Messages} from "../types/Messages";
+import type { MessageId, Messages } from "../types/Messages";
 import { MessageType } from "../types/Messages";
 
 /**

@@ -2,11 +2,9 @@ import type {
   Disposable,
   ScopeSupportEventCallback,
   ScopeSupportInfo,
-  ScopeType} from "@cursorless/common";
-import {
-  ScopeSupport,
-  disposableFrom,
+  ScopeType,
 } from "@cursorless/common";
+import { ScopeSupport, disposableFrom } from "@cursorless/common";
 import { pull } from "lodash-es";
 
 import type { LanguageDefinitions } from "../languages/LanguageDefinitions";

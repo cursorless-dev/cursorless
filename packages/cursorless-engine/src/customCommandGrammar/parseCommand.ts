@@ -1,4 +1,4 @@
-import type { ScopeType} from "@cursorless/common";
+import type { ScopeType } from "@cursorless/common";
 import { type ActionDescriptor } from "@cursorless/common";
 import { Grammar, Parser } from "nearley";
 import type { WithPlaceholders } from "./WithPlaceholders";

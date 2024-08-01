@@ -2,11 +2,9 @@ import type {
   Direction,
   ImplicitTargetDescriptor,
   Modifier,
-  ScopeType} from "@cursorless/common";
-import {
-  Range,
-  uniqWithHash,
+  ScopeType,
 } from "@cursorless/common";
+import { Range, uniqWithHash } from "@cursorless/common";
 import { zip } from "lodash-es";
 import type {
   PrimitiveTargetDescriptor,

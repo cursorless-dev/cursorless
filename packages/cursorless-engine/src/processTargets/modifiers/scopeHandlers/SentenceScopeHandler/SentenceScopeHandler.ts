@@ -1,4 +1,4 @@
-import type { Direction, MatchedText} from "@cursorless/common";
+import type { Direction, MatchedText } from "@cursorless/common";
 import { Range } from "@cursorless/common";
 import { imap } from "itertools";
 import { TokenTarget } from "../../../targets";

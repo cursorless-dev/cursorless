@@ -1,4 +1,8 @@
-import type { HatColor, HatShape, VscodeHatStyleName } from "../hatStyles.types";
+import type {
+  HatColor,
+  HatShape,
+  VscodeHatStyleName,
+} from "../hatStyles.types";
 
 export function getStyleName(
   color: HatColor,

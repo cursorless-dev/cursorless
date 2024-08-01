@@ -4,10 +4,9 @@ import { FlashStyle, partition } from "@cursorless/common";
 import type {
   CharacterRange,
   GeneralizedRange,
-  LineRange} from "@cursorless/common";
-import {
-  isLineRange
+  LineRange,
 } from "@cursorless/common";
+import { isLineRange } from "@cursorless/common";
 import { VscodeHighlightDecorationTypes } from "./VscodeHighlightDecorationTypes";
 import type { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 

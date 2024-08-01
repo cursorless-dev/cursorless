@@ -14,7 +14,8 @@ import type {
   TestCaseFixture,
   TestCaseSnapshot,
   ThrownError,
-  Token} from "@cursorless/common";
+  Token,
+} from "@cursorless/common";
 import {
   extractTargetedMarks,
   marksToPlainObject,

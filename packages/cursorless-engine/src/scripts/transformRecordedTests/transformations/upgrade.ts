@@ -1,9 +1,5 @@
-import type {
-  CommandVersion,
-  TestCaseFixtureLegacy} from "@cursorless/common";
-import {
-  LATEST_VERSION
-} from "@cursorless/common";
+import type { CommandVersion, TestCaseFixtureLegacy } from "@cursorless/common";
+import { LATEST_VERSION } from "@cursorless/common";
 import { upgradeCommand } from "../../../core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 
 export function upgrade(

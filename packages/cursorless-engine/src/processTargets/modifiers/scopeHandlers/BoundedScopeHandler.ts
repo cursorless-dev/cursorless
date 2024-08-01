@@ -1,6 +1,10 @@
-import type { Direction, Position, ScopeType, TextEditor } from "@cursorless/common";
 import type {
-  InteriorTarget} from "../../targets";
+  Direction,
+  Position,
+  ScopeType,
+  TextEditor,
+} from "@cursorless/common";
+import type { InteriorTarget } from "../../targets";
 import {
   BoundedParagraphTarget,
   ParagraphTarget,

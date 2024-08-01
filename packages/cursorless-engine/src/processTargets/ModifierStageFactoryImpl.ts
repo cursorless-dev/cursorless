@@ -32,10 +32,9 @@ import { VisibleStage } from "./modifiers/VisibleStage";
 import type { ScopeHandlerFactory } from "./modifiers/scopeHandlers/ScopeHandlerFactory";
 import type {
   SimpleContainingScopeModifier,
-  SimpleEveryScopeModifier} from "./modifiers/scopeTypeStages/LegacyContainingSyntaxScopeStage";
-import {
-  LegacyContainingSyntaxScopeStage
+  SimpleEveryScopeModifier,
 } from "./modifiers/scopeTypeStages/LegacyContainingSyntaxScopeStage";
+import { LegacyContainingSyntaxScopeStage } from "./modifiers/scopeTypeStages/LegacyContainingSyntaxScopeStage";
 import { NotebookCellStage } from "./modifiers/scopeTypeStages/NotebookCellStage";
 
 export class ModifierStageFactoryImpl implements ModifierStageFactory {

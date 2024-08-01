@@ -1,4 +1,4 @@
-import type { CodeAction} from "vscode";
+import type { CodeAction } from "vscode";
 import { commands, window } from "vscode";
 
 /**

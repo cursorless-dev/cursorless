@@ -1,4 +1,4 @@
-import type { GeneralizedRange} from "@cursorless/common";
+import type { GeneralizedRange } from "@cursorless/common";
 import { Range } from "@cursorless/common";
 import { flatmap } from "itertools";
 import type { VscodeTextEditorImpl } from "../../VscodeTextEditorImpl";

@@ -1,7 +1,8 @@
 import type {
   CommandResponse,
   CommandServerApi,
-  CursorlessCommandId} from "@cursorless/common";
+  CursorlessCommandId,
+} from "@cursorless/common";
 import {
   CURSORLESS_COMMAND_ID,
   clientSupportsFallback,
@@ -9,8 +10,7 @@ import {
 } from "@cursorless/common";
 
 import type { CommandApi } from "@cursorless/cursorless-engine";
-import type {
-  NeovimIDE} from "@cursorless/neovim-common";
+import type { NeovimIDE } from "@cursorless/neovim-common";
 import {
   modeSwitchNormalTerminal,
   modeSwitchTerminal,

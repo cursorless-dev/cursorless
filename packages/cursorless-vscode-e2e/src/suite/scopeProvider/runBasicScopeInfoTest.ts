@@ -2,7 +2,7 @@ import type { ScopeSupportInfo } from "@cursorless/common";
 import { ScopeSupport } from "@cursorless/common";
 import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
 import * as sinon from "sinon";
-import type { TextDocument} from "vscode";
+import type { TextDocument } from "vscode";
 import { Position, Range, commands } from "vscode";
 import { assertCalledWithScopeInfo } from "./assertCalledWithScopeInfo";
 

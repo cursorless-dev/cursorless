@@ -1,7 +1,8 @@
 import type {
   ScopeSupportFacet,
   ScopeType,
-  TextualScopeSupportFacet} from "@cursorless/common";
+  TextualScopeSupportFacet,
+} from "@cursorless/common";
 import {
   asyncSafety,
   languageScopeSupport,

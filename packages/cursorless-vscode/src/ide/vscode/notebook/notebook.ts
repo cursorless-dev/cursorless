@@ -1,4 +1,4 @@
-import type { TextDocument} from "vscode";
+import type { TextDocument } from "vscode";
 import { window } from "vscode";
 
 /**

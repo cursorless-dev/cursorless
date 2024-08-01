@@ -1,4 +1,4 @@
-import type { SimpleScopeTypeType} from "@cursorless/common";
+import type { SimpleScopeTypeType } from "@cursorless/common";
 import { unsafeKeys } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
 import type {

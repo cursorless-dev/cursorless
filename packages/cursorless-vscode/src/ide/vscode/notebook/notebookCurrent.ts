@@ -1,4 +1,4 @@
-import type { NotebookCell, TextDocument} from "vscode";
+import type { NotebookCell, TextDocument } from "vscode";
 import { window } from "vscode";
 
 /** Gets the notebook containing a text document using >=1.68.0 VSCode notebook api **/

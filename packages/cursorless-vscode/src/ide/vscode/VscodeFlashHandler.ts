@@ -1,11 +1,9 @@
 import type {
   EditorGeneralizedRange,
   FlashDescriptor,
-  FlashStyle} from "@cursorless/common";
-import {
-  groupBy,
-  sleep,
+  FlashStyle,
 } from "@cursorless/common";
+import { groupBy, sleep } from "@cursorless/common";
 import { workspace } from "vscode";
 import type VscodeHighlights from "./VscodeHighlights";
 import type { VscodeIDE } from "./VscodeIDE";

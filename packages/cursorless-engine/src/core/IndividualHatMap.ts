@@ -3,10 +3,9 @@ import type {
   ReadOnlyHatMap,
   TextDocument,
   Token,
-  TokenHat} from "@cursorless/common";
-import {
-  getKey
+  TokenHat,
 } from "@cursorless/common";
+import { getKey } from "@cursorless/common";
 import tokenGraphemeSplitter from "../singletons/tokenGraphemeSplitter.singleton";
 import { getMatcher } from "../tokenizer";
 import type { FullRangeInfo } from "../typings/updateSelections";

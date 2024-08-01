@@ -1,6 +1,6 @@
 import { DefaultMap, Notifier } from "@cursorless/common";
 import type { Target } from "../typings/target.types";
-import type { StoredTargetKey} from "@cursorless/common";
+import type { StoredTargetKey } from "@cursorless/common";
 import { storedTargetKeys } from "@cursorless/common";
 import { UndoStack } from "./UndoStack";
 

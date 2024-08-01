@@ -1,11 +1,5 @@
-import type {
-  Range,
-  Selection,
-  TextEditor} from "@cursorless/common";
-import {
-  FlashStyle,
-  RangeExpansionBehavior
-} from "@cursorless/common";
+import type { Range, Selection, TextEditor } from "@cursorless/common";
+import { FlashStyle, RangeExpansionBehavior } from "@cursorless/common";
 import { flatten } from "lodash-es";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";

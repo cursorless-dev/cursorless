@@ -1,5 +1,5 @@
 import { window } from "vscode";
-import type { MessageId, Messages} from "@cursorless/common";
+import type { MessageId, Messages } from "@cursorless/common";
 import { MessageType } from "@cursorless/common";
 
 export default class VscodeMessages implements Messages {

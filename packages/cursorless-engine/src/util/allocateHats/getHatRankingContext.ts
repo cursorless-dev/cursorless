@@ -1,10 +1,5 @@
-import type {
-  HatStyleName,
-  Token,
-  TokenHat} from "@cursorless/common";
-import {
-  CompositeKeyMap
-} from "@cursorless/common";
+import type { HatStyleName, Token, TokenHat } from "@cursorless/common";
+import { CompositeKeyMap } from "@cursorless/common";
 import type { TokenGraphemeSplitter } from "../../tokenGraphemeSplitter";
 import type { RankedToken } from "./getRankedTokens";
 

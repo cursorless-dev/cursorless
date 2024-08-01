@@ -1,4 +1,4 @@
-import type { Messages} from "@cursorless/common";
+import type { Messages } from "@cursorless/common";
 import { Range } from "@cursorless/common";
 import type { QueryCapture } from "./QueryCapture";
 import { checkCaptureStartEnd } from "./checkCaptureStartEnd";

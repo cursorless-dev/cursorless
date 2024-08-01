@@ -4,10 +4,9 @@ import type {
   Configuration,
   ConfigurationScope,
   CursorlessConfigKey,
-  CursorlessConfiguration} from "@cursorless/common";
-import {
-  CONFIGURATION_DEFAULTS
+  CursorlessConfiguration,
 } from "@cursorless/common";
+import { CONFIGURATION_DEFAULTS } from "@cursorless/common";
 import type { GetFieldType, Paths } from "@cursorless/common";
 
 interface ConfigurationScopeValues {

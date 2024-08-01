@@ -3,7 +3,8 @@ import type {
   CommandServerApi,
   Hats,
   IDE,
-  ScopeProvider} from "@cursorless/common";
+  ScopeProvider,
+} from "@cursorless/common";
 import {
   ensureCommandShape,
   type RawTreeSitterQueryProvider,

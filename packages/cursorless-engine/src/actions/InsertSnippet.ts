@@ -2,11 +2,9 @@ import type {
   InsertSnippetArg,
   ScopeType,
   Snippet,
-  SnippetDefinition} from "@cursorless/common";
-import {
-  RangeExpansionBehavior,
-  textFormatters,
+  SnippetDefinition,
 } from "@cursorless/common";
+import { RangeExpansionBehavior, textFormatters } from "@cursorless/common";
 import type { Snippets } from "../core/Snippets";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";

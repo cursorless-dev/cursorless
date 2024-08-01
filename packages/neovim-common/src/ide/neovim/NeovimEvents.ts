@@ -2,11 +2,9 @@ import type {
   Disposable,
   TextDocument,
   TextDocumentChangeEvent,
-  TextDocumentContentChangeEvent} from "@cursorless/common";
-import {
-  Position,
-  Range
+  TextDocumentContentChangeEvent,
 } from "@cursorless/common";
+import { Position, Range } from "@cursorless/common";
 import { getNeovimRegistry } from "@cursorless/neovim-registry";
 
 import type { Buffer } from "neovim";

@@ -4,10 +4,9 @@ import type {
   IterationScopeRangeConfig,
   ScopeChangeEventCallback,
   ScopeRangeConfig,
-  ScopeRanges} from "@cursorless/common";
-import {
-  showError,
+  ScopeRanges,
 } from "@cursorless/common";
+import { showError } from "@cursorless/common";
 import { pull } from "lodash-es";
 
 import type { LanguageDefinitions } from "../languages/LanguageDefinitions";

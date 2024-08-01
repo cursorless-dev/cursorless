@@ -3,11 +3,9 @@ import type {
   CommandResponse,
   CommandServerApi,
   HatTokenMap,
-  ReadOnlyHatMap} from "@cursorless/common";
-import {
-  clientSupportsFallback,
-  type TreeSitter,
+  ReadOnlyHatMap,
 } from "@cursorless/common";
+import { clientSupportsFallback, type TreeSitter } from "@cursorless/common";
 import type { CommandRunner } from "./CommandRunner";
 import { Actions } from "./actions/Actions";
 import type { CommandRunnerDecorator } from "./api/CursorlessEngineApi";

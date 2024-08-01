@@ -7,11 +7,9 @@ import type {
   ExtensionContext,
   WebviewView,
   WebviewViewProvider,
-  WebviewViewResolveContext} from "vscode";
-import {
-  ExtensionMode,
-  Uri
+  WebviewViewResolveContext,
 } from "vscode";
+import { ExtensionMode, Uri } from "vscode";
 import type { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
 import { SpyWebviewView } from "./SpyWebviewView";
 import type { Tutorial } from "@cursorless/cursorless-tutorial";

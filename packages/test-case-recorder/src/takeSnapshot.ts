@@ -5,11 +5,12 @@ import type {
   IDE,
   SerializedMarks,
   TestCaseSnapshot,
-  TextEditor} from "@cursorless/common";
+  TextEditor,
+} from "@cursorless/common";
 import {
   rangeToPlainObject,
   selectionToPlainObject,
-  storedTargetKeys
+  storedTargetKeys,
 } from "@cursorless/common";
 import type { StoredTargetMap } from "@cursorless/cursorless-engine";
 import { hrtimeBigintToSeconds } from "./timeUtils";

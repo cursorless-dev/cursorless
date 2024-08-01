@@ -9,11 +9,9 @@ import type {
   SetSelectionsOpts,
   TextDocument,
   TextEditor,
-  TextEditorOptions} from "@cursorless/common";
-import {
-  sleep,
-  uniqWithHash,
+  TextEditorOptions,
 } from "@cursorless/common";
+import { sleep, uniqWithHash } from "@cursorless/common";
 import {
   fromVscodeRange,
   fromVscodeSelection,

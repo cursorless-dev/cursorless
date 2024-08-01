@@ -1,7 +1,4 @@
-import type {
-  Disposable,
-  Range,
-  TextDocument} from "@cursorless/common";
+import type { Disposable, Range, TextDocument } from "@cursorless/common";
 import {
   Notifier,
   showError,

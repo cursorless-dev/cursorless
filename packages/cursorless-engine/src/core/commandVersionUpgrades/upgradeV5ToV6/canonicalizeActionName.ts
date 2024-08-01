@@ -1,4 +1,4 @@
-import type { ActionType} from "@cursorless/common";
+import type { ActionType } from "@cursorless/common";
 import { actionNames } from "@cursorless/common";
 
 const actionAliasToCanonicalName: Record<string, ActionType> = {

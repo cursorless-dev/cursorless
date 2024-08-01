@@ -4,7 +4,8 @@ import type {
   SpokenFormEntry,
   SpokenFormMapKeyTypes,
   SpokenFormType,
-  TalonSpokenForms} from "@cursorless/common";
+  TalonSpokenForms,
+} from "@cursorless/common";
 import {
   DisabledCustomSpokenFormsError,
   NeedsInitialTalonUpdateError,

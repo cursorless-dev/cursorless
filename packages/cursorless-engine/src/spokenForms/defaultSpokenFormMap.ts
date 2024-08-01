@@ -1,4 +1,4 @@
-import type { SpokenFormMap} from "./SpokenFormMap";
+import type { SpokenFormMap } from "./SpokenFormMap";
 import { mapSpokenForms } from "./SpokenFormMap";
 import { defaultSpokenFormMapCore } from "./defaultSpokenFormMapCore";
 import type { DefaultSpokenFormInfoMap } from "./defaultSpokenFormMap.types";

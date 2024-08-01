@@ -5,7 +5,10 @@ import type {
   TextEditor,
 } from "@cursorless/common";
 import type { EditWithRangeUpdater } from "../../typings/Types";
-import type { Destination, EditNewActionType } from "../../typings/target.types";
+import type {
+  Destination,
+  EditNewActionType,
+} from "../../typings/target.types";
 import type { NotebookCellTarget } from "./NotebookCellTarget";
 
 export class NotebookCellDestination implements Destination {

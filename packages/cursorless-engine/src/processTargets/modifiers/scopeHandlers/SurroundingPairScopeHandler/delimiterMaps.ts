@@ -1,9 +1,8 @@
 import type {
   ComplexSurroundingPairName,
-  SimpleSurroundingPairName} from "@cursorless/common";
-import {
-  unsafeKeys,
+  SimpleSurroundingPairName,
 } from "@cursorless/common";
+import { unsafeKeys } from "@cursorless/common";
 
 type IndividualDelimiterText = string | string[];
 

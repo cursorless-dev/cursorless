@@ -2,11 +2,10 @@ import { isString, range } from "lodash-es";
 import type {
   KeyboardActionType,
   PolymorphicKeyboardActionDescriptor,
-  SpecificKeyboardActionDescriptor} from "./KeyboardActionType";
-import {
-  simpleKeyboardActionNames,
+  SpecificKeyboardActionDescriptor,
 } from "./KeyboardActionType";
-import type { KeyboardConfig} from "./KeyboardConfig";
+import { simpleKeyboardActionNames } from "./KeyboardActionType";
+import type { KeyboardConfig } from "./KeyboardConfig";
 import { only } from "./KeyboardConfig";
 import type { TokenTypeKeyMapMap } from "./TokenTypeHelpers";
 

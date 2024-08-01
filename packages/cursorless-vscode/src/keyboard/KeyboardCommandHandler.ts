@@ -1,4 +1,8 @@
-import type { Modifier, PartialMark, SurroundingPairName } from "@cursorless/common";
+import type {
+  Modifier,
+  PartialMark,
+  SurroundingPairName,
+} from "@cursorless/common";
 import { surroundingPairsDelimiters } from "@cursorless/cursorless-engine";
 import { isString } from "lodash-es";
 import * as vscode from "vscode";
@@ -7,9 +11,7 @@ import type {
   SimpleKeyboardActionDescriptor,
   SpecificKeyboardActionDescriptor,
 } from "./KeyboardActionType";
-import type {
-  TargetingMode,
-} from "./KeyboardCommandsTargeted";
+import type { TargetingMode } from "./KeyboardCommandsTargeted";
 import type KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
 import type { ModalVscodeCommandDescriptor } from "./TokenTypes";
 

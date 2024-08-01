@@ -1,7 +1,9 @@
-import type { SimpleScopeTypeType, SnippetDefinition } from "@cursorless/common";
-import type { Target } from "../typings/target.types";
 import type {
-  TextmateSnippet} from "./vendor/vscodeSnippet/snippetParser";
+  SimpleScopeTypeType,
+  SnippetDefinition,
+} from "@cursorless/common";
+import type { Target } from "../typings/target.types";
+import type { TextmateSnippet } from "./vendor/vscodeSnippet/snippetParser";
 import {
   Placeholder,
   Text,

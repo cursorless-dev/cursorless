@@ -4,10 +4,9 @@
 import { sum } from "lodash-es";
 import type {
   HatAdjustments,
-  IndividualHatAdjustmentMap} from "../../ide/vscode/hats/shapeAdjustments";
-import {
-  defaultShapeAdjustments
+  IndividualHatAdjustmentMap,
 } from "../../ide/vscode/hats/shapeAdjustments";
+import { defaultShapeAdjustments } from "../../ide/vscode/hats/shapeAdjustments";
 import { HAT_SHAPES } from "../../ide/vscode/hatStyles.types";
 import { postProcessValue } from "./lib";
 

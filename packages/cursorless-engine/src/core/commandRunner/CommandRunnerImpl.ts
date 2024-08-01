@@ -4,12 +4,14 @@ import type {
   CommandResponse,
   CommandServerApi,
   DestinationDescriptor,
-  PartialTargetDescriptor} from "@cursorless/common";
-import {
-  clientSupportsFallback,
+  PartialTargetDescriptor,
 } from "@cursorless/common";
+import { clientSupportsFallback } from "@cursorless/common";
 import type { CommandRunner } from "../../CommandRunner";
-import type { ActionRecord, ActionReturnValue } from "../../actions/actions.types";
+import type {
+  ActionRecord,
+  ActionReturnValue,
+} from "../../actions/actions.types";
 import { parseAndFillOutAction } from "../../customCommandGrammar/parseAndFillOutAction";
 import type { StoredTargetMap } from "../../index";
 import type { TargetPipelineRunner } from "../../processTargets";

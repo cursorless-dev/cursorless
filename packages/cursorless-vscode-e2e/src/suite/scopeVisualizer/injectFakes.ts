@@ -1,4 +1,4 @@
-import type { VscodeApi} from "@cursorless/vscode-common";
+import type { VscodeApi } from "@cursorless/vscode-common";
 import { getCursorlessApi } from "@cursorless/vscode-common";
 import * as sinon from "sinon";
 import type { DecorationRenderOptions, WorkspaceConfiguration } from "vscode";

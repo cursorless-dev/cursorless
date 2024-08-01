@@ -4,11 +4,8 @@ import type {
   TutorialId,
   TutorialStepFragment,
 } from "@cursorless/common";
-import type {
-  CustomSpokenFormGenerator} from "@cursorless/cursorless-engine";
-import {
-  parseScopeType,
-} from "@cursorless/cursorless-engine";
+import type { CustomSpokenFormGenerator } from "@cursorless/cursorless-engine";
+import { parseScopeType } from "@cursorless/cursorless-engine";
 import { getScopeTypeSpokenFormStrict } from "./getScopeTypeSpokenFormStrict";
 import { specialTerms } from "./specialTerms";
 import { ActionComponentParser } from "./stepComponentParsers/ActionComponentParser";

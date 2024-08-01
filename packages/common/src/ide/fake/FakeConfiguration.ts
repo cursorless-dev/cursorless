@@ -4,10 +4,9 @@ import type {
   Configuration,
   ConfigurationScope,
   CursorlessConfigKey,
-  CursorlessConfiguration} from "../types/Configuration";
-import {
-  CONFIGURATION_DEFAULTS
+  CursorlessConfiguration,
 } from "../types/Configuration";
+import { CONFIGURATION_DEFAULTS } from "../types/Configuration";
 import type { GetFieldType, Paths } from "../types/Paths";
 
 interface ConfigurationScopeValues {

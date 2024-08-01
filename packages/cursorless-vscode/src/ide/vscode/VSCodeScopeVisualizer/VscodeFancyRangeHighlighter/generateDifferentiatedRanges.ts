@@ -1,5 +1,4 @@
-import type {
-  GeneralizedRange} from "@cursorless/common";
+import type { GeneralizedRange } from "@cursorless/common";
 import {
   generalizedRangeContains,
   generalizedRangeTouches,

@@ -12,11 +12,8 @@ import type {
   TestCaseSnapshot,
   TextEditor,
 } from "@cursorless/common";
-import type {
-  StoredTargetMap} from "@cursorless/cursorless-engine";
-import {
-  plainObjectToTarget,
-} from "@cursorless/cursorless-engine";
+import type { StoredTargetMap } from "@cursorless/cursorless-engine";
+import { plainObjectToTarget } from "@cursorless/cursorless-engine";
 import type { VscodeTestHelpers } from "@cursorless/vscode-common";
 import type * as vscode from "vscode";
 import { takeSnapshot } from "@cursorless/test-case-recorder";

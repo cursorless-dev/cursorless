@@ -5,10 +5,9 @@ import type {
   HatStyleName,
   Listener,
   Range,
-  TextEditor} from "@cursorless/common";
-import {
-  Notifier
+  TextEditor,
 } from "@cursorless/common";
+import { Notifier } from "@cursorless/common";
 import type { VscodeApi } from "@cursorless/vscode-common";
 import { toVscodeRange } from "@cursorless/vscode-common";
 import * as vscode from "vscode";

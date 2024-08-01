@@ -3,7 +3,8 @@ import type {
   ScopeType,
   SimpleScopeType,
   SimpleScopeTypeType,
-  TreeSitter} from "@cursorless/common";
+  TreeSitter,
+} from "@cursorless/common";
 import {
   matchAll,
   showError,

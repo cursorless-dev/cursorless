@@ -1,10 +1,5 @@
-import type {
-  ScopeSupportInfo,
-  ScopeType} from "@cursorless/common";
-import {
-  ScopeSupport,
-  sleep,
-} from "@cursorless/common";
+import type { ScopeSupportInfo, ScopeType } from "@cursorless/common";
+import { ScopeSupport, sleep } from "@cursorless/common";
 import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
 import { stat, unlink, writeFile } from "fs/promises";
 import * as sinon from "sinon";

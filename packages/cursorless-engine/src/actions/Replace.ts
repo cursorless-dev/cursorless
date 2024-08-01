@@ -1,9 +1,5 @@
-import type {
-  ReplaceWith} from "@cursorless/common";
-import {
-  FlashStyle,
-  RangeExpansionBehavior
-} from "@cursorless/common";
+import type { ReplaceWith } from "@cursorless/common";
+import { FlashStyle, RangeExpansionBehavior } from "@cursorless/common";
 import { zip } from "lodash-es";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";

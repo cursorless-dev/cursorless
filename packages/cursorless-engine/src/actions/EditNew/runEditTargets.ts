@@ -1,4 +1,4 @@
-import type { EditableTextEditor} from "@cursorless/common";
+import type { EditableTextEditor } from "@cursorless/common";
 import { RangeExpansionBehavior } from "@cursorless/common";
 import { zip } from "lodash-es";
 import type { RangeUpdater } from "../../core/updateSelections/RangeUpdater";

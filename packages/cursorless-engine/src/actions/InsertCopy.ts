@@ -1,5 +1,4 @@
-import type {
-  TextEditor} from "@cursorless/common";
+import type { TextEditor } from "@cursorless/common";
 import {
   FlashStyle,
   RangeExpansionBehavior,

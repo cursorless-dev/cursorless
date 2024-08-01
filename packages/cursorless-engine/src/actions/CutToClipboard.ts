@@ -1,5 +1,4 @@
-import type {
-  FlashDescriptor} from "@cursorless/common";
+import type { FlashDescriptor } from "@cursorless/common";
 import {
   FlashStyle,
   Range,

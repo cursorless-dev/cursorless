@@ -1,12 +1,9 @@
 import type {
   ScopeType,
   SimpleScopeTypeType,
-  TextEditor} from "@cursorless/common";
-import {
-  Position,
-  ScopeSupport,
-  isEmptyIterable,
+  TextEditor,
 } from "@cursorless/common";
+import { Position, ScopeSupport, isEmptyIterable } from "@cursorless/common";
 import type { LegacyLanguageId } from "../languages/LegacyLanguageId";
 import { languageMatchers } from "../languages/getNodeMatcher";
 import type { ScopeHandlerFactory } from "../processTargets/modifiers/scopeHandlers/ScopeHandlerFactory";
