@@ -18,14 +18,14 @@ tag: user.private_cursorless_literal_mark_no_prefix
 """
 
 
-@mod.capture(rule="{user.private_cursorless_literal_mark} <user.text>")
+@mod.capture(rule="{user.private_cursorless_literal_mark} <phrase>")
 def cursorless_literal_mark(m) -> LiteralMark:
-    return construct_mark(m.text)
+    return construct_mark(str(m.phrase))
 
 
-@ctx_no_prefix.capture("user.cursorless_literal_mark", rule="<user.text>")
+@ctx_no_prefix.capture("user.cursorless_literal_mark", rule="<phrase>")
 def cursorless_literal_mark_no_prefix(m) -> LiteralMark:
-    return construct_mark(m.text)
+    return construct_mark(str(m.phrase))
 
 
 def construct_mark(text: str) -> LiteralMark:
