@@ -1,21 +1,21 @@
-import {
+import type {
   Direction,
   Modifier,
   OrdinalScopeModifier,
-  Range,
   RelativeScopeModifier,
   ScopeType,
   TextEditor,
 } from "@cursorless/common";
+import { Range } from "@cursorless/common";
 import { flatmap, ifilter, imap, itake } from "itertools";
 import { escapeRegExp } from "lodash-es";
 import type { Target } from "../../typings/target.types";
 import { generateMatchesInRange } from "../../util/getMatchesInRange";
-import { ModifierStageFactory } from "../ModifierStageFactory";
+import type { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
 import { PlainTarget } from "../targets";
 import { ContainingTokenIfUntypedEmptyStage } from "./ConditionalModifierStages";
-import { StoredTargetMap } from "../..";
+import type { StoredTargetMap } from "../..";
 import { OutOfRangeError } from "./listUtils";
 
 export class InstanceStage implements ModifierStage {

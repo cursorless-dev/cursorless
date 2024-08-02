@@ -1,4 +1,4 @@
-import {
+import type {
   Capabilities,
   Clipboard,
   Configuration,
@@ -10,7 +10,6 @@ import {
   InputBoxOptions,
   Listener,
   Messages,
-  Notifier,
   OpenUntitledTextDocumentOptions,
   QuickPickOptions,
   RunMode,
@@ -20,8 +19,8 @@ import {
   TextEditorSelectionChangeEvent,
   TextEditorVisibleRangesChangeEvent,
   WorkspaceFolder,
-  type KeyValueStore,
 } from "@cursorless/common";
+import { Notifier, type KeyValueStore } from "@cursorless/common";
 import { pull } from "lodash-es";
 import type { Talon } from "../types/talon.types";
 import type { EditorState } from "../types/types";

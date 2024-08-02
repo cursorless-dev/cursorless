@@ -1,9 +1,11 @@
-import {
+import type {
   RawTreeSitterQueryProvider,
   ScopeType,
   SimpleScopeType,
   SimpleScopeTypeType,
   TreeSitter,
+} from "@cursorless/common";
+import {
   matchAll,
   showError,
   type IDE,

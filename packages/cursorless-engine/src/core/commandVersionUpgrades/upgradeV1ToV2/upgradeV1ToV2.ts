@@ -1,13 +1,13 @@
-import { ActionType, ActionTypeV2 } from "@cursorless/common";
-import { CommandV2 } from "@cursorless/common";
-import {
+import type { ActionType, ActionTypeV2 } from "@cursorless/common";
+import type { CommandV2 } from "@cursorless/common";
+import type {
   ModifierV2,
   PartialPrimitiveTargetDescriptorV2,
   PartialRangeTargetDescriptorV2,
   PartialTargetDescriptorV2,
   SimpleScopeTypeTypeV2,
 } from "@cursorless/common";
-import {
+import type {
   CommandV1,
   ModifierV0V1,
   PartialPrimitiveTargetV0V1,

@@ -1,8 +1,9 @@
-import { EditableTextEditor, RangeExpansionBehavior } from "@cursorless/common";
+import type { EditableTextEditor } from "@cursorless/common";
+import { RangeExpansionBehavior } from "@cursorless/common";
 import { zip } from "lodash-es";
-import { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
+import type { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../../core/updateSelections/updateSelections";
-import { EditDestination, State } from "./EditNew.types";
+import type { EditDestination, State } from "./EditNew.types";
 
 /**
  * Handle targets that will use an edit action to insert a new target, and

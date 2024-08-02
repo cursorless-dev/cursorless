@@ -1,7 +1,12 @@
-import { Direction, Position, ScopeType, TextEditor } from "@cursorless/common";
+import type {
+  Direction,
+  Position,
+  ScopeType,
+  TextEditor,
+} from "@cursorless/common";
+import type { InteriorTarget } from "../../targets";
 import {
   BoundedParagraphTarget,
-  InteriorTarget,
   ParagraphTarget,
   TokenTarget,
 } from "../../targets";
@@ -13,7 +18,7 @@ import type {
   ScopeIteratorRequirements,
 } from "./scopeHandler.types";
 import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
-import { Target } from "../../../typings/target.types";
+import type { Target } from "../../../typings/target.types";
 
 abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
   protected readonly isHierarchical = true;

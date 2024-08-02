@@ -1,4 +1,4 @@
-import {
+import type {
   KeyboardCommand,
   KeyboardCommandArgTypes,
 } from "../KeyboardCommandTypeHelpers";

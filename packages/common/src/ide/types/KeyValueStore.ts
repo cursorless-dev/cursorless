@@ -1,4 +1,4 @@
-import { TutorialId } from "../../types/tutorial.types";
+import type { TutorialId } from "../../types/tutorial.types";
 
 interface SingleTutorialProgress {
   currentStep: number;

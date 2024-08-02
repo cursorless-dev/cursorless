@@ -1,4 +1,4 @@
-import { Token } from "@cursorless/common";
+import type { Token } from "@cursorless/common";
 
 interface TokenWithDisplayLine extends Token {
   displayLine: number;

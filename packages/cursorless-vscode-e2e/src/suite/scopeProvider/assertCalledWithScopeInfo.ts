@@ -1,4 +1,4 @@
-import { ScopeType, ScopeTypeInfo } from "@cursorless/common";
+import type { ScopeType, ScopeTypeInfo } from "@cursorless/common";
 import * as sinon from "sinon";
 import { assert } from "chai";
 import { sleepWithBackoff } from "../../endToEndTestSetup";

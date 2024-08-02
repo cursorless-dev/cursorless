@@ -1,4 +1,4 @@
-import {
+import type {
   ActionDescriptor,
   CommandResponse,
   CommandV6,

@@ -1,6 +1,7 @@
-import { SpokenFormMap, mapSpokenForms } from "./SpokenFormMap";
+import type { SpokenFormMap } from "./SpokenFormMap";
+import { mapSpokenForms } from "./SpokenFormMap";
 import { defaultSpokenFormMapCore } from "./defaultSpokenFormMapCore";
-import { DefaultSpokenFormInfoMap } from "./defaultSpokenFormMap.types";
+import type { DefaultSpokenFormInfoMap } from "./defaultSpokenFormMap.types";
 
 /**
  * This map contains information about the default spoken forms for all our

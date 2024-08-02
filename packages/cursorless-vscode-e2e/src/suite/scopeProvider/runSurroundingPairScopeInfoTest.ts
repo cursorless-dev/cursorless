@@ -1,4 +1,5 @@
-import { ScopeSupport, ScopeSupportInfo } from "@cursorless/common";
+import type { ScopeSupportInfo } from "@cursorless/common";
+import { ScopeSupport } from "@cursorless/common";
 import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
 import * as sinon from "sinon";
 import { Position, commands } from "vscode";

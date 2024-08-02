@@ -1,33 +1,37 @@
-import {
+import type {
   CommandComplete,
   CommandLatest,
   CommandResponse,
   CommandServerApi,
   DecoratedSymbolMark,
-  DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
-  extractTargetedMarks,
   ExtraSnapshotField,
-  getKey,
   HatTokenMap,
   IDE,
-  marksToPlainObject,
   ReadOnlyHatMap,
-  serialize,
   SerializedMarks,
+  TextEditorOptions,
+} from "@cursorless/common";
+import {
+  DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
+  extractTargetedMarks,
+  getKey,
+  marksToPlainObject,
+  serialize,
   showError,
   showInfo,
   sleep,
   SpyIDE,
-  TextEditorOptions,
   toLineRange,
 } from "@cursorless/common";
-import {
+import type {
   CommandRunner,
+  StoredTargetMap,
+} from "@cursorless/cursorless-engine";
+import {
   defaultSpokenFormMap,
   ide,
   injectIde,
   SpokenFormGenerator,
-  StoredTargetMap,
 } from "@cursorless/cursorless-engine";
 import { getRecordedTestsDirPath, walkDirsSync } from "@cursorless/node-common";
 import { invariant } from "immutability-helper";
@@ -35,7 +39,7 @@ import { merge } from "lodash-es";
 import * as fs from "node:fs";
 import { access, readFile, unlink } from "node:fs/promises";
 import * as path from "node:path";
-import { RecordTestCaseCommandOptions } from "./RecordTestCaseCommandOptions";
+import type { RecordTestCaseCommandOptions } from "./RecordTestCaseCommandOptions";
 import { takeSnapshot } from "./takeSnapshot";
 import { TestCase } from "./TestCase";
 

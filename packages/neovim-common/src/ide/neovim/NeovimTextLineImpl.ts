@@ -1,4 +1,5 @@
-import { Range, TextLine } from "@cursorless/common";
+import type { TextLine } from "@cursorless/common";
+import { Range } from "@cursorless/common";
 
 export default class NeovimTextLineImpl implements TextLine {
   private readonly _lineNumber: number;

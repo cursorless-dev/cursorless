@@ -1,10 +1,11 @@
-import { StoredTargetKey, groupBy, toCharacterRange } from "@cursorless/common";
-import { StoredTargetMap } from "@cursorless/cursorless-engine";
-import {
+import type { StoredTargetKey } from "@cursorless/common";
+import { groupBy, toCharacterRange } from "@cursorless/common";
+import type { StoredTargetMap } from "@cursorless/cursorless-engine";
+import type {
   ScopeRangeType,
   ScopeVisualizerColorConfig,
 } from "@cursorless/vscode-common";
-import { VscodeIDE } from "./ide/vscode/VscodeIDE";
+import type { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { VscodeFancyRangeHighlighter } from "./ide/vscode/VSCodeScopeVisualizer/VscodeFancyRangeHighlighter";
 import { getColorsFromConfig } from "./ide/vscode/VSCodeScopeVisualizer/getColorsFromConfig";
 import { mapValues } from "lodash-es";

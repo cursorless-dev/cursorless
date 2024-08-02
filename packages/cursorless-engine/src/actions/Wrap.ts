@@ -1,16 +1,16 @@
+import type { Edit } from "@cursorless/common";
 import {
-  Edit,
   FlashStyle,
   RangeExpansionBehavior,
   Selection,
   toCharacterRange,
 } from "@cursorless/common";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
-import { Target } from "../typings/target.types";
+import type { Target } from "../typings/target.types";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
-import { ActionReturnValue } from "./actions.types";
+import type { ActionReturnValue } from "./actions.types";
 
 export default class Wrap {
   constructor(private rangeUpdater: RangeUpdater) {

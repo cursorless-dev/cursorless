@@ -1,6 +1,8 @@
-import {
+import type {
   BringMoveActionDescriptor,
   InsertionMode,
+} from "@cursorless/common";
+import {
   simpleActionNames,
   simpleScopeTypeTypes,
   surroundingPairNames,

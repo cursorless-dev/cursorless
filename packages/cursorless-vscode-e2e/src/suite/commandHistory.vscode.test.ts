@@ -1,9 +1,9 @@
-import {
+import type {
   CommandComplete,
   CommandHistoryEntry,
-  LATEST_VERSION,
   ReplaceActionDescriptor,
 } from "@cursorless/common";
+import { LATEST_VERSION } from "@cursorless/common";
 import {
   getCursorlessApi,
   openNewEditor,

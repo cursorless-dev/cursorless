@@ -1,12 +1,14 @@
+import type {
+  ScopeSupportFacet,
+  ScopeType,
+  TextualScopeSupportFacet,
+} from "@cursorless/common";
 import {
   asyncSafety,
   languageScopeSupport,
-  ScopeSupportFacet,
   scopeSupportFacetInfos,
   ScopeSupportFacetLevel,
-  ScopeType,
   shouldUpdateFixtures,
-  TextualScopeSupportFacet,
   textualScopeSupportFacetInfos,
 } from "@cursorless/common";
 import { getScopeTestPathsRecursively } from "@cursorless/node-common";

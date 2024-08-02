@@ -1,11 +1,9 @@
-import {
+import type {
   CharacterRange,
-  Debouncer,
   Disposable,
   Hats,
   HatTokenMap,
   IDE,
-  Notifier,
   RawTutorialContent,
   ReadOnlyHatMap,
   ScopeType,
@@ -14,7 +12,8 @@ import {
   TutorialId,
   TutorialState,
 } from "@cursorless/common";
-import {
+import { Debouncer, Notifier } from "@cursorless/common";
+import type {
   CommandRunner,
   CommandRunnerDecorator,
   CustomSpokenFormGenerator,
@@ -25,8 +24,8 @@ import { arePreconditionsMet } from "./arePreconditionsMet";
 import { loadTutorial } from "./loadTutorial";
 import { setupStep } from "./setupStep";
 import { tutorialWrapCommandRunner } from "./tutorialWrapCommandRunner";
-import { TutorialContent } from "./types/tutorial.types";
-import { Tutorial } from "./Tutorial";
+import type { TutorialContent } from "./types/tutorial.types";
+import type { Tutorial } from "./Tutorial";
 
 const HIGHLIGHT_COLOR = "highlight0";
 

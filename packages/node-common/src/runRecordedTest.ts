@@ -1,16 +1,18 @@
-import {
+import type {
   Command,
   CommandResponse,
   Fallback,
-  Position,
   PositionPlainObject,
   ReadOnlyHatMap,
-  Selection,
   SelectionPlainObject,
   SerializedMarks,
   SpyIDE,
   TestCaseFixtureLegacy,
   TextEditor,
+} from "@cursorless/common";
+import {
+  Position,
+  Selection,
   clientSupportsFallback,
   getSnapshotForComparison,
   omitByDeep,
