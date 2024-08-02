@@ -187,6 +187,8 @@ export class TutorialImpl implements Tutorial, CommandRunnerDecorator {
             stepContent: tutorialContent.steps[this.state_.stepNumber].content,
           },
     );
+
+    await this.checkPreconditions();
   }
 
   private getRawTutorial(tutorialId: string) {
