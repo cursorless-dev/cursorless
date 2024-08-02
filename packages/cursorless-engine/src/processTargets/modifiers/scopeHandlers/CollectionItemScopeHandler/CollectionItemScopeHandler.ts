@@ -16,8 +16,11 @@ import {
   IndividualDelimiter,
   IndividualSeparator,
 } from "../SurroundingPairScopeHandler/types";
+import { getCollectionItemOccurrences } from "./getCollectionItemOccurrences";
 
 export class CollectionItemScopeHandler extends BaseScopeHandler {
+  public scopeType: ScopeType = { type: "collectionItem" };
+
   public readonly iterationScopeType: ScopeType = {
     type: "oneOf",
     scopeTypes: [
