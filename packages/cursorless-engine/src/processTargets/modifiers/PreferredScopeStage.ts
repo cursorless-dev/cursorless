@@ -1,11 +1,11 @@
 import { type Position, type PreferredScopeModifier } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
-import { ModifierStageFactory } from "../ModifierStageFactory";
+import type { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
 import { getContainingScopeTarget } from "./getContainingScopeTarget";
 import type { TargetScope } from "./scopeHandlers/scope.types";
 import type { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
-import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
+import type { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 
 /**
  * This modifier tries to find the preferred scope for the target.
