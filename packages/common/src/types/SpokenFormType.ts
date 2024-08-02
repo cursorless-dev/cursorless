@@ -61,6 +61,7 @@ export type SpeakableSurroundingPairName = SurroundingPairName | "whitespace";
 type SimpleModifierType = Exclude<
   ModifierType,
   | "containingScope"
+  | "preferredScope"
   | "ordinalScope"
   | "relativeScope"
   | "modifyIfUntyped"

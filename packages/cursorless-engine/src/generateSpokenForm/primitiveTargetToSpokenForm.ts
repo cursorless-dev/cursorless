@@ -45,6 +45,7 @@ export class PrimitiveTargetSpokenFormGenerator {
     switch (modifier.type) {
       case "cascading":
       case "modifyIfUntyped":
+      case "preferredScope":
         throw new NoSpokenFormError(`Modifier '${modifier.type}'`);
 
       case "containingScope":
@@ -60,12 +61,6 @@ export class PrimitiveTargetSpokenFormGenerator {
         throw new NoSpokenFormError(
           `Modifier '${modifier.type}' with ancestor index ${modifier.ancestorIndex}`,
         );
-
-      case "preferredScope":
-        return [
-          this.spokenFormMap.simpleModifier.preferredScope,
-          this.handleScopeType(modifier.scopeType),
-        ];
 
       case "everyScope":
         return [

@@ -10,9 +10,7 @@ command:
         - type: preferredScope
           scopeType: {type: customRegex, regex: 'hello([^a-zA-Z]|\\[trn])*there', flags: gui}
   usePrePhraseSnapshot: true
-spokenFormError: >-
-  custom regex with id hello([^a-zA-Z]|\\[trn])*there; please see
-  https://www.cursorless.org/docs/user/customization/ for more information
+spokenFormError: Modifier 'preferredScope'
 initialState:
   documentContents: |
     helloThere

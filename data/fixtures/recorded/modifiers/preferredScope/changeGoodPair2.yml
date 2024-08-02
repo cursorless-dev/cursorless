@@ -10,6 +10,7 @@ command:
         - type: preferredScope
           scopeType: {type: surroundingPair, delimiter: any}
   usePrePhraseSnapshot: true
+spokenFormError: Modifier 'preferredScope'
 initialState:
   documentContents: |-
     ()      ()
