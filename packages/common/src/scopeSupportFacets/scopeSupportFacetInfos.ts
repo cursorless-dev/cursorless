@@ -1,4 +1,4 @@
-import {
+import type {
   ScopeSupportFacet,
   ScopeSupportFacetInfo,
 } from "./scopeSupportFacets.types";

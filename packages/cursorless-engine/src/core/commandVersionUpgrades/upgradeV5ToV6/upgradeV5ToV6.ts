@@ -1,4 +1,4 @@
-import {
+import type {
   ActionCommandV5,
   ActionDescriptor,
   CommandV5,
@@ -26,6 +26,8 @@ import {
   PrimitiveDestinationDescriptor,
   ReplaceWith,
   WrapWithSnippetArg,
+} from "@cursorless/common";
+import {
   type ExecuteCommandOptions,
   type GetTextActionOptions,
 } from "@cursorless/common";

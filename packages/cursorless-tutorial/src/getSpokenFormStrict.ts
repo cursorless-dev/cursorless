@@ -1,4 +1,4 @@
-import { SpokenForm } from "@cursorless/common";
+import type { SpokenForm } from "@cursorless/common";
 import { TutorialError } from "./TutorialError";
 
 export function getSpokenFormStrict(spokenForm: SpokenForm) {

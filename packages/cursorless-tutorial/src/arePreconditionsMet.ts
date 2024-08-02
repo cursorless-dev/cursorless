@@ -1,11 +1,10 @@
+import type { HatTokenMap, TextEditor } from "@cursorless/common";
 import {
-  HatTokenMap,
-  TextEditor,
   plainObjectToSelection,
   serializedMarksToTokenHats,
 } from "@cursorless/common";
 import { isEqual } from "lodash-es";
-import { TutorialStep } from "./types/tutorial.types";
+import type { TutorialStep } from "./types/tutorial.types";
 
 /**
  * Given an editor, a hat token map, and a tutorial step, check if the preconditions

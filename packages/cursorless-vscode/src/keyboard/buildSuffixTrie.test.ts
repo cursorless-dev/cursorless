@@ -1,5 +1,6 @@
 import assert from "node:assert";
-import { KeyValuePair, buildSuffixTrie } from "./buildSuffixTrie";
+import type { KeyValuePair } from "./buildSuffixTrie";
+import { buildSuffixTrie } from "./buildSuffixTrie";
 import { isEqual, sortBy, uniq, uniqWith } from "lodash-es";
 
 interface TestCase {

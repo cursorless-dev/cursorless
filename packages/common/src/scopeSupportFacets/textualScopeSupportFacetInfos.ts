@@ -1,4 +1,4 @@
-import {
+import type {
   ScopeSupportFacetInfo,
   TextualScopeSupportFacet,
 } from "./scopeSupportFacets.types";

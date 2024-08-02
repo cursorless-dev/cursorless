@@ -1,9 +1,9 @@
 import { Parser, Grammar } from "nearley";
 import grammar from "./generated/grammar";
 import assert from "assert";
-import { KeyDescriptor } from "../TokenTypeHelpers";
-import { KeyboardCommandHandler } from "../KeyboardCommandHandler";
-import { KeyboardCommand } from "../KeyboardCommandTypeHelpers";
+import type { KeyDescriptor } from "../TokenTypeHelpers";
+import type { KeyboardCommandHandler } from "../KeyboardCommandHandler";
+import type { KeyboardCommand } from "../KeyboardCommandTypeHelpers";
 import { stringifyTokens } from "./stringifyTokens";
 
 interface TestCase {

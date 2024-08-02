@@ -1,12 +1,12 @@
-import {
+import type {
   ContainingScopeModifier,
   EveryScopeModifier,
   Modifier,
 } from "@cursorless/common";
-import { StoredTargetMap } from "../core/StoredTargets";
-import { LanguageDefinitions } from "../languages/LanguageDefinitions";
-import { ModifierStageFactory } from "./ModifierStageFactory";
-import { ModifierStage } from "./PipelineStages.types";
+import type { StoredTargetMap } from "../core/StoredTargets";
+import type { LanguageDefinitions } from "../languages/LanguageDefinitions";
+import type { ModifierStageFactory } from "./ModifierStageFactory";
+import type { ModifierStage } from "./PipelineStages.types";
 import { CascadingStage } from "./modifiers/CascadingStage";
 import { ModifyIfUntypedStage } from "./modifiers/ConditionalModifierStages";
 import { ContainingScopeStage } from "./modifiers/ContainingScopeStage";
@@ -30,12 +30,12 @@ import { RangeModifierStage } from "./modifiers/RangeModifierStage";
 import { RawSelectionStage } from "./modifiers/RawSelectionStage";
 import { RelativeScopeStage } from "./modifiers/RelativeScopeStage";
 import { VisibleStage } from "./modifiers/VisibleStage";
-import { ScopeHandlerFactory } from "./modifiers/scopeHandlers/ScopeHandlerFactory";
-import {
-  LegacyContainingSyntaxScopeStage,
+import type { ScopeHandlerFactory } from "./modifiers/scopeHandlers/ScopeHandlerFactory";
+import type {
   SimpleContainingScopeModifier,
   SimpleEveryScopeModifier,
 } from "./modifiers/scopeTypeStages/LegacyContainingSyntaxScopeStage";
+import { LegacyContainingSyntaxScopeStage } from "./modifiers/scopeTypeStages/LegacyContainingSyntaxScopeStage";
 import { NotebookCellStage } from "./modifiers/scopeTypeStages/NotebookCellStage";
 
 export class ModifierStageFactoryImpl implements ModifierStageFactory {

@@ -1,6 +1,6 @@
-import { HatStability, TokenHat } from "@cursorless/common";
-import { HatCandidate } from "./allocateHats";
-import { RankingContext } from "./getHatRankingContext";
+import type { HatStability, TokenHat } from "@cursorless/common";
+import type { HatCandidate } from "./allocateHats";
+import type { RankingContext } from "./getHatRankingContext";
 import {
   hatOldTokenRank,
   isOldTokenHat,

@@ -1,5 +1,5 @@
 import { unsafeKeys, type TreeSitter } from "@cursorless/common";
-import { LanguageDefinitions } from "./languages/LanguageDefinitions";
+import type { LanguageDefinitions } from "./languages/LanguageDefinitions";
 import { legacyLanguageIds } from "./languages/LegacyLanguageId";
 import { languageMatchers } from "./languages/getNodeMatcher";
 

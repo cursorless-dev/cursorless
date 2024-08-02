@@ -1,5 +1,5 @@
-import { TutorialStepFragment } from "@cursorless/common";
-import { TutorialStep } from "./tutorial.types";
+import type { TutorialStepFragment } from "@cursorless/common";
+import type { TutorialStep } from "./tutorial.types";
 
 /**
  * Represents a `{foo:bar}` component in a tutorial step, eg `{action:chuck}`.

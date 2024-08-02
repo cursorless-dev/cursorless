@@ -1,4 +1,4 @@
-import { workspace, window, TextEditor, env, commands } from "vscode";
+import type { workspace, window, TextEditor, env, commands } from "vscode";
 
 /**
  * Subset of VSCode api that we need to be able to mock for testing

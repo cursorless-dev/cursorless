@@ -1,9 +1,10 @@
-import { Position, Range } from "@cursorless/common";
-import { Direction } from "@cursorless/common";
+import type { Position } from "@cursorless/common";
+import { Range } from "@cursorless/common";
+import type { Direction } from "@cursorless/common";
 import { strictlyContains } from "../../../util/rangeUtils";
 import { compareTargetScopes } from "./compareTargetScopes";
-import { TargetScope } from "./scope.types";
-import { ScopeIteratorRequirements } from "./scopeHandler.types";
+import type { TargetScope } from "./scope.types";
+import type { ScopeIteratorRequirements } from "./scopeHandler.types";
 
 /**
  * Returns `true` if the scope should be yielded.  Checks that the scope meets

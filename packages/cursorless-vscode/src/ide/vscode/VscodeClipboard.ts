@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { Clipboard } from "@cursorless/common";
+import type { Clipboard } from "@cursorless/common";
 
 export default class VscodeClipboard implements Clipboard {
   async readText(): Promise<string> {

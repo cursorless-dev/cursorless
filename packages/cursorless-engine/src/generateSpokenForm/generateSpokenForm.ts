@@ -1,4 +1,4 @@
-import {
+import type {
   ActionDescriptor,
   CommandComplete,
   DestinationDescriptor,
@@ -8,11 +8,11 @@ import {
   SpokenForm,
   SpokenFormMapKeyTypes,
   SpokenFormType,
-  camelCaseToAllDown,
 } from "@cursorless/common";
-import { SpokenFormMap } from "../spokenForms/SpokenFormMap";
+import { camelCaseToAllDown } from "@cursorless/common";
+import type { SpokenFormMap } from "../spokenForms/SpokenFormMap";
 import { NoSpokenFormError } from "./NoSpokenFormError";
-import { SpokenFormComponent } from "./SpokenFormComponent";
+import type { SpokenFormComponent } from "./SpokenFormComponent";
 import { connectives } from "./defaultSpokenForms/connectives";
 import { surroundingPairDelimitersToSpokenForm } from "./defaultSpokenForms/modifiers";
 import {
@@ -20,10 +20,8 @@ import {
   wrapperSnippetToSpokenForm,
 } from "./defaultSpokenForms/snippets";
 import { getRangeConnective } from "./getRangeConnective";
-import {
-  SpokenFormComponentMap,
-  getSpokenFormComponentMap,
-} from "./getSpokenFormComponentMap";
+import type { SpokenFormComponentMap } from "./getSpokenFormComponentMap";
+import { getSpokenFormComponentMap } from "./getSpokenFormComponentMap";
 import { PrimitiveTargetSpokenFormGenerator } from "./primitiveTargetToSpokenForm";
 
 export class SpokenFormGenerator {

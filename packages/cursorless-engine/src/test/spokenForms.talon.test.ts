@@ -1,9 +1,9 @@
-import {
+import type {
   Command,
   CommandLatest,
   TestCaseFixtureLegacy,
-  asyncSafety,
 } from "@cursorless/common";
+import { asyncSafety } from "@cursorless/common";
 import { getRecordedTestPaths } from "@cursorless/node-common";
 import assert from "assert";
 import * as yaml from "js-yaml";
@@ -13,7 +13,7 @@ import { getHatMapCommand } from "../generateSpokenForm/getHatMapCommand";
 import { TalonRepl } from "../testUtil/TalonRepl";
 import { communitySnippetsSpokenFormsFixture } from "./fixtures/communitySnippets.fixture";
 import { multiActionFixture } from "./fixtures/multiAction.fixture";
-import { SpokenFormTestOpts } from "./fixtures/spokenFormTest";
+import type { SpokenFormTestOpts } from "./fixtures/spokenFormTest";
 import { synonymousSpokenFormsFixture } from "./fixtures/synonymousSpokenForms.fixture";
 import { talonApiFixture } from "./fixtures/talonApi.fixture";
 

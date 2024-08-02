@@ -1,5 +1,5 @@
-import { TestCaseFixtureLegacy } from "../../types/TestCaseFixture";
-import { TutorialId } from "../../types/tutorial.types";
+import type { TestCaseFixtureLegacy } from "../../types/TestCaseFixture";
+import type { TutorialId } from "../../types/tutorial.types";
 
 export interface TutorialContentProvider {
   /**

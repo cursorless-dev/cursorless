@@ -1,4 +1,4 @@
-import {
+import type {
   CustomRegexScopeType,
   Direction,
   GlyphScopeType,
@@ -7,10 +7,10 @@ import {
 import { imap } from "itertools";
 import { escapeRegExp } from "lodash-es";
 import { NestedScopeHandler } from "./NestedScopeHandler";
-import { ScopeHandlerFactory } from "./ScopeHandlerFactory";
+import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 import { generateMatchesInRange } from "../../../util/getMatchesInRange";
 import { TokenTarget } from "../../targets";
-import { TargetScope } from "./scope.types";
+import type { TargetScope } from "./scope.types";
 
 abstract class RegexStageBase extends NestedScopeHandler {
   public readonly iterationScopeType: ScopeType = { type: "line" };

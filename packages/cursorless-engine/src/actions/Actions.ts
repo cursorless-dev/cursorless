@@ -1,7 +1,7 @@
 import type { TreeSitter } from "@cursorless/common";
-import { Snippets } from "../core/Snippets";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
+import type { Snippets } from "../core/Snippets";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { BreakLine } from "./BreakLine";
 import { Bring, Move, Swap } from "./BringMoveSwap";
 import Call from "./Call";
@@ -59,7 +59,7 @@ import { Random, Reverse, Sort } from "./Sort";
 import ToggleBreakpoint from "./ToggleBreakpoint";
 import Wrap from "./Wrap";
 import WrapWithSnippet from "./WrapWithSnippet";
-import { ActionRecord } from "./actions.types";
+import type { ActionRecord } from "./actions.types";
 import { Decrement, Increment } from "./incrementDecrement";
 
 /**

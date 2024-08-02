@@ -1,15 +1,15 @@
-import {
+import type {
   Hats,
   RawTutorialContent,
   TutorialContentProvider,
   TutorialId,
   TutorialState,
-  type KeyValueStore,
 } from "@cursorless/common";
-import { CustomSpokenFormGenerator } from "@cursorless/cursorless-engine";
+import { type KeyValueStore } from "@cursorless/common";
+import type { CustomSpokenFormGenerator } from "@cursorless/cursorless-engine";
 import { TutorialError } from "./TutorialError";
 import { TutorialStepParser } from "./TutorialStepParser";
-import { TutorialContent } from "./types/tutorial.types";
+import type { TutorialContent } from "./types/tutorial.types";
 
 export async function loadTutorial(
   contentProvider: TutorialContentProvider,

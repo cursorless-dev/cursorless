@@ -1,7 +1,6 @@
+import type { SpyIDE, TestCaseFixtureLegacy } from "@cursorless/common";
 import {
   LATEST_VERSION,
-  SpyIDE,
-  TestCaseFixtureLegacy,
   asyncSafety,
   getSnapshotForComparison,
   sleep,

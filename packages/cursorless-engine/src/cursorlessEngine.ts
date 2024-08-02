@@ -1,16 +1,18 @@
-import {
+import type {
   Command,
   CommandServerApi,
   Hats,
   IDE,
   ScopeProvider,
+} from "@cursorless/common";
+import {
   ensureCommandShape,
   type RawTreeSitterQueryProvider,
   type TalonSpokenForms,
   type TreeSitter,
 } from "@cursorless/common";
 import { KeyboardTargetUpdater } from "./KeyboardTargetUpdater";
-import {
+import type {
   CommandRunnerDecorator,
   CursorlessEngine,
 } from "./api/CursorlessEngineApi";

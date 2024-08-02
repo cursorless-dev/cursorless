@@ -1,4 +1,4 @@
-import {
+import type {
   CommandV2,
   CommandV3,
   LineNumberMarkV2,

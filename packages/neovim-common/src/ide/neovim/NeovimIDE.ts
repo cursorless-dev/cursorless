@@ -10,7 +10,7 @@ import type {
   TextEditor,
   WorkspaceFolder,
 } from "@cursorless/common";
-import {
+import type {
   Event,
   FlashDescriptor,
   GeneralizedRange,

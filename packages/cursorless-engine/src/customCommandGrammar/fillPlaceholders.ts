@@ -1,5 +1,5 @@
 import { indexArrayStrict } from "../core/indexArrayStrict";
-import { Placeholder, WithPlaceholders } from "./WithPlaceholders";
+import type { Placeholder, WithPlaceholders } from "./WithPlaceholders";
 
 /**
  * Given an input with placeholders, fills in the placeholders with the given

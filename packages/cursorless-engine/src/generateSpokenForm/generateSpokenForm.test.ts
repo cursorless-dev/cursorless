@@ -1,15 +1,13 @@
-import {
-  TestCaseFixtureLegacy,
-  serializeTestFixture,
-  shouldUpdateFixtures,
-} from "@cursorless/common";
+import type { TestCaseFixtureLegacy } from "@cursorless/common";
+import { serializeTestFixture, shouldUpdateFixtures } from "@cursorless/common";
 import { getRecordedTestPaths } from "@cursorless/node-common";
 import * as yaml from "js-yaml";
 import assert from "node:assert";
 import { promises as fsp } from "node:fs";
 import { SpokenFormGenerator } from ".";
 import { canonicalizeAndValidateCommand } from "../core/commandVersionUpgrades/canonicalizeAndValidateCommand";
-import { SpokenFormMap, mapSpokenForms } from "../spokenForms/SpokenFormMap";
+import type { SpokenFormMap } from "../spokenForms/SpokenFormMap";
+import { mapSpokenForms } from "../spokenForms/SpokenFormMap";
 import { defaultSpokenFormInfoMap } from "../spokenForms/defaultSpokenFormMap";
 import { getHatMapCommand } from "./getHatMapCommand";
 

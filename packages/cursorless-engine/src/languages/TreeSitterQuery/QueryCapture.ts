@@ -1,5 +1,5 @@
-import { Range, TextDocument } from "@cursorless/common";
-import { Point } from "web-tree-sitter";
+import type { Range, TextDocument } from "@cursorless/common";
+import type { Point } from "web-tree-sitter";
 
 /**
  * Simple representation of the tree sitter syntax node. Used by

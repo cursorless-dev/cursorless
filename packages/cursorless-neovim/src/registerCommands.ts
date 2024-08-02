@@ -1,15 +1,17 @@
-import {
-  CURSORLESS_COMMAND_ID,
+import type {
   CommandResponse,
   CommandServerApi,
   CursorlessCommandId,
+} from "@cursorless/common";
+import {
+  CURSORLESS_COMMAND_ID,
   clientSupportsFallback,
   ensureCommandShape,
 } from "@cursorless/common";
 
-import { CommandApi } from "@cursorless/cursorless-engine";
+import type { CommandApi } from "@cursorless/cursorless-engine";
+import type { NeovimIDE } from "@cursorless/neovim-common";
 import {
-  NeovimIDE,
   modeSwitchNormalTerminal,
   modeSwitchTerminal,
 } from "@cursorless/neovim-common";

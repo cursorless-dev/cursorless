@@ -1,8 +1,9 @@
-import { Range } from "@cursorless/common";
-import { BaseTarget, MinimumTargetParameters } from "./BaseTarget";
+import type { Range } from "@cursorless/common";
+import type { MinimumTargetParameters } from "./BaseTarget";
+import { BaseTarget } from "./BaseTarget";
 import { LineTarget } from "./LineTarget";
 import { expandToFullLine } from "../../util/rangeUtils";
-import { InteriorTarget, ParagraphTarget } from ".";
+import type { InteriorTarget, ParagraphTarget } from ".";
 
 interface BoundedParagraphTargetParameters extends MinimumTargetParameters {
   readonly paragraphTarget: ParagraphTarget;
