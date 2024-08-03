@@ -437,16 +437,6 @@ This is a "line with" a few "quotation marks" on it
        opening   closing opening         closing
 ```
 
-This heuristic works well in most cases, but when it does get tripped up, you can override its behavior. Position your cursor directly next to the delimiter (or just use the delimiter as a mark), and then prefix the name of the delimiter pair with "left" or "right" to force cursorless to expand the selection to the left or right, respectively.
-
-For example:
-
-- `"take left quad"` (with your cursor adjacent to a quote)
-- `"take left pair green double"` (with your cursor anywhere)
-- `"take inside right quad"`
-
-If your cursor / mark is between two delimiters (not adjacent to one), then saying either "left" or "right" will cause cursorless to just expand to the nearest delimiters on either side, without trying to determine whether they are opening or closing delimiters.
-
 ##### `"its"`
 
 The the modifier `"its"` is intended to be used as part of a compound target, and will tell Cursorless to use the previously mentioned mark in the compound target.
