@@ -1,4 +1,4 @@
-import {
+import type {
   LineNumberMark,
   Modifier,
   PartialMark,
@@ -20,8 +20,8 @@ import {
   numberToSpokenForm,
   ordinalToSpokenForm,
 } from "./defaultSpokenForms/numbers";
-import { SpokenFormComponentMap } from "./getSpokenFormComponentMap";
-import { SpokenFormComponent } from "./SpokenFormComponent";
+import type { SpokenFormComponentMap } from "./getSpokenFormComponentMap";
+import type { SpokenFormComponent } from "./SpokenFormComponent";
 
 export class PrimitiveTargetSpokenFormGenerator {
   constructor(private spokenFormMap: SpokenFormComponentMap) {
@@ -229,6 +229,7 @@ export class PrimitiveTargetSpokenFormGenerator {
   handleScopeType(scopeType: ScopeType): SpokenFormComponent {
     switch (scopeType.type) {
       case "oneOf":
+      case "surroundingPairInterior":
         throw new NoSpokenFormError(`Scope type '${scopeType.type}'`);
       case "glyph":
         return [

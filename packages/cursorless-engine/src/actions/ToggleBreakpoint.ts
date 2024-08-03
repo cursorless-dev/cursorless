@@ -1,10 +1,11 @@
-import { BreakpointDescriptor, FlashStyle } from "@cursorless/common";
-import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
+import type { BreakpointDescriptor } from "@cursorless/common";
+import { FlashStyle } from "@cursorless/common";
+import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { containingLineIfUntypedModifier } from "../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";
 import { ide } from "../singletons/ide.singleton";
-import { Target } from "../typings/target.types";
+import type { Target } from "../typings/target.types";
 import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
-import { SimpleAction, ActionReturnValue } from "./actions.types";
+import type { SimpleAction, ActionReturnValue } from "./actions.types";
 
 export default class ToggleBreakpoint implements SimpleAction {
   getFinalStages = () => [

@@ -1,6 +1,6 @@
-import { Target } from "../../typings/target.types";
+import type { Target } from "../../typings/target.types";
 import { createContinuousRangeTarget } from "../createContinuousRangeTarget";
-import { TargetScope } from "./scopeHandlers/scope.types";
+import type { TargetScope } from "./scopeHandlers/scope.types";
 
 /**
  * Constructs a target consisting of a range between {@link scope1} and

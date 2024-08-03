@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons/faCircleQuestion";
 import CheatsheetNotesComponent from "./components/CheatsheetNotesComponent";
 import SmartLink from "./components/SmartLink";
-import { CheatsheetInfo } from "./CheatsheetInfo";
+import type { CheatsheetInfo } from "./CheatsheetInfo";
 
 type CheatsheetPageProps = {
   cheatsheetInfo: CheatsheetInfo;

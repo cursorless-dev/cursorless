@@ -1,20 +1,11 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: chuck fourth char whale past third char air take whale
-  action: {name: remove}
-  targets:
-    - active:
-        type: primitive
-        modifiers:
-          - type: ordinalScope
-            scopeType: {type: character}
-            start: 2
-            length: 1
-        mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  action:
+    name: remove
+    target:
       type: range
-      excludeAnchor: false
-      excludeActive: false
       anchor:
         type: primitive
         modifiers:
@@ -23,6 +14,16 @@ command:
             start: 3
             length: 1
         mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      active:
+        type: primitive
+        modifiers:
+          - type: ordinalScope
+            scopeType: {type: character}
+            start: 2
+            length: 1
+        mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      excludeAnchor: false
+      excludeActive: false
   usePrePhraseSnapshot: false
 marksToCheck: [default.w]
 initialState:

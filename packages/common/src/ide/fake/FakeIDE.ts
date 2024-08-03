@@ -1,11 +1,11 @@
 import { pull } from "lodash-es";
 import type { EditableTextEditor, TextEditor } from "../..";
-import { GeneralizedRange } from "../../types/GeneralizedRange";
-import { TextDocument } from "../../types/TextDocument";
+import type { GeneralizedRange } from "../../types/GeneralizedRange";
+import type { TextDocument } from "../../types/TextDocument";
 import type { TextDocumentChangeEvent } from "../types/Events";
-import { FlashDescriptor } from "../types/FlashDescriptor";
-import { QuickPickOptions } from "../types/QuickPickOptions";
-import {
+import type { FlashDescriptor } from "../types/FlashDescriptor";
+import type { QuickPickOptions } from "../types/QuickPickOptions";
+import type {
   Event,
   TextEditorSelectionChangeEvent,
   TextEditorVisibleRangesChangeEvent,
@@ -20,13 +20,13 @@ import type {
 import { FakeCapabilities } from "./FakeCapabilities";
 import FakeClipboard from "./FakeClipboard";
 import FakeConfiguration from "./FakeConfiguration";
-import FakeGlobalState from "./FakeGlobalState";
+import FakeKeyValueStore from "./FakeKeyValueStore";
 import FakeMessages from "./FakeMessages";
 
 export class FakeIDE implements IDE {
   configuration: FakeConfiguration = new FakeConfiguration();
   messages: FakeMessages = new FakeMessages();
-  globalState: FakeGlobalState = new FakeGlobalState();
+  keyValueStore: FakeKeyValueStore = new FakeKeyValueStore();
   clipboard: FakeClipboard = new FakeClipboard();
   capabilities: FakeCapabilities = new FakeCapabilities();
 

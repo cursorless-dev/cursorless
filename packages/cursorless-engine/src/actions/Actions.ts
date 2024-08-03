@@ -1,11 +1,12 @@
 import type { TreeSitter } from "@cursorless/common";
-import { Snippets } from "../core/Snippets";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
+import type { Snippets } from "../core/Snippets";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { BreakLine } from "./BreakLine";
 import { Bring, Move, Swap } from "./BringMoveSwap";
 import Call from "./Call";
 import Clear from "./Clear";
+import { CopyToClipboard } from "./CopyToClipboard";
 import { CutToClipboard } from "./CutToClipboard";
 import Deselect from "./Deselect";
 import { EditNew } from "./EditNew";
@@ -40,12 +41,10 @@ import {
 } from "./SetSelection";
 import { SetSpecialTarget } from "./SetSpecialTarget";
 import ShowParseTree from "./ShowParseTree";
+import { IndentLine, OutdentLine } from "./IndentLine";
 import {
-  CopyToClipboard,
   ExtractVariable,
   Fold,
-  IndentLine,
-  OutdentLine,
   Rename,
   RevealDefinition,
   RevealTypeDefinition,
@@ -60,7 +59,7 @@ import { Random, Reverse, Sort } from "./Sort";
 import ToggleBreakpoint from "./ToggleBreakpoint";
 import Wrap from "./Wrap";
 import WrapWithSnippet from "./WrapWithSnippet";
-import { ActionRecord } from "./actions.types";
+import type { ActionRecord } from "./actions.types";
 import { Decrement, Increment } from "./incrementDecrement";
 
 /**
@@ -76,7 +75,7 @@ export class Actions implements ActionRecord {
 
   callAsFunction = new Call(this);
   clearAndSetSelection = new Clear(this);
-  copyToClipboard = new CopyToClipboard(this.rangeUpdater);
+  copyToClipboard = new CopyToClipboard(this, this.rangeUpdater);
   cutToClipboard = new CutToClipboard(this);
   decrement = new Decrement(this);
   deselect = new Deselect();

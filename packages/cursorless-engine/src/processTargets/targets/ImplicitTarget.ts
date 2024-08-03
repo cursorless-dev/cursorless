@@ -1,5 +1,6 @@
-import { EnforceUndefined } from "@cursorless/common";
-import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
+import type { EnforceUndefined } from "@cursorless/common";
+import type { CommonTargetParameters } from "./BaseTarget";
+import { BaseTarget } from "./BaseTarget";
 
 /**
  * A target that was not explicitly spoken by the user. For example:

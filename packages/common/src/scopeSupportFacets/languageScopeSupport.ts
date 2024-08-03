@@ -20,7 +20,7 @@ import { rubyScopeSupport } from "./ruby";
 import { rustScopeSupport } from "./rust";
 import { scalaScopeSupport } from "./scala";
 import { scmScopeSupport } from "./scm";
-import { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
+import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { scssScopeSupport } from "./scss";
 import { talonScopeSupport } from "./talon";
 import { typescriptScopeSupport } from "./typescript";

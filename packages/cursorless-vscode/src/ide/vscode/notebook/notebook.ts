@@ -1,4 +1,5 @@
-import { TextDocument, window } from "vscode";
+import type { TextDocument } from "vscode";
+import { window } from "vscode";
 
 /**
  * Given a document corresponding to a single cell, retrieve the notebook

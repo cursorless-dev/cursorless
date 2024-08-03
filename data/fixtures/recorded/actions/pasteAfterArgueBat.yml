@@ -1,15 +1,18 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: paste after arg bat
-  action: {name: pasteFromClipboard}
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: b}
-      modifiers:
-        - {type: position, position: after}
-        - type: containingScope
-          scopeType: {type: argumentOrParameter}
+  action:
+    name: pasteFromClipboard
+    destination:
+      type: primitive
+      insertionMode: after
+      target:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: argumentOrParameter}
+        mark: {type: decoratedSymbol, symbolColor: default, character: b}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: foo(bar, baz, bongo)

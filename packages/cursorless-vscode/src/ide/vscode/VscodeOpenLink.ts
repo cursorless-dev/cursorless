@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
-import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
-import { OpenLinkOptions, Range } from "@cursorless/common";
+import type { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
+import type { OpenLinkOptions, Range } from "@cursorless/common";
 import { toVscodePositionOrRange } from "@cursorless/vscode-common";
 
 export default async function vscodeOpenLink(
@@ -52,10 +52,10 @@ async function runCommandAtRange(
 async function getLinksForEditor(
   editor: vscode.TextEditor,
 ): Promise<vscode.DocumentLink[]> {
-  return (await vscode.commands.executeCommand(
+  return await vscode.commands.executeCommand(
     "vscode.executeLinkProvider",
     editor.document.uri,
-  ))!;
+  );
 }
 
 function openLink(link: vscode.DocumentLink, openAside: boolean) {

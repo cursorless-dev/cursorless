@@ -1,6 +1,7 @@
 import { tryConstructTarget } from "../../util/tryConstructTarget";
-import { TextEditor, Range } from "@cursorless/common";
-import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
+import type { TextEditor, Range } from "@cursorless/common";
+import type { CommonTargetParameters } from "./BaseTarget";
+import { BaseTarget } from "./BaseTarget";
 
 interface PlainTargetParameters extends CommonTargetParameters {
   readonly isToken?: boolean;

@@ -1,8 +1,6 @@
 import { javascriptJsxScopeSupport } from "./javascript";
-import {
-  LanguageScopeSupportFacetMap,
-  ScopeSupportFacetLevel,
-} from "./scopeSupportFacets.types";
+import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
+import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 import { typescriptScopeSupport } from "./typescript";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

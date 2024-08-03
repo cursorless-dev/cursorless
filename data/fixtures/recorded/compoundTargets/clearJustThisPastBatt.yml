@@ -1,20 +1,21 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: change just this past bat
-  action: {name: clearAndSetSelection}
-  targets:
-    - type: range
+  action:
+    name: clearAndSetSelection
+    target:
+      type: range
+      anchor:
+        type: primitive
+        modifiers:
+          - {type: toRawSelection}
+        mark: {type: cursor}
       active:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: b}
       excludeAnchor: false
       excludeActive: false
-      anchor:
-        type: primitive
-        mark: {type: cursor}
-        modifiers:
-          - {type: toRawSelection}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-

@@ -1,4 +1,4 @@
-import {
+import type {
   CommandServerApi,
   HatTokenMap,
   Hats,
@@ -6,10 +6,10 @@ import {
   TokenHat,
 } from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
-import { Debug } from "./Debug";
+import type { Debug } from "./Debug";
 import { HatAllocator } from "./HatAllocator";
 import { IndividualHatMap } from "./IndividualHatMap";
-import { RangeUpdater } from "./updateSelections/RangeUpdater";
+import type { RangeUpdater } from "./updateSelections/RangeUpdater";
 
 /**
  * Maximum age for the pre-phrase snapshot before we consider it to be stale
@@ -57,12 +57,11 @@ export class HatTokenMapImpl implements HatTokenMap {
   /**
    * Allocate hats to the visible tokens.
    *
-   * @param oldTokenHats If supplied, pretend that this allocation was the
-   * previous allocation when trying to maintain stable hats.  This parameter is
-   * used for testing.
+   * @param forceTokenHats If supplied, force the allocator to use these hats
+   * for the given tokens. This is used for the tutorial, and for testing.
    */
-  allocateHats(oldTokenHats?: TokenHat[]) {
-    return this.hatAllocator.allocateHats(oldTokenHats);
+  allocateHats(forceTokenHats?: TokenHat[]) {
+    return this.hatAllocator.allocateHats(forceTokenHats);
   }
 
   private async getActiveMap() {

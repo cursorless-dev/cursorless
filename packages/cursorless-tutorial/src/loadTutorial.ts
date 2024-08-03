@@ -1,26 +1,29 @@
-import {
+import type {
+  Hats,
   RawTutorialContent,
-  State,
   TutorialContentProvider,
   TutorialId,
   TutorialState,
 } from "@cursorless/common";
-import { CustomSpokenFormGenerator } from "@cursorless/cursorless-engine";
+import { type KeyValueStore } from "@cursorless/common";
+import type { CustomSpokenFormGenerator } from "@cursorless/cursorless-engine";
 import { TutorialError } from "./TutorialError";
 import { TutorialStepParser } from "./TutorialStepParser";
-import { TutorialContent } from "./types/tutorial.types";
+import type { TutorialContent } from "./types/tutorial.types";
 
 export async function loadTutorial(
   contentProvider: TutorialContentProvider,
   tutorialId: TutorialId,
   customSpokenFormGenerator: CustomSpokenFormGenerator,
   rawContent: RawTutorialContent,
-  globalState: State,
+  keyValueStore: KeyValueStore,
+  hats: Hats,
 ) {
   const parser = new TutorialStepParser(
     contentProvider,
     tutorialId,
     customSpokenFormGenerator,
+    hats,
   );
 
   let tutorialContent: TutorialContent;
@@ -34,7 +37,7 @@ export async function loadTutorial(
     };
 
     let stepNumber =
-      globalState.get("tutorialProgress")[tutorialId]?.currentStep ?? 0;
+      keyValueStore.get("tutorialProgress")[tutorialId]?.currentStep ?? 0;
 
     if (stepNumber >= tutorialContent.steps.length - 1) {
       stepNumber = 0;

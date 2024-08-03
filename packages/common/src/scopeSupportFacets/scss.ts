@@ -1,8 +1,6 @@
 import { cssScopeSupport } from "./css";
-import {
-  LanguageScopeSupportFacetMap,
-  ScopeSupportFacetLevel,
-} from "./scopeSupportFacets.types";
+import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
+import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
@@ -15,4 +13,5 @@ export const scssScopeSupport: LanguageScopeSupportFacetMap = {
   "functionName.iteration": supported,
   "functionName.iteration.document": supported,
   "comment.line": supported,
+  disqualifyDelimiter: supported,
 };

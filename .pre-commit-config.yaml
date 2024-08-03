@@ -1,7 +1,7 @@
 minimum_pre_commit_version: "2.9.0"
 ci:
   autoupdate_schedule: monthly
-exclude: /vendor/
+exclude: /vendor/|^data/playground/
 repos:
   - repo: meta
     hooks:
@@ -81,6 +81,14 @@ repos:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
       - id: ruff-format
+  - repo: https://github.com/lunarmodules/luacheck
+    rev: v1.2.0
+    hooks:
+      - id: luacheck
+  - repo: https://github.com/JohnnyMorganz/StyLua
+    rev: v0.20.0
+    hooks:
+      - id: stylua
   - repo: https://github.com/koalaman/shellcheck-precommit
     rev: v0.10.0
     hooks:

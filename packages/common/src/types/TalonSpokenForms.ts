@@ -1,5 +1,5 @@
-import { Notifier } from "@cursorless/common";
-import { SpokenFormMapKeyTypes, SpokenFormType } from "./SpokenFormType";
+import type { Notifier } from "@cursorless/common";
+import type { SpokenFormMapKeyTypes, SpokenFormType } from "./SpokenFormType";
 
 /**
  * Interface representing a communication mechanism whereby Talon can provide

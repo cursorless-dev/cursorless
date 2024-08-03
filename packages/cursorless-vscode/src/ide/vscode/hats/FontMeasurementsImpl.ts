@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { FontMeasurements } from "./FontMeasurements";
+import type { FontMeasurements } from "./FontMeasurements";
 
 /**
  * Contains measurements for the user's font
@@ -20,8 +20,8 @@ export class FontMeasurementsImpl implements FontMeasurements {
 
   constructor(private extensionContext: vscode.ExtensionContext) {}
 
-  clearCache() {
-    this.extensionContext.globalState.update("fontRatios", undefined);
+  async clearCache() {
+    await this.extensionContext.globalState.update("fontRatios", undefined);
   }
 
   async calculate() {
@@ -35,7 +35,7 @@ export class FontMeasurementsImpl implements FontMeasurements {
 
     if (fontRatiosCache == null || fontRatiosCache.fontFamily !== fontFamily) {
       const fontRatios = await getFontRatios(this.extensionContext);
-      this.extensionContext.globalState.update("fontRatios", {
+      await this.extensionContext.globalState.update("fontRatios", {
         ...fontRatios,
         fontFamily,
       });

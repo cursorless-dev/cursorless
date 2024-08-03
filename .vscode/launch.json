@@ -110,9 +110,27 @@
       ]
     },
 
+    // Neovim launch configs
+    {
+      "name": "Neovim: Run",
+      "request": "attach",
+      "continueOnAttach": true,
+      "skipFiles": ["<node_internals>/**"],
+      "preLaunchTask": "Neovim: Build extension",
+      "type": "node"
+    },
+    {
+      "name": "Neovim: Test",
+      "request": "attach",
+      "continueOnAttach": true,
+      "skipFiles": ["<node_internals>/**"],
+      "preLaunchTask": "Neovim: Build extension and tests",
+      "type": "node"
+    },
+
     // Talon launch configs
     {
-      "name": "Talon: Test",
+      "name": "Talon: Test grammar",
       "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/packages/test-harness/dist/runTalonTests.cjs",
@@ -128,10 +146,45 @@
       ]
     },
     {
-      "name": "Talon: Test (subset)",
+      "name": "Talon: Test grammar (subset)",
       "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/packages/test-harness/dist/runTalonTests.cjs",
+      "env": {
+        "CURSORLESS_MODE": "test",
+        "CURSORLESS_RUN_TEST_SUBSET": "true",
+        "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
+      },
+      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
+      "preLaunchTask": "VSCode: Build extension and tests",
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+      ]
+    },
+
+    // Talon everywhere/JS launch configs
+    {
+      "name": "TalonJS: Test",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/packages/test-harness/dist/runTalonJsTests.cjs",
+      "env": {
+        "CURSORLESS_MODE": "test",
+        "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
+      },
+      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
+      "preLaunchTask": "VSCode: Build extension and tests",
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+      ]
+    },
+    {
+      "name": "TalonJS: Test (subset)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/packages/test-harness/dist/runTalonJsTests.cjs",
       "env": {
         "CURSORLESS_MODE": "test",
         "CURSORLESS_RUN_TEST_SUBSET": "true",

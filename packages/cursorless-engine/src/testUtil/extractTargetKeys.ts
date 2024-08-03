@@ -1,10 +1,13 @@
-import {
+import type {
   PartialMark,
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
-  getKey,
 } from "@cursorless/common";
-import { Mark, PrimitiveTargetDescriptor } from "../typings/TargetDescriptor";
+import { getKey } from "@cursorless/common";
+import type {
+  Mark,
+  PrimitiveTargetDescriptor,
+} from "../typings/TargetDescriptor";
 
 export function extractTargetKeys(target: PartialTargetDescriptor): string[] {
   switch (target.type) {

@@ -1,11 +1,12 @@
 languageId: python
 postEditorOpenSleepTimeMs: 200
 command:
-  version: 5
+  version: 6
   spokenForm: pour line
-  action: {name: editNewLineAfter}
-  targets:
-    - type: primitive
+  action:
+    name: editNewLineAfter
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: line}

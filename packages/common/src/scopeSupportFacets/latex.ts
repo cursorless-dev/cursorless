@@ -1,7 +1,5 @@
-import {
-  LanguageScopeSupportFacetMap,
-  ScopeSupportFacetLevel,
-} from "./scopeSupportFacets.types";
+import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
+import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
@@ -14,4 +12,5 @@ export const latexScopeSupport: LanguageScopeSupportFacetMap = {
   endTag: supported,
   tags: supported,
   environment: supported,
+  disqualifyDelimiter: supported,
 };

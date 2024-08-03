@@ -1,5 +1,5 @@
 import { vscodeApi } from "./vscodeApi";
-import { Disposable } from "@cursorless/common";
+import type { Disposable } from "@cursorless/common";
 
 /**
  * Watches for changes to a setting and calls a factory function whenever the

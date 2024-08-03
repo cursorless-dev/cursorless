@@ -1,6 +1,6 @@
-import { TutorialState } from "@cursorless/common";
+import type { TutorialState } from "@cursorless/common";
 import { useEffect, useState, type FunctionComponent } from "react";
-import { WebviewApi } from "vscode-webview";
+import type { WebviewApi } from "vscode-webview";
 import { TutorialStep } from "./TutorialStep";
 import { Command } from "./Command";
 

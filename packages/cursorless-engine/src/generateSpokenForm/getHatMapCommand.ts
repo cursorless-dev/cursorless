@@ -1,8 +1,8 @@
-import {
+import type {
   CommandLatest,
   PartialPrimitiveTargetDescriptor,
-  splitKey,
 } from "@cursorless/common";
+import { splitKey } from "@cursorless/common";
 
 /**
  * Constructs the command that would have been used as the second command when

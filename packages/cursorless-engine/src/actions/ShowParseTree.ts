@@ -1,5 +1,5 @@
-import type { TreeSitter } from "@cursorless/common";
-import { FlashStyle, Range, TextDocument } from "@cursorless/common";
+import type { TreeSitter, TextDocument } from "@cursorless/common";
+import { FlashStyle, Range } from "@cursorless/common";
 import type { Tree, TreeCursor } from "web-tree-sitter";
 import { ide } from "../singletons/ide.singleton";
 import type { Target } from "../typings/target.types";
@@ -22,7 +22,8 @@ export default class ShowParseTree {
       results.push(parseTree(editor.document, tree, contentRange));
     }
 
-    ide().openUntitledTextDocument({
+    // FIXME: If we await this our test break. We should probably find out when this actually resolves.
+    void ide().openUntitledTextDocument({
       language: "markdown",
       content: results.join("\n\n"),
     });

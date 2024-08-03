@@ -1,15 +1,14 @@
-import {
+import type {
   Disposable,
   ScopeType,
   ScopeTypeInfo,
   ScopeTypeInfoEventCallback,
   SurroundingPairScopeType,
-  simpleScopeTypeTypes,
-  surroundingPairNames,
 } from "@cursorless/common";
+import { simpleScopeTypeTypes, surroundingPairNames } from "@cursorless/common";
 import { pull } from "lodash-es";
 
-import { CustomSpokenFormGeneratorImpl } from "../generateSpokenForm/CustomSpokenFormGeneratorImpl";
+import type { CustomSpokenFormGeneratorImpl } from "../generateSpokenForm/CustomSpokenFormGeneratorImpl";
 import { scopeTypeToString } from "./scopeTypeToString";
 
 /**
@@ -158,6 +157,7 @@ function isLanguageSpecific(scopeType: ScopeType): boolean {
     case "subParagraph":
     case "environment":
     case "textFragment":
+    case "disqualifyDelimiter":
       return true;
 
     case "character":
@@ -167,12 +167,14 @@ function isLanguageSpecific(scopeType: ScopeType): boolean {
     case "line":
     case "sentence":
     case "paragraph":
+    case "boundedParagraph":
     case "document":
     case "nonWhitespaceSequence":
     case "boundedNonWhitespaceSequence":
     case "url":
     case "notebookCell":
     case "surroundingPair":
+    case "surroundingPairInterior":
     case "customRegex":
     case "glyph":
       return false;

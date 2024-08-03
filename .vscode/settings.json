@@ -25,5 +25,11 @@
   "files.eol": "\n",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.tsdk": "node_modules/typescript/lib",
-  "eslint.workingDirectories": [{ "pattern": "packages/*/" }]
+  "eslint.workingDirectories": [{ "pattern": "packages/*/" }],
+  "[lua]": {
+    "editor.defaultFormatter": "JohnnyMorganz.stylua"
+  },
+  "files.associations": {
+    ".busted": "lua"
+  }
 }

@@ -5,7 +5,7 @@ import type {
   TextDocumentChangeReason,
   TextDocumentContentChangeEvent,
 } from "@cursorless/common";
-import { Event } from "@cursorless/common";
+import type { Event } from "@cursorless/common";
 import type { Disposable } from "@cursorless/common";
 import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
 

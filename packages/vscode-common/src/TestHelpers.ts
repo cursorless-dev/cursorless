@@ -5,9 +5,9 @@ import type {
   TestHelpers,
   TextEditor,
 } from "@cursorless/common";
-import * as vscode from "vscode";
-import { VscodeApi } from "./VscodeApi";
-import { SpyWebViewEvent } from "./SpyWebViewEvent";
+import type * as vscode from "vscode";
+import type { VscodeApi } from "./VscodeApi";
+import type { SpyWebViewEvent } from "./SpyWebViewEvent";
 
 export interface VscodeTestHelpers extends TestHelpers {
   ide: NormalizedIDE;

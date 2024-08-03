@@ -1,17 +1,17 @@
-import {
+import type {
   Disposable,
   IterationScopeChangeEventCallback,
   IterationScopeRangeConfig,
   ScopeChangeEventCallback,
   ScopeRangeConfig,
   ScopeRanges,
-  showError,
 } from "@cursorless/common";
+import { showError } from "@cursorless/common";
 import { pull } from "lodash-es";
 
-import { LanguageDefinitions } from "../languages/LanguageDefinitions";
+import type { LanguageDefinitions } from "../languages/LanguageDefinitions";
 import { ide } from "../singletons/ide.singleton";
-import { ScopeRangeProvider } from "./ScopeRangeProvider";
+import type { ScopeRangeProvider } from "./ScopeRangeProvider";
 import { DecorationDebouncer } from "../util/DecorationDebouncer";
 
 /**
@@ -73,7 +73,7 @@ export class ScopeRangeWatcher {
             config,
           );
         } catch (err) {
-          showError(
+          void showError(
             ide().messages,
             "ScopeRangeWatcher.provide",
             (err as Error).message,

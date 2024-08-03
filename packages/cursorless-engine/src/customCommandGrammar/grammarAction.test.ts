@@ -1,7 +1,7 @@
 import { type ActionDescriptor } from "@cursorless/common";
 import assert from "assert";
 import { parseAction } from "./parseCommand";
-import { WithPlaceholders } from "./WithPlaceholders";
+import type { WithPlaceholders } from "./WithPlaceholders";
 
 interface TestCase {
   input: string;

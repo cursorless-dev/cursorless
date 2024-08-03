@@ -1,3 +1,5 @@
+;; https://github.com/tree-sitter-grammars/tree-sitter-lua/blob/main/src/grammar.json
+
 ;; Statements
 [
   (variable_declaration)
@@ -296,3 +298,14 @@ local_declaration: (variable_declaration
 ;; Structures and object access
 
 ;; (method_index_expression) @private.fieldAccess
+
+(binary_expression
+  [
+    "<"
+    "<<"
+    "<="
+    ">"
+    ">="
+    ">>"
+  ] @disqualifyDelimiter
+)

@@ -2,7 +2,7 @@ import type { Disposable, Hats, TokenHat } from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
 import tokenGraphemeSplitter from "../singletons/tokenGraphemeSplitter.singleton";
 import { allocateHats } from "../util/allocateHats";
-import { IndividualHatMap } from "./IndividualHatMap";
+import type { IndividualHatMap } from "./IndividualHatMap";
 import { DecorationDebouncer } from "../util/DecorationDebouncer";
 
 interface Context {
@@ -51,22 +51,30 @@ export class HatAllocator {
   /**
    * Allocate hats to the visible tokens.
    *
-   * @param oldTokenHats If supplied, pretend that this allocation was the
-   * previous allocation when trying to maintain stable hats.  This parameter is
-   * used for testing.
+   * @param forceTokenHats If supplied, force the allocator to use these hats
+   * for the given tokens. This is used for the tutorial, and for testing.
    */
-  async allocateHats(oldTokenHats?: TokenHat[]) {
+  async allocateHats(forceTokenHats?: TokenHat[]) {
     const activeMap = await this.context.getActiveMap();
 
+    // Forced graphemes won't have been normalized
+    forceTokenHats = forceTokenHats?.map((tokenHat) => ({
+      ...tokenHat,
+      grapheme: tokenGraphemeSplitter().normalizeGrapheme(tokenHat.grapheme),
+    }));
+
     const tokenHats = this.hats.isEnabled
-      ? allocateHats(
-          tokenGraphemeSplitter(),
-          this.hats.enabledHatStyles,
-          oldTokenHats ?? activeMap.tokenHats,
-          ide().configuration.getOwnConfiguration("experimental.hatStability"),
-          ide().activeTextEditor,
-          ide().visibleTextEditors,
-        )
+      ? allocateHats({
+          tokenGraphemeSplitter: tokenGraphemeSplitter(),
+          enabledHatStyles: this.hats.enabledHatStyles,
+          forceTokenHats,
+          oldTokenHats: activeMap.tokenHats,
+          hatStability: ide().configuration.getOwnConfiguration(
+            "experimental.hatStability",
+          ),
+          activeTextEditor: ide().activeTextEditor,
+          visibleTextEditors: ide().visibleTextEditors,
+        })
       : [];
 
     activeMap.setTokenHats(tokenHats);

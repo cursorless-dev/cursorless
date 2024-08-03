@@ -1,16 +1,18 @@
-import {
+import type {
   Command,
   CommandResponse,
   Fallback,
-  Position,
   PositionPlainObject,
   ReadOnlyHatMap,
-  Selection,
   SelectionPlainObject,
   SerializedMarks,
   SpyIDE,
   TestCaseFixtureLegacy,
   TextEditor,
+} from "@cursorless/common";
+import {
+  Position,
+  Selection,
   clientSupportsFallback,
   getSnapshotForComparison,
   omitByDeep,
@@ -123,7 +125,7 @@ export async function runRecordedTest({
   }
 
   if (fixture.initialState.clipboard) {
-    spyIde.clipboard.writeText(fixture.initialState.clipboard);
+    await spyIde.clipboard.writeText(fixture.initialState.clipboard);
   }
 
   commandServerApi.setFocusedElementType(fixture.focusedElementType);

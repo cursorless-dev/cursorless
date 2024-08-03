@@ -1,19 +1,21 @@
-import {
+import type {
   Edit,
   EditableTextEditor,
   Range,
+  TextDocument,
+} from "@cursorless/common";
+import {
   RangeExpansionBehavior,
   Selection,
-  TextDocument,
   unsafeKeys,
 } from "@cursorless/common";
 import { flatten } from "lodash-es";
-import {
+import type {
   FullSelectionInfo,
   SelectionInfo,
 } from "../../typings/updateSelections";
 import { performDocumentEdits } from "../../util/performDocumentEdits";
-import { RangeUpdater } from "./RangeUpdater";
+import type { RangeUpdater } from "./RangeUpdater";
 
 /** Selections OR ranges */
 type SelectionsOrRanges = readonly Selection[] | readonly Range[];

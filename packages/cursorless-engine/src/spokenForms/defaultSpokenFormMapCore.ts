@@ -1,4 +1,4 @@
-import { DefaultSpokenFormMapDefinition } from "./defaultSpokenFormMap.types";
+import type { DefaultSpokenFormMapDefinition } from "./defaultSpokenFormMap.types";
 import { graphemeDefaultSpokenForms } from "./graphemes";
 import { isDisabledByDefault, isPrivate } from "./spokenFormMapUtil";
 
@@ -28,6 +28,8 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     backtickQuotes: "skis",
     squareBrackets: "box",
     singleQuotes: "twin",
+    tripleDoubleQuotes: isPrivate("triple quad"),
+    tripleSingleQuotes: isPrivate("triple twin"),
     any: "pair",
     string: "string",
     whitespace: "void",
@@ -91,6 +93,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     line: "line",
     sentence: "sentence",
     paragraph: "block",
+    boundedParagraph: "short block",
     document: "file",
     nonWhitespaceSequence: "paint",
     boundedNonWhitespaceSequence: "short paint",
@@ -99,6 +102,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
 
     string: isPrivate("parse tree string"),
     textFragment: isPrivate("text fragment"),
+    disqualifyDelimiter: isPrivate("disqualify delimiter"),
     ["private.fieldAccess"]: isPrivate("access"),
     ["private.switchStatementSubject"]: isPrivate("subject"),
   },

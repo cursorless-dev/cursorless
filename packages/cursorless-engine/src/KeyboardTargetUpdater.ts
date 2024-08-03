@@ -1,5 +1,5 @@
-import { Disposable, IDE } from "@cursorless/common";
-import { StoredTargetMap } from "./core/StoredTargets";
+import type { Disposable, IDE } from "@cursorless/common";
+import type { StoredTargetMap } from "./core/StoredTargets";
 import { CursorStage } from "./processTargets/marks/CursorStage";
 import { DecorationDebouncer } from "./util/DecorationDebouncer";
 

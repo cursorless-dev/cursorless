@@ -1,5 +1,8 @@
-import { TestCaseSnapshot, TutorialStepFragment } from "@cursorless/common";
-import { TutorialStepTrigger } from "./TutorialStepTrigger";
+import type {
+  TestCaseSnapshot,
+  TutorialStepFragment,
+} from "@cursorless/common";
+import type { TutorialStepTrigger } from "./TutorialStepTrigger";
 
 /**
  * Represents the content of a tutorial. Used internally by the tutorial

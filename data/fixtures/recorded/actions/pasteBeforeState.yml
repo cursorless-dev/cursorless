@@ -1,14 +1,17 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: paste before state
-  action: {name: pasteFromClipboard}
-  targets:
-    - type: primitive
-      modifiers:
-        - {type: position, position: before}
-        - type: containingScope
-          scopeType: {type: statement}
+  action:
+    name: pasteFromClipboard
+    destination:
+      type: primitive
+      insertionMode: before
+      target:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: statement}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: const whatever = "hello";

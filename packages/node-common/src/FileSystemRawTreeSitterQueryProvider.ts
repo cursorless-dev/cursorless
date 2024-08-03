@@ -19,8 +19,8 @@ export class FileSystemRawTreeSitterQueryProvider
     ide: IDE,
     private fileSystem: FileSystem,
   ) {
-    // Use the repo root as the root for development mode, so that we can
-    // we can make hot-reloading work for the queries
+    // Use the repo root as the root for development mode, so that we can make
+    // hot-reloading work for the queries
     this.queryDir =
       ide.runMode === "development"
         ? path.join(getCursorlessRepoRoot(), "queries")

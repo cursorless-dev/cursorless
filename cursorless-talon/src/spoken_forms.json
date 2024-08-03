@@ -170,6 +170,7 @@
       "file": "document",
       "paint": "nonWhitespaceSequence",
       "short paint": "boundedNonWhitespaceSequence",
+      "short block": "boundedParagraph",
       "link": "url",
       "cell": "notebookCell"
     },

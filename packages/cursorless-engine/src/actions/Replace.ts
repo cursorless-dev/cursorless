@@ -1,16 +1,13 @@
-import {
-  FlashStyle,
-  RangeExpansionBehavior,
-  ReplaceWith,
-} from "@cursorless/common";
+import type { ReplaceWith } from "@cursorless/common";
+import { FlashStyle, RangeExpansionBehavior } from "@cursorless/common";
 import { zip } from "lodash-es";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
-import { SelectionWithEditor } from "../typings/Types";
-import { Destination, Target } from "../typings/target.types";
+import type { SelectionWithEditor } from "../typings/Types";
+import type { Destination, Target } from "../typings/target.types";
 import { flashTargets, runForEachEditor } from "../util/targetUtils";
-import { ActionReturnValue } from "./actions.types";
+import type { ActionReturnValue } from "./actions.types";
 
 export default class Replace {
   constructor(private rangeUpdater: RangeUpdater) {

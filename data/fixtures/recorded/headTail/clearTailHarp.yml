@@ -1,13 +1,14 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: change tail harp
-  action: {name: clearAndSetSelection}
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - {type: extendThroughEndOf}
+      mark: {type: decoratedSymbol, symbolColor: default, character: h}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: "    hello world whatever"

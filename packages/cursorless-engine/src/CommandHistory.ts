@@ -1,18 +1,16 @@
-import {
+import type {
   ActionDescriptor,
   CommandComplete,
   CommandHistoryEntry,
   CommandServerApi,
   IDE,
   ReadOnlyHatMap,
-  type CommandHistoryStorage,
 } from "@cursorless/common";
-import type {
-  CommandRunner,
-  CommandRunnerDecorator,
-} from "@cursorless/cursorless-engine";
+import { type CommandHistoryStorage } from "@cursorless/common";
 import { produce } from "immer";
 import { v4 as uuid } from "uuid";
+import type { CommandRunner } from "./CommandRunner";
+import type { CommandRunnerDecorator } from "./api/CursorlessEngineApi";
 
 const filePrefix = "cursorlessCommandHistory";
 
