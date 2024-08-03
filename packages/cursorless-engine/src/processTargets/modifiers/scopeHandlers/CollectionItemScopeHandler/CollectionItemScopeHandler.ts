@@ -1,18 +1,14 @@
-import {
-  Direction,
-  Position,
-  TextEditor,
-  type ScopeType,
-} from "@cursorless/common";
+import type { Direction, Position, TextEditor } from "@cursorless/common";
+import { type ScopeType } from "@cursorless/common";
 import type { LanguageDefinitions } from "../../../../languages/LanguageDefinitions";
 import { BaseScopeHandler } from "../BaseScopeHandler";
 import { compareTargetScopes } from "../compareTargetScopes";
-import { TargetScope } from "../scope.types";
-import { ScopeIteratorRequirements } from "../scopeHandler.types";
+import type { TargetScope } from "../scope.types";
+import type { ScopeIteratorRequirements } from "../scopeHandler.types";
 import { createTargetScope } from "../SurroundingPairScopeHandler/createTargetScope";
 import { getDelimiterOccurrences } from "../SurroundingPairScopeHandler/getDelimiterOccurrences";
 import { getIndividualDelimiters } from "../SurroundingPairScopeHandler/getIndividualDelimiters";
-import {
+import type {
   IndividualDelimiter,
   IndividualSeparator,
 } from "../SurroundingPairScopeHandler/types";

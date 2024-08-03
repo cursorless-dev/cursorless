@@ -1,5 +1,6 @@
-import { DefaultMap, SimpleSurroundingPairName } from "@cursorless/common";
-import {
+import type { SimpleSurroundingPairName } from "@cursorless/common";
+import { DefaultMap } from "@cursorless/common";
+import type {
   CollectionItemOccurrence,
   DelimiterOccurrence,
   IndividualDelimiter,
