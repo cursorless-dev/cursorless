@@ -29,7 +29,7 @@ export interface TextLine {
 
   /**
    * The trimmed range, which excludes leading and trailing whitespace (`/\s/`).
-   * **Note** that if a line is all whitespace this is undefined so the trimmed range can never be empty.
+   * **Note:** if a line is all whitespace, the `rangeTrimmed` is undefined. Thus, a trimmed range can never be empty.
    */
   readonly rangeTrimmed: Range | undefined;
 
