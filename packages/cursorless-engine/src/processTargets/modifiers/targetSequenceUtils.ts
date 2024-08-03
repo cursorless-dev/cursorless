@@ -1,6 +1,6 @@
-import { ScopeType } from "@cursorless/common";
-import { Target } from "../../typings/target.types";
-import { ModifierStageFactory } from "../ModifierStageFactory";
+import type { ScopeType } from "@cursorless/common";
+import type { Target } from "../../typings/target.types";
+import type { ModifierStageFactory } from "../ModifierStageFactory";
 import { createContinuousRangeTarget } from "../createContinuousRangeTarget";
 import { assertIndices } from "./listUtils";
 

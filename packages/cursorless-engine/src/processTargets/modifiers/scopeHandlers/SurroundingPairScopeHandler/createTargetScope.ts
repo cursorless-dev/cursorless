@@ -1,6 +1,7 @@
-import { Range, TextEditor } from "@cursorless/common";
+import type { TextEditor } from "@cursorless/common";
+import { Range } from "@cursorless/common";
 import { SurroundingPairTarget } from "../../../targets";
-import { TargetScope } from "../scope.types";
+import type { TargetScope } from "../scope.types";
 import type { SurroundingPairOccurrence } from "./types";
 
 /**

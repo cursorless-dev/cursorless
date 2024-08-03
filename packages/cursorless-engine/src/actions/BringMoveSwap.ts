@@ -1,23 +1,18 @@
-import {
-  FlashStyle,
-  Range,
-  RangeExpansionBehavior,
-  Selection,
-  TextEditor,
-} from "@cursorless/common";
+import type { Range, Selection, TextEditor } from "@cursorless/common";
+import { FlashStyle, RangeExpansionBehavior } from "@cursorless/common";
 import { flatten } from "lodash-es";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
-import { EditWithRangeUpdater } from "../typings/Types";
-import { Destination, Target } from "../typings/target.types";
+import type { EditWithRangeUpdater } from "../typings/Types";
+import type { Destination, Target } from "../typings/target.types";
 import {
   flashTargets,
   getContentRange,
   runForEachEditor,
 } from "../util/targetUtils";
 import { unifyRemovalTargets } from "../util/unifyRanges";
-import { ActionReturnValue } from "./actions.types";
+import type { ActionReturnValue } from "./actions.types";
 
 type ActionType = "bring" | "move" | "swap";
 

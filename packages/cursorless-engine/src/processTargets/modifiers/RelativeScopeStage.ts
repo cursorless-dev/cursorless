@@ -3,11 +3,11 @@ import {
   type RelativeScopeModifier,
 } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
-import { ModifierStageFactory } from "../ModifierStageFactory";
+import type { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
 import { runLegacy } from "./relativeScopeLegacy";
-import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
-import { TargetScope } from "./scopeHandlers/scope.types";
+import type { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
+import type { TargetScope } from "./scopeHandlers/scope.types";
 import type {
   ContainmentPolicy,
   ScopeHandler,

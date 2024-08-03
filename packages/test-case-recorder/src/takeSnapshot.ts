@@ -1,14 +1,16 @@
-import {
+import type {
   ExcludableSnapshotField,
   ExtraContext,
   ExtraSnapshotField,
   IDE,
-  rangeToPlainObject,
-  selectionToPlainObject,
   SerializedMarks,
-  storedTargetKeys,
   TestCaseSnapshot,
   TextEditor,
+} from "@cursorless/common";
+import {
+  rangeToPlainObject,
+  selectionToPlainObject,
+  storedTargetKeys,
 } from "@cursorless/common";
 import type { StoredTargetMap } from "@cursorless/cursorless-engine";
 import { hrtimeBigintToSeconds } from "./timeUtils";

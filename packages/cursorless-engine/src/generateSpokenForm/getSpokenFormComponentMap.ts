@@ -1,10 +1,10 @@
-import { SpokenFormMap } from "../spokenForms/SpokenFormMap";
-import {
+import type { SpokenFormMap } from "../spokenForms/SpokenFormMap";
+import type {
   PartialSpokenFormTypes,
   SpokenFormMapKeyTypes,
   SpokenFormType,
 } from "@cursorless/common";
-import { CustomizableSpokenFormComponentForType } from "./SpokenFormComponent";
+import type { CustomizableSpokenFormComponentForType } from "./SpokenFormComponent";
 
 /**
  * A spoken form component map is a map of spoken form types to a map of IDs to

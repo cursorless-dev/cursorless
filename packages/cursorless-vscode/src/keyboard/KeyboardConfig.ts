@@ -1,7 +1,7 @@
 import { mapValues, pickBy } from "lodash-es";
-import { KeyMap, SectionName, TokenType } from "./TokenTypeHelpers";
-import { SectionTypes, TokenTypeValueMap } from "./TokenTypes";
-import { VscodeApi } from "@cursorless/vscode-common";
+import type { KeyMap, SectionName, TokenType } from "./TokenTypeHelpers";
+import type { SectionTypes, TokenTypeValueMap } from "./TokenTypes";
+import type { VscodeApi } from "@cursorless/vscode-common";
 import { TextEditorCursorStyle } from "vscode";
 
 const LEGACY_PLURAL_SECTION_NAMES: Record<string, string> = {

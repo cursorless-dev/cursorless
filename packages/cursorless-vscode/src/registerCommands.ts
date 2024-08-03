@@ -1,28 +1,28 @@
+import type { CursorlessCommandId } from "@cursorless/common";
 import {
   CURSORLESS_COMMAND_ID,
-  CursorlessCommandId,
   type CommandHistoryStorage,
 } from "@cursorless/common";
 import {
   showCheatsheet,
   updateDefaults,
 } from "@cursorless/cursorless-cheatsheet";
-import {
+import type {
   CommandApi,
   StoredTargetMap,
-  analyzeCommandHistory,
 } from "@cursorless/cursorless-engine";
+import { analyzeCommandHistory } from "@cursorless/cursorless-engine";
 import type {
   ScopeTestRecorder,
   TestCaseRecorder,
 } from "@cursorless/test-case-recorder";
 import * as vscode from "vscode";
-import { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
-import { VscodeTutorial } from "./VscodeTutorial";
+import type { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
+import type { VscodeTutorial } from "./VscodeTutorial";
 import { showDocumentation, showQuickPick } from "./commands";
-import { VscodeIDE } from "./ide/vscode/VscodeIDE";
-import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
-import { KeyboardCommands } from "./keyboard/KeyboardCommands";
+import type { VscodeIDE } from "./ide/vscode/VscodeIDE";
+import type { VscodeHats } from "./ide/vscode/hats/VscodeHats";
+import type { KeyboardCommands } from "./keyboard/KeyboardCommands";
 import { logQuickActions } from "./logQuickActions";
 
 export function registerCommands(

@@ -1,8 +1,7 @@
-import { MatchedText, matchRegex, testRegex } from "@cursorless/common";
-import {
-  SentenceParserOptions,
-  getSentences,
-} from "@cursorless/sentence-parser";
+import type { MatchedText } from "@cursorless/common";
+import { matchRegex, testRegex } from "@cursorless/common";
+import type { SentenceParserOptions } from "@cursorless/sentence-parser";
+import { getSentences } from "@cursorless/sentence-parser";
 
 // A sentence starts with a letter with adjacent leading symbols. Whitespace excluded.
 const leadingOffsetRegex = /\S*\p{L}/u;

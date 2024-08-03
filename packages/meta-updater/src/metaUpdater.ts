@@ -5,7 +5,7 @@
 import { languageScopeSupport } from "@cursorless/common";
 import { readWantedLockfile } from "@pnpm/lockfile-file";
 import { createUpdateOptions } from "@pnpm/meta-updater";
-import { Context } from "./Context";
+import type { Context } from "./Context";
 import { textFormat } from "./textFormat";
 import { updateLanguageMdxConfig } from "./updateLanguageScopeSupportConfig";
 import { updatePackageJson } from "./updatePackageJson";

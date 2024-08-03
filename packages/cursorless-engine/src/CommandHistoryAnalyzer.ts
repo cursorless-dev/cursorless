@@ -1,11 +1,10 @@
-import {
+import type {
   CommandHistoryEntry,
   Modifier,
   PartialPrimitiveTargetDescriptor,
   ScopeType,
-  showWarning,
-  type CommandHistoryStorage,
 } from "@cursorless/common";
+import { showWarning, type CommandHistoryStorage } from "@cursorless/common";
 import { groupBy, map, sum } from "lodash-es";
 import { canonicalizeAndValidateCommand } from "./core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { ide } from "./singletons/ide.singleton";

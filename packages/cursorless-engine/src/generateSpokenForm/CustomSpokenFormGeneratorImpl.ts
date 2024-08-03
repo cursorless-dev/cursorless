@@ -1,4 +1,4 @@
-import {
+import type {
   ActionType,
   CommandComplete,
   Disposable,
@@ -6,9 +6,9 @@ import {
   ScopeType,
 } from "@cursorless/common";
 import { SpokenFormGenerator } from "./generateSpokenForm";
-import { CustomSpokenFormGenerator } from "../api/CursorlessEngineApi";
+import type { CustomSpokenFormGenerator } from "../api/CursorlessEngineApi";
 import { CustomSpokenForms } from "../spokenForms/CustomSpokenForms";
-import { TalonSpokenForms } from "@cursorless/common";
+import type { TalonSpokenForms } from "@cursorless/common";
 
 /**
  * Simple facade that combines the {@link CustomSpokenForms} and

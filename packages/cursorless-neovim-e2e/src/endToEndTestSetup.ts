@@ -1,6 +1,8 @@
-import { IDE, shouldUpdateFixtures, sleep, SpyIDE } from "@cursorless/common";
-import { getCursorlessApi, NeovimIDE } from "@cursorless/neovim-common";
-import { Context } from "mocha";
+import type { IDE } from "@cursorless/common";
+import { shouldUpdateFixtures, sleep, SpyIDE } from "@cursorless/common";
+import type { NeovimIDE } from "@cursorless/neovim-common";
+import { getCursorlessApi } from "@cursorless/neovim-common";
+import type { Context } from "mocha";
 import * as sinon from "sinon";
 
 /**

@@ -1,7 +1,7 @@
-import { Range } from "@cursorless/common";
+import type { Range } from "@cursorless/common";
 import * as vscode from "vscode";
-import { VscodeIDE } from "./VscodeIDE";
-import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
+import type { VscodeIDE } from "./VscodeIDE";
+import type { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
 export async function vscodeFold(
   ide: VscodeIDE,

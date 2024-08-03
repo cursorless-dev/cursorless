@@ -1,4 +1,4 @@
-import { DefaultSpokenFormMapDefinition } from "./defaultSpokenFormMap.types";
+import type { DefaultSpokenFormMapDefinition } from "./defaultSpokenFormMap.types";
 import { graphemeDefaultSpokenForms } from "./graphemes";
 import { isDisabledByDefault, isPrivate } from "./spokenFormMapUtil";
 

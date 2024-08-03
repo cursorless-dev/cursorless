@@ -1,4 +1,4 @@
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { ide } from "../singletons/ide.singleton";
 import type { Destination } from "../typings/target.types";
 import type { Actions } from "./Actions";

@@ -23,6 +23,7 @@
   ],
   "rules": {
     "import/no-relative-packages": "error",
+    "@typescript-eslint/consistent-type-imports": "error",
     "@typescript-eslint/consistent-type-assertions": [
       "error",
       {

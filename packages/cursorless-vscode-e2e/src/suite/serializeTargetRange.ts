@@ -1,4 +1,4 @@
-import { Range } from "@cursorless/common";
+import type { Range } from "@cursorless/common";
 
 /**
  * Given the code of a fixture and a range, return a string that annotates the
