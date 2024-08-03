@@ -1,4 +1,4 @@
-import {
+import type {
   BreakpointDescriptor,
   Edit,
   EditableTextEditor,
@@ -7,12 +7,11 @@ import {
   RevealLineAt,
   Selection,
   SetSelectionsOpts,
-  sleep,
   TextDocument,
   TextEditor,
   TextEditorOptions,
-  uniqWithHash,
 } from "@cursorless/common";
+import { sleep, uniqWithHash } from "@cursorless/common";
 import {
   fromVscodeRange,
   fromVscodeSelection,
@@ -23,7 +22,7 @@ import * as vscode from "vscode";
 import vscodeEdit from "./VscodeEdit";
 import vscodeFocusEditor from "./VscodeFocusEditor";
 import { vscodeFold, vscodeUnfold } from "./VscodeFold";
-import { VscodeIDE } from "./VscodeIDE";
+import type { VscodeIDE } from "./VscodeIDE";
 import { vscodeInsertSnippet } from "./VscodeInsertSnippets";
 import {
   vscodeEditNewNotebookCellAbove,
@@ -175,7 +174,7 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     await vscode.commands.executeCommand("editor.action.clipboardCopyAction");
   }
 
-  public async clipboardPaste(_ranges?: Range[]): Promise<void> {
+  public async clipboardPaste(): Promise<void> {
     // We add these sleeps here to workaround a bug in VSCode. See #1521
     await sleep(100);
     await vscode.commands.executeCommand("editor.action.clipboardPasteAction");

@@ -6,6 +6,7 @@ set -euo pipefail
 # 1. Build local cursorless, using special extension id to break update chain
 pnpm esbuild:prod
 pnpm -F cheatsheet-local build:prod
+pnpm -F cursorless-vscode-tutorial-webview build
 pnpm populate-dist --local-install
 
 # 2. Bundle the extension

@@ -1,24 +1,26 @@
-import {
+import type {
   CustomRegexScopeType,
-  DisabledCustomSpokenFormsError,
   Disposable,
-  NeedsInitialTalonUpdateError,
-  Notifier,
-  SUPPORTED_ENTRY_TYPES,
   SpokenFormEntry,
   SpokenFormMapKeyTypes,
   SpokenFormType,
   TalonSpokenForms,
+} from "@cursorless/common";
+import {
+  DisabledCustomSpokenFormsError,
+  NeedsInitialTalonUpdateError,
+  Notifier,
+  SUPPORTED_ENTRY_TYPES,
   showError,
 } from "@cursorless/common";
 import { isEqual } from "lodash-es";
 import { ide } from "../singletons/ide.singleton";
-import { SpokenFormMap, SpokenFormMapEntry } from "./SpokenFormMap";
+import type { SpokenFormMap, SpokenFormMapEntry } from "./SpokenFormMap";
 import {
   defaultSpokenFormInfoMap,
   defaultSpokenFormMap,
 } from "./defaultSpokenFormMap";
-import { DefaultSpokenFormMapEntry } from "./defaultSpokenFormMap.types";
+import type { DefaultSpokenFormMapEntry } from "./defaultSpokenFormMap.types";
 
 type Writable<T> = {
   -readonly [K in keyof T]: T[K];
@@ -87,7 +89,7 @@ export class CustomSpokenForms {
       } else {
         console.error("Error loading custom spoken forms", err);
         const msg = (err as Error).message.replace(/\.$/, "");
-        showError(
+        void showError(
           ide().messages,
           "CustomSpokenForms.updateSpokenFormMaps",
           `Error loading custom spoken forms: ${msg}. Falling back to default spoken forms.`,

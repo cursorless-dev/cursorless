@@ -4,7 +4,7 @@ import type {
   ScopeProvider,
   TestHelpers,
 } from "@cursorless/common";
-import { NeovimIDE } from "./ide/neovim/NeovimIDE";
+import type { NeovimIDE } from "./ide/neovim/NeovimIDE";
 
 export interface NeovimTestHelpers extends TestHelpers {
   ide: NormalizedIDE;

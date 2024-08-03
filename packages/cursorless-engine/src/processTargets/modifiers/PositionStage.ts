@@ -1,11 +1,8 @@
-import { Range } from "@cursorless/common";
-import { Target } from "../../typings/target.types";
-import { ModifierStage } from "../PipelineStages.types";
-import {
-  CommonTargetParameters,
-  PlainTarget,
-  RawSelectionTarget,
-} from "../targets";
+import type { Range } from "@cursorless/common";
+import type { Target } from "../../typings/target.types";
+import type { ModifierStage } from "../PipelineStages.types";
+import type { CommonTargetParameters } from "../targets";
+import { PlainTarget, RawSelectionTarget } from "../targets";
 
 abstract class PositionStage implements ModifierStage {
   run(target: Target): Target[] {

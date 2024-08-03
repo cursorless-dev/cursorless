@@ -1,15 +1,18 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: bring air after air
-  action: {name: replaceWithTarget}
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
-      modifiers:
-        - {type: position, position: after}
+    destination:
+      type: primitive
+      insertionMode: after
+      target:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: a}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: a

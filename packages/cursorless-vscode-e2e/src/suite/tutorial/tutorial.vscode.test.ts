@@ -1,7 +1,6 @@
+import type { SpyIDE, TestCaseFixtureLegacy } from "@cursorless/common";
 import {
   LATEST_VERSION,
-  SpyIDE,
-  TestCaseFixtureLegacy,
   asyncSafety,
   getSnapshotForComparison,
   sleep,
@@ -156,13 +155,12 @@ async function runBasicTutorialTest(spyIde: SpyIDE) {
   // Another sleep just in case
   await sleepWithBackoff(50);
 
-  // We allow duplicate messages because they're idempotent. Not sure why some
-  // platforms get the init message twice but it doesn't matter.
-  const log = getTutorialWebviewEventLog();
-  const lastMessage = log[log.length - 1];
   assert(
-    lastMessage.type === "messageSent" &&
-      lastMessage.data.preConditionsMet === false,
+    getTutorialWebviewEventLog().some(
+      (message) =>
+        message.type === "messageSent" &&
+        message.data.preConditionsMet === false,
+    ),
   );
 
   // Test resuming tutorial

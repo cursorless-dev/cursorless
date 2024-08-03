@@ -1,4 +1,5 @@
-import { ExtensionContext, ExtensionMode } from "vscode";
+import type { ExtensionContext } from "vscode";
+import { ExtensionMode } from "vscode";
 import type { RunMode } from "@cursorless/common";
 import { nodeGetRunMode } from "@cursorless/node-common";
 

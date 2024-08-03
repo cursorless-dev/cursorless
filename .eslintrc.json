@@ -4,12 +4,15 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
+    // We want to enable this in the long run. For now there are a lot of errors that needs to be handled.
+    // "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:import/typescript",
     "prettier"
   ],
   "parserOptions": {
     "ecmaVersion": 6,
-    "sourceType": "module"
+    "sourceType": "module",
+    "project": true
   },
   "plugins": [
     "@typescript-eslint",
@@ -20,6 +23,7 @@
   ],
   "rules": {
     "import/no-relative-packages": "error",
+    "@typescript-eslint/consistent-type-imports": "error",
     "@typescript-eslint/consistent-type-assertions": [
       "error",
       {
@@ -37,6 +41,7 @@
         }
       }
     ],
+    "@typescript-eslint/no-floating-promises": "error",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-inferrable-types": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
@@ -85,22 +90,30 @@
           }
         ]
       }
+    },
+    {
+      "files": [
+        "jest.config.ts",
+        "docusaurus.config.mts",
+        "mdx-components.tsx",
+        "typings/**"
+      ],
+      "extends": ["plugin:@typescript-eslint/disable-type-checked"]
     }
   ],
   "settings": {
     "import/resolver": {
       "typescript": {
         "alwaysTryTypes": true, // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
-
         "project": ["tsconfig.json", "packages/*/tsconfig.json"]
       }
     }
   },
   "ignorePatterns": [
-    "**/vendor/**/*.ts",
-    "**/vendor/**/*.js",
-    "**/out/**",
     "**/generated/**",
-    "data/playground/**"
+    "**/out/**",
+    "**/vendor/**/*.js",
+    "**/vendor/**/*.ts",
+    "/data/playground/**"
   ]
 }

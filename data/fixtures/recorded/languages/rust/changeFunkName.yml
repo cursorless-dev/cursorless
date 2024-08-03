@@ -1,10 +1,11 @@
 languageId: rust
 command:
-  version: 5
+  version: 6
   spokenForm: change funk name
-  action: {name: clearAndSetSelection}
-  targets:
-    - type: primitive
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: functionName}

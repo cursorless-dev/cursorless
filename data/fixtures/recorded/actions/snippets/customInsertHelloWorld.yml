@@ -1,15 +1,14 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: custom insert hello world
   action:
     name: insertSnippet
-    args:
-      - type: custom
-        body: "dummy snippet hole1: ($hole1), hole2: ($hole2)"
-        substitutions: {hole2: hello world}
-  targets:
-    - {type: implicit}
+    snippetDescription:
+      type: custom
+      body: "dummy snippet hole1: ($hole1), hole2: ($hole2)"
+      substitutions: {hole2: hello world}
+    destination: {type: implicit}
   usePrePhraseSnapshot: true
 spokenFormError: Custom insertion snippet
 initialState:

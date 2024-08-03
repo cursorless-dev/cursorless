@@ -1,14 +1,14 @@
-import {
-  Position,
-  TextDocument,
-  showError,
-  type TreeSitter,
-} from "@cursorless/common";
+import type { Position, TextDocument } from "@cursorless/common";
+import { showError, type TreeSitter } from "@cursorless/common";
 import { groupBy, uniq } from "lodash-es";
-import { Point, Query } from "web-tree-sitter";
+import type { Point, Query } from "web-tree-sitter";
 import { ide } from "../../singletons/ide.singleton";
 import { getNodeRange } from "../../util/nodeSelectors";
-import { MutableQueryMatch, QueryCapture, QueryMatch } from "./QueryCapture";
+import type {
+  MutableQueryMatch,
+  QueryCapture,
+  QueryMatch,
+} from "./QueryCapture";
 import { checkCaptureStartEnd } from "./checkCaptureStartEnd";
 import { isContainedInErrorNode } from "./isContainedInErrorNode";
 import { parsePredicates } from "./parsePredicates";
@@ -49,7 +49,7 @@ export class TreeSitterQuery {
           )}\``,
         ].join(", ");
 
-        showError(
+        void showError(
           ide().messages,
           "TreeSitterQuery.parsePredicates",
           `Error parsing predicate for ${context}: ${error.error}`,

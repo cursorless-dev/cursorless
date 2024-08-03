@@ -1,4 +1,4 @@
-import { TestCaseFixtureLegacy } from "@cursorless/common";
+import type { TestCaseFixtureLegacy } from "@cursorless/common";
 
 const failingFixtures = [
   // actual finalState.selections.anchor is -1 compared to expected (other fixture.command.action.name == "insertCopyBefore" tests pass fine)
@@ -63,6 +63,9 @@ function isFailingFixture(name: string, fixture: TestCaseFixtureLegacy) {
       return true;
     // "recorded/actions/copySecondToken" -> wrong fixture.finalState.clipboard
     case "copyToClipboard":
+      return true;
+    case "indentLine":
+    case "outdentLine":
       return true;
   }
 

@@ -1,4 +1,4 @@
-import {
+import type {
   Disposable,
   EditableTextEditor,
   FlashDescriptor,
@@ -7,12 +7,12 @@ import {
   IDE,
   InputBoxOptions,
   OpenUntitledTextDocumentOptions,
-  OutdatedExtensionError,
   QuickPickOptions,
   RunMode,
   TextDocumentChangeEvent,
   TextEditor,
 } from "@cursorless/common";
+import { OutdatedExtensionError } from "@cursorless/common";
 import {
   fromVscodeRange,
   fromVscodeSelection,
@@ -20,7 +20,8 @@ import {
 import { pull } from "lodash-es";
 import { v4 as uuid } from "uuid";
 import * as vscode from "vscode";
-import { ExtensionContext, WorkspaceFolder, window, workspace } from "vscode";
+import type { ExtensionContext, WorkspaceFolder } from "vscode";
+import { window, workspace } from "vscode";
 import { VscodeCapabilities } from "./VscodeCapabilities";
 import VscodeClipboard from "./VscodeClipboard";
 import VscodeConfiguration from "./VscodeConfiguration";
@@ -212,9 +213,9 @@ export class VscodeIDE implements IDE {
 
   handleCommandError(err: Error) {
     if (err instanceof OutdatedExtensionError) {
-      this.showUpdateExtensionErrorMessage(err);
+      void this.showUpdateExtensionErrorMessage(err);
     } else {
-      vscode.window.showErrorMessage(err.message);
+      void vscode.window.showErrorMessage(err.message);
     }
   }
 

@@ -1,5 +1,5 @@
 import type { ScopeType } from "@cursorless/common";
-import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
+import type { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import {
   BoundedNonWhitespaceSequenceScopeHandler,
   BoundedParagraphScopeHandler,
@@ -16,7 +16,7 @@ import {
   NonWhitespaceSequenceScopeHandler,
   UrlScopeHandler,
 } from "./RegexScopeHandler";
-import { ScopeHandlerFactory } from "./ScopeHandlerFactory";
+import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 import { SentenceScopeHandler } from "./SentenceScopeHandler/SentenceScopeHandler";
 import {
   SurroundingPairInteriorScopeHandler,

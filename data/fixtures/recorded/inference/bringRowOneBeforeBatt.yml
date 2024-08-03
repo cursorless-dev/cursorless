@@ -1,15 +1,18 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: bring row one before bat
-  action: {name: replaceWithTarget}
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       mark: {type: lineNumber, lineNumberType: modulo100, lineNumber: 0}
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: b}
-      modifiers:
-        - {type: position, position: before}
+    destination:
+      type: primitive
+      insertionMode: before
+      target:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: b}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-

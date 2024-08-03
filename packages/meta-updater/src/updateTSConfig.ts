@@ -2,9 +2,9 @@ import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import normalizePath from "normalize-path";
 import * as path from "path";
 import { pathExists } from "path-exists";
-import { PackageJson, TsConfigJson } from "type-fest";
+import type { PackageJson, TsConfigJson } from "type-fest";
 import { toPosixPath } from "./toPosixPath";
-import { Context } from "./Context";
+import type { Context } from "./Context";
 import { cloneDeep, isEqual, uniq } from "lodash-es";
 import { readFile } from "fs/promises";
 

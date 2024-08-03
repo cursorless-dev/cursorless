@@ -1,17 +1,20 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: bring line before whale
-  action: {name: replaceWithTarget}
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: line}
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: w}
-      modifiers:
-        - {type: position, position: before}
+    destination:
+      type: primitive
+      insertionMode: before
+      target:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: w}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-

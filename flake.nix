@@ -22,6 +22,7 @@
             pkgs = import nixpkgs {
               inherit system;
               overlays = [
+                # Updated neovim-node-client is pending merge:
                 # https://github.com/NixOS/nixpkgs/pull/317333
                 (final: prev: {
                   nodePackages = prev.nodePackages // {
@@ -45,7 +46,21 @@
                     };
                   };
                   neovim = prev.neovim.override { withNodeJs = true; };
-
+                  # There is a recent bug that prevents cli --check invocation:
+                  # See #2613
+                  lua-language-server = prev.lua-language-server.overrideAttrs {
+                    postPatch =
+                      let
+                        patch = prev.fetchurl {
+                          url = "https://github.com/LuaLS/lua-language-server/pull/2775.patch";
+                          sha256 = "sha256-5hjuNzBHLp9kiD6O8jTL5YlvaqR8IuJPHchIZE2/p/Q=";
+                        };
+                      in
+                      ''
+                        patch -p1 < ${patch}
+                      ''
+                      + prev.lua-language-server.postPatch;
+                  };
                 })
 
               ];
@@ -57,6 +72,12 @@
       ] (nixpkgs.lib.importTOML ./pyproject.toml).tool.ruff.target-version;
     in
     {
+      packages = forEachSupportedSystem (
+        { pkgs }:
+        {
+          lua-language-server = pkgs.lua-language-server;
+        }
+      );
       devShells = forEachSupportedSystem (
         { pkgs }:
         {
@@ -69,6 +90,8 @@
               [
                 pkgs.corepack
                 pkgs.vsce
+                pkgs.nodejs
+
                 # https://github.com/NixOS/nixpkgs/pull/251418
                 (pkgs.pre-commit.overrideAttrs (previousAttrs: {
                   makeWrapperArgs = ''
@@ -76,12 +99,12 @@
                   '';
                 }))
                 python
+                pkgs.lua-language-server # language server used by pre-commit hooks
 
                 pkgs.neovim
                 pkgs.luajitPackages.busted # for lua testing
                 pkgs.luarocks # pre-commit doesn't auto-install luarocks
                 pkgs.ps
-                pkgs.nodejs
               ];
             # To prevent weird broken non-interactive bash terminal
             buildInputs = [ pkgs.bashInteractive ];

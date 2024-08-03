@@ -1,6 +1,6 @@
-import { HatStability, TokenHat } from "@cursorless/common";
-import { HatCandidate } from "./allocateHats";
-import { RankingContext } from "./getHatRankingContext";
+import type { HatStability, TokenHat } from "@cursorless/common";
+import type { HatCandidate } from "./allocateHats";
+import type { RankingContext } from "./getHatRankingContext";
 import {
   hatOldTokenRank,
   isOldTokenHat,
@@ -51,28 +51,32 @@ export function chooseTokenHat(
   { hatOldTokenRanks, graphemeTokenRanks }: RankingContext,
   hatStability: HatStability,
   tokenRank: number,
+  forcedTokenHat: TokenHat | undefined,
   oldTokenHat: TokenHat | undefined,
   candidates: HatCandidate[],
 ): HatCandidate | undefined {
   // We narrow down the candidates by a series of criteria until there is only
   // one left
   return maxByFirstDiffering(candidates, [
-    // 1. Discard any hats that are sufficiently worse than the best hat that we
-    //    wouldn't use them even if they were our old hat
+    // Use forced hat
+    isOldTokenHat(forcedTokenHat),
+
+    // Discard any hats that are sufficiently worse than the best hat that we
+    // wouldn't use them even if they were our old hat
     penaltyEquivalenceClass(hatStability),
 
-    // 2. Use our old hat if it's still in the running
+    // Use our old hat if it's still in the running
     isOldTokenHat(oldTokenHat),
 
-    // 3. Use a free hat if possible; if not, steal the hat of the token with
-    //    lowest rank
+    // Use a free hat if possible; if not, steal the hat of the token with
+    // lowest rank
     hatOldTokenRank(hatOldTokenRanks),
 
-    // 4. Narrow to the hats with the lowest penalty
+    // Narrow to the hats with the lowest penalty
     negativePenalty,
 
-    // 5. Prefer hats that sit on a grapheme that doesn't appear in any highly
-    //    ranked token
+    // Prefer hats that sit on a grapheme that doesn't appear in any highly
+    // ranked token
     minimumTokenRankContainingGrapheme(tokenRank, graphemeTokenRanks),
   ])!;
 }

@@ -1,16 +1,18 @@
-import {
+import type {
   Command,
   CommandServerApi,
   Hats,
   IDE,
   ScopeProvider,
+} from "@cursorless/common";
+import {
   ensureCommandShape,
   type RawTreeSitterQueryProvider,
   type TalonSpokenForms,
   type TreeSitter,
 } from "@cursorless/common";
 import { KeyboardTargetUpdater } from "./KeyboardTargetUpdater";
-import {
+import type {
   CommandRunnerDecorator,
   CursorlessEngine,
 } from "./api/CursorlessEngineApi";
@@ -64,6 +66,7 @@ export async function createCursorlessEngine({
 
   const debug = new Debug(ide);
   const rangeUpdater = new RangeUpdater();
+
   const storedTargets = new StoredTargetMap();
   const keyboardTargetUpdater = new KeyboardTargetUpdater(ide, storedTargets);
   const customSpokenFormGenerator = new CustomSpokenFormGeneratorImpl(

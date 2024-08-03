@@ -1,17 +1,18 @@
 languageId: scss
 command:
-  version: 5
+  version: 6
   spokenForm: change leading last sub look
-  action: {name: clearAndSetSelection}
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: l}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - {type: leading}
         - type: ordinalScope
           scopeType: {type: word}
           start: -1
           length: 1
+      mark: {type: decoratedSymbol, symbolColor: default, character: l}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |2-

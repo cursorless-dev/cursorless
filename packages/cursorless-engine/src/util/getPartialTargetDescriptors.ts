@@ -1,4 +1,4 @@
-import {
+import type {
   ActionDescriptor,
   DestinationDescriptor,
   PartialTargetDescriptor,

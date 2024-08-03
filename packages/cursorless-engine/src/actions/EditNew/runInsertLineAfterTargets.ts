@@ -1,7 +1,10 @@
-import { CommandCapabilities, EditableTextEditor } from "@cursorless/common";
-import { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
+import type {
+  CommandCapabilities,
+  EditableTextEditor,
+} from "@cursorless/common";
+import type { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../../core/updateSelections/updateSelections";
-import { EditDestination, State } from "./EditNew.types";
+import type { EditDestination, State } from "./EditNew.types";
 
 /**
  * Handle targets that will use a VSCode command to insert a new target, eg

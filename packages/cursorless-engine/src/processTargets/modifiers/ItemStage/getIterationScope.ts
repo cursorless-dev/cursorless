@@ -1,10 +1,6 @@
-import {
-  Range,
-  TextEditor,
-  TextLine,
-  type SurroundingPairScopeType,
-} from "@cursorless/common";
-import { Target } from "../../../typings/target.types";
+import type { TextEditor, TextLine } from "@cursorless/common";
+import { Range, type SurroundingPairScopeType } from "@cursorless/common";
+import type { Target } from "../../../typings/target.types";
 import type { ModifierStageFactory } from "../../ModifierStageFactory";
 import { PlainTarget } from "../../targets";
 import { fitRangeToLineContent } from "../scopeHandlers";

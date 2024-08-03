@@ -4,8 +4,8 @@ import { readFile } from "fs/promises";
 import * as yaml from "js-yaml";
 import { isUndefined } from "lodash-es";
 import { join } from "path";
-import { PackageJson } from "type-fest";
-import { Context } from "./Context";
+import type { PackageJson } from "type-fest";
+import type { Context } from "./Context";
 import { getCursorlessVscodeFields } from "./getCursorlessVscodeFields";
 
 const LIB_ENTRY_POINT = "./src/index.ts";

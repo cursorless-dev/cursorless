@@ -1,7 +1,8 @@
-import { Capabilities } from "../types/Capabilities";
+import type { Capabilities } from "../types/Capabilities";
 
 export class FakeCapabilities implements Capabilities {
   commands = {
+    clipboardPaste: undefined,
     clipboardCopy: undefined,
     toggleLineComment: undefined,
     indentLine: undefined,

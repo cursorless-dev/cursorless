@@ -1,22 +1,21 @@
-import {
+import type {
   Command,
   CommandResponse,
   CommandServerApi,
   HatTokenMap,
   ReadOnlyHatMap,
-  clientSupportsFallback,
-  type TreeSitter,
 } from "@cursorless/common";
-import { CommandRunner } from "./CommandRunner";
+import { clientSupportsFallback, type TreeSitter } from "@cursorless/common";
+import type { CommandRunner } from "./CommandRunner";
 import { Actions } from "./actions/Actions";
-import { CommandRunnerDecorator } from "./api/CursorlessEngineApi";
-import { Debug } from "./core/Debug";
+import type { CommandRunnerDecorator } from "./api/CursorlessEngineApi";
+import type { Debug } from "./core/Debug";
 import { CommandRunnerImpl } from "./core/commandRunner/CommandRunnerImpl";
 import { canonicalizeAndValidateCommand } from "./core/commandVersionUpgrades/canonicalizeAndValidateCommand";
-import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
+import type { RangeUpdater } from "./core/updateSelections/RangeUpdater";
 import type { Snippets } from "./core/Snippets";
 import type { StoredTargetMap } from "./core/StoredTargets";
-import { LanguageDefinitions } from "./languages/LanguageDefinitions";
+import type { LanguageDefinitions } from "./languages/LanguageDefinitions";
 import { TargetPipelineRunner } from "./processTargets";
 import { MarkStageFactoryImpl } from "./processTargets/MarkStageFactoryImpl";
 import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";

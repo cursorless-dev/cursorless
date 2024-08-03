@@ -4,7 +4,7 @@
 
 import { launchNeovimAndRunTests } from "../launchNeovimAndRunTests";
 
-(async () => {
+void (async () => {
   // Note that we run all extension tests, including unit tests, in neovim, even though
   // unit tests could be run separately.
   await launchNeovimAndRunTests();

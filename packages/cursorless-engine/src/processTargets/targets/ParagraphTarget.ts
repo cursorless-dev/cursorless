@@ -1,11 +1,7 @@
-import {
-  Position,
-  Range,
-  TextDocument,
-  TextEditor,
-  TextLine,
-} from "@cursorless/common";
-import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
+import type { TextDocument, TextEditor, TextLine } from "@cursorless/common";
+import { Position, Range } from "@cursorless/common";
+import type { CommonTargetParameters } from "./BaseTarget";
+import { BaseTarget } from "./BaseTarget";
 import { LineTarget } from "./LineTarget";
 import { expandToFullLine } from "../../util/rangeUtils";
 import { constructLineTarget } from "./LineTarget";

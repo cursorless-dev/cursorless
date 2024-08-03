@@ -1,4 +1,4 @@
-import {
+import type {
   Edit,
   Position,
   Range,
@@ -6,7 +6,7 @@ import {
   TextDocumentContentChangeEvent,
 } from "@cursorless/common";
 import type { NeovimClient, Window } from "neovim";
-import { NeovimIDE } from "./NeovimIDE";
+import type { NeovimIDE } from "./NeovimIDE";
 import { getNeovimRegistry } from "@cursorless/neovim-registry";
 
 export default async function neovimEdit(

@@ -10,7 +10,7 @@ import type {
   TextEditor,
   WorkspaceFolder,
 } from "@cursorless/common";
-import {
+import type {
   Event,
   FlashDescriptor,
   GeneralizedRange,
@@ -317,7 +317,7 @@ export class NeovimIDE implements IDE {
     // if (err instanceof OutdatedExtensionError) {
     //   this.showUpdateExtensionErrorMessage(err);
     // } else {
-    showErrorMessage(this.client, err.message);
+    void showErrorMessage(this.client, err.message);
     // }
   }
 

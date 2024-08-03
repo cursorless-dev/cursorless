@@ -1,4 +1,4 @@
-import { Range } from "@cursorless/common";
+import type { Range } from "@cursorless/common";
 
 /**
  * Given the code of a fixture and a range, return a string that annotates the
@@ -50,7 +50,7 @@ export function serializeTargetRange(
   // Output the range with each line prefixed by `n| `, eg:
   // `3| const foo = // "bar"`
   for (let lineNumber = start.line; lineNumber <= end.line; ++lineNumber) {
-    const codeLine = codeLines[lineNumber]!;
+    const codeLine = codeLines[lineNumber];
 
     lines.push(
       codeLine.length > 0 ? `${lineNumber}| ${codeLine}` : `${lineNumber}|`,

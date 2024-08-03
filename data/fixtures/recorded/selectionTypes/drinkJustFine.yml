@@ -1,13 +1,14 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: drink just fine
-  action: {name: editNewLineBefore}
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+  action:
+    name: editNewLineBefore
+    target:
+      type: primitive
       modifiers:
         - {type: toRawSelection}
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: foo

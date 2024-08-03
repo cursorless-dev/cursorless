@@ -1,20 +1,22 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: replace air and bat and cap with count
   action:
     name: replace
-    args:
-      - {start: 0}
-  targets:
-    - type: list
-      elements:
-        - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: a}
-        - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: b}
-        - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: c}
+    replaceWith: {start: 0}
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: list
+        elements:
+          - type: primitive
+            mark: {type: decoratedSymbol, symbolColor: default, character: a}
+          - type: primitive
+            mark: {type: decoratedSymbol, symbolColor: default, character: b}
+          - type: primitive
+            mark: {type: decoratedSymbol, symbolColor: default, character: c}
   usePrePhraseSnapshot: false
 spokenFormError: Action 'replace'
 initialState:

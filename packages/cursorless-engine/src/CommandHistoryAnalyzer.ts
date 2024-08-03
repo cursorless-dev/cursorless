@@ -1,11 +1,10 @@
-import {
+import type {
   CommandHistoryEntry,
   Modifier,
   PartialPrimitiveTargetDescriptor,
   ScopeType,
-  showWarning,
-  type CommandHistoryStorage,
 } from "@cursorless/common";
+import { showWarning, type CommandHistoryStorage } from "@cursorless/common";
 import { groupBy, map, sum } from "lodash-es";
 import { canonicalizeAndValidateCommand } from "./core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { ide } from "./singletons/ide.singleton";
@@ -21,19 +20,32 @@ class Period {
   private readonly actions: Record<string, number> = {};
   private readonly modifiers: Record<string, number> = {};
   private readonly scopeTypes: Record<string, number> = {};
-  private count: number = 0;
+  private readonly dates = new Set<string>();
+  private readonly commandCount: number;
+  private decoratedMarkCommandCount: number = 0;
 
   constructor(period: string, entries: CommandHistoryEntry[]) {
     this.period = period;
+    this.commandCount = entries.length;
     for (const entry of entries) {
       this.append(entry);
     }
   }
 
   toString(): string {
+    const avgCommandsPerDay = Math.round(this.commandCount / this.dates.size);
+    const percentageDecoratedMarkCommands = Math.round(
+      (100 * this.decoratedMarkCommandCount) / this.commandCount,
+    );
+    const meta = [
+      `Command count: ${this.commandCount}`,
+      `Days used: ${this.dates.size}`,
+      `Average commands / day: ${avgCommandsPerDay}`,
+      `Commands with hats: ${this.decoratedMarkCommandCount} (${percentageDecoratedMarkCommands}%)`,
+    ].join("\n");
     return [
       `# ${this.period}`,
-      `Total command count: ${this.count}`,
+      meta,
       this.serializeMap("Actions", this.actions),
       this.serializeMap("Modifiers", this.modifiers),
       this.serializeMap("Scope types", this.scopeTypes),
@@ -51,7 +63,7 @@ class Period {
   }
 
   private append(entry: CommandHistoryEntry) {
-    this.count++;
+    this.dates.add(entry.date);
     const command = canonicalizeAndValidateCommand(entry.command);
     this.incrementAction(command.action.name);
 
@@ -63,11 +75,13 @@ class Period {
   private parsePrimitiveTargets(
     partialPrimitiveTargets: PartialPrimitiveTargetDescriptor[],
   ) {
+    let hasDecoratedMark = false;
     for (const target of partialPrimitiveTargets) {
-      if (target.modifiers == null) {
-        continue;
+      if (target.mark?.type === "decoratedSymbol") {
+        hasDecoratedMark = true;
       }
-      for (const modifier of target.modifiers) {
+
+      for (const modifier of target.modifiers ?? []) {
         this.incrementModifier(modifier);
 
         const scopeType = getScopeType(modifier);
@@ -75,6 +89,10 @@ class Period {
           this.incrementScope(scopeType);
         }
       }
+    }
+
+    if (hasDecoratedMark) {
+      this.decoratedMarkCommandCount++;
     }
   }
 

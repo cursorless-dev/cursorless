@@ -1,13 +1,12 @@
-import {
+import type {
   ActionType,
   Command,
   CommandComplete,
   CommandVersion,
   EnforceUndefined,
-  LATEST_VERSION,
-  OutdatedExtensionError,
   PartialTargetDescriptor,
 } from "@cursorless/common";
+import { LATEST_VERSION, OutdatedExtensionError } from "@cursorless/common";
 import { produce } from "immer";
 import { getPartialTargetDescriptors } from "../../util/getPartialTargetDescriptors";
 import canonicalizeTargetsInPlace from "./canonicalizeTargetsInPlace";

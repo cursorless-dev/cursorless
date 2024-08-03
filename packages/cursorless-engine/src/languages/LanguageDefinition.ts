@@ -1,9 +1,11 @@
-import {
+import type {
   RawTreeSitterQueryProvider,
   ScopeType,
   SimpleScopeType,
   SimpleScopeTypeType,
   TreeSitter,
+} from "@cursorless/common";
+import {
   matchAll,
   showError,
   type IDE,
@@ -139,7 +141,7 @@ async function readQueryFileAndImports(
           return undefined;
         }
 
-        showError(
+        void showError(
           ide.messages,
           "LanguageDefinition.readQueryFileAndImports.queryNotFound",
           `Could not find imported query file ${queryName}`,
@@ -193,7 +195,7 @@ function validateImportSyntax(
   let isError = false;
 
   if (/[/\\]/g.test(importName)) {
-    showError(
+    void showError(
       ide.messages,
       "LanguageDefinition.readQueryFileAndImports.invalidImport",
       `Invalid import statement in ${file}: "${actual}". Relative import paths not supported`,
@@ -204,7 +206,7 @@ function validateImportSyntax(
 
   const canonicalSyntax = `;; import ${importName}`;
   if (actual !== canonicalSyntax) {
-    showError(
+    void showError(
       ide.messages,
       "LanguageDefinition.readQueryFileAndImports.malformedImport",
       `Malformed import statement in ${file}: "${actual}". Import statements must be of the form "${canonicalSyntax}"`,

@@ -1,5 +1,5 @@
-import { NeovimTextEditorImpl } from "..";
-import { NeovimTextDocumentImpl } from "../ide/neovim/NeovimTextDocumentImpl";
+import type { NeovimTextEditorImpl } from "..";
+import type { NeovimTextDocumentImpl } from "../ide/neovim/NeovimTextDocumentImpl";
 
 export interface NewEditorOptions {
   languageId?: string;

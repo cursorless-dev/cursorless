@@ -1,4 +1,4 @@
-import { Disposable } from "./ide.types";
+import type { Disposable } from "./ide.types";
 
 export type PathChangeListener = () => void;
 

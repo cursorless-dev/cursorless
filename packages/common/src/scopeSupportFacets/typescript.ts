@@ -1,8 +1,6 @@
 import { javascriptCoreScopeSupport } from "./javascript";
-import {
-  LanguageScopeSupportFacetMap,
-  ScopeSupportFacetLevel,
-} from "./scopeSupportFacets.types";
+import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
+import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
 const { supported } = ScopeSupportFacetLevel;
 

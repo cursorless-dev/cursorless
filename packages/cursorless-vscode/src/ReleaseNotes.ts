@@ -1,7 +1,8 @@
 import type { ExtensionContext } from "vscode";
-import { Messages, showInfo } from "@cursorless/common";
+import type { Messages } from "@cursorless/common";
+import { showInfo } from "@cursorless/common";
 import * as semver from "semver";
-import { VscodeApi } from "@cursorless/vscode-common";
+import type { VscodeApi } from "@cursorless/vscode-common";
 import { URI } from "vscode-uri";
 
 /**
