@@ -13,10 +13,12 @@ from .csv_overrides import (
 )
 from .get_grapheme_spoken_form_entries import (
     get_grapheme_spoken_form_entries,
+    get_graphemes_talon_list,
     grapheme_capture_name,
 )
 from .marks.decorated_mark import init_hats
 from .spoken_forms_output import SpokenFormsOutput
+from .spoken_scope_forms import init_scope_spoken_forms
 
 JSON_FILE = Path(__file__).parent / "spoken_forms.json"
 disposables: list[Callable] = []
@@ -99,6 +101,7 @@ def update():
     custom_spoken_forms: dict[str, list[SpokenFormEntry]] = {}
     spoken_forms_output = SpokenFormsOutput()
     spoken_forms_output.init()
+    graphemes_talon_list = get_graphemes_talon_list()
 
     def update_spoken_forms_output():
         spoken_forms_output.write(
@@ -113,7 +116,7 @@ def update():
                     for entry in spoken_form_list
                     if entry.list_name in LIST_TO_TYPE_MAP
                 ],
-                *get_grapheme_spoken_form_entries(),
+                *get_grapheme_spoken_form_entries(graphemes_talon_list),
             ]
         )
 
@@ -193,6 +196,7 @@ def update():
         ),
     ]
 
+    init_scope_spoken_forms(graphemes_talon_list)
     update_spoken_forms_output()
     initialized = True
 
