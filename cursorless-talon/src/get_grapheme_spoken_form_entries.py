@@ -31,8 +31,10 @@ def generate_lists_from_capture(capture_name) -> Iterator[str]:
     """
     if capture_name.startswith("self."):
         capture_name = "user." + capture_name[5:]
+    if capture_name not in registry.captures:
+        return
     try:
-        rule = registry.captures[capture_name][0].rule.rule
+        rule = registry.captures[capture_name][-1].rule.rule
     except Error:
         app.notify("Error constructing spoken forms for graphemes")
         print(f"Error getting rule for capture {capture_name}")
@@ -63,7 +65,7 @@ def get_id_to_spoken_form_map(list_name: str) -> Mapping[str, list[str]]:
     list to the list of spoken forms that map to the given value.
     """
     try:
-        raw_list = typing.cast(dict[str, str], registry.lists[list_name][0]).copy()
+        raw_list = typing.cast(dict[str, str], registry.lists[list_name][-1]).copy()
     except Error:
         app.notify(f"Error getting list {list_name}")
         return {}
