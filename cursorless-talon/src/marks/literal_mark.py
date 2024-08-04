@@ -44,6 +44,5 @@ def construct_mark(text: str) -> LiteralMark:
 
 def construct_fuzzy_regex(text: str) -> str:
     parts = text.split(" ")
-    # Between each word there can be nothing(camelCase) or a non character symbol.
-    # Escape characters. eg: \t\r\n, are also acceptable.
+    # Between each word there can be any number of non-alpha symbols (including escape characters: \t\r\n). No separator at all is also valid -- for example, when searching for a camelCase identifier.
     return r"([^a-zA-Z]|\\[trn])*".join(parts)
