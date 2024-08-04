@@ -9,7 +9,10 @@ new Crawler({
   actions: [
     {
       indexName: "cursorless",
-      pathsToMatch: ["https://www.cursorless.org/docs/**"],
+      pathsToMatch: [
+        "https://www.cursorless.org/docs/**",
+        "!https://www.cursorless.org/docs/user/languages/**",
+      ],
       recordExtractor: ({ $, helpers }) => {
         // priority order: deepest active sub list header -> navbar active item -> 'Documentation'
         const lvl0 =
