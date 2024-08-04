@@ -1,11 +1,16 @@
-from talon import Context
+from talon import Context, scope
 
 from .csv_overrides import csv_get_ctx, csv_get_normalized_ctx
 
 
 def init_scope_spoken_forms(graphemes_talon_list: dict[str, str]):
-    create_flattened_talon_list(csv_get_ctx(), graphemes_talon_list, include_custom_regex=True)
-    create_flattened_talon_list(csv_get_normalized_ctx(), graphemes_talon_list, include_custom_regex=False)
+    create_flattened_talon_list(
+        csv_get_ctx(), graphemes_talon_list, include_custom_regex=True
+    )
+    if is_cursorless_test_mode():
+        create_flattened_talon_list(
+            csv_get_normalized_ctx(), graphemes_talon_list, include_custom_regex=False
+        )
 
 
 def create_flattened_talon_list(
@@ -43,3 +48,7 @@ def create_flattened_talon_list(
 
     ctx.lists["user.cursorless_scope_type_flattened"] = scope_types_singular
     ctx.lists["user.cursorless_scope_type_flattened_plural"] = scope_types_plural
+
+
+def is_cursorless_test_mode():
+    return "user.cursorless_spoken_form_test" in scope.get("mode")
