@@ -95,7 +95,7 @@ def talon_list_to_spoken_form_map(
     talon_list: dict[str, str],
 ) -> Mapping[str, list[str]]:
     """
-    Given the Talon list, return a mapping from the values in that
+    Given a Talon list, return a mapping from the values in that
     list to the list of spoken forms that map to the given value.
     """
     inverted_list: defaultdict[str, list[str]] = defaultdict(list)
