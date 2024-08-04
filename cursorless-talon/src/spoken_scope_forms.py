@@ -4,8 +4,8 @@ from .csv_overrides import csv_get_ctx, csv_get_normalized_ctx
 
 
 def init_scope_spoken_forms(graphemes_talon_list: dict[str, str]):
-    create_flattened_talon_list(csv_get_ctx(), graphemes_talon_list, True)
-    create_flattened_talon_list(csv_get_normalized_ctx(), graphemes_talon_list, False)
+    create_flattened_talon_list(csv_get_ctx(), graphemes_talon_list, include_custom_regex=True)
+    create_flattened_talon_list(csv_get_normalized_ctx(), graphemes_talon_list, include_custom_regex=False)
 
 
 def create_flattened_talon_list(
