@@ -69,6 +69,7 @@ def get_id_to_spoken_form_map(list_name: str) -> Mapping[str, list[str]]:
     list to the list of spoken forms that map to the given value.
     """
     try:
+        # NB: [-1] because the last list is the active one
         raw_list = typing.cast(dict[str, str], registry.lists[list_name][-1]).copy()
     except Error:
         app.notify(f"Error getting list {list_name}")
