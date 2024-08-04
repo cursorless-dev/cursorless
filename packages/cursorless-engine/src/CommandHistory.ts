@@ -1,20 +1,16 @@
-import {
+import type {
   ActionDescriptor,
   CommandComplete,
   CommandHistoryEntry,
   CommandServerApi,
-  FileSystem,
   IDE,
   ReadOnlyHatMap,
 } from "@cursorless/common";
-import type {
-  CommandRunner,
-  CommandRunnerDecorator,
-} from "@cursorless/cursorless-engine";
+import { type CommandHistoryStorage } from "@cursorless/common";
 import { produce } from "immer";
-import * as fs from "node:fs/promises";
-import * as path from "node:path";
 import { v4 as uuid } from "uuid";
+import type { CommandRunner } from "./CommandRunner";
+import type { CommandRunnerDecorator } from "./api/CursorlessEngineApi";
 
 const filePrefix = "cursorlessCommandHistory";
 
@@ -23,17 +19,14 @@ const filePrefix = "cursorlessCommandHistory";
  * to a local log file in `.cursorless/commandHistory` dir.
  */
 export class CommandHistory implements CommandRunnerDecorator {
-  private readonly dirPath: string;
   private currentPhraseSignal = "";
   private currentPhraseId = "";
 
   constructor(
     private ide: IDE,
-    private commandServerApi: CommandServerApi | null,
-    fileSystem: FileSystem,
-  ) {
-    this.dirPath = fileSystem.cursorlessCommandHistoryDirPath;
-  }
+    private storage: CommandHistoryStorage,
+    private commandServerApi: CommandServerApi | undefined,
+  ) {}
 
   wrapCommandRunner(
     _readableHatMap: ReadOnlyHatMap,
@@ -65,7 +58,6 @@ export class CommandHistory implements CommandRunnerDecorator {
   ): Promise<void> {
     const date = new Date();
     const fileName = `${filePrefix}_${getMonthDate(date)}.jsonl`;
-    const file = path.join(this.dirPath, fileName);
 
     const historyItem: CommandHistoryEntry = {
       id: uuid(),
@@ -75,10 +67,8 @@ export class CommandHistory implements CommandRunnerDecorator {
       phraseId: await this.getPhraseId(),
       command: produce(command, sanitizeCommandInPlace),
     };
-    const data = JSON.stringify(historyItem) + "\n";
 
-    await fs.mkdir(this.dirPath, { recursive: true });
-    await fs.appendFile(file, data, "utf8");
+    await this.storage.appendEntry(fileName, historyItem);
   }
 
   private async getPhraseId(): Promise<string | undefined> {
@@ -153,6 +143,7 @@ function sanitizeActionInPlace(action: ActionDescriptor): void {
     case "findInWorkspace":
     case "foldRegion":
     case "followLink":
+    case "followLinkAside":
     case "increment":
     case "indentLine":
     case "insertCopyAfter":

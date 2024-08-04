@@ -1,10 +1,5 @@
-import {
-  HatStability,
-  Modifier,
-  Range,
-  SpyIDE,
-  asyncSafety,
-} from "@cursorless/common";
+import type { Modifier, SpyIDE } from "@cursorless/common";
+import { HatStability, Range, asyncSafety } from "@cursorless/common";
 import {
   getCursorlessApi,
   openNewEditor,
@@ -29,7 +24,7 @@ suite("Instance across split", async function () {
     "Every instance",
     asyncSafety(() =>
       runTest(
-        getSpy()!,
+        getSpy(),
         {
           type: "everyScope",
           scopeType: { type: "instance" },
@@ -43,7 +38,7 @@ suite("Instance across split", async function () {
     "Next instance",
     asyncSafety(() =>
       runTest(
-        getSpy()!,
+        getSpy(),
         {
           type: "relativeScope",
           scopeType: { type: "instance" },
@@ -60,7 +55,7 @@ suite("Instance across split", async function () {
     "Two instances",
     asyncSafety(() =>
       runTest(
-        getSpy()!,
+        getSpy(),
         {
           type: "relativeScope",
           scopeType: { type: "instance" },
@@ -77,7 +72,7 @@ suite("Instance across split", async function () {
     "Second instance",
     asyncSafety(() =>
       runTest(
-        getSpy()!,
+        getSpy(),
         {
           type: "ordinalScope",
           scopeType: { type: "instance" },

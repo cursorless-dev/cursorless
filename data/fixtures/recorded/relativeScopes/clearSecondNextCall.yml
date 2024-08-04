@@ -1,10 +1,11 @@
 languageId: ruby
 command:
-  version: 5
+  version: 6
   spokenForm: change second next call
-  action: {name: clearAndSetSelection}
-  targets:
-    - type: primitive
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - type: relativeScope
           scopeType: {type: functionCall}

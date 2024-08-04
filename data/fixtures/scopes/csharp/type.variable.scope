@@ -1,0 +1,20 @@
+String name = "hello";
+---
+
+[Content] = 0:0-0:6
+  >------<
+0| String name = "hello";
+
+[Removal] = 0:0-0:7
+  >-------<
+0| String name = "hello";
+
+[Trailing delimiter] = 0:6-0:7
+        >-<
+0| String name = "hello";
+
+[Domain] = 0:0-0:21
+  >---------------------<
+0| String name = "hello";
+
+[Insertion delimiter] = " "

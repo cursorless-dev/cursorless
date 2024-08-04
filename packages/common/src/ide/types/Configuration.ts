@@ -1,7 +1,7 @@
-import { Listener } from "../..";
+import type { Listener } from "../..";
 import { HatStability } from "./HatStability";
-import { Disposable } from "./ide.types";
-import { GetFieldType, Paths } from "./Paths";
+import type { Disposable } from "./ide.types";
+import type { GetFieldType, Paths } from "./Paths";
 
 export type CursorlessConfiguration = {
   tokenHatSplittingMode: TokenHatSplittingMode;

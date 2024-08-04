@@ -1,18 +1,19 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: take cap past harp
-  action: {name: setSelection}
-  targets:
-    - active:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: h}
+  action:
+    name: setSelection
+    target:
       type: range
-      excludeAnchor: false
-      excludeActive: false
       anchor:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: c}
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: h}
+      excludeAnchor: false
+      excludeActive: false
   usePrePhraseSnapshot: false
 initialState:
   documentContents: |

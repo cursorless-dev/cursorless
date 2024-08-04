@@ -1,10 +1,9 @@
+import type { HatTokenMap, SimpleActionName } from "@cursorless/common";
+import { LATEST_VERSION } from "@cursorless/common";
 import {
   getFixturePath,
   getRecordedTestsDirPath,
-  HatTokenMap,
-  LATEST_VERSION,
-  SimpleActionName,
-} from "@cursorless/common";
+} from "@cursorless/node-common";
 import {
   getCursorlessApi,
   openNewEditor,
@@ -12,10 +11,9 @@ import {
 } from "@cursorless/vscode-common";
 import { assert } from "chai";
 import * as crypto from "crypto";
-import { mkdir, readdir, readFile, rm } from "fs/promises";
-import * as os from "os";
-import * as path from "path";
-import { basename } from "path";
+import { mkdir, readFile, readdir, rm } from "node:fs/promises";
+import * as os from "node:os";
+import * as path from "node:path";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
@@ -158,7 +156,7 @@ async function checkRecordedTest(tmpdir: string) {
   assert.lengthOf(paths, 1);
 
   const actualRecordedTestPath = paths[0];
-  assert.equal(basename(actualRecordedTestPath), "takeHarp.yml");
+  assert.equal(path.basename(actualRecordedTestPath), "takeHarp.yml");
 
   const expected = (
     await readFile(

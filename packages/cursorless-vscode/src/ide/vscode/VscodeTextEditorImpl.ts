@@ -1,22 +1,20 @@
-import {
+import type {
   BreakpointDescriptor,
   Edit,
   EditableTextEditor,
-  Position,
+  OpenLinkOptions,
   Range,
   RevealLineAt,
   Selection,
   SetSelectionsOpts,
-  sleep,
   TextDocument,
   TextEditor,
   TextEditorOptions,
-  uniqWithHash,
 } from "@cursorless/common";
+import { sleep, uniqWithHash } from "@cursorless/common";
 import {
   fromVscodeRange,
   fromVscodeSelection,
-  toVscodePositionOrRange,
   toVscodeRange,
   toVscodeSelection,
 } from "@cursorless/vscode-common";
@@ -24,7 +22,7 @@ import * as vscode from "vscode";
 import vscodeEdit from "./VscodeEdit";
 import vscodeFocusEditor from "./VscodeFocusEditor";
 import { vscodeFold, vscodeUnfold } from "./VscodeFold";
-import { VscodeIDE } from "./VscodeIDE";
+import type { VscodeIDE } from "./VscodeIDE";
 import { vscodeInsertSnippet } from "./VscodeInsertSnippets";
 import {
   vscodeEditNewNotebookCellAbove,
@@ -149,11 +147,11 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     return vscodeEditNewNotebookCellBelow(this);
   }
 
-  public openLink(location?: Position | Range): Promise<boolean> {
-    return vscodeOpenLink(
-      this,
-      location != null ? toVscodePositionOrRange(location) : undefined,
-    );
+  public openLink(
+    range: Range,
+    options: OpenLinkOptions = { openAside: false },
+  ): Promise<void> {
+    return vscodeOpenLink(this, range, options);
   }
 
   public fold(ranges?: Range[]): Promise<void> {
@@ -176,7 +174,7 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     await vscode.commands.executeCommand("editor.action.clipboardCopyAction");
   }
 
-  public async clipboardPaste(_ranges?: Range[]): Promise<void> {
+  public async clipboardPaste(): Promise<void> {
     // We add these sleeps here to workaround a bug in VSCode. See #1521
     await sleep(100);
     await vscode.commands.executeCommand("editor.action.clipboardPasteAction");
@@ -191,11 +189,7 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     await vscode.commands.executeCommand("editor.action.outdentLines");
   }
 
-  public async insertLineAfter(ranges?: Range[]): Promise<void> {
-    if (ranges != null) {
-      await this.setSelections(ranges.map((range) => range.toSelection(false)));
-    }
-    await this.focus();
+  public async insertLineAfter(_ranges?: Range[]): Promise<void> {
     await vscode.commands.executeCommand("editor.action.insertLineAfter");
   }
 

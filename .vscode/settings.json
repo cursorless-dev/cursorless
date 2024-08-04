@@ -7,7 +7,7 @@
     "editor.defaultFormatter": "AndreasArvidsson.andreas-talon"
   },
   "[talon]": {
-    "editor.defaultFormatter": "wenkokke.tree-sitter-talon"
+    "editor.defaultFormatter": "wenkokke.talonfmt-vscode"
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   // Turn off tsc task auto detection since we have the necessary tasks as npm scripts
@@ -25,5 +25,11 @@
   "files.eol": "\n",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.tsdk": "node_modules/typescript/lib",
-  "eslint.workingDirectories": [{ "pattern": "packages/*/" }]
+  "eslint.workingDirectories": [{ "pattern": "packages/*/" }],
+  "[lua]": {
+    "editor.defaultFormatter": "JohnnyMorganz.stylua"
+  },
+  "files.associations": {
+    ".busted": "lua"
+  }
 }

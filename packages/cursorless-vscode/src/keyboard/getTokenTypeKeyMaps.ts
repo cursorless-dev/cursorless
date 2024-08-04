@@ -1,12 +1,13 @@
-import { isString, range } from "lodash";
-import {
+import { isString, range } from "lodash-es";
+import type {
   KeyboardActionType,
   PolymorphicKeyboardActionDescriptor,
   SpecificKeyboardActionDescriptor,
-  simpleKeyboardActionNames,
 } from "./KeyboardActionType";
-import { KeyboardConfig, only } from "./KeyboardConfig";
-import { TokenTypeKeyMapMap } from "./TokenTypeHelpers";
+import { simpleKeyboardActionNames } from "./KeyboardActionType";
+import type { KeyboardConfig } from "./KeyboardConfig";
+import { only } from "./KeyboardConfig";
+import type { TokenTypeKeyMapMap } from "./TokenTypeHelpers";
 
 /**
  * Returns a map from token type names to a keymap for that token type. Something like:

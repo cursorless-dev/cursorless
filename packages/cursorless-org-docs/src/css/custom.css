@@ -24,3 +24,7 @@
 [data-theme="light"] .light-mode-invert {
   filter: invert(90%) hue-rotate(180deg);
 }
+
+.hidden {
+  display: none;
+}

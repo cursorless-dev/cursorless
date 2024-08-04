@@ -1,4 +1,4 @@
-import { isPlainObject } from "lodash";
+import { isPlainObject } from "lodash-es";
 
 /**
  * Like lodash.omitBy, but also omits values from nested objects

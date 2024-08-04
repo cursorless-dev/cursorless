@@ -1,6 +1,6 @@
 import { transformPackageJson } from "./transformPackageJson";
 import { generateBuildInfo } from "./generateBuildInfo";
-import { Asset } from "./Asset";
+import type { Asset } from "./Asset";
 
 export const assets: Asset[] = [
   { source: "../../CHANGELOG.md", destination: "CHANGELOG.md" },
@@ -24,6 +24,18 @@ export const assets: Asset[] = [
     destination: "fonts/cursorless.woff",
   },
   { source: "../../images/hats", destination: "images/hats" },
+  {
+    source: "../../data/fixtures/recorded/tutorial",
+    destination: "tutorial",
+  },
+  {
+    source: "../cursorless-vscode-tutorial-webview/out/index.js",
+    destination: "media/tutorialWebview.js",
+  },
+  {
+    source: "../cursorless-vscode-tutorial-webview/out/index.css",
+    destination: "media/tutorialWebview.css",
+  },
   { source: "./images/logo.png", destination: "images/logo.png" },
   { source: "../../images/logo.svg", destination: "images/logo.svg" },
   {

@@ -2,7 +2,7 @@ import { openNewEditor } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
 import { injectFakes } from "./injectFakes";
 import { checkAndResetFakes } from "./checkAndResetFakes";
-import { ExpectedArgs } from "./scopeVisualizerTest.types";
+import type { ExpectedArgs } from "./scopeVisualizerTest.types";
 
 /**
  * Tests that the scope visualizer works with nested multiline content, by

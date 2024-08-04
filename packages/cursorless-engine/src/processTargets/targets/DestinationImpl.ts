@@ -1,11 +1,7 @@
-import {
-  InsertionMode,
-  Range,
-  Selection,
-  TextEditor,
-} from "@cursorless/common";
-import { EditWithRangeUpdater } from "../../typings/Types";
-import {
+import type { InsertionMode, Selection, TextEditor } from "@cursorless/common";
+import { Range } from "@cursorless/common";
+import type { EditWithRangeUpdater } from "../../typings/Types";
+import type {
   Destination,
   EditNewActionType,
   Target,
@@ -122,12 +118,12 @@ export class DestinationImpl implements Destination {
 
       if (this.isLineDelimiter) {
         const line = this.editor.document.lineAt(insertionPosition);
-        const nonWhitespaceCharacterIndex = this.isBefore
-          ? line.firstNonWhitespaceCharacterIndex
-          : line.lastNonWhitespaceCharacterIndex;
+        const trimmedPosition = this.isBefore
+          ? line.rangeTrimmed?.start ?? line.range.start
+          : line.rangeTrimmed?.end ?? line.range.end;
 
-        // Use the full line with included indentation and trailing whitespaces
-        if (insertionPosition.character === nonWhitespaceCharacterIndex) {
+        // Use the full line, including indentation and trailing whitespaces
+        if (insertionPosition.isEqual(trimmedPosition)) {
           return this.isBefore ? line.range.start : line.range.end;
         }
       }
@@ -185,10 +181,22 @@ function getIndentationString(editor: TextEditor, range: Range) {
   for (let i = range.start.line; i <= range.end.line; ++i) {
     const line = editor.document.lineAt(i);
     if (
-      !line.isEmptyOrWhitespace &&
-      line.firstNonWhitespaceCharacterIndex < length
+      line.range.isEmpty ||
+      (line.isEmptyOrWhitespace && !range.isSingleLine)
     ) {
-      length = line.firstNonWhitespaceCharacterIndex;
+      // Skip empty lines. If the range is a single line, we want to include the
+      // indentation of the line even if it is all whitespace so that you can
+      // "drink line" on an indented but empty line and get the same
+      // indentation. If the range is not a single line, we want to skip any
+      // lines that are all whitespace to avoid including a random line of
+      // whitespace in the indentation.
+      continue;
+    }
+
+    const trimmedPosition = line.rangeTrimmed?.start ?? line.range.end;
+
+    if (trimmedPosition.character < length) {
+      length = trimmedPosition.character;
       indentationString = line.text.slice(0, length);
     }
   }

@@ -1,0 +1,17 @@
+TestMotorcycle moto = new TestMotorcycle[0]();
+---
+
+[Content] =
+[Removal] = 0:22-0:43
+                        >---------------------<
+0| TestMotorcycle moto = new TestMotorcycle[0]();
+
+[Leading delimiter] = 0:21-0:22
+                       >-<
+0| TestMotorcycle moto = new TestMotorcycle[0]();
+
+[Domain] = 0:22-0:45
+                        >-----------------------<
+0| TestMotorcycle moto = new TestMotorcycle[0]();
+
+[Insertion delimiter] = " "

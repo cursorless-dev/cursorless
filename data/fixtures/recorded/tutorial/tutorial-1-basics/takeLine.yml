@@ -1,0 +1,31 @@
+languageId: plaintext
+command:
+  version: 7
+  spokenForm: take line
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: line}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    Welcome Cursorless!
+
+    Notice the hats above each word in this sentence.
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 6}
+    - anchor: {line: 2, character: 35}
+      active: {line: 2, character: 39}
+  marks: {}
+finalState:
+  documentContents: |
+    Welcome Cursorless!
+
+    Notice the hats above each word in this sentence.
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 49}

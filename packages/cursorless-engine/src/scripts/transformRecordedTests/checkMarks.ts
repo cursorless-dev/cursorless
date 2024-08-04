@@ -1,5 +1,6 @@
-import { FakeIDE, TestCaseFixtureLegacy } from "@cursorless/common";
-import { uniq } from "lodash";
+import type { TestCaseFixtureLegacy } from "@cursorless/common";
+import { FakeIDE } from "@cursorless/common";
+import { uniq } from "lodash-es";
 import { injectIde } from "../../singletons/ide.singleton";
 import tokenGraphemeSplitter from "../../singletons/tokenGraphemeSplitter.singleton";
 import { extractTargetKeys } from "../../testUtil/extractTargetKeys";

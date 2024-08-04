@@ -1,13 +1,14 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: chuck head whale
-  action: {name: remove}
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  action:
+    name: remove
+    target:
+      type: primitive
       modifiers:
         - {type: extendThroughStartOf}
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: "    hello world whatever"

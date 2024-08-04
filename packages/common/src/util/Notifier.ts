@@ -1,4 +1,4 @@
-import { pull } from "lodash";
+import { pull } from "lodash-es";
 import type { Disposable } from "../ide/types/ide.types";
 
 type Arr = readonly unknown[];

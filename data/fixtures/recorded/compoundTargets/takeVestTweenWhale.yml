@@ -1,18 +1,19 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: take vest between whale
-  action: {name: setSelection}
-  targets:
-    - active:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  action:
+    name: setSelection
+    target:
       type: range
-      excludeAnchor: true
-      excludeActive: true
       anchor:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: v}
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      excludeAnchor: true
+      excludeActive: true
   usePrePhraseSnapshot: false
 initialState:
   documentContents: |

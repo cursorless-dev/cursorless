@@ -1,4 +1,4 @@
-import {
+import type {
   LineNumberMark,
   Modifier,
   PartialMark,
@@ -20,9 +20,8 @@ import {
   numberToSpokenForm,
   ordinalToSpokenForm,
 } from "./defaultSpokenForms/numbers";
-import { characterToSpokenForm } from "./defaultSpokenForms/characters";
-import { SpokenFormComponentMap } from "./getSpokenFormComponentMap";
-import { SpokenFormComponent } from "./SpokenFormComponent";
+import type { SpokenFormComponentMap } from "./getSpokenFormComponentMap";
+import type { SpokenFormComponent } from "./SpokenFormComponent";
 
 export class PrimitiveTargetSpokenFormGenerator {
   constructor(private spokenFormMap: SpokenFormComponentMap) {
@@ -230,11 +229,16 @@ export class PrimitiveTargetSpokenFormGenerator {
   handleScopeType(scopeType: ScopeType): SpokenFormComponent {
     switch (scopeType.type) {
       case "oneOf":
+      case "surroundingPairInterior":
         throw new NoSpokenFormError(`Scope type '${scopeType.type}'`);
       case "glyph":
         return [
           this.spokenFormMap.complexScopeTypeType.glyph,
-          characterToSpokenForm(scopeType.character),
+          getSpokenFormStrict(
+            this.spokenFormMap.grapheme,
+            "grapheme",
+            scopeType.character,
+          ),
         ];
       case "surroundingPair": {
         const pair = this.spokenFormMap.pairedDelimiter[scopeType.delimiter];
@@ -274,14 +278,20 @@ export class PrimitiveTargetSpokenFormGenerator {
     switch (mark.type) {
       case "decoratedSymbol": {
         const [color, shape] = mark.symbolColor.split("-");
-        const components: string[] = [];
+        const components: SpokenFormComponent[] = [];
         if (color !== "default") {
           components.push(hatColorToSpokenForm(color));
         }
         if (shape != null) {
           components.push(hatShapeToSpokenForm(shape));
         }
-        components.push(characterToSpokenForm(mark.character));
+        components.push(
+          getSpokenFormStrict(
+            this.spokenFormMap.grapheme,
+            "grapheme",
+            mark.character,
+          ),
+        );
         return components;
       }
 
@@ -374,4 +384,18 @@ function pluralize(name: SpokenFormComponent): SpokenFormComponent {
 // FIXME: Properly pluralize
 function pluralizeString(name: string): string {
   return `${name}s`;
+}
+
+function getSpokenFormStrict(
+  map: Readonly<Record<string, SpokenFormComponent>>,
+  typeName: string,
+  key: string,
+): SpokenFormComponent {
+  const spokenForm = map[key];
+
+  if (spokenForm == null) {
+    throw new NoSpokenFormError(`${typeName} '${key}'`);
+  }
+
+  return spokenForm;
 }

@@ -1,21 +1,21 @@
-import {
+import type {
   Command,
   CommandResponse,
   CommandServerApi,
   HatTokenMap,
   ReadOnlyHatMap,
-  clientSupportsFallback,
 } from "@cursorless/common";
-import { CommandRunner } from "./CommandRunner";
+import { clientSupportsFallback, type TreeSitter } from "@cursorless/common";
+import type { CommandRunner } from "./CommandRunner";
 import { Actions } from "./actions/Actions";
-import { CommandRunnerDecorator } from "./api/CursorlessEngineApi";
-import { Debug } from "./core/Debug";
-import { Snippets } from "./core/Snippets";
+import type { CommandRunnerDecorator } from "./api/CursorlessEngineApi";
+import type { Debug } from "./core/Debug";
 import { CommandRunnerImpl } from "./core/commandRunner/CommandRunnerImpl";
 import { canonicalizeAndValidateCommand } from "./core/commandVersionUpgrades/canonicalizeAndValidateCommand";
-import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
-import { StoredTargetMap, TreeSitter } from "./index";
-import { LanguageDefinitions } from "./languages/LanguageDefinitions";
+import type { RangeUpdater } from "./core/updateSelections/RangeUpdater";
+import type { Snippets } from "./core/Snippets";
+import type { StoredTargetMap } from "./core/StoredTargets";
+import type { LanguageDefinitions } from "./languages/LanguageDefinitions";
 import { TargetPipelineRunner } from "./processTargets";
 import { MarkStageFactoryImpl } from "./processTargets/MarkStageFactoryImpl";
 import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
@@ -35,7 +35,7 @@ import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandler
  */
 export async function runCommand(
   treeSitter: TreeSitter,
-  commandServerApi: CommandServerApi | null,
+  commandServerApi: CommandServerApi,
   debug: Debug,
   hatTokenMap: HatTokenMap,
   snippets: Snippets,
@@ -91,7 +91,7 @@ async function unwrapLegacyCommandResponse(
 
 function createCommandRunner(
   treeSitter: TreeSitter,
-  commandServerApi: CommandServerApi | null,
+  commandServerApi: CommandServerApi,
   languageDefinitions: LanguageDefinitions,
   debug: Debug,
   storedTargets: StoredTargetMap,

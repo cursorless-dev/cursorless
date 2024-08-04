@@ -1,13 +1,11 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
-import {
-  LanguageScopeSupportFacetMap,
-  ScopeSupportFacetLevel,
-} from "./scopeSupportFacets.types";
+import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
+import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
 const { supported, notApplicable } = ScopeSupportFacetLevel;
 
 export const javaScopeSupport: LanguageScopeSupportFacetMap = {
+  disqualifyDelimiter: supported,
+
   "name.foreach": supported,
 
   "value.foreach": supported,
