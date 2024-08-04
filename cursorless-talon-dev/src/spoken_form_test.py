@@ -1,13 +1,19 @@
 import json
 from typing import Any, Optional
 
-from talon import Context, Module, actions, scope
+from talon import Context, Module, actions, scope, settings
 
 mod = Module()
 
 mod.mode(
     "cursorless_spoken_form_test",
     "Used to run tests on the Cursorless spoken forms/grammar",
+)
+
+mod.setting(
+    "cursorless_spoken_form_test_restore_microphone",
+    str,
+    desc="The microphone to switch to after the spoken form tests are done. If unset, the microphone that was active before tests started is restored. (If you want to switch back to 'System Default', you should set that as the value here)",
 )
 
 ctx = Context()
@@ -72,7 +78,10 @@ class Actions:
 
         if enable:
             saved_modes = scope.get("mode")
-            saved_microphone = actions.sound.active_microphone()
+            saved_microphone = settings.get(
+                "user.cursorless_spoken_form_test_restore_microphone",
+                actions.sound.active_microphone(),
+            )
 
             disable_modes()
             actions.mode.enable("user.cursorless_spoken_form_test")

@@ -1,0 +1,31 @@
+languageId: kotlin
+command:
+  version: 7
+  spokenForm: change comment
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: comment}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    // thoughtful comment
+    fun main() {
+        println("Hello, world!!!")
+    }
+  selections:
+    - anchor: {line: 0, character: 21}
+      active: {line: 0, character: 21}
+  marks: {}
+finalState:
+  documentContents: |-
+
+    fun main() {
+        println("Hello, world!!!")
+    }
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
