@@ -16,19 +16,19 @@ def init_scope_spoken_forms(graphemes_talon_list: dict[str, str]):
 def create_flattened_talon_list(
     ctx: Context, graphemes_talon_list: dict[str, str], include_custom_regex: bool
 ):
-    list_to_merge = {
+    lists_to_merge = {
         "cursorless_scope_type": "simple",
         "cursorless_surrounding_pair_scope_type": "surroundingPair",
         "cursorless_selectable_only_paired_delimiter": "surroundingPair",
         "cursorless_wrapper_selectable_paired_delimiter": "surroundingPair",
     }
     if include_custom_regex:
-        list_to_merge["cursorless_custom_regex_scope_type"] = "customRegex"
+        lists_to_merge["cursorless_custom_regex_scope_type"] = "customRegex"
 
     scope_types_singular: dict[str, str] = {}
     scope_types_plural: dict[str, str] = {}
 
-    for list_name, prefix in list_to_merge.items():
+    for list_name, prefix in lists_to_merge.items():
         for key, value in ctx.lists[f"user.{list_name}"].items():
             scope_types_singular[key] = f"{prefix}.{value}"
         for key, value in ctx.lists[f"user.{list_name}_plural"].items():
