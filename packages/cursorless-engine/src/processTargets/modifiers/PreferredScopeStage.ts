@@ -32,13 +32,11 @@ export class PreferredScopeStage implements ModifierStage {
     }
 
     const containingTargets = getContainingScopeTarget(target, scopeHandler);
-
     if (containingTargets != null) {
       return containingTargets;
     }
 
     const closestTargets = getClosestScopeTargets(target, scopeHandler);
-
     if (closestTargets != null) {
       return closestTargets;
     }
