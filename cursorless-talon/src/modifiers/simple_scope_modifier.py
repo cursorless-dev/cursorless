@@ -17,7 +17,7 @@ mod.list(
 mod.setting(
     "private_cursorless_use_preferred_scope",
     bool,
-    desc="Use preferred scope instead of containing scope",
+    desc="Use preferred scope instead of containing scope for all scopes by default (EXPERIMENTAL)",
 )
 
 
