@@ -45,6 +45,7 @@ export class PrimitiveTargetSpokenFormGenerator {
     switch (modifier.type) {
       case "cascading":
       case "modifyIfUntyped":
+      case "preferredScope":
         throw new NoSpokenFormError(`Modifier '${modifier.type}'`);
 
       case "containingScope":

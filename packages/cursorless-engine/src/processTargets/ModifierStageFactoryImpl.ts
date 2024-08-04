@@ -25,6 +25,7 @@ import { ItemStage } from "./modifiers/ItemStage";
 import { LeadingStage, TrailingStage } from "./modifiers/LeadingTrailingStages";
 import { OrdinalScopeStage } from "./modifiers/OrdinalScopeStage";
 import { EndOfStage, StartOfStage } from "./modifiers/PositionStage";
+import { PreferredScopeStage } from "./modifiers/PreferredScopeStage";
 import { RangeModifierStage } from "./modifiers/RangeModifierStage";
 import { RawSelectionStage } from "./modifiers/RawSelectionStage";
 import { RelativeScopeStage } from "./modifiers/RelativeScopeStage";
@@ -69,6 +70,12 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
         return new VisibleStage(modifier);
       case "containingScope":
         return new ContainingScopeStage(
+          this,
+          this.scopeHandlerFactory,
+          modifier,
+        );
+      case "preferredScope":
+        return new PreferredScopeStage(
           this,
           this.scopeHandlerFactory,
           modifier,
