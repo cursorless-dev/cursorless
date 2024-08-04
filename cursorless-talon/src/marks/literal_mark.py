@@ -19,7 +19,7 @@ tag: user.private_cursorless_literal_mark_no_prefix
 
 
 # NB: <phrase> is used over <user.text> for DFA performance reasons
-# (we intend to replace is with a dynamic list of document contents eventually)
+# (we intend to replace this with a dynamic list of document contents eventually)
 @mod.capture(rule="{user.private_cursorless_literal_mark} <phrase>")
 def cursorless_literal_mark(m) -> LiteralMark:
     return construct_mark(str(m.phrase))
