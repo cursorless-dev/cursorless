@@ -11,16 +11,27 @@ from .spoken_forms_output import SpokenFormOutputEntry
 grapheme_capture_name = "user.any_alphanumeric_key"
 
 
-def get_grapheme_spoken_form_entries() -> list[SpokenFormOutputEntry]:
+def get_grapheme_spoken_form_entries(
+    grapheme_talon_list: dict[str, str],
+) -> list[SpokenFormOutputEntry]:
     return [
         {
             "type": "grapheme",
             "id": id,
             "spokenForms": spoken_forms,
         }
-        for symbol_list in generate_lists_from_capture(grapheme_capture_name)
-        for id, spoken_forms in get_id_to_spoken_form_map(symbol_list).items()
+        for id, spoken_forms in talon_list_to_spoken_form_map(
+            grapheme_talon_list
+        ).items()
     ]
+
+
+def get_graphemes_talon_list() -> dict[str, str]:
+    return {
+        spoken_form: id
+        for symbol_list in generate_lists_from_capture(grapheme_capture_name)
+        for spoken_form, id in get_id_to_talon_list(symbol_list).items()
+    }
 
 
 def generate_lists_from_capture(capture_name) -> Iterator[str]:
@@ -32,7 +43,7 @@ def generate_lists_from_capture(capture_name) -> Iterator[str]:
     if capture_name.startswith("self."):
         capture_name = "user." + capture_name[5:]
     try:
-        rule = registry.captures[capture_name][0].rule.rule
+        rule = registry.captures[capture_name][-1].rule.rule
     except Error:
         app.notify("Error constructing spoken forms for graphemes")
         print(f"Error getting rule for capture {capture_name}")
@@ -57,19 +68,26 @@ def generate_lists_from_capture(capture_name) -> Iterator[str]:
             )
 
 
-def get_id_to_spoken_form_map(list_name: str) -> Mapping[str, list[str]]:
+def get_id_to_talon_list(list_name: str) -> dict[str, str]:
     """
-    Given the name of a Talon list, return a mapping from the values in that
-    list to the list of spoken forms that map to the given value.
+    Given the name of a Talon list, return that list
     """
     try:
-        raw_list = typing.cast(dict[str, str], registry.lists[list_name][0]).copy()
+        return typing.cast(dict[str, str], registry.lists[list_name][-1]).copy()
     except Error:
         app.notify(f"Error getting list {list_name}")
         return {}
 
+
+def talon_list_to_spoken_form_map(
+    talon_list: dict[str, str],
+) -> Mapping[str, list[str]]:
+    """
+    Given the Talon list, return a mapping from the values in that
+    list to the list of spoken forms that map to the given value.
+    """
     inverted_list: defaultdict[str, list[str]] = defaultdict(list)
-    for key, value in raw_list.items():
+    for key, value in talon_list.items():
         inverted_list[value].append(key)
 
     return inverted_list

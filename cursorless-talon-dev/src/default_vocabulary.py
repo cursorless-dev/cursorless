@@ -1,4 +1,10 @@
-from talon import Context
+from talon import Context, Module
+
+mod = Module()
+mod.list(
+    "cursorless_default_any_alphanumeric_key",
+    desc="Default Cursorless vocabulary any alphanumeric key",
+)
 
 ctx = Context()
 ctx.matches = r"""
@@ -96,7 +102,7 @@ symbol_key_words = {
     "pound": "£",
 }
 
-any_alphanumeric_keys = {
+ctx.lists["user.cursorless_default_any_alphanumeric_key"] = {
     **{w: chr(ord("a") + i) for i, w in enumerate(initial_default_alphabet)},
     **{digits[i]: str(i) for i in range(10)},
     **punctuation_words,
@@ -104,6 +110,9 @@ any_alphanumeric_keys = {
 }
 
 
-@ctx.capture("user.any_alphanumeric_key", rule="|".join(any_alphanumeric_keys.keys()))
+@ctx.capture(
+    "user.any_alphanumeric_key",
+    rule="{user.cursorless_default_any_alphanumeric_key}",
+)
 def any_alphanumeric_key(m) -> str:
-    return any_alphanumeric_keys[str(m)]
+    return m.cursorless_default_any_alphanumeric_key
