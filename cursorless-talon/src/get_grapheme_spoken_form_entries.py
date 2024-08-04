@@ -37,6 +37,7 @@ def generate_lists_from_capture(capture_name) -> Iterator[str]:
     if capture_name.startswith("self."):
         capture_name = "user." + capture_name[5:]
     try:
+        # NB: [-1] because the last capture is the active one
         rule = registry.captures[capture_name][-1].rule.rule
     except Error:
         app.notify("Error constructing spoken forms for graphemes")
