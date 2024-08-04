@@ -110,6 +110,7 @@ ctx.lists["user.cursorless_default_any_alphanumeric_key"] = {
 }
 
 
+# NB: do not use literals in these captures because `generate_lists_from_capture` does not support them
 @ctx.capture(
     "user.any_alphanumeric_key",
     rule="{user.cursorless_default_any_alphanumeric_key}",
