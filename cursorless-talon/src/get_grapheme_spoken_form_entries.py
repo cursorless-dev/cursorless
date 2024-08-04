@@ -13,10 +13,13 @@ grapheme_capture_name = "user.any_alphanumeric_key"
 
 def get_grapheme_spoken_form_entries() -> list[SpokenFormOutputEntry]:
     if grapheme_capture_name not in registry.captures:
-       # We require this capture, and expect it to be defined. We want to show a user friendly error if it isn't present (usually indicating a problem with their community.git setup) and we think the user is going to use Cursorless.
-       # However, sometimes users use different dictation engines (Vosk, Webspeech) with entirely different/smaller grammars that don't have the capture, and this code will run then, and falsely error. We don't want to show an error in that case because they don't plan to actually use Cursorless.
-        if scope.get("language") == "en":
-            raise Exception("<user.any_alphanumeric_key> isn't defined, which is required by Cursorless. Please check your community setup")
+        # We require this capture, and expect it to be defined. We want to show a user friendly error if it isn't present (usually indicating a problem with their community.git setup) and we think the user is going to use Cursorless.
+        # However, sometimes users use different dictation engines (Vosk, Webspeech) with entirely different/smaller grammars that don't have the capture, and this code will run then, and falsely error. We don't want to show an error in that case because they don't plan to actually use Cursorless.
+        if "en" not in scope.get("language", {}):
+            app.notify(f"Capture <{grapheme_capture_name}> isn't defined")
+            print(
+                f"Capture <{grapheme_capture_name}> isn't defined, which is required by Cursorless. Please check your community setup"
+            )
         return []
     return [
         {
