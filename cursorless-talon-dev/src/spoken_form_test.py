@@ -11,10 +11,9 @@ mod.mode(
 )
 
 mod.setting(
-    "cursorless_spoken_form_test_restore_default_microphone",
-    bool,
-    default=False,
-    desc="Instead of restoring the previously active microphonep use system default instead",
+    "cursorless_spoken_form_test_restore_microphone",
+    str,
+    desc="The microphone to revert to after the spoken form tests are done. If not provided the previously active microphone will be restored.",
 )
 
 ctx = Context()
@@ -79,12 +78,10 @@ class Actions:
 
         if enable:
             saved_modes = scope.get("mode")
-            if settings.get(
-                "user.cursorless_spoken_form_test_restore_default_microphone"
-            ):
-                saved_microphone = "System Default"
-            else:
-                saved_microphone = actions.sound.active_microphone()
+            saved_microphone = settings.get(
+                "user.cursorless_spoken_form_test_restore_microphone",
+                actions.sound.active_microphone(),
+            )
 
             disable_modes()
             actions.mode.enable("user.cursorless_spoken_form_test")
