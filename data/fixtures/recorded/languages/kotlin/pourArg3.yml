@@ -1,0 +1,50 @@
+languageId: kotlin
+command:
+  version: 7
+  spokenForm: pour arg
+  action:
+    name: editNewLineAfter
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    fun display(
+        name: String, 
+        age: Int = 0,
+    ) {
+        println("Name: $name, Age: $age")
+    }
+
+    fun main() {
+        display(
+            name = "Alice", 
+            age = 25,
+        )
+    }
+  selections:
+    - anchor: {line: 2, character: 15}
+      active: {line: 2, character: 15}
+  marks: {}
+finalState:
+  documentContents: |-
+    fun display(
+        name: String, 
+        age: Int = 0,
+        ,
+    ) {
+        println("Name: $name, Age: $age")
+    }
+
+    fun main() {
+        display(
+            name = "Alice", 
+            age = 25,
+        )
+    }
+  selections:
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}
