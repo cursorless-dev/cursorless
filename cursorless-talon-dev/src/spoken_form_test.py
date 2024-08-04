@@ -13,7 +13,7 @@ mod.mode(
 mod.setting(
     "cursorless_spoken_form_test_restore_microphone",
     str,
-    desc="The microphone to revert to after the spoken form tests are done. If not provided the previously active microphone will be restored.",
+    desc="The microphone to switch to after the spoken form tests are done. If unset, the microphone that was active before tests started is restored. (If you want to switch back to 'System Default', you should set that as the value here)",
 )
 
 ctx = Context()
