@@ -11,41 +11,23 @@ def init_scope_spoken_forms(graphemes_talon_list: dict[str, str]):
 def create_flattened_talon_list(
     ctx: Context, graphemes_talon_list: dict[str, str], include_custom_regex: bool
 ):
+    list_to_merge = {
+        "cursorless_scope_type": "simple",
+        "cursorless_surrounding_pair_scope_type": "surroundingPair",
+        "cursorless_selectable_only_paired_delimiter": "surroundingPair",
+        "cursorless_wrapper_selectable_paired_delimiter": "surroundingPair",
+    }
+    if include_custom_regex:
+        list_to_merge["cursorless_custom_regex_scope_type"] = "customRegex"
+
     scope_types_singular: dict[str, str] = {}
     scope_types_plural: dict[str, str] = {}
 
-    append_talon_lists(
-        ctx, scope_types_singular, scope_types_plural, "simple", "cursorless_scope_type"
-    )
-    append_talon_lists(
-        ctx,
-        scope_types_singular,
-        scope_types_plural,
-        "surroundingPair",
-        "cursorless_surrounding_pair_scope_type",
-    )
-    append_talon_lists(
-        ctx,
-        scope_types_singular,
-        scope_types_plural,
-        "surroundingPair",
-        "cursorless_selectable_only_paired_delimiter",
-    )
-    append_talon_lists(
-        ctx,
-        scope_types_singular,
-        scope_types_plural,
-        "surroundingPair",
-        "cursorless_wrapper_selectable_paired_delimiter",
-    )
-    if include_custom_regex:
-        append_talon_lists(
-            ctx,
-            scope_types_singular,
-            scope_types_plural,
-            "customRegex",
-            "cursorless_custom_regex_scope_type",
-        )
+    for list_name, prefix in list_to_merge.items():
+        for key, value in ctx.lists[f"user.{list_name}"].items():
+            scope_types_singular[key] = f"{prefix}.{value}"
+        for key, value in ctx.lists[f"user.{list_name}_plural"].items():
+            scope_types_plural[key] = f"{prefix}.{value}"
 
     glyph_singular_spoken_forms = ctx.lists["user.cursorless_glyph_scope_type"]
     glyph_plural_spoken_forms = ctx.lists["user.cursorless_glyph_scope_type_plural"]
@@ -61,16 +43,3 @@ def create_flattened_talon_list(
 
     ctx.lists["user.cursorless_scope_type_flattened"] = scope_types_singular
     ctx.lists["user.cursorless_scope_type_flattened_plural"] = scope_types_plural
-
-
-def append_talon_lists(
-    ctx: Context,
-    target_singular: dict[str, str],
-    target_plural: dict[str, str],
-    prefix: str,
-    list_name: str,
-):
-    for key, value in ctx.lists[f"user.{list_name}"].items():
-        target_singular[key] = f"{prefix}.{value}"
-    for key, value in ctx.lists[f"user.{list_name}_plural"].items():
-        target_plural[key] = f"{prefix}.{value}"
