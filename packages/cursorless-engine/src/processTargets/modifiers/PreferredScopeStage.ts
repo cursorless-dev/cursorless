@@ -8,9 +8,9 @@ import type { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
 import type { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 
 /**
- * This modifier tries to find the preferred scope for the target.
- * It does this by first looking for a containing scope, and if that fails,
- * it looks for the closest scope.
+ * This modifier tries to find the "preferred" scope for the target.
+ *
+ * It does this by first looking for a containing scope, and if one doesn't exist, the closest scope.
  */
 export class PreferredScopeStage implements ModifierStage {
   constructor(
