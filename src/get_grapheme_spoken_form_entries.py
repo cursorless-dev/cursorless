@@ -4,7 +4,7 @@ from collections import defaultdict
 from typing import Iterator, Mapping
 from uu import Error
 
-from talon import app, registry
+from talon import app, registry, scope
 
 from .spoken_forms_output import SpokenFormOutputEntry
 
@@ -12,6 +12,16 @@ grapheme_capture_name = "user.any_alphanumeric_key"
 
 
 def get_grapheme_spoken_form_entries() -> list[SpokenFormOutputEntry]:
+    if grapheme_capture_name not in registry.captures:
+        # We require this capture, and expect it to be defined. We want to show a user friendly error if it isn't present (usually indicating a problem with their community.git setup) and we think the user is going to use Cursorless.
+        # However, sometimes users use different dictation engines (Vosk, Webspeech) with entirely different/smaller grammars that don't have the capture, and this code will run then, and falsely error. We don't want to show an error in that case because they don't plan to actually use Cursorless.
+        if "en" in scope.get("language", {}):
+            app.notify(f"Capture <{grapheme_capture_name}> isn't defined")
+            print(
+                f"Capture <{grapheme_capture_name}> isn't defined, which is required by Cursorless. Please check your community setup"
+            )
+        return []
+
     return [
         {
             "type": "grapheme",
@@ -32,7 +42,8 @@ def generate_lists_from_capture(capture_name) -> Iterator[str]:
     if capture_name.startswith("self."):
         capture_name = "user." + capture_name[5:]
     try:
-        rule = registry.captures[capture_name][0].rule.rule
+        # NB: [-1] because the last capture is the active one
+        rule = registry.captures[capture_name][-1].rule.rule
     except Error:
         app.notify("Error constructing spoken forms for graphemes")
         print(f"Error getting rule for capture {capture_name}")
@@ -63,7 +74,8 @@ def get_id_to_spoken_form_map(list_name: str) -> Mapping[str, list[str]]:
     list to the list of spoken forms that map to the given value.
     """
     try:
-        raw_list = typing.cast(dict[str, str], registry.lists[list_name][0]).copy()
+        # NB: [-1] because the last list is the active one
+        raw_list = typing.cast(dict[str, str], registry.lists[list_name][-1]).copy()
     except Error:
         app.notify(f"Error getting list {list_name}")
         return {}
