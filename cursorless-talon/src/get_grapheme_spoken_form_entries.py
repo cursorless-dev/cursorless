@@ -12,6 +12,8 @@ grapheme_capture_name = "user.any_alphanumeric_key"
 
 
 def get_grapheme_spoken_form_entries() -> list[SpokenFormOutputEntry]:
+    if grapheme_capture_name not in registry.captures:
+        return []
     return [
         {
             "type": "grapheme",
@@ -31,8 +33,6 @@ def generate_lists_from_capture(capture_name) -> Iterator[str]:
     """
     if capture_name.startswith("self."):
         capture_name = "user." + capture_name[5:]
-    if capture_name not in registry.captures:
-        return
     try:
         rule = registry.captures[capture_name][-1].rule.rule
     except Error:
