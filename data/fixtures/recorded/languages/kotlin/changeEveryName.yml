@@ -1,0 +1,31 @@
+languageId: kotlin
+command:
+  version: 7
+  spokenForm: change every name
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    fun main() {
+        val (x, y) = Pair(1, 2)
+    }
+  selections:
+    - anchor: {line: 1, character: 27}
+      active: {line: 1, character: 27}
+  marks: {}
+finalState:
+  documentContents: |-
+    fun main() {
+        val (, ) = Pair(1, 2)
+    }
+  selections:
+    - anchor: {line: 1, character: 9}
+      active: {line: 1, character: 9}
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 11}
