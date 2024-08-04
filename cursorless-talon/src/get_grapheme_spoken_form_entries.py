@@ -21,6 +21,7 @@ def get_grapheme_spoken_form_entries() -> list[SpokenFormOutputEntry]:
                 f"Capture <{grapheme_capture_name}> isn't defined, which is required by Cursorless. Please check your community setup"
             )
         return []
+
     return [
         {
             "type": "grapheme",
