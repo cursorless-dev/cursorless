@@ -4,7 +4,7 @@ from collections import defaultdict
 from typing import Iterator, Mapping
 from uu import Error
 
-from talon import app, registry
+from talon import app, registry, scope
 
 from .spoken_forms_output import SpokenFormOutputEntry
 
@@ -12,7 +12,10 @@ grapheme_capture_name = "user.any_alphanumeric_key"
 
 
 def get_grapheme_spoken_form_entries() -> list[SpokenFormOutputEntry]:
-    if grapheme_capture_name not in registry.captures:
+    if (
+        grapheme_capture_name not in registry.captures
+        and scope.get("speech.engine") != "wav2letter"
+    ):
         return []
     return [
         {
