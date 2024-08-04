@@ -52,7 +52,7 @@ function getEdits(editor: TextEditor, contentRanges: Range[]): Edit[] {
     const line = document.lineAt(position);
     const indentation = line.text.slice(
       0,
-      line.firstNonWhitespaceCharacterIndex,
+      line.rangeTrimmed?.start?.character ?? line.range.start.character,
     );
     const characterTrailingWhitespace = line.text
       .slice(0, position.character)

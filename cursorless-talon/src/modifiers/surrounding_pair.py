@@ -9,7 +9,7 @@ ctx = Context()
 
 mod.list(
     "cursorless_delimiter_force_direction",
-    desc="Can be used to force an ambiguous delimiter to extend in one direction",
+    desc="DEPRECATED: Can be used to force an ambiguous delimiter to extend in one direction",
 )
 # FIXME: Remove type ignore once Talon supports list types
 # See https://github.com/talonvoice/talon/issues/654
