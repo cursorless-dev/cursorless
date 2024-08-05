@@ -197,6 +197,7 @@ def update():
         ),
     ]
 
+    init_scope_spoken_forms(graphemes_talon_list)
     update_spoken_forms_output()
     initialized = True
 
