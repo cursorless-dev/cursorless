@@ -76,6 +76,7 @@ export async function activate(
   const parseTreeApi = await getParseTreeApi();
 
   const { vscodeIDE, hats, fileSystem } = await createVscodeIde(context);
+  const isTesting = vscodeIDE.runMode === "test";
 
   const normalizedIde =
     vscodeIDE.runMode === "production"
@@ -83,18 +84,19 @@ export async function activate(
       : new NormalizedIDE(
           vscodeIDE,
           new FakeIDE(),
-          vscodeIDE.runMode === "test",
+          isTesting,
           getFixturePath("cursorless-snippets"),
         );
 
   const fakeCommandServerApi = new FakeCommandServerApi();
-  const commandServerApi =
-    normalizedIde.runMode === "test"
-      ? fakeCommandServerApi
-      : await getCommandServerApi();
+  const commandServerApi = isTesting
+    ? fakeCommandServerApi
+    : await getCommandServerApi();
 
   const treeSitter = createTreeSitter(parseTreeApi);
-  const talonSpokenForms = new FileSystemTalonSpokenForms(fileSystem);
+  const talonSpokenForms = isTesting
+    ? undefined // Use default spoken forms in tests
+    : new FileSystemTalonSpokenForms(fileSystem);
 
   // NOTE: do not await on snippet loading and hats initialization because we don't want to
   // block extension activation
