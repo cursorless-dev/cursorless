@@ -1,34 +1,8 @@
-import {
-  NoContainingScopeError,
-  TargetRanges,
-  toCharacterRange,
-  toLineRange,
-} from "@cursorless/common";
-import { Target } from "../typings/target.types";
+import type { TargetRanges } from "@cursorless/common";
+import { toCharacterRange, toLineRange } from "@cursorless/common";
+import type { Target } from "../typings/target.types";
 
 export function getTargetRanges(target: Target): TargetRanges {
-  const interior = (() => {
-    try {
-      return target.getInteriorStrict().map(getTargetRanges);
-    } catch (error) {
-      if (error instanceof NoContainingScopeError) {
-        return undefined;
-      }
-      throw error;
-    }
-  })();
-
-  const boundary = (() => {
-    try {
-      return target.getBoundaryStrict().map(getTargetRanges);
-    } catch (error) {
-      if (error instanceof NoContainingScopeError) {
-        return undefined;
-      }
-      throw error;
-    }
-  })();
-
   return {
     contentRange: target.contentRange,
     removalRange: target.getRemovalRange(),
@@ -37,8 +11,8 @@ export function getTargetRanges(target: Target): TargetRanges {
       : toCharacterRange(target.getRemovalHighlightRange()),
     leadingDelimiter: getOptionalTarget(target.getLeadingDelimiterTarget()),
     trailingDelimiter: getOptionalTarget(target.getTrailingDelimiterTarget()),
-    interior,
-    boundary,
+    interior: target.getInterior()?.map(getTargetRanges),
+    boundary: target.getBoundary()?.map(getTargetRanges),
     insertionDelimiter: target.insertionDelimiter,
   };
 }

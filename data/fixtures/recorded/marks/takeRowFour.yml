@@ -1,15 +1,13 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: take row four
-  action: setSelection
-  targets:
-    - type: primitive
-      selectionType: line
-      mark:
-        type: lineNumber
-        anchor: {lineNumber: 3, type: absolute}
-        active: {lineNumber: 3, type: absolute}
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      mark: {type: lineNumber, lineNumberType: absolute, lineNumber: 3}
+  usePrePhraseSnapshot: false
 spokenFormError: Absolute line numbers
 initialState:
   documentContents: |

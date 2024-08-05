@@ -1,16 +1,17 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: change every item token
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - type: everyScope
           scopeType: {type: collectionItem}
         - type: containingScope
           scopeType: {type: token}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: aaa bbb, ccc
   selections:

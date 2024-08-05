@@ -1,12 +1,12 @@
 languageId: plaintext
 command:
-  version: 4
+  version: 6
   spokenForm: test snippet make line
   action:
     name: generateSnippet
-    args: [testSnippet]
-  targets:
-    - type: primitive
+    snippetName: testSnippet
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: line}

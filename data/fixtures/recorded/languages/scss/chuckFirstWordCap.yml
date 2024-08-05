@@ -1,19 +1,18 @@
 languageId: scss
 command:
+  version: 6
   spokenForm: chuck first sub cap
-  version: 2
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: c}
+  action:
+    name: remove
+    target:
+      type: primitive
       modifiers:
-        - type: ordinalRange
+        - type: ordinalScope
           scopeType: {type: word}
-          anchor: 0
-          active: 0
-          excludeAnchor: false
-          excludeActive: false
+          start: 0
+          length: 1
+      mark: {type: decoratedSymbol, symbolColor: default, character: c}
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: |2-
      .child-selector {

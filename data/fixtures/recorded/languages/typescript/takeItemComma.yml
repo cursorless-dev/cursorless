@@ -1,12 +1,16 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: take item comma
-  action: setSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: collectionItem}
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
       mark: {type: decoratedSymbol, symbolColor: default, character: ','}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

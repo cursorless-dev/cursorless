@@ -1,15 +1,16 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: change inside file
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - {type: interiorOnly}
         - type: containingScope
           scopeType: {type: document}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: "\r\n abc \r\n"
   selections:

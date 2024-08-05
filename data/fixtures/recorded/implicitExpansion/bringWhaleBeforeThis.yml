@@ -1,14 +1,19 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 6
   spokenForm: bring whale before this
-  action: replaceWithTarget
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
-    - type: primitive
-      mark: {type: cursor}
-      position: before
+    destination:
+      type: primitive
+      insertionMode: before
+      target:
+        type: primitive
+        mark: {type: cursor}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: foo world
   selections:

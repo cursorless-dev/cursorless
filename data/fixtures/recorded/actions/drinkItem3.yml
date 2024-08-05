@@ -1,14 +1,15 @@
 languageId: typescript
 command:
+  version: 6
   spokenForm: drink item
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: editNewLineBefore
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: collectionItem}
   usePrePhraseSnapshot: true
-  action: {name: editNewLineBefore}
 initialState:
   documentContents: |-
     [

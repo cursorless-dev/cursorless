@@ -1,12 +1,14 @@
 languageId: python
 command:
-  version: 1
+  version: 6
   spokenForm: try wrap this
-  action: wrapWithSnippet
-  targets:
-    - type: primitive
+  action:
+    name: wrapWithSnippet
+    snippetDescription: {type: named, name: tryCatchStatement, variableName: body}
+    target:
+      type: primitive
       mark: {type: cursor}
-  extraArgs: [tryCatchStatement.body]
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: foo = "hello"
   selections:

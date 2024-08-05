@@ -1,12 +1,16 @@
 languageId: css
 command:
-  version: 1
+  version: 6
   spokenForm: change unit gust
-  action: clearAndSetSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: unit, includeSiblings: false}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: unit}
       mark: {type: decoratedSymbol, symbolColor: default, character: g}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |2-
      .child-selector {

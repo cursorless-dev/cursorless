@@ -1,24 +1,29 @@
 languageId: typescript
 command:
+  version: 6
   spokenForm: bring arg made and gust to end of just this
-  version: 2
-  targets:
-    - type: list
+  action:
+    name: replaceWithTarget
+    source:
+      type: list
       elements:
         - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: m}
           modifiers:
             - type: containingScope
               scopeType: {type: argumentOrParameter}
+          mark: {type: decoratedSymbol, symbolColor: default, character: m}
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: g}
-    - type: primitive
-      mark: {type: cursor}
-      modifiers:
-        - {type: position, position: end}
-        - {type: toRawSelection}
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: primitive
+        modifiers:
+          - {type: endOf}
+          - {type: toRawSelection}
+        mark: {type: cursor}
   usePrePhraseSnapshot: true
-  action: {name: replaceWithTarget}
 initialState:
   documentContents: |-
     function whatever(name: string, age: number, inclose: boolean) {

@@ -1,15 +1,19 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 6
   spokenForm: replace start of vest with hello
-  action: replace
-  targets:
-    - type: primitive
-      position: before
-      insideOutsideType: inside
-      mark: {type: decoratedSymbol, symbolColor: default, character: v}
-  extraArgs:
-    - [hello]
+  action:
+    name: replace
+    replaceWith: [hello]
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: primitive
+        modifiers:
+          - {type: startOf}
+        mark: {type: decoratedSymbol, symbolColor: default, character: v}
+  usePrePhraseSnapshot: false
 spokenFormError: Action 'replace'
 initialState:
   documentContents: |

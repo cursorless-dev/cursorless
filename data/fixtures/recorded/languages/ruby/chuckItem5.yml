@@ -1,11 +1,15 @@
 languageId: ruby
 command:
-  version: 1
+  version: 6
   spokenForm: chuck item
-  action: remove
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: false}
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     %i(hello world)

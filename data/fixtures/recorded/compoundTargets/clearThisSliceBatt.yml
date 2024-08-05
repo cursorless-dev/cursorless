@@ -1,9 +1,11 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: change this slice bat
-  version: 3
-  targets:
-    - type: range
+  action:
+    name: clearAndSetSelection
+    target:
+      type: range
       anchor:
         type: primitive
         mark: {type: cursor}
@@ -14,7 +16,6 @@ command:
       excludeActive: false
       rangeType: vertical
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
     aa

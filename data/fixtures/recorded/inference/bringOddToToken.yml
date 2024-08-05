@@ -1,12 +1,21 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: bring odd to token
-  action: replaceWithTarget
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: o}
-    - {type: primitive, selectionType: token}
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: token}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     const foo = "hello";

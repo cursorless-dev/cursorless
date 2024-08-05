@@ -1,12 +1,16 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: take funk made
-  action: setSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: namedFunction}
       mark: {type: decoratedSymbol, symbolColor: default, character: m}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     const myFunk = function() {

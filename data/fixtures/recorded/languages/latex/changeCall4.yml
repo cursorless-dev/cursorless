@@ -1,11 +1,15 @@
 languageId: latex
 command:
-  version: 1
+  version: 6
   spokenForm: change call
-  action: clearAndSetSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: functionCall, includeSiblings: false}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionCall}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     \section

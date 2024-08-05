@@ -1,11 +1,15 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: change pair
-  action: clearAndSetSelection
-  targets:
-    - type: primitive
-      modifier: {type: surroundingPair, delimiter: any}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: any}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: "const {hello} = {hello: \"world\"}"
   selections:

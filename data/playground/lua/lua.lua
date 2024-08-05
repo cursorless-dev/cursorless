@@ -34,7 +34,7 @@ local max = x > y and x or y
 print("The maximum value is: " .. max)
 
 -- Functions
-function add(x, b)
+local function add(x, b)
   return x + y
 end
 
@@ -65,10 +65,10 @@ local mt = {
   end,
 }
 
-setmetatable(a, mt)
+setmetatable(person, mt)
 
 -- Closures
-function makeCounter()
+local function makeCounter()
   local count = 0
   return function()
     count = count + 1

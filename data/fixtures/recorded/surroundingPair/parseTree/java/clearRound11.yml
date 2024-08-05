@@ -1,11 +1,15 @@
 languageId: java
 command:
-  version: 1
+  version: 6
   spokenForm: change round
-  action: clearAndSetSelection
-  targets:
-    - type: primitive
-      modifier: {type: surroundingPair, delimiter: parentheses}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: parentheses}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: ("hello")
   selections:

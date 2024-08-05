@@ -1,23 +1,24 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: change air past end of its line
-  version: 3
-  targets:
-    - type: range
+  action:
+    name: clearAndSetSelection
+    target:
+      type: range
       anchor:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: a}
       active:
         type: primitive
         modifiers:
-          - {type: position, position: end}
+          - {type: endOf}
           - {type: inferPreviousMark}
           - type: containingScope
             scopeType: {type: line}
       excludeAnchor: false
       excludeActive: false
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
     const value = "Hello world";

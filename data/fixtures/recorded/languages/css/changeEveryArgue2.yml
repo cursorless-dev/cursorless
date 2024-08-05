@@ -1,11 +1,15 @@
 languageId: css
 command:
-  version: 1
+  version: 6
   spokenForm: change every arg
-  action: clearAndSetSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     div {

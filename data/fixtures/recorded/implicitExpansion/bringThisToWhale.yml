@@ -1,13 +1,18 @@
 languageId: plaintext
 command:
-  version: 4
+  version: 6
   spokenForm: bring this to whale
-  action: {name: replaceWithTarget}
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       mark: {type: cursor}
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: w}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: hello world

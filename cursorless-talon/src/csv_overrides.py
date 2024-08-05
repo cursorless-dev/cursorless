@@ -49,6 +49,14 @@ class SpokenFormEntry:
     spoken_forms: list[str]
 
 
+def csv_get_ctx():
+    return ctx
+
+
+def csv_get_normalized_ctx():
+    return normalized_ctx
+
+
 def init_csv_and_watch_changes(
     filename: str,
     default_values: ListToSpokenForms,

@@ -1,11 +1,15 @@
 languageId: css
 command:
-  version: 1
+  version: 6
   spokenForm: chuck value
-  action: remove
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: "@namespace url(http://www.w3.org/1999/xhtml);"
   selections:

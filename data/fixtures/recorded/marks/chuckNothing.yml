@@ -1,11 +1,13 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 6
   spokenForm: chuck nothing
-  action: remove
-  targets:
-    - type: primitive
+  action:
+    name: remove
+    target:
+      type: primitive
       mark: {type: nothing}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: hello world
   selections:

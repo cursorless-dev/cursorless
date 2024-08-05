@@ -1,17 +1,21 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: bring arg fine and zip
-  action: replaceWithTarget
-  targets:
-    - type: list
+  action:
+    name: replaceWithTarget
+    source:
+      type: list
       elements:
         - type: primitive
-          modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+          modifiers:
+            - type: containingScope
+              scopeType: {type: argumentOrParameter}
           mark: {type: decoratedSymbol, symbolColor: default, character: f}
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: z}
-    - {type: primitive, isImplicit: true}
+    destination: {type: implicit}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     function helloWorld(foo: string, bar: number, baz: string) {

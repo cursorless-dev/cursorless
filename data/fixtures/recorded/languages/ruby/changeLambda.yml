@@ -1,11 +1,15 @@
 languageId: ruby
 command:
-  version: 1
+  version: 6
   spokenForm: change lambda
-  action: clearAndSetSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: anonymousFunction, includeSiblings: false}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: anonymousFunction}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: hi = -> { puts "Hi!" }
   selections:

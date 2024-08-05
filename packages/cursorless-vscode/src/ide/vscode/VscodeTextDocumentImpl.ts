@@ -1,23 +1,28 @@
-import {
+import type {
   EndOfLine,
   Position,
-  Range,
   TextDocument,
   TextLine,
 } from "@cursorless/common";
+import { Range } from "@cursorless/common";
 import {
   fromVscodeEndOfLine,
   fromVscodePosition,
   toVscodePosition,
   toVscodeRange,
 } from "@cursorless/vscode-common";
-import * as vscode from "vscode";
+import * as path from "node:path";
+import type * as vscode from "vscode";
 import type { URI } from "vscode-uri";
 import VscodeTextLineImpl from "./VscodeTextLineImpl";
 
 export class VscodeTextDocumentImpl implements TextDocument {
   get uri(): URI {
     return this.document.uri;
+  }
+
+  get filename(): string {
+    return path.basename(this.document.uri.path);
   }
 
   get languageId(): string {

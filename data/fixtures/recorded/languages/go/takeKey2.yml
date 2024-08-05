@@ -1,11 +1,15 @@
 languageId: go
 command:
-  version: 1
+  version: 6
   spokenForm: take key
-  action: setSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: false}
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionKey}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: "map[string]string{\"air\": \"bat\", \"cap\": \"drum\"}"
   selections:

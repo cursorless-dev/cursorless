@@ -1,14 +1,23 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 6
   spokenForm: bring fine to first two chars
-  action: replaceWithTarget
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
-    - type: primitive
-      selectionType: token
-      modifier: {type: subpiece, pieceType: character, anchor: 0, active: 1}
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: primitive
+        modifiers:
+          - type: ordinalScope
+            scopeType: {type: character}
+            start: 0
+            length: 2
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: foo world whatever
   selections:

@@ -1,12 +1,17 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: change inside box square
-  action: clearAndSetSelection
-  targets:
-    - type: primitive
-      modifier: {type: surroundingPair, delimiter: squareBrackets, delimiterInclusion: interiorOnly}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: interiorOnly}
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: squareBrackets}
       mark: {type: decoratedSymbol, symbolColor: default, character: '['}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: const [bongo, baz] = [foo, bar]
   selections:

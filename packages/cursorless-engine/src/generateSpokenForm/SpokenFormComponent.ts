@@ -1,8 +1,5 @@
-import { SpokenFormMapEntry } from "../spokenForms/SpokenFormMap";
-import {
-  SpokenFormMapKeyTypes,
-  SpokenFormType,
-} from "../spokenForms/SpokenFormType";
+import type { SpokenFormMapEntry } from "../spokenForms/SpokenFormMap";
+import type { SpokenFormMapKeyTypes, SpokenFormType } from "@cursorless/common";
 
 /**
  * A component of a spoken form used internally during spoken form generation.

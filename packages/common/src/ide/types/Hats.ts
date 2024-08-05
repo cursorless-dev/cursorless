@@ -1,8 +1,8 @@
-import { Range } from "../../types/Range";
-import { TextEditor } from "../../types/TextEditor";
-import { Listener } from "../../util/Notifier";
+import type { Range } from "../../types/Range";
+import type { TextEditor } from "../../types/TextEditor";
+import type { Listener } from "../../util/Notifier";
 import type { HatStyleName } from "./hatStyles.types";
-import { Disposable } from "./ide.types";
+import type { Disposable } from "./ide.types";
 
 export interface HatRange {
   styleName: HatStyleName;

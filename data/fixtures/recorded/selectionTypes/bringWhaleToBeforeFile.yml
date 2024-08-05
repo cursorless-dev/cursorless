@@ -1,17 +1,20 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: bring whale before file
-  version: 2
-  action: {name: replaceWithTarget}
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
-      modifiers: []
-    - type: primitive
-      modifiers:
-        - {type: position, position: before}
-        - type: containingScope
-          scopeType: {type: document}
+    destination:
+      type: primitive
+      insertionMode: before
+      target:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: document}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: hello world

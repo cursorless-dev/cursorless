@@ -1,6 +1,7 @@
-import { Capabilities, CommandCapabilityMap } from "@cursorless/common";
+import type { Capabilities, CommandCapabilityMap } from "@cursorless/common";
 
 const COMMAND_CAPABILITIES: CommandCapabilityMap = {
+  clipboardPaste: true,
   clipboardCopy: { acceptsLocation: false },
   toggleLineComment: { acceptsLocation: false },
   indentLine: { acceptsLocation: false },
@@ -16,6 +17,7 @@ const COMMAND_CAPABILITIES: CommandCapabilityMap = {
   highlight: { acceptsLocation: true },
   unfold: { acceptsLocation: true },
   showReferences: { acceptsLocation: false },
+  insertLineAfter: { acceptsLocation: false },
 };
 
 export class VscodeCapabilities implements Capabilities {

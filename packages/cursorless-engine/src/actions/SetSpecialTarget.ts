@@ -1,6 +1,6 @@
-import { StoredTargetKey } from "@cursorless/common";
-import { Target } from "../typings/target.types";
-import { SimpleAction, ActionReturnValue } from "./actions.types";
+import type { StoredTargetKey } from "@cursorless/common";
+import type { Target } from "../typings/target.types";
+import type { SimpleAction, ActionReturnValue } from "./actions.types";
 
 export class SetSpecialTarget implements SimpleAction {
   noAutomaticTokenExpansion = true;

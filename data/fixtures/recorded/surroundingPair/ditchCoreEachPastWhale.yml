@@ -1,9 +1,11 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: chuck inside each past whale
-  version: 2
-  targets:
-    - type: range
+  action:
+    name: remove
+    target:
+      type: range
       anchor:
         type: primitive
         modifiers:
@@ -15,7 +17,6 @@ command:
       excludeAnchor: false
       excludeActive: false
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: |
     ( hello world )

@@ -1,12 +1,16 @@
 languageId: ruby
 command:
-  version: 1
+  version: 6
   spokenForm: chuck name this
-  action: remove
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: name, includeSiblings: false}
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
       mark: {type: cursor}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: a = 1
   selections:

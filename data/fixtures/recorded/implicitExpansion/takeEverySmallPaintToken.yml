@@ -1,16 +1,17 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: take every short paint token
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: setSelection
+    target:
+      type: primitive
       modifiers:
         - type: everyScope
           scopeType: {type: boundedNonWhitespaceSequence}
         - type: containingScope
           scopeType: {type: token}
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
 initialState:
   documentContents: (hello world-whatever testing) testing now
   selections:

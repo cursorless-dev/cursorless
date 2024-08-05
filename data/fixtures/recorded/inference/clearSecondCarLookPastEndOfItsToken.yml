@@ -1,9 +1,11 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: change second char look past end of its token
-  version: 3
-  targets:
-    - type: range
+  action:
+    name: clearAndSetSelection
+    target:
+      type: range
       anchor:
         type: primitive
         modifiers:
@@ -15,14 +17,13 @@ command:
       active:
         type: primitive
         modifiers:
-          - {type: position, position: end}
+          - {type: endOf}
           - {type: inferPreviousMark}
           - type: containingScope
             scopeType: {type: token}
       excludeAnchor: false
       excludeActive: false
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: "    hello there"
   selections:

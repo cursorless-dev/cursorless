@@ -1,9 +1,5 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
-import {
-  LanguageScopeSupportFacetMap,
-  ScopeSupportFacetLevel,
-} from "./scopeSupportFacets.types";
+import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
+import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
@@ -15,6 +11,12 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   regularExpression: supported,
   switchStatementSubject: supported,
   fieldAccess: supported,
+  disqualifyDelimiter: supported,
+
+  "textFragment.string.singleLine": supported,
+  "textFragment.string.multiLine": supported,
+  "textFragment.comment.line": supported,
+  "textFragment.comment.block": supported,
 
   statement: supported,
   "statement.iteration.document": supported,
@@ -105,6 +107,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "value.mapPair.iteration": supported,
   "value.assignment": supported,
   "value.variable": supported,
+  "value.variable.pattern": supported,
   "value.foreach": supported,
   "value.return": supported,
   "value.return.lambda": supported,

@@ -1,17 +1,19 @@
 languageId: typescript
 command:
+  version: 6
   spokenForm: snippet funk after token
-  version: 2
-  targets:
-    - type: primitive
-      modifiers:
-        - {type: position, position: after}
-        - type: containingScope
-          scopeType: {type: token}
-  usePrePhraseSnapshot: true
   action:
     name: insertSnippet
-    args: [functionDeclaration]
+    snippetDescription: {type: named, name: functionDeclaration}
+    destination:
+      type: primitive
+      insertionMode: after
+      target:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: token}
+  usePrePhraseSnapshot: true
 initialState:
   documentContents: |+
     function myFunction() {

@@ -1,12 +1,14 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 6
   spokenForm: bring harp take whale
-  action: replaceWithTarget
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
-    - {type: primitive, isImplicit: true}
+    destination: {type: implicit}
+  usePrePhraseSnapshot: false
 marksToCheck: [default.w]
 initialState:
   documentContents: hello world

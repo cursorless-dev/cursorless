@@ -1,9 +1,11 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: change first sub that
-  version: 3
-  targets:
-    - type: primitive
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - type: ordinalScope
           scopeType: {type: word}
@@ -11,7 +13,6 @@ command:
           length: 1
       mark: {type: that}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: aaaBbbCcc ddd
   selections:

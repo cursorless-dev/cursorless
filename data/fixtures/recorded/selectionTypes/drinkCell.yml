@@ -1,11 +1,16 @@
 languageId: python
 postCommandSleepTimeMs: 400
 command:
-  version: 1
+  version: 6
   spokenForm: drink cell
-  action: editNewLineBefore
-  targets:
-    - {type: primitive, selectionType: notebookCell}
+  action:
+    name: editNewLineBefore
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: notebookCell}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     # %%

@@ -1,19 +1,21 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: take fine slice bat
-  action: setSelection
-  targets:
-    - type: range
-      start:
+  action:
+    name: setSelection
+    target:
+      type: range
+      anchor:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: f}
-      end:
+      active:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: b}
-      excludeStart: false
-      excludeEnd: false
+      excludeAnchor: false
+      excludeActive: false
       rangeType: vertical
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     a

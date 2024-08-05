@@ -1,23 +1,24 @@
 languageId: scss
 command:
+  version: 6
   spokenForm: move last sub zip after fine take fine
-  version: 2
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: z}
+  action:
+    name: moveToTarget
+    source:
+      type: primitive
       modifiers:
-        - type: ordinalRange
+        - type: ordinalScope
           scopeType: {type: word}
-          anchor: -1
-          active: -1
-          excludeAnchor: false
-          excludeActive: false
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: f}
-      modifiers:
-        - {type: position, position: after}
+          start: -1
+          length: 1
+      mark: {type: decoratedSymbol, symbolColor: default, character: z}
+    destination:
+      type: primitive
+      insertionMode: after
+      target:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: f}
   usePrePhraseSnapshot: true
-  action: {name: moveToTarget}
 marksToCheck: [default.f]
 initialState:
   documentContents: foo-bar baz-bongo

@@ -1,15 +1,16 @@
 languageId: rust
 command:
+  version: 6
   spokenForm: change type trap
-  version: 2
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: t}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: type}
+      mark: {type: decoratedSymbol, symbolColor: default, character: t}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
     fn some_function<T, U>(t: &T, u: &U) -> i32

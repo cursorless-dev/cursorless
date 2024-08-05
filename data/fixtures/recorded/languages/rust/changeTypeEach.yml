@@ -1,15 +1,16 @@
 languageId: rust
 command:
+  version: 6
   spokenForm: change type each
-  version: 2
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: e}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: type}
+      mark: {type: decoratedSymbol, symbolColor: default, character: e}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
     struct User {}

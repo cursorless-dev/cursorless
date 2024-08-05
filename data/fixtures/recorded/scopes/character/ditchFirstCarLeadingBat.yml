@@ -1,9 +1,11 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: chuck first char leading bat
-  version: 3
-  targets:
-    - type: primitive
+  action:
+    name: remove
+    target:
+      type: primitive
       modifiers:
         - type: ordinalScope
           scopeType: {type: character}
@@ -12,7 +14,6 @@ command:
         - {type: leading}
       mark: {type: decoratedSymbol, symbolColor: default, character: b}
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: |
     aaa  bbb

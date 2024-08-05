@@ -24,12 +24,15 @@ class VisibleCommand extends Command implements CommandDescription {
 
 export const cursorlessCommandIds = [
   "cursorless.command",
+  "cursorless.repeatPreviousCommand",
   "cursorless.internal.updateCheatsheetDefaults",
   "cursorless.private.logQuickActions",
   "cursorless.keyboard.escape",
   "cursorless.keyboard.modal.modeOff",
   "cursorless.keyboard.modal.modeOn",
   "cursorless.keyboard.modal.modeToggle",
+  "cursorless.keyboard.undoTarget",
+  "cursorless.keyboard.redoTarget",
   "cursorless.keyboard.targeted.clearTarget",
   "cursorless.keyboard.targeted.runActionOnTarget",
   "cursorless.keyboard.targeted.targetHat",
@@ -49,6 +52,13 @@ export const cursorlessCommandIds = [
   "cursorless.toggleDecorations",
   "cursorless.showScopeVisualizer",
   "cursorless.hideScopeVisualizer",
+  "cursorless.tutorial.start",
+  "cursorless.tutorial.next",
+  "cursorless.tutorial.previous",
+  "cursorless.tutorial.restart",
+  "cursorless.tutorial.resume",
+  "cursorless.tutorial.list",
+  "cursorless.documentationOpened",
   "cursorless.analyzeCommandHistory",
 ] as const satisfies readonly `cursorless.${string}`[];
 
@@ -89,7 +99,19 @@ export const cursorlessCommandDescriptions: Record<
     "Analyze collected command history",
   ),
 
+  ["cursorless.tutorial.start"]: new HiddenCommand("Start a tutorial"),
+  ["cursorless.tutorial.next"]: new VisibleCommand("Tutorial next"),
+  ["cursorless.tutorial.previous"]: new VisibleCommand("Tutorial previous"),
+  ["cursorless.tutorial.restart"]: new VisibleCommand("Tutorial restart"),
+  ["cursorless.tutorial.resume"]: new VisibleCommand("Tutorial resume"),
+  ["cursorless.tutorial.list"]: new VisibleCommand("Tutorial list"),
+  ["cursorless.documentationOpened"]: new HiddenCommand(
+    "Used by talon to notify us that the docs have been opened; for use with tutorial",
+  ),
   ["cursorless.command"]: new HiddenCommand("The core cursorless command"),
+  ["cursorless.repeatPreviousCommand"]: new VisibleCommand(
+    "Repeat the previous Cursorless command",
+  ),
   ["cursorless.showQuickPick"]: new HiddenCommand(
     "Pop up a quick pick of all cursorless commands",
   ),
@@ -131,5 +153,11 @@ export const cursorlessCommandDescriptions: Record<
   ),
   ["cursorless.keyboard.modal.modeToggle"]: new HiddenCommand(
     "Toggle the cursorless modal mode",
+  ),
+  ["cursorless.keyboard.undoTarget"]: new HiddenCommand(
+    "Undo keyboard targeting changes",
+  ),
+  ["cursorless.keyboard.redoTarget"]: new HiddenCommand(
+    "Redo keyboard targeting changes",
   ),
 };

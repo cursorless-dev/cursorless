@@ -1,13 +1,17 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: reformat harp as snake
-  action: replace
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: h}
-  extraArgs:
-    - [hello_world]
+  action:
+    name: replace
+    replaceWith: [hello_world]
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: h}
+  usePrePhraseSnapshot: false
 spokenFormError: Action 'replace'
 initialState:
   documentContents: |

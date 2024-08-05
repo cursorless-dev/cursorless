@@ -1,0 +1,5 @@
+auto max(int a, int b) -> int;
+---
+[Content] = 0:23-0:25
+                         >--<
+0| auto max(int a, int b) -> int;

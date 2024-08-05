@@ -1,11 +1,15 @@
 languageId: go
 command:
-  version: 1
+  version: 6
   spokenForm: take parse tree string
-  action: setSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: string, includeSiblings: false}
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: string}
+  usePrePhraseSnapshot: false
 spokenFormError: >-
   simple scope type type with id string; this is a private spoken form currently
   only for internal experimentation

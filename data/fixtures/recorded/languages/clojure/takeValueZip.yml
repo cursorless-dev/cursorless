@@ -1,12 +1,16 @@
 languageId: clojure
 command:
-  version: 1
+  version: 6
   spokenForm: take value zip
-  action: setSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
       mark: {type: decoratedSymbol, symbolColor: default, character: z}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: "{:foo \"bar\", :baz \"whatever\"}"
   selections:

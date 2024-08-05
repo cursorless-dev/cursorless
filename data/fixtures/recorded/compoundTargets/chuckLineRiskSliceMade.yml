@@ -1,15 +1,17 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: chuck line red slice made
-  version: 2
-  targets:
-    - type: range
+  action:
+    name: remove
+    target:
+      type: range
       anchor:
         type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: r}
         modifiers:
           - type: containingScope
             scopeType: {type: line}
+        mark: {type: decoratedSymbol, symbolColor: default, character: r}
       active:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: m}
@@ -17,7 +19,6 @@ command:
       excludeActive: false
       rangeType: vertical
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: |-
     short

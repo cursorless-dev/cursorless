@@ -1,11 +1,16 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: paste to cap
-  action: pasteFromClipboard
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: c}
+  action:
+    name: pasteFromClipboard
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: c}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

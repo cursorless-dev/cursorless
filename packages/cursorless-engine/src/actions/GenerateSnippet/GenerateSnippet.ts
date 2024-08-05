@@ -1,13 +1,12 @@
-import { FlashStyle, isTesting, Range } from "@cursorless/common";
-import { Offsets } from "../../processTargets/modifiers/surroundingPair/types";
+import { FlashStyle, matchAll, Range } from "@cursorless/common";
+import type { Snippets } from "../../core/Snippets";
 import { ide } from "../../singletons/ide.singleton";
-import { Target } from "../../typings/target.types";
-import { matchAll } from "../../util/regex";
+import type { Target } from "../../typings/target.types";
 import { ensureSingleTarget, flashTargets } from "../../util/targetUtils";
-import { ActionReturnValue } from "../actions.types";
+import type { ActionReturnValue } from "../actions.types";
 import { constructSnippetBody } from "./constructSnippetBody";
 import { editText } from "./editText";
-import { openNewSnippetFile } from "./openNewSnippetFile";
+import type { Offsets } from "./Offsets";
 import Substituter from "./Substituter";
 
 /**
@@ -46,7 +45,7 @@ import Substituter from "./Substituter";
  * confusing escaping.
  */
 export default class GenerateSnippet {
-  constructor() {
+  constructor(private snippets: Snippets) {
     this.run = this.run.bind(this);
   }
 
@@ -61,7 +60,7 @@ export default class GenerateSnippet {
     // immediately starts saying the name of the snippet (eg command chain
     // "snippet make funk camel my function"), we're more likely to
     // win the race and have the input box ready for them
-    flashTargets(ide(), targets, FlashStyle.referenced);
+    void flashTargets(ide(), targets, FlashStyle.referenced);
 
     if (snippetName == null) {
       snippetName = await ide().showInputBox({
@@ -220,7 +219,7 @@ export default class GenerateSnippet {
 
     const editableEditor = ide().getEditableTextEditor(editor);
 
-    if (isTesting()) {
+    if (ide().runMode === "test") {
       // If we're testing, we just overwrite the current document
       await editableEditor.setSelections([
         editor.document.range.toSelection(false),
@@ -228,7 +227,7 @@ export default class GenerateSnippet {
     } else {
       // Otherwise, we create and open a new document for the snippet in the
       // user snippets dir
-      await openNewSnippetFile(snippetName);
+      await this.snippets.openNewSnippetFile(snippetName);
     }
 
     // Insert the meta-snippet

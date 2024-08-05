@@ -1,14 +1,15 @@
 languageId: markdown
 command:
+  version: 6
   spokenForm: sort every item
-  version: 3
-  targets:
-    - type: primitive
+  action:
+    name: sortTargets
+    target:
+      type: primitive
       modifiers:
         - type: everyScope
           scopeType: {type: collectionItem}
   usePrePhraseSnapshot: true
-  action: {name: sortTargets}
 initialState:
   documentContents: z, a, b, e, E
   selections:

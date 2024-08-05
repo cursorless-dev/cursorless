@@ -1,7 +1,7 @@
 import { UnsupportedLanguageError } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import { SimpleScopeTypeType } from "@cursorless/common";
-import {
+import type { SimpleScopeTypeType } from "@cursorless/common";
+import type {
   NodeMatcher,
   NodeMatcherValue,
   SelectionWithEditor,
@@ -9,12 +9,8 @@ import {
 import { notSupported } from "../util/nodeMatchers";
 import { selectionWithEditorFromRange } from "../util/selectionUtils";
 import clojure from "./clojure";
-import { LegacyLanguageId } from "./LegacyLanguageId";
-import csharp from "./csharp";
+import type { LegacyLanguageId } from "./LegacyLanguageId";
 import latex from "./latex";
-import markdown from "./markdown";
-import php from "./php";
-import python from "./python";
 import { patternMatchers as ruby } from "./ruby";
 import rust from "./rust";
 import scala from "./scala";
@@ -49,12 +45,8 @@ export const languageMatchers: Record<
   Partial<Record<SimpleScopeTypeType, NodeMatcher>>
 > = {
   clojure,
-  csharp,
   css: scss,
   latex,
-  markdown,
-  php,
-  python,
   ruby,
   rust,
   scala,
@@ -76,7 +68,7 @@ function matcherIncludeSiblings(matcher: NodeMatcher): NodeMatcher {
         selectionWithEditorFromRange(selection, match.selection.selection),
         matcher,
       ),
-    ) as NodeMatcherValue[];
+    );
     if (matches.length > 0) {
       return matches;
     }
@@ -91,7 +83,7 @@ function iterateNearestIterableAncestor(
 ) {
   let parent: SyntaxNode | null = node.parent;
   while (parent != null) {
-    const matches = parent!.namedChildren
+    const matches = parent.namedChildren
       .flatMap((sibling) => nodeMatcher(selection, sibling))
       .filter((match) => match != null) as NodeMatcherValue[];
     if (matches.length > 0) {

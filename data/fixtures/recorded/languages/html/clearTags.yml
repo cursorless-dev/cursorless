@@ -1,11 +1,15 @@
 languageId: html
 command:
-  version: 1
+  version: 6
   spokenForm: change tags
-  action: clearAndSetSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: xmlBothTags, includeSiblings: false}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: xmlBothTags}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     <html>

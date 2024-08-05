@@ -1,11 +1,15 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: take funk
-  action: setSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: namedFunction}
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: namedFunction}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
 

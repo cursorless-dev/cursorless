@@ -1,12 +1,16 @@
 languageId: java
 command:
-  version: 1
+  version: 6
   spokenForm: chuck type urge
-  action: remove
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
       mark: {type: decoratedSymbol, symbolColor: default, character: u}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     public class Java {

@@ -1,18 +1,24 @@
-import { Range, TextDocument } from "@cursorless/common";
-import { Point } from "web-tree-sitter";
+import type { Range, TextDocument } from "@cursorless/common";
+import type { Point } from "web-tree-sitter";
 
 /**
  * Simple representation of the tree sitter syntax node. Used by
  * {@link MutableQueryCapture} to avoid using range/text and other mutable
  * parameters directly from the node.
  */
-export interface SimpleSyntaxNode {
+interface SimpleSyntaxNode {
   readonly id: number;
   readonly type: string;
+  readonly parent: SimpleSyntaxNode | null;
+  readonly children: Array<SimpleChildSyntaxNode>;
+}
+
+/**
+ * Add start and end position to the simple syntax node. Used by the `child-range!` predicate.
+ */
+interface SimpleChildSyntaxNode extends SimpleSyntaxNode {
   readonly startPosition: Point;
   readonly endPosition: Point;
-  readonly parent: SimpleSyntaxNode | null;
-  readonly children: Array<SimpleSyntaxNode>;
 }
 
 /**
@@ -38,6 +44,9 @@ export interface QueryCapture {
 
   /** The insertion delimiter to use if any */
   readonly insertionDelimiter: string | undefined;
+
+  /** Returns true if this node or any of its ancestors has errors */
+  hasError(): boolean;
 }
 
 /**
@@ -58,7 +67,7 @@ export interface MutableQueryCapture extends QueryCapture {
   /**
    * The tree-sitter node that was captured.
    */
-  readonly node: Omit<SimpleSyntaxNode, "startPosition" | "endPosition">;
+  readonly node: SimpleSyntaxNode;
 
   readonly document: TextDocument;
   range: Range;

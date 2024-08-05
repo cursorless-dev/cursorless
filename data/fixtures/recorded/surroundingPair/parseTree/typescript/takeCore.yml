@@ -1,15 +1,16 @@
 languageId: typescript
 command:
+  version: 6
   spokenForm: take inside pair
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: setSelection
+    target:
+      type: primitive
       modifiers:
         - {type: interiorOnly}
         - type: containingScope
           scopeType: {type: surroundingPair, delimiter: any}
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
 initialState:
   documentContents: |
     async (editor, targets) => {

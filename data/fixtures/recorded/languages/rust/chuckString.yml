@@ -1,11 +1,15 @@
 languageId: rust
 command:
-  version: 1
+  version: 6
   spokenForm: chuck string
-  action: remove
-  targets:
-    - type: primitive
-      modifier: {type: surroundingPair, delimiter: string}
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: string}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     fn main() {

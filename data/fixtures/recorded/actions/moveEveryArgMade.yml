@@ -1,13 +1,17 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: move every arg made
-  action: moveToTarget
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
+  action:
+    name: moveToTarget
+    source:
+      type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: argumentOrParameter}
       mark: {type: decoratedSymbol, symbolColor: default, character: m}
-    - {type: primitive, isImplicit: true}
+    destination: {type: implicit}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     function myFunk(value: string, name: string, age: number) { };

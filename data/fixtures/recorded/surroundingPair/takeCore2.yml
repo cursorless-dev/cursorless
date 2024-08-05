@@ -1,13 +1,14 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: take inside
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: setSelection
+    target:
+      type: primitive
       modifiers:
         - {type: interiorOnly}
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
 initialState:
   documentContents: ( hello )
   selections:

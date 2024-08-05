@@ -1,12 +1,16 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 6
   spokenForm: change pair right square
-  action: clearAndSetSelection
-  targets:
-    - type: primitive
-      modifier: {type: surroundingPair, delimiter: any}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: any}
       mark: {type: decoratedSymbol, symbolColor: default, character: ']'}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     [(hello)  (whatever)]

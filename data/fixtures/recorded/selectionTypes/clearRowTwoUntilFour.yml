@@ -1,9 +1,11 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: change row two until four
-  version: 3
-  targets:
-    - type: primitive
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       mark:
         type: range
         anchor: {type: lineNumber, lineNumberType: modulo100, lineNumber: 1}
@@ -11,7 +13,6 @@ command:
         excludeAnchor: false
         excludeActive: true
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
     a

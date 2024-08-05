@@ -1,16 +1,24 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 6
   spokenForm: bring dot after first char whale take whale
-  action: replaceWithTarget
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: .}
-    - type: primitive
-      selectionType: token
-      modifier: {type: subpiece, pieceType: character, anchor: 0, active: 0, excludeAnchor: false, excludeActive: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: w}
-      position: after
+    destination:
+      type: primitive
+      insertionMode: after
+      target:
+        type: primitive
+        modifiers:
+          - type: ordinalScope
+            scopeType: {type: character}
+            start: 0
+            length: 1
+        mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: false
 marksToCheck: [default.w]
 initialState:
   documentContents: hello. world whatever

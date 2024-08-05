@@ -1,11 +1,13 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: take source
-  action: setSelection
-  targets:
-    - type: primitive
+  action:
+    name: setSelection
+    target:
+      type: primitive
       mark: {type: source}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     value

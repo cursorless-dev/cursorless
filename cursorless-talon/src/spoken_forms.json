@@ -23,6 +23,7 @@
       "float": "insertEmptyLineAfter",
       "fold": "foldRegion",
       "follow": "followLink",
+      "follow split": "followLinkAside",
       "give": "deselect",
       "highlight": "highlight",
       "hover": "showHover",
@@ -169,6 +170,7 @@
       "file": "document",
       "paint": "nonWhitespaceSequence",
       "short paint": "boundedNonWhitespaceSequence",
+      "short block": "boundedParagraph",
       "link": "url",
       "cell": "notebookCell"
     },

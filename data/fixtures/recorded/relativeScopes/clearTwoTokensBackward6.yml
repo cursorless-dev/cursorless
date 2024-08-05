@@ -1,9 +1,11 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: change two tokens backward
-  version: 3
-  targets:
-    - type: primitive
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - type: relativeScope
           scopeType: {type: token}
@@ -11,7 +13,6 @@ command:
           length: 2
           direction: backward
   usePrePhraseSnapshot: false
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: aaa .bbb ccc
   selections:

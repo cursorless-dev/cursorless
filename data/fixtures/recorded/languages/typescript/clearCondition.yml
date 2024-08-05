@@ -1,14 +1,15 @@
 languageId: typescript
 command:
+  version: 6
   spokenForm: change condition
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: condition}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: "(process.env._ || '').match() ? path1: path2;"
   selections:

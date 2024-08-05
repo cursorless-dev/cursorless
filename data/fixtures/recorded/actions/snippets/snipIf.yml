@@ -1,11 +1,12 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: snippet if
-  action: insertSnippet
-  targets:
-    - {type: primitive, isImplicit: true}
-  extraArgs: [ifStatement]
+  action:
+    name: insertSnippet
+    snippetDescription: {type: named, name: ifStatement}
+    destination: {type: implicit}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     function whatever() {

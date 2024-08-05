@@ -1,15 +1,16 @@
 languageId: rust
 command:
+  version: 6
   spokenForm: change arg blue air
-  version: 2
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: blue, character: a}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: argumentOrParameter}
+      mark: {type: decoratedSymbol, symbolColor: blue, character: a}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
     struct S<'a, 'b: 'a, T>;

@@ -1,5 +1,5 @@
-import { StoredTargetKey } from "../StoredTargetKey";
-import {
+import type { StoredTargetKey } from "../StoredTargetKey";
+import type {
   RangePlainObject,
   SelectionPlainObject,
   SerializedMarks,

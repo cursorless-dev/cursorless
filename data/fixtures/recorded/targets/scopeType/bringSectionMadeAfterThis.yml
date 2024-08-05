@@ -1,19 +1,22 @@
 languageId: markdown
 command:
+  version: 6
   spokenForm: bring section made after this
-  version: 3
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: section}
       mark: {type: decoratedSymbol, symbolColor: default, character: m}
-    - type: primitive
-      mark: {type: cursor}
-      modifiers:
-        - {type: position, position: after}
+    destination:
+      type: primitive
+      insertionMode: after
+      target:
+        type: primitive
+        mark: {type: cursor}
   usePrePhraseSnapshot: true
-  action: {name: replaceWithTarget}
 initialState:
   documentContents: |-
     # Some section

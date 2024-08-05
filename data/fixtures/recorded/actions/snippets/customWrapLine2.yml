@@ -1,13 +1,12 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: custom wrap line
   action:
     name: wrapWithSnippet
-    args:
-      - {type: custom, body: 'dummy snippet hole1: ($TM_SELECTED_TEXT), hole2: ($hole2)'}
-  targets:
-    - type: primitive
+    snippetDescription: {type: custom, body: 'dummy snippet hole1: ($TM_SELECTED_TEXT), hole2: ($hole2)'}
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: line}

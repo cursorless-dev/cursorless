@@ -1,14 +1,15 @@
 languageId: markdown
 command:
-  version: 1
+  version: 6
   spokenForm: custom harp
-  action: executeCommand
-  targets:
-    - type: primitive
+  action:
+    name: executeCommand
+    commandId: editor.action.addCommentLine
+    options: {}
+    target:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
-  extraArgs:
-    - editor.action.addCommentLine
-    - {}
+  usePrePhraseSnapshot: false
 spokenFormError: Action 'executeCommand'
 initialState:
   documentContents: |

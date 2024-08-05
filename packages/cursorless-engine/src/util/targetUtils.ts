@@ -1,18 +1,20 @@
-import {
+import type {
   FlashDescriptor,
   FlashStyle,
   GeneralizedRange,
-  groupBy,
   IDE,
   Range,
-  Selection,
   TextEditor,
+} from "@cursorless/common";
+import {
+  groupBy,
+  Selection,
   toCharacterRange,
   toLineRange,
 } from "@cursorless/common";
-import { zip } from "lodash";
-import { Destination, Target } from "../typings/target.types";
-import { SelectionWithEditor } from "../typings/Types";
+import { zip } from "lodash-es";
+import type { Destination, Target } from "../typings/target.types";
+import type { SelectionWithEditor } from "../typings/Types";
 
 export function ensureSingleEditor(
   targets: Target[] | Destination[],
@@ -106,7 +108,7 @@ export function createThatMark(
             : new Selection(range!.start, range!.end),
         }))
       : targets.map((target) => ({
-          editor: target!.editor,
+          editor: target.editor,
           selection: target.contentSelection,
         }));
   return thatMark;

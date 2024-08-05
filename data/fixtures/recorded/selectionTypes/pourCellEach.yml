@@ -2,13 +2,17 @@ languageId: python
 postEditorOpenSleepTimeMs: 250
 postCommandSleepTimeMs: 400
 command:
-  version: 1
+  version: 6
   spokenForm: pour cell each
-  action: editNewLineAfter
-  targets:
-    - type: primitive
-      selectionType: notebookCell
+  action:
+    name: editNewLineAfter
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: notebookCell}
       mark: {type: decoratedSymbol, symbolColor: default, character: e}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     # %%

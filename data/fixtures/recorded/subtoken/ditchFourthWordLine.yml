@@ -1,9 +1,11 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: chuck fourth sub line
-  version: 3
-  targets:
-    - type: primitive
+  action:
+    name: remove
+    target:
+      type: primitive
       modifiers:
         - type: ordinalScope
           scopeType: {type: word}
@@ -12,7 +14,6 @@ command:
         - type: containingScope
           scopeType: {type: line}
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: apiV1 api_v_1
   selections:

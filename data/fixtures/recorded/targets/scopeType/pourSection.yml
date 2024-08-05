@@ -1,14 +1,15 @@
 languageId: markdown
 command:
+  version: 6
   spokenForm: pour section
-  version: 3
-  targets:
-    - type: primitive
+  action:
+    name: editNewLineAfter
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: section}
   usePrePhraseSnapshot: true
-  action: {name: editNewLineAfter}
 initialState:
   documentContents: |-
     # Some section

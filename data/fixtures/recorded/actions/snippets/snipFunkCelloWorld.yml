@@ -1,15 +1,14 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: snippet funk cello world
   action:
     name: insertSnippet
-    args:
-      - type: named
-        name: functionDeclaration
-        substitutions: {name: cello world}
-  targets:
-    - {type: implicit}
+    snippetDescription:
+      type: named
+      name: functionDeclaration
+      substitutions: {name: cello world}
+    destination: {type: implicit}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-

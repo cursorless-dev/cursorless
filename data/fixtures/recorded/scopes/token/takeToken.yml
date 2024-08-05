@@ -1,14 +1,15 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: take token
-  version: 3
-  targets:
-    - type: primitive
+  action:
+    name: setSelection
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: token}
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
 initialState:
   documentContents: a b
   selections:

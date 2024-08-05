@@ -1,16 +1,17 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: take every sub line
-  version: 3
-  targets:
-    - type: primitive
+  action:
+    name: setSelection
+    target:
+      type: primitive
       modifiers:
         - type: everyScope
           scopeType: {type: word}
         - type: containingScope
           scopeType: {type: line}
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
 initialState:
   documentContents: apiV1 api_v_1
   selections:

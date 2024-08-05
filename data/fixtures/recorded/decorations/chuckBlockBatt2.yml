@@ -1,15 +1,16 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: chuck block bat
-  version: 2
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+  action:
+    name: remove
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: paragraph}
+      mark: {type: decoratedSymbol, symbolColor: default, character: b}
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: |-
 

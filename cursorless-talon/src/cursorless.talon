@@ -37,3 +37,13 @@ bar {user.cursorless_homophone}:
 
 {user.cursorless_homophone} stats:
     user.private_cursorless_show_command_statistics()
+
+{user.cursorless_homophone} tutorial:
+    user.private_cursorless_start_tutorial()
+tutorial next: user.private_cursorless_tutorial_next()
+tutorial (previous | last): user.private_cursorless_tutorial_previous()
+tutorial restart: user.private_cursorless_tutorial_restart()
+tutorial resume: user.private_cursorless_tutorial_resume()
+tutorial (list | close): user.private_cursorless_tutorial_list()
+tutorial <user.private_cursorless_number_small>:
+    user.private_cursorless_tutorial_start_by_number(private_cursorless_number_small)

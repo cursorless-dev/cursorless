@@ -1,11 +1,15 @@
 languageId: php
 command:
-  version: 1
+  version: 6
   spokenForm: change every item
-  action: clearAndSetSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     <?php

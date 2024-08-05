@@ -1,12 +1,15 @@
 languageId: html
 command:
-  version: 1
+  version: 6
   spokenForm: change bounds harp
-  action: clearAndSetSelection
-  targets:
-    - type: primitive
-      modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: excludeInterior}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: excludeInterior}
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     <html id="(hello)">

@@ -1,15 +1,16 @@
 languageId: scala
 command:
+  version: 6
   spokenForm: chuck branch sun
-  version: 2
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: s}
+  action:
+    name: remove
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: branch}
+      mark: {type: decoratedSymbol, symbolColor: default, character: s}
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: |
     def matchTest(x: Int): String = x match {

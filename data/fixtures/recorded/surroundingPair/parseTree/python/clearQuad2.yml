@@ -1,11 +1,15 @@
 languageId: python
 command:
-  version: 1
-  spokenForm: change quad
-  action: clearAndSetSelection
-  targets:
-    - type: primitive
-      modifier: {type: surroundingPair, delimiter: doubleQuotes}
+  version: 6
+  spokenForm: change string
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: string}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     """

@@ -1,5 +1,5 @@
-import { Range } from "@cursorless/common";
-import { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
+import type { Range } from "@cursorless/common";
+import type { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
 
 /**
  * Gets a capture that is related to the scope.  For example, if the scope is

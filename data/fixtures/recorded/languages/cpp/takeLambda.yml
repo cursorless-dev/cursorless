@@ -1,11 +1,15 @@
 languageId: cpp
 command:
-  version: 1
+  version: 6
   spokenForm: take lambda
-  action: setSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: anonymousFunction}
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: anonymousFunction}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     void f() {

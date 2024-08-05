@@ -1,14 +1,15 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: clone up token
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: insertCopyBefore
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: token}
   usePrePhraseSnapshot: false
-  action: {name: insertCopyBefore}
 initialState:
   documentContents: hello
   selections:

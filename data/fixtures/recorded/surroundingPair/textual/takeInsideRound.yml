@@ -1,11 +1,16 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 6
   spokenForm: change inside round
-  action: clearAndSetSelection
-  targets:
-    - type: primitive
-      modifier: {type: surroundingPair, delimiter: parentheses, delimiterInclusion: interiorOnly}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: interiorOnly}
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: parentheses}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: ()
   selections:

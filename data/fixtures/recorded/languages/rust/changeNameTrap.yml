@@ -1,15 +1,16 @@
 languageId: rust
 command:
+  version: 6
   spokenForm: change name trap
-  version: 2
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: t}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: name}
+      mark: {type: decoratedSymbol, symbolColor: default, character: t}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
     enum Maybe<T> {

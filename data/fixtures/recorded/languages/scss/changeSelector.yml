@@ -1,11 +1,15 @@
 languageId: scss
 command:
-  version: 1
+  version: 6
   spokenForm: change selector
-  action: clearAndSetSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: selector, includeSiblings: false}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: selector}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     span[hello="Cleveland"][goodbye="Columbus"] { 

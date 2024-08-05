@@ -1,11 +1,12 @@
-import { Direction, Position, TextEditor, showError } from "@cursorless/common";
-import { uniqWith } from "lodash";
-import { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
-import { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
+import type { Direction, Position, TextEditor } from "@cursorless/common";
+import { showError } from "@cursorless/common";
+import { uniqWith } from "lodash-es";
+import type { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
+import type { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
 import { BaseScopeHandler } from "../BaseScopeHandler";
 import { compareTargetScopes } from "../compareTargetScopes";
-import { TargetScope } from "../scope.types";
-import { ScopeIteratorRequirements } from "../scopeHandler.types";
+import type { TargetScope } from "../scope.types";
+import type { ScopeIteratorRequirements } from "../scopeHandler.types";
 import { mergeAdjacentBy } from "./mergeAdjacentBy";
 import { ide } from "../../../../singletons/ide.singleton";
 
@@ -61,7 +62,7 @@ export abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
               const message =
                 "Please use #allow-multiple! predicate in your query to allow multiple matches for this scope type";
 
-              showError(
+              void showError(
                 ide().messages,
                 "BaseTreeSitterScopeHandler.allow-multiple",
                 message,

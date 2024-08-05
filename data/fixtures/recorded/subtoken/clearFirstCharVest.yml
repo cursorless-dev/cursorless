@@ -1,12 +1,18 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: change first char vest
-  action: clearAndSetSelection
-  targets:
-    - type: primitive
-      modifier: {type: subpiece, pieceType: character, anchor: 0, active: 0}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: ordinalScope
+          scopeType: {type: character}
+          start: 0
+          length: 1
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

@@ -1,15 +1,16 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: take every short paint each
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: setSelection
+    target:
+      type: primitive
       modifiers:
         - type: everyScope
           scopeType: {type: boundedNonWhitespaceSequence}
       mark: {type: decoratedSymbol, symbolColor: default, character: e}
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
 initialState:
   documentContents: |-
     first test-block

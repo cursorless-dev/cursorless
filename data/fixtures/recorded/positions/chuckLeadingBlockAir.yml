@@ -1,16 +1,17 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: chuck leading block air
-  version: 2
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  action:
+    name: remove
+    target:
+      type: primitive
       modifiers:
         - {type: leading}
         - type: containingScope
           scopeType: {type: paragraph}
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: |-
 

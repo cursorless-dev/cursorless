@@ -1,0 +1,19 @@
+list: user.cursorless_launch_configuration
+app: vscode
+win.title: /cursorless/
+-
+extension: "VSCode: Run"
+test: "VSCode: Test"
+test subset: "VSCode: Test (subset)"
+test talon: "Talon: Test"
+test talon subset: "Talon: Test (subset)"
+test unit: "Unit tests: Test"
+
+# Other launch config you may want to activate:
+
+# update fixtures: "VSCode: Update test fixtures"
+# update fixtures subset: "VSCode: Update test fixtures (subset)"
+# update fixtures unit: "Unit tests: Update test fixtures"
+# docs: "Docusaurus: Run"
+# docs build: "Docusaurus: Build"
+# docs client: "cursorless.org: Run client-side"

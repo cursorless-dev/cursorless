@@ -1,12 +1,13 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: puff vest
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: insertEmptyLinesAround
+    target:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
   usePrePhraseSnapshot: true
-  action: {name: insertEmptyLinesAround}
 initialState:
   documentContents: |2
 

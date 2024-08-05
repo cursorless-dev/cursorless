@@ -2,6 +2,6 @@ export interface FontMeasurements {
   fontSize: number;
   characterWidth: number;
   characterHeight: number;
-  clearCache(): void;
+  clearCache(): Promise<void>;
   calculate(): Promise<void>;
 }

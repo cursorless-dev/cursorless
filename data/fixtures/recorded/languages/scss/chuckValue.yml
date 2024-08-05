@@ -1,11 +1,15 @@
 languageId: scss
 command:
-  version: 1
+  version: 6
   spokenForm: chuck value
-  action: remove
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: "@namespace prefix \"XML-namespace-URL\";"
   selections:

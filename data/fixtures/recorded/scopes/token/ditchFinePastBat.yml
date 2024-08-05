@@ -1,9 +1,11 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: chuck fine past bat
-  version: 3
-  targets:
-    - type: range
+  action:
+    name: remove
+    target:
+      type: range
       anchor:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: f}
@@ -13,7 +15,6 @@ command:
       excludeAnchor: false
       excludeActive: false
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: |2
         foo

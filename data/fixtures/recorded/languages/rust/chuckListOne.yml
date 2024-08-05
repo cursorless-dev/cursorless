@@ -1,12 +1,16 @@
 languageId: rust
 command:
-  version: 1
+  version: 6
   spokenForm: chuck list one
-  action: remove
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: list, includeSiblings: false}
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: list}
       mark: {type: decoratedSymbol, symbolColor: default, character: '1'}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: let x = [1, 2, 3];
   selections:

@@ -1,5 +1,5 @@
-import { Edit, EditableTextEditor } from "@cursorless/common";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import type { Edit, EditableTextEditor } from "@cursorless/common";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 
 export async function performDocumentEdits(
   rangeUpdater: RangeUpdater,

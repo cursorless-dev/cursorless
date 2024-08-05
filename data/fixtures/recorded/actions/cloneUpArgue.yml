@@ -1,14 +1,15 @@
 languageId: typescript
 command:
+  version: 6
   spokenForm: clone up arg
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: insertCopyBefore
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: argumentOrParameter}
   usePrePhraseSnapshot: true
-  action: {name: insertCopyBefore}
 initialState:
   documentContents: |-
     function foo(bar: number) {

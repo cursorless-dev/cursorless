@@ -1,12 +1,16 @@
 languageId: java
 command:
-  version: 1
+  version: 6
   spokenForm: take type blue look
-  action: setSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
       mark: {type: decoratedSymbol, symbolColor: blue, character: l}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     public class MyClass {

@@ -1,15 +1,16 @@
 languageId: rust
 command:
+  version: 6
   spokenForm: change name look
-  version: 2
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: l}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: name}
+      mark: {type: decoratedSymbol, symbolColor: default, character: l}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
     match user {
