@@ -2,7 +2,7 @@ import { type Position, type PreferredScopeModifier } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
-import { getContainingScopeTarget } from "./getContainingScopeTarget";
+import { ContainingScopeStage } from "./ContainingScopeStage";
 import type { TargetScope } from "./scopeHandlers/scope.types";
 import type { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
 import type { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
@@ -22,6 +22,18 @@ export class PreferredScopeStage implements ModifierStage {
   run(target: Target): Target[] {
     const { scopeType } = this.modifier;
 
+    const containingScopeStage = new ContainingScopeStage(
+      this.modifierStageFactory,
+      this.scopeHandlerFactory,
+      { type: "containingScope", scopeType },
+    );
+
+    try {
+      return containingScopeStage.run(target);
+    } catch (_ex) {
+      // Do nothing
+    }
+
     const scopeHandler = this.scopeHandlerFactory.create(
       this.modifier.scopeType,
       target.editor.document.languageId,
@@ -31,17 +43,13 @@ export class PreferredScopeStage implements ModifierStage {
       throw Error(`Couldn't create scope handler for: ${scopeType.type}`);
     }
 
-    const containingTargets = getContainingScopeTarget(target, scopeHandler);
-    if (containingTargets != null) {
-      return containingTargets;
-    }
-
     const closestTargets = getClosestScopeTargets(target, scopeHandler);
-    if (closestTargets != null) {
-      return closestTargets;
+
+    if (closestTargets == null) {
+      throw Error(`No scopes found for scope type: ${scopeType.type}`);
     }
 
-    throw Error(`No scopes found for scope type: ${scopeType.type}`);
+    return closestTargets;
   }
 }
 
