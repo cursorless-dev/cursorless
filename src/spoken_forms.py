@@ -125,6 +125,7 @@ def update():
         if initialized:
             # On first run, we just do one update at the end, so we suppress
             # writing until we get there
+            init_scope_spoken_forms(graphemes_talon_list)
             update_spoken_forms_output()
 
     handle_csv = auto_construct_defaults(
