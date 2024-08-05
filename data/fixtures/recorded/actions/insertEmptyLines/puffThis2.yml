@@ -1,12 +1,13 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: puff this
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: insertEmptyLinesAround
+    target:
+      type: primitive
       mark: {type: cursor}
   usePrePhraseSnapshot: true
-  action: {name: insertEmptyLinesAround}
 initialState:
   documentContents: hello
   selections:

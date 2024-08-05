@@ -1,9 +1,11 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: take every short paint block red
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: setSelection
+    target:
+      type: primitive
       modifiers:
         - type: everyScope
           scopeType: {type: boundedNonWhitespaceSequence}
@@ -11,7 +13,6 @@ command:
           scopeType: {type: paragraph}
       mark: {type: decoratedSymbol, symbolColor: default, character: r}
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
 initialState:
   documentContents: |-
     first test-block

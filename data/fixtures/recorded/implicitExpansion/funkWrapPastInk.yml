@@ -1,19 +1,19 @@
 languageId: typescript
 command:
+  version: 6
   spokenForm: funk wrap past sit
-  version: 2
-  targets:
-    - type: range
-      anchor: {type: primitive}
+  action:
+    name: wrapWithSnippet
+    snippetDescription: {type: named, name: functionDeclaration, variableName: body}
+    target:
+      type: range
+      anchor: {type: implicit}
       active:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: i}
       excludeAnchor: false
       excludeActive: false
   usePrePhraseSnapshot: true
-  action:
-    name: wrapWithSnippet
-    args: [functionDeclaration.body]
 initialState:
   documentContents: |-
     const whatever = "hello";

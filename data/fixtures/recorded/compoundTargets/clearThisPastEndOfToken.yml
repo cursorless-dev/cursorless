@@ -1,22 +1,23 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: change this past end of token
-  version: 3
-  targets:
-    - type: range
+  action:
+    name: clearAndSetSelection
+    target:
+      type: range
       anchor:
         type: primitive
         mark: {type: cursor}
       active:
         type: primitive
         modifiers:
-          - {type: position, position: end}
+          - {type: endOf}
           - type: containingScope
             scopeType: {type: token}
       excludeAnchor: false
       excludeActive: false
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: hello there
   selections:

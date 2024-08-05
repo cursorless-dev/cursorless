@@ -1,19 +1,20 @@
 languageId: rust
 command:
+  version: 6
   spokenForm: change arg trap and blue trap
-  version: 2
-  targets:
-    - type: list
+  action:
+    name: clearAndSetSelection
+    target:
+      type: list
       elements:
         - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: t}
           modifiers:
             - type: containingScope
               scopeType: {type: argumentOrParameter}
+          mark: {type: decoratedSymbol, symbolColor: default, character: t}
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: blue, character: t}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
     enum Maybe<T> {

@@ -1,4 +1,4 @@
-import { SpeakableSurroundingPairName } from "../../spokenForms/SpokenFormType";
+import type { SpeakableSurroundingPairName } from "@cursorless/common";
 
 export const surroundingPairsDelimiters: Record<
   SpeakableSurroundingPairName,
@@ -15,6 +15,8 @@ export const surroundingPairsDelimiters: Record<
   backtickQuotes: ["`", "`"],
   squareBrackets: ["[", "]"],
   singleQuotes: ["'", "'"],
+  tripleDoubleQuotes: ['"""', '"""'],
+  tripleSingleQuotes: ["'''", "'''"],
   whitespace: [" ", " "],
 
   any: null,

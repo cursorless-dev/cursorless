@@ -1,11 +1,13 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: take this
-  action: setSelection
-  targets:
-    - type: primitive
+  action:
+    name: setSelection
+    target:
+      type: primitive
       mark: {type: cursor}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

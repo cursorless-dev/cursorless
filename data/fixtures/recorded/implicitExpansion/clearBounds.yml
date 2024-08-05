@@ -1,13 +1,14 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: change bounds
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - {type: excludeInterior}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: (aaa bbb)
   selections:

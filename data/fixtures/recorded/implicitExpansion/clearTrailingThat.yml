@@ -1,14 +1,15 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: change trailing that
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - {type: trailing}
       mark: {type: that}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
     helloWorld now

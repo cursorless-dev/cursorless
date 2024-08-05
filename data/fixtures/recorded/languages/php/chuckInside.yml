@@ -1,11 +1,14 @@
 languageId: php
 command:
-  version: 1
+  version: 6
   spokenForm: chuck inside
-  action: remove
-  targets:
-    - type: primitive
-      modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: interiorOnly}
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - {type: interiorOnly}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     <?php

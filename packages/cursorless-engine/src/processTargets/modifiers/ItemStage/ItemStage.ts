@@ -1,26 +1,25 @@
-import {
+import type {
   ContainingScopeModifier,
   EveryScopeModifier,
-  NoContainingScopeError,
-  Range,
   SimpleScopeTypeType,
   TextEditor,
 } from "@cursorless/common";
-import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
-import { Target } from "../../../typings/target.types";
+import { NoContainingScopeError, Range } from "@cursorless/common";
+import type { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
+import type { Target } from "../../../typings/target.types";
 import { getRangeLength } from "../../../util/rangeUtils";
-import { ModifierStage } from "../../PipelineStages.types";
+import type { ModifierStageFactory } from "../../ModifierStageFactory";
+import type { ModifierStage } from "../../PipelineStages.types";
 import { ScopeTypeTarget } from "../../targets";
-import {
-  LegacyContainingSyntaxScopeStage,
-  SimpleContainingScopeModifier,
-} from "../scopeTypeStages/LegacyContainingSyntaxScopeStage";
+import type { SimpleContainingScopeModifier } from "../scopeTypeStages/LegacyContainingSyntaxScopeStage";
+import { LegacyContainingSyntaxScopeStage } from "../scopeTypeStages/LegacyContainingSyntaxScopeStage";
 import { getIterationScope } from "./getIterationScope";
 import { tokenizeRange } from "./tokenizeRange";
 
 export class ItemStage implements ModifierStage {
   constructor(
     private languageDefinitions: LanguageDefinitions,
+    private modifierStageFactory: ModifierStageFactory,
     private modifier: ContainingScopeModifier | EveryScopeModifier,
   ) {}
 
@@ -37,17 +36,17 @@ export class ItemStage implements ModifierStage {
 
     // Then try the textual implementation
     if (this.modifier.type === "everyScope") {
-      return this.getEveryTarget(this.languageDefinitions, target);
+      return this.getEveryTarget(this.modifierStageFactory, target);
     }
-    return [this.getSingleTarget(this.languageDefinitions, target)];
+    return [this.getSingleTarget(this.modifierStageFactory, target)];
   }
 
   private getEveryTarget(
-    languageDefinitions: LanguageDefinitions,
+    modifierStageFactory: ModifierStageFactory,
     target: Target,
   ) {
     const itemInfos = getItemInfosForIterationScope(
-      languageDefinitions,
+      modifierStageFactory,
       target,
     );
 
@@ -66,11 +65,11 @@ export class ItemStage implements ModifierStage {
   }
 
   private getSingleTarget(
-    languageDefinitions: LanguageDefinitions,
+    modifierStageFactory: ModifierStageFactory,
     target: Target,
   ) {
     const itemInfos = getItemInfosForIterationScope(
-      languageDefinitions,
+      modifierStageFactory,
       target,
     );
 
@@ -144,10 +143,10 @@ function filterItemInfos(target: Target, itemInfos: ItemInfo[]): ItemInfo[] {
 }
 
 function getItemInfosForIterationScope(
-  languageDefinitions: LanguageDefinitions,
+  modifierStageFactory: ModifierStageFactory,
   target: Target,
 ) {
-  const { range, boundary } = getIterationScope(languageDefinitions, target);
+  const { range, boundary } = getIterationScope(modifierStageFactory, target);
   return getItemsInRange(target.editor, range, boundary);
 }
 

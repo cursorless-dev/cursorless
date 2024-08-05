@@ -1,20 +1,23 @@
 languageId: plaintext
 command:
-  version: 4
+  version: 6
   spokenForm: bring row one past two before bat
-  action: {name: replaceWithTarget}
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       mark:
         type: range
         anchor: {type: lineNumber, lineNumberType: modulo100, lineNumber: 0}
         active: {type: lineNumber, lineNumberType: modulo100, lineNumber: 1}
         excludeAnchor: false
         excludeActive: false
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: b}
-      modifiers:
-        - {type: position, position: before}
+    destination:
+      type: primitive
+      insertionMode: before
+      target:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: b}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-

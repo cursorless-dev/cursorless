@@ -1,15 +1,16 @@
 languageId: python
 command:
+  version: 6
   spokenForm: take short paint fine
-  version: 2
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+  action:
+    name: setSelection
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: boundedNonWhitespaceSequence}
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
 initialState:
   documentContents: "[foo[0], bar]"
   selections:

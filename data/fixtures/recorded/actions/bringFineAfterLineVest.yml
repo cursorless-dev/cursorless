@@ -1,18 +1,22 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: bring fine after line vest
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: v}
-      modifiers:
-        - {type: position, position: after}
-        - type: containingScope
-          scopeType: {type: line}
+    destination:
+      type: primitive
+      insertionMode: after
+      target:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: line}
+        mark: {type: decoratedSymbol, symbolColor: default, character: v}
   usePrePhraseSnapshot: true
-  action: {name: replaceWithTarget}
 initialState:
   documentContents: |
     foo

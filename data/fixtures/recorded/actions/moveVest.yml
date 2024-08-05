@@ -1,12 +1,14 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: move vest
-  action: moveToTarget
-  targets:
-    - type: primitive
+  action:
+    name: moveToTarget
+    source:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
-    - {type: primitive, isImplicit: true}
+    destination: {type: implicit}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

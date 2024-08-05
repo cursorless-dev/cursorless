@@ -1,11 +1,15 @@
 languageId: python
 command:
-  version: 1
+  version: 6
   spokenForm: take funk name
-  action: setSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: functionName}
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionName}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

@@ -1,8 +1,5 @@
-import {
-  Command,
-  CommandResponse,
-  CURSORLESS_COMMAND_ID,
-} from "@cursorless/common";
+import type { Command, CommandResponse } from "@cursorless/common";
+import { CURSORLESS_COMMAND_ID } from "@cursorless/common";
 import * as vscode from "vscode";
 
 export async function runCursorlessCommand(

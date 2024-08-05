@@ -1,15 +1,16 @@
 languageId: rust
 command:
+  version: 6
   spokenForm: change item one
-  version: 2
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: '1'}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: collectionItem}
+      mark: {type: decoratedSymbol, symbolColor: default, character: '1'}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
     let x = [None, Some(1)];

@@ -1,14 +1,15 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: take every file
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: setSelection
+    target:
+      type: primitive
       modifiers:
         - type: everyScope
           scopeType: {type: document}
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
 initialState:
   documentContents: |2+
 

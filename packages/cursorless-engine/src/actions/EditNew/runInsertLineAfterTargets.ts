@@ -1,7 +1,10 @@
-import { EditableTextEditor } from "@cursorless/common";
-import { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
-import { callFunctionAndUpdateRanges } from "../../core/updateSelections/updateSelections";
-import { EditDestination, State } from "./EditNew.types";
+import type {
+  CommandCapabilities,
+  EditableTextEditor,
+} from "@cursorless/common";
+import type { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
+import { performEditsAndUpdateSelections } from "../../core/updateSelections/updateSelections";
+import type { EditDestination, State } from "./EditNew.types";
 
 /**
  * Handle targets that will use a VSCode command to insert a new target, eg
@@ -15,6 +18,7 @@ import { EditDestination, State } from "./EditNew.types";
  * @returns An updated `state` object
  */
 export async function runInsertLineAfterTargets(
+  { acceptsLocation }: CommandCapabilities,
   rangeUpdater: RangeUpdater,
   editor: EditableTextEditor,
   state: State,
@@ -38,17 +42,33 @@ export async function runInsertLineAfterTargets(
   const contentRanges = destinations.map(
     ({ destination }) => destination.contentRange,
   );
+  const targetRanges = state.destinations.map(
+    ({ contentRange }) => contentRange,
+  );
 
-  const [updatedTargetRanges, updatedThatRanges] =
-    await callFunctionAndUpdateRanges(
+  const callback = async () => {
+    if (acceptsLocation) {
+      await editor.insertLineAfter(contentRanges);
+    } else {
+      await editor.setSelections(
+        contentRanges.map((range) => range.toSelection(false)),
+      );
+      await editor.focus();
+      await editor.insertLineAfter();
+    }
+  };
+
+  const { targetRanges: updatedTargetRanges, thatRanges: updatedThatRanges } =
+    await performEditsAndUpdateSelections({
       rangeUpdater,
-      () => editor.insertLineAfter(contentRanges),
-      editor.document,
-      [
-        state.destinations.map(({ contentRange }) => contentRange),
-        state.thatRanges,
-      ],
-    );
+      editor,
+      callback,
+      preserveCursorSelections: true,
+      selections: {
+        targetRanges,
+        thatRanges: state.thatRanges,
+      },
+    });
 
   // For each of the given command targets, the cursor will go where it ended
   // up after running the command.  We add it to the state so that any

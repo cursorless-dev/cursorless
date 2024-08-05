@@ -1,15 +1,24 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 6
   spokenForm: bring fine to first char whale
-  action: replaceWithTarget
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
-    - type: primitive
-      selectionType: token
-      modifier: {type: subpiece, pieceType: character, anchor: 0, active: 0, excludeAnchor: false, excludeActive: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: primitive
+        modifiers:
+          - type: ordinalScope
+            scopeType: {type: character}
+            start: 0
+            length: 1
+        mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: foo world whatever
   selections:

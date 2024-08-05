@@ -1,17 +1,21 @@
 languageId: typescript
 command:
+  version: 6
   spokenForm: bring bat before funk
-  version: 3
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: b}
-    - type: primitive
-      modifiers:
-        - {type: position, position: before}
-        - type: containingScope
-          scopeType: {type: namedFunction}
+    destination:
+      type: primitive
+      insertionMode: before
+      target:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: namedFunction}
   usePrePhraseSnapshot: true
-  action: {name: replaceWithTarget}
 initialState:
   documentContents: |-
     function foo() {

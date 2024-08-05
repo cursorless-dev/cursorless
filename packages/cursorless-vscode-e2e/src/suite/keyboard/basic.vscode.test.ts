@@ -3,8 +3,8 @@ import { assert } from "chai";
 import * as vscode from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../../endToEndTestSetup";
 import sinon from "sinon";
-import path from "path";
-import { getCursorlessRepoRoot } from "@cursorless/common";
+import * as path from "node:path";
+import { getCursorlessRepoRoot } from "@cursorless/node-common";
 import { readFile } from "node:fs/promises";
 
 interface TestCase {
@@ -63,6 +63,19 @@ const testCases: TestCase[] = [
     finalContent: "a +  + b",
   },
   {
+    name: "inside",
+    initialContent: "(aaa)",
+    // change inside air
+    keySequence: ["da", "mi", "c"],
+    finalContent: "()",
+  },
+  {
+    name: "inside tail curly bat",
+    initialContent: "{(aaa bbb ccc)}",
+    keySequence: ["db", "mt", "wb", "mi", "c"],
+    finalContent: "{(aaa }",
+  },
+  {
     name: "wrap",
     initialContent: "a",
     // round wrap air
@@ -70,11 +83,87 @@ const testCases: TestCase[] = [
     finalContent: "(a)",
   },
   {
-    name: "preserve keyboard target",
+    name: "set keyboard target to cursor",
     initialContent: "a\n",
     // round wrap air; round wrap <keyboard target>
     keySequence: ["da", "aw", "wp", "aw", "wp"],
-    finalContent: "((a))\n",
+    finalContent: "(a)\n()",
+  },
+  {
+    name: "slice range",
+    initialContent: "aaa bbb\nccc ddd",
+    // keyboard air
+    // keyboard slice past cap
+    keySequence: ["da", "fs", "dc", "st", "c"],
+    finalContent: " bbb\n ddd",
+  },
+  {
+    name: "simple mark",
+    initialContent: "aaa bbb",
+    // keyboard air
+    // keyboard this
+    keySequence: ["da", "mc", "c"],
+    finalContent: "aaa ",
+  },
+  {
+    name: "simple mark range",
+    initialContent: "aaa bbb ccc",
+    // keyboard bat
+    // keyboard past this
+    keySequence: ["db", "fk", "mc", "c"],
+    finalContent: "aaa ",
+  },
+  {
+    name: "simple mark list",
+    initialContent: "aaa bbb ccc",
+    // keyboard bat
+    // keyboard and this
+    keySequence: ["db", "fa", "mc", "c"],
+    finalContent: "aaa  ",
+  },
+  {
+    name: "modifier range",
+    initialContent: "aaa bbb ccc ddd",
+    // clear bat past its next token
+    keySequence: ["db", "fk", "n", "st", "c"],
+    finalContent: "aaa  ddd",
+  },
+  {
+    name: "modifier list",
+    initialContent: "aaa bbb ccc ddd",
+    // clear bat and its second next token
+    keySequence: ["db", "fa", "2", "n", "st", "c"],
+    finalContent: "aaa  ccc ",
+  },
+  {
+    name: "repeat command",
+    initialContent: "aaa bbb ccc ddd",
+    // keyboard air
+    // keyboard next token twice
+    // clear keyboard
+    keySequence: ["da", "nst", " ", "c"],
+    finalContent: "aaa bbb  ddd",
+  },
+  {
+    name: "keyboard undo",
+    initialContent: "aaa bbb",
+    // keyboard air
+    // keyboard bat
+    // undo keyboard
+    // clear
+    keySequence: ["da", "db", "vu", "c"],
+    finalContent: " bbb",
+  },
+  {
+    name: "keyboard redo",
+    initialContent: "aaa bbb",
+    // keyboard air
+    // keyboard bat
+    // undo keyboard
+    // redo keyboard
+    // clear
+    keySequence: ["da", "db", "vu", "vr", "c"],
+    finalContent: "aaa ",
   },
 ];
 
@@ -220,7 +309,7 @@ async function enterAndLeaveIsNoOp() {
 
 async function typeText(text: string) {
   for (const char of text) {
-    vscode.commands.executeCommand("type", { text: char });
+    void vscode.commands.executeCommand("type", { text: char });
     // Note we just hack by using sleep because awaiting is too complicated to
     // get right.
     await sleepWithBackoff(100);

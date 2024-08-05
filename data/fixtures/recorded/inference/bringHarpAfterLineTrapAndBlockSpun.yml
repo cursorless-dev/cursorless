@@ -1,25 +1,29 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: bring harp after line trap and block sun
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
-    - type: list
-      elements:
-        - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: t}
-          modifiers:
-            - {type: position, position: after}
-            - type: containingScope
-              scopeType: {type: line}
-        - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: s}
-          modifiers:
-            - type: containingScope
-              scopeType: {type: paragraph}
+    destination:
+      type: primitive
+      insertionMode: after
+      target:
+        type: list
+        elements:
+          - type: primitive
+            modifiers:
+              - type: containingScope
+                scopeType: {type: line}
+            mark: {type: decoratedSymbol, symbolColor: default, character: t}
+          - type: primitive
+            modifiers:
+              - type: containingScope
+                scopeType: {type: paragraph}
+            mark: {type: decoratedSymbol, symbolColor: default, character: s}
   usePrePhraseSnapshot: true
-  action: {name: replaceWithTarget}
 initialState:
   documentContents: |-
     hello

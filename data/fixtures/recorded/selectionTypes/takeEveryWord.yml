@@ -1,14 +1,15 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: take every sub
-  version: 3
-  targets:
-    - type: primitive
+  action:
+    name: setSelection
+    target:
+      type: primitive
       modifiers:
         - type: everyScope
           scopeType: {type: word}
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
 initialState:
   documentContents: aaaBbbCcc
   selections:

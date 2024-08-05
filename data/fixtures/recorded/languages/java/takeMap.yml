@@ -1,11 +1,15 @@
 languageId: java
 command:
-  version: 1
+  version: 6
   spokenForm: take map
-  action: setSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: map}
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: map}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

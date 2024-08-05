@@ -1,15 +1,17 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: give double quote and bang
-  action: deselect
-  targets:
-    - type: list
+  action:
+    name: deselect
+    target:
+      type: list
       elements:
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: '"'}
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: '!'}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     "a!

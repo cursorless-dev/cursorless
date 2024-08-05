@@ -1,12 +1,16 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: take block air
-  action: setSelection
-  targets:
-    - type: primitive
-      selectionType: paragraph
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: paragraph}
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

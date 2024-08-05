@@ -1,5 +1,5 @@
 import * as React from "react";
-import { CheatsheetLegend } from "../cheatsheetLegend";
+import type { CheatsheetLegend } from "../cheatsheetLegend";
 import useIsHighlighted from "../hooks/useIsHighlighted";
 import { formatCaptures } from "./formatCaptures";
 import SmartLink from "./SmartLink";

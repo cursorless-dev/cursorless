@@ -1,13 +1,17 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: replace vest with whatever
-  action: replace
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: v}
-  extraArgs:
-    - [whatever]
+  action:
+    name: replace
+    replaceWith: [whatever]
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: v}
+  usePrePhraseSnapshot: false
 spokenFormError: Action 'replace'
 initialState:
   documentContents: |

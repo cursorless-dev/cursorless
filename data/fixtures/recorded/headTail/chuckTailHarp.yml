@@ -1,14 +1,15 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: chuck tail harp
-  version: 2
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+  action:
+    name: remove
+    target:
+      type: primitive
       modifiers:
         - {type: extendThroughEndOf}
+      mark: {type: decoratedSymbol, symbolColor: default, character: h}
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: "    hello world whatever"
   selections:

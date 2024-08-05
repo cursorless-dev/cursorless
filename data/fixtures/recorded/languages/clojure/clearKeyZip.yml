@@ -1,12 +1,16 @@
 languageId: clojure
 command:
-  version: 1
+  version: 6
   spokenForm: change key zip
-  action: clearAndSetSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: false}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionKey}
       mark: {type: decoratedSymbol, symbolColor: default, character: z}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: "{:foo \"bar\", :baz \"whatever\"}"
   selections:

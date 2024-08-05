@@ -1,35 +1,38 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: >-
     bring dot and harp to start of second char whale and start of just whale
     take whale
-  version: 2
-  targets:
-    - type: list
+  action:
+    name: replaceWithTarget
+    source:
+      type: list
       elements:
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: .}
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: h}
-    - type: list
-      elements:
-        - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: w}
-          modifiers:
-            - {type: position, position: start}
-            - type: ordinalRange
-              scopeType: {type: character}
-              anchor: 1
-              active: 1
-              excludeAnchor: false
-              excludeActive: false
-        - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: w}
-          modifiers:
-            - {type: position, position: start}
-            - {type: toRawSelection}
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: list
+        elements:
+          - type: primitive
+            modifiers:
+              - {type: startOf}
+              - type: ordinalScope
+                scopeType: {type: character}
+                start: 1
+                length: 1
+            mark: {type: decoratedSymbol, symbolColor: default, character: w}
+          - type: primitive
+            modifiers:
+              - {type: startOf}
+              - {type: toRawSelection}
+            mark: {type: decoratedSymbol, symbolColor: default, character: w}
   usePrePhraseSnapshot: false
-  action: {name: replaceWithTarget}
 marksToCheck: [default.w]
 initialState:
   documentContents: hello. world

@@ -1,12 +1,13 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: clone that
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: insertCopyAfter
+    target:
+      type: primitive
       mark: {type: that}
   usePrePhraseSnapshot: true
-  action: {name: insertCopyAfter}
 initialState:
   documentContents: |+
     hello world

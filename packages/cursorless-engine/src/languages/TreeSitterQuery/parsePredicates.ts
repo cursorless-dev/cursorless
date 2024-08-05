@@ -1,5 +1,5 @@
-import { PredicateResult } from "web-tree-sitter";
-import { MutableQueryMatch } from "./QueryCapture";
+import type { PredicateResult } from "web-tree-sitter";
+import type { MutableQueryMatch } from "./QueryCapture";
 import { queryPredicateOperators } from "./queryPredicateOperators";
 
 /**

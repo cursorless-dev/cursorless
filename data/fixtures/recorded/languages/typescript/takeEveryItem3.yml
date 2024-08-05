@@ -1,11 +1,15 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: take every item
-  action: setSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true}
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

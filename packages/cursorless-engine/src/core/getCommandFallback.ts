@@ -1,4 +1,4 @@
-import {
+import type {
   ActionDescriptor,
   CommandComplete,
   CommandServerApi,
@@ -10,11 +10,11 @@ import {
 import type { ActionReturnValue } from "../actions/actions.types";
 
 export async function getCommandFallback(
-  commandServerApi: CommandServerApi | null,
+  commandServerApi: CommandServerApi,
   runAction: (actionDescriptor: ActionDescriptor) => Promise<ActionReturnValue>,
   command: CommandComplete,
 ): Promise<Fallback | null> {
-  const focusedElementType = await commandServerApi?.getFocusedElementType();
+  const focusedElementType = await commandServerApi.getFocusedElementType();
 
   if (focusedElementType == null || focusedElementType === "textEditor") {
     return null;
@@ -89,6 +89,7 @@ export async function getCommandFallback(
     case "insertSnippet":
     case "generateSnippet":
     case "wrapWithSnippet":
+    case "parsed":
       return null;
 
     default:

@@ -1,13 +1,8 @@
 import { getCellIndex } from "@cursorless/vscode-common";
-import {
-  commands,
-  NotebookDocument,
-  TextEditor,
-  ViewColumn,
-  window,
-} from "vscode";
+import type { NotebookDocument, TextEditor } from "vscode";
+import { commands, TabInputTextDiff, ViewColumn, window } from "vscode";
 import { getNotebookFromCellDocument } from "./notebook/notebook";
-import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
+import type { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
 const columnFocusCommands = {
   [ViewColumn.One]: "workbench.action.focusFirstEditorGroup",
@@ -58,12 +53,15 @@ function getViewColumn(editor: TextEditor): ViewColumn | undefined {
   }
   const uri = editor.document.uri.toString();
   const tabGroup = window.tabGroups.all.find((tabGroup) =>
-    tabGroup.tabs.find(
-      (tab: any) =>
-        tab.input.uri?.toString() === uri ||
-        tab.input.original?.toString() === uri ||
-        tab.input.modified?.toString() === uri,
-    ),
+    tabGroup.tabs.find((tab) => {
+      if (tab.input instanceof TabInputTextDiff) {
+        return (
+          tab.input.original.toString() === uri ||
+          tab.input.modified.toString() === uri
+        );
+      }
+      return (tab as any).input?.uri?.toString() === uri;
+    }),
   );
   return tabGroup?.viewColumn;
 }

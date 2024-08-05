@@ -1,12 +1,13 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: float this
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: insertEmptyLineAfter
+    target:
+      type: primitive
       mark: {type: cursor}
   usePrePhraseSnapshot: true
-  action: {name: insertEmptyLineAfter}
 initialState:
   documentContents: |-
     whatever

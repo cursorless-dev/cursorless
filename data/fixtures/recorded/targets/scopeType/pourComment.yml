@@ -1,14 +1,15 @@
 languageId: typescript
 command:
+  version: 6
   spokenForm: pour comment
-  version: 3
-  targets:
-    - type: primitive
+  action:
+    name: editNewLineAfter
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: comment}
   usePrePhraseSnapshot: true
-  action: {name: editNewLineAfter}
 initialState:
   documentContents: // Testing comment
   selections:

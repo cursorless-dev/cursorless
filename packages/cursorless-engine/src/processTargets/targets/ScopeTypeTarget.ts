@@ -1,8 +1,9 @@
-import { Range, SimpleScopeTypeType } from "@cursorless/common";
-import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
+import type { Range, SimpleScopeTypeType } from "@cursorless/common";
+import type { CommonTargetParameters } from "./BaseTarget";
+import { BaseTarget } from "./BaseTarget";
 import { InteriorTarget } from "./InteriorTarget";
 import { PlainTarget } from "./PlainTarget";
-import { Target } from "../../typings/target.types";
+import type { Target } from "../../typings/target.types";
 import {
   createContinuousRange,
   createContinuousRangeFromRanges,
@@ -78,9 +79,9 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
     return undefined;
   }
 
-  getInteriorStrict() {
+  getInterior() {
     if (this.interiorRange_ == null) {
-      return super.getInteriorStrict();
+      return super.getInterior();
     }
     return [
       new InteriorTarget({

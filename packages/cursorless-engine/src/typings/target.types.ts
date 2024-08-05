@@ -132,8 +132,8 @@ export interface Target {
   /** Internal target that should be used for the that mark */
   readonly thatTarget: Target;
 
-  getInteriorStrict(): Target[];
-  getBoundaryStrict(): Target[];
+  getInterior(): Target[] | undefined;
+  getBoundary(): Target[] | undefined;
   /** The range of the delimiter before the content selection */
   getLeadingDelimiterTarget(): Target | undefined;
   /** The range of the delimiter after the content selection */

@@ -1,4 +1,5 @@
-import { Range, TextDocument } from "..";
+import type { TextDocument } from "..";
+import { Range } from "..";
 
 export class Position {
   /**

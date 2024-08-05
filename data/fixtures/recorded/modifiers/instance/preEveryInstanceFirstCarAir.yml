@@ -1,10 +1,11 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: pre every instance first char air
-  action: {name: setSelectionBefore}
-  targets:
-    - type: primitive
+  action:
+    name: setSelectionBefore
+    target:
+      type: primitive
       modifiers:
         - type: everyScope
           scopeType: {type: instance}

@@ -1,11 +1,15 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: chuck round
-  action: remove
-  targets:
-    - type: primitive
-      modifier: {type: surroundingPair, delimiter: parentheses}
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: parentheses}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: (hello)
   selections:

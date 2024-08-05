@@ -1,11 +1,15 @@
 languageId: json
 command:
-  version: 1
+  version: 6
   spokenForm: take value
-  action: setSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: value}
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

@@ -1,12 +1,16 @@
 languageId: clojure
 command:
-  version: 1
+  version: 6
   spokenForm: change value bat
-  action: clearAndSetSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
       mark: {type: decoratedSymbol, symbolColor: default, character: b}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     {

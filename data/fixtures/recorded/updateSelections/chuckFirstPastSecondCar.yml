@@ -1,10 +1,11 @@
 languageId: plaintext
 command:
-  version: 3
+  version: 6
   spokenForm: chuck first past second char
-  action: {name: remove}
-  targets:
-    - type: primitive
+  action:
+    name: remove
+    target:
+      type: primitive
       modifiers:
         - type: range
           anchor:
@@ -17,6 +18,8 @@ command:
             scopeType: {type: character}
             start: 1
             length: 1
+          excludeAnchor: false
+          excludeActive: false
 initialState:
   documentContents: foo world whatever
   selections:

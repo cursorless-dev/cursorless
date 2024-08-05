@@ -18,6 +18,7 @@
     "clean": "pnpm clear && rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
+    "@cursorless/common": "workspace:*",
     "@algolia/client-search": "4.22.1",
     "@docsearch/react": "3.6.0",
     "@docusaurus/core": "3.1.1",
@@ -50,7 +51,8 @@
     "@docusaurus/types": "3.1.1",
     "@tsconfig/docusaurus": "2.0.2",
     "@types/mdast": "4.0.3",
-    "typescript": "^5.4.3",
+    "@types/react": "18.2.71",
+    "typescript": "^5.5.3",
     "unified": "11.0.4"
   },
   "license": "MIT",

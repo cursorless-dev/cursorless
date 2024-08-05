@@ -1,12 +1,16 @@
 languageId: html
 command:
-  version: 1
+  version: 6
   spokenForm: change pair bat
-  action: clearAndSetSelection
-  targets:
-    - type: primitive
-      modifier: {type: surroundingPair, delimiter: any}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: any}
       mark: {type: decoratedSymbol, symbolColor: default, character: b}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     <html>

@@ -1,16 +1,17 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: change every item block
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - type: everyScope
           scopeType: {type: collectionItem}
         - type: containingScope
           scopeType: {type: paragraph}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
     a, b,

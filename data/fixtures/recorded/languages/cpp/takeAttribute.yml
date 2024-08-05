@@ -1,11 +1,15 @@
 languageId: cpp
 command:
-  version: 1
+  version: 6
   spokenForm: take attribute
-  action: setSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: attribute}
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: attribute}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     [[nodiscard]]

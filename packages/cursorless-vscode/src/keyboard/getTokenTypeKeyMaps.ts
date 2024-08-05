@@ -1,12 +1,13 @@
-import { isString, range } from "lodash";
-import {
+import { isString, range } from "lodash-es";
+import type {
   KeyboardActionType,
   PolymorphicKeyboardActionDescriptor,
   SpecificKeyboardActionDescriptor,
-  simpleKeyboardActionNames,
 } from "./KeyboardActionType";
-import { KeyboardConfig, only } from "./KeyboardConfig";
-import { TokenTypeKeyMapMap } from "./TokenTypeHelpers";
+import { simpleKeyboardActionNames } from "./KeyboardActionType";
+import type { KeyboardConfig } from "./KeyboardConfig";
+import { only } from "./KeyboardConfig";
+import type { TokenTypeKeyMapMap } from "./TokenTypeHelpers";
 
 /**
  * Returns a map from token type names to a keymap for that token type. Something like:
@@ -52,8 +53,11 @@ export function getTokenTypeKeyMaps(
     ),
 
     // misc config section
-    makeRange: config.getTokenKeyMap("makeRange", "misc", only("makeRange")),
-    makeList: config.getTokenKeyMap("makeList", "misc", only("makeList")),
+    targetingMode: config.getTokenKeyMap(
+      "targetingMode",
+      "misc",
+      only("makeRange", "makeVerticalRange", "makeList"),
+    ),
     combineColorAndShape: config.getTokenKeyMap(
       "combineColorAndShape",
       "misc",
@@ -68,6 +72,22 @@ export function getTokenTypeKeyMaps(
     // modifier config section
     every: config.getTokenKeyMap("every", "modifier", only("every")),
     nextPrev: config.getTokenKeyMap("nextPrev", "modifier", only("nextPrev")),
+    headTail: config.getTokenKeyMap(
+      "headTail",
+      "modifier",
+      only("extendThroughStartOf", "extendThroughEndOf"),
+    ),
+    simpleModifier: config.getTokenKeyMap(
+      "simpleModifier",
+      "modifier",
+      only("interiorOnly", "excludeInterior"),
+    ),
+
+    // mark config section
+    simpleSpecialMark: config.getTokenKeyMap(
+      "simpleSpecialMark",
+      "specialMark",
+    ),
 
     digit: Object.fromEntries(
       range(10).map((value) => [

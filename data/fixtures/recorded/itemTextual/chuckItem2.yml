@@ -1,14 +1,15 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: chuck item
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: remove
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: collectionItem}
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: |-
     [

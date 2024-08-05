@@ -1,7 +1,7 @@
 import { Range, adjustPosition } from "@cursorless/common";
 import { z } from "zod";
 import { makeRangeFromPositions } from "../../util/nodeSelectors";
-import { MutableQueryCapture } from "./QueryCapture";
+import type { MutableQueryCapture } from "./QueryCapture";
 import { QueryPredicateOperator } from "./QueryPredicateOperator";
 import { q } from "./operatorArgumentSchemaTypes";
 
@@ -98,6 +98,23 @@ class ChildRange extends QueryPredicateOperator<ChildRange> {
   }
 }
 
+class CharacterRange extends QueryPredicateOperator<CharacterRange> {
+  name = "character-range!" as const;
+  schema = z.union([
+    z.tuple([q.node, q.integer]),
+    z.tuple([q.node, q.integer, q.integer]),
+  ]);
+
+  run(nodeInfo: MutableQueryCapture, startOffset: number, endOffset?: number) {
+    nodeInfo.range = new Range(
+      nodeInfo.range.start.translate(undefined, startOffset),
+      nodeInfo.range.end.translate(undefined, endOffset ?? 0),
+    );
+
+    return true;
+  }
+}
+
 /**
  * A predicate operator that modifies the range of the match to shrink to regex
  * match.  For example, `(#shrink-to-match! @foo "\\S+")` will modify the range
@@ -151,10 +168,12 @@ class TrimEnd extends QueryPredicateOperator<TrimEnd> {
     const { document, range } = nodeInfo;
     const text = document.getText(range);
     const whitespaceLength = text.length - text.trimEnd().length;
-    nodeInfo.range = new Range(
-      range.start,
-      adjustPosition(document, range.end, -whitespaceLength),
-    );
+    if (whitespaceLength > 0) {
+      nodeInfo.range = new Range(
+        range.start,
+        adjustPosition(document, range.end, -whitespaceLength),
+      );
+    }
     return true;
   }
 }
@@ -252,6 +271,7 @@ export const queryPredicateOperators = [
   new NotParentType(),
   new IsNthChild(),
   new ChildRange(),
+  new CharacterRange(),
   new ShrinkToMatch(),
   new AllowMultiple(),
   new InsertionDelimiter(),

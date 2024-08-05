@@ -1,38 +1,39 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: move fourth char harp past second char whale to end of just whale take whale
-  version: 2
-  targets:
-    - type: range
+  action:
+    name: moveToTarget
+    source:
+      type: range
       anchor:
         type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: h}
         modifiers:
-          - type: ordinalRange
+          - type: ordinalScope
             scopeType: {type: character}
-            anchor: 3
-            active: 3
-            excludeAnchor: false
-            excludeActive: false
+            start: 3
+            length: 1
+        mark: {type: decoratedSymbol, symbolColor: default, character: h}
       active:
         type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: w}
         modifiers:
-          - type: ordinalRange
+          - type: ordinalScope
             scopeType: {type: character}
-            anchor: 1
-            active: 1
-            excludeAnchor: false
-            excludeActive: false
+            start: 1
+            length: 1
+        mark: {type: decoratedSymbol, symbolColor: default, character: w}
       excludeAnchor: false
       excludeActive: false
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: w}
-      modifiers:
-        - {type: position, position: end}
-        - {type: toRawSelection}
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: primitive
+        modifiers:
+          - {type: endOf}
+          - {type: toRawSelection}
+        mark: {type: decoratedSymbol, symbolColor: default, character: w}
   usePrePhraseSnapshot: false
-  action: {name: moveToTarget}
 marksToCheck: [default.w]
 initialState:
   documentContents: hello world whatever

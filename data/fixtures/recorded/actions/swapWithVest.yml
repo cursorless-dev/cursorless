@@ -1,12 +1,14 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: swap with vest
-  action: swapTargets
-  targets:
-    - {type: primitive}
-    - type: primitive
+  action:
+    name: swapTargets
+    target1: {type: implicit}
+    target2:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

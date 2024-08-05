@@ -1,10 +1,11 @@
 languageId: plaintext
 command:
-  version: 4
+  version: 6
   spokenForm: change this slice bat
-  action: {name: clearAndSetSelection}
-  targets:
-    - type: range
+  action:
+    name: clearAndSetSelection
+    target:
+      type: range
       anchor:
         type: primitive
         mark: {type: cursor}

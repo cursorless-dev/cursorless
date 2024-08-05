@@ -1,4 +1,4 @@
-import { KeyboardCommandHandler } from "./KeyboardCommandHandler";
+import type { KeyboardCommandHandler } from "./KeyboardCommandHandler";
 
 /**
  * Maps from the name of a method in KeyboardCommandHandler to the type of its

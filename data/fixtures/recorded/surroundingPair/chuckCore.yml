@@ -1,13 +1,14 @@
 languageId: typescript
 command:
+  version: 6
   spokenForm: chuck inside
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: remove
+    target:
+      type: primitive
       modifiers:
         - {type: interiorOnly}
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: |-
     [

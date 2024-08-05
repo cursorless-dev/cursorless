@@ -1,12 +1,12 @@
 /**
  * This script can be used to add hat tweaks to the currently shipping ones
  */
-import { sum } from "lodash";
-import {
-  defaultShapeAdjustments,
+import { sum } from "lodash-es";
+import type {
   HatAdjustments,
   IndividualHatAdjustmentMap,
 } from "../../ide/vscode/hats/shapeAdjustments";
+import { defaultShapeAdjustments } from "../../ide/vscode/hats/shapeAdjustments";
 import { HAT_SHAPES } from "../../ide/vscode/hatStyles.types";
 import { postProcessValue } from "./lib";
 

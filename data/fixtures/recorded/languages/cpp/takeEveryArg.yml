@@ -1,11 +1,15 @@
 languageId: cpp
 command:
-  version: 1
+  version: 6
   spokenForm: take every arg
-  action: setSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     int f(int a, int b) {

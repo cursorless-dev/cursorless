@@ -1,11 +1,15 @@
 languageId: latex
 command:
-  version: 1
+  version: 6
   spokenForm: change arg
-  action: clearAndSetSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: \usepackage[utf8]{inputenc}
   selections:

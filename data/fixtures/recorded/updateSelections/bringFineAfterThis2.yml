@@ -1,14 +1,19 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 6
   spokenForm: bring fine after this
-  action: replaceWithTarget
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
-    - type: primitive
-      mark: {type: cursor}
-      position: after
+    destination:
+      type: primitive
+      insertionMode: after
+      target:
+        type: primitive
+        mark: {type: cursor}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: foo world
   selections:

@@ -1,24 +1,29 @@
 languageId: python
 command:
+  version: 6
   spokenForm: paste after line trap and after block trap
-  version: 2
-  targets:
-    - type: list
-      elements:
+  action:
+    name: pasteFromClipboard
+    destination:
+      type: list
+      destinations:
         - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: t}
-          modifiers:
-            - {type: position, position: after}
-            - type: containingScope
-              scopeType: {type: line}
+          insertionMode: after
+          target:
+            type: primitive
+            modifiers:
+              - type: containingScope
+                scopeType: {type: line}
+            mark: {type: decoratedSymbol, symbolColor: default, character: t}
         - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: t}
-          modifiers:
-            - {type: position, position: after}
-            - type: containingScope
-              scopeType: {type: paragraph}
+          insertionMode: after
+          target:
+            type: primitive
+            modifiers:
+              - type: containingScope
+                scopeType: {type: paragraph}
+            mark: {type: decoratedSymbol, symbolColor: default, character: t}
   usePrePhraseSnapshot: true
-  action: {name: pasteFromClipboard}
 initialState:
   documentContents: |
     if True:

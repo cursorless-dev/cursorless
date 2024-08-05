@@ -1,11 +1,15 @@
 languageId: python
 command:
-  version: 1
+  version: 6
   spokenForm: take list
-  action: setSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: list}
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: list}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

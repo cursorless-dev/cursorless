@@ -1,4 +1,4 @@
-import { GeneralizedRange, Range } from "@cursorless/common";
+import type { GeneralizedRange, Range } from "@cursorless/common";
 
 export enum BorderStyle {
   porous = "dashed",

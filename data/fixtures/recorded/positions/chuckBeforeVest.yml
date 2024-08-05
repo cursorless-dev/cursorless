@@ -1,12 +1,15 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 6
   spokenForm: chuck leading vest
-  action: remove
-  targets:
-    - type: primitive
-      position: before
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - {type: leading}
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

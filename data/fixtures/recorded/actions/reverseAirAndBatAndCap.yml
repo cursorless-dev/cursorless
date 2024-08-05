@@ -1,10 +1,11 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: reverse air and bat and cap
-  action: reverseTargets
-  targets:
-    - type: list
+  action:
+    name: reverseTargets
+    target:
+      type: list
       elements:
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: a}
@@ -12,6 +13,7 @@ command:
           mark: {type: decoratedSymbol, symbolColor: default, character: b}
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: c}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

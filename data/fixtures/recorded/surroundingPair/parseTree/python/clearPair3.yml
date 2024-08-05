@@ -1,11 +1,14 @@
 languageId: python
 command:
-  version: 1
+  version: 6
   spokenForm: change bounds
-  action: clearAndSetSelection
-  targets:
-    - type: primitive
-      modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: excludeInterior}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: excludeInterior}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: f"j{fdfhjkd}lkjlkj"
   selections:

@@ -1,21 +1,24 @@
 languageId: typescript
 command:
+  version: 6
   spokenForm: snippet funk to this past each
-  version: 2
-  targets:
-    - type: range
-      anchor:
-        type: primitive
-        mark: {type: cursor}
-      active:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: e}
-      excludeAnchor: false
-      excludeActive: false
-  usePrePhraseSnapshot: true
   action:
     name: insertSnippet
-    args: [functionDeclaration]
+    snippetDescription: {type: named, name: functionDeclaration}
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: range
+        anchor:
+          type: primitive
+          mark: {type: cursor}
+        active:
+          type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: e}
+        excludeAnchor: false
+        excludeActive: false
+  usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
     function whatever() {

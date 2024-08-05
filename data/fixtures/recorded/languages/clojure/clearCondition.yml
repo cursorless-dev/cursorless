@@ -1,11 +1,15 @@
 languageId: clojure
 command:
-  version: 1
+  version: 6
   spokenForm: change condition
-  action: clearAndSetSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: condition, includeSiblings: false}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: condition}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: (if true "hello")
   selections:

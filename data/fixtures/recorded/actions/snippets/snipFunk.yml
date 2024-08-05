@@ -1,11 +1,12 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: snippet funk
-  action: insertSnippet
-  targets:
-    - {type: primitive, isImplicit: true}
-  extraArgs: [functionDeclaration]
+  action:
+    name: insertSnippet
+    snippetDescription: {type: named, name: functionDeclaration}
+    destination: {type: implicit}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: ""
   selections:

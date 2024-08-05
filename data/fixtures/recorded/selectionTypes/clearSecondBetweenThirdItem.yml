@@ -1,9 +1,11 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: change second between third item
-  version: 3
-  targets:
-    - type: primitive
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - type: range
           anchor:
@@ -19,7 +21,6 @@ command:
           excludeAnchor: true
           excludeActive: true
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: a, b, c, d
   selections:

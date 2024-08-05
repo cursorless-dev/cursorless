@@ -1,9 +1,11 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: change just this past start of token
-  version: 3
-  targets:
-    - type: range
+  action:
+    name: clearAndSetSelection
+    target:
+      type: range
       anchor:
         type: primitive
         modifiers:
@@ -12,13 +14,12 @@ command:
       active:
         type: primitive
         modifiers:
-          - {type: position, position: start}
+          - {type: startOf}
           - type: containingScope
             scopeType: {type: token}
       excludeAnchor: false
       excludeActive: false
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: hello there
   selections:

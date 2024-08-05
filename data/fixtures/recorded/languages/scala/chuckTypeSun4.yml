@@ -1,12 +1,16 @@
 languageId: scala
 command:
-  version: 1
+  version: 6
   spokenForm: chuck type sun
-  action: remove
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
       mark: {type: decoratedSymbol, symbolColor: default, character: s}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     class TypesAhoy() {

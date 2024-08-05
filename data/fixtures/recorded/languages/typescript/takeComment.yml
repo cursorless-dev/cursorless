@@ -1,11 +1,15 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: take comment
-  action: setSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: comment}
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: comment}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

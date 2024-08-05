@@ -1,11 +1,15 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: change every key
-  action: clearAndSetSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: true}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: collectionKey}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     {

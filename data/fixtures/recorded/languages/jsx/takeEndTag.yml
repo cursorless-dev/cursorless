@@ -1,11 +1,15 @@
 languageId: javascript
 command:
-  version: 1
+  version: 6
   spokenForm: take end tag
-  action: setSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: xmlEndTag}
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: xmlEndTag}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

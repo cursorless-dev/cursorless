@@ -1,3 +1,5 @@
+;; https://github.com/tree-sitter-grammars/tree-sitter-xml/blob/master/xml/src/grammar.json
+
 ;;!! <aaa>
 ;;!   ^^^
 ;;!  -----

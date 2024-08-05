@@ -1,15 +1,16 @@
 languageId: typescriptreact
 command:
+  version: 6
   spokenForm: change inside element
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - {type: interiorOnly}
         - type: containingScope
           scopeType: {type: xmlElement}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
     <div>

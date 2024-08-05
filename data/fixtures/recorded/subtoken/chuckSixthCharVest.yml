@@ -1,12 +1,18 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: chuck sixth char vest
-  action: remove
-  targets:
-    - type: primitive
-      modifier: {type: subpiece, pieceType: character, anchor: 5, active: 5}
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: ordinalScope
+          scopeType: {type: character}
+          start: 5
+          length: 1
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

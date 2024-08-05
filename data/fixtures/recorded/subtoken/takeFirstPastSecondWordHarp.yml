@@ -1,10 +1,11 @@
 languageId: typescript
 command:
-  version: 3
+  version: 6
   spokenForm: take first past second sub harp
-  action: {name: setSelection}
-  targets:
-    - type: primitive
+  action:
+    name: setSelection
+    target:
+      type: primitive
       modifiers:
         - type: range
           anchor:
@@ -17,6 +18,8 @@ command:
             scopeType: {type: word}
             start: 1
             length: 1
+          excludeAnchor: false
+          excludeActive: false
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
 initialState:
   documentContents: |+

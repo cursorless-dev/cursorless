@@ -1,14 +1,15 @@
 languageId: typescript
 command:
+  version: 6
   spokenForm: chuck funk
-  version: 3
-  targets:
-    - type: primitive
+  action:
+    name: remove
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: namedFunction}
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: |-
     abstract class Foo {

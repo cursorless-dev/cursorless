@@ -1,12 +1,15 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: take tail vest
-  action: setSelection
-  targets:
-    - type: primitive
-      modifier: {type: tail}
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: extendThroughEndOf}
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

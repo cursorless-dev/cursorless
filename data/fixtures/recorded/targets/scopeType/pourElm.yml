@@ -1,14 +1,15 @@
 languageId: html
 command:
+  version: 6
   spokenForm: pour element
-  version: 3
-  targets:
-    - type: primitive
+  action:
+    name: editNewLineAfter
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: xmlElement}
   usePrePhraseSnapshot: true
-  action: {name: editNewLineAfter}
 initialState:
   documentContents: |-
     <html>

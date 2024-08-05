@@ -1,11 +1,15 @@
 languageId: markdown
 command:
-  version: 1
+  version: 6
   spokenForm: change list
-  action: clearAndSetSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: list, includeSiblings: false}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: list}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
 

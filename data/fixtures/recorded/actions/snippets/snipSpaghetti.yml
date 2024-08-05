@@ -1,11 +1,12 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 6
   spokenForm: snippet spaghetti
-  action: insertSnippet
-  targets:
-    - {type: primitive, isImplicit: true}
-  extraArgs: [spaghetti]
+  action:
+    name: insertSnippet
+    snippetDescription: {type: named, name: spaghetti}
+    destination: {type: implicit}
+  usePrePhraseSnapshot: false
 spokenFormError: Named insertion snippet 'spaghetti'
 initialState:
   documentContents: ""

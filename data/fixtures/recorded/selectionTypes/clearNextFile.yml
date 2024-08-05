@@ -1,9 +1,11 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: change next file
-  version: 3
-  targets:
-    - type: primitive
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - type: relativeScope
           scopeType: {type: document}
@@ -11,7 +13,6 @@ command:
           length: 1
           direction: forward
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: aaa
   selections:

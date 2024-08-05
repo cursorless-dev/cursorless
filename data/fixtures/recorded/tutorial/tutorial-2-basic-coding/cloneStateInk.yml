@@ -1,0 +1,55 @@
+languageId: python
+command:
+  version: 6
+  spokenForm: clone state sit
+  action:
+    name: insertCopyAfter
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: statement}
+      mark: {type: decoratedSymbol, symbolColor: default, character: i}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    def print_color(color, invert=False):
+        if invert:
+            print(invert_color(color))
+        else:
+            print(color)
+
+
+    def invert_color(color):
+        if color == "black":
+            return "white"
+
+
+    print_color("black")
+  selections:
+    - anchor: {line: 13, character: 0}
+      active: {line: 13, character: 0}
+  marks:
+    default.i:
+      start: {line: 8, character: 4}
+      end: {line: 8, character: 6}
+finalState:
+  documentContents: |
+    def print_color(color, invert=False):
+        if invert:
+            print(invert_color(color))
+        else:
+            print(color)
+
+
+    def invert_color(color):
+        if color == "black":
+            return "white"
+        if color == "black":
+            return "white"
+
+
+    print_color("black")
+  selections:
+    - anchor: {line: 15, character: 0}
+      active: {line: 15, character: 0}

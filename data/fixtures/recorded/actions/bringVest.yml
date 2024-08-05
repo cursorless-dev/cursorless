@@ -1,12 +1,14 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: bring vest
-  action: replaceWithTarget
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
-    - {type: primitive, isImplicit: true}
+    destination: {type: implicit}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

@@ -1,11 +1,14 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: take head
-  action: setSelection
-  targets:
-    - type: primitive
-      modifier: {type: head}
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: extendThroughStartOf}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

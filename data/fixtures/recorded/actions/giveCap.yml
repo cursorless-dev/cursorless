@@ -1,11 +1,13 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: give cap
-  action: deselect
-  targets:
-    - type: primitive
+  action:
+    name: deselect
+    target:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: c}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: a b c d
   selections:

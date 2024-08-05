@@ -1,8 +1,9 @@
-import { Range } from "@cursorless/common";
-import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
+import type { Range } from "@cursorless/common";
+import type { CommonTargetParameters } from "./BaseTarget";
+import { BaseTarget } from "./BaseTarget";
 import { InteriorTarget } from "./InteriorTarget";
 import { TokenTarget } from "./TokenTarget";
-import { Target } from "../../typings/target.types";
+import type { Target } from "../../typings/target.types";
 import {
   getTokenLeadingDelimiterTarget,
   getTokenRemovalRange,
@@ -47,7 +48,7 @@ export class SurroundingPairTarget extends BaseTarget<SurroundingPairTargetParam
     return getTokenRemovalRange(this);
   }
 
-  getInteriorStrict() {
+  getInterior() {
     return [
       new InteriorTarget({
         editor: this.editor,
@@ -57,7 +58,7 @@ export class SurroundingPairTarget extends BaseTarget<SurroundingPairTargetParam
     ];
   }
 
-  getBoundaryStrict() {
+  getBoundary() {
     return this.boundary_.map(
       (contentRange) =>
         new TokenTarget({

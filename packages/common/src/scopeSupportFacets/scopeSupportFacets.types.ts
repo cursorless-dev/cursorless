@@ -1,6 +1,7 @@
-import { SimpleScopeTypeType } from "../types/command/PartialTargetDescriptor.types";
+import type { SimpleScopeTypeType } from "../types/command/PartialTargetDescriptor.types";
+import { type ScopeType } from "../types/command/PartialTargetDescriptor.types";
 
-const scopeSupportFacets = [
+export const scopeSupportFacets = [
   "command",
 
   "element",
@@ -10,6 +11,8 @@ const scopeSupportFacets = [
   "attribute",
 
   "environment",
+
+  "section",
 
   "list",
   "map",
@@ -76,6 +79,8 @@ const scopeSupportFacets = [
   "textFragment.string.singleLine",
   "textFragment.string.multiLine",
 
+  "disqualifyDelimiter",
+
   "branch.if",
   "branch.if.iteration",
   "branch.try",
@@ -85,12 +90,16 @@ const scopeSupportFacets = [
   "branch.ternary",
   "branch.loop",
 
+  "collectionItem.unenclosed",
+  "collectionItem.unenclosed.iteration",
+
   "condition.if",
   "condition.while",
   "condition.doWhile",
   "condition.for",
   "condition.ternary",
   "condition.switchCase",
+  "condition.switchCase.iteration",
 
   "name.assignment",
   "name.assignment.pattern",
@@ -119,6 +128,7 @@ const scopeSupportFacets = [
 
   "value.assignment",
   "value.variable",
+  "value.variable.pattern",
   "value.mapPair",
   "value.mapPair.iteration",
   "value.attribute",
@@ -158,7 +168,6 @@ const scopeSupportFacets = [
   "notebookCell",
 
   // FIXME: Still in legacy
-  // section
   // selector
   // unit
   // collectionItem
@@ -172,16 +181,20 @@ const textualScopeSupportFacets = [
   "line",
   "sentence",
   "paragraph",
+  "boundedParagraph",
+  "boundedParagraph.iteration",
   "document",
   "nonWhitespaceSequence",
-  // FIXME: Still in legacy
-  // "boundedNonWhitespaceSequence",
+  "boundedNonWhitespaceSequence",
+  "boundedNonWhitespaceSequence.iteration",
   "url",
+  "surroundingPair",
+  "surroundingPair.iteration",
 ] as const;
 
 export interface ScopeSupportFacetInfo {
   readonly description: string;
-  readonly scopeType: SimpleScopeTypeType;
+  readonly scopeType: SimpleScopeTypeType | ScopeType;
   readonly isIteration?: boolean;
 }
 

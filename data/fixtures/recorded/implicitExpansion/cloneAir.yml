@@ -1,12 +1,13 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: clone air
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: insertCopyAfter
+    target:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
   usePrePhraseSnapshot: true
-  action: {name: insertCopyAfter}
 initialState:
   documentContents: aaa bbb
   selections:

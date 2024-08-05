@@ -1,15 +1,16 @@
 languageId: rust
 command:
+  version: 6
   spokenForm: chuck key air
-  version: 2
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  action:
+    name: remove
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: collectionKey}
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: |
     let user = User {

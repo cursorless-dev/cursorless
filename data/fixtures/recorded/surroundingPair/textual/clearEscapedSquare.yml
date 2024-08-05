@@ -1,11 +1,15 @@
 languageId: markdown
 command:
-  version: 1
+  version: 6
   spokenForm: change escaped box
-  action: clearAndSetSelection
-  targets:
-    - type: primitive
-      modifier: {type: surroundingPair, delimiter: escapedSquareBrackets}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: escapedSquareBrackets}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: \[foo\]
   selections:

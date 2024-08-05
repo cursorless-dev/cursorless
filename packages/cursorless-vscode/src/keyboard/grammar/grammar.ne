@@ -3,6 +3,7 @@
 import { capture, UNUSED as _, argPositions } from "@cursorless/cursorless-engine"
 import { command } from "../command"
 import { keyboardLexer } from "../keyboardLexer";
+import { RelativeScopeModifier } from "@cursorless/common";
 
 const { $0, $1, $2 } = argPositions;
 %}
@@ -10,25 +11,28 @@ const { $0, $1, $2 } = argPositions;
 
 # ===================== Top-level commands ===================
 
-# --------------------------- Marks --------------------------
+# --------------------------- Mark --------------------------
 # "air"
-main -> decoratedMark {%
-  command("targetDecoratedMark", { decoratedMark: $0, mode: "replace" })
+main -> %targetingMode:? decoratedMark {%
+  command(
+    "targetDecoratedMark",
+    ([targetingMode, decoratedMark]) => ({ decoratedMark, mode: targetingMode ?? "replace" })
+  )
 %}
 
-# "past air"
-main -> %makeRange decoratedMark {%
-  command("targetDecoratedMark", { decoratedMark: $1, mode: "extend" })
-%}
-
-# "and air"
-main -> %makeList decoratedMark {%
-  command("targetDecoratedMark", { decoratedMark: $1, mode: "append" })
+# Other marks
+main -> %targetingMode:? mark {%
+  command("targetMark", ([targetingMode, mark]) => ({ mark, mode: targetingMode ?? "replace" }))
 %}
 
 # --------------------------- Modifier --------------------------
 
-main -> modifier {% command("modifyTarget", { modifier: $0 }) %}
+main -> %targetingMode:? modifier {%
+  command(
+    "modifyTarget",
+    ([targetingMode, modifier]) => ({ modifier, mode: targetingMode ?? "replace" })
+  )
+%}
 
 # --------------------------- Actions --------------------------
 
@@ -47,6 +51,15 @@ main -> %vscodeCommand {% command("vscodeCommand", ["command"]) %}
 
 # --------------------------- Modifiers ---------------------------
 
+# "inside", "bounds"
+modifier -> %simpleModifier {% capture({ type: $0 }) %}
+
+# "head" / "tail"
+# FIXME: Support "head inside curly" (ie multiple modifiers)
+modifier -> %headTail modifier {%
+  ([type, modifier]) => ({ type, modifiers: [modifier] })
+%}
+
 # "funk"
 modifier -> scopeType {% capture({ type: "containingScope", scopeType: $0 }) %}
 
@@ -56,7 +69,7 @@ modifier -> %every scopeType {% capture({ type: "everyScope", scopeType: $1 }) %
 # "[third] next [two] funks"
 # "[third] previous [two] funks"
 modifier -> offset:? %nextPrev number:? scopeType {%
-  ([offset, _, length, scopeType]) => ({
+  ([offset, _, length, scopeType]): RelativeScopeModifier => ({
     type: "relativeScope",
     offset: offset?.number ?? 1,
     direction: offset?.direction ?? "forward",
@@ -67,7 +80,7 @@ modifier -> offset:? %nextPrev number:? scopeType {%
 
 # "three funks [backward]"
 modifier -> offset scopeType {%
-  ([offset, scopeType]) => ({
+  ([offset, scopeType]): RelativeScopeModifier => ({
     type: "relativeScope",
     offset: 0,
     direction: offset?.direction ?? "forward",
@@ -81,6 +94,11 @@ scopeType -> %simpleScopeTypeType {% capture("type") %}
 scopeType -> %pairedDelimiter {%
   ([delimiter]) => ({ type: "surroundingPair", delimiter })
 %}
+
+# --------------------------- Marks ---------------------------
+
+# "this"
+mark -> %simpleSpecialMark {% capture({ type: $0 }) %}
 
 # --------------------------- Other ---------------------------
 decoratedMark ->

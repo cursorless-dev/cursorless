@@ -1,20 +1,19 @@
 languageId: scss
 command:
+  version: 6
   spokenForm: change trailing first sub look
-  version: 2
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: l}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - {type: trailing}
-        - type: ordinalRange
+        - type: ordinalScope
           scopeType: {type: word}
-          anchor: 0
-          active: 0
-          excludeAnchor: false
-          excludeActive: false
+          start: 0
+          length: 1
+      mark: {type: decoratedSymbol, symbolColor: default, character: l}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |2-
      .long-bem-class-name {

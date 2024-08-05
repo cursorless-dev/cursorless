@@ -1,12 +1,16 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: carve every arg made
-  action: cutToClipboard
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
+  action:
+    name: cutToClipboard
+    target:
+      type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: argumentOrParameter}
       mark: {type: decoratedSymbol, symbolColor: default, character: m}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: "function myFunk(value: string, name: string, age: number) { };"
   selections:

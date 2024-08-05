@@ -1,12 +1,16 @@
 languageId: scala
 command:
-  version: 1
+  version: 6
   spokenForm: chuck arg fine
-  action: remove
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     class ExampleClass(foo: Int, bar: Int) {}

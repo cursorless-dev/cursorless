@@ -1,14 +1,14 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: duplicated duplicated wrap this
-  version: 2
-  targets:
-    - type: primitive
-      mark: {type: cursor}
-  usePrePhraseSnapshot: true
   action:
     name: wrapWithSnippet
-    args: [duplicatedVariableTest.duplicated]
+    snippetDescription: {type: named, name: duplicatedVariableTest, variableName: duplicated}
+    target:
+      type: primitive
+      mark: {type: cursor}
+  usePrePhraseSnapshot: true
 spokenFormError: Named wrap with snippet 'duplicatedVariableTest.duplicated'
 initialState:
   documentContents: Hello world

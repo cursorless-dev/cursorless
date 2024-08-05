@@ -1,11 +1,15 @@
 languageId: xml
 command:
-  version: 1
+  version: 6
   spokenForm: change every tags
-  action: clearAndSetSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: xmlBothTags, includeSiblings: true}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: xmlBothTags}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     <note>

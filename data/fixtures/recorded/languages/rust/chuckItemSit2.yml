@@ -1,15 +1,16 @@
 languageId: rust
 command:
+  version: 6
   spokenForm: chuck item sit
-  version: 3
-  targets:
-    - type: primitive
+  action:
+    name: remove
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: collectionItem}
       mark: {type: decoratedSymbol, symbolColor: default, character: i}
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: |
     type T = (&'static str, &'static str);

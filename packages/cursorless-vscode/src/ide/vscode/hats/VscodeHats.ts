@@ -1,21 +1,22 @@
-import {
+import type {
   HatRange,
   Hats,
   HatStyleMap,
   HatStyleName,
   Listener,
-  Notifier,
   Range,
   TextEditor,
 } from "@cursorless/common";
-import { toVscodeRange, VscodeApi } from "@cursorless/vscode-common";
+import { Notifier } from "@cursorless/common";
+import type { VscodeApi } from "@cursorless/vscode-common";
+import { toVscodeRange } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
-import { Disposable } from "vscode";
-import { VscodeHatStyleName } from "../hatStyles.types";
+import type { Disposable } from "vscode";
+import type { VscodeHatStyleName } from "../hatStyles.types";
 import VscodeEnabledHatStyleManager from "../VscodeEnabledHatStyleManager";
 import type { VscodeIDE } from "../VscodeIDE";
-import { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
-import { FontMeasurements } from "./FontMeasurements";
+import type { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
+import type { FontMeasurements } from "./FontMeasurements";
 import VscodeHatRenderer from "./VscodeHatRenderer";
 
 export class VscodeHats implements Hats {
@@ -58,8 +59,8 @@ export class VscodeHats implements Hats {
     await this.hatRenderer.init();
   }
 
-  toggle() {
-    this.isEnabled = !this.isEnabled;
+  toggle(isEnabled?: boolean) {
+    this.isEnabled = isEnabled ?? !this.isEnabled;
     this.isEnabledNotifier.notifyListeners(this.isEnabled);
   }
 
@@ -67,7 +68,7 @@ export class VscodeHats implements Hats {
     return this.hatRenderer.forceRecomputeDecorationStyles();
   }
 
-  private handleHatDecorationMapUpdated() {
+  private async handleHatDecorationMapUpdated() {
     if (
       this.hatRanges.some(
         ({ styleName }) => !(styleName in this.enabledHatStyles),
@@ -81,7 +82,7 @@ export class VscodeHats implements Hats {
       return;
     }
 
-    this.applyHatDecorations();
+    await this.applyHatDecorations();
   }
 
   async setHatRanges(hatRanges: HatRange[]): Promise<void> {

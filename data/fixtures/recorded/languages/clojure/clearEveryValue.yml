@@ -1,11 +1,15 @@
 languageId: clojure
 command:
-  version: 1
+  version: 6
   spokenForm: change every value
-  action: clearAndSetSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: value, includeSiblings: true}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
 

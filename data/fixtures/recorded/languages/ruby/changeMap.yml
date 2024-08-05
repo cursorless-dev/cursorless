@@ -1,11 +1,15 @@
 languageId: ruby
 command:
-  version: 1
+  version: 6
   spokenForm: change map
-  action: clearAndSetSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: map, includeSiblings: false}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: map}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: h = {"1" => "one"}
   selections:

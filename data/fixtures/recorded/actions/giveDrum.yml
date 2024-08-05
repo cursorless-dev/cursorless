@@ -1,11 +1,13 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: give drum
-  action: deselect
-  targets:
-    - type: primitive
+  action:
+    name: deselect
+    target:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: d}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: a b c d
   selections:

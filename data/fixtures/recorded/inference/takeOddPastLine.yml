@@ -1,16 +1,22 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: take odd past line
-  action: setSelection
-  targets:
-    - type: range
-      start:
+  action:
+    name: setSelection
+    target:
+      type: range
+      anchor:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: o}
-      end: {type: primitive, selectionType: line}
-      excludeStart: false
-      excludeEnd: false
+      active:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: line}
+      excludeAnchor: false
+      excludeActive: false
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     const foo = "hello";

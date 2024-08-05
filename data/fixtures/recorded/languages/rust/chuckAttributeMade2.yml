@@ -1,15 +1,16 @@
 languageId: rust
 command:
+  version: 6
   spokenForm: chuck attribute made
-  version: 2
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+  action:
+    name: remove
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: attribute}
+      mark: {type: decoratedSymbol, symbolColor: default, character: m}
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: |-
     fn f() {

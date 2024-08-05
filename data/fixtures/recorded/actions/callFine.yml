@@ -1,12 +1,14 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: call fine
-  action: callAsFunction
-  targets:
-    - type: primitive
+  action:
+    name: callAsFunction
+    callee:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
-    - {type: primitive, isImplicit: true}
+    argument: {type: implicit}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     foo;

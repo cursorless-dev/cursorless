@@ -1,15 +1,17 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: give vest and harp
-  action: deselect
-  targets:
-    - type: list
+  action:
+    name: deselect
+    target:
+      type: list
       elements:
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: v}
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: h}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     const values: string = "hello"

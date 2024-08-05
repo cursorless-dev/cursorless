@@ -1,15 +1,15 @@
-import {
-  getKey,
+import type {
   HatStyleName,
   ReadOnlyHatMap,
   TextDocument,
   Token,
   TokenHat,
 } from "@cursorless/common";
+import { getKey } from "@cursorless/common";
 import tokenGraphemeSplitter from "../singletons/tokenGraphemeSplitter.singleton";
 import { getMatcher } from "../tokenizer";
-import { FullRangeInfo } from "../typings/updateSelections";
-import { RangeUpdater } from "./updateSelections/RangeUpdater";
+import type { FullRangeInfo } from "../typings/updateSelections";
+import type { RangeUpdater } from "./updateSelections/RangeUpdater";
 
 /**
  * A token with information that the rangeUpdater can use to keep its
@@ -58,7 +58,7 @@ export class IndividualHatMap implements ReadOnlyHatMap {
   }
 
   /**
-   * Overwrites the hat assignemnt for this hat token map.
+   * Overwrites the hat assignment for this hat token map.
    *
    * @param tokenHats The new hat assignments
    */
@@ -108,7 +108,7 @@ export class IndividualHatMap implements ReadOnlyHatMap {
     return Object.entries(this.map);
   }
 
-  getToken(hatStyle: HatStyleName, character: string): Token {
+  getToken(hatStyle: HatStyleName, character: string): Token | undefined {
     this.checkExpired();
     return this.map[
       getKey(hatStyle, tokenGraphemeSplitter().normalizeGrapheme(character))

@@ -1,12 +1,16 @@
 languageId: scala
 command:
-  version: 1
+  version: 6
   spokenForm: chuck value sit
-  action: remove
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
       mark: {type: decoratedSymbol, symbolColor: default, character: i}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
     class Example() {

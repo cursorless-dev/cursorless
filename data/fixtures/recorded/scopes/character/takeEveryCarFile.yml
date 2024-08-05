@@ -1,16 +1,17 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: take every char file
-  version: 3
-  targets:
-    - type: primitive
+  action:
+    name: setSelection
+    target:
+      type: primitive
       modifiers:
         - type: everyScope
           scopeType: {type: character}
         - type: containingScope
           scopeType: {type: document}
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
 initialState:
   documentContents: |
     aaa bbb

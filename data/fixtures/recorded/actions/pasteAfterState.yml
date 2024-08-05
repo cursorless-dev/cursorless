@@ -1,15 +1,18 @@
 languageId: typescript
 command:
+  version: 6
   spokenForm: paste after state
-  version: 2
-  targets:
-    - type: primitive
-      modifiers:
-        - {type: position, position: after}
-        - type: containingScope
-          scopeType: {type: statement}
+  action:
+    name: pasteFromClipboard
+    destination:
+      type: primitive
+      insertionMode: after
+      target:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: statement}
   usePrePhraseSnapshot: true
-  action: {name: pasteFromClipboard}
 initialState:
   documentContents: const whatever = "hello";
   selections:

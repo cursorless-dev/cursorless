@@ -1,9 +1,11 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: take inside red past just harp
-  version: 2
-  targets:
-    - type: range
+  action:
+    name: setSelection
+    target:
+      type: range
       anchor:
         type: primitive
         modifiers:
@@ -17,7 +19,6 @@ command:
       excludeAnchor: false
       excludeActive: false
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
 initialState:
   documentContents: |-
     ( hello world )

@@ -1,12 +1,16 @@
 languageId: scss
 command:
-  version: 1
+  version: 6
   spokenForm: change state air
-  action: clearAndSetSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: statement}
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     a {

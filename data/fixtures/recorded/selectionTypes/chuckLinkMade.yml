@@ -1,12 +1,16 @@
 languageId: plaintext
 command:
-  version: 1
+  version: 6
   spokenForm: chuck link made
-  action: remove
-  targets:
-    - type: primitive
-      selectionType: url
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: url}
       mark: {type: decoratedSymbol, symbolColor: default, character: m}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: >
     https://www.atomiccommits.io/consistent-hashing

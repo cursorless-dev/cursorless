@@ -1,10 +1,11 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: chuck file
-  version: 2
-  action: {name: remove}
-  targets:
-    - type: primitive
+  action:
+    name: remove
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: document}

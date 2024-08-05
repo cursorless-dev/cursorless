@@ -1,11 +1,13 @@
 languageId: typescript
 command:
-  version: 1
+  version: 6
   spokenForm: post vest
-  action: setSelectionAfter
-  targets:
-    - type: primitive
+  action:
+    name: setSelectionAfter
+    target:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |
 

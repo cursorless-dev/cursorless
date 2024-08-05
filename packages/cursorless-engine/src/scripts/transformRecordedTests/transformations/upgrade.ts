@@ -1,9 +1,13 @@
-import { TestCaseFixture, TestCaseFixtureLegacy } from "@cursorless/common";
-import { canonicalizeAndValidateCommand } from "../../../core/commandVersionUpgrades/canonicalizeAndValidateCommand";
+import type { CommandVersion, TestCaseFixtureLegacy } from "@cursorless/common";
+import { LATEST_VERSION } from "@cursorless/common";
+import { upgradeCommand } from "../../../core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 
-export function upgrade(fixture: TestCaseFixtureLegacy): TestCaseFixture {
+export function upgrade(
+  fixture: TestCaseFixtureLegacy,
+  minimumVersion: CommandVersion = LATEST_VERSION,
+): TestCaseFixtureLegacy {
   return {
     ...fixture,
-    command: canonicalizeAndValidateCommand(fixture.command),
+    command: upgradeCommand(fixture.command, minimumVersion),
   };
 }

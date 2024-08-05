@@ -1,15 +1,16 @@
 languageId: rust
 command:
+  version: 6
   spokenForm: chuck item vest
-  version: 2
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: v}
+  action:
+    name: remove
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: collectionItem}
+      mark: {type: decoratedSymbol, symbolColor: default, character: v}
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
   documentContents: |
     enum IpAddr {
