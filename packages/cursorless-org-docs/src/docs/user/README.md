@@ -289,7 +289,7 @@ For example, given the text...
 }
 ```
 
-`"take short block bat"` would select the two lines with `bbb` and `ccc`.  See [short paint](#short-paint) for a more detailed walkthrough of a scope not exiting surrounding pairs.
+`"take short block bat"` would select the two lines with `bbb` and `ccc`. See [short paint](#short-paint) for a more detailed walkthrough of a scope not exiting surrounding pairs.
 
 ##### `"file"`
 
