@@ -276,7 +276,7 @@ The `"block"` modifier expands to above and below the target to select lines unt
 
 ##### `"short block"`
 
-The `"short block"` scope is like `"block"`, but stops not only at empty lines but also stops if it would hit the nearest [surrounding pair](#surrounding-pair).
+The `"short block"` scope is like `"block"`, but in addition to stopping at empty lines, it will also stop before the nearest [surrounding pair](#surrounding-pair).
 For example, given the text...
 
 ```
