@@ -31,7 +31,7 @@ export class PreferredScopeStage implements ModifierStage {
     try {
       return containingScopeStage.run(target);
     } catch (_ex) {
-      // Do nothing
+      // Do nothing. We'll try the closest scope next.
     }
 
     const scopeHandler = this.scopeHandlerFactory.create(
