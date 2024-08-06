@@ -32,7 +32,7 @@ export async function runCustomRegexScopeInfoTest() {
     await assertCalledWithScopeInfo(fake, unsupported);
 
     await openNewEditor(contents);
-    await sleep(10);
+    await sleep(100);
     await assertCalledWithScopeInfo(fake, present);
 
     talonSpokenForms.mockSpokenFormEntries(null);
