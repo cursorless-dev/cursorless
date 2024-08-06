@@ -35,7 +35,7 @@ export class PreferredScopeStage implements ModifierStage {
     try {
       return containingScopeStage.run(target);
     } catch (ex) {
-      // NoContainingScopeError is thrown if no containing scope was found.
+      // NoContainingScopeError is thrown if no containing scope was found, which is fine.
       if (!(ex instanceof NoContainingScopeError)) {
         throw ex;
       }
