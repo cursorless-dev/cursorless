@@ -276,7 +276,7 @@ The `"block"` modifier expands to above and below the target to select lines unt
 
 ##### `"short block"`
 
-The `"short block"` scope is like `"block"`, but stops not only at empty lines but also stops if it would exit the nearest [surrounding pair](#surrounding-pair).
+The `"short block"` scope is like `"block"`, but stops not only at empty lines but also stops if it would hit the nearest [surrounding pair](#surrounding-pair).
 For example, given the text...
 
 ```
@@ -350,7 +350,7 @@ Saying `"every paint"` would select `foo.bar` and `baz|bongo`.
 
 ##### `"short paint"`
 
-The `"short paint"` scope is like `"paint"`, but stops not only at whitespace but also stops if it would exit the nearest [surrounding pair](#surrounding-pair). For example, given the text
+The `"short paint"` scope is like `"paint"`, but stops not only at whitespace but also stops if it would hit the nearest [surrounding pair](#surrounding-pair). For example, given the text
 
 ```
 (aaa[bbb]ccc ddd)
