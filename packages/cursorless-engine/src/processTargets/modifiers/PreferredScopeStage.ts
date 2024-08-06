@@ -1,4 +1,8 @@
-import { type Position, type PreferredScopeModifier } from "@cursorless/common";
+import {
+  NoContainingScopeError,
+  type Position,
+  type PreferredScopeModifier,
+} from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
@@ -30,8 +34,11 @@ export class PreferredScopeStage implements ModifierStage {
 
     try {
       return containingScopeStage.run(target);
-    } catch (_ex) {
-      // Do nothing. We'll try the closest scope next.
+    } catch (ex) {
+      // NoContainingScopeError is thrown if no containing scope was found.
+      if (!(ex instanceof NoContainingScopeError)) {
+        throw ex;
+      }
     }
 
     const scopeHandler = this.scopeHandlerFactory.create(
