@@ -350,7 +350,7 @@ Saying `"every paint"` would select `foo.bar` and `baz|bongo`.
 
 ##### `"short paint"`
 
-The `"short paint"` scope is like `"paint"`, but in addition to stopping at whitespace, it will also stop before the nearest [surrounding pair](#surrounding-pair). For example, given the text
+The `"short paint"` scope is like `"paint"`, but in addition to stopping at whitespace, it will also stop at the boundary of a [surrounding pair](#surrounding-pair). For example, given the text
 
 ```
 (aaa[bbb]ccc ddd)
