@@ -10,6 +10,7 @@ def get_scopes():
             {
                 "argumentOrParameter": "Argument",
                 "boundedNonWhitespaceSequence": "Non whitespace sequence stopped by surrounding pair delimeters",
+                "boundedParagraph": "Paragraph stopped by surrounding pair delimeters",
             },
         ),
         {
