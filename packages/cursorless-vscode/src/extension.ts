@@ -10,6 +10,7 @@ import type {
 import {
   FakeCommandServerApi,
   FakeIDE,
+  FakeTalonSpokenForms,
   NormalizedIDE,
   type TreeSitter,
 } from "@cursorless/common";
@@ -93,10 +94,12 @@ export async function activate(
     ? fakeCommandServerApi
     : await getCommandServerApi();
 
-  const treeSitter = createTreeSitter(parseTreeApi);
+  const fakeTalonSpokenForms = new FakeTalonSpokenForms();
   const talonSpokenForms = isTesting
-    ? undefined // Use default spoken forms in tests
+    ? fakeTalonSpokenForms
     : new FileSystemTalonSpokenForms(fileSystem);
+
+  const treeSitter = createTreeSitter(parseTreeApi);
 
   // NOTE: do not await on snippet loading and hats initialization because we don't want to
   // block extension activation
@@ -201,6 +204,7 @@ export async function activate(
       normalizedIde.runMode === "test"
         ? constructTestHelpers(
             fakeCommandServerApi,
+            fakeTalonSpokenForms,
             storedTargets,
             hatTokenMap,
             vscodeIDE,

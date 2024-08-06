@@ -1,4 +1,5 @@
 import type {
+  FakeTalonSpokenForms,
   IDE,
   NormalizedIDE,
   ScopeProvider,
@@ -6,11 +7,12 @@ import type {
   TextEditor,
 } from "@cursorless/common";
 import type * as vscode from "vscode";
-import type { VscodeApi } from "./VscodeApi";
 import type { SpyWebViewEvent } from "./SpyWebViewEvent";
+import type { VscodeApi } from "./VscodeApi";
 
 export interface VscodeTestHelpers extends TestHelpers {
   ide: NormalizedIDE;
+  talonSpokenForms: FakeTalonSpokenForms;
   injectIde: (ide: IDE) => void;
 
   scopeProvider: ScopeProvider;
@@ -20,7 +22,6 @@ export interface VscodeTestHelpers extends TestHelpers {
 
   runIntegrationTests(): Promise<void>;
 
-  cursorlessTalonStateJsonPath: string;
   cursorlessCommandHistoryDirPath: string;
 
   /**

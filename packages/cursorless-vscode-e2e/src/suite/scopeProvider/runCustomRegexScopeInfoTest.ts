@@ -1,7 +1,10 @@
-import type { ScopeSupportInfo, ScopeType } from "@cursorless/common";
+import type {
+  ScopeSupportInfo,
+  ScopeType,
+  SpokenFormEntry,
+} from "@cursorless/common";
 import { ScopeSupport, sleep } from "@cursorless/common";
 import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
-import { stat, unlink, writeFile } from "fs/promises";
 import * as sinon from "sinon";
 import { commands } from "vscode";
 import {
@@ -14,9 +17,8 @@ import {
  * custom regex scopes.
  */
 export async function runCustomRegexScopeInfoTest() {
-  const { scopeProvider, cursorlessTalonStateJsonPath } = (
-    await getCursorlessApi()
-  ).testHelpers!;
+  const { scopeProvider, talonSpokenForms } = (await getCursorlessApi())
+    .testHelpers!;
   const fake = sinon.fake<[scopeInfos: ScopeSupportInfo[]], void>();
 
   await commands.executeCommand("workbench.action.closeAllEditors");
@@ -26,30 +28,17 @@ export async function runCustomRegexScopeInfoTest() {
   try {
     await assertCalledWithoutScopeInfo(fake, scopeType);
 
-    await writeFile(
-      cursorlessTalonStateJsonPath,
-      JSON.stringify(spokenFormJsonContents),
-    );
+    talonSpokenForms.mockSpokenFormEntries(spokenFormEntries);
     await assertCalledWithScopeInfo(fake, unsupported);
 
     await openNewEditor(contents);
+    await sleep(10);
     await assertCalledWithScopeInfo(fake, present);
 
-    await unlink(cursorlessTalonStateJsonPath);
+    talonSpokenForms.mockSpokenFormEntries(null);
     await assertCalledWithoutScopeInfo(fake, scopeType);
   } finally {
     disposable.dispose();
-
-    // Delete cursorlessTalonStateJsonPath if it exists
-    try {
-      await stat(cursorlessTalonStateJsonPath);
-      await unlink(cursorlessTalonStateJsonPath);
-      // Sleep to ensure that the scope support provider has time to update
-      // before the next test starts
-      await sleep(250);
-    } catch (e) {
-      // Do nothing
-    }
   }
 }
 
@@ -59,17 +48,13 @@ hello world
 
 const regex = "[a-zA-Z]+";
 
-const spokenFormJsonContents = {
-  version: 0,
-  spokenForms: [
-    {
-      type: "customRegex",
-      id: regex,
-      spokenForms: ["spaghetti"],
-    },
-  ],
-};
-
+const spokenFormEntries: SpokenFormEntry[] = [
+  {
+    type: "customRegex",
+    id: regex,
+    spokenForms: ["spaghetti"],
+  },
+];
 const scopeType: ScopeType = {
   type: "customRegex",
   regex,
