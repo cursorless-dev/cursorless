@@ -274,6 +274,23 @@ The `"block"` modifier expands to above and below the target to select lines unt
 - `"take block"`
 - `"take block <TARGET>"`
 
+##### `"short block"`
+
+The `"short block"` scope is like `"block"`, but stops not only at empty lines but also stops if it would exit the nearest [surrounding pair](#surrounding-pair).
+For example, given the text...
+
+```
+{
+  aaa
+  {
+    bbb
+    ccc
+  }
+}
+```
+
+`"take short block bat"` would select the two lines with `bbb` and `ccc`. See [short paint](#short-paint) for a more detailed walkthrough of a scope not exiting surrounding pairs.
+
 ##### `"file"`
 
 The word '`"file"` can be used to expand the target to refer to the entire file.
