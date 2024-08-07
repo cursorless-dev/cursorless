@@ -108,9 +108,18 @@ export class Actions implements ActionRecord {
     this.rangeUpdater,
     this.modifierStageFactory,
   );
-  insertEmptyLineAfter = new InsertEmptyLineAfter(this.rangeUpdater);
-  insertEmptyLineBefore = new InsertEmptyLineBefore(this.rangeUpdater);
-  insertEmptyLinesAround = new InsertEmptyLinesAround(this.rangeUpdater);
+  insertEmptyLineAfter = new InsertEmptyLineAfter(
+    this.rangeUpdater,
+    this.modifierStageFactory,
+  );
+  insertEmptyLineBefore = new InsertEmptyLineBefore(
+    this.rangeUpdater,
+    this.modifierStageFactory,
+  );
+  insertEmptyLinesAround = new InsertEmptyLinesAround(
+    this.rangeUpdater,
+    this.modifierStageFactory,
+  );
   insertSnippet = new InsertSnippet(
     this.rangeUpdater,
     this.snippets,
