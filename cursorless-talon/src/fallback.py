@@ -91,6 +91,9 @@ def get_modifier_callback(modifier: dict) -> Callable:
         case "containingScope":
             scope_type_type = modifier["scopeType"]["type"]
             return get_simple_modifier_callback(f"{modifier_type}.{scope_type_type}")
+        case "preferredScope":
+            scope_type_type = modifier["scopeType"]["type"]
+            return get_simple_modifier_callback(f"containingScope.{scope_type_type}")
         case "extendThroughStartOf":
             if "modifiers" not in modifier:
                 return get_simple_modifier_callback(f"{modifier_type}.line")
