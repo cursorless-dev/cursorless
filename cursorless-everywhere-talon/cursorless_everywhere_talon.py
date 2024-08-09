@@ -2,6 +2,7 @@ from typing import Any, TypedDict
 
 from talon import Context, Module, actions
 
+import json
 
 class SelectionOffsets(TypedDict):
     anchor: int
@@ -66,7 +67,9 @@ class Actions:
     def private_cursorless_talonjs_get_response() -> Any:
         """Returns the response from the last Cursorless command"""
 
+
 ctx = Context()
+
 
 @ctx.action_class("user")
 class Actions:
@@ -90,5 +93,4 @@ class Actions:
         arg2: Any = None,
     ) -> Any:
         actions.user.private_cursorless_talonjs_run_and_wait(command_id, arg1, arg2)
-        # TODO: convert to Python object
-        return actions.user.private_cursorless_talonjs_get_response()
+        return json.loads(actions.user.private_cursorless_talonjs_get_response())
