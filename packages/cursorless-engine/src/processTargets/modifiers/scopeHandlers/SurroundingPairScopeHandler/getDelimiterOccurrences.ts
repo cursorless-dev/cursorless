@@ -1,7 +1,7 @@
 import { matchAll, Range, type TextDocument } from "@cursorless/common";
 import type { LanguageDefinition } from "../../../../languages/LanguageDefinition";
 import { getDelimiterRegex } from "./getDelimiterRegex";
-import type { DelimiterOccurrence, IndividualDelimiter } from "./types";
+import type { DelimiterOccurrence } from "./types";
 
 /**
  * Finds all occurrences of delimiters of a particular kind in a document.
@@ -11,11 +11,11 @@ import type { DelimiterOccurrence, IndividualDelimiter } from "./types";
  * @param individualDelimiters A list of individual delimiters to search for
  * @returns A list of occurrences of the delimiters
  */
-export function getDelimiterOccurrences(
+export function getDelimiterOccurrences<T extends { text: string }>(
   languageDefinition: LanguageDefinition | undefined,
   document: TextDocument,
-  individualDelimiters: IndividualDelimiter[],
-): DelimiterOccurrence[] {
+  individualDelimiters: T[],
+): DelimiterOccurrence<T>[] {
   if (individualDelimiters.length === 0) {
     return [];
   }
@@ -36,7 +36,7 @@ export function getDelimiterOccurrences(
 
   const text = document.getText();
 
-  return matchAll(text, delimiterRegex, (match): DelimiterOccurrence => {
+  return matchAll(text, delimiterRegex, (match): DelimiterOccurrence<T> => {
     const text = match[0];
     const range = new Range(
       document.positionAt(match.index!),
