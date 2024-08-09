@@ -1,8 +1,8 @@
+import json
 from typing import Any, TypedDict
 
 from talon import Context, Module, actions
 
-import json
 
 class SelectionOffsets(TypedDict):
     anchor: int
@@ -72,7 +72,7 @@ ctx = Context()
 
 
 @ctx.action_class("user")
-class Actions:
+class UserActions:
     def private_cursorless_run_rpc_command_and_wait(
         command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
         arg1: Any = None,
