@@ -78,7 +78,7 @@ async function runAction(action: ActionDescriptor) {
       "cursorless.command",
       command,
     );
-  return talonMock
+  talonMock
     .getTestHelpers()
     .contextActions.private_cursorless_talonjs_get_response();
 }

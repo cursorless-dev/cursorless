@@ -53,10 +53,10 @@ export interface TalonContextActions {
    * but it does wait for them, so we store the response in a global variable and let it be
    * read by this action.
    *
-   * @returns The most recent response from an RPC command, or null if no
+   * @returns The most recent response from an RPC command (JSON stringified), or null if no
    *          command has been executed yet.
    */
-  private_cursorless_talonjs_get_response(): unknown;
+  private_cursorless_talonjs_get_response(): string;
 }
 
 export interface TalonContext {

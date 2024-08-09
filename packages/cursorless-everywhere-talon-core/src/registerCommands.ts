@@ -29,7 +29,7 @@ export function registerCommands(
       lastCommandResponse = null;
     },
 
-    private_cursorless_talonjs_get_response(): unknown {
+    private_cursorless_talonjs_get_response(): string {
       // Talon JS doesn't convert JS objects to Python objects, and also doesn't provide
       // a way to inspect types, so just serialize the response to JSON
       return JSON.stringify(lastCommandResponse);
