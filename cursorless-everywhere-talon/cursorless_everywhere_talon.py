@@ -1,6 +1,6 @@
 from typing import Any, TypedDict
 
-from talon import Module
+from talon import Context, Module, actions
 
 
 class SelectionOffsets(TypedDict):
@@ -49,5 +49,46 @@ class Actions:
     ):
         """Edit focused element text"""
 
+    def private_cursorless_talonjs_run_and_wait(
+        command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
+        arg1: Any = None,
+        arg2: Any = None,
+    ):
+        """Executes a Cursorless command, waits for its completion, but does not return the response"""
+
+    def private_cursorless_talonjs_run_no_wait(
+        command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
+        arg1: Any = None,
+        arg2: Any = None,
+    ):
+        """Executes a Cursorless command, but does not wait for it to finish, nor return the response"""
+
     def private_cursorless_talonjs_get_response() -> Any:
-        """Returns the response from the last Cursorless RPC command"""
+        """Returns the response from the last Cursorless command"""
+
+ctx = Context()
+
+@ctx.action_class("user")
+class Actions:
+    def private_cursorless_run_rpc_command_and_wait(
+        command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
+        arg1: Any = None,
+        arg2: Any = None,
+    ):
+        actions.user.private_cursorless_talonjs_run_and_wait(command_id, arg1, arg2)
+
+    def private_cursorless_run_rpc_command_no_wait(
+        command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
+        arg1: Any = None,
+        arg2: Any = None,
+    ):
+        actions.user.private_cursorless_talonjs_run_no_wait(command_id, arg1, arg2)
+
+    def private_cursorless_run_rpc_command_get(
+        command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
+        arg1: Any = None,
+        arg2: Any = None,
+    ) -> Any:
+        actions.user.private_cursorless_talonjs_run_and_wait(command_id, arg1, arg2)
+        # TODO: convert to Python object
+        return actions.user.private_cursorless_talonjs_get_response()
