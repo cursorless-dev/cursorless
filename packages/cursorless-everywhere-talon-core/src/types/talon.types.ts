@@ -21,14 +21,41 @@ export interface TalonActions {
 }
 
 export interface TalonContextActions {
-  private_cursorless_run_rpc_command_no_wait(
+  /**
+   * Executes an RPC command and waits for the result.
+   * This function is useful when the result of the command is needed
+   * immediately after execution.
+   *
+   * @param commandId - The identifier of the command to be executed.
+   * @param command - The command object containing necessary parameters.
+   * @returns A Promise that resolves with the result of the command execution.
+   */
+  private_cursorless_talonjs_run_and_wait(
+    commandId: string,
+    command: unknown,
+  ): Promise<void>;
+  /**
+   * Executes an RPC command without waiting for the result.
+   * This function is useful for fire-and-forget operations where
+   * the result is not immediately needed.
+   *
+   * @param commandId - The identifier of the command to be executed.
+   * @param command - The command object containing necessary parameters.
+   */
+  private_cursorless_talonjs_run_no_wait(
     commandId: string,
     command: unknown,
   ): void;
-  private_cursorless_run_rpc_command_get(
-    commandId: string,
-    command: unknown,
-  ): Promise<unknown>;
+  /**
+   * Retrieves the response json from the last RPC command execution.
+   *
+   * This is useful because TalonJS doesn't have a way to read the responses from promises,
+   * but it does wait for them, so we store the response in a global variable and let it be
+   * read by this action.
+   *
+   * @returns The most recent response from an RPC command (JSON stringified).
+   */
+  private_cursorless_talonjs_get_response_json(): string;
 }
 
 export interface TalonContext {
