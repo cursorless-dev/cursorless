@@ -17,7 +17,7 @@ async function runTests() {
   std.exit(hasFailed ? 1 : 0);
 }
 
-async function testTake() {
+function testTake() {
   const testHelpers = talonMock.getTestHelpers();
   const initialText = "Hello, world!";
 
@@ -26,7 +26,7 @@ async function testTake() {
     selections: [{ anchor: 0, active: 0 }],
   });
 
-  await runAction({
+  return runAction({
     name: "setSelection",
     target: {
       type: "primitive",
