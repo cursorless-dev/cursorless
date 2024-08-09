@@ -36,4 +36,4 @@ ide:
     - style: justAdded
       range: {type: line, start: 1, end: 1}
     - style: justAdded
-      range: {type: line, start: 2, end: 2}
+      range: {type: line, start: 3, end: 3}
