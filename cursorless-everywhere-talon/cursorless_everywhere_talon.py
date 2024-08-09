@@ -69,5 +69,5 @@ class Actions:
     ):
         """Executes a Cursorless command, but does not wait for it to finish, nor return the response"""
 
-    def private_cursorless_talonjs_get_response_json() -> Any:
+    def private_cursorless_talonjs_get_response_json() -> str:
         """Returns the response from the last Cursorless command"""
