@@ -2,6 +2,7 @@ import type {
   ExcludableSnapshotField,
   ExtraSnapshotField,
   FakeCommandServerApi,
+  FakeTalonSpokenForms,
   HatTokenMap,
   IDE,
   NormalizedIDE,
@@ -25,6 +26,7 @@ import type { VscodeTutorial } from "./VscodeTutorial";
 
 export function constructTestHelpers(
   commandServerApi: FakeCommandServerApi,
+  talonSpokenForms: FakeTalonSpokenForms,
   storedTargets: StoredTargetMap,
   hatTokenMap: HatTokenMap,
   vscodeIDE: VscodeIDE,
@@ -36,7 +38,8 @@ export function constructTestHelpers(
   vscodeTutorial: VscodeTutorial,
 ): VscodeTestHelpers | undefined {
   return {
-    commandServerApi: commandServerApi!,
+    commandServerApi,
+    talonSpokenForms,
     ide: normalizedIde,
     injectIde,
     scopeProvider,
@@ -67,7 +70,6 @@ export function constructTestHelpers(
       );
     },
 
-    cursorlessTalonStateJsonPath: fileSystem.cursorlessTalonStateJsonPath,
     cursorlessCommandHistoryDirPath: fileSystem.cursorlessCommandHistoryDirPath,
 
     setStoredTarget(

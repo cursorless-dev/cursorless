@@ -1,17 +1,14 @@
+import type { ScopeTypeInfo, SpokenFormEntry } from "@cursorless/common";
 import { getCursorlessApi } from "@cursorless/vscode-common";
-import type { ScopeTypeInfo } from "@cursorless/common";
-import { sleep } from "@cursorless/common";
 import * as sinon from "sinon";
 import { assertCalledWithScopeInfo } from "./assertCalledWithScopeInfo";
-import { stat, unlink, writeFile } from "fs/promises";
 
 /**
  * Tests that the scope provider correctly reports custom spoken forms
  */
 export async function runCustomSpokenFormScopeInfoTest() {
-  const { scopeProvider, cursorlessTalonStateJsonPath } = (
-    await getCursorlessApi()
-  ).testHelpers!;
+  const { scopeProvider, talonSpokenForms } = (await getCursorlessApi())
+    .testHelpers!;
   const fake = sinon.fake<[scopeInfos: ScopeTypeInfo[]], void>();
 
   const disposable = scopeProvider.onDidChangeScopeInfo(fake);
@@ -27,10 +24,7 @@ export async function runCustomSpokenFormScopeInfoTest() {
       subjectStandard,
     );
 
-    await writeFile(
-      cursorlessTalonStateJsonPath,
-      JSON.stringify(spokenFormJsonContents),
-    );
+    talonSpokenForms.mockSpokenFormEntries(spokenFormEntries);
     await assertCalledWithScopeInfo(
       fake,
       subjectCustom,
@@ -41,7 +35,7 @@ export async function runCustomSpokenFormScopeInfoTest() {
       squareMissing,
     );
 
-    await unlink(cursorlessTalonStateJsonPath);
+    talonSpokenForms.mockSpokenFormEntries(null);
     await assertCalledWithScopeInfo(
       fake,
       roundStandard,
@@ -53,45 +47,31 @@ export async function runCustomSpokenFormScopeInfoTest() {
     );
   } finally {
     disposable.dispose();
-
-    // Delete cursorlessTalonStateJsonPath if it exists
-    try {
-      await stat(cursorlessTalonStateJsonPath);
-      await unlink(cursorlessTalonStateJsonPath);
-      // Sleep to ensure that the scope support provider has time to update
-      // before the next test starts
-      await sleep(250);
-    } catch (e) {
-      // Do nothing
-    }
   }
 }
 
-const spokenFormJsonContents = {
-  version: 0,
-  spokenForms: [
-    {
-      type: "pairedDelimiter",
-      id: "parentheses",
-      spokenForms: ["custom round", "alternate custom round"],
-    },
-    {
-      type: "simpleScopeTypeType",
-      id: "private.switchStatementSubject",
-      spokenForms: ["custom subject"],
-    },
-    {
-      type: "simpleScopeTypeType",
-      id: "namedFunction",
-      spokenForms: ["custom funk"],
-    },
-    {
-      type: "simpleScopeTypeType",
-      id: "anonymousFunction",
-      spokenForms: [],
-    },
-  ],
-};
+const spokenFormEntries: SpokenFormEntry[] = [
+  {
+    type: "pairedDelimiter",
+    id: "parentheses",
+    spokenForms: ["custom round", "alternate custom round"],
+  },
+  {
+    type: "simpleScopeTypeType",
+    id: "private.switchStatementSubject",
+    spokenForms: ["custom subject"],
+  },
+  {
+    type: "simpleScopeTypeType",
+    id: "namedFunction",
+    spokenForms: ["custom funk"],
+  },
+  {
+    type: "simpleScopeTypeType",
+    id: "anonymousFunction",
+    spokenForms: [],
+  },
+];
 
 const subjectStandard: ScopeTypeInfo = {
   humanReadableName: "private switch statement subject",
