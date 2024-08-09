@@ -49,6 +49,7 @@ export abstract class BaseTarget<
   isImplicit = false;
   isNotebookCell = false;
   isWord = false;
+  joinAsLine = true;
 
   constructor(parameters: TParameters & CommonTargetParameters) {
     this.state = {

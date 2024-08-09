@@ -117,7 +117,7 @@ export class Actions implements ActionRecord {
     this,
     this.modifierStageFactory,
   );
-  joinLines = new JoinLines(this.rangeUpdater);
+  joinLines = new JoinLines(this.rangeUpdater, this.modifierStageFactory);
   breakLine = new BreakLine(this.rangeUpdater);
   moveToTarget = new Move(this.rangeUpdater);
   outdentLine = new OutdentLine(this.rangeUpdater);

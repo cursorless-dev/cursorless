@@ -54,6 +54,9 @@ export interface Target {
   /** If true this target should be treated as a word */
   readonly isWord: boolean;
 
+  /** If true this target should be treated as a line when using the join action */
+  readonly joinAsLine: boolean;
+
   /**
    * If `true`, then this target has an explicit scope type, and so should never
    * be automatically expanded to a containing scope.

@@ -11,6 +11,7 @@ import {
 export class TokenTarget extends BaseTarget<CommonTargetParameters> {
   type = "TokenTarget";
   insertionDelimiter = " ";
+  joinAsLine = false;
 
   getLeadingDelimiterTarget(): Target | undefined {
     return getTokenLeadingDelimiterTarget(this);
