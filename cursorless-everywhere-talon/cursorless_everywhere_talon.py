@@ -1,4 +1,4 @@
-from typing import TypedDict
+from typing import Any, TypedDict
 
 from talon import Module
 
@@ -48,3 +48,6 @@ class Actions:
         edit: EditorEdit,  # pyright: ignore [reportGeneralTypeIssues]
     ):
         """Edit focused element text"""
+
+    def private_cursorless_talonjs_get_response() -> Any:
+        """Returns the response from the last Cursorless RPC command"""

@@ -25,6 +25,7 @@ export interface TalonContextActions {
     commandId: string,
     command: unknown,
   ): void;
+  private_cursorless_talonjs_get_response(): unknown;
   private_cursorless_run_rpc_command_get(
     commandId: string,
     command: unknown,
