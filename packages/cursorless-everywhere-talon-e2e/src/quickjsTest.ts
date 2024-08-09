@@ -66,21 +66,18 @@ async function testChuck() {
   assert.equal(selections[0].active, 0);
 }
 
-async function runAction(action: ActionDescriptor) {
+function runAction(action: ActionDescriptor) {
   const command: CommandLatest = {
     version: 7,
     usePrePhraseSnapshot: false,
     action,
   };
-  await talonMock
+  return talonMock
     .getTestHelpers()
     .contextActions.private_cursorless_talonjs_run_and_wait(
       "cursorless.command",
       command,
     );
-  talonMock
-    .getTestHelpers()
-    .contextActions.private_cursorless_talonjs_get_response();
 }
 
 const assert = {

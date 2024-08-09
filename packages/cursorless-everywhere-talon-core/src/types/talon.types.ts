@@ -47,7 +47,7 @@ export interface TalonContextActions {
     command: unknown,
   ): void;
   /**
-   * Retrieves the response from the last RPC command execution.
+   * Retrieves the response json from the last RPC command execution.
    *
    * This is useful because TalonJS doesn't have a way to read the responses from promises,
    * but it does wait for them, so we store the response in a global variable and let it be
@@ -56,7 +56,7 @@ export interface TalonContextActions {
    * @returns The most recent response from an RPC command (JSON stringified), or null if no
    *          command has been executed yet.
    */
-  private_cursorless_talonjs_get_response(): string;
+  private_cursorless_talonjs_get_response_json(): string;
 }
 
 export interface TalonContext {
