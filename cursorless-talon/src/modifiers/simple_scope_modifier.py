@@ -1,6 +1,6 @@
 from typing import Any
 
-from talon import Module
+from talon import Module, settings
 
 mod = Module()
 
@@ -11,6 +11,13 @@ mod.list(
 mod.list(
     "cursorless_ancestor_scope_modifier",
     desc="Cursorless ancestor scope modifiers",
+)
+
+# This is a private setting and should not be used by non Cursorless developers
+mod.setting(
+    "private_cursorless_use_preferred_scope",
+    bool,
+    desc="Use preferred scope instead of containing scope for all scopes by default (EXPERIMENTAL)",
 )
 
 
@@ -33,6 +40,12 @@ def cursorless_simple_scope_modifier(m) -> dict[str, Any]:
             "type": "containingScope",
             "scopeType": m.cursorless_scope_type,
             "ancestorIndex": 1,
+        }
+
+    if settings.get("user.private_cursorless_use_preferred_scope", False):
+        return {
+            "type": "preferredScope",
+            "scopeType": m.cursorless_scope_type,
         }
 
     return {

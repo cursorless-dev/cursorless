@@ -74,7 +74,7 @@ function runAction(action: ActionDescriptor) {
   };
   return talonMock
     .getTestHelpers()
-    .contextActions.private_cursorless_run_rpc_command_get(
+    .contextActions.private_cursorless_talonjs_run_and_wait(
       "cursorless.command",
       command,
     );

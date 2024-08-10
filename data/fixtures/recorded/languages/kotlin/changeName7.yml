@@ -1,0 +1,23 @@
+languageId: kotlin
+command:
+  version: 7
+  spokenForm: change name
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "fun main() {\n    for (i: Int in 1..10) {\n    \tprintln(i)\n    }\n}"
+  selections:
+    - anchor: {line: 2, character: 15}
+      active: {line: 2, character: 15}
+  marks: {}
+finalState:
+  documentContents: "fun main() {\n    for (: Int in 1..10) {\n    \tprintln(i)\n    }\n}"
+  selections:
+    - anchor: {line: 1, character: 9}
+      active: {line: 1, character: 9}

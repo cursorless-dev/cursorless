@@ -222,6 +222,7 @@ export interface SimpleScopeType {
 export interface CustomRegexScopeType {
   type: "customRegex";
   regex: string;
+  flags?: string;
 }
 
 export type SurroundingPairDirection = "left" | "right";
@@ -299,6 +300,11 @@ export interface ContainingScopeModifier {
   type: "containingScope";
   scopeType: ScopeType;
   ancestorIndex?: number;
+}
+
+export interface PreferredScopeModifier {
+  type: "preferredScope";
+  scopeType: ScopeType;
 }
 
 export interface EveryScopeModifier {
@@ -446,6 +452,7 @@ export type Modifier =
   | ExcludeInteriorModifier
   | VisibleModifier
   | ContainingScopeModifier
+  | PreferredScopeModifier
   | EveryScopeModifier
   | OrdinalScopeModifier
   | RelativeScopeModifier
