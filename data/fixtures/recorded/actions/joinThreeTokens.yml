@@ -1,0 +1,37 @@
+languageId: plaintext
+command:
+  version: 7
+  spokenForm: join three tokens
+  action:
+    name: joinLines
+    target:
+      type: primitive
+      modifiers:
+        - type: relativeScope
+          scopeType: {type: token}
+          offset: 0
+          length: 3
+          direction: forward
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    aa bb cc
+    dd ee ff
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |-
+    aabbcc
+    dd ee ff
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 6}
+      isReversed: false
+      hasExplicitRange: true
