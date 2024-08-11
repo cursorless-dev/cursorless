@@ -21,6 +21,7 @@ interface EditWithFlashType extends EditWithRangeType {
   isLine: boolean;
 }
 
+/** NB: this now also inserts insertion delimiters where appropriate, not just empty lines */
 abstract class InsertEmptyLines implements SimpleAction {
   getFinalStages(): ModifierStage[] {
     return [this.modifierStageFactory.create(containingLineIfUntypedModifier)];
