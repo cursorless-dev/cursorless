@@ -60,9 +60,10 @@ function getEdits(editor: TextEditor, targets: Target[]): Edit[] {
   const edits: Edit[] = [];
 
   for (const target of targets) {
-    const targetsEdits = target.joinAsLine
-      ? getLineTargetEditEdits(target)
-      : getTokenTargetEditEdits(target);
+    const targetsEdits =
+      target.joinAs === "line"
+        ? getLineTargetEdits(target)
+        : getTokenTargetEdits(target);
 
     edits.push(...targetsEdits);
   }
@@ -70,7 +71,7 @@ function getEdits(editor: TextEditor, targets: Target[]): Edit[] {
   return edits;
 }
 
-function getTokenTargetEditEdits(target: Target): Edit[] {
+function getTokenTargetEdits(target: Target): Edit[] {
   const { editor, contentRange } = target;
   const regex = getMatcher(editor.document.languageId).tokenMatcher;
   const matches = generateMatchesInRange(
@@ -89,7 +90,7 @@ function getTokenTargetEditEdits(target: Target): Edit[] {
   );
 }
 
-function getLineTargetEditEdits(target: Target): Edit[] {
+function getLineTargetEdits(target: Target): Edit[] {
   const { document } = target.editor;
   const range = target.contentRange;
   const startLine = range.start.line;

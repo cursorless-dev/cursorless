@@ -1,15 +1,19 @@
 import type {
   EnforceUndefined,
   InsertionMode,
-  TargetPlainObject,
   Range,
   Selection,
+  TargetPlainObject,
   TextEditor,
 } from "@cursorless/common";
 import { rangeToPlainObject } from "@cursorless/common";
 import { isEqual } from "lodash-es";
 import type { EditWithRangeUpdater } from "../../typings/Types";
-import type { Destination, Target } from "../../typings/target.types";
+import type {
+  Destination,
+  JoinAsType,
+  Target,
+} from "../../typings/target.types";
 import { DestinationImpl } from "./DestinationImpl";
 import { createContinuousRange } from "./util/createContinuousRange";
 
@@ -49,7 +53,7 @@ export abstract class BaseTarget<
   isImplicit = false;
   isNotebookCell = false;
   isWord = false;
-  joinAsLine = true;
+  joinAs: JoinAsType = "line";
 
   constructor(parameters: TParameters & CommonTargetParameters) {
     this.state = {
