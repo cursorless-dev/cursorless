@@ -3,4 +3,4 @@ tags: [enhancement]
 pullRequest: 2652
 ---
 
-If no scope is specified for head/tail instead of defaulting to just line we now use the smallest of line or surrounding pair interior. This means that "take head" would be bounded by the surrounding pair just like "short paint". If there is no surrounding pair the line is used just like today. You can also override this behavior by specifying line. "take head line" would always use the line regardless if you are in a surrounding pair or not.
+If you're inside of a surrounding pair, the "head" and "tail" modifiers now only expand to the interior of that pair, instead of the whole line. This is more useful, akin to how "short paint" works. You can explicitly say "head line" or "tail line" to get the old behavior.
