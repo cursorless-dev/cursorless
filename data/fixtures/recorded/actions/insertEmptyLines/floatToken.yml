@@ -1,22 +1,23 @@
 languageId: plaintext
 command:
-  version: 6
-  spokenForm: float this
+  version: 7
+  spokenForm: float token
   action:
     name: insertEmptyLineAfter
     target:
       type: primitive
-      mark: {type: cursor}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: token}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: ""
+  documentContents: foo
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: |+
-
+  documentContents: "foo "
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -24,10 +25,6 @@ finalState:
     - type: UntypedTarget
       contentRange:
         start: {line: 0, character: 0}
-        end: {line: 0, character: 0}
+        end: {line: 0, character: 3}
       isReversed: false
       hasExplicitRange: true
-ide:
-  flashes:
-    - style: justAdded
-      range: {type: line, start: 1, end: 1}

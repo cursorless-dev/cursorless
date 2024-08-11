@@ -220,5 +220,8 @@ export interface Destination {
   withTarget(target: Target): Destination;
   getEditNewActionType(): EditNewActionType;
   /** Constructs change/insertion edit. Adds delimiter before/after if needed */
-  constructChangeEdit(text: string): EditWithRangeUpdater;
+  constructChangeEdit(
+    text: string,
+    skipIndentation?: boolean,
+  ): EditWithRangeUpdater;
 }
