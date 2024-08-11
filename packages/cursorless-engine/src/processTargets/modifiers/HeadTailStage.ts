@@ -1,4 +1,4 @@
-import type { HeadModifier, TailModifier } from "@cursorless/common";
+import type { HeadModifier, Modifier, TailModifier } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
@@ -15,10 +15,21 @@ export class HeadTailStage implements ModifierStage {
   ) {}
 
   run(target: Target): Target[] {
-    const modifiers = this.modifier.modifiers ?? [
+    const modifiers: Modifier[] = this.modifier.modifiers ?? [
       {
         type: "containingScope",
-        scopeType: { type: "line" },
+        scopeType: {
+          type: "oneOf",
+          scopeTypes: [
+            {
+              type: "line",
+            },
+            {
+              type: "surroundingPairInterior",
+              delimiter: "any",
+            },
+          ],
+        },
       },
     ];
 
