@@ -3,4 +3,4 @@ tags: [enhancement]
 pullRequest: 2651
 ---
 
-Added the ability to remove whitespaces with join token. `"join two tokens air"` will remove the whitespace between the tokens instead of joining together two lines.
+`join token` now behaves as expected. `"join two tokens air"` will now remove the whitespace between the tokens; previously, it simply joined together their lines, which was usually not expected.
