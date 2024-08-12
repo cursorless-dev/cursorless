@@ -5,7 +5,7 @@ node_modules
 .vscode-test/
 *.vsix
 /package-lock.json
-*.DS_Store
+.DS_Store
 meta.json
 .luacheckcache
 
