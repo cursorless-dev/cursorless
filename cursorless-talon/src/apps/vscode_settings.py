@@ -67,6 +67,11 @@ class Actions:
 
 def pick_path(paths: list[Path]) -> Path:
     existing_paths = [path for path in paths if path.exists()]
+    if not existing_paths:
+        paths_str = ", ".join(str(path) for path in paths)
+        raise FileNotFoundError(
+            f"Couldn't find VSCode's settings JSON. Tried these paths: {paths_str}"
+        )
     return max(existing_paths, key=lambda path: path.stat().st_mtime)
 
 
