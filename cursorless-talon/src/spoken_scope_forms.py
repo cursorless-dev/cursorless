@@ -12,9 +12,9 @@ def init_scope_spoken_forms(graphemes_talon_list: dict[str, str]):
 def create_flattened_talon_list(ctx: Context, graphemes_talon_list: dict[str, str]):
     lists_to_merge = {
         "cursorless_scope_type": "simple",
-        "cursorless_surrounding_pair_scope_type": "surroundingPair",
         "cursorless_selectable_only_paired_delimiter": "surroundingPair",
         "cursorless_wrapper_selectable_paired_delimiter": "surroundingPair",
+        "cursorless_surrounding_pair_scope_type": "surroundingPair",
     }
     # If the user have no custom regex scope type, then that list is missing from the context
     if "user.cursorless_custom_regex_scope_type" in ctx.lists.keys():  # noqa: SIM118
