@@ -1,0 +1,28 @@
+languageId: python
+command:
+  version: 7
+  spokenForm: change tail
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: extendThroughEndOf}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    """foo
+    bar
+    """
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+  marks: {}
+finalState:
+  documentContents: |-
+    """
+    bar
+    """
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}

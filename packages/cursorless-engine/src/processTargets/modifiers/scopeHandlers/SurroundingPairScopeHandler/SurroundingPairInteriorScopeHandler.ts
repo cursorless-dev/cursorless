@@ -5,7 +5,6 @@ import type { TargetScope } from "../scope.types";
 import type { ScopeIteratorRequirements } from "../scopeHandler.types";
 import { type ScopeHandler } from "../scopeHandler.types";
 import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
-import { map } from "itertools";
 
 export class SurroundingPairInteriorScopeHandler extends BaseScopeHandler {
   protected isHierarchical = true;
@@ -32,28 +31,31 @@ export class SurroundingPairInteriorScopeHandler extends BaseScopeHandler {
     return this.surroundingPairScopeHandler.iterationScopeType;
   }
 
-  generateScopeCandidates(
+  *generateScopeCandidates(
     editor: TextEditor,
     position: Position,
     direction: Direction,
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
-    return map(
-      this.surroundingPairScopeHandler.generateScopes(
-        editor,
-        position,
-        direction,
-        hints,
-      ),
-      (scope) => ({
-        editor,
-        domain: scope.domain,
-        getTargets(isReversed) {
-          return scope
-            .getTargets(isReversed)
-            .flatMap((target) => target.getInterior()!);
-        },
-      }),
+    const scopes = this.surroundingPairScopeHandler.generateScopes(
+      editor,
+      position,
+      direction,
+      hints,
     );
+
+    for (const scope of scopes) {
+      if (!this.scopeType.requireSingleLine || scope.domain.isSingleLine) {
+        yield {
+          editor,
+          domain: scope.domain,
+          getTargets(isReversed) {
+            return scope
+              .getTargets(isReversed)
+              .flatMap((target) => target.getInterior()!);
+          },
+        };
+      }
+    }
   }
 }

@@ -27,6 +27,7 @@ export class HeadTailStage implements ModifierStage {
             {
               type: "surroundingPairInterior",
               delimiter: "any",
+              requireSingleLine: true,
             },
           ],
         },
