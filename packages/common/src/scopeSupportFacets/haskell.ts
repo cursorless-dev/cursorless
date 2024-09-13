@@ -23,10 +23,10 @@ export const haskellScopeSupport: LanguageScopeSupportFacetMap = {
   // "class.instance": unsupported,
   className: unsupported,
 
-  namedFunction: supported,
+  namedFunction: unsupported,
   "namedFunction.method": unsupported,
   anonymousFunction: unsupported,
-  functionName: supported,
+  functionName: unsupported,
 
   functionCall: unsupported,
   "functionCall.constructor": unsupported,
@@ -35,16 +35,16 @@ export const haskellScopeSupport: LanguageScopeSupportFacetMap = {
 
   "argument.actual": unsupported,
   "argument.actual.iteration": unsupported,
-  "argument.formal": supported,
-  "argument.formal.iteration": supported,
+  "argument.formal": unsupported,
+  "argument.formal.iteration": unsupported,
 
   "comment.line": unsupported,
   "comment.block": unsupported,
 
   "string.singleLine": unsupported,
 
-  "branch.match": supported,
-  "branch.match.iteration": supported,
+  "branch.match": unsupported,
+  "branch.match.iteration": unsupported,
   "branch.if": unsupported,
   "branch.if.iteration": unsupported,
   "branch.ternary": unsupported,
@@ -54,7 +54,7 @@ export const haskellScopeSupport: LanguageScopeSupportFacetMap = {
 
   "name.assignment": unsupported,
   "name.assignment.pattern": unsupported,
-  "name.function": supported,
+  "name.function": unsupported,
   "name.class": unsupported,
   "name.field": unsupported,
 
@@ -77,7 +77,7 @@ export const haskellScopeSupport: LanguageScopeSupportFacetMap = {
   // "type.field": unsupported,
   // "type.foreignExport": unsupported,
   // "type.foreignImport": unsupported,
-  "type.formalParameter": unsupported,
+  // "type.formalParameter": unsupported,
   // "type.function": unsupported,
   // "type.gadt": unsupported,
   // "type.newtype": unsupported,
