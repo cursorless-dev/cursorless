@@ -34,14 +34,20 @@ export interface IndividualDelimiter {
   text: string;
 }
 
+export interface IndividualSeparator {
+  side: "separator";
+
+  text: string;
+}
+
 /**
  * A occurrence of a surrounding pair delimiter in the document
  */
-export interface DelimiterOccurrence {
+export interface DelimiterOccurrence<T extends { text: string }> {
   /**
    * Information about the delimiter itself
    */
-  delimiterInfo: IndividualDelimiter;
+  delimiterInfo: T;
 
   /**
    * The range of the delimiter in the document
@@ -67,6 +73,14 @@ export interface DelimiterOccurrence {
  */
 export interface SurroundingPairOccurrence {
   delimiterName: SimpleSurroundingPairName;
+  openingDelimiterRange: Range;
+  closingDelimiterRange: Range;
+}
+
+/**
+ * A occurrence of a surrounding pair (both delimiters) in the document
+ */
+export interface CollectionItemOccurrence {
   openingDelimiterRange: Range;
   closingDelimiterRange: Range;
 }
