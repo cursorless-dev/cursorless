@@ -5,6 +5,7 @@ import { cppScopeSupport } from "./cpp";
 import { csharpScopeSupport } from "./csharp";
 import { cssScopeSupport } from "./css";
 import { goScopeSupport } from "./go";
+import { haskellScopeSupport } from "./haskell";
 import { htmlScopeSupport } from "./html";
 import { javaScopeSupport } from "./java";
 import { javascriptScopeSupport } from "./javascript";
@@ -36,6 +37,7 @@ export const languageScopeSupport: StringRecord<LanguageScopeSupportFacetMap> =
     csharp: csharpScopeSupport,
     css: cssScopeSupport,
     go: goScopeSupport,
+    haskell: haskellScopeSupport,
     html: htmlScopeSupport,
     java: javaScopeSupport,
     javascript: javascriptScopeSupport,
