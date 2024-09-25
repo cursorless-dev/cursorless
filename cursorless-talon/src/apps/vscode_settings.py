@@ -99,6 +99,7 @@ class LinuxUserActions:
                 xdg_config_home / "Code/User/settings.json",
                 xdg_config_home / "VSCodium/User/settings.json",
                 xdg_config_home / "Code - OSS/User/settings.json",
+                xdg_config_home / "Cursor/User/settings.json",
                 flatpak_apps / "com.visualstudio.code/config/Code/User/settings.json",
                 flatpak_apps / "com.vscodium.codium/config/VSCodium/User/settings.json",
                 flatpak_apps
