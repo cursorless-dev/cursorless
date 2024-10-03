@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ShikiComponent } from "./components/component-shiki";
+import { ShikiComponent } from "./components/shikiComponent";
 import "./shiki.css";
 import "./styles.css";
 import type { TestCaseFixture } from "@cursorless/common";
