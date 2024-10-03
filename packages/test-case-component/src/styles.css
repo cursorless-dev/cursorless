@@ -111,8 +111,8 @@ pre.shiki {
 .hat.default::after {
   mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 308.34 254.24"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><ellipse class="cls-1" cx="154.17" cy="127.12" rx="154.17" ry="127.12"/></g></g></svg>');
   top: -0.4px;
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
 }
 .hat.wing::after {
   mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 371.81 234.76" ><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M371.81,234.42h0s-153.27-57.29-185.9-54.08h0C154.36,177.24,0,234.76,0,234.76H0L158.55,101.69c.6-.49-.39,1.87-.23,1.12L186.24,0h0l26.84,101.37"/></g></g></svg>');

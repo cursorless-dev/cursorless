@@ -22,7 +22,7 @@ interface CursorlessFixtureState {
     `${HatType}.${string}`,
     { start: PositionPlainObject }
   >;
-  decorations?: CursorlessFixtureSelection[];
+  flashes?: CursorlessFixtureSelection[];
   selections?: CursorlessFixtureSelection[];
   thatMark?: [CursorlessFixtureSelection];
   sourceMark?: [CursorlessFixtureSelection];
@@ -137,7 +137,7 @@ class HTMLGenerator {
   }
 
   applyAllSelections() {
-    if (!this.applySelectionsFromState("decorations")) {
+    if (!this.applySelectionsFromState("flashes")) {
       this.applySelectionsFromState("selections");
     }
     this.applySelectionsFromState("thatMark");
@@ -145,7 +145,7 @@ class HTMLGenerator {
   }
 
   applySelectionsFromState(
-    key: "decorations" | "selections" | "thatMark" | "sourceMark",
+    key: "flashes" | "selections" | "thatMark" | "sourceMark",
   ): boolean {
     const selections = this.state[key];
     if (!selections?.length) {

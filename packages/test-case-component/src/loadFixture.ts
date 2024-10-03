@@ -16,12 +16,12 @@ async function safeGenerateHtml(
 export async function loadFixture(data: any) {
   // console.log("loadFixture", data)
   try {
-    const during = data.decorations
+    const during = data.flashes
       ? await safeGenerateHtml(
-          "decorations",
+          "flashes",
           {
             ...data.initialState,
-            decorations: data.decorations.map(
+            flashes: data.flashes.map(
               ({
                 name,
                 type,
