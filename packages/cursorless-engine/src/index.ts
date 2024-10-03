@@ -17,3 +17,4 @@ export * from "./testUtil/plainObjectToTarget";
 export * from "./util/getPartialTargetDescriptors";
 export * from "./util/getPrimitiveTargets";
 export * from "./util/grammarHelpers";
+export * from "./scripts/transformRecordedTests/transformations/upgrade";

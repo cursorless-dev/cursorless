@@ -1252,7 +1252,9 @@
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "devDependencies": {
-    "@types/fs-extra": "11.0.4",
+    "@types/chai": "^4.3.14",
+    "@types/fs-extra": "^11.0.4",
+    "@types/glob": "^8.1.0",
     "@types/js-yaml": "^4.0.9",
     "@types/lodash-es": "4.17.0",
     "@types/nearley": "2.11.5",

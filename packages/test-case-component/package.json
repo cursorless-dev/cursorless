@@ -1,0 +1,49 @@
+{
+  "name": "@cursorless/test-case-component",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "Component for displaying results of test cases in cursorless-vscode-e2e",
+  "main": "./out/index.js",
+  "scripts": {
+    "build": "my-ts-node src/buildDictionary.ts",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "compile:tsc": "tsc --build",
+    "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=esm --bundle --packages=external --outfile=./out/index.js",
+    "compile": "pnpm compile:tsc && pnpm compile:esbuild",
+    "watch:tsc": "pnpm compile:tsc --watch",
+    "watch:esbuild": "pnpm compile:esbuild --watch",
+    "watch": "pnpm run --filter @cursorless/test-case-component --parallel '/^watch:.*/'",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@cursorless/common": "workspace:*",
+    "@cursorless/node-common": "workspace:*",
+    "escape-goat": "4.0.0",
+    "fs-extra": "11.2.0",
+    "js-yaml": "^4.1.0",
+    "prettier": "3.2.5",
+    "react": "^18.2.0",
+    "tsx": "3.12.7",
+    "yaml": "2.2.1"
+  },
+  "types": "./out/index.d.ts",
+  "exports": {
+    ".": {
+      "cursorless:bundler": "./src/index.ts",
+      "default": "./out/index.js"
+    }
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/jest": "29.5.12",
+    "@types/react": "18.2.71",
+    "jest": "29.7.0",
+    "jest-environment-jsdom": "29.7.0",
+    "shiki": "^1.4.0",
+    "ts-jest": "29.1.2"
+  }
+}
