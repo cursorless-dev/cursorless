@@ -1,4 +1,5 @@
-import { generateHtml, SelectionAnchor } from "./generateHtml";
+import type { PositionPlainObject } from "@cursorless/common";
+import { generateHtml } from "./generateHtml";
 
 async function safeGenerateHtml(
   ...args: [stateName: string, ...rest: Parameters<typeof generateHtml>]
@@ -30,8 +31,8 @@ export async function loadFixture(data: any) {
               }: {
                 name: string;
                 type: string;
-                start: SelectionAnchor;
-                end: SelectionAnchor;
+                start: PositionPlainObject;
+                end: PositionPlainObject;
               }) => ({
                 name,
                 type,
