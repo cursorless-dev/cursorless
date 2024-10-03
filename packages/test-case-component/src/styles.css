@@ -1,5 +1,5 @@
 :root {
-  --line-height: 20px;
+  --line-height: 16px;
   --color-border: #0003;
 }
 
@@ -15,12 +15,11 @@ body {
   /* background-image: radial-gradient(at 30% 89%, hsla(220,76%,68%,1) 0px, transparent 50%), radial-gradient(at 35% 0%, hsla(242,68%,61%,1) 0px, transparent 50%), radial-gradient(at 93% 46%, hsla(129,87%,73%,1) 0px, transparent 50%), radial-gradient(at 23% 49%, hsla(50,77%,67%,1) 0px, transparent 50%), radial-gradient(at 17% 27%, hsla(331,64%,60%,1) 0px, transparent 50%), radial-gradient(at 79% 30%, hsla(151,61%,77%,1) 0px, transparent 50%), radial-gradient(at 26% 40%, hsla(36,65%,63%,1) 0px, transparent 50%); */
 }
 
-body,
 pre.shiki,
 pre.shiki span {
   line-height: var(--line-height);
   min-height: var(--line-height);
-  font-size: 14px;
+  font-size: 20px;
 }
 
 .wrapper {
@@ -96,10 +95,10 @@ pre.shiki {
   &::after {
     content: "";
     display: inline;
-    top: 0px;
+    /* top: 0px; */
     left: 50%;
     position: absolute;
-    transform: translate(-50%, -25%);
+    transform: translate(-50%, -100%);
     background-color: grey;
     mask-repeat: no-repeat;
     width: 10px;
