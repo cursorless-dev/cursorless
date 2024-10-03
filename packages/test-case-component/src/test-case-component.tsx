@@ -2,7 +2,7 @@ import * as React from "react";
 import { ShikiComponent } from "./components/component-shiki";
 import "./shiki.css";
 import "./styles.css";
-import { TestCaseFixture } from "@cursorless/common";
+import type { TestCaseFixture } from "@cursorless/common";
 
 export const TestCaseComponentPage: React.FC<{ data: TestCaseFixture[];}> = ({
   data,
