@@ -88,6 +88,9 @@ pre.shiki {
 .decoration.pendingDeleteBackground {
   background: #ff00008a;
 }
+.decoration.referencedBackground {
+  background: #00a2ff4d;
+}
 
 .hat {
   position: relative;
