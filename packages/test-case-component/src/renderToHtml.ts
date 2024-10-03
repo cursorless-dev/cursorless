@@ -1,5 +1,5 @@
 // forked from https://github.com/SimeonC/shiki/blob/main/packages/shiki/src/renderer.ts
-
+import { htmlEscape } from 'escape-goat';
 import type { ThemedToken } from "shiki";
 
 // MIT License
@@ -167,19 +167,8 @@ export function renderToHtml(
   ]);
 }
 
-const htmlEscapes = {
-  "&": "&amp;",
-  "<": "&lt;",
-  ">": "&gt;",
-  '"': "&quot;",
-  "'": "&#39;",
-} as const;
-
 function escapeHtml(html: string) {
-  return (html || "").replace(
-    /[&<>"']/g,
-    (chr) => htmlEscapes[chr as keyof typeof htmlEscapes],
-  );
+  return htmlEscape(html);
 }
 
 function getLineClasses(lineOptions: { classes?: string }[]) {
