@@ -20,6 +20,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@cursorless/common": "workspace:*",
+    "@cursorless/node-common": "workspace:*",
     "fs-extra": "11.2.0",
     "js-yaml": "^4.1.0",
     "prettier": "3.2.5",

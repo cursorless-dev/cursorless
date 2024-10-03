@@ -913,6 +913,12 @@ importers:
 
   packages/test-case-component:
     dependencies:
+      '@cursorless/common':
+        specifier: workspace:*
+        version: link:../common
+      '@cursorless/node-common':
+        specifier: workspace:*
+        version: link:../node-common
       fs-extra:
         specifier: 11.2.0
         version: 11.2.0
