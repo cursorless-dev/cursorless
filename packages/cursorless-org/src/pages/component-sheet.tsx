@@ -7,7 +7,7 @@ import {
   TestCaseComponentPage,
   loadFixture,
 } from "@cursorless/test-case-component";
-import { upgrade } from "@cursorless/cursorless-engine"
+// import { upgrade } from "@cursorless/cursorless-engine"
 
 
 import { cheatsheetBodyClasses } from "@cursorless/cheatsheet";
@@ -66,8 +66,8 @@ export async function getStaticProps() {
   const data = (
     await Promise.all(
       [...dataActions, ...dataDecorations].map((val) => {
-        const upgraded = upgrade(val)
-        return loadFixture(upgraded);
+        // const upgraded = upgrade(val)
+        return loadFixture(val);
       }),
     )
   ).filter((val) => val !== undefined);
