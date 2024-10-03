@@ -1,29 +1,26 @@
 import {
   getHighlighter,
   createCssVariablesTheme,
-  BundledLanguage,
 } from "shiki";
+import type { BundledLanguage } from "shiki";
 
-import { renderToHtml, HatType, SelectionType, Token } from "./renderToHtml";
+import { renderToHtml } from "./renderToHtml";
+import type { HatType, SelectionType, Token } from "./renderToHtml";
+import type { PositionPlainObject } from "@cursorless/common";
 
 type Lang = BundledLanguage;
-
-export interface SelectionAnchor {
-  line: number;
-  character: number;
-}
 
 interface CursorlessFixtureSelection {
   type: "line" | "selection";
   name?: string;
-  anchor: SelectionAnchor;
-  active: SelectionAnchor;
+  anchor: PositionPlainObject;
+  active: PositionPlainObject;
 }
 interface CursorlessFixtureState {
   documentContents: any;
   marks?: Record<
     `${HatType}.${string}`,
-    { start: { line: number; character: number } }
+    { start: PositionPlainObject }
   >;
   decorations?: CursorlessFixtureSelection[];
   selections?: CursorlessFixtureSelection[];
@@ -220,7 +217,7 @@ class SelectionParser {
     }
   }
 
-  parseLine(l: number, start: SelectionAnchor, end: SelectionAnchor) {
+  parseLine(l: number, start: PositionPlainObject, end: PositionPlainObject) {
     const lineParser = new SelectionLineParser(
       this.selectionType,
       this.lines[l],
