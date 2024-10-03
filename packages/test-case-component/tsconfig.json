@@ -1,8 +1,6 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "out",
     "jsx": "react-jsx",
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -11,8 +9,8 @@
   "references": [],
   "include": [
     "src/**/*.ts",
-    "src/**/*.tsx",
     "src/**/*.json",
+    "src/**/*.tsx",
     "../../typings/**/*.d.ts"
   ]
 }

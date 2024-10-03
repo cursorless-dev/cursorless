@@ -25,6 +25,9 @@
       "path": "../cheatsheet"
     },
     {
+      "path": "../cursorless-engine"
+    },
+    {
       "path": "../test-case-component"
     }
   ],
