@@ -12,15 +12,15 @@ export const ShikiComponent: React.FC<{ data: any }> = ({ data }) => {
               dangerouslySetInnerHTML={{ __html: data.before }}
             />
           )}
-          {(data.during || data.before) && (
+          {(data.during) && (
             <>
               <div
                 className="p-4"
                 dangerouslySetInnerHTML={{ __html: data.during || data.before }}
               />
-              <div className="command">{data.command}</div>
             </>
           )}
+          <div className="command">{data.command}</div>
           {data.after && (
             <div
               className="p-4"
