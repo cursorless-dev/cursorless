@@ -29,6 +29,7 @@
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
+    "@cursorless/common": "workspace:*",
     "@cursorless/cheatsheet": "workspace:*",
     "@cursorless/cursorless-engine": "workspace:*",
     "@cursorless/test-case-component": "workspace:*",

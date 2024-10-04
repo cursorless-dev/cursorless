@@ -7,7 +7,7 @@ import {
   TestCaseComponentPage,
   loadFixture,
 } from "@cursorless/test-case-component";
-// import { upgrade } from "@cursorless/cursorless-engine"
+import type { TestCaseFixture } from "@cursorless/common";
 
 
 import { cheatsheetBodyClasses } from "@cursorless/cheatsheet";
@@ -66,7 +66,6 @@ export async function getStaticProps() {
   const data = (
     await Promise.all(
       [...dataActions, ...dataDecorations].map((val) => {
-        // const upgraded = upgrade(val)
         return loadFixture(val);
       }),
     )
@@ -75,7 +74,7 @@ export async function getStaticProps() {
   return { props: { data, bodyClasses: cheatsheetBodyClasses } };
 }
 
-export function App({ data }: { data: any; loaded: any }) {
+export function App({ data }: { data: TestCaseFixture; loaded: any }) {
   return (
     <>
       <Head>
