@@ -22,8 +22,16 @@ interface loadFixtureProps extends TestCaseFixture {
 export async function loadFixture(data: loadFixtureProps) {
   try {
     const during = await getDuring(data);
-    const before = await getBefore(data);
-    const after = await getAfter(data);
+    const before = await getBefore({
+      stateName: "initialState",
+      state: data.initialState,
+      languageId: data.languageId,
+    });
+    const after = await getAfter({
+      stateName: "finalState",
+      state: data.finalState,
+      languageId: data.languageId,
+    });
 
     return {
       language: data.languageId,
@@ -40,16 +48,28 @@ export async function loadFixture(data: loadFixtureProps) {
   }
 }
 
-async function getBefore(data: { initialState: any; languageId: any }) {
-  return await safeGenerateHtml(
-    "initialState",
-    data.initialState,
-    data.languageId,
-  );
+async function getBefore({
+  stateName,
+  state,
+  languageId,
+}: {
+  stateName: string;
+  state: TestCaseSnapshot;
+  languageId: string;
+}) {
+  return await safeGenerateHtml(stateName, state, languageId);
 }
 
-async function getAfter(data: { finalState: any; languageId: any }) {
-  return await safeGenerateHtml("finalState", data.finalState, data.languageId);
+async function getAfter({
+  stateName,
+  state,
+  languageId,
+}: {
+  stateName: string;
+  state: TestCaseSnapshot;
+  languageId: string;
+}) {
+  return await safeGenerateHtml(stateName, state, languageId);
 }
 
 async function getDuring(data: any) {
