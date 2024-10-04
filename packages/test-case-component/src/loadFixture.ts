@@ -15,7 +15,11 @@ async function safeGenerateHtml(
   }
 }
 
-export async function loadFixture(data: TestCaseFixture) {
+interface loadFixtureProps extends TestCaseFixture {
+  filename: string;
+}
+
+export async function loadFixture(data: loadFixtureProps) {
   try {
     const during = await getDuring(data);
     const before = await getBefore(data);
