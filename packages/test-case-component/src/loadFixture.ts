@@ -1,4 +1,5 @@
 import type { PositionPlainObject } from "@cursorless/common";
+import type { TestCaseFixture } from "@cursorless/common";
 import { generateHtml } from "./generateHtml";
 
 async function safeGenerateHtml(
@@ -14,8 +15,7 @@ async function safeGenerateHtml(
   }
 }
 
-export async function loadFixture(data: any) {
-  // console.log("loadFixture", data)
+export async function loadFixture(data: TestCaseFixture) {
   try {
     const during = data.flashes
       ? await safeGenerateHtml(
