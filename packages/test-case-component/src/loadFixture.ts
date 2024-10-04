@@ -68,3 +68,45 @@ export async function loadFixture(data: TestCaseFixture) {
     throw e;
   }
 }
+
+async function getBefore(data: { initialState: any; languageId: any }) {
+  return await safeGenerateHtml(
+    "initialState",
+    data.initialState,
+    data.languageId,
+  );
+}
+
+async function getAfter(data: { finalState: any; languageId: any }) {
+  return await safeGenerateHtml("finalState", data.finalState, data.languageId);
+}
+
+async function getDuring(data: any) {
+  if (!!data.ide && data.ide.flashes) {
+    return await safeGenerateHtml(
+      "flashes",
+      {
+        ...data.initialState,
+        flashes: data.ide.flashes.map(
+          (props: {
+            name: string;
+            type: string;
+            start: PositionPlainObject;
+            end: PositionPlainObject;
+          }) => {
+            const { name, type, start, end } = props;
+            console.log("🦄", props);
+            return {
+              name,
+              type,
+              anchor: start,
+              active: end,
+            };
+          },
+        ),
+      },
+      data.languageId,
+    );
+  }
+  return null;
+}
