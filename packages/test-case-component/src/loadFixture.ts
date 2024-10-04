@@ -17,43 +17,10 @@ async function safeGenerateHtml(
 
 export async function loadFixture(data: TestCaseFixture) {
   try {
-    const during = data.flashes
-      ? await safeGenerateHtml(
-          "flashes",
-          {
-            ...data.initialState,
-            flashes: data.flashes.map(
-              ({
-                name,
-                type,
-                start,
-                end,
-              }: {
-                name: string;
-                type: string;
-                start: PositionPlainObject;
-                end: PositionPlainObject;
-              }) => ({
-                name,
-                type,
-                anchor: start,
-                active: end,
-              }),
-            ),
-          },
-          data.languageId,
-        )
-      : null;
-    const before = await safeGenerateHtml(
-      "initialState",
-      data.initialState,
-      data.languageId,
-    );
-    const after = await safeGenerateHtml(
-      "finalState",
-      data.finalState,
-      data.languageId,
-    );
+    const during = await getDuring(data);
+    const before = await getBefore(data);
+    const after = await getAfter(data);
+
     return {
       language: data.languageId,
       command: data.command.spokenForm,
