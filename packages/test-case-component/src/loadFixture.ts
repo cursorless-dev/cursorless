@@ -1,5 +1,5 @@
 import type { PositionPlainObject } from "@cursorless/common";
-import type { TestCaseFixture } from "@cursorless/common";
+import type { TestCaseFixture, TestCaseSnapshot } from "@cursorless/common";
 import { generateHtml } from "./generateHtml";
 
 async function safeGenerateHtml(
@@ -72,7 +72,7 @@ async function getAfter({
   return await safeGenerateHtml(stateName, state, languageId);
 }
 
-async function getDuring(data: any) {
+async function getDuring(data: TestCaseFixture) {
   if (!!data.ide && data.ide.flashes) {
     return await safeGenerateHtml(
       "flashes",
