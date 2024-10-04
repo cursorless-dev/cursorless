@@ -22,11 +22,13 @@ interface loadFixtureProps extends TestCaseFixture {
 export async function loadFixture(data: loadFixtureProps) {
   try {
     const during = await getDuring(data);
+
     const before = await getBefore({
       stateName: "initialState",
       state: data.initialState,
       languageId: data.languageId,
     });
+
     const after = await getAfter({
       stateName: "finalState",
       state: data.finalState,
