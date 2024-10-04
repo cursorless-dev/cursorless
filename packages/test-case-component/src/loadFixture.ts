@@ -69,6 +69,7 @@ async function getAfter({
   state: TestCaseSnapshot;
   languageId: string;
 }) {
+  // todo, handle clipboard
   return await safeGenerateHtml(stateName, state, languageId);
 }
 
