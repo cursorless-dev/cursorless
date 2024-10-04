@@ -9,8 +9,8 @@ async function safeGenerateHtml(
   try {
     return await generateHtml(state, languageId);
   } catch (e) {
-    console.log("error in state", stateName, e);
-    console.log(JSON.stringify(state, null, 2));
+    console.error("error in state", stateName, e);
+    console.error(JSON.stringify(state, null, 2));
     throw e;
   }
 }
