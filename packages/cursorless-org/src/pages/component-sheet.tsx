@@ -74,7 +74,7 @@ export async function getStaticProps() {
   return { props: { data, bodyClasses: cheatsheetBodyClasses } };
 }
 
-export function App({ data }: { data: TestCaseFixture }) {
+export function App({ data }: { data: TestCaseFixture[] }) {
   return (
     <>
       <Head>
