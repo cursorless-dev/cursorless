@@ -1,6 +1,10 @@
 import type { SimpleSurroundingPairName } from "@cursorless/common";
 import { DefaultMap } from "@cursorless/common";
-import type { DelimiterOccurrence, SurroundingPairOccurrence } from "./types";
+import type {
+  DelimiterOccurrence,
+  IndividualDelimiter,
+  SurroundingPairOccurrence,
+} from "./types";
 
 /**
  * Given a list of occurrences of delimiters, returns a list of occurrences of
@@ -10,7 +14,7 @@ import type { DelimiterOccurrence, SurroundingPairOccurrence } from "./types";
  * @returns A list of occurrences of surrounding pairs
  */
 export function getSurroundingPairOccurrences(
-  delimiterOccurrences: DelimiterOccurrence[],
+  delimiterOccurrences: DelimiterOccurrence<IndividualDelimiter>[],
 ): SurroundingPairOccurrence[] {
   const result: SurroundingPairOccurrence[] = [];
 
@@ -19,7 +23,7 @@ export function getSurroundingPairOccurrences(
    */
   const openingDelimiterOccurrences = new DefaultMap<
     SimpleSurroundingPairName,
-    DelimiterOccurrence[]
+    DelimiterOccurrence<IndividualDelimiter>[]
   >(() => []);
 
   for (const occurrence of delimiterOccurrences) {
