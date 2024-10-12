@@ -251,6 +251,8 @@ export interface SurroundingPairScopeType {
 export interface SurroundingPairInteriorScopeType {
   type: "surroundingPairInterior";
   delimiter: SurroundingPairName;
+  // If true don't yield multiline pairs
+  requireSingleLine?: boolean;
 }
 
 export interface OneOfScopeType {
