@@ -28,10 +28,12 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   namedFunction: supported,
   "namedFunction.constructor": supported,
   "namedFunction.method": supported,
+  "namedFunction.method.iteration.class": supported,
 
   functionName: supported,
   "functionName.constructor": supported,
   "functionName.method": supported,
+  "functionName.method.iteration.class": supported,
 
   "condition.for": supported,
   "condition.while": supported,
