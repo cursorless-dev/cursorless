@@ -53,6 +53,7 @@
 (class_declaration
   name: (identifier) @className
 ) @class @_.domain
+
 (compilation_unit) @class.iteration @className.iteration
 ;; Treat interior of all bodies as iteration scopes for class and classname, eg
 ;;!! private static void foo() {   }
@@ -88,6 +89,13 @@
     name: (_) @functionName
   )
 ] @namedFunction @functionName.domain
+
+(class_declaration
+  body: (_
+    "{" @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf
+    "}" @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf
+  )
+)
 
 [
   (invocation_expression)
