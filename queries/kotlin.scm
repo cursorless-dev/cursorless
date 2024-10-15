@@ -509,7 +509,6 @@
   (annotated_lambda) @argumentOrParameter
 )
 
-;; Note: trailing lambda mixed with regular arguments doesn't work due to bad tree sitter parse.
 (call_expression
   (call_suffix) @argumentOrParameter.iteration
 ) @argumentOrParameter.iteration.domain
