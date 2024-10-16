@@ -8,9 +8,9 @@ import {
   resolveCliArgsFromVSCodeExecutablePath,
   runTests,
 } from "@vscode/test-electron";
+import { sync } from "cross-spawn";
 import * as os from "node:os";
 import * as path from "node:path";
-import { spawnSync } from "node:child_process";
 
 /**
  * Downloads and launches VSCode, instructing it to run the test runner
@@ -53,7 +53,8 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
     console.log(`cli: ${cli}`);
     console.log(JSON.stringify(extensionInstallArgs, null, 2));
 
-    const { status, signal, error } = spawnSync(cli, extensionInstallArgs, {
+    const { status, signal, error } = sync(cli, extensionInstallArgs, {
+      encoding: "utf-8",
       stdio: "inherit",
     });
 
