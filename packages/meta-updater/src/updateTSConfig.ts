@@ -7,6 +7,7 @@ import { toPosixPath } from "./toPosixPath";
 import type { Context } from "./Context";
 import { cloneDeep, isEqual, uniq } from "lodash-es";
 import { readFile } from "fs/promises";
+import { getLockfileImporterId } from "@pnpm/lockfile-file";
 
 /**
  * Given a tsconfig.json, update it to match our conventions.  This function is
@@ -43,9 +44,7 @@ export async function updateTSConfig(
     };
   }
 
-  const pathFromRootToPackage = normalizePath(
-    path.relative(workspaceDir, packageDir),
-  );
+  const pathFromRootToPackage = getLockfileImporterId(workspaceDir, packageDir);
   const pathFromPackageToRoot = normalizePath(
     path.relative(packageDir, workspaceDir),
   );

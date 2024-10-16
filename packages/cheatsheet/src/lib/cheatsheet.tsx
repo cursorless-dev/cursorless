@@ -64,7 +64,7 @@ type CheatsheetSectionProps = {
 };
 
 const CheatsheetSection: React.FC<CheatsheetSectionProps> = ({ children }) => (
-  <section className=" mb-5 break-inside-avoid last:mb-0 md:mb-3 xl:mb-4">
+  <section className="mb-5 break-inside-avoid last:mb-0 md:mb-3 xl:mb-4">
     {children}
   </section>
 );

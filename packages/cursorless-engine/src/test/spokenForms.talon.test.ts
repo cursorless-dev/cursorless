@@ -121,7 +121,7 @@ async function runTest(
     const commandsActual = (() => {
       try {
         return JSON.parse(result);
-      } catch (e) {
+      } catch (_e) {
         throw Error(result);
       }
     })();

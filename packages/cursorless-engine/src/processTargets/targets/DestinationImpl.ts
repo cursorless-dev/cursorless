@@ -24,7 +24,7 @@ export class DestinationImpl implements Destination {
     this.isBefore = insertionMode === "before";
     this.isLineDelimiter = target.insertionDelimiter.includes("\n");
     this.indentationString =
-      indentationString ?? this.isLineDelimiter
+      (indentationString ?? this.isLineDelimiter)
         ? getIndentationString(target.editor, target.contentRange)
         : "";
     this.insertionPrefix =
@@ -125,8 +125,8 @@ export class DestinationImpl implements Destination {
       if (this.isLineDelimiter) {
         const line = this.editor.document.lineAt(insertionPosition);
         const trimmedPosition = this.isBefore
-          ? line.rangeTrimmed?.start ?? line.range.start
-          : line.rangeTrimmed?.end ?? line.range.end;
+          ? (line.rangeTrimmed?.start ?? line.range.start)
+          : (line.rangeTrimmed?.end ?? line.range.end);
 
         // Use the full line, including indentation and trailing whitespaces
         if (insertionPosition.isEqual(trimmedPosition)) {

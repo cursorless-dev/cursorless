@@ -173,25 +173,6 @@ export const scopeSupportFacets = [
   // collectionItem
 ] as const;
 
-const textualScopeSupportFacets = [
-  "character",
-  "word",
-  "token",
-  "identifier",
-  "line",
-  "sentence",
-  "paragraph",
-  "boundedParagraph",
-  "boundedParagraph.iteration",
-  "document",
-  "nonWhitespaceSequence",
-  "boundedNonWhitespaceSequence",
-  "boundedNonWhitespaceSequence.iteration",
-  "url",
-  "surroundingPair",
-  "surroundingPair.iteration",
-] as const;
-
 export interface ScopeSupportFacetInfo {
   readonly description: string;
   readonly scopeType: SimpleScopeTypeType | ScopeType;
@@ -208,7 +189,22 @@ export enum ScopeSupportFacetLevel {
 export type ScopeSupportFacet = (typeof scopeSupportFacets)[number];
 
 export type TextualScopeSupportFacet =
-  (typeof textualScopeSupportFacets)[number];
+  | "character"
+  | "word"
+  | "token"
+  | "identifier"
+  | "line"
+  | "sentence"
+  | "paragraph"
+  | "boundedParagraph"
+  | "boundedParagraph.iteration"
+  | "document"
+  | "nonWhitespaceSequence"
+  | "boundedNonWhitespaceSequence"
+  | "boundedNonWhitespaceSequence.iteration"
+  | "url"
+  | "surroundingPair"
+  | "surroundingPair.iteration";
 
 export type LanguageScopeSupportFacetMap = Partial<
   Record<ScopeSupportFacet, ScopeSupportFacetLevel>

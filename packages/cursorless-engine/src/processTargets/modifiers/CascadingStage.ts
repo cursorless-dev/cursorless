@@ -29,7 +29,7 @@ export class CascadingStage implements ModifierStage {
     for (const nestedStage of this.nestedStages) {
       try {
         return nestedStage.run(target);
-      } catch (error) {
+      } catch (_error) {
         continue;
       }
     }

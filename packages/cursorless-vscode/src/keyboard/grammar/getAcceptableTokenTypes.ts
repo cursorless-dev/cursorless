@@ -111,7 +111,7 @@ function computeRootStatePartialArgs(
       ...times(state.rule.symbols.length - argList.length, () => MISSING),
     );
     partialArg = state.rule.postprocess?.(argList) ?? argList;
-  } catch (err) {
+  } catch (_err) {
     // If we can't construct the partial argument because the rule's postprocess
     // wasn't designed to handle partial arguments, then we just replace it with
     // MISSING
