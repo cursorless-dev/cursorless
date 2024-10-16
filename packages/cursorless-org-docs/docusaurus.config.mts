@@ -45,7 +45,9 @@ function remarkPluginFixLinksToRepositoryArtifacts(): Transformer<Root> {
       const artifactRelative = relative(repoRoot, artifact).replace(/\\/g, "/");
 
       // We host all files under docs, will resolve as a relative link
-      if (artifactRelative.startsWith("docs/")) {
+      if (
+        artifactRelative.startsWith("packages/cursorless-org-docs/src/docs/")
+      ) {
         return;
       }
 
