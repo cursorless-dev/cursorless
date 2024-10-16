@@ -56,6 +56,7 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
     const { status, signal, error } = cp.spawnSync(cli, extensionInstallArgs, {
       encoding: "utf-8",
       stdio: "inherit",
+      shell: true,
     });
 
     console.log("status: ", status);
