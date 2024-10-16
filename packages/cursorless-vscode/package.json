@@ -29,7 +29,7 @@
   },
   "homepage": "https://www.cursorless.org/",
   "engines": {
-    "vscode": "^1.75.1"
+    "vscode": "^1.82.0"
   },
   "extensionKind": [
     "ui",
