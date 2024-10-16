@@ -20,7 +20,7 @@
     "@cursorless/test-case-recorder": "workspace:*"
   },
   "devDependencies": {
-    "@types/mocha": "^10.0.6",
-    "mocha": "^10.3.0"
+    "@types/mocha": "^10.0.9",
+    "mocha": "^10.7.3"
   }
 }

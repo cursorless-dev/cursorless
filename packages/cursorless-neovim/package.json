@@ -36,12 +36,12 @@
     "@cursorless/test-case-recorder": "workspace:*"
   },
   "devDependencies": {
-    "@types/chai": "^4.3.14",
+    "@types/chai": "^5.0.0",
     "@types/js-yaml": "^4.0.9",
-    "@types/lodash": "4.17.0",
-    "@types/uuid": "^9.0.8",
+    "@types/lodash": "4.17.10",
+    "@types/uuid": "^10.0.0",
     "lodash": "^4.17.21",
-    "neovim": "5.1.0",
+    "neovim": "5.3.0",
     "vscode-uri": "^3.0.8"
   }
 }

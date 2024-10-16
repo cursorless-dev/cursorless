@@ -30,16 +30,16 @@
     "@cursorless/neovim-common": "workspace:*",
     "@cursorless/neovim-registry": "workspace:*",
     "@cursorless/node-common": "workspace:*",
-    "glob": "^10.3.10",
-    "neovim": "5.1.0",
+    "glob": "^11.0.0",
+    "neovim": "5.3.0",
     "tail": "2.2.6"
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",
-    "@types/mocha": "^10.0.6",
+    "@types/mocha": "^10.0.9",
     "@types/tail": "2.2.3",
     "@vscode/test-electron": "^2.4.1",
-    "mocha": "^10.3.0"
+    "mocha": "^10.7.3"
   },
   "types": "./out/runners/extensionTestsNeovim.d.ts",
   "exports": {

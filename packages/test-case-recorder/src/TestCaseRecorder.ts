@@ -406,7 +406,7 @@ export class TestCaseRecorder {
         throw Error();
       }
       await access(this.fixtureRoot);
-    } catch (err) {
+    } catch (_err) {
       const errorMessage =
         '"Cursorless record" must be run from within cursorless directory';
       void showError(ide().messages, "promptSubdirectoryError", errorMessage);

@@ -83,7 +83,7 @@ async function testError(tmpdir: string) {
 
   try {
     await runCursorlessCommand(command);
-  } catch (error) {
+  } catch (_error) {
     // Do nothing
   }
 
