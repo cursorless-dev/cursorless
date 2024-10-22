@@ -1,3 +1,3 @@
 export * from "./generate-examples";
-export * from "./test-case-component";
+export * from "./components/TestCaseComponentPage";
 export * from "./loadFixture";

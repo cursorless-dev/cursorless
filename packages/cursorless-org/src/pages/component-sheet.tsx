@@ -4,9 +4,9 @@ import path from "path";
 import Head from "next/head";
 
 import {
-  TestCaseComponentPage,
   loadFixture,
 } from "@cursorless/test-case-component";
+import { TestCaseComponentPage } from "@cursorless/test-case-component";
 import type { TestCaseFixture } from "@cursorless/common";
 
 
