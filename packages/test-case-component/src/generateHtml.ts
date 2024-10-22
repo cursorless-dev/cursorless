@@ -35,6 +35,13 @@ const myTheme = createCssVariablesTheme({
   fontStyle: true,
 });
 
+/**
+ * Generates HTML content based on the provided state and language.
+ *
+ * @param {CursorlessFixtureState} state - The state object containing the necessary data for HTML generation.
+ * @param {Lang} lang - The language object specifying the language for the HTML content.
+ * @returns {Promise<string>} A promise that resolves to the generated HTML content.
+ */
 export async function generateHtml(state: CursorlessFixtureState, lang: Lang) {
   return new HTMLGenerator(state, lang).generate();
 }
