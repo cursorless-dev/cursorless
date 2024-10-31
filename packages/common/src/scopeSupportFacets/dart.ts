@@ -5,7 +5,5 @@ import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const dartScopeSupport: LanguageScopeSupportFacetMap = {
-  // list: supported,
-  // map: supported,
   ifStatement: supported,
 };
