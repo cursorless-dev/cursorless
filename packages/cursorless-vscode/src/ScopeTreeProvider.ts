@@ -212,7 +212,7 @@ function getSupportCategories(): SupportCategoryTreeItem[] {
 }
 
 class ScopeSupportTreeItem extends TreeItem {
-  public readonly label!: TreeItemLabel;
+  public readonly declare label!: TreeItemLabel;
 
   /**
    * @param scopeTypeInfo The scope type info
