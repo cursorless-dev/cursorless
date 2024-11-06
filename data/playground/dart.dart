@@ -1,3 +1,3 @@
-void foo() {
+foo() {
   if (true) {}
 }
