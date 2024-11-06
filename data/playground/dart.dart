@@ -1,7 +1,3 @@
-void main() {
-  hi() {
-    if (true) {
-      return true;
-    }
-  }
+void foo() {
+  if (true) {}
 }
