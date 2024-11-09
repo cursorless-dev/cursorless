@@ -8,4 +8,6 @@ export const dartScopeSupport: LanguageScopeSupportFacetMap = {
   ifStatement: supported,
   list: supported,
   map: supported,
+  class: supported,
+  className: supported,
 };

@@ -16,3 +16,17 @@
   (set_or_map_literal)
   (map_pattern)
 ] @map
+
+;;!! class Foo {}
+;;!  ^^^^^^^^^^^^
+(
+  [
+    (class_definition
+      name: (_) @className
+    )
+    (class_definition
+
+      name: (_) @className
+    )
+  ] @class
+)
