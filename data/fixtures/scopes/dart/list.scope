@@ -1,0 +1,17 @@
+final list = [1,2,3];
+---
+
+[Content] =
+[Domain] = 0:13-0:20
+               >-------<
+0| final list = [1,2,3];
+
+[Removal] = 0:12-0:20
+              >--------<
+0| final list = [1,2,3];
+
+[Leading delimiter] = 0:12-0:13
+              >-<
+0| final list = [1,2,3];
+
+[Insertion delimiter] = " "

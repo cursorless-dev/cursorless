@@ -4,6 +4,7 @@ import { clojureScopeSupport } from "./clojure";
 import { cppScopeSupport } from "./cpp";
 import { csharpScopeSupport } from "./csharp";
 import { cssScopeSupport } from "./css";
+import { dartScopeSupport } from "./dart";
 import { goScopeSupport } from "./go";
 import { htmlScopeSupport } from "./html";
 import { javaScopeSupport } from "./java";
@@ -35,6 +36,7 @@ export const languageScopeSupport: StringRecord<LanguageScopeSupportFacetMap> =
     cpp: cppScopeSupport,
     csharp: csharpScopeSupport,
     css: cssScopeSupport,
+    dart: dartScopeSupport,
     go: goScopeSupport,
     html: htmlScopeSupport,
     java: javaScopeSupport,

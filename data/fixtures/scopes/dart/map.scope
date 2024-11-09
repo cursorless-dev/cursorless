@@ -1,0 +1,25 @@
+  final map = {
+    'hi': 1,
+  };
+---
+
+[Content] =
+[Domain] = 0:14-2:3
+                >-
+0|   final map = {
+1|     'hi': 1,
+2|   };
+   ---<
+
+[Removal] = 0:13-2:3
+               >--
+0|   final map = {
+1|     'hi': 1,
+2|   };
+   ---<
+
+[Leading delimiter] = 0:13-0:14
+               >-<
+0|   final map = {
+
+[Insertion delimiter] = " "
