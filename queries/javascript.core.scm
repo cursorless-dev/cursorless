@@ -285,15 +285,6 @@
   (#insertion-delimiter! @collectionItem ", ")
 )
 
-;;!! let foo, bar;
-;;!      ^^^^^^^^
-;;!  -------------
-(lexical_declaration
-  .
-  (_) @collectionItem.iteration.start.startOf
-  ";"? @collectionItem.iteration.end.startOf
-) @collectionItem.iteration.domain
-
 (expression_statement
   [
     ;; name:

@@ -45,23 +45,39 @@ export class ContainingScopeStage implements ModifierStage {
         .run(target);
     }
 
-    const containingScope = getContainingScopeTarget(
+    const containingScopes = getContainingScopeTarget(
       target,
       scopeHandler,
       ancestorIndex,
     );
-
-    if (containingScope == null) {
-      if (scopeType.type === "collectionItem") {
-        // For `collectionItem`, fall back to generic implementation
-        return this.modifierStageFactory
+    if (scopeType.type === "collectionItem") {
+      // For `collectionItem`, combine with generic implementation
+      try {
+        const legacyScopes = this.modifierStageFactory
           .getLegacyScopeStage(this.modifier)
           .run(target);
+        if (containingScopes == null) {
+          return legacyScopes;
+        }
+        if (containingScopes.length === 1 && legacyScopes.length === 1) {
+          const containingRange = containingScopes[0].contentRange;
+          const legacyRange = legacyScopes[0].contentRange;
+          if (
+            containingRange.contains(legacyRange) &&
+            !containingRange.isRangeEqual(legacyRange)
+          ) {
+            return legacyScopes;
+          }
+        }
+      } catch (_ex) {
+        // Do nothing
       }
+    }
 
+    if (containingScopes == null) {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
 
-    return containingScope;
+    return containingScopes;
   }
 }
