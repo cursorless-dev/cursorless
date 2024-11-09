@@ -351,7 +351,7 @@
 )
 
 ;;!! int foo, bar;
-;;!      ^^^^ ^^^^
+;;!      ^^^^^^^^
 ;;!  -------------
 (local_variable_declaration
   type: (_)
