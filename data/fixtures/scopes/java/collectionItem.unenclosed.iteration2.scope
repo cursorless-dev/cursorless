@@ -1,0 +1,14 @@
+public class MyClass {
+    public void myFunk() {
+        String foo, bar;
+    }
+}
+---
+
+[Range] = 2:15-2:23
+                 >--------<
+2|         String foo, bar;
+
+[Domain] = 2:8-2:24
+          >----------------<
+2|         String foo, bar;
