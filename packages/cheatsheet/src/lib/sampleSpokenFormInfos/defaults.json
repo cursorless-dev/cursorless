@@ -796,7 +796,7 @@
           "variations": [
             {
               "spokenForm": "tail",
-              "description": "Extend through end of line"
+              "description": "Extend through end of line/pair"
             },
             {
               "spokenForm": "tail <modifier>",
@@ -810,7 +810,7 @@
           "variations": [
             {
               "spokenForm": "head",
-              "description": "Extend through start of line"
+              "description": "Extend through start of line/pair"
             },
             {
               "spokenForm": "head <modifier>",
