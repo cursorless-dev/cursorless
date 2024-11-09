@@ -112,6 +112,9 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "value.return": supported,
   "value.return.lambda": supported,
   "value.field": supported,
+
+  "collectionItem.unenclosed": supported,
+  "collectionItem.unenclosed.iteration": supported,
 };
 
 export const javascriptJsxScopeSupport: LanguageScopeSupportFacetMap = {
