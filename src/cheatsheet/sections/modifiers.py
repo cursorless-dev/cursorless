@@ -64,7 +64,7 @@ def get_modifiers():
             "variations": [
                 {
                     "spokenForm": complex_modifiers["extendThroughStartOf"],
-                    "description": "Extend through start of line",
+                    "description": "Extend through start of line/pair",
                 },
                 {
                     "spokenForm": f"{complex_modifiers['extendThroughStartOf']} <modifier>",
@@ -78,7 +78,7 @@ def get_modifiers():
             "variations": [
                 {
                     "spokenForm": complex_modifiers["extendThroughEndOf"],
-                    "description": "Extend through end of line",
+                    "description": "Extend through end of line/pair",
                 },
                 {
                     "spokenForm": f"{complex_modifiers['extendThroughEndOf']} <modifier>",
