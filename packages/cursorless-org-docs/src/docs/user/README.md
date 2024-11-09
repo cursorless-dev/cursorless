@@ -310,6 +310,8 @@ The modifiers `"head"` and `"tail"` can be used to expand a target through the b
 - `"take head air"`: selects the mark through to start of the line
 - `"take tail air"`: selects the mark through to the end of the line
 
+When inside a single line surrounding pair(parentheses, brackets, etc) the head/tail modifier will only expand to the interior of that pair instead of the whole line. You can explicitly say `"head line"` or `"tail line"` to get the line behavior.
+
 When followed by a modifier, they will expand their input to the start or end of the given modifier range. For example:
 
 - `"take head funk"`: select from the cursor the start of the containing function
