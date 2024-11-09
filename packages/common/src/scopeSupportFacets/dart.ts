@@ -7,4 +7,5 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 export const dartScopeSupport: LanguageScopeSupportFacetMap = {
   ifStatement: supported,
   list: supported,
+  map: supported,
 };

@@ -9,3 +9,10 @@
   (list_literal)
   (list_pattern)
 ] @list
+
+;;!! { value: 0 }
+;;!  ^^^^^^^^^^^^
+[
+  (set_or_map_literal)
+  (map_pattern)
+] @map
