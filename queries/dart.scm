@@ -22,11 +22,8 @@
 (
   [
     (class_definition
-      name: (_) @className
-    )
-    (class_definition
 
       name: (_) @className
     )
-  ] @class
+  ] @class @className.domain
 )

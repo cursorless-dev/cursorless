@@ -3,8 +3,7 @@ class MyClass {
 }
 ---
 
-[Content] =
-[Domain] = 0:6-0:13
+[Content] = 0:6-0:13
         >-------<
 0| class MyClass {
 
@@ -19,5 +18,12 @@ class MyClass {
 [Trailing delimiter] = 0:13-0:14
                >-<
 0| class MyClass {
+
+[Domain] = 0:0-2:1
+  >---------------
+0| class MyClass {
+1|     
+2| }
+   -<
 
 [Insertion delimiter] = " "
