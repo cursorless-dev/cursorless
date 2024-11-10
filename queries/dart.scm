@@ -1,4 +1,3 @@
-
 ;;!! if () {}
 ;;!  ^^^^^^^^
 (if_statement) @ifStatement
@@ -22,7 +21,6 @@
 (
   [
     (class_definition
-
       name: (_) @className
     )
   ] @class @className.domain
