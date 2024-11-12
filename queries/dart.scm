@@ -1,4 +1,3 @@
-
 ;;!! if () {}
 ;;!  ^^^^^^^^
 (if_statement) @ifStatement
@@ -16,3 +15,9 @@
   (set_or_map_literal)
   (map_pattern)
 ] @map
+
+;;!! class Foo {}
+;;!  ^^^^^^^^^^^^
+(class_definition
+  name: (_) @className
+) @class @className.domain
