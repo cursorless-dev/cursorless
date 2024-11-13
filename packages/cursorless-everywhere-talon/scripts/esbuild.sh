@@ -4,12 +4,12 @@ set -euo pipefail
 esbuild \
   --outfile=out/talon.js \
   --platform=neutral \
-  --format=esm \
+  --format=cjs \
   --main-fields=main,module \
   --conditions=cursorless:bundler \
   --bundle \
   --sourcemap \
-  --external:talon \
+  --external:std \
   "$@"
 
 # FIXME: Talon javascript files needs to start with an import from Talon before any other code
