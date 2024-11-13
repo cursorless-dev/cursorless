@@ -2,4 +2,4 @@
 
 npm run esbuild
 
-cp out/cursorless.js ../../../../cursorless/cursorless-jetbrains/src/main/resources/cursorless/
+cp out/cursorless.js ../../../cursorless-jetbrains/src/main/resources/cursorless/
