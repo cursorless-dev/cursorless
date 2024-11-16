@@ -14,7 +14,8 @@
 ;;!! r#"foobar"#
 (
   (raw_string_literal) @string @textFragment
-  (#character-range! @textFragment 3 -2)
+  (#shrink-to-match! @textFragment "r#+\"(?<keep>.*)\"#+")
+
 )
 
 [
