@@ -5,12 +5,16 @@
   (if_let_expression)
 ] @ifStatement
 
+;;!! "hello"
 (
-  [
-    (raw_string_literal)
-    (string_literal)
-  ] @string @textFragment
+  (string_literal) @string @textFragment
   (#child-range! @textFragment 0 -1 true true)
+)
+
+;;!! r#"foobar"#
+(
+  (raw_string_literal) @string @textFragment
+  (#character-range! @textFragment 3 -2)
 )
 
 [

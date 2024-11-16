@@ -7,4 +7,6 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   ifStatement: supported,
   disqualifyDelimiter: supported,
+  "string.singleLine": supported,
+  "textFragment.string.singleLine": supported,
 };
