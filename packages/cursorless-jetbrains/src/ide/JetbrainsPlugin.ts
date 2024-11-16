@@ -1,5 +1,5 @@
-import {JetbrainsClient} from "./JetbrainsClient";
-import {JetbrainsCommandServer} from "./JetbrainsCommandServer";
+import type {JetbrainsClient} from "./JetbrainsClient";
+import type {JetbrainsCommandServer} from "./JetbrainsCommandServer";
 
 export class JetbrainsPlugin {
 

@@ -1,11 +1,15 @@
+import "./polyfill";
+
+import type { CursorlessEngine } from "@cursorless/cursorless-engine";
 import { createCursorlessEngine } from "@cursorless/cursorless-engine";
 import { JetbrainsPlugin } from "./ide/JetbrainsPlugin";
 import { JetbrainsIDE } from "./ide/JetbrainsIDE";
 
-export function entry(plugin: JetbrainsPlugin) {
+export async function activate(plugin: JetbrainsPlugin): Promise<CursorlessEngine> {
   const jetbrainsIDE = new JetbrainsIDE(plugin.client);
-  createCursorlessEngine({
+  const engine = await createCursorlessEngine({
     ide: jetbrainsIDE,
   });
+  return engine
   console.log("entry completed");
 }
