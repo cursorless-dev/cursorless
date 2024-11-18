@@ -272,6 +272,19 @@
   (#has-multiple-children-of-type? @_dummy variable_declarator)
 )
 
+;;!! let foo, bar;
+;;!      ^^^  ^^^
+(
+  (lexical_declaration
+    (variable_declarator)? @_.leading.endOf
+    .
+    (variable_declarator) @collectionItem
+    .
+    (variable_declarator)? @_.trailing.startOf
+  )
+  (#insertion-delimiter! @collectionItem ", ")
+)
+
 (expression_statement
   [
     ;; name:
