@@ -77,6 +77,7 @@ export class CollectionItemScopeHandler extends BaseScopeHandler {
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
     const { document } = editor;
+    const isEveryScope = hints.containment == null && hints.skipAncestorScopes;
     const delimiterRanges = getDelimiterOccurrences(document);
 
     const interiorRanges = this.getInteriorRanges(
@@ -127,6 +128,7 @@ export class CollectionItemScopeHandler extends BaseScopeHandler {
         }
         scopes.push(
           createTargetScope(
+            isEveryScope,
             editor,
             previousIterationRange,
             trimmedRanges[i],
@@ -182,7 +184,7 @@ export class CollectionItemScopeHandler extends BaseScopeHandler {
       if (!usedInteriors.has(interior)) {
         const range = shrinkRangeToFitContent(editor, interior);
         if (!range.isEmpty) {
-          scopes.push(createTargetScope(editor, interior, range));
+          scopes.push(createTargetScope(isEveryScope, editor, interior, range));
         }
       }
     }

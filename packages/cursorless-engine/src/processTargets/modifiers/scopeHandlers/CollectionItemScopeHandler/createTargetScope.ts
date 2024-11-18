@@ -4,6 +4,7 @@ import { ScopeTypeTarget } from "../../../targets";
 import type { TargetScope } from "../scope.types";
 
 export function createTargetScope(
+  isEveryScope: boolean,
   editor: TextEditor,
   iterationRange: Range,
   contentRange: Range,
@@ -22,6 +23,7 @@ export function createTargetScope(
   // We have both leading and trailing delimiter ranges
   // The leading one is longer/more specific so prefer to use that for removal.
   const removalRange =
+    !isEveryScope &&
     leadingDelimiterRange != null &&
     trailingDelimiterRange != null &&
     getRangeLength(editor, leadingDelimiterRange) >
