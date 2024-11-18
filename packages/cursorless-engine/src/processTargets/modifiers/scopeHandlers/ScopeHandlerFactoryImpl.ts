@@ -93,11 +93,7 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
       case "glyph":
         return new GlyphScopeHandler(this, scopeType, languageId);
       case "collectionItem":
-        return new CollectionItemScopeHandler(
-          this,
-          this.languageDefinitions,
-          languageId,
-        );
+        return new CollectionItemScopeHandler(this, languageId);
       case "surroundingPair":
         return new SurroundingPairScopeHandler(
           this.languageDefinitions,

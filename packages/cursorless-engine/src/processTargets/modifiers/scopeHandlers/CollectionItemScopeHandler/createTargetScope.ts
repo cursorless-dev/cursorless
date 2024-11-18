@@ -1,9 +1,11 @@
 import { type TextEditor, Range } from "@cursorless/common";
+import { getRangeLength } from "../../../../util/rangeUtils";
 import { ScopeTypeTarget } from "../../../targets";
 import type { TargetScope } from "../scope.types";
 
 export function createTargetScope(
   editor: TextEditor,
+  iterationRange: Range,
   contentRange: Range,
   previousRange?: Range,
   nextRange?: Range,
@@ -16,6 +18,19 @@ export function createTargetScope(
     nextRange != null
       ? new Range(contentRange.end, nextRange.start)
       : undefined;
+
+  // We have both leading and trailing delimiter ranges
+  // The leading one is longer/more specific so prefer to use that for removal.
+  const removalRange =
+    leadingDelimiterRange != null &&
+    trailingDelimiterRange != null &&
+    getRangeLength(editor, leadingDelimiterRange) >
+      getRangeLength(editor, trailingDelimiterRange)
+      ? contentRange.union(leadingDelimiterRange)
+      : undefined;
+
+  const insertionDelimiter = iterationRange.isSingleLine ? ", " : ",\n";
+
   return {
     editor,
     domain: contentRange,
@@ -26,9 +41,10 @@ export function createTargetScope(
           editor,
           isReversed,
           contentRange,
-          insertionDelimiter: ", ",
+          insertionDelimiter,
           leadingDelimiterRange,
           trailingDelimiterRange,
+          removalRange,
         }),
       ];
     },
