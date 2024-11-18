@@ -113,11 +113,18 @@ export class CollectionItemScopeHandler extends BaseScopeHandler {
         delimitersInIteration[delimitersInIteration.length - 1];
       itemRanges.push(new Range(lastDelimiter.end, previousIterationRange.end));
 
-      const trimmedRanges = itemRanges
-        .map((range) => shrinkRangeToFitContent(editor, range))
-        .filter((range) => document.getText(range).trim() !== "");
+      const trimmedRanges = itemRanges.map((range) =>
+        shrinkRangeToFitContent(editor, range),
+      );
 
       for (let i = 0; i < trimmedRanges.length; ++i) {
+        // Handle trailing delimiter
+        if (
+          i === trimmedRanges.length - 1 &&
+          document.getText(trimmedRanges[i]).trim() === ""
+        ) {
+          continue;
+        }
         scopes.push(
           createTargetScope(
             editor,
