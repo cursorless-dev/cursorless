@@ -1,4 +1,5 @@
 import {
+  NoContainingScopeError,
   type Direction,
   type Position,
   type ScopeType,
@@ -21,8 +22,8 @@ export class CollectionItemIterationScopeHandler extends BaseScopeHandler {
   private readonly surroundingPairInteriorScopeHandler: ScopeHandler;
 
   get iterationScopeType(): CustomScopeType {
-    throw Error(
-      "Iteration scope doesn't exist for CollectionItemIterationScopeHandler",
+    throw new NoContainingScopeError(
+      "Iteration scope for CollectionItemIterationScopeHandler",
     );
   }
 

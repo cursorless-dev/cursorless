@@ -33,6 +33,20 @@ export class OneOfScopeHandler extends BaseScopeHandler {
       },
     );
 
+    return this.createFromScopeHandlers(
+      scopeHandlerFactory,
+      scopeType,
+      scopeHandlers,
+      languageId,
+    );
+  }
+
+  static createFromScopeHandlers(
+    scopeHandlerFactory: ScopeHandlerFactory,
+    scopeType: OneOfScopeType,
+    scopeHandlers: ScopeHandler[],
+    languageId: string,
+  ): ScopeHandler {
     const iterationScopeType = (): CustomScopeType => ({
       type: "custom",
       scopeHandler: new OneOfScopeHandler(
