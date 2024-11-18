@@ -73,14 +73,6 @@ export class JetbrainsIDE implements IDE {
   }
 
   async init() {
-//     const rootPath = await getCursorlessNvimPath(this.client);
-//     // we store the assets into a subfolder of cursorless.nvim
-//     this.assetsRoot_ = path.join(rootPath, "assets");
-//     this.cursorlessJetbrainsPath = path.join(
-//       rootPath,
-//       "node",
-//       "cursorless-jetbrains",
-//     );
   }
 
   async showQuickPick(
