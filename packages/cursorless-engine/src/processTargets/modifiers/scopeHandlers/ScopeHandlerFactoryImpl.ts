@@ -5,6 +5,7 @@ import {
   BoundedParagraphScopeHandler,
 } from "./BoundedScopeHandler";
 import { CharacterScopeHandler } from "./CharacterScopeHandler";
+import { CollectionItemScopeHandler } from "./CollectionItemScopeHandler/CollectionItemScopeHandler";
 import { DocumentScopeHandler } from "./DocumentScopeHandler";
 import { IdentifierScopeHandler } from "./IdentifierScopeHandler";
 import { LineScopeHandler } from "./LineScopeHandler";
@@ -91,6 +92,11 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
         return new CustomRegexScopeHandler(this, scopeType, languageId);
       case "glyph":
         return new GlyphScopeHandler(this, scopeType, languageId);
+      case "collectionItem":
+        return new CollectionItemScopeHandler(
+          this.languageDefinitions,
+          languageId,
+        );
       case "surroundingPair":
         return new SurroundingPairScopeHandler(
           this.languageDefinitions,
