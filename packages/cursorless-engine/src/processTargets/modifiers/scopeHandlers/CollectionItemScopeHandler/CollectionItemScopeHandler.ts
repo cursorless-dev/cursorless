@@ -24,6 +24,7 @@ export class CollectionItemScopeHandler extends BaseScopeHandler {
   protected isHierarchical = true;
 
   private readonly surroundingPairInteriorScopeHandler: ScopeHandler;
+  private readonly surroundingPairStringScopeHandler: ScopeHandler;
 
   get iterationScopeType(): CustomScopeType {
     return {
@@ -48,6 +49,13 @@ export class CollectionItemScopeHandler extends BaseScopeHandler {
       },
       this.languageId,
     )!;
+    this.surroundingPairStringScopeHandler = this.scopeHandlerFactory.create(
+      {
+        type: "surroundingPairInterior",
+        delimiter: "string",
+      },
+      this.languageId,
+    )!;
   }
 
   private getInteriorRanges(
@@ -58,6 +66,26 @@ export class CollectionItemScopeHandler extends BaseScopeHandler {
   ): Range[] {
     return Array.from(
       this.surroundingPairInteriorScopeHandler.generateScopes(
+        editor,
+        position,
+        direction,
+        {
+          ...hints,
+          containment: undefined,
+        },
+      ),
+      (scope) => scope.domain,
+    );
+  }
+
+  private getStringRanges(
+    editor: TextEditor,
+    position: Position,
+    direction: Direction,
+    hints: ScopeIteratorRequirements,
+  ): Range[] {
+    return Array.from(
+      this.surroundingPairStringScopeHandler.generateScopes(
         editor,
         position,
         direction,
@@ -86,20 +114,26 @@ export class CollectionItemScopeHandler extends BaseScopeHandler {
       direction,
       hints,
     );
+    const stringRanges = this.getStringRanges(
+      editor,
+      position,
+      direction,
+      hints,
+    );
 
     const scopes: TargetScope[] = [];
     const usedInteriors = new Set<Range>();
     let delimitersInIteration: Range[] = [];
     let previousInteriorRange: Range | undefined;
     let previousLineRange: Range | undefined;
+    const previousIterationRanges: Range[] = [];
 
     function addScopes() {
       if (delimitersInIteration.length === 0) {
         return;
       }
 
-      const previousIterationRange = (previousInteriorRange ??
-        previousLineRange)!;
+      const previousIterationRange = previousIterationRanges.pop()!;
       const itemRanges: Range[] = [];
 
       for (let i = 0; i < delimitersInIteration.length; ++i) {
@@ -140,6 +174,10 @@ export class CollectionItemScopeHandler extends BaseScopeHandler {
     }
 
     for (const delimiter of delimiterRanges) {
+      if (stringRanges.some((range) => range.contains(delimiter))) {
+        continue;
+      }
+
       if (previousInteriorRange != null) {
         if (previousInteriorRange.contains(delimiter)) {
           delimitersInIteration.push(delimiter);
@@ -173,6 +211,8 @@ export class CollectionItemScopeHandler extends BaseScopeHandler {
       } else {
         previousLineRange = document.lineAt(delimiter.start.line).range;
       }
+
+      previousIterationRanges.push(previousInteriorRange ?? previousLineRange!);
 
       delimitersInIteration = [delimiter];
     }
