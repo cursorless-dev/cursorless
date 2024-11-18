@@ -94,6 +94,7 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
         return new GlyphScopeHandler(this, scopeType, languageId);
       case "collectionItem":
         return new CollectionItemScopeHandler(
+          this,
           this.languageDefinitions,
           languageId,
         );
