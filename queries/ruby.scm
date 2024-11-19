@@ -69,3 +69,29 @@ operator: [
 (match_pattern
   "=>" @disqualifyDelimiter
 )
+
+;;!! %w(foo bar)
+;;!     ^^^ ^^^
+(
+  (string_array
+    (bare_string)? @_.leading.endOf
+    .
+    (bare_string) @collectionItem
+    .
+    (bare_string)? @_.trailing.startOf
+  )
+  (#insertion-delimiter! @collectionItem " ")
+)
+
+;;!! %i(foo bar)
+;;!     ^^^ ^^^
+(
+  (symbol_array
+    (bare_symbol)? @_.leading.endOf
+    .
+    (bare_symbol) @collectionItem
+    .
+    (bare_symbol)? @_.trailing.startOf
+  )
+  (#insertion-delimiter! @collectionItem " ")
+)
