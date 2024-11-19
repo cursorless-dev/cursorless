@@ -114,4 +114,15 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
           ?.getScopeHandler(scopeType);
     }
   }
+
+  createWithAssert(
+    scopeType: ScopeType | CustomScopeType,
+    languageId: string,
+  ): ScopeHandler {
+    const handler = this.create(scopeType, languageId);
+    if (handler == null) {
+      throw new Error(`Couldn't create scope handler for '${scopeType.type}'`);
+    }
+    return handler;
+  }
 }

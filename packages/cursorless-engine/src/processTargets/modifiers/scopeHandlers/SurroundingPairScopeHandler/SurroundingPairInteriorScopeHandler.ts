@@ -17,14 +17,15 @@ export class SurroundingPairInteriorScopeHandler extends BaseScopeHandler {
   ) {
     super();
 
-    this.surroundingPairScopeHandler = this.scopeHandlerFactory.create(
-      {
-        type: "surroundingPair",
-        delimiter: this.scopeType.delimiter,
-        requireStrongContainment: true,
-      },
-      this.languageId,
-    )!;
+    this.surroundingPairScopeHandler =
+      this.scopeHandlerFactory.createWithAssert(
+        {
+          type: "surroundingPair",
+          delimiter: this.scopeType.delimiter,
+          requireStrongContainment: true,
+        },
+        this.languageId,
+      );
   }
 
   get iterationScopeType() {

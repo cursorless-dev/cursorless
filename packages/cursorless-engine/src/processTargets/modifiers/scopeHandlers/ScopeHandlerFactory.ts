@@ -6,4 +6,9 @@ export interface ScopeHandlerFactory {
     scopeType: ScopeType | CustomScopeType,
     languageId: string,
   ): ScopeHandler | undefined;
+
+  createWithAssert(
+    scopeType: ScopeType | CustomScopeType,
+    languageId: string,
+  ): ScopeHandler;
 }

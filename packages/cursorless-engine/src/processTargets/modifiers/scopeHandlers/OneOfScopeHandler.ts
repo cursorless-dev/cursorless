@@ -24,25 +24,19 @@ export class OneOfScopeHandler extends BaseScopeHandler {
     languageId: string,
   ): ScopeHandler {
     const scopeHandlers: ScopeHandler[] = scopeType.scopeTypes.map(
-      (scopeType) => {
-        const handler = scopeHandlerFactory.create(scopeType, languageId);
-        if (handler == null) {
-          throw new Error(`No available scope handler for '${scopeType.type}'`);
-        }
-        return handler;
-      },
+      (scopeType) =>
+        scopeHandlerFactory.createWithAssert(scopeType, languageId),
     );
 
     const iterationScopeType = (): CustomScopeType => ({
       type: "custom",
       scopeHandler: new OneOfScopeHandler(
         undefined,
-        scopeHandlers.map(
-          (scopeHandler) =>
-            scopeHandlerFactory.create(
-              scopeHandler.iterationScopeType,
-              languageId,
-            )!,
+        scopeHandlers.map((scopeHandler) =>
+          scopeHandlerFactory.createWithAssert(
+            scopeHandler.iterationScopeType,
+            languageId,
+          ),
         ),
         () => {
           throw new Error("Not implemented");
