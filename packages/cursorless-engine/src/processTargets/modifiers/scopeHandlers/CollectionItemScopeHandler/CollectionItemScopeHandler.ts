@@ -19,7 +19,6 @@ import { CollectionItemTextualScopeHandler } from "./CollectionItemTextualScopeH
 export class CollectionItemScopeHandler extends BaseScopeHandler {
   public scopeType: ScopeType = { type: "collectionItem" };
   protected isHierarchical = true;
-
   private scopeHandler: ScopeHandler;
 
   get iterationScopeType(): ScopeType | CustomScopeType {
