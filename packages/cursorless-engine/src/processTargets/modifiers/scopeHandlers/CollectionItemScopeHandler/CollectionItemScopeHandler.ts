@@ -51,11 +51,11 @@ export class CollectionItemScopeHandler extends BaseScopeHandler {
         {
           type: "oneOf",
           scopeTypes: [
-            textualScopeHandler.scopeType,
             languageScopeHandler.scopeType,
+            textualScopeHandler.scopeType,
           ],
         },
-        [textualScopeHandler, languageScopeHandler],
+        [languageScopeHandler, textualScopeHandler],
         languageId,
       );
     })();
