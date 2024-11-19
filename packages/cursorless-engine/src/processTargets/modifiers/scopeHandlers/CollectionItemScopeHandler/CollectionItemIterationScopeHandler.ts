@@ -1,5 +1,6 @@
 import {
   NoContainingScopeError,
+  testRegex,
   type Direction,
   type Position,
   type ScopeType,
@@ -14,6 +15,7 @@ import type {
   ScopeIteratorRequirements,
 } from "../scopeHandler.types";
 import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
+import { delimiterRegex } from "./getDelimiterOccurrences";
 
 export class CollectionItemIterationScopeHandler extends BaseScopeHandler {
   public scopeType: ScopeType = { type: "collectionItem" };
@@ -57,12 +59,25 @@ export class CollectionItemIterationScopeHandler extends BaseScopeHandler {
 
     yield* scopes;
 
-    yield makeLineScope(editor, position);
+    const lineScope = makeLineScope(editor, position);
+
+    if (lineScope != null) {
+      yield lineScope;
+    }
   }
 }
 
-function makeLineScope(editor: TextEditor, position: Position): TargetScope {
+function makeLineScope(
+  editor: TextEditor,
+  position: Position,
+): TargetScope | null {
   const contentRange = editor.document.lineAt(position.line).range;
+  const text = editor.document.getText(contentRange);
+
+  if (!testRegex(delimiterRegex, text)) {
+    return null;
+  }
+
   return {
     editor,
     domain: contentRange,
