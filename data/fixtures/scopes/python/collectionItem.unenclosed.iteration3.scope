@@ -2,10 +2,16 @@ def foo():
     global bar, baz
 ---
 
-[Range] = 1:11-1:19
+[#1 Range] =
+[#1 Domain] = 0:8-0:8
+          ><
+0| def foo():
+
+
+[#2 Range] = 1:11-1:19
              >--------<
 1|     global bar, baz
 
-[Domain] = 1:4-1:19
+[#2 Domain] = 1:4-1:19
       >---------------<
 1|     global bar, baz
