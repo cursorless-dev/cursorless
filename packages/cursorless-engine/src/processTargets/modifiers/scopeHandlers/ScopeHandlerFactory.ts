@@ -2,12 +2,12 @@ import type { ScopeType } from "@cursorless/common";
 import type { CustomScopeType, ScopeHandler } from "./scopeHandler.types";
 
 export interface ScopeHandlerFactory {
-  create(
+  tryCreate(
     scopeType: ScopeType | CustomScopeType,
     languageId: string,
   ): ScopeHandler | undefined;
 
-  createWithAssert(
+  create(
     scopeType: ScopeType | CustomScopeType,
     languageId: string,
   ): ScopeHandler;

@@ -32,18 +32,17 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
   ) {
     super();
 
-    this.targetScopeHandler = this.scopeHandlerFactory.createWithAssert(
+    this.targetScopeHandler = this.scopeHandlerFactory.create(
       this.targetScopeType,
       this.languageId,
     );
-    this.surroundingPairInteriorScopeHandler =
-      this.scopeHandlerFactory.createWithAssert(
-        {
-          type: "surroundingPairInterior",
-          delimiter: "any",
-        },
-        this.languageId,
-      );
+    this.surroundingPairInteriorScopeHandler = this.scopeHandlerFactory.create(
+      {
+        type: "surroundingPairInterior",
+        delimiter: "any",
+      },
+      this.languageId,
+    );
   }
 
   get iterationScopeType(): ScopeType {

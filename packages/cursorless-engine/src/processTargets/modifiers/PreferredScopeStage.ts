@@ -41,7 +41,7 @@ export class PreferredScopeStage implements ModifierStage {
       }
     }
 
-    const scopeHandler = this.scopeHandlerFactory.createWithAssert(
+    const scopeHandler = this.scopeHandlerFactory.create(
       this.modifier.scopeType,
       target.editor.document.languageId,
     );

@@ -24,8 +24,7 @@ export class OneOfScopeHandler extends BaseScopeHandler {
     languageId: string,
   ): ScopeHandler {
     const scopeHandlers: ScopeHandler[] = scopeType.scopeTypes.map(
-      (scopeType) =>
-        scopeHandlerFactory.createWithAssert(scopeType, languageId),
+      (scopeType) => scopeHandlerFactory.create(scopeType, languageId),
     );
 
     const iterationScopeType = (): CustomScopeType => ({
@@ -33,7 +32,7 @@ export class OneOfScopeHandler extends BaseScopeHandler {
       scopeHandler: new OneOfScopeHandler(
         undefined,
         scopeHandlers.map((scopeHandler) =>
-          scopeHandlerFactory.createWithAssert(
+          scopeHandlerFactory.create(
             scopeHandler.iterationScopeType,
             languageId,
           ),

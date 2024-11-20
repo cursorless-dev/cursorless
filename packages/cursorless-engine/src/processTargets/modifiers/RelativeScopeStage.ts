@@ -31,7 +31,7 @@ export class RelativeScopeStage implements ModifierStage {
   ) {}
 
   run(target: Target): Target[] {
-    const scopeHandler = this.scopeHandlerFactory.create(
+    const scopeHandler = this.scopeHandlerFactory.tryCreate(
       this.modifier.scopeType,
       target.editor.document.languageId,
     );

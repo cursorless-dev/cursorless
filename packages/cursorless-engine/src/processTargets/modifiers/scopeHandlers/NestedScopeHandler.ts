@@ -60,7 +60,7 @@ export abstract class NestedScopeHandler extends BaseScopeHandler {
 
   private get searchScopeHandler(): ScopeHandler {
     if (this._searchScopeHandler == null) {
-      this._searchScopeHandler = this.scopeHandlerFactory.createWithAssert(
+      this._searchScopeHandler = this.scopeHandlerFactory.create(
         this.searchScopeType,
         this.languageId,
       );
