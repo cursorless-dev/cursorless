@@ -46,6 +46,7 @@ import type { CustomScopeType, ScopeHandler } from "./scopeHandler.types";
 export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
   constructor(private languageDefinitions: LanguageDefinitions) {
     this.tryCreate = this.tryCreate.bind(this);
+    this.create = this.create.bind(this);
   }
 
   tryCreate(
