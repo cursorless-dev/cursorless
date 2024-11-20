@@ -16,7 +16,8 @@ mod.list(
 # This is a private setting and should not be used by non Cursorless developers
 mod.setting(
     "private_cursorless_use_preferred_scope",
-    bool,
+    type=bool,
+    default=False,
     desc="Use preferred scope instead of containing scope for all scopes by default (EXPERIMENTAL)",
 )
 
@@ -42,7 +43,7 @@ def cursorless_simple_scope_modifier(m) -> dict[str, Any]:
             "ancestorIndex": 1,
         }
 
-    if settings.get("user.private_cursorless_use_preferred_scope", False):
+    if settings.get("user.private_cursorless_use_preferred_scope"):
         return {
             "type": "preferredScope",
             "scopeType": m.cursorless_scope_type,
