@@ -16,7 +16,7 @@ mod.list(
 # This is a private setting and should not be used by non Cursorless developers
 mod.setting(
     "private_cursorless_use_preferred_scope",
-    bool,
+    type=bool,
     default=False,
     desc="Use preferred scope instead of containing scope for all scopes by default (EXPERIMENTAL)",
 )
