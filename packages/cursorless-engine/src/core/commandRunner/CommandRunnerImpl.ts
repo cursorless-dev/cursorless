@@ -211,6 +211,12 @@ export class CommandRunnerImpl implements CommandRunner {
 
       default: {
         const action = this.actions[actionDescriptor.name];
+
+        // Ensure we don't miss any new actions. Needed because we don't have input validation.
+        if (action == null) {
+          throw new Error(`Unknown action: ${actionDescriptor.name}`);
+        }
+
         this.finalStages = action.getFinalStages?.() ?? [];
         this.noAutomaticTokenExpansion =
           action.noAutomaticTokenExpansion ?? false;
