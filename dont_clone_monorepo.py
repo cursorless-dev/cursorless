@@ -1,7 +1,7 @@
 from talon import app
 
 
-def onready():
+def on_ready():
     app.notify(
         "Don't clone Cursorless monorepo",
         "For Talon use cursorless-talon instead:",
@@ -9,4 +9,4 @@ def onready():
     )
 
 
-app.register("ready", onready)
+app.register("ready", on_ready)
