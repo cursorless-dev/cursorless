@@ -4,7 +4,7 @@ from collections import defaultdict
 from typing import Iterator, Mapping
 from uu import Error
 
-from talon import registry, scope, actions
+from talon import actions, registry, scope
 
 from .spoken_forms_output import SpokenFormOutputEntry
 
