@@ -13,7 +13,7 @@ required_actions = [
 ]
 
 
-def onready():
+def on_ready():
     missing_captures = [
         capture for capture in required_captures if capture not in registry.captures
     ]
@@ -31,4 +31,4 @@ def onready():
         app.notify("Cursorless missing community repository", body=message)
 
 
-app.register("ready", onready)
+app.register("ready", on_ready)
