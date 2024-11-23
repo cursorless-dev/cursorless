@@ -122,8 +122,9 @@ function createTargetScope(cell: NotebookCell): TargetScope {
 }
 
 function getEditor(cell: NotebookCell) {
+  const uri = cell.document.uri.toString();
   for (const editor of ide().visibleTextEditors) {
-    if (editor.document.uri.toString() === cell.document.uri.toString()) {
+    if (editor.document.uri.toString() === uri) {
       return editor;
     }
   }
