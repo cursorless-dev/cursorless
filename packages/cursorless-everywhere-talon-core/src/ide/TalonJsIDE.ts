@@ -10,6 +10,7 @@ import type {
   InputBoxOptions,
   Listener,
   Messages,
+  NotebookEditor,
   OpenUntitledTextDocumentOptions,
   QuickPickOptions,
   RunMode,
@@ -78,6 +79,10 @@ export class TalonJsIDE implements IDE {
 
   get visibleTextEditors(): TextEditor[] {
     return this.editors;
+  }
+
+  get visibleNotebookEditors(): NotebookEditor[] {
+    return [];
   }
 
   getEditableTextEditor(editor: TextEditor): EditableTextEditor {

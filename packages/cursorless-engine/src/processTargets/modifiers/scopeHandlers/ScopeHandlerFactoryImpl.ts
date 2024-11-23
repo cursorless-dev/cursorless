@@ -8,6 +8,7 @@ import { CharacterScopeHandler } from "./CharacterScopeHandler";
 import { DocumentScopeHandler } from "./DocumentScopeHandler";
 import { IdentifierScopeHandler } from "./IdentifierScopeHandler";
 import { LineScopeHandler } from "./LineScopeHandler";
+import { NotebookCellScopeHandler } from "./NotebookCellScopeHandler";
 import { OneOfScopeHandler } from "./OneOfScopeHandler";
 import { ParagraphScopeHandler } from "./ParagraphScopeHandler";
 import {
@@ -100,6 +101,12 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
       case "surroundingPairInterior":
         return new SurroundingPairInteriorScopeHandler(
           this,
+          scopeType,
+          languageId,
+        );
+      case "notebookCell":
+        return new NotebookCellScopeHandler(
+          this.languageDefinitions,
           scopeType,
           languageId,
         );
