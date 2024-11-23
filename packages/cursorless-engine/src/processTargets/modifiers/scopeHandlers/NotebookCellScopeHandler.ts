@@ -45,44 +45,64 @@ export class NotebookCellScopeHandler implements ScopeHandler {
       );
     }
 
-    const nb = getNotebook(editor);
-
-    if (nb == null) {
-      return;
-    }
-
-    const { notebook, cell } = nb;
-
-    if (hints.containment === "required") {
-      yield createTargetScope(cell);
-      return;
-    }
-
-    const cells = (() => {
-      if (
-        hints.containment === "disallowed" ||
-        hints.containment === "disallowedIfStrict"
-      ) {
-        return direction === "forward"
-          ? notebook.cells.slice(cell.index + 1)
-          : notebook.cells.slice(0, cell.index).reverse();
-      }
-      // Every scope
-      if (hints.distalPosition != null) {
-        const searchRange = new Range(position, hints.distalPosition);
-        if (searchRange.isRangeEqual(editor.document.range)) {
-          return notebook.cells;
-        }
-      }
-      return direction === "forward"
-        ? notebook.cells.slice(cell.index)
-        : notebook.cells.slice(0, cell.index + 1).reverse();
-    })();
+    const cells = getNotebookCells(editor, position, direction, hints);
 
     for (const cell of cells) {
       yield createTargetScope(cell);
     }
   }
+}
+
+function getNotebookCells(
+  editor: TextEditor,
+  position: Position,
+  direction: Direction,
+  hints: ScopeIteratorRequirements,
+) {
+  const nb = getNotebook(editor);
+
+  if (nb == null) {
+    return [];
+  }
+
+  const { notebook, cell } = nb;
+
+  if (hints.containment === "required") {
+    return [cell];
+  }
+
+  if (
+    hints.containment === "disallowed" ||
+    hints.containment === "disallowedIfStrict"
+  ) {
+    return direction === "forward"
+      ? notebook.cells.slice(cell.index + 1)
+      : notebook.cells.slice(0, cell.index).reverse();
+  }
+
+  // Every scope
+  if (hints.distalPosition != null) {
+    const searchRange = new Range(position, hints.distalPosition);
+    if (searchRange.isRangeEqual(editor.document.range)) {
+      return notebook.cells;
+    }
+  }
+
+  return direction === "forward"
+    ? notebook.cells.slice(cell.index)
+    : notebook.cells.slice(0, cell.index + 1).reverse();
+}
+
+function getNotebook(editor: TextEditor) {
+  const uri = editor.document.uri.toString();
+  for (const notebook of ide().visibleNotebookEditors) {
+    for (const cell of notebook.cells) {
+      if (cell.document.uri.toString() === uri) {
+        return { notebook, cell };
+      }
+    }
+  }
+  return undefined;
 }
 
 function createTargetScope(cell: NotebookCell): TargetScope {
@@ -99,18 +119,6 @@ function createTargetScope(cell: NotebookCell): TargetScope {
       }),
     ],
   };
-}
-
-function getNotebook(editor: TextEditor) {
-  const uri = editor.document.uri.toString();
-  for (const notebook of ide().visibleNotebookEditors) {
-    for (const cell of notebook.cells) {
-      if (cell.document.uri.toString() === uri) {
-        return { notebook, cell };
-      }
-    }
-  }
-  return undefined;
 }
 
 function getEditor(cell: NotebookCell) {
