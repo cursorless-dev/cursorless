@@ -30,7 +30,8 @@
   "dependencies": {
     "@cursorless/common": "workspace:*",
     "@cursorless/cursorless-engine": "workspace:*",
-    "@cursorless/test-case-recorder": "workspace:*"
+    "@cursorless/test-case-recorder": "workspace:*",
+    "vscode-uri": "^3.0.8"
   },
   "devDependencies": {
     "@types/chai": "^5.0.0",

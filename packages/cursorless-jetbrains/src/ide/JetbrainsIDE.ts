@@ -1,11 +1,11 @@
-import type {
+import {
   Disposable,
   EditableTextEditor,
   IDE,
+  InMemoryTextDocument,
+  Notifier,
   OpenUntitledTextDocumentOptions,
-  Range,
   RunMode,
-  Selection,
   TextDocumentChangeEvent,
   TextEditor,
   WorkspaceFolder,
@@ -16,6 +16,7 @@ import type {
   GeneralizedRange,
   QuickPickOptions,
   TextDocument,
+  TextDocumentContentChangeEvent,
   TextEditorSelectionChangeEvent,
   TextEditorVisibleRangesChangeEvent,
 } from "@cursorless/common";
@@ -32,15 +33,19 @@ import { JetbrainsCapabilities } from "./JetbrainsCapabilities";
 // import { nodeGetRunMode } from "@cursorless/node-common";
 
 import {
-  jetbrainsOnDidChangeTextDocument,
+  fromJetbrainsContentChange,
   jetbrainsOnDidOpenTextDocument,
 } from "./JetbrainsEvents";
 
-import { JetbrainsClient } from "./JetbrainsClient"
-import { JetbrainsClipboard } from "./JetbrainsClipboard"
-import { JetbrainsConfiguration } from "./JetbrainsConfiguration"
-import { JetbrainsMessages } from "./JetbrainsMessages"
-import { JetbrainsKeyValueStore } from "./JetbrainsKeyValueStore"
+import type { JetbrainsClient } from "./JetbrainsClient";
+import { JetbrainsClipboard } from "./JetbrainsClipboard";
+import { JetbrainsConfiguration } from "./JetbrainsConfiguration";
+import { JetbrainsMessages } from "./JetbrainsMessages";
+import { JetbrainsKeyValueStore } from "./JetbrainsKeyValueStore";
+import type { EditorState } from "../types/types";
+import { URI } from "vscode-uri";
+import { createTextEditor } from "./createTextEditor";
+import { JetbrainsEditor } from "./JetbrainsEditor";
 
 export class JetbrainsIDE implements IDE {
   readonly configuration: JetbrainsConfiguration;
@@ -48,17 +53,25 @@ export class JetbrainsIDE implements IDE {
   readonly messages: JetbrainsMessages;
   readonly clipboard: JetbrainsClipboard;
   readonly capabilities: JetbrainsCapabilities;
-//   private editorMap;
-//   private documentMap;
+  readonly runMode: RunMode = "development";
+  //   private editorMap;
+  //   private documentMap;
   private activeWindow: Window | undefined;
   private activeBuffer: Buffer | undefined;
 
-  cursorlessVersion: string = "0.0.0";
-  workspaceFolders: readonly WorkspaceFolder[] | undefined = undefined;
   private disposables: Disposable[] = [];
   private assetsRoot_: string | undefined;
   private cursorlessJetbrainsPath: string | undefined;
   private quickPickReturnValue: string | undefined = undefined;
+
+  private editors: EditableTextEditor[] = [];
+
+  private onDidChangeTextDocumentNotifier: Notifier<[TextDocumentChangeEvent]> =
+    new Notifier();
+
+  private onDidChangeTextDocumentContentNotifier: Notifier<
+    [TextDocumentContentChangeEvent]
+  > = new Notifier();
 
   constructor(private client: JetbrainsClient) {
     this.configuration = new JetbrainsConfiguration();
@@ -66,14 +79,13 @@ export class JetbrainsIDE implements IDE {
     this.messages = new JetbrainsMessages();
     this.clipboard = new JetbrainsClipboard(this.client);
     this.capabilities = new JetbrainsCapabilities();
-//     this.editorMap = new Map<Window, JetbrainsTextEditorImpl>();
-//     this.documentMap = new Map<Buffer, JetbrainsTextDocumentImpl>();
+    //     this.editorMap = new Map<Window, JetbrainsTextEditorImpl>();
+    //     this.documentMap = new Map<Buffer, JetbrainsTextDocumentImpl>();
     this.activeWindow = undefined;
     this.activeBuffer = undefined;
   }
 
-  async init() {
-  }
+  async init() {}
 
   async showQuickPick(
     _items: readonly string[],
@@ -95,38 +107,42 @@ export class JetbrainsIDE implements IDE {
   }
 
   get assetsRoot(): string {
-    if (this.assetsRoot_ == null) {
-      throw Error("Field `assetsRoot` has not yet been mocked");
-    }
-
-    return this.assetsRoot_;
+    console.log("get assetsRoot");
+    throw new Error("assetsRoot not implemented.");
   }
 
-  //
-  get runMode(): RunMode {
-    return "production";
+  get cursorlessVersion(): string {
+    console.log("get cursorlessVersion");
+    throw new Error("cursorlessVersion not implemented.");
+  }
+
+  get workspaceFolders(): readonly WorkspaceFolder[] | undefined {
+    console.log("get workspaceFolders");
+    throw new Error("workspaceFolders not implemented.");
   }
 
   get activeTextEditor(): TextEditor | undefined {
-    throw Error("activeTextEditor Not implemented");
-//     return this.getActiveTextEditor();
+    console.log("get activeEditableTextEditor");
+    return this.activeEditableTextEditor;
   }
 
   get activeEditableTextEditor(): EditableTextEditor | undefined {
-    throw Error("activeEditableTextEditor Not implemented");
-//     return this.getActiveTextEditor();
+    console.log("get activeEditableTextEditor");
+    return this.editors[0];
   }
 
-
-
-  get visibleTextEditors(): EditableTextEditor[] {
-//     return Array.from(this.editorMap.values());
-    throw Error("visibleTextEditors Not implemented");
+  get visibleTextEditors(): TextEditor[] {
+    console.log("get activeEditableTextEditor");
+    return this.editors;
   }
 
-  public getEditableTextEditor(editor: TextEditor): EditableTextEditor {
-//     return editor as EditableTextEditor;
-    throw Error("getEditableTextEditor Not implemented");
+  getEditableTextEditor(editor: TextEditor): EditableTextEditor {
+    console.log("getEditableTextEditor");
+    if (editor instanceof JetbrainsEditor) {
+      console.log("getEditableTextEditor - return current");
+      return editor;
+    }
+    throw Error(`Unsupported text editor type: ${editor}`);
   }
 
   public async findInDocument(
@@ -164,7 +180,7 @@ export class JetbrainsIDE implements IDE {
   public onDidChangeTextDocument(
     listener: (event: TextDocumentChangeEvent) => void,
   ): Disposable {
-    return jetbrainsOnDidChangeTextDocument(listener);
+    return this.onDidChangeTextDocumentNotifier.registerListener(listener);
   }
 
   public onDidOpenTextDocument(
@@ -182,11 +198,11 @@ export class JetbrainsIDE implements IDE {
   onDidChangeTextEditorVisibleRanges: Event<TextEditorVisibleRangesChangeEvent> =
     dummyEvent;
 
-  handleCommandError(err: Error) {
+  handleCommandError(_err: Error) {
     // if (err instanceof OutdatedExtensionError) {
     //   this.showUpdateExtensionErrorMessage(err);
     // } else {
-//     void showErrorMessage(this.client, err.message);
+    //     void showErrorMessage(this.client, err.message);
     // }
   }
 
@@ -195,6 +211,55 @@ export class JetbrainsIDE implements IDE {
 
     return () => pull(this.disposables, ...disposables);
   }
+
+  public documentChanged(editorStateJson: any) {
+    console.log(
+      "ASOEE/CL: documentChanged : " + JSON.stringify(editorStateJson),
+    );
+    const editorState = editorStateJson as EditorState;
+
+    this.updateTextEditors(editorState);
+
+    const uri = URI.parse("jetbrains://" + editorState);
+    const language = editorState.languageId
+      ? editorState.languageId
+      : "plaintext";
+    const document = new InMemoryTextDocument(uri, language, editorState.text);
+    const linedata = getLines(
+      editorState.text,
+      editorState.firstVisibleLine,
+      editorState.lastVisibleLine,
+    );
+    const contentChangeEvents = fromJetbrainsContentChange(
+      document,
+      editorState.firstVisibleLine,
+      editorState.lastVisibleLine,
+      linedata,
+    );
+    const documentChangeEvent: TextDocumentChangeEvent = {
+      document: document,
+      contentChanges: contentChangeEvents,
+    };
+    console.log("ASOEE/CL: documentChanged : notify...");
+    this.emitDidChangeTextDocument(documentChangeEvent);
+    console.log("ASOEE/CL: documentChanged : notify complete");
+  }
+
+  emitDidChangeTextDocument(event: TextDocumentChangeEvent) {
+    this.onDidChangeTextDocumentNotifier.notifyListeners(event);
+  }
+
+  updateTextEditors(editorState: EditorState) {
+    this.editors = [createTextEditor(this.client, this, editorState)];
+    console.log(
+      "ASOEE/CL: updated editor with document " + editorState.firstVisibleLine,
+    );
+  }
+}
+
+function getLines(text: string, firstLine: number, lastLine: number) {
+  const lines = text.split("\n");
+  return lines.slice(firstLine, lastLine);
 }
 
 function dummyEvent() {
@@ -203,4 +268,8 @@ function dummyEvent() {
       // empty
     },
   };
+}
+
+export function createIDE(client: JetbrainsClient) {
+  return new JetbrainsIDE(client);
 }

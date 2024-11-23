@@ -22,7 +22,6 @@ export function jetbrainsOnDidOpenTextDocument(
 
 export function fromJetbrainsContentChange(
   document: TextDocument,
-  buffer: Buffer,
   firstLine: number,
   lastLine: number,
   linedata: string[],
@@ -44,7 +43,9 @@ export function fromJetbrainsContentChange(
     rangeLength: rangeLength,
     text: text,
   });
-  console.debug(`fromJetbrainsContentChange(): changes=${JSON.stringify(result)}`);
+  console.debug(
+    `fromJetbrainsContentChange(): changes=${JSON.stringify(result)}`,
+  );
   return result;
 }
 
