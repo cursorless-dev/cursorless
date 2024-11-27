@@ -33,7 +33,7 @@ export class JetbrainsHats implements Hats {
     this.hatRanges = hatRanges;
     const jbHatRanges = this.toJetbransHatRanges(hatRanges);
     const hatsJson = JSON.stringify(jbHatRanges);
-    console.log("ASOEE/CL: JetbrainsHats.setHatRanges json: " + hatsJson);
+    // console.log("ASOEE/CL: JetbrainsHats.setHatRanges json: " + hatsJson);
     this.client.hatsUpdated(hatsJson);
     return Promise.resolve();
   }
