@@ -46,6 +46,7 @@ import type { EditorState } from "../types/types";
 import { URI } from "vscode-uri";
 import { createTextEditor } from "./createTextEditor";
 import { JetbrainsEditor } from "./JetbrainsEditor";
+import { makeNodePairSelection } from "../../../cursorless-engine/src/util/nodeSelectors";
 
 export class JetbrainsIDE implements IDE {
   readonly configuration: JetbrainsConfiguration;
@@ -56,15 +57,18 @@ export class JetbrainsIDE implements IDE {
   readonly runMode: RunMode = "development";
   //   private editorMap;
   //   private documentMap;
-  private activeWindow: Window | undefined;
-  private activeBuffer: Buffer | undefined;
+  private activeProject: Window | undefined;
+  private activeEditor: Buffer | undefined;
 
   private disposables: Disposable[] = [];
   private assetsRoot_: string | undefined;
   private cursorlessJetbrainsPath: string | undefined;
   private quickPickReturnValue: string | undefined = undefined;
 
-  private editors: EditableTextEditor[] = [];
+  private editors: Map<string, JetbrainsEditor> = new Map<
+    string,
+    JetbrainsEditor
+  >();
 
   private onDidChangeTextDocumentNotifier: Notifier<[TextDocumentChangeEvent]> =
     new Notifier();
@@ -81,8 +85,8 @@ export class JetbrainsIDE implements IDE {
     this.capabilities = new JetbrainsCapabilities();
     //     this.editorMap = new Map<Window, JetbrainsTextEditorImpl>();
     //     this.documentMap = new Map<Buffer, JetbrainsTextDocumentImpl>();
-    this.activeWindow = undefined;
-    this.activeBuffer = undefined;
+    this.activeProject = undefined;
+    this.activeEditor = undefined;
   }
 
   async init() {}
@@ -128,12 +132,12 @@ export class JetbrainsIDE implements IDE {
 
   get activeEditableTextEditor(): EditableTextEditor | undefined {
     console.log("get activeEditableTextEditor");
-    return this.editors[0];
+    return [...this.editors.values()].find((editor) => editor.isActive);
   }
 
   get visibleTextEditors(): TextEditor[] {
-    console.log("get activeEditableTextEditor");
-    return this.editors;
+    console.log("get visibleTextEditors");
+    return [...this.editors.values()].filter((editor) => editor.isActive);
   }
 
   getEditableTextEditor(editor: TextEditor): EditableTextEditor {
@@ -250,7 +254,10 @@ export class JetbrainsIDE implements IDE {
   }
 
   updateTextEditors(editorState: EditorState) {
-    this.editors = [createTextEditor(this.client, this, editorState)];
+    this.editors.set(
+      editorState.id,
+      createTextEditor(this.client, this, editorState),
+    );
     console.log(
       "ASOEE/CL: updated editor with document " + editorState.firstVisibleLine,
     );

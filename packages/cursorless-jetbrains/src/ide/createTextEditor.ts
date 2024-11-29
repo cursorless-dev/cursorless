@@ -1,6 +1,7 @@
 import {
   InMemoryTextDocument,
   Position,
+  Range,
   Selection,
   type TextDocument,
 } from "@cursorless/common";
@@ -21,7 +22,9 @@ export function createTextEditor(
   const uri = URI.parse(`talon-jetbrains://${id}`);
   const languageId = editorState.languageId ?? "plaintext";
   const document = new InMemoryTextDocument(uri, languageId, editorState.text);
-  const visibleRanges = [document.range];
+  const visibleRanges = [
+    new Range(editorState.firstVisibleLine, 0, editorState.lastVisibleLine, 0),
+  ];
   const selections = editorState.selections.map((selection) =>
     createSelection(document, selection),
   );
