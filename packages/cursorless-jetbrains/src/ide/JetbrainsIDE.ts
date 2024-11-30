@@ -5,6 +5,7 @@ import {
   InMemoryTextDocument,
   Notifier,
   OpenUntitledTextDocumentOptions,
+  Range,
   RunMode,
   TextDocumentChangeEvent,
   TextEditor,
@@ -44,9 +45,10 @@ import { JetbrainsMessages } from "./JetbrainsMessages";
 import { JetbrainsKeyValueStore } from "./JetbrainsKeyValueStore";
 import type { EditorState } from "../types/types";
 import { URI } from "vscode-uri";
-import { createTextEditor } from "./createTextEditor";
+import { createSelection, createTextEditor } from "./createTextEditor";
 import { JetbrainsEditor } from "./JetbrainsEditor";
 import { makeNodePairSelection } from "../../../cursorless-engine/src/util/nodeSelectors";
+import { elseIfExtractor } from "../../../cursorless-engine/src/languages/elseIfExtractor";
 
 export class JetbrainsIDE implements IDE {
   readonly configuration: JetbrainsConfiguration;
@@ -58,7 +60,7 @@ export class JetbrainsIDE implements IDE {
   //   private editorMap;
   //   private documentMap;
   private activeProject: Window | undefined;
-  private activeEditor: Buffer | undefined;
+  private activeEditor: JetbrainsEditor | undefined;
 
   private disposables: Disposable[] = [];
   private assetsRoot_: string | undefined;
@@ -126,18 +128,24 @@ export class JetbrainsIDE implements IDE {
   }
 
   get activeTextEditor(): TextEditor | undefined {
-    console.log("get activeEditableTextEditor");
+    console.log("get activeTextEditor");
     return this.activeEditableTextEditor;
   }
 
   get activeEditableTextEditor(): EditableTextEditor | undefined {
     console.log("get activeEditableTextEditor");
-    return [...this.editors.values()].find((editor) => editor.isActive);
+    return this.activeEditor;
   }
 
   get visibleTextEditors(): TextEditor[] {
     console.log("get visibleTextEditors");
-    return [...this.editors.values()].filter((editor) => editor.isActive);
+    //return [...this.editors.values()].filter((editor) => editor.isActive);
+    if (this.activeEditor) {
+      console.log("visible: " + this.activeEditor.id);
+      return [this.activeEditor];
+    } else {
+      return [];
+    }
   }
 
   getEditableTextEditor(editor: TextEditor): EditableTextEditor {
@@ -222,26 +230,21 @@ export class JetbrainsIDE implements IDE {
     );
     const editorState = editorStateJson as EditorState;
 
-    this.updateTextEditors(editorState);
+    const editor = this.updateTextEditors(editorState);
 
-    const uri = URI.parse("jetbrains://" + editorState);
-    const language = editorState.languageId
-      ? editorState.languageId
-      : "plaintext";
-    const document = new InMemoryTextDocument(uri, language, editorState.text);
     const linedata = getLines(
       editorState.text,
       editorState.firstVisibleLine,
       editorState.lastVisibleLine,
     );
     const contentChangeEvents = fromJetbrainsContentChange(
-      document,
+      editor.document,
       editorState.firstVisibleLine,
       editorState.lastVisibleLine,
       linedata,
     );
     const documentChangeEvent: TextDocumentChangeEvent = {
-      document: document,
+      document: editor.document,
       contentChanges: contentChangeEvents,
     };
     console.log("ASOEE/CL: documentChanged : notify...");
@@ -253,15 +256,35 @@ export class JetbrainsIDE implements IDE {
     this.onDidChangeTextDocumentNotifier.notifyListeners(event);
   }
 
-  updateTextEditors(editorState: EditorState) {
-    this.editors.set(
-      editorState.id,
-      createTextEditor(this.client, this, editorState),
-    );
-    console.log(
-      "ASOEE/CL: updated editor with document " + editorState.firstVisibleLine,
-    );
+  updateTextEditors(editorState: EditorState): JetbrainsEditor {
+    let editor = this.editors.get(editorState.id);
+    if (editor) {
+      updateEditor(editor, editorState);
+    } else {
+      editor = createTextEditor(this.client, this, editorState);
+      this.editors.set(editorState.id, editor);
+    }
+    if (editorState.active) {
+      this.activeEditor = editor;
+    }
+    return editor;
   }
+}
+
+function updateEditor(editor: JetbrainsEditor, editorState: EditorState) {
+  console.log("Updating editor " + editorState.id);
+  const oldDocument = editor.document;
+  editor.document = new InMemoryTextDocument(
+    oldDocument.uri,
+    oldDocument.languageId,
+    editorState.text,
+  );
+  editor.visibleRanges = [
+    new Range(editorState.firstVisibleLine, 0, editorState.lastVisibleLine, 0),
+  ];
+  editor.selections = editorState.selections.map((selection) =>
+    createSelection(editor.document, selection),
+  );
 }
 
 function getLines(text: string, firstLine: number, lastLine: number) {

@@ -9,6 +9,7 @@ export function jetbrainsPerformEdits(
   client: JetbrainsClient,
   ide: JetbrainsIDE,
   document: InMemoryTextDocument,
+  id: string,
   edits: Edit[],
 ) {
   const changes = document.edit(edits);
@@ -22,7 +23,7 @@ export function jetbrainsPerformEdits(
     })),
   };
 
-  client.documentUpdated(JSON.stringify(editorEdit));
+  client.documentUpdated(id, JSON.stringify(editorEdit));
   //jetbrains.actions.user.cursorless_everywhere_edit_text(editorEdit);
 
   ide.emitDidChangeTextDocument({

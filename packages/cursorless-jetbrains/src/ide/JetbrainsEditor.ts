@@ -51,7 +51,7 @@ export class JetbrainsEditor implements EditableTextEditor {
 
   edit(edits: Edit[]): Promise<boolean> {
     console.log("editor.edit");
-    jetbrainsPerformEdits(this.client, this.ide, this.document, edits);
+    jetbrainsPerformEdits(this.client, this.ide, this.document, this.id, edits);
     return Promise.resolve(true);
   }
 
