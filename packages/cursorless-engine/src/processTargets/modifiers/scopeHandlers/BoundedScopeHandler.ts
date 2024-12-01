@@ -35,14 +35,14 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
     this.targetScopeHandler = this.scopeHandlerFactory.create(
       this.targetScopeType,
       this.languageId,
-    )!;
+    );
     this.surroundingPairInteriorScopeHandler = this.scopeHandlerFactory.create(
       {
         type: "surroundingPairInterior",
         delimiter: "any",
       },
       this.languageId,
-    )!;
+    );
   }
 
   get iterationScopeType(): ScopeType {

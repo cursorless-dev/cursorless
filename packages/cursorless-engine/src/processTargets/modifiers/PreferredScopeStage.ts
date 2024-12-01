@@ -46,10 +46,6 @@ export class PreferredScopeStage implements ModifierStage {
       target.editor.document.languageId,
     );
 
-    if (scopeHandler == null) {
-      throw Error(`Couldn't create scope handler for: ${scopeType.type}`);
-    }
-
     const closestTargets = getClosestScopeTargets(target, scopeHandler);
 
     if (closestTargets == null) {
