@@ -1,3 +1,7 @@
+"""
+This file exists in our monorepo so that if someone accidentally clones this monorepo
+into their talon folder instead of cursorless-talon, they'll get a helpful error popup
+"""
 from talon import app
 
 
