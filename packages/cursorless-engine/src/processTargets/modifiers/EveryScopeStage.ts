@@ -39,7 +39,7 @@ export class EveryScopeStage implements ModifierStage {
     const { scopeType } = this.modifier;
     const { editor, isReversed } = target;
 
-    const scopeHandler = this.scopeHandlerFactory.tryCreate(
+    const scopeHandler = this.scopeHandlerFactory.maybeCreate(
       scopeType,
       editor.document.languageId,
     );
@@ -108,7 +108,7 @@ export class EveryScopeStage implements ModifierStage {
     scopeHandlerFactory: ScopeHandlerFactory,
     target: Target,
   ): Range[] {
-    const iterationScopeHandler = scopeHandlerFactory.tryCreate(
+    const iterationScopeHandler = scopeHandlerFactory.maybeCreate(
       scopeHandler.iterationScopeType,
       target.editor.document.languageId,
     );

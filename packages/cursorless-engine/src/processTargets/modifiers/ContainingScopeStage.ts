@@ -34,7 +34,7 @@ export class ContainingScopeStage implements ModifierStage {
   run(target: Target): Target[] {
     const { scopeType, ancestorIndex = 0 } = this.modifier;
 
-    const scopeHandler = this.scopeHandlerFactory.tryCreate(
+    const scopeHandler = this.scopeHandlerFactory.maybeCreate(
       scopeType,
       target.editor.document.languageId,
     );

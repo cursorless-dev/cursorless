@@ -29,7 +29,7 @@ export class ScopeSupportChecker {
    */
   getScopeSupport(editor: TextEditor, scopeType: ScopeType): ScopeSupport {
     const { languageId } = editor.document;
-    const scopeHandler = this.scopeHandlerFactory.tryCreate(
+    const scopeHandler = this.scopeHandlerFactory.maybeCreate(
       scopeType,
       languageId,
     );
@@ -56,7 +56,7 @@ export class ScopeSupportChecker {
     scopeType: ScopeType,
   ): ScopeSupport {
     const { languageId } = editor.document;
-    const scopeHandler = this.scopeHandlerFactory.tryCreate(
+    const scopeHandler = this.scopeHandlerFactory.maybeCreate(
       scopeType,
       languageId,
     );
@@ -65,7 +65,7 @@ export class ScopeSupportChecker {
       return getLegacyScopeSupport(languageId, scopeType);
     }
 
-    const iterationScopeHandler = this.scopeHandlerFactory.tryCreate(
+    const iterationScopeHandler = this.scopeHandlerFactory.maybeCreate(
       scopeHandler.iterationScopeType,
       languageId,
     );

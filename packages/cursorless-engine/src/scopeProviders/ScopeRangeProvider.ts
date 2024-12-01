@@ -29,7 +29,7 @@ export class ScopeRangeProvider {
     editor: TextEditor,
     { scopeType, visibleOnly }: ScopeRangeConfig,
   ): ScopeRanges[] {
-    const scopeHandler = this.scopeHandlerFactory.tryCreate(
+    const scopeHandler = this.scopeHandlerFactory.maybeCreate(
       scopeType,
       editor.document.languageId,
     );
@@ -50,7 +50,7 @@ export class ScopeRangeProvider {
     { scopeType, visibleOnly, includeNestedTargets }: IterationScopeRangeConfig,
   ): IterationScopeRanges[] {
     const { languageId } = editor.document;
-    const scopeHandler = this.scopeHandlerFactory.tryCreate(
+    const scopeHandler = this.scopeHandlerFactory.maybeCreate(
       scopeType,
       languageId,
     );
@@ -59,7 +59,7 @@ export class ScopeRangeProvider {
       return [];
     }
 
-    const iterationScopeHandler = this.scopeHandlerFactory.tryCreate(
+    const iterationScopeHandler = this.scopeHandlerFactory.maybeCreate(
       scopeHandler.iterationScopeType,
       languageId,
     );
