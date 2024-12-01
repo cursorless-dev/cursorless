@@ -1,6 +1,6 @@
 from typing import Optional
 
-from talon import actions, app
+from talon import actions
 
 from ..targets.target_types import (
     CursorlessExplicitTarget,
@@ -16,7 +16,7 @@ def cursorless_homophones_action(target: CursorlessExplicitTarget):
     try:
         updated_texts = list(map(get_next_homophone, texts))
     except LookupError as e:
-        app.notify(str(e))
+        actions.app.notify(str(e))
         return
     destination = PrimitiveDestination("to", target)
     cursorless_replace_action(destination, updated_texts)

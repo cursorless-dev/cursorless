@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from typing import TypedDict
 
-from talon import app
+from talon import actions
 
 SPOKEN_FORMS_OUTPUT_PATH = Path.home() / ".cursorless" / "state.json"
 STATE_JSON_VERSION_NUMBER = 0
@@ -27,7 +27,7 @@ class SpokenFormsOutput:
                 f"Error creating spoken form dir {SPOKEN_FORMS_OUTPUT_PATH.parent}"
             )
             print(error_message)
-            app.notify(error_message)
+            actions.app.notify(error_message)
 
     def write(self, spoken_forms: list[SpokenFormOutputEntry]):
         with open(SPOKEN_FORMS_OUTPUT_PATH, "w", encoding="UTF-8") as out:
@@ -45,4 +45,4 @@ class SpokenFormsOutput:
                     f"Error writing spoken form json {SPOKEN_FORMS_OUTPUT_PATH}"
                 )
                 print(error_message)
-                app.notify(error_message)
+                actions.app.notify(error_message)

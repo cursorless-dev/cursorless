@@ -7,7 +7,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Callable, Iterable, Optional, TypedDict
 
-from talon import Context, Module, actions, app, fs, settings
+from talon import Context, Module, actions, fs, settings
 
 from .conventions import get_cursorless_list_name
 from .vendor.inflection import pluralize
@@ -201,7 +201,7 @@ def check_for_duplicates(filename, default_values):
                 existing_list_name = results_map[value]["list"]
                 warning = f"WARNING ({filename}): Value `{value}` duplicated between lists '{existing_list_name}' and '{list_name}'"
                 print(warning)
-                app.notify(warning)
+                actions.app.notify(warning)
 
 
 def is_removed(value: str):
@@ -359,7 +359,7 @@ def update_file(
                 "See release notes for more info: "
                 "https://github.com/cursorless-dev/cursorless/blob/main/CHANGELOG.md"
             )
-            app.notify("🎉🎉 New cursorless features; see log")
+            actions.app.notify("🎉🎉 New cursorless features; see log")
 
     return current_values
 
@@ -452,7 +452,7 @@ def read_file(
         used_identifiers.append(value)
 
     if has_errors:
-        app.notify("Cursorless settings error; see log")
+        actions.app.notify("Cursorless settings error; see log")
 
     return result, has_errors
 

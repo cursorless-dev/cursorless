@@ -26,13 +26,13 @@ instructions_url = "https://www.cursorless.org/docs/"
 class Actions:
     def private_cursorless_cheat_sheet_show_html():
         """Show new cursorless html cheat sheet"""
-        app.notify(
+        actions.app.notify(
             'Please first focus an app that supports cursorless, eg say "focus code"'
         )
 
     def private_cursorless_cheat_sheet_update_json():
         """Update default cursorless cheatsheet json (for developer use only)"""
-        app.notify(
+        actions.app.notify(
             'Please first focus an app that supports cursorless, eg say "focus code"'
         )
 
