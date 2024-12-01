@@ -3,8 +3,8 @@ from talon import app
 
 def on_ready():
     app.notify(
-        "Don't clone Cursorless monorepo",
-        "For Talon use cursorless-talon instead:",
+        "Whoops! You cloned our monorepo instead of cursorless-talon",
+        "Please remove cursorless and clone cursorless-talon instead:",
         "https://github.com/cursorless-dev/cursorless-talon",
     )
 
