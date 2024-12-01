@@ -26,9 +26,11 @@ def on_ready():
     if missing_actions:
         errors.append(f"Missing actions: {', '.join(missing_actions)}")
     if errors:
-        errors.insert(0, "https://github.com/talonhub/community")
-        message = "\n".join(errors)
-        app.notify("Cursorless missing community repository", body=message)
+        print("\n".join(errors))
+        app.notify(
+            "Cursorless missing community repository",
+            body="https://github.com/talonhub/community",
+        )
 
 
 app.register("ready", on_ready)
