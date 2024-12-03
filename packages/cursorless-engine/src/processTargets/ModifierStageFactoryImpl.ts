@@ -36,7 +36,6 @@ import type {
   SimpleEveryScopeModifier,
 } from "./modifiers/scopeTypeStages/LegacyContainingSyntaxScopeStage";
 import { LegacyContainingSyntaxScopeStage } from "./modifiers/scopeTypeStages/LegacyContainingSyntaxScopeStage";
-import { NotebookCellStage } from "./modifiers/scopeTypeStages/NotebookCellStage";
 
 export class ModifierStageFactoryImpl implements ModifierStageFactory {
   constructor(
@@ -129,8 +128,6 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
     modifier: ContainingScopeModifier | EveryScopeModifier,
   ): ModifierStage {
     switch (modifier.scopeType.type) {
-      case "notebookCell":
-        return new NotebookCellStage(modifier);
       case "collectionItem":
         return new ItemStage(this.languageDefinitions, this, modifier);
       default:

@@ -33,6 +33,10 @@ export function createContinuousRangeTarget(
   includeStart: boolean,
   includeEnd: boolean,
 ): Target {
+  if (startTarget.editor !== endTarget.editor) {
+    throw Error("Continuous targets must be in the same editor");
+  }
+
   if (includeStart && includeEnd && isSameType(startTarget, endTarget)) {
     const richTarget = startTarget.maybeCreateRichRangeTarget(
       isReversed,
