@@ -1,4 +1,3 @@
-
 import { HatStability } from "@cursorless/common";
 import { get } from "lodash";
 import type {
@@ -12,22 +11,34 @@ import { Notifier } from "@cursorless/common";
 
 export class JetbrainsConfiguration implements Configuration {
   private notifier = new Notifier();
+  private configuration: CursorlessConfiguration = CONFIGURATION_DEFAULTS;
 
-  constructor() {
-
+  constructor(configuration: CursorlessConfiguration) {
+    this.configuration = configuration;
   }
 
   getOwnConfiguration<Path extends Paths<CursorlessConfiguration>>(
     path: Path,
     scope?: ConfigurationScope,
   ): GetFieldType<CursorlessConfiguration, Path> {
-    return get(CONFIGURATION_DEFAULTS, path) as GetFieldType<
+    return get(this.configuration, path) as GetFieldType<
       CursorlessConfiguration,
       Path
     >;
   }
 
   onDidChangeConfiguration = this.notifier.registerListener;
+
+  updateConfiguration(configuration: CursorlessConfiguration) {
+    this.configuration = configuration;
+    this.notifier.notifyListeners();
+  }
+}
+
+export function createJetbrainsConfiguration(
+  configuration: CursorlessConfiguration,
+): JetbrainsConfiguration {
+  return new JetbrainsConfiguration(configuration);
 }
 
 /**
@@ -40,13 +51,15 @@ export class JetbrainsConfiguration implements Configuration {
  * @returns The configuration value, with variables expanded, or undefined if
  * the value is not set
  */
-export function jetbrainsGetConfigurationString(path: string): string | undefined {
+export function jetbrainsGetConfigurationString(
+  path: string,
+): string | undefined {
   const index = path.lastIndexOf(".");
   const section = path.substring(0, index);
   const field = path.substring(index + 1);
-//   const value = "jetbrains.workspace.getConfiguration(section).get<string>(field)";
-//   return value != null ? evaluateStringVariables(value) : undefined;
-  return undefined
+  //   const value = "jetbrains.workspace.getConfiguration(section).get<string>(field)";
+  //   return value != null ? evaluateStringVariables(value) : undefined;
+  return undefined;
 }
 
 function evaluateStringVariables(value: string): string {

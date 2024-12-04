@@ -1,7 +1,7 @@
 import type { Capabilities, CommandCapabilityMap } from "@cursorless/common";
 
 const COMMAND_CAPABILITIES: CommandCapabilityMap = {
-  clipboardCopy: { acceptsLocation: false },
+  clipboardCopy: { acceptsLocation: true },
   clipboardPaste: true,
   toggleLineComment: undefined,
   indentLine: undefined,

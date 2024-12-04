@@ -55,12 +55,12 @@ export class JetbrainsEditor implements EditableTextEditor {
     return Promise.resolve(true);
   }
 
-  async clipboardCopy(_ranges: Range[]): Promise<void> {
-    throw Error("clipboardCopy not implemented.");
+  async clipboardCopy(ranges: Range[]): Promise<void> {
+    await this.ide.clipboard.copy(this.id, ranges);
   }
 
   async clipboardPaste(): Promise<void> {
-    throw Error("clipboardPaste not implemented.");
+    await this.ide.clipboard.paste(this.id);
   }
 
   indentLine(_ranges: Range[]): Promise<void> {

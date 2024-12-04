@@ -49,6 +49,7 @@ import { createSelection, createTextEditor } from "./createTextEditor";
 import { JetbrainsEditor } from "./JetbrainsEditor";
 import { makeNodePairSelection } from "../../../cursorless-engine/src/util/nodeSelectors";
 import { elseIfExtractor } from "../../../cursorless-engine/src/languages/elseIfExtractor";
+import { Configuration } from "../../../common/src/ide/types/Configuration";
 
 export class JetbrainsIDE implements IDE {
   readonly configuration: JetbrainsConfiguration;
@@ -79,8 +80,11 @@ export class JetbrainsIDE implements IDE {
     [TextDocumentContentChangeEvent]
   > = new Notifier();
 
-  constructor(private client: JetbrainsClient) {
-    this.configuration = new JetbrainsConfiguration();
+  constructor(
+    private client: JetbrainsClient,
+    configuration: JetbrainsConfiguration,
+  ) {
+    this.configuration = configuration;
     this.keyValueStore = new JetbrainsKeyValueStore();
     this.messages = new JetbrainsMessages();
     this.clipboard = new JetbrainsClipboard(this.client);
@@ -179,7 +183,7 @@ export class JetbrainsIDE implements IDE {
   }
 
   public async showInputBox(_options?: any): Promise<string | undefined> {
-    throw Error("TextDocumentChangeEvent Not implemented");
+    throw Error("showInputBox Not implemented");
   }
 
   public async executeCommand<T>(
@@ -300,6 +304,9 @@ function dummyEvent() {
   };
 }
 
-export function createIDE(client: JetbrainsClient) {
-  return new JetbrainsIDE(client);
+export function createIDE(
+  client: JetbrainsClient,
+  configuration: JetbrainsConfiguration,
+) {
+  return new JetbrainsIDE(client, configuration);
 }
