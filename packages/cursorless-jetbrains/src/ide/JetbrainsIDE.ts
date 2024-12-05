@@ -132,17 +132,17 @@ export class JetbrainsIDE implements IDE {
   }
 
   get activeTextEditor(): TextEditor | undefined {
-    console.log("get activeTextEditor");
+    // console.log("get activeTextEditor");
     return this.activeEditableTextEditor;
   }
 
   get activeEditableTextEditor(): EditableTextEditor | undefined {
-    console.log("get activeEditableTextEditor");
+    // console.log("get activeEditableTextEditor");
     return this.activeEditor;
   }
 
   get visibleTextEditors(): TextEditor[] {
-    console.log("get visibleTextEditors");
+    // console.log("get visibleTextEditors");
     //return [...this.editors.values()].filter((editor) => editor.isActive);
     if (this.activeEditor) {
       console.log("visible: " + this.activeEditor.id);
@@ -153,7 +153,7 @@ export class JetbrainsIDE implements IDE {
   }
 
   getEditableTextEditor(editor: TextEditor): EditableTextEditor {
-    console.log("getEditableTextEditor");
+    // console.log("getEditableTextEditor");
     if (editor instanceof JetbrainsEditor) {
       console.log("getEditableTextEditor - return current");
       return editor;
@@ -230,18 +230,18 @@ export class JetbrainsIDE implements IDE {
 
   public documentClosed(editorId: string) {
     this.editors.delete(editorId);
-    console.log(
-      "removed editor " +
-        editorId +
-        "remaining after change: " +
-        this.editors.size,
-    );
+    // console.log(
+    //   "removed editor " +
+    //     editorId +
+    //     "remaining after change: " +
+    //     this.editors.size,
+    // );
   }
 
   public documentChanged(editorStateJson: any) {
-    console.log(
-      "ASOEE/CL: documentChanged : " + JSON.stringify(editorStateJson),
-    );
+    // console.log(
+    //   "ASOEE/CL: documentChanged : " + JSON.stringify(editorStateJson),
+    // );
     const editorState = editorStateJson as EditorState;
 
     const editor = this.updateTextEditors(editorState);
@@ -261,9 +261,9 @@ export class JetbrainsIDE implements IDE {
       document: editor.document,
       contentChanges: contentChangeEvents,
     };
-    console.log("ASOEE/CL: documentChanged : notify...");
+    // console.log("ASOEE/CL: documentChanged : notify...");
     this.emitDidChangeTextDocument(documentChangeEvent);
-    console.log("ASOEE/CL: documentChanged : notify complete");
+    // console.log("ASOEE/CL: documentChanged : notify complete");
   }
 
   emitDidChangeTextDocument(event: TextDocumentChangeEvent) {
@@ -286,7 +286,7 @@ export class JetbrainsIDE implements IDE {
 }
 
 function updateEditor(editor: JetbrainsEditor, editorState: EditorState) {
-  console.log("Updating editor " + editorState.id);
+  // console.log("Updating editor " + editorState.id);
   const oldDocument = editor.document;
   editor.document = new InMemoryTextDocument(
     oldDocument.uri,
