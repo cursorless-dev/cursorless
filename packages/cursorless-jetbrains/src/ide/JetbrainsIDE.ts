@@ -228,6 +228,16 @@ export class JetbrainsIDE implements IDE {
     return () => pull(this.disposables, ...disposables);
   }
 
+  public documentClosed(editorId: string) {
+    this.editors.delete(editorId);
+    console.log(
+      "removed editor " +
+        editorId +
+        "remaining after change: " +
+        this.editors.size,
+    );
+  }
+
   public documentChanged(editorStateJson: any) {
     console.log(
       "ASOEE/CL: documentChanged : " + JSON.stringify(editorStateJson),
