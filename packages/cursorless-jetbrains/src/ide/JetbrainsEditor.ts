@@ -1,3 +1,4 @@
+import type { Selection } from "@cursorless/common";
 import {
   selectionsEqual,
   type BreakpointDescriptor,
@@ -7,7 +8,6 @@ import {
   type OpenLinkOptions,
   type Range,
   type RevealLineAt,
-  type Selection,
   type SetSelectionsOpts,
   type TextEditor,
   type TextEditorOptions,
@@ -16,6 +16,7 @@ import { setSelections } from "./setSelections";
 import type { JetbrainsIDE } from "./JetbrainsIDE";
 import { jetbrainsPerformEdits } from "./jetbrainsPerformEdits";
 import type { JetbrainsClient } from "./JetbrainsClient";
+import { JetbrainsEditorCommand } from "./JetbrainsEditorCommand";
 
 export class JetbrainsEditor implements EditableTextEditor {
   options: TextEditorOptions = {
@@ -63,16 +64,28 @@ export class JetbrainsEditor implements EditableTextEditor {
     await this.ide.clipboard.paste(this.id);
   }
 
-  indentLine(_ranges: Range[]): Promise<void> {
-    throw Error("indentLine not implemented.");
+  async indentLine(ranges: Range[]): Promise<void> {
+    const command = new JetbrainsEditorCommand(
+      ranges ? ranges : [],
+      true,
+      true,
+      "EditorIndentSelection",
+    );
+    await this.client.executeRangeCommand(this.id, JSON.stringify(command));
   }
 
-  outdentLine(_ranges: Range[]): Promise<void> {
-    throw Error("outdentLine not implemented.");
+  async outdentLine(ranges: Range[]): Promise<void> {
+    const command = new JetbrainsEditorCommand(
+      ranges ? ranges : [],
+      true,
+      true,
+      "EditorUnindentSelection",
+    );
+    await this.client.executeRangeCommand(this.id, JSON.stringify(command));
   }
 
-  insertLineAfter(_ranges?: Range[]): Promise<void> {
-    throw Error("insertLineAfter not implemented.");
+  async insertLineAfter(ranges?: Range[]): Promise<void> {
+    await this.client.insertLineAfter(this.id, JSON.stringify(ranges));
   }
 
   focus(): Promise<void> {
@@ -94,22 +107,40 @@ export class JetbrainsEditor implements EditableTextEditor {
     throw new Error("openLink not implemented.");
   }
 
-  fold(_ranges?: Range[] | undefined): Promise<void> {
-    throw new Error("fold not implemented.");
+  async fold(ranges?: Range[] | undefined): Promise<void> {
+    const command = new JetbrainsEditorCommand(
+      ranges ? ranges : [],
+      true,
+      false,
+      "CollapseRegion",
+    );
+    await this.client.executeRangeCommand(this.id, JSON.stringify(command));
   }
 
-  unfold(_ranges?: Range[] | undefined): Promise<void> {
-    throw new Error("unfold not implemented.");
+  async unfold(ranges?: Range[] | undefined): Promise<void> {
+    const command = new JetbrainsEditorCommand(
+      ranges ? ranges : [],
+      true,
+      false,
+      "ExpandRegion",
+    );
+    await this.client.executeRangeCommand(this.id, JSON.stringify(command));
   }
 
-  toggleBreakpoint(
+  async toggleBreakpoint(
     _descriptors?: BreakpointDescriptor[] | undefined,
   ): Promise<void> {
     throw new Error("toggleBreakpoint not implemented.");
   }
 
-  toggleLineComment(_ranges?: Range[] | undefined): Promise<void> {
-    throw new Error("toggleLineComment not implemented.");
+  async toggleLineComment(ranges?: Range[] | undefined): Promise<void> {
+    const command = new JetbrainsEditorCommand(
+      ranges ? ranges : [],
+      true,
+      false,
+      "CommentByLineComment",
+    );
+    await this.client.executeRangeCommand(this.id, JSON.stringify(command));
   }
 
   insertSnippet(
@@ -119,24 +150,54 @@ export class JetbrainsEditor implements EditableTextEditor {
     throw new Error("insertSnippet not implemented.");
   }
 
-  rename(_range?: Range | undefined): Promise<void> {
-    throw new Error("rename not implemented.");
+  async rename(range?: Range | undefined): Promise<void> {
+    const command = new JetbrainsEditorCommand(
+      range ? [range] : [],
+      true,
+      false,
+      "RenameElement",
+    );
+    await this.client.executeRangeCommand(this.id, JSON.stringify(command));
   }
 
-  showReferences(_range?: Range | undefined): Promise<void> {
-    throw new Error("showReferences not implemented.");
+  async showReferences(range?: Range | undefined): Promise<void> {
+    const command = new JetbrainsEditorCommand(
+      range ? [range] : [],
+      true,
+      false,
+      "FindUsages",
+    );
+    await this.client.executeRangeCommand(this.id, JSON.stringify(command));
   }
 
-  quickFix(_range?: Range | undefined): Promise<void> {
-    throw new Error("quickFix not implemented.");
+  async quickFix(range?: Range | undefined): Promise<void> {
+    const command = new JetbrainsEditorCommand(
+      range ? [range] : [],
+      true,
+      false,
+      "ShowIntentionActions",
+    );
+    await this.client.executeRangeCommand(this.id, JSON.stringify(command));
   }
 
-  revealDefinition(_range?: Range | undefined): Promise<void> {
-    throw new Error("revealDefinition not implemented.");
+  async revealDefinition(range?: Range | undefined): Promise<void> {
+    const command = new JetbrainsEditorCommand(
+      range ? [range] : [],
+      true,
+      false,
+      "QuickImplementations",
+    );
+    await this.client.executeRangeCommand(this.id, JSON.stringify(command));
   }
 
-  revealTypeDefinition(_range?: Range | undefined): Promise<void> {
-    throw new Error("revealTypeDefinition not implemented.");
+  async revealTypeDefinition(range?: Range | undefined): Promise<void> {
+    const command = new JetbrainsEditorCommand(
+      range ? [range] : [],
+      true,
+      false,
+      "QuickImplementations",
+    );
+    await this.client.executeRangeCommand(this.id, JSON.stringify(command));
   }
 
   showHover(_range?: Range | undefined): Promise<void> {
@@ -147,8 +208,14 @@ export class JetbrainsEditor implements EditableTextEditor {
     throw new Error("showDebugHover not implemented.");
   }
 
-  extractVariable(_range?: Range | undefined): Promise<void> {
-    throw new Error("extractVariable not implemented.");
+  async extractVariable(range?: Range | undefined): Promise<void> {
+    const command = new JetbrainsEditorCommand(
+      range ? [range] : [],
+      true,
+      false,
+      "IntroduceVariable",
+    );
+    await this.client.executeRangeCommand(this.id, JSON.stringify(command));
   }
 
   editNewNotebookCellAbove(): Promise<(_selection: Selection) => Selection> {

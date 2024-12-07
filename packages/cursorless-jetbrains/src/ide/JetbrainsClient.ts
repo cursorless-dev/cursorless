@@ -4,4 +4,7 @@ export interface JetbrainsClient {
   hatsUpdated(hatsJson: string): void;
   documentUpdated(editorId: string, updateJson: string): void;
   setSelection(editorId: string, selectionJson: string): void;
+  executeCommand(editorId: string, command: string, jsonArgs: string): string;
+  executeRangeCommand(editorId: string, commandJson: string): string;
+  insertLineAfter(editorId: string, rangesJson: string): void;
 }
