@@ -1,0 +1,12 @@
+public class MyClass {
+    String foo, bar;
+}
+---
+
+[Range] = 1:11-1:19
+             >--------<
+1|     String foo, bar;
+
+[Domain] = 1:4-1:20
+      >----------------<
+1|     String foo, bar;
