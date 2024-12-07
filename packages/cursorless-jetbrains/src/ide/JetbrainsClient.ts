@@ -7,4 +7,5 @@ export interface JetbrainsClient {
   executeCommand(editorId: string, command: string, jsonArgs: string): string;
   executeRangeCommand(editorId: string, commandJson: string): string;
   insertLineAfter(editorId: string, rangesJson: string): void;
+  revealLine(editorId: string, line: number, revealAt: string): void;
 }

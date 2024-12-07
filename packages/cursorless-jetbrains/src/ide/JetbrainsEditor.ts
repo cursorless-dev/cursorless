@@ -96,8 +96,8 @@ export class JetbrainsEditor implements EditableTextEditor {
     return Promise.resolve();
   }
 
-  revealLine(_lineNumber: number, _at: RevealLineAt): Promise<void> {
-    throw new Error("revealLine not implemented.");
+  async revealLine(lineNumber: number, at: RevealLineAt): Promise<void> {
+    await this.client.revealLine(this.id, lineNumber, at);
   }
 
   openLink(
