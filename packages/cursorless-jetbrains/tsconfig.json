@@ -25,5 +25,5 @@
       "path": "../test-case-recorder"
     }
   ],
-  "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"]
+  "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/object.d.ts"]
 }

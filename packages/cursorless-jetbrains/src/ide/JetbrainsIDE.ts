@@ -1,16 +1,4 @@
-import {
-  Disposable,
-  EditableTextEditor,
-  IDE,
-  InMemoryTextDocument,
-  Notifier,
-  OpenUntitledTextDocumentOptions,
-  Range,
-  RunMode,
-  TextDocumentChangeEvent,
-  TextEditor,
-  WorkspaceFolder,
-} from "@cursorless/common";
+import { InMemoryTextDocument, Notifier, Range } from "@cursorless/common";
 import type {
   Event,
   FlashDescriptor,
@@ -20,19 +8,17 @@ import type {
   TextDocumentContentChangeEvent,
   TextEditorSelectionChangeEvent,
   TextEditorVisibleRangesChangeEvent,
+  Disposable,
+  EditableTextEditor,
+  IDE,
+  OpenUntitledTextDocumentOptions,
+  RunMode,
+  TextDocumentChangeEvent,
+  TextEditor,
+  WorkspaceFolder,
 } from "@cursorless/common";
 import { pull } from "lodash";
-// import type { Buffer, JetbrainsClient, Window } from "jetbrains";
-// import { v4 as uuid } from "uuid";
 import { JetbrainsCapabilities } from "./JetbrainsCapabilities";
-// import JetbrainsClipboard from "./JetbrainsClipboard";
-// import JetbrainsConfiguration from "./JetbrainsConfiguration";
-// import JetbrainsKeyValueStore from "./JetbrainsKeyValueStore";
-// import JetbrainsMessages from "./JetbrainsMessages";
-// import { JetbrainsTextEditorImpl } from "./JetbrainsTextEditorImpl";
-// import path from "path";
-// import { nodeGetRunMode } from "@cursorless/node-common";
-
 import {
   fromJetbrainsContentChange,
   jetbrainsOnDidOpenTextDocument,
@@ -40,16 +26,12 @@ import {
 
 import type { JetbrainsClient } from "./JetbrainsClient";
 import { JetbrainsClipboard } from "./JetbrainsClipboard";
-import { JetbrainsConfiguration } from "./JetbrainsConfiguration";
+import type { JetbrainsConfiguration } from "./JetbrainsConfiguration";
 import { JetbrainsMessages } from "./JetbrainsMessages";
 import { JetbrainsKeyValueStore } from "./JetbrainsKeyValueStore";
 import type { EditorState } from "../types/types";
-import { URI } from "vscode-uri";
 import { createSelection, createTextEditor } from "./createTextEditor";
 import { JetbrainsEditor } from "./JetbrainsEditor";
-import { makeNodePairSelection } from "../../../cursorless-engine/src/util/nodeSelectors";
-import { elseIfExtractor } from "../../../cursorless-engine/src/languages/elseIfExtractor";
-import { Configuration } from "../../../common/src/ide/types/Configuration";
 
 export class JetbrainsIDE implements IDE {
   readonly configuration: JetbrainsConfiguration;
@@ -74,6 +56,8 @@ export class JetbrainsIDE implements IDE {
   >();
 
   private onDidChangeTextDocumentNotifier: Notifier<[TextDocumentChangeEvent]> =
+    new Notifier();
+  private onDidOpenTextDocumentNotifier: Notifier<[TextDocument]> =
     new Notifier();
 
   private onDidChangeTextDocumentContentNotifier: Notifier<
@@ -201,10 +185,10 @@ export class JetbrainsIDE implements IDE {
 
   public onDidOpenTextDocument(
     listener: (event: TextDocument) => any,
-    thisArgs?: any,
-    disposables?: Disposable[] | undefined,
+    _thisArgs?: any,
+    _disposables?: Disposable[] | undefined,
   ): Disposable {
-    return jetbrainsOnDidOpenTextDocument(listener, thisArgs, disposables);
+    return this.onDidOpenTextDocumentNotifier.registerListener(listener);
   }
   onDidCloseTextDocument: Event<TextDocument> = dummyEvent;
   onDidChangeActiveTextEditor: Event<TextEditor | undefined> = dummyEvent;
@@ -236,6 +220,15 @@ export class JetbrainsIDE implements IDE {
     //     "remaining after change: " +
     //     this.editors.size,
     // );
+  }
+
+  public documentCreated(editorStateJson: any) {
+    this.documentChanged(editorStateJson);
+    const editorState = editorStateJson as EditorState;
+    const editor = this.editors.get(editorState.id);
+    if (editor) {
+      this.onDidOpenTextDocumentNotifier.notifyListeners(editor.document);
+    }
   }
 
   public documentChanged(editorStateJson: any) {
@@ -282,6 +275,10 @@ export class JetbrainsIDE implements IDE {
       this.activeEditor = editor;
     }
     return editor;
+  }
+
+  readQuery(filename: string): string | undefined {
+    return this.client.readQuery(filename);
   }
 }
 

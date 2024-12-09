@@ -8,4 +8,5 @@ export interface JetbrainsClient {
   executeRangeCommand(editorId: string, commandJson: string): string;
   insertLineAfter(editorId: string, rangesJson: string): void;
   revealLine(editorId: string, line: number, revealAt: string): void;
+  readQuery(filename: string): string | undefined;
 }
