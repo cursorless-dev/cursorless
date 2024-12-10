@@ -386,6 +386,12 @@ importers:
       '@cursorless/test-case-recorder':
         specifier: workspace:*
         version: link:../test-case-recorder
+      vscode-uri:
+        specifier: ^3.0.8
+        version: 3.0.8
+      web-tree-sitter:
+        specifier: 0.24.4
+        version: 0.24.4
     devDependencies:
       '@types/chai':
         specifier: ^5.0.0
@@ -9792,6 +9798,9 @@ packages:
 
   web-namespaces@2.0.1:
     resolution: {integrity: sha512-bKr1DkiNa2krS7qxNtdrtHAmzuYGFQLiQ13TsorsdT6ULTkPLKuu5+GsFpDlg6JFjUTwX2DyhMPG2be8uPrqsQ==}
+
+  web-tree-sitter@0.24.4:
+    resolution: {integrity: sha512-sETP1Sf9OTd4LusrKBNznNgTt3fWoWhJnAFaKPiGSeVKXJbZ72qoMpxddKMdVI5BgXv32OI7tkKQre5PmF9reA==}
 
   webidl-conversions@3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
@@ -21429,6 +21438,8 @@ snapshots:
       defaults: 1.0.4
 
   web-namespaces@2.0.1: {}
+
+  web-tree-sitter@0.24.4: {}
 
   webidl-conversions@3.0.1: {}
 
