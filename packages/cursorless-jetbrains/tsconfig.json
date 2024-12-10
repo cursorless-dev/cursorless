@@ -13,12 +13,6 @@
       "path": "../cursorless-engine"
     },
     {
-      "path": "../neovim-common"
-    },
-    {
-      "path": "../neovim-registry"
-    },
-    {
       "path": "../node-common"
     },
     {
