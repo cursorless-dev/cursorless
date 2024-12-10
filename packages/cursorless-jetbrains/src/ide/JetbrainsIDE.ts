@@ -17,7 +17,7 @@ import type {
   TextEditor,
   WorkspaceFolder,
 } from "@cursorless/common";
-import { pull } from "lodash";
+import { pull } from "lodash-es";
 import { JetbrainsCapabilities } from "./JetbrainsCapabilities";
 import { fromJetbrainsContentChange } from "./JetbrainsEvents";
 

@@ -386,6 +386,9 @@ importers:
       '@cursorless/test-case-recorder':
         specifier: workspace:*
         version: link:../test-case-recorder
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
       vscode-uri:
         specifier: ^3.0.8
         version: 3.0.8
@@ -396,6 +399,9 @@ importers:
       '@types/chai':
         specifier: ^5.0.0
         version: 5.0.0
+      '@types/lodash-es':
+        specifier: 4.17.12
+        version: 4.17.12
 
   packages/cursorless-neovim:
     dependencies:
