@@ -7,7 +7,7 @@ import type {
 } from "@cursorless/common";
 import { Notifier } from "@cursorless/common";
 import type { JetbrainsClient } from "./JetbrainsClient";
-import { JetbrainsHatRange } from "../types/jetbrains.types";
+import type { JetbrainsHatRange } from "../types/jetbrains.types";
 
 const HAT_COLORS = [
   "default",

@@ -1,4 +1,3 @@
-import { HatStability } from "@cursorless/common";
 import { get } from "lodash";
 import type {
   Configuration,

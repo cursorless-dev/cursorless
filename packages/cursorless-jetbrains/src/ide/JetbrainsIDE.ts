@@ -19,10 +19,7 @@ import type {
 } from "@cursorless/common";
 import { pull } from "lodash";
 import { JetbrainsCapabilities } from "./JetbrainsCapabilities";
-import {
-  fromJetbrainsContentChange,
-  jetbrainsOnDidOpenTextDocument,
-} from "./JetbrainsEvents";
+import { fromJetbrainsContentChange } from "./JetbrainsEvents";
 
 import type { JetbrainsClient } from "./JetbrainsClient";
 import { JetbrainsClipboard } from "./JetbrainsClipboard";

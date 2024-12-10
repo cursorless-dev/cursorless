@@ -7,13 +7,13 @@ import type {
 import { Position, Range } from "@cursorless/common";
 
 export function jetbrainsOnDidChangeTextDocument(
-  listener: (event: TextDocumentChangeEvent) => void,
+  _listener: (event: TextDocumentChangeEvent) => void,
 ): Disposable {
   return dummyEvent();
 }
 
 export function jetbrainsOnDidOpenTextDocument(
-  listener: (event: TextDocument) => any,
+  _listener: (event: TextDocument) => any,
   _thisArgs?: any,
   _disposables?: Disposable[] | undefined,
 ): Disposable {

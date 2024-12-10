@@ -1,9 +1,7 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "target": "ES2020",
-    "rootDir": "src",
-    "outDir": "out"
+    "target": "ES2020"
   },
   "references": [
     {
@@ -11,9 +9,6 @@
     },
     {
       "path": "../cursorless-engine"
-    },
-    {
-      "path": "../node-common"
     },
     {
       "path": "../test-case-recorder"
