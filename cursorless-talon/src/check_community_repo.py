@@ -28,7 +28,7 @@ def on_ready():
     if errors:
         print("\n".join(errors))
         app.notify(
-            "Cursorless missing community repository",
+            "Please install the community repository",
             body="https://github.com/talonhub/community",
         )
 
