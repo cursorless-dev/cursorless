@@ -213,6 +213,7 @@ export class CommandRunnerImpl implements CommandRunner {
         const action = this.actions[actionDescriptor.name];
 
         // Ensure we don't miss any new actions. Needed because we don't have input validation.
+        // FIXME: remove once we have schema validation (#983)
         if (action == null) {
           throw new Error(`Unknown action: ${actionDescriptor.name}`);
         }
