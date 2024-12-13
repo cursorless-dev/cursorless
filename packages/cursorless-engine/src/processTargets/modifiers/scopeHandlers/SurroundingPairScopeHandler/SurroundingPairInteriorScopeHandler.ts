@@ -24,7 +24,7 @@ export class SurroundingPairInteriorScopeHandler extends BaseScopeHandler {
         requireStrongContainment: true,
       },
       this.languageId,
-    )!;
+    );
   }
 
   get iterationScopeType() {
