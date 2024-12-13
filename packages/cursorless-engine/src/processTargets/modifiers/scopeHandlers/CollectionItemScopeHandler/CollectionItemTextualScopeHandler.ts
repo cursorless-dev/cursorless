@@ -17,7 +17,7 @@ import type {
 import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
 import { CollectionItemIterationScopeHandler } from "./CollectionItemIterationScopeHandler";
 import { createTargetScope } from "./createTargetScope";
-import { getDelimiterOccurrences } from "./getDelimiterOccurrences";
+import { getSeparatorOccurrences } from "./getSeparatorOccurrences";
 
 export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
   public scopeType: ScopeType = { type: "collectionItem" };
@@ -50,7 +50,7 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
         delimiter,
       },
       this.languageId,
-    )!;
+    );
     return Array.from(
       scopeHandler.generateScopes(editor, new Position(0, 0), "forward", {
         containment: undefined,
@@ -69,17 +69,17 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
   ): Iterable<TargetScope> {
     const { document } = editor;
     const isEveryScope = hints.containment == null && hints.skipAncestorScopes;
-    const delimiterRanges = getDelimiterOccurrences(document);
+    const separatorRanges = getSeparatorOccurrences(document);
 
     const interiorRanges = this.getInteriorRanges(editor, "collectionBoundary");
     const stringRanges = this.getInteriorRanges(editor, "string");
 
     const scopes: TargetScope[] = [];
     const usedInteriors = new Set<Range>();
-    const previousIterationRanges: IterationState[] = [];
+    const iterationStatesStack: IterationState[] = [];
 
     function addScopes(state: IterationState) {
-      const { delimiters, range: iterationRange } = state;
+      const { delimiters, iterationRange: iterationRange } = state;
 
       if (delimiters.length === 0) {
         return;
@@ -122,45 +122,49 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
       }
     }
 
-    for (const delimiter of delimiterRanges) {
-      // Delimiters in a string are not considered
-      if (stringRanges.some((range) => range.contains(delimiter))) {
+    //   TODO: fixed performance on large files
+    for (const separator of separatorRanges) {
+      // Separators in a string are not considered
+      if (stringRanges.some((range) => range.contains(separator))) {
         continue;
       }
 
-      const currentState =
-        previousIterationRanges[previousIterationRanges.length - 1];
+      const currentIterationState =
+        iterationStatesStack[iterationStatesStack.length - 1];
 
       // Get range for smallest containing interior
       const containingInteriorRange: Range | undefined = interiorRanges
-        .filter((range) => range.contains(delimiter))
+        .filter((range) => range.contains(separator))
         .sort((a, b) => (a.contains(b) ? 1 : b.contains(a) ? -1 : 0))[0];
 
-      // The contain range is either the interior or the line containing the delimiter
-      const containingRange =
-        containingInteriorRange ?? document.lineAt(delimiter.start.line).range;
+      // The contain range is either the interior or the line containing the separator
+      const containingIterationRange =
+        containingInteriorRange ?? document.lineAt(separator.start.line).range;
 
-      if (currentState != null) {
-        // The current containing range is the same as the previous one. Just append delimiter.
-        if (currentState.range.isRangeEqual(containingRange)) {
-          currentState.delimiters.push(delimiter);
+      if (currentIterationState != null) {
+        // The current containing iteration range is the same as the previous one. Just append delimiter.
+        if (
+          currentIterationState.iterationRange.isRangeEqual(
+            containingIterationRange,
+          )
+        ) {
+          currentIterationState.delimiters.push(separator);
           continue;
         }
 
         // The current containing range does not intersect previous one. Add scopes and remove state.
-        if (!currentState.range.contains(delimiter)) {
-          addScopes(currentState);
+        if (!currentIterationState.iterationRange.contains(separator)) {
+          addScopes(currentIterationState);
           // Remove already added state
-          previousIterationRanges.pop();
+          iterationStatesStack.pop();
         }
       }
 
       // The current containing range is the same as the previous one. Just append delimiter.
-      if (previousIterationRanges.length > 0) {
-        const lastState =
-          previousIterationRanges[previousIterationRanges.length - 1];
-        if (lastState.range.isRangeEqual(containingRange)) {
-          lastState.delimiters.push(delimiter);
+      if (iterationStatesStack.length > 0) {
+        const lastState = iterationStatesStack[iterationStatesStack.length - 1];
+        if (lastState.iterationRange.isRangeEqual(containingIterationRange)) {
+          lastState.delimiters.push(separator);
           continue;
         }
       }
@@ -168,13 +172,13 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
       // New containing range. Add it to the list.
       usedInteriors.add(containingInteriorRange);
 
-      previousIterationRanges.push({
-        range: containingRange,
-        delimiters: [delimiter],
+      iterationStatesStack.push({
+        iterationRange: containingIterationRange,
+        delimiters: [separator],
       });
     }
 
-    for (const state of previousIterationRanges) {
+    for (const state of iterationStatesStack) {
       addScopes(state);
     }
 
@@ -195,6 +199,6 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
 }
 
 interface IterationState {
-  range: Range;
+  iterationRange: Range;
   delimiters: Range[];
 }

@@ -15,7 +15,7 @@ import type {
   ScopeIteratorRequirements,
 } from "../scopeHandler.types";
 import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
-import { delimiterRegex } from "./getDelimiterOccurrences";
+import { separatorRegex } from "./getSeparatorOccurrences";
 
 export class CollectionItemIterationScopeHandler extends BaseScopeHandler {
   public scopeType: ScopeType = { type: "collectionItem" };
@@ -59,6 +59,7 @@ export class CollectionItemIterationScopeHandler extends BaseScopeHandler {
 
     yield* scopes;
 
+    // TODO: Use a line scope handler and yield only if matching regex. itertools?
     const lineScope = makeLineScope(editor, position);
 
     if (lineScope != null) {
@@ -74,7 +75,7 @@ function makeLineScope(
   const contentRange = editor.document.lineAt(position.line).range;
   const text = editor.document.getText(contentRange);
 
-  if (!testRegex(delimiterRegex, text)) {
+  if (!testRegex(separatorRegex, text)) {
     return null;
   }
 
