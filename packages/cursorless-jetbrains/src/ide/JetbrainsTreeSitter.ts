@@ -1,6 +1,7 @@
 import type { Range, TextDocument, TreeSitter } from "@cursorless/common";
 import type { Language, SyntaxNode, Tree } from "web-tree-sitter";
 import Parser from "web-tree-sitter";
+import path from "path-browserify";
 
 export class JetbrainsTreeSitter implements TreeSitter {
   constructor(private wasmDirectory: string) {}
@@ -21,9 +22,10 @@ export class JetbrainsTreeSitter implements TreeSitter {
   async loadLanguage(languageId: string): Promise<boolean> {
     console.log(`Loading language ${languageId}`);
     const parser = new Parser();
-    const language = await Parser.Language.load(
-      `${this.wasmDirectory}/tree-sitter-${languageId}.wasm`,
-    );
+    const dir = path.parse(this.wasmDirectory).dir;
+    const filePath = path.join(dir, `tree-sitter-${languageId}.wasm`);
+    console.log(`Loading language from ${filePath}`);
+    const language = await Parser.Language.load(filePath);
     parser.setLanguage(language);
     this.parsers.set(languageId, parser);
     return true;

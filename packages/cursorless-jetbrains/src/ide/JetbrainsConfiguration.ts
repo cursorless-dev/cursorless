@@ -33,3 +33,10 @@ export class JetbrainsConfiguration implements Configuration {
     this.notifier.notifyListeners();
   }
 }
+
+export function createJetbrainsConfiguration(
+  configuration: CursorlessConfiguration,
+): JetbrainsConfiguration {
+  return new JetbrainsConfiguration(configuration);
+}
+

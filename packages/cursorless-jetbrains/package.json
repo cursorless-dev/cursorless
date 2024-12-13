@@ -33,11 +33,13 @@
     "@cursorless/cursorless-engine": "workspace:*",
     "@cursorless/test-case-recorder": "workspace:*",
     "lodash-es": "^4.17.21",
+    "path-browserify": "1.0.1",
     "vscode-uri": "^3.0.8",
     "web-tree-sitter": "0.24.4"
   },
   "devDependencies": {
     "@types/chai": "^5.0.0",
-    "@types/lodash-es": "4.17.12"
+    "@types/lodash-es": "4.17.12",
+    "@types/path-browserify": "1.0.3"
   }
 }

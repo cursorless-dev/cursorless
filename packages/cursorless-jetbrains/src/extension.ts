@@ -9,7 +9,7 @@ export async function activate(
   plugin: JetbrainsPlugin,
   wasmDirectory: string,
 ): Promise<CursorlessEngine> {
-  console.log("activate started");
+  console.log("activate started with wasm dir " + wasmDirectory);
   await Parser.init({
     locateFile(scriptName: string, _scriptDirectory: string) {
       console.log("locateFile called for " + scriptName);
