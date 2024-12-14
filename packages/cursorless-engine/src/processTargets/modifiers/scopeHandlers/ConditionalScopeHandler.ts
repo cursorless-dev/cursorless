@@ -39,7 +39,7 @@ export class ConditionalScopeHandler extends BaseScopeHandler {
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
     const scopeHandler = this.scopeHandlerFactory.create(
-      this.conditionalScopeType,
+      this.conditionalScopeType.scopeType,
       this.languageId,
     );
 
