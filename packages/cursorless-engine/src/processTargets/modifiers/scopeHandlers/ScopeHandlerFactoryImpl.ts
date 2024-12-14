@@ -5,6 +5,7 @@ import {
   BoundedParagraphScopeHandler,
 } from "./BoundedScopeHandler";
 import { CharacterScopeHandler } from "./CharacterScopeHandler";
+import { CollectionItemScopeHandler } from "./CollectionItemScopeHandler/CollectionItemScopeHandler";
 import { DocumentScopeHandler } from "./DocumentScopeHandler";
 import { IdentifierScopeHandler } from "./IdentifierScopeHandler";
 import { LineScopeHandler } from "./LineScopeHandler";
@@ -102,6 +103,11 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
         return new SurroundingPairInteriorScopeHandler(
           this,
           scopeType,
+          languageId,
+        );
+      case "collectionItem":
+        return new CollectionItemScopeHandler(
+          this.languageDefinitions,
           languageId,
         );
       case "custom":
