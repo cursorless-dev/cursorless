@@ -22,36 +22,47 @@ const obj = Object.fromEntries(
 const content = JSON.stringify(obj, null, 2);
 const numLines = content.split("\n").length;
 
+const textBasedThreshold = 50;
+const parseTreeThreshold = 300;
+const surroundingPairThreshold = 20000;
+
 suite(`Performance: ${numLines} lines JSON`, async function () {
   endToEndTestSetup(this);
 
+  let previousTitle = "";
+
   this.beforeEach(function () {
-    // console.log("before");
-    // console.log(a.name);
-    console.log(this.test?.title);
-    console.log(this.test?.id);
+    const title = this.currentTest!.title;
+    if (title !== previousTitle) {
+      console.debug(`    * ${title}`);
+      previousTitle = title;
+    }
   });
 
-  this.afterAll(() => {
-    console.log("Done!");
-  });
+  test(
+    "Remove token",
+    asyncSafety(() => removeToken(textBasedThreshold)),
+  );
 
   const scopeTypeTypes: Partial<Record<SimpleScopeTypeType, number>> = {
-    character: 100,
-    word: 100,
-    token: 100,
-    identifier: 100,
-    line: 100,
-    sentence: 100,
-    paragraph: 100,
-    // boundedParagraph: 100,
-    document: 100,
-    nonWhitespaceSequence: 100,
-    // boundedNonWhitespaceSequence: 300,
-    // string: 100,
-    map: 100,
-    // collectionKey: 300,
-    // value: 15000,
+    // Text based
+    character: textBasedThreshold,
+    word: textBasedThreshold,
+    token: textBasedThreshold,
+    identifier: textBasedThreshold,
+    line: textBasedThreshold,
+    sentence: textBasedThreshold,
+    paragraph: textBasedThreshold,
+    document: textBasedThreshold,
+    nonWhitespaceSequence: textBasedThreshold,
+    // Parse tree based
+    string: parseTreeThreshold,
+    map: parseTreeThreshold,
+    collectionKey: parseTreeThreshold,
+    value: parseTreeThreshold,
+    // Utilizes surrounding pair
+    boundedParagraph: surroundingPairThreshold,
+    boundedNonWhitespaceSequence: surroundingPairThreshold,
   };
 
   for (const [scopeTypeType, threshold] of Object.entries(scopeTypeTypes)) {
@@ -66,21 +77,19 @@ suite(`Performance: ${numLines} lines JSON`, async function () {
     );
   }
 
-  //   test(
-  //     "Select any surrounding pair",
-  //     asyncSafety(() =>
-  //       selectScopeType({ type: "surroundingPair", delimiter: "any" }, 300),
-  //     ),
-  //   );
-
   test(
-    "Remove token",
-    asyncSafety(() => removeToken()),
+    "Select any surrounding pair",
+    asyncSafety(() =>
+      selectScopeType(
+        { type: "surroundingPair", delimiter: "any" },
+        surroundingPairThreshold,
+      ),
+    ),
   );
 });
 
-async function removeToken() {
-  await testPerformance(100, {
+async function removeToken(threshold: number) {
+  await testPerformance(threshold, {
     name: "remove",
     target: {
       type: "primitive",
@@ -116,7 +125,7 @@ async function testPerformance(threshold: number, action: ActionDescriptor) {
 
   const duration = Math.round(performance.now() - start);
 
-  console.debug(`\t${duration} ms`);
+  console.debug(`        ${duration} ms`);
 
   assert.ok(
     duration < threshold,
