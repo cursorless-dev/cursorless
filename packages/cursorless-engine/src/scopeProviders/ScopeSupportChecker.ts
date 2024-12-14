@@ -94,9 +94,6 @@ function getLegacyScopeSupport(
   scopeType: ScopeType,
 ): ScopeSupport {
   switch (scopeType.type) {
-    case "boundedNonWhitespaceSequence":
-    case "surroundingPair":
-      return ScopeSupport.supportedLegacy;
     case "notebookCell":
       // FIXME: What to do here
       return ScopeSupport.unsupported;
