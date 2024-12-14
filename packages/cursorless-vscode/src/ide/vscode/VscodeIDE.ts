@@ -6,6 +6,7 @@ import type {
   HighlightId,
   IDE,
   InputBoxOptions,
+  NotebookEditor,
   OpenUntitledTextDocumentOptions,
   QuickPickOptions,
   RunMode,
@@ -19,16 +20,17 @@ import {
 } from "@cursorless/vscode-common";
 import { pull } from "lodash-es";
 import { v4 as uuid } from "uuid";
-import * as vscode from "vscode";
 import type { ExtensionContext, WorkspaceFolder } from "vscode";
+import * as vscode from "vscode";
 import { window, workspace } from "vscode";
 import { VscodeCapabilities } from "./VscodeCapabilities";
 import VscodeClipboard from "./VscodeClipboard";
 import VscodeConfiguration from "./VscodeConfiguration";
 import { forwardEvent, vscodeOnDidChangeTextDocument } from "./VscodeEvents";
 import VscodeFlashHandler from "./VscodeFlashHandler";
-import VscodeKeyValueStore from "./VscodeKeyValueStore";
 import VscodeHighlights, { HighlightStyle } from "./VscodeHighlights";
+import { VscodeNotebookEditorImpl } from "./VscodeIdeNotebook";
+import VscodeKeyValueStore from "./VscodeKeyValueStore";
 import VscodeMessages from "./VscodeMessages";
 import { vscodeRunMode } from "./VscodeRunMode";
 import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
@@ -115,6 +117,12 @@ export class VscodeIDE implements IDE {
 
   get visibleTextEditors(): VscodeTextEditorImpl[] {
     return window.visibleTextEditors.map((e) => this.fromVscodeEditor(e));
+  }
+
+  get visibleNotebookEditors(): NotebookEditor[] {
+    return vscode.window.visibleNotebookEditors.map(
+      (editor) => new VscodeNotebookEditorImpl(editor),
+    );
   }
 
   public getEditableTextEditor(editor: TextEditor): EditableTextEditor {

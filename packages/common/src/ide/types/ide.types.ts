@@ -1,10 +1,11 @@
+import type { URI } from "vscode-uri";
 import type {
   EditableTextEditor,
   InputBoxOptions,
+  NotebookEditor,
   TextDocument,
   TextEditor,
 } from "../..";
-import type { URI } from "vscode-uri";
 import type { GeneralizedRange } from "../../types/GeneralizedRange";
 import type { Capabilities } from "./Capabilities";
 import type { Clipboard } from "./Clipboard";
@@ -16,9 +17,9 @@ import type {
   TextEditorVisibleRangesChangeEvent,
 } from "./events.types";
 import type { FlashDescriptor } from "./FlashDescriptor";
+import type { KeyValueStore } from "./KeyValueStore";
 import type { Messages } from "./Messages";
 import type { QuickPickOptions } from "./QuickPickOptions";
-import type { KeyValueStore } from "./KeyValueStore";
 
 export type RunMode = "production" | "development" | "test";
 export type HighlightId = string;
@@ -78,6 +79,11 @@ export interface IDE {
    * The currently visible editors or an empty array.
    */
   readonly visibleTextEditors: TextEditor[];
+
+  /**
+   * The currently visible notebook editors or an empty array.
+   */
+  readonly visibleNotebookEditors: NotebookEditor[];
 
   /**
    * The capabilities of the IDE
