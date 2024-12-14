@@ -9,7 +9,7 @@ import { BaseScopeHandler } from "../BaseScopeHandler";
 import { OneOfScopeHandler } from "../OneOfScopeHandler";
 import type { TargetScope } from "../scope.types";
 import type {
-  CustomScopeType,
+  ComplexScopeType,
   ScopeHandler,
   ScopeIteratorRequirements,
 } from "../scopeHandler.types";
@@ -21,7 +21,7 @@ export class CollectionItemScopeHandler extends BaseScopeHandler {
   protected isHierarchical = true;
   private scopeHandler: ScopeHandler;
 
-  get iterationScopeType(): ScopeType | CustomScopeType {
+  get iterationScopeType(): ScopeType | ComplexScopeType {
     return this.scopeHandler.iterationScopeType;
   }
 

@@ -4,6 +4,7 @@ import {
   Range,
   type ScopeType,
   type SurroundingPairName,
+  testRegex,
   type TextEditor,
 } from "@cursorless/common";
 import { shrinkRangeToFitContent } from "../../../../util/selectionUtils";
@@ -11,25 +12,39 @@ import { BaseScopeHandler } from "../BaseScopeHandler";
 import { compareTargetScopes } from "../compareTargetScopes";
 import type { TargetScope } from "../scope.types";
 import type {
-  CustomScopeType,
+  ComplexScopeType,
   ScopeIteratorRequirements,
 } from "../scopeHandler.types";
 import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
-import { CollectionItemIterationScopeHandler } from "./CollectionItemIterationScopeHandler";
 import { createTargetScope } from "./createTargetScope";
-import { getSeparatorOccurrences } from "./getSeparatorOccurrences";
+import {
+  getSeparatorOccurrences,
+  separatorRegex,
+} from "./getSeparatorOccurrences";
 
 export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
   public scopeType: ScopeType = { type: "collectionItem" };
   protected isHierarchical = true;
 
-  get iterationScopeType(): CustomScopeType {
+  get iterationScopeType(): ScopeType | ComplexScopeType {
     return {
-      type: "custom",
-      scopeHandler: new CollectionItemIterationScopeHandler(
-        this.scopeHandlerFactory,
-        this.languageId,
-      ),
+      type: "fallback",
+      scopeTypes: [
+        {
+          type: "surroundingPairInterior",
+          delimiter: "collectionBoundary",
+        },
+        {
+          type: "conditional",
+          scopeType: {
+            type: "line",
+          },
+          predicate: (scope: TargetScope) => {
+            const text = scope.editor.document.getText(scope.domain);
+            return testRegex(separatorRegex, text);
+          },
+        },
+      ],
     };
   }
 
