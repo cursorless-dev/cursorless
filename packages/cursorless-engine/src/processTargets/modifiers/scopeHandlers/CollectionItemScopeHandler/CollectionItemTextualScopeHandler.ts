@@ -82,60 +82,13 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
     direction: Direction,
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
-    const { document } = editor;
     const isEveryScope = hints.containment == null && hints.skipAncestorScopes;
-    const separatorRanges = getSeparatorOccurrences(document);
-
+    const separatorRanges = getSeparatorOccurrences(editor.document);
     const interiorRanges = this.getInteriorRanges(editor, "collectionBoundary");
     const stringRanges = this.getInteriorRanges(editor, "string");
-
     const scopes: TargetScope[] = [];
     const usedInteriors = new Set<Range>();
     const iterationStatesStack: IterationState[] = [];
-
-    function addScopes(state: IterationState) {
-      const { delimiters, iterationRange: iterationRange } = state;
-
-      if (delimiters.length === 0) {
-        return;
-      }
-
-      const itemRanges: Range[] = [];
-
-      for (let i = 0; i < delimiters.length; ++i) {
-        const current = delimiters[i];
-
-        const previous = delimiters[i - 1]?.end ?? iterationRange.start;
-        itemRanges.push(new Range(previous, current.start));
-      }
-
-      const lastDelimiter = delimiters[delimiters.length - 1];
-      itemRanges.push(new Range(lastDelimiter.end, iterationRange.end));
-
-      const trimmedRanges = itemRanges.map((range) =>
-        shrinkRangeToFitContent(editor, range),
-      );
-
-      for (let i = 0; i < trimmedRanges.length; ++i) {
-        // Handle trailing delimiter
-        if (
-          i === trimmedRanges.length - 1 &&
-          document.getText(trimmedRanges[i]).trim() === ""
-        ) {
-          continue;
-        }
-        scopes.push(
-          createTargetScope(
-            isEveryScope,
-            editor,
-            iterationRange,
-            trimmedRanges[i],
-            trimmedRanges[i - 1],
-            trimmedRanges[i + 1],
-          ),
-        );
-      }
-    }
 
     //   TODO: fixed performance on large files
     for (const separator of separatorRanges) {
@@ -154,7 +107,8 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
 
       // The contain range is either the interior or the line containing the separator
       const containingIterationRange =
-        containingInteriorRange ?? document.lineAt(separator.start.line).range;
+        containingInteriorRange ??
+        editor.document.lineAt(separator.start.line).range;
 
       if (currentIterationState != null) {
         // The current containing iteration range is the same as the previous one. Just append delimiter.
@@ -169,7 +123,7 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
 
         // The current containing range does not intersect previous one. Add scopes and remove state.
         if (!currentIterationState.iterationRange.contains(separator)) {
-          addScopes(currentIterationState);
+          this.addScopes(scopes, currentIterationState);
           // Remove already added state
           iterationStatesStack.pop();
         }
@@ -188,13 +142,15 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
       usedInteriors.add(containingInteriorRange);
 
       iterationStatesStack.push({
+        editor,
+        isEveryScope,
         iterationRange: containingIterationRange,
         delimiters: [separator],
       });
     }
 
     for (const state of iterationStatesStack) {
-      addScopes(state);
+      this.addScopes(scopes, state);
     }
 
     // Add interior ranges without a delimiter in them. eg: `[foo]`
@@ -211,9 +167,55 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
 
     yield* scopes;
   }
+
+  private addScopes(scopes: TargetScope[], state: IterationState) {
+    const { editor, iterationRange, isEveryScope, delimiters } = state;
+
+    if (delimiters.length === 0) {
+      return;
+    }
+
+    const itemRanges: Range[] = [];
+
+    for (let i = 0; i < delimiters.length; ++i) {
+      const current = delimiters[i];
+
+      const previous = delimiters[i - 1]?.end ?? iterationRange.start;
+      itemRanges.push(new Range(previous, current.start));
+    }
+
+    const lastDelimiter = delimiters[delimiters.length - 1];
+    itemRanges.push(new Range(lastDelimiter.end, iterationRange.end));
+
+    const trimmedRanges = itemRanges.map((range) =>
+      shrinkRangeToFitContent(editor, range),
+    );
+
+    for (let i = 0; i < trimmedRanges.length; ++i) {
+      // Handle trailing delimiter
+      if (
+        i === trimmedRanges.length - 1 &&
+        editor.document.getText(trimmedRanges[i]).trim() === ""
+      ) {
+        continue;
+      }
+      scopes.push(
+        createTargetScope(
+          isEveryScope,
+          editor,
+          iterationRange,
+          trimmedRanges[i],
+          trimmedRanges[i - 1],
+          trimmedRanges[i + 1],
+        ),
+      );
+    }
+  }
 }
 
 interface IterationState {
+  editor: TextEditor;
   iterationRange: Range;
+  isEveryScope: boolean;
   delimiters: Range[];
 }
