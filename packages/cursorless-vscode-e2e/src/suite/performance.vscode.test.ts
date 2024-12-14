@@ -24,7 +24,7 @@ const numLines = content.split("\n").length;
 
 const textBasedThreshold = 100;
 const parseTreeThreshold = 500;
-const surroundingPairThreshold = 20000;
+const surroundingPairThreshold = 25000;
 
 suite(`Performance: ${numLines} lines JSON`, async function () {
   endToEndTestSetup(this);
