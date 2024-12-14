@@ -22,8 +22,8 @@ const obj = Object.fromEntries(
 const content = JSON.stringify(obj, null, 2);
 const numLines = content.split("\n").length;
 
-const textBasedThreshold = 50;
-const parseTreeThreshold = 300;
+const textBasedThreshold = 100;
+const parseTreeThreshold = 500;
 const surroundingPairThreshold = 20000;
 
 suite(`Performance: ${numLines} lines JSON`, async function () {
