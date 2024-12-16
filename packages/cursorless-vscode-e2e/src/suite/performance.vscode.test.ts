@@ -9,18 +9,12 @@ import assert from "assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
-const value = Object.fromEntries(
-  new Array(100).fill("").map((_, i) => [i.toString(), "value"]),
-);
-const obj = Object.fromEntries(
-  new Array(100).fill("").map((_, i) => [i.toString(), value]),
-);
-const content = JSON.stringify(obj, null, 2);
-const numLines = content.split("\n").length;
-
 const textBasedThreshold = 100;
 const parseTreeThreshold = 500;
 const surroundingPairThreshold = 25000;
+
+const content = generateTestData();
+const numLines = content.split("\n").length;
 
 suite(`Performance: ${numLines} lines JSON`, async function () {
   endToEndTestSetup(this);
@@ -127,4 +121,14 @@ async function testPerformance(threshold: number, action: ActionDescriptor) {
     duration < threshold,
     `Duration ${duration}ms exceeds threshold ${threshold}ms`,
   );
+}
+
+function generateTestData() {
+  const value = Object.fromEntries(
+    new Array(100).fill("").map((_, i) => [i.toString(), "value"]),
+  );
+  const obj = Object.fromEntries(
+    new Array(100).fill("").map((_, i) => [i.toString(), value]),
+  );
+  return JSON.stringify(obj, null, 2);
 }
