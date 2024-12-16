@@ -20,7 +20,7 @@ suite(`Performance: ${numLines} lines JSON`, async function () {
   this.beforeEach(function () {
     const title = this.currentTest!.title;
     if (title !== previousTitle) {
-      console.log(`    * ${title}`);
+      console.log(`    ${title}`);
       previousTitle = title;
     }
   });
@@ -106,7 +106,7 @@ async function testPerformance(threshold: number, action: ActionDescriptor) {
 
   const duration = Math.round(performance.now() - start);
 
-  console.log(`        ${duration} ms`);
+  console.log(`      ${duration} ms`);
 
   assert.ok(
     duration < threshold,
