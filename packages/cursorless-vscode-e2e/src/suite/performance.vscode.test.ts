@@ -9,12 +9,8 @@ import assert from "assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
-const textBasedThreshold = 100;
-const parseTreeThreshold = 500;
-const surroundingPairThreshold = 25000;
-
-const content = generateTestData();
-const numLines = content.split("\n").length;
+const testData = generateTestData();
+const numLines = testData.split("\n").length;
 
 suite(`Performance: ${numLines} lines JSON`, async function () {
   endToEndTestSetup(this);
@@ -28,6 +24,10 @@ suite(`Performance: ${numLines} lines JSON`, async function () {
       previousTitle = title;
     }
   });
+
+  const textBasedThreshold = 100;
+  const parseTreeThreshold = 500;
+  const surroundingPairThreshold = 25000;
 
   test(
     "Remove token",
@@ -99,7 +99,7 @@ async function selectScopeType(scopeType: ScopeType, threshold: number) {
 }
 
 async function testPerformance(threshold: number, action: ActionDescriptor) {
-  const editor = await openNewEditor(content, { languageId: "json" });
+  const editor = await openNewEditor(testData, { languageId: "json" });
   const position = new vscode.Position(editor.document.lineCount - 3, 5);
   const selection = new vscode.Selection(position, position);
   editor.selections = [selection];
