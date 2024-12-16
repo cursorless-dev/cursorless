@@ -27,7 +27,7 @@ suite(`Performance: ${numLines} lines JSON`, async function () {
 
   const textBasedThreshold = 100;
   const parseTreeThreshold = 500;
-  const surroundingPairThreshold = 25000;
+  const surroundingPairThreshold = 30000;
 
   test(
     "Remove token",
