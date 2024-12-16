@@ -25,6 +25,7 @@ export interface EditorState {
   lastVisibleLine: number;
   selections: JbSelection[];
   active: boolean;
+  visible: boolean;
 }
 
 export interface EditorChange {

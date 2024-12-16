@@ -109,7 +109,7 @@ export class JetbrainsIDE implements IDE {
 
   get workspaceFolders(): readonly WorkspaceFolder[] | undefined {
     console.log("get workspaceFolders");
-    throw new Error("workspaceFolders not implemented.");
+    throw new Error("workspaceFolders not get implemented.");
   }
 
   get activeTextEditor(): TextEditor | undefined {
@@ -124,13 +124,7 @@ export class JetbrainsIDE implements IDE {
 
   get visibleTextEditors(): TextEditor[] {
     // console.log("get visibleTextEditors");
-    //return [...this.editors.values()].filter((editor) => editor.isActive);
-    if (this.activeEditor) {
-      console.log("visible: " + this.activeEditor.id);
-      return [this.activeEditor];
-    } else {
-      return [];
-    }
+    return [...this.editors.values()].filter((editor) => editor.isVisible);
   }
 
   getEditableTextEditor(editor: TextEditor): EditableTextEditor {
@@ -293,6 +287,8 @@ function updateEditor(editor: JetbrainsEditor, editorState: EditorState) {
   editor.selections = editorState.selections.map((selection) =>
     createSelection(editor.document, selection),
   );
+  editor.isActive = editorState.active;
+  editor.isVisible = editorState.visible;
 }
 
 function getLines(text: string, firstLine: number, lastLine: number) {
