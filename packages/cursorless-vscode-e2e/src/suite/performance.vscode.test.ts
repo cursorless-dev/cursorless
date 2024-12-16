@@ -34,48 +34,39 @@ suite(`Performance: ${numLines} lines JSON`, async function () {
     asyncSafety(() => removeToken(textBasedThreshold)),
   );
 
-  const scopeTypeTypes: Partial<Record<SimpleScopeTypeType, number>> = {
+  const fixtures: [SimpleScopeTypeType | ScopeType, number][] = [
     // Text based
-    character: textBasedThreshold,
-    word: textBasedThreshold,
-    token: textBasedThreshold,
-    identifier: textBasedThreshold,
-    line: textBasedThreshold,
-    sentence: textBasedThreshold,
-    paragraph: textBasedThreshold,
-    document: textBasedThreshold,
-    nonWhitespaceSequence: textBasedThreshold,
+    ["character", textBasedThreshold],
+    ["word", textBasedThreshold],
+    ["token", textBasedThreshold],
+    ["identifier", textBasedThreshold],
+    ["line", textBasedThreshold],
+    ["sentence", textBasedThreshold],
+    ["paragraph", textBasedThreshold],
+    ["document", textBasedThreshold],
+    ["nonWhitespaceSequence", textBasedThreshold],
     // Parse tree based
-    string: parseTreeThreshold,
-    map: parseTreeThreshold,
-    collectionKey: parseTreeThreshold,
-    value: parseTreeThreshold,
+    ["string", parseTreeThreshold],
+    ["map", parseTreeThreshold],
+    ["collectionKey", parseTreeThreshold],
+    ["value", parseTreeThreshold],
     // Utilizes surrounding pair
-    boundedParagraph: surroundingPairThreshold,
-    boundedNonWhitespaceSequence: surroundingPairThreshold,
-  };
+    ["boundedParagraph", surroundingPairThreshold],
+    ["boundedNonWhitespaceSequence", surroundingPairThreshold],
+    [{ type: "surroundingPair", delimiter: "any" }, surroundingPairThreshold],
+    [
+      { type: "surroundingPair", delimiter: "curlyBrackets" },
+      surroundingPairThreshold,
+    ],
+  ];
 
-  for (const [scopeTypeType, threshold] of Object.entries(scopeTypeTypes)) {
+  for (const [scope, threshold] of fixtures) {
+    const [scopeType, title] = getScopeTypeAndTitle(scope);
     test(
-      `Select ${scopeTypeType}`,
-      asyncSafety(() =>
-        selectScopeType(
-          { type: scopeTypeType as SimpleScopeTypeType },
-          threshold,
-        ),
-      ),
+      `Select ${title}`,
+      asyncSafety(() => selectScopeType(scopeType, threshold)),
     );
   }
-
-  test(
-    "Select any surrounding pair",
-    asyncSafety(() =>
-      selectScopeType(
-        { type: "surroundingPair", delimiter: "any" },
-        surroundingPairThreshold,
-      ),
-    ),
-  );
 });
 
 async function removeToken(threshold: number) {
@@ -123,7 +114,20 @@ async function testPerformance(threshold: number, action: ActionDescriptor) {
   );
 }
 
-function generateTestData() {
+function getScopeTypeAndTitle(
+  scope: SimpleScopeTypeType | ScopeType,
+): [ScopeType, string] {
+  if (typeof scope === "string") {
+    return [{ type: scope }, scope];
+  }
+  switch (scope.type) {
+    case "surroundingPair":
+      return [scope, `${scope.type}.${scope.delimiter}`];
+  }
+  throw Error(`Unexpected scope type: ${scope.type}`);
+}
+
+function generateTestData(): string {
   const value = Object.fromEntries(
     new Array(100).fill("").map((_, i) => [i.toString(), "value"]),
   );
