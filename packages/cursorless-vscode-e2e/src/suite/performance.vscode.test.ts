@@ -9,15 +9,11 @@ import assert from "assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
+const value = Object.fromEntries(
+  new Array(100).fill("").map((_, i) => [i.toString(), "value"]),
+);
 const obj = Object.fromEntries(
-  new Array(100)
-    .fill("")
-    .map((_, i) => [
-      i.toString(),
-      Object.fromEntries(
-        new Array(100).fill("").map((_, i) => [i.toString(), "value"]),
-      ),
-    ]),
+  new Array(100).fill("").map((_, i) => [i.toString(), value]),
 );
 const content = JSON.stringify(obj, null, 2);
 const numLines = content.split("\n").length;
