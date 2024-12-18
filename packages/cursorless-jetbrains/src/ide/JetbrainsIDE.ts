@@ -29,6 +29,9 @@ import { JetbrainsKeyValueStore } from "./JetbrainsKeyValueStore";
 import type { EditorState } from "../types/types";
 import { createSelection, createTextEditor } from "./createTextEditor";
 import { JetbrainsEditor } from "./JetbrainsEditor";
+import { CharacterRange } from "../../../common/out/types/GeneralizedRange";
+import { ide } from "@cursorless/cursorless-engine";
+import { JetbrainsFlashDescriptor } from "./JetbrainsFlashDescriptor";
 
 export class JetbrainsIDE implements IDE {
   readonly configuration: JetbrainsConfiguration;
@@ -93,8 +96,17 @@ export class JetbrainsIDE implements IDE {
     throw Error("setHighlightRanges Not implemented");
   }
 
-  async flashRanges(_flashDescriptors: FlashDescriptor[]): Promise<void> {
-    console.debug("flashRanges Not implemented");
+  async flashRanges(flashDescriptors: FlashDescriptor[]): Promise<void> {
+    console.log("flashRangeses");
+    const jbfs = flashDescriptors.map((flashDescriptor) => {
+      const jbf: JetbrainsFlashDescriptor = {
+        editorId: flashDescriptor.editor.id,
+        range: flashDescriptor.range,
+        style: flashDescriptor.style,
+      };
+      return jbf;
+    });
+    this.client.flashRanges(JSON.stringify(jbfs));
   }
 
   get assetsRoot(): string {
