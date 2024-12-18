@@ -1,4 +1,5 @@
 export interface JetbrainsClient {
+  prePhraseVersion(): string | PromiseLike<string | null> | null;
   clipboardCopy(editorId: string, rangesJson: string): void;
   clipboardPaste(editorId: string): void;
   hatsUpdated(hatsJson: string): void;

@@ -5,6 +5,7 @@ import Parser from "web-tree-sitter";
 import { JetbrainsTreeSitter } from "./ide/JetbrainsTreeSitter";
 import { JetbrainsTreeSitterQueryProvider } from "./ide/JetbrainsTreeSitterQueryProvider";
 import { pathJoin } from "./ide/pathJoin";
+import { JetbrainsCommandServer } from "./ide/JetbrainsCommandServer";
 
 export async function activate(
   plugin: JetbrainsPlugin,
@@ -19,12 +20,14 @@ export async function activate(
   });
   console.log("Parser initialized");
 
+  const commandServerApi = new JetbrainsCommandServer(plugin.client);
   const queryProvider = new JetbrainsTreeSitterQueryProvider(plugin.ide);
   const engine = await createCursorlessEngine({
     ide: plugin.ide,
     hats: plugin.hats,
     treeSitterQueryProvider: queryProvider,
     treeSitter: new JetbrainsTreeSitter(wasmDirectory),
+    commandServerApi: commandServerApi,
   });
   console.log("activate completed");
   return engine;

@@ -29,9 +29,7 @@ import { JetbrainsKeyValueStore } from "./JetbrainsKeyValueStore";
 import type { EditorState } from "../types/types";
 import { createSelection, createTextEditor } from "./createTextEditor";
 import { JetbrainsEditor } from "./JetbrainsEditor";
-import { CharacterRange } from "../../../common/out/types/GeneralizedRange";
-import { ide } from "@cursorless/cursorless-engine";
-import { JetbrainsFlashDescriptor } from "./JetbrainsFlashDescriptor";
+import type { JetbrainsFlashDescriptor } from "./JetbrainsFlashDescriptor";
 
 export class JetbrainsIDE implements IDE {
   readonly configuration: JetbrainsConfiguration;
