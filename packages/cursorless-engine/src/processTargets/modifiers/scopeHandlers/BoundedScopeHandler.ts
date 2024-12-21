@@ -46,10 +46,13 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
   }
 
   get iterationScopeType(): ScopeType {
-    if (this.targetScopeHandler.iterationScopeType.type === "custom") {
-      throw Error(
-        "Iteration scope type can't be custom for BoundedBaseScopeHandler",
-      );
+    switch (this.targetScopeHandler.iterationScopeType.type) {
+      case "custom":
+      case "fallback":
+      case "conditional":
+        throw Error(
+          `Iteration scope type can't be '${this.targetScopeHandler.iterationScopeType.type}' for BoundedBaseScopeHandler`,
+        );
     }
     return {
       type: "oneOf",

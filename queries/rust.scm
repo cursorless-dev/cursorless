@@ -82,3 +82,6 @@ operator: [
 (macro_rule
   "=>" @disqualifyDelimiter
 )
+(lifetime
+  "'" @disqualifyDelimiter
+)

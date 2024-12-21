@@ -204,7 +204,9 @@ export type TextualScopeSupportFacet =
   | "boundedNonWhitespaceSequence.iteration"
   | "url"
   | "surroundingPair"
-  | "surroundingPair.iteration";
+  | "surroundingPair.iteration"
+  | "collectionItem.textual"
+  | "collectionItem.textual.iteration";
 
 export type LanguageScopeSupportFacetMap = Partial<
   Record<ScopeSupportFacet, ScopeSupportFacetLevel>
