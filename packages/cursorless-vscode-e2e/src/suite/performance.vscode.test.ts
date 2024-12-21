@@ -53,6 +53,7 @@ suite(`Performance: ${numLines} lines JSON`, async function () {
     // Utilizes surrounding pair
     ["boundedParagraph", surroundingPairThreshold],
     ["boundedNonWhitespaceSequence", surroundingPairThreshold],
+    ["collectionItem", surroundingPairThreshold],
     [{ type: "surroundingPair", delimiter: "any" }, surroundingPairThreshold],
     [
       { type: "surroundingPair", delimiter: "curlyBrackets" },
