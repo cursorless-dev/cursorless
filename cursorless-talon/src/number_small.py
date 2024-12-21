@@ -3,7 +3,7 @@ DEPRECATED @ 2024-12-21
 This file allows us to use a custom `number_small` capture.  See #1021 for more info.
 """
 
-from talon import app, Module, registry
+from talon import Module, app, registry
 
 mod = Module()
 
