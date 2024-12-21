@@ -13,7 +13,7 @@ mod.tag("cursorless_custom_number_small", "DEPRECATED!")
 def on_ready():
     if "user.cursorless_custom_number_small" in registry.tags:
         print(
-            "WARNING tag: 'user.cursorless_custom_number_small' is deprecated and should not be used anymore"
+            "WARNING tag: 'user.cursorless_custom_number_small' is deprecated and should not be used anymore, as Cursorless now uses community number_small"
         )
 
 
