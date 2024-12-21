@@ -1,17 +1,17 @@
 import {
-  type Range,
   type SurroundingPairName,
   type TextEditor,
   Position,
 } from "@cursorless/common";
 import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
+import { RangeIterator } from "./RangeIterator";
 
 export function getInteriorRanges(
   scopeHandlerFactory: ScopeHandlerFactory,
   languageId: string,
   editor: TextEditor,
   delimiter: SurroundingPairName,
-): Range[] {
+): RangeIterator {
   const scopeHandler = scopeHandlerFactory.create(
     {
       type: "surroundingPairInterior",
@@ -19,7 +19,8 @@ export function getInteriorRanges(
     },
     languageId,
   );
-  return Array.from(
+
+  const ranges = Array.from(
     scopeHandler.generateScopes(editor, new Position(0, 0), "forward", {
       containment: undefined,
       skipAncestorScopes: false,
@@ -27,4 +28,6 @@ export function getInteriorRanges(
     }),
     (scope) => scope.domain,
   );
+
+  return new RangeIterator(ranges);
 }

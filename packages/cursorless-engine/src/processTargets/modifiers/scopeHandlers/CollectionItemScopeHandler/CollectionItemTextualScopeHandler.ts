@@ -58,10 +58,9 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
     const usedInteriors = new Set<Range>();
     const iterationStatesStack: IterationState[] = [];
 
-    //   TODO: fixed performance on large files
     for (const separator of separatorRanges) {
       // Separators in a string are not considered
-      if (stringRanges.some((range) => range.contains(separator))) {
+      if (stringRanges.contains(separator)) {
         continue;
       }
 
@@ -69,9 +68,8 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
         iterationStatesStack[iterationStatesStack.length - 1];
 
       // Get range for smallest containing interior
-      const containingInteriorRange: Range | undefined = interiorRanges
-        .filter((range) => range.contains(separator))
-        .sort((a, b) => (a.contains(b) ? 1 : b.contains(a) ? -1 : 0))[0];
+      const containingInteriorRange =
+        interiorRanges.getsSmallestContaining(separator);
 
       // The contain range is either the interior or the line containing the separator
       const containingIterationRange =
@@ -107,7 +105,9 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
       }
 
       // New containing range. Add it to the list.
-      usedInteriors.add(containingInteriorRange);
+      if (containingInteriorRange != null) {
+        usedInteriors.add(containingInteriorRange);
+      }
 
       iterationStatesStack.push({
         editor,
@@ -122,7 +122,7 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
     }
 
     // Add interior ranges without a delimiter in them. eg: `[foo]`
-    for (const interior of interiorRanges) {
+    for (const interior of interiorRanges.ranges) {
       if (!usedInteriors.has(interior)) {
         const range = shrinkRangeToFitContent(editor, interior);
         if (!range.isEmpty) {
