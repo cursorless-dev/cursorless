@@ -1,5 +1,8 @@
 import type { Range } from "@cursorless/common";
 
+/**
+ * An iterator that allows for efficient lookup of ranges that contain a separator.
+ */
 export class RangeIterator<T extends Range> {
   private index = 0;
 

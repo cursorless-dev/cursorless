@@ -1,9 +1,13 @@
 import type { Range } from "@cursorless/common";
 import { RangeNode } from "./RangeNode";
 
+/**
+ * Creates a tree of ranges from a list of ranges. This improves containing lookup time.
+ * @param ranges The ranges to create a tree from.
+ * @returns The root nodes of the tree.
+ */
 export function createRangeTree(ranges: Range[]): RangeNode[] {
   const results: RangeNode[] = [];
-
   const parents: RangeNode[] = [];
 
   for (const range of ranges) {
