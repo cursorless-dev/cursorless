@@ -132,9 +132,9 @@ function getScopeTypeAndTitle(
 /**
  * Generate a large JSON object with 100 keys, each with 100 values.
  * {
- *   "0": {  "0": "value", "1": "value", ... },
- *   "1": {  "0": "value", "1": "value", ... },
+ *   "0": {  "0": "value", ..., "99": "value" },
  *   ...
+ * * "99": {  "0": "value", ..., "99": "value" },
  * }
  */
 function generateTestData(): string {
