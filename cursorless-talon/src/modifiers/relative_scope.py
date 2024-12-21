@@ -31,28 +31,28 @@ def cursorless_relative_scope_singular(m) -> dict[str, Any]:
 
 
 @mod.capture(
-    rule="[{user.cursorless_every_scope_modifier}] <user.cursorless_relative_direction> <user.private_cursorless_number_small> <user.cursorless_scope_type_plural>"
+    rule="[{user.cursorless_every_scope_modifier}] <user.cursorless_relative_direction> <number_small> <user.cursorless_scope_type_plural>"
 )
 def cursorless_relative_scope_plural(m) -> dict[str, Any]:
     """Relative previous/next plural scope. `next three funks`"""
     return create_relative_scope_modifier(
         m.cursorless_scope_type_plural,
         1,
-        m.private_cursorless_number_small,
+        m.number_small,
         m.cursorless_relative_direction,
         hasattr(m, "cursorless_every_scope_modifier"),
     )
 
 
 @mod.capture(
-    rule="[{user.cursorless_every_scope_modifier}] <user.private_cursorless_number_small> <user.cursorless_scope_type_plural> [{user.cursorless_forward_backward_modifier}]"
+    rule="[{user.cursorless_every_scope_modifier}] <number_small> <user.cursorless_scope_type_plural> [{user.cursorless_forward_backward_modifier}]"
 )
 def cursorless_relative_scope_count(m) -> dict[str, Any]:
     """Relative count scope. `three funks`"""
     return create_relative_scope_modifier(
         m.cursorless_scope_type_plural,
         0,
-        m.private_cursorless_number_small,
+        m.number_small,
         getattr(m, "cursorless_forward_backward_modifier", "forward"),
         hasattr(m, "cursorless_every_scope_modifier"),
     )
