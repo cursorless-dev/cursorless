@@ -1,9 +1,8 @@
 import {
   type Direction,
-  Position,
+  type Position,
   Range,
   type ScopeType,
-  type SurroundingPairName,
   type TextEditor,
 } from "@cursorless/common";
 import { shrinkRangeToFitContent } from "../../../../util/selectionUtils";
@@ -17,6 +16,7 @@ import type {
 import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
 import { collectionItemIterationScopeHandler } from "./collectionItemIterationScopeHandler";
 import { createTargetScope } from "./createTargetScope";
+import { getInteriorRanges } from "./getInteriorRanges";
 import { getSeparatorOccurrences } from "./getSeparatorOccurrences";
 
 export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
@@ -34,27 +34,6 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
     super();
   }
 
-  private getInteriorRanges(
-    editor: TextEditor,
-    delimiter: SurroundingPairName,
-  ): Range[] {
-    const scopeHandler = this.scopeHandlerFactory.create(
-      {
-        type: "surroundingPairInterior",
-        delimiter,
-      },
-      this.languageId,
-    );
-    return Array.from(
-      scopeHandler.generateScopes(editor, new Position(0, 0), "forward", {
-        containment: undefined,
-        skipAncestorScopes: false,
-        includeDescendantScopes: true,
-      }),
-      (scope) => scope.domain,
-    );
-  }
-
   *generateScopeCandidates(
     editor: TextEditor,
     position: Position,
@@ -63,8 +42,18 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
   ): Iterable<TargetScope> {
     const isEveryScope = hints.containment == null && hints.skipAncestorScopes;
     const separatorRanges = getSeparatorOccurrences(editor.document);
-    const interiorRanges = this.getInteriorRanges(editor, "collectionBoundary");
-    const stringRanges = this.getInteriorRanges(editor, "string");
+    const interiorRanges = getInteriorRanges(
+      this.scopeHandlerFactory,
+      this.languageId,
+      editor,
+      "collectionBoundary",
+    );
+    const stringRanges = getInteriorRanges(
+      this.scopeHandlerFactory,
+      this.languageId,
+      editor,
+      "string",
+    );
     const scopes: TargetScope[] = [];
     const usedInteriors = new Set<Range>();
     const iterationStatesStack: IterationState[] = [];
