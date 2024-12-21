@@ -1,11 +1,23 @@
 import type { Range } from "@cursorless/common";
 
-export class RangeIterator {
+export class RangeIterator<T extends Range> {
   private index = 0;
 
-  constructor(public ranges: Range[]) {}
+  constructor(public ranges: T[]) {}
 
   contains(separator: Range): boolean {
+    return this.advance(separator);
+  }
+
+  getContaining(separator: Range): T | undefined {
+    if (!this.advance(separator)) {
+      return undefined;
+    }
+
+    return this.ranges[this.index];
+  }
+
+  private advance(separator: Range): boolean {
     while (this.index < this.ranges.length) {
       const range = this.ranges[this.index];
 
@@ -13,8 +25,8 @@ export class RangeIterator {
         return true;
       }
 
-      // Separator is after the range. Since the ranges are sorted, we can stop here.
-      if (separator.start.isAfter(range.end)) {
+      // Separator is before the range. Since the ranges are sorted, we can stop here.
+      if (separator.end.isBefore(range.start)) {
         return false;
       }
 
@@ -23,15 +35,4 @@ export class RangeIterator {
 
     return false;
   }
-
-  getsSmallestContaining(separator: Range): Range | undefined {
-    //   TODO: fixed performance on large files
-    return this.ranges
-      .filter((range) => range.contains(separator))
-      .sort((a, b) => (a.contains(b) ? 1 : b.contains(a) ? -1 : 0))[0];
-  }
 }
-
-// const containingInteriorRange: Range | undefined = interiorRanges
-//         .filter((range) => range.contains(separator))
-//         .sort((a, b) => (a.contains(b) ? 1 : b.contains(a) ? -1 : 0))[0];
