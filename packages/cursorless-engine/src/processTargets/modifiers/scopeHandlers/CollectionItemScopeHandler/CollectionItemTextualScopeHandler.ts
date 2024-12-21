@@ -4,7 +4,6 @@ import {
   Range,
   type ScopeType,
   type SurroundingPairName,
-  testRegex,
   type TextEditor,
 } from "@cursorless/common";
 import { shrinkRangeToFitContent } from "../../../../util/selectionUtils";
@@ -16,36 +15,16 @@ import type {
   ScopeIteratorRequirements,
 } from "../scopeHandler.types";
 import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
+import { collectionItemIterationScopeHandler } from "./collectionItemIterationScopeHandler";
 import { createTargetScope } from "./createTargetScope";
-import {
-  getSeparatorOccurrences,
-  separatorRegex,
-} from "./getSeparatorOccurrences";
+import { getSeparatorOccurrences } from "./getSeparatorOccurrences";
 
 export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
   public scopeType: ScopeType = { type: "collectionItem" };
   protected isHierarchical = true;
 
-  get iterationScopeType(): ScopeType | ComplexScopeType {
-    return {
-      type: "fallback",
-      scopeTypes: [
-        {
-          type: "surroundingPairInterior",
-          delimiter: "collectionBoundary",
-        },
-        {
-          type: "conditional",
-          scopeType: {
-            type: "line",
-          },
-          predicate: (scope: TargetScope) => {
-            const text = scope.editor.document.getText(scope.domain);
-            return testRegex(separatorRegex, text);
-          },
-        },
-      ],
-    };
+  get iterationScopeType(): ComplexScopeType {
+    return collectionItemIterationScopeHandler;
   }
 
   constructor(
