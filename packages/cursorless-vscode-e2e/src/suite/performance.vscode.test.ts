@@ -50,10 +50,11 @@ suite(`Performance: ${numLines} lines JSON`, async function () {
     ["map", parseTreeThreshold],
     ["collectionKey", parseTreeThreshold],
     ["value", parseTreeThreshold],
-    // Utilizes surrounding pair
+    // Text based, but utilizes surrounding pair
     ["boundedParagraph", surroundingPairThreshold],
     ["boundedNonWhitespaceSequence", surroundingPairThreshold],
     ["collectionItem", surroundingPairThreshold],
+    // Surrounding pair
     [{ type: "surroundingPair", delimiter: "any" }, surroundingPairThreshold],
     [
       { type: "surroundingPair", delimiter: "curlyBrackets" },
