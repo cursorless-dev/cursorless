@@ -25,40 +25,40 @@ suite(`Performance: ${numLines} lines JSON`, async function () {
     }
   });
 
-  const textBasedThreshold = 100;
-  const parseTreeThreshold = 500;
-  const surroundingPairThreshold = 30000;
+  const textBasedThresholdMs = 100;
+  const parseTreeThresholdMs = 500;
+  const surroundingPairThresholdMs = 30000;
 
   test(
     "Remove token",
-    asyncSafety(() => removeToken(textBasedThreshold)),
+    asyncSafety(() => removeToken(textBasedThresholdMs)),
   );
 
   const fixtures: [SimpleScopeTypeType | ScopeType, number][] = [
     // Text based
-    ["character", textBasedThreshold],
-    ["word", textBasedThreshold],
-    ["token", textBasedThreshold],
-    ["identifier", textBasedThreshold],
-    ["line", textBasedThreshold],
-    ["sentence", textBasedThreshold],
-    ["paragraph", textBasedThreshold],
-    ["document", textBasedThreshold],
-    ["nonWhitespaceSequence", textBasedThreshold],
+    ["character", textBasedThresholdMs],
+    ["word", textBasedThresholdMs],
+    ["token", textBasedThresholdMs],
+    ["identifier", textBasedThresholdMs],
+    ["line", textBasedThresholdMs],
+    ["sentence", textBasedThresholdMs],
+    ["paragraph", textBasedThresholdMs],
+    ["document", textBasedThresholdMs],
+    ["nonWhitespaceSequence", textBasedThresholdMs],
     // Parse tree based
-    ["string", parseTreeThreshold],
-    ["map", parseTreeThreshold],
-    ["collectionKey", parseTreeThreshold],
-    ["value", parseTreeThreshold],
+    ["string", parseTreeThresholdMs],
+    ["map", parseTreeThresholdMs],
+    ["collectionKey", parseTreeThresholdMs],
+    ["value", parseTreeThresholdMs],
     // Text based, but utilizes surrounding pair
-    ["boundedParagraph", surroundingPairThreshold],
-    ["boundedNonWhitespaceSequence", surroundingPairThreshold],
-    ["collectionItem", surroundingPairThreshold],
+    ["boundedParagraph", surroundingPairThresholdMs],
+    ["boundedNonWhitespaceSequence", surroundingPairThresholdMs],
+    ["collectionItem", surroundingPairThresholdMs],
     // Surrounding pair
-    [{ type: "surroundingPair", delimiter: "any" }, surroundingPairThreshold],
+    [{ type: "surroundingPair", delimiter: "any" }, surroundingPairThresholdMs],
     [
       { type: "surroundingPair", delimiter: "curlyBrackets" },
-      surroundingPairThreshold,
+      surroundingPairThresholdMs,
     ],
   ];
 
@@ -129,6 +129,14 @@ function getScopeTypeAndTitle(
   throw Error(`Unexpected scope type: ${scope.type}`);
 }
 
+/**
+ * Generate a large JSON object with 100 keys, each with 100 values.
+ * {
+ *   "0": {  "0": "value", "1": "value", ... },
+ *   "1": {  "0": "value", "1": "value", ... },
+ *   ...
+ * }
+ */
 function generateTestData(): string {
   const value = Object.fromEntries(
     new Array(100).fill("").map((_, i) => [i.toString(), "value"]),
