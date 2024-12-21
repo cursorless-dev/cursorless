@@ -18,9 +18,10 @@ export function createRangeTree(ranges: Range[]): RangeNode[] {
     if (parent != null) {
       parent.children.push(node);
     } else {
-      parents.push(node);
       results.push(node);
     }
+
+    parents.push(node);
   }
 
   return results;
