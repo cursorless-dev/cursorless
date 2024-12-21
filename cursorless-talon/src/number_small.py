@@ -1,5 +1,5 @@
 """
-DEPRECATED!
+DEPRECATED @ 2024-12-21
 This file allows us to use a custom `number_small` capture.  See #1021 for more info.
 """
 
