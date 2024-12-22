@@ -292,7 +292,12 @@ function updateEditor(editor: JetbrainsEditor, editorState: EditorState) {
     editorState.text,
   );
   editor.visibleRanges = [
-    new Range(editorState.firstVisibleLine, 0, editorState.lastVisibleLine, 0),
+    new Range(
+      editorState.firstVisibleLine,
+      0,
+      editorState.lastVisibleLine + 1,
+      0,
+    ),
   ];
   editor.selections = editorState.selections.map((selection) =>
     createSelection(editor.document, selection),

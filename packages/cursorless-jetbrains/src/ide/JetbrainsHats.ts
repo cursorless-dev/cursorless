@@ -2,6 +2,7 @@ import type {
   Disposable,
   HatRange,
   Hats,
+  HatStyleInfo,
   HatStyleMap,
   Listener,
 } from "@cursorless/common";
@@ -20,11 +21,16 @@ const HAT_COLORS = [
 
 export class JetbrainsHats implements Hats {
   private isEnabledNotifier: Notifier<[boolean]> = new Notifier();
+  private hatStyleChangedNotifier: Notifier<[HatStyleMap]> = new Notifier();
+
   private hatRanges: HatRange[] = [];
   private client: JetbrainsClient;
+  enabledHatStyles: HatStyleMap;
+  private enabledHatShapes = ["default"];
 
   constructor(client: JetbrainsClient) {
     this.client = client;
+    this.enabledHatStyles = this.generateHatStyles();
   }
 
   setHatRanges(hatRanges: HatRange[]): Promise<void> {
@@ -38,6 +44,12 @@ export class JetbrainsHats implements Hats {
     return Promise.resolve();
   }
 
+  setEnabledHatShapes(enabledHatShapes: string[]): void {
+    this.enabledHatShapes = enabledHatShapes;
+    this.enabledHatStyles = this.generateHatStyles();
+    this.hatStyleChangedNotifier.notifyListeners(this.enabledHatStyles);
+  }
+
   toJetbransHatRanges(hatRanges: HatRange[]): JetbrainsHatRange[] {
     return hatRanges.map((range) => {
       return {
@@ -48,20 +60,31 @@ export class JetbrainsHats implements Hats {
     });
   }
 
-  enabledHatStyles: HatStyleMap = Object.fromEntries(
-    HAT_COLORS.map((color) => [
-      color,
-      { penalty: color === "default" ? 0 : 1 },
-    ]),
-  );
+  private generateHatStyles(): HatStyleMap {
+    const res = new Map<string, HatStyleInfo>();
+    for (const color of HAT_COLORS) {
+      const colorPenalty = color === "default" ? 0 : 1;
+      for (const shape of this.enabledHatShapes) {
+        const shapePenalty = shape === "default" ? 0 : 2;
+        let styleName: string;
+        if (shape === "default") {
+          styleName = color;
+        } else {
+          styleName = `${color}-${shape}`;
+        }
+        res.set(styleName, { penalty: colorPenalty + shapePenalty });
+      }
+    }
+    return Object.fromEntries(res);
+  }
 
-  onDidChangeEnabledHatStyles(_listener: Listener<[HatStyleMap]>): Disposable {
-    return { dispose: () => {} };
+  onDidChangeEnabledHatStyles(listener: Listener<[HatStyleMap]>): Disposable {
+    return this.hatStyleChangedNotifier.registerListener(listener);
   }
 
   isEnabled: boolean = true;
-  onDidChangeIsEnabled(_listener: Listener<[boolean]>): Disposable {
-    return { dispose: () => {} };
+  onDidChangeIsEnabled(listener: Listener<[boolean]>): Disposable {
+    return this.isEnabledNotifier.registerListener(listener);
   }
 
   toggle(isEnabled?: boolean) {
