@@ -8,15 +8,12 @@ export class RangeNode extends Range {
   }
 
   getSmallLestContaining(separator: Range): Range {
-    let result = this.range;
-
     for (const child of this.children) {
       if (child.contains(separator)) {
-        result = child.getSmallLestContaining(separator);
-        break;
+        return child.getSmallLestContaining(separator);
       }
     }
 
-    return result;
+    return this.range;
   }
 }
