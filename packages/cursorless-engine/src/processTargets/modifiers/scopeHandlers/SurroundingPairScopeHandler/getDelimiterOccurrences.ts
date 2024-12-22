@@ -27,11 +27,14 @@ export function getDelimiterOccurrences(
     "disqualifyDelimiter",
     "textFragment",
   ]);
-  const disqualifyDelimiters = captures?.disqualifyDelimiter ?? [];
-  const textFragments = captures?.textFragment ?? [];
-
-  const disqualifyDelimitersIterator = new RangeIterator(disqualifyDelimiters);
-  const textFragmentsIterator = new RangeIterator(textFragments);
+  const disqualifyDelimitersIterator = new RangeIterator(
+    captures?.disqualifyDelimiter ?? [],
+    true, // Sort items
+  );
+  const textFragmentsIterator = new RangeIterator(
+    captures?.textFragment ?? [],
+    true,
+  );
 
   const delimiterTextToDelimiterInfoMap = Object.fromEntries(
     individualDelimiters.map((individualDelimiter) => [

@@ -6,7 +6,14 @@ import type { Range } from "@cursorless/common";
 export class RangeIterator<T extends { range: Range }> {
   private index = 0;
 
-  constructor(public items: T[]) {}
+  constructor(
+    public items: T[],
+    sortItems = false,
+  ) {
+    if (sortItems) {
+      this.items.sort((a, b) => a.range.start.compareTo(b.range.start));
+    }
+  }
 
   contains(searchItem: Range): boolean {
     return this.advance(searchItem);
