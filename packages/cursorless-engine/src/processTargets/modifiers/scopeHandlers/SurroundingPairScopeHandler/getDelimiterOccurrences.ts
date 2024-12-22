@@ -1,6 +1,7 @@
 import { matchAll, Range, type TextDocument } from "@cursorless/common";
 import type { LanguageDefinition } from "../../../../languages/LanguageDefinition";
 import { getDelimiterRegex } from "./getDelimiterRegex";
+import { RangeIterator } from "./RangeIterator";
 import type { DelimiterOccurrence, IndividualDelimiter } from "./types";
 
 /**
@@ -22,10 +23,15 @@ export function getDelimiterOccurrences(
 
   const delimiterRegex = getDelimiterRegex(individualDelimiters);
 
-  const disqualifyDelimiters =
-    languageDefinition?.getCaptures(document, "disqualifyDelimiter") ?? [];
-  const textFragments =
-    languageDefinition?.getCaptures(document, "textFragment") ?? [];
+  const captures = languageDefinition?.getMultipleCaptures(document, [
+    "disqualifyDelimiter",
+    "textFragment",
+  ]);
+  const disqualifyDelimiters = captures?.disqualifyDelimiter ?? [];
+  const textFragments = captures?.textFragment ?? [];
+
+  const disqualifyDelimitersIterator = new RangeIterator(disqualifyDelimiters);
+  const textFragmentsIterator = new RangeIterator(textFragments);
 
   const delimiterTextToDelimiterInfoMap = Object.fromEntries(
     individualDelimiters.map((individualDelimiter) => [
@@ -33,6 +39,15 @@ export function getDelimiterOccurrences(
       individualDelimiter,
     ]),
   );
+
+  const isDisqualified = (range: Range): boolean => {
+    const delimiter = disqualifyDelimitersIterator.getContaining(range);
+    return delimiter != null && !delimiter.hasError();
+  };
+
+  const getTextFragmentRange = (range: Range): Range | undefined => {
+    return textFragmentsIterator.getContaining(range)?.range;
+  };
 
   const text = document.getText();
 
@@ -43,18 +58,10 @@ export function getDelimiterOccurrences(
       document.positionAt(match.index! + text.length),
     );
 
-    const isDisqualified = disqualifyDelimiters.some(
-      (c) => c.range.contains(range) && !c.hasError(),
-    );
-
-    const textFragmentRange = textFragments.find((c) =>
-      c.range.contains(range),
-    )?.range;
-
     return {
       delimiterInfo: delimiterTextToDelimiterInfoMap[text],
-      isDisqualified,
-      textFragmentRange,
+      isDisqualified: isDisqualified(range),
+      textFragmentRange: getTextFragmentRange(range),
       range,
     };
   });

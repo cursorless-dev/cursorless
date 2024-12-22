@@ -3,6 +3,7 @@ import type {
   ScopeType,
   SimpleScopeType,
   SimpleScopeTypeType,
+  StringRecord,
   TreeSitter,
 } from "@cursorless/common";
 import {
@@ -97,6 +98,28 @@ export class LanguageDefinition {
       .matches(document)
       .map((match) => match.captures.find(({ name }) => name === captureName))
       .filter((capture) => capture != null);
+  }
+
+  getMultipleCaptures(
+    document: TextDocument,
+    captureNames: SimpleScopeTypeType[],
+  ): StringRecord<QueryCapture[]> {
+    const matches = this.query.matches(document);
+    const result: StringRecord<QueryCapture[]> = {};
+    const captureNamesSet = new Set<string>(captureNames);
+
+    for (const match of matches) {
+      for (const capture of match.captures) {
+        if (captureNamesSet.has(capture.name)) {
+          if (result[capture.name] == null) {
+            result[capture.name] = [];
+          }
+          result[capture.name]!.push(capture);
+        }
+      }
+    }
+
+    return result;
   }
 }
 
