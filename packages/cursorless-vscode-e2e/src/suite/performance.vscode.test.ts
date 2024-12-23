@@ -10,20 +10,18 @@ import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
 const testData = generateTestData(100);
-const shortTestData = generateTestData(30);
 
-const textBasedConfig: TestConfig = { thresholdMs: 100, testData };
-const parseTreeConfig: TestConfig = { thresholdMs: 500, testData };
-const surroundingPairConfig: TestConfig = {
-  thresholdMs: 500,
-  testData: shortTestData,
-};
+const textBasedThresholdMs = 100;
+const parseTreeThresholdMs = 500;
+const surroundingPairThresholdMs = 500;
 
 suite("Performance", async function () {
   endToEndTestSetup(this);
 
   let previousTitle = "";
 
+  // Before each test, print the test title. This is done we have the test
+  // title before the test run time / duration.
   this.beforeEach(function () {
     const title = this.currentTest!.title;
     if (title !== previousTitle) {
@@ -34,34 +32,34 @@ suite("Performance", async function () {
 
   test(
     "Remove token",
-    asyncSafety(() => removeToken(textBasedConfig)),
+    asyncSafety(() => removeToken(textBasedThresholdMs)),
   );
 
-  const fixtures: [SimpleScopeTypeType | ScopeType, TestConfig][] = [
+  const fixtures: [SimpleScopeTypeType | ScopeType, number][] = [
     // Text based
-    ["character", textBasedConfig],
-    ["word", textBasedConfig],
-    ["token", textBasedConfig],
-    ["identifier", textBasedConfig],
-    ["line", textBasedConfig],
-    ["sentence", textBasedConfig],
-    ["paragraph", textBasedConfig],
-    ["document", textBasedConfig],
-    ["nonWhitespaceSequence", textBasedConfig],
+    ["character", textBasedThresholdMs],
+    ["word", textBasedThresholdMs],
+    ["token", textBasedThresholdMs],
+    ["identifier", textBasedThresholdMs],
+    ["line", textBasedThresholdMs],
+    ["sentence", textBasedThresholdMs],
+    ["paragraph", textBasedThresholdMs],
+    ["document", textBasedThresholdMs],
+    ["nonWhitespaceSequence", textBasedThresholdMs],
     // Parse tree based
-    ["string", parseTreeConfig],
-    ["map", parseTreeConfig],
-    ["collectionKey", parseTreeConfig],
-    ["value", parseTreeConfig],
+    ["string", parseTreeThresholdMs],
+    ["map", parseTreeThresholdMs],
+    ["collectionKey", parseTreeThresholdMs],
+    ["value", parseTreeThresholdMs],
     // Text based, but utilizes surrounding pair
-    ["boundedParagraph", surroundingPairConfig],
-    ["boundedNonWhitespaceSequence", surroundingPairConfig],
-    ["collectionItem", surroundingPairConfig],
+    ["boundedParagraph", surroundingPairThresholdMs],
+    ["boundedNonWhitespaceSequence", surroundingPairThresholdMs],
+    ["collectionItem", surroundingPairThresholdMs],
     // Surrounding pair
-    [{ type: "surroundingPair", delimiter: "any" }, surroundingPairConfig],
+    [{ type: "surroundingPair", delimiter: "any" }, surroundingPairThresholdMs],
     [
       { type: "surroundingPair", delimiter: "curlyBrackets" },
-      surroundingPairConfig,
+      surroundingPairThresholdMs,
     ],
   ];
 
@@ -74,8 +72,8 @@ suite("Performance", async function () {
   }
 });
 
-async function removeToken(config: TestConfig) {
-  await testPerformance(config, {
+async function removeToken(thresholdMs: number) {
+  await testPerformance(thresholdMs, {
     name: "remove",
     target: {
       type: "primitive",
@@ -84,8 +82,8 @@ async function removeToken(config: TestConfig) {
   });
 }
 
-async function selectScopeType(scopeType: ScopeType, config: TestConfig) {
-  await testPerformance(config, {
+async function selectScopeType(scopeType: ScopeType, thresholdMs: number) {
+  await testPerformance(thresholdMs, {
     name: "setSelection",
     target: {
       type: "primitive",
@@ -94,8 +92,7 @@ async function selectScopeType(scopeType: ScopeType, config: TestConfig) {
   });
 }
 
-async function testPerformance(config: TestConfig, action: ActionDescriptor) {
-  const { testData, thresholdMs } = config;
+async function testPerformance(thresholdMs: number, action: ActionDescriptor) {
   const editor = await openNewEditor(testData, { languageId: "json" });
   const position = new vscode.Position(editor.document.lineCount - 3, 5);
   const selection = new vscode.Selection(position, position);
@@ -149,9 +146,4 @@ function generateTestData(n: number): string {
     new Array(n).fill("").map((_, i) => [i.toString(), value]),
   );
   return JSON.stringify(obj, null, 2);
-}
-
-interface TestConfig {
-  thresholdMs: number;
-  testData: string;
 }
