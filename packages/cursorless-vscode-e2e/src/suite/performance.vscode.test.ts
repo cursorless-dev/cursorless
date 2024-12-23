@@ -94,6 +94,7 @@ async function selectScopeType(scopeType: ScopeType, thresholdMs: number) {
 
 async function testPerformance(thresholdMs: number, action: ActionDescriptor) {
   const editor = await openNewEditor(testData, { languageId: "json" });
+  // This is the position of the last json key in the document
   const position = new vscode.Position(editor.document.lineCount - 3, 5);
   const selection = new vscode.Selection(position, position);
   editor.selections = [selection];
