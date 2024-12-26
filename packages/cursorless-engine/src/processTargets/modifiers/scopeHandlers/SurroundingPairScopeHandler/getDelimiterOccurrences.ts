@@ -1,6 +1,7 @@
 import { matchAllIterator, Range, type TextDocument } from "@cursorless/common";
 import type { LanguageDefinition } from "../../../../languages/LanguageDefinition";
 import type { QueryCapture } from "../../../../languages/TreeSitterQuery/QueryCapture";
+import { createRangeTree } from "./createRangeTree";
 import { getDelimiterRegex } from "./getDelimiterRegex";
 import { RangeIterator } from "./RangeIterator";
 import type { DelimiterOccurrence, IndividualDelimiter } from "./types";
@@ -22,11 +23,17 @@ export function getDelimiterOccurrences(
     return [];
   }
 
-  const disqualifyDelimiters = createRangeIterator(
-    languageDefinition?.getCaptures(document, "disqualifyDelimiter"),
+  const disqualifyDelimiters = new RangeIterator(
+    getSortedCaptures(
+      languageDefinition?.getCaptures(document, "disqualifyDelimiter"),
+    ),
   );
-  const textFragments = createRangeIterator(
-    languageDefinition?.getCaptures(document, "textFragment"),
+  const textFragments = new RangeIterator(
+    createRangeTree(
+      getSortedCaptures(
+        languageDefinition?.getCaptures(document, "textFragment"),
+      ),
+    ),
   );
 
   const delimiterTextToDelimiterInfoMap = Object.fromEntries(
@@ -54,9 +61,12 @@ export function getDelimiterOccurrences(
     const isDisqualified = delimiter != null && !delimiter.hasError();
 
     if (!isDisqualified) {
+      const textFragmentRange = textFragments
+        .getContaining(range)
+        ?.getSmallLestContaining(range).range;
       results.push({
         delimiterInfo: delimiterTextToDelimiterInfoMap[text],
-        textFragmentRange: textFragments.getContaining(range)?.range,
+        textFragmentRange,
         range,
       });
     }
@@ -65,10 +75,10 @@ export function getDelimiterOccurrences(
   return results;
 }
 
-function createRangeIterator(
+function getSortedCaptures(
   captures: QueryCapture[] | undefined,
-): RangeIterator<QueryCapture> {
+): QueryCapture[] {
   const items = captures ?? [];
   items.sort((a, b) => a.range.start.compareTo(b.range.start));
-  return new RangeIterator(items);
+  return items;
 }
