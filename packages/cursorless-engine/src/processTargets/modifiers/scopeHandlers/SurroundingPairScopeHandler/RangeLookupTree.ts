@@ -2,9 +2,16 @@ import type { Range } from "@cursorless/common";
 import { RangeTreeNode } from "./RangeTreeNode";
 import { RangeLookupList } from "./RangeLookupList";
 
+/**
+ * A tree of ranges that allows for efficient lookup of ranges that contain a search item.
+ * The items must be sorted in document order.
+ */
 export class RangeLookupTree<T extends { range: Range }> {
   private children: RangeLookupList<RangeTreeNode<T>>;
 
+  /**
+   * @param items The items to search in. Must be sorted in document order.
+   */
   constructor(items: T[]) {
     this.children = createNodes(items);
   }
@@ -16,11 +23,6 @@ export class RangeLookupTree<T extends { range: Range }> {
   }
 }
 
-/**
- * Creates a tree of ranges from a list of ranges. This improves containing lookup time.
- * @param items The ranges to create a tree from. They must be sorted in document order.
- * @returns The root nodes of the tree.
- */
 function createNodes<T extends { range: Range }>(
   items: T[],
 ): RangeLookupList<RangeTreeNode<T>> {

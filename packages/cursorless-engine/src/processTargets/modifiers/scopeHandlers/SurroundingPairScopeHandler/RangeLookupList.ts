@@ -8,7 +8,7 @@ export class RangeLookupList<T extends { range: Range }> {
   private index = 0;
 
   /**
-   * @param items The items to iterate over. Must be sorted in document order.
+   * @param items The items to search in. Must be sorted in document order.
    */
   constructor(public items: T[]) {}
 
