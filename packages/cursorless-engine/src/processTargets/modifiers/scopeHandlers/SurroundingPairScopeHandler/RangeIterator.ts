@@ -2,29 +2,26 @@ import type { Range } from "@cursorless/common";
 
 /**
  * An iterator that allows for efficient lookup of ranges that contain a search item.
+ * The items must be sorted in document order.
  */
 export class RangeIterator<T extends { range: Range }> {
   private index = 0;
 
-  constructor(
-    public items: T[],
-    sortItems = false,
-  ) {
-    if (sortItems) {
-      this.items.sort((a, b) => a.range.start.compareTo(b.range.start));
-    }
-  }
+  /**
+   * @param items The items to iterate over. Must be sorted in document order.
+   */
+  constructor(public items: T[]) {}
 
   contains(searchItem: Range): boolean {
     return this.advance(searchItem);
   }
 
   getContaining(searchItem: Range): T | undefined {
-    if (!this.advance(searchItem)) {
-      return undefined;
+    if (this.advance(searchItem)) {
+      return this.items[this.index];
     }
 
-    return this.items[this.index];
+    return undefined;
   }
 
   private advance(searchItem: Range): boolean {

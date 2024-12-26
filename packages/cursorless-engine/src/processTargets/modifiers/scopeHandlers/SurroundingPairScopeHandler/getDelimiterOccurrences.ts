@@ -1,5 +1,6 @@
-import { matchAll, Range, type TextDocument } from "@cursorless/common";
+import { matchAllIterator, Range, type TextDocument } from "@cursorless/common";
 import type { LanguageDefinition } from "../../../../languages/LanguageDefinition";
+import type { QueryCapture } from "../../../../languages/TreeSitterQuery/QueryCapture";
 import { getDelimiterRegex } from "./getDelimiterRegex";
 import { RangeIterator } from "./RangeIterator";
 import type { DelimiterOccurrence, IndividualDelimiter } from "./types";
@@ -21,20 +22,14 @@ export function getDelimiterOccurrences(
     return [];
   }
 
-  const delimiterRegex = getDelimiterRegex(individualDelimiters);
-
   const captures = languageDefinition?.getMultipleCaptures(document, [
     "disqualifyDelimiter",
     "textFragment",
   ]);
-  const disqualifyDelimitersIterator = new RangeIterator(
-    captures?.disqualifyDelimiter ?? [],
-    true, // Sort items
+  const disqualifyDelimitersIterator = createRangeIterator(
+    captures?.disqualifyDelimiter,
   );
-  const textFragmentsIterator = new RangeIterator(
-    captures?.textFragment ?? [],
-    true,
-  );
+  const textFragmentsIterator = createRangeIterator(captures?.textFragment);
 
   const delimiterTextToDelimiterInfoMap = Object.fromEntries(
     individualDelimiters.map((individualDelimiter) => [
@@ -52,20 +47,36 @@ export function getDelimiterOccurrences(
     return textFragmentsIterator.getContaining(range)?.range;
   };
 
-  const text = document.getText();
+  const matchIterator = matchAllIterator(
+    document.getText(),
+    getDelimiterRegex(individualDelimiters),
+  );
 
-  return matchAll(text, delimiterRegex, (match): DelimiterOccurrence => {
+  const results: DelimiterOccurrence[] = [];
+
+  for (const match of matchIterator) {
     const text = match[0];
     const range = new Range(
       document.positionAt(match.index!),
       document.positionAt(match.index! + text.length),
     );
 
-    return {
-      delimiterInfo: delimiterTextToDelimiterInfoMap[text],
-      isDisqualified: isDisqualified(range),
-      textFragmentRange: getTextFragmentRange(range),
-      range,
-    };
-  });
+    if (!isDisqualified(range)) {
+      results.push({
+        delimiterInfo: delimiterTextToDelimiterInfoMap[text],
+        textFragmentRange: getTextFragmentRange(range),
+        range,
+      });
+    }
+  }
+
+  return results;
+}
+
+function createRangeIterator(
+  captures: QueryCapture[] | undefined,
+): RangeIterator<QueryCapture> {
+  const items = captures ?? [];
+  items.sort((a, b) => a.range.start.compareTo(b.range.start));
+  return new RangeIterator(items);
 }
