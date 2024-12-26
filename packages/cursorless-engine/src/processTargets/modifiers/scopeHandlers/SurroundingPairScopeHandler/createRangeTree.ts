@@ -1,5 +1,5 @@
 import type { Range } from "@cursorless/common";
-import { RangeNode } from "./RangeNode";
+import { RangeTreeNode } from "./RangeTreeNode";
 
 /**
  * Creates a tree of ranges from a list of ranges. This improves containing lookup time.
@@ -8,12 +8,12 @@ import { RangeNode } from "./RangeNode";
  */
 export function createRangeTree<T extends { range: Range }>(
   items: T[],
-): RangeNode<T>[] {
-  const results: RangeNode<T>[] = [];
-  const parents: RangeNode<T>[] = [];
+): RangeTreeNode<T>[] {
+  const results: RangeTreeNode<T>[] = [];
+  const parents: RangeTreeNode<T>[] = [];
 
   for (const item of items) {
-    const node = new RangeNode(item);
+    const node = new RangeTreeNode(item);
 
     while (
       parents.length > 0 &&

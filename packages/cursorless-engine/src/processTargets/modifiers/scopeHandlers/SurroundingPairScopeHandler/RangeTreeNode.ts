@@ -1,7 +1,7 @@
 import type { Range } from "@cursorless/common";
 
-export class RangeNode<T extends { range: Range }> {
-  children: RangeNode<T>[] = [];
+export class RangeTreeNode<T extends { range: Range }> {
+  children: RangeTreeNode<T>[] = [];
 
   constructor(private item: T) {}
 
