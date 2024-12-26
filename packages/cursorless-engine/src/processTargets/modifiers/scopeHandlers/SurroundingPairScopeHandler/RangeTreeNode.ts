@@ -13,12 +13,10 @@ export class RangeTreeNode<T extends { range: Range }> {
   }
 
   getSmallLestContaining(range: Range): T {
-    const child = this.children.getContaining(range);
+    const child = this.children
+      .getContaining(range)
+      ?.getSmallLestContaining(range);
 
-    if (child != null) {
-      return child.getSmallLestContaining(range);
-    }
-
-    return this.item;
+    return child ?? this.item;
   }
 }
