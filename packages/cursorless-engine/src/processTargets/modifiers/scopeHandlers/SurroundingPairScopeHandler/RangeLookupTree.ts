@@ -1,5 +1,4 @@
 import type { Range } from "@cursorless/common";
-import { RangeTreeNode } from "./RangeTreeNode";
 import { RangeLookupList } from "./RangeLookupList";
 
 /**
@@ -7,7 +6,7 @@ import { RangeLookupList } from "./RangeLookupList";
  * The items must be sorted in document order.
  */
 export class RangeLookupTree<T extends { range: Range }> {
-  private children: RangeLookupList<RangeTreeNode<T>>;
+  private children: RangeLookupList<RangeLookupTreeNode<T>>;
 
   /**
    * @param items The items to search in. Must be sorted in document order.
@@ -25,12 +24,12 @@ export class RangeLookupTree<T extends { range: Range }> {
 
 function createNodes<T extends { range: Range }>(
   items: T[],
-): RangeLookupList<RangeTreeNode<T>> {
-  const results: RangeTreeNode<T>[] = [];
-  const parents: RangeTreeNode<T>[] = [];
+): RangeLookupList<RangeLookupTreeNode<T>> {
+  const results: RangeLookupTreeNode<T>[] = [];
+  const parents: RangeLookupTreeNode<T>[] = [];
 
   for (const item of items) {
-    const node = new RangeTreeNode(item);
+    const node = new RangeLookupTreeNode(item);
 
     while (
       parents.length > 0 &&
@@ -51,4 +50,28 @@ function createNodes<T extends { range: Range }>(
   }
 
   return new RangeLookupList(results);
+}
+
+class RangeLookupTreeNode<T extends { range: Range }> {
+  private children: RangeLookupList<RangeLookupTreeNode<T>>;
+
+  constructor(private item: T) {
+    this.children = new RangeLookupList([]);
+  }
+
+  get range(): Range {
+    return this.item.range;
+  }
+
+  addChildNode(node: RangeLookupTreeNode<T>) {
+    this.children.add(node);
+  }
+
+  getSmallLestContaining(range: Range): T {
+    const child = this.children
+      .getContaining(range)
+      ?.getSmallLestContaining(range);
+
+    return child ?? this.item;
+  }
 }
