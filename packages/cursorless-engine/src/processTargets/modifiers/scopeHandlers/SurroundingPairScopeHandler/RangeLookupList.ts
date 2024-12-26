@@ -4,7 +4,7 @@ import type { Range } from "@cursorless/common";
  * An iterator that allows for efficient lookup of ranges that contain a search item.
  * The items must be sorted in document order.
  */
-export class RangeIterator<T extends { range: Range }> {
+export class RangeLookupList<T extends { range: Range }> {
   private index = 0;
 
   /**

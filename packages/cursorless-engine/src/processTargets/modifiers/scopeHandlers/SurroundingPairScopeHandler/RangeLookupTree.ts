@@ -1,14 +1,29 @@
 import type { Range } from "@cursorless/common";
 import { RangeTreeNode } from "./RangeTreeNode";
+import { RangeLookupList } from "./RangeLookupList";
+
+export class RangeLookupTree<T extends { range: Range }> {
+  private children: RangeLookupList<RangeTreeNode<T>>;
+
+  constructor(items: T[]) {
+    this.children = createNodes(items);
+  }
+
+  getSmallLestContaining(separator: Range): T | undefined {
+    return this.children
+      .getContaining(separator)
+      ?.getSmallLestContaining(separator);
+  }
+}
 
 /**
  * Creates a tree of ranges from a list of ranges. This improves containing lookup time.
  * @param items The ranges to create a tree from. They must be sorted in document order.
  * @returns The root nodes of the tree.
  */
-export function createRangeTree<T extends { range: Range }>(
+function createNodes<T extends { range: Range }>(
   items: T[],
-): RangeTreeNode<T>[] {
+): RangeLookupList<RangeTreeNode<T>> {
   const results: RangeTreeNode<T>[] = [];
   const parents: RangeTreeNode<T>[] = [];
 
@@ -33,5 +48,5 @@ export function createRangeTree<T extends { range: Range }>(
     parents.push(node);
   }
 
-  return results;
+  return new RangeLookupList(results);
 }

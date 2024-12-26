@@ -6,9 +6,9 @@ import {
 } from "@cursorless/common";
 import type { LanguageDefinition } from "../../../../languages/LanguageDefinition";
 import type { QueryCapture } from "../../../../languages/TreeSitterQuery/QueryCapture";
-import { createRangeTree } from "./createRangeTree";
 import { getDelimiterRegex } from "./getDelimiterRegex";
-import { RangeIterator } from "./RangeIterator";
+import { RangeLookupList } from "./RangeLookupList";
+import { RangeLookupTree } from "./RangeLookupTree";
 import type { DelimiterOccurrence, IndividualDelimiter } from "./types";
 
 /**
@@ -28,14 +28,12 @@ export function getDelimiterOccurrences(
     return [];
   }
 
-  const disqualifyDelimiters = new RangeIterator(
+  const disqualifyDelimiters = new RangeLookupList(
     getSortedCaptures(languageDefinition, document, "disqualifyDelimiter"),
   );
-  const textFragments = new RangeIterator(
-    // We need to create a tree for text fragments since they can be nested
-    createRangeTree(
-      getSortedCaptures(languageDefinition, document, "textFragment"),
-    ),
+  // We need a tree for text fragments since they can be nested
+  const textFragments = new RangeLookupTree(
+    getSortedCaptures(languageDefinition, document, "textFragment"),
   );
 
   const delimiterTextToDelimiterInfoMap = Object.fromEntries(
@@ -63,9 +61,8 @@ export function getDelimiterOccurrences(
     const isDisqualified = delimiter != null && !delimiter.hasError();
 
     if (!isDisqualified) {
-      const textFragmentRange = textFragments
-        .getContaining(range)
-        ?.getSmallLestContaining(range).range;
+      const textFragmentRange =
+        textFragments.getSmallLestContaining(range)?.range;
       results.push({
         delimiterInfo: delimiterTextToDelimiterInfoMap[text],
         textFragmentRange,
