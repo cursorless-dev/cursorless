@@ -33,7 +33,7 @@ export class RangeIterator<T extends { range: Range }> {
       }
 
       // Search item is before the range. Since the ranges are sorted, we can stop here.
-      if (searchItem.end.isBefore(range.start)) {
+      if (searchItem.end.isBeforeOrEqual(range.start)) {
         return false;
       }
 
