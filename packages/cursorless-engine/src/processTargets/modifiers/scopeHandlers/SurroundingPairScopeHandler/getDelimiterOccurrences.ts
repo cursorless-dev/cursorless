@@ -38,15 +38,6 @@ export function getDelimiterOccurrences(
     ]),
   );
 
-  const isDisqualified = (range: Range): boolean => {
-    const delimiter = disqualifyDelimitersIterator.getContaining(range);
-    return delimiter != null && !delimiter.hasError();
-  };
-
-  const getTextFragmentRange = (range: Range): Range | undefined => {
-    return textFragmentsIterator.getContaining(range)?.range;
-  };
-
   const matchIterator = matchAllIterator(
     document.getText(),
     getDelimiterRegex(individualDelimiters),
@@ -61,10 +52,13 @@ export function getDelimiterOccurrences(
       document.positionAt(match.index! + text.length),
     );
 
-    if (!isDisqualified(range)) {
+    const delimiter = disqualifyDelimitersIterator.getContaining(range);
+    const isDisqualified = delimiter != null && !delimiter.hasError();
+
+    if (!isDisqualified) {
       results.push({
         delimiterInfo: delimiterTextToDelimiterInfoMap[text],
-        textFragmentRange: getTextFragmentRange(range),
+        textFragmentRange: textFragmentsIterator.getContaining(range)?.range,
         range,
       });
     }
