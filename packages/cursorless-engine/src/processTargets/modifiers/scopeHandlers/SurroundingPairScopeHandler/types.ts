@@ -52,7 +52,7 @@ export interface DelimiterOccurrence {
    * If the delimiter is part of a text fragment, eg a string or comment, this
    * will be the range of the text fragment.
    */
-  textFragmentRange?: Range;
+  textFragmentRange: Range | undefined;
 }
 
 /**
