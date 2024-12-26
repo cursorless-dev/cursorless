@@ -26,10 +26,10 @@ export function getDelimiterOccurrences(
     "disqualifyDelimiter",
     "textFragment",
   ]);
-  const disqualifyDelimitersIterator = createRangeIterator(
+  const disqualifyDelimiters = createRangeIterator(
     captures?.disqualifyDelimiter,
   );
-  const textFragmentsIterator = createRangeIterator(captures?.textFragment);
+  const textFragments = createRangeIterator(captures?.textFragment);
 
   const delimiterTextToDelimiterInfoMap = Object.fromEntries(
     individualDelimiters.map((individualDelimiter) => [
@@ -52,13 +52,13 @@ export function getDelimiterOccurrences(
       document.positionAt(match.index! + text.length),
     );
 
-    const delimiter = disqualifyDelimitersIterator.getContaining(range);
+    const delimiter = disqualifyDelimiters.getContaining(range);
     const isDisqualified = delimiter != null && !delimiter.hasError();
 
     if (!isDisqualified) {
       results.push({
         delimiterInfo: delimiterTextToDelimiterInfoMap[text],
-        textFragmentRange: textFragmentsIterator.getContaining(range)?.range,
+        textFragmentRange: textFragments.getContaining(range)?.range,
         range,
       });
     }
