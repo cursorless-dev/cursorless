@@ -18,13 +18,13 @@ import { TreeSitterQuery } from "./TreeSitterQuery";
 import type { QueryCapture } from "./TreeSitterQuery/QueryCapture";
 import { validateQueryCaptures } from "./TreeSitterQuery/validateQueryCaptures";
 
-const cache = new LanguageDefinitionCache();
-
 /**
  * Represents a language definition for a single language, including the
  * tree-sitter query used to extract scopes for the given language
  */
 export class LanguageDefinition {
+  private cache: LanguageDefinitionCache;
+
   private constructor(
     /**
      * The tree-sitter query used to extract scopes for the given language.
@@ -32,7 +32,9 @@ export class LanguageDefinition {
      * language supports using new-style tree-sitter queries
      */
     private query: TreeSitterQuery,
-  ) {}
+  ) {
+    this.cache = new LanguageDefinitionCache();
+  }
 
   /**
    * Construct a language definition for the given language id, if the language
@@ -97,11 +99,15 @@ export class LanguageDefinition {
     document: TextDocument,
     captureName: SimpleScopeTypeType,
   ): QueryCapture[] {
-    if (!cache.isValid(document)) {
-      cache.update(document, this.getCapturesMap(document));
+    if (!this.cache.isValid(document)) {
+      this.cache.update(document, this.getCapturesMap(document));
     }
 
-    return cache.get(captureName);
+    return this.cache.get(captureName);
+  }
+
+  clearCache(): void {
+    this.cache.clear();
   }
 
   /**

@@ -33,6 +33,11 @@ export interface LanguageDefinitions {
   get(languageId: string): LanguageDefinition | undefined;
 
   /**
+   * Clear the cache of all language definitions. This is run at the start of a command.
+   */
+  clearCache(): void;
+
+  /**
    * @deprecated Only for use in legacy containing scope stage
    */
   getNodeAtLocation(
@@ -153,6 +158,14 @@ export class LanguageDefinitionsImpl
     }
 
     return definition === LANGUAGE_UNDEFINED ? undefined : definition;
+  }
+
+  clearCache(): void {
+    for (const definition of this.languageDefinitions.values()) {
+      if (definition !== LANGUAGE_UNDEFINED) {
+        definition.clearCache();
+      }
+    }
   }
 
   public getNodeAtLocation(document: TextDocument, range: Range): SyntaxNode {
