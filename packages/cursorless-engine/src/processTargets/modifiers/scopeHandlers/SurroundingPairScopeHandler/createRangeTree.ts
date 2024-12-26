@@ -3,7 +3,7 @@ import { RangeTreeNode } from "./RangeTreeNode";
 
 /**
  * Creates a tree of ranges from a list of ranges. This improves containing lookup time.
- * @param items The ranges to create a tree from.
+ * @param items The ranges to create a tree from. They must be sorted in document order.
  * @returns The root nodes of the tree.
  */
 export function createRangeTree<T extends { range: Range }>(
