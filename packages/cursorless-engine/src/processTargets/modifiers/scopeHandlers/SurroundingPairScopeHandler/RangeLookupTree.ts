@@ -41,7 +41,7 @@ function createNodes<T extends { range: Range }>(
     const parent = parents[parents.length - 1];
 
     if (parent != null) {
-      parent.addChildNode(node);
+      parent.children.add(node);
     } else {
       results.push(node);
     }
@@ -53,7 +53,7 @@ function createNodes<T extends { range: Range }>(
 }
 
 class RangeLookupTreeNode<T extends { range: Range }> {
-  private children: RangeLookupList<RangeLookupTreeNode<T>>;
+  public children: RangeLookupList<RangeLookupTreeNode<T>>;
 
   constructor(private item: T) {
     this.children = new RangeLookupList([]);
@@ -61,10 +61,6 @@ class RangeLookupTreeNode<T extends { range: Range }> {
 
   get range(): Range {
     return this.item.range;
-  }
-
-  addChildNode(node: RangeLookupTreeNode<T>) {
-    this.children.add(node);
   }
 
   getSmallLestContaining(range: Range): T {
