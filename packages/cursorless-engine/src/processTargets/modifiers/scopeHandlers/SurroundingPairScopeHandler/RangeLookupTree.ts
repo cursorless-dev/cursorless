@@ -40,7 +40,7 @@ function createNodes<T extends { range: Range }>(
     const parent = parents[parents.length - 1];
 
     if (parent != null) {
-      parent.children.push(node);
+      parent.children.items.push(node);
     } else {
       results.push(node);
     }
