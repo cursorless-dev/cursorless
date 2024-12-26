@@ -13,9 +13,12 @@ import {
   type TextDocument,
 } from "@cursorless/common";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
+import { LanguageDefinitionCache } from "./LanguageDefinitionCache";
 import { TreeSitterQuery } from "./TreeSitterQuery";
 import type { QueryCapture } from "./TreeSitterQuery/QueryCapture";
 import { validateQueryCaptures } from "./TreeSitterQuery/validateQueryCaptures";
+
+const cache = new LanguageDefinitionCache();
 
 /**
  * Represents a language definition for a single language, including the
@@ -94,28 +97,26 @@ export class LanguageDefinition {
     document: TextDocument,
     captureName: SimpleScopeTypeType,
   ): QueryCapture[] {
-    return this.query
-      .matches(document)
-      .map((match) => match.captures.find(({ name }) => name === captureName))
-      .filter((capture) => capture != null);
+    if (!cache.isValid(document)) {
+      cache.update(document, this.getCapturesMap(document));
+    }
+
+    return cache.get(captureName);
   }
 
-  getMultipleCaptures(
-    document: TextDocument,
-    captureNames: SimpleScopeTypeType[],
-  ): StringRecord<QueryCapture[]> {
+  /**
+   * This is a low level function that returns a map of all captures in the document.
+   */
+  private getCapturesMap(document: TextDocument): StringRecord<QueryCapture[]> {
     const matches = this.query.matches(document);
     const result: StringRecord<QueryCapture[]> = {};
-    const captureNamesSet = new Set<string>(captureNames);
 
     for (const match of matches) {
       for (const capture of match.captures) {
-        if (captureNamesSet.has(capture.name)) {
-          if (result[capture.name] == null) {
-            result[capture.name] = [];
-          }
-          result[capture.name]!.push(capture);
+        if (result[capture.name] == null) {
+          result[capture.name] = [];
         }
+        result[capture.name]!.push(capture);
       }
     }
 

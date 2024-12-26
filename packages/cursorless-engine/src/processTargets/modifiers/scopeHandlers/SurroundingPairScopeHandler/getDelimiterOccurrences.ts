@@ -22,14 +22,12 @@ export function getDelimiterOccurrences(
     return [];
   }
 
-  const captures = languageDefinition?.getMultipleCaptures(document, [
-    "disqualifyDelimiter",
-    "textFragment",
-  ]);
   const disqualifyDelimiters = createRangeIterator(
-    captures?.disqualifyDelimiter,
+    languageDefinition?.getCaptures(document, "disqualifyDelimiter"),
   );
-  const textFragments = createRangeIterator(captures?.textFragment);
+  const textFragments = createRangeIterator(
+    languageDefinition?.getCaptures(document, "textFragment"),
+  );
 
   const delimiterTextToDelimiterInfoMap = Object.fromEntries(
     individualDelimiters.map((individualDelimiter) => [
