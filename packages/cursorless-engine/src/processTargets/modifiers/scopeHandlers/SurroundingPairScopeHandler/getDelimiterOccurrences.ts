@@ -38,14 +38,14 @@ export function getDelimiterOccurrences(
     ]),
   );
 
-  const matchIterator = matchAllIterator(
+  const regexMatches = matchAllIterator(
     document.getText(),
     getDelimiterRegex(individualDelimiters),
   );
 
   const results: DelimiterOccurrence[] = [];
 
-  for (const match of matchIterator) {
+  for (const match of regexMatches) {
     const text = match[0];
     const range = new Range(
       document.positionAt(match.index!),
