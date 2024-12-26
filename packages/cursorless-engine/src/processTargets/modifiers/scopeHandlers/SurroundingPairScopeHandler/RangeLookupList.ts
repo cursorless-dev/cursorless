@@ -10,7 +10,11 @@ export class RangeLookupList<T extends { range: Range }> {
   /**
    * @param items The items to search in. Must be sorted in document order.
    */
-  constructor(public items: T[]) {}
+  constructor(private items: T[]) {}
+
+  add(item: T) {
+    this.items.push(item);
+  }
 
   contains(searchItem: Range): boolean {
     return this.advance(searchItem);

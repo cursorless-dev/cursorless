@@ -2,7 +2,7 @@ import type { Range } from "@cursorless/common";
 import { RangeLookupList } from "./RangeLookupList";
 
 export class RangeTreeNode<T extends { range: Range }> {
-  children: RangeLookupList<RangeTreeNode<T>>;
+  private children: RangeLookupList<RangeTreeNode<T>>;
 
   constructor(private item: T) {
     this.children = new RangeLookupList([]);
@@ -10,6 +10,10 @@ export class RangeTreeNode<T extends { range: Range }> {
 
   get range(): Range {
     return this.item.range;
+  }
+
+  addChildNode(node: RangeTreeNode<T>) {
+    this.children.add(node);
   }
 
   getSmallLestContaining(range: Range): T {
