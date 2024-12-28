@@ -27,6 +27,9 @@ export class JetbrainsHats implements Hats {
   private client: JetbrainsClient;
   enabledHatStyles: HatStyleMap;
   private enabledHatShapes = ["default"];
+  private hatShapePenalties: Map<string, number> = new Map([["default", 0]]);
+  private enabledHatColors = ["default"];
+  private hatColorPenalties: Map<string, number> = new Map([["default", 0]]);
 
   constructor(client: JetbrainsClient) {
     this.client = client;
@@ -50,6 +53,30 @@ export class JetbrainsHats implements Hats {
     this.hatStyleChangedNotifier.notifyListeners(this.enabledHatStyles);
   }
 
+  setHatShapePenalties(hatShapePenalties: Map<string, number>): void {
+    // supplied map is a json map, and not a typescript map, so convert it to typed map
+    this.hatShapePenalties = new Map<string, number>(
+      Object.entries(hatShapePenalties),
+    );
+    this.enabledHatStyles = this.generateHatStyles();
+    this.hatStyleChangedNotifier.notifyListeners(this.enabledHatStyles);
+  }
+
+  setEnabledHatColors(enabledHatColors: string[]): void {
+    this.enabledHatColors = enabledHatColors;
+    this.enabledHatStyles = this.generateHatStyles();
+    this.hatStyleChangedNotifier.notifyListeners(this.enabledHatStyles);
+  }
+
+  setHatColorPenalties(hatColorPenalties: Map<string, number>): void {
+    // supplied map is a json map, and not a typescript map, so convert it to typed map
+    this.hatColorPenalties = new Map<string, number>(
+      Object.entries(hatColorPenalties),
+    );
+    this.enabledHatStyles = this.generateHatStyles();
+    this.hatStyleChangedNotifier.notifyListeners(this.enabledHatStyles);
+  }
+
   toJetbransHatRanges(hatRanges: HatRange[]): JetbrainsHatRange[] {
     return hatRanges.map((range) => {
       return {
@@ -62,10 +89,10 @@ export class JetbrainsHats implements Hats {
 
   private generateHatStyles(): HatStyleMap {
     const res = new Map<string, HatStyleInfo>();
-    for (const color of HAT_COLORS) {
-      const colorPenalty = color === "default" ? 0 : 1;
+    for (const color of this.enabledHatColors) {
+      const colorPenalty = this.getColorPenalty(color);
       for (const shape of this.enabledHatShapes) {
-        const shapePenalty = shape === "default" ? 0 : 2;
+        const shapePenalty = this.getShapePenalty(shape);
         let styleName: string;
         if (shape === "default") {
           styleName = color;
@@ -76,6 +103,24 @@ export class JetbrainsHats implements Hats {
       }
     }
     return Object.fromEntries(res);
+  }
+
+  private getShapePenalty(shape: string) {
+    let shapePenalty = this.hatShapePenalties.get(shape);
+    if (shapePenalty == null) {
+      shapePenalty = shape === "default" ? 0 : 2;
+    } else {
+      shapePenalty = shape === "default" ? shapePenalty : shapePenalty + 1;
+    }
+    return shapePenalty;
+  }
+
+  private getColorPenalty(color: string) {
+    let colorPenalty = this.hatColorPenalties.get(color);
+    if (colorPenalty == null) {
+      colorPenalty = color === "default" ? 0 : 1;
+    }
+    return colorPenalty;
   }
 
   onDidChangeEnabledHatStyles(listener: Listener<[HatStyleMap]>): Disposable {
