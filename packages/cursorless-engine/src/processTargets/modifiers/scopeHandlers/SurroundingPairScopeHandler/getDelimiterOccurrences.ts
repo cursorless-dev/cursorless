@@ -27,12 +27,8 @@ export function getDelimiterOccurrences(
   const textFragments =
     languageDefinition?.getCaptures(document, "textFragment") ?? [];
 
-  const delimiterTextToDelimiterInfoMap = Object.fromEntries(
-    individualDelimiters.map((individualDelimiter) => [
-      individualDelimiter.text,
-      individualDelimiter,
-    ]),
-  );
+  const delimiterTextToDelimiterInfoMap =
+    getDelimiterTextToDelimiterInfoMap(individualDelimiters);
 
   const text = document.getText();
 
@@ -58,4 +54,26 @@ export function getDelimiterOccurrences(
       range,
     };
   });
+}
+
+function getDelimiterTextToDelimiterInfoMap(
+  individualDelimiters: IndividualDelimiter[],
+): Record<string, IndividualDelimiter> {
+  return Object.fromEntries(
+    individualDelimiters.flatMap((individualDelimiter) => {
+      const results = [[individualDelimiter.text, individualDelimiter]];
+      if (individualDelimiter.prefixes.length > 0) {
+        for (const prefix of individualDelimiter.prefixes) {
+          const prefixText = prefix + individualDelimiter.text;
+          const prefixDelimiter: IndividualDelimiter = {
+            ...individualDelimiter,
+            text: prefixText,
+            side: "left",
+          };
+          results.push([prefixText, prefixDelimiter]);
+        }
+      }
+      return results;
+    }),
+  );
 }

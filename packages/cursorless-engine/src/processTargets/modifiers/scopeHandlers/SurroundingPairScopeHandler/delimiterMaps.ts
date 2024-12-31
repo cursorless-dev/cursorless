@@ -16,15 +16,9 @@ interface Options {
   isSingleLine?: boolean;
 
   /**
-   * This field can be used to force us to treat the side of the delimiter as
-   * unknown. We usually infer this from the fact that the opening and closing
-   * delimiters are the same, but in some cases they are different, but the side
-   * is actually still unknown. In particular, this is the case for Python
-   * string prefixes, where if we see the prefix it doesn't necessarily mean
-   * that it's an opening delimiter. For example, in  `" r"`, note that the `r`
-   * is just part of the string, not a prefix of the opening delimiter.
+   * The prefixes that can be used before the left side of the delimiter, eg "r"
    */
-  isUnknownSide?: boolean;
+  prefixes?: string[];
 }
 
 type DelimiterMap = Record<
@@ -54,8 +48,6 @@ const delimiterToText: DelimiterMap = Object.freeze({
 
 // https://docs.python.org/3/reference/lexical_analysis.html#string-and-bytes-literals
 const pythonPrefixes = [
-  // Base case without a prefix
-  "",
   // string prefixes
   "r",
   "u",
@@ -102,26 +94,10 @@ const delimiterToTextOverrides: Record<string, Partial<DelimiterMap>> = {
   },
 
   python: {
-    singleQuotes: [
-      pythonPrefixes.map((prefix) => `${prefix}'`),
-      "'",
-      { isSingleLine: true, isUnknownSide: true },
-    ],
-    doubleQuotes: [
-      pythonPrefixes.map((prefix) => `${prefix}"`),
-      '"',
-      { isSingleLine: true, isUnknownSide: true },
-    ],
-    tripleSingleQuotes: [
-      pythonPrefixes.map((prefix) => `${prefix}'''`),
-      "'''",
-      { isUnknownSide: true },
-    ],
-    tripleDoubleQuotes: [
-      pythonPrefixes.map((prefix) => `${prefix}"""`),
-      '"""',
-      { isUnknownSide: true },
-    ],
+    singleQuotes: ["'", "'", { isSingleLine: true, prefixes: pythonPrefixes }],
+    doubleQuotes: ['"', '"', { isSingleLine: true, prefixes: pythonPrefixes }],
+    tripleSingleQuotes: ["'''", "'''", { prefixes: pythonPrefixes }],
+    tripleDoubleQuotes: ['"""', '"""', { prefixes: pythonPrefixes }],
   },
 
   ruby: {
