@@ -62,16 +62,14 @@ function getDelimiterTextToDelimiterInfoMap(
   return Object.fromEntries(
     individualDelimiters.flatMap((individualDelimiter) => {
       const results = [[individualDelimiter.text, individualDelimiter]];
-      if (individualDelimiter.prefixes.length > 0) {
-        for (const prefix of individualDelimiter.prefixes) {
-          const prefixText = prefix + individualDelimiter.text;
-          const prefixDelimiter: IndividualDelimiter = {
-            ...individualDelimiter,
-            text: prefixText,
-            side: "left",
-          };
-          results.push([prefixText, prefixDelimiter]);
-        }
+      for (const prefix of individualDelimiter.prefixes) {
+        const prefixText = prefix + individualDelimiter.text;
+        const prefixDelimiter: IndividualDelimiter = {
+          ...individualDelimiter,
+          text: prefixText,
+          side: "left",
+        };
+        results.push([prefixText, prefixDelimiter]);
       }
       return results;
     }),
