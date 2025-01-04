@@ -14,7 +14,6 @@ abstract class SetSelectionBase implements SimpleAction {
 
   async run(targets: Target[]): Promise<ActionReturnValue> {
     const editor = ensureSingleEditor(targets);
-
     const targetSelections = this.getSelections(targets);
 
     const selections =
