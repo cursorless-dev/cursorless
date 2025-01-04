@@ -2,6 +2,7 @@
   "NOTE FOR USERS": "Please don't edit this json file; see https://www.cursorless.org/docs/user/customization",
   "actions.csv": {
     "simple_action": {
+      "append": "appendSelection",
       "bottom": "scrollToBottom",
       "break": "breakLine",
       "break point": "toggleLineBreakpoint",

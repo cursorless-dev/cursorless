@@ -144,6 +144,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
 
   customRegex: {},
   action: {
+    appendSelection: "append",
     breakLine: "break",
     scrollToBottom: "bottom",
     toggleLineBreakpoint: "break point",

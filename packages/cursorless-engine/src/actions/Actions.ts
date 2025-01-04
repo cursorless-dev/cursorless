@@ -18,6 +18,7 @@ import GenerateSnippet from "./GenerateSnippet";
 import GetTargets from "./GetTargets";
 import GetText from "./GetText";
 import Highlight from "./Highlight";
+import { IndentLine, OutdentLine } from "./IndentLine";
 import {
   CopyContentAfter as InsertCopyAfter,
   CopyContentBefore as InsertCopyBefore,
@@ -35,13 +36,13 @@ import Replace from "./Replace";
 import Rewrap from "./Rewrap";
 import { ScrollToBottom, ScrollToCenter, ScrollToTop } from "./Scroll";
 import {
+  AppendSelection,
   SetSelection,
   SetSelectionAfter,
   SetSelectionBefore,
 } from "./SetSelection";
 import { SetSpecialTarget } from "./SetSpecialTarget";
 import ShowParseTree from "./ShowParseTree";
-import { IndentLine, OutdentLine } from "./IndentLine";
 import {
   ExtractVariable,
   Fold,
@@ -73,6 +74,7 @@ export class Actions implements ActionRecord {
     private modifierStageFactory: ModifierStageFactory,
   ) {}
 
+  appendSelection = new AppendSelection();
   callAsFunction = new Call(this);
   clearAndSetSelection = new Clear(this);
   copyToClipboard = new CopyToClipboard(this, this.rangeUpdater);

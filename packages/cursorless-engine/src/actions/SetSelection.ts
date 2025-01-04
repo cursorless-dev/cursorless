@@ -5,18 +5,23 @@ import { ensureSingleEditor } from "../util/targetUtils";
 import type { SimpleAction, ActionReturnValue } from "./actions.types";
 
 export class SetSelection implements SimpleAction {
-  constructor() {
+  constructor(private append: boolean = false) {
     this.run = this.run.bind(this);
   }
 
-  protected getSelection(target: Target) {
+  protected getSelection(target: Target): Selection {
     return target.contentSelection;
   }
 
   async run(targets: Target[]): Promise<ActionReturnValue> {
     const editor = ensureSingleEditor(targets);
 
-    const selections = targets.map(this.getSelection);
+    const targetSelections = targets.map(this.getSelection);
+
+    const selections = this.append
+      ? editor.selections.concat(targetSelections)
+      : targetSelections;
+
     await ide()
       .getEditableTextEditor(editor)
       .setSelections(selections, { focusEditor: true });
@@ -36,5 +41,11 @@ export class SetSelectionBefore extends SetSelection {
 export class SetSelectionAfter extends SetSelection {
   protected getSelection(target: Target) {
     return new Selection(target.contentRange.end, target.contentRange.end);
+  }
+}
+
+export class AppendSelection extends SetSelection {
+  constructor() {
+    super(true);
   }
 }
