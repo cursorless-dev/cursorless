@@ -10,13 +10,12 @@ abstract class SetSelectionBase implements SimpleAction {
     private rangeMode: "content" | "before" | "after",
   ) {
     this.run = this.run.bind(this);
-    this.getSelection = this.getSelection.bind(this);
   }
 
   async run(targets: Target[]): Promise<ActionReturnValue> {
     const editor = ensureSingleEditor(targets);
 
-    const targetSelections = targets.map(this.getSelection);
+    const targetSelections = this.getSelections(targets);
 
     const selections =
       this.selectionMode === "add"
@@ -32,17 +31,20 @@ abstract class SetSelectionBase implements SimpleAction {
     };
   }
 
-  private getSelection(target: Target): Selection {
+  private getSelections(targets: Target[]): Selection[] {
     switch (this.rangeMode) {
       case "content":
-        return target.contentSelection;
+        return targets.map((target) => target.contentSelection);
       case "before":
-        return new Selection(
-          target.contentRange.start,
-          target.contentRange.start,
+        return targets.map(
+          (target) =>
+            new Selection(target.contentRange.start, target.contentRange.start),
         );
       case "after":
-        return new Selection(target.contentRange.end, target.contentRange.end);
+        return targets.map(
+          (target) =>
+            new Selection(target.contentRange.end, target.contentRange.end),
+        );
     }
   }
 }
