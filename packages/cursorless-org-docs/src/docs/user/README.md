@@ -534,6 +534,7 @@ Note that when combined with list targets, `take`/`pre`/`post` commands will res
 - `"pre <TARGET>"`: Places the cursor before the given target.
 - `"post <TARGET>"`: Places the cursor after the given target.
 - `"take <TARGET>"`: Selects the given target.
+- `"append <TARGET>"`: Selects the given target without removing existing selections.
 - `"give <TARGET>"`: Deselects the given target.
 
 eg:
