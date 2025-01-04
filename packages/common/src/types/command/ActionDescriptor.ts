@@ -35,9 +35,6 @@ export const simpleActionNames = [
   "insertEmptyLinesAround",
   "joinLines",
   "outdentLine",
-  "private.getTargets",
-  "private.setKeyboardTarget",
-  "private.showParseTree",
   "randomizeTargets",
   "remove",
   "rename",
@@ -58,6 +55,9 @@ export const simpleActionNames = [
   "toggleLineBreakpoint",
   "toggleLineComment",
   "unfoldRegion",
+  "private.getTargets",
+  "private.setKeyboardTarget",
+  "private.showParseTree",
 ] as const;
 
 const complexActionNames = [
