@@ -36,7 +36,9 @@ import Replace from "./Replace";
 import Rewrap from "./Rewrap";
 import { ScrollToBottom, ScrollToCenter, ScrollToTop } from "./Scroll";
 import {
-  AppendSelection,
+  AddSelection,
+  AddSelectionAfter,
+  AddSelectionBefore,
   SetSelection,
   SetSelectionAfter,
   SetSelectionBefore,
@@ -74,7 +76,9 @@ export class Actions implements ActionRecord {
     private modifierStageFactory: ModifierStageFactory,
   ) {}
 
-  appendSelection = new AppendSelection();
+  addSelection = new AddSelection();
+  addSelectionBefore = new AddSelectionBefore();
+  addSelectionAfter = new AddSelectionAfter();
   callAsFunction = new Call(this);
   clearAndSetSelection = new Clear(this);
   copyToClipboard = new CopyToClipboard(this, this.rangeUpdater);

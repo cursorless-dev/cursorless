@@ -4,13 +4,12 @@ import type { Target } from "../typings/target.types";
 import { ensureSingleEditor } from "../util/targetUtils";
 import type { SimpleAction, ActionReturnValue } from "./actions.types";
 
-export class SetSelection implements SimpleAction {
-  constructor(private append: boolean = false) {
+abstract class SetSelectionBase implements SimpleAction {
+  constructor(
+    private selectionMode: "set" | "add",
+    private rangeMode: "content" | "before" | "after",
+  ) {
     this.run = this.run.bind(this);
-  }
-
-  protected getSelection(target: Target): Selection {
-    return target.contentSelection;
   }
 
   async run(targets: Target[]): Promise<ActionReturnValue> {
@@ -18,9 +17,10 @@ export class SetSelection implements SimpleAction {
 
     const targetSelections = targets.map(this.getSelection);
 
-    const selections = this.append
-      ? editor.selections.concat(targetSelections)
-      : targetSelections;
+    const selections =
+      this.selectionMode === "add"
+        ? editor.selections.concat(targetSelections)
+        : targetSelections;
 
     await ide()
       .getEditableTextEditor(editor)
@@ -30,22 +30,54 @@ export class SetSelection implements SimpleAction {
       thatTargets: targets,
     };
   }
-}
 
-export class SetSelectionBefore extends SetSelection {
-  protected getSelection(target: Target) {
-    return new Selection(target.contentRange.start, target.contentRange.start);
+  private getSelection(target: Target): Selection {
+    switch (this.rangeMode) {
+      case "content":
+        return target.contentSelection;
+      case "before":
+        return new Selection(
+          target.contentRange.start,
+          target.contentRange.start,
+        );
+      case "after":
+        return new Selection(target.contentRange.end, target.contentRange.end);
+    }
   }
 }
 
-export class SetSelectionAfter extends SetSelection {
-  protected getSelection(target: Target) {
-    return new Selection(target.contentRange.end, target.contentRange.end);
-  }
-}
-
-export class AppendSelection extends SetSelection {
+export class SetSelection extends SetSelectionBase {
   constructor() {
-    super(true);
+    super("set", "content");
+  }
+}
+
+export class SetSelectionBefore extends SetSelectionBase {
+  constructor() {
+    super("set", "before");
+  }
+}
+
+export class SetSelectionAfter extends SetSelectionBase {
+  constructor() {
+    super("set", "after");
+  }
+}
+
+export class AddSelection extends SetSelectionBase {
+  constructor() {
+    super("add", "content");
+  }
+}
+
+export class AddSelectionBefore extends SetSelectionBase {
+  constructor() {
+    super("add", "before");
+  }
+}
+
+export class AddSelectionAfter extends SetSelectionBase {
+  constructor() {
+    super("add", "after");
   }
 }

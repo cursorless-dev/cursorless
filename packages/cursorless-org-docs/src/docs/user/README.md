@@ -531,10 +531,12 @@ Despite the name cursorless, some of the most basic commands in cursorless are f
 
 Note that when combined with list targets, `take`/`pre`/`post` commands will result in multiple cursors.
 
+- `"take <TARGET>"`: Selects the given target.
 - `"pre <TARGET>"`: Places the cursor before the given target.
 - `"post <TARGET>"`: Places the cursor after the given target.
-- `"take <TARGET>"`: Selects the given target.
-- `"append <TARGET>"`: Selects the given target without removing existing selections.
+- `"add <TARGET>"`: Selects the given target while preserving removing existing selections.
+- `"add pre <TARGET>"`: Places the cursor before the given target while preserving removing existing selections.
+- `"add post <TARGET>"`: Places the cursor after the given target while preserving removing existing selections.
 - `"give <TARGET>"`: Deselects the given target.
 
 eg:
