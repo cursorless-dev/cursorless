@@ -10,6 +10,7 @@ abstract class SetSelectionBase implements SimpleAction {
     private rangeMode: "content" | "before" | "after",
   ) {
     this.run = this.run.bind(this);
+    this.getSelection = this.getSelection.bind(this);
   }
 
   async run(targets: Target[]): Promise<ActionReturnValue> {
