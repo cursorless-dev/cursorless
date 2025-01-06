@@ -20,7 +20,9 @@ RPC_COMMAND = "talonCommand"
 @ctx.action_class("user")
 class Actions:
     def cursorless_everywhere_get_editor_state() -> EditorState:
-        command = {"type": "getActiveEditor"}
+        command = {
+            "type": "getActiveEditor",
+        }
         res = rpc_get(command)
         if use_fallback(res):
             return actions.next()
@@ -40,7 +42,10 @@ class Actions:
     def cursorless_everywhere_edit_text(
         edit: EditorEdit,  # pyright: ignore [reportGeneralTypeIssues]
     ):
-        command = {"type": "setText", "text": edit["text"]}
+        command = {
+            "type": "setText",
+            "text": edit["text"],
+        }
         res = rpc_get(command)
         if use_fallback(res):
             actions.next(edit)
