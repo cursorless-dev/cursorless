@@ -21,7 +21,7 @@ RPC_COMMAND = "talonCommand"
 class Actions:
     def cursorless_everywhere_get_editor_state() -> EditorState:
         command = {
-            "type": "getEditorState",
+            "id": "getEditorState",
         }
         res = rpc_get(command)
         if use_fallback(res):
@@ -32,7 +32,7 @@ class Actions:
         selections: list[SelectionOffsets],  # pyright: ignore [reportGeneralTypeIssues]
     ):
         command = {
-            "type": "setSelections",
+            "id": "setSelections",
             "selections": get_serializable_selections(selections),
         }
         res = rpc_get(command)
@@ -43,7 +43,7 @@ class Actions:
         edit: EditorEdit,  # pyright: ignore [reportGeneralTypeIssues]
     ):
         command = {
-            "type": "setText",
+            "id": "setText",
             "text": edit["text"],
         }
         res = rpc_get(command)
