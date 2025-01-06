@@ -21,7 +21,7 @@ RPC_COMMAND = "talonCommand"
 class Actions:
     def cursorless_everywhere_get_editor_state() -> EditorState:
         command = {
-            "type": "getActiveEditor",
+            "type": "getEditorState",
         }
         res = rpc_get(command)
         if use_fallback(res):
