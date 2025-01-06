@@ -26,8 +26,8 @@ def on_ready():
     if missing_actions:
         errors.append(f"Missing actions: {', '.join(missing_actions)}")
     if errors:
-        message = "\n".join(errors)
-        print(f"Cursorless: {message}")
+        print("Cursorless community requirements:")
+        print("\n".join(errors))
         app.notify(
             "Cursorless: Please install the community repository",
             body="https://github.com/talonhub/community",
