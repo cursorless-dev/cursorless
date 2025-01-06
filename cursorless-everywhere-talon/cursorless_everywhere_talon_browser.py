@@ -21,7 +21,10 @@ RPC_COMMAND = "talonCommand"
 class Actions:
     def cursorless_everywhere_get_editor_state() -> EditorState:
         command = {"type": "getActiveEditor"}
-        return actions.user.run_rpc_command_get(RPC_COMMAND, command)
+        res = rpc_get(command)
+        if use_fallback(res):
+            return actions.next()
+        return res
 
     def cursorless_everywhere_set_selections(
         selections: list[SelectionOffsets],  # pyright: ignore [reportGeneralTypeIssues]
@@ -30,13 +33,25 @@ class Actions:
             "type": "setSelections",
             "selections": get_serializable_selections(selections),
         }
-        actions.user.run_rpc_command_and_wait(RPC_COMMAND, command)
+        res = rpc_get(command)
+        if use_fallback(res):
+            actions.next(selections)
 
     def cursorless_everywhere_edit_text(
         edit: EditorEdit,  # pyright: ignore [reportGeneralTypeIssues]
     ):
         command = {"type": "setText", "text": edit["text"]}
-        actions.user.run_rpc_command_and_wait(RPC_COMMAND, command)
+        res = rpc_get(command)
+        if use_fallback(res):
+            actions.next(edit)
+
+
+def rpc_get(command: dict):
+    return actions.user.run_rpc_command_get(RPC_COMMAND, command)
+
+
+def use_fallback(result: dict) -> bool:
+    return result.get("fallback", False)
 
 
 # What is passed from cursorless everywhere js is a javascript object, which is not serializable for python.
