@@ -16,7 +16,8 @@ interface Options {
   isSingleLine?: boolean;
 
   /**
-   * The prefixes that can be used before the left side of the delimiter, eg "r"
+   * The prefixes that can be used before the left side of the delimiter, eg "r".
+   * Note that the empty string is always considered an acceptable prefix
    */
   prefixes?: string[];
 }
