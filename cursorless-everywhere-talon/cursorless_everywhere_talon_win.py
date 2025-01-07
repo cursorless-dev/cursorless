@@ -24,6 +24,9 @@ class Actions:
     def cursorless_everywhere_get_editor_state() -> EditorState:
         el = ui.focused_element()
 
+        print(el.patterns)
+        print(el)
+
         if "Text2" not in el.patterns:
             raise ValueError("Focused element is not a text element")
 
