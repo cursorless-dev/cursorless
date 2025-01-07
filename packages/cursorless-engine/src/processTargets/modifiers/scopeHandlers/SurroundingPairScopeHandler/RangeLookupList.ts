@@ -1,10 +1,13 @@
 import type { Range } from "@cursorless/common";
 
 /**
- * An iterator that allows for efficient lookup of ranges that contain a search item.
- * The items must be sorted in document order.
+ * Given a list of ranges (the haystack), allows the client to search for a sequence of ranges (the needles).
+ * Has the following requirements:
+ * - the haystack must be sorted in document order
+ * - **the needles must be in document order as well**. This enables us to avoid backtracking as you search for a sequence of items.
+ * - the haystack entries must not overlap. Adjacent is fine
  */
-export class RangeLookupList<T extends { range: Range }> {
+export class OneWayRangeFinder<T extends { range: Range }> {
   private index = 0;
 
   /**
