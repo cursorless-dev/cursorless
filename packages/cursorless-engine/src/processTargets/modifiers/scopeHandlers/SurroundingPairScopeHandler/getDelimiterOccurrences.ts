@@ -62,7 +62,7 @@ export function getDelimiterOccurrences(
 
     if (!isDisqualified) {
       const textFragmentRange =
-        textFragments.getSmallLestContaining(range)?.range;
+        textFragments.getSmallestContaining(range)?.range;
       results.push({
         delimiterInfo: delimiterTextToDelimiterInfoMap[text],
         textFragmentRange,

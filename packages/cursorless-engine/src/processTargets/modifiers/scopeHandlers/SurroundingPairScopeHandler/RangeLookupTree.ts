@@ -15,10 +15,10 @@ export class RangeLookupTree<T extends { range: Range }> {
     this.children = createNodes(items);
   }
 
-  getSmallLestContaining(separator: Range): T | undefined {
+  getSmallestContaining(separator: Range): T | undefined {
     return this.children
       .getContaining(separator)
-      ?.getSmallLestContaining(separator);
+      ?.getSmallestContaining(separator);
   }
 }
 
@@ -63,10 +63,10 @@ class RangeLookupTreeNode<T extends { range: Range }> {
     return this.item.range;
   }
 
-  getSmallLestContaining(range: Range): T {
+  getSmallestContaining(range: Range): T {
     const child = this.children
       .getContaining(range)
-      ?.getSmallLestContaining(range);
+      ?.getSmallestContaining(range);
 
     return child ?? this.item;
   }
