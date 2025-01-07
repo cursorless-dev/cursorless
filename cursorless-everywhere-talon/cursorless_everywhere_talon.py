@@ -14,6 +14,8 @@ ctx.matches = r"""
 tag: user.cursorless_everywhere_talon
 """
 
+ctx.tags = ["user.cursorless"]
+
 
 @ctx.action_class("user")
 class UserActions:
