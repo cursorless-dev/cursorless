@@ -33,6 +33,17 @@ export interface LanguageDefinitions {
   get(languageId: string): LanguageDefinition | undefined;
 
   /**
+   * Clear the cache of all language definitions. This is run at the start of a command.
+   * This isn't strict necessary for normal user operations since whenever the user
+   * makes a change to the document the document version is updated. When
+   * running our test though we keep closing and reopening an untitled document.
+   * That test document will have the same uri and version unfortunately. Also
+   * to be completely sure there isn't some extension doing similar trickery
+   * it's just good hygiene to clear the cache before every command.
+   */
+  clearCache(): void;
+
+  /**
    * @deprecated Only for use in legacy containing scope stage
    */
   getNodeAtLocation(
@@ -153,6 +164,14 @@ export class LanguageDefinitionsImpl
     }
 
     return definition === LANGUAGE_UNDEFINED ? undefined : definition;
+  }
+
+  clearCache(): void {
+    for (const definition of this.languageDefinitions.values()) {
+      if (definition !== LANGUAGE_UNDEFINED) {
+        definition.clearCache();
+      }
+    }
   }
 
   public getNodeAtLocation(document: TextDocument, range: Range): SyntaxNode {

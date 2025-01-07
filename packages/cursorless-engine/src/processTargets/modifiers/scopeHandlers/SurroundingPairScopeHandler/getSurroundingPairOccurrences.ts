@@ -25,14 +25,9 @@ export function getSurroundingPairOccurrences(
   for (const occurrence of delimiterOccurrences) {
     const {
       delimiterInfo: { delimiterName, side, isSingleLine },
-      isDisqualified,
       textFragmentRange,
       range,
     } = occurrence;
-
-    if (isDisqualified) {
-      continue;
-    }
 
     let openingDelimiters = openingDelimiterOccurrences.get(delimiterName);
 
