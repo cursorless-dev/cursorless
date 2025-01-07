@@ -107,7 +107,7 @@ export class LanguageDefinition {
   }
 
   clearCache(): void {
-    this.cache.clear();
+    this.cache = new LanguageDefinitionCache();
   }
 
   /**

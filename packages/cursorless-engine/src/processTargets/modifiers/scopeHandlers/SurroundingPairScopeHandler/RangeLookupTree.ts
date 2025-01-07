@@ -1,12 +1,12 @@
 import type { Range } from "@cursorless/common";
-import { RangeLookupList } from "./RangeLookupList";
+import { OneWayRangeFinder } from "./OneWayRangeFinder";
 
 /**
  * A tree of ranges that allows for efficient lookup of ranges that contain a search item.
  * The items must be sorted in document order.
  */
 export class RangeLookupTree<T extends { range: Range }> {
-  private children: RangeLookupList<RangeLookupTreeNode<T>>;
+  private children: OneWayRangeFinder<RangeLookupTreeNode<T>>;
 
   /**
    * @param items The items to search in. Must be sorted in document order.
@@ -24,7 +24,7 @@ export class RangeLookupTree<T extends { range: Range }> {
 
 function createNodes<T extends { range: Range }>(
   items: T[],
-): RangeLookupList<RangeLookupTreeNode<T>> {
+): OneWayRangeFinder<RangeLookupTreeNode<T>> {
   const results: RangeLookupTreeNode<T>[] = [];
   const parents: RangeLookupTreeNode<T>[] = [];
 
@@ -49,14 +49,14 @@ function createNodes<T extends { range: Range }>(
     parents.push(node);
   }
 
-  return new RangeLookupList(results);
+  return new OneWayRangeFinder(results);
 }
 
 class RangeLookupTreeNode<T extends { range: Range }> {
-  public children: RangeLookupList<RangeLookupTreeNode<T>>;
+  public children: OneWayRangeFinder<RangeLookupTreeNode<T>>;
 
   constructor(private item: T) {
-    this.children = new RangeLookupList([]);
+    this.children = new OneWayRangeFinder([]);
   }
 
   get range(): Range {

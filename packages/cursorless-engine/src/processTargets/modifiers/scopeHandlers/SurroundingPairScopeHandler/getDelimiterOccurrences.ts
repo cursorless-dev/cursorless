@@ -7,7 +7,7 @@ import {
 import type { LanguageDefinition } from "../../../../languages/LanguageDefinition";
 import type { QueryCapture } from "../../../../languages/TreeSitterQuery/QueryCapture";
 import { getDelimiterRegex } from "./getDelimiterRegex";
-import { RangeLookupList } from "./RangeLookupList";
+import { OneWayRangeFinder } from "./OneWayRangeFinder";
 import { RangeLookupTree } from "./RangeLookupTree";
 import type { DelimiterOccurrence, IndividualDelimiter } from "./types";
 
@@ -28,7 +28,7 @@ export function getDelimiterOccurrences(
     return [];
   }
 
-  const disqualifyDelimiters = new RangeLookupList(
+  const disqualifyDelimiters = new OneWayRangeFinder(
     getSortedCaptures(languageDefinition, document, "disqualifyDelimiter"),
   );
   // We need a tree for text fragments since they can be nested

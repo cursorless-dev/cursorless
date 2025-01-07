@@ -10,12 +10,6 @@ export class LanguageDefinitionCache {
   private documentVersion: number = -1;
   private captures: StringRecord<QueryCapture[]> = {};
 
-  clear() {
-    this.documentUri = "";
-    this.documentVersion = -1;
-    this.captures = {};
-  }
-
   isValid(document: TextDocument) {
     return (
       this.documentUri === document.uri.toString() &&
