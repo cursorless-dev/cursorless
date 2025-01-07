@@ -76,6 +76,7 @@ export * from "./types/Selection";
 export * from "./types/snippet.types";
 export * from "./types/SpokenForm";
 export * from "./types/SpokenFormType";
+export * from "./types/StringRecord";
 export * from "./types/TalonSpokenForms";
 export * from "./types/TestCaseFixture";
 export * from "./types/TestHelpers";

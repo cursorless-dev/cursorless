@@ -16,6 +16,10 @@ export class DisabledLanguageDefinitions implements LanguageDefinitions {
     return undefined;
   }
 
+  clearCache(): void {
+    // Do nothing
+  }
+
   getNodeAtLocation(
     _document: TextDocument,
     _range: Range,
