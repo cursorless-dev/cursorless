@@ -15,10 +15,10 @@ export class RangeLookupTree<T extends { range: Range }> {
     this.children = createNodes(items);
   }
 
-  getSmallLestContaining(separator: Range): T | undefined {
+  getSmallestContaining(separator: Range): T | undefined {
     return this.children
       .getContaining(separator)
-      ?.getSmallLestContaining(separator);
+      ?.getSmallestContaining(separator);
   }
 }
 
