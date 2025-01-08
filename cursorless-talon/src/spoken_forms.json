@@ -2,9 +2,9 @@
   "NOTE FOR USERS": "Please don't edit this json file; see https://www.cursorless.org/docs/user/customization",
   "actions.csv": {
     "simple_action": {
-      "add post": "addSelectionAfter",
-      "add pre": "addSelectionBefore",
-      "add": "addSelection",
+      "append post": "addSelectionAfter",
+      "append pre": "addSelectionBefore",
+      "append": "addSelection",
       "bottom": "scrollToBottom",
       "break point": "toggleLineBreakpoint",
       "break": "breakLine",

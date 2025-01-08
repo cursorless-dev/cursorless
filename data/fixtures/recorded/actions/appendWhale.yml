@@ -1,9 +1,9 @@
 languageId: plaintext
 command:
   version: 7
-  spokenForm: add post whale
+  spokenForm: append whale
   action:
-    name: addSelectionAfter
+    name: addSelection
     target:
       type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
@@ -22,7 +22,7 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-    - anchor: {line: 0, character: 11}
+    - anchor: {line: 0, character: 6}
       active: {line: 0, character: 11}
   thatMark:
     - type: UntypedTarget

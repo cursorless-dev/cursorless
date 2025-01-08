@@ -1,9 +1,9 @@
 languageId: plaintext
 command:
   version: 7
-  spokenForm: add whale
+  spokenForm: append pre whale
   action:
-    name: addSelection
+    name: addSelectionBefore
     target:
       type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
@@ -23,7 +23,7 @@ finalState:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
     - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 11}
+      active: {line: 0, character: 6}
   thatMark:
     - type: UntypedTarget
       contentRange:
