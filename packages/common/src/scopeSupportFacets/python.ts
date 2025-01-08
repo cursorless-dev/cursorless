@@ -14,6 +14,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   namedFunction: supported,
   anonymousFunction: supported,
   disqualifyDelimiter: supported,
+  pairDelimiter: supported,
 
   "argument.actual": supported,
   "argument.actual.iteration": supported,

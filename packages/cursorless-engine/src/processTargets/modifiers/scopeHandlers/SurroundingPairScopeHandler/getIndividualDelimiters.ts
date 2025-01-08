@@ -36,7 +36,7 @@ function getSimpleIndividualDelimiters(
   return delimiters.flatMap((delimiterName) => {
     const [leftDelimiter, rightDelimiter, options] =
       delimiterToText[delimiterName];
-    const { isSingleLine = false, prefixes = [] } = options ?? {};
+    const { isSingleLine = false } = options ?? {};
 
     // Allow for the fact that a delimiter might have multiple ways to indicate
     // its opening / closing
@@ -70,7 +70,6 @@ function getSimpleIndividualDelimiters(
         side,
         delimiterName,
         isSingleLine,
-        prefixes,
       };
     });
   });

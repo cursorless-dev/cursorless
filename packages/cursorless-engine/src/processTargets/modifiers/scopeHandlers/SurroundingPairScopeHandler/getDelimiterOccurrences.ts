@@ -31,13 +31,19 @@ export function getDelimiterOccurrences(
   const disqualifyDelimiters = new OneWayRangeFinder(
     getSortedCaptures(languageDefinition, document, "disqualifyDelimiter"),
   );
-  // We need a tree for text fragments since they can be nested
+  const pairDelimiters = new OneWayRangeFinder(
+    getSortedCaptures(languageDefinition, document, "pairDelimiter"),
+  );
   const textFragments = new OneWayNestedRangeFinder(
     getSortedCaptures(languageDefinition, document, "textFragment"),
   );
 
-  const delimiterTextToDelimiterInfoMap =
-    getDelimiterTextToDelimiterInfoMap(individualDelimiters);
+  const delimiterTextToDelimiterInfoMap = Object.fromEntries(
+    individualDelimiters.map((individualDelimiter) => [
+      individualDelimiter.text,
+      individualDelimiter,
+    ]),
+  );
 
   const regexMatches = matchAllIterator(
     document.getText(),
@@ -48,26 +54,35 @@ export function getDelimiterOccurrences(
 
   for (const match of regexMatches) {
     const text = match[0];
-    const range = new Range(
+    const matchRange = new Range(
       document.positionAt(match.index!),
       document.positionAt(match.index! + text.length),
     );
 
-    const delimiter = disqualifyDelimiters.getContaining(range);
-    const isDisqualified = delimiter != null && !delimiter.hasError();
+    const disqualifiedDelimiter = ifNoErrors(
+      disqualifyDelimiters.getContaining(matchRange),
+    );
 
-    if (!isDisqualified) {
-      const textFragmentRange =
-        textFragments.getSmallestContaining(range)?.range;
-      results.push({
-        delimiterInfo: delimiterTextToDelimiterInfoMap[text],
-        textFragmentRange,
-        range,
-      });
+    if (disqualifiedDelimiter != null) {
+      continue;
     }
+
+    results.push({
+      delimiterInfo: delimiterTextToDelimiterInfoMap[text],
+      textFragmentRange: ifNoErrors(
+        textFragments.getSmallestContaining(matchRange),
+      )?.range,
+      range:
+        ifNoErrors(pairDelimiters.getContaining(matchRange))?.range ??
+        matchRange,
+    });
   }
 
   return results;
+}
+
+function ifNoErrors(capture?: QueryCapture): QueryCapture | undefined {
+  return capture != null && !capture.hasError() ? capture : undefined;
 }
 
 function getSortedCaptures(
@@ -78,24 +93,4 @@ function getSortedCaptures(
   const items = languageDefinition?.getCaptures(document, captureName) ?? [];
   items.sort((a, b) => a.range.start.compareTo(b.range.start));
   return items;
-}
-
-function getDelimiterTextToDelimiterInfoMap(
-  individualDelimiters: IndividualDelimiter[],
-): Record<string, IndividualDelimiter> {
-  return Object.fromEntries(
-    individualDelimiters.flatMap((individualDelimiter) => {
-      const results = [[individualDelimiter.text, individualDelimiter]];
-      for (const prefix of individualDelimiter.prefixes) {
-        const prefixText = prefix + individualDelimiter.text;
-        const prefixDelimiter: IndividualDelimiter = {
-          ...individualDelimiter,
-          text: prefixText,
-          side: "left",
-        };
-        results.push([prefixText, prefixDelimiter]);
-      }
-      return results;
-    }),
-  );
 }

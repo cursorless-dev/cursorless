@@ -29,11 +29,6 @@ export interface IndividualDelimiter {
   isSingleLine: boolean;
 
   /**
-   * The prefixes that can be used before the left side of the delimiter, eg "r"
-   */
-  prefixes: string[];
-
-  /**
    * The text that can be used to represent this side of the delimiter, eg "("
    */
   text: string;

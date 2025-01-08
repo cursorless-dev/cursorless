@@ -14,12 +14,6 @@ interface Options {
    * salient example is strings.
    */
   isSingleLine?: boolean;
-
-  /**
-   * The prefixes that can be used before the left side of the delimiter, eg "r".
-   * Note that the empty string is always considered an acceptable prefix
-   */
-  prefixes?: string[];
 }
 
 type DelimiterMap = Record<
@@ -47,36 +41,6 @@ const delimiterToText: DelimiterMap = Object.freeze({
   squareBrackets: ["[", "]"],
 });
 
-// https://docs.python.org/3/reference/lexical_analysis.html#string-and-bytes-literals
-const pythonPrefixes = [
-  // string prefixes
-  "r",
-  "u",
-  "R",
-  "U",
-  "f",
-  "F",
-  "fr",
-  "Fr",
-  "fR",
-  "FR",
-  "rf",
-  "rF",
-  "Rf",
-  "RF",
-  // byte prefixes
-  "b",
-  "B",
-  "br",
-  "Br",
-  "bR",
-  "BR",
-  "rb",
-  "rB",
-  "Rb",
-  "RB",
-];
-
 // FIXME: Probably remove these as part of
 // https://github.com/cursorless-dev/cursorless/issues/1812#issuecomment-1691493746
 const delimiterToTextOverrides: Record<string, Partial<DelimiterMap>> = {
@@ -95,10 +59,8 @@ const delimiterToTextOverrides: Record<string, Partial<DelimiterMap>> = {
   },
 
   python: {
-    singleQuotes: ["'", "'", { isSingleLine: true, prefixes: pythonPrefixes }],
-    doubleQuotes: ['"', '"', { isSingleLine: true, prefixes: pythonPrefixes }],
-    tripleSingleQuotes: ["'''", "'''", { prefixes: pythonPrefixes }],
-    tripleDoubleQuotes: ['"""', '"""', { prefixes: pythonPrefixes }],
+    tripleSingleQuotes: ["'''", "'''"],
+    tripleDoubleQuotes: ['"""', '"""'],
   },
 
   ruby: {
