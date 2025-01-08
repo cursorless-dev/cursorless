@@ -12,9 +12,9 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    (
-    // )
-    )
+    {
+    // }
+    }
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}
