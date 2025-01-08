@@ -3,6 +3,7 @@ import type {
   ScopeType,
   SimpleScopeType,
   SimpleScopeTypeType,
+  StringRecord,
   TreeSitter,
 } from "@cursorless/common";
 import {
@@ -12,6 +13,7 @@ import {
   type TextDocument,
 } from "@cursorless/common";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
+import { LanguageDefinitionCache } from "./LanguageDefinitionCache";
 import { TreeSitterQuery } from "./TreeSitterQuery";
 import type { QueryCapture } from "./TreeSitterQuery/QueryCapture";
 import { validateQueryCaptures } from "./TreeSitterQuery/validateQueryCaptures";
@@ -21,6 +23,8 @@ import { validateQueryCaptures } from "./TreeSitterQuery/validateQueryCaptures";
  * tree-sitter query used to extract scopes for the given language
  */
 export class LanguageDefinition {
+  private cache: LanguageDefinitionCache;
+
   private constructor(
     /**
      * The tree-sitter query used to extract scopes for the given language.
@@ -28,7 +32,9 @@ export class LanguageDefinition {
      * language supports using new-style tree-sitter queries
      */
     private query: TreeSitterQuery,
-  ) {}
+  ) {
+    this.cache = new LanguageDefinitionCache();
+  }
 
   /**
    * Construct a language definition for the given language id, if the language
@@ -93,10 +99,34 @@ export class LanguageDefinition {
     document: TextDocument,
     captureName: SimpleScopeTypeType,
   ): QueryCapture[] {
-    return this.query
-      .matches(document)
-      .map((match) => match.captures.find(({ name }) => name === captureName))
-      .filter((capture) => capture != null);
+    if (!this.cache.isValid(document)) {
+      this.cache.update(document, this.getCapturesMap(document));
+    }
+
+    return this.cache.get(captureName);
+  }
+
+  clearCache(): void {
+    this.cache = new LanguageDefinitionCache();
+  }
+
+  /**
+   * This is a low level function that returns a map of all captures in the document.
+   */
+  private getCapturesMap(document: TextDocument): StringRecord<QueryCapture[]> {
+    const matches = this.query.matches(document);
+    const result: StringRecord<QueryCapture[]> = {};
+
+    for (const match of matches) {
+      for (const capture of match.captures) {
+        if (result[capture.name] == null) {
+          result[capture.name] = [];
+        }
+        result[capture.name]!.push(capture);
+      }
+    }
+
+    return result;
   }
 }
 

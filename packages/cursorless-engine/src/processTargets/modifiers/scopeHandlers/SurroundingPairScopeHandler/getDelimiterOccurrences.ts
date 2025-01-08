@@ -1,6 +1,14 @@
-import { matchAll, Range, type TextDocument } from "@cursorless/common";
+import {
+  matchAllIterator,
+  Range,
+  type SimpleScopeTypeType,
+  type TextDocument,
+} from "@cursorless/common";
 import type { LanguageDefinition } from "../../../../languages/LanguageDefinition";
+import type { QueryCapture } from "../../../../languages/TreeSitterQuery/QueryCapture";
 import { getDelimiterRegex } from "./getDelimiterRegex";
+import { OneWayRangeFinder } from "./OneWayRangeFinder";
+import { OneWayNestedRangeFinder } from "./OneWayNestedRangeFinder";
 import type { DelimiterOccurrence, IndividualDelimiter } from "./types";
 
 /**
@@ -20,12 +28,13 @@ export function getDelimiterOccurrences(
     return [];
   }
 
-  const delimiterRegex = getDelimiterRegex(individualDelimiters);
-
-  const disqualifyDelimiters =
-    languageDefinition?.getCaptures(document, "disqualifyDelimiter") ?? [];
-  const textFragments =
-    languageDefinition?.getCaptures(document, "textFragment") ?? [];
+  const disqualifyDelimiters = new OneWayRangeFinder(
+    getSortedCaptures(languageDefinition, document, "disqualifyDelimiter"),
+  );
+  // We need a tree for text fragments since they can be nested
+  const textFragments = new OneWayNestedRangeFinder(
+    getSortedCaptures(languageDefinition, document, "textFragment"),
+  );
 
   const delimiterTextToDelimiterInfoMap = Object.fromEntries(
     individualDelimiters.map((individualDelimiter) => [
@@ -34,28 +43,43 @@ export function getDelimiterOccurrences(
     ]),
   );
 
-  const text = document.getText();
+  const regexMatches = matchAllIterator(
+    document.getText(),
+    getDelimiterRegex(individualDelimiters),
+  );
 
-  return matchAll(text, delimiterRegex, (match): DelimiterOccurrence => {
+  const results: DelimiterOccurrence[] = [];
+
+  for (const match of regexMatches) {
     const text = match[0];
     const range = new Range(
       document.positionAt(match.index!),
       document.positionAt(match.index! + text.length),
     );
 
-    const isDisqualified = disqualifyDelimiters.some(
-      (c) => c.range.contains(range) && !c.hasError(),
-    );
+    const delimiter = disqualifyDelimiters.getContaining(range);
+    const isDisqualified = delimiter != null && !delimiter.hasError();
 
-    const textFragmentRange = textFragments.find((c) =>
-      c.range.contains(range),
-    )?.range;
+    if (!isDisqualified) {
+      const textFragmentRange =
+        textFragments.getSmallestContaining(range)?.range;
+      results.push({
+        delimiterInfo: delimiterTextToDelimiterInfoMap[text],
+        textFragmentRange,
+        range,
+      });
+    }
+  }
 
-    return {
-      delimiterInfo: delimiterTextToDelimiterInfoMap[text],
-      isDisqualified,
-      textFragmentRange,
-      range,
-    };
-  });
+  return results;
+}
+
+function getSortedCaptures(
+  languageDefinition: LanguageDefinition | undefined,
+  document: TextDocument,
+  captureName: SimpleScopeTypeType,
+): QueryCapture[] {
+  const items = languageDefinition?.getCaptures(document, captureName) ?? [];
+  items.sort((a, b) => a.range.start.compareTo(b.range.start));
+  return items;
 }
