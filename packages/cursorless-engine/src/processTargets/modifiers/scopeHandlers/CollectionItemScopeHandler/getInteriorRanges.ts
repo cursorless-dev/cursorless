@@ -11,7 +11,7 @@ export function getInteriorRanges(
   languageId: string,
   editor: TextEditor,
   delimiter: SurroundingPairName,
-): Range[] {
+): { range: Range }[] {
   const scopeHandler = scopeHandlerFactory.create(
     {
       type: "surroundingPairInterior",
@@ -26,6 +26,6 @@ export function getInteriorRanges(
       skipAncestorScopes: false,
       includeDescendantScopes: true,
     }),
-    (scope) => scope.domain,
+    (scope) => ({ range: scope.domain }),
   );
 }

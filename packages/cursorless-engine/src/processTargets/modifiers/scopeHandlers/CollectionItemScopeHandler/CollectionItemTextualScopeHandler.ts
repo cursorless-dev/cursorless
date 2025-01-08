@@ -14,12 +14,12 @@ import type {
   ScopeIteratorRequirements,
 } from "../scopeHandler.types";
 import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
+import { OneWayNestedRangeFinder } from "../util/OneWayNestedRangeFinder";
+import { OneWayRangeFinder } from "../util/OneWayRangeFinder";
 import { collectionItemIterationScopeHandler } from "./collectionItemIterationScopeHandler";
-import { createRangeTree } from "./createRangeTree";
 import { createTargetScope } from "./createTargetScope";
 import { getInteriorRanges } from "./getInteriorRanges";
 import { getSeparatorOccurrences } from "./getSeparatorOccurrences";
-import { RangeIterator } from "./RangeIterator";
 
 export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
   public scopeType: ScopeType = { type: "collectionItem" };
@@ -50,23 +50,21 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
       editor,
       "collectionBoundary",
     );
-    const interiorRangeIterator = new RangeIterator(
-      createRangeTree(interiorRanges),
-    );
+    const interiorRangeFinder = new OneWayNestedRangeFinder(interiorRanges);
     const stringRanges = getInteriorRanges(
       this.scopeHandlerFactory,
       this.languageId,
       editor,
       "string",
     );
-    const stringRangeIterator = new RangeIterator(stringRanges);
+    const stringRangeFinder = new OneWayRangeFinder(stringRanges);
     const scopes: TargetScope[] = [];
     const usedInteriors = new Set<Range>();
     const iterationStatesStack: IterationState[] = [];
 
     for (const separator of separatorRanges) {
       // Separators in a string are not considered
-      if (stringRangeIterator.contains(separator)) {
+      if (stringRangeFinder.contains(separator)) {
         continue;
       }
 
@@ -74,9 +72,8 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
         iterationStatesStack[iterationStatesStack.length - 1];
 
       // Get range for smallest containing interior
-      const containingInteriorRange = interiorRangeIterator
-        .getContaining(separator)
-        ?.getSmallLestContaining(separator);
+      const containingInteriorRange =
+        interiorRangeFinder.getSmallestContaining(separator)?.range;
 
       // The contain range is either the interior or the line containing the separator
       const containingIterationRange =
@@ -130,10 +127,12 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
 
     // Add interior ranges without a delimiter in them. eg: `[foo]`
     for (const interior of interiorRanges) {
-      if (!usedInteriors.has(interior)) {
-        const range = shrinkRangeToFitContent(editor, interior);
+      if (!usedInteriors.has(interior.range)) {
+        const range = shrinkRangeToFitContent(editor, interior.range);
         if (!range.isEmpty) {
-          scopes.push(createTargetScope(isEveryScope, editor, interior, range));
+          scopes.push(
+            createTargetScope(isEveryScope, editor, interior.range, range),
+          );
         }
       }
     }
