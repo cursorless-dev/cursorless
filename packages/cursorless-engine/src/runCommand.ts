@@ -71,6 +71,8 @@ export async function runCommand(
     commandRunner = decorator.wrapCommandRunner(readableHatMap, commandRunner);
   }
 
+  languageDefinitions.clearCache();
+
   const response = await commandRunner.run(commandComplete);
 
   return await unwrapLegacyCommandResponse(command, response);
