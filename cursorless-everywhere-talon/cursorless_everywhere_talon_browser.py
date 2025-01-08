@@ -1,6 +1,11 @@
 from talon import Context, Module, actions
 
-from .cursorless_everywhere_types import EditorEdit, EditorState, SelectionOffsets
+from .cursorless_everywhere_types import (
+    EditorChange,
+    EditorEdit,
+    EditorState,
+    SelectionOffsets,
+)
 
 mod = Module()
 
@@ -43,8 +48,9 @@ class Actions:
         edit: EditorEdit,  # pyright: ignore [reportGeneralTypeIssues]
     ):
         command = {
-            "id": "setText",
+            "id": "editText",
             "text": edit["text"],
+            "changes": get_serializable_editor_changes(edit["changes"]),
         }
         res = rpc_get(command)
         if use_fallback(res):
@@ -68,6 +74,20 @@ def get_serializable_selections(selections: list[SelectionOffsets]):
             {
                 "anchor": selection["anchor"],
                 "active": selection["active"],
+            }
+        )
+    return result
+
+
+def get_serializable_editor_changes(changes: list[EditorChange]):
+    result: list[EditorChange] = []
+    for i in range(changes.length):  # pyright: ignore [reportAttributeAccessIssue]
+        change = changes[i]
+        result.append(
+            {
+                "text": change["text"],
+                "rangeOffset": change["rangeOffset"],
+                "rangeLength": change["rangeLength"],
             }
         )
     return result
