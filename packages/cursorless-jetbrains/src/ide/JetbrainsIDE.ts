@@ -124,12 +124,12 @@ export class JetbrainsIDE implements IDE {
 
   get activeTextEditor(): TextEditor | undefined {
     // console.log("get activeTextEditor");
-    return this.activeEditableTextEditor;
+    return this.activeEditor;
   }
 
   get activeEditableTextEditor(): EditableTextEditor | undefined {
     // console.log("get activeEditableTextEditor");
-    return this.activeEditor;
+    return this.activeEditor?.isEditable ? this.activeEditor : undefined;
   }
 
   get visibleTextEditors(): TextEditor[] {
@@ -137,11 +137,15 @@ export class JetbrainsIDE implements IDE {
     return [...this.editors.values()].filter((editor) => editor.isVisible);
   }
 
-  getEditableTextEditor(editor: TextEditor): EditableTextEditor {
-    // console.log("getEditableTextEditor");
+  getEditableTextEditor(editor: TextEditor): EditableTextEditor  {
+    console.log("getEditableTextEditor");
     if (editor instanceof JetbrainsEditor) {
       console.log("getEditableTextEditor - return current");
-      return editor;
+      if (editor.isEditable) {
+        return editor;
+      } else {
+        throw Error(`Editor is not editable: ${editor}`);
+      }
     }
     throw Error(`Unsupported text editor type: ${editor}`);
   }
@@ -304,6 +308,7 @@ function updateEditor(editor: JetbrainsEditor, editorState: EditorState) {
   );
   editor.isActive = editorState.active;
   editor.isVisible = editorState.visible;
+  editor.isEditable = editorState.editable;
 }
 
 function getLines(text: string, firstLine: number, lastLine: number) {

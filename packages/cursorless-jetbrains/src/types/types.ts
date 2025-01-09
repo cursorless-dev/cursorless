@@ -26,6 +26,7 @@ export interface EditorState {
   selections: JbSelection[];
   active: boolean;
   visible: boolean;
+  editable: boolean;
 }
 
 export interface EditorChange {

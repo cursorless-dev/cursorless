@@ -26,6 +26,7 @@ export class JetbrainsEditor implements EditableTextEditor {
 
   isActive = true;
   isVisible = true;
+  isEditable = true;
 
   constructor(
     private client: JetbrainsClient,

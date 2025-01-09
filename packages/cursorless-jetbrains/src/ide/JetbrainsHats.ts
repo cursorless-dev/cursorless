@@ -21,6 +21,7 @@ export class JetbrainsHats implements Hats {
   private hatShapePenalties: Map<string, number> = new Map([["default", 0]]);
   private enabledHatColors = ["default"];
   private hatColorPenalties: Map<string, number> = new Map([["default", 0]]);
+  isEnabled: boolean = true;
 
   constructor(client: JetbrainsClient) {
     this.client = client;
@@ -118,7 +119,6 @@ export class JetbrainsHats implements Hats {
     return this.hatStyleChangedNotifier.registerListener(listener);
   }
 
-  isEnabled: boolean = true;
   onDidChangeIsEnabled(listener: Listener<[boolean]>): Disposable {
     return this.isEnabledNotifier.registerListener(listener);
   }
