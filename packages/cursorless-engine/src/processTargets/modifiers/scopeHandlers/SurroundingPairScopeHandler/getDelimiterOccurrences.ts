@@ -1,9 +1,4 @@
-import {
-  matchAllIterator,
-  Range,
-  type SimpleScopeTypeType,
-  type TextDocument,
-} from "@cursorless/common";
+import { matchAllIterator, Range, type TextDocument } from "@cursorless/common";
 import type { LanguageDefinition } from "../../../../languages/LanguageDefinition";
 import type { QueryCapture } from "../../../../languages/TreeSitterQuery/QueryCapture";
 import { getDelimiterRegex } from "./getDelimiterRegex";
