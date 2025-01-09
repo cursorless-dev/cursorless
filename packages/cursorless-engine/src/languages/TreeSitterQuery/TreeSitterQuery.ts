@@ -73,13 +73,13 @@ export class TreeSitterQuery {
     end?: Position,
   ): QueryMatch[] {
     if (!treeSitterQueryCache.isValid(document, start, end)) {
-      const matches = this.getAllmatches(document, start, end);
+      const matches = this.getAllMatches(document, start, end);
       treeSitterQueryCache.update(document, start, end, matches);
     }
     return treeSitterQueryCache.get();
   }
 
-  private getAllmatches(
+  private getAllMatches(
     document: TextDocument,
     start?: Position,
     end?: Position,

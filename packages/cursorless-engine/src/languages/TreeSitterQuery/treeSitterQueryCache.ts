@@ -9,6 +9,15 @@ export class Cache {
   private endPosition: Position | undefined;
   private matches: QueryMatch[] = [];
 
+  clear() {
+    this.documentUri = "";
+    this.documentVersion = -1;
+    this.documentLanguageId = "";
+    this.startPosition = undefined;
+    this.endPosition = undefined;
+    this.matches = [];
+  }
+
   isValid(
     document: TextDocument,
     startPosition: Position | undefined,
@@ -42,31 +51,4 @@ export class Cache {
   }
 }
 
-let cache = new Cache();
-
-export const treeSitterQueryCache = {
-  isValid(
-    document: TextDocument,
-    startPosition: Position | undefined,
-    endPosition: Position | undefined,
-  ) {
-    return cache.isValid(document, startPosition, endPosition);
-  },
-
-  update(
-    document: TextDocument,
-    startPosition: Position | undefined,
-    endPosition: Position | undefined,
-    matches: QueryMatch[],
-  ) {
-    cache.update(document, startPosition, endPosition, matches);
-  },
-
-  get() {
-    return cache.get();
-  },
-
-  clear() {
-    cache = new Cache();
-  },
-};
+export const treeSitterQueryCache = new Cache();
