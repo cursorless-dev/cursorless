@@ -8,6 +8,9 @@ import type { DestinationDescriptor } from "./DestinationDescriptor.types";
  * A simple action takes only a single target and no other arguments.
  */
 export const simpleActionNames = [
+  "addSelection",
+  "addSelectionAfter",
+  "addSelectionBefore",
   "breakLine",
   "clearAndSetSelection",
   "copyToClipboard",
@@ -52,9 +55,9 @@ export const simpleActionNames = [
   "toggleLineBreakpoint",
   "toggleLineComment",
   "unfoldRegion",
+  "private.getTargets",
   "private.setKeyboardTarget",
   "private.showParseTree",
-  "private.getTargets",
 ] as const;
 
 const complexActionNames = [
