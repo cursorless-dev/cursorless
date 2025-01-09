@@ -10,6 +10,7 @@ import {
 import { toString } from "lodash-es";
 import type { SyntaxNode } from "web-tree-sitter";
 import { LanguageDefinition } from "./LanguageDefinition";
+import { treeSitterQueryCache } from "./TreeSitterQuery/treeSitterQueryCache";
 
 /**
  * Sentinel value to indicate that a language doesn't have
@@ -31,17 +32,6 @@ export interface LanguageDefinitions {
    * the given language id doesn't have a new-style query definition
    */
   get(languageId: string): LanguageDefinition | undefined;
-
-  /**
-   * Clear the cache of all language definitions. This is run at the start of a command.
-   * This isn't strict necessary for normal user operations since whenever the user
-   * makes a change to the document the document version is updated. When
-   * running our test though we keep closing and reopening an untitled document.
-   * That test document will have the same uri and version unfortunately. Also
-   * to be completely sure there isn't some extension doing similar trickery
-   * it's just good hygiene to clear the cache before every command.
-   */
-  clearCache(): void;
 
   /**
    * @deprecated Only for use in legacy containing scope stage
@@ -82,7 +72,13 @@ export class LanguageDefinitionsImpl
     private treeSitter: TreeSitter,
     private treeSitterQueryProvider: RawTreeSitterQueryProvider,
   ) {
+    const isTesting = ide.runMode === "test";
+
     ide.onDidOpenTextDocument((document) => {
+      // During testing we open untitled documents that all have the same uri and version which breaks our cache
+      if (isTesting) {
+        treeSitterQueryCache.clear();
+      }
       void this.loadLanguage(document.languageId);
     });
     ide.onDidChangeVisibleTextEditors((editors) => {
@@ -150,6 +146,7 @@ export class LanguageDefinitionsImpl
   private async reloadLanguageDefinitions(): Promise<void> {
     this.languageDefinitions.clear();
     await this.loadAllLanguages();
+    treeSitterQueryCache.clear();
     this.notifier.notifyListeners();
   }
 
@@ -164,14 +161,6 @@ export class LanguageDefinitionsImpl
     }
 
     return definition === LANGUAGE_UNDEFINED ? undefined : definition;
-  }
-
-  clearCache(): void {
-    for (const definition of this.languageDefinitions.values()) {
-      if (definition !== LANGUAGE_UNDEFINED) {
-        definition.clearCache();
-      }
-    }
   }
 
   public getNodeAtLocation(document: TextDocument, range: Range): SyntaxNode {

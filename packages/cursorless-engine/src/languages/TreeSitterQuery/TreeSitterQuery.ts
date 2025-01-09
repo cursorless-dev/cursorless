@@ -14,6 +14,7 @@ import { isContainedInErrorNode } from "./isContainedInErrorNode";
 import { parsePredicates } from "./parsePredicates";
 import { predicateToString } from "./predicateToString";
 import { rewriteStartOfEndOf } from "./rewriteStartOfEndOf";
+import { treeSitterQueryCache } from "./treeSitterQueryCache";
 
 /**
  * Wrapper around a tree-sitter query that provides a more convenient API, and
@@ -67,6 +68,18 @@ export class TreeSitterQuery {
   }
 
   matches(
+    document: TextDocument,
+    start?: Position,
+    end?: Position,
+  ): QueryMatch[] {
+    if (!treeSitterQueryCache.isValid(document, start, end)) {
+      const matches = this.getAllmatches(document, start, end);
+      treeSitterQueryCache.update(document, start, end, matches);
+    }
+    return treeSitterQueryCache.get();
+  }
+
+  private getAllmatches(
     document: TextDocument,
     start?: Position,
     end?: Position,
