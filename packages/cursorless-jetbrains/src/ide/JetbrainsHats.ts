@@ -10,15 +10,6 @@ import { Notifier } from "@cursorless/common";
 import type { JetbrainsClient } from "./JetbrainsClient";
 import type { JetbrainsHatRange } from "../types/jetbrains.types";
 
-const HAT_COLORS = [
-  "default",
-  "blue",
-  "green",
-  "red",
-  "pink",
-  "yellow",
-] as const;
-
 export class JetbrainsHats implements Hats {
   private isEnabledNotifier: Notifier<[boolean]> = new Notifier();
   private hatStyleChangedNotifier: Notifier<[HatStyleMap]> = new Notifier();

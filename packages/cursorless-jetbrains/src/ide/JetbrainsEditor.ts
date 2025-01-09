@@ -186,7 +186,7 @@ export class JetbrainsEditor implements EditableTextEditor {
       range ? [range] : [],
       true,
       false,
-      "QuickImplementations",
+      "GotoDeclaration",
     );
     await this.client.executeRangeCommand(this.id, JSON.stringify(command));
   }
