@@ -3,7 +3,6 @@ import type {
   ScopeType,
   SimpleScopeType,
   SimpleScopeTypeType,
-  StringRecord,
   TreeSitter,
 } from "@cursorless/common";
 import {
@@ -13,7 +12,6 @@ import {
   type TextDocument,
 } from "@cursorless/common";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
-import { LanguageDefinitionCache } from "./LanguageDefinitionCache";
 import { TreeSitterQuery } from "./TreeSitterQuery";
 import type { QueryCapture } from "./TreeSitterQuery/QueryCapture";
 import { validateQueryCaptures } from "./TreeSitterQuery/validateQueryCaptures";
@@ -23,8 +21,6 @@ import { validateQueryCaptures } from "./TreeSitterQuery/validateQueryCaptures";
  * tree-sitter query used to extract scopes for the given language
  */
 export class LanguageDefinition {
-  private cache: LanguageDefinitionCache;
-
   private constructor(
     /**
      * The tree-sitter query used to extract scopes for the given language.
@@ -32,9 +28,7 @@ export class LanguageDefinition {
      * language supports using new-style tree-sitter queries
      */
     private query: TreeSitterQuery,
-  ) {
-    this.cache = new LanguageDefinitionCache();
-  }
+  ) {}
 
   /**
    * Construct a language definition for the given language id, if the language
@@ -88,41 +82,24 @@ export class LanguageDefinition {
   }
 
   /**
-   * This is a low-level function that just returns a list of captures of the given
-   * capture name in the document. We use this in our surrounding pair code.
+   * This is a low-level function that just returns a map of all captures in the
+   * document. We use this in our surrounding pair code.
    *
    * @param document The document to search
    * @param captureName The name of a capture to search for
-   * @returns A list of captures of the given capture name in the document
+   * @returns A map of captures in the document
    */
-  getCaptures(
-    document: TextDocument,
-    captureName: SimpleScopeTypeType,
-  ): QueryCapture[] {
-    if (!this.cache.isValid(document)) {
-      this.cache.update(document, this.getCapturesMap(document));
-    }
-
-    return this.cache.get(captureName);
-  }
-
-  clearCache(): void {
-    this.cache = new LanguageDefinitionCache();
-  }
-
-  /**
-   * This is a low level function that returns a map of all captures in the document.
-   */
-  private getCapturesMap(document: TextDocument): StringRecord<QueryCapture[]> {
+  getCapturesMap(document: TextDocument) {
     const matches = this.query.matches(document);
-    const result: StringRecord<QueryCapture[]> = {};
+    const result: Partial<Record<SimpleScopeTypeType, QueryCapture[]>> = {};
 
     for (const match of matches) {
       for (const capture of match.captures) {
-        if (result[capture.name] == null) {
-          result[capture.name] = [];
+        const name = capture.name as SimpleScopeTypeType;
+        if (result[name] == null) {
+          result[name] = [];
         }
-        result[capture.name]!.push(capture);
+        result[name]!.push(capture);
       }
     }
 

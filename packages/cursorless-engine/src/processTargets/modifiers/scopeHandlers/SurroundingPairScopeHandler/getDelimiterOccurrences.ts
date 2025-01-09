@@ -1,9 +1,4 @@
-import {
-  matchAllIterator,
-  Range,
-  type SimpleScopeTypeType,
-  type TextDocument,
-} from "@cursorless/common";
+import { matchAllIterator, Range, type TextDocument } from "@cursorless/common";
 import type { LanguageDefinition } from "../../../../languages/LanguageDefinition";
 import type { QueryCapture } from "../../../../languages/TreeSitterQuery/QueryCapture";
 import { getDelimiterRegex } from "./getDelimiterRegex";
@@ -28,12 +23,12 @@ export function getDelimiterOccurrences(
     return [];
   }
 
+  const capturesMap = languageDefinition?.getCapturesMap(document) ?? {};
   const disqualifyDelimiters = new OneWayRangeFinder(
-    getSortedCaptures(languageDefinition, document, "disqualifyDelimiter"),
+    getSortedCaptures(capturesMap.disqualifyDelimiter),
   );
-  // We need a tree for text fragments since they can be nested
   const textFragments = new OneWayNestedRangeFinder(
-    getSortedCaptures(languageDefinition, document, "textFragment"),
+    getSortedCaptures(capturesMap.textFragment),
   );
 
   const delimiterTextToDelimiterInfoMap = Object.fromEntries(
@@ -74,12 +69,10 @@ export function getDelimiterOccurrences(
   return results;
 }
 
-function getSortedCaptures(
-  languageDefinition: LanguageDefinition | undefined,
-  document: TextDocument,
-  captureName: SimpleScopeTypeType,
-): QueryCapture[] {
-  const items = languageDefinition?.getCaptures(document, captureName) ?? [];
+function getSortedCaptures(items?: QueryCapture[]): QueryCapture[] {
+  if (items == null) {
+    return [];
+  }
   items.sort((a, b) => a.range.start.compareTo(b.range.start));
   return items;
 }
