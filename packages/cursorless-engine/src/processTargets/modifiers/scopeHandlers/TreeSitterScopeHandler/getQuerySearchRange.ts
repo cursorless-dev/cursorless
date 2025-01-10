@@ -68,7 +68,7 @@ function getQuerySearchRangeCore(
   }
 
   // If containment is disallowed, we can shift the position forward by a
-  // character to avoid matching scopes that touch position.  Otherwise, we
+  // character to avoid matching scopes that touch position. Otherwise, we
   // shift the position backward by a character to ensure we get scopes that
   // touch position, if we allow adjacent scopes.
   const proximalShift = containment === "disallowed" ? 1 : -adjacentShift;
