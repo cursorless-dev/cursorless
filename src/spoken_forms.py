@@ -160,6 +160,7 @@ def update():
                 "private.switchStatementSubject",
                 "textFragment",
                 "disqualifyDelimiter",
+                "pairDelimiter",
             ],
             default_list_name="scope_type",
         ),
