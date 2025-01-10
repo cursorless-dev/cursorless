@@ -158,6 +158,7 @@ function isLanguageSpecific(scopeType: ScopeType): boolean {
     case "environment":
     case "textFragment":
     case "disqualifyDelimiter":
+    case "pairDelimiter":
       return true;
 
     case "character":
