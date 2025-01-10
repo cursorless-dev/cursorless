@@ -655,5 +655,5 @@ operator: [
 
 (
   (string_start) @pairDelimiter
-  (#match? @pairDelimiter "^\\w")
+  (#match? @pairDelimiter "^[a-zA-z]+")
 )
