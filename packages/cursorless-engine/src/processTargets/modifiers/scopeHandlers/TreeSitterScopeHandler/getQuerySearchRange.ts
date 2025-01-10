@@ -74,8 +74,8 @@ function getQuerySearchRangeCore(
   const proximalShift = containment === "disallowed" ? 1 : -adjacentShift;
 
   // FIXME: Don't go all the way to end of document when there is no
-  // distalPosition? Seems wasteful to query all the way to end of document for
-  // something like "next funk" Might be better to start smaller and
+  // distalOffset? Seems wasteful to query all the way to end of document for
+  // something like "next funk". Might be better to start smaller and
   // exponentially grow
   return direction === "forward"
     ? {
