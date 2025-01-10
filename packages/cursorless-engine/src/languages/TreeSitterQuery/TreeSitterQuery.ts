@@ -96,8 +96,8 @@ export class TreeSitterQuery {
     start?: Position,
     end?: Position,
   ): QueryMatch[] {
-    const results: QueryMatch[] = [];
     const isTesting = ide().runMode === "test";
+    const results: QueryMatch[] = [];
 
     const matches = this.query.matches(
       this.treeSitter.getTree(document).rootNode,
