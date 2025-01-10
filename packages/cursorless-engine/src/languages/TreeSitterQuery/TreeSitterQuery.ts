@@ -95,7 +95,7 @@ export class TreeSitterQuery {
     start?: Position,
     end?: Position,
   ): QueryMatch[] {
-    const isTesting = ide().runMode === "test";
+    const checkCaptures = ide().runMode !== "production";
     const results: QueryMatch[] = [];
 
     const matches = this.query.matches(
@@ -110,7 +110,7 @@ export class TreeSitterQuery {
       const mutableMatch = createMutableQueryMatch(document, match);
 
       if (this.runPredicates(mutableMatch)) {
-        results.push(createQueryMatch(mutableMatch, isTesting));
+        results.push(createQueryMatch(mutableMatch, checkCaptures));
       }
     }
 
@@ -147,10 +147,10 @@ function createMutableQueryMatch(
 
 function createQueryMatch(
   match: MutableQueryMatch,
-  isTesting: boolean,
+  checkCaptures: boolean,
 ): QueryMatch {
   const result: MutableQueryCapture[] = [];
-  const resultMap = new Map<
+  const map = new Map<
     string,
     { acc: MutableQueryCapture; captures: MutableQueryCapture[] }
   >();
@@ -163,37 +163,35 @@ function createQueryMatch(
   for (const capture of match.captures) {
     const name = normalizeCaptureName(capture.name);
     const range = getStartOfEndOfRange(capture);
-    const existing = resultMap.get(name);
+    const existing = map.get(name);
 
     if (existing == null) {
-      const accumulator = {
+      const captures = [capture];
+      const acc = {
         ...capture,
         name,
         range,
+        hasError: () => captures.some((c) => c.hasError()),
       };
-      result.push(accumulator);
-      resultMap.set(name, {
-        acc: accumulator,
-        captures: [capture],
-      });
+      result.push(acc);
+      map.set(name, { acc, captures });
     } else {
       existing.acc.range = existing.acc.range.union(range);
       existing.acc.allowMultiple =
         existing.acc.allowMultiple || capture.allowMultiple;
       existing.acc.insertionDelimiter =
         existing.acc.insertionDelimiter ?? capture.insertionDelimiter;
-      existing.acc.hasError = () => existing.captures.some((c) => c.hasError());
       existing.captures.push(capture);
     }
   }
 
-  if (isTesting) {
-    for (const captureGroup of resultMap.values()) {
+  if (checkCaptures) {
+    for (const captureGroup of map.values()) {
       const capturesAreValid = checkCaptureStartEnd(
         rewriteStartOfEndOf(captureGroup.captures),
         ide().messages,
       );
-      if (!capturesAreValid) {
+      if (!capturesAreValid && ide().runMode === "test") {
         throw new Error("Invalid captures");
       }
     }
