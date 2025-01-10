@@ -50,17 +50,6 @@ export interface QueryCapture {
 }
 
 /**
- * A capture of a query pattern against a syntax tree that can be modified.
- */
-export interface ModifiableQueryCapture {
-  readonly name: string;
-  range: Range;
-  allowMultiple: boolean;
-  insertionDelimiter: string | undefined;
-  hasError(): boolean;
-}
-
-/**
  * A match of a query pattern against a syntax tree.
  */
 export interface QueryMatch {

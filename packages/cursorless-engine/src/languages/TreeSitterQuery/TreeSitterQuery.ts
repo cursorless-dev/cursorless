@@ -5,7 +5,6 @@ import type { Query } from "web-tree-sitter";
 import { ide } from "../../singletons/ide.singleton";
 import { getNodeRange } from "../../util/nodeSelectors";
 import type {
-  ModifiableQueryCapture,
   MutableQueryCapture,
   MutableQueryMatch,
   QueryMatch,
@@ -150,10 +149,10 @@ function createQueryMatch(
   match: MutableQueryMatch,
   isTesting: boolean,
 ): QueryMatch {
-  const result: ModifiableQueryCapture[] = [];
+  const result: MutableQueryCapture[] = [];
   const resultMap = new Map<
     string,
-    { acc: ModifiableQueryCapture; captures: MutableQueryCapture[] }
+    { acc: MutableQueryCapture; captures: MutableQueryCapture[] }
   >();
 
   // Merge the ranges of all captures with the same name into a single
@@ -168,11 +167,9 @@ function createQueryMatch(
 
     if (existing == null) {
       const accumulator = {
+        ...capture,
         name,
         range,
-        allowMultiple: capture.allowMultiple,
-        insertionDelimiter: capture.insertionDelimiter,
-        hasError: () => capture.hasError(),
       };
       result.push(accumulator);
       resultMap.set(name, {
