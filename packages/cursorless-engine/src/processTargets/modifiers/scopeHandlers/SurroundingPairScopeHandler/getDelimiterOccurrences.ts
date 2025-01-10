@@ -65,9 +65,7 @@ export function getDelimiterOccurrences(
 
     results.push({
       delimiterInfo: delimiterTextToDelimiterInfoMap[text],
-      textFragmentRange: ifNoErrors(
-        textFragments.getSmallestContaining(matchRange),
-      )?.range,
+      textFragmentRange: textFragments.getSmallestContaining(matchRange)?.range,
       range:
         ifNoErrors(pairDelimiters.getContaining(matchRange))?.range ??
         matchRange,
