@@ -1,7 +1,6 @@
 import type { Position, TextDocument } from "@cursorless/common";
 import { showError, type TreeSitter } from "@cursorless/common";
 import type Parser from "web-tree-sitter";
-import type { Query } from "web-tree-sitter";
 import { ide } from "../../singletons/ide.singleton";
 import { getNodeRange } from "../../util/nodeSelectors";
 import type {
@@ -32,7 +31,7 @@ export class TreeSitterQuery {
     /**
      * The raw tree-sitter query as parsed by tree-sitter from the query file
      */
-    private query: Query,
+    private query: Parser.Query,
 
     /**
      * The predicates for each pattern in the query. Each element of the outer
@@ -42,7 +41,11 @@ export class TreeSitterQuery {
     private patternPredicates: ((match: MutableQueryMatch) => boolean)[][],
   ) {}
 
-  static create(languageId: string, treeSitter: TreeSitter, query: Query) {
+  static create(
+    languageId: string,
+    treeSitter: TreeSitter,
+    query: Parser.Query,
+  ) {
     const { errors, predicates } = parsePredicates(query.predicates);
 
     if (errors.length > 0) {
