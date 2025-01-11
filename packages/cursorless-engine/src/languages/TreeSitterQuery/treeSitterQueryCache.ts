@@ -2,8 +2,8 @@ import type { Position, TextDocument } from "@cursorless/common";
 import type { QueryMatch } from "./QueryCapture";
 
 export class Cache {
-  private documentUri: string = "";
   private documentVersion: number = -1;
+  private documentUri: string = "";
   private documentLanguageId: string = "";
   private startPosition: Position | undefined;
   private endPosition: Position | undefined;
@@ -24,11 +24,11 @@ export class Cache {
     endPosition: Position | undefined,
   ) {
     return (
-      this.documentUri === document.uri.toString() &&
       this.documentVersion === document.version &&
+      this.documentUri === document.uri.toString() &&
       this.documentLanguageId === document.languageId &&
-      this.startPosition === startPosition &&
-      this.endPosition === endPosition
+      positionsEqual(this.startPosition, startPosition) &&
+      positionsEqual(this.endPosition, endPosition)
     );
   }
 
@@ -38,8 +38,8 @@ export class Cache {
     endPosition: Position | undefined,
     matches: QueryMatch[],
   ) {
-    this.documentUri = document.uri.toString();
     this.documentVersion = document.version;
+    this.documentUri = document.uri.toString();
     this.documentLanguageId = document.languageId;
     this.startPosition = startPosition;
     this.endPosition = endPosition;
@@ -49,6 +49,13 @@ export class Cache {
   get(): QueryMatch[] {
     return this.matches;
   }
+}
+
+function positionsEqual(a: Position | undefined, b: Position | undefined) {
+  if (a == null || b == null) {
+    return a === b;
+  }
+  return a.isEqual(b);
 }
 
 export const treeSitterQueryCache = new Cache();

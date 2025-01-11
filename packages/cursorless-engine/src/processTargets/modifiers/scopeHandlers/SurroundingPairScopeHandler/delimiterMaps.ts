@@ -14,17 +14,6 @@ interface Options {
    * salient example is strings.
    */
   isSingleLine?: boolean;
-
-  /**
-   * This field can be used to force us to treat the side of the delimiter as
-   * unknown. We usually infer this from the fact that the opening and closing
-   * delimiters are the same, but in some cases they are different, but the side
-   * is actually still unknown. In particular, this is the case for Python
-   * string prefixes, where if we see the prefix it doesn't necessarily mean
-   * that it's an opening delimiter. For example, in  `" r"`, note that the `r`
-   * is just part of the string, not a prefix of the opening delimiter.
-   */
-  isUnknownSide?: boolean;
 }
 
 type DelimiterMap = Record<
@@ -52,38 +41,6 @@ const delimiterToText: DelimiterMap = Object.freeze({
   squareBrackets: ["[", "]"],
 });
 
-// https://docs.python.org/3/reference/lexical_analysis.html#string-and-bytes-literals
-const pythonPrefixes = [
-  // Base case without a prefix
-  "",
-  // string prefixes
-  "r",
-  "u",
-  "R",
-  "U",
-  "f",
-  "F",
-  "fr",
-  "Fr",
-  "fR",
-  "FR",
-  "rf",
-  "rF",
-  "Rf",
-  "RF",
-  // byte prefixes
-  "b",
-  "B",
-  "br",
-  "Br",
-  "bR",
-  "BR",
-  "rb",
-  "rB",
-  "Rb",
-  "RB",
-];
-
 // FIXME: Probably remove these as part of
 // https://github.com/cursorless-dev/cursorless/issues/1812#issuecomment-1691493746
 const delimiterToTextOverrides: Record<string, Partial<DelimiterMap>> = {
@@ -102,26 +59,8 @@ const delimiterToTextOverrides: Record<string, Partial<DelimiterMap>> = {
   },
 
   python: {
-    singleQuotes: [
-      pythonPrefixes.map((prefix) => `${prefix}'`),
-      "'",
-      { isSingleLine: true, isUnknownSide: true },
-    ],
-    doubleQuotes: [
-      pythonPrefixes.map((prefix) => `${prefix}"`),
-      '"',
-      { isSingleLine: true, isUnknownSide: true },
-    ],
-    tripleSingleQuotes: [
-      pythonPrefixes.map((prefix) => `${prefix}'''`),
-      "'''",
-      { isUnknownSide: true },
-    ],
-    tripleDoubleQuotes: [
-      pythonPrefixes.map((prefix) => `${prefix}"""`),
-      '"""',
-      { isUnknownSide: true },
-    ],
+    tripleSingleQuotes: ["'''", "'''"],
+    tripleDoubleQuotes: ['"""', '"""'],
   },
 
   ruby: {

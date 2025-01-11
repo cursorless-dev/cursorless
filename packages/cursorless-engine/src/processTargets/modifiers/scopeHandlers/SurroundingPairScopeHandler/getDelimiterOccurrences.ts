@@ -27,6 +27,9 @@ export function getDelimiterOccurrences(
   const disqualifyDelimiters = new OneWayRangeFinder(
     getSortedCaptures(capturesMap.disqualifyDelimiter),
   );
+  const pairDelimiters = new OneWayRangeFinder(
+    getSortedCaptures(capturesMap.pairDelimiter),
+  );
   const textFragments = new OneWayNestedRangeFinder(
     getSortedCaptures(capturesMap.textFragment),
   );
@@ -47,26 +50,33 @@ export function getDelimiterOccurrences(
 
   for (const match of regexMatches) {
     const text = match[0];
-    const range = new Range(
+    const matchRange = new Range(
       document.positionAt(match.index!),
       document.positionAt(match.index! + text.length),
     );
 
-    const delimiter = disqualifyDelimiters.getContaining(range);
-    const isDisqualified = delimiter != null && !delimiter.hasError();
+    const disqualifiedDelimiter = ifNoErrors(
+      disqualifyDelimiters.getContaining(matchRange),
+    );
 
-    if (!isDisqualified) {
-      const textFragmentRange =
-        textFragments.getSmallestContaining(range)?.range;
-      results.push({
-        delimiterInfo: delimiterTextToDelimiterInfoMap[text],
-        textFragmentRange,
-        range,
-      });
+    if (disqualifiedDelimiter != null) {
+      continue;
     }
+
+    results.push({
+      delimiterInfo: delimiterTextToDelimiterInfoMap[text],
+      textFragmentRange: textFragments.getSmallestContaining(matchRange)?.range,
+      range:
+        ifNoErrors(pairDelimiters.getContaining(matchRange))?.range ??
+        matchRange,
+    });
   }
 
   return results;
+}
+
+function ifNoErrors(capture?: QueryCapture): QueryCapture | undefined {
+  return capture != null && !capture.hasError() ? capture : undefined;
 }
 
 function getSortedCaptures(items?: QueryCapture[]): QueryCapture[] {

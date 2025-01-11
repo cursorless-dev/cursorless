@@ -298,6 +298,11 @@ export const scopeSupportFacetInfos: Record<
       "Used to disqualify a token from being treated as a surrounding pair delimiter. This will usually be operators containing `>` or `<`, eg `<`, `<=`, `->`, etc",
     scopeType: "disqualifyDelimiter",
   },
+  pairDelimiter: {
+    description:
+      "A pair delimiter, eg parentheses, brackets, braces, quotes, etc",
+    scopeType: "pairDelimiter",
+  },
 
   "branch.if": {
     description: "An if/elif/else branch",

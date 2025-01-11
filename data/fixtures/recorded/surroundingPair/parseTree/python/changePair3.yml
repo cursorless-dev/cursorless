@@ -11,10 +11,10 @@ command:
           scopeType: {type: surroundingPair, delimiter: any}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: "' r'"
+  documentContents: r'command server'
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}
   marks: {}
 finalState:
   documentContents: ""
