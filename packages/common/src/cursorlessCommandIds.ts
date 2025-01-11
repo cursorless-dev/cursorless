@@ -90,6 +90,9 @@ export const cursorlessCommandDescriptions: Record<
     "Bulk save scope tests for the active document",
   ),
   ["cursorless.showDocumentation"]: new VisibleCommand("Show documentation"),
+  ["cursorless.showInstallationDependencies"]: new VisibleCommand(
+    "Show installation dependencies",
+  ),
   ["cursorless.showScopeVisualizer"]: new VisibleCommand(
     "Show the scope visualizer",
   ),

@@ -106,7 +106,7 @@
       },
       {
         "command": "cursorless.showInstallationDependencies",
-        "title": "Cursorless: Show installation dependencies view"
+        "title": "Cursorless: Show installation dependencies"
       },
       {
         "command": "cursorless.showScopeVisualizer",
