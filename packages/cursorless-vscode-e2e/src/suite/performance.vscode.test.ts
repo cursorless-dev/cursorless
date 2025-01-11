@@ -51,16 +51,16 @@ suite("Performance", async function () {
     ["paragraph", smallThresholdMs],
     ["document", smallThresholdMs],
     ["nonWhitespaceSequence", smallThresholdMs],
-    // Parse tree based, containing scope
+    // Parse tree based, containing/every scope
     ["string", smallThresholdMs],
     ["map", smallThresholdMs],
     ["collectionKey", smallThresholdMs],
     ["value", smallThresholdMs],
+    ["collectionKey", smallThresholdMs, "every"],
+    ["value", smallThresholdMs, "every"],
     // Parse tree based, relative scope
     ["collectionKey", largeThresholdMs, "previous"],
     ["value", largeThresholdMs, "previous"],
-    ["collectionKey", largeThresholdMs, "every"],
-    ["value", largeThresholdMs, "every"],
     // Text based, but utilizes surrounding pair
     ["boundedParagraph", largeThresholdMs],
     ["boundedNonWhitespaceSequence", largeThresholdMs],
