@@ -74,7 +74,7 @@ export class LanguageDefinition {
    * legacy pathways
    */
   getScopeHandler(scopeType: ScopeType) {
-    if (!this.query.captureNames.includes(scopeType.type)) {
+    if (!this.query.hasCapture(scopeType.type)) {
       return undefined;
     }
 
