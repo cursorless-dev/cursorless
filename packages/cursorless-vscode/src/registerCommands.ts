@@ -17,6 +17,7 @@ import type {
   TestCaseRecorder,
 } from "@cursorless/test-case-recorder";
 import * as vscode from "vscode";
+import type { InstallationDependencies } from "./InstallationDependencies";
 import type { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
 import type { VscodeTutorial } from "./VscodeTutorial";
 import { showDocumentation, showQuickPick } from "./commands";
@@ -36,6 +37,7 @@ export function registerCommands(
   keyboardCommands: KeyboardCommands,
   hats: VscodeHats,
   tutorial: VscodeTutorial,
+  installationDependencies: InstallationDependencies,
   storedTargets: StoredTargetMap,
 ): void {
   const runCommandWrapper = async (run: () => Promise<unknown>) => {
@@ -82,6 +84,7 @@ export function registerCommands(
     // Other commands
     ["cursorless.showQuickPick"]: showQuickPick,
     ["cursorless.showDocumentation"]: showDocumentation,
+    ["cursorless.showInstallationDependencies"]: installationDependencies.show,
 
     ["cursorless.private.logQuickActions"]: logQuickActions,
 

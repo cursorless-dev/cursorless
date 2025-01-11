@@ -105,6 +105,10 @@
         "title": "Cursorless: Show documentation"
       },
       {
+        "command": "cursorless.showInstallationDependencies",
+        "title": "Cursorless: Show installation dependencies view"
+      },
+      {
         "command": "cursorless.showScopeVisualizer",
         "title": "Cursorless: Show the scope visualizer"
       },
@@ -1275,6 +1279,7 @@
     "@cursorless/node-common": "workspace:*",
     "@cursorless/test-case-recorder": "workspace:*",
     "@cursorless/vscode-common": "workspace:*",
+    "glob": "^11.0.0",
     "itertools": "^2.3.2",
     "lodash-es": "^4.17.21",
     "nearley": "2.20.1",

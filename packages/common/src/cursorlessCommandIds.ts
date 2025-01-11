@@ -47,6 +47,7 @@ export const cursorlessCommandIds = [
   "cursorless.recordScopeTests.saveActiveDocument",
   "cursorless.showCheatsheet",
   "cursorless.showDocumentation",
+  "cursorless.showInstallationDependencies",
   "cursorless.showQuickPick",
   "cursorless.takeSnapshot",
   "cursorless.toggleDecorations",
