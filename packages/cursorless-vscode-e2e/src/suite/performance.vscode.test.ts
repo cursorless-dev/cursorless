@@ -15,7 +15,7 @@ const testData = generateTestData(100);
 const smallThresholdMs = 100;
 const largeThresholdMs = 500;
 
-type ModifierType = "previous";
+type ModifierType = "containing" | "previous" | "every";
 
 suite("Performance", async function () {
   endToEndTestSetup(this);
@@ -59,6 +59,8 @@ suite("Performance", async function () {
     // Parse tree based, relative scope
     ["collectionKey", largeThresholdMs, "previous"],
     ["value", largeThresholdMs, "previous"],
+    ["collectionKey", largeThresholdMs, "every"],
+    ["value", largeThresholdMs, "every"],
     // Text based, but utilizes surrounding pair
     ["boundedParagraph", largeThresholdMs],
     ["boundedNonWhitespaceSequence", largeThresholdMs],
@@ -71,6 +73,7 @@ suite("Performance", async function () {
       largeThresholdMs,
       "previous",
     ],
+    [{ type: "surroundingPair", delimiter: "any" }, largeThresholdMs, "every"],
   ];
 
   for (const [scope, threshold, modifierType] of fixtures) {
@@ -98,7 +101,7 @@ async function removeToken(thresholdMs: number) {
 async function selectScopeType(
   scopeType: ScopeType,
   thresholdMs: number,
-  modifierType?: ModifierType,
+  modifierType: ModifierType = "containing",
 ) {
   await testPerformance(thresholdMs, {
     name: "setSelection",
@@ -111,9 +114,13 @@ async function selectScopeType(
 
 function getModifier(
   scopeType: ScopeType,
-  modifierType?: ModifierType,
+  modifierType: ModifierType,
 ): Modifier {
   switch (modifierType) {
+    case "containing":
+      return { type: "containingScope", scopeType };
+    case "every":
+      return { type: "everyScope", scopeType };
     case "previous":
       return {
         type: "relativeScope",
@@ -122,8 +129,6 @@ function getModifier(
         length: 1,
         scopeType,
       };
-    default:
-      return { type: "containingScope", scopeType };
   }
 }
 
