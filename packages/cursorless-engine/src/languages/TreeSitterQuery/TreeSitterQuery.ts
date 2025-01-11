@@ -169,9 +169,9 @@ export class TreeSitterQuery {
       }
     }
 
-    // if (this.shouldCheckCaptures) {
-    //   this.checkCaptures(Array.from(map.values()));
-    // }
+    if (this.shouldCheckCaptures) {
+      this.checkCaptures(Array.from(map.values()));
+    }
 
     return { captures: result };
   }
