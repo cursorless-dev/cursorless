@@ -1,6 +1,7 @@
 import {
   asyncSafety,
   type ActionDescriptor,
+  type Modifier,
   type ScopeType,
   type SimpleScopeTypeType,
 } from "@cursorless/common";
@@ -11,9 +12,10 @@ import { endToEndTestSetup } from "../endToEndTestSetup";
 
 const testData = generateTestData(100);
 
-const textBasedThresholdMs = 100;
-const parseTreeThresholdMs = 500;
-const surroundingPairThresholdMs = 500;
+const smallThresholdMs = 100;
+const largeThresholdMs = 500;
+
+type ModifierType = "containing" | "previous" | "every";
 
 suite("Performance", async function () {
   endToEndTestSetup(this);
@@ -32,42 +34,56 @@ suite("Performance", async function () {
 
   test(
     "Remove token",
-    asyncSafety(() => removeToken(textBasedThresholdMs)),
+    asyncSafety(() => removeToken(smallThresholdMs)),
   );
 
-  const fixtures: [SimpleScopeTypeType | ScopeType, number][] = [
+  const fixtures: (
+    | [SimpleScopeTypeType | ScopeType, number]
+    | [SimpleScopeTypeType | ScopeType, number, ModifierType]
+  )[] = [
     // Text based
-    ["character", textBasedThresholdMs],
-    ["word", textBasedThresholdMs],
-    ["token", textBasedThresholdMs],
-    ["identifier", textBasedThresholdMs],
-    ["line", textBasedThresholdMs],
-    ["sentence", textBasedThresholdMs],
-    ["paragraph", textBasedThresholdMs],
-    ["document", textBasedThresholdMs],
-    ["nonWhitespaceSequence", textBasedThresholdMs],
-    // Parse tree based
-    ["string", parseTreeThresholdMs],
-    ["map", parseTreeThresholdMs],
-    ["collectionKey", parseTreeThresholdMs],
-    ["value", parseTreeThresholdMs],
+    ["character", smallThresholdMs],
+    ["word", smallThresholdMs],
+    ["token", smallThresholdMs],
+    ["identifier", smallThresholdMs],
+    ["line", smallThresholdMs],
+    ["sentence", smallThresholdMs],
+    ["paragraph", smallThresholdMs],
+    ["document", smallThresholdMs],
+    ["nonWhitespaceSequence", smallThresholdMs],
+    // Parse tree based, containing/every scope
+    ["string", smallThresholdMs],
+    ["map", smallThresholdMs],
+    ["collectionKey", smallThresholdMs],
+    ["value", smallThresholdMs],
+    ["collectionKey", smallThresholdMs, "every"],
+    ["value", smallThresholdMs, "every"],
+    // Parse tree based, relative scope
+    ["collectionKey", largeThresholdMs, "previous"],
+    ["value", largeThresholdMs, "previous"],
     // Text based, but utilizes surrounding pair
-    ["boundedParagraph", surroundingPairThresholdMs],
-    ["boundedNonWhitespaceSequence", surroundingPairThresholdMs],
-    ["collectionItem", surroundingPairThresholdMs],
+    ["boundedParagraph", largeThresholdMs],
+    ["boundedNonWhitespaceSequence", largeThresholdMs],
+    ["collectionItem", largeThresholdMs],
     // Surrounding pair
-    [{ type: "surroundingPair", delimiter: "any" }, surroundingPairThresholdMs],
+    [{ type: "surroundingPair", delimiter: "any" }, largeThresholdMs],
+    [{ type: "surroundingPair", delimiter: "curlyBrackets" }, largeThresholdMs],
+    [{ type: "surroundingPair", delimiter: "any" }, largeThresholdMs, "every"],
     [
-      { type: "surroundingPair", delimiter: "curlyBrackets" },
-      surroundingPairThresholdMs,
+      { type: "surroundingPair", delimiter: "any" },
+      largeThresholdMs,
+      "previous",
     ],
   ];
 
-  for (const [scope, threshold] of fixtures) {
-    const [scopeType, title] = getScopeTypeAndTitle(scope);
+  for (const [scope, threshold, modifierType] of fixtures) {
+    const [scopeType, scopeTitle] = getScopeTypeAndTitle(scope);
+    const title = modifierType
+      ? `${modifierType} ${scopeTitle}`
+      : `${scopeTitle}`;
     test(
       `Select ${title}`,
-      asyncSafety(() => selectScopeType(scopeType, threshold)),
+      asyncSafety(() => selectScopeType(scopeType, threshold, modifierType)),
     );
   }
 });
@@ -82,14 +98,38 @@ async function removeToken(thresholdMs: number) {
   });
 }
 
-async function selectScopeType(scopeType: ScopeType, thresholdMs: number) {
+async function selectScopeType(
+  scopeType: ScopeType,
+  thresholdMs: number,
+  modifierType?: ModifierType,
+) {
   await testPerformance(thresholdMs, {
     name: "setSelection",
     target: {
       type: "primitive",
-      modifiers: [{ type: "containingScope", scopeType }],
+      modifiers: [getModifier(scopeType, modifierType)],
     },
   });
+}
+
+function getModifier(
+  scopeType: ScopeType,
+  modifierType: ModifierType = "containing",
+): Modifier {
+  switch (modifierType) {
+    case "containing":
+      return { type: "containingScope", scopeType };
+    case "every":
+      return { type: "everyScope", scopeType };
+    case "previous":
+      return {
+        type: "relativeScope",
+        direction: "backward",
+        offset: 1,
+        length: 1,
+        scopeType,
+      };
+  }
 }
 
 async function testPerformance(thresholdMs: number, action: ActionDescriptor) {
