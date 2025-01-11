@@ -1,7 +1,6 @@
 from talon import Context, Module, actions
 
 from .cursorless_everywhere_types import (
-    EditorChange,
     EditorEdit,
     EditorState,
     SelectionOffsets,
@@ -38,7 +37,10 @@ class Actions:
     ):
         command = {
             "id": "setSelections",
-            "selections": get_serializable_selections(selections),
+            "selections": [
+                js_object_to_python_dict(s, ["anchor", "active"])
+                for s in js_array_to_python_list(selections)
+            ],
         }
         res = rpc_get(command)
         if use_fallback(res):
@@ -50,7 +52,10 @@ class Actions:
         command = {
             "id": "editText",
             "text": edit["text"],
-            "changes": get_serializable_editor_changes(edit["changes"]),
+            "changes": [
+                js_object_to_python_dict(c, ["text", "rangeOffset", "rangeLength"])
+                for c in js_array_to_python_list(edit["changes"])
+            ],
         }
         res = rpc_get(command)
         if use_fallback(res):
@@ -65,29 +70,15 @@ def use_fallback(result: dict) -> bool:
     return result.get("fallback", False)
 
 
-# What is passed from cursorless everywhere js is a javascript object, which is not serializable for python.
-def get_serializable_selections(selections: list[SelectionOffsets]):
-    result: list[SelectionOffsets] = []
-    for i in range(selections.length):  # pyright: ignore [reportAttributeAccessIssue]
-        selection = selections[i]
-        result.append(
-            {
-                "anchor": selection["anchor"],
-                "active": selection["active"],
-            }
-        )
+def js_array_to_python_list(array) -> list:
+    result = []
+    for i in range(array.length):
+        result.append(array[i])
     return result
 
 
-def get_serializable_editor_changes(changes: list[EditorChange]):
-    result: list[EditorChange] = []
-    for i in range(changes.length):  # pyright: ignore [reportAttributeAccessIssue]
-        change = changes[i]
-        result.append(
-            {
-                "text": change["text"],
-                "rangeOffset": change["rangeOffset"],
-                "rangeLength": change["rangeLength"],
-            }
-        )
+def js_object_to_python_dict(object, keys: list[str]) -> dict:
+    result = {}
+    for key in keys:
+        result[key] = object[key]
     return result
