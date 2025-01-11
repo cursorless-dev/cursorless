@@ -1,5 +1,5 @@
 import { pull } from "lodash-es";
-import type { EditableTextEditor, TextEditor } from "../..";
+import type { EditableTextEditor, NotebookEditor, TextEditor } from "../..";
 import type { GeneralizedRange } from "../../types/GeneralizedRange";
 import type { TextDocument } from "../../types/TextDocument";
 import type { TextDocumentChangeEvent } from "../types/Events";
@@ -79,6 +79,10 @@ export class FakeIDE implements IDE {
   }
 
   get visibleTextEditors(): TextEditor[] {
+    throw Error("Not implemented");
+  }
+
+  get visibleNotebookEditors(): NotebookEditor[] {
     throw Error("Not implemented");
   }
 

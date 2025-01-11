@@ -1,4 +1,5 @@
 import type { GeneralizedRange } from "../types/GeneralizedRange";
+import type { NotebookEditor } from "../types/NotebookEditor";
 import type { TextDocument } from "../types/TextDocument";
 import type { EditableTextEditor, TextEditor } from "../types/TextEditor";
 import type { Capabilities } from "./types/Capabilities";
@@ -17,9 +18,9 @@ import type {
   RunMode,
   WorkspaceFolder,
 } from "./types/ide.types";
+import type { KeyValueStore } from "./types/KeyValueStore";
 import type { Messages } from "./types/Messages";
 import type { QuickPickOptions } from "./types/QuickPickOptions";
-import type { KeyValueStore } from "./types/KeyValueStore";
 
 export default class PassthroughIDEBase implements IDE {
   configuration: Configuration;
@@ -121,6 +122,10 @@ export default class PassthroughIDEBase implements IDE {
 
   public get visibleTextEditors(): TextEditor[] {
     return this.original.visibleTextEditors;
+  }
+
+  public get visibleNotebookEditors(): NotebookEditor[] {
+    return this.original.visibleNotebookEditors;
   }
 
   public get cursorlessVersion(): string {
