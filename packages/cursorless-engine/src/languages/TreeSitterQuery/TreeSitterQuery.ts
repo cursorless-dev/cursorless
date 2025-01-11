@@ -1,5 +1,5 @@
 import type { Position, TextDocument } from "@cursorless/common";
-import { showError, type TreeSitter } from "@cursorless/common";
+import { type TreeSitter } from "@cursorless/common";
 import type * as treeSitter from "web-tree-sitter";
 import { ide } from "../../singletons/ide.singleton";
 import { getNodeRange } from "../../util/nodeSelectors";
@@ -11,9 +11,8 @@ import type {
 import { checkCaptureStartEnd } from "./checkCaptureStartEnd";
 import { isContainedInErrorNode } from "./isContainedInErrorNode";
 import { normalizeCaptureName } from "./normalizeCaptureName";
-import { parsePredicates } from "./parsePredicates";
+import { parsePredicatesWithErrorHandling } from "./parsePredicatesWithErrorHandling";
 import { positionToPoint } from "./positionToPoint";
-import { predicateToString } from "./predicateToString";
 import {
   getStartOfEndOfRange,
   rewriteStartOfEndOf,
@@ -46,31 +45,7 @@ export class TreeSitterQuery {
     treeSitter: TreeSitter,
     query: treeSitter.Query,
   ) {
-    const { errors, predicates } = parsePredicates(query.predicates);
-
-    if (errors.length > 0) {
-      for (const error of errors) {
-        const context = [
-          `language ${languageId}`,
-          `pattern ${error.patternIdx}`,
-          `predicate \`${predicateToString(
-            query.predicates[error.patternIdx][error.predicateIdx],
-          )}\``,
-        ].join(", ");
-
-        void showError(
-          ide().messages,
-          "TreeSitterQuery.parsePredicates",
-          `Error parsing predicate for ${context}: ${error.error}`,
-        );
-      }
-
-      // We show errors to the user, but we don't want to crash the extension
-      // unless we're in test mode
-      if (ide().runMode === "test") {
-        throw new Error("Invalid predicates");
-      }
-    }
+    const predicates = parsePredicatesWithErrorHandling(languageId, query);
 
     return new TreeSitterQuery(treeSitter, query, predicates);
   }
