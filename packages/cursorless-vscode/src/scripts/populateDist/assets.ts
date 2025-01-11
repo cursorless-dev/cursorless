@@ -43,8 +43,8 @@ export const assets: Asset[] = [
     destination: "resources/font_measurements.js",
   },
   {
-    source: "resources/installation.js",
-    destination: "resources/installation.js",
+    source: "resources/installationDependencies.js",
+    destination: "resources/installationDependencies.js",
   },
   { source: "../../schemas", destination: "schemas" },
   {

@@ -1,24 +1,29 @@
+const vscode = acquireVsCodeApi();
+
 const root = document.getElementById("root");
 
 const header = document.createElement("h2");
 header.textContent = "Cursorless extension is now running!";
 
 const description = document.createElement("p");
-description.innerHTML =
-  "<a href='https://www.cursorless.org/docs/user/installation'>Click here to learn how to install Cursorless</a>";
+const aDocs = link(
+  "https://www.cursorless.org/docs/user/installation",
+  "Click here to learn how to install Cursorless",
+);
+description.innerHTML = `<p>Lets check if all dependencies are installed.</p>${aDocs}`;
 
-const div = document.createElement("div");
+const messages = document.createElement("div");
 
-root.append(header, description, div);
+root.append(header, description, messages);
 
 const keyboardUserMessage =
   "<p><i>If you're using Cursorless by keyboard you can ignore this message.</i></p>";
 
 window.addEventListener("message", (event) => {
-  const { data } = event;
+  const { dontShow, dependencies } = event.data;
   const children = [];
 
-  if (!data.talon) {
+  if (!dependencies.talon) {
     const a = link("https://talonvoice.com", "talonvoice.com");
     children.push(
       getChild(
@@ -26,7 +31,7 @@ window.addEventListener("message", (event) => {
         `Cursorless requires Talon to function by voice.</br>You can download Talon from ${a}.${keyboardUserMessage}`,
       ),
     );
-  } else if (!data.cursorlessTalon) {
+  } else if (!dependencies.cursorlessTalon) {
     const a = link(
       "https://github.com/cursorless-dev/cursorless-talon",
       "github.com/cursorless-dev/cursorless-talon",
@@ -39,7 +44,7 @@ window.addEventListener("message", (event) => {
     );
   }
 
-  if (!data.commandServer) {
+  if (!dependencies.commandServer) {
     const a = link(
       "https://marketplace.visualstudio.com/items?itemName=pokey.command-server",
       "vscode marketplace",
@@ -56,7 +61,9 @@ window.addEventListener("message", (event) => {
     children.push(getChild("All dependencies are installed!"));
   }
 
-  div.replaceChildren(...children);
+  const dontShowCheckbox = getDontShowCheckbox(dontShow);
+
+  messages.replaceChildren(...children, dontShowCheckbox);
 });
 
 function link(href, text) {
@@ -74,4 +81,19 @@ function getChild(title, body) {
     child.append(bodyElement);
   }
   return child;
+}
+
+function getDontShowCheckbox(dontShow) {
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.checked = dontShow;
+  checkbox.onchange = () => {
+    const command = { type: "dontShow", checked: checkbox.checked };
+    vscode.postMessage(command);
+  };
+  const label = document.createElement("label");
+  label.style.marginTop = "1rem";
+  const text = document.createTextNode("Don't show again");
+  label.append(checkbox, text);
+  return label;
 }

@@ -26,13 +26,17 @@ export class InstallationDependencies {
    * Shows the installation dependencies webview if there are missing dependencies.
    */
   maybeShow() {
-    if (!this.dontShow() && stateHasMissingDependencies()) {
+    const state = this.getState();
+    if (!state.dontShow && hasMissingDependencies(state.dependencies)) {
       this.createWebview();
     }
   }
 
-  private dontShow() {
-    return this.extensionContext.globalState.get<boolean>(STATE_KEY) ?? false;
+  private getState() {
+    return {
+      dontShow: !!this.extensionContext.globalState.get<boolean>(STATE_KEY),
+      dependencies: getDependencies(),
+    };
   }
 
   private createWebview() {
@@ -42,7 +46,7 @@ export class InstallationDependencies {
     }
 
     this.panel = vscode.window.createWebviewPanel(
-      "cursorless.dependencies",
+      "cursorless.installationDependencies",
       "Cursorless dependencies",
       {
         viewColumn: vscode.ViewColumn.Active,
@@ -56,17 +60,26 @@ export class InstallationDependencies {
       vscode.Uri.joinPath(
         this.extensionContext.extensionUri,
         "resources",
-        "installation.js",
+        "installationDependencies.js",
       ),
     );
 
     this.panel.webview.html = getWebviewContent(this.panel.webview, jsUri);
 
     const updateWebview = () => {
-      this.panel?.webview.postMessage(getState());
+      this.panel?.webview.postMessage(this.getState());
     };
 
     this.panel.onDidChangeViewState(updateWebview);
+
+    this.panel.webview.onDidReceiveMessage((message) => {
+      if (message.type === "dontShow") {
+        const checked = message.checked;
+        this.extensionContext.globalState.update(STATE_KEY, checked);
+      } else {
+        console.error(`Unknown message: ${message}`);
+      }
+    });
 
     const interval = setInterval(updateWebview, 5000);
 
@@ -75,25 +88,20 @@ export class InstallationDependencies {
       this.panel = undefined;
     });
 
-    this.panel.webview.postMessage(getState());
+    this.panel.webview.postMessage(this.getState());
   }
 }
 
-function stateHasMissingDependencies() {
-  return Object.values(getState()).some((value) => !value);
+function getDependencies(): Record<string, boolean> {
+  return {
+    talon: talonHomeExists(),
+    cursorlessTalon: cursorlessTalonExists(),
+    commandServer: commandServerInstalled(),
+  };
 }
 
-function getState() {
-  return {
-    talon: false,
-    cursorlessTalon: false,
-    commandServer: false,
-  };
-  //   return {
-  //     talon: talonHomeExists(),
-  //     cursorlessTalon: cursorlessTalonExists(),
-  //     commandServer: commandServerInstalled(),
-  //   };
+function hasMissingDependencies(dependencies: Record<string, boolean>) {
+  return Object.values(dependencies).some((value) => !value);
 }
 
 function talonHomeExists() {
