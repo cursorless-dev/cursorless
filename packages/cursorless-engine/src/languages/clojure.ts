@@ -1,3 +1,7 @@
+import type { SimpleScopeTypeType } from "@cursorless/common";
+import type { SyntaxNode } from "web-tree-sitter";
+import type { NodeFinder, NodeMatcherAlternative } from "../typings/Types";
+import { patternFinder } from "../util/nodeFinders";
 import {
   cascadingMatcher,
   chainedMatcher,
@@ -5,13 +9,7 @@ import {
   matcher,
   patternMatcher,
 } from "../util/nodeMatchers";
-import type { NodeMatcherAlternative, NodeFinder } from "../typings/Types";
-import type { SimpleScopeTypeType } from "@cursorless/common";
-import type { SyntaxNode } from "web-tree-sitter";
-import { delimitedSelector } from "../util/nodeSelectors";
-import { identity } from "lodash-es";
 import { getChildNodesForFieldName } from "../util/treeSitterUtils";
-import { patternFinder } from "../util/nodeFinders";
 
 /**
  * Picks a node by rounding down and using the given parity. This function is
@@ -73,13 +71,6 @@ function indexNodeFinder(
   };
 }
 
-function itemFinder() {
-  return indexNodeFinder(
-    (node) => node,
-    (nodeIndex: number) => nodeIndex,
-  );
-}
-
 /**
  * Return the "value" node children of a given node. These are the items in a list
  * @param node The node whose children to get
@@ -134,21 +125,6 @@ const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
   collectionKey: matcher(mapParityNodeFinder(0)),
-  collectionItem: cascadingMatcher(
-    // Treat each key value pair as a single item if we're in a map
-    matcher(
-      mapParityNodeFinder(0),
-      delimitedSelector(
-        (node) => node.type === "{" || node.type === "}",
-        ", ",
-        identity,
-        mapParityNodeFinder(1) as (node: SyntaxNode) => SyntaxNode,
-      ),
-    ),
-
-    // Otherwise just treat every item within a list as an item
-    matcher(itemFinder()),
-  ),
   value: matcher(mapParityNodeFinder(1)),
 
   // FIXME: Handle formal parameters

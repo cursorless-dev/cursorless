@@ -1,9 +1,9 @@
 import { matchAllIterator, Range, type TextDocument } from "@cursorless/common";
 import type { LanguageDefinition } from "../../../../languages/LanguageDefinition";
 import type { QueryCapture } from "../../../../languages/TreeSitterQuery/QueryCapture";
+import { OneWayNestedRangeFinder } from "../util/OneWayNestedRangeFinder";
+import { OneWayRangeFinder } from "../util/OneWayRangeFinder";
 import { getDelimiterRegex } from "./getDelimiterRegex";
-import { OneWayRangeFinder } from "./OneWayRangeFinder";
-import { OneWayNestedRangeFinder } from "./OneWayNestedRangeFinder";
 import type { DelimiterOccurrence, IndividualDelimiter } from "./types";
 
 /**

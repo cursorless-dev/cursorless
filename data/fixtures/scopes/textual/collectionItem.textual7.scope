@@ -1,0 +1,75 @@
+{
+    a: 1,
+    b: 2,
+    c: 3,
+}
+---
+
+[#1 Content] =
+[#1 Domain] = 1:4-1:8
+      >----<
+1|     a: 1,
+
+[#1 Removal] = 1:4-2:4
+      >-----
+1|     a: 1,
+2|     b: 2,
+   ----<
+
+[#1 Trailing delimiter] = 1:8-2:4
+          >-
+1|     a: 1,
+2|     b: 2,
+   ----<
+
+[#1 Insertion delimiter] = ",\n"
+
+
+[#2 Content] =
+[#2 Domain] = 2:4-2:8
+      >----<
+2|     b: 2,
+
+[#2 Removal] = 2:4-3:4
+      >-----
+2|     b: 2,
+3|     c: 3,
+   ----<
+
+[#2 Leading delimiter] = 1:8-2:4
+          >-
+1|     a: 1,
+2|     b: 2,
+   ----<
+
+[#2 Trailing delimiter] = 2:8-3:4
+          >-
+2|     b: 2,
+3|     c: 3,
+   ----<
+
+[#2 Insertion delimiter] = ",\n"
+
+
+[#3 Content] =
+[#3 Domain] = 3:4-3:8
+      >----<
+3|     c: 3,
+
+[#3 Removal] = 2:8-3:8
+          >-
+2|     b: 2,
+3|     c: 3,
+   --------<
+
+[#3 Leading delimiter] = 2:8-3:4
+          >-
+2|     b: 2,
+3|     c: 3,
+   ----<
+
+[#3 Trailing delimiter] = 3:8-3:9
+          >-<
+3|     c: 3,
+
+[#3 Insertion delimiter] = ",\n"

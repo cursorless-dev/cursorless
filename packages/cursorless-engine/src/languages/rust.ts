@@ -159,11 +159,6 @@ const nodeMatchers: Partial<
     ),
     leadingMatcher(["*.match_pattern![condition]"], ["if"]),
   ),
-  collectionItem: argumentMatcher(
-    "array_expression",
-    "tuple_expression",
-    "tuple_type",
-  ),
   type: cascadingMatcher(
     leadingMatcher(
       [
