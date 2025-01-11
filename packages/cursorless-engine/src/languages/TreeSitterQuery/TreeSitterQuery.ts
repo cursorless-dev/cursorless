@@ -98,26 +98,33 @@ export class TreeSitterQuery {
     start?: Position,
     end?: Position,
   ): QueryMatch[] {
-    const checkCaptures = ide().runMode !== "production";
+    const shouldCheckCaptures = ide().runMode !== "production";
+    const matches = this.getTreeMatches(document, start, end);
     const results: QueryMatch[] = [];
-
-    const matches = this.query.matches(
-      this.treeSitter.getTree(document).rootNode,
-      {
-        startPosition: start != null ? positionToPoint(start) : undefined,
-        endPosition: end != null ? positionToPoint(end) : undefined,
-      },
-    );
 
     for (const match of matches) {
       const mutableMatch = createMutableQueryMatch(document, match);
 
-      if (this.runPredicates(mutableMatch)) {
-        results.push(createQueryMatch(mutableMatch, checkCaptures));
+      if (!this.runPredicates(mutableMatch)) {
+        continue;
       }
+
+      results.push(createQueryMatch(mutableMatch, shouldCheckCaptures));
     }
 
     return results;
+  }
+
+  private getTreeMatches(
+    document: TextDocument,
+    start?: Position,
+    end?: Position,
+  ) {
+    const { rootNode } = this.treeSitter.getTree(document);
+    return this.query.matches(rootNode, {
+      startPosition: start != null ? positionToPoint(start) : undefined,
+      endPosition: end != null ? positionToPoint(end) : undefined,
+    });
   }
 
   private runPredicates(match: MutableQueryMatch): boolean {
@@ -150,7 +157,7 @@ function createMutableQueryMatch(
 
 function createQueryMatch(
   match: MutableQueryMatch,
-  checkCaptures: boolean,
+  shouldCheckCaptures: boolean,
 ): QueryMatch {
   const result: MutableQueryCapture[] = [];
   const map = new Map<
@@ -188,17 +195,21 @@ function createQueryMatch(
     }
   }
 
-  if (checkCaptures) {
-    for (const captureGroup of map.values()) {
-      const capturesAreValid = checkCaptureStartEnd(
-        rewriteStartOfEndOf(captureGroup.captures),
-        ide().messages,
-      );
-      if (!capturesAreValid && ide().runMode === "test") {
-        throw new Error("Invalid captures");
-      }
-    }
+  if (shouldCheckCaptures) {
+    checkCaptures(Array.from(map.values()));
   }
 
   return { captures: result };
+}
+
+function checkCaptures(matches: { captures: MutableQueryCapture[] }[]) {
+  for (const match of matches) {
+    const capturesAreValid = checkCaptureStartEnd(
+      rewriteStartOfEndOf(match.captures),
+      ide().messages,
+    );
+    if (!capturesAreValid && ide().runMode === "test") {
+      throw new Error("Invalid captures");
+    }
+  }
 }
