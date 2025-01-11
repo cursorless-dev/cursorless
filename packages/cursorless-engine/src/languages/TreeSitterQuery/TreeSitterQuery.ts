@@ -24,6 +24,8 @@ import { treeSitterQueryCache } from "./treeSitterQueryCache";
  * defines our own custom predicate operators
  */
 export class TreeSitterQuery {
+  private shouldCheckCaptures: boolean;
+
   private constructor(
     private treeSitter: TreeSitter,
 
@@ -38,7 +40,9 @@ export class TreeSitterQuery {
      * corresponds to a predicate for that pattern.
      */
     private patternPredicates: ((match: MutableQueryMatch) => boolean)[][],
-  ) {}
+  ) {
+    this.shouldCheckCaptures = ide().runMode !== "production";
+  }
 
   static create(
     languageId: string,
@@ -73,18 +77,17 @@ export class TreeSitterQuery {
     start?: Position,
     end?: Position,
   ): QueryMatch[] {
-    const shouldCheckCaptures = ide().runMode !== "production";
     const matches = this.getTreeMatches(document, start, end);
     const results: QueryMatch[] = [];
 
     for (const match of matches) {
-      const mutableMatch = createMutableQueryMatch(document, match);
+      const mutableMatch = this.createMutableQueryMatch(document, match);
 
       if (!this.runPredicates(mutableMatch)) {
         continue;
       }
 
-      results.push(createQueryMatch(mutableMatch, shouldCheckCaptures));
+      results.push(this.createQueryMatch(mutableMatch));
     }
 
     return results;
@@ -102,6 +105,24 @@ export class TreeSitterQuery {
     });
   }
 
+  private createMutableQueryMatch(
+    document: TextDocument,
+    match: treeSitter.QueryMatch,
+  ): MutableQueryMatch {
+    return {
+      patternIdx: match.pattern,
+      captures: match.captures.map(({ name, node }) => ({
+        name,
+        node,
+        document,
+        range: getNodeRange(node),
+        insertionDelimiter: undefined,
+        allowMultiple: false,
+        hasError: () => isContainedInErrorNode(node),
+      })),
+    };
+  }
+
   private runPredicates(match: MutableQueryMatch): boolean {
     for (const predicate of this.patternPredicates[match.patternIdx]) {
       if (!predicate(match)) {
@@ -110,81 +131,60 @@ export class TreeSitterQuery {
     }
     return true;
   }
-}
 
-function createMutableQueryMatch(
-  document: TextDocument,
-  match: treeSitter.QueryMatch,
-): MutableQueryMatch {
-  return {
-    patternIdx: match.pattern,
-    captures: match.captures.map(({ name, node }) => ({
-      name,
-      node,
-      document,
-      range: getNodeRange(node),
-      insertionDelimiter: undefined,
-      allowMultiple: false,
-      hasError: () => isContainedInErrorNode(node),
-    })),
-  };
-}
+  private createQueryMatch(match: MutableQueryMatch): QueryMatch {
+    const result: MutableQueryCapture[] = [];
+    const map = new Map<
+      string,
+      { acc: MutableQueryCapture; captures: MutableQueryCapture[] }
+    >();
 
-function createQueryMatch(
-  match: MutableQueryMatch,
-  shouldCheckCaptures: boolean,
-): QueryMatch {
-  const result: MutableQueryCapture[] = [];
-  const map = new Map<
-    string,
-    { acc: MutableQueryCapture; captures: MutableQueryCapture[] }
-  >();
+    // Merge the ranges of all captures with the same name into a single
+    // range and return one capture with that name.  We consider captures
+    // with names `@foo`, `@foo.start`, and `@foo.end` to have the same
+    // name, for which we'd return a capture with name `foo`.
 
-  // Merge the ranges of all captures with the same name into a single
-  // range and return one capture with that name.  We consider captures
-  // with names `@foo`, `@foo.start`, and `@foo.end` to have the same
-  // name, for which we'd return a capture with name `foo`.
+    for (const capture of match.captures) {
+      const name = normalizeCaptureName(capture.name);
+      const range = getStartOfEndOfRange(capture);
+      const existing = map.get(name);
 
-  for (const capture of match.captures) {
-    const name = normalizeCaptureName(capture.name);
-    const range = getStartOfEndOfRange(capture);
-    const existing = map.get(name);
-
-    if (existing == null) {
-      const captures = [capture];
-      const acc = {
-        ...capture,
-        name,
-        range,
-        hasError: () => captures.some((c) => c.hasError()),
-      };
-      result.push(acc);
-      map.set(name, { acc, captures });
-    } else {
-      existing.acc.range = existing.acc.range.union(range);
-      existing.acc.allowMultiple =
-        existing.acc.allowMultiple || capture.allowMultiple;
-      existing.acc.insertionDelimiter =
-        existing.acc.insertionDelimiter ?? capture.insertionDelimiter;
-      existing.captures.push(capture);
+      if (existing == null) {
+        const captures = [capture];
+        const acc = {
+          ...capture,
+          name,
+          range,
+          hasError: () => captures.some((c) => c.hasError()),
+        };
+        result.push(acc);
+        map.set(name, { acc, captures });
+      } else {
+        existing.acc.range = existing.acc.range.union(range);
+        existing.acc.allowMultiple =
+          existing.acc.allowMultiple || capture.allowMultiple;
+        existing.acc.insertionDelimiter =
+          existing.acc.insertionDelimiter ?? capture.insertionDelimiter;
+        existing.captures.push(capture);
+      }
     }
+
+    // if (this.shouldCheckCaptures) {
+    //   this.checkCaptures(Array.from(map.values()));
+    // }
+
+    return { captures: result };
   }
 
-  if (shouldCheckCaptures) {
-    checkCaptures(Array.from(map.values()));
-  }
-
-  return { captures: result };
-}
-
-function checkCaptures(matches: { captures: MutableQueryCapture[] }[]) {
-  for (const match of matches) {
-    const capturesAreValid = checkCaptureStartEnd(
-      rewriteStartOfEndOf(match.captures),
-      ide().messages,
-    );
-    if (!capturesAreValid && ide().runMode === "test") {
-      throw new Error("Invalid captures");
+  private checkCaptures(matches: { captures: MutableQueryCapture[] }[]) {
+    for (const match of matches) {
+      const capturesAreValid = checkCaptureStartEnd(
+        rewriteStartOfEndOf(match.captures),
+        ide().messages,
+      );
+      if (!capturesAreValid && ide().runMode === "test") {
+        throw new Error("Invalid captures");
+      }
     }
   }
 }
