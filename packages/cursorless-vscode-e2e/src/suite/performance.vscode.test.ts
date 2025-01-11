@@ -68,12 +68,12 @@ suite("Performance", async function () {
     // Surrounding pair
     [{ type: "surroundingPair", delimiter: "any" }, largeThresholdMs],
     [{ type: "surroundingPair", delimiter: "curlyBrackets" }, largeThresholdMs],
+    [{ type: "surroundingPair", delimiter: "any" }, largeThresholdMs, "every"],
     [
       { type: "surroundingPair", delimiter: "any" },
       largeThresholdMs,
       "previous",
     ],
-    [{ type: "surroundingPair", delimiter: "any" }, largeThresholdMs, "every"],
   ];
 
   for (const [scope, threshold, modifierType] of fixtures) {
