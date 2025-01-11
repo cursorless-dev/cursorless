@@ -101,7 +101,7 @@ async function removeToken(thresholdMs: number) {
 async function selectScopeType(
   scopeType: ScopeType,
   thresholdMs: number,
-  modifierType: ModifierType = "containing",
+  modifierType?: ModifierType,
 ) {
   await testPerformance(thresholdMs, {
     name: "setSelection",
@@ -114,7 +114,7 @@ async function selectScopeType(
 
 function getModifier(
   scopeType: ScopeType,
-  modifierType: ModifierType,
+  modifierType: ModifierType = "containing",
 ): Modifier {
   switch (modifierType) {
     case "containing":
