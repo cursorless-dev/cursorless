@@ -39,7 +39,7 @@
 ) @_.domain
 
 ;; Define these here because these node types don't exist in javascript.
-(
+(_
   [
     ;;!! class Foo { foo() {} }
     ;;!              ^^^^^^^^
@@ -80,7 +80,7 @@
   ";"? @namedFunction.end @functionName.domain.end @name.domain.end
 )
 
-(
+(_
   ;;!! (public | private | protected) foo = ...;
   ;;!  -----------------------------------------
   (public_field_definition
@@ -92,7 +92,7 @@
   ";"? @_.domain.end
 )
 
-(
+(_
   ;;!! (public | private | protected) foo: Bar = ...;
   ;;!  ----------------------------------------------
   (public_field_definition
@@ -340,7 +340,7 @@
 ;;!                   ^^^^
 ;;!                   xxxxxx
 ;;!                   ------------
-(
+(_
   (property_signature
     name: (_) @collectionKey @type.leading.endOf
     type: (_
@@ -348,6 +348,7 @@
       (_) @type @collectionKey.trailing.startOf
     )
   ) @_.domain.start
+  .
   ";"? @_.domain.end
 )
 
@@ -372,11 +373,12 @@
 )
 
 ;; Statements with optional trailing `;`
-(
+(_
   [
     (property_signature)
     (public_field_definition)
     (abstract_method_signature)
   ] @statement.start
+  .
   ";"? @statement.end
 )

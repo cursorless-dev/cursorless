@@ -46,10 +46,11 @@ import type { CustomScopeType, ScopeHandler } from "./scopeHandler.types";
  */
 export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
   constructor(private languageDefinitions: LanguageDefinitions) {
+    this.maybeCreate = this.maybeCreate.bind(this);
     this.create = this.create.bind(this);
   }
 
-  create(
+  maybeCreate(
     scopeType: ScopeType | CustomScopeType,
     languageId: string,
   ): ScopeHandler | undefined {
@@ -120,5 +121,16 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
           .get(languageId)
           ?.getScopeHandler(scopeType);
     }
+  }
+
+  create(
+    scopeType: ScopeType | CustomScopeType,
+    languageId: string,
+  ): ScopeHandler {
+    const handler = this.maybeCreate(scopeType, languageId);
+    if (handler == null) {
+      throw new Error(`Couldn't create scope handler for '${scopeType.type}'`);
+    }
+    return handler;
   }
 }

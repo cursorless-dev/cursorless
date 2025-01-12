@@ -62,6 +62,21 @@ class HasMultipleChildrenOfType extends QueryPredicateOperator<HasMultipleChildr
   }
 }
 
+/**
+ * A predicate operator that returns true if the nodes text matched the regular expression
+ */
+class Match extends QueryPredicateOperator<Match> {
+  name = "match?" as const;
+  schema = z.tuple([q.node, q.string]);
+
+  run(nodeInfo: MutableQueryCapture, pattern: string) {
+    const { document, range } = nodeInfo;
+    const regex = new RegExp(pattern, "ds");
+    const text = document.getText(range);
+    return regex.test(text);
+  }
+}
+
 class ChildRange extends QueryPredicateOperator<ChildRange> {
   name = "child-range!" as const;
   schema = z.union([
@@ -277,4 +292,5 @@ export const queryPredicateOperators = [
   new InsertionDelimiter(),
   new SingleOrMultilineDelimiter(),
   new HasMultipleChildrenOfType(),
+  new Match(),
 ];

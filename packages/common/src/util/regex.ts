@@ -30,16 +30,20 @@ function makeCache<T, U>(func: (arg: T) => U) {
 export const rightAnchored = makeCache(_rightAnchored);
 export const leftAnchored = makeCache(_leftAnchored);
 
+export function matchAllIterator(text: string, regex: RegExp) {
+  // Reset the regex to start at the beginning of string, in case the regex has
+  // been used before.
+  // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec#finding_successive_matches
+  regex.lastIndex = 0;
+  return text.matchAll(regex);
+}
+
 export function matchAll<T>(
   text: string,
   regex: RegExp,
   mapfn: (v: RegExpMatchArray, k: number) => T,
 ) {
-  // Reset the regex to start at the beginning of string, in case the regex has
-  // been used before.
-  // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec#finding_successive_matches
-  regex.lastIndex = 0;
-  return Array.from(text.matchAll(regex), mapfn);
+  return Array.from(matchAllIterator(text, regex), mapfn);
 }
 
 export function testRegex(regex: RegExp, text: string): boolean {

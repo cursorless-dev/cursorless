@@ -3,12 +3,13 @@ import { showError } from "@cursorless/common";
 import { uniqWith } from "lodash-es";
 import type { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
 import type { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
+import { ide } from "../../../../singletons/ide.singleton";
 import { BaseScopeHandler } from "../BaseScopeHandler";
 import { compareTargetScopes } from "../compareTargetScopes";
 import type { TargetScope } from "../scope.types";
 import type { ScopeIteratorRequirements } from "../scopeHandler.types";
+import { getQuerySearchRange } from "./getQuerySearchRange";
 import { mergeAdjacentBy } from "./mergeAdjacentBy";
-import { ide } from "../../../../singletons/ide.singleton";
 
 /** Base scope handler to use for both tree-sitter scopes and their iteration scopes */
 export abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
@@ -20,18 +21,20 @@ export abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
     editor: TextEditor,
     position: Position,
     direction: Direction,
-    _hints: ScopeIteratorRequirements,
+    hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
     const { document } = editor;
 
-    // Due to a tree-sitter bug, we generate all scopes from the entire file
-    // instead of using `_hints` to restrict the search range to scopes we care
-    // about. The actual scopes yielded to the client are filtered by
-    // `BaseScopeHandler` anyway, so there's no impact on correctness, just
-    // performance. We'd like to roll this back; see #1769.
+    /** Narrow the range within which tree-sitter searches, for performance */
+    const { start, end } = getQuerySearchRange(
+      document,
+      position,
+      direction,
+      hints,
+    );
 
     const scopes = this.query
-      .matches(document)
+      .matches(document, start, end)
       .map((match) => this.matchToScope(editor, match))
       .filter((scope): scope is ExtendedTargetScope => scope != null)
       .sort((a, b) => compareTargetScopes(direction, position, a, b));

@@ -74,7 +74,7 @@ export class LanguageDefinition {
    * legacy pathways
    */
   getScopeHandler(scopeType: ScopeType) {
-    if (!this.query.captureNames.includes(scopeType.type)) {
+    if (!this.query.hasCapture(scopeType.type)) {
       return undefined;
     }
 
@@ -82,21 +82,28 @@ export class LanguageDefinition {
   }
 
   /**
-   * This is a low-level function that just returns a list of captures of the given
-   * capture name in the document. We use this in our surrounding pair code.
+   * This is a low-level function that just returns a map of all captures in the
+   * document. We use this in our surrounding pair code.
    *
    * @param document The document to search
    * @param captureName The name of a capture to search for
-   * @returns A list of captures of the given capture name in the document
+   * @returns A map of captures in the document
    */
-  getCaptures(
-    document: TextDocument,
-    captureName: SimpleScopeTypeType,
-  ): QueryCapture[] {
-    return this.query
-      .matches(document)
-      .map((match) => match.captures.find(({ name }) => name === captureName))
-      .filter((capture) => capture != null);
+  getCapturesMap(document: TextDocument) {
+    const matches = this.query.matches(document);
+    const result: Partial<Record<SimpleScopeTypeType, QueryCapture[]>> = {};
+
+    for (const match of matches) {
+      for (const capture of match.captures) {
+        const name = capture.name as SimpleScopeTypeType;
+        if (result[name] == null) {
+          result[name] = [];
+        }
+        result[name]!.push(capture);
+      }
+    }
+
+    return result;
   }
 }
 

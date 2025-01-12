@@ -108,6 +108,13 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
         throw Error(
           `Unexpected modifier '${modifier.type}'; it should have been removed during inference`,
         );
+      default: {
+        // Ensure we don't miss any new modifiers. Needed because we don't have input validation.
+        // FIXME: remove once we have schema validation (#983)
+        const _exhaustiveCheck: never = modifier;
+        const { type } = modifier;
+        throw new Error(`Unknown modifier: ${type}`);
+      }
     }
   }
 

@@ -182,7 +182,7 @@
 ) @_.domain
 
 ;;!! aaa = 0;
-(
+(_
   (assignment_expression
     left: (_) @name @value.leading.endOf
     right: (_) @value @name.trailing.startOf

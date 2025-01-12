@@ -80,6 +80,7 @@ export const scopeSupportFacets = [
   "textFragment.string.multiLine",
 
   "disqualifyDelimiter",
+  "pairDelimiter",
 
   "branch.if",
   "branch.if.iteration",
