@@ -14,6 +14,12 @@ export interface SelectionOffsets {
   active: number;
 }
 
+export interface CharacterRangeOffsets {
+  type: "character";
+  start: number;
+  end: number;
+}
+
 export interface EditorState {
   text: string;
   languageId?: string;

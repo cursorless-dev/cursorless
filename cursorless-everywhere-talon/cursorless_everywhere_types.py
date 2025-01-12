@@ -1,9 +1,21 @@
-from typing import TypedDict
+from typing import Literal, TypedDict
 
 
 class SelectionOffsets(TypedDict):
     anchor: int
     active: int
+
+
+class CharacterRangeOffsets(TypedDict):
+    type: Literal["character"]
+    start: int
+    end: int
+
+
+class LineRange(TypedDict):
+    type: Literal["line"]
+    start: int
+    end: int
 
 
 class EditorState(TypedDict):

@@ -53,6 +53,12 @@ const actions: TalonActions = {
       }
       _finalEditorState.text = edit.text;
     },
+    cursorless_everywhere_set_highlight_ranges(
+      _ranges: any[],
+      _highlightId: string | undefined,
+    ): void {
+      // Do nothing
+    },
   },
 };
 

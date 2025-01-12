@@ -24,6 +24,7 @@ import { Notifier, type KeyValueStore } from "@cursorless/common";
 import { pull } from "lodash-es";
 import type { Talon } from "../types/talon.types";
 import type { EditorState } from "../types/types";
+import { setHighlightRanges } from "./setHighlightRanges";
 import { TalonJsCapabilities } from "./TalonJsCapabilities";
 import { TalonJsClipboard } from "./TalonJsClipboard";
 import { TalonJsConfiguration } from "./TalonJsConfiguration";
@@ -139,11 +140,11 @@ export class TalonJsIDE implements IDE {
   }
 
   setHighlightRanges(
-    _highlightId: string | undefined,
-    _editor: TextEditor,
-    _ranges: GeneralizedRange[],
+    highlightId: string | undefined,
+    editor: TextEditor,
+    ranges: GeneralizedRange[],
   ): Promise<void> {
-    throw new Error("setHighlightRanges not implemented.");
+    return setHighlightRanges(this.talon, editor, ranges, highlightId);
   }
 
   onDidChangeTextDocument(

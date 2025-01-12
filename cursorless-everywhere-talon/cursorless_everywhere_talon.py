@@ -1,9 +1,15 @@
 import json
-from typing import Any
+from typing import Any, Optional, Union
 
 from talon import Context, Module, actions
 
-from .cursorless_everywhere_types import EditorEdit, EditorState, SelectionOffsets
+from .cursorless_everywhere_types import (
+    CharacterRangeOffsets,
+    EditorEdit,
+    EditorState,
+    LineRange,
+    SelectionOffsets,
+)
 
 mod = Module()
 
@@ -71,5 +77,13 @@ class Actions:
     ):
         """Executes a Cursorless command, but does not wait for it to finish, nor return the response"""
 
-    def private_cursorless_talonjs_get_response_json() -> str:
+    def private_cursorless_talonjs_get_response_json() -> str:  # pyright: ignore [reportReturnType]
         """Returns the response from the last Cursorless command"""
+
+    def cursorless_everywhere_set_highlight_ranges(
+        ranges: list[Union[CharacterRangeOffsets, LineRange]],  # pyright: ignore [reportGeneralTypeIssues]
+        highlightId: Optional[str] = None,
+    ):
+        """Set focused element highlight ranges"""
+        print("Setting highlight ranges", ranges, highlightId)
+        actions.skip()

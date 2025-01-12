@@ -1,6 +1,8 @@
 import type { Capabilities, CommandCapabilityMap } from "@cursorless/common";
 
 const COMMAND_CAPABILITIES: CommandCapabilityMap = {
+  highlight: { acceptsLocation: true },
+
   clipboardCopy: undefined,
   clipboardPaste: undefined,
   toggleLineComment: undefined,
@@ -12,7 +14,6 @@ const COMMAND_CAPABILITIES: CommandCapabilityMap = {
   showDebugHover: undefined,
   extractVariable: undefined,
   fold: undefined,
-  highlight: undefined,
   unfold: undefined,
   showReferences: undefined,
   insertLineAfter: undefined,
