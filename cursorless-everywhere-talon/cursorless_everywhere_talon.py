@@ -62,6 +62,14 @@ class Actions:
     ):
         """Edit focused element text"""
 
+    def cursorless_everywhere_flash_ranges(
+        ranges: list[FlashDescriptorOffsets],  # pyright: ignore [reportGeneralTypeIssues]
+    ):
+        """Flash ranges in focused element"""
+        actions.skip()
+
+    # Private actions
+
     def private_cursorless_talonjs_run_and_wait(
         command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
         arg1: Any = None,
@@ -78,10 +86,3 @@ class Actions:
 
     def private_cursorless_talonjs_get_response_json() -> str:  # pyright: ignore [reportReturnType]
         """Returns the response from the last Cursorless command"""
-
-    def cursorless_everywhere_flash_ranges(
-        ranges: list[FlashDescriptorOffsets],  # pyright: ignore [reportGeneralTypeIssues]
-    ):
-        """Flash ranges"""
-        print("flash  ranges", ranges)
-        actions.skip()
