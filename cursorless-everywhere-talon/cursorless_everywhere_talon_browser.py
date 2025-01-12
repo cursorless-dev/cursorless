@@ -72,11 +72,9 @@ class Actions:
                 for r in js_array_to_python_list(ranges)
             ],
         }
-        rpc(command)
-
-
-def rpc(command: dict):
-    actions.user.run_rpc_command(RPC_COMMAND, command)
+        res = rpc_get(command)
+        if use_fallback(res):
+            actions.next(ranges)
 
 
 def rpc_get(command: dict):
