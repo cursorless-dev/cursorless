@@ -65,13 +65,12 @@ class Actions:
     def cursorless_everywhere_flash_ranges(
         ranges: list[RangeOffsets],  # pyright: ignore [reportGeneralTypeIssues]
     ):
-        updated = [
-            js_object_to_python_dict(r, ["start", "end"])
-            for r in js_array_to_python_list(ranges)
-        ]
         command = {
             "id": "flashRanges",
-            "ranges": updated,
+            "ranges": [
+                js_object_to_python_dict(r, ["start", "end"])
+                for r in js_array_to_python_list(ranges)
+            ],
         }
         rpc(command)
 
