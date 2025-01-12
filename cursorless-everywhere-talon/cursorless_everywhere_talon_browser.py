@@ -3,7 +3,7 @@ from talon import Context, Module, actions
 from .cursorless_everywhere_types import (
     EditorEdit,
     EditorState,
-    FlashDescriptorOffsets,
+    RangeOffsets,
     SelectionOffsets,
 )
 
@@ -63,18 +63,11 @@ class Actions:
             actions.next(edit)
 
     def cursorless_everywhere_flash_ranges(
-        ranges: list[FlashDescriptorOffsets],  # pyright: ignore [reportGeneralTypeIssues]
+        ranges: list[RangeOffsets],  # pyright: ignore [reportGeneralTypeIssues]
     ):
         updated = [
-            js_object_to_python_dict(d, ["style", "range"])
-            for d in js_array_to_python_list(ranges)
-        ]
-        updated = [
-            {
-                "style": d["style"],
-                "range": js_object_to_python_dict(d["range"], ["type", "start", "end"]),
-            }
-            for d in updated
+            js_object_to_python_dict(r, ["start", "end"])
+            for r in js_array_to_python_list(ranges)
         ]
         command = {
             "id": "flashRanges",

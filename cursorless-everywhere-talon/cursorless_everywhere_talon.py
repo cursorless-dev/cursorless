@@ -6,7 +6,7 @@ from talon import Context, Module, actions
 from .cursorless_everywhere_types import (
     EditorEdit,
     EditorState,
-    FlashDescriptorOffsets,
+    RangeOffsets,
     SelectionOffsets,
 )
 
@@ -63,7 +63,7 @@ class Actions:
         """Edit focused element text"""
 
     def cursorless_everywhere_flash_ranges(
-        ranges: list[FlashDescriptorOffsets],  # pyright: ignore [reportGeneralTypeIssues]
+        ranges: list[RangeOffsets],  # pyright: ignore [reportGeneralTypeIssues]
     ):
         """Flash ranges in focused element"""
         actions.skip()

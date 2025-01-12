@@ -1,9 +1,7 @@
 import type {
   Command,
   CommandResponse,
-  FlashStyle,
   IDE,
-  LineRange,
   NormalizedIDE,
   TestHelpers,
 } from "@cursorless/common";
@@ -16,17 +14,9 @@ export interface SelectionOffsets {
   active: number;
 }
 
-export interface CharacterRangeOffsets {
-  type: "character";
+export interface RangeOffsets {
   start: number;
   end: number;
-}
-
-export type GeneralizedRangeOffsets = CharacterRangeOffsets | LineRange;
-
-export interface FlashDescriptorOffsets {
-  style: FlashStyle;
-  range: GeneralizedRangeOffsets;
 }
 
 export interface EditorState {

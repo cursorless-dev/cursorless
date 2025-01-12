@@ -1,4 +1,4 @@
-from typing import Literal, TypedDict
+from typing import TypedDict
 
 
 class SelectionOffsets(TypedDict):
@@ -6,24 +6,9 @@ class SelectionOffsets(TypedDict):
     active: int
 
 
-class CharacterRangeOffsets(TypedDict):
-    type: Literal["character"]
+class RangeOffsets(TypedDict):
     start: int
     end: int
-
-
-class LineRange(TypedDict):
-    type: Literal["line"]
-    start: int
-    end: int
-
-
-GeneralizedRangeOffsets = CharacterRangeOffsets | LineRange
-
-
-class FlashDescriptorOffsets(TypedDict):
-    style: str
-    range: GeneralizedRangeOffsets
 
 
 class EditorState(TypedDict):
