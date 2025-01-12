@@ -18,6 +18,14 @@ class LineRange(TypedDict):
     end: int
 
 
+GeneralizedRangeOffsets = CharacterRangeOffsets | LineRange
+
+
+class FlashDescriptorOffsets(TypedDict):
+    style: str
+    range: GeneralizedRangeOffsets
+
+
 class EditorState(TypedDict):
     text: str
     selections: list[SelectionOffsets]

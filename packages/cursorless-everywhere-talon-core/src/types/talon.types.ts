@@ -1,8 +1,7 @@
-import type { LineRange } from "@cursorless/common";
 import type {
-  CharacterRangeOffsets,
   EditorEdit,
   EditorState,
+  FlashDescriptorOffsets,
   SelectionOffsets,
 } from "./types";
 
@@ -23,9 +22,8 @@ export interface TalonActions {
     cursorless_everywhere_get_editor_state(): EditorState;
     cursorless_everywhere_set_selections(selections: SelectionOffsets[]): void;
     cursorless_everywhere_edit_text(edit: EditorEdit): void;
-    cursorless_everywhere_set_highlight_ranges(
-      ranges: (CharacterRangeOffsets | LineRange)[],
-      highlightId: string | undefined,
+    cursorless_everywhere_flash_ranges(
+      flashDescriptors: FlashDescriptorOffsets[],
     ): void;
   };
 }

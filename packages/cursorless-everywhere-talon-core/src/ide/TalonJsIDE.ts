@@ -25,7 +25,7 @@ import { pull } from "lodash-es";
 import type { Talon } from "../types/talon.types";
 import type { EditorState } from "../types/types";
 import { createTextEditor } from "./createTextEditor";
-import { setHighlightRanges } from "./setHighlightRanges";
+import { flashRanges } from "./flashRanges";
 import { TalonJsCapabilities } from "./TalonJsCapabilities";
 import { TalonJsClipboard } from "./TalonJsClipboard";
 import { TalonJsConfiguration } from "./TalonJsConfiguration";
@@ -134,16 +134,16 @@ export class TalonJsIDE implements IDE {
     throw new Error("executeCommand not implemented.");
   }
 
-  flashRanges(_flashDescriptors: FlashDescriptor[]): Promise<void> {
-    return Promise.resolve();
+  flashRanges(flashDescriptors: FlashDescriptor[]): Promise<void> {
+    return flashRanges(this.talon, flashDescriptors);
   }
 
   setHighlightRanges(
-    highlightId: string | undefined,
-    editor: TextEditor,
-    ranges: GeneralizedRange[],
+    _highlightId: string | undefined,
+    _editor: TextEditor,
+    _ranges: GeneralizedRange[],
   ): Promise<void> {
-    return setHighlightRanges(this.talon, editor, ranges, highlightId);
+    throw new Error("setHighlightRanges not implemented.");
   }
 
   onDidChangeTextDocument(

@@ -1,6 +1,7 @@
 import type {
   EditorEdit,
   EditorState,
+  FlashDescriptorOffsets,
   SelectionOffsets,
   Talon,
   TalonActions,
@@ -53,9 +54,8 @@ const actions: TalonActions = {
       }
       _finalEditorState.text = edit.text;
     },
-    cursorless_everywhere_set_highlight_ranges(
-      _ranges: any[],
-      _highlightId: string | undefined,
+    cursorless_everywhere_flash_ranges(
+      _flashDescriptors: FlashDescriptorOffsets[],
     ): void {
       // Do nothing
     },

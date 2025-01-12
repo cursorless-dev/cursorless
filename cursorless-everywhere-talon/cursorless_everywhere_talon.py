@@ -1,13 +1,12 @@
 import json
-from typing import Any, Optional, Union
+from typing import Any
 
 from talon import Context, Module, actions
 
 from .cursorless_everywhere_types import (
-    CharacterRangeOffsets,
     EditorEdit,
     EditorState,
-    LineRange,
+    FlashDescriptorOffsets,
     SelectionOffsets,
 )
 
@@ -80,10 +79,9 @@ class Actions:
     def private_cursorless_talonjs_get_response_json() -> str:  # pyright: ignore [reportReturnType]
         """Returns the response from the last Cursorless command"""
 
-    def cursorless_everywhere_set_highlight_ranges(
-        ranges: list[Union[CharacterRangeOffsets, LineRange]],  # pyright: ignore [reportGeneralTypeIssues]
-        highlightId: Optional[str] = None,
+    def cursorless_everywhere_flash_ranges(
+        ranges: list[FlashDescriptorOffsets],  # pyright: ignore [reportGeneralTypeIssues]
     ):
-        """Set focused element highlight ranges"""
-        print("Setting highlight ranges", ranges, highlightId)
+        """Flash ranges"""
+        print("flash  ranges", ranges)
         actions.skip()
