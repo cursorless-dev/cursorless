@@ -5,7 +5,10 @@ import {
   BoundedParagraphScopeHandler,
 } from "./BoundedScopeHandler";
 import { CharacterScopeHandler } from "./CharacterScopeHandler";
+import { CollectionItemScopeHandler } from "./CollectionItemScopeHandler/CollectionItemScopeHandler";
+import { ConditionalScopeHandler } from "./ConditionalScopeHandler";
 import { DocumentScopeHandler } from "./DocumentScopeHandler";
+import { FallbackScopeHandler } from "./FallbackScopeHandler";
 import { IdentifierScopeHandler } from "./IdentifierScopeHandler";
 import { LineScopeHandler } from "./LineScopeHandler";
 import { OneOfScopeHandler } from "./OneOfScopeHandler";
@@ -24,7 +27,7 @@ import {
 } from "./SurroundingPairScopeHandler";
 import { TokenScopeHandler } from "./TokenScopeHandler";
 import { WordScopeHandler } from "./WordScopeHandler/WordScopeHandler";
-import type { CustomScopeType, ScopeHandler } from "./scopeHandler.types";
+import type { ComplexScopeType, ScopeHandler } from "./scopeHandler.types";
 
 /**
  * Returns a scope handler for the given scope type and language id, or
@@ -50,7 +53,7 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
   }
 
   maybeCreate(
-    scopeType: ScopeType | CustomScopeType,
+    scopeType: ScopeType | ComplexScopeType,
     languageId: string,
   ): ScopeHandler | undefined {
     switch (scopeType.type) {
@@ -72,8 +75,6 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
         return new BoundedParagraphScopeHandler(this, scopeType, languageId);
       case "document":
         return new DocumentScopeHandler(scopeType, languageId);
-      case "oneOf":
-        return OneOfScopeHandler.create(this, scopeType, languageId);
       case "nonWhitespaceSequence":
         return new NonWhitespaceSequenceScopeHandler(
           this,
@@ -92,6 +93,12 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
         return new CustomRegexScopeHandler(this, scopeType, languageId);
       case "glyph":
         return new GlyphScopeHandler(this, scopeType, languageId);
+      case "collectionItem":
+        return new CollectionItemScopeHandler(
+          this,
+          this.languageDefinitions,
+          languageId,
+        );
       case "surroundingPair":
         return new SurroundingPairScopeHandler(
           this.languageDefinitions,
@@ -106,6 +113,12 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
         );
       case "custom":
         return scopeType.scopeHandler;
+      case "oneOf":
+        return OneOfScopeHandler.create(this, scopeType, languageId);
+      case "fallback":
+        return new FallbackScopeHandler(this, scopeType, languageId);
+      case "conditional":
+        return new ConditionalScopeHandler(this, scopeType, languageId);
       case "instance":
         // Handle instance pseudoscope with its own special modifier
         throw Error("Unexpected scope type 'instance'");
@@ -117,7 +130,7 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
   }
 
   create(
-    scopeType: ScopeType | CustomScopeType,
+    scopeType: ScopeType | ComplexScopeType,
     languageId: string,
   ): ScopeHandler {
     const handler = this.maybeCreate(scopeType, languageId);

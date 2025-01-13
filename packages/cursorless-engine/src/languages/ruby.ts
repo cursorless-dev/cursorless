@@ -113,9 +113,6 @@ const EXPRESSION_STATEMENT_PARENT_TYPES = [
   "then",
 ];
 
-const mapTypes = ["hash"];
-const listTypes = ["array", "string_array", "symbol_array"];
-
 const assignmentOperators = [
   "=",
   "+=",
@@ -187,6 +184,5 @@ const nodeMatchers: Partial<
     ],
     assignmentOperators.concat(mapKeyValueSeparators),
   ),
-  collectionItem: argumentMatcher(...mapTypes, ...listTypes),
 };
 export const patternMatchers = createPatternMatchers(nodeMatchers);

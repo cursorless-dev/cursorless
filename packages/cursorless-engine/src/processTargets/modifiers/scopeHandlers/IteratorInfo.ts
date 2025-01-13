@@ -5,6 +5,7 @@
 interface IteratorInfo<T> {
   iterator: Iterator<T>;
   value: T;
+  index: number;
 }
 
 /**
@@ -19,7 +20,7 @@ interface IteratorInfo<T> {
 export function getInitialIteratorInfos<T>(
   iterators: Iterator<T>[],
 ): IteratorInfo<T>[] {
-  return iterators.flatMap((iterator) => {
+  return iterators.flatMap((iterator, i) => {
     const { value, done } = iterator.next();
     return done
       ? []
@@ -27,6 +28,7 @@ export function getInitialIteratorInfos<T>(
           {
             iterator,
             value,
+            index: i,
           },
         ];
   });
@@ -47,10 +49,10 @@ export function advanceIteratorsUntil<T>(
   criterion: (arg: T) => boolean,
 ): IteratorInfo<T>[] {
   return iteratorInfos.flatMap((iteratorInfo) => {
-    const { iterator } = iteratorInfo;
+    const { iterator, index } = iteratorInfo;
     let { value } = iteratorInfo;
-
     let done: boolean | undefined = false;
+
     while (!done && !criterion(value)) {
       ({ value, done } = iterator.next());
     }
@@ -59,6 +61,6 @@ export function advanceIteratorsUntil<T>(
       return [];
     }
 
-    return [{ iterator, value }];
+    return [{ iterator, value, index }];
   });
 }

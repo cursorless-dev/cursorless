@@ -1,0 +1,21 @@
+[
+
+    1
+
+]
+---
+
+[Content] =
+[Domain] = 2:4-2:5
+      >-<
+2|     1
+
+[Removal] = 2:0-2:5
+  >-----<
+2|     1
+
+[Leading delimiter] = 2:0-2:4
+  >----<
+2|     1
+
+[Insertion delimiter] = ",\n"

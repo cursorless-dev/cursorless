@@ -21,7 +21,6 @@ import {
   ExcludeInteriorStage,
   InteriorOnlyStage,
 } from "./modifiers/InteriorStage";
-import { ItemStage } from "./modifiers/ItemStage";
 import { LeadingStage, TrailingStage } from "./modifiers/LeadingTrailingStages";
 import { OrdinalScopeStage } from "./modifiers/OrdinalScopeStage";
 import { EndOfStage, StartOfStage } from "./modifiers/PositionStage";
@@ -138,8 +137,6 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
     switch (modifier.scopeType.type) {
       case "notebookCell":
         return new NotebookCellStage(modifier);
-      case "collectionItem":
-        return new ItemStage(this.languageDefinitions, this, modifier);
       default:
         // Default to containing syntax scope using tree sitter
         return new LegacyContainingSyntaxScopeStage(

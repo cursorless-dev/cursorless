@@ -90,13 +90,6 @@ export class EveryScopeStage implements ModifierStage {
     }
 
     if (scopes.length === 0) {
-      if (scopeType.type === "collectionItem") {
-        // For `collectionItem`, fall back to generic implementation
-        return this.modifierStageFactory
-          .getLegacyScopeStage(this.modifier)
-          .run(target);
-      }
-
       throw new NoContainingScopeError(scopeType.type);
     }
 
