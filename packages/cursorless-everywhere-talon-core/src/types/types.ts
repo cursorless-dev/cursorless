@@ -14,6 +14,11 @@ export interface SelectionOffsets {
   active: number;
 }
 
+export interface RangeOffsets {
+  start: number;
+  end: number;
+}
+
 export interface EditorState {
   text: string;
   languageId?: string;

@@ -3,6 +3,7 @@ from talon import Context, Module, actions
 from .cursorless_everywhere_types import (
     EditorEdit,
     EditorState,
+    RangeOffsets,
     SelectionOffsets,
 )
 
@@ -60,6 +61,20 @@ class Actions:
         res = rpc_get(command)
         if use_fallback(res):
             actions.next(edit)
+
+    def cursorless_everywhere_flash_ranges(
+        ranges: list[RangeOffsets],  # pyright: ignore [reportGeneralTypeIssues]
+    ):
+        command = {
+            "id": "flashRanges",
+            "ranges": [
+                js_object_to_python_dict(r, ["start", "end"])
+                for r in js_array_to_python_list(ranges)
+            ],
+        }
+        res = rpc_get(command)
+        if use_fallback(res):
+            actions.next(ranges)
 
 
 def rpc_get(command: dict):
