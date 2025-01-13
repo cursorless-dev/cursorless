@@ -21,7 +21,8 @@ export function createTargetScope(
       : undefined;
 
   // We have both leading and trailing delimiter ranges
-  // The leading one is longer/more specific so prefer to use that for removal.
+  // If the leading one is longer/more specific, prefer to use that for removal;
+  // otherwise use undefined to fallback to the default behavior (often trailing)
   const removalRange =
     !isEveryScope &&
     leadingDelimiterRange != null &&
