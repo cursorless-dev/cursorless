@@ -49,7 +49,7 @@ extension](#running--testing-extension-locally). You may also find the [VSCode A
 
    Also note that if you are adding support for a new language that isn't in the default list of [language identifiers](https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers) supported by VSCode, you may need to add an extension dependency. See [Adding a new language](./adding-a-new-language.md#2-ensure-file-type-is-supported-by-vscode) for more details.
 
-6. Copy / symlink `cursorless-talon-dev` into your Talon user directory for some useful voice commands for developing Cursorless.
+6. Copy / symlink [`cursorless-talon-dev`](../../cursorless-talon-dev) into your Talon user directory for some useful voice commands for developing Cursorless.
 
 ## Running / testing extension locally
 
@@ -65,7 +65,7 @@ If you don't have the `cursorless-talon-dev` files in your Talon user directory 
 
 The entire test suite takes a little while to run (1-2 mins), so you may want to run just a subset of the tests.
 
-To specify the set of tests to run, say `"debug generate subset"`, or if you haven't installed the cursorless-talon-dev files, run the VSCode task "Generate test subset file". To do this, choose "Tasks: Run Task" from the command pallete.
+To specify the set of tests to run, say `"debug generate subset"`, or if you haven't installed the cursorless-talon-dev files, run the VSCode task "Generate test subset file". To do this, choose "Tasks: Run Task" from the command palette.
 
 To run the specified subset of tests, say `"debug test subset"` (or use the "Run test subset" launch config).
 
