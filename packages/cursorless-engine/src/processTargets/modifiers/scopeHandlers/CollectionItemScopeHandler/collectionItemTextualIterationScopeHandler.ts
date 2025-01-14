@@ -3,7 +3,7 @@ import type { TargetScope } from "../scope.types";
 import type { ComplexScopeType } from "../scopeHandler.types";
 import { separatorRegex } from "./getSeparatorOccurrences";
 
-export const collectionItemIterationScopeHandler: ComplexScopeType = {
+export const collectionItemTextualIterationScopeHandler: ComplexScopeType = {
   type: "fallback",
   scopeTypes: [
     {

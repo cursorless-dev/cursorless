@@ -16,7 +16,7 @@ import type {
 import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
 import { OneWayNestedRangeFinder } from "../util/OneWayNestedRangeFinder";
 import { OneWayRangeFinder } from "../util/OneWayRangeFinder";
-import { collectionItemIterationScopeHandler } from "./collectionItemIterationScopeHandler";
+import { collectionItemTextualIterationScopeHandler } from "./collectionItemTextualIterationScopeHandler";
 import { createTargetScope } from "./createTargetScope";
 import { getInteriorRanges } from "./getInteriorRanges";
 import { getSeparatorOccurrences } from "./getSeparatorOccurrences";
@@ -26,7 +26,7 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
   protected isHierarchical = true;
 
   get iterationScopeType(): ComplexScopeType {
-    return collectionItemIterationScopeHandler;
+    return collectionItemTextualIterationScopeHandler;
   }
 
   constructor(
