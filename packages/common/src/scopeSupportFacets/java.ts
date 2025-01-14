@@ -21,14 +21,17 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.actual": supported,
   "argument.actual.iteration": supported,
 
-  element: notApplicable,
-  tags: notApplicable,
-  attribute: notApplicable,
-  "key.attribute": notApplicable,
-  "value.attribute": notApplicable,
+  "collectionItem.unenclosed": supported,
+  "collectionItem.unenclosed.iteration": supported,
 
   "branch.if": supported,
   "branch.if.iteration": supported,
   "branch.try": supported,
   "branch.try.iteration": supported,
+
+  element: notApplicable,
+  tags: notApplicable,
+  attribute: notApplicable,
+  "key.attribute": notApplicable,
+  "value.attribute": notApplicable,
 };
