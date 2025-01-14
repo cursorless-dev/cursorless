@@ -45,5 +45,5 @@ tutorial (previous | last): user.private_cursorless_tutorial_previous()
 tutorial restart: user.private_cursorless_tutorial_restart()
 tutorial resume: user.private_cursorless_tutorial_resume()
 tutorial (list | close): user.private_cursorless_tutorial_list()
-tutorial <user.private_cursorless_number_small>:
-    user.private_cursorless_tutorial_start_by_number(private_cursorless_number_small)
+tutorial <number_small>:
+    user.private_cursorless_tutorial_start_by_number(number_small)

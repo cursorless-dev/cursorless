@@ -1,4 +1,5 @@
 import type {
+  RangeOffsets,
   EditorEdit,
   EditorState,
   SelectionOffsets,
@@ -52,6 +53,9 @@ const actions: TalonActions = {
         throw new Error("Final editor state not set.");
       }
       _finalEditorState.text = edit.text;
+    },
+    cursorless_everywhere_flash_ranges(_ranges: RangeOffsets[]): void {
+      // Do nothing
     },
   },
 };

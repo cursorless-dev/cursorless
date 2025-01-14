@@ -39,7 +39,7 @@ export class EveryScopeStage implements ModifierStage {
     const { scopeType } = this.modifier;
     const { editor, isReversed } = target;
 
-    const scopeHandler = this.scopeHandlerFactory.create(
+    const scopeHandler = this.scopeHandlerFactory.maybeCreate(
       scopeType,
       editor.document.languageId,
     );
@@ -90,13 +90,6 @@ export class EveryScopeStage implements ModifierStage {
     }
 
     if (scopes.length === 0) {
-      if (scopeType.type === "collectionItem") {
-        // For `collectionItem`, fall back to generic implementation
-        return this.modifierStageFactory
-          .getLegacyScopeStage(this.modifier)
-          .run(target);
-      }
-
       throw new NoContainingScopeError(scopeType.type);
     }
 
@@ -108,7 +101,7 @@ export class EveryScopeStage implements ModifierStage {
     scopeHandlerFactory: ScopeHandlerFactory,
     target: Target,
   ): Range[] {
-    const iterationScopeHandler = scopeHandlerFactory.create(
+    const iterationScopeHandler = scopeHandlerFactory.maybeCreate(
       scopeHandler.iterationScopeType,
       target.editor.document.languageId,
     );

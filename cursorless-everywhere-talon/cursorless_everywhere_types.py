@@ -6,6 +6,11 @@ class SelectionOffsets(TypedDict):
     active: int
 
 
+class RangeOffsets(TypedDict):
+    start: int
+    end: int
+
+
 class EditorState(TypedDict):
     text: str
     selections: list[SelectionOffsets]

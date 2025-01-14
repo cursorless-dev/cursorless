@@ -1,5 +1,9 @@
-import type { Position, TextEditor } from "@cursorless/common";
-import type { Direction, ScopeType } from "@cursorless/common";
+import type {
+  Direction,
+  Position,
+  ScopeType,
+  TextEditor,
+} from "@cursorless/common";
 import type { TargetScope } from "./scope.types";
 
 /**
@@ -11,6 +15,30 @@ export interface CustomScopeType {
   type: "custom";
   scopeHandler: ScopeHandler;
 }
+
+/**
+ * Used to handle fallback scope types. The scope types are yielded in specified
+ * order.
+ */
+export interface FallbackScopeType {
+  type: "fallback";
+  scopeTypes: (ScopeType | ComplexScopeType)[];
+}
+
+/**
+ * Used to handle conditional scope types. The predicate determines if the
+ * scope should be yielded or not.
+ */
+export interface ConditionalScopeType {
+  type: "conditional";
+  scopeType: ScopeType;
+  predicate: (scope: TargetScope) => boolean;
+}
+
+export type ComplexScopeType =
+  | CustomScopeType
+  | FallbackScopeType
+  | ConditionalScopeType;
 
 /**
  * Represents a scope type.  The functions in this interface allow us to find
@@ -44,7 +72,7 @@ export interface ScopeHandler {
    * scope type will be used when the input target has no explicit range (ie
    * {@link Target.hasExplicitRange} is `false`).
    */
-  readonly iterationScopeType: ScopeType | CustomScopeType;
+  readonly iterationScopeType: ScopeType | ComplexScopeType;
 
   /**
    * Returns an iterable of scopes meeting the requirements in

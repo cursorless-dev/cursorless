@@ -1,0 +1,72 @@
+"server"
+'server'
+"""server"""
+'''server'''
+r" r"
+r' r'
+r""" r"""
+r''' r'''
+---
+
+[#1 Content] =
+[#1 Domain] = 4:0-4:2
+  >--<
+4| r" r"
+
+[#1 Removal] = 4:0-4:3
+  >---<
+4| r" r"
+
+[#1 Trailing delimiter] = 4:2-4:3
+    >-<
+4| r" r"
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Domain] = 5:0-5:2
+  >--<
+5| r' r'
+
+[#2 Removal] = 5:0-5:3
+  >---<
+5| r' r'
+
+[#2 Trailing delimiter] = 5:2-5:3
+    >-<
+5| r' r'
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] =
+[#3 Domain] = 6:0-6:4
+  >----<
+6| r""" r"""
+
+[#3 Removal] = 6:0-6:5
+  >-----<
+6| r""" r"""
+
+[#3 Trailing delimiter] = 6:4-6:5
+      >-<
+6| r""" r"""
+
+[#3 Insertion delimiter] = " "
+
+
+[#4 Content] =
+[#4 Domain] = 7:0-7:4
+  >----<
+7| r''' r'''
+
+[#4 Removal] = 7:0-7:5
+  >-----<
+7| r''' r'''
+
+[#4 Trailing delimiter] = 7:4-7:5
+      >-<
+7| r''' r'''
+
+[#4 Insertion delimiter] = " "

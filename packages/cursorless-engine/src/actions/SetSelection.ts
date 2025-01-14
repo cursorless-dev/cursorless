@@ -4,19 +4,23 @@ import type { Target } from "../typings/target.types";
 import { ensureSingleEditor } from "../util/targetUtils";
 import type { SimpleAction, ActionReturnValue } from "./actions.types";
 
-export class SetSelection implements SimpleAction {
-  constructor() {
+abstract class SetSelectionBase implements SimpleAction {
+  constructor(
+    private selectionMode: "set" | "add",
+    private rangeMode: "content" | "before" | "after",
+  ) {
     this.run = this.run.bind(this);
-  }
-
-  protected getSelection(target: Target) {
-    return target.contentSelection;
   }
 
   async run(targets: Target[]): Promise<ActionReturnValue> {
     const editor = ensureSingleEditor(targets);
+    const targetSelections = this.getSelections(targets);
 
-    const selections = targets.map(this.getSelection);
+    const selections =
+      this.selectionMode === "add"
+        ? editor.selections.concat(targetSelections)
+        : targetSelections;
+
     await ide()
       .getEditableTextEditor(editor)
       .setSelections(selections, { focusEditor: true });
@@ -25,16 +29,57 @@ export class SetSelection implements SimpleAction {
       thatTargets: targets,
     };
   }
-}
 
-export class SetSelectionBefore extends SetSelection {
-  protected getSelection(target: Target) {
-    return new Selection(target.contentRange.start, target.contentRange.start);
+  private getSelections(targets: Target[]): Selection[] {
+    switch (this.rangeMode) {
+      case "content":
+        return targets.map((target) => target.contentSelection);
+      case "before":
+        return targets.map(
+          (target) =>
+            new Selection(target.contentRange.start, target.contentRange.start),
+        );
+      case "after":
+        return targets.map(
+          (target) =>
+            new Selection(target.contentRange.end, target.contentRange.end),
+        );
+    }
   }
 }
 
-export class SetSelectionAfter extends SetSelection {
-  protected getSelection(target: Target) {
-    return new Selection(target.contentRange.end, target.contentRange.end);
+export class SetSelection extends SetSelectionBase {
+  constructor() {
+    super("set", "content");
+  }
+}
+
+export class SetSelectionBefore extends SetSelectionBase {
+  constructor() {
+    super("set", "before");
+  }
+}
+
+export class SetSelectionAfter extends SetSelectionBase {
+  constructor() {
+    super("set", "after");
+  }
+}
+
+export class AddSelection extends SetSelectionBase {
+  constructor() {
+    super("add", "content");
+  }
+}
+
+export class AddSelectionBefore extends SetSelectionBase {
+  constructor() {
+    super("add", "before");
+  }
+}
+
+export class AddSelectionAfter extends SetSelectionBase {
+  constructor() {
+    super("add", "after");
   }
 }

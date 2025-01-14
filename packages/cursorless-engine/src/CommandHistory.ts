@@ -130,6 +130,9 @@ function sanitizeActionInPlace(action: ActionDescriptor): void {
       delete action.options?.commandArgs;
       break;
 
+    case "addSelection":
+    case "addSelectionAfter":
+    case "addSelectionBefore":
     case "breakLine":
     case "clearAndSetSelection":
     case "copyToClipboard":

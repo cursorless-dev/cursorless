@@ -652,3 +652,8 @@ operator: [
 (function_definition
   "->" @disqualifyDelimiter
 )
+
+(
+  (string_start) @pairDelimiter
+  (#match? @pairDelimiter "^[a-zA-Z]+")
+)

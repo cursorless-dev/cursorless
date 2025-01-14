@@ -21,7 +21,6 @@ import {
   ExcludeInteriorStage,
   InteriorOnlyStage,
 } from "./modifiers/InteriorStage";
-import { ItemStage } from "./modifiers/ItemStage";
 import { LeadingStage, TrailingStage } from "./modifiers/LeadingTrailingStages";
 import { OrdinalScopeStage } from "./modifiers/OrdinalScopeStage";
 import { EndOfStage, StartOfStage } from "./modifiers/PositionStage";
@@ -109,6 +108,13 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
         throw Error(
           `Unexpected modifier '${modifier.type}'; it should have been removed during inference`,
         );
+      default: {
+        // Ensure we don't miss any new modifiers. Needed because we don't have input validation.
+        // FIXME: remove once we have schema validation (#983)
+        const _exhaustiveCheck: never = modifier;
+        const { type } = modifier;
+        throw new Error(`Unknown modifier: ${type}`);
+      }
     }
   }
 
@@ -131,8 +137,6 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
     switch (modifier.scopeType.type) {
       case "notebookCell":
         return new NotebookCellStage(modifier);
-      case "collectionItem":
-        return new ItemStage(this.languageDefinitions, this, modifier);
       default:
         // Default to containing syntax scope using tree sitter
         return new LegacyContainingSyntaxScopeStage(

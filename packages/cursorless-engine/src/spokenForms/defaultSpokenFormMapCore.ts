@@ -103,6 +103,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     string: isPrivate("parse tree string"),
     textFragment: isPrivate("text fragment"),
     disqualifyDelimiter: isPrivate("disqualify delimiter"),
+    pairDelimiter: isPrivate("pair delimiter"),
     ["private.fieldAccess"]: isPrivate("access"),
     ["private.switchStatementSubject"]: isPrivate("subject"),
   },
@@ -144,6 +145,9 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
 
   customRegex: {},
   action: {
+    addSelection: "append",
+    addSelectionAfter: "append post",
+    addSelectionBefore: "append pre",
     breakLine: "break",
     scrollToBottom: "bottom",
     toggleLineBreakpoint: "break point",

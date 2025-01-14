@@ -49,17 +49,10 @@ export interface DelimiterOccurrence {
   range: Range;
 
   /**
-   * If `true`, this delimiter is disqualified from being considered as a
-   * surrounding pair delimiter, because it has been tagged as such based on a
-   * parse tree query.
-   */
-  isDisqualified: boolean;
-
-  /**
    * If the delimiter is part of a text fragment, eg a string or comment, this
    * will be the range of the text fragment.
    */
-  textFragmentRange?: Range;
+  textFragmentRange: Range | undefined;
 }
 
 /**

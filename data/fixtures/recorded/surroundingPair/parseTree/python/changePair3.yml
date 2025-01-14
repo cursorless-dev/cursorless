@@ -1,20 +1,20 @@
-languageId: plaintext
+languageId: python
 command:
-  version: 6
-  spokenForm: change item
+  version: 7
+  spokenForm: change pair
   action:
     name: clearAndSetSelection
     target:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: collectionItem}
+          scopeType: {type: surroundingPair, delimiter: any}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: aaa aaa
+  documentContents: r'command server'
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}
   marks: {}
 finalState:
   documentContents: ""
