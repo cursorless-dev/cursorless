@@ -153,7 +153,11 @@ slow_reload_job = None
 def init_hats(hat_colors: dict[str, str], hat_shapes: dict[str, str]):
     setup_hat_styles_csv(hat_colors, hat_shapes)
 
-    vscode_settings_path: Path = actions.user.vscode_settings_path().resolve()
+    try:
+        vscode_settings_path: Path = actions.user.vscode_settings_path().resolve()
+    except Exception as ex:
+        print(ex)
+        return lambda: None
 
     def on_watch(path, flags):
         global fast_reload_job, slow_reload_job
