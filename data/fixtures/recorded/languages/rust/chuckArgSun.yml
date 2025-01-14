@@ -1,0 +1,29 @@
+languageId: rust
+command:
+  version: 6
+  spokenForm: chuck arg sun
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+      mark: {type: decoratedSymbol, symbolColor: default, character: s}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    fn method(&mut self) {}
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.s:
+      start: {line: 0, character: 15}
+      end: {line: 0, character: 19}
+finalState:
+  documentContents: |
+    fn method() {}
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

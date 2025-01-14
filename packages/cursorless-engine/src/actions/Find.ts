@@ -1,11 +1,11 @@
 import { showWarning } from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
-import { Target } from "../typings/target.types";
+import type { Target } from "../typings/target.types";
 import { ensureSingleTarget } from "../util/targetUtils";
-import { Actions } from "./Actions";
-import { SimpleAction, ActionReturnValue } from "./actions.types";
+import type { Actions } from "./Actions";
+import type { ActionReturnValue, SimpleAction } from "./actions.types";
 
-export class FindInWorkspace implements SimpleAction {
+abstract class Find implements SimpleAction {
   constructor(private actions: Actions) {
     this.run = this.run.bind(this);
   }
@@ -20,7 +20,7 @@ export class FindInWorkspace implements SimpleAction {
     let query: string;
     if (text.length > 200) {
       query = text.substring(0, 200);
-      showWarning(
+      void showWarning(
         ide().messages,
         "truncatedSearchText",
         "Search text is longer than 200 characters; truncating",
@@ -29,8 +29,22 @@ export class FindInWorkspace implements SimpleAction {
       query = text;
     }
 
-    await ide().findInWorkspace(query);
+    await this.find(query);
 
     return { thatTargets };
+  }
+
+  protected abstract find(query: string): Promise<void>;
+}
+
+export class FindInDocument extends Find {
+  protected find(query: string): Promise<void> {
+    return ide().findInDocument(query);
+  }
+}
+
+export class FindInWorkspace extends Find {
+  protected find(query: string): Promise<void> {
+    return ide().findInWorkspace(query);
   }
 }

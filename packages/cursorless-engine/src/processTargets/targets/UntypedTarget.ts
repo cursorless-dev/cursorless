@@ -1,12 +1,12 @@
-import { Range } from "@cursorless/common";
-import { BaseTarget, CommonTargetParameters } from ".";
+import type { Range } from "@cursorless/common";
+import type { CommonTargetParameters } from "./BaseTarget";
+import { BaseTarget } from "./BaseTarget";
 import type { Target } from "../../typings/target.types";
-import { createContinuousRangeUntypedTarget } from "../targetUtil/createContinuousRange";
 import {
   getTokenLeadingDelimiterTarget,
   getTokenRemovalRange,
   getTokenTrailingDelimiterTarget,
-} from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
+} from "./util/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
 
 interface UntypedTargetParameters extends CommonTargetParameters {
   readonly hasExplicitRange: boolean;
@@ -42,19 +42,11 @@ export class UntypedTarget extends BaseTarget<UntypedTargetParameters> {
       : getTokenRemovalRange(this);
   }
 
-  createContinuousRangeTarget(
-    isReversed: boolean,
-    endTarget: Target,
-    includeStart: boolean,
-    includeEnd: boolean,
-  ): Target {
-    return createContinuousRangeUntypedTarget(
-      isReversed,
-      this,
-      endTarget,
-      includeStart,
-      includeEnd,
-    );
+  maybeCreateRichRangeTarget(): null {
+    // It never makes sense to create a rich range target from an untyped
+    // target. We let {@link createContinuousRangeTarget} handle constructing an
+    // untyped range.
+    return null;
   }
 
   protected getCloneParameters() {

@@ -4,7 +4,7 @@ set -euo pipefail
 
 # Find the string 'TODO' in all files tracked by git, excluding
 # this file
-TODOS_FOUND=$(git grep --color=always -nw TODO -- ':!scripts/forbid-todo.sh' || true)
+TODOS_FOUND=$(git grep --color=always -nw TODO -- ':!scripts/forbid-todo.sh' ':!.github/workflows/forbid-todo.yml' || true)
 
 if [ -n "$TODOS_FOUND" ]; then
   printf "\e[1;31mERROR: \e[0mTODOs found in codebase:\n"

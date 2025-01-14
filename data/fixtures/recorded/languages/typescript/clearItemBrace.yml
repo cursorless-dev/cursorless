@@ -1,0 +1,35 @@
+languageId: typescript
+command:
+  version: 6
+  spokenForm: change item brace
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+      mark: {type: decoratedSymbol, symbolColor: default, character: '{'}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    [
+      {
+        foo: "bar",
+      },
+    ]
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.{:
+      start: {line: 1, character: 2}
+      end: {line: 1, character: 3}
+finalState:
+  documentContents: |-
+    [
+      ,
+    ]
+  selections:
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}

@@ -1,4 +1,5 @@
 import re
+import typing
 from collections.abc import Mapping, Sequence
 from typing import Optional, TypedDict
 
@@ -37,7 +38,22 @@ def get_lists(
 
 def get_raw_list(name: str) -> Mapping[str, str]:
     cursorless_list_name = get_cursorless_list_name(name)
-    return registry.lists[cursorless_list_name][0].copy()
+    return typing.cast(dict[str, str], registry.lists[cursorless_list_name][0]).copy()
+
+
+def get_spoken_form_from_list(list_name: str, value: str) -> str:
+    """Get the spoken form of a value from a list.
+
+    Args:
+        list_name (str): The name of the list.
+        value (str): The value to look up.
+
+    Returns:
+        str: The spoken form of the value.
+    """
+    return next(
+        spoken_form for spoken_form, v in get_raw_list(list_name).items() if v == value
+    )
 
 
 def make_dict_readable(

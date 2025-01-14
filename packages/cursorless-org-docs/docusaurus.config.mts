@@ -42,10 +42,12 @@ function remarkPluginFixLinksToRepositoryArtifacts(): Transformer<Root> {
         "../..",
       );
       const artifact = resolve(file.dirname!, url);
-      const artifactRelative = relative(repoRoot, artifact);
+      const artifactRelative = relative(repoRoot, artifact).replace(/\\/g, "/");
 
       // We host all files under docs, will resolve as a relative link
-      if (artifactRelative.startsWith("docs/")) {
+      if (
+        artifactRelative.startsWith("packages/cursorless-org-docs/src/docs/")
+      ) {
         return;
       }
 
@@ -104,13 +106,12 @@ const config: Config = {
       "classic",
       {
         docs: {
-          path: "../../docs",
+          path: "./src/docs",
           // Followed https://ricard.dev/how-to-set-docs-as-homepage-for-docusaurus/
           // to serve a markdown document on homepage
           routeBasePath: "/",
-          // Note that we add dummy/dummy so that the `../..` above has something to strip
           editUrl:
-            "https://github.com/cursorless-dev/cursorless/edit/main/dummy/dummy",
+            "https://github.com/cursorless-dev/cursorless/edit/main/packages/cursorless-org-docs/",
           sidebarPath: require.resolve("./sidebar.js"),
           beforeDefaultRemarkPlugins: [
             remarkPluginFixLinksToRepositoryArtifacts,
@@ -159,7 +160,7 @@ const config: Config = {
     prism: {
       theme: themes.github,
       darkTheme: themes.dracula,
-      additionalLanguages: ["bash", "diff", "json", "python"],
+      additionalLanguages: ["bash", "diff", "json", "python", "lua"],
     },
     colorMode: {
       respectPrefersColorScheme: true,

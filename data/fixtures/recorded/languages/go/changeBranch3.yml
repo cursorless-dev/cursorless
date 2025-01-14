@@ -1,0 +1,23 @@
+languageId: go
+command:
+  version: 6
+  spokenForm: change branch
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: branch}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "if x {\n\tx++\n} else if y {\n\ty++\n} else {\n\tx--\n}"
+  selections:
+    - anchor: {line: 2, character: 7}
+      active: {line: 2, character: 7}
+  marks: {}
+finalState:
+  documentContents: "if x {\n\tx++\n}  else {\n\tx--\n}"
+  selections:
+    - anchor: {line: 2, character: 2}
+      active: {line: 2, character: 2}

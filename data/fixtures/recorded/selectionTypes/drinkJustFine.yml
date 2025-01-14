@@ -1,0 +1,26 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: drink just fine
+  action:
+    name: editNewLineBefore
+    target:
+      type: primitive
+      modifiers:
+        - {type: toRawSelection}
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: foo
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+  marks:
+    default.f:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 3}
+finalState:
+  documentContents: foo
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

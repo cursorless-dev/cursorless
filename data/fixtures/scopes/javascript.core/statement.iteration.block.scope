@@ -1,0 +1,21 @@
+function foo() {
+
+}
+---
+
+[#1 Range] =
+[#1 Domain] = 0:0-2:1
+  >----------------
+0| function foo() {
+1|
+2| }
+   -<
+
+
+[#2 Range] =
+[#2 Domain] = 0:16-2:0
+                  >
+0| function foo() {
+1|
+2| }
+   <

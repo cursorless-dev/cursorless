@@ -1,13 +1,13 @@
-import { get } from "lodash";
+import { get } from "lodash-es";
 import { Notifier } from "../../util/Notifier";
-import {
+import type {
   Configuration,
   ConfigurationScope,
-  CONFIGURATION_DEFAULTS,
   CursorlessConfigKey,
   CursorlessConfiguration,
 } from "../types/Configuration";
-import { GetFieldType, Paths } from "../types/Paths";
+import { CONFIGURATION_DEFAULTS } from "../types/Configuration";
+import type { GetFieldType, Paths } from "../types/Paths";
 
 interface ConfigurationScopeValues {
   scope: ConfigurationScope;
@@ -32,12 +32,15 @@ export default class FakeConfiguration implements Configuration {
     if (scope != null) {
       for (const { scope: candidateScope, values } of this.scopes) {
         if (scopeMatches(candidateScope, scope)) {
-          return get(values, path) ?? get(this.mocks, path);
+          return (get(values, path) ?? get(this.mocks, path)) as GetFieldType<
+            CursorlessConfiguration,
+            Path
+          >;
         }
       }
     }
 
-    return get(this.mocks, path);
+    return get(this.mocks, path) as GetFieldType<CursorlessConfiguration, Path>;
   }
 
   onDidChangeConfiguration = this.notifier.registerListener;

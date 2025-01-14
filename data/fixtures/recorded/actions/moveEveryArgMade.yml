@@ -1,0 +1,45 @@
+languageId: typescript
+command:
+  version: 6
+  spokenForm: move every arg made
+  action:
+    name: moveToTarget
+    source:
+      type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: argumentOrParameter}
+      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+    destination: {type: implicit}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    function myFunk(value: string, name: string, age: number) { };
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.m:
+      start: {line: 0, character: 31}
+      end: {line: 0, character: 35}
+finalState:
+  documentContents: |-
+    function myFunk() { };
+    value: string, name: string, age: number
+  selections:
+    - anchor: {line: 1, character: 40}
+      active: {line: 1, character: 40}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 1, character: 0}
+        end: {line: 1, character: 40}
+      isReversed: false
+      hasExplicitRange: true
+  sourceMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 16}
+        end: {line: 0, character: 16}
+      isReversed: false
+      hasExplicitRange: true

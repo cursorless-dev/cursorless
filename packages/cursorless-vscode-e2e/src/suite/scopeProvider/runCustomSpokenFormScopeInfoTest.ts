@@ -1,9 +1,9 @@
 import { getCursorlessApi } from "@cursorless/vscode-common";
-import { ScopeTypeInfo, sleep } from "@cursorless/common";
+import type { ScopeTypeInfo } from "@cursorless/common";
+import { sleep } from "@cursorless/common";
 import * as sinon from "sinon";
 import { assertCalledWithScopeInfo } from "./assertCalledWithScopeInfo";
 import { stat, unlink, writeFile } from "fs/promises";
-import { sleepWithBackoff } from "../../endToEndTestSetup";
 
 /**
  * Tests that the scope provider correctly reports custom spoken forms
@@ -31,7 +31,6 @@ export async function runCustomSpokenFormScopeInfoTest() {
       cursorlessTalonStateJsonPath,
       JSON.stringify(spokenFormJsonContents),
     );
-    await sleepWithBackoff(50);
     await assertCalledWithScopeInfo(
       fake,
       subjectCustom,
@@ -43,7 +42,6 @@ export async function runCustomSpokenFormScopeInfoTest() {
     );
 
     await unlink(cursorlessTalonStateJsonPath);
-    await sleepWithBackoff(100);
     await assertCalledWithScopeInfo(
       fake,
       roundStandard,
@@ -62,8 +60,8 @@ export async function runCustomSpokenFormScopeInfoTest() {
       await unlink(cursorlessTalonStateJsonPath);
       // Sleep to ensure that the scope support provider has time to update
       // before the next test starts
-      await sleep(250);
-    } catch (e) {
+      await sleep(400);
+    } catch (_e) {
       // Do nothing
     }
   }

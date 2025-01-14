@@ -1,4 +1,4 @@
-import { Disposable } from "../ide/types/ide.types";
+import type { Disposable } from "../ide/types/ide.types";
 
 /**
  * Construct a disposable that disposes multiple disposables at once. This is

@@ -1,0 +1,30 @@
+languageId: javascriptreact
+command:
+  version: 6
+  spokenForm: change inside element
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: interiorOnly}
+        - type: containingScope
+          scopeType: {type: xmlElement}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    function Comp() {
+        return <>text</>;
+    }
+  selections:
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 15}
+  marks: {}
+finalState:
+  documentContents: |-
+    function Comp() {
+        return <></>;
+    }
+  selections:
+    - anchor: {line: 1, character: 13}
+      active: {line: 1, character: 13}

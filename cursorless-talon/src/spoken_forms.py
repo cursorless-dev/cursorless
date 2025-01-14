@@ -2,16 +2,23 @@ import json
 from pathlib import Path
 from typing import Callable, Concatenate, ParamSpec, TypeVar
 
-from talon import app, fs
+from talon import app, cron, fs, registry
 
+from .actions.actions import ACTION_LIST_NAMES
 from .csv_overrides import (
     SPOKEN_FORM_HEADER,
     ListToSpokenForms,
     SpokenFormEntry,
     init_csv_and_watch_changes,
 )
+from .get_grapheme_spoken_form_entries import (
+    get_grapheme_spoken_form_entries,
+    get_graphemes_talon_list,
+    grapheme_capture_name,
+)
 from .marks.decorated_mark import init_hats
 from .spoken_forms_output import SpokenFormsOutput
+from .spoken_scope_forms import init_scope_spoken_forms
 
 JSON_FILE = Path(__file__).parent / "spoken_forms.json"
 disposables: list[Callable] = []
@@ -68,7 +75,14 @@ LIST_TO_TYPE_MAP = {
     "wrapper_only_paired_delimiter": "pairedDelimiter",
     "surrounding_pair_scope_type": "pairedDelimiter",
     "scope_type": "simpleScopeTypeType",
+    "glyph_scope_type": "complexScopeTypeType",
     "custom_regex_scope_type": "customRegex",
+    **{
+        action_list_name: "action"
+        for action_list_name in ACTION_LIST_NAMES
+        if action_list_name != "custom_action"
+    },
+    "custom_action": "customAction",
 }
 
 
@@ -87,18 +101,22 @@ def update():
     custom_spoken_forms: dict[str, list[SpokenFormEntry]] = {}
     spoken_forms_output = SpokenFormsOutput()
     spoken_forms_output.init()
+    graphemes_talon_list = get_graphemes_talon_list()
 
     def update_spoken_forms_output():
         spoken_forms_output.write(
             [
-                {
-                    "type": LIST_TO_TYPE_MAP[entry.list_name],
-                    "id": entry.id,
-                    "spokenForms": entry.spoken_forms,
-                }
-                for spoken_form_list in custom_spoken_forms.values()
-                for entry in spoken_form_list
-                if entry.list_name in LIST_TO_TYPE_MAP
+                *[
+                    {
+                        "type": LIST_TO_TYPE_MAP[entry.list_name],
+                        "id": entry.id,
+                        "spokenForms": entry.spoken_forms,
+                    }
+                    for spoken_form_list in custom_spoken_forms.values()
+                    for entry in spoken_form_list
+                    if entry.list_name in LIST_TO_TYPE_MAP
+                ],
+                *get_grapheme_spoken_form_entries(graphemes_talon_list),
             ]
         )
 
@@ -107,6 +125,7 @@ def update():
         if initialized:
             # On first run, we just do one update at the end, so we suppress
             # writing until we get there
+            init_scope_spoken_forms(graphemes_talon_list)
             update_spoken_forms_output()
 
     handle_csv = auto_construct_defaults(
@@ -118,17 +137,30 @@ def update():
         handle_csv("target_connectives.csv"),
         handle_csv("modifiers.csv"),
         handle_csv("positions.csv"),
-        handle_csv("paired_delimiters.csv"),
+        handle_csv(
+            "paired_delimiters.csv",
+            pluralize_lists=[
+                "selectable_only_paired_delimiter",
+                "wrapper_selectable_paired_delimiter",
+            ],
+        ),
         handle_csv("special_marks.csv"),
         handle_csv("scope_visualizer.csv"),
         handle_csv("experimental/experimental_actions.csv"),
         handle_csv("experimental/miscellaneous.csv"),
         handle_csv(
             "modifier_scope_types.csv",
-            pluralize_lists=["scope_type"],
+            pluralize_lists=[
+                "scope_type",
+                "glyph_scope_type",
+                "surrounding_pair_scope_type",
+            ],
             extra_allowed_values=[
                 "private.fieldAccess",
                 "private.switchStatementSubject",
+                "textFragment",
+                "disqualifyDelimiter",
+                "pairDelimiter",
             ],
             default_list_name="scope_type",
         ),
@@ -166,6 +198,7 @@ def update():
         ),
     ]
 
+    init_scope_spoken_forms(graphemes_talon_list)
     update_spoken_forms_output()
     initialized = True
 
@@ -175,8 +208,29 @@ def on_watch(path, flags):
         update()
 
 
+update_captures_cron = None
+
+
+def update_captures_debounced(updated_captures: set[str]):
+    if grapheme_capture_name not in updated_captures:
+        return
+
+    global update_captures_cron
+    cron.cancel(update_captures_cron)
+    update_captures_cron = cron.after("100ms", update_captures)
+
+
+def update_captures():
+    global update_captures_cron
+    update_captures_cron = None
+
+    update()
+
+
 def on_ready():
     update()
+
+    registry.register("update_captures", update_captures_debounced)
 
     fs.watch(str(JSON_FILE.parent), on_watch)
 

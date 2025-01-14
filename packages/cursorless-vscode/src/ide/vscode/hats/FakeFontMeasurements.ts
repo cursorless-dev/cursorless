@@ -1,11 +1,11 @@
-import { FontMeasurements } from "./FontMeasurements";
+import type { FontMeasurements } from "./FontMeasurements";
 
 export class FakeFontMeasurements implements FontMeasurements {
   fontSize = 12;
   characterWidth = 12;
   characterHeight = 12;
 
-  clearCache() {
+  async clearCache() {
     // Do nothing
   }
 

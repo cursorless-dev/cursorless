@@ -1,9 +1,16 @@
-import { CustomRegexScopeType, Direction, ScopeType } from "@cursorless/common";
+import type {
+  CustomRegexScopeType,
+  Direction,
+  GlyphScopeType,
+  ScopeType,
+} from "@cursorless/common";
 import { imap } from "itertools";
-import { NestedScopeHandler, ScopeHandlerFactory } from ".";
+import { escapeRegExp } from "lodash-es";
+import { NestedScopeHandler } from "./NestedScopeHandler";
+import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 import { generateMatchesInRange } from "../../../util/getMatchesInRange";
 import { TokenTarget } from "../../targets";
-import { TargetScope } from "./scope.types";
+import type { TargetScope } from "./scope.types";
 
 abstract class RegexStageBase extends NestedScopeHandler {
   public readonly iterationScopeType: ScopeType = { type: "line" };
@@ -50,12 +57,26 @@ export class UrlScopeHandler extends RegexStageBase {
 
 export class CustomRegexScopeHandler extends RegexStageBase {
   get regex() {
-    return new RegExp(this.scopeType.regex, "gu");
+    return new RegExp(this.scopeType.regex, this.scopeType.flags ?? "gu");
   }
 
   constructor(
     scopeHandlerFactory: ScopeHandlerFactory,
     readonly scopeType: CustomRegexScopeType,
+    languageId: string,
+  ) {
+    super(scopeHandlerFactory, scopeType, languageId);
+  }
+}
+
+export class GlyphScopeHandler extends RegexStageBase {
+  get regex() {
+    return new RegExp(escapeRegExp(this.scopeType.character), "gui");
+  }
+
+  constructor(
+    scopeHandlerFactory: ScopeHandlerFactory,
+    readonly scopeType: GlyphScopeType,
     languageId: string,
   ) {
     super(scopeHandlerFactory, scopeType, languageId);

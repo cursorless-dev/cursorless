@@ -1,0 +1,29 @@
+languageId: ruby
+command:
+  version: 6
+  spokenForm: change round
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: parentheses}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    <<-HI
+        ok (what)
+    HI
+  selections:
+    - anchor: {line: 1, character: 10}
+      active: {line: 1, character: 10}
+  marks: {}
+finalState:
+  documentContents: |
+    <<-HI
+        ok 
+    HI
+  selections:
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 7}

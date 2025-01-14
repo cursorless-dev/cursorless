@@ -1,0 +1,29 @@
+languageId: scss
+command:
+  version: 6
+  spokenForm: change arg
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    div {
+      clip-path: polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
+    }
+  selections:
+    - anchor: {line: 1, character: 40}
+      active: {line: 1, character: 40}
+  marks: {}
+finalState:
+  documentContents: |-
+    div {
+      clip-path: polygon(50% 0%, 60% 40%, , 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
+    }
+  selections:
+    - anchor: {line: 1, character: 38}
+      active: {line: 1, character: 38}

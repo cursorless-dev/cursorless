@@ -1,0 +1,29 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: chuck past end of line
+  action:
+    name: remove
+    target:
+      type: range
+      anchor: {type: implicit}
+      active:
+        type: primitive
+        modifiers:
+          - {type: endOf}
+          - type: containingScope
+            scopeType: {type: line}
+      excludeAnchor: false
+      excludeActive: false
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: hello there
+  selections:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}
+  marks: {}
+finalState:
+  documentContents: he
+  selections:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}

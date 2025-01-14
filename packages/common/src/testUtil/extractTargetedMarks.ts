@@ -1,6 +1,6 @@
 import { splitKey } from "..";
-import { ReadOnlyHatMap } from "../types/HatTokenMap";
-import { Token } from "../types/Token";
+import type { ReadOnlyHatMap } from "../types/HatTokenMap";
+import type { Token } from "../types/Token";
 
 export function extractTargetedMarks(
   targetKeys: string[],
@@ -10,7 +10,11 @@ export function extractTargetedMarks(
 
   targetKeys.forEach((key) => {
     const { hatStyle, character } = splitKey(key);
-    targetedMarks[key] = hatTokenMap.getToken(hatStyle, character);
+    const token = hatTokenMap.getToken(hatStyle, character);
+    if (token == null) {
+      throw new Error(`Couldn't find mark ${hatStyle} '${character}'`);
+    }
+    targetedMarks[key] = token;
   });
 
   return targetedMarks;

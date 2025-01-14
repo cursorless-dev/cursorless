@@ -1,0 +1,39 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: bring row one before bat
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
+      mark: {type: lineNumber, lineNumberType: modulo100, lineNumber: 0}
+    destination:
+      type: primitive
+      insertionMode: before
+      target:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: b}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    aaa
+    ccc
+
+    b
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.b:
+      start: {line: 3, character: 0}
+      end: {line: 3, character: 1}
+finalState:
+  documentContents: |-
+    aaa
+    ccc
+
+    aaa
+    b
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

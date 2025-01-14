@@ -1,4 +1,4 @@
-import { PartialMark } from "@cursorless/common";
+import type { PartialMark } from "@cursorless/common";
 
 const hatColors: Record<string, string | null> = {
   blue: "blue",
@@ -35,10 +35,12 @@ export const marks = {
   source: "source",
   nothing: "nothing",
 
+  keyboard: null,
   explicit: null,
   decoratedSymbol: null,
   lineNumber: null,
   range: null,
+  target: null,
 } as const satisfies Record<MarkType, string | null>;
 
 export const lineDirections = {

@@ -4,21 +4,21 @@ import type {
   TextDocument,
   TextEditor,
 } from "../..";
-import { URI } from "vscode-uri";
-import { GeneralizedRange } from "../../types/GeneralizedRange";
-import { Capabilities } from "./Capabilities";
-import { Clipboard } from "./Clipboard";
-import { Configuration } from "./Configuration";
-import { TextDocumentChangeEvent } from "./Events";
-import {
+import type { URI } from "vscode-uri";
+import type { GeneralizedRange } from "../../types/GeneralizedRange";
+import type { Capabilities } from "./Capabilities";
+import type { Clipboard } from "./Clipboard";
+import type { Configuration } from "./Configuration";
+import type { TextDocumentChangeEvent } from "./Events";
+import type {
   Event,
   TextEditorSelectionChangeEvent,
   TextEditorVisibleRangesChangeEvent,
 } from "./events.types";
-import { FlashDescriptor } from "./FlashDescriptor";
-import { Messages } from "./Messages";
-import { QuickPickOptions } from "./QuickPickOptions";
-import { State } from "./State";
+import type { FlashDescriptor } from "./FlashDescriptor";
+import type { Messages } from "./Messages";
+import type { QuickPickOptions } from "./QuickPickOptions";
+import type { KeyValueStore } from "./KeyValueStore";
 
 export type RunMode = "production" | "development" | "test";
 export type HighlightId = string;
@@ -30,7 +30,7 @@ export interface OpenUntitledTextDocumentOptions {
 export interface IDE {
   readonly configuration: Configuration;
   readonly messages: Messages;
-  readonly globalState: State;
+  readonly keyValueStore: KeyValueStore;
   readonly clipboard: Clipboard;
 
   /**
@@ -40,6 +40,11 @@ export interface IDE {
    * @returns A function that can be called to deregister the disposables
    */
   disposeOnExit(...disposables: Disposable[]): () => void;
+
+  /**
+   * The version of the cursorless extension
+   */
+  readonly cursorlessVersion: string;
 
   /**
    * The root directory of this shipped code.  Can be used to access bundled
@@ -93,6 +98,13 @@ export interface IDE {
   onDidChangeTextDocument(
     listener: (event: TextDocumentChangeEvent) => void,
   ): Disposable;
+
+  /**
+   * Find occurrences of query string in the active document.
+   * @param query The string query to search for
+   * @param editor The editor to search in. If not provided, uses the active editor.
+   */
+  findInDocument(query: string, editor?: TextEditor): Promise<void>;
 
   /**
    * Find occurrences of query string in all files in the workspace

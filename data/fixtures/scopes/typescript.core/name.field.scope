@@ -1,0 +1,105 @@
+class Aaa {
+    bbb!: string = undefined;
+    ccc: string = undefined;
+    ddd = undefined;
+    private eee!: string = undefined;
+}
+---
+
+[#1 Content] = 0:6-0:9
+        >---<
+0| class Aaa {
+
+[#1 Removal] = 0:6-0:10
+        >----<
+0| class Aaa {
+
+[#1 Leading delimiter] = 0:5-0:6
+       >-<
+0| class Aaa {
+
+[#1 Trailing delimiter] = 0:9-0:10
+           >-<
+0| class Aaa {
+
+[#1 Domain] = 0:0-5:1
+  >-----------
+0| class Aaa {
+1|     bbb!: string = undefined;
+2|     ccc: string = undefined;
+3|     ddd = undefined;
+4|     private eee!: string = undefined;
+5| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] = 1:4-1:7
+      >---<
+1|     bbb!: string = undefined;
+
+[#2 Leading delimiter] = 1:0-1:4
+  >----<
+1|     bbb!: string = undefined;
+
+[#2 Domain] = 1:4-1:29
+      >-------------------------<
+1|     bbb!: string = undefined;
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] = 2:4-2:7
+      >---<
+2|     ccc: string = undefined;
+
+[#3 Removal] = 2:0-2:7
+  >-------<
+2|     ccc: string = undefined;
+
+[#3 Leading delimiter] = 2:0-2:4
+  >----<
+2|     ccc: string = undefined;
+
+[#3 Domain] = 2:4-2:28
+      >------------------------<
+2|     ccc: string = undefined;
+
+[#3 Insertion delimiter] = " "
+
+
+[#4 Content] = 3:4-3:7
+      >---<
+3|     ddd = undefined;
+
+[#4 Removal] = 3:4-3:10
+      >------<
+3|     ddd = undefined;
+
+[#4 Trailing delimiter] = 3:7-3:10
+         >---<
+3|     ddd = undefined;
+
+[#4 Domain] = 3:4-3:20
+      >----------------<
+3|     ddd = undefined;
+
+[#4 Insertion delimiter] = " "
+
+
+[#5 Content] =
+[#5 Removal] = 4:12-4:15
+              >---<
+4|     private eee!: string = undefined;
+
+[#5 Leading delimiter] = 4:11-4:12
+             >-<
+4|     private eee!: string = undefined;
+
+[#5 Domain] = 4:4-4:37
+      >---------------------------------<
+4|     private eee!: string = undefined;
+
+[#5 Insertion delimiter] = " "

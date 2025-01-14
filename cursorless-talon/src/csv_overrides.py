@@ -1,4 +1,5 @@
 import csv
+import typing
 from collections import defaultdict
 from collections.abc import Container
 from dataclasses import dataclass
@@ -6,7 +7,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Callable, Iterable, Optional, TypedDict
 
-from talon import Context, Module, actions, app, fs
+from talon import Context, Module, actions, app, fs, settings
 
 from .conventions import get_cursorless_list_name
 from .vendor.inflection import pluralize
@@ -20,7 +21,7 @@ mod.tag(
     "cursorless_default_vocabulary",
     desc="Use default cursorless vocabulary instead of user custom",
 )
-cursorless_settings_directory = mod.setting(
+mod.setting(
     "cursorless_settings_directory",
     type=str,
     default="cursorless-settings",
@@ -46,6 +47,14 @@ class SpokenFormEntry:
     list_name: str
     id: str
     spoken_forms: list[str]
+
+
+def csv_get_ctx():
+    return ctx
+
+
+def csv_get_normalized_ctx():
+    return normalized_ctx
 
 
 def init_csv_and_watch_changes(
@@ -453,7 +462,9 @@ def get_full_path(filename: str):
         filename = f"{filename}.csv"
 
     user_dir: Path = actions.path.talon_user()
-    settings_directory = Path(cursorless_settings_directory.get())
+    settings_directory = Path(
+        typing.cast(str, settings.get("user.cursorless_settings_directory"))
+    )
 
     if not settings_directory.is_absolute():
         settings_directory = user_dir / settings_directory

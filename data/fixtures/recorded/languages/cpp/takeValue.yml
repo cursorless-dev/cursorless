@@ -1,0 +1,29 @@
+languageId: cpp
+command:
+  version: 6
+  spokenForm: take value
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    int f(int a) {
+        int j = a;
+    }
+  selections:
+    - anchor: {line: 1, character: 5}
+      active: {line: 1, character: 5}
+  marks: {}
+finalState:
+  documentContents: |
+    int f(int a) {
+        int j = a;
+    }
+  selections:
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 13}

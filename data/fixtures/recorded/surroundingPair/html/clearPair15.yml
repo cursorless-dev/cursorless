@@ -1,0 +1,23 @@
+languageId: html
+command:
+  version: 6
+  spokenForm: change pair
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: any}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: <hello> <hello/>
+  selections:
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}
+  marks: {}
+finalState:
+  documentContents: "<hello> "
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

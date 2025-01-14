@@ -1,0 +1,6 @@
+{
+  "runtime.version": "Lua 5.1",
+  "diagnostics.ignoredFiles": "Disable",
+  "diagnostics.globals": ["vim", "talon", "it", "describe"],
+  "workspace.ignoreDir": ["data/playground/lua/", ".luarocks", ".lua"]
+}

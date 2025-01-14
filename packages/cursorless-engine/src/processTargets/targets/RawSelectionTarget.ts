@@ -1,4 +1,6 @@
-import { BaseTarget, CommonTargetParameters } from ".";
+import type { EnforceUndefined } from "@cursorless/common";
+import type { CommonTargetParameters } from "./BaseTarget";
+import { BaseTarget } from "./BaseTarget";
 
 /**
  * A target that has no leading or trailing delimiters so it's removal range
@@ -15,5 +17,6 @@ export class RawSelectionTarget extends BaseTarget<CommonTargetParameters> {
   getTrailingDelimiterTarget = () => undefined;
   getRemovalRange = () => this.contentRange;
 
-  protected getCloneParameters = () => this.state;
+  protected getCloneParameters: () => EnforceUndefined<CommonTargetParameters> =
+    () => this.state;
 }

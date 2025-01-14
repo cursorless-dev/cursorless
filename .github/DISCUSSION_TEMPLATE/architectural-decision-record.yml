@@ -1,0 +1,27 @@
+body:
+  - type: markdown
+    attributes:
+      value: |
+        You are submitting to our Architecture Decision Record.
+        Learn more about ADRs at <https://adr.github.io>, and discussion #1211.
+
+  - type: textarea
+    attributes:
+      label: Context
+      description: The issue motivating this decision, and any context that influences or constrains the decision.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Options considered
+
+  - type: textarea
+    attributes:
+      label: Decision
+      description: "The change that we're proposing or have agreed to implement."
+
+  - type: textarea
+    attributes:
+      label: Consequences
+      description: What becomes easier or more difficult to do and any risks introduced by the change that will need to be mitigated.

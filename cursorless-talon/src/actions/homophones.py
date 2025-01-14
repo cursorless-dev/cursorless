@@ -2,12 +2,15 @@ from typing import Optional
 
 from talon import actions, app
 
-from ..targets.target_types import CursorlessTarget, PrimitiveDestination
+from ..targets.target_types import (
+    CursorlessExplicitTarget,
+    PrimitiveDestination,
+)
 from .get_text import cursorless_get_text_action
 from .replace import cursorless_replace_action
 
 
-def cursorless_homophones_action(target: CursorlessTarget):
+def cursorless_homophones_action(target: CursorlessExplicitTarget):
     """Replaced target with next homophone"""
     texts = cursorless_get_text_action(target, show_decorations=False)
     try:

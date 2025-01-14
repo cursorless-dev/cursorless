@@ -1,10 +1,10 @@
 import type { CommandServerApi, SnippetMap } from "@cursorless/common";
 import * as vscode from "vscode";
 import type { Language, SyntaxNode, Tree } from "web-tree-sitter";
-import { TestHelpers } from "./TestHelpers";
+import type { VscodeTestHelpers } from "./TestHelpers";
 
 export interface CursorlessApi {
-  testHelpers: TestHelpers | undefined;
+  testHelpers: VscodeTestHelpers | undefined;
 
   experimental: {
     registerThirdPartySnippets: (
@@ -24,7 +24,7 @@ export interface ParseTreeApi {
 export async function getExtensionApi<T>(extensionId: string) {
   const extension = vscode.extensions.getExtension(extensionId);
 
-  return extension == null ? null : ((await extension.activate()) as T);
+  return extension == null ? undefined : ((await extension.activate()) as T);
 }
 
 export async function getExtensionApiStrict<T>(extensionId: string) {

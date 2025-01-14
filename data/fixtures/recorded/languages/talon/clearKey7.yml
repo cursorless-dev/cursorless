@@ -1,0 +1,23 @@
+languageId: talon
+command:
+  version: 6
+  spokenForm: change key
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionKey}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "gamepad(north): \"north\""
+  selections:
+    - anchor: {line: 0, character: 23}
+      active: {line: 0, character: 23}
+  marks: {}
+finalState:
+  documentContents: ": \"north\""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

@@ -1,0 +1,28 @@
+languageId: python
+command:
+  version: 6
+  spokenForm: change inside
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: interiorOnly}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    """fds
+
+    dfsd
+    """
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks: {}
+finalState:
+  documentContents: |-
+    """
+    """
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}

@@ -1,16 +1,14 @@
-import { Range } from "@cursorless/common";
-import {
-  BaseTarget,
-  CommonTargetParameters,
-  InteriorTarget,
-  TokenTarget,
-} from ".";
-import { Target } from "../../typings/target.types";
+import type { Range } from "@cursorless/common";
+import type { CommonTargetParameters } from "./BaseTarget";
+import { BaseTarget } from "./BaseTarget";
+import { InteriorTarget } from "./InteriorTarget";
+import { TokenTarget } from "./TokenTarget";
+import type { Target } from "../../typings/target.types";
 import {
   getTokenLeadingDelimiterTarget,
   getTokenRemovalRange,
   getTokenTrailingDelimiterTarget,
-} from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
+} from "./util/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
 
 interface SurroundingPairTargetParameters extends CommonTargetParameters {
   /**
@@ -50,7 +48,7 @@ export class SurroundingPairTarget extends BaseTarget<SurroundingPairTargetParam
     return getTokenRemovalRange(this);
   }
 
-  getInteriorStrict() {
+  getInterior() {
     return [
       new InteriorTarget({
         editor: this.editor,
@@ -60,7 +58,7 @@ export class SurroundingPairTarget extends BaseTarget<SurroundingPairTargetParam
     ];
   }
 
-  getBoundaryStrict() {
+  getBoundary() {
     return this.boundary_.map(
       (contentRange) =>
         new TokenTarget({

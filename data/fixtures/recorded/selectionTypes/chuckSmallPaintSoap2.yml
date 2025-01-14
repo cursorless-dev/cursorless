@@ -1,0 +1,27 @@
+languageId: python
+command:
+  version: 6
+  spokenForm: chuck short paint sun
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: boundedNonWhitespaceSequence}
+      mark: {type: decoratedSymbol, symbolColor: default, character: s}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: f.o(some() text)
+  selections:
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 16}
+  marks:
+    default.s:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 8}
+finalState:
+  documentContents: f.o(text)
+  selections:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}

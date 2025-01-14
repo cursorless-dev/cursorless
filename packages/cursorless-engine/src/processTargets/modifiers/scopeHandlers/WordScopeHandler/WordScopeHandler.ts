@@ -1,7 +1,8 @@
-import { Range, TextEditor } from "@cursorless/common";
-import { NestedScopeHandler } from "..";
+import type { TextEditor } from "@cursorless/common";
+import { Range } from "@cursorless/common";
+import { NestedScopeHandler } from "../NestedScopeHandler";
 import { WordTokenizer } from "./WordTokenizer";
-import { Direction } from "@cursorless/common";
+import type { Direction } from "@cursorless/common";
 import { SubTokenWordTarget } from "../../../targets";
 import type { TargetScope } from "../scope.types";
 
@@ -86,9 +87,7 @@ function constructTarget(
   const isInDelimitedList =
     leadingDelimiterRange != null || trailingDelimiterRange != null;
   const insertionDelimiter = isInDelimitedList
-    ? editor.document.getText(
-        (leadingDelimiterRange ?? trailingDelimiterRange)!,
-      )
+    ? editor.document.getText(leadingDelimiterRange ?? trailingDelimiterRange)
     : "";
 
   return new SubTokenWordTarget({

@@ -20,20 +20,22 @@
   "license": "MIT",
   "dependencies": {
     "@cursorless/common": "workspace:*",
+    "@cursorless/node-common": "workspace:*",
     "@cursorless/vscode-common": "workspace:*",
-    "lodash": "^4.17.21"
+    "immer": "^10.1.1",
+    "lodash-es": "^4.17.21"
   },
   "devDependencies": {
-    "@types/chai": "^4.3.3",
-    "@types/js-yaml": "^4.0.2",
-    "@types/lodash": "4.14.181",
-    "@types/mocha": "^10.0.3",
-    "@types/sinon": "^10.0.2",
-    "@types/vscode": "~1.66.0",
-    "chai": "^4.3.6",
+    "@types/chai": "^5.0.0",
+    "@types/js-yaml": "^4.0.9",
+    "@types/lodash-es": "4.17.12",
+    "@types/mocha": "^10.0.9",
+    "@types/sinon": "^17.0.3",
+    "@types/vscode": "1.82.0",
+    "chai": "^5.1.1",
     "js-yaml": "^4.1.0",
-    "mocha": "^10.2.0",
-    "sinon": "^11.1.1"
+    "mocha": "^10.7.3",
+    "sinon": "^19.0.2"
   },
   "types": "./out/index.d.ts",
   "type": "module"

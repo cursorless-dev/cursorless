@@ -1,0 +1,29 @@
+languageId: ruby
+command:
+  version: 6
+  spokenForm: change condition
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: condition}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    if true
+
+    end
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks: {}
+finalState:
+  documentContents: |-
+    if 
+
+    end
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}

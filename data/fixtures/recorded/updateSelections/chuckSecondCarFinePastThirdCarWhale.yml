@@ -1,0 +1,44 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: chuck second char fine past third char whale
+  action:
+    name: remove
+    target:
+      type: range
+      anchor:
+        type: primitive
+        modifiers:
+          - type: ordinalScope
+            scopeType: {type: character}
+            start: 1
+            length: 1
+        mark: {type: decoratedSymbol, symbolColor: default, character: f}
+      active:
+        type: primitive
+        modifiers:
+          - type: ordinalScope
+            scopeType: {type: character}
+            start: 2
+            length: 1
+        mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      excludeAnchor: false
+      excludeActive: false
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: foo world whatever
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 9}
+  marks:
+    default.f:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 3}
+    default.w:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 9}
+finalState:
+  documentContents: fld whatever
+  selections:
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 3}

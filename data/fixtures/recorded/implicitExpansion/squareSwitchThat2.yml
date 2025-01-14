@@ -1,0 +1,32 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: box repack that
+  action:
+    name: rewrapWithPairedDelimiter
+    left: "["
+    right: "]"
+    target:
+      type: primitive
+      mark: {type: that}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    (hello world)
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks: {}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 7}
+        end: {line: 0, character: 12}
+      isReversed: false
+      hasExplicitRange: true
+finalState:
+  documentContents: |
+    [hello world]
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

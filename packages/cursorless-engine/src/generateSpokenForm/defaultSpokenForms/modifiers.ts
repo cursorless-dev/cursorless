@@ -1,29 +1,8 @@
 import { CompositeKeyMap } from "@cursorless/common";
-import { SpeakableSurroundingPairName } from "../../spokenForms/SpokenFormType";
-import { SpokenFormComponentMap } from "../getSpokenFormComponentMap";
-import { CustomizableSpokenFormComponentForType } from "../SpokenFormComponent";
-
-const surroundingPairsDelimiters: Record<
-  SpeakableSurroundingPairName,
-  [string, string] | null
-> = {
-  curlyBrackets: ["{", "}"],
-  angleBrackets: ["<", ">"],
-  escapedDoubleQuotes: ['\\"', '\\"'],
-  escapedSingleQuotes: ["\\'", "\\'"],
-  escapedParentheses: ["\\(", "\\)"],
-  escapedSquareBrackets: ["\\[", "\\]"],
-  doubleQuotes: ['"', '"'],
-  parentheses: ["(", ")"],
-  backtickQuotes: ["`", "`"],
-  squareBrackets: ["[", "]"],
-  singleQuotes: ["'", "'"],
-  whitespace: [" ", " "],
-
-  any: null,
-  string: null,
-  collectionBoundary: null,
-};
+import type { SpeakableSurroundingPairName } from "@cursorless/common";
+import type { SpokenFormComponentMap } from "../getSpokenFormComponentMap";
+import type { CustomizableSpokenFormComponentForType } from "../SpokenFormComponent";
+import { surroundingPairsDelimiters } from "./surroundingPairsDelimiters";
 
 const surroundingPairDelimiterToName = new CompositeKeyMap<
   [string, string],

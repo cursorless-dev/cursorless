@@ -1,15 +1,17 @@
-import {
-  CURSORLESS_SCOPE_TREE_VIEW_ID,
+import type {
   CursorlessCommandId,
   ScopeProvider,
-  ScopeSupport,
   ScopeSupportInfo,
   ScopeTypeInfo,
+} from "@cursorless/common";
+import {
+  CURSORLESS_SCOPE_TREE_VIEW_ID,
+  ScopeSupport,
   disposableFrom,
 } from "@cursorless/common";
-import { CustomSpokenFormGenerator } from "@cursorless/cursorless-engine";
-import { VscodeApi } from "@cursorless/vscode-common";
-import { isEqual } from "lodash";
+import type { CustomSpokenFormGenerator } from "@cursorless/cursorless-engine";
+import type { VscodeApi } from "@cursorless/vscode-common";
+import { isEqual } from "lodash-es";
 import type {
   Disposable,
   Event,
@@ -29,7 +31,7 @@ import {
   window,
 } from "vscode";
 import { URI } from "vscode-uri";
-import {
+import type {
   ScopeVisualizer,
   VisualizationType,
 } from "./ScopeVisualizerCommandApi";
@@ -109,7 +111,7 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
 
   getChildren(element?: MyTreeItem): MyTreeItem[] {
     if (element == null) {
-      this.possiblyShowUpdateTalonMessage();
+      void this.possiblyShowUpdateTalonMessage();
       return getSupportCategories();
     }
 
@@ -210,7 +212,7 @@ function getSupportCategories(): SupportCategoryTreeItem[] {
 }
 
 class ScopeSupportTreeItem extends TreeItem {
-  public readonly label!: TreeItemLabel;
+  public declare readonly label: TreeItemLabel;
 
   /**
    * @param scopeTypeInfo The scope type info

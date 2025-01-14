@@ -1,0 +1,32 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: change head inside curly
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: extendThroughStartOf
+          modifiers:
+            - {type: interiorOnly}
+            - type: containingScope
+              scopeType: {type: surroundingPair, delimiter: curlyBrackets}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    {
+        foo(bar baz)
+    }
+  selections:
+    - anchor: {line: 1, character: 14}
+      active: {line: 1, character: 14}
+  marks: {}
+finalState:
+  documentContents: |-
+    {
+        z)
+    }
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

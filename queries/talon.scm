@@ -1,3 +1,5 @@
+;; https://github.com/pokey/tree-sitter-talon/blob/dev/src/grammar.json
+
 ;;!!  foo: "bar"
 ;;!   ^^^^^^^^^^
 ;;!!  edit.left()
@@ -159,11 +161,11 @@
 ;;!        ^^^^^^^  ^^^^^^^
 (action
   arguments: (_
-    (_)? @_.leading.start.endOf
+    (_)? @_.leading.endOf
     .
-    (_) @argumentOrParameter @_.leading.end.startOf @_.trailing.start.endOf
+    (_) @argumentOrParameter
     .
-    (_)? @_.trailing.end.startOf
+    (_)? @_.trailing.startOf
   )
   (#insertion-delimiter! @argumentOrParameter ", ")
 )

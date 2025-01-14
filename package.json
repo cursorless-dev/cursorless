@@ -18,6 +18,7 @@
     "preinstall": "npx only-allow pnpm",
     "test-compile": "tsc --build",
     "test": "pnpm compile && pnpm lint && pnpm -F '!test-harness' test && pnpm -F test-harness test",
+    "generate-grammar": "pnpm -r generate-grammar",
     "transform-recorded-tests": "./packages/common/scripts/my-ts-node.js packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts",
     "watch": "pnpm run -w --parallel '/^watch:.*/'",
     "watch:esbuild": "pnpm run -r --parallel --if-present watch:esbuild",
@@ -27,24 +28,28 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@pnpm/meta-updater": "1.0.0",
-    "@types/node": "^18.18.2",
-    "@typescript-eslint/eslint-plugin": "^6.10.0",
-    "@typescript-eslint/parser": "^6.10.0",
-    "esbuild": "^0.17.11",
-    "eslint": "^8.53.0",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-import-resolver-typescript": "3.5.5",
-    "eslint-plugin-import": "2.28.1",
-    "eslint-plugin-unicorn": "49.0.0",
-    "eslint-plugin-unused-imports": "^3.0.0",
-    "prettier": "3.0.3",
-    "syncpack": "9.8.4",
-    "typescript": "^5.2.2"
+    "@pnpm/meta-updater": "2.0.3",
+    "@types/node": "20.16.0",
+    "@typescript-eslint/eslint-plugin": "^8.9.0",
+    "@typescript-eslint/parser": "^8.9.0",
+    "esbuild": "^0.24.0",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "3.6.3",
+    "eslint-plugin-import": "2.31.0",
+    "eslint-plugin-mocha": "10.5.0",
+    "eslint-plugin-unicorn": "56.0.0",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "prettier": "3.3.3",
+    "prettier-plugin-tailwindcss": "0.6.8",
+    "syncpack": "13.0.0",
+    "typescript": "^5.6.3"
   },
   "pnpm": {
     "patchedDependencies": {
-      "@docusaurus/theme-search-algolia@3.0.0": "patches/@docusaurus__theme-search-algolia@2.3.1.patch"
+      "@docusaurus/theme-search-algolia": "patches/@docusaurus__theme-search-algolia@3.1.0.patch",
+      "@types/nearley@2.11.5": "patches/@types__nearley@2.11.5.patch",
+      "nearley@2.20.1": "patches/nearley@2.20.1.patch"
     },
     "peerDependencyRules": {
       "ignoreMissing": [
@@ -57,8 +62,8 @@
     }
   },
   "engines": {
-    "node": ">=18.18.2"
+    "node": ">=20.16.0"
   },
-  "packageManager": "pnpm@8.6.12",
+  "packageManager": "pnpm@9.12.1",
   "type": "module"
 }

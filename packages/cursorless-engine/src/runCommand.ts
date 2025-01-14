@@ -1,18 +1,25 @@
-import { Command, HatTokenMap, ReadOnlyHatMap } from "@cursorless/common";
-import { CommandRunner } from "./CommandRunner";
+import type {
+  Command,
+  CommandResponse,
+  CommandServerApi,
+  HatTokenMap,
+  ReadOnlyHatMap,
+} from "@cursorless/common";
+import { clientSupportsFallback, type TreeSitter } from "@cursorless/common";
+import type { CommandRunner } from "./CommandRunner";
 import { Actions } from "./actions/Actions";
-import { Debug } from "./core/Debug";
-import { Snippets } from "./core/Snippets";
+import type { CommandRunnerDecorator } from "./api/CursorlessEngineApi";
+import type { Debug } from "./core/Debug";
 import { CommandRunnerImpl } from "./core/commandRunner/CommandRunnerImpl";
 import { canonicalizeAndValidateCommand } from "./core/commandVersionUpgrades/canonicalizeAndValidateCommand";
-import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
-import { StoredTargetMap, TreeSitter } from "./index";
-import { LanguageDefinitions } from "./languages/LanguageDefinitions";
+import type { RangeUpdater } from "./core/updateSelections/RangeUpdater";
+import type { Snippets } from "./core/Snippets";
+import type { StoredTargetMap } from "./core/StoredTargets";
+import type { LanguageDefinitions } from "./languages/LanguageDefinitions";
 import { TargetPipelineRunner } from "./processTargets";
 import { MarkStageFactoryImpl } from "./processTargets/MarkStageFactoryImpl";
 import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
 import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
-import { CommandRunnerDecorator } from "./api/CursorlessEngineApi";
 
 /**
  * Entry point for Cursorless commands. We proceed as follows:
@@ -28,6 +35,7 @@ import { CommandRunnerDecorator } from "./api/CursorlessEngineApi";
  */
 export async function runCommand(
   treeSitter: TreeSitter,
+  commandServerApi: CommandServerApi,
   debug: Debug,
   hatTokenMap: HatTokenMap,
   snippets: Snippets,
@@ -36,7 +44,7 @@ export async function runCommand(
   rangeUpdater: RangeUpdater,
   commandRunnerDecorators: CommandRunnerDecorator[],
   command: Command,
-): Promise<unknown> {
+): Promise<CommandResponse | unknown> {
   if (debug.active) {
     debug.log(`command:`);
     debug.log(JSON.stringify(command, null, 2));
@@ -50,6 +58,7 @@ export async function runCommand(
 
   let commandRunner = createCommandRunner(
     treeSitter,
+    commandServerApi,
     languageDefinitions,
     debug,
     storedTargets,
@@ -62,11 +71,27 @@ export async function runCommand(
     commandRunner = decorator.wrapCommandRunner(readableHatMap, commandRunner);
   }
 
-  return await commandRunner.run(commandComplete);
+  const response = await commandRunner.run(commandComplete);
+
+  return await unwrapLegacyCommandResponse(command, response);
+}
+
+async function unwrapLegacyCommandResponse(
+  command: Command,
+  response: CommandResponse,
+): Promise<CommandResponse | unknown> {
+  if (clientSupportsFallback(command)) {
+    return response;
+  }
+  if ("returnValue" in response) {
+    return response.returnValue;
+  }
+  return undefined;
 }
 
 function createCommandRunner(
   treeSitter: TreeSitter,
+  commandServerApi: CommandServerApi,
   languageDefinitions: LanguageDefinitions,
   debug: Debug,
   storedTargets: StoredTargetMap,
@@ -90,6 +115,7 @@ function createCommandRunner(
   );
   markStageFactory.setPipelineRunner(targetPipelineRunner);
   return new CommandRunnerImpl(
+    commandServerApi,
     debug,
     storedTargets,
     targetPipelineRunner,

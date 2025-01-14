@@ -1,7 +1,6 @@
-import { FlashStyle, Range, TextDocument } from "@cursorless/common";
-import * as path from "node:path";
+import type { TreeSitter, TextDocument } from "@cursorless/common";
+import { FlashStyle, Range } from "@cursorless/common";
 import type { Tree, TreeCursor } from "web-tree-sitter";
-import type { TreeSitter } from "..";
 import { ide } from "../singletons/ide.singleton";
 import type { Target } from "../typings/target.types";
 import { flashTargets } from "../util/targetUtils";
@@ -23,7 +22,8 @@ export default class ShowParseTree {
       results.push(parseTree(editor.document, tree, contentRange));
     }
 
-    ide().openUntitledTextDocument({
+    // FIXME: If we await this our test break. We should probably find out when this actually resolves.
+    void ide().openUntitledTextDocument({
       language: "markdown",
       content: results.join("\n\n"),
     });
@@ -43,7 +43,7 @@ function parseTree(
   parseCursor(resultPlayground, resultQuery, contentRange, tree.walk(), 0);
 
   return [
-    `## ${path.basename(document.uri.path)} [${contentRange}]\n`,
+    `## ${document.filename} [${contentRange}]\n`,
     `\`\`\`${document.languageId}`,
     document.getText(contentRange),
     "```",
@@ -116,6 +116,6 @@ function parseCursor(
 }
 
 function getFieldName(cursor: TreeCursor): string {
-  const field = cursor.currentFieldName();
+  const field = cursor.currentFieldName;
   return field != null ? `${field}: ` : "";
 }

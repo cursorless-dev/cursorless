@@ -1,0 +1,52 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: chuck fourth char whale past third char air take whale
+  action:
+    name: remove
+    target:
+      type: range
+      anchor:
+        type: primitive
+        modifiers:
+          - type: ordinalScope
+            scopeType: {type: character}
+            start: 3
+            length: 1
+        mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      active:
+        type: primitive
+        modifiers:
+          - type: ordinalScope
+            scopeType: {type: character}
+            start: 2
+            length: 1
+        mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      excludeAnchor: false
+      excludeActive: false
+  usePrePhraseSnapshot: false
+marksToCheck: [default.w]
+initialState:
+  documentContents: hello world whatever
+  selections:
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}
+  marks:
+    default.w:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 11}
+    default.a:
+      start: {line: 0, character: 12}
+      end: {line: 0, character: 20}
+finalState:
+  documentContents: hello wortever
+  selections:
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}
+  marks:
+    default.w:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 9}
+    default.a:
+      start: {line: 0, character: 9}
+      end: {line: 0, character: 14}

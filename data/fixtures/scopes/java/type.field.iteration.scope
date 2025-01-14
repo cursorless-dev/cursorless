@@ -1,0 +1,18 @@
+class MyClass {
+    Map<int, int> foo;
+}
+---
+
+[#1 Range] =
+[#1 Domain] = 0:15-2:0
+                 >
+0| class MyClass {
+1|     Map<int, int> foo;
+2| }
+   <
+
+
+[#2 Range] =
+[#2 Domain] = 1:8-1:16
+          >--------<
+1|     Map<int, int> foo;

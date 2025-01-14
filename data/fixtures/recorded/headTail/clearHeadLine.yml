@@ -1,0 +1,26 @@
+languageId: plaintext
+command:
+  version: 7
+  spokenForm: clear head line
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: extendThroughStartOf
+          modifiers:
+            - type: preferredScope
+              scopeType: {type: line}
+  usePrePhraseSnapshot: true
+spokenFormError: Modifier 'preferredScope'
+initialState:
+  documentContents: "'foo bar'"
+  selections:
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}
+  marks: {}
+finalState:
+  documentContents: bar'
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

@@ -1,20 +1,20 @@
-import {
+import type {
   BreakpointDescriptor,
+  Edit,
   EditableTextEditor,
-  Position,
+  OpenLinkOptions,
   Range,
   RevealLineAt,
   Selection,
-  sleep,
+  SetSelectionsOpts,
   TextDocument,
   TextEditor,
-  TextEditorEdit,
   TextEditorOptions,
 } from "@cursorless/common";
+import { sleep, uniqWithHash } from "@cursorless/common";
 import {
   fromVscodeRange,
   fromVscodeSelection,
-  toVscodePositionOrRange,
   toVscodeRange,
   toVscodeSelection,
 } from "@cursorless/vscode-common";
@@ -22,7 +22,7 @@ import * as vscode from "vscode";
 import vscodeEdit from "./VscodeEdit";
 import vscodeFocusEditor from "./VscodeFocusEditor";
 import { vscodeFold, vscodeUnfold } from "./VscodeFold";
-import { VscodeIDE } from "./VscodeIDE";
+import type { VscodeIDE } from "./VscodeIDE";
 import { vscodeInsertSnippet } from "./VscodeInsertSnippets";
 import {
   vscodeEditNewNotebookCellAbove,
@@ -32,6 +32,7 @@ import vscodeOpenLink from "./VscodeOpenLink";
 import { vscodeRevealLine } from "./VscodeRevealLine";
 import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
 import { vscodeToggleBreakpoint } from "./VscodeToggleBreakpoint";
+import { isDiffEditorOriginal } from "./isDiffEditorOriginal";
 
 export class VscodeTextEditorImpl implements EditableTextEditor {
   readonly document: TextDocument;
@@ -52,8 +53,42 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     return this.editor.selections.map(fromVscodeSelection);
   }
 
-  set selections(selections: Selection[]) {
-    this.editor.selections = selections.map(toVscodeSelection);
+  async setSelections(
+    rawSelections: Selection[],
+    { focusEditor = false, revealRange = true }: SetSelectionsOpts = {},
+  ): Promise<void> {
+    const selections = uniqWithHash(
+      rawSelections,
+      (a, b) => a.isEqual(b),
+      (s) => s.concise(),
+    ).map(toVscodeSelection);
+
+    if (!focusEditor) {
+      this.editor.selections = selections;
+      return;
+    }
+
+    if (this.isDiffEditorOriginal || this.isSearchEditor) {
+      // NB: With a git diff editor we focus the editor BEFORE setting the
+      // selections because otherwise the selections will be clobbered when we
+      // issue the command to switch sides in the diff editor.
+      // The search editor has the same problem where focus is moved to the
+      // input field and the selection is clobbered.
+      await vscodeFocusEditor(this);
+      this.editor.selections = selections;
+    }
+    // Normal text editor
+    else {
+      // NB: With a normal text editor we focus the editor AFTER setting the
+      // selections because otherwise you see an intermediate state where the
+      // old selection persists
+      this.editor.selections = selections;
+      await vscodeFocusEditor(this);
+    }
+
+    if (revealRange) {
+      await this.revealRange(this.selections[0]);
+    }
   }
 
   get visibleRanges(): Range[] {
@@ -72,6 +107,16 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     return this.editor === vscode.window.activeTextEditor;
   }
 
+  /** Returns true if this is the original/left hand side of a git diff editor */
+  get isDiffEditorOriginal(): boolean {
+    return isDiffEditorOriginal(this.editor);
+  }
+
+  /** Returns true if this is a search editor */
+  get isSearchEditor(): boolean {
+    return this.document.uri.scheme === "search-editor";
+  }
+
   public isEqual(other: TextEditor): boolean {
     return this.id === other.id;
   }
@@ -84,15 +129,12 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     return vscodeRevealLine(this, lineNumber, at);
   }
 
-  public edit(
-    callback: (editBuilder: TextEditorEdit) => void,
-    options?: { undoStopBefore: boolean; undoStopAfter: boolean },
-  ): Promise<boolean> {
-    return vscodeEdit(this.editor, callback, options);
+  public edit(edits: Edit[]): Promise<boolean> {
+    return vscodeEdit(this.editor, edits);
   }
 
   public focus(): Promise<void> {
-    return vscodeFocusEditor(this.ide, this);
+    return vscodeFocusEditor(this);
   }
 
   public editNewNotebookCellAbove(): Promise<
@@ -105,11 +147,11 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     return vscodeEditNewNotebookCellBelow(this);
   }
 
-  public openLink(location?: Position | Range): Promise<boolean> {
-    return vscodeOpenLink(
-      this,
-      location != null ? toVscodePositionOrRange(location) : undefined,
-    );
+  public openLink(
+    range: Range,
+    options: OpenLinkOptions = { openAside: false },
+  ): Promise<void> {
+    return vscodeOpenLink(this, range, options);
   }
 
   public fold(ranges?: Range[]): Promise<void> {
@@ -132,7 +174,7 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     await vscode.commands.executeCommand("editor.action.clipboardCopyAction");
   }
 
-  public async clipboardPaste(_ranges?: Range[]): Promise<void> {
+  public async clipboardPaste(): Promise<void> {
     // We add these sleeps here to workaround a bug in VSCode. See #1521
     await sleep(100);
     await vscode.commands.executeCommand("editor.action.clipboardPasteAction");
@@ -147,11 +189,7 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     await vscode.commands.executeCommand("editor.action.outdentLines");
   }
 
-  public async insertLineAfter(ranges?: Range[]): Promise<void> {
-    if (ranges != null) {
-      this.selections = ranges.map((range) => range.toSelection(false));
-    }
-    await this.focus();
+  public async insertLineAfter(_ranges?: Range[]): Promise<void> {
     await vscode.commands.executeCommand("editor.action.insertLineAfter");
   }
 
@@ -190,13 +228,9 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
 
   public async extractVariable(_range?: Range): Promise<void> {
     if (this.document.languageId === "python") {
-      // Workaround for https://github.com/microsoft/vscode-python/issues/20455
       await vscode.commands.executeCommand("editor.action.codeAction", {
-        kind: "refactor.extract",
+        kind: "refactor.extract.variable",
       });
-      await sleep(250);
-      await vscode.commands.executeCommand("selectNextCodeAction");
-      await vscode.commands.executeCommand("acceptSelectedCodeAction");
     } else {
       await vscode.commands.executeCommand("editor.action.codeAction", {
         kind: "refactor.extract.constant",

@@ -1,0 +1,32 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: change sentence
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: sentence}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    /** 
+     * Definitely the worlds
+     * best jsdoc
+     */
+    const value = 2
+  selections:
+    - anchor: {line: 1, character: 3}
+      active: {line: 1, character: 3}
+  marks: {}
+finalState:
+  documentContents: |-
+    /** 
+     * 
+     */
+    const value = 2
+  selections:
+    - anchor: {line: 1, character: 3}
+      active: {line: 1, character: 3}

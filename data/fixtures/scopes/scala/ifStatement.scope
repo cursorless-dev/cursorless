@@ -1,0 +1,17 @@
+val test = if (true) true else false
+---
+
+[Content] =
+[Domain] = 0:11-0:36
+             >-------------------------<
+0| val test = if (true) true else false
+
+[Removal] = 0:10-0:36
+            >--------------------------<
+0| val test = if (true) true else false
+
+[Leading delimiter] = 0:10-0:11
+            >-<
+0| val test = if (true) true else false
+
+[Insertion delimiter] = "\n"

@@ -1,0 +1,19 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: take token
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: token}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: a b
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 1}
+  marks: {}
+thrownError: {name: NoContainingScopeError}

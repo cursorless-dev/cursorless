@@ -1,0 +1,45 @@
+languageId: rust
+command:
+  version: 6
+  spokenForm: chuck type odd
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+      mark: {type: decoratedSymbol, symbolColor: default, character: o}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    trait T {
+        fn f();
+    }
+
+    impl T for Option<u32> {
+        fn f() {
+            unimplemented!()
+        }
+    }
+  selections:
+    - anchor: {line: 8, character: 0}
+      active: {line: 8, character: 0}
+  marks:
+    default.o:
+      start: {line: 4, character: 11}
+      end: {line: 4, character: 17}
+finalState:
+  documentContents: |
+    trait T {
+        fn f();
+    }
+
+    impl T for {
+        fn f() {
+            unimplemented!()
+        }
+    }
+  selections:
+    - anchor: {line: 8, character: 0}
+      active: {line: 8, character: 0}

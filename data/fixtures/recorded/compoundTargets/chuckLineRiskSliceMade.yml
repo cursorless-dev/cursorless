@@ -1,0 +1,44 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: chuck line red slice made
+  action:
+    name: remove
+    target:
+      type: range
+      anchor:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: line}
+        mark: {type: decoratedSymbol, symbolColor: default, character: r}
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: m}
+      excludeAnchor: false
+      excludeActive: false
+      rangeType: vertical
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    short
+    something longer
+    something even longer
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.r:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 5}
+    default.m:
+      start: {line: 2, character: 0}
+      end: {line: 2, character: 9}
+finalState:
+  documentContents: |-
+
+    hing longer
+    hing even longer
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

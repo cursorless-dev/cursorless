@@ -8,22 +8,27 @@ on:
     types: [opened, synchronize, reopened]
   merge_group:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
   pre-commit:
     name: Pre-commit
     runs-on: ubuntu-latest
+    env:
+      CURSORLESS_REPO_ROOT: ${{ github.workspace }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: 3.x
-      - uses: pnpm/action-setup@v2
-      - uses: actions/setup-node@v3
+      - run: corepack enable
+      - uses: actions/setup-node@v4
         with:
-          node-version-file: package.json
+          node-version-file: .nvmrc
           cache: pnpm
       - run: pnpm --color install
-      - uses: pre-commit/action@v3.0.0
-      - uses: pre-commit-ci/lite-action@v1.0.1
+      - uses: leafo/gh-actions-lua@v9
+      - uses: leafo/gh-actions-luarocks@v4
+      - uses: pre-commit/action@v3.0.1
+      - uses: pre-commit-ci/lite-action@v1.0.2
         if: always()

@@ -1,7 +1,7 @@
-import { Range } from "@cursorless/common";
+import { Range, adjustPosition } from "@cursorless/common";
 import { z } from "zod";
 import { makeRangeFromPositions } from "../../util/nodeSelectors";
-import { MutableQueryCapture } from "./QueryCapture";
+import type { MutableQueryCapture } from "./QueryCapture";
 import { QueryPredicateOperator } from "./QueryPredicateOperator";
 import { q } from "./operatorArgumentSchemaTypes";
 
@@ -62,6 +62,21 @@ class HasMultipleChildrenOfType extends QueryPredicateOperator<HasMultipleChildr
   }
 }
 
+/**
+ * A predicate operator that returns true if the nodes text matched the regular expression
+ */
+class Match extends QueryPredicateOperator<Match> {
+  name = "match?" as const;
+  schema = z.tuple([q.node, q.string]);
+
+  run(nodeInfo: MutableQueryCapture, pattern: string) {
+    const { document, range } = nodeInfo;
+    const regex = new RegExp(pattern, "ds");
+    const text = document.getText(range);
+    return regex.test(text);
+  }
+}
+
 class ChildRange extends QueryPredicateOperator<ChildRange> {
   name = "child-range!" as const;
   schema = z.union([
@@ -92,6 +107,23 @@ class ChildRange extends QueryPredicateOperator<ChildRange> {
     nodeInfo.range = makeRangeFromPositions(
       excludeStart ? start.endPosition : start.startPosition,
       excludeEnd ? end.startPosition : end.endPosition,
+    );
+
+    return true;
+  }
+}
+
+class CharacterRange extends QueryPredicateOperator<CharacterRange> {
+  name = "character-range!" as const;
+  schema = z.union([
+    z.tuple([q.node, q.integer]),
+    z.tuple([q.node, q.integer, q.integer]),
+  ]);
+
+  run(nodeInfo: MutableQueryCapture, startOffset: number, endOffset?: number) {
+    nodeInfo.range = new Range(
+      nodeInfo.range.start.translate(undefined, startOffset),
+      nodeInfo.range.end.translate(undefined, endOffset ?? 0),
     );
 
     return true;
@@ -135,6 +167,28 @@ class ShrinkToMatch extends QueryPredicateOperator<ShrinkToMatch> {
       document.positionAt(baseOffset + endOffset),
     );
 
+    return true;
+  }
+}
+
+/**
+ * A predicate operator that modifies the range of the match by trimming trailing whitespace,
+ * similar to the javascript trimEnd function.
+ */
+class TrimEnd extends QueryPredicateOperator<TrimEnd> {
+  name = "trim-end!" as const;
+  schema = z.tuple([q.node]);
+
+  run(nodeInfo: MutableQueryCapture) {
+    const { document, range } = nodeInfo;
+    const text = document.getText(range);
+    const whitespaceLength = text.length - text.trimEnd().length;
+    if (whitespaceLength > 0) {
+      nodeInfo.range = new Range(
+        range.start,
+        adjustPosition(document, range.end, -whitespaceLength),
+      );
+    }
     return true;
   }
 }
@@ -194,14 +248,49 @@ class InsertionDelimiter extends QueryPredicateOperator<InsertionDelimiter> {
   }
 }
 
+/**
+ * A predicate operator that sets the insertion delimiter of {@link nodeInfo} to
+ * either {@link insertionDelimiterConsequence} or
+ * {@link insertionDelimiterAlternative} depending on whether
+ * {@link conditionNodeInfo} is single or multiline, respectively. For example,
+ *
+ * ```scm
+ * (#single-or-multi-line-delimiter! @foo @bar ", " ",\n")
+ * ```
+ *
+ * will set the insertion delimiter of the `@foo` capture to `", "` if the
+ * `@bar` capture is a single line and `",\n"` otherwise.
+ */
+class SingleOrMultilineDelimiter extends QueryPredicateOperator<SingleOrMultilineDelimiter> {
+  name = "single-or-multi-line-delimiter!" as const;
+  schema = z.tuple([q.node, q.node, q.string, q.string]);
+
+  run(
+    nodeInfo: MutableQueryCapture,
+    conditionNodeInfo: MutableQueryCapture,
+    insertionDelimiterConsequence: string,
+    insertionDelimiterAlternative: string,
+  ) {
+    nodeInfo.insertionDelimiter = conditionNodeInfo.range.isSingleLine
+      ? insertionDelimiterConsequence
+      : insertionDelimiterAlternative;
+
+    return true;
+  }
+}
+
 export const queryPredicateOperators = [
   new Log(),
   new NotType(),
+  new TrimEnd(),
   new NotParentType(),
   new IsNthChild(),
   new ChildRange(),
+  new CharacterRange(),
   new ShrinkToMatch(),
   new AllowMultiple(),
   new InsertionDelimiter(),
+  new SingleOrMultilineDelimiter(),
   new HasMultipleChildrenOfType(),
+  new Match(),
 ];

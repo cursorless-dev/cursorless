@@ -1,0 +1,13 @@
+void C::funcName() {}
+---
+
+[Content] =
+[Removal] = 0:8-0:16
+          >--------<
+0| void C::funcName() {}
+
+[Domain] = 0:0-0:21
+  >---------------------<
+0| void C::funcName() {}
+
+[Insertion delimiter] = " "

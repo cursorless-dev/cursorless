@@ -7,6 +7,11 @@ class DecoratedSymbol(TypedDict):
     character: str
 
 
+class LiteralMark(TypedDict):
+    type: Literal["literal"]
+    modifier: dict
+
+
 SimpleMark = dict[Literal["type"], str]
 
 LineNumberType = Literal["modulo100", "relative"]
@@ -28,4 +33,4 @@ class LineNumberRange(TypedDict):
 
 LineNumber = Union[LineNumberMark, LineNumberRange]
 
-Mark = Union[DecoratedSymbol, SimpleMark, LineNumber]
+Mark = Union[DecoratedSymbol, LiteralMark, SimpleMark, LineNumber]

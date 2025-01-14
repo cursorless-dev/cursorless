@@ -1,0 +1,29 @@
+languageId: latex
+command:
+  version: 6
+  spokenForm: change name
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    \section{some section}
+    \subsection
+    Some Text
+  selections:
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
+  marks: {}
+finalState:
+  documentContents: |-
+    \section{}
+    \subsection
+    Some Text
+  selections:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}

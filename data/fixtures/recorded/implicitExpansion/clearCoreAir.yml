@@ -1,0 +1,26 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: change inside air
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: interiorOnly}
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: (aaa bbb)
+  selections:
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}
+  marks:
+    default.a:
+      start: {line: 0, character: 1}
+      end: {line: 0, character: 4}
+finalState:
+  documentContents: ()
+  selections:
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}

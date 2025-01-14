@@ -1,24 +1,26 @@
-import {
+import type {
   CustomRegexScopeType,
   Disposable,
+  SpokenFormEntry,
+  SpokenFormMapKeyTypes,
+  SpokenFormType,
+  TalonSpokenForms,
+} from "@cursorless/common";
+import {
+  DisabledCustomSpokenFormsError,
+  NeedsInitialTalonUpdateError,
   Notifier,
+  SUPPORTED_ENTRY_TYPES,
   showError,
 } from "@cursorless/common";
-import { isEqual } from "lodash";
-import {
-  NeedsInitialTalonUpdateError,
-  SUPPORTED_ENTRY_TYPES,
-  SpokenFormEntry,
-  TalonSpokenForms,
-} from "../scopeProviders/TalonSpokenForms";
+import { isEqual } from "lodash-es";
 import { ide } from "../singletons/ide.singleton";
-import { SpokenFormMap, SpokenFormMapEntry } from "./SpokenFormMap";
-import { SpokenFormMapKeyTypes, SpokenFormType } from "./SpokenFormType";
+import type { SpokenFormMap, SpokenFormMapEntry } from "./SpokenFormMap";
 import {
   defaultSpokenFormInfoMap,
   defaultSpokenFormMap,
 } from "./defaultSpokenFormMap";
-import { DefaultSpokenFormMapEntry } from "./defaultSpokenFormMap.types";
+import type { DefaultSpokenFormMapEntry } from "./defaultSpokenFormMap.types";
 
 type Writable<T> = {
   -readonly [K in keyof T]: T[K];
@@ -34,13 +36,17 @@ export class CustomSpokenForms {
   private disposable: Disposable;
   private notifier = new Notifier();
 
+  /**
+   * A promise that resolves when the custom spoken forms have been loaded.
+   */
+  public readonly customSpokenFormsInitialized: Promise<void>;
+
   private spokenFormMap_: Writable<SpokenFormMap> = { ...defaultSpokenFormMap };
 
   get spokenFormMap(): SpokenFormMap {
     return this.spokenFormMap_;
   }
 
-  private customSpokenFormsInitialized_ = false;
   private needsInitialTalonUpdate_: boolean | undefined;
 
   /**
@@ -51,21 +57,13 @@ export class CustomSpokenForms {
     return this.needsInitialTalonUpdate_;
   }
 
-  /**
-   * Whether the custom spoken forms have been initialized. If `false`, the
-   * default spoken forms are currently being used while the custom spoken forms
-   * are being loaded.
-   */
-  get customSpokenFormsInitialized() {
-    return this.customSpokenFormsInitialized_;
-  }
-
   constructor(private talonSpokenForms: TalonSpokenForms) {
     this.disposable = talonSpokenForms.onDidChange(() =>
-      this.updateSpokenFormMaps(),
+      this.updateSpokenFormMaps().catch(() => {}),
     );
 
-    this.updateSpokenFormMaps();
+    this.customSpokenFormsInitialized = this.updateSpokenFormMaps();
+    this.customSpokenFormsInitialized.catch(() => {});
   }
 
   /**
@@ -86,22 +84,22 @@ export class CustomSpokenForms {
       if (err instanceof NeedsInitialTalonUpdateError) {
         // Handle case where spokenForms.json doesn't exist yet
         this.needsInitialTalonUpdate_ = true;
+      } else if (err instanceof DisabledCustomSpokenFormsError) {
+        // Do nothing: this ide doesn't currently support custom spoken forms
       } else {
         console.error("Error loading custom spoken forms", err);
-        showError(
+        const msg = (err as Error).message.replace(/\.$/, "");
+        void showError(
           ide().messages,
           "CustomSpokenForms.updateSpokenFormMaps",
-          `Error loading custom spoken forms: ${
-            (err as Error).message
-          }}}. Falling back to default spoken forms.`,
+          `Error loading custom spoken forms: ${msg}. Falling back to default spoken forms.`,
         );
       }
 
       this.spokenFormMap_ = { ...defaultSpokenFormMap };
-      this.customSpokenFormsInitialized_ = false;
       this.notifier.notifyListeners();
 
-      return;
+      throw err;
     }
 
     for (const entryType of SUPPORTED_ENTRY_TYPES) {
@@ -117,7 +115,6 @@ export class CustomSpokenForms {
       );
     }
 
-    this.customSpokenFormsInitialized_ = true;
     this.notifier.notifyListeners();
   }
 
@@ -175,7 +172,7 @@ function updateEntriesForType<T extends SpokenFormType>(
             defaultSpokenForms,
             spokenForms: customSpokenForms,
             requiresTalonUpdate: false,
-            isCustom: isEqual(defaultSpokenForms, customSpokenForms),
+            isCustom: !isEqual(defaultSpokenForms, customSpokenForms),
             isPrivate,
           };
   }

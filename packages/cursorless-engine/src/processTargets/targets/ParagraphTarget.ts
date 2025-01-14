@@ -1,16 +1,11 @@
-import {
-  Position,
-  Range,
-  TextDocument,
-  TextEditor,
-  TextLine,
-} from "@cursorless/common";
-import { BaseTarget, CommonTargetParameters, LineTarget } from ".";
-import { Target } from "../../typings/target.types";
+import type { TextDocument, TextEditor, TextLine } from "@cursorless/common";
+import { Position, Range } from "@cursorless/common";
+import type { CommonTargetParameters } from "./BaseTarget";
+import { BaseTarget } from "./BaseTarget";
+import { LineTarget } from "./LineTarget";
 import { expandToFullLine } from "../../util/rangeUtils";
-import { constructLineTarget } from "../../util/tryConstructTarget";
-import { isSameType } from "../../util/typeUtils";
-import { createContinuousLineRange } from "../targetUtil/createContinuousRange";
+import { constructLineTarget } from "./LineTarget";
+import { createContinuousLineRange } from "./util/createContinuousRange";
 
 export class ParagraphTarget extends BaseTarget<CommonTargetParameters> {
   type = "ParagraphTarget";
@@ -73,44 +68,15 @@ export class ParagraphTarget extends BaseTarget<CommonTargetParameters> {
       : this.fullLineContentRange;
   }
 
-  createContinuousRangeTarget(
+  maybeCreateRichRangeTarget(
     isReversed: boolean,
-    endTarget: Target,
-    includeStart: boolean,
-    includeEnd: boolean,
-  ): Target {
-    if (isSameType(this, endTarget)) {
-      return new ParagraphTarget({
-        ...this.getCloneParameters(),
-        isReversed,
-        contentRange: createContinuousLineRange(
-          this,
-          endTarget,
-          includeStart,
-          includeEnd,
-        ),
-      });
-    }
-
-    if (endTarget.isLine) {
-      return new LineTarget({
-        editor: this.editor,
-        isReversed,
-        contentRange: createContinuousLineRange(
-          this,
-          endTarget,
-          includeStart,
-          includeEnd,
-        ),
-      });
-    }
-
-    return super.createContinuousRangeTarget(
+    endTarget: ParagraphTarget,
+  ): ParagraphTarget {
+    return new ParagraphTarget({
+      ...this.getCloneParameters(),
       isReversed,
-      endTarget,
-      includeStart,
-      includeEnd,
-    );
+      contentRange: createContinuousLineRange(this, endTarget, true, true),
+    });
   }
 
   protected getCloneParameters() {

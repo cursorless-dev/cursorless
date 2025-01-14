@@ -1,0 +1,26 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: change trailing whale
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: trailing}
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: hello world whatever
+  selections:
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}
+  marks:
+    default.w:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 11}
+finalState:
+  documentContents: hello worldwhatever
+  selections:
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}

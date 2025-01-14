@@ -1,17 +1,14 @@
-import globRaw from "glob";
 import Mocha from "mocha";
-import * as path from "path";
-import { getCursorlessRepoRoot } from "@cursorless/common";
-import { promisify } from "util";
+import * as path from "node:path";
+import { getCursorlessRepoRoot } from "@cursorless/node-common";
 import { runTestSubset, testSubsetGrepString } from "./testSubset";
-
-const glob = promisify(globRaw);
+import { glob } from "glob";
 
 /**
  * Type of test to run, eg unit, vscode, talon
  */
 export enum TestType {
-  /** Unit tests can be run without VSCode or Talon */
+  /** Unit tests can be run without VSCode or Talon or Neovim */
   unit,
 
   /** VSCode tests must be run from VSCode context */
@@ -19,6 +16,12 @@ export enum TestType {
 
   /** Talon tests require a running Talon instance */
   talon,
+
+  /** Talon everywhere/JS tests can be run without VSCode or Talon */
+  talonJs,
+
+  /** Neovim tests must be run from Neovim context */
+  neovim,
 }
 
 export function runAllTests(...types: TestType[]) {
@@ -26,12 +29,20 @@ export function runAllTests(...types: TestType[]) {
     path.join(getCursorlessRepoRoot(), "packages"),
     (files) =>
       files.filter((f) => {
+        if (f.endsWith("neovim.test.cjs")) {
+          return types.includes(TestType.neovim);
+        }
+
         if (f.endsWith("vscode.test.cjs")) {
           return types.includes(TestType.vscode);
         }
 
         if (f.endsWith("talon.test.cjs")) {
           return types.includes(TestType.talon);
+        }
+
+        if (f.endsWith("talonjs.test.cjs")) {
+          return types.includes(TestType.talonJs);
         }
 
         return types.includes(TestType.unit);

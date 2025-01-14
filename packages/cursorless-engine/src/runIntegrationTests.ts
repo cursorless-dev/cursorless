@@ -1,9 +1,7 @@
-import { languageMatchers } from "./languages/getNodeMatcher";
-import { TreeSitter } from "./typings/TreeSitter";
+import { unsafeKeys, type TreeSitter } from "@cursorless/common";
+import type { LanguageDefinitions } from "./languages/LanguageDefinitions";
 import { legacyLanguageIds } from "./languages/LegacyLanguageId";
-import { LanguageDefinitions } from "./languages/LanguageDefinitions";
-import assert from "assert";
-import { unsafeKeys } from "./util/object";
+import { languageMatchers } from "./languages/getNodeMatcher";
 
 /**
  * Run tests that require multiple components to be instantiated, as well as a
@@ -27,6 +25,7 @@ async function assertNoScopesBothLegacyAndNew(
   const errors: string[] = [];
   for (const languageId of legacyLanguageIds) {
     await treeSitter.loadLanguage(languageId);
+    await languageDefinitions.loadLanguage(languageId);
 
     unsafeKeys(languageMatchers[languageId] ?? {}).map((scopeTypeType) => {
       if (
@@ -41,5 +40,7 @@ async function assertNoScopesBothLegacyAndNew(
     });
   }
 
-  assert.deepStrictEqual(errors, []);
+  if (errors.length > 0) {
+    throw Error(errors.join("\n"));
+  }
 }

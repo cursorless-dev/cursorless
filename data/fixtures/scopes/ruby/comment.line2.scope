@@ -1,0 +1,17 @@
+a = 0 # Hello World
+---
+
+[Content] =
+[Domain] = 0:6-0:19
+        >-------------<
+0| a = 0 # Hello World
+
+[Removal] = 0:5-0:19
+       >--------------<
+0| a = 0 # Hello World
+
+[Leading delimiter] = 0:5-0:6
+       >-<
+0| a = 0 # Hello World
+
+[Insertion delimiter] = "\n"

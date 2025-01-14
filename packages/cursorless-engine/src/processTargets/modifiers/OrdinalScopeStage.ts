@@ -1,11 +1,12 @@
-import { OrdinalScopeModifier } from "@cursorless/common";
-import { Target } from "../../typings/target.types";
-import { ModifierStageFactory } from "../ModifierStageFactory";
-import { ModifierStage } from "../PipelineStages.types";
+import type { OrdinalScopeModifier } from "@cursorless/common";
+import type { Target } from "../../typings/target.types";
+import type { ModifierStageFactory } from "../ModifierStageFactory";
+import type { ModifierStage } from "../PipelineStages.types";
 import {
   createRangeTargetFromIndices,
   getEveryScopeTargets,
 } from "./targetSequenceUtils";
+import { sliceStrict } from "./listUtils";
 
 export class OrdinalScopeStage implements ModifierStage {
   constructor(
@@ -23,6 +24,10 @@ export class OrdinalScopeStage implements ModifierStage {
     const startIndex =
       this.modifier.start + (this.modifier.start < 0 ? targets.length : 0);
     const endIndex = startIndex + this.modifier.length - 1;
+
+    if (this.modifier.isEvery) {
+      return sliceStrict(targets, startIndex, endIndex);
+    }
 
     return [
       createRangeTargetFromIndices(

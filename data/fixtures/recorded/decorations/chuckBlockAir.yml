@@ -1,0 +1,43 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: chuck block air
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: paragraph}
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+
+    a
+    a
+
+
+    b   c
+    d   e
+    f   g
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.a:
+      start: {line: 1, character: 0}
+      end: {line: 1, character: 1}
+finalState:
+  documentContents: |
+
+    b   c
+    d   e
+    f   g
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+ide:
+  flashes:
+    - style: pendingDelete
+      range: {type: line, start: 1, end: 4}

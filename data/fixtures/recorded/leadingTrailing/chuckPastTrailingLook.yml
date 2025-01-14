@@ -1,0 +1,31 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: chuck past trailing look
+  action:
+    name: remove
+    target:
+      type: range
+      anchor: {type: implicit}
+      active:
+        type: primitive
+        modifiers:
+          - {type: trailing}
+        mark: {type: decoratedSymbol, symbolColor: default, character: l}
+      excludeAnchor: false
+      excludeActive: false
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: hello there
+  selections:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}
+  marks:
+    default.l:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 5}
+finalState:
+  documentContents: hethere
+  selections:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}

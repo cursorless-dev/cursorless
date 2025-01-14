@@ -1,8 +1,8 @@
-import {
+import type {
   CommandLatest,
   PartialPrimitiveTargetDescriptor,
-  splitKey,
 } from "@cursorless/common";
+import { splitKey } from "@cursorless/common";
 
 /**
  * Constructs the command that would have been used as the second command when
@@ -34,7 +34,7 @@ export function getHatMapCommand(marks: string[]): CommandLatest {
               elements: primitiveTargets,
             },
     },
-    version: 6,
+    version: 7,
     usePrePhraseSnapshot: false,
   };
 }

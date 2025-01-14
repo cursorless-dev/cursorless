@@ -1,0 +1,112 @@
+{
+  "!!NOTE!!": "This file is for internal development purposes only; these experimental features are not supported and could break at any time.",
+  "cursorless.experimental.keyboard.modal.keybindings.scope": {
+    "i": "line",
+    "sb": "paragraph",
+    ";": "statement",
+    ",": "collectionItem",
+    ".": "functionCall",
+    "'": "string",
+    "sf": "namedFunction",
+    "sc": "class",
+    "st": "token",
+    "sy": "type",
+    "sv": "value",
+    "sk": "collectionKey",
+    "sp": "nonWhitespaceSequence",
+    "ss": "boundedNonWhitespaceSequence",
+    "sa": "argumentOrParameter",
+    "sl": "url"
+  },
+  "cursorless.experimental.keyboard.modal.keybindings.action": {
+    "at": "setSelection",
+    "ah": "setSelectionBefore",
+    "al": "setSelectionAfter",
+    "ai": { "actionId": "editNewLineBefore", "exitCursorlessMode": true },
+    "ao": { "actionId": "editNewLineAfter", "exitCursorlessMode": true },
+    "ak": "insertCopyBefore",
+    "aj": "insertCopyAfter",
+    "au": "replaceWithTarget",
+    "am": "moveToTarget",
+    "c": { "actionId": "clearAndSetSelection", "exitCursorlessMode": true },
+    "as": "swapTargets",
+    "af": "foldRegion",
+    "aI": "insertEmptyLineBefore",
+    "aO": "insertEmptyLineAfter",
+    "aU": "insertEmptyLinesAround",
+    "ac": "copyToClipboard",
+    "ax": "cutToClipboard",
+    "ap": "pasteFromClipboard",
+    "ad": "followLink",
+    "x": "remove",
+    "aw": "wrap"
+  },
+  "cursorless.experimental.keyboard.modal.keybindings.color": {
+    "d": "default",
+    "b": "blue",
+    "y": "yellow",
+    "r": "red",
+    "g": "green",
+    "p": "pink"
+  },
+  "cursorless.experimental.keyboard.modal.keybindings.shape": {
+    "hx": "ex",
+    "hf": "fox",
+    "hq": "frame",
+    "hv": "curve",
+    "he": "eye",
+    "hy": "play",
+    "hz": "bolt",
+    "hw": "crosshairs"
+  },
+  "cursorless.experimental.keyboard.modal.keybindings.misc": {
+    "fx": "combineColorAndShape",
+    "fk": "makeRange",
+    "fs": "makeVerticalRange",
+    "fa": "makeList",
+    "-": "backward"
+  },
+  "cursorless.experimental.keyboard.modal.keybindings.specialMark": {
+    "mc": "cursor"
+  },
+  "cursorless.experimental.keyboard.modal.keybindings.modifier": {
+    "n": "nextPrev",
+    "*": "every",
+    "mi": "interiorOnly",
+    "mb": "excludeInterior",
+    "mh": "extendThroughStartOf",
+    "mt": "extendThroughEndOf"
+  },
+  "cursorless.experimental.keyboard.modal.keybindings.vscodeCommand": {
+    "va": "editor.action.addCommentLine",
+    "vb": {
+      "commandId": "editor.action.addCommentLine",
+      "executeAtTarget": true
+    },
+    "vc": {
+      "commandId": "editor.action.addCommentLine",
+      "executeAtTarget": true,
+      "keepChangedSelection": true,
+      "exitCursorlessMode": true
+    },
+    " ": "cursorless.repeatPreviousCommand",
+    "vu": "cursorless.keyboard.undoTarget",
+    "vr": "cursorless.keyboard.redoTarget"
+  },
+  "cursorless.experimental.keyboard.modal.keybindings.pairedDelimiter": {
+    "wl": "angleBrackets",
+    "wt": "backtickQuotes",
+    "wb": "curlyBrackets",
+    "wd": "doubleQuotes",
+    "wwd": "escapedDoubleQuotes",
+    "wwp": "escapedParentheses",
+    "wws": "escapedSquareBrackets",
+    "wwq": "escapedSingleQuotes",
+    "wp": "parentheses",
+    "wq": "singleQuotes",
+    "ws": "squareBrackets",
+    "wg": "string",
+    "wj": "any",
+    "wk": "collectionBoundary"
+  }
+}

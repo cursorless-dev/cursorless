@@ -1,6 +1,6 @@
-import { Position } from "./Position";
-import { Range } from "./Range";
-import { TextEditor } from "./TextEditor";
+import type { Position } from "./Position";
+import type { Range } from "./Range";
+import type { TextEditor } from "./TextEditor";
 
 /**
  * A range of lines in a document, unlike the standard {@link Range}, which is
@@ -53,8 +53,8 @@ export function isLineRange(range: GeneralizedRange): range is LineRange {
   return range.type === "line";
 }
 
-export function toLineRange(range: Range): LineRange {
-  return { type: "line", start: range.start.line, end: range.end.line };
+export function toLineRange({ start, end }: Range): LineRange {
+  return { type: "line", start: start.line, end: end.line };
 }
 
 export function toCharacterRange({ start, end }: Range): CharacterRange {

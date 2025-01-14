@@ -1,0 +1,7 @@
+void aaa(int bbb, int ccc) {}
+---
+
+[Range] =
+[Domain] = 0:9-0:25
+           >----------------<
+0| void aaa(int bbb, int ccc) {}

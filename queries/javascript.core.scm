@@ -1,6 +1,8 @@
 ;; import javascript.function.scm
 ;; import javascript.fieldAccess.scm
 
+;; https://github.com/tree-sitter/tree-sitter-javascript/blob/master/src/grammar.json
+
 ;; `name` scope without `export`
 (
   (_
@@ -23,11 +25,11 @@
 (export_statement
   (_
     name: (_) @name
-  ) @dummy
+  ) @_dummy
 
   ;; We have a special case for this one.  Note we don't need to list the other
   ;; special cases from above because they can't be exported
-  (#not-type? @dummy variable_declarator)
+  (#not-type? @_dummy variable_declarator)
 ) @_.domain
 
 ;; Special cases for `(let | const | var) foo = ...;` because the full statement
@@ -99,8 +101,8 @@
       (variable_declarator)
       .
       (variable_declarator
-        name: (_) @name @name.trailing.start.endOf
-        value: (_)? @name.trailing.end.startOf
+        name: (_) @name
+        value: (_)? @name.trailing.startOf
       )
     )
 
@@ -120,8 +122,8 @@
       (variable_declarator)
       .
       (variable_declarator
-        name: (_) @name @name.trailing.start.endOf
-        value: (_)? @name.trailing.end.startOf
+        name: (_) @name
+        value: (_)? @name.trailing.startOf
       )
     )
   ] @_.domain
@@ -147,8 +149,8 @@
       ;;!                                xxxx
       ;;!  -----------------------------------
       (variable_declarator
-        name: (_) @name @name.trailing.start.endOf
-        value: (_)? @name.trailing.end.startOf
+        name: (_) @name
+        value: (_)? @name.trailing.startOf
       )
     )
   ) @_.domain
@@ -187,8 +189,8 @@
   (variable_declarator)
   .
   (variable_declarator
-    name: (_) @name @name.trailing.start.endOf
-    value: (_)? @name.trailing.end.startOf
+    name: (_) @name
+    value: (_)? @name.trailing.startOf
   ) @_.domain
 )
 
@@ -203,9 +205,9 @@
     ;;!  ---------------------------
     (lexical_declaration
       (variable_declarator
-        (_) @value.leading.start.endOf
+        (_) @value.leading.endOf
         .
-        value: (_)? @value @value.leading.end.startOf
+        value: (_)? @value
       )
     )
 
@@ -217,9 +219,9 @@
     ;; of https://github.com/tree-sitter/tree-sitter/issues/1442#issuecomment-1584628651
     (variable_declaration
       (variable_declarator
-        (_) @value.leading.start.endOf
+        (_) @value.leading.endOf
         .
-        value: (_)? @value @value.leading.end.startOf
+        value: (_)? @value
       )
     )
   ] @_.domain
@@ -239,9 +241,9 @@
       ;;!                                     xxxx
       ;;!  ----------------------------------------
       (variable_declarator
-        (_) @value.leading.start.endOf
+        (_) @value.leading.endOf
         .
-        value: (_)? @value @value.leading.end.startOf
+        value: (_)? @value
       )
     )
   ) @_.domain
@@ -262,12 +264,25 @@
 (
   (_
     (variable_declarator
-      (_) @value.leading.start.endOf
+      (_) @value.leading.endOf
       .
-      value: (_)? @value @value.leading.end.startOf
+      value: (_)? @value
     ) @_.domain
-  ) @dummy
-  (#has-multiple-children-of-type? @dummy variable_declarator)
+  ) @_dummy
+  (#has-multiple-children-of-type? @_dummy variable_declarator)
+)
+
+;;!! let foo, bar;
+;;!      ^^^  ^^^
+(
+  (lexical_declaration
+    (variable_declarator)? @_.leading.endOf
+    .
+    (variable_declarator) @collectionItem
+    .
+    (variable_declarator)? @_.trailing.startOf
+  )
+  (#insertion-delimiter! @collectionItem ", ")
 )
 
 (expression_statement
@@ -283,8 +298,8 @@
     ;;!     xxxx
     ;;!  --------
     (assignment_expression
-      left: (_) @name @value.leading.start.endOf @name.trailing.start.endOf
-      right: (_) @value @name.trailing.end.startOf @value.leading.end.startOf
+      left: (_) @name @value.leading.endOf
+      right: (_) @value @name.trailing.startOf
     )
 
     ;; name:
@@ -298,8 +313,8 @@
     ;;!     xxxxx
     ;;!  ---------
     (augmented_assignment_expression
-      left: (_) @name @value.leading.start.endOf @name.trailing.start.endOf
-      right: (_) @value @name.trailing.end.startOf @value.leading.end.startOf
+      left: (_) @name @value.leading.endOf
+      right: (_) @value @name.trailing.startOf
     )
   ]
 ) @_.domain
@@ -323,8 +338,8 @@
     ;;!2             xxxx
     ;;!2          -------
     (assignment_expression
-      left: (_) @name @value.leading.start.endOf @name.trailing.start.endOf
-      right: (_) @value @name.trailing.end.startOf @value.leading.end.startOf
+      left: (_) @name @value.leading.endOf
+      right: (_) @value @name.trailing.startOf
     )
 
     ;; name:
@@ -344,13 +359,21 @@
     ;;!2              xxxxx
     ;;!2           --------
     (augmented_assignment_expression
-      left: (_) @name @value.leading.start.endOf @name.trailing.start.endOf
-      right: (_) @value @name.trailing.end.startOf @value.leading.end.startOf
+      left: (_) @name @value.leading.endOf
+      right: (_) @value @name.trailing.startOf
     )
   ] @_.domain
 
   (#not-parent-type? @_.domain expression_statement)
 )
+
+;;!! function funk({ value = 2 })
+;;!                  ^^^^^
+;;!                          ^
+(object_assignment_pattern
+  left: (_) @name @value.leading.endOf
+  right: (_) @value
+) @_.domain
 
 ;;!! const aaa = {bbb};
 ;;!               ^^^
@@ -370,6 +393,14 @@
   (_) @value
 ) @_.domain
 
+;;!! str => str.length > 0
+;;!         ^^^^^^^^^^^^^^
+;;!  ---------------------
+(arrow_function
+  body: (_) @value
+  (#not-type? @value statement_block)
+) @_.domain
+
 ;; name:
 ;;!! for (const aaa of bbb) {}
 ;;!             ^^^
@@ -381,8 +412,7 @@
 (for_in_statement
   left: (_) @name
   right: (_) @value
-  ")" @_.domain.end.endOf
-) @_.domain.start.startOf
+) @_.domain
 
 [
   (program)
@@ -408,6 +438,14 @@
   "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
 )
 
+;;!! const { aaa: bbb } = ccc;
+;;!               ^^^
+;;!          --------
+(pair_pattern
+  key: (_) @collectionKey @value.leading.endOf
+  value: (_) @value @collectionKey.trailing.startOf
+) @_.domain
+
 ;;!! "string"
 ;;!! `string`
 ;;!  ^^^^^^^^
@@ -425,10 +463,14 @@
 (regex) @regularExpression
 
 [
-  (string_fragment)
   (comment)
   (regex_pattern)
 ] @textFragment
+
+(
+  (string) @textFragment
+  (#child-range! @textFragment 0 -1 true true)
+)
 
 (
   (template_string) @textFragment
@@ -552,6 +594,8 @@
   value: (_) @condition
 ) @branch @condition.domain
 
+(switch_default) @branch
+
 ;;!! switch () {}
 ;;!  ^^^^^^^^^^^^
 (switch_statement) @branch.iteration @condition.iteration
@@ -624,8 +668,8 @@
 ;;!         xxx
 ;;!    --------
 (pair
-  key: (_) @collectionKey @collectionKey.trailing.start.endOf @value.leading.start.endOf
-  value: (_) @value @collectionKey.trailing.end.startOf @value.leading.end.startOf
+  key: (_) @collectionKey @value.leading.endOf
+  value: (_) @value @collectionKey.trailing.startOf
 ) @_.domain
 
 ;; Statements that are not a child of an export statement
@@ -663,4 +707,67 @@
     (method_definition)
   ] @statement
   (#not-parent-type? @statement export_statement)
+)
+
+(program) @statement.iteration
+
+(statement_block
+  "{" @statement.iteration.start.endOf
+  "}" @statement.iteration.end.startOf
+)
+
+;;!! foo(name) {}
+;;!      ^^^^
+(
+  (formal_parameters
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#not-type? @argumentOrParameter "comment")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
+;;!! foo("bar")
+;;!      ^^^^^
+(
+  (arguments
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#not-type? @argumentOrParameter "comment")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
+(_
+  (formal_parameters
+    "(" @argumentOrParameter.iteration.start.endOf
+    ")" @argumentOrParameter.iteration.end.startOf
+  )
+) @argumentOrParameter.iteration.domain
+
+(arguments
+  "(" @argumentOrParameter.iteration.start.endOf
+  ")" @argumentOrParameter.iteration.end.startOf
+) @argumentOrParameter.iteration.domain
+
+operator: [
+  "<"
+  "<<"
+  "<<="
+  "<="
+  ">"
+  ">="
+  ">>"
+  ">>="
+  ">>>"
+  ">>>="
+] @disqualifyDelimiter
+(arrow_function
+  "=>" @disqualifyDelimiter
 )

@@ -1,4 +1,6 @@
-import { BaseTarget, CommonTargetParameters } from ".";
+import type { EnforceUndefined } from "@cursorless/common";
+import type { CommonTargetParameters } from "./BaseTarget";
+import { BaseTarget } from "./BaseTarget";
 
 /**
  * A target that was not explicitly spoken by the user. For example:
@@ -18,5 +20,6 @@ export class ImplicitTarget extends BaseTarget<CommonTargetParameters> {
   getTrailingDelimiterTarget = () => undefined;
   getRemovalRange = () => this.contentRange;
 
-  protected getCloneParameters = () => this.state;
+  protected getCloneParameters: () => EnforceUndefined<CommonTargetParameters> =
+    () => this.state;
 }

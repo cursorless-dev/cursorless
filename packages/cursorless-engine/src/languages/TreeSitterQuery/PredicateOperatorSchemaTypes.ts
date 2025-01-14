@@ -1,9 +1,9 @@
-import { z } from "zod";
-import {
+import type { z } from "zod";
+import type {
   SchemaInputType,
   SchemaOutputType,
 } from "./operatorArgumentSchemaTypes";
-import { MutableQueryCapture } from "./QueryCapture";
+import type { MutableQueryCapture } from "./QueryCapture";
 
 /**
  * A schema used to validate a list of operands for a given predicate operator.
@@ -40,8 +40,8 @@ type PredicateParameterType<T extends SchemaOutputType> = T extends {
 }
   ? MutableQueryCapture
   : T extends { value: infer V }
-  ? V
-  : never;
+    ? V
+    : never;
 
 // These two types work together to convert a list of operands from the type
 // output by our schema validator to the type that will be passed to the `accept`

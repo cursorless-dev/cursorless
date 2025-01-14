@@ -1,6 +1,8 @@
 ;; import scm.collections.scm
 ;; import scm.name.scm
 
+;; https://github.com/tree-sitter-grammars/tree-sitter-query/blob/master/src/grammar.json
+
 ;; A statement is any top-level node that's not a comment
 (
   (program
@@ -65,9 +67,9 @@
 ;;!  xxxxx
 ;;!  ---------------
 (field_definition
-  name: (identifier) @collectionKey @collectionKey.trailing.start.endOf
+  name: (identifier) @collectionKey
   .
-  (_) @collectionKey.trailing.end.startOf
+  (_) @_.trailing.startOf
 ) @_.domain
 
 ;;!! aaa: (bbb) @ccc

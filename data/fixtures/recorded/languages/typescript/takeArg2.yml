@@ -1,0 +1,27 @@
+languageId: typescript
+command:
+  version: 6
+  spokenForm: take arg
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+
+    myFunk(1, 2, 3)
+  selections:
+    - anchor: {line: 1, character: 8}
+      active: {line: 1, character: 8}
+  marks: {}
+finalState:
+  documentContents: |
+
+    myFunk(1, 2, 3)
+  selections:
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 8}

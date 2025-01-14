@@ -1,0 +1,35 @@
+languageId: rust
+command:
+  version: 6
+  spokenForm: chuck arg trap
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+      mark: {type: decoratedSymbol, symbolColor: default, character: t}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    enum Maybe<T> {
+        Just(T),
+        Nothing,
+    }
+  selections:
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
+  marks:
+    default.t:
+      start: {line: 1, character: 9}
+      end: {line: 1, character: 10}
+finalState:
+  documentContents: |
+    enum Maybe<T> {
+        Just(),
+        Nothing,
+    }
+  selections:
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}

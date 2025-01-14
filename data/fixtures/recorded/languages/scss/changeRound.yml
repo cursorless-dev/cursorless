@@ -1,0 +1,29 @@
+languageId: scss
+command:
+  version: 6
+  spokenForm: change round
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: parentheses}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    a {
+      font-family: "hello (world)";
+    }
+  selections:
+    - anchor: {line: 1, character: 25}
+      active: {line: 1, character: 25}
+  marks: {}
+finalState:
+  documentContents: |-
+    a {
+      font-family: "hello ";
+    }
+  selections:
+    - anchor: {line: 1, character: 22}
+      active: {line: 1, character: 22}

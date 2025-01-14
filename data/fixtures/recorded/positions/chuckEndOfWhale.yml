@@ -1,0 +1,26 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: chuck end of whale
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - {type: endOf}
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: hello world whatever
+  selections:
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}
+  marks:
+    default.w:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 11}
+finalState:
+  documentContents: hello world whatever
+  selections:
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}

@@ -1,0 +1,34 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: chuck trailing look
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - {type: trailing}
+      mark: {type: decoratedSymbol, symbolColor: default, character: l}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    "hello "
+    " hello"
+    " hello "
+    return a.b
+  selections:
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
+  marks:
+    default.l:
+      start: {line: 0, character: 1}
+      end: {line: 0, character: 6}
+finalState:
+  documentContents: |
+    "hello"
+    " hello"
+    " hello "
+    return a.b
+  selections:
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}

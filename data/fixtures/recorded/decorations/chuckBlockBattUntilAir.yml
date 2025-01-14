@@ -1,0 +1,52 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: chuck block bat until air
+  action:
+    name: remove
+    target:
+      type: range
+      anchor:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: paragraph}
+        mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      excludeAnchor: false
+      excludeActive: true
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+
+    a
+    a
+
+
+    b   c
+    d   e
+    f   g
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.b:
+      start: {line: 5, character: 0}
+      end: {line: 5, character: 1}
+    default.a:
+      start: {line: 1, character: 0}
+      end: {line: 1, character: 1}
+finalState:
+  documentContents: |
+
+    a
+    a
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+ide:
+  flashes:
+    - style: pendingDelete
+      range: {type: line, start: 3, end: 7}

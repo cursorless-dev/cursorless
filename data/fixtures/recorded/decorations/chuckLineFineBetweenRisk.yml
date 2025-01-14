@@ -1,0 +1,49 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: chuck line fine between red
+  action:
+    name: remove
+    target:
+      type: range
+      anchor:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: line}
+        mark: {type: decoratedSymbol, symbolColor: default, character: f}
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: r}
+      excludeAnchor: true
+      excludeActive: true
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |2
+
+        foo ooo    
+    aa
+    bb
+        bar    
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.f:
+      start: {line: 1, character: 4}
+      end: {line: 1, character: 7}
+    default.r:
+      start: {line: 4, character: 4}
+      end: {line: 4, character: 7}
+finalState:
+  documentContents: |2
+
+        foo ooo    
+        bar    
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+ide:
+  flashes:
+    - style: pendingDelete
+      range: {type: line, start: 2, end: 3}

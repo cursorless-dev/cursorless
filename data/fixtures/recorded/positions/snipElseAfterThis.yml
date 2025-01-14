@@ -1,0 +1,32 @@
+languageId: python
+command:
+  version: 6
+  spokenForm: snippet else after this
+  action:
+    name: insertSnippet
+    snippetDescription: {type: named, name: elseStatement}
+    destination:
+      type: primitive
+      insertionMode: after
+      target:
+        type: primitive
+        mark: {type: cursor}
+  usePrePhraseSnapshot: true
+spokenFormError: Named insertion snippet 'elseStatement'
+initialState:
+  documentContents: |
+    if True:
+        aaa = "bbb"
+  selections:
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 7}
+  marks: {}
+finalState:
+  documentContents: |
+    if True:
+        aaa = "bbb"
+    else:
+        
+  selections:
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}
