@@ -213,22 +213,14 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
 function getSupportCategories(
   includeLegacy: boolean,
 ): SupportCategoryTreeItem[] {
-  return includeLegacy
-    ? [
-        new SupportCategoryTreeItem(ScopeSupport.supportedAndPresentInEditor),
-        new SupportCategoryTreeItem(
-          ScopeSupport.supportedButNotPresentInEditor,
-        ),
-        new SupportCategoryTreeItem(ScopeSupport.supportedLegacy),
-        new SupportCategoryTreeItem(ScopeSupport.unsupported),
-      ]
-    : [
-        new SupportCategoryTreeItem(ScopeSupport.supportedAndPresentInEditor),
-        new SupportCategoryTreeItem(
-          ScopeSupport.supportedButNotPresentInEditor,
-        ),
-        new SupportCategoryTreeItem(ScopeSupport.unsupported),
-      ];
+  return [
+    new SupportCategoryTreeItem(ScopeSupport.supportedAndPresentInEditor),
+    new SupportCategoryTreeItem(ScopeSupport.supportedButNotPresentInEditor),
+    ...(includeLegacy
+      ? [new SupportCategoryTreeItem(ScopeSupport.supportedLegacy)]
+      : []),
+    new SupportCategoryTreeItem(ScopeSupport.unsupported),
+  ];
 }
 
 class ScopeSupportTreeItem extends TreeItem {
