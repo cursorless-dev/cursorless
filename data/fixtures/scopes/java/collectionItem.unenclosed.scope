@@ -4,32 +4,64 @@ public class MyClass {
 ---
 
 [#1 Content] =
-[#1 Domain] = 1:11-1:14
-             >---<
+[#1 Domain] = 1:4-1:14
+      >----------<
 1|     String foo, bar;
 
-[#1 Removal] = 1:11-1:16
-             >-----<
+[#1 Removal] = 1:4-1:16
+      >------------<
 1|     String foo, bar;
 
 [#1 Trailing delimiter] = 1:14-1:16
                 >--<
 1|     String foo, bar;
 
-[#1 Insertion delimiter] = ", "
+[#1 Insertion delimiter] = ",\n"
 
 
 [#2 Content] =
-[#2 Domain] = 1:16-1:19
-                  >---<
+[#2 Domain] = 1:11-1:14
+             >---<
 1|     String foo, bar;
 
-[#2 Removal] = 1:14-1:19
-                >-----<
+[#2 Removal] = 1:11-1:16
+             >-----<
 1|     String foo, bar;
 
-[#2 Leading delimiter] = 1:14-1:16
+[#2 Trailing delimiter] = 1:14-1:16
                 >--<
 1|     String foo, bar;
 
 [#2 Insertion delimiter] = ", "
+
+
+[#3 Content] =
+[#3 Domain] = 1:16-1:19
+                  >---<
+1|     String foo, bar;
+
+[#3 Removal] = 1:14-1:19
+                >-----<
+1|     String foo, bar;
+
+[#3 Leading delimiter] = 1:14-1:16
+                >--<
+1|     String foo, bar;
+
+[#3 Insertion delimiter] = ", "
+
+
+[#4 Content] =
+[#4 Domain] = 1:16-1:20
+                  >----<
+1|     String foo, bar;
+
+[#4 Removal] = 1:14-1:20
+                >------<
+1|     String foo, bar;
+
+[#4 Leading delimiter] = 1:14-1:16
+                >--<
+1|     String foo, bar;
+
+[#4 Insertion delimiter] = ",\n"

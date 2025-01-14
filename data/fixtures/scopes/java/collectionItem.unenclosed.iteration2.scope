@@ -5,10 +5,54 @@ public class MyClass {
 }
 ---
 
-[Range] = 2:15-2:23
+[#1 Range] = 1:4-3:5
+      >----------------------
+1|     public void myFunk() {
+2|         String foo, bar;
+3|     }
+   -----<
+
+[#1 Domain] = 0:22-4:0
+                        >
+0| public class MyClass {
+1|     public void myFunk() {
+2|         String foo, bar;
+3|     }
+4| }
+   <
+
+
+[#2 Range] =
+[#2 Domain] = 1:23-1:23
+                         ><
+1|     public void myFunk() {
+
+
+[#3 Range] = 2:8-2:24
+          >----------------<
+2|         String foo, bar;
+
+[#3 Domain] = 1:26-3:4
+                            >
+1|     public void myFunk() {
+2|         String foo, bar;
+3|     }
+   ----<
+
+
+[#4 Range] = 2:8-2:24
+          >----------------<
+2|         String foo, bar;
+
+[#4 Domain] = 2:0-2:24
+  >------------------------<
+2|         String foo, bar;
+
+
+[#5 Range] = 2:15-2:23
                  >--------<
 2|         String foo, bar;
 
-[Domain] = 2:8-2:24
+[#5 Domain] = 2:8-2:24
           >----------------<
 2|         String foo, bar;
