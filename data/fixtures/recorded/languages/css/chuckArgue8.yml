@@ -1,0 +1,29 @@
+languageId: css
+command:
+  version: 6
+  spokenForm: chuck arg
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    a {
+      clip-path: ellipse(115px 55px at 50% 40%);
+    }
+  selections:
+    - anchor: {line: 1, character: 41}
+      active: {line: 1, character: 41}
+  marks: {}
+finalState:
+  documentContents: |-
+    a {
+      clip-path: ellipse(115px 55px);
+    }
+  selections:
+    - anchor: {line: 1, character: 31}
+      active: {line: 1, character: 31}

@@ -1,24 +1,29 @@
-import {
+import type {
   Direction,
   ImplicitTargetDescriptor,
   Modifier,
-  Range,
   ScopeType,
 } from "@cursorless/common";
-import { zip } from "lodash";
-import {
+import { Range, uniqWithHash } from "@cursorless/common";
+import { zip } from "lodash-es";
+import type {
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
   TargetDescriptor,
 } from "../typings/TargetDescriptor";
-import { Target } from "../typings/target.types";
-import { MarkStageFactory } from "./MarkStageFactory";
-import { ModifierStageFactory } from "./ModifierStageFactory";
-import { MarkStage, ModifierStage } from "./PipelineStages.types";
-import ImplicitStage from "./marks/ImplicitStage";
+import type { Target } from "../typings/target.types";
+import type { MarkStageFactory } from "./MarkStageFactory";
+import type { ModifierStageFactory } from "./ModifierStageFactory";
+import type { MarkStage, ModifierStage } from "./PipelineStages.types";
+import { createContinuousRangeTarget } from "./createContinuousRangeTarget";
+import { ImplicitStage } from "./marks/ImplicitStage";
 import { ContainingTokenIfUntypedEmptyStage } from "./modifiers/ConditionalModifierStages";
 import { PlainTarget } from "./targets";
-import { uniqWithHash } from "../util/uniqWithHash";
+
+interface TargetPipelineRunnerOpts {
+  actionFinalStages?: ModifierStage[];
+  noAutomaticTokenExpansion?: boolean;
+}
 
 export class TargetPipelineRunner {
   constructor(
@@ -39,12 +44,18 @@ export class TargetPipelineRunner {
    * document containing it, and potentially rich context information such as
    * how to remove the target
    */
-  run(target: TargetDescriptor, actionFinalStages?: ModifierStage[]): Target[] {
+  run(
+    target: TargetDescriptor,
+    {
+      actionFinalStages = [],
+      noAutomaticTokenExpansion = false,
+    }: TargetPipelineRunnerOpts = {},
+  ): Target[] {
     return new TargetPipeline(
       this.modifierStageFactory,
       this.markStageFactory,
       target,
-      actionFinalStages ?? [],
+      { actionFinalStages, noAutomaticTokenExpansion },
     ).run();
   }
 }
@@ -54,7 +65,7 @@ class TargetPipeline {
     private modifierStageFactory: ModifierStageFactory,
     private markStageFactory: MarkStageFactory,
     private target: TargetDescriptor,
-    private actionFinalStages: ModifierStage[],
+    private opts: Required<TargetPipelineRunnerOpts>,
   ) {}
 
   /**
@@ -217,11 +228,13 @@ class TargetPipeline {
      */
     const modifierStages = [
       ...targetModifierStages,
-      ...this.actionFinalStages,
+      ...this.opts.actionFinalStages,
 
       // This performs auto-expansion to token when you say eg "take this" with an
       // empty selection
-      new ContainingTokenIfUntypedEmptyStage(this.modifierStageFactory),
+      ...(this.opts.noAutomaticTokenExpansion
+        ? []
+        : [new ContainingTokenIfUntypedEmptyStage(this.modifierStageFactory)]),
     ];
 
     // Run all targets through the modifier stages
@@ -315,8 +328,9 @@ export function targetsToContinuousTarget(
   const excludeStart = isReversed ? excludeActive : excludeAnchor;
   const excludeEnd = isReversed ? excludeAnchor : excludeActive;
 
-  return startTarget.createContinuousRangeTarget(
+  return createContinuousRangeTarget(
     isReversed,
+    startTarget,
     endTarget,
     !excludeStart,
     !excludeEnd,

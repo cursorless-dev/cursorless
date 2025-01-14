@@ -1,10 +1,10 @@
-import { RangeModifier } from "@cursorless/common";
-import { Target } from "../../typings/target.types";
-import { ModifierStageFactory } from "../ModifierStageFactory";
-import { ModifierStage } from "../PipelineStages.types";
+import type { RangeModifier } from "@cursorless/common";
+import type { Target } from "../../typings/target.types";
+import type { ModifierStageFactory } from "../ModifierStageFactory";
+import type { ModifierStage } from "../PipelineStages.types";
 import { targetsToContinuousTarget } from "../TargetPipelineRunner";
 
-export default class RangeModifierStage implements ModifierStage {
+export class RangeModifierStage implements ModifierStage {
   constructor(
     private modifierStageFactory: ModifierStageFactory,
     private modifier: RangeModifier,

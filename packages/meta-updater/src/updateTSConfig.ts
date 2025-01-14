@@ -1,11 +1,13 @@
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import normalizePath from "normalize-path";
-import path from "path";
-import exists from "path-exists";
-import { TsConfigJson } from "type-fest";
+import * as path from "path";
+import { pathExists } from "path-exists";
+import type { PackageJson, TsConfigJson } from "type-fest";
 import { toPosixPath } from "./toPosixPath";
-import { Context } from "./Context";
-import { uniq } from "lodash";
+import type { Context } from "./Context";
+import { cloneDeep, isEqual, uniq } from "lodash-es";
+import { readFile } from "fs/promises";
+import { getLockfileImporterId } from "@pnpm/lockfile-file";
 
 /**
  * Given a tsconfig.json, update it to match our conventions.  This function is
@@ -42,9 +44,7 @@ export async function updateTSConfig(
     };
   }
 
-  const pathFromRootToPackage = normalizePath(
-    path.relative(workspaceDir, packageDir),
-  );
+  const pathFromRootToPackage = getLockfileImporterId(workspaceDir, packageDir);
   const pathFromPackageToRoot = normalizePath(
     path.relative(packageDir, workspaceDir),
   );
@@ -69,20 +69,37 @@ export async function updateTSConfig(
       continue;
     }
     const relativePath = spec.slice(5);
-    if (!(await exists(path.join(packageDir, relativePath, "tsconfig.json")))) {
-      throw new Error(`No tsconfig found for ${relativePath} in ${packageDir}`);
+    if (
+      !(await pathExists(path.join(packageDir, relativePath, "tsconfig.json")))
+    ) {
+      throw new Error(`No tsconfig found for ${relativePath}`);
+    }
+    if (
+      (
+        JSON.parse(
+          await readFile(path.join(packageDir, relativePath, "package.json"), {
+            encoding: "utf-8",
+          }),
+        ) as PackageJson
+      ).private
+    ) {
+      throw new Error(`Dependency ${relativePath} is private`);
     }
     references.push({ path: relativePath });
   }
 
+  const compilerOptions = {
+    ...(cloneDeep(input.compilerOptions) ?? {}),
+  };
+  delete compilerOptions.outDir;
+  delete compilerOptions.rootDir;
+
   return {
     ...input,
     extends: getExtends(pathFromPackageToRoot, input.extends),
-    compilerOptions: {
-      ...(input.compilerOptions ?? {}),
-      rootDir: "src",
-      outDir: "out",
-    },
+
+    ...(isEqual(compilerOptions, {}) ? {} : { compilerOptions }),
+
     references: references.sort((r1, r2) => r1.path.localeCompare(r2.path)),
     include: [
       "src/**/*.ts",
@@ -90,7 +107,7 @@ export async function updateTSConfig(
 
       ...(input.compilerOptions?.jsx == null ? [] : ["src/**/*.tsx"]),
 
-      ...((await exists(path.join(packageDir, "next.config.js")))
+      ...((await pathExists(path.join(packageDir, "next.config.js")))
         ? ["next-env.d.ts"]
         : []),
 
@@ -107,8 +124,8 @@ function getExtends(
     inputExtends == null
       ? []
       : Array.isArray(inputExtends)
-      ? [...inputExtends]
-      : [inputExtends];
+        ? [...inputExtends]
+        : [inputExtends];
 
   extendsList.push(
     toPosixPath(path.join(pathFromPackageToRoot, "tsconfig.base.json")),

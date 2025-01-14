@@ -2,8 +2,12 @@
   "NOTE FOR USERS": "Please don't edit this json file; see https://www.cursorless.org/docs/user/customization",
   "actions.csv": {
     "simple_action": {
+      "append post": "addSelectionAfter",
+      "append pre": "addSelectionBefore",
+      "append": "addSelection",
       "bottom": "scrollToBottom",
       "break point": "toggleLineBreakpoint",
+      "break": "breakLine",
       "carve": "cutToClipboard",
       "center": "scrollToCenter",
       "change": "clearAndSetSelection",
@@ -13,6 +17,7 @@
       "comment": "toggleLineComment",
       "copy": "copyToClipboard",
       "crown": "scrollToTop",
+      "decrement": "decrement",
       "dedent": "outdentLine",
       "define": "revealDefinition",
       "drink": "editNewLineBefore",
@@ -20,12 +25,15 @@
       "extract": "extractVariable",
       "float": "insertEmptyLineAfter",
       "fold": "foldRegion",
+      "follow split": "followLinkAside",
       "follow": "followLink",
       "give": "deselect",
       "highlight": "highlight",
       "hover": "showHover",
+      "increment": "increment",
       "indent": "indentLine",
       "inspect": "showDebugHover",
+      "join": "joinLines",
       "post": "setSelectionAfter",
       "pour": "editNewLineAfter",
       "pre": "setSelectionBefore",
@@ -35,6 +43,7 @@
       "rename": "rename",
       "reverse": "reverseTargets",
       "scout all": "findInWorkspace",
+      "scout": "findInDocument",
       "shuffle": "randomizeTargets",
       "snippet make": "generateSnippet",
       "sort": "sortTargets",
@@ -43,8 +52,6 @@
       "unfold": "unfoldRegion"
     },
     "callback_action": {
-      "call": "callAsFunction",
-      "scout": "findInDocument",
       "phones": "nextHomophone"
     },
     "paste_action": { "paste": "pasteFromClipboard" },
@@ -55,7 +62,8 @@
     "swap_action": { "swap": "swapTargets" },
     "wrap_action": { "wrap": "wrapWithPairedDelimiter", "repack": "rewrap" },
     "insert_snippet_action": { "snippet": "insertSnippet" },
-    "reformat_action": { "format": "applyFormatter" }
+    "reformat_action": { "format": "applyFormatter" },
+    "call_action": { "call": "callAsFunction" }
   },
   "target_connectives.csv": {
     "range_connective": {
@@ -76,9 +84,11 @@
       "trailing": "trailing",
       "content": "keepContentFilter",
       "empty": "keepEmptyFilter",
-      "its": "inferPreviousMark"
+      "its": "inferPreviousMark",
+      "visible": "visible"
     },
-    "simple_scope_modifier": { "every": "every" },
+    "every_scope_modifier": { "every": "every" },
+    "ancestor_scope_modifier": { "grand": "ancestor" },
     "interior_modifier": {
       "inside": "interiorOnly"
     },
@@ -154,7 +164,7 @@
       "environment": "environment",
       "command": "command",
       "char": "character",
-      "word": "word",
+      "sub": "word",
       "token": "token",
       "identifier": "identifier",
       "line": "line",
@@ -163,11 +173,15 @@
       "file": "document",
       "paint": "nonWhitespaceSequence",
       "short paint": "boundedNonWhitespaceSequence",
+      "short block": "boundedParagraph",
       "link": "url",
       "cell": "notebookCell"
     },
     "surrounding_pair_scope_type": {
       "string": "string"
+    },
+    "glyph_scope_type": {
+      "glyph": "glyph"
     }
   },
   "paired_delimiters.csv": {

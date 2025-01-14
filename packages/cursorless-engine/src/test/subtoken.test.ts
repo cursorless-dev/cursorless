@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import WordTokenizer from "../processTargets/modifiers/scopeHandlers/WordScopeHandler/WordTokenizer";
+import { WordTokenizer } from "../processTargets/modifiers/scopeHandlers/WordScopeHandler/WordTokenizer";
 import { subtokenFixture } from "./fixtures/subtoken.fixture";
 import { unitTestSetup } from "./unitTestSetup";
 

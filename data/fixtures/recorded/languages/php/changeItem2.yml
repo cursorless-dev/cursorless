@@ -1,0 +1,29 @@
+languageId: php
+command:
+  version: 6
+  spokenForm: change item
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    <?php
+
+    [1, 2, 3];
+  selections:
+    - anchor: {line: 2, character: 7}
+      active: {line: 2, character: 7}
+  marks: {}
+finalState:
+  documentContents: |-
+    <?php
+
+    [1, 2, ];
+  selections:
+    - anchor: {line: 2, character: 7}
+      active: {line: 2, character: 7}

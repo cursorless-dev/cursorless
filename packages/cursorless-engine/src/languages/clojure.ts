@@ -1,3 +1,7 @@
+import type { SimpleScopeTypeType } from "@cursorless/common";
+import type { SyntaxNode } from "web-tree-sitter";
+import type { NodeFinder, NodeMatcherAlternative } from "../typings/Types";
+import { patternFinder } from "../util/nodeFinders";
 import {
   cascadingMatcher,
   chainedMatcher,
@@ -5,13 +9,7 @@ import {
   matcher,
   patternMatcher,
 } from "../util/nodeMatchers";
-import { NodeMatcherAlternative, NodeFinder } from "../typings/Types";
-import { SimpleScopeTypeType } from "@cursorless/common";
-import type { SyntaxNode } from "web-tree-sitter";
-import { delimitedSelector } from "../util/nodeSelectors";
-import { identity } from "lodash";
 import { getChildNodesForFieldName } from "../util/treeSitterUtils";
-import { patternFinder } from "../util/nodeFinders";
 
 /**
  * Picks a node by rounding down and using the given parity. This function is
@@ -58,7 +56,7 @@ function indexNodeFinder(
     const nodeIndex = valueNodes.findIndex(({ id }) => id === node.id);
 
     if (nodeIndex === -1) {
-      // TODO: In the future we might conceivably try to handle saying "take
+      // FIXME: In the future we might conceivably try to handle saying "take
       // item" when the selection is inside a comment between the key and value
       return null;
     }
@@ -71,13 +69,6 @@ function indexNodeFinder(
 
     return valueNodes[desiredIndex];
   };
-}
-
-function itemFinder() {
-  return indexNodeFinder(
-    (node) => node,
-    (nodeIndex: number) => nodeIndex,
-  );
 }
 
 /**
@@ -133,38 +124,15 @@ const ifStatementMatcher = matcher(ifStatementFinder);
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
-  comment: "comment",
-  map: "map_lit",
-
   collectionKey: matcher(mapParityNodeFinder(0)),
-  collectionItem: cascadingMatcher(
-    // Treat each key value pair as a single item if we're in a map
-    matcher(
-      mapParityNodeFinder(0),
-      delimitedSelector(
-        (node) => node.type === "{" || node.type === "}",
-        ", ",
-        identity,
-        mapParityNodeFinder(1) as (node: SyntaxNode) => SyntaxNode,
-      ),
-    ),
-
-    // Otherwise just treat every item within a list as an item
-    matcher(itemFinder()),
-  ),
   value: matcher(mapParityNodeFinder(1)),
 
-  // TODO: Handle formal parameters
+  // FIXME: Handle formal parameters
   argumentOrParameter: matcher(
     indexNodeFinder(patternFinder(functionCallPattern), (nodeIndex: number) =>
       nodeIndex !== 0 ? nodeIndex : -1,
     ),
   ),
-
-  // A list is either a vector literal or a quoted list literal
-  list: ["vec_lit", "quoting_lit.list_lit"],
-
-  string: "str_lit",
 
   functionCall: functionCallPattern,
   functionCallee: chainedMatcher([
@@ -176,7 +144,7 @@ const nodeMatchers: Partial<
 
   functionName: functionNameMatcher,
 
-  // TODO: Handle `let` declarations, defs, etc
+  // FIXME: Handle `let` declarations, defs, etc
   name: functionNameMatcher,
 
   anonymousFunction: cascadingMatcher(

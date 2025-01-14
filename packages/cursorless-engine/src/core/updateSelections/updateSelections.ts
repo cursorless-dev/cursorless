@@ -1,44 +1,145 @@
-import {
-  RangeExpansionBehavior,
+import type {
+  Edit,
   EditableTextEditor,
   Range,
-  Selection,
   TextDocument,
 } from "@cursorless/common";
-import { flatten } from "lodash";
-import { Edit } from "../../typings/Types";
 import {
+  RangeExpansionBehavior,
+  Selection,
+  unsafeKeys,
+} from "@cursorless/common";
+import { flatten } from "lodash-es";
+import type {
   FullSelectionInfo,
   SelectionInfo,
 } from "../../typings/updateSelections";
 import { performDocumentEdits } from "../../util/performDocumentEdits";
-import { RangeUpdater } from "./RangeUpdater";
+import type { RangeUpdater } from "./RangeUpdater";
 
+/** Selections OR ranges */
+type SelectionsOrRanges = readonly Selection[] | readonly Range[];
+
+/** Selections to be updated  with specified expansion behavior */
 interface SelectionsWithBehavior {
-  selections: readonly Selection[];
-  rangeBehavior?: RangeExpansionBehavior;
+  /** Selections or ranges to be updated */
+  selections: SelectionsOrRanges;
+  /** The behavior to use expanding ranges  */
+  behavior: RangeExpansionBehavior;
 }
 
+/** Base properties for updating selections */
+interface BaseProps<K extends string> {
+  /** A RangeUpdate instance that will perform actual range updating */
+  rangeUpdater: RangeUpdater;
+  /** The editor containing the selections */
+  editor: EditableTextEditor;
+  /** Whether to preserve the editor's current cursor selections */
+  preserveCursorSelections?: boolean;
+  /** The selections to update */
+  selections: Record<K, SelectionsOrRanges | SelectionsWithBehavior>;
+}
+
+/** Updater properties for editor edits */
+interface EditsProps<K extends string> extends BaseProps<K> {
+  edits: Edit[];
+}
+
+/** Updater properties for callback */
+interface CallbackProps<K extends string> extends BaseProps<K> {
+  callback: () => Promise<void>;
+}
+
+/** Updater properties. Can contain edits OR a callback */
+type UpdaterProps<K extends string> = EditsProps<K> | CallbackProps<K>;
+
 /**
- * Given a selection, this function creates a `SelectionInfo` object that can
- * be passed in to any of the commands that update selections.
- *
- * @param document The document containing the selection
- * @param selection The selection
- * @param rangeBehavior How selection should behave with respect to insertions on either end
- * @returns An object that can be used for selection tracking
+ * Perform editor edits or call callback and update the selections based on the
+ * changes that occurred.
+ * @returns The initial selections updated based upon the changes that occurred.
  */
-export function getSelectionInfo(
-  document: TextDocument,
-  selection: Selection,
-  rangeBehavior: RangeExpansionBehavior,
-): FullSelectionInfo {
-  return getSelectionInfoInternal(
-    document,
-    selection,
-    !selection.isReversed,
-    rangeBehavior,
+export async function performEditsAndUpdateSelections<K extends string>({
+  rangeUpdater,
+  editor,
+  selections,
+  preserveCursorSelections: preserveEditorSelections,
+  ...rest
+}: UpdaterProps<K>): Promise<Record<K, Selection[]>> {
+  const keys = unsafeKeys(selections);
+
+  const selectionInfos = keys.map((key) => {
+    const selectionValue = selections[key];
+    const selectionsWithBehavior = getSelectionsWithBehavior(selectionValue);
+    return getFullSelectionInfos(
+      editor.document,
+      selectionsWithBehavior.selections,
+      selectionsWithBehavior.behavior,
+    );
+  });
+
+  if (!preserveEditorSelections) {
+    selectionInfos.push(
+      getFullSelectionInfos(
+        editor.document,
+        editor.selections,
+        RangeExpansionBehavior.closedClosed,
+      ),
+    );
+  }
+
+  const updatedSelectionsMatrix = await (() => {
+    if ("edits" in rest) {
+      return performEditsAndUpdateFullSelectionInfos(
+        rangeUpdater,
+        editor,
+        rest.edits,
+        selectionInfos,
+      );
+    }
+    return callFunctionAndUpdateFullSelectionInfos(
+      rangeUpdater,
+      rest.callback,
+      editor.document,
+      selectionInfos,
+    );
+  })();
+
+  if (!preserveEditorSelections) {
+    await editor.setSelections(updatedSelectionsMatrix.pop()!);
+  }
+
+  const result = Object.fromEntries(
+    keys.map((key, index) => [key, updatedSelectionsMatrix[index]]),
   );
+
+  return result as Record<K, Selection[]>;
+}
+
+function getFullSelectionInfos(
+  document: TextDocument,
+  selections: readonly Selection[] | readonly Range[],
+  rangeBehavior: RangeExpansionBehavior,
+): FullSelectionInfo[] {
+  return selections.map((selection) =>
+    getSelectionInfoInternal(
+      document,
+      selection,
+      selection instanceof Selection ? !selection.isReversed : true,
+      rangeBehavior,
+    ),
+  );
+}
+
+function getSelectionsWithBehavior(
+  selections: SelectionsOrRanges | SelectionsWithBehavior,
+): SelectionsWithBehavior {
+  if ("selections" in selections) {
+    return selections;
+  }
+  return {
+    selections,
+    behavior: RangeExpansionBehavior.closedClosed,
+  };
 }
 
 function getSelectionInfoInternal(
@@ -74,57 +175,6 @@ function getSelectionInfoInternal(
   };
 }
 
-/**
- * Creates SelectionInfo objects for all selections in a list of lists.
- *
- * @param document The document containing the selections
- * @param selectionMatrix A list of lists of selections
- * @param rangeBehavior How selections should behave with respect to insertions on either end
- * @returns A list of lists of selection info objects
- */
-function selectionsToSelectionInfos(
-  document: TextDocument,
-  selectionMatrix: (readonly Selection[])[],
-  rangeBehavior: RangeExpansionBehavior = RangeExpansionBehavior.closedClosed,
-): FullSelectionInfo[][] {
-  return selectionMatrix.map((selections) =>
-    selections.map((selection) =>
-      getSelectionInfo(document, selection, rangeBehavior),
-    ),
-  );
-}
-
-function rangesToSelectionInfos(
-  document: TextDocument,
-  rangeMatrix: (readonly Range[])[],
-  rangeBehavior: RangeExpansionBehavior = RangeExpansionBehavior.closedClosed,
-): FullSelectionInfo[][] {
-  return rangeMatrix.map((ranges) =>
-    ranges.map((range) =>
-      getSelectionInfoInternal(document, range, false, rangeBehavior),
-    ),
-  );
-}
-
-function fillOutSelectionInfos(
-  document: TextDocument,
-  selectionInfoMatrix: SelectionInfo[][],
-): selectionInfoMatrix is FullSelectionInfo[][] {
-  selectionInfoMatrix.forEach((selectionInfos) =>
-    selectionInfos.map((selectionInfo) => {
-      const { range } = selectionInfo;
-      Object.assign(selectionInfo, {
-        offsets: {
-          start: document.offsetAt(range.start),
-          end: document.offsetAt(range.end),
-        },
-        text: document.getText(range),
-      });
-    }),
-  );
-  return true;
-}
-
 function selectionInfosToSelections(
   selectionInfoMatrix: SelectionInfo[][],
 ): Selection[][] {
@@ -141,210 +191,25 @@ function selectionInfosToSelections(
  * @param rangeUpdater A RangeUpdate instance that will perform actual range updating
  * @param func The function to call
  * @param document The document containing the selections
- * @param selectionMatrix A matrix of selections to update
- * @returns The initial selections updated based upon what happened in the function
+ * @param originalSelectionInfos The selection info objects to update
+ * @returns The updated selections
  */
-export async function callFunctionAndUpdateSelections(
+async function callFunctionAndUpdateFullSelectionInfos(
   rangeUpdater: RangeUpdater,
   func: () => Promise<void>,
   document: TextDocument,
-  selectionMatrix: (readonly Selection[])[],
-): Promise<Selection[][]> {
-  const selectionInfoMatrix = selectionsToSelectionInfos(
-    document,
-    selectionMatrix,
-  );
-
-  return await callFunctionAndUpdateSelectionInfos(
-    rangeUpdater,
-    func,
-    document,
-    selectionInfoMatrix,
-  );
-}
-
-export async function callFunctionAndUpdateRanges(
-  rangeUpdater: RangeUpdater,
-  func: () => Promise<void>,
-  document: TextDocument,
-  rangeMatrix: (readonly Range[])[],
-): Promise<Range[][]> {
-  const selectionInfoMatrix = rangesToSelectionInfos(document, rangeMatrix);
-
-  return await callFunctionAndUpdateSelectionInfos(
-    rangeUpdater,
-    func,
-    document,
-    selectionInfoMatrix,
-  );
-}
-
-/**
- * Calls the given function and updates the given selections based on the
- * changes that occurred as a result of calling function.
- * @param rangeUpdater A RangeUpdate instance that will perform actual range updating
- * @param func The function to call
- * @param document The document containing the selections
- * @param selectionInfoMatrix A matrix of selection info objects to update
- * @returns The initial selections updated based upon what happened in the function
- */
-export async function callFunctionAndUpdateSelectionInfos(
-  rangeUpdater: RangeUpdater,
-  func: () => Promise<void>,
-  document: TextDocument,
-  selectionInfoMatrix: FullSelectionInfo[][],
+  originalSelectionInfos: FullSelectionInfo[][],
 ) {
   const unsubscribe = rangeUpdater.registerRangeInfoList(
     document,
-    flatten(selectionInfoMatrix),
+    flatten(originalSelectionInfos),
   );
 
   await func();
 
   unsubscribe();
 
-  return selectionInfosToSelections(selectionInfoMatrix);
-}
-
-/**
- * Performs a list of edits and returns the given selections updated based on
- * the applied edits
- * @param rangeUpdater A RangeUpdate instance that will perform actual range updating
- * @param func The function to call
- * @param document The document containing the selections
- * @param originalSelections The selections to update
- * @returns The updated selections
- */
-export function callFunctionAndUpdateSelectionsWithBehavior(
-  rangeUpdater: RangeUpdater,
-  func: () => Promise<void>,
-  document: TextDocument,
-  originalSelections: SelectionsWithBehavior[],
-) {
-  return callFunctionAndUpdateSelectionInfos(
-    rangeUpdater,
-    func,
-    document,
-    originalSelections.map((selectionsWithBehavior) =>
-      selectionsWithBehavior.selections.map((selection) =>
-        getSelectionInfo(
-          document,
-          selection,
-          selectionsWithBehavior.rangeBehavior ??
-            RangeExpansionBehavior.closedClosed,
-        ),
-      ),
-    ),
-  );
-}
-
-/**
- * Performs a list of edits and returns the given selections updated based on
- * the applied edits
- * @param rangeUpdater A RangeUpdate instance that will perform actual range updating
- * @param editor The editor containing the selections
- * @param edits A list of edits to apply
- * @param originalSelections The selections to update
- * @returns The updated selections
- */
-export async function performEditsAndUpdateSelections(
-  rangeUpdater: RangeUpdater,
-  editor: EditableTextEditor,
-  edits: Edit[],
-  originalSelections: (readonly Selection[])[],
-) {
-  const document = editor.document;
-  const selectionInfoMatrix = selectionsToSelectionInfos(
-    document,
-    originalSelections,
-  );
-  return performEditsAndUpdateInternal(
-    rangeUpdater,
-    editor,
-    edits,
-    selectionInfoMatrix,
-  );
-}
-
-/**
- * Performs a list of edits and returns the given selections updated based on
- * the applied edits
- * @param rangeUpdater A RangeUpdate instance that will perform actual range updating
- * @param editor The editor containing the selections
- * @param edits A list of edits to apply
- * @param originalSelections The selections to update
- * @param rangeBehavior How selections should behave with respect to insertions on either end
- * @returns The updated selections
- */
-export function performEditsAndUpdateSelectionsWithBehavior(
-  rangeUpdater: RangeUpdater,
-  editor: EditableTextEditor,
-  edits: Edit[],
-  originalSelections: SelectionsWithBehavior[],
-) {
-  return performEditsAndUpdateFullSelectionInfos(
-    rangeUpdater,
-    editor,
-    edits,
-    originalSelections.map((selectionsWithBehavior) =>
-      selectionsWithBehavior.selections.map((selection) =>
-        getSelectionInfo(
-          editor.document,
-          selection,
-          selectionsWithBehavior.rangeBehavior ??
-            RangeExpansionBehavior.closedClosed,
-        ),
-      ),
-    ),
-  );
-}
-
-export async function performEditsAndUpdateRanges(
-  rangeUpdater: RangeUpdater,
-  editor: EditableTextEditor,
-  edits: Edit[],
-  originalRanges: (readonly Range[])[],
-): Promise<Range[][]> {
-  const document = editor.document;
-  const selectionInfoMatrix = rangesToSelectionInfos(document, originalRanges);
-  return performEditsAndUpdateInternal(
-    rangeUpdater,
-    editor,
-    edits,
-    selectionInfoMatrix,
-  );
-}
-
-async function performEditsAndUpdateInternal(
-  rangeUpdater: RangeUpdater,
-  editor: EditableTextEditor,
-  edits: Edit[],
-  selectionInfoMatrix: FullSelectionInfo[][],
-) {
-  await performEditsAndUpdateFullSelectionInfos(
-    rangeUpdater,
-    editor,
-    edits,
-    selectionInfoMatrix,
-  );
-  return selectionInfosToSelections(selectionInfoMatrix);
-}
-
-// TODO: Remove this function if we don't end up using it for the next couple use cases, eg `that` mark and cursor history
-export async function performEditsAndUpdateSelectionInfos(
-  rangeUpdater: RangeUpdater,
-  editor: EditableTextEditor,
-  edits: Edit[],
-  originalSelectionInfos: SelectionInfo[][],
-): Promise<Selection[][]> {
-  fillOutSelectionInfos(editor.document, originalSelectionInfos);
-
-  return await performEditsAndUpdateFullSelectionInfos(
-    rangeUpdater,
-    editor,
-    edits,
-    originalSelectionInfos as FullSelectionInfo[][],
-  );
+  return selectionInfosToSelections(originalSelectionInfos);
 }
 
 /**
@@ -356,7 +221,7 @@ export async function performEditsAndUpdateSelectionInfos(
  * @param originalSelectionInfos The selection info objects to update
  * @returns The updated selections
  */
-export async function performEditsAndUpdateFullSelectionInfos(
+async function performEditsAndUpdateFullSelectionInfos(
   rangeUpdater: RangeUpdater,
   editor: EditableTextEditor,
   edits: Edit[],
@@ -397,12 +262,10 @@ export async function performEditsAndUpdateFullSelectionInfos(
     }
   };
 
-  await callFunctionAndUpdateSelectionInfos(
+  return await callFunctionAndUpdateFullSelectionInfos(
     rangeUpdater,
     func,
     editor.document,
     originalSelectionInfos,
   );
-
-  return selectionInfosToSelections(originalSelectionInfos);
 }

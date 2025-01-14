@@ -1,6 +1,6 @@
-import assert = require("assert");
+import assert from "assert";
 import { parsePredicates } from "./parsePredicates";
-import { PredicateResult } from "web-tree-sitter";
+import type { PredicateResult } from "web-tree-sitter";
 
 const predicates: PredicateResult[][] = [
   [

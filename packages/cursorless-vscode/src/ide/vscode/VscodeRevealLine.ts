@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import { RevealLineAt } from "@cursorless/common";
-import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
+import type { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
 export async function vscodeRevealLine(
   editor: VscodeTextEditorImpl,
@@ -18,7 +18,7 @@ export async function vscodeRevealLine(
       at === RevealLineAt.top
         ? "top"
         : at === RevealLineAt.bottom
-        ? "bottom"
-        : "center",
+          ? "bottom"
+          : "center",
   });
 }

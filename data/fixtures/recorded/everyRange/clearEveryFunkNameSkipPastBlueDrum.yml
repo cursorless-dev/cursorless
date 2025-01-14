@@ -1,0 +1,58 @@
+languageId: python
+command:
+  version: 6
+  spokenForm: change every funk name skip past blue drum
+  action:
+    name: clearAndSetSelection
+    target:
+      type: range
+      anchor:
+        type: primitive
+        modifiers:
+          - type: everyScope
+            scopeType: {type: functionName}
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: blue, character: d}
+      excludeAnchor: true
+      excludeActive: false
+  usePrePhraseSnapshot: true
+spokenFormError: Range exclude anchor
+initialState:
+  documentContents: |
+    def aaa():
+        pass
+
+    def bbb():
+        pass
+
+    def ccc():
+        pass
+
+    def ddd():
+        pass
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+  marks:
+    blue.d:
+      start: {line: 6, character: 0}
+      end: {line: 6, character: 3}
+finalState:
+  documentContents: |
+    def aaa():
+        pass
+
+    def ():
+        pass
+
+    def ():
+        pass
+
+    def ddd():
+        pass
+  selections:
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}
+    - anchor: {line: 6, character: 4}
+      active: {line: 6, character: 4}

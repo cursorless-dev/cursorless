@@ -1,0 +1,35 @@
+languageId: rust
+command:
+  version: 6
+  spokenForm: change name odd
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+      mark: {type: decoratedSymbol, symbolColor: default, character: o}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    enum Maybe<T> {
+        Just(T),
+        Nothing,
+    }
+  selections:
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
+  marks:
+    default.o:
+      start: {line: 2, character: 4}
+      end: {line: 2, character: 11}
+finalState:
+  documentContents: |
+    enum Maybe<T> {
+        Just(T),
+        ,
+    }
+  selections:
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}

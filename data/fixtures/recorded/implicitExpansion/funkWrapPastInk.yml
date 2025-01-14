@@ -1,0 +1,36 @@
+languageId: typescript
+command:
+  version: 6
+  spokenForm: funk wrap past sit
+  action:
+    name: wrapWithSnippet
+    snippetDescription: {type: named, name: functionDeclaration, variableName: body}
+    target:
+      type: range
+      anchor: {type: implicit}
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: i}
+      excludeAnchor: false
+      excludeActive: false
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    const whatever = "hello";
+    const testing = "hello";
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+  marks:
+    default.i:
+      start: {line: 1, character: 6}
+      end: {line: 1, character: 13}
+finalState:
+  documentContents: |-
+    function () {
+        const whatever = "hello";
+        const testing = "hello";
+    }
+  selections:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}

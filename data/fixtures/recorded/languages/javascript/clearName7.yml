@@ -1,0 +1,29 @@
+languageId: javascript
+command:
+  version: 6
+  spokenForm: change name
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    class Aaa {
+        bbb = "ccc";
+    }
+  selections:
+    - anchor: {line: 1, character: 16}
+      active: {line: 1, character: 16}
+  marks: {}
+finalState:
+  documentContents: |-
+    class Aaa {
+         = "ccc";
+    }
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

@@ -1,0 +1,29 @@
+languageId: cpp
+command:
+  version: 6
+  spokenForm: take state
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: statement}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    void f() {
+        a = 1;
+    }
+  selections:
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 7}
+  marks: {}
+finalState:
+  documentContents: |-
+    void f() {
+        a = 1;
+    }
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 10}

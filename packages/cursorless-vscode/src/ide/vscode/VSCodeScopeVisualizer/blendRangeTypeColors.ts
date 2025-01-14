@@ -1,5 +1,5 @@
-import tinycolor = require("tinycolor2");
-import { RangeTypeColors } from "./RangeTypeColors";
+import tinycolor from "tinycolor2";
+import type { RangeTypeColors } from "./RangeTypeColors";
 
 /**
  * Blends two {@link RangeTypeColors} color configurations together according to

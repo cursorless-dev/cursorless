@@ -1,0 +1,33 @@
+languageId: markdown
+command:
+  version: 6
+  spokenForm: round wrap item air
+  action:
+    name: wrapWithPairedDelimiter
+    left: (
+    right: )
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    - aaa
+      - bbb
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 2}
+      end: {line: 0, character: 5}
+finalState:
+  documentContents: |
+    - (aaa)
+      - bbb
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}

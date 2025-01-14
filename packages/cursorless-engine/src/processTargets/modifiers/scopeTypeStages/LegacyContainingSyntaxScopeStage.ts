@@ -5,7 +5,7 @@ import type {
 } from "@cursorless/common";
 import { NoContainingScopeError, Selection } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
+import type { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import { getNodeMatcher } from "../../../languages/getNodeMatcher";
 import type {
   NodeMatcher,
@@ -38,10 +38,14 @@ export class LegacyContainingSyntaxScopeStage implements ModifierStage {
       this.modifier.type === "everyScope",
     );
 
-    const node: SyntaxNode | null = this.languageDefinitions.getNodeAtLocation(
+    const node = this.languageDefinitions.getNodeAtLocation(
       target.editor.document,
       target.contentRange,
     );
+
+    if (node == null) {
+      throw new NoContainingScopeError(this.modifier.scopeType.type);
+    }
 
     const scopeNodes = findNearestContainingAncestorNode(node, nodeMatcher, {
       editor: target.editor,
@@ -82,7 +86,7 @@ export class LegacyContainingSyntaxScopeStage implements ModifierStage {
         contentRange: contentSelection,
         removalRange: removalRange,
         interiorRange: interiorRange,
-        delimiter: containingListDelimiter,
+        insertionDelimiter: containingListDelimiter,
         leadingDelimiterRange,
         trailingDelimiterRange,
       });

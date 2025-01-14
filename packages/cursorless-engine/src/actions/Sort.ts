@@ -1,9 +1,9 @@
 import { showWarning } from "@cursorless/common";
-import { shuffle } from "lodash";
+import { shuffle } from "lodash-es";
 import { ide } from "../singletons/ide.singleton";
-import { Target } from "../typings/target.types";
-import { Actions } from "./Actions";
-import { ActionReturnValue, SimpleAction } from "./actions.types";
+import type { Target } from "../typings/target.types";
+import type { Actions } from "./Actions";
+import type { ActionReturnValue, SimpleAction } from "./actions.types";
 
 abstract class SortBase implements SimpleAction {
   constructor(private actions: Actions) {
@@ -14,7 +14,7 @@ abstract class SortBase implements SimpleAction {
 
   async run(targets: Target[]): Promise<ActionReturnValue> {
     if (targets.length < 2) {
-      showWarning(
+      void showWarning(
         ide().messages,
         "tooFewTargets",
         'This action works on multiple targets, e.g. "sort every line block" instead of "sort block".',
@@ -35,21 +35,23 @@ abstract class SortBase implements SimpleAction {
 
     const sortedTexts = this.sortTexts(unsortedTexts);
 
-    return this.actions.replace.run(
+    const { thatSelections } = await this.actions.replace.run(
       sortedTargets.map((target) => target.toDestination("to")),
       sortedTexts,
     );
+
+    return { thatSelections };
   }
 }
 
 export class Sort extends SortBase {
-  private collator = new Intl.Collator(undefined, {
-    numeric: true,
-    caseFirst: "upper",
-  });
-
   protected sortTexts(texts: string[]) {
-    return texts.sort(this.collator.compare);
+    return texts.sort((a, b) =>
+      a.localeCompare(b, undefined, {
+        numeric: true,
+        caseFirst: "upper",
+      }),
+    );
   }
 }
 

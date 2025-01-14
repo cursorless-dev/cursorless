@@ -1,0 +1,17 @@
+int a; // the comment
+---
+
+[Content] =
+[Domain] = 0:7-0:21
+         >--------------<
+0| int a; // the comment
+
+[Removal] = 0:6-0:21
+        >---------------<
+0| int a; // the comment
+
+[Leading delimiter] = 0:6-0:7
+        >-<
+0| int a; // the comment
+
+[Insertion delimiter] = "\n"

@@ -1,0 +1,43 @@
+class aaa { int bbb; };
+enum class ccc { ddd, eee };
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-0:23
+  >-----------------------<
+0| class aaa { int bbb; };
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 0:12-0:15
+              >---<
+0| class aaa { int bbb; };
+
+[#2 Removal] = 0:12-0:16
+              >----<
+0| class aaa { int bbb; };
+
+[#2 Leading delimiter] = 0:11-0:12
+             >-<
+0| class aaa { int bbb; };
+
+[#2 Trailing delimiter] = 0:15-0:16
+                 >-<
+0| class aaa { int bbb; };
+
+[#2 Domain] = 0:12-0:20
+              >--------<
+0| class aaa { int bbb; };
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] =
+[#3 Removal] =
+[#3 Domain] = 1:0-1:28
+  >----------------------------<
+1| enum class ccc { ddd, eee };
+
+[#3 Insertion delimiter] = " "

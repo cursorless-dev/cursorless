@@ -1,0 +1,75 @@
+with aaa as bbb, ccc as ddd:
+    pass
+---
+
+[#1.1 Content] = 0:5-0:8
+       >---<
+0| with aaa as bbb, ccc as ddd:
+
+[#1.1 Removal] = 0:5-0:12
+       >-------<
+0| with aaa as bbb, ccc as ddd:
+
+[#1.1 Trailing delimiter] = 0:8-0:12
+          >----<
+0| with aaa as bbb, ccc as ddd:
+
+[#1.1 Insertion delimiter] = " "
+
+[#1.2 Content] = 0:17-0:20
+                   >---<
+0| with aaa as bbb, ccc as ddd:
+
+[#1.2 Removal] = 0:17-0:24
+                   >-------<
+0| with aaa as bbb, ccc as ddd:
+
+[#1.2 Trailing delimiter] = 0:20-0:24
+                      >----<
+0| with aaa as bbb, ccc as ddd:
+
+[#1.2 Insertion delimiter] = " "
+
+[#1 Domain] = 0:0-1:8
+  >----------------------------
+0| with aaa as bbb, ccc as ddd:
+1|     pass
+   --------<
+
+
+[#2 Content] = 0:5-0:8
+       >---<
+0| with aaa as bbb, ccc as ddd:
+
+[#2 Removal] = 0:5-0:12
+       >-------<
+0| with aaa as bbb, ccc as ddd:
+
+[#2 Trailing delimiter] = 0:8-0:12
+          >----<
+0| with aaa as bbb, ccc as ddd:
+
+[#2 Domain] = 0:5-0:15
+       >----------<
+0| with aaa as bbb, ccc as ddd:
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] = 0:17-0:20
+                   >---<
+0| with aaa as bbb, ccc as ddd:
+
+[#3 Removal] = 0:17-0:24
+                   >-------<
+0| with aaa as bbb, ccc as ddd:
+
+[#3 Trailing delimiter] = 0:20-0:24
+                      >----<
+0| with aaa as bbb, ccc as ddd:
+
+[#3 Domain] = 0:17-0:27
+                   >----------<
+0| with aaa as bbb, ccc as ddd:
+
+[#3 Insertion delimiter] = " "

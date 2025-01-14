@@ -1,0 +1,23 @@
+{
+  "name": "@cursorless/cursorless-everywhere-talon",
+  "version": "1.0.0",
+  "description": "cursorless in talon js",
+  "main": "./out/index.js",
+  "license": "MIT",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "esbuild:dev": "pnpm run esbuild:base src/mainDevelopment.ts",
+    "esbuild:prod": "pnpm run esbuild:base --minify src/mainProduction.ts",
+    "esbuild:watch": "pnpm run esbuild:base --watch src/mainDevelopment.ts",
+    "esbuild:profile": "pnpm run esbuild:base --metafile=meta.json src/mainDevelopment.ts",
+    "esbuild:base": "bash scripts/esbuild.sh",
+    "compile": "tsc --build",
+    "compile:esbuild": "pnpm run esbuild:prod",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
+  },
+  "dependencies": {
+    "@cursorless/common": "workspace:*",
+    "@cursorless/cursorless-everywhere-talon-core": "workspace:*"
+  }
+}

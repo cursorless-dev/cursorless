@@ -1,0 +1,21 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "target": "ES2022"
+  },
+  "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"],
+  "references": [
+    {
+      "path": "../common"
+    },
+    {
+      "path": "../cursorless-everywhere-talon-core"
+    },
+    {
+      "path": "../node-common"
+    },
+    {
+      "path": "../test-case-recorder"
+    }
+  ]
+}

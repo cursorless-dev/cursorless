@@ -1,6 +1,6 @@
-import z from "zod";
+import { z } from "zod";
 import { assertTypesEqual } from "./assertTypesEqual";
-import { PredicateOperand } from "web-tree-sitter";
+import type { PredicateOperand } from "web-tree-sitter";
 
 const string = z.object({ type: z.literal("string"), value: z.string() });
 
@@ -65,6 +65,7 @@ export type SchemaTypes = (typeof q)[keyof typeof q];
  * `PredicateOperand`, as that is what we always get from tree-sitter
  */
 export type SchemaInputType = PredicateOperand;
+// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 assertTypesEqual<SchemaInputType, z.input<SchemaTypes>, SchemaInputType>;
 
 /**

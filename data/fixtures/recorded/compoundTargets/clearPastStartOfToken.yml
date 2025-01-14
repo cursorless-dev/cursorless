@@ -1,0 +1,29 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: change past start of token
+  action:
+    name: clearAndSetSelection
+    target:
+      type: range
+      anchor: {type: implicit}
+      active:
+        type: primitive
+        modifiers:
+          - {type: startOf}
+          - type: containingScope
+            scopeType: {type: token}
+      excludeAnchor: false
+      excludeActive: false
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: hello there
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+  marks: {}
+finalState:
+  documentContents: hello ere
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

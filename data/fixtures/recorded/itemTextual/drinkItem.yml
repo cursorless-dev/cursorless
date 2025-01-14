@@ -1,0 +1,34 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: drink item
+  action:
+    name: editNewLineBefore
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    [
+        aaa,
+        bbb,
+        ccc
+    ]
+  selections:
+    - anchor: {line: 3, character: 7}
+      active: {line: 3, character: 7}
+  marks: {}
+finalState:
+  documentContents: |-
+    [
+        aaa,
+        bbb,
+        ,
+        ccc
+    ]
+  selections:
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}

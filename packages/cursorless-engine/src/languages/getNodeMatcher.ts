@@ -1,7 +1,7 @@
 import { UnsupportedLanguageError } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import { SimpleScopeTypeType } from "@cursorless/common";
-import {
+import type { SimpleScopeTypeType } from "@cursorless/common";
+import type {
   NodeMatcher,
   NodeMatcherValue,
   SelectionWithEditor,
@@ -9,22 +9,12 @@ import {
 import { notSupported } from "../util/nodeMatchers";
 import { selectionWithEditorFromRange } from "../util/selectionUtils";
 import clojure from "./clojure";
-import { LegacyLanguageId } from "./LegacyLanguageId";
-import cpp from "./cpp";
-import csharp from "./csharp";
-import go from "./go";
-import { patternMatchers as html } from "./html";
-import java from "./java";
-import { patternMatchers as json } from "./json";
+import type { LegacyLanguageId } from "./LegacyLanguageId";
 import latex from "./latex";
-import markdown from "./markdown";
-import php from "./php";
-import python from "./python";
 import { patternMatchers as ruby } from "./ruby";
 import rust from "./rust";
 import scala from "./scala";
 import { patternMatchers as scss } from "./scss";
-import { patternMatchers as typescript } from "./typescript";
 
 export function getNodeMatcher(
   languageId: string,
@@ -40,7 +30,7 @@ export function getNodeMatcher(
   const matcher = matchers[scopeTypeType];
 
   if (matcher == null) {
-    return notSupported;
+    return notSupported(scopeTypeType);
   }
 
   if (includeSiblings) {
@@ -52,31 +42,15 @@ export function getNodeMatcher(
 
 export const languageMatchers: Record<
   LegacyLanguageId,
-  Record<SimpleScopeTypeType, NodeMatcher>
+  Partial<Record<SimpleScopeTypeType, NodeMatcher>>
 > = {
-  c: cpp,
-  cpp,
-  css: scss,
-  csharp,
   clojure,
-  go,
-  html,
-  java,
-  javascript: typescript,
-  javascriptreact: typescript,
-  json,
-  jsonc: json,
+  css: scss,
   latex,
-  markdown,
-  php,
-  python,
   ruby,
+  rust,
   scala,
   scss,
-  rust,
-  typescript,
-  typescriptreact: typescript,
-  xml: html,
 };
 
 function matcherIncludeSiblings(matcher: NodeMatcher): NodeMatcher {
@@ -94,7 +68,7 @@ function matcherIncludeSiblings(matcher: NodeMatcher): NodeMatcher {
         selectionWithEditorFromRange(selection, match.selection.selection),
         matcher,
       ),
-    ) as NodeMatcherValue[];
+    );
     if (matches.length > 0) {
       return matches;
     }
@@ -109,7 +83,7 @@ function iterateNearestIterableAncestor(
 ) {
   let parent: SyntaxNode | null = node.parent;
   while (parent != null) {
-    const matches = parent!.namedChildren
+    const matches = parent.namedChildren
       .flatMap((sibling) => nodeMatcher(selection, sibling))
       .filter((match) => match != null) as NodeMatcherValue[];
     if (matches.length > 0) {

@@ -1,4 +1,5 @@
-import { MessageId, Messages, MessageType } from "../types/Messages";
+import type { MessageId, Messages } from "../types/Messages";
+import { MessageType } from "../types/Messages";
 
 /**
  * Displays a warning message {@link message} to the user along with possible

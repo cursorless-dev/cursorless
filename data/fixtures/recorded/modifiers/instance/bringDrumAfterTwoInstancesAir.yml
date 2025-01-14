@@ -1,0 +1,41 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: bring drum after two instances air
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: d}
+    destination:
+      type: primitive
+      insertionMode: after
+      target:
+        type: primitive
+        modifiers:
+          - type: relativeScope
+            scopeType: {type: instance}
+            offset: 0
+            length: 2
+            direction: forward
+        mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    aaa bbb ccc ddd aaa
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.d:
+      start: {line: 0, character: 12}
+      end: {line: 0, character: 15}
+    default.a:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 3}
+finalState:
+  documentContents: |
+    aaa ddd bbb ccc ddd aaa ddd
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

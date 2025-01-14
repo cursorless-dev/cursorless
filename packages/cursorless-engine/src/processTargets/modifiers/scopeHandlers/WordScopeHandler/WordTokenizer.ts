@@ -1,5 +1,5 @@
+import { matchText } from "@cursorless/common";
 import { getMatcher } from "../../../../tokenizer";
-import { matchText } from "../../../../util/regex";
 
 const CAMEL_REGEX = /\p{Lu}?\p{Ll}+|\p{Lu}+(?!\p{Ll})|\p{N}+/gu;
 
@@ -9,7 +9,7 @@ const CAMEL_REGEX = /\p{Lu}?\p{Ll}+|\p{Lu}+(?!\p{Ll})|\p{N}+/gu;
  * but for now we need it here because we can't yet properly mock away vscode
  * for the unit tests in subtoken.test.ts.
  */
-export default class WordTokenizer {
+export class WordTokenizer {
   private wordRegex: RegExp;
 
   constructor(languageId: string) {

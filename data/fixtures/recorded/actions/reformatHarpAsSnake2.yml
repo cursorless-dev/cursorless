@@ -1,0 +1,40 @@
+languageId: typescript
+command:
+  version: 6
+  spokenForm: reformat harp as snake
+  action:
+    name: replace
+    replaceWith: [hello_world]
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: h}
+  usePrePhraseSnapshot: false
+spokenFormError: Action 'replace'
+initialState:
+  documentContents: |
+
+    const value = "helloWorld";
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.h:
+      start: {line: 1, character: 15}
+      end: {line: 1, character: 25}
+finalState:
+  documentContents: |
+
+    const value = "hello_world";
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 1, character: 15}
+        end: {line: 1, character: 26}
+      isReversed: false
+      hasExplicitRange: true

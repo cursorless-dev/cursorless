@@ -1,0 +1,29 @@
+languageId: lua
+command:
+  version: 6
+  spokenForm: chuck key
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionKey}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    local person = {
+        name = "John",
+    }
+  selections:
+    - anchor: {line: 1, character: 8}
+      active: {line: 1, character: 8}
+  marks: {}
+finalState:
+  documentContents: |-
+    local person = {
+        "John",
+    }
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

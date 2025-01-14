@@ -1,6 +1,10 @@
-import { Selection, TextEditor } from "@cursorless/common";
+import type { TextEditor } from "@cursorless/common";
+import { Selection } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import { SelectionExtractor, SelectionWithContext } from "../typings/Types";
+import type {
+  SelectionExtractor,
+  SelectionWithContext,
+} from "../typings/Types";
 import {
   childRangeSelector,
   positionFromPoint,
@@ -57,16 +61,14 @@ export function elseIfExtractor(): SelectionExtractor {
     }
 
     // If we get here, we are part of a bigger `if` statement; extend our
-    // removal range past our leading `else` keyword.
+    // content range past our leading `else` keyword.
     const { selection } = contentRange;
     return {
-      selection,
-      context: {
-        removalRange: new Selection(
-          positionFromPoint(parent.child(0)!.startPosition),
-          selection.end,
-        ),
-      },
+      selection: new Selection(
+        positionFromPoint(parent.child(0)!.startPosition),
+        selection.end,
+      ),
+      context: {},
     };
   };
 }

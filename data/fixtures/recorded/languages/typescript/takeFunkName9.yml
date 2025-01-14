@@ -1,0 +1,35 @@
+languageId: typescript
+command:
+  version: 6
+  spokenForm: take funk name
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionName}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+
+    class Bar {
+        constructor () {
+
+        }
+    }
+  selections:
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
+  marks: {}
+finalState:
+  documentContents: |
+
+    class Bar {
+        constructor () {
+
+        }
+    }
+  selections:
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 15}

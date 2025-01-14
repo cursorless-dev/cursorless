@@ -1,14 +1,9 @@
-import {
-  Range,
-  Selection,
-  SimpleScopeTypeType,
-  TextEditor,
-} from "@cursorless/common";
+import type { SimpleScopeTypeType, TextEditor } from "@cursorless/common";
+import { Selection } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import {
+import type {
   NodeMatcherAlternative,
   SelectionWithContext,
-  SelectionWithEditor,
 } from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";
 import {
@@ -83,15 +78,6 @@ const SECTIONING = [
   "part",
 ];
 
-const ENVIRONMENTS = [
-  "generic_environment",
-  "comment_environment",
-  "verbatim_environment",
-  "listing_environment",
-  "minted_environment",
-  "pycode_environment",
-];
-
 const sectioningText = SECTIONING.map((s) => `${s}[text]`);
 const sectioningCommand = SECTIONING.map((s) => `${s}[command]`);
 
@@ -121,7 +107,7 @@ function extendToNamedSiblingIfExists(
   let endIndex = node.endIndex;
   const sibling = node.nextNamedSibling;
 
-  if (sibling != null && sibling.isNamed()) {
+  if (sibling != null && sibling.isNamed) {
     endIndex = sibling.endIndex;
   }
 
@@ -133,45 +119,6 @@ function extendToNamedSiblingIfExists(
     context: {},
   };
 }
-
-function extractItemContent(
-  editor: TextEditor,
-  node: SyntaxNode,
-): SelectionWithContext {
-  let contentStartIndex = node.startIndex;
-
-  const label = node.childForFieldName("label");
-  if (label == null) {
-    const command = node.childForFieldName("command");
-    if (command != null) {
-      contentStartIndex = command.endIndex + 1;
-    }
-  } else {
-    contentStartIndex = label.endIndex + 1;
-  }
-
-  return {
-    selection: new Selection(
-      editor.document.positionAt(contentStartIndex),
-      editor.document.positionAt(node.endIndex),
-    ),
-    context: {
-      leadingDelimiterRange: new Range(
-        editor.document.positionAt(node.startIndex),
-        editor.document.positionAt(contentStartIndex - 1),
-      ),
-    },
-  };
-}
-
-const getStartTag = patternMatcher(`*.begin!`);
-const getEndTag = patternMatcher(`*.end!`);
-
-const getTags = (selection: SelectionWithEditor, node: SyntaxNode) => {
-  const startTag = getStartTag(selection, node);
-  const endTag = getEndTag(selection, node);
-  return startTag != null && endTag != null ? startTag.concat(endTag) : null;
-};
 
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
@@ -197,25 +144,6 @@ const nodeMatchers: Partial<
     matcher(patternFinder(...sectioningText), unwrapGroupParens),
     patternMatcher("begin[name][text]", "end[name][text]"),
   ),
-  functionCallee: "command_name",
-
-  collectionItem: matcher(patternFinder("enum_item"), extractItemContent),
-
-  comment: ["block_comment", "line_comment"],
-
-  part: "part",
-  chapter: "chapter",
-  section: "section",
-  subSection: "subsection",
-  subSubSection: "subsubsection",
-  namedParagraph: "paragraph",
-  subParagraph: "subparagraph",
-
-  environment: ENVIRONMENTS,
-  xmlElement: ENVIRONMENTS,
-  xmlBothTags: getTags,
-  xmlStartTag: getStartTag,
-  xmlEndTag: getEndTag,
 };
 
 export default createPatternMatchers(nodeMatchers);

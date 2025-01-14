@@ -1,0 +1,34 @@
+languageId: typescript
+command:
+  version: 6
+  spokenForm: change branch
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: branch}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    switch (aaa) {
+      case 0:
+        break;
+      case 1:
+        break;
+    }
+  selections:
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}
+  marks: {}
+finalState:
+  documentContents: |-
+    switch (aaa) {
+      
+      case 1:
+        break;
+    }
+  selections:
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}

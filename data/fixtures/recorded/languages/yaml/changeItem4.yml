@@ -1,0 +1,25 @@
+languageId: yaml
+command:
+  version: 6
+  spokenForm: change item
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    - aaa: bbb
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |
+    - 
+  selections:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}

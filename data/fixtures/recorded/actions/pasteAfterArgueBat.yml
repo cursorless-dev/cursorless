@@ -1,0 +1,45 @@
+languageId: typescript
+command:
+  version: 6
+  spokenForm: paste after arg bat
+  action:
+    name: pasteFromClipboard
+    destination:
+      type: primitive
+      insertionMode: after
+      target:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: argumentOrParameter}
+        mark: {type: decoratedSymbol, symbolColor: default, character: b}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: foo(bar, baz, bongo)
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+  marks:
+    default.b:
+      start: {line: 0, character: 14}
+      end: {line: 0, character: 19}
+  clipboard: baz
+finalState:
+  documentContents: foo(bar, baz, bongo, baz)
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 21}
+        end: {line: 0, character: 24}
+      isReversed: false
+      hasExplicitRange: true
+ide:
+  flashes:
+    - style: justAdded
+      range:
+        type: character
+        start: {line: 0, character: 21}
+        end: {line: 0, character: 24}

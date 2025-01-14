@@ -1,12 +1,13 @@
-import { TextEditor, Position, Direction, Range } from "@cursorless/common";
-import BaseScopeHandler from "./BaseScopeHandler";
-import { TargetScope } from "./scope.types";
-import {
+import type { TextEditor, Direction } from "@cursorless/common";
+import { Position, Range } from "@cursorless/common";
+import { BaseScopeHandler } from "./BaseScopeHandler";
+import type { TargetScope } from "./scope.types";
+import type {
   CustomScopeType,
   ScopeIteratorRequirements,
 } from "./scopeHandler.types";
-import assert = require("assert");
 import { compareTargetScopes } from "./compareTargetScopes";
+import assert from "assert";
 
 class TestScopeHandler extends BaseScopeHandler {
   public scopeType = undefined;

@@ -1,0 +1,29 @@
+languageId: scss
+command:
+  version: 6
+  spokenForm: change item
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    a {
+      width: calc(100% - 80px);
+    }
+  selections:
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 12}
+  marks: {}
+finalState:
+  documentContents: |-
+    a {
+      
+    }
+  selections:
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}

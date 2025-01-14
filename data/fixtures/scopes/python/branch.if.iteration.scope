@@ -1,0 +1,18 @@
+if True:
+    pass
+elif False:
+    pass
+else:
+    pass
+---
+
+[Range] =
+[Domain] = 0:0-5:8
+  >--------
+0| if True:
+1|     pass
+2| elif False:
+3|     pass
+4| else:
+5|     pass
+   --------<

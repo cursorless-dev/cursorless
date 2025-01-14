@@ -1,0 +1,16 @@
+<Aaa>bbb
+---
+
+[Content] = 0:1-0:4
+   >---<
+0| <Aaa>bbb
+
+[Removal] = 0:0-0:5
+  >-----<
+0| <Aaa>bbb
+
+[Domain] = 0:0-0:8
+  >--------<
+0| <Aaa>bbb
+
+[Insertion delimiter] = " "

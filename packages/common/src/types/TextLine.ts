@@ -28,20 +28,13 @@ export interface TextLine {
   readonly rangeIncludingLineBreak: Range;
 
   /**
-   * The offset of the first character which is not a whitespace character as defined
-   * by `/\s/`. **Note** that if a line is all whitespace the length of the line is returned.
+   * The trimmed range, which excludes leading and trailing whitespace (`/\s/`).
+   * **Note:** if a line is all whitespace, the `rangeTrimmed` is undefined. Thus, a trimmed range can never be empty.
    */
-  readonly firstNonWhitespaceCharacterIndex: number;
+  readonly rangeTrimmed: Range | undefined;
 
   /**
-   * The offset of the last character which is not a whitespace character as defined
-   * by `/\s/`. **Note** that if a line is all whitespace 0 is returned.
-   */
-  readonly lastNonWhitespaceCharacterIndex: number;
-
-  /**
-   * Whether this line is whitespace only, shorthand
-   * for {@link TextLine.firstNonWhitespaceCharacterIndex} === {@link TextLine.text TextLine.text.length}.
+   * Whether this line is whitespace only
    */
   readonly isEmptyOrWhitespace: boolean;
 }

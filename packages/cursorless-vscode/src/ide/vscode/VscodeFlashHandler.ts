@@ -1,13 +1,12 @@
-import {
+import type {
   EditorGeneralizedRange,
   FlashDescriptor,
   FlashStyle,
-  groupBy,
-  sleep,
 } from "@cursorless/common";
+import { groupBy, sleep } from "@cursorless/common";
 import { workspace } from "vscode";
-import VscodeHighlights from "./VscodeHighlights";
-import { VscodeIDE } from "./VscodeIDE";
+import type VscodeHighlights from "./VscodeHighlights";
+import type { VscodeIDE } from "./VscodeIDE";
 
 export default class VscodeFlashHandler {
   constructor(
@@ -43,7 +42,7 @@ export default class VscodeFlashHandler {
       const ranges = (editorRangeMap.get(editor.id) ?? []).map(
         ({ range }) => range,
       );
-      this.highlights.setHighlightRanges(style, editor, ranges);
+      void this.highlights.setHighlightRanges(style, editor, ranges);
     });
   }
 }

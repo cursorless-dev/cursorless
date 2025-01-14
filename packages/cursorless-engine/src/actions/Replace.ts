@@ -1,11 +1,13 @@
-import { FlashStyle, ReplaceWith } from "@cursorless/common";
-import { flatten, zip } from "lodash";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import type { ReplaceWith } from "@cursorless/common";
+import { FlashStyle, RangeExpansionBehavior } from "@cursorless/common";
+import { zip } from "lodash-es";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
-import { Destination } from "../typings/target.types";
+import type { SelectionWithEditor } from "../typings/Types";
+import type { Destination, Target } from "../typings/target.types";
 import { flashTargets, runForEachEditor } from "../util/targetUtils";
-import { ActionReturnValue } from "./actions.types";
+import type { ActionReturnValue } from "./actions.types";
 
 export default class Replace {
   constructor(private rangeUpdater: RangeUpdater) {
@@ -47,30 +49,54 @@ export default class Replace {
     }
 
     const edits = zip(destinations, texts).map(([destination, text]) => ({
-      edit: destination!.constructChangeEdit(text!),
       editor: destination!.editor,
+      target: destination!.target,
+      edit: destination!.constructChangeEdit(text!),
     }));
 
-    const thatMark = flatten(
-      await runForEachEditor(
-        edits,
-        (edit) => edit.editor,
-        async (editor, edits) => {
-          const [updatedSelections] = await performEditsAndUpdateSelections(
-            this.rangeUpdater,
-            ide().getEditableTextEditor(editor),
-            edits.map(({ edit }) => edit),
-            [destinations.map((destination) => destination.contentSelection)],
-          );
+    const sourceTargets: Target[] = [];
+    const thatSelections: SelectionWithEditor[] = [];
 
-          return updatedSelections.map((selection) => ({
+    await runForEachEditor(
+      edits,
+      (edit) => edit.editor,
+      async (editor, editWrappers) => {
+        const edits = editWrappers.map(({ edit }) => edit);
+
+        const {
+          contentSelections: updatedContentSelections,
+          editRanges: updatedEditRanges,
+        } = await performEditsAndUpdateSelections({
+          rangeUpdater: this.rangeUpdater,
+          editor: ide().getEditableTextEditor(editor),
+          edits,
+          selections: {
+            contentSelections: editWrappers.map(
+              ({ target }) => target.contentSelection,
+            ),
+            editRanges: {
+              selections: edits.map(({ range }) => range),
+              behavior: RangeExpansionBehavior.openOpen,
+            },
+          },
+        });
+
+        for (const [wrapper, selection] of zip(
+          editWrappers,
+          updatedContentSelections,
+        )) {
+          sourceTargets.push(wrapper!.target.withContentRange(selection!));
+        }
+
+        for (const [wrapper, range] of zip(editWrappers, updatedEditRanges)) {
+          thatSelections.push({
             editor,
-            selection,
-          }));
-        },
-      ),
+            selection: wrapper!.edit.updateRange(range!).toSelection(false),
+          });
+        }
+      },
     );
 
-    return { thatSelections: thatMark };
+    return { sourceTargets, thatSelections };
   }
 }

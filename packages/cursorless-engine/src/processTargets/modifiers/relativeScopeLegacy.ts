@@ -1,14 +1,14 @@
-import { Range, RelativeScopeModifier } from "@cursorless/common";
-import { findLastIndex } from "lodash";
-import { Target } from "../../typings/target.types";
-import { ModifierStageFactory } from "../ModifierStageFactory";
+import type { Range, RelativeScopeModifier } from "@cursorless/common";
+import { findLastIndex } from "lodash-es";
+import type { Target } from "../../typings/target.types";
+import type { ModifierStageFactory } from "../ModifierStageFactory";
 import { UntypedTarget } from "../targets";
 import {
   createRangeTargetFromIndices,
   getEveryScopeTargets,
-  OutOfRangeError,
 } from "./targetSequenceUtils";
 import { TooFewScopesError } from "./TooFewScopesError";
+import { OutOfRangeError } from "./listUtils";
 
 interface ContainingIndices {
   start: number;

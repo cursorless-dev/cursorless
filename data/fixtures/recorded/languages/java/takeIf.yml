@@ -1,0 +1,31 @@
+languageId: java
+command:
+  version: 6
+  spokenForm: take if state
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: ifStatement}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+
+    if () {
+
+    }
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+  marks: {}
+finalState:
+  documentContents: |
+
+    if () {
+
+    }
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 3, character: 1}

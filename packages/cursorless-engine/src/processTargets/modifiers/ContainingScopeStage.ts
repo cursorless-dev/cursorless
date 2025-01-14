@@ -1,11 +1,9 @@
-import {
-  ContainingScopeModifier,
-  NoContainingScopeError,
-} from "@cursorless/common";
+import type { ContainingScopeModifier } from "@cursorless/common";
+import { NoContainingScopeError } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
-import { ModifierStageFactory } from "../ModifierStageFactory";
+import type { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
-import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
+import type { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 import { getContainingScopeTarget } from "./getContainingScopeTarget";
 
 /**
@@ -36,7 +34,7 @@ export class ContainingScopeStage implements ModifierStage {
   run(target: Target): Target[] {
     const { scopeType, ancestorIndex = 0 } = this.modifier;
 
-    const scopeHandler = this.scopeHandlerFactory.create(
+    const scopeHandler = this.scopeHandlerFactory.maybeCreate(
       scopeType,
       target.editor.document.languageId,
     );
@@ -47,23 +45,16 @@ export class ContainingScopeStage implements ModifierStage {
         .run(target);
     }
 
-    const containingScope = getContainingScopeTarget(
+    const containingScopes = getContainingScopeTarget(
       target,
       scopeHandler,
       ancestorIndex,
     );
 
-    if (containingScope == null) {
-      if (scopeType.type === "collectionItem") {
-        // For `collectionItem`, fall back to generic implementation
-        return this.modifierStageFactory
-          .getLegacyScopeStage(this.modifier)
-          .run(target);
-      }
-
+    if (containingScopes == null) {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
 
-    return containingScope;
+    return containingScopes;
   }
 }

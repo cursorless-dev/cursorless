@@ -1,0 +1,31 @@
+languageId: java
+command:
+  version: 6
+  spokenForm: take class name
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: className}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+
+    public class MyClass {
+
+    }
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+  marks: {}
+finalState:
+  documentContents: |
+
+    public class MyClass {
+
+    }
+  selections:
+    - anchor: {line: 1, character: 13}
+      active: {line: 1, character: 20}

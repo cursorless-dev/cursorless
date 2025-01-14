@@ -1,5 +1,7 @@
 from talon import Module
 
+from .mark_types import SimpleMark
+
 mod = Module()
 
 mod.list("cursorless_simple_mark", desc="Cursorless simple marks")
@@ -15,7 +17,7 @@ simple_marks = {
 
 
 @mod.capture(rule="{user.cursorless_simple_mark}")
-def cursorless_simple_mark(m) -> dict[str, str]:
+def cursorless_simple_mark(m) -> SimpleMark:
     return {
         "type": simple_marks[m.cursorless_simple_mark],
     }

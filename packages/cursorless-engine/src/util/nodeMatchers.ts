@@ -1,6 +1,7 @@
+import type { SimpleScopeTypeType } from "@cursorless/common";
+import { unsafeKeys } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import { SimpleScopeTypeType } from "@cursorless/common";
-import {
+import type {
   NodeFinder,
   NodeMatcher,
   NodeMatcherAlternative,
@@ -168,23 +169,27 @@ export function cascadingMatcher(...matchers: NodeMatcher[]): NodeMatcher {
   };
 }
 
-export const notSupported: NodeMatcher = (
-  _selection: SelectionWithEditor,
-  _node: SyntaxNode,
-) => {
-  throw new Error("Node type not supported");
-};
+export function notSupported(scopeTypeType: SimpleScopeTypeType): NodeMatcher {
+  return (_selection: SelectionWithEditor, _node: SyntaxNode) => {
+    throw new Error(`Node type '${scopeTypeType}' not supported`);
+  };
+}
 
 export function createPatternMatchers(
   nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>>,
-): Record<SimpleScopeTypeType, NodeMatcher> {
-  Object.keys(nodeMatchers).forEach((scopeType: SimpleScopeTypeType) => {
-    const matcher = nodeMatchers[scopeType];
-    if (Array.isArray(matcher)) {
-      nodeMatchers[scopeType] = patternMatcher(...matcher);
-    } else if (typeof matcher === "string") {
-      nodeMatchers[scopeType] = patternMatcher(matcher);
-    }
-  });
-  return nodeMatchers as Record<SimpleScopeTypeType, NodeMatcher>;
+): Partial<Record<SimpleScopeTypeType, NodeMatcher>> {
+  return Object.freeze(
+    Object.fromEntries(
+      unsafeKeys(nodeMatchers).map((scopeType: SimpleScopeTypeType) => {
+        const matcher = nodeMatchers[scopeType];
+        if (Array.isArray(matcher)) {
+          return [scopeType, patternMatcher(...matcher)];
+        } else if (typeof matcher === "string") {
+          return [scopeType, patternMatcher(matcher)];
+        } else {
+          return [scopeType, matcher];
+        }
+      }),
+    ),
+  );
 }

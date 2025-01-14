@@ -1,0 +1,47 @@
+languageId: java
+command:
+  version: 6
+  spokenForm: change type
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    public class MyClass {
+            private MyClass () {
+                Map<String, String> map = new HashMap<String, String>();
+                List<String> list = new ArrayList<String>();
+            }
+        }
+  selections:
+    - anchor: {line: 2, character: 12}
+      active: {line: 2, character: 12}
+    - anchor: {line: 3, character: 12}
+      active: {line: 3, character: 12}
+    - anchor: {line: 2, character: 42}
+      active: {line: 2, character: 42}
+    - anchor: {line: 3, character: 36}
+      active: {line: 3, character: 36}
+  marks: {}
+finalState:
+  documentContents: |-
+    public class MyClass {
+            private MyClass () {
+                 map = new ();
+                 list = new ();
+            }
+        }
+  selections:
+    - anchor: {line: 2, character: 12}
+      active: {line: 2, character: 12}
+    - anchor: {line: 2, character: 23}
+      active: {line: 2, character: 23}
+    - anchor: {line: 3, character: 12}
+      active: {line: 3, character: 12}
+    - anchor: {line: 3, character: 24}
+      active: {line: 3, character: 24}

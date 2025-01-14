@@ -1,0 +1,13 @@
+void myFunk(String name, int value) {}
+---
+
+[#1 Range] =
+[#1 Domain] = 0:12-0:34
+              >----------------------<
+0| void myFunk(String name, int value) {}
+
+
+[#2 Range] =
+[#2 Domain] = 0:37-0:37
+                                       ><
+0| void myFunk(String name, int value) {}

@@ -1,17 +1,17 @@
-import {
+import type {
   Position,
   Range,
   TextDocument,
   TextEditor,
   TextLine,
 } from "@cursorless/common";
-import { Direction, ScopeType } from "@cursorless/common";
+import type { Direction, ScopeType } from "@cursorless/common";
 import { ParagraphTarget } from "../../targets";
-import BaseScopeHandler from "./BaseScopeHandler";
+import { BaseScopeHandler } from "./BaseScopeHandler";
 import { fitRangeToLineContent } from "./LineScopeHandler";
-import { TargetScope } from "./scope.types";
+import type { TargetScope } from "./scope.types";
 
-export default class TokenScopeHandler extends BaseScopeHandler {
+export class ParagraphScopeHandler extends BaseScopeHandler {
   public readonly scopeType: ScopeType = { type: "paragraph" };
   public readonly iterationScopeType: ScopeType = { type: "document" };
   protected readonly isHierarchical = false;

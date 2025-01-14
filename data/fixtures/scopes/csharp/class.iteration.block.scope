@@ -1,0 +1,27 @@
+public class Outer_class {
+  public class Inner_class {   }
+}
+---
+
+[#1 Range] =
+[#1 Domain] = 0:0-2:1
+  >--------------------------
+0| public class Outer_class {
+1|   public class Inner_class {   }
+2| }
+   -<
+
+
+[#2 Range] =
+[#2 Domain] = 0:26-2:0
+                            >
+0| public class Outer_class {
+1|   public class Inner_class {   }
+2| }
+   <
+
+
+[#3 Range] =
+[#3 Domain] = 1:28-1:31
+                              >---<
+1|   public class Inner_class {   }

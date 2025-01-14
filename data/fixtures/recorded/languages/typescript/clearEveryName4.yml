@@ -1,0 +1,37 @@
+languageId: typescript
+command:
+  version: 6
+  spokenForm: change every name
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    class Aaa {
+        bbb = 0;
+        eee() {}
+        fff() {}
+    }
+  selections:
+    - anchor: {line: 3, character: 12}
+      active: {line: 3, character: 12}
+  marks: {}
+finalState:
+  documentContents: |-
+    class Aaa {
+         = 0;
+        () {}
+        () {}
+    }
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}

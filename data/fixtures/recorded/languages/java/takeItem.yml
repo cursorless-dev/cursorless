@@ -1,0 +1,27 @@
+languageId: java
+command:
+  version: 6
+  spokenForm: take item
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+
+    int[] values = {1, 2, 3};
+  selections:
+    - anchor: {line: 1, character: 16}
+      active: {line: 1, character: 16}
+  marks: {}
+finalState:
+  documentContents: |
+
+    int[] values = {1, 2, 3};
+  selections:
+    - anchor: {line: 1, character: 16}
+      active: {line: 1, character: 17}

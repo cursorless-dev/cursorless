@@ -1,0 +1,37 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: bring line before whale
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: line}
+    destination:
+      type: primitive
+      insertionMode: before
+      target:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    hello world
+    whatever now
+  selections:
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 12}
+  marks:
+    default.w:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 11}
+finalState:
+  documentContents: |-
+    whatever now
+    hello world
+    whatever now
+  selections:
+    - anchor: {line: 2, character: 12}
+      active: {line: 2, character: 12}

@@ -1,0 +1,33 @@
+class MyClass {
+  myFunk(aaa, bbb) { }
+}
+---
+
+[#1 Range] =
+[#1 Domain] = 0:0-2:1
+  >---------------
+0| class MyClass {
+1|   myFunk(aaa, bbb) { }
+2| }
+   -<
+
+
+[#2 Range] =
+[#2 Domain] = 0:15-2:0
+                 >
+0| class MyClass {
+1|   myFunk(aaa, bbb) { }
+2| }
+   <
+
+
+[#3 Range] =
+[#3 Domain] = 1:8-1:18
+          >----------<
+1|   myFunk(aaa, bbb) { }
+
+
+[#4 Range] =
+[#4 Domain] = 1:20-1:21
+                      >-<
+1|   myFunk(aaa, bbb) { }

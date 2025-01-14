@@ -1,0 +1,33 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: change just this past trap
+  action:
+    name: clearAndSetSelection
+    target:
+      type: range
+      anchor:
+        type: primitive
+        modifiers:
+          - {type: toRawSelection}
+        mark: {type: cursor}
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: t}
+      excludeAnchor: false
+      excludeActive: false
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: hello there
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+  marks:
+    default.t:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 11}
+finalState:
+  documentContents: hel
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}

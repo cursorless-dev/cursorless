@@ -1,13 +1,16 @@
-import { SimpleScopeTypeType, SnippetDefinition } from "@cursorless/common";
-import { Target } from "../typings/target.types";
+import type {
+  SimpleScopeTypeType,
+  SnippetDefinition,
+} from "@cursorless/common";
+import type { Target } from "../typings/target.types";
+import type { TextmateSnippet } from "./vendor/vscodeSnippet/snippetParser";
 import {
   Placeholder,
   Text,
-  TextmateSnippet,
   Variable,
 } from "./vendor/vscodeSnippet/snippetParser";
 import { KnownSnippetVariableNames } from "./vendor/vscodeSnippet/snippetVariables";
-import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
+import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 
 /**
  * Replaces the snippet variable with name `placeholderName` with
@@ -52,6 +55,10 @@ export function transformSnippetVariables(
         const placeholder = new Placeholder(placeholderIndex);
         candidate.children.forEach((child) => placeholder.appendChild(child));
         candidate.parent.replace(candidate, [placeholder]);
+      }
+    } else if (candidate instanceof Placeholder) {
+      if (candidate.index.toString() === placeholderName) {
+        candidate.parent.replace(candidate, [new Variable("TM_SELECTED_TEXT")]);
       }
     }
     return true;
@@ -180,14 +187,18 @@ function findMatchingSnippetDefinitionForSingleTarget(
             matchingTarget = containingTarget;
             matchingScopeType = scopeTypeType;
           }
-        } catch (e) {
+        } catch (_e) {
           continue;
         }
       }
 
+      if (matchingScopeType == null) {
+        return false;
+      }
+
       return (
         matchingTarget != null &&
-        !(excludeDescendantScopeTypes ?? []).includes(matchingScopeType!)
+        !(excludeDescendantScopeTypes ?? []).includes(matchingScopeType)
       );
     }
 

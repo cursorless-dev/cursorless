@@ -1,0 +1,49 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: chuck line each between look
+  action:
+    name: remove
+    target:
+      type: range
+      anchor:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: line}
+        mark: {type: decoratedSymbol, symbolColor: default, character: e}
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: l}
+      excludeAnchor: true
+      excludeActive: true
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    hello there
+    hello there
+
+
+        hello there
+        hello there
+            hello 
+  selections:
+    - anchor: {line: 4, character: 9}
+      active: {line: 4, character: 9}
+  marks:
+    default.e:
+      start: {line: 1, character: 6}
+      end: {line: 1, character: 11}
+    default.l:
+      start: {line: 4, character: 4}
+      end: {line: 4, character: 9}
+finalState:
+  documentContents: |-
+    hello there
+    hello there
+        hello there
+        hello there
+            hello 
+  selections:
+    - anchor: {line: 2, character: 9}
+      active: {line: 2, character: 9}

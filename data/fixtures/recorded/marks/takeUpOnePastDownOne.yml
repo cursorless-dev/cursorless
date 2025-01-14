@@ -1,0 +1,36 @@
+languageId: typescript
+command:
+  version: 6
+  spokenForm: take up one past down one
+  action:
+    name: setSelection
+    target:
+      type: range
+      anchor:
+        type: primitive
+        mark: {type: lineNumber, lineNumberType: relative, lineNumber: -1}
+      active:
+        type: primitive
+        mark: {type: lineNumber, lineNumberType: relative, lineNumber: 1}
+      excludeAnchor: false
+      excludeActive: false
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+
+    const value = "Hello world";
+
+    const value = "Hello world";
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+  marks: {}
+finalState:
+  documentContents: |
+
+    const value = "Hello world";
+
+    const value = "Hello world";
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 3, character: 28}

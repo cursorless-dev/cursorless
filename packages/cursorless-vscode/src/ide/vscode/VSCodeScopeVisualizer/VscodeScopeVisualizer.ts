@@ -1,12 +1,12 @@
-import {
+import type {
   Disposable,
   IDE,
+  ScopeProvider,
   ScopeType,
   TextEditor,
-  showError,
 } from "@cursorless/common";
-import { ScopeProvider, ScopeSupport } from "@cursorless/cursorless-engine";
-import {
+import { ScopeSupport, showError } from "@cursorless/common";
+import type {
   ScopeRangeType,
   ScopeVisualizerColorConfig,
 } from "@cursorless/vscode-common";
@@ -65,7 +65,7 @@ export abstract class VscodeScopeVisualizer {
         return;
       case ScopeSupport.supportedLegacy:
       case ScopeSupport.unsupported:
-        showError(
+        void showError(
           this.ide.messages,
           "ScopeVisualizer.scopeTypeNotSupported",
           `Scope type not supported for ${editor.document.languageId}, or only defined using legacy API which doesn't support visualization.  See https://www.cursorless.org/docs/contributing/adding-a-new-language/ for more about how to upgrade your language.`,

@@ -1,0 +1,35 @@
+languageId: cpp
+command:
+  version: 6
+  spokenForm: take item
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    void f() {
+        int arr[] = {
+            1 + 2,
+            3
+        };
+    }
+  selections:
+    - anchor: {line: 2, character: 11}
+      active: {line: 2, character: 11}
+  marks: {}
+finalState:
+  documentContents: |-
+    void f() {
+        int arr[] = {
+            1 + 2,
+            3
+        };
+    }
+  selections:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 13}

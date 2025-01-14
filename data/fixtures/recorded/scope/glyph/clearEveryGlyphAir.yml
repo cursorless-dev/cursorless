@@ -1,0 +1,25 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: change every glyph air
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: glyph, character: a}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: abc$!4123a
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: bc$!4123
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

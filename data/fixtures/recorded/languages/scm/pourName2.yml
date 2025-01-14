@@ -1,0 +1,23 @@
+languageId: scm
+command:
+  version: 6
+  spokenForm: pour name
+  action:
+    name: editNewLineAfter
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "eee: _ @bbb @ccc"
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+  marks: {}
+finalState:
+  documentContents: "eee: _ @bbb  @ccc"
+  selections:
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 12}

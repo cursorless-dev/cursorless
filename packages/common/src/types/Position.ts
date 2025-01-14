@@ -1,3 +1,4 @@
+import type { TextDocument } from "..";
 import { Range } from "..";
 
 export class Position {
@@ -150,4 +151,20 @@ export class Position {
   public toString(): string {
     return this.concise();
   }
+}
+
+/**
+ * adjustPosition returns a new position that is offset by the given amount.
+ * It corrects line and character positions to remain valid in doc.
+ * @param doc The document
+ * @param pos The position to adjust
+ * @param by The amount to adjust by
+ * @returns The adjusted position
+ */
+export function adjustPosition(
+  doc: TextDocument,
+  pos: Position,
+  by: number,
+): Position {
+  return doc.positionAt(doc.offsetAt(pos) + by);
 }

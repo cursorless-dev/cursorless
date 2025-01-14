@@ -1,0 +1,25 @@
+languageId: latex
+command:
+  version: 6
+  spokenForm: change curly
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: curlyBrackets}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    \href{https://some.url}{some text}
+  selections:
+    - anchor: {line: 0, character: 27}
+      active: {line: 0, character: 27}
+  marks: {}
+finalState:
+  documentContents: |
+    \href{https://some.url}
+  selections:
+    - anchor: {line: 0, character: 23}
+      active: {line: 0, character: 23}

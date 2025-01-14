@@ -1,12 +1,10 @@
-import {
+import type {
   ActionCommandV5,
   ActionDescriptor,
   CommandV5,
   CommandV6,
   DestinationDescriptor,
   EnforceUndefined,
-  ExecuteCommandOptions,
-  GetTextActionOptions,
   HighlightActionDescriptor,
   HighlightId,
   ImplicitDestinationDescriptor,
@@ -28,6 +26,10 @@ import {
   PrimitiveDestinationDescriptor,
   ReplaceWith,
   WrapWithSnippetArg,
+} from "@cursorless/common";
+import {
+  type ExecuteCommandOptions,
+  type GetTextActionOptions,
 } from "@cursorless/common";
 import canonicalizeActionName from "./canonicalizeActionName";
 
@@ -132,6 +134,8 @@ function upgradeAction(
         options: action.args?.[0] as GetTextActionOptions | undefined,
         target: upgradeTarget(targets[0]),
       };
+    case "parsed":
+      throw Error("Parsed action should not be present in V5");
     default:
       return {
         name,

@@ -1,0 +1,22 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: change three instances
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: relativeScope
+          scopeType: {type: instance}
+          offset: 0
+          length: 3
+          direction: forward
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: aaa bbb aaa
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+thrownError: {name: OutOfRangeError}

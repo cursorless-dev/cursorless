@@ -1,21 +1,16 @@
+import type { Edit } from "@cursorless/common";
 import {
   FlashStyle,
   RangeExpansionBehavior,
   Selection,
   toCharacterRange,
 } from "@cursorless/common";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import {
-  getSelectionInfo,
-  performEditsAndUpdateFullSelectionInfos,
-} from "../core/updateSelections/updateSelections";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
-import { Edit } from "../typings/Types";
-import { Target } from "../typings/target.types";
-import { FullSelectionInfo } from "../typings/updateSelections";
-import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
+import type { Target } from "../typings/target.types";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
-import { ActionReturnValue } from "./actions.types";
+import type { ActionReturnValue } from "./actions.types";
 
 export default class Wrap {
   constructor(private rangeUpdater: RangeUpdater) {
@@ -30,7 +25,6 @@ export default class Wrap {
     const results = await runOnTargetsForEachEditor(
       targets,
       async (editor, targets) => {
-        const { document } = editor;
         const boundaries = targets.map((target) => ({
           start: new Selection(
             target.contentRange.start,
@@ -51,67 +45,43 @@ export default class Wrap {
           },
         ]);
 
-        const delimiterSelectionInfos: FullSelectionInfo[] = boundaries.flatMap(
-          ({ start, end }) => {
-            return [
-              getSelectionInfo(
-                document,
-                start,
-                RangeExpansionBehavior.openClosed,
-              ),
-              getSelectionInfo(
-                document,
-                end,
-                RangeExpansionBehavior.closedOpen,
-              ),
-            ];
-          },
+        const contentSelections = targets.map(
+          (target) => target.contentSelection,
         );
 
-        const cursorSelectionInfos = editor.selections.map((selection) =>
-          getSelectionInfo(
-            document,
-            selection,
-            RangeExpansionBehavior.closedClosed,
-          ),
-        );
-
-        const sourceMarkSelectionInfos = targets.map((target) =>
-          getSelectionInfo(
-            document,
-            target.contentSelection,
-            RangeExpansionBehavior.closedClosed,
-          ),
-        );
-
-        const thatMarkSelectionInfos = targets.map((target) =>
-          getSelectionInfo(
-            document,
-            target.contentSelection,
-            RangeExpansionBehavior.openOpen,
-          ),
-        );
-
-        const editableEditor = ide().getEditableTextEditor(editor);
-
-        const [
-          delimiterSelections,
-          cursorSelections,
-          sourceMarkSelections,
-          thatMarkSelections,
-        ] = await performEditsAndUpdateFullSelectionInfos(
-          this.rangeUpdater,
-          editableEditor,
+        const {
+          boundariesStartSelections: delimiterStartSelections,
+          boundariesEndSelections: delimiterEndSelections,
+          sourceSelections: sourceMarkSelections,
+          thatSelections: thatMarkSelections,
+        } = await performEditsAndUpdateSelections({
+          rangeUpdater: this.rangeUpdater,
+          editor: ide().getEditableTextEditor(editor),
           edits,
-          [
-            delimiterSelectionInfos,
-            cursorSelectionInfos,
-            sourceMarkSelectionInfos,
-            thatMarkSelectionInfos,
-          ],
-        );
+          selections: {
+            boundariesStartSelections: {
+              selections: boundaries.map(({ start }) => start),
+              behavior: RangeExpansionBehavior.openClosed,
+            },
+            boundariesEndSelections: {
+              selections: boundaries.map(({ end }) => end),
+              behavior: RangeExpansionBehavior.closedOpen,
+            },
+            sourceSelections: {
+              selections: contentSelections,
+              behavior: RangeExpansionBehavior.closedClosed,
+            },
+            thatSelections: {
+              selections: contentSelections,
+              behavior: RangeExpansionBehavior.openOpen,
+            },
+          },
+        });
 
-        setSelectionsWithoutFocusingEditor(editableEditor, cursorSelections);
+        const delimiterSelections = [
+          ...delimiterStartSelections,
+          ...delimiterEndSelections,
+        ];
 
         await ide().flashRanges(
           delimiterSelections.map((selection) => ({

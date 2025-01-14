@@ -1,0 +1,25 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: chuck last char
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: ordinalScope
+          scopeType: {type: character}
+          start: -1
+          length: 1
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: aña
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  marks: {}
+finalState:
+  documentContents: añ
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}

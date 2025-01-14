@@ -1,5 +1,5 @@
 import { targetsToContinuousTarget } from "../processTargets/TargetPipelineRunner";
-import { Target } from "../typings/target.types";
+import type { Target } from "../typings/target.types";
 import { groupTargetsForEachEditor } from "./targetUtils";
 
 /** Unifies overlapping/intersecting targets */

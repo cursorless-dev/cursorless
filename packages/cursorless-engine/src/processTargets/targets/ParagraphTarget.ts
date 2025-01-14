@@ -1,18 +1,13 @@
-import {
-  Position,
-  Range,
-  TextDocument,
-  TextEditor,
-  TextLine,
-} from "@cursorless/common";
-import { BaseTarget, CommonTargetParameters, LineTarget } from ".";
-import { Target } from "../../typings/target.types";
+import type { TextDocument, TextEditor, TextLine } from "@cursorless/common";
+import { Position, Range } from "@cursorless/common";
+import type { CommonTargetParameters } from "./BaseTarget";
+import { BaseTarget } from "./BaseTarget";
+import { LineTarget } from "./LineTarget";
 import { expandToFullLine } from "../../util/rangeUtils";
-import { constructLineTarget } from "../../util/tryConstructTarget";
-import { isSameType } from "../../util/typeUtils";
-import { createContinuousLineRange } from "../targetUtil/createContinuousRange";
+import { constructLineTarget } from "./LineTarget";
+import { createContinuousLineRange } from "./util/createContinuousRange";
 
-export default class ParagraphTarget extends BaseTarget<CommonTargetParameters> {
+export class ParagraphTarget extends BaseTarget<CommonTargetParameters> {
   type = "ParagraphTarget";
   insertionDelimiter = "\n\n";
   isLine = true;
@@ -34,7 +29,7 @@ export default class ParagraphTarget extends BaseTarget<CommonTargetParameters> 
   }
 
   getRemovalRange(): Range {
-    // TODO: In the future we could get rid of this function if {@link
+    // FIXME: In the future we could get rid of this function if {@link
     // getDelimitedSequenceRemovalRange} made a continuous range from the target
     // past its delimiter target and then used the removal range of that.
     const delimiterTarget =
@@ -73,44 +68,15 @@ export default class ParagraphTarget extends BaseTarget<CommonTargetParameters> 
       : this.fullLineContentRange;
   }
 
-  createContinuousRangeTarget(
+  maybeCreateRichRangeTarget(
     isReversed: boolean,
-    endTarget: Target,
-    includeStart: boolean,
-    includeEnd: boolean,
-  ): Target {
-    if (isSameType(this, endTarget)) {
-      return new ParagraphTarget({
-        ...this.getCloneParameters(),
-        isReversed,
-        contentRange: createContinuousLineRange(
-          this,
-          endTarget,
-          includeStart,
-          includeEnd,
-        ),
-      });
-    }
-
-    if (endTarget.isLine) {
-      return new LineTarget({
-        editor: this.editor,
-        isReversed,
-        contentRange: createContinuousLineRange(
-          this,
-          endTarget,
-          includeStart,
-          includeEnd,
-        ),
-      });
-    }
-
-    return super.createContinuousRangeTarget(
+    endTarget: ParagraphTarget,
+  ): ParagraphTarget {
+    return new ParagraphTarget({
+      ...this.getCloneParameters(),
       isReversed,
-      endTarget,
-      includeStart,
-      includeEnd,
-    );
+      contentRange: createContinuousLineRange(this, endTarget, true, true),
+    });
   }
 
   protected getCloneParameters() {

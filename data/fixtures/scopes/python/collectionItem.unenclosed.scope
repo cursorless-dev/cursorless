@@ -1,0 +1,17 @@
+import foo
+---
+
+[Content] =
+[Domain] = 0:7-0:10
+         >---<
+0| import foo
+
+[Removal] = 0:6-0:10
+        >----<
+0| import foo
+
+[Leading delimiter] = 0:6-0:7
+        >-<
+0| import foo
+
+[Insertion delimiter] = ", "
