@@ -10,7 +10,7 @@ const aDocs = link(
   "https://www.cursorless.org/docs/user/installation",
   "Click here to learn how to install Cursorless",
 );
-description.innerHTML = `<p>Lets check if all dependencies are installed.</p>${aDocs}`;
+description.innerHTML = `<p>Let's check if all dependencies are installed.</p>${aDocs}`;
 
 const messages = document.createElement("div");
 
