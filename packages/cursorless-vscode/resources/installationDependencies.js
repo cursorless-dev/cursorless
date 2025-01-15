@@ -17,7 +17,7 @@ const messages = document.createElement("div");
 root.append(header, description, messages);
 
 const keyboardUserMessage =
-  "<p><i>If you're using Cursorless by keyboard you can ignore this message.</i></p>";
+  "<p><i>If you're using Cursorless by keyboard, you can ignore this message.</i></p>";
 
 window.addEventListener("message", (event) => {
   const { dontShow, dependencies } = event.data;
