@@ -27,15 +27,20 @@ export class InstallationDependencies {
    */
   maybeShow() {
     const state = this.getState();
-    if (!state.dontShow && hasMissingDependencies(state.dependencies)) {
+    if (state.hasMissingDependencies && !state.dontShow) {
       this.createWebview();
     }
   }
 
   private getState() {
+    const dependencies = getDependencies();
+    const hasMissingDependencies = Object.values(dependencies).some(
+      (value) => !value,
+    );
     return {
       dontShow: !!this.extensionContext.globalState.get<boolean>(STATE_KEY),
-      dependencies: getDependencies(),
+      hasMissingDependencies,
+      dependencies,
     };
   }
 
@@ -56,15 +61,7 @@ export class InstallationDependencies {
       },
     );
 
-    const jsUri = this.panel.webview.asWebviewUri(
-      vscode.Uri.joinPath(
-        this.extensionContext.extensionUri,
-        "resources",
-        "installationDependencies.js",
-      ),
-    );
-
-    this.panel.webview.html = getWebviewContent(this.panel.webview, jsUri);
+    this.panel.webview.html = this.getWebviewContent();
 
     const updateWebview = () => {
       this.panel?.webview.postMessage(this.getState());
@@ -90,6 +87,32 @@ export class InstallationDependencies {
 
     this.panel.webview.postMessage(this.getState());
   }
+
+  private getWebviewContent() {
+    if (this.panel == null) {
+      throw new Error("Panel not created yet");
+    }
+    const htmlPath = this.getResourceUri("installationDependencies.html");
+    const jsUri = this.getResourceUri("installationDependencies.js");
+    const template = fs
+      .readFileSync(htmlPath.fsPath, "utf8")
+      .replace("META_CONTENT", `script-src ${this.panel.webview.cspSource};`)
+      .replace("SCRIPT_SOURCE", jsUri.toString());
+    return template;
+  }
+
+  private getResourceUri(name: string): vscode.Uri {
+    if (this.panel == null) {
+      throw new Error("Panel not created yet");
+    }
+    return this.panel.webview.asWebviewUri(
+      vscode.Uri.joinPath(
+        this.extensionContext.extensionUri,
+        "resources",
+        name,
+      ),
+    );
+  }
 }
 
 function getDependencies(): Record<string, boolean> {
@@ -100,17 +123,16 @@ function getDependencies(): Record<string, boolean> {
   };
 }
 
-function hasMissingDependencies(dependencies: Record<string, boolean>) {
-  return Object.values(dependencies).some((value) => !value);
-}
-
 function talonHomeExists() {
   return fs.existsSync(getTalonHomePath());
 }
 
 function cursorlessTalonExists() {
   const talonUserPath = path.join(getTalonHomePath(), "user");
-  const files = globSync("*/src/cursorless.talon", { cwd: talonUserPath });
+  const files = globSync("**/*/src/cursorless.talon", {
+    cwd: talonUserPath,
+    maxDepth: 3,
+  });
   return files.length > 0;
 }
 
@@ -123,19 +145,4 @@ function getTalonHomePath() {
   return os.platform() === "win32"
     ? `${os.homedir()}\\AppData\\Roaming\\talon`
     : `${os.homedir()}/.talon`;
-}
-
-function getWebviewContent(webview: vscode.Webview, jsUri: vscode.Uri) {
-  return `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta http-equiv="Content-Security-Policy" content="script-src ${webview.cspSource};" />
-</head>
-
-<body>
-    <div id="root"></div>
-    <script src="${jsUri}"></script>
-</body>
-</html>`;
 }
