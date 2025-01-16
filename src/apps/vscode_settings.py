@@ -1,5 +1,4 @@
 import os
-import traceback
 from pathlib import Path
 from typing import Any
 
@@ -61,7 +60,6 @@ class Actions:
             return actions.user.vscode_get_setting(key, default_value), False
         except Exception:
             print(fallback_message)
-            traceback.print_exc()
             return fallback_value, True
 
 
