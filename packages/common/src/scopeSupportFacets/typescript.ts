@@ -24,4 +24,6 @@ export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
 
   "value.field": supported,
   "value.typeAlias": supported,
+
+  disqualifyDelimiter: supported,
 };
