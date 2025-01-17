@@ -21,7 +21,7 @@ import type { IndividualDelimiter } from "./types";
 export function getIndividualDelimiters(
   delimiter: SurroundingPairName,
   languageId: string,
-) {
+): IndividualDelimiter[] {
   const delimiters = complexDelimiterMap[
     delimiter as ComplexSurroundingPairName
   ] ?? [delimiter];
@@ -36,7 +36,7 @@ function getSimpleIndividualDelimiters(
   return delimiters.flatMap((delimiterName) => {
     const [leftDelimiter, rightDelimiter, options] =
       delimiterToText[delimiterName];
-    const { isSingleLine = false, isUnknownSide = false } = options ?? {};
+    const { isSingleLine = false } = options ?? {};
 
     // Allow for the fact that a delimiter might have multiple ways to indicate
     // its opening / closing
@@ -54,9 +54,6 @@ function getSimpleIndividualDelimiters(
       const isRight = rightDelimiters.includes(text);
 
       const side = (() => {
-        if (isUnknownSide) {
-          return "unknown";
-        }
         if (isLeft && !isRight) {
           return "left";
         }

@@ -63,7 +63,7 @@ export abstract class NestedScopeHandler extends BaseScopeHandler {
       this._searchScopeHandler = this.scopeHandlerFactory.create(
         this.searchScopeType,
         this.languageId,
-      )!;
+      );
     }
 
     return this._searchScopeHandler;

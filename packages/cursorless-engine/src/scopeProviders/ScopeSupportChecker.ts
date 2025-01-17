@@ -29,7 +29,10 @@ export class ScopeSupportChecker {
    */
   getScopeSupport(editor: TextEditor, scopeType: ScopeType): ScopeSupport {
     const { languageId } = editor.document;
-    const scopeHandler = this.scopeHandlerFactory.create(scopeType, languageId);
+    const scopeHandler = this.scopeHandlerFactory.maybeCreate(
+      scopeType,
+      languageId,
+    );
 
     if (scopeHandler == null) {
       return getLegacyScopeSupport(languageId, scopeType);
@@ -53,13 +56,16 @@ export class ScopeSupportChecker {
     scopeType: ScopeType,
   ): ScopeSupport {
     const { languageId } = editor.document;
-    const scopeHandler = this.scopeHandlerFactory.create(scopeType, languageId);
+    const scopeHandler = this.scopeHandlerFactory.maybeCreate(
+      scopeType,
+      languageId,
+    );
 
     if (scopeHandler == null) {
       return getLegacyScopeSupport(languageId, scopeType);
     }
 
-    const iterationScopeHandler = this.scopeHandlerFactory.create(
+    const iterationScopeHandler = this.scopeHandlerFactory.maybeCreate(
       scopeHandler.iterationScopeType,
       languageId,
     );
@@ -88,9 +94,6 @@ function getLegacyScopeSupport(
   scopeType: ScopeType,
 ): ScopeSupport {
   switch (scopeType.type) {
-    case "boundedNonWhitespaceSequence":
-    case "surroundingPair":
-      return ScopeSupport.supportedLegacy;
     case "notebookCell":
       // FIXME: What to do here
       return ScopeSupport.unsupported;

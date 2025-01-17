@@ -10,6 +10,7 @@ import {
 import { toString } from "lodash-es";
 import type { SyntaxNode } from "web-tree-sitter";
 import { LanguageDefinition } from "./LanguageDefinition";
+import { treeSitterQueryCache } from "./TreeSitterQuery/treeSitterQueryCache";
 
 /**
  * Sentinel value to indicate that a language doesn't have
@@ -71,7 +72,13 @@ export class LanguageDefinitionsImpl
     private treeSitter: TreeSitter,
     private treeSitterQueryProvider: RawTreeSitterQueryProvider,
   ) {
+    const isTesting = ide.runMode === "test";
+
     ide.onDidOpenTextDocument((document) => {
+      // During testing we open untitled documents that all have the same uri and version which breaks our cache
+      if (isTesting) {
+        treeSitterQueryCache.clear();
+      }
       void this.loadLanguage(document.languageId);
     });
     ide.onDidChangeVisibleTextEditors((editors) => {
@@ -139,6 +146,7 @@ export class LanguageDefinitionsImpl
   private async reloadLanguageDefinitions(): Promise<void> {
     this.languageDefinitions.clear();
     await this.loadAllLanguages();
+    treeSitterQueryCache.clear();
     this.notifier.notifyListeners();
   }
 

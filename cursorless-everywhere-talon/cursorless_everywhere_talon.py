@@ -3,7 +3,12 @@ from typing import Any
 
 from talon import Context, Module, actions
 
-from .cursorless_everywhere_types import EditorEdit, EditorState, SelectionOffsets
+from .cursorless_everywhere_types import (
+    EditorEdit,
+    EditorState,
+    RangeOffsets,
+    SelectionOffsets,
+)
 
 mod = Module()
 
@@ -13,6 +18,8 @@ ctx = Context()
 ctx.matches = r"""
 tag: user.cursorless_everywhere_talon
 """
+
+ctx.tags = ["user.cursorless"]
 
 
 @ctx.action_class("user")
@@ -55,6 +62,14 @@ class Actions:
     ):
         """Edit focused element text"""
 
+    def cursorless_everywhere_flash_ranges(
+        ranges: list[RangeOffsets],  # pyright: ignore [reportGeneralTypeIssues]
+    ):
+        """Flash ranges in focused element"""
+        actions.skip()
+
+    # Private actions
+
     def private_cursorless_talonjs_run_and_wait(
         command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
         arg1: Any = None,
@@ -69,5 +84,5 @@ class Actions:
     ):
         """Executes a Cursorless command, but does not wait for it to finish, nor return the response"""
 
-    def private_cursorless_talonjs_get_response_json() -> str:
+    def private_cursorless_talonjs_get_response_json() -> str:  # pyright: ignore [reportReturnType]
         """Returns the response from the last Cursorless command"""

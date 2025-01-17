@@ -35,21 +35,24 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
     this.targetScopeHandler = this.scopeHandlerFactory.create(
       this.targetScopeType,
       this.languageId,
-    )!;
+    );
     this.surroundingPairInteriorScopeHandler = this.scopeHandlerFactory.create(
       {
         type: "surroundingPairInterior",
         delimiter: "any",
       },
       this.languageId,
-    )!;
+    );
   }
 
   get iterationScopeType(): ScopeType {
-    if (this.targetScopeHandler.iterationScopeType.type === "custom") {
-      throw Error(
-        "Iteration scope type can't be custom for BoundedBaseScopeHandler",
-      );
+    switch (this.targetScopeHandler.iterationScopeType.type) {
+      case "custom":
+      case "fallback":
+      case "conditional":
+        throw Error(
+          `Iteration scope type can't be '${this.targetScopeHandler.iterationScopeType.type}' for BoundedBaseScopeHandler`,
+        );
     }
     return {
       type: "oneOf",

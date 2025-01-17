@@ -205,6 +205,7 @@ export const simpleScopeTypeTypes = [
   // Private scope types
   "textFragment",
   "disqualifyDelimiter",
+  "pairDelimiter",
 ] as const;
 
 export function isSimpleScopeType(

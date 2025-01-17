@@ -2,7 +2,6 @@ import re
 import typing
 from collections import defaultdict
 from typing import Iterator, Mapping
-from uu import Error
 
 from talon import app, registry, scope
 
@@ -55,7 +54,7 @@ def generate_lists_from_capture(capture_name) -> Iterator[str]:
     try:
         # NB: [-1] because the last capture is the active one
         rule = registry.captures[capture_name][-1].rule.rule
-    except Error:
+    except Exception:
         app.notify("Error constructing spoken forms for graphemes")
         print(f"Error getting rule for capture {capture_name}")
         return
@@ -86,7 +85,7 @@ def get_id_to_talon_list(list_name: str) -> dict[str, str]:
     try:
         # NB: [-1] because the last list is the active one
         return typing.cast(dict[str, str], registry.lists[list_name][-1]).copy()
-    except Error:
+    except Exception:
         app.notify(f"Error getting list {list_name}")
         return {}
 
