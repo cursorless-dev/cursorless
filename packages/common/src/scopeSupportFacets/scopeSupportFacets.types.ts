@@ -171,7 +171,6 @@ export const scopeSupportFacets = [
   // FIXME: Still in legacy
   // selector
   // unit
-  // collectionItem
 ] as const;
 
 export interface ScopeSupportFacetInfo {
