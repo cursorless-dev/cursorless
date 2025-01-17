@@ -90,4 +90,9 @@
 
 ;;!! <div>text</div>
 ;;!       ^^^^
-(jsx_text) @textFragment
+;;!! <div>({})</div>
+;;!       ^^^^
+(
+  (jsx_element) @textFragment
+  (#child-range! @textFragment 0 -1 true true)
+)
