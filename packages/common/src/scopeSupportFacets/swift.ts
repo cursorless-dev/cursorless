@@ -184,5 +184,5 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "type.typeArgument.iteration": supported,
 
   // Notebook
-  notebookCell: notApplicable
+  notebookCell: notApplicable,
 };
