@@ -2,6 +2,7 @@
   (import_declaration)
   (property_declaration)
   (typealias_declaration)
+  (switch_entry)
 ] @statement
 
 (function_declaration
@@ -35,6 +36,18 @@
   (comment)
   (multiline_comment)
 ] @comment @textFragment
+
+[
+  (if_statement)
+  (guard_statement)
+] @ifStatement
+
+(switch_statement
+  expr: (_) @private.switchStatementSubject
+  (#child-range! @private.switchStatementSubject 0 -1 true true)
+) @_.domain
+
+(switch_pattern) @condition
 
 ;;!! true ? 0 : 1;
 ;;!  ^^^^
