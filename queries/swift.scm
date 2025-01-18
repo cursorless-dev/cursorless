@@ -28,3 +28,22 @@
   (protocol_declaration)
   (function_declaration)
 ] @statement.iteration
+
+(value_argument) @argumentOrParameter
+
+[
+  (comment)
+  (multiline_comment)
+] @comment @textFragment
+
+;;!! true ? 0 : 1;
+;;!  ^^^^
+;;!         ^   ^
+;;! --------------
+(ternary_expression
+  condition: (_) @condition
+  if_true: (_) @branch
+) @condition.domain
+(ternary_expression
+  if_false: (_) @branch
+)
