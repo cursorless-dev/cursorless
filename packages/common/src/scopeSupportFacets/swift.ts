@@ -7,16 +7,18 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   // Collections
   list: supported,
   map: supported,
-  key: supported,
 
   // Control flow
   ifStatement: supported,
-  branch: supported,
-  condition: supported,
+  "condition.if": supported,
+  "condition.switchCase": supported,
+  "condition.switchCase.iteration": supported,
 
   // Text fragments
-  string: supported,
-  comment: supported,
+  "string.singleLine": supported,
+  "string.multiLine": supported,
+  "comment.line": supported,
+  "comment.block": supported,
 
   // Statements and blocks
   statement: supported,
@@ -24,7 +26,10 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   // Classes and types
   class: supported,
   className: supported,
-  type: supported,
+  "type.class": supported,
+  "type.variable": supported,
+  "type.return": supported,
+  "type.field": supported,
 
   // Functions
   anonymousFunction: supported,
@@ -37,9 +42,12 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.actual": supported,
 
   // Names and values
-  name: supported,
-  value: supported,
+  "name.function": supported,
+  "name.variable": supported,
+  "name.field": supported,
+  "value.variable": supported,
+  "value.field": supported,
 
   // Swift-specific features
   regularExpression: notApplicable, // Swift doesn't have regex literals
-}; 
+};
