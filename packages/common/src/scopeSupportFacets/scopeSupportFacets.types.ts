@@ -78,6 +78,7 @@ export const scopeSupportFacets = [
   "textFragment.comment.block",
   "textFragment.string.singleLine",
   "textFragment.string.multiLine",
+  "textFragment.element",
 
   "disqualifyDelimiter",
   "pairDelimiter",
