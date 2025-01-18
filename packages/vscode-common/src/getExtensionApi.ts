@@ -38,6 +38,8 @@ export async function getExtensionApiStrict<T>(extensionId: string) {
 }
 
 export const EXTENSION_ID = "pokey.cursorless";
+export const COMMAND_SERVER_EXTENSION_ID = "pokey.command-server";
+
 export const getCursorlessApi = () =>
   getExtensionApiStrict<CursorlessApi>(EXTENSION_ID);
 
@@ -49,4 +51,4 @@ export const getParseTreeApi = () =>
  * @returns Command server API or null if not installed
  */
 export const getCommandServerApi = () =>
-  getExtensionApi<CommandServerApi>("pokey.command-server");
+  getExtensionApi<CommandServerApi>(COMMAND_SERVER_EXTENSION_ID);
