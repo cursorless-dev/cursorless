@@ -3,6 +3,20 @@
 ![Wrapper snippet demo](images/tryWrapFine.gif)
 ![Link wrap](images/linkWrap.gif)
 
+## Using community snippets (RECOMMENDED)
+
+The community Talon files now support their own snippet format, which is now preferred.
+
+If you'd like to use these snippets for wrapping and inserting with Cursorless instead of the legacy Cursorless snippets, add the following line to your `settings.talon` file:
+
+```talon
+tag(): user.cursorless_use_community_snippets
+```
+
+Note that this line will also disable any Cursorless snippets defined in your Cursorless customization CSVs. You will need to migrate your Cursorless snippets to the new community snippet format [described in community](https://github.com/talonhub/community/blob/main/core/snippets/README.md). If you'd be interested in a tool to help with this migration, please leave a comment on [cursorless-dev/cursorless#2149](https://github.com/cursorless-dev/cursorless/issues/2149), ideally with a link to your custom snippets for us to look at.
+
+## Cursorless experimental snippets (DEPRECATED)
+
 Cursorless has its own experimental snippet engine that allows you to both insert snippets and wrap targets with snippets. Cursorless ships with a few built-in snippets, but users can also use their own snippets.
 
 ## Using snippets
@@ -87,16 +101,6 @@ Note that each snippet can use `insertionScopeTypes` to indicate that it will au
 | `"snippet try"`     | Try-catch statement                     | Statement                    | ❌                       |
 | `"snippet funk"`    | Function; phrase becomes name           | Function                     | ✅                       |
 | `"snippet link"`    | Markdown link; phrase becomes link text |                              | ✅                       |
-
-## Using community snippets
-
-The community Talon files now support their own snippet format. If you'd like to use these snippets for wrapping / cursorless insertion instead of snippets defined in Cursorless, add following line to your `settings.talon` file:
-
-```talon
-tag(): user.cursorless_use_community_snippets
-```
-
-Note that this line will also disable any Cursorless snippets defined in your Cursorless customization CSVs. You will need to migrate your Cursorless snippets to the new community snippet format [described in community](https://github.com/talonhub/community/blob/main/core/snippets/README.md). If you'd be interested in a tool to help with this migration, please leave a comment on [cursorless-dev/cursorless#2149](https://github.com/cursorless-dev/cursorless/issues/2149), ideally with a link to your custom snippets for us to look at.
 
 ## Customizing spoken forms
 
