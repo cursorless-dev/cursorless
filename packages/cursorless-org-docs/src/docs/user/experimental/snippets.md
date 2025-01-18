@@ -5,7 +5,9 @@
 
 ## Using community snippets (RECOMMENDED)
 
-The community Talon files now support their own snippet format. If you'd like to use these snippets for wrapping / cursorless insertion instead of snippets defined in Cursorless, add following line to your `settings.talon` file:
+The community Talon files now support their own snippet format, which is now preferred.
+
+If you'd like to use these snippets for wrapping and inserting with Cursorless instead of the legacy Cursorless snippets, add the following line to your `settings.talon` file:
 
 ```talon
 tag(): user.cursorless_use_community_snippets
