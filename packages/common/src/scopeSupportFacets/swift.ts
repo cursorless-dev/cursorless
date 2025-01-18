@@ -87,7 +87,6 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "condition.while": supported,
   "condition.doWhile": supported,
   "condition.for": supported,
-  "condition.guard": supported, // Swift-specific
   "condition.ternary": notApplicable,
   "condition.switchCase": supported,
 
@@ -120,9 +119,6 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "type.field": supported,
   "type.interface": supported,
   "type.variable": supported,
-  "type.protocol": supported, // Swift-specific
-  "type.struct": supported, // Swift-specific
-  "type.enum": supported, // Swift-specific
 
   // Swift-specific features
   disqualifyDelimiter: supported,
