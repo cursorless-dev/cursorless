@@ -67,8 +67,8 @@
 
 ;; Dictionary key-value pairs
 (dictionary_element
-  key: (_) @collectionKey @value.leading.endOf
-  value: (_) @value @collectionKey.trailing.startOf
+  key: (_) @key.mapPair @value.leading.endOf
+  value: (_) @value @key.mapPair.trailing.startOf
 ) @_.domain
 
 ;; Control flow

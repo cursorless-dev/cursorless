@@ -7,8 +7,8 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   // Collections
   list: supported,
   map: supported,
-  collectionKey: supported,
-  "collectionKey.iteration": supported,
+  "key.mapPair": supported,
+  "key.mapPair.iteration": supported,
 
   // Control flow
   ifStatement: supported,
@@ -28,8 +28,6 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   // Classes and types
   class: supported,
   className: supported,
-  "className.iteration": supported,
-  "className.iteration.document": supported,
 
   // Functions
   anonymousFunction: supported,
