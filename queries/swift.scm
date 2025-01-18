@@ -24,13 +24,13 @@
 ] @statement
 
 ;; String literals
-(line_string_literal) @string @textFragment
+(line_string_literal) @string
 
 ;; Comments
 [
   (line_comment)
   (multiline_comment)
-] @comment @textFragment
+] @comment
 
 ;; Class declarations
 (class_declaration
@@ -40,15 +40,15 @@
 ;; Function declarations
 (function_declaration
   name: (_) @functionName
-) @namedFunction @functionName.domain
+) @namedFunction @_.domain
 
 ;; Method declarations in classes/protocols
 (function_declaration
   name: (_) @functionName
-) @namedFunction.method @functionName.method.domain
+) @namedFunction @_.domain
 
 ;; Initializer declarations
-(initializer_declaration) @namedFunction.constructor @functionName.constructor.domain
+(initializer_declaration) @namedFunction @_.domain
 
 ;; Anonymous functions (closures)
 (closure_expression) @anonymousFunction
@@ -67,8 +67,8 @@
 
 ;; Dictionary key-value pairs
 (dictionary_element
-  key: (_) @key.mapPair @value.leading.endOf
-  value: (_) @value @key.mapPair.trailing.startOf
+  key: (_) @key @value.leading.endOf
+  value: (_) @value @key.trailing.startOf
 ) @_.domain
 
 ;; Control flow
@@ -76,41 +76,21 @@
 
 ;; Switch statement and cases
 (switch_statement
-  condition: (_) @private.switchStatementSubject
+  condition: (_) @condition
 ) @_.domain
 
 (switch_case
   value: (_) @condition
-) @branch @condition.domain
+) @branch @_.domain
 
 (default_case) @branch
-
-(switch_statement) @branch.iteration @condition.iteration
 
 ;; If statement branches
 (if_statement
   condition: (_) @condition
-  body: (_) @branch.end.endOf @branch.removal.end.endOf
-  alternative: (_
-    (if_statement) @branch.removal.end.startOf
-  )?
-) @branch.start.startOf @branch.removal.start.startOf @condition.domain
-
-;; Else if branches
-(else_clause
-  (if_statement
-    condition: (_) @condition
-    body: (_) @branch.end.endOf @condition.domain.end.endOf
-  )
-) @branch.start.startOf @condition.domain.start.startOf
-
-;; Else branches
-(else_clause
-  (code_block)
-) @branch
-
-;; If statement iteration
-(if_statement) @branch.iteration
+  body: (_) @branch
+  alternative: (_)? @branch
+) @_.domain
 
 ;; Try-catch blocks
 (do_statement
@@ -119,21 +99,6 @@
 )
 
 (catch_clause) @branch
-
-(do_statement) @branch.iteration
-
-;; Conditions
-(if_statement
-  condition: (_) @condition
-) @_.domain
-
-(while_statement
-  condition: (_) @condition
-) @_.domain
-
-(guard_statement
-  condition: (_) @condition
-) @_.domain
 
 ;; Parameters
 (parameter
@@ -158,50 +123,22 @@
   return_type: (_) @type
 ) @_.domain
 
-;; Operators that should be disqualified as delimiters
-operator: [
-  "<"
-  "<="
-  ">"
-  ">="
-] @disqualifyDelimiter
-
 ;; Function arguments
 (call_expression
   arguments: (tuple_expression
     (_)? @_.leading.endOf
     .
-    (_) @argumentOrParameter
+    (_) @argument.actual
     .
     (_)? @_.trailing.startOf
   )
 ) @_.domain
 
-;; Parameter list iteration scope
+;; Function parameters
 (parameter_clause
-  "(" @argumentOrParameter.iteration.start.endOf
-  ")" @argumentOrParameter.iteration.end.startOf
-) @argumentOrParameter.iteration.domain
-
-;; Argument list iteration scope
-(call_expression
-  arguments: (tuple_expression
-    "(" @argumentOrParameter.iteration.start.endOf
-    ")" @argumentOrParameter.iteration.end.startOf
-  )
-) @argumentOrParameter.iteration.domain
-
-;; Block iteration scopes
-(code_block
-  "{" @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
-  "}" @statement.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
-)
-
-;; Class/struct body iteration scope
-[
-  (class_declaration)
-  (struct_declaration)
-] @namedFunction.method.iteration.class @functionName.method.iteration.class
-
-;; File-level iteration scope
-(source_file) @statement.iteration @name.iteration @value.iteration @type.iteration @namedFunction.iteration @functionName.iteration
+  (_)? @_.leading.endOf
+  .
+  (_) @argument.formal
+  .
+  (_)? @_.trailing.startOf
+) @_.domain
