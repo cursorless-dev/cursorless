@@ -4,44 +4,57 @@ import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
+  // Collections
   list: supported,
   map: supported,
-  ifStatement: supported,
-  regularExpression: supported,
-  switchStatementSubject: supported,
-  fieldAccess: supported,
-  disqualifyDelimiter: supported,
+  collectionKey: supported,
+  "collectionKey.iteration": supported,
 
+  // Control flow
+  ifStatement: supported,
+  switchStatementSubject: supported,
+  
+  // Text fragments
   "textFragment.string.singleLine": supported,
   "textFragment.string.multiLine": supported,
   "textFragment.comment.line": supported,
   "textFragment.comment.block": supported,
 
+  // Statements and blocks
   statement: supported,
   "statement.iteration.document": supported,
   "statement.iteration.block": supported,
 
+  // Classes and types
   class: supported,
   className: supported,
+  "className.iteration": supported,
+  "className.iteration.document": supported,
 
+  // Functions
   anonymousFunction: supported,
   namedFunction: supported,
+  "namedFunction.iteration": supported,
   "namedFunction.iteration.document": supported,
   "namedFunction.method": supported,
   "namedFunction.method.iteration.class": supported,
   "namedFunction.constructor": supported,
 
+  // Function names
   functionName: supported,
+  "functionName.iteration": supported,
   "functionName.iteration.document": supported,
   "functionName.method": supported,
   "functionName.method.iteration.class": supported,
   "functionName.constructor": supported,
 
+  // Function calls
   functionCall: supported,
   "functionCall.constructor": supported,
   functionCallee: supported,
   "functionCallee.constructor": supported,
 
+  // Arguments and parameters
   "argument.actual": supported,
   "argument.actual.iteration": supported,
   "argument.actual.method": supported,
@@ -55,26 +68,32 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal.constructor": supported,
   "argument.formal.constructor.iteration": supported,
 
+  // Comments
   "comment.line": supported,
   "comment.block": supported,
 
+  // Strings
   "string.singleLine": supported,
   "string.multiLine": supported,
 
+  // Branches
   "branch.if": supported,
   "branch.if.iteration": supported,
   "branch.try": supported,
   "branch.switchCase": supported,
   "branch.switchCase.iteration": supported,
-  "branch.ternary": supported,
+  "branch.ternary": notApplicable, // Swift doesn't have ternary operators in the same way
 
+  // Conditions
   "condition.if": supported,
   "condition.while": supported,
   "condition.doWhile": supported,
   "condition.for": supported,
-  "condition.ternary": supported,
+  "condition.guard": supported, // Swift-specific
+  "condition.ternary": notApplicable,
   "condition.switchCase": supported,
 
+  // Names
   "name.argument.formal": supported,
   "name.argument.formal.iteration": supported,
   "name.argument.formal.method": supported,
@@ -92,6 +111,7 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "name.class": supported,
   "name.field": supported,
 
+  // Types
   "type.argument.formal": supported,
   "type.argument.formal.iteration": supported,
   "type.argument.formal.method": supported,
@@ -102,4 +122,12 @@ export const swiftScopeSupport: LanguageScopeSupportFacetMap = {
   "type.field": supported,
   "type.interface": supported,
   "type.variable": supported,
+  "type.protocol": supported, // Swift-specific
+  "type.struct": supported, // Swift-specific
+  "type.enum": supported, // Swift-specific
+
+  // Swift-specific features
+  disqualifyDelimiter: supported,
+  fieldAccess: supported,
+  regularExpression: notApplicable, // Swift doesn't have regex literals
 }; 
