@@ -1,4 +1,4 @@
-import type { SnippetMap, Snippet } from "@cursorless/common";
+import type { SnippetMap, Snippet, TextEditor } from "@cursorless/common";
 import type { Snippets } from "../core/Snippets";
 
 export class DisabledSnippets implements Snippets {
@@ -17,7 +17,10 @@ export class DisabledSnippets implements Snippets {
     throw new Error("Snippets are not implemented.");
   }
 
-  openNewSnippetFile(_snippetName: string): Promise<void> {
+  openNewSnippetFile(
+    _dirPath: string,
+    _snippetName: string,
+  ): Promise<TextEditor> {
     throw new Error("Snippets are not implemented.");
   }
 }

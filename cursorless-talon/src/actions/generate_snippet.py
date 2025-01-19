@@ -25,8 +25,7 @@ def get_dir_path() -> str:
 
 def get_community_snippets_dir() -> str:
     files = glob.iglob(
-        "**/snippets/snippets/*.snippet",
-        root_dir=actions.path.talon_user(),
+        f"{actions.path.talon_user()}/**/snippets/snippets/*.snippet",
         recursive=True,
     )
     for file in files:

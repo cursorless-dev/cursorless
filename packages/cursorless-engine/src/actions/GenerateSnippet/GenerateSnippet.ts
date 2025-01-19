@@ -1,4 +1,17 @@
-import { FlashStyle, matchAll, Range } from "@cursorless/common";
+import {
+  FlashStyle,
+  matchAll,
+  Range,
+  type EditableTextEditor,
+  type Selection,
+  type TextEditor,
+} from "@cursorless/common";
+import {
+  parseSnippetFile,
+  serializeSnippetFile,
+  type SnippetDocument,
+  type SnippetVariable,
+} from "talon-snippets";
 import type { Snippets } from "../../core/Snippets";
 import { ide } from "../../singletons/ide.singleton";
 import type { Target } from "../../typings/target.types";
@@ -7,7 +20,7 @@ import type { ActionReturnValue } from "../actions.types";
 import { constructSnippetBody } from "./constructSnippetBody";
 import { editText } from "./editText";
 import type { Offsets } from "./Offsets";
-import Substituter from "./Substituter";
+import { getHeaderSnippet } from "talon-snippets";
 
 /**
  * This action can be used to automatically create a snippet from a target. Any
@@ -56,6 +69,7 @@ export default class GenerateSnippet {
   ): Promise<ActionReturnValue> {
     const target = ensureSingleTarget(targets);
     const editor = target.editor;
+    const isTesting = ide().runMode === "test";
 
     // NB: We don't await the pending edit decoration so that if the user
     // immediately starts saying the name of the snippet (eg command chain
@@ -63,44 +77,47 @@ export default class GenerateSnippet {
     // win the race and have the input box ready for them
     void flashTargets(ide(), targets, FlashStyle.referenced);
 
-    if (snippetName == null) {
+    if (dirPath == null) {
       snippetName = await ide().showInputBox({
-        prompt: "Name of snippet",
-        placeHolder: "helloWorld",
+        prompt: "Directory for snippet",
       });
+
+      // User cancelled; don't do anything
+      if (dirPath == null) {
+        return {};
+      }
     }
 
-    // User cancelled; don't do anything
     if (snippetName == null) {
-      return {};
-    }
+      // TODO:
+      //   snippetName = await ide().showInputBox({
+      //     prompt: "Name of snippet",
+      //     placeHolder: "helloWorld",
+      //   });
 
-    /** The next placeholder index to use for the meta snippet */
-    let currentPlaceholderIndex = 1;
+      snippetName = "test";
+
+      // User cancelled; don't do anything
+      if (snippetName == null) {
+        return {};
+      }
+    }
 
     const baseOffset = editor.document.offsetAt(target.contentRange.start);
 
     /**
-     * The variables that will appear in the user snippet. Note that
-     * `placeholderIndex` here is the placeholder index in the meta snippet not
-     * the user snippet.
+     * The variables that will appear in the user snippet.
      */
-    const variables: Variable[] = editor.selections
-      .filter((selection) => target.contentRange.contains(selection))
-      .map((selection, index) => ({
+    const selections = getsSnippetSelections(editor, target.contentRange);
+    const variables = selections.map(
+      (selection, index): Variable => ({
         offsets: {
           start: editor.document.offsetAt(selection.start) - baseOffset,
           end: editor.document.offsetAt(selection.end) - baseOffset,
         },
-        defaultName: `variable${index + 1}`,
-        placeholderIndex: currentPlaceholderIndex++,
-      }));
-
-    /**
-     * Constructs random ids that can be put into the text that won't be
-     * modified by json serialization.
-     */
-    const substituter = new Substituter();
+        name: index === selections.length - 1 ? "0" : `${index + 1}`,
+      }),
+    );
 
     /**
      * Text before the start of the snippet in the snippet start line.  We need
@@ -116,123 +133,87 @@ export default class GenerateSnippet {
 
     const originalText = editor.document.getText(target.contentRange);
 
-    /**
-     * The text of the snippet, with placeholders inserted for variables and
-     * special characters `$`, `\`, and `}` escaped twice to make it through
-     * both meta snippet and user snippet.
-     */
     const snippetBodyText = editText(originalText, [
       ...matchAll(originalText, /\$|\\/g, (match) => ({
         offsets: {
           start: match.index!,
           end: match.index! + match[0].length,
         },
-        text: match[0] === "\\" ? `\\${match[0]}` : `\\\\${match[0]}`,
+        text: `\\${match[0]}`,
       })),
-      ...variables.map(({ offsets, defaultName, placeholderIndex }) => ({
+      ...variables.map(({ offsets, name }) => ({
         offsets,
-        // Note that the reason we use the substituter here is primarily so
-        // that the `\` below doesn't get escaped upon conversion to json.
-        text: substituter.addSubstitution(
-          [
-            // This `\$` will end up being a `$` in the final document.  It
-            // indicates the start of a variable in the user snippet.  We need
-            // the `\` so that the meta-snippet doesn't see it as one of its
-            // placeholders.
-            "\\$",
-
-            // The remaining text here is a placeholder in the meta-snippet
-            // that the user can use to name their snippet variable that will
-            // be in the user snippet.
-            "${",
-            placeholderIndex,
-            ":",
-            defaultName,
-            "}",
-          ].join(""),
-        ),
+        text: `$${name}`,
       })),
     ]);
 
     const snippetLines = constructSnippetBody(snippetBodyText, linePrefix);
 
-    /**
-     * Constructs a key-value entry for use in the variable description section
-     * of the user snippet definition.  It contains tabstops for use in the
-     * meta-snippet.
-     * @param variable The variable
-     * @returns A [key, value] pair for use in the meta-snippet
-     */
-    const constructVariableDescriptionEntry = ({
-      placeholderIndex,
-    }: Variable): [string, string] => {
-      // The key will have the same placeholder index as the other location
-      // where this variable appears.
-      const key = "$" + placeholderIndex;
+    let editableEditor: EditableTextEditor;
+    let snippetDocuments: SnippetDocument[];
 
-      // The value will end up being an empty object with a tabstop in the
-      // middle so that the user can add information about the variable, such
-      // as wrapperScopeType.  Ie the output will look like `{|}` (with the `|`
-      // representing a tabstop in the meta-snippet)
-      //
-      // NB: We use the substituter here, with `isQuoted=true` because in order
-      // to make this work for the meta-snippet, we want to end up with
-      // something like `{$3}`, which is not valid json.  So we instead arrange
-      // to end up with json like `"hgidfsivhs"`, and then replace the whole
-      // string (including quotes) with `{$3}` after json-ification
-      const value = substituter.addSubstitution(
-        "{$" + currentPlaceholderIndex++ + "}",
-        true,
+    if (isTesting) {
+      // If we're testing, we just overwrite the current document
+      editableEditor = ide().getEditableTextEditor(editor);
+      snippetDocuments = [];
+    } else {
+      // Otherwise, we create and open a new document for the snippet
+      editableEditor = ide().getEditableTextEditor(
+        await this.snippets.openNewSnippetFile(dirPath, snippetName),
       );
+      snippetDocuments = parseSnippetFile(editableEditor.document.getText());
+    }
 
-      return [key, value];
+    await editableEditor.setSelections([
+      editableEditor.document.range.toSelection(false),
+    ]);
+
+    const headerSnippet = getHeaderSnippet(snippetDocuments);
+
+    /** The next placeholder index to use for the meta snippet */
+    let currentPlaceholderIndex = 1;
+
+    const phrases =
+      headerSnippet?.phrases != null
+        ? undefined
+        : [`${PLACEHOLDER}${currentPlaceholderIndex++}`];
+
+    const createVariable = (variable: Variable): SnippetVariable => {
+      const hasPhrase = headerSnippet?.variables?.some(
+        (v) => v.name === variable.name && v.wrapperPhrases != null,
+      );
+      return {
+        name: variable.name,
+        wrapperPhrases: hasPhrase
+          ? undefined
+          : [`${PLACEHOLDER}${currentPlaceholderIndex++}`],
+      };
     };
 
-    /** An object that will be json-ified to become the meta-snippet */
-    const snippet = {
-      [snippetName]: {
-        definitions: [
-          {
-            scope: {
-              langIds: [editor.document.languageId],
-            },
-            body: snippetLines,
-          },
-        ],
-        description: "$" + currentPlaceholderIndex++,
-        variables:
-          variables.length === 0
-            ? undefined
-            : Object.fromEntries(
-                variables.map(constructVariableDescriptionEntry),
-              ),
-      },
+    const snippet: SnippetDocument = {
+      name: headerSnippet?.name === snippetName ? undefined : snippetName,
+      phrases,
+      languages: getSnippetLanguages(editor, headerSnippet),
+      body: snippetLines,
+      variables: variables.map(createVariable),
     };
+
+    snippetDocuments.push(snippet);
 
     /**
      * This is the text of the meta-snippet in Textmate format that we will
      * insert into the new document where the user will fill out their snippet
      * definition
      */
-    const snippetText = substituter.makeSubstitutions(
-      JSON.stringify(snippet, null, 2),
-    );
-
-    const editableEditor = ide().getEditableTextEditor(editor);
-
-    if (ide().runMode === "test") {
-      // If we're testing, we just overwrite the current document
-      await editableEditor.setSelections([
-        editor.document.range.toSelection(false),
-      ]);
-    } else {
-      // Otherwise, we create and open a new document for the snippet in the
-      // user snippets dir
-      await this.snippets.openNewSnippetFile(snippetName);
-    }
+    const metaSnippetText = serializeSnippetFile(snippetDocuments)
+      // Escape dollar signs in the snippet text so that they don't get used as
+      // placeholders in the meta snippet
+      .replace(/\$/g, "\\$")
+      // Replace constant with dollar sign for meta snippet placeholders
+      .replaceAll(PLACEHOLDER, "$");
 
     // Insert the meta-snippet
-    await editableEditor.insertSnippet(snippetText);
+    await editableEditor.insertSnippet(metaSnippetText);
 
     return {
       thatSelections: targets.map(({ editor, contentSelection }) => ({
@@ -243,6 +224,26 @@ export default class GenerateSnippet {
   }
 }
 
+function getSnippetLanguages(
+  editor: TextEditor,
+  header: SnippetDocument | undefined,
+): string[] | undefined {
+  if (header?.languages?.includes(editor.document.languageId)) {
+    return undefined;
+  }
+  return [editor.document.languageId];
+}
+
+function getsSnippetSelections(editor: TextEditor, range: Range): Selection[] {
+  const selections = editor.selections.filter((selection) =>
+    range.contains(selection),
+  );
+  selections.sort((a, b) => a.start.compareTo(b.start));
+  return selections;
+}
+
+const PLACEHOLDER = "PLACEHOLDER_VFA77zcbLD6wXNmfMAay";
+
 interface Variable {
   /**
    * The start an end offsets of the variable relative to the text of the
@@ -251,14 +252,7 @@ interface Variable {
   offsets: Offsets;
 
   /**
-   * The default name for the given variable that will appear as the placeholder
-   * text in the meta snippet
+   * The name for the variable
    */
-  defaultName: string;
-
-  /**
-   * The placeholder to use when filling out the name of this variable in the
-   * meta snippet.
-   */
-  placeholderIndex: number;
+  name: string;
 }

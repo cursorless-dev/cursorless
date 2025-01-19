@@ -1,4 +1,4 @@
-import type { Snippet, SnippetMap } from "@cursorless/common";
+import type { Snippet, SnippetMap, TextEditor } from "@cursorless/common";
 
 /**
  * Handles all cursorless snippets, including core, third-party and
@@ -29,8 +29,10 @@ export interface Snippets {
   getSnippetStrict(snippetName: string): Snippet;
 
   /**
-   * Opens a new snippet file in the users snippet directory.
+   * Opens a new snippet file
+   * @param dirPath The path to the directory where the snippet should be created
    * @param snippetName The name of the snippet
+   * @returns The text editor of the newly created snippet file
    */
-  openNewSnippetFile(snippetName: string): Promise<void>;
+  openNewSnippetFile(dirPath: string, snippetName: string): Promise<TextEditor>;
 }

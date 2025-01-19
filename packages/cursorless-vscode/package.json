@@ -1284,7 +1284,6 @@
     "lodash-es": "^4.17.21",
     "nearley": "2.20.1",
     "semver": "^7.6.3",
-    "talon-snippets": "1.0.1",
     "tinycolor2": "1.6.0",
     "trie-search": "2.0.0",
     "uuid": "^10.0.0",
