@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  version: 7
+  version: 8
   spokenForm: take harp
   action:
     name: setSelection
