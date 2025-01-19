@@ -1,0 +1,33 @@
+public class MyClass {
+    String foo, bar;
+}
+---
+
+[#1 Range] = 1:4-1:20
+      >----------------<
+1|     String foo, bar;
+
+[#1 Domain] = 0:22-2:0
+                        >
+0| public class MyClass {
+1|     String foo, bar;
+2| }
+   <
+
+
+[#2 Range] = 1:4-1:20
+      >----------------<
+1|     String foo, bar;
+
+[#2 Domain] = 1:0-1:20
+  >--------------------<
+1|     String foo, bar;
+
+
+[#3 Range] = 1:11-1:19
+             >--------<
+1|     String foo, bar;
+
+[#3 Domain] = 1:4-1:20
+      >----------------<
+1|     String foo, bar;

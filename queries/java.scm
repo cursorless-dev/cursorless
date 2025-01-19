@@ -316,12 +316,56 @@
     value: (_)? @value @name.trailing.startOf
   )
 ) @_.domain
+
 (field_declaration
   (variable_declarator
     name: (_) @name @value.leading.endOf
     value: (_)? @value @name.trailing.startOf
   )
 ) @_.domain
+
+;;!! int foo, bar;
+;;!      ^^^  ^^^
+(
+  (local_variable_declaration
+    type: (_)
+    (variable_declarator)? @_.leading.endOf
+    .
+    (variable_declarator) @collectionItem
+    .
+    (variable_declarator)? @_.trailing.startOf
+  )
+  (#insertion-delimiter! @collectionItem ", ")
+)
+
+(
+  (field_declaration
+    type: (_)
+    (variable_declarator)? @_.leading.endOf
+    .
+    (variable_declarator) @collectionItem
+    .
+    (variable_declarator)? @_.trailing.startOf
+  )
+  (#insertion-delimiter! @collectionItem ", ")
+)
+
+;;!! int foo, bar;
+;;!      ^^^^^^^^
+;;!  -------------
+(local_variable_declaration
+  type: (_)
+  .
+  (_) @collectionItem.iteration.start.startOf
+  ";"? @collectionItem.iteration.end.startOf
+) @collectionItem.iteration.domain
+
+(field_declaration
+  type: (_)
+  .
+  (_) @collectionItem.iteration.start.startOf
+  ";"? @collectionItem.iteration.end.startOf
+) @collectionItem.iteration.domain
 
 ;;!! value = 1;
 ;;!          ^

@@ -382,3 +382,8 @@
   .
   ";"? @statement.end
 )
+
+;; () => number
+(function_type
+  "=>" @disqualifyDelimiter
+)

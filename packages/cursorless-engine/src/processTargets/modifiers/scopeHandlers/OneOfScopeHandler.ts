@@ -17,6 +17,8 @@ import type {
 
 export class OneOfScopeHandler extends BaseScopeHandler {
   protected isHierarchical = true;
+  private iterationScopeHandler: OneOfScopeHandler | undefined;
+  private lastYieldedIndex: number | undefined;
 
   static create(
     scopeHandlerFactory: ScopeHandlerFactory,
@@ -27,9 +29,22 @@ export class OneOfScopeHandler extends BaseScopeHandler {
       (scopeType) => scopeHandlerFactory.create(scopeType, languageId),
     );
 
-    const iterationScopeType = (): CustomScopeType => ({
-      type: "custom",
-      scopeHandler: new OneOfScopeHandler(
+    return this.createFromScopeHandlers(
+      scopeHandlerFactory,
+      scopeType,
+      scopeHandlers,
+      languageId,
+    );
+  }
+
+  static createFromScopeHandlers(
+    scopeHandlerFactory: ScopeHandlerFactory,
+    scopeType: OneOfScopeType,
+    scopeHandlers: ScopeHandler[],
+    languageId: string,
+  ): ScopeHandler {
+    const getIterationScopeHandler = () =>
+      new OneOfScopeHandler(
         undefined,
         scopeHandlers.map((scopeHandler) =>
           scopeHandlerFactory.create(
@@ -40,20 +55,29 @@ export class OneOfScopeHandler extends BaseScopeHandler {
         () => {
           throw new Error("Not implemented");
         },
-      ),
-    });
+      );
 
-    return new OneOfScopeHandler(scopeType, scopeHandlers, iterationScopeType);
+    return new OneOfScopeHandler(
+      scopeType,
+      scopeHandlers,
+      getIterationScopeHandler,
+    );
   }
 
   get iterationScopeType(): CustomScopeType {
-    return this.getIterationScopeType();
+    if (this.iterationScopeHandler == null) {
+      this.iterationScopeHandler = this.getIterationScopeHandler();
+    }
+    return {
+      type: "custom",
+      scopeHandler: this.iterationScopeHandler,
+    };
   }
 
   private constructor(
     public readonly scopeType: OneOfScopeType | undefined,
     private scopeHandlers: ScopeHandler[],
-    private getIterationScopeType: () => CustomScopeType,
+    private getIterationScopeHandler: () => OneOfScopeHandler,
   ) {
     super();
   }
@@ -64,6 +88,14 @@ export class OneOfScopeHandler extends BaseScopeHandler {
     direction: Direction,
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
+    // If we have used the iteration scope handler, we only want to yield from its handler.
+    if (this.iterationScopeHandler?.lastYieldedIndex != null) {
+      const handlerIndex = this.iterationScopeHandler.lastYieldedIndex;
+      const handler = this.scopeHandlers[handlerIndex];
+      yield* handler.generateScopes(editor, position, direction, hints);
+      return;
+    }
+
     const iterators = this.scopeHandlers.map((scopeHandler) =>
       scopeHandler
         .generateScopes(editor, position, direction, hints)
@@ -78,7 +110,9 @@ export class OneOfScopeHandler extends BaseScopeHandler {
       );
 
       // Pick minimum scope according to canonical scope ordering
-      const currentScope = iteratorInfos[0].value;
+      const iteratorInfo = iteratorInfos[0];
+      const currentScope = iteratorInfo.value;
+      this.lastYieldedIndex = iteratorInfo.index;
 
       yield currentScope;
 

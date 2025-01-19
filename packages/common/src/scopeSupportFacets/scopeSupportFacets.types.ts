@@ -78,6 +78,7 @@ export const scopeSupportFacets = [
   "textFragment.comment.block",
   "textFragment.string.singleLine",
   "textFragment.string.multiLine",
+  "textFragment.element",
 
   "disqualifyDelimiter",
   "pairDelimiter",
@@ -171,7 +172,6 @@ export const scopeSupportFacets = [
   // FIXME: Still in legacy
   // selector
   // unit
-  // collectionItem
 ] as const;
 
 export interface ScopeSupportFacetInfo {
@@ -205,7 +205,9 @@ export type TextualScopeSupportFacet =
   | "boundedNonWhitespaceSequence.iteration"
   | "url"
   | "surroundingPair"
-  | "surroundingPair.iteration";
+  | "surroundingPair.iteration"
+  | "collectionItem.textual"
+  | "collectionItem.textual.iteration";
 
 export type LanguageScopeSupportFacetMap = Partial<
   Record<ScopeSupportFacet, ScopeSupportFacetLevel>
