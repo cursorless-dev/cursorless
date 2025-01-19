@@ -77,7 +77,7 @@ export default class GenerateSnippet {
     // win the race and have the input box ready for them
     void flashTargets(ide(), targets, FlashStyle.referenced);
 
-    if (dirPath == null) {
+    if (dirPath == null && !isTesting) {
       snippetName = await ide().showInputBox({
         prompt: "Directory for snippet",
       });
@@ -89,13 +89,10 @@ export default class GenerateSnippet {
     }
 
     if (snippetName == null) {
-      // TODO:
-      //   snippetName = await ide().showInputBox({
-      //     prompt: "Name of snippet",
-      //     placeHolder: "helloWorld",
-      //   });
-
-      snippetName = "test";
+      snippetName = await ide().showInputBox({
+        prompt: "Name of snippet",
+        placeHolder: "helloWorld",
+      });
 
       // User cancelled; don't do anything
       if (snippetName == null) {
@@ -157,6 +154,9 @@ export default class GenerateSnippet {
       editableEditor = ide().getEditableTextEditor(editor);
       snippetDocuments = [];
     } else {
+      if (dirPath == null) {
+        throw Error("dirPath is required when not testing");
+      }
       // Otherwise, we create and open a new document for the snippet
       editableEditor = ide().getEditableTextEditor(
         await this.snippets.openNewSnippetFile(dirPath, snippetName),
