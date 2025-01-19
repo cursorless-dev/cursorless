@@ -10,6 +10,7 @@ from ..targets.target_types import (
 )
 from .bring_move import BringMoveTargets
 from .execute_command import cursorless_execute_command_action
+from .generate_snippet import cursorless_generate_snippet_action
 from .homophones import cursorless_homophones_action
 from .replace import cursorless_replace_action
 
@@ -50,12 +51,12 @@ ACTION_LIST_NAMES = [
 ]
 
 callback_actions: dict[str, Callable[[CursorlessExplicitTarget], None]] = {
+    "generateSnippet": cursorless_generate_snippet_action,
     "nextHomophone": cursorless_homophones_action,
 }
 
 # Don't wait for these actions to finish, usually because they hang on some kind of user interaction
 no_wait_actions = [
-    "generateSnippet",
     "rename",
 ]
 

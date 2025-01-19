@@ -51,6 +51,7 @@ export default class GenerateSnippet {
 
   async run(
     targets: Target[],
+    dirPath?: string,
     snippetName?: string,
   ): Promise<ActionReturnValue> {
     const target = ensureSingleTarget(targets);
