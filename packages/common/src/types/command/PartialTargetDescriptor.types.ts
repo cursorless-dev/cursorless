@@ -233,12 +233,6 @@ export interface SurroundingPairScopeType {
   delimiter: SurroundingPairName;
 
   /**
-   * @deprecated Not supported by next-gen surrounding pairs; we don't believe
-   * anyone uses this
-   */
-  forceDirection?: SurroundingPairDirection;
-
-  /**
    * If `true`, then only accept pairs where the pair completely contains the
    * selection, ie without the edges touching.
    */

@@ -4,9 +4,8 @@ import type {
   SurroundingPairScopeType,
   TextEditor,
 } from "@cursorless/common";
-import { showError, type ScopeType } from "@cursorless/common";
+import { type ScopeType } from "@cursorless/common";
 import type { LanguageDefinitions } from "../../../../languages/LanguageDefinitions";
-import { ide } from "../../../../singletons/ide.singleton";
 import { BaseScopeHandler } from "../BaseScopeHandler";
 import { compareTargetScopes } from "../compareTargetScopes";
 import type { TargetScope } from "../scope.types";
@@ -35,16 +34,6 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
     direction: Direction,
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
-    if (this.scopeType.forceDirection != null) {
-      //  DEPRECATED @ 2024-07-01
-      void showError(
-        ide().messages,
-        "deprecatedForceDirection",
-        "forceDirection is deprecated. If this is important to you please file an issue on the cursorless repo.",
-      );
-      return;
-    }
-
     const delimiterOccurrences = getDelimiterOccurrences(
       this.languageDefinitions.get(this.languageId),
       editor.document,

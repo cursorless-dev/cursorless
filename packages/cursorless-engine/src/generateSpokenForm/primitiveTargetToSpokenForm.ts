@@ -232,6 +232,7 @@ export class PrimitiveTargetSpokenFormGenerator {
       case "oneOf":
       case "surroundingPairInterior":
         throw new NoSpokenFormError(`Scope type '${scopeType.type}'`);
+
       case "glyph":
         return [
           this.spokenFormMap.complexScopeTypeType.glyph,
@@ -241,18 +242,9 @@ export class PrimitiveTargetSpokenFormGenerator {
             scopeType.character,
           ),
         ];
-      case "surroundingPair": {
-        const pair = this.spokenFormMap.pairedDelimiter[scopeType.delimiter];
-        if (scopeType.forceDirection != null) {
-          return [
-            this.spokenFormMap.surroundingPairForceDirection[
-              scopeType.forceDirection
-            ],
-            pair,
-          ];
-        }
-        return pair;
-      }
+
+      case "surroundingPair":
+        return this.spokenFormMap.pairedDelimiter[scopeType.delimiter];
 
       case "customRegex":
         return (
