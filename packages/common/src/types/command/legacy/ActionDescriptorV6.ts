@@ -1,13 +1,13 @@
+import type { DestinationDescriptorV6 } from "./DestinationDescriptorV6.types";
 import type {
-  PartialTargetDescriptor,
-  ScopeType,
-} from "../PartialTargetDescriptor.types";
-import type { DestinationDescriptor } from "../DestinationDescriptor.types";
+  PartialTargetDescriptorV6,
+  ScopeTypeV6,
+} from "./PartialTargetDescriptorV6.types";
 
 /**
  * A simple action takes only a single target and no other arguments.
  */
-const simpleActionNames = [
+const _simpleActionNames = [
   "addSelection",
   "addSelectionAfter",
   "addSelectionBefore",
@@ -60,42 +60,20 @@ const simpleActionNames = [
   "private.showParseTree",
 ] as const;
 
-const complexActionNames = [
-  "callAsFunction",
-  "editNew",
-  "executeCommand",
-  "generateSnippet",
-  "getText",
-  "highlight",
-  "insertSnippet",
-  "moveToTarget",
-  "pasteFromClipboard",
-  "replace",
-  "replaceWithTarget",
-  "rewrapWithPairedDelimiter",
-  "swapTargets",
-  "wrapWithPairedDelimiter",
-  "wrapWithSnippet",
-  "parsed",
-] as const;
-
-const actionNames = [...simpleActionNames, ...complexActionNames] as const;
-
-type SimpleActionName = (typeof simpleActionNames)[number];
-type ActionType = (typeof actionNames)[number];
+type SimpleActionName = (typeof _simpleActionNames)[number];
 
 /**
  * A simple action takes only a single target and no other arguments.
  */
 interface SimpleActionDescriptor {
   name: SimpleActionName;
-  target: PartialTargetDescriptor;
+  target: PartialTargetDescriptorV6;
 }
 
 interface BringMoveActionDescriptor {
   name: "replaceWithTarget" | "moveToTarget";
-  source: PartialTargetDescriptor;
-  destination: DestinationDescriptor;
+  source: PartialTargetDescriptorV6;
+  destination: DestinationDescriptorV6;
 }
 
 interface CallActionDescriptor {
@@ -104,37 +82,37 @@ interface CallActionDescriptor {
   /**
    * The target to use as the function to be called.
    */
-  callee: PartialTargetDescriptor;
+  callee: PartialTargetDescriptorV6;
 
   /**
    * The target to wrap in a function call.
    */
-  argument: PartialTargetDescriptor;
+  argument: PartialTargetDescriptorV6;
 }
 
 interface SwapActionDescriptor {
   name: "swapTargets";
-  target1: PartialTargetDescriptor;
-  target2: PartialTargetDescriptor;
+  target1: PartialTargetDescriptorV6;
+  target2: PartialTargetDescriptorV6;
 }
 
 interface WrapWithPairedDelimiterActionDescriptor {
   name: "wrapWithPairedDelimiter" | "rewrapWithPairedDelimiter";
   left: string;
   right: string;
-  target: PartialTargetDescriptor;
+  target: PartialTargetDescriptorV6;
 }
 
 interface PasteActionDescriptor {
   name: "pasteFromClipboard";
-  destination: DestinationDescriptor;
+  destination: DestinationDescriptorV6;
 }
 
 interface GenerateSnippetActionDescriptor {
   name: "generateSnippet";
   dirPath?: string;
   snippetName?: string;
-  target: PartialTargetDescriptor;
+  target: PartialTargetDescriptorV6;
 }
 
 interface NamedInsertSnippetArg {
@@ -145,7 +123,7 @@ interface NamedInsertSnippetArg {
 interface CustomInsertSnippetArg {
   type: "custom";
   body: string;
-  scopeTypes?: ScopeType[];
+  scopeTypes?: ScopeTypeV6[];
   substitutions?: Record<string, string>;
 }
 type InsertSnippetArg = NamedInsertSnippetArg | CustomInsertSnippetArg;
@@ -153,7 +131,7 @@ type InsertSnippetArg = NamedInsertSnippetArg | CustomInsertSnippetArg;
 interface InsertSnippetActionDescriptor {
   name: "insertSnippet";
   snippetDescription: InsertSnippetArg;
-  destination: DestinationDescriptor;
+  destination: DestinationDescriptorV6;
 }
 
 interface NamedWrapWithSnippetArg {
@@ -165,14 +143,14 @@ interface CustomWrapWithSnippetArg {
   type: "custom";
   body: string;
   variableName?: string;
-  scopeType?: ScopeType;
+  scopeType?: ScopeTypeV6;
 }
 type WrapWithSnippetArg = NamedWrapWithSnippetArg | CustomWrapWithSnippetArg;
 
 interface WrapWithSnippetActionDescriptor {
   name: "wrapWithSnippet";
   snippetDescription: WrapWithSnippetArg;
-  target: PartialTargetDescriptor;
+  target: PartialTargetDescriptorV6;
 }
 
 interface ExecuteCommandOptions {
@@ -187,7 +165,7 @@ interface ExecuteCommandActionDescriptor {
   name: "executeCommand";
   commandId: string;
   options?: ExecuteCommandOptions;
-  target: PartialTargetDescriptor;
+  target: PartialTargetDescriptorV6;
 }
 
 type ReplaceWith = string[] | { start: number };
@@ -195,18 +173,18 @@ type ReplaceWith = string[] | { start: number };
 interface ReplaceActionDescriptor {
   name: "replace";
   replaceWith: ReplaceWith;
-  destination: DestinationDescriptor;
+  destination: DestinationDescriptorV6;
 }
 
 interface HighlightActionDescriptor {
   name: "highlight";
   highlightId?: string;
-  target: PartialTargetDescriptor;
+  target: PartialTargetDescriptorV6;
 }
 
 interface EditNewActionDescriptor {
   name: "editNew";
-  destination: DestinationDescriptor;
+  destination: DestinationDescriptorV6;
 }
 
 interface GetTextActionOptions {
@@ -217,7 +195,7 @@ interface GetTextActionOptions {
 interface GetTextActionDescriptor {
   name: "getText";
   options?: GetTextActionOptions;
-  target: PartialTargetDescriptor;
+  target: PartialTargetDescriptorV6;
 }
 
 interface ParsedActionDescriptor {
