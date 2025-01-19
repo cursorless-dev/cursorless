@@ -1,10 +1,10 @@
 import type { ActionDescriptor } from "./ActionDescriptor";
 
-export interface CommandV6 {
+export interface CommandV8 {
   /**
    * The version number of the command API
    */
-  version: 6;
+  version: 8;
 
   /**
    * The spoken form of the command if issued from a voice command system

@@ -1,9 +1,10 @@
 languageId: typescript
 command:
-  version: 6
+  version: 8
   spokenForm: snippet make state
   action:
     name: generateSnippet
+    dirPath: ""
     snippetName: snippetTest1
     target:
       type: primitive

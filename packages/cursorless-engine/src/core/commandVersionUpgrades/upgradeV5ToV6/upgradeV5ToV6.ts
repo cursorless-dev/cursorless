@@ -1,6 +1,5 @@
 import type {
   ActionCommandV5,
-  ActionDescriptor,
   CommandV5,
   CommandV6,
   DestinationDescriptor,
@@ -45,7 +44,7 @@ export function upgradeV5ToV6(command: CommandV5): EnforceUndefined<CommandV6> {
 function upgradeAction(
   action: ActionCommandV5,
   targets: PartialTargetDescriptorV5[],
-): EnforceUndefined<ActionDescriptor> {
+): EnforceUndefined<CommandV6["action"]> {
   // We canonicalize once and for all
   const name = canonicalizeActionName(action.name);
 

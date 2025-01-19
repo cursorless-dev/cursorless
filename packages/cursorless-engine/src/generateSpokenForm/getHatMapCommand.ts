@@ -34,7 +34,7 @@ export function getHatMapCommand(marks: string[]): CommandLatest {
               elements: primitiveTargets,
             },
     },
-    version: 7,
+    version: 8,
     usePrePhraseSnapshot: false,
   };
 }

@@ -1,11 +1,12 @@
 import type { TestCaseFixtureLegacy } from "../types/TestCaseFixture";
 import type { ActionDescriptor } from "../types/command/ActionDescriptor";
-import type { CommandV6 } from "../types/command/CommandV6.types";
-import type { CommandV7 } from "../types/command/CommandV7.types";
+import type { CommandV6 } from "../types/command/legacy/CommandV6.types";
+import type { CommandV7 } from "../types/command/legacy/CommandV7.types";
 import type { Command } from "../types/command/command.types";
 import type { CommandV5 } from "../types/command/legacy/CommandV5.types";
 import type { EnforceUndefined } from "../util/typeUtils";
 import { serialize } from "./serialize";
+import type { ActionDescriptorV6 } from "../types/command/legacy/ActionDescriptorV6";
 
 function reorderFields(
   fixture: TestCaseFixtureLegacy,
@@ -41,6 +42,8 @@ function reorderCommandFields(command: Command): Command {
       return reorderCommandV6Fields(command);
     case 7:
       return reorderCommandV7Fields(command);
+    case 8:
+      return command;
   }
 }
 
@@ -81,7 +84,7 @@ function reorderCommandV7Fields(
   };
 }
 
-function reorderActionFields(action: ActionDescriptor): ActionDescriptor {
+function reorderActionFields(action: ActionDescriptorV6): ActionDescriptor {
   const { name, ...rest } = action;
   return {
     name,

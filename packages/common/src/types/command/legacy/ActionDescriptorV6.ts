@@ -1,13 +1,13 @@
 import type {
   PartialTargetDescriptor,
   ScopeType,
-} from "./PartialTargetDescriptor.types";
-import type { DestinationDescriptor } from "./DestinationDescriptor.types";
+} from "../PartialTargetDescriptor.types";
+import type { DestinationDescriptor } from "../DestinationDescriptor.types";
 
 /**
  * A simple action takes only a single target and no other arguments.
  */
-export const simpleActionNames = [
+const simpleActionNames = [
   "addSelection",
   "addSelectionAfter",
   "addSelectionBefore",
@@ -79,29 +79,26 @@ const complexActionNames = [
   "parsed",
 ] as const;
 
-export const actionNames = [
-  ...simpleActionNames,
-  ...complexActionNames,
-] as const;
+const actionNames = [...simpleActionNames, ...complexActionNames] as const;
 
-export type SimpleActionName = (typeof simpleActionNames)[number];
-export type ActionType = (typeof actionNames)[number];
+type SimpleActionName = (typeof simpleActionNames)[number];
+type ActionType = (typeof actionNames)[number];
 
 /**
  * A simple action takes only a single target and no other arguments.
  */
-export interface SimpleActionDescriptor {
+interface SimpleActionDescriptor {
   name: SimpleActionName;
   target: PartialTargetDescriptor;
 }
 
-export interface BringMoveActionDescriptor {
+interface BringMoveActionDescriptor {
   name: "replaceWithTarget" | "moveToTarget";
   source: PartialTargetDescriptor;
   destination: DestinationDescriptor;
 }
 
-export interface CallActionDescriptor {
+interface CallActionDescriptor {
   name: "callAsFunction";
 
   /**
@@ -115,27 +112,27 @@ export interface CallActionDescriptor {
   argument: PartialTargetDescriptor;
 }
 
-export interface SwapActionDescriptor {
+interface SwapActionDescriptor {
   name: "swapTargets";
   target1: PartialTargetDescriptor;
   target2: PartialTargetDescriptor;
 }
 
-export interface WrapWithPairedDelimiterActionDescriptor {
+interface WrapWithPairedDelimiterActionDescriptor {
   name: "wrapWithPairedDelimiter" | "rewrapWithPairedDelimiter";
   left: string;
   right: string;
   target: PartialTargetDescriptor;
 }
 
-export interface PasteActionDescriptor {
+interface PasteActionDescriptor {
   name: "pasteFromClipboard";
   destination: DestinationDescriptor;
 }
 
-export interface GenerateSnippetActionDescriptor {
+interface GenerateSnippetActionDescriptor {
   name: "generateSnippet";
-  dirPath: string;
+  dirPath?: string;
   snippetName?: string;
   target: PartialTargetDescriptor;
 }
@@ -151,9 +148,9 @@ interface CustomInsertSnippetArg {
   scopeTypes?: ScopeType[];
   substitutions?: Record<string, string>;
 }
-export type InsertSnippetArg = NamedInsertSnippetArg | CustomInsertSnippetArg;
+type InsertSnippetArg = NamedInsertSnippetArg | CustomInsertSnippetArg;
 
-export interface InsertSnippetActionDescriptor {
+interface InsertSnippetActionDescriptor {
   name: "insertSnippet";
   snippetDescription: InsertSnippetArg;
   destination: DestinationDescriptor;
@@ -170,17 +167,15 @@ interface CustomWrapWithSnippetArg {
   variableName?: string;
   scopeType?: ScopeType;
 }
-export type WrapWithSnippetArg =
-  | NamedWrapWithSnippetArg
-  | CustomWrapWithSnippetArg;
+type WrapWithSnippetArg = NamedWrapWithSnippetArg | CustomWrapWithSnippetArg;
 
-export interface WrapWithSnippetActionDescriptor {
+interface WrapWithSnippetActionDescriptor {
   name: "wrapWithSnippet";
   snippetDescription: WrapWithSnippetArg;
   target: PartialTargetDescriptor;
 }
 
-export interface ExecuteCommandOptions {
+interface ExecuteCommandOptions {
   commandArgs?: any[];
   ensureSingleEditor?: boolean;
   ensureSingleTarget?: boolean;
@@ -188,38 +183,38 @@ export interface ExecuteCommandOptions {
   showDecorations?: boolean;
 }
 
-export interface ExecuteCommandActionDescriptor {
+interface ExecuteCommandActionDescriptor {
   name: "executeCommand";
   commandId: string;
   options?: ExecuteCommandOptions;
   target: PartialTargetDescriptor;
 }
 
-export type ReplaceWith = string[] | { start: number };
+type ReplaceWith = string[] | { start: number };
 
-export interface ReplaceActionDescriptor {
+interface ReplaceActionDescriptor {
   name: "replace";
   replaceWith: ReplaceWith;
   destination: DestinationDescriptor;
 }
 
-export interface HighlightActionDescriptor {
+interface HighlightActionDescriptor {
   name: "highlight";
   highlightId?: string;
   target: PartialTargetDescriptor;
 }
 
-export interface EditNewActionDescriptor {
+interface EditNewActionDescriptor {
   name: "editNew";
   destination: DestinationDescriptor;
 }
 
-export interface GetTextActionOptions {
+interface GetTextActionOptions {
   showDecorations?: boolean;
   ensureSingleTarget?: boolean;
 }
 
-export interface GetTextActionDescriptor {
+interface GetTextActionDescriptor {
   name: "getText";
   options?: GetTextActionOptions;
   target: PartialTargetDescriptor;
@@ -231,7 +226,7 @@ interface ParsedActionDescriptor {
   arguments: unknown[];
 }
 
-export type ActionDescriptor =
+export type ActionDescriptorV6 =
   | SimpleActionDescriptor
   | BringMoveActionDescriptor
   | SwapActionDescriptor

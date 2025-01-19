@@ -64,12 +64,11 @@ export default class GenerateSnippet {
 
   async run(
     targets: Target[],
-    dirPath?: string,
+    dirPath: string,
     snippetName?: string,
   ): Promise<ActionReturnValue> {
     const target = ensureSingleTarget(targets);
     const editor = target.editor;
-    const isTesting = ide().runMode === "test";
 
     // NB: We don't await the pending edit decoration so that if the user
     // immediately starts saying the name of the snippet (eg command chain
@@ -83,8 +82,8 @@ export default class GenerateSnippet {
         placeHolder: "helloWorld",
       });
 
-      // User cancelled; don't do anything
-      if (snippetName == null) {
+      // User cancelled; do nothing
+      if (!snippetName) {
         return {};
       }
     }
@@ -138,14 +137,11 @@ export default class GenerateSnippet {
     let editableEditor: EditableTextEditor;
     let snippetDocuments: SnippetDocument[];
 
-    if (isTesting) {
+    if (ide().runMode === "test") {
       // If we're testing, we just overwrite the current document
       editableEditor = ide().getEditableTextEditor(editor);
       snippetDocuments = [];
     } else {
-      if (dirPath == null) {
-        throw Error("dirPath is required when not testing");
-      }
       // Otherwise, we create and open a new document for the snippet
       editableEditor = ide().getEditableTextEditor(
         await this.snippets.openNewSnippetFile(dirPath, snippetName),

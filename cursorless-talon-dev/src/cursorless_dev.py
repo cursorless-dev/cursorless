@@ -38,5 +38,10 @@ class Actions:
     def private_cursorless_make_snippet_test(target: Any):
         """Test generating a snippet"""
         actions.user.private_cursorless_command_no_wait(
-            {"name": "generateSnippet", "snippetName": "testSnippet", "target": target}
+            {
+                "name": "generateSnippet",
+                "dirPath": "",
+                "snippetName": "testSnippet",
+                "target": target,
+            }
         )

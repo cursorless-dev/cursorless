@@ -194,6 +194,7 @@ export default class KeyboardCommandsTargeted {
           case "editNew":
           case "getText":
           case "parsed":
+          case "generateSnippet":
             throw Error(`Unsupported keyboard action: ${name}`);
           case "replaceWithTarget":
           case "moveToTarget":
@@ -223,7 +224,6 @@ export default class KeyboardCommandsTargeted {
                 target,
               },
             };
-          case "generateSnippet":
           case "highlight":
             return {
               name,

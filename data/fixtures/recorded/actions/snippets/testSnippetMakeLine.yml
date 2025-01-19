@@ -1,9 +1,10 @@
 languageId: plaintext
 command:
-  version: 6
+  version: 8
   spokenForm: test snippet make line
   action:
     name: generateSnippet
+    dirPath: ""
     snippetName: testSnippet
     target:
       type: primitive
