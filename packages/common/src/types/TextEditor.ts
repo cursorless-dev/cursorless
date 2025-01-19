@@ -110,12 +110,8 @@ export interface EditableTextEditor extends TextEditor {
 
   /**
    * Edit a new new notebook cell above.
-   * @return A promise that resolves to a function that must be applied to any
-   * selections that should be updated as result of this operation. This is a
-   * horrible hack to work around the fact that in vscode the promise resolves
-   * before the edits have actually been performed.
    */
-  editNewNotebookCellAbove(): Promise<(selection: Selection) => Selection>;
+  editNewNotebookCellAbove(): Promise<void>;
 
   /**
    * Edit a new new notebook cell below.
