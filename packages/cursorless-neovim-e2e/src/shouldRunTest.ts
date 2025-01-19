@@ -47,6 +47,7 @@ function isFailingFixture(name: string, fixture: TestCaseFixtureLegacy) {
       return true;
     // "recorded/actions/snippets/*" -> not supported for now
     case "insertSnippet":
+    case "generateSnippet":
       return true;
     case "wrapWithSnippet":
       return true;
