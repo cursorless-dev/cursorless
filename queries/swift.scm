@@ -13,6 +13,10 @@
   name: (_) @className
 ) @class @className.domain
 
+(protocol_declaration
+  name: (_) @className
+) @class @className.domain
+
 [
   (class_declaration)
   (protocol_declaration)
@@ -30,12 +34,56 @@
   (function_declaration)
 ] @statement.iteration
 
-(value_argument) @argumentOrParameter
+
+(
+  (value_arguments
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#not-type? @argumentOrParameter "comment")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
+(
+  (type_arguments
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#not-type? @argumentOrParameter "comment")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
+(value_arguments
+  "(" @argumentOrParameter.iteration.start.endOf
+  ")" @argumentOrParameter.iteration.end.startOf
+) @argumentOrParameter.iteration.domain
+
+(type_arguments
+  "<" @argumentOrParameter.iteration.start.endOf
+  ">" @argumentOrParameter.iteration.end.startOf
+) @argumentOrParameter.iteration.domain
 
 [
   (comment)
   (multiline_comment)
 ] @comment @textFragment
+
+[
+  (line_string_literal)
+  (multi_line_string_literal)
+  (raw_string_literal)
+] @string @textFragment
+
+;; (line_string_literal
+;;   "\"" @textFragment.start.endOf
+;;   "\"" @textFragment.end.startOf
+;; ) @string
 
 [
   (if_statement)
