@@ -77,17 +77,6 @@ export default class GenerateSnippet {
     // win the race and have the input box ready for them
     void flashTargets(ide(), targets, FlashStyle.referenced);
 
-    if (dirPath == null && !isTesting) {
-      snippetName = await ide().showInputBox({
-        prompt: "Directory for snippet",
-      });
-
-      // User cancelled; don't do anything
-      if (dirPath == null) {
-        return {};
-      }
-    }
-
     if (snippetName == null) {
       snippetName = await ide().showInputBox({
         prompt: "Name of snippet",
