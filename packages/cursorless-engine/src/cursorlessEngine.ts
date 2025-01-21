@@ -1,4 +1,4 @@
-import type {
+import {
   Command,
   CommandServerApi,
   Direction,
@@ -89,8 +89,14 @@ export async function createCursorlessEngine({
 }: EngineProps): Promise<CursorlessEngine> {
   injectIde(ide);
 
-  const test = new Testing();
+  const test: ScopeHandler = new Testing();
   console.log(test);
+  test.generateScopes(
+    null as unknown as TextEditor,
+    new Position(0, 0),
+    "forward",
+    {},
+  );
 
   const debug = new Debug(ide);
   const rangeUpdater = new RangeUpdater();
