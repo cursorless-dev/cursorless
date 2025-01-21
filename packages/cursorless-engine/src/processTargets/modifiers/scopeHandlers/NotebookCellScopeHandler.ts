@@ -9,35 +9,46 @@ import {
 import type { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import { ide } from "../../../singletons/ide.singleton";
 import { NotebookCellTarget } from "../../targets";
+import { BaseScopeHandler } from "./BaseScopeHandler";
 import type { TargetScope } from "./scope.types";
 import type {
+  ComplexScopeType,
   ScopeHandler,
   ScopeIteratorRequirements,
 } from "./scopeHandler.types";
 
-export class NotebookCellScopeHandler implements ScopeHandler {
+export class NotebookCellScopeHandler extends BaseScopeHandler {
   public readonly scopeType = { type: "notebookCell" } as const;
-  public readonly iterationScopeType = { type: "document" } as const;
-  public readonly includeAdjacentInEvery = false;
+  protected isHierarchical = false;
+  private readonly languageScopeHandler: ScopeHandler | undefined;
 
   constructor(
-    private languageDefinitions: LanguageDefinitions,
+    languageDefinitions: LanguageDefinitions,
     _scopeType: ScopeType,
     private languageId: string,
-  ) {}
+  ) {
+    super();
 
-  *generateScopes(
+    this.languageScopeHandler = languageDefinitions
+      .get(this.languageId)
+      ?.getScopeHandler(this.scopeType);
+  }
+
+  get iterationScopeType(): ScopeType | ComplexScopeType {
+    if (this.languageScopeHandler != null) {
+      return this.languageScopeHandler.iterationScopeType;
+    }
+    return { type: "document" };
+  }
+
+  *generateScopeCandidates(
     editor: TextEditor,
     position: Position,
     direction: Direction,
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
-    const scopeHandler = this.languageDefinitions
-      .get(this.languageId)
-      ?.getScopeHandler(this.scopeType);
-
-    if (scopeHandler != null) {
-      yield* scopeHandler.generateScopeCandidates(
+    if (this.languageScopeHandler != null) {
+      yield* this.languageScopeHandler.generateScopes(
         editor,
         position,
         direction,
