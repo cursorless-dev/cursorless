@@ -41,21 +41,15 @@ import { getHeaderSnippet } from "talon-snippets";
  * 2. Find all cursor selections inside target - these will become the user
  *    snippet variables
  * 3. Extract text of target
- * 4. Replace cursor selections in text with random ids that won't be affected
- *    by json serialization.  After serialization we'll replace these id's by
- *    snippet placeholders.
+ * 4. Replace cursor selections in text with snippet variables
  * 4. Construct the user snippet body as a list of strings
- * 5. Construct a javascript object that will be json-ified to become the meta
+ * 5. Construct a javascript object that will be serialized to become the meta
  *    snippet
- * 6. Serialize the javascript object to json
- * 7. Perform replacements on the random id's appearing in this json to get the
- *    text we desire.  This modified json output is the meta snippet.
- * 8. Open a new document in user custom snippets dir to hold the new snippet.
+ * 6. Serialize the javascript object
+ * 7. Escape dollar signs and replace placeholder text with snippet placeholders.
+ *    This modified json output is the meta snippet.
+ * 8. Open a new document in the snippets dir to hold the new snippet.
  * 9. Insert the meta snippet so that the user can construct their snippet.
- *
- * Note that we avoid using JS interpolation strings here because the syntax is
- * very similar to snippet placeholders, so we would end up with lots of
- * confusing escaping.
  */
 export default class GenerateSnippetCommunity {
   constructor(private snippets: Snippets) {
