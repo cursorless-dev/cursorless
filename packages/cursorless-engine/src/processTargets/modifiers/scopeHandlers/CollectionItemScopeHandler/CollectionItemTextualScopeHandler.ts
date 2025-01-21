@@ -77,6 +77,7 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
           currentIterationState = lastState;
           break;
         }
+        // We are done with this iteration scope. Add all scopes from it and pop it from the stack.
         this.addScopes(scopes, lastState);
         iterationStatesStack.pop();
       }
