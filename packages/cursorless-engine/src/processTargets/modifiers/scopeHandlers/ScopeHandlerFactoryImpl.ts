@@ -114,6 +114,7 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
         );
       case "notebookCell":
         return new NotebookCellScopeHandler(
+          this,
           this.languageDefinitions,
           scopeType,
           languageId,
