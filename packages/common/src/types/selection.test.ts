@@ -49,4 +49,9 @@ suite("Selection", () => {
     assert.ok(new Selection(1, 2, 3, 4).toSelection(true).isReversed);
     assert.ok(!new Selection(1, 2, 3, 4).toSelection(false).isReversed);
   });
+
+  test("concise", () => {
+    assert.equal(new Selection(1, 2, 3, 4).concise(), "1:2->3:4");
+    assert.equal(new Selection(1, 2, 3, 4).conciseOneBase(), "2:3->4:5");
+  });
 });
