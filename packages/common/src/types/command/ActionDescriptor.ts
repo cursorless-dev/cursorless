@@ -135,6 +135,7 @@ export interface PasteActionDescriptor {
 
 export interface GenerateSnippetActionDescriptor {
   name: "generateSnippet";
+  dirPath?: string;
   snippetName?: string;
   target: PartialTargetDescriptor;
 }

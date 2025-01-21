@@ -1,4 +1,4 @@
-import type { Snippet, SnippetMap } from "@cursorless/common";
+import type { Snippet, SnippetMap, TextEditor } from "@cursorless/common";
 import { mergeStrict, showError, type IDE } from "@cursorless/common";
 import { mergeSnippets, type Snippets } from "@cursorless/cursorless-engine";
 import { walkFiles } from "@cursorless/node-common";
@@ -235,18 +235,28 @@ export class VscodeSnippets implements Snippets {
     return snippet;
   }
 
-  async openNewSnippetFile(snippetName: string) {
-    const userSnippetsDir = this.ide.configuration.getOwnConfiguration(
-      "experimental.snippetsDir",
-    );
+  async openNewSnippetFile(
+    snippetName: string,
+    dirPath?: string,
+  ): Promise<TextEditor> {
+    const path = (() => {
+      if (dirPath != null) {
+        return join(dirPath, `${snippetName}.snippet`);
+      }
 
-    if (!userSnippetsDir) {
-      throw new Error("User snippets dir not configured.");
-    }
+      const userSnippetsDir = this.ide.configuration.getOwnConfiguration(
+        "experimental.snippetsDir",
+      );
 
-    const path = join(userSnippetsDir, `${snippetName}.cursorless-snippets`);
+      if (!userSnippetsDir) {
+        throw new Error("User snippets dir not configured.");
+      }
+
+      return join(userSnippetsDir, `${snippetName}.cursorless-snippets`);
+    })();
+
     await touch(path);
-    await this.ide.openTextDocument(path);
+    return this.ide.openTextDocument(path);
   }
 }
 

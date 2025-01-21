@@ -1,0 +1,41 @@
+languageId: plaintext
+command:
+  version: 7
+  spokenForm: test snippet make line
+  action:
+    name: generateSnippet
+    dirPath: ""
+    snippetName: testSnippet
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: line}
+  usePrePhraseSnapshot: true
+spokenFormError: generateSnippet.snippetName
+initialState:
+  documentContents: \textbf{$foo}
+  selections:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 12}
+  marks: {}
+finalState:
+  documentContents: |
+    name: testSnippet
+    language: plaintext
+    phrase: 
+
+    $0.wrapperPhrase: 
+    -
+    \textbf{\$$0}
+    ---
+  selections:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 13}
+      isReversed: false
+      hasExplicitRange: true

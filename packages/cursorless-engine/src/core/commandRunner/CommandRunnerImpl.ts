@@ -169,6 +169,7 @@ export class CommandRunnerImpl implements CommandRunner {
       case "generateSnippet":
         return this.actions.generateSnippet.run(
           this.getTargets(actionDescriptor.target),
+          actionDescriptor.dirPath,
           actionDescriptor.snippetName,
         );
 

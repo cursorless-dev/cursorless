@@ -1,0 +1,46 @@
+languageId: typescript
+command:
+  version: 7
+  spokenForm: snippet make state
+  action:
+    name: generateSnippet
+    dirPath: ""
+    snippetName: snippetTest1
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: statement}
+  usePrePhraseSnapshot: true
+spokenFormError: generateSnippet.snippetName
+initialState:
+  documentContents: |-
+    if () {
+        console.log("hello")
+    }
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  marks: {}
+finalState:
+  documentContents: |
+    name: snippetTest1
+    language: typescript
+    phrase: 
+
+    $0.wrapperPhrase: 
+    -
+    if ($0) {
+        console.log("hello")
+    }
+    ---
+  selections:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 2, character: 1}
+      isReversed: false
+      hasExplicitRange: true
