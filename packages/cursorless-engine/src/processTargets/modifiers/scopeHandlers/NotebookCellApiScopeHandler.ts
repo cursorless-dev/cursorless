@@ -12,7 +12,7 @@ import type { TargetScope } from "./scope.types";
 import type { ScopeIteratorRequirements } from "./scopeHandler.types";
 
 /**
- * This is the scope handler for the actual notebook api in the ide.
+ * This is the scope handler for the actual notebook API in the IDE.
  */
 export class NotebookCellApiScopeHandler extends BaseScopeHandler {
   public readonly scopeType = { type: "notebookCell" } as const;
