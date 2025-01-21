@@ -141,11 +141,19 @@ export class Position {
   }
 
   /**
-   * Return a concise string representation of the position.
+   * Return a concise string representation of the position. 0-based.
    * @returns concise representation
    **/
   public concise(): string {
     return `${this.line}:${this.character}`;
+  }
+
+  /**
+   * Return a concise string representation of the position. 1-based.
+   * @returns concise representation
+   **/
+  public conciseOneBase(): string {
+    return `${this.line + 1}:${this.character + 1}`;
   }
 
   public toString(): string {
