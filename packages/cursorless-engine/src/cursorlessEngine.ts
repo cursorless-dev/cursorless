@@ -1,14 +1,14 @@
-import {
+import type {
   Command,
   CommandServerApi,
   Direction,
   Hats,
   IDE,
-  Position,
   ScopeProvider,
   ScopeType,
   TextEditor,
 } from "@cursorless/common";
+import { Position } from "@cursorless/common";
 import {
   ensureCommandShape,
   type RawTreeSitterQueryProvider,
