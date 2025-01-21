@@ -155,8 +155,8 @@ export class Range {
    * Return a concise string representation of the range. 1-based.
    * @returns concise representation
    **/
-  public conciseOneBase(): string {
-    return `${this.start.conciseOneBase()}-${this.end.conciseOneBase()}`;
+  public conciseOneBased(): string {
+    return `${this.start.conciseOneBased()}-${this.end.conciseOneBased()}`;
   }
 
   public toString(): string {

@@ -152,7 +152,7 @@ export class Position {
    * Return a concise string representation of the position. 1-based.
    * @returns concise representation
    **/
-  public conciseOneBase(): string {
+  public conciseOneBased(): string {
     return `${this.line + 1}:${this.character + 1}`;
   }
 

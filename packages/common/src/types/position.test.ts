@@ -71,6 +71,6 @@ suite("Position", () => {
 
   test("concise", () => {
     assert.equal(new Position(1, 2).concise(), "1:2");
-    assert.equal(new Position(1, 2).conciseOneBase(), "2:3");
+    assert.equal(new Position(1, 2).conciseOneBased(), "2:3");
   });
 });
