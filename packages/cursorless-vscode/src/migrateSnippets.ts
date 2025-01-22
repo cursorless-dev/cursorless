@@ -9,6 +9,7 @@ import {
   type SnippetDocument,
   type SnippetVariable,
 } from "talon-snippets";
+import * as vscode from "vscode";
 import type { VscodeSnippets } from "./VscodeSnippets";
 
 export async function migrateSnippets(
@@ -21,6 +22,10 @@ export async function migrateSnippets(
   for (const file of files) {
     await migrateFile(targetDirectory, file);
   }
+
+  await vscode.window.showInformationMessage(
+    `${files.length} snippet files migrated successfully!`,
+  );
 }
 
 async function migrateFile(targetDirectory: string, filePath: string) {

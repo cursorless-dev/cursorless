@@ -17,7 +17,7 @@ tag: user.cursorless_use_community_snippets
 class Actions:
     def private_cursorless_migrate_snippets():
         """Migrate snippets from Cursorless to community format"""
-        actions.user.private_cursorless_run_rpc_command_and_wait(
+        actions.user.private_cursorless_run_rpc_command_no_wait(
             "cursorless.migrateSnippets",
             get_dir_path(),
         )
