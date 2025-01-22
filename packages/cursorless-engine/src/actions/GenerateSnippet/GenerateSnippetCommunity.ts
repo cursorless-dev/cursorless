@@ -7,6 +7,7 @@ import {
   type TextEditor,
 } from "@cursorless/common";
 import {
+  getHeaderSnippet,
   parseSnippetFile,
   serializeSnippetFile,
   type SnippetDocument,
@@ -20,7 +21,6 @@ import type { ActionReturnValue } from "../actions.types";
 import { constructSnippetBody } from "./constructSnippetBody";
 import { editText } from "./editText";
 import type { Offsets } from "./Offsets";
-import { getHeaderSnippet } from "talon-snippets";
 
 /**
  * This action can be used to automatically create a snippet from a target. Any
