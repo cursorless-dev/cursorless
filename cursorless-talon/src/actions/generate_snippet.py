@@ -19,7 +19,7 @@ class Actions:
         """Migrate snippets from Cursorless to community format"""
         actions.user.private_cursorless_run_rpc_command_no_wait(
             "cursorless.migrateSnippets",
-            get_dir_path(),
+            str(get_directory_path()),
         )
 
     def private_cursorless_generate_snippet_action(target: CursorlessExplicitTarget):  # pyright: ignore [reportGeneralTypeIssues]
