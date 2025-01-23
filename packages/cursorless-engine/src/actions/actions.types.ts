@@ -126,7 +126,7 @@ export interface ActionRecord extends Record<SimpleActionName, SimpleAction> {
   generateSnippet: {
     run(
       targets: Target[],
-      dirPath?: string,
+      directory?: string,
       snippetName?: string,
     ): Promise<ActionReturnValue>;
   };

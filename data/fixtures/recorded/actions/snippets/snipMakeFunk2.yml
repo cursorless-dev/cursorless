@@ -4,7 +4,7 @@ command:
   spokenForm: snippet make funk
   action:
     name: generateSnippet
-    dirPath: ""
+    directory: ""
     snippetName: snippetTest1
     target:
       type: primitive
