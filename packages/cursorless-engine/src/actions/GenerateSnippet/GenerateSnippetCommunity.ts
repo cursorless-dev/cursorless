@@ -221,7 +221,10 @@ function getsSnippetSelections(editor: TextEditor, range: Range): Selection[] {
   return selections;
 }
 
-// Used to temporarily escape the $1, $2 snippet holes (the "meta snippet" holes that become live snippets when the user edits) so we can use traditional backslash escaping for the holes in the underlying snippet itself (the "user snippet" holes that will be saved as part of their new template).
+// Used to temporarily escape the $1, $2 snippet holes (the "meta snippet" holes
+// that become live snippets when the user edits) so we can use traditional
+// backslash escaping for the holes in the underlying snippet itself (the "user
+// snippet" holes that will be saved as part of their new template).
 const PLACEHOLDER = "PLACEHOLDER_VFA77zcbLD6wXNmfMAay";
 
 interface Variable {
