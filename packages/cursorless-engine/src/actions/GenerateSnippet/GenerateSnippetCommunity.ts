@@ -58,7 +58,7 @@ export default class GenerateSnippetCommunity {
 
   async run(
     targets: Target[],
-    dirPath: string,
+    directory: string,
     snippetName?: string,
   ): Promise<ActionReturnValue> {
     const target = ensureSingleTarget(targets);
@@ -138,7 +138,7 @@ export default class GenerateSnippetCommunity {
     } else {
       // Otherwise, we create and open a new document for the snippet
       editableEditor = ide().getEditableTextEditor(
-        await this.snippets.openNewSnippetFile(snippetName, dirPath),
+        await this.snippets.openNewSnippetFile(snippetName, directory),
       );
       snippetDocuments = parseSnippetFile(editableEditor.document.getText());
     }

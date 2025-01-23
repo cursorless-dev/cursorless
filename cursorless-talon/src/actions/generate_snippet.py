@@ -32,7 +32,7 @@ class UserActions:
             {
                 "name": "generateSnippet",
                 "target": target,
-                "dirPath": str(get_dir_path()),
+                "directory": str(get_dir_path()),
             }
         )
 

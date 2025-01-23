@@ -4,7 +4,7 @@ command:
   spokenForm: test snippet make line
   action:
     name: generateSnippet
-    dirPath: ""
+    directory: ""
     snippetName: testSnippet
     target:
       type: primitive
