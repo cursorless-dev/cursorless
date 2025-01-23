@@ -237,11 +237,11 @@ export class VscodeSnippets implements Snippets {
 
   async openNewSnippetFile(
     snippetName: string,
-    dirPath?: string,
+    directory?: string,
   ): Promise<TextEditor> {
     const path = (() => {
-      if (dirPath != null) {
-        return join(dirPath, `${snippetName}.snippet`);
+      if (directory != null) {
+        return join(directory, `${snippetName}.snippet`);
       }
 
       const userSnippetsDir = this.ide.configuration.getOwnConfiguration(

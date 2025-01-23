@@ -31,11 +31,11 @@ export interface Snippets {
   /**
    * Opens a new snippet file
    * @param snippetName The name of the snippet
-   * @param dirPath The path to the directory where the snippet should be created
+   * @param directory The path to the directory where the snippet should be created
    * @returns The text editor of the newly created snippet file
    */
   openNewSnippetFile(
     snippetName: string,
-    dirPath?: string,
+    directory?: string,
   ): Promise<TextEditor>;
 }

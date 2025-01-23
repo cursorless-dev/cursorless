@@ -11,15 +11,15 @@ export default class GenerateSnippet {
 
   async run(
     targets: Target[],
-    dirPath?: string,
+    directory?: string,
     snippetName?: string,
   ): Promise<ActionReturnValue> {
-    if (dirPath == null) {
+    if (directory == null) {
       const action = new GenerateSnippetLegacy(this.snippets);
       return action.run(targets, snippetName);
     }
 
     const action = new GenerateSnippetCommunity(this.snippets);
-    return action.run(targets, dirPath, snippetName);
+    return action.run(targets, directory, snippetName);
   }
 }
