@@ -19,7 +19,7 @@ export class DisabledSnippets implements Snippets {
 
   openNewSnippetFile(
     _snippetName: string,
-    _dirPath?: string,
+    _directory?: string,
   ): Promise<TextEditor> {
     throw new Error("Snippets are not implemented.");
   }
