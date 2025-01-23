@@ -32,12 +32,12 @@ class UserActions:
             {
                 "name": "generateSnippet",
                 "target": target,
-                "directory": str(get_dir_path()),
+                "directory": str(get_directory_path()),
             }
         )
 
 
-def get_dir_path() -> Path:
+def get_directory_path() -> Path:
     settings_dir = get_setting_dir()
     if settings_dir is not None:
         return settings_dir
