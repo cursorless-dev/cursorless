@@ -50,6 +50,8 @@ function isFailingFixture(name: string, fixture: TestCaseFixtureLegacy) {
       return true;
     case "wrapWithSnippet":
       return true;
+    case "generateSnippet":
+      return true;
     // "recorded/actions/insertEmptyLines/floatThis*" -> wrong fixture.finalState.selections and fixture.thatMark.contentRange
     case "breakLine":
       return true;
