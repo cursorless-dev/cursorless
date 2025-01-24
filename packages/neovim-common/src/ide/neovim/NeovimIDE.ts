@@ -2,6 +2,7 @@ import type {
   Disposable,
   EditableTextEditor,
   IDE,
+  NotebookEditor,
   OpenUntitledTextDocumentOptions,
   Range,
   RunMode,
@@ -159,6 +160,10 @@ export class NeovimIDE implements IDE {
   get visibleTextEditors(): NeovimTextEditorImpl[] {
     return Array.from(this.editorMap.values());
     // throw Error("visibleTextEditors Not implemented");
+  }
+
+  get visibleNotebookEditors(): NotebookEditor[] {
+    return [];
   }
 
   public getEditableTextEditor(editor: TextEditor): EditableTextEditor {

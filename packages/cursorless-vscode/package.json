@@ -105,6 +105,10 @@
         "title": "Cursorless: Show documentation"
       },
       {
+        "command": "cursorless.showInstallationDependencies",
+        "title": "Cursorless: Show installation dependencies"
+      },
+      {
         "command": "cursorless.showScopeVisualizer",
         "title": "Cursorless: Show the scope visualizer"
       },
@@ -1223,9 +1227,9 @@
     }
   },
   "sponsor": {
-    "url": "https://github.com/sponsors/pokey"
+    "url": "https://github.com/sponsors/cursorless-dev"
   },
-  "funding": "https://github.com/sponsors/pokey",
+  "funding": "https://github.com/sponsors/cursorless-dev",
   "scripts": {
     "build": "pnpm run esbuild:prod && pnpm -F cheatsheet-local build:prod && pnpm -F cursorless-vscode-tutorial-webview build:prod && pnpm run populate-dist",
     "build:dev": "pnpm generate-grammar && pnpm run esbuild && pnpm -F cheatsheet-local build && pnpm -F cursorless-vscode-tutorial-webview build && pnpm run populate-dist",
@@ -1275,6 +1279,7 @@
     "@cursorless/node-common": "workspace:*",
     "@cursorless/test-case-recorder": "workspace:*",
     "@cursorless/vscode-common": "workspace:*",
+    "glob": "^11.0.0",
     "itertools": "^2.3.2",
     "lodash-es": "^4.17.21",
     "nearley": "2.20.1",

@@ -107,9 +107,7 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
     // throw Error("focus Not implemented");
   }
 
-  public editNewNotebookCellAbove(): Promise<
-    (selection: Selection) => Selection
-  > {
+  public editNewNotebookCellAbove(): Promise<void> {
     throw Error("editNewNotebookCellAbove Not implemented");
   }
 

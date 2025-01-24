@@ -149,7 +149,7 @@ export class TalonJsEditor implements EditableTextEditor {
     throw new Error("extractVariable not implemented.");
   }
 
-  editNewNotebookCellAbove(): Promise<(_selection: Selection) => Selection> {
+  editNewNotebookCellAbove(): Promise<void> {
     throw new Error("editNewNotebookCellAbove not implemented.");
   }
 

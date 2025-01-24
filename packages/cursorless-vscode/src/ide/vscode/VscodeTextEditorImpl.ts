@@ -24,10 +24,6 @@ import vscodeFocusEditor from "./VscodeFocusEditor";
 import { vscodeFold, vscodeUnfold } from "./VscodeFold";
 import type { VscodeIDE } from "./VscodeIDE";
 import { vscodeInsertSnippet } from "./VscodeInsertSnippets";
-import {
-  vscodeEditNewNotebookCellAbove,
-  vscodeEditNewNotebookCellBelow,
-} from "./VscodeNotebooks";
 import vscodeOpenLink from "./VscodeOpenLink";
 import { vscodeRevealLine } from "./VscodeRevealLine";
 import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
@@ -137,14 +133,12 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     return vscodeFocusEditor(this);
   }
 
-  public editNewNotebookCellAbove(): Promise<
-    (selection: Selection) => Selection
-  > {
-    return vscodeEditNewNotebookCellAbove(this);
+  public async editNewNotebookCellAbove(): Promise<void> {
+    await vscode.commands.executeCommand("notebook.cell.insertCodeCellAbove");
   }
 
-  public editNewNotebookCellBelow(): Promise<void> {
-    return vscodeEditNewNotebookCellBelow(this);
+  public async editNewNotebookCellBelow(): Promise<void> {
+    await vscode.commands.executeCommand("notebook.cell.insertCodeCellBelow");
   }
 
   public openLink(

@@ -144,14 +144,22 @@ export class Range {
   }
 
   /**
-   * Return a concise string representation of the range
+   * Return a concise string representation of the range. 0-based.
    * @returns concise representation
    **/
   public concise(): string {
     return `${this.start.concise()}-${this.end.concise()}`;
   }
 
+  /**
+   * Return a concise string representation of the range. 1-based.
+   * @returns concise representation
+   **/
+  public conciseOneBased(): string {
+    return `${this.start.conciseOneBased()}-${this.end.conciseOneBased()}`;
+  }
+
   public toString(): string {
-    return this.concise();
+    return `${this.start.concise()}-${this.end.concise()}`;
   }
 }

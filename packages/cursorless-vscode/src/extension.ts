@@ -38,6 +38,7 @@ import * as crypto from "crypto";
 import * as os from "node:os";
 import * as path from "node:path";
 import * as vscode from "vscode";
+import { InstallationDependencies } from "./InstallationDependencies";
 import { ReleaseNotes } from "./ReleaseNotes";
 import { ScopeTreeProvider } from "./ScopeTreeProvider";
 import type {
@@ -165,6 +166,8 @@ export async function activate(
     commandServerApi != null,
   );
 
+  const installationDependencies = new InstallationDependencies(context);
+
   context.subscriptions.push(storedTargetHighlighter(vscodeIDE, storedTargets));
 
   const vscodeTutorial = createTutorial(
@@ -189,10 +192,13 @@ export async function activate(
     keyboardCommands,
     hats,
     vscodeTutorial,
+    installationDependencies,
     storedTargets,
   );
 
   void new ReleaseNotes(vscodeApi, context, normalizedIde.messages).maybeShow();
+
+  installationDependencies.maybeShow();
 
   return {
     testHelpers:

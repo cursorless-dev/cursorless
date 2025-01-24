@@ -292,6 +292,10 @@ export const scopeSupportFacetInfos: Record<
     description: "Text fragment consisting of a multi-line string",
     scopeType: "textFragment",
   },
+  "textFragment.element": {
+    description: "Text fragment consisting of an xml element interior",
+    scopeType: "textFragment",
+  },
 
   disqualifyDelimiter: {
     description:

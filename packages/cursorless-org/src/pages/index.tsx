@@ -51,7 +51,7 @@ export default function LandingPage() {
               <Button text="Docs" href="/docs" isExternal={false} />{" "}
               <Button
                 text="Donate"
-                href="https://github.com/sponsors/pokey"
+                href="https://github.com/sponsors/cursorless-dev"
                 isExternal={true}
               />
             </div>

@@ -9,6 +9,7 @@ import { goScopeSupport } from "./go";
 import { htmlScopeSupport } from "./html";
 import { javaScopeSupport } from "./java";
 import { javascriptScopeSupport } from "./javascript";
+import { javascriptreactScopeSupport } from "./javascriptreact";
 import { jsonScopeSupport } from "./json";
 import { jsoncScopeSupport } from "./jsonc";
 import { jsonlScopeSupport } from "./jsonl";
@@ -41,7 +42,7 @@ export const languageScopeSupport: StringRecord<LanguageScopeSupportFacetMap> =
     html: htmlScopeSupport,
     java: javaScopeSupport,
     javascript: javascriptScopeSupport,
-    javascriptreact: javascriptScopeSupport,
+    javascriptreact: javascriptreactScopeSupport,
     json: jsonScopeSupport,
     jsonc: jsoncScopeSupport,
     jsonl: jsonlScopeSupport,
