@@ -169,6 +169,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     foldRegion: "fold",
     followLink: "follow",
     followLinkAside: "follow split",
+    flashTargets: "flash",
     deselect: "give",
     highlight: "highlight",
     showHover: "hover",
