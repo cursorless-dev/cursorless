@@ -13,7 +13,7 @@ extend-exclude = ["vendor", "data/playground/**/*.py"]
 
 [tool.ruff.lint]
 select = ["E", "F", "C4", "I001", "UP", "SIM"]
-ignore = ["E501", "SIM105", "UP007", "UP035"]
+ignore = ["E501", "SIM105", "UP035"]
 
 [tool.pyright]
 reportSelfClsParameterName = false
