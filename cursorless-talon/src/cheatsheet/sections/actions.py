@@ -1,3 +1,5 @@
+from typing import Callable
+
 from ...actions.actions import ACTION_LIST_NAMES
 from ..get_list import ListItemDescriptor, get_raw_list, make_dict_readable
 
@@ -40,130 +42,89 @@ def get_actions() -> list[ListItemDescriptor]:
         },
     )
 
-    if "replaceWithTarget" in complex_actions:
-        items.append(
-            {
-                "id": "replaceWithTarget",
-                "type": "action",
-                "variations": [
-                    {
-                        "spokenForm": f"{complex_actions['replaceWithTarget']} <target> <destination>",
-                        "description": "Copy <target> to <destination>",
-                    },
-                    {
-                        "spokenForm": f"{complex_actions['replaceWithTarget']} <target>",
-                        "description": "Insert copy of <target> at cursor",
-                    },
-                ],
-            }
-        )
+    fixtures: dict[str, list[tuple[Callable, str]]] = {
+        "replaceWithTarget": [
+            (
+                lambda value: f"{value} <target> <destination>",
+                "Copy <target> to <destination>",
+            ),
+            (
+                lambda value: f"{value} <target>",
+                "Insert copy of <target> at cursor",
+            ),
+        ],
+        "pasteFromClipboard": [
+            (
+                lambda value: f"{value} <destination>",
+                "Paste from clipboard at <destination>",
+            )
+        ],
+        "moveToTarget": [
+            (
+                lambda value: f"{value} <target> <destination>",
+                "Move <target> to <destination>",
+            ),
+            (
+                lambda value: f"{value} <target>",
+                "Move <target> to cursor position",
+            ),
+        ],
+        "applyFormatter": [
+            (
+                lambda value: f"{value} <formatter> at <target>",
+                "Reformat <target> as <formatter>",
+            )
+        ],
+        "callAsFunction": [
+            (
+                lambda value: f"{value} <target>",
+                "Call <target> on selection",
+            ),
+            (
+                lambda value: f"{value} <target 1> on <target 2>",
+                "Call <target 1> on <target 2>",
+            ),
+        ],
+        "wrapWithPairedDelimiter": [
+            (
+                lambda value: f"<pair> {value} <target>",
+                "Wrap <target> with <pair>",
+            )
+        ],
+        "rewrap": [
+            (
+                lambda value: f"<pair> {value} <target>",
+                "Rewrap <target> with <pair>",
+            )
+        ],
+    }
 
-    if "pasteFromClipboard" in complex_actions:
+    if swap_connective:
+        fixtures["swapTargets"] = [
+            (
+                lambda value: f"{value} <target 1> {swap_connective} <target 2>",
+                "Swap <target 1> with <target 2>",
+            ),
+            (
+                lambda value: f"{value} {swap_connective} <target>",
+                "Swap selection with <target>",
+            ),
+        ]
+
+    for action_id, variations in fixtures.items():
+        if action_id not in complex_actions:
+            continue
+        action = complex_actions[action_id]
         items.append(
             {
-                "id": "pasteFromClipboard",
+                "id": action_id,
                 "type": "action",
                 "variations": [
                     {
-                        "spokenForm": f"{complex_actions['pasteFromClipboard']} <destination>",
-                        "description": "Paste from clipboard at <destination>",
+                        "spokenForm": callback(action),
+                        "description": description,
                     }
-                ],
-            }
-        )
-
-    if "moveToTarget" in complex_actions:
-        items.append(
-            {
-                "id": "moveToTarget",
-                "type": "action",
-                "variations": [
-                    {
-                        "spokenForm": f"{complex_actions['moveToTarget']} <target> <destination>",
-                        "description": "Move <target> to <destination>",
-                    },
-                    {
-                        "spokenForm": f"{complex_actions['moveToTarget']} <target>",
-                        "description": "Move <target> to cursor position",
-                    },
-                ],
-            }
-        )
-
-    if "swapTargets" in complex_actions and swap_connective:
-        items.append(
-            {
-                "id": "swapTargets",
-                "type": "action",
-                "variations": [
-                    {
-                        "spokenForm": f"{complex_actions['swapTargets']} <target 1> {swap_connective} <target 2>",
-                        "description": "Swap <target 1> with <target 2>",
-                    },
-                    {
-                        "spokenForm": f"{complex_actions['swapTargets']} {swap_connective} <target>",
-                        "description": "Swap selection with <target>",
-                    },
-                ],
-            }
-        )
-
-    if "applyFormatter" in complex_actions:
-        items.append(
-            {
-                "id": "applyFormatter",
-                "type": "action",
-                "variations": [
-                    {
-                        "spokenForm": f"{complex_actions.get('applyFormatter')} <formatter> at <target>",
-                        "description": "Reformat <target> as <formatter>",
-                    }
-                ],
-            }
-        )
-
-    if "callAsFunction" in complex_actions:
-        items.append(
-            {
-                "id": "callAsFunction",
-                "type": "action",
-                "variations": [
-                    {
-                        "spokenForm": f"{complex_actions['callAsFunction']} <target>",
-                        "description": "Call <target> on selection",
-                    },
-                    {
-                        "spokenForm": f"{complex_actions['callAsFunction']} <target 1> on <target 2>",
-                        "description": "Call <target 1> on <target 2>",
-                    },
-                ],
-            }
-        )
-
-    if "wrapWithPairedDelimiter" in complex_actions:
-        items.append(
-            {
-                "id": "wrapWithPairedDelimiter",
-                "type": "action",
-                "variations": [
-                    {
-                        "spokenForm": f"<pair> {complex_actions['wrapWithPairedDelimiter']} <target>",
-                        "description": "Wrap <target> with <pair>",
-                    }
-                ],
-            }
-        )
-
-    if "rewrap" in complex_actions:
-        items.append(
-            {
-                "id": "rewrap",
-                "type": "action",
-                "variations": [
-                    {
-                        "spokenForm": f"<pair> {complex_actions['rewrap']} <target>",
-                        "description": "Rewrap <target> with <pair>",
-                    }
+                    for callback, description in variations
                 ],
             }
         )
