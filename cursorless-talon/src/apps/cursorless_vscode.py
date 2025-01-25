@@ -5,7 +5,7 @@ ctx = Context()
 ctx.matches = r"""
 app: vscode
 # Disable Cursorless for vscode file dialogs
-not title: /^(Open Folder|Open File|Save As|Open Workspace from file|Add Folder to Workspace|Save Workspace)$/i
+not win.title: /^(Open Folder|Open File|Save As|Open Workspace from File|Add Folder to Workspace|Save Workspace)$/i
 """
 
 ctx.tags = ["user.cursorless"]
