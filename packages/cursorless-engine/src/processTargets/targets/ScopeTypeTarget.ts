@@ -26,7 +26,7 @@ export interface ScopeTypeTargetParameters extends CommonTargetParameters {
 }
 
 export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
-  type = "ScopeTypeTarget";
+  instanceType = "ScopeTypeTarget";
   private scopeTypeType_: SimpleScopeTypeType;
   private removalRange_?: Range;
   private interiorRange_?: Range;

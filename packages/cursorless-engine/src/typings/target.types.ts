@@ -30,6 +30,15 @@ import type { EditWithRangeUpdater } from "./Types";
 export type EditNewActionType = "edit" | "insertLineAfter";
 export type JoinAsType = "line" | "token";
 
+export type TargetType =
+  | "character"
+  | "word"
+  | "token"
+  | "line"
+  | "paragraph"
+  | "document"
+  | "notebookCell";
+
 export interface Target {
   /** The text editor used for all ranges */
   readonly editor: TextEditor;
@@ -46,14 +55,16 @@ export interface Target {
   /** Optional prefix. For example, dash or asterisk for a markdown item */
   readonly prefixRange?: Range;
 
+  readonly type: TargetType;
+
   /** If true this target should be treated as a line */
-  readonly isLine: boolean;
+  //   readonly isLine: boolean;
 
   /** If true this target should be treated as a token */
-  readonly isToken: boolean;
+  //   readonly isToken: boolean;
 
   /** If true this target should be treated as a word */
-  readonly isWord: boolean;
+  //   readonly isWord: boolean;
 
   /** Specifies how a target should be joined */
   readonly joinAs: JoinAsType;
@@ -125,7 +136,7 @@ export interface Target {
   readonly isImplicit: boolean;
 
   /** If true this target is a notebook cell */
-  readonly isNotebookCell: boolean;
+  //   readonly isNotebookCell: boolean;
 
   /** The text contained in the content range */
   readonly contentText: string;

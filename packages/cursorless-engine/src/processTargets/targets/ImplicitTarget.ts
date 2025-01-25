@@ -9,7 +9,7 @@ import { BaseTarget } from "./BaseTarget";
  * - The implicit anchor in the range `"take past air"`
  */
 export class ImplicitTarget extends BaseTarget<CommonTargetParameters> {
-  type = "ImplicitTarget";
+  instanceType = "ImplicitTarget";
   insertionDelimiter = "";
   isRaw = true;
   hasExplicitScopeType = false;

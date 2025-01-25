@@ -25,7 +25,7 @@ export default class ToggleBreakpoint implements SimpleAction {
       const breakpointDescriptors: BreakpointDescriptor[] = targets.map(
         (target) => {
           const range = target.contentRange;
-          return target.isLine
+          return isLine(target)
             ? {
                 type: "line",
                 startLine: range.start.line,
@@ -47,4 +47,9 @@ export default class ToggleBreakpoint implements SimpleAction {
       thatTargets: targets,
     };
   }
+}
+
+function isLine(target: Target): boolean {
+  const { type } = target;
+  return type === "line" || type === "paragraph" || type === "document";
 }

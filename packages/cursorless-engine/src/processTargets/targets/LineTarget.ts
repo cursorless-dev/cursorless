@@ -1,16 +1,17 @@
 import type { TextEditor } from "@cursorless/common";
 import { Position, Range } from "@cursorless/common";
+import type { TargetType } from "../../typings/target.types";
+import { expandToFullLine } from "../../util/rangeUtils";
+import { tryConstructTarget } from "../../util/tryConstructTarget";
 import type { CommonTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";
-import { expandToFullLine } from "../../util/rangeUtils";
 import { tryConstructPlainTarget } from "./PlainTarget";
 import { createContinuousLineRange } from "./util/createContinuousRange";
-import { tryConstructTarget } from "../../util/tryConstructTarget";
 
 export class LineTarget extends BaseTarget<CommonTargetParameters> {
-  type = "LineTarget";
+  instanceType = "LineTarget";
+  type: TargetType = "paragraph";
   insertionDelimiter = "\n";
-  isLine = true;
 
   private get fullLineContentRange() {
     return expandToFullLine(this.editor, this.contentRange);

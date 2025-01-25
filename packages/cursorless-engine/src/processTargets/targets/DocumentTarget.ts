@@ -1,13 +1,14 @@
 import type { Range } from "@cursorless/common";
+import type { TargetType } from "../../typings/target.types";
 import { shrinkRangeToFitContent } from "../../util/selectionUtils";
 import type { CommonTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";
 import { PlainTarget } from "./PlainTarget";
 
 export class DocumentTarget extends BaseTarget<CommonTargetParameters> {
-  type = "DocumentTarget";
+  instanceType = "DocumentTarget";
+  type: TargetType = "document";
   insertionDelimiter = "\n";
-  isLine = true;
 
   constructor(parameters: CommonTargetParameters) {
     super(parameters);

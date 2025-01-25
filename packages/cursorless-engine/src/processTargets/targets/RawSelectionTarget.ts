@@ -8,7 +8,7 @@ import { BaseTarget } from "./BaseTarget";
  * inherited from the source in the case of a bring after a bring before
  */
 export class RawSelectionTarget extends BaseTarget<CommonTargetParameters> {
-  type = "RawSelectionTarget";
+  instanceType = "RawSelectionTarget";
   insertionDelimiter = "";
   isRaw = true;
   isToken = false;

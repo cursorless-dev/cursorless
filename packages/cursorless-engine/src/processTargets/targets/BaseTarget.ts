@@ -13,6 +13,7 @@ import type {
   Destination,
   JoinAsType,
   Target,
+  TargetType,
 } from "../../typings/target.types";
 import { DestinationImpl } from "./DestinationImpl";
 import { createContinuousRange } from "./util/createContinuousRange";
@@ -43,17 +44,15 @@ export abstract class BaseTarget<
   in out TParameters extends MinimumTargetParameters,
 > implements Target
 {
-  protected abstract readonly type: string;
+  protected abstract readonly instanceType: string;
   protected readonly state: EnforceUndefined<CommonTargetParameters>;
-  isLine = false;
-  isToken = true;
   hasExplicitScopeType = true;
   hasExplicitRange = true;
   isRaw = false;
   isImplicit = false;
   isNotebookCell = false;
-  isWord = false;
   joinAs: JoinAsType = "line";
+  type: TargetType = "token";
 
   constructor(parameters: TParameters & CommonTargetParameters) {
     this.state = {
@@ -177,14 +176,14 @@ export abstract class BaseTarget<
    *
    * Note that this implementation is quite incomplete, but is suitable for
    * round-tripping {@link UntypedTarget} objects and capturing the fact that an
-   * object is not an un typed target if it is not, via the {@link type}
+   * object is not an un typed target if it is not, via the {@link instanceType}
    * attribute.  In the future, we should override this method in subclasses to
    * provide a more complete representation.
    * @returns A plain object representation of the target
    */
   toPlainObject(): TargetPlainObject {
     return {
-      type: this.type,
+      type: this.instanceType,
       contentRange: rangeToPlainObject(this.contentRange),
       isReversed: this.isReversed,
       hasExplicitRange: this.hasExplicitRange,

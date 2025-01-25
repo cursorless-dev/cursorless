@@ -9,7 +9,7 @@ export interface InteriorTargetParameters extends MinimumTargetParameters {
 }
 
 export class InteriorTarget extends BaseTarget<InteriorTargetParameters> {
-  type = "InteriorTarget";
+  instanceType = "InteriorTarget";
   insertionDelimiter = " ";
   readonly fullInteriorRange: Range;
 

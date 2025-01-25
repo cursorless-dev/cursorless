@@ -1,7 +1,7 @@
 import type { Range } from "@cursorless/common";
+import type { Target, TargetType } from "../../typings/target.types";
 import type { CommonTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";
-import type { Target } from "../../typings/target.types";
 import {
   getTokenLeadingDelimiterTarget,
   getTokenRemovalRange,
@@ -10,7 +10,7 @@ import {
 
 interface UntypedTargetParameters extends CommonTargetParameters {
   readonly hasExplicitRange: boolean;
-  readonly isToken?: boolean;
+  readonly type?: TargetType;
 }
 
 /**
@@ -19,14 +19,14 @@ interface UntypedTargetParameters extends CommonTargetParameters {
  * - Expand to nearest containing pair when asked for boundary or interior
  */
 export class UntypedTarget extends BaseTarget<UntypedTargetParameters> {
-  type = "UntypedTarget";
+  instanceType = "UntypedTarget";
   insertionDelimiter = " ";
   hasExplicitScopeType = false;
 
   constructor(parameters: UntypedTargetParameters) {
     super(parameters);
     this.hasExplicitRange = parameters.hasExplicitRange;
-    this.isToken = parameters.isToken ?? true;
+    this.type = parameters.type ?? "token";
   }
 
   getLeadingDelimiterTarget(): Target | undefined {
@@ -52,7 +52,7 @@ export class UntypedTarget extends BaseTarget<UntypedTargetParameters> {
   protected getCloneParameters() {
     return {
       ...this.state,
-      isToken: this.isToken,
+      type: this.type,
       hasExplicitRange: this.hasExplicitRange,
     };
   }

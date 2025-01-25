@@ -48,7 +48,7 @@ export function createContinuousRangeTarget(
     }
   }
 
-  if (startTarget.isLine && endTarget.isLine) {
+  if (isLine(startTarget) && isLine(endTarget)) {
     return new LineTarget({
       editor: startTarget.editor,
       isReversed,
@@ -71,7 +71,17 @@ export function createContinuousRangeTarget(
       includeStart,
       includeEnd,
     ),
-    isToken:
-      includeStart && includeEnd && startTarget.isToken && endTarget.isToken,
+    type:
+      includeStart &&
+      includeEnd &&
+      startTarget.type === "token" &&
+      endTarget.type === "token"
+        ? "token"
+        : "character",
   });
+}
+
+function isLine(target: Target): boolean {
+  const { type } = target;
+  return type === "line" || type === "paragraph" || type === "document";
 }

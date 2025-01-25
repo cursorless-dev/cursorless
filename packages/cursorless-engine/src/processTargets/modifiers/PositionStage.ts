@@ -15,7 +15,7 @@ abstract class PositionStage implements ModifierStage {
     return [
       target.isRaw
         ? new RawSelectionTarget(parameters)
-        : new PlainTarget({ ...parameters, isToken: false }),
+        : new PlainTarget({ ...parameters, type: "character" }),
     ];
   }
 

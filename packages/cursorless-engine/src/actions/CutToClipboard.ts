@@ -21,7 +21,7 @@ export class CutToClipboard implements SimpleAction {
         const { editor, contentRange } = target;
         const removalHighlightRange = target.getRemovalHighlightRange();
 
-        if (target.isLine) {
+        if (isLine(target)) {
           return [
             {
               editor,
@@ -61,6 +61,11 @@ export class CutToClipboard implements SimpleAction {
 
     return { thatTargets };
   }
+}
+
+function isLine(target: Target): boolean {
+  const { type } = target;
+  return type === "line" || type === "paragraph" || type === "document";
 }
 
 /** Get the possible leading and trailing overflow ranges of the outside range compared to the inside range */
