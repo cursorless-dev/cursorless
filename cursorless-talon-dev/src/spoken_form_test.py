@@ -1,5 +1,5 @@
 import json
-from typing import Any, Optional
+from typing import Any
 
 from talon import Context, Module, actions, scope, settings
 
@@ -115,7 +115,7 @@ class Actions:
 
     def private_cursorless_spoken_form_test(
         phrase: str,  # pyright: ignore [reportGeneralTypeIssues]
-        mockedGetValue_: Optional[str],
+        mockedGetValue_: str | None,
     ):
         """Run Cursorless spoken form test"""
         global commands_run, mockedGetValue

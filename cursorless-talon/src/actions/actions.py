@@ -1,4 +1,4 @@
-from typing import Callable, Union
+from typing import Callable
 
 from talon import Module, actions
 
@@ -123,7 +123,7 @@ class Actions:
 
     def cursorless_insert(
         destination: CursorlessDestination,  # pyright: ignore [reportGeneralTypeIssues]
-        text: Union[str, list[str]],
+        text: str | list[str],
     ):
         """Perform text insertion on Cursorless destination"""
         if isinstance(text, str):

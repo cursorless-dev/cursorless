@@ -1,7 +1,7 @@
 import re
 import typing
 from collections.abc import Mapping, Sequence
-from typing import Optional, TypedDict
+from typing import TypedDict
 
 from talon import registry
 
@@ -20,7 +20,7 @@ class ListItemDescriptor(TypedDict):
 
 
 def get_list(
-    name: str, type: str, descriptions: Optional[Mapping[str, str]] = None
+    name: str, type: str, descriptions: Mapping[str, str] | None = None
 ) -> list[ListItemDescriptor]:
     if descriptions is None:
         descriptions = {}
@@ -31,7 +31,7 @@ def get_list(
 
 
 def get_lists(
-    names: Sequence[str], type: str, descriptions: Optional[Mapping[str, str]] = None
+    names: Sequence[str], type: str, descriptions: Mapping[str, str] | None = None
 ) -> list[ListItemDescriptor]:
     return [item for name in names for item in get_list(name, type, descriptions)]
 

@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any
 
 from talon import Module, actions
 
@@ -28,9 +28,9 @@ class Actions:
 class CommandActions:
     def cursorless_custom_command(
         content: str,  # pyright: ignore [reportGeneralTypeIssues]
-        arg1: Optional[Any] = None,
-        arg2: Optional[Any] = None,
-        arg3: Optional[Any] = None,
+        arg1: Any | None = None,
+        arg2: Any | None = None,
+        arg3: Any | None = None,
     ):
         """Cursorless: Run custom parsed command"""
         actions.user.private_cursorless_command_and_wait(

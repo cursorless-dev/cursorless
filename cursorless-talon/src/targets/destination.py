@@ -1,5 +1,3 @@
-from typing import Union
-
 from talon import Module
 
 from .target_types import ListDestination, PrimitiveDestination
@@ -29,7 +27,7 @@ def cursorless_insertion_mode(m) -> str:
         "({user.cursorless_list_connective} <user.cursorless_insertion_mode> <user.cursorless_target>)*"
     )
 )
-def cursorless_destination(m) -> Union[ListDestination, PrimitiveDestination]:
+def cursorless_destination(m) -> ListDestination | PrimitiveDestination:
     destinations = [
         PrimitiveDestination(insertion_mode, target)
         for insertion_mode, target in zip(

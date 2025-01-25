@@ -1,4 +1,4 @@
-from typing import Any, Optional, Union
+from typing import Any
 
 from talon import Module, actions
 
@@ -26,14 +26,14 @@ class TargetBuilderActions:
 
     def cursorless_private_build_primitive_target(
         modifiers: list[dict],  # pyright: ignore [reportGeneralTypeIssues]
-        mark: Optional[dict],
+        mark: dict | None,
     ) -> PrimitiveTarget:
         """Cursorless private api low-level target builder: Create a primitive target"""
         return PrimitiveTarget(mark, modifiers)
 
     def cursorless_private_build_list_target(
-        elements: list[Union[PrimitiveTarget, RangeTarget]],  # pyright: ignore [reportGeneralTypeIssues]
-    ) -> Union[PrimitiveTarget, RangeTarget, ListTarget]:
+        elements: list[PrimitiveTarget | RangeTarget],  # pyright: ignore [reportGeneralTypeIssues]
+    ) -> PrimitiveTarget | RangeTarget | ListTarget:
         """Cursorless private api low-level target builder: Create a list target"""
         if len(elements) == 1:
             return elements[0]
@@ -52,7 +52,7 @@ class TargetActions:
 class ActionActions:
     def cursorless_private_action_highlight(
         target: CursorlessTarget,  # pyright: ignore [reportGeneralTypeIssues]
-        highlightId: Optional[str] = None,
+        highlightId: str | None = None,
     ) -> None:
         """Cursorless private api: Highlights a target"""
         payload = {
