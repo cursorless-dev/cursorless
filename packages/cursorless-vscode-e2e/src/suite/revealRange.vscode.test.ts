@@ -34,8 +34,7 @@ async function preFile() {
   });
 
   assert.equal(editor.visibleRanges.length, 1);
-  // FIXME: Disabled to work around CI failure; see #2243
-  //   assert.equal(editor.visibleRanges[0].start.line, 0);
+  assert.equal(editor.visibleRanges[0].start.line, 0);
 }
 
 async function postFile() {
@@ -61,6 +60,5 @@ async function postFile() {
   });
 
   assert.equal(editor.visibleRanges.length, 1);
-  // FIXME: Disabled to work around CI failure; see #2243
-  //   assert.equal(editor.visibleRanges[0].end.line, editor.document.lineCount - 1);
+  assert.equal(editor.visibleRanges[0].end.line, editor.document.lineCount - 1);
 }
