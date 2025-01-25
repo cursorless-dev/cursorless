@@ -2,7 +2,7 @@ import type { ScopeType } from "@cursorless/common";
 
 export class OutOfRangeError extends Error {
   constructor(scopeType: ScopeType, index?: number) {
-    const numberStr = index != null ? ` #${index + 1} ` : "";
+    const numberStr = index != null ? ` #${index + 1}` : "";
     super(`Scope '${scopeType.type}'${numberStr} is out of range`);
     this.name = "OutOfRangeError";
   }
