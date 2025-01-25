@@ -34,7 +34,7 @@ export function getSurroundingPairOccurrences(
       );
 
       if (openingDelimiterIndex === -1) {
-        // When side is unknown and we can't find an opening delimiter, that means this is the opening delimiter.
+        // When side is unknown and we can't find an opening delimiter, that means this *is* the opening delimiter.
         if (side === "unknown") {
           openingDelimitersStack.push(occurrence);
         }
