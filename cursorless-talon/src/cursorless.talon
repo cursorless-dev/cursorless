@@ -50,6 +50,3 @@ tutorial <number_small>:
 
 {user.cursorless_homophone} migrate snippets:
     user.private_cursorless_migrate_snippets()
-
-# TODO:
-migrate:    user.private_cursorless_migrate_snippets()

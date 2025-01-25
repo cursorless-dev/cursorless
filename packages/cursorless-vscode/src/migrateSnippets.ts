@@ -40,7 +40,7 @@ async function migrateFile(targetDirectory: string, filePath: string) {
       name: snippetName,
       variables: parseVariables(snippet.variables),
       insertionScopes: snippet.insertionScopeTypes,
-      // TODO: snippet.description
+      snippet.description
     });
 
     for (const def of snippet.definitions) {
@@ -48,8 +48,8 @@ async function migrateFile(targetDirectory: string, filePath: string) {
         body: def.body.map((line) => line.replaceAll("\t", "    ")),
         languages: def.scope?.langIds,
         variables: parseVariables(def.variables),
-        // TODO: def.scope?.scopeTypes
-        // TODO: def.scope?.excludeDescendantScopeTypes
+        // SKIP: def.scope?.scopeTypes
+        // SKIP: def.scope?.excludeDescendantScopeTypes
       });
     }
   }
@@ -75,7 +75,7 @@ function parseVariables(
         insertionFormatters: variable.formatter
           ? [variable.formatter]
           : undefined,
-        // TODO: variable.description
+        // SKIP: variable.description
       };
     },
   );
