@@ -1,0 +1,26 @@
+languageId: python
+command:
+  version: 7
+  spokenForm: change inside
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: interiorOnly}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    def testing():
+        pass
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |-
+    def testing():
+        
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
