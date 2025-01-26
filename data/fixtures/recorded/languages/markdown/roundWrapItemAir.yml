@@ -26,8 +26,8 @@ initialState:
       end: {line: 0, character: 5}
 finalState:
   documentContents: |
-    - (aaa)
-      - bbb
+    - (aaa
+      - bbb)
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}

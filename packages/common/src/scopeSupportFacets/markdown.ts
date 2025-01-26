@@ -9,4 +9,5 @@ export const markdownScopeSupport: LanguageScopeSupportFacetMap = {
   "comment.block": supported,
   section: supported,
   notebookCell: supported,
+  "collectionItem.unenclosed": supported,
 };
