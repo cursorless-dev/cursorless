@@ -1,5 +1,4 @@
 import {
-  NoContainingScopeError,
   type Direction,
   type Position,
   type ScopeType,
@@ -8,6 +7,7 @@ import {
 } from "@cursorless/common";
 import type { LanguageDefinitions } from "../../../../languages/LanguageDefinitions";
 import { BaseScopeHandler } from "../BaseScopeHandler";
+import { FallbackScopeHandler } from "../FallbackScopeHandler";
 import { OneOfScopeHandler } from "../OneOfScopeHandler";
 import type { TargetScope } from "../scope.types";
 import type {
@@ -27,25 +27,14 @@ export class InteriorScopeHandler extends BaseScopeHandler {
   }
 
   constructor(
-    scopeHandlerFactory: ScopeHandlerFactory,
+    private scopeHandlerFactory: ScopeHandlerFactory,
     languageDefinitions: LanguageDefinitions,
     scopeType: SimpleScopeType,
-    languageId: string,
+    private languageId: string,
   ) {
     super();
 
     this.scopeHandler = (() => {
-      const languageScopeHandler = languageDefinitions
-        .get(languageId)
-        ?.getScopeHandler(this.scopeType);
-
-      if (scopeType.type === "interiorTreeOnly") {
-        if (languageScopeHandler == null) {
-          throw new NoContainingScopeError(this.scopeType.type);
-        }
-        return languageScopeHandler;
-      }
-
       const pairInteriorScopeHandler = scopeHandlerFactory.create(
         {
           type: "surroundingPairInterior",
@@ -55,8 +44,19 @@ export class InteriorScopeHandler extends BaseScopeHandler {
         languageId,
       );
 
+      const languageScopeHandler = languageDefinitions
+        .get(languageId)
+        ?.getScopeHandler(this.scopeType);
+
       if (languageScopeHandler == null) {
         return pairInteriorScopeHandler;
+      }
+
+      if (scopeType.type === "interiorTreeOnly") {
+        return FallbackScopeHandler.createFromScopeHandlers([
+          languageScopeHandler,
+          pairInteriorScopeHandler,
+        ]);
       }
 
       return OneOfScopeHandler.createFromScopeHandlers(

@@ -52,14 +52,22 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
     const domain =
       getRelatedRange(match, scopeTypeType, "domain", true) ?? contentRange;
 
-    const removalRange = getRelatedRange(match, scopeTypeType, "removal", true);
+    if (scopeTypeType === "interior") {
+      return {
+        editor,
+        domain,
+        allowMultiple,
+        getTargets: (isReversed) => [
+          new InteriorTarget({
+            editor,
+            isReversed,
+            fullInteriorRange: contentRange,
+          }),
+        ],
+      };
+    }
 
-    const interiorRange = getRelatedRange(
-      match,
-      scopeTypeType,
-      "interior",
-      true,
-    );
+    const removalRange = getRelatedRange(match, scopeTypeType, "removal", true);
 
     const prefixRange = getRelatedRange(
       match,
@@ -82,21 +90,6 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
       true,
     )?.with(contentRange.end);
 
-    if (scopeTypeType === "interior") {
-      return {
-        editor,
-        domain,
-        allowMultiple,
-        getTargets: (isReversed) => [
-          new InteriorTarget({
-            editor,
-            isReversed,
-            fullInteriorRange: contentRange,
-          }),
-        ],
-      };
-    }
-
     return {
       editor,
       domain,
@@ -111,7 +104,6 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
           removalRange,
           leadingDelimiterRange,
           trailingDelimiterRange,
-          interiorRange,
           insertionDelimiter,
         }),
       ],

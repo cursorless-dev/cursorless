@@ -133,7 +133,7 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
       case "oneOf":
         return OneOfScopeHandler.create(this, scopeType, languageId);
       case "fallback":
-        return new FallbackScopeHandler(this, scopeType, languageId);
+        return FallbackScopeHandler.create(this, scopeType, languageId);
       case "conditional":
         return new ConditionalScopeHandler(this, scopeType, languageId);
       case "instance":

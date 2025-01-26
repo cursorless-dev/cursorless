@@ -65,7 +65,6 @@ export class LegacyContainingSyntaxScopeStage implements ModifierStage {
         leadingDelimiterRange,
         trailingDelimiterRange,
         removalRange,
-        interiorRange,
       } = scope.context;
 
       if (
@@ -85,7 +84,6 @@ export class LegacyContainingSyntaxScopeStage implements ModifierStage {
         isReversed: target.isReversed,
         contentRange: contentSelection,
         removalRange: removalRange,
-        interiorRange: interiorRange,
         insertionDelimiter: containingListDelimiter,
         leadingDelimiterRange,
         trailingDelimiterRange,
