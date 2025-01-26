@@ -42,6 +42,18 @@ export const scopeSupportFacetInfos: Record<
     description: "A document section",
     scopeType: "section",
   },
+  "section.iteration.document": {
+    description:
+      "Iteration scope for a document section. This is the entire document.",
+    scopeType: "section",
+    isIteration: true,
+  },
+  "section.iteration.parent": {
+    description:
+      "Iteration scope for a document section. This is the parent section.",
+    scopeType: "section",
+    isIteration: true,
+  },
 
   list: {
     description: "A list/array",
