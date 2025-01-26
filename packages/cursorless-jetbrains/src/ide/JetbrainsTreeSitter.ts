@@ -19,7 +19,7 @@ export class JetbrainsTreeSitter implements TreeSitter {
   }
 
   async loadLanguage(languageId: string): Promise<boolean> {
-    console.log(`Loading language ${languageId}`);
+    // console.log(`Loading language ${languageId}`);
     const parser = new Parser();
     const filePath = pathJoin(
       this.wasmDirectory,

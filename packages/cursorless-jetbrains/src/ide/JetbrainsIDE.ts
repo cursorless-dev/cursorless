@@ -16,6 +16,7 @@ import type {
   TextDocumentChangeEvent,
   TextEditor,
   WorkspaceFolder,
+  NotebookEditor,
 } from "@cursorless/common";
 import { pull } from "lodash-es";
 import { JetbrainsCapabilities } from "./JetbrainsCapabilities";
@@ -38,6 +39,7 @@ export class JetbrainsIDE implements IDE {
   readonly clipboard: JetbrainsClipboard;
   readonly capabilities: JetbrainsCapabilities;
   readonly runMode: RunMode = "development";
+  readonly visibleNotebookEditors: NotebookEditor[] = [];
   //   private editorMap;
   //   private documentMap;
   private activeProject: Window | undefined;
@@ -138,9 +140,9 @@ export class JetbrainsIDE implements IDE {
   }
 
   getEditableTextEditor(editor: TextEditor): EditableTextEditor  {
-    console.log("getEditableTextEditor");
+    // console.log("getEditableTextEditor");
     if (editor instanceof JetbrainsEditor) {
-      console.log("getEditableTextEditor - return current");
+      // console.log("getEditableTextEditor - return current");
       if (editor.isEditable) {
         return editor;
       } else {

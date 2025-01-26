@@ -29,7 +29,7 @@ export class JetbrainsHats implements Hats {
   }
 
   setHatRanges(hatRanges: HatRange[]): Promise<void> {
-    console.log("ASOEE/CL: JetbrainsHats.setHatRanges : " + hatRanges.length);
+    // console.log("ASOEE/CL: JetbrainsHats.setHatRanges : " + hatRanges.length);
 
     this.hatRanges = hatRanges;
     const jbHatRanges = this.toJetbransHatRanges(hatRanges);

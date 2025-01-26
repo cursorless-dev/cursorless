@@ -16,7 +16,7 @@ export class JetbrainsTreeSitterQueryProvider
   onChanges = this.notifier.registerListener;
 
   async readQuery(filename: string): Promise<string | undefined> {
-    console.log("readQuery", filename);
+    // console.log("readQuery", filename);
     const queryContents = await this.ide.readQuery(filename);
     return queryContents;
   }

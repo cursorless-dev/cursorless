@@ -16,7 +16,7 @@ export function createTextEditor(
   ide: JetbrainsIDE,
   editorState: EditorState,
 ): JetbrainsEditor {
-  console.log("createTextEditor");
+  // console.log("createTextEditor");
 
   const id = editorState.id;
   const uri = URI.parse(`talon-jetbrains://${id}`);
@@ -43,7 +43,7 @@ export function createSelection(
   document: TextDocument,
   selection: JbSelection,
 ): Selection {
-  console.log("createSelection " + JSON.stringify(selection));
+  // console.log("createSelection " + JSON.stringify(selection));
   return new Selection(
     createPosition(selection.anchor),
     createPosition(selection.active),

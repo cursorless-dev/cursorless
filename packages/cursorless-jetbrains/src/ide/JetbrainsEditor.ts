@@ -45,7 +45,7 @@ export class JetbrainsEditor implements EditableTextEditor {
     selections: Selection[],
     _opts?: SetSelectionsOpts,
   ): Promise<void> {
-    console.log("editor.setSelections");
+    // console.log("editor.setSelections");
     if (!selectionsEqual(this.selections, selections)) {
       await setSelections(this.client, this.document, this.id, selections);
       this.selections = selections;
@@ -53,7 +53,7 @@ export class JetbrainsEditor implements EditableTextEditor {
   }
 
   edit(edits: Edit[]): Promise<boolean> {
-    console.log("editor.edit");
+    // console.log("editor.edit");
     jetbrainsPerformEdits(this.client, this.ide, this.document, this.id, edits);
     return Promise.resolve(true);
   }
@@ -220,7 +220,7 @@ export class JetbrainsEditor implements EditableTextEditor {
     await this.client.executeRangeCommand(this.id, JSON.stringify(command));
   }
 
-  editNewNotebookCellAbove(): Promise<(_selection: Selection) => Selection> {
+  editNewNotebookCellAbove(): Promise<void> {
     throw new Error("editNewNotebookCellAbove not implemented.");
   }
 

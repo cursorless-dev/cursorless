@@ -28,9 +28,9 @@ export function fromJetbrainsContentChange(
 ): TextDocumentContentChangeEvent[] {
   const result = [];
   const text = linedata.join("\n");
-  console.debug(
-    `fromJetbrainsContentChange(): document.getText(): '${document.getText()}'`,
-  );
+  // console.debug(
+  //   `fromJetbrainsContentChange(): document.getText(): '${document.getText()}'`,
+  // );
   const range = new Range(
     new Position(firstLine, 0),
     new Position(lastLine - 1, document.lineAt(lastLine - 1).text.length),
@@ -43,9 +43,9 @@ export function fromJetbrainsContentChange(
     rangeLength: rangeLength,
     text: text,
   });
-  console.debug(
-    `fromJetbrainsContentChange(): changes=${JSON.stringify(result)}`,
-  );
+  // console.debug(
+  //   `fromJetbrainsContentChange(): changes=${JSON.stringify(result)}`,
+  // );
   return result;
 }
 

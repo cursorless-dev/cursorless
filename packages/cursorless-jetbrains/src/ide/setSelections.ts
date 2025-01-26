@@ -7,9 +7,9 @@ export function setSelections(
   editorId: string,
   selections: Selection[],
 ): Promise<void> {
-  console.log("setSelections: " + selections);
+  // console.log("setSelections: " + selections);
   const selectionsJson = JSON.stringify(selections);
-  console.log("setSelections JSON: " + selectionsJson);
+  // console.log("setSelections JSON: " + selectionsJson);
   client.setSelection(editorId, selectionsJson);
   return Promise.resolve();
 }
