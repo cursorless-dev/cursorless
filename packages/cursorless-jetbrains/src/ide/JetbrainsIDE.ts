@@ -38,7 +38,7 @@ export class JetbrainsIDE implements IDE {
   readonly messages: JetbrainsMessages;
   readonly clipboard: JetbrainsClipboard;
   readonly capabilities: JetbrainsCapabilities;
-  readonly runMode: RunMode = "development";
+  readonly runMode: RunMode = "production";
   readonly visibleNotebookEditors: NotebookEditor[] = [];
   //   private editorMap;
   //   private documentMap;
