@@ -34,6 +34,10 @@
   value: (_) @value
 ) @_.domain
 
+;;!! enum Aaa {}
+;;!  ^^^^^^^^^^^
+(enum_declaration) @type
+
 ;;!! function aaa(bbb: Ccc = "ddd") {}
 ;;!               ^^^-------------
 (required_parameter
