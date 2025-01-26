@@ -23,4 +23,14 @@ def get_scopes():
                 },
             ],
         },
+        {
+            "id": "pair",
+            "type": "scopeType",
+            "variations": [
+                {
+                    "spokenForm": "<pair>",
+                    "description": "Paired delimiters",
+                },
+            ],
+        },
     ]
