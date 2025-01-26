@@ -1,6 +1,7 @@
 import type { SimpleScopeType, TextEditor } from "@cursorless/common";
 import type { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
 import type { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
+import { InteriorTarget } from "../../../targets";
 import { ScopeTypeTarget } from "../../../targets/ScopeTypeTarget";
 import type { CustomScopeType } from "../scopeHandler.types";
 import type { ExtendedTargetScope } from "./BaseTreeSitterScopeHandler";
@@ -80,6 +81,21 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
       "trailing",
       true,
     )?.with(contentRange.end);
+
+    if (scopeTypeType === "interior") {
+      return {
+        editor,
+        domain,
+        allowMultiple,
+        getTargets: (isReversed) => [
+          new InteriorTarget({
+            editor,
+            isReversed,
+            fullInteriorRange: contentRange,
+          }),
+        ],
+      };
+    }
 
     return {
       editor,
