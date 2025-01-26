@@ -113,8 +113,8 @@
 ;;!  ^^^^^^^^^^^^^^^^
 (
   (command_declaration
-    right: (_) @_.interior
-  ) @command
+    right: (_) @interior
+  ) @command @interior.domain
   (#insertion-delimiter! @command "\n")
 )
 

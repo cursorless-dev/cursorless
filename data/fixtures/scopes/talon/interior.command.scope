@@ -1,0 +1,23 @@
+do something:
+    a = 2
+---
+
+[Content] = 1:4-1:9
+      >-----<
+1|     a = 2
+
+[Removal] = 1:0-1:9
+  >---------<
+1|     a = 2
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     a = 2
+
+[Domain] = 0:0-1:9
+  >-------------
+0| do something:
+1|     a = 2
+   ---------<
+
+[Insertion delimiter] = " "

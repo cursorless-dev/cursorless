@@ -1,12 +1,12 @@
-def foo():
+class MyClass:
     pass
 ---
 
 [Content] =
 [Removal] =
 [Domain] = 0:0-1:8
-  >----------
-0| def foo():
+  >--------------
+0| class MyClass:
 1|     pass
    --------<
 

@@ -12,6 +12,7 @@ export const htmlScopeSupport: LanguageScopeSupportFacetMap = {
   "key.attribute": supported,
   "value.attribute": supported,
   "comment.block": supported,
+  "interior.element": supported,
 
   "argument.actual": notApplicable,
   "argument.actual.iteration": notApplicable,

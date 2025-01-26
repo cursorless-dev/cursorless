@@ -10,7 +10,6 @@ const positionSuffixes = ["startOf", "endOf"];
 const rangeRelationships = [
   "domain",
   "removal",
-  "interior",
   "iteration",
   "iteration.domain",
 ];

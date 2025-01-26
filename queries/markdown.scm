@@ -53,11 +53,11 @@
 ;;!  ^^^
 (
   (fenced_code_block
-    (fenced_code_block_delimiter) @_.interior.start.endOf
+    (fenced_code_block_delimiter) @interior.start.endOf
     .
     (block_continuation)
-    (fenced_code_block_delimiter) @_.interior.end.startOf
-  ) @notebookCell
+    (fenced_code_block_delimiter) @interior.end.startOf
+  ) @notebookCell @interior.domain
   (#trim-end! @notebookCell)
   (#insertion-delimiter! @notebookCell "\n\n")
 )
@@ -71,9 +71,9 @@
 ;;!  ^^^
 (
   (fenced_code_block
-    (info_string) @_.interior.start.endOf
-    (fenced_code_block_delimiter) @_.interior.end.startOf
-  ) @notebookCell
+    (info_string) @interior.start.endOf
+    (fenced_code_block_delimiter) @interior.end.startOf
+  ) @notebookCell @interior.domain
   (#trim-end! @notebookCell)
   (#insertion-delimiter! @notebookCell "\n\n")
 )

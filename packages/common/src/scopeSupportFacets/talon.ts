@@ -5,4 +5,5 @@ const { supported } = ScopeSupportFacetLevel;
 
 export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   command: supported,
+  "interior.command": supported,
 };

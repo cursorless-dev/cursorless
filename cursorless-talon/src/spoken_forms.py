@@ -161,6 +161,7 @@ def update():
                 "textFragment",
                 "disqualifyDelimiter",
                 "pairDelimiter",
+                "interior",
             ],
             default_list_name="scope_type",
         ),

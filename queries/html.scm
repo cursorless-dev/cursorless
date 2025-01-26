@@ -68,9 +68,9 @@
 ;;!  ^^^^^^^^^^^^^^^
 ;;!       ^^^^
 (_
-  (start_tag) @xmlElement.interior.start.endOf
-  (end_tag) @xmlElement.interior.end.startOf
-) @xmlElement
+  (start_tag) @interior.start.endOf
+  (end_tag) @interior.end.startOf
+) @xmlElement @interior.domain
 
 ;;!! <aaa>text</aaa>
 ;;!  ^^^^^    ^^^^^^

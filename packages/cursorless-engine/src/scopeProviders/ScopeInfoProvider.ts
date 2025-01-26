@@ -126,6 +126,7 @@ function isLanguageSpecific(scopeType: ScopeType): boolean {
     case "functionName":
     case "ifStatement":
     case "instance":
+    case "interior":
     case "list":
     case "map":
     case "name":

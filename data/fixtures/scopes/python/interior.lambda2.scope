@@ -1,0 +1,20 @@
+lambda x: x
+---
+
+[Content] = 0:10-0:11
+            >-<
+0| lambda x: x
+
+[Removal] = 0:9-0:11
+           >--<
+0| lambda x: x
+
+[Leading delimiter] = 0:9-0:10
+           >-<
+0| lambda x: x
+
+[Domain] = 0:0-0:11
+  >-----------<
+0| lambda x: x
+
+[Insertion delimiter] = " "

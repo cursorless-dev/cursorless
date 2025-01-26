@@ -38,6 +38,12 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.try": supported,
   "branch.loop": supported,
 
+  class: supported,
+
+  "interior.class": supported,
+  "interior.function": supported,
+  "interior.lambda": supported,
+
   element: notApplicable,
   tags: notApplicable,
   attribute: notApplicable,

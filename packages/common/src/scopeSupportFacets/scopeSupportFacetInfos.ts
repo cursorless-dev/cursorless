@@ -689,6 +689,31 @@ export const scopeSupportFacetInfos: Record<
     isIteration: true,
   },
 
+  "interior.class": {
+    description: "The body of a class",
+    scopeType: "interior",
+  },
+  "interior.function": {
+    description: "The body of a function",
+    scopeType: "interior",
+  },
+  "interior.lambda": {
+    description: "The body of a lambda/anonymous function",
+    scopeType: "interior",
+  },
+  "interior.element": {
+    description: "The interior/children of an xml element",
+    scopeType: "interior",
+  },
+  "interior.command": {
+    description: "The body of a Talon command",
+    scopeType: "interior",
+  },
+  "interior.cell": {
+    description: "The body of code cell in markdown",
+    scopeType: "interior",
+  },
+
   notebookCell: {
     description: "A cell in a notebook or a markdown code block",
     scopeType: "notebookCell",

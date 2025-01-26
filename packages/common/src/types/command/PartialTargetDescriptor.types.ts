@@ -154,6 +154,7 @@ export const simpleScopeTypeTypes = [
   "functionName",
   "ifStatement",
   "instance",
+  "interior",
   "list",
   "map",
   "name",
@@ -254,6 +255,8 @@ export interface SurroundingPairInteriorScopeType {
   delimiter: SurroundingPairName;
   // If true don't yield multiline pairs
   requireSingleLine?: boolean;
+  // If true the domain will be the full pair instead of just the interior
+  allowWeakContainment?: boolean;
 }
 
 export interface OneOfScopeType {

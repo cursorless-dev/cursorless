@@ -16,8 +16,8 @@
 (subparagraph) @subParagraph
 
 (_
-  (begin) @xmlStartTag @environment.interior.start.endOf @xmlElement.interior.start.endOf
-  (end) @xmlEndTag @environment.interior.end.startOf @xmlElement.interior.end.startOf
+  (begin) @xmlStartTag @interior.start.endOf
+  (end) @xmlEndTag @interior.end.startOf
 ) @environment @xmlElement @_.domain
 
 (_

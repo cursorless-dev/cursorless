@@ -282,30 +282,30 @@
 (
   (function_definition
     name: (_) @functionName
-    body: (_) @namedFunction.interior
-  ) @namedFunction @functionName.domain
+    body: (_) @interior
+  ) @namedFunction @functionName.domain @interior.domain
   (#not-parent-type? @namedFunction decorated_definition)
 )
 (decorated_definition
   (function_definition
     name: (_) @functionName
-    body: (_) @namedFunction.interior
+    body: (_) @interior
   )
-) @namedFunction @functionName.domain
+) @namedFunction @functionName.domain @interior.domain
 
 (
   (class_definition
     name: (_) @className
-    body: (_) @class.interior
-  ) @class @className.domain
+    body: (_) @interior
+  ) @class @className.domain @interior.domain
   (#not-parent-type? @class decorated_definition)
 )
 (decorated_definition
   (class_definition
     name: (_) @className
-    body: (_) @class.interior
+    body: (_) @interior
   )
-) @class @className.domain
+) @class @className.domain @interior.domain
 
 (module) @className.iteration @class.iteration
 (module) @statement.iteration
@@ -362,8 +362,8 @@
 ;;!! lambda _: pass
 ;;!  ^^^^^^^^^^^^^^
 (lambda
-  body: (_) @anonymousFunction.interior
-) @anonymousFunction
+  body: (_) @interior
+) @anonymousFunction @interior.domain
 
 ;;!! match value:
 ;;!        ^^^^^

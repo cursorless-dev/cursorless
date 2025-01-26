@@ -1,0 +1,23 @@
+class MyClass:
+    pass
+---
+
+[Content] = 1:4-1:8
+      >----<
+1|     pass
+
+[Removal] = 1:0-1:8
+  >--------<
+1|     pass
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     pass
+
+[Domain] = 0:0-1:8
+  >--------------
+0| class MyClass:
+1|     pass
+   --------<
+
+[Insertion delimiter] = " "

@@ -171,6 +171,13 @@ export const scopeSupportFacets = [
   "type.typeArgument",
   "type.typeArgument.iteration",
 
+  "interior.class",
+  "interior.function",
+  "interior.lambda",
+  "interior.element",
+  "interior.command",
+  "interior.cell",
+
   "notebookCell",
 
   // FIXME: Still in legacy
