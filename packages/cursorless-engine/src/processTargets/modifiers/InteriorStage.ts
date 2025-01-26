@@ -23,7 +23,7 @@ export class InteriorOnlyStage implements ModifierStage {
     const containingInteriorStage = this.modifierStageFactory.create({
       type: "containingScope",
       scopeType: {
-        type: target.hasExplicitScopeType ? "interiorTreeOnly" : "interior",
+        type: target.hasExplicitScopeType ? "interiorFallback" : "interior",
       },
     });
 

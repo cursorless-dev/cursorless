@@ -52,7 +52,7 @@ export class InteriorScopeHandler extends BaseScopeHandler {
         return pairInteriorScopeHandler;
       }
 
-      if (scopeType.type === "interiorTreeOnly") {
+      if (scopeType.type === "interiorFallback") {
         return FallbackScopeHandler.createFromScopeHandlers([
           languageScopeHandler,
           pairInteriorScopeHandler,
