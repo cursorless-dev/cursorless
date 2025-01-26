@@ -235,6 +235,10 @@ The modifier `"grand"` can be used to select the parent of the containing syntac
 
 For example, the command `"take grand statement [blue] air"` will select that parent statement of the statement containing the token with a blue hat over the letter 'a'.
 
+You can also repeat `"grand"` multiple times.
+
+For example, the command `"take grand grand statement [blue] air"` will select that parent statement of parent the statement of the statement containing the token with a blue hat over the letter 'a'.
+
 ##### Sub-token modifiers
 
 ###### `"sub"`
