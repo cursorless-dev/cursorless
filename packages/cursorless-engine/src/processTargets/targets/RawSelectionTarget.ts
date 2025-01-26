@@ -11,7 +11,6 @@ export class RawSelectionTarget extends BaseTarget<CommonTargetParameters> {
   instanceType = "RawSelectionTarget";
   insertionDelimiter = "";
   isRaw = true;
-  isToken = false;
 
   getLeadingDelimiterTarget = () => undefined;
   getTrailingDelimiterTarget = () => undefined;

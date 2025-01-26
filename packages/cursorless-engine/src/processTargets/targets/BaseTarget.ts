@@ -52,7 +52,7 @@ export abstract class BaseTarget<
   isImplicit = false;
   isNotebookCell = false;
   joinAs: JoinAsType = "line";
-  type: TargetType = "token";
+  type: TargetType | undefined = undefined;
 
   constructor(parameters: TParameters & CommonTargetParameters) {
     this.state = {

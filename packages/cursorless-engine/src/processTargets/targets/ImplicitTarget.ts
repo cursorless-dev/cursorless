@@ -14,7 +14,6 @@ export class ImplicitTarget extends BaseTarget<CommonTargetParameters> {
   isRaw = true;
   hasExplicitScopeType = false;
   isImplicit = true;
-  isToken = false;
 
   getLeadingDelimiterTarget = () => undefined;
   getTrailingDelimiterTarget = () => undefined;

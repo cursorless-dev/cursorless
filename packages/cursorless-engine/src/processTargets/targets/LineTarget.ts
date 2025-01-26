@@ -10,7 +10,7 @@ import { createContinuousLineRange } from "./util/createContinuousRange";
 
 export class LineTarget extends BaseTarget<CommonTargetParameters> {
   instanceType = "LineTarget";
-  type: TargetType = "paragraph";
+  type: TargetType = "line";
   insertionDelimiter = "\n";
 
   private get fullLineContentRange() {

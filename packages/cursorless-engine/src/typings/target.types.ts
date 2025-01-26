@@ -55,7 +55,7 @@ export interface Target {
   /** Optional prefix. For example, dash or asterisk for a markdown item */
   readonly prefixRange?: Range;
 
-  readonly type: TargetType;
+  readonly type: TargetType | undefined;
 
   /** If true this target should be treated as a line */
   //   readonly isLine: boolean;
