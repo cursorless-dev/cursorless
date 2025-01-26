@@ -52,7 +52,7 @@ export class ContainingScopeStage implements ModifierStage {
     );
 
     if (containingScopes == null) {
-      throw new NoContainingScopeError(this.modifier.scopeType.type);
+      throw new NoContainingScopeError(scopeType.type);
     }
 
     return containingScopes;
