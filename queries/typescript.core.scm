@@ -36,7 +36,6 @@
 
 ;;!! enum Aaa {}
 ;;!  ^^^^^^^^^^^
-
 (enum_declaration) @type
 
 ;;!! function aaa(bbb: Ccc = "ddd") {}
