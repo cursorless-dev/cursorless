@@ -30,6 +30,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     singleQuotes: "twin",
     tripleDoubleQuotes: isPrivate("triple quad"),
     tripleSingleQuotes: isPrivate("triple twin"),
+    tripleBacktickQuotes: isPrivate("triple skis"),
     any: "pair",
     string: "string",
     whitespace: "void",
