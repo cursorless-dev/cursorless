@@ -77,11 +77,9 @@
 
 ;;!!
 (if_statement
-  "if" @branch.start
-  consequence: (_) @branch.end @interior
-) @ifStatement @interior.domain
-
-(if_statement) @branch.iteration @condition.iteration
+  "if" @branch.start @interior.domain.start
+  consequence: (_) @branch.end @interior @interior.domain.end
+) @ifStatement @branch.iteration @condition.iteration
 
 ;;!! if x < y then
 ;;!!     print("x smaller")
@@ -117,12 +115,10 @@
 
 ;; Lists and maps
 (table_constructor
-  "{" @interior.start.endOf
   (field
     name: (_)
   )
-  "}" @interior.end.startOf
-) @map @interior.domain
+) @map
 
 (table_constructor
   "{" @value.iteration.start.endOf @collectionKey.iteration.start.endOf
@@ -148,12 +144,10 @@
 ;;!! a = { "1", "2", "3" }
 ;;!      ^^^^^^^^^^^^^^^^^
 (table_constructor
-  "{" @interior.start.endOf
   (field
     !name
   )
-  "}" @interior.end.startOf
-) @list @interior.domain
+) @list
 
 ;; Strings
 

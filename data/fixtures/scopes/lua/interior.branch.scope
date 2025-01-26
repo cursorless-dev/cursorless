@@ -1,0 +1,70 @@
+if x < y then
+    a = 1
+elseif x > y then
+    a = 2
+else
+    a = 3
+end
+---
+
+[#1 Content] = 1:4-1:9
+      >-----<
+1|     a = 1
+
+[#1 Removal] = 1:0-1:9
+  >---------<
+1|     a = 1
+
+[#1 Leading delimiter] = 1:0-1:4
+  >----<
+1|     a = 1
+
+[#1 Domain] = 0:0-1:9
+  >-------------
+0| if x < y then
+1|     a = 1
+   ---------<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 3:4-3:9
+      >-----<
+3|     a = 2
+
+[#2 Removal] = 3:0-3:9
+  >---------<
+3|     a = 2
+
+[#2 Leading delimiter] = 3:0-3:4
+  >----<
+3|     a = 2
+
+[#2 Domain] = 2:0-3:9
+  >-----------------
+2| elseif x > y then
+3|     a = 2
+   ---------<
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] = 5:4-5:9
+      >-----<
+5|     a = 3
+
+[#3 Removal] = 5:0-5:9
+  >---------<
+5|     a = 3
+
+[#3 Leading delimiter] = 5:0-5:4
+  >----<
+5|     a = 3
+
+[#3 Domain] = 4:0-5:9
+  >----
+4| else
+5|     a = 3
+   ---------<
+
+[#3 Insertion delimiter] = " "

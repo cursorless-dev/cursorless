@@ -15,4 +15,6 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.if": supported,
   namedFunction: supported,
   disqualifyDelimiter: supported,
+  "interior.function": supported,
+  "interior.branch": supported,
 };

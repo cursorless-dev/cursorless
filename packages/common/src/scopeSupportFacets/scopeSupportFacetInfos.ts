@@ -701,6 +701,10 @@ export const scopeSupportFacetInfos: Record<
     description: "The body of a lambda/anonymous function",
     scopeType: "interior",
   },
+  "interior.branch": {
+    description: "The body of an if/elif/else branch",
+    scopeType: "interior",
+  },
   "interior.element": {
     description: "The interior/children of an xml element",
     scopeType: "interior",
@@ -713,7 +717,6 @@ export const scopeSupportFacetInfos: Record<
     description: "The body of code cell in markdown",
     scopeType: "interior",
   },
-
   notebookCell: {
     description: "A cell in a notebook or a markdown code block",
     scopeType: "notebookCell",

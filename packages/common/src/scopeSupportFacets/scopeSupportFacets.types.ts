@@ -174,6 +174,7 @@ export const scopeSupportFacets = [
   "interior.class",
   "interior.function",
   "interior.lambda",
+  "interior.branch",
   "interior.element",
   "interior.command",
   "interior.cell",

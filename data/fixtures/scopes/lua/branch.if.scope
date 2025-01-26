@@ -15,10 +15,6 @@ end
 1|     print("x is less than y")
    -----------------------------<
 
-[#1 Interior] = 1:4-1:29
-      >-------------------------<
-1|     print("x is less than y")
-
 [#1 Insertion delimiter] = "\n"
 
 
@@ -30,10 +26,6 @@ end
 3|     print("x is greater than y")
    --------------------------------<
 
-[#2 Interior] = 3:4-3:32
-      >----------------------------<
-3|     print("x is greater than y")
-
 [#2 Insertion delimiter] = "\n"
 
 
@@ -44,9 +36,5 @@ end
 4| else
 5|     print("x is equal to y")
    ----------------------------<
-
-[#3 Interior] = 5:4-5:28
-      >------------------------<
-5|     print("x is equal to y")
 
 [#3 Insertion delimiter] = "\n"

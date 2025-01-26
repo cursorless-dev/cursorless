@@ -13,4 +13,5 @@ export const latexScopeSupport: LanguageScopeSupportFacetMap = {
   tags: supported,
   environment: supported,
   disqualifyDelimiter: supported,
+  "interior.element": supported,
 };
