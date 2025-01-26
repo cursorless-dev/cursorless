@@ -14,7 +14,7 @@ export interface SubTokenTargetParameters extends CommonTargetParameters {
 
 export class SubTokenWordTarget extends BaseTarget<SubTokenTargetParameters> {
   type = "SubTokenWordTarget";
-  TextualType: TextualType = "word";
+  textualType: TextualType = "word";
   private leadingDelimiterRange_?: Range;
   private trailingDelimiterRange_?: Range;
   insertionDelimiter: string;

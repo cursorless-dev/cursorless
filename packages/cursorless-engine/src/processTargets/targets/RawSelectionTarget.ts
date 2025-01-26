@@ -10,7 +10,7 @@ import { BaseTarget } from "./BaseTarget";
  */
 export class RawSelectionTarget extends BaseTarget<CommonTargetParameters> {
   type = "RawSelectionTarget";
-  TextualType: TextualType = "character";
+  textualType: TextualType = "character";
   insertionDelimiter = "";
   isRaw = true;
 

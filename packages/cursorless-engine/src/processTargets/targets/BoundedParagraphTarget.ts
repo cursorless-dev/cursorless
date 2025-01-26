@@ -13,7 +13,7 @@ interface BoundedParagraphTargetParameters extends MinimumTargetParameters {
 
 export class BoundedParagraphTarget extends BaseTarget<BoundedParagraphTargetParameters> {
   readonly type = "BoundedParagraphTarget";
-  readonly TextualType: TextualType = "paragraph";
+  readonly textualType: TextualType = "paragraph";
   readonly insertionDelimiter = "\n\n";
   private containingInterior: InteriorTarget;
   private paragraphTarget: ParagraphTarget;

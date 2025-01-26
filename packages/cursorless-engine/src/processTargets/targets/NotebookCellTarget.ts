@@ -6,7 +6,7 @@ import { NotebookCellDestination } from "./NotebookCellDestination";
 
 export class NotebookCellTarget extends BaseTarget<CommonTargetParameters> {
   type = "NotebookCellTarget";
-  TextualType: TextualType = "notebookCell";
+  textualType: TextualType = "notebookCell";
   insertionDelimiter = "\n";
 
   constructor(parameters: CommonTargetParameters) {

@@ -11,7 +11,7 @@ import { BaseTarget } from "./BaseTarget";
  */
 export class ImplicitTarget extends BaseTarget<CommonTargetParameters> {
   type = "ImplicitTarget";
-  TextualType: TextualType = "character";
+  textualType: TextualType = "character";
   insertionDelimiter = "";
   isRaw = true;
   hasExplicitScopeType = false;

@@ -14,7 +14,7 @@ import {
 
 export class TokenTarget extends BaseTarget<CommonTargetParameters> {
   type = "TokenTarget";
-  TextualType: TextualType = "token";
+  textualType: TextualType = "token";
   joinAs: JoinAsType = "token";
   insertionDelimiter = " ";
 

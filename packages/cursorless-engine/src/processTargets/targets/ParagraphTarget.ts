@@ -9,7 +9,7 @@ import { createContinuousLineRange } from "./util/createContinuousRange";
 
 export class ParagraphTarget extends BaseTarget<CommonTargetParameters> {
   type = "ParagraphTarget";
-  TextualType: TextualType = "paragraph";
+  textualType: TextualType = "paragraph";
   insertionDelimiter = "\n\n";
 
   getLeadingDelimiterTarget() {
