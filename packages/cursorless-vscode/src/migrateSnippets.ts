@@ -40,7 +40,7 @@ async function migrateFile(targetDirectory: string, filePath: string) {
       name: snippetName,
       variables: parseVariables(snippet.variables),
       insertionScopes: snippet.insertionScopeTypes,
-      snippet.description
+      description: snippet.description,
     });
 
     for (const def of snippet.definitions) {
