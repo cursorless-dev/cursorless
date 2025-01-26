@@ -50,7 +50,6 @@ export abstract class BaseTarget<
   hasExplicitRange = true;
   isRaw = false;
   isImplicit = false;
-  isNotebookCell = false;
   joinAs: JoinAsType = "line";
   type: TargetType | undefined = undefined;
 

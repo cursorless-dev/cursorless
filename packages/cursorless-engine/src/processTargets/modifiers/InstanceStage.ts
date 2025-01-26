@@ -184,11 +184,9 @@ export class InstanceStage implements ModifierStage {
 function getFilterScopeType(target: Target): ScopeType | null {
   switch (target.type) {
     case "line":
-      return { type: "line" };
     case "token":
-      return { type: "token" };
     case "word":
-      return { type: "word" };
+      return { type: target.type };
     default:
       return null;
   }

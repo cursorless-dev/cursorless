@@ -57,15 +57,6 @@ export interface Target {
 
   readonly type: TargetType | undefined;
 
-  /** If true this target should be treated as a line */
-  //   readonly isLine: boolean;
-
-  /** If true this target should be treated as a token */
-  //   readonly isToken: boolean;
-
-  /** If true this target should be treated as a word */
-  //   readonly isWord: boolean;
-
   /** Specifies how a target should be joined */
   readonly joinAs: JoinAsType;
 
@@ -134,9 +125,6 @@ export interface Target {
    * - The implicit anchor in the range `"take past air"`
    */
   readonly isImplicit: boolean;
-
-  /** If true this target is a notebook cell */
-  //   readonly isNotebookCell: boolean;
 
   /** The text contained in the content range */
   readonly contentText: string;
