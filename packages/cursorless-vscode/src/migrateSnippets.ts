@@ -6,7 +6,7 @@ import * as fs from "node:fs/promises";
 import * as path from "node:path";
 import {
   serializeSnippetFile,
-  type SnippetDocument,
+  type SnippetFile,
   type SnippetVariable,
 } from "talon-snippets";
 import * as vscode from "vscode";
@@ -31,20 +31,20 @@ export async function migrateSnippets(
 async function migrateFile(targetDirectory: string, filePath: string) {
   const fileName = path.basename(filePath, ".cursorless-snippets");
   const snippetFile = await readLegacyFile(filePath);
-  const communitySnippetFile: SnippetDocument[] = [];
+  const communitySnippetFile: SnippetFile = { snippets: [] };
 
   for (const snippetName in snippetFile) {
     const snippet = snippetFile[snippetName];
 
-    communitySnippetFile.push({
+    communitySnippetFile.header = {
       name: snippetName,
+      description: snippet.description,
       variables: parseVariables(snippet.variables),
       insertionScopes: snippet.insertionScopeTypes,
-      description: snippet.description,
-    });
+    };
 
     for (const def of snippet.definitions) {
-      communitySnippetFile.push({
+      communitySnippetFile.snippets.push({
         body: def.body.map((line) => line.replaceAll("\t", "    ")),
         languages: def.scope?.langIds,
         variables: parseVariables(def.variables),
@@ -98,10 +98,7 @@ async function readLegacyFile(filePath: string): Promise<SnippetMap> {
   return JSON.parse(content);
 }
 
-async function writeCommunityFile(
-  snippetFile: SnippetDocument[],
-  filePath: string,
-) {
+async function writeCommunityFile(snippetFile: SnippetFile, filePath: string) {
   const snippetText = serializeSnippetFile(snippetFile);
   const file = await fs.open(filePath, "w");
   await file.write(snippetText);
