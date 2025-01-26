@@ -51,7 +51,7 @@ export abstract class BaseTarget<
   isRaw = false;
   isImplicit = false;
   joinAs: JoinAsType = "line";
-  type: TargetType | undefined = undefined;
+  type: TargetType = "token";
 
   constructor(parameters: TParameters & CommonTargetParameters) {
     this.state = {

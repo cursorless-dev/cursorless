@@ -1,4 +1,5 @@
 import type { EnforceUndefined } from "@cursorless/common";
+import type { TargetType } from "../../typings/target.types";
 import type { CommonTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";
 
@@ -10,6 +11,7 @@ import { BaseTarget } from "./BaseTarget";
  */
 export class ImplicitTarget extends BaseTarget<CommonTargetParameters> {
   instanceType = "ImplicitTarget";
+  type: TargetType = "character";
   insertionDelimiter = "";
   isRaw = true;
   hasExplicitScopeType = false;

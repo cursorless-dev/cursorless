@@ -1,4 +1,5 @@
 import type { EnforceUndefined } from "@cursorless/common";
+import type { TargetType } from "../../typings/target.types";
 import type { CommonTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";
 
@@ -9,6 +10,7 @@ import { BaseTarget } from "./BaseTarget";
  */
 export class RawSelectionTarget extends BaseTarget<CommonTargetParameters> {
   instanceType = "RawSelectionTarget";
+  type: TargetType = "character";
   insertionDelimiter = "";
   isRaw = true;
 

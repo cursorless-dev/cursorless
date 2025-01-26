@@ -20,7 +20,7 @@ export class PlainTarget extends BaseTarget<PlainTargetParameters> {
 
   constructor(parameters: PlainTargetParameters) {
     super(parameters);
-    this.type = parameters.type;
+    this.type = parameters.type ?? "token";
     this.insertionDelimiter = parameters.insertionDelimiter ?? "";
   }
 

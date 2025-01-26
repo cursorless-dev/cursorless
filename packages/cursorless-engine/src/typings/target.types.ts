@@ -55,7 +55,8 @@ export interface Target {
   /** Optional prefix. For example, dash or asterisk for a markdown item */
   readonly prefixRange?: Range;
 
-  readonly type: TargetType | undefined;
+  /** Target type. Is this target a line, a token, etc... */
+  readonly type: TargetType;
 
   /** Specifies how a target should be joined */
   readonly joinAs: JoinAsType;
