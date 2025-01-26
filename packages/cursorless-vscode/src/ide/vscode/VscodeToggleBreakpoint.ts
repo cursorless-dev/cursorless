@@ -1,13 +1,13 @@
-import type { BreakpointDescriptor } from "@cursorless/common";
-import { toVscodeRange } from "@cursorless/vscode-common";
+import type { GeneralizedRange, Position } from "@cursorless/common";
+import { toVscodePosition } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
 import type { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
 export async function vscodeToggleBreakpoint(
   editor: VscodeTextEditorImpl,
-  descriptors: BreakpointDescriptor[] | undefined,
+  ranges?: GeneralizedRange[] | undefined,
 ): Promise<void> {
-  if (descriptors == null) {
+  if (ranges == null) {
     return await vscode.commands.executeCommand(
       "editor.debug.action.toggleBreakpoint",
     );
@@ -17,8 +17,9 @@ export async function vscodeToggleBreakpoint(
   const toAdd: vscode.Breakpoint[] = [];
   const toRemove: vscode.Breakpoint[] = [];
 
-  descriptors.forEach((descriptor) => {
-    const existing = getBreakpoints(uri, descriptor);
+  ranges.forEach((range) => {
+    const existing = getBreakpoints(uri, range);
+
     if (existing.length > 0) {
       toRemove.push(...existing);
     } else {
@@ -26,9 +27,9 @@ export async function vscodeToggleBreakpoint(
         new vscode.SourceBreakpoint(
           new vscode.Location(
             uri,
-            descriptor.type === "line"
-              ? new vscode.Range(descriptor.startLine, 0, descriptor.endLine, 0)
-              : toVscodeRange(descriptor.range),
+            range.type === "line"
+              ? new vscode.Range(range.start, 0, range.end, 0)
+              : toVscodeRange(range.start, range.end),
           ),
         ),
       );
@@ -39,15 +40,15 @@ export async function vscodeToggleBreakpoint(
   vscode.debug.removeBreakpoints(toRemove);
 }
 
-function getBreakpoints(uri: vscode.Uri, descriptor: BreakpointDescriptor) {
-  let rangeInterceptsDescriptor: (range: vscode.Range) => boolean;
+function getBreakpoints(uri: vscode.Uri, range: GeneralizedRange) {
+  let rangeInterceptPredicate: (range: vscode.Range) => boolean;
 
-  if (descriptor.type === "line") {
-    rangeInterceptsDescriptor = ({ start, end }) =>
-      descriptor.startLine <= end.line && descriptor.endLine >= start.line;
+  if (range.type === "line") {
+    rangeInterceptPredicate = ({ start, end }) =>
+      range.start <= end.line && range.end >= start.line;
   } else {
-    const descriptorRange = toVscodeRange(descriptor.range);
-    rangeInterceptsDescriptor = (range) =>
+    const descriptorRange = toVscodeRange(range.start, range.end);
+    rangeInterceptPredicate = (range) =>
       range.intersection(descriptorRange) != null;
   }
 
@@ -55,6 +56,10 @@ function getBreakpoints(uri: vscode.Uri, descriptor: BreakpointDescriptor) {
     (breakpoint) =>
       breakpoint instanceof vscode.SourceBreakpoint &&
       breakpoint.location.uri.toString() === uri.toString() &&
-      rangeInterceptsDescriptor(breakpoint.location.range),
+      rangeInterceptPredicate(breakpoint.location.range),
   );
+}
+
+function toVscodeRange(start: Position, end: Position): vscode.Range {
+  return new vscode.Range(toVscodePosition(start), toVscodePosition(end));
 }
