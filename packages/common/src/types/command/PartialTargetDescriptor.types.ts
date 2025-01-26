@@ -155,6 +155,7 @@ export const simpleScopeTypeTypes = [
   "ifStatement",
   "instance",
   "interior",
+  "interiorTreeOnly",
   "list",
   "map",
   "name",

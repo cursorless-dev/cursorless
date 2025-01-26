@@ -1,9 +1,10 @@
-import type {
-  Direction,
-  Position,
-  ScopeType,
-  SimpleScopeType,
-  TextEditor,
+import {
+  NoContainingScopeError,
+  type Direction,
+  type Position,
+  type ScopeType,
+  type SimpleScopeType,
+  type TextEditor,
 } from "@cursorless/common";
 import type { LanguageDefinitions } from "../../../../languages/LanguageDefinitions";
 import { BaseScopeHandler } from "../BaseScopeHandler";
@@ -28,12 +29,23 @@ export class InteriorScopeHandler extends BaseScopeHandler {
   constructor(
     scopeHandlerFactory: ScopeHandlerFactory,
     languageDefinitions: LanguageDefinitions,
-    _scopeType: SimpleScopeType,
+    scopeType: SimpleScopeType,
     languageId: string,
   ) {
     super();
 
     this.scopeHandler = (() => {
+      const languageScopeHandler = languageDefinitions
+        .get(languageId)
+        ?.getScopeHandler(this.scopeType);
+
+      if (scopeType.type === "interiorTreeOnly") {
+        if (languageScopeHandler == null) {
+          throw new NoContainingScopeError(this.scopeType.type);
+        }
+        return languageScopeHandler;
+      }
+
       const pairInteriorScopeHandler = scopeHandlerFactory.create(
         {
           type: "surroundingPairInterior",
@@ -42,10 +54,6 @@ export class InteriorScopeHandler extends BaseScopeHandler {
         },
         languageId,
       );
-
-      const languageScopeHandler = languageDefinitions
-        .get(languageId)
-        ?.getScopeHandler(this.scopeType);
 
       if (languageScopeHandler == null) {
         return pairInteriorScopeHandler;
