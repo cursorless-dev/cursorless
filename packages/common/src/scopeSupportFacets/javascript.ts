@@ -114,8 +114,6 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "value.field": supported,
 
   "collectionItem.unenclosed": supported,
-
-  "interior.element": supported,
 };
 
 export const javascriptJsxScopeSupport: LanguageScopeSupportFacetMap = {
@@ -126,6 +124,7 @@ export const javascriptJsxScopeSupport: LanguageScopeSupportFacetMap = {
   attribute: supported,
   "key.attribute": supported,
   "value.attribute": supported,
+  "interior.element": supported,
 };
 
 export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {

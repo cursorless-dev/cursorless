@@ -3,16 +3,9 @@ function makeCounter()
 end
 ---
 
-[#1 Content] = 1:4-1:19
+[#1 Content] =
+[#1 Removal] = 1:4-1:19
       >---------------<
-1|     local count = 0
-
-[#1 Removal] = 1:0-1:19
-  >-------------------<
-1|     local count = 0
-
-[#1 Leading delimiter] = 1:0-1:4
-  >----<
 1|     local count = 0
 
 [#1 Domain] = 0:0-2:3

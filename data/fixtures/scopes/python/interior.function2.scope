@@ -3,16 +3,9 @@ def bar(value: string) -> str:
     return value
 ---
 
-[#1 Content] = 2:4-2:16
+[#1 Content] =
+[#1 Removal] = 2:4-2:16
       >------------<
-2|     return value
-
-[#1 Removal] = 2:0-2:16
-  >----------------<
-2|     return value
-
-[#1 Leading delimiter] = 2:0-2:4
-  >----<
 2|     return value
 
 [#1 Domain] = 0:0-2:16

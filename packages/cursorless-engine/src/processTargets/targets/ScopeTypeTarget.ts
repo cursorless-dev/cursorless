@@ -3,10 +3,6 @@ import type { Target } from "../../typings/target.types";
 import type { CommonTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";
 import { PlainTarget } from "./PlainTarget";
-import {
-  createContinuousRange,
-  createContinuousRangeFromRanges,
-} from "./util/createContinuousRange";
 import { getDelimitedSequenceRemovalRange } from "./util/insertionRemovalBehaviors/DelimitedSequenceInsertionRemovalBehavior";
 import {
   getTokenLeadingDelimiterTarget,
@@ -93,11 +89,8 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
 
     const contentRemovalRange =
       this.removalRange_ != null || endTarget.removalRange_ != null
-        ? createContinuousRangeFromRanges(
-            this.removalRange_ ?? this.contentRange,
+        ? (this.removalRange_ ?? this.contentRange).union(
             endTarget.removalRange_ ?? endTarget.contentRange,
-            true,
-            true,
           )
         : undefined;
 
@@ -107,7 +100,7 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
       leadingDelimiterRange: this.leadingDelimiterRange_,
       trailingDelimiterRange: endTarget.trailingDelimiterRange_,
       removalRange: contentRemovalRange,
-      contentRange: createContinuousRange(this, endTarget, true, true),
+      contentRange: this.contentRange.union(endTarget.contentRange),
     });
   }
 
