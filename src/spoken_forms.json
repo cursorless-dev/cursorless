@@ -23,6 +23,7 @@
       "drink": "editNewLineBefore",
       "drop": "insertEmptyLineBefore",
       "extract": "extractVariable",
+      "flash": "flashTargets",
       "float": "insertEmptyLineAfter",
       "fold": "foldRegion",
       "follow split": "followLinkAside",
