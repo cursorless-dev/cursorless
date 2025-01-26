@@ -41,14 +41,14 @@ export async function vscodeToggleBreakpoint(
 }
 
 function getBreakpoints(uri: vscode.Uri, range: GeneralizedRange) {
-  let rangeInterceptsDescriptor: (range: vscode.Range) => boolean;
+  let rangeInterceptPredict: (range: vscode.Range) => boolean;
 
   if (range.type === "line") {
-    rangeInterceptsDescriptor = ({ start, end }) =>
+    rangeInterceptPredict = ({ start, end }) =>
       range.start <= end.line && range.end >= start.line;
   } else {
     const descriptorRange = toVscodeRange(range.start, range.end);
-    rangeInterceptsDescriptor = (range) =>
+    rangeInterceptPredict = (range) =>
       range.intersection(descriptorRange) != null;
   }
 
@@ -56,7 +56,7 @@ function getBreakpoints(uri: vscode.Uri, range: GeneralizedRange) {
     (breakpoint) =>
       breakpoint instanceof vscode.SourceBreakpoint &&
       breakpoint.location.uri.toString() === uri.toString() &&
-      rangeInterceptsDescriptor(breakpoint.location.range),
+      rangeInterceptPredict(breakpoint.location.range),
   );
 }
 
