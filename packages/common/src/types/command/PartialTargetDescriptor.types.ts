@@ -118,6 +118,7 @@ export const simpleSurroundingPairNames = [
   "parentheses",
   "singleQuotes",
   "squareBrackets",
+  "tripleBacktickQuotes",
   "tripleDoubleQuotes",
   "tripleSingleQuotes",
 ] as const;
