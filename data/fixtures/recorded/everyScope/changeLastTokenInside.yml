@@ -1,14 +1,16 @@
 languageId: plaintext
 command:
   version: 7
-  spokenForm: change every token inside
+  spokenForm: change last token inside
   action:
     name: clearAndSetSelection
     target:
       type: primitive
       modifiers:
-        - type: everyScope
+        - type: ordinalScope
           scopeType: {type: token}
+          start: -1
+          length: 1
         - {type: interiorOnly}
   usePrePhraseSnapshot: false
 initialState:
@@ -18,9 +20,7 @@ initialState:
       active: {line: 0, character: 1}
   marks: {}
 finalState:
-  documentContents: "' '"
+  documentContents: "'hello '"
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
-    - anchor: {line: 0, character: 2}
-      active: {line: 0, character: 2}
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
