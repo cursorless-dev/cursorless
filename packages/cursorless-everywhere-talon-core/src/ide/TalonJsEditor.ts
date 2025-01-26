@@ -1,8 +1,8 @@
 import {
   selectionsEqual,
-  type BreakpointDescriptor,
   type Edit,
   type EditableTextEditor,
+  type GeneralizedRange,
   type InMemoryTextDocument,
   type OpenLinkOptions,
   type Range,
@@ -100,9 +100,7 @@ export class TalonJsEditor implements EditableTextEditor {
     throw new Error("unfold not implemented.");
   }
 
-  toggleBreakpoint(
-    _descriptors?: BreakpointDescriptor[] | undefined,
-  ): Promise<void> {
+  toggleBreakpoint(_ranges?: GeneralizedRange[]): Promise<void> {
     throw new Error("toggleBreakpoint not implemented.");
   }
 
