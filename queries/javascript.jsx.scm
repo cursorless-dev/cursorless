@@ -7,7 +7,7 @@
   (#child-range! @interior 0 -1 true true)
 )
 (
-  (jsx_element) @xmlElement.iteration @xmlElement.iteration.domain
+  (jsx_element) @xmlElement.iteration
   (#child-range! @xmlElement.iteration 0 -1 true true)
 )
 
