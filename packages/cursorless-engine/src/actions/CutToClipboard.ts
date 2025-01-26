@@ -8,7 +8,7 @@ import {
 import { ide } from "../singletons/ide.singleton";
 import type { Target } from "../typings/target.types";
 import type { Actions } from "./Actions";
-import type { SimpleAction, ActionReturnValue } from "./actions.types";
+import type { ActionReturnValue, SimpleAction } from "./actions.types";
 
 export class CutToClipboard implements SimpleAction {
   constructor(private actions: Actions) {
@@ -21,7 +21,7 @@ export class CutToClipboard implements SimpleAction {
         const { editor, contentRange } = target;
         const removalHighlightRange = target.getRemovalHighlightRange();
 
-        if (isLine(target)) {
+        if (target.behavesLikeLine) {
           return [
             {
               editor,
@@ -61,11 +61,6 @@ export class CutToClipboard implements SimpleAction {
 
     return { thatTargets };
   }
-}
-
-function isLine(target: Target): boolean {
-  const { type } = target;
-  return type === "line" || type === "paragraph" || type === "document";
 }
 
 /** Get the possible leading and trailing overflow ranges of the outside range compared to the inside range */

@@ -1,12 +1,12 @@
 import type { InsertionMode } from "@cursorless/common";
-import type { Destination, TargetType } from "../../typings/target.types";
+import type { Destination, TextualType } from "../../typings/target.types";
 import type { CommonTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";
 import { NotebookCellDestination } from "./NotebookCellDestination";
 
 export class NotebookCellTarget extends BaseTarget<CommonTargetParameters> {
-  instanceType = "NotebookCellTarget";
-  type: TargetType = "notebookCell";
+  type = "NotebookCellTarget";
+  TextualType: TextualType = "notebookCell";
   insertionDelimiter = "\n";
 
   constructor(parameters: CommonTargetParameters) {

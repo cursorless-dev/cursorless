@@ -16,7 +16,7 @@ export interface HeadTailTargetParameters extends MinimumTargetParameters {
 }
 
 export class HeadTailTarget extends BaseTarget<HeadTailTargetParameters> {
-  instanceType = "HeadTailTarget";
+  type = "HeadTailTarget";
   insertionDelimiter = " ";
   private readonly inputTarget: Target;
   private readonly modifiedTarget: Target;

@@ -1,5 +1,5 @@
 import type { EnforceUndefined } from "@cursorless/common";
-import type { TargetType } from "../../typings/target.types";
+import type { TextualType } from "../../typings/target.types";
 import type { CommonTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";
 
@@ -10,8 +10,8 @@ import { BaseTarget } from "./BaseTarget";
  * - The implicit anchor in the range `"take past air"`
  */
 export class ImplicitTarget extends BaseTarget<CommonTargetParameters> {
-  instanceType = "ImplicitTarget";
-  type: TargetType = "character";
+  type = "ImplicitTarget";
+  TextualType: TextualType = "character";
   insertionDelimiter = "";
   isRaw = true;
   hasExplicitScopeType = false;

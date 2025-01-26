@@ -18,7 +18,9 @@ export class EditNew {
   }
 
   async run(destinations: Destination[]): Promise<ActionReturnValue> {
-    if (destinations.some(({ target }) => target.type === "notebookCell")) {
+    if (
+      destinations.some(({ target }) => target.textualType === "notebookCell")
+    ) {
       // It is not possible to "pour" a notebook cell and something else,
       // because each notebook cell is its own editor, and you can't have
       // cursors in multiple editors.

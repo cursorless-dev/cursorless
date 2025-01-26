@@ -1,5 +1,5 @@
 import type { Range } from "@cursorless/common";
-import type { Target, TargetType } from "../../typings/target.types";
+import type { Target, TextualType } from "../../typings/target.types";
 import type { CommonTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";
 import {
@@ -10,7 +10,7 @@ import {
 
 interface UntypedTargetParameters extends CommonTargetParameters {
   readonly hasExplicitRange: boolean;
-  readonly type?: TargetType;
+  readonly textualType?: TextualType;
 }
 
 /**
@@ -19,14 +19,14 @@ interface UntypedTargetParameters extends CommonTargetParameters {
  * - Expand to nearest containing pair when asked for boundary or interior
  */
 export class UntypedTarget extends BaseTarget<UntypedTargetParameters> {
-  instanceType = "UntypedTarget";
+  type = "UntypedTarget";
   insertionDelimiter = " ";
   hasExplicitScopeType = false;
 
   constructor(parameters: UntypedTargetParameters) {
     super(parameters);
     this.hasExplicitRange = parameters.hasExplicitRange;
-    this.type = parameters.type ?? "token";
+    this.textualType = parameters.textualType ?? "token";
   }
 
   getLeadingDelimiterTarget(): Target | undefined {
@@ -52,7 +52,7 @@ export class UntypedTarget extends BaseTarget<UntypedTargetParameters> {
   protected getCloneParameters() {
     return {
       ...this.state,
-      type: this.type,
+      textualType: this.textualType,
       hasExplicitRange: this.hasExplicitRange,
     };
   }

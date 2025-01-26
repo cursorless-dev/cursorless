@@ -30,7 +30,7 @@ import type { EditWithRangeUpdater } from "./Types";
 export type EditNewActionType = "edit" | "insertLineAfter";
 export type JoinAsType = "line" | "token";
 
-export type TargetType =
+export type TextualType =
   | "character"
   | "word"
   | "token"
@@ -55,8 +55,11 @@ export interface Target {
   /** Optional prefix. For example, dash or asterisk for a markdown item */
   readonly prefixRange?: Range;
 
-  /** Target type. Is this target a line, a token, etc... */
-  readonly type: TargetType;
+  /** Targets textual type. Is this target a line, a token, etc... */
+  readonly textualType: TextualType;
+
+  /** If true this target is a line/paragraph/document and should be treated as a line */
+  readonly behavesLikeLine: boolean;
 
   /** Specifies how a target should be joined */
   readonly joinAs: JoinAsType;

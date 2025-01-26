@@ -1,5 +1,5 @@
 import type { EnforceUndefined } from "@cursorless/common";
-import type { TargetType } from "../../typings/target.types";
+import type { TextualType } from "../../typings/target.types";
 import type { CommonTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";
 
@@ -9,8 +9,8 @@ import { BaseTarget } from "./BaseTarget";
  * inherited from the source in the case of a bring after a bring before
  */
 export class RawSelectionTarget extends BaseTarget<CommonTargetParameters> {
-  instanceType = "RawSelectionTarget";
-  type: TargetType = "character";
+  type = "RawSelectionTarget";
+  TextualType: TextualType = "character";
   insertionDelimiter = "";
   isRaw = true;
 

@@ -33,7 +33,7 @@ export default class Highlight {
         ide().setHighlightRanges(
           highlightId,
           editor,
-          targets.map(toGeneralizedRange),
+          targets.map((t) => toGeneralizedRange(t, t.contentRange)),
         ),
       );
     }

@@ -135,7 +135,7 @@ export class InstanceStage implements ModifierStage {
           contentRange: range,
           editor,
           isReversed: false,
-          type: "character",
+          textualType: "character",
         }),
     );
 
@@ -182,11 +182,11 @@ export class InstanceStage implements ModifierStage {
 }
 
 function getFilterScopeType(target: Target): ScopeType | null {
-  switch (target.type) {
+  switch (target.textualType) {
     case "line":
     case "token":
     case "word":
-      return { type: target.type };
+      return { type: target.textualType };
     default:
       return null;
   }

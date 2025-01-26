@@ -114,21 +114,15 @@ export function createThatMark(
   return thatMark;
 }
 
-export function toGeneralizedRange(target: Target): GeneralizedRange {
-  const range = target.contentRange;
-
-  return isLine(target) ? toLineRange(range) : toCharacterRange(range);
-}
-
 export function flashTargets(
   ide: IDE,
   targets: Target[],
   style: FlashStyle,
   getRange: (target: Target) => Range | undefined = getContentRange,
-) {
+): Promise<void> {
   return ide.flashRanges(
     targets
-      .map((target) => {
+      .map((target): FlashDescriptor | null => {
         const range = getRange(target);
 
         if (range == null) {
@@ -137,7 +131,7 @@ export function flashTargets(
 
         return {
           editor: target.editor,
-          range: isLine(target) ? toLineRange(range) : toCharacterRange(range),
+          range: toGeneralizedRange(target, range),
           style,
         };
       })
@@ -145,7 +139,9 @@ export function flashTargets(
   );
 }
 
-function isLine(target: Target): boolean {
-  const { type } = target;
-  return type === "line" || type === "paragraph" || type === "document";
+export function toGeneralizedRange(
+  target: Target,
+  range: Range,
+): GeneralizedRange {
+  return target.behavesLikeLine ? toLineRange(range) : toCharacterRange(range);
 }

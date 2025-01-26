@@ -39,7 +39,7 @@ export class CharacterScopeHandler extends NestedScopeHandler {
             editor,
             contentRange: range,
             isReversed,
-            type: "character",
+            textualType: "character",
           }),
         ],
       }),

@@ -13,7 +13,7 @@ import type {
   Destination,
   JoinAsType,
   Target,
-  TargetType,
+  TextualType,
 } from "../../typings/target.types";
 import { DestinationImpl } from "./DestinationImpl";
 import { createContinuousRange } from "./util/createContinuousRange";
@@ -44,14 +44,14 @@ export abstract class BaseTarget<
   in out TParameters extends MinimumTargetParameters,
 > implements Target
 {
-  protected abstract readonly instanceType: string;
+  protected abstract readonly type: string;
   protected readonly state: EnforceUndefined<CommonTargetParameters>;
   hasExplicitScopeType = true;
   hasExplicitRange = true;
   isRaw = false;
   isImplicit = false;
   joinAs: JoinAsType = "line";
-  type: TargetType = "token";
+  textualType: TextualType = "token";
 
   constructor(parameters: TParameters & CommonTargetParameters) {
     this.state = {
@@ -65,6 +65,7 @@ export abstract class BaseTarget<
   get editor() {
     return this.state.editor;
   }
+
   get isReversed() {
     return this.state.isReversed;
   }
@@ -85,6 +86,14 @@ export abstract class BaseTarget<
 
   get contentRange(): Range {
     return this.state.contentRange;
+  }
+
+  get behavesLikeLine(): boolean {
+    return (
+      this.textualType === "line" ||
+      this.textualType === "paragraph" ||
+      this.textualType === "document"
+    );
   }
 
   constructRemovalEdit(): EditWithRangeUpdater {
@@ -175,14 +184,14 @@ export abstract class BaseTarget<
    *
    * Note that this implementation is quite incomplete, but is suitable for
    * round-tripping {@link UntypedTarget} objects and capturing the fact that an
-   * object is not an un typed target if it is not, via the {@link instanceType}
+   * object is not an un typed target if it is not, via the {@link type}
    * attribute.  In the future, we should override this method in subclasses to
    * provide a more complete representation.
    * @returns A plain object representation of the target
    */
   toPlainObject(): TargetPlainObject {
     return {
-      type: this.instanceType,
+      type: this.type,
       contentRange: rangeToPlainObject(this.contentRange),
       isReversed: this.isReversed,
       hasExplicitRange: this.hasExplicitRange,

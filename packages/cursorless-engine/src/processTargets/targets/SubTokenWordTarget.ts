@@ -1,5 +1,5 @@
 import type { Range } from "@cursorless/common";
-import type { TargetType } from "../../typings/target.types";
+import type { TextualType } from "../../typings/target.types";
 import type { CommonTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";
 import { tryConstructPlainTarget } from "./PlainTarget";
@@ -13,8 +13,8 @@ export interface SubTokenTargetParameters extends CommonTargetParameters {
 }
 
 export class SubTokenWordTarget extends BaseTarget<SubTokenTargetParameters> {
-  instanceType = "SubTokenWordTarget";
-  type: TargetType = "word";
+  type = "SubTokenWordTarget";
+  TextualType: TextualType = "word";
   private leadingDelimiterRange_?: Range;
   private trailingDelimiterRange_?: Range;
   insertionDelimiter: string;

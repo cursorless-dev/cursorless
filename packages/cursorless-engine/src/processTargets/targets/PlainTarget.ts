@@ -1,11 +1,11 @@
 import type { Range, TextEditor } from "@cursorless/common";
-import type { TargetType } from "../../typings/target.types";
+import type { TextualType } from "../../typings/target.types";
 import { tryConstructTarget } from "../../util/tryConstructTarget";
 import type { CommonTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";
 
 interface PlainTargetParameters extends CommonTargetParameters {
-  readonly type?: TargetType;
+  readonly textualType?: TextualType;
   readonly insertionDelimiter?: string;
 }
 
@@ -15,12 +15,12 @@ interface PlainTargetParameters extends CommonTargetParameters {
  * unless specified.
  */
 export class PlainTarget extends BaseTarget<PlainTargetParameters> {
-  instanceType = "PlainTarget";
+  type = "PlainTarget";
   insertionDelimiter: string;
 
   constructor(parameters: PlainTargetParameters) {
     super(parameters);
-    this.type = parameters.type ?? "token";
+    this.textualType = parameters.textualType ?? "token";
     this.insertionDelimiter = parameters.insertionDelimiter ?? "";
   }
 
@@ -31,7 +31,7 @@ export class PlainTarget extends BaseTarget<PlainTargetParameters> {
   protected getCloneParameters() {
     return {
       ...this.state,
-      type: this.type,
+      textualType: this.textualType,
       insertionDelimiter: this.insertionDelimiter,
     };
   }

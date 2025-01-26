@@ -5,7 +5,7 @@ import { containingLineIfUntypedModifier } from "../processTargets/modifiers/com
 import { ide } from "../singletons/ide.singleton";
 import type { Target } from "../typings/target.types";
 import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
-import type { SimpleAction, ActionReturnValue } from "./actions.types";
+import type { ActionReturnValue, SimpleAction } from "./actions.types";
 
 export default class ToggleBreakpoint implements SimpleAction {
   getFinalStages = () => [
@@ -25,7 +25,7 @@ export default class ToggleBreakpoint implements SimpleAction {
       const breakpointDescriptors: BreakpointDescriptor[] = targets.map(
         (target) => {
           const range = target.contentRange;
-          return isLine(target)
+          return target.behavesLikeLine
             ? {
                 type: "line",
                 startLine: range.start.line,
@@ -47,9 +47,4 @@ export default class ToggleBreakpoint implements SimpleAction {
       thatTargets: targets,
     };
   }
-}
-
-function isLine(target: Target): boolean {
-  const { type } = target;
-  return type === "line" || type === "paragraph" || type === "document";
 }
