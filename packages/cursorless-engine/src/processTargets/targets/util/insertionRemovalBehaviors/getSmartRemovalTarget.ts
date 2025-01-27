@@ -1,11 +1,11 @@
 import type { Range, TextDocument, TextEditor } from "@cursorless/common";
 import type { Target } from "../../../../typings/target.types";
+import { union } from "../../../../util/rangeUtils";
 import { shrinkRangeToFitContent } from "../../../../util/selectionUtils";
 import { DocumentTarget } from "../../DocumentTarget";
 import { LineTarget } from "../../LineTarget";
 import { ParagraphTarget } from "../../ParagraphTarget";
 import { TokenTarget } from "../../TokenTarget";
-import { union } from "../../../../util/rangeUtils";
 
 export function getSmartRemovalTarget(target: Target): Target {
   const { editor, isReversed } = target;
