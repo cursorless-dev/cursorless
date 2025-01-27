@@ -1,5 +1,5 @@
 from itertools import chain
-from typing import TypedDict
+from typing import Callable, TypedDict
 
 from ..get_list import ListItemDescriptor, Variation, get_raw_list, make_dict_readable
 
@@ -149,53 +149,52 @@ def get_modifiers() -> list[ListItemDescriptor]:
 def get_relative_scope(complex_modifiers: dict[str, str]) -> ListItemDescriptor:
     variations: list[Variation] = []
 
-    if "previous" in complex_modifiers:
-        variations.append(
-            {
-                "spokenForm": f"{complex_modifiers['previous']} <scope>",
-                "description": "Previous instance of <scope>",
-            }
-        )
+    fixtures: dict[str, list[tuple[Callable, str]]] = {
+        "previous": [
+            (
+                lambda value: f"{value} <scope>",
+                "Previous instance of <scope>",
+            ),
+            (
+                lambda value: f"<ordinal> {value} <scope>",
+                "<ordinal> instance of <scope> before target",
+            ),
+        ],
+        "next": [
+            (
+                lambda value: f"{value} <scope>",
+                "Next instance of <scope>",
+            ),
+            (
+                lambda value: f"<ordinal> {value} <scope>",
+                "<ordinal> instance of <scope> after target",
+            ),
+        ],
+        "backward": [
+            (
+                lambda value: f"<scope> {value}",
+                "single instance of <scope> including target, going backwards",
+            )
+        ],
+        "forward": [
+            (
+                lambda value: f"<scope> {value}",
+                "single instance of <scope> including target, going forwards",
+            )
+        ],
+    }
 
-    if "next" in complex_modifiers:
-        variations.append(
-            {
-                "spokenForm": f"{complex_modifiers['next']} <scope>",
-                "description": "Next instance of <scope>",
-            }
-        )
-
-    if "previous" in complex_modifiers:
-        variations.append(
-            {
-                "spokenForm": f"<ordinal> {complex_modifiers['previous']} <scope>",
-                "description": "<ordinal> instance of <scope> before target",
-            }
-        )
-
-    if "next" in complex_modifiers:
-        variations.append(
-            {
-                "spokenForm": f"<ordinal> {complex_modifiers['next']} <scope>",
-                "description": "<ordinal> instance of <scope> after target",
-            }
-        )
-
-    if "backward" in complex_modifiers:
-        variations.append(
-            {
-                "spokenForm": f"<scope> {complex_modifiers['backward']}",
-                "description": "single instance of <scope> including target, going backwards",
-            }
-        )
-
-    if "forward" in complex_modifiers:
-        variations.append(
-            {
-                "spokenForm": f"<scope> {complex_modifiers['forward']}",
-                "description": "single instance of <scope> including target, going forwards",
-            }
-        )
+    for mod_id, vars in fixtures.items():
+        if mod_id not in complex_modifiers:
+            continue
+        mod = complex_modifiers[mod_id]
+        for callback, description in vars:
+            variations.append(
+                {
+                    "spokenForm": callback(mod),
+                    "description": description,
+                }
+            )
 
     if "every" in complex_modifiers:
         entries: list[Entry] = []
