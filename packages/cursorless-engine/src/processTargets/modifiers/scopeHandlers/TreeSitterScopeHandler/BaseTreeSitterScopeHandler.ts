@@ -8,6 +8,7 @@ import { BaseScopeHandler } from "../BaseScopeHandler";
 import { compareTargetScopes } from "../compareTargetScopes";
 import type { TargetScope } from "../scope.types";
 import type { ScopeIteratorRequirements } from "../scopeHandler.types";
+import { isHintsEveryScope } from "../util/isHintsEveryScope";
 import { getQuerySearchRange } from "./getQuerySearchRange";
 import { mergeAdjacentBy } from "./mergeAdjacentBy";
 
@@ -24,6 +25,7 @@ export abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
     const { document } = editor;
+    const isEveryScope = isHintsEveryScope(hints);
 
     /** Narrow the range within which tree-sitter searches, for performance */
     const { start, end } = getQuerySearchRange(
@@ -35,7 +37,7 @@ export abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
 
     const scopes = this.query
       .matches(document, start, end)
-      .map((match) => this.matchToScope(editor, match))
+      .map((match) => this.matchToScope(editor, match, isEveryScope))
       .filter((scope): scope is ExtendedTargetScope => scope != null)
       .sort((a, b) => compareTargetScopes(direction, position, a, b));
 
@@ -88,12 +90,14 @@ export abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
    * relevant to this scope handler
    * @param editor The editor in which the match was found
    * @param match The match to convert to a scope
+   * @param isEveryScope Whether the scope is being used in an "every" modifier
    * @returns The scope, or undefined if the match is not relevant to this scope
    * handler
    */
   protected abstract matchToScope(
     editor: TextEditor,
     match: QueryMatch,
+    isEveryScope: boolean,
   ): ExtendedTargetScope | undefined;
 }
 
