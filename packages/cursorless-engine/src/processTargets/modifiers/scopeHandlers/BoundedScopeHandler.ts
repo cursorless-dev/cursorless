@@ -92,7 +92,7 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
         direction,
         {
           ...hints,
-          // For the every scope modifier, we don't want to go outside of the surrounding pair
+          // For the every scope, we don't want to go outside of the surrounding pair
           containment: isEveryScopeModifier(hints)
             ? "required"
             : hints.containment,
