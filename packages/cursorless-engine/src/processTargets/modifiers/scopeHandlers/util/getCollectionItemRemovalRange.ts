@@ -18,6 +18,7 @@ export function getCollectionItemRemovalRange(
   if (isEveryScope) {
     return undefined;
   }
+  // If the leading one is longer/more specific, prefer to use that for removal
   if (
     leadingDelimiterRange != null &&
     trailingDelimiterRange != null &&
