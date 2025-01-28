@@ -167,6 +167,7 @@ export const scopeSupportFacets = [
   "type.field.iteration",
   "type.foreach",
   "type.interface",
+  "type.enum",
   "type.alias",
   "type.cast",
   "type.class",

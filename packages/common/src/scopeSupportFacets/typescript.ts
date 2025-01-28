@@ -19,6 +19,7 @@ export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
   "type.cast": supported,
   "type.field": supported,
   "type.interface": supported,
+  "type.enum": supported,
   "type.return": supported,
   "type.variable": supported,
 

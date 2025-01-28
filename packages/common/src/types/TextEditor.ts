@@ -1,5 +1,6 @@
 import type {
   Edit,
+  GeneralizedRange,
   Range,
   RevealLineAt,
   Selection,
@@ -154,9 +155,9 @@ export interface EditableTextEditor extends TextEditor {
    * remove all breakpoints overlapping with the given descriptor if it overlaps
    * with any existing breakpoint, otherwise add a new breakpoint at the given
    * location.
-   * @param descriptors A list of breakpoint descriptors
+   * @param ranges A list of breakpoint ranges
    */
-  toggleBreakpoint(descriptors?: BreakpointDescriptor[]): Promise<void>;
+  toggleBreakpoint(ranges?: GeneralizedRange[]): Promise<void>;
 
   /**
    * Toggle line comments
@@ -237,21 +238,3 @@ export interface EditableTextEditor extends TextEditor {
    */
   extractVariable(range?: Range): Promise<void>;
 }
-
-interface LineBreakpointDescriptor {
-  type: "line";
-  startLine: number;
-  /**
-   * Last line, inclusive
-   */
-  endLine: number;
-}
-
-interface InlineBreakpointDescriptor {
-  type: "inline";
-  range: Range;
-}
-
-export type BreakpointDescriptor =
-  | LineBreakpointDescriptor
-  | InlineBreakpointDescriptor;

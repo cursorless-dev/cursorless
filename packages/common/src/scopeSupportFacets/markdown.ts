@@ -13,4 +13,5 @@ export const markdownScopeSupport: LanguageScopeSupportFacetMap = {
   "section.iteration.parent": supported,
 
   notebookCell: supported,
+  "collectionItem.unenclosed": supported,
 };

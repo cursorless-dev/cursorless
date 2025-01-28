@@ -678,6 +678,10 @@ export const scopeSupportFacetInfos: Record<
     description: "An interface declaration",
     scopeType: "type",
   },
+  "type.enum": {
+    description: "An enum declaration",
+    scopeType: "type",
+  },
   "type.class": {
     description: "An class declaration",
     scopeType: "type",
