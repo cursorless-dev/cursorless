@@ -61,16 +61,16 @@ async function migrateFile(targetDirectory: string, filePath: string) {
     const destinationPath = path.join(targetDirectory, `${fileName}.snippet`);
     await writeCommunityFile(communitySnippetFile, destinationPath);
   } catch (error: any) {
-  if (error.code === 'EEXIST') {
-    const destinationPath = path.join(
-      targetDirectory,
-      `${fileName}_CONFLICT.snippet`,
-    );
-    await writeCommunityFile(communitySnippetFile, destinationPath);
-  } else {
-    throw error;
+    if (error.code === "EEXIST") {
+      const destinationPath = path.join(
+        targetDirectory,
+        `${fileName}_CONFLICT.snippet`,
+      );
+      await writeCommunityFile(communitySnippetFile, destinationPath);
+    } else {
+      throw error;
+    }
   }
-}
 }
 
 function parseVariables(
