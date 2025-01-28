@@ -231,7 +231,6 @@ class TargetPipeline {
     );
 
     /**
-
      * The modifier pipeline that will be applied to construct our final targets
      */
     const modifierStages = [
