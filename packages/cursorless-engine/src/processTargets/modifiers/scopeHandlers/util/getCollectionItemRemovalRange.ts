@@ -14,11 +14,14 @@ export function getCollectionItemRemovalRange(
   leadingDelimiterRange: Range | undefined,
   trailingDelimiterRange: Range | undefined,
 ): Range | undefined {
-  return !isEveryScope &&
+  if (
+    !isEveryScope &&
     leadingDelimiterRange != null &&
     trailingDelimiterRange != null &&
     getRangeLength(editor, leadingDelimiterRange) >
       getRangeLength(editor, trailingDelimiterRange)
-    ? contentRange.union(leadingDelimiterRange)
-    : undefined;
+  ) {
+    return contentRange.union(leadingDelimiterRange);
+  }
+  return undefined;
 }
