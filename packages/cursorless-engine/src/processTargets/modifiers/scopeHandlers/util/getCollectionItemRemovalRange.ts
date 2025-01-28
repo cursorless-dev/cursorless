@@ -16,6 +16,7 @@ export function getCollectionItemRemovalRange(
   trailingDelimiterRange: Range | undefined,
 ): Range | undefined {
   if (isEveryScope) {
+    # Force a fallback to the default behavior (often trailing)
     return undefined;
   }
   // If the leading one is longer/more specific, prefer to use that for removal
