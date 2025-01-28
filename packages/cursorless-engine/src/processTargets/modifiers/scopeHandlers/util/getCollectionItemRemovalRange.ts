@@ -15,8 +15,10 @@ export function getCollectionItemRemovalRange(
   leadingDelimiterRange: Range | undefined,
   trailingDelimiterRange: Range | undefined,
 ): Range | undefined {
+  if (isEveryScope) {
+    return undefined;
+  }
   if (
-    !isEveryScope &&
     leadingDelimiterRange != null &&
     trailingDelimiterRange != null &&
     getRangeLength(editor, leadingDelimiterRange) >
