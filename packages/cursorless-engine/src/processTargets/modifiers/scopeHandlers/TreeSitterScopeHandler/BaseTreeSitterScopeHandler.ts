@@ -8,7 +8,6 @@ import { BaseScopeHandler } from "../BaseScopeHandler";
 import { compareTargetScopes } from "../compareTargetScopes";
 import type { TargetScope } from "../scope.types";
 import type { ScopeIteratorRequirements } from "../scopeHandler.types";
-import { isEveryScope } from "../util/isHintsEveryScope";
 import { getQuerySearchRange } from "./getQuerySearchRange";
 import { mergeAdjacentBy } from "./mergeAdjacentBy";
 

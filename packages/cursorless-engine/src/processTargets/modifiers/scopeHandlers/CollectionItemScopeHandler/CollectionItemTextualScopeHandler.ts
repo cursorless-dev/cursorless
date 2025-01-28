@@ -14,7 +14,6 @@ import type {
   ScopeIteratorRequirements,
 } from "../scopeHandler.types";
 import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
-import { isEveryScope } from "../util/isHintsEveryScope";
 import { OneWayNestedRangeFinder } from "../util/OneWayNestedRangeFinder";
 import { OneWayRangeFinder } from "../util/OneWayRangeFinder";
 import { collectionItemTextualIterationScopeHandler } from "./collectionItemTextualIterationScopeHandler";
