@@ -1,5 +1,4 @@
 import type {
-  FlashDescriptor,
   FlashStyle,
   GeneralizedRange,
   IDE,
@@ -91,10 +90,6 @@ function groupForEachEditor<T>(
   });
 }
 
-export function getContentRange(target: Target) {
-  return target.contentRange;
-}
-
 export function createThatMark(
   targets: Target[],
   ranges?: Range[],
@@ -114,33 +109,28 @@ export function createThatMark(
   return thatMark;
 }
 
-export function toGeneralizedRange(target: Target): GeneralizedRange {
-  const range = target.contentRange;
-
+export function toGeneralizedRange(
+  target: Target,
+  range: Range,
+): GeneralizedRange {
   return target.isLine ? toLineRange(range) : toCharacterRange(range);
+}
+
+function toGeneralizedContentRange(target: Target): GeneralizedRange {
+  return toGeneralizedRange(target, target.contentRange);
 }
 
 export function flashTargets(
   ide: IDE,
   targets: Target[],
   style: FlashStyle,
-  getRange: (target: Target) => Range | undefined = getContentRange,
+  getRange: (target: Target) => GeneralizedRange = toGeneralizedContentRange,
 ) {
   return ide.flashRanges(
-    targets
-      .map((target) => {
-        const range = getRange(target);
-
-        if (range == null) {
-          return null;
-        }
-
-        return {
-          editor: target.editor,
-          range: target.isLine ? toLineRange(range) : toCharacterRange(range),
-          style,
-        };
-      })
-      .filter((flash): flash is FlashDescriptor => flash != null),
+    targets.map((target) => ({
+      editor: target.editor,
+      range: getRange(target),
+      style,
+    })),
   );
 }
