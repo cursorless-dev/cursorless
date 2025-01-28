@@ -6,7 +6,7 @@ import { max } from "lodash-es";
 import { open, readFile, stat } from "node:fs/promises";
 import { join } from "node:path";
 
-const CURSORLESS_SNIPPETS_SUFFIX = ".cursorless-snippets";
+export const CURSORLESS_SNIPPETS_SUFFIX = ".cursorless-snippets";
 const SNIPPET_DIR_REFRESH_INTERVAL_MS = 1000;
 
 interface DirectoryErrorMessage {

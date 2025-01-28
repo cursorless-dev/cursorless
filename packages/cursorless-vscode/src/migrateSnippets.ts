@@ -10,7 +10,10 @@ import {
   type SnippetVariable,
 } from "talon-snippets";
 import * as vscode from "vscode";
-import type { VscodeSnippets } from "./VscodeSnippets";
+import {
+  CURSORLESS_SNIPPETS_SUFFIX,
+  type VscodeSnippets,
+} from "./VscodeSnippets";
 
 export async function migrateSnippets(
   snippets: VscodeSnippets,
@@ -29,7 +32,7 @@ export async function migrateSnippets(
 }
 
 async function migrateFile(targetDirectory: string, filePath: string) {
-  const fileName = path.basename(filePath, ".cursorless-snippets");
+  const fileName = path.basename(filePath, CURSORLESS_SNIPPETS_SUFFIX);
   const snippetFile = await readLegacyFile(filePath);
   const communitySnippetFile: SnippetFile = { snippets: [] };
 
