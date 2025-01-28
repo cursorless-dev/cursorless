@@ -101,6 +101,9 @@ async function readLegacyFile(filePath: string): Promise<SnippetMap> {
 async function writeCommunityFile(snippetFile: SnippetFile, filePath: string) {
   const snippetText = serializeSnippetFile(snippetFile);
   const file = await fs.open(filePath, "wx");
-  await file.write(snippetText);
-  await file.close();
+  try {
+    await file.write(snippetText);
+  } finally {
+    await file.close();
+  }
 }
