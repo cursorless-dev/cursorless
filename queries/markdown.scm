@@ -24,22 +24,17 @@
 ;;!    ^
 ;;!  ---
 (list
-  (list_item
-    (paragraph
-      (inline) @_.leading.endOf
-    )
-  )?
+  (list_item)? @collectionItem.leading.endOf
   .
   (list_item
-    (_) @_.prefix
-    (paragraph
-      (inline) @collectionItem
-    )
-  ) @_.domain
+    (_) @collectionItem.prefix
+    (paragraph) @collectionItem.start.startOf
+  ) @collectionItem.end.endOf @collectionItem.domain
   .
-  (list_item)? @_.trailing.startOf
-  (#trim-end! @_.domain)
-  (#insertion-delimiter! @collectionItem "\n")
+  (list_item)? @collectionItem.trailing.startOf
+  (#trim-end! @collectionItem.end.endOf)
+  (#trim-end! @collectionItem.domain)
+  (#insertion-delimiter! @collectionItem.start.startOf "\n")
 )
 
 (list) @collectionItem.iteration

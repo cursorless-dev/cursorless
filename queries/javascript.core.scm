@@ -454,6 +454,16 @@
   (template_string)
 ] @string
 
+;;  taggedTemplate`hello ${world}`
+;;! ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(call_expression
+  function: (_) @pairDelimiter.start
+  arguments: (template_string
+    .
+    "`" @pairDelimiter.end
+  )
+)
+
 ;;!! // comment
 ;;!  ^^^^^^^^^^
 (comment) @comment

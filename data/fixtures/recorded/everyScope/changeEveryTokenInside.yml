@@ -1,23 +1,26 @@
 languageId: plaintext
 command:
-  version: 6
-  spokenForm: change pair
+  version: 7
+  spokenForm: change every token inside
   action:
     name: clearAndSetSelection
     target:
       type: primitive
       modifiers:
-        - type: containingScope
-          scopeType: {type: surroundingPair, delimiter: any}
+        - type: everyScope
+          scopeType: {type: token}
+        - {type: interiorOnly}
   usePrePhraseSnapshot: false
 initialState:
-  documentContents: ([)]
+  documentContents: "'hello world'"
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}
   marks: {}
 finalState:
-  documentContents: (
+  documentContents: "' '"
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}

@@ -4,6 +4,14 @@
 
 ;; import javascript.core.scm
 
+;;!! class Aaa { bbb(); }
+;;!              ^^^^^^
+(_
+  (method_signature) @statement.start
+  .
+  ";"? @statement.end
+)
+
 ;;!! function aaa(bbb = "ddd") {}
 ;;!               ^^^--------
 (required_parameter
@@ -26,6 +34,10 @@
   value: (_) @value
 ) @_.domain
 
+;;!! enum Aaa {}
+;;!  ^^^^^^^^^^^
+(enum_declaration) @type
+
 ;;!! function aaa(bbb: Ccc = "ddd") {}
 ;;!               ^^^-------------
 (required_parameter
@@ -41,6 +53,12 @@
 ;; Define these here because these node types don't exist in javascript.
 (_
   [
+    ;;!! function foo();
+    ;;!  ^^^^^^^^^^^^^^^
+    (function_signature
+      name: (_) @functionName @name
+    )
+
     ;;!! class Foo { foo() {} }
     ;;!              ^^^^^^^^
     ;;!! interface Foo { foo(): void; }
