@@ -1,7 +1,7 @@
 import type {
-  BreakpointDescriptor,
   Edit,
   EditableTextEditor,
+  GeneralizedRange,
   OpenLinkOptions,
   Range,
   RevealLineAt,
@@ -127,9 +127,7 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
     throw Error("unfold Not implemented");
   }
 
-  public toggleBreakpoint(
-    _descriptors?: BreakpointDescriptor[],
-  ): Promise<void> {
+  public toggleBreakpoint(_ranges?: GeneralizedRange[]): Promise<void> {
     throw Error("toggleBreakpoint Not implemented");
   }
 

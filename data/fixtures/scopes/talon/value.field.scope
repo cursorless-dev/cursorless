@@ -1,0 +1,20 @@
+aaa [bbb]: bbb or ""
+---
+
+[Content] = 0:11-0:20
+             >---------<
+0| aaa [bbb]: bbb or ""
+
+[Removal] = 0:10-0:20
+            >----------<
+0| aaa [bbb]: bbb or ""
+
+[Leading delimiter] = 0:10-0:11
+            >-<
+0| aaa [bbb]: bbb or ""
+
+[Domain] = 0:0-0:20
+  >--------------------<
+0| aaa [bbb]: bbb or ""
+
+[Insertion delimiter] = " "

@@ -1232,9 +1232,9 @@
     }
   },
   "sponsor": {
-    "url": "https://github.com/sponsors/pokey"
+    "url": "https://github.com/sponsors/cursorless-dev"
   },
-  "funding": "https://github.com/sponsors/pokey",
+  "funding": "https://github.com/sponsors/cursorless-dev",
   "scripts": {
     "build": "pnpm run esbuild:prod && pnpm -F cheatsheet-local build:prod && pnpm -F cursorless-vscode-tutorial-webview build:prod && pnpm run populate-dist",
     "build:dev": "pnpm generate-grammar && pnpm run esbuild && pnpm -F cheatsheet-local build && pnpm -F cursorless-vscode-tutorial-webview build && pnpm run populate-dist",
