@@ -2,6 +2,11 @@ import type { Range, TextEditor } from "@cursorless/common";
 
 import { getRangeLength } from "../../../../util/rangeUtils";
 
+/**
+ * We have both leading and trailing delimiter ranges
+ * If the leading one is longer/more specific, prefer to use that for removal;
+ * otherwise use undefined to fallback to the default behavior (often trailing)
+ */
 export function getCollectionItemRemovalRange(
   isEveryScope: boolean,
   editor: TextEditor,
@@ -9,9 +14,6 @@ export function getCollectionItemRemovalRange(
   leadingDelimiterRange: Range | undefined,
   trailingDelimiterRange: Range | undefined,
 ): Range | undefined {
-  // We have both leading and trailing delimiter ranges
-  // If the leading one is longer/more specific, prefer to use that for removal;
-  // otherwise use undefined to fallback to the default behavior (often trailing)
   return !isEveryScope &&
     leadingDelimiterRange != null &&
     trailingDelimiterRange != null &&
