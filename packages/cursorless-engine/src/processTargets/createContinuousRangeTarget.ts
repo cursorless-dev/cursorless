@@ -48,7 +48,7 @@ export function createContinuousRangeTarget(
     }
   }
 
-  if (startTarget.behavesLikeLine && endTarget.behavesLikeLine) {
+  if (startTarget.textualType === "line" && endTarget.textualType === "line") {
     return new LineTarget({
       editor: startTarget.editor,
       isReversed,

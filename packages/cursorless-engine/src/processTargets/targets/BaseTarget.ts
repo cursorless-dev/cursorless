@@ -50,8 +50,9 @@ export abstract class BaseTarget<
   hasExplicitRange = true;
   isRaw = false;
   isImplicit = false;
-  joinAs: JoinAsType = "line";
+  isNotebookCell = false;
   textualType: TextualType = "token";
+  joinAs: JoinAsType = "line";
 
   constructor(parameters: TParameters & CommonTargetParameters) {
     this.state = {
@@ -86,14 +87,6 @@ export abstract class BaseTarget<
 
   get contentRange(): Range {
     return this.state.contentRange;
-  }
-
-  get behavesLikeLine(): boolean {
-    return (
-      this.textualType === "line" ||
-      this.textualType === "paragraph" ||
-      this.textualType === "document"
-    );
   }
 
   constructRemovalEdit(): EditWithRangeUpdater {

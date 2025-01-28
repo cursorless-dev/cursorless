@@ -142,6 +142,6 @@ function constructChangeEdit(
 ): EditWithFlashType {
   return {
     ...target.toDestination(insertionMode).constructChangeEdit("", true),
-    isLine: target.behavesLikeLine,
+    isLine: target.textualType === "line",
   };
 }

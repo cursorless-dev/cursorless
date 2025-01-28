@@ -21,7 +21,7 @@ export class CutToClipboard implements SimpleAction {
         const { editor, contentRange } = target;
         const removalHighlightRange = target.getRemovalHighlightRange();
 
-        if (target.behavesLikeLine) {
+        if (target.textualType === "line") {
           return [
             {
               editor,

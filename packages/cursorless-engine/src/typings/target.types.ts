@@ -30,14 +30,7 @@ import type { EditWithRangeUpdater } from "./Types";
 export type EditNewActionType = "edit" | "insertLineAfter";
 export type JoinAsType = "line" | "token";
 
-export type TextualType =
-  | "character"
-  | "word"
-  | "token"
-  | "line"
-  | "paragraph"
-  | "document"
-  | "notebookCell";
+export type TextualType = "character" | "word" | "token" | "line";
 
 export interface Target {
   /** The text editor used for all ranges */
@@ -57,9 +50,6 @@ export interface Target {
 
   /** Targets textual type. Is this target a line, a token, etc... */
   readonly textualType: TextualType;
-
-  /** If true this target is a line/paragraph/document and should be treated as a line */
-  readonly behavesLikeLine: boolean;
 
   /** Specifies how a target should be joined */
   readonly joinAs: JoinAsType;
@@ -129,6 +119,9 @@ export interface Target {
    * - The implicit anchor in the range `"take past air"`
    */
   readonly isImplicit: boolean;
+
+  /** If true this target is a notebook cell */
+  readonly isNotebookCell: boolean;
 
   /** The text contained in the content range */
   readonly contentText: string;

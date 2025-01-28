@@ -114,6 +114,15 @@ export function createThatMark(
   return thatMark;
 }
 
+export function toGeneralizedRange(
+  target: Target,
+  range: Range,
+): GeneralizedRange {
+  return target.textualType === "line"
+    ? toLineRange(range)
+    : toCharacterRange(range);
+}
+
 export function flashTargets(
   ide: IDE,
   targets: Target[],
@@ -137,11 +146,4 @@ export function flashTargets(
       })
       .filter((flash): flash is FlashDescriptor => flash != null),
   );
-}
-
-export function toGeneralizedRange(
-  target: Target,
-  range: Range,
-): GeneralizedRange {
-  return target.behavesLikeLine ? toLineRange(range) : toCharacterRange(range);
 }
