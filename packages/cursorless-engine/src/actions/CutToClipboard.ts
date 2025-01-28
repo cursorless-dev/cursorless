@@ -1,14 +1,14 @@
-import type { FlashDescriptor } from "@cursorless/common";
-import {
-  FlashStyle,
-  Range,
-  toCharacterRange,
-  toLineRange,
+import type {
+  CharacterRange,
+  FlashDescriptor,
+  LineRange,
+  TextEditor,
 } from "@cursorless/common";
+import { FlashStyle, Range, toCharacterRange } from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
 import type { Target } from "../typings/target.types";
 import type { Actions } from "./Actions";
-import type { SimpleAction, ActionReturnValue } from "./actions.types";
+import type { ActionReturnValue, SimpleAction } from "./actions.types";
 
 export class CutToClipboard implements SimpleAction {
   constructor(private actions: Actions) {
@@ -21,35 +21,19 @@ export class CutToClipboard implements SimpleAction {
         const { editor, contentRange } = target;
         const removalHighlightRange = target.getRemovalHighlightRange();
 
-        if (target.isLine) {
-          return [
-            {
-              editor,
-              range: toCharacterRange(contentRange),
-              style: FlashStyle.referenced,
-            },
-            {
-              editor,
-              range: toLineRange(removalHighlightRange),
-              style: FlashStyle.pendingDelete,
-            },
-          ];
+        if (removalHighlightRange.type === "line") {
+          return getLineFlashDescriptors(
+            editor,
+            contentRange,
+            removalHighlightRange,
+          );
         }
 
-        return [
-          {
-            editor,
-            range: toCharacterRange(contentRange),
-            style: FlashStyle.referenced,
-          },
-          ...getOutsideOverflow(contentRange, removalHighlightRange).map(
-            (overflow): FlashDescriptor => ({
-              editor,
-              range: toCharacterRange(overflow),
-              style: FlashStyle.pendingDelete,
-            }),
-          ),
-        ];
+        return getCharacterFlashDescriptors(
+          editor,
+          contentRange,
+          removalHighlightRange,
+        );
       }),
     );
 
@@ -63,8 +47,51 @@ export class CutToClipboard implements SimpleAction {
   }
 }
 
+function getLineFlashDescriptors(
+  editor: TextEditor,
+  contentRange: Range,
+  removalHighlightRange: LineRange,
+): FlashDescriptor[] {
+  return [
+    {
+      editor,
+      range: toCharacterRange(contentRange),
+      style: FlashStyle.referenced,
+    },
+    {
+      editor,
+      range: removalHighlightRange,
+      style: FlashStyle.pendingDelete,
+    },
+  ];
+}
+
+function getCharacterFlashDescriptors(
+  editor: TextEditor,
+  contentRange: Range,
+  removalHighlightRange: CharacterRange,
+): FlashDescriptor[] {
+  return [
+    {
+      editor,
+      range: toCharacterRange(contentRange),
+      style: FlashStyle.referenced,
+    },
+    ...getOutsideOverflow(contentRange, removalHighlightRange).map(
+      (overflow): FlashDescriptor => ({
+        editor,
+        range: toCharacterRange(overflow),
+        style: FlashStyle.pendingDelete,
+      }),
+    ),
+  ];
+}
+
 /** Get the possible leading and trailing overflow ranges of the outside range compared to the inside range */
-function getOutsideOverflow(insideRange: Range, outsideRange: Range): Range[] {
+function getOutsideOverflow(
+  insideRange: Range,
+  outsideRange: CharacterRange,
+): Range[] {
   const { start: insideStart, end: insideEnd } = insideRange;
   const { start: outsideStart, end: outsideEnd } = outsideRange;
   const result = [];
