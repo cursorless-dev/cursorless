@@ -28,17 +28,17 @@ def get_scopes() -> list[ListItemDescriptor]:
             }
         )
 
-        items.append(
-            {
-                "id": "pair",
-                "type": "scopeType",
-                "variations": [
-                    {
-                        "spokenForm": "<pair>",
-                        "description": "Paired delimiters",
-                    },
-                ],
-            },
-        )
+    items.append(
+        {
+            "id": "pair",
+            "type": "scopeType",
+            "variations": [
+                {
+                    "spokenForm": "<pair>",
+                    "description": "Paired delimiters",
+                },
+            ],
+        },
+    )
 
     return items
