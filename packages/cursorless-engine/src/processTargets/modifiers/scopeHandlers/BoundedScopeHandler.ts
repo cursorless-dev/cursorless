@@ -92,7 +92,7 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
         direction,
         {
           ...hints,
-          // For every (skipAncestorScopes=true) we don't want to go outside of the surrounding pair
+          // For the every scope modifier, we don't want to go outside of the surrounding pair
           containment: isEveryScope(hints) ? "required" : hints.containment,
         },
       ),
