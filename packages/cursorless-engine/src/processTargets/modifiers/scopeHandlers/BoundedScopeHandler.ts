@@ -19,7 +19,7 @@ import type {
   ScopeIteratorRequirements,
 } from "./scopeHandler.types";
 import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
-import { isEveryScope } from "./util/isHintsEveryScope";
+import { isEveryScopeModifier } from "./util/isHintsEveryScope";
 
 abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
   protected readonly isHierarchical = true;
@@ -93,7 +93,9 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
         {
           ...hints,
           // For every (skipAncestorScopes=true) we don't want to go outside of the surrounding pair
-          containment: isEveryScope(hints) ? "required" : hints.containment,
+          containment: isEveryScopeModifier(hints)
+            ? "required"
+            : hints.containment,
         },
       ),
     );

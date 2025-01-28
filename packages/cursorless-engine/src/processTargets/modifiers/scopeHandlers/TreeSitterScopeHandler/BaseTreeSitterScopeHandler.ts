@@ -8,7 +8,7 @@ import { BaseScopeHandler } from "../BaseScopeHandler";
 import { compareTargetScopes } from "../compareTargetScopes";
 import type { TargetScope } from "../scope.types";
 import type { ScopeIteratorRequirements } from "../scopeHandler.types";
-import { isEveryScope } from "../util/isHintsEveryScope";
+import { isEveryScopeModifier } from "../util/isHintsEveryScope";
 import { getQuerySearchRange } from "./getQuerySearchRange";
 import { mergeAdjacentBy } from "./mergeAdjacentBy";
 
@@ -25,7 +25,7 @@ export abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
     const { document } = editor;
-    const isEveryScope = isEveryScope(hints);
+    const isEveryScope = isEveryScopeModifier(hints);
 
     /** Narrow the range within which tree-sitter searches, for performance */
     const { start, end } = getQuerySearchRange(

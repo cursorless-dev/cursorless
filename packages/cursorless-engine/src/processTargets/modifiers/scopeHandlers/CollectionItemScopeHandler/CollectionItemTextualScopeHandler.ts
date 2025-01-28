@@ -14,7 +14,7 @@ import type {
   ScopeIteratorRequirements,
 } from "../scopeHandler.types";
 import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
-import { isEveryScope } from "../util/isHintsEveryScope";
+import { isEveryScopeModifier } from "../util/isHintsEveryScope";
 import { OneWayNestedRangeFinder } from "../util/OneWayNestedRangeFinder";
 import { OneWayRangeFinder } from "../util/OneWayRangeFinder";
 import { collectionItemTextualIterationScopeHandler } from "./collectionItemTextualIterationScopeHandler";
@@ -43,7 +43,7 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
     direction: Direction,
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
-    const isEveryScope = isEveryScope(hints);
+    const isEveryScope = isEveryScopeModifier(hints);
     const separatorRanges = getSeparatorOccurrences(editor.document);
     const interiorRanges = getInteriorRanges(
       this.scopeHandlerFactory,
