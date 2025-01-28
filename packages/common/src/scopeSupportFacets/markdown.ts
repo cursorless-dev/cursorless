@@ -10,4 +10,5 @@ export const markdownScopeSupport: LanguageScopeSupportFacetMap = {
   section: supported,
   notebookCell: supported,
   "interior.cell": supported,
+  "collectionItem.unenclosed": supported,
 };

@@ -1,10 +1,14 @@
-import type { TextDocument, TextEditor, TextLine } from "@cursorless/common";
-import { Position, Range } from "@cursorless/common";
+import type {
+  GeneralizedRange,
+  TextDocument,
+  TextEditor,
+  TextLine,
+} from "@cursorless/common";
+import { Position, Range, toLineRange } from "@cursorless/common";
+import { expandToFullLine } from "../../util/rangeUtils";
 import type { CommonTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";
-import { LineTarget } from "./LineTarget";
-import { expandToFullLine } from "../../util/rangeUtils";
-import { constructLineTarget } from "./LineTarget";
+import { constructLineTarget, LineTarget } from "./LineTarget";
 import { createContinuousLineRange } from "./util/createContinuousRange";
 
 export class ParagraphTarget extends BaseTarget<CommonTargetParameters> {
@@ -59,13 +63,16 @@ export class ParagraphTarget extends BaseTarget<CommonTargetParameters> {
     return expandToFullLine(this.editor, this.contentRange);
   }
 
-  getRemovalHighlightRange() {
+  getRemovalHighlightRange(): GeneralizedRange {
     const delimiterTarget =
       this.getTrailingDelimiterTarget() ?? this.getLeadingDelimiterTarget();
 
-    return delimiterTarget != null
-      ? this.fullLineContentRange.union(delimiterTarget.contentRange)
-      : this.fullLineContentRange;
+    const range =
+      delimiterTarget != null
+        ? this.fullLineContentRange.union(delimiterTarget.contentRange)
+        : this.fullLineContentRange;
+
+    return toLineRange(range);
   }
 
   maybeCreateRichRangeTarget(

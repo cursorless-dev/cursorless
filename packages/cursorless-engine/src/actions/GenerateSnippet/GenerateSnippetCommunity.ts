@@ -7,10 +7,11 @@ import {
   type TextEditor,
 } from "@cursorless/common";
 import {
-  getHeaderSnippet,
   parseSnippetFile,
   serializeSnippetFile,
-  type SnippetDocument,
+  type Snippet,
+  type SnippetFile,
+  type SnippetHeader,
   type SnippetVariable,
 } from "talon-snippets";
 import type { Snippets } from "../../core/Snippets";
@@ -129,36 +130,35 @@ export default class GenerateSnippetCommunity {
     const snippetLines = constructSnippetBody(snippetBodyText, linePrefix);
 
     let editableEditor: EditableTextEditor;
-    let snippetDocuments: SnippetDocument[];
+    let snippetFile: SnippetFile = { snippets: [] };
 
     if (ide().runMode === "test") {
       // If we're testing, we just overwrite the current document
       editableEditor = ide().getEditableTextEditor(editor);
-      snippetDocuments = [];
     } else {
       // Otherwise, we create and open a new document for the snippet
       editableEditor = ide().getEditableTextEditor(
         await this.snippets.openNewSnippetFile(snippetName, directory),
       );
-      snippetDocuments = parseSnippetFile(editableEditor.document.getText());
+      snippetFile = parseSnippetFile(editableEditor.document.getText());
     }
 
     await editableEditor.setSelections([
       editableEditor.document.range.toSelection(false),
     ]);
 
-    const headerSnippet = getHeaderSnippet(snippetDocuments);
-
     /** The next placeholder index to use for the meta snippet */
     let currentPlaceholderIndex = 1;
 
+    const { header } = snippetFile;
+
     const phrases =
-      headerSnippet?.phrases != null
+      snippetFile.header?.phrases != null
         ? undefined
         : [`${PLACEHOLDER}${currentPlaceholderIndex++}`];
 
     const createVariable = (variable: Variable): SnippetVariable => {
-      const hasPhrase = headerSnippet?.variables?.some(
+      const hasPhrase = header?.variables?.some(
         (v) => v.name === variable.name && v.wrapperPhrases != null,
       );
       return {
@@ -169,22 +169,22 @@ export default class GenerateSnippetCommunity {
       };
     };
 
-    const snippet: SnippetDocument = {
-      name: headerSnippet?.name === snippetName ? undefined : snippetName,
+    const snippet: Snippet = {
+      name: header?.name === snippetName ? undefined : snippetName,
       phrases,
-      languages: getSnippetLanguages(editor, headerSnippet),
+      languages: getSnippetLanguages(editor, header),
       body: snippetLines,
       variables: variables.map(createVariable),
     };
 
-    snippetDocuments.push(snippet);
+    snippetFile.snippets.push(snippet);
 
     /**
      * This is the text of the meta-snippet in Textmate format that we will
      * insert into the new document where the user will fill out their snippet
      * definition
      */
-    const metaSnippetText = serializeSnippetFile(snippetDocuments)
+    const metaSnippetText = serializeSnippetFile(snippetFile)
       // Escape dollar signs in the snippet text so that they don't get used as
       // placeholders in the meta snippet
       .replace(/\$/g, "\\$")
@@ -205,7 +205,7 @@ export default class GenerateSnippetCommunity {
 
 function getSnippetLanguages(
   editor: TextEditor,
-  header: SnippetDocument | undefined,
+  header: SnippetHeader | undefined,
 ): string[] | undefined {
   if (header?.languages?.includes(editor.document.languageId)) {
     return undefined;

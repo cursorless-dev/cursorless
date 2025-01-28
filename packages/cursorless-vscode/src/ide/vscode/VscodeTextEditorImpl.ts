@@ -1,7 +1,7 @@
 import type {
-  BreakpointDescriptor,
   Edit,
   EditableTextEditor,
+  GeneralizedRange,
   OpenLinkOptions,
   Range,
   RevealLineAt,
@@ -164,8 +164,8 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     return vscodeUnfold(this.ide, this, ranges);
   }
 
-  public toggleBreakpoint(descriptors?: BreakpointDescriptor[]): Promise<void> {
-    return vscodeToggleBreakpoint(this, descriptors);
+  public toggleBreakpoint(ranges?: GeneralizedRange[]): Promise<void> {
+    return vscodeToggleBreakpoint(this, ranges);
   }
 
   public async toggleLineComment(_ranges?: Range[]): Promise<void> {

@@ -13,6 +13,7 @@ import { EditNew } from "./EditNew";
 import { EditNewAfter, EditNewBefore } from "./EditNewLineAction";
 import ExecuteCommand from "./ExecuteCommand";
 import { FindInDocument, FindInWorkspace } from "./Find";
+import { FlashTargets } from "./FlashTargets";
 import FollowLink from "./FollowLink";
 import GenerateSnippet from "./GenerateSnippet";
 import GetTargets from "./GetTargets";
@@ -98,6 +99,7 @@ export class Actions implements ActionRecord {
   extractVariable = new ExtractVariable(this.rangeUpdater);
   findInDocument = new FindInDocument(this);
   findInWorkspace = new FindInWorkspace(this);
+  flashTargets = new FlashTargets();
   foldRegion = new Fold(this.rangeUpdater);
   followLink = new FollowLink({ openAside: false });
   followLinkAside = new FollowLink({ openAside: true });

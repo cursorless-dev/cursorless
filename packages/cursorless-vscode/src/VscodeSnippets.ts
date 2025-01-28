@@ -6,7 +6,7 @@ import { max } from "lodash-es";
 import { open, readFile, stat } from "node:fs/promises";
 import { join } from "node:path";
 
-const CURSORLESS_SNIPPETS_SUFFIX = ".cursorless-snippets";
+export const CURSORLESS_SNIPPETS_SUFFIX = ".cursorless-snippets";
 const SNIPPET_DIR_REFRESH_INTERVAL_MS = 1000;
 
 interface DirectoryErrorMessage {
@@ -77,7 +77,7 @@ export class VscodeSnippets implements Snippets {
   async init() {
     const extensionPath = this.ide.assetsRoot;
     const snippetsDir = join(extensionPath, "cursorless-snippets");
-    const snippetFiles = await getSnippetPaths(snippetsDir);
+    const snippetFiles = await this.getSnippetPaths(snippetsDir);
     this.coreSnippets = mergeStrict(
       ...(await Promise.all(
         snippetFiles.map(async (path) =>
@@ -115,7 +115,7 @@ export class VscodeSnippets implements Snippets {
     let snippetFiles: string[];
     try {
       snippetFiles = this.userSnippetsDir
-        ? await getSnippetPaths(this.userSnippetsDir)
+        ? await this.getSnippetPaths(this.userSnippetsDir)
         : [];
     } catch (err) {
       if (this.directoryErrorMessage?.directory !== this.userSnippetsDir) {
@@ -244,24 +244,31 @@ export class VscodeSnippets implements Snippets {
         return join(directory, `${snippetName}.snippet`);
       }
 
-      const userSnippetsDir = this.ide.configuration.getOwnConfiguration(
-        "experimental.snippetsDir",
+      return join(
+        this.getUserDirectoryStrict(),
+        `${snippetName}.cursorless-snippets`,
       );
-
-      if (!userSnippetsDir) {
-        throw new Error("User snippets dir not configured.");
-      }
-
-      return join(userSnippetsDir, `${snippetName}.cursorless-snippets`);
     })();
 
     await touch(path);
     return this.ide.openTextDocument(path);
   }
-}
 
-function getSnippetPaths(snippetsDir: string) {
-  return walkFiles(snippetsDir, CURSORLESS_SNIPPETS_SUFFIX);
+  getUserDirectoryStrict() {
+    const userSnippetsDir = this.ide.configuration.getOwnConfiguration(
+      "experimental.snippetsDir",
+    );
+
+    if (!userSnippetsDir) {
+      throw new Error("User snippets dir not configured.");
+    }
+
+    return userSnippetsDir;
+  }
+
+  getSnippetPaths(snippetsDir: string) {
+    return walkFiles(snippetsDir, CURSORLESS_SNIPPETS_SUFFIX);
+  }
 }
 
 async function touch(path: string) {

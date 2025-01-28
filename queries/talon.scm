@@ -39,9 +39,12 @@
 ;;!  ^^^^------------
 ;;!! tag(): user.cursorless
 ;;!  ^^^^^-----------------
-(_
-  left: _ @name
-) @_.domain
+(
+  (_
+    left: _ @name
+  ) @_.domain
+  (#not-type? @_.domain "binary_operator")
+)
 
 ;;!! not mode: command
 ;;!  ^^^^^^^^---------
@@ -49,18 +52,24 @@
 ;;!  ^^^^------------
 ;;!! tag(): user.cursorless
 ;;!  ^^^^^-----------------
-(_
-  modifiers: (_)? @collectionKey.start
-  left: _ @collectionKey.end
-) @_.domain
+(
+  (_
+    modifiers: (_)? @collectionKey.start
+    left: _ @collectionKey.end
+  ) @_.domain
+  (#not-type? @_.domain "binary_operator")
+)
 
 ;;!! not mode: command
 ;;!  ----------^^^^^^^
 ;;!! slap: key(enter)
 ;;!  ------^^^^^^^^^^
-(_
-  right: (_) @value
-) @_.domain
+(
+  (_
+    right: (_) @value
+  ) @_.domain
+  (#not-type? @_.domain "binary_operator")
+)
 
 ;;!!   mode: command
 ;;!   <*************

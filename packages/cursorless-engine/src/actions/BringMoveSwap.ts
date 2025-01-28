@@ -1,4 +1,9 @@
-import type { Range, Selection, TextEditor } from "@cursorless/common";
+import type {
+  GeneralizedRange,
+  Range,
+  Selection,
+  TextEditor,
+} from "@cursorless/common";
 import { FlashStyle, RangeExpansionBehavior } from "@cursorless/common";
 import { flatten } from "lodash-es";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
@@ -8,8 +13,8 @@ import type { EditWithRangeUpdater } from "../typings/Types";
 import type { Destination, Target } from "../typings/target.types";
 import {
   flashTargets,
-  getContentRange,
   runForEachEditor,
+  toGeneralizedRange,
 } from "../util/targetUtils";
 import { unifyRemovalTargets } from "../util/unifyRanges";
 import type { ActionReturnValue } from "./actions.types";
@@ -34,7 +39,7 @@ abstract class BringMoveSwap {
   protected abstract decoration: {
     sourceStyle: FlashStyle;
     destinationStyle: FlashStyle;
-    getSourceRangeCallback: (target: Target) => Range;
+    getSourceRangeCallback?: (target: Target) => GeneralizedRange;
   };
 
   constructor(
@@ -209,8 +214,12 @@ abstract class BringMoveSwap {
   }
 
   protected async decorateThatMark(thatMark: MarkEntry[]) {
-    const getRange = (target: Target) =>
-      thatMark.find((t) => t.target === target)!.selection;
+    const getRange = (target: Target) => {
+      return toGeneralizedRange(
+        target,
+        thatMark.find((t) => t.target === target)!.selection,
+      );
+    };
     return Promise.all([
       flashTargets(
         ide(),
@@ -250,7 +259,6 @@ export class Bring extends BringMoveSwap {
   decoration = {
     sourceStyle: FlashStyle.referenced,
     destinationStyle: FlashStyle.pendingModification0,
-    getSourceRangeCallback: getContentRange,
   };
 
   constructor(rangeUpdater: RangeUpdater) {
@@ -320,7 +328,6 @@ export class Swap extends BringMoveSwap {
   decoration = {
     sourceStyle: FlashStyle.pendingModification1,
     destinationStyle: FlashStyle.pendingModification0,
-    getSourceRangeCallback: getContentRange,
   };
 
   constructor(rangeUpdater: RangeUpdater) {

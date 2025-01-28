@@ -4,6 +4,7 @@ import type { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapt
 import { InteriorTarget } from "../../../targets";
 import { ScopeTypeTarget } from "../../../targets/ScopeTypeTarget";
 import type { CustomScopeType } from "../scopeHandler.types";
+import { getCollectionItemRemovalRange } from "../util/getCollectionItemRemovalRange";
 import type { ExtendedTargetScope } from "./BaseTreeSitterScopeHandler";
 import { BaseTreeSitterScopeHandler } from "./BaseTreeSitterScopeHandler";
 import { TreeSitterIterationScopeHandler } from "./TreeSitterIterationScopeHandler";
@@ -37,6 +38,7 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
   protected matchToScope(
     editor: TextEditor,
     match: QueryMatch,
+    isEveryScope: boolean,
   ): ExtendedTargetScope | undefined {
     const scopeTypeType = this.scopeType.type;
 
@@ -67,8 +69,6 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
       };
     }
 
-    const removalRange = getRelatedRange(match, scopeTypeType, "removal", true);
-
     const prefixRange = getRelatedRange(
       match,
       scopeTypeType,
@@ -89,6 +89,22 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
       "trailing",
       true,
     )?.with(contentRange.end);
+
+    let removalRange = getRelatedRange(match, scopeTypeType, "removal", true);
+
+    if (
+      removalRange == null &&
+      (scopeTypeType === "collectionItem" ||
+        scopeTypeType === "argumentOrParameter")
+    ) {
+      removalRange = getCollectionItemRemovalRange(
+        isEveryScope,
+        editor,
+        contentRange,
+        leadingDelimiterRange,
+        trailingDelimiterRange,
+      );
+    }
 
     return {
       editor,

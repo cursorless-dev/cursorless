@@ -18,6 +18,7 @@
     abstract_method_signature
     public_field_definition
     field_definition
+    generic_type
   )
 )
 
@@ -453,6 +454,16 @@
   (string)
   (template_string)
 ] @string
+
+;;  taggedTemplate`hello ${world}`
+;;! ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(call_expression
+  function: (_) @pairDelimiter.start
+  arguments: (template_string
+    .
+    "`" @pairDelimiter.end
+  )
+)
 
 ;;!! // comment
 ;;!  ^^^^^^^^^^
