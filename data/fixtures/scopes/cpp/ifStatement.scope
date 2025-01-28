@@ -8,9 +8,11 @@ void funk() {
       >----------------------<
 1|     if constexpr (true) {}
 
-[Removal] = 1:0-1:26
-  >--------------------------<
+[Removal] = 1:0-2:0
+  >--------------------------
 1|     if constexpr (true) {}
+2| }
+   <
 
 [Leading delimiter] = 1:0-1:4
   >----<

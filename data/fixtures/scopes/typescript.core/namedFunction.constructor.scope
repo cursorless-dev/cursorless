@@ -10,9 +10,11 @@ class MyClass {
     >--------------------------<
 1|   constructor(value: string)
 
-[#1 Removal] = 1:0-1:28
-  >----------------------------<
+[#1 Removal] = 1:0-2:0
+  >----------------------------
 1|   constructor(value: string)
+2|   constructor(value: number);
+   <
 
 [#1 Leading delimiter] = 1:0-1:2
   >--<
@@ -26,9 +28,11 @@ class MyClass {
     >---------------------------<
 2|   constructor(value: number);
 
-[#2 Removal] = 2:0-2:29
-  >-----------------------------<
+[#2 Removal] = 2:0-3:0
+  >-----------------------------
 2|   constructor(value: number);
+3|   constructor(value: string | number) {}
+   <
 
 [#2 Leading delimiter] = 2:0-2:2
   >--<
@@ -42,9 +46,11 @@ class MyClass {
     >--------------------------------------<
 3|   constructor(value: string | number) {}
 
-[#3 Removal] = 3:0-3:40
-  >----------------------------------------<
+[#3 Removal] = 3:0-4:0
+  >----------------------------------------
 3|   constructor(value: string | number) {}
+4| }
+   <
 
 [#3 Leading delimiter] = 3:0-3:2
   >--<

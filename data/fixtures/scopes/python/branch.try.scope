@@ -7,31 +7,49 @@ finally:
 ---
 
 [#1 Content] =
-[#1 Removal] =
 [#1 Domain] = 0:0-1:8
   >----
 0| try:
 1|     pass
    --------<
 
+[#1 Removal] = 0:0-2:0
+  >----
+0| try:
+1|     pass
+2| except:
+   <
+
 [#1 Insertion delimiter] = "\n"
 
 
 [#2 Content] =
-[#2 Removal] =
 [#2 Domain] = 2:0-3:8
   >-------
 2| except:
 3|     pass
    --------<
 
+[#2 Removal] = 2:0-4:0
+  >-------
+2| except:
+3|     pass
+4| finally:
+   <
+
 [#2 Insertion delimiter] = "\n"
 
 
 [#3 Content] =
-[#3 Removal] =
 [#3 Domain] = 4:0-5:8
   >--------
+4| finally:
+5|     pass
+   --------<
+
+[#3 Removal] = 3:8-5:8
+          >
+3|     pass
 4| finally:
 5|     pass
    --------<

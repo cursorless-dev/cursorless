@@ -8,9 +8,11 @@ class MyClass {
     >------------<
 1|   myFunk() { }
 
-[Removal] = 1:0-1:14
-  >--------------<
+[Removal] = 1:0-2:0
+  >--------------
 1|   myFunk() { }
+2| }
+   <
 
 [Leading delimiter] = 1:0-1:2
   >--<

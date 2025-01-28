@@ -22,7 +22,6 @@ initialState:
 finalState:
   documentContents: |-
     [].each do |i|
-
     end
   selections:
     - anchor: {line: 1, character: 0}
