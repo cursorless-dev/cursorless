@@ -23,6 +23,7 @@ export const simpleActionNames = [
   "extractVariable",
   "findInDocument",
   "findInWorkspace",
+  "flashTargets",
   "foldRegion",
   "followLink",
   "followLinkAside",

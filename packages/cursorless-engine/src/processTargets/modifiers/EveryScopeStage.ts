@@ -61,7 +61,8 @@ export class EveryScopeStage implements ModifierStage {
 
       if (
         scopes.length === 1 &&
-        scopes[0].domain.contains(target.contentRange)
+        scopes[0].domain.contains(target.contentRange) &&
+        !target.hasExplicitScopeType
       ) {
         // If the only scope that came back completely contains the input target
         // range, we treat the input as if it had no explicit range, expanding
