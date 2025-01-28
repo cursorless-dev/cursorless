@@ -57,14 +57,16 @@ async function migrateFile(targetDirectory: string, filePath: string) {
     }
   }
 
-  let destinationPath = path.join(targetDirectory, `${fileName}.snippet`);
-  if (await fileExists(destinationPath)) {
-    destinationPath = path.join(
+  try {
+    const destinationPath = path.join(targetDirectory, `${fileName}.snippet`);
+    await writeCommunityFile(communitySnippetFile, destinationPath);
+  } catch (_error) {
+    const destinationPath = path.join(
       targetDirectory,
       `${fileName}_CONFLICT.snippet`,
     );
+    await writeCommunityFile(communitySnippetFile, destinationPath);
   }
-  await writeCommunityFile(communitySnippetFile, destinationPath);
 }
 
 function parseVariables(
@@ -84,15 +86,6 @@ function parseVariables(
   );
 }
 
-async function fileExists(filePath: string): Promise<boolean> {
-  try {
-    await fs.access(filePath);
-    return true;
-  } catch (_e) {
-    return false;
-  }
-}
-
 async function readLegacyFile(filePath: string): Promise<SnippetMap> {
   const content = await fs.readFile(filePath, "utf8");
   if (content.length === 0) {
@@ -103,7 +96,7 @@ async function readLegacyFile(filePath: string): Promise<SnippetMap> {
 
 async function writeCommunityFile(snippetFile: SnippetFile, filePath: string) {
   const snippetText = serializeSnippetFile(snippetFile);
-  const file = await fs.open(filePath, "w");
+  const file = await fs.open(filePath, "wx");
   await file.write(snippetText);
   await file.close();
 }
