@@ -136,7 +136,6 @@
 (
   (section
     (atx_heading) @section.iteration.start.endOf
-  ) @section.iteration.end.endOf @section.iteration.domain
+  ) @section.iteration.end.endOf
   (#trim-end! @section.iteration.end.endOf)
-  (#trim-end! @section.iteration.domain)
 )
