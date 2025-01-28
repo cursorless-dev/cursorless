@@ -21,7 +21,7 @@ Cursorless has its own experimental snippet engine that allows you to both inser
 
 ## Migrate Cursorless snippet to community
 
-Say `"Cursorless migrate snippets"` to convert your existing experimental Cursorless snippet json files to the new community snippet format.
+Say `"Cursorless migrate snippets"` to convert your existing experimental Cursorless snippet JSON files (which are now deprecated) to the new community snippet format.
 
 ## Using snippets
 
