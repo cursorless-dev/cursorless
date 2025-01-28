@@ -5,7 +5,14 @@ const wildcard = "_";
 const captureNames = [wildcard, ...simpleScopeTypeTypes];
 
 const positionRelationships = ["prefix", "leading", "trailing"];
-const positionSuffixes = ["startOf", "endOf"];
+const positionSuffixes = [
+  "startOf",
+  "endOf",
+  "start.startOf",
+  "start.endOf",
+  "end.startOf",
+  "end.endOf",
+];
 
 const rangeRelationships = [
   "domain",
