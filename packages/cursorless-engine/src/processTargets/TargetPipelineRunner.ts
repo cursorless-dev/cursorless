@@ -208,6 +208,7 @@ class TargetPipeline {
   ): Target[] {
     let markStage: MarkStage;
     let targetModifierStages: ModifierStage[];
+    let automaticTokenExpansionBefore = false;
 
     if (targetDescriptor.type === "implicit") {
       markStage = new ImplicitStage();
@@ -218,28 +219,62 @@ class TargetPipeline {
         this.modifierStageFactory,
         targetDescriptor.modifiers,
       );
+      automaticTokenExpansionBefore =
+        doAutomaticTokenExpansionBefore(targetDescriptor);
     }
 
     // First, get the targets output by the mark
     const markOutputTargets = markStage.run();
 
+    const [preStages, postStages] = this.getPreAndPostStages(
+      automaticTokenExpansionBefore,
+    );
+
     /**
      * The modifier pipeline that will be applied to construct our final targets
      */
     const modifierStages = [
+      ...preStages,
       ...targetModifierStages,
       ...this.opts.actionFinalStages,
-
-      // This performs auto-expansion to token when you say eg "take this" with an
-      // empty selection
-      ...(this.opts.noAutomaticTokenExpansion
-        ? []
-        : [new ContainingTokenIfUntypedEmptyStage(this.modifierStageFactory)]),
+      ...postStages,
     ];
 
     // Run all targets through the modifier stages
     return processModifierStages(modifierStages, markOutputTargets);
   }
+
+  private getPreAndPostStages(
+    automaticTokenExpansionBefore: boolean,
+  ): [ModifierStage[], ModifierStage[]] {
+    if (this.opts.noAutomaticTokenExpansion) {
+      return [[], []];
+    }
+    // This performs auto-expansion to token when you say eg "take this" with an
+    // empty selection
+    const stage = new ContainingTokenIfUntypedEmptyStage(
+      this.modifierStageFactory,
+    );
+    if (automaticTokenExpansionBefore) {
+      return [[stage], []];
+    }
+    return [[], [stage]];
+  }
+}
+
+/**
+ * Determines whether we should automatically expand the token before the target.
+ * True if the target has modifiers that are all "startOf" or "endOf".
+ */
+function doAutomaticTokenExpansionBefore(
+  targetDescriptor: PrimitiveTargetDescriptor,
+): boolean {
+  return (
+    targetDescriptor.modifiers.length > 0 &&
+    targetDescriptor.modifiers.every(
+      ({ type }) => type === "startOf" || type === "endOf",
+    )
+  );
 }
 
 /** Convert a list of target modifiers to modifier stages */
