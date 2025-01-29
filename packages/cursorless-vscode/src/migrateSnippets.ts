@@ -159,7 +159,7 @@ async function openResultDocument(
   const skipMessage =
     "Snippets containing `scopeTypes` and/or `excludeDescendantScopeTypes` attributes are not supported by community snippets.";
 
-  const contentParts: string[] = [
+  const content: string[] = [
     `# Snippets migrated from Cursorless`,
     "",
     `From: ${sourceDirectory}`,
@@ -171,7 +171,7 @@ async function openResultDocument(
   ];
 
   if (migratedPartiallyKeys.length > 0) {
-    contentParts.push(
+    content.push(
       `## Migrated ${migratedPartiallyKeys.length} snippet files partially`,
       skipMessage,
       ...migratedPartiallyKeys.map(
@@ -181,7 +181,7 @@ async function openResultDocument(
   }
 
   if (result.skipped.length > 0) {
-    contentParts.push(
+    content.push(
       `## Skipped ${result.skipped.length} snippet files`,
       skipMessage,
       ...result.skipped.map((key) => `- ${key}`),
@@ -189,7 +189,7 @@ async function openResultDocument(
   }
 
   const textDocument = await vscode.workspace.openTextDocument({
-    content: contentParts.join("\n"),
+    content: content.join("\n"),
     language: "markdown",
   });
   await vscode.window.showTextDocument(textDocument);
