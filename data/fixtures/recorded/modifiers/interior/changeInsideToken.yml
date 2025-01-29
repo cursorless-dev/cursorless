@@ -1,0 +1,20 @@
+languageId: plaintext
+command:
+  version: 7
+  spokenForm: change inside token
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: interiorOnly}
+        - type: containingScope
+          scopeType: {type: token}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: (hello)
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+  marks: {}
+thrownError: {name: NoContainingScopeError}

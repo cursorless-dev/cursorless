@@ -35,6 +35,17 @@ export class InteriorScopeHandler extends BaseScopeHandler {
     super();
 
     this.scopeHandler = (() => {
+      const languageScopeHandler = languageDefinitions
+        .get(languageId)
+        ?.getScopeHandler(this.scopeType);
+
+      if (scopeType.type === "interiorParseTree") {
+        if (languageScopeHandler != null) {
+          return languageScopeHandler;
+        }
+        return FallbackScopeHandler.createFromScopeHandlers([]);
+      }
+
       const pairInteriorScopeHandler = scopeHandlerFactory.create(
         {
           type: "surroundingPairInterior",
@@ -44,19 +55,8 @@ export class InteriorScopeHandler extends BaseScopeHandler {
         languageId,
       );
 
-      const languageScopeHandler = languageDefinitions
-        .get(languageId)
-        ?.getScopeHandler(this.scopeType);
-
       if (languageScopeHandler == null) {
         return pairInteriorScopeHandler;
-      }
-
-      if (scopeType.type === "interiorFallback") {
-        return FallbackScopeHandler.createFromScopeHandlers([
-          languageScopeHandler,
-          pairInteriorScopeHandler,
-        ]);
       }
 
       return OneOfScopeHandler.createFromScopeHandlers(

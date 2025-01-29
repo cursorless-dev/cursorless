@@ -1,15 +1,18 @@
-import type {
-  ExcludeInteriorModifier,
-  InteriorOnlyModifier,
+import {
+  NoContainingScopeError,
+  type ExcludeInteriorModifier,
+  type InteriorOnlyModifier,
+  type ScopeType,
 } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
 import { ModifyIfConditionStage } from "./ConditionalModifierStages";
+import type { ScopeHandlerFactory } from "./scopeHandlers";
 
 export class InteriorOnlyStage implements ModifierStage {
   constructor(
-    private modifierStageFactory: ModifierStageFactory,
+    private scopeHandlerFactory: ScopeHandlerFactory,
     private modifier: InteriorOnlyModifier,
   ) {}
 
@@ -20,14 +23,35 @@ export class InteriorOnlyStage implements ModifierStage {
       return interior;
     }
 
-    const containingInteriorStage = this.modifierStageFactory.create({
-      type: "containingScope",
-      scopeType: {
-        type: target.hasExplicitScopeType ? "interiorFallback" : "interior",
-      },
-    });
+    const { editor, isReversed, contentRange } = target;
+    const scopeType: ScopeType = { type: "interior" };
 
-    return containingInteriorStage.run(target);
+    const scopeHandler = this.scopeHandlerFactory.create(
+      { type: target.hasExplicitScopeType ? "interiorParseTree" : "interior" },
+      editor.document.languageId,
+    );
+
+    const scopes = scopeHandler.generateScopes(
+      editor,
+      contentRange.start,
+      "forward",
+      {
+        containment: "required",
+        allowAdjacentScopes: true,
+        skipAncestorScopes: true,
+        distalPosition: contentRange.end,
+      },
+    );
+
+    const targets = Array.from(scopes).flatMap((scope) =>
+      scope.getTargets(isReversed),
+    );
+
+    if (targets.length === 0) {
+      throw new NoContainingScopeError(scopeType.type);
+    }
+
+    return targets;
   }
 }
 
