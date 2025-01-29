@@ -57,7 +57,7 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
       case "toRawSelection":
         return new RawSelectionStage(modifier);
       case "interiorOnly":
-        return new InteriorOnlyStage(this.scopeHandlerFactory, modifier);
+        return new InteriorOnlyStage(this, modifier);
       case "excludeInterior":
         return new ExcludeInteriorStage(this, modifier);
       case "leading":
