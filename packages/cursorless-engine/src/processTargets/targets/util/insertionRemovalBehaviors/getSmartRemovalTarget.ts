@@ -53,9 +53,6 @@ function isWholeLines(document: TextDocument, contentRange: Range): boolean {
   );
 }
 
-/**
- * Returns whether the given content range is a paragraph (a series of whole lines bounded by whitespace or empty lines on each side).
- */
 function hasLeadingAndTrailingEmptyLines(
   document: TextDocument,
   contentRange: Range,
