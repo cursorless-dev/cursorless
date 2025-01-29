@@ -7,6 +7,11 @@ import { LineTarget } from "../../LineTarget";
 import { ParagraphTarget } from "../../ParagraphTarget";
 import { TokenTarget } from "../../TokenTarget";
 
+/**
+ * For targets that don't provide a removal range, we can effectively duck-type one if its content
+ * range matches that of a token, line, paragraph, or document. If so, we can use the removal range
+ * for a target of that type.
+ */
 export function getSmartRemovalTarget(target: Target): Target {
   const { editor, isReversed } = target;
   const { document } = editor;
