@@ -21,12 +21,28 @@ interface Result {
   skipped: string[];
 }
 
+interface SpokenForms {
+  insertion: Record<string, string>;
+  insertionWithPhrase: Record<string, string>;
+  wrapper: Record<string, string>;
+}
+
 export async function migrateSnippets(
   snippets: VscodeSnippets,
   targetDirectory: string,
+  spokenForms: SpokenForms,
 ) {
-  const userSnippetsDir = snippets.getUserDirectoryStrict();
-  const files = await snippets.getSnippetPaths(userSnippetsDir);
+  const sourceDirectory = snippets.getUserDirectoryStrict();
+  const files = await snippets.getSnippetPaths(sourceDirectory);
+
+  const spokenFormsInverted: SpokenForms = {
+    insertion: swapKeyValue(spokenForms.insertion),
+    insertionWithPhrase: swapKeyValue(
+      spokenForms.insertionWithPhrase,
+      (name) => name.split(".")[0],
+    ),
+    wrapper: swapKeyValue(spokenForms.wrapper),
+  };
 
   const result: Result = {
     migrated: {},
@@ -35,60 +51,15 @@ export async function migrateSnippets(
   };
 
   for (const file of files) {
-    await migrateFile(result, targetDirectory, file);
+    await migrateFile(result, spokenFormsInverted, targetDirectory, file);
   }
 
-  await openResultDocument(result, userSnippetsDir, targetDirectory);
-}
-
-async function openResultDocument(
-  result: Result,
-  userSnippetsDir: string,
-  targetDirectory: string,
-) {
-  const migratedKeys = Object.keys(result.migrated).sort();
-  const migratedPartiallyKeys = Object.keys(result.migratedPartially).sort();
-  const skipMessage =
-    "Snippets containing `scopeTypes` and/or `excludeDescendantScopeTypes` attributes are not supported by community snippets.";
-
-  const contentParts: string[] = [
-    `# Snippets migrated from Cursorless`,
-    "",
-    `From: ${userSnippetsDir}`,
-    `To:   ${targetDirectory}`,
-    "",
-    `## Migrated ${migratedKeys.length} snippet files`,
-    ...migratedKeys.map((key) => `- ${key} -> ${result.migrated[key]}`),
-    "",
-  ];
-
-  if (migratedPartiallyKeys.length > 0) {
-    contentParts.push(
-      `## Migrated ${migratedPartiallyKeys.length} snippet files partially`,
-      skipMessage,
-      ...migratedPartiallyKeys.map(
-        (key) => `- ${key} -> ${result.migratedPartially[key]}`,
-      ),
-    );
-  }
-
-  if (result.skipped.length > 0) {
-    contentParts.push(
-      `## Skipped ${result.skipped.length} snippet files`,
-      skipMessage,
-      ...result.skipped.map((key) => `- ${key}`),
-    );
-  }
-
-  const textDocument = await vscode.workspace.openTextDocument({
-    content: contentParts.join("\n"),
-    language: "markdown",
-  });
-  await vscode.window.showTextDocument(textDocument);
+  await openResultDocument(result, sourceDirectory, targetDirectory);
 }
 
 async function migrateFile(
   result: Result,
+  spokenForms: SpokenForms,
   targetDirectory: string,
   filePath: string,
 ) {
@@ -99,11 +70,15 @@ async function migrateFile(
 
   for (const snippetName in snippetFile) {
     const snippet = snippetFile[snippetName];
+    const phrase =
+      spokenForms.insertion[snippetName] ??
+      spokenForms.insertionWithPhrase[snippetName];
 
     communitySnippetFile.header = {
       name: snippetName,
       description: snippet.description,
-      variables: parseVariables(snippet.variables),
+      phrases: phrase ? [phrase] : undefined,
+      variables: parseVariables(spokenForms, snippetName, snippet.variables),
       insertionScopes: snippet.insertionScopeTypes,
     };
 
@@ -118,7 +93,7 @@ async function migrateFile(
       communitySnippetFile.snippets.push({
         body: def.body.map((line) => line.replaceAll("\t", "    ")),
         languages: def.scope?.langIds,
-        variables: parseVariables(def.variables),
+        variables: parseVariables(spokenForms, snippetName, def.variables),
         // SKIP: def.scope?.scopeTypes
         // SKIP: def.scope?.excludeDescendantScopeTypes
       });
@@ -154,12 +129,16 @@ async function migrateFile(
 }
 
 function parseVariables(
+  spokenForms: SpokenForms,
+  snippetName: string,
   variables?: Record<string, SnippetVariableLegacy>,
 ): SnippetVariable[] {
   return Object.entries(variables ?? {}).map(
     ([name, variable]): SnippetVariable => {
+      const phrase = spokenForms.wrapper[`${snippetName}.${name}`];
       return {
         name,
+        wrapperPhrases: phrase ? [phrase] : undefined,
         wrapperScope: variable.wrapperScopeType,
         insertionFormatters: variable.formatter
           ? [variable.formatter]
@@ -168,6 +147,52 @@ function parseVariables(
       };
     },
   );
+}
+
+async function openResultDocument(
+  result: Result,
+  sourceDirectory: string,
+  targetDirectory: string,
+) {
+  const migratedKeys = Object.keys(result.migrated).sort();
+  const migratedPartiallyKeys = Object.keys(result.migratedPartially).sort();
+  const skipMessage =
+    "Snippets containing `scopeTypes` and/or `excludeDescendantScopeTypes` attributes are not supported by community snippets.";
+
+  const contentParts: string[] = [
+    `# Snippets migrated from Cursorless`,
+    "",
+    `From: ${sourceDirectory}`,
+    `To:   ${targetDirectory}`,
+    "",
+    `## Migrated ${migratedKeys.length} snippet files`,
+    ...migratedKeys.map((key) => `- ${key} -> ${result.migrated[key]}`),
+    "",
+  ];
+
+  if (migratedPartiallyKeys.length > 0) {
+    contentParts.push(
+      `## Migrated ${migratedPartiallyKeys.length} snippet files partially`,
+      skipMessage,
+      ...migratedPartiallyKeys.map(
+        (key) => `- ${key} -> ${result.migratedPartially[key]}`,
+      ),
+    );
+  }
+
+  if (result.skipped.length > 0) {
+    contentParts.push(
+      `## Skipped ${result.skipped.length} snippet files`,
+      skipMessage,
+      ...result.skipped.map((key) => `- ${key}`),
+    );
+  }
+
+  const textDocument = await vscode.workspace.openTextDocument({
+    content: contentParts.join("\n"),
+    language: "markdown",
+  });
+  await vscode.window.showTextDocument(textDocument);
 }
 
 async function readLegacyFile(filePath: string): Promise<SnippetMap> {
@@ -190,4 +215,13 @@ async function writeCommunityFile(
   } finally {
     await file.close();
   }
+}
+
+function swapKeyValue(
+  obj: Record<string, string>,
+  map?: (value: string) => string,
+): Record<string, string> {
+  return Object.fromEntries(
+    Object.entries(obj).map(([key, value]) => [map?.(value) ?? value, key]),
+  );
 }

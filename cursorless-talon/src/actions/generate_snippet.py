@@ -1,7 +1,7 @@
 import glob
 from pathlib import Path
 
-from talon import Context, Module, actions, settings
+from talon import Context, Module, actions, registry, settings
 
 from ..targets.target_types import CursorlessExplicitTarget
 
@@ -20,6 +20,15 @@ class Actions:
         actions.user.private_cursorless_run_rpc_command_no_wait(
             "cursorless.migrateSnippets",
             str(get_directory_path()),
+            {
+                "insertion": registry.lists[
+                    "user.cursorless_insertion_snippet_no_phrase"
+                ][-1],
+                "insertionWithPhrase": registry.lists[
+                    "user.cursorless_insertion_snippet_single_phrase"
+                ][-1],
+                "wrapper": registry.lists["user.cursorless_wrapper_snippet"][-1],
+            },
         )
 
     def private_cursorless_generate_snippet_action(target: CursorlessExplicitTarget):  # pyright: ignore [reportGeneralTypeIssues]
