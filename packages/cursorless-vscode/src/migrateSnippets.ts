@@ -15,6 +15,12 @@ import {
   type VscodeSnippets,
 } from "./VscodeSnippets";
 
+interface Result {
+  migrated: Record<string, string>;
+  migratedPartially: Record<string, string>;
+  skipped: string[];
+}
+
 export async function migrateSnippets(
   snippets: VscodeSnippets,
   targetDirectory: string,
@@ -22,19 +28,74 @@ export async function migrateSnippets(
   const userSnippetsDir = snippets.getUserDirectoryStrict();
   const files = await snippets.getSnippetPaths(userSnippetsDir);
 
+  const result: Result = {
+    migrated: {},
+    migratedPartially: {},
+    skipped: [],
+  };
+
   for (const file of files) {
-    await migrateFile(targetDirectory, file);
+    await migrateFile(result, targetDirectory, file);
   }
 
-  await vscode.window.showInformationMessage(
-    `${files.length} snippet files migrated successfully!`,
-  );
+  await openResultDocument(result, userSnippetsDir, targetDirectory);
 }
 
-async function migrateFile(targetDirectory: string, filePath: string) {
+async function openResultDocument(
+  result: Result,
+  userSnippetsDir: string,
+  targetDirectory: string,
+) {
+  const migratedKeys = Object.keys(result.migrated).sort();
+  const migratedPartiallyKeys = Object.keys(result.migratedPartially).sort();
+  const skipMessage =
+    "Snippets containing `scopeTypes` and/or `excludeDescendantScopeTypes` attributes are not supported by community snippets.";
+
+  const contentParts: string[] = [
+    `# Snippets migrated from Cursorless`,
+    "",
+    `From: ${userSnippetsDir}`,
+    `To:   ${targetDirectory}`,
+    "",
+    `## Migrated ${migratedKeys.length} snippet files`,
+    ...migratedKeys.map((key) => `- ${key} -> ${result.migrated[key]}`),
+    "",
+  ];
+
+  if (migratedPartiallyKeys.length > 0) {
+    contentParts.push(
+      `## Migrated ${migratedPartiallyKeys.length} snippet files partially`,
+      skipMessage,
+      ...migratedPartiallyKeys.map(
+        (key) => `- ${key} -> ${result.migratedPartially[key]}`,
+      ),
+    );
+  }
+
+  if (result.skipped.length > 0) {
+    contentParts.push(
+      `## Skipped ${result.skipped.length} snippet files`,
+      skipMessage,
+      ...result.skipped.map((key) => `- ${key}`),
+    );
+  }
+
+  const textDocument = await vscode.workspace.openTextDocument({
+    content: contentParts.join("\n"),
+    language: "markdown",
+  });
+  await vscode.window.showTextDocument(textDocument);
+}
+
+async function migrateFile(
+  result: Result,
+  targetDirectory: string,
+  filePath: string,
+) {
   const fileName = path.basename(filePath, CURSORLESS_SNIPPETS_SUFFIX);
   const snippetFile = await readLegacyFile(filePath);
   const communitySnippetFile: SnippetFile = { snippets: [] };
+  let hasSkippedSnippet = false;
 
   for (const snippetName in snippetFile) {
     const snippet = snippetFile[snippetName];
@@ -47,6 +108,13 @@ async function migrateFile(targetDirectory: string, filePath: string) {
     };
 
     for (const def of snippet.definitions) {
+      if (
+        def.scope?.scopeTypes?.length ||
+        def.scope?.excludeDescendantScopeTypes?.length
+      ) {
+        hasSkippedSnippet = true;
+        continue;
+      }
       communitySnippetFile.snippets.push({
         body: def.body.map((line) => line.replaceAll("\t", "    ")),
         languages: def.scope?.langIds,
@@ -57,19 +125,31 @@ async function migrateFile(targetDirectory: string, filePath: string) {
     }
   }
 
+  if (communitySnippetFile.snippets.length === 0) {
+    result.skipped.push(fileName);
+    return;
+  }
+
+  let destinationName: string;
+
   try {
-    const destinationPath = path.join(targetDirectory, `${fileName}.snippet`);
-    await writeCommunityFile(communitySnippetFile, destinationPath);
+    destinationName = `${fileName}.snippet`;
+    const destinationPath = path.join(targetDirectory, destinationName);
+    await writeCommunityFile(communitySnippetFile, destinationPath, "wx");
   } catch (error: any) {
     if (error.code === "EEXIST") {
-      const destinationPath = path.join(
-        targetDirectory,
-        `${fileName}_CONFLICT.snippet`,
-      );
-      await writeCommunityFile(communitySnippetFile, destinationPath);
+      destinationName = `${fileName}_CONFLICT.snippet`;
+      const destinationPath = path.join(targetDirectory, destinationName);
+      await writeCommunityFile(communitySnippetFile, destinationPath, "w");
     } else {
       throw error;
     }
+  }
+
+  if (hasSkippedSnippet) {
+    result.migratedPartially[fileName] = destinationName;
+  } else {
+    result.migrated[fileName] = destinationName;
   }
 }
 
@@ -98,9 +178,13 @@ async function readLegacyFile(filePath: string): Promise<SnippetMap> {
   return JSON.parse(content);
 }
 
-async function writeCommunityFile(snippetFile: SnippetFile, filePath: string) {
+async function writeCommunityFile(
+  snippetFile: SnippetFile,
+  filePath: string,
+  flags: string,
+) {
   const snippetText = serializeSnippetFile(snippetFile);
-  const file = await fs.open(filePath, "wx");
+  const file = await fs.open(filePath, flags);
   try {
     await file.write(snippetText);
   } finally {
