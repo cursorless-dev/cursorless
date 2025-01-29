@@ -15,23 +15,23 @@ export function getSmartRemovalTarget(target: Target): Target {
   const { document } = editor;
   const contentRange = union(target.contentRange, target.prefixRange);
 
-  if (!isWholeLines(document, contentRange)) {
-    return new TokenTarget({
+  if (isWholeLines(document, contentRange)) {
+    if (hasLeadingAndTrailingEmptyLines(document, contentRange)) {
+      return new ParagraphTarget({
+        editor,
+        isReversed,
+        contentRange: contentRange,
+      });
+    }
+
+    return new LineTarget({
       editor,
       isReversed,
       contentRange: contentRange,
     });
   }
 
-  if (isParagraph(document, contentRange)) {
-    return new ParagraphTarget({
-      editor,
-      isReversed,
-      contentRange: contentRange,
-    });
-  }
-
-  return new LineTarget({
+  return new TokenTarget({
     editor,
     isReversed,
     contentRange: contentRange,
@@ -56,7 +56,10 @@ function isWholeLines(document: TextDocument, contentRange: Range): boolean {
 /**
  * Returns whether the given content range is a paragraph (a series of whole lines bounded by whitespace or empty lines on each side).
  */
-function isParagraph(document: TextDocument, contentRange: Range): boolean {
+function hasLeadingAndTrailingEmptyLines(
+  document: TextDocument,
+  contentRange: Range,
+): boolean {
   const { start, end } = contentRange;
   return (
     (start.line === 0 || document.lineAt(start.line - 1).isEmptyOrWhitespace) &&
