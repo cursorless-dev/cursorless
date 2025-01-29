@@ -24,7 +24,6 @@ initialState:
 finalState:
   documentContents: |-
     begin
-
     ensure 
       a = 10
     end
