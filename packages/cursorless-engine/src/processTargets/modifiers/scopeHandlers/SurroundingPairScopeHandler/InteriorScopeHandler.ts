@@ -39,13 +39,6 @@ export class InteriorScopeHandler extends BaseScopeHandler {
         .get(languageId)
         ?.getScopeHandler(this.scopeType);
 
-      if (scopeType.parseTreeOnly) {
-        if (languageScopeHandler != null) {
-          return languageScopeHandler;
-        }
-        return FallbackScopeHandler.createFromScopeHandlers([]);
-      }
-
       const pairInteriorScopeHandler = scopeHandlerFactory.create(
         {
           type: "surroundingPairInterior",
@@ -57,6 +50,13 @@ export class InteriorScopeHandler extends BaseScopeHandler {
 
       if (languageScopeHandler == null) {
         return pairInteriorScopeHandler;
+      }
+
+      if (scopeType.useFallback) {
+        return FallbackScopeHandler.createFromScopeHandlers([
+          languageScopeHandler,
+          pairInteriorScopeHandler,
+        ]);
       }
 
       return OneOfScopeHandler.createFromScopeHandlers(
