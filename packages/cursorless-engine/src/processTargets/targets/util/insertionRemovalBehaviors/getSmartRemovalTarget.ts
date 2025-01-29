@@ -1,8 +1,6 @@
-import type { Range, TextDocument, TextEditor } from "@cursorless/common";
+import type { Range, TextDocument } from "@cursorless/common";
 import type { Target } from "../../../../typings/target.types";
 import { union } from "../../../../util/rangeUtils";
-import { shrinkRangeToFitContent } from "../../../../util/selectionUtils";
-import { DocumentTarget } from "../../DocumentTarget";
 import { LineTarget } from "../../LineTarget";
 import { ParagraphTarget } from "../../ParagraphTarget";
 import { TokenTarget } from "../../TokenTarget";
@@ -22,14 +20,6 @@ export function getSmartRemovalTarget(target: Target): Target {
       editor,
       isReversed,
       contentRange: contentRange,
-    });
-  }
-
-  if (isDocument(editor, contentRange)) {
-    return new DocumentTarget({
-      editor,
-      isReversed,
-      contentRange: document.range,
     });
   }
 
@@ -66,12 +56,4 @@ function isParagraph(document: TextDocument, contentRange: Range): boolean {
     (end.line === document.lineCount - 1 ||
       document.lineAt(end.line + 1).isEmptyOrWhitespace)
   );
-}
-
-function isDocument(editor: TextEditor, contentRange: Range): boolean {
-  const documentContentRange = shrinkRangeToFitContent(
-    editor,
-    editor.document.range,
-  );
-  return documentContentRange.isRangeEqual(contentRange);
 }
