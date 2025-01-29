@@ -15,7 +15,7 @@ export function getSmartRemovalTarget(target: Target): Target {
   const { document } = editor;
   const contentRange = union(target.contentRange, target.prefixRange);
 
-  if (!isLine(document, contentRange)) {
+  if (!isWholeLines(document, contentRange)) {
     return new TokenTarget({
       editor,
       isReversed,
@@ -42,7 +42,7 @@ export function getSmartRemovalTarget(target: Target): Target {
  * Returns whether the given content range is a series of line(s) that do not have preceding
  * or trailing content (whitespace is OK).
  */
-function isLine(document: TextDocument, contentRange: Range): boolean {
+function isWholeLines(document: TextDocument, contentRange: Range): boolean {
   const start = document.lineAt(contentRange.start).rangeTrimmed?.start;
   const end = document.lineAt(contentRange.end).rangeTrimmed?.end;
   return (
