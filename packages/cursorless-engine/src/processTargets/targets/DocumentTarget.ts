@@ -1,6 +1,7 @@
 import type { Range } from "@cursorless/common";
+import { shrinkRangeToFitContent } from "../../util/selectionUtils";
 import { BaseTarget, type CommonTargetParameters } from "./BaseTarget";
-import { InteriorTarget } from "./InteriorTarget";
+import { PlainTarget } from "./PlainTarget";
 
 export class DocumentTarget extends BaseTarget<CommonTargetParameters> {
   type = "DocumentTarget";
@@ -13,10 +14,11 @@ export class DocumentTarget extends BaseTarget<CommonTargetParameters> {
 
   getInterior() {
     return [
-      new InteriorTarget({
+      // Use plain target instead of interior target since we want the same content and removal range for a document interior.
+      new PlainTarget({
         editor: this.editor,
         isReversed: this.isReversed,
-        fullInteriorRange: this.contentRange,
+        contentRange: shrinkRangeToFitContent(this.editor, this.contentRange),
       }),
     ];
   }
