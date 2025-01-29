@@ -15,6 +15,7 @@ export function getSmartRemovalTarget(target: Target): Target {
   const { document } = editor;
   const contentRange = union(target.contentRange, target.prefixRange);
 
+  // NB: These are checked in order of cheapest to most expensive.
   if (isWholeLines(document, contentRange)) {
     if (hasLeadingAndTrailingEmptyLines(document, contentRange)) {
       return new ParagraphTarget({
