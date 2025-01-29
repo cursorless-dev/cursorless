@@ -130,3 +130,12 @@
   ) @sectionLevelSix @_.removal
   (#trim-end! @sectionLevelSix)
 )
+
+(document) @section.iteration
+
+(
+  (section
+    (atx_heading) @section.iteration.start.endOf
+  ) @section.iteration.end.endOf
+  (#trim-end! @section.iteration.end.endOf)
+)

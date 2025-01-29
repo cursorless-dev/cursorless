@@ -25,7 +25,9 @@ export default class ToggleBreakpoint implements SimpleAction {
     await flashTargets(ide(), thatTargets, FlashStyle.referenced);
 
     await runOnTargetsForEachEditor(targets, async (editor, targets) => {
-      const generalizedRanges = targets.map(toGeneralizedRange);
+      const generalizedRanges = targets.map((target) =>
+        toGeneralizedRange(target, target.contentRange),
+      );
 
       await ide()
         .getEditableTextEditor(editor)
