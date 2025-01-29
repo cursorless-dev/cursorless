@@ -1,5 +1,10 @@
-import type { Range, SimpleScopeTypeType } from "@cursorless/common";
+import type {
+  GeneralizedRange,
+  Range,
+  SimpleScopeTypeType,
+} from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
+import { toGeneralizedRange } from "../../util/targetUtils";
 import type { CommonTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";
 import { InteriorTarget } from "./InteriorTarget";
@@ -102,12 +107,12 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
     return getSmartRemovalTarget(this).getRemovalRange();
   }
 
-  getRemovalHighlightRange(): Range {
+  getRemovalHighlightRange(): GeneralizedRange {
     if (this.removalRange_ != null) {
-      return this.removalRange_;
+      return toGeneralizedRange(this, this.removalRange_);
     }
     if (this.hasDelimiterRange_) {
-      return getDelimitedSequenceRemovalRange(this);
+      return toGeneralizedRange(this, getDelimitedSequenceRemovalRange(this));
     }
     return getSmartRemovalTarget(this).getRemovalHighlightRange();
   }
