@@ -49,6 +49,9 @@ function isLine(document: TextDocument, contentRange: Range): boolean {
   );
 }
 
+/**
+ * Returns whether the given content range is a paragraph (a series of whole lines bounded by whitespace or empty lines on each side).
+ */
 function isParagraph(document: TextDocument, contentRange: Range): boolean {
   const { start, end } = contentRange;
   return (
