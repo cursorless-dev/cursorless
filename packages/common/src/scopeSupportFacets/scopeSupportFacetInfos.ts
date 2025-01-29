@@ -695,31 +695,31 @@ export const scopeSupportFacetInfos: Record<
 
   "interior.class": {
     description: "The body of a class",
-    scopeType: "interior",
+    scopeType: { type: "interior" },
   },
   "interior.function": {
     description: "The body of a function",
-    scopeType: "interior",
+    scopeType: { type: "interior" },
   },
   "interior.lambda": {
     description: "The body of a lambda/anonymous function",
-    scopeType: "interior",
+    scopeType: { type: "interior" },
   },
   "interior.branch": {
     description: "The body of an if/elif/else branch",
-    scopeType: "interior",
+    scopeType: { type: "interior" },
   },
   "interior.element": {
     description: "The interior/children of an xml element",
-    scopeType: "interior",
+    scopeType: { type: "interior" },
   },
   "interior.command": {
     description: "The body of a Talon command",
-    scopeType: "interior",
+    scopeType: { type: "interior" },
   },
   "interior.cell": {
     description: "The body of code cell in markdown",
-    scopeType: "interior",
+    scopeType: { type: "interior" },
   },
 
   notebookCell: {

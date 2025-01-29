@@ -1,8 +1,8 @@
 import {
   type Direction,
+  type InteriorScopeType,
   type Position,
   type ScopeType,
-  type SimpleScopeType,
   type TextEditor,
 } from "@cursorless/common";
 import type { LanguageDefinitions } from "../../../../languages/LanguageDefinitions";
@@ -29,7 +29,7 @@ export class InteriorScopeHandler extends BaseScopeHandler {
   constructor(
     private scopeHandlerFactory: ScopeHandlerFactory,
     languageDefinitions: LanguageDefinitions,
-    scopeType: SimpleScopeType,
+    scopeType: InteriorScopeType,
     private languageId: string,
   ) {
     super();
@@ -39,7 +39,7 @@ export class InteriorScopeHandler extends BaseScopeHandler {
         .get(languageId)
         ?.getScopeHandler(this.scopeType);
 
-      if (scopeType.type === "interiorParseTree") {
+      if (scopeType.parseTreeOnly) {
         if (languageScopeHandler != null) {
           return languageScopeHandler;
         }

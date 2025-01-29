@@ -121,7 +121,6 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
           languageId,
         );
       case "interior":
-      case "interiorParseTree":
         return new InteriorScopeHandler(
           this,
           this.languageDefinitions,

@@ -1,4 +1,4 @@
-import type { SimpleScopeType, TextEditor } from "@cursorless/common";
+import type { ScopeType, TextEditor } from "@cursorless/common";
 import type { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
 import type { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
 import { InteriorTarget } from "../../../targets";
@@ -18,7 +18,7 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
 
   constructor(
     query: TreeSitterQuery,
-    public scopeType: SimpleScopeType,
+    public scopeType: ScopeType,
   ) {
     super(query);
   }

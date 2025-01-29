@@ -127,7 +127,6 @@ function isLanguageSpecific(scopeType: ScopeType): boolean {
     case "ifStatement":
     case "instance":
     case "interior":
-    case "interiorParseTree":
     case "list":
     case "map":
     case "name":

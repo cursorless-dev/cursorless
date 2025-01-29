@@ -2,7 +2,7 @@ import { showError, simpleScopeTypeTypes } from "@cursorless/common";
 import { ide } from "../../singletons/ide.singleton";
 
 const wildcard = "_";
-const captureNames = [wildcard, ...simpleScopeTypeTypes];
+const captureNames = [wildcard, "interior", ...simpleScopeTypeTypes];
 
 const positionRelationships = ["prefix", "leading", "trailing"];
 const positionSuffixes = [

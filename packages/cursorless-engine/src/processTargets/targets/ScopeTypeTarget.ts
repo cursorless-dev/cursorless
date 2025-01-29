@@ -1,4 +1,4 @@
-import type { Range, SimpleScopeTypeType } from "@cursorless/common";
+import type { Range, ScopeTypeType } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import type { CommonTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";
@@ -11,7 +11,7 @@ import {
 } from "./util/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
 
 export interface ScopeTypeTargetParameters extends CommonTargetParameters {
-  readonly scopeTypeType: SimpleScopeTypeType;
+  readonly scopeTypeType: ScopeTypeType;
   readonly insertionDelimiter?: string;
   readonly prefixRange?: Range;
   readonly removalRange?: Range;
@@ -21,7 +21,7 @@ export interface ScopeTypeTargetParameters extends CommonTargetParameters {
 
 export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
   type = "ScopeTypeTarget";
-  private scopeTypeType_: SimpleScopeTypeType;
+  private scopeTypeType_: ScopeTypeType;
   private removalRange_?: Range;
   private leadingDelimiterRange_?: Range;
   private trailingDelimiterRange_?: Range;
@@ -118,7 +118,7 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
   }
 }
 
-function getInsertionDelimiter(scopeType: SimpleScopeTypeType): string {
+function getInsertionDelimiter(scopeType: ScopeTypeType): string {
   switch (scopeType) {
     case "class":
     case "namedFunction":

@@ -267,6 +267,9 @@ export class PrimitiveTargetSpokenFormGenerator {
           }
         );
 
+      case "interior":
+        return this.spokenFormMap.simpleModifier.interiorOnly;
+
       default:
         return this.spokenFormMap.simpleScopeTypeType[scopeType.type];
     }

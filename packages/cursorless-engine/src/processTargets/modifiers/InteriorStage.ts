@@ -24,10 +24,13 @@ export class InteriorOnlyStage implements ModifierStage {
     }
 
     const { editor, isReversed, contentRange } = target;
-    const scopeType: ScopeType = { type: "interior" };
+    const scopeType: ScopeType = {
+      type: "interior",
+      parseTreeOnly: target.hasExplicitScopeType,
+    };
 
     const scopeHandler = this.scopeHandlerFactory.create(
-      { type: target.hasExplicitScopeType ? "interiorParseTree" : "interior" },
+      scopeType,
       editor.document.languageId,
     );
 

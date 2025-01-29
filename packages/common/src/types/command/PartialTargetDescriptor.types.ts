@@ -155,8 +155,6 @@ export const simpleScopeTypeTypes = [
   "functionName",
   "ifStatement",
   "instance",
-  "interior",
-  "interiorParseTree",
   "list",
   "map",
   "name",
@@ -229,6 +227,11 @@ export interface CustomRegexScopeType {
   flags?: string;
 }
 
+export interface InteriorScopeType {
+  type: "interior";
+  parseTreeOnly?: boolean;
+}
+
 export type SurroundingPairDirection = "left" | "right";
 
 export interface SurroundingPairScopeType {
@@ -276,8 +279,11 @@ export type ScopeType =
   | SurroundingPairScopeType
   | SurroundingPairInteriorScopeType
   | CustomRegexScopeType
+  | InteriorScopeType
   | OneOfScopeType
   | GlyphScopeType;
+
+export type ScopeTypeType = ScopeType["type"];
 
 export interface ContainingSurroundingPairModifier
   extends ContainingScopeModifier {
