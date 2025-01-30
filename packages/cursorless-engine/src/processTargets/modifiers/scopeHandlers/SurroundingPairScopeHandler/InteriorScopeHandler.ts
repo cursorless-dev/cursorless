@@ -1,4 +1,5 @@
 import {
+  NoContainingScopeError,
   Range,
   type Direction,
   type InteriorScopeType,
@@ -8,7 +9,6 @@ import {
 } from "@cursorless/common";
 import type { LanguageDefinitions } from "../../../../languages/LanguageDefinitions";
 import { BaseScopeHandler } from "../BaseScopeHandler";
-import { FallbackScopeHandler } from "../FallbackScopeHandler";
 import { OneOfScopeHandler } from "../OneOfScopeHandler";
 import type { TargetScope } from "../scope.types";
 import type {
@@ -20,10 +20,10 @@ import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
 
 export class InteriorScopeHandler extends BaseScopeHandler {
   protected isHierarchical = true;
-  private scopeHandler: ScopeHandler;
+  private scopeHandler: ScopeHandler | undefined;
 
   get iterationScopeType(): ScopeType | ComplexScopeType {
-    return this.scopeHandler.iterationScopeType;
+    throw new NoContainingScopeError("Iteration scope for interior");
   }
 
   constructor(
@@ -45,7 +45,7 @@ export class InteriorScopeHandler extends BaseScopeHandler {
       // yield the interior of the `<div>` pair.
       if (scopeType.explicitScopeType) {
         if (languageScopeHandler == null) {
-          return FallbackScopeHandler.createFromScopeHandlers([]);
+          return undefined;
         }
         return languageScopeHandler;
       }
@@ -84,6 +84,10 @@ export class InteriorScopeHandler extends BaseScopeHandler {
     direction: Direction,
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
+    if (this.scopeHandler == null) {
+      return;
+    }
+
     const scopes = this.scopeHandler.generateScopes(
       editor,
       position,

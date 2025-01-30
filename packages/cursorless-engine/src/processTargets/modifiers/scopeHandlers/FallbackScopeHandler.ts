@@ -24,23 +24,11 @@ export class FallbackScopeHandler extends BaseScopeHandler {
     );
   }
 
-  static create(
-    scopeHandlerFactory: ScopeHandlerFactory,
-    scopeType: FallbackScopeType,
-    languageId: string,
-  ): ScopeHandler {
-    const scopeHandlers: ScopeHandler[] = scopeType.scopeTypes.map(
-      (scopeType) => scopeHandlerFactory.create(scopeType, languageId),
-    );
-
-    return this.createFromScopeHandlers(scopeHandlers);
-  }
-
-  static createFromScopeHandlers(scopeHandlers: ScopeHandler[]): ScopeHandler {
-    return new FallbackScopeHandler(scopeHandlers);
-  }
-
-  private constructor(private scopeHandlers: ScopeHandler[]) {
+  constructor(
+    public scopeHandlerFactory: ScopeHandlerFactory,
+    private fallbackScopeType: FallbackScopeType,
+    private languageId: string,
+  ) {
     super();
   }
 
@@ -50,7 +38,12 @@ export class FallbackScopeHandler extends BaseScopeHandler {
     direction: Direction,
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
-    for (const scopeHandler of this.scopeHandlers) {
+    const scopeHandlers: ScopeHandler[] = this.fallbackScopeType.scopeTypes.map(
+      (scopeType) =>
+        this.scopeHandlerFactory.create(scopeType, this.languageId),
+    );
+
+    for (const scopeHandler of scopeHandlers) {
       yield* scopeHandler.generateScopes(editor, position, direction, hints);
     }
   }
