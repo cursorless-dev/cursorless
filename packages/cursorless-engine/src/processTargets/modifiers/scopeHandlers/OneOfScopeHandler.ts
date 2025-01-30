@@ -81,7 +81,7 @@ export class OneOfScopeHandler extends BaseScopeHandler {
     direction: Direction,
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
-    // If we have used a iteration scope handler, we only want to yield additional scopes from its handler.
+    // If we have used an iteration scope handler, we only want to yield additional scopes from its handler.
     if (this.iterationScopeHandler?.lastYieldedIndex != null) {
       const handlerIndex = this.iterationScopeHandler.lastYieldedIndex;
       const handler = this.scopeHandlers[handlerIndex];
