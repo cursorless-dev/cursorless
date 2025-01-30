@@ -157,7 +157,7 @@ async function openResultDocument(
   const migratedKeys = Object.keys(result.migrated).sort();
   const migratedPartiallyKeys = Object.keys(result.migratedPartially).sort();
   const skipMessage =
-    "Snippets containing `scopeTypes` and/or `excludeDescendantScopeTypes` attributes are not supported by community snippets.";
+    "(Snippets containing `scopeTypes` and/or `excludeDescendantScopeTypes` attributes are not supported by community snippets.)";
 
   const content: string[] = [
     `# Snippets migrated from Cursorless`,
@@ -173,18 +173,18 @@ async function openResultDocument(
   if (migratedPartiallyKeys.length > 0) {
     content.push(
       `## Migrated ${migratedPartiallyKeys.length} snippet files partially:`,
-      skipMessage,
       ...migratedPartiallyKeys.map(
         (key) => `- ${key} -> ${result.migratedPartially[key]}`,
       ),
+      skipMessage,
     );
   }
 
   if (result.skipped.length > 0) {
     content.push(
       `## Skipped ${result.skipped.length} snippet files:`,
-      skipMessage,
       ...result.skipped.map((key) => `- ${key}`),
+      skipMessage,
     );
   }
 
