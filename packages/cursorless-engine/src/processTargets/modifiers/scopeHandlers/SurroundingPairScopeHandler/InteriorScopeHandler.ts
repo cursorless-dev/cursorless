@@ -66,6 +66,7 @@ export class InteriorScopeHandler extends BaseScopeHandler {
     // the target domain. E.g the user said "inside token", then we don't want
     // to yield scopes that are larger than the token. The definition of an
     // interior is that it's inside the scope.
+
     for (const scope of scopes) {
       if (targetDomain.contains(scope.domain)) {
         yield scope;
@@ -82,6 +83,7 @@ export class InteriorScopeHandler extends BaseScopeHandler {
     // type), then we don't want to include matching pairs. The user might
     // have said something like "inside element" and then we don't want to
     // yield the interior of the `<div>` pair.
+
     if (this.scopeType.explicitScopeType) {
       if (languageScopeHandler == null) {
         return undefined;
