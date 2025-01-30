@@ -1,6 +1,7 @@
 import type {
   RawTreeSitterQueryProvider,
   ScopeType,
+  SimpleScopeType,
   SimpleScopeTypeType,
   TreeSitter,
 } from "@cursorless/common";
@@ -77,7 +78,7 @@ export class LanguageDefinition {
       return undefined;
     }
 
-    return new TreeSitterScopeHandler(this.query, scopeType);
+    return new TreeSitterScopeHandler(this.query, scopeType as SimpleScopeType);
   }
 
   /**

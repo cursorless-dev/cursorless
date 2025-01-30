@@ -8,7 +8,10 @@ import {
   type TextEditor,
 } from "@cursorless/common";
 import type { LanguageDefinitions } from "../../../../languages/LanguageDefinitions";
+import type { Target } from "../../../../typings/target.types";
+import { InteriorTarget } from "../../../targets";
 import { BaseScopeHandler } from "../BaseScopeHandler";
+import { FallbackScopeHandler } from "../FallbackScopeHandler";
 import { OneOfScopeHandler } from "../OneOfScopeHandler";
 import type { TargetScope } from "../scope.types";
 import type {
@@ -42,6 +45,7 @@ export class InteriorScopeHandler extends BaseScopeHandler {
     direction: Direction,
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
+    const targetDomain = new Range(position, hints.distalPosition);
     const scopeHandler = this.getScopeHandler();
 
     if (scopeHandler == null) {
@@ -55,22 +59,9 @@ export class InteriorScopeHandler extends BaseScopeHandler {
       hints,
     );
 
-    // No explicit scope type. Just yield all scopes.
-    if (!this.scopeType.explicitScopeType) {
-      yield* scopes;
-      return;
-    }
-
-    const targetDomain = new Range(position, hints.distalPosition);
-
-    // For an explicit scope type we only yield scopes that are contained within
-    // the target domain. E.g the user said "inside token", then we don't want
-    // to yield scopes that are larger than the token. The definition of an
-    // interior is that it's inside the scope.
-
     for (const scope of scopes) {
-      if (targetDomain.contains(scope.domain)) {
-        yield scope;
+      if (this.shouldYield(targetDomain, scope)) {
+        yield createInteriorScope(scope);
       }
     }
   }
@@ -80,29 +71,31 @@ export class InteriorScopeHandler extends BaseScopeHandler {
       .get(this.languageId)
       ?.getScopeHandler(this.scopeType);
 
-    // If the scope type is explicit (ie, the user has specified a scope
-    // type), then we don't want to include matching pairs. The user might
-    // have said something like "inside element" and then we don't want to
-    // yield the interior of the `<div>` pair.
-
-    if (this.scopeType.explicitScopeType) {
-      if (languageScopeHandler == null) {
-        return undefined;
-      }
-      return languageScopeHandler;
-    }
-
-    const pairInteriorScopeHandler = this.scopeHandlerFactory.create(
+    const pairScopeHandler = this.scopeHandlerFactory.create(
       {
-        type: "surroundingPairInterior",
+        type: "surroundingPair",
         delimiter: "any",
-        allowWeakContainment: true,
       },
       this.languageId,
     );
 
+    // If the scope type is explicit (ie, the user has specified a scope
+    // type), then we want to prioritize language scopes. The user might
+    // have said something like "inside element" and then we don't want to
+    // yield the interior of the `<div>` pair first.
+
+    if (this.scopeType.explicitScopeType) {
+      if (languageScopeHandler == null) {
+        return pairScopeHandler;
+      }
+      return FallbackScopeHandler.createFromScopeHandlers([
+        languageScopeHandler,
+        pairScopeHandler,
+      ]);
+    }
+
     if (languageScopeHandler == null) {
-      return pairInteriorScopeHandler;
+      return pairScopeHandler;
     }
 
     return OneOfScopeHandler.createFromScopeHandlers(
@@ -111,11 +104,46 @@ export class InteriorScopeHandler extends BaseScopeHandler {
         type: "oneOf",
         scopeTypes: [
           languageScopeHandler.scopeType,
-          pairInteriorScopeHandler.scopeType!,
+          pairScopeHandler.scopeType!,
         ],
       },
-      [languageScopeHandler, pairInteriorScopeHandler],
+      [languageScopeHandler, pairScopeHandler],
       this.languageId,
     );
   }
+
+  private shouldYield(targetDomain: Range, scope: TargetScope): boolean {
+    // For an explicit scope type we only yield scopes that are contained within
+    // the target domain. E.g the user said "inside token", then we don't want
+    // to yield scopes that are larger than the token. The definition of an
+    // interior is that it's inside the scope.
+
+    return (
+      !this.scopeType.explicitScopeType || targetDomain.contains(scope.domain)
+    );
+  }
+}
+
+function createInteriorScope(scope: TargetScope): TargetScope {
+  return {
+    editor: scope.editor,
+    domain: scope.domain,
+    getTargets(isReversed) {
+      return scope.getTargets(isReversed).flatMap(createInteriorTarget);
+    },
+  };
+}
+
+function createInteriorTarget(target: Target): Target[] {
+  const interior = target.getInterior();
+  if (interior != null) {
+    return interior;
+  }
+  return [
+    new InteriorTarget({
+      editor: target.editor,
+      isReversed: target.isReversed,
+      fullInteriorRange: target.contentRange,
+    }),
+  ];
 }

@@ -21,7 +21,7 @@ export class SurroundingPairInteriorScopeHandler extends BaseScopeHandler {
       {
         type: "surroundingPair",
         delimiter: this.scopeType.delimiter,
-        requireStrongContainment: !this.scopeType.allowWeakContainment,
+        requireStrongContainment: true,
       },
       this.languageId,
     );

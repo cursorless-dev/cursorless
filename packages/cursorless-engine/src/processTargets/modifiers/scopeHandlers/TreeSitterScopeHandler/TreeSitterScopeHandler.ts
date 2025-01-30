@@ -1,7 +1,6 @@
-import type { ScopeType, TextEditor } from "@cursorless/common";
+import type { SimpleScopeType, TextEditor } from "@cursorless/common";
 import type { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
 import type { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
-import { InteriorTarget } from "../../../targets";
 import { ScopeTypeTarget } from "../../../targets/ScopeTypeTarget";
 import type { CustomScopeType } from "../scopeHandler.types";
 import { getCollectionItemRemovalRange } from "../util/getCollectionItemRemovalRange";
@@ -18,7 +17,7 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
 
   constructor(
     query: TreeSitterQuery,
-    public scopeType: ScopeType,
+    public scopeType: SimpleScopeType,
   ) {
     super(query);
   }
@@ -53,21 +52,6 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
 
     const domain =
       getRelatedRange(match, scopeTypeType, "domain", true) ?? contentRange;
-
-    if (scopeTypeType === "interior") {
-      return {
-        editor,
-        domain,
-        allowMultiple,
-        getTargets: (isReversed) => [
-          new InteriorTarget({
-            editor,
-            isReversed,
-            fullInteriorRange: contentRange,
-          }),
-        ],
-      };
-    }
 
     const prefixRange = getRelatedRange(
       match,
