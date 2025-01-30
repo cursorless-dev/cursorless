@@ -57,13 +57,10 @@ class BoundedLineStage implements ModifierStage {
     const line = this.getContainingLine(target);
     const pairInterior = this.getContainingPairInterior(target);
 
-    if (pairInterior == null) {
-      return [line];
-    }
-
-    const intersection = line.contentRange.intersection(
-      pairInterior.contentRange,
-    );
+    const intersection =
+      pairInterior != null
+        ? line.contentRange.intersection(pairInterior.contentRange)
+        : null;
 
     if (intersection == null || intersection.isEmpty) {
       return [line];
