@@ -1,6 +1,6 @@
-import {
-  type ExcludeInteriorModifier,
-  type InteriorOnlyModifier,
+import type {
+  ExcludeInteriorModifier,
+  InteriorOnlyModifier,
 } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStageFactory } from "../ModifierStageFactory";
