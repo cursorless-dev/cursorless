@@ -100,15 +100,8 @@ export class InteriorScopeHandler extends BaseScopeHandler {
 
     return OneOfScopeHandler.createFromScopeHandlers(
       this.scopeHandlerFactory,
-      {
-        type: "oneOf",
-        scopeTypes: [
-          languageScopeHandler.scopeType,
-          pairScopeHandler.scopeType!,
-        ],
-      },
-      [languageScopeHandler, pairScopeHandler],
       this.languageId,
+      [languageScopeHandler, pairScopeHandler],
     );
   }
 
