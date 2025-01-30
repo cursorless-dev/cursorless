@@ -113,9 +113,8 @@ export class InteriorScopeHandler extends BaseScopeHandler {
 
   private shouldYield(targetDomain: Range, scope: TargetScope): boolean {
     // For an explicit scope type we only yield scopes that are contained within
-    // the target domain. E.g the user said "inside token", then we don't want
-    // to yield scopes that are larger than the token. The definition of an
-    // interior is that it's inside the scope.
+    // the target domain. For example, if the user said "inside token", we don't
+    // want to yield scopes that are larger than the token.
     return (
       !this.scopeType.explicitScopeType || targetDomain.contains(scope.domain)
     );
