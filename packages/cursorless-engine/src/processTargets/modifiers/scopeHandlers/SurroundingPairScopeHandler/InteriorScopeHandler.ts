@@ -120,7 +120,6 @@ export class InteriorScopeHandler extends BaseScopeHandler {
         to yield scopes that are larger than the token. The definition of an
         interior is that it's inside the scope.
     */
-
     return (
       !this.scopeType.explicitScopeType || targetDomain.contains(scope.domain)
     );
