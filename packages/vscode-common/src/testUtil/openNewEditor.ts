@@ -33,6 +33,9 @@ export async function openNewEditor(
     await editor.edit((editBuilder) => editBuilder.setEndOfLine(eol));
   }
 
+  // Many times running these tests the sidebar will be opened so we close it.
+  vscode.commands.executeCommand("workbench.action.closeSidebar");
+
   return editor;
 }
 
