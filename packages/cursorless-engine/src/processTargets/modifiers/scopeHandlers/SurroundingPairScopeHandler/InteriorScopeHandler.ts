@@ -58,6 +58,7 @@ export class InteriorScopeHandler extends BaseScopeHandler {
     // No explicit scope type. Just yield all scopes.
     if (!this.scopeType.explicitScopeType) {
       yield* scopes;
+      return;
     }
 
     const targetDomain = new Range(position, hints.distalPosition);
