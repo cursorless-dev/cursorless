@@ -262,8 +262,6 @@ export interface SurroundingPairInteriorScopeType {
   delimiter: SurroundingPairName;
   // If true don't yield multiline pairs
   requireSingleLine?: boolean;
-  // If true the domain will be the full pair instead of just the interior
-  allowWeakContainment?: boolean;
 }
 
 export interface OneOfScopeType {
@@ -284,8 +282,6 @@ export type ScopeType =
   | InteriorScopeType
   | OneOfScopeType
   | GlyphScopeType;
-
-export type ScopeTypeType = ScopeType["type"];
 
 export interface ContainingSurroundingPairModifier
   extends ContainingScopeModifier {
