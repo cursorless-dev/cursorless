@@ -42,7 +42,7 @@ export class InteriorScopeHandler extends BaseScopeHandler {
       // If the scope type is explicit (ie, the user has specified a scope
       // type), then we don't want to include matching pairs. The user might
       // have said something like "inside element" and then we don't want to
-      // yield `<div>`.
+      // yield the interior of the `<div>` pair.
       if (scopeType.explicitScopeType) {
         if (languageScopeHandler == null) {
           return FallbackScopeHandler.createFromScopeHandlers([]);
@@ -91,18 +91,17 @@ export class InteriorScopeHandler extends BaseScopeHandler {
       hints,
     );
 
-    // The user haven specified an explicit scope types. Just yield all matching scopes.
+    // No explicit scope type. Just yield all matching scopes.
     if (!this.scopeType.explicitScopeType) {
       yield* scopes;
     }
 
     const targetDomain = new Range(position, hints.distalPosition);
 
-    // If the user has specified an explicit scope type, then we only want to
-    // yield scopes that is contained within the target domain. For example if
-    // the user said "inside token", then we don't want to yield scopes that are
-    // larger than the token. The definition of an interior is that it's
-    // inside the scope.
+    // For an explicit scope type we only yield scopes that are contained within
+    // the target domain. E.g the user said "inside token", then we don't want
+    // to yield scopes that are larger than the token. The definition of an
+    // interior is that it's inside the scope.
     for (const scope of scopes) {
       if (targetDomain.contains(scope.domain)) {
         yield scope;
