@@ -142,9 +142,10 @@ function getModifiersFromTarget(
       return target.modifiers;
     }
 
-    if (target.mark?.type === "cursor") {
-      return [{ type: "containingTokenIfEmpty" }];
-    }
+    // FIXME: Trying to select a word in the file explorer will create weird behavior.
+    // if (target.mark?.type === "cursor") {
+    //   return [{ type: "containingTokenIfEmpty" }];
+    // }
   }
   return [];
 }
