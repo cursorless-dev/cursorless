@@ -219,6 +219,7 @@ export type TextualScopeSupportFacet =
   | "url"
   | "surroundingPair"
   | "surroundingPair.iteration"
+  | "interior.surroundingPair"
   | "collectionItem.textual"
   | "collectionItem.textual.iteration";
 
