@@ -13,6 +13,8 @@ export const scopeSupportFacets = [
   "environment",
 
   "section",
+  "section.iteration.document",
+  "section.iteration.parent",
 
   "list",
   "map",

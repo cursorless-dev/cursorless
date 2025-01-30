@@ -1,14 +1,19 @@
-import type { Range, SimpleScopeTypeType } from "@cursorless/common";
+import type {
+  GeneralizedRange,
+  Range,
+  SimpleScopeTypeType,
+} from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
+import { toGeneralizedRange } from "../../util/targetUtils";
 import type { CommonTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";
 import { PlainTarget } from "./PlainTarget";
 import { getDelimitedSequenceRemovalRange } from "./util/insertionRemovalBehaviors/DelimitedSequenceInsertionRemovalBehavior";
 import {
   getTokenLeadingDelimiterTarget,
-  getTokenRemovalRange,
   getTokenTrailingDelimiterTarget,
 } from "./util/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
+import { getSmartRemovalTarget } from "./util/insertionRemovalBehaviors/getSmartRemovalTarget";
 
 export interface ScopeTypeTargetParameters extends CommonTargetParameters {
   readonly scopeTypeType: SimpleScopeTypeType;
@@ -72,11 +77,23 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
   }
 
   getRemovalRange(): Range {
-    return this.removalRange_ != null
-      ? this.removalRange_
-      : this.hasDelimiterRange_
-        ? getDelimitedSequenceRemovalRange(this)
-        : getTokenRemovalRange(this);
+    if (this.removalRange_ != null) {
+      return this.removalRange_;
+    }
+    if (this.hasDelimiterRange_) {
+      return getDelimitedSequenceRemovalRange(this);
+    }
+    return getSmartRemovalTarget(this).getRemovalRange();
+  }
+
+  getRemovalHighlightRange(): GeneralizedRange {
+    if (this.removalRange_ != null) {
+      return toGeneralizedRange(this, this.removalRange_);
+    }
+    if (this.hasDelimiterRange_) {
+      return toGeneralizedRange(this, getDelimitedSequenceRemovalRange(this));
+    }
+    return getSmartRemovalTarget(this).getRemovalHighlightRange();
   }
 
   maybeCreateRichRangeTarget(

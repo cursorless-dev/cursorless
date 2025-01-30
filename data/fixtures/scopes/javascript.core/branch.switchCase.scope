@@ -9,9 +9,11 @@ switch (value) {
     >-----------<
 1|   case 0: { }
 
-[#1 Removal] = 1:0-1:13
-  >-------------<
+[#1 Removal] = 1:0-2:0
+  >-------------
 1|   case 0: { }
+2|   default: { }
+   <
 
 [#1 Leading delimiter] = 1:0-1:2
   >--<
@@ -25,9 +27,11 @@ switch (value) {
     >------------<
 2|   default: { }
 
-[#2 Removal] = 2:0-2:14
-  >--------------<
+[#2 Removal] = 2:0-3:0
+  >--------------
 2|   default: { }
+3| }
+   <
 
 [#2 Leading delimiter] = 2:0-2:2
   >--<

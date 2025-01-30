@@ -35,9 +35,11 @@
       >-----------------------------------<
 1|   - This is the second level of a list.
 
-[#2 Removal] = 1:0-1:39
-  >---------------------------------------<
+[#2 Removal] = 1:0-2:0
+  >---------------------------------------
 1|   - This is the second level of a list.
+2| - This is the first level of a list again.
+   <
 
 [#2 Leading delimiter] = 1:0-1:2
   >--<
