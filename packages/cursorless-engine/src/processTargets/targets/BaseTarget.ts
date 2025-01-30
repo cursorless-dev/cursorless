@@ -69,6 +69,7 @@ export abstract class BaseTarget<
   get editor() {
     return this.state.editor;
   }
+
   get isReversed() {
     return this.state.isReversed;
   }
@@ -114,6 +115,7 @@ export abstract class BaseTarget<
   getInterior(): Target[] | undefined {
     return undefined;
   }
+
   getBoundary(): Target[] | undefined {
     return undefined;
   }
