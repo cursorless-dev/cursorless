@@ -1,7 +1,6 @@
 import type { Range } from "@cursorless/common";
 import { shrinkRangeToFitContent } from "../../util/selectionUtils";
-import type { CommonTargetParameters } from "./BaseTarget";
-import { BaseTarget } from "./BaseTarget";
+import { BaseTarget, type CommonTargetParameters } from "./BaseTarget";
 import { PlainTarget } from "./PlainTarget";
 
 export class DocumentTarget extends BaseTarget<CommonTargetParameters> {
@@ -13,16 +12,6 @@ export class DocumentTarget extends BaseTarget<CommonTargetParameters> {
     super(parameters);
   }
 
-  getLeadingDelimiterTarget() {
-    return undefined;
-  }
-  getTrailingDelimiterTarget() {
-    return undefined;
-  }
-  getRemovalRange(): Range {
-    return this.contentRange;
-  }
-
   getInterior() {
     return [
       // Use plain target instead of interior target since we want the same content and removal range for a document interior.
@@ -32,6 +21,18 @@ export class DocumentTarget extends BaseTarget<CommonTargetParameters> {
         contentRange: shrinkRangeToFitContent(this.editor, this.contentRange),
       }),
     ];
+  }
+
+  getRemovalRange(): Range {
+    return this.contentRange;
+  }
+
+  getLeadingDelimiterTarget() {
+    return undefined;
+  }
+
+  getTrailingDelimiterTarget() {
+    return undefined;
   }
 
   protected getCloneParameters() {
