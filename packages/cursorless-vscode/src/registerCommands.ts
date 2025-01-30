@@ -89,7 +89,7 @@ export function registerCommands(
     ["cursorless.showDocumentation"]: showDocumentation,
     ["cursorless.showInstallationDependencies"]: installationDependencies.show,
 
-    ["cursorless.migrateSnippets"]: (dir) => migrateSnippets(snippets, dir),
+    ["cursorless.migrateSnippets"]: migrateSnippets.bind(null, snippets),
 
     ["cursorless.private.logQuickActions"]: logQuickActions,
 
