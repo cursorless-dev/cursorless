@@ -29,12 +29,7 @@ export class CopyToClipboard implements SimpleAction {
     }
 
     if (options.showDecorations) {
-      await flashTargets(
-        ide(),
-        targets,
-        FlashStyle.referenced,
-        (target) => target.contentRange,
-      );
+      await flashTargets(ide(), targets, FlashStyle.referenced);
     }
 
     // FIXME: We should really keep track of the number of targets from the

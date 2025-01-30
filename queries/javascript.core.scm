@@ -18,6 +18,7 @@
     abstract_method_signature
     public_field_definition
     field_definition
+    generic_type
   )
 )
 

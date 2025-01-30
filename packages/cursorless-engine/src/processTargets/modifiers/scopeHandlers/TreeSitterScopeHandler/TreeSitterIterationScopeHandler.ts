@@ -34,6 +34,7 @@ export class TreeSitterIterationScopeHandler extends BaseTreeSitterScopeHandler 
   protected matchToScope(
     editor: TextEditor,
     match: QueryMatch,
+    _isEveryScope: boolean,
   ): ExtendedTargetScope | undefined {
     const scopeTypeType = this.iterateeScopeType.type;
 

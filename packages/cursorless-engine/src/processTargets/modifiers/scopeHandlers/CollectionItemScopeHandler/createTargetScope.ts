@@ -1,7 +1,7 @@
 import { type TextEditor, Range } from "@cursorless/common";
-import { getRangeLength } from "../../../../util/rangeUtils";
 import { ScopeTypeTarget } from "../../../targets";
 import type { TargetScope } from "../scope.types";
+import { getCollectionItemRemovalRange } from "../util/getCollectionItemRemovalRange";
 
 export function createTargetScope(
   isEveryScope: boolean,
@@ -15,22 +15,19 @@ export function createTargetScope(
     previousRange != null
       ? new Range(previousRange.end, contentRange.start)
       : undefined;
+
   const trailingDelimiterRange =
     nextRange != null
       ? new Range(contentRange.end, nextRange.start)
       : undefined;
 
-  // We have both leading and trailing delimiter ranges
-  // If the leading one is longer/more specific, prefer to use that for removal;
-  // otherwise use undefined to fallback to the default behavior (often trailing)
-  const removalRange =
-    !isEveryScope &&
-    leadingDelimiterRange != null &&
-    trailingDelimiterRange != null &&
-    getRangeLength(editor, leadingDelimiterRange) >
-      getRangeLength(editor, trailingDelimiterRange)
-      ? contentRange.union(leadingDelimiterRange)
-      : undefined;
+  const removalRange = getCollectionItemRemovalRange(
+    isEveryScope,
+    editor,
+    contentRange,
+    leadingDelimiterRange,
+    trailingDelimiterRange,
+  );
 
   const insertionDelimiter = iterationRange.isSingleLine ? ", " : ",\n";
 

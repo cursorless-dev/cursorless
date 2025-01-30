@@ -7,6 +7,7 @@
 import type { ModifyIfUntypedStage } from "../processTargets/modifiers/ConditionalModifierStages";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
 import type {
+  GeneralizedRange,
   InsertionMode,
   Range,
   Selection,
@@ -152,7 +153,7 @@ export interface Target {
    * we want to highlight the line that they were on when they said `"chuck
    * line"`, as that is logically the line they've deleted.
    */
-  getRemovalHighlightRange(): Range;
+  getRemovalHighlightRange(): GeneralizedRange;
   withThatTarget(thatTarget: Target): Target;
   withContentRange(contentRange: Range): Target;
 

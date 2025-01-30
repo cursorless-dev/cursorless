@@ -1,5 +1,6 @@
 import type {
   EnforceUndefined,
+  GeneralizedRange,
   InsertionMode,
   Range,
   Selection,
@@ -15,6 +16,7 @@ import type {
   Target,
   TextualType,
 } from "../../typings/target.types";
+import { toGeneralizedRange } from "../../util/targetUtils";
 import { DestinationImpl } from "./DestinationImpl";
 import { createContinuousRange } from "./util/createContinuousRange";
 
@@ -97,8 +99,8 @@ export abstract class BaseTarget<
     };
   }
 
-  getRemovalHighlightRange(): Range {
-    return this.getRemovalRange();
+  getRemovalHighlightRange(): GeneralizedRange {
+    return toGeneralizedRange(this, this.getRemovalRange());
   }
 
   withThatTarget(thatTarget: Target): Target {

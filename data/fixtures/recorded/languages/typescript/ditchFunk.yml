@@ -27,7 +27,6 @@ finalState:
     abstract class Foo {
         protected abstract bar(): void;
 
-
         baz() {}
     }
   selections:

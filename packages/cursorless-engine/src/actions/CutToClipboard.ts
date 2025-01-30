@@ -1,10 +1,5 @@
-import type { FlashDescriptor } from "@cursorless/common";
-import {
-  FlashStyle,
-  Range,
-  toCharacterRange,
-  toLineRange,
-} from "@cursorless/common";
+import type { CharacterRange, FlashDescriptor } from "@cursorless/common";
+import { FlashStyle, Range, toCharacterRange } from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
 import type { Target } from "../typings/target.types";
 import type { Actions } from "./Actions";
@@ -16,42 +11,7 @@ export class CutToClipboard implements SimpleAction {
   }
 
   async run(targets: Target[]): Promise<ActionReturnValue> {
-    await ide().flashRanges(
-      targets.flatMap((target) => {
-        const { editor, contentRange } = target;
-        const removalHighlightRange = target.getRemovalHighlightRange();
-
-        if (target.textualType === "line") {
-          return [
-            {
-              editor,
-              range: toCharacterRange(contentRange),
-              style: FlashStyle.referenced,
-            },
-            {
-              editor,
-              range: toLineRange(removalHighlightRange),
-              style: FlashStyle.pendingDelete,
-            },
-          ];
-        }
-
-        return [
-          {
-            editor,
-            range: toCharacterRange(contentRange),
-            style: FlashStyle.referenced,
-          },
-          ...getOutsideOverflow(contentRange, removalHighlightRange).map(
-            (overflow): FlashDescriptor => ({
-              editor,
-              range: toCharacterRange(overflow),
-              style: FlashStyle.pendingDelete,
-            }),
-          ),
-        ];
-      }),
-    );
+    await ide().flashRanges(targets.flatMap(getFlashDescriptors));
 
     const options = { showDecorations: false };
 
@@ -63,8 +23,44 @@ export class CutToClipboard implements SimpleAction {
   }
 }
 
+function getFlashDescriptors(target: Target): FlashDescriptor[] {
+  const { editor, contentRange } = target;
+  const removalHighlightRange = target.getRemovalHighlightRange();
+
+  const flashDescriptors: FlashDescriptor[] = [
+    {
+      editor,
+      range: toCharacterRange(contentRange),
+      style: FlashStyle.referenced,
+    },
+  ];
+
+  if (removalHighlightRange.type === "line") {
+    flashDescriptors.push({
+      editor,
+      range: removalHighlightRange,
+      style: FlashStyle.pendingDelete,
+    });
+  } else {
+    flashDescriptors.push(
+      ...getOutsideOverflow(contentRange, removalHighlightRange).map(
+        (overflow): FlashDescriptor => ({
+          editor,
+          range: toCharacterRange(overflow),
+          style: FlashStyle.pendingDelete,
+        }),
+      ),
+    );
+  }
+
+  return flashDescriptors;
+}
+
 /** Get the possible leading and trailing overflow ranges of the outside range compared to the inside range */
-function getOutsideOverflow(insideRange: Range, outsideRange: Range): Range[] {
+function getOutsideOverflow(
+  insideRange: Range,
+  outsideRange: CharacterRange,
+): Range[] {
   const { start: insideStart, end: insideEnd } = insideRange;
   const { start: outsideStart, end: outsideEnd } = outsideRange;
   const result = [];
