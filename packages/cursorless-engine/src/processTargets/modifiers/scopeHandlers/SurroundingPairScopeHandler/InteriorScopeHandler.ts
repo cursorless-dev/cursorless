@@ -83,7 +83,6 @@ export class InteriorScopeHandler extends BaseScopeHandler {
     // type), then we want to prioritize language scopes. The user might
     // have said something like "inside element" and then we don't want to
     // yield the interior of the `<div>` pair first.
-
     if (this.scopeType.explicitScopeType) {
       if (languageScopeHandler == null) {
         return pairScopeHandler;

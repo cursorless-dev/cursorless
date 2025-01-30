@@ -722,7 +722,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: { type: "interior" },
   },
   "interior.element": {
-    description: "The interior/children of an xml element",
+    description: "The interior/children of an XML element",
     scopeType: { type: "interior" },
   },
   "interior.command": {
@@ -730,7 +730,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: { type: "interior" },
   },
   "interior.cell": {
-    description: "The body of code cell in markdown",
+    description: "The body of a code cell in markdown",
     scopeType: { type: "interior" },
   },
 
