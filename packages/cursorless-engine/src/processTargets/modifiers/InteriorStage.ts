@@ -24,7 +24,7 @@ export class InteriorOnlyStage implements ModifierStage {
       type: "containingScope",
       scopeType: {
         type: "interior",
-        useFallback: target.hasExplicitScopeType,
+        languageDefinitionOnly: target.hasExplicitScopeType,
       },
     });
 

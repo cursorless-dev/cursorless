@@ -229,7 +229,7 @@ export interface CustomRegexScopeType {
 
 export interface InteriorScopeType {
   type: "interior";
-  useFallback?: boolean;
+  languageDefinitionOnly?: boolean;
 }
 
 export type SurroundingPairDirection = "left" | "right";

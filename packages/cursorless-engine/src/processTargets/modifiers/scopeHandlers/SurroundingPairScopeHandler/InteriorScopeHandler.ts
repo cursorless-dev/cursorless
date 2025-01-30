@@ -1,4 +1,5 @@
 import {
+  Range,
   type Direction,
   type InteriorScopeType,
   type Position,
@@ -18,7 +19,6 @@ import { type ScopeHandler } from "../scopeHandler.types";
 import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
 
 export class InteriorScopeHandler extends BaseScopeHandler {
-  public scopeType: ScopeType = { type: "interior" };
   protected isHierarchical = true;
   private scopeHandler: ScopeHandler;
 
@@ -29,7 +29,7 @@ export class InteriorScopeHandler extends BaseScopeHandler {
   constructor(
     private scopeHandlerFactory: ScopeHandlerFactory,
     languageDefinitions: LanguageDefinitions,
-    scopeType: InteriorScopeType,
+    public scopeType: InteriorScopeType,
     private languageId: string,
   ) {
     super();
@@ -38,6 +38,13 @@ export class InteriorScopeHandler extends BaseScopeHandler {
       const languageScopeHandler = languageDefinitions
         .get(languageId)
         ?.getScopeHandler(this.scopeType);
+
+      if (scopeType.languageDefinitionOnly) {
+        if (languageScopeHandler == null) {
+          return FallbackScopeHandler.createFromScopeHandlers([]);
+        }
+        return languageScopeHandler;
+      }
 
       const pairInteriorScopeHandler = scopeHandlerFactory.create(
         {
@@ -50,13 +57,6 @@ export class InteriorScopeHandler extends BaseScopeHandler {
 
       if (languageScopeHandler == null) {
         return pairInteriorScopeHandler;
-      }
-
-      if (scopeType.useFallback) {
-        return FallbackScopeHandler.createFromScopeHandlers([
-          languageScopeHandler,
-          pairInteriorScopeHandler,
-        ]);
       }
 
       return OneOfScopeHandler.createFromScopeHandlers(
@@ -74,12 +74,29 @@ export class InteriorScopeHandler extends BaseScopeHandler {
     })();
   }
 
-  generateScopeCandidates(
+  *generateScopeCandidates(
     editor: TextEditor,
     position: Position,
     direction: Direction,
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
-    return this.scopeHandler.generateScopes(editor, position, direction, hints);
+    const scopes = this.scopeHandler.generateScopes(
+      editor,
+      position,
+      direction,
+      hints,
+    );
+
+    if (!this.scopeType.languageDefinitionOnly) {
+      yield* scopes;
+    }
+
+    const domain = new Range(position, hints.distalPosition);
+
+    for (const scope of scopes) {
+      if (domain.contains(scope.domain)) {
+        yield scope;
+      }
+    }
   }
 }
