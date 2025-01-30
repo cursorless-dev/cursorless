@@ -165,14 +165,14 @@ async function openResultDocument(
     `From: ${sourceDirectory}`,
     `To:   ${targetDirectory}`,
     "",
-    `## Migrated ${migratedKeys.length} snippet files`,
+    `## Migrated ${migratedKeys.length} snippet files:`,
     ...migratedKeys.map((key) => `- ${key} -> ${result.migrated[key]}`),
     "",
   ];
 
   if (migratedPartiallyKeys.length > 0) {
     content.push(
-      `## Migrated ${migratedPartiallyKeys.length} snippet files partially`,
+      `## Migrated ${migratedPartiallyKeys.length} snippet files partially:`,
       skipMessage,
       ...migratedPartiallyKeys.map(
         (key) => `- ${key} -> ${result.migratedPartially[key]}`,
@@ -182,7 +182,7 @@ async function openResultDocument(
 
   if (result.skipped.length > 0) {
     content.push(
-      `## Skipped ${result.skipped.length} snippet files`,
+      `## Skipped ${result.skipped.length} snippet files:`,
       skipMessage,
       ...result.skipped.map((key) => `- ${key}`),
     );
