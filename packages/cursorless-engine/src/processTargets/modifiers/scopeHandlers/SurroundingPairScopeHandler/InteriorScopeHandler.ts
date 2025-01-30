@@ -80,9 +80,10 @@ export class InteriorScopeHandler extends BaseScopeHandler {
     );
 
     // If the scope type is explicit (ie, the user has specified a scope
-    // type), then we want to prioritize language scopes. The user might
-    // have said something like "inside element" and then we don't want to
-    // yield the interior of the `<div>` pair first.
+    // type), then we want to prioritize language scopes. For example,
+    // if the user says "inside element" inside a `<div>` tag, the angle
+    // brackets of the tag are also a surrounding pair which should have
+    // lower priority.
     if (this.scopeType.explicitScopeType) {
       if (languageScopeHandler == null) {
         return pairScopeHandler;
