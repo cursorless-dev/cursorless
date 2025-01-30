@@ -8,6 +8,7 @@ import type { Target } from "../../../typings/target.types";
 import type { InteriorTarget } from "../../targets";
 import {
   BoundedParagraphTarget,
+  LineTarget,
   ParagraphTarget,
   TokenTarget,
 } from "../../targets";
