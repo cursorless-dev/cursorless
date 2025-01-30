@@ -129,12 +129,12 @@ function createInteriorScope(scope: TargetScope): TargetScope {
     editor: scope.editor,
     domain: scope.domain,
     getTargets(isReversed) {
-      return scope.getTargets(isReversed).flatMap(createInteriorTarget);
+      return scope.getTargets(isReversed).flatMap(createInteriorTargets);
     },
   };
 }
 
-function createInteriorTarget(target: Target): Target[] {
+function createInteriorTargets(target: Target): Target[] {
   const interior = target.getInterior();
   if (interior != null) {
     return interior;
