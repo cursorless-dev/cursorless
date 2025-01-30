@@ -143,6 +143,7 @@ function getModifiersFromTarget(
     }
 
     // FIXME: Trying to select a word in the file explorer will create weird behavior.
+    // https://github.com/cursorless-dev/cursorless/issues/2800
     // if (target.mark?.type === "cursor") {
     //   return [{ type: "containingTokenIfEmpty" }];
     // }
