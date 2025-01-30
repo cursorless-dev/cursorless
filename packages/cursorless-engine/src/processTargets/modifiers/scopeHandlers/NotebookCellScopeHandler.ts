@@ -46,15 +46,8 @@ export class NotebookCellScopeHandler extends BaseScopeHandler {
 
       return OneOfScopeHandler.createFromScopeHandlers(
         scopeHandlerFactory,
-        {
-          type: "oneOf",
-          scopeTypes: [
-            languageScopeHandler.scopeType,
-            apiScopeHandler.scopeType,
-          ],
-        },
-        [languageScopeHandler, apiScopeHandler],
         languageId,
+        [languageScopeHandler, apiScopeHandler],
       );
     })();
   }

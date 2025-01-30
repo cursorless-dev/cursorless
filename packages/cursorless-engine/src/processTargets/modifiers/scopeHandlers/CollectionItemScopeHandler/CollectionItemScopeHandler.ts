@@ -48,15 +48,8 @@ export class CollectionItemScopeHandler extends BaseScopeHandler {
 
       return OneOfScopeHandler.createFromScopeHandlers(
         scopeHandlerFactory,
-        {
-          type: "oneOf",
-          scopeTypes: [
-            languageScopeHandler.scopeType,
-            textualScopeHandler.scopeType,
-          ],
-        },
-        [languageScopeHandler, textualScopeHandler],
         languageId,
+        [languageScopeHandler, textualScopeHandler],
       );
     })();
   }
