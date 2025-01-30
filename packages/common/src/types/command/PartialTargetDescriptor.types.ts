@@ -229,6 +229,8 @@ export interface CustomRegexScopeType {
 
 export interface InteriorScopeType {
   type: "interior";
+
+  // The user has specified a scope type. eg "inside element".
   explicitScopeType?: boolean;
 }
 

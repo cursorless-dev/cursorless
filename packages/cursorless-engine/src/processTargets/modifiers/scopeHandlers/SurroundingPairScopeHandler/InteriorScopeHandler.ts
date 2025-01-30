@@ -20,62 +20,20 @@ import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
 
 export class InteriorScopeHandler extends BaseScopeHandler {
   protected isHierarchical = true;
-  private scopeHandler: ScopeHandler | undefined;
-
-  get iterationScopeType(): ScopeType | ComplexScopeType {
-    throw new NoContainingScopeError("Iteration scope for interior");
-  }
 
   constructor(
     private scopeHandlerFactory: ScopeHandlerFactory,
-    languageDefinitions: LanguageDefinitions,
-    public scopeType: InteriorScopeType,
+    private languageDefinitions: LanguageDefinitions,
+    public readonly scopeType: InteriorScopeType,
     private languageId: string,
   ) {
     super();
+  }
 
-    this.scopeHandler = (() => {
-      const languageScopeHandler = languageDefinitions
-        .get(languageId)
-        ?.getScopeHandler(this.scopeType);
-
-      // If the scope type is explicit (ie, the user has specified a scope
-      // type), then we don't want to include matching pairs. The user might
-      // have said something like "inside element" and then we don't want to
-      // yield the interior of the `<div>` pair.
-      if (scopeType.explicitScopeType) {
-        if (languageScopeHandler == null) {
-          return undefined;
-        }
-        return languageScopeHandler;
-      }
-
-      const pairInteriorScopeHandler = scopeHandlerFactory.create(
-        {
-          type: "surroundingPairInterior",
-          delimiter: "any",
-          allowWeakContainment: true,
-        },
-        languageId,
-      );
-
-      if (languageScopeHandler == null) {
-        return pairInteriorScopeHandler;
-      }
-
-      return OneOfScopeHandler.createFromScopeHandlers(
-        scopeHandlerFactory,
-        {
-          type: "oneOf",
-          scopeTypes: [
-            languageScopeHandler.scopeType,
-            pairInteriorScopeHandler.scopeType!,
-          ],
-        },
-        [languageScopeHandler, pairInteriorScopeHandler],
-        languageId,
-      );
-    })();
+  get iterationScopeType(): ScopeType | ComplexScopeType {
+    throw new NoContainingScopeError(
+      "Iteration scope for InteriorScopeHandler",
+    );
   }
 
   *generateScopeCandidates(
@@ -84,11 +42,13 @@ export class InteriorScopeHandler extends BaseScopeHandler {
     direction: Direction,
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
-    if (this.scopeHandler == null) {
+    const scopeHandler = this.getScopeHandler();
+
+    if (scopeHandler == null) {
       return;
     }
 
-    const scopes = this.scopeHandler.generateScopes(
+    const scopes = scopeHandler.generateScopes(
       editor,
       position,
       direction,
@@ -111,5 +71,48 @@ export class InteriorScopeHandler extends BaseScopeHandler {
         yield scope;
       }
     }
+  }
+
+  private getScopeHandler(): ScopeHandler | undefined {
+    const languageScopeHandler = this.languageDefinitions
+      .get(this.languageId)
+      ?.getScopeHandler(this.scopeType);
+
+    // If the scope type is explicit (ie, the user has specified a scope
+    // type), then we don't want to include matching pairs. The user might
+    // have said something like "inside element" and then we don't want to
+    // yield the interior of the `<div>` pair.
+    if (this.scopeType.explicitScopeType) {
+      if (languageScopeHandler == null) {
+        return undefined;
+      }
+      return languageScopeHandler;
+    }
+
+    const pairInteriorScopeHandler = this.scopeHandlerFactory.create(
+      {
+        type: "surroundingPairInterior",
+        delimiter: "any",
+        allowWeakContainment: true,
+      },
+      this.languageId,
+    );
+
+    if (languageScopeHandler == null) {
+      return pairInteriorScopeHandler;
+    }
+
+    return OneOfScopeHandler.createFromScopeHandlers(
+      this.scopeHandlerFactory,
+      {
+        type: "oneOf",
+        scopeTypes: [
+          languageScopeHandler.scopeType,
+          pairInteriorScopeHandler.scopeType!,
+        ],
+      },
+      [languageScopeHandler, pairInteriorScopeHandler],
+      this.languageId,
+    );
   }
 }
