@@ -55,7 +55,7 @@ export class InteriorScopeHandler extends BaseScopeHandler {
       hints,
     );
 
-    // No explicit scope type. Just yield all matching scopes.
+    // No explicit scope type. Just yield all scopes.
     if (!this.scopeType.explicitScopeType) {
       yield* scopes;
     }
