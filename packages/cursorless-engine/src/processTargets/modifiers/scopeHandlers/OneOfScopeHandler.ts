@@ -17,6 +17,7 @@ import type {
 
 export class OneOfScopeHandler extends BaseScopeHandler {
   protected isHierarchical = true;
+  public scopeType = undefined;
   private iterationScopeHandler: OneOfScopeHandler | undefined;
   private lastYieldedIndex: number | undefined;
 
@@ -31,21 +32,18 @@ export class OneOfScopeHandler extends BaseScopeHandler {
 
     return this.createFromScopeHandlers(
       scopeHandlerFactory,
-      scopeType,
-      scopeHandlers,
       languageId,
+      scopeHandlers,
     );
   }
 
   static createFromScopeHandlers(
     scopeHandlerFactory: ScopeHandlerFactory,
-    scopeType: OneOfScopeType,
-    scopeHandlers: ScopeHandler[],
     languageId: string,
+    scopeHandlers: ScopeHandler[],
   ): ScopeHandler {
     const getIterationScopeHandler = () =>
       new OneOfScopeHandler(
-        undefined,
         scopeHandlers.map((scopeHandler) =>
           scopeHandlerFactory.create(
             scopeHandler.iterationScopeType,
@@ -57,11 +55,14 @@ export class OneOfScopeHandler extends BaseScopeHandler {
         },
       );
 
-    return new OneOfScopeHandler(
-      scopeType,
-      scopeHandlers,
-      getIterationScopeHandler,
-    );
+    return new OneOfScopeHandler(scopeHandlers, getIterationScopeHandler);
+  }
+
+  private constructor(
+    private scopeHandlers: ScopeHandler[],
+    private getIterationScopeHandler: () => OneOfScopeHandler,
+  ) {
+    super();
   }
 
   get iterationScopeType(): CustomScopeType {
@@ -74,21 +75,13 @@ export class OneOfScopeHandler extends BaseScopeHandler {
     };
   }
 
-  private constructor(
-    public readonly scopeType: OneOfScopeType | undefined,
-    private scopeHandlers: ScopeHandler[],
-    private getIterationScopeHandler: () => OneOfScopeHandler,
-  ) {
-    super();
-  }
-
   *generateScopeCandidates(
     editor: TextEditor,
     position: Position,
     direction: Direction,
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
-    // If we have used the iteration scope handler, we only want to yield from its handler.
+    // If we have used an iteration scope handler, we only want to yield additional scopes from its handler.
     if (this.iterationScopeHandler?.lastYieldedIndex != null) {
       const handlerIndex = this.iterationScopeHandler.lastYieldedIndex;
       const handler = this.scopeHandlers[handlerIndex];
