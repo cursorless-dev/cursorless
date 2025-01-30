@@ -45,9 +45,9 @@
 ;;!  ^^^^^^^^^^^^^^^
 ;;!       ^^^^
 (element
-  (STag) @xmlElement.interior.start.endOf
-  (ETag) @xmlElement.interior.end.startOf
-) @xmlElement
+  (STag) @interior.start.endOf
+  (ETag) @interior.end.startOf
+) @xmlElement @interior.domain
 
 ;;!! <aaa>text</aaa>
 ;;!  ^^^^^    ^^^^^^

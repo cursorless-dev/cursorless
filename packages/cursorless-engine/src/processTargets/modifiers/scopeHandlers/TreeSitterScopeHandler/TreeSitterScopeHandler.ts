@@ -53,13 +53,6 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
     const domain =
       getRelatedRange(match, scopeTypeType, "domain", true) ?? contentRange;
 
-    const interiorRange = getRelatedRange(
-      match,
-      scopeTypeType,
-      "interior",
-      true,
-    );
-
     const prefixRange = getRelatedRange(
       match,
       scopeTypeType,
@@ -111,7 +104,6 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
           removalRange,
           leadingDelimiterRange,
           trailingDelimiterRange,
-          interiorRange,
           insertionDelimiter,
         }),
       ],

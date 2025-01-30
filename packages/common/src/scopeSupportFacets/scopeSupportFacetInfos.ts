@@ -705,6 +705,35 @@ export const scopeSupportFacetInfos: Record<
     isIteration: true,
   },
 
+  "interior.class": {
+    description: "The body of a class",
+    scopeType: { type: "interior" },
+  },
+  "interior.function": {
+    description: "The body of a function",
+    scopeType: { type: "interior" },
+  },
+  "interior.lambda": {
+    description: "The body of a lambda/anonymous function",
+    scopeType: { type: "interior" },
+  },
+  "interior.branch": {
+    description: "The body of an if/elif/else branch",
+    scopeType: { type: "interior" },
+  },
+  "interior.element": {
+    description: "The interior/children of an XML element",
+    scopeType: { type: "interior" },
+  },
+  "interior.command": {
+    description: "The body of a Talon command",
+    scopeType: { type: "interior" },
+  },
+  "interior.cell": {
+    description: "The body of a code cell in markdown",
+    scopeType: { type: "interior" },
+  },
+
   notebookCell: {
     description: "A cell in a notebook or a markdown code block",
     scopeType: "notebookCell",

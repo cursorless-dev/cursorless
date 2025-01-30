@@ -20,13 +20,4 @@ end
 6| end
    ---<
 
-[Interior] = 1:4-5:7
-      >---------------
-1|     local count = 0
-2|     return function()
-3|         count = count + 1
-4|         return count
-5|     end
-   -------<
-
 [Insertion delimiter] = "\n\n"

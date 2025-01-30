@@ -1,8 +1,7 @@
 import type { Range } from "@cursorless/common";
+import { shrinkRangeToFitContent } from "../../util/selectionUtils";
 import type { MinimumTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";
-import { shrinkRangeToFitContent } from "../../util/selectionUtils";
-import { createContinuousRangeFromRanges } from "./util/createContinuousRange";
 
 export interface InteriorTargetParameters extends MinimumTargetParameters {
   readonly fullInteriorRange: Range;
@@ -42,11 +41,8 @@ export class InteriorTarget extends BaseTarget<InteriorTargetParameters> {
     return new InteriorTarget({
       ...this.getCloneParameters(),
       isReversed,
-      fullInteriorRange: createContinuousRangeFromRanges(
-        this.fullInteriorRange,
+      fullInteriorRange: this.fullInteriorRange.union(
         endTarget.fullInteriorRange,
-        true,
-        true,
       ),
     });
   }

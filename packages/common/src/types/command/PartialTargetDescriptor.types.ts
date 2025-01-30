@@ -227,6 +227,13 @@ export interface CustomRegexScopeType {
   flags?: string;
 }
 
+export interface InteriorScopeType {
+  type: "interior";
+
+  // The user has specified a scope type. eg "inside element".
+  explicitScopeType?: boolean;
+}
+
 export type SurroundingPairDirection = "left" | "right";
 
 export interface SurroundingPairScopeType {
@@ -270,6 +277,7 @@ export type ScopeType =
   | SurroundingPairScopeType
   | SurroundingPairInteriorScopeType
   | CustomRegexScopeType
+  | InteriorScopeType
   | OneOfScopeType
   | GlyphScopeType;
 

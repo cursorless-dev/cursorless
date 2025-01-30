@@ -15,7 +15,7 @@ export function createContinuousRange(
   );
 }
 
-export function createContinuousRangeFromRanges(
+function createContinuousRangeFromRanges(
   startRange: Range,
   endRange: Range,
   includeStart: boolean,

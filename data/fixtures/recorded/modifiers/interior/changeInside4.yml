@@ -1,0 +1,22 @@
+languageId: html
+command:
+  version: 7
+  spokenForm: change inside
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: interiorOnly}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: <div>content</div> (hello)
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 23}
+  marks: {}
+finalState:
+  documentContents: <div>)
+  selections:
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}
