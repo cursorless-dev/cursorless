@@ -12,7 +12,6 @@ import { isEqual } from "lodash-es";
 import type { EditWithRangeUpdater } from "../../typings/Types";
 import type {
   Destination,
-  JoinAsType,
   Target,
   TextualType,
 } from "../../typings/target.types";
@@ -54,7 +53,6 @@ export abstract class BaseTarget<
   isImplicit = false;
   isNotebookCell = false;
   textualType: TextualType = "token";
-  joinAs: JoinAsType = "line";
 
   constructor(parameters: TParameters & CommonTargetParameters) {
     this.state = {

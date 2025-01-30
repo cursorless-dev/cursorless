@@ -29,7 +29,6 @@ import type {
 import type { EditWithRangeUpdater } from "./Types";
 
 export type EditNewActionType = "edit" | "insertLineAfter";
-export type JoinAsType = "line" | "token";
 
 export type TextualType = "character" | "word" | "token" | "line";
 
@@ -51,9 +50,6 @@ export interface Target {
 
   /** Targets textual type. Is this target a line, a token, etc... */
   readonly textualType: TextualType;
-
-  /** Specifies how a target should be joined */
-  readonly joinAs: JoinAsType;
 
   /**
    * If `true`, then this target has an explicit scope type, and so should never

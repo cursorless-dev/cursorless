@@ -1,9 +1,5 @@
 import type { Range } from "@cursorless/common";
-import type {
-  JoinAsType,
-  Target,
-  TextualType,
-} from "../../typings/target.types";
+import type { Target, TextualType } from "../../typings/target.types";
 import type { CommonTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";
 import {
@@ -15,7 +11,6 @@ import {
 export class TokenTarget extends BaseTarget<CommonTargetParameters> {
   type = "TokenTarget";
   textualType: TextualType = "token";
-  joinAs: JoinAsType = "token";
   insertionDelimiter = " ";
 
   getLeadingDelimiterTarget(): Target | undefined {
