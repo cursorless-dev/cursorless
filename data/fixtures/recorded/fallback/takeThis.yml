@@ -23,4 +23,3 @@ finalState:
 fallback:
   action: setSelection
   modifiers: []
-
