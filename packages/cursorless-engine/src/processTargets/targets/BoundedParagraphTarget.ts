@@ -1,5 +1,6 @@
 import { toLineRange, type Range } from "@cursorless/common";
 import type { InteriorTarget, ParagraphTarget } from ".";
+import type { TextualType } from "../../typings/target.types";
 import { expandToFullLine } from "../../util/rangeUtils";
 import type { MinimumTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";
@@ -12,8 +13,8 @@ interface BoundedParagraphTargetParameters extends MinimumTargetParameters {
 
 export class BoundedParagraphTarget extends BaseTarget<BoundedParagraphTargetParameters> {
   readonly type = "BoundedParagraphTarget";
+  readonly textualType: TextualType = "line";
   readonly insertionDelimiter = "\n\n";
-  readonly isLine = true;
   private containingInterior: InteriorTarget;
   private paragraphTarget: ParagraphTarget;
   private startLineGap: number;

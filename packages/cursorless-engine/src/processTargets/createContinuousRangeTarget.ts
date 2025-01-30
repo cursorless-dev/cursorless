@@ -1,10 +1,10 @@
 import type { Target } from "../typings/target.types";
 import { isSameType } from "../util/typeUtils";
+import { LineTarget, UntypedTarget } from "./targets";
 import {
   createContinuousLineRange,
   createContinuousRange,
 } from "./targets/util/createContinuousRange";
-import { LineTarget, UntypedTarget } from "./targets";
 
 /**
  * Creates a target consisting of a range between two targets. If the targets
@@ -48,7 +48,7 @@ export function createContinuousRangeTarget(
     }
   }
 
-  if (startTarget.isLine && endTarget.isLine) {
+  if (startTarget.textualType === "line" && endTarget.textualType === "line") {
     return new LineTarget({
       editor: startTarget.editor,
       isReversed,
@@ -71,7 +71,12 @@ export function createContinuousRangeTarget(
       includeStart,
       includeEnd,
     ),
-    isToken:
-      includeStart && includeEnd && startTarget.isToken && endTarget.isToken,
+    textualType:
+      includeStart &&
+      includeEnd &&
+      startTarget.textualType === "token" &&
+      endTarget.textualType === "token"
+        ? "token"
+        : "character",
   });
 }

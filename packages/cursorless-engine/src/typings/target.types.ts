@@ -29,7 +29,8 @@ import type {
 import type { EditWithRangeUpdater } from "./Types";
 
 export type EditNewActionType = "edit" | "insertLineAfter";
-export type JoinAsType = "line" | "token";
+
+export type TextualType = "character" | "word" | "token" | "line";
 
 export interface Target {
   /** The text editor used for all ranges */
@@ -47,17 +48,8 @@ export interface Target {
   /** Optional prefix. For example, dash or asterisk for a markdown item */
   readonly prefixRange?: Range;
 
-  /** If true this target should be treated as a line */
-  readonly isLine: boolean;
-
-  /** If true this target should be treated as a token */
-  readonly isToken: boolean;
-
-  /** If true this target should be treated as a word */
-  readonly isWord: boolean;
-
-  /** Specifies how a target should be joined */
-  readonly joinAs: JoinAsType;
+  /** Targets textual type. Is this target a line, a token, etc... */
+  readonly textualType: TextualType;
 
   /**
    * If `true`, then this target has an explicit scope type, and so should never

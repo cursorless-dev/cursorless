@@ -5,6 +5,7 @@ import type {
   TextLine,
 } from "@cursorless/common";
 import { Position, Range, toLineRange } from "@cursorless/common";
+import type { TextualType } from "../../typings/target.types";
 import { expandToFullLine } from "../../util/rangeUtils";
 import type { CommonTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";
@@ -13,8 +14,8 @@ import { createContinuousLineRange } from "./util/createContinuousRange";
 
 export class ParagraphTarget extends BaseTarget<CommonTargetParameters> {
   type = "ParagraphTarget";
+  textualType: TextualType = "line";
   insertionDelimiter = "\n\n";
-  isLine = true;
 
   getLeadingDelimiterTarget() {
     return constructLineTarget(

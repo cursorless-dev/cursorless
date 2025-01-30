@@ -12,8 +12,8 @@ import { isEqual } from "lodash-es";
 import type { EditWithRangeUpdater } from "../../typings/Types";
 import type {
   Destination,
-  JoinAsType,
   Target,
+  TextualType,
 } from "../../typings/target.types";
 import { toGeneralizedRange } from "../../util/targetUtils";
 import { DestinationImpl } from "./DestinationImpl";
@@ -47,15 +47,12 @@ export abstract class BaseTarget<
 {
   protected abstract readonly type: string;
   protected readonly state: EnforceUndefined<CommonTargetParameters>;
-  isLine = false;
-  isToken = true;
   hasExplicitScopeType = true;
   hasExplicitRange = true;
   isRaw = false;
   isImplicit = false;
   isNotebookCell = false;
-  isWord = false;
-  joinAs: JoinAsType = "line";
+  textualType: TextualType = "token";
 
   constructor(parameters: TParameters & CommonTargetParameters) {
     this.state = {

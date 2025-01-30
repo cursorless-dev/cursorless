@@ -113,7 +113,9 @@ export function toGeneralizedRange(
   target: Target,
   range: Range,
 ): GeneralizedRange {
-  return target.isLine ? toLineRange(range) : toCharacterRange(range);
+  return target.textualType === "line"
+    ? toLineRange(range)
+    : toCharacterRange(range);
 }
 
 function toGeneralizedContentRange(target: Target): GeneralizedRange {
