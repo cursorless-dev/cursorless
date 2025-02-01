@@ -73,5 +73,5 @@ class CommunityInsertionSnippet:
 class CommunityWrapperSnippet:
     body: str
     variable_name: str
-    languages: list[str] | None = None
-    scope: str | None = None
+    languages: list[str] | None
+    scope: str | None
