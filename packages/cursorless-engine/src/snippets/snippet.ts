@@ -53,6 +53,13 @@ export function transformSnippetVariables(
     } else if (candidate instanceof Placeholder) {
       if (candidate.index.toString() === placeholderName) {
         candidate.parent.replace(candidate, [new Variable("TM_SELECTED_TEXT")]);
+      } else if (
+        substitutions != null &&
+        Object.prototype.hasOwnProperty.call(substitutions, candidate.index)
+      ) {
+        candidate.parent.replace(candidate, [
+          new Text(substitutions[candidate.index]),
+        ]);
       }
     }
     return true;
