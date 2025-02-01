@@ -131,7 +131,7 @@ class Actions:
         insert_community_snippet(
             name,
             None,  # substitutions
-            ImplicitDestination(),
+            destination,
         )
 
     def private_cursorless_wrap_with_community_snippet(

@@ -22,12 +22,12 @@ export function compareSnippetDefinitions<
 }
 
 function getScopeFromSnippetDescription(
-  snippetDescription: CustomInsertSnippetArg | CustomWrapWithSnippetArg,
+  snippet: CustomInsertSnippetArg | CustomWrapWithSnippetArg,
 ): SnippetScope | undefined {
-  if (snippetDescription.languages != null) {
+  if (snippet.languages != null) {
     return {
-      langIds: snippetDescription.languages,
-      // Note what is called scopeTypes in the snippet description is the
+      langIds: snippet.languages,
+      // Note what is called scopeTypes in the snippet arg is the
       // insertion scope. Not scope to match against like with the
       // function/method snippet example.
     };

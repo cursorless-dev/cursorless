@@ -15,7 +15,7 @@ class ScopeType:
 class CustomInsertionSnippet:
     name = "custom"
     body: str
-    scopesTypes: list[ScopeType] | None = None
+    scopeTypes: list[ScopeType] | None = None
     languages: list[str] | None = None
     substitutions: dict[str, str] | None = None
 
