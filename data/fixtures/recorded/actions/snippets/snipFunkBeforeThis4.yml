@@ -4,7 +4,12 @@ command:
   spokenForm: snippet funk before this
   action:
     name: insertSnippet
-    snippetDescription: {type: named, name: functionDeclaration}
+    snippetDescription:
+      type: custom
+      body: "function $name($parameterList) {\n\t$body\n}"
+      scopeTypes:
+        - {type: namedFunction}
+        - {type: statement}
     destination:
       type: primitive
       insertionMode: before
@@ -12,6 +17,7 @@ command:
         type: primitive
         mark: {type: cursor}
   usePrePhraseSnapshot: true
+spokenFormError: custom insertion snippet
 initialState:
   documentContents: |-
     class Aaa {
@@ -26,7 +32,7 @@ initialState:
 finalState:
   documentContents: |-
     class Aaa {
-        () {
+        function () {
             
         }
 
@@ -35,8 +41,8 @@ finalState:
         }
     }
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 1, character: 13}
+      active: {line: 1, character: 13}
   thatMark:
     - type: UntypedTarget
       contentRange:
