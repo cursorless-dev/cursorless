@@ -9,6 +9,7 @@ command:
       type: primitive
       mark: {type: cursor}
   usePrePhraseSnapshot: false
+spokenFormError: named wrap with snippet
 initialState:
   documentContents: |-
     <?php
@@ -18,15 +19,4 @@ initialState:
     - anchor: {line: 2, character: 7}
       active: {line: 2, character: 7}
   marks: {}
-finalState:
-  documentContents: |-
-    <?php
-
-    try {
-        $foo = "Hello world";
-    } catch () {
-        
-    }
-  selections:
-    - anchor: {line: 4, character: 9}
-      active: {line: 4, character: 9}
+thrownError: {name: Error}

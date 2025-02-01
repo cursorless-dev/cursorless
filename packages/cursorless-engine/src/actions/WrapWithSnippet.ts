@@ -7,7 +7,7 @@ import { performEditsAndUpdateSelections } from "../core/updateSelections/update
 import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { ModifyIfUntypedStage } from "../processTargets/modifiers/ConditionalModifierStages";
 import { ide } from "../singletons/ide.singleton";
-import { transformSnippetVariables } from "../snippets/snippet";
+import { transformSnippetVariables } from "../snippets/transformSnippetVariables";
 import { SnippetParser } from "../snippets/vendor/vscodeSnippet/snippetParser";
 import type { Target } from "../typings/target.types";
 import { ensureSingleEditor, flashTargets } from "../util/targetUtils";
