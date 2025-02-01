@@ -53,7 +53,7 @@ def insert_community_snippet(
         [
             CustomInsertionSnippet(
                 s.body,
-                to_scope_type(s.scopes),
+                to_scope_types(s.scopes),
                 s.languages,
                 substitutions,
             )
@@ -102,7 +102,7 @@ class Actions:
         """Cursorless: Insert custom snippet <body>"""
         snippet = CustomInsertionSnippet(
             body,
-            to_scope_type(scope_type),
+            to_scope_types(scope_type),
             None,  # languages
             None,  # substitutions
         )
@@ -142,11 +142,11 @@ class Actions:
         insert_community_wrapper_snippet(name, target)
 
 
-def to_scope_type(scope_type: str | list[str] | None) -> list[ScopeType] | None:
-    if isinstance(scope_type, str):
-        return [ScopeType(scope_type)]
-    elif scope_type is not None:
-        return [ScopeType(st) for st in scope_type]
+def to_scope_types(scope_types: str | list[str] | None) -> list[ScopeType] | None:
+    if isinstance(scope_types, str):
+        return [ScopeType(scope_types)]
+    elif scope_types is not None:
+        return [ScopeType(st) for st in scope_types]
         return None
 
 
