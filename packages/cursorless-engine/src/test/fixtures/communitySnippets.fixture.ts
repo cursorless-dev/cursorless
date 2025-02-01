@@ -16,8 +16,13 @@ const verticalRangeAction: ActionDescriptor = {
     },
   },
   snippetDescription: {
-    body: "```\n$0\n```",
-    type: "custom",
+    type: "list",
+    snippets: [
+      {
+        type: "custom",
+        body: "```\n$0\n```",
+      },
+    ],
   },
 };
 
