@@ -88,9 +88,7 @@ async function runTestsInDir(
       });
 
       if (shouldLogFailedTests()) {
-        runner.on("fail", (test) => {
-          failedTests.push(test.fullTitle());
-        });
+        runner.on("fail", (test) => failedTests.push(test.fullTitle()));
       }
     });
   } catch (err) {
