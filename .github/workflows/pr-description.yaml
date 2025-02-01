@@ -2,7 +2,7 @@ name: PR Description
 
 on:
   pull_request:
-    types: [opened, edited, reopened]
+    types: [opened, edited, reopened, synchronize]
   merge_group:
     branches: [main]
 
