@@ -157,6 +157,7 @@ export interface CustomInsertSnippetArg {
 
 interface ListInsertSnippetArg {
   type: "list";
+  substitutions?: Record<string, string>;
   snippets: CustomInsertSnippetArg[];
 }
 

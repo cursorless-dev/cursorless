@@ -63,7 +63,10 @@ export default class InsertSnippet {
 
     const parsedSnippet = this.snippetParser.parse(snippet.body);
 
-    transformSnippetVariables(parsedSnippet, null, snippet.substitutions);
+    const substitutions =
+      snippet.substitutions ?? snippetDescription.substitutions;
+
+    transformSnippetVariables(parsedSnippet, null, substitutions);
 
     const snippetString = parsedSnippet.toTextmateString();
 

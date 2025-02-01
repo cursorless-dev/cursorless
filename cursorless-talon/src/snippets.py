@@ -50,13 +50,14 @@ def insert_community_snippet(
 ):
     snippets: list[CommunityInsertionSnippet] = get_insertion_snippets(name)
     snippet = ListInsertionSnippet(
+        substitutions,
         [
             CustomInsertionSnippet(
                 s.body,
                 to_scope_types(s.scopes),
                 # languages will be missing if the user has an older version of community
                 s.languages if hasattr(s, "languages") else None,
-                substitutions,
+                None,  # substitutions
             )
             for s in snippets
         ],

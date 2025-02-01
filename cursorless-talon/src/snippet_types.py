@@ -15,14 +15,15 @@ class ScopeType:
 class CustomInsertionSnippet:
     name = "custom"
     body: str
-    scopeTypes: list[ScopeType] | None = None
-    languages: list[str] | None = None
-    substitutions: dict[str, str] | None = None
+    scopeTypes: list[ScopeType] | None
+    languages: list[str] | None
+    substitutions: dict[str, str] | None
 
 
 @dataclass
 class ListInsertionSnippet:
     name = "list"
+    substitutions: dict[str, str] | None
     snippets: list[CustomInsertionSnippet]
 
 
@@ -40,9 +41,9 @@ class InsertSnippetAction:
 class CustomWrapperSnippet:
     name = "custom"
     body: str
-    variableName: str | None = None
-    scopeType: ScopeType | None = None
-    languages: list[str] | None = None
+    variableName: str | None
+    scopeType: ScopeType | None
+    languages: list[str] | None
 
 
 @dataclass
