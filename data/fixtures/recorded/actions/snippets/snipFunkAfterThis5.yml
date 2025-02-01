@@ -8,6 +8,7 @@ command:
       type: custom
       body: "$name($parameterList) {\n\t$body\n}"
       scopeTypes:
+        - {type: namedFunction}
         - {type: statement}
     destination:
       type: primitive
@@ -34,17 +35,18 @@ finalState:
         bbb() {
             
         }
+
         () {
             
         }
     }
   selections:
-    - anchor: {line: 4, character: 4}
-      active: {line: 4, character: 4}
+    - anchor: {line: 5, character: 4}
+      active: {line: 5, character: 4}
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 4, character: 4}
-        end: {line: 6, character: 5}
+        start: {line: 5, character: 4}
+        end: {line: 7, character: 5}
       isReversed: false
       hasExplicitRange: true
