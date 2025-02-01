@@ -27,7 +27,5 @@ const verticalRangeAction: ActionDescriptor = {
  * Talon tests by relying on our recorded test fixtures alone.
  */
 export const communitySnippetsSpokenFormsFixture = [
-  spokenFormTest("snippet code after air", verticalRangeAction, undefined, {
-    useCommunitySnippets: true,
-  }),
+  spokenFormTest("snippet code after air", verticalRangeAction, undefined),
 ];
