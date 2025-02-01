@@ -6,7 +6,7 @@ command:
     name: insertSnippet
     snippetDescription:
       type: custom
-      body: "function $name($parameterList) {\n\t$body\n}"
+      body: "def $name($parameterList):\n\t$body"
       scopeTypes:
         - {type: statement}
       substitutions: {name: hello_world}
@@ -20,16 +20,15 @@ initialState:
       active: {line: 0, character: 0}
 finalState:
   documentContents: |-
-    function hello_world() {
+    def hello_world():
         
-    }
   selections:
-    - anchor: {line: 0, character: 21}
-      active: {line: 0, character: 21}
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 16}
   thatMark:
     - type: UntypedTarget
       contentRange:
         start: {line: 0, character: 0}
-        end: {line: 2, character: 1}
+        end: {line: 1, character: 4}
       isReversed: false
       hasExplicitRange: true

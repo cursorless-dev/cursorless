@@ -6,7 +6,7 @@ command:
     name: insertSnippet
     snippetDescription:
       type: custom
-      body: "function $name($parameterList) {\n\t$body\n}"
+      body: "$name($parameterList) {\n\t$body\n}"
       scopeTypes:
         - {type: statement}
       substitutions: {name: celloWorld}
@@ -25,13 +25,13 @@ initialState:
 finalState:
   documentContents: |-
     class Aaa {
-        function celloWorld() {
+        celloWorld() {
             
         }
     }
   selections:
-    - anchor: {line: 1, character: 24}
-      active: {line: 1, character: 24}
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 15}
   thatMark:
     - type: UntypedTarget
       contentRange:

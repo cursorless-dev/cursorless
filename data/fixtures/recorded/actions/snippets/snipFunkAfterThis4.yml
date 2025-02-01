@@ -6,7 +6,7 @@ command:
     name: insertSnippet
     snippetDescription:
       type: custom
-      body: "function $name($parameterList) {\n\t$body\n}"
+      body: "$name($parameterList) {\n\t$body\n}"
       scopeTypes:
         - {type: statement}
     destination:
@@ -25,12 +25,12 @@ initialState:
 finalState:
   documentContents: |-
     const foo = "bar";
-    function () {
+    () {
         
     }
   selections:
-    - anchor: {line: 1, character: 9}
-      active: {line: 1, character: 9}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
   thatMark:
     - type: UntypedTarget
       contentRange:
