@@ -1,4 +1,5 @@
 import type {
+  CustomInsertSnippetArg,
   InsertSnippetArg,
   ScopeType,
   Snippet,
@@ -35,7 +36,10 @@ export default class InsertSnippet {
   }
 
   getFinalStages(snippetDescription: InsertSnippetArg) {
-    const defaultScopeTypes = this.getScopeTypes(snippetDescription);
+    const snippets = getSnippets(snippetDescription);
+    const defaultScopeTypes = snippets.flatMap(
+      (snippetDescription) => snippetDescription.scopeTypes ?? [],
+    );
 
     return defaultScopeTypes.length === 0
       ? []
@@ -50,58 +54,6 @@ export default class InsertSnippet {
         ];
   }
 
-  private getScopeTypes(snippetDescription: InsertSnippetArg): ScopeType[] {
-    if (snippetDescription.type === "named") {
-      const { name } = snippetDescription;
-
-      const snippet = this.snippets.getSnippetStrict(name);
-
-      const scopeTypeTypes = snippet.insertionScopeTypes;
-      return scopeTypeTypes == null
-        ? []
-        : scopeTypeTypes.map((scopeTypeType) => ({
-            type: scopeTypeType,
-          }));
-    } else {
-      return snippetDescription.scopeTypes ?? [];
-    }
-  }
-
-  private getSnippetInfo(
-    snippetDescription: InsertSnippetArg,
-    targets: Target[],
-  ) {
-    if (snippetDescription.type === "named") {
-      const { name } = snippetDescription;
-
-      const snippet = this.snippets.getSnippetStrict(name);
-
-      const definition = findMatchingSnippetDefinitionStrict(
-        this.modifierStageFactory,
-        targets,
-        snippet.definitions,
-      );
-
-      return {
-        body: definition.body.join("\n"),
-
-        formatSubstitutions(substitutions: Record<string, string> | undefined) {
-          return substitutions == null
-            ? undefined
-            : formatSubstitutions(snippet, definition, substitutions);
-        },
-      };
-    } else {
-      return {
-        body: snippetDescription.body,
-
-        formatSubstitutions(substitutions: Record<string, string> | undefined) {
-          return substitutions;
-        },
-      };
-    }
-  }
-
   async run(
     destinations: Destination[],
     snippetDescription: InsertSnippetArg,
@@ -109,6 +61,7 @@ export default class InsertSnippet {
     const editor = ide().getEditableTextEditor(
       ensureSingleEditor(destinations),
     );
+    const snippets = getSnippets(snippetDescription);
 
     await this.actions.editNew.run(destinations);
 
@@ -198,4 +151,18 @@ function formatSubstitutions(
       return [variableName, formatter(value.split(" "))];
     }),
   );
+}
+
+function getSnippets(
+  snippetDescription: InsertSnippetArg,
+): CustomInsertSnippetArg[] {
+  if (snippetDescription.type === "named") {
+    throw new Error(
+      "Cursorless snippets are deprecated. Please use community snippets.",
+    );
+  }
+  if (snippetDescription.type === "custom") {
+    return [snippetDescription];
+  }
+  return snippetDescription.snippets;
 }

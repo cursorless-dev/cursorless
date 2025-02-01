@@ -217,10 +217,6 @@ export async function activate(
             vscodeTutorial,
           )
         : undefined,
-
-    experimental: {
-      registerThirdPartySnippets: snippets.registerThirdPartySnippets,
-    },
   };
 }
 

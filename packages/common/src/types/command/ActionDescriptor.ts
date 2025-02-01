@@ -147,7 +147,7 @@ interface NamedInsertSnippetArg {
   substitutions?: Record<string, string>;
 }
 
-interface CustomInsertSnippetArg {
+export interface CustomInsertSnippetArg {
   type: "custom";
   body: string;
   languages?: string[];
@@ -177,7 +177,7 @@ interface NamedWrapWithSnippetArg {
   variableName: string;
 }
 
-interface CustomWrapWithSnippetArg {
+export interface CustomWrapWithSnippetArg {
   type: "custom";
   body: string;
   variableName?: string;

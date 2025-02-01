@@ -28,7 +28,9 @@ for list in lists:
 class Actions:
     def cursorless_insert_snippet_by_name(name: str):  # pyright: ignore [reportGeneralTypeIssues]
         """[DEPRECATED] Cursorless: Insert named snippet <name>"""
-        raise ValueError("Cursorless snippets are deprecated. Use community snippets.")
+        raise NotImplementedError(
+            "Cursorless snippets are deprecated. Please use community snippets."
+        )
 
     def cursorless_wrap_with_snippet_by_name(
         name: str,  # pyright: ignore [reportGeneralTypeIssues]
@@ -36,7 +38,9 @@ class Actions:
         target: Any,
     ):
         """[DEPRECATED] Cursorless: Wrap target with a named snippet <name>"""
-        raise ValueError("Cursorless snippets are deprecated. Use community snippets.")
+        raise NotImplementedError(
+            "Cursorless snippets are deprecated. Please use community snippets."
+        )
 
 
 def on_ready():
