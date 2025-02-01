@@ -1,0 +1,48 @@
+languageId: typescript
+command:
+  version: 7
+  spokenForm: snip if
+  action:
+    name: insertSnippet
+    snippetDescription:
+      type: list
+      snippets:
+        - type: custom
+          body: "if ($1) {\n\t$0\n}"
+          scopeTypes:
+            - {type: statement}
+          languages: [c, cpp, csharp, java, javascript, typescript, javascriptreact, typescriptreact]
+        - type: custom
+          body: "if $1:\n\t$0"
+          scopeTypes:
+            - {type: statement}
+          languages: [python]
+        - type: custom
+          body: "if $1 then\n\t$0\nend"
+          scopeTypes:
+            - {type: statement}
+          languages: [lua]
+    destination: {type: implicit}
+  usePrePhraseSnapshot: false
+spokenFormError: list insertion snippet
+initialState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |-
+    if () {
+        
+    }
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 2, character: 1}
+      isReversed: false
+      hasExplicitRange: true
