@@ -66,14 +66,11 @@ export default class WrapWithSnippet {
 
     const targetSelections = targets.map((target) => target.contentSelection);
 
-    const callback = () =>
-      editor.insertSnippet(snippetString, targetSelections);
-
     const { targetSelections: updatedTargetSelections } =
       await performEditsAndUpdateSelections({
         rangeUpdater: this.rangeUpdater,
         editor,
-        callback,
+        callback: () => editor.insertSnippet(snippetString, targetSelections),
         preserveCursorSelections: true,
         selections: {
           targetSelections,
