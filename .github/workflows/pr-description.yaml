@@ -1,4 +1,4 @@
-name: PR Description Validator
+name: PR Description
 
 on:
   pull_request:
@@ -6,23 +6,23 @@ on:
 
 jobs:
   validate-pr-description:
-    name: Validate PR Description
+    name: Validate Description
     runs-on: ubuntu-latest
     steps:
     - name: Set up workspace
       uses: actions/checkout@v2
 
-    - name: Validate PR Description
+    - name: Validate
       run: |
         # Ensure jq is installed
-        sudo apt-get install jq
+        # sudo apt-get install jq
 
         # Fetch PR description using jq
         PR_DESCRIPTION=$(jq -r ".pull_request.body" "$GITHUB_EVENT_PATH")
         KEYWORD="REQUIRED_KEYWORD"
 
-        # Check for the required keyword in the PR description
+        # Users should remove the welcome comment
         if [[ $PR_DESCRIPTION = *"<!--"* ]] || [[ $PR_DESCRIPTION = *"-->"* ]]; then
-          echo "Please remove the welcome comment from your PR description."
+          echo "FAILED: Please remove the welcome comment from your PR description."
           exit 1
         fi
