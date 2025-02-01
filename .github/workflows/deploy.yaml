@@ -87,7 +87,7 @@ jobs:
           CURSORLESS_DEPLOY: true
 
       - name: Checkout cursorless.nvim plugin repo
-       uses: actions/checkout@v4
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.CURSORLESS_BOT_TOKEN }}
           repository: hands-free-vim/cursorless.nvim

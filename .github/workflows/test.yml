@@ -88,7 +88,7 @@ jobs:
       - name: Install neovim dependencies
         run: bash -x scripts/install-neovim-dependencies.sh
 
-      -name: Setup neovim (Linux)
+      - name: Setup neovim (Linux)
         uses: rhysd/action-setup-vim@v1
         id: vim
         if: runner.os == 'Linux' && matrix.app_version == 'stable'
