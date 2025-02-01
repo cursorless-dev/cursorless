@@ -54,7 +54,8 @@ def insert_community_snippet(
             CustomInsertionSnippet(
                 s.body,
                 to_scope_types(s.scopes),
-                s.languages,
+                # languages will be missing if the user has an older version of community
+                s.languages if hasattr(s, "languages") else None,
                 substitutions,
             )
             for s in snippets
@@ -71,7 +72,7 @@ def insert_community_wrapper_snippet(name: str, target: CursorlessTarget):
                 s.body,
                 s.variable_name,
                 ScopeType(s.scope) if s.scope else None,
-                s.languages,
+                s.languages if hasattr(s, "languages") else None,
             )
             for s in snippets
         ],
