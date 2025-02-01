@@ -33,9 +33,9 @@ export interface State {
   destinations: Destination[];
 
   /**
-   * The action types for each destination. Important to read from this and not
-   * the destinations themself since they get updated during the process am we want
-   * the default value for this.
+   * The action types for each destination. It's important to read from this and not
+   * the destinations themselves, since they are changed as the action runs and
+   * we make multiple passes.
    */
   actionTypes: EditNewActionType[];
 
