@@ -45,6 +45,8 @@ next-env.d.ts
 
 # test subset config
 packages/test-harness/testSubsetGrep.properties
+packages/test-harness/failedTests.properties
+
 
 # cursorless-neovim
 cursorless.nvim/node/cursorless-neovim

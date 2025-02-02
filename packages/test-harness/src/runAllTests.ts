@@ -1,8 +1,13 @@
+import { getCursorlessRepoRoot } from "@cursorless/node-common";
+import { glob } from "glob";
 import Mocha from "mocha";
 import * as path from "node:path";
-import { getCursorlessRepoRoot } from "@cursorless/node-common";
-import { runTestSubset, testSubsetGrepString } from "./testSubset";
-import { glob } from "glob";
+import {
+  logFailedTests,
+  runTestSubset,
+  shouldLogFailedTests,
+  testSubsetGrepString,
+} from "./testSubset";
 
 /**
  * Type of test to run, eg unit, vscode, talon
@@ -24,7 +29,7 @@ export enum TestType {
   neovim,
 }
 
-export function runAllTests(...types: TestType[]) {
+export function runAllTests(...types: TestType[]): Promise<void> {
   return runTestsInDir(
     path.join(getCursorlessRepoRoot(), "packages"),
     (files) =>
@@ -68,14 +73,23 @@ async function runTestsInDir(
 
   try {
     // Run the mocha test
-    await new Promise<void>((c, e) => {
-      mocha.run((failures) => {
+    await new Promise<void>((resolve, reject) => {
+      const failedTests: string[] = [];
+
+      const runner = mocha.run((failures) => {
         if (failures > 0) {
-          e(new Error(`${failures} tests failed.`));
+          if (shouldLogFailedTests()) {
+            logFailedTests(failedTests);
+          }
+          reject(`${failures} tests failed.`);
         } else {
-          c();
+          resolve();
         }
       });
+
+      if (shouldLogFailedTests()) {
+        runner.on("fail", (test) => failedTests.push(test.fullTitle()));
+      }
     });
   } catch (err) {
     console.error(err);
