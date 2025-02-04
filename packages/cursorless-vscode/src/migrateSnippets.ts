@@ -140,7 +140,7 @@ function parseVariables(
         name,
         wrapperPhrases: phrase ? [phrase] : undefined,
         wrapperScope: variable.wrapperScopeType,
-        insertionFormatters: getFormatter(variable.formatter),
+        insertionFormatters: formatter ? getFormatter(variable.formatter) : undefined,
         // SKIP: variable.description
       };
     },
@@ -148,10 +148,7 @@ function parseVariables(
 }
 
 // Convert Cursorless formatters to Talon community formatters
-function getFormatter(formatter?: string): string[] | undefined {
-  if (!formatter) {
-    return undefined;
-  }
+function getFormatter(formatter: string): string[] {
   switch (formatter) {
     case "camelCase":
       return ["PRIVATE_CAMEL_CASE"];
