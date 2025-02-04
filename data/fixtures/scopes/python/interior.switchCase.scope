@@ -1,0 +1,62 @@
+match value:
+    case 1:
+        a
+    case _:
+        b
+---
+
+[#1 Content] = 1:4-4:9
+      >-------
+1|     case 1:
+2|         a
+3|     case _:
+4|         b
+   ---------<
+
+[#1 Removal] = 0:12-4:9
+              >
+0| match value:
+1|     case 1:
+2|         a
+3|     case _:
+4|         b
+   ---------<
+
+[#1 Domain] = 0:0-4:9
+  >------------
+0| match value:
+1|     case 1:
+2|         a
+3|     case _:
+4|         b
+   ---------<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] = 2:8-2:9
+          >-<
+2|         a
+
+[#2 Domain] = 1:4-2:9
+      >-------
+1|     case 1:
+2|         a
+   ---------<
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] =
+[#3 Removal] = 4:8-4:9
+          >-<
+4|         b
+
+[#3 Domain] = 3:4-4:9
+      >-------
+3|     case _:
+4|         b
+   ---------<
+
+[#3 Insertion delimiter] = " "

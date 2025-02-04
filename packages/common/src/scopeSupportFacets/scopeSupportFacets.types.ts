@@ -177,10 +177,15 @@ export const scopeSupportFacets = [
   "interior.class",
   "interior.function",
   "interior.lambda",
-  "interior.branch",
   "interior.element",
   "interior.command",
   "interior.cell",
+  "interior.if",
+  "interior.try",
+  "interior.switchCase",
+  "interior.ternary",
+  "interior.loop",
+  "interior.with",
 
   "notebookCell",
 
