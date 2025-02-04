@@ -105,8 +105,8 @@ class Actions:
         snippet = CustomInsertionSnippet(
             body,
             to_scope_types(scope_type),
-            None,  # languages
-            None,  # substitutions
+            languages=None,
+            substitutions=None,
         )
         insert_snippet(snippet, destination)
 
