@@ -121,7 +121,7 @@ class Actions:
             body,
             variable_name,
             ScopeType(scope) if scope else None,
-            None,  # languages
+            languages=None,
         )
         wrap_with_snippet(snippet, target)
 
