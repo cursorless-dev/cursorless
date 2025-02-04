@@ -394,6 +394,7 @@
 (case_clause
   (case_pattern) @condition.start
   guard: (_)? @condition.end
+  consequence: (_) @interior
 ) @_.domain
 
 ;;!! case 0: pass
@@ -407,17 +408,17 @@
 ;;!  ----------------
 (
   (conditional_expression
-    "if"
+    "if" @interior.domain.start
     .
-    (_) @condition
-  ) @_.domain
+    (_) @condition @interior @interior.domain.end
+  ) @condition.domain
 )
 
 ;;!! 1 if True else 0
 ;;!  ^
 (
   (conditional_expression
-    (_) @branch
+    (_) @branch @interior
     .
     "if"
   )
@@ -427,9 +428,9 @@
 ;;!                 ^
 (
   (conditional_expression
-    "else"
+    "else" @interior.domain.start
     .
-    (_) @branch
+    (_) @branch @interior @interior.domain.end
   )
 )
 
@@ -456,37 +457,48 @@
 ;;!! if True: pass
 ;;!  ^^^^^^^^^^^^^
 (if_statement
-  "if" @branch.start
-  consequence: (_) @branch.end
+  "if" @branch.start @interior.domain.start
+  consequence: (_) @branch.end @interior @interior.domain.end
 )
 
 ;;!! elif True: pass
 ;;!  ^^^^^^^^^^^^^^^
-(elif_clause) @branch
+(elif_clause
+  consequence: (_) @interior
+) @branch @interior.domain
 
 ;;!! else: pass
 ;;!  ^^^^^^^^^^
-(else_clause) @branch
+(else_clause
+  body: (_) @interior
+) @branch @interior.domain
 
 (if_statement) @branch.iteration
 
 ;;!! try: pass
 ;;!  ^^^^^^^^^
 (try_statement
-  "try" @branch.start
-  body: (_) @branch.end
+  "try" @branch.start @interior.domain.start
+  body: (_) @branch.end @interior @interior.domain.end
 )
 
 ;;!! except: pass
 ;;!  ^^^^^^^^^^^^
-[
-  (except_clause)
-  (except_group_clause)
-] @branch
+(except_clause
+  (block) @interior
+) @branch @interior.domain
+
+;;!! except*: pass
+;;!  ^^^^^^^^^^^^^
+(except_group_clause
+  (block) @interior
+) @branch @interior.domain
 
 ;;!! finally: pass
 ;;!  ^^^^^^^^^^^^^
-(finally_clause) @branch
+(finally_clause
+  (block) @interior
+) @branch @interior.domain
 
 (try_statement) @branch.iteration
 
@@ -503,8 +515,8 @@
 ;;!  ^^^^^^^^^^^^^^^^^^^^
 (for_statement
   "for" @branch.start
-  body: (_) @branch.end
-)
+  body: (_) @branch.end @interior
+) @interior.domain
 
 (for_statement) @branch.iteration
 

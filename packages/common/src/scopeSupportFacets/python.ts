@@ -43,6 +43,11 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.class": supported,
   "interior.function": supported,
   "interior.lambda": supported,
+  "interior.if": supported,
+  "interior.try": supported,
+  "interior.switchCase": supported,
+  "interior.ternary": supported,
+  "interior.loop": supported,
 
   element: notApplicable,
   tags: notApplicable,
