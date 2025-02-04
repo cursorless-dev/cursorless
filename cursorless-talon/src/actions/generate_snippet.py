@@ -1,16 +1,11 @@
 import glob
 from pathlib import Path
 
-from talon import Context, Module, actions, registry, settings
+from talon import Module, actions, registry, settings
 
 from ..targets.target_types import CursorlessExplicitTarget
 
 mod = Module()
-
-ctx = Context()
-ctx.matches = r"""
-tag: user.cursorless_use_community_snippets
-"""
 
 
 @mod.action_class
@@ -33,17 +28,6 @@ class Actions:
 
     def private_cursorless_generate_snippet_action(target: CursorlessExplicitTarget):  # pyright: ignore [reportGeneralTypeIssues]
         """Generate a snippet from the given target"""
-        actions.user.private_cursorless_command_no_wait(
-            {
-                "name": "generateSnippet",
-                "target": target,
-            }
-        )
-
-
-@ctx.action_class("user")
-class UserActions:
-    def private_cursorless_generate_snippet_action(target: CursorlessExplicitTarget):  # pyright: ignore [reportGeneralTypeIssues]
         actions.user.private_cursorless_command_no_wait(
             {
                 "name": "generateSnippet",
