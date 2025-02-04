@@ -40,7 +40,7 @@ The code that you want to generate scopes for. We try to keep this as short and 
 
 One or more scopes found in the source code. Each scope is a collection of ranges as well as an insertion delimiter.
 
-A description of the different ranges and how they are used is available in our [glossary](https://www.cursorless.org/docs/user/glossary).
+A description of the different ranges and how they are used is available in our [glossary](../user/glossary.md).
 
 ### Scope ranges
 
