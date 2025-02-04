@@ -1,7 +1,7 @@
 import type { ActionDescriptor } from "@cursorless/common";
 import { spokenFormTest } from "./spokenFormTest";
 
-const verticalRangeAction: ActionDescriptor = {
+const snippetAfterAction: ActionDescriptor = {
   name: "insertSnippet",
   destination: {
     type: "primitive",
@@ -32,5 +32,5 @@ const verticalRangeAction: ActionDescriptor = {
  * Talon tests by relying on our recorded test fixtures alone.
  */
 export const communitySnippetsSpokenFormsFixture = [
-  spokenFormTest("snippet code after air", verticalRangeAction, undefined),
+  spokenFormTest("snippet code after air", snippetAfterAction, undefined),
 ];
