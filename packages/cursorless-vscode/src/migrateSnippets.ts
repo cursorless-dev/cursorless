@@ -140,7 +140,9 @@ function parseVariables(
         name,
         wrapperPhrases: phrase ? [phrase] : undefined,
         wrapperScope: variable.wrapperScopeType,
-        insertionFormatters: formatter ? getFormatter(variable.formatter) : undefined,
+        insertionFormatters: variable.formatter
+          ? getFormatter(variable.formatter)
+          : undefined,
         // SKIP: variable.description
       };
     },
