@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 7
-  spokenForm: snip if after air and batt
+  spokenForm: snip if after air and bat
   action:
     name: insertSnippet
     snippetDescription:
