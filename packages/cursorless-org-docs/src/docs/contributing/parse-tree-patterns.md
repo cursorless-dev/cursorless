@@ -1,4 +1,4 @@
-# Parse tree pattern matcher
+# Parse tree pattern matcher [DEPRECATED]
 
 We have a small domain-specific language that we use to define patterns to look for in tree-sitter parse trees. This DSL enables us to rapidly define new syntactic scope types and support new programming languages.
 
