@@ -141,12 +141,28 @@ function parseVariables(
         wrapperPhrases: phrase ? [phrase] : undefined,
         wrapperScope: variable.wrapperScopeType,
         insertionFormatters: variable.formatter
-          ? [variable.formatter]
+          ? getFormatter(variable.formatter)
           : undefined,
         // SKIP: variable.description
       };
     },
   );
+}
+
+// Convert Cursorless formatters to Talon community formatters
+function getFormatter(formatter: string): string[] {
+  switch (formatter) {
+    case "camelCase":
+      return ["PRIVATE_CAMEL_CASE"];
+    case "pascalCase":
+      return ["PUBLIC_CAMEL_CASE"];
+    case "snakeCase":
+      return ["SNAKE_CASE"];
+    case "upperSnakeCase":
+      return ["ALL_CAPS", "SNAKE_CASE"];
+    default:
+      return [formatter];
+  }
 }
 
 async function openResultDocument(
