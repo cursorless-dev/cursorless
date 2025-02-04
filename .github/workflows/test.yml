@@ -37,6 +37,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Upgrade Corepack
+        run: npm install --global corepack@latest
+
       - name: Enable Corepack
         run: corepack enable
 
