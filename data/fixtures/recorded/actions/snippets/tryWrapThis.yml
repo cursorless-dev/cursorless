@@ -6,7 +6,8 @@ command:
     name: wrapWithSnippet
     snippetDescription:
       type: custom
-      body: "try {\n\t$1\n} catch (err) {\n\t$0\n}\n"
+      variableName: try
+      body: "try {\n\t$try\n} catch (err) {\n\tcatch\n}"
       scopeTypes:
         - {type: statement}
     target:
@@ -23,18 +24,17 @@ initialState:
 finalState:
   documentContents: |-
     try {
-        
+        const
     } catch (err) {
-        
-    }
-     foo = "bar";
+        catch
+    } foo = "bar";
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 4, character: 1}
+      active: {line: 4, character: 1}
   thatMark:
     - type: UntypedTarget
       contentRange:
         start: {line: 0, character: 0}
-        end: {line: 5, character: 0}
+        end: {line: 4, character: 1}
       isReversed: false
       hasExplicitRange: true
