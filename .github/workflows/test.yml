@@ -37,6 +37,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # FIXME: https://github.com/cursorless-dev/cursorless/issues/2817
+      - name: Upgrade Corepack
+        run: npm install --global --force corepack@0.31.0
+
       - name: Enable Corepack
         run: corepack enable
 
