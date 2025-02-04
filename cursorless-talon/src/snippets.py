@@ -57,7 +57,7 @@ def insert_community_snippet(
                 to_scope_types(s.scopes),
                 # languages will be missing if the user has an older version of community
                 s.languages if hasattr(s, "languages") else None,
-                None,  # substitutions
+                substitutions=None,
             )
             for s in snippets
         ],
