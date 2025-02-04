@@ -158,6 +158,12 @@
 
 ;;!! with aaa:
 ;;!       ^^^
+(with_statement
+  body: (_) @interior
+) @interior.domain
+
+;;!! with aaa:
+;;!       ^^^
 ;;!  --------
 (
   (with_statement
@@ -235,11 +241,9 @@
   (#allow-multiple! @name)
 )
 
-(
-  (with_statement
-    (with_clause) @value.iteration @name.iteration
-  ) @value.iteration.domain @name.iteration.domain
-)
+(with_statement
+  (with_clause) @value.iteration @name.iteration
+) @value.iteration.domain @name.iteration.domain
 
 ;;!! lambda str: len(str) > 0
 ;;!              ^^^^^^^^^^^^
@@ -369,6 +373,7 @@
 ;;!        ^^^^^
 (match_statement
   subject: (_) @private.switchStatementSubject
+  body: (_) @interior
 ) @_.domain
 
 ;;!! { "value": 0 }
@@ -506,8 +511,8 @@
 ;;!  ^^^^^^^^^^^^^^^^
 (while_statement
   "while" @branch.start
-  body: (_) @branch.end
-)
+  body: (_) @branch.end @interior
+) @interior.domain
 
 (while_statement) @branch.iteration
 

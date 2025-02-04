@@ -48,6 +48,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.switchCase": supported,
   "interior.ternary": supported,
   "interior.loop": supported,
+  "interior.with": supported,
 
   element: notApplicable,
   tags: notApplicable,

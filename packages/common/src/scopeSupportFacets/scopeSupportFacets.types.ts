@@ -185,6 +185,7 @@ export const scopeSupportFacets = [
   "interior.switchCase",
   "interior.ternary",
   "interior.loop",
+  "interior.with",
 
   "notebookCell",
 
