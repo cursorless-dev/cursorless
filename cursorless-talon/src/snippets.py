@@ -132,8 +132,8 @@ class Actions:
         """Cursorless: Insert community snippet <name>"""
         insert_community_snippet(
             name,
-            None,  # substitutions
-            destination,
+            substitutions=None,
+            destination=destination,
         )
 
     def private_cursorless_wrap_with_community_snippet(
