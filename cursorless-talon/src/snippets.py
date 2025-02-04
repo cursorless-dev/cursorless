@@ -132,8 +132,8 @@ class Actions:
         """Cursorless: Insert community snippet <name>"""
         insert_community_snippet(
             name,
-            substitutions=None,
-            destination=destination,
+            None,  # substitutions
+            destination,
         )
 
     def private_cursorless_wrap_with_community_snippet(
@@ -149,6 +149,7 @@ def to_scope_types(scope_types: str | list[str] | None) -> list[ScopeType] | Non
         return [ScopeType(scope_types)]
     elif scope_types is not None:
         return [ScopeType(st) for st in scope_types]
+    return None
 
 
 def get_insertion_snippets(name: str) -> list[CommunityInsertionSnippet]:
