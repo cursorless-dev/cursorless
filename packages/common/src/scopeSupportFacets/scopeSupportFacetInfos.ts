@@ -705,6 +705,18 @@ export const scopeSupportFacetInfos: Record<
     isIteration: true,
   },
 
+  "interior.element": {
+    description: "The interior/children of an XML element",
+    scopeType: { type: "interior" },
+  },
+  "interior.command": {
+    description: "The body of a Talon command",
+    scopeType: { type: "interior" },
+  },
+  "interior.cell": {
+    description: "The body of a code cell in markdown",
+    scopeType: { type: "interior" },
+  },
   "interior.class": {
     description: "The body of a class",
     scopeType: { type: "interior" },
@@ -717,20 +729,28 @@ export const scopeSupportFacetInfos: Record<
     description: "The body of a lambda/anonymous function",
     scopeType: { type: "interior" },
   },
-  "interior.branch": {
+  "interior.if": {
     description: "The body of an if/elif/else branch",
     scopeType: { type: "interior" },
   },
-  "interior.element": {
-    description: "The interior/children of an XML element",
+  "interior.try": {
+    description: "The body of an try/catch/finally branch",
     scopeType: { type: "interior" },
   },
-  "interior.command": {
-    description: "The body of a Talon command",
+  "interior.switchCase": {
+    description: "The body of an switch case branch",
     scopeType: { type: "interior" },
   },
-  "interior.cell": {
-    description: "The body of a code cell in markdown",
+  "interior.ternary": {
+    description: "The body of an ternary condition/branch",
+    scopeType: { type: "interior" },
+  },
+  "interior.loop": {
+    description: "The body of an for/while loop",
+    scopeType: { type: "interior" },
+  },
+  "interior.with": {
+    description: "The body of an with/use/using statement",
     scopeType: { type: "interior" },
   },
 
