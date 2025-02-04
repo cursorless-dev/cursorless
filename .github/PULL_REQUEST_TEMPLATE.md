@@ -9,8 +9,9 @@ Thanks for your change!
 
 * Remember to *test the cheatsheet manually* if you've added a new action,
   modifier, or scope -- or changed any Talon files.
--->
 
+Remove this comment.
+-->
 
 
 ## Release notes
