@@ -6,7 +6,6 @@ import { open } from "node:fs/promises";
 import { join } from "node:path";
 
 // DEPRECATED @ 2025-02-01
-
 export const CURSORLESS_SNIPPETS_SUFFIX = ".cursorless-snippets";
 
 /**
