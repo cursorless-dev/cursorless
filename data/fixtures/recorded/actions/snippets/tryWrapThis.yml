@@ -7,9 +7,8 @@ command:
     snippetDescription:
       type: custom
       variableName: try
-      body: "try {\n\t$try\n} catch (err) {\n\tcatch\n}"
-      scopeTypes:
-        - {type: statement}
+      body: "try {\n\t$try\n} catch (err) {\n\t$catch\n}"
+      scopeType: {type: statement}
     target:
       type: primitive
       mark: {type: cursor}
@@ -24,17 +23,10 @@ initialState:
 finalState:
   documentContents: |-
     try {
-        const
+        const foo = "bar";
     } catch (err) {
-        catch
-    } foo = "bar";
+        
+    }
   selections:
-    - anchor: {line: 4, character: 1}
-      active: {line: 4, character: 1}
-  thatMark:
-    - type: UntypedTarget
-      contentRange:
-        start: {line: 0, character: 0}
-        end: {line: 4, character: 1}
-      isReversed: false
-      hasExplicitRange: true
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}
