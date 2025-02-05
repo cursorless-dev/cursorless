@@ -14,6 +14,7 @@ tags = [
 lists = [
     "cursorless_insertion_snippet_no_phrase",
     "cursorless_insertion_snippet_single_phrase",
+    "cursorless_wrapper_snippet",
     "cursorless_phrase_terminator",
 ]
 
