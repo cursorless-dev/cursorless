@@ -10,8 +10,8 @@ jobs:
   validate-pr-description:
     runs-on: ubuntu-latest
     steps:
-      - name: Set up workspace
-        uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Validate description
         run: |
