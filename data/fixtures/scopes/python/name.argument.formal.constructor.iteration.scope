@@ -1,0 +1,4 @@
+class Foo:
+    def __init__(self, aaa: str, bbb: int):
+        pass
+---
