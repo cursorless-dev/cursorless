@@ -19,6 +19,7 @@ action_callbacks = {
     "remove": actions.edit.delete,
     "editNewLineBefore": actions.edit.line_insert_up,
     "editNewLineAfter": actions.edit.line_insert_down,
+    "insertCopyAfter": actions.edit.line_clone,
 }
 
 modifier_callbacks = {
