@@ -154,4 +154,20 @@ export class TalonJsEditor implements EditableTextEditor {
   editNewNotebookCellBelow(): Promise<void> {
     throw new Error("editNewNotebookCellBelow not implemented.");
   }
+
+  public async gitAccept(_range?: Range): Promise<void> {
+    throw Error("gitAccept not implemented");
+  }
+
+  public async gitRevert(_range?: Range): Promise<void> {
+    throw Error("gitRevert not implemented");
+  }
+
+  public async gitStage(_range?: Range): Promise<void> {
+    throw Error("gitStage not implemented");
+  }
+
+  public async gitUnstage(_range?: Range): Promise<void> {
+    throw Error("gitUnstage not implemented");
+  }
 }
