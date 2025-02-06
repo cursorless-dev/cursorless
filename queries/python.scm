@@ -341,8 +341,8 @@
 ;;!! {"a": 1, "b": 2, "c": 3}
 ;;!   **********************
 (dictionary
-  "{" @value.iteration.start.endOf
-  "}" @value.iteration.end.startOf
+  "{" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
+  "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
 )
 
 ;;!! def func(a=0, b=1):

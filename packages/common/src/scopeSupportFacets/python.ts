@@ -110,8 +110,9 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "condition.ternary": supported,
   "condition.while": supported,
 
-  ifStatement: supported,
   "key.mapPair": supported,
+  "key.mapPair.iteration": supported,
+
   list: supported,
   map: supported,
 
@@ -124,6 +125,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "textFragment.string.multiLine": supported,
   "textFragment.string.singleLine": supported,
 
+  ifStatement: supported,
   statement: supported,
   "statement.class": supported,
   "statement.iteration.block": supported,
@@ -142,11 +144,11 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
 
   "namedFunction.iteration": unsupported,
   "functionName.iteration": unsupported,
+  "class.iteration.block": unsupported,
+  "className.iteration.block": unsupported,
 
   // Not applicable
 
-  "class.iteration.block": notApplicable,
-  "className.iteration.block": notApplicable,
   "comment.block": notApplicable,
   "condition.doWhile": notApplicable,
   "condition.for": notApplicable,
@@ -154,7 +156,6 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.command": notApplicable,
   "interior.element": notApplicable,
   "key.attribute": notApplicable,
-  "key.mapPair.iteration": notApplicable,
   "section.iteration.document": notApplicable,
   "section.iteration.parent": notApplicable,
   "textFragment.comment.block": notApplicable,
