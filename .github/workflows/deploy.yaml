@@ -17,6 +17,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          # This is needed to get the number of commits in the current branch
+          fetch-depth: 0
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
