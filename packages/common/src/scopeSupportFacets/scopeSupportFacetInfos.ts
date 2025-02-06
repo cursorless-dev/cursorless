@@ -181,8 +181,9 @@ export const scopeSupportFacetInfos: Record<
     description: "The name of a constructor in a class",
     scopeType: "functionName",
   },
-  "functionName.iteration": {
-    description: "Iteration scope for function names",
+  "functionName.iteration.block": {
+    description:
+      "Iteration scope for function names. Statement blocks(body of functions/if classes/for loops/etc).",
     scopeType: "functionName",
     isIteration: true,
   },

@@ -46,7 +46,7 @@ export const scopeSupportFacets = [
   "namedFunction.constructor",
 
   "functionName",
-  "functionName.iteration",
+  "functionName.iteration.block",
   "functionName.iteration.document",
   "functionName.method",
   "functionName.method.iteration.class",
