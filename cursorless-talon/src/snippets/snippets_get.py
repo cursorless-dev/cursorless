@@ -22,7 +22,7 @@ def get_list_insertion_snippet(
     substitutions: dict[str, str] | None = None,
 ) -> ListInsertionSnippet | CustomInsertionSnippet:
     try:
-        snippets = actions.user.get_list_insertion_snippet(name)
+        snippets = actions.user.get_insertion_snippets(name)
     except Exception as e:
         # Raised if the user has an older version of community
         if isinstance(e, KeyError):

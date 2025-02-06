@@ -16,6 +16,7 @@ from .snippet_types import (
     to_scope_types,
 )
 from .snippets_get import (
+    get_insertion_snippet,
     get_list_insertion_snippet,
     get_list_wrapper_snippet,
     get_wrapper_snippet,
@@ -72,9 +73,7 @@ class Actions:
     ):
         """Cursorless: Insert community snippet <name>"""
         action = InsertSnippetAction(
-            CustomInsertionSnippet.create(
-                actions.user.get_insertion_snippet(name),
-            ),
+            get_insertion_snippet(name),
             destination,
         )
         actions.user.private_cursorless_command_and_wait(action)
