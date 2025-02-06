@@ -30,6 +30,16 @@ export default class InsertSnippet {
     destinations: Destination[],
     snippetDescription: InsertSnippetArg,
   ) {
+    if (snippetDescription.type === "named") {
+      const action = new InsertSnippet(
+        this.rangeUpdater,
+        this.snippets,
+        this.actions,
+        this.modifierStageFactory,
+      );
+      return action.getFinalStages(destinations, snippetDescription);
+    }
+
     const editor = ensureSingleEditor(destinations);
     const snippet = getPreferredSnippet(
       snippetDescription,
@@ -53,6 +63,16 @@ export default class InsertSnippet {
     destinations: Destination[],
     snippetDescription: InsertSnippetArg,
   ): Promise<ActionReturnValue> {
+    if (snippetDescription.type === "named") {
+      const action = new InsertSnippet(
+        this.rangeUpdater,
+        this.snippets,
+        this.actions,
+        this.modifierStageFactory,
+      );
+      return action.run(destinations, snippetDescription);
+    }
+
     const editor = ide().getEditableTextEditor(
       ensureSingleEditor(destinations),
     );
