@@ -39,14 +39,14 @@ export const scopeSupportFacets = [
   "anonymousFunction",
 
   "namedFunction",
-  "namedFunction.iteration",
+  "namedFunction.iteration.block",
   "namedFunction.iteration.document",
   "namedFunction.method",
   "namedFunction.method.iteration.class",
   "namedFunction.constructor",
 
   "functionName",
-  "functionName.iteration",
+  "functionName.iteration.block",
   "functionName.iteration.document",
   "functionName.method",
   "functionName.method.iteration.class",
@@ -185,7 +185,7 @@ export const scopeSupportFacets = [
   "interior.switchCase",
   "interior.ternary",
   "interior.loop",
-  "interior.with",
+  "interior.resource",
 
   "notebookCell",
 

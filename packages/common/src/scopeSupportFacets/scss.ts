@@ -8,9 +8,9 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 export const scssScopeSupport: LanguageScopeSupportFacetMap = {
   ...cssScopeSupport,
 
-  "namedFunction.iteration": supported,
+  "namedFunction.iteration.block": supported,
   "namedFunction.iteration.document": supported,
-  "functionName.iteration": supported,
+  "functionName.iteration.block": supported,
   "functionName.iteration.document": supported,
   "comment.line": supported,
   disqualifyDelimiter: supported,
