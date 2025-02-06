@@ -126,8 +126,8 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
 
   "collectionItem.unenclosed.iteration": unsupported,
   "branch.loop": unsupported,
-  "namedFunction.iteration": unsupported,
-  "functionName.iteration": unsupported,
+  "namedFunction.iteration.block": unsupported,
+  "functionName.iteration.block": unsupported,
 
   "class.iteration.block": unsupported,
   "class.iteration.document": unsupported,
