@@ -32,5 +32,5 @@ const snippetAfterAction: ActionDescriptor = {
  * Talon tests by relying on our recorded test fixtures alone.
  */
 export const communitySnippetsSpokenFormsFixture = [
-  spokenFormTest("snippet code after air", snippetAfterAction, undefined),
+  spokenFormTest("snip code after air", snippetAfterAction, undefined),
 ];
