@@ -6,7 +6,7 @@ import type {
 } from "@cursorless/common";
 import type { LanguageDefinitions } from "../../../../languages/LanguageDefinitions";
 import { BaseScopeHandler } from "../BaseScopeHandler";
-import { OneOfScopeHandler } from "../OneOfScopeHandler";
+import { PreferredScopeHandler } from "../PreferredScopeHandler";
 import type { TargetScope } from "../scope.types";
 import type {
   ComplexScopeType,
@@ -46,7 +46,7 @@ export class CollectionItemScopeHandler extends BaseScopeHandler {
         return textualScopeHandler;
       }
 
-      return OneOfScopeHandler.createFromScopeHandlers(
+      return PreferredScopeHandler.createFromScopeHandlers(
         scopeHandlerFactory,
         languageId,
         [languageScopeHandler, textualScopeHandler],

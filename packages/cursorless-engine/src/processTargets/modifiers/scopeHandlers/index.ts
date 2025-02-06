@@ -6,7 +6,7 @@ export * from "./WordScopeHandler/WordScopeHandler";
 export * from "./TokenScopeHandler";
 export * from "./DocumentScopeHandler";
 export * from "./TreeSitterScopeHandler";
-export * from "./OneOfScopeHandler";
+export * from "./PreferredScopeHandler";
 export * from "./ParagraphScopeHandler";
 export * from "./SentenceScopeHandler/SentenceScopeHandler";
 export * from "./RegexScopeHandler";
