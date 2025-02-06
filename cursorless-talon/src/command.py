@@ -94,14 +94,14 @@ def make_serializable(value: Any) -> Any:
         return {k: make_serializable(v) for k, v in value.items()}
     if isinstance(value, list):
         return [make_serializable(v) for v in value]
-    if isinstance(value, staticmethod):
-        return None
     if dataclasses.is_dataclass(value):
         items = {
             **{
                 k: v
                 for k, v in vars(type(value)).items()
-                if not k.startswith("_") and not isinstance(v, property)
+                if not k.startswith("_")
+                and not isinstance(v, property)
+                and not isinstance(v, staticmethod)
             },
             **value.__dict__,
         }
