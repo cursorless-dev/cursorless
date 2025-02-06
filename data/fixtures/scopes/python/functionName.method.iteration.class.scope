@@ -1,0 +1,12 @@
+class Foo:
+    def bar():
+        pass
+---
+
+[Range] =
+[Domain] = 0:0-2:12
+  >----------
+0| class Foo:
+1|     def bar():
+2|         pass
+   ------------<

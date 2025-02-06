@@ -45,7 +45,6 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "value.mapPair.iteration": supported,
   "value.return": supported,
   "value.return.lambda": supported,
-  "value.typeAlias": supported,
   "value.variable": supported,
   "value.variable.pattern": supported,
 
@@ -106,7 +105,6 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
 
   switchStatementSubject: supported,
 
-  "condition.doWhile": supported,
   "condition.for": supported,
   "condition.switchCase": supported,
   "condition.switchCase.iteration": supported,
@@ -144,11 +142,15 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Not applicable
 
+  "class.iteration.block": notApplicable,
+  "className.iteration.block": notApplicable,
   "comment.block": notApplicable,
+  "condition.doWhile": notApplicable,
   "interior.cell": notApplicable,
   "interior.command": notApplicable,
   "interior.element": notApplicable,
   "key.attribute": notApplicable,
+  "key.mapPair.iteration": notApplicable,
   "namedFunction.method.iteration.class": notApplicable,
   "section.iteration.document": notApplicable,
   "section.iteration.parent": notApplicable,
@@ -165,10 +167,8 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   section: notApplicable,
   startTag: notApplicable,
   tags: notApplicable,
-  "key.mapPair.iteration": notApplicable,
-  "class.iteration.block": notApplicable,
-  "className.iteration.block": notApplicable,
 
+  //   "value.typeAlias": supported,
   //   "type.alias":,
   //   "type.argument.formal":,
   //   "type.argument.formal.constructor":,

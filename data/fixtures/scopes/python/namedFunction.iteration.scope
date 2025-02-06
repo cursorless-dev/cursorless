@@ -1,0 +1,10 @@
+if True:
+    pass
+---
+
+[Range] =
+[Domain] = 0:0-1:8
+  >--------
+0| if True:
+1|     pass
+   --------<

@@ -1,0 +1,5 @@
+class Foo:
+    def bar(aaa: str, bbb: int):
+        pass
+---
+
