@@ -99,7 +99,9 @@ def make_serializable(value: Any) -> Any:
             **{
                 k: v
                 for k, v in vars(type(value)).items()
-                if not k.startswith("_") and not isinstance(v, property)
+                if not k.startswith("_")
+                and not isinstance(v, property)
+                and not isinstance(v, staticmethod)
             },
             **value.__dict__,
         }
