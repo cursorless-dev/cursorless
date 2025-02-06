@@ -34,44 +34,6 @@ not tag: user.code_language_forced
 mod.list("cursorless_insert_snippet_action", desc="Cursorless insert snippet action")
 
 
-@ctx.action_class("user")
-class UserActions:
-    # Since we don't have a forced language mode, these actions send all the snippets.
-    # (note that this is the default mode of action, as most of the time the user will not
-    # have a forced language mode)
-
-    def insert_snippet_by_name(
-        name: str,  # pyright: ignore [reportGeneralTypeIssues]
-        # Don't add optional; We need to match the type in community
-        substitutions: dict[str, str] = None,
-    ):
-        action = InsertSnippetAction(
-            get_list_insertion_snippet(name, substitutions),
-            ImplicitDestination(),
-        )
-        actions.user.private_cursorless_command_and_wait(action)
-
-
-    def private_cursorless_insert_community_snippet(
-        name: str,  # pyright: ignore [reportGeneralTypeIssues]
-        destination: CursorlessDestination,
-    ):
-        action = InsertSnippetAction(
-            get_list_insertion_snippet(name),
-            destination,
-        )
-        actions.user.private_cursorless_command_and_wait(action)
-
-    def private_cursorless_wrap_with_community_snippet(
-        name: str,  # pyright: ignore [reportGeneralTypeIssues]
-        target: CursorlessTarget,
-    ):
-        action = WrapperSnippetAction(
-            get_list_wrapper_snippet(name),
-            target,
-        )
-        actions.user.private_cursorless_command_and_wait(action)
-
 
 @mod.action_class
 class Actions:
@@ -128,6 +90,44 @@ class Actions:
         """Cursorless: Wrap target with community snippet <name>"""
         action = WrapperSnippetAction(
             get_wrapper_snippet(name),
+            target,
+        )
+        actions.user.private_cursorless_command_and_wait(action)
+
+@ctx.action_class("user")
+class UserActions:
+    # Since we don't have a forced language mode, these actions send all the snippets.
+    # (note that this is the default mode of action, as most of the time the user will not
+    # have a forced language mode)
+
+    def insert_snippet_by_name(
+        name: str,  # pyright: ignore [reportGeneralTypeIssues]
+        # Don't add optional: we need to match the type in community
+        substitutions: dict[str, str] = None,
+    ):
+        action = InsertSnippetAction(
+            get_list_insertion_snippet(name, substitutions),
+            ImplicitDestination(),
+        )
+        actions.user.private_cursorless_command_and_wait(action)
+
+
+    def private_cursorless_insert_community_snippet(
+        name: str,  # pyright: ignore [reportGeneralTypeIssues]
+        destination: CursorlessDestination,
+    ):
+        action = InsertSnippetAction(
+            get_list_insertion_snippet(name),
+            destination,
+        )
+        actions.user.private_cursorless_command_and_wait(action)
+
+    def private_cursorless_wrap_with_community_snippet(
+        name: str,  # pyright: ignore [reportGeneralTypeIssues]
+        target: CursorlessTarget,
+    ):
+        action = WrapperSnippetAction(
+            get_list_wrapper_snippet(name),
             target,
         )
         actions.user.private_cursorless_command_and_wait(action)
