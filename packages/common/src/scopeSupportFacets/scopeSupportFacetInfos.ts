@@ -749,8 +749,8 @@ export const scopeSupportFacetInfos: Record<
     description: "The body of an for/while loop",
     scopeType: { type: "interior" },
   },
-  "interior.with": {
-    description: "The body of an with/use/using statement",
+  "interior.resource": {
+    description: "the body of a 'with' / 'use' / 'using' statement",
     scopeType: { type: "interior" },
   },
 
