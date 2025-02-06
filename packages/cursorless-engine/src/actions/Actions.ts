@@ -49,6 +49,10 @@ import ShowParseTree from "./ShowParseTree";
 import {
   ExtractVariable,
   Fold,
+  GitAccept,
+  GitRevert,
+  GitStage,
+  GitUnstage,
   Rename,
   RevealDefinition,
   RevealTypeDefinition,
@@ -105,6 +109,10 @@ export class Actions implements ActionRecord {
   followLinkAside = new FollowLink({ openAside: true });
   generateSnippet = new GenerateSnippet(this.snippets);
   getText = new GetText();
+  gitAccept = new GitAccept(this.rangeUpdater);
+  gitRevert = new GitRevert(this.rangeUpdater);
+  gitStage = new GitStage(this.rangeUpdater);
+  gitUnstage = new GitUnstage(this.rangeUpdater);
   highlight = new Highlight();
   increment = new Increment(this);
   indentLine = new IndentLine(this.rangeUpdater);
@@ -154,10 +162,6 @@ export class Actions implements ActionRecord {
   scrollToBottom = new ScrollToBottom();
   scrollToCenter = new ScrollToCenter();
   scrollToTop = new ScrollToTop();
-  ["private.setKeyboardTarget"] = new SetSpecialTarget("keyboard");
-  ["experimental.setInstanceReference"] = new SetSpecialTarget(
-    "instanceReference",
-  );
   setSelection = new SetSelection();
   setSelectionAfter = new SetSelectionAfter();
   setSelectionBefore = new SetSelectionBefore();
@@ -176,6 +180,12 @@ export class Actions implements ActionRecord {
     this.snippets,
     this.modifierStageFactory,
   );
+
+  ["experimental.setInstanceReference"] = new SetSpecialTarget(
+    "instanceReference",
+  );
+
   ["private.showParseTree"] = new ShowParseTree(this.treeSitter);
   ["private.getTargets"] = new GetTargets();
+  ["private.setKeyboardTarget"] = new SetSpecialTarget("keyboard");
 }
