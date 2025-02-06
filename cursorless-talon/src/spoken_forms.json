@@ -46,7 +46,7 @@
       "scout all": "findInWorkspace",
       "scout": "findInDocument",
       "shuffle": "randomizeTargets",
-      "snippet make": "generateSnippet",
+      "snip make": "generateSnippet",
       "sort": "sortTargets",
       "take": "setSelection",
       "type deaf": "revealTypeDefinition",
@@ -62,7 +62,7 @@
     },
     "swap_action": { "swap": "swapTargets" },
     "wrap_action": { "wrap": "wrapWithPairedDelimiter", "repack": "rewrap" },
-    "insert_snippet_action": { "snippet": "insertSnippet" },
+    "insert_snippet_action": { "snip": "insertSnippet" },
     "reformat_action": { "format": "applyFormatter" },
     "call_action": { "call": "callAsFunction" }
   },
