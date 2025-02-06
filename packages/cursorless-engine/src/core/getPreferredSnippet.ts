@@ -22,7 +22,7 @@ export function getPreferredSnippet(
 ) {
   if (snippetDescription.type === "named") {
     throw new Error(
-      "Cursorless snippets are deprecated. Please use community snippets.",
+      "Cursorless snippets are deprecated. Please use community snippets. Update to latest cursorless-talon and say 'cursorless migrate snippets'.",
     );
   }
   if (snippetDescription.type === "custom") {

@@ -30,7 +30,7 @@ class Actions:
     def cursorless_insert_snippet_by_name(name: str):  # pyright: ignore [reportGeneralTypeIssues]
         """[DEPRECATED] Cursorless: Insert named snippet <name>"""
         raise NotImplementedError(
-            "Cursorless snippets are deprecated. Please use community snippets."
+            "Cursorless snippets are deprecated. Please use community snippets. Update to latest cursorless-talon and say 'cursorless migrate snippets'."
         )
 
     def cursorless_wrap_with_snippet_by_name(
@@ -40,7 +40,7 @@ class Actions:
     ):
         """[DEPRECATED] Cursorless: Wrap target with a named snippet <name>"""
         raise NotImplementedError(
-            "Cursorless snippets are deprecated. Please use community snippets."
+            "Cursorless snippets are deprecated. Please use community snippets. Update to latest cursorless-talon and say 'cursorless migrate snippets'."
         )
 
 
