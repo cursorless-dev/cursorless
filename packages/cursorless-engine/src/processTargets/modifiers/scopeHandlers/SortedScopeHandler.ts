@@ -15,10 +15,10 @@ import type {
   ScopeIteratorRequirements,
 } from "./scopeHandler.types";
 
-export class PreferredScopeHandler extends BaseScopeHandler {
+export class SortedScopeHandler extends BaseScopeHandler {
   protected isHierarchical = true;
   public scopeType = undefined;
-  private iterationScopeHandler: PreferredScopeHandler | undefined;
+  private iterationScopeHandler: SortedScopeHandler | undefined;
   private lastYieldedIndex: number | undefined;
 
   static create(
@@ -43,7 +43,7 @@ export class PreferredScopeHandler extends BaseScopeHandler {
     scopeHandlers: ScopeHandler[],
   ): ScopeHandler {
     const getIterationScopeHandler = () =>
-      new PreferredScopeHandler(
+      new SortedScopeHandler(
         scopeHandlers.map((scopeHandler) =>
           scopeHandlerFactory.create(
             scopeHandler.iterationScopeType,
@@ -55,12 +55,12 @@ export class PreferredScopeHandler extends BaseScopeHandler {
         },
       );
 
-    return new PreferredScopeHandler(scopeHandlers, getIterationScopeHandler);
+    return new SortedScopeHandler(scopeHandlers, getIterationScopeHandler);
   }
 
   private constructor(
     private scopeHandlers: ScopeHandler[],
-    private getIterationScopeHandler: () => PreferredScopeHandler,
+    private getIterationScopeHandler: () => SortedScopeHandler,
   ) {
     super();
   }

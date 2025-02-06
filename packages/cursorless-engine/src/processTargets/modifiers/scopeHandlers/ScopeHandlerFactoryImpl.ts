@@ -12,7 +12,7 @@ import { FallbackScopeHandler } from "./FallbackScopeHandler";
 import { IdentifierScopeHandler } from "./IdentifierScopeHandler";
 import { LineScopeHandler } from "./LineScopeHandler";
 import { NotebookCellScopeHandler } from "./NotebookCellScopeHandler";
-import { PreferredScopeHandler } from "./PreferredScopeHandler";
+import { SortedScopeHandler } from "./SortedScopeHandler";
 import { ParagraphScopeHandler } from "./ParagraphScopeHandler";
 import {
   CustomRegexScopeHandler,
@@ -130,7 +130,7 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
       case "custom":
         return scopeType.scopeHandler;
       case "oneOf":
-        return PreferredScopeHandler.create(this, scopeType, languageId);
+        return SortedScopeHandler.create(this, scopeType, languageId);
       case "fallback":
         return FallbackScopeHandler.create(this, scopeType, languageId);
       case "conditional":

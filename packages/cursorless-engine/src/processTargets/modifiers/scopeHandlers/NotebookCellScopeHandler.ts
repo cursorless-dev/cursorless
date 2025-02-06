@@ -7,7 +7,7 @@ import {
 import type { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import { BaseScopeHandler } from "./BaseScopeHandler";
 import { NotebookCellApiScopeHandler } from "./NotebookCellApiScopeHandler";
-import { PreferredScopeHandler } from "./PreferredScopeHandler";
+import { SortedScopeHandler } from "./SortedScopeHandler";
 import type { TargetScope } from "./scope.types";
 import type {
   ComplexScopeType,
@@ -44,7 +44,7 @@ export class NotebookCellScopeHandler extends BaseScopeHandler {
         return apiScopeHandler;
       }
 
-      return PreferredScopeHandler.createFromScopeHandlers(
+      return SortedScopeHandler.createFromScopeHandlers(
         scopeHandlerFactory,
         languageId,
         [languageScopeHandler, apiScopeHandler],
