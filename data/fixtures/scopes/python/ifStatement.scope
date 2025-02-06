@@ -1,13 +1,21 @@
 if value > 0:
     pass
+elif value == 0:
+    pass
+else:
+    pass
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-1:8
+[Domain] = 0:0-5:8
   >-------------
 0| if value > 0:
 1|     pass
+2| elif value == 0:
+3|     pass
+4| else:
+5|     pass
    --------<
 
 [Insertion delimiter] = "\n"

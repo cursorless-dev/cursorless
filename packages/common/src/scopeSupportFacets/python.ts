@@ -1,7 +1,7 @@
 import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
-const { supported, notApplicable } = ScopeSupportFacetLevel;
+const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "name.foreach": supported,
@@ -51,12 +51,10 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   anonymousFunction: supported,
   namedFunction: supported,
   "namedFunction.constructor": supported,
-  "namedFunction.iteration": supported,
   "namedFunction.iteration.document": supported,
   "namedFunction.method": supported,
 
   functionName: supported,
-  "functionName.iteration": supported,
   "functionName.constructor": supported,
   "functionName.iteration.document": supported,
   "functionName.method": supported,
@@ -138,6 +136,11 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   disqualifyDelimiter: supported,
   pairDelimiter: supported,
   fieldAccess: supported,
+
+  // Unsupported
+
+  "namedFunction.iteration": unsupported,
+  "functionName.iteration": unsupported,
 
   // Not applicable
 
