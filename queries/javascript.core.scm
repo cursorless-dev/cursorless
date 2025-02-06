@@ -611,8 +611,10 @@
 ;;!             ^
 (switch_statement
   body: (_
+    .
     "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
     "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
+    .
   )
 ) @branch.iteration.domain @condition.iteration.domain
 
