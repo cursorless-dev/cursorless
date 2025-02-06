@@ -15,14 +15,14 @@ def get_insertion_snippet(
     substitutions: dict[str, str] | None,
 ) -> ListInsertionSnippet | CustomInsertionSnippet:
     try:
-        return get_list_insertion_snippets(name, substitutions)
+        return get_list_insertion_snippet(name, substitutions)
     except Exception as ex:
         if isinstance(ex, KeyError):
-            return get_custom_insertion_snippets(name, substitutions)
+            return get_custom_insertion_snippet(name, substitutions)
         raise
 
 
-def get_list_insertion_snippets(
+def get_list_insertion_snippet(
     name: str,
     substitutions: dict[str, str] | None,
 ) -> ListInsertionSnippet:
@@ -35,7 +35,7 @@ def get_list_insertion_snippets(
     )
 
 
-def get_custom_insertion_snippets(
+def get_custom_insertion_snippet(
     name: str,
     substitutions: dict[str, str] | None,
 ) -> CustomInsertionSnippet:

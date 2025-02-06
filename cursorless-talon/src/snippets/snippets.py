@@ -18,7 +18,7 @@ from .snippet_types import (
     to_scope_types,
 )
 from .snippets_get import (
-    get_custom_insertion_snippets,
+    get_custom_insertion_snippet,
     get_custom_wrapper_snippet,
     get_insertion_snippet,
     get_wrapper_snippet,
@@ -61,7 +61,7 @@ def insert_community_snippet(
     snippet = (
         get_insertion_snippet(name, substitutions)
         if use_list
-        else get_custom_insertion_snippets(name, substitutions)
+        else get_custom_insertion_snippet(name, substitutions)
     )
     insert_snippet(snippet, destination)
 
