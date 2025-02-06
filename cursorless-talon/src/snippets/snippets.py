@@ -77,11 +77,10 @@ def wrap_with_community_snippet(
     wrap_with_snippet(snippet, target)
 
 
-# These actions use list snippets since no language mode is forced
-
-
 @ctx.action_class("user")
 class UserActions:
+    # These actions use list snippets since no language mode is forced
+
     def insert_snippet_by_name(
         name: str,  # pyright: ignore [reportGeneralTypeIssues]
         # Don't add optional; We need to match the type in community
