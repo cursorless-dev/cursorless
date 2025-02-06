@@ -406,7 +406,9 @@
 ;;!  ^^^^^^^^^^^^
 (case_clause) @branch
 
-(match_statement) @branch.iteration @condition.iteration
+(match_statement
+  body: (_) @branch.iteration @condition.iteration
+) @branch.iteration.domain @condition.iteration.domain
 
 ;;!! 1 if True else 0
 ;;!       ^^^^

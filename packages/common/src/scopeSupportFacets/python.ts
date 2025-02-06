@@ -105,7 +105,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
 
   switchStatementSubject: supported,
 
-  "condition.for": supported,
+  "condition.if": supported,
   "condition.switchCase": supported,
   "condition.switchCase.iteration": supported,
   "condition.ternary": supported,
@@ -115,7 +115,6 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "key.mapPair": supported,
   list: supported,
   map: supported,
-  "condition.if": supported,
 
   "comment.line": supported,
 
@@ -146,6 +145,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "className.iteration.block": notApplicable,
   "comment.block": notApplicable,
   "condition.doWhile": notApplicable,
+  "condition.for": notApplicable,
   "interior.cell": notApplicable,
   "interior.command": notApplicable,
   "interior.element": notApplicable,
