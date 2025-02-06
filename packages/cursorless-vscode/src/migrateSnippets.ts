@@ -183,21 +183,21 @@ async function openResultDocument(
     "",
   ];
 
+  if (result.skipped.length > 0) {
+    content.push(
+      `## Skipped ${result.skipped.length} snippet files:`,
+      ...result.skipped.map((key) => `- ${key}`),
+      skipMessage,
+      "",
+    );
+  }
+
   if (migratedPartiallyKeys.length > 0) {
     content.push(
       `## Migrated ${migratedPartiallyKeys.length} snippet files partially:`,
       ...migratedPartiallyKeys.map(
         (key) => `- ${key} -> ${result.migratedPartially[key]}`,
       ),
-      skipMessage,
-      "",
-    );
-  }
-
-  if (result.skipped.length > 0) {
-    content.push(
-      `## Skipped ${result.skipped.length} snippet files:`,
-      ...result.skipped.map((key) => `- ${key}`),
       skipMessage,
       "",
     );
