@@ -20,8 +20,19 @@ export function getPreferredSnippet(
   snippetDescription: InsertSnippetArg | WrapWithSnippetArg,
   languageId: string,
 ) {
-  const allSnippets = getSnippets(snippetDescription);
-  const filteredSnippets = filterSnippetDefinitions(allSnippets, languageId);
+  if (snippetDescription.type === "named") {
+    throw new Error(
+      "Cursorless snippets are deprecated. Please use community snippets.",
+    );
+  }
+  if (snippetDescription.type === "custom") {
+    return snippetDescription;
+  }
+
+  const filteredSnippets = filterSnippetDefinitions(
+    snippetDescription.snippets,
+    languageId,
+  );
   filteredSnippets.sort(compareSnippetDefinitions);
   const preferredSnippet = filteredSnippets[0];
 
@@ -30,20 +41,6 @@ export function getPreferredSnippet(
   }
 
   return preferredSnippet;
-}
-
-function getSnippets(
-  snippetDescription: InsertSnippetArg | WrapWithSnippetArg,
-) {
-  if (snippetDescription.type === "named") {
-    throw new Error(
-      "Cursorless snippets are deprecated. Please use community snippets.",
-    );
-  }
-  if (snippetDescription.type === "custom") {
-    return [snippetDescription];
-  }
-  return snippetDescription.snippets;
 }
 
 /**

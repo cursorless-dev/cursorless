@@ -100,7 +100,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.switchCase": supported,
   "interior.ternary": supported,
   "interior.loop": supported,
-  "interior.with": supported,
+  "interior.resource": supported,
 
   switchStatementSubject: supported,
 
