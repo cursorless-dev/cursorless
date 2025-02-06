@@ -204,6 +204,10 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     insertSnippet: "snippet",
     pasteFromClipboard: "paste",
     joinLines: "join",
+    gitAccept: "git accept",
+    gitRevert: "git revert",
+    gitStage: "git stage",
+    gitUnstage: "git unstage",
 
     ["private.showParseTree"]: isPrivate("parse tree"),
     ["experimental.setInstanceReference"]: isDisabledByDefault("from"),

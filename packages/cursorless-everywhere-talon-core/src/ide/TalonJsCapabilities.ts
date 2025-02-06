@@ -18,6 +18,10 @@ const COMMAND_CAPABILITIES: CommandCapabilityMap = {
   insertLineAfter: undefined,
   indentLine: undefined,
   outdentLine: undefined,
+  gitAccept: undefined,
+  gitRevert: undefined,
+  gitStage: undefined,
+  gitUnstage: undefined,
 };
 
 export class TalonJsCapabilities implements Capabilities {

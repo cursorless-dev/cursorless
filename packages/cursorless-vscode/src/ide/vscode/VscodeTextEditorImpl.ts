@@ -242,4 +242,20 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
 
     await sleep(250);
   }
+
+  public async gitAccept(_range?: Range): Promise<void> {
+    await vscode.commands.executeCommand("merge-conflict.accept.selection");
+  }
+
+  public async gitRevert(_range?: Range): Promise<void> {
+    await vscode.commands.executeCommand("git.revertSelectedRanges");
+  }
+
+  public async gitStage(_range?: Range): Promise<void> {
+    await vscode.commands.executeCommand("git.stageSelectedRanges");
+  }
+
+  public async gitUnstage(_range?: Range): Promise<void> {
+    await vscode.commands.executeCommand("git.unstageSelectedRanges");
+  }
 }

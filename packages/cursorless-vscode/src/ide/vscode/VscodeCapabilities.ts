@@ -18,6 +18,10 @@ const COMMAND_CAPABILITIES: CommandCapabilityMap = {
   unfold: { acceptsLocation: true },
   showReferences: { acceptsLocation: false },
   insertLineAfter: { acceptsLocation: false },
+  gitAccept: { acceptsLocation: false },
+  gitRevert: { acceptsLocation: false },
+  gitStage: { acceptsLocation: false },
+  gitUnstage: { acceptsLocation: false },
 };
 
 export class VscodeCapabilities implements Capabilities {

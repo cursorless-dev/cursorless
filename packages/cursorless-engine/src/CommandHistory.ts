@@ -160,6 +160,10 @@ function sanitizeActionInPlace(action: ActionDescriptor): void {
     case "followLinkAside":
     case "generateSnippet":
     case "getText":
+    case "gitAccept":
+    case "gitRevert":
+    case "gitStage":
+    case "gitUnstage":
     case "highlight":
     case "increment":
     case "indentLine":

@@ -148,8 +148,9 @@ export const scopeSupportFacetInfos: Record<
     description: "A constructor declaration in a class",
     scopeType: "namedFunction",
   },
-  "namedFunction.iteration": {
-    description: "Iteration scope for named functions: code blocks",
+  "namedFunction.iteration.block": {
+    description:
+      "Iteration scope for named functions. Statement blocks(body of functions/if classes/for loops/etc).",
     scopeType: "namedFunction",
     isIteration: true,
   },
@@ -180,8 +181,9 @@ export const scopeSupportFacetInfos: Record<
     description: "The name of a constructor in a class",
     scopeType: "functionName",
   },
-  "functionName.iteration": {
-    description: "Iteration scope for function names: code blocks",
+  "functionName.iteration.block": {
+    description:
+      "Iteration scope for function names. Statement blocks(body of functions/if classes/for loops/etc).",
     scopeType: "functionName",
     isIteration: true,
   },
@@ -749,8 +751,8 @@ export const scopeSupportFacetInfos: Record<
     description: "The body of an for/while loop",
     scopeType: { type: "interior" },
   },
-  "interior.with": {
-    description: "The body of an with/use/using statement",
+  "interior.resource": {
+    description: "the body of a 'with' / 'use' / 'using' statement",
     scopeType: { type: "interior" },
   },
 
