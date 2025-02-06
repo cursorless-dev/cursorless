@@ -142,8 +142,8 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Unsupported
 
-  "namedFunction.iteration": unsupported,
-  "functionName.iteration": unsupported,
+  "namedFunction.iteration.block": unsupported,
+  "functionName.iteration.block": unsupported,
   "class.iteration.block": unsupported,
   "className.iteration.block": unsupported,
 
