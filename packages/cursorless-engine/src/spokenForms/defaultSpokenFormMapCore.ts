@@ -206,8 +206,8 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     joinLines: "join",
     gitAccept: "git accept",
     gitRevert: "git revert",
-    gitStage: "git add",
-    gitUnstage: "git reset",
+    gitStage: "git stage",
+    gitUnstage: "git unstage",
 
     ["private.showParseTree"]: isPrivate("parse tree"),
     ["experimental.setInstanceReference"]: isDisabledByDefault("from"),
