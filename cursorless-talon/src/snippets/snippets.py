@@ -11,17 +11,14 @@ from .snippet_types import (
     CustomInsertionSnippet,
     CustomWrapperSnippet,
     InsertSnippetAction,
-    ListInsertionSnippet,
-    ListWrapperSnippet,
     ScopeType,
     WrapperSnippetAction,
     to_scope_types,
 )
 from .snippets_get import (
-    get_insertion_snippet,
-    get_wrapper_snippet,
     get_list_insertion_snippet,
     get_list_wrapper_snippet,
+    get_wrapper_snippet,
 )
 
 mod = Module()
@@ -32,7 +29,6 @@ not tag: user.code_language_forced
 """
 
 mod.list("cursorless_insert_snippet_action", desc="Cursorless insert snippet action")
-
 
 
 @mod.action_class
@@ -94,6 +90,7 @@ class Actions:
         )
         actions.user.private_cursorless_command_and_wait(action)
 
+
 @ctx.action_class("user")
 class UserActions:
     # Since we don't have a forced language mode, these actions send all the snippets.
@@ -110,7 +107,6 @@ class UserActions:
             ImplicitDestination(),
         )
         actions.user.private_cursorless_command_and_wait(action)
-
 
     def private_cursorless_insert_community_snippet(
         name: str,  # pyright: ignore [reportGeneralTypeIssues]

@@ -9,13 +9,13 @@ from .snippet_types import (
 
 
 def get_insertion_snippet(
-    name: str,
-    substitutions: dict[str, str] | None = None
+    name: str, substitutions: dict[str, str] | None = None
 ) -> CustomInsertionSnippet:
     return CustomInsertionSnippet.create(
         actions.user.get_insertion_snippet(name),
         substitutions,
     )
+
 
 def get_list_insertion_snippet(
     name: str,
@@ -34,8 +34,10 @@ def get_list_insertion_snippet(
         [CustomInsertionSnippet.create(s) for s in snippets],
     )
 
+
 def get_wrapper_snippet(name: str) -> CustomWrapperSnippet:
     return CustomWrapperSnippet.create(actions.user.get_wrapper_snippet(name))
+
 
 def get_list_wrapper_snippet(name: str) -> ListWrapperSnippet | CustomWrapperSnippet:
     try:
