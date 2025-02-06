@@ -12,7 +12,7 @@ import type { Target } from "../../../../typings/target.types";
 import { InteriorTarget } from "../../../targets";
 import { BaseScopeHandler } from "../BaseScopeHandler";
 import { FallbackScopeHandler } from "../FallbackScopeHandler";
-import { OneOfScopeHandler } from "../OneOfScopeHandler";
+import { SortedScopeHandler } from "../SortedScopeHandler";
 import type { TargetScope } from "../scope.types";
 import type {
   ComplexScopeType,
@@ -98,7 +98,7 @@ export class InteriorScopeHandler extends BaseScopeHandler {
       return pairScopeHandler;
     }
 
-    return OneOfScopeHandler.createFromScopeHandlers(
+    return SortedScopeHandler.createFromScopeHandlers(
       this.scopeHandlerFactory,
       this.languageId,
       [languageScopeHandler, pairScopeHandler],
