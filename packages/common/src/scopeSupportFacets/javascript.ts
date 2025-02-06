@@ -149,7 +149,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.switchCase": unsupported,
   "interior.ternary": unsupported,
   "interior.try": unsupported,
-  "interior.with": unsupported,
+  "interior.resource": unsupported,
 
   // Not applicable
 
