@@ -326,7 +326,7 @@
 
 (class_definition
   body: (_) @namedFunction.iteration @functionName.iteration
-) @namedFunction.iteration.domain @functionName.iteration.domain
+)
 
 ;;!! def foo():
 ;;!!     a = 0

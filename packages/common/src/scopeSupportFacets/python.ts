@@ -53,6 +53,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "namedFunction.constructor": supported,
   "namedFunction.iteration.document": supported,
   "namedFunction.method": supported,
+  "namedFunction.method.iteration.class": supported,
 
   functionName: supported,
   "functionName.constructor": supported,
@@ -154,7 +155,6 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.element": notApplicable,
   "key.attribute": notApplicable,
   "key.mapPair.iteration": notApplicable,
-  "namedFunction.method.iteration.class": notApplicable,
   "section.iteration.document": notApplicable,
   "section.iteration.parent": notApplicable,
   "textFragment.comment.block": notApplicable,
