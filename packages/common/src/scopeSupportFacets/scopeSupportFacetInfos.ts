@@ -148,8 +148,9 @@ export const scopeSupportFacetInfos: Record<
     description: "A constructor declaration in a class",
     scopeType: "namedFunction",
   },
-  "namedFunction.iteration": {
-    description: "Iteration scope for named functions",
+  "namedFunction.iteration.block": {
+    description:
+      "Iteration scope for named functions. Statement blocks(body of functions/if classes/for loops/etc).",
     scopeType: "namedFunction",
     isIteration: true,
   },

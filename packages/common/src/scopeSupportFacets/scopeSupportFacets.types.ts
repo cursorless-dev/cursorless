@@ -39,7 +39,7 @@ export const scopeSupportFacets = [
   "anonymousFunction",
 
   "namedFunction",
-  "namedFunction.iteration",
+  "namedFunction.iteration.block",
   "namedFunction.iteration.document",
   "namedFunction.method",
   "namedFunction.method.iteration.class",
