@@ -239,25 +239,25 @@ export interface EditableTextEditor extends TextEditor {
   extractVariable(range?: Range): Promise<void>;
 
   /**
-   * Git accept conflict
+   * Git accept conflict (use the range to resolve a conflict hunk)
    * @param range A {@link Range range}
    */
   gitAccept(range?: Range): Promise<void>;
 
   /**
-   * Git revert
+   * Git revert range
    * @param range A {@link Range range}
    */
   gitRevert(range?: Range): Promise<void>;
 
   /**
-   * Git stage
+   * Git stage range
    * @param range A {@link Range range}
    */
   gitStage(range?: Range): Promise<void>;
 
   /**
-   * Git unstage
+   * Git unstage range
    * @param range A {@link Range range}
    */
   gitUnstage(range?: Range): Promise<void>;
