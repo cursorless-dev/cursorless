@@ -181,9 +181,6 @@ async function openResultDocument(
     `From: ${sourceDirectory}`,
     `To:   ${targetDirectory}`,
     "",
-    `## Migrated ${migratedKeys.length} snippet files:`,
-    ...migratedKeys.map((key) => `- ${key} -> ${result.migrated[key]}`),
-    "",
   ];
 
   if (migratedPartiallyKeys.length > 0) {
@@ -193,6 +190,7 @@ async function openResultDocument(
         (key) => `- ${key} -> ${result.migratedPartially[key]}`,
       ),
       skipMessage,
+      "",
     );
   }
 
@@ -201,8 +199,15 @@ async function openResultDocument(
       `## Skipped ${result.skipped.length} snippet files:`,
       ...result.skipped.map((key) => `- ${key}`),
       skipMessage,
+      "",
     );
   }
+
+  content.push(
+    `## Migrated ${migratedKeys.length} snippet files:`,
+    ...migratedKeys.map((key) => `- ${key} -> ${result.migrated[key]}`),
+    "",
+  );
 
   const textDocument = await vscode.workspace.openTextDocument({
     content: content.join("\n"),
