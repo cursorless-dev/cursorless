@@ -48,7 +48,7 @@ class CustomInsertionSnippet:
     @staticmethod
     def create(
         snippet: CommunityInsertionSnippet,
-        substitutions: dict[str, str] | None,
+        substitutions: dict[str, str] | None = None,
     ):
         return CustomInsertionSnippet(
             snippet.body,

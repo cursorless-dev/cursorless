@@ -1,8 +1,6 @@
 from talon import actions
 
 from .snippet_types import (
-    CommunityInsertionSnippet,
-    CommunityWrapperSnippet,
     CustomInsertionSnippet,
     CustomWrapperSnippet,
     ListInsertionSnippet,
@@ -12,53 +10,42 @@ from .snippet_types import (
 
 def get_insertion_snippet(
     name: str,
-    substitutions: dict[str, str] | None,
-) -> ListInsertionSnippet | CustomInsertionSnippet:
-    try:
-        return get_list_insertion_snippet(name, substitutions)
-    except Exception as ex:
-        if isinstance(ex, KeyError):
-            return get_custom_insertion_snippet(name, substitutions)
-        raise
-
+    substitutions: dict[str, str] | None = None
+) -> CustomInsertionSnippet:
+    return CustomInsertionSnippet.create(
+        actions.user.get_insertion_snippet(name),
+        substitutions,
+    )
 
 def get_list_insertion_snippet(
     name: str,
-    substitutions: dict[str, str] | None,
-) -> ListInsertionSnippet:
-    snippets: list[CommunityInsertionSnippet] = actions.user.get_insertion_snippets(
-        name
-    )
-    return ListInsertionSnippet(
-        substitutions,
-        [CustomInsertionSnippet.create(s, substitutions=None) for s in snippets],
-    )
-
-
-def get_custom_insertion_snippet(
-    name: str,
-    substitutions: dict[str, str] | None,
-) -> CustomInsertionSnippet:
-    snippet: CommunityInsertionSnippet = actions.user.get_insertion_snippet(name)
-    return CustomInsertionSnippet.create(snippet, substitutions)
-
-
-def get_wrapper_snippet(name: str) -> ListWrapperSnippet | CustomWrapperSnippet:
+    substitutions: dict[str, str] | None = None,
+) -> ListInsertionSnippet | CustomInsertionSnippet:
     try:
-        return get_list_wrapper_snippet(name)
-    except Exception as ex:
-        if isinstance(ex, KeyError):
-            return get_custom_wrapper_snippet(name)
+        snippets = actions.user.get_list_insertion_snippet(name)
+    except Exception as e:
+        # Raised if the user has an older version of community
+        if isinstance(e, KeyError):
+            return get_insertion_snippet(name, substitutions)
         raise
 
+    return ListInsertionSnippet(
+        substitutions,
+        [CustomInsertionSnippet.create(s) for s in snippets],
+    )
 
-def get_list_wrapper_snippet(name: str) -> ListWrapperSnippet:
-    snippets: list[CommunityWrapperSnippet] = actions.user.get_wrapper_snippets(name)
+def get_wrapper_snippet(name: str) -> CustomWrapperSnippet:
+    return CustomWrapperSnippet.create(actions.user.get_wrapper_snippet(name))
+
+def get_list_wrapper_snippet(name: str) -> ListWrapperSnippet | CustomWrapperSnippet:
+    try:
+        snippets = actions.user.get_wrapper_snippets(name)
+    except Exception as e:
+        # Raised if the user has an older version of community
+        if isinstance(e, KeyError):
+            return get_wrapper_snippet(name)
+        raise
+
     return ListWrapperSnippet(
         [CustomWrapperSnippet.create(s) for s in snippets],
     )
-
-
-def get_custom_wrapper_snippet(name: str) -> CustomWrapperSnippet:
-    snippet: CommunityWrapperSnippet = actions.user.get_wrapper_snippet(name)
-    return CustomWrapperSnippet.create(snippet)

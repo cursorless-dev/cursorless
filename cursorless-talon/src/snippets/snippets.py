@@ -18,10 +18,10 @@ from .snippet_types import (
     to_scope_types,
 )
 from .snippets_get import (
-    get_custom_insertion_snippet,
-    get_custom_wrapper_snippet,
     get_insertion_snippet,
     get_wrapper_snippet,
+    get_list_insertion_snippet,
+    get_list_wrapper_snippet,
 )
 
 mod = Module()
@@ -34,85 +34,43 @@ not tag: user.code_language_forced
 mod.list("cursorless_insert_snippet_action", desc="Cursorless insert snippet action")
 
 
-def insert_snippet(
-    snippet: CustomInsertionSnippet | ListInsertionSnippet,
-    destination: CursorlessDestination,
-):
-    actions.user.private_cursorless_command_and_wait(
-        InsertSnippetAction(snippet, destination),
-    )
-
-
-def wrap_with_snippet(
-    snippet: CustomWrapperSnippet | ListWrapperSnippet,
-    target: CursorlessTarget,
-):
-    actions.user.private_cursorless_command_and_wait(
-        WrapperSnippetAction(snippet, target),
-    )
-
-
-def insert_community_snippet(
-    name: str,
-    substitutions: dict[str, str] | None,
-    destination: CursorlessDestination,
-    use_list: bool,
-):
-    snippet = (
-        get_insertion_snippet(name, substitutions)
-        if use_list
-        else get_custom_insertion_snippet(name, substitutions)
-    )
-    insert_snippet(snippet, destination)
-
-
-def wrap_with_community_snippet(
-    name: str,
-    target: CursorlessTarget,
-    use_list: bool,
-):
-    snippet = (
-        get_wrapper_snippet(name) if use_list else get_custom_wrapper_snippet(name)
-    )
-    wrap_with_snippet(snippet, target)
-
-
 @ctx.action_class("user")
 class UserActions:
-    # These actions use list snippets since no language mode is forced
+    # Since we don't have a forced language mode, these actions send all the snippets.
+    # (note that this is the default mode of action, as most of the time the user will not
+    # have a forced language mode)
 
     def insert_snippet_by_name(
         name: str,  # pyright: ignore [reportGeneralTypeIssues]
         # Don't add optional; We need to match the type in community
         substitutions: dict[str, str] = None,
     ):
-        insert_community_snippet(
-            name,
-            substitutions,
+        action = InsertSnippetAction(
+            get_list_insertion_snippet(name, substitutions),
             ImplicitDestination(),
-            use_list=True,
         )
+        actions.user.private_cursorless_command_and_wait(action)
+
 
     def private_cursorless_insert_community_snippet(
         name: str,  # pyright: ignore [reportGeneralTypeIssues]
         destination: CursorlessDestination,
     ):
-        insert_community_snippet(
-            name,
-            substitutions=None,
-            destination=destination,
-            use_list=True,
+        action = InsertSnippetAction(
+            get_list_insertion_snippet(name),
+            destination,
         )
+        actions.user.private_cursorless_command_and_wait(action)
 
     def private_cursorless_wrap_with_community_snippet(
         name: str,  # pyright: ignore [reportGeneralTypeIssues]
         target: CursorlessTarget,
     ):
-        wrap_with_community_snippet(
-            name,
+        action = WrapperSnippetAction(
+            get_list_wrapper_snippet(name),
             target,
-            use_list=True,
         )
+        actions.user.private_cursorless_command_and_wait(action)
 
 
 @mod.action_class
@@ -129,7 +87,8 @@ class Actions:
             languages=None,
             substitutions=None,
         )
-        insert_snippet(snippet, destination)
+        action = InsertSnippetAction(snippet, destination)
+        actions.user.private_cursorless_command_and_wait(action)
 
     def cursorless_wrap_with_snippet(
         body: str,  # pyright: ignore [reportGeneralTypeIssues]
@@ -144,7 +103,8 @@ class Actions:
             ScopeType(scope) if scope else None,
             languages=None,
         )
-        wrap_with_snippet(snippet, target)
+        action = WrapperSnippetAction(snippet, target)
+        actions.user.private_cursorless_command_and_wait(action)
 
     # These actions use a single custom snippets since a language mode is forced
 
@@ -153,20 +113,21 @@ class Actions:
         destination: CursorlessDestination,
     ):
         """Cursorless: Insert community snippet <name>"""
-        insert_community_snippet(
-            name,
-            substitutions=None,
-            destination=destination,
-            use_list=False,
+        action = InsertSnippetAction(
+            CustomInsertionSnippet.create(
+                actions.user.get_insertion_snippet(name),
+            ),
+            destination,
         )
+        actions.user.private_cursorless_command_and_wait(action)
 
     def private_cursorless_wrap_with_community_snippet(
         name: str,  # pyright: ignore [reportGeneralTypeIssues]
         target: CursorlessTarget,
     ):
         """Cursorless: Wrap target with community snippet <name>"""
-        wrap_with_community_snippet(
-            name,
+        action = WrapperSnippetAction(
+            get_wrapper_snippet(name),
             target,
-            use_list=False,
         )
+        actions.user.private_cursorless_command_and_wait(action)
