@@ -125,7 +125,7 @@ class Actions:
         """Cursorless: Insert custom snippet <body>"""
         snippet = CustomInsertionSnippet(
             body,
-            to_scope_types(scope_type),
+            to_scope_types(scope_type) if scope_type else None,
             languages=None,
             substitutions=None,
         )

@@ -10,12 +10,10 @@ class ScopeType:
     type: str
 
 
-def to_scope_types(scope_types: str | list[str] | None) -> list[ScopeType] | None:
+def to_scope_types(scope_types: str | list[str]) -> list[ScopeType]:
     if isinstance(scope_types, str):
         return [ScopeType(scope_types)]
-    elif scope_types is not None:
-        return [ScopeType(st) for st in scope_types]
-    return None
+    return [ScopeType(st) for st in scope_types]
 
 
 # Community types
@@ -54,7 +52,7 @@ class CustomInsertionSnippet:
     ):
         return CustomInsertionSnippet(
             snippet.body,
-            to_scope_types(snippet.scopes),
+            to_scope_types(snippet.scopes) if snippet.scopes else None,
             # languages will be missing if the user has an older version of community
             snippet.languages if hasattr(snippet, "languages") else None,
             substitutions=substitutions,
