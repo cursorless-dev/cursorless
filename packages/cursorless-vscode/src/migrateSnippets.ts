@@ -66,21 +66,26 @@ async function migrateFile(
   const fileName = path.basename(filePath, CURSORLESS_SNIPPETS_SUFFIX);
   const snippetFile = await readLegacyFile(filePath);
   const communitySnippetFile: SnippetFile = { snippets: [] };
+  const snippetNames = Object.keys(snippetFile);
+  const useHeader = snippetNames.length === 1;
   let hasSkippedSnippet = false;
 
-  for (const snippetName in snippetFile) {
+  for (const snippetName of snippetNames) {
     const snippet = snippetFile[snippetName];
     const phrase =
       spokenForms.insertion[snippetName] ??
       spokenForms.insertionWithPhrase[snippetName];
+    const phrases = phrase ? [phrase] : undefined;
 
-    communitySnippetFile.header = {
-      name: snippetName,
-      description: snippet.description,
-      phrases: phrase ? [phrase] : undefined,
-      variables: parseVariables(spokenForms, snippetName, snippet.variables),
-      insertionScopes: snippet.insertionScopeTypes,
-    };
+    if (useHeader) {
+      communitySnippetFile.header = {
+        name: snippetName,
+        description: snippet.description,
+        phrases: phrases,
+        variables: parseVariables(spokenForms, snippetName, snippet.variables),
+        insertionScopes: snippet.insertionScopeTypes,
+      };
+    }
 
     for (const def of snippet.definitions) {
       if (
@@ -91,11 +96,20 @@ async function migrateFile(
         continue;
       }
       communitySnippetFile.snippets.push({
-        body: def.body.map((line) => line.replaceAll("\t", "    ")),
+        name: useHeader ? undefined : snippetName,
+        description: useHeader ? undefined : snippet.description,
+        phrases: useHeader ? undefined : phrases,
+        insertionScopes: useHeader ? undefined : snippet.insertionScopeTypes,
         languages: def.scope?.langIds,
-        variables: parseVariables(spokenForms, snippetName, def.variables),
+        variables: parseVariables(
+          spokenForms,
+          snippetName,
+          useHeader ? undefined : snippet.variables,
+          def.variables,
+        ),
         // SKIP: def.scope?.scopeTypes
         // SKIP: def.scope?.excludeDescendantScopeTypes
+        body: def.body.map((line) => line.replaceAll("\t", "    ")),
       });
     }
   }
@@ -131,22 +145,36 @@ async function migrateFile(
 function parseVariables(
   spokenForms: SpokenForms,
   snippetName: string,
-  variables?: Record<string, SnippetVariableLegacy>,
+  snippetVariables?: Record<string, SnippetVariableLegacy>,
+  defVariables?: Record<string, SnippetVariableLegacy>,
 ): SnippetVariable[] {
-  return Object.entries(variables ?? {}).map(
-    ([name, variable]): SnippetVariable => {
+  const map: Record<string, SnippetVariable> = {};
+
+  const add = (name: string, variable: SnippetVariableLegacy) => {
+    if (!map[name]) {
       const phrase = spokenForms.wrapper[`${snippetName}.${name}`];
-      return {
+      map[name] = {
         name,
         wrapperPhrases: phrase ? [phrase] : undefined,
-        wrapperScope: variable.wrapperScopeType,
-        insertionFormatters: variable.formatter
-          ? getFormatter(variable.formatter)
-          : undefined,
-        // SKIP: variable.description
       };
-    },
+    }
+    if (variable.wrapperScopeType) {
+      map[name].wrapperScope = variable.wrapperScopeType;
+    }
+    if (variable.formatter) {
+      map[name].insertionFormatters = getFormatter(variable.formatter);
+    }
+    // SKIP: variable.description
+  };
+
+  Object.entries(snippetVariables ?? {}).forEach(([name, variable]) =>
+    add(name, variable),
   );
+  Object.entries(defVariables ?? {}).forEach(([name, variable]) =>
+    add(name, variable),
+  );
+
+  return Object.values(map);
 }
 
 // Convert Cursorless formatters to Talon community formatters
