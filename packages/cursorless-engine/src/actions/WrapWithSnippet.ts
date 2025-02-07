@@ -98,7 +98,7 @@ export default class WrapWithSnippet {
     };
   }
 
-  // DEPRECATED @ 2025-02-07
+  // DEPRECATED @ 2025-02-01
   private legacy() {
     return new WrapWithSnippetLegacy(
       this.rangeUpdater,

@@ -104,7 +104,7 @@ export default class InsertSnippet {
     };
   }
 
-  // DEPRECATED @ 2025-02-07
+  // DEPRECATED @ 2025-02-01
   private legacy() {
     return new InsertSnippetLegacy(
       this.rangeUpdater,
