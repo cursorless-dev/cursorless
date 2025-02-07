@@ -187,7 +187,7 @@ function findMatchingSnippetDefinitionForSingleTarget(
             matchingTarget = containingTarget;
             matchingScopeType = scopeTypeType;
           }
-        } catch (e) {
+        } catch (_e) {
           continue;
         }
       }
