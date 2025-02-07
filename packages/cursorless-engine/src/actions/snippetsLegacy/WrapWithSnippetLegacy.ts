@@ -1,4 +1,4 @@
-import type { ScopeType, WrapWithSnippetArg } from "@cursorless/common";
+import type { NamedWrapWithSnippetArg, ScopeType } from "@cursorless/common";
 import { FlashStyle } from "@cursorless/common";
 import type { Snippets } from "../../core/Snippets";
 import type { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
@@ -26,7 +26,7 @@ export default class WrapWithSnippetLegacy {
     this.run = this.run.bind(this);
   }
 
-  getFinalStages(snippet: WrapWithSnippetArg) {
+  getFinalStages(snippet: NamedWrapWithSnippetArg) {
     const defaultScopeType = this.getScopeType(snippet);
 
     if (defaultScopeType == null) {
@@ -45,49 +45,41 @@ export default class WrapWithSnippetLegacy {
   }
 
   private getScopeType(
-    snippetDescription: WrapWithSnippetArg,
+    snippetDescription: NamedWrapWithSnippetArg,
   ): ScopeType | undefined {
-    if (snippetDescription.type === "named") {
-      const { name, variableName } = snippetDescription;
+    const { name, variableName } = snippetDescription;
 
-      const snippet = this.snippets.getSnippetStrict(name);
+    const snippet = this.snippets.getSnippetStrict(name);
 
-      const variables = snippet.variables ?? {};
-      const scopeTypeType = variables[variableName]?.wrapperScopeType;
-      return scopeTypeType == null
-        ? undefined
-        : {
-            type: scopeTypeType,
-          };
-    } else {
-      return snippetDescription.scopeType;
-    }
+    const variables = snippet.variables ?? {};
+    const scopeTypeType = variables[variableName]?.wrapperScopeType;
+    return scopeTypeType == null
+      ? undefined
+      : {
+          type: scopeTypeType,
+        };
   }
 
   private getBody(
-    snippetDescription: WrapWithSnippetArg,
+    snippetDescription: NamedWrapWithSnippetArg,
     targets: Target[],
   ): string {
-    if (snippetDescription.type === "named") {
-      const { name } = snippetDescription;
+    const { name } = snippetDescription;
 
-      const snippet = this.snippets.getSnippetStrict(name);
+    const snippet = this.snippets.getSnippetStrict(name);
 
-      const definition = findMatchingSnippetDefinitionStrict(
-        this.modifierStageFactory,
-        targets,
-        snippet.definitions,
-      );
+    const definition = findMatchingSnippetDefinitionStrict(
+      this.modifierStageFactory,
+      targets,
+      snippet.definitions,
+    );
 
-      return definition.body.join("\n");
-    } else {
-      return snippetDescription.body;
-    }
+    return definition.body.join("\n");
   }
 
   async run(
     targets: Target[],
-    snippetDescription: WrapWithSnippetArg,
+    snippetDescription: NamedWrapWithSnippetArg,
   ): Promise<ActionReturnValue> {
     const editor = ide().getEditableTextEditor(ensureSingleEditor(targets));
 

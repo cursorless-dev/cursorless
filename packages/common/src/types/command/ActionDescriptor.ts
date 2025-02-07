@@ -145,7 +145,7 @@ export interface GenerateSnippetActionDescriptor {
   target: PartialTargetDescriptor;
 }
 
-interface NamedInsertSnippetArg {
+export interface NamedInsertSnippetArg {
   type: "named";
   name: string;
   substitutions?: Record<string, string>;
@@ -176,7 +176,7 @@ export interface InsertSnippetActionDescriptor {
   destination: DestinationDescriptor;
 }
 
-interface NamedWrapWithSnippetArg {
+export interface NamedWrapWithSnippetArg {
   type: "named";
   name: string;
   variableName: string;

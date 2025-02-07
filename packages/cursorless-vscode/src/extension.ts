@@ -97,7 +97,10 @@ export async function activate(
   const treeSitter = createTreeSitter(parseTreeApi);
   const talonSpokenForms = new FileSystemTalonSpokenForms(fileSystem);
 
+  // NOTE: do not await on snippet loading and hats initialization because we don't want to
+  // block extension activation
   const snippets = new VscodeSnippets(normalizedIde);
+  void snippets.init();
 
   const treeSitterQueryProvider = new FileSystemRawTreeSitterQueryProvider(
     normalizedIde,

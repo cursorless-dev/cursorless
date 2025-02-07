@@ -1,5 +1,5 @@
 import type {
-  InsertSnippetArg,
+  NamedInsertSnippetArg,
   ScopeType,
   Snippet,
   SnippetDefinition,
@@ -21,6 +21,7 @@ import {
   findMatchingSnippetDefinitionStrict,
   transformSnippetVariables,
 } from "../snippetsLegacy/snippet";
+import { textFormatters, type TextFormatterName } from "./textFormatters";
 
 export default class InsertSnippetLegacy {
   private snippetParser = new SnippetParser();
@@ -34,7 +35,7 @@ export default class InsertSnippetLegacy {
     this.run = this.run.bind(this);
   }
 
-  getFinalStages(snippetDescription: InsertSnippetArg) {
+  getFinalStages(snippetDescription: NamedInsertSnippetArg) {
     const defaultScopeTypes = this.getScopeTypes(snippetDescription);
 
     return defaultScopeTypes.length === 0
@@ -50,61 +51,49 @@ export default class InsertSnippetLegacy {
         ];
   }
 
-  private getScopeTypes(snippetDescription: InsertSnippetArg): ScopeType[] {
-    if (snippetDescription.type === "named") {
-      const { name } = snippetDescription;
+  private getScopeTypes(
+    snippetDescription: NamedInsertSnippetArg,
+  ): ScopeType[] {
+    const { name } = snippetDescription;
 
-      const snippet = this.snippets.getSnippetStrict(name);
+    const snippet = this.snippets.getSnippetStrict(name);
 
-      const scopeTypeTypes = snippet.insertionScopeTypes;
-      return scopeTypeTypes == null
-        ? []
-        : scopeTypeTypes.map((scopeTypeType) => ({
-            type: scopeTypeType,
-          }));
-    } else {
-      return snippetDescription.scopeTypes ?? [];
-    }
+    const scopeTypeTypes = snippet.insertionScopeTypes;
+    return scopeTypeTypes == null
+      ? []
+      : scopeTypeTypes.map((scopeTypeType) => ({
+          type: scopeTypeType,
+        }));
   }
 
   private getSnippetInfo(
-    snippetDescription: InsertSnippetArg,
+    snippetDescription: NamedInsertSnippetArg,
     targets: Target[],
   ) {
-    if (snippetDescription.type === "named") {
-      const { name } = snippetDescription;
+    const { name } = snippetDescription;
 
-      const snippet = this.snippets.getSnippetStrict(name);
+    const snippet = this.snippets.getSnippetStrict(name);
 
-      const definition = findMatchingSnippetDefinitionStrict(
-        this.modifierStageFactory,
-        targets,
-        snippet.definitions,
-      );
+    const definition = findMatchingSnippetDefinitionStrict(
+      this.modifierStageFactory,
+      targets,
+      snippet.definitions,
+    );
 
-      return {
-        body: definition.body.join("\n"),
+    return {
+      body: definition.body.join("\n"),
 
-        formatSubstitutions(substitutions: Record<string, string> | undefined) {
-          return substitutions == null
-            ? undefined
-            : formatSubstitutions(snippet, definition, substitutions);
-        },
-      };
-    } else {
-      return {
-        body: snippetDescription.body,
-
-        formatSubstitutions(substitutions: Record<string, string> | undefined) {
-          return substitutions;
-        },
-      };
-    }
+      formatSubstitutions(substitutions: Record<string, string> | undefined) {
+        return substitutions == null
+          ? undefined
+          : formatSubstitutions(snippet, definition, substitutions);
+      },
+    };
   }
 
   async run(
     destinations: Destination[],
-    snippetDescription: InsertSnippetArg,
+    snippetDescription: NamedInsertSnippetArg,
   ): Promise<ActionReturnValue> {
     const editor = ide().getEditableTextEditor(
       ensureSingleEditor(destinations),
@@ -187,7 +176,7 @@ function formatSubstitutions(
         return [variableName, value];
       }
 
-      const formatter = textFormatters[formatterName];
+      const formatter = textFormatters[formatterName as TextFormatterName];
 
       if (formatter == null) {
         throw new Error(
