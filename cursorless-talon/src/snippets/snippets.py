@@ -26,7 +26,8 @@ mod = Module()
 ctx = Context()
 
 ctx.matches = r"""
-not tag: user.code_language_forced
+tag: user.cursorless
+and not tag: user.code_language_forced
 """
 
 mod.list("cursorless_insert_snippet_action", desc="Cursorless insert snippet action")
