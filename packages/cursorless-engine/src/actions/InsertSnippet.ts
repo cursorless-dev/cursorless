@@ -5,6 +5,7 @@ import { getPreferredSnippet } from "../core/getPreferredSnippet";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
+import type { ModifierStage } from "../processTargets/PipelineStages.types";
 import { ModifyIfUntypedExplicitStage } from "../processTargets/modifiers/ConditionalModifierStages";
 import { ide } from "../singletons/ide.singleton";
 import { transformSnippetVariables } from "../snippets/transformSnippetVariables";
@@ -13,6 +14,7 @@ import type { Destination } from "../typings/target.types";
 import { ensureSingleEditor } from "../util/targetUtils";
 import type { Actions } from "./Actions";
 import type { ActionReturnValue } from "./actions.types";
+import InsertSnippetLegacy from "./snippetsLegacy/InsertSnippetLegacy";
 
 export default class InsertSnippet {
   private snippetParser = new SnippetParser();
@@ -29,7 +31,11 @@ export default class InsertSnippet {
   getFinalStages(
     destinations: Destination[],
     snippetDescription: InsertSnippetArg,
-  ) {
+  ): ModifierStage[] {
+    if (snippetDescription.type === "named") {
+      return this.legacy().getFinalStages(snippetDescription);
+    }
+
     const editor = ensureSingleEditor(destinations);
     const snippet = getPreferredSnippet(
       snippetDescription,
@@ -53,6 +59,10 @@ export default class InsertSnippet {
     destinations: Destination[],
     snippetDescription: InsertSnippetArg,
   ): Promise<ActionReturnValue> {
+    if (snippetDescription.type === "named") {
+      return this.legacy().run(destinations, snippetDescription);
+    }
+
     const editor = ide().getEditableTextEditor(
       ensureSingleEditor(destinations),
     );
@@ -92,5 +102,15 @@ export default class InsertSnippet {
         selection,
       })),
     };
+  }
+
+  // DEPRECATED @ 2025-02-01
+  private legacy() {
+    return new InsertSnippetLegacy(
+      this.rangeUpdater,
+      this.snippets,
+      this.actions,
+      this.modifierStageFactory,
+    );
   }
 }

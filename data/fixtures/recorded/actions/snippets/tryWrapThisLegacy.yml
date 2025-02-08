@@ -4,16 +4,12 @@ command:
   spokenForm: try wrap this
   action:
     name: wrapWithSnippet
-    snippetDescription:
-      type: custom
-      variableName: try
-      body: "try {\n\t$try\n} catch (err) {\n\t$catch\n}"
-      scopeType: {type: statement}
+    snippetDescription: {type: named, name: tryCatchStatement, variableName: body}
     target:
       type: primitive
       mark: {type: cursor}
   usePrePhraseSnapshot: true
-spokenFormError: custom wrap with snippet
+spokenFormError: named wrap with snippet
 initialState:
   documentContents: const foo = "bar";
   selections:

@@ -5,6 +5,7 @@ import { getPreferredSnippet } from "../core/getPreferredSnippet";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
+import type { ModifierStage } from "../processTargets/PipelineStages.types";
 import { ModifyIfUntypedStage } from "../processTargets/modifiers/ConditionalModifierStages";
 import { ide } from "../singletons/ide.singleton";
 import { transformSnippetVariables } from "../snippets/transformSnippetVariables";
@@ -12,6 +13,7 @@ import { SnippetParser } from "../snippets/vendor/vscodeSnippet/snippetParser";
 import type { Target } from "../typings/target.types";
 import { ensureSingleEditor, flashTargets } from "../util/targetUtils";
 import type { ActionReturnValue } from "./actions.types";
+import WrapWithSnippetLegacy from "./snippetsLegacy/WrapWithSnippetLegacy";
 
 export default class WrapWithSnippet {
   private snippetParser = new SnippetParser();
@@ -24,7 +26,14 @@ export default class WrapWithSnippet {
     this.run = this.run.bind(this);
   }
 
-  getFinalStages(targets: Target[], snippetDescription: WrapWithSnippetArg) {
+  getFinalStages(
+    targets: Target[],
+    snippetDescription: WrapWithSnippetArg,
+  ): ModifierStage[] {
+    if (snippetDescription.type === "named") {
+      return this.legacy().getFinalStages(snippetDescription);
+    }
+
     const editor = ensureSingleEditor(targets);
     const snippet = getPreferredSnippet(
       snippetDescription,
@@ -50,6 +59,10 @@ export default class WrapWithSnippet {
     targets: Target[],
     snippetDescription: WrapWithSnippetArg,
   ): Promise<ActionReturnValue> {
+    if (snippetDescription.type === "named") {
+      return this.legacy().run(targets, snippetDescription);
+    }
+
     const editor = ide().getEditableTextEditor(ensureSingleEditor(targets));
     const snippet = getPreferredSnippet(
       snippetDescription,
@@ -83,5 +96,14 @@ export default class WrapWithSnippet {
         selection,
       })),
     };
+  }
+
+  // DEPRECATED @ 2025-02-01
+  private legacy() {
+    return new WrapWithSnippetLegacy(
+      this.rangeUpdater,
+      this.snippets,
+      this.modifierStageFactory,
+    );
   }
 }
