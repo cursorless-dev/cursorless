@@ -21,7 +21,7 @@ interface Result {
   skipped: string[];
 }
 
-interface SpokenForms {
+export interface SpokenForms {
   insertion: Record<string, string>;
   insertionWithPhrase: Record<string, string>;
   wrapper: Record<string, string>;
@@ -64,14 +64,42 @@ async function migrateFile(
   filePath: string,
 ) {
   const fileName = path.basename(filePath, CURSORLESS_SNIPPETS_SUFFIX);
-  const snippetFile = await readLegacyFile(filePath);
+  const legacySnippetFile = await readLegacyFile(filePath);
+
+  const [communitySnippetFile, hasSkippedSnippet] = migrateLegacySnippet(
+    spokenForms,
+    legacySnippetFile,
+  );
+
+  if (communitySnippetFile.snippets.length === 0) {
+    result.skipped.push(fileName);
+    return;
+  }
+
+  const destinationName = await saveSnippetFile(
+    communitySnippetFile,
+    targetDirectory,
+    fileName,
+  );
+
+  if (hasSkippedSnippet) {
+    result.migratedPartially[fileName] = destinationName;
+  } else {
+    result.migrated[fileName] = destinationName;
+  }
+}
+
+export function migrateLegacySnippet(
+  spokenForms: SpokenForms,
+  legacySnippetFile: SnippetMap,
+): [SnippetFile, boolean] {
   const communitySnippetFile: SnippetFile = { snippets: [] };
-  const snippetNames = Object.keys(snippetFile);
+  const snippetNames = Object.keys(legacySnippetFile);
   const useHeader = snippetNames.length === 1;
   let hasSkippedSnippet = false;
 
   for (const snippetName of snippetNames) {
-    const snippet = snippetFile[snippetName];
+    const snippet = legacySnippetFile[snippetName];
     const phrase =
       spokenForms.insertion[snippetName] ??
       spokenForms.insertionWithPhrase[snippetName];
@@ -82,7 +110,13 @@ async function migrateFile(
         name: snippetName,
         description: snippet.description,
         phrases: phrases,
-        variables: parseVariables(spokenForms, snippetName, snippet.variables),
+        variables: parseVariables(
+          spokenForms,
+          snippetName,
+          snippet.variables,
+          undefined,
+          true,
+        ),
         insertionScopes: snippet.insertionScopeTypes,
       };
     }
@@ -106,6 +140,7 @@ async function migrateFile(
           snippetName,
           useHeader ? undefined : snippet.variables,
           def.variables,
+          !useHeader,
         ),
         // SKIP: def.scope?.scopeTypes
         // SKIP: def.scope?.excludeDescendantScopeTypes
@@ -114,39 +149,15 @@ async function migrateFile(
     }
   }
 
-  if (communitySnippetFile.snippets.length === 0) {
-    result.skipped.push(fileName);
-    return;
-  }
-
-  let destinationName: string;
-
-  try {
-    destinationName = `${fileName}.snippet`;
-    const destinationPath = path.join(targetDirectory, destinationName);
-    await writeCommunityFile(communitySnippetFile, destinationPath, "wx");
-  } catch (error: any) {
-    if (error.code === "EEXIST") {
-      destinationName = `${fileName}_CONFLICT.snippet`;
-      const destinationPath = path.join(targetDirectory, destinationName);
-      await writeCommunityFile(communitySnippetFile, destinationPath, "w");
-    } else {
-      throw error;
-    }
-  }
-
-  if (hasSkippedSnippet) {
-    result.migratedPartially[fileName] = destinationName;
-  } else {
-    result.migrated[fileName] = destinationName;
-  }
+  return [communitySnippetFile, hasSkippedSnippet];
 }
 
 function parseVariables(
   spokenForms: SpokenForms,
   snippetName: string,
-  snippetVariables?: Record<string, SnippetVariableLegacy>,
-  defVariables?: Record<string, SnippetVariableLegacy>,
+  snippetVariables: Record<string, SnippetVariableLegacy> | undefined,
+  defVariables: Record<string, SnippetVariableLegacy> | undefined,
+  addMissingPhrases: boolean,
 ): SnippetVariable[] {
   const map: Record<string, SnippetVariable> = {};
 
@@ -174,6 +185,18 @@ function parseVariables(
     add(name, variable),
   );
 
+  if (addMissingPhrases) {
+    for (const key in spokenForms.wrapper) {
+      const [snipName, variableName] = key.split(".");
+      if (snipName === snippetName && !map[variableName]) {
+        map[variableName] = {
+          name: variableName,
+          wrapperPhrases: [spokenForms.wrapper[key]],
+        };
+      }
+    }
+  }
+
   return Object.values(map);
 }
 
@@ -191,6 +214,30 @@ function getFormatter(formatter: string): string[] {
     default:
       return [formatter];
   }
+}
+
+async function saveSnippetFile(
+  communitySnippetFile: SnippetFile,
+  targetDirectory: string,
+  fileName: string,
+) {
+  let destinationName: string;
+
+  try {
+    destinationName = `${fileName}.snippet`;
+    const destinationPath = path.join(targetDirectory, destinationName);
+    await writeCommunityFile(communitySnippetFile, destinationPath, "wx");
+  } catch (error: any) {
+    if (error.code === "EEXIST") {
+      destinationName = `${fileName}_CONFLICT.snippet`;
+      const destinationPath = path.join(targetDirectory, destinationName);
+      await writeCommunityFile(communitySnippetFile, destinationPath, "w");
+    } else {
+      throw error;
+    }
+  }
+
+  return destinationName;
 }
 
 async function openResultDocument(
