@@ -115,14 +115,14 @@ export function migrateLegacySnippet(
         name: snippetName,
         description: snippet.description,
         phrases: phrases,
-        variables: parseVariables(
+        variables: parseVariables({
           spokenForms,
           snippetName,
-          snippet.variables,
-          undefined,
-          true,
-          false,
-        ),
+          snippetVariables: snippet.variables,
+          defVariables: undefined,
+          addMissingPhrases: true,
+          addMissingInsertionFormatters: false,
+        }),
         insertionScopes: snippet.insertionScopeTypes,
       };
     }
@@ -141,14 +141,14 @@ export function migrateLegacySnippet(
         phrases: useHeader ? undefined : phrases,
         insertionScopes: useHeader ? undefined : snippet.insertionScopeTypes,
         languages: def.scope?.langIds,
-        variables: parseVariables(
+        variables: parseVariables({
           spokenForms,
           snippetName,
-          useHeader ? undefined : snippet.variables,
-          def.variables,
-          !useHeader,
-          true,
-        ),
+          snippetVariables: useHeader ? undefined : snippet.variables,
+          defVariables: def.variables,
+          addMissingPhrases: !useHeader,
+          addMissingInsertionFormatters: true,
+        }),
         // SKIP: def.scope?.scopeTypes
         // SKIP: def.scope?.excludeDescendantScopeTypes
         body: def.body.map((line) => line.replaceAll("\t", "    ")),
@@ -159,14 +159,23 @@ export function migrateLegacySnippet(
   return [communitySnippetFile, hasSkippedSnippet];
 }
 
-function parseVariables(
-  spokenForms: SpokenForms,
-  snippetName: string,
-  snippetVariables: Record<string, SnippetVariableLegacy> | undefined,
-  defVariables: Record<string, SnippetVariableLegacy> | undefined,
-  addMissingPhrases: boolean,
-  addMissingInsertionFormatters: boolean,
-): SnippetVariable[] {
+interface ParseVariablesOpts {
+  spokenForms: SpokenForms;
+  snippetName: string;
+  snippetVariables: Record<string, SnippetVariableLegacy> | undefined;
+  defVariables: Record<string, SnippetVariableLegacy> | undefined;
+  addMissingPhrases: boolean;
+  addMissingInsertionFormatters: boolean;
+}
+
+function parseVariables({
+  spokenForms,
+  snippetName,
+  snippetVariables,
+  defVariables,
+  addMissingPhrases,
+  addMissingInsertionFormatters,
+}: ParseVariablesOpts): SnippetVariable[] {
   const map: Record<string, SnippetVariable> = {};
 
   const add = (name: string, variable: SnippetVariableLegacy) => {
