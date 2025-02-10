@@ -1,6 +1,6 @@
 import type { SnippetMap } from "@cursorless/common";
 import assert from "node:assert";
-import { serializeSnippetFile, type SnippetFile } from "talon-snippets";
+import { serializeSnippetFile } from "talon-snippets";
 import { migrateLegacySnippet, type SpokenForms } from "./migrateSnippets";
 
 interface Fixture {
