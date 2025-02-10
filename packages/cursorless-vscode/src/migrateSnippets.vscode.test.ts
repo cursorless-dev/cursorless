@@ -1,12 +1,12 @@
 import type { SnippetMap } from "@cursorless/common";
 import assert from "node:assert";
-import type { SnippetFile } from "talon-snippets";
+import { serializeSnippetFile, type SnippetFile } from "talon-snippets";
 import { migrateLegacySnippet, type SpokenForms } from "./migrateSnippets";
 
 interface Fixture {
   name: string;
   input: SnippetMap;
-  output: SnippetFile;
+  output: string;
 }
 
 const spokenForms: SpokenForms = {
@@ -15,7 +15,7 @@ const spokenForms: SpokenForms = {
     myPythonSnippet: "snip py",
   },
   insertionWithPhrase: {
-    myPhraseSnippet: "phrase",
+    "myPhraseSnippet.foo": "phrase",
   },
   wrapper: {
     "myWrapperSnippet.foo": "foo",
@@ -26,10 +26,9 @@ const fixtures: Fixture[] = [
   {
     name: "Empty map",
     input: {},
-    output: {
-      snippets: [],
-    },
+    output: "",
   },
+
   {
     name: "Empty definitions",
     input: {
@@ -37,17 +36,13 @@ const fixtures: Fixture[] = [
         definitions: [],
       },
     },
-    output: {
-      header: {
-        name: "mySnippet",
-        phrases: ["snip"],
-        description: undefined,
-        insertionScopes: undefined,
-        variables: [],
-      },
-      snippets: [],
-    },
+    output: `\
+name: mySnippet
+phrase: snip
+---
+`,
   },
+
   {
     name: "Basic",
     input: {
@@ -61,27 +56,19 @@ const fixtures: Fixture[] = [
         ],
       },
     },
-    output: {
-      header: {
-        name: "mySnippet",
-        description: "Example description",
-        phrases: ["snip"],
-        insertionScopes: undefined,
-        variables: [],
-      },
-      snippets: [
-        {
-          name: undefined,
-          description: undefined,
-          phrases: undefined,
-          languages: ["plaintext"],
-          insertionScopes: undefined,
-          variables: [],
-          body: ["Hello, $0, world!"],
-        },
-      ],
-    },
+    output: `\
+name: mySnippet
+description: Example description
+phrase: snip
+---
+
+language: plaintext
+-
+Hello, $0, world!
+---
+`,
   },
+
   {
     name: "Insertion phrase",
     input: {
@@ -98,33 +85,49 @@ const fixtures: Fixture[] = [
         ],
       },
     },
-    output: {
-      header: {
-        name: "myPhraseSnippet",
-        description: "Example description",
-        phrases: ["phrase"],
-        insertionScopes: undefined,
-        variables: [],
-      },
-      snippets: [
-        {
-          name: undefined,
-          description: undefined,
-          phrases: undefined,
-          languages: ["plaintext"],
-          insertionScopes: undefined,
-          variables: [
-            {
-              name: "foo",
-              insertionFormatters: ["SNAKE_CASE"],
-              wrapperPhrases: undefined,
-            },
-          ],
-          body: ["Hello, $foo, world!"],
-        },
-      ],
-    },
+    output: `\
+name: myPhraseSnippet
+description: Example description
+phrase: phrase
+---
+
+language: plaintext
+
+$foo.insertionFormatter: SNAKE_CASE
+-
+Hello, $foo, world!
+---
+`,
   },
+
+  {
+    name: "Insertion phrase noop",
+    input: {
+      myPhraseSnippet: {
+        description: "Example description",
+        definitions: [
+          {
+            scope: { langIds: ["plaintext"] },
+            body: ["Hello, $foo, world!"],
+          },
+        ],
+      },
+    },
+    output: `\
+name: myPhraseSnippet
+description: Example description
+phrase: phrase
+---
+
+language: plaintext
+
+$foo.insertionFormatter: NOOP
+-
+Hello, $foo, world!
+---
+`,
+  },
+
   {
     name: "Wrapper phrase",
     input: {
@@ -137,32 +140,19 @@ const fixtures: Fixture[] = [
         ],
       },
     },
-    output: {
-      header: {
-        name: "myWrapperSnippet",
-        description: undefined,
-        phrases: undefined,
-        insertionScopes: undefined,
-        variables: [
-          {
-            name: "foo",
-            wrapperPhrases: ["foo"],
-          },
-        ],
-      },
-      snippets: [
-        {
-          name: undefined,
-          description: undefined,
-          phrases: undefined,
-          languages: ["plaintext"],
-          insertionScopes: undefined,
-          variables: [],
-          body: ["Hello, $foo, world!"],
-        },
-      ],
-    },
+    output: `\
+name: myWrapperSnippet
+
+$foo.wrapperPhrase: foo
+---
+
+language: plaintext
+-
+Hello, $foo, world!
+---
+`,
   },
+
   {
     name: "Multiple definitions",
     input: {
@@ -179,36 +169,23 @@ const fixtures: Fixture[] = [
         ],
       },
     },
-    output: {
-      header: {
-        name: "mySnippet",
-        description: undefined,
-        phrases: ["snip"],
-        insertionScopes: undefined,
-        variables: [],
-      },
-      snippets: [
-        {
-          name: undefined,
-          description: undefined,
-          phrases: undefined,
-          languages: ["plaintext"],
-          insertionScopes: undefined,
-          variables: [],
-          body: ["Hello, $0 plain world!"],
-        },
-        {
-          name: undefined,
-          description: undefined,
-          phrases: undefined,
-          languages: ["python"],
-          insertionScopes: undefined,
-          variables: [],
-          body: ["Hello, $0 python world!"],
-        },
-      ],
-    },
+    output: `\
+name: mySnippet
+phrase: snip
+---
+
+language: plaintext
+-
+Hello, $0 plain world!
+---
+
+language: python
+-
+Hello, $0 python world!
+---
+`,
   },
+
   {
     name: "Multiple snippets",
     input: {
@@ -229,28 +206,21 @@ const fixtures: Fixture[] = [
         ],
       },
     },
-    output: {
-      snippets: [
-        {
-          name: "mySnippet",
-          description: undefined,
-          phrases: ["snip"],
-          languages: ["plaintext"],
-          insertionScopes: undefined,
-          variables: [],
-          body: ["Hello, $0 plain world!"],
-        },
-        {
-          name: "myPythonSnippet",
-          description: undefined,
-          phrases: ["snip py"],
-          languages: ["python"],
-          insertionScopes: undefined,
-          variables: [],
-          body: ["Hello, $0 python world!"],
-        },
-      ],
-    },
+    output: `\
+name: mySnippet
+language: plaintext
+phrase: snip
+-
+Hello, $0 plain world!
+---
+
+name: myPythonSnippet
+language: python
+phrase: snip py
+-
+Hello, $0 python world!
+---
+`,
   },
 ];
 
@@ -260,8 +230,9 @@ suite("Migrate snippets", async function () {
   });
 });
 
-function runTest(input: SnippetMap, expectedOutput: SnippetFile) {
-  const [actualOutput] = migrateLegacySnippet(spokenForms, input);
+function runTest(input: SnippetMap, expectedOutput: string) {
+  const [snippetFile] = migrateLegacySnippet(spokenForms, input);
+  const actualOutput = serializeSnippetFile(snippetFile);
 
-  assert.deepStrictEqual(actualOutput, expectedOutput);
+  assert.equal(actualOutput, expectedOutput);
 }

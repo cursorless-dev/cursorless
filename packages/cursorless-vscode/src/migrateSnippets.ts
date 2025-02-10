@@ -37,10 +37,7 @@ export async function migrateSnippets(
 
   const spokenFormsInverted: SpokenForms = {
     insertion: swapKeyValue(spokenForms.insertion),
-    insertionWithPhrase: swapKeyValue(
-      spokenForms.insertionWithPhrase,
-      (name) => name.split(".")[0],
-    ),
+    insertionWithPhrase: swapKeyValue(spokenForms.insertionWithPhrase),
     wrapper: swapKeyValue(spokenForms.wrapper),
   };
 
@@ -100,9 +97,17 @@ export function migrateLegacySnippet(
 
   for (const snippetName of snippetNames) {
     const snippet = legacySnippetFile[snippetName];
-    const phrase =
-      spokenForms.insertion[snippetName] ??
-      spokenForms.insertionWithPhrase[snippetName];
+    let phrase = spokenForms.insertion[snippetName];
+
+    if (!phrase) {
+      const key = Object.keys(spokenForms.insertionWithPhrase).find((key) =>
+        key.startsWith(`${snippetName}.`),
+      );
+      if (key) {
+        phrase = spokenForms.insertionWithPhrase[key];
+      }
+    }
+
     const phrases = phrase ? [phrase] : undefined;
 
     if (useHeader) {
@@ -116,6 +121,7 @@ export function migrateLegacySnippet(
           snippet.variables,
           undefined,
           true,
+          false,
         ),
         insertionScopes: snippet.insertionScopeTypes,
       };
@@ -141,6 +147,7 @@ export function migrateLegacySnippet(
           useHeader ? undefined : snippet.variables,
           def.variables,
           !useHeader,
+          true,
         ),
         // SKIP: def.scope?.scopeTypes
         // SKIP: def.scope?.excludeDescendantScopeTypes
@@ -158,6 +165,7 @@ function parseVariables(
   snippetVariables: Record<string, SnippetVariableLegacy> | undefined,
   defVariables: Record<string, SnippetVariableLegacy> | undefined,
   addMissingPhrases: boolean,
+  addMissingInsertionFormatters: boolean,
 ): SnippetVariable[] {
   const map: Record<string, SnippetVariable> = {};
 
@@ -193,6 +201,20 @@ function parseVariables(
           name: variableName,
           wrapperPhrases: [spokenForms.wrapper[key]],
         };
+      }
+    }
+  }
+
+  if (addMissingInsertionFormatters) {
+    for (const key in spokenForms.insertionWithPhrase) {
+      const [snipName, variableName] = key.split(".");
+      if (snipName === snippetName) {
+        if (!map[variableName]) {
+          map[variableName] = { name: variableName };
+        }
+        if (!map[variableName].insertionFormatters) {
+          map[variableName].insertionFormatters = ["NOOP"];
+        }
       }
     }
   }
@@ -313,11 +335,8 @@ async function writeCommunityFile(
   }
 }
 
-function swapKeyValue(
-  obj: Record<string, string>,
-  map?: (value: string) => string,
-): Record<string, string> {
+function swapKeyValue(obj: Record<string, string>): Record<string, string> {
   return Object.fromEntries(
-    Object.entries(obj).map(([key, value]) => [map?.(value) ?? value, key]),
+    Object.entries(obj).map(([key, value]) => [value, key]),
   );
 }
