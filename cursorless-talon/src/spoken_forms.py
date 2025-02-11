@@ -53,7 +53,7 @@ def auto_construct_defaults(
     """
 
     def ret(filename: str, *args: P.args, **kwargs: P.kwargs) -> R:
-        default_values = spoken_forms[filename]
+        default_values = spoken_forms.get(filename, {})
         return f(
             filename,
             default_values,
@@ -180,7 +180,11 @@ def update():
             allow_unknown_values=True,
             default_list_name="insertion_snippet_single_phrase",
         ),
-        handle_csv("experimental/miscellaneous.csv"),
+        handle_csv(
+            "experimental/miscellaneous.csv",
+            allow_unknown_values=True,
+            default_list_name="phrase_terminator",
+        ),
         # ---
         handle_csv(
             "experimental/actions_custom.csv",
