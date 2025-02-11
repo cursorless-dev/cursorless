@@ -32,7 +32,9 @@ def auto_construct_defaults(
     spoken_forms: dict[str, ListToSpokenForms],
     handle_new_values: Callable[[str, list[SpokenFormEntry]], None],
     f: Callable[
-        Concatenate[str, ListToSpokenForms, Callable[[list[SpokenFormEntry]], None], P],
+        Concatenate[
+            str, ListToSpokenForms | None, Callable[[list[SpokenFormEntry]], None], P
+        ],
         R,
     ],
 ):
@@ -53,7 +55,7 @@ def auto_construct_defaults(
     """
 
     def ret(filename: str, *args: P.args, **kwargs: P.kwargs) -> R:
-        default_values = spoken_forms.get(filename, {})
+        default_values = spoken_forms.get(filename)
         return f(
             filename,
             default_values,
