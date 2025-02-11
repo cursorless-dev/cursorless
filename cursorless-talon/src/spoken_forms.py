@@ -241,7 +241,7 @@ def on_ready():
 
     registry.register("update_captures", update_captures_debounced)
 
-    fs.watch(str(JSON_FILE.parent), on_watch)
+    fs.watch(JSON_FILE.parent, on_watch)
 
 
 app.register("ready", on_ready)
