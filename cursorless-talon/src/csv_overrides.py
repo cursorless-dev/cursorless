@@ -59,7 +59,7 @@ def csv_get_normalized_ctx():
 
 def init_csv_and_watch_changes(
     filename: str,
-    default_values: ListToSpokenForms,
+    default_values: ListToSpokenForms | None,
     handle_new_values: Optional[Callable[[list[SpokenFormEntry]], None]] = None,
     *,
     extra_ignored_values: Optional[list[str]] = None,
@@ -123,6 +123,13 @@ def init_csv_and_watch_changes(
         pluralize_lists = []
 
     file_path = get_full_path(filename)
+
+    # No default values and file does not exist. Do nothing.
+    if default_values is None:
+        if not file_path.is_file():
+            return lambda: None
+        default_values = {}
+
     super_default_values = get_super_values(default_values)
 
     file_path.parent.mkdir(parents=True, exist_ok=True)
@@ -151,7 +158,7 @@ def init_csv_and_watch_changes(
                 handle_new_values=handle_new_values,
             )
 
-    fs.watch(str(file_path.parent), on_watch)
+    fs.watch(file_path.parent, on_watch)
 
     if file_path.is_file():
         current_values = update_file(
@@ -188,7 +195,7 @@ def init_csv_and_watch_changes(
         )
 
     def unsubscribe():
-        fs.unwatch(str(file_path.parent), on_watch)
+        fs.unwatch(file_path.parent, on_watch)
 
     return unsubscribe
 
@@ -385,7 +392,7 @@ def csv_error(path: Path, index: int, message: str, value: str):
         index (int): The index into the file (for error reporting)
         text (str): The text of the error message to report if condition is false
     """
-    print(f"ERROR: {path}:{index+1}: {message} '{value}'")
+    print(f"ERROR: {path}:{index + 1}: {message} '{value}'")
 
 
 def read_file(

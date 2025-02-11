@@ -32,7 +32,9 @@ def auto_construct_defaults(
     spoken_forms: dict[str, ListToSpokenForms],
     handle_new_values: Callable[[str, list[SpokenFormEntry]], None],
     f: Callable[
-        Concatenate[str, ListToSpokenForms, Callable[[list[SpokenFormEntry]], None], P],
+        Concatenate[
+            str, ListToSpokenForms | None, Callable[[list[SpokenFormEntry]], None], P
+        ],
         R,
     ],
 ):
@@ -53,7 +55,7 @@ def auto_construct_defaults(
     """
 
     def ret(filename: str, *args: P.args, **kwargs: P.kwargs) -> R:
-        default_values = spoken_forms[filename]
+        default_values = spoken_forms.get(filename)
         return f(
             filename,
             default_values,
@@ -180,7 +182,11 @@ def update():
             allow_unknown_values=True,
             default_list_name="insertion_snippet_single_phrase",
         ),
-        handle_csv("experimental/miscellaneous.csv"),
+        handle_csv(
+            "experimental/miscellaneous.csv",
+            allow_unknown_values=True,
+            default_list_name="phrase_terminator",
+        ),
         # ---
         handle_csv(
             "experimental/actions_custom.csv",
@@ -235,7 +241,7 @@ def on_ready():
 
     registry.register("update_captures", update_captures_debounced)
 
-    fs.watch(str(JSON_FILE.parent), on_watch)
+    fs.watch(JSON_FILE.parent, on_watch)
 
 
 app.register("ready", on_ready)
