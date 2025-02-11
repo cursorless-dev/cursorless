@@ -21,7 +21,7 @@ interface Result {
   skipped: string[];
 }
 
-interface SpokenForms {
+export interface SpokenForms {
   insertion: Record<string, string>;
   insertionWithPhrase: Record<string, string>;
   wrapper: Record<string, string>;
@@ -37,10 +37,7 @@ export async function migrateSnippets(
 
   const spokenFormsInverted: SpokenForms = {
     insertion: swapKeyValue(spokenForms.insertion),
-    insertionWithPhrase: swapKeyValue(
-      spokenForms.insertionWithPhrase,
-      (name) => name.split(".")[0],
-    ),
+    insertionWithPhrase: swapKeyValue(spokenForms.insertionWithPhrase),
     wrapper: swapKeyValue(spokenForms.wrapper),
   };
 
@@ -64,23 +61,71 @@ async function migrateFile(
   filePath: string,
 ) {
   const fileName = path.basename(filePath, CURSORLESS_SNIPPETS_SUFFIX);
-  const snippetFile = await readLegacyFile(filePath);
+  const legacySnippetFile = await readLegacyFile(filePath);
+
+  const [communitySnippetFile, hasSkippedSnippet] = migrateLegacySnippet(
+    spokenForms,
+    legacySnippetFile,
+  );
+
+  if (communitySnippetFile.snippets.length === 0) {
+    result.skipped.push(fileName);
+    return;
+  }
+
+  const destinationName = await saveSnippetFile(
+    communitySnippetFile,
+    targetDirectory,
+    fileName,
+  );
+
+  if (hasSkippedSnippet) {
+    result.migratedPartially[fileName] = destinationName;
+  } else {
+    result.migrated[fileName] = destinationName;
+  }
+}
+
+export function migrateLegacySnippet(
+  spokenForms: SpokenForms,
+  legacySnippetFile: SnippetMap,
+): [SnippetFile, boolean] {
   const communitySnippetFile: SnippetFile = { snippets: [] };
+  const snippetNames = Object.keys(legacySnippetFile);
+  const useHeader = snippetNames.length === 1;
   let hasSkippedSnippet = false;
 
-  for (const snippetName in snippetFile) {
-    const snippet = snippetFile[snippetName];
-    const phrase =
-      spokenForms.insertion[snippetName] ??
-      spokenForms.insertionWithPhrase[snippetName];
+  for (const snippetName of snippetNames) {
+    const snippet = legacySnippetFile[snippetName];
+    let phrase = spokenForms.insertion[snippetName];
 
-    communitySnippetFile.header = {
-      name: snippetName,
-      description: snippet.description,
-      phrases: phrase ? [phrase] : undefined,
-      variables: parseVariables(spokenForms, snippetName, snippet.variables),
-      insertionScopes: snippet.insertionScopeTypes,
-    };
+    if (!phrase) {
+      const key = Object.keys(spokenForms.insertionWithPhrase).find((key) =>
+        key.startsWith(`${snippetName}.`),
+      );
+      if (key) {
+        phrase = spokenForms.insertionWithPhrase[key];
+      }
+    }
+
+    const phrases = phrase ? [phrase] : undefined;
+
+    if (useHeader) {
+      communitySnippetFile.header = {
+        name: snippetName,
+        description: snippet.description,
+        phrases: phrases,
+        variables: parseVariables({
+          spokenForms,
+          snippetName,
+          snippetVariables: snippet.variables,
+          defVariables: undefined,
+          addMissingPhrases: true,
+          addMissingInsertionFormatters: false,
+        }),
+        insertionScopes: snippet.insertionScopeTypes,
+      };
+    }
 
     for (const def of snippet.definitions) {
       if (
@@ -91,62 +136,99 @@ async function migrateFile(
         continue;
       }
       communitySnippetFile.snippets.push({
-        body: def.body.map((line) => line.replaceAll("\t", "    ")),
+        name: useHeader ? undefined : snippetName,
+        description: useHeader ? undefined : snippet.description,
+        phrases: useHeader ? undefined : phrases,
+        insertionScopes: useHeader ? undefined : snippet.insertionScopeTypes,
         languages: def.scope?.langIds,
-        variables: parseVariables(spokenForms, snippetName, def.variables),
+        variables: parseVariables({
+          spokenForms,
+          snippetName,
+          snippetVariables: useHeader ? undefined : snippet.variables,
+          defVariables: def.variables,
+          addMissingPhrases: !useHeader,
+          addMissingInsertionFormatters: true,
+        }),
         // SKIP: def.scope?.scopeTypes
         // SKIP: def.scope?.excludeDescendantScopeTypes
+        body: def.body.map((line) => line.replaceAll("\t", "    ")),
       });
     }
   }
 
-  if (communitySnippetFile.snippets.length === 0) {
-    result.skipped.push(fileName);
-    return;
-  }
+  return [communitySnippetFile, hasSkippedSnippet];
+}
 
-  let destinationName: string;
+interface ParseVariablesOpts {
+  spokenForms: SpokenForms;
+  snippetName: string;
+  snippetVariables: Record<string, SnippetVariableLegacy> | undefined;
+  defVariables: Record<string, SnippetVariableLegacy> | undefined;
+  addMissingPhrases: boolean;
+  addMissingInsertionFormatters: boolean;
+}
 
-  try {
-    destinationName = `${fileName}.snippet`;
-    const destinationPath = path.join(targetDirectory, destinationName);
-    await writeCommunityFile(communitySnippetFile, destinationPath, "wx");
-  } catch (error: any) {
-    if (error.code === "EEXIST") {
-      destinationName = `${fileName}_CONFLICT.snippet`;
-      const destinationPath = path.join(targetDirectory, destinationName);
-      await writeCommunityFile(communitySnippetFile, destinationPath, "w");
-    } else {
-      throw error;
+function parseVariables({
+  spokenForms,
+  snippetName,
+  snippetVariables,
+  defVariables,
+  addMissingPhrases,
+  addMissingInsertionFormatters,
+}: ParseVariablesOpts): SnippetVariable[] {
+  const map: Record<string, SnippetVariable> = {};
+
+  const add = (name: string, variable: SnippetVariableLegacy) => {
+    if (!map[name]) {
+      const phrase = spokenForms.wrapper[`${snippetName}.${name}`];
+      map[name] = {
+        name,
+        wrapperPhrases: phrase ? [phrase] : undefined,
+      };
+    }
+    if (variable.wrapperScopeType) {
+      map[name].wrapperScope = variable.wrapperScopeType;
+    }
+    if (variable.formatter) {
+      map[name].insertionFormatters = getFormatter(variable.formatter);
+    }
+    // SKIP: variable.description
+  };
+
+  Object.entries(snippetVariables ?? {}).forEach(([name, variable]) =>
+    add(name, variable),
+  );
+  Object.entries(defVariables ?? {}).forEach(([name, variable]) =>
+    add(name, variable),
+  );
+
+  if (addMissingPhrases) {
+    for (const key in spokenForms.wrapper) {
+      const [snipName, variableName] = key.split(".");
+      if (snipName === snippetName && !map[variableName]) {
+        map[variableName] = {
+          name: variableName,
+          wrapperPhrases: [spokenForms.wrapper[key]],
+        };
+      }
     }
   }
 
-  if (hasSkippedSnippet) {
-    result.migratedPartially[fileName] = destinationName;
-  } else {
-    result.migrated[fileName] = destinationName;
+  if (addMissingInsertionFormatters) {
+    for (const key in spokenForms.insertionWithPhrase) {
+      const [snipName, variableName] = key.split(".");
+      if (snipName === snippetName) {
+        if (!map[variableName]) {
+          map[variableName] = { name: variableName };
+        }
+        if (!map[variableName].insertionFormatters) {
+          map[variableName].insertionFormatters = ["NOOP"];
+        }
+      }
+    }
   }
-}
 
-function parseVariables(
-  spokenForms: SpokenForms,
-  snippetName: string,
-  variables?: Record<string, SnippetVariableLegacy>,
-): SnippetVariable[] {
-  return Object.entries(variables ?? {}).map(
-    ([name, variable]): SnippetVariable => {
-      const phrase = spokenForms.wrapper[`${snippetName}.${name}`];
-      return {
-        name,
-        wrapperPhrases: phrase ? [phrase] : undefined,
-        wrapperScope: variable.wrapperScopeType,
-        insertionFormatters: variable.formatter
-          ? getFormatter(variable.formatter)
-          : undefined,
-        // SKIP: variable.description
-      };
-    },
-  );
+  return Object.values(map);
 }
 
 // Convert Cursorless formatters to Talon community formatters
@@ -163,6 +245,30 @@ function getFormatter(formatter: string): string[] {
     default:
       return [formatter];
   }
+}
+
+async function saveSnippetFile(
+  communitySnippetFile: SnippetFile,
+  targetDirectory: string,
+  fileName: string,
+) {
+  let destinationName: string;
+
+  try {
+    destinationName = `${fileName}.snippet`;
+    const destinationPath = path.join(targetDirectory, destinationName);
+    await writeCommunityFile(communitySnippetFile, destinationPath, "wx");
+  } catch (error: any) {
+    if (error.code === "EEXIST") {
+      destinationName = `${fileName}_CONFLICT.snippet`;
+      const destinationPath = path.join(targetDirectory, destinationName);
+      await writeCommunityFile(communitySnippetFile, destinationPath, "w");
+    } else {
+      throw error;
+    }
+  }
+
+  return destinationName;
 }
 
 async function openResultDocument(
@@ -238,11 +344,8 @@ async function writeCommunityFile(
   }
 }
 
-function swapKeyValue(
-  obj: Record<string, string>,
-  map?: (value: string) => string,
-): Record<string, string> {
+function swapKeyValue(obj: Record<string, string>): Record<string, string> {
   return Object.fromEntries(
-    Object.entries(obj).map(([key, value]) => [map?.(value) ?? value, key]),
+    Object.entries(obj).map(([key, value]) => [value, key]),
   );
 }
