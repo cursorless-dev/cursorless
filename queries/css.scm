@@ -97,6 +97,10 @@
   (#allow-multiple! @unit)
 ) @_.domain
 
+(integer_value
+  (unit) @unit
+) @_.domain
+
 ;;!! @namespace prefix "XML-namespace-URL";
 ;;!             ^^^^^^^^^^^^^^^^^^^^^^^^^^
 (namespace_statement
