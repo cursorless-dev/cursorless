@@ -1,5 +1,18 @@
 ;; https://github.com/tree-sitter/tree-sitter-css/blob/master/src/grammar.json
 
+[
+  (at_rule)
+  (charset_statement)
+  (import_statement)
+  (keyframes_statement)
+  (media_statement)
+  (namespace_statement)
+  (rule_set)
+  (supports_statement)
+] @statement
+
+;;!! "hello"
+;;!   ^^^^^
 (
   (string_value) @string @textFragment
   (#character-range! @textFragment 1 -1)
@@ -32,6 +45,7 @@
 ;;!    ^^^^^^
 (attribute_selector
   (attribute_name) @name
+  (string_value) @value
 ) @_.domain
 
 ;;!! @import "subs.css"
@@ -84,6 +98,19 @@
     (unit)
   )
 ) @unit.iteration
+
+;;!! @namespace prefix "XML-namespace-URL";
+;;!             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+(namespace_statement
+  (namespace_name) @value.start
+  (string_value) @value.end
+) @_.domain
+
+;;!! @namespace url(http://www.w3.org/1999/xhtml);
+;;!             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(namespace_statement
+  (call_expression) @value
+) @_.domain
 
 ;;!! div > a
 ;;!      ^
