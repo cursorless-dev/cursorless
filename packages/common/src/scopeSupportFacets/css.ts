@@ -1,7 +1,9 @@
 import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
-const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const { supported, unsupported, notApplicable, supportedLegacy } =
+  ScopeSupportFacetLevel;
 
 export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   "comment.block": supported,
@@ -30,10 +32,10 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   statement: supported,
   "statement.iteration.document": supported,
 
-  // Unsupported, still in legacy
+  // Supported in legacy
 
-  "argument.actual": unsupported,
-  "argument.actual.iteration": unsupported,
+  "argument.actual": supportedLegacy,
+  "argument.actual.iteration": supportedLegacy,
 
   // Not applicable
 
