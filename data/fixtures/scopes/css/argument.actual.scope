@@ -1,0 +1,35 @@
+* {
+    transform: translate(-50%, -50%);
+}
+---
+
+[#1 Content] =
+[#1 Domain] = 1:25-1:29
+                           >----<
+1|     transform: translate(-50%, -50%);
+
+[#1 Removal] = 1:25-1:31
+                           >------<
+1|     transform: translate(-50%, -50%);
+
+[#1 Trailing delimiter] = 1:29-1:31
+                               >--<
+1|     transform: translate(-50%, -50%);
+
+[#1 Insertion delimiter] = ", "
+
+
+[#2 Content] =
+[#2 Domain] = 1:31-1:35
+                                 >----<
+1|     transform: translate(-50%, -50%);
+
+[#2 Removal] = 1:29-1:35
+                               >------<
+1|     transform: translate(-50%, -50%);
+
+[#2 Leading delimiter] = 1:29-1:31
+                               >--<
+1|     transform: translate(-50%, -50%);
+
+[#2 Insertion delimiter] = ", "

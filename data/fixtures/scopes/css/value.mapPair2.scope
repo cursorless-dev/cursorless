@@ -1,0 +1,22 @@
+* {
+    margin: 1px 2px 3px 4px;
+}
+---
+
+[Content] = 1:12-1:27
+              >---------------<
+1|     margin: 1px 2px 3px 4px;
+
+[Removal] = 1:11-1:27
+             >----------------<
+1|     margin: 1px 2px 3px 4px;
+
+[Leading delimiter] = 1:11-1:12
+             >-<
+1|     margin: 1px 2px 3px 4px;
+
+[Domain] = 1:4-1:28
+      >------------------------<
+1|     margin: 1px 2px 3px 4px;
+
+[Insertion delimiter] = " "

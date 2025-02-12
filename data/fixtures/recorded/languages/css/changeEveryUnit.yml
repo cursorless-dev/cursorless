@@ -1,21 +1,20 @@
 languageId: css
 command:
-  version: 6
-  spokenForm: change unit
+  version: 7
+  spokenForm: change every unit
   action:
     name: clearAndSetSelection
     target:
       type: primitive
       modifiers:
-        - type: containingScope
+        - type: everyScope
           scopeType: {type: unit}
-  usePrePhraseSnapshot: true
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     div {
         padding: 25px 50px 75px 100px;
     }
-      
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
@@ -25,7 +24,6 @@ finalState:
     div {
         padding: 25 50 75 100;
     }
-      
   selections:
     - anchor: {line: 1, character: 15}
       active: {line: 1, character: 15}
