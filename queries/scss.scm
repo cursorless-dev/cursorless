@@ -17,8 +17,12 @@
 (declaration
   (variable_name) @name
 ) @_.domain
+
+;;!! foo($foo: 123)
+;;!      ^^^^  ^^^
 (parameter
   (variable_name) @name
+  (default_value)? @value
 ) @_.domain
 
 (stylesheet) @namedFunction.iteration @functionName.iteration
@@ -37,3 +41,16 @@
     ">="
   ] @disqualifyDelimiter
 )
+
+;;!! @include rtl(float, left, right);
+;;!           ^^^^^^^^^^^^^^^^^^^^^^^
+(include_statement
+  (identifier) @value.start
+  (arguments) @value.end
+) @_.domain
+
+;;!! @return 123
+;;!          ^^^
+(return_statement
+  (_) @value
+) @_.domain
