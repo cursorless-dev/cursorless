@@ -19,14 +19,12 @@ export const yamlScopeSupport: LanguageScopeSupportFacetMap = {
   "value.mapPair.iteration": supported,
 
   "comment.line": supported,
-  "comment.block": supported,
 
   "string.singleLine": supported,
   "string.multiLine": supported,
 
   "textFragment.string.multiLine": supported,
   "textFragment.string.singleLine": supported,
-  "textFragment.comment.block": supported,
   "textFragment.comment.line": supported,
 
   // Not applicable
@@ -60,6 +58,7 @@ export const yamlScopeSupport: LanguageScopeSupportFacetMap = {
   "className.iteration.block": notApplicable,
   "className.iteration.document": notApplicable,
   command: notApplicable,
+  "comment.block": notApplicable,
   "condition.doWhile": notApplicable,
   "condition.for": notApplicable,
   "condition.if": notApplicable,
@@ -136,6 +135,7 @@ export const yamlScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.iteration.document": notApplicable,
   switchStatementSubject: notApplicable,
   tags: notApplicable,
+  "textFragment.comment.block": notApplicable,
   "textFragment.element": notApplicable,
   "type.alias": notApplicable,
   "type.argument.formal": notApplicable,
