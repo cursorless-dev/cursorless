@@ -230,11 +230,19 @@
 ;;!! void myFunk(int value) {}
 ;;!                  ^^^^^
 ;;!  -------------------------
+(formal_parameter
+  (identifier) @name
+) @_.domain
+
+;;!! void myFunk(int value) {}
+;;!              ^^^^^^^^^
 (formal_parameters
-  (formal_parameter
-    (identifier) @name
-  ) @_.domain
-) @_.iteration
+  .
+  "(" @name.iteration.start.endOf
+
+  ")" @name.iteration.end.startOf
+  .
+) @name.iteration.domain
 
 ;;!! Map<String, String>
 ;;!     ^^^^^^^  ^^^^^^
