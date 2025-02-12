@@ -68,7 +68,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "name.method": supported,
   "name.variable": supported,
   "namedFunction.constructor": supported,
-  "namedFunction.iteration.document": supported,
   "namedFunction.method": supported,
 
   ifStatement: supported,
@@ -98,7 +97,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.return": supported,
   "value.return.lambda": supported,
   "value.variable": supported,
-  "value.yield": supported,
 
   // Unsupported
 
@@ -122,6 +120,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.resource": unsupported,
   "value.resource.iteration": unsupported,
 
+  "namedFunction.iteration.document": unsupported,
   "namedFunction.method.iteration.class": unsupported,
 
   "functionName.iteration.block": unsupported,
@@ -173,6 +172,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.mapPair.iteration": notApplicable,
   "value.variable.pattern": notApplicable,
   "value.typeAlias": notApplicable,
+  "value.yield": notApplicable,
 
   "type.argument.formal": notApplicable,
   "type.argument.formal.iteration": notApplicable,
