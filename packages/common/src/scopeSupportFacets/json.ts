@@ -4,18 +4,22 @@ import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 const { supported, notApplicable } = ScopeSupportFacetLevel;
 
 export const jsonScopeSupport: LanguageScopeSupportFacetMap = {
-  "comment.block": supported,
-  "comment.line": supported,
-  "key.mapPair.iteration": supported,
-  "key.mapPair": supported,
   list: supported,
   map: supported,
   "string.singleLine": supported,
+
+  "key.mapPair.iteration": supported,
+  "key.mapPair": supported,
+
+  "value.mapPair.iteration": supported,
+  "value.mapPair": supported,
+
+  "comment.block": supported,
+  "comment.line": supported,
+
   "textFragment.comment.block": supported,
   "textFragment.comment.line": supported,
   "textFragment.string.singleLine": supported,
-  "value.mapPair.iteration": supported,
-  "value.mapPair": supported,
 
   // Not applicable
 
