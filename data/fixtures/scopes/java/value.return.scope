@@ -1,0 +1,24 @@
+public class MyClass {
+    public int foo() {
+        return 123;
+    }
+}
+---
+
+[Content] = 2:15-2:18
+                 >---<
+2|         return 123;
+
+[Removal] = 2:14-2:18
+                >----<
+2|         return 123;
+
+[Leading delimiter] = 2:14-2:15
+                >-<
+2|         return 123;
+
+[Domain] = 2:8-2:19
+          >-----------<
+2|         return 123;
+
+[Insertion delimiter] = " "

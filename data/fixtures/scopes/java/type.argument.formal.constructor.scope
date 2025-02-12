@@ -1,0 +1,26 @@
+public class MyClass {
+    public MyClass(final int value) { }
+}
+---
+
+[Content] = 1:25-1:28
+                           >---<
+1|     public MyClass(final int value) { }
+
+[Removal] = 1:25-1:29
+                           >----<
+1|     public MyClass(final int value) { }
+
+[Leading delimiter] = 1:24-1:25
+                          >-<
+1|     public MyClass(final int value) { }
+
+[Trailing delimiter] = 1:28-1:29
+                              >-<
+1|     public MyClass(final int value) { }
+
+[Domain] = 1:19-1:34
+                     >---------------<
+1|     public MyClass(final int value) { }
+
+[Insertion delimiter] = " "

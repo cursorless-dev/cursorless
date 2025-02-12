@@ -1,0 +1,10 @@
+if (true) { }
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:13
+  >-------------<
+0| if (true) { }
+
+[Insertion delimiter] = "\n"

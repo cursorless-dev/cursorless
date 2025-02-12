@@ -1,0 +1,24 @@
+public class MyClass { }
+---
+
+[Content] = 0:13-0:20
+               >-------<
+0| public class MyClass { }
+
+[Removal] = 0:13-0:21
+               >--------<
+0| public class MyClass { }
+
+[Leading delimiter] = 0:12-0:13
+              >-<
+0| public class MyClass { }
+
+[Trailing delimiter] = 0:20-0:21
+                      >-<
+0| public class MyClass { }
+
+[Domain] = 0:0-0:24
+  >------------------------<
+0| public class MyClass { }
+
+[Insertion delimiter] = " "
