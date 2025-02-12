@@ -1,0 +1,21 @@
+class Foo:
+    value = 123
+---
+
+[Content] = 1:12-1:15
+              >---<
+1|     value = 123
+
+[Removal] = 1:9-1:15
+           >------<
+1|     value = 123
+
+[Leading delimiter] = 1:9-1:12
+           >---<
+1|     value = 123
+
+[Domain] = 1:4-1:15
+      >-----------<
+1|     value = 123
+
+[Insertion delimiter] = " "

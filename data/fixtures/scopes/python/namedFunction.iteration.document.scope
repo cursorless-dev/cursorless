@@ -1,0 +1,12 @@
+def bar():
+    pass
+
+---
+
+[Range] =
+[Domain] = 0:0-2:0
+  >----------
+0| def bar():
+1|     pass
+2|
+   <
