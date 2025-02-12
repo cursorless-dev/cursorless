@@ -181,12 +181,7 @@
 
 ;;!! key(enter)
 ;;!      ^^^^^
-arguments: (_
-  .
-  "(" @argumentOrParameter.iteration.start.endOf
-  ")" @argumentOrParameter.iteration.end.startOf
-  .
-) @argumentOrParameter.iteration.domain
+arguments: (_) @argumentOrParameter.iteration
 
 ;;!! # foo
 ;;!  ^^^^^
