@@ -4,6 +4,7 @@
  */
 export const legacyLanguageIds = [
   "clojure",
+  "css",
   "latex",
   "ruby",
   "rust",

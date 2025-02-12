@@ -45,6 +45,7 @@ export const languageMatchers: Record<
   Partial<Record<SimpleScopeTypeType, NodeMatcher>>
 > = {
   clojure,
+  css: scss,
   latex,
   ruby,
   rust,

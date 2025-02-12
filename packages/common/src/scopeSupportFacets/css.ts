@@ -1,7 +1,6 @@
 import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const cssScopeSupport: LanguageScopeSupportFacetMap = {
@@ -12,9 +11,6 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
 
   functionCall: supported,
   functionCallee: supported,
-
-  "argument.actual": supported,
-  "argument.actual.iteration": supported,
 
   "name.iteration.document": supported,
   "name.iteration.block": supported,
@@ -30,6 +26,14 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
 
   "collectionItem.unenclosed": supported,
   "collectionItem.unenclosed.iteration": supported,
+
+  statement: supported,
+  "statement.iteration.document": supported,
+
+  // Unsupported, still in legacy
+
+  "argument.actual": unsupported,
+  "argument.actual.iteration": unsupported,
 
   // Not applicable
 
@@ -128,10 +132,8 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   "section.iteration.parent": notApplicable,
   section: notApplicable,
   startTag: notApplicable,
-  "statement.class": notApplicable,
   "statement.iteration.block": notApplicable,
-  "statement.iteration.document": notApplicable,
-  statement: notApplicable,
+  "statement.class": notApplicable,
   "string.multiLine": notApplicable,
   switchStatementSubject: notApplicable,
   tags: notApplicable,

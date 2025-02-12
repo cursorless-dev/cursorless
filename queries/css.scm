@@ -18,6 +18,8 @@
   (#character-range! @textFragment 1 -1)
 )
 
+;;!! /* Hello */
+;;!  ^^^^^^^^^^^
 (comment) @comment @textFragment
 
 ;;!! calc(100% - 50px);
@@ -56,26 +58,27 @@
 
 ;;!! translate(-50%, -50%)
 ;;!            ^^^^  ^^^^
-(
-  (arguments
-    (_)? @_.leading.endOf
-    .
-    (_) @argumentOrParameter
-    .
-    (_)? @_.trailing.startOf
-  )
-  (#insertion-delimiter! @argumentOrParameter ", ")
-)
+;; (
+;;   (arguments
+;;     (_)? @_.leading.endOf
+;;     .
+;;     (_) @argumentOrParameter
+;;     .
+;;     (_)? @_.trailing.startOf
+;;   )
+;;   (#insertion-delimiter! @argumentOrParameter ", ")
+;; )
 
-(arguments
-  .
-  "(" @argumentOrParameter.iteration.start.endOf
-  ")" @argumentOrParameter.iteration.end.startOf
-  .
-) @argumentOrParameter.iteration.domain
+;; (arguments
+;;   .
+;;   "(" @argumentOrParameter.iteration.start.endOf
+;;   ")" @argumentOrParameter.iteration.end.startOf
+;;   .
+;; ) @argumentOrParameter.iteration.domain
 
 ;; Entire file
 (stylesheet) @name.iteration @collectionKey.iteration @value.iteration
+(stylesheet) @statement.iteration
 
 ;; { }
 (block
@@ -87,17 +90,12 @@
 
 ;;!! width: 100px;
 ;;!            ^^
-(integer_value
-  (unit) @unit
-) @_.domain
-
-;;!! padding: 25px 50px
-;;!  ^^^^^^^^^^^^^^^^^^
 (declaration
   (integer_value
-    (unit)
+    (unit) @unit
   )
-) @unit.iteration
+  (#allow-multiple! @unit)
+) @_.domain
 
 ;;!! @namespace prefix "XML-namespace-URL";
 ;;!             ^^^^^^^^^^^^^^^^^^^^^^^^^^
