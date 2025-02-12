@@ -1,52 +1,13 @@
-import type { SyntaxNode } from "web-tree-sitter";
 import type { SimpleScopeTypeType } from "@cursorless/common";
-import type {
-  NodeMatcherAlternative,
-  NodeMatcherValue,
-  SelectionWithEditor,
-} from "../typings/Types";
+import type { SyntaxNode } from "web-tree-sitter";
+import type { NodeMatcherAlternative } from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";
 import {
   cascadingMatcher,
-  conditionMatcher,
   createPatternMatchers,
   matcher,
-  patternMatcher,
-  trailingMatcher,
 } from "../util/nodeMatchers";
-import {
-  childRangeSelector,
-  delimitedSelector,
-  simpleSelectionExtractor,
-} from "../util/nodeSelectors";
-
-// curl https://raw.githubusercontent.com/serenadeai/tree-sitter-scss/c478c6868648eff49eb04a4df90d703dc45b312a/src/node-types.json \
-//  | jq '[.[] | select(.type =="stylesheet") | .children.types[] | select(.type !="declaration") | .type ]'
-
-const STATEMENT_TYPES = [
-  "apply_statement",
-  "at_rule",
-  "charset_statement",
-  "debug_statement",
-  "each_statement",
-  "error_statement",
-  "for_statement",
-  "forward_statement",
-  "function_statement",
-  "if_statement",
-  "import_statement",
-  "include_statement",
-  "keyframes_statement",
-  "media_statement",
-  "mixin_statement",
-  "namespace_statement",
-  "placeholder",
-  "rule_set",
-  "supports_statement",
-  "use_statement",
-  "warn_statement",
-  "while_statement",
-];
+import { delimitedSelector } from "../util/nodeSelectors";
 
 function isArgumentListDelimiter(node: SyntaxNode) {
   return [",", "(", ")"].includes(node.type) || isAtDelimiter(node);
@@ -91,31 +52,9 @@ function findAdjacentArgValues(
   };
 }
 
-function unitMatcher(
-  selection: SelectionWithEditor,
-  node: SyntaxNode,
-): NodeMatcherValue[] | null {
-  if (node.type !== "declaration") {
-    return null;
-  }
-
-  return node.descendantsOfType("unit").map((n) => ({
-    node: n,
-    selection: simpleSelectionExtractor(selection.editor, n),
-  }));
-}
-
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
-  condition: conditionMatcher("condition"),
-  statement: cascadingMatcher(
-    patternMatcher(...STATEMENT_TYPES),
-    matcher(
-      patternFinder("attribute_selector"),
-      childRangeSelector([], ["attribute_name", "string_value"]),
-    ),
-  ),
   argumentOrParameter: cascadingMatcher(
     matcher(
       patternFinder("arguments.*!", "parameters.*!"),
@@ -127,25 +66,6 @@ const nodeMatchers: Partial<
       ),
     ),
   ),
-  collectionKey: trailingMatcher(["declaration.property_name!"], [":"]),
-  value: cascadingMatcher(
-    matcher(
-      patternFinder("declaration"),
-      childRangeSelector(["property_name", "variable_name"]),
-    ),
-    matcher(
-      patternFinder("include_statement", "namespace_statement"),
-      childRangeSelector(),
-    ),
-    patternMatcher(
-      "return_statement.*!",
-      "import_statement.*!",
-      "attribute_selector.plain_value!",
-      "attribute_selector.string_value!",
-      "parameter.default_value!",
-    ),
-  ),
-  unit: cascadingMatcher(patternMatcher("integer_value.unit!"), unitMatcher),
 };
 
 export const patternMatchers = createPatternMatchers(nodeMatchers);

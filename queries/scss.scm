@@ -2,9 +2,39 @@
 
 ;; https://github.com/serenadeai/tree-sitter-scss/blob/master/src/grammar.json
 
+;; curl https://raw.githubusercontent.com/serenadeai/tree-sitter-scss/c478c6868648eff49eb04a4df90d703dc45b312a/src/node-types.json \
+;; | jq '[.[] | select(.type =="stylesheet") | .children.types[] | select(.type !="declaration") | .type ]'
+
+[
+  (apply_statement)
+  (at_rule)
+  (charset_statement)
+  (debug_statement)
+  (each_statement)
+  (error_statement)
+  (for_statement)
+  (forward_statement)
+  (function_statement)
+  (if_statement)
+  (import_statement)
+  (include_statement)
+  (keyframes_statement)
+  (media_statement)
+  (mixin_statement)
+  (namespace_statement)
+  (placeholder)
+  (rule_set)
+  (supports_statement)
+  (use_statement)
+  (warn_statement)
+  (while_statement)
+] @statement
+
 (single_line_comment) @comment @textFragment
 
 (if_statement) @ifStatement
+
+(condition) @condition
 
 (mixin_statement
   (name) @functionName @name
