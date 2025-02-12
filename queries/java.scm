@@ -64,7 +64,10 @@
 
 ;;!! "string"
 ;;!  ^^^^^^^^
-(string_literal) @string @textFragment
+(
+  (string_literal) @string @textFragment
+  (#character-range! @textFragment 1 -1)
+)
 
 ;;!! // comment
 ;;!  ^^^^^^^^^^
