@@ -1,20 +1,39 @@
-{"value": 123}
+{"aaa": 123, "bbb": 456}
 ---
 
-[Content] = 0:1-0:8
+[#1 Content] = 0:1-0:6
+   >-----<
+0| {"aaa": 123, "bbb": 456}
+
+[#1 Removal] = 0:1-0:8
    >-------<
-0| {"value": 123}
+0| {"aaa": 123, "bbb": 456}
 
-[Removal] = 0:1-0:10
-   >---------<
-0| {"value": 123}
+[#1 Trailing delimiter] = 0:6-0:8
+        >--<
+0| {"aaa": 123, "bbb": 456}
 
-[Trailing delimiter] = 0:8-0:10
-          >--<
-0| {"value": 123}
+[#1 Domain] = 0:1-0:11
+   >----------<
+0| {"aaa": 123, "bbb": 456}
 
-[Domain] = 0:1-0:13
-   >------------<
-0| {"value": 123}
+[#1 Insertion delimiter] = " "
 
-[Insertion delimiter] = " "
+
+[#2 Content] = 0:13-0:18
+               >-----<
+0| {"aaa": 123, "bbb": 456}
+
+[#2 Removal] = 0:13-0:20
+               >-------<
+0| {"aaa": 123, "bbb": 456}
+
+[#2 Trailing delimiter] = 0:18-0:20
+                    >--<
+0| {"aaa": 123, "bbb": 456}
+
+[#2 Domain] = 0:13-0:23
+               >----------<
+0| {"aaa": 123, "bbb": 456}
+
+[#2 Insertion delimiter] = " "

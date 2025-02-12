@@ -1,10 +1,15 @@
-/* Hello world */
+/*
+  Hello world
+*/
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-0:17
-  >-----------------<
-0| /* Hello world */
+[Domain] = 0:0-2:2
+  >--
+0| /*
+1|   Hello world
+2| */
+   --<
 
 [Insertion delimiter] = " "
