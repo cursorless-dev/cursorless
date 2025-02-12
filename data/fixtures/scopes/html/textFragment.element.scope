@@ -1,0 +1,10 @@
+<div>hello<div>
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:5-0:10
+       >-----<
+0| <div>hello<div>
+
+[Insertion delimiter] = " "
