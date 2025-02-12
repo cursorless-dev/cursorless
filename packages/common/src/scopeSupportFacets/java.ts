@@ -65,7 +65,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "name.constructor": supported,
   "name.field": supported,
   "name.foreach": supported,
-  "name.iteration.block": supported,
   "name.method": supported,
   "name.variable": supported,
   "namedFunction.constructor": supported,
@@ -85,9 +84,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "type.typeArgument": supported,
   "type.typeArgument.iteration": supported,
 
-  "type.alias": supported,
   "type.argument.formal.constructor": supported,
-  "type.argument.formal.iteration": supported,
   "type.argument.formal.method": supported,
   "type.foreach": supported,
   "type.field": supported,
@@ -100,7 +97,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.field": supported,
   "value.return": supported,
   "value.return.lambda": supported,
-  "value.typeAlias": supported,
   "value.variable": supported,
   "value.yield": supported,
 
@@ -112,6 +108,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "className.iteration.document": unsupported,
 
   "name.iteration.document": unsupported,
+  "name.iteration.block": unsupported,
   "name.resource": unsupported,
   "name.resource.iteration": unsupported,
 
@@ -168,15 +165,18 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.argument.actual.iteration": notApplicable,
   "value.argument.formal": notApplicable,
   "value.argument.formal.iteration": notApplicable,
-  "value.argument.formal.constructor": supported,
-  "value.argument.formal.constructor.iteration": supported,
-  "value.argument.formal.method": supported,
-  "value.argument.formal.method.iteration": supported,
+  "value.argument.formal.constructor": notApplicable,
+  "value.argument.formal.constructor.iteration": notApplicable,
+  "value.argument.formal.method": notApplicable,
+  "value.argument.formal.method.iteration": notApplicable,
   "value.mapPair": notApplicable,
   "value.mapPair.iteration": notApplicable,
   "value.variable.pattern": notApplicable,
+  "value.typeAlias": notApplicable,
 
   "type.argument.formal": notApplicable,
+  "type.argument.formal.iteration": notApplicable,
+  "type.alias": notApplicable,
 
   section: notApplicable,
   "section.iteration.document": notApplicable,
