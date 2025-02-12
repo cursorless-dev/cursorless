@@ -242,7 +242,6 @@
 (formal_parameters
   .
   "(" @name.iteration.start.endOf
-
   ")" @name.iteration.end.startOf
   .
 ) @name.iteration.domain
