@@ -1,0 +1,7 @@
+command: key(enter)
+---
+
+[Range] =
+[Domain] = 0:13-0:18
+               >-----<
+0| command: key(enter)
