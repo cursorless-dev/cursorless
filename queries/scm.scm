@@ -15,6 +15,7 @@
 
 (anonymous_node
   name: (_) @string @textFragment
+  (#child-range! @textFragment 0 -1 true true)
 )
 
 ;; functionCall:
@@ -40,7 +41,11 @@
   (parameters
     (_) @argumentOrParameter
   )
-) @_.iteration
+)
+
+(predicate
+  (parameters) @argumentOrParameter.iteration
+) @argumentOrParameter.iteration.domain
 
 ;;!! (aaa) @bbb
 ;;!   ^^^
