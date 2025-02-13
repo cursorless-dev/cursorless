@@ -20,6 +20,7 @@ export const scssScopeSupport: LanguageScopeSupportFacetMap = {
 
   "name.argument.formal": supported,
   "name.argument.formal.iteration": supported,
+  "name.function": supported,
 
   "value.argument.formal": supported,
   "value.argument.formal.iteration": supported,
