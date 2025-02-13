@@ -83,10 +83,13 @@
 
 ;;!! foo($foo: 123)
 ;;!      ^^^^  ^^^
-(parameter
-  (variable_name) @name
-  (default_value)? @value
-) @_.domain
+(
+  (parameter
+    (variable_name) @name
+    (default_value)? @value
+  ) @_.domain
+  (#not-eq? @_.domain "")
+)
 
 (stylesheet) @namedFunction.iteration @functionName.iteration
 (block

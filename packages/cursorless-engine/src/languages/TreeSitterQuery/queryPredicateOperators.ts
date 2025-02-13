@@ -1,4 +1,5 @@
-import { Range, adjustPosition, type Position } from "@cursorless/common";
+import type { Position } from "@cursorless/common";
+import { Range, adjustPosition } from "@cursorless/common";
 import { z } from "zod";
 import { makeRangeFromPositions } from "../../util/nodeSelectors";
 import type { MutableQueryCapture } from "./QueryCapture";
