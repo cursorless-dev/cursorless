@@ -58,23 +58,43 @@
 
 ;;!! translate(-50%, -50%)
 ;;!            ^^^^  ^^^^
-;; (
-;;   (arguments
-;;     (_)? @_.leading.endOf
-;;     .
-;;     (_) @argumentOrParameter
-;;     .
-;;     (_)? @_.trailing.startOf
-;;   )
-;;   (#insertion-delimiter! @argumentOrParameter ", ")
-;; )
+(
+  (arguments
+    (_)? @_.leading.endOf
+    .
+    [
+      "("
+      ","
+      (
+        (plain_value) @_dummy
+        (#eq? @_dummy "at")
+      )
+    ]
+    .
+    (_) @argumentOrParameter
+    (
+      [
+        ","
+        (
+          (plain_value) @_dummy
+          (#eq? @_dummy "at")
+        )
+      ]
+      .
+      (_) @_.trailing.startOf
+    )
+?
+  )
+  (#grow-to-named-siblings! @argumentOrParameter "at")
+  (#insertion-delimiter! @argumentOrParameter ", ")
+)
 
-;; (arguments
-;;   .
-;;   "(" @argumentOrParameter.iteration.start.endOf
-;;   ")" @argumentOrParameter.iteration.end.startOf
-;;   .
-;; ) @argumentOrParameter.iteration.domain
+(arguments
+  .
+  "(" @argumentOrParameter.iteration.start.endOf
+  ")" @argumentOrParameter.iteration.end.startOf
+  .
+) @argumentOrParameter.iteration.domain
 
 ;; Entire file
 (stylesheet) @name.iteration @collectionKey.iteration @value.iteration

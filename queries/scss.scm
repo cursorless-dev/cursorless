@@ -30,6 +30,26 @@
   (while_statement)
 ] @statement
 
+;;!! replace-text($image, $color: red) {
+;;!               ^^^^^^  ^^^^^^^^^^^
+(
+  (parameters
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  )
+  (#insertion-delimiter! @argumentOrParameter ", ")
+)
+
+(parameters
+  .
+  "(" @argumentOrParameter.iteration.start.endOf
+  ")" @argumentOrParameter.iteration.end.startOf
+  .
+) @argumentOrParameter.iteration.domain
+
 (single_line_comment) @comment @textFragment
 
 (if_statement) @ifStatement
