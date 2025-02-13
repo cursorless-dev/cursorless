@@ -157,6 +157,15 @@ class ShrinkToMatch extends QueryPredicateOperator<ShrinkToMatch> {
   }
 }
 
+/**
+ * A predicate operator that modifies the range of the match to grow to named trailing siblings.
+ *
+ * An optional `notText` argument can be provided to break at siblings that match the given text.
+ *
+ * ```
+ * (#grow-to-named-siblings! @foo "at")
+ * ```
+ */
 class GrowToNamedSiblings extends QueryPredicateOperator<GrowToNamedSiblings> {
   name = "grow-to-named-siblings!" as const;
   schema = z.union([z.tuple([q.node]), z.tuple([q.node, q.string])]);
