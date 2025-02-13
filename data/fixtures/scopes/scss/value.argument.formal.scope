@@ -1,0 +1,20 @@
+@mixin replace-text($image, $color: red) {}
+---
+
+[Content] = 0:36-0:39
+                                      >---<
+0| @mixin replace-text($image, $color: red) {}
+
+[Removal] = 0:35-0:39
+                                     >----<
+0| @mixin replace-text($image, $color: red) {}
+
+[Leading delimiter] = 0:35-0:36
+                                     >-<
+0| @mixin replace-text($image, $color: red) {}
+
+[Domain] = 0:28-0:39
+                              >-----------<
+0| @mixin replace-text($image, $color: red) {}
+
+[Insertion delimiter] = " "

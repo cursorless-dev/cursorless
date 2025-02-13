@@ -30,33 +30,6 @@
   (while_statement)
 ] @statement
 
-;;!! replace-text($image, $color: red)
-;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-(mixin_statement
-  (name) @functionCallee @functionCallee.domain.start @functionCall.start
-  (parameters) @functionCallee.domain.end @functionCall.end
-)
-
-;;!! replace-text($image, $color: red)
-;;!               ^^^^^^  ^^^^^^^^^^^
-(
-  (parameters
-    (_)? @_.leading.endOf
-    .
-    (_) @argumentOrParameter
-    .
-    (_)? @_.trailing.startOf
-  )
-  (#insertion-delimiter! @argumentOrParameter ", ")
-)
-
-(parameters
-  .
-  "(" @argumentOrParameter.iteration.start.endOf
-  ")" @argumentOrParameter.iteration.end.startOf
-  .
-) @argumentOrParameter.iteration.domain
-
 (single_line_comment) @comment @textFragment
 
 (if_statement) @ifStatement
@@ -74,6 +47,35 @@
 (declaration
   (variable_name) @name
 ) @_.domain
+
+;;!! replace-text($image, $color: red)
+;;!               ^^^^^^  ^^^^^^^^^^^
+(
+  (parameters
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  )
+  (#insertion-delimiter! @argumentOrParameter ", ")
+)
+
+(_
+  (parameters
+    .
+    "(" @argumentOrParameter.iteration.start.endOf
+    ")" @argumentOrParameter.iteration.end.startOf
+    .
+  )
+) @argumentOrParameter.iteration.domain
+
+(parameters
+  .
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf
+  .
+) @name.iteration.domain @value.iteration.domain
 
 ;;!! foo($foo: 123)
 ;;!      ^^^^  ^^^
