@@ -34,7 +34,11 @@
 
 (if_statement) @ifStatement
 
-(condition) @condition
+(if_statement
+  (if_clause
+    (condition) @condition
+  )
+) @_.domain
 
 (mixin_statement
   (name) @functionName @name

@@ -8,6 +8,7 @@ export const scssScopeSupport: LanguageScopeSupportFacetMap = {
   ...cssScopeSupport,
 
   "comment.line": supported,
+  "textFragment.comment.line": supported,
 
   namedFunction: supported,
   "namedFunction.iteration.block": supported,
@@ -22,12 +23,17 @@ export const scssScopeSupport: LanguageScopeSupportFacetMap = {
 
   "value.argument.formal": supported,
   "value.argument.formal.iteration": supported,
+  "value.return": supported,
+
+  ifStatement: supported,
+
+  "condition.if": supported,
 
   // Unsupported
 
-  ifStatement: unsupported,
-  "interior.if": unsupported,
   "branch.if.iteration": unsupported,
   "branch.if": unsupported,
+
   "interior.function": unsupported,
+  "interior.if": unsupported,
 };
