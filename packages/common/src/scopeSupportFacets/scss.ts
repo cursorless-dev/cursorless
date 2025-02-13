@@ -8,7 +8,8 @@ export const scssScopeSupport: LanguageScopeSupportFacetMap = {
   ...cssScopeSupport,
 
   "comment.line": supported,
-  "textFragment.comment.line": supported,
+
+  "condition.if": supported,
 
   namedFunction: supported,
   "namedFunction.iteration.block": supported,
@@ -28,12 +29,12 @@ export const scssScopeSupport: LanguageScopeSupportFacetMap = {
 
   ifStatement: supported,
 
-  "condition.if": supported,
+  "textFragment.comment.line": supported,
 
   // Unsupported
 
-  "branch.if.iteration": unsupported,
   "branch.if": unsupported,
+  "branch.if.iteration": unsupported,
 
   "interior.function": unsupported,
   "interior.if": unsupported,
