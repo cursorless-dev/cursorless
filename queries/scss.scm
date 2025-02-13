@@ -30,7 +30,14 @@
   (while_statement)
 ] @statement
 
-;;!! replace-text($image, $color: red) {
+;;!! replace-text($image, $color: red)
+;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(mixin_statement
+  (name) @functionCallee @functionCallee.domain.start @functionCall.start
+  (parameters) @functionCallee.domain.end @functionCall.end
+)
+
+;;!! replace-text($image, $color: red)
 ;;!               ^^^^^^  ^^^^^^^^^^^
 (
   (parameters

@@ -1,0 +1,10 @@
+@mixin replace-text($image, $color: red) {}
+---
+
+[Range] = 0:20-0:39
+                      >-------------------<
+0| @mixin replace-text($image, $color: red) {}
+
+[Domain] = 0:19-0:40
+                     >---------------------<
+0| @mixin replace-text($image, $color: red) {}
