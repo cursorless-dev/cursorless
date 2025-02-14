@@ -82,8 +82,7 @@
       ]
       .
       (_) @_.trailing.startOf
-    )
-?
+    )?
   )
   (#grow-to-named-siblings! @argumentOrParameter "at")
   (#insertion-delimiter! @argumentOrParameter ", ")
