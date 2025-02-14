@@ -59,12 +59,13 @@ def csv_get_normalized_ctx():
 
 def init_csv_and_watch_changes(
     filename: str,
-    default_values: ListToSpokenForms | None,
+    default_values: ListToSpokenForms,
     handle_new_values: Optional[Callable[[list[SpokenFormEntry]], None]] = None,
     *,
     extra_ignored_values: Optional[list[str]] = None,
     extra_allowed_values: Optional[list[str]] = None,
     allow_unknown_values: bool = False,
+    deprecated: bool = False,
     default_list_name: Optional[str] = None,
     headers: list[str] = [SPOKEN_FORM_HEADER, CURSORLESS_IDENTIFIER_HEADER],
     no_update_file: bool = False,
@@ -123,12 +124,11 @@ def init_csv_and_watch_changes(
         pluralize_lists = []
 
     file_path = get_full_path(filename)
+    is_file = file_path.is_file()
 
-    # No default values and file does not exist. Do nothing.
-    if default_values is None:
-        if not file_path.is_file():
-            return lambda: None
-        default_values = {}
+    # Deprecated file that doesn't exist. Do nothing.
+    if deprecated and not is_file:
+        return lambda: None
 
     super_default_values = get_super_values(default_values)
 
@@ -160,7 +160,7 @@ def init_csv_and_watch_changes(
 
     fs.watch(file_path.parent, on_watch)
 
-    if file_path.is_file():
+    if is_file:
         current_values = update_file(
             path=file_path,
             headers=headers,

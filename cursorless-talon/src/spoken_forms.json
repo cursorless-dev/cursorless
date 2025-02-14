@@ -233,6 +233,12 @@
       "-from": "experimental.setInstanceReference"
     }
   },
+  "experimental/wrapper_snippets.csv": {},
+  "experimental/insertion_snippets.csv": {},
+  "experimental/insertion_snippets_single_phrase.csv": {},
+  "experimental/miscellaneous.csv": {
+    "phrase_terminator": { "over": "phraseTerminator" }
+  },
   "experimental/actions_custom.csv": {},
   "experimental/regex_scope_types.csv": {},
   "hat_styles.csv": {

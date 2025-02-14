@@ -32,9 +32,7 @@ def auto_construct_defaults(
     spoken_forms: dict[str, ListToSpokenForms],
     handle_new_values: Callable[[str, list[SpokenFormEntry]], None],
     f: Callable[
-        Concatenate[
-            str, ListToSpokenForms | None, Callable[[list[SpokenFormEntry]], None], P
-        ],
+        Concatenate[str, ListToSpokenForms, Callable[[list[SpokenFormEntry]], None], P],
         R,
     ],
 ):
@@ -55,7 +53,7 @@ def auto_construct_defaults(
     """
 
     def ret(filename: str, *args: P.args, **kwargs: P.kwargs) -> R:
-        default_values = spoken_forms.get(filename)
+        default_values = spoken_forms[filename]
         return f(
             filename,
             default_values,
@@ -169,23 +167,25 @@ def update():
         # DEPRECATED @ 2025-02-01
         handle_csv(
             "experimental/wrapper_snippets.csv",
+            deprecated=True,
             allow_unknown_values=True,
             default_list_name="wrapper_snippet",
         ),
         handle_csv(
             "experimental/insertion_snippets.csv",
+            deprecated=True,
             allow_unknown_values=True,
             default_list_name="insertion_snippet_no_phrase",
         ),
         handle_csv(
             "experimental/insertion_snippets_single_phrase.csv",
+            deprecated=True,
             allow_unknown_values=True,
             default_list_name="insertion_snippet_single_phrase",
         ),
         handle_csv(
             "experimental/miscellaneous.csv",
-            allow_unknown_values=True,
-            default_list_name="phrase_terminator",
+            deprecated=True,
         ),
         # ---
         handle_csv(
