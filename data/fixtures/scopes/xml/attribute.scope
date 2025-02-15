@@ -1,0 +1,17 @@
+<name id="name">Me</name>
+---
+
+[Content] =
+[Domain] = 0:6-0:15
+        >---------<
+0| <name id="name">Me</name>
+
+[Removal] = 0:5-0:15
+       >----------<
+0| <name id="name">Me</name>
+
+[Leading delimiter] = 0:5-0:6
+       >-<
+0| <name id="name">Me</name>
+
+[Insertion delimiter] = " "
