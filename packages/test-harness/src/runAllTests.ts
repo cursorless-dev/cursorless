@@ -77,10 +77,11 @@ async function runTestsInDir(
       const failedTests: string[] = [];
 
       const runner = mocha.run((failures) => {
+        if (shouldLogFailedTests()) {
+          logFailedTests(failedTests);
+        }
+
         if (failures > 0) {
-          if (shouldLogFailedTests()) {
-            logFailedTests(failedTests);
-          }
           reject(`${failures} tests failed.`);
         } else {
           resolve();
