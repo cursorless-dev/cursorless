@@ -1,0 +1,13 @@
+switch (value) { }
+---
+
+[Content] =
+[Removal] = 0:8-0:13
+          >-----<
+0| switch (value) { }
+
+[Domain] = 0:0-0:18
+  >------------------<
+0| switch (value) { }
+
+[Insertion delimiter] = " "

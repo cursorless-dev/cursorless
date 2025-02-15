@@ -1,0 +1,20 @@
+int value;
+---
+
+[Content] = 0:0-0:3
+  >---<
+0| int value;
+
+[Removal] = 0:0-0:4
+  >----<
+0| int value;
+
+[Trailing delimiter] = 0:3-0:4
+     >-<
+0| int value;
+
+[Domain] = 0:0-0:10
+  >----------<
+0| int value;
+
+[Insertion delimiter] = " "

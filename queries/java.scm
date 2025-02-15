@@ -64,7 +64,10 @@
 
 ;;!! "string"
 ;;!  ^^^^^^^^
-(string_literal) @string @textFragment
+(
+  (string_literal) @string @textFragment
+  (#character-range! @textFragment 1 -1)
+)
 
 ;;!! // comment
 ;;!  ^^^^^^^^^^
@@ -124,7 +127,14 @@
   )
 ) @condition.domain
 
-(switch_expression) @branch.iteration @condition.iteration
+(switch_expression
+  body: (_
+    .
+    "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
+    "}" @condition.iteration.end.startOf @branch.iteration.end.startOf
+    .
+  )
+) @condition.iteration.domain @branch.iteration.domain
 
 ;;!! if () {}
 ;;!  ^^^^^^^^
@@ -223,11 +233,18 @@
 ;;!! void myFunk(int value) {}
 ;;!                  ^^^^^
 ;;!  -------------------------
+(formal_parameter
+  (identifier) @name
+) @_.domain
+
+;;!! void myFunk(int value) {}
+;;!              ^^^^^^^^^
 (formal_parameters
-  (formal_parameter
-    (identifier) @name
-  ) @_.domain
-) @_.iteration
+  .
+  "(" @name.iteration.start.endOf
+  ")" @name.iteration.end.startOf
+  .
+) @name.iteration.domain
 
 ;;!! Map<String, String>
 ;;!     ^^^^^^^  ^^^^^^

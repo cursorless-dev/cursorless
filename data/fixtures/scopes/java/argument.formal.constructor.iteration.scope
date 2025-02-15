@@ -1,0 +1,12 @@
+public class MyClass {
+    public MyClass(String name, int age) {}
+}
+---
+
+[Range] = 1:19-1:39
+                     >--------------------<
+1|     public MyClass(String name, int age) {}
+
+[Domain] = 1:4-1:43
+      >---------------------------------------<
+1|     public MyClass(String name, int age) {}

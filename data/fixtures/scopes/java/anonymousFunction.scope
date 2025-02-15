@@ -1,0 +1,10 @@
+() -> 2;
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:7
+  >-------<
+0| () -> 2;
+
+[Insertion delimiter] = "\n"
