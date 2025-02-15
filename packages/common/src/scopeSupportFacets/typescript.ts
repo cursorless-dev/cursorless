@@ -7,8 +7,6 @@ const { supported } = ScopeSupportFacetLevel;
 export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
   ...javascriptCoreScopeSupport,
 
-  "name.field": supported,
-
   "type.argument.formal": supported,
   "type.argument.formal.iteration": supported,
   "type.argument.formal.method": supported,
@@ -23,8 +21,5 @@ export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
   "type.return": supported,
   "type.variable": supported,
 
-  "value.field": supported,
   "value.typeAlias": supported,
-
-  disqualifyDelimiter: supported,
 };
