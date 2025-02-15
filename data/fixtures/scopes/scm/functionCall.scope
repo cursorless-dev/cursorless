@@ -1,0 +1,10 @@
+(#not-parent-type? @statement variable_declaration)
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:51
+  >---------------------------------------------------<
+0| (#not-parent-type? @statement variable_declaration)
+
+[Insertion delimiter] = " "
