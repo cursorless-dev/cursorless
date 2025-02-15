@@ -1,0 +1,20 @@
+def bar():
+    pass
+---
+
+[Content] =
+[Removal] = 0:4-0:7
+      >---<
+0| def bar():
+
+[Leading delimiter] = 0:3-0:4
+     >-<
+0| def bar():
+
+[Domain] = 0:0-1:8
+  >----------
+0| def bar():
+1|     pass
+   --------<
+
+[Insertion delimiter] = " "
