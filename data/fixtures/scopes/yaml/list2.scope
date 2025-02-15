@@ -1,0 +1,27 @@
+items:
+  - 1
+  - 2
+  - 3
+---
+
+[Content] =
+[Domain] = 1:2-3:5
+    >---
+1|   - 1
+2|   - 2
+3|   - 3
+   -----<
+
+[Removal] = 0:6-3:5
+        >
+0| items:
+1|   - 1
+2|   - 2
+3|   - 3
+   -----<
+
+[Leading delimiter] = 1:0-1:2
+  >--<
+1|   - 1
+
+[Insertion delimiter] = " "
