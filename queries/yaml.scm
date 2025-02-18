@@ -67,12 +67,23 @@
 
 ;;!! foo: bar
 ;;!       ^^^
-;;!! | block scalar
-;;!  ^^^^^^^^^^^^^
-[
-  (string_scalar)
-  (block_scalar)
-] @string @textFragment
+;;!! foo: | block scalar
+;;!       ^^^^^^^^^^^^^
+value: (_
+  [
+    (plain_scalar
+      (string_scalar)
+    )
+    (block_scalar)
+  ] @string @textFragment
+)
+
+;;!! foo: "bar"
+;;!       ^^^^^
+value: (_
+  (double_quote_scalar) @string @textFragment
+  (#child-range! @textFragment 0 -1 true true)
+)
 
 ;;!! # comment
 ;;!  ^^^^^^^^^
