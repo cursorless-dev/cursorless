@@ -1,9 +1,5 @@
 ;; https://github.com/tree-sitter/tree-sitter-json/blob/master/src/grammar.json
 
-;;!! "string"
-;;!   ^^^^^^
-(string_content) @textFragment
-
 ;;!! {"value": 0}
 ;;!  ^^^^^^^^^^^^
 (object) @map
@@ -15,6 +11,10 @@
 ;;!! "string"
 ;;!  ^^^^^^^^
 (string) @string
+
+;;!! "string"
+;;!   ^^^^^^
+(string_content) @textFragment
 
 ;;!! // aaa
 ;;!  ^^^^^^

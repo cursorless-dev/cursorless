@@ -1,10 +1,10 @@
-{"aaa": 0}
+{"aaa": 123, "bbb": 456}
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-0:10
-  >----------<
-0| {"aaa": 0}
+[Domain] = 0:0-0:24
+  >------------------------<
+0| {"aaa": 123, "bbb": 456}
 
 [Insertion delimiter] = " "
