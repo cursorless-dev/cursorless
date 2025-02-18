@@ -35,7 +35,12 @@
 
 ;;!! <aaa id="me">
 ;;!          ^^^^
-(AttValue) @string @textFragment
+(AttValue
+  .
+  _ @textFragment.start.endOf
+  _ @textFragment.end.startOf
+  .
+) @string
 
 ;;!! <aaa>text</aaa>
 ;;!       ^^^^
