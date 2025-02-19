@@ -44,11 +44,13 @@ export function ScopeSupport({ languageId }: Props): JSX.Element {
         subtitle="These facets are supported"
         expanded
       />
+
       <ScopeSupportForLevel
         facets={supportedLegacyScopes}
         title="Supported Legacy facets"
         subtitle="These facets are supported with the legacy implementation and should be migrated to the new implementation"
       />
+
       <ScopeSupportForLevel
         facets={unsupportedScopes}
         title="Unsupported facets"
@@ -62,6 +64,7 @@ export function ScopeSupport({ languageId }: Props): JSX.Element {
           </>
         }
       />
+
       <ScopeSupportForLevel
         facets={unspecifiedScopes}
         title="Unspecified facets"
