@@ -62,8 +62,9 @@ export function ScopeSupport({ languageId }: Props): JSX.Element {
         subtitle="These facets are unspecified"
         description={
           <>
-            Note that in many instances we actually do support these scopes, but
-            we have not yet updated 'languageScopeSupport' to reflect this fact.
+            Note that in many instances we actually do support these scopes and
+            facets, but we have not yet updated 'languageScopeSupport' to
+            reflect this fact.
             <br />
             We would happily accept{" "}
             <a href="https://www.cursorless.org/docs/contributing/adding-a-new-scope">
