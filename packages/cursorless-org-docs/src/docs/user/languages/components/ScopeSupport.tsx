@@ -37,7 +37,7 @@ export function ScopeSupport({ languageId }: Props): JSX.Element {
         value in a map pair and a third is the return value in a return
         statement.
       </p>
-      c
+
       <ScopeSupportForLevel
         facets={supportedScopes}
         title="Supported facets"
