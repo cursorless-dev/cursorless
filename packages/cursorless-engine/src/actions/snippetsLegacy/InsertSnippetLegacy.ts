@@ -21,6 +21,7 @@ import {
   findMatchingSnippetDefinitionStrict,
   transformSnippetVariables,
 } from "../snippetsLegacy/snippet";
+import { showLegacySnippetsNotification } from "./legacySnippetsNotification";
 import { textFormatters, type TextFormatterName } from "./textFormatters";
 
 export default class InsertSnippetLegacy {
@@ -95,6 +96,8 @@ export default class InsertSnippetLegacy {
     destinations: Destination[],
     snippetDescription: NamedInsertSnippetArg,
   ): Promise<ActionReturnValue> {
+    showLegacySnippetsNotification();
+
     const editor = ide().getEditableTextEditor(
       ensureSingleEditor(destinations),
     );
