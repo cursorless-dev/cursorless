@@ -1,5 +1,5 @@
 ---
-tags: [enhancement, documentation]
+tags: [documentation]
 pullRequest: 2859
 ---
 
