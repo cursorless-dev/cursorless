@@ -12,7 +12,7 @@ export function showLegacySnippetsNotification() {
   void showWarning(
     ide().messages,
     "legacySnippets",
-    "Cursorless snippets are deprecated. Please use community snippets. Update to latest cursorless-talon and say 'cursorless migrate snippets'.",
+    "Talon community snippets are now fully supported in Cursorless! Cursorless's experimental snippets are now deprecated, but in most cases we can help you migrate automatically. Update cursorless-talon and say 'cursorless migrate snippets'.",
   );
 
   wasShown = true;
