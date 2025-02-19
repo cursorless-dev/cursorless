@@ -61,9 +61,9 @@ export function ScopeSupportForLevel({
                 {facetInfos.map((facetInfo) => {
                   return (
                     <li key={facetInfo.facet}>
-                      <b title={facetInfo.facet}>
+                      <span className="facet-name" title={facetInfo.facet}>
                         {prettifyFacet(facetInfo.facet)}
-                      </b>
+                      </span>
                       : {facetInfo.description}
                     </li>
                   );

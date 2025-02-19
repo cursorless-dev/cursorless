@@ -44,3 +44,7 @@
 .card-body {
   padding: 1rem;
 }
+
+.facet-name {
+  font-weight: 600;
+}
