@@ -8,58 +8,82 @@ import {
   type ScopeType,
   type SimpleScopeTypeType,
 } from "@cursorless/common";
-import React from "react";
+import React, { useState } from "react";
 
 interface Props {
   facets: ScopeSupportFacet[];
   title: string;
-  description: React.ReactNode;
+  subtitle: string;
+  description?: React.ReactNode;
+  expanded?: boolean;
 }
 
 export function ScopeSupportForLevel({
   facets,
   title,
+  subtitle,
   description,
+  expanded: expandedProp,
 }: Props): JSX.Element | null {
+  const [expanded, setExpanded] = useState(expandedProp ?? false);
+
   if (facets.length === 0) {
     return null;
   }
-  const facetInfos = facets.map(
-    (facet): AugmentedFacetInfo => ({
-      facet,
-      ...scopeSupportFacetInfos[facet],
-    }),
-  );
-  const scopeGroups: Map<string, AugmentedFacetInfo[]> = groupBy(
-    facetInfos,
-    (facetInfo) => serializeScopeType(facetInfo.scopeType),
-  );
-  const scopeTypes = Array.from(scopeGroups.keys()).sort();
-  return (
-    <div>
-      <h3>{title}</h3>
-      <p>{description}</p>
 
-      {scopeTypes.map((scopeType) => {
-        const facetInfos = scopeGroups.get(scopeType) ?? [];
-        return (
-          <div key={scopeType}>
-            <h4>{prettifyScopeType(scopeType)}</h4>
-            <ul>
-              {facetInfos.map((facetInfo) => {
-                return (
-                  <li key={facetInfo.facet}>
-                    <b title={facetInfo.facet}>
-                      {prettifyFacet(facetInfo.facet)}
-                    </b>
-                    : {facetInfo.description}
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        );
-      })}
+  const renderBody = () => {
+    if (!expanded) {
+      return null;
+    }
+
+    const facetInfos = facets.map(
+      (facet): AugmentedFacetInfo => ({
+        facet,
+        ...scopeSupportFacetInfos[facet],
+      }),
+    );
+    const scopeGroups: Map<string, AugmentedFacetInfo[]> = groupBy(
+      facetInfos,
+      (facetInfo) => serializeScopeType(facetInfo.scopeType),
+    );
+    const scopeTypes = Array.from(scopeGroups.keys()).sort();
+
+    return (
+      <div className="card-body">
+        {description && <p>{description}</p>}
+
+        {scopeTypes.map((scopeType) => {
+          const facetInfos = scopeGroups.get(scopeType) ?? [];
+          return (
+            <div key={scopeType}>
+              <h4>{prettifyScopeType(scopeType)}</h4>
+              <ul>
+                {facetInfos.map((facetInfo) => {
+                  return (
+                    <li key={facetInfo.facet}>
+                      <b title={facetInfo.facet}>
+                        {prettifyFacet(facetInfo.facet)}
+                      </b>
+                      : {facetInfo.description}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
+  return (
+    <div className="card">
+      <div className="card-header" onClick={() => setExpanded(!expanded)}>
+        <h3>{title}</h3>
+        {subtitle}
+      </div>
+
+      {renderBody()}
     </div>
   );
 }

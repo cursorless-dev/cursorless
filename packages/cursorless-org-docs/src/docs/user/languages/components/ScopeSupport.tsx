@@ -31,43 +31,44 @@ export function ScopeSupport({ languageId }: Props): JSX.Element {
     <>
       <ScopeSupportForLevel
         facets={supportedScopes}
-        title={"Supported facets"}
-        description={"These facets are supported"}
+        title="Supported facets"
+        subtitle="These facets are supported"
+        expanded
       />
 
       <ScopeSupportForLevel
         facets={supportedLegacyScopes}
-        title={"Supported Legacy facets"}
-        description={
-          "These facets are supported with the legacy implementation and should be migrated to the new implementation"
-        }
+        title="Supported Legacy facets"
+        subtitle="These facets are supported with the legacy implementation and should be migrated to the new implementation"
       />
 
       <ScopeSupportForLevel
         facets={unsupportedScopes}
-        title={"Unsupported facets"}
+        title="Unsupported facets"
+        subtitle="These facets are not supported yet and needs a developer to implement them"
         description={
           <>
-            These facets are not supported yet and needs a developer to
-            implement them. <br />
-            We would happily accept
-            [contributions](https://www.cursorless.org/docs/contributing/adding-a-new-scope).
+            We would happily accept{" "}
+            <a href="https://www.cursorless.org/docs/contributing/adding-a-new-scope">
+              contributions
+            </a>
           </>
         }
       />
 
       <ScopeSupportForLevel
         facets={unspecifiedScopes}
-        title={"Unspecified facets"}
+        title="Unspecified facets"
+        subtitle="These facets are unspecified"
         description={
           <>
-            These facets are unspecified <br />
-            <i>
-              Note that in many instances we actually do support these scopes,
-              but we have not yet updated `languageScopeSupport` to reflect this
-              fact. We would happily accept
-              [contributions](https://www.cursorless.org/docs/contributing/adding-a-new-scope).
-            </i>
+            Note that in many instances we actually do support these scopes, but
+            we have not yet updated 'languageScopeSupport' to reflect this fact.
+            <br />
+            We would happily accept{" "}
+            <a href="https://www.cursorless.org/docs/contributing/adding-a-new-scope">
+              contributions
+            </a>
           </>
         }
       />
