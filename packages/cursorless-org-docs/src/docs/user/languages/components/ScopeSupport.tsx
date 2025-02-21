@@ -29,15 +29,7 @@ export function ScopeSupport({ languageId }: Props): JSX.Element {
 
   return (
     <>
-      <h2>Scope facets</h2>
-
-      <p>
-        A scope facet is a specific subset of a scope that Cursorless can
-        target. For example take the value scope. One facet of value is the
-        right hand side of a variable assignment, another facet of value is the
-        value in a map pair and a third is the return value in a return
-        statement.
-      </p>
+      <h2>Scopes</h2>
 
       <ScopeSupportForLevel
         facets={supportedScopes}
