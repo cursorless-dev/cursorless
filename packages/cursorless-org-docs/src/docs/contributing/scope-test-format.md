@@ -1,5 +1,7 @@
 # Scope test format
 
+We have a custom format we use to test that our scopes are correct. The format is automatically generated, so you shouldn't need to edit it yourself. See [Step 6 of the adding a new scope guide](./adding-a-new-scope.md#6-update-the-tests) for more information.
+
 ## Example
 
 Example of `.scope` file for the javascript if statement scope.

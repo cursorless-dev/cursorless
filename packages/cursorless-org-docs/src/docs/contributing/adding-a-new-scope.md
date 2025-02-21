@@ -48,6 +48,8 @@ We have a bulk test recorder for scope tests. You can use it by running Cursorle
 
 When you're done, say `"cursorless save scope"` to save the tests to the appropriate files in the `data/fixtures/recorded/scopes` directory.
 
+This step will create partial tests for each of the facets of the given scope. Once you've implemented the scopes in step 5 below, you can automatically update these tests to include the scope ranges, as described in step 6.
+
 ## 5. Add parse tree patterns for the given scope
 
 Launch your extension in debug mode and open a file in your language. You can create one or more files in [`playground/`](../../../../../data/playground) and feel free to include those in your PR.
@@ -69,7 +71,7 @@ The tests generated in step 4 only include the code example. Now that you've tol
 
 1. Say `"debug edit subset"` and alter the file to include just the name of your language
 2. Run the `Update fixtures subset` launch configuration to update your fixtures.
-3. Check that the fixtures now look as expected, and no other tests for your language have been altered. The VSCode source control side bar is useful for this purpose.
+3. Check that the fixtures now look as expected, and no other tests for your language have been altered. The VSCode source control side bar is useful for this purpose. For help understanding the scope test format, see the [scope test format docs](./scope-test-format.md)
 
 ## 7. File a PR!
 
