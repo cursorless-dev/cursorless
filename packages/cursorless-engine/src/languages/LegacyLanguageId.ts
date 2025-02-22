@@ -4,12 +4,10 @@
  */
 export const legacyLanguageIds = [
   "clojure",
-  "css",
   "latex",
   "ruby",
   "rust",
   "scala",
-  "scss",
 ] as const;
 
 export type LegacyLanguageId = (typeof legacyLanguageIds)[number];
