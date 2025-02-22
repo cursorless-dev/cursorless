@@ -171,15 +171,18 @@ function getTokenRemainingHatCandidates(
   graphemeRemainingHatCandidates: DefaultMap<string, HatStyleName[]>,
   enabledHatStyles: HatStyleMap,
 ): HatCandidate[] {
+  const candidates: HatCandidate[] = [];
+  const graphemes = tokenGraphemeSplitter.getTokenGraphemes(token.text);
+  const firstLetterOffsets = new Set(
+    new WordTokenizer(token.editor.document.languageId)
+      .splitIdentifier(token.text)
+      .map((word) => word.index),
+  );
+
   // Use iteration here instead of functional constructs,
   // because this is a hot path and we want to avoid allocating arrays
   // and calling tiny functions lots of times.
-  const words = new WordTokenizer(
-    token.editor.document.languageId,
-  ).splitIdentifier(token.text);
-  const firstLetters = new Set<number>(words.map((word) => word.index));
-  const candidates: HatCandidate[] = [];
-  const graphemes = tokenGraphemeSplitter.getTokenGraphemes(token.text);
+
   for (const grapheme of graphemes) {
     for (const style of graphemeRemainingHatCandidates.get(grapheme.text)) {
       // Allocating and pushing all of these objects is
@@ -189,10 +192,11 @@ function getTokenRemainingHatCandidates(
         grapheme,
         style,
         penalty: enabledHatStyles[style].penalty,
-        isFirstLetter: firstLetters.has(grapheme.tokenStartOffset),
+        isFirstLetter: firstLetterOffsets.has(grapheme.tokenStartOffset),
       });
     }
   }
+
   return candidates;
 }
 
