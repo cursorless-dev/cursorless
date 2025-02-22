@@ -37,24 +37,20 @@ export function getPreferredSnippet(
   const preferredSnippet = filteredSnippets[0];
 
   if (preferredSnippet == null) {
+    const languages = getUniqueLanguagesString(snippetDescription.snippets);
     throw new Error(
-      `No snippet available for language '${languageId}'. Available languages: ${getUniqueLanguagesString(snippetDescription.snippets)}`,
+      `No snippet available for language '${languageId}'. Available languages: ${languages}`,
     );
   }
 
   return preferredSnippet;
 }
 
-function getUniqueLanguagesString(snippets: CustomInsertSnippetArg[]) {
-  return Array.from(
-    new Set(
-      snippets
-        .filter((snippet) => snippet.languages != null)
-        .flatMap((snippet) => snippet.languages),
-    ),
-  )
-    .sort()
-    .join(", ");
+function getUniqueLanguagesString(snippets: CustomInsertSnippetArg[]): string {
+  const languages = new Set(
+    snippets.flatMap((snippet) => snippet.languages ?? []),
+  );
+  return Array.from(languages).sort().join(", ");
 }
 
 /**
