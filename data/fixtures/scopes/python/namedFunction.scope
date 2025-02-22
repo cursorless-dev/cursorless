@@ -10,8 +10,4 @@ def foo():
 1|     pass
    --------<
 
-[Interior] = 1:4-1:8
-      >----<
-1|     pass
-
 [Insertion delimiter] = "\n\n"

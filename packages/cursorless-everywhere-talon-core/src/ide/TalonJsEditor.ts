@@ -1,8 +1,8 @@
 import {
   selectionsEqual,
-  type BreakpointDescriptor,
   type Edit,
   type EditableTextEditor,
+  type GeneralizedRange,
   type InMemoryTextDocument,
   type OpenLinkOptions,
   type Range,
@@ -100,9 +100,7 @@ export class TalonJsEditor implements EditableTextEditor {
     throw new Error("unfold not implemented.");
   }
 
-  toggleBreakpoint(
-    _descriptors?: BreakpointDescriptor[] | undefined,
-  ): Promise<void> {
+  toggleBreakpoint(_ranges?: GeneralizedRange[]): Promise<void> {
     throw new Error("toggleBreakpoint not implemented.");
   }
 
@@ -149,11 +147,27 @@ export class TalonJsEditor implements EditableTextEditor {
     throw new Error("extractVariable not implemented.");
   }
 
-  editNewNotebookCellAbove(): Promise<(_selection: Selection) => Selection> {
+  editNewNotebookCellAbove(): Promise<void> {
     throw new Error("editNewNotebookCellAbove not implemented.");
   }
 
   editNewNotebookCellBelow(): Promise<void> {
     throw new Error("editNewNotebookCellBelow not implemented.");
+  }
+
+  public async gitAccept(_range?: Range): Promise<void> {
+    throw Error("gitAccept not implemented");
+  }
+
+  public async gitRevert(_range?: Range): Promise<void> {
+    throw Error("gitRevert not implemented");
+  }
+
+  public async gitStage(_range?: Range): Promise<void> {
+    throw Error("gitStage not implemented");
+  }
+
+  public async gitUnstage(_range?: Range): Promise<void> {
+    throw Error("gitUnstage not implemented");
   }
 }

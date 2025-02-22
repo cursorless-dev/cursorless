@@ -33,6 +33,9 @@ export async function openNewEditor(
     await editor.edit((editBuilder) => editBuilder.setEndOfLine(eol));
   }
 
+  // Many times running these tests opens the sidebar, which slows performance. Close it.
+  vscode.commands.executeCommand("workbench.action.closeSidebar");
+
   return editor;
 }
 

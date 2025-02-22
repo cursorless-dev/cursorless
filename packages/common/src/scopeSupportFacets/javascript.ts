@@ -7,20 +7,25 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   list: supported,
   map: supported,
-  ifStatement: supported,
   regularExpression: supported,
   switchStatementSubject: supported,
   fieldAccess: supported,
   disqualifyDelimiter: supported,
+  pairDelimiter: supported,
+
+  "collectionItem.unenclosed": supported,
 
   "textFragment.string.singleLine": supported,
   "textFragment.string.multiLine": supported,
   "textFragment.comment.line": supported,
   "textFragment.comment.block": supported,
 
+  ifStatement: supported,
+
   statement: supported,
   "statement.iteration.document": supported,
   "statement.iteration.block": supported,
+  "statement.class": supported,
 
   class: supported,
   className: supported,
@@ -66,6 +71,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.if": supported,
   "branch.if.iteration": supported,
   "branch.try": supported,
+  "branch.try.iteration": supported,
   "branch.switchCase": supported,
   "branch.switchCase.iteration": supported,
   "branch.ternary": supported,
@@ -76,6 +82,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "condition.for": supported,
   "condition.ternary": supported,
   "condition.switchCase": supported,
+  "condition.switchCase.iteration": supported,
 
   "name.argument.formal": supported,
   "name.argument.formal.iteration": supported,
@@ -93,6 +100,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "name.constructor": supported,
   "name.class": supported,
   "name.field": supported,
+  "name.iteration.document": supported,
 
   "key.mapPair": supported,
   "key.mapPair.iteration": supported,
@@ -112,8 +120,52 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "value.return": supported,
   "value.return.lambda": supported,
   "value.field": supported,
+  "value.yield": supported,
 
-  "collectionItem.unenclosed": supported,
+  // Unsupported
+
+  "collectionItem.unenclosed.iteration": unsupported,
+  "branch.loop": unsupported,
+  "namedFunction.iteration.block": unsupported,
+  "functionName.iteration.block": unsupported,
+
+  "class.iteration.block": unsupported,
+  "class.iteration.document": unsupported,
+  "className.iteration.block": unsupported,
+  "className.iteration.document": unsupported,
+
+  "name.iteration.block": unsupported,
+  "name.resource": unsupported,
+  "name.resource.iteration": unsupported,
+
+  "value.resource": unsupported,
+  "value.resource.iteration": unsupported,
+
+  "interior.class": unsupported,
+  "interior.function": unsupported,
+  "interior.if": unsupported,
+  "interior.lambda": unsupported,
+  "interior.loop": unsupported,
+  "interior.switchCase": unsupported,
+  "interior.ternary": unsupported,
+  "interior.try": unsupported,
+  "interior.resource": unsupported,
+
+  // Not applicable
+
+  "interior.cell": notApplicable,
+  "interior.command": notApplicable,
+  "name.argument.actual.iteration": notApplicable,
+  "name.argument.actual": notApplicable,
+  "value.argument.actual": notApplicable,
+  "value.argument.actual.iteration": notApplicable,
+  "section.iteration.document": notApplicable,
+  "section.iteration.parent": notApplicable,
+  "textFragment.element": notApplicable,
+  command: notApplicable,
+  environment: notApplicable,
+  notebookCell: notApplicable,
+  section: notApplicable,
 };
 
 export const javascriptJsxScopeSupport: LanguageScopeSupportFacetMap = {
@@ -124,22 +176,32 @@ export const javascriptJsxScopeSupport: LanguageScopeSupportFacetMap = {
   attribute: supported,
   "key.attribute": supported,
   "value.attribute": supported,
+  "interior.element": supported,
 };
 
 export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   ...javascriptCoreScopeSupport,
   ...javascriptJsxScopeSupport,
 
-  "type.variable": notApplicable,
-  "type.argument.formal": notApplicable,
-  "type.argument.formal.iteration": notApplicable,
-  "type.argument.formal.method": notApplicable,
-  "type.argument.formal.method.iteration": notApplicable,
-  "type.argument.formal.constructor": notApplicable,
+  // Types are defined here because we don't want typescript to import them and
+  // accidentally forget to add support for them.
+  "value.typeAlias": notApplicable,
+  "type.alias": notApplicable,
   "type.argument.formal.constructor.iteration": notApplicable,
-  "type.return": notApplicable,
+  "type.argument.formal.constructor": notApplicable,
+  "type.argument.formal.iteration": notApplicable,
+  "type.argument.formal.method.iteration": notApplicable,
+  "type.argument.formal.method": notApplicable,
+  "type.argument.formal": notApplicable,
+  "type.cast": notApplicable,
+  "type.class": notApplicable,
+  "type.enum": notApplicable,
+  "type.field.iteration": notApplicable,
   "type.field": notApplicable,
   "type.foreach": notApplicable,
   "type.interface": notApplicable,
-  command: notApplicable,
+  "type.return": notApplicable,
+  "type.typeArgument.iteration": notApplicable,
+  "type.typeArgument": notApplicable,
+  "type.variable": notApplicable,
 };

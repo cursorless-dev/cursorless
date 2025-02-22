@@ -23,10 +23,15 @@
       "drink": "editNewLineBefore",
       "drop": "insertEmptyLineBefore",
       "extract": "extractVariable",
+      "flash": "flashTargets",
       "float": "insertEmptyLineAfter",
       "fold": "foldRegion",
       "follow split": "followLinkAside",
       "follow": "followLink",
+      "git accept": "gitAccept",
+      "git stage": "gitStage",
+      "git unstage": "gitUnstage",
+      "git revert": "gitRevert",
       "give": "deselect",
       "highlight": "highlight",
       "hover": "showHover",
@@ -45,7 +50,7 @@
       "scout all": "findInWorkspace",
       "scout": "findInDocument",
       "shuffle": "randomizeTargets",
-      "snippet make": "generateSnippet",
+      "snip make": "generateSnippet",
       "sort": "sortTargets",
       "take": "setSelection",
       "type deaf": "revealTypeDefinition",
@@ -61,7 +66,7 @@
     },
     "swap_action": { "swap": "swapTargets" },
     "wrap_action": { "wrap": "wrapWithPairedDelimiter", "repack": "rewrap" },
-    "insert_snippet_action": { "snippet": "insertSnippet" },
+    "insert_snippet_action": { "snip": "insertSnippet" },
     "reformat_action": { "format": "applyFormatter" },
     "call_action": { "call": "callAsFunction" }
   },
@@ -228,29 +233,9 @@
       "-from": "experimental.setInstanceReference"
     }
   },
-  "experimental/wrapper_snippets.csv": {
-    "wrapper_snippet": {
-      "else": "ifElseStatement.alternative",
-      "funk": "functionDeclaration.body",
-      "if else": "ifElseStatement.consequence",
-      "if": "ifStatement.consequence",
-      "try": "tryCatchStatement.body",
-      "link": "link.text"
-    }
-  },
-  "experimental/insertion_snippets.csv": {
-    "insertion_snippet_no_phrase": {
-      "if": "ifStatement",
-      "if else": "ifElseStatement",
-      "try": "tryCatchStatement"
-    }
-  },
-  "experimental/insertion_snippets_single_phrase.csv": {
-    "insertion_snippet_single_phrase": {
-      "funk": "functionDeclaration.name",
-      "link": "link.text"
-    }
-  },
+  "experimental/wrapper_snippets.csv": {},
+  "experimental/insertion_snippets.csv": {},
+  "experimental/insertion_snippets_single_phrase.csv": {},
   "experimental/miscellaneous.csv": {
     "phrase_terminator": { "over": "phraseTerminator" }
   },

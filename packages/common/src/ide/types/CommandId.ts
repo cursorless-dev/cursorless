@@ -14,4 +14,8 @@ export type CommandId =
   | "showHover"
   | "showDebugHover"
   | "extractVariable"
-  | "insertLineAfter";
+  | "insertLineAfter"
+  | "gitAccept"
+  | "gitRevert"
+  | "gitStage"
+  | "gitUnstage";

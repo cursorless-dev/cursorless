@@ -24,22 +24,17 @@
 ;;!    ^
 ;;!  ---
 (list
-  (list_item
-    (paragraph
-      (inline) @_.leading.endOf
-    )
-  )?
+  (list_item)? @collectionItem.leading.endOf
   .
   (list_item
-    (_) @_.prefix
-    (paragraph
-      (inline) @collectionItem
-    )
-  ) @_.domain
+    (_) @collectionItem.prefix
+    (paragraph) @collectionItem.start.startOf
+  ) @collectionItem.end.endOf @collectionItem.domain
   .
-  (list_item)? @_.trailing.startOf
-  (#trim-end! @_.domain)
-  (#insertion-delimiter! @collectionItem "\n")
+  (list_item)? @collectionItem.trailing.startOf
+  (#trim-end! @collectionItem.end.endOf)
+  (#trim-end! @collectionItem.domain)
+  (#insertion-delimiter! @collectionItem.start.startOf "\n")
 )
 
 (list) @collectionItem.iteration
@@ -53,11 +48,11 @@
 ;;!  ^^^
 (
   (fenced_code_block
-    (fenced_code_block_delimiter) @_.interior.start.endOf
+    (fenced_code_block_delimiter) @interior.start.endOf
     .
     (block_continuation)
-    (fenced_code_block_delimiter) @_.interior.end.startOf
-  ) @notebookCell
+    (fenced_code_block_delimiter) @interior.end.startOf
+  ) @notebookCell @interior.domain
   (#trim-end! @notebookCell)
   (#insertion-delimiter! @notebookCell "\n\n")
 )
@@ -71,9 +66,9 @@
 ;;!  ^^^
 (
   (fenced_code_block
-    (info_string) @_.interior.start.endOf
-    (fenced_code_block_delimiter) @_.interior.end.startOf
-  ) @notebookCell
+    (info_string) @interior.start.endOf
+    (fenced_code_block_delimiter) @interior.end.startOf
+  ) @notebookCell @interior.domain
   (#trim-end! @notebookCell)
   (#insertion-delimiter! @notebookCell "\n\n")
 )
@@ -134,4 +129,13 @@
     )
   ) @sectionLevelSix @_.removal
   (#trim-end! @sectionLevelSix)
+)
+
+(document) @section.iteration
+
+(
+  (section
+    (atx_heading) @section.iteration.start.endOf
+  ) @section.iteration.end.endOf
+  (#trim-end! @section.iteration.end.endOf)
 )

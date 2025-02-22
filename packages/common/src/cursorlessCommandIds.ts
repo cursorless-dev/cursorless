@@ -38,6 +38,7 @@ export const cursorlessCommandIds = [
   "cursorless.keyboard.targeted.targetHat",
   "cursorless.keyboard.targeted.targetScope",
   "cursorless.keyboard.targeted.targetSelection",
+  "cursorless.migrateSnippets",
   "cursorless.pauseRecording",
   "cursorless.recomputeDecorationStyles",
   "cursorless.recordTestCase",
@@ -47,6 +48,7 @@ export const cursorlessCommandIds = [
   "cursorless.recordScopeTests.saveActiveDocument",
   "cursorless.showCheatsheet",
   "cursorless.showDocumentation",
+  "cursorless.showInstallationDependencies",
   "cursorless.showQuickPick",
   "cursorless.takeSnapshot",
   "cursorless.toggleDecorations",
@@ -89,6 +91,9 @@ export const cursorlessCommandDescriptions: Record<
     "Bulk save scope tests for the active document",
   ),
   ["cursorless.showDocumentation"]: new VisibleCommand("Show documentation"),
+  ["cursorless.showInstallationDependencies"]: new VisibleCommand(
+    "Show installation dependencies",
+  ),
   ["cursorless.showScopeVisualizer"]: new VisibleCommand(
     "Show the scope visualizer",
   ),
@@ -159,5 +164,8 @@ export const cursorlessCommandDescriptions: Record<
   ),
   ["cursorless.keyboard.redoTarget"]: new HiddenCommand(
     "Redo keyboard targeting changes",
+  ),
+  ["cursorless.migrateSnippets"]: new HiddenCommand(
+    "Migrate snippets from the old Cursorless format to the new community format",
   ),
 };

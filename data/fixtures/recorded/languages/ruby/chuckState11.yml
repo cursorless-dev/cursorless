@@ -28,7 +28,6 @@ finalState:
     begin
       a = 10
     else
-
     ensure 
       a = 10
     end

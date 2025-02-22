@@ -31,6 +31,7 @@
       "request": "launch",
       "env": {
         "CURSORLESS_MODE": "test",
+        "CURSORLESS_LOG_FAILED": "true",
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },
       "args": [
@@ -52,6 +53,7 @@
       "env": {
         "CURSORLESS_MODE": "test",
         "CURSORLESS_RUN_TEST_SUBSET": "true",
+        "CURSORLESS_LOG_FAILED": "true",
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },
       "args": [
@@ -136,6 +138,7 @@
       "program": "${workspaceFolder}/packages/test-harness/dist/runTalonTests.cjs",
       "env": {
         "CURSORLESS_MODE": "test",
+        "CURSORLESS_LOG_FAILED": "true",
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
@@ -171,6 +174,7 @@
       "program": "${workspaceFolder}/packages/test-harness/dist/runTalonJsTests.cjs",
       "env": {
         "CURSORLESS_MODE": "test",
+        "CURSORLESS_LOG_FAILED": "true",
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],

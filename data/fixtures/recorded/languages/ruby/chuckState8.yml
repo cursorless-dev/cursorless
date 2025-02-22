@@ -28,7 +28,6 @@ finalState:
     when true
       a = 0
     else
-
     end
   selections:
     - anchor: {line: 4, character: 0}

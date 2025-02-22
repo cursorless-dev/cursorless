@@ -22,7 +22,6 @@ initialState:
 finalState:
   documentContents: |-
     class Foo {
-
     }
   selections:
     - anchor: {line: 1, character: 0}

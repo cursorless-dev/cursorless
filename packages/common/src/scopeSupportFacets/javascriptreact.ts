@@ -7,4 +7,6 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const javascriptreactScopeSupport: LanguageScopeSupportFacetMap = {
   ...javascriptScopeSupport,
+
+  "textFragment.element": supported,
 };

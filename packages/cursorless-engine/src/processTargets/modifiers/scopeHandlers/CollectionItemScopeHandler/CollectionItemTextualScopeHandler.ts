@@ -14,6 +14,7 @@ import type {
   ScopeIteratorRequirements,
 } from "../scopeHandler.types";
 import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
+import { isEveryScopeModifier } from "../util/isHintsEveryScope";
 import { OneWayNestedRangeFinder } from "../util/OneWayNestedRangeFinder";
 import { OneWayRangeFinder } from "../util/OneWayRangeFinder";
 import { collectionItemTextualIterationScopeHandler } from "./collectionItemTextualIterationScopeHandler";
@@ -42,7 +43,7 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
     direction: Direction,
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
-    const isEveryScope = hints.containment == null && hints.skipAncestorScopes;
+    const isEveryScope = isEveryScopeModifier(hints);
     const separatorRanges = getSeparatorOccurrences(editor.document);
     const interiorRanges = getInteriorRanges(
       this.scopeHandlerFactory,
@@ -68,51 +69,46 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
         continue;
       }
 
-      const currentIterationState =
-        iterationStatesStack[iterationStatesStack.length - 1];
+      let currentIterationState: IterationState | undefined;
+
+      // Find current iteration state and pop all states not containing the separator
+      while (iterationStatesStack.length > 0) {
+        const lastState = iterationStatesStack[iterationStatesStack.length - 1];
+        if (lastState.iterationRange.contains(separator)) {
+          currentIterationState = lastState;
+          break;
+        }
+        // We are done with this iteration scope. Add all scopes from it and pop it from the stack.
+        this.addScopes(scopes, lastState);
+        iterationStatesStack.pop();
+      }
 
       // Get range for smallest containing interior
       const containingInteriorRange =
         interiorRangeFinder.getSmallestContaining(separator)?.range;
 
-      // The contain range is either the interior or the line containing the separator
+      // The containing iteration range is either the interior or the line containing the separator
       const containingIterationRange =
         containingInteriorRange ??
         editor.document.lineAt(separator.start.line).range;
 
-      if (currentIterationState != null) {
-        // The current containing iteration range is the same as the previous one. Just append delimiter.
-        if (
-          currentIterationState.iterationRange.isRangeEqual(
-            containingIterationRange,
-          )
-        ) {
-          currentIterationState.delimiters.push(separator);
-          continue;
-        }
-
-        // The current containing range does not intersect previous one. Add scopes and remove state.
-        if (!currentIterationState.iterationRange.contains(separator)) {
-          this.addScopes(scopes, currentIterationState);
-          // Remove already added state
-          iterationStatesStack.pop();
-        }
+      // The current containing iteration range is the same as the previous one. Just append delimiter.
+      if (
+        currentIterationState != null &&
+        currentIterationState.iterationRange.isRangeEqual(
+          containingIterationRange,
+        )
+      ) {
+        currentIterationState.delimiters.push(separator);
+        continue;
       }
 
-      // The current containing range is the same as the previous one. Just append delimiter.
-      if (iterationStatesStack.length > 0) {
-        const lastState = iterationStatesStack[iterationStatesStack.length - 1];
-        if (lastState.iterationRange.isRangeEqual(containingIterationRange)) {
-          lastState.delimiters.push(separator);
-          continue;
-        }
-      }
-
-      // New containing range. Add it to the list.
+      // New containing range. Add it to the set.
       if (containingInteriorRange != null) {
         usedInteriors.add(containingInteriorRange);
       }
 
+      // New containing iteration range. Push it to the stack.
       iterationStatesStack.push({
         editor,
         isEveryScope,
@@ -121,13 +117,14 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
       });
     }
 
+    // Process any remaining states on the stack
     for (const state of iterationStatesStack) {
       this.addScopes(scopes, state);
     }
 
     // Add interior ranges without a delimiter in them. eg: `[foo]`
     for (const interior of interiorRanges) {
-      if (!usedInteriors.has(interior.range)) {
+      if (!usedInteriors.has(interior.range) && !interior.range.isEmpty) {
         const range = shrinkRangeToFitContent(editor, interior.range);
         if (!range.isEmpty) {
           scopes.push(

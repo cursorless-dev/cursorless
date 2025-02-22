@@ -15,7 +15,7 @@ export class LineScopeHandler extends BaseScopeHandler {
     type: "paragraph",
   } as const;
   protected readonly isHierarchical = false;
-  public readonly includeAdjacentInEvery: boolean = true;
+  public readonly includeAdjacentInEvery = true;
 
   constructor(_scopeType: ScopeType, _languageId: string) {
     super();

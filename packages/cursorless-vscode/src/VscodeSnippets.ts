@@ -1,12 +1,14 @@
-import type { Snippet, SnippetMap } from "@cursorless/common";
+import type { Snippet, SnippetMap, TextEditor } from "@cursorless/common";
 import { mergeStrict, showError, type IDE } from "@cursorless/common";
-import { mergeSnippets, type Snippets } from "@cursorless/cursorless-engine";
+import { type Snippets } from "@cursorless/cursorless-engine";
 import { walkFiles } from "@cursorless/node-common";
 import { max } from "lodash-es";
 import { open, readFile, stat } from "node:fs/promises";
 import { join } from "node:path";
+import { mergeSnippets } from "./snippetsLegacy/mergeSnippets";
 
-const CURSORLESS_SNIPPETS_SUFFIX = ".cursorless-snippets";
+// DEPRECATED @ 2025-02-01
+export const CURSORLESS_SNIPPETS_SUFFIX = ".cursorless-snippets";
 const SNIPPET_DIR_REFRESH_INTERVAL_MS = 1000;
 
 interface DirectoryErrorMessage {
@@ -21,7 +23,6 @@ interface DirectoryErrorMessage {
  */
 export class VscodeSnippets implements Snippets {
   private coreSnippets!: SnippetMap;
-  private thirdPartySnippets: Record<string, SnippetMap> = {};
   private userSnippets!: SnippetMap[];
 
   private mergedSnippets!: SnippetMap;
@@ -51,9 +52,15 @@ export class VscodeSnippets implements Snippets {
   constructor(private ide: IDE) {
     this.updateUserSnippetsPath();
 
+    this.updateUserSnippetsPath();
+
+    this.ide.disposeOnExit(
+      this.ide.configuration.onDidChangeConfiguration(() =>
+        this.updateUserSnippetsPath(),
+      ),
+    );
+
     this.updateUserSnippets = this.updateUserSnippets.bind(this);
-    this.registerThirdPartySnippets =
-      this.registerThirdPartySnippets.bind(this);
 
     const timer = setInterval(
       this.updateUserSnippets,
@@ -187,27 +194,13 @@ export class VscodeSnippets implements Snippets {
   }
 
   /**
-   * Allows extensions to register third-party snippets.  Calling this function
-   * twice with the same extensionId will replace the older snippets.
-   *
-   * Note that third-party snippets take precedence over core snippets, but
-   * user snippets take precedence over both.
-   * @param extensionId The id of the extension registering the snippets.
-   * @param snippets The snippets to be registered.
-   */
-  registerThirdPartySnippets(extensionId: string, snippets: SnippetMap) {
-    this.thirdPartySnippets[extensionId] = snippets;
-    this.mergeSnippets();
-  }
-
-  /**
    * Merge core, third-party, and user snippets, with precedence user > third
    * party > core.
    */
   private mergeSnippets() {
     this.mergedSnippets = mergeSnippets(
       this.coreSnippets,
-      this.thirdPartySnippets,
+      {},
       this.userSnippets,
     );
   }
@@ -235,7 +228,16 @@ export class VscodeSnippets implements Snippets {
     return snippet;
   }
 
-  async openNewSnippetFile(snippetName: string) {
+  async openNewSnippetFile(
+    snippetName: string,
+    directory: string,
+  ): Promise<TextEditor> {
+    const path = join(directory, `${snippetName}.snippet`);
+    await touch(path);
+    return this.ide.openTextDocument(path);
+  }
+
+  getUserDirectoryStrict() {
     const userSnippetsDir = this.ide.configuration.getOwnConfiguration(
       "experimental.snippetsDir",
     );
@@ -244,9 +246,11 @@ export class VscodeSnippets implements Snippets {
       throw new Error("User snippets dir not configured.");
     }
 
-    const path = join(userSnippetsDir, `${snippetName}.cursorless-snippets`);
-    await touch(path);
-    await this.ide.openTextDocument(path);
+    return userSnippetsDir;
+  }
+
+  getSnippetPaths(snippetsDir: string) {
+    return walkFiles(snippetsDir, CURSORLESS_SNIPPETS_SUFFIX);
   }
 }
 

@@ -55,10 +55,11 @@ export class InstanceStage implements ModifierStage {
 
   private handleOrdinalScope(
     target: Target,
-    { start, length }: OrdinalScopeModifier,
+    { start, length, scopeType }: OrdinalScopeModifier,
   ): Target[] {
     return this.getEveryRanges(target).flatMap(([editor, searchRange]) =>
       takeFromOffset(
+        scopeType,
         this.getTargetIterable(
           target,
           editor,
@@ -73,7 +74,7 @@ export class InstanceStage implements ModifierStage {
 
   private handleRelativeScope(
     target: Target,
-    { direction, offset, length }: RelativeScopeModifier,
+    { direction, offset, length, scopeType }: RelativeScopeModifier,
   ): Target[] {
     const referenceTargets = this.storedTargets.get("instanceReference") ?? [
       target,
@@ -97,6 +98,7 @@ export class InstanceStage implements ModifierStage {
             );
 
       return takeFromOffset(
+        scopeType,
         this.getTargetIterable(target, editor, iterationRange, direction),
         offset === 0 ? 0 : offset - 1,
         length,
@@ -133,7 +135,7 @@ export class InstanceStage implements ModifierStage {
           contentRange: range,
           editor,
           isReversed: false,
-          isToken: false,
+          textualType: "character",
         }),
     );
 
@@ -180,19 +182,14 @@ export class InstanceStage implements ModifierStage {
 }
 
 function getFilterScopeType(target: Target): ScopeType | null {
-  if (target.isLine) {
-    return { type: "line" };
+  switch (target.textualType) {
+    case "line":
+    case "token":
+    case "word":
+      return { type: target.textualType };
+    default:
+      return null;
   }
-
-  if (target.isToken) {
-    return { type: "token" };
-  }
-
-  if (target.isWord) {
-    return { type: "word" };
-  }
-
-  return null;
 }
 
 /**
@@ -206,6 +203,7 @@ function getFilterScopeType(target: Target): ScopeType | null {
  * starting at `offset`
  */
 function takeFromOffset<T>(
+  scopeType: ScopeType,
   iterable: Iterable<T>,
   offset: number,
   count: number,
@@ -217,7 +215,7 @@ function takeFromOffset<T>(
   const items = Array.from(itake(count, iterable));
 
   if (items.length < count) {
-    throw new OutOfRangeError();
+    throw new OutOfRangeError(scopeType, offset + count - 1);
   }
 
   return items;

@@ -2,15 +2,21 @@ import { showError, simpleScopeTypeTypes } from "@cursorless/common";
 import { ide } from "../../singletons/ide.singleton";
 
 const wildcard = "_";
-const captureNames = [wildcard, ...simpleScopeTypeTypes];
+const captureNames = [wildcard, "interior", ...simpleScopeTypeTypes];
 
 const positionRelationships = ["prefix", "leading", "trailing"];
-const positionSuffixes = ["startOf", "endOf"];
+const positionSuffixes = [
+  "startOf",
+  "endOf",
+  "start.startOf",
+  "start.endOf",
+  "end.startOf",
+  "end.endOf",
+];
 
 const rangeRelationships = [
   "domain",
   "removal",
-  "interior",
   "iteration",
   "iteration.domain",
 ];
@@ -59,8 +65,9 @@ for (const captureName of captureNames) {
 }
 
 // Not a comment. ie line is not starting with `;;`
+// Not a string.
 // Capture starts with `@` and is followed by words and/or dots
-const capturePattern = new RegExp(`^(?!;;).*@([\\w.]*)`, "gm");
+const capturePattern = /^(?!;;).*(?<!"\w*)@([\w.]*)/gm;
 
 export function validateQueryCaptures(file: string, rawQuery: string): void {
   const matches = rawQuery.matchAll(capturePattern);

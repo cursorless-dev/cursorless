@@ -1,0 +1,23 @@
+while value > 0:
+    pass
+---
+
+[Content] = 0:6-0:15
+        >---------<
+0| while value > 0:
+
+[Removal] = 0:5-0:15
+       >----------<
+0| while value > 0:
+
+[Leading delimiter] = 0:5-0:6
+       >-<
+0| while value > 0:
+
+[Domain] = 0:0-1:8
+  >----------------
+0| while value > 0:
+1|     pass
+   --------<
+
+[Insertion delimiter] = " "

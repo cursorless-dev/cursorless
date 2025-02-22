@@ -11,7 +11,8 @@ import { DocumentScopeHandler } from "./DocumentScopeHandler";
 import { FallbackScopeHandler } from "./FallbackScopeHandler";
 import { IdentifierScopeHandler } from "./IdentifierScopeHandler";
 import { LineScopeHandler } from "./LineScopeHandler";
-import { OneOfScopeHandler } from "./OneOfScopeHandler";
+import { NotebookCellScopeHandler } from "./NotebookCellScopeHandler";
+import { SortedScopeHandler } from "./SortedScopeHandler";
 import { ParagraphScopeHandler } from "./ParagraphScopeHandler";
 import {
   CustomRegexScopeHandler,
@@ -19,15 +20,16 @@ import {
   NonWhitespaceSequenceScopeHandler,
   UrlScopeHandler,
 } from "./RegexScopeHandler";
+import type { ComplexScopeType, ScopeHandler } from "./scopeHandler.types";
 import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 import { SentenceScopeHandler } from "./SentenceScopeHandler/SentenceScopeHandler";
 import {
   SurroundingPairInteriorScopeHandler,
   SurroundingPairScopeHandler,
 } from "./SurroundingPairScopeHandler";
+import { InteriorScopeHandler } from "./SurroundingPairScopeHandler/InteriorScopeHandler";
 import { TokenScopeHandler } from "./TokenScopeHandler";
 import { WordScopeHandler } from "./WordScopeHandler/WordScopeHandler";
-import type { ComplexScopeType, ScopeHandler } from "./scopeHandler.types";
 
 /**
  * Returns a scope handler for the given scope type and language id, or
@@ -111,12 +113,26 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
           scopeType,
           languageId,
         );
+      case "notebookCell":
+        return new NotebookCellScopeHandler(
+          this,
+          this.languageDefinitions,
+          scopeType,
+          languageId,
+        );
+      case "interior":
+        return new InteriorScopeHandler(
+          this,
+          this.languageDefinitions,
+          scopeType,
+          languageId,
+        );
       case "custom":
         return scopeType.scopeHandler;
       case "oneOf":
-        return OneOfScopeHandler.create(this, scopeType, languageId);
+        return SortedScopeHandler.create(this, scopeType, languageId);
       case "fallback":
-        return new FallbackScopeHandler(this, scopeType, languageId);
+        return FallbackScopeHandler.create(this, scopeType, languageId);
       case "conditional":
         return new ConditionalScopeHandler(this, scopeType, languageId);
       case "instance":

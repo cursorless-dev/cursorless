@@ -202,11 +202,11 @@
   name: (_) @functionName
   body: (block
     .
-    "{" @namedFunction.interior.start.endOf
-    "}" @namedFunction.interior.end.startOf
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
     .
   )?
-) @namedFunction @functionName.domain
+) @namedFunction @functionName.domain @interior.domain
 
 ;; method declaration
 ;; func (X) foo() {}
@@ -214,21 +214,21 @@
   name: (_) @functionName
   body: (block
     .
-    "{" @namedFunction.interior.start.endOf
-    "}" @namedFunction.interior.end.startOf
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
     .
   )
-) @namedFunction @functionName.domain
+) @namedFunction @functionName.domain @interior.domain
 
 ;; func literal
 (func_literal
   body: (block
     .
-    "{" @anonymousFunction.interior.start.endOf @namedFunction.interior.start.endOf
-    "}" @anonymousFunction.interior.end.startOf @namedFunction.interior.end.startOf
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
     .
   )
-) @anonymousFunction @namedFunction
+) @anonymousFunction @namedFunction @interior.domain
 
 ;; switch-based branch
 

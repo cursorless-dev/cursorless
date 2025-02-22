@@ -1,0 +1,16 @@
+while True:
+    pass
+---
+
+[Content] =
+[Removal] = 1:4-1:8
+      >----<
+1|     pass
+
+[Domain] = 0:0-1:8
+  >-----------
+0| while True:
+1|     pass
+   --------<
+
+[Insertion delimiter] = " "

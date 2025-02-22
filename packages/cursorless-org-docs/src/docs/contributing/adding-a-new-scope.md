@@ -36,7 +36,7 @@ For example, if you'd like to add support for the `namedFunction` facet of the `
   "namedFunction.method": supported,
   "namedFunction.method.iteration.class": supported,
   "namedFunction.constructor": supported,
-  "namedFunction.iteration": supported,
+  "namedFunction.iteration.block": supported,
   "namedFunction.iteration.document": supported,
 ```
 
@@ -47,6 +47,8 @@ If one of the above facets doesn't apply to your language, you can mark it as `n
 We have a bulk test recorder for scope tests. You can use it by running Cursorless in debug mode, and then saying `"cursorless record scope"`, and selecting your language. This will create a temporary file containing slots for every scope facet in your language which you've marked `supported` but that doesn't yet have any tests. You can then fill in the tests for each facet by providing a small snippet of code exemplifying the given facet.
 
 When you're done, say `"cursorless save scope"` to save the tests to the appropriate files in the `data/fixtures/recorded/scopes` directory.
+
+This step will create partial tests for each of the facets of the given scope. Once you've implemented the scopes in step 5 below, you can automatically update these tests to include the scope ranges, as described in step 6.
 
 ## 5. Add parse tree patterns for the given scope
 
@@ -61,6 +63,7 @@ Then add parse tree patterns for the given scope to your language's `.scm` file 
 - Use the [scope visualizer](../user/scope-visualizer.md) to see your scope highlighted in real time every time you save the `.scm` file.
 - Use the command `"parse tree <target>"` to see the parse tree for a given target. For example `"parse tree line"` will show you the parse tree for the current line, as well as all of its ancestors. This will generate a markdown file with parse tree info, which you can then use to write your patterns. You might find it helpful to open a markdown preview of the file.
 - You will likely want to look at `node-types.json` for your language, (eg [java](https://github.com/tree-sitter/tree-sitter-java/blob/master/src/node-types.json)). This file is generated from the language's `grammar.js`, which might also be helpful to look at (eg [java](https://github.com/tree-sitter/tree-sitter-java/blob/master/grammar.js)).
+- Documentation for the [scope test format](./scope-test-format.md)
 
 ## 6. Update the tests
 
@@ -68,7 +71,7 @@ The tests generated in step 4 only include the code example. Now that you've tol
 
 1. Say `"debug edit subset"` and alter the file to include just the name of your language
 2. Run the `Update fixtures subset` launch configuration to update your fixtures.
-3. Check that the fixtures now look as expected, and no other tests for your language have been altered. The VSCode source control side bar is useful for this purpose.
+3. Check that the fixtures now look as expected, and no other tests for your language have been altered. The VSCode source control side bar is useful for this purpose. For help understanding the scope test format, see the [scope test format docs](./scope-test-format.md)
 
 ## 7. File a PR!
 

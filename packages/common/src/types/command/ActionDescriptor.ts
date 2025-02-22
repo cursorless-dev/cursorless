@@ -23,9 +23,14 @@ export const simpleActionNames = [
   "extractVariable",
   "findInDocument",
   "findInWorkspace",
+  "flashTargets",
   "foldRegion",
   "followLink",
   "followLinkAside",
+  "gitAccept",
+  "gitRevert",
+  "gitStage",
+  "gitUnstage",
   "increment",
   "indentLine",
   "insertCopyAfter",
@@ -135,22 +140,35 @@ export interface PasteActionDescriptor {
 
 export interface GenerateSnippetActionDescriptor {
   name: "generateSnippet";
+  directory?: string;
   snippetName?: string;
   target: PartialTargetDescriptor;
 }
 
-interface NamedInsertSnippetArg {
+export interface NamedInsertSnippetArg {
   type: "named";
   name: string;
   substitutions?: Record<string, string>;
 }
-interface CustomInsertSnippetArg {
+
+export interface CustomInsertSnippetArg {
   type: "custom";
   body: string;
+  languages?: string[];
   scopeTypes?: ScopeType[];
   substitutions?: Record<string, string>;
 }
-export type InsertSnippetArg = NamedInsertSnippetArg | CustomInsertSnippetArg;
+
+interface ListInsertSnippetArg {
+  type: "list";
+  substitutions?: Record<string, string>;
+  snippets: CustomInsertSnippetArg[];
+}
+
+export type InsertSnippetArg =
+  | NamedInsertSnippetArg
+  | CustomInsertSnippetArg
+  | ListInsertSnippetArg;
 
 export interface InsertSnippetActionDescriptor {
   name: "insertSnippet";
@@ -158,20 +176,29 @@ export interface InsertSnippetActionDescriptor {
   destination: DestinationDescriptor;
 }
 
-interface NamedWrapWithSnippetArg {
+export interface NamedWrapWithSnippetArg {
   type: "named";
   name: string;
   variableName: string;
 }
-interface CustomWrapWithSnippetArg {
+
+export interface CustomWrapWithSnippetArg {
   type: "custom";
   body: string;
   variableName?: string;
   scopeType?: ScopeType;
+  languages?: string[];
 }
+
+interface ListWrapWithSnippetArg {
+  type: "list";
+  snippets: CustomWrapWithSnippetArg[];
+}
+
 export type WrapWithSnippetArg =
   | NamedWrapWithSnippetArg
-  | CustomWrapWithSnippetArg;
+  | CustomWrapWithSnippetArg
+  | ListWrapWithSnippetArg;
 
 export interface WrapWithSnippetActionDescriptor {
   name: "wrapWithSnippet";

@@ -1,14 +1,10 @@
-<div id="root"></div>
+<div id="root">text</div>
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-0:21
-  >---------------------<
-0| <div id="root"></div>
-
-[Interior] = 0:15-0:15
-                 ><
-0| <div id="root"></div>
+[Domain] = 0:0-0:25
+  >-------------------------<
+0| <div id="root">text</div>
 
 [Insertion delimiter] = "\n"

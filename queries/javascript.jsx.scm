@@ -3,9 +3,12 @@
 ;;!       ###
 ;;!       ***
 (
-  (jsx_element) @xmlElement @_.interior @_.iteration
-  (#child-range! @_.interior 0 -1 true true)
-  (#child-range! @_.iteration 0 -1 true true)
+  (jsx_element) @xmlElement @interior @interior.domain
+  (#child-range! @interior 0 -1 true true)
+)
+(
+  (jsx_element) @xmlElement.iteration
+  (#child-range! @xmlElement.iteration 0 -1 true true)
 )
 
 ;;!! <foo>bar</foo>
@@ -90,4 +93,9 @@
 
 ;;!! <div>text</div>
 ;;!       ^^^^
-(jsx_text) @textFragment
+;;!! <div>({})</div>
+;;!       ^^^^
+(
+  (jsx_element) @textFragment
+  (#child-range! @textFragment 0 -1 true true)
+)

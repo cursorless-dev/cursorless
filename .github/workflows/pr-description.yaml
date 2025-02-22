@@ -1,0 +1,30 @@
+name: PR Description
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+  merge_group:
+    branches: [main]
+
+jobs:
+  validate-pr-description:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate description
+        run: |
+          # Fetch PR description from env with jq
+          PR_DESCRIPTION=$(jq -r ".pull_request.body" "$GITHUB_EVENT_PATH")
+          KEYWORD="REQUIRED_KEYWORD"
+
+          # Ensure PR author removed the welcome comment
+          if [[ $PR_DESCRIPTION = *"<!--"* ]] || [[ $PR_DESCRIPTION = *"-->"* ]]; then
+            echo "FAILED: Please remove the welcome comment from your PR description."
+            exit 1
+          else
+            echo "OK: Welcome comment is removed your PR description."
+          fi
+
+          echo "PASS: All checks OK!"

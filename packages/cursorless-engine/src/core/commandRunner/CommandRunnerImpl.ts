@@ -169,11 +169,13 @@ export class CommandRunnerImpl implements CommandRunner {
       case "generateSnippet":
         return this.actions.generateSnippet.run(
           this.getTargets(actionDescriptor.target),
+          actionDescriptor.directory,
           actionDescriptor.snippetName,
         );
 
       case "insertSnippet":
         this.finalStages = this.actions.insertSnippet.getFinalStages(
+          this.getDestinations(actionDescriptor.destination),
           actionDescriptor.snippetDescription,
         );
         return this.actions.insertSnippet.run(
@@ -183,6 +185,7 @@ export class CommandRunnerImpl implements CommandRunner {
 
       case "wrapWithSnippet":
         this.finalStages = this.actions.wrapWithSnippet.getFinalStages(
+          this.getTargets(actionDescriptor.target),
           actionDescriptor.snippetDescription,
         );
         return this.actions.wrapWithSnippet.run(

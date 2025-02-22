@@ -29,6 +29,20 @@ export function testSubsetFilePath() {
   );
 }
 
+function testFailedFilePath() {
+  return path.join(
+    getCursorlessRepoRoot(),
+    "packages",
+    "test-harness",
+    "failedTests.properties",
+  );
+}
+
+export function logFailedTests(testNames: string[]) {
+  const lines = [`${testNames.length} failed tests`, "", ...testNames];
+  fs.writeFileSync(testFailedFilePath(), lines.join("\n"));
+}
+
 /**
  * Determine whether we should run just the subset of the tests specified by
  * {@link TEST_SUBSET_GREP_STRING}.
@@ -36,4 +50,12 @@ export function testSubsetFilePath() {
  */
 export function runTestSubset() {
   return process.env.CURSORLESS_RUN_TEST_SUBSET === "true";
+}
+
+/**
+ * Determine whether we should log the failed tests to a file. This makes it easier to put them in `testSubsetGrep.properties` for faster iterating.
+ * @returns `true` if we should log failed tests to `packages/test-harness/failedTests.properties`
+ */
+export function shouldLogFailedTests() {
+  return process.env.CURSORLESS_LOG_FAILED === "true";
 }

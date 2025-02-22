@@ -233,7 +233,11 @@ The modifier `"grand"` can be used to select the parent of the containing syntac
 - `"take grand statement air"`
 - `"take grand funk air"`
 
-For example, the command `"take grand statement [blue] air"` will select that parent statement of the statement containing the token with a blue hat over the letter 'a'.
+For example, the command `"take grand statement [blue] air"` will select the parent statement of the statement containing the token with a blue hat over the letter 'a'.
+
+You can also repeat `"grand"` multiple times.
+
+For example, the command `"take grand grand statement [blue] air"` will select the parent statement of the parent statement of the statement containing the token with a blue hat over the letter 'a'.
 
 ##### Sub-token modifiers
 
@@ -310,7 +314,7 @@ The modifiers `"head"` and `"tail"` can be used to expand a target through the b
 - `"take head air"`: selects the mark through to start of the line
 - `"take tail air"`: selects the mark through to the end of the line
 
-When inside a single-line surrounding pair (eg parentheses, brackets, etc) the head/tail modifier will only expand to the interior of that pair instead of the whole line. You can explicitly say `"head line"` or `"tail line"` to get the line behavior.
+When inside a surrounding pair (eg parentheses, brackets, etc) the head/tail modifier will only expand to the interior of that pair instead of the whole line. You can explicitly say `"head line"` or `"tail line"` to get the line behavior.
 
 When followed by a modifier, they will expand their input to the start or end of the given modifier range. For example:
 
