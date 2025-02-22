@@ -6,27 +6,35 @@ import type { SyntaxNode } from "web-tree-sitter";
  * @returns True if the given node is contained in an error node
  */
 export function isContainedInErrorNode(node: SyntaxNode) {
+  // This node or one of it descendants is an error node
   if (node.hasError) {
     return true;
   }
 
-  let currentNode: SyntaxNode | null = node.parent;
+  let ancestorNode: SyntaxNode | null = node.parent;
 
-  while (currentNode != null) {
-    // Ancestral node has errors, but it was not siblings to the previous node
-    // that caused the problem. We don't want to discard a node when a sibling
-    // that isn't adjacent is erroring.
-    if (currentNode.hasError) {
+  while (ancestorNode != null) {
+    // Ancestral node is an error node
+    if (ancestorNode.isError) {
+      return true;
+    }
+
+    // Ancestral node has errors, but it was not siblings to the previous node.
+    // We don't want to discard a node when a sibling that isn't adjacent is
+    // erroring.
+    if (ancestorNode.hasError) {
       return false;
     }
+
     // A adjacent sibling node was causing the problem. ie we are right next to the error node.
     if (
-      currentNode.previousSibling?.isError ||
-      currentNode.nextSibling?.isError
+      ancestorNode.previousSibling?.isError ||
+      ancestorNode.nextSibling?.isError
     ) {
       return true;
     }
-    currentNode = currentNode.parent;
+
+    ancestorNode = ancestorNode.parent;
   }
 
   return false;
