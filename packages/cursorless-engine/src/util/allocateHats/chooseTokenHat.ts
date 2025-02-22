@@ -76,10 +76,10 @@ export function chooseTokenHat(
     // Narrow to the hats with the lowest penalty
     negativePenalty,
 
-    // 5. Avoid the first grapheme of the token if possible
+    // Avoid the first grapheme of the token if possible
     avoidFirstLetter,
 
-    // 6. Prefer hats that sit on a grapheme that doesn't appear in any highly
+    // Prefer hats that sit on a grapheme that doesn't appear in any highly
     // ranked token
     minimumTokenRankContainingGrapheme(tokenRank, graphemeTokenRanks),
   ])!;
