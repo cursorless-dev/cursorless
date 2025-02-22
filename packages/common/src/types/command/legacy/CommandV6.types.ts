@@ -1,4 +1,4 @@
-import type { ActionDescriptor } from "./ActionDescriptor";
+import type { ActionDescriptorV6 } from "./ActionDescriptorV6";
 
 export interface CommandV6 {
   /**
@@ -23,5 +23,5 @@ export interface CommandV6 {
    * The action to perform. This field contains everything necessary to actually
    * perform the action. The other fields are just metadata.
    */
-  action: ActionDescriptor;
+  action: ActionDescriptorV6;
 }
