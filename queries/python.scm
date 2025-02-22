@@ -323,7 +323,10 @@
 )
 
 (module) @namedFunction.iteration @functionName.iteration
-(class_definition) @namedFunction.iteration @functionName.iteration
+
+(class_definition
+  body: (_) @namedFunction.iteration @functionName.iteration
+)
 
 ;;!! def foo():
 ;;!!     a = 0
@@ -338,8 +341,8 @@
 ;;!! {"a": 1, "b": 2, "c": 3}
 ;;!   **********************
 (dictionary
-  "{" @value.iteration.start.endOf
-  "}" @value.iteration.end.startOf
+  "{" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
+  "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
 )
 
 ;;!! def func(a=0, b=1):
@@ -406,7 +409,9 @@
 ;;!  ^^^^^^^^^^^^
 (case_clause) @branch
 
-(match_statement) @branch.iteration @condition.iteration
+(match_statement
+  body: (_) @branch.iteration @condition.iteration
+) @branch.iteration.domain @condition.iteration.domain
 
 ;;!! 1 if True else 0
 ;;!       ^^^^

@@ -1,0 +1,10 @@
+value: "hello world"
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:8-0:19
+          >-----------<
+0| value: "hello world"
+
+[Insertion delimiter] = " "

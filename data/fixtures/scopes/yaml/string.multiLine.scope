@@ -1,0 +1,25 @@
+value: |
+  Hello
+  world
+---
+
+[Content] =
+[Domain] = 0:7-2:7
+         >-
+0| value: |
+1|   Hello
+2|   world
+   -------<
+
+[Removal] = 0:6-2:7
+        >--
+0| value: |
+1|   Hello
+2|   world
+   -------<
+
+[Leading delimiter] = 0:6-0:7
+        >-<
+0| value: |
+
+[Insertion delimiter] = " "

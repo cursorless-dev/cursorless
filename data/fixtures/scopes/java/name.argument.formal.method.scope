@@ -1,0 +1,83 @@
+public class MyClass {
+    public void foo(String name, int value) { }
+}
+---
+
+[#1 Content] = 0:13-0:20
+               >-------<
+0| public class MyClass {
+
+[#1 Removal] = 0:13-0:21
+               >--------<
+0| public class MyClass {
+
+[#1 Leading delimiter] = 0:12-0:13
+              >-<
+0| public class MyClass {
+
+[#1 Trailing delimiter] = 0:20-0:21
+                      >-<
+0| public class MyClass {
+
+[#1 Domain] = 0:0-2:1
+  >----------------------
+0| public class MyClass {
+1|     public void foo(String name, int value) { }
+2| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] = 1:16-1:19
+                  >---<
+1|     public void foo(String name, int value) { }
+
+[#2 Leading delimiter] = 1:15-1:16
+                 >-<
+1|     public void foo(String name, int value) { }
+
+[#2 Domain] = 1:4-1:47
+      >-------------------------------------------<
+1|     public void foo(String name, int value) { }
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] = 1:27-1:31
+                             >----<
+1|     public void foo(String name, int value) { }
+
+[#3 Removal] = 1:26-1:31
+                            >-----<
+1|     public void foo(String name, int value) { }
+
+[#3 Leading delimiter] = 1:26-1:27
+                            >-<
+1|     public void foo(String name, int value) { }
+
+[#3 Domain] = 1:20-1:31
+                      >-----------<
+1|     public void foo(String name, int value) { }
+
+[#3 Insertion delimiter] = " "
+
+
+[#4 Content] = 1:37-1:42
+                                       >-----<
+1|     public void foo(String name, int value) { }
+
+[#4 Removal] = 1:36-1:42
+                                      >------<
+1|     public void foo(String name, int value) { }
+
+[#4 Leading delimiter] = 1:36-1:37
+                                      >-<
+1|     public void foo(String name, int value) { }
+
+[#4 Domain] = 1:33-1:42
+                                   >---------<
+1|     public void foo(String name, int value) { }
+
+[#4 Insertion delimiter] = " "

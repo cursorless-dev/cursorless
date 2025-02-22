@@ -173,7 +173,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "functionName",
   },
   "functionName.method.iteration.class": {
-    description: "Iteration scope for function names: class bodies",
+    description: "Iteration scope for method names: class bodies",
     scopeType: "functionName",
     isIteration: true,
   },

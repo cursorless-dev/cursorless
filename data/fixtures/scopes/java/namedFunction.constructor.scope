@@ -1,0 +1,21 @@
+public class MyClass {
+    public MyClass() { }
+}
+---
+
+[Content] =
+[Domain] = 1:4-1:24
+      >--------------------<
+1|     public MyClass() { }
+
+[Removal] = 1:0-2:0
+  >------------------------
+1|     public MyClass() { }
+2| }
+   <
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     public MyClass() { }
+
+[Insertion delimiter] = "\n\n"
