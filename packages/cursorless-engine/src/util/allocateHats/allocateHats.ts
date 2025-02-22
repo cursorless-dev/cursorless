@@ -184,6 +184,8 @@ function getTokenRemainingHatCandidates(
   // and calling tiny functions lots of times.
 
   for (const grapheme of graphemes) {
+    const isFirstLetter = firstLetterOffsets.has(grapheme.tokenStartOffset);
+
     for (const style of graphemeRemainingHatCandidates.get(grapheme.text)) {
       // Allocating and pushing all of these objects is
       // the single most expensive thing in hat allocation.
@@ -192,7 +194,7 @@ function getTokenRemainingHatCandidates(
         grapheme,
         style,
         penalty: enabledHatStyles[style].penalty,
-        isFirstLetter: firstLetterOffsets.has(grapheme.tokenStartOffset),
+        isFirstLetter,
       });
     }
   }
