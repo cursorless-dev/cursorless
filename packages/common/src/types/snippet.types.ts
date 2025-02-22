@@ -1,5 +1,4 @@
-import { TextFormatterName } from "../util/textFormatters";
-import { SimpleScopeTypeType } from "./command/PartialTargetDescriptor.types";
+import type { SimpleScopeTypeType } from "./command/PartialTargetDescriptor.types";
 
 export interface SnippetScope {
   /**
@@ -58,7 +57,7 @@ export interface SnippetVariable {
   /**
    * Format text inserted into this variable using the given formatter
    */
-  formatter?: TextFormatterName;
+  formatter?: string;
 }
 
 export interface Snippet {

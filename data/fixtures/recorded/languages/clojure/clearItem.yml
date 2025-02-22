@@ -1,10 +1,11 @@
 languageId: clojure
 command:
-  version: 5
+  version: 6
   spokenForm: change item
-  action: {name: clearAndSetSelection}
-  targets:
-    - type: primitive
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: collectionItem}
@@ -25,8 +26,11 @@ initialState:
 finalState:
   documentContents: |-
     {
-        
+        :bongo {
+            :foo "bar",
+            ,
+        }
     }
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 3, character: 8}
+      active: {line: 3, character: 8}

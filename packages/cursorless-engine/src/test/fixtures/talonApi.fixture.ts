@@ -1,4 +1,4 @@
-import {
+import type {
   ActionDescriptor,
   GetTextActionOptions,
   PartialPrimitiveTargetDescriptor,
@@ -60,14 +60,6 @@ const insertSnippetWithScopeAction: ActionDescriptor = {
     scopeTypes: [{ type: "statement" }],
   },
 };
-const insertSnippetByNameAction: ActionDescriptor = {
-  name: "insertSnippet",
-  destination: { type: "implicit" },
-  snippetDescription: {
-    type: "named",
-    name: "functionDeclaration",
-  },
-};
 const wrapWithSnippetAction: ActionDescriptor = {
   name: "wrapWithSnippet",
   target: {
@@ -79,18 +71,6 @@ const wrapWithSnippetAction: ActionDescriptor = {
     body: "Hello, $foo!  My name is $bar!",
     variableName: "foo",
     scopeType: { type: "statement" },
-  },
-};
-const wrapWithSnippetByNameAction: ActionDescriptor = {
-  name: "wrapWithSnippet",
-  target: {
-    type: "primitive",
-    mark: { type: "cursor" },
-  },
-  snippetDescription: {
-    type: "named",
-    name: "functionDeclaration",
-    variableName: "body",
   },
 };
 const alternateHighlightAirAndBatAction: ActionDescriptor = {
@@ -212,12 +192,7 @@ export const talonApiFixture = [
     "test api insert snippet after air",
     insertSnippetWithScopeAction,
   ),
-  spokenFormTest("test api insert snippet by name", insertSnippetByNameAction),
   spokenFormTest("test api wrap with snippet this", wrapWithSnippetAction),
-  spokenFormTest(
-    "test api wrap with snippet by name this",
-    wrapWithSnippetByNameAction,
-  ),
   spokenFormTest(
     "test api get text air",
     getTextAction({ showDecorations: true, ensureSingleTarget: true }),

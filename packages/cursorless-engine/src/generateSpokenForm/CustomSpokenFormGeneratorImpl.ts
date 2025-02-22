@@ -1,13 +1,14 @@
-import {
+import type {
+  ActionType,
   CommandComplete,
   Disposable,
   Listener,
   ScopeType,
 } from "@cursorless/common";
 import { SpokenFormGenerator } from "./generateSpokenForm";
-import { CustomSpokenFormGenerator } from "../api/CursorlessEngineApi";
+import type { CustomSpokenFormGenerator } from "../api/CursorlessEngineApi";
 import { CustomSpokenForms } from "../spokenForms/CustomSpokenForms";
-import { TalonSpokenForms } from "../scopeProviders/TalonSpokenForms";
+import type { TalonSpokenForms } from "@cursorless/common";
 
 /**
  * Simple facade that combines the {@link CustomSpokenForms} and
@@ -52,6 +53,20 @@ export class CustomSpokenFormGeneratorImpl
 
   scopeTypeToSpokenForm(scopeType: ScopeType) {
     return this.spokenFormGenerator.processScopeType(scopeType);
+  }
+
+  actionIdToSpokenForm(actionId: ActionType) {
+    return this.spokenFormGenerator.getSpokenFormForSingleTerm(
+      "action",
+      actionId,
+    );
+  }
+
+  graphemeToSpokenForm(grapheme: string) {
+    return this.spokenFormGenerator.getSpokenFormForSingleTerm(
+      "grapheme",
+      grapheme,
+    );
   }
 
   getCustomRegexScopeTypes() {

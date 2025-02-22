@@ -1,36 +1,37 @@
-import { GeneralizedRange } from "../types/GeneralizedRange";
-import { TextDocument } from "../types/TextDocument";
-import { EditableTextEditor, TextEditor } from "../types/TextEditor";
-import { Capabilities } from "./types/Capabilities";
-import { Clipboard } from "./types/Clipboard";
-import { Configuration } from "./types/Configuration";
-import { TextDocumentChangeEvent } from "./types/Events";
-import {
+import type { GeneralizedRange } from "../types/GeneralizedRange";
+import type { NotebookEditor } from "../types/NotebookEditor";
+import type { TextDocument } from "../types/TextDocument";
+import type { EditableTextEditor, TextEditor } from "../types/TextEditor";
+import type { Capabilities } from "./types/Capabilities";
+import type { Clipboard } from "./types/Clipboard";
+import type { Configuration } from "./types/Configuration";
+import type { TextDocumentChangeEvent } from "./types/Events";
+import type {
   TextEditorSelectionChangeEvent,
   TextEditorVisibleRangesChangeEvent,
 } from "./types/events.types";
-import { FlashDescriptor } from "./types/FlashDescriptor";
-import {
+import type { FlashDescriptor } from "./types/FlashDescriptor";
+import type {
   Disposable,
   IDE,
   OpenUntitledTextDocumentOptions,
   RunMode,
   WorkspaceFolder,
 } from "./types/ide.types";
-import { Messages } from "./types/Messages";
-import { QuickPickOptions } from "./types/QuickPickOptions";
-import { State } from "./types/State";
+import type { KeyValueStore } from "./types/KeyValueStore";
+import type { Messages } from "./types/Messages";
+import type { QuickPickOptions } from "./types/QuickPickOptions";
 
 export default class PassthroughIDEBase implements IDE {
   configuration: Configuration;
-  globalState: State;
+  keyValueStore: KeyValueStore;
   clipboard: Clipboard;
   messages: Messages;
   capabilities: Capabilities;
 
   constructor(private original: IDE) {
     this.configuration = original.configuration;
-    this.globalState = original.globalState;
+    this.keyValueStore = original.keyValueStore;
     this.clipboard = original.clipboard;
     this.messages = original.messages;
     this.capabilities = original.capabilities;
@@ -121,6 +122,10 @@ export default class PassthroughIDEBase implements IDE {
 
   public get visibleTextEditors(): TextEditor[] {
     return this.original.visibleTextEditors;
+  }
+
+  public get visibleNotebookEditors(): NotebookEditor[] {
+    return this.original.visibleNotebookEditors;
   }
 
   public get cursorlessVersion(): string {

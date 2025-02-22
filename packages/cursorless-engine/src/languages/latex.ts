@@ -1,11 +1,10 @@
-import {
-  Range,
-  Selection,
-  SimpleScopeTypeType,
-  TextEditor,
-} from "@cursorless/common";
+import type { SimpleScopeTypeType, TextEditor } from "@cursorless/common";
+import { Selection } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import { NodeMatcherAlternative, SelectionWithContext } from "../typings/Types";
+import type {
+  NodeMatcherAlternative,
+  SelectionWithContext,
+} from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";
 import {
   ancestorChainNodeMatcher,
@@ -121,36 +120,6 @@ function extendToNamedSiblingIfExists(
   };
 }
 
-function extractItemContent(
-  editor: TextEditor,
-  node: SyntaxNode,
-): SelectionWithContext {
-  let contentStartIndex = node.startIndex;
-
-  const label = node.childForFieldName("label");
-  if (label == null) {
-    const command = node.childForFieldName("command");
-    if (command != null) {
-      contentStartIndex = command.endIndex + 1;
-    }
-  } else {
-    contentStartIndex = label.endIndex + 1;
-  }
-
-  return {
-    selection: new Selection(
-      editor.document.positionAt(contentStartIndex),
-      editor.document.positionAt(node.endIndex),
-    ),
-    context: {
-      leadingDelimiterRange: new Range(
-        editor.document.positionAt(node.startIndex),
-        editor.document.positionAt(contentStartIndex - 1),
-      ),
-    },
-  };
-}
-
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
@@ -175,8 +144,6 @@ const nodeMatchers: Partial<
     matcher(patternFinder(...sectioningText), unwrapGroupParens),
     patternMatcher("begin[name][text]", "end[name][text]"),
   ),
-
-  collectionItem: matcher(patternFinder("enum_item"), extractItemContent),
 };
 
 export default createPatternMatchers(nodeMatchers);

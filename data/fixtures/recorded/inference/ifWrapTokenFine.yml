@@ -1,18 +1,22 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: if wrap token fine
   action:
     name: wrapWithSnippet
-    args:
-      - {type: named, name: ifStatement, variableName: consequence}
-  targets:
-    - type: primitive
+    snippetDescription:
+      type: custom
+      variableName: consequence
+      body: "if ($condition) {\n\t$consequence\n}"
+      scopeType: {type: statement}
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: token}
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
   usePrePhraseSnapshot: false
+spokenFormError: custom wrap with snippet
 initialState:
   documentContents: |
     const foo = "hello";

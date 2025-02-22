@@ -1,20 +1,16 @@
-import {
+import type {
   ActionDescriptor,
   CommandComplete,
   CommandHistoryEntry,
   CommandServerApi,
-  FileSystem,
   IDE,
   ReadOnlyHatMap,
 } from "@cursorless/common";
-import type {
-  CommandRunner,
-  CommandRunnerDecorator,
-} from "@cursorless/cursorless-engine";
+import { type CommandHistoryStorage } from "@cursorless/common";
 import { produce } from "immer";
-import * as fs from "node:fs/promises";
-import * as path from "node:path";
 import { v4 as uuid } from "uuid";
+import type { CommandRunner } from "./CommandRunner";
+import type { CommandRunnerDecorator } from "./api/CursorlessEngineApi";
 
 const filePrefix = "cursorlessCommandHistory";
 
@@ -23,17 +19,14 @@ const filePrefix = "cursorlessCommandHistory";
  * to a local log file in `.cursorless/commandHistory` dir.
  */
 export class CommandHistory implements CommandRunnerDecorator {
-  private readonly dirPath: string;
   private currentPhraseSignal = "";
   private currentPhraseId = "";
 
   constructor(
     private ide: IDE,
-    private commandServerApi: CommandServerApi | null,
-    fileSystem: FileSystem,
-  ) {
-    this.dirPath = fileSystem.cursorlessCommandHistoryDirPath;
-  }
+    private storage: CommandHistoryStorage,
+    private commandServerApi: CommandServerApi | undefined,
+  ) {}
 
   wrapCommandRunner(
     _readableHatMap: ReadOnlyHatMap,
@@ -65,7 +58,6 @@ export class CommandHistory implements CommandRunnerDecorator {
   ): Promise<void> {
     const date = new Date();
     const fileName = `${filePrefix}_${getMonthDate(date)}.jsonl`;
-    const file = path.join(this.dirPath, fileName);
 
     const historyItem: CommandHistoryEntry = {
       id: uuid(),
@@ -75,10 +67,8 @@ export class CommandHistory implements CommandRunnerDecorator {
       phraseId: await this.getPhraseId(),
       command: produce(command, sanitizeCommandInPlace),
     };
-    const data = JSON.stringify(historyItem) + "\n";
 
-    await fs.mkdir(this.dirPath, { recursive: true });
-    await fs.appendFile(file, data, "utf8");
+    await this.storage.appendEntry(fileName, historyItem);
   }
 
   private async getPhraseId(): Promise<string | undefined> {
@@ -124,9 +114,16 @@ function sanitizeActionInPlace(action: ActionDescriptor): void {
 
     // Remove substitutions and custom body
     case "insertSnippet":
-      delete action.snippetDescription.substitutions;
       if (action.snippetDescription.type === "custom") {
         action.snippetDescription.body = "";
+        delete action.snippetDescription.substitutions;
+      } else if (action.snippetDescription.type === "list") {
+        for (const snippet of action.snippetDescription.snippets) {
+          snippet.body = "";
+          delete snippet.substitutions;
+        }
+      } else {
+        delete action.snippetDescription.substitutions;
       }
       break;
 
@@ -140,19 +137,34 @@ function sanitizeActionInPlace(action: ActionDescriptor): void {
       delete action.options?.commandArgs;
       break;
 
+    case "addSelection":
+    case "addSelectionAfter":
+    case "addSelectionBefore":
     case "breakLine":
+    case "callAsFunction":
     case "clearAndSetSelection":
     case "copyToClipboard":
     case "cutToClipboard":
     case "decrement":
     case "deselect":
+    case "editNew":
     case "editNewLineAfter":
     case "editNewLineBefore":
     case "experimental.setInstanceReference":
     case "extractVariable":
+    case "findInDocument":
     case "findInWorkspace":
+    case "flashTargets":
     case "foldRegion":
     case "followLink":
+    case "followLinkAside":
+    case "generateSnippet":
+    case "getText":
+    case "gitAccept":
+    case "gitRevert":
+    case "gitStage":
+    case "gitUnstage":
+    case "highlight":
     case "increment":
     case "indentLine":
     case "insertCopyAfter":
@@ -161,13 +173,21 @@ function sanitizeActionInPlace(action: ActionDescriptor): void {
     case "insertEmptyLineBefore":
     case "insertEmptyLinesAround":
     case "joinLines":
+    case "moveToTarget":
     case "outdentLine":
+    case "parsed":
+    case "pasteFromClipboard":
+    case "private.getTargets":
+    case "private.setKeyboardTarget":
+    case "private.showParseTree":
     case "randomizeTargets":
     case "remove":
     case "rename":
+    case "replaceWithTarget":
     case "revealDefinition":
     case "revealTypeDefinition":
     case "reverseTargets":
+    case "rewrapWithPairedDelimiter":
     case "scrollToBottom":
     case "scrollToCenter":
     case "scrollToTop":
@@ -179,25 +199,11 @@ function sanitizeActionInPlace(action: ActionDescriptor): void {
     case "showQuickFix":
     case "showReferences":
     case "sortTargets":
+    case "swapTargets":
     case "toggleLineBreakpoint":
     case "toggleLineComment":
     case "unfoldRegion":
-    case "private.showParseTree":
-    case "private.getTargets":
-    case "callAsFunction":
-    case "editNew":
-    case "generateSnippet":
-    case "getText":
-    case "highlight":
-    case "moveToTarget":
-    case "pasteFromClipboard":
-    case "replaceWithTarget":
-    case "rewrapWithPairedDelimiter":
-    case "swapTargets":
     case "wrapWithPairedDelimiter":
-    case "findInDocument":
-    case "private.setKeyboardTarget":
-    case "parsed":
       break;
 
     default: {

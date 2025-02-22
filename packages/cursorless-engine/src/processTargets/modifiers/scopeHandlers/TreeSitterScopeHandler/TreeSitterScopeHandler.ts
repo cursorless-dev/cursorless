@@ -1,12 +1,11 @@
-import { SimpleScopeType, TextEditor } from "@cursorless/common";
-import { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
-import { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
+import type { SimpleScopeType, TextEditor } from "@cursorless/common";
+import type { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
+import type { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
 import { ScopeTypeTarget } from "../../../targets/ScopeTypeTarget";
-import { CustomScopeType } from "../scopeHandler.types";
-import {
-  BaseTreeSitterScopeHandler,
-  ExtendedTargetScope,
-} from "./BaseTreeSitterScopeHandler";
+import type { CustomScopeType } from "../scopeHandler.types";
+import { getCollectionItemRemovalRange } from "../util/getCollectionItemRemovalRange";
+import type { ExtendedTargetScope } from "./BaseTreeSitterScopeHandler";
+import { BaseTreeSitterScopeHandler } from "./BaseTreeSitterScopeHandler";
 import { TreeSitterIterationScopeHandler } from "./TreeSitterIterationScopeHandler";
 import { findCaptureByName, getRelatedRange } from "./captureUtils";
 
@@ -38,6 +37,7 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
   protected matchToScope(
     editor: TextEditor,
     match: QueryMatch,
+    isEveryScope: boolean,
   ): ExtendedTargetScope | undefined {
     const scopeTypeType = this.scopeType.type;
 
@@ -52,15 +52,6 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
 
     const domain =
       getRelatedRange(match, scopeTypeType, "domain", true) ?? contentRange;
-
-    const removalRange = getRelatedRange(match, scopeTypeType, "removal", true);
-
-    const interiorRange = getRelatedRange(
-      match,
-      scopeTypeType,
-      "interior",
-      true,
-    );
 
     const prefixRange = getRelatedRange(
       match,
@@ -83,6 +74,22 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
       true,
     )?.with(contentRange.end);
 
+    let removalRange = getRelatedRange(match, scopeTypeType, "removal", true);
+
+    if (
+      removalRange == null &&
+      (scopeTypeType === "collectionItem" ||
+        scopeTypeType === "argumentOrParameter")
+    ) {
+      removalRange = getCollectionItemRemovalRange(
+        isEveryScope,
+        editor,
+        contentRange,
+        leadingDelimiterRange,
+        trailingDelimiterRange,
+      );
+    }
+
     return {
       editor,
       domain,
@@ -97,7 +104,6 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
           removalRange,
           leadingDelimiterRange,
           trailingDelimiterRange,
-          interiorRange,
           insertionDelimiter,
         }),
       ],

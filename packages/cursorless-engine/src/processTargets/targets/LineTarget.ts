@@ -1,14 +1,17 @@
-import { Position, Range, TextEditor } from "@cursorless/common";
-import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
+import type { TextEditor } from "@cursorless/common";
+import { Position, Range, toLineRange } from "@cursorless/common";
+import type { TextualType } from "../../typings/target.types";
 import { expandToFullLine } from "../../util/rangeUtils";
+import { tryConstructTarget } from "../../util/tryConstructTarget";
+import type { CommonTargetParameters } from "./BaseTarget";
+import { BaseTarget } from "./BaseTarget";
 import { tryConstructPlainTarget } from "./PlainTarget";
 import { createContinuousLineRange } from "./util/createContinuousRange";
-import { tryConstructTarget } from "../../util/tryConstructTarget";
 
 export class LineTarget extends BaseTarget<CommonTargetParameters> {
   type = "LineTarget";
+  textualType: TextualType = "line";
   insertionDelimiter = "\n";
-  isLine = true;
 
   private get fullLineContentRange() {
     return expandToFullLine(this.editor, this.contentRange);
@@ -40,7 +43,9 @@ export class LineTarget extends BaseTarget<CommonTargetParameters> {
       : contentRemovalRange.union(delimiterTarget.contentRange);
   }
 
-  getRemovalHighlightRange = () => this.fullLineContentRange;
+  getRemovalHighlightRange = () => {
+    return toLineRange(this.fullLineContentRange);
+  };
 
   maybeCreateRichRangeTarget(
     isReversed: boolean,

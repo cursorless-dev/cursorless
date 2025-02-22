@@ -1,24 +1,25 @@
+import type { URI } from "vscode-uri";
 import type {
   EditableTextEditor,
   InputBoxOptions,
+  NotebookEditor,
   TextDocument,
   TextEditor,
 } from "../..";
-import { URI } from "vscode-uri";
-import { GeneralizedRange } from "../../types/GeneralizedRange";
-import { Capabilities } from "./Capabilities";
-import { Clipboard } from "./Clipboard";
-import { Configuration } from "./Configuration";
-import { TextDocumentChangeEvent } from "./Events";
-import {
+import type { GeneralizedRange } from "../../types/GeneralizedRange";
+import type { Capabilities } from "./Capabilities";
+import type { Clipboard } from "./Clipboard";
+import type { Configuration } from "./Configuration";
+import type { TextDocumentChangeEvent } from "./Events";
+import type {
   Event,
   TextEditorSelectionChangeEvent,
   TextEditorVisibleRangesChangeEvent,
 } from "./events.types";
-import { FlashDescriptor } from "./FlashDescriptor";
-import { Messages } from "./Messages";
-import { QuickPickOptions } from "./QuickPickOptions";
-import { State } from "./State";
+import type { FlashDescriptor } from "./FlashDescriptor";
+import type { KeyValueStore } from "./KeyValueStore";
+import type { Messages } from "./Messages";
+import type { QuickPickOptions } from "./QuickPickOptions";
 
 export type RunMode = "production" | "development" | "test";
 export type HighlightId = string;
@@ -30,7 +31,7 @@ export interface OpenUntitledTextDocumentOptions {
 export interface IDE {
   readonly configuration: Configuration;
   readonly messages: Messages;
-  readonly globalState: State;
+  readonly keyValueStore: KeyValueStore;
   readonly clipboard: Clipboard;
 
   /**
@@ -78,6 +79,11 @@ export interface IDE {
    * The currently visible editors or an empty array.
    */
   readonly visibleTextEditors: TextEditor[];
+
+  /**
+   * The currently visible notebook editors or an empty array.
+   */
+  readonly visibleNotebookEditors: NotebookEditor[];
 
   /**
    * The capabilities of the IDE

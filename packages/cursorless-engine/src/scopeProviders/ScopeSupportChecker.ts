@@ -1,15 +1,13 @@
-import {
-  Position,
-  ScopeSupport,
+import type {
   ScopeType,
   SimpleScopeTypeType,
   TextEditor,
-  isEmptyIterable,
 } from "@cursorless/common";
-import { LegacyLanguageId } from "../languages/LegacyLanguageId";
+import { Position, ScopeSupport, isEmptyIterable } from "@cursorless/common";
+import type { LegacyLanguageId } from "../languages/LegacyLanguageId";
 import { languageMatchers } from "../languages/getNodeMatcher";
-import { ScopeHandlerFactory } from "../processTargets/modifiers/scopeHandlers/ScopeHandlerFactory";
-import { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
+import type { ScopeHandlerFactory } from "../processTargets/modifiers/scopeHandlers/ScopeHandlerFactory";
+import type { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
 
 /**
  * Determines the level of support for a given scope type in a given editor.
@@ -31,7 +29,10 @@ export class ScopeSupportChecker {
    */
   getScopeSupport(editor: TextEditor, scopeType: ScopeType): ScopeSupport {
     const { languageId } = editor.document;
-    const scopeHandler = this.scopeHandlerFactory.create(scopeType, languageId);
+    const scopeHandler = this.scopeHandlerFactory.maybeCreate(
+      scopeType,
+      languageId,
+    );
 
     if (scopeHandler == null) {
       return getLegacyScopeSupport(languageId, scopeType);
@@ -55,13 +56,16 @@ export class ScopeSupportChecker {
     scopeType: ScopeType,
   ): ScopeSupport {
     const { languageId } = editor.document;
-    const scopeHandler = this.scopeHandlerFactory.create(scopeType, languageId);
+    const scopeHandler = this.scopeHandlerFactory.maybeCreate(
+      scopeType,
+      languageId,
+    );
 
     if (scopeHandler == null) {
       return getLegacyScopeSupport(languageId, scopeType);
     }
 
-    const iterationScopeHandler = this.scopeHandlerFactory.create(
+    const iterationScopeHandler = this.scopeHandlerFactory.maybeCreate(
       scopeHandler.iterationScopeType,
       languageId,
     );
@@ -90,9 +94,6 @@ function getLegacyScopeSupport(
   scopeType: ScopeType,
 ): ScopeSupport {
   switch (scopeType.type) {
-    case "boundedNonWhitespaceSequence":
-    case "surroundingPair":
-      return ScopeSupport.supportedLegacy;
     case "notebookCell":
       // FIXME: What to do here
       return ScopeSupport.unsupported;

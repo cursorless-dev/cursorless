@@ -19,6 +19,7 @@ action_callbacks = {
     "remove": actions.edit.delete,
     "editNewLineBefore": actions.edit.line_insert_up,
     "editNewLineAfter": actions.edit.line_insert_down,
+    "insertCopyAfter": actions.edit.line_clone,
 }
 
 modifier_callbacks = {
@@ -56,6 +57,7 @@ def perform_fallback(fallback: dict):
         return action_callback()
     except ValueError as ex:
         actions.app.notify(str(ex))
+        raise ex
 
 
 def get_action_callback(fallback: dict) -> Callable:
@@ -90,6 +92,9 @@ def get_modifier_callback(modifier: dict) -> Callable:
         case "containingScope":
             scope_type_type = modifier["scopeType"]["type"]
             return get_simple_modifier_callback(f"{modifier_type}.{scope_type_type}")
+        case "preferredScope":
+            scope_type_type = modifier["scopeType"]["type"]
+            return get_simple_modifier_callback(f"containingScope.{scope_type_type}")
         case "extendThroughStartOf":
             if "modifiers" not in modifier:
                 return get_simple_modifier_callback(f"{modifier_type}.line")

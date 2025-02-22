@@ -1,0 +1,20 @@
+map = { funk: () => { } }
+---
+
+[Content] = 0:8-0:12
+          >----<
+0| map = { funk: () => { } }
+
+[Removal] = 0:7-0:12
+         >-----<
+0| map = { funk: () => { } }
+
+[Leading delimiter] = 0:7-0:8
+         >-<
+0| map = { funk: () => { } }
+
+[Domain] = 0:8-0:23
+          >---------------<
+0| map = { funk: () => { } }
+
+[Insertion delimiter] = " "

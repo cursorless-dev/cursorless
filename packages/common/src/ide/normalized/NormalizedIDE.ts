@@ -1,28 +1,28 @@
-import { getFixturePath } from "../../index";
-import { GeneralizedRange } from "../../types/GeneralizedRange";
-import { TextEditor } from "../../types/TextEditor";
-import FakeConfiguration from "../fake/FakeConfiguration";
-import FakeGlobalState from "../fake/FakeGlobalState";
-import FakeIDE from "../fake/FakeIDE";
+import type { GeneralizedRange } from "../../types/GeneralizedRange";
+import type { TextEditor } from "../../types/TextEditor";
+import type FakeConfiguration from "../fake/FakeConfiguration";
+import type FakeKeyValueStore from "../fake/FakeKeyValueStore";
+import type { FakeIDE } from "../fake/FakeIDE";
 import PassthroughIDEBase from "../PassthroughIDEBase";
-import { FlashDescriptor } from "../types/FlashDescriptor";
+import type { FlashDescriptor } from "../types/FlashDescriptor";
 import type { IDE } from "../types/ide.types";
-import { QuickPickOptions } from "../types/QuickPickOptions";
+import type { QuickPickOptions } from "../types/QuickPickOptions";
 
 export class NormalizedIDE extends PassthroughIDEBase {
   configuration: FakeConfiguration;
-  globalState: FakeGlobalState;
+  keyValueStore: FakeKeyValueStore;
 
   constructor(
     original: IDE,
     public fakeIde: FakeIDE,
     private isSilent: boolean,
+    private cursorlessSnippetsDir?: string,
   ) {
     super(original);
 
     this.messages = isSilent ? fakeIde.messages : original.messages;
     this.configuration = fakeIde.configuration;
-    this.globalState = fakeIde.globalState;
+    this.keyValueStore = fakeIde.keyValueStore;
     this.initializeConfiguration();
   }
 
@@ -46,7 +46,7 @@ export class NormalizedIDE extends PassthroughIDEBase {
       hatStability: this.configuration.getOwnConfiguration(
         "experimental.hatStability",
       ),
-      snippetsDir: getFixturePath("cursorless-snippets"),
+      snippetsDir: this.cursorlessSnippetsDir,
       keyboardTargetFollowsSelection: false,
     });
   }

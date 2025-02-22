@@ -1,21 +1,24 @@
-import {
+import type {
   ActionDescriptor,
   CommandComplete,
   CommandResponse,
   CommandServerApi,
   DestinationDescriptor,
   PartialTargetDescriptor,
-  clientSupportsFallback,
 } from "@cursorless/common";
-import { CommandRunner } from "../../CommandRunner";
-import { ActionRecord, ActionReturnValue } from "../../actions/actions.types";
+import { clientSupportsFallback } from "@cursorless/common";
+import type { CommandRunner } from "../../CommandRunner";
+import type {
+  ActionRecord,
+  ActionReturnValue,
+} from "../../actions/actions.types";
 import { parseAndFillOutAction } from "../../customCommandGrammar/parseAndFillOutAction";
-import { StoredTargetMap } from "../../index";
-import { TargetPipelineRunner } from "../../processTargets";
-import { ModifierStage } from "../../processTargets/PipelineStages.types";
-import { SelectionWithEditor } from "../../typings/Types";
-import { Destination, Target } from "../../typings/target.types";
-import { Debug } from "../Debug";
+import type { StoredTargetMap } from "../../index";
+import type { TargetPipelineRunner } from "../../processTargets";
+import type { ModifierStage } from "../../processTargets/PipelineStages.types";
+import type { SelectionWithEditor } from "../../typings/Types";
+import type { Destination, Target } from "../../typings/target.types";
+import type { Debug } from "../Debug";
 import { getCommandFallback } from "../getCommandFallback";
 import { inferFullTargetDescriptor } from "../inferFullTargetDescriptor";
 import { selectionToStoredTarget } from "./selectionToStoredTarget";
@@ -26,7 +29,7 @@ export class CommandRunnerImpl implements CommandRunner {
   private noAutomaticTokenExpansion: boolean | undefined;
 
   constructor(
-    private commandServerApi: CommandServerApi | null,
+    private commandServerApi: CommandServerApi,
     private debug: Debug,
     private storedTargets: StoredTargetMap,
     private pipelineRunner: TargetPipelineRunner,
@@ -166,11 +169,13 @@ export class CommandRunnerImpl implements CommandRunner {
       case "generateSnippet":
         return this.actions.generateSnippet.run(
           this.getTargets(actionDescriptor.target),
+          actionDescriptor.directory,
           actionDescriptor.snippetName,
         );
 
       case "insertSnippet":
         this.finalStages = this.actions.insertSnippet.getFinalStages(
+          this.getDestinations(actionDescriptor.destination),
           actionDescriptor.snippetDescription,
         );
         return this.actions.insertSnippet.run(
@@ -180,6 +185,7 @@ export class CommandRunnerImpl implements CommandRunner {
 
       case "wrapWithSnippet":
         this.finalStages = this.actions.wrapWithSnippet.getFinalStages(
+          this.getTargets(actionDescriptor.target),
           actionDescriptor.snippetDescription,
         );
         return this.actions.wrapWithSnippet.run(
@@ -208,6 +214,13 @@ export class CommandRunnerImpl implements CommandRunner {
 
       default: {
         const action = this.actions[actionDescriptor.name];
+
+        // Ensure we don't miss any new actions. Needed because we don't have input validation.
+        // FIXME: remove once we have schema validation (#983)
+        if (action == null) {
+          throw new Error(`Unknown action: ${actionDescriptor.name}`);
+        }
+
         this.finalStages = action.getFinalStages?.() ?? [];
         this.noAutomaticTokenExpansion =
           action.noAutomaticTokenExpansion ?? false;

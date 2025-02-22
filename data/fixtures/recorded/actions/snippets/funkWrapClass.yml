@@ -1,17 +1,17 @@
 languageId: python
 command:
-  version: 5
+  version: 6
   spokenForm: funk wrap class
   action:
     name: wrapWithSnippet
-    args:
-      - {type: named, name: functionDeclaration, variableName: body}
-  targets:
-    - type: primitive
+    snippetDescription: {type: custom, variableName: body, body: "def $name($parameterList):\n\t$body"}
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: class}
   usePrePhraseSnapshot: true
+spokenFormError: custom wrap with snippet
 initialState:
   documentContents: |-
     class Aaa:

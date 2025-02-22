@@ -1,7 +1,7 @@
-import { Range, RelativeScopeModifier } from "@cursorless/common";
-import { findLastIndex } from "lodash";
-import { Target } from "../../typings/target.types";
-import { ModifierStageFactory } from "../ModifierStageFactory";
+import type { Range, RelativeScopeModifier } from "@cursorless/common";
+import { findLastIndex } from "lodash-es";
+import type { Target } from "../../typings/target.types";
+import type { ModifierStageFactory } from "../ModifierStageFactory";
 import { UntypedTarget } from "../targets";
 import {
   createRangeTargetFromIndices,
@@ -72,6 +72,7 @@ function calculateIndicesAndCreateTarget(
 
   return [
     createRangeTargetFromIndices(
+      modifier.scopeType,
       target.isReversed,
       targets,
       startIndex,
@@ -108,7 +109,7 @@ function computeProximalIndex(
         );
 
     if (adjacentTargetIndex === -1) {
-      throw new OutOfRangeError();
+      throw new OutOfRangeError(modifier.scopeType);
     }
 
     // For convenience, if they ask to include intersecting indices, we just

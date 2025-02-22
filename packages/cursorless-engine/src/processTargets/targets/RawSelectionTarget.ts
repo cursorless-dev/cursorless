@@ -1,5 +1,7 @@
-import { EnforceUndefined } from "@cursorless/common";
-import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
+import type { EnforceUndefined } from "@cursorless/common";
+import type { TextualType } from "../../typings/target.types";
+import type { CommonTargetParameters } from "./BaseTarget";
+import { BaseTarget } from "./BaseTarget";
 
 /**
  * A target that has no leading or trailing delimiters so it's removal range
@@ -8,9 +10,9 @@ import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
  */
 export class RawSelectionTarget extends BaseTarget<CommonTargetParameters> {
   type = "RawSelectionTarget";
+  textualType: TextualType = "character";
   insertionDelimiter = "";
   isRaw = true;
-  isToken = false;
 
   getLeadingDelimiterTarget = () => undefined;
   getTrailingDelimiterTarget = () => undefined;

@@ -1,0 +1,11 @@
+{
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "excludedFiles": ["src/scripts/**", "src/testUtil/**", "*.test.ts"],
+      "rules": {
+        "import/no-nodejs-modules": "error"
+      }
+    }
+  ]
+}

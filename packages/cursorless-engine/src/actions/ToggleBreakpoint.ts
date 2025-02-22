@@ -1,10 +1,14 @@
-import { BreakpointDescriptor, FlashStyle } from "@cursorless/common";
-import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
+import { FlashStyle } from "@cursorless/common";
+import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { containingLineIfUntypedModifier } from "../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";
 import { ide } from "../singletons/ide.singleton";
-import { Target } from "../typings/target.types";
-import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
-import { SimpleAction, ActionReturnValue } from "./actions.types";
+import type { Target } from "../typings/target.types";
+import {
+  flashTargets,
+  runOnTargetsForEachEditor,
+  toGeneralizedRange,
+} from "../util/targetUtils";
+import type { ActionReturnValue, SimpleAction } from "./actions.types";
 
 export default class ToggleBreakpoint implements SimpleAction {
   getFinalStages = () => [
@@ -21,25 +25,13 @@ export default class ToggleBreakpoint implements SimpleAction {
     await flashTargets(ide(), thatTargets, FlashStyle.referenced);
 
     await runOnTargetsForEachEditor(targets, async (editor, targets) => {
-      const breakpointDescriptors: BreakpointDescriptor[] = targets.map(
-        (target) => {
-          const range = target.contentRange;
-          return target.isLine
-            ? {
-                type: "line",
-                startLine: range.start.line,
-                endLine: range.end.line,
-              }
-            : {
-                type: "inline",
-                range,
-              };
-        },
+      const generalizedRanges = targets.map((target) =>
+        toGeneralizedRange(target, target.contentRange),
       );
 
       await ide()
         .getEditableTextEditor(editor)
-        .toggleBreakpoint(breakpointDescriptors);
+        .toggleBreakpoint(generalizedRanges);
     });
 
     return {

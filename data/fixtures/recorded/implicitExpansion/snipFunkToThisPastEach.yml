@@ -1,22 +1,30 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: snippet funk to this past each
   action:
     name: insertSnippet
-    args:
-      - {type: named, name: functionDeclaration}
-  targets:
-    - active:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: e}
-      type: range
-      excludeAnchor: false
-      excludeActive: false
-      anchor:
-        type: primitive
-        mark: {type: cursor}
+    snippetDescription:
+      type: custom
+      body: "function $name($parameterList) {\n\t$body\n}"
+      scopeTypes:
+        - {type: namedFunction}
+        - {type: statement}
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: range
+        anchor:
+          type: primitive
+          mark: {type: cursor}
+        active:
+          type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: e}
+        excludeAnchor: false
+        excludeActive: false
   usePrePhraseSnapshot: true
+spokenFormError: custom insertion snippet
 initialState:
   documentContents: |-
     function whatever() {

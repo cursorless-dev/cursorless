@@ -1,0 +1,13 @@
+name: "Lua Language Server Lint"
+description: "Lints all lua files with lua-language-server"
+runs:
+  using: "composite"
+  steps:
+    - uses: cachix/install-nix-action@v27
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable
+    - uses: DeterminateSystems/magic-nix-cache-action@v2
+    - run: nix profile install --accept-flake-config .#lua-language-server
+      shell: bash
+    - run: scripts/lint-lua-ls.sh
+      shell: bash

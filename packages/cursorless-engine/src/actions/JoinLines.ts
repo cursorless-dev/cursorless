@@ -1,36 +1,53 @@
-import { Edit, FlashStyle, Range, TextEditor } from "@cursorless/common";
+import type { Edit, TextEditor } from "@cursorless/common";
+import { FlashStyle, Range, zipStrict } from "@cursorless/common";
 import { range as iterRange, map, pairwise } from "itertools";
-import { flatten, zip } from "lodash";
+import { flatten } from "lodash-es";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
+import { containingLineIfUntypedModifier } from "../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";
+import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
+import type { ModifierStage } from "../processTargets/PipelineStages.types";
 import { ide } from "../singletons/ide.singleton";
-import { Target } from "../typings/target.types";
+import { getMatcher } from "../tokenizer";
+import type { Target } from "../typings/target.types";
+import { generateMatchesInRange } from "../util/getMatchesInRange";
 import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
 import type { ActionReturnValue } from "./actions.types";
 
 export default class JoinLines {
-  constructor(private rangeUpdater: RangeUpdater) {
+  getFinalStages(): ModifierStage[] {
+    return [this.modifierStageFactory.create(containingLineIfUntypedModifier)];
+  }
+
+  constructor(
+    private rangeUpdater: RangeUpdater,
+    private modifierStageFactory: ModifierStageFactory,
+  ) {
     this.run = this.run.bind(this);
   }
 
   async run(targets: Target[]): Promise<ActionReturnValue> {
-    await flashTargets(ide(), targets, FlashStyle.pendingModification0);
+    await flashTargets(
+      ide(),
+      targets.map(({ thatTarget }) => thatTarget),
+      FlashStyle.pendingModification0,
+    );
 
     const thatSelections = flatten(
       await runOnTargetsForEachEditor(targets, async (editor, targets) => {
-        const contentRanges = targets.map(({ contentRange }) => contentRange);
-        const edits = getEdits(editor, contentRanges);
+        const { thatRanges: updatedThatRanges } =
+          await performEditsAndUpdateSelections({
+            rangeUpdater: this.rangeUpdater,
+            editor: ide().getEditableTextEditor(editor),
+            edits: getEdits(editor, targets),
+            selections: {
+              thatRanges: targets.map(({ contentRange }) => contentRange),
+            },
+          });
 
-        const [updatedRanges] = await performEditsAndUpdateRanges(
-          this.rangeUpdater,
-          ide().getEditableTextEditor(editor),
-          edits,
-          [contentRanges],
-        );
-
-        return zip(targets, updatedRanges).map(([target, range]) => ({
-          editor: target!.editor,
-          selection: range!.toSelection(target!.isReversed),
+        return zipStrict(targets, updatedThatRanges).map(([target, range]) => ({
+          editor,
+          selection: range.toSelection(target.isReversed),
         }));
       }),
     );
@@ -39,30 +56,60 @@ export default class JoinLines {
   }
 }
 
-function getEdits(editor: TextEditor, contentRanges: Range[]): Edit[] {
-  const { document } = editor;
+function getEdits(editor: TextEditor, targets: Target[]): Edit[] {
   const edits: Edit[] = [];
 
-  for (const range of contentRanges) {
-    const startLine = range.start.line;
-    const endLine = range.isSingleLine ? startLine + 1 : range.end.line;
+  for (const target of targets) {
+    const targetsEdits =
+      target.textualType === "token"
+        ? getTokenTargetEdits(target)
+        : getLineTargetEdits(target);
 
-    const lineIter = map(iterRange(startLine, endLine + 1), (i) =>
-      document.lineAt(i),
-    );
-    for (const [line1, line2] of pairwise(lineIter)) {
-      edits.push({
-        range: new Range(
-          line1.range.end.line,
-          line1.lastNonWhitespaceCharacterIndex,
-          line2.range.start.line,
-          line2.firstNonWhitespaceCharacterIndex,
-        ),
-        text: line2.isEmptyOrWhitespace ? "" : " ",
-        isReplace: true,
-      });
-    }
+    edits.push(...targetsEdits);
   }
 
   return edits;
+}
+
+function getTokenTargetEdits(target: Target): Edit[] {
+  const { editor, contentRange } = target;
+  const regex = getMatcher(editor.document.languageId).tokenMatcher;
+  const matches = generateMatchesInRange(
+    regex,
+    editor,
+    contentRange,
+    "forward",
+  );
+
+  return Array.from(pairwise(matches)).map(
+    ([range1, range2]): Edit => ({
+      range: new Range(range1.end, range2.start),
+      text: "",
+      isReplace: true,
+    }),
+  );
+}
+
+function getLineTargetEdits(target: Target): Edit[] {
+  const { document } = target.editor;
+  const range = target.contentRange;
+  const startLine = range.start.line;
+  const endLine = range.isSingleLine
+    ? Math.min(startLine + 1, document.lineCount - 1)
+    : range.end.line;
+
+  const lines = map(iterRange(startLine, endLine + 1), (i) =>
+    document.lineAt(i),
+  );
+
+  return Array.from(pairwise(lines)).map(
+    ([line1, line2]): Edit => ({
+      range: new Range(
+        line1.rangeTrimmed?.end ?? line1.range.end,
+        line2.rangeTrimmed?.start ?? line2.range.start,
+      ),
+      text: line2.isEmptyOrWhitespace ? "" : " ",
+      isReplace: true,
+    }),
+  );
 }

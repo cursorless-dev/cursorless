@@ -1,13 +1,19 @@
 import json
 from typing import Any, Optional
 
-from talon import Context, Module, actions, scope
+from talon import Context, Module, actions, scope, settings
 
 mod = Module()
 
 mod.mode(
     "cursorless_spoken_form_test",
     "Used to run tests on the Cursorless spoken forms/grammar",
+)
+
+mod.setting(
+    "cursorless_spoken_form_test_restore_microphone",
+    str,
+    desc="The microphone to switch to after the spoken form tests are done. If unset, the microphone that was active before tests started is restored. (If you want to switch back to 'System Default', you should set that as the value here)",
 )
 
 ctx = Context()
@@ -32,8 +38,6 @@ saved_modes = []
 commands_run = []
 
 mockedGetValue = ""
-
-community_snippets_tag_name = "user.cursorless_use_community_snippets"
 
 
 @ctx.action_class("user")
@@ -72,7 +76,10 @@ class Actions:
 
         if enable:
             saved_modes = scope.get("mode")
-            saved_microphone = actions.sound.active_microphone()
+            saved_microphone = settings.get(
+                "user.cursorless_spoken_form_test_restore_microphone",
+                actions.sound.active_microphone(),
+            )
 
             disable_modes()
             actions.mode.enable("user.cursorless_spoken_form_test")
@@ -89,20 +96,6 @@ class Actions:
             actions.app.notify(
                 "Cursorless spoken form tests are done. Talon microphone is re-enabled."
             )
-
-    def private_cursorless_use_community_snippets(enable: bool):  # pyright: ignore [reportGeneralTypeIssues]
-        """Enable/disable cursorless community snippets in test mode"""
-        if enable:
-            tags = set(ctx.tags)
-            tags.add(community_snippets_tag_name)
-            ctx.tags = list(tags)
-        else:
-            tags = set(ctx.tags)
-            tags.remove(community_snippets_tag_name)
-            ctx.tags = list(tags)
-        # Note: Test harness hangs if we don't print anything because it's
-        # waiting for stdout
-        print(f"Set community snippet enablement to {enable}")
 
     def private_cursorless_spoken_form_test(
         phrase: str,  # pyright: ignore [reportGeneralTypeIssues]

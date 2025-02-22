@@ -1,18 +1,22 @@
 languageId: python
 command:
-  version: 5
+  version: 6
   spokenForm: snippet else after this
   action:
     name: insertSnippet
-    args:
-      - {type: named, name: elseStatement}
-  targets:
-    - type: primitive
-      mark: {type: cursor}
-      modifiers:
-        - {type: position, position: after}
+    snippetDescription:
+      type: custom
+      body: "else:\n\t$body"
+      scopeTypes:
+        - {type: branch}
+    destination:
+      type: primitive
+      insertionMode: after
+      target:
+        type: primitive
+        mark: {type: cursor}
   usePrePhraseSnapshot: true
-spokenFormError: Named insertion snippet 'elseStatement'
+spokenFormError: custom insertion snippet
 initialState:
   documentContents: |
     if True:

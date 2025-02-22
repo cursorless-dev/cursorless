@@ -1,6 +1,6 @@
-import { SimpleScopeTypeType } from "@cursorless/common";
+import type { SimpleScopeTypeType } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import { NodeMatcherAlternative } from "../typings/Types";
+import type { NodeMatcherAlternative } from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";
 import {
   ancestorChainNodeMatcher,
@@ -113,9 +113,6 @@ const EXPRESSION_STATEMENT_PARENT_TYPES = [
   "then",
 ];
 
-const mapTypes = ["hash"];
-const listTypes = ["array", "string_array", "symbol_array"];
-
 const assignmentOperators = [
   "=",
   "+=",
@@ -187,6 +184,5 @@ const nodeMatchers: Partial<
     ],
     assignmentOperators.concat(mapKeyValueSeparators),
   ),
-  collectionItem: argumentMatcher(...mapTypes, ...listTypes),
 };
 export const patternMatchers = createPatternMatchers(nodeMatchers);

@@ -1,9 +1,9 @@
 import type { Message, SpyIDERecordedValues } from "..";
-import {
+import type {
   PlainFlashDescriptor,
   PlainHighlight,
-  generalizedRangeToPlainObject,
 } from "../util/toPlainObject";
+import { generalizedRangeToPlainObject } from "../util/toPlainObject";
 
 export interface PlainSpyIDERecordedValues {
   messages: Message[] | undefined;

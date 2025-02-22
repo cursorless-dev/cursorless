@@ -1,14 +1,15 @@
 languageId: rust
 command:
-  version: 5
+  version: 6
   spokenForm: chuck type made
-  action: {name: remove}
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+  action:
+    name: remove
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: type}
+      mark: {type: decoratedSymbol, symbolColor: default, character: m}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |
@@ -29,12 +30,10 @@ initialState:
       start: {line: 4, character: 0}
       end: {line: 4, character: 4}
 finalState:
-  documentContents: |+
+  documentContents: |
     trait T {
         fn f();
     }
-
-
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}

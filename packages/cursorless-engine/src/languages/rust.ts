@@ -1,7 +1,10 @@
-import { TextEditor } from "@cursorless/common";
+import type { TextEditor } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import { SimpleScopeTypeType } from "@cursorless/common";
-import { NodeMatcherAlternative, SelectionWithContext } from "../typings/Types";
+import type { SimpleScopeTypeType } from "@cursorless/common";
+import type {
+  NodeMatcherAlternative,
+  SelectionWithContext,
+} from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";
 import {
   ancestorChainNodeMatcher,
@@ -155,11 +158,6 @@ const nodeMatchers: Partial<
       }),
     ),
     leadingMatcher(["*.match_pattern![condition]"], ["if"]),
-  ),
-  collectionItem: argumentMatcher(
-    "array_expression",
-    "tuple_expression",
-    "tuple_type",
   ),
   type: cascadingMatcher(
     leadingMatcher(

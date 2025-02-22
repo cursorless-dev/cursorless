@@ -1,9 +1,8 @@
-import { Selection } from "@cursorless/common";
 import { ide } from "../../singletons/ide.singleton";
-import { Destination } from "../../typings/target.types";
+import type { Destination } from "../../typings/target.types";
 import { createThatMark, ensureSingleTarget } from "../../util/targetUtils";
-import { Actions } from "../Actions";
-import { ActionReturnValue } from "../actions.types";
+import type { Actions } from "../Actions";
+import type { ActionReturnValue } from "../actions.types";
 
 export async function runEditNewNotebookCellTargets(
   actions: Actions,
@@ -23,18 +22,13 @@ export async function runEditNewNotebookCellTargets(
 
   await actions.setSelection.run([destination.target]);
 
-  let modifyThatMark = (selection: Selection) => selection;
   if (isAbove) {
-    modifyThatMark = await editor.editNewNotebookCellAbove();
+    await editor.editNewNotebookCellAbove();
   } else {
     await editor.editNewNotebookCellBelow();
   }
 
   const thatMark = createThatMark([destination.target.thatTarget]);
-
-  // Apply horrible hack to work around the fact that in vscode the promise
-  // resolves before the edits have actually been performed.
-  thatMark[0].selection = modifyThatMark(thatMark[0].selection);
 
   return { thatSelections: thatMark };
 }

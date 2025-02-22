@@ -1,3 +1,5 @@
+;; https://github.com/pokey/tree-sitter-talon/blob/dev/src/grammar.json
+
 ;;!!  foo: "bar"
 ;;!   ^^^^^^^^^^
 ;;!!  edit.left()
@@ -37,9 +39,12 @@
 ;;!  ^^^^------------
 ;;!! tag(): user.cursorless
 ;;!  ^^^^^-----------------
-(_
-  left: _ @name
-) @_.domain
+(
+  (_
+    left: _ @name
+  ) @_.domain
+  (#not-type? @_.domain "binary_operator")
+)
 
 ;;!! not mode: command
 ;;!  ^^^^^^^^---------
@@ -47,18 +52,24 @@
 ;;!  ^^^^------------
 ;;!! tag(): user.cursorless
 ;;!  ^^^^^-----------------
-(_
-  modifiers: (_)? @collectionKey.start
-  left: _ @collectionKey.end
-) @_.domain
+(
+  (_
+    modifiers: (_)? @collectionKey.start
+    left: _ @collectionKey.end
+  ) @_.domain
+  (#not-type? @_.domain "binary_operator")
+)
 
 ;;!! not mode: command
 ;;!  ----------^^^^^^^
 ;;!! slap: key(enter)
 ;;!  ------^^^^^^^^^^
-(_
-  right: (_) @value
-) @_.domain
+(
+  (_
+    right: (_) @value
+  ) @_.domain
+  (#not-type? @_.domain "binary_operator")
+)
 
 ;;!!   mode: command
 ;;!   <*************
@@ -111,8 +122,8 @@
 ;;!  ^^^^^^^^^^^^^^^^
 (
   (command_declaration
-    right: (_) @_.interior
-  ) @command
+    right: (_) @interior
+  ) @command @interior.domain
   (#insertion-delimiter! @command "\n")
 )
 
@@ -158,7 +169,7 @@
 ;;!! print("hello", "world")
 ;;!        ^^^^^^^  ^^^^^^^
 (action
-  arguments: (_
+  arguments: (argument_list
     (_)? @_.leading.endOf
     .
     (_) @argumentOrParameter
@@ -168,9 +179,16 @@
   (#insertion-delimiter! @argumentOrParameter ", ")
 )
 
+(argument_list
+  .
+  "(" @argumentOrParameter.iteration.start.endOf
+  ")" @argumentOrParameter.iteration.end.startOf
+  .
+) @argumentOrParameter.iteration.domain
+
 ;;!! key(enter)
 ;;!      ^^^^^
-arguments: (_) @argumentOrParameter.iteration
+arguments: (implicit_string) @argumentOrParameter.iteration
 
 ;;!! # foo
 ;;!  ^^^^^

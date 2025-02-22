@@ -1,12 +1,13 @@
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import normalizePath from "normalize-path";
-import path from "path";
+import * as path from "path";
 import { pathExists } from "path-exists";
-import { PackageJson, TsConfigJson } from "type-fest";
+import type { PackageJson, TsConfigJson } from "type-fest";
 import { toPosixPath } from "./toPosixPath";
-import { Context } from "./Context";
-import { uniq } from "lodash";
+import type { Context } from "./Context";
+import { cloneDeep, isEqual, uniq } from "lodash-es";
 import { readFile } from "fs/promises";
+import { getLockfileImporterId } from "@pnpm/lockfile-file";
 
 /**
  * Given a tsconfig.json, update it to match our conventions.  This function is
@@ -43,9 +44,7 @@ export async function updateTSConfig(
     };
   }
 
-  const pathFromRootToPackage = normalizePath(
-    path.relative(workspaceDir, packageDir),
-  );
+  const pathFromRootToPackage = getLockfileImporterId(workspaceDir, packageDir);
   const pathFromPackageToRoot = normalizePath(
     path.relative(packageDir, workspaceDir),
   );
@@ -89,14 +88,18 @@ export async function updateTSConfig(
     references.push({ path: relativePath });
   }
 
+  const compilerOptions = {
+    ...(cloneDeep(input.compilerOptions) ?? {}),
+  };
+  delete compilerOptions.outDir;
+  delete compilerOptions.rootDir;
+
   return {
     ...input,
     extends: getExtends(pathFromPackageToRoot, input.extends),
-    compilerOptions: {
-      ...(input.compilerOptions ?? {}),
-      rootDir: "src",
-      outDir: "out",
-    },
+
+    ...(isEqual(compilerOptions, {}) ? {} : { compilerOptions }),
+
     references: references.sort((r1, r2) => r1.path.localeCompare(r2.path)),
     include: [
       "src/**/*.ts",

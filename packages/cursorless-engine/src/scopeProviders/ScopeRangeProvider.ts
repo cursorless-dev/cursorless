@@ -1,4 +1,4 @@
-import {
+import type {
   IterationScopeRangeConfig,
   IterationScopeRanges,
   ScopeRangeConfig,
@@ -6,8 +6,8 @@ import {
   TextEditor,
 } from "@cursorless/common";
 
-import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
-import { ScopeHandlerFactory } from "../processTargets/modifiers/scopeHandlers/ScopeHandlerFactory";
+import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
+import type { ScopeHandlerFactory } from "../processTargets/modifiers/scopeHandlers/ScopeHandlerFactory";
 import { getIterationRange } from "./getIterationRange";
 import { getIterationScopeRanges } from "./getIterationScopeRanges";
 import { getScopeRanges } from "./getScopeRanges";
@@ -29,7 +29,7 @@ export class ScopeRangeProvider {
     editor: TextEditor,
     { scopeType, visibleOnly }: ScopeRangeConfig,
   ): ScopeRanges[] {
-    const scopeHandler = this.scopeHandlerFactory.create(
+    const scopeHandler = this.scopeHandlerFactory.maybeCreate(
       scopeType,
       editor.document.languageId,
     );
@@ -50,13 +50,16 @@ export class ScopeRangeProvider {
     { scopeType, visibleOnly, includeNestedTargets }: IterationScopeRangeConfig,
   ): IterationScopeRanges[] {
     const { languageId } = editor.document;
-    const scopeHandler = this.scopeHandlerFactory.create(scopeType, languageId);
+    const scopeHandler = this.scopeHandlerFactory.maybeCreate(
+      scopeType,
+      languageId,
+    );
 
     if (scopeHandler == null) {
       return [];
     }
 
-    const iterationScopeHandler = this.scopeHandlerFactory.create(
+    const iterationScopeHandler = this.scopeHandlerFactory.maybeCreate(
       scopeHandler.iterationScopeType,
       languageId,
     );

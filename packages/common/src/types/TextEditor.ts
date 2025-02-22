@@ -1,6 +1,6 @@
 import type {
   Edit,
-  Position,
+  GeneralizedRange,
   Range,
   RevealLineAt,
   Selection,
@@ -56,7 +56,12 @@ export interface TextEditor {
 export interface SetSelectionsOpts {
   focusEditor?: boolean;
   revealRange?: boolean;
+  highlightWord?: boolean;
 }
+
+export type OpenLinkOptions = {
+  openAside: boolean;
+};
 
 export interface EditableTextEditor extends TextEditor {
   /**
@@ -107,12 +112,8 @@ export interface EditableTextEditor extends TextEditor {
 
   /**
    * Edit a new new notebook cell above.
-   * @return A promise that resolves to a function that must be applied to any
-   * selections that should be updated as result of this operation. This is a
-   * horrible hack to work around the fact that in vscode the promise resolves
-   * before the edits have actually been performed.
    */
-  editNewNotebookCellAbove(): Promise<(selection: Selection) => Selection>;
+  editNewNotebookCellAbove(): Promise<void>;
 
   /**
    * Edit a new new notebook cell below.
@@ -122,9 +123,9 @@ export interface EditableTextEditor extends TextEditor {
   /**
    * Open link at location.
    * @param location Position or range
-   * @return True if a link was opened
+   * @param options Options for opening the link.
    */
-  openLink(location?: Position | Range): Promise<boolean>;
+  openLink(range: Range, options?: OpenLinkOptions): Promise<void>;
 
   /**
    * Fold ranges
@@ -146,18 +147,17 @@ export interface EditableTextEditor extends TextEditor {
 
   /**
    * Paste clipboard content
-   * @param ranges A list of {@link Range ranges}
    */
-  clipboardPaste(ranges?: Range[]): Promise<void>;
+  clipboardPaste(): Promise<void>;
 
   /**
    * Toggle breakpoints. For each of the descriptors in {@link descriptors},
    * remove all breakpoints overlapping with the given descriptor if it overlaps
    * with any existing breakpoint, otherwise add a new breakpoint at the given
    * location.
-   * @param descriptors A list of breakpoint descriptors
+   * @param ranges A list of breakpoint ranges
    */
-  toggleBreakpoint(descriptors?: BreakpointDescriptor[]): Promise<void>;
+  toggleBreakpoint(ranges?: GeneralizedRange[]): Promise<void>;
 
   /**
    * Toggle line comments
@@ -237,22 +237,28 @@ export interface EditableTextEditor extends TextEditor {
    * @param range A {@link Range range}
    */
   extractVariable(range?: Range): Promise<void>;
-}
 
-interface LineBreakpointDescriptor {
-  type: "line";
-  startLine: number;
   /**
-   * Last line, inclusive
+   * Git accept conflict (use the range to resolve a conflict hunk)
+   * @param range A {@link Range range}
    */
-  endLine: number;
-}
+  gitAccept(range?: Range): Promise<void>;
 
-interface InlineBreakpointDescriptor {
-  type: "inline";
-  range: Range;
-}
+  /**
+   * Git revert range
+   * @param range A {@link Range range}
+   */
+  gitRevert(range?: Range): Promise<void>;
 
-export type BreakpointDescriptor =
-  | LineBreakpointDescriptor
-  | InlineBreakpointDescriptor;
+  /**
+   * Git stage range
+   * @param range A {@link Range range}
+   */
+  gitStage(range?: Range): Promise<void>;
+
+  /**
+   * Git unstage range
+   * @param range A {@link Range range}
+   */
+  gitUnstage(range?: Range): Promise<void>;
+}

@@ -3,8 +3,8 @@ import { assert } from "chai";
 import * as vscode from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../../endToEndTestSetup";
 import sinon from "sinon";
-import path from "path";
-import { getCursorlessRepoRoot } from "@cursorless/common";
+import * as path from "node:path";
+import { getCursorlessRepoRoot } from "@cursorless/node-common";
 import { readFile } from "node:fs/promises";
 
 interface TestCase {
@@ -83,11 +83,11 @@ const testCases: TestCase[] = [
     finalContent: "(a)",
   },
   {
-    name: "preserve keyboard target",
+    name: "set keyboard target to cursor",
     initialContent: "a\n",
     // round wrap air; round wrap <keyboard target>
     keySequence: ["da", "aw", "wp", "aw", "wp"],
-    finalContent: "((a))\n",
+    finalContent: "(a)\n()",
   },
   {
     name: "slice range",
@@ -309,7 +309,7 @@ async function enterAndLeaveIsNoOp() {
 
 async function typeText(text: string) {
   for (const char of text) {
-    vscode.commands.executeCommand("type", { text: char });
+    void vscode.commands.executeCommand("type", { text: char });
     // Note we just hack by using sleep because awaiting is too complicated to
     // get right.
     await sleepWithBackoff(100);

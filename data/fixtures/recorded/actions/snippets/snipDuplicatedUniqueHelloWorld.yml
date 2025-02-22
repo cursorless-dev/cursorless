@@ -1,17 +1,19 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: snippet duplicated unique hello world
   action:
     name: insertSnippet
-    args:
-      - type: named
-        name: duplicatedVariableTest
-        substitutions: {unique: hello world}
-  targets:
-    - {type: implicit}
+    snippetDescription:
+      type: custom
+      substitutions: {unique: helloWorld}
+      Name: duplicated
+      body: >-
+        This variable: '$duplicated' is duplicated here: '$duplicated', but
+        '$unique' is unique!
+    destination: {type: implicit}
   usePrePhraseSnapshot: true
-spokenFormError: Named insertion snippet 'duplicatedVariableTest'
+spokenFormError: custom insertion snippet
 initialState:
   documentContents: ""
   selections:

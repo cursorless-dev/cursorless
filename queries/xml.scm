@@ -1,3 +1,5 @@
+;; https://github.com/tree-sitter-grammars/tree-sitter-xml/blob/master/xml/src/grammar.json
+
 ;;!! <aaa>
 ;;!   ^^^
 ;;!  -----
@@ -33,7 +35,12 @@
 
 ;;!! <aaa id="me">
 ;;!          ^^^^
-(AttValue) @string @textFragment
+(AttValue
+  .
+  _ @textFragment.start.endOf
+  _ @textFragment.end.startOf
+  .
+) @string
 
 ;;!! <aaa>text</aaa>
 ;;!       ^^^^
@@ -43,9 +50,9 @@
 ;;!  ^^^^^^^^^^^^^^^
 ;;!       ^^^^
 (element
-  (STag) @xmlElement.interior.start.endOf
-  (ETag) @xmlElement.interior.end.startOf
-) @xmlElement
+  (STag) @interior.start.endOf
+  (ETag) @interior.end.startOf
+) @xmlElement @interior.domain
 
 ;;!! <aaa>text</aaa>
 ;;!  ^^^^^    ^^^^^^

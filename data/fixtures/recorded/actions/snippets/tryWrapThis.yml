@@ -1,15 +1,19 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: try wrap this
   action:
     name: wrapWithSnippet
-    args:
-      - {type: named, name: tryCatchStatement, variableName: body}
-  targets:
-    - type: primitive
+    snippetDescription:
+      type: custom
+      variableName: try
+      body: "try {\n\t$try\n} catch (err) {\n\t$catch\n}"
+      scopeType: {type: statement}
+    target:
+      type: primitive
       mark: {type: cursor}
   usePrePhraseSnapshot: true
+spokenFormError: custom wrap with snippet
 initialState:
   documentContents: const foo = "bar";
   selections:

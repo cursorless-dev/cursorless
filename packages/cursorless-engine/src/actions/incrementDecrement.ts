@@ -1,11 +1,11 @@
-import { Range, TextEditor } from "@cursorless/common";
+import type { MatchedText, TextEditor } from "@cursorless/common";
+import { Range, matchText } from "@cursorless/common";
 import { PlainTarget } from "../processTargets/targets";
-import { SelectionWithEditor } from "../typings/Types";
-import { Destination, Target } from "../typings/target.types";
-import { MatchedText, matchText } from "../util/regex";
+import type { SelectionWithEditor } from "../typings/Types";
+import type { Destination, Target } from "../typings/target.types";
 import { runForEachEditor } from "../util/targetUtils";
-import { Actions } from "./Actions";
-import { ActionReturnValue } from "./actions.types";
+import type { Actions } from "./Actions";
+import type { ActionReturnValue } from "./actions.types";
 
 const REGEX = /-?\d+(\.\d+)?/g;
 

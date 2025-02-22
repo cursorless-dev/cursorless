@@ -1,13 +1,12 @@
-import {
+import type {
   ContainingScopeModifier,
   EveryScopeModifier,
   Modifier,
-  SurroundingPairModifier,
 } from "@cursorless/common";
-import { StoredTargetMap } from "../core/StoredTargets";
-import { LanguageDefinitions } from "../languages/LanguageDefinitions";
-import { ModifierStageFactory } from "./ModifierStageFactory";
-import { ModifierStage } from "./PipelineStages.types";
+import type { StoredTargetMap } from "../core/StoredTargets";
+import type { LanguageDefinitions } from "../languages/LanguageDefinitions";
+import type { ModifierStageFactory } from "./ModifierStageFactory";
+import type { ModifierStage } from "./PipelineStages.types";
 import { CascadingStage } from "./modifiers/CascadingStage";
 import { ModifyIfUntypedStage } from "./modifiers/ConditionalModifierStages";
 import { ContainingScopeStage } from "./modifiers/ContainingScopeStage";
@@ -22,23 +21,20 @@ import {
   ExcludeInteriorStage,
   InteriorOnlyStage,
 } from "./modifiers/InteriorStage";
-import { ItemStage } from "./modifiers/ItemStage";
 import { LeadingStage, TrailingStage } from "./modifiers/LeadingTrailingStages";
 import { OrdinalScopeStage } from "./modifiers/OrdinalScopeStage";
 import { EndOfStage, StartOfStage } from "./modifiers/PositionStage";
+import { PreferredScopeStage } from "./modifiers/PreferredScopeStage";
 import { RangeModifierStage } from "./modifiers/RangeModifierStage";
 import { RawSelectionStage } from "./modifiers/RawSelectionStage";
 import { RelativeScopeStage } from "./modifiers/RelativeScopeStage";
-import { SurroundingPairStage } from "./modifiers/SurroundingPairStage";
 import { VisibleStage } from "./modifiers/VisibleStage";
-import { ScopeHandlerFactory } from "./modifiers/scopeHandlers/ScopeHandlerFactory";
-import { BoundedNonWhitespaceSequenceStage } from "./modifiers/scopeTypeStages/BoundedNonWhitespaceStage";
-import {
-  LegacyContainingSyntaxScopeStage,
+import type { ScopeHandlerFactory } from "./modifiers/scopeHandlers/ScopeHandlerFactory";
+import type {
   SimpleContainingScopeModifier,
   SimpleEveryScopeModifier,
 } from "./modifiers/scopeTypeStages/LegacyContainingSyntaxScopeStage";
-import { NotebookCellStage } from "./modifiers/scopeTypeStages/NotebookCellStage";
+import { LegacyContainingSyntaxScopeStage } from "./modifiers/scopeTypeStages/LegacyContainingSyntaxScopeStage";
 
 export class ModifierStageFactoryImpl implements ModifierStageFactory {
   constructor(
@@ -76,23 +72,26 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
           this.scopeHandlerFactory,
           modifier,
         );
+      case "preferredScope":
+        return new PreferredScopeStage(
+          this,
+          this.scopeHandlerFactory,
+          modifier,
+        );
       case "everyScope":
         if (modifier.scopeType.type === "instance") {
           return new InstanceStage(this, this.storedTargets, modifier);
         }
-
         return new EveryScopeStage(this, this.scopeHandlerFactory, modifier);
       case "ordinalScope":
         if (modifier.scopeType.type === "instance") {
           return new InstanceStage(this, this.storedTargets, modifier);
         }
-
         return new OrdinalScopeStage(this, modifier);
       case "relativeScope":
         if (modifier.scopeType.type === "instance") {
           return new InstanceStage(this, this.storedTargets, modifier);
         }
-
         return new RelativeScopeStage(this, this.scopeHandlerFactory, modifier);
       case "keepContentFilter":
         return new KeepContentFilterStage(modifier);
@@ -108,6 +107,13 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
         throw Error(
           `Unexpected modifier '${modifier.type}'; it should have been removed during inference`,
         );
+      default: {
+        // Ensure we don't miss any new modifiers. Needed because we don't have input validation.
+        // FIXME: remove once we have schema validation (#983)
+        const _exhaustiveCheck: never = modifier;
+        const { type } = modifier;
+        throw new Error(`Unknown modifier: ${type}`);
+      }
     }
   }
 
@@ -128,21 +134,6 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
     modifier: ContainingScopeModifier | EveryScopeModifier,
   ): ModifierStage {
     switch (modifier.scopeType.type) {
-      case "notebookCell":
-        return new NotebookCellStage(modifier);
-      case "boundedNonWhitespaceSequence":
-        return new BoundedNonWhitespaceSequenceStage(
-          this.languageDefinitions,
-          this,
-          modifier,
-        );
-      case "collectionItem":
-        return new ItemStage(this.languageDefinitions, modifier);
-      case "surroundingPair":
-        return new SurroundingPairStage(
-          this.languageDefinitions,
-          modifier as SurroundingPairModifier,
-        );
       default:
         // Default to containing syntax scope using tree sitter
         return new LegacyContainingSyntaxScopeStage(

@@ -1,19 +1,19 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: custom wrap harp
   action:
     name: wrapWithSnippet
-    args:
-      - type: custom
-        body: "dummy snippet hole1: ($hole1), hole2: ($hole2)"
-        scopeType: {type: line}
-        variableName: hole1
-  targets:
-    - type: primitive
+    snippetDescription:
+      type: custom
+      body: "dummy snippet hole1: ($hole1), hole2: ($hole2)"
+      scopeType: {type: line}
+      variableName: hole1
+    target:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
   usePrePhraseSnapshot: true
-spokenFormError: Custom wrap with snippet
+spokenFormError: custom wrap with snippet
 initialState:
   documentContents: |
     hello world

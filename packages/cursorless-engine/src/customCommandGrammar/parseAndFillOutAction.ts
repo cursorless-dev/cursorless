@@ -1,4 +1,4 @@
-import { ActionDescriptor } from "@cursorless/common";
+import type { ActionDescriptor } from "@cursorless/common";
 import { fillPlaceholders } from "./fillPlaceholders";
 import { parseAction } from "./parseCommand";
 

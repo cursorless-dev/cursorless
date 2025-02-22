@@ -1,8 +1,8 @@
-import { promises as fsp } from "fs";
-import * as path from "path";
+import { promises as fsp } from "node:fs";
+import * as path from "node:path";
 import * as yaml from "js-yaml";
-import { mkdir, rename } from "fs/promises";
-import { TestCaseFixture } from "@cursorless/common";
+import { mkdir, rename } from "node:fs/promises";
+import type { TestCaseFixture } from "@cursorless/common";
 
 /**
  * Can be used to organize files into directories based on eg language id

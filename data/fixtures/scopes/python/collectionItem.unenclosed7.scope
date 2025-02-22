@@ -1,0 +1,66 @@
+for key, value in map.items():
+    pass
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:7
+  >-------<
+0| for key, value in map.items():
+
+[#1 Removal] = 0:0-0:9
+  >---------<
+0| for key, value in map.items():
+
+[#1 Trailing delimiter] = 0:7-0:9
+         >--<
+0| for key, value in map.items():
+
+[#1 Insertion delimiter] = ", "
+
+
+[#2 Content] =
+[#2 Domain] = 0:4-0:7
+      >---<
+0| for key, value in map.items():
+
+[#2 Removal] = 0:4-0:9
+      >-----<
+0| for key, value in map.items():
+
+[#2 Trailing delimiter] = 0:7-0:9
+         >--<
+0| for key, value in map.items():
+
+[#2 Insertion delimiter] = ", "
+
+
+[#3 Content] =
+[#3 Domain] = 0:9-0:14
+           >-----<
+0| for key, value in map.items():
+
+[#3 Removal] = 0:7-0:14
+         >-------<
+0| for key, value in map.items():
+
+[#3 Leading delimiter] = 0:7-0:9
+         >--<
+0| for key, value in map.items():
+
+[#3 Insertion delimiter] = ", "
+
+
+[#4 Content] =
+[#4 Domain] = 0:9-0:30
+           >---------------------<
+0| for key, value in map.items():
+
+[#4 Removal] = 0:7-0:30
+         >-----------------------<
+0| for key, value in map.items():
+
+[#4 Leading delimiter] = 0:7-0:9
+         >--<
+0| for key, value in map.items():
+
+[#4 Insertion delimiter] = ", "

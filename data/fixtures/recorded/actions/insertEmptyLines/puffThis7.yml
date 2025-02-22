@@ -1,10 +1,11 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: puff this
-  action: {name: insertEmptyLinesAround}
-  targets:
-    - type: primitive
+  action:
+    name: insertEmptyLinesAround
+    target:
+      type: primitive
       mark: {type: cursor}
   usePrePhraseSnapshot: true
 initialState:
@@ -35,4 +36,4 @@ ide:
     - style: justAdded
       range: {type: line, start: 1, end: 1}
     - style: justAdded
-      range: {type: line, start: 2, end: 2}
+      range: {type: line, start: 3, end: 3}

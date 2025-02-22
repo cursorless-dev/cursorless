@@ -1,43 +1,53 @@
+import type { CursorlessCommandId } from "@cursorless/common";
 import {
   CURSORLESS_COMMAND_ID,
-  CursorlessCommandId,
-  FileSystem,
-  isTesting,
+  type CommandHistoryStorage,
 } from "@cursorless/common";
 import {
-  CommandApi,
-  StoredTargetMap,
-  TestCaseRecorder,
-  analyzeCommandHistory,
   showCheatsheet,
   updateDefaults,
-  type ScopeTestRecorder,
+} from "@cursorless/cursorless-cheatsheet";
+import type {
+  CommandApi,
+  StoredTargetMap,
 } from "@cursorless/cursorless-engine";
+import { analyzeCommandHistory } from "@cursorless/cursorless-engine";
+import type {
+  ScopeTestRecorder,
+  TestCaseRecorder,
+} from "@cursorless/test-case-recorder";
 import * as vscode from "vscode";
-import { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
+import type { InstallationDependencies } from "./InstallationDependencies";
+import type { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
+import type { VscodeSnippets } from "./VscodeSnippets";
+import type { VscodeTutorial } from "./VscodeTutorial";
 import { showDocumentation, showQuickPick } from "./commands";
-import { VscodeIDE } from "./ide/vscode/VscodeIDE";
-import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
-import { KeyboardCommands } from "./keyboard/KeyboardCommands";
+import type { VscodeIDE } from "./ide/vscode/VscodeIDE";
+import type { VscodeHats } from "./ide/vscode/hats/VscodeHats";
+import type { KeyboardCommands } from "./keyboard/KeyboardCommands";
 import { logQuickActions } from "./logQuickActions";
+import { migrateSnippets } from "./migrateSnippets";
 
 export function registerCommands(
   extensionContext: vscode.ExtensionContext,
   vscodeIde: VscodeIDE,
   commandApi: CommandApi,
-  fileSystem: FileSystem,
+  commandHistoryStorage: CommandHistoryStorage,
   testCaseRecorder: TestCaseRecorder,
   scopeTestRecorder: ScopeTestRecorder,
   scopeVisualizer: ScopeVisualizer,
   keyboardCommands: KeyboardCommands,
   hats: VscodeHats,
+  tutorial: VscodeTutorial,
+  installationDependencies: InstallationDependencies,
   storedTargets: StoredTargetMap,
+  snippets: VscodeSnippets,
 ): void {
   const runCommandWrapper = async (run: () => Promise<unknown>) => {
     try {
       return await run();
     } catch (e) {
-      if (!isTesting()) {
+      if (vscodeIde.runMode !== "test") {
         const err = e as Error;
         console.error(err.stack);
         vscodeIde.handleCommandError(err);
@@ -57,7 +67,7 @@ export function registerCommands(
     },
 
     // Cheatsheet commands
-    ["cursorless.showCheatsheet"]: showCheatsheet,
+    ["cursorless.showCheatsheet"]: (arg) => showCheatsheet(vscodeIde, arg),
     ["cursorless.internal.updateCheatsheetDefaults"]: updateDefaults,
 
     // Testcase recorder commands
@@ -77,6 +87,9 @@ export function registerCommands(
     // Other commands
     ["cursorless.showQuickPick"]: showQuickPick,
     ["cursorless.showDocumentation"]: showDocumentation,
+    ["cursorless.showInstallationDependencies"]: installationDependencies.show,
+
+    ["cursorless.migrateSnippets"]: migrateSnippets.bind(null, snippets),
 
     ["cursorless.private.logQuickActions"]: logQuickActions,
 
@@ -90,7 +103,7 @@ export function registerCommands(
 
     // Command history
     ["cursorless.analyzeCommandHistory"]: () =>
-      analyzeCommandHistory(fileSystem.cursorlessCommandHistoryDirPath),
+      analyzeCommandHistory(commandHistoryStorage),
 
     // General keyboard commands
     ["cursorless.keyboard.escape"]:
@@ -116,9 +129,17 @@ export function registerCommands(
     ["cursorless.keyboard.modal.modeOn"]: keyboardCommands.modal.modeOn,
     ["cursorless.keyboard.modal.modeOff"]: keyboardCommands.modal.modeOff,
     ["cursorless.keyboard.modal.modeToggle"]: keyboardCommands.modal.modeToggle,
-
     ["cursorless.keyboard.undoTarget"]: () => storedTargets.undo("keyboard"),
     ["cursorless.keyboard.redoTarget"]: () => storedTargets.redo("keyboard"),
+
+    // Tutorial commands
+    ["cursorless.tutorial.start"]: tutorial.start,
+    ["cursorless.tutorial.next"]: tutorial.next,
+    ["cursorless.tutorial.previous"]: tutorial.previous,
+    ["cursorless.tutorial.restart"]: tutorial.restart,
+    ["cursorless.tutorial.resume"]: tutorial.resume,
+    ["cursorless.tutorial.list"]: tutorial.list,
+    ["cursorless.documentationOpened"]: tutorial.documentationOpened,
   };
 
   extensionContext.subscriptions.push(

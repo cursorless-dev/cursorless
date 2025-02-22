@@ -1,4 +1,4 @@
-import {
+import type {
   ActionDescriptor,
   CommandResponse,
   CommandV6,
@@ -23,24 +23,17 @@ export interface SpokenFormTest {
    * {@link spokenForm} is spoken.
    */
   commands: CommandV6[];
-
-  /**
-   * If `true`, use community snippets instead of Cursorless snippets
-   */
-  useCommunitySnippets: boolean;
 }
 
 export function spokenFormTest(
   spokenForm: string,
   action: ActionDescriptor,
   mockedGetValue?: unknown,
-  { useCommunitySnippets = false }: SpokenFormTestOpts = {},
 ): SpokenFormTest {
   return {
     spokenForm,
     mockedGetValue: wrapMockedGetValue(mockedGetValue),
     commands: [command(spokenForm, action)],
-    useCommunitySnippets,
   };
 }
 
@@ -48,13 +41,11 @@ export function multiActionSpokenFormTest(
   spokenForm: string,
   actions: ActionDescriptor[],
   mockedGetValue?: unknown,
-  { useCommunitySnippets = false }: SpokenFormTestOpts = {},
 ): SpokenFormTest {
   return {
     spokenForm,
     mockedGetValue: wrapMockedGetValue(mockedGetValue),
     commands: actions.map((action) => command(spokenForm, action)),
-    useCommunitySnippets,
   };
 }
 
@@ -71,8 +62,4 @@ function command(spokenForm: string, action: ActionDescriptor): CommandV6 {
     usePrePhraseSnapshot: true,
     action,
   };
-}
-
-export interface SpokenFormTestOpts {
-  useCommunitySnippets?: boolean;
 }

@@ -1,22 +1,20 @@
-import {
-  BreakpointDescriptor,
+import type {
   Edit,
   EditableTextEditor,
-  Position,
+  GeneralizedRange,
+  OpenLinkOptions,
   Range,
   RevealLineAt,
   Selection,
   SetSelectionsOpts,
-  sleep,
   TextDocument,
   TextEditor,
   TextEditorOptions,
-  uniqWithHash,
 } from "@cursorless/common";
+import { sleep, uniqWithHash } from "@cursorless/common";
 import {
   fromVscodeRange,
   fromVscodeSelection,
-  toVscodePositionOrRange,
   toVscodeRange,
   toVscodeSelection,
 } from "@cursorless/vscode-common";
@@ -24,12 +22,8 @@ import * as vscode from "vscode";
 import vscodeEdit from "./VscodeEdit";
 import vscodeFocusEditor from "./VscodeFocusEditor";
 import { vscodeFold, vscodeUnfold } from "./VscodeFold";
-import { VscodeIDE } from "./VscodeIDE";
+import type { VscodeIDE } from "./VscodeIDE";
 import { vscodeInsertSnippet } from "./VscodeInsertSnippets";
-import {
-  vscodeEditNewNotebookCellAbove,
-  vscodeEditNewNotebookCellBelow,
-} from "./VscodeNotebooks";
 import vscodeOpenLink from "./VscodeOpenLink";
 import { vscodeRevealLine } from "./VscodeRevealLine";
 import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
@@ -57,7 +51,11 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
 
   async setSelections(
     rawSelections: Selection[],
-    { focusEditor = false, revealRange = true }: SetSelectionsOpts = {},
+    {
+      focusEditor = false,
+      revealRange = true,
+      highlightWord = false,
+    }: SetSelectionsOpts = {},
   ): Promise<void> {
     const selections = uniqWithHash(
       rawSelections,
@@ -90,6 +88,10 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
 
     if (revealRange) {
       await this.revealRange(this.selections[0]);
+    }
+
+    if (highlightWord) {
+      vscode.commands.executeCommand("editor.action.wordHighlight.trigger");
     }
   }
 
@@ -139,21 +141,19 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     return vscodeFocusEditor(this);
   }
 
-  public editNewNotebookCellAbove(): Promise<
-    (selection: Selection) => Selection
-  > {
-    return vscodeEditNewNotebookCellAbove(this);
+  public async editNewNotebookCellAbove(): Promise<void> {
+    await vscode.commands.executeCommand("notebook.cell.insertCodeCellAbove");
   }
 
-  public editNewNotebookCellBelow(): Promise<void> {
-    return vscodeEditNewNotebookCellBelow(this);
+  public async editNewNotebookCellBelow(): Promise<void> {
+    await vscode.commands.executeCommand("notebook.cell.insertCodeCellBelow");
   }
 
-  public openLink(location?: Position | Range): Promise<boolean> {
-    return vscodeOpenLink(
-      this,
-      location != null ? toVscodePositionOrRange(location) : undefined,
-    );
+  public openLink(
+    range: Range,
+    options: OpenLinkOptions = { openAside: false },
+  ): Promise<void> {
+    return vscodeOpenLink(this, range, options);
   }
 
   public fold(ranges?: Range[]): Promise<void> {
@@ -164,8 +164,8 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     return vscodeUnfold(this.ide, this, ranges);
   }
 
-  public toggleBreakpoint(descriptors?: BreakpointDescriptor[]): Promise<void> {
-    return vscodeToggleBreakpoint(this, descriptors);
+  public toggleBreakpoint(ranges?: GeneralizedRange[]): Promise<void> {
+    return vscodeToggleBreakpoint(this, ranges);
   }
 
   public async toggleLineComment(_ranges?: Range[]): Promise<void> {
@@ -176,7 +176,7 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     await vscode.commands.executeCommand("editor.action.clipboardCopyAction");
   }
 
-  public async clipboardPaste(_ranges?: Range[]): Promise<void> {
+  public async clipboardPaste(): Promise<void> {
     // We add these sleeps here to workaround a bug in VSCode. See #1521
     await sleep(100);
     await vscode.commands.executeCommand("editor.action.clipboardPasteAction");
@@ -191,11 +191,7 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     await vscode.commands.executeCommand("editor.action.outdentLines");
   }
 
-  public async insertLineAfter(ranges?: Range[]): Promise<void> {
-    if (ranges != null) {
-      await this.setSelections(ranges.map((range) => range.toSelection(false)));
-    }
-    await this.focus();
+  public async insertLineAfter(_ranges?: Range[]): Promise<void> {
     await vscode.commands.executeCommand("editor.action.insertLineAfter");
   }
 
@@ -245,5 +241,21 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     }
 
     await sleep(250);
+  }
+
+  public async gitAccept(_range?: Range): Promise<void> {
+    await vscode.commands.executeCommand("merge-conflict.accept.selection");
+  }
+
+  public async gitRevert(_range?: Range): Promise<void> {
+    await vscode.commands.executeCommand("git.revertSelectedRanges");
+  }
+
+  public async gitStage(_range?: Range): Promise<void> {
+    await vscode.commands.executeCommand("git.stageSelectedRanges");
+  }
+
+  public async gitUnstage(_range?: Range): Promise<void> {
+    await vscode.commands.executeCommand("git.unstageSelectedRanges");
   }
 }

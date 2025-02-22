@@ -1,13 +1,16 @@
-import { Direction, Position, TextEditor, showError } from "@cursorless/common";
-import { uniqWith } from "lodash";
-import { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
-import { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
+import type { Direction, Position, TextEditor } from "@cursorless/common";
+import { showError } from "@cursorless/common";
+import { uniqWith } from "lodash-es";
+import type { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
+import type { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
+import { ide } from "../../../../singletons/ide.singleton";
 import { BaseScopeHandler } from "../BaseScopeHandler";
 import { compareTargetScopes } from "../compareTargetScopes";
-import { TargetScope } from "../scope.types";
-import { ScopeIteratorRequirements } from "../scopeHandler.types";
+import type { TargetScope } from "../scope.types";
+import type { ScopeIteratorRequirements } from "../scopeHandler.types";
+import { isEveryScopeModifier } from "../util/isHintsEveryScope";
+import { getQuerySearchRange } from "./getQuerySearchRange";
 import { mergeAdjacentBy } from "./mergeAdjacentBy";
-import { ide } from "../../../../singletons/ide.singleton";
 
 /** Base scope handler to use for both tree-sitter scopes and their iteration scopes */
 export abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
@@ -19,19 +22,22 @@ export abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
     editor: TextEditor,
     position: Position,
     direction: Direction,
-    _hints: ScopeIteratorRequirements,
+    hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
     const { document } = editor;
+    const isEveryScope = isEveryScopeModifier(hints);
 
-    // Due to a tree-sitter bug, we generate all scopes from the entire file
-    // instead of using `_hints` to restrict the search range to scopes we care
-    // about. The actual scopes yielded to the client are filtered by
-    // `BaseScopeHandler` anyway, so there's no impact on correctness, just
-    // performance. We'd like to roll this back; see #1769.
+    /** Narrow the range within which tree-sitter searches, for performance */
+    const { start, end } = getQuerySearchRange(
+      document,
+      position,
+      direction,
+      hints,
+    );
 
     const scopes = this.query
-      .matches(document)
-      .map((match) => this.matchToScope(editor, match))
+      .matches(document, start, end)
+      .map((match) => this.matchToScope(editor, match, isEveryScope))
       .filter((scope): scope is ExtendedTargetScope => scope != null)
       .sort((a, b) => compareTargetScopes(direction, position, a, b));
 
@@ -61,7 +67,7 @@ export abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
               const message =
                 "Please use #allow-multiple! predicate in your query to allow multiple matches for this scope type";
 
-              showError(
+              void showError(
                 ide().messages,
                 "BaseTreeSitterScopeHandler.allow-multiple",
                 message,
@@ -84,12 +90,14 @@ export abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
    * relevant to this scope handler
    * @param editor The editor in which the match was found
    * @param match The match to convert to a scope
+   * @param isEveryScope Whether the scope is being used in an "every" modifier
    * @returns The scope, or undefined if the match is not relevant to this scope
    * handler
    */
   protected abstract matchToScope(
     editor: TextEditor,
     match: QueryMatch,
+    isEveryScope: boolean,
   ): ExtendedTargetScope | undefined;
 }
 

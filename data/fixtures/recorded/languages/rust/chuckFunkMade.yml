@@ -1,10 +1,11 @@
 languageId: rust
 command:
-  version: 5
+  version: 6
   spokenForm: chuck funk made
-  action: {name: remove}
-  targets:
-    - type: primitive
+  action:
+    name: remove
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: namedFunction}
@@ -23,8 +24,7 @@ initialState:
       start: {line: 0, character: 3}
       end: {line: 0, character: 7}
 finalState:
-  documentContents: |+
-
+  documentContents: ""
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

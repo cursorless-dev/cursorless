@@ -1,15 +1,19 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: funk wrap whale
   action:
     name: wrapWithSnippet
-    args:
-      - {type: named, name: functionDeclaration, variableName: body}
-  targets:
-    - type: primitive
+    snippetDescription:
+      type: custom
+      variableName: body
+      scopeType: {type: statement}
+      body: "function $name($parameterList) {\n\t$body\n}"
+    target:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
   usePrePhraseSnapshot: true
+spokenFormError: custom wrap with snippet
 initialState:
   documentContents: |
     const whatever = "hello";

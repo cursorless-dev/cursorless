@@ -1,3 +1,5 @@
+;; https://github.com/tree-sitter/tree-sitter-html/blob/master/src/grammar.json
+
 ;;!! <aaa>
 ;;!   ^^^
 ;;!  -----
@@ -66,9 +68,9 @@
 ;;!  ^^^^^^^^^^^^^^^
 ;;!       ^^^^
 (_
-  (start_tag) @xmlElement.interior.start.endOf
-  (end_tag) @xmlElement.interior.end.startOf
-) @xmlElement
+  (start_tag) @interior.start.endOf
+  (end_tag) @interior.end.startOf
+) @xmlElement @interior.domain
 
 ;;!! <aaa>text</aaa>
 ;;!  ^^^^^    ^^^^^^

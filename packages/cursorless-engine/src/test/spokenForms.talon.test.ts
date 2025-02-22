@@ -1,21 +1,20 @@
-import {
+import type {
   Command,
   CommandLatest,
   TestCaseFixtureLegacy,
-  asyncSafety,
-  getRecordedTestPaths,
 } from "@cursorless/common";
+import { asyncSafety } from "@cursorless/common";
+import { getRecordedTestPaths } from "@cursorless/node-common";
 import assert from "assert";
 import * as yaml from "js-yaml";
 import { promises as fsp } from "node:fs";
 import { canonicalizeAndValidateCommand } from "../core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { getHatMapCommand } from "../generateSpokenForm/getHatMapCommand";
 import { TalonRepl } from "../testUtil/TalonRepl";
+import { communitySnippetsSpokenFormsFixture } from "./fixtures/communitySnippets.fixture";
+import { multiActionFixture } from "./fixtures/multiAction.fixture";
 import { synonymousSpokenFormsFixture } from "./fixtures/synonymousSpokenForms.fixture";
 import { talonApiFixture } from "./fixtures/talonApi.fixture";
-import { multiActionFixture } from "./fixtures/multiAction.fixture";
-import { communitySnippetsSpokenFormsFixture } from "./fixtures/communitySnippets.fixture";
-import { SpokenFormTestOpts } from "./fixtures/spokenFormTest";
 
 suite("Talon spoken forms", async function () {
   const repl = new TalonRepl();
@@ -45,12 +44,8 @@ suite("Talon spoken forms", async function () {
     ...talonApiFixture,
     ...multiActionFixture,
     ...communitySnippetsSpokenFormsFixture,
-  ].forEach(({ spokenForm, commands, mockedGetValue, useCommunitySnippets }) =>
-    test(spokenForm, () =>
-      runTest(repl, spokenForm, commands, mockedGetValue, {
-        useCommunitySnippets,
-      }),
-    ),
+  ].forEach(({ spokenForm, commands, mockedGetValue }) =>
+    test(spokenForm, () => runTest(repl, spokenForm, commands, mockedGetValue)),
   );
 });
 
@@ -83,7 +78,6 @@ async function runTest(
   spokenForm: string,
   commandsLegacy: Command[],
   mockedGetValue?: unknown,
-  { useCommunitySnippets = false }: SpokenFormTestOpts = {},
 ) {
   const commandsExpected = commandsLegacy.map((command) => ({
     ...canonicalizeAndValidateCommand(command),
@@ -109,37 +103,24 @@ async function runTest(
       ? "None"
       : JSON.stringify(JSON.stringify(mockedGetValue));
 
-  if (useCommunitySnippets) {
-    await repl.action(`user.private_cursorless_use_community_snippets(True)`);
-  }
+  const result = await repl.action(
+    `user.private_cursorless_spoken_form_test("${spokenForm}", ${mockedGetValueString})`,
+  );
 
-  try {
-    const result = await repl.action(
-      `user.private_cursorless_spoken_form_test("${spokenForm}", ${mockedGetValueString})`,
-    );
-
-    const commandsActual = (() => {
-      try {
-        return JSON.parse(result);
-      } catch (e) {
-        throw Error(result);
-      }
-    })();
-
-    assert.deepStrictEqual(commandsActual, commandsExpected);
-  } finally {
-    if (useCommunitySnippets) {
-      await repl.action(
-        `user.private_cursorless_use_community_snippets(False)`,
-      );
+  const commandsActual = (() => {
+    try {
+      return JSON.parse(result);
+    } catch (_e) {
+      throw Error(result);
     }
-  }
+  })();
+
+  assert.deepStrictEqual(commandsActual, commandsExpected);
 }
 
 async function setTestMode(repl: TalonRepl, enabled: boolean) {
   const arg = enabled ? "True" : "False";
   await repl.action(`user.private_cursorless_spoken_form_test_mode(${arg})`);
-  await repl.action(`user.private_cursorless_use_community_snippets(False)`);
 
   // If you have warnings in your talon user files, they will be printed to the
   // repl when you run the above action. We need to eat them so that they don't

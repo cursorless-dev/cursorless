@@ -1,15 +1,10 @@
-import { isTesting } from "@cursorless/common";
-import { pickBy } from "lodash";
+import { pickBy } from "lodash-es";
 import * as vscode from "vscode";
-import { HatStyleInfo, HatStyleMap } from "@cursorless/common";
-import { Listener, Notifier } from "@cursorless/common";
-import {
-  HatColor,
-  HatShape,
-  HAT_COLORS,
-  HAT_NON_DEFAULT_SHAPES,
-  VscodeHatStyleName,
-} from "./hatStyles.types";
+import type { HatStyleInfo, HatStyleMap } from "@cursorless/common";
+import type { Listener } from "@cursorless/common";
+import { Notifier } from "@cursorless/common";
+import type { HatColor, HatShape, VscodeHatStyleName } from "./hatStyles.types";
+import { HAT_COLORS, HAT_NON_DEFAULT_SHAPES } from "./hatStyles.types";
 
 export interface ExtendedHatStyleInfo extends HatStyleInfo {
   color: HatColor;
@@ -33,7 +28,7 @@ export default class VscodeEnabledHatStyleManager {
   hatStyleMap!: ExtendedHatStyleMap;
   private notifier: Notifier<[HatStyleMap]> = new Notifier();
 
-  constructor(extensionContext: vscode.ExtensionContext) {
+  constructor(private extensionContext: vscode.ExtensionContext) {
     this.recomputeEnabledHatStyles = this.recomputeEnabledHatStyles.bind(this);
 
     extensionContext.subscriptions.push(
@@ -76,9 +71,10 @@ export default class VscodeEnabledHatStyleManager {
     colorPenalties.default = 0;
 
     // So that unit tests don't fail locally if you have some colors disabled
-    const activeHatColors = isTesting()
-      ? HAT_COLORS.filter((color) => !color.startsWith("user"))
-      : HAT_COLORS.filter((color) => colorEnablement[color]);
+    const activeHatColors =
+      this.extensionContext.extensionMode === vscode.ExtensionMode.Test
+        ? HAT_COLORS.filter((color) => !color.startsWith("user"))
+        : HAT_COLORS.filter((color) => colorEnablement[color]);
     const activeNonDefaultHatShapes = HAT_NON_DEFAULT_SHAPES.filter(
       (shape) => shapeEnablement[shape],
     );

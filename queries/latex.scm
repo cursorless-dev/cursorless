@@ -1,3 +1,5 @@
+;; https://github.com/latex-lsp/tree-sitter-latex/blob/master/src/grammar.json
+
 [
   (block_comment)
   (line_comment)
@@ -14,8 +16,8 @@
 (subparagraph) @subParagraph
 
 (_
-  (begin) @xmlStartTag @environment.interior.start.endOf @xmlElement.interior.start.endOf
-  (end) @xmlEndTag @environment.interior.end.startOf @xmlElement.interior.end.startOf
+  (begin) @xmlStartTag @interior.start.endOf
+  (end) @xmlEndTag @interior.end.startOf
 ) @environment @xmlElement @_.domain
 
 (_
@@ -26,3 +28,25 @@
   (end) @xmlBothTags
   (#allow-multiple! @xmlBothTags)
 ) @_.domain
+
+(operator
+  [
+    "<"
+    ">"
+  ] @disqualifyDelimiter
+)
+
+;;!! \item one \LaTeX
+;;!        ^^^^^^^^^^
+(
+  (_
+    (enum_item
+      (text) @collectionItem.start.startOf
+    ) @collectionItem.leading.startOf @collectionItem.end.endOf
+  )
+)
+
+(generic_environment
+  (begin) @collectionItem.iteration.start.endOf
+  (end) @collectionItem.iteration.end.startOf
+) @collectionItem.iteration.domain

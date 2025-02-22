@@ -1,16 +1,18 @@
 languageId: python
 command:
-  version: 5
+  version: 6
   spokenForm: snippet funk hello world
   action:
     name: insertSnippet
-    args:
-      - type: named
-        name: functionDeclaration
-        substitutions: {name: hello world}
-  targets:
-    - {type: implicit}
+    snippetDescription:
+      type: custom
+      body: "def $name($parameterList):\n\t$body"
+      scopeTypes:
+        - {type: statement}
+      substitutions: {name: hello_world}
+    destination: {type: implicit}
   usePrePhraseSnapshot: false
+spokenFormError: custom insertion snippet
 initialState:
   documentContents: ""
   selections:

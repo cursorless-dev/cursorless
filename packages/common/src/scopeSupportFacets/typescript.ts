@@ -1,17 +1,11 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 import { javascriptCoreScopeSupport } from "./javascript";
-import {
-  LanguageScopeSupportFacetMap,
-  ScopeSupportFacetLevel,
-} from "./scopeSupportFacets.types";
+import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
+import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
 const { supported } = ScopeSupportFacetLevel;
 
 export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
   ...javascriptCoreScopeSupport,
-
-  "name.field": supported,
 
   "type.argument.formal": supported,
   "type.argument.formal.iteration": supported,
@@ -23,9 +17,9 @@ export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
   "type.cast": supported,
   "type.field": supported,
   "type.interface": supported,
+  "type.enum": supported,
   "type.return": supported,
   "type.variable": supported,
 
-  "value.field": supported,
   "value.typeAlias": supported,
 };

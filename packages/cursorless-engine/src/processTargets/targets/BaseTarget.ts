@@ -1,17 +1,21 @@
 import type {
   EnforceUndefined,
+  GeneralizedRange,
   InsertionMode,
-  TargetPlainObject,
-} from "@cursorless/common";
-import {
   Range,
   Selection,
+  TargetPlainObject,
   TextEditor,
-  rangeToPlainObject,
 } from "@cursorless/common";
-import { isEqual } from "lodash";
+import { rangeToPlainObject } from "@cursorless/common";
+import { isEqual } from "lodash-es";
 import type { EditWithRangeUpdater } from "../../typings/Types";
-import type { Destination, Target } from "../../typings/target.types";
+import type {
+  Destination,
+  Target,
+  TextualType,
+} from "../../typings/target.types";
+import { toGeneralizedRange } from "../../util/targetUtils";
 import { DestinationImpl } from "./DestinationImpl";
 import { createContinuousRange } from "./util/createContinuousRange";
 
@@ -43,14 +47,12 @@ export abstract class BaseTarget<
 {
   protected abstract readonly type: string;
   protected readonly state: EnforceUndefined<CommonTargetParameters>;
-  isLine = false;
-  isToken = true;
   hasExplicitScopeType = true;
   hasExplicitRange = true;
   isRaw = false;
   isImplicit = false;
   isNotebookCell = false;
-  isWord = false;
+  textualType: TextualType = "token";
 
   constructor(parameters: TParameters & CommonTargetParameters) {
     this.state = {
@@ -64,6 +66,7 @@ export abstract class BaseTarget<
   get editor() {
     return this.state.editor;
   }
+
   get isReversed() {
     return this.state.isReversed;
   }
@@ -94,8 +97,8 @@ export abstract class BaseTarget<
     };
   }
 
-  getRemovalHighlightRange(): Range {
-    return this.getRemovalRange();
+  getRemovalHighlightRange(): GeneralizedRange {
+    return toGeneralizedRange(this, this.getRemovalRange());
   }
 
   withThatTarget(thatTarget: Target): Target {
@@ -109,6 +112,7 @@ export abstract class BaseTarget<
   getInterior(): Target[] | undefined {
     return undefined;
   }
+
   getBoundary(): Target[] | undefined {
     return undefined;
   }

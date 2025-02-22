@@ -1,0 +1,21 @@
+class Program {
+    public Program() { }
+}
+---
+
+[Content] =
+[Domain] = 1:4-1:24
+      >--------------------<
+1|     public Program() { }
+
+[Removal] = 1:0-2:0
+  >------------------------
+1|     public Program() { }
+2| }
+   <
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     public Program() { }
+
+[Insertion delimiter] = "\n\n"

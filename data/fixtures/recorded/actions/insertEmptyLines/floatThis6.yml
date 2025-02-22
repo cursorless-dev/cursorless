@@ -1,10 +1,11 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: float this
-  action: {name: insertEmptyLineAfter}
-  targets:
-    - type: primitive
+  action:
+    name: insertEmptyLineAfter
+    target:
+      type: primitive
       mark: {type: cursor}
   usePrePhraseSnapshot: true
 initialState:
@@ -20,13 +21,13 @@ finalState:
     whatever
     hello
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: {line: 1, character: 5}
+      active: {line: 1, character: 5}
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 2, character: 0}
-        end: {line: 2, character: 0}
+        start: {line: 1, character: 5}
+        end: {line: 1, character: 5}
       isReversed: false
       hasExplicitRange: true
 ide:

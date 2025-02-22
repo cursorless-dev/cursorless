@@ -3,10 +3,15 @@ enum class ccc { ddd, eee };
 ---
 
 [#1 Content] =
-[#1 Removal] =
 [#1 Domain] = 0:0-0:23
   >-----------------------<
 0| class aaa { int bbb; };
+
+[#1 Removal] = 0:0-1:0
+  >-----------------------
+0| class aaa { int bbb; };
+1| enum class ccc { ddd, eee };
+   <
 
 [#1 Insertion delimiter] = " "
 
@@ -35,9 +40,14 @@ enum class ccc { ddd, eee };
 
 
 [#3 Content] =
-[#3 Removal] =
 [#3 Domain] = 1:0-1:28
   >----------------------------<
 1| enum class ccc { ddd, eee };
+
+[#3 Removal] = 0:23-1:28
+                         >
+0| class aaa { int bbb; };
+1| enum class ccc { ddd, eee };
+   ----------------------------<
 
 [#3 Insertion delimiter] = " "

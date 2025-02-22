@@ -55,7 +55,6 @@ callback_actions: dict[str, Callable[[CursorlessExplicitTarget], None]] = {
 
 # Don't wait for these actions to finish, usually because they hang on some kind of user interaction
 no_wait_actions = [
-    "generateSnippet",
     "rename",
 ]
 
@@ -99,6 +98,8 @@ class Actions:
             )
         elif action_name == "callAsFunction":
             actions.user.private_cursorless_call(target)
+        elif action_name == "generateSnippet":
+            actions.user.private_cursorless_generate_snippet_action(target)
         elif action_name in no_wait_actions:
             action = {"name": action_name, "target": target}
             actions.user.private_cursorless_command_no_wait(action)

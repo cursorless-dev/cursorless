@@ -1,6 +1,7 @@
-import { SimpleScopeTypeType } from "../types/command/PartialTargetDescriptor.types";
+import type { SimpleScopeTypeType } from "../types/command/PartialTargetDescriptor.types";
+import { type ScopeType } from "../types/command/PartialTargetDescriptor.types";
 
-const scopeSupportFacets = [
+export const scopeSupportFacets = [
   "command",
 
   "element",
@@ -10,6 +11,10 @@ const scopeSupportFacets = [
   "attribute",
 
   "environment",
+
+  "section",
+  "section.iteration.document",
+  "section.iteration.parent",
 
   "list",
   "map",
@@ -34,14 +39,14 @@ const scopeSupportFacets = [
   "anonymousFunction",
 
   "namedFunction",
-  "namedFunction.iteration",
+  "namedFunction.iteration.block",
   "namedFunction.iteration.document",
   "namedFunction.method",
   "namedFunction.method.iteration.class",
   "namedFunction.constructor",
 
   "functionName",
-  "functionName.iteration",
+  "functionName.iteration.block",
   "functionName.iteration.document",
   "functionName.method",
   "functionName.method.iteration.class",
@@ -75,6 +80,10 @@ const scopeSupportFacets = [
   "textFragment.comment.block",
   "textFragment.string.singleLine",
   "textFragment.string.multiLine",
+  "textFragment.element",
+
+  "disqualifyDelimiter",
+  "pairDelimiter",
 
   "branch.if",
   "branch.if.iteration",
@@ -85,12 +94,16 @@ const scopeSupportFacets = [
   "branch.ternary",
   "branch.loop",
 
+  "collectionItem.unenclosed",
+  "collectionItem.unenclosed.iteration",
+
   "condition.if",
   "condition.while",
   "condition.doWhile",
   "condition.for",
   "condition.ternary",
   "condition.switchCase",
+  "condition.switchCase.iteration",
 
   "name.assignment",
   "name.assignment.pattern",
@@ -104,6 +117,8 @@ const scopeSupportFacets = [
   "name.field",
   "name.resource",
   "name.resource.iteration",
+  "name.argument.actual",
+  "name.argument.actual.iteration",
   "name.argument.formal",
   "name.argument.formal.iteration",
   "name.argument.formal.method",
@@ -119,6 +134,7 @@ const scopeSupportFacets = [
 
   "value.assignment",
   "value.variable",
+  "value.variable.pattern",
   "value.mapPair",
   "value.mapPair.iteration",
   "value.attribute",
@@ -129,6 +145,8 @@ const scopeSupportFacets = [
   "value.yield",
   "value.resource",
   "value.resource.iteration",
+  "value.argument.actual",
+  "value.argument.actual.iteration",
   "value.argument.formal",
   "value.argument.formal.iteration",
   "value.argument.formal.method",
@@ -149,39 +167,36 @@ const scopeSupportFacets = [
   "type.field.iteration",
   "type.foreach",
   "type.interface",
+  "type.enum",
   "type.alias",
   "type.cast",
   "type.class",
   "type.typeArgument",
   "type.typeArgument.iteration",
 
+  "interior.class",
+  "interior.function",
+  "interior.lambda",
+  "interior.element",
+  "interior.command",
+  "interior.cell",
+  "interior.if",
+  "interior.try",
+  "interior.switchCase",
+  "interior.ternary",
+  "interior.loop",
+  "interior.resource",
+
   "notebookCell",
 
   // FIXME: Still in legacy
-  // section
   // selector
   // unit
-  // collectionItem
-] as const;
-
-const textualScopeSupportFacets = [
-  "character",
-  "word",
-  "token",
-  "identifier",
-  "line",
-  "sentence",
-  "paragraph",
-  "document",
-  "nonWhitespaceSequence",
-  // FIXME: Still in legacy
-  // "boundedNonWhitespaceSequence",
-  "url",
 ] as const;
 
 export interface ScopeSupportFacetInfo {
   readonly description: string;
-  readonly scopeType: SimpleScopeTypeType;
+  readonly scopeType: SimpleScopeTypeType | ScopeType;
   readonly isIteration?: boolean;
 }
 
@@ -195,7 +210,25 @@ export enum ScopeSupportFacetLevel {
 export type ScopeSupportFacet = (typeof scopeSupportFacets)[number];
 
 export type TextualScopeSupportFacet =
-  (typeof textualScopeSupportFacets)[number];
+  | "character"
+  | "word"
+  | "token"
+  | "identifier"
+  | "line"
+  | "sentence"
+  | "paragraph"
+  | "boundedParagraph"
+  | "boundedParagraph.iteration"
+  | "document"
+  | "nonWhitespaceSequence"
+  | "boundedNonWhitespaceSequence"
+  | "boundedNonWhitespaceSequence.iteration"
+  | "url"
+  | "surroundingPair"
+  | "surroundingPair.iteration"
+  | "interior.surroundingPair"
+  | "collectionItem.textual"
+  | "collectionItem.textual.iteration";
 
 export type LanguageScopeSupportFacetMap = Partial<
   Record<ScopeSupportFacet, ScopeSupportFacetLevel>

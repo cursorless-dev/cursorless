@@ -14,11 +14,4 @@ foo = { bar = "a", baz = "b" }
        >-<
 0| foo = { bar = "a", baz = "b" }
 
-[Interior: Content] = 0:8-0:28
-          >--------------------<
-0| foo = { bar = "a", baz = "b" }
-[Interior: Removal] = 0:7-0:29
-         >----------------------<
-0| foo = { bar = "a", baz = "b" }
-
 [Insertion delimiter] = " "

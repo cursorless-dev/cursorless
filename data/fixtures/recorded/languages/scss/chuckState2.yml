@@ -1,10 +1,11 @@
 languageId: scss
 command:
-  version: 5
+  version: 6
   spokenForm: chuck state
-  action: {name: remove}
-  targets:
-    - type: primitive
+  action:
+    name: remove
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: statement}
@@ -21,8 +22,7 @@ initialState:
       active: {line: 0, character: 4}
   marks: {}
 finalState:
-  documentContents: |+
-
+  documentContents: ""
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

@@ -1,6 +1,8 @@
 ;; import javascript.function.scm
 ;; import javascript.fieldAccess.scm
 
+;; https://github.com/tree-sitter/tree-sitter-javascript/blob/master/src/grammar.json
+
 ;; `name` scope without `export`
 (
   (_
@@ -16,6 +18,7 @@
     abstract_method_signature
     public_field_definition
     field_definition
+    generic_type
   )
 )
 
@@ -270,6 +273,19 @@
   (#has-multiple-children-of-type? @_dummy variable_declarator)
 )
 
+;;!! let foo, bar;
+;;!      ^^^  ^^^
+(
+  (lexical_declaration
+    (variable_declarator)? @_.leading.endOf
+    .
+    (variable_declarator) @collectionItem
+    .
+    (variable_declarator)? @_.trailing.startOf
+  )
+  (#insertion-delimiter! @collectionItem ", ")
+)
+
 (expression_statement
   [
     ;; name:
@@ -352,6 +368,14 @@
   (#not-parent-type? @_.domain expression_statement)
 )
 
+;;!! function funk({ value = 2 })
+;;!                  ^^^^^
+;;!                          ^
+(object_assignment_pattern
+  left: (_) @name @value.leading.endOf
+  right: (_) @value
+) @_.domain
+
 ;;!! const aaa = {bbb};
 ;;!               ^^^
 (shorthand_property_identifier) @collectionKey @value
@@ -431,6 +455,16 @@
   (template_string)
 ] @string
 
+;;  taggedTemplate`hello ${world}`
+;;! ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(call_expression
+  function: (_) @pairDelimiter.start
+  arguments: (template_string
+    .
+    "`" @pairDelimiter.end
+  )
+)
+
 ;;!! // comment
 ;;!  ^^^^^^^^^^
 (comment) @comment
@@ -440,10 +474,14 @@
 (regex) @regularExpression
 
 [
-  (string_fragment)
   (comment)
   (regex_pattern)
 ] @textFragment
+
+(
+  (string) @textFragment
+  (#child-range! @textFragment 0 -1 true true)
+)
 
 (
   (template_string) @textFragment
@@ -569,9 +607,16 @@
 
 (switch_default) @branch
 
-;;!! switch () {}
-;;!  ^^^^^^^^^^^^
-(switch_statement) @branch.iteration @condition.iteration
+;;!! switch () { }
+;;!             ^
+(switch_statement
+  body: (_
+    .
+    "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
+    "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
+    .
+  )
+) @branch.iteration.domain @condition.iteration.domain
 
 ;;!! if () {}
 ;;!  ^^^^^^^^
@@ -728,3 +773,19 @@
   "(" @argumentOrParameter.iteration.start.endOf
   ")" @argumentOrParameter.iteration.end.startOf
 ) @argumentOrParameter.iteration.domain
+
+operator: [
+  "<"
+  "<<"
+  "<<="
+  "<="
+  ">"
+  ">="
+  ">>"
+  ">>="
+  ">>>"
+  ">>>="
+] @disqualifyDelimiter
+(arrow_function
+  "=>" @disqualifyDelimiter
+)

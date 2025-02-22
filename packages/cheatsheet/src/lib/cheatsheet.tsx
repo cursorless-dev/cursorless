@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons/faCircleQuestion";
 import CheatsheetNotesComponent from "./components/CheatsheetNotesComponent";
 import SmartLink from "./components/SmartLink";
-import { CheatsheetInfo } from "./CheatsheetInfo";
+import type { CheatsheetInfo } from "./CheatsheetInfo";
 
 type CheatsheetPageProps = {
   cheatsheetInfo: CheatsheetInfo;
@@ -64,7 +64,7 @@ type CheatsheetSectionProps = {
 };
 
 const CheatsheetSection: React.FC<CheatsheetSectionProps> = ({ children }) => (
-  <section className=" mb-5 break-inside-avoid last:mb-0 md:mb-3 xl:mb-4">
+  <section className="mb-5 break-inside-avoid last:mb-0 md:mb-3 xl:mb-4">
     {children}
   </section>
 );

@@ -1,26 +1,23 @@
-import {
-  FlashStyle,
+import type {
+  GeneralizedRange,
   Range,
-  RangeExpansionBehavior,
   Selection,
   TextEditor,
 } from "@cursorless/common";
-import { flatten } from "lodash";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import {
-  getSelectionInfo,
-  performEditsAndUpdateFullSelectionInfos,
-} from "../core/updateSelections/updateSelections";
+import { FlashStyle, RangeExpansionBehavior } from "@cursorless/common";
+import { flatten } from "lodash-es";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
-import { EditWithRangeUpdater } from "../typings/Types";
-import { Destination, Target } from "../typings/target.types";
+import type { EditWithRangeUpdater } from "../typings/Types";
+import type { Destination, Target } from "../typings/target.types";
 import {
   flashTargets,
-  getContentRange,
   runForEachEditor,
+  toGeneralizedRange,
 } from "../util/targetUtils";
 import { unifyRemovalTargets } from "../util/unifyRanges";
-import { ActionReturnValue } from "./actions.types";
+import type { ActionReturnValue } from "./actions.types";
 
 type ActionType = "bring" | "move" | "swap";
 
@@ -42,7 +39,7 @@ abstract class BringMoveSwap {
   protected abstract decoration: {
     sourceStyle: FlashStyle;
     destinationStyle: FlashStyle;
-    getSourceRangeCallback: (target: Target) => Range;
+    getSourceRangeCallback?: (target: Target) => GeneralizedRange;
   };
 
   constructor(
@@ -158,64 +155,35 @@ abstract class BringMoveSwap {
               ? edits
               : edits.filter(({ isSource }) => !isSource);
 
-          // Sources should be closedClosed, because they should be logically
-          // the same as the original source.
-          const sourceEditSelectionInfos = sourceEdits.map(
-            ({ edit: { range }, originalTarget }) =>
-              getSelectionInfo(
-                editor.document,
-                range.toSelection(originalTarget.isReversed),
-                RangeExpansionBehavior.closedClosed,
-              ),
+          const sourceEditRanges = sourceEdits.map(({ edit }) => edit.range);
+          const destinationEditRanges = destinationEdits.map(
+            ({ edit }) => edit.range,
           );
-
-          // Destinations should be openOpen, because they should grow to contain
-          // the new text.
-          const destinationEditSelectionInfos = destinationEdits.map(
-            ({ edit: { range }, originalTarget }) =>
-              getSelectionInfo(
-                editor.document,
-                range.toSelection(originalTarget.isReversed),
-                RangeExpansionBehavior.openOpen,
-              ),
-          );
-
-          const cursorSelectionInfos = editor.selections.map((selection) =>
-            getSelectionInfo(
-              editor.document,
-              selection,
-              RangeExpansionBehavior.closedClosed,
-            ),
-          );
-
           const editableEditor = ide().getEditableTextEditor(editor);
 
-          const [
-            updatedSourceEditSelections,
-            updatedDestinationEditSelections,
-            cursorSelections,
-          ]: Selection[][] = await performEditsAndUpdateFullSelectionInfos(
-            this.rangeUpdater,
-            editableEditor,
-            filteredEdits.map(({ edit }) => edit),
-            [
-              sourceEditSelectionInfos,
-              destinationEditSelectionInfos,
-              cursorSelectionInfos,
-            ],
-          );
-
-          // NB: We set the selections here because we don't trust vscode to
-          // properly move the cursor on a bring. Sometimes it will smear an
-          // empty selection
-          await editableEditor.setSelections(cursorSelections);
+          const {
+            sourceEditRanges: updatedSourceEditRanges,
+            destinationEditRanges: updatedDestinationEditRanges,
+          } = await performEditsAndUpdateSelections({
+            rangeUpdater: this.rangeUpdater,
+            editor: editableEditor,
+            edits: filteredEdits.map(({ edit }) => edit),
+            selections: {
+              // Sources should be closedClosed, because they should be logically
+              // the same as the original source.
+              sourceEditRanges,
+              // Destinations should be openOpen, because they should grow to contain
+              // the new text.
+              destinationEditRanges: {
+                selections: destinationEditRanges,
+                behavior: RangeExpansionBehavior.openOpen,
+              },
+            },
+          });
 
           const marks = [
-            ...this.getMarks(sourceEdits, updatedSourceEditSelections),
-            ...this.getMarks(
-              destinationEdits,
-              updatedDestinationEditSelections,
-            ),
+            ...this.getMarks(sourceEdits, updatedSourceEditRanges),
+            ...this.getMarks(destinationEdits, updatedDestinationEditRanges),
           ];
 
           // Restore original order before split into source and destination
@@ -231,13 +199,10 @@ abstract class BringMoveSwap {
     );
   }
 
-  private getMarks(
-    edits: ExtendedEdit[],
-    selections: Selection[],
-  ): MarkEntry[] {
+  private getMarks(edits: ExtendedEdit[], ranges: Range[]): MarkEntry[] {
     return edits.map((edit, index): MarkEntry => {
-      const selection = selections[index];
-      const range = edit.edit.updateRange(selection);
+      const originalRange = ranges[index];
+      const range = edit.edit.updateRange(originalRange);
       const target = edit.originalTarget;
       return {
         editor: edit.editor,
@@ -249,8 +214,12 @@ abstract class BringMoveSwap {
   }
 
   protected async decorateThatMark(thatMark: MarkEntry[]) {
-    const getRange = (target: Target) =>
-      thatMark.find((t) => t.target === target)!.selection;
+    const getRange = (target: Target) => {
+      return toGeneralizedRange(
+        target,
+        thatMark.find((t) => t.target === target)!.selection,
+      );
+    };
     return Promise.all([
       flashTargets(
         ide(),
@@ -290,7 +259,6 @@ export class Bring extends BringMoveSwap {
   decoration = {
     sourceStyle: FlashStyle.referenced,
     destinationStyle: FlashStyle.pendingModification0,
-    getSourceRangeCallback: getContentRange,
   };
 
   constructor(rangeUpdater: RangeUpdater) {
@@ -360,7 +328,6 @@ export class Swap extends BringMoveSwap {
   decoration = {
     sourceStyle: FlashStyle.pendingModification1,
     destinationStyle: FlashStyle.pendingModification0,
-    getSourceRangeCallback: getContentRange,
   };
 
   constructor(rangeUpdater: RangeUpdater) {

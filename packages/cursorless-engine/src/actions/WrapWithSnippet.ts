@@ -1,18 +1,19 @@
-import { FlashStyle, ScopeType, WrapWithSnippetArg } from "@cursorless/common";
-import { Snippets } from "../core/Snippets";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
+import type { WrapWithSnippetArg } from "@cursorless/common";
+import { FlashStyle } from "@cursorless/common";
+import type { Snippets } from "../core/Snippets";
+import { getPreferredSnippet } from "../core/getPreferredSnippet";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
+import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
+import type { ModifierStage } from "../processTargets/PipelineStages.types";
 import { ModifyIfUntypedStage } from "../processTargets/modifiers/ConditionalModifierStages";
 import { ide } from "../singletons/ide.singleton";
-import {
-  findMatchingSnippetDefinitionStrict,
-  transformSnippetVariables,
-} from "../snippets/snippet";
+import { transformSnippetVariables } from "../snippets/transformSnippetVariables";
 import { SnippetParser } from "../snippets/vendor/vscodeSnippet/snippetParser";
-import { Target } from "../typings/target.types";
+import type { Target } from "../typings/target.types";
 import { ensureSingleEditor, flashTargets } from "../util/targetUtils";
-import { ActionReturnValue } from "./actions.types";
+import type { ActionReturnValue } from "./actions.types";
+import WrapWithSnippetLegacy from "./snippetsLegacy/WrapWithSnippetLegacy";
 
 export default class WrapWithSnippet {
   private snippetParser = new SnippetParser();
@@ -25,10 +26,21 @@ export default class WrapWithSnippet {
     this.run = this.run.bind(this);
   }
 
-  getFinalStages(snippet: WrapWithSnippetArg) {
-    const defaultScopeType = this.getScopeType(snippet);
+  getFinalStages(
+    targets: Target[],
+    snippetDescription: WrapWithSnippetArg,
+  ): ModifierStage[] {
+    if (snippetDescription.type === "named") {
+      return this.legacy().getFinalStages(snippetDescription);
+    }
 
-    if (defaultScopeType == null) {
+    const editor = ensureSingleEditor(targets);
+    const snippet = getPreferredSnippet(
+      snippetDescription,
+      editor.document.languageId,
+    );
+
+    if (snippet.scopeType == null) {
       return [];
     }
 
@@ -37,64 +49,29 @@ export default class WrapWithSnippet {
         type: "modifyIfUntyped",
         modifier: {
           type: "containingScope",
-          scopeType: defaultScopeType,
+          scopeType: snippet.scopeType,
         },
       }),
     ];
-  }
-
-  private getScopeType(
-    snippetDescription: WrapWithSnippetArg,
-  ): ScopeType | undefined {
-    if (snippetDescription.type === "named") {
-      const { name, variableName } = snippetDescription;
-
-      const snippet = this.snippets.getSnippetStrict(name);
-
-      const variables = snippet.variables ?? {};
-      const scopeTypeType = variables[variableName]?.wrapperScopeType;
-      return scopeTypeType == null
-        ? undefined
-        : {
-            type: scopeTypeType,
-          };
-    } else {
-      return snippetDescription.scopeType;
-    }
-  }
-
-  private getBody(
-    snippetDescription: WrapWithSnippetArg,
-    targets: Target[],
-  ): string {
-    if (snippetDescription.type === "named") {
-      const { name } = snippetDescription;
-
-      const snippet = this.snippets.getSnippetStrict(name);
-
-      const definition = findMatchingSnippetDefinitionStrict(
-        this.modifierStageFactory,
-        targets,
-        snippet.definitions,
-      );
-
-      return definition.body.join("\n");
-    } else {
-      return snippetDescription.body;
-    }
   }
 
   async run(
     targets: Target[],
     snippetDescription: WrapWithSnippetArg,
   ): Promise<ActionReturnValue> {
+    if (snippetDescription.type === "named") {
+      return this.legacy().run(targets, snippetDescription);
+    }
+
     const editor = ide().getEditableTextEditor(ensureSingleEditor(targets));
+    const snippet = getPreferredSnippet(
+      snippetDescription,
+      editor.document.languageId,
+    );
 
-    const body = this.getBody(snippetDescription, targets);
+    const parsedSnippet = this.snippetParser.parse(snippet.body);
 
-    const parsedSnippet = this.snippetParser.parse(body);
-
-    transformSnippetVariables(parsedSnippet, snippetDescription.variableName);
+    transformSnippetVariables(parsedSnippet, snippet.variableName);
 
     const snippetString = parsedSnippet.toTextmateString();
 
@@ -102,14 +79,16 @@ export default class WrapWithSnippet {
 
     const targetSelections = targets.map((target) => target.contentSelection);
 
-    // NB: We used the command "editor.action.insertSnippet" instead of calling editor.insertSnippet
-    // because the latter doesn't support special variables like CLIPBOARD
-    const [updatedTargetSelections] = await callFunctionAndUpdateSelections(
-      this.rangeUpdater,
-      () => editor.insertSnippet(snippetString, targetSelections),
-      editor.document,
-      [targetSelections],
-    );
+    const { targetSelections: updatedTargetSelections } =
+      await performEditsAndUpdateSelections({
+        rangeUpdater: this.rangeUpdater,
+        editor,
+        callback: () => editor.insertSnippet(snippetString, targetSelections),
+        preserveCursorSelections: true,
+        selections: {
+          targetSelections,
+        },
+      });
 
     return {
       thatSelections: updatedTargetSelections.map((selection) => ({
@@ -117,5 +96,14 @@ export default class WrapWithSnippet {
         selection,
       })),
     };
+  }
+
+  // DEPRECATED @ 2025-02-01
+  private legacy() {
+    return new WrapWithSnippetLegacy(
+      this.rangeUpdater,
+      this.snippets,
+      this.modifierStageFactory,
+    );
   }
 }

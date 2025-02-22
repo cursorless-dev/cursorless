@@ -1,4 +1,4 @@
-import { ActionDescriptor } from "@cursorless/common";
+import type { ActionDescriptor } from "@cursorless/common";
 import { multiActionSpokenFormTest } from "./spokenFormTest";
 
 const getTextAction: ActionDescriptor = {

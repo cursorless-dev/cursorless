@@ -124,7 +124,11 @@ export interface ActionRecord extends Record<SimpleActionName, SimpleAction> {
   };
 
   generateSnippet: {
-    run(targets: Target[], snippetName?: string): Promise<ActionReturnValue>;
+    run(
+      targets: Target[],
+      directory?: string,
+      snippetName?: string,
+    ): Promise<ActionReturnValue>;
   };
 
   insertSnippet: {
@@ -132,7 +136,10 @@ export interface ActionRecord extends Record<SimpleActionName, SimpleAction> {
       destinations: Destination[],
       snippetDescription: InsertSnippetArg,
     ): Promise<ActionReturnValue>;
-    getFinalStages(snippetDescription: InsertSnippetArg): ModifierStage[];
+    getFinalStages(
+      destinations: Destination[],
+      snippetDescription: InsertSnippetArg,
+    ): ModifierStage[];
   };
 
   wrapWithSnippet: {
@@ -140,7 +147,10 @@ export interface ActionRecord extends Record<SimpleActionName, SimpleAction> {
       targets: Target[],
       snippetDescription: WrapWithSnippetArg,
     ): Promise<ActionReturnValue>;
-    getFinalStages(snippetDescription: WrapWithSnippetArg): ModifierStage[];
+    getFinalStages(
+      targets: Target[],
+      snippetDescription: WrapWithSnippetArg,
+    ): ModifierStage[];
   };
 
   editNew: {

@@ -1,22 +1,25 @@
-import { Snippets } from "../core/Snippets";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
-import { TreeSitter } from "../typings/TreeSitter";
+import type { TreeSitter } from "@cursorless/common";
+import type { Snippets } from "../core/Snippets";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { BreakLine } from "./BreakLine";
 import { Bring, Move, Swap } from "./BringMoveSwap";
 import Call from "./Call";
 import Clear from "./Clear";
+import { CopyToClipboard } from "./CopyToClipboard";
 import { CutToClipboard } from "./CutToClipboard";
 import Deselect from "./Deselect";
 import { EditNew } from "./EditNew";
 import { EditNewAfter, EditNewBefore } from "./EditNewLineAction";
 import ExecuteCommand from "./ExecuteCommand";
 import { FindInDocument, FindInWorkspace } from "./Find";
+import { FlashTargets } from "./FlashTargets";
 import FollowLink from "./FollowLink";
 import GenerateSnippet from "./GenerateSnippet";
 import GetTargets from "./GetTargets";
 import GetText from "./GetText";
 import Highlight from "./Highlight";
+import { IndentLine, OutdentLine } from "./IndentLine";
 import {
   CopyContentAfter as InsertCopyAfter,
   CopyContentBefore as InsertCopyBefore,
@@ -34,6 +37,9 @@ import Replace from "./Replace";
 import Rewrap from "./Rewrap";
 import { ScrollToBottom, ScrollToCenter, ScrollToTop } from "./Scroll";
 import {
+  AddSelection,
+  AddSelectionAfter,
+  AddSelectionBefore,
   SetSelection,
   SetSelectionAfter,
   SetSelectionBefore,
@@ -41,11 +47,12 @@ import {
 import { SetSpecialTarget } from "./SetSpecialTarget";
 import ShowParseTree from "./ShowParseTree";
 import {
-  CopyToClipboard,
   ExtractVariable,
   Fold,
-  IndentLine,
-  OutdentLine,
+  GitAccept,
+  GitRevert,
+  GitStage,
+  GitUnstage,
   Rename,
   RevealDefinition,
   RevealTypeDefinition,
@@ -60,7 +67,7 @@ import { Random, Reverse, Sort } from "./Sort";
 import ToggleBreakpoint from "./ToggleBreakpoint";
 import Wrap from "./Wrap";
 import WrapWithSnippet from "./WrapWithSnippet";
-import { ActionRecord } from "./actions.types";
+import type { ActionRecord } from "./actions.types";
 import { Decrement, Increment } from "./incrementDecrement";
 
 /**
@@ -74,9 +81,12 @@ export class Actions implements ActionRecord {
     private modifierStageFactory: ModifierStageFactory,
   ) {}
 
+  addSelection = new AddSelection();
+  addSelectionBefore = new AddSelectionBefore();
+  addSelectionAfter = new AddSelectionAfter();
   callAsFunction = new Call(this);
   clearAndSetSelection = new Clear(this);
-  copyToClipboard = new CopyToClipboard(this.rangeUpdater);
+  copyToClipboard = new CopyToClipboard(this, this.rangeUpdater);
   cutToClipboard = new CutToClipboard(this);
   decrement = new Decrement(this);
   deselect = new Deselect();
@@ -93,10 +103,16 @@ export class Actions implements ActionRecord {
   extractVariable = new ExtractVariable(this.rangeUpdater);
   findInDocument = new FindInDocument(this);
   findInWorkspace = new FindInWorkspace(this);
+  flashTargets = new FlashTargets();
   foldRegion = new Fold(this.rangeUpdater);
-  followLink = new FollowLink(this);
-  generateSnippet = new GenerateSnippet();
+  followLink = new FollowLink({ openAside: false });
+  followLinkAside = new FollowLink({ openAside: true });
+  generateSnippet = new GenerateSnippet(this.snippets);
   getText = new GetText();
+  gitAccept = new GitAccept(this.rangeUpdater);
+  gitRevert = new GitRevert(this.rangeUpdater);
+  gitStage = new GitStage(this.rangeUpdater);
+  gitUnstage = new GitUnstage(this.rangeUpdater);
   highlight = new Highlight();
   increment = new Increment(this);
   indentLine = new IndentLine(this.rangeUpdater);
@@ -108,16 +124,25 @@ export class Actions implements ActionRecord {
     this.rangeUpdater,
     this.modifierStageFactory,
   );
-  insertEmptyLineAfter = new InsertEmptyLineAfter(this.rangeUpdater);
-  insertEmptyLineBefore = new InsertEmptyLineBefore(this.rangeUpdater);
-  insertEmptyLinesAround = new InsertEmptyLinesAround(this.rangeUpdater);
+  insertEmptyLineAfter = new InsertEmptyLineAfter(
+    this.rangeUpdater,
+    this.modifierStageFactory,
+  );
+  insertEmptyLineBefore = new InsertEmptyLineBefore(
+    this.rangeUpdater,
+    this.modifierStageFactory,
+  );
+  insertEmptyLinesAround = new InsertEmptyLinesAround(
+    this.rangeUpdater,
+    this.modifierStageFactory,
+  );
   insertSnippet = new InsertSnippet(
     this.rangeUpdater,
     this.snippets,
     this,
     this.modifierStageFactory,
   );
-  joinLines = new JoinLines(this.rangeUpdater);
+  joinLines = new JoinLines(this.rangeUpdater, this.modifierStageFactory);
   breakLine = new BreakLine(this.rangeUpdater);
   moveToTarget = new Move(this.rangeUpdater);
   outdentLine = new OutdentLine(this.rangeUpdater);
@@ -137,10 +162,6 @@ export class Actions implements ActionRecord {
   scrollToBottom = new ScrollToBottom();
   scrollToCenter = new ScrollToCenter();
   scrollToTop = new ScrollToTop();
-  ["private.setKeyboardTarget"] = new SetSpecialTarget("keyboard");
-  ["experimental.setInstanceReference"] = new SetSpecialTarget(
-    "instanceReference",
-  );
   setSelection = new SetSelection();
   setSelectionAfter = new SetSelectionAfter();
   setSelectionBefore = new SetSelectionBefore();
@@ -159,6 +180,12 @@ export class Actions implements ActionRecord {
     this.snippets,
     this.modifierStageFactory,
   );
+
+  ["experimental.setInstanceReference"] = new SetSpecialTarget(
+    "instanceReference",
+  );
+
   ["private.showParseTree"] = new ShowParseTree(this.treeSitter);
   ["private.getTargets"] = new GetTargets();
+  ["private.setKeyboardTarget"] = new SetSpecialTarget("keyboard");
 }

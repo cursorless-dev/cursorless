@@ -1,10 +1,11 @@
 languageId: ruby
 command:
-  version: 5
+  version: 6
   spokenForm: chuck state
-  action: {name: remove}
-  targets:
-    - type: primitive
+  action:
+    name: remove
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: statement}
@@ -25,7 +26,6 @@ finalState:
     begin
       a = 10
     ensure 
-
     end
   selections:
     - anchor: {line: 3, character: 0}

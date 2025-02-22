@@ -1,13 +1,14 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: change special
-  action: {name: clearAndSetSelection}
-  targets:
-    - type: primitive
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: 😄}
   usePrePhraseSnapshot: true
-spokenFormError: Unknown character '😄'
+spokenFormError: grapheme '😄'
 initialState:
   documentContents: |
     😄

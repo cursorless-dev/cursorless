@@ -1,16 +1,16 @@
 import { FlashStyle } from "@cursorless/common";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
-import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
+import { getContainingSurroundingPairIfNoBoundaryStage } from "../processTargets/modifiers/InteriorStage";
+import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { ide } from "../singletons/ide.singleton";
-import { Target } from "../typings/target.types";
+import type { Target } from "../typings/target.types";
 import {
   createThatMark,
   flashTargets,
   runOnTargetsForEachEditor,
 } from "../util/targetUtils";
-import { ActionReturnValue } from "./actions.types";
-import { getContainingSurroundingPairIfNoBoundaryStage } from "../processTargets/modifiers/InteriorStage";
+import type { ActionReturnValue } from "./actions.types";
 
 export default class Rewrap {
   getFinalStages = () => [
@@ -50,16 +50,20 @@ export default class Rewrap {
           text: i % 2 === 0 ? left : right,
         }));
 
-        const [updatedSourceRanges, updatedThatRanges] =
-          await performEditsAndUpdateRanges(
-            this.rangeUpdater,
-            ide().getEditableTextEditor(editor),
-            edits,
-            [
-              targets.map((target) => target.thatTarget.contentRange),
-              targets.map((target) => target.contentRange),
-            ],
-          );
+        const {
+          sourceRanges: updatedSourceRanges,
+          thatRanges: updatedThatRanges,
+        } = await performEditsAndUpdateSelections({
+          rangeUpdater: this.rangeUpdater,
+          editor: ide().getEditableTextEditor(editor),
+          edits,
+          selections: {
+            sourceRanges: targets.map(
+              (target) => target.thatTarget.contentRange,
+            ),
+            thatRanges: targets.map((target) => target.contentRange),
+          },
+        });
 
         return {
           sourceMark: createThatMark(targets, updatedSourceRanges),

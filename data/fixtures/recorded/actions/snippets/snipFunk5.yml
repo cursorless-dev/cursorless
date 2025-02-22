@@ -1,14 +1,13 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: snippet funk
   action:
     name: insertSnippet
-    args:
-      - {type: named, name: functionDeclaration}
-  targets:
-    - {type: implicit}
+    snippetDescription: {type: custom, body: "$name($parameterList) {\n\t$body\n}"}
+    destination: {type: implicit}
   usePrePhraseSnapshot: true
+spokenFormError: custom insertion snippet
 initialState:
   documentContents: |-
     function aaa() {

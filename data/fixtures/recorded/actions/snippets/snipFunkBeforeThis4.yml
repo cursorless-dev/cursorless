@@ -1,17 +1,23 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: snippet funk before this
   action:
     name: insertSnippet
-    args:
-      - {type: named, name: functionDeclaration}
-  targets:
-    - type: primitive
-      mark: {type: cursor}
-      modifiers:
-        - {type: position, position: before}
+    snippetDescription:
+      type: custom
+      body: "$name($parameterList) {\n\t$body\n}"
+      scopeTypes:
+        - {type: namedFunction}
+        - {type: statement}
+    destination:
+      type: primitive
+      insertionMode: before
+      target:
+        type: primitive
+        mark: {type: cursor}
   usePrePhraseSnapshot: true
+spokenFormError: custom insertion snippet
 initialState:
   documentContents: |-
     class Aaa {

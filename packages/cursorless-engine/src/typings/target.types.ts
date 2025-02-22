@@ -7,6 +7,7 @@
 import type { ModifyIfUntypedStage } from "../processTargets/modifiers/ConditionalModifierStages";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
 import type {
+  GeneralizedRange,
   InsertionMode,
   Range,
   Selection,
@@ -29,6 +30,8 @@ import type { EditWithRangeUpdater } from "./Types";
 
 export type EditNewActionType = "edit" | "insertLineAfter";
 
+export type TextualType = "character" | "word" | "token" | "line";
+
 export interface Target {
   /** The text editor used for all ranges */
   readonly editor: TextEditor;
@@ -45,14 +48,8 @@ export interface Target {
   /** Optional prefix. For example, dash or asterisk for a markdown item */
   readonly prefixRange?: Range;
 
-  /** If true this target should be treated as a line */
-  readonly isLine: boolean;
-
-  /** If true this target should be treated as a token */
-  readonly isToken: boolean;
-
-  /** If true this target should be treated as a word */
-  readonly isWord: boolean;
+  /** Targets textual type. Is this target a line, a token, etc... */
+  readonly textualType: TextualType;
 
   /**
    * If `true`, then this target has an explicit scope type, and so should never
@@ -152,7 +149,7 @@ export interface Target {
    * we want to highlight the line that they were on when they said `"chuck
    * line"`, as that is logically the line they've deleted.
    */
-  getRemovalHighlightRange(): Range;
+  getRemovalHighlightRange(): GeneralizedRange;
   withThatTarget(thatTarget: Target): Target;
   withContentRange(contentRange: Range): Target;
 
@@ -216,5 +213,8 @@ export interface Destination {
   withTarget(target: Target): Destination;
   getEditNewActionType(): EditNewActionType;
   /** Constructs change/insertion edit. Adds delimiter before/after if needed */
-  constructChangeEdit(text: string): EditWithRangeUpdater;
+  constructChangeEdit(
+    text: string,
+    skipIndentation?: boolean,
+  ): EditWithRangeUpdater;
 }

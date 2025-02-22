@@ -1,19 +1,20 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: change leading past whale
-  action: {name: clearAndSetSelection}
-  targets:
-    - active:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  action:
+    name: clearAndSetSelection
+    target:
       type: range
-      excludeAnchor: false
-      excludeActive: false
       anchor:
         type: primitive
         modifiers:
           - {type: leading}
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      excludeAnchor: false
+      excludeActive: false
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |2-

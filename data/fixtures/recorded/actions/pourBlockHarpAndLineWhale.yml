@@ -1,21 +1,22 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: pour block harp and line whale
-  action: {name: editNewLineAfter}
-  targets:
-    - type: list
+  action:
+    name: editNewLineAfter
+    target:
+      type: list
       elements:
         - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: h}
           modifiers:
             - type: containingScope
               scopeType: {type: paragraph}
+          mark: {type: decoratedSymbol, symbolColor: default, character: h}
         - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: w}
           modifiers:
             - type: containingScope
               scopeType: {type: line}
+          mark: {type: decoratedSymbol, symbolColor: default, character: w}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |2-

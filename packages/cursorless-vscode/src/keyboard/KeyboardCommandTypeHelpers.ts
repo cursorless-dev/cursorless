@@ -1,4 +1,4 @@
-import { KeyboardCommandHandler } from "./KeyboardCommandHandler";
+import type { KeyboardCommandHandler } from "./KeyboardCommandHandler";
 
 /**
  * Maps from the name of a method in KeyboardCommandHandler to the type of its
@@ -30,10 +30,12 @@ export type KeyboardCommand<T extends keyof KeyboardCommandHandler> = {
 // needs to be flipped.
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function assertExtends<A extends B, B>() {}
+// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 assertExtends<
   Record<keyof KeyboardCommandArgTypes, (arg?: object) => never>,
   Pick<KeyboardCommandHandler, keyof KeyboardCommandArgTypes>
 >;
+// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 assertExtends<
   Pick<KeyboardCommandHandler, keyof KeyboardCommandArgTypes>,
   Record<keyof KeyboardCommandArgTypes, (arg: never) => void | Promise<void>>

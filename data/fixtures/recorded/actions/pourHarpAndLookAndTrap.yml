@@ -1,10 +1,11 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: pour harp and look and trap
-  action: {name: editNewLineAfter}
-  targets:
-    - type: list
+  action:
+    name: editNewLineAfter
+    target:
+      type: list
       elements:
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: h}

@@ -1,12 +1,17 @@
-import { HeadModifier, TailModifier } from "@cursorless/common";
-import { Target } from "../../typings/target.types";
-import { ModifierStageFactory } from "../ModifierStageFactory";
-import { ModifierStage } from "../PipelineStages.types";
+import {
+  NoContainingScopeError,
+  type HeadModifier,
+  type ScopeType,
+  type TailModifier,
+} from "@cursorless/common";
+import type { Target } from "../../typings/target.types";
+import type { ModifierStageFactory } from "../ModifierStageFactory";
+import type { ModifierStage } from "../PipelineStages.types";
 import {
   getModifierStagesFromTargetModifiers,
   processModifierStages,
 } from "../TargetPipelineRunner";
-import { HeadTailTarget } from "../targets";
+import { HeadTailTarget, PlainTarget } from "../targets";
 
 export class HeadTailStage implements ModifierStage {
   constructor(
@@ -15,22 +20,11 @@ export class HeadTailStage implements ModifierStage {
   ) {}
 
   run(target: Target): Target[] {
-    const modifiers = this.modifier.modifiers ?? [
-      {
-        type: "containingScope",
-        scopeType: { type: "line" },
-      },
-    ];
-
-    const modifierStages = getModifierStagesFromTargetModifiers(
-      this.modifierStageFactory,
-      modifiers,
-    );
+    const modifierStages = this.getModifierStages();
     const modifiedTargets = processModifierStages(modifierStages, [target]);
+    const isHead = this.modifier.type === "extendThroughStartOf";
 
     return modifiedTargets.map((modifiedTarget) => {
-      const isHead = this.modifier.type === "extendThroughStartOf";
-
       return new HeadTailTarget({
         editor: target.editor,
         isReversed: isHead,
@@ -39,5 +33,71 @@ export class HeadTailStage implements ModifierStage {
         isHead,
       });
     });
+  }
+
+  private getModifierStages(): ModifierStage[] {
+    if (this.modifier.modifiers != null) {
+      return getModifierStagesFromTargetModifiers(
+        this.modifierStageFactory,
+        this.modifier.modifiers,
+      );
+    }
+
+    return [new BoundedLineStage(this.modifierStageFactory, this.modifier)];
+  }
+}
+
+class BoundedLineStage implements ModifierStage {
+  constructor(
+    private modifierStageFactory: ModifierStageFactory,
+    private modifier: HeadModifier | TailModifier,
+  ) {}
+
+  run(target: Target): Target[] {
+    const line = this.getContainingLine(target);
+    const pairInterior = this.getContainingPairInterior(target);
+
+    const intersection =
+      pairInterior != null
+        ? line.contentRange.intersection(pairInterior.contentRange)
+        : null;
+
+    if (intersection == null || intersection.isEmpty) {
+      return [line];
+    }
+
+    return [
+      new PlainTarget({
+        editor: target.editor,
+        isReversed: target.isReversed,
+        contentRange: intersection,
+      }),
+    ];
+  }
+
+  private getContainingPairInterior(target: Target): Target | undefined {
+    try {
+      return this.getContaining(target, {
+        type: "surroundingPairInterior",
+        delimiter: "any",
+      })[0];
+    } catch (error) {
+      if (error instanceof NoContainingScopeError) {
+        return undefined;
+      }
+      throw error;
+    }
+  }
+
+  private getContainingLine(target: Target): Target {
+    return this.getContaining(target, {
+      type: "line",
+    })[0];
+  }
+
+  private getContaining(target: Target, scopeType: ScopeType): Target[] {
+    return this.modifierStageFactory
+      .create({ type: "containingScope", scopeType })
+      .run(target);
   }
 }

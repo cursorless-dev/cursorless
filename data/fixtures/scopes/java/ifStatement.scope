@@ -1,0 +1,10 @@
+if (value != null) { }
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:22
+  >----------------------<
+0| if (value != null) { }
+
+[Insertion delimiter] = "\n"

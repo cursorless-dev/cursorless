@@ -1,0 +1,29 @@
+languageId: kotlin
+command:
+  version: 7
+  spokenForm: change type
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    fun <T> getFirstElement(list: List<T>): T where T : Comparable<T>, T : Any {
+        return list.first()
+    }
+  selections:
+    - anchor: {line: 1, character: 23}
+      active: {line: 1, character: 23}
+  marks: {}
+finalState:
+  documentContents: |-
+    fun <T> getFirstElement(list: List<T>):  where T : Comparable<T>, T : Any {
+        return list.first()
+    }
+  selections:
+    - anchor: {line: 0, character: 40}
+      active: {line: 0, character: 40}

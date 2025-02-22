@@ -1,14 +1,21 @@
+;; https://github.com/tree-sitter/tree-sitter-rust/blob/master/src/grammar.json
+
 [
   (if_expression)
   (if_let_expression)
 ] @ifStatement
 
+;;!! "hello"
 (
-  [
-    (raw_string_literal)
-    (string_literal)
-  ] @string @textFragment
+  (string_literal) @string @textFragment
   (#child-range! @textFragment 0 -1 true true)
+)
+
+;;!! r#"foobar"#
+(
+  (raw_string_literal) @string @textFragment
+  (#shrink-to-match! @textFragment "r#+\"(?<keep>.*)\"#+")
+
 )
 
 [
@@ -55,3 +62,26 @@
 (match_expression
   value: (_) @private.switchStatementSubject
 ) @_.domain
+
+operator: [
+  "<"
+  "<<"
+  "<<="
+  "<="
+  ">"
+  ">="
+  ">>"
+  ">>="
+] @disqualifyDelimiter
+(function_item
+  "->" @disqualifyDelimiter
+)
+(match_arm
+  "=>" @disqualifyDelimiter
+)
+(macro_rule
+  "=>" @disqualifyDelimiter
+)
+(lifetime
+  "'" @disqualifyDelimiter
+)

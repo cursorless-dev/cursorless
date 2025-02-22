@@ -1,7 +1,9 @@
-import { ScopeSupport, ScopeSupportInfo } from "@cursorless/common";
+import type { ScopeSupportInfo } from "@cursorless/common";
+import { ScopeSupport } from "@cursorless/common";
 import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
 import * as sinon from "sinon";
-import { Position, Range, TextDocument, commands } from "vscode";
+import type { TextDocument } from "vscode";
+import { Position, Range, commands } from "vscode";
 import { assertCalledWithScopeInfo } from "./assertCalledWithScopeInfo";
 
 /**
@@ -52,11 +54,14 @@ function helloWorld() {
 }
 `;
 
-function getExpectedScope(scopeSupport: ScopeSupport): ScopeSupportInfo {
+function getExpectedScope(
+  scopeSupport: ScopeSupport,
+  iterationScopeSupport?: ScopeSupport,
+): ScopeSupportInfo {
   return {
     humanReadableName: "named function",
     isLanguageSpecific: true,
-    iterationScopeSupport: scopeSupport,
+    iterationScopeSupport: iterationScopeSupport ?? scopeSupport,
     scopeType: {
       type: "namedFunction",
     },
@@ -69,5 +74,8 @@ function getExpectedScope(scopeSupport: ScopeSupport): ScopeSupportInfo {
 }
 
 const unsupported = getExpectedScope(ScopeSupport.unsupported);
-const supported = getExpectedScope(ScopeSupport.supportedButNotPresentInEditor);
+const supported = getExpectedScope(
+  ScopeSupport.supportedButNotPresentInEditor,
+  ScopeSupport.supportedAndPresentInEditor,
+);
 const present = getExpectedScope(ScopeSupport.supportedAndPresentInEditor);

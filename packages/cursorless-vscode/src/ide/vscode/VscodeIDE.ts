@@ -1,4 +1,4 @@
-import {
+import type {
   Disposable,
   EditableTextEditor,
   FlashDescriptor,
@@ -6,28 +6,31 @@ import {
   HighlightId,
   IDE,
   InputBoxOptions,
+  NotebookEditor,
   OpenUntitledTextDocumentOptions,
-  OutdatedExtensionError,
   QuickPickOptions,
   RunMode,
   TextDocumentChangeEvent,
   TextEditor,
 } from "@cursorless/common";
+import { OutdatedExtensionError } from "@cursorless/common";
 import {
   fromVscodeRange,
   fromVscodeSelection,
 } from "@cursorless/vscode-common";
-import { pull } from "lodash";
+import { pull } from "lodash-es";
 import { v4 as uuid } from "uuid";
+import type { ExtensionContext, WorkspaceFolder } from "vscode";
 import * as vscode from "vscode";
-import { ExtensionContext, WorkspaceFolder, window, workspace } from "vscode";
+import { window, workspace } from "vscode";
 import { VscodeCapabilities } from "./VscodeCapabilities";
 import VscodeClipboard from "./VscodeClipboard";
 import VscodeConfiguration from "./VscodeConfiguration";
 import { forwardEvent, vscodeOnDidChangeTextDocument } from "./VscodeEvents";
 import VscodeFlashHandler from "./VscodeFlashHandler";
-import VscodeGlobalState from "./VscodeGlobalState";
 import VscodeHighlights, { HighlightStyle } from "./VscodeHighlights";
+import { VscodeNotebookEditorImpl } from "./VscodeIdeNotebook";
+import VscodeKeyValueStore from "./VscodeKeyValueStore";
 import VscodeMessages from "./VscodeMessages";
 import { vscodeRunMode } from "./VscodeRunMode";
 import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
@@ -36,7 +39,7 @@ import { vscodeShowQuickPick } from "./vscodeShowQuickPick";
 
 export class VscodeIDE implements IDE {
   readonly configuration: VscodeConfiguration;
-  readonly globalState: VscodeGlobalState;
+  readonly keyValueStore: VscodeKeyValueStore;
   readonly messages: VscodeMessages;
   readonly clipboard: VscodeClipboard;
   readonly capabilities: VscodeCapabilities;
@@ -46,7 +49,7 @@ export class VscodeIDE implements IDE {
 
   constructor(private extensionContext: ExtensionContext) {
     this.configuration = new VscodeConfiguration(this);
-    this.globalState = new VscodeGlobalState(extensionContext);
+    this.keyValueStore = new VscodeKeyValueStore(extensionContext);
     this.messages = new VscodeMessages();
     this.clipboard = new VscodeClipboard();
     this.highlights = new VscodeHighlights(extensionContext);
@@ -114,6 +117,12 @@ export class VscodeIDE implements IDE {
 
   get visibleTextEditors(): VscodeTextEditorImpl[] {
     return window.visibleTextEditors.map((e) => this.fromVscodeEditor(e));
+  }
+
+  get visibleNotebookEditors(): NotebookEditor[] {
+    return vscode.window.visibleNotebookEditors.map(
+      (editor) => new VscodeNotebookEditorImpl(editor),
+    );
   }
 
   public getEditableTextEditor(editor: TextEditor): EditableTextEditor {
@@ -212,9 +221,9 @@ export class VscodeIDE implements IDE {
 
   handleCommandError(err: Error) {
     if (err instanceof OutdatedExtensionError) {
-      this.showUpdateExtensionErrorMessage(err);
+      void this.showUpdateExtensionErrorMessage(err);
     } else {
-      vscode.window.showErrorMessage(err.message);
+      void vscode.window.showErrorMessage(err.message);
     }
   }
 

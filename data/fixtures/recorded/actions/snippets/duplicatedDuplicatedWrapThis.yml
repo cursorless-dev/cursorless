@@ -1,16 +1,15 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 6
   spokenForm: duplicated duplicated wrap this
   action:
     name: wrapWithSnippet
-    args:
-      - {type: named, name: duplicatedVariableTest, variableName: duplicated}
-  targets:
-    - type: primitive
+    snippetDescription: {type: custom, variableName: duplicated, body: 'This variable: ''$duplicated'' is duplicated here: ''$duplicated'', but ''$unique'' is unique!'}
+    target:
+      type: primitive
       mark: {type: cursor}
   usePrePhraseSnapshot: true
-spokenFormError: Named wrap with snippet 'duplicatedVariableTest.duplicated'
+spokenFormError: custom wrap with snippet
 initialState:
   documentContents: Hello world
   selections:

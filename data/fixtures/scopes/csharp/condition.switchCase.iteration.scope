@@ -1,0 +1,15 @@
+switch(expression)
+{
+  case x: break;
+  default: break;
+}
+---
+
+[Range] =
+[Domain] = 1:1-4:0
+   >
+1| {
+2|   case x: break;
+3|   default: break;
+4| }
+   <

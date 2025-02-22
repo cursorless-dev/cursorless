@@ -3,11 +3,11 @@ import {
   type RelativeScopeModifier,
 } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
-import { ModifierStageFactory } from "../ModifierStageFactory";
+import type { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
 import { runLegacy } from "./relativeScopeLegacy";
-import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
-import { TargetScope } from "./scopeHandlers/scope.types";
+import type { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
+import type { TargetScope } from "./scopeHandlers/scope.types";
 import type {
   ContainmentPolicy,
   ScopeHandler,
@@ -31,7 +31,7 @@ export class RelativeScopeStage implements ModifierStage {
   ) {}
 
   run(target: Target): Target[] {
-    const scopeHandler = this.scopeHandlerFactory.create(
+    const scopeHandler = this.scopeHandlerFactory.maybeCreate(
       this.modifier.scopeType,
       target.editor.document.languageId,
     );
@@ -47,7 +47,10 @@ export class RelativeScopeStage implements ModifierStage {
     );
 
     if (scopes.length < this.modifier.length) {
-      throw new OutOfRangeError();
+      throw new OutOfRangeError(
+        this.modifier.scopeType,
+        this.modifier.offset + this.modifier.length - 1,
+      );
     }
 
     const { isReversed } = target;

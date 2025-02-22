@@ -1,21 +1,26 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: snippet funk after fine and zip
   action:
     name: insertSnippet
-    args:
-      - {type: named, name: functionDeclaration}
-  targets:
-    - type: list
-      elements:
-        - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: f}
-          modifiers:
-            - {type: position, position: after}
-        - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: z}
+    snippetDescription:
+      type: custom
+      body: "function $name($parameterList) {\n\t$body\n}"
+      scopeTypes:
+        - {type: statement}
+    destination:
+      type: primitive
+      insertionMode: after
+      target:
+        type: list
+        elements:
+          - type: primitive
+            mark: {type: decoratedSymbol, symbolColor: default, character: f}
+          - type: primitive
+            mark: {type: decoratedSymbol, symbolColor: default, character: z}
   usePrePhraseSnapshot: true
+spokenFormError: custom insertion snippet
 initialState:
   documentContents: |-
     const foo = "bar";

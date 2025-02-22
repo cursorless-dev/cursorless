@@ -1,4 +1,4 @@
-import {
+import type {
   BringMoveActionDescriptor,
   DestinationDescriptor,
   InsertionMode,
@@ -6,6 +6,8 @@ import {
   PartialRangeTargetDescriptor,
   PartialTargetMark,
   PrimitiveDestinationDescriptor,
+} from "@cursorless/common";
+import {
   type ContainingScopeModifier,
   type Modifier,
   type PartialMark,
@@ -20,7 +22,7 @@ import {
   type SurroundingPairName,
   type SurroundingPairScopeType,
 } from "@cursorless/common";
-import { WithPlaceholders } from "./WithPlaceholders";
+import type { WithPlaceholders } from "./WithPlaceholders";
 
 export function simpleActionDescriptor(
   name: SimpleActionName,

@@ -4,24 +4,61 @@
 
 ;; import javascript.core.scm
 
-;;!! function aaa(bbb?: Ccc = "ddd") {}
-;;!               ^^^--------------
-(optional_parameter
-  (identifier) @name
-  type: (_)? @value.leading.endOf
-  value: (_)? @value
+;;!! class Aaa { bbb(); }
+;;!              ^^^^^^
+(_
+  (method_signature) @statement.start
+  .
+  ";"? @statement.end
+)
+
+;;!! function aaa(bbb = "ddd") {}
+;;!               ^^^--------
+(required_parameter
+  (identifier) @_.leading.endOf
+  value: (_) @value
+  !type
 ) @_.domain
 
 ;;!! function aaa(bbb: Ccc = "ddd") {}
 ;;!               ^^^-------------
 (required_parameter
-  (identifier) @name @value.leading.endOf
-  value: (_)? @value
+  type: (_) @_.leading.endOf
+  value: (_) @value
+) @_.domain
+
+;;!! function aaa(bbb?: Ccc = "ddd") {}
+;;!               ^^^--------------
+(optional_parameter
+  type: (_) @_.leading.endOf
+  value: (_) @value
+) @_.domain
+
+;;!! enum Aaa {}
+;;!  ^^^^^^^^^^^
+(enum_declaration) @type
+
+;;!! function aaa(bbb: Ccc = "ddd") {}
+;;!               ^^^-------------
+(required_parameter
+  (identifier) @name
+) @_.domain
+
+;;!! function aaa(bbb?: Ccc) {}
+;;!               ^^^------
+(optional_parameter
+  (identifier) @name
 ) @_.domain
 
 ;; Define these here because these node types don't exist in javascript.
-(
+(_
   [
+    ;;!! function foo();
+    ;;!  ^^^^^^^^^^^^^^^
+    (function_signature
+      name: (_) @functionName @name
+    )
+
     ;;!! class Foo { foo() {} }
     ;;!              ^^^^^^^^
     ;;!! interface Foo { foo(): void; }
@@ -61,7 +98,7 @@
   ";"? @namedFunction.end @functionName.domain.end @name.domain.end
 )
 
-(
+(_
   ;;!! (public | private | protected) foo = ...;
   ;;!  -----------------------------------------
   (public_field_definition
@@ -73,7 +110,7 @@
   ";"? @_.domain.end
 )
 
-(
+(_
   ;;!! (public | private | protected) foo: Bar = ...;
   ;;!  ----------------------------------------------
   (public_field_definition
@@ -321,7 +358,7 @@
 ;;!                   ^^^^
 ;;!                   xxxxxx
 ;;!                   ------------
-(
+(_
   (property_signature
     name: (_) @collectionKey @type.leading.endOf
     type: (_
@@ -329,6 +366,7 @@
       (_) @type @collectionKey.trailing.startOf
     )
   ) @_.domain.start
+  .
   ";"? @_.domain.end
 )
 
@@ -353,11 +391,17 @@
 )
 
 ;; Statements with optional trailing `;`
-(
+(_
   [
     (property_signature)
     (public_field_definition)
     (abstract_method_signature)
   ] @statement.start
+  .
   ";"? @statement.end
+)
+
+;; () => number
+(function_type
+  "=>" @disqualifyDelimiter
 )

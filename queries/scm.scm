@@ -1,6 +1,8 @@
 ;; import scm.collections.scm
 ;; import scm.name.scm
 
+;; https://github.com/tree-sitter-grammars/tree-sitter-query/blob/master/src/grammar.json
+
 ;; A statement is any top-level node that's not a comment
 (
   (program
@@ -13,6 +15,7 @@
 
 (anonymous_node
   name: (_) @string @textFragment
+  (#child-range! @textFragment 0 -1 true true)
 )
 
 ;; functionCall:
@@ -38,7 +41,11 @@
   (parameters
     (_) @argumentOrParameter
   )
-) @_.iteration
+)
+
+(predicate
+  (parameters) @argumentOrParameter.iteration
+) @argumentOrParameter.iteration.domain
 
 ;;!! (aaa) @bbb
 ;;!   ^^^

@@ -1,12 +1,12 @@
-import type { EveryScopeModifier, TextEditor } from "@cursorless/common";
-import { NoContainingScopeError, Range } from "@cursorless/common";
+import type { EveryScopeModifier, TextEditor, Range } from "@cursorless/common";
+import { NoContainingScopeError } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
-import { ModifierStageFactory } from "../ModifierStageFactory";
+import type { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
 import { getContainingScopeTarget } from "./getContainingScopeTarget";
-import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
-import { TargetScope } from "./scopeHandlers/scope.types";
-import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
+import type { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
+import type { TargetScope } from "./scopeHandlers/scope.types";
+import type { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
 
 /**
  * This modifier returns all scopes intersecting the input target if the target
@@ -39,7 +39,7 @@ export class EveryScopeStage implements ModifierStage {
     const { scopeType } = this.modifier;
     const { editor, isReversed } = target;
 
-    const scopeHandler = this.scopeHandlerFactory.create(
+    const scopeHandler = this.scopeHandlerFactory.maybeCreate(
       scopeType,
       editor.document.languageId,
     );
@@ -61,7 +61,8 @@ export class EveryScopeStage implements ModifierStage {
 
       if (
         scopes.length === 1 &&
-        scopes[0].domain.contains(target.contentRange)
+        scopes[0].domain.contains(target.contentRange) &&
+        !target.hasExplicitScopeType
       ) {
         // If the only scope that came back completely contains the input target
         // range, we treat the input as if it had no explicit range, expanding
@@ -73,30 +74,16 @@ export class EveryScopeStage implements ModifierStage {
     if (scopes == null) {
       // If target had no explicit range, or was contained by a single target
       // instance, expand to iteration scope before overlapping
-      try {
-        scopes = this.getDefaultIterationRange(
-          scopeHandler,
-          this.scopeHandlerFactory,
-          target,
-        ).flatMap((iterationRange) =>
-          getScopesOverlappingRange(scopeHandler, editor, iterationRange),
-        );
-      } catch (error) {
-        if (!(error instanceof NoContainingScopeError)) {
-          throw error;
-        }
-        scopes = [];
-      }
+      scopes = this.getDefaultIterationRange(
+        scopeHandler,
+        this.scopeHandlerFactory,
+        target,
+      ).flatMap((iterationRange) =>
+        getScopesOverlappingRange(scopeHandler, editor, iterationRange),
+      );
     }
 
     if (scopes.length === 0) {
-      if (scopeType.type === "collectionItem") {
-        // For `collectionItem`, fall back to generic implementation
-        return this.modifierStageFactory
-          .getLegacyScopeStage(this.modifier)
-          .run(target);
-      }
-
       throw new NoContainingScopeError(scopeType.type);
     }
 
@@ -108,7 +95,7 @@ export class EveryScopeStage implements ModifierStage {
     scopeHandlerFactory: ScopeHandlerFactory,
     target: Target,
   ): Range[] {
-    const iterationScopeHandler = scopeHandlerFactory.create(
+    const iterationScopeHandler = scopeHandlerFactory.maybeCreate(
       scopeHandler.iterationScopeType,
       target.editor.document.languageId,
     );

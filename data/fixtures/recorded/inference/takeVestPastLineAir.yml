@@ -1,21 +1,22 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: take vest past line air
-  action: {name: setSelection}
-  targets:
-    - active:
+  action:
+    name: setSelection
+    target:
+      type: range
+      anchor:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: v}
+      active:
         type: primitive
         modifiers:
           - type: containingScope
             scopeType: {type: line}
         mark: {type: decoratedSymbol, symbolColor: default, character: a}
-      type: range
       excludeAnchor: false
       excludeActive: false
-      anchor:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: v}
   usePrePhraseSnapshot: false
 initialState:
   documentContents: |

@@ -1,22 +1,30 @@
 languageId: typescript
 command:
-  version: 5
+  version: 6
   spokenForm: snippet funk to air past whale
   action:
     name: insertSnippet
-    args:
-      - {type: named, name: functionDeclaration}
-  targets:
-    - active:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: w}
-      type: range
-      excludeAnchor: false
-      excludeActive: false
-      anchor:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: a}
+    snippetDescription:
+      type: custom
+      body: "function $name($parameterList) {\n\t$body\n}"
+      scopeTypes:
+        - {type: namedFunction}
+        - {type: statement}
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: range
+        anchor:
+          type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: a}
+        active:
+          type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: w}
+        excludeAnchor: false
+        excludeActive: false
   usePrePhraseSnapshot: true
+spokenFormError: custom insertion snippet
 initialState:
   documentContents: |+
     function myFunction() {

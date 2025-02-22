@@ -1,14 +1,15 @@
 languageId: rust
 command:
-  version: 5
+  version: 6
   spokenForm: change item one
-  action: {name: clearAndSetSelection}
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: '1'}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: collectionItem}
+      mark: {type: decoratedSymbol, symbolColor: default, character: '1'}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |
@@ -22,7 +23,7 @@ initialState:
       end: {line: 0, character: 21}
 finalState:
   documentContents: |
-    let x = [None, ];
+    let x = [None, Some()];
   selections:
-    - anchor: {line: 0, character: 15}
-      active: {line: 0, character: 15}
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}

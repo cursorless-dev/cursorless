@@ -1,7 +1,7 @@
-import { Range } from "@cursorless/common";
-import { BaseTarget, MinimumTargetParameters } from "./BaseTarget";
+import type { Range } from "@cursorless/common";
 import { shrinkRangeToFitContent } from "../../util/selectionUtils";
-import { createContinuousRangeFromRanges } from "./util/createContinuousRange";
+import type { MinimumTargetParameters } from "./BaseTarget";
+import { BaseTarget } from "./BaseTarget";
 
 export interface InteriorTargetParameters extends MinimumTargetParameters {
   readonly fullInteriorRange: Range;
@@ -10,7 +10,7 @@ export interface InteriorTargetParameters extends MinimumTargetParameters {
 export class InteriorTarget extends BaseTarget<InteriorTargetParameters> {
   type = "InteriorTarget";
   insertionDelimiter = " ";
-  private readonly fullInteriorRange: Range;
+  readonly fullInteriorRange: Range;
 
   constructor(parameters: InteriorTargetParameters) {
     super({
@@ -41,11 +41,8 @@ export class InteriorTarget extends BaseTarget<InteriorTargetParameters> {
     return new InteriorTarget({
       ...this.getCloneParameters(),
       isReversed,
-      fullInteriorRange: createContinuousRangeFromRanges(
-        this.fullInteriorRange,
+      fullInteriorRange: this.fullInteriorRange.union(
         endTarget.fullInteriorRange,
-        true,
-        true,
       ),
     });
   }
