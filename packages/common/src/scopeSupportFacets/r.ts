@@ -5,4 +5,7 @@ import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const rScopeSupport: LanguageScopeSupportFacetMap = {
+  "comment.line": supported,
+  ifStatement: supported,
+  "argument.actual": supported,
 };
