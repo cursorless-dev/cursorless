@@ -114,7 +114,7 @@ jobs:
 
       - name: Test create vsix
         id: createVsix
-        uses: HaaLeo/publish-vscode-extension@v1
+        uses: HaaLeo/publish-vscode-extension@v2
         with:
           pat: none
           packagePath: packages/cursorless-vscode/dist
