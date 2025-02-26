@@ -79,113 +79,184 @@ export class Actions implements ActionRecord {
     private snippets: Snippets,
     private rangeUpdater: RangeUpdater,
     private modifierStageFactory: ModifierStageFactory,
-  ) {}
-
-  addSelection = new AddSelection();
-  addSelectionBefore = new AddSelectionBefore();
-  addSelectionAfter = new AddSelectionAfter();
-  callAsFunction = new Call(this);
-  clearAndSetSelection = new Clear(this);
-  copyToClipboard = new CopyToClipboard(this, this.rangeUpdater);
-  cutToClipboard = new CutToClipboard(this);
-  decrement = new Decrement(this);
-  deselect = new Deselect();
-  editNew = new EditNew(this.rangeUpdater, this);
-  editNewLineAfter: EditNewAfter = new EditNewAfter(
+  ) {
+  this.addSelection = new AddSelection();
+  this.addSelectionBefore = new AddSelectionBefore();
+  this.addSelectionAfter = new AddSelectionAfter();
+  this.callAsFunction = new Call(this);
+  this.clearAndSetSelection = new Clear(this);
+  this.copyToClipboard = new CopyToClipboard(this, this.rangeUpdater);
+  this.cutToClipboard = new CutToClipboard(this);
+  this.decrement = new Decrement(this);
+  this.deselect = new Deselect();
+  this.editNew = new EditNew(this.rangeUpdater, this);
+  this.editNewLineAfter: EditNewAfter = new EditNewAfter(
     this,
     this.modifierStageFactory,
   );
-  editNewLineBefore: EditNewBefore = new EditNewBefore(
+  this.editNewLineBefore: EditNewBefore = new EditNewBefore(
     this,
     this.modifierStageFactory,
   );
-  executeCommand = new ExecuteCommand(this.rangeUpdater);
-  extractVariable = new ExtractVariable(this.rangeUpdater);
-  findInDocument = new FindInDocument(this);
-  findInWorkspace = new FindInWorkspace(this);
-  flashTargets = new FlashTargets();
-  foldRegion = new Fold(this.rangeUpdater);
-  followLink = new FollowLink({ openAside: false });
-  followLinkAside = new FollowLink({ openAside: true });
-  generateSnippet = new GenerateSnippet(this.snippets);
-  getText = new GetText();
-  gitAccept = new GitAccept(this.rangeUpdater);
-  gitRevert = new GitRevert(this.rangeUpdater);
-  gitStage = new GitStage(this.rangeUpdater);
-  gitUnstage = new GitUnstage(this.rangeUpdater);
-  highlight = new Highlight();
-  increment = new Increment(this);
-  indentLine = new IndentLine(this.rangeUpdater);
-  insertCopyAfter = new InsertCopyAfter(
+  this.executeCommand = new ExecuteCommand(this.rangeUpdater);
+  this.extractVariable = new ExtractVariable(this.rangeUpdater);
+  this.findInDocument = new FindInDocument(this);
+  this.findInWorkspace = new FindInWorkspace(this);
+  this.flashTargets = new FlashTargets();
+  this.foldRegion = new Fold(this.rangeUpdater);
+  this.followLink = new FollowLink({ openAside: false });
+  this.followLinkAside = new FollowLink({ openAside: true });
+  this.generateSnippet = new GenerateSnippet(this.snippets);
+  this.getText = new GetText();
+  this.gitAccept = new GitAccept(this.rangeUpdater);
+  this.gitRevert = new GitRevert(this.rangeUpdater);
+  this.gitStage = new GitStage(this.rangeUpdater);
+  this.gitUnstage = new GitUnstage(this.rangeUpdater);
+  this.highlight = new Highlight();
+  this.increment = new Increment(this);
+  this.indentLine = new IndentLine(this.rangeUpdater);
+  this.insertCopyAfter = new InsertCopyAfter(
     this.rangeUpdater,
     this.modifierStageFactory,
   );
-  insertCopyBefore = new InsertCopyBefore(
+  this.insertCopyBefore = new InsertCopyBefore(
     this.rangeUpdater,
     this.modifierStageFactory,
   );
-  insertEmptyLineAfter = new InsertEmptyLineAfter(
+  this.insertEmptyLineAfter = new InsertEmptyLineAfter(
     this.rangeUpdater,
     this.modifierStageFactory,
   );
-  insertEmptyLineBefore = new InsertEmptyLineBefore(
+  this.insertEmptyLineBefore = new InsertEmptyLineBefore(
     this.rangeUpdater,
     this.modifierStageFactory,
   );
-  insertEmptyLinesAround = new InsertEmptyLinesAround(
+  this.insertEmptyLinesAround = new InsertEmptyLinesAround(
     this.rangeUpdater,
     this.modifierStageFactory,
   );
-  insertSnippet = new InsertSnippet(
+  this.insertSnippet = new InsertSnippet(
     this.rangeUpdater,
     this.snippets,
     this,
     this.modifierStageFactory,
   );
-  joinLines = new JoinLines(this.rangeUpdater, this.modifierStageFactory);
-  breakLine = new BreakLine(this.rangeUpdater);
-  moveToTarget = new Move(this.rangeUpdater);
-  outdentLine = new OutdentLine(this.rangeUpdater);
-  pasteFromClipboard = new PasteFromClipboard(this.rangeUpdater, this);
-  randomizeTargets = new Random(this);
-  remove = new Remove(this.rangeUpdater);
-  rename = new Rename(this.rangeUpdater);
-  replace = new Replace(this.rangeUpdater);
-  replaceWithTarget = new Bring(this.rangeUpdater);
-  revealDefinition = new RevealDefinition(this.rangeUpdater);
-  revealTypeDefinition = new RevealTypeDefinition(this.rangeUpdater);
-  reverseTargets = new Reverse(this);
-  rewrapWithPairedDelimiter = new Rewrap(
+  this.joinLines = new JoinLines(this.rangeUpdater, this.modifierStageFactory);
+  this.breakLine = new BreakLine(this.rangeUpdater);
+  this.moveToTarget = new Move(this.rangeUpdater);
+  this.outdentLine = new OutdentLine(this.rangeUpdater);
+  this.pasteFromClipboard = new PasteFromClipboard(this.rangeUpdater, this);
+  this.randomizeTargets = new Random(this);
+  this.remove = new Remove(this.rangeUpdater);
+  this.rename = new Rename(this.rangeUpdater);
+  this.replace = new Replace(this.rangeUpdater);
+  this.replaceWithTarget = new Bring(this.rangeUpdater);
+  this.revealDefinition = new RevealDefinition(this.rangeUpdater);
+  this.revealTypeDefinition = new RevealTypeDefinition(this.rangeUpdater);
+  this.reverseTargets = new Reverse(this);
+  this.rewrapWithPairedDelimiter = new Rewrap(
     this.rangeUpdater,
     this.modifierStageFactory,
   );
-  scrollToBottom = new ScrollToBottom();
-  scrollToCenter = new ScrollToCenter();
-  scrollToTop = new ScrollToTop();
-  setSelection = new SetSelection();
-  setSelectionAfter = new SetSelectionAfter();
-  setSelectionBefore = new SetSelectionBefore();
-  showDebugHover = new ShowDebugHover(this.rangeUpdater);
-  showHover = new ShowHover(this.rangeUpdater);
-  showQuickFix = new ShowQuickFix(this.rangeUpdater);
-  showReferences = new ShowReferences(this.rangeUpdater);
-  sortTargets = new Sort(this);
-  swapTargets = new Swap(this.rangeUpdater);
-  toggleLineBreakpoint = new ToggleBreakpoint(this.modifierStageFactory);
-  toggleLineComment = new ToggleLineComment(this.rangeUpdater);
-  unfoldRegion = new Unfold(this.rangeUpdater);
-  wrapWithPairedDelimiter = new Wrap(this.rangeUpdater);
-  wrapWithSnippet = new WrapWithSnippet(
+  this.scrollToBottom = new ScrollToBottom();
+  this.scrollToCenter = new ScrollToCenter();
+  this.scrollToTop = new ScrollToTop();
+  this.setSelection = new SetSelection();
+  this.setSelectionAfter = new SetSelectionAfter();
+  this.setSelectionBefore = new SetSelectionBefore();
+  this.showDebugHover = new ShowDebugHover(this.rangeUpdater);
+  this.showHover = new ShowHover(this.rangeUpdater);
+  this.showQuickFix = new ShowQuickFix(this.rangeUpdater);
+  this.showReferences = new ShowReferences(this.rangeUpdater);
+  this.sortTargets = new Sort(this);
+  this.swapTargets = new Swap(this.rangeUpdater);
+  this.toggleLineBreakpoint = new ToggleBreakpoint(this.modifierStageFactory);
+  this.toggleLineComment = new ToggleLineComment(this.rangeUpdater);
+  this.unfoldRegion = new Unfold(this.rangeUpdater);
+  this.wrapWithPairedDelimiter = new Wrap(this.rangeUpdater);
+  this.wrapWithSnippet = new WrapWithSnippet(
     this.rangeUpdater,
     this.snippets,
     this.modifierStageFactory,
   );
 
-  ["experimental.setInstanceReference"] = new SetSpecialTarget(
+  this.["experimental.setInstanceReference"] = new SetSpecialTarget(
     "instanceReference",
   );
 
-  ["private.showParseTree"] = new ShowParseTree(this.treeSitter);
-  ["private.getTargets"] = new GetTargets();
-  ["private.setKeyboardTarget"] = new SetSpecialTarget("keyboard");
+  this.["private.showParseTree"] = new ShowParseTree(this.treeSitter);
+  this.["private.getTargets"] = new GetTargets();
+  this.["private.setKeyboardTarget"] = new SetSpecialTarget("keyboard");
+  }
+
+  addSelection;
+  addSelectionBefore;
+  addSelectionAfter;
+  callAsFunction;
+  clearAndSetSelection;
+  copyToClipboard;
+  cutToClipboard;
+  decrement;
+  deselect;
+  editNew;
+  editNewLineAfter: EditNewAfter;
+  editNewLineBefore: EditNewBefore;  );
+  executeCommand;
+  extractVariable;
+  findInDocument;
+  findInWorkspace;
+  flashTargets;
+  foldRegion;
+  followLink;
+  followLinkAside;
+  generateSnippet;
+  getText;
+  gitAccept;
+  gitRevert;
+  gitStage;
+  gitUnstage;
+  highlight;
+  increment;
+  indentLine;
+  insertCopyAfter;
+  insertCopyBefore;
+  insertEmptyLineAfter;
+  insertEmptyLineBefore;
+  insertEmptyLinesAround;
+  insertSnippet;
+  joinLines;
+  breakLine;
+  moveToTarget;
+  outdentLine;
+  pasteFromClipboard;
+  randomizeTargets;
+  remove;
+  rename;
+  replace;
+  replaceWithTarget;
+  revealDefinition;
+  revealTypeDefinition;
+  reverseTargets;
+  rewrapWithPairedDelimiter;
+  scrollToBottom;
+  scrollToCenter;
+  scrollToTop;
+  setSelection;
+  setSelectionAfter;
+  setSelectionBefore;
+  showDebugHover;
+  showHover;
+  showQuickFix;
+  showReferences;
+  sortTargets;
+  swapTargets;
+  toggleLineBreakpoint;
+  toggleLineComment;
+  unfoldRegion;
+  wrapWithPairedDelimiter;
+  wrapWithSnippet;
+  ["experimental.setInstanceReference"];
+  ["private.showParseTree"];
+  ["private.getTargets"];
+  ["private.setKeyboardTarget"];
 }
