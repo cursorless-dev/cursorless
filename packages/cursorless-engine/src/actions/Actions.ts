@@ -90,11 +90,11 @@ export class Actions implements ActionRecord {
   this.decrement = new Decrement(this);
   this.deselect = new Deselect();
   this.editNew = new EditNew(this.rangeUpdater, this);
-  this.editNewLineAfter: EditNewAfter = new EditNewAfter(
+  this.editNewLineAfter = new EditNewAfter(
     this,
     this.modifierStageFactory,
   );
-  this.editNewLineBefore: EditNewBefore = new EditNewBefore(
+  this.editNewLineBefore = new EditNewBefore(
     this,
     this.modifierStageFactory,
   );
