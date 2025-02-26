@@ -180,13 +180,13 @@ export class Actions implements ActionRecord {
     this.modifierStageFactory,
   );
 
-  this.["experimental.setInstanceReference"] = new SetSpecialTarget(
+  this["experimental.setInstanceReference"] = new SetSpecialTarget(
     "instanceReference",
   );
 
-  this.["private.showParseTree"] = new ShowParseTree(this.treeSitter);
-  this.["private.getTargets"] = new GetTargets();
-  this.["private.setKeyboardTarget"] = new SetSpecialTarget("keyboard");
+  this["private.showParseTree"] = new ShowParseTree(this.treeSitter);
+  this["private.getTargets"] = new GetTargets();
+  this["private.setKeyboardTarget"] = new SetSpecialTarget("keyboard");
   }
 
   addSelection;
