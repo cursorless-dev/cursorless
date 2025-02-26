@@ -200,7 +200,7 @@ export class Actions implements ActionRecord {
   deselect;
   editNew;
   editNewLineAfter: EditNewAfter;
-  editNewLineBefore: EditNewBefore;  );
+  editNewLineBefore: EditNewBefore;
   executeCommand;
   extractVariable;
   findInDocument;
