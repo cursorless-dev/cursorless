@@ -9,6 +9,7 @@ import type { Point } from "web-tree-sitter";
 interface SimpleSyntaxNode {
   readonly id: number;
   readonly type: string;
+  readonly isNamed: boolean;
   readonly parent: SimpleSyntaxNode | null;
   readonly children: Array<SimpleChildSyntaxNode>;
 }

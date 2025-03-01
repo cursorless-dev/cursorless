@@ -1,0 +1,12 @@
+* {
+    color: "red"
+}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 1:12-1:15
+              >---<
+1|     color: "red"
+
+[Insertion delimiter] = " "
