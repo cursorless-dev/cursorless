@@ -14,7 +14,7 @@ export function updateLanguageMdxConfig(
   }
 
   const expected = `
-import Language from "./Language";
+import { Language } from "./components/Language";
 
 # ${languageId}
 
