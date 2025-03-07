@@ -1,3 +1,4 @@
+import type { Position } from "@cursorless/common";
 import { Range, adjustPosition } from "@cursorless/common";
 import { z } from "zod";
 import { makeRangeFromPositions } from "../../util/nodeSelectors";
@@ -157,6 +158,59 @@ class ShrinkToMatch extends QueryPredicateOperator<ShrinkToMatch> {
 }
 
 /**
+ * A predicate operator that modifies the range of the match to grow to named trailing siblings.
+ *
+ * An optional `notText` argument can be provided to break at siblings that match the given text.
+ *
+ * ```
+ * (#grow-to-named-siblings! @foo "at")
+ * ```
+ */
+class GrowToNamedSiblings extends QueryPredicateOperator<GrowToNamedSiblings> {
+  name = "grow-to-named-siblings!" as const;
+  schema = z.union([z.tuple([q.node]), z.tuple([q.node, q.string])]);
+
+  run(nodeInfo: MutableQueryCapture, notText?: string) {
+    const { node, range, document } = nodeInfo;
+
+    if (node.parent == null) {
+      throw Error("Node has no parent");
+    }
+
+    const { children } = node.parent;
+    const nodeIndex = children.findIndex((n) => n.id === node.id);
+    let endPosition: Position | null = null;
+
+    if (nodeIndex === -1) {
+      throw Error("Node not found in parent");
+    }
+
+    for (let i = nodeIndex + 1; i < children.length; ++i) {
+      const child = children[i];
+      if (!child.isNamed) {
+        break;
+      }
+      const childRange = makeRangeFromPositions(
+        child.startPosition,
+        child.endPosition,
+      );
+
+      if (notText != null && notText === document.getText(childRange)) {
+        break;
+      }
+
+      endPosition = childRange.end;
+    }
+
+    if (endPosition != null) {
+      nodeInfo.range = new Range(range.start, endPosition);
+    }
+
+    return true;
+  }
+}
+
+/**
  * A predicate operator that modifies the range of the match by trimming trailing whitespace,
  * similar to the javascript trimEnd function.
  */
@@ -273,6 +327,7 @@ export const queryPredicateOperators = [
   new ChildRange(),
   new CharacterRange(),
   new ShrinkToMatch(),
+  new GrowToNamedSiblings(),
   new AllowMultiple(),
   new InsertionDelimiter(),
   new SingleOrMultilineDelimiter(),
