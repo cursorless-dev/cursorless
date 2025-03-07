@@ -169,7 +169,7 @@
 ;;!! print("hello", "world")
 ;;!        ^^^^^^^  ^^^^^^^
 (action
-  arguments: (_
+  arguments: (argument_list
     (_)? @_.leading.endOf
     .
     (_) @argumentOrParameter
@@ -179,9 +179,16 @@
   (#insertion-delimiter! @argumentOrParameter ", ")
 )
 
+(argument_list
+  .
+  "(" @argumentOrParameter.iteration.start.endOf
+  ")" @argumentOrParameter.iteration.end.startOf
+  .
+) @argumentOrParameter.iteration.domain
+
 ;;!! key(enter)
 ;;!      ^^^^^
-arguments: (_) @argumentOrParameter.iteration
+arguments: (implicit_string) @argumentOrParameter.iteration
 
 ;;!! # foo
 ;;!  ^^^^^

@@ -1,0 +1,22 @@
+public class MyClass {
+    private int value = 123;
+}
+---
+
+[Content] = 1:24-1:27
+                          >---<
+1|     private int value = 123;
+
+[Removal] = 1:21-1:27
+                       >------<
+1|     private int value = 123;
+
+[Leading delimiter] = 1:21-1:24
+                       >---<
+1|     private int value = 123;
+
+[Domain] = 1:4-1:28
+      >------------------------<
+1|     private int value = 123;
+
+[Insertion delimiter] = " "

@@ -1,0 +1,23 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: take each
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: e}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: hello world
+  selections:
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}
+  marks:
+    default.e:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 5}
+finalState:
+  documentContents: hello world
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 5}

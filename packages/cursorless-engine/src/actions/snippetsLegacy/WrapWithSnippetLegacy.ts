@@ -14,6 +14,7 @@ import {
   findMatchingSnippetDefinitionStrict,
   transformSnippetVariables,
 } from "../snippetsLegacy/snippet";
+import { showLegacySnippetsNotification } from "./legacySnippetsNotification";
 
 export default class WrapWithSnippetLegacy {
   private snippetParser = new SnippetParser();
@@ -81,6 +82,8 @@ export default class WrapWithSnippetLegacy {
     targets: Target[],
     snippetDescription: NamedWrapWithSnippetArg,
   ): Promise<ActionReturnValue> {
+    showLegacySnippetsNotification();
+
     const editor = ide().getEditableTextEditor(ensureSingleEditor(targets));
 
     const body = this.getBody(snippetDescription, targets);

@@ -1,0 +1,10 @@
+// Hello
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:8
+  >--------<
+0| // Hello
+
+[Insertion delimiter] = "\n"

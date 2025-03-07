@@ -1,0 +1,17 @@
+items: [1, 2, 3]
+---
+
+[Content] =
+[Domain] = 0:7-0:16
+         >---------<
+0| items: [1, 2, 3]
+
+[Removal] = 0:6-0:16
+        >----------<
+0| items: [1, 2, 3]
+
+[Leading delimiter] = 0:6-0:7
+        >-<
+0| items: [1, 2, 3]
+
+[Insertion delimiter] = " "

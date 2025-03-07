@@ -65,6 +65,7 @@ def init_csv_and_watch_changes(
     extra_ignored_values: Optional[list[str]] = None,
     extra_allowed_values: Optional[list[str]] = None,
     allow_unknown_values: bool = False,
+    deprecated: bool = False,
     default_list_name: Optional[str] = None,
     headers: list[str] = [SPOKEN_FORM_HEADER, CURSORLESS_IDENTIFIER_HEADER],
     no_update_file: bool = False,
@@ -123,6 +124,12 @@ def init_csv_and_watch_changes(
         pluralize_lists = []
 
     file_path = get_full_path(filename)
+    is_file = file_path.is_file()
+
+    # Deprecated file that doesn't exist. Do nothing.
+    if deprecated and not is_file:
+        return lambda: None
+
     super_default_values = get_super_values(default_values)
 
     file_path.parent.mkdir(parents=True, exist_ok=True)
@@ -151,9 +158,9 @@ def init_csv_and_watch_changes(
                 handle_new_values=handle_new_values,
             )
 
-    fs.watch(str(file_path.parent), on_watch)
+    fs.watch(file_path.parent, on_watch)
 
-    if file_path.is_file():
+    if is_file:
         current_values = update_file(
             path=file_path,
             headers=headers,
@@ -188,7 +195,7 @@ def init_csv_and_watch_changes(
         )
 
     def unsubscribe():
-        fs.unwatch(str(file_path.parent), on_watch)
+        fs.unwatch(file_path.parent, on_watch)
 
     return unsubscribe
 
@@ -385,7 +392,7 @@ def csv_error(path: Path, index: int, message: str, value: str):
         index (int): The index into the file (for error reporting)
         text (str): The text of the error message to report if condition is false
     """
-    print(f"ERROR: {path}:{index+1}: {message} '{value}'")
+    print(f"ERROR: {path}:{index + 1}: {message} '{value}'")
 
 
 def read_file(

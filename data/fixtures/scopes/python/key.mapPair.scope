@@ -1,0 +1,39 @@
+{ aaa: 123, bbb: 456}
+---
+
+[#1 Content] = 0:2-0:5
+    >---<
+0| { aaa: 123, bbb: 456}
+
+[#1 Removal] = 0:2-0:7
+    >-----<
+0| { aaa: 123, bbb: 456}
+
+[#1 Trailing delimiter] = 0:5-0:7
+       >--<
+0| { aaa: 123, bbb: 456}
+
+[#1 Domain] = 0:2-0:10
+    >--------<
+0| { aaa: 123, bbb: 456}
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 0:12-0:15
+              >---<
+0| { aaa: 123, bbb: 456}
+
+[#2 Removal] = 0:12-0:17
+              >-----<
+0| { aaa: 123, bbb: 456}
+
+[#2 Trailing delimiter] = 0:15-0:17
+                 >--<
+0| { aaa: 123, bbb: 456}
+
+[#2 Domain] = 0:12-0:20
+              >--------<
+0| { aaa: 123, bbb: 456}
+
+[#2 Insertion delimiter] = " "

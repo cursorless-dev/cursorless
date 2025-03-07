@@ -1,0 +1,10 @@
+"value"
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:7
+  >-------<
+0| "value"
+
+[Insertion delimiter] = " "
