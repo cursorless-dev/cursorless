@@ -9,7 +9,7 @@ import {
   runTests,
 } from "@vscode/test-electron";
 import { sync } from "cross-spawn";
-// import * as os from "node:os";
+import * as os from "node:os";
 import * as path from "node:path";
 
 /**
@@ -27,15 +27,19 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
       "packages/cursorless-vscode/dist",
     );
 
-    // const crashDir = getEnvironmentVariableStrict("VSCODE_CRASH_DIR");
-    // const logsDir = getEnvironmentVariableStrict("VSCODE_LOGS_DIR");
+    const crashDir = getEnvironmentVariableStrict("VSCODE_CRASH_DIR");
+    const logsDir = getEnvironmentVariableStrict("VSCODE_LOGS_DIR");
     const useLegacyVscode =
       getEnvironmentVariableStrict("APP_VERSION") === "legacy";
 
     // NB: We include the exact version here instead of in `test.yml` so that
     // we don't have to update the branch protection rules every time we bump
     // the legacy VSCode version.
-    const vscodeVersion = useLegacyVscode ? "1.82.0" : "stable";
+    const vscodeVersion = useLegacyVscode
+      ? "1.82.0"
+      : os.platform() === "win32"
+        ? "stable"
+        : "1.97.2";
     const vscodeExecutablePath = await downloadAndUnzipVSCode(vscodeVersion);
     const [cli, ...args] =
       resolveCliArgsFromVSCodeExecutablePath(vscodeExecutablePath);
@@ -74,10 +78,10 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
       // don't bother.  Can be re-enabled if we ever need it; on windows it only
       // hangs some of the time, so might be enough to get a crash dump when you
       // need it.
-      //   launchArgs:
-      //     useLegacyVscode || os.platform() === "win32"
-      //       ? undefined
-      //       : [`--crash-reporter-directory=${crashDir}`, `--logsPath=${logsDir}`],
+      launchArgs:
+        useLegacyVscode || os.platform() === "win32"
+          ? undefined
+          : [`--crash-reporter-directory=${crashDir}`, `--logsPath=${logsDir}`],
     });
 
     console.log(`Returned from "runTests" with value: ${code}`);
