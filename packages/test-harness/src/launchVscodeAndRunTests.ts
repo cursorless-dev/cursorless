@@ -73,7 +73,6 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
       vscodeExecutablePath,
       extensionDevelopmentPath,
       extensionTestsPath,
-
       // Note: Crash dump causes legacy VSCode and Windows to hang, so we just
       // don't bother.  Can be re-enabled if we ever need it; on windows it only
       // hangs some of the time, so might be enough to get a crash dump when you
