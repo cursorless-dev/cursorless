@@ -31,7 +31,7 @@ jobs:
       VSCODE_LOGS_DIR: ${{ github.workspace }}/artifacts/logs
       CURSORLESS_REPO_ROOT: ${{ github.workspace }}
       TEMP_DIR: ${{ github.workspace }}/temp
-      NODE_OPTIONS: "--max-old-space-size=8192"
+      NODE_OPTIONS: "--max-old-space-size=4096"
 
     steps:
       - name: Checkout repository
