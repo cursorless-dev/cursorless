@@ -31,7 +31,7 @@ jobs:
       VSCODE_LOGS_DIR: ${{ github.workspace }}/artifacts/logs
       CURSORLESS_REPO_ROOT: ${{ github.workspace }}
       TEMP_DIR: ${{ github.workspace }}/temp
-      NODE_OPTIONS: "--max-old-space-size=4096"
+      NODE_OPTIONS: "--max-old-space-size=8192"
 
     steps:
       - name: Checkout repository
@@ -64,10 +64,7 @@ jobs:
         if: runner.os == 'Linux'
 
       - name: Run tests (Other)
-        run: |
-          export VSCODE_VERBOSE_LOGGING=1
-          export DEBUG="*"
-          pnpm --color test
+        run: pnpm --color test
         if: runner.os != 'Linux'
 
       - name: Run Talon-JS tests (Linux)
