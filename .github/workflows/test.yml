@@ -64,7 +64,10 @@ jobs:
         if: runner.os == 'Linux'
 
       - name: Run tests (Other)
-        run: pnpm --color test
+        run: |
+          export VSCODE_VERBOSE_LOGGING=1
+          export DEBUG="*"
+          pnpm --color test
         if: runner.os != 'Linux'
 
       - name: Run Talon-JS tests (Linux)
