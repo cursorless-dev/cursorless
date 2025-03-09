@@ -9,7 +9,7 @@ import {
   runTests,
 } from "@vscode/test-electron";
 import { sync } from "cross-spawn";
-import * as os from "node:os";
+// import * as os from "node:os";
 import * as path from "node:path";
 
 /**
