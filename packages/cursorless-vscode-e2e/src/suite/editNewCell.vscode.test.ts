@@ -56,7 +56,7 @@ async function runTest(
 
   const activeCelIndex = getCellIndex(
     notebook,
-    // eslint-disable-next-line no-restricted-properties
+
     window.activeTextEditor!.document,
   );
 

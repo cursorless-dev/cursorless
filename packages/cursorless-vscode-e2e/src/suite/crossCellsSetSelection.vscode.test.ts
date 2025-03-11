@@ -40,7 +40,6 @@ async function runTest() {
     ],
   });
 
-  // eslint-disable-next-line no-restricted-properties
   const editor = window.activeTextEditor;
 
   if (editor == null) {

@@ -62,7 +62,6 @@ async function followLink() {
     ],
   });
 
-  // eslint-disable-next-line no-restricted-properties
   const editor = vscode.window.activeTextEditor;
   assert.equal(editor?.document?.uri?.scheme, "file");
   assert.equal(editor?.document.getText().trimEnd(), "hello world");

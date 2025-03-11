@@ -40,7 +40,7 @@ async function runTest() {
     ],
   });
 
-  const editor = window.activeTextEditor; // eslint-disable-line no-restricted-properties
+  const editor = window.activeTextEditor;
 
   if (editor == null) {
     assert(false, "No editor was focused");

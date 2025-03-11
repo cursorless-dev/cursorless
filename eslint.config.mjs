@@ -1,18 +1,14 @@
-import {
-  fixupConfigRules,
-  fixupPluginRules,
-  fixupConfigRules,
-} from "@eslint/compat";
+import { fixupConfigRules, fixupPluginRules } from "@eslint/compat";
+import { FlatCompat } from "@eslint/eslintrc";
+import js from "@eslint/js";
 import typescriptEslint from "@typescript-eslint/eslint-plugin";
-import unusedImports from "eslint-plugin-unused-imports";
-import _import from "eslint-plugin-import";
-import unicorn from "eslint-plugin-unicorn";
-import mocha from "eslint-plugin-mocha";
 import tsParser from "@typescript-eslint/parser";
+import _import from "eslint-plugin-import";
+import mocha from "eslint-plugin-mocha";
+import unicorn from "eslint-plugin-unicorn";
+import unusedImports from "eslint-plugin-unused-imports";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import js from "@eslint/js";
-import { FlatCompat } from "@eslint/eslintrc";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

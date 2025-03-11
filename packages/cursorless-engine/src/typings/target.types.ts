@@ -5,7 +5,7 @@
 // - https://github.com/microsoft/TypeScript/issues/43950
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
 import type { ModifyIfUntypedStage } from "../processTargets/modifiers/ConditionalModifierStages";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
+
 import type {
   GeneralizedRange,
   InsertionMode,
