@@ -1,0 +1,24 @@
+export default [
+  {
+    rules: {
+      "@typescript-eslint/no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: ["@cursorless/*", "../*"],
+              message: "API types shouldn't have any dependencies",
+            },
+          ],
+
+          paths: [
+            {
+              name: "@*",
+              message: "API types shouldn't have any dependencies",
+            },
+          ],
+        },
+      ],
+    },
+  },
+];
