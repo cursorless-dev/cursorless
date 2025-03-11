@@ -25,14 +25,14 @@
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",
-    "glob": "^11.0.0",
+    "glob": "^11.0.1",
     "lodash-es": "^4.17.21"
   },
   "devDependencies": {
-    "@types/chai": "^5.0.0",
+    "@types/chai": "^5.2.0",
     "@types/js-yaml": "^4.0.9",
     "@types/lodash-es": "4.17.12",
-    "chai": "^5.1.1",
+    "chai": "^5.2.0",
     "js-yaml": "^4.1.0"
   }
 }

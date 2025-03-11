@@ -27,25 +27,25 @@
     "*.css"
   ],
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "6.6.0",
-    "@fortawesome/free-solid-svg-icons": "6.6.0",
+    "@fortawesome/fontawesome-svg-core": "6.7.2",
+    "@fortawesome/free-solid-svg-icons": "6.7.2",
     "@fortawesome/react-fontawesome": "0.2.2",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "react-string-replace": "1.1.1",
-    "react-use": "17.5.1"
+    "react-use": "17.6.0"
   },
   "devDependencies": {
     "@testing-library/dom": "10.4.0",
-    "@testing-library/react": "16.0.1",
-    "@types/jest": "29.5.13",
-    "@types/react": "18.3.11",
-    "@types/react-dom": "18.3.1",
+    "@testing-library/react": "16.2.0",
+    "@types/jest": "29.5.14",
+    "@types/react": "19.0.10",
+    "@types/react-dom": "19.0.4",
     "@types/react-helmet": "6.1.11",
     "jest": "29.7.0",
     "jest-environment-jsdom": "29.7.0",
-    "ts-jest": "29.2.5",
-    "typescript": "^5.6.3"
+    "ts-jest": "29.2.6",
+    "typescript": "^5.8.2"
   },
   "type": "module"
 }
