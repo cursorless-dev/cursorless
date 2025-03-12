@@ -158,4 +158,91 @@ export default [
       "typings/**",
     ],
   })),
+
+  // Added from packages/cursorless-engine/eslint.config.mjs
+  {
+    files: ["packages/cursorless-engine/**/*.ts"],
+    ignores: [
+      "packages/cursorless-engine/src/scripts/**",
+      "packages/cursorless-engine/src/testUtil/**",
+      "packages/cursorless-engine/**/*.test.ts",
+    ],
+    rules: {
+      "import/no-nodejs-modules": "error",
+    },
+  },
+
+  // Added from packages/common/eslint.config.mjs
+  {
+    files: ["packages/common/**/*.ts"],
+    ignores: ["packages/common/**/*.test.ts"],
+    rules: {
+      "import/no-nodejs-modules": "error",
+    },
+  },
+
+  // Added from packages/common/src/types/command/eslint.config.mjs
+  {
+    files: ["packages/common/src/types/command/**/*.ts"],
+    rules: {
+      "@typescript-eslint/no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: ["@cursorless/*", "../*"],
+              message: "API types shouldn't have any dependencies",
+            },
+          ],
+          paths: [
+            {
+              name: "@*",
+              message: "API types shouldn't have any dependencies",
+            },
+          ],
+        },
+      ],
+    },
+  },
+
+  // Added from packages/cursorless-engine/src/processTargets/eslint.config.mjs
+  {
+    files: ["packages/cursorless-engine/src/processTargets/**/*.ts"],
+    rules: {
+      "import/no-default-export": ["error"],
+    },
+  },
+
+  // Added from packages/cursorless-vscode/src/scripts/eslint.config.mjs
+  {
+    files: ["packages/cursorless-vscode/src/scripts/**/*.ts"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          paths: [
+            {
+              name: "vscode",
+              message: "Scripts shouldn't depend on vscode",
+            },
+          ],
+        },
+      ],
+    },
+  },
+
+  // Added from packages/cursorless-org/eslint.config.mjs
+  {
+    files: [
+      "packages/cursorless-org/**/*.js",
+      "packages/cursorless-org/**/*.ts",
+      "packages/cursorless-org/**/*.tsx",
+    ],
+    ...compat.extends("next/core-web-vitals")[0],
+    settings: {
+      next: {
+        rootDir: "packages/cursorless-org",
+      },
+    },
+  },
 ];
