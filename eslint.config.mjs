@@ -144,6 +144,7 @@ export default [
           format: ["PascalCase", "camelCase"],
         },
       ],
+      "react/react-in-jsx-scope": "off",
     },
   },
   ...fixupConfigRules(
