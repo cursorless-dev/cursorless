@@ -34,6 +34,7 @@ export default [
       "plugin:@typescript-eslint/recommended",
       "plugin:import/typescript",
       "prettier",
+      "plugin:react/jsx-runtime"
     ),
   ),
   {
@@ -143,8 +144,7 @@ export default [
           selector: ["function"],
           format: ["PascalCase", "camelCase"],
         },
-      ],
-      "react/react-in-jsx-scope": "off",
+      ]
     },
   },
   ...fixupConfigRules(
