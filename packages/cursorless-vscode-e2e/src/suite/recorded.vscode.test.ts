@@ -24,26 +24,24 @@ suite("recorded test cases", async function () {
     setupFake(ide, HatStability.stable);
   });
 
-  getRecordedTestPaths()
-    .slice(0, 1)
-    .forEach(({ name, path }) =>
-      test(
-        name,
-        asyncSafety(
-          async () =>
-            await runRecordedTest({
-              path,
-              spyIde: getSpy()!,
+  getRecordedTestPaths().forEach(({ name, path }) =>
+    test(
+      name,
+      asyncSafety(
+        async () =>
+          await runRecordedTest({
+            path,
+            spyIde: getSpy()!,
 
-              openNewTestEditor,
+            openNewTestEditor,
 
-              sleepWithBackoff,
-              testHelpers: (await getCursorlessApi()).testHelpers!,
-              runCursorlessCommand,
-            }),
-        ),
+            sleepWithBackoff,
+            testHelpers: (await getCursorlessApi()).testHelpers!,
+            runCursorlessCommand,
+          }),
       ),
-    );
+    ),
+  );
 });
 
 async function openNewTestEditor(
