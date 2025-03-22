@@ -17,8 +17,8 @@ void (async () => {
   try {
     await launchVscodeAndRunTests(extensionTestsPath);
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
     console.log("Error running launchVscodeAndRunTests tests:");
+    const errorMessage = error instanceof Error ? error.message : String(error);
     console.log(error);
     console.error(errorMessage);
   }
