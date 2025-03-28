@@ -91,7 +91,6 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
   } catch (err) {
     console.error("Test run threw exception:");
     console.error(err);
-    console.error((err as Error).stack);
     process.exit(1);
   }
 }
