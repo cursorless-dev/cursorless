@@ -35,12 +35,11 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
     // NB: We include the exact version here instead of in `test.yml` so that
     // we don't have to update the branch protection rules every time we bump
     // the legacy VSCode version.
-    const vscodeVersion = useLegacyVscode ? "1.82.0" : "stable";
-    // const vscodeVersion = useLegacyVscode
-    //   ? "1.82.0"
-    //   : os.platform() === "win32"
-    //     ? "stable"
-    //     : "1.97.2";
+    const vscodeVersion = useLegacyVscode
+      ? "1.82.0"
+      : os.platform() === "win32"
+        ? "stable"
+        : "1.97.2";
     const vscodeExecutablePath = await downloadAndUnzipVSCode(vscodeVersion);
     const [cli, ...args] =
       resolveCliArgsFromVSCodeExecutablePath(vscodeExecutablePath);

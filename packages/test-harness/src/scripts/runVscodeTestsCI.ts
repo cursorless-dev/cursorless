@@ -14,12 +14,5 @@ void (async () => {
     "packages/test-harness/dist/extensionTestsVscode.cjs",
   );
 
-  try {
-    await launchVscodeAndRunTests(extensionTestsPath);
-  } catch (error) {
-    console.log("Error running launchVscodeAndRunTests tests:");
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    console.log(error);
-    console.error(errorMessage);
-  }
+  await launchVscodeAndRunTests(extensionTestsPath);
 })();

@@ -50,7 +50,7 @@ suite("Scope test cases", async function () {
     );
   }
 
-  testPaths.slice(0, 1).forEach(({ path, name, languageId, facet }) =>
+  testPaths.forEach(({ path, name, languageId, facet }) =>
     test(
       name,
       asyncSafety(() => runTest(path, languageId, facet)),

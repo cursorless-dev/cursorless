@@ -37,11 +37,11 @@
   "devDependencies": {
     "@types/cross-spawn": "6.0.6",
     "@types/glob": "^8.1.0",
-    "@types/mocha": "^10.0.10",
+    "@types/mocha": "^10.0.9",
     "@types/tail": "2.2.3",
     "@vscode/test-electron": "^2.4.1",
     "cross-spawn": "7.0.5",
-    "mocha": "^11.1.0"
+    "mocha": "^10.7.3"
   },
   "types": "./out/runners/extensionTestsNeovim.d.ts",
   "exports": {

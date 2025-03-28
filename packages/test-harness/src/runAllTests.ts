@@ -76,12 +76,7 @@ async function runTestsInDir(
     await new Promise<void>((resolve, reject) => {
       const failedTests: string[] = [];
 
-      console.log(`Running ${files.length} tests...`);
-
       const runner = mocha.run((failures) => {
-        console.log(`Finished running ${files.length} tests.`);
-        console.log(`Failures: ${failures}`);
-
         if (shouldLogFailedTests()) {
           logFailedTests(failedTests);
         }
@@ -98,7 +93,6 @@ async function runTestsInDir(
       }
     });
   } catch (err) {
-    console.log("Failed to run tests:");
     console.error(err);
     throw err;
   }
