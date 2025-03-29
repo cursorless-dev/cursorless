@@ -93,6 +93,7 @@ export * from "./types/TreeSitter";
 export * from "./types/tutorial.types";
 export * from "./util";
 export * from "./util/camelCaseToAllDown";
+export * from "./util/capitalize";
 export * from "./util/clientSupportsFallback";
 export * from "./util/CompositeKeyDefaultMap";
 export * from "./util/CompositeKeyMap";
