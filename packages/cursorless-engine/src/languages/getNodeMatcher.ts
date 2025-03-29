@@ -14,7 +14,6 @@ import latex from "./latex";
 import { patternMatchers as ruby } from "./ruby";
 import rust from "./rust";
 import scala from "./scala";
-import { patternMatchers as scss } from "./scss";
 
 export function getNodeMatcher(
   languageId: string,
@@ -45,12 +44,10 @@ export const languageMatchers: Record<
   Partial<Record<SimpleScopeTypeType, NodeMatcher>>
 > = {
   clojure,
-  css: scss,
   latex,
   ruby,
   rust,
   scala,
-  scss,
 };
 
 function matcherIncludeSiblings(matcher: NodeMatcher): NodeMatcher {
