@@ -26,6 +26,7 @@ This file contains helpful hints for Claude when working with the Cursorless cod
 ## Documentation Conventions
 
 When documenting actions or modifiers:
+
 - Include a brief description of what the item does
 - Include the format/syntax
 - Include at least one example
