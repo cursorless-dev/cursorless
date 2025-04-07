@@ -482,8 +482,6 @@ Note that if the first target is omitted, the start of the range will be the cur
 - `"take past [blue] air"`
 - `"take funk [blue] air past [blue] bat"` (note end of range inherits `"funk"`)
 - `"take funk [blue] air past token [blue] bat"`
-- `"take past before [blue] air"`
-- `"take after [blue] air past before [blue] bat"`
 - `"take past end of line"`
 - `"take past start of line"`
 - `"take [blue] air past end of line"`
