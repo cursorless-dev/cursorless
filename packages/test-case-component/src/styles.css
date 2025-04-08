@@ -86,10 +86,35 @@ pre.shiki {
   background: green;
 }
 .decoration.pendingDeleteBackground {
-  background: #ff00008a;
+  background-color: #ff00008a;
 }
+
 .decoration.referencedBackground {
-  background: #00a2ff4d;
+  background-color: #00a2ff4d;
+}
+
+.decoration.justAddedBackground {
+  background-color: #09ff005b;
+}
+
+.decoration.pendingModification0Background {
+  background-color: #8c00ff86;
+}
+
+.decoration.pendingModification1Background {
+  background-color: #ff009d7e;
+}
+
+.decoration.highlight0Background {
+  background-color: #d449ff42;
+}
+
+.decoration.highlight1Background {
+  background-color: #60daff7a;
+}
+
+.decoration.timingCalibrationBackground {
+  background-color: #230026;
 }
 
 .hat {
