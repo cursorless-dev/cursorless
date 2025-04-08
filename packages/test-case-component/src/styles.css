@@ -48,7 +48,7 @@ pre.shiki {
 }
 
 .command {
-  border-top: 1px solid var(--color-border);
+  /* border-top: 1px solid var(--color-border); */
   padding: 8px;
   font-weight: bold;
   text-align: center;
