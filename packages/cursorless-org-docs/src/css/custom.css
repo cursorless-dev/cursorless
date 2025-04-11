@@ -28,3 +28,23 @@
 .hidden {
   display: none;
 }
+
+.card {
+  border: 1px solid rgba(0, 0, 0, 0.175);
+  margin-bottom: 1rem;
+}
+
+.card-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+.facet-name {
+  font-weight: 600;
+}

@@ -1,10 +1,10 @@
 import React from "react";
-import ScopeSupport from "./ScopeSupport";
+import { ScopeSupport } from "./ScopeSupport";
 
 interface Props {
   languageId: string;
 }
 
-export default function Language({ languageId }: Props) {
+export function Language({ languageId }: Props) {
   return <ScopeSupport languageId={languageId} />;
 }
