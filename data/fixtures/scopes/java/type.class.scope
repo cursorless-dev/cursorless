@@ -1,0 +1,10 @@
+public class MyClass { }
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:24
+  >------------------------<
+0| public class MyClass { }
+
+[Insertion delimiter] = " "

@@ -3,24 +3,36 @@ public class MyClass {
 }
 ---
 
-[Content] = 1:25-1:28
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-2:1
+  >----------------------
+0| public class MyClass {
+1|     public MyClass(final int value) { }
+2| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:25-1:28
                            >---<
 1|     public MyClass(final int value) { }
 
-[Removal] = 1:25-1:29
+[#2 Removal] = 1:25-1:29
                            >----<
 1|     public MyClass(final int value) { }
 
-[Leading delimiter] = 1:24-1:25
+[#2 Leading delimiter] = 1:24-1:25
                           >-<
 1|     public MyClass(final int value) { }
 
-[Trailing delimiter] = 1:28-1:29
+[#2 Trailing delimiter] = 1:28-1:29
                               >-<
 1|     public MyClass(final int value) { }
 
-[Domain] = 1:19-1:34
+[#2 Domain] = 1:19-1:34
                      >---------------<
 1|     public MyClass(final int value) { }
 
-[Insertion delimiter] = " "
+[#2 Insertion delimiter] = " "

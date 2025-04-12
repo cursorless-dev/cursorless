@@ -108,6 +108,10 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "type.typeArgument": supported,
   "type.typeArgument.iteration": supported,
   "type.resource": supported,
+  "type.cast": supported,
+  "type.class": supported,
+  "type.enum": supported,
+  "type.interface": supported,
 
   "value.assignment": supported,
   "value.foreach": supported,
@@ -118,11 +122,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.resource": supported,
 
   // Unsupported
-
-  "type.cast": unsupported,
-  "type.class": unsupported,
-  "type.enum": unsupported,
-  "type.interface": unsupported,
 
   "interior.class": unsupported,
   "interior.element": unsupported,

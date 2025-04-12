@@ -38,6 +38,12 @@
   (field_declaration)
 ] @statement
 
+[
+  (class_declaration)
+  (interface_declaration)
+  (enum_declaration)
+] @type
+
 (class_declaration
   name: (_) @name @className
 ) @class @_.domain
@@ -332,6 +338,12 @@
 ;;!  ^^^
 ;;!  -------------
 (method_declaration
+  type: (_) @type
+) @_.domain
+
+;;!! (int)5
+;;!   ^^^
+(cast_expression
   type: (_) @type
 ) @_.domain
 

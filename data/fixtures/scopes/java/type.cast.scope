@@ -1,0 +1,13 @@
+(int)5;
+---
+
+[Content] =
+[Removal] = 0:1-0:4
+   >---<
+0| (int)5;
+
+[Domain] = 0:0-0:6
+  >------<
+0| (int)5;
+
+[Insertion delimiter] = " "
