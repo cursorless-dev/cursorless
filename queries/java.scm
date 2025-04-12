@@ -42,6 +42,15 @@
   name: (_) @name @className
 ) @class @_.domain
 
+(program) @class.iteration @className.iteration
+
+(class_body
+  .
+  "{" @class.iteration.start.endOf @className.iteration.start.endOf
+  "}" @class.iteration.end.startOf @className.iteration.end.startOf
+  .
+) @class.iteration.domain @className.iteration.domain
+
 ;;!! void myFunk() {}
 ;;!  ^^^^^^^^^^^^^^^^
 (method_declaration

@@ -35,7 +35,12 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.ternary": supported,
 
   class: supported,
+  "class.iteration.block": supported,
+  "class.iteration.document": supported,
+
   className: supported,
+  "className.iteration.block": supported,
+  "className.iteration.document": supported,
 
   "comment.block": supported,
   "comment.line": supported,
@@ -99,11 +104,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.variable": supported,
 
   // Unsupported
-
-  "class.iteration.block": unsupported,
-  "class.iteration.document": unsupported,
-  "className.iteration.block": unsupported,
-  "className.iteration.document": unsupported,
 
   "name.iteration.document": unsupported,
   "name.iteration.block": unsupported,
