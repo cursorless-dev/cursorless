@@ -87,10 +87,12 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.class": supported,
 
   "string.singleLine": supported,
+  "string.multiLine": supported,
 
   "textFragment.comment.block": supported,
   "textFragment.comment.line": supported,
   "textFragment.string.singleLine": supported,
+  "textFragment.string.multiLine": supported,
 
   "type.argument.formal.constructor": supported,
   "type.argument.formal.method": supported,
@@ -134,8 +136,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.iteration.block": unsupported,
   "statement.iteration.document": unsupported,
 
-  "string.multiLine": unsupported,
-  "textFragment.string.multiLine": unsupported,
   fieldAccess: unsupported,
 
   // Not Applicable

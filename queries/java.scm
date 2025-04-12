@@ -78,6 +78,13 @@
   (#character-range! @textFragment 1 -1)
 )
 
+;;!! """string"""
+;;!  ^^^^^^^^^^^^
+(
+  (text_block) @string @textFragment
+  (#character-range! @textFragment 3 -3)
+)
+
 ;;!! // comment
 ;;!  ^^^^^^^^^^
 [
