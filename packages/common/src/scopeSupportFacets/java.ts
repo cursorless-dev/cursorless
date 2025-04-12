@@ -33,6 +33,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.switchCase": supported,
   "branch.switchCase.iteration": supported,
   "branch.ternary": supported,
+  "branch.loop": supported,
 
   class: supported,
   "class.iteration.block": supported,
@@ -143,7 +144,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
 
   "string.multiLine": unsupported,
   "textFragment.string.multiLine": unsupported,
-  "branch.loop": unsupported,
   fieldAccess: unsupported,
 
   // Not Applicable

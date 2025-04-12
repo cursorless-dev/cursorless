@@ -203,7 +203,7 @@
 ;;!  ------------------------------
 (for_statement
   condition: (_) @condition
-) @_.domain
+) @branch @_.domain
 
 ;;!! while (value) {}
 ;;!         ^^^^^
@@ -211,12 +211,12 @@
 (while_statement
   condition: (_) @condition
   (#child-range! @condition 0 -1 true true)
-) @_.domain
+) @branch @_.domain
 
 (do_statement
   condition: (_) @condition
   (#child-range! @condition 0 -1 true true)
-) @_.domain
+) @branch @_.domain
 
 ;;!! switch (value) {}
 ;;!          ^^^^^
@@ -330,7 +330,7 @@
   type: (_) @type
   name: (_) @name
   value: (_) @value
-) @_.domain
+) @branch @_.domain
 
 ;;!! int value = 1;
 ;;!              ^
