@@ -43,7 +43,7 @@ jobs:
         uses: leafo/gh-actions-lua@v9
 
       - name: Install luarocks
-        uses: leafo/gh-actions-luarocks@v4
+        uses: leafo/gh-actions-luarocks@v5
 
       - name: Run pre-commit hooks
         uses: pre-commit/action@v3.0.1
