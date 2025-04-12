@@ -80,6 +80,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "name.variable": supported,
   "name.iteration.document": supported,
   "name.iteration.block": supported,
+  "name.resource": supported,
 
   ifStatement: supported,
   statement: supported,
@@ -91,9 +92,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "textFragment.comment.line": supported,
   "textFragment.string.singleLine": supported,
 
-  "type.typeArgument": supported,
-  "type.typeArgument.iteration": supported,
-
   "type.argument.formal.constructor": supported,
   "type.argument.formal.method": supported,
   "type.foreach": supported,
@@ -101,6 +99,9 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "type.field.iteration": supported,
   "type.return": supported,
   "type.variable": supported,
+  "type.typeArgument": supported,
+  "type.typeArgument.iteration": supported,
+  "type.resource": supported,
 
   "value.assignment": supported,
   "value.foreach": supported,
@@ -108,11 +109,9 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.return": supported,
   "value.return.lambda": supported,
   "value.variable": supported,
+  "value.resource": supported,
 
   // Unsupported
-
-  "name.resource": unsupported,
-  "name.resource.iteration": unsupported,
 
   "type.argument.formal.constructor.iteration": unsupported,
   "type.argument.formal.method.iteration": unsupported,
@@ -120,9 +119,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "type.class": unsupported,
   "type.enum": unsupported,
   "type.interface": unsupported,
-
-  "value.resource": unsupported,
-  "value.resource.iteration": unsupported,
 
   "interior.class": unsupported,
   "interior.element": unsupported,
@@ -151,6 +147,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal.iteration": notApplicable,
   "name.function": notApplicable,
   "name.variable.pattern": notApplicable,
+  "name.resource.iteration": notApplicable,
 
   "key.mapPair": notApplicable,
   "key.mapPair.iteration": notApplicable,
@@ -169,10 +166,12 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.variable.pattern": notApplicable,
   "value.typeAlias": notApplicable,
   "value.yield": notApplicable,
+  "value.resource.iteration": notApplicable,
 
   "type.argument.formal": notApplicable,
   "type.argument.formal.iteration": notApplicable,
   "type.alias": notApplicable,
+  "type.resource.iteration": notApplicable,
 
   section: notApplicable,
   "section.iteration.document": notApplicable,

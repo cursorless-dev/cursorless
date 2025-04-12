@@ -706,6 +706,16 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "type",
     isIteration: true,
   },
+  "type.resource": {
+    description: "Type in a 'with' / 'use' / 'using' statement",
+    scopeType: "type",
+  },
+  "type.resource.iteration": {
+    description:
+      "Iteration scope for types in a 'with' / 'use' / 'using' statement",
+    scopeType: "type",
+    isIteration: true,
+  },
 
   "interior.element": {
     description: "The interior/children of an XML element",

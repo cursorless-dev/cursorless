@@ -173,6 +173,8 @@ export const scopeSupportFacets = [
   "type.class",
   "type.typeArgument",
   "type.typeArgument.iteration",
+  "type.resource",
+  "type.resource.iteration",
 
   "interior.class",
   "interior.function",

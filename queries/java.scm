@@ -500,6 +500,18 @@
   ")" @argumentOrParameter.iteration.end.startOf
 ) @argumentOrParameter.iteration.domain
 
+;;!! try (PrintWriter writer = create()) { }
+;;!       ^^^^^^^^^^^ ^^^^^    ^^^^^^^^
+(try_with_resources_statement
+  (resource_specification
+    (resource
+      type: (_) @type
+      name: (_) @name
+      value: (_) @value
+    )
+  )
+) @_.domain
+
 operator: [
   "<"
   "<<"
