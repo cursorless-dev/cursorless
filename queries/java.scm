@@ -432,8 +432,8 @@
 ;;!                 ^
 (class_body
   .
-  "{" @type.iteration.start.endOf
-  "}" @type.iteration.end.startOf
+  "{" @type.iteration.start.endOf @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf
+  "}" @type.iteration.end.startOf @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf
   .
 )
 

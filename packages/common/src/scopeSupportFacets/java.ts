@@ -59,8 +59,13 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   functionCallee: supported,
   "functionCallee.constructor": supported,
 
+  "namedFunction.constructor": supported,
+  "namedFunction.method": supported,
+  "namedFunction.method.iteration.class": supported,
+
   "functionName.constructor": supported,
   "functionName.method": supported,
+  "functionName.method.iteration.class": supported,
 
   "name.argument.formal.constructor": supported,
   "name.argument.formal.constructor.iteration": supported,
@@ -73,8 +78,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "name.foreach": supported,
   "name.method": supported,
   "name.variable": supported,
-  "namedFunction.constructor": supported,
-  "namedFunction.method": supported,
 
   ifStatement: supported,
   statement: supported,
@@ -120,13 +123,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
 
   "value.resource": unsupported,
   "value.resource.iteration": unsupported,
-
-  "namedFunction.iteration.document": unsupported,
-  "namedFunction.method.iteration.class": unsupported,
-
-  "functionName.iteration.block": unsupported,
-  "functionName.iteration.document": unsupported,
-  "functionName.method.iteration.class": unsupported,
 
   "interior.class": unsupported,
   "interior.element": unsupported,
@@ -189,7 +185,11 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "textFragment.element": notApplicable,
 
   namedFunction: notApplicable,
+  "namedFunction.iteration.document": notApplicable,
   "namedFunction.iteration.block": notApplicable,
+
+  "functionName.iteration.document": notApplicable,
+  "functionName.iteration.block": notApplicable,
 
   pairDelimiter: notApplicable,
   functionName: notApplicable,
