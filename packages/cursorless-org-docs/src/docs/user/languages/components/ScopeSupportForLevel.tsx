@@ -46,7 +46,9 @@ export function ScopeSupportForLevel({
       facetInfos,
       (facetInfo) => serializeScopeType(facetInfo.scopeType),
     );
-    const scopeTypes = Array.from(scopeGroups.keys()).sort();
+    const scopeTypes = Array.from(scopeGroups.keys())
+      .filter((scope) => !scope.startsWith("private."))
+      .sort();
 
     return (
       <div className="card-body">
