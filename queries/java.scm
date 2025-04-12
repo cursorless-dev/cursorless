@@ -43,13 +43,45 @@
 ) @class @_.domain
 
 (program) @class.iteration @className.iteration @name.iteration
+(program) @statement.iteration
 
+;;!! class MyClass { }
+;;!                 ^
 (class_body
   .
   "{" @class.iteration.start.endOf @className.iteration.start.endOf
   "}" @class.iteration.end.startOf @className.iteration.end.startOf
   .
 ) @class.iteration.domain @className.iteration.domain
+
+(class_body
+  .
+  "{" @type.iteration.start.endOf @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf
+  "}" @type.iteration.end.startOf @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf
+  .
+)
+
+;;!! for (...) { }
+;;!             ^
+(_
+  body: (_
+    .
+    "{" @name.iteration.start.endOf @statement.iteration.start.endOf
+    "}" @name.iteration.end.startOf @statement.iteration.end.startOf
+    .
+  )
+)
+
+;;!! if (true) { }
+;;!             ^
+(if_statement
+  (block
+    .
+    "{" @name.iteration.start.endOf @statement.iteration.start.endOf
+    "}" @name.iteration.end.startOf @statement.iteration.end.startOf
+    .
+  )
+)
 
 ;;!! void myFunk() {}
 ;;!  ^^^^^^^^^^^^^^^^
@@ -434,24 +466,6 @@
 (field_declaration
   type: (_) @type
 ) @_.domain
-
-;;!! class MyClass { }
-;;!                 ^
-(class_body
-  .
-  "{" @type.iteration.start.endOf @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf
-  "}" @type.iteration.end.startOf @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf
-  .
-)
-
-(_
-  body: (_
-    .
-    "{" @name.iteration.start.endOf
-    "}" @name.iteration.end.startOf
-    .
-  )
-)
 
 ;;!! public Map<int, int> foo;
 ;;!             ^^^  ^^^

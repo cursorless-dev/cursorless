@@ -85,6 +85,8 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   ifStatement: supported,
   statement: supported,
   "statement.class": supported,
+  "statement.iteration.block": supported,
+  "statement.iteration.document": supported,
 
   "string.singleLine": supported,
   "string.multiLine": supported,
@@ -132,9 +134,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.switchCase": unsupported,
   "interior.ternary": unsupported,
   "interior.try": unsupported,
-
-  "statement.iteration.block": unsupported,
-  "statement.iteration.document": unsupported,
 
   fieldAccess: unsupported,
 
