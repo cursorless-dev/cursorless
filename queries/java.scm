@@ -289,10 +289,10 @@
 ;;!              ^^^^^^^^^
 (formal_parameters
   .
-  "(" @name.iteration.start.endOf
-  ")" @name.iteration.end.startOf
+  "(" @type.iteration.start.endOf @name.iteration.start.endOf
+  ")" @type.iteration.end.startOf @name.iteration.end.startOf
   .
-) @name.iteration.domain
+) @type.iteration.domain @name.iteration.domain
 
 ;;!! Map<String, String>
 ;;!     ^^^^^^^  ^^^^^^

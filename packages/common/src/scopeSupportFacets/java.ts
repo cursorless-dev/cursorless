@@ -98,6 +98,8 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
 
   "type.argument.formal.constructor": supported,
   "type.argument.formal.method": supported,
+  "type.argument.formal.constructor.iteration": supported,
+  "type.argument.formal.method.iteration": supported,
   "type.foreach": supported,
   "type.field": supported,
   "type.field.iteration": supported,
@@ -117,8 +119,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Unsupported
 
-  "type.argument.formal.constructor.iteration": unsupported,
-  "type.argument.formal.method.iteration": unsupported,
   "type.cast": unsupported,
   "type.class": unsupported,
   "type.enum": unsupported,
