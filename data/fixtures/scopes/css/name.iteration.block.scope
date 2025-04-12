@@ -1,13 +1,24 @@
-a { color: red; }
+a {
+    color: red;
+    padding: 1rem;
+}
 ---
 
 [#1 Range] =
-[#1 Domain] = 0:0-0:17
-  >-----------------<
-0| a { color: red; }
+[#1 Domain] = 0:0-3:1
+  >---
+0| a {
+1|     color: red;
+2|     padding: 1rem;
+3| }
+   -<
 
 
 [#2 Range] =
-[#2 Domain] = 0:3-0:16
-     >-------------<
-0| a { color: red; }
+[#2 Domain] = 0:3-3:0
+     >
+0| a {
+1|     color: red;
+2|     padding: 1rem;
+3| }
+   <

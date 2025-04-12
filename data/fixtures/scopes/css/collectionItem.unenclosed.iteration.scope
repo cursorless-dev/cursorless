@@ -1,0 +1,19 @@
+* {
+    color: red;
+    padding: 1rem;
+}
+---
+
+[Range] = 1:4-2:18
+      >-----------
+1|     color: red;
+2|     padding: 1rem;
+   ------------------<
+
+[Domain] = 0:3-3:0
+     >
+0| * {
+1|     color: red;
+2|     padding: 1rem;
+3| }
+   <

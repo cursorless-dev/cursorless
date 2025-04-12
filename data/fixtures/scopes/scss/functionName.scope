@@ -1,0 +1,17 @@
+@function calculate-margin($size) {}
+---
+
+[Content] =
+[Removal] = 0:10-0:26
+            >----------------<
+0| @function calculate-margin($size) {}
+
+[Leading delimiter] = 0:9-0:10
+           >-<
+0| @function calculate-margin($size) {}
+
+[Domain] = 0:0-0:36
+  >------------------------------------<
+0| @function calculate-margin($size) {}
+
+[Insertion delimiter] = " "

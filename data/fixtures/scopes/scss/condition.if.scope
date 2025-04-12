@@ -1,0 +1,29 @@
+* {
+  @if $container-width < $base-width { }
+  @else { }
+}
+---
+
+[Content] = 1:6-1:36
+        >------------------------------<
+1|   @if $container-width < $base-width { }
+
+[Removal] = 1:6-1:37
+        >-------------------------------<
+1|   @if $container-width < $base-width { }
+
+[Leading delimiter] = 1:5-1:6
+       >-<
+1|   @if $container-width < $base-width { }
+
+[Trailing delimiter] = 1:36-1:37
+                                      >-<
+1|   @if $container-width < $base-width { }
+
+[Domain] = 1:2-2:11
+    >--------------------------------------
+1|   @if $container-width < $base-width { }
+2|   @else { }
+   -----------<
+
+[Insertion delimiter] = " "

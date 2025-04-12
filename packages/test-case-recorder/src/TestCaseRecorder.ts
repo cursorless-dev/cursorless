@@ -12,6 +12,7 @@ import type {
   TextEditorOptions,
 } from "@cursorless/common";
 import {
+  capitalize,
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   extractTargetedMarks,
   getKey,
@@ -505,10 +506,6 @@ function camelize(str: string) {
     .split(" ")
     .map((str, index) => (index === 0 ? str : capitalize(str)))
     .join("");
-}
-
-function capitalize(str: string) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 async function readJsonIfExists(
