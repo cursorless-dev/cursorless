@@ -42,7 +42,7 @@
   name: (_) @name @className
 ) @class @_.domain
 
-(program) @class.iteration @className.iteration
+(program) @class.iteration @className.iteration @name.iteration
 
 (class_body
   .
@@ -435,6 +435,15 @@
   "{" @type.iteration.start.endOf @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf
   "}" @type.iteration.end.startOf @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf
   .
+)
+
+(_
+  body: (_
+    .
+    "{" @name.iteration.start.endOf
+    "}" @name.iteration.end.startOf
+    .
+  )
 )
 
 ;;!! public Map<int, int> foo;

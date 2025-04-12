@@ -78,6 +78,8 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "name.foreach": supported,
   "name.method": supported,
   "name.variable": supported,
+  "name.iteration.document": supported,
+  "name.iteration.block": supported,
 
   ifStatement: supported,
   statement: supported,
@@ -109,8 +111,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Unsupported
 
-  "name.iteration.document": unsupported,
-  "name.iteration.block": unsupported,
   "name.resource": unsupported,
   "name.resource.iteration": unsupported,
 
