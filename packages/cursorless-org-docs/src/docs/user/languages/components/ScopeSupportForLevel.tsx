@@ -27,7 +27,21 @@ export function ScopeSupportForLevel({
 }: Props): JSX.Element | null {
   const [expanded, setExpanded] = useState(expandedProp ?? false);
 
-  if (facets.length === 0) {
+  const facetInfos = facets.map(
+    (facet): AugmentedFacetInfo => ({
+      facet,
+      ...scopeSupportFacetInfos[facet],
+    }),
+  );
+  const scopeGroups: Map<string, AugmentedFacetInfo[]> = groupBy(
+    facetInfos,
+    (facetInfo) => serializeScopeType(facetInfo.scopeType),
+  );
+  const scopeTypes = Array.from(scopeGroups.keys())
+    .filter((scope) => !scope.startsWith("private."))
+    .sort();
+
+  if (scopeTypes.length === 0) {
     return null;
   }
 
@@ -35,20 +49,6 @@ export function ScopeSupportForLevel({
     if (!expanded) {
       return null;
     }
-
-    const facetInfos = facets.map(
-      (facet): AugmentedFacetInfo => ({
-        facet,
-        ...scopeSupportFacetInfos[facet],
-      }),
-    );
-    const scopeGroups: Map<string, AugmentedFacetInfo[]> = groupBy(
-      facetInfos,
-      (facetInfo) => serializeScopeType(facetInfo.scopeType),
-    );
-    const scopeTypes = Array.from(scopeGroups.keys())
-      .filter((scope) => !scope.startsWith("private."))
-      .sort();
 
     return (
       <div className="card-body">
