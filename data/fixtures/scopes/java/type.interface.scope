@@ -1,0 +1,10 @@
+public interface Value { }
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:26
+  >--------------------------<
+0| public interface Value { }
+
+[Insertion delimiter] = " "

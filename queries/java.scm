@@ -38,9 +38,56 @@
   (field_declaration)
 ] @statement
 
+[
+  (class_declaration)
+  (interface_declaration)
+  (enum_declaration)
+] @type
+
 (class_declaration
   name: (_) @name @className
 ) @class @_.domain
+
+(program) @class.iteration @className.iteration @name.iteration
+(program) @statement.iteration
+
+;;!! class MyClass { }
+;;!                 ^
+(class_body
+  .
+  "{" @class.iteration.start.endOf @className.iteration.start.endOf
+  "}" @class.iteration.end.startOf @className.iteration.end.startOf
+  .
+)
+
+(class_body
+  .
+  "{" @type.iteration.start.endOf @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf
+  "}" @type.iteration.end.startOf @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf
+  .
+)
+
+;;!! for (...) { }
+;;!             ^
+(_
+  body: (_
+    .
+    "{" @name.iteration.start.endOf @statement.iteration.start.endOf
+    "}" @name.iteration.end.startOf @statement.iteration.end.startOf
+    .
+  )
+)
+
+;;!! if (true) { }
+;;!             ^
+(if_statement
+  (block
+    .
+    "{" @name.iteration.start.endOf @statement.iteration.start.endOf
+    "}" @name.iteration.end.startOf @statement.iteration.end.startOf
+    .
+  )
+)
 
 ;;!! void myFunk() {}
 ;;!  ^^^^^^^^^^^^^^^^
@@ -67,6 +114,13 @@
 (
   (string_literal) @string @textFragment
   (#character-range! @textFragment 1 -1)
+)
+
+;;!! """string"""
+;;!  ^^^^^^^^^^^^
+(
+  (text_block) @string @textFragment
+  (#character-range! @textFragment 3 -3)
 )
 
 ;;!! // comment
@@ -194,7 +248,7 @@
 ;;!  ------------------------------
 (for_statement
   condition: (_) @condition
-) @_.domain
+) @branch @_.domain
 
 ;;!! while (value) {}
 ;;!         ^^^^^
@@ -202,12 +256,12 @@
 (while_statement
   condition: (_) @condition
   (#child-range! @condition 0 -1 true true)
-) @_.domain
+) @branch @_.domain
 
 (do_statement
   condition: (_) @condition
   (#child-range! @condition 0 -1 true true)
-) @_.domain
+) @branch @_.domain
 
 ;;!! switch (value) {}
 ;;!          ^^^^^
@@ -241,10 +295,10 @@
 ;;!              ^^^^^^^^^
 (formal_parameters
   .
-  "(" @name.iteration.start.endOf
-  ")" @name.iteration.end.startOf
+  "(" @type.iteration.start.endOf @name.iteration.start.endOf
+  ")" @type.iteration.end.startOf @name.iteration.end.startOf
   .
-) @name.iteration.domain
+) @type.iteration.domain @name.iteration.domain
 
 ;;!! Map<String, String>
 ;;!     ^^^^^^^  ^^^^^^
@@ -287,6 +341,14 @@
   type: (_) @type
 ) @_.domain
 
+;;!! (int)5
+;;!   ^^^
+(cast_expression
+  "(" @type.removal.start
+  type: (_) @type
+  ")" @type.removal.end
+) @_.domain
+
 ;;!! new test();
 ;;!  ^^^^^^^^
 ;;!  -----------
@@ -321,7 +383,7 @@
   type: (_) @type
   name: (_) @name
   value: (_) @value
-) @_.domain
+) @branch @_.domain
 
 ;;!! int value = 1;
 ;;!              ^
@@ -419,15 +481,6 @@
   type: (_) @type
 ) @_.domain
 
-;;!! class MyClass { }
-;;!                 ^
-(class_body
-  .
-  "{" @type.iteration.start.endOf
-  "}" @type.iteration.end.startOf
-  .
-)
-
 ;;!! public Map<int, int> foo;
 ;;!             ^^^  ^^^
 (type_arguments
@@ -481,6 +534,18 @@
   "(" @argumentOrParameter.iteration.start.endOf
   ")" @argumentOrParameter.iteration.end.startOf
 ) @argumentOrParameter.iteration.domain
+
+;;!! try (PrintWriter writer = create()) { }
+;;!       ^^^^^^^^^^^ ^^^^^    ^^^^^^^^
+(try_with_resources_statement
+  (resource_specification
+    (resource
+      type: (_) @type
+      name: (_) @name
+      value: (_) @value
+    )
+  )
+) @_.domain
 
 operator: [
   "<"

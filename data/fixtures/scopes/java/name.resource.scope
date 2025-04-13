@@ -1,0 +1,24 @@
+try (PrintWriter writer = create()) { }
+---
+
+[Content] = 0:17-0:23
+                   >------<
+0| try (PrintWriter writer = create()) { }
+
+[Removal] = 0:17-0:24
+                   >-------<
+0| try (PrintWriter writer = create()) { }
+
+[Leading delimiter] = 0:16-0:17
+                  >-<
+0| try (PrintWriter writer = create()) { }
+
+[Trailing delimiter] = 0:23-0:24
+                         >-<
+0| try (PrintWriter writer = create()) { }
+
+[Domain] = 0:0-0:39
+  >---------------------------------------<
+0| try (PrintWriter writer = create()) { }
+
+[Insertion delimiter] = " "

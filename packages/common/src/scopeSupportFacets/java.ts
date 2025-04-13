@@ -33,9 +33,15 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.switchCase": supported,
   "branch.switchCase.iteration": supported,
   "branch.ternary": supported,
+  "branch.loop": supported,
 
   class: supported,
+  "class.iteration.block": supported,
+  "class.iteration.document": supported,
+
   className: supported,
+  "className.iteration.block": supported,
+  "className.iteration.document": supported,
 
   "comment.block": supported,
   "comment.line": supported,
@@ -53,8 +59,13 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   functionCallee: supported,
   "functionCallee.constructor": supported,
 
+  "namedFunction.constructor": supported,
+  "namedFunction.method": supported,
+  "namedFunction.method.iteration.class": supported,
+
   "functionName.constructor": supported,
   "functionName.method": supported,
+  "functionName.method.iteration.class": supported,
 
   "name.argument.formal.constructor": supported,
   "name.argument.formal.constructor.iteration": supported,
@@ -67,29 +78,40 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "name.foreach": supported,
   "name.method": supported,
   "name.variable": supported,
-  "namedFunction.constructor": supported,
-  "namedFunction.method": supported,
+  "name.iteration.document": supported,
+  "name.iteration.block": supported,
+  "name.resource": supported,
 
   ifStatement: supported,
   statement: supported,
   "statement.class": supported,
+  "statement.iteration.block": supported,
+  "statement.iteration.document": supported,
 
   "string.singleLine": supported,
+  "string.multiLine": supported,
 
   "textFragment.comment.block": supported,
   "textFragment.comment.line": supported,
   "textFragment.string.singleLine": supported,
-
-  "type.typeArgument": supported,
-  "type.typeArgument.iteration": supported,
+  "textFragment.string.multiLine": supported,
 
   "type.argument.formal.constructor": supported,
   "type.argument.formal.method": supported,
+  "type.argument.formal.constructor.iteration": supported,
+  "type.argument.formal.method.iteration": supported,
   "type.foreach": supported,
   "type.field": supported,
   "type.field.iteration": supported,
   "type.return": supported,
   "type.variable": supported,
+  "type.typeArgument": supported,
+  "type.typeArgument.iteration": supported,
+  "type.resource": supported,
+  "type.cast": supported,
+  "type.class": supported,
+  "type.enum": supported,
+  "type.interface": supported,
 
   "value.assignment": supported,
   "value.foreach": supported,
@@ -97,35 +119,9 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.return": supported,
   "value.return.lambda": supported,
   "value.variable": supported,
+  "value.resource": supported,
 
   // Unsupported
-
-  "class.iteration.block": unsupported,
-  "class.iteration.document": unsupported,
-  "className.iteration.block": unsupported,
-  "className.iteration.document": unsupported,
-
-  "name.iteration.document": unsupported,
-  "name.iteration.block": unsupported,
-  "name.resource": unsupported,
-  "name.resource.iteration": unsupported,
-
-  "type.argument.formal.constructor.iteration": unsupported,
-  "type.argument.formal.method.iteration": unsupported,
-  "type.cast": unsupported,
-  "type.class": unsupported,
-  "type.enum": unsupported,
-  "type.interface": unsupported,
-
-  "value.resource": unsupported,
-  "value.resource.iteration": unsupported,
-
-  "namedFunction.iteration.document": unsupported,
-  "namedFunction.method.iteration.class": unsupported,
-
-  "functionName.iteration.block": unsupported,
-  "functionName.iteration.document": unsupported,
-  "functionName.method.iteration.class": unsupported,
 
   "interior.class": unsupported,
   "interior.element": unsupported,
@@ -138,12 +134,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.ternary": unsupported,
   "interior.try": unsupported,
 
-  "statement.iteration.block": unsupported,
-  "statement.iteration.document": unsupported,
-
-  "string.multiLine": unsupported,
-  "textFragment.string.multiLine": unsupported,
-  "branch.loop": unsupported,
   fieldAccess: unsupported,
 
   // Not Applicable
@@ -155,6 +145,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal.iteration": notApplicable,
   "name.function": notApplicable,
   "name.variable.pattern": notApplicable,
+  "name.resource.iteration": notApplicable,
 
   "key.mapPair": notApplicable,
   "key.mapPair.iteration": notApplicable,
@@ -173,10 +164,12 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.variable.pattern": notApplicable,
   "value.typeAlias": notApplicable,
   "value.yield": notApplicable,
+  "value.resource.iteration": notApplicable,
 
   "type.argument.formal": notApplicable,
   "type.argument.formal.iteration": notApplicable,
   "type.alias": notApplicable,
+  "type.resource.iteration": notApplicable,
 
   section: notApplicable,
   "section.iteration.document": notApplicable,
@@ -189,7 +182,11 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "textFragment.element": notApplicable,
 
   namedFunction: notApplicable,
+  "namedFunction.iteration.document": notApplicable,
   "namedFunction.iteration.block": notApplicable,
+
+  "functionName.iteration.document": notApplicable,
+  "functionName.iteration.block": notApplicable,
 
   pairDelimiter: notApplicable,
   functionName: notApplicable,
