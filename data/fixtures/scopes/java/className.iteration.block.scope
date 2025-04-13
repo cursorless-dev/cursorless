@@ -7,10 +7,7 @@ public class MyClass { }
 0| public class MyClass { }
 
 
-[#2 Range] = 0:22-0:23
+[#2 Range] =
+[#2 Domain] = 0:22-0:23
                         >-<
-0| public class MyClass { }
-
-[#2 Domain] = 0:21-0:24
-                       >---<
 0| public class MyClass { }
