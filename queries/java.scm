@@ -344,7 +344,9 @@
 ;;!! (int)5
 ;;!   ^^^
 (cast_expression
+  "(" @type.removal.start
   type: (_) @type
+  ")" @type.removal.end
 ) @_.domain
 
 ;;!! new test();
