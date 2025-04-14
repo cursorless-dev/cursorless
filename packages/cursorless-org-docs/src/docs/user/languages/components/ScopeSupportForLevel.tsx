@@ -15,7 +15,7 @@ interface Props {
   title: string;
   subtitle: string;
   description?: React.ReactNode;
-  expanded?: boolean;
+  open?: boolean;
 }
 
 export function ScopeSupportForLevel({
@@ -23,9 +23,9 @@ export function ScopeSupportForLevel({
   title,
   subtitle,
   description,
-  expanded: expandedProp,
+  open: openProp,
 }: Props): JSX.Element | null {
-  const [expanded, setExpanded] = useState(expandedProp ?? false);
+  const [open, setOpen] = useState(openProp ?? false);
 
   const facetInfos = facets.map(
     (facet): AugmentedFacetInfo => ({
@@ -46,12 +46,12 @@ export function ScopeSupportForLevel({
   }
 
   const renderBody = () => {
-    if (!expanded) {
+    if (!open) {
       return null;
     }
 
     return (
-      <div className="card-body">
+      <div className="card__body">
         {description && <p>{description}</p>}
 
         {scopeTypes.map((scopeType) => {
@@ -79,8 +79,8 @@ export function ScopeSupportForLevel({
   };
 
   return (
-    <div className="card">
-      <div className="card-header" onClick={() => setExpanded(!expanded)}>
+    <div className={"card pointer" + (open ? " open" : "")}>
+      <div className="card__header" onClick={() => setOpen(!open)}>
         <h3>{title}</h3>
         {subtitle}
       </div>
