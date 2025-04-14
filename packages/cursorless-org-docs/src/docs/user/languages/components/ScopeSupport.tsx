@@ -35,7 +35,7 @@ export function ScopeSupport({ languageId }: Props): JSX.Element {
         facets={supportedScopes}
         title="Supported facets"
         subtitle="These facets are supported"
-        expanded
+        open
       />
 
       <ScopeSupportForLevel

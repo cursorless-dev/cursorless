@@ -30,21 +30,17 @@
 }
 
 .card {
-  border: 1px solid rgba(0, 0, 0, 0.175);
+  border: 1px solid var(--ifm-color-emphasis-300);
   margin-bottom: 1rem;
 }
 
-.card-header {
-  background-color: #f8f9fa;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-  padding: 0.5rem 1rem;
-  cursor: pointer;
+.card.open > .card__header {
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+  padding-bottom: 1rem;
 }
 
-/* testing */
-
-.card-body {
-  padding: 1rem;
+.pointer {
+  cursor: pointer;
 }
 
 .facet-name {
