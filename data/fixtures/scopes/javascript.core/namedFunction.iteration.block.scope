@@ -19,9 +19,3 @@ class MyClass {
 1|     myFunk() { }
 2| }
    <
-
-
-[#3 Range] =
-[#3 Domain] = 1:14-1:15
-                >-<
-1|     myFunk() { }

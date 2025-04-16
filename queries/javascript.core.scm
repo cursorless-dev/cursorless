@@ -661,23 +661,6 @@
   (#not-parent-type? @branch.iteration "else_clause")
 )
 
-(if_statement
-  (statement_block
-    .
-    "{" @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf @name.iteration.start.endOf
-    "}" @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf @name.iteration.end.startOf
-    .
-  )
-)
-(else_clause
-  (statement_block
-    .
-    "{" @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf @name.iteration.start.endOf
-    "}" @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf @name.iteration.end.startOf
-    .
-  )
-)
-
 ;;!! try () {}
 ;;!  ^^^^^^^^^
 (try_statement
