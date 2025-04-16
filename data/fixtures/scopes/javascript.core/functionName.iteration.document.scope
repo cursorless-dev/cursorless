@@ -3,10 +3,16 @@ function myFunk() { }
 // After
 ---
 
-[Range] =
-[Domain] = 0:0-2:8
+[#1 Range] =
+[#1 Domain] = 0:0-2:8
   >---------
 0| // Before
 1| function myFunk() { }
 2| // After
    --------<
+
+
+[#2 Range] =
+[#2 Domain] = 1:19-1:20
+                     >-<
+1| function myFunk() { }

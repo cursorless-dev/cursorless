@@ -166,6 +166,18 @@
   )
 ] @namedFunction.iteration @functionName.iteration
 
+;; Treat interior of all bodies as iteration scopes for `name`, eg
+;;!! function foo() {   }
+;;!                  ***
+(_
+  body: (_
+    .
+    "{" @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf
+    "}" @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf
+    .
+  )
+)
+
 ;;!! { funk: function() { } }
 ;;!    ^^^^
 (pair

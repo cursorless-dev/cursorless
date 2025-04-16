@@ -22,8 +22,8 @@ class MyClass {
 
 
 [#3 Range] =
-[#3 Domain] = 1:8-1:18
-          >----------<
+[#3 Domain] = 1:9-1:17
+           >--------<
 1|   myFunk(aaa, bbb) { }
 
 

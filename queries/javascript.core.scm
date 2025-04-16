@@ -286,6 +286,13 @@
   (#insertion-delimiter! @collectionItem ", ")
 )
 
+(lexical_declaration
+  .
+  (_) @collectionItem.iteration.start.startOf
+  (_) @collectionItem.iteration.end.endOf
+  .
+) @collectionItem.iteration.domain
+
 (expression_statement
   [
     ;; name:
@@ -415,10 +422,7 @@
   right: (_) @value
 ) @_.domain
 
-[
-  (program)
-  (formal_parameters)
-] @name.iteration @value.iteration @type.iteration
+(program) @name.iteration @value.iteration @type.iteration
 
 ;; Treat interior of all bodies as iteration scopes for `name`, eg
 ;;!! function foo() {   }
@@ -564,6 +568,8 @@
   ]
 ) @class @_.domain
 
+(program) @class.iteration @className.iteration
+
 ;;!! true ? 0 : 1;
 ;;!  ^^^^
 ;;!         ^   ^
@@ -655,6 +661,23 @@
   (#not-parent-type? @branch.iteration "else_clause")
 )
 
+(if_statement
+  (statement_block
+    .
+    "{" @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf @name.iteration.start.endOf
+    "}" @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf @name.iteration.end.startOf
+    .
+  )
+)
+(else_clause
+  (statement_block
+    .
+    "{" @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf @name.iteration.start.endOf
+    "}" @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf @name.iteration.end.startOf
+    .
+  )
+)
+
 ;;!! try () {}
 ;;!  ^^^^^^^^^
 (try_statement
@@ -677,6 +700,13 @@
 ;;!! try () {} catch () {} finally {}
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 (try_statement) @branch.iteration
+
+[
+  (for_statement)
+  (for_in_statement)
+  (while_statement)
+  (do_statement)
+] @branch
 
 ;;!! { value: 0 }
 ;;!    ^^^^^
@@ -768,6 +798,11 @@
     ")" @argumentOrParameter.iteration.end.startOf
   )
 ) @argumentOrParameter.iteration.domain
+
+(formal_parameters
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+)
 
 (arguments
   "(" @argumentOrParameter.iteration.start.endOf
