@@ -2,7 +2,7 @@ import { javascriptCoreScopeSupport } from "./javascript";
 import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
-const { supported } = ScopeSupportFacetLevel;
+const { supported, notApplicable } = ScopeSupportFacetLevel;
 
 export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
   ...javascriptCoreScopeSupport,
@@ -22,4 +22,15 @@ export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
   "type.variable": supported,
 
   "value.typeAlias": supported,
+
+  // Not applicable
+
+  element: notApplicable,
+  tags: notApplicable,
+  startTag: notApplicable,
+  endTag: notApplicable,
+  attribute: notApplicable,
+  "key.attribute": notApplicable,
+  "value.attribute": notApplicable,
+  "interior.element": notApplicable,
 };
