@@ -8,7 +8,7 @@ import {
 } from "@cursorless/test-case-component";
 import { TestCaseComponentPage } from "@cursorless/test-case-component";
 import type { TestCaseFixture } from "@cursorless/common";
-
+import { testSelectedFiles } from "./allowList";
 
 import { cheatsheetBodyClasses } from "@cursorless/cheatsheet";
 
@@ -39,24 +39,7 @@ async function loadYamlFiles(dir: string, selectedFiles?: string[]) {
 export async function getStaticProps() {
   const itemsDirActions = path.join(fixturesDir, "actions");
   const itemsDirDecorations = path.join(fixturesDir, "decorations");
-  const testSelectedFiles = [
-    "bringArgMadeAfterLook.yml",
-    "chuckBlockAirUntilBatt.yml",
-    "cutFine.yml",
-    "chuckLineFine.yml",
-    "bringAirAndBatAndCapToAfterItemEach.yml",
-    "carveLineHarp.yml",
-    "chuckBlockAir.yml",
-    "chuckBlockAirUntilBatt.yml",
-    "chuckBlockBatt.yml",
-    "chuckBlockBatt2.yml",
-    "chuckBlockBattUntilAir.yml",
-    "chuckFine.yml",
-    "chuckLineFineBetweenRisk.yml",
-    "clearBlockFine.yml",
-    "clearFine.yml",
-    "clearLineFine.ym",
-  ];
+
   const dataActions = await loadYamlFiles(itemsDirActions, testSelectedFiles);
   const dataDecorations = await loadYamlFiles(
     itemsDirDecorations,
