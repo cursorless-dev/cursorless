@@ -24,11 +24,15 @@ async function loadYamlFiles(dir: string, selectedFiles?: string[]) {
       path.extname(file) === ".yml" &&
       (!selectedFiles || selectedFiles.includes(file))
     ) {
-      const filePath = path.join(directoryPath, file);
-      const fileContents = fs.readFileSync(filePath, "utf8");
-      const yamlData: any = yaml.load(fileContents);
-      yamlData.filename = file;
-      data.push(yamlData);
+      try {
+        const filePath = path.join(directoryPath, file);
+        const fileContents = fs.readFileSync(filePath, "utf8");
+        const yamlData: any = yaml.load(fileContents);
+        yamlData.filename = file;
+        data.push(yamlData);
+      } catch {
+        console.error("File load failure", file);
+      }
     }
   });
 
