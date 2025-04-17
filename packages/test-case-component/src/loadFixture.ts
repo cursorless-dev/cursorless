@@ -1,5 +1,5 @@
 import type { TargetPlainObject, TestCaseFixture, TestCaseSnapshot } from "@cursorless/common";
-import { generateHtml } from "./generateHtml.js";
+import { generateHtml } from "./generateHtml";
 import type { BundledLanguage } from "shiki";
 
 async function safeGenerateHtml({
@@ -90,8 +90,7 @@ async function getDuring(data: DataFixture) {
   const stateName = "middleState"
   const state = data.initialState
   const languageId = data.languageId as BundledLanguage
-  const { thatMark: thatMarkFinalState } = data.finalState
-  const genObj: TestCaseSnapshot & typeof thatMarkFinalState = { stateName, state, languageId, raw: data }
+  const genObj: TestCaseSnapshot & { stateName: string } = { stateName, state, languageId, raw: data }
   if (command) {
     genObj.command = command
   }
