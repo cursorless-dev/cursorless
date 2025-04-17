@@ -29,7 +29,12 @@ export const ShikiComponent: React.FC<{ data: any }> = ({ data }) => {
           )}
         </div>
       </div>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <details>
+        <summary>JSON</summary>
+        <pre className="max-w-xl overflow-auto">
+          {JSON.stringify(data, null, 2)}
+        </pre>
+      </details>
     </div>
   );
 };
