@@ -3,9 +3,7 @@ import fs from "fs";
 import path from "path";
 import Head from "next/head";
 
-import {
-  loadFixture,
-} from "@cursorless/test-case-component";
+import { loadFixture } from "@cursorless/test-case-component";
 import { TestCaseComponentPage } from "@cursorless/test-case-component";
 import type { TestCaseFixture } from "@cursorless/common";
 import { testSelectedFiles } from "./allowList";
@@ -50,13 +48,27 @@ export async function getStaticProps() {
     testSelectedFiles,
   );
 
+  const data_errors: any[] = [];
+
   const data = (
     await Promise.all(
-      [...dataActions, ...dataDecorations].map((val) => {
-        return loadFixture(val);
+      [...dataActions, ...dataDecorations].map(async (val) => {
+        try {
+          // const upgraded = upgrade(data);
+          const fixture = await loadFixture(val);
+          return { ...fixture, raw: val };
+        } catch (err) {
+          console.error(err);
+          data_errors.push(val);
+          return null;
+        }
       }),
     )
-  ).filter((val) => val !== undefined);
+  ).filter((test) => test !== undefined);
+
+  if (data_errors.length > 0) {
+    console.error("data errors:", data_errors);
+  }
 
   return { props: { data, bodyClasses: cheatsheetBodyClasses } };
 }
