@@ -1,6 +1,4 @@
-import * as React from "react";
-
-export const ShikiComponent: React.FC<{ data: any }> = ({ data }) => {
+export function ShikiComponent({ data }: { data: any }) {
   return (
     <div className="max-w-xl overflow-auto p-4">
       <div className="p-8">
@@ -20,7 +18,7 @@ export const ShikiComponent: React.FC<{ data: any }> = ({ data }) => {
       </details>
     </div>
   );
-};
+}
 
 const Before = ({ content }: { content: string }) => {
   return <div className="p-4" dangerouslySetInnerHTML={{ __html: content }} />;
