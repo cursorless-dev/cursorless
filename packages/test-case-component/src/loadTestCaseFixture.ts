@@ -35,7 +35,7 @@ interface loadFixtureProps extends TestCaseFixture {
   finalState: TestCaseSnapshot;
 }
 
-export async function loadFixture(data: loadFixtureProps) {
+export async function loadTestCaseFixture(data: loadFixtureProps) {
   try {
     const before = await getBefore({
       stateName: "initialState",

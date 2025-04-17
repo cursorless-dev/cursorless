@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 import Head from "next/head";
 
-import { loadFixture } from "@cursorless/test-case-component";
+import { loadTestCaseFixture } from "@cursorless/test-case-component";
 import { TestCaseComponentPage } from "@cursorless/test-case-component";
 import type { TestCaseFixture } from "@cursorless/common";
 import { testSelectedFiles } from "./allowList";
@@ -55,7 +55,7 @@ export async function getStaticProps() {
       [...dataActions, ...dataDecorations].map(async (val) => {
         try {
           // const upgraded = upgrade(data);
-          const fixture = await loadFixture(val);
+          const fixture = await loadTestCaseFixture(val);
           return { ...fixture, raw: val };
         } catch (err) {
           console.error(err);
