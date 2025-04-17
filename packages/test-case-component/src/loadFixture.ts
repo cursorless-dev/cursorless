@@ -1,13 +1,26 @@
-import type { PositionPlainObject } from "@cursorless/common";
-import type { TestCaseFixture, TestCaseSnapshot } from "@cursorless/common";
-import { generateHtml } from "./generateHtml";
+import type { TargetPlainObject, TestCaseFixture, TestCaseSnapshot } from "@cursorless/common";
+import { generateHtml } from "./generateHtml.js";
+import type { BundledLanguage } from "shiki";
 
-async function safeGenerateHtml(
-  ...args: [stateName: string, ...rest: Parameters<typeof generateHtml>]
-) {
-  const [stateName, state, languageId] = args;
+async function safeGenerateHtml({
+  stateName,
+  state,
+  languageId,
+  command,
+  ide,
+  thatMarkFinalState
+}: {
+  stateName: string;
+  state: TestCaseSnapshot;
+  languageId: BundledLanguage;
+  command?: any; // Replace `any` with the appropriate type if known
+  ide?: any; // Replace `any` with the appropriate type if known
+  thatMarkFinalState?: TargetPlainObject
+}) {
+  console.log("✨" + stateName + "✨");
   try {
-    return await generateHtml(state, languageId);
+    const genObj = { stateName, state, languageId, command, ide }
+    return await generateHtml(genObj);
   } catch (e) {
     console.error("error in state", stateName, e);
     console.error(JSON.stringify(state, null, 2));
@@ -17,17 +30,20 @@ async function safeGenerateHtml(
 
 interface loadFixtureProps extends TestCaseFixture {
   filename: string;
+  languageId: BundledLanguage;
+  initialState: TestCaseSnapshot;
+  finalState: TestCaseSnapshot;
 }
 
 export async function loadFixture(data: loadFixtureProps) {
   try {
-    const during = await getDuring(data);
-
     const before = await getBefore({
       stateName: "initialState",
       state: data.initialState,
       languageId: data.languageId,
     });
+
+    const during = await getDuring(data);
 
     const after = await getAfter({
       stateName: "finalState",
@@ -50,17 +66,7 @@ export async function loadFixture(data: loadFixtureProps) {
   }
 }
 
-async function getBefore({
-  stateName,
-  state,
-  languageId,
-}: {
-  stateName: string;
-  state: TestCaseSnapshot;
-  languageId: string;
-}) {
-  return await safeGenerateHtml(stateName, state, languageId);
-}
+type Foo = TestCaseSnapshot & TargetPlainObject;
 
 async function getAfter({
   stateName,
@@ -68,39 +74,42 @@ async function getAfter({
   languageId,
 }: {
   stateName: string;
-  state: TestCaseSnapshot;
-  languageId: string;
+  state: Foo;
+  languageId: BundledLanguage;
 }) {
-  // todo, handle clipboard
-  return await safeGenerateHtml(stateName, state, languageId);
+  if (!state) {
+    throw new Error("finalState is undefined");
+  }
+  return await safeGenerateHtml({ stateName, state, languageId });
 }
 
-async function getDuring(data: TestCaseFixture) {
-  if (!!data.ide && data.ide.flashes) {
-    return await safeGenerateHtml(
-      "flashes",
-      {
-        ...data.initialState,
-        flashes: data.ide.flashes.map(
-          (props: {
-            name: string;
-            type: string;
-            start: PositionPlainObject;
-            end: PositionPlainObject;
-          }) => {
-            const { name, type, start, end } = props;
-            console.log("🦄", props);
-            return {
-              name,
-              type,
-              anchor: start,
-              active: end,
-            };
-          },
-        ),
-      },
-      data.languageId,
-    );
+type DataFixture = Partial<TestCaseFixture & TargetPlainObject>
+
+async function getDuring(data: DataFixture) {
+  const { command, ide } = data
+  const stateName = "middleState"
+  const state = data.initialState
+  const languageId = data.languageId as BundledLanguage
+  const { thatMark: thatMarkFinalState } = data.finalState
+  const genObj: TestCaseSnapshot & typeof thatMarkFinalState = { stateName, state, languageId, raw: data }
+  if (command) {
+    genObj.command = command
   }
-  return null;
+  if (ide) {
+    genObj.ide = ide
+  }
+
+  return await generateHtml(genObj);
+}
+
+async function getBefore({
+  stateName,
+  state,
+  languageId,
+}: {
+  stateName: string;
+  state: TestCaseSnapshot;
+  languageId: BundledLanguage;
+}) {
+  return await safeGenerateHtml({ stateName, state, languageId });
 }
