@@ -1,7 +1,10 @@
 import type { LeadingModifier, TrailingModifier } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStageFactory } from "../ModifierStageFactory";
-import type { ModifierStage } from "../PipelineStages.types";
+import type {
+  ModifierStage,
+  ModifierStateOptions,
+} from "../PipelineStages.types";
 import { containingTokenIfUntypedModifier } from "./commonContainingScopeIfUntypedModifiers";
 
 /**
@@ -21,10 +24,10 @@ export class LeadingStage implements ModifierStage {
     private modifier: LeadingModifier,
   ) {}
 
-  run(target: Target): Target[] {
+  run(target: Target, options: ModifierStateOptions): Target[] {
     return this.modifierStageFactory
       .create(containingTokenIfUntypedModifier)
-      .run(target)
+      .run(target, options)
       .map((target) => {
         const leading = target.getLeadingDelimiterTarget();
         if (leading == null) {
@@ -41,10 +44,10 @@ export class TrailingStage implements ModifierStage {
     private modifier: TrailingModifier,
   ) {}
 
-  run(target: Target): Target[] {
+  run(target: Target, options: ModifierStateOptions): Target[] {
     return this.modifierStageFactory
       .create(containingTokenIfUntypedModifier)
-      .run(target)
+      .run(target, options)
       .map((target) => {
         const trailing = target.getTrailingDelimiterTarget();
         if (trailing == null) {

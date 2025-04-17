@@ -3,6 +3,7 @@ import type { Target } from "../../typings/target.types";
 import type { ModifierStageFactory } from "../ModifierStageFactory";
 import { createContinuousRangeTarget } from "../createContinuousRangeTarget";
 import { assertIndices } from "./listUtils";
+import type { ModifierStateOptions } from "../PipelineStages.types";
 
 /**
  * Construct a single range target between two targets in a list of targets,
@@ -38,11 +39,12 @@ export function createRangeTargetFromIndices(
 export function getEveryScopeTargets(
   modifierStageFactory: ModifierStageFactory,
   target: Target,
+  options: ModifierStateOptions,
   scopeType: ScopeType,
 ): Target[] {
   const containingStage = modifierStageFactory.create({
     type: "everyScope",
     scopeType,
   });
-  return containingStage.run(target);
+  return containingStage.run(target, options);
 }

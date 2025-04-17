@@ -9,13 +9,16 @@ import type {
 import { Range } from "@cursorless/common";
 import { flatmap, ifilter, imap, itake } from "itertools";
 import { escapeRegExp } from "lodash-es";
+import type { StoredTargetMap } from "../..";
 import type { Target } from "../../typings/target.types";
 import { generateMatchesInRange } from "../../util/getMatchesInRange";
 import type { ModifierStageFactory } from "../ModifierStageFactory";
-import type { ModifierStage } from "../PipelineStages.types";
+import type {
+  ModifierStage,
+  ModifierStateOptions,
+} from "../PipelineStages.types";
 import { PlainTarget } from "../targets";
 import { ContainingTokenIfUntypedEmptyStage } from "./ConditionalModifierStages";
-import type { StoredTargetMap } from "../..";
 import { OutOfRangeError } from "./listUtils";
 
 export class InstanceStage implements ModifierStage {
@@ -25,36 +28,40 @@ export class InstanceStage implements ModifierStage {
     private modifier: Modifier,
   ) {}
 
-  run(inputTarget: Target): Target[] {
+  run(inputTarget: Target, options: ModifierStateOptions): Target[] {
     // If the target is untyped and empty, we want to target the containing
     // token. This handles the case where they just say "instance" with an empty
     // selection, eg "take every instance".
     const target = new ContainingTokenIfUntypedEmptyStage(
       this.modifierStageFactory,
-    ).run(inputTarget)[0];
+    ).run(inputTarget, options)[0];
 
     switch (this.modifier.type) {
       case "everyScope":
-        return this.handleEveryScope(target);
+        return this.handleEveryScope(target, options);
       case "ordinalScope":
-        return this.handleOrdinalScope(target, this.modifier);
+        return this.handleOrdinalScope(target, options, this.modifier);
       case "relativeScope":
-        return this.handleRelativeScope(target, this.modifier);
+        return this.handleRelativeScope(target, options, this.modifier);
       default:
         throw Error(`${this.modifier.type} instance scope not supported`);
     }
   }
 
-  private handleEveryScope(target: Target): Target[] {
+  private handleEveryScope(
+    target: Target,
+    options: ModifierStateOptions,
+  ): Target[] {
     return Array.from(
       flatmap(this.getEveryRanges(target), ([editor, searchRange]) =>
-        this.getTargetIterable(target, editor, searchRange, "forward"),
+        this.getTargetIterable(target, options, editor, searchRange, "forward"),
       ),
     );
   }
 
   private handleOrdinalScope(
     target: Target,
+    options: ModifierStateOptions,
     { start, length, scopeType }: OrdinalScopeModifier,
   ): Target[] {
     return this.getEveryRanges(target).flatMap(([editor, searchRange]) =>
@@ -62,6 +69,7 @@ export class InstanceStage implements ModifierStage {
         scopeType,
         this.getTargetIterable(
           target,
+          options,
           editor,
           searchRange,
           start >= 0 ? "forward" : "backward",
@@ -74,6 +82,7 @@ export class InstanceStage implements ModifierStage {
 
   private handleRelativeScope(
     target: Target,
+    options: ModifierStateOptions,
     { direction, offset, length, scopeType }: RelativeScopeModifier,
   ): Target[] {
     const referenceTargets = this.storedTargets.get("instanceReference") ?? [
@@ -99,7 +108,13 @@ export class InstanceStage implements ModifierStage {
 
       return takeFromOffset(
         scopeType,
-        this.getTargetIterable(target, editor, iterationRange, direction),
+        this.getTargetIterable(
+          target,
+          options,
+          editor,
+          iterationRange,
+          direction,
+        ),
         offset === 0 ? 0 : offset - 1,
         length,
       );
@@ -119,6 +134,7 @@ export class InstanceStage implements ModifierStage {
 
   private getTargetIterable(
     target: Target,
+    options: ModifierStateOptions,
     editor: TextEditor,
     searchRange: Range,
     direction: Direction,
@@ -159,7 +175,10 @@ export class InstanceStage implements ModifierStage {
             // Just try to expand to the containing scope. If it fails or is not
             // equal to the target, we know the match is not a line, token or
             // word.
-            const containingScope = containingScopeModifier.run(target);
+            const containingScope = containingScopeModifier.run(
+              target,
+              options,
+            );
 
             if (
               containingScope.length === 1 &&
