@@ -1,5 +1,5 @@
 :root {
-  --line-height: 16px;
+  --line-height: 2rem;
   --color-border: #0003;
 }
 
@@ -13,6 +13,34 @@ body {
   font-family: firacode, SFMono-Regular, Consolas, "Liberation Mono", Menlo,
     monospace;
   /* background-image: radial-gradient(at 30% 89%, hsla(220,76%,68%,1) 0px, transparent 50%), radial-gradient(at 35% 0%, hsla(242,68%,61%,1) 0px, transparent 50%), radial-gradient(at 93% 46%, hsla(129,87%,73%,1) 0px, transparent 50%), radial-gradient(at 23% 49%, hsla(50,77%,67%,1) 0px, transparent 50%), radial-gradient(at 17% 27%, hsla(331,64%,60%,1) 0px, transparent 50%), radial-gradient(at 79% 30%, hsla(151,61%,77%,1) 0px, transparent 50%), radial-gradient(at 26% 40%, hsla(36,65%,63%,1) 0px, transparent 50%); */
+}
+
+pre code {
+  display: grid; /* Ensure each line is treated as a block */
+}
+
+pre {
+  counter-reset: line; /* Initialize a counter for line numbers */
+}
+
+.line::before {
+  counter-increment: line; /* Increment the line counter */
+  content: counter(line); /* Display the current line number */
+  padding-inline: 1em;
+  text-align: right;
+  color: gray; /* Style the line numbers */
+  font-size: 0.9em;
+  position: absolute;
+  left: -40px; /* Align line numbers to the left */
+}
+
+.line {
+  margin-left: 1.5rem;
+  position: relative;
+  width: 100%;
+  display: inline-block;
+  /* display: block; */
+  /* padding-top: 1rem; */
 }
 
 pre.shiki,
@@ -43,7 +71,7 @@ pre.shiki {
   display: flex;
   flex-direction: column;
   .line {
-    display: block;
+    display: inline-block;
   }
 }
 
@@ -66,7 +94,7 @@ pre.shiki {
 }
 
 .selection {
-  display: inline-block;
+  /* display: inline-block; */
   border-right: 2px solid #00b;
   animation: blink 1400ms infinite;
   padding: 0px 0.5px 0px 0;
@@ -80,11 +108,16 @@ pre.shiki {
 }
 .decoration {
   display: inline-block;
-  padding: 0px 0.5px 0px 0.5px;
-  margin: 0 0px 0 -1px;
-  height: var(--line-height);
-  background: green;
+  /* padding: 0px 0.5px 0px 0.5px; */
+  /* margin: 0 0px 0 -1px; */
+  /* height: var(--line-height); */
+  /* width: 100%; */
 }
+
+.full {
+  width: 100%;
+}
+
 .decoration.pendingDeleteBackground {
   background-color: #ff00008a;
 }
@@ -122,22 +155,22 @@ pre.shiki {
   display: inline-block;
   &::after {
     content: "";
-    display: inline;
+    /* display: inline; */
     /* top: 0px; */
-    left: 50%;
+    /* left: 50%; */
     position: absolute;
-    transform: translate(-50%, -100%);
-    background-color: grey;
+    transform: translate(-110%, -50%);
+    background-color: #b8b6cd;
     mask-repeat: no-repeat;
-    width: 10px;
-    height: 10px;
+    width: 0.5rem;
+    height: 0.5rem;
   }
 }
 .hat.default::after {
   mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 308.34 254.24"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><ellipse class="cls-1" cx="154.17" cy="127.12" rx="154.17" ry="127.12"/></g></g></svg>');
-  top: -0.4px;
-  width: 7px;
-  height: 7px;
+  top: 0.2rem;
+  width: 0.5rem;
+  height: 0.5rem;
 }
 .hat.wing::after {
   mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 371.81 234.76" ><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M371.81,234.42h0s-153.27-57.29-185.9-54.08h0C154.36,177.24,0,234.76,0,234.76H0L158.55,101.69c.6-.49-.39,1.87-.23,1.12L186.24,0h0l26.84,101.37"/></g></g></svg>');
