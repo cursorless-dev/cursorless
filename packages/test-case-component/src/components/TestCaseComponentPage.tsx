@@ -4,9 +4,7 @@ import "../shiki.css";
 import "../styles.css";
 import type { TestCaseFixture } from "@cursorless/common";
 
-export const TestCaseComponentPage: React.FC<{ data: TestCaseFixture[];}> = ({
-  data,
-}) => {
+export function TestCaseComponentPage({ data }: { data: TestCaseFixture[] }) {
   return (
     <main className="dark:text-stone-100">
       <h1 className="mb-1 mt-2 text-center text-2xl md:text-3xl xl:mt-4">
@@ -20,8 +18,8 @@ export const TestCaseComponentPage: React.FC<{ data: TestCaseFixture[];}> = ({
       </h1>
 
       {data.map((item: any) => {
-        return <ShikiComponent data={item} key={item.filename} />
+        return <ShikiComponent data={item} key={item.filename} />;
       })}
     </main>
   );
-};
+}
