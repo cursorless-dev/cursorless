@@ -22,8 +22,8 @@ class MyClass {
 
 
 [#3 Range] =
-[#3 Domain] = 1:13-1:28
-               >---------------<
+[#3 Domain] = 1:14-1:27
+                >-------------<
 1|   constructor(value: number) { }
 
 

@@ -8,8 +8,8 @@ function myFunk(value: number) { }
 
 
 [#2 Range] =
-[#2 Domain] = 0:15-0:30
-                 >---------------<
+[#2 Domain] = 0:16-0:29
+                  >-------------<
 0| function myFunk(value: number) { }
 
 

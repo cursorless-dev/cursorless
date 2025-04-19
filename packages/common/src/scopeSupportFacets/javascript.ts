@@ -14,6 +14,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   pairDelimiter: supported,
 
   "collectionItem.unenclosed": supported,
+  "collectionItem.unenclosed.iteration": supported,
 
   "textFragment.string.singleLine": supported,
   "textFragment.string.multiLine": supported,
@@ -28,7 +29,10 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.class": supported,
 
   class: supported,
+  "class.iteration.document": supported,
+
   className: supported,
+  "className.iteration.document": supported,
 
   anonymousFunction: supported,
 
@@ -37,12 +41,14 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "namedFunction.method": supported,
   "namedFunction.method.iteration.class": supported,
   "namedFunction.constructor": supported,
+  "namedFunction.iteration.block": supported,
 
   functionName: supported,
   "functionName.iteration.document": supported,
   "functionName.method": supported,
   "functionName.method.iteration.class": supported,
   "functionName.constructor": supported,
+  "functionName.iteration.block": supported,
 
   functionCall: supported,
   "functionCall.constructor": supported,
@@ -75,6 +81,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.switchCase": supported,
   "branch.switchCase.iteration": supported,
   "branch.ternary": supported,
+  "branch.loop": supported,
 
   "condition.if": supported,
   "condition.while": supported,
@@ -101,6 +108,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "name.class": supported,
   "name.field": supported,
   "name.iteration.document": supported,
+  "name.iteration.block": supported,
 
   "key.mapPair": supported,
   "key.mapPair.iteration": supported,
@@ -124,23 +132,6 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Unsupported
 
-  "collectionItem.unenclosed.iteration": unsupported,
-  "branch.loop": unsupported,
-  "namedFunction.iteration.block": unsupported,
-  "functionName.iteration.block": unsupported,
-
-  "class.iteration.block": unsupported,
-  "class.iteration.document": unsupported,
-  "className.iteration.block": unsupported,
-  "className.iteration.document": unsupported,
-
-  "name.iteration.block": unsupported,
-  "name.resource": unsupported,
-  "name.resource.iteration": unsupported,
-
-  "value.resource": unsupported,
-  "value.resource.iteration": unsupported,
-
   "interior.class": unsupported,
   "interior.function": unsupported,
   "interior.if": unsupported,
@@ -149,19 +140,27 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.switchCase": unsupported,
   "interior.ternary": unsupported,
   "interior.try": unsupported,
-  "interior.resource": unsupported,
 
   // Not applicable
 
+  "class.iteration.block": notApplicable,
+  "className.iteration.block": notApplicable,
   "interior.cell": notApplicable,
   "interior.command": notApplicable,
+  "interior.resource": notApplicable,
   "name.argument.actual.iteration": notApplicable,
   "name.argument.actual": notApplicable,
-  "value.argument.actual": notApplicable,
-  "value.argument.actual.iteration": notApplicable,
+  "name.resource.iteration": notApplicable,
+  "name.resource": notApplicable,
   "section.iteration.document": notApplicable,
   "section.iteration.parent": notApplicable,
   "textFragment.element": notApplicable,
+  "type.resource.iteration": notApplicable,
+  "type.resource": notApplicable,
+  "value.argument.actual.iteration": notApplicable,
+  "value.argument.actual": notApplicable,
+  "value.resource.iteration": notApplicable,
+  "value.resource": notApplicable,
   command: notApplicable,
   environment: notApplicable,
   notebookCell: notApplicable,
