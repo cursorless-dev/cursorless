@@ -23,6 +23,12 @@
   "references": [
     {
       "path": "../cheatsheet"
+    },
+    {
+      "path": "../cursorless-engine"
+    },
+    {
+      "path": "../test-case-component"
     }
   ],
   "exclude": ["node_modules"]

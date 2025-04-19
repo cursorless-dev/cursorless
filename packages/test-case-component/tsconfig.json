@@ -1,0 +1,23 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "lib": ["es5", "es6", "dom"]
+  },
+  "references": [
+    {
+      "path": "../common"
+    },
+    {
+      "path": "../node-common"
+    }
+  ],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.json",
+    "src/**/*.tsx",
+    "../../typings/**/*.d.ts"
+  ]
+}
