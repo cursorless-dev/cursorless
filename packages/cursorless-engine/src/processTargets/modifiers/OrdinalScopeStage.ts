@@ -1,7 +1,10 @@
 import type { OrdinalScopeModifier } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStageFactory } from "../ModifierStageFactory";
-import type { ModifierStage } from "../PipelineStages.types";
+import type {
+  ModifierStage,
+  ModifierStateOptions,
+} from "../PipelineStages.types";
 import { sliceStrict } from "./listUtils";
 import {
   createRangeTargetFromIndices,
@@ -14,10 +17,11 @@ export class OrdinalScopeStage implements ModifierStage {
     private modifier: OrdinalScopeModifier,
   ) {}
 
-  run(target: Target): Target[] {
+  run(target: Target, options: ModifierStateOptions): Target[] {
     const targets = getEveryScopeTargets(
       this.modifierStageFactory,
       target,
+      options,
       this.modifier.scopeType,
     );
 

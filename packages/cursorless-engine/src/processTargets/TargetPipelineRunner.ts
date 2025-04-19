@@ -14,7 +14,11 @@ import type {
 import type { Target } from "../typings/target.types";
 import type { MarkStageFactory } from "./MarkStageFactory";
 import type { ModifierStageFactory } from "./ModifierStageFactory";
-import type { MarkStage, ModifierStage } from "./PipelineStages.types";
+import type {
+  MarkStage,
+  ModifierStage,
+  ModifierStateOptions,
+} from "./PipelineStages.types";
 import { createContinuousRangeTarget } from "./createContinuousRangeTarget";
 import { ImplicitStage } from "./marks/ImplicitStage";
 import { ContainingTokenIfUntypedEmptyStage } from "./modifiers/ConditionalModifierStages";
@@ -296,7 +300,10 @@ export function processModifierStages(
   // one-by-one and concatenating the results before passing them on to the
   // next stage.
   modifierStages.forEach((stage) => {
-    targets = targets.flatMap((target) => stage.run(target));
+    const options: ModifierStateOptions = {
+      multipleTargets: targets.length > 1,
+    };
+    targets = targets.flatMap((target) => stage.run(target, options));
   });
 
   // Then return the output from the final stage
@@ -309,6 +316,9 @@ function getExcludedScope(
   scopeType: ScopeType,
   direction: Direction,
 ): Target {
+  const options: ModifierStateOptions = {
+    multipleTargets: false,
+  };
   return (
     modifierStageFactory
       .create({
@@ -321,7 +331,7 @@ function getExcludedScope(
       // NB: The following line assumes that content range is always
       // contained by domain, so that "every" will properly reconstruct
       // the target from the content range.
-      .run(target)[0]
+      .run(target, options)[0]
   );
 }
 

@@ -4,7 +4,10 @@ import type {
 } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStageFactory } from "../ModifierStageFactory";
-import type { ModifierStage } from "../PipelineStages.types";
+import type {
+  ModifierStage,
+  ModifierStateOptions,
+} from "../PipelineStages.types";
 import { ModifyIfConditionStage } from "./ConditionalModifierStages";
 
 export class InteriorOnlyStage implements ModifierStage {
@@ -13,7 +16,7 @@ export class InteriorOnlyStage implements ModifierStage {
     private modifier: InteriorOnlyModifier,
   ) {}
 
-  run(target: Target): Target[] {
+  run(target: Target, options: ModifierStateOptions): Target[] {
     const interior = target.getInterior();
 
     if (interior != null) {
@@ -28,7 +31,7 @@ export class InteriorOnlyStage implements ModifierStage {
       },
     });
 
-    return containingModifier.run(target);
+    return containingModifier.run(target, options);
   }
 }
 
@@ -43,9 +46,9 @@ export class ExcludeInteriorStage implements ModifierStage {
       getContainingSurroundingPairIfNoBoundaryStage(this.modifierStageFactory);
   }
 
-  run(target: Target): Target[] {
+  run(target: Target, options: ModifierStateOptions): Target[] {
     return this.containingSurroundingPairIfNoBoundaryStage
-      .run(target)
+      .run(target, options)
       .flatMap((target) => target.getBoundary()!);
   }
 }
