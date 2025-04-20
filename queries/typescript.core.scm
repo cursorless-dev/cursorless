@@ -417,15 +417,21 @@
 
 ;;!! Map<string, number>
 ;;!      ^^^^^^  ^^^^^^
-(type_arguments
-  (_) @type
+(
+  (type_arguments
+    (_) @type
+  ) @_dummy
+  (#not-parent-type? @_dummy type_assertion)
 )
 
 ;;!! Map<string, number>
 ;;!      ^^^^^^^^^^^^^^
-(type_arguments
-  .
-  "<" @type.iteration.start.endOf
-  ">" @type.iteration.end.startOf
-  .
+(
+  (type_arguments
+    .
+    "<" @type.iteration.start.endOf
+    ">" @type.iteration.end.startOf
+    .
+  ) @_dummy
+  (#not-parent-type? @_dummy type_assertion)
 )
