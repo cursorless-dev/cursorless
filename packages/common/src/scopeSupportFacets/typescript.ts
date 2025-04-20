@@ -16,6 +16,7 @@ export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
   "type.alias": supported,
   "type.cast": supported,
   "type.field": supported,
+  "type.field.iteration": supported,
   "type.interface": supported,
   "type.enum": supported,
   "type.return": supported,
@@ -25,7 +26,6 @@ export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Unsupported
 
-  "type.field.iteration": unsupported,
   "type.typeArgument": unsupported,
   "type.typeArgument.iteration": unsupported,
 

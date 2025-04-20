@@ -405,3 +405,10 @@
 (function_type
   "=>" @disqualifyDelimiter
 )
+
+(class_body
+  .
+  "{" @type.iteration.start.endOf
+  "}" @type.iteration.end.startOf
+  .
+)
