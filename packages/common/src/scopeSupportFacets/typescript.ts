@@ -25,9 +25,7 @@ export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Unsupported
 
-  "type.class": unsupported,
   "type.field.iteration": unsupported,
-  "type.foreach": unsupported,
   "type.typeArgument": unsupported,
   "type.typeArgument.iteration": unsupported,
 
@@ -40,5 +38,6 @@ export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
   attribute: notApplicable,
   "key.attribute": notApplicable,
   "value.attribute": notApplicable,
+  "type.foreach": notApplicable,
   "interior.element": notApplicable,
 };

@@ -7,4 +7,4 @@ class MyClass { }
   >-----------------<
 0| class MyClass { }
 
-[Insertion delimiter] = "\n\n"
+[Insertion delimiter] = " "

@@ -551,7 +551,7 @@
     (class
       name: (_) @className
     )
-  ] @class @_.domain
+  ] @class @type @_.domain
   (#not-parent-type? @class export_statement)
 )
 
@@ -566,7 +566,7 @@
       name: (_) @className
     )
   ]
-) @class @_.domain
+) @class @type @_.domain
 
 (program) @class.iteration @className.iteration
 

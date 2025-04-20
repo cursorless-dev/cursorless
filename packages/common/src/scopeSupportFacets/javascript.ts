@@ -130,6 +130,8 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "value.field": supported,
   "value.yield": supported,
 
+  "type.class": supported,
+
   // Unsupported
 
   "interior.class": unsupported,
@@ -193,7 +195,6 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.method": notApplicable,
   "type.argument.formal": notApplicable,
   "type.cast": notApplicable,
-  "type.class": notApplicable,
   "type.enum": notApplicable,
   "type.field.iteration": notApplicable,
   "type.field": notApplicable,

@@ -335,7 +335,7 @@
 (
   (abstract_class_declaration
     name: (_) @className
-  ) @class @_.domain
+  ) @class @type @_.domain
   (#not-parent-type? @class export_statement)
 )
 
@@ -345,7 +345,7 @@
   (abstract_class_declaration
     name: (_) @className
   )
-) @class @_.domain
+) @class @type @_.domain
 
 ;;!! class MyClass {}
 ;;!        ^^^^^^^
