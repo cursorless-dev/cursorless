@@ -406,9 +406,26 @@
   "=>" @disqualifyDelimiter
 )
 
+;;!! class Aaa { }
+;;!             ^
 (class_body
   .
   "{" @type.iteration.start.endOf
   "}" @type.iteration.end.startOf
+  .
+)
+
+;;!! Map<string, number>
+;;!      ^^^^^^  ^^^^^^
+(type_arguments
+  (_) @type
+)
+
+;;!! Map<string, number>
+;;!      ^^^^^^^^^^^^^^
+(type_arguments
+  .
+  "<" @type.iteration.start.endOf
+  ">" @type.iteration.end.startOf
   .
 )

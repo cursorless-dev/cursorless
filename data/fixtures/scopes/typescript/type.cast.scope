@@ -1,16 +1,25 @@
 <Aaa>bbb
 ---
 
-[Content] = 0:1-0:4
+[#1 Content] = 0:1-0:4
    >---<
 0| <Aaa>bbb
 
-[Removal] = 0:0-0:5
+[#1 Removal] = 0:0-0:5
   >-----<
 0| <Aaa>bbb
 
-[Domain] = 0:0-0:8
+[#1 Domain] = 0:0-0:8
   >--------<
 0| <Aaa>bbb
 
-[Insertion delimiter] = " "
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] =
+[#2 Domain] = 0:1-0:4
+   >---<
+0| <Aaa>bbb
+
+[#2 Insertion delimiter] = " "

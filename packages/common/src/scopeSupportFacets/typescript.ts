@@ -2,7 +2,7 @@ import { javascriptCoreScopeSupport } from "./javascript";
 import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
-const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
+const { supported, notApplicable } = ScopeSupportFacetLevel;
 
 export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
   ...javascriptCoreScopeSupport,
@@ -21,13 +21,10 @@ export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
   "type.enum": supported,
   "type.return": supported,
   "type.variable": supported,
+  "type.typeArgument": supported,
+  "type.typeArgument.iteration": supported,
 
   "value.typeAlias": supported,
-
-  // Unsupported
-
-  "type.typeArgument": unsupported,
-  "type.typeArgument.iteration": unsupported,
 
   // Not applicable
 
