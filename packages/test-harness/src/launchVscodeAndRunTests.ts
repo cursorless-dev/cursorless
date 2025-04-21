@@ -81,10 +81,7 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
       // don't bother.  Can be re-enabled if we ever need it; on windows it only
       // hangs some of the time, so might be enough to get a crash dump when you
       // need it.
-      launchArgs:
-        useLegacyVscode || os.platform() === "win32"
-          ? ["--force-node-api-uncaught-exceptions-policy=true"]
-          : [`--crash-reporter-directory=${crashDir}`, `--logsPath=${logsDir}`],
+      launchArgs: ["--force-node-api-uncaught-exceptions-policy=true"],
     });
 
     console.log(`Returned from "runTests" with value: ${code}`);
