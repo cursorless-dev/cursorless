@@ -83,7 +83,7 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
       // need it.
       launchArgs:
         useLegacyVscode || os.platform() === "win32"
-          ? undefined
+          ? ["--force-node-api-uncaught-exceptions-policy=true"]
           : [`--crash-reporter-directory=${crashDir}`, `--logsPath=${logsDir}`],
     });
 
