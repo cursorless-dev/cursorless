@@ -17,6 +17,7 @@ import {
 const COMMANDS = [
   "command",
   "displayed_equation",
+  "generic_command",
   "inline_formula",
   "math_set",
   "block_comment",
