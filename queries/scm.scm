@@ -60,9 +60,8 @@
 (anonymous_node
   name: [
     "_" @type
-    (identifier
-      "\"" @type.start.endOf
-      "\"" @type.end.startOf
+    (string
+      (string_content) @type
     )
   ]
 ) @_.domain
@@ -105,7 +104,7 @@
   ":"
   (anonymous_node
     [
-      (identifier)
+      (string)
       "_"
     ] @value.end
     (quantifier)? @value.end
