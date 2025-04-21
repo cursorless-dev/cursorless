@@ -3,7 +3,6 @@ import type { NodeMatcherAlternative } from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";
 import {
   argumentMatcher,
-  conditionMatcher,
   createPatternMatchers,
   leadingMatcher,
   matcher,
@@ -53,7 +52,6 @@ const nodeMatchers: Partial<
     ["*[value]", "*[default_value]", "type_definition[type]"],
     ["="],
   ),
-  condition: conditionMatcher("*[condition]"),
 
   // Scala features unsupported in Cursorless terminology
   //  - Pattern matching

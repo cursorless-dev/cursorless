@@ -7,7 +7,10 @@
   (interpolated_string_expression)
 ] @string @textFragment
 
-(comment) @comment @textFragment
+[
+  (comment)
+  (block_comment)
+] @comment @textFragment
 
 ;; treating classes = classlike
 [
@@ -40,6 +43,15 @@
 ) @_.domain
 (_
   pattern: (_) @name
+) @_.domain
+
+(_
+  condition: (_
+    .
+    "(" @condition.start.endOf
+    ")" @condition.end.startOf
+    .
+  )
 ) @_.domain
 
 operator: (operator_identifier) @disqualifyDelimiter
