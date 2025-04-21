@@ -41,14 +41,12 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "namedFunction.method": supported,
   "namedFunction.method.iteration.class": supported,
   "namedFunction.constructor": supported,
-  "namedFunction.iteration.block": supported,
 
   functionName: supported,
   "functionName.iteration.document": supported,
   "functionName.method": supported,
   "functionName.method.iteration.class": supported,
   "functionName.constructor": supported,
-  "functionName.iteration.block": supported,
 
   functionCall: supported,
   "functionCall.constructor": supported,
@@ -147,6 +145,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
 
   "class.iteration.block": notApplicable,
   "className.iteration.block": notApplicable,
+  "functionName.iteration.block": notApplicable,
   "interior.cell": notApplicable,
   "interior.command": notApplicable,
   "interior.resource": notApplicable,
@@ -154,6 +153,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.actual": notApplicable,
   "name.resource.iteration": notApplicable,
   "name.resource": notApplicable,
+  "namedFunction.iteration.block": notApplicable,
   "section.iteration.document": notApplicable,
   "section.iteration.parent": notApplicable,
   "textFragment.element": notApplicable,
