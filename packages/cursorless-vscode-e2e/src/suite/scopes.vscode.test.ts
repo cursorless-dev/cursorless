@@ -146,6 +146,10 @@ async function runTest(file: string, languageId: string, facetId: string) {
 
       return serializeScopeFixture(facetId, code, scopes);
     })();
+
+    if (!outputFixture) {
+      console.log(`No scopes found for ${facetId} in ${languageId}`);
+    }
   } catch (error) {
     console.log(error);
   }
