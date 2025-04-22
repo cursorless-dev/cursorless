@@ -85,6 +85,10 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
         useLegacyVscode || os.platform() === "win32"
           ? undefined
           : [`--crash-reporter-directory=${crashDir}`, `--logsPath=${logsDir}`],
+      extensionTestsEnv: {
+        ["NODE_OPTIONS"]:
+          "--max-old-space-size=4096 --force-node-api-uncaught-exceptions-policy=true",
+      },
     });
 
     console.log(`Returned from "runTests" with value: ${code}`);
