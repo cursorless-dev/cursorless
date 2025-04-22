@@ -34,7 +34,7 @@ export async function openNewEditor(
   }
 
   // Many times running these tests opens the sidebar, which slows performance. Close it.
-  vscode.commands.executeCommand("workbench.action.closeSidebar");
+  //   vscode.commands.executeCommand("workbench.action.closeSidebar");
 
   return editor;
 }
