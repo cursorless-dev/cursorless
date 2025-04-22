@@ -1,3 +1,4 @@
+import { isWindows } from "@cursorless/node-common";
 import { COMMAND_SERVER_EXTENSION_ID } from "@cursorless/vscode-common";
 import { globSync } from "glob";
 import * as fs from "node:fs";
@@ -142,7 +143,7 @@ function commandServerInstalled() {
 }
 
 function getTalonHomePath() {
-  return os.platform() === "win32"
+  return isWindows()
     ? `${os.homedir()}\\AppData\\Roaming\\talon`
     : `${os.homedir()}/.talon`;
 }
