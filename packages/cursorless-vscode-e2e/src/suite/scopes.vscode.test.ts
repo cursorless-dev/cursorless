@@ -17,10 +17,10 @@ import { assert } from "chai";
 import { groupBy, uniq } from "lodash-es";
 import { promises as fsp } from "node:fs";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-// import {
-//   serializeIterationScopeFixture,
-//   serializeScopeFixture,
-// } from "./serializeScopeFixture";
+import {
+  serializeIterationScopeFixture,
+  serializeScopeFixture,
+} from "./serializeScopeFixture";
 
 suite("Scope test cases", async function () {
   endToEndTestSetup(this);
@@ -123,43 +123,33 @@ async function runTest(file: string, languageId: string, facetId: string) {
 
   const editor = ide.activeTextEditor!;
 
-  if (editor == null) {
-    console.log("editor" == null);
+  const outputFixture = ((): string => {
+    const config = {
+      visibleOnly: false,
+      scopeType,
+    };
+
+    if (isIteration) {
+      const iterationScopes = scopeProvider.provideIterationScopeRanges(
+        editor,
+        {
+          ...config,
+          includeNestedTargets: false,
+        },
+      );
+      return serializeIterationScopeFixture(code, iterationScopes);
+    }
+
+    const scopes = scopeProvider.provideScopeRanges(editor, config);
+
+    return serializeScopeFixture(facetId, code, scopes);
+  })();
+
+  if (shouldUpdateFixtures()) {
+    await fsp.writeFile(file, outputFixture);
+  } else {
+    assert.equal(outputFixture, fixture);
   }
-
-  if (!scopeProvider && !scopeType && !isIteration && !code && !ide) {
-    console.log("weird");
-  }
-
-  //   const outputFixture = ((): string => {
-  //     const config = {
-  //       visibleOnly: false,
-  //       scopeType,
-  //     };
-
-  //     if (isIteration) {
-  //       const iterationScopes = scopeProvider.provideIterationScopeRanges(
-  //         editor,
-  //         {
-  //           ...config,
-  //           includeNestedTargets: false,
-  //         },
-  //       );
-  //       return serializeIterationScopeFixture(code, iterationScopes);
-  //     }
-
-  //     const scopes = scopeProvider.provideScopeRanges(editor, config);
-
-  //     return serializeScopeFixture(facetId, code, scopes);
-  //   })();
-
-  assert.ok(true);
-
-  //   if (shouldUpdateFixtures()) {
-  //     await fsp.writeFile(file, outputFixture);
-  //   } else {
-  //     assert.equal(outputFixture, fixture);
-  //   }
 }
 
 function getFacetInfo(

@@ -19,22 +19,22 @@ export async function openNewEditor(
     content,
   });
 
-  //   await (await getParseTreeApi()).loadLanguage(languageId);
+  await (await getParseTreeApi()).loadLanguage(languageId);
 
   const editor = await vscode.window.showTextDocument(
     document,
     openBeside ? vscode.ViewColumn.Beside : undefined,
   );
 
-  //   const eol = content.includes("\r\n")
-  //     ? vscode.EndOfLine.CRLF
-  //     : vscode.EndOfLine.LF;
-  //   if (eol !== editor.document.eol) {
-  //     await editor.edit((editBuilder) => editBuilder.setEndOfLine(eol));
-  //   }
+  const eol = content.includes("\r\n")
+    ? vscode.EndOfLine.CRLF
+    : vscode.EndOfLine.LF;
+  if (eol !== editor.document.eol) {
+    await editor.edit((editBuilder) => editBuilder.setEndOfLine(eol));
+  }
 
   // Many times running these tests opens the sidebar, which slows performance. Close it.
-  //   vscode.commands.executeCommand("workbench.action.closeSidebar");
+  vscode.commands.executeCommand("workbench.action.closeSidebar");
 
   return editor;
 }
