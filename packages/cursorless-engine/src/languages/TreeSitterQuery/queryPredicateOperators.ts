@@ -319,7 +319,7 @@ class SingleOrMultilineDelimiter extends QueryPredicateOperator<SingleOrMultilin
 }
 
 /**
- * A predicate operator that sets the a range to the full document.
+ * A predicate operator that sets the range to the full document.
  */
 class DocumentRange extends QueryPredicateOperator<DocumentRange> {
   name = "document-range!" as const;
