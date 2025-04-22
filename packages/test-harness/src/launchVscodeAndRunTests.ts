@@ -36,14 +36,7 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
     // we don't have to update the branch protection rules every time we bump
     // the legacy VSCode version.
 
-    // NB: Because of a CI crashing issue the vscode version is pinned.
-    // https://github.com/cursorless-dev/cursorless/issues/2878
-
-    const vscodeVersion = useLegacyVscode
-      ? "1.82.0"
-      : os.platform() === "win32"
-        ? "stable"
-        : "1.97.2";
+    const vscodeVersion = useLegacyVscode ? "1.82.0" : "stable";
     const vscodeExecutablePath = await downloadAndUnzipVSCode(vscodeVersion);
     const [cli, ...args] =
       resolveCliArgsFromVSCodeExecutablePath(vscodeExecutablePath);
