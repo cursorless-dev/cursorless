@@ -1,12 +1,7 @@
-import type {
-  ScopeSupportFacet,
-  ScopeType,
-  TextualScopeSupportFacet,
-} from "@cursorless/common";
+import type { ScopeSupportFacet } from "@cursorless/common";
 import {
   asyncSafety,
   languageScopeSupport,
-  scopeSupportFacetInfos,
   ScopeSupportFacetLevel,
   shouldUpdateFixtures,
   textualScopeSupportFacetInfos,
@@ -160,28 +155,28 @@ async function runTest(file: string, languageId: string, facetId: string) {
   //   }
 }
 
-function getFacetInfo(
-  languageId: string,
-  facetId: string,
-): {
-  scopeType: ScopeType;
-  isIteration: boolean;
-} {
-  const facetInfo =
-    languageId === "textual"
-      ? textualScopeSupportFacetInfos[facetId as TextualScopeSupportFacet]
-      : scopeSupportFacetInfos[facetId as ScopeSupportFacet];
+// function getFacetInfo(
+//   languageId: string,
+//   facetId: string,
+// ): {
+//   scopeType: ScopeType;
+//   isIteration: boolean;
+// } {
+//   const facetInfo =
+//     languageId === "textual"
+//       ? textualScopeSupportFacetInfos[facetId as TextualScopeSupportFacet]
+//       : scopeSupportFacetInfos[facetId as ScopeSupportFacet];
 
-  if (facetInfo == null) {
-    throw Error(`Missing scope support facet info for: ${facetId}`);
-  }
+//   if (facetInfo == null) {
+//     throw Error(`Missing scope support facet info for: ${facetId}`);
+//   }
 
-  const { scopeType, isIteration } = facetInfo;
-  const fullScopeType =
-    typeof scopeType === "string" ? { type: scopeType } : scopeType;
+//   const { scopeType, isIteration } = facetInfo;
+//   const fullScopeType =
+//     typeof scopeType === "string" ? { type: scopeType } : scopeType;
 
-  return {
-    scopeType: fullScopeType,
-    isIteration: isIteration ?? false,
-  };
-}
+//   return {
+//     scopeType: fullScopeType,
+//     isIteration: isIteration ?? false,
+//   };
+// }
