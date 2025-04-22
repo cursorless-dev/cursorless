@@ -74,7 +74,7 @@ async function runTestsInDir(
   console.log(`Running tests in ${testRoot} for ${files.length} files`);
   console.log(JSON.stringify(process.argv, null, 2));
   console.log(JSON.stringify(process.execArgv, null, 2));
-  console.log("NODE_OPTIONS:", process.env.NODE_OPTIONS);
+  console.log(JSON.stringify(process.env, null, 2));
 
   try {
     // Run the mocha test
