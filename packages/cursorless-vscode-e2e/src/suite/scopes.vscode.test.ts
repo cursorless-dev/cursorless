@@ -12,7 +12,7 @@ import {
   textualScopeSupportFacetInfos,
 } from "@cursorless/common";
 import { getScopeTestPathsRecursively } from "@cursorless/node-common";
-import { getCursorlessApi } from "@cursorless/vscode-common";
+import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
 import { assert } from "chai";
 import { groupBy, uniq } from "lodash-es";
 import { promises as fsp } from "node:fs";
@@ -119,13 +119,13 @@ async function runTest(file: string, languageId: string, facetId: string) {
 
   const code = fixture.slice(0, delimiterIndex! - 1);
 
-  //   await openNewEditor(code, { languageId });
+  await openNewEditor(code, { languageId });
 
-  //   const editor = ide.activeTextEditor!;
+  const editor = ide.activeTextEditor!;
 
-  //   if (editor == null) {
-  //     console.log("editor" == null);
-  //   }
+  if (editor == null) {
+    console.log("editor" == null);
+  }
 
   if (!scopeProvider && !scopeType && !isIteration && !code && !ide) {
     console.log("weird");
