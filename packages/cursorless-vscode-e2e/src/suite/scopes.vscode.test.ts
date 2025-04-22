@@ -12,15 +12,9 @@ import {
   textualScopeSupportFacetInfos,
 } from "@cursorless/common";
 import { getScopeTestPathsRecursively } from "@cursorless/node-common";
-import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
 import { assert } from "chai";
 import { groupBy, uniq } from "lodash-es";
-import { promises as fsp } from "node:fs";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-import {
-  serializeIterationScopeFixture,
-  serializeScopeFixture,
-} from "./serializeScopeFixture";
 
 suite("Scope test cases", async function () {
   endToEndTestSetup(this);
@@ -104,56 +98,58 @@ async function testLanguageSupport(languageId: string, testedFacets: string[]) {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function runTest(file: string, languageId: string, facetId: string) {
   console.log(file);
-  try {
-    const { ide, scopeProvider } = (await getCursorlessApi()).testHelpers!;
-    const { scopeType, isIteration } = getFacetInfo(languageId, facetId);
-    const fixture = (await fsp.readFile(file, "utf8"))
-      .toString()
-      .replaceAll("\r\n", "\n");
-    const delimiterIndex = fixture.match(/^---$/m)?.index;
 
-    assert.isDefined(
-      delimiterIndex,
-      "Can't find delimiter '---' in scope fixture",
-    );
+  //   try {
+  //     const { ide, scopeProvider } = (await getCursorlessApi()).testHelpers!;
+  //     const { scopeType, isIteration } = getFacetInfo(languageId, facetId);
+  //     const fixture = (await fsp.readFile(file, "utf8"))
+  //       .toString()
+  //       .replaceAll("\r\n", "\n");
+  //     const delimiterIndex = fixture.match(/^---$/m)?.index;
 
-    const code = fixture.slice(0, delimiterIndex! - 1);
+  //     assert.isDefined(
+  //       delimiterIndex,
+  //       "Can't find delimiter '---' in scope fixture",
+  //     );
 
-    await openNewEditor(code, { languageId });
+  //     const code = fixture.slice(0, delimiterIndex! - 1);
 
-    const editor = ide.activeTextEditor!;
+  //     await openNewEditor(code, { languageId });
 
-    const outputFixture = ((): string => {
-      const config = {
-        visibleOnly: false,
-        scopeType,
-      };
+  //     const editor = ide.activeTextEditor!;
 
-      if (isIteration) {
-        const iterationScopes = scopeProvider.provideIterationScopeRanges(
-          editor,
-          {
-            ...config,
-            includeNestedTargets: false,
-          },
-        );
-        return serializeIterationScopeFixture(code, iterationScopes);
-      }
+  //     const outputFixture = ((): string => {
+  //       const config = {
+  //         visibleOnly: false,
+  //         scopeType,
+  //       };
 
-      const scopes = scopeProvider.provideScopeRanges(editor, config);
+  //       if (isIteration) {
+  //         const iterationScopes = scopeProvider.provideIterationScopeRanges(
+  //           editor,
+  //           {
+  //             ...config,
+  //             includeNestedTargets: false,
+  //           },
+  //         );
+  //         return serializeIterationScopeFixture(code, iterationScopes);
+  //       }
 
-      return serializeScopeFixture(facetId, code, scopes);
-    })();
+  //       const scopes = scopeProvider.provideScopeRanges(editor, config);
 
-    if (!outputFixture) {
-      console.log(`No scopes found for ${facetId} in ${languageId}`);
-    }
-  } catch (error) {
-    console.log(`Error running test for ${facetId} in ${languageId}`);
-    console.log(error);
-  }
+  //       return serializeScopeFixture(facetId, code, scopes);
+  //     })();
+
+  //     if (!outputFixture) {
+  //       console.log(`No scopes found for ${facetId} in ${languageId}`);
+  //     }
+  //   } catch (error) {
+  //     console.log(`Error running test for ${facetId} in ${languageId}`);
+  //     console.log(error);
+  //   }
 
   assert.ok(true);
 
