@@ -36,7 +36,7 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
     // we don't have to update the branch protection rules every time we bump
     // the legacy VSCode version.
 
-    const vscodeVersion = useLegacyVscode ? "1.82.0" : "stable";
+    const vscodeVersion = useLegacyVscode ? "1.82.0" : "1.97.2";
     const vscodeExecutablePath = await downloadAndUnzipVSCode(vscodeVersion);
     const [cli, ...args] =
       resolveCliArgsFromVSCodeExecutablePath(vscodeExecutablePath);
