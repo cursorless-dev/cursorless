@@ -71,11 +71,6 @@ async function runTestsInDir(
   // Add files to the test suite
   files.forEach((f) => mocha.addFile(path.resolve(testRoot, f)));
 
-  console.log(`Running tests in ${testRoot} for ${files.length} files`);
-  console.log(JSON.stringify(process.argv, null, 2));
-  console.log(JSON.stringify(process.execArgv, null, 2));
-  console.log(JSON.stringify(process.env, null, 2));
-
   try {
     // Run the mocha test
     await new Promise<void>((resolve, reject) => {
