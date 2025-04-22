@@ -318,6 +318,21 @@ class SingleOrMultilineDelimiter extends QueryPredicateOperator<SingleOrMultilin
   }
 }
 
+/**
+ * A predicate operator that sets the a range to the full document.
+ */
+class DocumentRange extends QueryPredicateOperator<DocumentRange> {
+  name = "document-range!" as const;
+  schema = z.tuple([q.node]).rest(q.node);
+
+  run(...nodeInfos: MutableQueryCapture[]) {
+    for (const nodeInfo of nodeInfos) {
+      nodeInfo.range = nodeInfo.document.range;
+    }
+    return true;
+  }
+}
+
 export const queryPredicateOperators = [
   new Log(),
   new NotType(),
@@ -332,4 +347,5 @@ export const queryPredicateOperators = [
   new InsertionDelimiter(),
   new SingleOrMultilineDelimiter(),
   new HasMultipleChildrenOfType(),
+  new DocumentRange(),
 ];

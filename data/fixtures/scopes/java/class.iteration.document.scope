@@ -1,11 +1,15 @@
 
 public class MyClass { }
+
 ---
 
 [#1 Range] =
-[#1 Domain] = 1:0-1:24
-  >------------------------<
+[#1 Domain] = 0:0-2:0
+  >
+0|
 1| public class MyClass { }
+2|
+   <
 
 
 [#2 Range] =

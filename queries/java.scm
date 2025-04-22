@@ -48,8 +48,14 @@
   name: (_) @name @className
 ) @class @_.domain
 
-(program) @class.iteration @className.iteration @name.iteration
-(program) @statement.iteration
+(
+  (program) @class.iteration @className.iteration @name.iteration
+  (#document-range! @class.iteration @className.iteration @name.iteration)
+)
+(
+  (program) @statement.iteration
+  (#document-range! @statement.iteration)
+)
 
 ;;!! class MyClass { }
 ;;!                 ^

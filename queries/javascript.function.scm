@@ -158,8 +158,12 @@
   )
 ] @namedFunction @functionName.domain
 
+(
+  (program) @namedFunction.iteration @functionName.iteration
+  (#document-range! @namedFunction.iteration @functionName.iteration)
+)
+
 [
-  (program)
   (class_declaration)
   (object
     (method_definition)

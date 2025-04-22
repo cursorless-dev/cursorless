@@ -311,8 +311,15 @@
   )
 ) @class @className.domain @interior.domain
 
-(module) @className.iteration @class.iteration
-(module) @statement.iteration
+(
+  (module) @class.iteration @className.iteration
+  (#document-range! @class.iteration @className.iteration)
+)
+
+(
+  (module) @statement.iteration
+  (#document-range! @statement.iteration)
+)
 
 ;; This is a hack to handle the case where the entire document is a `with` statement
 (
@@ -320,9 +327,13 @@
     (_) @_statement
   ) @value.iteration @name.iteration
   (#not-type? @_statement "with_statement")
+  (#document-range! @value.iteration @name.iteration)
 )
 
-(module) @namedFunction.iteration @functionName.iteration
+(
+  (module) @namedFunction.iteration @functionName.iteration
+  (#document-range! @namedFunction.iteration @functionName.iteration)
+)
 
 (class_definition
   body: (_) @namedFunction.iteration @functionName.iteration
