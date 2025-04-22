@@ -72,7 +72,7 @@ async function runTestsInDir(
   files.forEach((f) => mocha.addFile(path.resolve(testRoot, f)));
 
   console.log(`Running tests in ${testRoot} for ${files.length} files`);
-  console.log(process.argv);
+  console.log(JSON.stringify(process.argv, null, 2));
 
   try {
     // Run the mocha test
