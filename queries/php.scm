@@ -78,7 +78,7 @@
   (method_declaration) @namedFunction
   (expression_statement
     (assignment_expression
-      right: (anonymous_function_creation_expression)
+      right: (anonymous_function)
     ) @namedFunction
     ";" @_.trailing
   )
@@ -91,7 +91,7 @@
 ] @namedFunction.domain
 
 [
-  (anonymous_function_creation_expression)
+  (anonymous_function)
   (arrow_function)
 ] @anonymousFunction
 
