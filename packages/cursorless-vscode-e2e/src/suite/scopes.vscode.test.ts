@@ -151,6 +151,7 @@ async function runTest(file: string, languageId: string, facetId: string) {
       console.log(`No scopes found for ${facetId} in ${languageId}`);
     }
   } catch (error) {
+    console.log(`Error running test for ${facetId} in ${languageId}`);
     console.log(error);
   }
 
