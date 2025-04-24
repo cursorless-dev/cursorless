@@ -145,9 +145,9 @@ pnpm -F cursorless-vscode uninstall-local
 
 We need to keep the default cheatsheet up-to-date for use with local development and for https://www.cursorless.org/cheatsheet.
 
-1. Switch to vanilla knausj + cursorless_talon
-2. "debug stench"
-3. "cursorless update cheatsheet"
+1. Switch to vanilla community + cursorless_talon
+2. `"debug extension"`
+3. `"cursorless update cheatsheet"`
 4. See diff and cleanup if necessary
 
 This should be done every time we do something that will change the custom cheatsheet, but in practice it rots a bit so needs to be redone regularly.
