@@ -71,6 +71,8 @@ export const scopeSupportFacets = [
   "argument.formal.constructor.iteration",
 
   "argumentList.formal",
+  "argumentList.formal.method",
+  "argumentList.formal.constructor",
 
   "comment.line",
   "comment.block",
