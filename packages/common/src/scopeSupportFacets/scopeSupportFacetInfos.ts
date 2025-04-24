@@ -271,6 +271,16 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "argumentOrParameter",
     isIteration: true,
   },
+  "argument.formal.lambda": {
+    description: "A parameter in a lambda declaration",
+    scopeType: "argumentOrParameter",
+  },
+  "argument.formal.lambda.iteration": {
+    description:
+      "Iteration scope of the formal parameters of a lambda declaration; should be the whole parameter list. The domain should be the entire function.",
+    scopeType: "argumentOrParameter",
+    isIteration: true,
+  },
 
   "argumentList.formal": {
     description: "A list of arguments in a function declaration",
@@ -282,6 +292,10 @@ export const scopeSupportFacetInfos: Record<
   },
   "argumentList.formal.constructor": {
     description: "A list of arguments in a constructor declaration",
+    scopeType: "argumentList",
+  },
+  "argumentList.formal.lambda": {
+    description: "A list of arguments in a lambda declaration",
     scopeType: "argumentList",
   },
 
