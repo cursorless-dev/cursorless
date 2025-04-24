@@ -150,7 +150,7 @@ We need to keep the default cheatsheet up-to-date for use with local development
 3. `"cursorless update cheatsheet"`
 4. See diff and cleanup if necessary. In particular, if you have shapes enabled, you'll need to remove these from the generated cheatsheet as they're not on by default
 
-This should be done every time we do something that will change the custom cheatsheet, but in practice it rots a bit so needs to be redone regularly.
+This should be done every time we do something that will change the custom cheatsheet, but in practice we don't, so it rots a bit and needs to be redone regularly.
 
 ## Changing SVGs
 
