@@ -125,6 +125,7 @@
   "modifier_scope_types.csv": {
     "scope_type": {
       "arg": "argumentOrParameter",
+      "arg list": "argumentList",
       "attribute": "attribute",
       "call": "functionCall",
       "callee": "functionCallee",

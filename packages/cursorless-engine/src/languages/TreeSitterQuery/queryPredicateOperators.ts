@@ -318,6 +318,39 @@ class SingleOrMultilineDelimiter extends QueryPredicateOperator<SingleOrMultilin
   }
 }
 
+/**
+ * A predicate operator that sets the insertion delimiter of {@link nodeInfo} to
+ * either {@link insertionDelimiterConsequence} or
+ * {@link insertionDelimiterAlternative} depending on whether
+ * {@link conditionNodeInfo} has children or not, respectively. For example,
+ *
+ * ```scm
+ * (#has-children-or-not-delimiter! @foo @bar ", " "")
+ * ```
+ *
+ * will set the insertion delimiter of the `@foo` capture to `", "` if the
+ * `@bar` capture is a single line and `",\n"` otherwise.
+ */
+class HasChildrenOrNotDelimiter extends QueryPredicateOperator<HasChildrenOrNotDelimiter> {
+  name = "has-children-or-not-delimiter!" as const;
+  schema = z.tuple([q.node, q.node, q.string, q.string]);
+
+  run(
+    nodeInfo: MutableQueryCapture,
+    conditionNodeInfo: MutableQueryCapture,
+    insertionDelimiterConsequence: string,
+    insertionDelimiterAlternative: string,
+  ) {
+    nodeInfo.insertionDelimiter = conditionNodeInfo.node.children.some(
+      (child) => child.isNamed,
+    )
+      ? insertionDelimiterConsequence
+      : insertionDelimiterAlternative;
+
+    return true;
+  }
+}
+
 export const queryPredicateOperators = [
   new Log(),
   new NotType(),
@@ -331,5 +364,6 @@ export const queryPredicateOperators = [
   new AllowMultiple(),
   new InsertionDelimiter(),
   new SingleOrMultilineDelimiter(),
+  new HasChildrenOrNotDelimiter(),
   new HasMultipleChildrenOfType(),
 ];

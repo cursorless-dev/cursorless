@@ -748,6 +748,16 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
+;;!! foo(name) {}
+;;!      ^^^^
+(_
+  (formal_parameters
+    "(" @argumentList.start.endOf
+    ")" @argumentList.end.startOf
+  ) @_dummy
+  (#has-children-or-not-delimiter! @argumentList.start.endOf @_dummy ", " "")
+) @argumentList.domain
+
 ;;!! foo("bar")
 ;;!      ^^^^^
 (
