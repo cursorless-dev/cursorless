@@ -648,7 +648,7 @@
 ;;!         ^^^^
 (lambda
   (lambda_parameters) @argumentList @argumentOrParameter.iteration
-  (#insertion-delimiter! @argumentList.start.endOf ", ")
+  (#insertion-delimiter! @argumentList ", ")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;;!! lambda: pass
