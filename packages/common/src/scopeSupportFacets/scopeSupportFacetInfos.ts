@@ -283,19 +283,19 @@ export const scopeSupportFacetInfos: Record<
   },
 
   "argumentList.formal": {
-    description: "A list of arguments in a function declaration",
+    description: "A list of parameters in a function declaration",
     scopeType: "argumentList",
   },
   "argumentList.formal.method": {
-    description: "A list of arguments in a class method declaration",
+    description: "A list of parameters in a class method declaration",
     scopeType: "argumentList",
   },
   "argumentList.formal.constructor": {
-    description: "A list of arguments in a constructor declaration",
+    description: "A list of parameters in a constructor declaration",
     scopeType: "argumentList",
   },
   "argumentList.formal.lambda": {
-    description: "A list of arguments in a lambda declaration",
+    description: "A list of parameters in a lambda declaration",
     scopeType: "argumentList",
   },
 
