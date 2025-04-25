@@ -344,15 +344,11 @@ class EmptySingleMultiDelimiter extends QueryPredicateOperator<EmptySingleMultiD
       (child) => child.isNamed,
     );
 
-    nodeInfo.insertionDelimiter = (() => {
-      if (isEmpty) {
-        return insertionDelimiterEmpty;
-      }
-      if (conditionNodeInfo.range.isSingleLine) {
-        return insertionDelimiterSingleLine;
-      }
-      return insertionDelimiterMultiline;
-    })();
+    nodeInfo.insertionDelimiter = isEmpty
+      ? insertionDelimiterEmpty
+      : conditionNodeInfo.range.isSingleLine
+        ? insertionDelimiterSingleLine
+        : insertionDelimiterMultiline;
 
     return true;
   }

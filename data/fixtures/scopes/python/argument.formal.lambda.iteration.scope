@@ -1,0 +1,10 @@
+lambda a, b: pass
+---
+
+[Range] = 0:7-0:11
+         >----<
+0| lambda a, b: pass
+
+[Domain] = 0:0-0:17
+  >-----------------<
+0| lambda a, b: pass

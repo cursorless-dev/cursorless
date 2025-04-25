@@ -1,0 +1,46 @@
+class Foo:
+    def bar(
+        aaa: str,
+        bbb: int
+    ):
+        pass
+---
+
+[#1 Content] =
+[#1 Domain] = 2:8-2:16
+          >--------<
+2|         aaa: str,
+
+[#1 Removal] = 2:8-3:8
+          >---------
+2|         aaa: str,
+3|         bbb: int
+   --------<
+
+[#1 Trailing delimiter] = 2:16-3:8
+                  >-
+2|         aaa: str,
+3|         bbb: int
+   --------<
+
+[#1 Insertion delimiter] = ",\n"
+
+
+[#2 Content] =
+[#2 Domain] = 3:8-3:16
+          >--------<
+3|         bbb: int
+
+[#2 Removal] = 2:16-3:16
+                  >-
+2|         aaa: str,
+3|         bbb: int
+   ----------------<
+
+[#2 Leading delimiter] = 2:16-3:8
+                  >-
+2|         aaa: str,
+3|         bbb: int
+   --------<
+
+[#2 Insertion delimiter] = ",\n"
