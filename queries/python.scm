@@ -644,11 +644,14 @@
   )
 )
 
+;;!! lambda a, b: pass
+;;!         ^^^^
 (lambda
   (lambda_parameters) @argumentList @argumentOrParameter.iteration
-  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#insertion-delimiter! @argumentList.start.endOf ", ")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
+;;!! lambda: pass
 (lambda
   .
   "lambda" @argumentList.start.endOf
@@ -657,6 +660,8 @@
   (#insertion-delimiter! @argumentList.start.endOf " ")
 ) @argumentList.domain
 
+;;!! def (a, b): pass
+;;!       ^^^^
 (_
   (parameters
     "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
