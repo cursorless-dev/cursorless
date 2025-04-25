@@ -1197,6 +1197,16 @@
           ]
         },
         {
+          "id": "argumentList",
+          "type": "scopeType",
+          "variations": [
+            {
+              "spokenForm": "arg list",
+              "description": "Argument list"
+            }
+          ]
+        },
+        {
           "id": "argumentOrParameter",
           "type": "scopeType",
           "variations": [
