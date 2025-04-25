@@ -61,6 +61,13 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal.method.iteration": supported,
   "argument.formal.constructor": supported,
   "argument.formal.constructor.iteration": supported,
+  "argument.formal.lambda": supported,
+  "argument.formal.lambda.iteration": supported,
+
+  "argumentList.formal": supported,
+  "argumentList.formal.method": supported,
+  "argumentList.formal.constructor": supported,
+  "argumentList.formal.lambda": supported,
 
   "comment.line": supported,
   "comment.block": supported,
