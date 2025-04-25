@@ -75,6 +75,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal.method.iteration": supported,
   "argument.formal.lambda": supported,
   "argument.formal.lambda.iteration": supported,
+
   "argumentList.formal": supported,
   "argumentList.formal.method": supported,
   "argumentList.formal.constructor": supported,
