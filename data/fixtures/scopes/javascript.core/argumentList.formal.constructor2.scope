@@ -1,15 +1,26 @@
 class MyClass {
-  constructor() { }
+  constructor(
+    aaa,
+    bbb
+  ) { }
 }
 ---
 
 [Content] =
-[Removal] = 1:14-1:14
-                ><
-1|   constructor() { }
+[Removal] = 1:14-4:2
+                >
+1|   constructor(
+2|     aaa,
+3|     bbb
+4|   ) { }
+   --<
 
-[Domain] = 1:2-1:19
-    >-----------------<
-1|   constructor() { }
+[Domain] = 1:2-4:7
+    >------------
+1|   constructor(
+2|     aaa,
+3|     bbb
+4|   ) { }
+   -------<
 
-[Insertion delimiter] = ""
+[Insertion delimiter] = ",\n"

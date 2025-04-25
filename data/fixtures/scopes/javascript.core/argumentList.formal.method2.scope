@@ -1,15 +1,26 @@
 class MyClass {
-  myFunk() { }
+  myFunk(
+    aaa,
+    bbb
+  ) { }
 }
 ---
 
 [Content] =
-[Removal] = 1:9-1:9
-           ><
-1|   myFunk() { }
+[Removal] = 1:9-4:2
+           >
+1|   myFunk(
+2|     aaa,
+3|     bbb
+4|   ) { }
+   --<
 
-[Domain] = 1:2-1:14
-    >------------<
-1|   myFunk() { }
+[Domain] = 1:2-4:7
+    >-------
+1|   myFunk(
+2|     aaa,
+3|     bbb
+4|   ) { }
+   -------<
 
-[Insertion delimiter] = ""
+[Insertion delimiter] = ",\n"

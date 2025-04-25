@@ -748,16 +748,6 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
-;;!! foo(name) {}
-;;!      ^^^^
-(_
-  (formal_parameters
-    "(" @argumentList.start.endOf
-    ")" @argumentList.end.startOf
-  ) @_dummy
-  (#has-children-or-not-delimiter! @argumentList.start.endOf @_dummy ", " "")
-) @argumentList.domain
-
 ;;!! foo("bar")
 ;;!      ^^^^^
 (
@@ -774,10 +764,11 @@
 
 (_
   (formal_parameters
-    "(" @argumentOrParameter.iteration.start.endOf
-    ")" @argumentOrParameter.iteration.end.startOf
-  )
-) @argumentOrParameter.iteration.domain
+    "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @_dummy
+  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
 (arguments
   "(" @argumentOrParameter.iteration.start.endOf

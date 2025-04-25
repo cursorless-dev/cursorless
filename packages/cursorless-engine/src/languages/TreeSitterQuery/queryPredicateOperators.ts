@@ -319,33 +319,40 @@ class SingleOrMultilineDelimiter extends QueryPredicateOperator<SingleOrMultilin
 }
 
 /**
- * A predicate operator that sets the insertion delimiter of {@link nodeInfo} to
- * either {@link insertionDelimiterConsequence} or
- * {@link insertionDelimiterAlternative} depending on whether
- * {@link conditionNodeInfo} has children or not, respectively. For example,
+ * A predicate operator that sets the insertion delimiter of {@link nodeInfo}
+ * depending on the content of {@link conditionNodeInfo}. It sets the insertion
+ * delimiter to {@link insertionDelimiterEmpty} if {@link conditionNodeInfo} is empty,
+ * {@link insertionDelimiterSingleLine} if it is a single line, and
+ * {@link insertionDelimiterMultiline} if it is multiline. For example,
  *
  * ```scm
- * (#has-children-or-not-delimiter! @foo @bar ", " "")
+ * (#empty-single-multi-delimiter! @argumentList @_dummy "" ", " ",\n")
  * ```
- *
- * will set the insertion delimiter of the `@foo` capture to `", "` if the
- * `@bar` capture is a single line and `",\n"` otherwise.
  */
-class HasChildrenOrNotDelimiter extends QueryPredicateOperator<HasChildrenOrNotDelimiter> {
-  name = "has-children-or-not-delimiter!" as const;
-  schema = z.tuple([q.node, q.node, q.string, q.string]);
+class EmptySingleMultiDelimiter extends QueryPredicateOperator<EmptySingleMultiDelimiter> {
+  name = "empty-single-multi-delimiter!" as const;
+  schema = z.tuple([q.node, q.node, q.string, q.string, q.string]);
 
   run(
     nodeInfo: MutableQueryCapture,
     conditionNodeInfo: MutableQueryCapture,
-    insertionDelimiterConsequence: string,
-    insertionDelimiterAlternative: string,
+    insertionDelimiterEmpty: string,
+    insertionDelimiterSingleLine: string,
+    insertionDelimiterMultiline: string,
   ) {
-    nodeInfo.insertionDelimiter = conditionNodeInfo.node.children.some(
+    const isEmpty = !conditionNodeInfo.node.children.some(
       (child) => child.isNamed,
-    )
-      ? insertionDelimiterConsequence
-      : insertionDelimiterAlternative;
+    );
+
+    nodeInfo.insertionDelimiter = (() => {
+      if (isEmpty) {
+        return insertionDelimiterEmpty;
+      }
+      if (conditionNodeInfo.range.isSingleLine) {
+        return insertionDelimiterSingleLine;
+      }
+      return insertionDelimiterMultiline;
+    })();
 
     return true;
   }
@@ -364,6 +371,6 @@ export const queryPredicateOperators = [
   new AllowMultiple(),
   new InsertionDelimiter(),
   new SingleOrMultilineDelimiter(),
-  new HasChildrenOrNotDelimiter(),
+  new EmptySingleMultiDelimiter(),
   new HasMultipleChildrenOfType(),
 ];

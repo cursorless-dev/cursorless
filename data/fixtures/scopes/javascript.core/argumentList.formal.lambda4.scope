@@ -1,13 +1,13 @@
-function () { }
+function (aaa, bbb) { }
 ---
 
 [Content] =
-[Removal] = 0:10-0:10
-            ><
-0| function () { }
+[Removal] = 0:10-0:18
+            >--------<
+0| function (aaa, bbb) { }
 
-[Domain] = 0:0-0:15
-  >---------------<
-0| function () { }
+[Domain] = 0:0-0:23
+  >-----------------------<
+0| function (aaa, bbb) { }
 
-[Insertion delimiter] = ""
+[Insertion delimiter] = ", "
