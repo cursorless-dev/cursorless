@@ -1,6 +1,6 @@
 import type { SimpleScopeTypeType } from "@cursorless/common";
 import { unsafeKeys } from "@cursorless/common";
-import type { SyntaxNode } from "web-tree-sitter";
+import type { Node } from "web-tree-sitter";
 import type {
   NodeFinder,
   NodeMatcher,
@@ -27,7 +27,7 @@ export function matcher(
   finder: NodeFinder,
   selector: SelectionExtractor = simpleSelectionExtractor,
 ): NodeMatcher {
-  return function (selection: SelectionWithEditor, node: SyntaxNode) {
+  return function (selection: SelectionWithEditor, node: Node) {
     const targetNode = finder(node, selection.selection);
     return targetNode != null
       ? [
@@ -54,7 +54,7 @@ export function chainedMatcher(
 ): NodeMatcher {
   const nodeFinder = chainedNodeFinder(...finders);
 
-  return function (selection: SelectionWithEditor, initialNode: SyntaxNode) {
+  return function (selection: SelectionWithEditor, initialNode: Node) {
     const returnNode = nodeFinder(initialNode);
 
     if (returnNode == null) {
@@ -157,7 +157,7 @@ export function trailingMatcher(
  * @returns A NodeMatcher that tries the given matchers in sequence
  */
 export function cascadingMatcher(...matchers: NodeMatcher[]): NodeMatcher {
-  return (selection: SelectionWithEditor, node: SyntaxNode) => {
+  return (selection: SelectionWithEditor, node: Node) => {
     for (const matcher of matchers) {
       const match = matcher(selection, node);
       if (match != null) {
@@ -170,7 +170,7 @@ export function cascadingMatcher(...matchers: NodeMatcher[]): NodeMatcher {
 }
 
 export function notSupported(scopeTypeType: SimpleScopeTypeType): NodeMatcher {
-  return (_selection: SelectionWithEditor, _node: SyntaxNode) => {
+  return (_selection: SelectionWithEditor, _node: Node) => {
     throw new Error(`Node type '${scopeTypeType}' not supported`);
   };
 }

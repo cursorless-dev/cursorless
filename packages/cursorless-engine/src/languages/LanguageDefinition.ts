@@ -11,6 +11,7 @@ import {
   type IDE,
   type TextDocument,
 } from "@cursorless/common";
+import { Query } from "web-tree-sitter";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
 import { TreeSitterQuery } from "./TreeSitterQuery";
 import type { QueryCapture } from "./TreeSitterQuery/QueryCapture";
@@ -59,9 +60,14 @@ export class LanguageDefinition {
       return undefined;
     }
 
-    const rawQuery = treeSitter
-      .getLanguage(languageId)!
-      .query(rawLanguageQueryString);
+    const language = treeSitter.getLanguage(languageId);
+
+    if (language == null) {
+      throw Error(`Could not get Tree sitter language for ${languageId}`);
+    }
+
+    const rawQuery = new Query(language, rawLanguageQueryString);
+
     const query = TreeSitterQuery.create(languageId, treeSitter, rawQuery);
 
     return new LanguageDefinition(query);

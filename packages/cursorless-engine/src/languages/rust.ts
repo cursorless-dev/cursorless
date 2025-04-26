@@ -1,5 +1,5 @@
 import type { TextEditor } from "@cursorless/common";
-import type { SyntaxNode } from "web-tree-sitter";
+import type { Node } from "web-tree-sitter";
 import type { SimpleScopeTypeType } from "@cursorless/common";
 import type {
   NodeMatcherAlternative,
@@ -60,7 +60,7 @@ const STATEMENT_PARENT_TYPES = ["source_file", "block", "declaration_list"];
  * @param node The node which we will start our search from
  * @returns node or null
  */
-function implItemTypeFinder(node: SyntaxNode) {
+function implItemTypeFinder(node: Node) {
   if (
     node.parent?.type === "impl_item" &&
     node.parent?.childForFieldName("type")?.equals(node)
@@ -72,7 +72,7 @@ function implItemTypeFinder(node: SyntaxNode) {
 
 function traitBoundExtractor(
   editor: TextEditor,
-  node: SyntaxNode,
+  node: Node,
 ): SelectionWithContext {
   return {
     selection: makeNodePairSelection(node.children[1], node.lastNamedChild!),
@@ -92,7 +92,7 @@ function traitBoundExtractor(
  * @param node The node which we might match
  * @returns The return value node
  */
-function returnValueFinder(node: SyntaxNode) {
+function returnValueFinder(node: Node) {
   if (node.type !== "block") {
     return null;
   }

@@ -1,5 +1,5 @@
 import type { Range, TextDocument, TreeSitter } from "@cursorless/common";
-import type { Language, SyntaxNode, Tree } from "web-tree-sitter";
+import type { Language, Node, Tree } from "web-tree-sitter";
 
 export class DisabledTreeSitter implements TreeSitter {
   getTree(_document: TextDocument): Tree {
@@ -14,7 +14,7 @@ export class DisabledTreeSitter implements TreeSitter {
     throw new Error("Tree sitter not provided");
   }
 
-  getNodeAtLocation(_document: TextDocument, _range: Range): SyntaxNode {
+  getNodeAtLocation(_document: TextDocument, _range: Range): Node {
     throw new Error("Tree sitter not provided");
   }
 }

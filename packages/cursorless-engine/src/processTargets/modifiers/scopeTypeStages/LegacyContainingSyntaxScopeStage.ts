@@ -4,7 +4,7 @@ import type {
   SimpleScopeType,
 } from "@cursorless/common";
 import { NoContainingScopeError, Selection } from "@cursorless/common";
-import type { SyntaxNode } from "web-tree-sitter";
+import type { Node } from "web-tree-sitter";
 import type { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import { getNodeMatcher } from "../../../languages/getNodeMatcher";
 import type {
@@ -93,11 +93,11 @@ export class LegacyContainingSyntaxScopeStage implements ModifierStage {
 }
 
 function findNearestContainingAncestorNode(
-  startNode: SyntaxNode,
+  startNode: Node,
   nodeMatcher: NodeMatcher,
   selection: SelectionWithEditor,
 ): SelectionWithEditorWithContext[] | null {
-  let node: SyntaxNode | null = startNode;
+  let node: Node | null = startNode;
   while (node != null) {
     const matches = nodeMatcher(selection, node);
     if (matches != null) {

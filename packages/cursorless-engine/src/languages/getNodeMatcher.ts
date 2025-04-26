@@ -1,5 +1,5 @@
 import { UnsupportedLanguageError } from "@cursorless/common";
-import type { SyntaxNode } from "web-tree-sitter";
+import type { Node } from "web-tree-sitter";
 import type { SimpleScopeTypeType } from "@cursorless/common";
 import type {
   NodeMatcher,
@@ -53,7 +53,7 @@ export const languageMatchers: Record<
 function matcherIncludeSiblings(matcher: NodeMatcher): NodeMatcher {
   return (
     selection: SelectionWithEditor,
-    node: SyntaxNode,
+    node: Node,
   ): NodeMatcherValue[] | null => {
     let matches = matcher(selection, node);
     if (matches == null) {
@@ -74,11 +74,11 @@ function matcherIncludeSiblings(matcher: NodeMatcher): NodeMatcher {
 }
 
 function iterateNearestIterableAncestor(
-  node: SyntaxNode,
+  node: Node,
   selection: SelectionWithEditor,
   nodeMatcher: NodeMatcher,
 ) {
-  let parent: SyntaxNode | null = node.parent;
+  let parent: Node | null = node.parent;
   while (parent != null) {
     const matches = parent.namedChildren
       .flatMap((sibling) => nodeMatcher(selection, sibling))

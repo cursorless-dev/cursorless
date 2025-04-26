@@ -1,5 +1,5 @@
 import type { Edit, Range, Selection, TextEditor } from "@cursorless/common";
-import type { SyntaxNode } from "web-tree-sitter";
+import type { Node } from "web-tree-sitter";
 
 export interface SelectionWithEditor {
   selection: Selection;
@@ -46,7 +46,7 @@ export interface SelectionWithContext {
 }
 
 export type NodeMatcherValue = {
-  node: SyntaxNode;
+  node: Node;
   selection: SelectionWithContext;
 };
 
@@ -54,22 +54,19 @@ export type NodeMatcherAlternative = NodeMatcher | string[] | string;
 
 export type NodeMatcher = (
   selection: SelectionWithEditor,
-  node: SyntaxNode,
+  node: Node,
 ) => NodeMatcherValue[] | null;
 
 /**
  * Returns the desired relative of the provided node.
  * Returns null if matching node not found.
  **/
-export type NodeFinder = (
-  node: SyntaxNode,
-  selection?: Selection,
-) => SyntaxNode | null;
+export type NodeFinder = (node: Node, selection?: Selection) => Node | null;
 
-/** Returns one or more selections for a given SyntaxNode */
+/** Returns one or more selections for a given Node */
 export type SelectionExtractor = (
   editor: TextEditor,
-  nodes: SyntaxNode,
+  nodes: Node,
 ) => SelectionWithContext;
 
 export interface EditWithRangeUpdater extends Edit {

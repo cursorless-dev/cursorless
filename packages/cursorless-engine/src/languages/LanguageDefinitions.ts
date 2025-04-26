@@ -8,7 +8,7 @@ import {
   type TreeSitter,
 } from "@cursorless/common";
 import { toString } from "lodash-es";
-import type { SyntaxNode } from "web-tree-sitter";
+import type { Node } from "web-tree-sitter";
 import { LanguageDefinition } from "./LanguageDefinition";
 import { treeSitterQueryCache } from "./TreeSitterQuery/treeSitterQueryCache";
 
@@ -36,10 +36,7 @@ export interface LanguageDefinitions {
   /**
    * @deprecated Only for use in legacy containing scope stage
    */
-  getNodeAtLocation(
-    document: TextDocument,
-    range: Range,
-  ): SyntaxNode | undefined;
+  getNodeAtLocation(document: TextDocument, range: Range): Node | undefined;
 }
 
 /**
@@ -163,7 +160,7 @@ export class LanguageDefinitionsImpl
     return definition === LANGUAGE_UNDEFINED ? undefined : definition;
   }
 
-  public getNodeAtLocation(document: TextDocument, range: Range): SyntaxNode {
+  public getNodeAtLocation(document: TextDocument, range: Range): Node {
     return this.treeSitter.getNodeAtLocation(document, range);
   }
 

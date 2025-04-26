@@ -1,11 +1,11 @@
 import type { Range, TextDocument } from "@cursorless/common";
-import type { Language, SyntaxNode, Tree } from "web-tree-sitter";
+import type { Language, Node, Tree } from "web-tree-sitter";
 
 export interface TreeSitter {
   /**
    * Function to access nodes in the tree sitter.
    */
-  getNodeAtLocation(document: TextDocument, range: Range): SyntaxNode;
+  getNodeAtLocation(document: TextDocument, range: Range): Node;
 
   /**
    * Function to access the tree sitter tree.

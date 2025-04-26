@@ -1,5 +1,5 @@
 import type { TextDocument, Range, Listener } from "@cursorless/common";
-import type { SyntaxNode } from "web-tree-sitter";
+import type { Node } from "web-tree-sitter";
 import type { LanguageDefinition } from "../languages/LanguageDefinition";
 import type { LanguageDefinitions } from "../languages/LanguageDefinitions";
 
@@ -16,10 +16,7 @@ export class DisabledLanguageDefinitions implements LanguageDefinitions {
     return undefined;
   }
 
-  getNodeAtLocation(
-    _document: TextDocument,
-    _range: Range,
-  ): SyntaxNode | undefined {
+  getNodeAtLocation(_document: TextDocument, _range: Range): Node | undefined {
     return undefined;
   }
 

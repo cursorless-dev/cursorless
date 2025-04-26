@@ -232,6 +232,9 @@ importers:
       mocha:
         specifier: ^10.7.3
         version: 10.7.3
+      web-tree-sitter:
+        specifier: ^0.25.3
+        version: 0.25.3
 
   packages/cursorless-cheatsheet:
     dependencies:
@@ -290,6 +293,9 @@ importers:
       uuid:
         specifier: ^10.0.0
         version: 10.0.0
+      web-tree-sitter:
+        specifier: ^0.25.3
+        version: 0.25.3
       zod:
         specifier: 3.23.8
         version: 3.23.8
@@ -9788,6 +9794,9 @@ packages:
 
   web-namespaces@2.0.1:
     resolution: {integrity: sha512-bKr1DkiNa2krS7qxNtdrtHAmzuYGFQLiQ13TsorsdT6ULTkPLKuu5+GsFpDlg6JFjUTwX2DyhMPG2be8uPrqsQ==}
+
+  web-tree-sitter@0.25.3:
+    resolution: {integrity: sha512-e0hdXG+nJ18Zd/QJFhSx0DNTSMz7miwUjKyJ/lglTnZo6ke08++BQzXkaeaqnGJFi9qq+nPJg2L8hYAjduToHQ==}
 
   webidl-conversions@3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
@@ -21400,6 +21409,8 @@ snapshots:
       defaults: 1.0.4
 
   web-namespaces@2.0.1: {}
+
+  web-tree-sitter@0.25.3: {}
 
   webidl-conversions@3.0.1: {}
 

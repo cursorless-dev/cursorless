@@ -1,17 +1,17 @@
-import type { SyntaxNode } from "web-tree-sitter";
+import type { Node } from "web-tree-sitter";
 
 /**
  * Determines whether the given node or one of its ancestors is an error node
  * @param node The node to check
  * @returns True if the given node is contained in an error node
  */
-export function isContainedInErrorNode(node: SyntaxNode) {
+export function isContainedInErrorNode(node: Node) {
   // This node or one of it descendants is an error node
   if (node.hasError) {
     return true;
   }
 
-  let ancestorNode: SyntaxNode | null = node.parent;
+  let ancestorNode: Node | null = node.parent;
 
   while (ancestorNode != null) {
     // Ancestral node is an error node
