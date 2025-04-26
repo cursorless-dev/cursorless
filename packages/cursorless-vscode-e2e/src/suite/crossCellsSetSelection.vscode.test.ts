@@ -5,7 +5,7 @@ import {
 } from "@cursorless/vscode-common";
 import assert from "assert";
 import { window } from "vscode";
-import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
+import { endToEndTestSetup } from "../endToEndTestSetup";
 
 // Check that setSelection is able to focus the correct cell
 suite("Cross-cell set selection", async function () {
@@ -18,10 +18,6 @@ async function runTest() {
   const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
 
   await openNewNotebookEditor(['"hello"', '"world"']);
-
-  // FIXME: There seems to be some timing issue when you create a notebook
-  // editor
-  await sleepWithBackoff(1000);
 
   await hatTokenMap.allocateHats();
 
