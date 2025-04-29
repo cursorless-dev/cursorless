@@ -1,4 +1,17 @@
-export function ShikiComponent({ data }: { data: any }) {
+import type { Command, CommandLatest } from "@cursorless/common";
+
+export function ShikiComponent({
+  data,
+}: {
+  data: {
+    before: string;
+    during: string;
+    after: string;
+    command: CommandLatest | Command;
+  };
+}) {
+  const { spokenForm } = data.command;
+  const { before, during, after } = data;
   return (
     <div className="max-w-xl overflow-auto p-4">
       <div className="p-8">
