@@ -28,22 +28,10 @@ const myTheme = createCssVariablesTheme({
  * @param {DataFixture} data - The state object containing the necessary data for HTML generation.
  * @returns {Promise<string>} A promise that resolves to the generated HTML content.
  */
-export async function generateHtml({
-  stateName,
-  state,
-  languageId: lang,
-  command,
-  ide,
-  raw
-}: {
-  stateName: string;
-  state: TestCaseSnapshot;
-  languageId: BundledLanguage;
-  command?: any; // Replace `any` with the appropriate type if with
-  ide?: any; // Replace `any` with the appropriate type if known
-  raw: any;
-}) {
-  return new HTMLGenerator({ state, lang, command, ide, raw }).generate();
+export async function generateHtml(data: DataFixture) {
+  const HTMLOBject = await new HTMLGenerator(data)
+  const returnObject = HTMLOBject.generateAll()
+  return returnObject;
 }
 
 const highlighter = createHighlighter({
@@ -61,63 +49,146 @@ type ExtendedTestCaseSnapshot = TestCaseSnapshot &
 };
 
 class HTMLGenerator {
-  private state: TestCaseSnapshot;
+  private testCaseStates: {
+    before: ExtendedTestCaseSnapshot | undefined;
+    during: ExtendedTestCaseSnapshot | undefined;
+    after: ExtendedTestCaseSnapshot | undefined;
+  }
   private lang: Lang;
-  private command?: any;
-  private ide?: any;
-  private raw: any;
-
-  constructor({
-    state,
-    lang,
-    command,
-    ide,
-    raw
-  }: {
-    state: TestCaseSnapshot,
-    lang: Lang,
-    command?: any,
-    ide?: any,
-    raw?: any
-  }) {
-    this.state = state;
-    this.lang = lang;
-    this.command = command; // Optional command parameter
-    this.ide = ide;         // Optional ide parameter
-    this.raw = raw
+  private command?: CommandLatest | Command;
+  private raw: TestCaseFixture;
+  private rendered: {
+    before: string;
+    during: string;
+    after: string;
   }
 
-
-  async generate() {
-    const decorations = await this.getDecorations();
-    const options = {
-      theme: "css-variables",
-      lang: this.lang,
-      decorations
-    };
-
-    const marker = await highlighter
-    const codeBody = marker.codeToHtml(this.state.documentContents, options)
-    let clipboard = ""
-    if (this.state.clipboard) {
-      clipboard = `<pre><code>clipboard: ${this.state.clipboard}</pre></code>`
+  constructor(data: DataFixture) {
+    const { languageId, command } = data;
+    this.lang = languageId as BundledLanguage;
+    this.command = command; // Optional command parameter
+    this.raw = data
+    this.rendered = {
+      before: "",
+      during: "",
+      after: "",
     }
-    const output = clipboard !== "" ? codeBody + clipboard : codeBody
+    this.testCaseStates = {
+      before: data.initialState,
+      during: {
+        ...(
+          /**
+           * Spread the document state with more lines (finalState vs initialState),
+           * so Shiki decorations stay in bounds and don't go out of range.
+           */
+          data.finalState &&
+            (data.finalState.documentContents?.split("\n").length > data.initialState.documentContents?.split("\n").length)
+            ? data.finalState
+            : data.initialState
+        ),
+        ...data.ide,
+        finalStateMarkHelpers: {
+          thatMark: data?.finalState?.thatMark,
+          sourceMark: data?.finalState?.sourceMark
+        }
+      },
+      after: data.finalState
+    }
+  }
+
+  async generate(stepName: StepNameType) {
+    const state = this.testCaseStates[stepName]
+
+    if (!state) {
+      console.error(`Error in ${stepName} ${this.raw.command.spokenForm}`)
+      return "Error"
+    }
+
+    const decorations = await this.getDecorations(state);
+
+    const { documentContents } = state
+
+    const htmlArray: string[] = []
+    let codeBody;
+
+    const errorLevels = [
+      "excludes thatMarks sourceMarks selectionRanges ideFlashes",
+      "excludes thatMarks sourceMarks selectionRanges",
+      "excludes thatMarks sourceMarks",
+      "excludes thatMarks",
+      "success",
+    ]
+
+    let errorLevel = errorLevels.length - 1
+
+    for (let i = decorations.length - 1; i >= 0; i--) {
+      const fallbackDecoration = decorations.slice(0, i).flat();
+      errorLevel = i
+      try {
+        const marker = await highlighter;
+        const options = {
+          theme: "css-variables",
+          lang: this.lang,
+          decorations: fallbackDecoration
+        };
+        codeBody = marker.codeToHtml(documentContents, options);
+        htmlArray.push(codeBody)
+        break; // Exit loop if successful
+      } catch (error) {
+        console.warn("Failed with decorations level:", fallbackDecoration, error);
+        // Continue to the next fallback level
+      }
+    }
+
+    if (!codeBody) {
+      console.error("All fallback levels failed. Unable to generate code body.");
+      codeBody = ""; // Provide a default empty string or handle as needed
+    }
+
+    let clipboardRendered = ""
+    if (state.clipboard) {
+      clipboardRendered = `<pre><code>clipboard: ${state.clipboard}</pre></code>`
+      if (clipboardRendered !== "") {
+        htmlArray.push(clipboardRendered)
+      }
+    }
+
+    let error = ""
+    if (errorLevel !== errorLevels.length - 1) {
+      error = errorLevels[errorLevel]
+      const errorRendered = `<pre><code>Omitted due to errors: ${error}</pre></code>`
+      htmlArray.push(errorRendered)
+    }
+    return htmlArray.join("")
+  }
+
+  async generateAll() {
+
+    const output = {
+      before: await this.generate("before"),
+      during: await this.generate("during"),
+      after: await this.generate("after"),
+    }
     return output
   }
 
-  async getDecorations() {
-    const potentialMarks = this.state.marks || {}
-    const lines = this.state.documentContents.split("\n")
-    console.log("💎", this.state.thatMark)
-    const decorations = createDecorations({
+  async getDecorations(testCaseState: ExtendedTestCaseSnapshot) {
+    const { messages, flashes, highlights, finalStateMarkHelpers } = testCaseState
+
+    const potentialMarks = testCaseState.marks || {}
+    const lines = testCaseState.documentContents.split("\n")
+    const obj = {
       marks: potentialMarks,
-      ide: this.ide,
+      ide: { messages, flashes, highlights },
       command: this.command,
       lines,
-      selections: this.state.selections,
-      thatMark: this.state.thatMark
-    })
+      selections: testCaseState.selections,
+      thatMark: testCaseState.thatMark,
+      sourceMark: testCaseState.sourceMark,
+      finalStateMarkHelpers
+    }
+
+    const decorations = createDecorations(obj)
     return decorations
   }
 }
