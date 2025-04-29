@@ -4,7 +4,19 @@ import "../shiki.css";
 import "../styles.css";
 import type { TestCaseFixture } from "@cursorless/common";
 
-export function TestCaseComponentPage({ data }: { data: TestCaseFixture[] }) {
+export type TestCaseComponentProps = TestCaseFixture & {
+  filename: string;
+  raw: TestCaseFixture;
+  before: string;
+  during: string;
+  after: string;
+};
+
+export function TestCaseComponentPage({
+  data,
+}: {
+  data: TestCaseComponentProps[];
+}) {
   return (
     <main className="dark:text-stone-100">
       <h1 className="mb-1 mt-2 text-center text-2xl md:text-3xl xl:mt-4">
