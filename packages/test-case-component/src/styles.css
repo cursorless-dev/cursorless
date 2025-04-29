@@ -175,3 +175,13 @@ pre.shiki {
 .hat.wing::after {
   mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 371.81 234.76" ><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M371.81,234.42h0s-153.27-57.29-185.9-54.08h0C154.36,177.24,0,234.76,0,234.76H0L158.55,101.69c.6-.49-.39,1.87-.23,1.12L186.24,0h0l26.84,101.37"/></g></g></svg>');
 }
+.thatMark {
+  outline: 2px solid yellow;
+  outline-offset: 4px; /* Adds space between the outline and the element */
+  border-radius: 4px; /* Makes the outline rounded */
+}
+.sourceMark {
+  outline: 2px solid teal;
+  outline-offset: 4px; /* Adds space between the outline and the element */
+  border-radius: 4px; /* Makes the outline rounded */
+}
