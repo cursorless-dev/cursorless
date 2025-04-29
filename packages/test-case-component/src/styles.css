@@ -20,7 +20,7 @@ pre code {
 }
 
 pre {
-  counter-reset: line; /* Initialize a counter for line numbers */
+  counter-reset: line -1; /* Initialize a counter for line numbers */
 }
 
 .line::before {
