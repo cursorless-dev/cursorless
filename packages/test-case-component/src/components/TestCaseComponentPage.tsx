@@ -29,8 +29,16 @@ export function TestCaseComponentPage({
         </small>
       </h1>
 
-      {data.map((item: any) => {
-        return <ShikiComponent data={item} key={item.filename} />;
+      {data.map((item: TestCaseComponentProps) => {
+        if (!item) {
+          return <p>Error: item is null</p>;
+        }
+        const { filename } = item;
+        if (filename) {
+          return <ShikiComponent data={item} key={item.filename} />;
+        } else {
+          return <></>;
+        }
       })}
     </main>
   );
