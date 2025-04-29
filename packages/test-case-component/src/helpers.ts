@@ -87,7 +87,6 @@ function getMarkDecorations({
 
   Object.entries(marks || {}).forEach(([key, { start, end }]) => {
     const [hatType, letter] = key.split(".") as [keyof typeof classesMap, string];
-    console.log("🔑", key, start, end);
 
     const markLineStart = start.line
 
@@ -116,7 +115,6 @@ function getMarkDecorations({
       alwaysWrap: true,
     }
 
-    console.log("🔑🔑", decorationItem)
 
     decorations.push(decorationItem);
   });
@@ -176,7 +174,6 @@ function getIdeFlashDecorations({
           },
           alwaysWrap: true,
         };
-        console.log("🔥🔥", decorationItem);
         decorations.push(decorationItem);
       }
 
@@ -190,7 +187,6 @@ function getIdeFlashDecorations({
         },
         alwaysWrap: true,
       }
-      console.log("🔥🔥", decorationItem)
       decorations.push(decorationItem);
     } else {
       console.warn(`Unknown range type "${type}". Skipping this flash.`);
@@ -222,7 +218,6 @@ function getSlections(
       alwaysWrap: true,
     }
     decorations.push(decorationItem)
-    console.log("🟦", decorationItem)
   })
 
   return decorations
