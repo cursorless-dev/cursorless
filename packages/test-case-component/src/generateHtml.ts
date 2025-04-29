@@ -1,9 +1,17 @@
 import { createHighlighter, createCssVariablesTheme } from "shiki";
 import type { BundledLanguage } from "shiki";
 
-import type { TargetPlainObject, TestCaseSnapshot } from "@cursorless/common";
+import type {
+  Command,
+  CommandLatest,
+  PlainSpyIDERecordedValues,
+  TargetPlainObject,
+  TestCaseFixture,
+  TestCaseSnapshot
+} from "@cursorless/common";
 
 import { createDecorations } from "./helpers";
+import type { DataFixture } from "./loadTestCaseFixture";
 
 type Lang = BundledLanguage;
 
@@ -17,10 +25,7 @@ const myTheme = createCssVariablesTheme({
 /**
  * Generates HTML content based on the provided state, language, command, and ide.
  *
- * @param {TestCaseSnapshot} state - The state object containing the necessary data for HTML generation.
- * @param {Lang} lang - The language object specifying the language for the HTML content.
- * @param {any} [command] - (Optional) The command object specifying the command details.
- * @param {any} [ide] - (Optional) The ide object specifying the IDE details.
+ * @param {DataFixture} data - The state object containing the necessary data for HTML generation.
  * @returns {Promise<string>} A promise that resolves to the generated HTML content.
  */
 export async function generateHtml({
@@ -45,6 +50,15 @@ const highlighter = createHighlighter({
   themes: [myTheme],
   langs: ["javascript", "typescript"],
 });
+
+type StepNameType = "before" | "during" | "after"
+type ExtendedTestCaseSnapshot = TestCaseSnapshot &
+  Partial<PlainSpyIDERecordedValues> &
+{
+  finalStateMarkHelpers?: {
+    thatMark?: TargetPlainObject[], sourceMark?: TargetPlainObject[]
+  }
+};
 
 class HTMLGenerator {
   private state: TestCaseSnapshot;
