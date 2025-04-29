@@ -141,9 +141,7 @@ function getIdeFlashDecorations({
   ide,
   lines,
 }: {
-  ide?: {
-    flashes?: { style: keyof typeof classesMap; range: RangeType }[];
-  };
+  ide?: PlainSpyIDERecordedValues;
   lines?: string[];
 } = {}): DecorationItem[] {
   if (!lines) {
