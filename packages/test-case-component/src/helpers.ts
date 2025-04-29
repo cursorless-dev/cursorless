@@ -92,7 +92,7 @@ function getMarkDecorations({
 }): DecorationItem[] {
   const decorations: DecorationItem[] = [];
 
-  Object.entries(marks || {}).forEach(([key, { start, end }]) => {
+  Object.entries(marks || {}).forEach(([key, { start }]) => {
     const [hatType, letter] = key.split(".") as [keyof typeof classesMap, string];
 
     const markLineStart = start.line
