@@ -39,8 +39,6 @@ const Before = ({ content }: { content: string }) => {
 
 const During = ({ content }: { content: string }) => {
   if (content) {
-    console.log("🧄", content);
-
     return (
       <div className="p-4" dangerouslySetInnerHTML={{ __html: content }} />
     );
