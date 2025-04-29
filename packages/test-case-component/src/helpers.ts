@@ -1,5 +1,7 @@
 import type {
-  // PositionPlainObject,
+  Command,
+  CommandLatest,
+  PlainSpyIDERecordedValues,
   SelectionPlainObject,
   SerializedMarks,
   TargetPlainObject,
@@ -30,18 +32,23 @@ function splitDocumentWithOffsets(documentContents: string): { line: string; off
  *
  * @param {Object} options - An object containing optional fields like marks, command, or ide.
  * @param {SerializedMarks} [options.marks] - An object containing marks with line, start, and end positions.
- * @param {any} [options.command] - (Optional) The command object specifying the command details.
- * @param {any} [options.ide] - (Optional) The ide object specifying the IDE details.
+ * @param {CommandLatest | Command} [options.command] - (Optional) The command object specifying the command details.
+ * @param {PlainSpyIDERecordedValues} [options.ide] - (Optional) The ide object specifying the IDE details.
  * @returns {DecorationItem[]} An array of decoration objects.
  */
 function createDecorations(
   options: {
     marks?: SerializedMarks;
-    command?: any;
-    ide?: any;
+    command?: CommandLatest | Command;
+    ide?: PlainSpyIDERecordedValues;
     lines?: string[]
     selections?: SelectionPlainObject[]
     thatMark?: TargetPlainObject[]
+    sourceMark?: TargetPlainObject[]
+    finalStateMarkHelpers?: {
+      sourceMark?: TargetPlainObject[]
+      thatMark?: TargetPlainObject[]
+    }
   } = {} // Default to an empty object
 ): DecorationItem[] {
   const { marks, ide, lines, selections, thatMark /* command */ } = options
