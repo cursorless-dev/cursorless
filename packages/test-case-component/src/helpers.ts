@@ -259,13 +259,20 @@ function isPositionRange(
 const DEFAULT_HAT_CLASS = "hat default";
 const classesMap = {
   default: DEFAULT_HAT_CLASS,
-  pendingDelete: "decoration pendingDeleteBackground",
-  referenced: "decoration referencedBackground",
-  selection: "selection"
+  pendingDelete: "decoration pendingDelete",
+  referenced: "decoration referenced",
+  selection: "selection",
+  pendingModification0: "decoration pendingModification0",
+  pendingModification1: "decoration pendingModification1",
+  justAdded: "decoration justAdded",
+  highlight0: "decoration highlight0",
+  highlight1: "decoration highlight1",
+  sourceMark: "sourceMark",
+  thatMark: "thatMark"
 };
 
 function getDecorationClass(key: keyof typeof classesMap): string {
-  return classesMap[key] || DEFAULT_HAT_CLASS;
+  return classesMap[key];
 }
 
 
