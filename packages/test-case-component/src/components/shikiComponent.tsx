@@ -13,14 +13,15 @@ export function ShikiComponent({
   const { spokenForm } = data.command;
   const { before, during, after } = data;
   return (
-    <div className="max-w-xl overflow-auto p-4">
+    <div className="mx-16 overflow-auto p-4">
       <div className="p-8">
-        <h2 className="dark:text-stone-100">{data.command}</h2>
+        <h2 className="dark:text-stone-100">{spokenForm}</h2>
+
         <div className="m-2 border">
-          <Before content={data.before} />
-          <div className="command">{data.command}</div>
-          <During content={data.during} />
-          <After content={data.after} />
+          <Before content={before} />
+          <div className="command">{spokenForm}</div>
+          <During content={during} />
+          <After content={after} />
         </div>
       </div>
       <details>
