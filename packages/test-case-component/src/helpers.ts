@@ -229,11 +229,31 @@ function getSlections(
 }
 
 function getThatMarks({ thatMark }: { thatMark: TargetPlainObject[] }): DecorationItem[] {
-  console.log("☝️", thatMark)
   const decorations: DecorationItem[] = [];
-  if (thatMark === undefined) {
-    console.warn("thatMarks are undefined. Skipping decoration generation.");
+
+  if (thatMark === undefined || thatMark.length === 0) {
+    console.warn("finalStateSourceMarks are undefined. Skipping decoration generation.");
     return []
+  } else {
+    addContentRangeDecorations({
+      marks: thatMark,
+      highlightClass: "thatMark", decorations
+    });
+  }
+
+  return decorations
+}
+
+function getSourceMarks({ sourceMark }: { sourceMark?: TargetPlainObject[] }): DecorationItem[] {
+  const decorations: DecorationItem[] = [];
+  if (sourceMark === undefined || sourceMark.length === 0) {
+    console.warn("finalStateSourceMarks are undefined. Skipping decoration generation.");
+    return []
+  } else {
+    addContentRangeDecorations({
+      marks: sourceMark,
+      highlightClass: "sourceMark", decorations
+    });
   }
 
   return decorations
