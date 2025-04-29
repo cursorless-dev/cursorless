@@ -50,11 +50,8 @@ function createDecorations(
       thatMark?: TargetPlainObject[]
     }
   } = {} // Default to an empty object
-): DecorationItem[] {
-  const { marks, ide, lines, selections, thatMark /* command */ } = options
-  if (thatMark) {
-    console.log("📅", thatMark)
-  }
+): DecorationItem[][] {
+  const { marks, ide, lines, selections, thatMark, sourceMark } = options
 
   const decorations: DecorationItem[] = [];
   const markDecorations = getMarkDecorations({ marks, lines })
