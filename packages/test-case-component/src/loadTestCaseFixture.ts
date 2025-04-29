@@ -1,39 +1,16 @@
-import type { TargetPlainObject, TestCaseFixture, TestCaseSnapshot } from "@cursorless/common";
+import type { TestCaseFixture, TestCaseSnapshot } from "@cursorless/common";
 import { generateHtml } from "./generateHtml";
 import type { BundledLanguage } from "shiki";
 
-async function safeGenerateHtml({
-  stateName,
-  state,
-  languageId,
-  command,
-  ide,
-  thatMarkFinalState
-}: {
-  stateName: string;
-  state: TestCaseSnapshot;
-  languageId: BundledLanguage;
-  command?: any; // Replace `any` with the appropriate type if known
-  ide?: any; // Replace `any` with the appropriate type if known
-  thatMarkFinalState?: TargetPlainObject
-}) {
-  console.log("✨" + stateName + "✨");
-  try {
-    const genObj = { stateName, state, languageId, command, ide }
-    return await generateHtml(genObj);
-  } catch (e) {
-    console.error("error in state", stateName, e);
-    console.error(JSON.stringify(state, null, 2));
-    throw e;
-  }
-}
-
-interface loadFixtureProps extends TestCaseFixture {
+interface loadFixtureProps extends DataFixture {
   filename: string;
   languageId: BundledLanguage;
   initialState: TestCaseSnapshot;
   finalState: TestCaseSnapshot;
 }
+
+type StepType = { stepName: "initialState" | "middleState" | "finalState" }
+export type DataFixture = TestCaseFixture & StepType
 
 export async function loadTestCaseFixture(data: loadFixtureProps) {
   try {
