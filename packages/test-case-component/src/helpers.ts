@@ -255,6 +255,28 @@ function isPositionRange(
     && range.type === "character";
 }
 
+function addContentRangeDecorations({
+  marks,
+  highlightClass,
+  decorations,
+}: {
+  marks: TargetPlainObject[];
+  highlightClass: keyof typeof classesMap;
+  decorations: DecorationItem[];
+}): void {
+  marks.forEach(({ contentRange }) => {
+    const { start, end } = contentRange;
+    const decorationItem = {
+      start,
+      end,
+      properties: {
+        class: getDecorationClass(highlightClass),
+      },
+      alwaysWrap: true,
+    };
+    decorations.push(decorationItem);
+  });
+}
 
 const DEFAULT_HAT_CLASS = "hat default";
 const classesMap = {
