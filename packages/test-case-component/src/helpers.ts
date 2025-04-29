@@ -170,6 +170,9 @@ function getIdeFlashDecorations({
        * multiple classes to the same span causing CSS conflicts
        */
       for (let line = lineStart; line <= lineEnd; line++) {
+        if (line >= lines.length) {
+          continue
+        }
         const contentLine = lines[line];
         const startPosition = { line, character: 0 };
         const endPosition = { line, character: contentLine.length };
