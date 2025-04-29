@@ -118,35 +118,35 @@ pre.shiki {
   width: 100%;
 }
 
-.decoration.pendingDeleteBackground {
+.decoration.pendingDelete {
   background-color: #ff00008a;
 }
 
-.decoration.referencedBackground {
+.decoration.referenced {
   background-color: #00a2ff4d;
 }
 
-.decoration.justAddedBackground {
+.decoration.justAdded {
   background-color: #09ff005b;
 }
 
-.decoration.pendingModification0Background {
+.decoration.pendingModification0 {
   background-color: #8c00ff86;
 }
 
-.decoration.pendingModification1Background {
+.decoration.pendingModification1 {
   background-color: #ff009d7e;
 }
 
-.decoration.highlight0Background {
+.decoration.highlight0 {
   background-color: #d449ff42;
 }
 
-.decoration.highlight1Background {
+.decoration.highlight1 {
   background-color: #60daff7a;
 }
 
-.decoration.timingCalibrationBackground {
+.decoration.timingCalibration {
   background-color: #230026;
 }
 
