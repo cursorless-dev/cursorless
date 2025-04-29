@@ -41,8 +41,17 @@ async function loadYamlFiles(dir: string, selectedFiles?: string[]) {
 export async function getStaticProps() {
   const itemsDirActions = path.join(fixturesDir, "actions");
   const itemsDirDecorations = path.join(fixturesDir, "decorations");
+  const itemsDirInsertEmptyLines = path.join(
+    fixturesDir,
+    "actions/insertEmptyLines",
+  );
 
   const dataActions = await loadYamlFiles(itemsDirActions, testSelectedFiles);
+  const dataInsertEmptyLines = await loadYamlFiles(
+    itemsDirInsertEmptyLines,
+    testSelectedFiles,
+  );
+
   const dataDecorations = await loadYamlFiles(
     itemsDirDecorations,
     testSelectedFiles,
@@ -52,17 +61,18 @@ export async function getStaticProps() {
 
   const data = (
     await Promise.all(
-      [...dataActions, ...dataDecorations].map(async (val) => {
-        try {
-          // const upgraded = upgrade(data);
-          const fixture = await loadTestCaseFixture(val);
-          return { ...fixture, raw: val };
-        } catch (err) {
-          console.error(err);
-          data_errors.push(val);
-          return null;
-        }
-      }),
+      [...dataActions, ...dataDecorations, ...dataInsertEmptyLines].map(
+        async (val) => {
+          try {
+            const fixture = await loadTestCaseFixture(val);
+            return { ...fixture, raw: val };
+          } catch (err) {
+            console.error(err);
+            data_errors.push(val);
+            return null;
+          }
+        },
+      ),
     )
   ).filter((test) => test !== undefined);
 
