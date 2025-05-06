@@ -63,8 +63,11 @@ export class CustomSpokenForms {
       this.updateSpokenFormMaps().catch(() => {});
     });
 
-    this.customSpokenFormsInitialized = this.updateSpokenFormMaps();
-    this.customSpokenFormsInitialized.catch(() => {});
+    this.customSpokenFormsInitialized = this.updateSpokenFormMaps().catch(
+      () => {
+        console.log("CustomSpokenForms.updateSpokenFormMaps() catch");
+      },
+    );
   }
 
   /**
@@ -87,6 +90,7 @@ export class CustomSpokenForms {
         // Handle case where spokenForms.json doesn't exist yet
         this.needsInitialTalonUpdate_ = true;
       } else if (err instanceof DisabledCustomSpokenFormsError) {
+        console.log("catch DisabledCustomSpokenFormsError");
         // Do nothing: this ide doesn't currently support custom spoken forms
       } else {
         console.error("Error loading custom spoken forms", err);
@@ -100,6 +104,8 @@ export class CustomSpokenForms {
 
       this.spokenFormMap_ = { ...defaultSpokenFormMap };
       this.notifier.notifyListeners();
+
+      console.log("rethrowing err");
 
       throw err;
     }
