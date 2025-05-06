@@ -1,8 +1,11 @@
-import type { EveryScopeModifier, TextEditor, Range } from "@cursorless/common";
+import type { EveryScopeModifier, Range, TextEditor } from "@cursorless/common";
 import { NoContainingScopeError } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStageFactory } from "../ModifierStageFactory";
-import type { ModifierStage } from "../PipelineStages.types";
+import type {
+  ModifierStage,
+  ModifierStateOptions,
+} from "../PipelineStages.types";
 import { getContainingScopeTarget } from "./getContainingScopeTarget";
 import type { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 import type { TargetScope } from "./scopeHandlers/scope.types";
@@ -35,7 +38,7 @@ export class EveryScopeStage implements ModifierStage {
     private modifier: EveryScopeModifier,
   ) {}
 
-  run(target: Target): Target[] {
+  run(target: Target, options: ModifierStateOptions): Target[] {
     const { scopeType } = this.modifier;
     const { editor, isReversed } = target;
 
@@ -47,7 +50,7 @@ export class EveryScopeStage implements ModifierStage {
     if (scopeHandler == null) {
       return this.modifierStageFactory
         .getLegacyScopeStage(this.modifier)
-        .run(target);
+        .run(target, options);
     }
 
     let scopes: TargetScope[] | undefined;
@@ -62,7 +65,8 @@ export class EveryScopeStage implements ModifierStage {
       if (
         scopes.length === 1 &&
         scopes[0].domain.contains(target.contentRange) &&
-        !target.hasExplicitScopeType
+        !target.hasExplicitScopeType &&
+        !options.multipleTargets
       ) {
         // If the only scope that came back completely contains the input target
         // range, we treat the input as if it had no explicit range, expanding

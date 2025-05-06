@@ -6,7 +6,10 @@ import {
 } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStageFactory } from "../ModifierStageFactory";
-import type { ModifierStage } from "../PipelineStages.types";
+import type {
+  ModifierStage,
+  ModifierStateOptions,
+} from "../PipelineStages.types";
 import {
   getModifierStagesFromTargetModifiers,
   processModifierStages,
@@ -53,9 +56,9 @@ class BoundedLineStage implements ModifierStage {
     private modifier: HeadModifier | TailModifier,
   ) {}
 
-  run(target: Target): Target[] {
-    const line = this.getContainingLine(target);
-    const pairInterior = this.getContainingPairInterior(target);
+  run(target: Target, options: ModifierStateOptions): Target[] {
+    const line = this.getContainingLine(target, options);
+    const pairInterior = this.getContainingPairInterior(target, options);
 
     const intersection =
       pairInterior != null
@@ -75,9 +78,12 @@ class BoundedLineStage implements ModifierStage {
     ];
   }
 
-  private getContainingPairInterior(target: Target): Target | undefined {
+  private getContainingPairInterior(
+    target: Target,
+    options: ModifierStateOptions,
+  ): Target | undefined {
     try {
-      return this.getContaining(target, {
+      return this.getContaining(target, options, {
         type: "surroundingPairInterior",
         delimiter: "any",
       })[0];
@@ -89,15 +95,22 @@ class BoundedLineStage implements ModifierStage {
     }
   }
 
-  private getContainingLine(target: Target): Target {
-    return this.getContaining(target, {
+  private getContainingLine(
+    target: Target,
+    options: ModifierStateOptions,
+  ): Target {
+    return this.getContaining(target, options, {
       type: "line",
     })[0];
   }
 
-  private getContaining(target: Target, scopeType: ScopeType): Target[] {
+  private getContaining(
+    target: Target,
+    options: ModifierStateOptions,
+    scopeType: ScopeType,
+  ): Target[] {
     return this.modifierStageFactory
       .create({ type: "containingScope", scopeType })
-      .run(target);
+      .run(target, options);
   }
 }
