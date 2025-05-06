@@ -28,6 +28,7 @@ export class CustomSpokenFormGeneratorImpl
   public readonly customSpokenFormsInitialized: Promise<void>;
 
   constructor(talonSpokenForms: TalonSpokenForms) {
+    console.log("CustomSpokenFormGeneratorImpl constructor");
     this.customSpokenForms = new CustomSpokenForms(talonSpokenForms);
     this.customSpokenFormsInitialized =
       this.customSpokenForms.customSpokenFormsInitialized;

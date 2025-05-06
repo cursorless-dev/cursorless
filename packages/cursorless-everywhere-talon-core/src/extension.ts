@@ -21,6 +21,7 @@ export async function activate(
   try {
     return await activateHelper(talon, runMode);
   } catch (error) {
+    console.log("Error activating talon.js");
     console.error(error);
     throw error;
   }

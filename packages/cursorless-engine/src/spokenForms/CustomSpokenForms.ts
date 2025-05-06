@@ -59,9 +59,10 @@ export class CustomSpokenForms {
 
   constructor(private talonSpokenForms: TalonSpokenForms) {
     this.disposable = talonSpokenForms.onDidChange(() => {
-      console.log("CustomSpokenForms.onDidChange");
-      this.updateSpokenFormMaps().catch(() => {});
+      //   this.updateSpokenFormMaps().catch(() => {});
     });
+
+    console.log("CustomSpokenForms constructor");
 
     this.customSpokenFormsInitialized = this.updateSpokenFormMaps().catch(
       () => {
