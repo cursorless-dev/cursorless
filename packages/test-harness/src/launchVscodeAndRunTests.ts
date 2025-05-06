@@ -39,11 +39,7 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
     // NB: Because of a CI crashing issue the vscode version is pinned.
     // https://github.com/cursorless-dev/cursorless/issues/2878
 
-    const vscodeVersion = useLegacyVscode
-      ? "1.82.0"
-      : os.platform() === "win32"
-        ? "stable"
-        : "1.97.2";
+    const vscodeVersion = useLegacyVscode ? "1.82.0" : "1.97.2";
     const vscodeExecutablePath = await downloadAndUnzipVSCode(vscodeVersion);
     const [cli, ...args] =
       resolveCliArgsFromVSCodeExecutablePath(vscodeExecutablePath);
