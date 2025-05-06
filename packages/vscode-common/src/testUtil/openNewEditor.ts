@@ -96,5 +96,27 @@ export async function openNewNotebookEditor(
 
   await (await getParseTreeApi()).loadLanguage(language);
 
+  // FIXME: There seems to be some timing issue when you create a notebook
+  // editor
+  await waitForEditorToOpen();
+
   return document;
+}
+
+function waitForEditorToOpen() {
+  return new Promise<void>((resolve, reject) => {
+    let count = 0;
+    const interval = setInterval(() => {
+      if (vscode.window.activeTextEditor != null) {
+        clearInterval(interval);
+        resolve();
+      } else {
+        count++;
+        if (count === 20) {
+          clearInterval(interval);
+          reject("Timed out waiting for editor to open");
+        }
+      }
+    }, 100);
+  });
 }

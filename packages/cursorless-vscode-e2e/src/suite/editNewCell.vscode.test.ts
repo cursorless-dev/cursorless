@@ -28,10 +28,6 @@ async function runTest(
   const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
   const notebook = await openNewNotebookEditor(["hello"]);
 
-  // FIXME: There seems to be some timing issue when you create a notebook
-  // editor
-  await sleepWithBackoff(500);
-
   await hatTokenMap.allocateHats();
 
   assert.equal(notebook.cellCount, 1);
