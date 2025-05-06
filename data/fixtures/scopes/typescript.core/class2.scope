@@ -1,0 +1,10 @@
+export default abstract class MyClass { }
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:41
+  >-----------------------------------------<
+0| export default abstract class MyClass { }
+
+[Insertion delimiter] = "\n\n"

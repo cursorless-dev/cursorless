@@ -1,0 +1,10 @@
+abstract class MyClass { }
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:26
+  >--------------------------<
+0| abstract class MyClass { }
+
+[Insertion delimiter] = "\n\n"
