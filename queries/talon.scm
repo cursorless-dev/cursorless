@@ -192,4 +192,10 @@ arguments: (implicit_string) @argumentOrParameter.iteration
 
 ;;!! # foo
 ;;!  ^^^^^
-(comment) @comment
+(comment) @comment @textFragment
+
+;;!! "foo"
+;;!  ^^^^^
+(string
+  (string_content) @textFragment
+) @string
