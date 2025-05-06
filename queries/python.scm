@@ -605,8 +605,8 @@
 
 ;;!! def foo(name) {}
 ;;!          ^^^^
-(
-  (parameters
+(_
+  parameters: (_
     (_)? @_.leading.endOf
     .
     (_) @argumentOrParameter
@@ -644,12 +644,31 @@
   )
 )
 
+;;!! lambda a, b: pass
+;;!         ^^^^
+(lambda
+  (lambda_parameters) @argumentList @argumentOrParameter.iteration
+  (#insertion-delimiter! @argumentList ", ")
+) @argumentList.domain @argumentOrParameter.iteration.domain
+
+;;!! lambda: pass
+(lambda
+  .
+  "lambda" @argumentList.start.endOf
+  .
+  ":"
+  (#insertion-delimiter! @argumentList.start.endOf " ")
+) @argumentList.domain
+
+;;!! def (a, b): pass
+;;!       ^^^^
 (_
   (parameters
-    "(" @argumentOrParameter.iteration.start.endOf
-    ")" @argumentOrParameter.iteration.end.startOf
-  )
-) @argumentOrParameter.iteration.domain
+    "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @_dummy
+  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
 (argument_list
   "(" @argumentOrParameter.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf

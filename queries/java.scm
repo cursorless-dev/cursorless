@@ -498,8 +498,8 @@
 
 ;;!! foo(name: string) {}
 ;;!      ^^^^^^^^^^^^
-(
-  (formal_parameters
+(_
+  parameters: (_
     (_)? @_.leading.endOf
     .
     (_) @argumentOrParameter
@@ -525,11 +525,12 @@
 )
 
 (_
-  (formal_parameters
-    "(" @argumentOrParameter.iteration.start.endOf
-    ")" @argumentOrParameter.iteration.end.startOf
-  )
-) @argumentOrParameter.iteration.domain
+  parameters: (_
+    "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @_dummy
+  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
 (argument_list
   "(" @argumentOrParameter.iteration.start.endOf

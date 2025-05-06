@@ -15,12 +15,16 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.actual.constructor.iteration": supported,
   "argument.actual.method": supported,
   "argument.actual.method.iteration": supported,
-  "argument.formal": supported,
-  "argument.formal.iteration": supported,
   "argument.formal.constructor": supported,
   "argument.formal.constructor.iteration": supported,
   "argument.formal.method": supported,
   "argument.formal.method.iteration": supported,
+  "argument.formal.lambda": supported,
+  "argument.formal.lambda.iteration": supported,
+
+  "argumentList.formal.method": supported,
+  "argumentList.formal.constructor": supported,
+  "argumentList.formal.lambda": supported,
 
   "collectionItem.unenclosed": supported,
   "collectionItem.unenclosed.iteration": supported,
@@ -137,6 +141,11 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   fieldAccess: unsupported,
 
   // Not Applicable
+
+  "argument.formal": notApplicable,
+  "argument.formal.iteration": notApplicable,
+
+  "argumentList.formal": notApplicable,
 
   "name.assignment.pattern": notApplicable,
   "name.argument.actual": notApplicable,

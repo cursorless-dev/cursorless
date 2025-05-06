@@ -141,6 +141,7 @@ export type SurroundingPairName =
 
 export const simpleScopeTypeTypes = [
   "argumentOrParameter",
+  "argumentList",
   "anonymousFunction",
   "attribute",
   "branch",
