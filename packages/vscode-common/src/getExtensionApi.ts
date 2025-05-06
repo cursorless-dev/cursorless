@@ -1,6 +1,6 @@
 import type { CommandServerApi } from "@cursorless/common";
 import * as vscode from "vscode";
-import type { Language, Node, Tree } from "web-tree-sitter";
+import type { Node, Query, Tree } from "web-tree-sitter";
 import type { VscodeTestHelpers } from "./TestHelpers";
 
 export interface CursorlessApi {
@@ -11,7 +11,7 @@ export interface ParseTreeApi {
   getNodeAtLocation(location: vscode.Location): Node;
   getTreeForUri(uri: vscode.Uri): Tree;
   loadLanguage: (languageId: string) => Promise<boolean>;
-  getLanguage(languageId: string): Language | undefined;
+  createQuery(languageId: string, source: string): Query | undefined;
 }
 
 export async function getExtensionApi<T>(extensionId: string) {
