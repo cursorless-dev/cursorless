@@ -123,7 +123,7 @@ async function runTest(file: string, languageId: string, facetId: string) {
 
   const editor = ide.activeTextEditor!;
 
-  const outputFixture = ((): string => {
+  const [outputFixture, numScopes] = ((): [string, number] => {
     const config = {
       visibleOnly: false,
       scopeType,
@@ -137,17 +137,21 @@ async function runTest(file: string, languageId: string, facetId: string) {
           includeNestedTargets: false,
         },
       );
-      return serializeIterationScopeFixture(code, iterationScopes);
+      return [
+        serializeIterationScopeFixture(code, iterationScopes),
+        iterationScopes.length,
+      ];
     }
 
     const scopes = scopeProvider.provideScopeRanges(editor, config);
 
-    return serializeScopeFixture(facetId, code, scopes);
+    return [serializeScopeFixture(facetId, code, scopes), scopes.length];
   })();
 
   if (shouldUpdateFixtures()) {
     await fsp.writeFile(file, outputFixture);
   } else {
+    assert.isAbove(numScopes, 0, "No scopes found");
     assert.equal(outputFixture, fixture);
   }
 }

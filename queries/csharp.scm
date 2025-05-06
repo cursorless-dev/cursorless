@@ -54,7 +54,11 @@
   name: (identifier) @className
 ) @class @_.domain
 
-(compilation_unit) @class.iteration @className.iteration
+(
+  (compilation_unit) @class.iteration @className.iteration
+  (#document-range! @class.iteration @className.iteration)
+)
+
 ;; Treat interior of all bodies as iteration scopes for class and classname, eg
 ;;!! private static void foo() {   }
 ;;!                             ***

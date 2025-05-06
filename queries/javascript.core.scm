@@ -286,6 +286,13 @@
   (#insertion-delimiter! @collectionItem ", ")
 )
 
+(lexical_declaration
+  .
+  (_) @collectionItem.iteration.start.startOf
+  (_) @collectionItem.iteration.end.endOf
+  .
+) @collectionItem.iteration.domain
+
 (expression_statement
   [
     ;; name:
@@ -415,10 +422,10 @@
   right: (_) @value
 ) @_.domain
 
-[
-  (program)
-  (formal_parameters)
-] @name.iteration @value.iteration @type.iteration
+(
+  (program) @name.iteration @value.iteration @type.iteration
+  (#document-range! @name.iteration @value.iteration @type.iteration)
+)
 
 ;; Treat interior of all bodies as iteration scopes for `name`, eg
 ;;!! function foo() {   }
@@ -547,7 +554,7 @@
     (class
       name: (_) @className
     )
-  ] @class @_.domain
+  ] @class @type @_.domain
   (#not-parent-type? @class export_statement)
 )
 
@@ -562,7 +569,9 @@
       name: (_) @className
     )
   ]
-) @class @_.domain
+) @class @type @_.domain
+
+(program) @class.iteration @className.iteration
 
 ;;!! true ? 0 : 1;
 ;;!  ^^^^
@@ -678,6 +687,13 @@
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 (try_statement) @branch.iteration
 
+[
+  (for_statement)
+  (for_in_statement)
+  (while_statement)
+  (do_statement)
+] @branch
+
 ;;!! { value: 0 }
 ;;!    ^^^^^
 ;;!    xxxxxxx
@@ -727,7 +743,10 @@
   (#not-parent-type? @statement export_statement)
 )
 
-(program) @statement.iteration
+(
+  (program) @statement.iteration
+  (#document-range! @statement.iteration)
+)
 
 (statement_block
   "{" @statement.iteration.start.endOf
@@ -764,10 +783,16 @@
 
 (_
   (formal_parameters
-    "(" @argumentOrParameter.iteration.start.endOf
-    ")" @argumentOrParameter.iteration.end.startOf
-  )
-) @argumentOrParameter.iteration.domain
+    "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @_dummy
+  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+) @argumentList.domain @argumentOrParameter.iteration.domain
+
+(formal_parameters
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+)
 
 (arguments
   "(" @argumentOrParameter.iteration.start.endOf

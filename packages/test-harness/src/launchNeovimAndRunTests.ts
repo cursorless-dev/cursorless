@@ -1,5 +1,5 @@
 import { getEnvironmentVariableStrict } from "@cursorless/common";
-import { getCursorlessRepoRoot } from "@cursorless/node-common";
+import { getCursorlessRepoRoot, isWindows } from "@cursorless/node-common";
 import * as cp from "child_process";
 import { copyFile, mkdirSync, readdirSync } from "fs";
 import process from "node:process";
@@ -55,7 +55,7 @@ export async function launchNeovimAndRunTests() {
     // testing normal nvim startup
     //https://stackoverflow.com/questions/3025615/is-there-a-vim-runtime-log
     // if (process.platform === "darwin" || process.platform === "win32") {
-    if (process.platform === "win32") {
+    if (isWindows()) {
       // const { status, signal, error } = cp.spawnSync(cli, [`-V9`], {
       const { status, signal, error } = cp.spawnSync(cli, [`-V25`], {
         encoding: "utf-8",

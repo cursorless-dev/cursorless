@@ -96,8 +96,14 @@
 ) @argumentOrParameter.iteration.domain
 
 ;; Entire file
-(stylesheet) @name.iteration @collectionKey.iteration @value.iteration
-(stylesheet) @statement.iteration
+(
+  (stylesheet) @name.iteration @collectionKey.iteration @value.iteration
+  (#document-range! @name.iteration @collectionKey.iteration @value.iteration)
+)
+(
+  (stylesheet) @statement.iteration
+  (#document-range! @statement.iteration)
+)
 
 ;; { }
 (block

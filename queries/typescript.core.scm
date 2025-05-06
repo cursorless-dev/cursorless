@@ -335,7 +335,7 @@
 (
   (abstract_class_declaration
     name: (_) @className
-  ) @class @_.domain
+  ) @class @type @_.domain
   (#not-parent-type? @class export_statement)
 )
 
@@ -345,7 +345,7 @@
   (abstract_class_declaration
     name: (_) @className
   )
-) @class @_.domain
+) @class @type @_.domain
 
 ;;!! class MyClass {}
 ;;!        ^^^^^^^
@@ -404,4 +404,34 @@
 ;; () => number
 (function_type
   "=>" @disqualifyDelimiter
+)
+
+;;!! class Aaa { }
+;;!             ^
+(class_body
+  .
+  "{" @type.iteration.start.endOf
+  "}" @type.iteration.end.startOf
+  .
+)
+
+;;!! Map<string, number>
+;;!      ^^^^^^  ^^^^^^
+(
+  (type_arguments
+    (_) @type
+  ) @_dummy
+  (#not-parent-type? @_dummy type_assertion)
+)
+
+;;!! Map<string, number>
+;;!      ^^^^^^^^^^^^^^
+(
+  (type_arguments
+    .
+    "<" @type.iteration.start.endOf
+    ">" @type.iteration.end.startOf
+    .
+  ) @_dummy
+  (#not-parent-type? @_dummy type_assertion)
 )

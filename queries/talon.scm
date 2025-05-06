@@ -27,11 +27,7 @@
   (parrot_declaration)
 ] @statement
 
-[
-  (matches)
-  (declarations)
-  (block)
-] @statement.iteration
+(block) @statement.iteration
 
 ;;!! not mode: command
 ;;!  ----^^^^---------
@@ -127,9 +123,10 @@
   (#insertion-delimiter! @command "\n")
 )
 
-(source_file
-  (declarations) @command.iteration
-) @command.iteration.domain
+(
+  (source_file) @command.iteration @statement.iteration
+  (#document-range! @command.iteration @statement.iteration)
+)
 
 ;;!! key(enter)
 ;;!  ^^^^^^^^^^
@@ -192,4 +189,10 @@ arguments: (implicit_string) @argumentOrParameter.iteration
 
 ;;!! # foo
 ;;!  ^^^^^
-(comment) @comment
+(comment) @comment @textFragment
+
+;;!! "foo"
+;;!  ^^^^^
+(string
+  (string_content) @textFragment
+) @string

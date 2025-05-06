@@ -139,6 +139,19 @@ To uninstall the local build and revert to production cursorless, run the follow
 pnpm -F cursorless-vscode uninstall-local
 ```
 
+## Regular manual maintenance tasks
+
+### Updating the cheatsheet
+
+We need to keep the default cheatsheet up-to-date for use with local development and for https://www.cursorless.org/cheatsheet.
+
+1. Switch to vanilla community + cursorless_talon
+2. `"debug extension"`
+3. `"cursorless update cheatsheet"`
+4. See diff and cleanup if necessary. In particular, if you have shapes enabled, you'll need to remove these from the generated cheatsheet as they're not on by default
+
+This should be done every time we do something that will change the custom cheatsheet, but in practice we don't, so it rots a bit and needs to be redone regularly.
+
 ## Changing SVGs
 
 ### SVG preprocessing script

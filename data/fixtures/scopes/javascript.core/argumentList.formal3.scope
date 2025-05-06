@@ -1,0 +1,13 @@
+function myFunk() { }
+---
+
+[Content] =
+[Removal] = 0:16-0:16
+                  ><
+0| function myFunk() { }
+
+[Domain] = 0:0-0:21
+  >---------------------<
+0| function myFunk() { }
+
+[Insertion delimiter] = ""

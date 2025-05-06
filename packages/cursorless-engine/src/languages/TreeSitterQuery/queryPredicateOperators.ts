@@ -233,6 +233,22 @@ class TrimEnd extends QueryPredicateOperator<TrimEnd> {
 }
 
 /**
+ * A predicate operator that sets the range to the full document.
+ */
+class DocumentRange extends QueryPredicateOperator<DocumentRange> {
+  name = "document-range!" as const;
+  schema = z.tuple([q.node]).rest(q.node);
+
+  run(...nodeInfos: MutableQueryCapture[]) {
+    for (const nodeInfo of nodeInfos) {
+      nodeInfo.range = nodeInfo.document.range;
+    }
+
+    return true;
+  }
+}
+
+/**
  * Indicates that it is ok for multiple captures to have the same domain but
  * different targets.  For example, if we have the query `(#allow-multiple!
  * @foo)`, then if we define the query so that `@foo` appears multiple times
@@ -318,10 +334,47 @@ class SingleOrMultilineDelimiter extends QueryPredicateOperator<SingleOrMultilin
   }
 }
 
+/**
+ * A predicate operator that sets the insertion delimiter of {@link nodeInfo}
+ * depending on the content of {@link conditionNodeInfo}. It sets the insertion
+ * delimiter to {@link insertionDelimiterEmpty} if {@link conditionNodeInfo} is empty,
+ * {@link insertionDelimiterSingleLine} if it is a single line, and
+ * {@link insertionDelimiterMultiline} if it is multiline. For example,
+ *
+ * ```scm
+ * (#empty-single-multi-delimiter! @argumentList @_dummy "" ", " ",\n")
+ * ```
+ */
+class EmptySingleMultiDelimiter extends QueryPredicateOperator<EmptySingleMultiDelimiter> {
+  name = "empty-single-multi-delimiter!" as const;
+  schema = z.tuple([q.node, q.node, q.string, q.string, q.string]);
+
+  run(
+    nodeInfo: MutableQueryCapture,
+    conditionNodeInfo: MutableQueryCapture,
+    insertionDelimiterEmpty: string,
+    insertionDelimiterSingleLine: string,
+    insertionDelimiterMultiline: string,
+  ) {
+    const isEmpty = !conditionNodeInfo.node.children.some(
+      (child) => child.isNamed,
+    );
+
+    nodeInfo.insertionDelimiter = isEmpty
+      ? insertionDelimiterEmpty
+      : conditionNodeInfo.range.isSingleLine
+        ? insertionDelimiterSingleLine
+        : insertionDelimiterMultiline;
+
+    return true;
+  }
+}
+
 export const queryPredicateOperators = [
   new Log(),
   new NotType(),
   new TrimEnd(),
+  new DocumentRange(),
   new NotParentType(),
   new IsNthChild(),
   new ChildRange(),
@@ -331,5 +384,6 @@ export const queryPredicateOperators = [
   new AllowMultiple(),
   new InsertionDelimiter(),
   new SingleOrMultilineDelimiter(),
+  new EmptySingleMultiDelimiter(),
   new HasMultipleChildrenOfType(),
 ];

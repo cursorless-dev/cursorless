@@ -311,8 +311,15 @@
   )
 ) @class @className.domain @interior.domain
 
-(module) @className.iteration @class.iteration
-(module) @statement.iteration
+(
+  (module) @class.iteration @className.iteration
+  (#document-range! @class.iteration @className.iteration)
+)
+
+(
+  (module) @statement.iteration
+  (#document-range! @statement.iteration)
+)
 
 ;; This is a hack to handle the case where the entire document is a `with` statement
 (
@@ -320,9 +327,13 @@
     (_) @_statement
   ) @value.iteration @name.iteration
   (#not-type? @_statement "with_statement")
+  (#document-range! @value.iteration @name.iteration)
 )
 
-(module) @namedFunction.iteration @functionName.iteration
+(
+  (module) @namedFunction.iteration @functionName.iteration
+  (#document-range! @namedFunction.iteration @functionName.iteration)
+)
 
 (class_definition
   body: (_) @namedFunction.iteration @functionName.iteration
@@ -605,8 +616,8 @@
 
 ;;!! def foo(name) {}
 ;;!          ^^^^
-(
-  (parameters
+(_
+  parameters: (_
     (_)? @_.leading.endOf
     .
     (_) @argumentOrParameter
@@ -644,12 +655,31 @@
   )
 )
 
+;;!! lambda a, b: pass
+;;!         ^^^^
+(lambda
+  (lambda_parameters) @argumentList @argumentOrParameter.iteration
+  (#insertion-delimiter! @argumentList ", ")
+) @argumentList.domain @argumentOrParameter.iteration.domain
+
+;;!! lambda: pass
+(lambda
+  .
+  "lambda" @argumentList.start.endOf
+  .
+  ":"
+  (#insertion-delimiter! @argumentList.start.endOf " ")
+) @argumentList.domain
+
+;;!! def (a, b): pass
+;;!       ^^^^
 (_
   (parameters
-    "(" @argumentOrParameter.iteration.start.endOf
-    ")" @argumentOrParameter.iteration.end.startOf
-  )
-) @argumentOrParameter.iteration.domain
+    "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @_dummy
+  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
 (argument_list
   "(" @argumentOrParameter.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf

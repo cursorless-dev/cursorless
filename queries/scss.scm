@@ -91,7 +91,11 @@
   (#not-eq? @_.domain "")
 )
 
-(stylesheet) @namedFunction.iteration @functionName.iteration
+(
+  (stylesheet) @namedFunction.iteration @functionName.iteration
+  (#document-range! @namedFunction.iteration @functionName.iteration)
+)
+
 (block
   .
   "{" @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf

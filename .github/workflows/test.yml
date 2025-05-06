@@ -63,7 +63,7 @@ jobs:
         run: xvfb-run -a pnpm --color test
         if: runner.os == 'Linux'
 
-      - name: Run tests (Other)
+      - name: Run tests (Win,Mac)
         run: pnpm --color test
         if: runner.os != 'Linux'
 
@@ -71,7 +71,7 @@ jobs:
         run: xvfb-run -a pnpm -F @cursorless/test-harness test:talonJs
         if: runner.os == 'Linux' && matrix.app_version == 'stable'
 
-      - name: Run Talon-JS tests (Other)
+      - name: Run Talon-JS tests (Win,Mac)
         run: pnpm -F @cursorless/test-harness test:talonJs
         if: runner.os != 'Linux' && matrix.app_version == 'stable'
 
@@ -79,7 +79,7 @@ jobs:
         run: xvfb-run -a pnpm -F @cursorless/cursorless-everywhere-talon-e2e test:quickjs
         if: runner.os == 'Linux' && matrix.app_version == 'stable'
 
-      - name: Run Cursorless-everywhere-talon tests (Other)
+      - name: Run Cursorless-everywhere-talon tests (Win,Mac)
         run: pnpm -F @cursorless/cursorless-everywhere-talon-e2e test:quickjs
         if: runner.os != 'Linux' && matrix.app_version == 'stable'
 
@@ -120,11 +120,11 @@ jobs:
           packagePath: packages/cursorless-vscode/dist
           dryRun: true
 
-      - name: Rename vsix
+      - name: Rename vsix (Linux)
         run: mv ${{ steps.createVsix.outputs.vsixPath }} cursorless-development.vsix
         if: runner.os == 'Linux' && matrix.app_version == 'stable'
 
-      - name: Upload vsix
+      - name: Upload vsix (Linux)
         uses: actions/upload-artifact@v4
         if: runner.os == 'Linux' && matrix.app_version == 'stable'
         with:
