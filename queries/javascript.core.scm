@@ -427,8 +427,6 @@
   (#document-range! @name.iteration @value.iteration @type.iteration)
 )
 
-(formal_parameters) @name.iteration @value.iteration @type.iteration
-
 ;; Treat interior of all bodies as iteration scopes for `name`, eg
 ;;!! function foo() {   }
 ;;!                  ***
