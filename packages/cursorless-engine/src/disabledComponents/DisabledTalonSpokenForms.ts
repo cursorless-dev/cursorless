@@ -6,6 +6,7 @@ import {
 
 export class DisabledTalonSpokenForms implements TalonSpokenForms {
   getSpokenFormEntries(): Promise<SpokenFormEntry[]> {
+    console.log("getSpokenFormEntries() throw DisabledCustomSpokenFormsError");
     throw new DisabledCustomSpokenFormsError();
   }
 

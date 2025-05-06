@@ -58,9 +58,10 @@ export class CustomSpokenForms {
   }
 
   constructor(private talonSpokenForms: TalonSpokenForms) {
-    this.disposable = talonSpokenForms.onDidChange(() =>
-      this.updateSpokenFormMaps().catch(() => {}),
-    );
+    this.disposable = talonSpokenForms.onDidChange(() => {
+      console.log("CustomSpokenForms.onDidChange");
+      this.updateSpokenFormMaps().catch(() => {});
+    });
 
     this.customSpokenFormsInitialized = this.updateSpokenFormMaps();
     this.customSpokenFormsInitialized.catch(() => {});
@@ -74,6 +75,7 @@ export class CustomSpokenForms {
   onDidChangeCustomSpokenForms = this.notifier.registerListener;
 
   private async updateSpokenFormMaps(): Promise<void> {
+    console.log("updateSpokenFormMaps()");
     let allCustomEntries: SpokenFormEntry[];
     try {
       allCustomEntries = await this.talonSpokenForms.getSpokenFormEntries();
