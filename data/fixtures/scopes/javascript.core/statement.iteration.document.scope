@@ -1,25 +1,18 @@
-// Start
 
-function foo() {
+function foo() { }
 
-}
 ---
 
 [#1 Range] =
-[#1 Domain] = 0:0-4:1
-  >--------
-0| // Start
-1|
-2| function foo() {
-3|
-4| }
-   -<
+[#1 Domain] = 0:0-2:0
+  >
+0|
+1| function foo() { }
+2|
+   <
 
 
 [#2 Range] =
-[#2 Domain] = 2:16-4:0
-                  >
-2| function foo() {
-3|
-4| }
-   <
+[#2 Domain] = 1:16-1:17
+                  >-<
+1| function foo() { }

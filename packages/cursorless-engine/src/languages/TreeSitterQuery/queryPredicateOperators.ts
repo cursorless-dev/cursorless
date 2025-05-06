@@ -233,6 +233,22 @@ class TrimEnd extends QueryPredicateOperator<TrimEnd> {
 }
 
 /**
+ * A predicate operator that sets the range to the full document.
+ */
+class DocumentRange extends QueryPredicateOperator<DocumentRange> {
+  name = "document-range!" as const;
+  schema = z.tuple([q.node]).rest(q.node);
+
+  run(...nodeInfos: MutableQueryCapture[]) {
+    for (const nodeInfo of nodeInfos) {
+      nodeInfo.range = nodeInfo.document.range;
+    }
+
+    return true;
+  }
+}
+
+/**
  * Indicates that it is ok for multiple captures to have the same domain but
  * different targets.  For example, if we have the query `(#allow-multiple!
  * @foo)`, then if we define the query so that `@foo` appears multiple times
@@ -358,6 +374,7 @@ export const queryPredicateOperators = [
   new Log(),
   new NotType(),
   new TrimEnd(),
+  new DocumentRange(),
   new NotParentType(),
   new IsNthChild(),
   new ChildRange(),

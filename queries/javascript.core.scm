@@ -422,7 +422,10 @@
   right: (_) @value
 ) @_.domain
 
-(program) @name.iteration @value.iteration @type.iteration
+(
+  (program) @name.iteration @value.iteration @type.iteration
+  (#document-range! @name.iteration @value.iteration @type.iteration)
+)
 
 ;; Treat interior of all bodies as iteration scopes for `name`, eg
 ;;!! function foo() {   }
@@ -740,7 +743,10 @@
   (#not-parent-type? @statement export_statement)
 )
 
-(program) @statement.iteration
+(
+  (program) @statement.iteration
+  (#document-range! @statement.iteration)
+)
 
 (statement_block
   "{" @statement.iteration.start.endOf
