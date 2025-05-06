@@ -37,11 +37,15 @@ export class CustomSpokenFormGeneratorImpl
     );
     this.disposable = this.customSpokenForms.onDidChangeCustomSpokenForms(
       () => {
+        console.log(
+          "CustomSpokenFormGeneratorImpl.onDidChangeCustomSpokenForms",
+        );
         this.spokenFormGenerator = new SpokenFormGenerator(
           this.customSpokenForms.spokenFormMap,
         );
       },
     );
+    console.log("CustomSpokenFormGeneratorImpl constructor done");
   }
 
   onDidChangeCustomSpokenForms(listener: Listener<[]>) {

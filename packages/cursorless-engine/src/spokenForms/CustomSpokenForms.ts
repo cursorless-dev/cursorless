@@ -58,6 +58,8 @@ export class CustomSpokenForms {
   }
 
   constructor(private talonSpokenForms: TalonSpokenForms) {
+    console.log("CustomSpokenForms constructor");
+
     this.disposable = talonSpokenForms.onDidChange(() => {
       console.log("CustomSpokenForms.onDidChange");
       this.updateSpokenFormMaps().catch(() => {
@@ -65,13 +67,13 @@ export class CustomSpokenForms {
       });
     });
 
-    console.log("CustomSpokenForms constructor");
-
     this.customSpokenFormsInitialized = this.updateSpokenFormMaps().catch(
       () => {
         console.log("CustomSpokenForms.updateSpokenFormMaps() catch");
       },
     );
+
+    console.log("CustomSpokenForms constructor done");
   }
 
   /**
