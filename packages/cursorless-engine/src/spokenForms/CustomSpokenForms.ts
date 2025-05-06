@@ -67,11 +67,17 @@ export class CustomSpokenForms {
       });
     });
 
-    this.customSpokenFormsInitialized = this.updateSpokenFormMaps().catch(
-      () => {
-        console.log("CustomSpokenForms.updateSpokenFormMaps() catch");
-      },
-    );
+    try {
+      this.customSpokenFormsInitialized = this.updateSpokenFormMaps().catch(
+        () => {
+          console.log("CustomSpokenForms.updateSpokenFormMaps() catch");
+        },
+      );
+    } catch (error) {
+      console.log("CustomSpokenForms constructor catch");
+      console.log(error);
+      throw error;
+    }
 
     console.log("CustomSpokenForms constructor done");
   }
