@@ -58,15 +58,11 @@ export class CustomSpokenForms {
   }
 
   constructor(private talonSpokenForms: TalonSpokenForms) {
-    console.log("CustomSpokenForms constructor");
-
     this.disposable = talonSpokenForms.onDidChange(() =>
       this.updateSpokenFormMaps(),
     );
 
     this.customSpokenFormsInitialized = this.updateSpokenFormMaps();
-
-    console.log("CustomSpokenForms constructor done");
   }
 
   /**
@@ -77,7 +73,6 @@ export class CustomSpokenForms {
   onDidChangeCustomSpokenForms = this.notifier.registerListener;
 
   private async updateSpokenFormMaps(): Promise<void> {
-    console.log("updateSpokenFormMaps()");
     let allCustomEntries: SpokenFormEntry[];
     try {
       allCustomEntries = await this.talonSpokenForms.getSpokenFormEntries();
@@ -89,7 +84,6 @@ export class CustomSpokenForms {
         // Handle case where spokenForms.json doesn't exist yet
         this.needsInitialTalonUpdate_ = true;
       } else if (err instanceof DisabledCustomSpokenFormsError) {
-        console.log("catch DisabledCustomSpokenFormsError");
         // Do nothing: this ide doesn't currently support custom spoken forms
       } else {
         console.error("Error loading custom spoken forms", err);
@@ -103,8 +97,6 @@ export class CustomSpokenForms {
 
       this.spokenFormMap_ = { ...defaultSpokenFormMap };
       this.notifier.notifyListeners();
-
-      console.log("return early");
 
       return;
     }

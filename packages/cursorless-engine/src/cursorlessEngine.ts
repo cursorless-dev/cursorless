@@ -62,7 +62,6 @@ export async function createCursorlessEngine({
   talonSpokenForms = new DisabledTalonSpokenForms(),
   snippets = new DisabledSnippets(),
 }: EngineProps): Promise<CursorlessEngine> {
-  console.log("createCursorlessEngine");
   injectIde(ide);
 
   const debug = new Debug(ide);
