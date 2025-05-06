@@ -6,13 +6,17 @@ import talonMock from "./talonMock";
 let hasFailed = false;
 
 async function runTests() {
-  await activate(talonMock, "test");
+  try {
+    await activate(talonMock, "test");
 
-  console.log();
-  console.log("Running quickjs tests");
+    console.log();
+    console.log("Running quickjs tests");
 
-  await test("testTake", testTake);
-  await test("testChuck", testChuck);
+    await test("testTake", testTake);
+    await test("testChuck", testChuck);
+  } catch (_error) {
+    hasFailed = true;
+  }
 
   std.exit(hasFailed ? 1 : 0);
 }
