@@ -59,11 +59,10 @@ export class CustomSpokenForms {
 
   constructor(private talonSpokenForms: TalonSpokenForms) {
     this.disposable = talonSpokenForms.onDidChange(() =>
-      this.updateSpokenFormMaps().catch(() => {}),
+      this.updateSpokenFormMaps(),
     );
 
     this.customSpokenFormsInitialized = this.updateSpokenFormMaps();
-    this.customSpokenFormsInitialized.catch(() => {});
   }
 
   /**
@@ -99,7 +98,7 @@ export class CustomSpokenForms {
       this.spokenFormMap_ = { ...defaultSpokenFormMap };
       this.notifier.notifyListeners();
 
-      throw err;
+      return;
     }
 
     for (const entryType of SUPPORTED_ENTRY_TYPES) {
