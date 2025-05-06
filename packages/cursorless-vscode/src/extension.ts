@@ -265,7 +265,7 @@ function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {
     },
 
     loadLanguage: parseTreeApi.loadLanguage,
-    getLanguage: parseTreeApi.getLanguage,
+    createQuery: parseTreeApi.createQuery,
   };
 }
 

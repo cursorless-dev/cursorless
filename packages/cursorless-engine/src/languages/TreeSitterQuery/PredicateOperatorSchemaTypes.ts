@@ -32,7 +32,7 @@ export type InferSchemaType<T extends HasSchema> = T["schema"];
  * Maps from an operand schema output type to the type of the argument that
  * will be passed to the `accept` function of the predicate operator.  For example:
  *
- * - `{type: "capture", name: string}` -> `SyntaxNode`
+ * - `{type: "capture", name: string}` -> `Node`
  * - `{type: "integer", value: number}` -> `number`
  */
 type PredicateParameterType<T extends SchemaOutputType> = T extends {

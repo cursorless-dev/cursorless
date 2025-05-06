@@ -59,9 +59,14 @@ export class LanguageDefinition {
       return undefined;
     }
 
-    const rawQuery = treeSitter
-      .getLanguage(languageId)!
-      .query(rawLanguageQueryString);
+    const rawQuery = treeSitter.createQuery(languageId, rawLanguageQueryString);
+
+    if (rawQuery == null) {
+      throw Error(
+        `Could not create Tree sitter query for language ${languageId}`,
+      );
+    }
+
     const query = TreeSitterQuery.create(languageId, treeSitter, rawQuery);
 
     return new LanguageDefinition(query);

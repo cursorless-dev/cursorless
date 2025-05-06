@@ -1,6 +1,6 @@
 import type { TextEditor } from "@cursorless/common";
 import { Selection } from "@cursorless/common";
-import type { SyntaxNode } from "web-tree-sitter";
+import type { Node } from "web-tree-sitter";
 import type {
   SelectionExtractor,
   SelectionWithContext,
@@ -29,7 +29,7 @@ export function elseIfExtractor(): SelectionExtractor {
     includeUnnamedChildren: true,
   });
 
-  return function (editor: TextEditor, node: SyntaxNode): SelectionWithContext {
+  return function (editor: TextEditor, node: Node): SelectionWithContext {
     const contentRange = contentRangeExtractor(editor, node);
 
     const parent = node.parent;
@@ -84,7 +84,7 @@ export function elseIfExtractor(): SelectionExtractor {
 export function elseExtractor(ifNodeType: string): SelectionExtractor {
   const nestedElseIfExtractor = elseIfExtractor();
 
-  return function (editor: TextEditor, node: SyntaxNode): SelectionWithContext {
+  return function (editor: TextEditor, node: Node): SelectionWithContext {
     // If we are an `else if` statement, then we just run `elseIfExtractor` on
     // our nested `if` node.  Otherwise we are a simple `else` branch and don't
     // need to do anything fancy.

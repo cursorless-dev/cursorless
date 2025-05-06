@@ -1,7 +1,7 @@
 import type { TextEditor } from "@cursorless/common";
 import { Position, Range, Selection } from "@cursorless/common";
 import { identity, maxBy } from "lodash-es";
-import type { Point, SyntaxNode } from "web-tree-sitter";
+import type { Point, Node } from "web-tree-sitter";
 import type {
   NodeFinder,
   SelectionExtractor,
@@ -24,7 +24,7 @@ export function positionFromPoint(point: Point): Position {
   return new Position(point.row, point.column);
 }
 
-export function getNodeRange(node: SyntaxNode) {
+export function getNodeRange(node: Node) {
   return new Range(
     node.startPosition.row,
     node.startPosition.column,
@@ -33,7 +33,7 @@ export function getNodeRange(node: SyntaxNode) {
   );
 }
 
-export function makeNodePairSelection(anchor: SyntaxNode, active: SyntaxNode) {
+export function makeNodePairSelection(anchor: Node, active: Node) {
   return new Selection(
     anchor.startPosition.row,
     anchor.startPosition.column,
@@ -47,7 +47,7 @@ export function makeNodePairSelection(anchor: SyntaxNode, active: SyntaxNode) {
  * @param node The note for which to get the internal range
  * @returns The internal range of the given node
  */
-export function getNodeInternalRange(node: SyntaxNode) {
+export function getNodeInternalRange(node: Node) {
   const children = node.children;
 
   return makeRangeFromPositions(
@@ -58,7 +58,7 @@ export function getNodeInternalRange(node: SyntaxNode) {
 
 export function simpleSelectionExtractor(
   editor: TextEditor,
-  node: SyntaxNode,
+  node: Node,
 ): SelectionWithContext {
   return {
     selection: new Selection(
@@ -81,7 +81,7 @@ export function simpleSelectionExtractor(
  */
 export function extendUntilNextMatchingSiblingOrLast(
   editor: TextEditor,
-  node: SyntaxNode,
+  node: Node,
   nodeFinder: NodeFinder,
 ) {
   const endNode = getNextMatchingSiblingNodeOrLast(node, nodeFinder);
@@ -89,11 +89,11 @@ export function extendUntilNextMatchingSiblingOrLast(
 }
 
 function getNextMatchingSiblingNodeOrLast(
-  node: SyntaxNode,
+  node: Node,
   nodeFinder: NodeFinder,
-): SyntaxNode {
-  let currentNode: SyntaxNode = node;
-  let nextNode: SyntaxNode | null = node.nextSibling;
+): Node {
+  let currentNode: Node = node;
+  let nextNode: Node | null = node.nextSibling;
 
   while (nextNode != null && nodeFinder(nextNode) == null) {
     currentNode = nextNode;
@@ -109,8 +109,8 @@ function getNextMatchingSiblingNodeOrLast(
  * @returns An extractor
  */
 export function extendForwardPastOptional(...delimiters: string[]) {
-  return function (editor: TextEditor, node: SyntaxNode): SelectionWithContext {
-    const nextNode: SyntaxNode | null = node.nextSibling;
+  return function (editor: TextEditor, node: Node): SelectionWithContext {
+    const nextNode: Node | null = node.nextSibling;
 
     if (nextNode != null && delimiters.includes(nextNode.type)) {
       return pairSelectionExtractor(editor, node, nextNode);
@@ -126,8 +126,8 @@ export function extendForwardPastOptional(...delimiters: string[]) {
  */
 export function pairSelectionExtractor(
   editor: TextEditor,
-  node1: SyntaxNode,
-  node2: SyntaxNode,
+  node1: Node,
+  node2: Node,
 ): SelectionWithContext {
   const isForward = node1.startIndex < node2.startIndex;
   const start = isForward ? node1 : node2;
@@ -159,7 +159,7 @@ export function argumentSelectionExtractor(): SelectionExtractor {
 
 export function unwrapSelectionExtractor(
   editor: TextEditor,
-  node: SyntaxNode,
+  node: Node,
 ): SelectionWithContext {
   let startIndex = node.startIndex;
   let endIndex = node.endIndex;
@@ -179,7 +179,7 @@ export function unwrapSelectionExtractor(
 }
 
 export function selectWithLeadingDelimiter(...delimiters: string[]) {
-  return function (editor: TextEditor, node: SyntaxNode): SelectionWithContext {
+  return function (editor: TextEditor, node: Node): SelectionWithContext {
     const firstSibling = node.previousSibling;
     const secondSibling = firstSibling?.previousSibling;
     let leadingDelimiterRange;
@@ -238,7 +238,7 @@ export function childRangeSelector(
   typesToInclude: string[] = [],
   { includeUnnamedChildren = false }: ChildRangeSelectorOptions = {},
 ) {
-  return function (editor: TextEditor, node: SyntaxNode): SelectionWithContext {
+  return function (editor: TextEditor, node: Node): SelectionWithContext {
     if (typesToExclude.length > 0 && typesToInclude.length > 0) {
       throw new Error("Cannot have both exclusions and inclusions.");
     }
@@ -262,7 +262,7 @@ export function childRangeSelector(
 }
 
 export function selectWithTrailingDelimiter(...delimiters: string[]) {
-  return function (editor: TextEditor, node: SyntaxNode): SelectionWithContext {
+  return function (editor: TextEditor, node: Node): SelectionWithContext {
     const firstSibling = node.nextSibling;
     const secondSibling = firstSibling?.nextSibling;
     let trailingDelimiterRange;
@@ -296,9 +296,9 @@ export function selectWithTrailingDelimiter(...delimiters: string[]) {
 }
 
 function getNextNonDelimiterNode(
-  startNode: SyntaxNode,
-  isDelimiterNode: (node: SyntaxNode) => boolean,
-): SyntaxNode | null {
+  startNode: Node,
+  isDelimiterNode: (node: Node) => boolean,
+): Node | null {
   let node = startNode.nextSibling;
 
   while (node != null) {
@@ -313,9 +313,9 @@ function getNextNonDelimiterNode(
 }
 
 function getPreviousNonDelimiterNode(
-  startNode: SyntaxNode,
-  isDelimiterNode: (node: SyntaxNode) => boolean,
-): SyntaxNode | null {
+  startNode: Node,
+  isDelimiterNode: (node: Node) => boolean,
+): Node | null {
   let node = startNode.previousSibling;
 
   while (node != null) {
@@ -347,12 +347,12 @@ export function delimitersSelector(...delimiters: string[]) {
  * @returns A selection extractor
  */
 export function delimitedSelector(
-  isDelimiterNode: (node: SyntaxNode) => boolean,
+  isDelimiterNode: (node: Node) => boolean,
   defaultDelimiter: string,
-  getStartNode: (node: SyntaxNode) => SyntaxNode = identity,
-  getEndNode: (node: SyntaxNode) => SyntaxNode = identity,
+  getStartNode: (node: Node) => Node = identity,
+  getEndNode: (node: Node) => Node = identity,
 ): SelectionExtractor {
-  return (editor: TextEditor, node: SyntaxNode) => {
+  return (editor: TextEditor, node: Node) => {
     let leadingDelimiterRange: Range | undefined;
     let trailingDelimiterRange: Range | undefined;
     const startNode = getStartNode(node);
@@ -407,7 +407,7 @@ export function delimitedSelector(
 
 export function xmlElementExtractor(
   editor: TextEditor,
-  node: SyntaxNode,
+  node: Node,
 ): SelectionWithContext {
   const selection = simpleSelectionExtractor(editor, node);
 

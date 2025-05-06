@@ -1,4 +1,4 @@
-import type { PredicateResult } from "web-tree-sitter";
+import type { QueryPredicate } from "web-tree-sitter";
 import type { MutableQueryMatch } from "./QueryCapture";
 import { queryPredicateOperators } from "./queryPredicateOperators";
 
@@ -14,7 +14,7 @@ import { queryPredicateOperators } from "./queryPredicateOperators";
  * function that takes a match and returns true if the match matches the
  * predicate.
  */
-export function parsePredicates(predicateDescriptors: PredicateResult[][]) {
+export function parsePredicates(predicateDescriptors: QueryPredicate[][]) {
   const errors: PredicateError[] = [];
   const predicates: ((match: MutableQueryMatch) => boolean)[][] = [];
 
