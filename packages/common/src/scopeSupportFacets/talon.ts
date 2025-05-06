@@ -4,31 +4,35 @@ import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const talonScopeSupport: LanguageScopeSupportFacetMap = {
-  command: supported,
-  "interior.command": supported,
-  "name.field": supported,
-  "value.field": supported,
+  "argument.actual.iteration": supported,
+  "argument.actual": supported,
+
   "comment.line": supported,
+
+  "interior.command": supported,
+
   "name.assignment": supported,
+  "name.field": supported,
   "name.variable": supported,
-  statement: supported,
+
   "statement.iteration.block": supported,
   "statement.iteration.document": supported,
-  "value.variable": supported,
+
   "value.assignment": supported,
-  "argument.actual": supported,
-  "argument.actual.iteration": supported,
+  "value.field": supported,
+  "value.variable": supported,
+
+  command: supported,
+  statement: supported,
+
+  "string.singleLine": supported,
+
+  "textFragment.comment.line": supported,
+  "textFragment.string.singleLine": supported,
 
   // Unsupported
 
   fieldAccess: unsupported,
-  "string.singleLine": unsupported,
-  "string.multiLine": unsupported,
-  "textFragment.comment.line": unsupported,
-  "textFragment.string.singleLine": unsupported,
-  "textFragment.string.multiLine": unsupported,
-  "value.argument.actual": unsupported,
-  "value.argument.actual.iteration": unsupported,
 
   // Not applicable
 
@@ -43,6 +47,12 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal.iteration": notApplicable,
   "argument.formal.method": notApplicable,
   "argument.formal.method.iteration": notApplicable,
+  "argument.formal.lambda": notApplicable,
+  "argument.formal.lambda.iteration": notApplicable,
+  "argumentList.formal": notApplicable,
+  "argumentList.formal.method": notApplicable,
+  "argumentList.formal.constructor": notApplicable,
+  "argumentList.formal.lambda": notApplicable,
   attribute: notApplicable,
   "branch.if": notApplicable,
   "branch.if.iteration": notApplicable,
@@ -154,6 +164,10 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "type.typeArgument": notApplicable,
   "type.typeArgument.iteration": notApplicable,
   "type.variable": notApplicable,
+  "type.resource": notApplicable,
+  "type.resource.iteration": notApplicable,
+  "value.argument.actual": notApplicable,
+  "value.argument.actual.iteration": notApplicable,
   "value.argument.formal": notApplicable,
   "value.argument.formal.constructor": notApplicable,
   "value.argument.formal.constructor.iteration": notApplicable,
@@ -171,4 +185,6 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "value.typeAlias": notApplicable,
   "value.variable.pattern": notApplicable,
   "value.yield": notApplicable,
+  "string.multiLine": notApplicable,
+  "textFragment.string.multiLine": notApplicable,
 };

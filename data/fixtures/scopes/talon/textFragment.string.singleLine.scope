@@ -1,0 +1,10 @@
+test: "foo"
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:7-0:10
+         >---<
+0| test: "foo"
+
+[Insertion delimiter] = " "

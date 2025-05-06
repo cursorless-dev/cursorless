@@ -40,6 +40,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
 
   simpleScopeTypeType: {
     argumentOrParameter: "arg",
+    argumentList: "arg list",
     attribute: "attribute",
     functionCall: "call",
     functionCallee: "callee",

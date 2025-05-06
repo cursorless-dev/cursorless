@@ -1,0 +1,15 @@
+public class MyClass {
+    public MyClass() {}
+}
+---
+
+[Content] =
+[Removal] = 1:19-1:19
+                     ><
+1|     public MyClass() {}
+
+[Domain] = 1:4-1:23
+      >-------------------<
+1|     public MyClass() {}
+
+[Insertion delimiter] = ""

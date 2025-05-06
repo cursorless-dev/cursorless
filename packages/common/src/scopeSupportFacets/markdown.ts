@@ -1,11 +1,11 @@
 import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
-const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
+const { supported, notApplicable } = ScopeSupportFacetLevel;
 
 export const markdownScopeSupport: LanguageScopeSupportFacetMap = {
-  "comment.line": supported,
   "comment.block": supported,
+  "textFragment.comment.block": supported,
 
   section: supported,
   "section.iteration.document": supported,
@@ -16,10 +16,6 @@ export const markdownScopeSupport: LanguageScopeSupportFacetMap = {
 
   "collectionItem.unenclosed": supported,
   list: supported,
-
-  // Unsupported
-  "textFragment.comment.line": unsupported,
-  "textFragment.comment.block": unsupported,
 
   // Not applicable
 
@@ -36,6 +32,12 @@ export const markdownScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal.iteration": notApplicable,
   "argument.formal.method": notApplicable,
   "argument.formal.method.iteration": notApplicable,
+  "argument.formal.lambda": notApplicable,
+  "argument.formal.lambda.iteration": notApplicable,
+  "argumentList.formal": notApplicable,
+  "argumentList.formal.method": notApplicable,
+  "argumentList.formal.constructor": notApplicable,
+  "argumentList.formal.lambda": notApplicable,
   attribute: notApplicable,
   "branch.if": notApplicable,
   "branch.if.iteration": notApplicable,
@@ -53,6 +55,7 @@ export const markdownScopeSupport: LanguageScopeSupportFacetMap = {
   "className.iteration.document": notApplicable,
   "collectionItem.unenclosed.iteration": notApplicable,
   command: notApplicable,
+  "comment.line": notApplicable,
   "condition.doWhile": notApplicable,
   "condition.for": notApplicable,
   "condition.if": notApplicable,
@@ -133,6 +136,7 @@ export const markdownScopeSupport: LanguageScopeSupportFacetMap = {
   "textFragment.element": notApplicable,
   "textFragment.string.multiLine": notApplicable,
   "textFragment.string.singleLine": notApplicable,
+  "textFragment.comment.line": notApplicable,
   "type.alias": notApplicable,
   "type.argument.formal": notApplicable,
   "type.argument.formal.constructor": notApplicable,
