@@ -3,20 +3,32 @@ class MyClass {
 }
 ---
 
-[Content] = 1:21-1:27
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-2:1
+  >---------------
+0| class MyClass {
+1|   constructor(value: number) { }
+2| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:21-1:27
                        >------<
 1|   constructor(value: number) { }
 
-[Removal] = 1:19-1:27
+[#2 Removal] = 1:19-1:27
                      >--------<
 1|   constructor(value: number) { }
 
-[Leading delimiter] = 1:19-1:21
+[#2 Leading delimiter] = 1:19-1:21
                      >--<
 1|   constructor(value: number) { }
 
-[Domain] = 1:14-1:27
+[#2 Domain] = 1:14-1:27
                 >-------------<
 1|   constructor(value: number) { }
 
-[Insertion delimiter] = " "
+[#2 Insertion delimiter] = " "

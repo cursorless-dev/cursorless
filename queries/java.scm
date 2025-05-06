@@ -495,6 +495,7 @@
   ">" @type.iteration.end.startOf
   .
 )
+
 ;;!! foo(name: string) {}
 ;;!      ^^^^^^^^^^^^
 (
