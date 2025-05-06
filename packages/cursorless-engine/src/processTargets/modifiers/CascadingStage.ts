@@ -1,7 +1,10 @@
 import type { CascadingModifier } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStageFactory } from "../ModifierStageFactory";
-import type { ModifierStage } from "../PipelineStages.types";
+import type {
+  ModifierStage,
+  ModifierStateOptions,
+} from "../PipelineStages.types";
 
 /**
  * Tries each of the given modifiers in turn until one of them doesn't throw an
@@ -25,10 +28,10 @@ export class CascadingStage implements ModifierStage {
     return this.nestedStages_;
   }
 
-  run(target: Target): Target[] {
+  run(target: Target, options: ModifierStateOptions): Target[] {
     for (const nestedStage of this.nestedStages) {
       try {
-        return nestedStage.run(target);
+        return nestedStage.run(target, options);
       } catch (_error) {
         continue;
       }

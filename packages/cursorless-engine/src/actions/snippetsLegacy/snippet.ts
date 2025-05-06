@@ -2,6 +2,8 @@ import type {
   SimpleScopeTypeType,
   SnippetDefinition,
 } from "@cursorless/common";
+import type { ModifierStageFactory } from "../../processTargets/ModifierStageFactory";
+import type { ModifierStateOptions } from "../../processTargets/PipelineStages.types";
 import {
   Placeholder,
   Text,
@@ -9,7 +11,6 @@ import {
   type TextmateSnippet,
 } from "../../snippets/vendor/vscodeSnippet/snippetParser";
 import { KnownSnippetVariableNames } from "../../snippets/vendor/vscodeSnippet/snippetVariables";
-import type { ModifierStageFactory } from "../../processTargets/ModifierStageFactory";
 import type { Target } from "../../typings/target.types";
 
 /**
@@ -138,6 +139,10 @@ function findMatchingSnippetDefinitionForSingleTarget(
 ): number {
   const languageId = target.editor.document.languageId;
 
+  const options: ModifierStateOptions = {
+    multipleTargets: false,
+  };
+
   // We want to find the first definition that matches the given context.
   // Note that we just use the first match we find because the definitions are
   // guaranteed to come sorted in precedence order.
@@ -165,7 +170,7 @@ function findMatchingSnippetDefinitionForSingleTarget(
               type: "containingScope",
               scopeType: { type: scopeTypeType },
             })
-            .run(target)[0];
+            .run(target, options)[0];
 
           if (target.contentRange.isRangeEqual(containingTarget.contentRange)) {
             // Skip this scope if the target is exactly the same as the
@@ -177,7 +182,7 @@ function findMatchingSnippetDefinitionForSingleTarget(
                 scopeType: { type: scopeTypeType },
                 ancestorIndex: 1,
               })
-              .run(target)[0];
+              .run(target, options)[0];
           }
 
           if (
