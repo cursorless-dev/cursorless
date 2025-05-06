@@ -5,6 +5,36 @@
       "id": "actions",
       "items": [
         {
+          "id": "addSelection",
+          "type": "action",
+          "variations": [
+            {
+              "spokenForm": "append <target>",
+              "description": "Add selection"
+            }
+          ]
+        },
+        {
+          "id": "addSelectionAfter",
+          "type": "action",
+          "variations": [
+            {
+              "spokenForm": "append post <target>",
+              "description": "Add selection after"
+            }
+          ]
+        },
+        {
+          "id": "addSelectionBefore",
+          "type": "action",
+          "variations": [
+            {
+              "spokenForm": "append pre <target>",
+              "description": "Add selection before"
+            }
+          ]
+        },
+        {
           "id": "applyFormatter",
           "type": "action",
           "variations": [
@@ -139,6 +169,16 @@
           ]
         },
         {
+          "id": "flashTargets",
+          "type": "action",
+          "variations": [
+            {
+              "spokenForm": "flash <target>",
+              "description": "Flash targets"
+            }
+          ]
+        },
+        {
           "id": "foldRegion",
           "type": "action",
           "variations": [
@@ -173,8 +213,48 @@
           "type": "action",
           "variations": [
             {
-              "spokenForm": "snippet make <target>",
+              "spokenForm": "snip make <target>",
               "description": "Generate snippet"
+            }
+          ]
+        },
+        {
+          "id": "gitAccept",
+          "type": "action",
+          "variations": [
+            {
+              "spokenForm": "git accept <target>",
+              "description": "Git accept"
+            }
+          ]
+        },
+        {
+          "id": "gitRevert",
+          "type": "action",
+          "variations": [
+            {
+              "spokenForm": "git revert <target>",
+              "description": "Git revert"
+            }
+          ]
+        },
+        {
+          "id": "gitStage",
+          "type": "action",
+          "variations": [
+            {
+              "spokenForm": "git stage <target>",
+              "description": "Git stage"
+            }
+          ]
+        },
+        {
+          "id": "gitUnstage",
+          "type": "action",
+          "variations": [
+            {
+              "spokenForm": "git unstage <target>",
+              "description": "Git unstage"
             }
           ]
         },
@@ -263,7 +343,7 @@
           "type": "action",
           "variations": [
             {
-              "spokenForm": "snippet <target>",
+              "spokenForm": "snip <target>",
               "description": "Insert snippet"
             }
           ]
@@ -907,12 +987,12 @@
               "description": "Previous instance of <scope>"
             },
             {
-              "spokenForm": "next <scope>",
-              "description": "Next instance of <scope>"
-            },
-            {
               "spokenForm": "<ordinal> previous <scope>",
               "description": "<ordinal> instance of <scope> before target"
+            },
+            {
+              "spokenForm": "next <scope>",
+              "description": "Next instance of <scope>"
             },
             {
               "spokenForm": "<ordinal> next <scope>",
@@ -1127,6 +1207,16 @@
           ]
         },
         {
+          "id": "string",
+          "type": "pairedDelimiter",
+          "variations": [
+            {
+              "spokenForm": "string",
+              "description": "String"
+            }
+          ]
+        },
+        {
           "id": "whitespace",
           "type": "pairedDelimiter",
           "variations": [
@@ -1232,7 +1322,17 @@
           "variations": [
             {
               "spokenForm": "short paint",
-              "description": "Non whitespace sequence stopped by surrounding pair delimeters"
+              "description": "Non-whitespace sequence bounded by surrounding pair delimeters"
+            }
+          ]
+        },
+        {
+          "id": "boundedParagraph",
+          "type": "scopeType",
+          "variations": [
+            {
+              "spokenForm": "short block",
+              "description": "Paragraph bounded by surrounding pair delimeters"
             }
           ]
         },
@@ -1503,6 +1603,16 @@
             {
               "spokenForm": "cell",
               "description": "Notebook cell"
+            }
+          ]
+        },
+        {
+          "id": "pair",
+          "type": "scopeType",
+          "variations": [
+            {
+              "spokenForm": "<pair>",
+              "description": "Paired delimiters"
             }
           ]
         },
