@@ -60,24 +60,11 @@ export class CustomSpokenForms {
   constructor(private talonSpokenForms: TalonSpokenForms) {
     console.log("CustomSpokenForms constructor");
 
-    this.disposable = talonSpokenForms.onDidChange(() => {
-      console.log("CustomSpokenForms.onDidChange");
-      this.updateSpokenFormMaps().catch(() => {
-        console.log("CustomSpokenForms.onDidChange() catch");
-      });
-    });
+    this.disposable = talonSpokenForms.onDidChange(() =>
+      this.updateSpokenFormMaps(),
+    );
 
-    try {
-      this.customSpokenFormsInitialized = this.updateSpokenFormMaps().catch(
-        () => {
-          console.log("CustomSpokenForms.updateSpokenFormMaps() catch");
-        },
-      );
-    } catch (error) {
-      console.log("CustomSpokenForms constructor catch");
-      console.log(error);
-      throw error;
-    }
+    this.customSpokenFormsInitialized = this.updateSpokenFormMaps();
 
     console.log("CustomSpokenForms constructor done");
   }
@@ -117,9 +104,9 @@ export class CustomSpokenForms {
       this.spokenFormMap_ = { ...defaultSpokenFormMap };
       this.notifier.notifyListeners();
 
-      console.log("rethrowing err");
+      console.log("return early");
 
-      throw err;
+      return;
     }
 
     for (const entryType of SUPPORTED_ENTRY_TYPES) {
