@@ -11,7 +11,6 @@ import {
   type IDE,
   type TextDocument,
 } from "@cursorless/common";
-import { Query } from "web-tree-sitter";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
 import { TreeSitterQuery } from "./TreeSitterQuery";
 import type { QueryCapture } from "./TreeSitterQuery/QueryCapture";

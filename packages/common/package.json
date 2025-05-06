@@ -26,8 +26,7 @@
     "cross-spawn": "7.0.5",
     "fast-check": "3.22.0",
     "js-yaml": "^4.1.0",
-    "mocha": "^10.7.3",
-    "web-tree-sitter": "^0.25.3"
+    "mocha": "^10.7.3"
   },
   "types": "./out/index.d.ts",
   "exports": {
