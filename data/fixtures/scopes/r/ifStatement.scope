@@ -1,0 +1,63 @@
+if(FALSE) 0
+
+if(TRUE){ 1 }
+
+if(TRUE){
+    1
+} else {
+    0
+}
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:11
+  >-----------<
+0| if(FALSE) 0
+
+[#1 Removal] = 0:0-2:0
+  >-----------
+0| if(FALSE) 0
+1|
+2| if(TRUE){ 1 }
+   <
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 2:0-2:13
+  >-------------<
+2| if(TRUE){ 1 }
+
+[#2 Removal] = 2:0-4:0
+  >-------------
+2| if(TRUE){ 1 }
+3|
+4| if(TRUE){
+   <
+
+[#2 Insertion delimiter] = "\n"
+
+
+[#3 Content] =
+[#3 Domain] = 4:0-8:1
+  >---------
+4| if(TRUE){
+5|     1
+6| } else {
+7|     0
+8| }
+   -<
+
+[#3 Removal] = 2:13-8:1
+               >
+2| if(TRUE){ 1 }
+3|
+4| if(TRUE){
+5|     1
+6| } else {
+7|     0
+8| }
+   -<
+
+[#3 Insertion delimiter] = "\n"
