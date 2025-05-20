@@ -1,7 +1,7 @@
 :root {
   --shiki-foreground: #eeeeee;
   --shiki-color-text: #eeeeee;
-  --shiki-background: #1f1f1f;
+  --shiki-background: #111827; /* Tailwind's gray-900 */
   --shiki-token-constant: #ff6666;
   --shiki-token-string: #c2ff6d;
   --shiki-token-comment: #15bc28;
