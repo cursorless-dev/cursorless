@@ -159,7 +159,7 @@ class HTMLGenerator {
       const errorRendered = `<pre><code>Omitted due to errors: ${error}</pre></code>`
       htmlArray.push(errorRendered)
     }
-    return htmlArray.join("")
+    return { html: htmlArray.join(""), data: [] }
   }
 
   async generateAll() {

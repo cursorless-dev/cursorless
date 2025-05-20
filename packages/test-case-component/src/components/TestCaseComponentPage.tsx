@@ -7,15 +7,17 @@ import type { TestCaseFixture } from "@cursorless/common";
 export type TestCaseComponentProps = TestCaseFixture & {
   filename: string;
   raw: TestCaseFixture;
-  before: string;
-  during: string;
-  after: string;
+  before: { html: string; data: string[] };
+  during: { html: string; data: string[] };
+  after: { html: string; data: string[] };
 };
 
 export function TestCaseComponentPage({
   data,
+  debug,
 }: {
   data: TestCaseComponentProps[];
+  debug?: boolean;
 }) {
   return (
     <main className="dark:text-stone-100">
@@ -35,7 +37,9 @@ export function TestCaseComponentPage({
         }
         const { filename } = item;
         if (filename) {
-          return <ShikiComponent data={item} key={item.filename} />;
+          return (
+            <ShikiComponent data={item} debug={debug} key={item.filename} />
+          );
         } else {
           return <></>;
         }

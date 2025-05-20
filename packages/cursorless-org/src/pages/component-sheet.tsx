@@ -86,18 +86,25 @@ export async function getStaticProps() {
 export type TestCaseComponentProps = TestCaseFixture & {
   filename: string;
   raw: TestCaseFixture;
-  before: string;
-  during: string;
-  after: string;
+  before: { html: string; data: string[] };
+  during: { html: string; data: string[] };
+  after: { html: string; data: string[] };
+  debug?: boolean;
 };
 
-export function App({ data }: { data: TestCaseComponentProps[] }) {
+export function App({
+  data,
+  debug,
+}: {
+  data: TestCaseComponentProps[];
+  debug?: boolean;
+}) {
   return (
     <>
       <Head>
         <title>Cursorless Test Case Component Page</title>
       </Head>
-      <TestCaseComponentPage data={data} />
+      <TestCaseComponentPage data={data} debug={debug} />
     </>
   );
 }
