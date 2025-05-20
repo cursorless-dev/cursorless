@@ -84,22 +84,22 @@ pre.shiki {
 
 @keyframes blink {
   0%,
-  60% {
-    border-color: #667f;
+  50% {
+    background: #667f;
   }
-  61%,
+  51%,
   100% {
-    border-color: #6670;
+    background: #6670;
   }
 }
 
 .selection {
-  /* display: inline-block; */
-  border-right: 2px solid #00b;
-  animation: blink 1400ms infinite;
-  padding: 0px 0.5px 0px 0;
-  margin: 0 0px 0 -1px;
+  position: absolute;
+  width: 2px;
   height: var(--line-height);
+  background: #00b;
+  animation: blink 1000ms infinite;
+  /* margin-left: -3px; */
 }
 
 .selection:not(:empty) {
@@ -108,10 +108,17 @@ pre.shiki {
 }
 .decoration {
   display: inline-block;
+  line-height: 0;
+  font-size: 0;
+  /* vertical-align: middle; */
   /* padding: 0px 0.5px 0px 0.5px; */
   /* margin: 0 0px 0 -1px; */
   /* height: var(--line-height); */
   /* width: 100%; */
+}
+
+.decoration:empty {
+  display: block;
 }
 
 .full {
