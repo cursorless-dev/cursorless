@@ -28,7 +28,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@pnpm/meta-updater": "2.0.3",
+    "@pnpm/meta-updater": "2.0.4",
     "@types/node": "20.16.0",
     "@typescript-eslint/eslint-plugin": "^8.9.0",
     "@typescript-eslint/parser": "^8.9.0",
