@@ -116,7 +116,9 @@ export class VscodeIDE implements IDE {
   }
 
   get visibleTextEditors(): VscodeTextEditorImpl[] {
-    return window.visibleTextEditors.map((e) => this.fromVscodeEditor(e));
+    return window.visibleTextEditors
+      .filter((e) => e.document.uri.scheme !== "output")
+      .map((e) => this.fromVscodeEditor(e));
   }
 
   get visibleNotebookEditors(): NotebookEditor[] {
