@@ -110,13 +110,16 @@ export class VscodeIDE implements IDE {
   }
 
   private getActiveTextEditor() {
-    return window.activeTextEditor != null
+    return window.activeTextEditor != null &&
+      isValidEditor(window.activeTextEditor)
       ? this.fromVscodeEditor(window.activeTextEditor)
       : undefined;
   }
 
   get visibleTextEditors(): VscodeTextEditorImpl[] {
-    return window.visibleTextEditors.map((e) => this.fromVscodeEditor(e));
+    return window.visibleTextEditors
+      .filter(isValidEditor)
+      .map((e) => this.fromVscodeEditor(e));
   }
 
   get visibleNotebookEditors(): NotebookEditor[] {
@@ -247,4 +250,8 @@ export class VscodeIDE implements IDE {
 
     return () => pull(this.extensionContext.subscriptions, ...disposables);
   }
+}
+
+function isValidEditor(editor: vscode.TextEditor): boolean {
+  return editor.document.uri.scheme !== "output";
 }
