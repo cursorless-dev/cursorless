@@ -68,13 +68,13 @@
 (binary_operator
   ;;!! abc <- function(x){ }
   ;;!  ^^^
-  lhs: (identifier) @functionName
+  lhs: (identifier) @functionName @functionName.leading.endOf
   rhs: (function_definition
     name: "function"
     parameters: (parameters)
     body: (braced_expression) @interior
   )
-) @namedFunction
+) @namedFunction @_.domain
 
 ;;!! foo()
 ;;!  ^^^^^
