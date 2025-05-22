@@ -1,34 +1,17 @@
 hello <- "world"
-hello = "world"
 ---
 
-[#1 Content] =
-[#1 Domain] = 0:0-0:5
+[Content] =
+[Domain] = 0:0-0:5
   >-----<
 0| hello <- "world"
 
-[#1 Removal] = 0:0-0:6
-  >------<
+[Removal] = 0:0-0:9
+  >---------<
 0| hello <- "world"
 
-[#1 Trailing delimiter] = 0:5-0:6
-       >-<
+[Trailing delimiter] = 0:5-0:9
+       >----<
 0| hello <- "world"
 
-[#1 Insertion delimiter] = " "
-
-
-[#2 Content] =
-[#2 Domain] = 1:0-1:5
-  >-----<
-1| hello = "world"
-
-[#2 Removal] = 1:0-1:6
-  >------<
-1| hello = "world"
-
-[#2 Trailing delimiter] = 1:5-1:6
-       >-<
-1| hello = "world"
-
-[#2 Insertion delimiter] = " "
+[Insertion delimiter] = " <- "

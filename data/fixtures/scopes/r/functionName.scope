@@ -8,12 +8,16 @@ abc <- function(arg){
   >---<
 0| abc <- function(arg){
 
-[Removal] = 0:0-0:4
-  >----<
+[Removal] = 0:0-0:7
+  >-------<
 0| abc <- function(arg){
+1|     TRUE
+2| }
 
-[Trailing delimiter] = 0:3-0:4
-     >-<
+[Trailing delimiter] = 0:3-0:7
+     >----<
 0| abc <- function(arg){
+1|     TRUE
+2| }
 
-[Insertion delimiter] = " "
+[Insertion delimiter] = " <- "

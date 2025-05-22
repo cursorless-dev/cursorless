@@ -1,44 +1,10 @@
-abc <- function(arg){
-    TRUE
-}
-abc = function(arg){
-    TRUE
-}
+foo <- function(bar){}
 ---
 
-[#1 Content] =
-[#1 Domain] = 0:0-2:1
-  >---------------------
-0| abc <- function(arg){
-1|     TRUE
-2| }
-   -<
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:22
+  >----------------------<
+0| foo <- function(bar){}
 
-[#1 Removal] = 0:0-3:0
-  >---------------------
-0| abc <- function(arg){
-1|     TRUE
-2| }
-3| abc = function(arg){
-   <
-
-[#1 Insertion delimiter] = "\n\n"
-
-
-[#2 Content] =
-[#2 Domain] = 3:0-5:1
-  >--------------------
-3| abc = function(arg){
-4|     TRUE
-5| }
-   -<
-
-[#2 Removal] = 2:1-5:1
-   >
-2| }
-3| abc = function(arg){
-4|     TRUE
-5| }
-   -<
-
-[#2 Insertion delimiter] = "\n\n"
+[Insertion delimiter] = "\n\n"
