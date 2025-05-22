@@ -1,8 +1,7 @@
 hello = "world"
 ---
 
-[Content] =
-[Domain] = 0:0-0:5
+[Content] = 0:0-0:5
   >-----<
 0| hello = "world"
 
@@ -14,4 +13,8 @@ hello = "world"
        >---<
 0| hello = "world"
 
-[Insertion delimiter] = " = "
+[Domain] = 0:0-0:15
+  >---------------<
+0| hello = "world"
+
+[Insertion delimiter] = " "

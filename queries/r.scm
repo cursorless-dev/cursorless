@@ -89,7 +89,6 @@
 )
 
 ;; Technically lists and arrays are just calls to the function `list` or `c`
-;; TODO: should this include the function name/brackets?
 ;;!! list(1, 2, 3)
 ;;!  ^^^^^^^^^^^^^
 (call
@@ -101,24 +100,23 @@
   ;;!! hello <- "world"
   ;;!  ^^^^^
   ;;!  -----
-  lhs: (identifier) @name
+  lhs: (identifier) @name @value.leading.endOf
   operator: "<-"
   ;;!! hello <- "world"
   ;;!           ^^^^^^^
   ;;!  -----
-  rhs: (_) @value
-)
+  rhs: (_) @value @name.trailing.startOf
+) @_.domain
 (binary_operator
   ;;!! hello <- "world"
   ;;!  ^^^^^
-  ;;!  -----
-  lhs: (identifier) @name
+  lhs: (identifier) @name @value.leading.endOf
   operator: "="
   ;;!! hello <- "world"
   ;;!           ^^^^^^^
   ;;!  -----
-  rhs: (_) @value
-)
+  rhs: (_) @value @name.trailing.startOf
+) @_.domain
 
 ;;!! foo(hello)
 ;;!      ^^^^^
