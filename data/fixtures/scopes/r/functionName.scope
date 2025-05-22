@@ -3,21 +3,23 @@ abc <- function(arg){
 }
 ---
 
-[Content] =
-[Domain] = 0:0-0:3
+[Content] = 0:0-0:3
   >---<
 0| abc <- function(arg){
 
 [Removal] = 0:0-0:7
   >-------<
 0| abc <- function(arg){
-1|     TRUE
-2| }
 
 [Trailing delimiter] = 0:3-0:7
      >----<
 0| abc <- function(arg){
+
+[Domain] = 0:0-2:1
+  >---------------------
+0| abc <- function(arg){
 1|     TRUE
 2| }
+   -<
 
-[Insertion delimiter] = " <- "
+[Insertion delimiter] = " "
