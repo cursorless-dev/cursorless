@@ -27,10 +27,6 @@
 ;;   alternative: (braced_expression)? @branch.end
 ;; ) @branch.iteration
 
-;;!! foo(x)
-;;!  ^^^^^^
-(call) @functionCall
-
 ;;!! function(x){ }
 ;;!  ^^^^^^^^^^^^^^
 (function_definition) @anonymousFunction
@@ -39,21 +35,33 @@
 ;;!      ^^^^^
 (_
   arguments: (arguments
-    (_)? @_.leading.endOf
-    .
-    (argument) @argumentOrParameter
-    .
-    (_)? @_.trailing.endOf
-  )
-  @_dummy
+    ;; (
+      (_)? @_.leading.endOf
+      .
+      (argument) @argumentOrParameter
+      .
+      (_)? @_.trailing.startOf
+    ;; ) @_.domain
+  ) @_dummy
   (#not-type? @argumentOrParameter "comment")
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
-;;!! function(bar){ }
-;;!           ^^^
+;;!! function(a, b){ }
+;;!           ^^^^
 (_
   parameters: (parameters
+    open: "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
+    ;; (parameter) @argumentOrParameter
+    close: ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @_dummy
+  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+) @argumentList.domain @argumentOrParameter.iteration.domain
+
+;;!! foo(a, b)
+;;!      ^^^^
+(_
+  arguments: (arguments
     open: "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
     ;; (parameter) @argumentOrParameter
     close: ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
