@@ -33,26 +33,24 @@
 
 ;;!! foo("bar")
 ;;!      ^^^^^
-(_
-  arguments: (arguments
-    ;; (
-      (_)? @_.leading.endOf
-      .
-      (argument) @argumentOrParameter
-      .
-      (_)? @_.trailing.startOf
-    ;; ) @_.domain
+(
+  (arguments
+    (_)? @_.leading.startOf
+    .
+    (argument) @argumentOrParameter
+    .
+    (_)? @_.trailing.endOf
   ) @_dummy
   (#not-type? @argumentOrParameter "comment")
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
+
 
 ;;!! function(a, b){ }
 ;;!           ^^^^
 (_
   parameters: (parameters
     open: "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
-    ;; (parameter) @argumentOrParameter
     close: ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
   ) @_dummy
   (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
@@ -63,7 +61,6 @@
 (_
   arguments: (arguments
     open: "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
-    ;; (parameter) @argumentOrParameter
     close: ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
   ) @_dummy
   (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
@@ -75,9 +72,10 @@
 ) @argumentOrParameter.iteration.domain
 
 (parameters
-  "(" @argumentOrParameter.iteration.start.endOf
-  ")" @argumentOrParameter.iteration.end.startOf
-) @argumentOrParameter.iteration.domain
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+)
+
 
 ;;!! abc <- function(x){ }
 ;;!  ^^^^^^^^^^^^^^^^^^^^^
