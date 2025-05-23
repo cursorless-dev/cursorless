@@ -35,11 +35,17 @@
 ;;!      ^^^^^
 (
   (arguments
-    (_)? @_.leading.startOf
+    (
+      (argument) @_.leading.endOf
+      (comma)
+    )?
     .
     (argument) @argumentOrParameter
     .
-    (_)? @_.trailing.endOf
+    (
+      (comma)
+      (argument) @_.trailing.startOf
+    )?
   ) @_dummy
   (#not-type? @argumentOrParameter "comment")
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
