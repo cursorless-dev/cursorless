@@ -117,17 +117,7 @@
   ;;!  ^^^^^
   ;;!  -----
   lhs: (identifier) @name @value.leading.endOf
-  operator: "<-"
-  ;;!! hello <- "world"
-  ;;!           ^^^^^^^
-  ;;!  -----
-  rhs: (_) @value @name.trailing.startOf
-) @_.domain
-(binary_operator
-  ;;!! hello <- "world"
-  ;;!  ^^^^^
-  lhs: (identifier) @name @value.leading.endOf
-  operator: "="
+  operator: ["<-" "="]
   ;;!! hello <- "world"
   ;;!           ^^^^^^^
   ;;!  -----
