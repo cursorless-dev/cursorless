@@ -7,24 +7,23 @@ if(TRUE){
 ---
 
 [Content] =
-[Domain] = 1:0-5:1
+[Domain] = 0:0-4:1
   >---------
-1| if(TRUE){
-2|     1
-3| } else {
-4|     0
-5| }
+0| if(TRUE){
+1|     1
+2| } else {
+3|     0
+4| }
    -<
 
-[Removal] = 0:0-6:0
-  >
-0|
-1| if(TRUE){
-2|     1
-3| } else {
-4|     0
-5| }
-6|
+[Removal] = 0:0-5:0
+  >---------
+0| if(TRUE){
+1|     1
+2| } else {
+3|     0
+4| }
+5|
    <
 
 [Insertion delimiter] = "\n"
