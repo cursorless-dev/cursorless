@@ -40,11 +40,11 @@
     "@types/mocha": "^10.0.9",
     "@types/moo": "0.5.9",
     "@types/nearley": "2.11.5",
-    "@types/sinon": "^17.0.3",
+    "@types/sinon": "17.0.4",
     "@types/uuid": "^10.0.0",
     "js-yaml": "^4.1.0",
     "mocha": "^10.7.3",
-    "sinon": "^19.0.2"
+    "sinon": "20.0.0"
   },
   "types": "./out/index.d.ts",
   "exports": {
