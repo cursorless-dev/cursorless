@@ -1,0 +1,16 @@
+
+if(TRUE){ 1 }
+---
+
+[Content] =
+[Domain] = 1:0-1:13
+  >-------------<
+1| if(TRUE){ 1 }
+
+[Removal] = 0:0-1:13
+  >
+0|
+1| if(TRUE){ 1 }
+   -------------<
+
+[Insertion delimiter] = "\n"
