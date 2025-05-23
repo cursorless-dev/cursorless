@@ -47,7 +47,6 @@
       (argument) @_.trailing.startOf
     )?
   ) @_dummy
-  (#not-type? @argumentOrParameter "comment")
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
