@@ -5,15 +5,17 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && pnpm generate-llms",
     "start": "http-server out -a 127.0.0.1 -p 8080",
     "lint": "next lint",
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
+    "generate-llms": "my-ts-node ./src/scripts/generateLlmsTxt.ts"
   },
   "dependencies": {
     "@cursorless/cheatsheet": "workspace:*",
+    "@cursorless/common": "workspace:*",
     "@mdx-js/loader": "3.0.1",
     "@mdx-js/react": "3.0.1",
     "@next/mdx": "15.3.2",

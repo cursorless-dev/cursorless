@@ -1,4 +1,4 @@
-export { default } from "*.mdx";
+export { default } from "./enablement-group.mdx";
 
 export const meta: {
   title: string;
