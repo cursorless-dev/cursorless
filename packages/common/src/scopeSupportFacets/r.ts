@@ -18,6 +18,8 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   "value.assignment": supported,
   "value.variable": supported,
 
+  // Unsupported
+
   "branch.if": unsupported,
   "branch.if.iteration": unsupported,
   "branch.loop": unsupported,
@@ -55,6 +57,8 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   map: unsupported,
   regularExpression: unsupported,
   switchStatementSubject: unsupported,
+
+  // Not applicable
 
   "interior.cell": notApplicable,
   "interior.command": notApplicable,
