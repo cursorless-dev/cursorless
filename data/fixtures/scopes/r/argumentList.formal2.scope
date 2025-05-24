@@ -1,13 +1,25 @@
 abc <- function(){ }
 ---
 
-[Content] =
-[Removal] = 0:16-0:16
+[#1 Content] =
+[#1 Removal] = 0:16-0:16
                   ><
 0| abc <- function(){ }
 
-[Domain] = 0:7-0:20
+[#1 Domain] = 0:0-0:20
+  >--------------------<
+0| abc <- function(){ }
+
+[#1 Insertion delimiter] = ""
+
+
+[#2 Content] =
+[#2 Removal] = 0:16-0:16
+                  ><
+0| abc <- function(){ }
+
+[#2 Domain] = 0:7-0:20
          >-------------<
 0| abc <- function(){ }
 
-[Insertion delimiter] = ""
+[#2 Insertion delimiter] = ""
