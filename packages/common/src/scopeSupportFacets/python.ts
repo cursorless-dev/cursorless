@@ -49,6 +49,15 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "value.variable.pattern": supported,
 
   "type.class": supported,
+  "type.argument.formal": supported,
+  "type.argument.formal.constructor": supported,
+  "type.argument.formal.constructor.iteration": supported,
+  "type.argument.formal.iteration": supported,
+  "type.argument.formal.method": supported,
+  "type.argument.formal.method.iteration": supported,
+  "type.return": supported,
+  "type.field": supported,
+  "type.field.iteration": supported,
 
   anonymousFunction: supported,
   namedFunction: supported,
@@ -182,16 +191,6 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   startTag: notApplicable,
   tags: notApplicable,
   "type.alias": notApplicable,
-
-  //   "type.argument.formal": notApplicable,
-  //   "type.argument.formal.constructor": notApplicable,
-  //   "type.argument.formal.constructor.iteration": notApplicable,
-  //   "type.argument.formal.iteration": notApplicable,
-  //   "type.argument.formal.method": notApplicable,
-  //   "type.argument.formal.method.iteration": notApplicable,
-  //   "type.return": notApplicable,
-  //   "type.field": notApplicable,
-  //   "type.field.iteration": notApplicable,
 
   //   "type.cast": notApplicable,
   //   "type.enum": notApplicable,
