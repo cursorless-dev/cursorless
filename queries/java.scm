@@ -306,12 +306,6 @@
   .
 ) @type.iteration.domain @name.iteration.domain
 
-;;!! Map<String, String>
-;;!     ^^^^^^^  ^^^^^^
-(type_arguments
-  (type_identifier) @type
-)
-
 ;;!! List<String> list = value;
 ;;!  ^^^^^^^^^^^^
 ;;!  --------------------------
@@ -480,21 +474,26 @@
   (#not-type? @value block)
 ) @_.domain
 
-;;!! public Map<int, int> foo;
-;;!         ^^^^^^^^^^^^^
-;;!  -------------------------
+;;!! Map<int, int> foo;
+;;!  ^^^^^^^^^^^^^
+;;!  ------------------
 (field_declaration
   type: (_) @type
 ) @_.domain
 
-;;!! public Map<int, int> foo;
-;;!             ^^^  ^^^
+;;!! Map<int, int> foo;
+;;!      ^^^  ^^^
 (type_arguments
+  (_)? @_.leading.endOf
+  .
   (_) @type
+  .
+  (_)? @_.trailing.startOf
+  (#insertion-delimiter! @type ", ")
 )
 
-;;!! public Map<int, int> foo;
-;;!             ^^^^^^^^
+;;!! Map<int, int> foo;
+;;!      ^^^^^^^^
 (type_arguments
   .
   "<" @type.iteration.start.endOf

@@ -263,15 +263,33 @@
   type_arguments: (_)? @type.end
 )
 
+;;!! Map<string, number>
+;;!      ^^^^^^  ^^^^^^
 ;;!! useState<string>()
 ;;!           ^^^^^^
-;;!! useState<Record<string, string>>()
-;;!           ^^^^^^^^^^^^^^^^^^^^^^
-;;!                  ^^^^^^  ^^^^^^
-(type_arguments
-  (_) @type
+(
+  (type_arguments
+    (_)? @_.leading.endOf
+    .
+    (_) @type
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
   (#not-parent-type? @_dummy type_assertion)
-) @_dummy
+  (#insertion-delimiter! @type ", ")
+)
+
+;;!! Map<string, number>
+;;!      ^^^^^^^^^^^^^^
+(
+  (type_arguments
+    .
+    "<" @type.iteration.start.endOf
+    ">" @type.iteration.end.startOf
+    .
+  ) @_dummy
+  (#not-parent-type? @_dummy type_assertion)
+)
 
 ;;!! function foo<A>() {}
 ;;!               ^
@@ -413,25 +431,4 @@
   "{" @type.iteration.start.endOf
   "}" @type.iteration.end.startOf
   .
-)
-
-;;!! Map<string, number>
-;;!      ^^^^^^  ^^^^^^
-(
-  (type_arguments
-    (_) @type
-  ) @_dummy
-  (#not-parent-type? @_dummy type_assertion)
-)
-
-;;!! Map<string, number>
-;;!      ^^^^^^^^^^^^^^
-(
-  (type_arguments
-    .
-    "<" @type.iteration.start.endOf
-    ">" @type.iteration.end.startOf
-    .
-  ) @_dummy
-  (#not-parent-type? @_dummy type_assertion)
 )
