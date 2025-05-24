@@ -100,6 +100,30 @@
   type: (_) @type
 ) @_.domain
 
+;;!! map[int, str]
+;;!      ^^^  ^^^
+(generic_type
+  (type_parameter
+    (type)? @_.leading.endOf
+    .
+    (type) @type
+    .
+    (type)? @_.trailing.startOf
+  )
+)
+
+;;!! map[int, str]
+;;!      ^^^^^^^^
+;;!  -------------
+(generic_type
+  (type_parameter
+    .
+    "[" @type.iteration.start.endOf
+    "]" @type.iteration.end.startOf
+    .
+  )
+)
+
 ;;!!  def aaa() -> str:
 ;;!                ^^^
 ;;!            xxxxxxx
