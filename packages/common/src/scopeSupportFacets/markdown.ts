@@ -152,6 +152,8 @@ export const markdownScopeSupport: LanguageScopeSupportFacetMap = {
   "type.foreach": notApplicable,
   "type.interface": notApplicable,
   "type.return": notApplicable,
+  "type.resource": notApplicable,
+  "type.resource.iteration": notApplicable,
   "type.typeArgument": notApplicable,
   "type.typeArgument.iteration": notApplicable,
   "type.variable": notApplicable,
