@@ -7,7 +7,6 @@
   (repeat_statement)
   (function_definition)
   (while_statement)
-  (function_definition)
 ] @statement
 
 ;;!! # hello
@@ -27,10 +26,26 @@
 ;;   alternative: (braced_expression)? @branch.end
 ;; ) @branch.iteration
 
+;; named function
+;;!! abc <- function(x){ }
+;;!  ^^^^^^^^^^^^^^^^^^^^^
+(binary_operator
+  ;;!! abc <- function(x){ }
+  ;;!  ^^^
+  lhs: (identifier) @functionName
+  rhs: (function_definition
+    name: "function"
+    parameters: (parameters)
+    body: (braced_expression) @interior
+  ) @functionName.trailing.startOf
+) @namedFunction @namedFunction.domain @functionName.domain
+
+;; anonymous function
 ;;!! function(x){ }
 ;;!  ^^^^^^^^^^^^^^
 (function_definition) @anonymousFunction
 
+;; argument.actual
 ;;!! foo("bar")
 ;;!      ^^^^^
 (
@@ -50,55 +65,90 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
-
-;;!! function(a, b){ }
+;; argument.formal
+;;!! function(a, b){}
 ;;!           ^^^^
-(_
-  parameters: (parameters
-    open: "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
-    close: ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
+(
+  (parameters
+    (
+      (parameter) @_.leading.endOf
+      (comma)
+    )?
+    .
+    (parameter) @argumentOrParameter
+    .
+    (
+      (comma)
+      (parameter) @_.trailing.startOf
+    )?
   ) @_dummy
-  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
-) @argumentList.domain @argumentOrParameter.iteration.domain
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
 
-;;!! foo(a, b)
-;;!      ^^^^
-(_
-  arguments: (arguments
-    open: "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
-    close: ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
-  ) @_dummy
-  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
-) @argumentList.domain @argumentOrParameter.iteration.domain
+[
+  ;; argument.actual
+  ;;!! foo(a, b)
+  ;;!      ^^^^
+  (call
+   arguments: (arguments
+     open: "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
+     close: ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
+     ) @_dummy
+   (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+  )
+
+  ;; argument.formal
+  ;;!! function(a, b){}
+  ;;!           ^^^^
+  (function_definition
+   parameters: (parameters
+     open: "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
+     close: ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
+     ) @_dummy
+   (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+  )
+] @argumentList.domain @argumentOrParameter.iteration.domain
 
 (arguments
   "(" @argumentOrParameter.iteration.start.endOf
   ")" @argumentOrParameter.iteration.end.startOf
-) @argumentOrParameter.iteration.domain
+)
 
 (parameters
   "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
   ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
 )
 
+;;!! function(a, b){ }
+;;!           ^^^^
+;; For domain, have to handle either named or unnamed function using
+;; alternation, to ensure that the function name is part of the domain if it
+;; exists
+[
+  (binary_operator
+   (function_definition
+    parameters: (parameters
+      open: "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
+      close: ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
+      ) @_dummy
+    (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+   )
+  )
+  (function_definition
+   parameters: (parameters
+     open: "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
+     close: ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
+     ) @_dummy
+   (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+  )
+] @argumentList.domain @argumentOrParameter.iteration.domain
 
-;;!! abc <- function(x){ }
-;;!  ^^^^^^^^^^^^^^^^^^^^^
-(binary_operator
-  ;;!! abc <- function(x){ }
-  ;;!  ^^^
-  lhs: (identifier) @functionName
-  rhs: (function_definition
-    name: "function"
-    parameters: (parameters)
-    body: (braced_expression) @interior
-  ) @functionName.trailing.startOf
-) @namedFunction @_.domain
 
+;; Function calls
 ;;!! foo()
 ;;!  ^^^^^
 ;;!  -----
-(call) @functionCall
+(call) @functionCall @argumentOrParameter.iteration.domain
 
 ;;!! foo()
 ;;!  ^^^
