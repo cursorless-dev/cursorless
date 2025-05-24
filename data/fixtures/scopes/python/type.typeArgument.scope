@@ -26,4 +26,4 @@ value: list[int]
               >---<
 0| value: list[int]
 
-[#2 Insertion delimiter] = " "
+[#2 Insertion delimiter] = ", "

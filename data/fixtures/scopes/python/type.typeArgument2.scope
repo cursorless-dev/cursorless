@@ -33,7 +33,7 @@ value: map[str, int]
                 >--<
 0| value: map[str, int]
 
-[#2 Insertion delimiter] = " "
+[#2 Insertion delimiter] = ", "
 
 
 [#3 Content] =
@@ -49,4 +49,4 @@ value: map[str, int]
                 >--<
 0| value: map[str, int]
 
-[#3 Insertion delimiter] = " "
+[#3 Insertion delimiter] = ", "

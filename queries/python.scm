@@ -110,6 +110,7 @@
     .
     (type)? @_.trailing.startOf
   )
+  (#insertion-delimiter! @type ", ")
 )
 
 ;;!! map[int, str]
