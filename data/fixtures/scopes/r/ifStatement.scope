@@ -1,0 +1,10 @@
+if(FALSE) 0
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:11
+  >-----------<
+0| if(FALSE) 0
+
+[Insertion delimiter] = "\n"

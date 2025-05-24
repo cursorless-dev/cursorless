@@ -1,0 +1,20 @@
+hello = "world"
+---
+
+[Content] = 0:0-0:5
+  >-----<
+0| hello = "world"
+
+[Removal] = 0:0-0:8
+  >--------<
+0| hello = "world"
+
+[Trailing delimiter] = 0:5-0:8
+       >---<
+0| hello = "world"
+
+[Domain] = 0:0-0:15
+  >---------------<
+0| hello = "world"
+
+[Insertion delimiter] = " "
