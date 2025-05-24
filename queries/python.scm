@@ -100,6 +100,31 @@
   type: (_) @type
 ) @_.domain
 
+;;!! map[int, str]
+;;!      ^^^  ^^^
+(generic_type
+  (type_parameter
+    (type)? @_.leading.endOf
+    .
+    (type) @type
+    .
+    (type)? @_.trailing.startOf
+  )
+  (#insertion-delimiter! @type ", ")
+)
+
+;;!! map[int, str]
+;;!      ^^^^^^^^
+;;!  -------------
+(generic_type
+  (type_parameter
+    .
+    "[" @type.iteration.start.endOf
+    "]" @type.iteration.end.startOf
+    .
+  )
+)
+
 ;;!!  def aaa() -> str:
 ;;!                ^^^
 ;;!            xxxxxxx
@@ -297,6 +322,7 @@
   )
 ) @namedFunction @functionName.domain @interior.domain
 
+;;!! class MyClass:
 (
   (class_definition
     name: (_) @className
@@ -304,12 +330,24 @@
   ) @class @className.domain @interior.domain
   (#not-parent-type? @class decorated_definition)
 )
+
+(
+  (class_definition) @type
+  (#not-parent-type? @type decorated_definition)
+)
+
+;;!! @value
+;;!! class MyClass:
 (decorated_definition
   (class_definition
     name: (_) @className
     body: (_) @interior
   )
 ) @class @className.domain @interior.domain
+
+(decorated_definition
+  (class_definition)
+) @type
 
 (
   (module) @class.iteration @className.iteration

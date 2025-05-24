@@ -1,0 +1,20 @@
+value: int = 0
+---
+
+[Content] = 0:7-0:10
+         >---<
+0| value: int = 0
+
+[Removal] = 0:5-0:10
+       >-----<
+0| value: int = 0
+
+[Leading delimiter] = 0:5-0:7
+       >--<
+0| value: int = 0
+
+[Domain] = 0:0-0:14
+  >--------------<
+0| value: int = 0
+
+[Insertion delimiter] = " "

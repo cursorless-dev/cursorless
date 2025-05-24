@@ -1,7 +1,7 @@
 import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
-const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
+const { supported, notApplicable } = ScopeSupportFacetLevel;
 
 export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "name.foreach": supported,
@@ -47,6 +47,20 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "value.return.lambda": supported,
   "value.variable": supported,
   "value.variable.pattern": supported,
+
+  "type.argument.formal.constructor": supported,
+  "type.argument.formal.constructor.iteration": supported,
+  "type.argument.formal.iteration": supported,
+  "type.argument.formal.method": supported,
+  "type.argument.formal.method.iteration": supported,
+  "type.argument.formal": supported,
+  "type.class": supported,
+  "type.field": supported,
+  "type.field.iteration": supported,
+  "type.return": supported,
+  "type.typeArgument": supported,
+  "type.typeArgument.iteration": supported,
+  "type.variable": supported,
 
   anonymousFunction: supported,
   namedFunction: supported,
@@ -147,27 +161,32 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   pairDelimiter: supported,
   fieldAccess: supported,
 
-  // Unsupported
-
-  "namedFunction.iteration.block": unsupported,
-  "functionName.iteration.block": unsupported,
-  "class.iteration.block": unsupported,
-  "className.iteration.block": unsupported,
-
   // Not applicable
 
+  "class.iteration.block": notApplicable,
+  "className.iteration.block": notApplicable,
   "comment.block": notApplicable,
   "condition.doWhile": notApplicable,
   "condition.for": notApplicable,
+  "functionName.iteration.block": notApplicable,
   "interior.cell": notApplicable,
   "interior.command": notApplicable,
   "interior.element": notApplicable,
   "key.attribute": notApplicable,
+  "namedFunction.iteration.block": notApplicable,
   "section.iteration.document": notApplicable,
   "section.iteration.parent": notApplicable,
   "textFragment.comment.block": notApplicable,
   "textFragment.element": notApplicable,
+  "type.alias": notApplicable,
+  "type.cast": notApplicable,
+  "type.enum": notApplicable,
+  "type.foreach": notApplicable,
+  "type.interface": notApplicable,
+  "type.resource.iteration": notApplicable,
+  "type.resource": notApplicable,
   "value.attribute": notApplicable,
+  "value.typeAlias": notApplicable,
   attribute: notApplicable,
   command: notApplicable,
   element: notApplicable,
@@ -178,24 +197,4 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   section: notApplicable,
   startTag: notApplicable,
   tags: notApplicable,
-
-  //   "value.typeAlias": supported,
-  //   "type.alias":,
-  //   "type.argument.formal":,
-  //   "type.argument.formal.constructor":,
-  //   "type.argument.formal.constructor.iteration":,
-  //   "type.argument.formal.iteration":,
-  //   "type.argument.formal.method":,
-  //   "type.argument.formal.method.iteration":,
-  //   "type.cast":,
-  //   "type.class":,
-  //   "type.enum":,
-  //   "type.field":,
-  //   "type.field.iteration":,
-  //   "type.foreach":,
-  //   "type.interface":,
-  //   "type.return":,
-  //   "type.typeArgument":,
-  //   "type.typeArgument.iteration":,
-  //   "type.variable":,
 };
