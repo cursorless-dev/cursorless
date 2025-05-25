@@ -10,7 +10,7 @@ export interface CursorlessApi {
 export interface ParseTreeApi {
   getNodeAtLocation(location: vscode.Location): Node;
   getTreeForUri(uri: vscode.Uri): Tree;
-  loadLanguage: (languageId: string) => Promise<boolean>;
+  loadLanguage(languageId: string): Promise<boolean>;
   createQuery(languageId: string, source: string): Query | undefined;
 }
 

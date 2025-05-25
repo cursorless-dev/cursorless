@@ -19,9 +19,9 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@types/chai": "^5.0.0",
-    "@types/js-yaml": "^4.0.9",
-    "@types/lodash": "4.17.10",
+    "@types/chai": "5.2.2",
+    "@types/js-yaml": "4.0.9",
+    "@types/lodash": "4.17.17",
     "@types/sinon": "17.0.4",
     "neovim": "5.3.0"
   },
