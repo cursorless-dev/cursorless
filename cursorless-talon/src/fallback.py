@@ -8,7 +8,6 @@ from .versions import COMMAND_VERSION
 assert COMMAND_VERSION == 7
 
 action_callbacks = {
-    "getText": lambda: [actions.edit.selected_text()],
     "setSelection": actions.skip,
     "setSelectionBefore": actions.edit.left,
     "setSelectionAfter": actions.edit.right,
@@ -75,6 +74,12 @@ def get_action_callback(fallback: dict) -> Callable:
             return lambda: wrap_with_paired_delimiter(
                 fallback["left"], fallback["right"]
             )
+        case "getText":
+            return lambda: [actions.edit.selected_text()]
+        case "findInWorkspace":
+            return lambda: actions.user.find_everywhere(actions.edit.selected_text())
+        case "findInDocument":
+            return lambda: actions.edit.find(actions.edit.selected_text())
 
     raise ValueError(f"Unknown Cursorless fallback action: {action}")
 
