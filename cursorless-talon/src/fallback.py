@@ -7,12 +7,8 @@ from .versions import COMMAND_VERSION
 # This ensures that we remember to update fallback if the response payload changes
 assert COMMAND_VERSION == 7
 
-selected_text = actions.edit.selected_text
 
 action_callbacks = {
-    "getText": lambda: [selected_text()],
-    "findInWorkspace": lambda: actions.user.find_everywhere(selected_text()),
-    "findInDocument": lambda: actions.edit.find(selected_text()),
     "setSelection": actions.skip,
     "setSelectionBefore": actions.edit.left,
     "setSelectionAfter": actions.edit.right,
@@ -79,6 +75,12 @@ def get_action_callback(fallback: dict) -> Callable:
             return lambda: wrap_with_paired_delimiter(
                 fallback["left"], fallback["right"]
             )
+        case "getText":
+            return lambda: [actions.edit.selected_text()]
+        case "findInWorkspace":
+            return lambda: actions.user.find_everywhere(actions.edit.selected_text())
+        case "findInDocument":
+            return lambda: actions.edit.find(actions.edit.selected_text())
 
     raise ValueError(f"Unknown Cursorless fallback action: {action}")
 
