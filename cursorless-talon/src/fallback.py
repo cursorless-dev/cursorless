@@ -7,8 +7,10 @@ from .versions import COMMAND_VERSION
 # This ensures that we remember to update fallback if the response payload changes
 assert COMMAND_VERSION == 7
 
+selected_text = actions.edit.selected_text
+
 action_callbacks = {
-    "getText": lambda: [actions.edit.selected_text()],
+    "getText": lambda: [selected_text()],
     "setSelection": actions.skip,
     "setSelectionBefore": actions.edit.left,
     "setSelectionAfter": actions.edit.right,
@@ -20,6 +22,8 @@ action_callbacks = {
     "editNewLineBefore": actions.edit.line_insert_up,
     "editNewLineAfter": actions.edit.line_insert_down,
     "insertCopyAfter": actions.edit.line_clone,
+    "findInWorkspace": lambda: actions.user.find_everywhere(selected_text()),
+    "findInDocument": lambda: actions.edit.find(selected_text()),
 }
 
 modifier_callbacks = {
