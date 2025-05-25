@@ -42,7 +42,7 @@
     "eslint-plugin-unused-imports": "4.1.4",
     "eslint": "9.27.0",
     "prettier-plugin-tailwindcss": "0.6.11",
-    "prettier": "3.5.3",
+    "prettier": "3.3.3",
     "syncpack": "13.0.4",
     "typescript": "5.8.3"
   },
