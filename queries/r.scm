@@ -93,7 +93,7 @@
    arguments: (arguments
      open: "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
      close: ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
-     ) @_dummy
+     ) @_dummy @argumentOrParameter.iteration.domain
    (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
   )
 
@@ -104,10 +104,10 @@
    parameters: (parameters
      open: "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
      close: ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
-     ) @_dummy
+     ) @_dummy @argumentOrParameter.iteration.domain
    (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
   )
-] @argumentList.domain @argumentOrParameter.iteration.domain
+] @argumentList.domain
 
 (arguments
   "(" @argumentOrParameter.iteration.start.endOf
@@ -141,7 +141,7 @@
      ) @_dummy
    (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
   )
-] @argumentList.domain @argumentOrParameter.iteration.domain
+] @argumentList.domain
 
 
 ;; Function calls
