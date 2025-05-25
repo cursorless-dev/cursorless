@@ -4,20 +4,20 @@ import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const rScopeSupport: LanguageScopeSupportFacetMap = {
-  "anonymousFunction": supported,
+  anonymousFunction: supported,
   "argument.actual": supported,
   "argument.formal": supported,
   "argumentList.formal": supported,
   "argument.actual.iteration": supported,
   "argument.formal.iteration": supported,
   "comment.line": supported,
-  "functionCall": supported,
-  "functionCallee": supported,
-  "functionName": supported,
-  "ifStatement": supported,
+  functionCall: supported,
+  functionCallee: supported,
+  functionName: supported,
+  ifStatement: supported,
   "name.assignment": supported,
   "name.variable": supported,
-  "namedFunction": supported,
+  namedFunction: supported,
   "value.assignment": supported,
   "value.variable": supported,
 
