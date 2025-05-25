@@ -6,8 +6,8 @@ abc <- function(x, y){}
                   >----<
 0| abc <- function(x, y){}
 
-[#1 Domain] = 0:7-0:23
-         >----------------<
+[#1 Domain] = 0:0-0:23
+  >-----------------------<
 0| abc <- function(x, y){}
 
 

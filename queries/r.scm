@@ -107,7 +107,7 @@
      ) @_dummy
    (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
   )
-] @argumentList.domain @argumentOrParameter.iteration.domain
+] @argumentList.domain
 
 (arguments
   "(" @argumentOrParameter.iteration.start.endOf
@@ -133,7 +133,7 @@
       ) @_dummy
     (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
    )
-  )
+  ) @argumentOrParameter.iteration.domain
   (function_definition
    parameters: (parameters
      open: "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
