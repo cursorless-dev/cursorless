@@ -29,7 +29,7 @@
     "@types/react": "18.3.11",
     "@types/react-dom": "18.3.1",
     "autoprefixer": "10.4.21",
-    "eslint": "8.57.1",
+    "eslint": "9.27.0",
     "eslint-config-next": "15.3.2",
     "http-server": "14.1.1",
     "postcss": "8.5.3",
