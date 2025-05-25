@@ -11,6 +11,8 @@ selected_text = actions.edit.selected_text
 
 action_callbacks = {
     "getText": lambda: [selected_text()],
+    "findInWorkspace": lambda: actions.user.find_everywhere(selected_text()),
+    "findInDocument": lambda: actions.edit.find(selected_text()),
     "setSelection": actions.skip,
     "setSelectionBefore": actions.edit.left,
     "setSelectionAfter": actions.edit.right,
@@ -22,8 +24,6 @@ action_callbacks = {
     "editNewLineBefore": actions.edit.line_insert_up,
     "editNewLineAfter": actions.edit.line_insert_down,
     "insertCopyAfter": actions.edit.line_clone,
-    "findInWorkspace": lambda: actions.user.find_everywhere(selected_text()),
-    "findInDocument": lambda: actions.edit.find(selected_text()),
 }
 
 modifier_callbacks = {
