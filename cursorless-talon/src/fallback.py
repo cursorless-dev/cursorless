@@ -7,7 +7,6 @@ from .versions import COMMAND_VERSION
 # This ensures that we remember to update fallback if the response payload changes
 assert COMMAND_VERSION == 7
 
-
 action_callbacks = {
     "setSelection": actions.skip,
     "setSelectionBefore": actions.edit.left,
