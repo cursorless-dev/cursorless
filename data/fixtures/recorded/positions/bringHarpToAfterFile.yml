@@ -28,6 +28,7 @@ initialState:
 finalState:
   documentContents: |-
     hello world
+
     hello
   selections:
     - anchor: {line: 0, character: 0}
