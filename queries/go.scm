@@ -366,19 +366,15 @@
 
 (_
   (parameter_list
-    .
     "(" @argumentOrParameter.iteration.start.endOf
     ")" @argumentOrParameter.iteration.end.startOf
-    .
   )
 ) @argumentOrParameter.iteration.domain
 
 (_
   (argument_list
-    .
     "(" @argumentOrParameter.iteration.start.endOf
     ")" @argumentOrParameter.iteration.end.startOf
-    .
   )
 ) @argumentOrParameter.iteration.domain
 

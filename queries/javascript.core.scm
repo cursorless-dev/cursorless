@@ -749,10 +749,8 @@
 )
 
 (statement_block
-  .
   "{" @statement.iteration.start.endOf
   "}" @statement.iteration.end.startOf
-  .
 )
 
 ;;!! foo(name) {}
@@ -785,27 +783,21 @@
 
 (_
   (formal_parameters
-    .
     "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
     ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
-    .
   ) @_dummy
   (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 (formal_parameters
-  .
   "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
   ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
-  .
 )
 
 (_
   (arguments
-    .
     "(" @argumentOrParameter.iteration.start.endOf
     ")" @argumentOrParameter.iteration.end.startOf
-    .
   )
 ) @argumentOrParameter.iteration.domain
 

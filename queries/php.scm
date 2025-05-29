@@ -165,10 +165,8 @@
 
 (_
   (formal_parameters
-    .
     "(" @argumentOrParameter.iteration.start.endOf
     ")" @argumentOrParameter.iteration.end.startOf
-    .
   )
 ) @argumentOrParameter.iteration.domain
 
@@ -177,10 +175,8 @@
 (binary_expression
   (function_call_expression
     (arguments
-      .
       "(" @argumentOrParameter.iteration.start.endOf
       ")" @argumentOrParameter.iteration.end.startOf
-      .
     )
   )
 ) @argumentOrParameter.iteration.domain
@@ -190,10 +186,8 @@
 (
   (_
     (arguments
-      .
       "(" @argumentOrParameter.iteration.start.endOf
       ")" @argumentOrParameter.iteration.end.startOf
-      .
     )
   ) @argumentOrParameter.iteration.domain
   (#not-parent-type? @argumentOrParameter.iteration.domain binary_expression)
@@ -245,10 +239,8 @@
 ) @_.domain
 
 (formal_parameters
-  .
   "(" @type.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
   ")" @type.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
-  .
 ) @_.domain
 
 ;;!! (string) $str;

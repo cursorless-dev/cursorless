@@ -688,10 +688,8 @@
 ;;!!          ^^^^^^^^^^^^^^^^^^^^^^^^^^
 (call
   (generator_expression
-    .
     "(" @argumentOrParameter.start.endOf
     ")" @argumentOrParameter.end.startOf
-    .
   )
 )
 
@@ -715,29 +713,23 @@
 ;;!       ^^^^
 (_
   (parameters
-    .
     "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
     ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
-    .
   ) @_dummy
   (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 (_
   (argument_list
-    .
     "(" @argumentOrParameter.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
     ")" @argumentOrParameter.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
-    .
   ) @name.iteration.domain @value.iteration.domain
 ) @argumentOrParameter.iteration.domain
 
 (call
   (generator_expression
-    .
     "(" @argumentOrParameter.iteration.start.endOf
     ")" @argumentOrParameter.iteration.end.startOf
-    .
   )
 ) @argumentOrParameter.iteration.domain
 

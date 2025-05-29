@@ -178,10 +178,8 @@
 
 (_
   (argument_list
-    .
     "(" @argumentOrParameter.iteration.start.endOf
     ")" @argumentOrParameter.iteration.end.startOf
-    .
   )
 ) @argumentOrParameter.iteration.domain
 

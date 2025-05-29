@@ -274,10 +274,8 @@
 
 (_
   (parameter_list
-    .
     "(" @argumentOrParameter.iteration.start.endOf
     ")" @argumentOrParameter.iteration.end.startOf
-    .
   )
 ) @argumentOrParameter.iteration.domain
 
@@ -288,10 +286,8 @@
 
 (_
   (argument_list
-    .
     "(" @argumentOrParameter.iteration.start.endOf
     ")" @argumentOrParameter.iteration.end.startOf
-    .
   )
 ) @argumentOrParameter.iteration.domain
 
@@ -300,10 +296,8 @@
 ;;!              ***
 (_
   body: (_
-    .
     "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
     "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
-    .
   )
 )
 

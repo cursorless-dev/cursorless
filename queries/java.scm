@@ -531,20 +531,16 @@
 
 (_
   parameters: (_
-    .
     "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
     ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
-    .
   ) @_dummy
   (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 (_
   (argument_list
-    .
     "(" @argumentOrParameter.iteration.start.endOf
     ")" @argumentOrParameter.iteration.end.startOf
-    .
   )
 ) @argumentOrParameter.iteration.domain
 
