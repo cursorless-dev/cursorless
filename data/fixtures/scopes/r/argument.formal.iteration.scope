@@ -1,25 +1,10 @@
 abc <- function(x, y){}
 ---
 
-[#1 Range] = 0:16-0:20
+[Range] = 0:16-0:20
                   >----<
 0| abc <- function(x, y){}
 
-[#1 Domain] = 0:0-0:23
+[Domain] = 0:0-0:23
   >-----------------------<
-0| abc <- function(x, y){}
-
-
-[#2 Range] = 0:16-0:20
-                  >----<
-0| abc <- function(x, y){}
-
-[#2 Domain] = 0:7-0:23
-         >----------------<
-0| abc <- function(x, y){}
-
-
-[#3 Range] =
-[#3 Domain] = 0:16-0:20
-                  >----<
 0| abc <- function(x, y){}
