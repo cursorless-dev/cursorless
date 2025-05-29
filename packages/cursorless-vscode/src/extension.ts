@@ -270,7 +270,7 @@ function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {
 
     disableLatexMsg: semver.lt(vscode.version, "1.98.0")
       ? undefined
-      : "Latex is disabled on vscode versions >= 1.98.0. issues/2879",
+      : "Latex is disabled on vscode versions >= 1.98.0. See https://github.com/cursorless-dev/cursorless/issues/2879",
   };
 }
 
