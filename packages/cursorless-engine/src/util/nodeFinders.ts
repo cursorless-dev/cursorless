@@ -1,12 +1,12 @@
 import type { Selection } from "@cursorless/common";
 import { Position } from "@cursorless/common";
-import type { Point, SyntaxNode } from "web-tree-sitter";
+import type { Point, Node } from "web-tree-sitter";
 import type { NodeFinder } from "../typings/Types";
 
 export const nodeFinder = (
-  isTargetNode: (node: SyntaxNode) => boolean,
+  isTargetNode: (node: Node) => boolean,
 ): NodeFinder => {
-  return (node: SyntaxNode) => {
+  return (node: Node) => {
     return isTargetNode(node) ? node : null;
   };
 };
@@ -19,8 +19,8 @@ export const nodeFinder = (
  * @returns A node finder
  */
 export function leadingSiblingNodeFinder(nodeFinder: NodeFinder) {
-  return (node: SyntaxNode) => {
-    let currentNode: SyntaxNode | null = node;
+  return (node: Node) => {
+    let currentNode: Node | null = node;
 
     while (currentNode != null) {
       const returnNode = nodeFinder(currentNode);
@@ -44,8 +44,8 @@ export function leadingSiblingNodeFinder(nodeFinder: NodeFinder) {
  * @returns A node finder which is a chain of the input node finders
  */
 export function chainedNodeFinder(...nodeFinders: NodeFinder[]) {
-  return (node: SyntaxNode) => {
-    let currentNode: SyntaxNode | null = node;
+  return (node: Node) => {
+    let currentNode: Node | null = node;
     for (const nodeFinder of nodeFinders) {
       currentNode = nodeFinder(currentNode);
       if (currentNode == null) {
@@ -77,9 +77,9 @@ export function ancestorChainNodeFinder(
   nodeToReturn: number,
   ...nodeFinders: NodeFinder[]
 ) {
-  return (node: SyntaxNode) => {
-    let currentNode: SyntaxNode | null = node;
-    const nodeList: SyntaxNode[] = [];
+  return (node: Node) => {
+    let currentNode: Node | null = node;
+    const nodeList: Node[] = [];
     const nodeFindersReversed = [...nodeFinders].reverse();
 
     for (const nodeFinder of nodeFindersReversed) {
@@ -112,12 +112,11 @@ export const argumentNodeFinder = (...parentTypes: string[]): NodeFinder => {
   const left = ["(", "{", "[", "<"];
   const right = [")", "}", "]", ">"];
   const delimiters = left.concat(right);
-  const isType = (node: SyntaxNode | null, typeNames: string[]) =>
+  const isType = (node: Node | null, typeNames: string[]) =>
     node != null && typeNames.includes(node.type);
-  const isOk = (node: SyntaxNode | null) =>
-    node != null && !isType(node, delimiters);
-  return (node: SyntaxNode, selection?: Selection) => {
-    let resultNode: SyntaxNode | null;
+  const isOk = (node: Node | null) => node != null && !isType(node, delimiters);
+  return (node: Node, selection?: Selection) => {
+    let resultNode: Node | null;
     const { start, end } = selection!;
     // Is already child
     if (isType(node.parent, parentTypes)) {
@@ -171,9 +170,9 @@ export const argumentNodeFinder = (...parentTypes: string[]): NodeFinder => {
 export function findPossiblyWrappedNode(
   isWrapperNode: NodeFinder,
   isTargetNode: NodeFinder,
-  getWrappedNodes: (node: SyntaxNode) => (SyntaxNode | null)[],
+  getWrappedNodes: (node: Node) => (Node | null)[],
 ): NodeFinder {
-  return (node: SyntaxNode) => {
+  return (node: Node) => {
     if (node.parent != null && isWrapperNode(node.parent)) {
       // We don't want to return the target node if it is wrapped.  We return
       // null, knowing that the ancestor walk will call us again with the
@@ -197,7 +196,7 @@ export function findPossiblyWrappedNode(
 
 export function patternFinder(...patterns: string[]): NodeFinder {
   const parsedPatterns = parsePatternStrings(patterns);
-  return (node: SyntaxNode) => {
+  return (node: Node) => {
     for (const pattern of parsedPatterns) {
       const match = tryPatternMatch(node, pattern);
       if (match != null) {
@@ -214,17 +213,14 @@ function parsePatternStrings(patternStrings: string[]) {
   );
 }
 
-function tryPatternMatch(
-  node: SyntaxNode,
-  patterns: Pattern[],
-): SyntaxNode | null {
+function tryPatternMatch(node: Node, patterns: Pattern[]): Node | null {
   let result = searchNodeAscending(node, patterns);
 
   if (!result && patterns.length > 1) {
     result = searchNodeDescending(node, patterns);
   }
 
-  let resultNode: SyntaxNode | null = null;
+  let resultNode: Node | null = null;
   let resultPattern;
 
   if (result != null) {
@@ -248,14 +244,11 @@ function tryPatternMatch(
   return resultNode;
 }
 
-type NodePattern = [SyntaxNode, Pattern] | null;
+type NodePattern = [Node, Pattern] | null;
 
-function searchNodeAscending(
-  node: SyntaxNode,
-  patterns: Pattern[],
-): NodePattern {
+function searchNodeAscending(node: Node, patterns: Pattern[]): NodePattern {
   let result: NodePattern = null;
-  let currentNode: SyntaxNode | null = node;
+  let currentNode: Node | null = node;
 
   for (let i = patterns.length - 1; i > -1; --i) {
     const pattern = patterns[i];
@@ -278,12 +271,9 @@ function searchNodeAscending(
   return result;
 }
 
-function searchNodeDescending(
-  node: SyntaxNode,
-  patterns: Pattern[],
-): NodePattern {
+function searchNodeDescending(node: Node, patterns: Pattern[]): NodePattern {
   let result: NodePattern = null;
-  let currentNode: SyntaxNode | null = node;
+  let currentNode: Node | null = node;
 
   for (let i = 0; i < patterns.length; ++i) {
     const pattern = patterns[i];
@@ -301,7 +291,7 @@ function searchNodeDescending(
     }
 
     if (i + 1 < patterns.length) {
-      const children: SyntaxNode[] = currentNode.namedChildren.filter((node) =>
+      const children: Node[] = currentNode.namedChildren.filter((node) =>
         patterns[i + 1].typeEquals(node),
       );
       currentNode = children.length === 1 ? children[0] : null;
@@ -357,7 +347,7 @@ class Pattern {
       });
   }
 
-  typeEquals(node: SyntaxNode) {
+  typeEquals(node: Node) {
     if (this.anyType) {
       return true;
     }

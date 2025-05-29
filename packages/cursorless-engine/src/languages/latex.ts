@@ -1,6 +1,6 @@
 import type { SimpleScopeTypeType, TextEditor } from "@cursorless/common";
 import { Selection } from "@cursorless/common";
-import type { SyntaxNode } from "web-tree-sitter";
+import type { Node } from "web-tree-sitter";
 import type {
   NodeMatcherAlternative,
   SelectionWithContext,
@@ -84,7 +84,7 @@ const sectioningCommand = SECTIONING.map((s) => `${s}[command]`);
 
 function unwrapGroupParens(
   editor: TextEditor,
-  node: SyntaxNode,
+  node: Node,
 ): SelectionWithContext {
   return {
     selection: new Selection(
@@ -102,7 +102,7 @@ function unwrapGroupParens(
 
 function extendToNamedSiblingIfExists(
   editor: TextEditor,
-  node: SyntaxNode,
+  node: Node,
 ): SelectionWithContext {
   const startIndex = node.startIndex;
   let endIndex = node.endIndex;

@@ -1,5 +1,5 @@
 import type { SimpleScopeTypeType } from "@cursorless/common";
-import type { SyntaxNode } from "web-tree-sitter";
+import type { Node } from "web-tree-sitter";
 import type { NodeMatcherAlternative } from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";
 import {
@@ -131,7 +131,7 @@ const assignmentOperators = [
 ];
 const mapKeyValueSeparators = [":", "=>"];
 
-function blockFinder(node: SyntaxNode) {
+function blockFinder(node: Node) {
   if (node.type !== "call") {
     return null;
   }

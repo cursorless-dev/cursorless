@@ -1,0 +1,13 @@
+function(x, y){ }
+---
+
+[Content] =
+[Removal] = 0:9-0:13
+           >----<
+0| function(x, y){ }
+
+[Domain] = 0:0-0:17
+  >-----------------<
+0| function(x, y){ }
+
+[Insertion delimiter] = ", "

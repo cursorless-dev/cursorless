@@ -21,12 +21,19 @@ let value: Map<string, number>;
 
 
 [#2 Content] =
-[#2 Removal] =
 [#2 Domain] = 0:15-0:21
                  >------<
 0| let value: Map<string, number>;
 
-[#2 Insertion delimiter] = " "
+[#2 Removal] = 0:15-0:23
+                 >--------<
+0| let value: Map<string, number>;
+
+[#2 Trailing delimiter] = 0:21-0:23
+                       >--<
+0| let value: Map<string, number>;
+
+[#2 Insertion delimiter] = ", "
 
 
 [#3 Content] =
@@ -34,12 +41,12 @@ let value: Map<string, number>;
                          >------<
 0| let value: Map<string, number>;
 
-[#3 Removal] = 0:22-0:29
-                        >-------<
+[#3 Removal] = 0:21-0:29
+                       >--------<
 0| let value: Map<string, number>;
 
-[#3 Leading delimiter] = 0:22-0:23
-                        >-<
+[#3 Leading delimiter] = 0:21-0:23
+                       >--<
 0| let value: Map<string, number>;
 
-[#3 Insertion delimiter] = " "
+[#3 Insertion delimiter] = ", "

@@ -1,0 +1,10 @@
+foo <- function(bar){}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:22
+  >----------------------<
+0| foo <- function(bar){}
+
+[Insertion delimiter] = "\n\n"

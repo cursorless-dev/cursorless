@@ -1,5 +1,5 @@
 import type { SimpleScopeTypeType } from "@cursorless/common";
-import type { SyntaxNode } from "web-tree-sitter";
+import type { Node } from "web-tree-sitter";
 import type { NodeFinder, NodeMatcherAlternative } from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";
 import {
@@ -44,7 +44,7 @@ function indexNodeFinder(
   parentFinder: NodeFinder,
   indexTransform: (index: number) => number,
 ) {
-  return (node: SyntaxNode) => {
+  return (node: Node) => {
     const parent = node.parent;
 
     if (parent == null || parentFinder(parent) == null) {
@@ -76,8 +76,7 @@ function indexNodeFinder(
  * @param node The node whose children to get
  * @returns A list of the value node children of the given node
  */
-const getValueNodes = (node: SyntaxNode) =>
-  getChildNodesForFieldName(node, "value");
+const getValueNodes = (node: Node) => getChildNodesForFieldName(node, "value");
 
 // A function call is a list literal which is not quoted
 const functionCallPattern = "~quoting_lit.list_lit!";
@@ -89,7 +88,7 @@ const functionCallFinder = patternFinder(functionCallPattern);
  * @returns The function call node if the name matches otherwise null
  */
 function functionNameBasedFinder(...names: string[]) {
-  return (node: SyntaxNode) => {
+  return (node: Node) => {
     const functionCallNode = functionCallFinder(node);
     if (functionCallNode == null) {
       return null;
