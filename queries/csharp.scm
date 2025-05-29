@@ -262,10 +262,8 @@
 ;; !      ^^^^
 (_
   (argument_list
-    .
     "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
     ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
-    .
   ) @_dummy
   (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
@@ -288,19 +286,15 @@
 ;; !           ^^^^^^^^^^^^
 (_
   (parameter_list
-    .
     "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
     ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
-    .
   ) @_dummy
   (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 (parameter_list
-  .
   "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
   ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
-  .
 )
 
 ;; Treat interior of all bodies as iteration scopes for `name`, eg
@@ -308,10 +302,8 @@
 ;;!              ***
 (_
   body: (_
-    .
     "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
     "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
-    .
   )
 )
 
