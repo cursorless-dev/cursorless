@@ -719,10 +719,12 @@
   (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
-(argument_list
-  "(" @argumentOrParameter.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
-  ")" @argumentOrParameter.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
-) @argumentOrParameter.iteration.domain @name.iteration.domain @value.iteration.domain
+(_
+  (argument_list
+    "(" @argumentOrParameter.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
+    ")" @argumentOrParameter.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+  ) @name.iteration.domain @value.iteration.domain
+) @argumentOrParameter.iteration.domain
 
 (call
   (generator_expression

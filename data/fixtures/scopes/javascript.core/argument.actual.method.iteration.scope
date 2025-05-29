@@ -5,6 +5,6 @@ aaa.bbb(ccc, ddd);
           >--------<
 0| aaa.bbb(ccc, ddd);
 
-[Domain] = 0:7-0:17
-         >----------<
+[Domain] = 0:0-0:17
+  >-----------------<
 0| aaa.bbb(ccc, ddd);
