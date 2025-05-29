@@ -59,11 +59,13 @@
         {
           "type": "webview",
           "id": "cursorless.tutorial",
-          "name": "Tutorial"
+          "name": "Tutorial",
+          "icon": "images/logo.svg"
         },
         {
           "id": "cursorless.scopes",
-          "name": "Scopes"
+          "name": "Scopes",
+          "icon": "images/logo.svg"
         }
       ]
     },
