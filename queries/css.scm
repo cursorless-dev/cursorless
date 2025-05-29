@@ -88,11 +88,13 @@
   (#insertion-delimiter! @argumentOrParameter ", ")
 )
 
-(arguments
-  .
-  "(" @argumentOrParameter.iteration.start.endOf
-  ")" @argumentOrParameter.iteration.end.startOf
-  .
+(_
+  (arguments
+    .
+    "(" @argumentOrParameter.iteration.start.endOf
+    ")" @argumentOrParameter.iteration.end.startOf
+    .
+  )
 ) @argumentOrParameter.iteration.domain
 
 ;; Entire file

@@ -274,8 +274,10 @@
 
 (_
   (parameter_list
+    .
     "(" @argumentOrParameter.iteration.start.endOf
     ")" @argumentOrParameter.iteration.end.startOf
+    .
   )
 ) @argumentOrParameter.iteration.domain
 
@@ -284,9 +286,13 @@
   ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
 )
 
-(argument_list
-  "(" @argumentOrParameter.iteration.start.endOf
-  ")" @argumentOrParameter.iteration.end.startOf
+(_
+  (argument_list
+    .
+    "(" @argumentOrParameter.iteration.start.endOf
+    ")" @argumentOrParameter.iteration.end.startOf
+    .
+  )
 ) @argumentOrParameter.iteration.domain
 
 ;; Treat interior of all bodies as iteration scopes for `name`, eg

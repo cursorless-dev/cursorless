@@ -46,8 +46,8 @@
 (function_definition) @anonymousFunction
 
 ;; argument.actual
-;;!! foo("bar")
-;;!      ^^^^^
+;;!! foo(a, b")
+;;!      ^  ^
 (
   (arguments
     (
@@ -67,7 +67,7 @@
 
 ;; argument.formal
 ;;!! function(a, b){}
-;;!           ^^^^
+;;!           ^  ^
 (
   (parameters
     (
@@ -85,64 +85,56 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
-[
-  ;; argument.actual
-  ;;!! foo(a, b)
-  ;;!      ^^^^
-  (call
-   arguments: (arguments
-     open: "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
-     close: ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
-     ) @_dummy @argumentOrParameter.iteration.domain
-   (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
-  )
+;; argumentList.actual
+;;!! foo(a, b)
+;;!      ^^^^
+(call
+  (arguments
+    .
+    open: "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
+    close: ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
+    .
+  ) @_dummy
+  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
-  ;; argument.formal
-  ;;!! function(a, b){}
-  ;;!           ^^^^
+;; argumentList.formal
+;;!! foo <- function(a, b){ }
+;;!                  ^^^^
+(binary_operator
   (function_definition
-   parameters: (parameters
-     open: "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
-     close: ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
-     ) @_dummy
-   (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+    (parameters
+      .
+      open: "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
+      close: ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
+      .
+    ) @_dummy
+    (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
   )
-] @argumentList.domain
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
-(arguments
-  "(" @argumentOrParameter.iteration.start.endOf
-  ")" @argumentOrParameter.iteration.end.startOf
+;; argumentList.formal
+;;!! function(a, b){}
+;;!           ^^^^
+(
+  (function_definition
+    (parameters
+      .
+      open: "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
+      close: ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
+      .
+    ) @_dummy
+    (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+  ) @argumentList.domain @argumentOrParameter.iteration.domain
+  (#not-parent-type? @argumentList.domain binary_operator)
 )
 
 (parameters
+  .
   "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
   ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+  .
 )
-
-;;!! function(a, b){ }
-;;!           ^^^^
-;; For domain, have to handle either named or unnamed function using
-;; alternation, to ensure that the function name is part of the domain if it
-;; exists
-[
-  (binary_operator
-   (function_definition
-    parameters: (parameters
-      open: "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
-      close: ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
-      ) @_dummy
-    (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
-   )
-  ) @argumentOrParameter.iteration.domain
-  (function_definition
-   parameters: (parameters
-     open: "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
-     close: ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
-     ) @_dummy
-   (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
-  )
-] @argumentList.domain
-
 
 ;; Function calls
 ;;!! foo()
@@ -170,7 +162,10 @@
   ;;!  ^^^^^
   ;;!  -----
   lhs: (identifier) @name @value.leading.endOf
-  operator: ["<-" "="]
+  operator: [
+    "<-"
+    "="
+  ]
   ;;!! hello <- "world"
   ;;!           ^^^^^^^
   ;;!  -----
