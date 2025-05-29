@@ -1,8 +1,7 @@
 import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
+const { supported, notApplicable } = ScopeSupportFacetLevel;
 
 export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   ifStatement: supported,
@@ -11,6 +10,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   map: supported,
   list: supported,
   disqualifyDelimiter: supported,
+  attribute: supported,
 
   class: supported,
   "class.iteration.document": supported,
@@ -34,6 +34,15 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "functionName.constructor": supported,
   "functionName.method": supported,
   "functionName.method.iteration.class": supported,
+
+  "branch.if": supported,
+  "branch.if.iteration": supported,
+  "branch.try": supported,
+  "branch.try.iteration": supported,
+  "branch.switchCase": supported,
+  "branch.switchCase.iteration": supported,
+  "branch.ternary": supported,
+  "branch.loop": supported,
 
   "condition.for": supported,
   "condition.while": supported,
@@ -62,10 +71,41 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "key.mapPair": supported,
   "key.mapPair.iteration": supported,
 
+  "argumentList.actual": supported,
+  "argumentList.actual.constructor": supported,
+  "argumentList.actual.method": supported,
+  "argumentList.formal": supported,
+  "argumentList.formal.lambda": supported,
+  "argumentList.formal.constructor": supported,
+  "argumentList.formal.method": supported,
+
   "argument.actual": supported,
   "argument.actual.iteration": supported,
+  "argument.actual.constructor": supported,
+  "argument.actual.constructor.iteration": supported,
+  "argument.actual.method": supported,
+  "argument.actual.method.iteration": supported,
   "argument.formal": supported,
   "argument.formal.iteration": supported,
+  "argument.formal.constructor": supported,
+  "argument.formal.constructor.iteration": supported,
+  "argument.formal.method": supported,
+  "argument.formal.method.iteration": supported,
 
+  // Not applicable
+
+  "interior.element": notApplicable,
+  "key.attribute": notApplicable,
+  "section.iteration.document": notApplicable,
+  "section.iteration.parent": notApplicable,
+  "textFragment.element": notApplicable,
+  command: notApplicable,
+  element: notApplicable,
+  endTag: notApplicable,
+  environment: notApplicable,
+  notebookCell: notApplicable,
   regularExpression: notApplicable,
+  section: notApplicable,
+  startTag: notApplicable,
+  tags: notApplicable,
 };

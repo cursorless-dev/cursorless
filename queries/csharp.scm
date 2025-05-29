@@ -50,6 +50,77 @@
 
 (if_statement) @ifStatement
 
+;;!! if () {}
+;;!  ^^^^^^^^
+(
+  (if_statement
+    condition: (_) @condition
+    consequence: (_) @branch.end.endOf @branch.removal.end.endOf
+    alternative: (_)? @branch.removal.end.startOf
+  ) @branch.start.startOf @branch.removal.start.startOf @condition.domain
+  (#not-parent-type? @condition.domain "if_statement")
+)
+
+;;!! else if () {}
+;;!  ^^^^^^^^^^^^^
+(if_statement
+  "else" @branch.start.startOf @condition.domain.start.startOf
+  (if_statement
+    condition: (_) @condition
+    consequence: (_) @branch.end.endOf @condition.domain.end.endOf
+  )
+)
+
+;;!! else {}
+;;!  ^^^^^^^
+(if_statement
+  "else" @branch.start
+  alternative: (block) @branch.end
+)
+
+;;!! if () {} else if () {} else {}
+;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(
+  (if_statement) @branch.iteration
+  (#not-parent-type? @branch.iteration "if_statement")
+)
+
+;;!! try () {}
+;;!  ^^^^^^^^^
+(try_statement
+  body: (_) @branch.end.endOf
+) @branch.start.startOf
+
+;;!! catch () {}
+;;!  ^^^^^^^^^^^
+(catch_clause) @branch
+
+;;!! finally {}
+;;!  ^^^^^^^^^^
+(finally_clause) @branch
+
+;;!! try () {} catch () {} finally {}
+;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(try_statement) @branch.iteration
+
+[
+  (for_statement)
+  (for_each_statement)
+  (while_statement)
+  (do_statement)
+] @branch
+
+;;!! true ? 0 : 1;
+;;!  ^^^^
+;;!         ^   ^
+(conditional_expression
+  condition: (_) @condition
+  consequence: (_) @branch
+) @condition.domain
+(conditional_expression
+  alternative: (_) @branch
+) @condition.domain
+
 (class_declaration
   name: (identifier) @className
 ) @class @_.domain
@@ -75,9 +146,12 @@
   (string_literal) @string @textFragment
   (#child-range! @textFragment 0 -1 true true)
 )
+
 (comment) @comment @textFragment
 
 (lambda_expression) @anonymousFunction
+
+(attribute) @attribute
 
 [
   (delegate_declaration
@@ -119,6 +193,7 @@
 (switch_statement
   (tuple_expression) @private.switchStatementSubject
 ) @_.domain
+
 (switch_statement
   value: (_) @private.switchStatementSubject
 ) @_.domain
@@ -130,11 +205,13 @@
   .
   (_) @condition
 ) @_.domain
+
 (do_statement
   "while"
   .
   (_) @condition
 ) @_.domain
+
 (switch_section
   (case_switch_label
     .
@@ -142,10 +219,12 @@
   )
 ) @_.domain
 
+(switch_section) @branch
+
 (switch_statement
   body: (switch_body
-    "{" @condition.iteration.start.endOf
-    "}" @condition.iteration.end.startOf
+    "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
+    "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
   )
 )
 
@@ -235,34 +314,6 @@
   type: (_) @type
 ) @_.domain
 
-;;!! def foo(name) {}
-;;!          ^^^^
-(
-  (parameter_list
-    (_)? @_.leading.endOf
-    .
-    (_) @argumentOrParameter
-    .
-    (_)? @_.trailing.startOf
-  ) @_dummy
-  (#not-type? @argumentOrParameter "comment")
-  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
-)
-
-;;!! foo("bar")
-;;!      ^^^^^
-(
-  (argument_list
-    (_)? @_.leading.endOf
-    .
-    (_) @argumentOrParameter
-    .
-    (_)? @_.trailing.startOf
-  ) @_dummy
-  (#not-type? @argumentOrParameter "comment")
-  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
-)
-
 ;;!! int value = 5
 ;;!              ^
 (parameter
@@ -272,24 +323,58 @@
   )
 ) @_.domain
 
+;; !! foo(a, b)
+;; !      ^  ^
+(
+  (argument_list
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#not-type? @argumentOrParameter "comment")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
+;; !! foo(a, b)
+;; !      ^^^^
+(_
+  (argument_list
+    "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @_dummy
+  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+) @argumentList.domain @argumentOrParameter.iteration.domain
+
+;; !! void foo(int a, int b)
+;; !           ^^^^^  ^^^^^
+(
+  (parameter_list
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#not-type? @argumentOrParameter "comment")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
+;; !! void foo(int a, int b)
+;; !           ^^^^^^^^^^^^
 (_
   (parameter_list
-    "(" @argumentOrParameter.iteration.start.endOf
-    ")" @argumentOrParameter.iteration.end.startOf
-  )
-) @argumentOrParameter.iteration.domain
+    "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @_dummy
+  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
 (parameter_list
   "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
   ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
 )
-
-(_
-  (argument_list
-    "(" @argumentOrParameter.iteration.start.endOf
-    ")" @argumentOrParameter.iteration.end.startOf
-  )
-) @argumentOrParameter.iteration.domain
 
 ;; Treat interior of all bodies as iteration scopes for `name`, eg
 ;;!! void foo() {   }
