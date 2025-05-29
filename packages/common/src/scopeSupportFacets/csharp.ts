@@ -92,7 +92,20 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal.method": supported,
   "argument.formal.method.iteration": supported,
 
-  //   Not applicable
+  // Not applicable
 
+  "interior.element": notApplicable,
+  "key.attribute": notApplicable,
+  "section.iteration.document": notApplicable,
+  "section.iteration.parent": notApplicable,
+  "textFragment.element": notApplicable,
+  command: notApplicable,
+  element: notApplicable,
+  endTag: notApplicable,
+  environment: notApplicable,
+  notebookCell: notApplicable,
   regularExpression: notApplicable,
+  section: notApplicable,
+  startTag: notApplicable,
+  tags: notApplicable,
 };
