@@ -1,3 +1,11 @@
 [Obsolete("Deprecated")]
 void foo() {}
 ---
+
+[Content] =
+[Removal] =
+[Domain] = 0:1-0:23
+   >----------------------<
+0| [Obsolete("Deprecated")]
+
+[Insertion delimiter] = " "

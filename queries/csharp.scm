@@ -193,6 +193,7 @@
 (switch_statement
   (tuple_expression) @private.switchStatementSubject
 ) @_.domain
+
 (switch_statement
   value: (_) @private.switchStatementSubject
 ) @_.domain
@@ -204,22 +205,28 @@
   .
   (_) @condition
 ) @_.domain
+
 (do_statement
   "while"
   .
   (_) @condition
 ) @_.domain
+
 (switch_section
   (case_switch_label
     .
     (_) @condition
   )
-) @_.domain
+) @branch @_.domain
+
+(switch_section
+  (default_switch_label)
+) @branch
 
 (switch_statement
   body: (switch_body
-    "{" @condition.iteration.start.endOf
-    "}" @condition.iteration.end.startOf
+    "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
+    "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
   )
 )
 
