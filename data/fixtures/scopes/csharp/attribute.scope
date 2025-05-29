@@ -1,0 +1,3 @@
+[Obsolete("Deprecated")]
+void foo() {}
+---

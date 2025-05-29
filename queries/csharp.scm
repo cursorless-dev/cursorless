@@ -50,6 +50,77 @@
 
 (if_statement) @ifStatement
 
+;;!! if () {}
+;;!  ^^^^^^^^
+(
+  (if_statement
+    condition: (_) @condition
+    consequence: (_) @branch.end.endOf @branch.removal.end.endOf
+    alternative: (_)? @branch.removal.end.startOf
+  ) @branch.start.startOf @branch.removal.start.startOf @condition.domain
+  (#not-parent-type? @condition.domain "if_statement")
+)
+
+;;!! else if () {}
+;;!  ^^^^^^^^^^^^^
+(if_statement
+  "else" @branch.start.startOf @condition.domain.start.startOf
+  (if_statement
+    condition: (_) @condition
+    consequence: (_) @branch.end.endOf @condition.domain.end.endOf
+  )
+)
+
+;;!! else {}
+;;!  ^^^^^^^
+(if_statement
+  "else" @branch.start
+  alternative: (block) @branch.end
+)
+
+;;!! if () {} else if () {} else {}
+;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(
+  (if_statement) @branch.iteration
+  (#not-parent-type? @branch.iteration "if_statement")
+)
+
+;;!! try () {}
+;;!  ^^^^^^^^^
+(try_statement
+  body: (_) @branch.end.endOf
+) @branch.start.startOf
+
+;;!! catch () {}
+;;!  ^^^^^^^^^^^
+(catch_clause) @branch
+
+;;!! finally {}
+;;!  ^^^^^^^^^^
+(finally_clause) @branch
+
+;;!! try () {} catch () {} finally {}
+;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(try_statement) @branch.iteration
+
+[
+  (for_statement)
+  (for_each_statement)
+  (while_statement)
+  (do_statement)
+] @branch
+
+;;!! true ? 0 : 1;
+;;!  ^^^^
+;;!         ^   ^
+(conditional_expression
+  condition: (_) @condition
+  consequence: (_) @branch
+) @condition.domain
+(conditional_expression
+  alternative: (_) @branch
+) @condition.domain
+
 (class_declaration
   name: (identifier) @className
 ) @class @_.domain
@@ -75,9 +146,12 @@
   (string_literal) @string @textFragment
   (#child-range! @textFragment 0 -1 true true)
 )
+
 (comment) @comment @textFragment
 
 (lambda_expression) @anonymousFunction
+
+(attribute) @attribute
 
 [
   (delegate_declaration

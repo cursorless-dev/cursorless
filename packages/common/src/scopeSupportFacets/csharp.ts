@@ -1,8 +1,7 @@
 import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
+const { supported, notApplicable } = ScopeSupportFacetLevel;
 
 export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   ifStatement: supported,
@@ -11,6 +10,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   map: supported,
   list: supported,
   disqualifyDelimiter: supported,
+  attribute: supported,
 
   class: supported,
   "class.iteration.document": supported,
@@ -34,6 +34,15 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "functionName.constructor": supported,
   "functionName.method": supported,
   "functionName.method.iteration.class": supported,
+
+  "branch.if": supported,
+  "branch.if.iteration": supported,
+  "branch.try": supported,
+  "branch.try.iteration": supported,
+  "branch.switchCase": supported,
+  "branch.switchCase.iteration": supported,
+  "branch.ternary": supported,
+  "branch.loop": supported,
 
   "condition.for": supported,
   "condition.while": supported,
@@ -82,6 +91,8 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal.constructor.iteration": supported,
   "argument.formal.method": supported,
   "argument.formal.method.iteration": supported,
+
+  //   Not applicable
 
   regularExpression: notApplicable,
 };
