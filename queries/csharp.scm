@@ -217,11 +217,9 @@
     .
     (_) @condition
   )
-) @branch @_.domain
+) @_.domain
 
-(switch_section
-  (default_switch_label)
-) @branch
+(switch_section) @branch
 
 (switch_statement
   body: (switch_body
