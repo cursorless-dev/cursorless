@@ -110,7 +110,7 @@ function waitForEditorToOpen() {
       if (vscode.window.activeTextEditor != null) {
         clearInterval(interval);
         // Give it a moment to settle
-        setTimeout(resolve, 100);
+        setTimeout(resolve, 200);
       } else {
         count++;
         if (count === 20) {
