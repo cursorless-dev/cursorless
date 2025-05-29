@@ -129,6 +129,10 @@ export class LanguageDefinitionsImpl
       return;
     }
 
+    if (languageId === "latex" && this.treeSitter.disableLatexMsg != null) {
+      return undefined;
+    }
+
     const definition =
       (await LanguageDefinition.create(
         this.ide,
@@ -151,6 +155,10 @@ export class LanguageDefinitionsImpl
     const definition = this.languageDefinitions.get(languageId);
 
     if (definition == null) {
+      if (languageId === "latex" && this.treeSitter.disableLatexMsg != null) {
+        throw Error(this.treeSitter.disableLatexMsg);
+      }
+
       throw new Error(
         "Expected language definition entry is missing for languageId " +
           languageId,

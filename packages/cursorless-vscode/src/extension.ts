@@ -62,6 +62,7 @@ import { registerCommands } from "./registerCommands";
 import { revisualizeOnCustomRegexChange } from "./revisualizeOnCustomRegexChange";
 import { storedTargetHighlighter } from "./storedTargetHighlighter";
 import { vscodeApi } from "./vscodeApi";
+import * as semver from "semver";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -266,6 +267,10 @@ function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {
 
     loadLanguage: parseTreeApi.loadLanguage,
     createQuery: parseTreeApi.createQuery,
+
+    disableLatexMsg: semver.lt(vscode.version, "1.98.0")
+      ? undefined
+      : "Latex is disabled on vscode versions >= 1.98.0. issues/2879",
   };
 }
 

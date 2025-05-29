@@ -28,4 +28,10 @@ export interface TreeSitter {
    * @returns The query if that language is already loaded
    */
   createQuery(languageId: string, source: string): Query | undefined;
+
+  /**
+   * FIXME: On newer vscode versions the latex parse throws memory errors
+   * https://github.com/cursorless-dev/cursorless/issues/2879
+   */
+  disableLatexMsg?: string;
 }
