@@ -6,6 +6,6 @@ new MyClass(2, "foo")
               >--------<
 1| new MyClass(2, "foo")
 
-[Domain] = 1:11-1:21
-             >----------<
+[Domain] = 1:0-1:21
+  >---------------------<
 1| new MyClass(2, "foo")

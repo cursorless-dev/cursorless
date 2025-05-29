@@ -88,11 +88,11 @@
   (#insertion-delimiter! @argumentOrParameter ", ")
 )
 
-(arguments
-  .
-  "(" @argumentOrParameter.iteration.start.endOf
-  ")" @argumentOrParameter.iteration.end.startOf
-  .
+(_
+  (arguments
+    "(" @argumentOrParameter.iteration.start.endOf
+    ")" @argumentOrParameter.iteration.end.startOf
+  )
 ) @argumentOrParameter.iteration.domain
 
 ;; Entire file
@@ -107,10 +107,8 @@
 
 ;; { }
 (block
-  .
   "{" @name.iteration.start.endOf @collectionKey.iteration.start.endOf @value.iteration.start.endOf
   "}" @name.iteration.end.startOf @collectionKey.iteration.end.startOf @value.iteration.end.startOf
-  .
 ) @map
 
 ;;!! width: 100px;

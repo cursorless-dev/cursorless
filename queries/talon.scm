@@ -176,16 +176,18 @@
   (#insertion-delimiter! @argumentOrParameter ", ")
 )
 
-(argument_list
-  .
-  "(" @argumentOrParameter.iteration.start.endOf
-  ")" @argumentOrParameter.iteration.end.startOf
-  .
+(_
+  (argument_list
+    "(" @argumentOrParameter.iteration.start.endOf
+    ")" @argumentOrParameter.iteration.end.startOf
+  )
 ) @argumentOrParameter.iteration.domain
 
 ;;!! key(enter)
 ;;!      ^^^^^
-arguments: (implicit_string) @argumentOrParameter.iteration
+(_
+  arguments: (implicit_string) @argumentOrParameter.iteration
+) @argumentOrParameter.iteration.domain
 
 ;;!! # foo
 ;;!  ^^^^^
