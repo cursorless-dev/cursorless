@@ -1,0 +1,15 @@
+class MyClass {
+    void foo() {}
+}
+---
+
+[Content] =
+[Removal] = 1:13-1:13
+               ><
+1|     void foo() {}
+
+[Domain] = 1:4-1:17
+      >-------------<
+1|     void foo() {}
+
+[Insertion delimiter] = ""

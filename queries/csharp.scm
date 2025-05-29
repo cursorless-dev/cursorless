@@ -235,22 +235,17 @@
   type: (_) @type
 ) @_.domain
 
-;;!! def foo(name) {}
-;;!          ^^^^
-(
-  (parameter_list
-    (_)? @_.leading.endOf
-    .
-    (_) @argumentOrParameter
-    .
-    (_)? @_.trailing.startOf
-  ) @_dummy
-  (#not-type? @argumentOrParameter "comment")
-  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
-)
+;;!! int value = 5
+;;!              ^
+(parameter
+  name: (_) @value.leading.endOf
+  (equals_value_clause
+    (_) @value
+  )
+) @_.domain
 
-;;!! foo("bar")
-;;!      ^^^^^
+;; !! foo(a, b)
+;; !      ^  ^
 (
   (argument_list
     (_)? @_.leading.endOf
@@ -263,31 +258,50 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
-;;!! int value = 5
-;;!              ^
-(parameter
-  name: (_) @value.leading.endOf
-  (equals_value_clause
-    (_) @value
-  )
-) @_.domain
-
+;; !! foo(a, b)
+;; !      ^^^^
 (_
-  (parameter_list
-    "(" @argumentOrParameter.iteration.start.endOf
-    ")" @argumentOrParameter.iteration.end.startOf
-  )
-) @argumentOrParameter.iteration.domain
+  (argument_list
+    .
+    "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
+    .
+  ) @_dummy
+  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
-(parameter_list
-  "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
-  ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+;; !! void foo(int a, int b)
+;; !           ^^^^^  ^^^^^
+(
+  (parameter_list
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#not-type? @argumentOrParameter "comment")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
-(argument_list
-  "(" @argumentOrParameter.iteration.start.endOf
-  ")" @argumentOrParameter.iteration.end.startOf
-) @argumentOrParameter.iteration.domain
+;; !! void foo(int a, int b)
+;; !           ^^^^^^^^^^^^
+(_
+  (parameter_list
+    .
+    "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
+    .
+  ) @_dummy
+  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+) @argumentList.domain @argumentOrParameter.iteration.domain
+
+(parameter_list
+  .
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+  .
+)
 
 ;; Treat interior of all bodies as iteration scopes for `name`, eg
 ;;!! void foo() {   }

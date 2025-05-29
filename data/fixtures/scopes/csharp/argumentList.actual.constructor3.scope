@@ -1,0 +1,24 @@
+new Foo(
+    a,
+    b
+);
+---
+
+[Content] =
+[Removal] = 0:8-3:0
+          >
+0| new Foo(
+1|     a,
+2|     b
+3| );
+   <
+
+[Domain] = 0:0-3:1
+  >--------
+0| new Foo(
+1|     a,
+2|     b
+3| );
+   -<
+
+[Insertion delimiter] = ",\n"

@@ -62,6 +62,14 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "key.mapPair": supported,
   "key.mapPair.iteration": supported,
 
+  "argumentList.actual": supported,
+  "argumentList.actual.constructor": supported,
+  "argumentList.actual.method": supported,
+  "argumentList.formal": supported,
+  "argumentList.formal.lambda": supported,
+  "argumentList.formal.constructor": supported,
+  "argumentList.formal.method": supported,
+
   "argument.actual": supported,
   "argument.actual.iteration": supported,
   "argument.formal": supported,
