@@ -30,7 +30,7 @@ export interface TreeSitter {
   createQuery(languageId: string, source: string): Query | undefined;
 
   /**
-   * FIXME: On newer vscode versions the latex parse throws memory errors
+   * FIXME: On newer vscode versions the latex Tree sitter parser throws memory errors
    * https://github.com/cursorless-dev/cursorless/issues/2879
    */
   disableLatexMsg?: string;
