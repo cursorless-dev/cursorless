@@ -98,19 +98,18 @@ export async function openNewNotebookEditor(
 
   // FIXME: There seems to be some timing issue when you create a notebook
   // editor
-  await waitForEditorToOpen(cellContents.length);
+  await waitForEditorToOpen();
 
   return document;
 }
 
-function waitForEditorToOpen(numCells: number): Promise<void> {
+function waitForEditorToOpen(): Promise<void> {
   return new Promise<void>((resolve, reject) => {
     let count = 0;
     const interval = setInterval(() => {
       if (vscode.window.activeTextEditor != null) {
         clearInterval(interval);
-        // Give it a moment to settle
-        setTimeout(resolve, 100 * numCells);
+        resolve();
       } else {
         count++;
         if (count === 20) {
