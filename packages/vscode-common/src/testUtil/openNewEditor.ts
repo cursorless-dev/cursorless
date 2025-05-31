@@ -103,14 +103,13 @@ export async function openNewNotebookEditor(
   return document;
 }
 
-function waitForEditorToOpen() {
+function waitForEditorToOpen(): Promise<void> {
   return new Promise<void>((resolve, reject) => {
     let count = 0;
     const interval = setInterval(() => {
       if (vscode.window.activeTextEditor != null) {
         clearInterval(interval);
-        // Give it a moment to settle
-        setTimeout(resolve, 100);
+        resolve();
       } else {
         count++;
         if (count === 20) {

@@ -1,3 +1,4 @@
+import { sleep } from "@cursorless/common";
 import {
   getCursorlessApi,
   openNewNotebookEditor,
@@ -18,6 +19,8 @@ async function runTest() {
   const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
 
   await openNewNotebookEditor(['"hello"', '"world"']);
+
+  await sleep(200);
 
   await hatTokenMap.allocateHats();
 
