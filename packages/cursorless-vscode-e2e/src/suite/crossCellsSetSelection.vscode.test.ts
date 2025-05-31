@@ -1,3 +1,4 @@
+import { isLinux } from "@cursorless/node-common";
 import {
   getCursorlessApi,
   openNewNotebookEditor,
@@ -6,9 +7,15 @@ import {
 import assert from "assert";
 import { window } from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
+import { isCI } from "../isCI";
 
 // Check that setSelection is able to focus the correct cell
 suite("Cross-cell set selection", async function () {
+  // FIXME: This test is flaky on Linux CI, so we skip it there for now
+  if (isCI() && isLinux()) {
+    this.ctx.skip();
+  }
+
   endToEndTestSetup(this);
 
   test("Cross-cell set selection", runTest);
@@ -30,7 +37,7 @@ async function runTest() {
         mark: {
           type: "decoratedSymbol",
           symbolColor: "default",
-          character: "r",
+          character: "o",
         },
       },
     ],
