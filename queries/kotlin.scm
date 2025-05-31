@@ -102,7 +102,7 @@
   (
     "else"
     (control_structure_body) @branch.removal.end.startOf
-  )
+  )?
 )
 
 ;; Else-if branch
