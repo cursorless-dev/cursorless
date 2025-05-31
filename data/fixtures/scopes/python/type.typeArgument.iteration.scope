@@ -1,7 +1,10 @@
 value: map[str, int]
 ---
 
-[Range] =
-[Domain] = 0:11-0:19
+[Range] = 0:11-0:19
              >--------<
+0| value: map[str, int]
+
+[Domain] = 0:10-0:20
+            >----------<
 0| value: map[str, int]

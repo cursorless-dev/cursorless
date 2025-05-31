@@ -1,7 +1,10 @@
 Map<int, int> foo;
 ---
 
-[Range] =
-[Domain] = 0:4-0:12
+[Range] = 0:4-0:12
       >--------<
+0| Map<int, int> foo;
+
+[Domain] = 0:3-0:13
+     >----------<
 0| Map<int, int> foo;

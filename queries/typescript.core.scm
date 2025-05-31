@@ -287,8 +287,8 @@
     "<" @type.iteration.start.endOf
     ">" @type.iteration.end.startOf
     .
-  ) @_dummy
-  (#not-parent-type? @_dummy type_assertion)
+  ) @type.iteration.domain
+  (#not-parent-type? @type.iteration.domain type_assertion)
 )
 
 ;;!! function foo<A>() {}
@@ -427,8 +427,6 @@
 ;;!! class Aaa { }
 ;;!             ^
 (class_body
-  .
   "{" @type.iteration.start.endOf
   "}" @type.iteration.end.startOf
-  .
 )

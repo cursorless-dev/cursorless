@@ -140,9 +140,11 @@
   alternative: (_) @branch
 ) @condition.domain
 
+;;!! class Foo {}
+;;!  ^^^^^^^^^^^^
 (class_declaration
   name: (identifier) @className
-) @class @_.domain
+) @class @type @_.domain
 
 (
   (compilation_unit) @class.iteration @className.iteration
@@ -361,9 +363,41 @@
   name: (_) @name
 ) @_.domain
 
-(_
+(
+  (_
+    type: (_) @type
+  ) @_.domain
+  (#not-type? @_.domain cast_expression)
+)
+
+;;!! (int)5.5;
+;;!   ^^^
+(cast_expression
+  "(" @type.removal.start
   type: (_) @type
+  ")" @type.removal.end
 ) @_.domain
+
+;;!! enum Foo {}
+;;!! interface IFoo {}
+[
+  (enum_declaration)
+  (interface_declaration)
+] @type
+
+(type_argument_list
+  (_)? @_.leading.endOf
+  .
+  (_) @type
+  .
+  (_)? @_.trailing.startOf
+  (#insertion-delimiter! @type ", ")
+)
+
+(type_argument_list
+  "<" @type.iteration.start.endOf
+  ">" @type.iteration.end.startOf
+) @type.iteration.domain
 
 ;;!! int value = 5
 ;;!              ^

@@ -1,0 +1,34 @@
+class MyClass {
+    MyClass(int a) {}
+}
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-2:1
+  >---------------
+0| class MyClass {
+1|     MyClass(int a) {}
+2| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:12-1:15
+              >---<
+1|     MyClass(int a) {}
+
+[#2 Removal] = 1:12-1:16
+              >----<
+1|     MyClass(int a) {}
+
+[#2 Trailing delimiter] = 1:15-1:16
+                 >-<
+1|     MyClass(int a) {}
+
+[#2 Domain] = 1:12-1:17
+              >-----<
+1|     MyClass(int a) {}
+
+[#2 Insertion delimiter] = " "

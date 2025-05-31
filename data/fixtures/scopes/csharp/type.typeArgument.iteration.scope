@@ -1,0 +1,10 @@
+Dictionary<string, int> values;
+---
+
+[Range] = 0:11-0:22
+             >-----------<
+0| Dictionary<string, int> values;
+
+[Domain] = 0:10-0:23
+            >-------------<
+0| Dictionary<string, int> values;

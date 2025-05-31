@@ -1,0 +1,20 @@
+int funk() {}
+---
+
+[Content] = 0:0-0:3
+  >---<
+0| int funk() {}
+
+[Removal] = 0:0-0:4
+  >----<
+0| int funk() {}
+
+[Trailing delimiter] = 0:3-0:4
+     >-<
+0| int funk() {}
+
+[Domain] = 0:0-0:13
+  >-------------<
+0| int funk() {}
+
+[Insertion delimiter] = " "
