@@ -31,9 +31,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.actual.constructor.empty": supported,
   "argumentList.actual.constructor.singleLine": supported,
   "argumentList.actual.constructor.multiLine": supported,
-  "argumentList.formal.empty": supported,
-  "argumentList.formal.singleLine": supported,
-  "argumentList.formal.multiLine": supported,
   "argumentList.formal.lambda.empty": supported,
   "argumentList.formal.lambda.singleLine": supported,
   "argumentList.formal.lambda.multiLine": supported,
@@ -162,6 +159,10 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
 
   "argument.formal": notApplicable,
   "argument.formal.iteration": notApplicable,
+
+  "argumentList.formal.empty": notApplicable,
+  "argumentList.formal.singleLine": notApplicable,
+  "argumentList.formal.multiLine": notApplicable,
 
   "name.assignment.pattern": notApplicable,
   "name.argument.actual": notApplicable,

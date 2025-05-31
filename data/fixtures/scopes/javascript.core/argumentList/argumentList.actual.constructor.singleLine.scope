@@ -1,0 +1,13 @@
+new Foo(a);
+---
+
+[Content] =
+[Removal] = 0:8-0:9
+          >-<
+0| new Foo(a);
+
+[Domain] = 0:0-0:10
+  >----------<
+0| new Foo(a);
+
+[Insertion delimiter] = ", "

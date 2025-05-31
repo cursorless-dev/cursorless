@@ -7,12 +7,20 @@ class MyClass {
 ---
 
 [Content] =
-[Removal] = 1:13-1:25
-               >------------<
-1|     void foo(int a, int b) {}
+[Removal] = 1:13-4:4
+               >
+1|     void foo(
+2|         int a,
+3|         int b
+4|     ) {}
+   ----<
 
-[Domain] = 1:4-1:29
-      >-------------------------<
-1|     void foo(int a, int b) {}
+[Domain] = 1:4-4:8
+      >---------
+1|     void foo(
+2|         int a,
+3|         int b
+4|     ) {}
+   --------<
 
-[Insertion delimiter] = ", "
+[Insertion delimiter] = ",\n"
