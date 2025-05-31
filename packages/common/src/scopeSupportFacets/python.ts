@@ -104,7 +104,6 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.formal.multiLine": supported,
   "argumentList.formal.lambda.empty": supported,
   "argumentList.formal.lambda.singleLine": supported,
-  "argumentList.formal.lambda.multiLine": supported,
   "argumentList.formal.method.empty": supported,
   "argumentList.formal.method.singleLine": supported,
   "argumentList.formal.method.multiLine": supported,
@@ -180,6 +179,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Not applicable
 
+  "argumentList.formal.lambda.multiLine": notApplicable,
   "class.iteration.block": notApplicable,
   "className.iteration.block": notApplicable,
   "comment.block": notApplicable,

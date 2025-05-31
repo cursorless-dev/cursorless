@@ -726,6 +726,14 @@
   ) @name.iteration.domain @value.iteration.domain
 ) @argumentOrParameter.iteration.domain
 
+(_
+  (argument_list
+    "(" @argumentList.start.endOf
+    ")" @argumentList.end.startOf
+  ) @_dummy
+  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+) @argumentList.domain
+
 (call
   (generator_expression
     "(" @argumentOrParameter.iteration.start.endOf
