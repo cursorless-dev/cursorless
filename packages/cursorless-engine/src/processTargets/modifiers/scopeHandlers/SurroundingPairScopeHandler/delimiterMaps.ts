@@ -73,6 +73,13 @@ const delimiterToTextOverrides: Record<string, Partial<DelimiterMap>> = {
   ruby: {
     tripleDoubleQuotes: ["%Q(", ")"],
   },
+
+  csharp: {
+    doubleQuotes: [
+      ['@"', '"'],
+      ['"', '"'],
+    ],
+  },
 };
 
 export const leftToRightMap: Record<string, string> = Object.fromEntries(

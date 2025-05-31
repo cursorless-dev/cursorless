@@ -1,0 +1,10 @@
+class MyClass { }
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:17
+  >-----------------<
+0| class MyClass { }
+
+[Insertion delimiter] = "\n"

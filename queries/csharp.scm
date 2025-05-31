@@ -50,6 +50,18 @@
 
 (if_statement) @ifStatement
 
+(
+  (compilation_unit) @statement.iteration
+  (#document-range! @statement.iteration)
+)
+
+(_
+  body: (_
+    "{" @statement.iteration.start.endOf
+    "}" @statement.iteration.end.startOf
+  )
+)
+
 ;;!! if () {}
 ;;!  ^^^^^^^^
 (
@@ -145,6 +157,11 @@
 (
   (string_literal) @string @textFragment
   (#child-range! @textFragment 0 -1 true true)
+)
+
+(
+  (verbatim_string_literal) @string @textFragment
+  (#character-range! @textFragment 2 -1)
 )
 
 (comment) @comment @textFragment
