@@ -1,7 +1,7 @@
 public class MyClass {
     public void foo(
-        String name,
-        int age
+        int aaa,
+        int bbb
     ) {}
 }
 ---
@@ -10,16 +10,16 @@ public class MyClass {
 [Removal] = 1:20-4:4
                       >
 1|     public void foo(
-2|         String name,
-3|         int age
+2|         int aaa,
+3|         int bbb
 4|     ) {}
    ----<
 
 [Domain] = 1:4-4:8
       >----------------
 1|     public void foo(
-2|         String name,
-3|         int age
+2|         int aaa,
+3|         int bbb
 4|     ) {}
    --------<
 

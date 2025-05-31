@@ -1,8 +1,8 @@
-aaa(bbb, ccc);
+foo(aaa, bbb);
 ---
 
-[Range] = 0:4-0:13
-      >---------<
+[Range] = 0:4-0:12
+      >--------<
 0| aaa(bbb, ccc);
 
 [Domain] = 0:0-0:13

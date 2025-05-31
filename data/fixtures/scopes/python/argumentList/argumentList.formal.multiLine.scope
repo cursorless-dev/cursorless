@@ -1,6 +1,6 @@
 def foo(
-    aaa,
-    bbb,
+    aaa: str,
+    bbb: int,
 ):
     pass
 ---
@@ -9,16 +9,16 @@ def foo(
 [Removal] = 0:8-3:0
           >
 0| def foo(
-1|     aaa,
-2|     bbb,
+1|     aaa: str,
+2|     bbb: int,
 3| ):
    <
 
 [Domain] = 0:0-4:8
   >--------
 0| def foo(
-1|     aaa,
-2|     bbb,
+1|     aaa: str,
+2|     bbb: int,
 3| ):
 4|     pass
    --------<

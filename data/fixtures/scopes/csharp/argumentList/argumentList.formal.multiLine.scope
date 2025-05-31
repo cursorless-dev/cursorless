@@ -1,6 +1,6 @@
 void foo(
-    a,
-    b
+    aaa,
+    bbb
 ) {}
 ---
 
@@ -8,16 +8,16 @@ void foo(
 [Removal] = 0:9-3:0
            >
 0| void foo(
-1|     a,
-2|     b
+1|     aaa,
+2|     bbb
 3| ) {}
    <
 
 [Domain] = 0:0-3:4
   >---------
 0| void foo(
-1|     a,
-2|     b
+1|     aaa,
+2|     bbb
 3| ) {}
    ----<
 

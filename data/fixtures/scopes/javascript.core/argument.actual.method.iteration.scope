@@ -1,8 +1,8 @@
-aaa.bbb(ccc, ddd);
+foo.bar(aaa, bbb);
 ---
 
-[Range] = 0:8-0:17
-          >---------<
+[Range] = 0:8-0:16
+          >--------<
 0| aaa.bbb(ccc, ddd);
 
 [Domain] = 0:0-0:17

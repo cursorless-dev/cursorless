@@ -1,6 +1,6 @@
 foo(
-    a,
-    b
+    aaa,
+    bbb
 );
 ---
 
@@ -8,16 +8,16 @@ foo(
 [Removal] = 0:4-3:0
       >
 0| foo(
-1|     a,
-2|     b
+1|     aaa,
+2|     bbb
 3| );
    <
 
 [Domain] = 0:0-3:1
   >----
 0| foo(
-1|     a,
-2|     b
+1|     aaa,
+2|     bbb
 3| );
    -<
 

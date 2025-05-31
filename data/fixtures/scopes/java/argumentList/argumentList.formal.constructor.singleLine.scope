@@ -1,15 +1,15 @@
 public class MyClass {
-    public MyClass(String name, int age) {}
+    public MyClass(String aaa, int bbb) {}
 }
 ---
 
 [Content] =
-[Removal] = 1:19-1:39
-                     >--------------------<
-1|     public MyClass(String name, int age) {}
+[Removal] = 1:19-1:38
+                     >-------------------<
+1|     public MyClass(String aaa, int bbb) {}
 
-[Domain] = 1:4-1:43
-      >---------------------------------------<
-1|     public MyClass(String name, int age) {}
+[Domain] = 1:4-1:42
+      >--------------------------------------<
+1|     public MyClass(String aaa, int bbb) {}
 
 [Insertion delimiter] = ", "
