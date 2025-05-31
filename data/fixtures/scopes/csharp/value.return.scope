@@ -1,0 +1,22 @@
+int funk() {
+    return 2;
+}
+---
+
+[Content] = 1:11-1:12
+             >-<
+1|     return 2;
+
+[Removal] = 1:10-1:12
+            >--<
+1|     return 2;
+
+[Leading delimiter] = 1:10-1:11
+            >-<
+1|     return 2;
+
+[Domain] = 1:4-1:13
+      >---------<
+1|     return 2;
+
+[Insertion delimiter] = " "

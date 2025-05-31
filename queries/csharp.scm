@@ -126,6 +126,7 @@
 ;;!               ^^^^^
 (for_each_statement
   left: (_) @name
+  right: (_) @value
 ) @_.domain
 
 ;;!! true ? 0 : 1;
@@ -172,7 +173,33 @@
 
 (comment) @comment @textFragment
 
+;;!! () => {};
+;;!  ^^^^^^^^
 (lambda_expression) @anonymousFunction
+
+;;!! () => 2;
+;;!        ^
+(lambda_expression
+  body: (_) @value
+  (#not-type? @value block)
+) @_.domain
+
+;;!! return 2;
+;;!         ^
+(return_statement
+  (_) @value
+) @_.domain
+
+;;!! yield return 2;
+;;!               ^
+(yield_statement
+  (_) @value
+) @_.domain
+
+(
+  (return_statement) @_.iteration @value.iteration
+  (#document-range! @_.iteration @value.iteration)
+)
 
 (attribute) @attribute
 
