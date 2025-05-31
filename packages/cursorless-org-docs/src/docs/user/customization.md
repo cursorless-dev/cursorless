@@ -207,7 +207,11 @@ _You can disable the default Cursorless reformat command by prefixing the spoken
 
 ### Experimental custom command action
 
-_NOTE that this feature is experimental. Not as thoroughly tested as the rest of Cursorless and might change in the future. Early adopters should subscribe to this [discussion](https://github.com/cursorless-dev/cursorless/discussions/2942) to get updates about breaking changes_
+:::warning
+
+NOTE that this feature is experimental. Not as thoroughly tested as the rest of Cursorless and might change in the future. Early adopters should subscribe to this [discussion](https://github.com/cursorless-dev/cursorless/discussions/2942) to get updates about breaking changes\_
+
+:::
 
 `user.cursorless_x_custom_command(command: string, *args)`
 
