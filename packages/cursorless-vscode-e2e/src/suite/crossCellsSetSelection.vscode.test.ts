@@ -1,4 +1,3 @@
-import { sleep } from "@cursorless/common";
 import {
   getCursorlessApi,
   openNewNotebookEditor,
