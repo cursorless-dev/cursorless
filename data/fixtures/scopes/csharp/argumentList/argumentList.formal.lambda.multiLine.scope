@@ -1,0 +1,24 @@
+(
+    aaa,
+    bbb
+) => {};
+---
+
+[Content] =
+[Removal] = 0:1-3:0
+   >
+0| (
+1|     aaa,
+2|     bbb
+3| ) => {};
+   <
+
+[Domain] = 0:0-3:7
+  >-
+0| (
+1|     aaa,
+2|     bbb
+3| ) => {};
+   -------<
+
+[Insertion delimiter] = ",\n"

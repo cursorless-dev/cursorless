@@ -517,6 +517,8 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
+;;!! foo(int a) {};
+;;!      ^^^^^
 (_
   parameters: (_
     "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
@@ -525,12 +527,15 @@
   (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
+;;!! foo(1);
+;;!      ^
 (_
   (argument_list
-    "(" @argumentOrParameter.iteration.start.endOf
-    ")" @argumentOrParameter.iteration.end.startOf
-  )
-) @argumentOrParameter.iteration.domain
+    "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @_dummy
+  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;;!! try (PrintWriter writer = create()) { }
 ;;!       ^^^^^^^^^^^ ^^^^^    ^^^^^^^^

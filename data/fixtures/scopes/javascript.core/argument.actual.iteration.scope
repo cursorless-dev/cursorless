@@ -1,10 +1,10 @@
-aaa(bbb, ccc);
+foo(aaa, bbb);
 ---
 
 [Range] = 0:4-0:12
       >--------<
-0| aaa(bbb, ccc);
+0| foo(aaa, bbb);
 
 [Domain] = 0:0-0:13
   >-------------<
-0| aaa(bbb, ccc);
+0| foo(aaa, bbb);

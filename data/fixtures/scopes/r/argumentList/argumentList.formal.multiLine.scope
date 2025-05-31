@@ -1,0 +1,26 @@
+abc <- function(
+    aaa,
+    bbb
+){
+}
+---
+
+[Content] =
+[Removal] = 0:16-3:0
+                  >
+0| abc <- function(
+1|     aaa,
+2|     bbb
+3| ){
+   <
+
+[Domain] = 0:0-4:1
+  >----------------
+0| abc <- function(
+1|     aaa,
+2|     bbb
+3| ){
+4| }
+   -<
+
+[Insertion delimiter] = ",\n"

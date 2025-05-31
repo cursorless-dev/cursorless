@@ -5,16 +5,22 @@ const { supported, notApplicable } = ScopeSupportFacetLevel;
 
 export const scmScopeSupport: LanguageScopeSupportFacetMap = {
   statement: supported,
+  list: supported,
 
   "argument.actual": supported,
   "argument.actual.iteration": supported,
-  "comment.line": supported,
+
+  "argumentList.actual.empty": supported,
+  "argumentList.actual.singleLine": supported,
+  "argumentList.actual.multiLine": supported,
+
   functionCall: supported,
   functionCallee: supported,
+
   "string.singleLine": supported,
+  "comment.line": supported,
   "textFragment.comment.line": supported,
   "textFragment.string.singleLine": supported,
-  list: supported,
 
   // Not applicable
 
@@ -31,10 +37,24 @@ export const scmScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal.method.iteration": notApplicable,
   "argument.formal.lambda": notApplicable,
   "argument.formal.lambda.iteration": notApplicable,
-  "argumentList.formal": notApplicable,
-  "argumentList.formal.method": notApplicable,
-  "argumentList.formal.constructor": notApplicable,
-  "argumentList.formal.lambda": notApplicable,
+  "argumentList.actual.method.empty": notApplicable,
+  "argumentList.actual.method.singleLine": notApplicable,
+  "argumentList.actual.method.multiLine": notApplicable,
+  "argumentList.actual.constructor.empty": notApplicable,
+  "argumentList.actual.constructor.singleLine": notApplicable,
+  "argumentList.actual.constructor.multiLine": notApplicable,
+  "argumentList.formal.empty": notApplicable,
+  "argumentList.formal.singleLine": notApplicable,
+  "argumentList.formal.multiLine": notApplicable,
+  "argumentList.formal.lambda.empty": notApplicable,
+  "argumentList.formal.lambda.singleLine": notApplicable,
+  "argumentList.formal.lambda.multiLine": notApplicable,
+  "argumentList.formal.method.empty": notApplicable,
+  "argumentList.formal.method.singleLine": notApplicable,
+  "argumentList.formal.method.multiLine": notApplicable,
+  "argumentList.formal.constructor.empty": notApplicable,
+  "argumentList.formal.constructor.singleLine": notApplicable,
+  "argumentList.formal.constructor.multiLine": notApplicable,
   attribute: notApplicable,
   "branch.if": notApplicable,
   "branch.if.iteration": notApplicable,
