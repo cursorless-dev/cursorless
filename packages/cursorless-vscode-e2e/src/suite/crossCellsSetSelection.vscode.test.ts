@@ -20,8 +20,6 @@ async function runTest() {
 
   await openNewNotebookEditor(['"hello"', '"world"']);
 
-  await sleep(200);
-
   await hatTokenMap.allocateHats();
 
   await runCursorlessCommand({
