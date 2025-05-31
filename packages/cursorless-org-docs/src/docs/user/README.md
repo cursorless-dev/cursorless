@@ -394,14 +394,14 @@ If your cursor is touching a token, you can say `"take every instance"` to selec
 
 Pro tip: if you say eg `"take five instances air"`, and it turns out you need more, you can say eg `"take that and next two instances that"` to select the next two instances after the last instance you selected.
 
-###### Experimental: `"from"`
+###### `"from"`
 
-We have experimental support for prefixing a command with `"from <target>"` to narrow the range within which `"every instance"` searches, or to set the start point from which `"next instance"` searches. For example:
+We have support for prefixing a command with `"from <target>"` to narrow the range within which `"every instance"` searches, or to set the start point from which `"next instance"` searches. For example:
 
 - `"from funk take every instance air"`: selects all instances of the token with a hat over the letter `a` in the current function
 - `"from air take next instance bat"`: selects the next instance of the token with a hat over the letter `b` starting from the token with a hat over the letter `a`
 
-Note that the `"from"` modifier is not enabled by default; you must remove the `-` at the start of the line starting with `-from` in your `experimental/experimental_actions.csv` [settings csv](./customization.md). Note also that this feature is considered experimental and may change in the future.
+Note that the `"from"` modifier was not enabled by default on older Cursorless installations; you must remove the `-` at the start of the line starting with `-from` in your `experimental/experimental_actions.csv` [settings csv](./customization.md).
 
 ##### `"just"`
 
