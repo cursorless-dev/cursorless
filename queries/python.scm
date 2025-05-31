@@ -203,8 +203,7 @@
     )
   ) @_.domain
   (#not-type? @value "as_pattern")
-  (#allow-multiple! @value)
-  (#allow-multiple! @name)
+  (#allow-multiple! @value @name)
 )
 
 ;;!! with aaa:
@@ -224,8 +223,7 @@
   )
   (#not-type? @value "as_pattern")
   (#has-multiple-children-of-type? @_with_clause "with_item")
-  (#allow-multiple! @value)
-  (#allow-multiple! @name)
+  (#allow-multiple! @value @name)
 )
 
 ;;!! with aaa as bbb:
@@ -243,8 +241,7 @@
       )
     )
   ) @_.domain
-  (#allow-multiple! @value)
-  (#allow-multiple! @name)
+  (#allow-multiple! @value @name)
 )
 
 ;;!! with aaa as ccc, bbb:
@@ -262,8 +259,7 @@
     ) @_with_clause
   )
   (#has-multiple-children-of-type? @_with_clause "with_item")
-  (#allow-multiple! @value)
-  (#allow-multiple! @name)
+  (#allow-multiple! @value @name)
 )
 
 (with_statement
