@@ -120,7 +120,7 @@
   (type_parameter
     "[" @type.iteration.start.endOf
     "]" @type.iteration.end.startOf
-  ) @type.iteration.domain
+  )
 )
 
 ;;!!  def aaa() -> str:

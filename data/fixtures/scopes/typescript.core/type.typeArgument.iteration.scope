@@ -7,10 +7,7 @@ let value: Map<string, number>;
 0| let value: Map<string, number>;
 
 
-[#2 Range] = 0:15-0:29
+[#2 Range] =
+[#2 Domain] = 0:15-0:29
                  >--------------<
-0| let value: Map<string, number>;
-
-[#2 Domain] = 0:14-0:30
-                >----------------<
 0| let value: Map<string, number>;

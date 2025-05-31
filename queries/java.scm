@@ -487,7 +487,7 @@
 (type_arguments
   "<" @type.iteration.start.endOf
   ">" @type.iteration.end.startOf
-) @type.iteration.domain
+)
 
 ;;!! foo(name: string) {}
 ;;!      ^^^^^^^^^^^^

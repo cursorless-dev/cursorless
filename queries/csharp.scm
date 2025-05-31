@@ -385,6 +385,8 @@
   (interface_declaration)
 ] @type
 
+;; Dictionary<string, int> values;
+;;!           ^^^^^^  ^^^
 (type_argument_list
   (_)? @_.leading.endOf
   .
@@ -397,7 +399,7 @@
 (type_argument_list
   "<" @type.iteration.start.endOf
   ">" @type.iteration.end.startOf
-) @type.iteration.domain
+)
 
 ;;!! int value = 5
 ;;!              ^
