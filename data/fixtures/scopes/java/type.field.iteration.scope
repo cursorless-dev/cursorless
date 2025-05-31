@@ -12,7 +12,10 @@ class MyClass {
    <
 
 
-[#2 Range] =
-[#2 Domain] = 1:8-1:16
+[#2 Range] = 1:8-1:16
           >--------<
+1|     Map<int, int> foo;
+
+[#2 Domain] = 1:7-1:17
+         >----------<
 1|     Map<int, int> foo;
