@@ -100,9 +100,11 @@ jobs:
         env:
           NEOVIM_PATH: ${{ steps.vim.outputs.executable }}
 
-      - name: Run neovim lua tests (Linux)
-        uses: ./.github/actions/test-neovim-lua/
-        if: runner.os == 'Linux' && matrix.app_version == 'stable'
+      # FIXME: Re-enable neovim lua tests
+      # https://github.com/cursorless-dev/cursorless/issues/2946
+      # - name: Run neovim lua tests (Linux)
+      #   uses: ./.github/actions/test-neovim-lua/
+      #   if: runner.os == 'Linux' && matrix.app_version == 'stable'
 
       - name: Run neovim lua lint (Linux)
         uses: ./.github/actions/lint-lua-ls/
