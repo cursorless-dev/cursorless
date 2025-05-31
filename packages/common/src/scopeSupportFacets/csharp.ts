@@ -1,7 +1,7 @@
 import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
-const { supported, notApplicable } = ScopeSupportFacetLevel;
+const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   switchStatementSubject: supported,
@@ -116,8 +116,22 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
 
   "string.singleLine": supported,
   "string.multiLine": supported,
+
   "textFragment.string.singleLine": supported,
   "textFragment.string.multiLine": supported,
+  "textFragment.comment.line": supported,
+  "textFragment.comment.block": supported,
+
+  // Unsupported
+
+  "interior.class": unsupported,
+  "interior.function": unsupported,
+  "interior.if": unsupported,
+  "interior.lambda": unsupported,
+  "interior.loop": unsupported,
+  "interior.switchCase": unsupported,
+  "interior.ternary": unsupported,
+  "interior.try": unsupported,
 
   // Not applicable
 
@@ -125,13 +139,17 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "collectionItem.unenclosed": notApplicable,
   "functionName.iteration.block": notApplicable,
   "functionName.iteration.document": notApplicable,
+  "interior.cell": notApplicable,
+  "interior.command": notApplicable,
   "interior.element": notApplicable,
+  "interior.resource": notApplicable,
   "key.attribute": notApplicable,
-  "name.argument.actual": notApplicable,
   "name.argument.actual.iteration": notApplicable,
-  "name.variable.pattern": notApplicable,
-  "name.resource": notApplicable,
+  "name.argument.actual": notApplicable,
+  "name.assignment.pattern": notApplicable,
   "name.resource.iteration": notApplicable,
+  "name.resource": notApplicable,
+  "name.variable.pattern": notApplicable,
   "namedFunction.iteration.block": notApplicable,
   "namedFunction.iteration.document": notApplicable,
   "section.iteration.document": notApplicable,
