@@ -231,7 +231,7 @@
   },
   "experimental/experimental_actions.csv": {
     "experimental_action": {
-      "-from": "experimental.setInstanceReference"
+      "from": "experimental.setInstanceReference"
     }
   },
   "experimental/wrapper_snippets.csv": {},
