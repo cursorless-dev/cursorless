@@ -9,13 +9,8 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
 
   "argumentList.actual.empty": supported,
   "argumentList.actual.singleLine": supported,
-  "argumentList.actual.multiLine": supported,
   "argumentList.actual.method.empty": supported,
   "argumentList.actual.method.singleLine": supported,
-  "argumentList.actual.method.multiLine": supported,
-  "argumentList.actual.constructor.empty": supported,
-  "argumentList.actual.constructor.singleLine": supported,
-  "argumentList.actual.constructor.multiLine": supported,
 
   "comment.line": supported,
 
@@ -59,6 +54,11 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal.method.iteration": notApplicable,
   "argument.formal.lambda": notApplicable,
   "argument.formal.lambda.iteration": notApplicable,
+  "argumentList.actual.constructor.empty": supported,
+  "argumentList.actual.constructor.singleLine": supported,
+  "argumentList.actual.constructor.multiLine": supported,
+  "argumentList.actual.multiLine": notApplicable,
+  "argumentList.actual.method.multiLine": notApplicable,
   "argumentList.formal.empty": notApplicable,
   "argumentList.formal.singleLine": notApplicable,
   "argumentList.formal.multiLine": notApplicable,
