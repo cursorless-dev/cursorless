@@ -1,6 +1,6 @@
 abc <- function(
-    x,
-    y
+    aaa,
+    bbb
 ){
 }
 ---
@@ -9,16 +9,16 @@ abc <- function(
 [Removal] = 0:16-3:0
                   >
 0| abc <- function(
-1|     x,
-2|     y
+1|     aaa,
+2|     bbb
 3| ){
    <
 
 [Domain] = 0:0-4:1
   >----------------
 0| abc <- function(
-1|     x,
-2|     y
+1|     aaa,
+2|     bbb
 3| ){
 4| }
    -<
