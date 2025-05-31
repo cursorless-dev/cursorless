@@ -401,7 +401,7 @@ We have support for prefixing a command with `"from <target>"` to narrow the ran
 - `"from funk take every instance air"`: selects all instances of the token with a hat over the letter `a` in the current function
 - `"from air take next instance bat"`: selects the next instance of the token with a hat over the letter `b` starting from the token with a hat over the letter `a`
 
-Note that the `"from"` modifier is not enabled by default on older Cursorless installations; you must remove the `-` at the start of the line starting with `-from` in your `experimental/experimental_actions.csv` [settings csv](./customization.md).
+Note that the `"from"` modifier was not enabled by default on older Cursorless installations; you must remove the `-` at the start of the line starting with `-from` in your `experimental/experimental_actions.csv` [settings csv](./customization.md).
 
 ##### `"just"`
 
