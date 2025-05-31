@@ -5,7 +5,7 @@ export * from "./FileSystemTutorialContentProvider";
 export * from "./getCursorlessRepoRoot";
 export * from "./getFixturePaths";
 export * from "./getScopeTestPathsRecursively";
-export * from "./isWindows";
+export * from "./isOS";
 export * from "./loadFixture";
 export * from "./nodeGetRunMode";
 export * from "./runRecordedTest";

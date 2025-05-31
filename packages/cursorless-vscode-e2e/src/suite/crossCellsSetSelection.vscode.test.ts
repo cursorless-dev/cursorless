@@ -7,11 +7,12 @@ import {
 import assert from "assert";
 import { window } from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
+import { isCI } from "../isCI";
 
 // Check that setSelection is able to focus the correct cell
 suite("Cross-cell set selection", async function () {
   // FIXME: This test is flaky on Linux CI, so we skip it there for now
-  if ("CI" in process.env && isLinux()) {
+  if (isCI() && isLinux()) {
     this.ctx.skip();
   }
 
