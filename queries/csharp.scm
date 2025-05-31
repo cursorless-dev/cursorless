@@ -51,8 +51,8 @@
 (if_statement) @ifStatement
 
 (
-  (compilation_unit) @statement.iteration
-  (#document-range! @statement.iteration)
+  (compilation_unit) @statement.iteration @name.iteration
+  (#document-range! @statement.iteration @name.iteration)
 )
 
 (_
@@ -121,6 +121,12 @@
   (while_statement)
   (do_statement)
 ] @branch
+
+;;!! foreach (int value in values) {}
+;;!               ^^^^^
+(for_each_statement
+  left: (_) @name
+) @_.domain
 
 ;;!! true ? 0 : 1;
 ;;!  ^^^^
