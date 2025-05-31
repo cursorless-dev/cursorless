@@ -158,6 +158,8 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   "type.field": notApplicable,
   "type.foreach": notApplicable,
   "type.interface": notApplicable,
+  "type.resource": notApplicable,
+  "type.resource.iteration": notApplicable,
   "type.return": notApplicable,
   "type.typeArgument.iteration": notApplicable,
   "type.typeArgument": notApplicable,

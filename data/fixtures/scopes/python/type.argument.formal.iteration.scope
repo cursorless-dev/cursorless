@@ -1,0 +1,14 @@
+def funk(a: int):
+    pass
+---
+
+[#1 Range] =
+[#1 Domain] = 0:9-0:15
+           >------<
+0| def funk(a: int):
+
+
+[#2 Range] =
+[#2 Domain] = 1:4-1:8
+      >----<
+1|     pass

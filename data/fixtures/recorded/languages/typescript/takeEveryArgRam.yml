@@ -23,7 +23,7 @@ initialState:
 finalState:
   documentContents: foo(bar(baz, bongo), bazman)
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 19}
-    - anchor: {line: 0, character: 21}
-      active: {line: 0, character: 27}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 11}
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 18}

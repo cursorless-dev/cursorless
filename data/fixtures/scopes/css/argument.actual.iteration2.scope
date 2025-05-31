@@ -7,6 +7,6 @@
                                           >----------------<
 1|   background: repeating-linear-gradient(red, orange 50px);
 
-[Domain] = 1:39-1:57
-                                         >------------------<
+[Domain] = 1:14-1:57
+                >-------------------------------------------<
 1|   background: repeating-linear-gradient(red, orange 50px);

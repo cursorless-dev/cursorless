@@ -47,7 +47,11 @@ export function ScopeSupportForLevel({
 
   const renderBody = () => {
     if (!open) {
-      return null;
+      return (
+        <div className="card__body pointer" onClick={() => setOpen(true)}>
+          <i>+ Click to expand</i>
+        </div>
+      );
     }
 
     return (
@@ -79,8 +83,8 @@ export function ScopeSupportForLevel({
   };
 
   return (
-    <div className={"card pointer" + (open ? " open" : "")}>
-      <div className="card__header" onClick={() => setOpen(!open)}>
+    <div className={"card" + (open ? " open" : "")}>
+      <div className="card__header pointer" onClick={() => setOpen(!open)}>
         <h3>{title}</h3>
         {subtitle}
       </div>

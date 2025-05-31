@@ -1,0 +1,37 @@
+value ? 1 : 2;
+---
+
+[#1 Content] =
+[#1 Domain] = 0:8-0:9
+          >-<
+0| value ? 1 : 2;
+
+[#1 Removal] = 0:8-0:10
+          >--<
+0| value ? 1 : 2;
+
+[#1 Leading delimiter] = 0:7-0:8
+         >-<
+0| value ? 1 : 2;
+
+[#1 Trailing delimiter] = 0:9-0:10
+           >-<
+0| value ? 1 : 2;
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 0:12-0:13
+              >-<
+0| value ? 1 : 2;
+
+[#2 Removal] = 0:11-0:13
+             >--<
+0| value ? 1 : 2;
+
+[#2 Leading delimiter] = 0:11-0:12
+             >-<
+0| value ? 1 : 2;
+
+[#2 Insertion delimiter] = "\n"

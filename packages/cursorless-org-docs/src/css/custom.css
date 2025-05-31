@@ -34,7 +34,7 @@
   margin-bottom: 1rem;
 }
 
-.card.open > .card__header {
+.card > .card__header {
   border-bottom: 1px solid var(--ifm-color-emphasis-300);
   padding-bottom: 1rem;
 }

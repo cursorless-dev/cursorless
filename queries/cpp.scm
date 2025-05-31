@@ -43,6 +43,8 @@
 ) @_.domain
 
 (lambda_expression) @anonymousFunction
+
+;;!! [[attribute]]
 (attribute_declaration) @attribute
 
 ;; >  curl https://raw.githubusercontent.com/tree-sitter/tree-sitter-cpp/master/src/node-types.json | jq '[.[] | select(.type == "_type_specifier") | .subtypes[].type]'
