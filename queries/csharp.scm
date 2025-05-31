@@ -161,16 +161,19 @@
   )
 )
 
+;;!! "Hello world"
 (
   (string_literal) @string @textFragment
   (#child-range! @textFragment 0 -1 true true)
 )
 
+;;!! @"Hello world"
 (
   (verbatim_string_literal) @string @textFragment
   (#character-range! @textFragment 2 -1)
 )
 
+;;!! // Hello world
 (comment) @comment @textFragment
 
 ;;!! () => {};
@@ -196,11 +199,8 @@
   (_) @value
 ) @_.domain
 
-(
-  (return_statement) @_.iteration @value.iteration
-  (#document-range! @_.iteration @value.iteration)
-)
-
+;;!! [Obsolete("Deprecated")]
+;;!   ^^^^^^^^^^^^^^^^^^^^^^
 (attribute) @attribute
 
 [
@@ -225,6 +225,7 @@
   )
 )
 
+;;!! void foo() {}
 [
   (invocation_expression)
   (object_creation_expression)
