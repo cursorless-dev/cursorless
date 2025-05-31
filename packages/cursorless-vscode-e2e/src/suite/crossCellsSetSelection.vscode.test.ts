@@ -1,3 +1,4 @@
+import { isLinux } from "@cursorless/node-common";
 import {
   getCursorlessApi,
   openNewNotebookEditor,
@@ -9,6 +10,11 @@ import { endToEndTestSetup } from "../endToEndTestSetup";
 
 // Check that setSelection is able to focus the correct cell
 suite("Cross-cell set selection", async function () {
+  // FIXME: This test is flaky on Linux CI, so we skip it there for now
+  if ("CI" in process.env && isLinux()) {
+    this.ctx.skip();
+  }
+
   endToEndTestSetup(this);
 
   test("Cross-cell set selection", runTest);

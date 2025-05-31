@@ -109,7 +109,7 @@ function waitForEditorToOpen(): Promise<void> {
     const interval = setInterval(() => {
       if (vscode.window.activeTextEditor != null) {
         clearInterval(interval);
-        setTimeout(resolve, 500);
+        resolve();
       } else {
         count++;
         if (count === 20) {
