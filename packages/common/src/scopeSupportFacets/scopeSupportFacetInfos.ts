@@ -282,6 +282,18 @@ export const scopeSupportFacetInfos: Record<
     isIteration: true,
   },
 
+  "argumentList.actual": {
+    description: "A list of arguments in a function call",
+    scopeType: "argumentList",
+  },
+  "argumentList.actual.method": {
+    description: "A list of arguments in a class method call",
+    scopeType: "argumentList",
+  },
+  "argumentList.actual.constructor": {
+    description: "A list of arguments in a constructor call",
+    scopeType: "argumentList",
+  },
   "argumentList.formal": {
     description: "A list of parameters in a function declaration",
     scopeType: "argumentList",

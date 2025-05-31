@@ -32,8 +32,8 @@ test api extract decorated marks <user.cursorless_target>:
 test api alternate highlight nothing:
     user.private_cursorless_test_alternate_highlight_nothing()
 
-test api parsed: user.cursorless_custom_command("chuck block")
+test api parsed: user.cursorless_x_custom_command("chuck block")
 test api parsed <user.cursorless_target>:
-    user.cursorless_custom_command("chuck block <target>", cursorless_target)
+    user.cursorless_x_custom_command("chuck block <target>", cursorless_target)
 test api parsed <user.cursorless_target> plus <user.cursorless_target>:
-    user.cursorless_custom_command("bring block <target1> after <target2>", cursorless_target_1, cursorless_target_2)
+    user.cursorless_x_custom_command("bring block <target1> after <target2>", cursorless_target_1, cursorless_target_2)

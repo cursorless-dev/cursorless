@@ -72,6 +72,9 @@ export const scopeSupportFacets = [
   "argument.formal.lambda",
   "argument.formal.lambda.iteration",
 
+  "argumentList.actual",
+  "argumentList.actual.method",
+  "argumentList.actual.constructor",
   "argumentList.formal",
   "argumentList.formal.method",
   "argumentList.formal.constructor",

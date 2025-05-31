@@ -170,10 +170,28 @@
   )
 ) @argumentOrParameter.iteration.domain
 
-(arguments
-  "(" @argumentOrParameter.iteration.start.endOf
-  ")" @argumentOrParameter.iteration.end.startOf
+;;!! foo.bar(a, b);
+;;!          ^^^^
+(binary_expression
+  (function_call_expression
+    (arguments
+      "(" @argumentOrParameter.iteration.start.endOf
+      ")" @argumentOrParameter.iteration.end.startOf
+    )
+  )
 ) @argumentOrParameter.iteration.domain
+
+;;!! foo(a, b);
+;;!      ^^^^
+(
+  (_
+    (arguments
+      "(" @argumentOrParameter.iteration.start.endOf
+      ")" @argumentOrParameter.iteration.end.startOf
+    )
+  ) @argumentOrParameter.iteration.domain
+  (#not-parent-type? @argumentOrParameter.iteration.domain binary_expression)
+)
 
 ;;!! ['num' => 1];
 ;;!   ^^^^^
