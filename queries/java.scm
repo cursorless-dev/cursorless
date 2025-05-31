@@ -60,27 +60,21 @@
 ;;!! class MyClass { }
 ;;!                 ^
 (class_body
-  .
   "{" @class.iteration.start.endOf @className.iteration.start.endOf
   "}" @class.iteration.end.startOf @className.iteration.end.startOf
-  .
 )
 
 (class_body
-  .
   "{" @type.iteration.start.endOf @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf
   "}" @type.iteration.end.startOf @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf
-  .
 )
 
 ;;!! for (...) { }
 ;;!             ^
 (_
   body: (_
-    .
     "{" @name.iteration.start.endOf @statement.iteration.start.endOf
     "}" @name.iteration.end.startOf @statement.iteration.end.startOf
-    .
   )
 )
 
@@ -88,10 +82,8 @@
 ;;!             ^
 (if_statement
   (block
-    .
     "{" @name.iteration.start.endOf @statement.iteration.start.endOf
     "}" @name.iteration.end.startOf @statement.iteration.end.startOf
-    .
   )
 )
 
@@ -300,10 +292,8 @@
 ;;!! void myFunk(int value) {}
 ;;!              ^^^^^^^^^
 (formal_parameters
-  .
   "(" @type.iteration.start.endOf @name.iteration.start.endOf
   ")" @type.iteration.end.startOf @name.iteration.end.startOf
-  .
 ) @type.iteration.domain @name.iteration.domain
 
 ;;!! List<String> list = value;
@@ -495,10 +485,8 @@
 ;;!! Map<int, int> foo;
 ;;!      ^^^^^^^^
 (type_arguments
-  .
   "<" @type.iteration.start.endOf
   ">" @type.iteration.end.startOf
-  .
 )
 
 ;;!! foo(name: string) {}
