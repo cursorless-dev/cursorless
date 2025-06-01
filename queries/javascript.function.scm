@@ -171,10 +171,8 @@
 ] @namedFunction.iteration @functionName.iteration
 
 (class_body
-  .
   "{" @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf
   "}" @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf
-  .
 )
 
 ;;!! { funk: function() { } }

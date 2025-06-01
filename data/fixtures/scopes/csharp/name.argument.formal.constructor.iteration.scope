@@ -1,0 +1,33 @@
+class MyClass {
+    MyClass(int foo, int bar) {}
+}
+---
+
+[#1 Range] =
+[#1 Domain] = 0:0-2:1
+  >---------------
+0| class MyClass {
+1|     MyClass(int foo, int bar) {}
+2| }
+   -<
+
+
+[#2 Range] =
+[#2 Domain] = 0:15-2:0
+                 >
+0| class MyClass {
+1|     MyClass(int foo, int bar) {}
+2| }
+   <
+
+
+[#3 Range] =
+[#3 Domain] = 1:12-1:28
+              >----------------<
+1|     MyClass(int foo, int bar) {}
+
+
+[#4 Range] =
+[#4 Domain] = 1:31-1:31
+                                 ><
+1|     MyClass(int foo, int bar) {}

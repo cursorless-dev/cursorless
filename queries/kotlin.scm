@@ -102,8 +102,7 @@
   (
     "else"
     (control_structure_body) @branch.removal.end.startOf
-  )
-?
+  )?
 )
 
 ;; Else-if branch
@@ -384,10 +383,8 @@
   (type_projection) @type
 )
 (type_arguments
-  .
   "<" @type.iteration.start.endOf
   ">" @type.iteration.end.startOf
-  .
 )
 
 (anonymous_function

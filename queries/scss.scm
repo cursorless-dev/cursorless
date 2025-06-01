@@ -67,18 +67,14 @@
 
 (_
   (parameters
-    .
     "(" @argumentOrParameter.iteration.start.endOf
     ")" @argumentOrParameter.iteration.end.startOf
-    .
   )
 ) @argumentOrParameter.iteration.domain
 
 (parameters
-  .
   "(" @name.iteration.start.endOf @value.iteration.start.endOf
   ")" @name.iteration.end.startOf @value.iteration.end.startOf
-  .
 ) @name.iteration.domain @value.iteration.domain
 
 ;;!! foo($foo: 123)
@@ -97,10 +93,8 @@
 )
 
 (block
-  .
   "{" @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf
   "}" @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf
-  .
 )
 
 (binary_expression
