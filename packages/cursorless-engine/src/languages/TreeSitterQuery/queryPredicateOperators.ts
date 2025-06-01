@@ -15,11 +15,7 @@ import { q } from "./operatorArgumentSchemaTypes";
 class Parity extends QueryPredicateOperator<Parity> {
   name = "parity?" as const;
   schema = z.tuple([q.node, q.string, q.integer]);
-  run(
-    { document, range, node }: MutableQueryCapture,
-    fieldName: string,
-    parity: 0 | 1,
-  ) {
+  run({ node }: MutableQueryCapture, fieldName: string, parity: 0 | 1) {
     if (node.parent == null) {
       return false;
     }
