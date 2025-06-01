@@ -6,7 +6,6 @@ import {
   argumentMatcher,
   cascadingMatcher,
   createPatternMatchers,
-  leadingMatcher,
   patternMatcher,
 } from "../util/nodeMatchers";
 
@@ -145,15 +144,6 @@ const nodeMatchers: Partial<
     "method_parameters",
     "block_parameters",
     "argument_list",
-  ),
-  value: leadingMatcher(
-    [
-      "pair[value]",
-      "assignment[right]",
-      "operator_assignment[right]",
-      "return.argument_list!",
-    ],
-    assignmentOperators.concat(mapKeyValueSeparators),
   ),
 };
 export const patternMatchers = createPatternMatchers(nodeMatchers);

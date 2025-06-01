@@ -139,11 +139,33 @@ operator: [
 ;;!   ^^^
 ;;!          ^^^^^
 (pair
-  key: (_) @collectionKey
-  value: (_) @collectionKey.trailing.startOf
+  key: (_) @collectionKey @value.leading.endOf
+  value: (_) @value @collectionKey.trailing.startOf
 ) @_.domain
 
+;;!! {"1" => "one", "2" => "two"}
+;;!   ^^^^^^^^^^^^^^^^^^^^^^^^^^
 (hash
-  "{" @collectionKey.iteration.start.endOf
-  "}" @collectionKey.iteration.end.startOf
+  "{" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
+  "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
 )
+
+;;!! return 10
+;;!         ^^
+(return
+  (argument_list) @value
+) @_.domain
+
+;;!! a = 10
+;;!      ^^
+(assignment
+  left: (_) @_.leading.endOf
+  right: (_) @value
+) @_.domain
+
+;;!! a += 10
+;;!       ^^
+(operator_assignment
+  left: (_) @_.leading.endOf
+  right: (_) @value
+) @_.domain
