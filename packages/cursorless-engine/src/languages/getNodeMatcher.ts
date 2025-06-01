@@ -13,7 +13,6 @@ import type { LegacyLanguageId } from "./LegacyLanguageId";
 import latex from "./latex";
 import { patternMatchers as ruby } from "./ruby";
 import rust from "./rust";
-import scala from "./scala";
 
 export function getNodeMatcher(
   languageId: string,
@@ -47,7 +46,6 @@ export const languageMatchers: Record<
   latex,
   ruby,
   rust,
-  scala,
 };
 
 function matcherIncludeSiblings(matcher: NodeMatcher): NodeMatcher {

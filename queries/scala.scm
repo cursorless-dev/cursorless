@@ -54,6 +54,123 @@
   )
 ) @_.domain
 
+;;!! type Vector = (Int, Int)
+;;!                ^^^^^^^^^^
+(type_definition
+  name: (_) @_.leading.endOf
+  type: (_) @value
+) @_.domain
+
+;;!! class Example(foo: String = "foo") {}
+;;!                              ^^^^^
+(_
+  (_) @_.leading.endOf
+  .
+  default_value: (_) @value
+) @_.domain
+
+;;!! val bar = "bar"
+;;!            ^^^^^
+(_
+  (_) @_.leading.endOf
+  .
+  value: (_) @value
+) @_.domain
+
+;;!! type Vector = (Int, Int)
+;;!  ^^^^^^^^^^^^^^^^^^^^^^^^
+(type_definition) @type
+
+;;!! def str(bar: String)
+;;!               ^^^^^^
+;;!! val foo: String = "foo"
+;;!           ^^^^^^
+(
+  (_
+    (_) @_.leading.endOf
+    .
+    type: (_) @type
+  ) @_.domain
+  (#not-type? @_.domain type_definition)
+)
+
+;;!! def str(): String = "bar"
+;;!             ^^^^^^
+(function_definition
+  (parameters) @_.leading.endOf
+  return_type: (_) @type
+) @_.domain
+
+;;!! case 0 => "zero"
+;;!  ^^^^^^^^^^^^^^^^
+(
+  (case_clause) @branch
+  (#trim-end! @branch)
+)
+
+;;!! class Foo(aaa: Int, bbb: Int) {}
+;;!            ^^^^^^^^  ^^^^^^^^
+(
+  (class_parameters
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
+;;!! def foo(aaa: Int, bbb: Int) = x
+;;!          ^^^^^^^^  ^^^^^^^^
+(
+  (parameters
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
+;;!! foo(aaa, bbb)
+;;!      ^^^  ^^^
+(
+  (arguments
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
+(_
+  (class_parameters
+    "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @_dummy
+  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+) @argumentList.domain @argumentOrParameter.iteration.domain
+
+(_
+  (parameters
+    "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @_dummy
+  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+) @argumentList.domain @argumentOrParameter.iteration.domain
+
+(_
+  (arguments
+    "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @_dummy
+  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+) @argumentList.domain @argumentOrParameter.iteration.domain
+
 operator: (operator_identifier) @disqualifyDelimiter
 (enumerator
   "<-" @disqualifyDelimiter
