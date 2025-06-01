@@ -57,22 +57,48 @@
 
 [
   (struct_item
-    name: (_) @className
+    name: (_) @className @name
   )
   (enum_item
-    name: (_) @className
+    name: (_) @className @name
   )
-] @class @className.domain
+] @class @_.domain
 
 (struct_expression) @class
 
+(enum_variant
+  name: (_) @name
+) @_.domain
+
 (trait_item
-  name: (_) @className
+  name: (_) @className @name
 ) @_.domain
 
 (function_item
-  name: (_) @functionName
-) @namedFunction @functionName.domain
+  name: (_) @functionName @name
+) @namedFunction @_.domain
+
+(field_declaration
+  name: (_) @name
+) @_.domain
+
+;;!! where T: Display + Clone
+;;!        ^
+(where_predicate
+  left: (_) @name
+) @_.domain
+
+;;!! (t: &T, u: &U)
+;;!   ^      ^
+(parameter
+  pattern: (_) @name
+) @_.domain
+
+;;!! <T: Display, U: Clone>
+;;!   ^           ^
+(constrained_type_parameter
+  left: (_) @name
+) @_.domain
 
 [
   (call_expression)
@@ -126,23 +152,34 @@
 ;;!! const foo: u8 = 2;
 ;;!                  ^
 (const_item
-  (_) @value.leading.endOf
-  .
+  name: (_) @name
+  type: (_) @value.leading.endOf
   value: (_) @value
 ) @_.domain
 
 ;;!! let foo = 2;
+;;!      ^^^
 ;;!            ^
 (let_declaration
-  (_) @value.leading.endOf
+  pattern: (_) @name @value.leading.start.endOf
   .
   value: (_) @value
 ) @_.domain
 
+;;!! let foo: u8 = 2;
+;;!      ^^^
+;;!            ^
+(let_declaration
+  pattern: (_) @name
+  type: (_) @value.leading.start.endOf
+  value: (_) @value
+) @_.domain
+
 ;;!! #[cfg_attr(feature = "foo")]
+;;!             ^^^^^^^
 ;;!                       ^^^^^
 (meta_item
-  (_) @value.leading.endOf
+  (identifier) @name @value.leading.endOf
   value: (_) @value
 ) @_.domain
 
