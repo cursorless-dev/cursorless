@@ -15,9 +15,8 @@ import { q } from "./operatorArgumentSchemaTypes";
 class Text extends QueryPredicateOperator<Text> {
   name = "text?" as const;
   schema = z.tuple([q.node, q.string]).rest(q.string);
-  run({ node, document, range }: MutableQueryCapture, ...texts: string[]) {
-    const text = document.getText(range);
-    return texts.includes(text);
+  run({ document, range }: MutableQueryCapture, ...texts: string[]) {
+    return texts.includes(document.getText(range));
   }
 }
 

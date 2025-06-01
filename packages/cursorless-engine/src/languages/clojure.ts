@@ -130,13 +130,6 @@ const nodeMatchers: Partial<
     (functionNode) => getValueNodes(functionNode)[0],
   ]),
 
-  namedFunction: matcher(functionFinder),
-
-  functionName: functionNameMatcher,
-
-  // FIXME: Handle `let` declarations, defs, etc
-  name: functionNameMatcher,
-
   anonymousFunction: cascadingMatcher(
     functionNameBasedMatcher("fn"),
     patternMatcher("anon_fn_lit"),
