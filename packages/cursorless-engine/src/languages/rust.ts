@@ -14,7 +14,6 @@ import {
   patternMatcher,
 } from "../util/nodeMatchers";
 import {
-  childRangeSelector,
   makeNodePairSelection,
   makeRangeFromPositions,
 } from "../util/nodeSelectors";
@@ -53,16 +52,6 @@ function traitBoundExtractor(
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
-  condition: cascadingMatcher(
-    patternMatcher("while_expression[condition]", "if_expression[condition]"),
-    matcher(
-      patternFinder("while_let_expression", "if_let_expression"),
-      childRangeSelector(["while", "if", "block"], [], {
-        includeUnnamedChildren: true,
-      }),
-    ),
-    leadingMatcher(["*.match_pattern![condition]"], ["if"]),
-  ),
   type: cascadingMatcher(
     leadingMatcher(
       [

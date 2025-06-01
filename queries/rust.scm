@@ -225,6 +225,42 @@
   )
 )
 
+;;!! if v < 0 {}
+;;!     ^^^^^
+(if_expression
+  condition: (_) @condition
+) @_.domain
+
+;;!! if let Some(i) = number {}
+;;!         ^^^^^^^^^^^^^^^^
+(if_let_expression
+  "let" @condition.start
+  value: (_) @condition.end
+) @_.domain
+
+;;!! while v < 0 {}
+;;!        ^^^^^
+(while_expression
+  condition: (_) @condition
+) @_.domain
+
+;;!! while let Some(i) = number {}
+;;!        ^^^^^^^^^^^^^^^^^^^^
+(while_let_expression
+  "let" @condition.start
+  value: (_) @condition.end
+) @_.domain
+
+;;!! User { value } if value.use() => {}
+;;!                    ^^^^^^^^^^^
+(_
+  (match_pattern
+    (_) @_.leading.endOf
+    .
+    condition: (_) @condition
+  )
+) @_.domain
+
 operator: [
   "<"
   "<<"
