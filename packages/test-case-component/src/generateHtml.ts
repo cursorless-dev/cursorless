@@ -135,7 +135,8 @@ class HTMLGenerator {
         htmlArray.push(codeBody)
         break; // Exit loop if successful
       } catch (error) {
-        console.warn("Failed with decorations level:", fallbackDecoration, error);
+        console.warn(`"Failed with decorations level ${i}:"`, this.command);
+        console.warn(fallbackDecoration, error);
         // Continue to the next fallback level
       }
     }
@@ -159,7 +160,7 @@ class HTMLGenerator {
       const errorRendered = `<pre><code>Omitted due to errors: ${error}</pre></code>`
       htmlArray.push(errorRendered)
     }
-    return { html: htmlArray.join(""), data: [] }
+    return { html: htmlArray.join(""), data: [decorations] }
   }
 
   async generateAll() {
