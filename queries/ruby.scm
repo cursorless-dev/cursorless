@@ -95,3 +95,9 @@ operator: [
   )
   (#insertion-delimiter! @collectionItem " ")
 )
+
+;;!! if true
+;;!     ^^^^
+(_
+  condition: (_) @condition
+) @_.domain

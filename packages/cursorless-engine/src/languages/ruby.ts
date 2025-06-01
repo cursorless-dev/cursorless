@@ -6,7 +6,6 @@ import {
   ancestorChainNodeMatcher,
   argumentMatcher,
   cascadingMatcher,
-  conditionMatcher,
   createPatternMatchers,
   leadingMatcher,
   matcher,
@@ -167,7 +166,6 @@ const nodeMatchers: Partial<
     patternMatcher("lambda", "do_block"),
     matcher(blockFinder),
   ),
-  condition: conditionMatcher("*[condition]"),
   argumentOrParameter: argumentMatcher(
     "lambda_parameters",
     "method_parameters",
