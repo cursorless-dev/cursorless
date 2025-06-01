@@ -82,35 +82,6 @@ const getValueNodes = (node: Node) => getChildNodesForFieldName(node, "value");
 const functionCallPattern = "~quoting_lit.list_lit!";
 const functionCallFinder = patternFinder(functionCallPattern);
 
-/**
- * Matches a function call if the name of the function is one of the given names
- * @param names The acceptable function names
- * @returns The function call node if the name matches otherwise null
- */
-function functionNameBasedFinder(...names: string[]) {
-  return (node: Node) => {
-    const functionCallNode = functionCallFinder(node);
-    if (functionCallNode == null) {
-      return null;
-    }
-
-    const functionNode = getValueNodes(functionCallNode)[0];
-
-    return names.includes(functionNode?.text) ? functionCallNode : null;
-  };
-}
-
-function functionNameBasedMatcher(...names: string[]) {
-  return matcher(functionNameBasedFinder(...names));
-}
-
-const functionFinder = functionNameBasedFinder("defn", "defmacro");
-
-const functionNameMatcher = chainedMatcher([
-  functionFinder,
-  (functionNode) => getValueNodes(functionNode)[1],
-]);
-
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
@@ -125,15 +96,11 @@ const nodeMatchers: Partial<
   ),
 
   functionCall: functionCallPattern,
+
   functionCallee: chainedMatcher([
     functionCallFinder,
     (functionNode) => getValueNodes(functionNode)[0],
   ]),
-
-  anonymousFunction: cascadingMatcher(
-    functionNameBasedMatcher("fn"),
-    patternMatcher("anon_fn_lit"),
-  ),
 };
 
 export default createPatternMatchers(nodeMatchers);

@@ -80,20 +80,6 @@
   close: "}" @collectionItem.iteration.end.startOf
 ) @collectionItem.iteration.domain
 
-;;!! (if true "hello")
-;;!  ^^^^^^^^^^^^^^^^^
-;;!      ^^^^
-(
-  (list_lit
-    value: (_) @_dummy
-    .
-    value: (_) @condition
-    (#text? @_dummy "if" "if-let" "when" "when-let")
-  ) @ifStatement @condition.domain
-  ;; A function call is a list literal which is not quoted
-  (#not-parent-type? @ifStatement quoting_lit)
-)
-
 ;;!! (defn foo [] 5)
 ;;!  ^^^^^^^^^^^^^^^
 ;;!        ^^^
@@ -102,8 +88,35 @@
     value: (_) @_dummy
     .
     value: (_) @name @functionName
-    (#text? @_dummy defn defmacro)
   ) @namedFunction @name.domain @functionName.domain
+  (#text? @_dummy defn defmacro)
   ;; A function call is a list literal which is not quoted
   (#not-parent-type? @namedFunction quoting_lit)
+)
+
+;;!! (fn [] 5)
+;;!  ^^^^^^^^^
+(
+  (list_lit
+    value: (_) @_dummy
+  ) @anonymousFunction
+  (#text? @_dummy fn)
+  (#not-parent-type? @anonymousFunction quoting_lit)
+)
+
+;;!! #(+ 1 1)
+;;!  ^^^^^^^^
+(anon_fn_lit) @anonymousFunction
+
+;;!! (if true "hello")
+;;!  ^^^^^^^^^^^^^^^^^
+;;!      ^^^^
+(
+  (list_lit
+    value: (_) @_dummy
+    .
+    value: (_) @condition
+  ) @ifStatement @condition.domain
+  (#text? @_dummy "if" "if-let" "when" "when-let")
+  (#not-parent-type? @ifStatement quoting_lit)
 )
