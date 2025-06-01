@@ -76,7 +76,7 @@ const After = ({ content }: { content: string }) => {
   );
 };
 
-const STEP_DURATIONS = [1500, 500, 2000]; // milliseconds
+const STEP_DURATIONS = [1500, 500, 1500]; // milliseconds
 
 function Carousel({ children }: { children: React.ReactNode[] }) {
   const [activeIndex, setActiveIndex] = useState(0);
