@@ -222,7 +222,6 @@ const nodeMatchers: Partial<
     patternMatcher("meta_item[value]", "const_item[value]"),
     matcher(returnValueFinder),
   ),
-  attribute: trailingMatcher(["mutable_specifier", "attribute_item"]),
   branch: cascadingMatcher(
     patternMatcher("match_arm"),
     matcher(patternFinder("else_clause"), elseExtractor("if_expression")),
