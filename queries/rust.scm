@@ -113,30 +113,53 @@
   name: (_) @className @name
 ) @_.domain
 
+;;!! fn foo() {}
+;;!  ^^^^^^^^^^^
 (function_item
   name: (_) @functionName @name
 ) @namedFunction @_.domain
 
-(field_declaration
-  name: (_) @name
+;;!! fn foo() -> int {}
+;;!              ^^^
+(function_item
+  parameters: (_) @_.leading.endOf
+  return_type: (_)? @type
 ) @_.domain
 
-;;!! where T: Display + Clone
+;;!! fn foo<T: Display>() {}
+;;!         ^
+;;!            ^^^^^^^
+(constrained_type_parameter
+  left: (_) @name
+  (trait_bounds
+    ":" @type.leading.endOf
+    (_) @type.start
+    (_) @type.end
+  )
+) @_.domain
+
+;;!! where T: Display
 ;;!        ^
+;;!           ^^^^^^^
 (where_predicate
   left: (_) @name
+  (trait_bounds
+    ":" @type.leading.endOf
+    (_) @type.start
+    (_) @type.end
+  )
+) @_.domain
+
+(field_declaration
+  name: (_) @name @type.leading.endOf
+  type: (_) @type
 ) @_.domain
 
 ;;!! (t: &T, u: &U)
 ;;!   ^      ^
 (parameter
-  pattern: (_) @name
-) @_.domain
-
-;;!! <T: Display, U: Clone>
-;;!   ^           ^
-(constrained_type_parameter
-  left: (_) @name
+  pattern: (_) @name @type.leading.endOf
+  type: (_) @type
 ) @_.domain
 
 [
@@ -191,8 +214,8 @@
 ;;!! const foo: u8 = 2;
 ;;!                  ^
 (const_item
-  name: (_) @name
-  type: (_) @value.leading.endOf
+  name: (_) @name @type.leading.endOf
+  type: (_) @type @value.leading.endOf
   value: (_) @value
 ) @_.domain
 
@@ -209,8 +232,8 @@
 ;;!      ^^^
 ;;!            ^
 (let_declaration
-  pattern: (_) @name
-  type: (_) @value.leading.start.endOf
+  pattern: (_) @name @type.leading.endOf
+  type: (_) @type @value.leading.start.endOf
   value: (_) @value
 ) @_.domain
 
@@ -290,6 +313,20 @@
 ;;!! match value { 5 => {} }
 ;;!                ^^^^^^^
 (match_arm) @branch
+
+[
+  (struct_item)
+  (trait_item)
+  (impl_item)
+] @type
+
+(impl_item
+  type: (_) @type
+)
+
+(array_type
+  element: (_) @type
+) @_.domain
 
 operator: [
   "<"
