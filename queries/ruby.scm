@@ -169,3 +169,74 @@ operator: [
   left: (_) @_.leading.endOf
   right: (_) @value
 ) @_.domain
+
+;;!! def foo(aaa, bbb)
+;;!          ^^^  ^^^
+(
+  (method_parameters
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
+;;!! foo(aaa, bbb)
+;;!      ^^^  ^^^
+(
+  (argument_list
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
+;;!! { |aaa, bbb| }
+;;!     ^^^  ^^^
+(
+  (block_parameters
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
+;;!! def foo(aaa, bbb)
+;;!          ^^^^^^^^
+(_
+  (method_parameters
+    "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @_dummy
+  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+) @argumentList.domain @argumentOrParameter.iteration.domain
+
+;;!! foo(aaa, bbb)
+;;!      ^^^^^^^^
+(_
+  (argument_list
+    "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @_dummy
+  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+) @argumentList.domain @argumentOrParameter.iteration.domain
+
+;;!! { |aaa, bbb| }
+;;!     ^^^^^^^^
+(_
+  (block_parameters
+    "|" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
+    "|" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @_dummy
+  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+) @argumentList.domain @argumentOrParameter.iteration.domain
+
+;; lambda_parameters

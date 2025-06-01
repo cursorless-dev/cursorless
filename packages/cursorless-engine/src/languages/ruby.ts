@@ -3,7 +3,6 @@ import type { NodeMatcherAlternative } from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";
 import {
   ancestorChainNodeMatcher,
-  argumentMatcher,
   cascadingMatcher,
   createPatternMatchers,
   patternMatcher,
@@ -108,24 +107,6 @@ const EXPRESSION_STATEMENT_PARENT_TYPES = [
   "then",
 ];
 
-const assignmentOperators = [
-  "=",
-  "+=",
-  "-=",
-  "*=",
-  "**=",
-  "/=",
-  "||=",
-  "|=",
-  "&&=",
-  "&=",
-  "%=",
-  ">>=",
-  "<<=",
-  "^=",
-];
-const mapKeyValueSeparators = [":", "=>"];
-
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
@@ -138,12 +119,6 @@ const nodeMatchers: Partial<
       ],
       1,
     ),
-  ),
-  argumentOrParameter: argumentMatcher(
-    "lambda_parameters",
-    "method_parameters",
-    "block_parameters",
-    "argument_list",
   ),
 };
 export const patternMatchers = createPatternMatchers(nodeMatchers);
