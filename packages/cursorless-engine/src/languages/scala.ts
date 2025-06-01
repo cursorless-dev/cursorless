@@ -18,12 +18,12 @@ const nodeMatchers: Partial<
     "class_parameters",
     "bindings",
   ),
-  branch: matcher(
-    patternFinder("case_clause"),
-    childRangeSelector([], [], {
-      includeUnnamedChildren: true,
-    }),
-  ),
+  //   branch: matcher(
+  //     patternFinder("case_clause"),
+  //     childRangeSelector([], [], {
+  //       includeUnnamedChildren: true,
+  //     }),
+  //   ),
 
   // *[type] does not work here because while we want most of these we don't want "compound" types,
   //   // eg `generic_type[type]`, because that will grab just the inner generic (the String of List[String])

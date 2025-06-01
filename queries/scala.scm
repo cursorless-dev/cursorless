@@ -101,6 +101,13 @@
   return_type: (_) @type
 ) @_.domain
 
+;;!! case 0 => "zero"
+;;!  ^^^^^^^^^^^^^^^^
+(
+  (case_clause) @branch
+  (#trim-end! @branch)
+)
+
 operator: (operator_identifier) @disqualifyDelimiter
 (enumerator
   "<-" @disqualifyDelimiter
