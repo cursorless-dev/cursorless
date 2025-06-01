@@ -201,8 +201,7 @@
     )
   ) @_.domain
   (#not-type? @value "as_pattern")
-  (#allow-multiple! @value)
-  (#allow-multiple! @name)
+  (#allow-multiple! @value @name)
 )
 
 ;;!! with aaa:
@@ -222,8 +221,7 @@
   )
   (#not-type? @value "as_pattern")
   (#has-multiple-children-of-type? @_with_clause "with_item")
-  (#allow-multiple! @value)
-  (#allow-multiple! @name)
+  (#allow-multiple! @value @name)
 )
 
 ;;!! with aaa as bbb:
@@ -241,8 +239,7 @@
       )
     )
   ) @_.domain
-  (#allow-multiple! @value)
-  (#allow-multiple! @name)
+  (#allow-multiple! @value @name)
 )
 
 ;;!! with aaa as ccc, bbb:
@@ -260,8 +257,7 @@
     ) @_with_clause
   )
   (#has-multiple-children-of-type? @_with_clause "with_item")
-  (#allow-multiple! @value)
-  (#allow-multiple! @name)
+  (#allow-multiple! @value @name)
 )
 
 (with_statement
@@ -723,6 +719,14 @@
     ")" @argumentOrParameter.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
   ) @name.iteration.domain @value.iteration.domain
 ) @argumentOrParameter.iteration.domain
+
+(_
+  (argument_list
+    "(" @argumentList.start.endOf
+    ")" @argumentList.end.startOf
+  ) @_dummy
+  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+) @argumentList.domain
 
 (call
   (generator_expression

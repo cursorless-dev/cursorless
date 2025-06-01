@@ -261,14 +261,16 @@ class DocumentRange extends QueryPredicateOperator<DocumentRange> {
  */
 class AllowMultiple extends QueryPredicateOperator<AllowMultiple> {
   name = "allow-multiple!" as const;
-  schema = z.tuple([q.node]);
+  schema = z.tuple([q.node]).rest(q.node);
 
   protected allowMissingNode(): boolean {
     return true;
   }
 
-  run(nodeInfo: MutableQueryCapture) {
-    nodeInfo.allowMultiple = true;
+  run(...nodeInfos: MutableQueryCapture[]) {
+    for (const nodeInfo of nodeInfos) {
+      nodeInfo.allowMultiple = true;
+    }
 
     return true;
   }

@@ -1,0 +1,13 @@
+command: user.foo(aaa, bbb)
+---
+
+[Content] =
+[Removal] = 0:18-0:26
+                    >--------<
+0| command: user.foo(aaa, bbb)
+
+[Domain] = 0:9-0:27
+           >------------------<
+0| command: user.foo(aaa, bbb)
+
+[Insertion delimiter] = ", "

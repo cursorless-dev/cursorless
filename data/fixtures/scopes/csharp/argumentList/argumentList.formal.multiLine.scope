@@ -1,0 +1,24 @@
+void foo(
+    aaa,
+    bbb
+) {}
+---
+
+[Content] =
+[Removal] = 0:9-3:0
+           >
+0| void foo(
+1|     aaa,
+2|     bbb
+3| ) {}
+   <
+
+[Domain] = 0:0-3:4
+  >---------
+0| void foo(
+1|     aaa,
+2|     bbb
+3| ) {}
+   ----<
+
+[Insertion delimiter] = ",\n"

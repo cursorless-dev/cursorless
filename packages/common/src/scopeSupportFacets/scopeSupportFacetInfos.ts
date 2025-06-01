@@ -282,33 +282,114 @@ export const scopeSupportFacetInfos: Record<
     isIteration: true,
   },
 
-  "argumentList.actual": {
-    description: "A list of arguments in a function call",
+  "argumentList.actual.empty": {
+    description: "An empty list of arguments in a function call",
     scopeType: "argumentList",
+    insertionDelimiterHint: '""',
   },
-  "argumentList.actual.method": {
-    description: "A list of arguments in a class method call",
+  "argumentList.actual.singleLine": {
+    description: "A single line list of arguments in a function call",
     scopeType: "argumentList",
+    insertionDelimiterHint: '", "',
   },
-  "argumentList.actual.constructor": {
-    description: "A list of arguments in a constructor call",
+  "argumentList.actual.multiLine": {
+    description: "A multi line list of arguments in a function call",
     scopeType: "argumentList",
+    insertionDelimiterHint: '",\n"',
   },
-  "argumentList.formal": {
-    description: "A list of parameters in a function declaration",
+  "argumentList.actual.method.empty": {
+    description: "An empty list of arguments in a method call",
     scopeType: "argumentList",
+    insertionDelimiterHint: '""',
   },
-  "argumentList.formal.method": {
-    description: "A list of parameters in a class method declaration",
+  "argumentList.actual.method.singleLine": {
+    description: "A single line list of arguments in a method call",
     scopeType: "argumentList",
+    insertionDelimiterHint: '", "',
   },
-  "argumentList.formal.constructor": {
-    description: "A list of parameters in a constructor declaration",
+  "argumentList.actual.method.multiLine": {
+    description: "A multi line list of arguments in a method call",
     scopeType: "argumentList",
+    insertionDelimiterHint: '",\n"',
   },
-  "argumentList.formal.lambda": {
-    description: "A list of parameters in a lambda declaration",
+  "argumentList.actual.constructor.empty": {
+    description: "An empty list of arguments in a constructor call",
     scopeType: "argumentList",
+    insertionDelimiterHint: '""',
+  },
+  "argumentList.actual.constructor.singleLine": {
+    description: "A single line list of arguments in a constructor call",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '", "',
+  },
+  "argumentList.actual.constructor.multiLine": {
+    description: "A multi line list of arguments in a constructor call",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '",\n"',
+  },
+
+  "argumentList.formal.empty": {
+    description: "An empty list of parameters in a function declaration",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '""',
+  },
+  "argumentList.formal.singleLine": {
+    description: "A single line list of parameters in a function declaration",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '", "',
+  },
+  "argumentList.formal.multiLine": {
+    description: "A multi line list of parameters in a function declaration",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '",\n"',
+  },
+  "argumentList.formal.lambda.empty": {
+    description: "An empty list of parameters in a lambda declaration",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '""',
+  },
+  "argumentList.formal.lambda.singleLine": {
+    description: "A single line list of parameters in a lambda declaration",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '", "',
+  },
+  "argumentList.formal.lambda.multiLine": {
+    description: "A multi line list of parameters in a lambda declaration",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '",\n"',
+  },
+  "argumentList.formal.method.empty": {
+    description: "An empty list of parameters in a class method declaration",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '""',
+  },
+  "argumentList.formal.method.singleLine": {
+    description:
+      "A single line list of parameters in a class method declaration",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '", "',
+  },
+  "argumentList.formal.method.multiLine": {
+    description:
+      "A multi line list of parameters in a class method declaration",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '",\n"',
+  },
+  "argumentList.formal.constructor.empty": {
+    description: "An empty list of parameters in a constructor declaration",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '""',
+  },
+  "argumentList.formal.constructor.singleLine": {
+    description:
+      "A single line list of parameters in a constructor declaration",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '", "',
+  },
+  "argumentList.formal.constructor.multiLine": {
+    description: "A multi line list of parameters in a constructor declaration",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '",\n"',
   },
 
   "comment.line": {
