@@ -8,12 +8,12 @@ import { q } from "./operatorArgumentSchemaTypes";
 
 /**
  * A predicate operator that returns true if the node is of the given type.
- * For example, `(#is-type? @foo string)` will accept the match if the `@foo`
+ * For example, `(#type? @foo string)` will accept the match if the `@foo`
  * capture is a `string` node. It is acceptable to pass in multiple types, e.g.
- * `(#is-type? @foo string comment)`.
+ * `(#type? @foo string comment)`.
  */
-class IsType extends QueryPredicateOperator<IsType> {
-  name = "is-type?" as const;
+class Type extends QueryPredicateOperator<Type> {
+  name = "type?" as const;
   schema = z.tuple([q.node, q.string]).rest(q.string);
   run({ node }: MutableQueryCapture, ...types: string[]) {
     return types.includes(node.type);
@@ -388,7 +388,7 @@ class EmptySingleMultiDelimiter extends QueryPredicateOperator<EmptySingleMultiD
 
 export const queryPredicateOperators = [
   new Log(),
-  new IsType(),
+  new Type(),
   new NotType(),
   new TrimEnd(),
   new DocumentRange(),

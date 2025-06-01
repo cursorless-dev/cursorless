@@ -79,7 +79,7 @@
       (yield)
     ] @statement
   ) @_dummy
-  (#is-type?
+  (#type?
     @_dummy
     begin_block
     begin
