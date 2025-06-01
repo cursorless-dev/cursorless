@@ -134,3 +134,16 @@ operator: [
   method: (_) @_dummy
   (#eq? @_dummy lambda)
 ) @anonymousFunction
+
+;;!! {"1" => "one"}
+;;!   ^^^
+;;!          ^^^^^
+(pair
+  key: (_) @collectionKey
+  value: (_) @collectionKey.trailing.startOf
+) @_.domain
+
+(hash
+  "{" @collectionKey.iteration.start.endOf
+  "}" @collectionKey.iteration.end.startOf
+)
