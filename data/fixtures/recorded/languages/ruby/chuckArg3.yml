@@ -19,7 +19,7 @@ initialState:
   marks: {}
 finalState:
   documentContents: |
-    [1, 2, 3].each_with_the_next { |n, | }
+    [1, 2, 3].each_with_the_next { |n| }
   selections:
-    - anchor: {line: 0, character: 35}
-      active: {line: 0, character: 35}
+    - anchor: {line: 0, character: 33}
+      active: {line: 0, character: 33}
