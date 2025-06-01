@@ -77,6 +77,30 @@
   value: (_) @value
 ) @_.domain
 
+;;!! type Vector = (Int, Int)
+;;!  ^^^^^^^^^^^^^^^^^^^^^^^^
+(type_definition) @type
+
+;;!! def str(bar: String)
+;;!               ^^^^^^
+;;!! val foo: String = "foo"
+;;!           ^^^^^^
+(
+  (_
+    (_) @_.leading.endOf
+    .
+    type: (_) @type
+  ) @_.domain
+  (#not-type? @_.domain type_definition)
+)
+
+;;!! def str(): String = "bar"
+;;!             ^^^^^^
+(function_definition
+  (parameters) @_.leading.endOf
+  return_type: (_) @type
+) @_.domain
+
 operator: (operator_identifier) @disqualifyDelimiter
 (enumerator
   "<-" @disqualifyDelimiter

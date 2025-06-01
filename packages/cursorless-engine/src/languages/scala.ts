@@ -26,28 +26,28 @@ const nodeMatchers: Partial<
   ),
 
   // *[type] does not work here because while we want most of these we don't want "compound" types,
-  // eg `generic_type[type]`, because that will grab just the inner generic (the String of List[String])
-  // and as a rule we want to grab entire type definitions.
-  type: leadingMatcher(
-    [
-      "upper_bound[type]",
-      "lower_bound[type]",
-      "view_bound[type]",
-      "context_bound[type]",
-      "val_definition[type]",
-      "val_declaration[type]",
-      "var_definition[type]",
-      "var_declaration[type]",
-      "type_definition",
-      "extends_clause[type]",
-      "class_parameter[type]",
-      "parameter[type]",
-      "function_definition[return_type]",
-      "typed_pattern[type]",
-      "binding[type]",
-    ],
-    [":"],
-  ),
+  //   // eg `generic_type[type]`, because that will grab just the inner generic (the String of List[String])
+  //   // and as a rule we want to grab entire type definitions.
+  //   type: leadingMatcher(
+  //     [
+  //       "upper_bound[type]",
+  //       "lower_bound[type]",
+  //       "view_bound[type]",
+  //       "context_bound[type]",
+  //       "val_definition[type]",
+  //       "val_declaration[type]",
+  //       "var_definition[type]",
+  //       "var_declaration[type]",
+  //       "type_definition",
+  //       "extends_clause[type]",
+  //       "class_parameter[type]",
+  //       "parameter[type]",
+  //       "function_definition[return_type]",
+  //       "typed_pattern[type]",
+  //       "binding[type]",
+  //     ],
+  //     [":"],
+  //   ),
   //   value: leadingMatcher(
   //     ["*[value]", "*[default_value]", "type_definition[type]"],
   //     ["="],
