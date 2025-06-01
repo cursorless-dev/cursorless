@@ -32,10 +32,49 @@
   (#type? @_dummy source_file block declaration_list)
 )
 
-[
-  (if_expression)
-  (if_let_expression)
-] @ifStatement
+;;!! if v < 0 {}
+;;!  ^^^^^^^^^^^
+(if_expression) @ifStatement
+
+;;!! if let Some(i) = number {}
+;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+;;!         ^^^^^^^^^^^^^^^^
+(if_let_expression
+  "let" @condition.start
+  value: (_) @condition.end
+) @ifStatement @_.domain
+
+;;!! if true {}
+;;!  ^^^^^^^^^^
+(_
+  (if_expression
+    "if" @branch.start @branch.removal.start
+    condition: (_) @condition
+    consequence: (_) @branch.end @branch.removal.end
+    alternative: (else_clause
+      (if_expression) @branch.removal.end.startOf
+    )?
+  ) @condition.domain
+  (#not-parent-type? @condition.domain else_clause)
+)
+
+;;!! else if true {}
+;;!  ^^^^^^^^^^^^^^^
+(else_clause
+  "else" @branch.start @condition.domain.start
+  (if_expression
+    condition: (_) @condition
+    consequence: (_) @branch.end @condition.domain.end
+  )
+)
+
+;;!! else {}
+;;!  ^^^^^^^
+(
+  (else_clause
+    (block)
+  ) @branch
+)
 
 ;;!! "hello"
 (
@@ -225,19 +264,6 @@
   )
 )
 
-;;!! if v < 0 {}
-;;!     ^^^^^
-(if_expression
-  condition: (_) @condition
-) @_.domain
-
-;;!! if let Some(i) = number {}
-;;!         ^^^^^^^^^^^^^^^^
-(if_let_expression
-  "let" @condition.start
-  value: (_) @condition.end
-) @_.domain
-
 ;;!! while v < 0 {}
 ;;!        ^^^^^
 (while_expression
@@ -260,6 +286,10 @@
     condition: (_) @condition
   )
 ) @_.domain
+
+;;!! match value { 5 => {} }
+;;!                ^^^^^^^
+(match_arm) @branch
 
 operator: [
   "<"

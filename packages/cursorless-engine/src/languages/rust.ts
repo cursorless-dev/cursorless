@@ -17,7 +17,6 @@ import {
   makeNodePairSelection,
   makeRangeFromPositions,
 } from "../util/nodeSelectors";
-import { elseExtractor, elseIfExtractor } from "./elseIfExtractor";
 
 /**
  * Returns "impl_item[type]" node higher in the chain
@@ -84,11 +83,6 @@ const nodeMatchers: Partial<
     "meta_arguments",
     "type_parameters",
     "ordered_field_declaration_list",
-  ),
-  branch: cascadingMatcher(
-    patternMatcher("match_arm"),
-    matcher(patternFinder("else_clause"), elseExtractor("if_expression")),
-    matcher(patternFinder("if_expression"), elseIfExtractor()),
   ),
 };
 
