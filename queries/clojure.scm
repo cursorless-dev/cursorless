@@ -80,17 +80,28 @@
   close: "}" @collectionItem.iteration.end.startOf
 ) @collectionItem.iteration.domain
 
+;;!! (hello)
+;;!  ^^^^^^^
+(
+  (list_lit
+    .
+    value: (_) @functionCallee
+  ) @functionCall @functionCallee.domain
+  ;; A function call is a list literal which is not quoted
+  (#not-parent-type? @functionCall quoting_lit)
+)
+
 ;;!! (defn foo [] 5)
 ;;!  ^^^^^^^^^^^^^^^
 ;;!        ^^^
 (
   (list_lit
+    .
     value: (_) @_dummy
     .
     value: (_) @name @functionName
   ) @namedFunction @name.domain @functionName.domain
   (#text? @_dummy defn defmacro)
-  ;; A function call is a list literal which is not quoted
   (#not-parent-type? @namedFunction quoting_lit)
 )
 
@@ -98,6 +109,7 @@
 ;;!  ^^^^^^^^^
 (
   (list_lit
+    .
     value: (_) @_dummy
   ) @anonymousFunction
   (#text? @_dummy fn)
@@ -113,6 +125,7 @@
 ;;!      ^^^^
 (
   (list_lit
+    .
     value: (_) @_dummy
     .
     value: (_) @condition

@@ -2,13 +2,7 @@ import type { SimpleScopeTypeType } from "@cursorless/common";
 import type { Node } from "web-tree-sitter";
 import type { NodeFinder, NodeMatcherAlternative } from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";
-import {
-  cascadingMatcher,
-  chainedMatcher,
-  createPatternMatchers,
-  matcher,
-  patternMatcher,
-} from "../util/nodeMatchers";
+import { createPatternMatchers, matcher } from "../util/nodeMatchers";
 import { getChildNodesForFieldName } from "../util/treeSitterUtils";
 
 /**
@@ -80,7 +74,6 @@ const getValueNodes = (node: Node) => getChildNodesForFieldName(node, "value");
 
 // A function call is a list literal which is not quoted
 const functionCallPattern = "~quoting_lit.list_lit!";
-const functionCallFinder = patternFinder(functionCallPattern);
 
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
@@ -94,13 +87,6 @@ const nodeMatchers: Partial<
       nodeIndex !== 0 ? nodeIndex : -1,
     ),
   ),
-
-  functionCall: functionCallPattern,
-
-  functionCallee: chainedMatcher([
-    functionCallFinder,
-    (functionNode) => getValueNodes(functionNode)[0],
-  ]),
 };
 
 export default createPatternMatchers(nodeMatchers);
