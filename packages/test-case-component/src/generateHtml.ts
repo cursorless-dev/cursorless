@@ -36,7 +36,7 @@ export async function generateHtml(data: DataFixture) {
 
 const highlighter = createHighlighter({
   themes: [myTheme],
-  langs: ["javascript", "typescript"],
+  langs: ["javascript", "typescript", "python", "markdown"],
 });
 
 type StepNameType = "before" | "during" | "after"
