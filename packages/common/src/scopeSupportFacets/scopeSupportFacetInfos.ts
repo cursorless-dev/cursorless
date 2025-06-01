@@ -298,17 +298,17 @@ export const scopeSupportFacetInfos: Record<
     insertionDelimiterHint: '",\n"',
   },
   "argumentList.actual.method.empty": {
-    description: "An empty list of arguments in a class method call",
+    description: "An empty list of arguments in a method call",
     scopeType: "argumentList",
     insertionDelimiterHint: '""',
   },
   "argumentList.actual.method.singleLine": {
-    description: "A single line list of arguments in a class method call",
+    description: "A single line list of arguments in a method call",
     scopeType: "argumentList",
     insertionDelimiterHint: '", "',
   },
   "argumentList.actual.method.multiLine": {
-    description: "A multi line list of arguments in a class method call",
+    description: "A multi line list of arguments in a method call",
     scopeType: "argumentList",
     insertionDelimiterHint: '",\n"',
   },
