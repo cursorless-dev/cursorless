@@ -107,6 +107,20 @@
   (_) @_.trailing.startOf
 ) @_.domain
 
+;;!! let Foo {aaa: 1, bbb: 2}
+;;!           ^^^     ^^^
+(field_initializer
+  name: (_) @collectionKey
+  value: (_) @_.trailing.startOf
+) @_.domain
+
+;;!! Foo {aaa: 1, bbb: 2}
+;;!       ^^^     ^^^
+(field_pattern
+  name: (_) @collectionKey
+  pattern: (_) @_.trailing.startOf
+) @_.domain
+
 operator: [
   "<"
   "<<"

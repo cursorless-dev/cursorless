@@ -178,9 +178,6 @@ const nodeMatchers: Partial<
     "type_parameters",
     "ordered_field_declaration_list",
   ),
-  collectionKey: cascadingMatcher(
-    trailingMatcher(["field_initializer[name]", "field_pattern[name]"], [":"]),
-  ),
   name: cascadingMatcher(
     patternMatcher(
       "let_declaration.identifier!",
