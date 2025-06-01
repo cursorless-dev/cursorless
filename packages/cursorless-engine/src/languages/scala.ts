@@ -48,10 +48,10 @@ const nodeMatchers: Partial<
     ],
     [":"],
   ),
-  value: leadingMatcher(
-    ["*[value]", "*[default_value]", "type_definition[type]"],
-    ["="],
-  ),
+  //   value: leadingMatcher(
+  //     ["*[value]", "*[default_value]", "type_definition[type]"],
+  //     ["="],
+  //   ),
 
   // Scala features unsupported in Cursorless terminology
   //  - Pattern matching

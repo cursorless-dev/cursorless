@@ -54,6 +54,29 @@
   )
 ) @_.domain
 
+;;!! type Vector = (Int, Int)
+;;!                ^^^^^^^^^^
+(type_definition
+  name: (_) @_.leading.endOf
+  type: (_) @value
+) @_.domain
+
+;;!! class Example(foo: String = "foo") {}
+;;!                              ^^^^^
+(_
+  (_) @_.leading.endOf
+  .
+  default_value: (_) @value
+) @_.domain
+
+;;!! val bar = "bar"
+;;!            ^^^^^
+(_
+  (_) @_.leading.endOf
+  .
+  value: (_) @value
+) @_.domain
+
 operator: (operator_identifier) @disqualifyDelimiter
 (enumerator
   "<-" @disqualifyDelimiter
