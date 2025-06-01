@@ -194,8 +194,8 @@
   (if_statement
     "if" @branch.start @branch.removal.start
     condition: (_) @condition
-    consequence: (_) @branch.end @branch.removal.end
-    alternative: (_)? @branch.removal.end.startOf
+    consequence: (block) @branch.end @branch.removal.end
+    alternative: (if_statement)? @branch.removal.end.startOf
   ) @condition.domain
   (#not-parent-type? @condition.domain "if_statement")
   (#child-range! @condition 0 -1 true true)
@@ -207,7 +207,7 @@
   "else" @branch.start @condition.domain.start
   alternative: (if_statement
     condition: (_) @condition
-    consequence: (_) @branch.end @condition.domain.end
+    consequence: (block) @branch.end @condition.domain.end
     (#child-range! @condition 0 -1 true true)
   )
 )
@@ -216,7 +216,7 @@
 ;;!  ^^^^^^^
 (if_statement
   "else" @branch.start
-  alternative: (_) @branch.end
+  alternative: (block) @branch.end
 )
 
 (
