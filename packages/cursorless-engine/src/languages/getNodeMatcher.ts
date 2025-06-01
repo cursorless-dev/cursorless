@@ -11,7 +11,6 @@ import { selectionWithEditorFromRange } from "../util/selectionUtils";
 import clojure from "./clojure";
 import type { LegacyLanguageId } from "./LegacyLanguageId";
 import latex from "./latex";
-import { patternMatchers as ruby } from "./ruby";
 import rust from "./rust";
 
 export function getNodeMatcher(
@@ -44,7 +43,6 @@ export const languageMatchers: Record<
 > = {
   clojure,
   latex,
-  ruby,
   rust,
 };
 
