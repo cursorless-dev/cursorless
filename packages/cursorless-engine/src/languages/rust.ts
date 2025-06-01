@@ -1,13 +1,11 @@
-import type { TextEditor } from "@cursorless/common";
+import type { SimpleScopeTypeType, TextEditor } from "@cursorless/common";
 import type { Node } from "web-tree-sitter";
-import type { SimpleScopeTypeType } from "@cursorless/common";
 import type {
   NodeMatcherAlternative,
   SelectionWithContext,
 } from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";
 import {
-  ancestorChainNodeMatcher,
   argumentMatcher,
   cascadingMatcher,
   createPatternMatchers,
@@ -49,11 +47,6 @@ const STATEMENT_TYPES = [
   "use_declaration",
   "expression_statement",
 ];
-
-/**
- * Scope types allowed to be parents of a statement
- */
-const STATEMENT_PARENT_TYPES = ["source_file", "block", "declaration_list"];
 
 /**
  * Returns "impl_item[type]" node higher in the chain
@@ -142,13 +135,6 @@ function returnValueFinder(node: Node) {
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
-  statement: ancestorChainNodeMatcher(
-    [
-      patternFinder(...STATEMENT_PARENT_TYPES),
-      patternFinder(...STATEMENT_TYPES),
-    ],
-    1,
-  ),
   condition: cascadingMatcher(
     patternMatcher("while_expression[condition]", "if_expression[condition]"),
     matcher(
