@@ -1,6 +1,6 @@
+import type { SimpleScopeTypeType } from "@cursorless/common";
 import { UnsupportedLanguageError } from "@cursorless/common";
 import type { Node } from "web-tree-sitter";
-import type { SimpleScopeTypeType } from "@cursorless/common";
 import type {
   NodeMatcher,
   NodeMatcherValue,
@@ -9,9 +9,8 @@ import type {
 import { notSupported } from "../util/nodeMatchers";
 import { selectionWithEditorFromRange } from "../util/selectionUtils";
 import clojure from "./clojure";
-import type { LegacyLanguageId } from "./LegacyLanguageId";
 import latex from "./latex";
-import rust from "./rust";
+import type { LegacyLanguageId } from "./LegacyLanguageId";
 
 export function getNodeMatcher(
   languageId: string,
@@ -43,7 +42,6 @@ export const languageMatchers: Record<
 > = {
   clojure,
   latex,
-  rust,
 };
 
 function matcherIncludeSiblings(matcher: NodeMatcher): NodeMatcher {

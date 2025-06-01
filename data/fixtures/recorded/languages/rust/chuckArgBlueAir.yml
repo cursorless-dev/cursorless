@@ -21,9 +21,4 @@ initialState:
     blue.a:
       start: {line: 0, character: 18}
       end: {line: 0, character: 19}
-finalState:
-  documentContents: |
-    struct S<'a, T>;
-  selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+thrownError: {name: NoContainingScopeError}

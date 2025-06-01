@@ -24,10 +24,4 @@ initialState:
     default.s:
       start: {line: 0, character: 20}
       end: {line: 0, character: 27}
-finalState:
-  documentContents: |-
-    fn some_function<U: Clone + Debug>(t: &T, u: &U) -> i32 {
-    }
-  selections:
-    - anchor: {line: 1, character: 1}
-      active: {line: 1, character: 1}
+thrownError: {name: NoContainingScopeError}
