@@ -79,3 +79,13 @@
   open: "{" @collectionItem.iteration.start.endOf
   close: "}" @collectionItem.iteration.end.startOf
 ) @collectionItem.iteration.domain
+
+;;!! (if true "hello")
+;;!  ^^^^^^^^^^^^^^^^^
+;;!      ^^^^
+(list_lit
+  value: (_) @_dummy
+  .
+  value: (_) @condition
+  (#text? @_dummy "if" "if-let" "when" "when-let")
+) @ifStatement @condition.domain

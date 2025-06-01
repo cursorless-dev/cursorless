@@ -7,6 +7,21 @@ import { QueryPredicateOperator } from "./QueryPredicateOperator";
 import { q } from "./operatorArgumentSchemaTypes";
 
 /**
+ * A predicate operator that returns true if the node matches the given text.
+ * For example, `(#text? @foo bar)` will accept the match if the `@foo`
+ * captures text is `bar`. It is acceptable to pass in multiple texts, e.g.
+ * `(#text? @foo bar baz)`.
+ */
+class Text extends QueryPredicateOperator<Text> {
+  name = "text?" as const;
+  schema = z.tuple([q.node, q.string]).rest(q.string);
+  run({ node, document, range }: MutableQueryCapture, ...texts: string[]) {
+    const text = document.getText(range);
+    return texts.includes(text);
+  }
+}
+
+/**
  * A predicate operator that returns true if the node is of the given type.
  * For example, `(#type? @foo string)` will accept the match if the `@foo`
  * capture is a `string` node. It is acceptable to pass in multiple types, e.g.
@@ -388,6 +403,7 @@ class EmptySingleMultiDelimiter extends QueryPredicateOperator<EmptySingleMultiD
 
 export const queryPredicateOperators = [
   new Log(),
+  new Text(),
   new Type(),
   new NotType(),
   new TrimEnd(),
