@@ -6,25 +6,6 @@ import { createPatternMatchers, matcher } from "../util/nodeMatchers";
 import { getChildNodesForFieldName } from "../util/treeSitterUtils";
 
 /**
- * Picks a node by rounding down and using the given parity. This function is
- * useful for picking the picking eg the key in a sequence of key-value pairs
- * @param parentFinder The finder to use to determine whether the parent is a
- * match
- * @param parity The parity that we're looking for
- * @returns A node finder
- */
-function parityNodeFinder(parentFinder: NodeFinder, parity: 0 | 1) {
-  return indexNodeFinder(
-    parentFinder,
-    (nodeIndex: number) => Math.floor(nodeIndex / 2) * 2 + parity,
-  );
-}
-
-function mapParityNodeFinder(parity: 0 | 1) {
-  return parityNodeFinder(patternFinder("map_lit"), parity);
-}
-
-/**
  * Creates a node finder which will apply a transformation to the index of a
  * value node and return the node at the given index of the nodes parent
  * @param parentFinder A finder which will be applied to the parent to determine
@@ -57,6 +38,8 @@ function indexNodeFinder(
 
     const desiredIndex = indexTransform(nodeIndex);
 
+    console.log(node.text, nodeIndex, desiredIndex);
+
     if (desiredIndex === -1) {
       return null;
     }
@@ -78,10 +61,6 @@ const functionCallPattern = "~quoting_lit.list_lit!";
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
-  collectionKey: matcher(mapParityNodeFinder(0)),
-  value: matcher(mapParityNodeFinder(1)),
-
-  // FIXME: Handle formal parameters
   argumentOrParameter: matcher(
     indexNodeFinder(patternFinder(functionCallPattern), (nodeIndex: number) =>
       nodeIndex !== 0 ? nodeIndex : -1,

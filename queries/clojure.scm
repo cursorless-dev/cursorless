@@ -133,3 +133,20 @@
   (#text? @_dummy "if" "if-let" "when" "when-let")
   (#not-parent-type? @ifStatement quoting_lit)
 )
+
+;;!! {:foo 1, :bar 2}
+;;!   ^^^^    ^^^^
+;;!        ^       ^
+(map_lit
+  value: (_) @collectionKey @collectionKey.domain.start @value.domain.start
+  value: (_) @value @collectionKey.domain.end @value.domain.end
+  (#parity? @collectionKey value 0)
+  (#parity? @value value 1)
+)
+
+;;!! {:foo 1, :bar 2}
+;;!   ^^^^^^^^^^^^^^
+(map_lit
+  "{" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
+  "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+)

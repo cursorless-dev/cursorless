@@ -4,7 +4,38 @@ import { z } from "zod";
 import { makeRangeFromPositions } from "../../util/nodeSelectors";
 import type { MutableQueryCapture } from "./QueryCapture";
 import { QueryPredicateOperator } from "./QueryPredicateOperator";
+import { getChildNodesForFieldName } from "./getChildNodesForFieldName";
 import { q } from "./operatorArgumentSchemaTypes";
+
+/**
+ * A predicate operator that returns true if the node matches the desired index parity.
+ * For example, `(#parity? @foo value 0)` will accept the match if the `@foo`
+ * capture is at index parity 0 (even) among its parents value children.
+ */
+class Parity extends QueryPredicateOperator<Parity> {
+  name = "parity?" as const;
+  schema = z.tuple([q.node, q.string, q.integer]);
+  run(
+    { document, range, node }: MutableQueryCapture,
+    fieldName: string,
+    parity: 0 | 1,
+  ) {
+    if (node.parent == null) {
+      return false;
+    }
+
+    const children = getChildNodesForFieldName(node.parent, fieldName);
+    const nodeIndex = children.findIndex(({ id }) => id === node.id);
+
+    if (nodeIndex === -1) {
+      return false;
+    }
+
+    const desiredIndex = Math.floor(nodeIndex / 2) * 2 + parity;
+
+    return nodeIndex === desiredIndex;
+  }
+}
 
 /**
  * A predicate operator that returns true if the node matches the given text.
@@ -402,6 +433,7 @@ class EmptySingleMultiDelimiter extends QueryPredicateOperator<EmptySingleMultiD
 
 export const queryPredicateOperators = [
   new Log(),
+  new Parity(),
   new Text(),
   new Type(),
   new NotType(),
