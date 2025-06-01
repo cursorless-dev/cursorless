@@ -1,5 +1,4 @@
 import type { SimpleScopeTypeType } from "@cursorless/common";
-import type { Node } from "web-tree-sitter";
 import type { NodeMatcherAlternative } from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";
 import {
@@ -8,7 +7,6 @@ import {
   cascadingMatcher,
   createPatternMatchers,
   leadingMatcher,
-  matcher,
   patternMatcher,
   trailingMatcher,
 } from "../util/nodeMatchers";
@@ -130,25 +128,6 @@ const assignmentOperators = [
 ];
 const mapKeyValueSeparators = [":", "=>"];
 
-function blockFinder(node: Node) {
-  if (node.type !== "call") {
-    return null;
-  }
-
-  const receiver = node.childForFieldName("receiver");
-  const method = node.childForFieldName("method");
-  const block = node.childForFieldName("block");
-
-  if (
-    (receiver?.text === "Proc" && method?.text === "new") ||
-    (receiver == null && method?.text === "lambda")
-  ) {
-    return node;
-  }
-
-  return block;
-}
-
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
@@ -161,10 +140,6 @@ const nodeMatchers: Partial<
       ],
       1,
     ),
-  ),
-  anonymousFunction: cascadingMatcher(
-    patternMatcher("lambda", "do_block"),
-    matcher(blockFinder),
   ),
   argumentOrParameter: argumentMatcher(
     "lambda_parameters",

@@ -101,3 +101,36 @@ operator: [
 (_
   condition: (_) @condition
 ) @_.domain
+
+;;!! hi = -> { puts "Hi!" }
+;;!       ^^^^^^^^^^^^^^^^^
+(lambda) @anonymousFunction
+
+;;!! [1,2,3].each do |i| end
+;;!               ^^^^^^^^^^
+(do_block) @anonymousFunction
+
+(call
+  receiver: (_)? @_dummy_receiver
+  method: (_)? @_dummy_method
+  block: (_) @anonymousFunction
+  (#not-eq? @_dummy_receiver Proc)
+  (#not-eq? @_dummy_method lambda)
+  (#not-type? @anonymousFunction do_block)
+)
+
+;;!! Proc.new { puts "hi" }
+;;!  ^^^^^^^^^^^^^^^^^^^^^^
+(call
+  receiver: (_) @_dummy_receiver
+  method: (_) @_dummy_method
+  (#eq? @_dummy_receiver Proc)
+  (#eq? @_dummy_method new)
+) @anonymousFunction
+
+;;!! lambda { puts "hi" }
+;;!  ^^^^^^^^^^^^^^^^^^^^
+(call
+  method: (_) @_dummy
+  (#eq? @_dummy lambda)
+) @anonymousFunction
