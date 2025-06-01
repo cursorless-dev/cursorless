@@ -109,17 +109,84 @@
 
 ;;!! let Foo {aaa: 1, bbb: 2}
 ;;!           ^^^     ^^^
+;;!                ^       ^
 (field_initializer
-  name: (_) @collectionKey
-  value: (_) @_.trailing.startOf
+  name: (_) @collectionKey @value.leading.endOf
+  value: (_) @value @collectionKey.trailing.startOf
 ) @_.domain
 
 ;;!! Foo {aaa: 1, bbb: 2}
 ;;!       ^^^     ^^^
+;;!            ^       ^
 (field_pattern
-  name: (_) @collectionKey
-  pattern: (_) @_.trailing.startOf
+  name: (_) @collectionKey @value.leading.endOf
+  pattern: (_) @value @collectionKey.trailing.startOf
 ) @_.domain
+
+;;!! const foo: u8 = 2;
+;;!                  ^
+(const_item
+  (_) @value.leading.endOf
+  .
+  value: (_) @value
+) @_.domain
+
+;;!! let foo = 2;
+;;!            ^
+(let_declaration
+  (_) @value.leading.endOf
+  .
+  value: (_) @value
+) @_.domain
+
+;;!! #[cfg_attr(feature = "foo")]
+;;!                       ^^^^^
+(meta_item
+  (_) @value.leading.endOf
+  value: (_) @value
+) @_.domain
+
+;;!! return 2;
+;;!         ^
+(return_expression
+  (_) @value
+) @_.domain
+
+;; Implicit return value at end of function body
+(function_item
+  body: (_
+    (_) @value
+    .
+  )
+  (#not-type?
+    @value
+    ;; Exclude return expression
+    return_expression
+    ;; Exclude all statements
+    associated_type
+    attribute_item
+    const_item
+    empty_statement
+    enum_item
+    extern_crate_declaration
+    foreign_mod_item
+    impl_item
+    inner_attribute_item
+    let_declaration
+    macro_definition
+    macro_invocation
+    function_item
+    function_signature_item
+    mod_item
+    static_item
+    struct_item
+    trait_item
+    type_item
+    union_item
+    use_declaration
+    expression_statement
+  )
+)
 
 operator: [
   "<"
