@@ -11,7 +11,6 @@ import {
   cascadingMatcher,
   createPatternMatchers,
   matcher,
-  patternMatcher,
 } from "../util/nodeMatchers";
 
 const COMMANDS = [
@@ -139,11 +138,6 @@ const nodeMatchers: Partial<
   functionCall: cascadingMatcher(
     matcher(patternFinder(...COMMANDS, "begin", "end")),
     matcher(patternFinder(...sectioningCommand), extendToNamedSiblingIfExists),
-  ),
-
-  name: cascadingMatcher(
-    matcher(patternFinder(...sectioningText), unwrapGroupParens),
-    patternMatcher("begin[name][text]", "end[name][text]"),
   ),
 };
 

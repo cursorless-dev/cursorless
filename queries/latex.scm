@@ -50,3 +50,39 @@
   (begin) @collectionItem.iteration.start.endOf
   (end) @collectionItem.iteration.end.startOf
 ) @collectionItem.iteration.domain
+
+;;!! \section{foo bar}
+;;!           ^^^^^^^
+(
+  (_
+    text: (_
+      (_) @name
+    ) @name.removal
+  ) @name.domain
+  (#type?
+    @name.domain
+    subparagraph
+    paragraph
+    subsubsection
+    subsection
+    section
+    chapter
+    part
+  )
+)
+
+;;!! \begin{quote}
+;; !        ^^^^^
+(begin
+  name: (_
+    text: (_) @name
+  )
+) @_.domain
+
+;;!! \end{quote}
+;; !      ^^^^^
+(end
+  name: (_
+    text: (_) @name
+  )
+) @_.domain
