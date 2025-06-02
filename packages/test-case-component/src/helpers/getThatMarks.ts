@@ -4,9 +4,8 @@ import { addContentRangeDecorations } from "./addContentRangeDecorations";
 
 function getThatMarks({ thatMark }: { thatMark: TargetPlainObject[] }): DecorationItem[] {
     const decorations: DecorationItem[] = [];
-
     if (thatMark === undefined || thatMark.length === 0) {
-        console.warn("finalStateSourceMarks are undefined. Skipping decoration generation.");
+        console.warn("finalStateThatMarks are undefined. Skipping decoration generation.");
         return []
     } else {
         addContentRangeDecorations({
@@ -14,7 +13,6 @@ function getThatMarks({ thatMark }: { thatMark: TargetPlainObject[] }): Decorati
             highlightClass: "thatMark", decorations
         });
     }
-
     return decorations
 }
 
