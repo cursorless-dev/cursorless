@@ -86,3 +86,77 @@
     text: (_) @name
   )
 ) @_.domain
+
+[
+  (displayed_equation)
+  (generic_command)
+  (inline_formula)
+  (block_comment)
+  (package_include)
+  (class_include)
+  (latex_include)
+  (biblatex_include)
+  (bibtex_include)
+  (graphics_include)
+  (svg_include)
+  (inkscape_include)
+  (verbatim_include)
+  (import_include)
+  (caption)
+  (citation)
+  (label_definition)
+  (label_reference)
+  (label_reference_range)
+  (label_number)
+  (new_command_definition)
+  (old_command_definition)
+  (let_command_definition)
+  (environment_definition)
+  (glossary_entry_definition)
+  (glossary_entry_reference)
+  (acronym_definition)
+  (acronym_reference)
+  (theorem_definition)
+  (color_definition)
+  (color_set_definition)
+  (color_reference)
+  (tikz_library_import)
+  (begin)
+  (end)
+] @functionCall
+
+(subparagraph
+  command: _ @functionCall.start
+  .
+  (_)? @functionCall.end
+)
+(paragraph
+  command: _ @functionCall.start
+  .
+  (_)? @functionCall.end
+)
+(subsubsection
+  command: _ @functionCall.start
+  .
+  (_)? @functionCall.end
+)
+(subsection
+  command: _ @functionCall.start
+  .
+  (_)? @functionCall.end
+)
+(section
+  command: _ @functionCall.start
+  .
+  (_)? @functionCall.end
+)
+(chapter
+  command: _ @functionCall.start
+  .
+  (_)? @functionCall.end
+)
+(part
+  command: _ @functionCall.start
+  .
+  (_)? @functionCall.end
+)

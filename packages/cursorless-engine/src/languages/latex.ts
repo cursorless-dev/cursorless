@@ -79,7 +79,6 @@ const SECTIONING = [
 ];
 
 const sectioningText = SECTIONING.map((s) => `${s}[text]`);
-const sectioningCommand = SECTIONING.map((s) => `${s}[command]`);
 
 function unwrapGroupParens(
   editor: TextEditor,
@@ -133,11 +132,6 @@ const nodeMatchers: Partial<
       patternFinder("begin[name]", "end[name]", ...sectioningText),
       unwrapGroupParens,
     ),
-  ),
-
-  functionCall: cascadingMatcher(
-    matcher(patternFinder(...COMMANDS, "begin", "end")),
-    matcher(patternFinder(...sectioningCommand), extendToNamedSiblingIfExists),
   ),
 };
 
