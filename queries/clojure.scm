@@ -151,8 +151,8 @@
 (map_lit
   value: (_) @collectionKey @collectionKey.domain.start @value.domain.start
   value: (_) @value @collectionKey.domain.end @value.domain.end
-  (#parity? @collectionKey value 0)
-  (#parity? @value value 1)
+  (#even? @collectionKey value)
+  (#odd? @value value)
 )
 
 ;;!! {:foo 1, :bar 2}
