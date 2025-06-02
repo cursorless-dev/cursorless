@@ -1,7 +1,6 @@
 import { createHighlighter } from "./createHighlighter";
 import type { BundledLanguage } from "shiki";
-import type { Lang, StepNameType, ExtendedTestCaseSnapshot, DataFixture } from "./types";
-import type { Command, CommandLatest, TestCaseFixture } from "@cursorless/common";
+import type { StepNameType, ExtendedTestCaseSnapshot, DataFixture } from "./types";
 
 import { createDecorations } from "./helpers";
 
@@ -12,143 +11,118 @@ import { createDecorations } from "./helpers";
  * @returns {Promise<{ before: string; during: string; after: string }>} A promise that resolves to the generated HTML content for each step.
  */
 export async function generateHtml(data: DataFixture) {
-  return new HTMLGenerator(data).generateAll()
+  return createHtmlGenerator(data).generateAll();
 }
 
 const highlighter = createHighlighter();
 
-class HTMLGenerator {
-  private testCaseStates: {
-    before: ExtendedTestCaseSnapshot | undefined;
-    during: ExtendedTestCaseSnapshot | undefined;
-    after: ExtendedTestCaseSnapshot | undefined;
-  }
-  private lang: Lang;
-  private command?: CommandLatest | Command;
-  private raw: TestCaseFixture;
+function createHtmlGenerator(data: DataFixture) {
+  const lang = data.languageId as BundledLanguage;
+  const command = data.command;
+  const raw = data;
+  const testCaseStates = {
+    before: data.initialState,
+    during: {
+      ...(
+        /**
+         * Spread the document state with more lines (finalState vs initialState),
+         * so Shiki decorations stay in bounds and don't go out of range.
+         */
+        data.finalState &&
+          (data.finalState.documentContents?.split("\n").length > data.initialState.documentContents?.split("\n").length)
+          ? data.finalState
+          : data.initialState
+      ),
+      ...data.ide,
+      finalStateMarkHelpers: {
+        thatMark: data?.finalState?.thatMark,
+        sourceMark: data?.finalState?.sourceMark
+      }
+    },
+    after: data.finalState
+  };
 
-  constructor(data: DataFixture) {
-    const { languageId, command } = data;
-    this.lang = languageId as BundledLanguage;
-    this.command = command; // Optional command parameter
-    this.raw = data
-    this.testCaseStates = {
-      before: data.initialState,
-      during: {
-        ...(
-          /**
-           * Spread the document state with more lines (finalState vs initialState),
-           * so Shiki decorations stay in bounds and don't go out of range.
-           */
-          data.finalState &&
-            (data.finalState.documentContents?.split("\n").length > data.initialState.documentContents?.split("\n").length)
-            ? data.finalState
-            : data.initialState
-        ),
-        ...data.ide,
-        finalStateMarkHelpers: {
-          thatMark: data?.finalState?.thatMark,
-          sourceMark: data?.finalState?.sourceMark
-        }
-      },
-      after: data.finalState
-    }
-  }
-
-  async generate(stepName: StepNameType) {
-    const state = this.testCaseStates[stepName]
-
+  async function generate(stepName: StepNameType) {
+    const state = testCaseStates[stepName];
     if (!state) {
-      console.error(`Error in ${stepName} ${this.raw.command.spokenForm}`)
-      return "Error"
+      console.error(`Error in ${stepName} ${raw.command.spokenForm}`);
+      return "Error";
     }
-
-    const decorations = await this.getDecorations(state);
-
-    const { documentContents } = state
-
-    const htmlArray: string[] = []
+    const decorations = await getDecorations(state);
+    const { documentContents } = state;
+    const htmlArray: string[] = [];
     let codeBody;
-
     const errorLevels = [
       "excludes thatMarks sourceMarks selectionRanges ideFlashes",
       "excludes thatMarks sourceMarks selectionRanges",
       "excludes thatMarks sourceMarks",
       "excludes thatMarks",
       "success",
-    ]
-
-    let errorLevel = errorLevels.length - 1
-
+    ];
+    let errorLevel = errorLevels.length - 1;
     for (let i = decorations.length - 1; i >= 0; i--) {
       const fallbackDecoration = decorations.slice(0, i).flat();
-      errorLevel = i
+      errorLevel = i;
       try {
         const marker = await highlighter;
         const options = {
           theme: "css-variables",
-          lang: this.lang,
+          lang,
           decorations: fallbackDecoration
         };
         codeBody = marker.codeToHtml(documentContents, options);
-        htmlArray.push(codeBody)
-        break; // Exit loop if successful
+        htmlArray.push(codeBody);
+        break;
       } catch (error) {
-        console.warn(`"Failed with decorations level ${i}:"`, this.command);
+        console.warn(`"Failed with decorations level ${i}:"`, command);
         console.warn(fallbackDecoration, error);
-        // Continue to the next fallback level
       }
     }
-
     if (!codeBody) {
       console.error("All fallback levels failed. Unable to generate code body.");
-      codeBody = ""; // Provide a default empty string or handle as needed
+      codeBody = "";
     }
-
-    let clipboardRendered = ""
+    let clipboardRendered = "";
     if (state.clipboard) {
-      clipboardRendered = `<pre><code>clipboard: ${state.clipboard}</pre></code>`
+      clipboardRendered = `<pre><code>clipboard: ${state.clipboard}</pre></code>`;
       if (clipboardRendered !== "") {
-        htmlArray.push(clipboardRendered)
+        htmlArray.push(clipboardRendered);
       }
     }
-
-    let error = ""
+    let error = "";
     if (errorLevel !== errorLevels.length - 1) {
-      error = errorLevels[errorLevel]
-      const errorRendered = `<pre><code>Omitted due to errors: ${error}</pre></code>`
-      htmlArray.push(errorRendered)
+      error = errorLevels[errorLevel];
+      const errorRendered = `<pre><code>Omitted due to errors: ${error}</pre></code>`;
+      htmlArray.push(errorRendered);
     }
-    return { html: htmlArray.join(""), data: [decorations] }
+    return { html: htmlArray.join(""), data: [decorations] };
   }
 
-  async generateAll() {
-
-    const output = {
-      before: await this.generate("before"),
-      during: await this.generate("during"),
-      after: await this.generate("after"),
-    }
-    return output
+  async function generateAll() {
+    return {
+      before: await generate("before"),
+      during: await generate("during"),
+      after: await generate("after"),
+    };
   }
 
-  async getDecorations(testCaseState: ExtendedTestCaseSnapshot) {
-    const { messages, flashes, highlights, finalStateMarkHelpers } = testCaseState
-
-    const potentialMarks = testCaseState.marks || {}
-    const lines = testCaseState.documentContents.split("\n")
+  async function getDecorations(testCaseState: ExtendedTestCaseSnapshot) {
+    const { messages, flashes, highlights, finalStateMarkHelpers } = testCaseState;
+    const potentialMarks = testCaseState.marks || {};
+    const lines = testCaseState.documentContents.split("\n");
     const obj = {
       marks: potentialMarks,
       ide: { messages, flashes, highlights },
-      command: this.command,
+      command,
       lines,
       selections: testCaseState.selections,
       thatMark: testCaseState.thatMark,
       sourceMark: testCaseState.sourceMark,
       finalStateMarkHelpers
-    }
-
-    const decorations = createDecorations(obj)
-    return decorations
+    };
+    const decorations = createDecorations(obj);
+    return decorations;
   }
+
+  return { generate, generateAll, getDecorations };
 }
