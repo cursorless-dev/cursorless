@@ -9,7 +9,7 @@ import type {
 import type { DecorationItem } from "shiki"
 import { getMarkDecorations } from "./getMarkDecorations";
 import { getIdeFlashDecorations } from "./getIdeFlashDecorations";
-import { getSlections } from "./getSelections";
+import { getSelections } from "./getSelections";
 import { getSourceMarks } from "./getSourceMarks";
 import { getThatMarks } from "./getThatMarks";
 
@@ -34,7 +34,7 @@ export function createDecorations(
 
     const markDecorations = getMarkDecorations({ marks, lines })
     const ideFlashDecorations = getIdeFlashDecorations({ lines, ide })
-    const selectionRanges = getSlections({ selections })
+    const selectionRanges = getSelections({ selections })
     const sourceMarks_ = getSourceMarks({ sourceMark })
 
     decorations.push(markDecorations);

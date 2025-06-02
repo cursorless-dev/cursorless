@@ -2,7 +2,7 @@ import type { SelectionPlainObject } from "@cursorless/common";
 import type { DecorationItem } from "shiki";
 import { getDecorationClass } from "./classesMap";
 
-function getSlections(
+function getSelections(
     {
         selections,
     }: {
@@ -29,4 +29,4 @@ function getSlections(
     return decorations
 }
 
-export { getSlections }
+export { getSelections }
