@@ -8,7 +8,6 @@ import type {
 } from "../typings/Types";
 import { notSupported } from "../util/nodeMatchers";
 import { selectionWithEditorFromRange } from "../util/selectionUtils";
-import clojure from "./clojure";
 import latex from "./latex";
 import type { LegacyLanguageId } from "./LegacyLanguageId";
 
@@ -40,7 +39,6 @@ export const languageMatchers: Record<
   LegacyLanguageId,
   Partial<Record<SimpleScopeTypeType, NodeMatcher>>
 > = {
-  clojure,
   latex,
 };
 

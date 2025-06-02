@@ -4,7 +4,48 @@ import { z } from "zod";
 import { makeRangeFromPositions } from "../../util/nodeSelectors";
 import type { MutableQueryCapture } from "./QueryCapture";
 import { QueryPredicateOperator } from "./QueryPredicateOperator";
+import { isEven } from "./isEven";
 import { q } from "./operatorArgumentSchemaTypes";
+
+/**
+ * A predicate operator that returns true if the node is at an even index within
+ * its parents field. For example, `(#even? @foo value)` will accept the match
+ * if the `@foo` capture is at an even index among its parents value children.
+ */
+class Even extends QueryPredicateOperator<Even> {
+  name = "even?" as const;
+  schema = z.tuple([q.node, q.string]);
+  run({ node }: MutableQueryCapture, fieldName: string) {
+    return isEven(node, fieldName);
+  }
+}
+
+/**
+ * A predicate operator that returns true if the node is at an odd index within
+ * its parents field. For example, `(#odd? @foo value)` will accept the match
+ * if the `@foo` capture is at an odd index among its parents value children.
+ */
+class Odd extends QueryPredicateOperator<Odd> {
+  name = "odd?" as const;
+  schema = z.tuple([q.node, q.string]);
+  run({ node }: MutableQueryCapture, fieldName: string) {
+    return !isEven(node, fieldName);
+  }
+}
+
+/**
+ * A predicate operator that returns true if the node matches the given text.
+ * For example, `(#text? @foo bar)` will accept the match if the `@foo`
+ * captures text is `bar`. It is acceptable to pass in multiple texts, e.g.
+ * `(#text? @foo bar baz)`.
+ */
+class Text extends QueryPredicateOperator<Text> {
+  name = "text?" as const;
+  schema = z.tuple([q.node, q.string]).rest(q.string);
+  run({ document, range }: MutableQueryCapture, ...texts: string[]) {
+    return texts.includes(document.getText(range));
+  }
+}
 
 /**
  * A predicate operator that returns true if the node is of the given type.
@@ -388,6 +429,9 @@ class EmptySingleMultiDelimiter extends QueryPredicateOperator<EmptySingleMultiD
 
 export const queryPredicateOperators = [
   new Log(),
+  new Even(),
+  new Odd(),
+  new Text(),
   new Type(),
   new NotType(),
   new TrimEnd(),
