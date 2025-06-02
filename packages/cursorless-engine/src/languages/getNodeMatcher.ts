@@ -8,7 +8,6 @@ import type {
 } from "../typings/Types";
 import { notSupported } from "../util/nodeMatchers";
 import { selectionWithEditorFromRange } from "../util/selectionUtils";
-import latex from "./latex";
 import type { LegacyLanguageId } from "./LegacyLanguageId";
 
 export function getNodeMatcher(
@@ -38,9 +37,7 @@ export function getNodeMatcher(
 export const languageMatchers: Record<
   LegacyLanguageId,
   Partial<Record<SimpleScopeTypeType, NodeMatcher>>
-> = {
-  latex,
-};
+> = {};
 
 function matcherIncludeSiblings(matcher: NodeMatcher): NodeMatcher {
   return (
