@@ -1,18 +1,7 @@
-import type { TestCaseFixture, TestCaseSnapshot } from "@cursorless/common";
 import { generateHtml } from "./generateHtml";
-import type { BundledLanguage } from "shiki";
+import type { LoadFixtureProps } from "./types";
 
-interface loadFixtureProps extends DataFixture {
-  filename: string;
-  languageId: BundledLanguage;
-  initialState: TestCaseSnapshot;
-  finalState: TestCaseSnapshot;
-}
-
-type StepType = { stepName: "initialState" | "middleState" | "finalState" }
-export type DataFixture = TestCaseFixture & StepType
-
-export async function loadTestCaseFixture(data: loadFixtureProps) {
+export async function loadTestCaseFixture(data: LoadFixtureProps) {
   const { before, during, after } = await generateHtml(data)
 
   const { command, filename, languageId: language } = data

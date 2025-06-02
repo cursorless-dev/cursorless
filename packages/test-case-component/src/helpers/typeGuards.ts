@@ -1,6 +1,4 @@
-type LineRange = { type: string; start: number; end: number }
-type PositionRange = { type: string; start: { line: number; character: number }; end: { line: number; character: number } };
-type RangeType = LineRange | PositionRange;
+import type { LineRange, PositionRange, RangeType } from "../types";
 
 function isLineRange(range: RangeType): range is LineRange {
     return typeof range.start === "number"
@@ -17,4 +15,3 @@ function isPositionRange(
 }
 
 export { isLineRange, isPositionRange }
-export type { PositionRange, RangeType }

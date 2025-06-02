@@ -1,19 +1,9 @@
 import { createHighlighter, createCssVariablesTheme } from "shiki";
 import type { BundledLanguage } from "shiki";
-
-import type {
-  Command,
-  CommandLatest,
-  PlainSpyIDERecordedValues,
-  TargetPlainObject,
-  TestCaseFixture,
-  TestCaseSnapshot
-} from "@cursorless/common";
+import type { Lang, StepNameType, ExtendedTestCaseSnapshot, DataFixture } from "./types";
+import type { Command, CommandLatest, TestCaseFixture } from "@cursorless/common";
 
 import { createDecorations } from "./helpers";
-import type { DataFixture } from "./loadTestCaseFixture";
-
-type Lang = BundledLanguage;
 
 const myTheme = createCssVariablesTheme({
   name: "css-variables",
@@ -38,15 +28,6 @@ const highlighter = createHighlighter({
   themes: [myTheme],
   langs: ["javascript", "typescript", "python", "markdown"],
 });
-
-type StepNameType = "before" | "during" | "after"
-type ExtendedTestCaseSnapshot = TestCaseSnapshot &
-  Partial<PlainSpyIDERecordedValues> &
-{
-  finalStateMarkHelpers?: {
-    thatMark?: TargetPlainObject[], sourceMark?: TargetPlainObject[]
-  }
-};
 
 class HTMLGenerator {
   private testCaseStates: {
