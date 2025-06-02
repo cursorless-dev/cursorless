@@ -10,21 +10,24 @@ import type { Command } from "@cursorless/common";
 import type { DecorationItem } from "shiki";
 import { createDecorations } from "../index";
 
-export async function getDecorations(
-    testCaseState: ExtendedTestCaseSnapshot,
-    command: Command
-): Promise<DecorationItem[][]> {
-    const { messages, flashes, highlights, finalStateMarkHelpers } = testCaseState;
-    const potentialMarks = testCaseState.marks || {};
-    const lines = testCaseState.documentContents.split("\n");
+export async function getDecorations({
+    snapshot,
+    command
+}: {
+    snapshot: ExtendedTestCaseSnapshot;
+    command: Command;
+}): Promise<DecorationItem[][]> {
+    const { messages, flashes, highlights, finalStateMarkHelpers } = snapshot;
+    const potentialMarks = snapshot.marks || {};
+    const lines = snapshot.documentContents.split("\n");
     const obj = {
         marks: potentialMarks,
         ide: { messages, flashes, highlights },
         command,
         lines,
-        selections: testCaseState.selections,
-        thatMark: testCaseState.thatMark,
-        sourceMark: testCaseState.sourceMark,
+        selections: snapshot.selections,
+        thatMark: snapshot.thatMark,
+        sourceMark: snapshot.sourceMark,
         finalStateMarkHelpers
     };
     const decorations = createDecorations(obj);

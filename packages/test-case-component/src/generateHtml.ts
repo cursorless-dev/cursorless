@@ -59,7 +59,7 @@ function createHtmlGenerator(data: DataFixture) {
       console.error(`Error in ${stepName} ${raw.command.spokenForm}`);
       return "Error";
     }
-    const decorations = await getDecorations(state, command);
+    const decorations = await getDecorations({ snapshot: state, command });
     const { documentContents } = state;
     const htmlArray: string[] = [];
     let codeBody;
