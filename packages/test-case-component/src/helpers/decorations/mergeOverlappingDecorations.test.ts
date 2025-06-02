@@ -1,4 +1,4 @@
-import { mergeOverlappingDecorations } from "./mergeOverlappingDecorations.ts";
+import { mergeOverlappingDecorations } from "./mergeOverlappingDecorations";
 
 describe("mergeOverlappingDecorations", () => {
     it("merges overlapping decorations and adds 'overlap' to class", () => {

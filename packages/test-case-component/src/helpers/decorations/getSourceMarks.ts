@@ -13,7 +13,6 @@ function getSourceMarks({ sourceMark }: { sourceMark?: TargetPlainObject[] }): D
             highlightClass: "sourceMark", decorations
         });
     }
-
     return decorations
 }
 

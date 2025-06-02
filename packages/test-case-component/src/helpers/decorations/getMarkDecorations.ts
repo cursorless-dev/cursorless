@@ -1,7 +1,7 @@
 import type { SerializedMarks } from "@cursorless/common";
 import type { DecorationItem } from "shiki";
-import type { classesMap } from "./classesMap";
-import { getDecorationClass } from "./classesMap";
+import type { classesMap } from "../classesMap";
+import { getDecorationClass } from "../classesMap";
 
 function getMarkDecorations({
     marks,

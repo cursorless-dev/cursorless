@@ -1,6 +1,6 @@
 import type { SelectionPlainObject } from "@cursorless/common";
 import type { DecorationItem } from "shiki";
-import { getDecorationClass } from "./classesMap";
+import { getDecorationClass } from "../classesMap";
 
 function getSelections(
     {

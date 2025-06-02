@@ -1,6 +1,6 @@
 import type { TargetPlainObject } from "@cursorless/common";
 import type { DecorationItem } from "shiki";
-import { getDecorationClass, type classesMap } from "./classesMap";
+import { getDecorationClass, type classesMap } from "../classesMap";
 
 function addContentRangeDecorations({
     marks,
