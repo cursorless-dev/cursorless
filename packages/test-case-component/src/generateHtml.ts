@@ -16,6 +16,12 @@ export async function generateHtml(data: DataFixture) {
 
 const highlighter = createHighlighter();
 
+/**
+ * Closure-based HTML generator for test case data.
+ *
+ * @param {DataFixture} data - The state object containing the necessary data for HTML generation.
+ * @returns {Object} An object with generate, generateAll, and getDecorations async functions.
+ */
 function createHtmlGenerator(data: DataFixture) {
   const lang = data.languageId as BundledLanguage;
   const command = data.command;
@@ -42,6 +48,12 @@ function createHtmlGenerator(data: DataFixture) {
     after: data.finalState
   };
 
+  /**
+   * Generates HTML for a specific test case step (before, during, after).
+   *
+   * @param {StepNameType} stepName - The step to generate HTML for.
+   * @returns {Promise<{ html: string; data: any[] } | string>} The generated HTML and decoration data, or an error string.
+   */
   async function generate(stepName: StepNameType) {
     const state = testCaseStates[stepName];
     if (!state) {
@@ -98,6 +110,11 @@ function createHtmlGenerator(data: DataFixture) {
     return { html: htmlArray.join(""), data: [decorations] };
   }
 
+  /**
+   * Generates HTML for all test case steps (before, during, after).
+   *
+   * @returns {Promise<{ before: any; during: any; after: any }>} The generated HTML and decoration data for each step.
+   */
   async function generateAll() {
     return {
       before: await generate("before"),
@@ -106,6 +123,12 @@ function createHtmlGenerator(data: DataFixture) {
     };
   }
 
+  /**
+   * Computes code decorations for a given test case state.
+   *
+   * @param {ExtendedTestCaseSnapshot} testCaseState - The test case state to decorate.
+   * @returns {Promise<Decoration[]>} The computed decorations for the state.
+   */
   async function getDecorations(testCaseState: ExtendedTestCaseSnapshot) {
     const { messages, flashes, highlights, finalStateMarkHelpers } = testCaseState;
     const potentialMarks = testCaseState.marks || {};
