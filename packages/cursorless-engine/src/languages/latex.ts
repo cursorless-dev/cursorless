@@ -98,27 +98,6 @@ function unwrapGroupParens(
   };
 }
 
-function extendToNamedSiblingIfExists(
-  editor: TextEditor,
-  node: Node,
-): SelectionWithContext {
-  const startIndex = node.startIndex;
-  let endIndex = node.endIndex;
-  const sibling = node.nextNamedSibling;
-
-  if (sibling != null && sibling.isNamed) {
-    endIndex = sibling.endIndex;
-  }
-
-  return {
-    selection: new Selection(
-      editor.document.positionAt(startIndex),
-      editor.document.positionAt(endIndex),
-    ),
-    context: {},
-  };
-}
-
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {

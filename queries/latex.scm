@@ -125,38 +125,19 @@
   (end)
 ] @functionCall
 
-(subparagraph
-  command: _ @functionCall.start
-  .
-  (_)? @functionCall.end
-)
-(paragraph
-  command: _ @functionCall.start
-  .
-  (_)? @functionCall.end
-)
-(subsubsection
-  command: _ @functionCall.start
-  .
-  (_)? @functionCall.end
-)
-(subsection
-  command: _ @functionCall.start
-  .
-  (_)? @functionCall.end
-)
-(section
-  command: _ @functionCall.start
-  .
-  (_)? @functionCall.end
-)
-(chapter
-  command: _ @functionCall.start
-  .
-  (_)? @functionCall.end
-)
-(part
-  command: _ @functionCall.start
-  .
-  (_)? @functionCall.end
+(
+  (_
+    command: _ @functionCall.start
+    .
+    (_)? @functionCall.end
+  ) @_dummy
+  (#type?
+    @_dummy
+    paragraph
+    subsubsection
+    subsection
+    section
+    chapter
+    part
+  )
 )
