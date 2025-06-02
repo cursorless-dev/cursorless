@@ -1,6 +1,7 @@
 import { createHighlighter } from "./createHighlighter";
-import type { BundledLanguage } from "shiki";
+import type { BundledLanguage, DecorationItem } from "shiki";
 import type { StepNameType, ExtendedTestCaseSnapshot, DataFixture } from "./types";
+import type { Command } from "@cursorless/common";
 
 import { createDecorations } from "./helpers";
 
@@ -14,7 +15,61 @@ export async function generateHtml(data: DataFixture) {
   return createHtmlGenerator(data).generateAll();
 }
 
-const highlighter = createHighlighter();
+/**
+ * Renders the clipboard HTML if clipboard content exists.
+ *
+ * @param {string | undefined} clipboard - The clipboard string or undefined.
+ * @returns {string} The HTML string for the clipboard, or an empty string if clipboard is undefined.
+ */
+function renderClipboard(clipboard: string | undefined): string {
+  if (!clipboard) {
+    return "";
+  }
+  return `<pre><code>clipboard: ${clipboard}</pre></code>`;
+}
+
+/**
+ * Renders the error HTML if an error occurred.
+ *
+ * @param {number} errorLevel - The error level index.
+ * @param {string[]} errorLevels - The array of error level descriptions.
+ * @returns {string} The HTML string for the error, or an empty string if no error.
+ */
+function renderError(errorLevel: number, errorLevels: string[]): string {
+  if (errorLevel === errorLevels.length - 1) {
+    return "";
+  }
+  const error = errorLevels[errorLevel];
+  return `<pre><code>Omitted due to errors: ${error}</pre></code>`;
+}
+
+/**
+ * Computes code decorations for a given test case state.
+ *
+ * @param {ExtendedTestCaseSnapshot} testCaseState - The test case state to decorate.
+ * @param {Command} command - The command object for the test case.
+ * @returns {Promise<DecorationItem[][]>} The computed decorations for the state.
+ */
+async function getDecorations(
+  testCaseState: ExtendedTestCaseSnapshot,
+  command: Command
+): Promise<DecorationItem[][]> {
+  const { messages, flashes, highlights, finalStateMarkHelpers } = testCaseState;
+  const potentialMarks = testCaseState.marks || {};
+  const lines = testCaseState.documentContents.split("\n");
+  const obj = {
+    marks: potentialMarks,
+    ide: { messages, flashes, highlights },
+    command,
+    lines,
+    selections: testCaseState.selections,
+    thatMark: testCaseState.thatMark,
+    sourceMark: testCaseState.sourceMark,
+    finalStateMarkHelpers
+  };
+  const decorations = createDecorations(obj);
+  return decorations;
+}
 
 /**
  * Closure-based HTML generator for test case data.
@@ -60,7 +115,7 @@ function createHtmlGenerator(data: DataFixture) {
       console.error(`Error in ${stepName} ${raw.command.spokenForm}`);
       return "Error";
     }
-    const decorations = await getDecorations(state);
+    const decorations = await getDecorations(state, command);
     const { documentContents } = state;
     const htmlArray: string[] = [];
     let codeBody;
@@ -76,7 +131,7 @@ function createHtmlGenerator(data: DataFixture) {
       const fallbackDecoration = decorations.slice(0, i).flat();
       errorLevel = i;
       try {
-        const marker = await highlighter;
+        const marker = await createHighlighter();
         const options = {
           theme: "css-variables",
           lang,
@@ -94,26 +149,24 @@ function createHtmlGenerator(data: DataFixture) {
       console.error("All fallback levels failed. Unable to generate code body.");
       codeBody = "";
     }
-    let clipboardRendered = "";
-    if (state.clipboard) {
-      clipboardRendered = `<pre><code>clipboard: ${state.clipboard}</pre></code>`;
-      if (clipboardRendered !== "") {
-        htmlArray.push(clipboardRendered);
-      }
+
+    const clipboardRendered = renderClipboard(state.clipboard);
+    if (clipboardRendered !== "") {
+      htmlArray.push(clipboardRendered);
     }
-    let error = "";
-    if (errorLevel !== errorLevels.length - 1) {
-      error = errorLevels[errorLevel];
-      const errorRendered = `<pre><code>Omitted due to errors: ${error}</pre></code>`;
+
+    const errorRendered = renderError(errorLevel, errorLevels);
+    if (errorRendered !== "") {
       htmlArray.push(errorRendered);
     }
+
     return { html: htmlArray.join(""), data: [decorations] };
   }
 
   /**
    * Generates HTML for all test case steps (before, during, after).
    *
-   * @returns {Promise<{ before: any; during: any; after: any }>} The generated HTML and decoration data for each step.
+   * @returns {Promise<{ before: string; during: string; after: string }>} The generated HTML and decoration data for each step.
    */
   async function generateAll() {
     return {
@@ -123,29 +176,5 @@ function createHtmlGenerator(data: DataFixture) {
     };
   }
 
-  /**
-   * Computes code decorations for a given test case state.
-   *
-   * @param {ExtendedTestCaseSnapshot} testCaseState - The test case state to decorate.
-   * @returns {Promise<Decoration[]>} The computed decorations for the state.
-   */
-  async function getDecorations(testCaseState: ExtendedTestCaseSnapshot) {
-    const { messages, flashes, highlights, finalStateMarkHelpers } = testCaseState;
-    const potentialMarks = testCaseState.marks || {};
-    const lines = testCaseState.documentContents.split("\n");
-    const obj = {
-      marks: potentialMarks,
-      ide: { messages, flashes, highlights },
-      command,
-      lines,
-      selections: testCaseState.selections,
-      thatMark: testCaseState.thatMark,
-      sourceMark: testCaseState.sourceMark,
-      finalStateMarkHelpers
-    };
-    const decorations = createDecorations(obj);
-    return decorations;
-  }
-
-  return { generate, generateAll, getDecorations };
+  return { generate, generateAll };
 }
