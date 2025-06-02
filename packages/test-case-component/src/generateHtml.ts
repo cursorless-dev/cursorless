@@ -1,33 +1,21 @@
-import { createHighlighter, createCssVariablesTheme } from "shiki";
+import { createHighlighter } from "./createHighlighter";
 import type { BundledLanguage } from "shiki";
 import type { Lang, StepNameType, ExtendedTestCaseSnapshot, DataFixture } from "./types";
 import type { Command, CommandLatest, TestCaseFixture } from "@cursorless/common";
 
 import { createDecorations } from "./helpers";
 
-const myTheme = createCssVariablesTheme({
-  name: "css-variables",
-  variablePrefix: "--shiki-",
-  variableDefaults: {},
-  fontStyle: true,
-});
-
 /**
  * Generates HTML content based on the provided state, language, command, and ide.
  *
  * @param {DataFixture} data - The state object containing the necessary data for HTML generation.
- * @returns {Promise<string>} A promise that resolves to the generated HTML content.
+ * @returns {Promise<{ before: string; during: string; after: string }>} A promise that resolves to the generated HTML content for each step.
  */
 export async function generateHtml(data: DataFixture) {
-  const HTMLOBject = await new HTMLGenerator(data)
-  const returnObject = HTMLOBject.generateAll()
-  return returnObject;
+  return new HTMLGenerator(data).generateAll()
 }
 
-const highlighter = createHighlighter({
-  themes: [myTheme],
-  langs: ["javascript", "typescript", "python", "markdown"],
-});
+const highlighter = createHighlighter();
 
 class HTMLGenerator {
   private testCaseStates: {
@@ -38,22 +26,12 @@ class HTMLGenerator {
   private lang: Lang;
   private command?: CommandLatest | Command;
   private raw: TestCaseFixture;
-  private rendered: {
-    before: string;
-    during: string;
-    after: string;
-  }
 
   constructor(data: DataFixture) {
     const { languageId, command } = data;
     this.lang = languageId as BundledLanguage;
     this.command = command; // Optional command parameter
     this.raw = data
-    this.rendered = {
-      before: "",
-      during: "",
-      after: "",
-    }
     this.testCaseStates = {
       before: data.initialState,
       during: {
