@@ -1,6 +1,7 @@
 import { createHighlighter } from "./createHighlighter";
 import type { BundledLanguage } from "shiki";
 import type { StepNameType, DataFixture } from "./types";
+import type { ExtendedTestCaseSnapshot } from "./types";
 
 import { renderClipboard, renderError } from "./renderHtml";
 import { getDecorations } from "./helpers/decorations";
@@ -27,23 +28,7 @@ function createHtmlGenerator(data: DataFixture) {
   const raw = data;
   const testCaseStates = {
     before: data.initialState,
-    during: {
-      ...(
-        /**
-         * Spread the document state with more lines (finalState vs initialState),
-         * so Shiki decorations stay in bounds and don't go out of range.
-         */
-        data.finalState &&
-          (data.finalState.documentContents?.split("\n").length > data.initialState.documentContents?.split("\n").length)
-          ? data.finalState
-          : data.initialState
-      ),
-      ...data.ide,
-      finalStateMarkHelpers: {
-        thatMark: data?.finalState?.thatMark,
-        sourceMark: data?.finalState?.sourceMark
-      }
-    },
+    during: getDuringSnapshot(data),
     after: data.finalState
   };
 
@@ -121,4 +106,30 @@ function createHtmlGenerator(data: DataFixture) {
   }
 
   return { generate, generateAll };
+}
+
+/**
+ * Selects the appropriate snapshot for the "during" step of a test case.
+ * If the final state has more lines than the initial state, it uses the final state as the base;
+ * otherwise, it uses the initial state. It then merges in IDE state and final mark helpers.
+ *
+ * @param {DataFixture} data - The test case data containing initialState, finalState, and ide info.
+ * @returns {ExtendedTestCaseSnapshot} The snapshot to use for the "during" step.
+ */
+function getDuringSnapshot(data: DataFixture): ExtendedTestCaseSnapshot {
+  // Spread the document state with more lines (finalState vs initialState),
+  // so Shiki decorations stay in bounds and don't go out of range.
+  const base =
+    data.finalState &&
+      (data.finalState.documentContents?.split("\n").length > data.initialState.documentContents?.split("\n").length)
+      ? data.finalState
+      : data.initialState;
+  return {
+    ...base,
+    ...data.ide,
+    finalStateMarkHelpers: {
+      thatMark: data?.finalState?.thatMark,
+      sourceMark: data?.finalState?.sourceMark
+    }
+  };
 }
