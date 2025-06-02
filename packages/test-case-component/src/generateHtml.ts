@@ -1,9 +1,9 @@
 import { createHighlighter } from "./createHighlighter";
-import type { BundledLanguage, DecorationItem } from "shiki";
-import type { StepNameType, ExtendedTestCaseSnapshot, DataFixture } from "./types";
-import type { Command } from "@cursorless/common";
+import type { BundledLanguage } from "shiki";
+import type { StepNameType, DataFixture } from "./types";
 
-import { createDecorations } from "./helpers";
+import { renderClipboard, renderError } from "./renderHtml";
+import { getDecorations } from "./helpers/decorations";
 
 /**
  * Generates HTML content based on the provided state, language, command, and ide.
@@ -13,62 +13,6 @@ import { createDecorations } from "./helpers";
  */
 export async function generateHtml(data: DataFixture) {
   return createHtmlGenerator(data).generateAll();
-}
-
-/**
- * Renders the clipboard HTML if clipboard content exists.
- *
- * @param {string | undefined} clipboard - The clipboard string or undefined.
- * @returns {string} The HTML string for the clipboard, or an empty string if clipboard is undefined.
- */
-function renderClipboard(clipboard: string | undefined): string {
-  if (!clipboard) {
-    return "";
-  }
-  return `<pre><code>clipboard: ${clipboard}</pre></code>`;
-}
-
-/**
- * Renders the error HTML if an error occurred.
- *
- * @param {number} errorLevel - The error level index.
- * @param {string[]} errorLevels - The array of error level descriptions.
- * @returns {string} The HTML string for the error, or an empty string if no error.
- */
-function renderError(errorLevel: number, errorLevels: string[]): string {
-  if (errorLevel === errorLevels.length - 1) {
-    return "";
-  }
-  const error = errorLevels[errorLevel];
-  return `<pre><code>Omitted due to errors: ${error}</pre></code>`;
-}
-
-/**
- * Computes code decorations for a given test case state.
- *
- * @param {ExtendedTestCaseSnapshot} testCaseState - The test case state to decorate.
- * @param {Command} command - The command object for the test case.
- * @returns {Promise<DecorationItem[][]>} The computed decorations for the state.
- */
-async function getDecorations(
-  testCaseState: ExtendedTestCaseSnapshot,
-  command: Command
-): Promise<DecorationItem[][]> {
-  const { messages, flashes, highlights, finalStateMarkHelpers } = testCaseState;
-  const potentialMarks = testCaseState.marks || {};
-  const lines = testCaseState.documentContents.split("\n");
-  const obj = {
-    marks: potentialMarks,
-    ide: { messages, flashes, highlights },
-    command,
-    lines,
-    selections: testCaseState.selections,
-    thatMark: testCaseState.thatMark,
-    sourceMark: testCaseState.sourceMark,
-    finalStateMarkHelpers
-  };
-  const decorations = createDecorations(obj);
-  return decorations;
 }
 
 /**
