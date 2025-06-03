@@ -1,14 +1,14 @@
 languageId: rust
 command:
   version: 6
-  spokenForm: change arg blue air
+  spokenForm: change type blue air
   action:
     name: clearAndSetSelection
     target:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: argumentOrParameter}
+          scopeType: {type: type}
       mark: {type: decoratedSymbol, symbolColor: blue, character: a}
   usePrePhraseSnapshot: true
 initialState:

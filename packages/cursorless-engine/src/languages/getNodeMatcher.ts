@@ -9,7 +9,6 @@ import type {
 import { notSupported } from "../util/nodeMatchers";
 import { selectionWithEditorFromRange } from "../util/selectionUtils";
 import type { LegacyLanguageId } from "./LegacyLanguageId";
-import rust from "./rust";
 
 export function getNodeMatcher(
   languageId: string,
@@ -39,7 +38,7 @@ export const languageMatchers: Record<
   LegacyLanguageId,
   Partial<Record<SimpleScopeTypeType, NodeMatcher>>
 > = {
-  rust,
+  dummy: {},
 };
 
 function matcherIncludeSiblings(matcher: NodeMatcher): NodeMatcher {

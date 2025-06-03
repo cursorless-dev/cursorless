@@ -1,14 +1,14 @@
 languageId: rust
 command:
   version: 6
-  spokenForm: chuck arg air
+  spokenForm: chuck type air
   action:
     name: remove
     target:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: argumentOrParameter}
+          scopeType: {type: type}
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
   usePrePhraseSnapshot: true
 initialState:
