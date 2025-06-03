@@ -46,14 +46,13 @@ function remarkPluginFixLinksToRepositoryArtifacts(): Transformer<Root> {
         dirname(fileURLToPath(import.meta.url)),
         "../..",
       );
-
       const artifact = resolve(file.dirname!, url);
       const artifactRelative = relative(repoRoot, artifact).replace(/\\/g, "/");
       const fileRelative = relative(repoRoot, file.path).replace(/\\/g, "/");
 
       // We host all files under docs, will resolve as a relative link, but
       // relative links passing between user and contributing are not resolved
-      // correctly
+      // correctly by docusaurus, so we need to rewrite them.
       if (
         (artifactRelative.startsWith(userRelative) &&
           fileRelative.startsWith(userRelative)) ||
@@ -63,7 +62,7 @@ function remarkPluginFixLinksToRepositoryArtifacts(): Transformer<Root> {
         return;
       }
 
-      node.url = repoLink.concat(artifactRelative);
+      node.url = repoLink + artifactRelative;
     });
   };
 }
