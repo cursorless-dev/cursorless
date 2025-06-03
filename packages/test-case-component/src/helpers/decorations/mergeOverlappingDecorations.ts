@@ -9,6 +9,8 @@ import type { Position } from "@cursorless/common";
 export function mergeOverlappingDecorations(decorations: DecorationItem[]): DecorationItem[] {
     if (decorations.length === 0) { return []; }
 
+    console.debug("[mergeOverlappingDecorations] decorations:", JSON.stringify(decorations, null, 2));
+
     // Helper to normalize positions (in case shiki uses offset numbers)
     function isPosition(obj: any): obj is Position {
         return obj && typeof obj.line === "number" && typeof obj.character === "number";
@@ -24,6 +26,9 @@ export function mergeOverlappingDecorations(decorations: DecorationItem[]): Deco
             isPosition(d.start) && isPosition(d.end) && d.start.line === d.end.line && d.start.character === d.end.character
         )
     );
+
+    console.debug("[mergeOverlappingDecorations] zeroWidth:", JSON.stringify(zeroWidth, null, 2));
+    console.debug("[mergeOverlappingDecorations] nonZeroWidth:", JSON.stringify(nonZeroWidth, null, 2));
 
     // Collect all unique boundary points
     const points: Position[] = [];
@@ -96,6 +101,7 @@ export function mergeOverlappingDecorations(decorations: DecorationItem[]): Deco
         startPosToIdx: Map<string, number>
     ): boolean {
         const className = d.properties?.class;
+        console.debug("[handleZeroWidthDecoration] className:", className, "decoration:", JSON.stringify(d, null, 2));
         if (className === "selection") {
             const pos = isPosition(d.start) ? `${d.start.line}:${d.start.character}` : String(d.start);
             const prevIdx = endPosToIdx.get(pos);
@@ -121,7 +127,11 @@ export function mergeOverlappingDecorations(decorations: DecorationItem[]): Deco
                 return true; // handled
             }
             return false; // not handled
+        } else if (typeof className === "string" && className.includes("full")) {
+            // Allow decoration classes (e.g., decoration justAdded full) to pass through
+            return false; // not handled, will be added to filteredZeroWidth
         } else {
+            console.error("[handleZeroWidthDecoration] Unhandled zero-width decoration class:", className, d);
             throw new Error(`Unhandled zero-width decoration class: ${className}`);
         }
     }
