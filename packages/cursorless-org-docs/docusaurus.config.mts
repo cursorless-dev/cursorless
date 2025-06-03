@@ -106,6 +106,7 @@ const config: Config = {
   ],
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "throw",
+  onBrokenAnchors: "throw",
   trailingSlash: true,
 
   presets: [
