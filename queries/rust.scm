@@ -419,6 +419,28 @@
   (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
+;;!! #[derive(aaa, bbb)]
+;;!           ^^^  ^^^
+(_
+  (type_parameters
+    (_)? @_.leading.endOf
+    .
+    (_) @type
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @type @_dummy ", " ",\n")
+)
+
+;;!! #[derive(aaa, bbb)]
+;;!           ^^^^^^^^
+(_
+  (type_parameters
+    "<" @type.iteration.start.endOf
+    ">" @type.iteration.end.startOf
+  )
+) @type.iteration.domain
+
 operator: [
   "<"
   "<<"

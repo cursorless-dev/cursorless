@@ -24,10 +24,4 @@ initialState:
     default.t:
       start: {line: 0, character: 17}
       end: {line: 0, character: 18}
-finalState:
-  documentContents: |
-    fn some_function<T: , U: Clone + Debug>(t: &T, u: &U) -> i32 {
-    }
-  selections:
-    - anchor: {line: 0, character: 20}
-      active: {line: 0, character: 20}
+thrownError: {name: Error}

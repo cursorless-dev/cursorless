@@ -1,14 +1,14 @@
 languageId: rust
 command:
   version: 6
-  spokenForm: change arg sun
+  spokenForm: change type sun
   action:
     name: clearAndSetSelection
     target:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: argumentOrParameter}
+          scopeType: {type: type}
       mark: {type: decoratedSymbol, symbolColor: default, character: s}
   usePrePhraseSnapshot: true
 initialState:
@@ -24,4 +24,4 @@ initialState:
     default.s:
       start: {line: 0, character: 20}
       end: {line: 0, character: 27}
-thrownError: {name: NoContainingScopeError}
+thrownError: {name: Error}

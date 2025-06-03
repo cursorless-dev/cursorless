@@ -1,14 +1,14 @@
 languageId: rust
 command:
   version: 6
-  spokenForm: chuck arg air
+  spokenForm: chuck type air
   action:
     name: remove
     target:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: argumentOrParameter}
+          scopeType: {type: type}
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
   usePrePhraseSnapshot: true
 initialState:
@@ -21,4 +21,9 @@ initialState:
     default.a:
       start: {line: 0, character: 10}
       end: {line: 0, character: 11}
-thrownError: {name: NoContainingScopeError}
+finalState:
+  documentContents: |
+    struct S<'b: 'a, T>;
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
