@@ -14,9 +14,20 @@ export function mergeOverlappingDecorations(decorations: DecorationItem[]): Deco
         return obj && typeof obj.line === "number" && typeof obj.character === "number";
     }
 
+    // Always include zero-width decorations (start == end)
+    const zeroWidth = decorations.filter(
+        d => isPosition(d.start) && isPosition(d.end) && d.start.line === d.end.line && d.start.character === d.end.character
+    );
+    // Remove zero-width from main processing
+    const nonZeroWidth = decorations.filter(
+        d => !(
+            isPosition(d.start) && isPosition(d.end) && d.start.line === d.end.line && d.start.character === d.end.character
+        )
+    );
+
     // Collect all unique boundary points
     const points: Position[] = [];
-    for (const deco of decorations) {
+    for (const deco of nonZeroWidth) {
         if (isPosition(deco.start) && isPosition(deco.end)) {
             points.push(deco.start, deco.end);
         }
@@ -35,7 +46,7 @@ export function mergeOverlappingDecorations(decorations: DecorationItem[]): Deco
         const segStart = uniquePoints[i];
         const segEnd = uniquePoints[i + 1];
         // Find all decorations covering this segment
-        const covering = decorations.filter(d =>
+        const covering = nonZeroWidth.filter(d =>
             isPosition(d.start) && isPosition(d.end) &&
             (d.start.line < segEnd.line || (d.start.line === segEnd.line && d.start.character < segEnd.character)) &&
             (d.end.line > segStart.line || (d.end.line === segStart.line && d.end.character > segStart.character))
@@ -66,5 +77,59 @@ export function mergeOverlappingDecorations(decorations: DecorationItem[]): Deco
             });
         }
     }
-    return result;
+    // Instead of outputting a zero-width selection at the start or end of a range, merge it into the next or previous mark as selectionLeft/selectionRight
+    const endPosToIdx = new Map<string, number>(); // end position -> index in result
+    const startPosToIdx = new Map<string, number>(); // start position -> index in result
+    for (let i = 0; i < result.length; ++i) {
+        const deco = result[i];
+        if (isPosition(deco.end)) {
+            endPosToIdx.set(`${deco.end.line}:${deco.end.character}`, i);
+        }
+        if (isPosition(deco.start)) {
+            startPosToIdx.set(`${deco.start.line}:${deco.start.character}`, i);
+        }
+    }
+    function handleZeroWidthDecoration(
+        d: DecorationItem,
+        result: DecorationItem[],
+        endPosToIdx: Map<string, number>,
+        startPosToIdx: Map<string, number>
+    ): boolean {
+        const className = d.properties?.class;
+        if (className === "selection") {
+            const pos = isPosition(d.start) ? `${d.start.line}:${d.start.character}` : String(d.start);
+            const prevIdx = endPosToIdx.get(pos);
+            const nextIdx = startPosToIdx.get(pos);
+            // Prioritize merging into the next mark (selectionLeft) before previous (selectionRight)
+            if (nextIdx !== undefined) {
+                // Merge selectionLeft into the next mark
+                const next = result[nextIdx];
+                const nextClass = next.properties?.class ?? "";
+                const newClass = typeof nextClass === "string" && nextClass.split(" ").includes("selectionLeft")
+                    ? nextClass
+                    : (typeof nextClass === "string" ? (nextClass + " selectionLeft").trim() : "selectionLeft");
+                result[nextIdx] = { ...next, properties: { ...next.properties, class: newClass } };
+                return true; // handled
+            } else if (prevIdx !== undefined) {
+                // Merge selectionRight into the previous mark
+                const prev = result[prevIdx];
+                const prevClass = prev.properties?.class ?? "";
+                const newClass = typeof prevClass === "string" && prevClass.split(" ").includes("selectionRight")
+                    ? prevClass
+                    : (typeof prevClass === "string" ? (prevClass + " selectionRight").trim() : "selectionRight");
+                result[prevIdx] = { ...prev, properties: { ...prev.properties, class: newClass } };
+                return true; // handled
+            }
+            return false; // not handled
+        } else {
+            throw new Error(`Unhandled zero-width decoration class: ${className}`);
+        }
+    }
+    const filteredZeroWidth: DecorationItem[] = [];
+    for (const d of zeroWidth) {
+        if (!handleZeroWidthDecoration(d, result, endPosToIdx, startPosToIdx)) {
+            filteredZeroWidth.push(d);
+        }
+    }
+    return result.concat(filteredZeroWidth);
 }

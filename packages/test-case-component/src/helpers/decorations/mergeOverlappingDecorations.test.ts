@@ -17,15 +17,19 @@ describe("mergeOverlappingDecorations", () => {
             },
         ];
         const result = mergeOverlappingDecorations(input);
-        // Only the first decoration should be present, as there is no true overlap
-        expect(result).toEqual([
-            {
-                start: { line: 0, character: 0 },
-                end: { line: 0, character: 1 },
-                properties: { class: "hat default" },
-                alwaysWrap: true,
-            },
-        ]);
+        // The zero-width selection should be merged into the previous mark as selectionRight
+        expect(result).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({
+                    start: { line: 0, character: 0 },
+                    end: { line: 0, character: 1 },
+                    properties: { class: expect.stringContaining("hat default selectionRight") },
+                    alwaysWrap: true,
+                }),
+            ])
+        );
+        // Should not include the zero-width selection
+        expect(result.some(d => d.properties?.class === "selection")).toBe(false);
     });
 
     it("returns non-overlapping decorations unchanged", () => {
@@ -92,5 +96,134 @@ describe("mergeOverlappingDecorations", () => {
             end: { line: 0, character: 5 },
             properties: { class: "B" },
         });
+    });
+
+    it("preserves zero-width (selection) decorations alongside others", () => {
+        const input = [
+            {
+                start: { line: 0, character: 0 },
+                end: { line: 0, character: 1 },
+                properties: { class: "sourceMark" },
+                alwaysWrap: true,
+            },
+            {
+                start: { line: 0, character: 1 },
+                end: { line: 0, character: 2 },
+                properties: { class: "thatMark" },
+                alwaysWrap: true,
+            },
+            {
+                start: { line: 0, character: 2 },
+                end: { line: 0, character: 2 }, // zero-width selection
+                properties: { class: "selection" },
+                alwaysWrap: true,
+            },
+        ];
+        const result = mergeOverlappingDecorations(input);
+        // The zero-width selection should be merged into the previous mark as selectionRight
+        expect(result).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({
+                    start: { line: 0, character: 0 },
+                    end: { line: 0, character: 1 },
+                    properties: { class: "sourceMark" },
+                    alwaysWrap: true,
+                }),
+                expect.objectContaining({
+                    start: { line: 0, character: 1 },
+                    end: { line: 0, character: 2 },
+                    properties: { class: expect.stringContaining("thatMark selectionRight") },
+                    alwaysWrap: true,
+                }),
+            ])
+        );
+        // Should not include the zero-width selection
+        expect(result.some(d => d.properties?.class === "selection")).toBe(false);
+    });
+
+    it("merges zero-width selection at end into previous mark as selectionRight", () => {
+        const input = [
+            {
+                start: { line: 0, character: 0 },
+                end: { line: 0, character: 1 },
+                properties: { class: "sourceMark" },
+                alwaysWrap: true,
+            },
+            {
+                start: { line: 0, character: 1 },
+                end: { line: 0, character: 2 },
+                properties: { class: "thatMark" },
+                alwaysWrap: true,
+            },
+            {
+                start: { line: 0, character: 2 },
+                end: { line: 0, character: 2 }, // zero-width selection
+                properties: { class: "selection" },
+                alwaysWrap: true,
+            },
+        ];
+        const result = mergeOverlappingDecorations(input);
+        // The zero-width selection should be deleted, and the thatMark should have selectionRight
+        expect(result).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({
+                    start: { line: 0, character: 0 },
+                    end: { line: 0, character: 1 },
+                    properties: { class: "sourceMark" },
+                    alwaysWrap: true,
+                }),
+                expect.objectContaining({
+                    start: { line: 0, character: 1 },
+                    end: { line: 0, character: 2 },
+                    properties: { class: expect.stringContaining("thatMark selectionRight") },
+                    alwaysWrap: true,
+                }),
+            ])
+        );
+        // Should not include the zero-width selection
+        expect(result.some(d => d.properties?.class === "selection")).toBe(false);
+    });
+
+    it("merges zero-width selection at start into next mark as selectionLeft", () => {
+        const input = [
+            {
+                start: { line: 0, character: 0 },
+                end: { line: 0, character: 1 },
+                properties: { class: "sourceMark" },
+                alwaysWrap: true,
+            },
+            {
+                start: { line: 0, character: 1 },
+                end: { line: 0, character: 2 },
+                properties: { class: "thatMark" },
+                alwaysWrap: true,
+            },
+            {
+                start: { line: 0, character: 1 },
+                end: { line: 0, character: 1 }, // zero-width selection at start of thatMark
+                properties: { class: "selection" },
+                alwaysWrap: true,
+            },
+        ];
+        const result = mergeOverlappingDecorations(input);
+        // The zero-width selection should be merged into the next mark as selectionLeft
+        expect(result).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({
+                    start: { line: 0, character: 0 },
+                    end: { line: 0, character: 1 },
+                    properties: { class: "sourceMark" },
+                    alwaysWrap: true,
+                }),
+                expect.objectContaining({
+                    start: { line: 0, character: 1 },
+                    end: { line: 0, character: 2 },
+                    properties: { class: expect.stringContaining("thatMark selectionLeft") },
+                    alwaysWrap: true,
+                }),
+            ])
+        );
+        // Should not include the zero-width selection
+        expect(result.some(d => d.properties?.class === "selection")).toBe(false);
     });
 });
