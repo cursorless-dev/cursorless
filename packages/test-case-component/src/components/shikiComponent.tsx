@@ -36,12 +36,14 @@ export function ShikiComponent({
         </Carousel>
       </div>
 
-      <details>
-        <summary>JSON</summary>
-        <pre className="max-w-xl overflow-auto">
-          {JSON.stringify(data, null, 2)}
-        </pre>
-      </details>
+      {debug && (
+        <details>
+          <summary>JSON</summary>
+          <pre className="max-w-xl overflow-auto">
+            {JSON.stringify(data, null, 2)}
+          </pre>
+        </details>
+      )}
     </div>
   );
 }
