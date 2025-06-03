@@ -12,6 +12,7 @@ const require = createRequire(import.meta.url);
 const userRelative = "packages/cursorless-org-docs/src/docs/user";
 const contributingRelative =
   "packages/cursorless-org-docs/src/docs/contributing";
+const repoLink = "https://github.com/cursorless-dev/cursorless/tree/main/";
 
 /**
  * Files within /docs reference repository directories
@@ -62,11 +63,7 @@ function remarkPluginFixLinksToRepositoryArtifacts(): Transformer<Root> {
         return;
       }
 
-      const repoLink =
-        "https://github.com/cursorless-dev/cursorless/tree/main/";
-      const linkToRepositoryArtifact = repoLink.concat(artifactRelative);
-
-      node.url = linkToRepositoryArtifact;
+      node.url = repoLink.concat(artifactRelative);
     });
   };
 }
