@@ -50,9 +50,9 @@ function remarkPluginFixLinksToRepositoryArtifacts(): Transformer<Root> {
       const artifactRelative = relative(repoRoot, artifact).replace(/\\/g, "/");
       const fileRelative = relative(repoRoot, file.path).replace(/\\/g, "/");
 
-      // We host all files under docs, will resolve as a relative link, but
+      // We host all files under docs. Will resolve as a relative link, but
       // relative links passing between user and contributing are not resolved
-      // correctly by docusaurus, so we need to rewrite them.
+      // correctly by docusaurus. So we need to rewrite them.
       if (
         (artifactRelative.startsWith(userRelative) &&
           fileRelative.startsWith(userRelative)) ||
