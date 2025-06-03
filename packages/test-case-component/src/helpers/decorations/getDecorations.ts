@@ -16,8 +16,8 @@ export async function getDecorations({
 }: {
     snapshot: ExtendedTestCaseSnapshot;
     command: Command;
-}): Promise<DecorationItem[][]> {
-    const { messages, flashes, highlights, finalStateMarkHelpers } = snapshot;
+}): Promise<DecorationItem[]> {
+    const { messages, flashes, highlights } = snapshot;
     const potentialMarks = snapshot.marks || {};
     const lines = snapshot.documentContents.split("\n");
     // Use StepNameType for stepName, and provide a fallback if undefined

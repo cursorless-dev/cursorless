@@ -12,7 +12,9 @@ import { getIdeFlashDecorations } from "./getIdeFlashDecorations";
 import { getSelections } from "./getSelections";
 import { getSourceMarks } from "./getSourceMarks";
 import { getThatMarks } from "./getThatMarks";
+
 import type { StepNameType } from "../../types";
+import { mergeOverlappingDecorations } from "./mergeOverlappingDecorations";
 
 export function createDecorations(
     options: {
@@ -29,8 +31,8 @@ export function createDecorations(
             thatMark?: TargetPlainObject[]
         }
     } = {}
-): DecorationItem[][] {
-    const { marks, ide, lines, selections, thatMark, sourceMark, stepName } = options
+): DecorationItem[] {
+    const { marks, ide, lines, selections, thatMark, sourceMark } = options
 
     const decorations: DecorationItem[][] = [];
 
@@ -50,7 +52,7 @@ export function createDecorations(
     } else {
         decorations.push([])
     }
-
-    return decorations
+    const merged = mergeOverlappingDecorations(decorations.flat());
+    return merged;
 }
 

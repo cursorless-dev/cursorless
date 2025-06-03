@@ -3,7 +3,7 @@ import type { BundledLanguage } from "shiki";
 import type { StepNameType, DataFixture } from "./types";
 import type { ExtendedTestCaseSnapshot } from "./types";
 
-import { renderClipboard, renderError } from "./renderHtml";
+import { renderClipboard } from "./renderHtml";
 import { getDecorations } from "./helpers/decorations";
 
 /**
@@ -44,49 +44,29 @@ function createHtmlGenerator(data: DataFixture) {
       console.error(`Error in ${stepName} ${raw.command.spokenForm}`);
       return "Error";
     }
-    const decorations = await getDecorations({ snapshot: state, command });
+    const extendedState = { ...state, stepName };
+    const decorations = await getDecorations({ snapshot: extendedState, command });
     const { documentContents } = state;
     const htmlArray: string[] = [];
     let codeBody;
-    const errorLevels = [
-      "excludes thatMarks sourceMarks selectionRanges ideFlashes",
-      "excludes thatMarks sourceMarks selectionRanges",
-      "excludes thatMarks sourceMarks",
-      "excludes thatMarks",
-      "success",
-    ];
-    let errorLevel = errorLevels.length - 1;
-    for (let i = decorations.length - 1; i >= 0; i--) {
-      const fallbackDecoration = decorations.slice(0, i).flat();
-      errorLevel = i;
-      try {
-        const marker = await createHighlighter();
-        const options = {
-          theme: "css-variables",
-          lang,
-          decorations: fallbackDecoration
-        };
-        codeBody = marker.codeToHtml(documentContents, options);
-        htmlArray.push(codeBody);
-        break;
-      } catch (error) {
-        console.warn(`"Failed with decorations level ${i}:"`, command);
-        console.warn(fallbackDecoration, error);
-      }
-    }
-    if (!codeBody) {
-      console.error("All fallback levels failed. Unable to generate code body.");
+    // Simplified: just try rendering once with all decorations
+    try {
+      const marker = await createHighlighter();
+      const options = {
+        theme: "css-variables",
+        lang,
+        decorations,
+      };
+      codeBody = marker.codeToHtml(documentContents, options);
+      htmlArray.push(codeBody);
+    } catch (error) {
+      console.error("Failed to generate code body:", error);
       codeBody = "";
     }
 
     const clipboardRendered = renderClipboard(state.clipboard);
     if (clipboardRendered !== "") {
       htmlArray.push(clipboardRendered);
-    }
-
-    const errorRendered = renderError(errorLevel, errorLevels);
-    if (errorRendered !== "") {
-      htmlArray.push(errorRendered);
     }
 
     return { html: htmlArray.join(""), data: [decorations] };
