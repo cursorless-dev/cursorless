@@ -18,10 +18,9 @@ export type StepNameType = "before" | "during" | "after";
 
 export type ExtendedTestCaseSnapshot = TestCaseSnapshot &
   Partial<PlainSpyIDERecordedValues> & {
-    finalStateMarkHelpers?: {
-      thatMark?: TargetPlainObject[];
-      sourceMark?: TargetPlainObject[];
-    };
+    thatMark?: TargetPlainObject[];
+    sourceMark?: TargetPlainObject[];
+    stepName: StepNameType;
   };
 
 export type LineRange = { type: string; start: number; end: number };

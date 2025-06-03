@@ -127,9 +127,6 @@ function getDuringSnapshot(data: DataFixture): ExtendedTestCaseSnapshot {
   return {
     ...base,
     ...data.ide,
-    finalStateMarkHelpers: {
-      thatMark: data?.finalState?.thatMark,
-      sourceMark: data?.finalState?.sourceMark
-    }
+    stepName: "during",
   };
 }

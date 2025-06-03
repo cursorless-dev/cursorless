@@ -12,6 +12,7 @@ import { getIdeFlashDecorations } from "./getIdeFlashDecorations";
 import { getSelections } from "./getSelections";
 import { getSourceMarks } from "./getSourceMarks";
 import { getThatMarks } from "./getThatMarks";
+import type { StepNameType } from "../../types";
 
 export function createDecorations(
     options: {
@@ -22,13 +23,14 @@ export function createDecorations(
         selections?: SelectionPlainObject[]
         thatMark?: TargetPlainObject[]
         sourceMark?: TargetPlainObject[]
+        stepName?: StepNameType
         finalStateMarkHelpers?: {
             sourceMark?: TargetPlainObject[]
             thatMark?: TargetPlainObject[]
         }
     } = {}
 ): DecorationItem[][] {
-    const { marks, ide, lines, selections, thatMark, sourceMark } = options
+    const { marks, ide, lines, selections, thatMark, sourceMark, stepName } = options
 
     const decorations: DecorationItem[][] = [];
 

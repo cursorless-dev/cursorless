@@ -5,7 +5,7 @@
  * @param {Command} command - The command object for the test case.
  * @returns {Promise<DecorationItem[][]>} The computed decorations for the state.
  */
-import type { ExtendedTestCaseSnapshot } from "../../types";
+import type { ExtendedTestCaseSnapshot, StepNameType } from "../../types";
 import type { Command } from "@cursorless/common";
 import type { DecorationItem } from "shiki";
 import { createDecorations } from "../index";
@@ -20,6 +20,8 @@ export async function getDecorations({
     const { messages, flashes, highlights, finalStateMarkHelpers } = snapshot;
     const potentialMarks = snapshot.marks || {};
     const lines = snapshot.documentContents.split("\n");
+    // Use StepNameType for stepName, and provide a fallback if undefined
+    const stepName: StepNameType = snapshot.stepName ?? "error";
     const obj = {
         marks: potentialMarks,
         ide: { messages, flashes, highlights },
@@ -28,7 +30,7 @@ export async function getDecorations({
         selections: snapshot.selections,
         thatMark: snapshot.thatMark,
         sourceMark: snapshot.sourceMark,
-        finalStateMarkHelpers
+        stepName,
     };
     const decorations = createDecorations(obj);
     return decorations;
