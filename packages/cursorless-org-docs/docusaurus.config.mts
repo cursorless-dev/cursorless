@@ -9,6 +9,10 @@ import { fileURLToPath } from "node:url";
 
 const require = createRequire(import.meta.url);
 
+const userRelative = "packages/cursorless-org-docs/src/docs/user";
+const contributingRelative =
+  "packages/cursorless-org-docs/src/docs/contributing";
+
 /**
  * Files within /docs reference repository directories
  * and files outside of that folder. They are not served
@@ -41,12 +45,19 @@ function remarkPluginFixLinksToRepositoryArtifacts(): Transformer<Root> {
         dirname(fileURLToPath(import.meta.url)),
         "../..",
       );
+
       const artifact = resolve(file.dirname!, url);
       const artifactRelative = relative(repoRoot, artifact).replace(/\\/g, "/");
+      const fileRelative = relative(repoRoot, file.path).replace(/\\/g, "/");
 
-      // We host all files under docs, will resolve as a relative link
+      // We host all files under docs, will resolve as a relative link, but
+      // relative links passing between user and contributing are not resolved
+      // correctly
       if (
-        artifactRelative.startsWith("packages/cursorless-org-docs/src/docs/")
+        (artifactRelative.startsWith(userRelative) &&
+          fileRelative.startsWith(userRelative)) ||
+        (artifactRelative.startsWith(contributingRelative) &&
+          fileRelative.startsWith(contributingRelative))
       ) {
         return;
       }

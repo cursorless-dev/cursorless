@@ -41,7 +41,7 @@ Follow the instructions in [Adding a new scope](./adding-a-new-scope.md) to defi
 
 ## 5. Document your language
 
-Create a `.mdx` file in [`languages`](../../user/languages) with the `Language` react component. The file should be named after your language, eg `java.mdx`
+Create a `.mdx` file in [`languages`](../user/languages) with the `Language` react component. The file should be named after your language, eg `java.mdx`
 
 ```md
 import { Language } from "./components/Language";
