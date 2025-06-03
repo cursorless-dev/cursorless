@@ -1,8 +1,4 @@
-import type {
-  ScopeType,
-  SimpleScopeTypeType,
-  TextEditor,
-} from "@cursorless/common";
+import type { ScopeType, TextEditor } from "@cursorless/common";
 import { Position, ScopeSupport, isEmptyIterable } from "@cursorless/common";
 import type { ScopeHandlerFactory } from "../processTargets/modifiers/scopeHandlers/ScopeHandlerFactory";
 import type { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
