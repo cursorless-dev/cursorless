@@ -419,8 +419,8 @@
   (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
-;;!! #[derive(aaa, bbb)]
-;;!           ^^^  ^^^
+;;!! fn foo<T: Display, U: Clone>() {}
+;;!         ^^^^^^^^^^  ^^^^^^^^
 (_
   (type_parameters
     (_)? @_.leading.endOf
@@ -432,14 +432,33 @@
   (#single-or-multi-line-delimiter! @type @_dummy ", " ",\n")
 )
 
-;;!! #[derive(aaa, bbb)]
-;;!           ^^^^^^^^
+;;!! fn foo<T: Display, U: Clone>() {}
+;;!         ^^^^^^^^^^^^^^^^^^^^
 (_
   (type_parameters
     "<" @type.iteration.start.endOf
     ">" @type.iteration.end.startOf
   )
 ) @type.iteration.domain
+
+;;!! where T: Display, U: Clone
+;;!        ^^^^^^^^^^  ^^^^^^^^
+(
+  (where_clause
+    (_)? @_.leading.endOf
+    .
+    (_) @type
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @type @_dummy ", " ",\n")
+)
+
+;;!! where T: Display, U: Clone
+;;!        ^^^^^^^^^^^^^^^^^^^^
+(where_clause
+  "where" @type.iteration.start.endOf
+) @type.iteration.end.endOf @type.iteration.domain
 
 operator: [
   "<"

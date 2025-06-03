@@ -1,7 +1,7 @@
 languageId: rust
 command:
   version: 6
-  spokenForm: change type trap and blue trap
+  spokenForm: change arg trap and type blue trap
   action:
     name: clearAndSetSelection
     target:
@@ -10,11 +10,11 @@ command:
         - type: primitive
           modifiers:
             - type: containingScope
-              scopeType: {type: type}
+              scopeType: {type: argumentOrParameter}
           mark: {type: decoratedSymbol, symbolColor: default, character: t}
         - type: primitive
           modifiers:
-            - type: argumentOrParameter
+            - type: containingScope
               scopeType: {type: type}
           mark: {type: decoratedSymbol, symbolColor: blue, character: t}
   usePrePhraseSnapshot: true
@@ -34,4 +34,14 @@ initialState:
     blue.t:
       start: {line: 0, character: 11}
       end: {line: 0, character: 12}
-thrownError: {name: NoContainingScopeError}
+finalState:
+  documentContents: |
+    enum Maybe<> {
+        Just(),
+        Nothing,
+    }
+  selections:
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}
+    - anchor: {line: 1, character: 9}
+      active: {line: 1, character: 9}

@@ -26,10 +26,10 @@ initialState:
       end: {line: 1, character: 11}
 finalState:
   documentContents: |
-    fn some_function<T, U>(t: &T, u: &U) -> 
-        where T: Display + Clone,
+    fn some_function<T, U>(t: &T, u: &U) -> i32
+        where ,
               U: Clone + Debug
     {}
   selections:
-    - anchor: {line: 0, character: 40}
-      active: {line: 0, character: 40}
+    - anchor: {line: 1, character: 10}
+      active: {line: 1, character: 10}
