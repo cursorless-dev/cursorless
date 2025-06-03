@@ -102,10 +102,28 @@ pre.shiki {
   /* margin-left: -3px; */
 }
 
-.selection:not(:empty) {
-  background: #55f2;
-  padding-left: 0.5px;
+.selectionLeft::before {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: var(--line-height);
+  background: #0b0;
+  animation: blink 1000ms infinite;
+  left: -2px;
+  border-radius: 2px 0 0 2px;
 }
+
+.selectionRight::before {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: var(--line-height);
+  background: #b00;
+  animation: blink 1000ms infinite;
+  right: -2px;
+  border-radius: 0 2px 2px 0;
+}
+
 .decoration {
   display: inline-block;
   line-height: 0;
