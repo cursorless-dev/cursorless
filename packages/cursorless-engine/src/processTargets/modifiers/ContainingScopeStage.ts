@@ -43,9 +43,7 @@ export class ContainingScopeStage implements ModifierStage {
     );
 
     if (scopeHandler == null) {
-      return this.modifierStageFactory
-        .getLegacyScopeStage(this.modifier)
-        .run(target, options);
+      throw new NoContainingScopeError(scopeType.type);
     }
 
     const containingScopes = getContainingScopeTarget(

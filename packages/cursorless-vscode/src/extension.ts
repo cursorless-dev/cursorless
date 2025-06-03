@@ -124,7 +124,6 @@ export async function activate(
     hatTokenMap,
     scopeProvider,
     injectIde,
-    runIntegrationTests,
     addCommandRunnerDecorator,
     customSpokenFormGenerator,
   } = await createCursorlessEngine(engineProps);
@@ -213,7 +212,6 @@ export async function activate(
             fileSystem,
             scopeProvider,
             injectIde,
-            runIntegrationTests,
             vscodeTutorial,
           )
         : undefined,

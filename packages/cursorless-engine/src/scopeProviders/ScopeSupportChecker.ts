@@ -4,8 +4,6 @@ import type {
   TextEditor,
 } from "@cursorless/common";
 import { Position, ScopeSupport, isEmptyIterable } from "@cursorless/common";
-import type { LegacyLanguageId } from "../languages/LegacyLanguageId";
-import { languageMatchers } from "../languages/getNodeMatcher";
 import type { ScopeHandlerFactory } from "../processTargets/modifiers/scopeHandlers/ScopeHandlerFactory";
 import type { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
 
@@ -35,7 +33,7 @@ export class ScopeSupportChecker {
     );
 
     if (scopeHandler == null) {
-      return getLegacyScopeSupport(languageId, scopeType);
+      return ScopeSupport.unsupported;
     }
 
     return editorContainsScope(editor, scopeHandler)
@@ -62,7 +60,7 @@ export class ScopeSupportChecker {
     );
 
     if (scopeHandler == null) {
-      return getLegacyScopeSupport(languageId, scopeType);
+      return ScopeSupport.unsupported;
     }
 
     const iterationScopeHandler = this.scopeHandlerFactory.maybeCreate(
@@ -87,25 +85,4 @@ function editorContainsScope(
   return !isEmptyIterable(
     scopeHandler.generateScopes(editor, new Position(0, 0), "forward"),
   );
-}
-
-function getLegacyScopeSupport(
-  languageId: string,
-  scopeType: ScopeType,
-): ScopeSupport {
-  switch (scopeType.type) {
-    case "notebookCell":
-      // FIXME: What to do here
-      return ScopeSupport.unsupported;
-    default:
-      if (
-        languageMatchers[languageId as LegacyLanguageId]?.[
-          scopeType.type as SimpleScopeTypeType
-        ] != null
-      ) {
-        return ScopeSupport.supportedLegacy;
-      }
-
-      return ScopeSupport.unsupported;
-  }
 }

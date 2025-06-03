@@ -2,7 +2,7 @@ import type { Position, TextDocument } from "@cursorless/common";
 import { type TreeSitter } from "@cursorless/common";
 import type * as treeSitter from "web-tree-sitter";
 import { ide } from "../../singletons/ide.singleton";
-import { getNodeRange } from "../../util/nodeSelectors";
+import { getNodeRange } from "./getNodeRange";
 import type {
   MutableQueryCapture,
   MutableQueryMatch,
