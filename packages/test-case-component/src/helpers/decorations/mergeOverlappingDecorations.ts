@@ -102,7 +102,11 @@ export function mergeOverlappingDecorations(decorations: DecorationItem[]): Deco
     ): boolean {
         const className = d.properties?.class;
         console.debug("[handleZeroWidthDecoration] className:", className, "decoration:", JSON.stringify(d, null, 2));
-        if (className === "selection") {
+        if (className === "selection" || className === "thatMark" || className === "sourceMark") {
+            // For zero-width thatMark or sourceMark, just pass (do not merge or throw)
+            if (className === "thatMark" || className === "sourceMark") {
+                return false; // not handled, will be added to filteredZeroWidth
+            }
             const pos = isPosition(d.start) ? `${d.start.line}:${d.start.character}` : String(d.start);
             const prevIdx = endPosToIdx.get(pos);
             const nextIdx = startPosToIdx.get(pos);
