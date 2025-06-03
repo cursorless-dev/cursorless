@@ -104,8 +104,10 @@ function getDuringSnapshot(data: DataFixture): ExtendedTestCaseSnapshot {
       (data.finalState.documentContents?.split("\n").length > data.initialState.documentContents?.split("\n").length)
       ? data.finalState
       : data.initialState;
+  // Exclude sourceMark and thatMark from the DURING snapshot
+  const { sourceMark, thatMark, ...restBase } = base;
   return {
-    ...base,
+    ...restBase,
     ...data.ide,
     stepName: "during",
   };
