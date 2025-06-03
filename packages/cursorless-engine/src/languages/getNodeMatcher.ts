@@ -38,7 +38,7 @@ export const languageMatchers: Record<
   LegacyLanguageId,
   Partial<Record<SimpleScopeTypeType, NodeMatcher>>
 > = {
-  "dummy": {},
+  dummy: {},
 };
 
 function matcherIncludeSiblings(matcher: NodeMatcher): NodeMatcher {
