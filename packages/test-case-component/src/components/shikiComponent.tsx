@@ -80,24 +80,31 @@ const STEP_DURATIONS = [1500, 500, 1500]; // milliseconds
 
 function Carousel({ children }: { children: React.ReactNode[] }) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
 
   const handleNext = () => {
     setActiveIndex((prevIndex) => (prevIndex + 1) % children.length);
+    setPaused(true); // Pause on manual navigation
   };
 
   const handlePrev = () => {
     setActiveIndex((prevIndex) =>
       prevIndex === 0 ? children.length - 1 : prevIndex - 1,
     );
+    setPaused(true); // Pause on manual navigation
   };
 
   const handleIndicatorClick = (index: number) => {
     setActiveIndex(index);
+    setPaused(true); // Pause on manual navigation
   };
 
   const timeoutRef = useRef<any>(null);
 
   useEffect(() => {
+    if (paused) {
+      return; // Don't auto-rotate if paused
+    }
     const duration = STEP_DURATIONS[activeIndex] || 3000;
 
     timeoutRef.current = setTimeout(() => {
@@ -105,7 +112,7 @@ function Carousel({ children }: { children: React.ReactNode[] }) {
     }, duration);
 
     return () => clearTimeout(timeoutRef.current);
-  }, [activeIndex, children.length]);
+  }, [activeIndex, children.length, paused]);
 
   const CarouselItem = ({
     child,
