@@ -13,6 +13,9 @@ command:
               scopeType: {type: type}
           mark: {type: decoratedSymbol, symbolColor: default, character: t}
         - type: primitive
+          modifiers:
+            - type: argumentOrParameter
+              scopeType: {type: type}
           mark: {type: decoratedSymbol, symbolColor: blue, character: t}
   usePrePhraseSnapshot: true
 initialState:

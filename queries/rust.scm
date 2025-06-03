@@ -128,14 +128,26 @@
 
 ;;!! fn foo<T: Display>() {}
 ;;!         ^
+;;!            ^^^^^^^
 (constrained_type_parameter
-  left: (_) @name
+  left: (_) @name @collectionKey
+  (trait_bounds
+    ":" @value.leading.endOf
+    (_) @value.start
+    (_) @value.end
+  )
 ) @_.domain
 
 ;;!! where T: Display
 ;;!        ^
+;;!           ^^^^^^^
 (where_predicate
-  left: (_) @name
+  left: (_) @name @collectionKey
+  (trait_bounds
+    ":" @value.leading.endOf
+    (_) @value.start
+    (_) @value.end
+  )
 ) @_.domain
 
 (field_declaration
