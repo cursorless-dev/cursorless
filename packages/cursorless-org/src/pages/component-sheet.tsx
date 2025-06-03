@@ -12,7 +12,7 @@ import { cheatsheetBodyClasses } from "@cursorless/cheatsheet";
 
 const fixturesDir = path.join("../", "../", "data", "example-files");
 
-async function loadYamlFiles(dir: string, selectedFiles?: string[]) {
+async function loadYamlFiles(dir: string, allowList?: string[]) {
   const directoryPath = path.join(process.cwd(), dir);
   const files = fs.readdirSync(directoryPath);
   const data: any[] = [];
@@ -20,7 +20,7 @@ async function loadYamlFiles(dir: string, selectedFiles?: string[]) {
   files.forEach((file) => {
     if (
       path.extname(file) === ".yml" &&
-      (!selectedFiles || selectedFiles.includes(file))
+      (!allowList || allowList.includes(file))
     ) {
       try {
         const filePath = path.join(directoryPath, file);
@@ -37,15 +37,31 @@ async function loadYamlFiles(dir: string, selectedFiles?: string[]) {
   return data;
 }
 
-// See https://github.com/vercel/next.js/discussions/12325#discussioncomment-1116108
-export async function getStaticProps() {
-  const dataActions = await loadYamlFiles(fixturesDir, testSelectedFiles);
+// Change argument to a single object for loadAndProcessFixtures
+interface LoadAndProcessFixturesOptions {
+  fixturesDir: string;
+  allowList?: string[];
+}
 
+/**
+ * Loads YAML test case files from a directory, processes them into fixtures, and returns an array of processed test case data.
+ * Optionally filters which files to load using an allow list.
+ *
+ * @param {Object} options - Options for loading and processing fixtures.
+ * @param {string} options.fixturesDir - Directory containing YAML fixture files.
+ * @param {string[]=} options.allowList - Optional list of filenames to include.
+ * @returns {Promise<any[]>} Array of processed test case data, each with a `raw` property containing the original YAML object.
+ */
+async function loadAndProcessFixtures({
+  fixturesDir,
+  allowList,
+}: LoadAndProcessFixturesOptions) {
+  const dataActions = await loadYamlFiles(fixturesDir, allowList);
   const data_errors: any[] = [];
 
   const data = (
     await Promise.all(
-      [...dataActions].map(async (val) => {
+      dataActions.map(async (val) => {
         try {
           const fixture = await loadTestCaseFixture(val);
           return { ...fixture, raw: val };
@@ -56,12 +72,21 @@ export async function getStaticProps() {
         }
       }),
     )
-  ).filter((test) => test !== undefined);
+  ).filter((test) => test != null);
 
   if (data_errors.length > 0) {
     console.error("data errors:", data_errors);
   }
 
+  return data;
+}
+
+// See https://github.com/vercel/next.js/discussions/12325#discussioncomment-1116108
+export async function getStaticProps() {
+  const data = await loadAndProcessFixtures({
+    fixturesDir,
+    allowList: testSelectedFiles,
+  });
   return { props: { data, bodyClasses: cheatsheetBodyClasses } };
 }
 
