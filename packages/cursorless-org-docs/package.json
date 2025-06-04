@@ -41,6 +41,7 @@
   "dependencies": {
     "@algolia/client-search": "5.25.0",
     "@cursorless/common": "workspace:*",
+    "@cursorless/test-case-component": "workspace:*",
     "@docsearch/react": "3.9.0",
     "@docusaurus/core": "3.8.0",
     "@docusaurus/preset-classic": "3.8.0",
