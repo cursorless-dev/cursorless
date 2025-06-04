@@ -3,14 +3,14 @@ import {
   languageScopeSupport,
   scopeSupportFacets,
 } from "@cursorless/common";
-import React from "react";
+import * as React from "react";
 import { ScopeSupportForLevel } from "./ScopeSupportForLevel";
 
 interface Props {
   languageId: string;
 }
 
-export function ScopeSupport({ languageId }: Props): JSX.Element {
+export function ScopeSupport({ languageId }: Props): React.JSX.Element {
   const scopesSorted = [...scopeSupportFacets].sort();
   const scopeSupport = languageScopeSupport[languageId] ?? {};
 
