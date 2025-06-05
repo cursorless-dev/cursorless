@@ -27,9 +27,9 @@ function createHtmlGenerator(data: DataFixture, debug = false) {
   const command = data.command;
   const raw = data;
   const testCaseStates = {
-    before: data.initialState,
+    before: { ...data.initialState, documentContents: data.initialState.documentContents ?? "", stepName: "before" },
     during: getDuringSnapshot(data),
-    after: data.finalState
+    after: { ...data.finalState, documentContents: data.finalState?.documentContents ?? "", stepName: "after" },
   };
 
   /**
@@ -44,7 +44,7 @@ function createHtmlGenerator(data: DataFixture, debug = false) {
       if (debug) { console.error(`Error in ${stepName} ${raw.command.spokenForm}`); }
       return "Error";
     }
-    const extendedState = { ...state, stepName };
+    const extendedState = { ...state, stepName, selections: state.selections ?? [] };
     const decorations = await getDecorations({ snapshot: extendedState, command });
     const { documentContents } = state;
     const htmlArray: string[] = [];
@@ -105,7 +105,8 @@ function getDuringSnapshot(data: DataFixture): ExtendedTestCaseSnapshot {
       ? data.finalState
       : data.initialState;
   // Exclude sourceMark and thatMark from the DURING snapshot
-  const { sourceMark, thatMark, ...restBase } = base;
+  const { sourceMark, thatMark, ...restBase } = base ?? {};
+  // Ensure stepName is set on the snapshot
   return {
     ...restBase,
     ...data.ide,
