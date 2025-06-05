@@ -12,8 +12,8 @@ import { getDecorations } from "./helpers/decorations";
  * @param {DataFixture} data - The state object containing the necessary data for HTML generation.
  * @returns {Promise<{ before: string; during: string; after: string }>} A promise that resolves to the generated HTML content for each step.
  */
-export async function generateHtml(data: DataFixture) {
-  return createHtmlGenerator(data).generateAll();
+export async function generateHtml(data: DataFixture, debug = false) {
+  return createHtmlGenerator(data, debug).generateAll();
 }
 
 /**
@@ -22,7 +22,7 @@ export async function generateHtml(data: DataFixture) {
  * @param {DataFixture} data - The state object containing the necessary data for HTML generation.
  * @returns {Object} An object with generate, generateAll, and getDecorations async functions.
  */
-function createHtmlGenerator(data: DataFixture) {
+function createHtmlGenerator(data: DataFixture, debug = false) {
   const lang = data.languageId as BundledLanguage;
   const command = data.command;
   const raw = data;
@@ -41,7 +41,7 @@ function createHtmlGenerator(data: DataFixture) {
   async function generate(stepName: StepNameType) {
     const state = testCaseStates[stepName];
     if (!state) {
-      console.error(`Error in ${stepName} ${raw.command.spokenForm}`);
+      if (debug) { console.error(`Error in ${stepName} ${raw.command.spokenForm}`); }
       return "Error";
     }
     const extendedState = { ...state, stepName };
@@ -60,7 +60,7 @@ function createHtmlGenerator(data: DataFixture) {
       codeBody = marker.codeToHtml(documentContents, options);
       htmlArray.push(codeBody);
     } catch (error) {
-      console.error("Failed to generate code body:", error);
+      if (debug) { console.error("Failed to generate code body:", error); }
       codeBody = "";
     }
 
