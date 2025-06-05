@@ -8,7 +8,7 @@ import {
   type ScopeType,
   type SimpleScopeTypeType,
 } from "@cursorless/common";
-import React, { useState } from "react";
+import React, { useState, type JSX } from "react";
 
 interface Props {
   facets: ScopeSupportFacet[];
