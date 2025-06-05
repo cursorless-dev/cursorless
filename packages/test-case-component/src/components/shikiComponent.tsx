@@ -208,8 +208,8 @@ const SliderButton = ({
         >
           <path
             stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             stroke-width="2"
             d="M5 1 1 5l4 4"
           />
