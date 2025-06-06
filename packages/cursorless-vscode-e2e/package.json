@@ -2,6 +2,9 @@
   "name": "@cursorless/cursorless-vscode-e2e",
   "version": "0.1.0",
   "description": "Our VSCode end-to-end tests",
+  "license": "MIT",
+  "type": "module",
+  "types": "./out/index.d.ts",
   "private": true,
   "main": "./out/index.js",
   "exports": {
@@ -15,9 +18,6 @@
     "watch": "tsc --build --watch",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
   "dependencies": {
     "@cursorless/common": "workspace:*",
     "@cursorless/node-common": "workspace:*",
@@ -36,7 +36,5 @@
     "js-yaml": "4.1.0",
     "mocha": "11.5.0",
     "sinon": "20.0.0"
-  },
-  "types": "./out/index.d.ts",
-  "type": "module"
+  }
 }

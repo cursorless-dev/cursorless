@@ -86,7 +86,9 @@ export async function updatePackageJson(
     ...extraFields,
   };
 
-  return omitByDeep(output, isUndefined) as PackageJson;
+  removeEmptyFields(output);
+
+  return omitByDeep(sortFields(output), isUndefined) as PackageJson;
 }
 
 interface PreCommitConfig {
@@ -173,4 +175,62 @@ async function getTransformRecordedTestsScript(packageDir: string) {
   );
 
   return transformRecordedTestsScript;
+}
+
+function removeEmptyFields(obj: Record<string, any>) {
+  for (const keyword in obj) {
+    const value = obj[keyword];
+    if (Array.isArray(value) && value.length === 0) {
+      delete obj[keyword];
+    }
+    if (typeof value === "string" && value.length === 0) {
+      delete obj[keyword];
+    }
+  }
+}
+
+function sortFields(obj: Record<string, any>): Record<string, any> {
+  const orderedKeys = [
+    "name",
+    "displayName",
+    "version",
+    "description",
+    "license",
+    "author",
+    "publisher",
+    "homepage",
+    "repository",
+    "funding",
+    "sponsor",
+    "type",
+    "types",
+    "private",
+    "packageManager",
+    "main",
+    "bin",
+    "exports",
+    "engines",
+    "extensionKind",
+    "categories",
+    "keywords",
+    "activationEvents",
+    "sideEffects",
+    "icon",
+    "galleryBanner",
+    "badges",
+    "capabilities",
+    "contributes",
+    "pnpm",
+    "postcss",
+    "browserslist",
+    "scripts",
+    "extensionDependencies",
+    "dependencies",
+    "devDependencies",
+  ];
+  return Object.fromEntries(
+    Object.entries(obj).sort(
+      ([keyA], [keyB]) => orderedKeys.indexOf(keyA) - orderedKeys.indexOf(keyB),
+    ),
+  );
 }

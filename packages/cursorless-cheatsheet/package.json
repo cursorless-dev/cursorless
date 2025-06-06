@@ -2,9 +2,16 @@
   "name": "@cursorless/cursorless-cheatsheet",
   "version": "0.1.0",
   "description": "Cursorless cheatsheet implementation",
+  "license": "MIT",
   "type": "module",
-  "main": "./out/index.js",
   "types": "./out/index.d.ts",
+  "main": "./out/index.js",
+  "exports": {
+    ".": {
+      "cursorless:bundler": "./src/index.ts",
+      "default": "./out/index.js"
+    }
+  },
   "scripts": {
     "compile:tsc": "tsc --build",
     "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=esm --bundle --packages=external --outfile=./out/index.js",
@@ -13,15 +20,6 @@
     "watch:esbuild": "pnpm compile:esbuild --watch",
     "watch": "pnpm run --filter @cursorless/cursorless-cheatsheet --parallel '/^watch:.*/'",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
-  "exports": {
-    ".": {
-      "cursorless:bundler": "./src/index.ts",
-      "default": "./out/index.js"
-    }
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",

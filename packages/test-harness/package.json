@@ -2,8 +2,16 @@
   "name": "@cursorless/test-harness",
   "version": "0.1.0",
   "description": "Contains scripts and runners for testing Cursorless",
+  "license": "MIT",
+  "type": "module",
+  "types": "./out/runners/extensionTestsNeovim.d.ts",
   "private": true,
   "main": "./out/runners/extensionTestsNeovim.cjs",
+  "exports": {
+    ".": {
+      "default": "./out/runners/extensionTestsNeovim.cjs"
+    }
+  },
   "scripts": {
     "test": "env CURSORLESS_MODE=test my-ts-node src/scripts/runVscodeTestsCI.ts",
     "test:neovim": "env CURSORLESS_MODE=test my-ts-node src/scripts/runNeovimTestsCI.ts",
@@ -22,9 +30,6 @@
     "generate-test-subset-file": "my-ts-node ./src/scripts/generateTestSubsetFile.ts --always-open",
     "generate-test-subset-file-strict": "my-ts-node ./src/scripts/generateTestSubsetFile.ts --fail-if-not-exists"
   },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
   "dependencies": {
     "@cursorless/common": "workspace:*",
     "@cursorless/neovim-common": "workspace:*",
@@ -41,12 +46,5 @@
     "@vscode/test-electron": "2.5.2",
     "cross-spawn": "7.0.6",
     "mocha": "11.5.0"
-  },
-  "types": "./out/runners/extensionTestsNeovim.d.ts",
-  "exports": {
-    ".": {
-      "default": "./out/runners/extensionTestsNeovim.cjs"
-    }
-  },
-  "type": "module"
+  }
 }

@@ -2,7 +2,19 @@
   "name": "@cursorless/cheatsheet",
   "version": "0.1.0",
   "description": "Core cheatsheet react component",
+  "license": "MIT",
+  "type": "module",
+  "types": "./out/index.d.ts",
   "main": "./out/index.js",
+  "exports": {
+    ".": {
+      "cursorless:bundler": "./src/index.ts",
+      "default": "./out/index.js"
+    }
+  },
+  "sideEffects": [
+    "*.css"
+  ],
   "scripts": {
     "test": "jest",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
@@ -13,19 +25,6 @@
     "watch:esbuild": "pnpm compile:esbuild --watch",
     "watch": "pnpm run --filter @cursorless/cheatsheet --parallel '/^watch:.*/'"
   },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
-  "types": "./out/index.d.ts",
-  "exports": {
-    ".": {
-      "cursorless:bundler": "./src/index.ts",
-      "default": "./out/index.js"
-    }
-  },
-  "sideEffects": [
-    "*.css"
-  ],
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "6.7.2",
     "@fortawesome/free-solid-svg-icons": "6.7.2",
@@ -46,6 +45,5 @@
     "jest-environment-jsdom": "30.0.0-beta.3",
     "ts-jest": "29.3.4",
     "typescript": "5.8.3"
-  },
-  "type": "module"
+  }
 }
