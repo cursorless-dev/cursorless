@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "description": "Cursorless documentation website",
   "license": "MIT",
-  "types": "./out/index.d.ts",
   "private": true,
   "main": "./out/index.js",
+  "types": "./out/index.d.ts",
   "exports": {
     ".": {
       "cursorless:bundler": "./src/index.ts",

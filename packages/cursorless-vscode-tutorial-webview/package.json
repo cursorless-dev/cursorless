@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Contains the VSCode webview frontend for the Cursorless tutorial",
   "license": "MIT",
-  "type": "module",
   "private": true,
+  "type": "module",
   "main": "./out/index.js",
   "scripts": {
     "compile:tsc": "tsc --build",

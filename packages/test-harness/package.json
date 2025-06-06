@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "description": "Contains scripts and runners for testing Cursorless",
   "license": "MIT",
-  "type": "module",
-  "types": "./out/runners/extensionTestsNeovim.d.ts",
   "private": true,
+  "type": "module",
   "main": "./out/runners/extensionTestsNeovim.cjs",
+  "types": "./out/runners/extensionTestsNeovim.d.ts",
   "exports": {
     ".": {
       "default": "./out/runners/extensionTestsNeovim.cjs"

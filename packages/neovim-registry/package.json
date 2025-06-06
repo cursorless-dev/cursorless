@@ -4,8 +4,8 @@
   "description": "Registry to share apis and commands between packages for neovim",
   "license": "MIT",
   "type": "module",
-  "types": "./out/index.d.ts",
   "main": "./out/index.js",
+  "types": "./out/index.d.ts",
   "exports": {
     ".": {
       "cursorless:bundler": "./src/index.ts",

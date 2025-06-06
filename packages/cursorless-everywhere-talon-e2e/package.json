@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Our Talon everywhere/JS end-to-end tests",
   "license": "MIT",
-  "type": "module",
   "private": true,
+  "type": "module",
   "main": "./out/index.js",
   "scripts": {
     "compile": "tsc --build",

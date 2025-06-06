@@ -4,8 +4,8 @@
   "description": "Parse text for sentence boundary detection",
   "license": "MIT",
   "type": "module",
-  "types": "./out/index.d.ts",
   "main": "./out/index.js",
+  "types": "./out/index.d.ts",
   "exports": {
     ".": {
       "cursorless:bundler": "./src/index.ts",

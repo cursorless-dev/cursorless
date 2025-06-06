@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "cursorless in neovim",
   "license": "MIT",
-  "types": "./out/index.d.ts",
   "private": true,
   "main": "./out/index.cjs",
+  "types": "./out/index.d.ts",
   "exports": {
     ".": {
       "cursorless:bundler": "./src/index.ts",

@@ -4,8 +4,8 @@
   "description": "The core Cursorless engine, which is responsible for parsing and executing commands, allocating hats, etc",
   "license": "MIT",
   "type": "module",
-  "types": "./out/index.d.ts",
   "main": "./out/index.js",
+  "types": "./out/index.d.ts",
   "exports": {
     ".": {
       "cursorless:bundler": "./src/index.ts",

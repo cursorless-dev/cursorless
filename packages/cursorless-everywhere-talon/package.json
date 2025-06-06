@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "cursorless in talon js",
   "license": "MIT",
-  "type": "module",
   "private": true,
+  "type": "module",
   "main": "./out/index.js",
   "scripts": {
     "esbuild:dev": "pnpm run esbuild:base src/mainDevelopment.ts",

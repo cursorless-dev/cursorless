@@ -14,8 +14,8 @@
   "sponsor": {
     "url": "https://github.com/sponsors/cursorless-dev"
   },
-  "type": "module",
   "private": true,
+  "type": "module",
   "main": "./extension.cjs",
   "engines": {
     "vscode": "^1.82.0"

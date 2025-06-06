@@ -4,8 +4,8 @@
   "description": "Common utilities for use anywhere in our codebase",
   "license": "MIT",
   "type": "module",
-  "types": "./out/index.d.ts",
   "main": "./out/index.js",
+  "types": "./out/index.d.ts",
   "bin": {
     "my-ts-node": "./scripts/my-ts-node.js"
   },
