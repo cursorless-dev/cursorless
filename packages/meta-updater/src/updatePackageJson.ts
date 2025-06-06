@@ -220,13 +220,13 @@ function sortFields(obj: Record<string, any>): Record<string, any> {
     "badges",
     "capabilities",
     "contributes",
-    "pnpm",
     "postcss",
     "browserslist",
     "scripts",
     "extensionDependencies",
     "dependencies",
     "devDependencies",
+    "pnpm",
   ];
   const sorted = Object.fromEntries(
     Object.entries(obj).sort(

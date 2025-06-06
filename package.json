@@ -9,21 +9,6 @@
   "engines": {
     "node": ">=20.16.0"
   },
-  "pnpm": {
-    "patchedDependencies": {
-      "@types/nearley@2.11.5": "patches/@types__nearley@2.11.5.patch",
-      "nearley@2.20.1": "patches/nearley@2.20.1.patch"
-    },
-    "peerDependencyRules": {
-      "ignoreMissing": [
-        "react-json-view"
-      ],
-      "allowedVersions": {
-        "react": "18",
-        "react-dom": "18"
-      }
-    }
-  },
   "scripts": {
     "build": "pnpm -r build",
     "clean": "pnpm -r clean",
@@ -63,5 +48,20 @@
     "prettier-plugin-tailwindcss": "0.6.12",
     "syncpack": "13.0.4",
     "typescript": "5.8.3"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "@types/nearley@2.11.5": "patches/@types__nearley@2.11.5.patch",
+      "nearley@2.20.1": "patches/nearley@2.20.1.patch"
+    },
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "react-json-view"
+      ],
+      "allowedVersions": {
+        "react": "18",
+        "react-dom": "18"
+      }
+    }
   }
 }
