@@ -2,7 +2,23 @@
   "name": "@cursorless/cursorless-org",
   "version": "0.1.0",
   "description": "The cursorless.org website",
+  "license": "MIT",
   "private": true,
+  "type": "module",
+  "main": "./out/index.js",
+  "types": "./out/index.d.ts",
+  "exports": {
+    ".": {
+      "cursorless:bundler": "./src/index.ts",
+      "default": "./out/index.js"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "tailwindcss": {},
+      "autoprefixer": {}
+    }
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -35,21 +51,5 @@
     "postcss": "8.5.4",
     "tailwindcss": "3.4.14",
     "typescript": "5.8.3"
-  },
-  "license": "MIT",
-  "main": "./out/index.js",
-  "types": "./out/index.d.ts",
-  "exports": {
-    ".": {
-      "cursorless:bundler": "./src/index.ts",
-      "default": "./out/index.js"
-    }
-  },
-  "postcss": {
-    "plugins": {
-      "tailwindcss": {},
-      "autoprefixer": {}
-    }
-  },
-  "type": "module"
+  }
 }

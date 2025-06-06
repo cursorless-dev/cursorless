@@ -1,8 +1,18 @@
 {
   "name": "@cursorless/meta-updater",
-  "description": "Cursorless configuration for meta-updater",
   "version": "0.1.0",
+  "description": "Cursorless configuration for meta-updater",
+  "license": "MIT",
   "private": true,
+  "type": "module",
+  "main": "./out/index.js",
+  "types": "./out/index.d.ts",
+  "exports": {
+    ".": {
+      "cursorless:bundler": "./src/index.ts",
+      "default": "./out/index.js"
+    }
+  },
   "scripts": {
     "build": "esbuild ./src/index.ts --conditions=cursorless:bundler --bundle --outfile=dist/index.cjs --format=cjs --platform=node",
     "compile": "tsc --build",
@@ -21,19 +31,9 @@
     "path-exists": "5.0.0",
     "type-fest": "4.41.0"
   },
-  "main": "./out/index.js",
-  "types": "./out/index.d.ts",
-  "license": "MIT",
-  "exports": {
-    ".": {
-      "cursorless:bundler": "./src/index.ts",
-      "default": "./out/index.js"
-    }
-  },
   "devDependencies": {
     "@types/js-yaml": "4.0.9",
     "@types/lodash-es": "4.17.12",
     "esbuild": "0.25.5"
-  },
-  "type": "module"
+  }
 }

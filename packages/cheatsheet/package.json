@@ -2,20 +2,9 @@
   "name": "@cursorless/cheatsheet",
   "version": "0.1.0",
   "description": "Core cheatsheet react component",
-  "main": "./out/index.js",
-  "scripts": {
-    "test": "jest",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
-    "compile:tsc": "tsc --build",
-    "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=esm --bundle --packages=external --outfile=./out/index.js",
-    "compile": "pnpm compile:tsc && pnpm compile:esbuild",
-    "watch:tsc": "pnpm compile:tsc --watch",
-    "watch:esbuild": "pnpm compile:esbuild --watch",
-    "watch": "pnpm run --filter @cursorless/cheatsheet --parallel '/^watch:.*/'"
-  },
-  "keywords": [],
-  "author": "",
   "license": "MIT",
+  "type": "module",
+  "main": "./out/index.js",
   "types": "./out/index.d.ts",
   "exports": {
     ".": {
@@ -26,6 +15,16 @@
   "sideEffects": [
     "*.css"
   ],
+  "scripts": {
+    "test": "jest",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
+    "compile:tsc": "tsc --build",
+    "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=esm --bundle --packages=external --outfile=./out/index.js",
+    "compile": "pnpm compile:tsc && pnpm compile:esbuild",
+    "watch:tsc": "pnpm compile:tsc --watch",
+    "watch:esbuild": "pnpm compile:esbuild --watch",
+    "watch": "pnpm run --filter @cursorless/cheatsheet --parallel '/^watch:.*/'"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "6.7.2",
     "@fortawesome/free-solid-svg-icons": "6.7.2",
@@ -46,6 +45,5 @@
     "jest-environment-jsdom": "30.0.0-beta.3",
     "ts-jest": "29.3.4",
     "typescript": "5.8.3"
-  },
-  "type": "module"
+  }
 }

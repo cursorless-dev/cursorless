@@ -1,8 +1,29 @@
 {
   "name": "@cursorless/cursorless-org-docs",
-  "description": "Cursorless documentation website",
   "version": "0.0.0",
+  "description": "Cursorless documentation website",
+  "license": "MIT",
   "private": true,
+  "main": "./out/index.js",
+  "types": "./out/index.d.ts",
+  "exports": {
+    ".": {
+      "cursorless:bundler": "./src/index.ts",
+      "default": "./out/index.js"
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
@@ -34,18 +55,6 @@
     "react-dom": "19.1.0",
     "unist-util-visit": "5.0.0"
   },
-  "browserslist": {
-    "production": [
-      ">0.5%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.8.0",
     "@docusaurus/types": "3.8.0",
@@ -54,14 +63,5 @@
     "@types/react": "19.1.6",
     "typescript": "5.8.3",
     "unified": "11.0.5"
-  },
-  "license": "MIT",
-  "main": "./out/index.js",
-  "types": "./out/index.d.ts",
-  "exports": {
-    ".": {
-      "cursorless:bundler": "./src/index.ts",
-      "default": "./out/index.js"
-    }
   }
 }

@@ -1,9 +1,24 @@
 {
   "name": "@cursorless/cheatsheet-local",
   "version": "0.1.0",
-  "private": true,
   "description": "Thin wrapper around the cheatsheet for showing local cheatsheet",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
   "main": "./out/index.js",
+  "types": "./out/index.d.ts",
+  "exports": {
+    ".": {
+      "cursorless:bundler": "./src/index.ts",
+      "default": "./out/index.js"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "tailwindcss": {},
+      "autoprefixer": {}
+    }
+  },
   "scripts": {
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
@@ -12,16 +27,6 @@
     "build:dev": "pnpm webpack --mode=development",
     "build:prod": "pnpm webpack --mode=production --node-env=production",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
-  "types": "./out/index.d.ts",
-  "exports": {
-    ".": {
-      "cursorless:bundler": "./src/index.ts",
-      "default": "./out/index.js"
-    }
   },
   "dependencies": {
     "@cursorless/cheatsheet": "workspace:*",
@@ -52,12 +57,5 @@
     "webpack": "5.99.9",
     "webpack-cli": "6.0.1",
     "webpack-dev-server": "5.2.2"
-  },
-  "postcss": {
-    "plugins": {
-      "tailwindcss": {},
-      "autoprefixer": {}
-    }
-  },
-  "type": "module"
+  }
 }
