@@ -38,3 +38,15 @@ You can file a PR with just these changes to get the ball rolling.
 ## 4. Define your language's scopes
 
 Follow the instructions in [Adding a new scope](./adding-a-new-scope.md) to define the scopes for your language. Note that you can file a PR for each added scope, or do a couple at a time, but it's best _**not**_ to do them all at once, as smaller PRs make the review process easier.
+
+## 5. Document your language
+
+Create a `.mdx` file in [`languages`](../user/languages) with the `Language` react component. The file should be named after your language, eg `java.mdx`
+
+```md
+import { Language } from "./components/Language";
+
+# Java
+
+<Language languageId="java"></Language>
+```
