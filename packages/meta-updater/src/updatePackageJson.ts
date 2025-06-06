@@ -228,9 +228,22 @@ function sortFields(obj: Record<string, any>): Record<string, any> {
     "dependencies",
     "devDependencies",
   ];
-  return Object.fromEntries(
+  const sorted = Object.fromEntries(
     Object.entries(obj).sort(
       ([keyA], [keyB]) => orderedKeys.indexOf(keyA) - orderedKeys.indexOf(keyB),
     ),
   );
+
+  if (sorted.dependencies != null) {
+    sorted.dependencies = Object.fromEntries(
+      Object.entries(sorted.dependencies).sort(),
+    );
+  }
+  if (sorted.devDependencies != null) {
+    sorted.devDependencies = Object.fromEntries(
+      Object.entries(sorted.devDependencies).sort(),
+    );
+  }
+
+  return sorted;
 }
