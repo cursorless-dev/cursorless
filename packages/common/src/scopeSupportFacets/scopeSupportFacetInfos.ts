@@ -710,7 +710,7 @@ export const scopeSupportFacetInfos: Record<
     isIteration: true,
   },
   "value.argument.actual": {
-    description: "The value of a keyword argument in a function call",
+    description: "The value of a (keyword) argument in a function call",
     scopeType: "value",
   },
   "value.argument.actual.iteration": {
