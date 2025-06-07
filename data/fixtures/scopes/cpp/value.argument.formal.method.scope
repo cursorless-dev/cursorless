@@ -1,0 +1,22 @@
+class MyClass {
+    void foo(int aaa, int bbb = 2) {}
+}
+---
+
+[Content] = 1:32-1:33
+                                  >-<
+1|     void foo(int aaa, int bbb = 2) {}
+
+[Removal] = 1:29-1:33
+                               >----<
+1|     void foo(int aaa, int bbb = 2) {}
+
+[Leading delimiter] = 1:29-1:32
+                               >---<
+1|     void foo(int aaa, int bbb = 2) {}
+
+[Domain] = 1:22-1:33
+                        >-----------<
+1|     void foo(int aaa, int bbb = 2) {}
+
+[Insertion delimiter] = " "
