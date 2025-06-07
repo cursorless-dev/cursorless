@@ -63,7 +63,6 @@ export abstract class VscodeScopeVisualizer {
       case ScopeSupport.supportedAndPresentInEditor:
       case ScopeSupport.supportedButNotPresentInEditor:
         return;
-      case ScopeSupport.supportedLegacy:
       case ScopeSupport.unsupported:
         void showError(
           this.ide.messages,
