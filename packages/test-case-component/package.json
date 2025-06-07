@@ -22,6 +22,7 @@
   "dependencies": {
     "fs-extra": "11.1.0",
     "prettier": "2.8.4",
+    "react": "^18.2.0",
     "shiki": "0.14.3",
     "tsx": "3.12.7",
     "yaml": "2.2.1"
@@ -32,5 +33,9 @@
       "cursorless:bundler": "./src/index.ts",
       "default": "./out/index.js"
     }
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/react": "18.0.28"
   }
 }
