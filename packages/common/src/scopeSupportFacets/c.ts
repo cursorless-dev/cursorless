@@ -69,6 +69,7 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "className.iteration.block": unsupported,
 
   "functionName.iteration.document": unsupported,
+  "namedFunction.iteration.document": unsupported,
 
   "interior.class": unsupported,
   "interior.function": unsupported,
@@ -103,16 +104,21 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
 
   "value.return": unsupported,
   "value.field": unsupported,
-  "type.field.iteration": unsupported,
 
+  "type.field.iteration": unsupported,
   "type.argument.formal.iteration": unsupported,
 
   // Not applicable (C and C++)
 
-  map: notApplicable,
-  command: notApplicable,
-  notebookCell: notApplicable,
-  pairDelimiter: notApplicable,
+  // Element and tags
+  element: notApplicable,
+  tags: notApplicable,
+  startTag: notApplicable,
+  endTag: notApplicable,
+  "interior.element": notApplicable,
+  "textFragment.element": notApplicable,
+
+  // Resource syntax
   "interior.resource": notApplicable,
   "type.resource": notApplicable,
   "type.resource.iteration": notApplicable,
@@ -120,111 +126,133 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "name.resource.iteration": notApplicable,
   "value.resource": notApplicable,
   "value.resource.iteration": notApplicable,
-  element: notApplicable,
-  tags: notApplicable,
-  startTag: notApplicable,
-  endTag: notApplicable,
-  section: notApplicable,
-  "section.iteration.document": notApplicable,
-  "section.iteration.parent": notApplicable,
-  environment: notApplicable,
-  regularExpression: notApplicable,
-  "interior.element": notApplicable,
-  "interior.command": notApplicable,
-  "interior.cell": notApplicable,
-  "string.multiLine": notApplicable,
-  "textFragment.string.multiLine": notApplicable,
-  "textFragment.element": notApplicable,
-  "name.assignment.pattern": notApplicable,
-  "name.variable.pattern": notApplicable,
-  "value.variable.pattern": notApplicable,
-  "name.argument.actual": notApplicable,
-  "name.argument.actual.iteration": notApplicable,
-  "key.attribute": notApplicable,
+
+  // Map literal
+  map: notApplicable,
   "key.mapPair": notApplicable,
   "key.mapPair.iteration": notApplicable,
   "value.mapPair": notApplicable,
   "value.mapPair.iteration": notApplicable,
-  "value.yield": notApplicable,
-  "value.attribute": notApplicable,
+
+  // Keyword argument
+  "name.argument.actual": notApplicable,
+  "name.argument.actual.iteration": notApplicable,
   "value.argument.actual": notApplicable,
   "value.argument.actual.iteration": notApplicable,
-  "type.interface": notApplicable,
-  "value.typeAlias": notApplicable,
+
+  // Multiline string
+  "string.multiLine": notApplicable,
+  "textFragment.string.multiLine": notApplicable,
+
+  // Section
+  section: notApplicable,
+  "section.iteration.document": notApplicable,
+  "section.iteration.parent": notApplicable,
+
+  // Pattern destructing
+  "name.assignment.pattern": notApplicable,
+  "name.variable.pattern": notApplicable,
+  "value.variable.pattern": notApplicable,
+
+  // Command
+  command: notApplicable,
+  "interior.command": notApplicable,
+
+  // Type alias
   "type.alias": notApplicable,
+  "value.typeAlias": notApplicable,
+
+  // Notebook cell
+  notebookCell: notApplicable,
+  "interior.cell": notApplicable,
+
+  // Miscellaneous
+  "key.attribute": notApplicable,
+  "type.interface": notApplicable,
+  "value.attribute": notApplicable,
+  "value.yield": notApplicable,
+  environment: notApplicable,
+  pairDelimiter: notApplicable,
+  regularExpression: notApplicable,
 };
 
 export const cScopeSupport: LanguageScopeSupportFacetMap = {
   ...cCoreScopeSupport,
 
+  // Not applicable for C, but supported for C++
   // These are defined here because we don't want C++  to import them and
   // accidentally forget to add support for them.
 
   attribute: notApplicable,
-  anonymousFunction: notApplicable,
-  "interior.lambda": notApplicable,
 
-  "argument.actual.constructor": notApplicable,
-  "argument.actual.constructor.iteration": notApplicable,
-  "argument.formal.method": notApplicable,
-  "argument.formal.method.iteration": notApplicable,
-  "argument.formal.constructor": notApplicable,
-  "argument.formal.constructor.iteration": notApplicable,
-  "argument.formal.lambda": notApplicable,
+  // Lambda
   "argument.formal.lambda.iteration": notApplicable,
-
-  "argumentList.actual.method.empty": notApplicable,
-  "argumentList.actual.method.singleLine": notApplicable,
-  "argumentList.actual.method.multiLine": notApplicable,
-  "argumentList.actual.constructor.empty": notApplicable,
-  "argumentList.actual.constructor.singleLine": notApplicable,
-  "argumentList.actual.constructor.multiLine": notApplicable,
-  "argumentList.formal.constructor.empty": notApplicable,
-  "argumentList.formal.constructor.singleLine": notApplicable,
-  "argumentList.formal.constructor.multiLine": notApplicable,
+  "argument.formal.lambda": notApplicable,
   "argumentList.formal.lambda.empty": notApplicable,
-  "argumentList.formal.lambda.singleLine": notApplicable,
   "argumentList.formal.lambda.multiLine": notApplicable,
-  "argumentList.formal.method.empty": notApplicable,
-  "argumentList.formal.method.singleLine": notApplicable,
-  "argumentList.formal.method.multiLine": notApplicable,
-
-  "value.argument.formal": notApplicable,
-  "value.argument.formal.iteration": notApplicable,
-  "value.argument.formal.method": notApplicable,
-  "value.argument.formal.method.iteration": notApplicable,
-  "value.argument.formal.constructor": notApplicable,
-  "value.argument.formal.constructor.iteration": notApplicable,
-  "value.foreach": notApplicable,
+  "argumentList.formal.lambda.singleLine": notApplicable,
+  "interior.lambda": notApplicable,
   "value.return.lambda": notApplicable,
+  anonymousFunction: notApplicable,
 
-  "name.argument.formal.method": notApplicable,
-  "name.argument.formal.method.iteration": notApplicable,
-  "name.argument.formal.constructor": notApplicable,
-  "name.argument.formal.constructor.iteration": notApplicable,
-  "name.method": notApplicable,
-  "name.constructor": notApplicable,
-  "name.foreach": notApplicable,
-
-  "namedFunction.iteration.block": notApplicable,
-  "namedFunction.iteration.document": notApplicable,
-  "namedFunction.method": notApplicable,
-  "namedFunction.method.iteration.class": notApplicable,
-  "namedFunction.constructor": notApplicable,
-
-  "functionName.iteration.block": notApplicable,
-  "functionName.constructor": notApplicable,
-  "functionName.method": notApplicable,
-  "functionName.method.iteration.class": notApplicable,
-
+  // Constructor
+  "argument.actual.constructor.iteration": notApplicable,
+  "argument.actual.constructor": notApplicable,
+  "argument.formal.constructor.iteration": notApplicable,
+  "argument.formal.constructor": notApplicable,
+  "argumentList.actual.constructor.empty": notApplicable,
+  "argumentList.actual.constructor.multiLine": notApplicable,
+  "argumentList.actual.constructor.singleLine": notApplicable,
+  "argumentList.formal.constructor.empty": notApplicable,
+  "argumentList.formal.constructor.multiLine": notApplicable,
+  "argumentList.formal.constructor.singleLine": notApplicable,
   "functionCall.constructor": notApplicable,
   "functionCallee.constructor": notApplicable,
-
-  "type.argument.formal.method": notApplicable,
-  "type.argument.formal.method.iteration": notApplicable,
-  "type.argument.formal.constructor": notApplicable,
+  "functionName.constructor": notApplicable,
+  "name.argument.formal.constructor.iteration": notApplicable,
+  "name.argument.formal.constructor": notApplicable,
+  "name.constructor": notApplicable,
+  "namedFunction.constructor": notApplicable,
   "type.argument.formal.constructor.iteration": notApplicable,
+  "type.argument.formal.constructor": notApplicable,
+  "value.argument.formal.constructor.iteration": notApplicable,
+  "value.argument.formal.constructor": notApplicable,
+
+  // Method
+  "argument.formal.method.iteration": notApplicable,
+  "argument.formal.method": notApplicable,
+  "argumentList.actual.method.empty": notApplicable,
+  "argumentList.actual.method.multiLine": notApplicable,
+  "argumentList.actual.method.singleLine": notApplicable,
+  "argumentList.formal.method.empty": notApplicable,
+  "argumentList.formal.method.multiLine": notApplicable,
+  "argumentList.formal.method.singleLine": notApplicable,
+  "functionName.method.iteration.class": notApplicable,
+  "functionName.method": notApplicable,
+  "name.argument.formal.method.iteration": notApplicable,
+  "name.argument.formal.method": notApplicable,
+  "name.method": notApplicable,
+  "namedFunction.method.iteration.class": notApplicable,
+  "namedFunction.method": notApplicable,
+  "type.argument.formal.method.iteration": notApplicable,
+  "type.argument.formal.method": notApplicable,
+  "value.argument.formal.method.iteration": notApplicable,
+  "value.argument.formal.method": notApplicable,
+
+  // Foreach
+  "name.foreach": notApplicable,
+  "type.foreach": notApplicable,
+  "value.foreach": notApplicable,
+
+  // Default argument value
+  "value.argument.formal": notApplicable,
+  "value.argument.formal.iteration": notApplicable,
+
+  // Generic type
   "type.typeArgument": notApplicable,
   "type.typeArgument.iteration": notApplicable,
-  "type.foreach": notApplicable,
+
+  // Nested function
+  "functionName.iteration.block": notApplicable,
+  "namedFunction.iteration.block": notApplicable,
 };

@@ -67,7 +67,6 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   "name.foreach": unsupported,
   "name.method": unsupported,
   "namedFunction.iteration.block": unsupported,
-  "namedFunction.iteration.document": unsupported,
   "namedFunction.method.iteration.class": unsupported,
 
   "value.foreach": unsupported,
