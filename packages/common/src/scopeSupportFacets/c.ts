@@ -64,9 +64,7 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.iteration.block": unsupported,
 
   "class.iteration.document": unsupported,
-  "class.iteration.block": unsupported,
   "className.iteration.document": unsupported,
-  "className.iteration.block": unsupported,
 
   "functionName.iteration.document": unsupported,
   "namedFunction.iteration.document": unsupported,
@@ -165,6 +163,10 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   // Notebook cell
   notebookCell: notApplicable,
   "interior.cell": notApplicable,
+
+  // Nested class
+  "class.iteration.block": notApplicable,
+  "className.iteration.block": notApplicable,
 
   // Miscellaneous
   "key.attribute": notApplicable,
