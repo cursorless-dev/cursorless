@@ -7,6 +7,31 @@ const { supported, unsupported } = ScopeSupportFacetLevel;
 export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   ...cCoreScopeSupport,
 
+  "functionName.constructor": supported,
+  "functionName.method": supported,
+
+  "namedFunction.method": supported,
+  "namedFunction.constructor": supported,
+
+  attribute: supported,
+  anonymousFunction: supported,
+  "value.argument.formal": supported,
+  "value.argument.formal.iteration": supported,
+  "value.argument.formal.method": supported,
+  "value.argument.formal.method.iteration": supported,
+  "value.argument.formal.constructor": supported,
+  "value.argument.formal.constructor.iteration": supported,
+  "name.argument.formal.method": supported,
+  "name.argument.formal.method.iteration": supported,
+  "name.argument.formal.constructor": supported,
+  "name.argument.formal.constructor.iteration": supported,
+
+  "type.argument.formal.method": supported,
+  "type.argument.formal.constructor": supported,
+  "type.foreach": supported,
+
+  // Unsupported
+
   "argument.actual.constructor": unsupported,
   "argument.actual.constructor.iteration": unsupported,
   "argument.formal.method": unsupported,
@@ -32,45 +57,26 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.formal.method.singleLine": unsupported,
   "argumentList.formal.method.multiLine": unsupported,
 
-  "functionName.iteration.block": supported,
-  "functionName.constructor": supported,
-  "functionName.method": supported,
+  "functionName.iteration.block": unsupported,
+  "functionName.method.iteration.class": unsupported,
 
-  "namedFunction.iteration.block": supported,
-  "namedFunction.iteration.document": supported,
-  "namedFunction.method": supported,
-  "namedFunction.constructor": supported,
+  "functionCall.constructor": unsupported,
+  "functionCallee.constructor": unsupported,
 
-  "functionName.method.iteration.class": supported,
-  "functionCall.constructor": supported,
-  "functionCallee.constructor": supported,
-
-  attribute: supported,
-  anonymousFunction: supported,
-  "value.argument.formal": supported,
-  "value.argument.formal.iteration": supported,
-  "value.argument.formal.method": supported,
-  "value.argument.formal.method.iteration": supported,
-  "value.argument.formal.constructor": supported,
-  "value.argument.formal.constructor.iteration": supported,
-  "name.argument.formal.method": supported,
-  "name.argument.formal.method.iteration": supported,
-  "name.argument.formal.constructor": supported,
-  "name.argument.formal.constructor.iteration": supported,
-
-  "type.argument.formal.method": supported,
-  "type.argument.formal.method.iteration": supported,
-  "type.argument.formal.constructor": supported,
-  "type.argument.formal.constructor.iteration": supported,
-  "type.typeArgument": supported,
-
-  // Unsupported
-
-  "namedFunction.method.iteration.class": unsupported,
-  "interior.lambda": unsupported,
-  "name.method": unsupported,
   "name.constructor": unsupported,
   "name.foreach": unsupported,
+  "name.method": unsupported,
+  "namedFunction.iteration.block": unsupported,
+  "namedFunction.iteration.document": unsupported,
+  "namedFunction.method.iteration.class": unsupported,
+
   "value.foreach": unsupported,
+  "value.return.lambda": unsupported,
+
+  "type.typeArgument": unsupported,
   "type.typeArgument.iteration": unsupported,
+  "type.argument.formal.method.iteration": unsupported,
+  "type.argument.formal.constructor.iteration": unsupported,
+
+  "interior.lambda": unsupported,
 };

@@ -7,6 +7,7 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   list: supported,
   ifStatement: supported,
   statement: supported,
+  "statement.class": supported,
   class: supported,
   className: supported,
   namedFunction: supported,
@@ -21,13 +22,6 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal": supported,
   "argument.formal.iteration": supported,
 
-  "argumentList.actual.empty": unsupported,
-  "argumentList.actual.singleLine": unsupported,
-  "argumentList.actual.multiLine": unsupported,
-  "argumentList.formal.empty": unsupported,
-  "argumentList.formal.singleLine": unsupported,
-  "argumentList.formal.multiLine": unsupported,
-
   "comment.line": supported,
   "comment.block": supported,
   "string.singleLine": supported,
@@ -35,9 +29,6 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "textFragment.comment.block": supported,
   "textFragment.string.singleLine": supported,
   disqualifyDelimiter: supported,
-
-  "collectionItem.unenclosed": supported,
-  "collectionItem.unenclosed.iteration": supported,
 
   "name.assignment": supported,
   "name.variable": supported,
@@ -48,15 +39,10 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal.iteration": supported,
   "value.assignment": supported,
   "value.variable": supported,
-  "value.return": supported,
-  "value.return.lambda": supported,
-  "value.field": supported,
 
   "type.variable": supported,
   "type.argument.formal": supported,
   "type.field": supported,
-  "type.field.iteration": supported,
-  "type.foreach": supported,
   "type.enum": supported,
   "type.cast": supported,
   "type.class": supported,
@@ -67,7 +53,13 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   switchStatementSubject: unsupported,
   fieldAccess: unsupported,
 
-  "statement.class": unsupported,
+  "argumentList.actual.empty": unsupported,
+  "argumentList.actual.singleLine": unsupported,
+  "argumentList.actual.multiLine": unsupported,
+  "argumentList.formal.empty": unsupported,
+  "argumentList.formal.singleLine": unsupported,
+  "argumentList.formal.multiLine": unsupported,
+
   "statement.iteration.document": unsupported,
   "statement.iteration.block": unsupported,
 
@@ -103,8 +95,15 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "condition.switchCase": unsupported,
   "condition.switchCase.iteration": unsupported,
 
+  "collectionItem.unenclosed": unsupported,
+  "collectionItem.unenclosed.iteration": unsupported,
+
   "name.iteration.block": unsupported,
   "name.iteration.document": unsupported,
+
+  "value.return": unsupported,
+  "value.field": unsupported,
+  "type.field.iteration": unsupported,
 
   "type.argument.formal.iteration": unsupported,
 
@@ -197,6 +196,7 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
   "value.argument.formal.constructor": notApplicable,
   "value.argument.formal.constructor.iteration": notApplicable,
   "value.foreach": notApplicable,
+  "value.return.lambda": notApplicable,
 
   "name.argument.formal.method": notApplicable,
   "name.argument.formal.method.iteration": notApplicable,
@@ -226,4 +226,5 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.constructor.iteration": notApplicable,
   "type.typeArgument": notApplicable,
   "type.typeArgument.iteration": notApplicable,
+  "type.foreach": notApplicable,
 };

@@ -1,0 +1,9 @@
+class MyClass {
+    void foo(int aaa, int bbb = 2) {}
+}
+---
+
+[Range] =
+[Domain] = 1:13-1:33
+               >--------------------<
+1|     void foo(int aaa, int bbb = 2) {}
