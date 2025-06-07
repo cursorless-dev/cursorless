@@ -12,7 +12,6 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   namedFunction: supported,
 
   functionName: supported,
-  "functionName.method": supported,
   functionCall: supported,
   functionCallee: supported,
   "argument.actual": supported,
@@ -42,48 +41,31 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
 
   "name.assignment": supported,
   "name.variable": supported,
-  "name.foreach": supported,
   "name.function": supported,
-  "name.method": supported,
-  "name.constructor": supported,
   "name.class": supported,
   "name.field": supported,
   "name.argument.formal": supported,
   "name.argument.formal.iteration": supported,
-  "name.iteration.block": supported,
-  "name.iteration.document": supported,
   "value.assignment": supported,
   "value.variable": supported,
-  "value.attribute": supported,
-  "value.foreach": supported,
   "value.return": supported,
   "value.return.lambda": supported,
   "value.field": supported,
-  "value.argument.actual": supported,
-  "value.argument.actual.iteration": supported,
 
-  "value.typeAlias": supported,
   "type.variable": supported,
   "type.argument.formal": supported,
-  "type.argument.formal.iteration": supported,
-  "type.argument.formal.method": supported,
-  "type.argument.formal.method.iteration": supported,
-  "type.argument.formal.constructor": supported,
-  "type.argument.formal.constructor.iteration": supported,
-  "type.return": supported,
   "type.field": supported,
   "type.field.iteration": supported,
   "type.foreach": supported,
   "type.enum": supported,
-  "type.alias": supported,
   "type.cast": supported,
   "type.class": supported,
-  "type.typeArgument": supported,
-  "type.typeArgument.iteration": supported,
+  "type.return": supported,
 
   // Unsupported
 
   switchStatementSubject: unsupported,
+  fieldAccess: unsupported,
 
   "statement.class": unsupported,
   "statement.iteration.document": unsupported,
@@ -104,10 +86,6 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.ternary": unsupported,
   "interior.loop": unsupported,
 
-  // Unsupported
-
-  fieldAccess: unsupported,
-
   "branch.if": unsupported,
   "branch.if.iteration": unsupported,
   "branch.try": unsupported,
@@ -124,6 +102,11 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "condition.ternary": unsupported,
   "condition.switchCase": unsupported,
   "condition.switchCase.iteration": unsupported,
+
+  "name.iteration.block": unsupported,
+  "name.iteration.document": unsupported,
+
+  "type.argument.formal.iteration": unsupported,
 
   // Not applicable (C and C++)
 
@@ -164,7 +147,12 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "value.mapPair": notApplicable,
   "value.mapPair.iteration": notApplicable,
   "value.yield": notApplicable,
+  "value.attribute": notApplicable,
+  "value.argument.actual": notApplicable,
+  "value.argument.actual.iteration": notApplicable,
   "type.interface": notApplicable,
+  "value.typeAlias": notApplicable,
+  "type.alias": notApplicable,
 };
 
 export const cScopeSupport: LanguageScopeSupportFacetMap = {
@@ -208,13 +196,15 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
   "value.argument.formal.method.iteration": notApplicable,
   "value.argument.formal.constructor": notApplicable,
   "value.argument.formal.constructor.iteration": notApplicable,
+  "value.foreach": notApplicable,
+
   "name.argument.formal.method": notApplicable,
   "name.argument.formal.method.iteration": notApplicable,
   "name.argument.formal.constructor": notApplicable,
   "name.argument.formal.constructor.iteration": notApplicable,
-
-  "functionName.iteration.block": notApplicable,
-  "functionName.constructor": notApplicable,
+  "name.method": notApplicable,
+  "name.constructor": notApplicable,
+  "name.foreach": notApplicable,
 
   "namedFunction.iteration.block": notApplicable,
   "namedFunction.iteration.document": notApplicable,
@@ -222,7 +212,18 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
   "namedFunction.method.iteration.class": notApplicable,
   "namedFunction.constructor": notApplicable,
 
+  "functionName.iteration.block": notApplicable,
+  "functionName.constructor": notApplicable,
+  "functionName.method": notApplicable,
   "functionName.method.iteration.class": notApplicable,
+
   "functionCall.constructor": notApplicable,
   "functionCallee.constructor": notApplicable,
+
+  "type.argument.formal.method": notApplicable,
+  "type.argument.formal.method.iteration": notApplicable,
+  "type.argument.formal.constructor": notApplicable,
+  "type.argument.formal.constructor.iteration": notApplicable,
+  "type.typeArgument": notApplicable,
+  "type.typeArgument.iteration": notApplicable,
 };

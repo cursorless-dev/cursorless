@@ -34,6 +34,7 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
 
   "functionName.iteration.block": supported,
   "functionName.constructor": supported,
+  "functionName.method": supported,
 
   "namedFunction.iteration.block": supported,
   "namedFunction.iteration.document": supported,
@@ -57,8 +58,19 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal.constructor": supported,
   "name.argument.formal.constructor.iteration": supported,
 
+  "type.argument.formal.method": supported,
+  "type.argument.formal.method.iteration": supported,
+  "type.argument.formal.constructor": supported,
+  "type.argument.formal.constructor.iteration": supported,
+  "type.typeArgument": supported,
+
   // Unsupported
 
   "namedFunction.method.iteration.class": unsupported,
   "interior.lambda": unsupported,
+  "name.method": unsupported,
+  "name.constructor": unsupported,
+  "name.foreach": unsupported,
+  "value.foreach": unsupported,
+  "type.typeArgument.iteration": unsupported,
 };
