@@ -2,7 +2,13 @@
   "name": "cursorless",
   "version": "0.1.0",
   "description": "The root of the Cursorless monorepo",
+  "license": "MIT",
+  "packageManager": "pnpm@9.12.1",
+  "type": "module",
   "main": "index.js",
+  "engines": {
+    "node": ">=20.16.0"
+  },
   "scripts": {
     "build": "pnpm -r build",
     "clean": "pnpm -r clean",
@@ -24,25 +30,22 @@
     "watch:esbuild": "pnpm run -r --parallel --if-present watch:esbuild",
     "watch:tsc": "tsc --build --watch"
   },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
   "devDependencies": {
     "@pnpm/meta-updater": "2.0.4",
     "@types/node": "20.17.50",
-    "@typescript-eslint/eslint-plugin": "8.32.1",
-    "@typescript-eslint/parser": "8.32.1",
+    "@typescript-eslint/eslint-plugin": "8.33.1",
+    "@typescript-eslint/parser": "8.33.1",
     "cross-env": "7.0.3",
-    "esbuild": "0.25.4",
+    "esbuild": "0.25.5",
+    "eslint": "9.28.0",
     "eslint-config-prettier": "10.1.5",
-    "eslint-import-resolver-typescript": "4.4.0",
+    "eslint-import-resolver-typescript": "4.4.2",
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-mocha": "10.5.0",
     "eslint-plugin-unicorn": "56.0.1",
     "eslint-plugin-unused-imports": "4.1.4",
-    "eslint": "9.27.0",
-    "prettier-plugin-tailwindcss": "0.6.11",
     "prettier": "3.3.3",
+    "prettier-plugin-tailwindcss": "0.6.12",
     "syncpack": "13.0.4",
     "typescript": "5.8.3"
   },
@@ -60,10 +63,5 @@
         "react-dom": "18"
       }
     }
-  },
-  "engines": {
-    "node": ">=20.16.0"
-  },
-  "packageManager": "pnpm@9.12.1",
-  "type": "module"
+  }
 }

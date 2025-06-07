@@ -2,7 +2,16 @@
   "name": "@cursorless/test-case-recorder",
   "version": "1.0.0",
   "description": "Package containing the test case recorder",
+  "license": "MIT",
+  "type": "module",
   "main": "./out/index.js",
+  "types": "./out/index.d.ts",
+  "exports": {
+    ".": {
+      "cursorless:bundler": "./src/index.ts",
+      "default": "./out/index.js"
+    }
+  },
   "scripts": {
     "compile:tsc": "tsc --build",
     "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=esm --bundle --packages=external --outfile=./out/index.js",
@@ -12,22 +21,11 @@
     "watch": "pnpm run --filter @cursorless/test-case-recorder --parallel '/^watch:.*/'",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
-  "type": "module",
-  "types": "./out/index.d.ts",
-  "exports": {
-    ".": {
-      "cursorless:bundler": "./src/index.ts",
-      "default": "./out/index.js"
-    }
-  },
   "dependencies": {
     "@cursorless/common": "workspace:*",
     "@cursorless/cursorless-engine": "workspace:*",
     "@cursorless/node-common": "workspace:*",
-    "glob": "11.0.0",
+    "glob": "11.0.2",
     "immutability-helper": "3.1.1",
     "lodash-es": "4.17.21"
   },

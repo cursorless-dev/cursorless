@@ -2,7 +2,16 @@
   "name": "@cursorless/neovim-common",
   "version": "1.0.0",
   "description": "Common utility functions usable anywhere that neovim api is available",
+  "license": "MIT",
+  "type": "module",
   "main": "./out/index.js",
+  "types": "./out/index.d.ts",
+  "exports": {
+    ".": {
+      "cursorless:bundler": "./src/index.ts",
+      "default": "./out/index.js"
+    }
+  },
   "scripts": {
     "compile:tsc": "tsc --build",
     "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=esm --bundle --packages=external --outfile=./out/index.js",
@@ -12,26 +21,17 @@
     "watch": "pnpm run --filter @cursorless/neovim-common --parallel '/^watch:.*/'",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
-  "types": "./out/index.d.ts",
-  "exports": {
-    ".": {
-      "cursorless:bundler": "./src/index.ts",
-      "default": "./out/index.js"
-    }
-  },
   "dependencies": {
     "@cursorless/common": "workspace:*",
     "@cursorless/neovim-registry": "workspace:*",
     "@cursorless/node-common": "workspace:*",
-    "@types/lodash": "4.17.17",
-    "@types/uuid": "10.0.0",
-    "@types/vscode": "1.82.0",
     "lodash": "4.17.21",
     "neovim": "5.3.0",
     "vscode-uri": "3.1.0"
   },
-  "type": "module"
+  "devDependencies": {
+    "@types/lodash": "4.17.17",
+    "@types/uuid": "10.0.0",
+    "@types/vscode": "1.82.0"
+  }
 }

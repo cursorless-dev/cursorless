@@ -195,8 +195,16 @@
   (_
     type: (_) @type
   ) @_.domain
-  (#not-type? @_.domain "type_definition")
+  (#not-type? @_.domain type_definition type_descriptor cast_expression)
 )
+
+;;!! (int)5.5;
+;;!   ^^^
+(cast_expression
+  "(" @type.removal.start
+  type: (_) @type
+  ")" @type.removal.end
+) @_.domain
 
 ;;!! void foo(int value) {}
 ;;!               ^^^^^

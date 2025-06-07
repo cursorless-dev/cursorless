@@ -1,13 +1,18 @@
 import type { Config } from "@docusaurus/types";
 import type { Root } from "mdast";
-import { dirname, relative, resolve } from "path";
+import { createRequire } from "node:module";
+import { fileURLToPath } from "node:url";
+import { dirname, extname, relative, resolve } from "path";
 import { themes } from "prism-react-renderer";
 import type { Transformer } from "unified";
 import { visit } from "unist-util-visit";
-import { createRequire } from "node:module";
-import { fileURLToPath } from "node:url";
 
 const require = createRequire(import.meta.url);
+
+const docsRelative = "packages/cursorless-org-docs/src/docs/";
+const userRelative = docsRelative + "user";
+const contributingRelative = docsRelative + "contributing";
+const repoLink = "https://github.com/cursorless-dev/cursorless/tree/main/";
 
 /**
  * Files within /docs reference repository directories
@@ -43,21 +48,38 @@ function remarkPluginFixLinksToRepositoryArtifacts(): Transformer<Root> {
       );
       const artifact = resolve(file.dirname!, url);
       const artifactRelative = relative(repoRoot, artifact).replace(/\\/g, "/");
+      const fileRelative = relative(repoRoot, file.path).replace(/\\/g, "/");
 
-      // We host all files under docs, will resolve as a relative link
-      if (
-        artifactRelative.startsWith("packages/cursorless-org-docs/src/docs/")
-      ) {
+      // We host all files under docs. Will resolve as a relative link, but
+      // relative links pointing to a folder passing between user and
+      // contributing are not resolved correctly by docusaurus so we need to
+      // rewrite them.
+      if (artifactRelative.startsWith(docsRelative)) {
+        if (
+          isFolder(url) &&
+          passingBetweenUserAndContributing(fileRelative, artifactRelative)
+        ) {
+          node.url = "/docs/" + artifactRelative.slice(docsRelative.length);
+        }
         return;
       }
 
-      const repoLink =
-        "https://github.com/cursorless-dev/cursorless/tree/main/";
-      const linkToRepositoryArtifact = repoLink.concat(artifactRelative);
-
-      node.url = linkToRepositoryArtifact;
+      node.url = repoLink + artifactRelative;
     });
   };
+}
+
+function isFolder(url: string) {
+  return !extname(url);
+}
+
+function passingBetweenUserAndContributing(
+  fileRelative: string,
+  artifactRelative: string,
+): boolean {
+  return fileRelative.startsWith(userRelative)
+    ? !artifactRelative.startsWith(userRelative)
+    : !artifactRelative.startsWith(contributingRelative);
 }
 
 const config: Config = {
@@ -99,6 +121,7 @@ const config: Config = {
   ],
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "throw",
+  onBrokenAnchors: "throw",
   trailingSlash: true,
 
   presets: [

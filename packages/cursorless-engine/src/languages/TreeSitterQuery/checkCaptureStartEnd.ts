@@ -43,7 +43,7 @@ export function checkCaptureStartEnd(
       void showError(
         messages,
         "TreeSitterQuery.checkCaptures.badOrder",
-        `Start capture must be before end capture: ${captures}`,
+        `Start capture must be before end capture: ${captures.map((c) => c.name)}`,
       );
       shownError = true;
     }
