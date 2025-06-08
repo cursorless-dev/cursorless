@@ -1,0 +1,15 @@
+class MyClass {
+    MyClass() {}
+}
+---
+
+[Content] =
+[Removal] = 1:12-1:12
+              ><
+1|     MyClass() {}
+
+[Domain] = 1:4-1:16
+      >------------<
+1|     MyClass() {}
+
+[Insertion delimiter] = ""

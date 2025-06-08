@@ -41,8 +41,8 @@
 )
 
 (field_declaration_list
-  "{" @type.iteration.start.endOf
-  "}" @type.iteration.end.startOf
+  "{" @type.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
+  "}" @type.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
 )
 
 ;; Body of statements
@@ -114,12 +114,14 @@
   )
   declarator: (type_identifier) @className @name
 ) @_.domain @class @type
+
 (type_definition
   type: (enum_specifier
     body: (_)
   )
   declarator: (type_identifier) @className @name
 ) @_.domain @class @type
+
 (type_definition
   type: (union_specifier
     body: (_)
@@ -162,24 +164,28 @@
   )
 ) @namedFunction @functionName.domain @name.domain
 
+;;!! int aaa;
+;;!      ^^^
 (field_declaration
   declarator: (_
     !declarator
   ) @name
-) @name.domain
+) @_.domain
+
 (field_declaration
   declarator: (_
     declarator: (_) @name
   )
-) @name.domain
+) @_.domain
 
 (initializer_list) @list
 
-(call_expression) @functionCall
-
+;;!! foo()
+;;!  ^^^^^
+;;!  ^^^
 (call_expression
   function: (_) @functionCallee
-) @_.domain
+) @functionCall @functionCallee.domain
 
 ;;!! int aaa = 0;
 (declaration
@@ -258,7 +264,7 @@
 ;;!! void foo(int aaa, int bbb) {}
 ;;!           ^^^^^^^^^^^^^^^^
 (_
-  (function_declarator
+  declarator: (_
     (parameter_list
       "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
       ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf

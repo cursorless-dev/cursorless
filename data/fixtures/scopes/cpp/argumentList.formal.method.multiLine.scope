@@ -1,0 +1,26 @@
+class MyClass {
+    void foo(
+        int aaa,
+        int bbb
+    ) {}
+}
+---
+
+[Content] =
+[Removal] = 1:13-4:4
+               >
+1|     void foo(
+2|         int aaa,
+3|         int bbb
+4|     ) {}
+   ----<
+
+[Domain] = 1:4-4:8
+      >---------
+1|     void foo(
+2|         int aaa,
+3|         int bbb
+4|     ) {}
+   --------<
+
+[Insertion delimiter] = ",\n"

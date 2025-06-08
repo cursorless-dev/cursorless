@@ -40,6 +40,9 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.actual.empty": supported,
   "argumentList.actual.singleLine": supported,
   "argumentList.actual.multiLine": supported,
+  "argumentList.actual.method.empty": supported,
+  "argumentList.actual.method.singleLine": supported,
+  "argumentList.actual.method.multiLine": supported,
   "argumentList.formal.empty": supported,
   "argumentList.formal.singleLine": supported,
   "argumentList.formal.multiLine": supported,
@@ -163,6 +166,10 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "class.iteration.block": notApplicable,
   "className.iteration.block": notApplicable,
 
+  // Nested function
+  "functionName.iteration.block": notApplicable,
+  "namedFunction.iteration.block": notApplicable,
+
   // Try catch
   "branch.try": notApplicable,
   "branch.try.iteration": notApplicable,
@@ -224,9 +231,6 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
   // Method
   "argument.formal.method.iteration": notApplicable,
   "argument.formal.method": notApplicable,
-  "argumentList.actual.method.empty": notApplicable,
-  "argumentList.actual.method.multiLine": notApplicable,
-  "argumentList.actual.method.singleLine": notApplicable,
   "argumentList.formal.method.empty": notApplicable,
   "argumentList.formal.method.multiLine": notApplicable,
   "argumentList.formal.method.singleLine": notApplicable,
@@ -254,8 +258,4 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
   // Generic type
   "type.typeArgument": notApplicable,
   "type.typeArgument.iteration": notApplicable,
-
-  // Nested function
-  "functionName.iteration.block": notApplicable,
-  "namedFunction.iteration.block": notApplicable,
 };

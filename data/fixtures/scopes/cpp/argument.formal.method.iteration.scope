@@ -1,0 +1,12 @@
+class Foo {
+    void bar(int aaa, int bbb) {}
+}
+---
+
+[Range] = 1:13-1:29
+               >----------------<
+1|     void bar(int aaa, int bbb) {}
+
+[Domain] = 1:4-1:33
+      >-----------------------------<
+1|     void bar(int aaa, int bbb) {}
