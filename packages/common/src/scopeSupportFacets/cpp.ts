@@ -15,12 +15,14 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
 
   attribute: supported,
   anonymousFunction: supported,
+
   "value.argument.formal": supported,
   "value.argument.formal.iteration": supported,
   "value.argument.formal.method": supported,
   "value.argument.formal.method.iteration": supported,
   "value.argument.formal.constructor": supported,
   "value.argument.formal.constructor.iteration": supported,
+
   "name.argument.formal.method": supported,
   "name.argument.formal.method.iteration": supported,
   "name.argument.formal.constructor": supported,
@@ -71,6 +73,7 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
 
   "value.foreach": unsupported,
   "value.return.lambda": unsupported,
+  "value.field": unsupported,
 
   "type.typeArgument": unsupported,
   "type.typeArgument.iteration": unsupported,
@@ -78,4 +81,8 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.constructor.iteration": unsupported,
 
   "interior.lambda": unsupported,
+
+  "branch.try": unsupported,
+  "branch.try.iteration": unsupported,
+  "interior.try": unsupported,
 };

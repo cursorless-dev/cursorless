@@ -1,0 +1,33 @@
+union bbb { int ccc; };
+
+typedef union { int hhh; } iii;
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:23
+  >-----------------------<
+0| union bbb { int ccc; };
+
+[#1 Removal] = 0:0-2:0
+  >-----------------------
+0| union bbb { int ccc; };
+1|
+2| typedef union { int hhh; } iii;
+   <
+
+[#1 Insertion delimiter] = "\n\n"
+
+
+[#2 Content] =
+[#2 Domain] = 2:0-2:31
+  >-------------------------------<
+2| typedef union { int hhh; } iii;
+
+[#2 Removal] = 0:23-2:31
+                         >
+0| union bbb { int ccc; };
+1|
+2| typedef union { int hhh; } iii;
+   -------------------------------<
+
+[#2 Insertion delimiter] = "\n\n"

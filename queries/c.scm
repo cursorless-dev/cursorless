@@ -25,7 +25,7 @@
   (return_statement)
   (switch_statement)
   (while_statement)
-  ;; Disabled on purpose. This is commonly the entire body of a function.
+  ;; Disabled on purpose. This is the entire body of statements.
   ;; (compound_statement)
 ] @statement
 
@@ -36,15 +36,19 @@
   (#document-range! @statement.iteration @class.iteration @className.iteration)
 )
 (
-  (translation_unit) @namedFunction.iteration @functionName.iteration
-  (#document-range! @namedFunction.iteration @functionName.iteration)
+  (translation_unit) @namedFunction.iteration @functionName.iteration @name.iteration
+  (#document-range! @namedFunction.iteration @functionName.iteration @name.iteration)
 )
 
-(_
-  body: (_
-    "{" @statement.iteration.start.endOf
-    "}" @statement.iteration.end.startOf
-  )
+(field_declaration_list
+  "{" @type.iteration.start.endOf
+  "}" @type.iteration.end.startOf
+)
+
+;; Body of statements
+(compound_statement
+  "{" @statement.iteration.start.endOf @name.iteration.start.endOf
+  "}" @statement.iteration.end.startOf @name.iteration.end.startOf
 )
 
 (
@@ -177,13 +181,6 @@
   function: (_) @functionCallee
 ) @_.domain
 
-(switch_statement
-  condition: (_
-    "(" @private.switchStatementSubject.start.endOf
-    ")" @private.switchStatementSubject.end.startOf
-  )
-) @_.domain
-
 ;;!! int aaa = 0;
 (declaration
   declarator: (_
@@ -284,6 +281,121 @@
   ) @_dummy
   (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
+
+;;!! if () {}
+;;!  ^^^^^^^^
+(
+  (if_statement
+    "if" @branch.start @branch.removal.start
+    condition: (_) @condition
+    consequence: (_) @branch.end @branch.removal.end
+    alternative: (else_clause
+      (if_statement) @branch.removal.end.startOf
+    )?
+  ) @condition.domain
+  (#not-parent-type? @condition.domain "else_clause")
+  (#child-range! @condition 0 -1 true true)
+)
+
+;;!! else if () {}
+;;!  ^^^^^^^^^^^^^
+(else_clause
+  "else" @branch.start @condition.domain.start
+  (if_statement
+    condition: (_) @condition
+    consequence: (_) @branch.end @condition.domain.end
+    (#child-range! @condition 0 -1 true true)
+  )
+)
+
+;;!! else {}
+;;!  ^^^^^^^
+(if_statement
+  (else_clause
+    (compound_statement)
+  ) @branch
+)
+
+(
+  (if_statement) @branch.iteration
+  (#not-parent-type? @branch.iteration "else_clause")
+)
+
+;;!! for (int i = 0; i < size; ++i) {}
+;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+;;!                  ^^^^^^^^
+(for_statement
+  condition: (_) @condition
+) @branch @condition.domain
+
+;;!! while (true) {}
+;;!  ^^^^^^^^^^^^^^^
+;;!         ^^^^
+(while_statement
+  condition: (_) @condition
+  (#child-range! @condition 0 -1 true true)
+) @branch @condition.domain
+
+;;!! do {} while (true);
+;;!  ^^^^^^^^^^^^^^^^^^^
+;;!               ^^^^
+(do_statement
+  condition: (_) @condition
+  (#child-range! @condition 0 -1 true true)
+) @branch @condition.domain
+
+;;!! switch (true) {}
+;;!          ^^^^
+(switch_statement
+  condition: (_
+    "(" @private.switchStatementSubject.start.endOf
+    ")" @private.switchStatementSubject.end.startOf
+  )
+  body: (_
+    "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
+    "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
+  )
+) @_.domain @branch.iteration.domain @condition.iteration.domain
+
+;;!! case 0: break;
+;;!  ^^^^^^^^^^^^^^
+;;!       ^
+(case_statement
+  value: (_)? @condition
+) @branch @condition.domain
+
+;;!! true ? 0 : 1
+;;!  ^^^^
+;;!         ^   ^
+(conditional_expression
+  condition: (_) @condition
+  consequence: (_) @branch
+) @condition.domain
+(conditional_expression
+  alternative: (_) @branch
+)
+
+;;!! int foo, bar;
+;;!      ^^^  ^^^
+(declaration
+  type: (_)
+  (_) @collectionItem
+)
+
+(declaration
+  type: (_)
+  .
+  (_) @collectionItem.iteration.start
+  (_)? @collectionItem.iteration.end
+  .
+) @collectionItem.iteration.domain
+
+;;!! return 0;
+;;!         ^
+(return_statement
+  "return"
+  (_) @value
+) @_.domain
 
 operator: [
   "->"

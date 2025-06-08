@@ -181,10 +181,8 @@
 
 (switch_expression
   body: (_
-    .
     "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
     "}" @condition.iteration.end.startOf @branch.iteration.end.startOf
-    .
   )
 ) @condition.iteration.domain @branch.iteration.domain
 
