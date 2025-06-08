@@ -13,12 +13,21 @@ class MyClass {
 
 
 [#2 Range] =
-[#2 Domain] = 1:12-1:32
+[#2 Domain] = 0:15-2:0
+                 >
+0| class MyClass {
+1|     MyClass(int aaa, int bbb = 2) {}
+2| }
+   <
+
+
+[#3 Range] =
+[#3 Domain] = 1:12-1:32
               >--------------------<
 1|     MyClass(int aaa, int bbb = 2) {}
 
 
-[#3 Range] =
-[#3 Domain] = 1:35-1:35
+[#4 Range] =
+[#4 Domain] = 1:35-1:35
                                      ><
 1|     MyClass(int aaa, int bbb = 2) {}

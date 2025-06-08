@@ -1,0 +1,24 @@
+for (int value : values) {}
+---
+
+[Content] = 0:9-0:14
+           >-----<
+0| for (int value : values) {}
+
+[Removal] = 0:9-0:15
+           >------<
+0| for (int value : values) {}
+
+[Leading delimiter] = 0:8-0:9
+          >-<
+0| for (int value : values) {}
+
+[Trailing delimiter] = 0:14-0:15
+                >-<
+0| for (int value : values) {}
+
+[Domain] = 0:0-0:27
+  >---------------------------<
+0| for (int value : values) {}
+
+[Insertion delimiter] = " "
