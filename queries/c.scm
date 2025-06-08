@@ -258,7 +258,7 @@
 ;;!! void foo(int aaa, int bbb) {}
 ;;!           ^^^^^^^^^^^^^^^^
 (_
-  (function_declarator
+  declarator: (_
     (parameter_list
       "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
       ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf

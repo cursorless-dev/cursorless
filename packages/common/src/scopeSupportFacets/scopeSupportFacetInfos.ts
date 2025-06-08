@@ -111,7 +111,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "class.iteration.block": {
     description:
-      "Iteration scope for classes. Statement blocks(body of functions/if classes/for loops/etc).",
+      "Iteration scope for classes. Statement blocks(body of functions/if statements/for loops/etc).",
     scopeType: "class",
     isIteration: true,
   },
@@ -126,7 +126,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "className.iteration.block": {
     description:
-      "Iteration scope for class names. Statement blocks(body of functions/if classes/for loops/etc).",
+      "Iteration scope for class names. Statement blocks(body of functions/if statements/for loops/etc).",
     scopeType: "className",
     isIteration: true,
   },
@@ -150,7 +150,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "namedFunction.iteration.block": {
     description:
-      "Iteration scope for named functions. Statement blocks(body of functions/if classes/for loops/etc).",
+      "Iteration scope for named functions. Statement blocks(body of functions/if statements/for loops/etc).",
     scopeType: "namedFunction",
     isIteration: true,
   },
@@ -183,7 +183,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "functionName.iteration.block": {
     description:
-      "Iteration scope for function names. Statement blocks(body of functions/if classes/for loops/etc).",
+      "Iteration scope for function names. Statement blocks(body of functions/if statements/for loops/etc).",
     scopeType: "functionName",
     isIteration: true,
   },
@@ -618,7 +618,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "name.iteration.block": {
     description:
-      "Iteration scope for names: statement blocks (body of functions/if classes/for loops/etc).",
+      "Iteration scope for names: statement blocks (body of functions/if statements/for loops/etc).",
     scopeType: "name",
     isIteration: true,
   },

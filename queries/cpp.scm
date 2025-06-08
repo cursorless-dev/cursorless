@@ -42,6 +42,8 @@
   )
 ) @_.domain
 
+;;!! []() {}
+;;!  ^^^^^^^
 (lambda_expression) @anonymousFunction
 
 ;;!! [[attribute]]
