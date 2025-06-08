@@ -489,8 +489,8 @@
   ">" @type.iteration.end.startOf
 )
 
-;;!! foo(name: string) {}
-;;!      ^^^^^^^^^^^^
+;;!! void foo(int aaa, int bbb) {}
+;;!           ^^^^^^^  ^^^^^^^
 (_
   parameters: (_
     (_)? @_.leading.endOf
@@ -503,8 +503,8 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
-;;!! foo("bar")
-;;!      ^^^^^
+;;!! foo(aaa, bbb);
+;;!      ^^^  ^^^
 (
   (argument_list
     (_)? @_.leading.endOf
@@ -517,8 +517,8 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
-;;!! foo(int a) {};
-;;!      ^^^^^
+;;!! void foo(int aaa, int bbb) {}
+;;!           ^^^^^^^^^^^^^^^^
 (_
   parameters: (_
     "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
@@ -527,8 +527,8 @@
   (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
-;;!! foo(1);
-;;!      ^
+;;!! foo(aaa, bbb);
+;;!      ^^^^^^^^
 (_
   (argument_list
     "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf

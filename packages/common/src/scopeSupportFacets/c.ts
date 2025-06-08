@@ -5,16 +5,27 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   list: supported,
+  disqualifyDelimiter: supported,
+  switchStatementSubject: supported,
+  functionCall: supported,
+  functionCallee: supported,
+
   ifStatement: supported,
   statement: supported,
   "statement.class": supported,
-  class: supported,
-  className: supported,
-  namedFunction: supported,
+  "statement.iteration.document": supported,
+  "statement.iteration.block": supported,
 
+  class: supported,
+  "class.iteration.document": supported,
+  className: supported,
+  "className.iteration.document": supported,
+
+  namedFunction: supported,
   functionName: supported,
-  functionCall: supported,
-  functionCallee: supported,
+  "functionName.iteration.document": supported,
+  "namedFunction.iteration.document": supported,
+
   "argument.actual": supported,
   "argument.actual.iteration": supported,
   "argument.actual.method": supported,
@@ -22,13 +33,19 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal": supported,
   "argument.formal.iteration": supported,
 
+  "argumentList.actual.empty": supported,
+  "argumentList.actual.singleLine": supported,
+  "argumentList.actual.multiLine": supported,
+  "argumentList.formal.empty": supported,
+  "argumentList.formal.singleLine": supported,
+  "argumentList.formal.multiLine": supported,
+
   "comment.line": supported,
   "comment.block": supported,
   "string.singleLine": supported,
   "textFragment.comment.line": supported,
   "textFragment.comment.block": supported,
   "textFragment.string.singleLine": supported,
-  disqualifyDelimiter: supported,
 
   "name.assignment": supported,
   "name.variable": supported,
@@ -37,6 +54,7 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "name.field": supported,
   "name.argument.formal": supported,
   "name.argument.formal.iteration": supported,
+
   "value.assignment": supported,
   "value.variable": supported,
 
@@ -50,25 +68,6 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Unsupported
 
-  switchStatementSubject: unsupported,
-  fieldAccess: unsupported,
-
-  "argumentList.actual.empty": unsupported,
-  "argumentList.actual.singleLine": unsupported,
-  "argumentList.actual.multiLine": unsupported,
-  "argumentList.formal.empty": unsupported,
-  "argumentList.formal.singleLine": unsupported,
-  "argumentList.formal.multiLine": unsupported,
-
-  "statement.iteration.document": unsupported,
-  "statement.iteration.block": unsupported,
-
-  "class.iteration.document": unsupported,
-  "className.iteration.document": unsupported,
-
-  "functionName.iteration.document": unsupported,
-  "namedFunction.iteration.document": unsupported,
-
   "interior.class": unsupported,
   "interior.function": unsupported,
   "interior.if": unsupported,
@@ -76,6 +75,8 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.switchCase": unsupported,
   "interior.ternary": unsupported,
   "interior.loop": unsupported,
+
+  fieldAccess: unsupported,
 
   "branch.if": unsupported,
   "branch.if.iteration": unsupported,

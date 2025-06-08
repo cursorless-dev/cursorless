@@ -15,7 +15,6 @@
   (type_definition)
   (break_statement)
   (case_statement)
-  (compound_statement)
   (continue_statement)
   (do_statement)
   (expression_statement)
@@ -26,9 +25,27 @@
   (return_statement)
   (switch_statement)
   (while_statement)
+  ;; Disabled on purpose. This is commonly the entire body of a function.
+  ;; (compound_statement)
 ] @statement
 
 (if_statement) @ifStatement
+
+(
+  (translation_unit) @statement.iteration @class.iteration @className.iteration
+  (#document-range! @statement.iteration @class.iteration @className.iteration)
+)
+(
+  (translation_unit) @namedFunction.iteration @functionName.iteration
+  (#document-range! @namedFunction.iteration @functionName.iteration)
+)
+
+(_
+  body: (_
+    "{" @statement.iteration.start.endOf
+    "}" @statement.iteration.end.startOf
+  )
+)
 
 (
   (string_literal) @string @textFragment
@@ -162,7 +179,8 @@
 
 (switch_statement
   condition: (_
-    value: (_) @private.switchStatementSubject
+    "(" @private.switchStatementSubject.start.endOf
+    ")" @private.switchStatementSubject.end.startOf
   )
 ) @_.domain
 
@@ -206,14 +224,14 @@
   ")" @type.removal.end
 ) @_.domain
 
-;;!! void foo(int value) {}
-;;!               ^^^^^
+;;!! void foo(int aaa) {}
+;;!               ^^^
 (parameter_declaration
   declarator: (_) @name
 ) @_.domain
 
-;;!! void foo(int value) {}
-;;!           ^^^^^^^^^
+;;!! void foo(int aaa, int bbb) {}
+;;!           ^^^^^^^  ^^^^^^^
 (
   (parameter_list
     (_)? @_.leading.endOf
@@ -226,8 +244,8 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
-;;!! foo(5 + 6)
-;;!      ^^^^^
+;;!! foo(aaa, bbb);
+;;!      ^^^  ^^^
 (
   (argument_list
     (_)? @_.leading.endOf
@@ -240,21 +258,32 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
+;;!! void foo(int aaa, int bbb) {}
+;;!           ^^^^^^^^^^^^^^^^
 (_
   (function_declarator
     (parameter_list
-      "(" @argumentOrParameter.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
-      ")" @argumentOrParameter.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
-    )
+      "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
+      ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
+    ) @_dummy
   )
-) @argumentOrParameter.iteration.domain
+  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
+(parameter_list
+  "(" @type.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
+  ")" @type.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+)
+
+;;!! foo(aaa, bbb);
+;;!      ^^^^^^^^
 (_
   (argument_list
-    "(" @argumentOrParameter.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
-    ")" @argumentOrParameter.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
-  )
-) @argumentOrParameter.iteration.domain
+    "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @_dummy
+  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
 operator: [
   "->"

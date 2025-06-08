@@ -28,11 +28,11 @@ initialState:
 finalState:
   documentContents: |
     int main() {
-      switch (int i = rand() % 100; ) {
+      switch () {
         default:
         break;
       }
     }
   selections:
-    - anchor: {line: 1, character: 32}
-      active: {line: 1, character: 32}
+    - anchor: {line: 1, character: 10}
+      active: {line: 1, character: 10}
