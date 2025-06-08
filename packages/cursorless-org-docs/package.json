@@ -61,6 +61,9 @@
     "@tsconfig/docusaurus": "2.0.3",
     "@types/mdast": "4.0.4",
     "@types/react": "19.1.6",
+    "@tailwindcss/postcss": "4.1.8",
+    "postcss": "8.4.47",
+    "tailwindcss": "3.4.14",
     "typescript": "5.8.3",
     "unified": "11.0.5"
   }
