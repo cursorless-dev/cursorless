@@ -5,16 +5,31 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   list: supported,
+  disqualifyDelimiter: supported,
+  switchStatementSubject: supported,
+
   ifStatement: supported,
   statement: supported,
   "statement.class": supported,
-  class: supported,
-  className: supported,
-  namedFunction: supported,
+  "statement.iteration.document": supported,
+  "statement.iteration.block": supported,
 
+  class: supported,
+  "class.iteration.document": supported,
+  className: supported,
+  "className.iteration.document": supported,
+
+  "collectionItem.unenclosed": supported,
+  "collectionItem.unenclosed.iteration": supported,
+
+  namedFunction: supported,
   functionName: supported,
+  "functionName.iteration.document": supported,
+  "namedFunction.iteration.document": supported,
+
   functionCall: supported,
   functionCallee: supported,
+
   "argument.actual": supported,
   "argument.actual.iteration": supported,
   "argument.actual.method": supported,
@@ -22,27 +37,54 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal": supported,
   "argument.formal.iteration": supported,
 
+  "argumentList.actual.empty": supported,
+  "argumentList.actual.singleLine": supported,
+  "argumentList.actual.multiLine": supported,
+  "argumentList.formal.empty": supported,
+  "argumentList.formal.singleLine": supported,
+  "argumentList.formal.multiLine": supported,
+
+  "branch.if": supported,
+  "branch.if.iteration": supported,
+  "branch.switchCase": supported,
+  "branch.switchCase.iteration": supported,
+  "branch.ternary": supported,
+  "branch.loop": supported,
+
   "comment.line": supported,
   "comment.block": supported,
   "string.singleLine": supported,
   "textFragment.comment.line": supported,
   "textFragment.comment.block": supported,
   "textFragment.string.singleLine": supported,
-  disqualifyDelimiter: supported,
+
+  "condition.if": supported,
+  "condition.while": supported,
+  "condition.doWhile": supported,
+  "condition.for": supported,
+  "condition.ternary": supported,
+  "condition.switchCase": supported,
+  "condition.switchCase.iteration": supported,
 
   "name.assignment": supported,
   "name.variable": supported,
   "name.function": supported,
   "name.class": supported,
   "name.field": supported,
+  "name.iteration.block": supported,
+  "name.iteration.document": supported,
   "name.argument.formal": supported,
   "name.argument.formal.iteration": supported,
+
   "value.assignment": supported,
   "value.variable": supported,
+  "value.return": supported,
 
   "type.variable": supported,
   "type.argument.formal": supported,
+  "type.argument.formal.iteration": supported,
   "type.field": supported,
+  "type.field.iteration": supported,
   "type.enum": supported,
   "type.cast": supported,
   "type.class": supported,
@@ -50,61 +92,14 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Unsupported
 
-  switchStatementSubject: unsupported,
-  fieldAccess: unsupported,
-
-  "argumentList.actual.empty": unsupported,
-  "argumentList.actual.singleLine": unsupported,
-  "argumentList.actual.multiLine": unsupported,
-  "argumentList.formal.empty": unsupported,
-  "argumentList.formal.singleLine": unsupported,
-  "argumentList.formal.multiLine": unsupported,
-
-  "statement.iteration.document": unsupported,
-  "statement.iteration.block": unsupported,
-
-  "class.iteration.document": unsupported,
-  "className.iteration.document": unsupported,
-
-  "functionName.iteration.document": unsupported,
-  "namedFunction.iteration.document": unsupported,
-
   "interior.class": unsupported,
   "interior.function": unsupported,
   "interior.if": unsupported,
-  "interior.try": unsupported,
   "interior.switchCase": unsupported,
   "interior.ternary": unsupported,
   "interior.loop": unsupported,
 
-  "branch.if": unsupported,
-  "branch.if.iteration": unsupported,
-  "branch.try": unsupported,
-  "branch.try.iteration": unsupported,
-  "branch.switchCase": unsupported,
-  "branch.switchCase.iteration": unsupported,
-  "branch.ternary": unsupported,
-  "branch.loop": unsupported,
-
-  "condition.if": unsupported,
-  "condition.while": unsupported,
-  "condition.doWhile": unsupported,
-  "condition.for": unsupported,
-  "condition.ternary": unsupported,
-  "condition.switchCase": unsupported,
-  "condition.switchCase.iteration": unsupported,
-
-  "collectionItem.unenclosed": unsupported,
-  "collectionItem.unenclosed.iteration": unsupported,
-
-  "name.iteration.block": unsupported,
-  "name.iteration.document": unsupported,
-
-  "value.return": unsupported,
-  "value.field": unsupported,
-
-  "type.field.iteration": unsupported,
-  "type.argument.formal.iteration": unsupported,
+  fieldAccess: unsupported,
 
   // Not applicable (C and C++)
 
@@ -168,11 +163,17 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "class.iteration.block": notApplicable,
   "className.iteration.block": notApplicable,
 
+  // Try catch
+  "branch.try": notApplicable,
+  "branch.try.iteration": notApplicable,
+  "interior.try": notApplicable,
+
   // Miscellaneous
   "key.attribute": notApplicable,
   "type.interface": notApplicable,
   "value.attribute": notApplicable,
   "value.yield": notApplicable,
+  "value.field": notApplicable,
   environment: notApplicable,
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,
