@@ -95,10 +95,6 @@ It is also possible to write manual tests. When doing so, we have a convention t
 
 See [docs](./adding-a-new-language.md).
 
-### Adding syntactic scope types to an existing language
-
-See [parse-tree-patterns.md](./parse-tree-patterns.md).
-
 ### Testing Cursorless with a local version of the VSCode parse tree extension
 
 First bundle the parse tree extension into a `.vsix`, using something like the following:

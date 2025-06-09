@@ -32,7 +32,6 @@ export function constructTestHelpers(
   fileSystem: VscodeFileSystem,
   scopeProvider: ScopeProvider,
   injectIde: (ide: IDE) => void,
-  runIntegrationTests: () => Promise<void>,
   vscodeTutorial: VscodeTutorial,
 ): VscodeTestHelpers | undefined {
   return {
@@ -81,7 +80,6 @@ export function constructTestHelpers(
       );
     },
     hatTokenMap,
-    runIntegrationTests,
     vscodeApi,
     getTutorialWebviewEventLog() {
       return vscodeTutorial.getEventLog();
