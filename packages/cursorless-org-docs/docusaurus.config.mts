@@ -147,7 +147,7 @@ const config: Config = {
     ],
   ],
   plugins: [
-    "./src/plugins/tailwind-config.js",
+    "./src/plugins/tailwind-plugin.js",
   ],
 
   themeConfig: {
