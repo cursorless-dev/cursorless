@@ -16588,7 +16588,7 @@ snapshots:
 
   '@slorber/react-helmet-async@1.3.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@babel/runtime': 7.24.1
+      '@babel/runtime': 7.27.6
       invariant: 2.2.4
       prop-types: 15.8.1
       react: 19.1.0
@@ -24446,7 +24446,7 @@ snapshots:
 
   regenerator-transform@0.15.2:
     dependencies:
-      '@babel/runtime': 7.24.1
+      '@babel/runtime': 7.27.6
 
   regexp-tree@0.1.27: {}
 
