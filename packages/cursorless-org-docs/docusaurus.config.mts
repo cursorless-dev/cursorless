@@ -146,9 +146,7 @@ const config: Config = {
       },
     ],
   ],
-  plugins: [
-    "./src/plugins/tailwind-plugin.js",
-  ],
+  plugins: ["./src/plugins/tailwind-plugin.js"],
 
   themeConfig: {
     navbar: {
