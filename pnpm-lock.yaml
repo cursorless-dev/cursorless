@@ -460,6 +460,9 @@ importers:
       '@cursorless/cheatsheet':
         specifier: workspace:*
         version: link:../cheatsheet
+      '@cursorless/common':
+        specifier: workspace:*
+        version: link:../common
       '@cursorless/cursorless-engine':
         specifier: workspace:*
         version: link:../cursorless-engine
