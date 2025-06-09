@@ -27,6 +27,7 @@
     "js-yaml": "^4.1.0",
     "prettier": "3.2.5",
     "react": "^18.2.0",
+    "shiki-magic-move": "1.1.0",
     "tsx": "3.12.7",
     "yaml": "2.2.1"
   },
