@@ -66,6 +66,9 @@
       "path": "./packages/sentence-parser"
     },
     {
+      "path": "./packages/test-case-component"
+    },
+    {
       "path": "./packages/test-case-recorder"
     },
     {

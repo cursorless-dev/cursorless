@@ -29,7 +29,10 @@
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
+    "@cursorless/common": "workspace:*",
     "@cursorless/cheatsheet": "workspace:*",
+    "@cursorless/cursorless-engine": "workspace:*",
+    "@cursorless/test-case-component": "workspace:*",
     "@mdx-js/loader": "3.1.0",
     "@mdx-js/react": "3.1.0",
     "@next/mdx": "15.3.3",
@@ -40,6 +43,7 @@
   },
   "devDependencies": {
     "@svgr/webpack": "8.1.0",
+    "@types/js-yaml": "^4.0.9",
     "@types/mdx": "2.0.13",
     "@types/node": "20.17.50",
     "@types/react": "19.1.6",
