@@ -137,11 +137,7 @@ function Carousel({ children }: { children: React.ReactNode[] }) {
   };
 
   return (
-    <div
-      id="default-carousel"
-      className="relative w-full"
-      data-carousel="slide"
-    >
+    <div className="carousel-base relative w-full" data-carousel="slide">
       {/* <!-- Carousel wrapper --> */}
       <div className="relative h-56 overflow-hidden rounded-lg bg-gray-900 md:h-96">
         <div className="absolute right-2 top-2 z-30 font-bold text-red-500">
@@ -161,7 +157,7 @@ function Carousel({ children }: { children: React.ReactNode[] }) {
           <button
             key={index}
             type="button"
-            className={clsx("h-3 w-3 rounded-full", {
+            className={clsx("m-0 h-3 w-3 rounded-full p-0", {
               "bg-blue-500": index === activeIndex,
               "bg-gray-300": index !== activeIndex,
             })}
@@ -199,7 +195,8 @@ const SliderButton = ({
     <button
       type="button"
       className={clsx(
-        "group absolute z-30 flex h-full cursor-pointer items-center justify-center px-4 focus:outline-none",
+        "group absolute z-30 flex h-full cursor-pointer items-center justify-center border-none bg-transparent px-4 focus:outline-none",
+        "carousel-slider-btn",
         additionalClasses,
       )}
       onClick={callback}
