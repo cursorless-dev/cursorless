@@ -172,10 +172,15 @@ function Carousel({ children }: { children: React.ReactNode[] }) {
         ))}
       </div>
       {/* <!-- Slider controls --> */}
-      <SliderButton additionalClasses="-start-12 top-0" callback={handlePrev} />
+      <SliderButton
+        additionalClasses="-start-12 top-0"
+        callback={handlePrev}
+        srOnly="Previous"
+      />
       <SliderButton
         additionalClasses="rotate-180 -end-12 top-0"
         callback={handleNext}
+        srOnly="Next"
       />
     </div>
   );
@@ -184,9 +189,11 @@ function Carousel({ children }: { children: React.ReactNode[] }) {
 const SliderButton = ({
   additionalClasses,
   callback,
+  srOnly,
 }: {
   additionalClasses?: string;
   callback: React.MouseEventHandler;
+  srOnly: "Next" | "Previous";
 }) => {
   return (
     <button
@@ -214,7 +221,7 @@ const SliderButton = ({
             d="M5 1 1 5l4 4"
           />
         </svg>
-        <span className="sr-only">Next</span>
+        <span className="sr-only">{srOnly}</span>
       </span>
     </button>
   );
