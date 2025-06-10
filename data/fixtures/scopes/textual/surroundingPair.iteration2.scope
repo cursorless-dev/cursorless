@@ -3,19 +3,7 @@ hello
 
 ---
 
-[#1 Range] =
-[#1 Domain] = 0:0-0:0
-  ><
-0|
-
-
-[#2 Range] =
-[#2 Domain] = 1:0-1:5
+[Range] =
+[Domain] = 1:0-1:5
   >-----<
 1| hello
-
-
-[#3 Range] =
-[#3 Domain] = 2:0-2:0
-  ><
-2|

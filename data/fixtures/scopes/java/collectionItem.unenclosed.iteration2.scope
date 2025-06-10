@@ -22,17 +22,11 @@ public class MyClass {
    <
 
 
-[#2 Range] =
-[#2 Domain] = 1:23-1:23
-                         ><
-1|     public void myFunk() {
-
-
-[#3 Range] = 2:8-2:24
+[#2 Range] = 2:8-2:24
           >----------------<
 2|         String foo, bar;
 
-[#3 Domain] = 1:26-3:4
+[#2 Domain] = 1:26-3:4
                             >
 1|     public void myFunk() {
 2|         String foo, bar;
@@ -40,19 +34,19 @@ public class MyClass {
    ----<
 
 
-[#4 Range] = 2:8-2:24
+[#3 Range] = 2:8-2:24
           >----------------<
 2|         String foo, bar;
 
-[#4 Domain] = 2:0-2:24
+[#3 Domain] = 2:0-2:24
   >------------------------<
 2|         String foo, bar;
 
 
-[#5 Range] = 2:15-2:23
+[#4 Range] = 2:15-2:23
                  >--------<
 2|         String foo, bar;
 
-[#5 Domain] = 2:8-2:24
+[#4 Domain] = 2:8-2:24
           >----------------<
 2|         String foo, bar;

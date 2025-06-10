@@ -27,17 +27,8 @@ public class MyClass {
    <
 
 
-[#3 Range] = 1:22-1:22
-                        ><
-1|    public void myFunk() {
-
-[#3 Domain] = 1:21-1:23
-                       >--<
-1|    public void myFunk() {
-
-
-[#4 Range] =
-[#4 Domain] = 1:25-3:3
+[#3 Range] =
+[#3 Domain] = 1:25-3:3
                            >
 1|    public void myFunk() {
 2|     if (true) { }
@@ -45,7 +36,7 @@ public class MyClass {
    ---<
 
 
-[#5 Range] =
-[#5 Domain] = 2:15-2:16
+[#4 Range] =
+[#4 Domain] = 2:15-2:16
                  >-<
 2|     if (true) { }
