@@ -687,6 +687,16 @@
   )
 )
 
+;;!! " ".join(word for word in word_list)
+;;!!          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+(call
+  (generator_expression
+    "(" @argumentOrParameter.iteration.start.endOf
+    ")" @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#child-range! @argumentList 1 -2)
+) @argumentList.domain @argumentOrParameter.iteration.domain
+
 ;;!! lambda a, b: pass
 ;;!         ^^^^
 (lambda
@@ -731,13 +741,6 @@
   "(" @name.iteration.start.endOf @value.iteration.start.endOf
   ")" @name.iteration.end.startOf @value.iteration.end.startOf
 ) @name.iteration.domain @value.iteration.domain
-
-(call
-  (generator_expression
-    "(" @argumentOrParameter.iteration.start.endOf
-    ")" @argumentOrParameter.iteration.end.startOf
-  )
-) @argumentOrParameter.iteration.domain
 
 operators: [
   "<"
