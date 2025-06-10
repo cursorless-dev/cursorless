@@ -6,7 +6,12 @@ public class MyClass {
 }
 ---
 
-[Content] =
+[Content] = 2:8-3:15
+          >--------
+2|         int aaa,
+3|         int bbb
+   ---------------<
+
 [Removal] = 1:19-4:4
                      >
 1|     public MyClass(
@@ -14,6 +19,10 @@ public class MyClass {
 3|         int bbb
 4|     ) {}
    ----<
+
+[Leading delimiter] = 2:0-2:8
+  >--------<
+2|         int aaa,
 
 [Domain] = 1:4-4:8
       >---------------
