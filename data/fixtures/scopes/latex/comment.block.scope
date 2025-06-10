@@ -3,3 +3,13 @@ some comment
 \fi
 ---
 
+[Content] =
+[Removal] =
+[Domain] = 0:0-2:3
+  >--------
+0| \iffalse
+1| some comment
+2| \fi
+   ---<
+
+[Insertion delimiter] = "\n"
