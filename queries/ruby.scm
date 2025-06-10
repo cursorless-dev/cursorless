@@ -299,8 +299,8 @@ operator: [
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
-;;!! { |aaa, bbb| }
-;;!     ^^^  ^^^
+;;!! foo{ |aaa, bbb| }
+;;!        ^^^  ^^^
 (
   (block_parameters
     (_)? @_.leading.endOf
@@ -316,28 +316,33 @@ operator: [
 ;;!          ^^^^^^^^
 (_
   (method_parameters
-    "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
-    ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
-  ) @_dummy
-  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#child-range! @argumentList 1 -2)
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;;!! foo(aaa, bbb)
 ;;!      ^^^^^^^^
 (_
   (argument_list
-    "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
-    ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
-  ) @_dummy
-  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#child-range! @argumentList 1 -2)
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
-;;!! { |aaa, bbb| }
-;;!     ^^^^^^^^
-(_
-  (block_parameters
-    "|" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
-    "|" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
-  ) @_dummy
-  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+;;!! foo{ |aaa, bbb| }
+;;!        ^^^^^^^^
+(call
+  (block
+    (block_parameters
+      "|" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+      "|" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+    ) @argumentList
+    (#child-range! @argumentList 1 -2)
+    (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  )
 ) @argumentList.domain @argumentOrParameter.iteration.domain
