@@ -1,7 +1,7 @@
 languageId: rust
 command:
   version: 6
-  spokenForm: change arg trap and blue trap
+  spokenForm: change arg trap and type blue trap
   action:
     name: clearAndSetSelection
     target:
@@ -13,6 +13,9 @@ command:
               scopeType: {type: argumentOrParameter}
           mark: {type: decoratedSymbol, symbolColor: default, character: t}
         - type: primitive
+          modifiers:
+            - type: containingScope
+              scopeType: {type: type}
           mark: {type: decoratedSymbol, symbolColor: blue, character: t}
   usePrePhraseSnapshot: true
 initialState:
