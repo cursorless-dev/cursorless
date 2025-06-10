@@ -3,13 +3,3 @@
 \end{quote}
 ---
 
-[Content] =
-[Removal] =
-[Domain] = 0:0-2:11
-  >-------------
-0| \begin{quote}
-1|     Hello
-2| \end{quote}
-   -----------<
-
-[Insertion delimiter] = "\n"

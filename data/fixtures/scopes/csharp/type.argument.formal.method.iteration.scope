@@ -16,9 +16,3 @@ class MyClass {
 [#2 Domain] = 1:14-1:26
                 >------------<
 1|     void funk(int a, int b) {}
-
-
-[#3 Range] =
-[#3 Domain] = 1:29-1:29
-                               ><
-1|     void funk(int a, int b) {}
