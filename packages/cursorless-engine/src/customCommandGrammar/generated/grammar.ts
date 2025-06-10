@@ -6,6 +6,7 @@ function id(d: any[]): any { return d[0]; }
 declare var simpleActionName: any;
 declare var bringMove: any;
 declare var insertionMode: any;
+declare var direction: any;
 declare var simpleScopeTypeType: any;
 declare var pairedDelimiter: any;
 declare var simpleMarkType: any;
@@ -81,16 +82,12 @@ const grammar: Grammar = {
     {"name": "primitiveTarget", "symbols": ["primitiveTarget$ebnf$2", "mark"], "postprocess": 
         ([modifiers, mark]) => partialPrimitiveTargetDescriptor(modifiers, mark)
         },
-    {"name": "modifier", "symbols": ["containingScopeModifier"], "postprocess": 
-        ([containingScopeModifier]) => containingScopeModifier
-        },
-    {"name": "modifier", "symbols": ["relativeScopeModifier"], "postprocess": 
-        ([relativeScopeModifier]) => relativeScopeModifier
-        },
+    {"name": "modifier", "symbols": ["containingScopeModifier"], "postprocess": id},
+    {"name": "modifier", "symbols": ["relativeScopeModifier"], "postprocess": id},
     {"name": "containingScopeModifier", "symbols": ["scopeType"], "postprocess": 
         ([scopeType]) => containingScopeModifier(scopeType)
         },
-    {"name": "relativeScopeModifier", "symbols": ["direction", "scopeType"], "postprocess": 
+    {"name": "relativeScopeModifier", "symbols": [(lexer.has("direction") ? {type: "direction"} : direction), "scopeType"], "postprocess": 
         ([direction, scopeType]) => relativeScopeModifier(scopeType, direction)
         },
     {"name": "scopeType", "symbols": [(lexer.has("simpleScopeTypeType") ? {type: "simpleScopeTypeType"} : simpleScopeTypeType)], "postprocess": 
@@ -99,8 +96,6 @@ const grammar: Grammar = {
     {"name": "scopeType", "symbols": [(lexer.has("pairedDelimiter") ? {type: "pairedDelimiter"} : pairedDelimiter)], "postprocess": 
         ([delimiter]) => surroundingPairScopeType(delimiter)
         },
-    {"name": "direction", "symbols": [{"literal":"next"}], "postprocess": ([]) => "forward"},
-    {"name": "direction", "symbols": [{"literal":"previous"}], "postprocess": ([]) => "backward"},
     {"name": "mark", "symbols": [(lexer.has("simpleMarkType") ? {type: "simpleMarkType"} : simpleMarkType)], "postprocess": 
         ([simpleMarkType]) => simplePartialMark(simpleMarkType)
         },

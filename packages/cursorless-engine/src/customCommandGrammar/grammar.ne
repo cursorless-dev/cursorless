@@ -55,19 +55,15 @@ primitiveTarget -> modifier:+ mark {%
 
 # --------------------------- Modifiers ---------------------------
 
-modifier -> containingScopeModifier {%
-  ([containingScopeModifier]) => containingScopeModifier
-%}
+modifier -> containingScopeModifier {% id %}
 
-modifier -> relativeScopeModifier {%
-  ([relativeScopeModifier]) => relativeScopeModifier
-%}
+modifier -> relativeScopeModifier {% id %}
 
 containingScopeModifier -> scopeType {%
   ([scopeType]) => containingScopeModifier(scopeType)
 %}
 
-relativeScopeModifier -> direction scopeType {%
+relativeScopeModifier -> %direction scopeType {%
   ([direction, scopeType]) => relativeScopeModifier(scopeType, direction)
 %}
 
@@ -81,11 +77,6 @@ scopeType -> %pairedDelimiter {%
   ([delimiter]) => surroundingPairScopeType(delimiter)
 %}
 
-# --------------------------- Directions ---------------------------
-
-direction -> "next" {% ([]) => "forward" %}
-
-direction -> "previous" {% ([]) => "backward" %}
 
 # --------------------------- Marks ---------------------------
 
