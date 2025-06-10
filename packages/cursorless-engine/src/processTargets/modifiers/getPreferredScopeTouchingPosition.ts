@@ -29,7 +29,6 @@ export function getPreferredScopeTouchingPosition(
   editor: TextEditor,
   position: Position,
   forceDirection?: Direction,
-  skipEmptyScopes?: boolean,
 ): TargetScope | undefined {
   /**
    * We're looking for the minimal scopes that contain position.  We'll get:
@@ -44,7 +43,6 @@ export function getPreferredScopeTouchingPosition(
       containment: "required",
       allowAdjacentScopes: true,
       skipAncestorScopes: true,
-      skipEmptyScopes: skipEmptyScopes ?? false,
     }),
   );
 

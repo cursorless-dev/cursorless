@@ -57,7 +57,6 @@ function checkRequirements(
     distalPosition,
     allowAdjacentScopes,
     skipAncestorScopes,
-    skipEmptyScopes,
   } = requirements;
   const { domain } = scope;
 
@@ -84,13 +83,6 @@ function checkRequirements(
     skipAncestorScopes &&
     previousScope != null &&
     domain.contains(previousScope.domain)
-  ) {
-    return false;
-  }
-
-  if (
-    skipEmptyScopes &&
-    !scope.getTargets(false).some((t) => !t.contentRange.isEmpty)
   ) {
     return false;
   }

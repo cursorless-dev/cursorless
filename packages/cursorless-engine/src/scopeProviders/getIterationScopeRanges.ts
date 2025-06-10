@@ -41,7 +41,6 @@ export function getIterationScopeRanges(
       {
         includeDescendantScopes: true,
         distalPosition: iterationRange.end,
-        skipEmptyScopes: true,
       },
     ),
     (scope) => {

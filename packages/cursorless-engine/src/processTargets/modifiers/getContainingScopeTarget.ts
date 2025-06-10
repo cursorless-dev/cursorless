@@ -17,7 +17,6 @@ export function getContainingScopeTarget(
   target: Target,
   scopeHandler: ScopeHandler,
   ancestorIndex: number = 0,
-  skipEmptyScopes?: boolean,
 ): Target[] | undefined {
   const {
     isReversed,
@@ -27,13 +26,7 @@ export function getContainingScopeTarget(
 
   if (end.isEqual(start)) {
     // Input target is empty; return the preferred scope touching target
-    let scope = getPreferredScopeTouchingPosition(
-      scopeHandler,
-      editor,
-      start,
-      undefined,
-      skipEmptyScopes,
-    );
+    let scope = getPreferredScopeTouchingPosition(scopeHandler, editor, start);
 
     if (scope == null) {
       return undefined;

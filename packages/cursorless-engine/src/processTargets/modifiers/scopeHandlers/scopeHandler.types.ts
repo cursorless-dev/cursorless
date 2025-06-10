@@ -179,16 +179,6 @@ export interface ScopeIteratorRequirements {
   skipAncestorScopes: boolean;
 
   /**
-   * Indicates whether the ScopeHandler should skip yielding a scope if it's
-   * range is empty.
-   * - `true` means that empty scopes will not be yielded.
-   * - `false` means that empty scopes will be yielded
-   *
-   * @default false
-   */
-  skipEmptyScopes: boolean;
-
-  /**
    * Indicates whether the ScopeHandler should yield a scope if it is a
    * descendant of any scope that has been previously yielded.
    *

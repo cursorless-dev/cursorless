@@ -110,7 +110,7 @@ export class TreeSitterQuery {
     match: treeSitter.QueryMatch,
   ): MutableQueryMatch {
     return {
-      patternIdx: match.pattern,
+      patternIdx: match.patternIndex,
       captures: match.captures.map(({ name, node }) => ({
         name,
         node,

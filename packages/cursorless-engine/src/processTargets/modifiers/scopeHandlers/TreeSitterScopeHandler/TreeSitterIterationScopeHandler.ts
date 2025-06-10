@@ -47,6 +47,10 @@ export class TreeSitterIterationScopeHandler extends BaseTreeSitterScopeHandler 
 
     const { range: contentRange, allowMultiple } = capture;
 
+    if (contentRange.isEmpty) {
+      return undefined;
+    }
+
     const domain =
       getRelatedRange(match, scopeTypeType, "iteration.domain", false) ??
       contentRange;

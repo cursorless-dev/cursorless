@@ -111,8 +111,6 @@ export class EveryScopeStage implements ModifierStage {
     const iterationScopeTarget = getContainingScopeTarget(
       target,
       iterationScopeHandler,
-      0, // ancestorIndex
-      true, // skipEmptyScopes
     );
 
     if (iterationScopeTarget == null) {
