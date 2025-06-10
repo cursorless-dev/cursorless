@@ -1,11 +1,13 @@
 import type {
   BringMoveActionDescriptor,
   DestinationDescriptor,
+  Direction,
   InsertionMode,
   PartialListTargetDescriptor,
   PartialRangeTargetDescriptor,
   PartialTargetMark,
   PrimitiveDestinationDescriptor,
+  RelativeScopeModifier,
 } from "@cursorless/common";
 import {
   type ContainingScopeModifier,
@@ -72,6 +74,19 @@ export function containingScopeModifier(
   return {
     type: "containingScope",
     scopeType,
+  };
+}
+
+export function relativeScopeModifier(
+  scopeType: ScopeType,
+  direction: Direction,
+): RelativeScopeModifier {
+  return {
+    type: "relativeScope",
+    scopeType,
+    offset: 1,
+    length: 1,
+    direction,
   };
 }
 

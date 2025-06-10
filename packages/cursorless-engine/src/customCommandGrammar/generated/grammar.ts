@@ -16,9 +16,10 @@ import { lexer } from "../lexer";
 import {
   bringMoveActionDescriptor,
   containingScopeModifier,
-  partialPrimitiveTargetDescriptor,
   createPlaceholderTarget,
+  partialPrimitiveTargetDescriptor,
   primitiveDestinationDescriptor,
+  relativeScopeModifier,
   simpleActionDescriptor,
   simplePartialMark,
   simpleScopeType,
@@ -83,8 +84,14 @@ const grammar: Grammar = {
     {"name": "modifier", "symbols": ["containingScopeModifier"], "postprocess": 
         ([containingScopeModifier]) => containingScopeModifier
         },
+    {"name": "modifier", "symbols": ["relativeScopeModifier"], "postprocess": 
+        ([relativeScopeModifier]) => relativeScopeModifier
+        },
     {"name": "containingScopeModifier", "symbols": ["scopeType"], "postprocess": 
         ([scopeType]) => containingScopeModifier(scopeType)
+        },
+    {"name": "relativeScopeModifier", "symbols": ["direction", "scopeType"], "postprocess": 
+        ([direction, scopeType]) => relativeScopeModifier(scopeType, direction)
         },
     {"name": "scopeType", "symbols": [(lexer.has("simpleScopeTypeType") ? {type: "simpleScopeTypeType"} : simpleScopeTypeType)], "postprocess": 
         ([simpleScopeTypeType]) => simpleScopeType(simpleScopeTypeType)
@@ -92,6 +99,8 @@ const grammar: Grammar = {
     {"name": "scopeType", "symbols": [(lexer.has("pairedDelimiter") ? {type: "pairedDelimiter"} : pairedDelimiter)], "postprocess": 
         ([delimiter]) => surroundingPairScopeType(delimiter)
         },
+    {"name": "direction", "symbols": [{"literal":"next"}], "postprocess": ([]) => "forward"},
+    {"name": "direction", "symbols": [{"literal":"previous"}], "postprocess": ([]) => "backward"},
     {"name": "mark", "symbols": [(lexer.has("simpleMarkType") ? {type: "simpleMarkType"} : simpleMarkType)], "postprocess": 
         ([simpleMarkType]) => simplePartialMark(simpleMarkType)
         },
