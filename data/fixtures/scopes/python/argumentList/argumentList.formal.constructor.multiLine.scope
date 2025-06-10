@@ -7,7 +7,13 @@ class Foo:
         pass
 ---
 
-[Content] =
+[Content] = 2:8-4:16
+          >-----
+2|         self,
+3|         aaa: str,
+4|         bbb: int
+   ----------------<
+
 [Removal] = 1:17-5:4
                    >
 1|     def __init__(
@@ -16,6 +22,10 @@ class Foo:
 4|         bbb: int
 5|     ):
    ----<
+
+[Leading delimiter] = 2:0-2:8
+  >--------<
+2|         self,
 
 [Domain] = 1:4-6:12
       >-------------

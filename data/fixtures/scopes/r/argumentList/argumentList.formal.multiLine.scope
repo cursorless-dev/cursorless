@@ -5,7 +5,12 @@ abc <- function(
 }
 ---
 
-[Content] =
+[Content] = 1:4-2:7
+      >----
+1|     aaa,
+2|     bbb
+   -------<
+
 [Removal] = 0:16-3:0
                   >
 0| abc <- function(
@@ -13,6 +18,10 @@ abc <- function(
 2|     bbb
 3| ){
    <
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     aaa,
 
 [Domain] = 0:0-4:1
   >----------------

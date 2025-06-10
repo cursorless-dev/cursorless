@@ -17,6 +17,7 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
 
   "argumentList.actual.empty": supported,
   "argumentList.actual.singleLine": supported,
+  "argumentList.actual.multiLine": supported,
 
   "name.iteration.document": supported,
   "name.iteration.block": supported,
@@ -51,7 +52,6 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal": notApplicable,
   "argument.formal.lambda": notApplicable,
   "argument.formal.lambda.iteration": notApplicable,
-  "argumentList.actual.multiLine": notApplicable,
   "argumentList.actual.method.empty": notApplicable,
   "argumentList.actual.method.singleLine": notApplicable,
   "argumentList.actual.method.multiLine": notApplicable,

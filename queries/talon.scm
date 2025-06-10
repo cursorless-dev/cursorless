@@ -157,20 +157,14 @@
 ;;!! key(enter)
 ;;!      ^^^^^
 (key_action
-  (implicit_string) @argumentOrParameter @argumentList
-) @argumentList.domain
-
-;;!! key(enter)
-;;!      ^^^^^
-(_
-  (implicit_string) @argumentOrParameter.iteration
-) @argumentOrParameter.iteration.domain
+  (implicit_string) @argumentOrParameter @argumentOrParameter.iteration @argumentList
+) @argumentOrParameter.iteration.domain @argumentList.domain
 
 ;;!! sleep(100ms)
 ;;!        ^^^^^
 (sleep_action
-  (implicit_string) @argumentOrParameter @argumentList
-) @argumentList.domain
+  (implicit_string) @argumentOrParameter @argumentOrParameter.iteration @argumentList
+) @argumentOrParameter.iteration.domain @argumentList.domain
 
 ;;!! print("hello", "world")
 ;;!        ^^^^^^^  ^^^^^^^
@@ -187,10 +181,11 @@
 
 (_
   (argument_list
-    "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
-    ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
-  ) @_dummy
-  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#child-range! @argumentList 1 -2)
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;;!! # foo

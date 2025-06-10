@@ -401,7 +401,7 @@
   ">" @type.iteration.end.startOf
 )
 
-;;!! int value = 5
+;;!! int value = 0;
 ;;!              ^
 (parameter
   name: (_) @value.leading.endOf
@@ -410,8 +410,8 @@
   )
 ) @_.domain
 
-;; !! foo(a, b)
-;; !      ^  ^
+;; !! foo(aaa, bbb)
+;; !      ^^^  ^^^
 (
   (argument_list
     (_)? @_.leading.endOf
@@ -424,14 +424,15 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
-;; !! foo(a, b)
-;; !      ^^^^
+;; !! foo(aaa, bbb)
+;; !      ^^^^^^^^
 (_
   (argument_list
-    "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
-    ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
-  ) @_dummy
-  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#child-range! @argumentList 1 -2)
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;; !! void foo(int a, int b)
@@ -452,10 +453,11 @@
 ;; !           ^^^^^^^^^^^^
 (_
   (parameter_list
-    "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
-    ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
-  ) @_dummy
-  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#child-range! @argumentList 1 -2)
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 (parameter_list
@@ -465,7 +467,7 @@
 
 ;; Treat interior of all bodies as iteration scopes for `name`, eg
 ;;!! void foo() {   }
-;;!              ***
+;;!              ^^^
 (_
   body: (_
     "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
