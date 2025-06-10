@@ -73,7 +73,6 @@ scopeType -> %pairedDelimiter {%
   ([delimiter]) => surroundingPairScopeType(delimiter)
 %}
 
-
 # --------------------------- Marks ---------------------------
 
 mark -> %simpleMarkType {%
