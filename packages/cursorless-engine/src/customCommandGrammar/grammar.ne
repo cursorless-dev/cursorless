@@ -55,15 +55,11 @@ primitiveTarget -> modifier:+ mark {%
 
 # --------------------------- Modifiers ---------------------------
 
-modifier -> containingScopeModifier {% id %}
-
-modifier -> relativeScopeModifier {% id %}
-
-containingScopeModifier -> scopeType {%
+modifier -> scopeType {%
   ([scopeType]) => containingScopeModifier(scopeType)
 %}
 
-relativeScopeModifier -> %direction scopeType {%
+modifier -> %direction scopeType {%
   ([direction, scopeType]) => relativeScopeModifier(scopeType, direction)
 %}
 

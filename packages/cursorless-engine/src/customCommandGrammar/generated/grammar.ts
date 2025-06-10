@@ -82,12 +82,10 @@ const grammar: Grammar = {
     {"name": "primitiveTarget", "symbols": ["primitiveTarget$ebnf$2", "mark"], "postprocess": 
         ([modifiers, mark]) => partialPrimitiveTargetDescriptor(modifiers, mark)
         },
-    {"name": "modifier", "symbols": ["containingScopeModifier"], "postprocess": id},
-    {"name": "modifier", "symbols": ["relativeScopeModifier"], "postprocess": id},
-    {"name": "containingScopeModifier", "symbols": ["scopeType"], "postprocess": 
+    {"name": "modifier", "symbols": ["scopeType"], "postprocess": 
         ([scopeType]) => containingScopeModifier(scopeType)
         },
-    {"name": "relativeScopeModifier", "symbols": [(lexer.has("direction") ? {type: "direction"} : direction), "scopeType"], "postprocess": 
+    {"name": "modifier", "symbols": [(lexer.has("direction") ? {type: "direction"} : direction), "scopeType"], "postprocess": 
         ([direction, scopeType]) => relativeScopeModifier(scopeType, direction)
         },
     {"name": "scopeType", "symbols": [(lexer.has("simpleScopeTypeType") ? {type: "simpleScopeTypeType"} : simpleScopeTypeType)], "postprocess": 
