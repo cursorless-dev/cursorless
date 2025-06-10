@@ -47,6 +47,7 @@ export class TreeSitterIterationScopeHandler extends BaseTreeSitterScopeHandler 
 
     const { range: contentRange, allowMultiple } = capture;
 
+    // Don't yield empty iteration scopes
     if (contentRange.isEmpty) {
       return undefined;
     }
