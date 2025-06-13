@@ -20,14 +20,14 @@
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
-    "@cursorless/common": "workspace:*",
-    "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "@cursorless/common": "",
+    "react": "",
+    "react-dom": ""
   },
   "devDependencies": {
-    "@types/react": "19.1.6",
-    "@types/react-dom": "19.1.5",
-    "@types/vscode-webview": "1.57.5",
-    "tailwindcss": "3.4.14"
+    "@types/react": "",
+    "@types/react-dom": "",
+    "@types/vscode-webview": "",
+    "tailwindcss": ""
   }
 }

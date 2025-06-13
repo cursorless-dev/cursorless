@@ -222,6 +222,7 @@ function sortFields(obj: Record<string, any>): Record<string, any> {
     "contributes",
     "postcss",
     "browserslist",
+    "workspaces",
     "scripts",
     "extensionDependencies",
     "dependencies",
@@ -235,15 +236,26 @@ function sortFields(obj: Record<string, any>): Record<string, any> {
   );
 
   if (sorted.dependencies != null) {
-    sorted.dependencies = Object.fromEntries(
-      Object.entries(sorted.dependencies).sort(),
-    );
+    sorted.dependencies = sortKeys(sorted.dependencies);
+    setPlaceHolderVersion(sorted.dependencies);
   }
   if (sorted.devDependencies != null) {
-    sorted.devDependencies = Object.fromEntries(
-      Object.entries(sorted.devDependencies).sort(),
-    );
+    sorted.devDependencies = sortKeys(sorted.devDependencies);
+    setPlaceHolderVersion(sorted.devDependencies);
+  }
+  if (sorted.pnpm?.overrides != null) {
+    sorted.pnpm.overrides = sortKeys(sorted.pnpm.overrides);
   }
 
   return sorted;
+}
+
+function sortKeys(obj: Record<string, any>): Record<string, any> {
+  return Object.fromEntries(Object.entries(obj).sort());
+}
+
+function setPlaceHolderVersion(obj: Record<string, any>) {
+  for (const key in obj) {
+    obj[key] = "";
+  }
 }

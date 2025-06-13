@@ -22,12 +22,12 @@
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
-    "@cursorless/common": "workspace:*",
-    "@cursorless/cursorless-engine": "workspace:*",
-    "lodash-es": "4.17.21",
-    "vscode-uri": "3.1.0"
+    "@cursorless/common": "",
+    "@cursorless/cursorless-engine": "",
+    "lodash-es": "",
+    "vscode-uri": ""
   },
   "devDependencies": {
-    "@types/lodash-es": "4.17.12"
+    "@types/lodash-es": ""
   }
 }

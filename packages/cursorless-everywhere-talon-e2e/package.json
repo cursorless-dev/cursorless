@@ -12,13 +12,13 @@
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
-    "@cursorless/common": "workspace:*",
-    "@cursorless/cursorless-everywhere-talon-core": "workspace:*",
-    "@cursorless/node-common": "workspace:*",
-    "@cursorless/test-case-recorder": "workspace:*"
+    "@cursorless/common": "",
+    "@cursorless/cursorless-everywhere-talon-core": "",
+    "@cursorless/node-common": "",
+    "@cursorless/test-case-recorder": ""
   },
   "devDependencies": {
-    "@types/mocha": "10.0.10",
-    "mocha": "11.5.0"
+    "@types/mocha": "",
+    "mocha": ""
   }
 }

@@ -22,9 +22,9 @@
     "watch": "pnpm run --filter @cursorless/vscode-common --parallel '/^watch:.*/'"
   },
   "dependencies": {
-    "@cursorless/common": "workspace:*"
+    "@cursorless/common": ""
   },
   "devDependencies": {
-    "@types/vscode": "1.82.0"
+    "@types/vscode": ""
   }
 }

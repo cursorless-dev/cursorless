@@ -17,7 +17,7 @@
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
-    "@cursorless/common": "workspace:*",
-    "@cursorless/cursorless-everywhere-talon-core": "workspace:*"
+    "@cursorless/common": "",
+    "@cursorless/cursorless-everywhere-talon-core": ""
   }
 }

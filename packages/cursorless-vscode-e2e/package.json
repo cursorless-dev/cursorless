@@ -19,22 +19,22 @@
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
-    "@cursorless/common": "workspace:*",
-    "@cursorless/node-common": "workspace:*",
-    "@cursorless/vscode-common": "workspace:*",
-    "immer": "10.1.1",
-    "lodash-es": "4.17.21"
+    "@cursorless/common": "",
+    "@cursorless/node-common": "",
+    "@cursorless/vscode-common": "",
+    "immer": "",
+    "lodash-es": ""
   },
   "devDependencies": {
-    "@types/chai": "5.2.2",
-    "@types/js-yaml": "4.0.9",
-    "@types/lodash-es": "4.17.12",
-    "@types/mocha": "10.0.10",
-    "@types/sinon": "17.0.4",
-    "@types/vscode": "1.82.0",
-    "chai": "5.2.0",
-    "js-yaml": "4.1.0",
-    "mocha": "11.5.0",
-    "sinon": "20.0.0"
+    "@types/chai": "",
+    "@types/js-yaml": "",
+    "@types/lodash-es": "",
+    "@types/mocha": "",
+    "@types/sinon": "",
+    "@types/vscode": "",
+    "chai": "",
+    "js-yaml": "",
+    "mocha": "",
+    "sinon": ""
   }
 }

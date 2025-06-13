@@ -22,13 +22,13 @@
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
-    "@cursorless/common": "workspace:*",
-    "@cursorless/node-common": "workspace:*",
-    "immer": "10.1.1",
-    "lodash-es": "4.17.21",
-    "node-html-parser": "7.0.1"
+    "@cursorless/common": "",
+    "@cursorless/node-common": "",
+    "immer": "",
+    "lodash-es": "",
+    "node-html-parser": ""
   },
   "devDependencies": {
-    "@types/lodash-es": "4.17.12"
+    "@types/lodash-es": ""
   }
 }

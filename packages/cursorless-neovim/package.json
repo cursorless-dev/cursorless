@@ -26,20 +26,20 @@
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
-    "@cursorless/common": "workspace:*",
-    "@cursorless/cursorless-engine": "workspace:*",
-    "@cursorless/neovim-common": "workspace:*",
-    "@cursorless/neovim-registry": "workspace:*",
-    "@cursorless/node-common": "workspace:*",
-    "@cursorless/test-case-recorder": "workspace:*"
+    "@cursorless/common": "",
+    "@cursorless/cursorless-engine": "",
+    "@cursorless/neovim-common": "",
+    "@cursorless/neovim-registry": "",
+    "@cursorless/node-common": "",
+    "@cursorless/test-case-recorder": ""
   },
   "devDependencies": {
-    "@types/chai": "5.2.2",
-    "@types/js-yaml": "4.0.9",
-    "@types/lodash": "4.17.17",
-    "@types/uuid": "10.0.0",
-    "lodash": "4.17.21",
-    "neovim": "5.3.0",
-    "vscode-uri": "3.1.0"
+    "@types/chai": "",
+    "@types/js-yaml": "",
+    "@types/lodash": "",
+    "@types/uuid": "",
+    "lodash": "",
+    "neovim": "",
+    "vscode-uri": ""
   }
 }

@@ -22,16 +22,16 @@
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
-    "@cursorless/common": "workspace:*",
-    "@cursorless/neovim-registry": "workspace:*",
-    "@cursorless/node-common": "workspace:*",
-    "lodash": "4.17.21",
-    "neovim": "5.3.0",
-    "vscode-uri": "3.1.0"
+    "@cursorless/common": "",
+    "@cursorless/neovim-registry": "",
+    "@cursorless/node-common": "",
+    "lodash": "",
+    "neovim": "",
+    "vscode-uri": ""
   },
   "devDependencies": {
-    "@types/lodash": "4.17.17",
-    "@types/uuid": "10.0.0",
-    "@types/vscode": "1.82.0"
+    "@types/lodash": "",
+    "@types/uuid": "",
+    "@types/vscode": ""
   }
 }

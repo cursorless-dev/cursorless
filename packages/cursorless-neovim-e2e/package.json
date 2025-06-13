@@ -19,17 +19,17 @@
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
-    "@cursorless/common": "workspace:*",
-    "@cursorless/neovim-common": "workspace:*",
-    "@cursorless/neovim-registry": "workspace:*",
-    "@cursorless/node-common": "workspace:*",
-    "@cursorless/test-case-recorder": "workspace:*"
+    "@cursorless/common": "",
+    "@cursorless/neovim-common": "",
+    "@cursorless/neovim-registry": "",
+    "@cursorless/node-common": "",
+    "@cursorless/test-case-recorder": ""
   },
   "devDependencies": {
-    "@types/chai": "5.2.2",
-    "@types/js-yaml": "4.0.9",
-    "@types/lodash": "4.17.17",
-    "@types/sinon": "17.0.4",
-    "neovim": "5.3.0"
+    "@types/chai": "",
+    "@types/js-yaml": "",
+    "@types/lodash": "",
+    "@types/sinon": "",
+    "neovim": ""
   }
 }

@@ -22,15 +22,15 @@
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
-    "@cursorless/common": "workspace:*",
-    "glob": "11.0.2",
-    "lodash-es": "4.17.21"
+    "@cursorless/common": "",
+    "glob": "",
+    "lodash-es": ""
   },
   "devDependencies": {
-    "@types/chai": "5.2.2",
-    "@types/js-yaml": "4.0.9",
-    "@types/lodash-es": "4.17.12",
-    "chai": "5.2.0",
-    "js-yaml": "4.1.0"
+    "@types/chai": "",
+    "@types/js-yaml": "",
+    "@types/lodash-es": "",
+    "chai": "",
+    "js-yaml": ""
   }
 }
