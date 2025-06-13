@@ -33,13 +33,13 @@
   "devDependencies": {
     "@pnpm/meta-updater": "2.0.4",
     "@types/node": "20.17.50",
-    "@typescript-eslint/eslint-plugin": "8.33.1",
-    "@typescript-eslint/parser": "8.33.1",
+    "@typescript-eslint/eslint-plugin": "8.34.0",
+    "@typescript-eslint/parser": "8.34.0",
     "cross-env": "7.0.3",
     "esbuild": "0.25.5",
     "eslint": "9.28.0",
     "eslint-config-prettier": "10.1.5",
-    "eslint-import-resolver-typescript": "4.4.2",
+    "eslint-import-resolver-typescript": "4.4.3",
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-mocha": "10.5.0",
     "eslint-plugin-unicorn": "56.0.1",
@@ -53,15 +53,6 @@
     "patchedDependencies": {
       "@types/nearley@2.11.5": "patches/@types__nearley@2.11.5.patch",
       "nearley@2.20.1": "patches/nearley@2.20.1.patch"
-    },
-    "peerDependencyRules": {
-      "ignoreMissing": [
-        "react-json-view"
-      ],
-      "allowedVersions": {
-        "react": "18",
-        "react-dom": "18"
-      }
     }
   }
 }
