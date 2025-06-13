@@ -582,6 +582,12 @@ importers:
       '@types/mdast':
         specifier: 4.0.4
         version: 4.0.4
+      '@types/react':
+        specifier: 19.1.8
+        version: 19.1.8
+      postcss:
+        specifier: 8.5.5
+        version: 8.5.5
       tailwindcss:
         specifier: 3.4.17
         version: 3.4.17(ts-node@10.9.2(@types/node@20.17.50)(typescript@5.8.3))
