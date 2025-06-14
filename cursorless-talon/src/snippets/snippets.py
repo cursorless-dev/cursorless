@@ -106,7 +106,17 @@ class UserActions:
             get_list_insertion_snippet(name, substitutions),
             ImplicitDestination(),
         )
-        actions.user.private_cursorless_command_and_wait(action)
+        try:
+            actions.user.private_cursorless_command_and_wait(action)
+        except Exception as e:
+            if str(e).startswith("No snippet available for language"):
+                action = InsertSnippetAction(
+                    get_insertion_snippet(name, substitutions),
+                    ImplicitDestination(),
+                )
+                actions.user.private_cursorless_command_and_wait(action)
+            else:
+                raise
 
     def private_cursorless_insert_community_snippet(
         name: str,  # pyright: ignore [reportGeneralTypeIssues]
