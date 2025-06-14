@@ -25,9 +25,3 @@ class MyClass {
 [#3 Domain] = 1:12-1:28
               >----------------<
 1|     MyClass(int foo, int bar) {}
-
-
-[#4 Range] =
-[#4 Domain] = 1:31-1:31
-                                 ><
-1|     MyClass(int foo, int bar) {}

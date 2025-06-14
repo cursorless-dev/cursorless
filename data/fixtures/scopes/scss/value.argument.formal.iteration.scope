@@ -14,9 +14,3 @@
 [#2 Domain] = 0:19-0:40
                      >---------------------<
 0| @mixin replace-text($image, $color: red) {}
-
-
-[#3 Range] =
-[#3 Domain] = 0:42-0:42
-                                            ><
-0| @mixin replace-text($image, $color: red) {}

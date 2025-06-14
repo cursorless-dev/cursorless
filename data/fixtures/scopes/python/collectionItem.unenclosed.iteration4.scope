@@ -3,12 +3,12 @@ for key, value in map.items():
 ---
 
 [#1 Range] =
-[#1 Domain] = 0:4-0:14
-      >----------<
+[#1 Domain] = 0:0-0:30
+  >------------------------------<
 0| for key, value in map.items():
 
 
 [#2 Range] =
-[#2 Domain] = 0:28-0:28
-                              ><
+[#2 Domain] = 0:4-0:14
+      >----------<
 0| for key, value in map.items():
