@@ -1,7 +1,7 @@
 import type { Position } from "@cursorless/common";
 import { Range, adjustPosition } from "@cursorless/common";
 import { z } from "zod";
-import { makeRangeFromPositions } from "../../util/nodeSelectors";
+import { makeRangeFromPositions } from "./makeRangeFromPositions";
 import type { MutableQueryCapture } from "./QueryCapture";
 import { QueryPredicateOperator } from "./QueryPredicateOperator";
 import { isEven } from "./isEven";

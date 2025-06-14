@@ -5,10 +5,7 @@ import {
 } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStageFactory } from "../ModifierStageFactory";
-import type {
-  ModifierStage,
-  ModifierStateOptions,
-} from "../PipelineStages.types";
+import type { ModifierStage } from "../PipelineStages.types";
 import { ContainingScopeStage } from "./ContainingScopeStage";
 import type { TargetScope } from "./scopeHandlers/scope.types";
 import type { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
@@ -26,7 +23,7 @@ export class PreferredScopeStage implements ModifierStage {
     private modifier: PreferredScopeModifier,
   ) {}
 
-  run(target: Target, options: ModifierStateOptions): Target[] {
+  run(target: Target): Target[] {
     const { scopeType } = this.modifier;
 
     const containingScopeStage = new ContainingScopeStage(
@@ -36,7 +33,7 @@ export class PreferredScopeStage implements ModifierStage {
     );
 
     try {
-      return containingScopeStage.run(target, options);
+      return containingScopeStage.run(target);
     } catch (ex) {
       // NoContainingScopeError is thrown if no containing scope was found, which is fine.
       if (!(ex instanceof NoContainingScopeError)) {

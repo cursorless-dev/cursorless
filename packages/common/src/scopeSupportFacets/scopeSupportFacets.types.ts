@@ -233,7 +233,6 @@ export interface ScopeSupportFacetInfo {
 
 export enum ScopeSupportFacetLevel {
   supported,
-  supportedLegacy,
   unsupported,
   notApplicable,
 }
