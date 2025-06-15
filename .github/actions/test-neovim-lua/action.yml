@@ -7,6 +7,8 @@ runs:
       with:
         luaVersion: "luajit-openresty"
     - uses: leafo/gh-actions-luarocks@v5
+      with:
+        luarocksVersion: "3.12.0"
     - shell: bash
       run: |
         luarocks install busted
