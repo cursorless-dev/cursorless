@@ -17,9 +17,6 @@ export function ScopeSupport({ languageId }: Props): React.JSX.Element {
   const supportedFacets = facetsSorted.filter(
     (facet) => scopeSupport[facet] === ScopeSupportFacetLevel.supported,
   );
-  const supportedLegacyFacets = facetsSorted.filter(
-    (facet) => scopeSupport[facet] === ScopeSupportFacetLevel.supportedLegacy,
-  );
   const unsupportedFacets = facetsSorted.filter(
     (facet) => scopeSupport[facet] === ScopeSupportFacetLevel.unsupported,
   );
@@ -36,12 +33,6 @@ export function ScopeSupport({ languageId }: Props): React.JSX.Element {
         title="Supported facets"
         subtitle="These facets are supported"
         open
-      />
-
-      <ScopeSupportForLevel
-        facets={supportedLegacyFacets}
-        title="Supported Legacy facets"
-        subtitle="These facets are supported with the legacy implementation and should be migrated to the new implementation"
       />
 
       <ScopeSupportForLevel
