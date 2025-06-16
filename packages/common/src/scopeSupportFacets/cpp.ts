@@ -7,75 +7,73 @@ const { supported, unsupported } = ScopeSupportFacetLevel;
 export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   ...cCoreScopeSupport,
 
-  "functionName.constructor": supported,
-  "functionName.method": supported,
-
-  "namedFunction.method": supported,
-  "namedFunction.constructor": supported,
-
   attribute: supported,
   anonymousFunction: supported,
+
+  "branch.try": supported,
+  "branch.try.iteration": supported,
+
+  "argument.actual.constructor": supported,
+  "argument.actual.constructor.iteration": supported,
+  "argument.formal.method": supported,
+  "argument.formal.method.iteration": supported,
+  "argument.formal.constructor": supported,
+  "argument.formal.constructor.iteration": supported,
+  "argument.formal.lambda": supported,
+  "argument.formal.lambda.iteration": supported,
+
+  "argumentList.actual.constructor.empty": supported,
+  "argumentList.actual.constructor.singleLine": supported,
+  "argumentList.actual.constructor.multiLine": supported,
+  "argumentList.formal.constructor.empty": supported,
+  "argumentList.formal.constructor.singleLine": supported,
+  "argumentList.formal.constructor.multiLine": supported,
+  "argumentList.formal.lambda.empty": supported,
+  "argumentList.formal.lambda.singleLine": supported,
+  "argumentList.formal.lambda.multiLine": supported,
+  "argumentList.formal.method.empty": supported,
+  "argumentList.formal.method.singleLine": supported,
+  "argumentList.formal.method.multiLine": supported,
+
+  "functionCall.constructor": supported,
+  "functionCallee.constructor": supported,
+
+  "functionName.constructor": supported,
+  "functionName.method": supported,
+  "functionName.method.iteration.class": supported,
+
+  "namedFunction.method": supported,
+  "namedFunction.method.iteration.class": supported,
+  "namedFunction.constructor": supported,
+
+  "name.argument.formal.method": supported,
+  "name.argument.formal.method.iteration": supported,
+  "name.argument.formal.constructor": supported,
+  "name.argument.formal.constructor.iteration": supported,
+  "name.constructor": supported,
+  "name.foreach": supported,
+  "name.method": supported,
+
   "value.argument.formal": supported,
   "value.argument.formal.iteration": supported,
   "value.argument.formal.method": supported,
   "value.argument.formal.method.iteration": supported,
   "value.argument.formal.constructor": supported,
   "value.argument.formal.constructor.iteration": supported,
-  "name.argument.formal.method": supported,
-  "name.argument.formal.method.iteration": supported,
-  "name.argument.formal.constructor": supported,
-  "name.argument.formal.constructor.iteration": supported,
+  "value.foreach": supported,
+  "value.return.lambda": supported,
+  "value.field": supported,
 
   "type.argument.formal.method": supported,
+  "type.argument.formal.method.iteration": supported,
   "type.argument.formal.constructor": supported,
+  "type.argument.formal.constructor.iteration": supported,
   "type.foreach": supported,
+  "type.typeArgument": supported,
+  "type.typeArgument.iteration": supported,
 
   // Unsupported
 
-  "argument.actual.constructor": unsupported,
-  "argument.actual.constructor.iteration": unsupported,
-  "argument.formal.method": unsupported,
-  "argument.formal.method.iteration": unsupported,
-  "argument.formal.constructor": unsupported,
-  "argument.formal.constructor.iteration": unsupported,
-  "argument.formal.lambda": unsupported,
-  "argument.formal.lambda.iteration": unsupported,
-
-  "argumentList.actual.method.empty": unsupported,
-  "argumentList.actual.method.singleLine": unsupported,
-  "argumentList.actual.method.multiLine": unsupported,
-  "argumentList.actual.constructor.empty": unsupported,
-  "argumentList.actual.constructor.singleLine": unsupported,
-  "argumentList.actual.constructor.multiLine": unsupported,
-  "argumentList.formal.constructor.empty": unsupported,
-  "argumentList.formal.constructor.singleLine": unsupported,
-  "argumentList.formal.constructor.multiLine": unsupported,
-  "argumentList.formal.lambda.empty": unsupported,
-  "argumentList.formal.lambda.singleLine": unsupported,
-  "argumentList.formal.lambda.multiLine": unsupported,
-  "argumentList.formal.method.empty": unsupported,
-  "argumentList.formal.method.singleLine": unsupported,
-  "argumentList.formal.method.multiLine": unsupported,
-
-  "functionName.iteration.block": unsupported,
-  "functionName.method.iteration.class": unsupported,
-
-  "functionCall.constructor": unsupported,
-  "functionCallee.constructor": unsupported,
-
-  "name.constructor": unsupported,
-  "name.foreach": unsupported,
-  "name.method": unsupported,
-  "namedFunction.iteration.block": unsupported,
-  "namedFunction.method.iteration.class": unsupported,
-
-  "value.foreach": unsupported,
-  "value.return.lambda": unsupported,
-
-  "type.typeArgument": unsupported,
-  "type.typeArgument.iteration": unsupported,
-  "type.argument.formal.method.iteration": unsupported,
-  "type.argument.formal.constructor.iteration": unsupported,
-
   "interior.lambda": unsupported,
+  "interior.try": unsupported,
 };

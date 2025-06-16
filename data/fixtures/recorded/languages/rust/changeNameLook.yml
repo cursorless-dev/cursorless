@@ -1,14 +1,14 @@
 languageId: rust
 command:
   version: 6
-  spokenForm: change name look
+  spokenForm: change key look
   action:
     name: clearAndSetSelection
     target:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: name}
+          scopeType: {type: collectionKey}
       mark: {type: decoratedSymbol, symbolColor: default, character: l}
   usePrePhraseSnapshot: true
 initialState:

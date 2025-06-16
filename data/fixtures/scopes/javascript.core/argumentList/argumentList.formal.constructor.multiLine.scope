@@ -6,7 +6,12 @@ class MyClass {
 }
 ---
 
-[Content] =
+[Content] = 2:4-3:7
+      >----
+2|     aaa,
+3|     bbb
+   -------<
+
 [Removal] = 1:14-4:2
                 >
 1|   constructor(
@@ -14,6 +19,10 @@ class MyClass {
 3|     bbb
 4|   ) { }
    --<
+
+[Leading delimiter] = 2:0-2:4
+  >----<
+2|     aaa,
 
 [Domain] = 1:2-4:7
     >------------

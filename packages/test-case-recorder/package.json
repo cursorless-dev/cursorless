@@ -25,7 +25,7 @@
     "@cursorless/common": "workspace:*",
     "@cursorless/cursorless-engine": "workspace:*",
     "@cursorless/node-common": "workspace:*",
-    "glob": "11.0.2",
+    "glob": "11.0.3",
     "immutability-helper": "3.1.1",
     "lodash-es": "4.17.21"
   },

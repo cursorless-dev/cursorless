@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",
-    "glob": "11.0.2",
+    "glob": "11.0.3",
     "lodash-es": "4.17.21"
   },
   "devDependencies": {

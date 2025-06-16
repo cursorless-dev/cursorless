@@ -11,16 +11,16 @@ interface Props {
 }
 
 export function ScopeSupport({ languageId }: Props): React.JSX.Element {
-  const scopesSorted = [...scopeSupportFacets].sort();
+  const facetsSorted = [...scopeSupportFacets].sort();
   const scopeSupport = languageScopeSupport[languageId] ?? {};
 
-  const supportedScopes = scopesSorted.filter(
+  const supportedFacets = facetsSorted.filter(
     (facet) => scopeSupport[facet] === ScopeSupportFacetLevel.supported,
   );
-  const unsupportedScopes = scopesSorted.filter(
+  const unsupportedFacets = facetsSorted.filter(
     (facet) => scopeSupport[facet] === ScopeSupportFacetLevel.unsupported,
   );
-  const unspecifiedScopes = scopesSorted.filter(
+  const unspecifiedFacets = facetsSorted.filter(
     (facet) => scopeSupport[facet] == null,
   );
 
@@ -29,14 +29,14 @@ export function ScopeSupport({ languageId }: Props): React.JSX.Element {
       <h2>Scopes</h2>
 
       <ScopeSupportForLevel
-        facets={supportedScopes}
+        facets={supportedFacets}
         title="Supported facets"
         subtitle="These facets are supported"
         open
       />
 
       <ScopeSupportForLevel
-        facets={unsupportedScopes}
+        facets={unsupportedFacets}
         title="Unsupported facets"
         subtitle="These facets are not supported yet and needs a developer to implement them"
         description={
@@ -50,7 +50,7 @@ export function ScopeSupport({ languageId }: Props): React.JSX.Element {
       />
 
       <ScopeSupportForLevel
-        facets={unspecifiedScopes}
+        facets={unspecifiedFacets}
         title="Unspecified facets"
         subtitle="These facets are unspecified"
         description={

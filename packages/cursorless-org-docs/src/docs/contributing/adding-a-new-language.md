@@ -48,5 +48,5 @@ import { Language } from "./components/Language";
 
 # Java
 
-<Language languageId="java"></Language>
+<Language languageId="java" />
 ```

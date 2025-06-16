@@ -6,7 +6,12 @@ class Foo:
         pass
 ---
 
-[Content] =
+[Content] = 2:8-3:16
+          >---------
+2|         aaa: str,
+3|         bbb: int
+   ----------------<
+
 [Removal] = 1:12-4:4
               >
 1|     def bar(
@@ -14,6 +19,10 @@ class Foo:
 3|         bbb: int
 4|     ):
    ----<
+
+[Leading delimiter] = 2:0-2:8
+  >--------<
+2|         aaa: str,
 
 [Domain] = 1:4-5:12
       >--------

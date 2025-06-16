@@ -43,6 +43,8 @@
   )
 )
 
+;;!! (#aaa? @bbb "ccc")
+;;!         ^^^^^^^^^^
 (
   (predicate
     (parameters) @argumentList @argumentOrParameter.iteration

@@ -1271,7 +1271,7 @@
     "@cursorless/node-common": "workspace:*",
     "@cursorless/test-case-recorder": "workspace:*",
     "@cursorless/vscode-common": "workspace:*",
-    "glob": "11.0.2",
+    "glob": "11.0.3",
     "itertools": "2.4.1",
     "lodash-es": "4.17.21",
     "nearley": "2.20.1",
@@ -1294,8 +1294,8 @@
     "@types/uuid": "10.0.0",
     "@types/vscode": "1.82.0",
     "esbuild": "0.25.5",
-    "fast-xml-parser": "5.2.3",
+    "fast-xml-parser": "5.2.5",
     "fs-extra": "11.3.0",
-    "sinon": "20.0.0"
+    "sinon": "21.0.0"
   }
 }

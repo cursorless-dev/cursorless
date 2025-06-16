@@ -27,9 +27,9 @@ initialState:
 finalState:
   documentContents: |
     fn some_function<T, U>(t: &T, u: &U) -> i32
-        where T: ,
+        where ,
               U: Clone + Debug
     {}
   selections:
-    - anchor: {line: 1, character: 13}
-      active: {line: 1, character: 13}
+    - anchor: {line: 1, character: 10}
+      active: {line: 1, character: 10}

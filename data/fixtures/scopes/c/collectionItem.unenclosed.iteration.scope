@@ -1,0 +1,10 @@
+int foo, bar;
+---
+
+[Range] = 0:4-0:12
+      >--------<
+0| int foo, bar;
+
+[Domain] = 0:0-0:13
+  >-------------<
+0| int foo, bar;
