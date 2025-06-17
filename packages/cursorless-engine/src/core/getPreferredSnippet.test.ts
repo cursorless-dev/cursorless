@@ -75,6 +75,7 @@ suite("getPreferredSnippet", () => {
   test("Insert single language", () => {
     const snippet: ListInsertSnippetArg = {
       type: "list",
+      fallbackLanguage: "b",
       snippets: insertionSnippets,
     };
     const preferred = getPreferredSnippet(snippet, "a");
@@ -128,6 +129,7 @@ suite("getPreferredSnippet", () => {
   test("Wrap single language", () => {
     const snippet: ListWrapWithSnippetArg = {
       type: "list",
+      fallbackLanguage: "b",
       snippets: wrapSnippets,
     };
     const preferred = getPreferredSnippet(snippet, "a");
