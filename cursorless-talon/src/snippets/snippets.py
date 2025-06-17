@@ -100,7 +100,7 @@ class UserActions:
     def insert_snippet_by_name(
         name: str,  # pyright: ignore [reportGeneralTypeIssues]
         # Don't add optional: we need to match the type in community
-        substitutions: dict[str, str] = None,
+        substitutions: dict[str, str] = None,  # type: ignore
     ):
         action = InsertSnippetAction(
             get_list_insertion_snippet(name, substitutions),

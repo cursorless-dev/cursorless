@@ -161,6 +161,7 @@ export interface CustomInsertSnippetArg {
 
 interface ListInsertSnippetArg {
   type: "list";
+  fallbackLanguage?: string;
   substitutions?: Record<string, string>;
   snippets: CustomInsertSnippetArg[];
 }
@@ -192,6 +193,7 @@ export interface CustomWrapWithSnippetArg {
 
 interface ListWrapWithSnippetArg {
   type: "list";
+  fallbackLanguage?: string;
   snippets: CustomWrapWithSnippetArg[];
 }
 

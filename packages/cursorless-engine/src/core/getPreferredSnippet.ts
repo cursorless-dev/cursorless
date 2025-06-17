@@ -32,6 +32,7 @@ export function getPreferredSnippet(
   const filteredSnippets = filterSnippetDefinitions(
     snippetDescription.snippets,
     languageId,
+    snippetDescription.fallbackLanguage,
   );
   filteredSnippets.sort(compareSnippetDefinitions);
   const preferredSnippet = filteredSnippets[0];
@@ -60,11 +61,29 @@ function getUniqueLanguagesString(snippets: CustomInsertSnippetArg[]): string {
  */
 function filterSnippetDefinitions<
   T extends CustomInsertSnippetArg | CustomWrapWithSnippetArg,
->(snippetDescriptions: T[], languageId: string): T[] {
-  return snippetDescriptions.filter((snippetDescription) => {
-    if (snippetDescription.languages == null) {
-      return true;
-    }
-    return snippetDescription.languages.includes(languageId);
+>(
+  snippetDescriptions: T[],
+  languageId: string,
+  fallbackLanguage: string | undefined,
+): T[] {
+  // First try to find snippet matching language id
+  let snippets = snippetDescriptions.filter((snippetDescription) => {
+    return snippetDescription.languages?.includes(languageId);
   });
+
+  // Secondly try to find snippet matching fallback language
+  if (snippets.length === 0 && fallbackLanguage != null) {
+    snippets = snippetDescriptions.filter((snippetDescription) => {
+      return snippetDescription.languages?.includes(fallbackLanguage);
+    });
+  }
+
+  // Finally use global snippets
+  if (snippets.length === 0) {
+    snippets = snippetDescriptions.filter((snippetDescription) => {
+      return snippetDescription.languages == null;
+    });
+  }
+
+  return snippets;
 }
