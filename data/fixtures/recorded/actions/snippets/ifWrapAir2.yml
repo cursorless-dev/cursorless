@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  version: 6
+  version: 7
   spokenForm: if wrap air
   action:
     name: wrapWithSnippet
