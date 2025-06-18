@@ -60,27 +60,21 @@
 ;;!! class MyClass { }
 ;;!                 ^
 (class_body
-  .
   "{" @class.iteration.start.endOf @className.iteration.start.endOf
   "}" @class.iteration.end.startOf @className.iteration.end.startOf
-  .
 )
 
 (class_body
-  .
   "{" @type.iteration.start.endOf @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf
   "}" @type.iteration.end.startOf @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf
-  .
 )
 
 ;;!! for (...) { }
 ;;!             ^
 (_
   body: (_
-    .
     "{" @name.iteration.start.endOf @statement.iteration.start.endOf
     "}" @name.iteration.end.startOf @statement.iteration.end.startOf
-    .
   )
 )
 
@@ -88,10 +82,8 @@
 ;;!             ^
 (if_statement
   (block
-    .
     "{" @name.iteration.start.endOf @statement.iteration.start.endOf
     "}" @name.iteration.end.startOf @statement.iteration.end.startOf
-    .
   )
 )
 
@@ -189,10 +181,8 @@
 
 (switch_expression
   body: (_
-    .
     "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
     "}" @condition.iteration.end.startOf @branch.iteration.end.startOf
-    .
   )
 ) @condition.iteration.domain @branch.iteration.domain
 
@@ -300,10 +290,8 @@
 ;;!! void myFunk(int value) {}
 ;;!              ^^^^^^^^^
 (formal_parameters
-  .
   "(" @type.iteration.start.endOf @name.iteration.start.endOf
   ")" @type.iteration.end.startOf @name.iteration.end.startOf
-  .
 ) @type.iteration.domain @name.iteration.domain
 
 ;;!! List<String> list = value;
@@ -495,14 +483,12 @@
 ;;!! Map<int, int> foo;
 ;;!      ^^^^^^^^
 (type_arguments
-  .
   "<" @type.iteration.start.endOf
   ">" @type.iteration.end.startOf
-  .
 )
 
-;;!! foo(name: string) {}
-;;!      ^^^^^^^^^^^^
+;;!! void foo(int aaa, int bbb) {}
+;;!           ^^^^^^^  ^^^^^^^
 (_
   parameters: (_
     (_)? @_.leading.endOf
@@ -515,8 +501,8 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
-;;!! foo("bar")
-;;!      ^^^^^
+;;!! foo(aaa, bbb);
+;;!      ^^^  ^^^
 (
   (argument_list
     (_)? @_.leading.endOf
@@ -529,20 +515,27 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
+;;!! void foo(int aaa, int bbb) {}
+;;!           ^^^^^^^^^^^^^^^^
 (_
   parameters: (_
-    "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
-    ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
-  ) @_dummy
-  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#child-range! @argumentList 1 -2)
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
+;;!! foo(aaa, bbb);
+;;!      ^^^^^^^^
 (_
   (argument_list
-    "(" @argumentOrParameter.iteration.start.endOf
-    ")" @argumentOrParameter.iteration.end.startOf
-  )
-) @argumentOrParameter.iteration.domain
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#child-range! @argumentList 1 -2)
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;;!! try (PrintWriter writer = create()) { }
 ;;!       ^^^^^^^^^^^ ^^^^^    ^^^^^^^^

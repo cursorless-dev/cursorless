@@ -12,6 +12,4 @@ export interface NeovimTestHelpers extends TestHelpers {
   injectIde: (ide: IDE) => void;
 
   scopeProvider: ScopeProvider;
-
-  runIntegrationTests(): Promise<void>;
 }

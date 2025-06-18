@@ -427,8 +427,6 @@
 ;;!! class Aaa { }
 ;;!             ^
 (class_body
-  .
   "{" @type.iteration.start.endOf
   "}" @type.iteration.end.startOf
-  .
 )

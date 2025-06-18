@@ -43,9 +43,14 @@
   )
 )
 
-(predicate
-  (parameters) @argumentOrParameter.iteration
-) @argumentOrParameter.iteration.domain
+;;!! (#aaa? @bbb "ccc")
+;;!         ^^^^^^^^^^
+(
+  (predicate
+    (parameters) @argumentList @argumentOrParameter.iteration
+  ) @argumentList.domain @argumentOrParameter.iteration.domain
+  (#single-or-multi-line-delimiter! @argumentList @argumentList.domain " " "\n")
+)
 
 ;;!! (aaa) @bbb
 ;;!   ^^^

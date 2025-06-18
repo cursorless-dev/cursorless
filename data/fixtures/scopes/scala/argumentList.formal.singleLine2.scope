@@ -1,0 +1,13 @@
+class Foo(aaa: Int, bbb: Int) {}
+---
+
+[Content] =
+[Removal] = 0:10-0:28
+            >------------------<
+0| class Foo(aaa: Int, bbb: Int) {}
+
+[Domain] = 0:0-0:32
+  >--------------------------------<
+0| class Foo(aaa: Int, bbb: Int) {}
+
+[Insertion delimiter] = ", "

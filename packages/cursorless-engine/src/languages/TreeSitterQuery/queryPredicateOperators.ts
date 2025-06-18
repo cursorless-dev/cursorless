@@ -1,16 +1,71 @@
 import type { Position } from "@cursorless/common";
 import { Range, adjustPosition } from "@cursorless/common";
 import { z } from "zod";
-import { makeRangeFromPositions } from "../../util/nodeSelectors";
+import { makeRangeFromPositions } from "./makeRangeFromPositions";
 import type { MutableQueryCapture } from "./QueryCapture";
 import { QueryPredicateOperator } from "./QueryPredicateOperator";
+import { isEven } from "./isEven";
 import { q } from "./operatorArgumentSchemaTypes";
 
 /**
- * A predicate operator that returns true if the node is not of the given type.
- * For example, `(not-type? @foo string)` will reject the match if the `@foo`
+ * A predicate operator that returns true if the node is at an even index within
+ * its parents field. For example, `(#even? @foo value)` will accept the match
+ * if the `@foo` capture is at an even index among its parents value children.
+ */
+class Even extends QueryPredicateOperator<Even> {
+  name = "even?" as const;
+  schema = z.tuple([q.node, q.string]);
+  run({ node }: MutableQueryCapture, fieldName: string) {
+    return isEven(node, fieldName);
+  }
+}
+
+/**
+ * A predicate operator that returns true if the node is at an odd index within
+ * its parents field. For example, `(#odd? @foo value)` will accept the match
+ * if the `@foo` capture is at an odd index among its parents value children.
+ */
+class Odd extends QueryPredicateOperator<Odd> {
+  name = "odd?" as const;
+  schema = z.tuple([q.node, q.string]);
+  run({ node }: MutableQueryCapture, fieldName: string) {
+    return !isEven(node, fieldName);
+  }
+}
+
+/**
+ * A predicate operator that returns true if the node matches the given text.
+ * For example, `(#text? @foo bar)` will accept the match if the `@foo`
+ * captures text is `bar`. It is acceptable to pass in multiple texts, e.g.
+ * `(#text? @foo bar baz)`.
+ */
+class Text extends QueryPredicateOperator<Text> {
+  name = "text?" as const;
+  schema = z.tuple([q.node, q.string]).rest(q.string);
+  run({ document, range }: MutableQueryCapture, ...texts: string[]) {
+    return texts.includes(document.getText(range));
+  }
+}
+
+/**
+ * A predicate operator that returns true if the node is of the given type.
+ * For example, `(#type? @foo string)` will accept the match if the `@foo`
  * capture is a `string` node. It is acceptable to pass in multiple types, e.g.
- * `(not-type? @foo string comment)`.
+ * `(#type? @foo string comment)`.
+ */
+class Type extends QueryPredicateOperator<Type> {
+  name = "type?" as const;
+  schema = z.tuple([q.node, q.string]).rest(q.string);
+  run({ node }: MutableQueryCapture, ...types: string[]) {
+    return types.includes(node.type);
+  }
+}
+
+/**
+ * A predicate operator that returns true if the node is NOT of the given type.
+ * For example, `(#not-type? @foo string)` will reject the match if the `@foo`
+ * capture is a `string` node. It is acceptable to pass in multiple types, e.g.
+ * `(#not-type? @foo string comment)`.
  */
 class NotType extends QueryPredicateOperator<NotType> {
   name = "not-type?" as const;
@@ -22,9 +77,9 @@ class NotType extends QueryPredicateOperator<NotType> {
 
 /**
  * A predicate operator that returns true if the node's parent is not of the
- * given type. For example, `(not-parent-type? @foo string)` will reject the
+ * given type. For example, `(#not-parent-type? @foo string)` will reject the
  * match if the `@foo` capture is a child of a `string` node. It is acceptable
- * to pass in multiple types, e.g. `(not-parent-type? @foo string comment)`.
+ * to pass in multiple types, e.g. `(#not-parent-type? @foo string comment)`.
  */
 class NotParentType extends QueryPredicateOperator<NotParentType> {
   name = "not-parent-type?" as const;
@@ -36,7 +91,7 @@ class NotParentType extends QueryPredicateOperator<NotParentType> {
 
 /**
  * A predicate operator that returns true if the node is the nth child of its
- * parent.  For example, `(is-nth-child? @foo 0)` will reject the match if the
+ * parent.  For example, `(#is-nth-child? @foo 0)` will reject the match if the
  * `@foo` capture is not the first child of its parent.
  */
 class IsNthChild extends QueryPredicateOperator<IsNthChild> {
@@ -49,7 +104,7 @@ class IsNthChild extends QueryPredicateOperator<IsNthChild> {
 
 /**
  * A predicate operator that returns true if the node has more than 1 child of
- * type {@link type} (inclusive).  For example, `(has-multiple-children-of-type?
+ * type {@link type} (inclusive).  For example, `(#has-multiple-children-of-type?
  * @foo bar)` will accept the match if the `@foo` capture has 2 or more children
  * of type `bar`.
  */
@@ -261,14 +316,16 @@ class DocumentRange extends QueryPredicateOperator<DocumentRange> {
  */
 class AllowMultiple extends QueryPredicateOperator<AllowMultiple> {
   name = "allow-multiple!" as const;
-  schema = z.tuple([q.node]);
+  schema = z.tuple([q.node]).rest(q.node);
 
   protected allowMissingNode(): boolean {
     return true;
   }
 
-  run(nodeInfo: MutableQueryCapture) {
-    nodeInfo.allowMultiple = true;
+  run(...nodeInfos: MutableQueryCapture[]) {
+    for (const nodeInfo of nodeInfos) {
+      nodeInfo.allowMultiple = true;
+    }
 
     return true;
   }
@@ -372,6 +429,10 @@ class EmptySingleMultiDelimiter extends QueryPredicateOperator<EmptySingleMultiD
 
 export const queryPredicateOperators = [
   new Log(),
+  new Even(),
+  new Odd(),
+  new Text(),
+  new Type(),
   new NotType(),
   new TrimEnd(),
   new DocumentRange(),

@@ -18,8 +18,6 @@ export interface VscodeTestHelpers extends TestHelpers {
   toVscodeEditor(editor: TextEditor): vscode.TextEditor;
   fromVscodeEditor(editor: vscode.TextEditor): TextEditor;
 
-  runIntegrationTests(): Promise<void>;
-
   cursorlessTalonStateJsonPath: string;
   cursorlessCommandHistoryDirPath: string;
 

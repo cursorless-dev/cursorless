@@ -1,0 +1,13 @@
+class MyClass { }
+---
+
+[#1 Range] =
+[#1 Domain] = 0:0-0:17
+  >-----------------<
+0| class MyClass { }
+
+
+[#2 Range] =
+[#2 Domain] = 0:15-0:16
+                 >-<
+0| class MyClass { }

@@ -6,6 +6,7 @@ function id(d: any[]): any { return d[0]; }
 declare var simpleActionName: any;
 declare var bringMove: any;
 declare var insertionMode: any;
+declare var direction: any;
 declare var simpleScopeTypeType: any;
 declare var pairedDelimiter: any;
 declare var simpleMarkType: any;
@@ -16,9 +17,10 @@ import { lexer } from "../lexer";
 import {
   bringMoveActionDescriptor,
   containingScopeModifier,
-  partialPrimitiveTargetDescriptor,
   createPlaceholderTarget,
+  partialPrimitiveTargetDescriptor,
   primitiveDestinationDescriptor,
+  relativeScopeModifier,
   simpleActionDescriptor,
   simplePartialMark,
   simpleScopeType,
@@ -80,11 +82,11 @@ const grammar: Grammar = {
     {"name": "primitiveTarget", "symbols": ["primitiveTarget$ebnf$2", "mark"], "postprocess": 
         ([modifiers, mark]) => partialPrimitiveTargetDescriptor(modifiers, mark)
         },
-    {"name": "modifier", "symbols": ["containingScopeModifier"], "postprocess": 
-        ([containingScopeModifier]) => containingScopeModifier
-        },
-    {"name": "containingScopeModifier", "symbols": ["scopeType"], "postprocess": 
+    {"name": "modifier", "symbols": ["scopeType"], "postprocess": 
         ([scopeType]) => containingScopeModifier(scopeType)
+        },
+    {"name": "modifier", "symbols": [(lexer.has("direction") ? {type: "direction"} : direction), "scopeType"], "postprocess": 
+        ([direction, scopeType]) => relativeScopeModifier(scopeType, direction)
         },
     {"name": "scopeType", "symbols": [(lexer.has("simpleScopeTypeType") ? {type: "simpleScopeTypeType"} : simpleScopeTypeType)], "postprocess": 
         ([simpleScopeTypeType]) => simpleScopeType(simpleScopeTypeType)

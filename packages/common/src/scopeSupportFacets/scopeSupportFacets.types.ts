@@ -63,6 +63,7 @@ export const scopeSupportFacets = [
   "argument.actual.method.iteration",
   "argument.actual.constructor",
   "argument.actual.constructor.iteration",
+
   "argument.formal",
   "argument.formal.iteration",
   "argument.formal.method",
@@ -72,13 +73,28 @@ export const scopeSupportFacets = [
   "argument.formal.lambda",
   "argument.formal.lambda.iteration",
 
-  "argumentList.actual",
-  "argumentList.actual.method",
-  "argumentList.actual.constructor",
-  "argumentList.formal",
-  "argumentList.formal.method",
-  "argumentList.formal.constructor",
-  "argumentList.formal.lambda",
+  "argumentList.actual.empty",
+  "argumentList.actual.singleLine",
+  "argumentList.actual.multiLine",
+  "argumentList.actual.method.empty",
+  "argumentList.actual.method.singleLine",
+  "argumentList.actual.method.multiLine",
+  "argumentList.actual.constructor.empty",
+  "argumentList.actual.constructor.singleLine",
+  "argumentList.actual.constructor.multiLine",
+
+  "argumentList.formal.empty",
+  "argumentList.formal.singleLine",
+  "argumentList.formal.multiLine",
+  "argumentList.formal.lambda.empty",
+  "argumentList.formal.lambda.singleLine",
+  "argumentList.formal.lambda.multiLine",
+  "argumentList.formal.method.empty",
+  "argumentList.formal.method.singleLine",
+  "argumentList.formal.method.multiLine",
+  "argumentList.formal.constructor.empty",
+  "argumentList.formal.constructor.singleLine",
+  "argumentList.formal.constructor.multiLine",
 
   "comment.line",
   "comment.block",
@@ -210,11 +226,13 @@ export interface ScopeSupportFacetInfo {
   readonly description: string;
   readonly scopeType: SimpleScopeTypeType | ScopeType;
   readonly isIteration?: boolean;
+  readonly domainHint?: string;
+  readonly removalHint?: string;
+  readonly insertionDelimiterHint?: string;
 }
 
 export enum ScopeSupportFacetLevel {
   supported,
-  supportedLegacy,
   unsupported,
   notApplicable,
 }

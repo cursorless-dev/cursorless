@@ -1,17 +1,18 @@
 import type { Range, TextDocument } from "@cursorless/common";
-import type { Point } from "web-tree-sitter";
+import type { Point, TreeCursor } from "web-tree-sitter";
 
 /**
  * Simple representation of the tree sitter syntax node. Used by
  * {@link MutableQueryCapture} to avoid using range/text and other mutable
  * parameters directly from the node.
  */
-interface SimpleSyntaxNode {
+export interface SimpleSyntaxNode {
   readonly id: number;
   readonly type: string;
   readonly isNamed: boolean;
   readonly parent: SimpleSyntaxNode | null;
   readonly children: Array<SimpleChildSyntaxNode>;
+  walk(): TreeCursor;
 }
 
 /**

@@ -4,7 +4,6 @@ import type {
   InsertSnippetArg,
   WrapWithSnippetArg,
 } from "@cursorless/common";
-import { compareSnippetDefinitions } from "./compareSnippetDefinitions";
 
 export function getPreferredSnippet(
   snippetDescription: InsertSnippetArg,
@@ -29,12 +28,11 @@ export function getPreferredSnippet(
     return snippetDescription;
   }
 
-  const filteredSnippets = filterSnippetDefinitions(
+  const preferredSnippet = tryToFindPreferredSnippet(
     snippetDescription.snippets,
     languageId,
+    snippetDescription.fallbackLanguage,
   );
-  filteredSnippets.sort(compareSnippetDefinitions);
-  const preferredSnippet = filteredSnippets[0];
 
   if (preferredSnippet == null) {
     const languages = getUniqueLanguagesString(snippetDescription.snippets);
@@ -53,18 +51,53 @@ function getUniqueLanguagesString(snippets: CustomInsertSnippetArg[]): string {
   return Array.from(languages).sort().join(", ");
 }
 
-/**
- * Filter snippet definitions by language.
- * @param snippetDescriptions The snippets to filter
- * @returns The snippets that are relevant to the current language
- */
-function filterSnippetDefinitions<
+function tryToFindPreferredSnippet<
   T extends CustomInsertSnippetArg | CustomWrapWithSnippetArg,
->(snippetDescriptions: T[], languageId: string): T[] {
-  return snippetDescriptions.filter((snippetDescription) => {
-    if (snippetDescription.languages == null) {
-      return true;
+>(
+  snippetDescriptions: T[],
+  languageId: string,
+  fallbackLanguage: string | undefined,
+): T | undefined {
+  // First try to find snippet matching language id
+  let snippet = findSnippetWithFewestLanguages(
+    snippetDescriptions.filter((snippetDescription) => {
+      return snippetDescription.languages?.includes(languageId);
+    }),
+  );
+
+  // Secondly try to find snippet matching fallback language
+  if (snippet == null && fallbackLanguage != null) {
+    snippet = findSnippetWithFewestLanguages(
+      snippetDescriptions.filter((snippetDescription) => {
+        return snippetDescription.languages?.includes(fallbackLanguage);
+      }),
+    );
+  }
+
+  // Finally try to find global snippet
+  if (snippet == null) {
+    snippet = snippetDescriptions.find((snippetDescription) => {
+      return snippetDescription.languages == null;
+    });
+  }
+
+  return snippet;
+}
+
+function findSnippetWithFewestLanguages<
+  T extends CustomInsertSnippetArg | CustomWrapWithSnippetArg,
+>(snippets: T[]): T | undefined {
+  if (snippets.length === 0) {
+    return undefined;
+  }
+
+  // Find the snippet with the fewest languages
+  return snippets.reduce((prev, curr) => {
+    if (prev.languages == null || curr.languages == null) {
+      throw Error(
+        "Snippet must have languages defined to find the one with the fewest languages",
+      );
     }
-    return snippetDescription.languages.includes(languageId);
+    return curr.languages.length < prev.languages.length ? curr : prev;
   });
 }

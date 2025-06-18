@@ -1,5 +1,6 @@
-import * as os from "node:os";
+import { isWindows } from "@cursorless/node-common";
 import * as childProcess from "node:child_process";
+import * as os from "node:os";
 
 const MAX_OUTPUT_TO_EAT = 20;
 
@@ -16,7 +17,7 @@ export class TalonRepl {
   start(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       const path = getReplPath();
-      this.child = childProcess.spawn(path);
+      this.child = childProcess.spawn(path, { shell: true });
 
       if (!this.child.stdin) {
         reject("stdin is null");
@@ -86,7 +87,7 @@ export class TalonRepl {
 }
 
 function getReplPath() {
-  return os.platform() === "win32"
-    ? `${os.homedir()}\\AppData\\Roaming\\talon\\venv\\3.11\\Scripts\\repl.bat`
+  return isWindows()
+    ? `${os.homedir()}\\AppData\\Roaming\\talon\\venv\\3.13\\Scripts\\repl.bat`
     : `${os.homedir()}/.talon/.venv/bin/repl`;
 }

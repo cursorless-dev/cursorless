@@ -50,6 +50,18 @@
 
 (if_statement) @ifStatement
 
+(
+  (compilation_unit) @statement.iteration @name.iteration
+  (#document-range! @statement.iteration @name.iteration)
+)
+
+(_
+  body: (_
+    "{" @statement.iteration.start.endOf
+    "}" @statement.iteration.end.startOf
+  )
+)
+
 ;;!! if () {}
 ;;!  ^^^^^^^^
 (
@@ -110,6 +122,13 @@
   (do_statement)
 ] @branch
 
+;;!! foreach (int value in values) {}
+;;!               ^^^^^
+(for_each_statement
+  left: (_) @name
+  right: (_) @value
+) @_.domain
+
 ;;!! true ? 0 : 1;
 ;;!  ^^^^
 ;;!         ^   ^
@@ -121,9 +140,11 @@
   alternative: (_) @branch
 ) @condition.domain
 
+;;!! class Foo {}
+;;!  ^^^^^^^^^^^^
 (class_declaration
   name: (identifier) @className
-) @class @_.domain
+) @class @type @_.domain
 
 (
   (compilation_unit) @class.iteration @className.iteration
@@ -142,15 +163,46 @@
   )
 )
 
+;;!! "Hello world"
 (
   (string_literal) @string @textFragment
   (#child-range! @textFragment 0 -1 true true)
 )
 
+;;!! @"Hello world"
+(
+  (verbatim_string_literal) @string @textFragment
+  (#character-range! @textFragment 2 -1)
+)
+
+;;!! // Hello world
 (comment) @comment @textFragment
 
+;;!! () => {};
+;;!  ^^^^^^^^
 (lambda_expression) @anonymousFunction
 
+;;!! () => 2;
+;;!        ^
+(lambda_expression
+  body: (_) @value
+  (#not-type? @value block)
+) @_.domain
+
+;;!! return 2;
+;;!         ^
+(return_statement
+  (_) @value
+) @_.domain
+
+;;!! yield return 2;
+;;!               ^
+(yield_statement
+  (_) @value
+) @_.domain
+
+;;!! [Obsolete("Deprecated")]
+;;!   ^^^^^^^^^^^^^^^^^^^^^^
 (attribute) @attribute
 
 [
@@ -175,6 +227,7 @@
   )
 )
 
+;;!! void foo() {}
 [
   (invocation_expression)
   (object_creation_expression)
@@ -310,11 +363,45 @@
   name: (_) @name
 ) @_.domain
 
-(_
+(
+  (_
+    type: (_) @type
+  ) @_.domain
+  (#not-type? @_.domain cast_expression)
+)
+
+;;!! (int)5.5;
+;;!   ^^^
+(cast_expression
+  "(" @type.removal.start
   type: (_) @type
+  ")" @type.removal.end
 ) @_.domain
 
-;;!! int value = 5
+;;!! enum Foo {}
+;;!! interface IFoo {}
+[
+  (enum_declaration)
+  (interface_declaration)
+] @type
+
+;; Dictionary<string, int> values;
+;;!           ^^^^^^  ^^^
+(type_argument_list
+  (_)? @_.leading.endOf
+  .
+  (_) @type
+  .
+  (_)? @_.trailing.startOf
+  (#insertion-delimiter! @type ", ")
+)
+
+(type_argument_list
+  "<" @type.iteration.start.endOf
+  ">" @type.iteration.end.startOf
+)
+
+;;!! int value = 0;
 ;;!              ^
 (parameter
   name: (_) @value.leading.endOf
@@ -323,8 +410,8 @@
   )
 ) @_.domain
 
-;; !! foo(a, b)
-;; !      ^  ^
+;; !! foo(aaa, bbb)
+;; !      ^^^  ^^^
 (
   (argument_list
     (_)? @_.leading.endOf
@@ -337,14 +424,15 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
-;; !! foo(a, b)
-;; !      ^^^^
+;; !! foo(aaa, bbb)
+;; !      ^^^^^^^^
 (_
   (argument_list
-    "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
-    ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
-  ) @_dummy
-  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#child-range! @argumentList 1 -2)
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;; !! void foo(int a, int b)
@@ -365,10 +453,11 @@
 ;; !           ^^^^^^^^^^^^
 (_
   (parameter_list
-    "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
-    ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
-  ) @_dummy
-  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#child-range! @argumentList 1 -2)
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 (parameter_list
@@ -378,7 +467,7 @@
 
 ;; Treat interior of all bodies as iteration scopes for `name`, eg
 ;;!! void foo() {   }
-;;!              ***
+;;!              ^^^
 (_
   body: (_
     "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf

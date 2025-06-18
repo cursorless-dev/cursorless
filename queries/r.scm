@@ -90,10 +90,11 @@
 ;;!      ^^^^
 (call
   (arguments
-    open: "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
-    close: ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
-  ) @_dummy
-  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#child-range! @argumentList 1 -2)
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;; argumentList.formal
@@ -102,10 +103,11 @@
 (binary_operator
   (function_definition
     (parameters
-      open: "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
-      close: ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
-    ) @_dummy
-    (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+      "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+      ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+    ) @argumentList
+    (#child-range! @argumentList 1 -2)
+    (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
   )
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
@@ -115,10 +117,11 @@
 (
   (function_definition
     (parameters
-      open: "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
-      close: ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
-    ) @_dummy
-    (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+      "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+      ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+    ) @argumentList
+    (#child-range! @argumentList 1 -2)
+    (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
   ) @argumentList.domain @argumentOrParameter.iteration.domain
   (#not-parent-type? @argumentList.domain binary_operator)
 )

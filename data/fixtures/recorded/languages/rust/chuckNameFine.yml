@@ -1,14 +1,14 @@
 languageId: rust
 command:
   version: 6
-  spokenForm: chuck name fine
+  spokenForm: chuck key fine
   action:
     name: remove
     target:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: name}
+          scopeType: {type: collectionKey}
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
   usePrePhraseSnapshot: true
 initialState:

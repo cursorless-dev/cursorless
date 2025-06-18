@@ -10,7 +10,7 @@ type Props = {
 
 export default function CheatsheetLegendComponent({
   data,
-}: Props): JSX.Element {
+}: Props): React.JSX.Element {
   const isHighlighted = useIsHighlighted("legend");
 
   const borderClassName = isHighlighted

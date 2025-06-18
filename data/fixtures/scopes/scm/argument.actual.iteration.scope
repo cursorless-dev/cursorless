@@ -1,10 +1,10 @@
-(#not-parent-type? @statement variable_declaration)
+(#foo? @aaa bbb)
 ---
 
-[Range] = 0:19-0:50
-                     >-------------------------------<
-0| (#not-parent-type? @statement variable_declaration)
+[Range] = 0:7-0:15
+         >--------<
+0| (#foo? @aaa bbb)
 
-[Domain] = 0:0-0:51
-  >---------------------------------------------------<
-0| (#not-parent-type? @statement variable_declaration)
+[Domain] = 0:0-0:16
+  >----------------<
+0| (#foo? @aaa bbb)

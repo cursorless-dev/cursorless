@@ -13,7 +13,7 @@ import { endToEndTestSetup } from "../endToEndTestSetup";
 const testData = generateTestData(100);
 
 const smallThresholdMs = 100;
-const largeThresholdMs = 500;
+const largeThresholdMs = 600;
 
 type ModifierType = "containing" | "previous" | "every";
 

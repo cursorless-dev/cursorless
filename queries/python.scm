@@ -118,10 +118,8 @@
 ;;!  -------------
 (generic_type
   (type_parameter
-    .
     "[" @type.iteration.start.endOf
     "]" @type.iteration.end.startOf
-    .
   )
 )
 
@@ -203,8 +201,7 @@
     )
   ) @_.domain
   (#not-type? @value "as_pattern")
-  (#allow-multiple! @value)
-  (#allow-multiple! @name)
+  (#allow-multiple! @value @name)
 )
 
 ;;!! with aaa:
@@ -224,8 +221,7 @@
   )
   (#not-type? @value "as_pattern")
   (#has-multiple-children-of-type? @_with_clause "with_item")
-  (#allow-multiple! @value)
-  (#allow-multiple! @name)
+  (#allow-multiple! @value @name)
 )
 
 ;;!! with aaa as bbb:
@@ -243,8 +239,7 @@
       )
     )
   ) @_.domain
-  (#allow-multiple! @value)
-  (#allow-multiple! @name)
+  (#allow-multiple! @value @name)
 )
 
 ;;!! with aaa as ccc, bbb:
@@ -262,8 +257,7 @@
     ) @_with_clause
   )
   (#has-multiple-children-of-type? @_with_clause "with_item")
-  (#allow-multiple! @value)
-  (#allow-multiple! @name)
+  (#allow-multiple! @value @name)
 )
 
 (with_statement
@@ -652,8 +646,8 @@
 
 (pattern_list) @collectionItem.iteration
 
-;;!! def foo(name) {}
-;;!          ^^^^
+;;!! def foo(aaa, bbb) {}
+;;!          ^^^  ^^^
 (_
   parameters: (_
     (_)? @_.leading.endOf
@@ -668,8 +662,8 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
-;;!! foo("bar")
-;;!      ^^^^^
+;;!! foo(aaa, bbb)
+;;!      ^^^  ^^^
 (
   (argument_list
     (_)? @_.leading.endOf
@@ -693,6 +687,16 @@
   )
 )
 
+;;!! " ".join(word for word in word_list)
+;;!!          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+(call
+  (generator_expression
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#child-range! @argumentList 1 -2)
+) @argumentList.domain @argumentOrParameter.iteration.domain
+
 ;;!! lambda a, b: pass
 ;;!         ^^^^
 (lambda
@@ -709,29 +713,34 @@
   (#insertion-delimiter! @argumentList.start.endOf " ")
 ) @argumentList.domain
 
-;;!! def (a, b): pass
-;;!       ^^^^
+;;!! def foo(aaa, bbb): pass
+;;!          ^^^^^^^^
 (_
   (parameters
-    "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
-    ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
-  ) @_dummy
-  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#child-range! @argumentList 1 -2)
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
+;;!! foo (aaa, bbb)
+;;!       ^^^^^^^^
 (_
   (argument_list
-    "(" @argumentOrParameter.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
-    ")" @argumentOrParameter.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
-  ) @name.iteration.domain @value.iteration.domain
-) @argumentOrParameter.iteration.domain
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#child-range! @argumentList 1 -2)
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
-(call
-  (generator_expression
-    "(" @argumentOrParameter.iteration.start.endOf
-    ")" @argumentOrParameter.iteration.end.startOf
-  )
-) @argumentOrParameter.iteration.domain
+;;!! foo (aaa=1, bbb=2)
+;;!       ^^^^^^^^^^^^
+(argument_list
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf
+) @name.iteration.domain @value.iteration.domain
 
 operators: [
   "<"

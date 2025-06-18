@@ -1,0 +1,13 @@
+function(aaa, bbb) { }
+---
+
+[Content] =
+[Removal] = 0:9-0:17
+           >--------<
+0| function(aaa, bbb) { }
+
+[Domain] = 0:0-0:22
+  >----------------------<
+0| function(aaa, bbb) { }
+
+[Insertion delimiter] = ", "

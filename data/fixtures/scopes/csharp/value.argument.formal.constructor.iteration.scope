@@ -1,0 +1,18 @@
+class MyClass {
+    MyClass(int a = 1, int b = 2) {}
+}
+---
+
+[#1 Range] =
+[#1 Domain] = 0:15-2:0
+                 >
+0| class MyClass {
+1|     MyClass(int a = 1, int b = 2) {}
+2| }
+   <
+
+
+[#2 Range] =
+[#2 Domain] = 1:12-1:32
+              >--------------------<
+1|     MyClass(int a = 1, int b = 2) {}

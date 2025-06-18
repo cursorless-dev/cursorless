@@ -1,0 +1,35 @@
+def foo(
+    aaa: str,
+    bbb: int,
+):
+    pass
+---
+
+[Content] = 1:4-2:13
+      >---------
+1|     aaa: str,
+2|     bbb: int,
+   -------------<
+
+[Removal] = 0:8-3:0
+          >
+0| def foo(
+1|     aaa: str,
+2|     bbb: int,
+3| ):
+   <
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     aaa: str,
+
+[Domain] = 0:0-4:8
+  >--------
+0| def foo(
+1|     aaa: str,
+2|     bbb: int,
+3| ):
+4|     pass
+   --------<
+
+[Insertion delimiter] = ",\n"

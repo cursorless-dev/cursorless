@@ -1,5 +1,7 @@
 import type { SimpleScopeTypeType } from "./command/PartialTargetDescriptor.types";
 
+// FIXME: Legacy snippets
+
 export interface SnippetScope {
   /**
    * VSCode language ids where this snippet definition should be active

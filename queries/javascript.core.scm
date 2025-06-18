@@ -432,10 +432,8 @@
 ;;!                  ***
 (_
   body: (_
-    .
     "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
     "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
-    .
   )
 )
 
@@ -753,8 +751,8 @@
   "}" @statement.iteration.end.startOf
 )
 
-;;!! foo(name) {}
-;;!      ^^^^
+;;!! function foo(aaa, bbb) {}
+;;!               ^^^  ^^^
 (
   (formal_parameters
     (_)? @_.leading.endOf
@@ -767,8 +765,8 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
-;;!! foo("bar")
-;;!      ^^^^^
+;;!! foo(aaa, bbb)
+;;!      ^^^  ^^^
 (
   (arguments
     (_)? @_.leading.endOf
@@ -781,12 +779,15 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
+;;!! function foo(aaa, bbb) {}
+;;!               ^^^^^^^^
 (_
   (formal_parameters
-    "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
-    ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
-  ) @_dummy
-  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#child-range! @argumentList 1 -2)
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 (formal_parameters
@@ -794,12 +795,16 @@
   ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
 )
 
+;;!! foo(aaa, bbb)
+;;!      ^^^^^^^^
 (_
   (arguments
-    "(" @argumentOrParameter.iteration.start.endOf
-    ")" @argumentOrParameter.iteration.end.startOf
-  )
-) @argumentOrParameter.iteration.domain
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#child-range! @argumentList 1 -2)
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
 operator: [
   "<"

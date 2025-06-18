@@ -2,8 +2,16 @@
   "name": "@cursorless/cursorless-neovim",
   "version": "1.0.0",
   "description": "cursorless in neovim",
-  "main": "./out/index.cjs",
+  "license": "MIT",
   "private": true,
+  "main": "./out/index.cjs",
+  "types": "./out/index.d.ts",
+  "exports": {
+    ".": {
+      "cursorless:bundler": "./src/index.ts",
+      "default": "./out/index.cjs"
+    }
+  },
   "scripts": {
     "build": "pnpm run esbuild:prod && pnpm run populate-dist",
     "compile": "tsc --build",
@@ -16,16 +24,6 @@
     "watch:esbuild": "pnpm esbuild --watch",
     "watch": "pnpm run --filter @cursorless/cursorless-neovim --parallel '/^watch:.*/'",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
-  "types": "./out/index.d.ts",
-  "exports": {
-    ".": {
-      "cursorless:bundler": "./src/index.ts",
-      "default": "./out/index.cjs"
-    }
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",

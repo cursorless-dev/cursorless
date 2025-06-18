@@ -1,0 +1,10 @@
+int value = 2;
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:14
+  >--------------<
+0| int value = 2;
+
+[Insertion delimiter] = "\n"

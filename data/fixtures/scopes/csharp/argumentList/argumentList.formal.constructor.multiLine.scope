@@ -1,0 +1,35 @@
+class MyClass {
+    MyClass(
+        int aaa,
+        int bbb
+    ) {}
+}
+---
+
+[Content] = 2:8-3:15
+          >--------
+2|         int aaa,
+3|         int bbb
+   ---------------<
+
+[Removal] = 1:12-4:4
+              >
+1|     MyClass(
+2|         int aaa,
+3|         int bbb
+4|     ) {}
+   ----<
+
+[Leading delimiter] = 2:0-2:8
+  >--------<
+2|         int aaa,
+
+[Domain] = 1:4-4:8
+      >--------
+1|     MyClass(
+2|         int aaa,
+3|         int bbb
+4|     ) {}
+   --------<
+
+[Insertion delimiter] = ",\n"

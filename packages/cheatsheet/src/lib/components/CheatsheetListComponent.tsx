@@ -1,3 +1,4 @@
+import type { JSX } from "react";
 import type { CheatsheetSection, Variation } from "../CheatsheetInfo";
 import useIsHighlighted from "../hooks/useIsHighlighted";
 import { formatCaptures } from "./formatCaptures";
