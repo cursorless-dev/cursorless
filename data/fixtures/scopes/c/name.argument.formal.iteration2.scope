@@ -11,9 +11,3 @@ void aaa(int bbb, int ccc) {}
 [#2 Domain] = 0:9-0:25
            >----------------<
 0| void aaa(int bbb, int ccc) {}
-
-
-[#3 Range] =
-[#3 Domain] = 0:28-0:28
-                              ><
-0| void aaa(int bbb, int ccc) {}
