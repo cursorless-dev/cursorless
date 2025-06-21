@@ -30,11 +30,13 @@
     "@types/js-yaml": "4.0.9",
     "@types/lodash-es": "4.17.12",
     "@types/mocha": "10.0.10",
+    "@types/semver": "7.7.0",
     "@types/sinon": "17.0.4",
     "@types/vscode": "1.82.0",
     "chai": "5.2.0",
     "js-yaml": "4.1.0",
     "mocha": "11.6.0",
+    "semver": "7.7.2",
     "sinon": "21.0.0"
   }
 }

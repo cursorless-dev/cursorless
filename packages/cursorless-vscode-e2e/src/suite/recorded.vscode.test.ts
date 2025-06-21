@@ -13,6 +13,7 @@ import {
 import * as vscode from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import { setupFake } from "./setupFake";
+import { shouldSkipRecordedTest } from "./shouldSkipTest";
 
 suite("recorded test cases", async function () {
   const { getSpy } = endToEndTestSetup(this);
@@ -27,19 +28,20 @@ suite("recorded test cases", async function () {
   getRecordedTestPaths().forEach(({ name, path }) =>
     test(
       name,
-      asyncSafety(
-        async () =>
-          await runRecordedTest({
-            path,
-            spyIde: getSpy()!,
+      asyncSafety(async () => {
+        if (shouldSkipRecordedTest(name)) {
+          this.ctx.skip();
+        }
 
-            openNewTestEditor,
-
-            sleepWithBackoff,
-            testHelpers: (await getCursorlessApi()).testHelpers!,
-            runCursorlessCommand,
-          }),
-      ),
+        await runRecordedTest({
+          path,
+          spyIde: getSpy(),
+          openNewTestEditor,
+          sleepWithBackoff,
+          testHelpers: (await getCursorlessApi()).testHelpers!,
+          runCursorlessCommand,
+        });
+      }),
     ),
   );
 });
