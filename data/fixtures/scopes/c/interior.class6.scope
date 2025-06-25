@@ -1,0 +1,31 @@
+typedef enum { jjj, kkk } lll;
+---
+
+[#1 Content] = 0:15-0:23
+                 >--------<
+0| typedef enum { jjj, kkk } lll;
+
+[#1 Removal] = 0:14-0:24
+                >----------<
+0| typedef enum { jjj, kkk } lll;
+
+[#1 Domain] = 0:0-0:30
+  >------------------------------<
+0| typedef enum { jjj, kkk } lll;
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 0:15-0:23
+                 >--------<
+0| typedef enum { jjj, kkk } lll;
+
+[#2 Removal] = 0:14-0:24
+                >----------<
+0| typedef enum { jjj, kkk } lll;
+
+[#2 Domain] = 0:13-0:25
+               >------------<
+0| typedef enum { jjj, kkk } lll;
+
+[#2 Insertion delimiter] = " "

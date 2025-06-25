@@ -57,7 +57,12 @@
 
 ;;!! []() {}
 ;;!  ^^^^^^^
-(lambda_expression) @anonymousFunction
+(lambda_expression
+  body: (_
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  )
+) @anonymousFunction @interior.domain
 
 ;;!! [[attribute]]
 (attribute_declaration) @attribute
@@ -87,12 +92,20 @@
 ;;!! try {}
 ;;!  ^^^^^^
 (try_statement
-  "try" @branch.start
-  body: (_) @branch.end
+  "try" @branch.start @interior.domain.start
+  body: (_
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  ) @branch.end @interior.domain.end
 ) @branch.iteration
 
 ;;!! catch (const std::exception& e) {}
-(catch_clause) @branch
+(catch_clause
+  body: (_
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  )
+) @branch @interior.domain
 
 ;;!! new Foo()
 ;;!  ^^^^^^^^^
