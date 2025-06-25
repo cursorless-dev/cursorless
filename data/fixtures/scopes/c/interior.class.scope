@@ -1,0 +1,31 @@
+struct aaa { int bbb; };
+---
+
+[#1 Content] = 0:13-0:21
+               >--------<
+0| struct aaa { int bbb; };
+
+[#1 Removal] = 0:12-0:22
+              >----------<
+0| struct aaa { int bbb; };
+
+[#1 Domain] = 0:0-0:24
+  >------------------------<
+0| struct aaa { int bbb; };
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 0:13-0:21
+               >--------<
+0| struct aaa { int bbb; };
+
+[#2 Removal] = 0:12-0:22
+              >----------<
+0| struct aaa { int bbb; };
+
+[#2 Domain] = 0:11-0:23
+             >------------<
+0| struct aaa { int bbb; };
+
+[#2 Insertion delimiter] = " "

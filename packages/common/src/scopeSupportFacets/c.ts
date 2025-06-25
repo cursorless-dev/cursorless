@@ -93,14 +93,14 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "type.class": supported,
   "type.return": supported,
 
-  // Unsupported
+  "interior.class": supported,
+  "interior.function": supported,
+  "interior.if": supported,
+  "interior.switchCase": supported,
+  "interior.ternary": supported,
+  "interior.loop": supported,
 
-  "interior.class": unsupported,
-  "interior.function": unsupported,
-  "interior.if": unsupported,
-  "interior.switchCase": unsupported,
-  "interior.ternary": unsupported,
-  "interior.loop": unsupported,
+  // Unsupported
 
   fieldAccess: unsupported,
 
@@ -190,7 +190,7 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
   ...cCoreScopeSupport,
 
   // Not applicable for C, but supported for C++
-  // These are defined here because we don't want C++  to import them and
+  // These are defined here because we don't want C++ to import them and
   // accidentally forget to add support for them.
 
   attribute: notApplicable,

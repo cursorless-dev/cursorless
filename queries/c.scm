@@ -58,78 +58,47 @@
 
 (comment) @comment @textFragment
 
+;;!! struct foo { };
+;;!! union foo { };
+;;!! enum foo { };
 (_
-  (struct_specifier
+  (_
     name: (_) @className @name
-    body: (_)
+    body: (_
+      "{" @interior.start.endOf
+      "}" @interior.end.startOf
+    )
   ) @_.domain.start @class.start @type.start
   .
   ";"? @_.domain.end @class.end @type.end
-)
-(_
-  (enum_specifier
-    name: (_) @className @name
-    body: (_)
-  ) @_.domain.start @class.start @type.start
-  .
-  ";"? @_.domain.end @class.end @type.end
-)
-(_
-  (union_specifier
-    name: (_) @className @name
-    body: (_)
-  ) @_.domain.start @class.start @type.start
-  .
-  ";"? @_.domain.end @class.end @type.end
+  (#type? @class.start struct_specifier union_specifier enum_specifier)
 )
 
 (_
-  (struct_specifier
+  (_
     name: (_)
     body: (_)
   ) @statement.start
   .
   ";"? @statement.end
-)
-(_
-  (enum_specifier
-    name: (_)
-    body: (_)
-  ) @statement.start
-  .
-  ";"? @statement.end
-)
-(_
-  (union_specifier
-    name: (_)
-    body: (_)
-  ) @statement.start
-  .
-  ";"? @statement.end
+  (#type? @statement.start struct_specifier union_specifier enum_specifier)
 )
 
+;;!! typedef struct {} foo;
+;;!! typedef union {} foo;
+;;!! typedef enum {} foo;
 (type_definition
-  type: (struct_specifier
-    body: (_)
-  )
+  type: (_
+    body: (_
+      "{" @interior.start.endOf
+      "}" @interior.end.startOf
+    )
+  ) @_dummy
   declarator: (type_identifier) @className @name
+  (#type? @_dummy struct_specifier union_specifier enum_specifier)
 ) @_.domain @class @type
 
-(type_definition
-  type: (enum_specifier
-    body: (_)
-  )
-  declarator: (type_identifier) @className @name
-) @_.domain @class @type
-
-(type_definition
-  type: (union_specifier
-    body: (_)
-  )
-  declarator: (type_identifier) @className @name
-) @_.domain @class @type
-
-;;!! void funcName();
+;;!! void foo();
 (declaration
   (function_declarator
     declarator: (_
@@ -138,7 +107,7 @@
   )
 ) @namedFunction @functionName.domain @name.domain
 
-;;!! void C::funcName() {}
+;;!! void C::foo() {}
 (declaration
   (function_declarator
     declarator: (_
@@ -155,7 +124,7 @@
   )
 ) @namedFunction @functionName.domain @name.domain
 
-;;!! void funcName() {}
+;;!! void foo() {}
 (function_definition
   declarator: (_
     declarator: (_
@@ -163,6 +132,15 @@
     ) @functionName @name
   )
 ) @namedFunction @functionName.domain @name.domain
+
+;;!! void foo() { }
+;;!              ^
+(function_definition
+  body: (_
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  )
+) @_.domain
 
 ;;!! int aaa;
 ;;!      ^^^
@@ -294,9 +272,12 @@
 ;;!  ^^^^^^^^
 (
   (if_statement
-    "if" @branch.start @branch.removal.start
+    "if" @branch.start @branch.removal.start @interior.domain.start
     condition: (_) @condition
-    consequence: (_) @branch.end @branch.removal.end
+    consequence: (_
+      "{" @interior.start.endOf
+      "}" @interior.end.startOf
+    ) @branch.end @branch.removal.end @interior.domain.end
     alternative: (else_clause
       (if_statement) @branch.removal.end.startOf
     )?
@@ -308,10 +289,13 @@
 ;;!! else if () {}
 ;;!  ^^^^^^^^^^^^^
 (else_clause
-  "else" @branch.start @condition.domain.start
+  "else" @branch.start @condition.domain.start @interior.domain.start
   (if_statement
     condition: (_) @condition
-    consequence: (_) @branch.end @condition.domain.end
+    consequence: (_
+      "{" @interior.start.endOf
+      "}" @interior.end.startOf
+    ) @branch.end @condition.domain.end @interior.domain.end
     (#child-range! @condition 0 -1 true true)
   )
 )
@@ -320,8 +304,11 @@
 ;;!  ^^^^^^^
 (if_statement
   (else_clause
-    (compound_statement)
-  ) @branch
+    (compound_statement
+      "{" @interior.start.endOf
+      "}" @interior.end.startOf
+    )
+  ) @branch @interior.domain
 )
 
 (
@@ -334,23 +321,35 @@
 ;;!                  ^^^^^^^^
 (for_statement
   condition: (_) @condition
-) @branch @condition.domain
+  body: (_
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  )
+) @branch @_.domain
 
 ;;!! while (true) {}
 ;;!  ^^^^^^^^^^^^^^^
 ;;!         ^^^^
 (while_statement
   condition: (_) @condition
+  body: (_
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  )
   (#child-range! @condition 0 -1 true true)
-) @branch @condition.domain
+) @branch @_.domain
 
 ;;!! do {} while (true);
 ;;!  ^^^^^^^^^^^^^^^^^^^
 ;;!               ^^^^
 (do_statement
+  body: (_
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  )
   condition: (_) @condition
   (#child-range! @condition 0 -1 true true)
-) @branch @condition.domain
+) @branch @_.domain
 
 ;;!! switch (true) {}
 ;;!          ^^^^
@@ -360,8 +359,8 @@
     ")" @private.switchStatementSubject.end.startOf
   )
   body: (_
-    "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
-    "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
+    "{" @branch.iteration.start.endOf @condition.iteration.start.endOf @interior.start.endOf
+    "}" @branch.iteration.end.startOf @condition.iteration.end.startOf @interior.end.startOf
   )
 ) @_.domain @branch.iteration.domain @condition.iteration.domain
 
@@ -369,18 +368,50 @@
 ;;!  ^^^^^^^^^^^^^^
 ;;!       ^
 (case_statement
-  value: (_)? @condition
-) @branch @condition.domain
+  value: (_) @condition
+  .
+  (_) @interior.start
+  (_)? @interior.end
+  .
+  (#not-type? @interior.start "compound_statement")
+) @branch @_.domain
+
+;;!! default: break;
+;;!  ^^^^^^^^^^^^^^;
+(case_statement
+  !value
+  .
+  (_) @interior.start
+  (_)? @interior.end
+  .
+  (#not-type? @interior.start "compound_statement")
+) @branch @_.domain
+
+;;!! case 0: { }
+;;!           ^
+(case_statement
+  (compound_statement
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  )
+) @_.domain
 
 ;;!! true ? 0 : 1
 ;;!  ^^^^
-;;!         ^   ^
 (conditional_expression
-  condition: (_) @condition
-  consequence: (_) @branch
+  condition: (_) @condition @interior
 ) @condition.domain
+
+;;!! true ? 0 : 1
+;;!         ^
 (conditional_expression
-  alternative: (_) @branch
+  consequence: (_) @branch @interior
+)
+
+;;!! true ? 0 : 1
+;;!             ^
+(conditional_expression
+  alternative: (_) @branch @interior
 )
 
 ;;!! int foo, bar;
