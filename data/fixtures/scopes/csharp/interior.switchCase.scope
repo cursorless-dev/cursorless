@@ -1,0 +1,11 @@
+switch (aaa) {
+    case 0:
+        foo;
+        break;
+    case 1: {
+        break;
+    }
+    default:
+        break;
+}
+---

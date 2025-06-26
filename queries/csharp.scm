@@ -144,6 +144,10 @@
 ;;!  ^^^^^^^^^^^^
 (class_declaration
   name: (identifier) @className
+  body: (_
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  )
 ) @class @type @_.domain
 
 (
@@ -156,12 +160,10 @@
 ;;!                             ***
 (_
   body: (_
-    .
-    "{" @class.iteration.start.endOf @className.iteration.start.endOf
-    "}" @class.iteration.end.startOf @className.iteration.end.startOf
-    .
+    "{" @class.iteration.start.endOf @className.iteration.start.endOf @interior.start.endOf
+    "}" @class.iteration.end.startOf @className.iteration.end.startOf @interior.end.startOf
   )
-)
+) @interior.domain
 
 ;;!! "Hello world"
 (
