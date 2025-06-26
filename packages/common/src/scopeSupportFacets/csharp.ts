@@ -1,7 +1,7 @@
 import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
-const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
+const { supported, notApplicable } = ScopeSupportFacetLevel;
 
 export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   switchStatementSubject: supported,
@@ -160,16 +160,14 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "textFragment.comment.line": supported,
   "textFragment.comment.block": supported,
 
-  // Unsupported
-
-  "interior.class": unsupported,
-  "interior.function": unsupported,
-  "interior.if": unsupported,
-  "interior.lambda": unsupported,
-  "interior.loop": unsupported,
-  "interior.switchCase": unsupported,
-  "interior.ternary": unsupported,
-  "interior.try": unsupported,
+  "interior.class": supported,
+  "interior.function": supported,
+  "interior.if": supported,
+  "interior.lambda": supported,
+  "interior.loop": supported,
+  "interior.switchCase": supported,
+  "interior.ternary": supported,
+  "interior.try": supported,
 
   // Not applicable
 

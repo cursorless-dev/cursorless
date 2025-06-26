@@ -72,22 +72,37 @@
   ) @branch.start.startOf @branch.removal.start.startOf @condition.domain
   (#not-parent-type? @condition.domain "if_statement")
 )
+(
+  (if_statement
+    consequence: (_
+      "{" @interior.start.endOf
+      "}" @interior.end.startOf
+    ) @interior.domain.end.endOf
+  ) @interior.domain.start.startOf
+  (#not-parent-type? @interior.domain.start.startOf "if_statement")
+)
 
 ;;!! else if () {}
 ;;!  ^^^^^^^^^^^^^
 (if_statement
-  "else" @branch.start.startOf @condition.domain.start.startOf
+  "else" @branch.start.startOf @interior.domain.start.startOf @condition.domain.start.startOf
   (if_statement
     condition: (_) @condition
-    consequence: (_) @branch.end.endOf @condition.domain.end.endOf
+    consequence: (_
+      "{" @interior.start.endOf
+      "}" @interior.end.startOf
+    ) @branch.end.endOf @interior.domain.end.endOf @condition.domain.end.endOf
   )
 )
 
 ;;!! else {}
 ;;!  ^^^^^^^
 (if_statement
-  "else" @branch.start
-  alternative: (block) @branch.end
+  "else" @branch.start @interior.domain.start.startOf
+  alternative: (block
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  ) @branch.end @interior.domain.end.endOf
 )
 
 ;;!! if () {} else if () {} else {}
@@ -100,8 +115,11 @@
 ;;!! try () {}
 ;;!  ^^^^^^^^^
 (try_statement
-  body: (_) @branch.end.endOf
-) @branch.start.startOf
+  body: (_
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  ) @branch.end.endOf @interior.domain.end.endOf
+) @branch.start.startOf @interior.domain.start.startOf
 
 ;;!! catch () {}
 ;;!  ^^^^^^^^^^^
@@ -109,7 +127,12 @@
 
 ;;!! finally {}
 ;;!  ^^^^^^^^^^
-(finally_clause) @branch
+(finally_clause
+  (block
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  )
+) @branch @interior.domain
 
 ;;!! try () {} catch () {} finally {}
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -133,17 +156,23 @@
 ;;!  ^^^^
 ;;!         ^   ^
 (conditional_expression
-  condition: (_) @condition
-  consequence: (_) @branch
+  condition: (_) @condition @interior
 ) @condition.domain
 (conditional_expression
-  alternative: (_) @branch
-) @condition.domain
+  consequence: (_) @branch @interior
+)
+(conditional_expression
+  alternative: (_) @branch @interior
+)
 
 ;;!! class Foo {}
 ;;!  ^^^^^^^^^^^^
 (class_declaration
   name: (identifier) @className
+  body: (_
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  )
 ) @class @type @_.domain
 
 (
@@ -156,11 +185,19 @@
 ;;!                             ***
 (_
   body: (_
-    .
     "{" @class.iteration.start.endOf @className.iteration.start.endOf
     "}" @class.iteration.end.startOf @className.iteration.end.startOf
-    .
   )
+)
+
+(
+  (_
+    body: (_
+      "{" @interior.start.endOf
+      "}" @interior.end.startOf
+    )
+  ) @_.domain
+  (#not-type? @_.domain try_statement)
 )
 
 ;;!! "Hello world"
@@ -185,8 +222,8 @@
 ;;!! () => 2;
 ;;!        ^
 (lambda_expression
-  body: (_) @value
-  (#not-type? @value block)
+  body: (_) @value @interior
+  (#not-type? @value block initializer_expression)
 ) @_.domain
 
 ;;!! return 2;
@@ -260,11 +297,21 @@
 ) @_.domain
 
 (do_statement
+  (block
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  )
   "while"
   .
   (_) @condition
 ) @_.domain
 
+;;!! case 0: break;
+;;!  ^^^^^^^^^^^^^^
+(switch_section) @branch
+
+;;!! case 0: break;
+;;!       ^
 (switch_section
   (case_switch_label
     .
@@ -272,7 +319,28 @@
   )
 ) @_.domain
 
-(switch_section) @branch
+;;!! default: break;
+;;!           ^^^^^^
+(switch_section
+  [
+    (case_switch_label)
+    (default_switch_label)
+  ]
+  .
+  (_) @interior.start
+  (_)? @interior.end
+  .
+  (#not-type? @interior.start "block")
+) @_.domain
+
+;;!! case 0: { }
+;;!           ^
+(switch_section
+  (block
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  )
+) @_.domain
 
 (switch_statement
   body: (switch_body
