@@ -1,7 +1,7 @@
 import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
-const { supported, notApplicable } = ScopeSupportFacetLevel;
+const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   switchStatementSubject: supported,
@@ -28,11 +28,13 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "functionCallee.constructor": supported,
 
   namedFunction: supported,
+  "namedFunction.iteration.document": notApplicable,
   "namedFunction.constructor": supported,
   "namedFunction.method": supported,
   "namedFunction.method.iteration.class": supported,
 
   functionName: supported,
+  "functionName.iteration.document": notApplicable,
   "functionName.constructor": supported,
   "functionName.method": supported,
   "functionName.method.iteration.class": supported,
@@ -169,46 +171,69 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.ternary": supported,
   "interior.try": supported,
 
-  // Not applicable
+  /* UNSUPPORTED  */
 
-  "collectionItem.unenclosed.iteration": notApplicable,
-  "collectionItem.unenclosed": notApplicable,
-  "functionName.iteration.block": notApplicable,
-  "functionName.iteration.document": notApplicable,
-  "interior.cell": notApplicable,
-  "interior.command": notApplicable,
+  fieldAccess: unsupported,
+
+  /* NOT APPLICABLE */
+
+  // Element and tags
+  element: notApplicable,
+  tags: notApplicable,
+  startTag: notApplicable,
+  endTag: notApplicable,
   "interior.element": notApplicable,
-  "interior.resource": notApplicable,
+  "textFragment.element": notApplicable,
   "key.attribute": notApplicable,
-  "name.argument.actual.iteration": notApplicable,
+  "value.attribute": notApplicable,
+
+  // Keyword argument
   "name.argument.actual": notApplicable,
-  "name.assignment.pattern": notApplicable,
-  "name.resource.iteration": notApplicable,
-  "name.resource": notApplicable,
-  "name.variable.pattern": notApplicable,
+  "name.argument.actual.iteration": notApplicable,
+  "value.argument.actual": notApplicable,
+  "value.argument.actual.iteration": notApplicable,
+
+  // Functions in blocks
+  "functionName.iteration.block": notApplicable,
   "namedFunction.iteration.block": notApplicable,
-  "namedFunction.iteration.document": notApplicable,
+
+  // Resource syntax
+  "interior.resource": notApplicable,
+  "type.resource": notApplicable,
+  "type.resource.iteration": notApplicable,
+  "name.resource": notApplicable,
+  "name.resource.iteration": notApplicable,
+  "value.resource": notApplicable,
+  "value.resource.iteration": notApplicable,
+
+  // Pattern destructing
+  "name.assignment.pattern": notApplicable,
+  "name.variable.pattern": notApplicable,
+  "value.variable.pattern": notApplicable,
+
+  // Type alias
+  "type.alias": notApplicable,
+  "value.typeAlias": notApplicable,
+
+  // Section
+  section: notApplicable,
   "section.iteration.document": notApplicable,
   "section.iteration.parent": notApplicable,
-  "textFragment.element": notApplicable,
-  "type.resource.iteration": notApplicable,
-  "type.resource": notApplicable,
-  "type.alias": notApplicable,
-  "value.argument.actual.iteration": notApplicable,
-  "value.argument.actual": notApplicable,
-  "value.attribute": notApplicable,
-  "value.resource.iteration": notApplicable,
-  "value.resource": notApplicable,
-  "value.typeAlias": notApplicable,
-  "value.variable.pattern": notApplicable,
+
+  // Command
   command: notApplicable,
-  element: notApplicable,
-  endTag: notApplicable,
-  environment: notApplicable,
+  "interior.command": notApplicable,
+
+  // Notebook cell
   notebookCell: notApplicable,
+  "interior.cell": notApplicable,
+
+  // Collection item
+  "collectionItem.unenclosed.iteration": notApplicable,
+  "collectionItem.unenclosed": notApplicable,
+
+  // Miscellaneous
+  environment: notApplicable,
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,
-  section: notApplicable,
-  startTag: notApplicable,
-  tags: notApplicable,
 };

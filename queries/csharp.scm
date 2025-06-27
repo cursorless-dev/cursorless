@@ -51,8 +51,13 @@
 (if_statement) @ifStatement
 
 (
-  (compilation_unit) @statement.iteration @name.iteration
-  (#document-range! @statement.iteration @name.iteration)
+  (compilation_unit) @statement.iteration @class.iteration @className.iteration
+  (#document-range! @statement.iteration @class.iteration @className.iteration)
+)
+
+(
+  (compilation_unit) @name.iteration @namedFunction.iteration @functionName.iteration
+  (#document-range! @name.iteration @namedFunction.iteration @functionName.iteration)
 )
 
 (_
@@ -174,11 +179,6 @@
     "}" @interior.end.startOf
   )
 ) @class @type @_.domain
-
-(
-  (compilation_unit) @class.iteration @className.iteration
-  (#document-range! @class.iteration @className.iteration)
-)
 
 ;; Treat interior of all bodies as iteration scopes for class and classname, eg
 ;;!! private static void foo() {   }
