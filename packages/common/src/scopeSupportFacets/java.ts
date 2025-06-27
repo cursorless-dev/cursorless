@@ -140,89 +140,102 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.variable": supported,
   "value.resource": supported,
 
-  // Unsupported
+  "interior.class": supported,
+  "interior.function": supported,
+  "interior.if": supported,
+  "interior.lambda": supported,
+  "interior.loop": supported,
+  "interior.switchCase": supported,
+  "interior.ternary": supported,
+  "interior.try": supported,
+  "interior.resource": supported,
 
-  "interior.class": unsupported,
-  "interior.element": unsupported,
-  "interior.function": unsupported,
-  "interior.if": unsupported,
-  "interior.lambda": unsupported,
-  "interior.loop": unsupported,
-  "interior.resource": unsupported,
-  "interior.switchCase": unsupported,
-  "interior.ternary": unsupported,
-  "interior.try": unsupported,
+  /* UNSUPPORTED  */
 
   fieldAccess: unsupported,
 
-  // Not Applicable
+  /* NOT APPLICABLE */
 
+  // Functions (not methods)
+  namedFunction: notApplicable,
+  "namedFunction.iteration.document": notApplicable,
+  "namedFunction.iteration.block": notApplicable,
+  functionName: notApplicable,
+  "functionName.iteration.document": notApplicable,
+  "functionName.iteration.block": notApplicable,
   "argument.formal": notApplicable,
   "argument.formal.iteration": notApplicable,
-
   "argumentList.formal.empty": notApplicable,
   "argumentList.formal.singleLine": notApplicable,
   "argumentList.formal.multiLine": notApplicable,
-
-  "name.assignment.pattern": notApplicable,
-  "name.argument.actual": notApplicable,
-  "name.argument.actual.iteration": notApplicable,
   "name.argument.formal": notApplicable,
   "name.argument.formal.iteration": notApplicable,
   "name.function": notApplicable,
-  "name.variable.pattern": notApplicable,
-  "name.resource.iteration": notApplicable,
+  "type.argument.formal": notApplicable,
+  "type.argument.formal.iteration": notApplicable,
 
-  "key.mapPair": notApplicable,
-  "key.mapPair.iteration": notApplicable,
-
+  // Element and tags
+  element: notApplicable,
+  tags: notApplicable,
+  startTag: notApplicable,
+  endTag: notApplicable,
+  "interior.element": notApplicable,
+  "textFragment.element": notApplicable,
+  attribute: notApplicable,
+  "key.attribute": notApplicable,
   "value.attribute": notApplicable,
+
+  // Keyword argument
+  "name.argument.actual": notApplicable,
+  "name.argument.actual.iteration": notApplicable,
   "value.argument.actual": notApplicable,
   "value.argument.actual.iteration": notApplicable,
+
+  // Pattern destructing
+  "name.assignment.pattern": notApplicable,
+  "name.variable.pattern": notApplicable,
+  "value.variable.pattern": notApplicable,
+
+  // Map literal
+  map: notApplicable,
+  "key.mapPair": notApplicable,
+  "key.mapPair.iteration": notApplicable,
+  "value.mapPair": notApplicable,
+  "value.mapPair.iteration": notApplicable,
+
+  // Default argument value
   "value.argument.formal": notApplicable,
   "value.argument.formal.iteration": notApplicable,
   "value.argument.formal.constructor": notApplicable,
   "value.argument.formal.constructor.iteration": notApplicable,
   "value.argument.formal.method": notApplicable,
   "value.argument.formal.method.iteration": notApplicable,
-  "value.mapPair": notApplicable,
-  "value.mapPair.iteration": notApplicable,
-  "value.variable.pattern": notApplicable,
-  "value.typeAlias": notApplicable,
-  "value.yield": notApplicable,
-  "value.resource.iteration": notApplicable,
 
-  "type.argument.formal": notApplicable,
-  "type.argument.formal.iteration": notApplicable,
+  // Type alias
   "type.alias": notApplicable,
-  "type.resource.iteration": notApplicable,
+  "value.typeAlias": notApplicable,
 
+  // Section
   section: notApplicable,
   "section.iteration.document": notApplicable,
   "section.iteration.parent": notApplicable,
 
-  element: notApplicable,
-  tags: notApplicable,
-  startTag: notApplicable,
-  endTag: notApplicable,
-  "textFragment.element": notApplicable,
+  // Command
+  command: notApplicable,
+  "interior.command": notApplicable,
 
-  namedFunction: notApplicable,
-  "namedFunction.iteration.document": notApplicable,
-  "namedFunction.iteration.block": notApplicable,
+  // Notebook cell
+  notebookCell: notApplicable,
+  "interior.cell": notApplicable,
 
-  "functionName.iteration.document": notApplicable,
-  "functionName.iteration.block": notApplicable,
+  // Multiple resources
+  "value.resource.iteration": notApplicable,
+  "type.resource.iteration": notApplicable,
+  "name.resource.iteration": notApplicable,
 
+  // Miscellaneous
+  "value.yield": notApplicable,
   pairDelimiter: notApplicable,
-  functionName: notApplicable,
-  map: notApplicable,
   regularExpression: notApplicable,
   environment: notApplicable,
-  "interior.cell": notApplicable,
-  "interior.command": notApplicable,
-  "key.attribute": notApplicable,
-  notebookCell: notApplicable,
-  attribute: notApplicable,
-  command: notApplicable,
 };

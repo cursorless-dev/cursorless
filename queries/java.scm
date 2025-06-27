@@ -69,22 +69,34 @@
   "}" @type.iteration.end.startOf @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf
 )
 
-;;!! for (...) { }
-;;!             ^
-(_
-  body: (_
-    "{" @name.iteration.start.endOf @statement.iteration.start.endOf
-    "}" @name.iteration.end.startOf @statement.iteration.end.startOf
-  )
+;;!! xxx { }
+;;!       ^
+(
+  (_
+    body: (_
+      "{" @interior.start.endOf
+      "}" @interior.end.startOf
+    )
+  ) @_.domain
+  (#not-type? @_.domain try_statement)
 )
 
-;;!! if (true) { }
-;;!             ^
-(if_statement
-  (block
-    "{" @name.iteration.start.endOf @statement.iteration.start.endOf
-    "}" @name.iteration.end.startOf @statement.iteration.end.startOf
-  )
+;;!! { }
+;;!   ^
+(_
+  "{" @name.iteration.start.endOf @statement.iteration.start.endOf
+  "}" @name.iteration.end.startOf @statement.iteration.end.startOf
+)
+
+(
+  (_
+    !body
+    (block
+      "{" @interior.start.endOf
+      "}" @interior.end.startOf
+    )
+  ) @_.domain
+  (#not-type? @_.domain try_statement if_statement)
 )
 
 ;;!! void myFunk() {}
@@ -99,13 +111,6 @@
 ;;!! ((value) -> true)
 ;;!   ^^^^^^^^^^^^^^^
 (lambda_expression) @anonymousFunction
-
-;;!! if (value) {}
-;;!  ^^^^^^^^^^^^^
-(
-  (if_statement) @ifStatement
-  (#not-parent-type? @ifStatement "if_statement")
-)
 
 ;;!! "string"
 ;;!  ^^^^^^^^
@@ -179,6 +184,17 @@
   )
 ) @condition.domain
 
+;;!! case 0: break;
+;;!          ^^^^^^
+(_
+  (switch_label)
+  .
+  (_) @interior.start
+  (_)? @interior.end
+  .
+  (#not-type? @interior.start "block")
+) @_.domain
+
 (switch_expression
   body: (_
     "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
@@ -186,13 +202,23 @@
   )
 ) @condition.iteration.domain @branch.iteration.domain
 
+;;!! if (value) {}
+;;!  ^^^^^^^^^^^^^
+(
+  (if_statement) @ifStatement
+  (#not-parent-type? @ifStatement "if_statement")
+)
+
 ;;!! if () {}
 ;;!  ^^^^^^^^
 (
   (if_statement
-    "if" @branch.start @branch.removal.start
+    "if" @branch.start @branch.removal.start @interior.domain.start.startOf
     condition: (_) @condition
-    consequence: (block) @branch.end @branch.removal.end
+    consequence: (block
+      "{" @interior.start.endOf
+      "}" @interior.end.startOf
+    ) @branch.end @branch.removal.end @interior.domain.end.endOf
     alternative: (if_statement)? @branch.removal.end.startOf
   ) @condition.domain
   (#not-parent-type? @condition.domain "if_statement")
@@ -202,10 +228,13 @@
 ;;!! else if () {}
 ;;!  ^^^^^^^^^^^^^
 (if_statement
-  "else" @branch.start @condition.domain.start
+  "else" @branch.start @condition.domain.start @interior.domain.start.startOf
   alternative: (if_statement
     condition: (_) @condition
-    consequence: (block) @branch.end @condition.domain.end
+    consequence: (block
+      "{" @interior.start.endOf
+      "}" @interior.end.startOf
+    ) @branch.end @condition.domain.end @interior.domain.end.endOf
     (#child-range! @condition 0 -1 true true)
   )
 )
@@ -213,8 +242,11 @@
 ;;!! else {}
 ;;!  ^^^^^^^
 (if_statement
-  "else" @branch.start
-  alternative: (block) @branch.end
+  "else" @branch.start @interior.domain.start.startOf
+  alternative: (block
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  ) @branch.end @interior.domain.end.endOf
 )
 
 (
@@ -225,8 +257,11 @@
 ;;!! try {}
 ;;!  ^^^^^^
 (try_statement
-  "try" @branch.start
-  body: (_) @branch.end
+  "try" @branch.start @interior.domain.start.startOf
+  body: (_
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  ) @branch.end @interior.domain.end.endOf
 )
 
 ;;!! catch (Exception e) {}
@@ -269,11 +304,13 @@
 
 ;;!! true ? 1 : 2
 (ternary_expression
-  condition: (_) @condition
-  consequence: (_) @branch
+  condition: (_) @condition @interior
 ) @condition.domain
 (ternary_expression
-  alternative: (_) @branch
+  consequence: (_) @branch @interior
+)
+(ternary_expression
+  alternative: (_) @branch @interior
 )
 
 ;;!! true ? 1 : 2
@@ -458,7 +495,7 @@
 ;;!         ^^^^^^^^^^^^^^
 ;;!  ---------------------
 (lambda_expression
-  body: (_) @value
+  body: (_) @value @interior
   (#not-type? @value block)
 ) @_.domain
 
