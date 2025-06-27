@@ -5,7 +5,7 @@ export const extensionDependencies = [
   // Register necessary language-IDs for tests
   "scala-lang.scala", // scala
   "mrob95.vscode-talonscript", // talon
-  "jrieken.vscode-tree-sitter-query", // scm
+  //"jrieken.vscode-tree-sitter-query", // scm TODO: UNDO THIS WHEN PUBLISHED TO OPENVSX
   "mathiasfrohlich.kotlin", // kotlin
 
   // Necessary for the `drink cell` and `pour cell` tests

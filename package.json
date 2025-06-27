@@ -17,6 +17,7 @@
     "fix:meta": "pnpm run meta-updater:base && pnpm -r exec prettier --write tsconfig.json package.json",
     "fix:syncpack": "pnpm syncpack fix-mismatches",
     "init-vscode-sandbox": "pnpm --filter=@cursorless/cursorless-vscode init-launch-sandbox",
+    "init-codium-sandbox": "pnpm --filter=@cursorless/cursorless-vscode init-launch-sandbox-codium",
     "lint:meta": "pnpm run meta-updater:base --test",
     "lint:ts": "cross-env ESLINT_USE_FLAT_CONFIG=false eslint packages --ext ts,tsx,mts",
     "lint": "pnpm run lint:meta && syncpack list-mismatches && pnpm run lint:ts",
