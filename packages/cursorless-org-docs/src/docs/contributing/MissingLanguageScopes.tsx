@@ -7,7 +7,7 @@ import {
   type ScopeType,
   type SimpleScopeTypeType,
 } from "@cursorless/common";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export function MissingLanguageScopes(): React.JSX.Element[] {
   return Object.keys(languageScopeSupport)
@@ -52,14 +52,19 @@ function renderFacets(
   facets: ScopeSupportFacet[],
 ): React.JSX.Element | null {
   const [open, setOpen] = useState(false);
+  const [scopes, setScopes] = useState<string[]>([]);
 
-  const scopes = Array.from(
-    new Set(
-      facets.map((f) =>
-        serializeScopeType(scopeSupportFacetInfos[f].scopeType),
+  useEffect(() => {
+    const scopes = Array.from(
+      new Set(
+        facets.map((f) =>
+          serializeScopeType(scopeSupportFacetInfos[f].scopeType),
+        ),
       ),
-    ),
-  ).sort();
+    ).sort();
+    setScopes(scopes);
+    setOpen(scopes.length < 4);
+  }, []);
 
   if (scopes.length === 0) {
     return null;
