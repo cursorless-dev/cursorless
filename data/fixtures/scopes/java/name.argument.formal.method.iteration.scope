@@ -1,0 +1,36 @@
+public class MyClass {
+    public void foo(String name, int value) { }
+}
+---
+
+[#1 Range] =
+[#1 Domain] = 0:0-2:1
+  >----------------------
+0| public class MyClass {
+1|     public void foo(String name, int value) { }
+2| }
+   -<
+
+
+[#2 Range] =
+[#2 Domain] = 0:22-2:0
+                        >
+0| public class MyClass {
+1|     public void foo(String name, int value) { }
+2| }
+   <
+
+
+[#3 Range] = 1:20-1:42
+                      >----------------------<
+1|     public void foo(String name, int value) { }
+
+[#3 Domain] = 1:19-1:43
+                     >------------------------<
+1|     public void foo(String name, int value) { }
+
+
+[#4 Range] =
+[#4 Domain] = 1:45-1:46
+                                               >-<
+1|     public void foo(String name, int value) { }

@@ -233,7 +233,11 @@ The modifier `"grand"` can be used to select the parent of the containing syntac
 - `"take grand statement air"`
 - `"take grand funk air"`
 
-For example, the command `"take grand statement [blue] air"` will select that parent statement of the statement containing the token with a blue hat over the letter 'a'.
+For example, the command `"take grand statement [blue] air"` will select the parent statement of the statement containing the token with a blue hat over the letter 'a'.
+
+You can also repeat `"grand"` multiple times.
+
+For example, the command `"take grand grand statement [blue] air"` will select the parent statement of the parent statement of the statement containing the token with a blue hat over the letter 'a'.
 
 ##### Sub-token modifiers
 
@@ -310,7 +314,7 @@ The modifiers `"head"` and `"tail"` can be used to expand a target through the b
 - `"take head air"`: selects the mark through to start of the line
 - `"take tail air"`: selects the mark through to the end of the line
 
-When inside a single-line surrounding pair (eg parentheses, brackets, etc) the head/tail modifier will only expand to the interior of that pair instead of the whole line. You can explicitly say `"head line"` or `"tail line"` to get the line behavior.
+When inside a surrounding pair (eg parentheses, brackets, etc) the head/tail modifier will only expand to the interior of that pair instead of the whole line. You can explicitly say `"head line"` or `"tail line"` to get the line behavior.
 
 When followed by a modifier, they will expand their input to the start or end of the given modifier range. For example:
 
@@ -390,14 +394,14 @@ If your cursor is touching a token, you can say `"take every instance"` to selec
 
 Pro tip: if you say eg `"take five instances air"`, and it turns out you need more, you can say eg `"take that and next two instances that"` to select the next two instances after the last instance you selected.
 
-###### Experimental: `"from"`
+###### `"from"`
 
-We have experimental support for prefixing a command with `"from <target>"` to narrow the range within which `"every instance"` searches, or to set the start point from which `"next instance"` searches. For example:
+We have support for prefixing a command with `"from <target>"` to narrow the range within which `"every instance"` searches, or to set the start point from which `"next instance"` searches. For example:
 
 - `"from funk take every instance air"`: selects all instances of the token with a hat over the letter `a` in the current function
 - `"from air take next instance bat"`: selects the next instance of the token with a hat over the letter `b` starting from the token with a hat over the letter `a`
 
-Note that the `"from"` modifier is not enabled by default; you must remove the `-` at the start of the line starting with `-from` in your `experimental/experimental_actions.csv` [settings csv](./customization.md). Note also that this feature is considered experimental and may change in the future.
+Note that the `"from"` modifier was not enabled by default on older Cursorless installations; you must remove the `-` at the start of the line starting with `-from` in your `experimental/experimental_actions.csv` [settings csv](./customization.md).
 
 ##### `"just"`
 
@@ -478,8 +482,6 @@ Note that if the first target is omitted, the start of the range will be the cur
 - `"take past [blue] air"`
 - `"take funk [blue] air past [blue] bat"` (note end of range inherits `"funk"`)
 - `"take funk [blue] air past token [blue] bat"`
-- `"take past before [blue] air"`
-- `"take after [blue] air past before [blue] bat"`
 - `"take past end of line"`
 - `"take past start of line"`
 - `"take [blue] air past end of line"`
@@ -616,14 +618,19 @@ For example:
 
 - `"drink <TARGET>"`: Inserts a new line above the target line, and moves the cursor to the newly created line
 - `"pour <TARGET>"`: Inserts a new line below the target line, and moves the cursor to the newly created line
+- `"drop <TARGET>"`: Inserts an empty line above the target line (without moving the cursor)
+- `"float <TARGET>"`: Inserts an empty line below the target line (without moving the cursor)
+- `"puff <TARGET>"`: Inserts empty lines/spaces around the target (without moving the cursor)
 
 eg: `pour blue air` will insert empty line below the token containing letter 'a' with a blue hat and moves the cursor to the new line.
 
-Note: `"drink"` and `"pour"` are actually a bit more versatile than just lines.
-If you use a [syntactic scope](#syntactic-scopes) modifier on the target, then`"drink"` and `"pour"` will do the
+Note: `"drink"`, `"pour"`, `"drop"`, `"float"`, and `"puff"` are actually more versatile than just handling lines.
+If you use a [syntactic scope](#syntactic-scopes) modifier on the target, they will do the
 appropriate insertions to prepare the text for a new instance of that scope.
 
 eg: `pour item air` will insert a comma and space after the air item, and place the cursor after the inserted characters.
+eg: `puff token air` will insert spaces around the token with a hat over the letter 'a'.
+eg: `float item air` will insert a comma after the item containing letter 'a' with a hat.
 
 ### Homophones
 
@@ -753,7 +760,7 @@ Join multiple lines together.
 eg:
 
 - `join air`: Join the line with the token containing the letter 'a' with its next line.
-- `join block air`: Joines all lines in the paragraph with the token containing the letter 'a' together into a single line.
+- `join block air`: Joins all lines in the paragraph with the token containing the letter 'a' together into a single line.
 
 ### Break
 

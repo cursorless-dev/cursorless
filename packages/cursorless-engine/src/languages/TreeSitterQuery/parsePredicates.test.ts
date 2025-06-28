@@ -1,8 +1,8 @@
 import assert from "assert";
 import { parsePredicates } from "./parsePredicates";
-import type { PredicateResult } from "web-tree-sitter";
+import type { QueryPredicate } from "web-tree-sitter";
 
-const predicates: PredicateResult[][] = [
+const predicates: QueryPredicate[][] = [
   [
     // (#not-type? @statement comment)
     // Valid

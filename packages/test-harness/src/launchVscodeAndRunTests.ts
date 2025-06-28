@@ -2,14 +2,13 @@ import {
   extensionDependencies,
   getEnvironmentVariableStrict,
 } from "@cursorless/common";
-import { getCursorlessRepoRoot } from "@cursorless/node-common";
+import { getCursorlessRepoRoot, isWindows } from "@cursorless/node-common";
 import {
   downloadAndUnzipVSCode,
   resolveCliArgsFromVSCodeExecutablePath,
   runTests,
 } from "@vscode/test-electron";
 import { sync } from "cross-spawn";
-import * as os from "node:os";
 import * as path from "node:path";
 
 /**
@@ -35,6 +34,7 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
     // NB: We include the exact version here instead of in `test.yml` so that
     // we don't have to update the branch protection rules every time we bump
     // the legacy VSCode version.
+
     const vscodeVersion = useLegacyVscode ? "1.82.0" : "stable";
     const vscodeExecutablePath = await downloadAndUnzipVSCode(vscodeVersion);
     const [cli, ...args] =
@@ -74,7 +74,7 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
       // hangs some of the time, so might be enough to get a crash dump when you
       // need it.
       launchArgs:
-        useLegacyVscode || os.platform() === "win32"
+        useLegacyVscode || isWindows()
           ? undefined
           : [`--crash-reporter-directory=${crashDir}`, `--logsPath=${logsDir}`],
     });

@@ -4,24 +4,34 @@ import type {
 } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStageFactory } from "../ModifierStageFactory";
-import type { ModifierStage } from "../PipelineStages.types";
+import type {
+  ModifierStage,
+  ModifierStateOptions,
+} from "../PipelineStages.types";
 import { ModifyIfConditionStage } from "./ConditionalModifierStages";
 
 export class InteriorOnlyStage implements ModifierStage {
-  private containingSurroundingPairIfNoInteriorStage: ModifierStage;
-
   constructor(
-    private modifierStageFactory: ModifierStageFactory,
+    private modifierHandlerFactory: ModifierStageFactory,
     private modifier: InteriorOnlyModifier,
-  ) {
-    this.containingSurroundingPairIfNoInteriorStage =
-      getContainingSurroundingPairIfNoInteriorStage(this.modifierStageFactory);
-  }
+  ) {}
 
-  run(target: Target): Target[] {
-    return this.containingSurroundingPairIfNoInteriorStage
-      .run(target)
-      .flatMap((target) => target.getInterior()!);
+  run(target: Target, options: ModifierStateOptions): Target[] {
+    const interior = target.getInterior();
+
+    if (interior != null) {
+      return interior;
+    }
+
+    const containingModifier = this.modifierHandlerFactory.create({
+      type: "containingScope",
+      scopeType: {
+        type: "interior",
+        explicitScopeType: target.hasExplicitScopeType,
+      },
+    });
+
+    return containingModifier.run(target, options);
   }
 }
 
@@ -36,24 +46,11 @@ export class ExcludeInteriorStage implements ModifierStage {
       getContainingSurroundingPairIfNoBoundaryStage(this.modifierStageFactory);
   }
 
-  run(target: Target): Target[] {
+  run(target: Target, options: ModifierStateOptions): Target[] {
     return this.containingSurroundingPairIfNoBoundaryStage
-      .run(target)
+      .run(target, options)
       .flatMap((target) => target.getBoundary()!);
   }
-}
-
-function getContainingSurroundingPairIfNoInteriorStage(
-  modifierStageFactory: ModifierStageFactory,
-): ModifierStage {
-  return new ModifyIfConditionStage(
-    modifierStageFactory,
-    {
-      type: "containingScope",
-      scopeType: { type: "surroundingPair", delimiter: "any" },
-    },
-    (target) => target.getInterior() == null,
-  );
 }
 
 export function getContainingSurroundingPairIfNoBoundaryStage(

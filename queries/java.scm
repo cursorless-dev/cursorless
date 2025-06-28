@@ -38,9 +38,66 @@
   (field_declaration)
 ] @statement
 
+[
+  (class_declaration)
+  (interface_declaration)
+  (enum_declaration)
+] @type
+
 (class_declaration
   name: (_) @name @className
 ) @class @_.domain
+
+(
+  (program) @class.iteration @className.iteration @name.iteration
+  (#document-range! @class.iteration @className.iteration @name.iteration)
+)
+(
+  (program) @statement.iteration
+  (#document-range! @statement.iteration)
+)
+
+;;!! class MyClass { }
+;;!                 ^
+(class_body
+  "{" @class.iteration.start.endOf @className.iteration.start.endOf
+  "}" @class.iteration.end.startOf @className.iteration.end.startOf
+)
+
+(class_body
+  "{" @type.iteration.start.endOf @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf
+  "}" @type.iteration.end.startOf @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf
+)
+
+;;!! xxx { }
+;;!       ^
+(
+  (_
+    body: (_
+      "{" @interior.start.endOf
+      "}" @interior.end.startOf
+    )
+  ) @_.domain
+  (#not-type? @_.domain try_statement)
+)
+
+;;!! { }
+;;!   ^
+(_
+  "{" @name.iteration.start.endOf @statement.iteration.start.endOf
+  "}" @name.iteration.end.startOf @statement.iteration.end.startOf
+)
+
+(
+  (_
+    !body
+    (block
+      "{" @interior.start.endOf
+      "}" @interior.end.startOf
+    )
+  ) @_.domain
+  (#not-type? @_.domain try_statement if_statement)
+)
 
 ;;!! void myFunk() {}
 ;;!  ^^^^^^^^^^^^^^^^
@@ -55,16 +112,19 @@
 ;;!   ^^^^^^^^^^^^^^^
 (lambda_expression) @anonymousFunction
 
-;;!! if (value) {}
-;;!  ^^^^^^^^^^^^^
-(
-  (if_statement) @ifStatement
-  (#not-parent-type? @ifStatement "if_statement")
-)
-
 ;;!! "string"
 ;;!  ^^^^^^^^
-(string_literal) @string @textFragment
+(
+  (string_literal) @string @textFragment
+  (#character-range! @textFragment 1 -1)
+)
+
+;;!! """string"""
+;;!  ^^^^^^^^^^^^
+(
+  (text_block) @string @textFragment
+  (#character-range! @textFragment 3 -3)
+)
 
 ;;!! // comment
 ;;!  ^^^^^^^^^^
@@ -124,15 +184,41 @@
   )
 ) @condition.domain
 
-(switch_expression) @branch.iteration @condition.iteration
+;;!! case 0: break;
+;;!          ^^^^^^
+(_
+  (switch_label)
+  .
+  (_) @interior.start
+  (_)? @interior.end
+  .
+  (#not-type? @interior.start "block")
+) @_.domain
+
+(switch_expression
+  body: (_
+    "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
+    "}" @condition.iteration.end.startOf @branch.iteration.end.startOf
+  )
+) @condition.iteration.domain @branch.iteration.domain
+
+;;!! if (value) {}
+;;!  ^^^^^^^^^^^^^
+(
+  (if_statement) @ifStatement
+  (#not-parent-type? @ifStatement "if_statement")
+)
 
 ;;!! if () {}
 ;;!  ^^^^^^^^
 (
   (if_statement
-    "if" @branch.start @branch.removal.start
+    "if" @branch.start @branch.removal.start @interior.domain.start.startOf
     condition: (_) @condition
-    consequence: (block) @branch.end @branch.removal.end
+    consequence: (block
+      "{" @interior.start.endOf
+      "}" @interior.end.startOf
+    ) @branch.end @branch.removal.end @interior.domain.end.endOf
     alternative: (if_statement)? @branch.removal.end.startOf
   ) @condition.domain
   (#not-parent-type? @condition.domain "if_statement")
@@ -142,10 +228,13 @@
 ;;!! else if () {}
 ;;!  ^^^^^^^^^^^^^
 (if_statement
-  "else" @branch.start @condition.domain.start
+  "else" @branch.start @condition.domain.start @interior.domain.start.startOf
   alternative: (if_statement
     condition: (_) @condition
-    consequence: (block) @branch.end @condition.domain.end
+    consequence: (block
+      "{" @interior.start.endOf
+      "}" @interior.end.startOf
+    ) @branch.end @condition.domain.end @interior.domain.end.endOf
     (#child-range! @condition 0 -1 true true)
   )
 )
@@ -153,8 +242,11 @@
 ;;!! else {}
 ;;!  ^^^^^^^
 (if_statement
-  "else" @branch.start
-  alternative: (block) @branch.end
+  "else" @branch.start @interior.domain.start.startOf
+  alternative: (block
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  ) @branch.end @interior.domain.end.endOf
 )
 
 (
@@ -165,8 +257,11 @@
 ;;!! try {}
 ;;!  ^^^^^^
 (try_statement
-  "try" @branch.start
-  body: (_) @branch.end
+  "try" @branch.start @interior.domain.start.startOf
+  body: (_
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  ) @branch.end @interior.domain.end.endOf
 )
 
 ;;!! catch (Exception e) {}
@@ -184,7 +279,7 @@
 ;;!  ------------------------------
 (for_statement
   condition: (_) @condition
-) @_.domain
+) @branch @_.domain
 
 ;;!! while (value) {}
 ;;!         ^^^^^
@@ -192,12 +287,12 @@
 (while_statement
   condition: (_) @condition
   (#child-range! @condition 0 -1 true true)
-) @_.domain
+) @branch @_.domain
 
 (do_statement
   condition: (_) @condition
   (#child-range! @condition 0 -1 true true)
-) @_.domain
+) @branch @_.domain
 
 ;;!! switch (value) {}
 ;;!          ^^^^^
@@ -209,11 +304,13 @@
 
 ;;!! true ? 1 : 2
 (ternary_expression
-  condition: (_) @condition
-  consequence: (_) @branch
+  condition: (_) @condition @interior
 ) @condition.domain
 (ternary_expression
-  alternative: (_) @branch
+  consequence: (_) @branch @interior
+)
+(ternary_expression
+  alternative: (_) @branch @interior
 )
 
 ;;!! true ? 1 : 2
@@ -223,17 +320,16 @@
 ;;!! void myFunk(int value) {}
 ;;!                  ^^^^^
 ;;!  -------------------------
-(formal_parameters
-  (formal_parameter
-    (identifier) @name
-  ) @_.domain
-) @_.iteration
+(formal_parameter
+  (identifier) @name
+) @_.domain
 
-;;!! Map<String, String>
-;;!     ^^^^^^^  ^^^^^^
-(type_arguments
-  (type_identifier) @type
-)
+;;!! void myFunk(int value) {}
+;;!              ^^^^^^^^^
+(formal_parameters
+  "(" @type.iteration.start.endOf @name.iteration.start.endOf
+  ")" @type.iteration.end.startOf @name.iteration.end.startOf
+) @type.iteration.domain @name.iteration.domain
 
 ;;!! List<String> list = value;
 ;;!  ^^^^^^^^^^^^
@@ -270,6 +366,14 @@
   type: (_) @type
 ) @_.domain
 
+;;!! (int)5
+;;!   ^^^
+(cast_expression
+  "(" @type.removal.start
+  type: (_) @type
+  ")" @type.removal.end
+) @_.domain
+
 ;;!! new test();
 ;;!  ^^^^^^^^
 ;;!  -----------
@@ -304,7 +408,7 @@
   type: (_) @type
   name: (_) @name
   value: (_) @value
-) @_.domain
+) @branch @_.domain
 
 ;;!! int value = 1;
 ;;!              ^
@@ -391,44 +495,39 @@
 ;;!         ^^^^^^^^^^^^^^
 ;;!  ---------------------
 (lambda_expression
-  body: (_) @value
+  body: (_) @value @interior
   (#not-type? @value block)
 ) @_.domain
 
-;;!! public Map<int, int> foo;
-;;!         ^^^^^^^^^^^^^
-;;!  -------------------------
+;;!! Map<int, int> foo;
+;;!  ^^^^^^^^^^^^^
+;;!  ------------------
 (field_declaration
   type: (_) @type
 ) @_.domain
 
-;;!! class MyClass { }
-;;!                 ^
-(class_body
-  .
-  "{" @type.iteration.start.endOf
-  "}" @type.iteration.end.startOf
-  .
-)
-
-;;!! public Map<int, int> foo;
-;;!             ^^^  ^^^
+;;!! Map<int, int> foo;
+;;!      ^^^  ^^^
 (type_arguments
+  (_)? @_.leading.endOf
+  .
   (_) @type
+  .
+  (_)? @_.trailing.startOf
+  (#insertion-delimiter! @type ", ")
 )
 
-;;!! public Map<int, int> foo;
-;;!             ^^^^^^^^
+;;!! Map<int, int> foo;
+;;!      ^^^^^^^^
 (type_arguments
-  .
   "<" @type.iteration.start.endOf
   ">" @type.iteration.end.startOf
-  .
 )
-;;!! foo(name: string) {}
-;;!      ^^^^^^^^^^^^
-(
-  (formal_parameters
+
+;;!! void foo(int aaa, int bbb) {}
+;;!           ^^^^^^^  ^^^^^^^
+(_
+  parameters: (_
     (_)? @_.leading.endOf
     .
     (_) @argumentOrParameter
@@ -439,8 +538,8 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
-;;!! foo("bar")
-;;!      ^^^^^
+;;!! foo(aaa, bbb);
+;;!      ^^^  ^^^
 (
   (argument_list
     (_)? @_.leading.endOf
@@ -453,17 +552,39 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
+;;!! void foo(int aaa, int bbb) {}
+;;!           ^^^^^^^^^^^^^^^^
 (_
-  (formal_parameters
-    "(" @argumentOrParameter.iteration.start.endOf
-    ")" @argumentOrParameter.iteration.end.startOf
-  )
-) @argumentOrParameter.iteration.domain
+  parameters: (_
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#child-range! @argumentList 1 -2)
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
-(argument_list
-  "(" @argumentOrParameter.iteration.start.endOf
-  ")" @argumentOrParameter.iteration.end.startOf
-) @argumentOrParameter.iteration.domain
+;;!! foo(aaa, bbb);
+;;!      ^^^^^^^^
+(_
+  (argument_list
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#child-range! @argumentList 1 -2)
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+) @argumentList.domain @argumentOrParameter.iteration.domain
+
+;;!! try (PrintWriter writer = create()) { }
+;;!       ^^^^^^^^^^^ ^^^^^    ^^^^^^^^
+(try_with_resources_statement
+  (resource_specification
+    (resource
+      type: (_) @type
+      name: (_) @name
+      value: (_) @value
+    )
+  )
+) @_.domain
 
 operator: [
   "<"

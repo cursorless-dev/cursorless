@@ -1,0 +1,35 @@
+class MyClass {
+  myFunk(
+    aaa,
+    bbb
+  ) { }
+}
+---
+
+[Content] = 2:4-3:7
+      >----
+2|     aaa,
+3|     bbb
+   -------<
+
+[Removal] = 1:9-4:2
+           >
+1|   myFunk(
+2|     aaa,
+3|     bbb
+4|   ) { }
+   --<
+
+[Leading delimiter] = 2:0-2:4
+  >----<
+2|     aaa,
+
+[Domain] = 1:2-4:7
+    >-------
+1|   myFunk(
+2|     aaa,
+3|     bbb
+4|   ) { }
+   -------<
+
+[Insertion delimiter] = ",\n"

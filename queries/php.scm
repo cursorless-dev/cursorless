@@ -78,7 +78,7 @@
   (method_declaration) @namedFunction
   (expression_statement
     (assignment_expression
-      right: (anonymous_function_creation_expression)
+      right: (anonymous_function)
     ) @namedFunction
     ";" @_.trailing
   )
@@ -91,7 +91,7 @@
 ] @namedFunction.domain
 
 [
-  (anonymous_function_creation_expression)
+  (anonymous_function)
   (arrow_function)
 ] @anonymousFunction
 
@@ -170,10 +170,28 @@
   )
 ) @argumentOrParameter.iteration.domain
 
-(arguments
-  "(" @argumentOrParameter.iteration.start.endOf
-  ")" @argumentOrParameter.iteration.end.startOf
+;;!! foo.bar(a, b);
+;;!          ^^^^
+(binary_expression
+  (function_call_expression
+    (arguments
+      "(" @argumentOrParameter.iteration.start.endOf
+      ")" @argumentOrParameter.iteration.end.startOf
+    )
+  )
 ) @argumentOrParameter.iteration.domain
+
+;;!! foo(a, b);
+;;!      ^^^^
+(
+  (_
+    (arguments
+      "(" @argumentOrParameter.iteration.start.endOf
+      ")" @argumentOrParameter.iteration.end.startOf
+    )
+  ) @argumentOrParameter.iteration.domain
+  (#not-parent-type? @argumentOrParameter.iteration.domain binary_expression)
+)
 
 ;;!! ['num' => 1];
 ;;!   ^^^^^

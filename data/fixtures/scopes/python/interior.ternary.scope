@@ -1,0 +1,34 @@
+1 if True else 0
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-0:1
+  >-<
+0| 1 if True else 0
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] = 0:5-0:9
+       >----<
+0| 1 if True else 0
+
+[#2 Domain] = 0:2-0:9
+    >-------<
+0| 1 if True else 0
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] =
+[#3 Removal] = 0:15-0:16
+                 >-<
+0| 1 if True else 0
+
+[#3 Domain] = 0:10-0:16
+            >------<
+0| 1 if True else 0
+
+[#3 Insertion delimiter] = " "

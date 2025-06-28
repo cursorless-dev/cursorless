@@ -1,7 +1,7 @@
 import type {
-  BreakpointDescriptor,
   Edit,
   EditableTextEditor,
+  GeneralizedRange,
   OpenLinkOptions,
   Range,
   RevealLineAt,
@@ -127,9 +127,7 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
     throw Error("unfold Not implemented");
   }
 
-  public toggleBreakpoint(
-    _descriptors?: BreakpointDescriptor[],
-  ): Promise<void> {
+  public toggleBreakpoint(_ranges?: GeneralizedRange[]): Promise<void> {
     throw Error("toggleBreakpoint Not implemented");
   }
 
@@ -191,5 +189,21 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
 
   public async extractVariable(_range?: Range): Promise<void> {
     throw Error("extractVariable Not implemented");
+  }
+
+  public async gitAccept(_range?: Range): Promise<void> {
+    throw Error("gitAccept Not implemented");
+  }
+
+  public async gitRevert(_range?: Range): Promise<void> {
+    throw Error("gitRevert Not implemented");
+  }
+
+  public async gitStage(_range?: Range): Promise<void> {
+    throw Error("gitStage Not implemented");
+  }
+
+  public async gitUnstage(_range?: Range): Promise<void> {
+    throw Error("gitUnstage Not implemented");
   }
 }

@@ -111,6 +111,7 @@ function isLanguageSpecific(scopeType: ScopeType): boolean {
   switch (scopeType.type) {
     case "string":
     case "argumentOrParameter":
+    case "argumentList":
     case "anonymousFunction":
     case "attribute":
     case "branch":
@@ -126,6 +127,7 @@ function isLanguageSpecific(scopeType: ScopeType): boolean {
     case "functionName":
     case "ifStatement":
     case "instance":
+    case "interior":
     case "list":
     case "map":
     case "name":

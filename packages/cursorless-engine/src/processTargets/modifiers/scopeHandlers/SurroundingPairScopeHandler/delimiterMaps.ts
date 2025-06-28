@@ -22,13 +22,15 @@ type DelimiterMap = Record<
   | [IndividualDelimiterText, IndividualDelimiterText, Options]
 >;
 
+// Note that the order here is important since we are creating a regex from the key order.
+// For example triple quotes need to come before single quotes.
 const delimiterToText: DelimiterMap = Object.freeze({
   angleBrackets: [
     ["</", "<"],
     [">", "/>"],
   ],
-  backtickQuotes: ["`", "`"],
   curlyBrackets: [["{", "${"], "}"],
+  tripleBacktickQuotes: [[], []],
   tripleDoubleQuotes: [[], []],
   tripleSingleQuotes: [[], []],
   doubleQuotes: ['"', '"', { isSingleLine: true }],
@@ -37,6 +39,7 @@ const delimiterToText: DelimiterMap = Object.freeze({
   escapedSquareBrackets: ["\\[", "\\]"],
   escapedSingleQuotes: ["\\'", "\\'", { isSingleLine: true }],
   parentheses: [["(", "$("], ")"],
+  backtickQuotes: ["`", "`"],
   singleQuotes: ["'", "'", { isSingleLine: true }],
   squareBrackets: ["[", "]"],
 });
@@ -63,8 +66,19 @@ const delimiterToTextOverrides: Record<string, Partial<DelimiterMap>> = {
     tripleDoubleQuotes: ['"""', '"""'],
   },
 
+  markdown: {
+    tripleBacktickQuotes: ["```", "```"],
+  },
+
   ruby: {
     tripleDoubleQuotes: ["%Q(", ")"],
+  },
+
+  csharp: {
+    doubleQuotes: [
+      ['@"', '"'],
+      ['"', '"'],
+    ],
   },
 };
 
@@ -84,6 +98,7 @@ export const complexDelimiterMap: Record<
   string: [
     "tripleDoubleQuotes",
     "tripleSingleQuotes",
+    "tripleBacktickQuotes",
     "doubleQuotes",
     "singleQuotes",
     "backtickQuotes",

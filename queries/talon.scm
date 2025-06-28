@@ -27,11 +27,7 @@
   (parrot_declaration)
 ] @statement
 
-[
-  (matches)
-  (declarations)
-  (block)
-] @statement.iteration
+(block) @statement.iteration
 
 ;;!! not mode: command
 ;;!  ----^^^^---------
@@ -39,9 +35,12 @@
 ;;!  ^^^^------------
 ;;!! tag(): user.cursorless
 ;;!  ^^^^^-----------------
-(_
-  left: _ @name
-) @_.domain
+(
+  (_
+    left: _ @name
+  ) @_.domain
+  (#not-type? @_.domain "binary_operator")
+)
 
 ;;!! not mode: command
 ;;!  ^^^^^^^^---------
@@ -49,18 +48,24 @@
 ;;!  ^^^^------------
 ;;!! tag(): user.cursorless
 ;;!  ^^^^^-----------------
-(_
-  modifiers: (_)? @collectionKey.start
-  left: _ @collectionKey.end
-) @_.domain
+(
+  (_
+    modifiers: (_)? @collectionKey.start
+    left: _ @collectionKey.end
+  ) @_.domain
+  (#not-type? @_.domain "binary_operator")
+)
 
 ;;!! not mode: command
 ;;!  ----------^^^^^^^
 ;;!! slap: key(enter)
 ;;!  ------^^^^^^^^^^
-(_
-  right: (_) @value
-) @_.domain
+(
+  (_
+    right: (_) @value
+  ) @_.domain
+  (#not-type? @_.domain "binary_operator")
+)
 
 ;;!!   mode: command
 ;;!   <*************
@@ -113,14 +118,15 @@
 ;;!  ^^^^^^^^^^^^^^^^
 (
   (command_declaration
-    right: (_) @_.interior
-  ) @command
+    right: (_) @interior
+  ) @command @interior.domain
   (#insertion-delimiter! @command "\n")
 )
 
-(source_file
-  (declarations) @command.iteration
-) @command.iteration.domain
+(
+  (source_file) @command.iteration @statement.iteration
+  (#document-range! @command.iteration @statement.iteration)
+)
 
 ;;!! key(enter)
 ;;!  ^^^^^^^^^^
@@ -151,16 +157,19 @@
 ;;!! key(enter)
 ;;!      ^^^^^
 (key_action
-  arguments: (_) @argumentOrParameter
-)
+  (implicit_string) @argumentOrParameter @argumentOrParameter.iteration @argumentList
+) @argumentOrParameter.iteration.domain @argumentList.domain
+
+;;!! sleep(100ms)
+;;!        ^^^^^
 (sleep_action
-  arguments: (_) @argumentOrParameter
-)
+  (implicit_string) @argumentOrParameter @argumentOrParameter.iteration @argumentList
+) @argumentOrParameter.iteration.domain @argumentList.domain
 
 ;;!! print("hello", "world")
 ;;!        ^^^^^^^  ^^^^^^^
 (action
-  arguments: (_
+  arguments: (argument_list
     (_)? @_.leading.endOf
     .
     (_) @argumentOrParameter
@@ -170,10 +179,21 @@
   (#insertion-delimiter! @argumentOrParameter ", ")
 )
 
-;;!! key(enter)
-;;!      ^^^^^
-arguments: (_) @argumentOrParameter.iteration
+(_
+  (argument_list
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#child-range! @argumentList 1 -2)
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;;!! # foo
 ;;!  ^^^^^
-(comment) @comment
+(comment) @comment @textFragment
+
+;;!! "foo"
+;;!  ^^^^^
+(string
+  (string_content) @textFragment
+) @string

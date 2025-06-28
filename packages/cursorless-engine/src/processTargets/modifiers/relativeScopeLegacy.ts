@@ -2,13 +2,14 @@ import type { Range, RelativeScopeModifier } from "@cursorless/common";
 import { findLastIndex } from "lodash-es";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStageFactory } from "../ModifierStageFactory";
+import type { ModifierStateOptions } from "../PipelineStages.types";
 import { UntypedTarget } from "../targets";
+import { OutOfRangeError } from "./listUtils";
 import {
   createRangeTargetFromIndices,
   getEveryScopeTargets,
 } from "./targetSequenceUtils";
 import { TooFewScopesError } from "./TooFewScopesError";
-import { OutOfRangeError } from "./listUtils";
 
 interface ContainingIndices {
   start: number;
@@ -19,6 +20,7 @@ export function runLegacy(
   modifierStageFactory: ModifierStageFactory,
   modifier: RelativeScopeModifier,
   target: Target,
+  options: ModifierStateOptions,
 ): Target[] {
   /**
    * A list of targets in the iteration scope for the input {@link target}.
@@ -32,6 +34,7 @@ export function runLegacy(
   const targets = getEveryScopeTargets(
     modifierStageFactory,
     createTargetWithoutExplicitRange(target),
+    options,
     modifier.scopeType,
   );
 
@@ -72,6 +75,7 @@ function calculateIndicesAndCreateTarget(
 
   return [
     createRangeTargetFromIndices(
+      modifier.scopeType,
       target.isReversed,
       targets,
       startIndex,
@@ -108,7 +112,7 @@ function computeProximalIndex(
         );
 
     if (adjacentTargetIndex === -1) {
-      throw new OutOfRangeError();
+      throw new OutOfRangeError(modifier.scopeType);
     }
 
     // For convenience, if they ask to include intersecting indices, we just

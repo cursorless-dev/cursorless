@@ -1,0 +1,22 @@
+@function double($num) {
+  @return $num * 2;
+}
+---
+
+[Content] = 1:10-1:18
+            >--------<
+1|   @return $num * 2;
+
+[Removal] = 1:9-1:18
+           >---------<
+1|   @return $num * 2;
+
+[Leading delimiter] = 1:9-1:10
+           >-<
+1|   @return $num * 2;
+
+[Domain] = 1:2-1:19
+    >-----------------<
+1|   @return $num * 2;
+
+[Insertion delimiter] = " "

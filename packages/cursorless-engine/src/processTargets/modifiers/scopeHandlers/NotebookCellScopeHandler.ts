@@ -7,7 +7,7 @@ import {
 import type { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import { BaseScopeHandler } from "./BaseScopeHandler";
 import { NotebookCellApiScopeHandler } from "./NotebookCellApiScopeHandler";
-import { OneOfScopeHandler } from "./OneOfScopeHandler";
+import { SortedScopeHandler } from "./SortedScopeHandler";
 import type { TargetScope } from "./scope.types";
 import type {
   ComplexScopeType,
@@ -44,17 +44,10 @@ export class NotebookCellScopeHandler extends BaseScopeHandler {
         return apiScopeHandler;
       }
 
-      return OneOfScopeHandler.createFromScopeHandlers(
+      return SortedScopeHandler.createFromScopeHandlers(
         scopeHandlerFactory,
-        {
-          type: "oneOf",
-          scopeTypes: [
-            languageScopeHandler.scopeType,
-            apiScopeHandler.scopeType,
-          ],
-        },
-        [languageScopeHandler, apiScopeHandler],
         languageId,
+        [languageScopeHandler, apiScopeHandler],
       );
     })();
   }

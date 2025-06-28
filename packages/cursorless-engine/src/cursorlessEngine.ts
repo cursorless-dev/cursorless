@@ -35,7 +35,6 @@ import {
 import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
 import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
 import { runCommand } from "./runCommand";
-import { runIntegrationTests } from "./runIntegrationTests";
 import { ScopeInfoProvider } from "./scopeProviders/ScopeInfoProvider";
 import { ScopeRangeProvider } from "./scopeProviders/ScopeRangeProvider";
 import { ScopeRangeWatcher } from "./scopeProviders/ScopeRangeWatcher";
@@ -142,8 +141,6 @@ export async function createCursorlessEngine({
     storedTargets,
     hatTokenMap,
     injectIde,
-    runIntegrationTests: () =>
-      runIntegrationTests(treeSitter, languageDefinitions),
     addCommandRunnerDecorator: (decorator: CommandRunnerDecorator) => {
       commandRunnerDecorators.push(decorator);
     },

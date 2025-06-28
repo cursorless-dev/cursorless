@@ -2,7 +2,16 @@
   "name": "@cursorless/cursorless-tutorial",
   "version": "1.0.0",
   "description": "Cursorless tutorial driver code",
+  "license": "MIT",
+  "type": "module",
   "main": "./out/index.js",
+  "types": "./out/index.d.ts",
+  "exports": {
+    ".": {
+      "cursorless:bundler": "./src/index.ts",
+      "default": "./out/index.js"
+    }
+  },
   "scripts": {
     "compile:tsc": "tsc --build",
     "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=esm --bundle --packages=external --outfile=./out/index.js",
@@ -12,22 +21,11 @@
     "watch": "pnpm run --filter @cursorless/cursorless-tutorial --parallel '/^watch:.*/'",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
-  "type": "module",
-  "types": "./out/index.d.ts",
-  "exports": {
-    ".": {
-      "cursorless:bundler": "./src/index.ts",
-      "default": "./out/index.js"
-    }
-  },
   "dependencies": {
     "@cursorless/common": "workspace:*",
     "@cursorless/cursorless-engine": "workspace:*",
-    "immer": "^10.1.1",
-    "lodash-es": "^4.17.21"
+    "immer": "10.1.1",
+    "lodash-es": "4.17.21"
   },
   "devDependencies": {
     "@types/lodash-es": "4.17.12"

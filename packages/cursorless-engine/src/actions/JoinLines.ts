@@ -61,9 +61,9 @@ function getEdits(editor: TextEditor, targets: Target[]): Edit[] {
 
   for (const target of targets) {
     const targetsEdits =
-      target.joinAs === "line"
-        ? getLineTargetEdits(target)
-        : getTokenTargetEdits(target);
+      target.textualType === "token"
+        ? getTokenTargetEdits(target)
+        : getLineTargetEdits(target);
 
     edits.push(...targetsEdits);
   }

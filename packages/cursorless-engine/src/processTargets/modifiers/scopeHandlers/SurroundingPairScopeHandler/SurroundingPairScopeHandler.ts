@@ -4,13 +4,16 @@ import type {
   SurroundingPairScopeType,
   TextEditor,
 } from "@cursorless/common";
-import { showError, type ScopeType } from "@cursorless/common";
+import { showError } from "@cursorless/common";
 import type { LanguageDefinitions } from "../../../../languages/LanguageDefinitions";
 import { ide } from "../../../../singletons/ide.singleton";
 import { BaseScopeHandler } from "../BaseScopeHandler";
 import { compareTargetScopes } from "../compareTargetScopes";
 import type { TargetScope } from "../scope.types";
-import type { ScopeIteratorRequirements } from "../scopeHandler.types";
+import type {
+  ConditionalScopeType,
+  ScopeIteratorRequirements,
+} from "../scopeHandler.types";
 import { createTargetScope } from "./createTargetScope";
 import { getDelimiterOccurrences } from "./getDelimiterOccurrences";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";
@@ -18,7 +21,11 @@ import { getSurroundingPairOccurrences } from "./getSurroundingPairOccurrences";
 import type { SurroundingPairOccurrence } from "./types";
 
 export class SurroundingPairScopeHandler extends BaseScopeHandler {
-  public readonly iterationScopeType: ScopeType = { type: "line" };
+  public readonly iterationScopeType: ConditionalScopeType = {
+    type: "conditional",
+    scopeType: { type: "line" },
+    predicate: (scope) => !scope.domain.isEmpty,
+  };
   protected isHierarchical = true;
 
   constructor(

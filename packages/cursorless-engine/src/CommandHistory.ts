@@ -114,9 +114,16 @@ function sanitizeActionInPlace(action: ActionDescriptor): void {
 
     // Remove substitutions and custom body
     case "insertSnippet":
-      delete action.snippetDescription.substitutions;
       if (action.snippetDescription.type === "custom") {
         action.snippetDescription.body = "";
+        delete action.snippetDescription.substitutions;
+      } else if (action.snippetDescription.type === "list") {
+        for (const snippet of action.snippetDescription.snippets) {
+          snippet.body = "";
+          delete snippet.substitutions;
+        }
+      } else {
+        delete action.snippetDescription.substitutions;
       }
       break;
 
@@ -134,19 +141,30 @@ function sanitizeActionInPlace(action: ActionDescriptor): void {
     case "addSelectionAfter":
     case "addSelectionBefore":
     case "breakLine":
+    case "callAsFunction":
     case "clearAndSetSelection":
     case "copyToClipboard":
     case "cutToClipboard":
     case "decrement":
     case "deselect":
+    case "editNew":
     case "editNewLineAfter":
     case "editNewLineBefore":
     case "experimental.setInstanceReference":
     case "extractVariable":
+    case "findInDocument":
     case "findInWorkspace":
+    case "flashTargets":
     case "foldRegion":
     case "followLink":
     case "followLinkAside":
+    case "generateSnippet":
+    case "getText":
+    case "gitAccept":
+    case "gitRevert":
+    case "gitStage":
+    case "gitUnstage":
+    case "highlight":
     case "increment":
     case "indentLine":
     case "insertCopyAfter":
@@ -155,13 +173,21 @@ function sanitizeActionInPlace(action: ActionDescriptor): void {
     case "insertEmptyLineBefore":
     case "insertEmptyLinesAround":
     case "joinLines":
+    case "moveToTarget":
     case "outdentLine":
+    case "parsed":
+    case "pasteFromClipboard":
+    case "private.getTargets":
+    case "private.setKeyboardTarget":
+    case "private.showParseTree":
     case "randomizeTargets":
     case "remove":
     case "rename":
+    case "replaceWithTarget":
     case "revealDefinition":
     case "revealTypeDefinition":
     case "reverseTargets":
+    case "rewrapWithPairedDelimiter":
     case "scrollToBottom":
     case "scrollToCenter":
     case "scrollToTop":
@@ -173,25 +199,11 @@ function sanitizeActionInPlace(action: ActionDescriptor): void {
     case "showQuickFix":
     case "showReferences":
     case "sortTargets":
+    case "swapTargets":
     case "toggleLineBreakpoint":
     case "toggleLineComment":
     case "unfoldRegion":
-    case "private.showParseTree":
-    case "private.getTargets":
-    case "callAsFunction":
-    case "editNew":
-    case "generateSnippet":
-    case "getText":
-    case "highlight":
-    case "moveToTarget":
-    case "pasteFromClipboard":
-    case "replaceWithTarget":
-    case "rewrapWithPairedDelimiter":
-    case "swapTargets":
     case "wrapWithPairedDelimiter":
-    case "findInDocument":
-    case "private.setKeyboardTarget":
-    case "parsed":
       break;
 
     default: {

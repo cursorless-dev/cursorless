@@ -2,12 +2,10 @@ import { javascriptCoreScopeSupport } from "./javascript";
 import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
-const { supported } = ScopeSupportFacetLevel;
+const { supported, notApplicable } = ScopeSupportFacetLevel;
 
 export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
   ...javascriptCoreScopeSupport,
-
-  "name.field": supported,
 
   "type.argument.formal": supported,
   "type.argument.formal.iteration": supported,
@@ -18,12 +16,29 @@ export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
   "type.alias": supported,
   "type.cast": supported,
   "type.field": supported,
+  "type.field.iteration": supported,
   "type.interface": supported,
+  "type.enum": supported,
   "type.return": supported,
   "type.variable": supported,
+  "type.typeArgument": supported,
+  "type.typeArgument.iteration": supported,
 
-  "value.field": supported,
   "value.typeAlias": supported,
 
-  disqualifyDelimiter: supported,
+  /* NOT APPLICABLE */
+
+  // Element and tags
+  element: notApplicable,
+  tags: notApplicable,
+  startTag: notApplicable,
+  endTag: notApplicable,
+  attribute: notApplicable,
+  "key.attribute": notApplicable,
+  "value.attribute": notApplicable,
+  "interior.element": notApplicable,
+  "textFragment.element": notApplicable,
+
+  // Miscellaneous
+  "type.foreach": notApplicable,
 };

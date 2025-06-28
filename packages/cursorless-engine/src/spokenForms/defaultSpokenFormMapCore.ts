@@ -30,6 +30,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     singleQuotes: "twin",
     tripleDoubleQuotes: isPrivate("triple quad"),
     tripleSingleQuotes: isPrivate("triple twin"),
+    tripleBacktickQuotes: isPrivate("triple skis"),
     any: "pair",
     string: "string",
     whitespace: "void",
@@ -39,6 +40,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
 
   simpleScopeTypeType: {
     argumentOrParameter: "arg",
+    argumentList: "arg list",
     attribute: "attribute",
     functionCall: "call",
     functionCallee: "callee",
@@ -169,6 +171,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     foldRegion: "fold",
     followLink: "follow",
     followLinkAside: "follow split",
+    flashTargets: "flash",
     deselect: "give",
     highlight: "highlight",
     showHover: "hover",
@@ -202,6 +205,10 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     insertSnippet: "snippet",
     pasteFromClipboard: "paste",
     joinLines: "join",
+    gitAccept: "git accept",
+    gitRevert: "git revert",
+    gitStage: "git stage",
+    gitUnstage: "git unstage",
 
     ["private.showParseTree"]: isPrivate("parse tree"),
     ["experimental.setInstanceReference"]: isDisabledByDefault("from"),

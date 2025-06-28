@@ -1,0 +1,30 @@
+function makeCounter()
+    local count = 0
+end
+---
+
+[#1 Content] =
+[#1 Removal] = 1:4-1:19
+      >---------------<
+1|     local count = 0
+
+[#1 Domain] = 0:0-2:3
+  >----------------------
+0| function makeCounter()
+1|     local count = 0
+2| end
+   ---<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] = 0:21-0:21
+                       ><
+0| function makeCounter()
+
+[#2 Domain] = 0:20-0:22
+                      >--<
+0| function makeCounter()
+
+[#2 Insertion delimiter] = " "

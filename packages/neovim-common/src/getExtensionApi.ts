@@ -16,7 +16,7 @@ export interface CursorlessApi {
 
 // See packages\cursorless-neovim\src\extension.ts:createTreeSitter() for neovim
 // export interface ParseTreeApi {
-//   getNodeAtLocation(location: vscode.Location): SyntaxNode;
+//   getNodeAtLocation(location: vscode.Location): Node;
 //   getTreeForUri(uri: vscode.Uri): Tree;
 //   loadLanguage: (languageId: string) => Promise<boolean>;
 //   getLanguage(languageId: string): Language | undefined;

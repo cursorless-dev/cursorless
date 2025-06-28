@@ -24,6 +24,7 @@
   .
   ";"? @_.domain.end @class.end @type.end
 )
+
 (_
   (class_specifier
     name: (_)
@@ -32,6 +33,18 @@
   .
   ";"? @statement.end
 )
+
+(field_declaration_list
+  "{" @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf
+  "}" @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf
+) @_.domain
+
+;;!! int aaa = 0;
+;;!            ^
+(field_declaration
+  declarator: (_) @_.leading.endOf
+  default_value: (_) @value
+) @_.domain
 
 ;;!! void ClassName::method() {}
 (function_definition
@@ -42,7 +55,16 @@
   )
 ) @_.domain
 
-(lambda_expression) @anonymousFunction
+;;!! []() {}
+;;!  ^^^^^^^
+(lambda_expression
+  body: (_
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  )
+) @anonymousFunction @interior.domain
+
+;;!! [[attribute]]
 (attribute_declaration) @attribute
 
 ;; >  curl https://raw.githubusercontent.com/tree-sitter/tree-sitter-cpp/master/src/node-types.json | jq '[.[] | select(.type == "_type_specifier") | .subtypes[].type]'
@@ -50,7 +72,6 @@
   (auto)
   (decltype)
   (dependent_type)
-  (template_type)
 ] @type
 
 ;;!! void foo(int value = 0) {}
@@ -67,6 +88,60 @@
     value: (argument_list)
   ) @functionCall.end @_.domain.end
 )
+
+;;!! try {}
+;;!  ^^^^^^
+(try_statement
+  "try" @branch.start @interior.domain.start
+  body: (_
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  ) @branch.end @interior.domain.end
+) @branch.iteration
+
+;;!! catch (const std::exception& e) {}
+(catch_clause
+  body: (_
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  )
+) @branch @interior.domain
+
+;;!! new Foo()
+;;!  ^^^^^^^^^
+;;!  ^^^^^^^
+(new_expression
+  "new" @functionCallee.start
+  type: (_) @functionCallee.end
+) @functionCall @functionCallee.domain
+
+;;!! Map<string, int> foo;
+;;!      ^^^^^^  ^^^
+(
+  (template_argument_list
+    (_)? @_.leading.endOf
+    .
+    (type_descriptor) @type
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @type @_dummy ", " ",\n")
+)
+
+;;!! Map<string, int> foo;
+;;!      ^^^^^^^^^^^
+(template_argument_list
+  "<" @type.iteration.start.endOf
+  ">" @type.iteration.end.startOf
+)
+
+;;!! for (int value : values) {}
+;;!           ^^^^^
+;;!                   ^^^^^^
+(for_range_loop
+  declarator: (_) @name
+  right: (_) @value
+) @_.domain
 
 (trailing_return_type
   "->" @disqualifyDelimiter

@@ -4,6 +4,7 @@ import type {
   ScopeType,
   TextEditor,
 } from "@cursorless/common";
+import type { Target } from "../../../typings/target.types";
 import type { InteriorTarget } from "../../targets";
 import {
   BoundedParagraphTarget,
@@ -18,7 +19,7 @@ import type {
   ScopeIteratorRequirements,
 } from "./scopeHandler.types";
 import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
-import type { Target } from "../../../typings/target.types";
+import { isEveryScopeModifier } from "./util/isHintsEveryScope";
 
 abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
   protected readonly isHierarchical = true;
@@ -91,11 +92,10 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
         direction,
         {
           ...hints,
-          // For every (skipAncestorScopes=true) we don't want to go outside of the surrounding pair
-          containment:
-            hints.containment == null && hints.skipAncestorScopes
-              ? "required"
-              : hints.containment,
+          // For the every scope, we don't want to go outside of the surrounding pair
+          containment: isEveryScopeModifier(hints)
+            ? "required"
+            : hints.containment,
         },
       ),
     );

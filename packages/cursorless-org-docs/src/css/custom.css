@@ -1,3 +1,7 @@
+@tailwind components;
+@tailwind base;
+@tailwind utilities;
+
 /* From https://github.com/facebook/docusaurus/blob/cc0bceab9c1678303f6237f5526753edc1b12fc3/website/src/css/custom.css#L70-L86 */
 .header-github-link:hover {
   opacity: 0.6;
@@ -27,4 +31,22 @@
 
 .hidden {
   display: none;
+}
+
+.card {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  margin-bottom: 1rem;
+}
+
+.card > .card__header {
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+  padding-bottom: 1rem;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.facet-name {
+  font-weight: 600;
 }

@@ -21,7 +21,6 @@ export interface CursorlessEngine {
   storedTargets: StoredTargetMap;
   hatTokenMap: HatTokenMap;
   injectIde: (ide: IDE | undefined) => void;
-  runIntegrationTests: () => Promise<void>;
   addCommandRunnerDecorator: (
     commandRunnerDecorator: CommandRunnerDecorator,
   ) => void;

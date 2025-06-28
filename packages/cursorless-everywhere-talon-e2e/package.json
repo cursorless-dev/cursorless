@@ -2,17 +2,15 @@
   "name": "@cursorless/cursorless-everywhere-talon-e2e",
   "version": "1.0.0",
   "description": "Our Talon everywhere/JS end-to-end tests",
-  "main": "./out/index.js",
+  "license": "MIT",
   "private": true,
+  "type": "module",
+  "main": "./out/index.js",
   "scripts": {
     "compile": "tsc --build",
     "test:quickjs": "bash scripts/test-quickjs.sh",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
-  "type": "module",
   "dependencies": {
     "@cursorless/common": "workspace:*",
     "@cursorless/cursorless-everywhere-talon-core": "workspace:*",
@@ -20,7 +18,7 @@
     "@cursorless/test-case-recorder": "workspace:*"
   },
   "devDependencies": {
-    "@types/mocha": "^10.0.9",
-    "mocha": "^10.7.3"
+    "@types/mocha": "10.0.10",
+    "mocha": "11.6.0"
   }
 }

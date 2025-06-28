@@ -1,0 +1,28 @@
+* {
+  @if true { }
+  @else if false { }
+  @else { }
+}
+---
+
+[Content] =
+[Domain] = 1:2-3:11
+    >------------
+1|   @if true { }
+2|   @else if false { }
+3|   @else { }
+   -----------<
+
+[Removal] = 1:0-4:0
+  >--------------
+1|   @if true { }
+2|   @else if false { }
+3|   @else { }
+4| }
+   <
+
+[Leading delimiter] = 1:0-1:2
+  >--<
+1|   @if true { }
+
+[Insertion delimiter] = "\n"

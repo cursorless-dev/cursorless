@@ -3,8 +3,8 @@ import { NoContainingScopeError } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
-import type { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 import { getContainingScopeTarget } from "./getContainingScopeTarget";
+import type { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 
 /**
  * This modifier stage expands from the input target to the smallest containing
@@ -40,9 +40,7 @@ export class ContainingScopeStage implements ModifierStage {
     );
 
     if (scopeHandler == null) {
-      return this.modifierStageFactory
-        .getLegacyScopeStage(this.modifier)
-        .run(target);
+      throw new NoContainingScopeError(scopeType.type);
     }
 
     const containingScopes = getContainingScopeTarget(
@@ -52,7 +50,7 @@ export class ContainingScopeStage implements ModifierStage {
     );
 
     if (containingScopes == null) {
-      throw new NoContainingScopeError(this.modifier.scopeType.type);
+      throw new NoContainingScopeError(scopeType.type);
     }
 
     return containingScopes;

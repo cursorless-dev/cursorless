@@ -1,0 +1,10 @@
+@mixin replace-text($image, $color: red) {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:43
+  >-------------------------------------------<
+0| @mixin replace-text($image, $color: red) {}
+
+[Insertion delimiter] = "\n\n"

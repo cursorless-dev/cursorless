@@ -118,6 +118,7 @@ export const simpleSurroundingPairNames = [
   "parentheses",
   "singleQuotes",
   "squareBrackets",
+  "tripleBacktickQuotes",
   "tripleDoubleQuotes",
   "tripleSingleQuotes",
 ] as const;
@@ -140,6 +141,7 @@ export type SurroundingPairName =
 
 export const simpleScopeTypeTypes = [
   "argumentOrParameter",
+  "argumentList",
   "anonymousFunction",
   "attribute",
   "branch",
@@ -226,6 +228,13 @@ export interface CustomRegexScopeType {
   flags?: string;
 }
 
+export interface InteriorScopeType {
+  type: "interior";
+
+  // The user has specified a scope type. eg "inside element".
+  explicitScopeType?: boolean;
+}
+
 export type SurroundingPairDirection = "left" | "right";
 
 export interface SurroundingPairScopeType {
@@ -252,8 +261,6 @@ export interface SurroundingPairScopeType {
 export interface SurroundingPairInteriorScopeType {
   type: "surroundingPairInterior";
   delimiter: SurroundingPairName;
-  // If true don't yield multiline pairs
-  requireSingleLine?: boolean;
 }
 
 export interface OneOfScopeType {
@@ -271,6 +278,7 @@ export type ScopeType =
   | SurroundingPairScopeType
   | SurroundingPairInteriorScopeType
   | CustomRegexScopeType
+  | InteriorScopeType
   | OneOfScopeType
   | GlyphScopeType;
 

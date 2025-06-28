@@ -2,9 +2,16 @@
   "name": "@cursorless/cursorless-cheatsheet",
   "version": "0.1.0",
   "description": "Cursorless cheatsheet implementation",
+  "license": "MIT",
   "type": "module",
   "main": "./out/index.js",
   "types": "./out/index.d.ts",
+  "exports": {
+    ".": {
+      "cursorless:bundler": "./src/index.ts",
+      "default": "./out/index.js"
+    }
+  },
   "scripts": {
     "compile:tsc": "tsc --build",
     "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=esm --bundle --packages=external --outfile=./out/index.js",
@@ -14,21 +21,12 @@
     "watch": "pnpm run --filter @cursorless/cursorless-cheatsheet --parallel '/^watch:.*/'",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
-  "exports": {
-    ".": {
-      "cursorless:bundler": "./src/index.ts",
-      "default": "./out/index.js"
-    }
-  },
   "dependencies": {
     "@cursorless/common": "workspace:*",
     "@cursorless/node-common": "workspace:*",
-    "immer": "^10.1.1",
-    "lodash-es": "^4.17.21",
-    "node-html-parser": "^6.1.13"
+    "immer": "10.1.1",
+    "lodash-es": "4.17.21",
+    "node-html-parser": "7.0.1"
   },
   "devDependencies": {
     "@types/lodash-es": "4.17.12"

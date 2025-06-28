@@ -39,10 +39,7 @@ function getExpectedScope(scopeSupport: ScopeSupport): ScopeSupportInfo {
   return {
     humanReadableName: "Matching pair of parentheses",
     isLanguageSpecific: false,
-    iterationScopeSupport:
-      scopeSupport === ScopeSupport.unsupported
-        ? ScopeSupport.unsupported
-        : ScopeSupport.supportedAndPresentInEditor,
+    iterationScopeSupport: scopeSupport,
     scopeType: { type: "surroundingPair", delimiter: "parentheses" },
     spokenForm: {
       spokenForms: ["round"],

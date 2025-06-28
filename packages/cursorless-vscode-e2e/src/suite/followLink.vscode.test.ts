@@ -1,10 +1,8 @@
-import { openNewEditor } from "@cursorless/vscode-common";
+import { getFixturePath, isWindows } from "@cursorless/node-common";
+import { openNewEditor, runCursorlessCommand } from "@cursorless/vscode-common";
 import * as assert from "assert";
-import * as os from "os";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-import { runCursorlessCommand } from "@cursorless/vscode-common";
-import { getFixturePath } from "@cursorless/node-common";
 
 suite("followLink", async function () {
   endToEndTestSetup(this);
@@ -45,8 +43,9 @@ async function followDefinition() {
 
 async function followLink() {
   const filename = getFixturePath("helloWorld.txt");
-  const linkTextContent =
-    os.platform() === "win32" ? `file:///${filename}` : `file://${filename}`;
+  const linkTextContent = isWindows()
+    ? `file:///${filename}`
+    : `file://${filename}`;
   await openNewEditor(linkTextContent);
 
   await runCursorlessCommand({

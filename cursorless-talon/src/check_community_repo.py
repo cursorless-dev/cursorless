@@ -8,7 +8,9 @@ required_captures = [
 ]
 
 required_actions = [
+    "code.language",
     "user.homophones_get",
+    "user.insert_snippet_by_name",
     "user.reformat_text",
 ]
 

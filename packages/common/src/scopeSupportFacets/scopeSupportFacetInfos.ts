@@ -42,6 +42,18 @@ export const scopeSupportFacetInfos: Record<
     description: "A document section",
     scopeType: "section",
   },
+  "section.iteration.document": {
+    description:
+      "Iteration scope for a document section. This is the entire document.",
+    scopeType: "section",
+    isIteration: true,
+  },
+  "section.iteration.parent": {
+    description:
+      "Iteration scope for a document section. This is the parent section.",
+    scopeType: "section",
+    isIteration: true,
+  },
 
   list: {
     description: "A list/array",
@@ -99,7 +111,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "class.iteration.block": {
     description:
-      "Iteration scope for classes. Statement blocks(body of functions/if classes/for loops/etc).",
+      "Iteration scope for classes. Statement blocks(body of functions/if statements/for loops/etc).",
     scopeType: "class",
     isIteration: true,
   },
@@ -114,7 +126,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "className.iteration.block": {
     description:
-      "Iteration scope for class names. Statement blocks(body of functions/if classes/for loops/etc).",
+      "Iteration scope for class names. Statement blocks(body of functions/if statements/for loops/etc).",
     scopeType: "className",
     isIteration: true,
   },
@@ -136,8 +148,9 @@ export const scopeSupportFacetInfos: Record<
     description: "A constructor declaration in a class",
     scopeType: "namedFunction",
   },
-  "namedFunction.iteration": {
-    description: "Iteration scope for named functions",
+  "namedFunction.iteration.block": {
+    description:
+      "Iteration scope for named functions. Statement blocks(body of functions/if statements/for loops/etc).",
     scopeType: "namedFunction",
     isIteration: true,
   },
@@ -160,7 +173,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "functionName",
   },
   "functionName.method.iteration.class": {
-    description: "Iteration scope for function names: class bodies",
+    description: "Iteration scope for method names: class bodies",
     scopeType: "functionName",
     isIteration: true,
   },
@@ -168,8 +181,9 @@ export const scopeSupportFacetInfos: Record<
     description: "The name of a constructor in a class",
     scopeType: "functionName",
   },
-  "functionName.iteration": {
-    description: "Iteration scope for function names",
+  "functionName.iteration.block": {
+    description:
+      "Iteration scope for function names. Statement blocks(body of functions/if statements/for loops/etc).",
     scopeType: "functionName",
     isIteration: true,
   },
@@ -256,6 +270,126 @@ export const scopeSupportFacetInfos: Record<
       "Iteration scope of the formal parameters of a constructor declaration; should be the whole parameter list. The domain should be the entire function.",
     scopeType: "argumentOrParameter",
     isIteration: true,
+  },
+  "argument.formal.lambda": {
+    description: "A parameter in a lambda declaration",
+    scopeType: "argumentOrParameter",
+  },
+  "argument.formal.lambda.iteration": {
+    description:
+      "Iteration scope of the formal parameters of a lambda declaration; should be the whole parameter list. The domain should be the entire function.",
+    scopeType: "argumentOrParameter",
+    isIteration: true,
+  },
+
+  "argumentList.actual.empty": {
+    description: "An empty list of arguments in a function call",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '""',
+  },
+  "argumentList.actual.singleLine": {
+    description: "A single line list of arguments in a function call",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '", "',
+  },
+  "argumentList.actual.multiLine": {
+    description: "A multi line list of arguments in a function call",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '",\n"',
+  },
+  "argumentList.actual.method.empty": {
+    description: "An empty list of arguments in a method call",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '""',
+  },
+  "argumentList.actual.method.singleLine": {
+    description: "A single line list of arguments in a method call",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '", "',
+  },
+  "argumentList.actual.method.multiLine": {
+    description: "A multi line list of arguments in a method call",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '",\n"',
+  },
+  "argumentList.actual.constructor.empty": {
+    description: "An empty list of arguments in a constructor call",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '""',
+  },
+  "argumentList.actual.constructor.singleLine": {
+    description: "A single line list of arguments in a constructor call",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '", "',
+  },
+  "argumentList.actual.constructor.multiLine": {
+    description: "A multi line list of arguments in a constructor call",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '",\n"',
+  },
+
+  "argumentList.formal.empty": {
+    description: "An empty list of parameters in a function declaration",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '""',
+  },
+  "argumentList.formal.singleLine": {
+    description: "A single line list of parameters in a function declaration",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '", "',
+  },
+  "argumentList.formal.multiLine": {
+    description: "A multi line list of parameters in a function declaration",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '",\n"',
+  },
+  "argumentList.formal.lambda.empty": {
+    description: "An empty list of parameters in a lambda declaration",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '""',
+  },
+  "argumentList.formal.lambda.singleLine": {
+    description: "A single line list of parameters in a lambda declaration",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '", "',
+  },
+  "argumentList.formal.lambda.multiLine": {
+    description: "A multi line list of parameters in a lambda declaration",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '",\n"',
+  },
+  "argumentList.formal.method.empty": {
+    description: "An empty list of parameters in a class method declaration",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '""',
+  },
+  "argumentList.formal.method.singleLine": {
+    description:
+      "A single line list of parameters in a class method declaration",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '", "',
+  },
+  "argumentList.formal.method.multiLine": {
+    description:
+      "A multi line list of parameters in a class method declaration",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '",\n"',
+  },
+  "argumentList.formal.constructor.empty": {
+    description: "An empty list of parameters in a constructor declaration",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '""',
+  },
+  "argumentList.formal.constructor.singleLine": {
+    description:
+      "A single line list of parameters in a constructor declaration",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '", "',
+  },
+  "argumentList.formal.constructor.multiLine": {
+    description: "A multi line list of parameters in a constructor declaration",
+    scopeType: "argumentList",
+    insertionDelimiterHint: '",\n"',
   },
 
   "comment.line": {
@@ -442,6 +576,16 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "name",
     isIteration: true,
   },
+  "name.argument.actual": {
+    description: "The name of a (keyword) argument in a function call",
+    scopeType: "name",
+  },
+  "name.argument.actual.iteration": {
+    description:
+      "Iteration scope of the names of the actual parameters of a function call; should be the whole arguments list",
+    scopeType: "name",
+    isIteration: true,
+  },
   "name.argument.formal": {
     description: "The name of a parameter in a function declaration",
     scopeType: "name",
@@ -474,7 +618,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "name.iteration.block": {
     description:
-      "Iteration scope for names: statement blocks (body of functions/if classes/for loops/etc).",
+      "Iteration scope for names: statement blocks (body of functions/if statements/for loops/etc).",
     scopeType: "name",
     isIteration: true,
   },
@@ -556,12 +700,22 @@ export const scopeSupportFacetInfos: Record<
     isIteration: true,
   },
   "value.argument.formal": {
-    description: "The value of a parameter in a function declaration",
+    description: "The value of a (keyword) argument in a function declaration",
     scopeType: "value",
   },
   "value.argument.formal.iteration": {
     description:
       "Iteration scope of the values of the formal parameters of a function declaration; should be the whole parameter list",
+    scopeType: "value",
+    isIteration: true,
+  },
+  "value.argument.actual": {
+    description: "The value of a (keyword) argument in a function call",
+    scopeType: "value",
+  },
+  "value.argument.actual.iteration": {
+    description:
+      "Iteration scope of the values of the actual parameters of a function call; should be the whole arguments list",
     scopeType: "value",
     isIteration: true,
   },
@@ -646,6 +800,10 @@ export const scopeSupportFacetInfos: Record<
     description: "An interface declaration",
     scopeType: "type",
   },
+  "type.enum": {
+    description: "An enum declaration",
+    scopeType: "type",
+  },
   "type.class": {
     description: "An class declaration",
     scopeType: "type",
@@ -667,6 +825,65 @@ export const scopeSupportFacetInfos: Record<
       "Iteration scope for type argument to a generic / parametrized type; Should be the list of type arguments",
     scopeType: "type",
     isIteration: true,
+  },
+  "type.resource": {
+    description: "Type in a 'with' / 'use' / 'using' statement",
+    scopeType: "type",
+  },
+  "type.resource.iteration": {
+    description:
+      "Iteration scope for types in a 'with' / 'use' / 'using' statement",
+    scopeType: "type",
+    isIteration: true,
+  },
+
+  "interior.element": {
+    description: "The interior/children of an XML element",
+    scopeType: { type: "interior" },
+  },
+  "interior.command": {
+    description: "The body of a Talon command",
+    scopeType: { type: "interior" },
+  },
+  "interior.cell": {
+    description: "The body of a code cell in markdown",
+    scopeType: { type: "interior" },
+  },
+  "interior.class": {
+    description: "The body of a class",
+    scopeType: { type: "interior" },
+  },
+  "interior.function": {
+    description: "The body of a function",
+    scopeType: { type: "interior" },
+  },
+  "interior.lambda": {
+    description: "The body of a lambda/anonymous function",
+    scopeType: { type: "interior" },
+  },
+  "interior.if": {
+    description: "The body of an if/elif/else branch",
+    scopeType: { type: "interior" },
+  },
+  "interior.try": {
+    description: "The body of an try/catch/finally branch",
+    scopeType: { type: "interior" },
+  },
+  "interior.switchCase": {
+    description: "The body of an switch case branch",
+    scopeType: { type: "interior" },
+  },
+  "interior.ternary": {
+    description: "The body of an ternary condition/branch",
+    scopeType: { type: "interior" },
+  },
+  "interior.loop": {
+    description: "The body of an for/while loop",
+    scopeType: { type: "interior" },
+  },
+  "interior.resource": {
+    description: "the body of a 'with' / 'use' / 'using' statement",
+    scopeType: { type: "interior" },
   },
 
   notebookCell: {

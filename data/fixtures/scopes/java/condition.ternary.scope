@@ -1,0 +1,20 @@
+value != null ? value : -1;
+---
+
+[Content] = 0:0-0:13
+  >-------------<
+0| value != null ? value : -1;
+
+[Removal] = 0:0-0:14
+  >--------------<
+0| value != null ? value : -1;
+
+[Trailing delimiter] = 0:13-0:14
+               >-<
+0| value != null ? value : -1;
+
+[Domain] = 0:0-0:26
+  >--------------------------<
+0| value != null ? value : -1;
+
+[Insertion delimiter] = " "

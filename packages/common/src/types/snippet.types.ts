@@ -1,5 +1,6 @@
-import type { TextFormatterName } from "../util/textFormatters";
 import type { SimpleScopeTypeType } from "./command/PartialTargetDescriptor.types";
+
+// FIXME: Legacy snippets
 
 export interface SnippetScope {
   /**
@@ -58,7 +59,7 @@ export interface SnippetVariable {
   /**
    * Format text inserted into this variable using the given formatter
    */
-  formatter?: TextFormatterName;
+  formatter?: string;
 }
 
 export interface Snippet {

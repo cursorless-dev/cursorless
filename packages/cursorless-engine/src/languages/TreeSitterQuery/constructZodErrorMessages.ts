@@ -1,10 +1,10 @@
-import type { PredicateOperand } from "web-tree-sitter";
+import type { PredicateStep } from "web-tree-sitter";
 import type { z } from "zod";
 import { operandToString } from "./predicateToString";
 
 export function constructZodErrorMessages(
-  inputOperands: PredicateOperand[],
-  error: z.ZodError<PredicateOperand[]>,
+  inputOperands: PredicateStep[],
+  error: z.ZodError<PredicateStep[]>,
 ): string[] {
   return error.errors
     .filter(
@@ -21,7 +21,7 @@ export function constructZodErrorMessages(
     .map((error) => getErrorMessage(inputOperands, error));
 }
 
-function getErrorMessage(inputOperands: PredicateOperand[], error: z.ZodIssue) {
+function getErrorMessage(inputOperands: PredicateStep[], error: z.ZodIssue) {
   if (error.path.length === 0) {
     if (error.code === "too_small") {
       return "Too few arguments";

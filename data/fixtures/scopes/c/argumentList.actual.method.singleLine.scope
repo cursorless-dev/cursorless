@@ -1,0 +1,13 @@
+foo.bar(int aaa, int bbb);
+---
+
+[Content] =
+[Removal] = 0:8-0:24
+          >----------------<
+0| foo.bar(int aaa, int bbb);
+
+[Domain] = 0:0-0:25
+  >-------------------------<
+0| foo.bar(int aaa, int bbb);
+
+[Insertion delimiter] = ", "

@@ -1,0 +1,10 @@
+command: user.do_something(123, 456)
+---
+
+[Range] = 0:27-0:35
+                             >--------<
+0| command: user.do_something(123, 456)
+
+[Domain] = 0:9-0:36
+           >---------------------------<
+0| command: user.do_something(123, 456)

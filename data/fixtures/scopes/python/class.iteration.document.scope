@@ -1,0 +1,14 @@
+
+class Foo:
+    pass
+
+---
+
+[Range] =
+[Domain] = 0:0-3:0
+  >
+0|
+1| class Foo:
+2|     pass
+3|
+   <

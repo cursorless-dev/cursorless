@@ -93,7 +93,7 @@ async function testCaseRecorderGracefulError() {
     }
 
     await initalizeEditor(hatTokenMap);
-    await takeHarp();
+    await takeEach();
     await stopRecording();
     await checkRecordedTest(tmpdir);
   } finally {
@@ -108,7 +108,7 @@ async function runAndCheckTestCaseRecorder(
 ) {
   await initalizeEditor(hatTokenMap);
   await startRecording(...extraArgs);
-  await takeHarp();
+  await takeEach();
   await stopRecording();
   await checkRecordedTest(tmpdir);
 }
@@ -132,10 +132,10 @@ async function stopRecording() {
   await vscode.commands.executeCommand("cursorless.recordTestCase");
 }
 
-async function takeHarp() {
+async function takeEach() {
   await runCursorlessCommand({
     version: LATEST_VERSION,
-    spokenForm: "take harp",
+    spokenForm: "take each",
     usePrePhraseSnapshot: false,
     action: {
       name: "setSelection",
@@ -144,7 +144,7 @@ async function takeHarp() {
         mark: {
           type: "decoratedSymbol",
           symbolColor: "default",
-          character: "h",
+          character: "e",
         },
       },
     },
@@ -156,11 +156,11 @@ async function checkRecordedTest(tmpdir: string) {
   assert.lengthOf(paths, 1);
 
   const actualRecordedTestPath = paths[0];
-  assert.equal(path.basename(actualRecordedTestPath), "takeHarp.yml");
+  assert.equal(path.basename(actualRecordedTestPath), "takeEach.yml");
 
   const expected = (
     await readFile(
-      getFixturePath("recorded/testCaseRecorder/takeHarp.yml"),
+      getFixturePath("recorded/testCaseRecorder/takeEach.yml"),
       "utf8",
     )
   )

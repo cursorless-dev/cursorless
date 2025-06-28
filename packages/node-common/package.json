@@ -2,7 +2,16 @@
   "name": "@cursorless/node-common",
   "version": "1.0.0",
   "description": "Package containing node utilities",
+  "license": "MIT",
+  "type": "module",
   "main": "./out/index.js",
+  "types": "./out/index.d.ts",
+  "exports": {
+    ".": {
+      "cursorless:bundler": "./src/index.ts",
+      "default": "./out/index.js"
+    }
+  },
   "scripts": {
     "compile:tsc": "tsc --build",
     "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=esm --bundle --packages=external --outfile=./out/index.js",
@@ -12,27 +21,16 @@
     "watch": "pnpm run --filter @cursorless/node-common --parallel '/^watch:.*/'",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
-  "type": "module",
-  "types": "./out/index.d.ts",
-  "exports": {
-    ".": {
-      "cursorless:bundler": "./src/index.ts",
-      "default": "./out/index.js"
-    }
-  },
   "dependencies": {
     "@cursorless/common": "workspace:*",
-    "glob": "^11.0.0",
-    "lodash-es": "^4.17.21"
+    "glob": "11.0.3",
+    "lodash-es": "4.17.21"
   },
   "devDependencies": {
-    "@types/chai": "^5.0.0",
-    "@types/js-yaml": "^4.0.9",
+    "@types/chai": "5.2.2",
+    "@types/js-yaml": "4.0.9",
     "@types/lodash-es": "4.17.12",
-    "chai": "^5.1.1",
-    "js-yaml": "^4.1.0"
+    "chai": "5.2.0",
+    "js-yaml": "4.1.0"
   }
 }

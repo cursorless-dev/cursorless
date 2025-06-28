@@ -1,0 +1,10 @@
+enum State { }
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:14
+  >--------------<
+0| enum State { }
+
+[Insertion delimiter] = " "

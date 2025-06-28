@@ -6,7 +6,7 @@ import type {
 } from "@cursorless/common";
 import type { LanguageDefinitions } from "../../../../languages/LanguageDefinitions";
 import { BaseScopeHandler } from "../BaseScopeHandler";
-import { OneOfScopeHandler } from "../OneOfScopeHandler";
+import { SortedScopeHandler } from "../SortedScopeHandler";
 import type { TargetScope } from "../scope.types";
 import type {
   ComplexScopeType,
@@ -46,17 +46,10 @@ export class CollectionItemScopeHandler extends BaseScopeHandler {
         return textualScopeHandler;
       }
 
-      return OneOfScopeHandler.createFromScopeHandlers(
+      return SortedScopeHandler.createFromScopeHandlers(
         scopeHandlerFactory,
-        {
-          type: "oneOf",
-          scopeTypes: [
-            languageScopeHandler.scopeType,
-            textualScopeHandler.scopeType,
-          ],
-        },
-        [languageScopeHandler, textualScopeHandler],
         languageId,
+        [languageScopeHandler, textualScopeHandler],
       );
     })();
   }

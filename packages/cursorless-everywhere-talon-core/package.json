@@ -2,9 +2,16 @@
   "name": "@cursorless/cursorless-everywhere-talon-core",
   "version": "1.0.0",
   "description": "cursorless in talon js core packagee",
-  "main": "./out/index.js",
   "license": "MIT",
   "type": "module",
+  "main": "./out/index.js",
+  "types": "./out/index.d.ts",
+  "exports": {
+    ".": {
+      "cursorless:bundler": "./src/index.ts",
+      "default": "./out/index.js"
+    }
+  },
   "scripts": {
     "compile:tsc": "tsc --build",
     "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=esm --bundle --packages=external --outfile=./out/index.js",
@@ -17,17 +24,10 @@
   "dependencies": {
     "@cursorless/common": "workspace:*",
     "@cursorless/cursorless-engine": "workspace:*",
-    "lodash-es": "^4.17.21",
-    "vscode-uri": "^3.0.8"
+    "lodash-es": "4.17.21",
+    "vscode-uri": "3.1.0"
   },
   "devDependencies": {
     "@types/lodash-es": "4.17.12"
-  },
-  "types": "./out/index.d.ts",
-  "exports": {
-    ".": {
-      "cursorless:bundler": "./src/index.ts",
-      "default": "./out/index.js"
-    }
   }
 }

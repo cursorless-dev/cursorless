@@ -8,4 +8,16 @@ export const rubyScopeSupport: LanguageScopeSupportFacetMap = {
   "comment.line": supported,
   "comment.block": supported,
   disqualifyDelimiter: supported,
+
+  "argument.actual": supported,
+  "argument.actual.iteration": supported,
+  "argument.formal": supported,
+  "argument.formal.iteration": supported,
+
+  "argumentList.actual.empty": supported,
+  "argumentList.actual.singleLine": supported,
+  "argumentList.actual.multiLine": supported,
+  "argumentList.formal.empty": supported,
+  "argumentList.formal.singleLine": supported,
+  "argumentList.formal.multiLine": supported,
 };

@@ -2,9 +2,16 @@ import {
   NoContainingScopeError,
   type RelativeScopeModifier,
 } from "@cursorless/common";
+import { islice, itake } from "itertools";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStageFactory } from "../ModifierStageFactory";
-import type { ModifierStage } from "../PipelineStages.types";
+import type {
+  ModifierStage,
+  ModifierStateOptions,
+} from "../PipelineStages.types";
+import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
+import { getPreferredScopeTouchingPosition } from "./getPreferredScopeTouchingPosition";
+import { OutOfRangeError } from "./listUtils";
 import { runLegacy } from "./relativeScopeLegacy";
 import type { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 import type { TargetScope } from "./scopeHandlers/scope.types";
@@ -12,10 +19,6 @@ import type {
   ContainmentPolicy,
   ScopeHandler,
 } from "./scopeHandlers/scopeHandler.types";
-import { islice, itake } from "itertools";
-import { OutOfRangeError } from "./listUtils";
-import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
-import { getPreferredScopeTouchingPosition } from "./getPreferredScopeTouchingPosition";
 
 /**
  * Handles relative modifiers input, eg "next funk", "two funks", "previous two
@@ -30,14 +33,19 @@ export class RelativeScopeStage implements ModifierStage {
     private modifier: RelativeScopeModifier,
   ) {}
 
-  run(target: Target): Target[] {
+  run(target: Target, options: ModifierStateOptions): Target[] {
     const scopeHandler = this.scopeHandlerFactory.maybeCreate(
       this.modifier.scopeType,
       target.editor.document.languageId,
     );
 
     if (scopeHandler == null) {
-      return runLegacy(this.modifierStageFactory, this.modifier, target);
+      return runLegacy(
+        this.modifierStageFactory,
+        this.modifier,
+        target,
+        options,
+      );
     }
 
     const scopes = Array.from(
@@ -47,7 +55,10 @@ export class RelativeScopeStage implements ModifierStage {
     );
 
     if (scopes.length < this.modifier.length) {
-      throw new OutOfRangeError();
+      throw new OutOfRangeError(
+        this.modifier.scopeType,
+        this.modifier.offset + this.modifier.length - 1,
+      );
     }
 
     const { isReversed } = target;

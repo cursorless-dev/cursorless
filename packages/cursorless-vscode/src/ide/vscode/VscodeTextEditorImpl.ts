@@ -1,7 +1,7 @@
 import type {
-  BreakpointDescriptor,
   Edit,
   EditableTextEditor,
+  GeneralizedRange,
   OpenLinkOptions,
   Range,
   RevealLineAt,
@@ -51,7 +51,11 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
 
   async setSelections(
     rawSelections: Selection[],
-    { focusEditor = false, revealRange = true }: SetSelectionsOpts = {},
+    {
+      focusEditor = false,
+      revealRange = true,
+      highlightWord = false,
+    }: SetSelectionsOpts = {},
   ): Promise<void> {
     const selections = uniqWithHash(
       rawSelections,
@@ -84,6 +88,10 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
 
     if (revealRange) {
       await this.revealRange(this.selections[0]);
+    }
+
+    if (highlightWord) {
+      vscode.commands.executeCommand("editor.action.wordHighlight.trigger");
     }
   }
 
@@ -156,8 +164,8 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     return vscodeUnfold(this.ide, this, ranges);
   }
 
-  public toggleBreakpoint(descriptors?: BreakpointDescriptor[]): Promise<void> {
-    return vscodeToggleBreakpoint(this, descriptors);
+  public toggleBreakpoint(ranges?: GeneralizedRange[]): Promise<void> {
+    return vscodeToggleBreakpoint(this, ranges);
   }
 
   public async toggleLineComment(_ranges?: Range[]): Promise<void> {
@@ -233,5 +241,21 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     }
 
     await sleep(250);
+  }
+
+  public async gitAccept(_range?: Range): Promise<void> {
+    await vscode.commands.executeCommand("merge-conflict.accept.selection");
+  }
+
+  public async gitRevert(_range?: Range): Promise<void> {
+    await vscode.commands.executeCommand("git.revertSelectedRanges");
+  }
+
+  public async gitStage(_range?: Range): Promise<void> {
+    await vscode.commands.executeCommand("git.stageSelectedRanges");
+  }
+
+  public async gitUnstage(_range?: Range): Promise<void> {
+    await vscode.commands.executeCommand("git.unstageSelectedRanges");
   }
 }

@@ -124,7 +124,6 @@ export async function activate(
     hatTokenMap,
     scopeProvider,
     injectIde,
-    runIntegrationTests,
     addCommandRunnerDecorator,
     customSpokenFormGenerator,
   } = await createCursorlessEngine(engineProps);
@@ -194,6 +193,7 @@ export async function activate(
     vscodeTutorial,
     installationDependencies,
     storedTargets,
+    snippets,
   );
 
   void new ReleaseNotes(vscodeApi, context, normalizedIde.messages).maybeShow();
@@ -212,14 +212,9 @@ export async function activate(
             fileSystem,
             scopeProvider,
             injectIde,
-            runIntegrationTests,
             vscodeTutorial,
           )
         : undefined,
-
-    experimental: {
-      registerThirdPartySnippets: snippets.registerThirdPartySnippets,
-    },
   };
 }
 
@@ -268,7 +263,7 @@ function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {
     },
 
     loadLanguage: parseTreeApi.loadLanguage,
-    getLanguage: parseTreeApi.getLanguage,
+    createQuery: parseTreeApi.createQuery,
   };
 }
 

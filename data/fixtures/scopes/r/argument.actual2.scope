@@ -1,0 +1,10 @@
+func(1)
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:5-0:6
+       >-<
+0| func(1)
+
+[Insertion delimiter] = ", "

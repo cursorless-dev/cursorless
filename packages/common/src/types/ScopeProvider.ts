@@ -218,6 +218,5 @@ export interface IterationScopeRanges {
 export enum ScopeSupport {
   supportedAndPresentInEditor,
   supportedButNotPresentInEditor,
-  supportedLegacy,
   unsupported,
 }

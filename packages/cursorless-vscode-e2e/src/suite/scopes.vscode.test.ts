@@ -21,6 +21,7 @@ import {
   serializeIterationScopeFixture,
   serializeScopeFixture,
 } from "./serializeScopeFixture";
+import { shouldSkipScopeTest } from "./shouldSkipTest";
 
 suite("Scope test cases", async function () {
   endToEndTestSetup(this);
@@ -53,7 +54,13 @@ suite("Scope test cases", async function () {
   testPaths.forEach(({ path, name, languageId, facet }) =>
     test(
       name,
-      asyncSafety(() => runTest(path, languageId, facet)),
+      asyncSafety(() => {
+        if (shouldSkipScopeTest(languageId)) {
+          this.ctx.skip();
+        }
+
+        return runTest(path, languageId, facet);
+      }),
     ),
   );
 });
@@ -123,7 +130,7 @@ async function runTest(file: string, languageId: string, facetId: string) {
 
   const editor = ide.activeTextEditor!;
 
-  const outputFixture = ((): string => {
+  const [outputFixture, numScopes] = ((): [string, number] => {
     const config = {
       visibleOnly: false,
       scopeType,
@@ -137,17 +144,21 @@ async function runTest(file: string, languageId: string, facetId: string) {
           includeNestedTargets: false,
         },
       );
-      return serializeIterationScopeFixture(code, iterationScopes);
+      return [
+        serializeIterationScopeFixture(code, iterationScopes),
+        iterationScopes.length,
+      ];
     }
 
     const scopes = scopeProvider.provideScopeRanges(editor, config);
 
-    return serializeScopeFixture(facetId, code, scopes);
+    return [serializeScopeFixture(facetId, code, scopes), scopes.length];
   })();
 
   if (shouldUpdateFixtures()) {
     await fsp.writeFile(file, outputFixture);
   } else {
+    assert.isAbove(numScopes, 0, "No scopes found");
     assert.equal(outputFixture, fixture);
   }
 }

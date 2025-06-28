@@ -112,7 +112,7 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
   getChildren(element?: MyTreeItem): MyTreeItem[] {
     if (element == null) {
       void this.possiblyShowUpdateTalonMessage();
-      return getSupportCategories(this.hasLegacyScopes());
+      return getSupportCategories();
     }
 
     if (element instanceof SupportCategoryTreeItem) {
@@ -154,12 +154,6 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
         true,
       );
     }
-  }
-
-  private hasLegacyScopes(): boolean {
-    return this.supportLevels.some(
-      (supportLevel) => supportLevel.support === ScopeSupport.supportedLegacy,
-    );
   }
 
   private getScopeTypesWithSupport(
@@ -210,15 +204,10 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
   }
 }
 
-function getSupportCategories(
-  includeLegacy: boolean,
-): SupportCategoryTreeItem[] {
+function getSupportCategories(): SupportCategoryTreeItem[] {
   return [
     new SupportCategoryTreeItem(ScopeSupport.supportedAndPresentInEditor),
     new SupportCategoryTreeItem(ScopeSupport.supportedButNotPresentInEditor),
-    ...(includeLegacy
-      ? [new SupportCategoryTreeItem(ScopeSupport.supportedLegacy)]
-      : []),
     new SupportCategoryTreeItem(ScopeSupport.unsupported),
   ];
 }
@@ -312,11 +301,6 @@ class SupportCategoryTreeItem extends TreeItem {
       case ScopeSupport.supportedButNotPresentInEditor:
         label = "Supported";
         description = "but not present in active editor";
-        collapsibleState = TreeItemCollapsibleState.Expanded;
-        break;
-      case ScopeSupport.supportedLegacy:
-        label = "Legacy";
-        description = "may or may not be present in active editor";
         collapsibleState = TreeItemCollapsibleState.Expanded;
         break;
       case ScopeSupport.unsupported:

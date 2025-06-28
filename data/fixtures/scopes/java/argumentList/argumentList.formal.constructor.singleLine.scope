@@ -1,0 +1,15 @@
+public class MyClass {
+    public MyClass(String aaa, int bbb) {}
+}
+---
+
+[Content] =
+[Removal] = 1:19-1:38
+                     >-------------------<
+1|     public MyClass(String aaa, int bbb) {}
+
+[Domain] = 1:4-1:42
+      >--------------------------------------<
+1|     public MyClass(String aaa, int bbb) {}
+
+[Insertion delimiter] = ", "

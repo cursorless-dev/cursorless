@@ -52,15 +52,12 @@ export class PrimitiveTargetSpokenFormGenerator {
         if (modifier.ancestorIndex == null || modifier.ancestorIndex === 0) {
           return this.handleScopeType(modifier.scopeType);
         }
-        if (modifier.ancestorIndex === 1) {
-          return [
+        return [
+          new Array(modifier.ancestorIndex).fill(
             this.spokenFormMap.modifierExtra.ancestor,
-            this.handleScopeType(modifier.scopeType),
-          ];
-        }
-        throw new NoSpokenFormError(
-          `Modifier '${modifier.type}' with ancestor index ${modifier.ancestorIndex}`,
-        );
+          ),
+          this.handleScopeType(modifier.scopeType),
+        ];
 
       case "everyScope":
         return [
@@ -269,6 +266,9 @@ export class PrimitiveTargetSpokenFormGenerator {
             id: scopeType.regex,
           }
         );
+
+      case "interior":
+        return this.spokenFormMap.simpleModifier.interiorOnly;
 
       default:
         return this.spokenFormMap.simpleScopeTypeType[scopeType.type];

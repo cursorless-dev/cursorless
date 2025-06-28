@@ -1,0 +1,20 @@
+
+command:
+    value = 123
+
+---
+
+[#1 Range] =
+[#1 Domain] = 0:0-3:0
+  >
+0|
+1| command:
+2|     value = 123
+3|
+   <
+
+
+[#2 Range] =
+[#2 Domain] = 2:4-2:15
+      >-----------<
+2|     value = 123

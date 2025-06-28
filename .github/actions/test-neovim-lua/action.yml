@@ -3,10 +3,12 @@ description: "Set up Neovim Lua environment and run Busted tests"
 runs:
   using: "composite"
   steps:
-    - uses: leafo/gh-actions-lua@v10
+    - uses: leafo/gh-actions-lua@v11
       with:
         luaVersion: "luajit-openresty"
-    - uses: leafo/gh-actions-luarocks@v4
+    - uses: leafo/gh-actions-luarocks@v5
+      with:
+        luarocksVersion: "3.12.0"
     - shell: bash
       run: |
         luarocks install busted

@@ -4,6 +4,14 @@
 
 ;; import javascript.core.scm
 
+;;!! class Aaa { bbb(); }
+;;!              ^^^^^^
+(_
+  (method_signature) @statement.start
+  .
+  ";"? @statement.end
+)
+
 ;;!! function aaa(bbb = "ddd") {}
 ;;!               ^^^--------
 (required_parameter
@@ -26,6 +34,10 @@
   value: (_) @value
 ) @_.domain
 
+;;!! enum Aaa {}
+;;!  ^^^^^^^^^^^
+(enum_declaration) @type
+
 ;;!! function aaa(bbb: Ccc = "ddd") {}
 ;;!               ^^^-------------
 (required_parameter
@@ -41,6 +53,12 @@
 ;; Define these here because these node types don't exist in javascript.
 (_
   [
+    ;;!! function foo();
+    ;;!  ^^^^^^^^^^^^^^^
+    (function_signature
+      name: (_) @functionName @name
+    )
+
     ;;!! class Foo { foo() {} }
     ;;!              ^^^^^^^^
     ;;!! interface Foo { foo(): void; }
@@ -245,15 +263,33 @@
   type_arguments: (_)? @type.end
 )
 
+;;!! Map<string, number>
+;;!      ^^^^^^  ^^^^^^
 ;;!! useState<string>()
 ;;!           ^^^^^^
-;;!! useState<Record<string, string>>()
-;;!           ^^^^^^^^^^^^^^^^^^^^^^
-;;!                  ^^^^^^  ^^^^^^
-(type_arguments
-  (_) @type
+(
+  (type_arguments
+    (_)? @_.leading.endOf
+    .
+    (_) @type
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
   (#not-parent-type? @_dummy type_assertion)
-) @_dummy
+  (#insertion-delimiter! @type ", ")
+)
+
+;;!! Map<string, number>
+;;!      ^^^^^^^^^^^^^^
+(
+  (type_arguments
+    .
+    "<" @type.iteration.start.endOf
+    ">" @type.iteration.end.startOf
+    .
+  ) @_dummy
+  (#not-parent-type? @_dummy type_assertion)
+)
 
 ;;!! function foo<A>() {}
 ;;!               ^
@@ -317,7 +353,7 @@
 (
   (abstract_class_declaration
     name: (_) @className
-  ) @class @_.domain
+  ) @class @type @_.domain
   (#not-parent-type? @class export_statement)
 )
 
@@ -327,7 +363,7 @@
   (abstract_class_declaration
     name: (_) @className
   )
-) @class @_.domain
+) @class @type @_.domain
 
 ;;!! class MyClass {}
 ;;!        ^^^^^^^
@@ -386,4 +422,11 @@
 ;; () => number
 (function_type
   "=>" @disqualifyDelimiter
+)
+
+;;!! class Aaa { }
+;;!             ^
+(class_body
+  "{" @type.iteration.start.endOf
+  "}" @type.iteration.end.startOf
 )

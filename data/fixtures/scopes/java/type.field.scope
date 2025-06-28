@@ -3,49 +3,68 @@ class MyClass {
 }
 ---
 
-[#1 Content] = 1:4-1:17
-      >-------------<
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-2:1
+  >---------------
+0| class MyClass {
 1|     Map<int, int> foo;
-
-[#1 Removal] = 1:4-1:18
-      >--------------<
-1|     Map<int, int> foo;
-
-[#1 Leading delimiter] = 1:0-1:4
-  >----<
-1|     Map<int, int> foo;
-
-[#1 Trailing delimiter] = 1:17-1:18
-                   >-<
-1|     Map<int, int> foo;
-
-[#1 Domain] = 1:4-1:22
-      >------------------<
-1|     Map<int, int> foo;
+2| }
+   -<
 
 [#1 Insertion delimiter] = " "
 
 
-[#2 Content] =
-[#2 Removal] =
-[#2 Domain] = 1:8-1:11
-          >---<
+[#2 Content] = 1:4-1:17
+      >-------------<
+1|     Map<int, int> foo;
+
+[#2 Removal] = 1:4-1:18
+      >--------------<
+1|     Map<int, int> foo;
+
+[#2 Leading delimiter] = 1:0-1:4
+  >----<
+1|     Map<int, int> foo;
+
+[#2 Trailing delimiter] = 1:17-1:18
+                   >-<
+1|     Map<int, int> foo;
+
+[#2 Domain] = 1:4-1:22
+      >------------------<
 1|     Map<int, int> foo;
 
 [#2 Insertion delimiter] = " "
 
 
 [#3 Content] =
-[#3 Domain] = 1:13-1:16
+[#3 Domain] = 1:8-1:11
+          >---<
+1|     Map<int, int> foo;
+
+[#3 Removal] = 1:8-1:13
+          >-----<
+1|     Map<int, int> foo;
+
+[#3 Trailing delimiter] = 1:11-1:13
+             >--<
+1|     Map<int, int> foo;
+
+[#3 Insertion delimiter] = ", "
+
+
+[#4 Content] =
+[#4 Domain] = 1:13-1:16
                >---<
 1|     Map<int, int> foo;
 
-[#3 Removal] = 1:12-1:16
-              >----<
+[#4 Removal] = 1:11-1:16
+             >-----<
 1|     Map<int, int> foo;
 
-[#3 Leading delimiter] = 1:12-1:13
-              >-<
+[#4 Leading delimiter] = 1:11-1:13
+             >--<
 1|     Map<int, int> foo;
 
-[#3 Insertion delimiter] = " "
+[#4 Insertion delimiter] = ", "

@@ -1,33 +1,33 @@
 import glob
 from pathlib import Path
 
-from talon import Context, Module, actions, settings
+from talon import Module, actions, registry, settings
 
 from ..targets.target_types import CursorlessExplicitTarget
 
 mod = Module()
 
-ctx = Context()
-ctx.matches = r"""
-tag: user.cursorless_use_community_snippets
-"""
-
 
 @mod.action_class
 class Actions:
-    def private_cursorless_generate_snippet_action(target: CursorlessExplicitTarget):  # pyright: ignore [reportGeneralTypeIssues]
-        """Generate a snippet from the given target"""
-        actions.user.private_cursorless_command_no_wait(
+    def private_cursorless_migrate_snippets():
+        """Migrate snippets from Cursorless to community format"""
+        actions.user.private_cursorless_run_rpc_command_no_wait(
+            "cursorless.migrateSnippets",
+            str(get_directory_path()),
             {
-                "name": "generateSnippet",
-                "target": target,
-            }
+                "insertion": registry.lists[
+                    "user.cursorless_insertion_snippet_no_phrase"
+                ][-1],
+                "insertionWithPhrase": registry.lists[
+                    "user.cursorless_insertion_snippet_single_phrase"
+                ][-1],
+                "wrapper": registry.lists["user.cursorless_wrapper_snippet"][-1],
+            },
         )
 
-
-@ctx.action_class("user")
-class UserActions:
     def private_cursorless_generate_snippet_action(target: CursorlessExplicitTarget):  # pyright: ignore [reportGeneralTypeIssues]
+        """Generate a snippet from the given target"""
         actions.user.private_cursorless_command_no_wait(
             {
                 "name": "generateSnippet",

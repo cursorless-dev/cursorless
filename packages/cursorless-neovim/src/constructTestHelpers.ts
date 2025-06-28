@@ -25,7 +25,6 @@ export function constructTestHelpers(
   normalizedIde: NormalizedIDE,
   scopeProvider: ScopeProvider,
   injectIde: (ide: IDE) => void,
-  runIntegrationTests: () => Promise<void>,
 ): NeovimTestHelpers | undefined {
   return {
     commandServerApi: commandServerApi!,
@@ -66,6 +65,5 @@ export function constructTestHelpers(
       );
     },
     hatTokenMap,
-    runIntegrationTests,
   };
 }

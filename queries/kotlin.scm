@@ -102,8 +102,7 @@
   (
     "else"
     (control_structure_body) @branch.removal.end.startOf
-  )
-?
+  )?
 )
 
 ;; Else-if branch
@@ -384,10 +383,8 @@
   (type_projection) @type
 )
 (type_arguments
-  .
   "<" @type.iteration.start.endOf
   ">" @type.iteration.end.startOf
-  .
 )
 
 (anonymous_function
@@ -437,14 +434,13 @@
   (_) @value
 ) @_.domain
 
-;; Disabled due to Cursorless error ("invalid capture") caused by "return@"
-;; (jump_expression
-;;   "return@"
-;;   .
-;;   (label)
-;;   .
-;;   (_) @value
-;; ) @_.domain
+(jump_expression
+  "return@"
+  .
+  (label)
+  .
+  (_) @value
+) @_.domain
 
 (_
   (function_body

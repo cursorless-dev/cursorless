@@ -26,7 +26,6 @@ finalState:
     begin
       a = 10
     ensure 
-
     end
   selections:
     - anchor: {line: 3, character: 0}

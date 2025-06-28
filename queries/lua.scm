@@ -77,8 +77,8 @@
 
 ;;!!
 (if_statement
-  "if" @branch.start
-  consequence: (_) @branch.end @branch.interior
+  "if" @branch.start @interior.domain.start
+  consequence: (_) @branch.end @interior @interior.domain.end
 ) @ifStatement @branch.iteration @condition.iteration
 
 ;;!! if x < y then
@@ -90,12 +90,12 @@
 ;;!! end
 [
   (elseif_statement
-    consequence: (_) @branch.interior
+    consequence: (_) @interior
   )
   (else_statement
-    body: (_) @branch.interior
+    body: (_) @interior
   )
-] @branch @_.domain
+] @branch @interior.domain
 
 ;;!! while i <= 5 do
 ;;!        ^^^^^^
@@ -115,12 +115,19 @@
 
 ;; Lists and maps
 (table_constructor
-  "{" @_.interior.start.endOf @value.iteration.start.endOf @collectionKey.iteration.start.endOf
   (field
     name: (_)
   )
-  "}" @_.interior.end.startOf @value.iteration.end.startOf @collectionKey.iteration.end.startOf
 ) @map
+
+(table_constructor
+  "{" @value.iteration.start.endOf @collectionKey.iteration.start.endOf
+  (field
+    name: (_)
+  )
+  "}" @value.iteration.end.startOf @collectionKey.iteration.end.startOf
+)
+
 ;;!! a = { foo = "bar" }
 ;;!        ^^^--------
 ;;!        xxxxxx-----
@@ -137,11 +144,9 @@
 ;;!! a = { "1", "2", "3" }
 ;;!      ^^^^^^^^^^^^^^^^^
 (table_constructor
-  "{" @_.interior.start.endOf
   (field
     !name
   )
-  "}" @_.interior.end.startOf
 ) @list
 
 ;; Strings
@@ -215,8 +220,8 @@
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 (function_declaration
   name: (_) @functionName
-  body: (_)? @namedFunction.interior
-) @functionName.domain @namedFunction
+  body: (_)? @interior
+) @namedFunction @_.domain
 
 ;; inside lambda:
 ;;!! __add = function(a, b) return a + b end
@@ -226,8 +231,8 @@
 ;;!          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 (function_definition
   !name
-  body: (_)? @_.interior
-) @anonymousFunction
+  body: (_)? @interior
+) @anonymousFunction @interior.domain
 
 ;; Names and values
 

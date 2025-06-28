@@ -13,12 +13,13 @@ public class MyClass {
 3|     }
    -----<
 
-[#1 Removal] = 1:0-3:5
+[#1 Removal] = 1:0-4:0
   >--------------------------
 1|     public void myFunk() {
 2|         String foo, bar;
 3|     }
-   -----<
+4| }
+   <
 
 [#1 Leading delimiter] = 1:0-1:4
   >----<

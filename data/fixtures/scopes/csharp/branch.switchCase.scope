@@ -1,0 +1,48 @@
+switch (value) {
+    case 1:
+        break;
+    default:
+        break;
+}
+---
+
+[#1 Content] =
+[#1 Domain] = 1:4-2:14
+      >-------
+1|     case 1:
+2|         break;
+   --------------<
+
+[#1 Removal] = 1:0-3:0
+  >-----------
+1|     case 1:
+2|         break;
+3|     default:
+   <
+
+[#1 Leading delimiter] = 1:0-1:4
+  >----<
+1|     case 1:
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 3:4-4:14
+      >--------
+3|     default:
+4|         break;
+   --------------<
+
+[#2 Removal] = 3:0-5:0
+  >------------
+3|     default:
+4|         break;
+5| }
+   <
+
+[#2 Leading delimiter] = 3:0-3:4
+  >----<
+3|     default:
+
+[#2 Insertion delimiter] = "\n"

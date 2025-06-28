@@ -13,6 +13,8 @@ export const scopeSupportFacets = [
   "environment",
 
   "section",
+  "section.iteration.document",
+  "section.iteration.parent",
 
   "list",
   "map",
@@ -37,14 +39,14 @@ export const scopeSupportFacets = [
   "anonymousFunction",
 
   "namedFunction",
-  "namedFunction.iteration",
+  "namedFunction.iteration.block",
   "namedFunction.iteration.document",
   "namedFunction.method",
   "namedFunction.method.iteration.class",
   "namedFunction.constructor",
 
   "functionName",
-  "functionName.iteration",
+  "functionName.iteration.block",
   "functionName.iteration.document",
   "functionName.method",
   "functionName.method.iteration.class",
@@ -61,12 +63,38 @@ export const scopeSupportFacets = [
   "argument.actual.method.iteration",
   "argument.actual.constructor",
   "argument.actual.constructor.iteration",
+
   "argument.formal",
   "argument.formal.iteration",
   "argument.formal.method",
   "argument.formal.method.iteration",
   "argument.formal.constructor",
   "argument.formal.constructor.iteration",
+  "argument.formal.lambda",
+  "argument.formal.lambda.iteration",
+
+  "argumentList.actual.empty",
+  "argumentList.actual.singleLine",
+  "argumentList.actual.multiLine",
+  "argumentList.actual.method.empty",
+  "argumentList.actual.method.singleLine",
+  "argumentList.actual.method.multiLine",
+  "argumentList.actual.constructor.empty",
+  "argumentList.actual.constructor.singleLine",
+  "argumentList.actual.constructor.multiLine",
+
+  "argumentList.formal.empty",
+  "argumentList.formal.singleLine",
+  "argumentList.formal.multiLine",
+  "argumentList.formal.lambda.empty",
+  "argumentList.formal.lambda.singleLine",
+  "argumentList.formal.lambda.multiLine",
+  "argumentList.formal.method.empty",
+  "argumentList.formal.method.singleLine",
+  "argumentList.formal.method.multiLine",
+  "argumentList.formal.constructor.empty",
+  "argumentList.formal.constructor.singleLine",
+  "argumentList.formal.constructor.multiLine",
 
   "comment.line",
   "comment.block",
@@ -115,6 +143,8 @@ export const scopeSupportFacets = [
   "name.field",
   "name.resource",
   "name.resource.iteration",
+  "name.argument.actual",
+  "name.argument.actual.iteration",
   "name.argument.formal",
   "name.argument.formal.iteration",
   "name.argument.formal.method",
@@ -141,6 +171,8 @@ export const scopeSupportFacets = [
   "value.yield",
   "value.resource",
   "value.resource.iteration",
+  "value.argument.actual",
+  "value.argument.actual.iteration",
   "value.argument.formal",
   "value.argument.formal.iteration",
   "value.argument.formal.method",
@@ -161,11 +193,27 @@ export const scopeSupportFacets = [
   "type.field.iteration",
   "type.foreach",
   "type.interface",
+  "type.enum",
   "type.alias",
   "type.cast",
   "type.class",
   "type.typeArgument",
   "type.typeArgument.iteration",
+  "type.resource",
+  "type.resource.iteration",
+
+  "interior.class",
+  "interior.function",
+  "interior.lambda",
+  "interior.element",
+  "interior.command",
+  "interior.cell",
+  "interior.if",
+  "interior.try",
+  "interior.switchCase",
+  "interior.ternary",
+  "interior.loop",
+  "interior.resource",
 
   "notebookCell",
 
@@ -178,11 +226,13 @@ export interface ScopeSupportFacetInfo {
   readonly description: string;
   readonly scopeType: SimpleScopeTypeType | ScopeType;
   readonly isIteration?: boolean;
+  readonly domainHint?: string;
+  readonly removalHint?: string;
+  readonly insertionDelimiterHint?: string;
 }
 
 export enum ScopeSupportFacetLevel {
   supported,
-  supportedLegacy,
   unsupported,
   notApplicable,
 }
@@ -206,6 +256,7 @@ export type TextualScopeSupportFacet =
   | "url"
   | "surroundingPair"
   | "surroundingPair.iteration"
+  | "interior.surroundingPair"
   | "collectionItem.textual"
   | "collectionItem.textual.iteration";
 

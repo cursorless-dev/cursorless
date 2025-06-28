@@ -1,0 +1,18 @@
+switch (value) {
+    case 1:
+        break;
+    default:
+        break;
+}
+---
+
+[Range] =
+[Domain] = 0:16-5:0
+                  >
+0| switch (value) {
+1|     case 1:
+2|         break;
+3|     default:
+4|         break;
+5| }
+   <
