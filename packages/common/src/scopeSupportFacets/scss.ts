@@ -2,14 +2,12 @@ import { cssScopeSupport } from "./css";
 import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
-const { supported, unsupported } = ScopeSupportFacetLevel;
+const { supported } = ScopeSupportFacetLevel;
 
 export const scssScopeSupport: LanguageScopeSupportFacetMap = {
   ...cssScopeSupport,
 
   "comment.line": supported,
-
-  "condition.if": supported,
 
   namedFunction: supported,
   "namedFunction.iteration.block": supported,
@@ -27,15 +25,13 @@ export const scssScopeSupport: LanguageScopeSupportFacetMap = {
   "value.argument.formal.iteration": supported,
   "value.return": supported,
 
-  ifStatement: supported,
-
   "textFragment.comment.line": supported,
 
-  // Unsupported
+  ifStatement: supported,
+  "branch.if": supported,
+  "branch.if.iteration": supported,
+  "condition.if": supported,
 
-  "branch.if": unsupported,
-  "branch.if.iteration": unsupported,
-
-  "interior.function": unsupported,
-  "interior.if": unsupported,
+  "interior.if": supported,
+  "interior.function": supported,
 };

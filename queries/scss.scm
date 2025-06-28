@@ -30,15 +30,42 @@
   (while_statement)
 ] @statement
 
+(_
+  (block
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  )
+) @_.domain
+
 (single_line_comment) @comment @textFragment
 
-(if_statement) @ifStatement
+;;!! @if true { }  @else { }
+;;!  ^^^^^^^^^^^^^^^^^^^^^^^
+(if_statement) @ifStatement @branch.iteration
 
+;;!! @if true { }
+;;!  ^^^^^^^^^^^^
+;;!      ^^^^
 (if_statement
   (if_clause
     (condition) @condition
-  )
-) @_.domain
+  ) @branch @branch.removal.start.startOf @branch.removal.end.endOf
+  (else_if_clause
+    "if" @branch.removal.end.startOf
+    (#character-range! @branch.removal.start.startOf 1)
+  )?
+) @condition.domain
+
+;;!! @else false { }
+;;!  ^^^^^^^^^^^^^^^
+;;!        ^^^^^
+(else_if_clause
+  (condition) @condition
+) @branch @condition.domain
+
+;;!! @else { }
+;;!  ^^^^^^^^^
+(else_clause) @branch
 
 (mixin_statement
   (name) @functionName @name
