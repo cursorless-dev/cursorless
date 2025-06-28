@@ -35,12 +35,13 @@ function Language({
 
   return (
     <>
-      <h3>{languageId}</h3>
-      <p>
-        <a href={`../../user/languages/${languageId}`}>
-          languages/{languageId}
-        </a>
-      </p>
+      <h3>
+        {languageId}
+
+        <small className="ml-2 text-sm">
+          <a href={`../../user/languages/${languageId}`}>link</a>
+        </small>
+      </h3>
       {renderFacets("Unsupported", unsupportedFacets)}
       {renderFacets("Unspecified", unspecifiedFacets)}
     </>
