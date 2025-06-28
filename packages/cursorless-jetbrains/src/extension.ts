@@ -2,7 +2,7 @@ import type { CursorlessEngine } from "@cursorless/cursorless-engine";
 import { createCursorlessEngine } from "@cursorless/cursorless-engine";
 import type { JetbrainsPlugin } from "./ide/JetbrainsPlugin";
 import { Parser } from "web-tree-sitter";
-import "./globals";
+import "./types/globals.d.ts";
 import { JetbrainsTreeSitter } from "./ide/JetbrainsTreeSitter";
 import { JetbrainsTreeSitterQueryProvider } from "./ide/JetbrainsTreeSitterQueryProvider";
 import { pathJoin } from "./ide/pathJoin";

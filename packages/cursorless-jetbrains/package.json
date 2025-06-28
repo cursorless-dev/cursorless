@@ -8,7 +8,7 @@
   "scripts": {
     "build": "pnpm run esbuild:prod && pnpm run populate-dist",
     "compile": "tsc --build",
-    "esbuild:base": "esbuild ./src/index.ts --format=esm --target=es2020 --conditions=cursorless:bundler --bundle --main-fields=main,module --outfile=./out/cursorless.js --platform=neutral --external:std --external:fs --external:path",
+    "esbuild:base": "esbuild ./src/index.ts --format=esm --target=es2020 --conditions=cursorless:bundler --bundle --main-fields=main,module --outfile=./out/cursorless.js --platform=neutral --external:std --external:module --external:fs --external:path",
     "esbuild": "pnpm run esbuild:base --sourcemap",
     "esbuild:prod": "pnpm run esbuild:base --minify",
     "populate-dist": "bash ./scripts/populate-dist.sh",
