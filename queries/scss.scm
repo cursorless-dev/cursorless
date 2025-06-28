@@ -41,20 +41,29 @@
 
 ;;!! @if true { }  @else { }
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^^
-(if_statement) @ifStatement @branch.iteration
-
-;;!! @if true { }
-;;!  ^^^^^^^^^^^^
 ;;!      ^^^^
 (if_statement
   (if_clause
     (condition) @condition
-  ) @branch @branch.removal.start.startOf @branch.removal.end.endOf
+  )
+) @ifStatement @branch.iteration @condition.domain
+
+;;!! @if true { }  @else if false { }
+;;!   xxxxxxxxxxxxxxxxxxx
+(if_statement
+  (if_clause) @branch @branch.removal.start.startOf
   (else_if_clause
     "if" @branch.removal.end.startOf
-    (#character-range! @branch.removal.start.startOf 1)
-  )?
-) @condition.domain
+  )
+  (#character-range! @branch.removal.start.startOf 1)
+)
+
+;; Single if statement are else if. Remove range is content range.
+(if_statement
+  (if_clause) @branch
+  (else_clause)?
+  .
+)
 
 ;;!! @else false { }
 ;;!  ^^^^^^^^^^^^^^^
