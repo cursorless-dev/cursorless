@@ -1,17 +1,18 @@
 // Place your settings in this file to overwrite default and user settings.
 {
+  "[lua]": {
+    "editor.defaultFormatter": "JohnnyMorganz.stylua"
+  },
   "[python]": {
     "editor.defaultFormatter": "charliermarsh.ruff"
   },
   "[scm]": {
-    "editor.defaultFormatter": "AndreasArvidsson.andreas-talon"
+    "editor.defaultFormatter": "AndreasArvidsson.andreas-talon",
+    "editor.tabSize": 2
   },
   "[talon]": {
     "editor.defaultFormatter": "wenkokke.talonfmt-vscode"
   },
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  // Turn off tsc task auto detection since we have the necessary tasks as npm scripts
-  "typescript.tsc.autoDetect": "off",
   "cSpell.words": [
     "Autoformatting",
     "camelize",
@@ -22,14 +23,14 @@
     "pojo",
     "subword"
   ],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "eslint.workingDirectories": [{ "pattern": "packages/*/" }],
+  "files.associations": {
+    ".busted": "lua"
+  },
   "files.eol": "\n",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.tsdk": "node_modules/typescript/lib",
-  "eslint.workingDirectories": [{ "pattern": "packages/*/" }],
-  "[lua]": {
-    "editor.defaultFormatter": "JohnnyMorganz.stylua"
-  },
-  "files.associations": {
-    ".busted": "lua"
-  }
+  // Turn off tsc task auto detection since we have the necessary tasks as npm scripts
+  "typescript.tsc.autoDetect": "off"
 }

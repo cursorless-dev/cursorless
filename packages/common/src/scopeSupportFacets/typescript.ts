@@ -26,7 +26,7 @@ export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
 
   "value.typeAlias": supported,
 
-  // Not applicable
+  /* NOT APPLICABLE */
 
   element: notApplicable,
   tags: notApplicable,
@@ -37,4 +37,5 @@ export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
   "value.attribute": notApplicable,
   "type.foreach": notApplicable,
   "interior.element": notApplicable,
+  "textFragment.element": notApplicable,
 };
