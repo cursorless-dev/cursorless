@@ -102,11 +102,17 @@ export class JetbrainsEditor implements EditableTextEditor {
     await this.client.revealLine(this.id, lineNumber, at);
   }
 
-  openLink(
-    _range: Range,
+  async openLink(
+    range: Range,
     _options?: OpenLinkOptions | undefined,
   ): Promise<void> {
-    throw new Error("openLink not implemented.");
+    const command = new JetbrainsEditorCommand(
+      [range],
+      true,
+      false,
+      "GotoDeclaration",
+    );
+    await this.client.executeRangeCommand(this.id, JSON.stringify(command));
   }
 
   async fold(ranges?: Range[] | undefined): Promise<void> {
