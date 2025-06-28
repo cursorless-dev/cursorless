@@ -401,11 +401,11 @@
   (_) @value
 ) @_.domain
 
-;;!! str => str.length > 0
-;;!         ^^^^^^^^^^^^^^
-;;!  ---------------------
+;;!! str => 0
+;;!         ^
+;;!  --------
 (arrow_function
-  body: (_) @value
+  body: (_) @value @interior
   (#not-type? @value statement_block)
 ) @_.domain
 
@@ -435,6 +435,16 @@
     "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
     "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
   )
+)
+
+(
+  (_
+    body: (_
+      "{" @interior.start.endOf
+      "}" @interior.end.startOf
+    )
+  ) @_.domain
+  (#not-type? @_.domain try_statement)
 )
 
 ;;!! const aaa = {bbb: 0, ccc: 0};
@@ -507,18 +517,6 @@
   (array_pattern)
 ] @list
 
-;;!! if () {}
-;;!  ^^^^^^^^
-(if_statement) @ifStatement
-
-;;!! switch (value) {}
-;;!          ^^^^^
-;;!  -----------------
-(switch_statement
-  value: (_) @private.switchStatementSubject
-  (#child-range! @private.switchStatementSubject 0 -1 true true)
-) @_.domain
-
 ;;!! foo()
 ;;!  ^^^^^
 ;;!! new Foo()
@@ -571,16 +569,21 @@
 
 (program) @class.iteration @className.iteration
 
-;;!! true ? 0 : 1;
+;;!! true ? 0 : 1
 ;;!  ^^^^
 ;;!         ^   ^
-;;! --------------
+;;! -------------
 (ternary_expression
-  condition: (_) @condition
+  condition: (_) @condition @interior
   consequence: (_) @branch
 ) @condition.domain
+
 (ternary_expression
-  alternative: (_) @branch
+  consequence: (_) @branch @interior
+)
+
+(ternary_expression
+  alternative: (_) @branch @interior
 )
 
 ;;!! for (let i = 0; i < 2; ++i) {}
@@ -605,68 +608,103 @@
   (#child-range! @condition 0 -1 true true)
 ) @_.domain
 
-;;!! case 0: {}
-;;!  ^^^^^^^^^^
+;;!! switch (value) { }
+;;!          ^^^^^
+;;!                  ^
+(switch_statement
+  value: (_) @private.switchStatementSubject
+  body: (_
+    "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
+    "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
+  )
+  (#child-range! @private.switchStatementSubject 0 -1 true true)
+) @branch.iteration.domain @condition.iteration.domain @private.switchStatementSubject.domain
+
+;;!! case 0: break;
+;;!  ^^^^^^^^^^^^^^
 ;;!       ^
 (switch_case
   value: (_) @condition
 ) @branch @condition.domain
 
+;;!! default: break;
+;;!  ^^^^^^^^^^^^^^^
 (switch_default) @branch
 
-;;!! switch () { }
-;;!             ^
-(switch_statement
-  body: (_
-    .
-    "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
-    "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
-    .
-  )
-) @branch.iteration.domain @condition.iteration.domain
+(switch_case
+  body: (_) @interior.start
+  body: (_)? @interior.end
+  .
+  (#not-type? @interior.start "statement_block")
+) @_.domain
+
+(switch_default
+  body: (_) @interior.start
+  body: (_)? @interior.end
+  .
+  (#not-type? @interior.start "statement_block")
+) @_.domain
+
+;;!! if () {}
+;;!  ^^^^^^^^
+(if_statement) @ifStatement
 
 ;;!! if () {}
 ;;!  ^^^^^^^^
 (
   (if_statement
+    "if" @branch.start.startOf @branch.removal.start.startOf @interior.domain.start.startOf
     condition: (_) @condition
-    consequence: (_) @branch.end.endOf @branch.removal.end.endOf
+    consequence: (_
+      "{" @interior.start.endOf
+      "}" @interior.end.startOf
+    ) @branch.end.endOf @branch.removal.end.endOf @interior.domain.end.endOf
     alternative: (_
       (if_statement) @branch.removal.end.startOf
     )?
-  ) @branch.start.startOf @branch.removal.start.startOf @condition.domain
-  (#not-parent-type? @condition.domain "else_clause")
+  ) @condition.domain
+  (#not-parent-type? @condition.domain else_clause)
   (#child-range! @condition 0 -1 true true)
 )
 
 ;;!! else if () {}
 ;;!  ^^^^^^^^^^^^^
 (else_clause
+  "else" @branch.start.startOf @condition.domain.start.startOf @interior.domain.start.startOf
   (if_statement
     condition: (_) @condition
-    consequence: (_) @branch.end.endOf @condition.domain.end.endOf
+    consequence: (_
+      "{" @interior.start.endOf
+      "}" @interior.end.startOf
+    ) @branch.end.endOf @condition.domain.end.endOf @interior.domain.end.endOf
   )
   (#child-range! @condition 0 -1 true true)
-) @branch.start.startOf @condition.domain.start.startOf
+)
 
 ;;!! else {}
 ;;!  ^^^^^^^
 (else_clause
-  (statement_block)
-) @branch
+  (statement_block
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  )
+) @branch @interior.domain
 
 ;;!! if () {} else if () {} else {}
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 (
   (if_statement) @branch.iteration
-  (#not-parent-type? @branch.iteration "else_clause")
+  (#not-parent-type? @branch.iteration else_clause)
 )
 
 ;;!! try () {}
 ;;!  ^^^^^^^^^
 (try_statement
-  "try" @branch.start
-  body: (_) @branch.end
+  "try" @branch.start @interior.domain.start.startOf
+  body: (_
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  ) @branch.end @interior.domain.end.endOf
 )
 
 ;;!! catch () {}
@@ -818,6 +856,7 @@ operator: [
   ">>>"
   ">>>="
 ] @disqualifyDelimiter
+
 (arrow_function
   "=>" @disqualifyDelimiter
 )

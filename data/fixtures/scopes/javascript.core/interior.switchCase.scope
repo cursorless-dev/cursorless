@@ -1,0 +1,181 @@
+switch (value) {
+    case 0:
+        foo;
+        break;
+    case 1: {
+        break;
+    }
+    default:
+        break;
+}
+---
+
+[#1 Content] = 1:4-8:14
+      >-------
+1|     case 0:
+2|         foo;
+3|         break;
+4|     case 1: {
+5|         break;
+6|     }
+7|     default:
+8|         break;
+   --------------<
+
+[#1 Removal] = 0:16-9:0
+                  >
+0| switch (value) {
+1|     case 0:
+2|         foo;
+3|         break;
+4|     case 1: {
+5|         break;
+6|     }
+7|     default:
+8|         break;
+9| }
+   <
+
+[#1 Domain] = 0:0-9:1
+  >----------------
+0| switch (value) {
+1|     case 0:
+2|         foo;
+3|         break;
+4|     case 1: {
+5|         break;
+6|     }
+7|     default:
+8|         break;
+9| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] = 0:8-0:13
+          >-----<
+0| switch (value) {
+
+[#2 Domain] = 0:7-0:14
+         >-------<
+0| switch (value) {
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] = 1:4-8:14
+      >-------
+1|     case 0:
+2|         foo;
+3|         break;
+4|     case 1: {
+5|         break;
+6|     }
+7|     default:
+8|         break;
+   --------------<
+
+[#3 Removal] = 0:16-9:0
+                  >
+0| switch (value) {
+1|     case 0:
+2|         foo;
+3|         break;
+4|     case 1: {
+5|         break;
+6|     }
+7|     default:
+8|         break;
+9| }
+   <
+
+[#3 Domain] = 0:15-9:1
+                 >-
+0| switch (value) {
+1|     case 0:
+2|         foo;
+3|         break;
+4|     case 1: {
+5|         break;
+6|     }
+7|     default:
+8|         break;
+9| }
+   -<
+
+[#3 Insertion delimiter] = " "
+
+
+[#4 Content] =
+[#4 Removal] = 2:8-3:14
+          >----
+2|         foo;
+3|         break;
+   --------------<
+
+[#4 Domain] = 1:4-3:14
+      >-------
+1|     case 0:
+2|         foo;
+3|         break;
+   --------------<
+
+[#4 Insertion delimiter] = " "
+
+
+[#5 Content] = 5:8-5:14
+          >------<
+5|         break;
+
+[#5 Removal] = 4:13-6:4
+               >
+4|     case 1: {
+5|         break;
+6|     }
+   ----<
+
+[#5 Domain] = 4:4-6:5
+      >---------
+4|     case 1: {
+5|         break;
+6|     }
+   -----<
+
+[#5 Insertion delimiter] = " "
+
+
+[#6 Content] = 5:8-5:14
+          >------<
+5|         break;
+
+[#6 Removal] = 4:13-6:4
+               >
+4|     case 1: {
+5|         break;
+6|     }
+   ----<
+
+[#6 Domain] = 4:12-6:5
+              >-
+4|     case 1: {
+5|         break;
+6|     }
+   -----<
+
+[#6 Insertion delimiter] = " "
+
+
+[#7 Content] =
+[#7 Removal] = 8:8-8:14
+          >------<
+8|         break;
+
+[#7 Domain] = 7:4-8:14
+      >--------
+7|     default:
+8|         break;
+   --------------<
+
+[#7 Insertion delimiter] = " "
