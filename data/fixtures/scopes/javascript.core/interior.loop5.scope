@@ -1,0 +1,37 @@
+for (const k in values) { }
+---
+
+[#1 Content] =
+[#1 Removal] = 0:25-0:26
+                           >-<
+0| for (const k in values) { }
+
+[#1 Domain] = 0:0-0:27
+  >---------------------------<
+0| for (const k in values) { }
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] = 0:5-0:22
+       >-----------------<
+0| for (const k in values) { }
+
+[#2 Domain] = 0:4-0:23
+      >-------------------<
+0| for (const k in values) { }
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] =
+[#3 Removal] = 0:25-0:26
+                           >-<
+0| for (const k in values) { }
+
+[#3 Domain] = 0:24-0:27
+                          >---<
+0| for (const k in values) { }
+
+[#3 Insertion delimiter] = " "
