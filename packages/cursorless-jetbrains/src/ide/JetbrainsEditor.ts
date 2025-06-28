@@ -1,9 +1,9 @@
 import type { Selection } from "@cursorless/common";
 import {
   selectionsEqual,
-  type BreakpointDescriptor,
   type Edit,
   type EditableTextEditor,
+  type GeneralizedRange,
   type InMemoryTextDocument,
   type OpenLinkOptions,
   type Range,
@@ -136,7 +136,7 @@ export class JetbrainsEditor implements EditableTextEditor {
   }
 
   async toggleBreakpoint(
-    _descriptors?: BreakpointDescriptor[] | undefined,
+    _ranges?: GeneralizedRange[] | undefined,
   ): Promise<void> {
     throw new Error("toggleBreakpoint not implemented.");
   }
@@ -232,5 +232,21 @@ export class JetbrainsEditor implements EditableTextEditor {
 
   editNewNotebookCellBelow(): Promise<void> {
     throw new Error("editNewNotebookCellBelow not implemented.");
+  }
+
+  async gitAccept(_range?: Range): Promise<void> {
+    throw new Error("gitAccept not implemented.");
+  }
+
+  async gitRevert(_range?: Range): Promise<void> {
+    throw new Error("gitRevert not implemented.");
+  }
+
+  async gitStage(_range?: Range): Promise<void> {
+    throw new Error("gitStage not implemented.");
+  }
+
+  async gitUnstage(_range?: Range): Promise<void> {
+    throw new Error("gitUnstage not implemented.");
   }
 }

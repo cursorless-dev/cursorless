@@ -1,6 +1,6 @@
 import type { Range, TextDocument, TreeSitter } from "@cursorless/common";
-import type { Language, SyntaxNode, Tree } from "web-tree-sitter";
-import Parser from "web-tree-sitter";
+import type { Language, Query, Node, Tree } from "web-tree-sitter";
+import { Parser, Language as ParserLanguage } from "web-tree-sitter";
 import { pathJoin } from "./pathJoin";
 
 export class JetbrainsTreeSitter implements TreeSitter {
@@ -12,7 +12,11 @@ export class JetbrainsTreeSitter implements TreeSitter {
     if (this.getLanguage(document.languageId)) {
       const parser = this.parsers.get(document.languageId);
       if (parser) {
-        return parser.parse(document.getText());
+        const tree = parser.parse(document.getText());
+        if (!tree) {
+          throw new Error("Failed to parse document");
+        }
+        return tree;
       }
     }
     throw new Error("Language not supported");
@@ -25,17 +29,18 @@ export class JetbrainsTreeSitter implements TreeSitter {
       this.wasmDirectory,
       `tree-sitter-${languageId}.wasm`,
     );
-    const language = await Parser.Language.load(filePath);
+    const language = await ParserLanguage.load(filePath);
     parser.setLanguage(language);
     this.parsers.set(languageId, parser);
     return true;
   }
 
   getLanguage(languageId: string): Language | undefined {
-    return this.parsers.get(languageId)?.getLanguage();
+    const parser = this.parsers.get(languageId);
+    return parser?.language || undefined;
   }
 
-  getNodeAtLocation(document: TextDocument, range: Range): SyntaxNode {
+  getNodeAtLocation(document: TextDocument, range: Range): Node {
     const tree = this.getTree(document);
     const node = tree.rootNode.descendantForPosition(
       {
@@ -47,6 +52,23 @@ export class JetbrainsTreeSitter implements TreeSitter {
         column: range.end.character,
       },
     );
+    if (!node) {
+      throw new Error("Node not found at location");
+    }
     return node;
+  }
+
+  createQuery(languageId: string, source: string): Query | undefined {
+    const language = this.getLanguage(languageId);
+    if (!language) {
+      return undefined;
+    }
+    
+    try {
+      return language.query(source);
+    } catch (error) {
+      console.error(`Failed to create query for language ${languageId}:`, error);
+      return undefined;
+    }
   }
 }

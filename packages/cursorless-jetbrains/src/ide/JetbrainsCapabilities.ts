@@ -18,6 +18,10 @@ const COMMAND_CAPABILITIES: CommandCapabilityMap = {
   unfold: { acceptsLocation: true },
   showReferences: { acceptsLocation: true },
   insertLineAfter: { acceptsLocation: true },
+  gitAccept: { acceptsLocation: false },
+  gitRevert: { acceptsLocation: false },
+  gitStage: { acceptsLocation: false },
+  gitUnstage: { acceptsLocation: false },
 };
 
 export class JetbrainsCapabilities implements Capabilities {
