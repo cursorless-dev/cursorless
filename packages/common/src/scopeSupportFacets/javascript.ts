@@ -233,6 +233,7 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   "type.cast": notApplicable,
   "type.field": notApplicable,
   "type.field.iteration": notApplicable,
+  "type.foreach": notApplicable,
   "type.interface": notApplicable,
   "type.enum": notApplicable,
   "type.return": notApplicable,
