@@ -7,7 +7,7 @@ import {
   type ScopeType,
   type SimpleScopeTypeType,
 } from "@cursorless/common";
-import React from "react";
+import React, { useState } from "react";
 
 export function MissingLanguageScopes(): React.JSX.Element[] {
   return Object.keys(languageScopeSupport)
@@ -36,6 +36,11 @@ function Language({
   return (
     <>
       <h3>{languageId}</h3>
+      <p>
+        <a href={`../../user/languages/${languageId}`}>
+          languages/{languageId}
+        </a>
+      </p>
       {renderFacets("Unsupported", unsupportedFacets)}
       {renderFacets("Unspecified", unspecifiedFacets)}
     </>
@@ -46,6 +51,8 @@ function renderFacets(
   title: string,
   facets: ScopeSupportFacet[],
 ): React.JSX.Element | null {
+  const [open, setOpen] = useState(false);
+
   const scopes = Array.from(
     new Set(
       facets.map((f) =>
@@ -58,15 +65,30 @@ function renderFacets(
     return null;
   }
 
+  const renderBody = () => {
+    if (!open) {
+      return null;
+    }
+
+    return (
+      <div className="card__body">
+        <ul>
+          {scopes.map((scope) => {
+            return <li key={scope}>{scope}</li>;
+          })}
+        </ul>
+      </div>
+    );
+  };
+
   return (
-    <>
-      {title} ({scopes.length})
-      <ul>
-        {scopes.map((scope) => {
-          return <li key={scope}>{scope}</li>;
-        })}
-      </ul>
-    </>
+    <div className={"card" + (open ? " open" : "")}>
+      <div className="card__header pointer" onClick={() => setOpen(!open)}>
+        {title} ({scopes.length})
+      </div>
+
+      {renderBody()}
+    </div>
   );
 }
 
