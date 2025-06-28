@@ -30,10 +30,8 @@ export const scssScopeSupport: LanguageScopeSupportFacetMap = {
   ifStatement: supported,
   "branch.if": supported,
   "branch.if.iteration": supported,
-  "interior.if": supported,
   "condition.if": supported,
 
-  // Unsupported
-
-  "interior.function": unsupported,
+  "interior.if": supported,
+  "interior.function": supported,
 };
