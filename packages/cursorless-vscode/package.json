@@ -1248,6 +1248,7 @@
     "esbuild:meta": "pnpm run esbuild:base --metafile=meta.json",
     "populate-dist": "my-ts-node ./src/scripts/populateDist/index.ts",
     "init-launch-sandbox": "my-ts-node src/scripts/initLaunchSandbox.ts",
+    "init-launch-sandbox-codium": "my-ts-node src/scripts/initLaunchSandboxCodium.ts",
     "preprocess-svg-hats": "my-ts-node src/scripts/preprocessSvgHats.ts",
     "hat-adjustment-add": "my-ts-node src/scripts/hatAdjustments/add.ts",
     "hat-adjustment-average": "my-ts-node src/scripts/hatAdjustments/average.ts",
