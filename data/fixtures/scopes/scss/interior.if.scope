@@ -1,0 +1,75 @@
+@if true { }
+@else if false { }
+@else { }
+---
+
+[#1 Content] =
+[#1 Removal] = 0:10-0:11
+            >-<
+0| @if true { }
+
+[#1 Domain] = 0:0-0:12
+  >------------<
+0| @if true { }
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] = 0:10-0:11
+            >-<
+0| @if true { }
+
+[#2 Domain] = 0:9-0:12
+           >---<
+0| @if true { }
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] =
+[#3 Removal] = 1:16-1:17
+                  >-<
+1| @else if false { }
+
+[#3 Domain] = 1:0-1:18
+  >------------------<
+1| @else if false { }
+
+[#3 Insertion delimiter] = " "
+
+
+[#4 Content] =
+[#4 Removal] = 1:16-1:17
+                  >-<
+1| @else if false { }
+
+[#4 Domain] = 1:15-1:18
+                 >---<
+1| @else if false { }
+
+[#4 Insertion delimiter] = " "
+
+
+[#5 Content] =
+[#5 Removal] = 2:7-2:8
+         >-<
+2| @else { }
+
+[#5 Domain] = 2:0-2:9
+  >---------<
+2| @else { }
+
+[#5 Insertion delimiter] = " "
+
+
+[#6 Content] =
+[#6 Removal] = 2:7-2:8
+         >-<
+2| @else { }
+
+[#6 Domain] = 2:6-2:9
+        >---<
+2| @else { }
+
+[#6 Insertion delimiter] = " "

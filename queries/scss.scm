@@ -30,15 +30,51 @@
   (while_statement)
 ] @statement
 
+(_
+  (block
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  )
+) @_.domain
+
 (single_line_comment) @comment @textFragment
 
-(if_statement) @ifStatement
-
+;;!! @if true { }  @else { }
+;;!  ^^^^^^^^^^^^^^^^^^^^^^^
+;;!      ^^^^
 (if_statement
   (if_clause
     (condition) @condition
   )
-) @_.domain
+) @ifStatement @branch.iteration @condition.domain
+
+;;!! @if true { }  @else if false { }
+;;!   xxxxxxxxxxxxxxxxxxx
+(if_statement
+  (if_clause) @branch @branch.removal.start.startOf
+  (else_if_clause
+    "if" @branch.removal.end.startOf
+  )
+  (#character-range! @branch.removal.start.startOf 1)
+)
+
+;; Single if statement are else if. Remove range is content range.
+(if_statement
+  (if_clause) @branch
+  (else_clause)?
+  .
+)
+
+;;!! @else false { }
+;;!  ^^^^^^^^^^^^^^^
+;;!        ^^^^^
+(else_if_clause
+  (condition) @condition
+) @branch @condition.domain
+
+;;!! @else { }
+;;!  ^^^^^^^^^
+(else_clause) @branch
 
 (mixin_statement
   (name) @functionName @name

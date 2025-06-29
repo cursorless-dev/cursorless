@@ -100,11 +100,11 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.ternary": supported,
   "interior.loop": supported,
 
-  // Unsupported
+  /* UNSUPPORTED  */
 
   fieldAccess: unsupported,
 
-  // Not applicable (C and C++)
+  /* NOT APPLICABLE (C and C++) */
 
   // Element and tags
   element: notApplicable,

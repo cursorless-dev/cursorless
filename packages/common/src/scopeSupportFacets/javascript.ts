@@ -1,8 +1,7 @@
 import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
+const { supported, notApplicable } = ScopeSupportFacetLevel;
 
 export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   list: supported,
@@ -154,43 +153,55 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
 
   "type.class": supported,
 
-  // Unsupported
+  "interior.class": supported,
+  "interior.function": supported,
+  "interior.if": supported,
+  "interior.lambda": supported,
+  "interior.loop": supported,
+  "interior.switchCase": supported,
+  "interior.ternary": supported,
+  "interior.try": supported,
 
-  "interior.class": unsupported,
-  "interior.function": unsupported,
-  "interior.if": unsupported,
-  "interior.lambda": unsupported,
-  "interior.loop": unsupported,
-  "interior.switchCase": unsupported,
-  "interior.ternary": unsupported,
-  "interior.try": unsupported,
+  /* NOT APPLICABLE (JS & TS) */
 
-  // Not applicable
-
+  // Nested the classes
   "class.iteration.block": notApplicable,
   "className.iteration.block": notApplicable,
-  "functionName.iteration.block": notApplicable,
-  "interior.cell": notApplicable,
-  "interior.command": notApplicable,
-  "interior.resource": notApplicable,
-  "name.argument.actual.iteration": notApplicable,
-  "name.argument.actual": notApplicable,
-  "name.resource.iteration": notApplicable,
-  "name.resource": notApplicable,
-  "namedFunction.iteration.block": notApplicable,
+
+  // Section
+  section: notApplicable,
   "section.iteration.document": notApplicable,
   "section.iteration.parent": notApplicable,
-  "textFragment.element": notApplicable,
+
+  // Command
+  command: notApplicable,
+  "interior.command": notApplicable,
+
+  // Notebook cell
+  notebookCell: notApplicable,
+  "interior.cell": notApplicable,
+
+  // Resource
+  "interior.resource": notApplicable,
+  "name.resource.iteration": notApplicable,
+  "name.resource": notApplicable,
   "type.resource.iteration": notApplicable,
   "type.resource": notApplicable,
-  "value.argument.actual.iteration": notApplicable,
-  "value.argument.actual": notApplicable,
   "value.resource.iteration": notApplicable,
   "value.resource": notApplicable,
-  command: notApplicable,
+
+  // Keyword argument
+  "name.argument.actual.iteration": notApplicable,
+  "name.argument.actual": notApplicable,
+  "value.argument.actual.iteration": notApplicable,
+  "value.argument.actual": notApplicable,
+
+  // Nested functions. Technically supported, but great problem with `every funk` in a method.
+  "functionName.iteration.block": notApplicable,
+  "namedFunction.iteration.block": notApplicable,
+
+  // Miscellaneous
   environment: notApplicable,
-  notebookCell: notApplicable,
-  section: notApplicable,
 };
 
 export const javascriptJsxScopeSupport: LanguageScopeSupportFacetMap = {
@@ -202,6 +213,7 @@ export const javascriptJsxScopeSupport: LanguageScopeSupportFacetMap = {
   "key.attribute": supported,
   "value.attribute": supported,
   "interior.element": supported,
+  "textFragment.element": supported,
 };
 
 export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
@@ -210,22 +222,24 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Types are defined here because we don't want typescript to import them and
   // accidentally forget to add support for them.
-  "value.typeAlias": notApplicable,
-  "type.alias": notApplicable,
-  "type.argument.formal.constructor.iteration": notApplicable,
-  "type.argument.formal.constructor": notApplicable,
-  "type.argument.formal.iteration": notApplicable,
-  "type.argument.formal.method.iteration": notApplicable,
-  "type.argument.formal.method": notApplicable,
+
   "type.argument.formal": notApplicable,
+  "type.argument.formal.iteration": notApplicable,
+  "type.argument.formal.method": notApplicable,
+  "type.argument.formal.method.iteration": notApplicable,
+  "type.argument.formal.constructor": notApplicable,
+  "type.argument.formal.constructor.iteration": notApplicable,
+  "type.alias": notApplicable,
   "type.cast": notApplicable,
-  "type.enum": notApplicable,
-  "type.field.iteration": notApplicable,
   "type.field": notApplicable,
+  "type.field.iteration": notApplicable,
   "type.foreach": notApplicable,
   "type.interface": notApplicable,
+  "type.enum": notApplicable,
   "type.return": notApplicable,
-  "type.typeArgument.iteration": notApplicable,
-  "type.typeArgument": notApplicable,
   "type.variable": notApplicable,
+  "type.typeArgument": notApplicable,
+  "type.typeArgument.iteration": notApplicable,
+
+  "value.typeAlias": notApplicable,
 };
