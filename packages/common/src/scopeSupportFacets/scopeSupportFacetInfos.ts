@@ -874,7 +874,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: { type: "interior" },
   },
   "interior.if": {
-    description: "The body of a if/elif/else branch",
+    description: "The body of an if/elif/else branch",
     scopeType: { type: "interior" },
   },
   "interior.try": {
