@@ -54,15 +54,36 @@
 )
 
 (
-  (compilation_unit) @name.iteration @namedFunction.iteration @functionName.iteration
-  (#document-range! @name.iteration @namedFunction.iteration @functionName.iteration)
+  (compilation_unit) @namedFunction.iteration @functionName.iteration
+  (#document-range! @namedFunction.iteration @functionName.iteration)
 )
 
-(_
-  body: (_
-    "{" @statement.iteration.start.endOf
-    "}" @statement.iteration.end.startOf
-  )
+(
+  (compilation_unit) @name.iteration @value.iteration
+  (#document-range! @name.iteration @value.iteration)
+)
+
+;;!! { }
+;;!   ^
+(block
+  "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+)
+
+(block
+  "{" @statement.iteration.start.endOf
+  "}" @statement.iteration.end.startOf
+)
+
+(
+  (_
+    (_
+      "{" @interior.start.endOf
+      "}" @interior.end.startOf
+    ) @_dummy
+  ) @_.domain
+  (#type? @_dummy block switch_body)
+  (#not-type? @_.domain try_statement)
 )
 
 ;;!! if () {}
@@ -184,24 +205,18 @@
   )
 ) @class @type @_.domain
 
-;; Treat interior of all bodies as iteration scopes for class and classname, eg
-;;!! private static void foo() {   }
-;;!                             ***
-(_
+(class_declaration
   body: (_
-    "{" @class.iteration.start.endOf @className.iteration.start.endOf
-    "}" @class.iteration.end.startOf @className.iteration.end.startOf
+    "{" @class.iteration.start.endOf @className.iteration.start.endOf @statement.iteration.start.endOf
+    "}" @class.iteration.end.startOf @className.iteration.end.startOf @statement.iteration.end.startOf
   )
 )
 
-(
-  (_
-    body: (_
-      "{" @interior.start.endOf
-      "}" @interior.end.startOf
-    )
-  ) @_.domain
-  (#not-type? @_.domain try_statement)
+(class_declaration
+  body: (_
+    "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+    "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+  )
 )
 
 ;;!! "Hello world"
@@ -537,16 +552,6 @@
 (parameter_list
   "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
   ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
-)
-
-;; Treat interior of all bodies as iteration scopes for `name`, eg
-;;!! void foo() {   }
-;;!              ^^^
-(_
-  body: (_
-    "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
-    "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
-  )
 )
 
 operator: [

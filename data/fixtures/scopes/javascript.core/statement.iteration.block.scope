@@ -13,6 +13,15 @@ class Foo {
 
 
 [#2 Range] =
-[#2 Domain] = 1:11-1:12
+[#2 Domain] = 0:11-2:0
+             >
+0| class Foo {
+1|     bar() { }
+2| }
+   <
+
+
+[#3 Range] =
+[#3 Domain] = 1:11-1:12
              >-<
 1|     bar() { }
