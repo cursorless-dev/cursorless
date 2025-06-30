@@ -119,6 +119,7 @@ export const scopeSupportFacets = [
   "branch.switchCase.iteration",
   "branch.ternary",
   "branch.loop",
+  "branch.loop.iteration",
 
   "collectionItem.unenclosed",
   "collectionItem.unenclosed.iteration",
