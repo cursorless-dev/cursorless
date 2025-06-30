@@ -7,7 +7,7 @@ import {
   type ScopeType,
   type SimpleScopeTypeType,
 } from "@cursorless/common";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 export function MissingLanguageScopes(): React.JSX.Element {
   const [showPrivate, setShowPrivate] = useState(false);
