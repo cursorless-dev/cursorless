@@ -581,6 +581,22 @@ export const scopeSupportFacetInfos: Record<
     description: "Name (LHS) of a field in a class / interface",
     scopeType: "name",
   },
+  "name.iteration.block": {
+    description:
+      "Iteration scope for names: statement blocks (body of functions / if statements / for loops / etc).",
+    scopeType: "name",
+    isIteration: true,
+  },
+  "name.iteration.class": {
+    description: "Iteration scope for names: class body",
+    scopeType: "name",
+    isIteration: true,
+  },
+  "name.iteration.document": {
+    description: "Iteration scope for names: the entire document",
+    scopeType: "name",
+    isIteration: true,
+  },
   "name.resource": {
     description: "Name in a 'with' / 'use' / 'using' statement",
     scopeType: "name",
@@ -631,17 +647,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "name",
     isIteration: true,
   },
-  "name.iteration.block": {
-    description:
-      "Iteration scope for names: statement blocks (body of functions/if statements/for loops/etc).",
-    scopeType: "name",
-    isIteration: true,
-  },
-  "name.iteration.document": {
-    description: "Iteration scope for names: the entire document",
-    scopeType: "name",
-    isIteration: true,
-  },
+
   "key.attribute": {
     description: "Key (LHS) of an attribute eg in a xml element",
     scopeType: "collectionKey",
@@ -703,6 +709,22 @@ export const scopeSupportFacetInfos: Record<
   "value.yield": {
     description: "Value of a yield statement",
     scopeType: "value",
+  },
+  "value.iteration.block": {
+    description:
+      "Iteration scope for values: statement blocks (body of functions / if statements / for loops / etc).",
+    scopeType: "value",
+    isIteration: true,
+  },
+  "value.iteration.class": {
+    description: "Iteration scope for values: class body",
+    scopeType: "value",
+    isIteration: true,
+  },
+  "value.iteration.document": {
+    description: "Iteration scope for values: the entire document",
+    scopeType: "value",
+    isIteration: true,
   },
   "value.resource": {
     description: "Value of a 'with' / 'use' / 'using' statement",
