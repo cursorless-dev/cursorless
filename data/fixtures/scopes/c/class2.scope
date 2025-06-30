@@ -1,33 +1,33 @@
-union bbb { int ccc; };
+union Foo {};
 
-typedef union { int hhh; } iii;
+typedef union { } Bar;
 ---
 
 [#1 Content] =
-[#1 Domain] = 0:0-0:23
-  >-----------------------<
-0| union bbb { int ccc; };
+[#1 Domain] = 0:0-0:13
+  >-------------<
+0| union Foo {};
 
 [#1 Removal] = 0:0-2:0
-  >-----------------------
-0| union bbb { int ccc; };
+  >-------------
+0| union Foo {};
 1|
-2| typedef union { int hhh; } iii;
+2| typedef union { } Bar;
    <
 
 [#1 Insertion delimiter] = "\n\n"
 
 
 [#2 Content] =
-[#2 Domain] = 2:0-2:31
-  >-------------------------------<
-2| typedef union { int hhh; } iii;
+[#2 Domain] = 2:0-2:22
+  >----------------------<
+2| typedef union { } Bar;
 
-[#2 Removal] = 0:23-2:31
-                         >
-0| union bbb { int ccc; };
+[#2 Removal] = 0:13-2:22
+               >
+0| union Foo {};
 1|
-2| typedef union { int hhh; } iii;
-   -------------------------------<
+2| typedef union { } Bar;
+   ----------------------<
 
 [#2 Insertion delimiter] = "\n\n"

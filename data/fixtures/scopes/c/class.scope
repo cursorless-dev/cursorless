@@ -1,33 +1,33 @@
-struct aaa { int bbb; };
+struct Foo {};
 
-typedef struct { int fff; } ggg;
+typedef struct { } Bar;
 ---
 
 [#1 Content] =
-[#1 Domain] = 0:0-0:24
-  >------------------------<
-0| struct aaa { int bbb; };
+[#1 Domain] = 0:0-0:14
+  >--------------<
+0| struct Foo {};
 
 [#1 Removal] = 0:0-2:0
-  >------------------------
-0| struct aaa { int bbb; };
+  >--------------
+0| struct Foo {};
 1|
-2| typedef struct { int fff; } ggg;
+2| typedef struct { } Bar;
    <
 
 [#1 Insertion delimiter] = "\n\n"
 
 
 [#2 Content] =
-[#2 Domain] = 2:0-2:32
-  >--------------------------------<
-2| typedef struct { int fff; } ggg;
+[#2 Domain] = 2:0-2:23
+  >-----------------------<
+2| typedef struct { } Bar;
 
-[#2 Removal] = 0:24-2:32
-                          >
-0| struct aaa { int bbb; };
+[#2 Removal] = 0:14-2:23
+                >
+0| struct Foo {};
 1|
-2| typedef struct { int fff; } ggg;
-   --------------------------------<
+2| typedef struct { } Bar;
+   -----------------------<
 
 [#2 Insertion delimiter] = "\n\n"
