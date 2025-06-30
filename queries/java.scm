@@ -298,8 +298,8 @@
 ;;!          ^^^^^
 ;;!  -----------------
 (switch_expression
-  condition: (_) @private.switchStatementSubject
-  (#child-range! @private.switchStatementSubject 0 -1 true true)
+  condition: (_) @value
+  (#child-range! @value 0 -1 true true)
 ) @_.domain
 
 ;;!! true ? 1 : 2

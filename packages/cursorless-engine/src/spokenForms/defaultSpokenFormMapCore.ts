@@ -107,7 +107,6 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     disqualifyDelimiter: isPrivate("disqualify delimiter"),
     pairDelimiter: isPrivate("pair delimiter"),
     ["private.fieldAccess"]: isPrivate("access"),
-    ["private.switchStatementSubject"]: isPrivate("subject"),
   },
   complexScopeTypeType: {
     glyph: "glyph",

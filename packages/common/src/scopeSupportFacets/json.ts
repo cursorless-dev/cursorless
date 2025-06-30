@@ -165,7 +165,6 @@ export const jsonScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.iteration.block": notApplicable,
   "statement.iteration.document": notApplicable,
   "string.multiLine": notApplicable,
-  switchStatementSubject: notApplicable,
   tags: notApplicable,
   "textFragment.element": notApplicable,
   "textFragment.string.multiLine": notApplicable,
@@ -209,6 +208,7 @@ export const jsonScopeSupport: LanguageScopeSupportFacetMap = {
   "value.variable": notApplicable,
   "value.variable.pattern": notApplicable,
   "value.yield": notApplicable,
+  "value.switch": notApplicable,
   selector: notApplicable,
   unit: notApplicable,
 };

@@ -285,11 +285,11 @@
 ] @_.domain
 
 (switch_statement
-  (tuple_expression) @private.switchStatementSubject
+  (tuple_expression) @value
 ) @_.domain
 
 (switch_statement
-  value: (_) @private.switchStatementSubject
+  value: (_) @value
 ) @_.domain
 
 (_

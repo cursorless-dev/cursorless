@@ -355,8 +355,8 @@
 ;;!          ^^^^
 (switch_statement
   condition: (_
-    "(" @private.switchStatementSubject.start.endOf
-    ")" @private.switchStatementSubject.end.startOf
+    "(" @value.start.endOf
+    ")" @value.end.startOf
   )
   body: (_
     "{" @branch.iteration.start.endOf @condition.iteration.start.endOf @interior.start.endOf

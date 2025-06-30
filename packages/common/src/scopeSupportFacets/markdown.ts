@@ -160,7 +160,6 @@ export const markdownScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.iteration.document": notApplicable,
   "string.multiLine": notApplicable,
   "string.singleLine": notApplicable,
-  switchStatementSubject: notApplicable,
   tags: notApplicable,
   "textFragment.element": notApplicable,
   "textFragment.string.multiLine": notApplicable,
@@ -208,6 +207,7 @@ export const markdownScopeSupport: LanguageScopeSupportFacetMap = {
   "value.variable": notApplicable,
   "value.variable.pattern": notApplicable,
   "value.yield": notApplicable,
+  "value.switch": notApplicable,
   selector: notApplicable,
   unit: notApplicable,
 };

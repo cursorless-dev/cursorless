@@ -47,6 +47,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "value.return.lambda": supported,
   "value.variable": supported,
   "value.variable.pattern": supported,
+  "value.switch": supported,
 
   "type.argument.formal.constructor": supported,
   "type.argument.formal.constructor.iteration": supported,
@@ -144,8 +145,6 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.foreach": supported,
   "interior.while": supported,
   "interior.resource": supported,
-
-  switchStatementSubject: supported,
 
   "condition.if": supported,
   "condition.switchCase": supported,

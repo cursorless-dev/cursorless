@@ -20,7 +20,6 @@ export const scopeSupportFacets = [
   "map",
   "ifStatement",
   "regularExpression",
-  "switchStatementSubject",
   "fieldAccess",
 
   "statement",
@@ -172,6 +171,7 @@ export const scopeSupportFacets = [
   "value.return.lambda",
   "value.field",
   "value.yield",
+  "value.switch",
   "value.resource",
   "value.resource.iteration",
   "value.argument.actual",

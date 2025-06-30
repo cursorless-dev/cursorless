@@ -7,7 +7,6 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   list: supported,
   map: supported,
   regularExpression: supported,
-  switchStatementSubject: supported,
   fieldAccess: supported,
   disqualifyDelimiter: supported,
   pairDelimiter: supported,
@@ -150,6 +149,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "value.return.lambda": supported,
   "value.field": supported,
   "value.yield": supported,
+  "value.switch": supported,
 
   "type.class": supported,
 

@@ -7,7 +7,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   disqualifyDelimiter: supported,
   anonymousFunction: supported,
   list: supported,
-  switchStatementSubject: supported,
 
   "argument.actual": supported,
   "argument.actual.iteration": supported,
@@ -138,6 +137,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.return.lambda": supported,
   "value.variable": supported,
   "value.resource": supported,
+  "value.switch": supported,
 
   "interior.class": supported,
   "interior.constructor": supported,

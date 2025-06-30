@@ -162,7 +162,6 @@ export const scmScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.iteration.block": notApplicable,
   "statement.iteration.document": notApplicable,
   "string.multiLine": notApplicable,
-  switchStatementSubject: notApplicable,
   tags: notApplicable,
   "textFragment.comment.block": notApplicable,
   "textFragment.element": notApplicable,
@@ -209,6 +208,7 @@ export const scmScopeSupport: LanguageScopeSupportFacetMap = {
   "value.variable": notApplicable,
   "value.variable.pattern": notApplicable,
   "value.yield": notApplicable,
+  "value.switch": notApplicable,
   selector: notApplicable,
   unit: notApplicable,
 };
