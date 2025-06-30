@@ -9,16 +9,34 @@ import {
 } from "@cursorless/common";
 import React, { useEffect, useState } from "react";
 
-export function MissingLanguageScopes(): React.JSX.Element[] {
-  return Object.keys(languageScopeSupport)
-    .sort()
-    .map((languageId) => <Language key={languageId} languageId={languageId} />);
+export function MissingLanguageScopes(): React.JSX.Element {
+  const [showPrivate, setShowPrivate] = useState(false);
+  const languageIds = Object.keys(languageScopeSupport).sort();
+
+  return (
+    <>
+      <label className="ml-1">
+        <input
+          type="checkbox"
+          checked={showPrivate}
+          onChange={(e) => setShowPrivate(e.target.checked)}
+        />
+        Show private scopes
+      </label>
+
+      {languageIds.map((languageId) => (
+        <Language languageId={languageId} showPrivate={showPrivate} />
+      ))}
+    </>
+  );
 }
 
 function Language({
   languageId,
+  showPrivate,
 }: {
   languageId: string;
+  showPrivate: boolean;
 }): React.JSX.Element | null {
   const scopeSupport = languageScopeSupport[languageId] ?? {};
 
@@ -28,8 +46,10 @@ function Language({
   const unspecifiedFacets = scopeSupportFacets.filter(
     (facet) => scopeSupport[facet] == null,
   );
+  const unsupportedScopes = facetsToScopes(unsupportedFacets, showPrivate);
+  const unspecifiedScopes = facetsToScopes(unspecifiedFacets, showPrivate);
 
-  if (unsupportedFacets.length === 0 && unspecifiedFacets.length === 0) {
+  if (unsupportedScopes.length === 0 && unspecifiedScopes.length === 0) {
     return null;
   }
 
@@ -42,30 +62,22 @@ function Language({
           <a href={`../../user/languages/${languageId}`}>link</a>
         </small>
       </h3>
-      {renderFacets("Unsupported", unsupportedFacets)}
-      {renderFacets("Unspecified", unspecifiedFacets)}
+
+      {renderFacets("Unsupported", unsupportedScopes)}
+      {renderFacets("Unspecified", unspecifiedScopes)}
     </>
   );
 }
 
 function renderFacets(
   title: string,
-  facets: ScopeSupportFacet[],
+  scopes: string[],
 ): React.JSX.Element | null {
   const [open, setOpen] = useState(false);
-  const [scopes, setScopes] = useState<string[]>([]);
 
   useEffect(() => {
-    const scopes = Array.from(
-      new Set(
-        facets.map((f) =>
-          serializeScopeType(scopeSupportFacetInfos[f].scopeType),
-        ),
-      ),
-    ).sort();
-    setScopes(scopes);
     setOpen(scopes.length < 4);
-  }, []);
+  }, [scopes]);
 
   if (scopes.length === 0) {
     return null;
@@ -96,6 +108,18 @@ function renderFacets(
       {renderBody()}
     </div>
   );
+}
+
+function facetsToScopes(facets: ScopeSupportFacet[], showPrivate: boolean) {
+  return Array.from(
+    new Set(
+      facets.map((f) =>
+        serializeScopeType(scopeSupportFacetInfos[f].scopeType),
+      ),
+    ),
+  )
+    .filter((scope) => showPrivate || !scope.startsWith("private."))
+    .sort();
 }
 
 function serializeScopeType(
