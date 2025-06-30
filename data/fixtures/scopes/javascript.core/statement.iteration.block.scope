@@ -1,21 +1,18 @@
-function foo() {
-
+class Foo {
+    bar() { }
 }
 ---
 
 [#1 Range] =
 [#1 Domain] = 0:0-2:1
-  >----------------
-0| function foo() {
-1|
+  >-----------
+0| class Foo {
+1|     bar() { }
 2| }
    -<
 
 
 [#2 Range] =
-[#2 Domain] = 0:16-2:0
-                  >
-0| function foo() {
-1|
-2| }
-   <
+[#2 Domain] = 1:11-1:12
+             >-<
+1|     bar() { }
