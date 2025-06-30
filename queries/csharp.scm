@@ -77,13 +77,12 @@
 
 (
   (_
-    (_
+    (block
       "{" @interior.start.endOf
       "}" @interior.end.startOf
-    ) @_dummy
+    )
   ) @_.domain
-  (#type? @_dummy block switch_body)
-  (#not-type? @_.domain try_statement)
+  (#not-type? @_.domain try_statement if_statement)
 )
 
 ;;!! if () {}
@@ -298,6 +297,15 @@
     type: (_) @functionCallee.end
   )
 ] @_.domain
+
+;;!! switch(value) { }
+;;!                 ^
+(switch_statement
+  (switch_body
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  )
+) @_.domain
 
 (switch_statement
   (tuple_expression) @private.switchStatementSubject

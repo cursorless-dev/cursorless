@@ -138,6 +138,7 @@ export const xmlScopeSupport: LanguageScopeSupportFacetMap = {
   "name.foreach": notApplicable,
   "name.function": notApplicable,
   "name.iteration.block": notApplicable,
+  "name.iteration.class": notApplicable,
   "name.iteration.document": notApplicable,
   "name.method": notApplicable,
   "name.resource": notApplicable,
@@ -205,6 +206,9 @@ export const xmlScopeSupport: LanguageScopeSupportFacetMap = {
   "value.variable": notApplicable,
   "value.variable.pattern": notApplicable,
   "value.yield": notApplicable,
+  "value.iteration.block": notApplicable,
+  "value.iteration.class": notApplicable,
+  "value.iteration.document": notApplicable,
   selector: notApplicable,
   unit: notApplicable,
 };
