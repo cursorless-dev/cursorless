@@ -101,7 +101,7 @@ export const scopeSupportFacetInfos: Record<
   },
 
   class: {
-    description: "A class in a object-oriented language",
+    description: "A class in an object-oriented language",
     scopeType: "class",
   },
   "class.iteration.document": {
