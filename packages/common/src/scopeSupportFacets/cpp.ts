@@ -61,7 +61,6 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   "value.argument.formal.constructor": supported,
   "value.argument.formal.constructor.iteration": supported,
   "value.foreach": supported,
-  "value.return.lambda": supported,
   "value.field": supported,
 
   "type.argument.formal.method": supported,
@@ -82,4 +81,5 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   /* NOT APPLICABLE */
 
   "interior.lambda.expression": notApplicable,
+  "value.return.lambda": notApplicable,
 };
