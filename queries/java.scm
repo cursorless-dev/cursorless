@@ -49,12 +49,13 @@
 ) @class @_.domain
 
 (
-  (program) @class.iteration @className.iteration @name.iteration
-  (#document-range! @class.iteration @className.iteration @name.iteration)
+  (program) @class.iteration @className.iteration @statement.iteration
+  (#document-range! @class.iteration @className.iteration @statement.iteration)
 )
+
 (
-  (program) @statement.iteration
-  (#document-range! @statement.iteration)
+  (program) @name.iteration @value.iteration
+  (#document-range! @name.iteration @value.iteration)
 )
 
 ;;!! class MyClass { }
@@ -65,37 +66,38 @@
 )
 
 (class_body
-  "{" @type.iteration.start.endOf @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf
-  "}" @type.iteration.end.startOf @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf
-)
-
-;;!! xxx { }
-;;!       ^
-(
-  (_
-    body: (_
-      "{" @interior.start.endOf
-      "}" @interior.end.startOf
-    )
-  ) @_.domain
-  (#not-type? @_.domain try_statement)
+  "{" @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf
+  "}" @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf
 )
 
 ;;!! { }
 ;;!   ^
-(_
-  "{" @name.iteration.start.endOf @statement.iteration.start.endOf
-  "}" @name.iteration.end.startOf @statement.iteration.end.startOf
+(
+  (_
+    "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+    "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+  ) @_dummy
+  (#type? @_dummy block class_body interface_body constructor_body)
 )
 
 (
   (_
-    !body
-    (block
+    "{" @statement.iteration.start.endOf
+    "}" @statement.iteration.end.startOf
+  ) @_dummy
+  (#type? @_dummy block class_body interface_body constructor_body)
+)
+
+;;!! { }
+;;!   ^
+(
+  (_
+    (_
       "{" @interior.start.endOf
       "}" @interior.end.startOf
-    )
+    ) @_dummy
   ) @_.domain
+  (#type? @_dummy block class_body interface_body constructor_body switch_block)
   (#not-type? @_.domain try_statement if_statement)
 )
 

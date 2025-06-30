@@ -1,52 +1,27 @@
-public class MyClass {
-   public void myFunk() {
-    if (true) { }
-    while (true) { }
-   }
+class Foo {
+    void bar() { }
 }
 ---
 
 [#1 Range] =
-[#1 Domain] = 0:0-5:1
-  >----------------------
-0| public class MyClass {
-1|    public void myFunk() {
-2|     if (true) { }
-3|     while (true) { }
-4|    }
-5| }
+[#1 Domain] = 0:0-2:1
+  >-----------
+0| class Foo {
+1|     void bar() { }
+2| }
    -<
 
 
 [#2 Range] =
-[#2 Domain] = 0:22-5:0
-                        >
-0| public class MyClass {
-1|    public void myFunk() {
-2|     if (true) { }
-3|     while (true) { }
-4|    }
-5| }
+[#2 Domain] = 0:11-2:0
+             >
+0| class Foo {
+1|     void bar() { }
+2| }
    <
 
 
 [#3 Range] =
-[#3 Domain] = 1:25-4:3
-                           >
-1|    public void myFunk() {
-2|     if (true) { }
-3|     while (true) { }
-4|    }
-   ---<
-
-
-[#4 Range] =
-[#4 Domain] = 2:15-2:16
-                 >-<
-2|     if (true) { }
-
-
-[#5 Range] =
-[#5 Domain] = 3:18-3:19
-                    >-<
-3|     while (true) { }
+[#3 Domain] = 1:16-1:17
+                  >-<
+1|     void bar() { }
