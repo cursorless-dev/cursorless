@@ -130,6 +130,7 @@ export const htmlScopeSupport: LanguageScopeSupportFacetMap = {
   "name.resource": notApplicable,
   "name.variable.pattern": notApplicable,
   "name.variable": notApplicable,
+  "name.namespace": notApplicable,
   "namedFunction.constructor": notApplicable,
   "namedFunction.iteration.block": notApplicable,
   "namedFunction.iteration.document": notApplicable,

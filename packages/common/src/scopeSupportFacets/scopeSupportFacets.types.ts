@@ -142,6 +142,7 @@ export const scopeSupportFacets = [
   "name.method",
   "name.constructor",
   "name.class",
+  "name.namespace",
   "name.field",
   "name.resource",
   "name.resource.iteration",

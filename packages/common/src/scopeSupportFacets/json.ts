@@ -135,6 +135,7 @@ export const jsonScopeSupport: LanguageScopeSupportFacetMap = {
   "name.assignment": notApplicable,
   "name.assignment.pattern": notApplicable,
   "name.class": notApplicable,
+  "name.namespace": notApplicable,
   "name.constructor": notApplicable,
   "name.field": notApplicable,
   "name.foreach": notApplicable,

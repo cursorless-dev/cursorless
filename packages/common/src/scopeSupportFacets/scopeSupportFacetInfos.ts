@@ -573,6 +573,10 @@ export const scopeSupportFacetInfos: Record<
     description: "Name of a class",
     scopeType: "name",
   },
+  "name.namespace": {
+    description: "Name of a namespace",
+    scopeType: "name",
+  },
   "name.field": {
     description: "Name (LHS) of a field in a class / interface",
     scopeType: "name",

@@ -240,11 +240,16 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "type.resource.iteration": notApplicable,
   "name.resource.iteration": notApplicable,
 
-  // Miscellaneous
-  "value.yield": notApplicable,
+  // Namespace
+  "name.namespace": notApplicable,
   "interior.namespace": notApplicable,
+
+  // Branch loop
   "branch.loop": notApplicable,
   "branch.loop.iteration": notApplicable,
+
+  // Miscellaneous
+  "value.yield": notApplicable,
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,
   environment: notApplicable,

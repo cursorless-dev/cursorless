@@ -25,7 +25,11 @@ export function MissingLanguageScopes(): React.JSX.Element {
       </label>
 
       {languageIds.map((languageId) => (
-        <Language languageId={languageId} showPrivate={showPrivate} />
+        <Language
+          key={languageId}
+          languageId={languageId}
+          showPrivate={showPrivate}
+        />
       ))}
     </>
   );
@@ -46,6 +50,7 @@ function Language({
   const unspecifiedFacets = scopeSupportFacets.filter(
     (facet) => scopeSupport[facet] == null,
   );
+
   const unsupportedScopes = facetsToScopes(unsupportedFacets, showPrivate);
   const unspecifiedScopes = facetsToScopes(unspecifiedFacets, showPrivate);
 
@@ -73,11 +78,7 @@ function renderFacets(
   title: string,
   scopes: string[],
 ): React.JSX.Element | null {
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    setOpen(scopes.length < 4);
-  }, [scopes]);
+  const [open, setOpen] = useState(scopes.length < 4);
 
   if (scopes.length === 0) {
     return null;

@@ -148,6 +148,7 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal.method.iteration": notApplicable,
   "name.assignment.pattern": notApplicable,
   "name.class": notApplicable,
+  "name.namespace": notApplicable,
   "name.constructor": notApplicable,
   "name.foreach": notApplicable,
   "name.function": notApplicable,

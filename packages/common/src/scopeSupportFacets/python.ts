@@ -183,29 +183,47 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   pairDelimiter: supported,
   fieldAccess: supported,
 
-  // Not applicable
+  /* NOT APPLICABLE */
 
-  "argumentList.formal.lambda.multiLine": notApplicable,
-  "class.iteration.block": notApplicable,
-  "className.iteration.block": notApplicable,
-  "comment.block": notApplicable,
-  "condition.doWhile": notApplicable,
-  "condition.for": notApplicable,
-  "functionName.iteration.block": notApplicable,
-  "interior.cell": notApplicable,
-  "interior.command": notApplicable,
+  // Element and tags
+  element: notApplicable,
+  tags: notApplicable,
+  startTag: notApplicable,
+  endTag: notApplicable,
   "interior.element": notApplicable,
-  "interior.lambda.block": notApplicable,
-  "interior.for": notApplicable,
-  "interior.doWhile": notApplicable,
-  "interior.static": notApplicable,
-  "interior.namespace": notApplicable,
+  "textFragment.element": notApplicable,
+  attribute: notApplicable,
   "key.attribute": notApplicable,
-  "namedFunction.iteration.block": notApplicable,
+  "value.attribute": notApplicable,
+
+  // Section
+  section: notApplicable,
   "section.iteration.document": notApplicable,
   "section.iteration.parent": notApplicable,
-  "textFragment.comment.block": notApplicable,
-  "textFragment.element": notApplicable,
+
+  // Command
+  command: notApplicable,
+  "interior.command": notApplicable,
+
+  // Namespace
+  "name.namespace": notApplicable,
+  "interior.namespace": notApplicable,
+
+  // Nested classes
+  "class.iteration.block": notApplicable,
+  "className.iteration.block": notApplicable,
+
+  // for and do-while loops
+  "condition.doWhile": notApplicable,
+  "condition.for": notApplicable,
+  "interior.for": notApplicable,
+  "interior.doWhile": notApplicable,
+
+  // Nested functions. Technically supported, but great problem with `every funk` in a method.
+  "functionName.iteration.block": notApplicable,
+  "namedFunction.iteration.block": notApplicable,
+
+  // Type. Python have some types, but not these.
   "type.alias": notApplicable,
   "type.cast": notApplicable,
   "type.enum": notApplicable,
@@ -213,18 +231,23 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "type.interface": notApplicable,
   "type.resource.iteration": notApplicable,
   "type.resource": notApplicable,
-  "value.attribute": notApplicable,
   "value.typeAlias": notApplicable,
-  attribute: notApplicable,
-  command: notApplicable,
-  element: notApplicable,
-  endTag: notApplicable,
-  environment: notApplicable,
+
+  // Notebook cell
   notebookCell: notApplicable,
+  "interior.cell": notApplicable,
+
+  // Multiline lambda
+  "argumentList.formal.lambda.multiLine": notApplicable,
+  "interior.lambda.block": notApplicable,
+
+  // Block comments
+  "comment.block": notApplicable,
+  "textFragment.comment.block": notApplicable,
+
+  "interior.static": notApplicable,
+  environment: notApplicable,
   regularExpression: notApplicable,
-  section: notApplicable,
-  startTag: notApplicable,
-  tags: notApplicable,
   selector: notApplicable,
   unit: notApplicable,
 };

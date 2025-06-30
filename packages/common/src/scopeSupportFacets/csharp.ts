@@ -239,14 +239,19 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "collectionItem.unenclosed.iteration": notApplicable,
   "collectionItem.unenclosed": notApplicable,
 
+  // Namespace
+  "name.namespace": notApplicable,
+  "interior.namespace": notApplicable,
+
+  // Branch loop
+  "branch.loop": notApplicable,
+  "branch.loop.iteration": notApplicable,
+
   // Miscellaneous
   environment: notApplicable,
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,
   selector: notApplicable,
   unit: notApplicable,
-  "interior.namespace": notApplicable,
   "interior.static": notApplicable,
-  "branch.loop": notApplicable,
-  "branch.loop.iteration": notApplicable,
 };

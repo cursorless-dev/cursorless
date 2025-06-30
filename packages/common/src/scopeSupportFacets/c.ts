@@ -272,5 +272,6 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
   "type.typeArgument.iteration": notApplicable,
 
   // Namespace
+  "name.namespace": notApplicable,
   "interior.namespace": notApplicable,
 };

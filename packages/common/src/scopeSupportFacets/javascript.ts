@@ -208,13 +208,18 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "functionName.iteration.block": notApplicable,
   "namedFunction.iteration.block": notApplicable,
 
+  // Namespace
+  "name.namespace": notApplicable,
+  "interior.namespace": notApplicable,
+
+  // Branch loop
+  "branch.loop": notApplicable,
+  "branch.loop.iteration": notApplicable,
+
   // Miscellaneous
   environment: notApplicable,
   selector: notApplicable,
   unit: notApplicable,
-  "interior.namespace": notApplicable,
-  "branch.loop": notApplicable,
-  "branch.loop.iteration": notApplicable,
 };
 
 export const javascriptJsxScopeSupport: LanguageScopeSupportFacetMap = {

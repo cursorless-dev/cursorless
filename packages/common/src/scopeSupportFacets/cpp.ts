@@ -53,6 +53,7 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   "name.constructor": supported,
   "name.foreach": supported,
   "name.method": supported,
+  "name.namespace": supported,
 
   "value.argument.formal": supported,
   "value.argument.formal.iteration": supported,
