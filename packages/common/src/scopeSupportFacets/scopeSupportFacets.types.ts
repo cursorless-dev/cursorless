@@ -216,10 +216,8 @@ export const scopeSupportFacets = [
   "interior.resource",
 
   "notebookCell",
-
-  // FIXME: Still in legacy
-  // selector
-  // unit
+  "selector",
+  "unit",
 ] as const;
 
 export interface ScopeSupportFacetInfo {

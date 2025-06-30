@@ -37,6 +37,9 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   statement: supported,
   "statement.iteration.document": supported,
 
+  selector: supported,
+  unit: supported,
+
   // Not applicable
 
   anonymousFunction: notApplicable,

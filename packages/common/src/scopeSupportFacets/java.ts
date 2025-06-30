@@ -238,4 +238,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,
   environment: notApplicable,
+  selector: notApplicable,
+  unit: notApplicable,
 };

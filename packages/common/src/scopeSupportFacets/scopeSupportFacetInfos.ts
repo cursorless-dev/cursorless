@@ -890,4 +890,12 @@ export const scopeSupportFacetInfos: Record<
     description: "A cell in a notebook or a markdown code block",
     scopeType: "notebookCell",
   },
+  selector: {
+    description: "A selector in a css rule set",
+    scopeType: "selector",
+  },
+  unit: {
+    description: "A unit in a css rule set",
+    scopeType: "unit",
+  },
 };

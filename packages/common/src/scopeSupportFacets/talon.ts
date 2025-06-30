@@ -205,4 +205,6 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "value.yield": notApplicable,
   "string.multiLine": notApplicable,
   "textFragment.string.multiLine": notApplicable,
+  selector: notApplicable,
+  unit: notApplicable,
 };

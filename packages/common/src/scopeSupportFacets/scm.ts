@@ -197,4 +197,6 @@ export const scmScopeSupport: LanguageScopeSupportFacetMap = {
   "value.variable": notApplicable,
   "value.variable.pattern": notApplicable,
   "value.yield": notApplicable,
+  selector: notApplicable,
+  unit: notApplicable,
 };

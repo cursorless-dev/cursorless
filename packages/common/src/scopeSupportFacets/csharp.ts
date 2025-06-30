@@ -236,4 +236,6 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   environment: notApplicable,
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,
+  selector: notApplicable,
+  unit: notApplicable,
 };

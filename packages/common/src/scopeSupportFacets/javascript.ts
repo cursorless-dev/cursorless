@@ -202,6 +202,8 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Miscellaneous
   environment: notApplicable,
+  selector: notApplicable,
+  unit: notApplicable,
 };
 
 export const javascriptJsxScopeSupport: LanguageScopeSupportFacetMap = {

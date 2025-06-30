@@ -193,4 +193,6 @@ export const htmlScopeSupport: LanguageScopeSupportFacetMap = {
   section: notApplicable,
   statement: notApplicable,
   switchStatementSubject: notApplicable,
+  selector: notApplicable,
+  unit: notApplicable,
 };

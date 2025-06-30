@@ -184,6 +184,8 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   environment: notApplicable,
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,
+  selector: notApplicable,
+  unit: notApplicable,
 };
 
 export const cScopeSupport: LanguageScopeSupportFacetMap = {

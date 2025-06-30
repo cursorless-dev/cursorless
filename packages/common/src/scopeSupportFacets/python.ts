@@ -214,4 +214,6 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   section: notApplicable,
   startTag: notApplicable,
   tags: notApplicable,
+  selector: notApplicable,
+  unit: notApplicable,
 };
