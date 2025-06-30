@@ -96,9 +96,12 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.class": supported,
   "interior.function": supported,
   "interior.if": supported,
+  "interior.switch": supported,
   "interior.switchCase": supported,
   "interior.ternary": supported,
-  "interior.loop": supported,
+  "interior.for": supported,
+  "interior.while": supported,
+  "interior.doWhile": supported,
 
   /* UNSUPPORTED  */
 
@@ -181,6 +184,7 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "value.attribute": notApplicable,
   "value.yield": notApplicable,
   "value.field": notApplicable,
+  "interior.static": notApplicable,
   environment: notApplicable,
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,
@@ -203,7 +207,8 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.formal.lambda.empty": notApplicable,
   "argumentList.formal.lambda.multiLine": notApplicable,
   "argumentList.formal.lambda.singleLine": notApplicable,
-  "interior.lambda": notApplicable,
+  "interior.lambda.block": notApplicable,
+  "interior.lambda.expression": notApplicable,
   "value.return.lambda": notApplicable,
   anonymousFunction: notApplicable,
 
@@ -229,6 +234,7 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.constructor": notApplicable,
   "value.argument.formal.constructor.iteration": notApplicable,
   "value.argument.formal.constructor": notApplicable,
+  "interior.constructor": notApplicable,
 
   // Method
   "argument.formal.method.iteration": notApplicable,
@@ -247,11 +253,13 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.method": notApplicable,
   "value.argument.formal.method.iteration": notApplicable,
   "value.argument.formal.method": notApplicable,
+  "interior.method": notApplicable,
 
   // Foreach
   "name.foreach": notApplicable,
   "type.foreach": notApplicable,
   "value.foreach": notApplicable,
+  "interior.foreach": notApplicable,
 
   // Default argument value
   "value.argument.formal": notApplicable,
@@ -260,4 +268,7 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
   // Generic type
   "type.typeArgument": notApplicable,
   "type.typeArgument.iteration": notApplicable,
+
+  // Namespace
+  "interior.namespace": notApplicable,
 };
