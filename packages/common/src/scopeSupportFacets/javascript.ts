@@ -102,7 +102,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.switchCase": supported,
   "branch.switchCase.iteration": supported,
   "branch.ternary": supported,
-  "branch.loop": supported,
+  "branch.ternary.iteration": supported,
 
   "condition.if": supported,
   "condition.while": supported,
@@ -213,6 +213,8 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   selector: notApplicable,
   unit: notApplicable,
   "interior.namespace": notApplicable,
+  "branch.loop": notApplicable,
+  "branch.loop.iteration": notApplicable,
 };
 
 export const javascriptJsxScopeSupport: LanguageScopeSupportFacetMap = {

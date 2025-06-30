@@ -52,7 +52,7 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.switchCase": supported,
   "branch.switchCase.iteration": supported,
   "branch.ternary": supported,
-  "branch.loop": supported,
+  "branch.ternary.iteration": supported,
 
   "comment.line": supported,
   "comment.block": supported,
@@ -185,6 +185,8 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "value.yield": notApplicable,
   "value.field": notApplicable,
   "interior.static": notApplicable,
+  "branch.loop": notApplicable,
+  "branch.loop.iteration": notApplicable,
   environment: notApplicable,
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,

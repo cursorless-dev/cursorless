@@ -164,10 +164,12 @@
 ;;!         ^   ^
 (conditional_expression
   condition: (_) @condition @interior
-) @condition.domain
+) @condition.domain @branch.iteration
+
 (conditional_expression
   consequence: (_) @branch @interior
 )
+
 (conditional_expression
   alternative: (_) @branch @interior
 )

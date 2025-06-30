@@ -119,9 +119,11 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.switchCase": supported,
   "branch.switchCase.iteration": supported,
   "branch.ternary": supported,
+  "branch.ternary.iteration": supported,
   "branch.try": supported,
   "branch.try.iteration": supported,
   "branch.loop": supported,
+  "branch.loop.iteration": supported,
 
   class: supported,
   "class.iteration.document": supported,

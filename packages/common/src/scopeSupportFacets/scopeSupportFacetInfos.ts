@@ -479,13 +479,19 @@ export const scopeSupportFacetInfos: Record<
   },
   "branch.switchCase.iteration": {
     description:
-      "Iteration scope for branches in a switch/match statement; should contain all the cases",
+      "Iteration scope for branches in a switch/match statement; should be the switch statement body",
     scopeType: "branch",
     isIteration: true,
   },
   "branch.ternary": {
     description: "A branch in a ternary expression",
     scopeType: "branch",
+  },
+  "branch.ternary.iteration": {
+    description:
+      "Iteration scope for branches in a ternary expression; should be the entire expression",
+    scopeType: "branch",
+    isIteration: true,
   },
   "collectionItem.unenclosed": {
     description:

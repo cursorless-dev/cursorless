@@ -400,7 +400,7 @@
 ;;!  ^^^^
 (conditional_expression
   condition: (_) @condition @interior
-) @condition.domain
+) @condition.domain @branch.iteration
 
 ;;!! true ? 0 : 1
 ;;!         ^

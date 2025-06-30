@@ -46,7 +46,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.switchCase": supported,
   "branch.switchCase.iteration": supported,
   "branch.ternary": supported,
-  "branch.loop": supported,
+  "branch.ternary.iteration": supported,
 
   "condition.for": supported,
   "condition.while": supported,
@@ -247,4 +247,6 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   unit: notApplicable,
   "interior.namespace": notApplicable,
   "interior.static": notApplicable,
+  "branch.loop": notApplicable,
+  "branch.loop.iteration": notApplicable,
 };
