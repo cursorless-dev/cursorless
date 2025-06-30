@@ -19,7 +19,10 @@
 (_
   (class_specifier
     name: (_) @className @name
-    body: (_)
+    body: (_
+      "{" @interior.start.endOf
+      "}" @interior.end.startOf
+    )
   ) @_.domain.start @class.start @type.start
   .
   ";"? @_.domain.end @class.end @type.end
@@ -33,6 +36,15 @@
   .
   ";"? @statement.end
 )
+
+;;!! namespace NS { }
+(namespace_definition
+  name: (_) @name
+  body: (_
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  )
+) @_.domain
 
 (field_declaration_list
   "{" @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf
@@ -135,12 +147,17 @@
   ">" @type.iteration.end.startOf
 )
 
-;;!! for (int value : values) {}
+;;!! for (int value : values) { }
 ;;!           ^^^^^
 ;;!                   ^^^^^^
+;;!                            ^
 (for_range_loop
   declarator: (_) @name
   right: (_) @value
+  body: (_
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  )
 ) @_.domain
 
 (trailing_return_type
