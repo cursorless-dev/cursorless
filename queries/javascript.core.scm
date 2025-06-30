@@ -783,9 +783,11 @@
   (#document-range! @statement.iteration)
 )
 
+;;!! { }
+;;!   ^
 (statement_block
-  "{" @statement.iteration.start.endOf
-  "}" @statement.iteration.end.startOf
+  "{" @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
+  "}" @statement.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
 )
 
 ;;!! function foo(aaa, bbb) {}
