@@ -141,14 +141,21 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.resource": supported,
 
   "interior.class": supported,
-  "interior.function": supported,
+  "interior.constructor": supported,
+  "interior.method": supported,
   "interior.if": supported,
-  "interior.lambda": supported,
-  "interior.loop": supported,
+  "interior.lambda.block": supported,
+  "interior.lambda.expression": supported,
+  "interior.for": supported,
+  "interior.foreach": supported,
+  "interior.while": supported,
+  "interior.doWhile": supported,
+  "interior.switch": supported,
   "interior.switchCase": supported,
   "interior.ternary": supported,
   "interior.try": supported,
   "interior.resource": supported,
+  "interior.static": supported,
 
   /* UNSUPPORTED  */
 
@@ -173,6 +180,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "name.function": notApplicable,
   "type.argument.formal": notApplicable,
   "type.argument.formal.iteration": notApplicable,
+  "interior.function": notApplicable,
 
   // Element and tags
   element: notApplicable,
@@ -235,6 +243,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Miscellaneous
   "value.yield": notApplicable,
+  "interior.namespace": notApplicable,
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,
   environment: notApplicable,

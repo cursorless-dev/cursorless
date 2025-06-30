@@ -2,7 +2,7 @@ import { cCoreScopeSupport } from "./c";
 import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
-const { supported } = ScopeSupportFacetLevel;
+const { supported, notApplicable } = ScopeSupportFacetLevel;
 
 export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   ...cCoreScopeSupport,
@@ -72,6 +72,14 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   "type.typeArgument": supported,
   "type.typeArgument.iteration": supported,
 
-  "interior.lambda": supported,
+  "interior.lambda.block": supported,
   "interior.try": supported,
+  "interior.foreach": supported,
+  "interior.constructor": supported,
+  "interior.method": supported,
+  "interior.namespace": supported,
+
+  /* NOT APPLICABLE */
+
+  "interior.lambda.expression": notApplicable,
 };

@@ -13,23 +13,23 @@ export const scopeSupportFacetInfos: Record<
   },
 
   element: {
-    description: "An xml/html element. Also used for LaTeX environments",
+    description: "A xml/html element. Also used for LaTeX environments",
     scopeType: "xmlElement",
   },
   startTag: {
-    description: "The start tag of an xml element",
+    description: "The start tag of a xml element",
     scopeType: "xmlStartTag",
   },
   endTag: {
-    description: "The end tag of an xml element",
+    description: "The end tag of a xml element",
     scopeType: "xmlEndTag",
   },
   tags: {
-    description: "Both tags in an xml element",
+    description: "Both tags in a xml element",
     scopeType: "xmlBothTags",
   },
   attribute: {
-    description: "A attribute, eg of an html element or a C++ attribute",
+    description: "A attribute, eg of a html element or a C++ attribute",
     scopeType: "attribute",
   },
 
@@ -85,7 +85,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "statement",
   },
   "statement.class": {
-    description: "An class declaration",
+    description: "A class declaration",
     scopeType: "statement",
   },
   "statement.iteration.document": {
@@ -427,7 +427,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "textFragment",
   },
   "textFragment.element": {
-    description: "Text fragment consisting of an xml element interior",
+    description: "Text fragment consisting of a xml element interior",
     scopeType: "textFragment",
   },
 
@@ -628,7 +628,7 @@ export const scopeSupportFacetInfos: Record<
     isIteration: true,
   },
   "key.attribute": {
-    description: "Key (LHS) of an attribute eg in an xml element",
+    description: "Key (LHS) of an attribute eg in a xml element",
     scopeType: "collectionKey",
   },
   "key.mapPair": {
@@ -670,7 +670,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "value",
   },
   "value.attribute": {
-    description: "Value (RHS) of an attribute eg in an xml element",
+    description: "Value (RHS) of an attribute eg in a xml element",
     scopeType: "value",
   },
   "value.return": {
@@ -805,7 +805,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "type",
   },
   "type.class": {
-    description: "An class declaration",
+    description: "A class declaration",
     scopeType: "type",
   },
   "type.alias": {
@@ -838,7 +838,7 @@ export const scopeSupportFacetInfos: Record<
   },
 
   "interior.element": {
-    description: "The interior/children of an XML element",
+    description: "The interior/children of a XML element",
     scopeType: { type: "interior" },
   },
   "interior.command": {
@@ -854,11 +854,23 @@ export const scopeSupportFacetInfos: Record<
     scopeType: { type: "interior" },
   },
   "interior.function": {
-    description: "The body of a function",
+    description: "The body of a function declaration",
     scopeType: { type: "interior" },
   },
-  "interior.lambda": {
-    description: "The body of a lambda/anonymous function",
+  "interior.constructor": {
+    description: "The body of a constructor declaration",
+    scopeType: { type: "interior" },
+  },
+  "interior.method": {
+    description: "The body of a method declaration",
+    scopeType: { type: "interior" },
+  },
+  "interior.lambda.block": {
+    description: "The block body of a lambda/anonymous function",
+    scopeType: { type: "interior" },
+  },
+  "interior.lambda.expression": {
+    description: "The expression body of a lambda/anonymous function",
     scopeType: { type: "interior" },
   },
   "interior.if": {
@@ -866,23 +878,47 @@ export const scopeSupportFacetInfos: Record<
     scopeType: { type: "interior" },
   },
   "interior.try": {
-    description: "The body of an try/catch/finally branch",
+    description: "The body of a try/catch/finally branch",
+    scopeType: { type: "interior" },
+  },
+  "interior.switch": {
+    description: "The body of a switch statement",
     scopeType: { type: "interior" },
   },
   "interior.switchCase": {
-    description: "The body of an switch case branch",
+    description: "The body of a switch case branch",
     scopeType: { type: "interior" },
   },
   "interior.ternary": {
-    description: "The body of an ternary condition/branch",
+    description: "The body of a ternary condition/branch",
     scopeType: { type: "interior" },
   },
-  "interior.loop": {
-    description: "The body of an for/while loop",
+  "interior.for": {
+    description: "The body of a for loop",
+    scopeType: { type: "interior" },
+  },
+  "interior.foreach": {
+    description: "The body of a for-each loop",
+    scopeType: { type: "interior" },
+  },
+  "interior.while": {
+    description: "The body of a while loop",
+    scopeType: { type: "interior" },
+  },
+  "interior.doWhile": {
+    description: "The body of a do-while loop",
     scopeType: { type: "interior" },
   },
   "interior.resource": {
     description: "the body of a 'with' / 'use' / 'using' statement",
+    scopeType: { type: "interior" },
+  },
+  "interior.namespace": {
+    description: "the body of a namespace statement",
+    scopeType: { type: "interior" },
+  },
+  "interior.static": {
+    description: "the body of a static statement",
     scopeType: { type: "interior" },
   },
 

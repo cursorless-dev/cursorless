@@ -155,12 +155,20 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
 
   "interior.class": supported,
   "interior.function": supported,
+  "interior.constructor": supported,
+  "interior.method": supported,
   "interior.if": supported,
-  "interior.lambda": supported,
-  "interior.loop": supported,
+  "interior.lambda.block": supported,
+  "interior.lambda.expression": supported,
+  "interior.for": supported,
+  "interior.foreach": supported,
+  "interior.while": supported,
+  "interior.doWhile": supported,
+  "interior.switch": supported,
   "interior.switchCase": supported,
   "interior.ternary": supported,
   "interior.try": supported,
+  "interior.static": supported,
 
   /* NOT APPLICABLE (JS & TS) */
 
@@ -202,6 +210,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Miscellaneous
   environment: notApplicable,
+  "interior.namespace": notApplicable,
 };
 
 export const javascriptJsxScopeSupport: LanguageScopeSupportFacetMap = {
