@@ -575,8 +575,7 @@
 ;;! -------------
 (ternary_expression
   condition: (_) @condition @interior
-  consequence: (_) @branch
-) @condition.domain
+) @condition.domain @branch.iteration
 
 (ternary_expression
   consequence: (_) @branch @interior

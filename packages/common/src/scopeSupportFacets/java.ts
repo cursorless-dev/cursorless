@@ -48,11 +48,10 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.if.iteration": supported,
   "branch.try": supported,
   "branch.try.iteration": supported,
-
   "branch.switchCase": supported,
   "branch.switchCase.iteration": supported,
   "branch.ternary": supported,
-  "branch.loop": supported,
+  "branch.ternary.iteration": supported,
 
   class: supported,
   "class.iteration.block": supported,
@@ -241,10 +240,19 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "type.resource.iteration": notApplicable,
   "name.resource.iteration": notApplicable,
 
+  // Namespace
+  "name.namespace": notApplicable,
+  "interior.namespace": notApplicable,
+
+  // Branch loop
+  "branch.loop": notApplicable,
+  "branch.loop.iteration": notApplicable,
+
   // Miscellaneous
   "value.yield": notApplicable,
-  "interior.namespace": notApplicable,
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,
   environment: notApplicable,
+  selector: notApplicable,
+  unit: notApplicable,
 };

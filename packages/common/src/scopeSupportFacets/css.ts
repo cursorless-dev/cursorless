@@ -37,6 +37,9 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   statement: supported,
   "statement.iteration.document": supported,
 
+  selector: supported,
+  unit: supported,
+
   // Not applicable
 
   anonymousFunction: notApplicable,
@@ -74,9 +77,11 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.if.iteration": notApplicable,
   "branch.if": notApplicable,
   "branch.loop": notApplicable,
+  "branch.loop.iteration": notApplicable,
   "branch.switchCase.iteration": notApplicable,
   "branch.switchCase": notApplicable,
   "branch.ternary": notApplicable,
+  "branch.ternary.iteration": notApplicable,
   "branch.try.iteration": notApplicable,
   "branch.try": notApplicable,
   "class.iteration.block": notApplicable,
@@ -141,6 +146,7 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   "name.assignment.pattern": notApplicable,
   "name.assignment": notApplicable,
   "name.class": notApplicable,
+  "name.namespace": notApplicable,
   "name.constructor": notApplicable,
   "name.field": notApplicable,
   "name.foreach": notApplicable,

@@ -118,7 +118,9 @@ export const scopeSupportFacets = [
   "branch.switchCase",
   "branch.switchCase.iteration",
   "branch.ternary",
+  "branch.ternary.iteration",
   "branch.loop",
+  "branch.loop.iteration",
 
   "collectionItem.unenclosed",
   "collectionItem.unenclosed.iteration",
@@ -140,6 +142,7 @@ export const scopeSupportFacets = [
   "name.method",
   "name.constructor",
   "name.class",
+  "name.namespace",
   "name.field",
   "name.resource",
   "name.resource.iteration",
@@ -225,10 +228,8 @@ export const scopeSupportFacets = [
   "interior.static",
 
   "notebookCell",
-
-  // FIXME: Still in legacy
-  // selector
-  // unit
+  "selector",
+  "unit",
 ] as const;
 
 export interface ScopeSupportFacetInfo {

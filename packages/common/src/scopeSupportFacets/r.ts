@@ -38,10 +38,10 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
 
   "branch.if": unsupported,
   "branch.if.iteration": unsupported,
-  "branch.loop": unsupported,
   "branch.switchCase": unsupported,
   "branch.switchCase.iteration": unsupported,
   "branch.ternary": unsupported,
+  "branch.ternary.iteration": unsupported,
   "branch.try": unsupported,
   "branch.try.iteration": unsupported,
   "condition.for": unsupported,
@@ -81,6 +81,9 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.command": notApplicable,
   "interior.element": notApplicable,
   "name.assignment.pattern": notApplicable,
+  "branch.loop": notApplicable,
+  "branch.loop.iteration": notApplicable,
+
   // Not applicable for base language but might be useful for markdown or quarto
   "section.iteration.document": notApplicable,
   "section.iteration.parent": notApplicable,

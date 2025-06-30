@@ -446,15 +446,20 @@ export const scopeSupportFacetInfos: Record<
     description: "An if/elif/else branch",
     scopeType: "branch",
   },
-  "branch.loop": {
-    description:
-      "A for / while loop branch. For most languages there will just be one branch for the entire loop, but eg in Python you can have an else branch for a loop.",
-    scopeType: "branch",
-  },
-
   "branch.if.iteration": {
     description:
       "Iteration scope for if/elif/else branch; should be the entire if-else statement",
+    scopeType: "branch",
+    isIteration: true,
+  },
+  "branch.loop": {
+    description:
+      "A for / while loop branch. For most languages this is not supported, but eg in Python you can have an else branch for a loop.",
+    scopeType: "branch",
+  },
+  "branch.loop.iteration": {
+    description:
+      "Iteration scope for loop branch; should be the entire loop statement",
     scopeType: "branch",
     isIteration: true,
   },
@@ -474,13 +479,19 @@ export const scopeSupportFacetInfos: Record<
   },
   "branch.switchCase.iteration": {
     description:
-      "Iteration scope for branches in a switch/match statement; should contain all the cases",
+      "Iteration scope for branches in a switch/match statement; should be the switch statement body",
     scopeType: "branch",
     isIteration: true,
   },
   "branch.ternary": {
     description: "A branch in a ternary expression",
     scopeType: "branch",
+  },
+  "branch.ternary.iteration": {
+    description:
+      "Iteration scope for branches in a ternary expression; should be the entire expression",
+    scopeType: "branch",
+    isIteration: true,
   },
   "collectionItem.unenclosed": {
     description:
@@ -560,6 +571,10 @@ export const scopeSupportFacetInfos: Record<
   },
   "name.class": {
     description: "Name of a class",
+    scopeType: "name",
+  },
+  "name.namespace": {
+    description: "Name of a namespace",
     scopeType: "name",
   },
   "name.field": {
@@ -925,5 +940,13 @@ export const scopeSupportFacetInfos: Record<
   notebookCell: {
     description: "A cell in a notebook or a markdown code block",
     scopeType: "notebookCell",
+  },
+  selector: {
+    description: "A selector in a css rule set",
+    scopeType: "selector",
+  },
+  unit: {
+    description: "A unit in a css rule set",
+    scopeType: "unit",
   },
 };
