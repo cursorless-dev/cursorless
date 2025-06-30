@@ -48,8 +48,6 @@
   (yield_statement)
 ] @statement
 
-(if_statement) @ifStatement
-
 (
   (compilation_unit) @statement.iteration @class.iteration @className.iteration
   (#document-range! @statement.iteration @class.iteration @className.iteration)
@@ -69,13 +67,17 @@
 
 ;;!! if () {}
 ;;!  ^^^^^^^^
+(if_statement) @ifStatement
+
+;;!! if () {}
+;;!  ^^^^^^^^
 (
   (if_statement
     condition: (_) @condition
     consequence: (_) @branch.end.endOf @branch.removal.end.endOf
     alternative: (_)? @branch.removal.end.startOf
   ) @branch.start.startOf @branch.removal.start.startOf @condition.domain
-  (#not-parent-type? @condition.domain "if_statement")
+  (#not-parent-type? @condition.domain if_statement)
 )
 (
   (if_statement
@@ -84,7 +86,7 @@
       "}" @interior.end.startOf
     ) @interior.domain.end.endOf
   ) @interior.domain.start.startOf
-  (#not-parent-type? @interior.domain.start.startOf "if_statement")
+  (#not-parent-type? @interior.domain.start.startOf if_statement)
 )
 
 ;;!! else if () {}
@@ -114,7 +116,7 @@
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 (
   (if_statement) @branch.iteration
-  (#not-parent-type? @branch.iteration "if_statement")
+  (#not-parent-type? @branch.iteration if_statement)
 )
 
 ;;!! try () {}
@@ -290,7 +292,9 @@
 
 (_
   condition: (_) @condition
+  (#not-parent-type? @condition if_statement)
 ) @_.domain
+
 (while_statement
   .
   (_) @condition
