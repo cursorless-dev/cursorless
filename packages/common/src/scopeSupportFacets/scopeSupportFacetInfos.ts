@@ -93,6 +93,12 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "statement",
     isIteration: true,
   },
+  "statement.iteration.class": {
+    description:
+      "Iteration scope for type in a class / interface; should be entire class / interface body",
+    scopeType: "statement",
+    isIteration: true,
+  },
   "statement.iteration.block": {
     description:
       "Iteration scope for statements. Statement blocks(body of functions/if statements/for loops/etc).",
@@ -823,12 +829,6 @@ export const scopeSupportFacetInfos: Record<
     description: "Type of field in a class / interface",
     scopeType: "type",
   },
-  "type.field.iteration": {
-    description:
-      "Iteration scope for type of field in a class / interface; should be entire class / interface body",
-    scopeType: "type",
-    isIteration: true,
-  },
   "type.foreach": {
     description: "Type of variable in a for each loop",
     scopeType: "type",
@@ -870,6 +870,23 @@ export const scopeSupportFacetInfos: Record<
   "type.resource.iteration": {
     description:
       "Iteration scope for types in a 'with' / 'use' / 'using' statement",
+    scopeType: "type",
+    isIteration: true,
+  },
+  "type.iteration.block": {
+    description:
+      "Iteration scope for types. Statement blocks(body of functions/if statements/for loops/etc).",
+    scopeType: "type",
+    isIteration: true,
+  },
+  "type.iteration.class": {
+    description:
+      "Iteration scope for type in a class / interface; should be entire class / interface body",
+    scopeType: "type",
+    isIteration: true,
+  },
+  "type.iteration.document": {
+    description: "Iteration scope for a type. This is the entire document.",
     scopeType: "type",
     isIteration: true,
   },

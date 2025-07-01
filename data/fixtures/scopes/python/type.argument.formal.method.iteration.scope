@@ -4,20 +4,29 @@ class MyClass:
 ---
 
 [#1 Range] =
-[#1 Domain] = 1:4-2:12
-      >-----------------
+[#1 Domain] = 0:0-2:12
+  >--------------
+0| class MyClass:
 1|     def funk(a: int):
 2|         pass
    ------------<
 
 
 [#2 Range] =
-[#2 Domain] = 1:13-1:19
+[#2 Domain] = 1:4-2:12
+      >-----------------
+1|     def funk(a: int):
+2|         pass
+   ------------<
+
+
+[#3 Range] =
+[#3 Domain] = 1:13-1:19
                >------<
 1|     def funk(a: int):
 
 
-[#3 Range] =
-[#3 Domain] = 2:8-2:12
+[#4 Range] =
+[#4 Domain] = 2:8-2:12
           >----<
 2|         pass

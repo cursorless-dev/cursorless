@@ -60,11 +60,13 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal": supported,
   "type.class": supported,
   "type.field": supported,
-  "type.field.iteration": supported,
   "type.return": supported,
   "type.typeArgument": supported,
   "type.typeArgument.iteration": supported,
   "type.variable": supported,
+  "type.iteration.block": supported,
+  "type.iteration.class": supported,
+  "type.iteration.document": supported,
 
   anonymousFunction: supported,
   namedFunction: supported,
@@ -176,6 +178,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   statement: supported,
   "statement.class": supported,
   "statement.iteration.block": supported,
+  "statement.iteration.class": supported,
   "statement.iteration.document": supported,
 
   functionCall: supported,

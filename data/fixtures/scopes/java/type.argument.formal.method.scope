@@ -1,5 +1,5 @@
 public class MyClass {
-    public void foo(final int value) { }
+    public void foo(final int value) {}
 }
 ---
 
@@ -8,7 +8,7 @@ public class MyClass {
 [#1 Domain] = 0:0-2:1
   >----------------------
 0| public class MyClass {
-1|     public void foo(final int value) { }
+1|     public void foo(final int value) {}
 2| }
    -<
 
@@ -17,45 +17,45 @@ public class MyClass {
 
 [#2 Content] = 1:11-1:15
              >----<
-1|     public void foo(final int value) { }
+1|     public void foo(final int value) {}
 
 [#2 Removal] = 1:11-1:16
              >-----<
-1|     public void foo(final int value) { }
+1|     public void foo(final int value) {}
 
 [#2 Leading delimiter] = 1:10-1:11
             >-<
-1|     public void foo(final int value) { }
+1|     public void foo(final int value) {}
 
 [#2 Trailing delimiter] = 1:15-1:16
                  >-<
-1|     public void foo(final int value) { }
+1|     public void foo(final int value) {}
 
-[#2 Domain] = 1:4-1:40
-      >------------------------------------<
-1|     public void foo(final int value) { }
+[#2 Domain] = 1:4-1:39
+      >-----------------------------------<
+1|     public void foo(final int value) {}
 
 [#2 Insertion delimiter] = " "
 
 
 [#3 Content] = 1:26-1:29
                             >---<
-1|     public void foo(final int value) { }
+1|     public void foo(final int value) {}
 
 [#3 Removal] = 1:26-1:30
                             >----<
-1|     public void foo(final int value) { }
+1|     public void foo(final int value) {}
 
 [#3 Leading delimiter] = 1:25-1:26
                            >-<
-1|     public void foo(final int value) { }
+1|     public void foo(final int value) {}
 
 [#3 Trailing delimiter] = 1:29-1:30
                                >-<
-1|     public void foo(final int value) { }
+1|     public void foo(final int value) {}
 
 [#3 Domain] = 1:20-1:35
                       >---------------<
-1|     public void foo(final int value) { }
+1|     public void foo(final int value) {}
 
 [#3 Insertion delimiter] = " "

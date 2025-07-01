@@ -54,8 +54,8 @@
 )
 
 (
-  (program) @name.iteration @value.iteration
-  (#document-range! @name.iteration @value.iteration)
+  (program) @name.iteration @value.iteration @type.iteration
+  (#document-range! @name.iteration @value.iteration @type.iteration)
 )
 
 ;;!! class MyClass { }
@@ -331,7 +331,7 @@
 (formal_parameters
   "(" @type.iteration.start.endOf @name.iteration.start.endOf
   ")" @type.iteration.end.startOf @name.iteration.end.startOf
-) @type.iteration.domain @name.iteration.domain
+)
 
 ;;!! List<String> list = value;
 ;;!  ^^^^^^^^^^^^

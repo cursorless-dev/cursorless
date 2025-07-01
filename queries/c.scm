@@ -42,19 +42,33 @@
 )
 
 (
-  (translation_unit) @name.iteration @value.iteration
-  (#document-range! @name.iteration @value.iteration)
+  (translation_unit) @name.iteration @value.iteration @type.iteration
+  (#document-range! @name.iteration @value.iteration @type.iteration)
+)
+
+;;!! struct Foo { };
+;;!              ^
+;;!! union Foo { };
+;;!             ^
+(field_declaration_list
+  "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
 )
 
 (field_declaration_list
-  "{" @type.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
-  "}" @type.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+  "{" @statement.iteration.start.endOf
+  "}" @statement.iteration.end.startOf
 )
 
 ;; Body of statements
 (compound_statement
-  "{" @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
-  "}" @statement.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+  "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+)
+
+(compound_statement
+  "{" @statement.iteration.start.endOf
+  "}" @statement.iteration.end.startOf
 )
 
 (
@@ -259,8 +273,8 @@
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 (parameter_list
-  "(" @type.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
-  ")" @type.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
 )
 
 ;;!! foo(aaa, bbb);

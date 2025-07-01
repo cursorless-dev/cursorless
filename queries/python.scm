@@ -261,8 +261,8 @@
 )
 
 (with_statement
-  (with_clause) @value.iteration @name.iteration
-) @value.iteration.domain @name.iteration.domain
+  (with_clause) @name.iteration @value.iteration
+) @name.iteration.domain @value.iteration.domain
 
 ;;!! lambda str: len(str) > 0
 ;;!              ^^^^^^^^^^^^
@@ -357,9 +357,9 @@
 (
   (module
     (_) @_statement
-  ) @value.iteration @name.iteration
+  ) @name.iteration @value.iteration @type.iteration
   (#not-type? @_statement "with_statement")
-  (#document-range! @value.iteration @name.iteration)
+  (#document-range! @name.iteration @value.iteration @type.iteration)
 )
 
 (
@@ -378,8 +378,8 @@
 ;;!      *****
 ;;!!     c = 2
 ;;!      *****>
-(block) @statement.iteration @value.iteration @name.iteration
-(block) @type.iteration
+(block) @name.iteration @value.iteration @type.iteration
+(block) @statement.iteration
 
 ;;!! {"a": 1, "b": 2, "c": 3}
 ;;!   **********************
@@ -740,7 +740,7 @@
 (argument_list
   "(" @name.iteration.start.endOf @value.iteration.start.endOf
   ")" @name.iteration.end.startOf @value.iteration.end.startOf
-) @name.iteration.domain @value.iteration.domain
+)
 
 operators: [
   "<"
@@ -748,12 +748,14 @@ operators: [
   ">"
   ">="
 ] @disqualifyDelimiter
+
 operator: [
   "<<"
   "<<="
   ">>"
   ">>="
 ] @disqualifyDelimiter
+
 (function_definition
   "->" @disqualifyDelimiter
 )

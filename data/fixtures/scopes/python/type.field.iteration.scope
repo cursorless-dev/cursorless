@@ -1,8 +1,0 @@
-class MyClass:
-    a: int
----
-
-[Range] =
-[Domain] = 1:4-1:10
-      >------<
-1|     a: int
