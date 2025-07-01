@@ -23,9 +23,10 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   ifStatement: supported,
 
   statement: supported,
-  "statement.iteration.document": supported,
-  "statement.iteration.block": supported,
   "statement.class": supported,
+  "statement.iteration.document": supported,
+  "statement.iteration.class": supported,
+  "statement.iteration.block": supported,
 
   class: supported,
   "class.iteration.document": supported,
@@ -256,7 +257,6 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   "type.alias": notApplicable,
   "type.cast": notApplicable,
   "type.field": notApplicable,
-  "type.field.iteration": notApplicable,
   "type.foreach": notApplicable,
   "type.interface": notApplicable,
   "type.enum": notApplicable,
@@ -264,6 +264,9 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   "type.variable": notApplicable,
   "type.typeArgument": notApplicable,
   "type.typeArgument.iteration": notApplicable,
+  "type.iteration.block": notApplicable,
+  "type.iteration.class": notApplicable,
+  "type.iteration.document": notApplicable,
 
   "value.typeAlias": notApplicable,
 };
