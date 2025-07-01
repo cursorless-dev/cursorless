@@ -1,0 +1,13 @@
+<?php
+class MyClass {
+    function __construct(string $name, number $value) {}
+}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 2:25-2:37
+                           >------------<
+2|     function __construct(string $name) {
+
+[Insertion delimiter] = ", "

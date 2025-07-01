@@ -34,4 +34,6 @@ export const scssScopeSupport: LanguageScopeSupportFacetMap = {
 
   "interior.if": supported,
   "interior.function": supported,
+
+  "argument.actual.multiLine": supported,
 };

@@ -1,0 +1,36 @@
+new Foo(
+    aaa,
+    bbb
+);
+---
+
+[#1 Content] =
+[#1 Domain] = 0:8-0:11
+          >---<
+0| new Foo(aaa, bbb);
+
+[#1 Removal] = 0:8-0:13
+          >-----<
+0| new Foo(aaa, bbb);
+
+[#1 Trailing delimiter] = 0:11-0:13
+             >--<
+0| new Foo(aaa, bbb);
+
+[#1 Insertion delimiter] = ", "
+
+
+[#2 Content] =
+[#2 Domain] = 0:13-0:16
+               >---<
+0| new Foo(aaa, bbb);
+
+[#2 Removal] = 0:11-0:16
+             >-----<
+0| new Foo(aaa, bbb);
+
+[#2 Leading delimiter] = 0:11-0:13
+             >--<
+0| new Foo(aaa, bbb);
+
+[#2 Insertion delimiter] = ", "

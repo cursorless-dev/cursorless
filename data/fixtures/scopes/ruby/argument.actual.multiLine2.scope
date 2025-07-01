@@ -1,0 +1,36 @@
+foo{ |
+    aaa,
+    bbb
+| }
+---
+
+[#1 Content] =
+[#1 Domain] = 0:6-0:9
+        >---<
+0| foo{ |aaa, bbb| }
+
+[#1 Removal] = 0:6-0:11
+        >-----<
+0| foo{ |aaa, bbb| }
+
+[#1 Trailing delimiter] = 0:9-0:11
+           >--<
+0| foo{ |aaa, bbb| }
+
+[#1 Insertion delimiter] = ", "
+
+
+[#2 Content] =
+[#2 Domain] = 0:11-0:14
+             >---<
+0| foo{ |aaa, bbb| }
+
+[#2 Removal] = 0:9-0:14
+           >-----<
+0| foo{ |aaa, bbb| }
+
+[#2 Leading delimiter] = 0:9-0:11
+           >--<
+0| foo{ |aaa, bbb| }
+
+[#2 Insertion delimiter] = ", "

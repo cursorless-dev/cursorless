@@ -217,9 +217,15 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "functionCallee",
   },
 
-  "argument.actual": {
-    description: "An argument/parameter in a function call",
+  "argument.actual.singleLine": {
+    description: "A single line argument/parameter in a function call",
     scopeType: "argumentOrParameter",
+    insertionDelimiterHint: '", "',
+  },
+  "argument.actual.multiLine": {
+    description: "A multiline argument/parameter in a function call",
+    scopeType: "argumentOrParameter",
+    insertionDelimiterHint: '",\n"',
   },
   "argument.actual.iteration": {
     description:
@@ -227,9 +233,15 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "argumentOrParameter",
     isIteration: true,
   },
-  "argument.actual.method": {
-    description: "An argument/parameter in a method call",
+  "argument.actual.method.singleLine": {
+    description: "A single line argument/parameter in a method call",
     scopeType: "argumentOrParameter",
+    insertionDelimiterHint: '", "',
+  },
+  "argument.actual.method.multiLine": {
+    description: "A multi line argument/parameter in a method call",
+    scopeType: "argumentOrParameter",
+    insertionDelimiterHint: '",\n"',
   },
   "argument.actual.method.iteration": {
     description:
@@ -237,9 +249,15 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "argumentOrParameter",
     isIteration: true,
   },
-  "argument.actual.constructor": {
-    description: "An argument/parameter in a constructor call",
+  "argument.actual.constructor.singleLine": {
+    description: "A single line argument/parameter in a constructor call",
     scopeType: "argumentOrParameter",
+    insertionDelimiterHint: '", "',
+  },
+  "argument.actual.constructor.multiLine": {
+    description: "A multi line argument/parameter in a constructor call",
+    scopeType: "argumentOrParameter",
+    insertionDelimiterHint: '",\n"',
   },
   "argument.actual.constructor.iteration": {
     description:
@@ -247,9 +265,16 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "argumentOrParameter",
     isIteration: true,
   },
-  "argument.formal": {
-    description: "A parameter in a function declaration",
+
+  "argument.formal.singleLine": {
+    description: "A single line parameter in a function declaration",
     scopeType: "argumentOrParameter",
+    insertionDelimiterHint: '", "',
+  },
+  "argument.formal.multiLine": {
+    description: "A multi line parameter in a function declaration",
+    scopeType: "argumentOrParameter",
+    insertionDelimiterHint: '",\n"',
   },
   "argument.formal.iteration": {
     description:
@@ -257,9 +282,15 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "argumentOrParameter",
     isIteration: true,
   },
-  "argument.formal.method": {
-    description: "A parameter in a class method declaration",
+  "argument.formal.method.singleLine": {
+    description: "A single line parameter in a class method declaration",
     scopeType: "argumentOrParameter",
+    insertionDelimiterHint: '", "',
+  },
+  "argument.formal.method.multiLine": {
+    description: "A multi line parameter in a class method declaration",
+    scopeType: "argumentOrParameter",
+    insertionDelimiterHint: '",\n"',
   },
   "argument.formal.method.iteration": {
     description:
@@ -267,9 +298,15 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "argumentOrParameter",
     isIteration: true,
   },
-  "argument.formal.constructor": {
-    description: "A parameter in a constructor declaration",
+  "argument.formal.constructor.singleLine": {
+    description: "A single line parameter in a constructor declaration",
     scopeType: "argumentOrParameter",
+    insertionDelimiterHint: '", "',
+  },
+  "argument.formal.constructor.multiLine": {
+    description: "A multi line parameter in a constructor declaration",
+    scopeType: "argumentOrParameter",
+    insertionDelimiterHint: '",\n"',
   },
   "argument.formal.constructor.iteration": {
     description:
@@ -277,9 +314,15 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "argumentOrParameter",
     isIteration: true,
   },
-  "argument.formal.lambda": {
-    description: "A parameter in a lambda declaration",
+  "argument.formal.lambda.singleLine": {
+    description: "A single line parameter in a lambda declaration",
     scopeType: "argumentOrParameter",
+    insertionDelimiterHint: '", "',
+  },
+  "argument.formal.lambda.multiLine": {
+    description: "A multi line parameter in a lambda declaration",
+    scopeType: "argumentOrParameter",
+    insertionDelimiterHint: '",\n"',
   },
   "argument.formal.lambda.iteration": {
     description:
