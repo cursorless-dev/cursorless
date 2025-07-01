@@ -7,10 +7,41 @@ class MyClass {
 }
 ---
 
-[Content] =
-[Removal] =
-[Domain] = 2:25-2:37
-                           >------------<
-2|     function __construct(string $name) {
+[#1 Content] =
+[#1 Domain] = 3:8-3:20
+          >------------<
+3|         string $name,
 
-[Insertion delimiter] = ", "
+[#1 Removal] = 3:8-4:8
+          >-------------
+3|         string $name,
+4|         number $value
+   --------<
+
+[#1 Trailing delimiter] = 3:20-4:8
+                      >-
+3|         string $name,
+4|         number $value
+   --------<
+
+[#1 Insertion delimiter] = ",\n"
+
+
+[#2 Content] =
+[#2 Domain] = 4:8-4:21
+          >-------------<
+4|         number $value
+
+[#2 Removal] = 3:20-4:21
+                      >-
+3|         string $name,
+4|         number $value
+   ---------------------<
+
+[#2 Leading delimiter] = 3:20-4:8
+                      >-
+3|         string $name,
+4|         number $value
+   --------<
+
+[#2 Insertion delimiter] = ",\n"

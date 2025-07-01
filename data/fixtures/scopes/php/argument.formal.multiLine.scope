@@ -6,32 +6,40 @@ function myFunc(
 ---
 
 [#1 Content] =
-[#1 Domain] = 1:16-1:22
-                  >------<
-1| function myFunc($value, string $name) { }
+[#1 Domain] = 2:4-2:10
+      >------<
+2|     $value,
 
-[#1 Removal] = 1:16-1:24
-                  >--------<
-1| function myFunc($value, string $name) { }
+[#1 Removal] = 2:4-3:4
+      >-------
+2|     $value,
+3|     string $name
+   ----<
 
-[#1 Trailing delimiter] = 1:22-1:24
-                        >--<
-1| function myFunc($value, string $name) { }
+[#1 Trailing delimiter] = 2:10-3:4
+            >-
+2|     $value,
+3|     string $name
+   ----<
 
-[#1 Insertion delimiter] = ", "
+[#1 Insertion delimiter] = ",\n"
 
 
 [#2 Content] =
-[#2 Domain] = 1:24-1:36
-                          >------------<
-1| function myFunc($value, string $name) { }
+[#2 Domain] = 3:4-3:16
+      >------------<
+3|     string $name
 
-[#2 Removal] = 1:22-1:36
-                        >--------------<
-1| function myFunc($value, string $name) { }
+[#2 Removal] = 2:10-3:16
+            >-
+2|     $value,
+3|     string $name
+   ----------------<
 
-[#2 Leading delimiter] = 1:22-1:24
-                        >--<
-1| function myFunc($value, string $name) { }
+[#2 Leading delimiter] = 2:10-3:4
+            >-
+2|     $value,
+3|     string $name
+   ----<
 
-[#2 Insertion delimiter] = ", "
+[#2 Insertion delimiter] = ",\n"

@@ -6,32 +6,40 @@ foo(
 ---
 
 [#1 Content] =
-[#1 Domain] = 1:7-1:8
-         >-<
-1| myFunc(2, "foo")
+[#1 Domain] = 2:4-2:7
+      >---<
+2|     aaa,
 
-[#1 Removal] = 1:7-1:10
-         >---<
-1| myFunc(2, "foo")
+[#1 Removal] = 2:4-3:4
+      >----
+2|     aaa,
+3|     bbb
+   ----<
 
-[#1 Trailing delimiter] = 1:8-1:10
-          >--<
-1| myFunc(2, "foo")
+[#1 Trailing delimiter] = 2:7-3:4
+         >-
+2|     aaa,
+3|     bbb
+   ----<
 
-[#1 Insertion delimiter] = ", "
+[#1 Insertion delimiter] = ",\n"
 
 
 [#2 Content] =
-[#2 Domain] = 1:10-1:15
-            >-----<
-1| myFunc(2, "foo")
+[#2 Domain] = 3:4-3:7
+      >---<
+3|     bbb
 
-[#2 Removal] = 1:8-1:15
-          >-------<
-1| myFunc(2, "foo")
+[#2 Removal] = 2:7-3:7
+         >-
+2|     aaa,
+3|     bbb
+   -------<
 
-[#2 Leading delimiter] = 1:8-1:10
-          >--<
-1| myFunc(2, "foo")
+[#2 Leading delimiter] = 2:7-3:4
+         >-
+2|     aaa,
+3|     bbb
+   ----<
 
-[#2 Insertion delimiter] = ", "
+[#2 Insertion delimiter] = ",\n"

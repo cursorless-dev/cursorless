@@ -5,32 +5,40 @@
 ---
 
 [#1 Content] =
-[#1 Domain] = 0:3-0:10
-     >-------<
-0| [](int aaa, int bbb) {}
+[#1 Domain] = 1:4-1:11
+      >-------<
+1|     int aaa,
 
-[#1 Removal] = 0:3-0:12
-     >---------<
-0| [](int aaa, int bbb) {}
+[#1 Removal] = 1:4-2:4
+      >--------
+1|     int aaa,
+2|     int bbb
+   ----<
 
-[#1 Trailing delimiter] = 0:10-0:12
-            >--<
-0| [](int aaa, int bbb) {}
+[#1 Trailing delimiter] = 1:11-2:4
+             >-
+1|     int aaa,
+2|     int bbb
+   ----<
 
-[#1 Insertion delimiter] = ", "
+[#1 Insertion delimiter] = ",\n"
 
 
 [#2 Content] =
-[#2 Domain] = 0:12-0:19
-              >-------<
-0| [](int aaa, int bbb) {}
+[#2 Domain] = 2:4-2:11
+      >-------<
+2|     int bbb
 
-[#2 Removal] = 0:10-0:19
-            >---------<
-0| [](int aaa, int bbb) {}
+[#2 Removal] = 1:11-2:11
+             >-
+1|     int aaa,
+2|     int bbb
+   -----------<
 
-[#2 Leading delimiter] = 0:10-0:12
-            >--<
-0| [](int aaa, int bbb) {}
+[#2 Leading delimiter] = 1:11-2:4
+             >-
+1|     int aaa,
+2|     int bbb
+   ----<
 
-[#2 Insertion delimiter] = ", "
+[#2 Insertion delimiter] = ",\n"

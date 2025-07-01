@@ -4,15 +4,15 @@ foo(aaa, bbb);
 [#1 Content] =
 [#1 Domain] = 0:4-0:7
       >---<
-0| (bbb, ccc);
+0| foo(aaa, bbb);
 
 [#1 Removal] = 0:4-0:9
       >-----<
-0| (bbb, ccc);
+0| foo(aaa, bbb);
 
 [#1 Trailing delimiter] = 0:7-0:9
          >--<
-0| (bbb, ccc);
+0| foo(aaa, bbb);
 
 [#1 Insertion delimiter] = ", "
 
@@ -20,14 +20,14 @@ foo(aaa, bbb);
 [#2 Content] =
 [#2 Domain] = 0:9-0:12
            >---<
-0| aaa(bbb, ccc);
+0| foo(aaa, bbb);
 
 [#2 Removal] = 0:7-0:12
          >-----<
-0| aaa(bbb, ccc);
+0| foo(aaa, bbb);
 
 [#2 Leading delimiter] = 0:7-0:9
          >--<
-0| aaa(bbb, ccc);
+0| foo(aaa, bbb);
 
 [#2 Insertion delimiter] = ", "

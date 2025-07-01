@@ -5,32 +5,40 @@ class Foo(
 ---
 
 [#1 Content] =
-[#1 Domain] = 0:10-0:18
-            >--------<
-0| class Foo(aaa: Int, bbb: Int) {}
+[#1 Domain] = 1:4-1:12
+      >--------<
+1|     aaa: Int,
 
-[#1 Removal] = 0:10-0:20
-            >----------<
-0| class Foo(aaa: Int, bbb: Int) {}
+[#1 Removal] = 1:4-2:4
+      >---------
+1|     aaa: Int,
+2|     bbb: Int
+   ----<
 
-[#1 Trailing delimiter] = 0:18-0:20
-                    >--<
-0| class Foo(aaa: Int, bbb: Int) {}
+[#1 Trailing delimiter] = 1:12-2:4
+              >-
+1|     aaa: Int,
+2|     bbb: Int
+   ----<
 
-[#1 Insertion delimiter] = ", "
+[#1 Insertion delimiter] = ",\n"
 
 
 [#2 Content] =
-[#2 Domain] = 0:20-0:28
-                      >--------<
-0| class Foo(aaa: Int, bbb: Int) {}
+[#2 Domain] = 2:4-2:12
+      >--------<
+2|     bbb: Int
 
-[#2 Removal] = 0:18-0:28
-                    >----------<
-0| class Foo(aaa: Int, bbb: Int) {}
+[#2 Removal] = 1:12-2:12
+              >-
+1|     aaa: Int,
+2|     bbb: Int
+   ------------<
 
-[#2 Leading delimiter] = 0:18-0:20
-                    >--<
-0| class Foo(aaa: Int, bbb: Int) {}
+[#2 Leading delimiter] = 1:12-2:4
+              >-
+1|     aaa: Int,
+2|     bbb: Int
+   ----<
 
-[#2 Insertion delimiter] = ", "
+[#2 Insertion delimiter] = ",\n"

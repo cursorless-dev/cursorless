@@ -4,15 +4,15 @@ foo.bar(aaa, bbb)
 [#1 Content] =
 [#1 Domain] = 0:8-0:11
           >---<
-0| foo.bar(123, 456)
+0| foo.bar(aaa, bbb)
 
 [#1 Removal] = 0:8-0:13
           >-----<
-0| foo.bar(123, 456)
+0| foo.bar(aaa, bbb)
 
 [#1 Trailing delimiter] = 0:11-0:13
              >--<
-0| foo.bar(123, 456)
+0| foo.bar(aaa, bbb)
 
 [#1 Insertion delimiter] = ", "
 
@@ -20,14 +20,14 @@ foo.bar(aaa, bbb)
 [#2 Content] =
 [#2 Domain] = 0:13-0:16
                >---<
-0| foo.bar(123, 456)
+0| foo.bar(aaa, bbb)
 
 [#2 Removal] = 0:11-0:16
              >-----<
-0| foo.bar(123, 456)
+0| foo.bar(aaa, bbb)
 
 [#2 Leading delimiter] = 0:11-0:13
              >--<
-0| foo.bar(123, 456)
+0| foo.bar(aaa, bbb)
 
 [#2 Insertion delimiter] = ", "

@@ -8,32 +8,40 @@ class MyClass {
 ---
 
 [#1 Content] =
-[#1 Domain] = 2:20-2:26
-                      >------<
-2|     function myFunc($value, string $name) { }
+[#1 Domain] = 3:8-3:14
+          >------<
+3|         $value,
 
-[#1 Removal] = 2:20-2:28
-                      >--------<
-2|     function myFunc($value, string $name) { }
+[#1 Removal] = 3:8-4:8
+          >-------
+3|         $value,
+4|         string $name
+   --------<
 
-[#1 Trailing delimiter] = 2:26-2:28
-                            >--<
-2|     function myFunc($value, string $name) { }
+[#1 Trailing delimiter] = 3:14-4:8
+                >-
+3|         $value,
+4|         string $name
+   --------<
 
-[#1 Insertion delimiter] = ", "
+[#1 Insertion delimiter] = ",\n"
 
 
 [#2 Content] =
-[#2 Domain] = 2:28-2:40
-                              >------------<
-2|     function myFunc($value, string $name) { }
+[#2 Domain] = 4:8-4:20
+          >------------<
+4|         string $name
 
-[#2 Removal] = 2:26-2:40
-                            >--------------<
-2|     function myFunc($value, string $name) { }
+[#2 Removal] = 3:14-4:20
+                >-
+3|         $value,
+4|         string $name
+   --------------------<
 
-[#2 Leading delimiter] = 2:26-2:28
-                            >--<
-2|     function myFunc($value, string $name) { }
+[#2 Leading delimiter] = 3:14-4:8
+                >-
+3|         $value,
+4|         string $name
+   --------<
 
-[#2 Insertion delimiter] = ", "
+[#2 Insertion delimiter] = ",\n"
