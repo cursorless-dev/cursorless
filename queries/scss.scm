@@ -97,8 +97,8 @@
     (_) @argumentOrParameter
     .
     (_)? @_.trailing.startOf
-  )
-  (#insertion-delimiter! @argumentOrParameter ", ")
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
 (_
@@ -111,7 +111,7 @@
 (parameters
   "(" @name.iteration.start.endOf @value.iteration.start.endOf
   ")" @name.iteration.end.startOf @value.iteration.end.startOf
-) @name.iteration.domain @value.iteration.domain
+)
 
 ;;!! foo($foo: 123)
 ;;!      ^^^^  ^^^
