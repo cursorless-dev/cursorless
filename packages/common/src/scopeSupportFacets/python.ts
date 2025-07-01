@@ -22,6 +22,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "name.field": supported,
   "name.function": supported,
   "name.iteration.block": supported,
+  "name.iteration.class": supported,
   "name.iteration.document": supported,
   "name.method": supported,
   "name.variable": supported,
@@ -47,6 +48,9 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "value.return.lambda": supported,
   "value.variable": supported,
   "value.variable.pattern": supported,
+  "value.iteration.block": supported,
+  "value.iteration.class": supported,
+  "value.iteration.document": supported,
 
   "type.argument.formal.constructor": supported,
   "type.argument.formal.constructor.iteration": supported,

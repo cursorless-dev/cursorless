@@ -69,6 +69,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "name.foreach": supported,
   "name.function": supported,
   "name.iteration.block": supported,
+  "name.iteration.class": supported,
   "name.iteration.document": supported,
   "name.method": supported,
   "name.variable": supported,
@@ -88,6 +89,9 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "value.return": supported,
   "value.variable": supported,
   "value.yield": supported,
+  "value.iteration.block": supported,
+  "value.iteration.class": supported,
+  "value.iteration.document": supported,
 
   "type.argument.formal": supported,
   "type.argument.formal.iteration": supported,

@@ -35,9 +35,15 @@
   (translation_unit) @statement.iteration @class.iteration @className.iteration
   (#document-range! @statement.iteration @class.iteration @className.iteration)
 )
+
 (
-  (translation_unit) @namedFunction.iteration @functionName.iteration @name.iteration
-  (#document-range! @namedFunction.iteration @functionName.iteration @name.iteration)
+  (translation_unit) @namedFunction.iteration @functionName.iteration
+  (#document-range! @namedFunction.iteration @functionName.iteration)
+)
+
+(
+  (translation_unit) @name.iteration @value.iteration
+  (#document-range! @name.iteration @value.iteration)
 )
 
 (field_declaration_list
@@ -47,8 +53,8 @@
 
 ;; Body of statements
 (compound_statement
-  "{" @statement.iteration.start.endOf @name.iteration.start.endOf
-  "}" @statement.iteration.end.startOf @name.iteration.end.startOf
+  "{" @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
+  "}" @statement.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
 )
 
 (

@@ -1,0 +1,36 @@
+if True:
+    pass
+elif False:
+    pass
+else:
+    pass
+---
+
+[#1 Range] =
+[#1 Domain] = 0:0-5:8
+  >--------
+0| if True:
+1|     pass
+2| elif False:
+3|     pass
+4| else:
+5|     pass
+   --------<
+
+
+[#2 Range] =
+[#2 Domain] = 1:4-1:8
+      >----<
+1|     pass
+
+
+[#3 Range] =
+[#3 Domain] = 3:4-3:8
+      >----<
+3|     pass
+
+
+[#4 Range] =
+[#4 Domain] = 5:4-5:8
+      >----<
+5|     pass

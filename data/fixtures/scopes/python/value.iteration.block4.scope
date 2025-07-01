@@ -1,0 +1,16 @@
+while True:
+    pass
+---
+
+[#1 Range] =
+[#1 Domain] = 0:0-1:8
+  >-----------
+0| while True:
+1|     pass
+   --------<
+
+
+[#2 Range] =
+[#2 Domain] = 1:4-1:8
+      >----<
+1|     pass

@@ -97,6 +97,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "name.method": supported,
   "name.variable": supported,
   "name.iteration.document": supported,
+  "name.iteration.class": supported,
   "name.iteration.block": supported,
   "name.resource": supported,
 
@@ -138,6 +139,9 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.return.lambda": supported,
   "value.variable": supported,
   "value.resource": supported,
+  "value.iteration.block": supported,
+  "value.iteration.class": supported,
+  "value.iteration.document": supported,
 
   "interior.class": supported,
   "interior.constructor": supported,

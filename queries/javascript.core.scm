@@ -427,24 +427,33 @@
   (#document-range! @name.iteration @value.iteration @type.iteration)
 )
 
-;; Treat interior of all bodies as iteration scopes for `name`, eg
-;;!! function foo() {   }
-;;!                  ***
-(_
-  body: (_
+;;!! { }
+;;!   ^
+(
+  (_
     "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
     "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
-  )
+  ) @_dummy
+  (#type? @_dummy statement_block class_body interface_body)
 )
 
 (
   (_
-    body: (_
+    "{" @statement.iteration.start.endOf
+    "}" @statement.iteration.end.startOf
+  ) @_dummy
+  (#type? @_dummy statement_block class_body interface_body)
+)
+
+(
+  (_
+    (_
       "{" @interior.start.endOf
       "}" @interior.end.startOf
-    )
+    ) @_dummy
   ) @_.domain
-  (#not-type? @_.domain try_statement)
+  (#type? @_dummy statement_block class_body interface_body switch_body)
+  (#not-type? @_.domain if_statement try_statement)
 )
 
 ;;!! const aaa = {bbb: 0, ccc: 0};
@@ -781,11 +790,6 @@
 (
   (program) @statement.iteration
   (#document-range! @statement.iteration)
-)
-
-(statement_block
-  "{" @statement.iteration.start.endOf
-  "}" @statement.iteration.end.startOf
 )
 
 ;;!! function foo(aaa, bbb) {}

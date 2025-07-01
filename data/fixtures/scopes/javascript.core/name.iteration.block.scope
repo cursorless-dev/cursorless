@@ -1,27 +1,27 @@
-class MyClass {
-    myFunk() { }
+class Foo {
+    bar() { }
 }
 ---
 
 [#1 Range] =
 [#1 Domain] = 0:0-2:1
-  >---------------
-0| class MyClass {
-1|     myFunk() { }
+  >-----------
+0| class Foo {
+1|     bar() { }
 2| }
    -<
 
 
 [#2 Range] =
-[#2 Domain] = 0:15-2:0
-                 >
-0| class MyClass {
-1|     myFunk() { }
+[#2 Domain] = 0:11-2:0
+             >
+0| class Foo {
+1|     bar() { }
 2| }
    <
 
 
 [#3 Range] =
-[#3 Domain] = 1:14-1:15
-                >-<
-1|     myFunk() { }
+[#3 Domain] = 1:11-1:12
+             >-<
+1|     bar() { }

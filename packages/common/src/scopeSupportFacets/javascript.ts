@@ -129,6 +129,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "name.class": supported,
   "name.field": supported,
   "name.iteration.document": supported,
+  "name.iteration.class": supported,
   "name.iteration.block": supported,
 
   "key.mapPair": supported,
@@ -150,7 +151,12 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "value.return.lambda": supported,
   "value.field": supported,
   "value.yield": supported,
+  "value.iteration.block": supported,
+  "value.iteration.class": supported,
+  "value.iteration.document": supported,
 
+  // JS doesn't have types, but for muscle memory sake we will treat classes the
+  // same in JS and TS.
   "type.class": supported,
 
   "interior.class": supported,

@@ -156,6 +156,7 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   "name.resource": notApplicable,
   "name.variable.pattern": notApplicable,
   "name.variable": notApplicable,
+  "name.iteration.class": notApplicable,
   "namedFunction.constructor": notApplicable,
   "namedFunction.iteration.block": notApplicable,
   "namedFunction.iteration.document": notApplicable,
@@ -217,4 +218,7 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   "value.variable.pattern": notApplicable,
   "value.variable": notApplicable,
   "value.yield": notApplicable,
+  "value.iteration.block": notApplicable,
+  "value.iteration.class": notApplicable,
+  "value.iteration.document": notApplicable,
 };

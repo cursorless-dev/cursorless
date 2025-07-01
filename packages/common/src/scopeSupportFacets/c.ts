@@ -75,6 +75,7 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "name.class": supported,
   "name.field": supported,
   "name.iteration.block": supported,
+  "name.iteration.class": supported,
   "name.iteration.document": supported,
   "name.argument.formal": supported,
   "name.argument.formal.iteration": supported,
@@ -82,6 +83,9 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "value.assignment": supported,
   "value.variable": supported,
   "value.return": supported,
+  "value.iteration.block": supported,
+  "value.iteration.class": supported,
+  "value.iteration.document": supported,
 
   "type.variable": supported,
   "type.argument.formal": supported,
