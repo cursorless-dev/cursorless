@@ -3,6 +3,11 @@ import { type ScopeType } from "../types/command/PartialTargetDescriptor.types";
 
 export const scopeSupportFacets = [
   "command",
+  "environment",
+  "notebookCell",
+  "regularExpression",
+  "switchStatementSubject",
+  "fieldAccess",
 
   "element",
   "tags",
@@ -10,22 +15,22 @@ export const scopeSupportFacets = [
   "endTag",
   "attribute",
 
-  "environment",
-
   "section",
   "section.iteration.document",
   "section.iteration.parent",
 
+  "selector",
+  "unit",
+
   "list",
   "map",
+
   "ifStatement",
-  "regularExpression",
-  "switchStatementSubject",
-  "fieldAccess",
 
   "statement",
   "statement.class",
   "statement.iteration.document",
+  "statement.iteration.class",
   "statement.iteration.block",
 
   "class",
@@ -144,9 +149,6 @@ export const scopeSupportFacets = [
   "name.class",
   "name.namespace",
   "name.field",
-  "name.iteration.block",
-  "name.iteration.class",
-  "name.iteration.document",
   "name.resource",
   "name.resource.iteration",
   "name.argument.actual",
@@ -157,6 +159,9 @@ export const scopeSupportFacets = [
   "name.argument.formal.method.iteration",
   "name.argument.formal.constructor",
   "name.argument.formal.constructor.iteration",
+  "name.iteration.block",
+  "name.iteration.class",
+  "name.iteration.document",
 
   "key.attribute",
   "key.mapPair",
@@ -173,10 +178,7 @@ export const scopeSupportFacets = [
   "value.return.lambda",
   "value.field",
   "value.yield",
-  "value.iteration.block",
   "value.typeAlias",
-  "value.iteration.class",
-  "value.iteration.document",
   "value.resource",
   "value.resource.iteration",
   "value.argument.actual",
@@ -187,27 +189,32 @@ export const scopeSupportFacets = [
   "value.argument.formal.method.iteration",
   "value.argument.formal.constructor",
   "value.argument.formal.constructor.iteration",
+  "value.iteration.block",
+  "value.iteration.class",
+  "value.iteration.document",
 
   "type.variable",
-  "type.argument.formal",
-  "type.argument.formal.iteration",
-  "type.argument.formal.method",
-  "type.argument.formal.method.iteration",
-  "type.argument.formal.constructor",
-  "type.argument.formal.constructor.iteration",
   "type.return",
   "type.field",
-  "type.field.iteration",
   "type.foreach",
   "type.interface",
   "type.enum",
   "type.alias",
   "type.cast",
   "type.class",
-  "type.typeArgument",
-  "type.typeArgument.iteration",
   "type.resource",
   "type.resource.iteration",
+  "type.typeArgument",
+  "type.typeArgument.iteration",
+  "type.argument.formal",
+  "type.argument.formal.iteration",
+  "type.argument.formal.method",
+  "type.argument.formal.method.iteration",
+  "type.argument.formal.constructor",
+  "type.argument.formal.constructor.iteration",
+  "type.iteration.block",
+  "type.iteration.class",
+  "type.iteration.document",
 
   "interior.class",
   "interior.function",
@@ -230,10 +237,6 @@ export const scopeSupportFacets = [
   "interior.resource",
   "interior.namespace",
   "interior.static",
-
-  "notebookCell",
-  "selector",
-  "unit",
 ] as const;
 
 export interface ScopeSupportFacetInfo {

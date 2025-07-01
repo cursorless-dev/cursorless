@@ -1,7 +1,0 @@
-struct Foo { };
----
-
-[Range] =
-[Domain] = 0:12-0:13
-              >-<
-0| struct Foo { };
