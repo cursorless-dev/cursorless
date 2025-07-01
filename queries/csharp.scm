@@ -59,8 +59,8 @@
 )
 
 (
-  (compilation_unit) @name.iteration @value.iteration
-  (#document-range! @name.iteration @value.iteration)
+  (compilation_unit) @name.iteration @value.iteration @type.iteration
+  (#document-range! @name.iteration @value.iteration @type.iteration)
 )
 
 ;;!! { }

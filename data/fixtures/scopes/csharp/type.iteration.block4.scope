@@ -1,0 +1,13 @@
+while (true) { }
+---
+
+[#1 Range] =
+[#1 Domain] = 0:0-0:16
+  >----------------<
+0| while (true) { }
+
+
+[#2 Range] =
+[#2 Domain] = 0:14-0:15
+                >-<
+0| while (true) { }
