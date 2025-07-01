@@ -1,10 +1,10 @@
-typedef union { } Bar;
+typedef union { } Foo;
 ---
 
 [Content] =
 [Removal] =
 [Domain] = 0:0-0:22
   >----------------------<
-0| typedef union { } Bar;
+0| typedef union { } Foo;
 
 [Insertion delimiter] = "\n\n"
