@@ -37,13 +37,13 @@
 )
 
 (
-  (translation_unit) @namedFunction.iteration @functionName.iteration @name.iteration
-  (#document-range! @namedFunction.iteration @functionName.iteration @name.iteration)
+  (translation_unit) @namedFunction.iteration @functionName.iteration
+  (#document-range! @namedFunction.iteration @functionName.iteration)
 )
 
 (
-  (translation_unit) @value.iteration
-  (#document-range! @value.iteration)
+  (translation_unit) @name.iteration @value.iteration
+  (#document-range! @name.iteration @value.iteration)
 )
 
 (field_declaration_list
