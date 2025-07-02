@@ -64,6 +64,8 @@ export const xmlScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.formal.constructor.singleLine": notApplicable,
   "argumentList.formal.constructor.multiLine": notApplicable,
   "branch.if": notApplicable,
+  "branch.if.elif.else": notApplicable,
+  "branch.if.else": notApplicable,
   "branch.if.iteration": notApplicable,
   "branch.loop": notApplicable,
   "branch.loop.iteration": notApplicable,

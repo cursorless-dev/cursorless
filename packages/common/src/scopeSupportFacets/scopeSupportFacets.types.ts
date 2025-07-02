@@ -124,6 +124,8 @@ export const scopeSupportFacets = [
   "pairDelimiter",
 
   "branch.if",
+  "branch.if.elif.else",
+  "branch.if.else",
   "branch.if.iteration",
   "branch.try",
   "branch.try.iteration",

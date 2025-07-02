@@ -20,16 +20,15 @@
   (expression_statement)
   (for_statement)
   (goto_statement)
-  (if_statement)
   (labeled_statement)
   (return_statement)
   (switch_statement)
   (while_statement)
   ;; Disabled on purpose. This is the entire body of statements.
   ;; (compound_statement)
+  ;; Disabled on purpose. We have a better definition of this below.
+  ;; (if_statement)
 ] @statement
-
-(if_statement) @ifStatement
 
 (
   (translation_unit) @statement.iteration @class.iteration @className.iteration
@@ -241,7 +240,7 @@
     .
     (_)? @_.trailing.startOf
   ) @_dummy
-  (#not-type? @argumentOrParameter "comment")
+  (#not-type? @argumentOrParameter comment)
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
@@ -255,7 +254,7 @@
     .
     (_)? @_.trailing.startOf
   ) @_dummy
-  (#not-type? @argumentOrParameter "comment")
+  (#not-type? @argumentOrParameter comment)
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
@@ -288,6 +287,13 @@
   (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
+;;!! if () {} else {}
+;;!  ^^^^^^^^^^^^^^^^
+(
+  (if_statement) @ifStatement @statement @branch.iteration
+  (#not-parent-type? @ifStatement else_clause)
+)
+
 ;;!! if () {}
 ;;!  ^^^^^^^^
 (
@@ -299,10 +305,10 @@
       "}" @interior.end.startOf
     ) @branch.end @branch.removal.end @interior.domain.end
     alternative: (else_clause
-      (if_statement) @branch.removal.end.startOf
-    )?
+      (if_statement)? @branch.removal.end.startOf
+    )? @branch.removal.end.startOf
   ) @condition.domain
-  (#not-parent-type? @condition.domain "else_clause")
+  (#not-parent-type? @condition.domain else_clause)
   (#child-range! @condition 0 -1 true true)
 )
 
@@ -329,11 +335,6 @@
       "}" @interior.end.startOf
     )
   ) @branch @interior.domain
-)
-
-(
-  (if_statement) @branch.iteration
-  (#not-parent-type? @branch.iteration "else_clause")
 )
 
 ;;!! for (int i = 0; i < size; ++i) {}

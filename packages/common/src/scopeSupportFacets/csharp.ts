@@ -40,6 +40,8 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "functionName.method.iteration.class": supported,
 
   "branch.if": supported,
+  "branch.if.elif.else": supported,
+  "branch.if.else": supported,
   "branch.if.iteration": supported,
   "branch.try": supported,
   "branch.try.iteration": supported,

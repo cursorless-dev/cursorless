@@ -64,6 +64,8 @@ export const markdownScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.formal.constructor.multiLine": notApplicable,
   attribute: notApplicable,
   "branch.if": notApplicable,
+  "branch.if.elif.else": notApplicable,
+  "branch.if.else": notApplicable,
   "branch.if.iteration": notApplicable,
   "branch.loop": notApplicable,
   "branch.loop.iteration": notApplicable,

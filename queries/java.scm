@@ -18,7 +18,6 @@
   (enhanced_for_statement)
   (expression_statement)
   (for_statement)
-  (if_statement)
   (labeled_statement)
   (local_variable_declaration)
   (return_statement)
@@ -29,13 +28,16 @@
   (try_with_resources_statement)
   (while_statement)
   (yield_statement)
+  (method_declaration)
+  (constructor_declaration)
+  (field_declaration)
 
   ;; exceptions
   ;; ";",
   ;; "block",
-  (method_declaration)
-  (constructor_declaration)
-  (field_declaration)
+
+  ;; Disabled on purpose. We have a better definition of this below.
+  ;; (if_statement)
 ] @statement
 
 [
@@ -194,7 +196,7 @@
   (_) @interior.start
   (_)? @interior.end
   .
-  (#not-type? @interior.start "block")
+  (#not-type? @interior.start block)
 ) @_.domain
 
 (switch_expression
@@ -204,11 +206,11 @@
   )
 ) @condition.iteration.domain @branch.iteration.domain
 
-;;!! if (value) {}
-;;!  ^^^^^^^^^^^^^
+;;!! if () {} else {}
+;;!  ^^^^^^^^^^^^^^^^
 (
-  (if_statement) @ifStatement
-  (#not-parent-type? @ifStatement "if_statement")
+  (if_statement) @ifStatement @statement @branch.iteration
+  (#not-parent-type? @ifStatement if_statement)
 )
 
 ;;!! if () {}
@@ -221,9 +223,10 @@
       "{" @interior.start.endOf
       "}" @interior.end.startOf
     ) @branch.end @branch.removal.end @interior.domain.end.endOf
+    "else"? @branch.removal.end.startOf
     alternative: (if_statement)? @branch.removal.end.startOf
   ) @condition.domain
-  (#not-parent-type? @condition.domain "if_statement")
+  (#not-parent-type? @condition.domain if_statement)
   (#child-range! @condition 0 -1 true true)
 )
 
@@ -249,11 +252,6 @@
     "{" @interior.start.endOf
     "}" @interior.end.startOf
   ) @branch.end @interior.domain.end.endOf
-)
-
-(
-  (if_statement) @branch.iteration
-  (#not-parent-type? @branch.iteration "if_statement")
 )
 
 ;;!! try {}

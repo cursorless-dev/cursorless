@@ -127,6 +127,8 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "collectionItem.unenclosed.iteration": supported,
 
   "branch.if": supported,
+  "branch.if.elif.else": supported,
+  "branch.if.else": supported,
   "branch.if.iteration": supported,
   "branch.switchCase": supported,
   "branch.switchCase.iteration": supported,
