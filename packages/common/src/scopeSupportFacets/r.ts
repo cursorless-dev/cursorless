@@ -5,9 +5,11 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const rScopeSupport: LanguageScopeSupportFacetMap = {
   anonymousFunction: supported,
-  "argument.actual": supported,
+  "argument.actual.singleLine": supported,
+  "argument.actual.multiLine": supported,
   "argument.actual.iteration": supported,
-  "argument.formal": supported,
+  "argument.formal.singleLine": supported,
+  "argument.formal.multiLine": supported,
   "argument.formal.iteration": supported,
 
   "argumentList.actual.empty": supported,

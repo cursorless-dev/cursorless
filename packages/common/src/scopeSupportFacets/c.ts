@@ -31,11 +31,14 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   functionCall: supported,
   functionCallee: supported,
 
-  "argument.actual": supported,
+  "argument.actual.singleLine": supported,
+  "argument.actual.multiLine": supported,
   "argument.actual.iteration": supported,
-  "argument.actual.method": supported,
+  "argument.actual.method.singleLine": supported,
+  "argument.actual.method.multiLine": supported,
   "argument.actual.method.iteration": supported,
-  "argument.formal": supported,
+  "argument.formal.singleLine": supported,
+  "argument.formal.multiLine": supported,
   "argument.formal.iteration": supported,
 
   "argumentList.actual.empty": supported,
@@ -212,7 +215,8 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Lambda
   "argument.formal.lambda.iteration": notApplicable,
-  "argument.formal.lambda": notApplicable,
+  "argument.formal.lambda.singleLine": notApplicable,
+  "argument.formal.lambda.multiLine": notApplicable,
   "argumentList.formal.lambda.empty": notApplicable,
   "argumentList.formal.lambda.multiLine": notApplicable,
   "argumentList.formal.lambda.singleLine": notApplicable,
@@ -223,9 +227,11 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Constructor
   "argument.actual.constructor.iteration": notApplicable,
-  "argument.actual.constructor": notApplicable,
+  "argument.actual.constructor.singleLine": notApplicable,
+  "argument.actual.constructor.multiLine": notApplicable,
   "argument.formal.constructor.iteration": notApplicable,
-  "argument.formal.constructor": notApplicable,
+  "argument.formal.constructor.singleLine": notApplicable,
+  "argument.formal.constructor.multiLine": notApplicable,
   "argumentList.actual.constructor.empty": notApplicable,
   "argumentList.actual.constructor.multiLine": notApplicable,
   "argumentList.actual.constructor.singleLine": notApplicable,
@@ -247,7 +253,8 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Method
   "argument.formal.method.iteration": notApplicable,
-  "argument.formal.method": notApplicable,
+  "argument.formal.method.singleLine": notApplicable,
+  "argument.formal.method.multiLine": notApplicable,
   "argumentList.formal.method.empty": notApplicable,
   "argumentList.formal.method.multiLine": notApplicable,
   "argumentList.formal.method.singleLine": notApplicable,

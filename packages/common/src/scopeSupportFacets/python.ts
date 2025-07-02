@@ -81,19 +81,25 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "functionName.method": supported,
   "functionName.method.iteration.class": supported,
 
-  "argument.actual": supported,
+  "argument.actual.singleLine": supported,
+  "argument.actual.multiLine": supported,
   "argument.actual.iteration": supported,
-  "argument.formal": supported,
+  "argument.formal.singleLine": supported,
+  "argument.formal.multiLine": supported,
   "argument.formal.iteration": supported,
-  "argument.actual.constructor": supported,
+  "argument.actual.constructor.singleLine": supported,
+  "argument.actual.constructor.multiLine": supported,
   "argument.actual.constructor.iteration": supported,
-  "argument.actual.method": supported,
+  "argument.actual.method.singleLine": supported,
+  "argument.actual.method.multiLine": supported,
   "argument.actual.method.iteration": supported,
-  "argument.formal.constructor": supported,
+  "argument.formal.constructor.singleLine": supported,
+  "argument.formal.constructor.multiLine": supported,
   "argument.formal.constructor.iteration": supported,
-  "argument.formal.method": supported,
+  "argument.formal.method.singleLine": supported,
+  "argument.formal.method.multiLine": supported,
   "argument.formal.method.iteration": supported,
-  "argument.formal.lambda": supported,
+  "argument.formal.lambda.singleLine": supported,
   "argument.formal.lambda.iteration": supported,
 
   "argumentList.actual.empty": supported,
@@ -246,6 +252,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Multiline lambda
   "argumentList.formal.lambda.multiLine": notApplicable,
+  "argument.formal.lambda.multiLine": notApplicable,
   "interior.lambda.block": notApplicable,
 
   // Block comments

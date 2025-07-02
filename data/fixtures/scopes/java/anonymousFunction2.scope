@@ -1,15 +1,10 @@
-(value) -> {
-    return value;
-};
+() -> {};
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-2:1
-  >------------
-0| (value) -> {
-1|     return value;
-2| };
-   -<
+[Domain] = 0:0-0:8
+  >--------<
+0| () -> {};
 
 [Insertion delimiter] = "\n"
