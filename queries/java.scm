@@ -31,6 +31,7 @@
   (method_declaration)
   (constructor_declaration)
   (field_declaration)
+  (constant_declaration)
 
   ;; exceptions
   ;; ";",
@@ -40,15 +41,23 @@
   ;; (if_statement)
 ] @statement
 
-[
-  (class_declaration)
-  (interface_declaration)
-  (enum_declaration)
-] @type
+;;!! enum Foo {}
+;;!  ^^^^^^^^^^^
+(enum_declaration) @type
 
+;;!! class Foo {}
+;;!  ^^^^^^^^^^^^
+;;!        ^^^
 (class_declaration
   name: (_) @name @className
-) @class @_.domain
+) @class @type @_.domain
+
+;;!! interface Foo {}
+;;!  ^^^^^^^^^^^^^^^^
+;;!            ^^^
+(interface_declaration
+  name: (_) @name
+) @type @_.domain
 
 (
   (program) @class.iteration @className.iteration @statement.iteration
@@ -410,7 +419,7 @@
   value: (_) @value
 ) @branch @_.domain
 
-;;!! int value = 1;
+;;!! int value = 0;
 ;;!              ^
 ;;!           xxxx
 ;;!  --------------
@@ -421,10 +430,25 @@
   )
 ) @_.domain
 
+;;!! int value = 0;
+;;!  ^^^
+;;!      ^^^^^
+;;!              ^
 (field_declaration
+  type: (_) @type
   (variable_declarator
     name: (_) @name @value.leading.endOf
     value: (_)? @value @name.trailing.startOf
+  )
+) @_.domain
+
+;;!! int value;
+;;!  ^^^
+;;!      ^^^^^
+(constant_declaration
+  type: (_) @type
+  (variable_declarator
+    name: (_) @name
   )
 ) @_.domain
 
@@ -497,13 +521,6 @@
 (lambda_expression
   body: (_) @value @interior
   (#not-type? @value block)
-) @_.domain
-
-;;!! Map<int, int> foo;
-;;!  ^^^^^^^^^^^^^
-;;!  ------------------
-(field_declaration
-  type: (_) @type
 ) @_.domain
 
 ;;!! Map<int, int> foo;

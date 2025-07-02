@@ -1,48 +1,69 @@
-public class MyClass {
-    private int value;
+public class Foo {
+    private int bar;
+    private int baz = 0;
 }
 ---
 
-[#1 Content] = 0:13-0:20
-               >-------<
-0| public class MyClass {
+[#1 Content] = 0:13-0:16
+               >---<
+0| public class Foo {
 
-[#1 Removal] = 0:13-0:21
-               >--------<
-0| public class MyClass {
+[#1 Removal] = 0:13-0:17
+               >----<
+0| public class Foo {
 
 [#1 Leading delimiter] = 0:12-0:13
               >-<
-0| public class MyClass {
+0| public class Foo {
 
-[#1 Trailing delimiter] = 0:20-0:21
-                      >-<
-0| public class MyClass {
+[#1 Trailing delimiter] = 0:16-0:17
+                  >-<
+0| public class Foo {
 
-[#1 Domain] = 0:0-2:1
-  >----------------------
-0| public class MyClass {
-1|     private int value;
-2| }
+[#1 Domain] = 0:0-3:1
+  >------------------
+0| public class Foo {
+1|     private int bar;
+2|     private int baz = 0;
+3| }
    -<
 
 [#1 Insertion delimiter] = " "
 
 
-[#2 Content] = 1:16-1:21
-                  >-----<
-1|     private int value;
+[#2 Content] = 1:16-1:19
+                  >---<
+1|     private int bar;
 
-[#2 Removal] = 1:15-1:21
-                 >------<
-1|     private int value;
+[#2 Removal] = 1:15-1:19
+                 >----<
+1|     private int bar;
 
 [#2 Leading delimiter] = 1:15-1:16
                  >-<
-1|     private int value;
+1|     private int bar;
 
-[#2 Domain] = 1:4-1:22
-      >------------------<
-1|     private int value;
+[#2 Domain] = 1:4-1:20
+      >----------------<
+1|     private int bar;
 
 [#2 Insertion delimiter] = " "
+
+
+[#3 Content] = 2:16-2:19
+                  >---<
+2|     private int baz = 0;
+
+[#3 Removal] = 2:16-2:22
+                  >------<
+2|     private int baz = 0;
+
+[#3 Trailing delimiter] = 2:19-2:22
+                     >---<
+2|     private int baz = 0;
+
+[#3 Domain] = 2:4-2:24
+      >--------------------<
+2|     private int baz = 0;
+
+[#3 Insertion delimiter] = " "
