@@ -1,0 +1,73 @@
+class Foo {
+    int bar;
+    int baz = 1;
+}
+---
+
+[#1 Content] = 0:6-0:9
+        >---<
+0| class Foo {
+
+[#1 Removal] = 0:6-0:10
+        >----<
+0| class Foo {
+
+[#1 Leading delimiter] = 0:5-0:6
+       >-<
+0| class Foo {
+
+[#1 Trailing delimiter] = 0:9-0:10
+           >-<
+0| class Foo {
+
+[#1 Domain] = 0:0-3:1
+  >-----------
+0| class Foo {
+1|     int bar;
+2|     int baz = 1;
+3| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:8-1:11
+          >---<
+1|     int bar;
+
+[#2 Removal] = 1:7-1:11
+         >----<
+1|     int bar;
+
+[#2 Leading delimiter] = 1:7-1:8
+         >-<
+1|     int bar;
+
+[#2 Domain] = 1:4-1:12
+      >--------<
+1|     int bar;
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] = 2:8-2:11
+          >---<
+2|     int baz = 1;
+
+[#3 Removal] = 2:8-2:12
+          >----<
+2|     int baz = 1;
+
+[#3 Leading delimiter] = 2:7-2:8
+         >-<
+2|     int baz = 1;
+
+[#3 Trailing delimiter] = 2:11-2:12
+             >-<
+2|     int baz = 1;
+
+[#3 Domain] = 2:4-2:16
+      >------------<
+2|     int baz = 1;
+
+[#3 Insertion delimiter] = " "

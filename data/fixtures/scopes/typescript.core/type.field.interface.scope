@@ -1,0 +1,34 @@
+interface Foo {
+    bar: number;
+}
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-2:1
+  >---------------
+0| interface Foo {
+1|     bar: number;
+2| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:9-1:15
+           >------<
+1|     bar: number;
+
+[#2 Removal] = 1:7-1:15
+         >--------<
+1|     bar: number;
+
+[#2 Leading delimiter] = 1:7-1:9
+         >--<
+1|     bar: number;
+
+[#2 Domain] = 1:4-1:16
+      >------------<
+1|     bar: number;
+
+[#2 Insertion delimiter] = " "

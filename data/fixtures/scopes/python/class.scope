@@ -1,12 +1,12 @@
-class MyClass:
+class Foo:
     pass
 ---
 
 [Content] =
 [Removal] =
 [Domain] = 0:0-1:8
-  >--------------
-0| class MyClass:
+  >----------
+0| class Foo:
 1|     pass
    --------<
 
