@@ -46,7 +46,7 @@
   (if_clause
     (condition) @condition
   )
-) @ifStatement @branch.iteration @condition.domain
+) @ifStatement @condition.domain @branch.iteration
 
 ;;!! @if true { }  @else if false { }
 ;;!   xxxxxxxxxxxxxxxxxxx

@@ -44,62 +44,60 @@
 )
 
 ;; Conditionals
-;;!! if x < y then
-;;!  ---^^^^^-----
-;;!  ---xxxxxx----
-;;!! end
-;;!  ---
+
+;;!! if true then end
+;;!  ^^^^^^^^^^^^^^^^
+;;!     ^^^^
 (if_statement
-  _ @condition.domain.start.startOf
+  "if" @interior.domain.start
   condition: (_) @condition
-  consequence: (_)
-  !alternative
-  "end" @condition.domain.end.endOf
+  consequence: (_) @interior @interior.domain.end
+) @ifStatement @condition.domain @branch.iteration
+
+;;!! if true then end
+;;!  ^^^^^^^^^^^^
+(if_statement
+  "if" @branch.start @branch.removal.start
+  consequence: (_) @branch.end
+  .
+  "end" @branch.removal.end
 )
 
-;;!! if x < y then
-;;!  ---^^^^^-----
-;;!  ---xxxxxx----
-;;!! elseif x < y then
+;;!! if true then elseif false then
+;;!  ^^^^^^^^^^^^
 (if_statement
-  _ @_.domain.start.startOf
-  condition: (_) @condition
-  consequence: (_) @_.domain.end.endOf
-  alternative: (_)
+  "if" @branch.start @branch.removal.start.startOf
+  consequence: (_) @branch.end
+  .
+  alternative: (elseif_statement) @branch.removal.end.startOf
+  (#character-range! @branch.removal.end.startOf 4)
 )
 
-;;!! elseif x < y then
-;;!  -------^^^^^-----
-;;!  -------xxxxxx----
+;;!! if true then else then
+;;!  ^^^^^^^^^^^^
+(if_statement
+  "if" @branch.start @branch.removal.start.startOf
+  consequence: (_) @branch.end
+  .
+  alternative: (else_statement) @branch.removal.end.startOf
+)
+
+;;!! elseif true then
+;;!  ^^^^^^^^^^^^^^^^
+;;!         ^^^^
 (elseif_statement
   condition: (_) @condition
-) @_.domain
+  consequence: (_) @interior
+) @branch @_.domain
 
-;;!!
-(if_statement
-  "if" @branch.start @interior.domain.start
-  consequence: (_) @branch.end @interior @interior.domain.end
-) @ifStatement @branch.iteration @condition.iteration
+;;!! else then
+;;!  ^^^^^^^^^
+(else_statement
+  body: (_) @interior
+) @branch @interior.domain
 
-;;!! if x < y then
-;;!!     print("x smaller")
-;;!! else
-;;!  ^^^^
-;;!!     print("x bigger")
-;;!      ^^^^^^^^^^^^^^^^^
-;;!! end
-[
-  (elseif_statement
-    consequence: (_) @interior
-  )
-  (else_statement
-    body: (_) @interior
-  )
-] @branch @interior.domain
-
-;;!! while i <= 5 do
-;;!        ^^^^^^
-;;!        xxxxxx
+;;!! while true do
+;;!        ^^^^
 (while_statement
   condition: (_) @condition
 ) @_.domain
