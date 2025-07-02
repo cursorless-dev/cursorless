@@ -1,0 +1,22 @@
+class Foo {
+  bar = 0;
+}
+---
+
+[Content] = 1:8-1:9
+          >-<
+1|   bar = 0;
+
+[Removal] = 1:5-1:9
+       >----<
+1|   bar = 0;
+
+[Leading delimiter] = 1:5-1:8
+       >---<
+1|   bar = 0;
+
+[Domain] = 1:2-1:10
+    >--------<
+1|   bar = 0;
+
+[Insertion delimiter] = " "

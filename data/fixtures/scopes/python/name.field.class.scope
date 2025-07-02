@@ -1,5 +1,5 @@
 class Foo:
-    name: str
+    bar: int
 ---
 
 [#1 Content] = 0:6-0:9
@@ -14,29 +14,29 @@ class Foo:
        >-<
 0| class Foo:
 
-[#1 Domain] = 0:0-1:13
+[#1 Domain] = 0:0-1:12
   >----------
 0| class Foo:
-1|     name: str
-   -------------<
+1|     bar: int
+   ------------<
 
 [#1 Insertion delimiter] = " "
 
 
-[#2 Content] = 1:4-1:8
-      >----<
-1|     name: str
+[#2 Content] = 1:4-1:7
+      >---<
+1|     bar: int
 
-[#2 Removal] = 1:0-1:8
-  >--------<
-1|     name: str
+[#2 Removal] = 1:0-1:7
+  >-------<
+1|     bar: int
 
 [#2 Leading delimiter] = 1:0-1:4
   >----<
-1|     name: str
+1|     bar: int
 
-[#2 Domain] = 1:4-1:13
-      >---------<
-1|     name: str
+[#2 Domain] = 1:4-1:12
+      >--------<
+1|     bar: int
 
 [#2 Insertion delimiter] = " "

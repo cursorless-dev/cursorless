@@ -15,7 +15,7 @@ export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.constructor.iteration": supported,
   "type.alias": supported,
   "type.cast": supported,
-  "type.field": supported,
+  "type.field.class": supported,
   "type.interface": supported,
   "type.enum": supported,
   "type.return": supported,

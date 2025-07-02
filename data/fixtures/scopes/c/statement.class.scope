@@ -1,48 +1,48 @@
-struct aaa { int bbb; };
-union bbb { int ccc; };
-enum ccc { ddd, eee };
+struct aaa {};
+union bbb {};
+enum ccc {};
 
-typedef struct { int fff; } ggg;
-typedef union { int hhh; } iii;
-typedef enum { jjj, kkk } lll;
+typedef struct {} ddd;
+typedef union {} eee;
+typedef enum {} fff;
 ---
 
 [#1 Content] =
-[#1 Domain] = 0:0-0:24
-  >------------------------<
-0| struct aaa { int bbb; };
+[#1 Domain] = 0:0-0:14
+  >--------------<
+0| struct aaa {};
 
 [#1 Removal] = 0:0-1:0
-  >------------------------
-0| struct aaa { int bbb; };
-1| union bbb { int ccc; };
+  >--------------
+0| struct aaa {};
+1| union bbb {};
    <
 
 [#1 Insertion delimiter] = "\n"
 
 
 [#2 Content] =
-[#2 Domain] = 1:0-1:23
-  >-----------------------<
-1| union bbb { int ccc; };
+[#2 Domain] = 1:0-1:13
+  >-------------<
+1| union bbb {};
 
 [#2 Removal] = 1:0-2:0
-  >-----------------------
-1| union bbb { int ccc; };
-2| enum ccc { ddd, eee };
+  >-------------
+1| union bbb {};
+2| enum ccc {};
    <
 
 [#2 Insertion delimiter] = "\n"
 
 
 [#3 Content] =
-[#3 Domain] = 2:0-2:22
-  >----------------------<
-2| enum ccc { ddd, eee };
+[#3 Domain] = 2:0-2:12
+  >------------<
+2| enum ccc {};
 
 [#3 Removal] = 2:0-3:0
-  >----------------------
-2| enum ccc { ddd, eee };
+  >------------
+2| enum ccc {};
 3|
    <
 
@@ -50,42 +50,42 @@ typedef enum { jjj, kkk } lll;
 
 
 [#4 Content] =
-[#4 Domain] = 4:0-4:32
-  >--------------------------------<
-4| typedef struct { int fff; } ggg;
+[#4 Domain] = 4:0-4:22
+  >----------------------<
+4| typedef struct {} ddd;
 
 [#4 Removal] = 4:0-5:0
-  >--------------------------------
-4| typedef struct { int fff; } ggg;
-5| typedef union { int hhh; } iii;
+  >----------------------
+4| typedef struct {} ddd;
+5| typedef union {} eee;
    <
 
 [#4 Insertion delimiter] = "\n"
 
 
 [#5 Content] =
-[#5 Domain] = 5:0-5:31
-  >-------------------------------<
-5| typedef union { int hhh; } iii;
+[#5 Domain] = 5:0-5:21
+  >---------------------<
+5| typedef union {} eee;
 
 [#5 Removal] = 5:0-6:0
-  >-------------------------------
-5| typedef union { int hhh; } iii;
-6| typedef enum { jjj, kkk } lll;
+  >---------------------
+5| typedef union {} eee;
+6| typedef enum {} fff;
    <
 
 [#5 Insertion delimiter] = "\n"
 
 
 [#6 Content] =
-[#6 Domain] = 6:0-6:30
-  >------------------------------<
-6| typedef enum { jjj, kkk } lll;
+[#6 Domain] = 6:0-6:20
+  >--------------------<
+6| typedef enum {} fff;
 
-[#6 Removal] = 5:31-6:30
-                                 >
-5| typedef union { int hhh; } iii;
-6| typedef enum { jjj, kkk } lll;
-   ------------------------------<
+[#6 Removal] = 5:21-6:20
+                       >
+5| typedef union {} eee;
+6| typedef enum {} fff;
+   --------------------<
 
 [#6 Insertion delimiter] = "\n"

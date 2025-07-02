@@ -228,15 +228,8 @@
 
 (interface_declaration
   body: (_
-    "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
-    "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
-  )
-)
-
-(interface_declaration
-  body: (_
-    "{" @statement.iteration.start.endOf
-    "}" @statement.iteration.end.startOf
+    "{" @statement.iteration.start.endOf @name.iteration.start.endOf @type.iteration.start.endOf
+    "}" @statement.iteration.end.startOf @name.iteration.end.startOf @type.iteration.end.startOf
   )
 )
 

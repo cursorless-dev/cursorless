@@ -167,13 +167,13 @@
   declarator: (_
     !declarator
   ) @name
-) @_.domain
+) @statement @name.domain
 
 (field_declaration
   declarator: (_
     declarator: (_) @name
   )
-) @_.domain
+) @statement @name.domain
 
 (initializer_list) @list
 

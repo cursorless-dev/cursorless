@@ -1,22 +1,22 @@
 class Foo {
-    int aaa = 2;
+    int bar = 1;
 }
 ---
 
 [Content] = 1:14-1:15
                 >-<
-1|     int aaa = 2;
+1|     int bar = 1;
 
 [Removal] = 1:11-1:15
              >----<
-1|     int aaa = 2;
+1|     int bar = 1;
 
 [Leading delimiter] = 1:11-1:14
              >---<
-1|     int aaa = 2;
+1|     int bar = 1;
 
 [Domain] = 1:4-1:16
       >------------<
-1|     int aaa = 2;
+1|     int bar = 1;
 
 [Insertion delimiter] = " "

@@ -1,4 +1,4 @@
-public class MyClass {
+public class Foo {
     private int value = 123;
 }
 ---
