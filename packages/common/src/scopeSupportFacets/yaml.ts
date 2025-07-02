@@ -27,7 +27,17 @@ export const yamlScopeSupport: LanguageScopeSupportFacetMap = {
   "textFragment.string.singleLine": supported,
   "textFragment.comment.line": supported,
 
-  // Not applicable
+  /* NOT APPLICABLE */
+
+  // Interface
+  "statement.interface": notApplicable,
+  "statement.iteration.interface": notApplicable,
+  "interior.interface": notApplicable,
+  "name.interface": notApplicable,
+  "name.iteration.interface": notApplicable,
+  "value.iteration.interface": notApplicable,
+  "type.interface": notApplicable,
+  "type.iteration.interface": notApplicable,
 
   anonymousFunction: notApplicable,
   "argument.actual.singleLine": notApplicable,
@@ -195,7 +205,6 @@ export const yamlScopeSupport: LanguageScopeSupportFacetMap = {
   "type.enum": notApplicable,
   "type.field": notApplicable,
   "type.foreach": notApplicable,
-  "type.interface": notApplicable,
   "type.variable": notApplicable,
   "type.return": notApplicable,
   "type.resource": notApplicable,

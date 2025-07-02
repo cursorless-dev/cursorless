@@ -66,6 +66,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal": supported,
   "name.assignment": supported,
   "name.class": supported,
+  "name.interface": supported,
   "name.constructor": supported,
   "name.field": supported,
   "name.foreach": supported,
@@ -74,6 +75,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "name.variable": supported,
   "name.iteration.block": supported,
   "name.iteration.class": supported,
+  "name.iteration.interface": supported,
   "name.iteration.document": supported,
 
   "value.argument.formal.constructor": supported,
@@ -93,6 +95,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "value.yield": supported,
   "value.iteration.block": supported,
   "value.iteration.class": supported,
+  "value.iteration.interface": supported,
   "value.iteration.document": supported,
 
   "type.argument.formal": supported,
@@ -103,9 +106,9 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.constructor.iteration": supported,
   "type.cast": supported,
   "type.class": supported,
+  "type.interface": supported,
   "type.foreach": supported,
   "type.field": supported,
-  "type.interface": supported,
   "type.enum": supported,
   "type.return": supported,
   "type.variable": supported,
@@ -113,6 +116,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "type.typeArgument.iteration": supported,
   "type.iteration.block": supported,
   "type.iteration.class": supported,
+  "type.iteration.interface": supported,
   "type.iteration.document": supported,
 
   "key.mapPair": supported,
@@ -166,8 +170,10 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   ifStatement: supported,
   statement: supported,
   "statement.class": supported,
+  "statement.interface": supported,
   "statement.iteration.block": supported,
   "statement.iteration.class": supported,
+  "statement.iteration.interface": supported,
   "statement.iteration.document": supported,
 
   "string.singleLine": supported,
@@ -179,6 +185,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "textFragment.comment.block": supported,
 
   "interior.class": supported,
+  "interior.interface": supported,
   "interior.function": supported,
   "interior.constructor": supported,
   "interior.method": supported,

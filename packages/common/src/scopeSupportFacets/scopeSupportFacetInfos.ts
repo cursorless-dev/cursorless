@@ -88,14 +88,22 @@ export const scopeSupportFacetInfos: Record<
     description: "A class declaration",
     scopeType: "statement",
   },
+  "statement.interface": {
+    description: "A interface declaration",
+    scopeType: "statement",
+  },
   "statement.iteration.document": {
     description: "Iteration scope for statements. The entire document.",
     scopeType: "statement",
     isIteration: true,
   },
   "statement.iteration.class": {
-    description:
-      "Iteration scope for type in a class / interface; should be entire class / interface body",
+    description: "Iteration scope for types; class body",
+    scopeType: "statement",
+    isIteration: true,
+  },
+  "statement.iteration.interface": {
+    description: "Iteration scope for types; interface body",
     scopeType: "statement",
     isIteration: true,
   },
@@ -631,6 +639,10 @@ export const scopeSupportFacetInfos: Record<
     description: "Name of a class",
     scopeType: "name",
   },
+  "name.interface": {
+    description: "Name of a interface",
+    scopeType: "name",
+  },
   "name.namespace": {
     description: "Name of a namespace",
     scopeType: "name",
@@ -647,6 +659,11 @@ export const scopeSupportFacetInfos: Record<
   },
   "name.iteration.class": {
     description: "Iteration scope for names: class body",
+    scopeType: "name",
+    isIteration: true,
+  },
+  "name.iteration.interface": {
+    description: "Iteration scope for names: interface body",
     scopeType: "name",
     isIteration: true,
   },
@@ -779,6 +796,11 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "value",
     isIteration: true,
   },
+  "value.iteration.interface": {
+    description: "Iteration scope for values: interface body",
+    scopeType: "value",
+    isIteration: true,
+  },
   "value.iteration.document": {
     description: "Iteration scope for values: the entire document",
     scopeType: "value",
@@ -885,16 +907,16 @@ export const scopeSupportFacetInfos: Record<
     description: "Type of variable in a for each loop",
     scopeType: "type",
   },
-  "type.interface": {
-    description: "An interface declaration",
-    scopeType: "type",
-  },
   "type.enum": {
     description: "An enum declaration",
     scopeType: "type",
   },
   "type.class": {
     description: "A class declaration",
+    scopeType: "type",
+  },
+  "type.interface": {
+    description: "An interface declaration",
     scopeType: "type",
   },
   "type.alias": {
@@ -932,13 +954,17 @@ export const scopeSupportFacetInfos: Record<
     isIteration: true,
   },
   "type.iteration.class": {
-    description:
-      "Iteration scope for type in a class / interface; should be entire class / interface body",
+    description: "Iteration scope for types; class body",
+    scopeType: "type",
+    isIteration: true,
+  },
+  "type.iteration.interface": {
+    description: "Iteration scope for types; interface body",
     scopeType: "type",
     isIteration: true,
   },
   "type.iteration.document": {
-    description: "Iteration scope for a type. This is the entire document.",
+    description: "Iteration scope for types; entire document.",
     scopeType: "type",
     isIteration: true,
   },
@@ -957,6 +983,10 @@ export const scopeSupportFacetInfos: Record<
   },
   "interior.class": {
     description: "The body of a class",
+    scopeType: { type: "interior" },
+  },
+  "interior.interface": {
+    description: "The body of a interface",
     scopeType: { type: "interior" },
   },
   "interior.function": {

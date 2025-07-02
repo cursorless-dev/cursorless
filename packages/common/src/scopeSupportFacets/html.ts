@@ -18,7 +18,17 @@ export const htmlScopeSupport: LanguageScopeSupportFacetMap = {
   startTag: supported,
   tags: supported,
 
-  // Not applicable
+  /* NOT APPLICABLE */
+
+  // Interface
+  "statement.interface": notApplicable,
+  "statement.iteration.interface": notApplicable,
+  "interior.interface": notApplicable,
+  "name.interface": notApplicable,
+  "name.iteration.interface": notApplicable,
+  "value.iteration.interface": notApplicable,
+  "type.interface": notApplicable,
+  "type.iteration.interface": notApplicable,
 
   "argument.actual.constructor.iteration": notApplicable,
   "argument.actual.constructor.singleLine": notApplicable,
@@ -167,7 +177,6 @@ export const htmlScopeSupport: LanguageScopeSupportFacetMap = {
   "type.enum": notApplicable,
   "type.field": notApplicable,
   "type.foreach": notApplicable,
-  "type.interface": notApplicable,
   "type.resource": notApplicable,
   "type.resource.iteration": notApplicable,
   "type.return": notApplicable,

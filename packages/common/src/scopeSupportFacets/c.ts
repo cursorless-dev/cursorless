@@ -190,9 +190,18 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.try.iteration": notApplicable,
   "interior.try": notApplicable,
 
+  // Interface
+  "statement.interface": notApplicable,
+  "statement.iteration.interface": notApplicable,
+  "interior.interface": notApplicable,
+  "name.interface": notApplicable,
+  "name.iteration.interface": notApplicable,
+  "value.iteration.interface": notApplicable,
+  "type.interface": notApplicable,
+  "type.iteration.interface": notApplicable,
+
   // Miscellaneous
   "key.attribute": notApplicable,
-  "type.interface": notApplicable,
   "value.attribute": notApplicable,
   "value.yield": notApplicable,
   "value.field": notApplicable,

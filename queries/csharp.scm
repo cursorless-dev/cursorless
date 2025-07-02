@@ -217,6 +217,29 @@
   )
 )
 
+;;!! interface IFoo {}
+;;!  ^^^^^^^^^^^^^^^^^
+(interface_declaration
+  body: (_
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+  )
+) @type @interior.domain
+
+(interface_declaration
+  body: (_
+    "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+    "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+  )
+)
+
+(interface_declaration
+  body: (_
+    "{" @statement.iteration.start.endOf
+    "}" @statement.iteration.end.startOf
+  )
+)
+
 ;;!! "Hello world"
 (
   (string_literal) @string @textFragment
@@ -475,11 +498,7 @@
 ) @_.domain
 
 ;;!! enum Foo {}
-;;!! interface IFoo {}
-[
-  (enum_declaration)
-  (interface_declaration)
-] @type
+(enum_declaration) @type
 
 ;; Dictionary<string, int> values;
 ;;!           ^^^^^^  ^^^

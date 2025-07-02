@@ -7,4 +7,4 @@ interface IFoo {}
   >-----------------<
 0| interface IFoo {}
 
-[Insertion delimiter] = " "
+[Insertion delimiter] = "\n"
