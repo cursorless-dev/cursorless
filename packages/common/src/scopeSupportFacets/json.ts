@@ -47,11 +47,14 @@ export const jsonScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Interface
   "statement.interface": notApplicable,
+  "statement.field.interface": notApplicable,
   "statement.iteration.interface": notApplicable,
   "interior.interface": notApplicable,
   "name.interface": notApplicable,
+  "name.field.interface": notApplicable,
   "name.iteration.interface": notApplicable,
   "type.interface": notApplicable,
+  "type.field.interface": notApplicable,
   "type.iteration.interface": notApplicable,
 
   anonymousFunction: notApplicable,
