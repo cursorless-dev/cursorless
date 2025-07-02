@@ -24,6 +24,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
 
   statement: supported,
   "statement.class": supported,
+  "statement.field.class": supported,
   "statement.iteration.document": supported,
   "statement.iteration.class": supported,
   "statement.iteration.block": supported,
@@ -254,9 +255,10 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   ...javascriptCoreScopeSupport,
   ...javascriptJsxScopeSupport,
 
-  // Types are defined here because we don't want typescript to import them and
+  // These are defined here because we don't want typescript to import them and
   // accidentally forget to add support for them.
 
+  // Type
   "type.argument.formal": notApplicable,
   "type.argument.formal.iteration": notApplicable,
   "type.argument.formal.method": notApplicable,
@@ -266,6 +268,7 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   "type.alias": notApplicable,
   "type.cast": notApplicable,
   "type.field.class": notApplicable,
+  "type.field.interface": notApplicable,
   "type.foreach": notApplicable,
   "type.interface": notApplicable,
   "type.enum": notApplicable,
@@ -275,7 +278,16 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   "type.typeArgument.iteration": notApplicable,
   "type.iteration.block": notApplicable,
   "type.iteration.class": notApplicable,
+  "type.iteration.interface": notApplicable,
   "type.iteration.document": notApplicable,
-
   "value.typeAlias": notApplicable,
+
+  // Interface
+  "statement.interface": notApplicable,
+  "statement.field.interface": notApplicable,
+  "statement.iteration.interface": notApplicable,
+  "interior.interface": notApplicable,
+  "name.interface": notApplicable,
+  "name.field.interface": notApplicable,
+  "name.iteration.interface": notApplicable,
 };

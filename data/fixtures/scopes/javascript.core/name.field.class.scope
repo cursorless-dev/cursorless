@@ -1,5 +1,6 @@
 class Foo {
-  bar = 0;
+  bar;
+  baz = 0;
 }
 ---
 
@@ -19,11 +20,12 @@ class Foo {
            >-<
 0| class Foo {
 
-[#1 Domain] = 0:0-2:1
+[#1 Domain] = 0:0-3:1
   >-----------
 0| class Foo {
-1|   bar = 0;
-2| }
+1|   bar;
+2|   baz = 0;
+3| }
    -<
 
 [#1 Insertion delimiter] = " "
@@ -31,18 +33,37 @@ class Foo {
 
 [#2 Content] = 1:2-1:5
     >---<
-1|   bar = 0;
+1|   bar;
 
-[#2 Removal] = 1:2-1:8
-    >------<
-1|   bar = 0;
+[#2 Removal] = 1:0-1:5
+  >-----<
+1|   bar;
 
-[#2 Trailing delimiter] = 1:5-1:8
-       >---<
-1|   bar = 0;
+[#2 Leading delimiter] = 1:0-1:2
+  >--<
+1|   bar;
 
-[#2 Domain] = 1:2-1:10
-    >--------<
-1|   bar = 0;
+[#2 Domain] = 1:2-1:6
+    >----<
+1|   bar;
 
 [#2 Insertion delimiter] = " "
+
+
+[#3 Content] = 2:2-2:5
+    >---<
+2|   baz = 0;
+
+[#3 Removal] = 2:2-2:8
+    >------<
+2|   baz = 0;
+
+[#3 Trailing delimiter] = 2:5-2:8
+       >---<
+2|   baz = 0;
+
+[#3 Domain] = 2:2-2:10
+    >--------<
+2|   baz = 0;
+
+[#3 Insertion delimiter] = " "
