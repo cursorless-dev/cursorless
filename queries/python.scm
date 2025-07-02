@@ -18,7 +18,6 @@
   (function_definition)
   (future_import_statement)
   (global_statement)
-  (if_statement)
   (import_from_statement)
   (import_statement)
   (match_statement)
@@ -30,6 +29,8 @@
   (try_statement)
   (while_statement)
   (with_statement)
+  ;; Disabled on purpose. We have a better definition of this below.
+  ;; (if_statement)
 ] @statement
 
 ;;!! a = 25
@@ -395,10 +396,6 @@
   ")" @value.iteration.end.startOf @name.iteration.end.startOf @type.iteration.end.startOf
 )
 
-;;!! if true: pass
-;;!  ^^^^^^^^^^^^^
-(if_statement) @ifStatement
-
 ;;!! foo()
 ;;!  ^^^^^
 (call) @functionCall
@@ -507,11 +504,34 @@
   (#not-parent-type? @_.removal case_clause)
 ) @_.domain
 
+;;!! if true: pass else: pass
+;;!  ^^^^^^^^^^^^^^^^^^^^^^^^
+(if_statement) @ifStatement @statement @branch.iteration
+
 ;;!! if True: pass
 ;;!  ^^^^^^^^^^^^^
 (if_statement
-  "if" @branch.start @interior.domain.start
-  consequence: (_) @branch.end @interior @interior.domain.end
+  "if" @interior.domain.start
+  consequence: (_) @interior @interior.domain.end
+)
+
+;;!! if True: pass
+;;!  ^^^^^^^^^^^^^
+(if_statement
+  "if" @branch.start @branch.removal.start
+  consequence: (_) @branch.end @branch.removal.end
+  alternative: (else_clause)? @branch.removal.end.startOf
+)
+
+;;!! if True: pass elif False: pass
+;;!  ^^^^^^^^^^^^^
+(if_statement
+  "if" @branch.start @branch.removal.start
+  consequence: (_) @branch.end @branch.removal.end
+  alternative: (elif_clause
+    "elif" @branch.removal.end.startOf
+    (#character-range! @branch.removal.end.startOf 2)
+  )
 )
 
 ;;!! elif True: pass
@@ -525,8 +545,6 @@
 (else_clause
   body: (_) @interior
 ) @branch @interior.domain
-
-(if_statement) @branch.iteration
 
 ;;!! try: pass
 ;;!  ^^^^^^^^^
