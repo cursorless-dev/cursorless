@@ -83,6 +83,8 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   attribute: notApplicable,
   "branch.if.iteration": notApplicable,
   "branch.if": notApplicable,
+  "branch.if.elif.else": notApplicable,
+  "branch.if.else": notApplicable,
   "branch.loop": notApplicable,
   "branch.loop.iteration": notApplicable,
   "branch.switchCase.iteration": notApplicable,

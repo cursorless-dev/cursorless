@@ -492,7 +492,16 @@ export const scopeSupportFacetInfos: Record<
   },
 
   "branch.if": {
-    description: "An if/elif/else branch",
+    description: "An if branch",
+    scopeType: "branch",
+  },
+  "branch.if.elif.else": {
+    description:
+      "An if-elif-else branch. The removal range for the if branch should include the trailing `else` keyword.",
+    scopeType: "branch",
+  },
+  "branch.if.else": {
+    description: "An if-else branch",
     scopeType: "branch",
   },
   "branch.if.iteration": {

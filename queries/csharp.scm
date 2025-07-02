@@ -33,7 +33,6 @@
   (for_each_statement)
   (for_statement)
   (goto_statement)
-  (if_statement)
   (labeled_statement)
   (local_declaration_statement)
   (local_function_statement)
@@ -46,6 +45,8 @@
   (using_statement)
   (while_statement)
   (yield_statement)
+  ;; Disabled on purpose. We have a better definition of this below.
+  ;; (if_statement)
 ] @statement
 
 (
@@ -85,9 +86,12 @@
   (#not-type? @_.domain try_statement if_statement)
 )
 
-;;!! if () {}
-;;!  ^^^^^^^^
-(if_statement) @ifStatement
+;;!! if () {} else {}
+;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(
+  (if_statement) @ifStatement @statement @branch.iteration
+  (#not-parent-type? @ifStatement if_statement)
+)
 
 ;;!! if () {}
 ;;!  ^^^^^^^^
@@ -95,10 +99,12 @@
   (if_statement
     condition: (_) @condition
     consequence: (_) @branch.end.endOf @branch.removal.end.endOf
-    alternative: (_)? @branch.removal.end.startOf
+    "else"? @branch.removal.end.startOf
+    alternative: (if_statement)? @branch.removal.end.startOf
   ) @branch.start.startOf @branch.removal.start.startOf @condition.domain
   (#not-parent-type? @condition.domain if_statement)
 )
+
 (
   (if_statement
     consequence: (_
@@ -130,13 +136,6 @@
     "{" @interior.start.endOf
     "}" @interior.end.startOf
   ) @branch.end @interior.domain.end.endOf
-)
-
-;;!! if () {} else if () {} else {}
-;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-(
-  (if_statement) @branch.iteration
-  (#not-parent-type? @branch.iteration if_statement)
 )
 
 ;;!! try () {}
