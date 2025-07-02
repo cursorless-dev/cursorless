@@ -38,17 +38,20 @@ suite("Scope test cases", async function () {
       languages[language] ??= [];
     }
 
-    Object.entries(languages).forEach(([languageId, testPaths]) =>
-      test(
-        `${languageId} facet coverage`,
-        asyncSafety(() =>
-          testLanguageSupport(
-            languageId,
-            testPaths.map((test) => test.facet),
+    Object.keys(languages)
+      .sort()
+      .forEach((languageId) => {
+        const tests = languages[languageId];
+        test(
+          `${languageId} facet coverage`,
+          asyncSafety(() =>
+            testLanguageSupport(
+              languageId,
+              tests.map((test) => test.facet),
+            ),
           ),
-        ),
-      ),
-    );
+        );
+      });
   }
 
   testPaths.forEach(({ path, name, languageId, facet }) =>
