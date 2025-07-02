@@ -1,10 +1,10 @@
-class foo {};
+class Foo {};
 ---
 
 [Content] =
 [Removal] =
 [Domain] = 0:0-0:13
   >-------------<
-0| class foo {};
+0| class Foo {};
 
 [Insertion delimiter] = "\n"
