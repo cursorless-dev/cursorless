@@ -185,6 +185,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   ifStatement: supported,
   statement: supported,
   "statement.class": supported,
+  "statement.field.class": supported,
   "statement.iteration.block": supported,
   "statement.iteration.class": supported,
   "statement.iteration.document": supported,
@@ -244,6 +245,8 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "type.enum": notApplicable,
   "type.foreach": notApplicable,
   "type.interface": notApplicable,
+  "type.field.interface": notApplicable,
+  "type.iteration.interface": notApplicable,
   "type.resource.iteration": notApplicable,
   "type.resource": notApplicable,
   "value.typeAlias": notApplicable,
@@ -260,6 +263,15 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   // Block comments
   "comment.block": notApplicable,
   "textFragment.comment.block": notApplicable,
+
+  // Interface
+  "statement.interface": notApplicable,
+  "statement.field.interface": notApplicable,
+  "statement.iteration.interface": notApplicable,
+  "interior.interface": notApplicable,
+  "name.interface": notApplicable,
+  "name.field.interface": notApplicable,
+  "name.iteration.interface": notApplicable,
 
   "interior.static": notApplicable,
   environment: notApplicable,
