@@ -1,26 +1,26 @@
-public class MyClass {
-    public void foo(
-        String name,
-        int age
+public class Foo {
+    public void bar(
+        int aaa,
+        int bbb
     ) {}
 }
 ---
 
 [#1 Content] =
-[#1 Domain] = 2:8-2:19
-          >-----------<
-2|         String name,
+[#1 Domain] = 2:8-2:15
+          >-------<
+2|         int aaa,
 
 [#1 Removal] = 2:8-3:8
-          >------------
-2|         String name,
-3|         int age
+          >--------
+2|         int aaa,
+3|         int bbb
    --------<
 
-[#1 Trailing delimiter] = 2:19-3:8
-                     >-
-2|         String name,
-3|         int age
+[#1 Trailing delimiter] = 2:15-3:8
+                 >-
+2|         int aaa,
+3|         int bbb
    --------<
 
 [#1 Insertion delimiter] = ",\n"
@@ -29,18 +29,18 @@ public class MyClass {
 [#2 Content] =
 [#2 Domain] = 3:8-3:15
           >-------<
-3|         int age
+3|         int bbb
 
-[#2 Removal] = 2:19-3:15
-                     >-
-2|         String name,
-3|         int age
+[#2 Removal] = 2:15-3:15
+                 >-
+2|         int aaa,
+3|         int bbb
    ---------------<
 
-[#2 Leading delimiter] = 2:19-3:8
-                     >-
-2|         String name,
-3|         int age
+[#2 Leading delimiter] = 2:15-3:8
+                 >-
+2|         int aaa,
+3|         int bbb
    --------<
 
 [#2 Insertion delimiter] = ",\n"

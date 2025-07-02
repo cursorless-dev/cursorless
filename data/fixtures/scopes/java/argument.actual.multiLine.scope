@@ -1,4 +1,4 @@
-myFunk(
+foo(
     aaa,
     bbb
 );
