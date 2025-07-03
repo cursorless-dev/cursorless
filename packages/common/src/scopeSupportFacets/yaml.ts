@@ -63,6 +63,12 @@ export const yamlScopeSupport: LanguageScopeSupportFacetMap = {
   "type.field.interface": notApplicable,
   "type.iteration.interface": notApplicable,
 
+  // Command
+  command: notApplicable,
+  "name.command": notApplicable,
+  "value.command": notApplicable,
+  "interior.command": notApplicable,
+
   anonymousFunction: notApplicable,
   "argument.actual.singleLine": notApplicable,
   "argument.actual.multiLine": notApplicable,
@@ -119,7 +125,6 @@ export const yamlScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.ternary.iteration": notApplicable,
   "branch.try": notApplicable,
   "branch.try.iteration": notApplicable,
-  command: notApplicable,
   "comment.block": notApplicable,
   "condition.doWhile": notApplicable,
   "condition.for": notApplicable,
@@ -143,7 +148,6 @@ export const yamlScopeSupport: LanguageScopeSupportFacetMap = {
   "functionName.method": notApplicable,
   ifStatement: notApplicable,
   "interior.cell": notApplicable,
-  "interior.command": notApplicable,
   "interior.element": notApplicable,
   "interior.function": notApplicable,
   "interior.constructor": notApplicable,

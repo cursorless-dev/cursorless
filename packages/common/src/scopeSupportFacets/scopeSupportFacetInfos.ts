@@ -618,6 +618,10 @@ export const scopeSupportFacetInfos: Record<
     description: "LHS of an assignment with pattern destructuring",
     scopeType: "name",
   },
+  "name.command": {
+    description: "LHS of a command, eg Talon spoken command or bash",
+    scopeType: "name",
+  },
   "name.variable": {
     description: "Name (LHS) of a variable declaration",
     scopeType: "name",
@@ -752,6 +756,10 @@ export const scopeSupportFacetInfos: Record<
 
   "value.assignment": {
     description: "Value (RHS) of an assignment",
+    scopeType: "value",
+  },
+  "value.command": {
+    description: "Value (RHS) of an command, eg Talon spoken command",
     scopeType: "value",
   },
   "value.variable": {
@@ -985,7 +993,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: { type: "interior" },
   },
   "interior.command": {
-    description: "The body of a Talon command",
+    description: "The body of a command, eg Talon spoken command",
     scopeType: { type: "interior" },
   },
   "interior.cell": {

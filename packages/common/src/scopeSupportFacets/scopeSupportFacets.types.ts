@@ -153,6 +153,7 @@ export const scopeSupportFacets = [
 
   "name.assignment",
   "name.assignment.pattern",
+  "name.command",
   "name.variable",
   "name.variable.pattern",
   "name.foreach",
@@ -184,6 +185,7 @@ export const scopeSupportFacets = [
   "key.mapPair.iteration",
 
   "value.assignment",
+  "value.command",
   "value.variable",
   "value.variable.pattern",
   "value.mapPair",
