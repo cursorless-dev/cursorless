@@ -54,6 +54,12 @@ export const xmlScopeSupport: LanguageScopeSupportFacetMap = {
   "type.field.interface": notApplicable,
   "type.iteration.interface": notApplicable,
 
+  // Command
+  command: notApplicable,
+  "name.command": notApplicable,
+  "value.command": notApplicable,
+  "interior.command": notApplicable,
+
   anonymousFunction: notApplicable,
   "argument.actual.singleLine": notApplicable,
   "argument.actual.multiLine": notApplicable,
@@ -111,7 +117,6 @@ export const xmlScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.try.iteration": notApplicable,
   "collectionItem.unenclosed": notApplicable,
   "collectionItem.unenclosed.iteration": notApplicable,
-  command: notApplicable,
   "comment.line": notApplicable,
   "condition.doWhile": notApplicable,
   "condition.for": notApplicable,
@@ -134,7 +139,6 @@ export const xmlScopeSupport: LanguageScopeSupportFacetMap = {
   "functionName.method": notApplicable,
   ifStatement: notApplicable,
   "interior.cell": notApplicable,
-  "interior.command": notApplicable,
   "interior.function": notApplicable,
   "interior.constructor": notApplicable,
   "interior.method": notApplicable,

@@ -17,6 +17,7 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.command": supported,
 
   "name.assignment": supported,
+  "name.command": supported,
   "name.variable": supported,
   "name.iteration.block": supported,
   "name.iteration.document": supported,
@@ -25,6 +26,7 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.iteration.document": supported,
 
   "value.assignment": supported,
+  "value.command": supported,
   "value.variable": supported,
   "value.iteration.block": supported,
   "value.iteration.document": supported,
@@ -37,9 +39,10 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "textFragment.comment.line": supported,
   "textFragment.string.singleLine": supported,
 
-  // Talon files doesn't actually have classes, but we are incorrectly using this facet for the command
-  "name.field.class": supported,
-  "value.field.class": supported,
+  "key.mapPair": supported,
+  "key.mapPair.iteration": supported,
+  "value.mapPair": supported,
+  "value.mapPair.iteration": supported,
 
   /* UNSUPPORTED */
 
@@ -55,6 +58,7 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "className.iteration.block": notApplicable,
   "className.iteration.document": notApplicable,
   "name.class": notApplicable,
+  "name.field.class": notApplicable,
   "name.iteration.class": notApplicable,
   "statement.class": notApplicable,
   "statement.field.class": notApplicable,
@@ -62,6 +66,7 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "type.class": notApplicable,
   "type.field.class": notApplicable,
   "type.iteration.class": notApplicable,
+  "value.field.class": notApplicable,
   "value.iteration.class": notApplicable,
   "interior.class": notApplicable,
   "namedFunction.method.iteration.class": notApplicable,
@@ -173,8 +178,6 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.namespace": notApplicable,
   "interior.static": notApplicable,
   "key.attribute": notApplicable,
-  "key.mapPair": notApplicable,
-  "key.mapPair.iteration": notApplicable,
   list: notApplicable,
   map: notApplicable,
   "name.argument.actual": notApplicable,
@@ -238,8 +241,6 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "value.argument.formal.method.iteration": notApplicable,
   "value.attribute": notApplicable,
   "value.foreach": notApplicable,
-  "value.mapPair": notApplicable,
-  "value.mapPair.iteration": notApplicable,
   "value.resource": notApplicable,
   "value.resource.iteration": notApplicable,
   "value.return": notApplicable,

@@ -255,6 +255,8 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Command
   command: notApplicable,
+  "name.command": notApplicable,
+  "value.command": notApplicable,
   "interior.command": notApplicable,
 
   // Notebook cell

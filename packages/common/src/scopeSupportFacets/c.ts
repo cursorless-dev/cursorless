@@ -168,6 +168,8 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Command
   command: notApplicable,
+  "name.command": notApplicable,
+  "value.command": notApplicable,
   "interior.command": notApplicable,
 
   // Type alias

@@ -53,6 +53,12 @@ export const markdownScopeSupport: LanguageScopeSupportFacetMap = {
   "type.field.interface": notApplicable,
   "type.iteration.interface": notApplicable,
 
+  // Command
+  command: notApplicable,
+  "name.command": notApplicable,
+  "value.command": notApplicable,
+  "interior.command": notApplicable,
+
   anonymousFunction: notApplicable,
   "argument.actual.singleLine": notApplicable,
   "argument.actual.multiLine": notApplicable,
@@ -110,7 +116,6 @@ export const markdownScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.try": notApplicable,
   "branch.try.iteration": notApplicable,
   "collectionItem.unenclosed.iteration": notApplicable,
-  command: notApplicable,
   "comment.line": notApplicable,
   "condition.doWhile": notApplicable,
   "condition.for": notApplicable,
@@ -134,7 +139,6 @@ export const markdownScopeSupport: LanguageScopeSupportFacetMap = {
   "functionName.iteration.document": notApplicable,
   "functionName.method": notApplicable,
   ifStatement: notApplicable,
-  "interior.command": notApplicable,
   "interior.element": notApplicable,
   "interior.function": notApplicable,
   "interior.constructor": notApplicable,

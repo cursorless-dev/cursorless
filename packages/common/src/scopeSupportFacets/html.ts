@@ -54,6 +54,12 @@ export const htmlScopeSupport: LanguageScopeSupportFacetMap = {
   "type.field.interface": notApplicable,
   "type.iteration.interface": notApplicable,
 
+  // Command
+  command: notApplicable,
+  "name.command": notApplicable,
+  "value.command": notApplicable,
+  "interior.command": notApplicable,
+
   "argument.actual.constructor.iteration": notApplicable,
   "argument.actual.constructor.singleLine": notApplicable,
   "argument.actual.constructor.multiLine": notApplicable,
@@ -125,7 +131,6 @@ export const htmlScopeSupport: LanguageScopeSupportFacetMap = {
   "functionName.iteration.document": notApplicable,
   "functionName.method": notApplicable,
   "interior.cell": notApplicable,
-  "interior.command": notApplicable,
   "interior.function": notApplicable,
   "interior.constructor": notApplicable,
   "interior.method": notApplicable,
@@ -218,7 +223,6 @@ export const htmlScopeSupport: LanguageScopeSupportFacetMap = {
   "value.iteration.block": notApplicable,
   "value.iteration.document": notApplicable,
   anonymousFunction: notApplicable,
-  command: notApplicable,
   disqualifyDelimiter: notApplicable,
   environment: notApplicable,
   fieldAccess: notApplicable,

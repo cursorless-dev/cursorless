@@ -1,0 +1,14 @@
+not mode: command
+-
+---
+
+[Content] =
+[Removal] = 0:0-0:8
+  >--------<
+0| not mode: command
+
+[Domain] = 0:0-0:17
+  >-----------------<
+0| not mode: command
+
+[Insertion delimiter] = " "

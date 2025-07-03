@@ -76,6 +76,12 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   "type.iteration.interface": notApplicable,
   "interior.interface": notApplicable,
 
+  // Command
+  command: notApplicable,
+  "name.command": notApplicable,
+  "value.command": notApplicable,
+  "interior.command": notApplicable,
+
   anonymousFunction: notApplicable,
   "argument.actual.multiLine": notApplicable,
   "argument.actual.constructor.iteration": notApplicable,
@@ -127,7 +133,6 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.ternary.iteration": notApplicable,
   "branch.try.iteration": notApplicable,
   "branch.try": notApplicable,
-  command: notApplicable,
   "comment.line": notApplicable,
   "condition.doWhile": notApplicable,
   "condition.for": notApplicable,
@@ -149,7 +154,6 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   functionName: notApplicable,
   ifStatement: notApplicable,
   "interior.cell": notApplicable,
-  "interior.command": notApplicable,
   "interior.element": notApplicable,
   "interior.function": notApplicable,
   "interior.constructor": notApplicable,
