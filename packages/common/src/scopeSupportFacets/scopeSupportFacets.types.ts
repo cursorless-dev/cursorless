@@ -88,6 +88,7 @@ export const scopeSupportFacets = [
   "argument.formal.lambda.singleLine",
   "argument.formal.lambda.multiLine",
   "argument.formal.lambda.iteration",
+  "argument.catch",
 
   "argumentList.actual.empty",
   "argumentList.actual.singleLine",
@@ -175,6 +176,7 @@ export const scopeSupportFacets = [
   "name.argument.formal.method.iteration",
   "name.argument.formal.constructor",
   "name.argument.formal.constructor.iteration",
+  "name.argument.catch",
   "name.iteration.block",
   "name.iteration.class",
   "name.iteration.interface",
@@ -231,6 +233,7 @@ export const scopeSupportFacets = [
   "type.argument.formal.method.iteration",
   "type.argument.formal.constructor",
   "type.argument.formal.constructor.iteration",
+  "type.argument.catch",
   "type.iteration.block",
   "type.iteration.class",
   "type.iteration.interface",

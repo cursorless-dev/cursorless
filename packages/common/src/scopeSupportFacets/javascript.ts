@@ -75,6 +75,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal.lambda.singleLine": supported,
   "argument.formal.lambda.multiLine": supported,
   "argument.formal.lambda.iteration": supported,
+  "argument.catch": supported,
 
   "argumentList.actual.empty": supported,
   "argumentList.actual.singleLine": supported,
@@ -129,6 +130,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal.method.iteration": supported,
   "name.argument.formal.constructor": supported,
   "name.argument.formal.constructor.iteration": supported,
+  "name.argument.catch": supported,
   "name.foreach": supported,
   "name.assignment": supported,
   "name.assignment.pattern": supported,
@@ -267,6 +269,7 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.method.iteration": notApplicable,
   "type.argument.formal.constructor": notApplicable,
   "type.argument.formal.constructor.iteration": notApplicable,
+  "type.argument.catch": notApplicable,
   "type.alias": notApplicable,
   "type.cast": notApplicable,
   "type.field.class": notApplicable,

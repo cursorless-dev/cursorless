@@ -60,6 +60,14 @@ export const htmlScopeSupport: LanguageScopeSupportFacetMap = {
   "value.command": notApplicable,
   "interior.command": notApplicable,
 
+  // Try catch
+  "branch.try": notApplicable,
+  "branch.try.iteration": notApplicable,
+  "interior.try": notApplicable,
+  "argument.catch": notApplicable,
+  "name.argument.catch": notApplicable,
+  "type.argument.catch": notApplicable,
+
   "argument.actual.constructor.iteration": notApplicable,
   "argument.actual.constructor.singleLine": notApplicable,
   "argument.actual.constructor.multiLine": notApplicable,
@@ -112,8 +120,6 @@ export const htmlScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.switchCase": notApplicable,
   "branch.ternary": notApplicable,
   "branch.ternary.iteration": notApplicable,
-  "branch.try.iteration": notApplicable,
-  "branch.try": notApplicable,
   "collectionItem.unenclosed.iteration": notApplicable,
   "collectionItem.unenclosed": notApplicable,
   "comment.line": notApplicable,
@@ -145,7 +151,6 @@ export const htmlScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.switch": notApplicable,
   "interior.switchCase": notApplicable,
   "interior.ternary": notApplicable,
-  "interior.try": notApplicable,
   "interior.namespace": notApplicable,
   "interior.static": notApplicable,
   "key.mapPair.iteration": notApplicable,

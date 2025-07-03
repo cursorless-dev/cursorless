@@ -591,6 +591,15 @@
   (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
+;;!! catch(Exception ex) {}
+;;!        ^^^^^^^^^^^^
+;;!        ^^^^^^^^^
+;;!                  ^^
+(catch_formal_parameter
+  (catch_type) @type
+  name: (_) @name
+) @argumentOrParameter @_.domain
+
 ;;!! try (PrintWriter writer = create()) { }
 ;;!       ^^^^^^^^^^^ ^^^^^    ^^^^^^^^
 (try_with_resources_statement

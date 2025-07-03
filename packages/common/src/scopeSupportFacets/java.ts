@@ -27,6 +27,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal.lambda.singleLine": supported,
   "argument.formal.lambda.multiLine": supported,
   "argument.formal.lambda.iteration": supported,
+  "argument.catch": supported,
 
   "argumentList.actual.empty": supported,
   "argumentList.actual.singleLine": supported,
@@ -116,6 +117,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal.constructor.iteration": supported,
   "name.argument.formal.method": supported,
   "name.argument.formal.method.iteration": supported,
+  "name.argument.catch": supported,
   "name.assignment": supported,
   "name.class": supported,
   "name.interface": supported,
@@ -146,6 +148,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.method": supported,
   "type.argument.formal.constructor.iteration": supported,
   "type.argument.formal.method.iteration": supported,
+  "type.argument.catch": supported,
   "type.foreach": supported,
   "type.field.class": supported,
   "type.field.interface": supported,

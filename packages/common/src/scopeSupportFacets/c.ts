@@ -192,6 +192,9 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.try": notApplicable,
   "branch.try.iteration": notApplicable,
   "interior.try": notApplicable,
+  "argument.catch": notApplicable,
+  "name.argument.catch": notApplicable,
+  "type.argument.catch": notApplicable,
 
   // Interface
   "statement.interface": notApplicable,

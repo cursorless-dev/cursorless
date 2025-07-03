@@ -82,6 +82,14 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   "value.command": notApplicable,
   "interior.command": notApplicable,
 
+  // Try catch
+  "branch.try": notApplicable,
+  "branch.try.iteration": notApplicable,
+  "interior.try": notApplicable,
+  "argument.catch": notApplicable,
+  "name.argument.catch": notApplicable,
+  "type.argument.catch": notApplicable,
+
   anonymousFunction: notApplicable,
   "argument.actual.multiLine": notApplicable,
   "argument.actual.constructor.iteration": notApplicable,
@@ -131,8 +139,6 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.switchCase": notApplicable,
   "branch.ternary": notApplicable,
   "branch.ternary.iteration": notApplicable,
-  "branch.try.iteration": notApplicable,
-  "branch.try": notApplicable,
   "comment.line": notApplicable,
   "condition.doWhile": notApplicable,
   "condition.for": notApplicable,
@@ -169,7 +175,6 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.switch": notApplicable,
   "interior.switchCase": notApplicable,
   "interior.ternary": notApplicable,
-  "interior.try": notApplicable,
   "interior.namespace": notApplicable,
   "interior.static": notApplicable,
   "key.attribute": notApplicable,

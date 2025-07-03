@@ -1,0 +1,21 @@
+try {}
+catch(error: unknown) {}
+---
+
+[Content] = 1:13-1:20
+               >-------<
+1| catch(error: unknown) {}
+
+[Removal] = 1:11-1:20
+             >---------<
+1| catch(error: unknown) {}
+
+[Leading delimiter] = 1:11-1:13
+             >--<
+1| catch(error: unknown) {}
+
+[Domain] = 1:6-1:20
+        >--------------<
+1| catch(error: unknown) {}
+
+[Insertion delimiter] = " "
