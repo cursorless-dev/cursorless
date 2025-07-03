@@ -1,0 +1,7 @@
+0 if True else 1
+---
+
+[Range] =
+[Domain] = 0:0-0:16
+  >----------------<
+0| 0 if True else 1

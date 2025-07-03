@@ -19,9 +19,10 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "name.assignment.pattern": supported,
   "name.class": supported,
   "name.constructor": supported,
-  "name.field": supported,
+  "name.field.class": supported,
   "name.function": supported,
   "name.iteration.block": supported,
+  "name.iteration.class": supported,
   "name.iteration.document": supported,
   "name.method": supported,
   "name.variable": supported,
@@ -40,13 +41,16 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "value.argument.formal.method": supported,
   "value.argument.formal.method.iteration": supported,
   "value.assignment": supported,
-  "value.field": supported,
+  "value.field.class": supported,
   "value.mapPair": supported,
   "value.mapPair.iteration": supported,
   "value.return": supported,
   "value.return.lambda": supported,
   "value.variable": supported,
   "value.variable.pattern": supported,
+  "value.iteration.block": supported,
+  "value.iteration.class": supported,
+  "value.iteration.document": supported,
 
   "type.argument.formal.constructor": supported,
   "type.argument.formal.constructor.iteration": supported,
@@ -55,12 +59,14 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.method.iteration": supported,
   "type.argument.formal": supported,
   "type.class": supported,
-  "type.field": supported,
-  "type.field.iteration": supported,
+  "type.field.class": supported,
   "type.return": supported,
   "type.typeArgument": supported,
   "type.typeArgument.iteration": supported,
   "type.variable": supported,
+  "type.iteration.block": supported,
+  "type.iteration.class": supported,
+  "type.iteration.document": supported,
 
   anonymousFunction: supported,
   namedFunction: supported,
@@ -75,19 +81,25 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "functionName.method": supported,
   "functionName.method.iteration.class": supported,
 
-  "argument.actual": supported,
+  "argument.actual.singleLine": supported,
+  "argument.actual.multiLine": supported,
   "argument.actual.iteration": supported,
-  "argument.formal": supported,
+  "argument.formal.singleLine": supported,
+  "argument.formal.multiLine": supported,
   "argument.formal.iteration": supported,
-  "argument.actual.constructor": supported,
+  "argument.actual.constructor.singleLine": supported,
+  "argument.actual.constructor.multiLine": supported,
   "argument.actual.constructor.iteration": supported,
-  "argument.actual.method": supported,
+  "argument.actual.method.singleLine": supported,
+  "argument.actual.method.multiLine": supported,
   "argument.actual.method.iteration": supported,
-  "argument.formal.constructor": supported,
+  "argument.formal.constructor.singleLine": supported,
+  "argument.formal.constructor.multiLine": supported,
   "argument.formal.constructor.iteration": supported,
-  "argument.formal.method": supported,
+  "argument.formal.method.singleLine": supported,
+  "argument.formal.method.multiLine": supported,
   "argument.formal.method.iteration": supported,
-  "argument.formal.lambda": supported,
+  "argument.formal.lambda.singleLine": supported,
   "argument.formal.lambda.iteration": supported,
 
   "argumentList.actual.empty": supported,
@@ -115,13 +127,17 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "collectionItem.unenclosed.iteration": supported,
 
   "branch.if": supported,
+  "branch.if.elif.else": supported,
+  "branch.if.else": supported,
   "branch.if.iteration": supported,
   "branch.switchCase": supported,
   "branch.switchCase.iteration": supported,
   "branch.ternary": supported,
+  "branch.ternary.iteration": supported,
   "branch.try": supported,
   "branch.try.iteration": supported,
   "branch.loop": supported,
+  "branch.loop.iteration": supported,
 
   class: supported,
   "class.iteration.document": supported,
@@ -131,12 +147,16 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
 
   "interior.class": supported,
   "interior.function": supported,
-  "interior.lambda": supported,
+  "interior.constructor": supported,
+  "interior.method": supported,
+  "interior.lambda.expression": supported,
   "interior.if": supported,
   "interior.try": supported,
+  "interior.switch": supported,
   "interior.switchCase": supported,
   "interior.ternary": supported,
-  "interior.loop": supported,
+  "interior.foreach": supported,
+  "interior.while": supported,
   "interior.resource": supported,
 
   switchStatementSubject: supported,
@@ -165,7 +185,9 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   ifStatement: supported,
   statement: supported,
   "statement.class": supported,
+  "statement.field.class": supported,
   "statement.iteration.block": supported,
+  "statement.iteration.class": supported,
   "statement.iteration.document": supported,
 
   functionCall: supported,
@@ -177,41 +199,83 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   pairDelimiter: supported,
   fieldAccess: supported,
 
-  // Not applicable
+  /* NOT APPLICABLE */
 
-  "argumentList.formal.lambda.multiLine": notApplicable,
-  "class.iteration.block": notApplicable,
-  "className.iteration.block": notApplicable,
-  "comment.block": notApplicable,
-  "condition.doWhile": notApplicable,
-  "condition.for": notApplicable,
-  "functionName.iteration.block": notApplicable,
-  "interior.cell": notApplicable,
-  "interior.command": notApplicable,
+  // Element and tags
+  element: notApplicable,
+  tags: notApplicable,
+  startTag: notApplicable,
+  endTag: notApplicable,
   "interior.element": notApplicable,
+  "textFragment.element": notApplicable,
+  attribute: notApplicable,
   "key.attribute": notApplicable,
-  "namedFunction.iteration.block": notApplicable,
+  "value.attribute": notApplicable,
+
+  // Section
+  section: notApplicable,
   "section.iteration.document": notApplicable,
   "section.iteration.parent": notApplicable,
-  "textFragment.comment.block": notApplicable,
-  "textFragment.element": notApplicable,
+
+  // Command
+  command: notApplicable,
+  "interior.command": notApplicable,
+
+  // Namespace
+  "name.namespace": notApplicable,
+  "interior.namespace": notApplicable,
+
+  // Nested classes
+  "class.iteration.block": notApplicable,
+  "className.iteration.block": notApplicable,
+
+  // for and do-while loops
+  "condition.doWhile": notApplicable,
+  "condition.for": notApplicable,
+  "interior.for": notApplicable,
+  "interior.doWhile": notApplicable,
+
+  // Nested functions. Technically supported, but great problem with `every funk` in a method.
+  "functionName.iteration.block": notApplicable,
+  "namedFunction.iteration.block": notApplicable,
+
+  // Type. Python have some types, but not these.
   "type.alias": notApplicable,
   "type.cast": notApplicable,
   "type.enum": notApplicable,
   "type.foreach": notApplicable,
   "type.interface": notApplicable,
+  "type.field.interface": notApplicable,
+  "type.iteration.interface": notApplicable,
   "type.resource.iteration": notApplicable,
   "type.resource": notApplicable,
-  "value.attribute": notApplicable,
   "value.typeAlias": notApplicable,
-  attribute: notApplicable,
-  command: notApplicable,
-  element: notApplicable,
-  endTag: notApplicable,
-  environment: notApplicable,
+
+  // Notebook cell
   notebookCell: notApplicable,
+  "interior.cell": notApplicable,
+
+  // Multiline lambda
+  "argumentList.formal.lambda.multiLine": notApplicable,
+  "argument.formal.lambda.multiLine": notApplicable,
+  "interior.lambda.block": notApplicable,
+
+  // Block comments
+  "comment.block": notApplicable,
+  "textFragment.comment.block": notApplicable,
+
+  // Interface
+  "statement.interface": notApplicable,
+  "statement.field.interface": notApplicable,
+  "statement.iteration.interface": notApplicable,
+  "interior.interface": notApplicable,
+  "name.interface": notApplicable,
+  "name.field.interface": notApplicable,
+  "name.iteration.interface": notApplicable,
+
+  "interior.static": notApplicable,
+  environment: notApplicable,
   regularExpression: notApplicable,
-  section: notApplicable,
-  startTag: notApplicable,
-  tags: notApplicable,
+  selector: notApplicable,
+  unit: notApplicable,
 };

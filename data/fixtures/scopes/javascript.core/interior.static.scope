@@ -1,0 +1,69 @@
+class Foo {
+    static { }
+}
+---
+
+[#1 Content] = 1:4-1:14
+      >----------<
+1|     static { }
+
+[#1 Removal] = 0:11-2:0
+             >
+0| class Foo {
+1|     static { }
+2| }
+   <
+
+[#1 Domain] = 0:0-2:1
+  >-----------
+0| class Foo {
+1|     static { }
+2| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:4-1:14
+      >----------<
+1|     static { }
+
+[#2 Removal] = 0:11-2:0
+             >
+0| class Foo {
+1|     static { }
+2| }
+   <
+
+[#2 Domain] = 0:10-2:1
+            >-
+0| class Foo {
+1|     static { }
+2| }
+   -<
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] =
+[#3 Removal] = 1:12-1:13
+              >-<
+1|     static { }
+
+[#3 Domain] = 1:4-1:14
+      >----------<
+1|     static { }
+
+[#3 Insertion delimiter] = " "
+
+
+[#4 Content] =
+[#4 Removal] = 1:12-1:13
+              >-<
+1|     static { }
+
+[#4 Domain] = 1:11-1:14
+             >---<
+1|     static { }
+
+[#4 Insertion delimiter] = " "

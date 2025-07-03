@@ -1,0 +1,32 @@
+class Foo:
+    bar: int
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-1:12
+  >----------
+0| class Foo:
+1|     bar: int
+   ------------<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:9-1:12
+           >---<
+1|     bar: int
+
+[#2 Removal] = 1:7-1:12
+         >-----<
+1|     bar: int
+
+[#2 Leading delimiter] = 1:7-1:9
+         >--<
+1|     bar: int
+
+[#2 Domain] = 1:4-1:12
+      >--------<
+1|     bar: int
+
+[#2 Insertion delimiter] = " "

@@ -15,16 +15,28 @@ export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.constructor.iteration": supported,
   "type.alias": supported,
   "type.cast": supported,
-  "type.field": supported,
-  "type.field.iteration": supported,
+  "type.field.class": supported,
+  "type.field.interface": supported,
   "type.interface": supported,
   "type.enum": supported,
   "type.return": supported,
   "type.variable": supported,
   "type.typeArgument": supported,
   "type.typeArgument.iteration": supported,
+  "type.iteration.block": supported,
+  "type.iteration.class": supported,
+  "type.iteration.interface": supported,
+  "type.iteration.document": supported,
 
   "value.typeAlias": supported,
+
+  "interior.interface": supported,
+  "name.interface": supported,
+  "name.field.interface": supported,
+  "name.iteration.interface": supported,
+  "statement.interface": supported,
+  "statement.field.interface": supported,
+  "statement.iteration.interface": supported,
 
   /* NOT APPLICABLE */
 

@@ -1,0 +1,44 @@
+@mixin replace-text(
+    $image,
+    $color: red
+) {}
+---
+
+[#1 Content] =
+[#1 Domain] = 1:4-1:10
+      >------<
+1|     $image,
+
+[#1 Removal] = 1:4-2:4
+      >-------
+1|     $image,
+2|     $color: red
+   ----<
+
+[#1 Trailing delimiter] = 1:10-2:4
+            >-
+1|     $image,
+2|     $color: red
+   ----<
+
+[#1 Insertion delimiter] = ",\n"
+
+
+[#2 Content] =
+[#2 Domain] = 2:4-2:15
+      >-----------<
+2|     $color: red
+
+[#2 Removal] = 1:10-2:15
+            >-
+1|     $image,
+2|     $color: red
+   ---------------<
+
+[#2 Leading delimiter] = 1:10-2:4
+            >-
+1|     $image,
+2|     $color: red
+   ----<
+
+[#2 Insertion delimiter] = ",\n"

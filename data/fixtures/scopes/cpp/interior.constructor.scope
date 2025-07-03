@@ -1,0 +1,81 @@
+class MyClass {
+    MyClass() { }
+}
+---
+
+[#1 Content] = 1:4-1:17
+      >-------------<
+1|     MyClass() { }
+
+[#1 Removal] = 0:15-2:0
+                 >
+0| class MyClass {
+1|     MyClass() { }
+2| }
+   <
+
+[#1 Domain] = 0:0-2:1
+  >---------------
+0| class MyClass {
+1|     MyClass() { }
+2| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:4-1:17
+      >-------------<
+1|     MyClass() { }
+
+[#2 Removal] = 0:15-2:0
+                 >
+0| class MyClass {
+1|     MyClass() { }
+2| }
+   <
+
+[#2 Domain] = 0:14-2:1
+                >-
+0| class MyClass {
+1|     MyClass() { }
+2| }
+   -<
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] =
+[#3 Removal] = 1:15-1:16
+                 >-<
+1|     MyClass() { }
+
+[#3 Domain] = 1:4-1:17
+      >-------------<
+1|     MyClass() { }
+
+[#3 Insertion delimiter] = " "
+
+
+[#4 Content] =
+[#4 Removal] = 1:12-1:12
+              ><
+1|     MyClass() { }
+
+[#4 Domain] = 1:11-1:13
+             >--<
+1|     MyClass() { }
+
+[#4 Insertion delimiter] = " "
+
+
+[#5 Content] =
+[#5 Removal] = 1:15-1:16
+                 >-<
+1|     MyClass() { }
+
+[#5 Domain] = 1:14-1:17
+                >---<
+1|     MyClass() { }
+
+[#5 Insertion delimiter] = " "

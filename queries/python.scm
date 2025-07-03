@@ -18,7 +18,6 @@
   (function_definition)
   (future_import_statement)
   (global_statement)
-  (if_statement)
   (import_from_statement)
   (import_statement)
   (match_statement)
@@ -30,6 +29,8 @@
   (try_statement)
   (while_statement)
   (with_statement)
+  ;; Disabled on purpose. We have a better definition of this below.
+  ;; (if_statement)
 ] @statement
 
 ;;!! a = 25
@@ -261,8 +262,8 @@
 )
 
 (with_statement
-  (with_clause) @value.iteration @name.iteration
-) @value.iteration.domain @name.iteration.domain
+  (with_clause) @name.iteration @value.iteration
+) @name.iteration.domain @value.iteration.domain
 
 ;;!! lambda str: len(str) > 0
 ;;!              ^^^^^^^^^^^^
@@ -357,9 +358,9 @@
 (
   (module
     (_) @_statement
-  ) @value.iteration @name.iteration
+  ) @name.iteration @value.iteration @type.iteration
   (#not-type? @_statement "with_statement")
-  (#document-range! @value.iteration @name.iteration)
+  (#document-range! @name.iteration @value.iteration @type.iteration)
 )
 
 (
@@ -378,8 +379,8 @@
 ;;!      *****
 ;;!!     c = 2
 ;;!      *****>
-(block) @statement.iteration @value.iteration @name.iteration
-(block) @type.iteration
+(block) @name.iteration @value.iteration @type.iteration
+(block) @statement.iteration
 
 ;;!! {"a": 1, "b": 2, "c": 3}
 ;;!   **********************
@@ -394,10 +395,6 @@
   "(" @value.iteration.start.endOf @name.iteration.start.endOf @type.iteration.start.endOf
   ")" @value.iteration.end.startOf @name.iteration.end.startOf @type.iteration.end.startOf
 )
-
-;;!! if true: pass
-;;!  ^^^^^^^^^^^^^
-(if_statement) @ifStatement
 
 ;;!! foo()
 ;;!  ^^^^^
@@ -507,11 +504,34 @@
   (#not-parent-type? @_.removal case_clause)
 ) @_.domain
 
+;;!! if true: pass else: pass
+;;!  ^^^^^^^^^^^^^^^^^^^^^^^^
+(if_statement) @ifStatement @statement @branch.iteration
+
 ;;!! if True: pass
 ;;!  ^^^^^^^^^^^^^
 (if_statement
-  "if" @branch.start @interior.domain.start
-  consequence: (_) @branch.end @interior @interior.domain.end
+  "if" @interior.domain.start
+  consequence: (_) @interior @interior.domain.end
+)
+
+;;!! if True: pass
+;;!  ^^^^^^^^^^^^^
+(if_statement
+  "if" @branch.start @branch.removal.start
+  consequence: (_) @branch.end @branch.removal.end
+  alternative: (else_clause)? @branch.removal.end.startOf
+)
+
+;;!! if True: pass elif False: pass
+;;!  ^^^^^^^^^^^^^
+(if_statement
+  "if" @branch.start @branch.removal.start
+  consequence: (_) @branch.end @branch.removal.end
+  alternative: (elif_clause
+    "elif" @branch.removal.end.startOf
+    (#character-range! @branch.removal.end.startOf 2)
+  )
 )
 
 ;;!! elif True: pass
@@ -525,8 +545,6 @@
 (else_clause
   body: (_) @interior
 ) @branch @interior.domain
-
-(if_statement) @branch.iteration
 
 ;;!! try: pass
 ;;!  ^^^^^^^^^
@@ -740,7 +758,7 @@
 (argument_list
   "(" @name.iteration.start.endOf @value.iteration.start.endOf
   ")" @name.iteration.end.startOf @value.iteration.end.startOf
-) @name.iteration.domain @value.iteration.domain
+)
 
 operators: [
   "<"
@@ -748,12 +766,14 @@ operators: [
   ">"
   ">="
 ] @disqualifyDelimiter
+
 operator: [
   "<<"
   "<<="
   ">>"
   ">>="
 ] @disqualifyDelimiter
+
 (function_definition
   "->" @disqualifyDelimiter
 )

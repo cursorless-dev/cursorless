@@ -1,58 +1,20 @@
-if x < y then
-    print("x is less than y")
-elseif x > y then
-    print("x is greater than y")
-else
-    print("x is equal to y")
+if true then
+    a = 1
 end
 ---
 
-[#1 Content] =
-[#1 Domain] = 0:0-1:29
-  >-------------
-0| if x < y then
-1|     print("x is less than y")
-   -----------------------------<
+[Content] =
+[Domain] = 0:0-1:9
+  >------------
+0| if true then
+1|     a = 1
+   ---------<
 
-[#1 Removal] = 0:0-2:0
-  >-------------
-0| if x < y then
-1|     print("x is less than y")
-2| elseif x > y then
-   <
+[Removal] = 0:0-2:3
+  >------------
+0| if true then
+1|     a = 1
+2| end
+   ---<
 
-[#1 Insertion delimiter] = "\n"
-
-
-[#2 Content] =
-[#2 Domain] = 2:0-3:32
-  >-----------------
-2| elseif x > y then
-3|     print("x is greater than y")
-   --------------------------------<
-
-[#2 Removal] = 2:0-4:0
-  >-----------------
-2| elseif x > y then
-3|     print("x is greater than y")
-4| else
-   <
-
-[#2 Insertion delimiter] = "\n"
-
-
-[#3 Content] =
-[#3 Domain] = 4:0-5:28
-  >----
-4| else
-5|     print("x is equal to y")
-   ----------------------------<
-
-[#3 Removal] = 4:0-6:0
-  >----
-4| else
-5|     print("x is equal to y")
-6| end
-   <
-
-[#3 Insertion delimiter] = "\n"
+[Insertion delimiter] = "\n"

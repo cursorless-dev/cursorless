@@ -13,23 +13,23 @@ export const scopeSupportFacetInfos: Record<
   },
 
   element: {
-    description: "An xml/html element. Also used for LaTeX environments",
+    description: "A xml/html element. Also used for LaTeX environments",
     scopeType: "xmlElement",
   },
   startTag: {
-    description: "The start tag of an xml element",
+    description: "The start tag of a xml element",
     scopeType: "xmlStartTag",
   },
   endTag: {
-    description: "The end tag of an xml element",
+    description: "The end tag of a xml element",
     scopeType: "xmlEndTag",
   },
   tags: {
-    description: "Both tags in an xml element",
+    description: "Both tags in a xml element",
     scopeType: "xmlBothTags",
   },
   attribute: {
-    description: "A attribute, eg of an html element or a C++ attribute",
+    description: "A attribute, eg of a html element or a C++ attribute",
     scopeType: "attribute",
   },
 
@@ -85,11 +85,33 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "statement",
   },
   "statement.class": {
-    description: "An class declaration",
+    description: "A class declaration",
+    scopeType: "statement",
+  },
+  "statement.interface": {
+    description: "A interface declaration",
+    scopeType: "statement",
+  },
+  "statement.field.class": {
+    description: "A field declaration in a class",
+    scopeType: "statement",
+  },
+  "statement.field.interface": {
+    description: "A field declaration in a interface",
     scopeType: "statement",
   },
   "statement.iteration.document": {
     description: "Iteration scope for statements. The entire document.",
+    scopeType: "statement",
+    isIteration: true,
+  },
+  "statement.iteration.class": {
+    description: "Iteration scope for types; class body",
+    scopeType: "statement",
+    isIteration: true,
+  },
+  "statement.iteration.interface": {
+    description: "Iteration scope for types; interface body",
     scopeType: "statement",
     isIteration: true,
   },
@@ -211,9 +233,15 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "functionCallee",
   },
 
-  "argument.actual": {
-    description: "An argument/parameter in a function call",
+  "argument.actual.singleLine": {
+    description: "A single line argument/parameter in a function call",
     scopeType: "argumentOrParameter",
+    insertionDelimiterHint: '", "',
+  },
+  "argument.actual.multiLine": {
+    description: "A multiline argument/parameter in a function call",
+    scopeType: "argumentOrParameter",
+    insertionDelimiterHint: '",\n"',
   },
   "argument.actual.iteration": {
     description:
@@ -221,9 +249,15 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "argumentOrParameter",
     isIteration: true,
   },
-  "argument.actual.method": {
-    description: "An argument/parameter in a method call",
+  "argument.actual.method.singleLine": {
+    description: "A single line argument/parameter in a method call",
     scopeType: "argumentOrParameter",
+    insertionDelimiterHint: '", "',
+  },
+  "argument.actual.method.multiLine": {
+    description: "A multi line argument/parameter in a method call",
+    scopeType: "argumentOrParameter",
+    insertionDelimiterHint: '",\n"',
   },
   "argument.actual.method.iteration": {
     description:
@@ -231,9 +265,15 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "argumentOrParameter",
     isIteration: true,
   },
-  "argument.actual.constructor": {
-    description: "An argument/parameter in a constructor call",
+  "argument.actual.constructor.singleLine": {
+    description: "A single line argument/parameter in a constructor call",
     scopeType: "argumentOrParameter",
+    insertionDelimiterHint: '", "',
+  },
+  "argument.actual.constructor.multiLine": {
+    description: "A multi line argument/parameter in a constructor call",
+    scopeType: "argumentOrParameter",
+    insertionDelimiterHint: '",\n"',
   },
   "argument.actual.constructor.iteration": {
     description:
@@ -241,9 +281,16 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "argumentOrParameter",
     isIteration: true,
   },
-  "argument.formal": {
-    description: "A parameter in a function declaration",
+
+  "argument.formal.singleLine": {
+    description: "A single line parameter in a function declaration",
     scopeType: "argumentOrParameter",
+    insertionDelimiterHint: '", "',
+  },
+  "argument.formal.multiLine": {
+    description: "A multi line parameter in a function declaration",
+    scopeType: "argumentOrParameter",
+    insertionDelimiterHint: '",\n"',
   },
   "argument.formal.iteration": {
     description:
@@ -251,9 +298,15 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "argumentOrParameter",
     isIteration: true,
   },
-  "argument.formal.method": {
-    description: "A parameter in a class method declaration",
+  "argument.formal.method.singleLine": {
+    description: "A single line parameter in a class method declaration",
     scopeType: "argumentOrParameter",
+    insertionDelimiterHint: '", "',
+  },
+  "argument.formal.method.multiLine": {
+    description: "A multi line parameter in a class method declaration",
+    scopeType: "argumentOrParameter",
+    insertionDelimiterHint: '",\n"',
   },
   "argument.formal.method.iteration": {
     description:
@@ -261,9 +314,15 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "argumentOrParameter",
     isIteration: true,
   },
-  "argument.formal.constructor": {
-    description: "A parameter in a constructor declaration",
+  "argument.formal.constructor.singleLine": {
+    description: "A single line parameter in a constructor declaration",
     scopeType: "argumentOrParameter",
+    insertionDelimiterHint: '", "',
+  },
+  "argument.formal.constructor.multiLine": {
+    description: "A multi line parameter in a constructor declaration",
+    scopeType: "argumentOrParameter",
+    insertionDelimiterHint: '",\n"',
   },
   "argument.formal.constructor.iteration": {
     description:
@@ -271,9 +330,15 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "argumentOrParameter",
     isIteration: true,
   },
-  "argument.formal.lambda": {
-    description: "A parameter in a lambda declaration",
+  "argument.formal.lambda.singleLine": {
+    description: "A single line parameter in a lambda declaration",
     scopeType: "argumentOrParameter",
+    insertionDelimiterHint: '", "',
+  },
+  "argument.formal.lambda.multiLine": {
+    description: "A multi line parameter in a lambda declaration",
+    scopeType: "argumentOrParameter",
+    insertionDelimiterHint: '",\n"',
   },
   "argument.formal.lambda.iteration": {
     description:
@@ -427,7 +492,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "textFragment",
   },
   "textFragment.element": {
-    description: "Text fragment consisting of an xml element interior",
+    description: "Text fragment consisting of a xml element interior",
     scopeType: "textFragment",
   },
 
@@ -443,18 +508,32 @@ export const scopeSupportFacetInfos: Record<
   },
 
   "branch.if": {
-    description: "An if/elif/else branch",
+    description: "An if branch",
     scopeType: "branch",
   },
-  "branch.loop": {
+  "branch.if.elif.else": {
     description:
-      "A for / while loop branch. For most languages there will just be one branch for the entire loop, but eg in Python you can have an else branch for a loop.",
+      "An if-elif-else branch. The removal range for the if branch should include the trailing `else` keyword.",
     scopeType: "branch",
   },
-
+  "branch.if.else": {
+    description: "An if-else branch",
+    scopeType: "branch",
+  },
   "branch.if.iteration": {
     description:
       "Iteration scope for if/elif/else branch; should be the entire if-else statement",
+    scopeType: "branch",
+    isIteration: true,
+  },
+  "branch.loop": {
+    description:
+      "A for / while loop branch. For most languages this is not supported, but eg in Python you can have an else branch for a loop.",
+    scopeType: "branch",
+  },
+  "branch.loop.iteration": {
+    description:
+      "Iteration scope for loop branch; should be the entire loop statement",
     scopeType: "branch",
     isIteration: true,
   },
@@ -474,13 +553,19 @@ export const scopeSupportFacetInfos: Record<
   },
   "branch.switchCase.iteration": {
     description:
-      "Iteration scope for branches in a switch/match statement; should contain all the cases",
+      "Iteration scope for branches in a switch/match statement; should be the switch statement body",
     scopeType: "branch",
     isIteration: true,
   },
   "branch.ternary": {
     description: "A branch in a ternary expression",
     scopeType: "branch",
+  },
+  "branch.ternary.iteration": {
+    description:
+      "Iteration scope for branches in a ternary expression; should be the entire expression",
+    scopeType: "branch",
+    isIteration: true,
   },
   "collectionItem.unenclosed": {
     description:
@@ -562,9 +647,42 @@ export const scopeSupportFacetInfos: Record<
     description: "Name of a class",
     scopeType: "name",
   },
-  "name.field": {
-    description: "Name (LHS) of a field in a class / interface",
+  "name.interface": {
+    description: "Name of a interface",
     scopeType: "name",
+  },
+  "name.namespace": {
+    description: "Name of a namespace",
+    scopeType: "name",
+  },
+  "name.field.class": {
+    description: "Name (LHS) of a field in a class",
+    scopeType: "name",
+  },
+  "name.field.interface": {
+    description: "Name (LHS) of a field in a interface",
+    scopeType: "name",
+  },
+  "name.iteration.block": {
+    description:
+      "Iteration scope for names: statement blocks (body of functions / if statements / for loops / etc).",
+    scopeType: "name",
+    isIteration: true,
+  },
+  "name.iteration.class": {
+    description: "Iteration scope for names: class body",
+    scopeType: "name",
+    isIteration: true,
+  },
+  "name.iteration.interface": {
+    description: "Iteration scope for names: interface body",
+    scopeType: "name",
+    isIteration: true,
+  },
+  "name.iteration.document": {
+    description: "Iteration scope for names: the entire document",
+    scopeType: "name",
+    isIteration: true,
   },
   "name.resource": {
     description: "Name in a 'with' / 'use' / 'using' statement",
@@ -616,19 +734,9 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "name",
     isIteration: true,
   },
-  "name.iteration.block": {
-    description:
-      "Iteration scope for names: statement blocks (body of functions/if statements/for loops/etc).",
-    scopeType: "name",
-    isIteration: true,
-  },
-  "name.iteration.document": {
-    description: "Iteration scope for names: the entire document",
-    scopeType: "name",
-    isIteration: true,
-  },
+
   "key.attribute": {
-    description: "Key (LHS) of an attribute eg in an xml element",
+    description: "Key (LHS) of an attribute eg in a xml element",
     scopeType: "collectionKey",
   },
   "key.mapPair": {
@@ -670,7 +778,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "value",
   },
   "value.attribute": {
-    description: "Value (RHS) of an attribute eg in an xml element",
+    description: "Value (RHS) of an attribute eg in a xml element",
     scopeType: "value",
   },
   "value.return": {
@@ -681,13 +789,29 @@ export const scopeSupportFacetInfos: Record<
     description: "Implicit return value from a lambda",
     scopeType: "value",
   },
-  "value.field": {
-    description: "Value (RHS) of a field in a class / interface",
+  "value.field.class": {
+    description: "Value (RHS) of a field in a class",
     scopeType: "value",
   },
   "value.yield": {
     description: "Value of a yield statement",
     scopeType: "value",
+  },
+  "value.iteration.block": {
+    description:
+      "Iteration scope for values: statement blocks (body of functions / if statements / for loops / etc).",
+    scopeType: "value",
+    isIteration: true,
+  },
+  "value.iteration.class": {
+    description: "Iteration scope for values: class body",
+    scopeType: "value",
+    isIteration: true,
+  },
+  "value.iteration.document": {
+    description: "Iteration scope for values: the entire document",
+    scopeType: "value",
+    isIteration: true,
   },
   "value.resource": {
     description: "Value of a 'with' / 'use' / 'using' statement",
@@ -782,22 +906,16 @@ export const scopeSupportFacetInfos: Record<
     description: "Type of return value in a function declaration",
     scopeType: "type",
   },
-  "type.field": {
-    description: "Type of field in a class / interface",
+  "type.field.class": {
+    description: "Type of field in a class",
     scopeType: "type",
   },
-  "type.field.iteration": {
-    description:
-      "Iteration scope for type of field in a class / interface; should be entire class / interface body",
+  "type.field.interface": {
+    description: "Type of field in a interface",
     scopeType: "type",
-    isIteration: true,
   },
   "type.foreach": {
     description: "Type of variable in a for each loop",
-    scopeType: "type",
-  },
-  "type.interface": {
-    description: "An interface declaration",
     scopeType: "type",
   },
   "type.enum": {
@@ -805,7 +923,11 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "type",
   },
   "type.class": {
-    description: "An class declaration",
+    description: "A class declaration",
+    scopeType: "type",
+  },
+  "type.interface": {
+    description: "An interface declaration",
     scopeType: "type",
   },
   "type.alias": {
@@ -836,9 +958,30 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "type",
     isIteration: true,
   },
+  "type.iteration.block": {
+    description:
+      "Iteration scope for types. Statement blocks(body of functions/if statements/for loops/etc).",
+    scopeType: "type",
+    isIteration: true,
+  },
+  "type.iteration.class": {
+    description: "Iteration scope for types; class body",
+    scopeType: "type",
+    isIteration: true,
+  },
+  "type.iteration.interface": {
+    description: "Iteration scope for types; interface body",
+    scopeType: "type",
+    isIteration: true,
+  },
+  "type.iteration.document": {
+    description: "Iteration scope for types; entire document.",
+    scopeType: "type",
+    isIteration: true,
+  },
 
   "interior.element": {
-    description: "The interior/children of an XML element",
+    description: "The interior/children of a XML element",
     scopeType: { type: "interior" },
   },
   "interior.command": {
@@ -853,12 +996,28 @@ export const scopeSupportFacetInfos: Record<
     description: "The body of a class",
     scopeType: { type: "interior" },
   },
-  "interior.function": {
-    description: "The body of a function",
+  "interior.interface": {
+    description: "The body of a interface",
     scopeType: { type: "interior" },
   },
-  "interior.lambda": {
-    description: "The body of a lambda/anonymous function",
+  "interior.function": {
+    description: "The body of a function declaration",
+    scopeType: { type: "interior" },
+  },
+  "interior.constructor": {
+    description: "The body of a constructor declaration",
+    scopeType: { type: "interior" },
+  },
+  "interior.method": {
+    description: "The body of a method declaration",
+    scopeType: { type: "interior" },
+  },
+  "interior.lambda.block": {
+    description: "The block body of a lambda/anonymous function",
+    scopeType: { type: "interior" },
+  },
+  "interior.lambda.expression": {
+    description: "The expression body of a lambda/anonymous function",
     scopeType: { type: "interior" },
   },
   "interior.if": {
@@ -866,28 +1025,60 @@ export const scopeSupportFacetInfos: Record<
     scopeType: { type: "interior" },
   },
   "interior.try": {
-    description: "The body of an try/catch/finally branch",
+    description: "The body of a try/catch/finally branch",
+    scopeType: { type: "interior" },
+  },
+  "interior.switch": {
+    description: "The body of a switch statement",
     scopeType: { type: "interior" },
   },
   "interior.switchCase": {
-    description: "The body of an switch case branch",
+    description: "The body of a switch case branch",
     scopeType: { type: "interior" },
   },
   "interior.ternary": {
-    description: "The body of an ternary condition/branch",
+    description: "The body of a ternary condition/branch",
     scopeType: { type: "interior" },
   },
-  "interior.loop": {
-    description: "The body of an for/while loop",
+  "interior.for": {
+    description: "The body of a for loop",
+    scopeType: { type: "interior" },
+  },
+  "interior.foreach": {
+    description: "The body of a for-each loop",
+    scopeType: { type: "interior" },
+  },
+  "interior.while": {
+    description: "The body of a while loop",
+    scopeType: { type: "interior" },
+  },
+  "interior.doWhile": {
+    description: "The body of a do-while loop",
     scopeType: { type: "interior" },
   },
   "interior.resource": {
     description: "the body of a 'with' / 'use' / 'using' statement",
     scopeType: { type: "interior" },
   },
+  "interior.namespace": {
+    description: "the body of a namespace statement",
+    scopeType: { type: "interior" },
+  },
+  "interior.static": {
+    description: "the body of a static statement",
+    scopeType: { type: "interior" },
+  },
 
   notebookCell: {
     description: "A cell in a notebook or a markdown code block",
     scopeType: "notebookCell",
+  },
+  selector: {
+    description: "A selector in a css rule set",
+    scopeType: "selector",
+  },
+  unit: {
+    description: "A unit in a css rule set",
+    scopeType: "unit",
   },
 };

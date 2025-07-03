@@ -29,9 +29,14 @@ export const scssScopeSupport: LanguageScopeSupportFacetMap = {
 
   ifStatement: supported,
   "branch.if": supported,
+  "branch.if.elif.else": supported,
+  "branch.if.else": supported,
   "branch.if.iteration": supported,
   "condition.if": supported,
 
   "interior.if": supported,
   "interior.function": supported,
+
+  "argument.actual.singleLine": supported,
+  "argument.actual.multiLine": supported,
 };

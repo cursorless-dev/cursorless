@@ -2,7 +2,7 @@ import { cCoreScopeSupport } from "./c";
 import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
-const { supported } = ScopeSupportFacetLevel;
+const { supported, notApplicable } = ScopeSupportFacetLevel;
 
 export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   ...cCoreScopeSupport,
@@ -13,13 +13,17 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.try": supported,
   "branch.try.iteration": supported,
 
-  "argument.actual.constructor": supported,
+  "argument.actual.constructor.singleLine": supported,
+  "argument.actual.constructor.multiLine": supported,
   "argument.actual.constructor.iteration": supported,
-  "argument.formal.method": supported,
+  "argument.formal.method.singleLine": supported,
+  "argument.formal.method.multiLine": supported,
   "argument.formal.method.iteration": supported,
-  "argument.formal.constructor": supported,
+  "argument.formal.constructor.singleLine": supported,
+  "argument.formal.constructor.multiLine": supported,
   "argument.formal.constructor.iteration": supported,
-  "argument.formal.lambda": supported,
+  "argument.formal.lambda.singleLine": supported,
+  "argument.formal.lambda.multiLine": supported,
   "argument.formal.lambda.iteration": supported,
 
   "argumentList.actual.constructor.empty": supported,
@@ -53,6 +57,7 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   "name.constructor": supported,
   "name.foreach": supported,
   "name.method": supported,
+  "name.namespace": supported,
 
   "value.argument.formal": supported,
   "value.argument.formal.iteration": supported,
@@ -61,8 +66,7 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   "value.argument.formal.constructor": supported,
   "value.argument.formal.constructor.iteration": supported,
   "value.foreach": supported,
-  "value.return.lambda": supported,
-  "value.field": supported,
+  "value.field.class": supported,
 
   "type.argument.formal.method": supported,
   "type.argument.formal.method.iteration": supported,
@@ -72,6 +76,15 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   "type.typeArgument": supported,
   "type.typeArgument.iteration": supported,
 
-  "interior.lambda": supported,
+  "interior.lambda.block": supported,
   "interior.try": supported,
+  "interior.foreach": supported,
+  "interior.constructor": supported,
+  "interior.method": supported,
+  "interior.namespace": supported,
+
+  /* NOT APPLICABLE */
+
+  "interior.lambda.expression": notApplicable,
+  "value.return.lambda": notApplicable,
 };

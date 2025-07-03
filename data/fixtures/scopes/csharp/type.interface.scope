@@ -1,10 +1,10 @@
-interface IClass { }
+interface IFoo {}
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-0:20
-  >--------------------<
-0| interface IClass { }
+[Domain] = 0:0-0:17
+  >-----------------<
+0| interface IFoo {}
 
 [Insertion delimiter] = " "

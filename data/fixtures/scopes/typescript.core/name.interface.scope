@@ -1,0 +1,24 @@
+interface Foo {}
+---
+
+[Content] = 0:10-0:13
+            >---<
+0| interface Foo {}
+
+[Removal] = 0:10-0:14
+            >----<
+0| interface Foo {}
+
+[Leading delimiter] = 0:9-0:10
+           >-<
+0| interface Foo {}
+
+[Trailing delimiter] = 0:13-0:14
+               >-<
+0| interface Foo {}
+
+[Domain] = 0:0-0:16
+  >----------------<
+0| interface Foo {}
+
+[Insertion delimiter] = " "

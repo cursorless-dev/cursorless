@@ -1,4 +1,4 @@
-for aaa in bbb:
+for v in values:
     pass
 else:
     pass
@@ -6,14 +6,14 @@ else:
 
 [#1 Content] =
 [#1 Domain] = 0:0-1:8
-  >---------------
-0| for aaa in bbb:
+  >----------------
+0| for v in values:
 1|     pass
    --------<
 
 [#1 Removal] = 0:0-2:0
-  >---------------
-0| for aaa in bbb:
+  >----------------
+0| for v in values:
 1|     pass
 2| else:
    <

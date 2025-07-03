@@ -1,0 +1,81 @@
+class MyClass {
+    void foo() { }
+}
+---
+
+[#1 Content] = 1:4-1:18
+      >--------------<
+1|     void foo() { }
+
+[#1 Removal] = 0:15-2:0
+                 >
+0| class MyClass {
+1|     void foo() { }
+2| }
+   <
+
+[#1 Domain] = 0:0-2:1
+  >---------------
+0| class MyClass {
+1|     void foo() { }
+2| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:4-1:18
+      >--------------<
+1|     void foo() { }
+
+[#2 Removal] = 0:15-2:0
+                 >
+0| class MyClass {
+1|     void foo() { }
+2| }
+   <
+
+[#2 Domain] = 0:14-2:1
+                >-
+0| class MyClass {
+1|     void foo() { }
+2| }
+   -<
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] =
+[#3 Removal] = 1:16-1:17
+                  >-<
+1|     void foo() { }
+
+[#3 Domain] = 1:4-1:18
+      >--------------<
+1|     void foo() { }
+
+[#3 Insertion delimiter] = " "
+
+
+[#4 Content] =
+[#4 Removal] = 1:13-1:13
+               ><
+1|     void foo() { }
+
+[#4 Domain] = 1:12-1:14
+              >--<
+1|     void foo() { }
+
+[#4 Insertion delimiter] = " "
+
+
+[#5 Content] =
+[#5 Removal] = 1:16-1:17
+                  >-<
+1|     void foo() { }
+
+[#5 Domain] = 1:15-1:18
+                 >---<
+1|     void foo() { }
+
+[#5 Insertion delimiter] = " "

@@ -1,15 +1,10 @@
-interface MyType {
-
-}
+interface Foo { }
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-2:1
-  >------------------
-0| interface MyType {
-1|
-2| }
-   -<
+[Domain] = 0:0-0:17
+  >-----------------<
+0| interface Foo { }
 
 [Insertion delimiter] = " "

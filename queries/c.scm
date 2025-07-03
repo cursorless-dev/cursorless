@@ -20,35 +20,54 @@
   (expression_statement)
   (for_statement)
   (goto_statement)
-  (if_statement)
   (labeled_statement)
   (return_statement)
   (switch_statement)
   (while_statement)
   ;; Disabled on purpose. This is the entire body of statements.
   ;; (compound_statement)
+  ;; Disabled on purpose. We have a better definition of this below.
+  ;; (if_statement)
 ] @statement
-
-(if_statement) @ifStatement
 
 (
   (translation_unit) @statement.iteration @class.iteration @className.iteration
   (#document-range! @statement.iteration @class.iteration @className.iteration)
 )
+
 (
-  (translation_unit) @namedFunction.iteration @functionName.iteration @name.iteration
-  (#document-range! @namedFunction.iteration @functionName.iteration @name.iteration)
+  (translation_unit) @namedFunction.iteration @functionName.iteration
+  (#document-range! @namedFunction.iteration @functionName.iteration)
+)
+
+(
+  (translation_unit) @name.iteration @value.iteration @type.iteration
+  (#document-range! @name.iteration @value.iteration @type.iteration)
+)
+
+;;!! struct Foo { };
+;;!              ^
+;;!! union Foo { };
+;;!             ^
+(field_declaration_list
+  "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
 )
 
 (field_declaration_list
-  "{" @type.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
-  "}" @type.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+  "{" @statement.iteration.start.endOf
+  "}" @statement.iteration.end.startOf
 )
 
 ;; Body of statements
 (compound_statement
-  "{" @statement.iteration.start.endOf @name.iteration.start.endOf
-  "}" @statement.iteration.end.startOf @name.iteration.end.startOf
+  "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+)
+
+(compound_statement
+  "{" @statement.iteration.start.endOf
+  "}" @statement.iteration.end.startOf
 )
 
 (
@@ -148,13 +167,13 @@
   declarator: (_
     !declarator
   ) @name
-) @_.domain
+) @statement @name.domain
 
 (field_declaration
   declarator: (_
     declarator: (_) @name
   )
-) @_.domain
+) @statement @name.domain
 
 (initializer_list) @list
 
@@ -221,7 +240,7 @@
     .
     (_)? @_.trailing.startOf
   ) @_dummy
-  (#not-type? @argumentOrParameter "comment")
+  (#not-type? @argumentOrParameter comment)
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
@@ -235,7 +254,7 @@
     .
     (_)? @_.trailing.startOf
   ) @_dummy
-  (#not-type? @argumentOrParameter "comment")
+  (#not-type? @argumentOrParameter comment)
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
@@ -253,8 +272,8 @@
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 (parameter_list
-  "(" @type.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
-  ")" @type.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
 )
 
 ;;!! foo(aaa, bbb);
@@ -268,6 +287,13 @@
   (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
+;;!! if () {} else {}
+;;!  ^^^^^^^^^^^^^^^^
+(
+  (if_statement) @ifStatement @statement @branch.iteration
+  (#not-parent-type? @ifStatement else_clause)
+)
+
 ;;!! if () {}
 ;;!  ^^^^^^^^
 (
@@ -279,10 +305,10 @@
       "}" @interior.end.startOf
     ) @branch.end @branch.removal.end @interior.domain.end
     alternative: (else_clause
-      (if_statement) @branch.removal.end.startOf
-    )?
+      (if_statement)? @branch.removal.end.startOf
+    )? @branch.removal.end.startOf
   ) @condition.domain
-  (#not-parent-type? @condition.domain "else_clause")
+  (#not-parent-type? @condition.domain else_clause)
   (#child-range! @condition 0 -1 true true)
 )
 
@@ -309,11 +335,6 @@
       "}" @interior.end.startOf
     )
   ) @branch @interior.domain
-)
-
-(
-  (if_statement) @branch.iteration
-  (#not-parent-type? @branch.iteration "else_clause")
 )
 
 ;;!! for (int i = 0; i < size; ++i) {}
@@ -400,7 +421,7 @@
 ;;!  ^^^^
 (conditional_expression
   condition: (_) @condition @interior
-) @condition.domain
+) @condition.domain @branch.iteration
 
 ;;!! true ? 0 : 1
 ;;!         ^

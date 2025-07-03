@@ -1,0 +1,14 @@
+while True:
+    pass
+else:
+    pass
+---
+
+[Range] =
+[Domain] = 0:0-3:8
+  >-----------
+0| while True:
+1|     pass
+2| else:
+3|     pass
+   --------<

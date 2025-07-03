@@ -1,0 +1,16 @@
+def foo():
+    pass
+---
+
+[#1 Range] =
+[#1 Domain] = 0:0-1:8
+  >----------
+0| def foo():
+1|     pass
+   --------<
+
+
+[#2 Range] =
+[#2 Domain] = 1:4-1:8
+      >----<
+1|     pass
