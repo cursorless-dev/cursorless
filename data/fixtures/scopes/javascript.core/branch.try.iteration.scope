@@ -1,24 +1,12 @@
-try {
-    a
-} 
-catch (e) {
-    b
-}
-finally {
-    c
-}
+try {}
+catch(error) {}
+finally {}
 ---
 
 [Range] =
-[Domain] = 0:0-8:1
-  >-----
-0| try {
-1|     a
-2| } 
-3| catch (e) {
-4|     b
-5| }
-6| finally {
-7|     c
-8| }
-   -<
+[Domain] = 0:0-2:10
+  >------
+0| try {}
+1| catch(error) {}
+2| finally {}
+   ----------<

@@ -1,66 +1,45 @@
-try {
-
-}
-catch(error) {
-
-}
-finally {
-
-}
+try {}
+catch(error) {}
+finally {}
 ---
 
 [#1 Content] =
-[#1 Domain] = 0:0-2:1
-  >-----
-0| try {
-1|
-2| }
-   -<
+[#1 Domain] = 0:0-0:6
+  >------<
+0| try {}
 
-[#1 Removal] = 0:0-3:0
-  >-----
-0| try {
-1|
-2| }
-3| catch(error) {
+[#1 Removal] = 0:0-1:0
+  >------
+0| try {}
+1| catch(error) {}
    <
 
 [#1 Insertion delimiter] = "\n"
 
 
 [#2 Content] =
-[#2 Domain] = 3:0-5:1
-  >--------------
-3| catch(error) {
-4|
-5| }
-   -<
+[#2 Domain] = 1:0-1:15
+  >---------------<
+1| catch(error) {}
 
-[#2 Removal] = 3:0-6:0
-  >--------------
-3| catch(error) {
-4|
-5| }
-6| finally {
+[#2 Removal] = 1:0-2:0
+  >---------------
+1| catch(error) {}
+2| finally {}
    <
 
 [#2 Insertion delimiter] = "\n"
 
 
 [#3 Content] =
-[#3 Domain] = 6:0-8:1
-  >---------
-6| finally {
-7|
-8| }
-   -<
+[#3 Domain] = 2:0-2:10
+  >----------<
+2| finally {}
 
-[#3 Removal] = 5:1-8:1
-   >
-5| }
-6| finally {
-7|
-8| }
-   -<
+[#3 Removal] = 1:15-2:10
+                 >
+1| catch(error) {}
+2| finally {}
+   ----------<
 
 [#3 Insertion delimiter] = "\n"

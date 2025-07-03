@@ -13,6 +13,7 @@ export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.method.iteration": supported,
   "type.argument.formal.constructor": supported,
   "type.argument.formal.constructor.iteration": supported,
+  "type.argument.catch": supported,
   "type.alias": supported,
   "type.cast": supported,
   "type.field.class": supported,

@@ -15,6 +15,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal.iteration": supported,
   "name.argument.formal.method": supported,
   "name.argument.formal.method.iteration": supported,
+  "name.argument.catch": supported,
   "name.assignment": supported,
   "name.assignment.pattern": supported,
   "name.class": supported,
@@ -58,6 +59,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.method": supported,
   "type.argument.formal.method.iteration": supported,
   "type.argument.formal": supported,
+  "type.argument.catch": supported,
   "type.class": supported,
   "type.field.class": supported,
   "type.return": supported,
@@ -101,6 +103,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal.method.iteration": supported,
   "argument.formal.lambda.singleLine": supported,
   "argument.formal.lambda.iteration": supported,
+  "argument.catch": supported,
 
   "argumentList.actual.empty": supported,
   "argumentList.actual.singleLine": supported,

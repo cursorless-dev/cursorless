@@ -299,6 +299,25 @@
   (_) @type
 )
 
+;;!! catch(error: unknown) {}
+;;!        ^^^^^^^^^^^^^^
+(catch_clause
+  parameter: (_) @argumentOrParameter.start
+  type: (_
+    (_) @argumentOrParameter.end
+  )?
+)
+
+;;!! catch(error: unknown) {}
+;;!        ^^^^^
+;;!               ^^^^^^^
+(catch_clause
+  parameter: (_) @name @type.leading.endOf @_.domain.start
+  type: (_
+    (_) @type @_.domain.end
+  )?
+)
+
 ;;!! interface Aaa {}
 ;;!! type Aaa = Bbb;
 (
