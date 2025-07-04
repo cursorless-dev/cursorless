@@ -181,6 +181,7 @@
 - `interior.constructor` The body of a constructor declaration
 - `interior.doWhile` The body of a do-while loop
 - `interior.element` The interior/children of a XML element
+- `interior.enum` The body of a enum
 - `interior.for` The body of a for loop
 - `interior.foreach` The body of a for-each loop
 - `interior.function` The body of a function declaration
@@ -233,14 +234,17 @@
 - `name.class` Name of a class
 - `name.command` LHS of a command, eg Talon spoken command or bash
 - `name.constructor` Name of a constructor
+- `name.enum` Name of a enum
 - `name.field.class` Name (LHS) of a field in a class
-- `name.field.interface` Name (LHS) of a field in a interface
+- `name.field.enum` Name (LHS) of a field in an enum
+- `name.field.interface` Name (LHS) of a field in an interface
 - `name.foreach` Iteration variable name in a for each loop
 - `name.function` Name of a function
 - `name.interface` Name of a interface
 - `name.iteration.block` Iteration scope for names: statement blocks (body of functions/if-statements/for-loops/etc).
 - `name.iteration.class` Iteration scope for names: class bodies.
 - `name.iteration.document` Iteration scope for names: the entire document including leading and trailing empty lines.
+- `name.iteration.enum` Iteration scope for names: enum bodies.
 - `name.iteration.interface` Iteration scope for names: interface bodies.
 - `name.method` Name of a class method
 - `name.namespace` Name of a namespace
@@ -300,9 +304,10 @@
 
 - `statement` A statement, eg assignment, for loop, etc
 - `statement.class` A class declaration
+- `statement.enum` An enum declaration
 - `statement.field.class` A field declaration in a class
 - `statement.field.interface` A field declaration in a interface
-- `statement.interface` A interface declaration
+- `statement.interface` An interface declaration
 - `statement.iteration.block` Iteration scope for statements: statement blocks (body of functions/if-statements/for-loops/etc).
 - `statement.iteration.class` Iteration scope for statements: class bodies.
 - `statement.iteration.document` Iteration scope for statements: the entire document including leading and trailing empty lines.
@@ -388,10 +393,12 @@
 - `value.attribute` Value (RHS) of an attribute eg in a xml element
 - `value.command` Value (RHS) of an command, eg Talon spoken command
 - `value.field.class` Value (RHS) of a field in a class
+- `value.field.enum` Value (RHS) of a field in an enum
 - `value.foreach` Iterable in a for each loop
 - `value.iteration.block` Iteration scope for values: statement blocks (body of functions/if-statements/for-loops/etc).
 - `value.iteration.class` Iteration scope for values: class bodies.
 - `value.iteration.document` Iteration scope for values: the entire document including leading and trailing empty lines.
+- `value.iteration.enum` Iteration scope for values: enum bodies.
 - `value.mapPair` Value (RHS) of a key-value pair in a map
 - `value.mapPair.iteration` Iteration scope for values of key-value pairs in a map: should be between the braces.
 - `value.resource` Value of a 'with' / 'use' / 'using' statement
