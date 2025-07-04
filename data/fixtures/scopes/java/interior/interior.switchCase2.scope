@@ -1,0 +1,153 @@
+switch (value) {
+    case 0 -> foo;
+    case 1 -> bar;
+    default -> {
+        yield baz;
+    }
+}
+---
+
+[#1 Content] = 1:4-5:5
+      >--------------
+1|     case 0 -> foo;
+2|     case 1 -> bar;
+3|     default -> {
+4|         yield baz;
+5|     }
+   -----<
+
+[#1 Removal] = 0:16-6:0
+                  >
+0| switch (value) {
+1|     case 0 -> foo;
+2|     case 1 -> bar;
+3|     default -> {
+4|         yield baz;
+5|     }
+6| }
+   <
+
+[#1 Domain] = 0:0-6:1
+  >----------------
+0| switch (value) {
+1|     case 0 -> foo;
+2|     case 1 -> bar;
+3|     default -> {
+4|         yield baz;
+5|     }
+6| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] = 0:8-0:13
+          >-----<
+0| switch (value) {
+
+[#2 Domain] = 0:7-0:14
+         >-------<
+0| switch (value) {
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] = 1:4-5:5
+      >--------------
+1|     case 0 -> foo;
+2|     case 1 -> bar;
+3|     default -> {
+4|         yield baz;
+5|     }
+   -----<
+
+[#3 Removal] = 0:16-6:0
+                  >
+0| switch (value) {
+1|     case 0 -> foo;
+2|     case 1 -> bar;
+3|     default -> {
+4|         yield baz;
+5|     }
+6| }
+   <
+
+[#3 Domain] = 0:15-6:1
+                 >-
+0| switch (value) {
+1|     case 0 -> foo;
+2|     case 1 -> bar;
+3|     default -> {
+4|         yield baz;
+5|     }
+6| }
+   -<
+
+[#3 Insertion delimiter] = " "
+
+
+[#4 Content] =
+[#4 Removal] = 1:14-1:18
+                >----<
+1|     case 0 -> foo;
+
+[#4 Domain] = 1:4-1:18
+      >--------------<
+1|     case 0 -> foo;
+
+[#4 Insertion delimiter] = " "
+
+
+[#5 Content] =
+[#5 Removal] = 2:14-2:18
+                >----<
+2|     case 1 -> bar;
+
+[#5 Domain] = 2:4-2:18
+      >--------------<
+2|     case 1 -> bar;
+
+[#5 Insertion delimiter] = " "
+
+
+[#6 Content] = 4:8-4:18
+          >----------<
+4|         yield baz;
+
+[#6 Removal] = 3:16-5:4
+                  >
+3|     default -> {
+4|         yield baz;
+5|     }
+   ----<
+
+[#6 Domain] = 3:4-5:5
+      >------------
+3|     default -> {
+4|         yield baz;
+5|     }
+   -----<
+
+[#6 Insertion delimiter] = " "
+
+
+[#7 Content] = 4:8-4:18
+          >----------<
+4|         yield baz;
+
+[#7 Removal] = 3:16-5:4
+                  >
+3|     default -> {
+4|         yield baz;
+5|     }
+   ----<
+
+[#7 Domain] = 3:15-5:5
+                 >-
+3|     default -> {
+4|         yield baz;
+5|     }
+   -----<
+
+[#7 Insertion delimiter] = " "

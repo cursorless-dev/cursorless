@@ -141,6 +141,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.foreach": supported,
   "value.field.class": supported,
   "value.return": supported,
+  "value.yield": supported,
   "value.return.lambda": supported,
   "value.variable": supported,
   "value.resource": supported,
@@ -289,7 +290,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.iteration.enum": notApplicable,
 
   // Miscellaneous
-  "value.yield": notApplicable,
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,
   environment: notApplicable,
