@@ -7,48 +7,22 @@ import { extensionDependencies } from "@cursorless/common";
 import * as cp from "child_process";
 
 const extraExtensions = ["pokey.command-server"];
-const vsCodeToolName = "code";
-const vsCodiumToolName = "codium";
+
+const vsCodeToolName : string = "code"
+const validCliToolParams : Array<string> = ["--code", "--codium"]
 
 async function main() {
-
-  // CLI tool name check
-
-  var cliToolName: string = vsCodeToolName;
-  var foundTool: boolean = false;
-  
-  console.log("Checking avalible VSC cli tool...");
-
-  while (!foundTool) {
-    try {
-      const checkToolSubprocess = cp.spawn(cliToolName, ["-v"], {
-      stdio: "inherit",
-      shell: true,
-    });
-
-    await new Promise<void>((resolve, reject) => {
-      checkToolSubprocess.on("error", reject);
-      checkToolSubprocess.on("exit", (code) => {
-        if (code === 0) {
-          foundTool = true;
-          resolve();
-        } else {
-          reject(new Error(`Process returned code ${code}`));
-        }
-      });
-    });
-
-    } catch(error) {
-      if (cliToolName === vsCodeToolName) {
-        cliToolName = vsCodiumToolName;
-      } else if (cliToolName === vsCodiumToolName) {
-        console.error("No VSC command line interface found!");
-        process.exit(2);
-      }
-    }
-  }
-  console.log("Found '%s' cli tool!", vsCodeToolName)
   try {
+    // Read cli tool name from arguments, assume tool name is 'code' if not present
+    var cliToolName = vsCodeToolName;
+
+    process.argv.forEach(argument => {
+      if (validCliToolParams.includes(argument)) {
+        cliToolName = argument.replace("--", "");
+        console.log("Cli tool name manually set to " + cliToolName);
+      }
+    });
+
     const args = [
       "--profile=cursorlessDevelopment",
       ...[...extensionDependencies, ...extraExtensions].flatMap(
@@ -60,8 +34,8 @@ async function main() {
       args.push("--force");
     }
 
-    // Do not attempt to install jrieken:vscode-tree-sitter-query if editor is VSCodium
-    if (cliToolName === vsCodiumToolName) {
+    // Do not attempt to install jrieken:vscode-tree-sitter-query if editor is NOT VSCode, assuming lack of access to VSCode Marketplace
+    if (cliToolName  !== vsCodeToolName) {
       const index: number = args.findIndex((value) => value.includes("vscode-tree-sitter-query"))
       args.splice(index, 1)
       console.log("Not installing jrieken:vscode-tree-sitter-query as it is not on the OpenVSX Marketplace.")
