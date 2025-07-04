@@ -168,10 +168,6 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "value.iteration.class": supported,
   "value.iteration.document": supported,
 
-  // JS doesn't have types, but for muscle memory sake we will treat classes the
-  // same in JS and TS.
-  "type.class": supported,
-
   "interior.class": supported,
   "interior.function": supported,
   "interior.constructor": supported,
@@ -272,6 +268,7 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.catch": notApplicable,
   "type.alias": notApplicable,
   "type.cast": notApplicable,
+  "type.class": notApplicable,
   "type.field.class": notApplicable,
   "type.field.interface": notApplicable,
   "type.foreach": notApplicable,
