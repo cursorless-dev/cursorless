@@ -22,9 +22,11 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   ifStatement: supported,
 
   statement: supported,
-  "statement.iteration.document": supported,
-  "statement.iteration.block": supported,
   "statement.class": supported,
+  "statement.field.class": supported,
+  "statement.iteration.document": supported,
+  "statement.iteration.class": supported,
+  "statement.iteration.block": supported,
 
   class: supported,
   "class.iteration.document": supported,
@@ -51,20 +53,28 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   functionCallee: supported,
   "functionCallee.constructor": supported,
 
-  "argument.actual": supported,
+  "argument.actual.singleLine": supported,
+  "argument.actual.multiLine": supported,
   "argument.actual.iteration": supported,
-  "argument.actual.method": supported,
+  "argument.actual.method.singleLine": supported,
+  "argument.actual.method.multiLine": supported,
   "argument.actual.method.iteration": supported,
-  "argument.actual.constructor": supported,
+  "argument.actual.constructor.singleLine": supported,
+  "argument.actual.constructor.multiLine": supported,
   "argument.actual.constructor.iteration": supported,
-  "argument.formal": supported,
+  "argument.formal.singleLine": supported,
+  "argument.formal.multiLine": supported,
   "argument.formal.iteration": supported,
-  "argument.formal.method": supported,
+  "argument.formal.method.singleLine": supported,
+  "argument.formal.method.multiLine": supported,
   "argument.formal.method.iteration": supported,
-  "argument.formal.constructor": supported,
+  "argument.formal.constructor.singleLine": supported,
+  "argument.formal.constructor.multiLine": supported,
   "argument.formal.constructor.iteration": supported,
-  "argument.formal.lambda": supported,
+  "argument.formal.lambda.singleLine": supported,
+  "argument.formal.lambda.multiLine": supported,
   "argument.formal.lambda.iteration": supported,
+  "argument.catch": supported,
 
   "argumentList.actual.empty": supported,
   "argumentList.actual.singleLine": supported,
@@ -95,6 +105,8 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "string.multiLine": supported,
 
   "branch.if": supported,
+  "branch.if.elif.else": supported,
+  "branch.if.else": supported,
   "branch.if.iteration": supported,
   "branch.try": supported,
   "branch.try.iteration": supported,
@@ -117,6 +129,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal.method.iteration": supported,
   "name.argument.formal.constructor": supported,
   "name.argument.formal.constructor.iteration": supported,
+  "name.argument.catch": supported,
   "name.foreach": supported,
   "name.assignment": supported,
   "name.assignment.pattern": supported,
@@ -126,8 +139,9 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "name.method": supported,
   "name.constructor": supported,
   "name.class": supported,
-  "name.field": supported,
+  "name.field.class": supported,
   "name.iteration.document": supported,
+  "name.iteration.class": supported,
   "name.iteration.block": supported,
 
   "key.mapPair": supported,
@@ -147,11 +161,14 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "value.foreach": supported,
   "value.return": supported,
   "value.return.lambda": supported,
-  "value.field": supported,
+  "value.field.class": supported,
   "value.yield": supported,
   "value.switch": supported,
 
   "type.class": supported,
+  "value.iteration.block": supported,
+  "value.iteration.class": supported,
+  "value.iteration.document": supported,
 
   "interior.class": supported,
   "interior.function": supported,
@@ -183,6 +200,8 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Command
   command: notApplicable,
+  "name.command": notApplicable,
+  "value.command": notApplicable,
   "interior.command": notApplicable,
 
   // Notebook cell
@@ -238,26 +257,50 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   ...javascriptCoreScopeSupport,
   ...javascriptJsxScopeSupport,
 
-  // Types are defined here because we don't want typescript to import them and
+  // These are defined here because we don't want typescript to import them and
   // accidentally forget to add support for them.
 
+  // Type
   "type.argument.formal": notApplicable,
   "type.argument.formal.iteration": notApplicable,
   "type.argument.formal.method": notApplicable,
   "type.argument.formal.method.iteration": notApplicable,
   "type.argument.formal.constructor": notApplicable,
   "type.argument.formal.constructor.iteration": notApplicable,
+  "type.argument.catch": notApplicable,
   "type.alias": notApplicable,
   "type.cast": notApplicable,
-  "type.field": notApplicable,
-  "type.field.iteration": notApplicable,
+  "type.class": notApplicable,
+  "type.field.class": notApplicable,
   "type.foreach": notApplicable,
-  "type.interface": notApplicable,
-  "type.enum": notApplicable,
   "type.return": notApplicable,
   "type.variable": notApplicable,
   "type.typeArgument": notApplicable,
   "type.typeArgument.iteration": notApplicable,
-
+  "type.iteration.block": notApplicable,
+  "type.iteration.class": notApplicable,
+  "type.iteration.document": notApplicable,
   "value.typeAlias": notApplicable,
+
+  // Interface
+  "statement.interface": notApplicable,
+  "statement.field.interface": notApplicable,
+  "statement.iteration.interface": notApplicable,
+  "name.interface": notApplicable,
+  "name.field.interface": notApplicable,
+  "name.iteration.interface": notApplicable,
+  "type.interface": notApplicable,
+  "type.field.interface": notApplicable,
+  "type.iteration.interface": notApplicable,
+  "interior.interface": notApplicable,
+
+  // Enum
+  "statement.enum": notApplicable,
+  "name.enum": notApplicable,
+  "name.field.enum": notApplicable,
+  "name.iteration.enum": notApplicable,
+  "value.field.enum": notApplicable,
+  "value.iteration.enum": notApplicable,
+  "type.enum": notApplicable,
+  "interior.enum": notApplicable,
 };

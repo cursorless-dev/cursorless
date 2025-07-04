@@ -23,11 +23,9 @@ initialState:
 finalState:
   documentContents: |-
     foo:
-        
+        bar = 1
 
     baz: 
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
     - anchor: {line: 3, character: 5}
       active: {line: 3, character: 5}

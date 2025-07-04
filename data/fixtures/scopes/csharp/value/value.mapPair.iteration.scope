@@ -1,0 +1,21 @@
+new StudentName {
+    FirstName = "Craig"
+};
+---
+
+[#1 Range] =
+[#1 Domain] = 0:0-2:2
+  >-----------------
+0| new StudentName {
+1|     FirstName = "Craig"
+2| };
+   --<
+
+
+[#2 Range] =
+[#2 Domain] = 0:17-2:0
+                   >
+0| new StudentName {
+1|     FirstName = "Craig"
+2| };
+   <

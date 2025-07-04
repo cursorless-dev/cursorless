@@ -1,0 +1,49 @@
+<?php
+class Foo {
+    public string $bar;
+}
+---
+
+[#1 Content] = 1:6-1:9
+        >---<
+1| class Foo {
+
+[#1 Removal] = 1:6-1:10
+        >----<
+1| class Foo {
+
+[#1 Leading delimiter] = 1:5-1:6
+       >-<
+1| class Foo {
+
+[#1 Trailing delimiter] = 1:9-1:10
+           >-<
+1| class Foo {
+
+[#1 Domain] = 1:0-3:1
+  >-----------
+1| class Foo {
+2|     public string $bar;
+3| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 2:18-2:22
+                    >----<
+2|     public string $bar;
+
+[#2 Removal] = 2:17-2:22
+                   >-----<
+2|     public string $bar;
+
+[#2 Leading delimiter] = 2:17-2:18
+                   >-<
+2|     public string $bar;
+
+[#2 Domain] = 2:4-2:23
+      >-------------------<
+2|     public string $bar;
+
+[#2 Insertion delimiter] = " "

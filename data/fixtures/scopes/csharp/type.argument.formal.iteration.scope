@@ -1,7 +1,0 @@
-void myFunk(String name, int value) {}
----
-
-[Range] =
-[Domain] = 0:12-0:34
-              >----------------------<
-0| void myFunk(String name, int value) {}

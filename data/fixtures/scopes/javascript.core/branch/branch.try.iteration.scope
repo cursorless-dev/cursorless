@@ -1,0 +1,12 @@
+try {}
+catch(error) {}
+finally {}
+---
+
+[Range] =
+[Domain] = 0:0-2:10
+  >------
+0| try {}
+1| catch(error) {}
+2| finally {}
+   ----------<

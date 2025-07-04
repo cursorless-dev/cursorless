@@ -18,7 +18,6 @@
   (enhanced_for_statement)
   (expression_statement)
   (for_statement)
-  (if_statement)
   (labeled_statement)
   (local_variable_declaration)
   (return_statement)
@@ -29,32 +28,58 @@
   (try_with_resources_statement)
   (while_statement)
   (yield_statement)
+  (method_declaration)
+  (constructor_declaration)
+  (field_declaration)
+  (constant_declaration)
 
   ;; exceptions
   ;; ";",
   ;; "block",
-  (method_declaration)
-  (constructor_declaration)
-  (field_declaration)
+
+  ;; Disabled on purpose. We have a better definition of this below.
+  ;; (if_statement)
 ] @statement
 
-[
-  (class_declaration)
-  (interface_declaration)
-  (enum_declaration)
-] @type
+;;!! enum Foo {}
+;;!  ^^^^^^^^^^^
+;;!       ^^^
+(enum_declaration
+  name: (_) @name
+  body: (_
+    "{" @interior.start.endOf @name.iteration.start.endOf
+    "}" @interior.end.startOf @name.iteration.end.startOf
+  )
+) @type @name.domain @interior.domain
 
+;;!! enum Foo { bar, baz }
+;;!             ^^^  ^^^
+(enum_constant
+  name: (_) @name
+) @_.domain
+
+;;!! class Foo {}
+;;!  ^^^^^^^^^^^^
+;;!        ^^^
 (class_declaration
   name: (_) @name @className
-) @class @_.domain
+) @class @type @_.domain
+
+;;!! interface Foo {}
+;;!  ^^^^^^^^^^^^^^^^
+;;!            ^^^
+(interface_declaration
+  name: (_) @name
+) @type @_.domain
 
 (
-  (program) @class.iteration @className.iteration @name.iteration
-  (#document-range! @class.iteration @className.iteration @name.iteration)
+  (program) @class.iteration @className.iteration @statement.iteration
+  (#document-range! @class.iteration @className.iteration @statement.iteration)
 )
+
 (
-  (program) @statement.iteration
-  (#document-range! @statement.iteration)
+  (program) @name.iteration @value.iteration @type.iteration
+  (#document-range! @name.iteration @value.iteration @type.iteration)
 )
 
 ;;!! class MyClass { }
@@ -65,37 +90,38 @@
 )
 
 (class_body
-  "{" @type.iteration.start.endOf @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf
-  "}" @type.iteration.end.startOf @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf
-)
-
-;;!! xxx { }
-;;!       ^
-(
-  (_
-    body: (_
-      "{" @interior.start.endOf
-      "}" @interior.end.startOf
-    )
-  ) @_.domain
-  (#not-type? @_.domain try_statement)
+  "{" @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf
+  "}" @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf
 )
 
 ;;!! { }
 ;;!   ^
-(_
-  "{" @name.iteration.start.endOf @statement.iteration.start.endOf
-  "}" @name.iteration.end.startOf @statement.iteration.end.startOf
+(
+  (_
+    "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+    "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+  ) @_dummy
+  (#type? @_dummy block class_body interface_body constructor_body)
 )
 
 (
   (_
-    !body
-    (block
+    "{" @statement.iteration.start.endOf
+    "}" @statement.iteration.end.startOf
+  ) @_dummy
+  (#type? @_dummy block class_body interface_body constructor_body)
+)
+
+;;!! { }
+;;!   ^
+(
+  (_
+    (_
       "{" @interior.start.endOf
       "}" @interior.end.startOf
-    )
+    ) @_dummy
   ) @_.domain
+  (#type? @_dummy block class_body interface_body constructor_body switch_block)
   (#not-type? @_.domain try_statement if_statement)
 )
 
@@ -192,7 +218,7 @@
   (_) @interior.start
   (_)? @interior.end
   .
-  (#not-type? @interior.start "block")
+  (#not-type? @interior.start block)
 ) @_.domain
 
 (switch_expression
@@ -202,11 +228,11 @@
   )
 ) @condition.iteration.domain @branch.iteration.domain
 
-;;!! if (value) {}
-;;!  ^^^^^^^^^^^^^
+;;!! if () {} else {}
+;;!  ^^^^^^^^^^^^^^^^
 (
-  (if_statement) @ifStatement
-  (#not-parent-type? @ifStatement "if_statement")
+  (if_statement) @ifStatement @statement @branch.iteration
+  (#not-parent-type? @ifStatement if_statement)
 )
 
 ;;!! if () {}
@@ -219,9 +245,10 @@
       "{" @interior.start.endOf
       "}" @interior.end.startOf
     ) @branch.end @branch.removal.end @interior.domain.end.endOf
+    "else"? @branch.removal.end.startOf
     alternative: (if_statement)? @branch.removal.end.startOf
   ) @condition.domain
-  (#not-parent-type? @condition.domain "if_statement")
+  (#not-parent-type? @condition.domain if_statement)
   (#child-range! @condition 0 -1 true true)
 )
 
@@ -247,11 +274,6 @@
     "{" @interior.start.endOf
     "}" @interior.end.startOf
   ) @branch.end @interior.domain.end.endOf
-)
-
-(
-  (if_statement) @branch.iteration
-  (#not-parent-type? @branch.iteration "if_statement")
 )
 
 ;;!! try {}
@@ -329,7 +351,7 @@
 (formal_parameters
   "(" @type.iteration.start.endOf @name.iteration.start.endOf
   ")" @type.iteration.end.startOf @name.iteration.end.startOf
-) @type.iteration.domain @name.iteration.domain
+)
 
 ;;!! List<String> list = value;
 ;;!  ^^^^^^^^^^^^
@@ -410,7 +432,7 @@
   value: (_) @value
 ) @branch @_.domain
 
-;;!! int value = 1;
+;;!! int value = 0;
 ;;!              ^
 ;;!           xxxx
 ;;!  --------------
@@ -421,10 +443,25 @@
   )
 ) @_.domain
 
+;;!! int value = 0;
+;;!  ^^^
+;;!      ^^^^^
+;;!              ^
 (field_declaration
+  type: (_) @type
   (variable_declarator
     name: (_) @name @value.leading.endOf
     value: (_)? @value @name.trailing.startOf
+  )
+) @_.domain
+
+;;!! int value;
+;;!  ^^^
+;;!      ^^^^^
+(constant_declaration
+  type: (_) @type
+  (variable_declarator
+    name: (_) @name
   )
 ) @_.domain
 
@@ -500,13 +537,6 @@
 ) @_.domain
 
 ;;!! Map<int, int> foo;
-;;!  ^^^^^^^^^^^^^
-;;!  ------------------
-(field_declaration
-  type: (_) @type
-) @_.domain
-
-;;!! Map<int, int> foo;
 ;;!      ^^^  ^^^
 (type_arguments
   (_)? @_.leading.endOf
@@ -573,6 +603,15 @@
   (#child-range! @argumentList 1 -2)
   (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
+
+;;!! catch(Exception ex) {}
+;;!        ^^^^^^^^^^^^
+;;!        ^^^^^^^^^
+;;!                  ^^
+(catch_formal_parameter
+  (catch_type) @type
+  name: (_) @name
+) @argumentOrParameter @_.domain
 
 ;;!! try (PrintWriter writer = create()) { }
 ;;!       ^^^^^^^^^^^ ^^^^^    ^^^^^^^^

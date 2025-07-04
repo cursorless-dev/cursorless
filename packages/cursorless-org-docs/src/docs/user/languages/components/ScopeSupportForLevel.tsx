@@ -2,11 +2,10 @@ import {
   camelCaseToAllDown,
   capitalize,
   groupBy,
+  scopeSupportFacetInfos,
+  serializeScopeType,
   type ScopeSupportFacet,
   type ScopeSupportFacetInfo,
-  scopeSupportFacetInfos,
-  type ScopeType,
-  type SimpleScopeTypeType,
 } from "@cursorless/common";
 import React, { useState, type JSX } from "react";
 
@@ -113,13 +112,4 @@ function prettifyFacet(facet: ScopeSupportFacet): string {
   }
   const name = capitalize(parts.slice(1).join(" "));
   return isIteration ? `${name} (iteration)` : name;
-}
-
-function serializeScopeType(
-  scopeType: SimpleScopeTypeType | ScopeType,
-): string {
-  if (typeof scopeType === "string") {
-    return scopeType;
-  }
-  return scopeType.type;
 }

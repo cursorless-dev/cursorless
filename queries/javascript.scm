@@ -26,9 +26,9 @@
       )
       (arrow_function)
     ]
-  ) @namedFunction.start @functionName.domain.start
+  ) @statement.start @namedFunction.start @functionName.domain.start
   .
-  ";"? @namedFunction.end @functionName.domain.end
+  ";"? @statement.end @namedFunction.end @functionName.domain.end
 )
 
 (_
@@ -37,9 +37,9 @@
   (field_definition
     property: (_) @name @value.leading.endOf
     value: (_)? @value @name.trailing.startOf
-  ) @_.domain.start
+  ) @statement.start @_.domain.start
   .
-  ";"? @_.domain.end
+  ";"? @statement.end @_.domain.end
 )
 
 ;;!! foo(name) {}
@@ -55,4 +55,10 @@
     left: (_) @name @value.leading.endOf
     right: (_) @value
   ) @_.domain
+)
+
+;;!! catch(error) {}
+;;!        ^^^^^
+(catch_clause
+  parameter: (_) @argumentOrParameter @name
 )

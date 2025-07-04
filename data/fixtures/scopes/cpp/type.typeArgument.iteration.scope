@@ -1,7 +1,0 @@
-Map<string, int> foo;
----
-
-[Range] =
-[Domain] = 0:4-0:15
-      >-----------<
-0| Map<string, int> foo;

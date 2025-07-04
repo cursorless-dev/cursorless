@@ -1,6 +1,6 @@
-if x < y then
+if true then
     a = 1
-elseif x > y then
+elseif false then
     a = 2
 else
     a = 3
@@ -13,8 +13,8 @@ end
 1|     a = 1
 
 [#1 Domain] = 0:0-1:9
-  >-------------
-0| if x < y then
+  >------------
+0| if true then
 1|     a = 1
    ---------<
 
@@ -28,7 +28,7 @@ end
 
 [#2 Domain] = 2:0-3:9
   >-----------------
-2| elseif x > y then
+2| elseif false then
 3|     a = 2
    ---------<
 
