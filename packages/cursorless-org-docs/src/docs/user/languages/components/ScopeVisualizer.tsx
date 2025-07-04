@@ -32,7 +32,8 @@ const code = highlighter.codeToHtml('const a = 1', {
     `;
 
   const highlights: Highlight[] = [
-    { type: "content", range: new Range(0, 1, 0, 3) },
+    { type: "domain", range: new Range(0, 7, 0, 28) },
+    { type: "content", range: new Range(0, 9, 0, 26) },
   ];
 
   return (
