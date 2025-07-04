@@ -28,8 +28,8 @@ export function updatesScopeSupportFacetInfos(
     const facetInfo =
       facetsInfos[facet as ScopeSupportFacet | TextualScopeSupportFacet];
     const scopeType = serializeScopeType(facetInfo.scopeType);
-    if (scopeType != currentScopeType) {
-      if (currentScopeType !== null) {
+    if (scopeType !== currentScopeType) {
+      if (currentScopeType != null) {
         rows.push("");
       }
       currentScopeType = scopeType;
