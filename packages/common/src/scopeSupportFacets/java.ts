@@ -135,9 +135,10 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "name.iteration.enum": supported,
   "name.iteration.block": supported,
   "name.resource": supported,
-  "value.switch": supported,
+
   "value.assignment": supported,
   "value.foreach": supported,
+  "value.switch": supported,
   "value.field.class": supported,
   "value.return": supported,
   "value.return.lambda": supported,
