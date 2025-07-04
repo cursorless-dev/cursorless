@@ -30,6 +30,7 @@ export const scopeSupportFacets = [
   "statement",
   "statement.class",
   "statement.interface",
+  "statement.enum",
   "statement.field.class",
   "statement.field.interface",
   "statement.iteration.document",
@@ -163,9 +164,11 @@ export const scopeSupportFacets = [
   "name.constructor",
   "name.class",
   "name.interface",
+  "name.enum",
   "name.namespace",
   "name.field.class",
   "name.field.interface",
+  "name.field.enum",
   "name.resource",
   "name.resource.iteration",
   "name.argument.actual",
@@ -180,6 +183,7 @@ export const scopeSupportFacets = [
   "name.iteration.block",
   "name.iteration.class",
   "name.iteration.interface",
+  "name.iteration.enum",
   "name.iteration.document",
 
   "key.attribute",
@@ -197,6 +201,7 @@ export const scopeSupportFacets = [
   "value.return",
   "value.return.lambda",
   "value.field.class",
+  "value.field.enum",
   "value.yield",
   "value.typeAlias",
   "value.resource",
@@ -211,6 +216,7 @@ export const scopeSupportFacets = [
   "value.argument.formal.constructor.iteration",
   "value.iteration.block",
   "value.iteration.class",
+  "value.iteration.enum",
   "value.iteration.document",
 
   "type.variable",
@@ -218,11 +224,11 @@ export const scopeSupportFacets = [
   "type.field.class",
   "type.field.interface",
   "type.foreach",
-  "type.enum",
   "type.alias",
   "type.cast",
   "type.class",
   "type.interface",
+  "type.enum",
   "type.resource",
   "type.resource.iteration",
   "type.typeArgument",
@@ -241,6 +247,7 @@ export const scopeSupportFacets = [
 
   "interior.class",
   "interior.interface",
+  "interior.enum",
   "interior.function",
   "interior.constructor",
   "interior.method",
@@ -267,9 +274,6 @@ export interface ScopeSupportFacetInfo {
   readonly description: string;
   readonly scopeType: SimpleScopeTypeType | ScopeType;
   readonly isIteration?: boolean;
-  readonly domainHint?: string;
-  readonly removalHint?: string;
-  readonly insertionDelimiterHint?: string;
 }
 
 export enum ScopeSupportFacetLevel {

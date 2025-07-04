@@ -117,6 +117,19 @@
   (#type? @_dummy struct_specifier union_specifier enum_specifier)
 ) @_.domain @class @type
 
+;;!! enum Foo {}
+(enumerator_list
+  "{" @name.iteration.start.endOf @value.iteration.start.endOf
+  "}" @name.iteration.end.startOf @value.iteration.end.startOf
+)
+
+;;!! bar = 0
+;;!  ^^^   ^
+(enumerator
+  name: (_) @name @value.leading.endOf
+  value: (_)? @value
+) @_.domain
+
 ;;!! void foo();
 (declaration
   (function_declarator

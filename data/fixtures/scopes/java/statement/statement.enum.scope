@@ -1,0 +1,10 @@
+public enum Foo {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:18
+  >------------------<
+0| public enum Foo {}
+
+[Insertion delimiter] = "\n"

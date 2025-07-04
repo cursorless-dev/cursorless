@@ -1,0 +1,97 @@
+enum class Foo {
+    bar = 0,
+    baz = 1,
+    bongo
+}
+---
+
+[#1 Content] = 0:11-0:14
+             >---<
+0| enum class Foo {
+
+[#1 Removal] = 0:11-0:15
+             >----<
+0| enum class Foo {
+
+[#1 Leading delimiter] = 0:10-0:11
+            >-<
+0| enum class Foo {
+
+[#1 Trailing delimiter] = 0:14-0:15
+                >-<
+0| enum class Foo {
+
+[#1 Domain] = 0:0-4:1
+  >----------------
+0| enum class Foo {
+1|     bar = 0,
+2|     baz = 1,
+3|     bongo
+4| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:4-1:7
+      >---<
+1|     bar = 0,
+
+[#2 Removal] = 1:4-1:8
+      >----<
+1|     bar = 0,
+
+[#2 Leading delimiter] = 1:0-1:4
+  >----<
+1|     bar = 0,
+
+[#2 Trailing delimiter] = 1:7-1:8
+         >-<
+1|     bar = 0,
+
+[#2 Domain] = 1:4-1:11
+      >-------<
+1|     bar = 0,
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] = 2:4-2:7
+      >---<
+2|     baz = 1,
+
+[#3 Removal] = 2:4-2:8
+      >----<
+2|     baz = 1,
+
+[#3 Leading delimiter] = 2:0-2:4
+  >----<
+2|     baz = 1,
+
+[#3 Trailing delimiter] = 2:7-2:8
+         >-<
+2|     baz = 1,
+
+[#3 Domain] = 2:4-2:11
+      >-------<
+2|     baz = 1,
+
+[#3 Insertion delimiter] = " "
+
+
+[#4 Content] =
+[#4 Domain] = 3:4-3:9
+      >-----<
+3|     bongo
+
+[#4 Removal] = 3:0-4:0
+  >---------
+3|     bongo
+4| }
+   <
+
+[#4 Leading delimiter] = 3:0-3:4
+  >----<
+3|     bongo
+
+[#4 Insertion delimiter] = " "

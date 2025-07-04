@@ -168,10 +168,6 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "value.iteration.class": supported,
   "value.iteration.document": supported,
 
-  // JS doesn't have types, but for muscle memory sake we will treat classes the
-  // same in JS and TS.
-  "type.class": supported,
-
   "interior.class": supported,
   "interior.function": supported,
   "interior.constructor": supported,
@@ -272,18 +268,15 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.catch": notApplicable,
   "type.alias": notApplicable,
   "type.cast": notApplicable,
+  "type.class": notApplicable,
   "type.field.class": notApplicable,
-  "type.field.interface": notApplicable,
   "type.foreach": notApplicable,
-  "type.interface": notApplicable,
-  "type.enum": notApplicable,
   "type.return": notApplicable,
   "type.variable": notApplicable,
   "type.typeArgument": notApplicable,
   "type.typeArgument.iteration": notApplicable,
   "type.iteration.block": notApplicable,
   "type.iteration.class": notApplicable,
-  "type.iteration.interface": notApplicable,
   "type.iteration.document": notApplicable,
   "value.typeAlias": notApplicable,
 
@@ -291,8 +284,21 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.interface": notApplicable,
   "statement.field.interface": notApplicable,
   "statement.iteration.interface": notApplicable,
-  "interior.interface": notApplicable,
   "name.interface": notApplicable,
   "name.field.interface": notApplicable,
   "name.iteration.interface": notApplicable,
+  "type.interface": notApplicable,
+  "type.field.interface": notApplicable,
+  "type.iteration.interface": notApplicable,
+  "interior.interface": notApplicable,
+
+  // Enum
+  "statement.enum": notApplicable,
+  "name.enum": notApplicable,
+  "name.field.enum": notApplicable,
+  "name.iteration.enum": notApplicable,
+  "value.field.enum": notApplicable,
+  "value.iteration.enum": notApplicable,
+  "type.enum": notApplicable,
+  "interior.enum": notApplicable,
 };
