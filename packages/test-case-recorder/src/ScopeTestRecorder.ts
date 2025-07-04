@@ -90,12 +90,17 @@ export class ScopeTestRecorder {
     await fsPromises.mkdir(langDirectory, { recursive: true });
 
     for (const { facet, content } of facetsToAdd) {
+      const fileName = `${facet}.scope`;
       const fullContent = `${content}---\n`;
-      let filePath = path.join(langDirectory, `${facet}.scope`);
+      const subDirectory = path.join(langDirectory, facet.split(".")[0]);
+      const directory = fs.existsSync(subDirectory)
+        ? subDirectory
+        : langDirectory;
+      let filePath = path.join(directory, fileName);
       let i = 2;
 
       while (fs.existsSync(filePath)) {
-        filePath = path.join(langDirectory, `${facet}${i++}.scope`);
+        filePath = path.join(directory, `${facet}${i++}.scope`);
       }
 
       await fsPromises.writeFile(filePath, fullContent, "utf-8");
