@@ -583,7 +583,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "name",
   },
   "name.enum": {
-    description: "Name of a enum",
+    description: "Name of an enum",
     scopeType: "name",
   },
   "name.namespace": {
@@ -895,7 +895,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: { type: "interior" },
   },
   "interior.enum": {
-    description: "The body of a enum",
+    description: "The body of an enum",
     scopeType: { type: "interior" },
   },
   "interior.function": {

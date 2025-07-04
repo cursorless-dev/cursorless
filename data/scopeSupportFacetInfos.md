@@ -181,7 +181,7 @@
 - `interior.constructor` The body of a constructor declaration
 - `interior.doWhile` The body of a do-while loop
 - `interior.element` The interior/children of a XML element
-- `interior.enum` The body of a enum
+- `interior.enum` The body of an enum
 - `interior.for` The body of a for loop
 - `interior.foreach` The body of a for-each loop
 - `interior.function` The body of a function declaration
@@ -234,7 +234,7 @@
 - `name.class` Name of a class
 - `name.command` LHS of a command, eg Talon spoken command or bash
 - `name.constructor` Name of a constructor
-- `name.enum` Name of a enum
+- `name.enum` Name of an enum
 - `name.field.class` Name (LHS) of a field in a class
 - `name.field.enum` Name (LHS) of a field in an enum
 - `name.field.interface` Name (LHS) of a field in an interface

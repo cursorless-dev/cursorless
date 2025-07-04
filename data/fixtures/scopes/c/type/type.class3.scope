@@ -1,10 +1,10 @@
-class Foo {};
+union Foo {};
 ---
 
 [Content] =
 [Removal] =
 [Domain] = 0:0-0:13
   >-------------<
-0| class Foo {};
+0| union Foo {};
 
 [Insertion delimiter] = " "

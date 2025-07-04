@@ -7,4 +7,4 @@ enum class Foo {};
   >------------------<
 0| enum class Foo {};
 
-[Insertion delimiter] = "\n\n"
+[Insertion delimiter] = " "

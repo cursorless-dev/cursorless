@@ -15,7 +15,7 @@
 ;;!! function foo(aaa = 0) {}
 ;;!               ^^^----
 (required_parameter
-  (identifier) @_.leading.endOf
+  (identifier) @value.leading.endOf
   value: (_) @value
   !type
 ) @_.domain
@@ -23,14 +23,14 @@
 ;;!! function foo(aaa: number = 0) {}
 ;;!               ^^^------------
 (required_parameter
-  type: (_) @_.leading.endOf
+  type: (_) @value.leading.endOf
   value: (_) @value
 ) @_.domain
 
 ;;!! function foo(aaa?: Ccc = "ddd") {}
 ;;!               ^^^--------------
 (optional_parameter
-  type: (_) @_.leading.endOf
+  type: (_) @value.leading.endOf
   value: (_) @value
 ) @_.domain
 
@@ -54,7 +54,7 @@
 ;;!             ^^^      ^^^
 ;;!                   ^        ^
 (enum_assignment
-  name: (_) @name
+  name: (_) @name @value.leading.endOf
   value: (_) @value
 ) @_.domain
 
