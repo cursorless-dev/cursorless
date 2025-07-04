@@ -346,6 +346,11 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "argumentOrParameter",
     isIteration: true,
   },
+  "argument.catch": {
+    description: "A parameter in a catch clause",
+    scopeType: "argumentOrParameter",
+    insertionDelimiterHint: '", "',
+  },
 
   "argumentList.actual.empty": {
     description: "An empty list of arguments in a function call",
@@ -618,6 +623,10 @@ export const scopeSupportFacetInfos: Record<
     description: "LHS of an assignment with pattern destructuring",
     scopeType: "name",
   },
+  "name.command": {
+    description: "LHS of a command, eg Talon spoken command or bash",
+    scopeType: "name",
+  },
   "name.variable": {
     description: "Name (LHS) of a variable declaration",
     scopeType: "name",
@@ -695,7 +704,7 @@ export const scopeSupportFacetInfos: Record<
     isIteration: true,
   },
   "name.argument.actual": {
-    description: "The name of a (keyword) argument in a function call",
+    description: "Name of a (keyword) argument in a function call",
     scopeType: "name",
   },
   "name.argument.actual.iteration": {
@@ -705,7 +714,7 @@ export const scopeSupportFacetInfos: Record<
     isIteration: true,
   },
   "name.argument.formal": {
-    description: "The name of a parameter in a function declaration",
+    description: "Name of a parameter in a function declaration",
     scopeType: "name",
   },
   "name.argument.formal.iteration": {
@@ -715,7 +724,7 @@ export const scopeSupportFacetInfos: Record<
     isIteration: true,
   },
   "name.argument.formal.method": {
-    description: "The name of a parameter in a class method declaration",
+    description: "Name of a parameter in a class method declaration",
     scopeType: "name",
   },
   "name.argument.formal.method.iteration": {
@@ -733,6 +742,10 @@ export const scopeSupportFacetInfos: Record<
       "Iteration scope of the names of the formal parameters of a constructor declaration; should be the whole parameter list",
     scopeType: "name",
     isIteration: true,
+  },
+  "name.argument.catch": {
+    description: "Name of a parameter in a catch clause",
+    scopeType: "name",
   },
 
   "key.attribute": {
@@ -752,6 +765,10 @@ export const scopeSupportFacetInfos: Record<
 
   "value.assignment": {
     description: "Value (RHS) of an assignment",
+    scopeType: "value",
+  },
+  "value.command": {
+    description: "Value (RHS) of an command, eg Talon spoken command",
     scopeType: "value",
   },
   "value.variable": {
@@ -902,6 +919,11 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "type",
     isIteration: true,
   },
+  "type.argument.catch": {
+    description: "Type of parameter in a catch clause",
+    scopeType: "type",
+  },
+
   "type.return": {
     description: "Type of return value in a function declaration",
     scopeType: "type",
@@ -985,7 +1007,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: { type: "interior" },
   },
   "interior.command": {
-    description: "The body of a Talon command",
+    description: "The body of a command, eg Talon spoken command",
     scopeType: { type: "interior" },
   },
   "interior.cell": {
