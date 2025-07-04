@@ -9,7 +9,7 @@ import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 
 export function updatesScopeSupportFacetInfos(
   actual: string | null,
-  options: FormatPluginFnOptions,
+  _options: FormatPluginFnOptions,
 ): string | null {
   if (actual == null) {
     return null;
@@ -28,7 +28,7 @@ export function updatesScopeSupportFacetInfos(
     const facetInfo =
       facetsInfos[facet as ScopeSupportFacet | TextualScopeSupportFacet];
     const scopeType = serializeScopeType(facetInfo.scopeType);
-    if (scopeType !== currentScopeType) {
+    if (scopeType != currentScopeType) {
       if (currentScopeType !== null) {
         rows.push("");
       }
@@ -38,6 +38,8 @@ export function updatesScopeSupportFacetInfos(
     }
     rows.push(`- \`${facet}\` ${facetInfo.description}`);
   }
+
+  rows.push("");
 
   return rows.join("\n");
 }
