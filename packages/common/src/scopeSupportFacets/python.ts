@@ -247,7 +247,6 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   // Type. Python have some types, but not these.
   "type.alias": notApplicable,
   "type.cast": notApplicable,
-  "type.enum": notApplicable,
   "type.foreach": notApplicable,
   "type.interface": notApplicable,
   "type.field.interface": notApplicable,
@@ -255,6 +254,16 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "type.resource.iteration": notApplicable,
   "type.resource": notApplicable,
   "value.typeAlias": notApplicable,
+
+  // Enum. The way python does enums is via class inheritance, and not as a separate keyword/syntax.
+  "name.enum": notApplicable,
+  "name.field.enum": notApplicable,
+  "name.iteration.enum": notApplicable,
+  "value.field.enum": notApplicable,
+  "value.iteration.enum": notApplicable,
+  "type.enum": notApplicable,
+  "interior.enum": notApplicable,
+  "statement.enum": notApplicable,
 
   // Notebook cell
   notebookCell: notApplicable,
