@@ -54,7 +54,3 @@ cursorless.nvim/node/test-harness
 
 # nix
 .direnv/
-
-# unignore .vsix files in data/vsix 
-# required for vscodium dev env setup until https://github.com/jrieken/vscode-tree-sitter-query/issues/28 is closed
-!data/vsix/*.vsix
