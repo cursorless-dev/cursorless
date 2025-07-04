@@ -15,8 +15,6 @@ export function updatesScopeSupportFacetInfos(
     return null;
   }
 
-  return "debug\n";
-
   const facetsInfos = {
     ...scopeSupportFacetInfos,
     ...textualScopeSupportFacetInfos,
