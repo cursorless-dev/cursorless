@@ -1,0 +1,44 @@
+switch (value) {
+    case 1:
+        yield "foo";
+    default:
+        yield "bar";
+}
+---
+
+[#1 Content] = 2:14-2:19
+                >-----<
+2|         yield "foo";
+
+[#1 Removal] = 2:13-2:19
+               >------<
+2|         yield "foo";
+
+[#1 Leading delimiter] = 2:13-2:14
+               >-<
+2|         yield "foo";
+
+[#1 Domain] = 2:8-2:20
+          >------------<
+2|         yield "foo";
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 4:14-4:19
+                >-----<
+4|         yield "bar";
+
+[#2 Removal] = 4:13-4:19
+               >------<
+4|         yield "bar";
+
+[#2 Leading delimiter] = 4:13-4:14
+               >-<
+4|         yield "bar";
+
+[#2 Domain] = 4:8-4:20
+          >------------<
+4|         yield "bar";
+
+[#2 Insertion delimiter] = " "
