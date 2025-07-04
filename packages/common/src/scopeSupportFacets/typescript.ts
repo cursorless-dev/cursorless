@@ -16,6 +16,7 @@ export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.catch": supported,
   "type.alias": supported,
   "type.cast": supported,
+  "type.class": supported,
   "type.field.class": supported,
   "type.field.interface": supported,
   "type.interface": supported,
