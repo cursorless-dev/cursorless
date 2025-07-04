@@ -57,8 +57,9 @@
     "clsx": "2.1.1",
     "mdast-util-find-and-replace": "3.0.2",
     "prism-react-renderer": "2.4.1",
-    "react": "19.1.0",
     "react-dom": "19.1.0",
+    "react": "19.1.0",
+    "shiki": "3.7.0",
     "unist-util-visit": "5.0.0"
   },
   "devDependencies": {
