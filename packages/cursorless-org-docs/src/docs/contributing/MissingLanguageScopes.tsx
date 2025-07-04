@@ -3,9 +3,8 @@ import {
   scopeSupportFacetInfos,
   ScopeSupportFacetLevel,
   scopeSupportFacets,
+  serializeScopeType,
   type ScopeSupportFacet,
-  type ScopeType,
-  type SimpleScopeTypeType,
 } from "@cursorless/common";
 import React, { useState } from "react";
 
@@ -121,13 +120,4 @@ function facetsToScopes(facets: ScopeSupportFacet[], showPrivate: boolean) {
   )
     .filter((scope) => showPrivate || !scope.startsWith("private."))
     .sort();
-}
-
-function serializeScopeType(
-  scopeType: SimpleScopeTypeType | ScopeType,
-): string {
-  if (typeof scopeType === "string") {
-    return scopeType;
-  }
-  return scopeType.type;
 }

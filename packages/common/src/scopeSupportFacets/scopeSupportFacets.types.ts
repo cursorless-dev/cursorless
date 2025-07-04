@@ -267,9 +267,6 @@ export interface ScopeSupportFacetInfo {
   readonly description: string;
   readonly scopeType: SimpleScopeTypeType | ScopeType;
   readonly isIteration?: boolean;
-  readonly domainHint?: string;
-  readonly removalHint?: string;
-  readonly insertionDelimiterHint?: string;
 }
 
 export enum ScopeSupportFacetLevel {

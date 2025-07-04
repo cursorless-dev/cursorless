@@ -1,3 +1,4 @@
+import type { SimpleScopeTypeType } from "../types/command/PartialTargetDescriptor.types";
 import type {
   ScopeSupportFacet,
   ScopeSupportFacetInfo,
@@ -42,19 +43,12 @@ export const scopeSupportFacetInfos: Record<
     description: "A document section",
     scopeType: "section",
   },
-  "section.iteration.document": {
-    description:
-      "Iteration scope for a document section. This is the entire document.",
-    scopeType: "section",
-    isIteration: true,
-  },
-  "section.iteration.parent": {
-    description:
-      "Iteration scope for a document section. This is the parent section.",
-    scopeType: "section",
-    isIteration: true,
-  },
-
+  "section.iteration.document": documentIter("section", "sections"),
+  "section.iteration.parent": iteration(
+    "section",
+    "sections",
+    "the parent section",
+  ),
   list: {
     description: "A list/array",
     scopeType: "list",
@@ -100,58 +94,23 @@ export const scopeSupportFacetInfos: Record<
     description: "A field declaration in a interface",
     scopeType: "statement",
   },
-  "statement.iteration.document": {
-    description: "Iteration scope for statements. The entire document.",
-    scopeType: "statement",
-    isIteration: true,
-  },
-  "statement.iteration.class": {
-    description: "Iteration scope for types; class body",
-    scopeType: "statement",
-    isIteration: true,
-  },
-  "statement.iteration.interface": {
-    description: "Iteration scope for types; interface body",
-    scopeType: "statement",
-    isIteration: true,
-  },
-  "statement.iteration.block": {
-    description:
-      "Iteration scope for statements. Statement blocks(body of functions/if statements/for loops/etc).",
-    scopeType: "statement",
-    isIteration: true,
-  },
+  "statement.iteration.document": documentIter("statement", "statements"),
+  "statement.iteration.class": classIter("statement", "statements"),
+  "statement.iteration.interface": interfaceIter("statement", "statements"),
+  "statement.iteration.block": blockIter("statement", "statements"),
 
   class: {
     description: "A class in an object-oriented language",
     scopeType: "class",
   },
-  "class.iteration.document": {
-    description: "Iteration scope for classes. The entire document.",
-    scopeType: "class",
-    isIteration: true,
-  },
-  "class.iteration.block": {
-    description:
-      "Iteration scope for classes. Statement blocks(body of functions/if statements/for loops/etc).",
-    scopeType: "class",
-    isIteration: true,
-  },
+  "class.iteration.document": documentIter("class", "classes"),
+  "class.iteration.block": blockIter("class", "classes"),
   className: {
     description: "The name of a class",
     scopeType: "className",
   },
-  "className.iteration.document": {
-    description: "Iteration scope for class names. The entire document.",
-    scopeType: "className",
-    isIteration: true,
-  },
-  "className.iteration.block": {
-    description:
-      "Iteration scope for class names. Statement blocks(body of functions/if statements/for loops/etc).",
-    scopeType: "className",
-    isIteration: true,
-  },
+  "className.iteration.document": documentIter("className", "class names"),
+  "className.iteration.block": blockIter("className", "class names"),
 
   namedFunction: {
     description: "A named function declaration",
@@ -161,26 +120,22 @@ export const scopeSupportFacetInfos: Record<
     description: "A named method declaration in a class",
     scopeType: "namedFunction",
   },
-  "namedFunction.method.iteration.class": {
-    description: "Iteration scope for named functions: class bodies",
-    scopeType: "namedFunction",
-    isIteration: true,
-  },
+  "namedFunction.method.iteration.class": classIter(
+    "namedFunction",
+    "named functions",
+  ),
   "namedFunction.constructor": {
     description: "A constructor declaration in a class",
     scopeType: "namedFunction",
   },
-  "namedFunction.iteration.block": {
-    description:
-      "Iteration scope for named functions. Statement blocks(body of functions/if statements/for loops/etc).",
-    scopeType: "namedFunction",
-    isIteration: true,
-  },
-  "namedFunction.iteration.document": {
-    description: "Iteration scope for named functions: the entire document",
-    scopeType: "namedFunction",
-    isIteration: true,
-  },
+  "namedFunction.iteration.block": blockIter(
+    "namedFunction",
+    "named functions",
+  ),
+  "namedFunction.iteration.document": documentIter(
+    "namedFunction",
+    "named functions",
+  ),
   anonymousFunction: {
     description:
       "An anonymous function, eg a lambda function, an arrow function, etc",
@@ -194,26 +149,19 @@ export const scopeSupportFacetInfos: Record<
     description: "The name of a method in a class",
     scopeType: "functionName",
   },
-  "functionName.method.iteration.class": {
-    description: "Iteration scope for method names: class bodies",
-    scopeType: "functionName",
-    isIteration: true,
-  },
+  "functionName.method.iteration.class": classIter(
+    "functionName",
+    "method names",
+  ),
   "functionName.constructor": {
     description: "The name of a constructor in a class",
     scopeType: "functionName",
   },
-  "functionName.iteration.block": {
-    description:
-      "Iteration scope for function names. Statement blocks(body of functions/if statements/for loops/etc).",
-    scopeType: "functionName",
-    isIteration: true,
-  },
-  "functionName.iteration.document": {
-    description: "Iteration scope for function names: the entire document",
-    scopeType: "functionName",
-    isIteration: true,
-  },
+  "functionName.iteration.block": blockIter("functionName", "function names"),
+  "functionName.iteration.document": documentIter(
+    "functionName",
+    "function names",
+  ),
 
   functionCall: {
     description: "A function call",
@@ -234,232 +182,210 @@ export const scopeSupportFacetInfos: Record<
   },
 
   "argument.actual.singleLine": {
-    description: "A single line argument/parameter in a function call",
+    description: "A single line argument in a function call",
     scopeType: "argumentOrParameter",
-    insertionDelimiterHint: '", "',
   },
   "argument.actual.multiLine": {
-    description: "A multiline argument/parameter in a function call",
-    scopeType: "argumentOrParameter",
-    insertionDelimiterHint: '",\n"',
-  },
-  "argument.actual.iteration": {
     description:
-      "Iteration scope of arguments in a function call, should be inside the parens of the argument list",
+      "A multiline argument in a function call. Insertion delimiter should include new line.",
     scopeType: "argumentOrParameter",
-    isIteration: true,
   },
+  "argument.actual.iteration": iteration(
+    "argumentOrParameter",
+    "arguments in a function call",
+    "the argument list. The domain should be the entire function call",
+  ),
   "argument.actual.method.singleLine": {
-    description: "A single line argument/parameter in a method call",
+    description: "A single line argument in a method call",
     scopeType: "argumentOrParameter",
-    insertionDelimiterHint: '", "',
   },
   "argument.actual.method.multiLine": {
-    description: "A multi line argument/parameter in a method call",
-    scopeType: "argumentOrParameter",
-    insertionDelimiterHint: '",\n"',
-  },
-  "argument.actual.method.iteration": {
     description:
-      "Iteration scope of arguments in a method call, should be inside the parens of the argument list",
+      "A multi line argument in a method call. Insertion delimiter should include new line.",
     scopeType: "argumentOrParameter",
-    isIteration: true,
   },
+  "argument.actual.method.iteration": iteration(
+    "argumentOrParameter",
+    "arguments in a method call",
+    "the argument list. The domain should be the entire method call",
+  ),
   "argument.actual.constructor.singleLine": {
-    description: "A single line argument/parameter in a constructor call",
+    description: "A single line argument in a constructor call",
     scopeType: "argumentOrParameter",
-    insertionDelimiterHint: '", "',
   },
   "argument.actual.constructor.multiLine": {
-    description: "A multi line argument/parameter in a constructor call",
-    scopeType: "argumentOrParameter",
-    insertionDelimiterHint: '",\n"',
-  },
-  "argument.actual.constructor.iteration": {
     description:
-      "Iteration scope of arguments in a constructor call, should be inside the parens of the argument list",
+      "A multi line argument in a constructor call. Insertion delimiter should include new line.",
     scopeType: "argumentOrParameter",
-    isIteration: true,
   },
+  "argument.actual.constructor.iteration": iteration(
+    "argumentOrParameter",
+    "arguments in a constructor call",
+    "the argument list. The domain should be the entire constructor call",
+  ),
 
   "argument.formal.singleLine": {
     description: "A single line parameter in a function declaration",
     scopeType: "argumentOrParameter",
-    insertionDelimiterHint: '", "',
   },
   "argument.formal.multiLine": {
-    description: "A multi line parameter in a function declaration",
-    scopeType: "argumentOrParameter",
-    insertionDelimiterHint: '",\n"',
-  },
-  "argument.formal.iteration": {
     description:
-      "Iteration scope of the formal parameters of a function declaration; should be the whole parameter list. The domain should be the entire function.",
+      "A multi line parameter in a function declaration. Insertion delimiter should include new line.",
     scopeType: "argumentOrParameter",
-    isIteration: true,
   },
+  "argument.formal.iteration": iteration(
+    "argumentOrParameter",
+    "formal parameters in a function declaration",
+    "the parameters list. The domain should be the entire function",
+  ),
   "argument.formal.method.singleLine": {
     description: "A single line parameter in a class method declaration",
     scopeType: "argumentOrParameter",
-    insertionDelimiterHint: '", "',
   },
   "argument.formal.method.multiLine": {
-    description: "A multi line parameter in a class method declaration",
-    scopeType: "argumentOrParameter",
-    insertionDelimiterHint: '",\n"',
-  },
-  "argument.formal.method.iteration": {
     description:
-      "Iteration scope of the formal parameters of a class method declaration; should be the whole parameter list. The domain should be the entire function.",
+      "A multi line parameter in a class method declaration. Insertion delimiter should include new line.",
     scopeType: "argumentOrParameter",
-    isIteration: true,
   },
+  "argument.formal.method.iteration": iteration(
+    "argumentOrParameter",
+    "formal parameters in a method declaration",
+    "the parameter list. The domain should be the entire method",
+  ),
+
   "argument.formal.constructor.singleLine": {
     description: "A single line parameter in a constructor declaration",
     scopeType: "argumentOrParameter",
-    insertionDelimiterHint: '", "',
   },
   "argument.formal.constructor.multiLine": {
-    description: "A multi line parameter in a constructor declaration",
-    scopeType: "argumentOrParameter",
-    insertionDelimiterHint: '",\n"',
-  },
-  "argument.formal.constructor.iteration": {
     description:
-      "Iteration scope of the formal parameters of a constructor declaration; should be the whole parameter list. The domain should be the entire function.",
+      "A multi line parameter in a constructor declaration. Insertion delimiter should include new line.",
     scopeType: "argumentOrParameter",
-    isIteration: true,
   },
+  "argument.formal.constructor.iteration": iteration(
+    "argumentOrParameter",
+    "formal parameters in a constructor declaration",
+    "the parameter list. The domain should be the entire constructor",
+  ),
   "argument.formal.lambda.singleLine": {
     description: "A single line parameter in a lambda declaration",
     scopeType: "argumentOrParameter",
-    insertionDelimiterHint: '", "',
   },
   "argument.formal.lambda.multiLine": {
-    description: "A multi line parameter in a lambda declaration",
-    scopeType: "argumentOrParameter",
-    insertionDelimiterHint: '",\n"',
-  },
-  "argument.formal.lambda.iteration": {
     description:
-      "Iteration scope of the formal parameters of a lambda declaration; should be the whole parameter list. The domain should be the entire function.",
+      "A multi line parameter in a lambda declaration. Insertion delimiter should include new line.",
     scopeType: "argumentOrParameter",
-    isIteration: true,
   },
+  "argument.formal.lambda.iteration": iteration(
+    "argumentOrParameter",
+    "formal parameters in a lambda declaration",
+    "the parameter list. The domain should be the entire lambda",
+  ),
   "argument.catch": {
     description: "A parameter in a catch clause",
     scopeType: "argumentOrParameter",
-    insertionDelimiterHint: '", "',
   },
 
   "argumentList.actual.empty": {
-    description: "An empty list of arguments in a function call",
+    description:
+      "An empty list of arguments in a function call. Insertion delimiter should be empty.",
     scopeType: "argumentList",
-    insertionDelimiterHint: '""',
   },
   "argumentList.actual.singleLine": {
     description: "A single line list of arguments in a function call",
     scopeType: "argumentList",
-    insertionDelimiterHint: '", "',
   },
   "argumentList.actual.multiLine": {
-    description: "A multi line list of arguments in a function call",
+    description:
+      "A multi line list of arguments in a function call. Insertion delimiter should include new line.",
     scopeType: "argumentList",
-    insertionDelimiterHint: '",\n"',
   },
   "argumentList.actual.method.empty": {
-    description: "An empty list of arguments in a method call",
+    description:
+      "An empty list of arguments in a method call. Insertion delimiter should be empty.",
     scopeType: "argumentList",
-    insertionDelimiterHint: '""',
   },
   "argumentList.actual.method.singleLine": {
     description: "A single line list of arguments in a method call",
     scopeType: "argumentList",
-    insertionDelimiterHint: '", "',
   },
   "argumentList.actual.method.multiLine": {
-    description: "A multi line list of arguments in a method call",
+    description:
+      "A multi line list of arguments in a method call. Insertion delimiter should include new line.",
     scopeType: "argumentList",
-    insertionDelimiterHint: '",\n"',
   },
   "argumentList.actual.constructor.empty": {
-    description: "An empty list of arguments in a constructor call",
+    description:
+      "An empty list of arguments in a constructor call. Insertion delimiter should be empty.",
     scopeType: "argumentList",
-    insertionDelimiterHint: '""',
   },
   "argumentList.actual.constructor.singleLine": {
     description: "A single line list of arguments in a constructor call",
     scopeType: "argumentList",
-    insertionDelimiterHint: '", "',
   },
   "argumentList.actual.constructor.multiLine": {
-    description: "A multi line list of arguments in a constructor call",
+    description:
+      "A multi line list of arguments in a constructor call. Insertion delimiter should include new line.",
     scopeType: "argumentList",
-    insertionDelimiterHint: '",\n"',
   },
 
   "argumentList.formal.empty": {
-    description: "An empty list of parameters in a function declaration",
+    description:
+      "An empty list of parameters in a function declaration. Insertion delimiter should be empty.",
     scopeType: "argumentList",
-    insertionDelimiterHint: '""',
   },
   "argumentList.formal.singleLine": {
     description: "A single line list of parameters in a function declaration",
     scopeType: "argumentList",
-    insertionDelimiterHint: '", "',
   },
   "argumentList.formal.multiLine": {
-    description: "A multi line list of parameters in a function declaration",
+    description:
+      "A multi line list of parameters in a function declaration. Insertion delimiter should include new line.",
     scopeType: "argumentList",
-    insertionDelimiterHint: '",\n"',
   },
   "argumentList.formal.lambda.empty": {
-    description: "An empty list of parameters in a lambda declaration",
+    description:
+      "An empty list of parameters in a lambda declaration. Insertion delimiter should be empty.",
     scopeType: "argumentList",
-    insertionDelimiterHint: '""',
   },
   "argumentList.formal.lambda.singleLine": {
     description: "A single line list of parameters in a lambda declaration",
     scopeType: "argumentList",
-    insertionDelimiterHint: '", "',
   },
   "argumentList.formal.lambda.multiLine": {
-    description: "A multi line list of parameters in a lambda declaration",
+    description:
+      "A multi line list of parameters in a lambda declaration. Insertion delimiter should include new line.",
     scopeType: "argumentList",
-    insertionDelimiterHint: '",\n"',
   },
   "argumentList.formal.method.empty": {
-    description: "An empty list of parameters in a class method declaration",
+    description:
+      "An empty list of parameters in a class method declaration. Insertion delimiter should be empty.",
     scopeType: "argumentList",
-    insertionDelimiterHint: '""',
   },
   "argumentList.formal.method.singleLine": {
     description:
       "A single line list of parameters in a class method declaration",
     scopeType: "argumentList",
-    insertionDelimiterHint: '", "',
   },
   "argumentList.formal.method.multiLine": {
     description:
-      "A multi line list of parameters in a class method declaration",
+      "A multi line list of parameters in a class method declaration. Insertion delimiter should include new line.",
     scopeType: "argumentList",
-    insertionDelimiterHint: '",\n"',
   },
   "argumentList.formal.constructor.empty": {
-    description: "An empty list of parameters in a constructor declaration",
+    description:
+      "An empty list of parameters in a constructor declaration. Insertion delimiter should be empty.",
     scopeType: "argumentList",
-    insertionDelimiterHint: '""',
   },
   "argumentList.formal.constructor.singleLine": {
     description:
       "A single line list of parameters in a constructor declaration",
     scopeType: "argumentList",
-    insertionDelimiterHint: '", "',
   },
   "argumentList.formal.constructor.multiLine": {
-    description: "A multi line list of parameters in a constructor declaration",
+    description:
+      "A multi line list of parameters in a constructor declaration. Insertion delimiter should include new line.",
     scopeType: "argumentList",
-    insertionDelimiterHint: '",\n"',
   },
 
   "comment.line": {
@@ -525,64 +451,57 @@ export const scopeSupportFacetInfos: Record<
     description: "An if-else branch",
     scopeType: "branch",
   },
-  "branch.if.iteration": {
-    description:
-      "Iteration scope for if/elif/else branch; should be the entire if-else statement",
-    scopeType: "branch",
-    isIteration: true,
-  },
+  "branch.if.iteration": iteration(
+    "branch",
+    "if/elif/else branches",
+    "the if-else statement",
+  ),
   "branch.loop": {
     description:
       "A for / while loop branch. For most languages this is not supported, but eg in Python you can have an else branch for a loop.",
     scopeType: "branch",
   },
-  "branch.loop.iteration": {
-    description:
-      "Iteration scope for loop branch; should be the entire loop statement",
-    scopeType: "branch",
-    isIteration: true,
-  },
+  "branch.loop.iteration": iteration(
+    "branch",
+    "loop branches",
+    "the loop statement",
+  ),
   "branch.try": {
     description: "A try/catch/finally branch",
     scopeType: "branch",
   },
-  "branch.try.iteration": {
-    description:
-      "Iteration scope for try/catch/finally branch; should be the entire try-catch statement",
-    scopeType: "branch",
-    isIteration: true,
-  },
+  "branch.try.iteration": iteration(
+    "branch",
+    "try/catch/finally branches",
+    "the try-catch statement",
+  ),
   "branch.switchCase": {
-    description: "A case/default branch in a switch/match statement",
+    description: "A case/default branch in a switch statement",
     scopeType: "branch",
   },
-  "branch.switchCase.iteration": {
-    description:
-      "Iteration scope for branches in a switch/match statement; should be the switch statement body",
-    scopeType: "branch",
-    isIteration: true,
-  },
+  "branch.switchCase.iteration": iteration(
+    "branch",
+    "switch branches",
+    "the switch statement body",
+  ),
   "branch.ternary": {
     description: "A branch in a ternary expression",
     scopeType: "branch",
   },
-  "branch.ternary.iteration": {
-    description:
-      "Iteration scope for branches in a ternary expression; should be the entire expression",
-    scopeType: "branch",
-    isIteration: true,
-  },
+  "branch.ternary.iteration": iteration(
+    "branch",
+    "ternary expression branches",
+    "the ternary expression",
+  ),
   "collectionItem.unenclosed": {
     description:
       "An item in a comma-separated list without enclosing delimiters. This could be multi-variable declarations, import statements, etc.",
     scopeType: "collectionItem",
   },
-  "collectionItem.unenclosed.iteration": {
-    description:
-      "Iteration scope for items in a comma-separated list without enclosing delimiters",
-    scopeType: "collectionItem",
-    isIteration: true,
-  },
+  "collectionItem.unenclosed.iteration": iteration(
+    "collectionItem",
+    "items in a comma-separated list without enclosing delimiters",
+  ),
 
   "condition.if": {
     description: "A condition in an if statement",
@@ -608,12 +527,11 @@ export const scopeSupportFacetInfos: Record<
     description: "A condition in a switch statement",
     scopeType: "condition",
   },
-  "condition.switchCase.iteration": {
-    description:
-      "The iteration scope for conditions in a switch statement: should contain all the cases, and exclude any curly brackets delimiting the full switch statement body",
-    scopeType: "condition",
-    isIteration: true,
-  },
+  "condition.switchCase.iteration": iteration(
+    "condition",
+    "conditions in a switch statement",
+    "the switch statement body",
+  ),
 
   "name.assignment": {
     description: "Name (LHS) of an assignment",
@@ -672,77 +590,55 @@ export const scopeSupportFacetInfos: Record<
     description: "Name (LHS) of a field in a interface",
     scopeType: "name",
   },
-  "name.iteration.block": {
-    description:
-      "Iteration scope for names: statement blocks (body of functions / if statements / for loops / etc).",
-    scopeType: "name",
-    isIteration: true,
-  },
-  "name.iteration.class": {
-    description: "Iteration scope for names: class body",
-    scopeType: "name",
-    isIteration: true,
-  },
-  "name.iteration.interface": {
-    description: "Iteration scope for names: interface body",
-    scopeType: "name",
-    isIteration: true,
-  },
-  "name.iteration.document": {
-    description: "Iteration scope for names: the entire document",
-    scopeType: "name",
-    isIteration: true,
-  },
+  "name.iteration.block": blockIter("name", "names"),
+  "name.iteration.class": classIter("name", "names"),
+  "name.iteration.interface": interfaceIter("name", "names"),
+  "name.iteration.document": documentIter("name", "names"),
   "name.resource": {
     description: "Name in a 'with' / 'use' / 'using' statement",
     scopeType: "name",
   },
-  "name.resource.iteration": {
-    description:
-      "Iteration scope for names in a 'with' / 'use' / 'using' statement",
-    scopeType: "name",
-    isIteration: true,
-  },
+  "name.resource.iteration": iteration(
+    "name",
+    "names in a 'with' / 'use' / 'using' statement",
+    "the resource list. The domain should be the entire statement",
+  ),
   "name.argument.actual": {
     description: "Name of a (keyword) argument in a function call",
     scopeType: "name",
   },
-  "name.argument.actual.iteration": {
-    description:
-      "Iteration scope of the names of the actual parameters of a function call; should be the whole arguments list",
-    scopeType: "name",
-    isIteration: true,
-  },
+  "name.argument.actual.iteration": iteration(
+    "name",
+    "names of the arguments in a function call",
+    "the argument list. The domain should be the whole function call",
+  ),
   "name.argument.formal": {
     description: "Name of a parameter in a function declaration",
     scopeType: "name",
   },
-  "name.argument.formal.iteration": {
-    description:
-      "Iteration scope of the names of the formal parameters of a function declaration; should be the whole parameter list",
-    scopeType: "name",
-    isIteration: true,
-  },
+  "name.argument.formal.iteration": iteration(
+    "name",
+    "names of formal parameters in a function declaration",
+    "the parameters list. The domain should be the entire function",
+  ),
   "name.argument.formal.method": {
     description: "Name of a parameter in a class method declaration",
     scopeType: "name",
   },
-  "name.argument.formal.method.iteration": {
-    description:
-      "Iteration scope of the names of the formal parameters of a class method declaration; should be the whole parameter list",
-    scopeType: "name",
-    isIteration: true,
-  },
+  "name.argument.formal.method.iteration": iteration(
+    "name",
+    "names of formal parameters in a method declaration",
+    "the parameters list. The domain should be the entire method",
+  ),
   "name.argument.formal.constructor": {
     description: "The name of a parameter in a constructor declaration",
     scopeType: "name",
   },
-  "name.argument.formal.constructor.iteration": {
-    description:
-      "Iteration scope of the names of the formal parameters of a constructor declaration; should be the whole parameter list",
-    scopeType: "name",
-    isIteration: true,
-  },
+  "name.argument.formal.constructor.iteration": iteration(
+    "name",
+    "names of formal parameters in a constructor declaration",
+    "the parameters list. The domain should be the entire constructor",
+  ),
   "name.argument.catch": {
     description: "Name of a parameter in a catch clause",
     scopeType: "name",
@@ -756,12 +652,11 @@ export const scopeSupportFacetInfos: Record<
     description: "Key (LHS) of a key-value pair of a map",
     scopeType: "collectionKey",
   },
-  "key.mapPair.iteration": {
-    description:
-      "Iteration scope of key-value pairs in a map; should be between the braces",
-    scopeType: "collectionKey",
-    isIteration: true,
-  },
+  "key.mapPair.iteration": iteration(
+    "collectionKey",
+    "keys of key-value pairs in a map",
+    "should be between the braces",
+  ),
 
   "value.assignment": {
     description: "Value (RHS) of an assignment",
@@ -784,12 +679,11 @@ export const scopeSupportFacetInfos: Record<
     description: "Value (RHS) of a key-value pair in a map",
     scopeType: "value",
   },
-  "value.mapPair.iteration": {
-    description:
-      "Iteration scope of key-value pairs in a map; should be between the braces",
-    scopeType: "value",
-    isIteration: true,
-  },
+  "value.mapPair.iteration": iteration(
+    "value",
+    "values of key-value pairs in a map",
+    "should be between the braces",
+  ),
   "value.foreach": {
     description: "Iterable in a for each loop",
     scopeType: "value",
@@ -814,72 +708,54 @@ export const scopeSupportFacetInfos: Record<
     description: "Value of a yield statement",
     scopeType: "value",
   },
-  "value.iteration.block": {
-    description:
-      "Iteration scope for values: statement blocks (body of functions / if statements / for loops / etc).",
-    scopeType: "value",
-    isIteration: true,
-  },
-  "value.iteration.class": {
-    description: "Iteration scope for values: class body",
-    scopeType: "value",
-    isIteration: true,
-  },
-  "value.iteration.document": {
-    description: "Iteration scope for values: the entire document",
-    scopeType: "value",
-    isIteration: true,
-  },
+  "value.iteration.block": blockIter("value", "values"),
+  "value.iteration.class": classIter("value", "values"),
+  "value.iteration.document": documentIter("value", "values"),
   "value.resource": {
     description: "Value of a 'with' / 'use' / 'using' statement",
     scopeType: "value",
   },
-  "value.resource.iteration": {
-    description:
-      "Iteration scope for values in a 'with' / 'use' / 'using' statement",
-    scopeType: "value",
-    isIteration: true,
-  },
-  "value.argument.formal": {
-    description: "The value of a (keyword) argument in a function declaration",
-    scopeType: "value",
-  },
-  "value.argument.formal.iteration": {
-    description:
-      "Iteration scope of the values of the formal parameters of a function declaration; should be the whole parameter list",
-    scopeType: "value",
-    isIteration: true,
-  },
+  "value.resource.iteration": iteration(
+    "value",
+    "values in a 'with' / 'use' / 'using' statement",
+    "the resource list. The domain should be the entire statement",
+  ),
   "value.argument.actual": {
     description: "The value of a (keyword) argument in a function call",
     scopeType: "value",
   },
-  "value.argument.actual.iteration": {
-    description:
-      "Iteration scope of the values of the actual parameters of a function call; should be the whole arguments list",
+  "value.argument.actual.iteration": iteration(
+    "value",
+    "values of arguments in a function call",
+    "the arguments list. The domain should be the entire function call",
+  ),
+  "value.argument.formal": {
+    description: "The value of a (keyword) argument in a function declaration",
     scopeType: "value",
-    isIteration: true,
   },
+  "value.argument.formal.iteration": iteration(
+    "value",
+    "values of formal parameters in a function declaration",
+    "the parameters list. The domain should be the entire function",
+  ),
   "value.argument.formal.method": {
     description: "The value of a parameter in a class method declaration",
     scopeType: "value",
   },
-  "value.argument.formal.method.iteration": {
-    description:
-      "Iteration scope of the values of the formal parameters of a class method declaration; should be the whole parameter list",
-    scopeType: "value",
-    isIteration: true,
-  },
+  "value.argument.formal.method.iteration": iteration(
+    "value",
+    "values of formal parameters in a method declaration",
+    "the parameters list. The domain should be the entire method",
+  ),
   "value.argument.formal.constructor": {
     description: "The value of a parameter in a constructor declaration",
     scopeType: "value",
   },
-  "value.argument.formal.constructor.iteration": {
-    description:
-      "Iteration scope of the values of the formal parameters of a constructor declaration; should be the whole parameter list",
-    scopeType: "value",
-    isIteration: true,
-  },
+  "value.argument.formal.constructor.iteration": iteration(
+    "value",
+    "values of formal parameters in a constructor declaration",
+    "the parameters list. The domain should be the entire constructor",
+  ),
   "value.typeAlias": {
     description: "Value of a type alias declaration",
     scopeType: "value",
@@ -893,32 +769,29 @@ export const scopeSupportFacetInfos: Record<
     description: "Type of formal parameter in a function declaration",
     scopeType: "type",
   },
-  "type.argument.formal.iteration": {
-    description:
-      "Iteration scope of the types of the formal parameters of a function declaration; should be the whole parameter list",
-    scopeType: "type",
-    isIteration: true,
-  },
+  "type.argument.formal.iteration": iteration(
+    "type",
+    "types of formal parameters in a function declaration",
+    "the parameters list. The domain should be the entire function",
+  ),
   "type.argument.formal.method": {
     description: "Type of formal parameter in a class method declaration",
     scopeType: "type",
   },
-  "type.argument.formal.method.iteration": {
-    description:
-      "Iteration scope of the types of the formal parameters of a class method declaration; should be the whole parameter list",
-    scopeType: "type",
-    isIteration: true,
-  },
+  "type.argument.formal.method.iteration": iteration(
+    "type",
+    "types of formal parameters in a method declaration",
+    "the parameters list. The domain should be the entire method",
+  ),
   "type.argument.formal.constructor": {
     description: "Type of formal parameter in a constructor declaration",
     scopeType: "type",
   },
-  "type.argument.formal.constructor.iteration": {
-    description:
-      "Iteration scope of the types of the formal parameters of a constructor declaration; should be the whole parameter list",
-    scopeType: "type",
-    isIteration: true,
-  },
+  "type.argument.formal.constructor.iteration": iteration(
+    "type",
+    "types of formal parameters in a constructor declaration",
+    "the parameters list. The domain should be the entire constructor",
+  ),
   "type.argument.catch": {
     description: "Type of parameter in a catch clause",
     scopeType: "type",
@@ -964,43 +837,24 @@ export const scopeSupportFacetInfos: Record<
     description: "Type argument to a generic / parametrized type",
     scopeType: "type",
   },
-  "type.typeArgument.iteration": {
-    description:
-      "Iteration scope for type argument to a generic / parametrized type; Should be the list of type arguments",
-    scopeType: "type",
-    isIteration: true,
-  },
+  "type.typeArgument.iteration": iteration(
+    "type",
+    "type arguments to a generic / parametrized type",
+    "the type argument list",
+  ),
   "type.resource": {
     description: "Type in a 'with' / 'use' / 'using' statement",
     scopeType: "type",
   },
-  "type.resource.iteration": {
-    description:
-      "Iteration scope for types in a 'with' / 'use' / 'using' statement",
-    scopeType: "type",
-    isIteration: true,
-  },
-  "type.iteration.block": {
-    description:
-      "Iteration scope for types. Statement blocks(body of functions/if statements/for loops/etc).",
-    scopeType: "type",
-    isIteration: true,
-  },
-  "type.iteration.class": {
-    description: "Iteration scope for types; class body",
-    scopeType: "type",
-    isIteration: true,
-  },
-  "type.iteration.interface": {
-    description: "Iteration scope for types; interface body",
-    scopeType: "type",
-    isIteration: true,
-  },
-  "type.iteration.document": {
-    description: "Iteration scope for types; entire document.",
-    scopeType: "type",
-    isIteration: true,
-  },
+  "type.resource.iteration": iteration(
+    "type",
+    "types in a 'with' / 'use' / 'using' statement",
+    "the resource list. The domain should be the entire statement",
+  ),
+  "type.iteration.block": blockIter("type", "types"),
+  "type.iteration.class": classIter("type", "types"),
+  "type.iteration.interface": interfaceIter("type", "types"),
+  "type.iteration.document": documentIter("type", "types"),
 
   "interior.element": {
     description: "The interior/children of a XML element",
@@ -1104,3 +958,55 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "unit",
   },
 };
+
+function documentIter(
+  scopeType: SimpleScopeTypeType,
+  label: string,
+): ScopeSupportFacetInfo {
+  return iteration(
+    scopeType,
+    label,
+    "the entire document including leading and trailing empty lines",
+  );
+}
+
+function classIter(
+  scopeType: SimpleScopeTypeType,
+  label: string,
+): ScopeSupportFacetInfo {
+  return iteration(scopeType, label, "class bodies");
+}
+
+function interfaceIter(
+  scopeType: SimpleScopeTypeType,
+  label: string,
+): ScopeSupportFacetInfo {
+  return iteration(scopeType, label, "interface bodies");
+}
+
+function blockIter(
+  scopeType: SimpleScopeTypeType,
+  label: string,
+): ScopeSupportFacetInfo {
+  return iteration(
+    scopeType,
+    label,
+    "statement blocks (body of functions/if-statements/for-loops/etc)",
+  );
+}
+
+function iteration(
+  scopeType: SimpleScopeTypeType,
+  label: string,
+  desc?: string,
+): ScopeSupportFacetInfo {
+  const description =
+    desc != null
+      ? `Iteration scope for ${label}: ${desc}.`
+      : `Iteration scope for ${label}`;
+  return {
+    description,
+    scopeType,
+    isIteration: true,
+  };
+}
