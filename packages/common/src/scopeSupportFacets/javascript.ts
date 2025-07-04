@@ -164,8 +164,6 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "value.field.class": supported,
   "value.yield": supported,
   "value.switch": supported,
-
-  "type.class": supported,
   "value.iteration.block": supported,
   "value.iteration.class": supported,
   "value.iteration.document": supported,

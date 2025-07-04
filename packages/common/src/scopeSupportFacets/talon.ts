@@ -224,8 +224,6 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "section.iteration.document": notApplicable,
   "section.iteration.parent": notApplicable,
   startTag: notApplicable,
-  "statement.class": notApplicable,
-  switchStatementSubject: notApplicable,
   tags: notApplicable,
   "textFragment.comment.block": notApplicable,
   "textFragment.element": notApplicable,
