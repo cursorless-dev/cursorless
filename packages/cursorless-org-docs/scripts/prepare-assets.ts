@@ -15,9 +15,16 @@ interface Fixture {
   scopes: Scope[];
 }
 
+const fixtures: Fixture[] = [];
+
 for (const test of getScopeTestPaths()) {
-  parseTest(test);
+  const fixture = parseTest(test);
+  if (fixture != null) {
+    fixtures.push(fixture);
+  }
 }
+
+saveFixtures(fixtures);
 
 function parseTest(test: ScopeTestPath) {
   const fixture = fs
@@ -54,7 +61,20 @@ function parseTest(test: ScopeTestPath) {
         currentScope.insertionDelimiter = value.substring(1, value.length - 1);
         break;
       case "Leading delimiter":
+      case "Leading delimiter: Content":
+      case "Leading delimiter: Removal":
       case "Trailing delimiter":
+      case "Trailing delimiter: Content":
+      case "Trailing delimiter: Removal":
+      case "Interior":
+      case "Interior: Content":
+      case "Interior: Removal":
+      case "Boundary L":
+      case "Boundary L: Content":
+      case "Boundary L: Removal":
+      case "Boundary R":
+      case "Boundary R: Content":
+      case "Boundary R: Removal":
         // Do nothing
         break;
       default:
@@ -73,6 +93,11 @@ function parseTest(test: ScopeTestPath) {
 
     if (targetIndex != null) {
       // TODO: handle target index fixtures
+      return;
+    }
+
+    if (type.startsWith(".")) {
+      // TODO: should be fixed soon
       return;
     }
 
@@ -110,7 +135,7 @@ function parseTest(test: ScopeTestPath) {
     scopes,
   };
 
-  console.log(result);
+  return result;
 }
 
 function parseLine(line: string) {
@@ -141,3 +166,5 @@ function parseLine(line: string) {
 
   return { scopeIndex, targetIndex, type, value };
 }
+
+function saveFixtures(fixtures: Fixture[]) {}
