@@ -25,8 +25,6 @@ export const scopeSupportFacets = [
   "map",
 
   "ifStatement",
-  "regularExpression",
-  "fieldAccess",
 
   "statement",
   "statement.class",
