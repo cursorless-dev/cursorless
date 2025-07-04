@@ -42,7 +42,7 @@ Don't fret if `pnpm compile` fails! While required for running tests locally on 
       </TabItem>
    </Tabs>
 
-   and then close the window that opens (eg say `"window close"`). This step is necessary to create the [settings profile](https://code.visualstudio.com/updates/v1_72#_settings-profiles) that acts as a sandbox containing a specific set of VSCode extensions that will be run alongside Cursorless when you launch Cursorless in debug or test mode. Once https://github.com/microsoft/vscode/issues/172046 is resolved, we will be able to remove this step, as the profile can then automatically be created.
+   and then close the window that opens (eg say `"window close"`). This step is necessary to create the [VSCode settings profile](https://code.visualstudio.com/updates/v1_72#_settings-profiles) that acts as a sandbox containing a specific set of VSCode extensions that will be run alongside Cursorless when you launch Cursorless in debug or test mode. Once https://github.com/microsoft/vscode/issues/172046 is resolved, we will be able to remove this step, as the profile can then automatically be created.
 
 5. Run the following in the terminal:
 
@@ -80,7 +80,7 @@ Don't fret if `pnpm compile` fails! While required for running tests locally on 
 
    Note that you do not need to install the Cursorless extension into the `cursorlessDevelopment` profile. A local development version of Cursorless will be automatically installed there every time you debug the extension, as described below.
 
-   Also note that if you are adding support for a new language that isn't in the default list of [language identifiers](https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers) supported by VSCode/VSCodium, you may need to add an extension dependency. See [Adding a new language](./adding-a-new-language.md#2-ensure-file-type-is-supported-by-vscode) for more details.
+   Also note that if you are adding support for a new language that isn't in the default list of [language identifiers](https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers) supported by VSCode, you may need to add an extension dependency. See [Adding a new language](./adding-a-new-language.md#2-ensure-file-type-is-supported-by-vscode) for more details.
 
 6. Copy / symlink [`cursorless-talon-dev`](../../cursorless-talon-dev) into your Talon user directory for some useful voice commands for developing Cursorless.
 

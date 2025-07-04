@@ -64,6 +64,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal.method": supported,
   "name.argument.formal.method.iteration": supported,
   "name.argument.formal": supported,
+  "name.argument.catch": supported,
   "name.assignment": supported,
   "name.class": supported,
   "name.interface": supported,
@@ -104,6 +105,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.method.iteration": supported,
   "type.argument.formal.constructor": supported,
   "type.argument.formal.constructor.iteration": supported,
+  "type.argument.catch": supported,
   "type.cast": supported,
   "type.class": supported,
   "type.interface": supported,
@@ -167,6 +169,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal.method.singleLine": supported,
   "argument.formal.method.multiLine": supported,
   "argument.formal.method.iteration": supported,
+  "argument.catch": supported,
 
   ifStatement: supported,
   statement: supported,
@@ -255,6 +258,8 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Command
   command: notApplicable,
+  "name.command": notApplicable,
+  "value.command": notApplicable,
   "interior.command": notApplicable,
 
   // Notebook cell

@@ -168,6 +168,8 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Command
   command: notApplicable,
+  "name.command": notApplicable,
+  "value.command": notApplicable,
   "interior.command": notApplicable,
 
   // Type alias
@@ -190,6 +192,9 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.try": notApplicable,
   "branch.try.iteration": notApplicable,
   "interior.try": notApplicable,
+  "argument.catch": notApplicable,
+  "name.argument.catch": notApplicable,
+  "type.argument.catch": notApplicable,
 
   // Interface
   "statement.interface": notApplicable,

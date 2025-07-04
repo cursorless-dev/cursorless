@@ -56,3 +56,9 @@
     right: (_) @value
   ) @_.domain
 )
+
+;;!! catch(error) {}
+;;!        ^^^^^
+(catch_clause
+  parameter: (_) @argumentOrParameter @name
+)

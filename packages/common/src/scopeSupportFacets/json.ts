@@ -57,6 +57,20 @@ export const jsonScopeSupport: LanguageScopeSupportFacetMap = {
   "type.field.interface": notApplicable,
   "type.iteration.interface": notApplicable,
 
+  // Command
+  command: notApplicable,
+  "name.command": notApplicable,
+  "value.command": notApplicable,
+  "interior.command": notApplicable,
+
+  // Try catch
+  "branch.try": notApplicable,
+  "branch.try.iteration": notApplicable,
+  "interior.try": notApplicable,
+  "argument.catch": notApplicable,
+  "name.argument.catch": notApplicable,
+  "type.argument.catch": notApplicable,
+
   anonymousFunction: notApplicable,
   "argument.actual.singleLine": notApplicable,
   "argument.actual.multiLine": notApplicable,
@@ -111,11 +125,8 @@ export const jsonScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.switchCase.iteration": notApplicable,
   "branch.ternary": notApplicable,
   "branch.ternary.iteration": notApplicable,
-  "branch.try": notApplicable,
-  "branch.try.iteration": notApplicable,
   "collectionItem.unenclosed": notApplicable,
   "collectionItem.unenclosed.iteration": notApplicable,
-  command: notApplicable,
   "condition.doWhile": notApplicable,
   "condition.for": notApplicable,
   "condition.if": notApplicable,
@@ -139,7 +150,6 @@ export const jsonScopeSupport: LanguageScopeSupportFacetMap = {
   "functionName.method": notApplicable,
   ifStatement: notApplicable,
   "interior.cell": notApplicable,
-  "interior.command": notApplicable,
   "interior.element": notApplicable,
   "interior.function": notApplicable,
   "interior.constructor": notApplicable,
@@ -155,7 +165,6 @@ export const jsonScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.switch": notApplicable,
   "interior.switchCase": notApplicable,
   "interior.ternary": notApplicable,
-  "interior.try": notApplicable,
   "interior.static": notApplicable,
   "interior.namespace": notApplicable,
   "key.attribute": notApplicable,

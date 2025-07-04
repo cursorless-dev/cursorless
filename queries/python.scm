@@ -565,6 +565,17 @@
   (block) @interior
 ) @branch @interior.domain
 
+;;!! except Exception as ex:
+;;!         ^^^^^^^^^^^^^^^
+;;!         ^^^^^^^^^
+;;!                      ^^
+(except_clause
+  (as_pattern
+    (_) @type
+    alias: (_) @name
+  ) @argumentOrParameter @_.domain
+)
+
 ;;!! finally: pass
 ;;!  ^^^^^^^^^^^^^
 (finally_clause

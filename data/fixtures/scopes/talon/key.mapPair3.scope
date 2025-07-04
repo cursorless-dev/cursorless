@@ -1,15 +1,15 @@
-command:
+settings():
     foo = 0
 ---
 
 [#1 Content] =
-[#1 Removal] = 0:0-0:7
-  >-------<
-0| command:
+[#1 Removal] = 0:0-0:10
+  >----------<
+0| settings():
 
 [#1 Domain] = 0:0-1:11
-  >--------
-0| command:
+  >-----------
+0| settings():
 1|     foo = 0
    -----------<
 

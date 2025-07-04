@@ -53,6 +53,20 @@ export const markdownScopeSupport: LanguageScopeSupportFacetMap = {
   "type.field.interface": notApplicable,
   "type.iteration.interface": notApplicable,
 
+  // Command
+  command: notApplicable,
+  "name.command": notApplicable,
+  "value.command": notApplicable,
+  "interior.command": notApplicable,
+
+  // Try catch
+  "branch.try": notApplicable,
+  "branch.try.iteration": notApplicable,
+  "interior.try": notApplicable,
+  "argument.catch": notApplicable,
+  "name.argument.catch": notApplicable,
+  "type.argument.catch": notApplicable,
+
   anonymousFunction: notApplicable,
   "argument.actual.singleLine": notApplicable,
   "argument.actual.multiLine": notApplicable,
@@ -107,10 +121,7 @@ export const markdownScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.switchCase.iteration": notApplicable,
   "branch.ternary": notApplicable,
   "branch.ternary.iteration": notApplicable,
-  "branch.try": notApplicable,
-  "branch.try.iteration": notApplicable,
   "collectionItem.unenclosed.iteration": notApplicable,
-  command: notApplicable,
   "comment.line": notApplicable,
   "condition.doWhile": notApplicable,
   "condition.for": notApplicable,
@@ -134,7 +145,6 @@ export const markdownScopeSupport: LanguageScopeSupportFacetMap = {
   "functionName.iteration.document": notApplicable,
   "functionName.method": notApplicable,
   ifStatement: notApplicable,
-  "interior.command": notApplicable,
   "interior.element": notApplicable,
   "interior.function": notApplicable,
   "interior.constructor": notApplicable,
@@ -150,7 +160,6 @@ export const markdownScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.switch": notApplicable,
   "interior.switchCase": notApplicable,
   "interior.ternary": notApplicable,
-  "interior.try": notApplicable,
   "interior.namespace": notApplicable,
   "interior.static": notApplicable,
   "key.attribute": notApplicable,

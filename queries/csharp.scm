@@ -473,13 +473,14 @@
 
 (_
   name: (_) @name
+  (#not-parent-type? @name catch_declaration)
 ) @_.domain
 
 (
   (_
     type: (_) @type
   ) @_.domain
-  (#not-type? @_.domain cast_expression)
+  (#not-type? @_.domain catch_declaration cast_expression)
 )
 
 ;;!! (int)5.5;
@@ -571,6 +572,15 @@
 (parameter_list
   "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
   ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+)
+
+;;!! catch(Exception ex) {}
+;;!        ^^^^^^^^^^^^
+;;!        ^^^^^^^^^
+;;!                  ^^
+(catch_declaration
+  type: (_) @argumentOrParameter.start @type @_.domain.start
+  name: (_) @argumentOrParameter.end @name @_.domain.end
 )
 
 operator: [
