@@ -10,6 +10,7 @@ import { textFormat } from "./textFormat";
 import { updateLanguageMdxConfig } from "./updateLanguageScopeSupportConfig";
 import { updatePackageJson } from "./updatePackageJson";
 import { updateTSConfig } from "./updateTSConfig";
+import { updatesScopeSupportFacetInfos } from "./updatesScopeSupportFacetInfos";
 
 export const updater = async (workspaceDir: string) => {
   const pnpmLockfile = await readWantedLockfile(workspaceDir, {
@@ -29,6 +30,7 @@ export const updater = async (workspaceDir: string) => {
     files: {
       ["package.json"]: updatePackageJson.bind(null, context),
       ["tsconfig.json"]: updateTSConfig.bind(null, context),
+      ["data/scopeSupportFacetInfos.md"]: updatesScopeSupportFacetInfos,
       ...Object.fromEntries(
         Object.keys(languageScopeSupport).map((languageId) => {
           return [
@@ -39,6 +41,7 @@ export const updater = async (workspaceDir: string) => {
       ),
     },
     formats: {
+      md: textFormat,
       mdx: textFormat,
     },
   });

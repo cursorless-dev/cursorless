@@ -187,7 +187,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "argument.actual.multiLine": {
     description:
-      "A multiline argument in a function call. Insertion delimiter should include `\n`.",
+      "A multiline argument in a function call. Insertion delimiter should include new line.",
     scopeType: "argumentOrParameter",
   },
   "argument.actual.iteration": iteration(
@@ -201,7 +201,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "argument.actual.method.multiLine": {
     description:
-      "A multi line argument in a method call. Insertion delimiter should include `\n`.",
+      "A multi line argument in a method call. Insertion delimiter should include new line.",
     scopeType: "argumentOrParameter",
   },
   "argument.actual.method.iteration": iteration(
@@ -215,7 +215,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "argument.actual.constructor.multiLine": {
     description:
-      "A multi line argument in a constructor call. Insertion delimiter should include `\n`.",
+      "A multi line argument in a constructor call. Insertion delimiter should include new line.",
     scopeType: "argumentOrParameter",
   },
   "argument.actual.constructor.iteration": iteration(
@@ -230,7 +230,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "argument.formal.multiLine": {
     description:
-      "A multi line parameter in a function declaration. Insertion delimiter should include `\n`.",
+      "A multi line parameter in a function declaration. Insertion delimiter should include new line.",
     scopeType: "argumentOrParameter",
   },
   "argument.formal.iteration": iteration(
@@ -244,7 +244,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "argument.formal.method.multiLine": {
     description:
-      "A multi line parameter in a class method declaration. Insertion delimiter should include `\n`.",
+      "A multi line parameter in a class method declaration. Insertion delimiter should include new line.",
     scopeType: "argumentOrParameter",
   },
   "argument.formal.method.iteration": iteration(
@@ -259,7 +259,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "argument.formal.constructor.multiLine": {
     description:
-      "A multi line parameter in a constructor declaration. Insertion delimiter should include `\n`.",
+      "A multi line parameter in a constructor declaration. Insertion delimiter should include new line.",
     scopeType: "argumentOrParameter",
   },
   "argument.formal.constructor.iteration": iteration(
@@ -273,7 +273,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "argument.formal.lambda.multiLine": {
     description:
-      "A multi line parameter in a lambda declaration. Insertion delimiter should include `\n`.",
+      "A multi line parameter in a lambda declaration. Insertion delimiter should include new line.",
     scopeType: "argumentOrParameter",
   },
   "argument.formal.lambda.iteration": iteration(
@@ -297,7 +297,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "argumentList.actual.multiLine": {
     description:
-      "A multi line list of arguments in a function call. Insertion delimiter should include `\n`.",
+      "A multi line list of arguments in a function call. Insertion delimiter should include new line.",
     scopeType: "argumentList",
   },
   "argumentList.actual.method.empty": {
@@ -311,7 +311,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "argumentList.actual.method.multiLine": {
     description:
-      "A multi line list of arguments in a method call. Insertion delimiter should include `\n`.",
+      "A multi line list of arguments in a method call. Insertion delimiter should include new line.",
     scopeType: "argumentList",
   },
   "argumentList.actual.constructor.empty": {
@@ -325,7 +325,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "argumentList.actual.constructor.multiLine": {
     description:
-      "A multi line list of arguments in a constructor call. Insertion delimiter should include `\n`.",
+      "A multi line list of arguments in a constructor call. Insertion delimiter should include new line.",
     scopeType: "argumentList",
   },
 
@@ -340,7 +340,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "argumentList.formal.multiLine": {
     description:
-      "A multi line list of parameters in a function declaration. Insertion delimiter should include `\n`.",
+      "A multi line list of parameters in a function declaration. Insertion delimiter should include new line.",
     scopeType: "argumentList",
   },
   "argumentList.formal.lambda.empty": {
@@ -354,7 +354,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "argumentList.formal.lambda.multiLine": {
     description:
-      "A multi line list of parameters in a lambda declaration. Insertion delimiter should include `\n`.",
+      "A multi line list of parameters in a lambda declaration. Insertion delimiter should include new line.",
     scopeType: "argumentList",
   },
   "argumentList.formal.method.empty": {
@@ -369,7 +369,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "argumentList.formal.method.multiLine": {
     description:
-      "A multi line list of parameters in a class method declaration. Insertion delimiter should include `\n`.",
+      "A multi line list of parameters in a class method declaration. Insertion delimiter should include new line.",
     scopeType: "argumentList",
   },
   "argumentList.formal.constructor.empty": {
@@ -384,7 +384,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "argumentList.formal.constructor.multiLine": {
     description:
-      "A multi line list of parameters in a constructor declaration. Insertion delimiter should include `\n`.",
+      "A multi line list of parameters in a constructor declaration. Insertion delimiter should include new line.",
     scopeType: "argumentList",
   },
 
@@ -1003,7 +1003,7 @@ function iteration(
   const description =
     desc != null
       ? `Iteration scope for ${label}: ${desc}.`
-      : `Iteration scope for ${label}.`;
+      : `Iteration scope for ${label}`;
   return {
     description,
     scopeType,
