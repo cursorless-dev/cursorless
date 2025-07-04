@@ -57,10 +57,6 @@ export const scopeSupportFacetInfos: Record<
     description: "A map/dictionary",
     scopeType: "map",
   },
-  ifStatement: {
-    description: "An if statement",
-    scopeType: "ifStatement",
-  },
   regularExpression: {
     description: "A regular expression",
     scopeType: "regularExpression",
@@ -73,6 +69,10 @@ export const scopeSupportFacetInfos: Record<
     description: "A field access",
     scopeType: "private.fieldAccess",
   },
+  ifStatement: {
+    description: "An if statement",
+    scopeType: "ifStatement",
+  },
 
   statement: {
     description: "A statement, eg assignment, for loop, etc",
@@ -83,7 +83,11 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "statement",
   },
   "statement.interface": {
-    description: "A interface declaration",
+    description: "An interface declaration",
+    scopeType: "statement",
+  },
+  "statement.enum": {
+    description: "An enum declaration",
     scopeType: "statement",
   },
   "statement.field.class": {
@@ -578,6 +582,10 @@ export const scopeSupportFacetInfos: Record<
     description: "Name of a interface",
     scopeType: "name",
   },
+  "name.enum": {
+    description: "Name of a enum",
+    scopeType: "name",
+  },
   "name.namespace": {
     description: "Name of a namespace",
     scopeType: "name",
@@ -587,12 +595,17 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "name",
   },
   "name.field.interface": {
-    description: "Name (LHS) of a field in a interface",
+    description: "Name (LHS) of a field in an interface",
+    scopeType: "name",
+  },
+  "name.field.enum": {
+    description: "Name (LHS) of a field in an enum",
     scopeType: "name",
   },
   "name.iteration.block": blockIter("name", "names"),
   "name.iteration.class": classIter("name", "names"),
   "name.iteration.interface": interfaceIter("name", "names"),
+  "name.iteration.enum": enumIter("name", "names"),
   "name.iteration.document": documentIter("name", "names"),
   "name.resource": {
     description: "Name in a 'with' / 'use' / 'using' statement",
@@ -704,12 +717,17 @@ export const scopeSupportFacetInfos: Record<
     description: "Value (RHS) of a field in a class",
     scopeType: "value",
   },
+  "value.field.enum": {
+    description: "Value (RHS) of a field in an enum",
+    scopeType: "value",
+  },
   "value.yield": {
     description: "Value of a yield statement",
     scopeType: "value",
   },
   "value.iteration.block": blockIter("value", "values"),
   "value.iteration.class": classIter("value", "values"),
+  "value.iteration.enum": enumIter("value", "values"),
   "value.iteration.document": documentIter("value", "values"),
   "value.resource": {
     description: "Value of a 'with' / 'use' / 'using' statement",
@@ -876,6 +894,10 @@ export const scopeSupportFacetInfos: Record<
     description: "The body of a interface",
     scopeType: { type: "interior" },
   },
+  "interior.enum": {
+    description: "The body of a enum",
+    scopeType: { type: "interior" },
+  },
   "interior.function": {
     description: "The body of a function declaration",
     scopeType: { type: "interior" },
@@ -982,6 +1004,13 @@ function interfaceIter(
   label: string,
 ): ScopeSupportFacetInfo {
   return iteration(scopeType, label, "interface bodies");
+}
+
+function enumIter(
+  scopeType: SimpleScopeTypeType,
+  label: string,
+): ScopeSupportFacetInfo {
+  return iteration(scopeType, label, "enum bodies");
 }
 
 function blockIter(

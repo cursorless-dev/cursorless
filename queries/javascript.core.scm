@@ -63,6 +63,8 @@
   ;; We have special cases for these defined elsewhere
   (#not-type?
     @_.domain
+    enum_body
+    enum_assignment
     variable_declarator
     method_signature
     abstract_method_signature

@@ -30,15 +30,24 @@ export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
   "type.iteration.interface": supported,
   "type.iteration.document": supported,
 
-  "value.typeAlias": supported,
-
-  "interior.interface": supported,
   "name.interface": supported,
+  "name.enum": supported,
   "name.field.interface": supported,
+  "name.field.enum": supported,
   "name.iteration.interface": supported,
+  "name.iteration.enum": supported,
+
   "statement.interface": supported,
+  "statement.enum": supported,
   "statement.field.interface": supported,
   "statement.iteration.interface": supported,
+
+  "value.typeAlias": supported,
+  "value.field.enum": supported,
+  "value.iteration.enum": supported,
+
+  "interior.interface": supported,
+  "interior.enum": supported,
 
   /* NOT APPLICABLE */
 

@@ -54,6 +54,16 @@ export const xmlScopeSupport: LanguageScopeSupportFacetMap = {
   "type.field.interface": notApplicable,
   "type.iteration.interface": notApplicable,
 
+  // Enum
+  "statement.enum": notApplicable,
+  "name.enum": notApplicable,
+  "name.field.enum": notApplicable,
+  "name.iteration.enum": notApplicable,
+  "value.field.enum": notApplicable,
+  "value.iteration.enum": notApplicable,
+  "type.enum": notApplicable,
+  "interior.enum": notApplicable,
+
   // Command
   command: notApplicable,
   "name.command": notApplicable,
@@ -212,7 +222,6 @@ export const xmlScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.method": notApplicable,
   "type.argument.formal.method.iteration": notApplicable,
   "type.cast": notApplicable,
-  "type.enum": notApplicable,
   "type.foreach": notApplicable,
   "type.return": notApplicable,
   "type.variable": notApplicable,
