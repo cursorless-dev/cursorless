@@ -570,6 +570,9 @@ importers:
         specifier: 5.0.0
         version: 5.0.0
     devDependencies:
+      '@cursorless/node-common':
+        specifier: workspace:*
+        version: link:../node-common
       '@docusaurus/module-type-aliases':
         specifier: 3.8.1
         version: 3.8.1(esbuild@0.25.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)

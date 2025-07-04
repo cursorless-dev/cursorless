@@ -33,7 +33,7 @@
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
-    "build": "docusaurus build",
+    "build": "docusaurus buildu && pnpm run prepare-assets",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
@@ -42,6 +42,7 @@
     "write-heading-ids": "docusaurus write-heading-ids",
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
+    "prepare-assets": "my-ts-node scripts/prepare-assets.ts",
     "clean": "pnpm clear && rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
@@ -63,6 +64,7 @@
     "unist-util-visit": "5.0.0"
   },
   "devDependencies": {
+    "@cursorless/node-common": "workspace:*",
     "@docusaurus/module-type-aliases": "3.8.1",
     "@docusaurus/types": "3.8.1",
     "@tailwindcss/postcss": "4.1.10",

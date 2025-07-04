@@ -18,9 +18,7 @@ interface Props {
   children: string;
 }
 
-const myTheme = createCssVariablesTheme({
-  fontStyle: true,
-});
+const myTheme = createCssVariablesTheme();
 
 export function Code({ languageId, highlights, children }: Props) {
   const [html, setHtml] = React.useState("");
