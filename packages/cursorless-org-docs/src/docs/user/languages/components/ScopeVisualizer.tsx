@@ -1,11 +1,7 @@
-import React, { useEffect } from "react";
-import {
-  codeToHtml,
-  createCssVariablesTheme,
-  createHighlighter as shikiCreateHighlighter,
-  type DecorationItem,
-} from "shiki";
-import "./ScopeVisualizer.css";
+import { Range } from "@cursorless/common";
+import React from "react";
+import { createCssVariablesTheme } from "shiki";
+import { Code, Highlight } from "./Code";
 
 interface Props {
   languageId: string;
@@ -17,9 +13,7 @@ const myTheme = createCssVariablesTheme({
 });
 
 export function ScopeVisualizer({ languageId }: Props) {
-  const [html, setHtml] = React.useState("");
-  useEffect(() => {
-    const code = `\
+  const code = `\
 import { createHighlighter } from 'shiki'
 
 // \`createHighlighter\` is async, it initializes the internal and
@@ -37,24 +31,13 @@ const code = highlighter.codeToHtml('const a = 1', {
 })
     `;
 
-    const decorations: DecorationItem[] = [
-      {
-        start: { line: 0, character: 1 },
-        end: { line: 0, character: 3 },
-        properties: {
-          class: "shiki-highlight-content",
-        },
-      },
-    ];
+  const highlights: Highlight[] = [
+    { type: "content", range: new Range(0, 1, 0, 3) },
+  ];
 
-    codeToHtml(code, {
-      lang: "javascript",
-      theme: myTheme,
-      decorations,
-    }).then(setHtml);
-  }, []);
-
-  console.log("html", html);
-
-  return <div dangerouslySetInnerHTML={{ __html: html }}></div>;
+  return (
+    <Code languageId="javascript" highlights={highlights}>
+      {code}
+    </Code>
+  );
 }
