@@ -6,6 +6,10 @@ export function getFixturesPath() {
   return path.join(getCursorlessRepoRoot(), "data", "fixtures");
 }
 
+export function getPackagePath(name: string) {
+  return path.join(getCursorlessRepoRoot(), "packages", name);
+}
+
 export function getFixturePath(fixturePath: string) {
   return path.join(getFixturesPath(), fixturePath);
 }

@@ -1,5 +1,10 @@
-import { getScopeTestPaths, type ScopeTestPath } from "@cursorless/node-common";
+import {
+  getScopeTestPaths,
+  type ScopeTestPath,
+  getPackagePath,
+} from "@cursorless/node-common";
 import * as fs from "node:fs";
+import * as path from "node:path";
 
 interface Scope {
   content?: string;
@@ -156,15 +161,23 @@ function parseLine(line: string) {
       };
     }
     return {
-      scopeIndex: null,
-      targetIndex: null,
+      scopeIndex: undefined,
+      targetIndex: undefined,
       type: header,
     };
   })();
 
-  const value = line.substring(line.indexOf("=") + 1).trim();
+  const rawValue = line.substring(line.indexOf("=") + 1).trim();
+  const value = rawValue.length > 0 ? rawValue : undefined;
 
   return { scopeIndex, targetIndex, type, value };
 }
 
-function saveFixtures(fixtures: Fixture[]) {}
+function saveFixtures(fixtures: Fixture[]) {
+  const assetPath = path.join(
+    getPackagePath("cursorless-org-docs"),
+    "static",
+    "scopeTests.json",
+  );
+  fs.writeFileSync(assetPath, JSON.stringify(fixtures, null, 2), "utf8");
+}
