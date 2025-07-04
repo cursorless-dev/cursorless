@@ -43,7 +43,20 @@
 
 ;;!! enum Foo {}
 ;;!  ^^^^^^^^^^^
-(enum_declaration) @type
+;;!       ^^^
+(enum_declaration
+  name: (_) @name
+  body: (_
+    "{" @interior.start.endOf @name.iteration.start.endOf
+    "}" @interior.end.startOf @name.iteration.end.startOf
+  )
+) @type @name.domain @interior.domain
+
+;;!! enum Foo { bar, baz }
+;;!             ^^^  ^^^
+(enum_constant
+  name: (_) @name
+) @_.domain
 
 ;;!! class Foo {}
 ;;!  ^^^^^^^^^^^^

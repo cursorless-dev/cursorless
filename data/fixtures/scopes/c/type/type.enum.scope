@@ -1,10 +1,10 @@
-enum Foo { aaa, bbb };
+enum Foo {};
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-0:22
-  >----------------------<
-0| enum Foo { aaa, bbb };
+[Domain] = 0:0-0:12
+  >------------<
+0| enum Foo {};
 
 [Insertion delimiter] = " "

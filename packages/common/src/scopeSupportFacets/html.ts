@@ -54,6 +54,16 @@ export const htmlScopeSupport: LanguageScopeSupportFacetMap = {
   "type.field.interface": notApplicable,
   "type.iteration.interface": notApplicable,
 
+  // Enum
+  "statement.enum": notApplicable,
+  "name.enum": notApplicable,
+  "name.field.enum": notApplicable,
+  "name.iteration.enum": notApplicable,
+  "value.field.enum": notApplicable,
+  "value.iteration.enum": notApplicable,
+  "type.enum": notApplicable,
+  "interior.enum": notApplicable,
+
   // Command
   command: notApplicable,
   "name.command": notApplicable,
@@ -195,7 +205,6 @@ export const htmlScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.method": notApplicable,
   "type.argument.formal": notApplicable,
   "type.cast": notApplicable,
-  "type.enum": notApplicable,
   "type.foreach": notApplicable,
   "type.resource": notApplicable,
   "type.resource.iteration": notApplicable,

@@ -1,15 +1,10 @@
-public enum Value {
-    A;
-}
+public enum Foo {}
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-2:1
-  >-------------------
-0| public enum Value {
-1|     A;
-2| }
-   -<
+[Domain] = 0:0-0:18
+  >------------------<
+0| public enum Foo {}
 
 [Insertion delimiter] = " "

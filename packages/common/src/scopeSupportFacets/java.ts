@@ -98,6 +98,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   statement: supported,
   "statement.class": supported,
   "statement.interface": supported,
+  "statement.enum": supported,
   "statement.field.class": supported,
   "statement.field.interface": supported,
   "statement.iteration.block": supported,
@@ -121,15 +122,18 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "name.assignment": supported,
   "name.class": supported,
   "name.interface": supported,
+  "name.enum": supported,
   "name.constructor": supported,
   "name.field.class": supported,
   "name.field.interface": supported,
+  "name.field.enum": supported,
   "name.foreach": supported,
   "name.method": supported,
   "name.variable": supported,
   "name.iteration.document": supported,
   "name.iteration.class": supported,
   "name.iteration.interface": supported,
+  "name.iteration.enum": supported,
   "name.iteration.block": supported,
   "name.resource": supported,
 
@@ -168,6 +172,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
 
   "interior.class": supported,
   "interior.interface": supported,
+  "interior.enum": supported,
   "interior.constructor": supported,
   "interior.method": supported,
   "interior.if": supported,
@@ -278,6 +283,10 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   // Branch loop
   "branch.loop": notApplicable,
   "branch.loop.iteration": notApplicable,
+
+  // Values in enum
+  "value.field.enum": notApplicable,
+  "value.iteration.enum": notApplicable,
 
   // Miscellaneous
   "value.yield": notApplicable,

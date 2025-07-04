@@ -492,7 +492,19 @@
 ) @_.domain
 
 ;;!! enum Foo {}
-(enum_declaration) @type
+(enum_declaration
+  body: (_
+    "{" @interior.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
+    "}" @interior.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+  )
+) @type @interior.domain
+
+;;!! bar = 0
+;;!        ^
+(enum_member_declaration
+  name: (_) @value.leading.endOf
+  value: (_) @value
+) @_.domain
 
 ;; Dictionary<string, int> values;
 ;;!           ^^^^^^  ^^^
