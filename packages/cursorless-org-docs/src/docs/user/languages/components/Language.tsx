@@ -7,9 +7,9 @@ interface Props {
 }
 
 export function Language({ languageId }: Props) {
-  // TODO: find a better place for the scope visualizer
   return (
     <>
+      <h2>Scopes</h2>
       <ScopeVisualizer languageId={languageId} />
       <ScopeSupport languageId={languageId} />
     </>

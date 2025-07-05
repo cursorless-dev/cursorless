@@ -101,7 +101,8 @@ function renderFacet(
       <span className="facet-name" title={facet.facet}>
         {facet.name}
       </span>
-      <p>{facet.info.description}</p>
+      <br />
+      <i>{facet.info.description}</i>
       {facet.fixtures.map((fixture) => (
         <Code
           key={fixture.name}
