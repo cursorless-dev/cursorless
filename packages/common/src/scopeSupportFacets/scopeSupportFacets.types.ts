@@ -6,7 +6,6 @@ export const scopeSupportFacets = [
   "environment",
   "notebookCell",
   "regularExpression",
-  "switchStatementSubject",
   "fieldAccess",
 
   "element",
@@ -203,6 +202,7 @@ export const scopeSupportFacets = [
   "value.field.class",
   "value.field.enum",
   "value.yield",
+  "value.switch",
   "value.typeAlias",
   "value.resource",
   "value.resource.iteration",

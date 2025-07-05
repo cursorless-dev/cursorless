@@ -68,6 +68,7 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   "value.attribute": unsupported,
   "value.foreach": unsupported,
   "value.return": unsupported,
+  "value.switch": unsupported,
   attribute: unsupported,
   class: unsupported,
   className: unsupported,
@@ -75,7 +76,6 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   fieldAccess: unsupported,
   map: unsupported,
   regularExpression: unsupported,
-  switchStatementSubject: unsupported,
 
   // Not applicable
 

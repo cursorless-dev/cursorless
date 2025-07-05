@@ -180,7 +180,7 @@
 ] @list
 
 (match_expression
-  value: (_) @private.switchStatementSubject
+  value: (_) @value
 ) @_.domain
 
 ;;!! #[derive(Debug)]
