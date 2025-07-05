@@ -147,9 +147,10 @@ function hasOverlap(a: Range, b: Range): boolean {
 
 function getOverlap(a: Range, b: Range): Range | null {
   const intersection = a.intersection(b);
-  return intersection != null && !intersection.isEmpty && !a.contains(b)
-    ? !b.contains(a)
-      ? intersection
-      : null
+  return intersection != null &&
+    !intersection.isEmpty &&
+    !a.contains(b) &&
+    !b.contains(a)
+    ? intersection
     : null;
 }
