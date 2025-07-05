@@ -6,19 +6,23 @@ import {
 import * as fs from "node:fs";
 import * as path from "node:path";
 
-interface Scope {
-  content?: string;
-  removal?: string;
-  domain?: string;
-  insertionDelimiter?: string;
-}
-
 interface Fixture {
   name: string;
   facet: string;
   languageId: string;
   code: string;
   scopes: Scope[];
+}
+
+interface Scope {
+  domain?: string;
+  targets: Target[];
+}
+
+interface Target {
+  content?: string;
+  removal?: string;
+  insertionDelimiter?: string;
 }
 
 const fixtures: Fixture[] = [];
@@ -48,23 +52,25 @@ function parseTest(test: ScopeTestPath) {
   const lines = fixture.substring(delimiterIndex + 4).split(/\n/);
   const scopes: Scope[] = [];
   const unprocessedTypes: string[] = [];
-  let currentScopeIndex = "";
-  let currentScope: Scope = {};
+  let currentScopeIndex = "1";
+  let currentTargetIndex = "1";
+  let currentTarget: Target = {};
+  let currentScope: Scope = { targets: [currentTarget] };
 
   function processLine(type: string, value: string) {
     switch (type) {
-      case "Content":
-      case "Range":
-        currentScope.content = value;
-        break;
-      case "Removal":
-        currentScope.removal = value;
-        break;
       case "Domain":
         currentScope.domain = value;
         break;
+      case "Content":
+      case "Range":
+        currentTarget.content = value;
+        break;
+      case "Removal":
+        currentTarget.removal = value;
+        break;
       case "Insertion delimiter":
-        currentScope.insertionDelimiter = value.substring(1, value.length - 1);
+        currentTarget.insertionDelimiter = value.substring(1, value.length - 1);
         break;
       case "Leading delimiter":
       case "Leading delimiter: Content":
@@ -97,17 +103,16 @@ function parseTest(test: ScopeTestPath) {
 
     const { scopeIndex, targetIndex, type, value } = parsedLine;
 
-    if (targetIndex != null) {
-      // TODO: handle target index fixtures
-      return;
-    }
-
-    if (scopeIndex != null && scopeIndex !== currentScopeIndex) {
-      if (currentScopeIndex !== "") {
-        scopes.push(currentScope);
-      }
+    if (scopeIndex !== currentScopeIndex) {
+      scopes.push(currentScope);
       currentScopeIndex = scopeIndex;
-      currentScope = {};
+      currentTargetIndex = "1";
+      currentTarget = {};
+      currentScope = { targets: [currentTarget] };
+    } else if (targetIndex != null && targetIndex !== currentTargetIndex) {
+      currentTargetIndex = targetIndex;
+      currentTarget = {};
+      currentScope.targets.push(currentTarget);
     }
 
     if (value == null) {
@@ -125,9 +130,7 @@ function parseTest(test: ScopeTestPath) {
     processLine(type, value);
   }
 
-  if (currentScope != null) {
-    scopes.push(currentScope);
-  }
+  scopes.push(currentScope);
 
   const result: Fixture = {
     name: test.name,
@@ -158,7 +161,7 @@ function parseLine(line: string) {
       };
     }
     return {
-      scopeIndex: undefined,
+      scopeIndex: "1",
       targetIndex: undefined,
       type: header,
     };

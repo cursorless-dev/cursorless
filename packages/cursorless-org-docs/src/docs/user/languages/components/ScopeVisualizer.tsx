@@ -5,19 +5,23 @@ import { Code, type Highlight } from "./Code";
 
 type RangeType = "content" | "removal";
 
-interface Scope {
-  content: string;
-  removal?: string;
-  domain?: string;
-  insertionDelimiter?: string;
-}
-
 interface Fixture {
   name: string;
   facet: string;
   languageId: string;
   code: string;
   scopes: Scope[];
+}
+
+interface Scope {
+  domain?: string;
+  targets: Target[];
+}
+
+interface Target {
+  content: string;
+  removal?: string;
+  insertionDelimiter?: string;
 }
 
 const scopeTests = scopeTestsExport as Fixture[];
@@ -63,42 +67,45 @@ function renderFixture(
   renderWhitespace: boolean,
 ) {
   const highlights: Highlight[] = [];
-
   let previousRange: Range | undefined;
 
   for (const scope of fixture.scopes) {
-    const conciseRange =
+    const conciseRanges =
       rangeType === "content"
-        ? scope.content
-        : (scope.removal ?? scope.content);
-    let range = Range.fromConcise(conciseRange);
+        ? scope.targets.map((t) => t.content)
+        : scope.targets.map((t) => t.removal ?? t.content);
+    const ranges = conciseRanges.map((r) => Range.fromConcise(r));
 
-    if (scope.domain != null && scope.domain !== conciseRange) {
+    if (scope.domain != null && conciseRanges.some((r) => r !== scope.domain)) {
       highlights.push({
         type: "domain",
         range: Range.fromConcise(scope.domain),
       });
     }
 
-    if (previousRange != null) {
-      const intersection = previousRange.intersection(range);
+    for (const r of ranges) {
+      let range = r;
 
-      if (intersection != null && !intersection.isEmpty) {
-        highlights.push({
-          type: rangeType,
-          range: intersection,
-        });
+      if (previousRange != null) {
+        const intersection = previousRange.intersection(range);
 
-        range = new Range(intersection.end, range.end);
+        if (intersection != null && !intersection.isEmpty) {
+          highlights.push({
+            type: rangeType,
+            range: intersection,
+          });
+
+          range = new Range(intersection.end, range.end);
+        }
       }
+
+      highlights.push({
+        type: rangeType,
+        range,
+      });
+
+      previousRange = range;
     }
-
-    highlights.push({
-      type: rangeType,
-      range,
-    });
-
-    previousRange = range;
   }
 
   return (
