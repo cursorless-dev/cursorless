@@ -1,9 +1,9 @@
 import {
   Range,
   serializeScopeType,
+  type PlaintextScopeSupportFacet,
   type ScopeSupportFacet,
   type ScopeSupportFacetInfo,
-  type TextualScopeSupportFacet,
 } from "@cursorless/common";
 import React, { useState } from "react";
 import scopeTestsJson from "../../../../../static/scopeTests.json";
@@ -22,7 +22,7 @@ interface Scope {
 }
 
 interface Facet {
-  facet: ScopeSupportFacet | TextualScopeSupportFacet;
+  facet: ScopeSupportFacet | PlaintextScopeSupportFacet;
   name: string;
   info: ScopeSupportFacetInfo;
   fixtures: Fixture[];
@@ -199,9 +199,6 @@ function getOverlap(a: Range, b: Range): Range | null {
 }
 
 function getScopeFixtures(languageId: string): Scope[] {
-  if (languageId === "plaintext") {
-    languageId = "textual";
-  }
   const languageIds = new Set<string>(
     scopeTests.imports[languageId] ?? [languageId],
   );

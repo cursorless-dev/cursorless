@@ -1,11 +1,11 @@
 import {
   ScopeSupportFacetLevel,
   languageScopeSupport,
+  plaintextScopeSupportFacetInfos,
   scopeSupportFacetInfos,
   scopeSupportFacets,
-  textualScopeSupportFacetInfos,
+  type PlaintextScopeSupportFacet,
   type ScopeSupportFacet,
-  type TextualScopeSupportFacet,
 } from "@cursorless/common";
 import * as React from "react";
 import {
@@ -19,14 +19,14 @@ interface Props {
 
 function getSupport(languageId: string): FacetWrapper[] {
   if (languageId === "plaintext") {
-    return Object.keys(textualScopeSupportFacetInfos)
+    return Object.keys(plaintextScopeSupportFacetInfos)
       .sort()
       .map((f) => {
-        const facet = f as TextualScopeSupportFacet;
+        const facet = f as PlaintextScopeSupportFacet;
         return {
           facet,
           supportLevel: ScopeSupportFacetLevel.supported,
-          info: textualScopeSupportFacetInfos[facet],
+          info: plaintextScopeSupportFacetInfos[facet],
         };
       });
   }

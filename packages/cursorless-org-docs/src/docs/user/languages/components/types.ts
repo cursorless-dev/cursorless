@@ -1,6 +1,6 @@
 import type {
   ScopeSupportFacet,
-  TextualScopeSupportFacet,
+  PlaintextScopeSupportFacet,
 } from "@cursorless/common";
 
 export interface ScopeTestsJson {
@@ -10,7 +10,7 @@ export interface ScopeTestsJson {
 
 export interface Fixture {
   name: string;
-  facet: ScopeSupportFacet | TextualScopeSupportFacet;
+  facet: ScopeSupportFacet | PlaintextScopeSupportFacet;
   languageId: string;
   code: string;
   scopes: Scope[];

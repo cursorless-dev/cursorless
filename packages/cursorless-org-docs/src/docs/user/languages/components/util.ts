@@ -2,14 +2,14 @@ import {
   camelCaseToAllDown,
   capitalize,
   scopeSupportFacetInfos,
-  textualScopeSupportFacetInfos,
+  plaintextScopeSupportFacetInfos,
   type ScopeSupportFacet,
   type ScopeSupportFacetInfo,
-  type TextualScopeSupportFacet,
+  type PlaintextScopeSupportFacet,
 } from "@cursorless/common";
 
 export function prettifyFacet(
-  facet: ScopeSupportFacet | TextualScopeSupportFacet,
+  facet: ScopeSupportFacet | PlaintextScopeSupportFacet,
   keepScopeType: boolean,
 ): string {
   let parts = facet.split(".").map(camelCaseToAllDown);
@@ -40,11 +40,11 @@ export function prettifyScopeType(scopeType: string): string {
 
 export function getFacetInfo(
   languageId: string,
-  facetId: ScopeSupportFacet | TextualScopeSupportFacet,
+  facetId: ScopeSupportFacet | PlaintextScopeSupportFacet,
 ): ScopeSupportFacetInfo {
   const facetInfo =
-    languageId === "textual"
-      ? textualScopeSupportFacetInfos[facetId as TextualScopeSupportFacet]
+    languageId === "plaintext"
+      ? plaintextScopeSupportFacetInfos[facetId as PlaintextScopeSupportFacet]
       : scopeSupportFacetInfos[facetId as ScopeSupportFacet];
 
   if (facetInfo == null) {

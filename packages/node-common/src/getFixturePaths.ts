@@ -1,6 +1,6 @@
 import type {
+  PlaintextScopeSupportFacet,
   ScopeSupportFacet,
-  TextualScopeSupportFacet,
 } from "@cursorless/common";
 import { getCursorlessRepoRoot } from "@cursorless/node-common";
 import * as path from "path";
@@ -42,7 +42,7 @@ export interface ScopeTestPath {
   path: string;
   name: string;
   languageId: string;
-  facet: ScopeSupportFacet | TextualScopeSupportFacet;
+  facet: ScopeSupportFacet | PlaintextScopeSupportFacet;
 }
 
 export function getScopeTestPaths(): ScopeTestPath[] {
@@ -57,7 +57,7 @@ export function getScopeTestPaths(): ScopeTestPath[] {
       languageId: path.dirname(path.relative(directory, p)).split(path.sep)[0],
       facet: path.basename(p).match(/([a-zA-Z.]+)\d*\.scope/)![1] as
         | ScopeSupportFacet
-        | TextualScopeSupportFacet,
+        | PlaintextScopeSupportFacet,
     }));
 }
 

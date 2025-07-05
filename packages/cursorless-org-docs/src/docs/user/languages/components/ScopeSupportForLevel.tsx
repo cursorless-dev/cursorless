@@ -1,16 +1,16 @@
 import {
   groupBy,
   serializeScopeType,
+  type PlaintextScopeSupportFacet,
   type ScopeSupportFacet,
   type ScopeSupportFacetInfo,
   type ScopeSupportFacetLevel,
-  type TextualScopeSupportFacet,
 } from "@cursorless/common";
 import React, { useState, type JSX } from "react";
 import { prettifyFacet, prettifyScopeType } from "./util";
 
 export interface FacetWrapper {
-  facet: ScopeSupportFacet | TextualScopeSupportFacet;
+  facet: ScopeSupportFacet | PlaintextScopeSupportFacet;
   supportLevel: ScopeSupportFacetLevel | undefined;
   info: ScopeSupportFacetInfo;
 }

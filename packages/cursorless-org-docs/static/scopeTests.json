@@ -23863,6 +23863,1588 @@
       ]
     },
     {
+      "name": "scopes/plaintext/boundedNonWhitespaceSequence.iteration",
+      "languageId": "plaintext",
+      "facet": "boundedNonWhitespaceSequence.iteration",
+      "code": "aa(bb)cc dd(ee)ff",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:0-0:17"
+            }
+          ],
+          "domain": "0:0-0:17"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:3-0:5"
+            }
+          ],
+          "domain": "0:3-0:5"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:12-0:14"
+            }
+          ],
+          "domain": "0:12-0:14"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/boundedNonWhitespaceSequence",
+      "languageId": "plaintext",
+      "facet": "boundedNonWhitespaceSequence",
+      "code": "aa(bb)cc dd(ee)ff",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:0-0:8",
+              "removal": "0:0-0:9"
+            }
+          ],
+          "domain": "0:0-0:8"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:3-0:5",
+              "removal": "0:3-0:5"
+            }
+          ],
+          "domain": "0:3-0:5"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:9-0:17",
+              "removal": "0:8-0:17"
+            }
+          ],
+          "domain": "0:9-0:17"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:12-0:14",
+              "removal": "0:12-0:14"
+            }
+          ],
+          "domain": "0:12-0:14"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/boundedNonWhitespaceSequence2",
+      "languageId": "plaintext",
+      "facet": "boundedNonWhitespaceSequence",
+      "code": "aaa bbb(ccc ddd eee)fff ggg",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:0-0:3",
+              "removal": "0:0-0:4"
+            }
+          ],
+          "domain": "0:0-0:3"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:4-0:11",
+              "removal": "0:4-0:12"
+            }
+          ],
+          "domain": "0:4-0:11"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:8-0:11",
+              "removal": "0:8-0:12"
+            }
+          ],
+          "domain": "0:8-0:11"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:12-0:15",
+              "removal": "0:12-0:16"
+            }
+          ],
+          "domain": "0:12-0:15"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:16-0:19",
+              "removal": "0:15-0:19"
+            }
+          ],
+          "domain": "0:16-0:19"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:16-0:23",
+              "removal": "0:16-0:24"
+            }
+          ],
+          "domain": "0:16-0:23"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:24-0:27",
+              "removal": "0:23-0:27"
+            }
+          ],
+          "domain": "0:24-0:27"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/boundedNonWhitespaceSequence3",
+      "languageId": "plaintext",
+      "facet": "boundedNonWhitespaceSequence",
+      "code": "(aaa bbb(ccc)ddd eee)",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:0-0:4",
+              "removal": "0:0-0:5"
+            }
+          ],
+          "domain": "0:0-0:4"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:1-0:4",
+              "removal": "0:1-0:5"
+            }
+          ],
+          "domain": "0:1-0:4"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:5-0:16",
+              "removal": "0:5-0:17"
+            }
+          ],
+          "domain": "0:5-0:16"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:9-0:12",
+              "removal": "0:9-0:12"
+            }
+          ],
+          "domain": "0:9-0:12"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:17-0:20",
+              "removal": "0:16-0:20"
+            }
+          ],
+          "domain": "0:17-0:20"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:17-0:21",
+              "removal": "0:16-0:21"
+            }
+          ],
+          "domain": "0:17-0:21"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/boundedParagraph/boundedParagraph.iteration",
+      "languageId": "plaintext",
+      "facet": "boundedParagraph.iteration",
+      "code": "{\n    foo\n    bar\n}",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:0-3:1"
+            }
+          ],
+          "domain": "0:0-3:1"
+        },
+        {
+          "targets": [
+            {
+              "content": "1:4-2:7"
+            }
+          ],
+          "domain": "0:1-3:0"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/boundedParagraph/boundedParagraph",
+      "languageId": "plaintext",
+      "facet": "boundedParagraph",
+      "code": "{\n    foo\n    bar\n}",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:0-3:1",
+              "removal": "0:0-3:1"
+            }
+          ],
+          "domain": "0:0-3:1"
+        },
+        {
+          "targets": [
+            {
+              "content": "1:4-2:7",
+              "removal": "1:0-3:0"
+            }
+          ],
+          "domain": "0:1-3:0"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/boundedParagraph/boundedParagraph2",
+      "languageId": "plaintext",
+      "facet": "boundedParagraph",
+      "code": "aaa\nbbb {\n    ccc\n    ddd\n\n    eee\n    fff\n\n    ggg\n    hhh\n} iii\njjj\n\nkkk",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:0-3:7",
+              "removal": "0:0-5:0"
+            }
+          ],
+          "domain": "0:0-3:7"
+        },
+        {
+          "targets": [
+            {
+              "content": "2:4-3:7",
+              "removal": "2:0-5:0"
+            }
+          ],
+          "domain": "1:5-3:7"
+        },
+        {
+          "targets": [
+            {
+              "content": "5:4-6:7",
+              "removal": "5:0-8:0"
+            }
+          ],
+          "domain": "5:0-6:7"
+        },
+        {
+          "targets": [
+            {
+              "content": "8:4-9:7",
+              "removal": "7:0-10:0"
+            }
+          ],
+          "domain": "8:0-10:0"
+        },
+        {
+          "targets": [
+            {
+              "content": "8:4-11:3",
+              "removal": "8:0-13:0"
+            }
+          ],
+          "domain": "8:0-11:3"
+        },
+        {
+          "targets": [
+            {
+              "content": "13:0-13:3",
+              "removal": "11:3-13:3"
+            }
+          ],
+          "domain": "13:0-13:3"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/boundedParagraph/boundedParagraph3",
+      "languageId": "plaintext",
+      "facet": "boundedParagraph",
+      "code": "{\n\n  aaa\n\n}",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:0-0:1",
+              "removal": "0:0-2:0"
+            }
+          ],
+          "domain": "0:0-0:1"
+        },
+        {
+          "targets": [
+            {
+              "content": "2:2-2:5",
+              "removal": "2:0-4:0"
+            }
+          ],
+          "domain": "2:0-2:5"
+        },
+        {
+          "targets": [
+            {
+              "content": "4:0-4:1",
+              "removal": "2:5-4:1"
+            }
+          ],
+          "domain": "4:0-4:1"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/boundedParagraph/boundedParagraph4",
+      "languageId": "plaintext",
+      "facet": "boundedParagraph",
+      "code": "aaa(bbb) {\n  ccc\n}",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:0-2:1",
+              "removal": "0:0-2:1"
+            }
+          ],
+          "domain": "0:0-2:1"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:4-0:7",
+              "removal": "0:4-0:7"
+            }
+          ],
+          "domain": "0:4-0:7"
+        },
+        {
+          "targets": [
+            {
+              "content": "1:2-1:5",
+              "removal": "1:0-2:0"
+            }
+          ],
+          "domain": "0:10-2:0"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/boundedParagraph/boundedParagraph5",
+      "languageId": "plaintext",
+      "facet": "boundedParagraph",
+      "code": "{aaa\n\nbbb\n\nccc}",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:0-0:4",
+              "removal": "0:0-2:0"
+            }
+          ],
+          "domain": "0:0-0:4"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:1-0:4",
+              "removal": "0:1-1:0"
+            }
+          ],
+          "domain": "0:1-0:4"
+        },
+        {
+          "targets": [
+            {
+              "content": "2:0-2:3",
+              "removal": "2:0-4:0"
+            }
+          ],
+          "domain": "2:0-2:3"
+        },
+        {
+          "targets": [
+            {
+              "content": "4:0-4:3",
+              "removal": "3:0-4:3"
+            }
+          ],
+          "domain": "4:0-4:3"
+        },
+        {
+          "targets": [
+            {
+              "content": "4:0-4:4",
+              "removal": "2:3-4:4"
+            }
+          ],
+          "domain": "4:0-4:4"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/boundedParagraph/boundedParagraph6",
+      "languageId": "plaintext",
+      "facet": "boundedParagraph",
+      "code": "  aaa {\n    bbb\n    ccc\n\n    ddd\n    eee\n  }",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:2-2:7",
+              "removal": "0:0-4:0"
+            }
+          ],
+          "domain": "0:0-2:7"
+        },
+        {
+          "targets": [
+            {
+              "content": "1:4-2:7",
+              "removal": "1:0-4:0"
+            }
+          ],
+          "domain": "0:7-2:7"
+        },
+        {
+          "targets": [
+            {
+              "content": "4:4-5:7",
+              "removal": "3:0-6:0"
+            }
+          ],
+          "domain": "4:0-6:2"
+        },
+        {
+          "targets": [
+            {
+              "content": "4:4-6:3",
+              "removal": "2:7-6:3"
+            }
+          ],
+          "domain": "4:0-6:3"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/character",
+      "languageId": "plaintext",
+      "facet": "character",
+      "code": "aaa",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:0-0:1",
+              "removal": "0:0-0:1"
+            }
+          ],
+          "domain": "0:0-0:1"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:1-0:2",
+              "removal": "0:1-0:2"
+            }
+          ],
+          "domain": "0:1-0:2"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:2-0:3",
+              "removal": "0:2-0:3"
+            }
+          ],
+          "domain": "0:2-0:3"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/collectionItem/collectionItem.textual.iteration",
+      "languageId": "plaintext",
+      "facet": "collectionItem.textual.iteration",
+      "code": "(1, 2, 3)",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:1-0:8"
+            }
+          ],
+          "domain": "0:1-0:8"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/collectionItem/collectionItem.textual.iteration2",
+      "languageId": "plaintext",
+      "facet": "collectionItem.textual.iteration",
+      "code": "[1, 2, 3]",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:1-0:8"
+            }
+          ],
+          "domain": "0:1-0:8"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/collectionItem/collectionItem.textual.iteration3",
+      "languageId": "plaintext",
+      "facet": "collectionItem.textual.iteration",
+      "code": "{1, 2, 3}",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:1-0:8"
+            }
+          ],
+          "domain": "0:1-0:8"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/collectionItem/collectionItem.textual.iteration4",
+      "languageId": "plaintext",
+      "facet": "collectionItem.textual.iteration",
+      "code": "<1, 2, 3>",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:1-0:8"
+            }
+          ],
+          "domain": "0:1-0:8"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/collectionItem/collectionItem.textual.iteration5",
+      "languageId": "plaintext",
+      "facet": "collectionItem.textual.iteration",
+      "code": "( 1, 2, 3 )",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:2-0:9"
+            }
+          ],
+          "domain": "0:1-0:10"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/collectionItem/collectionItem.textual.iteration6",
+      "languageId": "plaintext",
+      "facet": "collectionItem.textual.iteration",
+      "code": "[\n    1,\n    2,\n    3,\n]",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "1:4-3:6"
+            }
+          ],
+          "domain": "0:1-4:0"
+        },
+        {
+          "targets": [
+            {
+              "content": "1:4-1:6"
+            }
+          ],
+          "domain": "1:0-1:6"
+        },
+        {
+          "targets": [
+            {
+              "content": "2:4-2:6"
+            }
+          ],
+          "domain": "2:0-2:6"
+        },
+        {
+          "targets": [
+            {
+              "content": "3:4-3:6"
+            }
+          ],
+          "domain": "3:0-3:6"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/collectionItem/collectionItem.textual.iteration7",
+      "languageId": "plaintext",
+      "facet": "collectionItem.textual.iteration",
+      "code": "{\n    a: 1,\n    b: 2,\n    c: 3,\n}",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "1:4-3:9"
+            }
+          ],
+          "domain": "0:1-4:0"
+        },
+        {
+          "targets": [
+            {
+              "content": "1:4-1:9"
+            }
+          ],
+          "domain": "1:0-1:9"
+        },
+        {
+          "targets": [
+            {
+              "content": "2:4-2:9"
+            }
+          ],
+          "domain": "2:0-2:9"
+        },
+        {
+          "targets": [
+            {
+              "content": "3:4-3:9"
+            }
+          ],
+          "domain": "3:0-3:9"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/collectionItem/collectionItem.textual",
+      "languageId": "plaintext",
+      "facet": "collectionItem.textual",
+      "code": "(1, 2, 3)",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:1-0:2",
+              "removal": "0:1-0:4"
+            }
+          ],
+          "domain": "0:1-0:2"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:4-0:5",
+              "removal": "0:4-0:7"
+            }
+          ],
+          "domain": "0:4-0:5"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:7-0:8",
+              "removal": "0:5-0:8"
+            }
+          ],
+          "domain": "0:7-0:8"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/collectionItem/collectionItem.textual10",
+      "languageId": "plaintext",
+      "facet": "collectionItem.textual",
+      "code": "aaa, ( bbb, ccc )",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:0-0:3",
+              "removal": "0:0-0:5"
+            }
+          ],
+          "domain": "0:0-0:3"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:5-0:17",
+              "removal": "0:3-0:17"
+            }
+          ],
+          "domain": "0:5-0:17"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:7-0:10",
+              "removal": "0:7-0:12"
+            }
+          ],
+          "domain": "0:7-0:10"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:12-0:15",
+              "removal": "0:10-0:15"
+            }
+          ],
+          "domain": "0:12-0:15"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/collectionItem/collectionItem.textual11",
+      "languageId": "plaintext",
+      "facet": "collectionItem.textual",
+      "code": "[\n    1,\n\n    2,\n]",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "1:4-1:5",
+              "removal": "1:4-3:4"
+            }
+          ],
+          "domain": "1:4-1:5"
+        },
+        {
+          "targets": [
+            {
+              "content": "3:4-3:5",
+              "removal": "1:5-3:5"
+            }
+          ],
+          "domain": "3:4-3:5"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/collectionItem/collectionItem.textual12",
+      "languageId": "plaintext",
+      "facet": "collectionItem.textual",
+      "code": "[\n\n    1\n\n]",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "2:4-2:5",
+              "removal": "2:0-4:0"
+            }
+          ],
+          "domain": "2:4-2:5"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/collectionItem/collectionItem.textual13",
+      "languageId": "plaintext",
+      "facet": "collectionItem.textual",
+      "code": "(aaa)",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:1-0:4",
+              "removal": "0:1-0:4"
+            }
+          ],
+          "domain": "0:1-0:4"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/collectionItem/collectionItem.textual14",
+      "languageId": "plaintext",
+      "facet": "collectionItem.textual",
+      "code": "( aaa )",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:2-0:5",
+              "removal": "0:2-0:6"
+            }
+          ],
+          "domain": "0:2-0:5"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/collectionItem/collectionItem.textual15",
+      "languageId": "plaintext",
+      "facet": "collectionItem.textual",
+      "code": "{\n    language: {},\n    choices: {\n        disabled: true,\n        items: {\n            colWidth: [2, 10]\n        }\n    },\n    versions: {}\n}",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "1:4-1:16",
+              "removal": "1:4-2:4"
+            }
+          ],
+          "domain": "1:4-1:16"
+        },
+        {
+          "targets": [
+            {
+              "content": "2:4-7:5",
+              "removal": "2:4-8:4"
+            }
+          ],
+          "domain": "2:4-7:5"
+        },
+        {
+          "targets": [
+            {
+              "content": "3:8-3:22",
+              "removal": "3:8-4:8"
+            }
+          ],
+          "domain": "3:8-3:22"
+        },
+        {
+          "targets": [
+            {
+              "content": "4:8-6:9",
+              "removal": "3:22-6:9"
+            }
+          ],
+          "domain": "4:8-6:9"
+        },
+        {
+          "targets": [
+            {
+              "content": "5:12-5:29",
+              "removal": "5:0-6:0"
+            }
+          ],
+          "domain": "5:12-5:29"
+        },
+        {
+          "targets": [
+            {
+              "content": "5:23-5:24",
+              "removal": "5:23-5:26"
+            }
+          ],
+          "domain": "5:23-5:24"
+        },
+        {
+          "targets": [
+            {
+              "content": "5:26-5:28",
+              "removal": "5:24-5:28"
+            }
+          ],
+          "domain": "5:26-5:28"
+        },
+        {
+          "targets": [
+            {
+              "content": "8:4-8:16",
+              "removal": "7:5-8:16"
+            }
+          ],
+          "domain": "8:4-8:16"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/collectionItem/collectionItem.textual2",
+      "languageId": "plaintext",
+      "facet": "collectionItem.textual",
+      "code": "[1, 2, 3]",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:1-0:2",
+              "removal": "0:1-0:4"
+            }
+          ],
+          "domain": "0:1-0:2"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:4-0:5",
+              "removal": "0:4-0:7"
+            }
+          ],
+          "domain": "0:4-0:5"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:7-0:8",
+              "removal": "0:5-0:8"
+            }
+          ],
+          "domain": "0:7-0:8"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/collectionItem/collectionItem.textual3",
+      "languageId": "plaintext",
+      "facet": "collectionItem.textual",
+      "code": "{1, 2, 3}",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:1-0:2",
+              "removal": "0:1-0:4"
+            }
+          ],
+          "domain": "0:1-0:2"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:4-0:5",
+              "removal": "0:4-0:7"
+            }
+          ],
+          "domain": "0:4-0:5"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:7-0:8",
+              "removal": "0:5-0:8"
+            }
+          ],
+          "domain": "0:7-0:8"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/collectionItem/collectionItem.textual4",
+      "languageId": "plaintext",
+      "facet": "collectionItem.textual",
+      "code": "<1, 2, 3>",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:1-0:2",
+              "removal": "0:1-0:4"
+            }
+          ],
+          "domain": "0:1-0:2"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:4-0:5",
+              "removal": "0:4-0:7"
+            }
+          ],
+          "domain": "0:4-0:5"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:7-0:8",
+              "removal": "0:5-0:8"
+            }
+          ],
+          "domain": "0:7-0:8"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/collectionItem/collectionItem.textual5",
+      "languageId": "plaintext",
+      "facet": "collectionItem.textual",
+      "code": "( 1, 2, 3 )",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:2-0:3",
+              "removal": "0:2-0:5"
+            }
+          ],
+          "domain": "0:2-0:3"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:5-0:6",
+              "removal": "0:5-0:8"
+            }
+          ],
+          "domain": "0:5-0:6"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:8-0:9",
+              "removal": "0:6-0:9"
+            }
+          ],
+          "domain": "0:8-0:9"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/collectionItem/collectionItem.textual6",
+      "languageId": "plaintext",
+      "facet": "collectionItem.textual",
+      "code": "[\n    1,\n    2,\n    3,\n]",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "1:4-1:5",
+              "removal": "1:4-2:4"
+            }
+          ],
+          "domain": "1:4-1:5"
+        },
+        {
+          "targets": [
+            {
+              "content": "2:4-2:5",
+              "removal": "2:4-3:4"
+            }
+          ],
+          "domain": "2:4-2:5"
+        },
+        {
+          "targets": [
+            {
+              "content": "3:4-3:5",
+              "removal": "2:5-3:5"
+            }
+          ],
+          "domain": "3:4-3:5"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/collectionItem/collectionItem.textual7",
+      "languageId": "plaintext",
+      "facet": "collectionItem.textual",
+      "code": "{\n    a: 1,\n    b: 2,\n    c: 3,\n}",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "1:4-1:8",
+              "removal": "1:4-2:4"
+            }
+          ],
+          "domain": "1:4-1:8"
+        },
+        {
+          "targets": [
+            {
+              "content": "2:4-2:8",
+              "removal": "2:4-3:4"
+            }
+          ],
+          "domain": "2:4-2:8"
+        },
+        {
+          "targets": [
+            {
+              "content": "3:4-3:8",
+              "removal": "2:8-3:8"
+            }
+          ],
+          "domain": "3:4-3:8"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/collectionItem/collectionItem.textual8",
+      "languageId": "plaintext",
+      "facet": "collectionItem.textual",
+      "code": "[1, \"2, 3\"]",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:1-0:2",
+              "removal": "0:1-0:4"
+            }
+          ],
+          "domain": "0:1-0:2"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:4-0:10",
+              "removal": "0:2-0:10"
+            }
+          ],
+          "domain": "0:4-0:10"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/collectionItem/collectionItem.textual9",
+      "languageId": "plaintext",
+      "facet": "collectionItem.textual",
+      "code": "aaa, bbb",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:0-0:3",
+              "removal": "0:0-0:5"
+            }
+          ],
+          "domain": "0:0-0:3"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:5-0:8",
+              "removal": "0:3-0:8"
+            }
+          ],
+          "domain": "0:5-0:8"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/document",
+      "languageId": "plaintext",
+      "facet": "document",
+      "code": "\n  aaa\n\nbbb\n\nccc\n",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:0-6:0",
+              "removal": "0:0-6:0"
+            }
+          ],
+          "domain": "0:0-6:0"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/identifier",
+      "languageId": "plaintext",
+      "facet": "identifier",
+      "code": "(foo)",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:1-0:4",
+              "removal": "0:1-0:4"
+            }
+          ],
+          "domain": "0:1-0:4"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/interior.surroundingPair",
+      "languageId": "plaintext",
+      "facet": "interior.surroundingPair",
+      "code": "( text )",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:2-0:6",
+              "removal": "0:1-0:7"
+            }
+          ],
+          "domain": "0:0-0:8"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/line",
+      "languageId": "plaintext",
+      "facet": "line",
+      "code": "aaa",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:0-0:3",
+              "removal": "0:0-0:3"
+            }
+          ],
+          "domain": "0:0-0:3"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/line2",
+      "languageId": "plaintext",
+      "facet": "line",
+      "code": "\naaa\n",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:0-0:0",
+              "removal": "0:0-1:0"
+            }
+          ],
+          "domain": "0:0-0:0"
+        },
+        {
+          "targets": [
+            {
+              "content": "1:0-1:3",
+              "removal": "1:0-2:0"
+            }
+          ],
+          "domain": "1:0-1:3"
+        },
+        {
+          "targets": [
+            {
+              "content": "2:0-2:0",
+              "removal": "1:3-2:0"
+            }
+          ],
+          "domain": "2:0-2:0"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/nonWhitespaceSequence",
+      "languageId": "plaintext",
+      "facet": "nonWhitespaceSequence",
+      "code": " b.c(?!å_*/\\)|d4",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:1-0:16",
+              "removal": "0:0-0:16"
+            }
+          ],
+          "domain": "0:1-0:16"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/paragraph",
+      "languageId": "plaintext",
+      "facet": "paragraph",
+      "code": "\naaa\nbbb\n",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "1:0-2:3",
+              "removal": "0:0-3:0"
+            }
+          ],
+          "domain": "1:0-2:3"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/sentence",
+      "languageId": "plaintext",
+      "facet": "sentence",
+      "code": "This is a sentence.",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:0-0:19",
+              "removal": "0:0-0:19"
+            }
+          ],
+          "domain": "0:0-0:19"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/surroundingPair/surroundingPair.iteration",
+      "languageId": "plaintext",
+      "facet": "surroundingPair.iteration",
+      "code": "\n( )\n",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "1:0-1:3"
+            }
+          ],
+          "domain": "1:0-1:3"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/surroundingPair/surroundingPair.iteration2",
+      "languageId": "plaintext",
+      "facet": "surroundingPair.iteration",
+      "code": "\nhello\n",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "1:0-1:5"
+            }
+          ],
+          "domain": "1:0-1:5"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/surroundingPair/surroundingPair",
+      "languageId": "plaintext",
+      "facet": "surroundingPair",
+      "code": "( )",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:0-0:3",
+              "removal": "0:0-0:3"
+            }
+          ],
+          "domain": "0:0-0:3"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/surroundingPair/surroundingPair2",
+      "languageId": "plaintext",
+      "facet": "surroundingPair",
+      "code": "\"\n\"hello\"\n\"",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "1:0-1:7",
+              "removal": "1:0-1:7"
+            }
+          ],
+          "domain": "1:0-1:7"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/surroundingPair/surroundingPair3",
+      "languageId": "plaintext",
+      "facet": "surroundingPair",
+      "code": "(()) ()",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:0-0:4",
+              "removal": "0:0-0:5"
+            }
+          ],
+          "domain": "0:0-0:4"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:1-0:3",
+              "removal": "0:1-0:3"
+            }
+          ],
+          "domain": "0:1-0:3"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:5-0:7",
+              "removal": "0:4-0:7"
+            }
+          ],
+          "domain": "0:5-0:7"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/surroundingPair/surroundingPair4",
+      "languageId": "plaintext",
+      "facet": "surroundingPair",
+      "code": "(a < b)\n(c > d)",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:0-0:7",
+              "removal": "0:0-0:7"
+            }
+          ],
+          "domain": "0:0-0:7"
+        },
+        {
+          "targets": [
+            {
+              "content": "1:0-1:7",
+              "removal": "1:0-1:7"
+            }
+          ],
+          "domain": "1:0-1:7"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/surroundingPair/surroundingPair5",
+      "languageId": "plaintext",
+      "facet": "surroundingPair",
+      "code": "(  [  )  ]",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:0-0:7",
+              "removal": "0:0-0:9"
+            }
+          ],
+          "domain": "0:0-0:7"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/surroundingPair/surroundingPair6",
+      "languageId": "plaintext",
+      "facet": "surroundingPair",
+      "code": "([)]",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:0-0:3",
+              "removal": "0:0-0:3"
+            }
+          ],
+          "domain": "0:0-0:3"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/token",
+      "languageId": "plaintext",
+      "facet": "token",
+      "code": "  aaa  ",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:2-0:5",
+              "removal": "0:0-0:7"
+            }
+          ],
+          "domain": "0:2-0:5"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/url",
+      "languageId": "plaintext",
+      "facet": "url",
+      "code": "https://www.cursorless.org",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:0-0:26",
+              "removal": "0:0-0:26"
+            }
+          ],
+          "domain": "0:0-0:26"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/word",
+      "languageId": "plaintext",
+      "facet": "word",
+      "code": "aaa_bbb",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:0-0:3",
+              "removal": "0:0-0:4"
+            }
+          ],
+          "domain": "0:0-0:3"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:4-0:7",
+              "removal": "0:3-0:7"
+            }
+          ],
+          "domain": "0:4-0:7"
+        }
+      ]
+    },
+    {
+      "name": "scopes/plaintext/word2",
+      "languageId": "plaintext",
+      "facet": "word",
+      "code": "aaaBbb",
+      "scopes": [
+        {
+          "targets": [
+            {
+              "content": "0:0-0:3",
+              "removal": "0:0-0:3"
+            }
+          ],
+          "domain": "0:0-0:3"
+        },
+        {
+          "targets": [
+            {
+              "content": "0:3-0:6",
+              "removal": "0:3-0:6"
+            }
+          ],
+          "domain": "0:3-0:6"
+        }
+      ]
+    },
+    {
       "name": "scopes/python/anonymousFunction",
       "languageId": "python",
       "facet": "anonymousFunction",
@@ -32863,1588 +34445,6 @@
             }
           ],
           "domain": "1:4-1:11"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/boundedNonWhitespaceSequence.iteration",
-      "languageId": "textual",
-      "facet": "boundedNonWhitespaceSequence.iteration",
-      "code": "aa(bb)cc dd(ee)ff",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:0-0:17"
-            }
-          ],
-          "domain": "0:0-0:17"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:3-0:5"
-            }
-          ],
-          "domain": "0:3-0:5"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:12-0:14"
-            }
-          ],
-          "domain": "0:12-0:14"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/boundedNonWhitespaceSequence",
-      "languageId": "textual",
-      "facet": "boundedNonWhitespaceSequence",
-      "code": "aa(bb)cc dd(ee)ff",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:0-0:8",
-              "removal": "0:0-0:9"
-            }
-          ],
-          "domain": "0:0-0:8"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:3-0:5",
-              "removal": "0:3-0:5"
-            }
-          ],
-          "domain": "0:3-0:5"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:9-0:17",
-              "removal": "0:8-0:17"
-            }
-          ],
-          "domain": "0:9-0:17"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:12-0:14",
-              "removal": "0:12-0:14"
-            }
-          ],
-          "domain": "0:12-0:14"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/boundedNonWhitespaceSequence2",
-      "languageId": "textual",
-      "facet": "boundedNonWhitespaceSequence",
-      "code": "aaa bbb(ccc ddd eee)fff ggg",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:0-0:3",
-              "removal": "0:0-0:4"
-            }
-          ],
-          "domain": "0:0-0:3"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:4-0:11",
-              "removal": "0:4-0:12"
-            }
-          ],
-          "domain": "0:4-0:11"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:8-0:11",
-              "removal": "0:8-0:12"
-            }
-          ],
-          "domain": "0:8-0:11"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:12-0:15",
-              "removal": "0:12-0:16"
-            }
-          ],
-          "domain": "0:12-0:15"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:16-0:19",
-              "removal": "0:15-0:19"
-            }
-          ],
-          "domain": "0:16-0:19"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:16-0:23",
-              "removal": "0:16-0:24"
-            }
-          ],
-          "domain": "0:16-0:23"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:24-0:27",
-              "removal": "0:23-0:27"
-            }
-          ],
-          "domain": "0:24-0:27"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/boundedNonWhitespaceSequence3",
-      "languageId": "textual",
-      "facet": "boundedNonWhitespaceSequence",
-      "code": "(aaa bbb(ccc)ddd eee)",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:0-0:4",
-              "removal": "0:0-0:5"
-            }
-          ],
-          "domain": "0:0-0:4"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:1-0:4",
-              "removal": "0:1-0:5"
-            }
-          ],
-          "domain": "0:1-0:4"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:5-0:16",
-              "removal": "0:5-0:17"
-            }
-          ],
-          "domain": "0:5-0:16"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:9-0:12",
-              "removal": "0:9-0:12"
-            }
-          ],
-          "domain": "0:9-0:12"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:17-0:20",
-              "removal": "0:16-0:20"
-            }
-          ],
-          "domain": "0:17-0:20"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:17-0:21",
-              "removal": "0:16-0:21"
-            }
-          ],
-          "domain": "0:17-0:21"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/boundedParagraph/boundedParagraph.iteration",
-      "languageId": "textual",
-      "facet": "boundedParagraph.iteration",
-      "code": "{\n    foo\n    bar\n}",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:0-3:1"
-            }
-          ],
-          "domain": "0:0-3:1"
-        },
-        {
-          "targets": [
-            {
-              "content": "1:4-2:7"
-            }
-          ],
-          "domain": "0:1-3:0"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/boundedParagraph/boundedParagraph",
-      "languageId": "textual",
-      "facet": "boundedParagraph",
-      "code": "{\n    foo\n    bar\n}",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:0-3:1",
-              "removal": "0:0-3:1"
-            }
-          ],
-          "domain": "0:0-3:1"
-        },
-        {
-          "targets": [
-            {
-              "content": "1:4-2:7",
-              "removal": "1:0-3:0"
-            }
-          ],
-          "domain": "0:1-3:0"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/boundedParagraph/boundedParagraph2",
-      "languageId": "textual",
-      "facet": "boundedParagraph",
-      "code": "aaa\nbbb {\n    ccc\n    ddd\n\n    eee\n    fff\n\n    ggg\n    hhh\n} iii\njjj\n\nkkk",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:0-3:7",
-              "removal": "0:0-5:0"
-            }
-          ],
-          "domain": "0:0-3:7"
-        },
-        {
-          "targets": [
-            {
-              "content": "2:4-3:7",
-              "removal": "2:0-5:0"
-            }
-          ],
-          "domain": "1:5-3:7"
-        },
-        {
-          "targets": [
-            {
-              "content": "5:4-6:7",
-              "removal": "5:0-8:0"
-            }
-          ],
-          "domain": "5:0-6:7"
-        },
-        {
-          "targets": [
-            {
-              "content": "8:4-9:7",
-              "removal": "7:0-10:0"
-            }
-          ],
-          "domain": "8:0-10:0"
-        },
-        {
-          "targets": [
-            {
-              "content": "8:4-11:3",
-              "removal": "8:0-13:0"
-            }
-          ],
-          "domain": "8:0-11:3"
-        },
-        {
-          "targets": [
-            {
-              "content": "13:0-13:3",
-              "removal": "11:3-13:3"
-            }
-          ],
-          "domain": "13:0-13:3"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/boundedParagraph/boundedParagraph3",
-      "languageId": "textual",
-      "facet": "boundedParagraph",
-      "code": "{\n\n  aaa\n\n}",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:0-0:1",
-              "removal": "0:0-2:0"
-            }
-          ],
-          "domain": "0:0-0:1"
-        },
-        {
-          "targets": [
-            {
-              "content": "2:2-2:5",
-              "removal": "2:0-4:0"
-            }
-          ],
-          "domain": "2:0-2:5"
-        },
-        {
-          "targets": [
-            {
-              "content": "4:0-4:1",
-              "removal": "2:5-4:1"
-            }
-          ],
-          "domain": "4:0-4:1"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/boundedParagraph/boundedParagraph4",
-      "languageId": "textual",
-      "facet": "boundedParagraph",
-      "code": "aaa(bbb) {\n  ccc\n}",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:0-2:1",
-              "removal": "0:0-2:1"
-            }
-          ],
-          "domain": "0:0-2:1"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:4-0:7",
-              "removal": "0:4-0:7"
-            }
-          ],
-          "domain": "0:4-0:7"
-        },
-        {
-          "targets": [
-            {
-              "content": "1:2-1:5",
-              "removal": "1:0-2:0"
-            }
-          ],
-          "domain": "0:10-2:0"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/boundedParagraph/boundedParagraph5",
-      "languageId": "textual",
-      "facet": "boundedParagraph",
-      "code": "{aaa\n\nbbb\n\nccc}",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:0-0:4",
-              "removal": "0:0-2:0"
-            }
-          ],
-          "domain": "0:0-0:4"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:1-0:4",
-              "removal": "0:1-1:0"
-            }
-          ],
-          "domain": "0:1-0:4"
-        },
-        {
-          "targets": [
-            {
-              "content": "2:0-2:3",
-              "removal": "2:0-4:0"
-            }
-          ],
-          "domain": "2:0-2:3"
-        },
-        {
-          "targets": [
-            {
-              "content": "4:0-4:3",
-              "removal": "3:0-4:3"
-            }
-          ],
-          "domain": "4:0-4:3"
-        },
-        {
-          "targets": [
-            {
-              "content": "4:0-4:4",
-              "removal": "2:3-4:4"
-            }
-          ],
-          "domain": "4:0-4:4"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/boundedParagraph/boundedParagraph6",
-      "languageId": "textual",
-      "facet": "boundedParagraph",
-      "code": "  aaa {\n    bbb\n    ccc\n\n    ddd\n    eee\n  }",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:2-2:7",
-              "removal": "0:0-4:0"
-            }
-          ],
-          "domain": "0:0-2:7"
-        },
-        {
-          "targets": [
-            {
-              "content": "1:4-2:7",
-              "removal": "1:0-4:0"
-            }
-          ],
-          "domain": "0:7-2:7"
-        },
-        {
-          "targets": [
-            {
-              "content": "4:4-5:7",
-              "removal": "3:0-6:0"
-            }
-          ],
-          "domain": "4:0-6:2"
-        },
-        {
-          "targets": [
-            {
-              "content": "4:4-6:3",
-              "removal": "2:7-6:3"
-            }
-          ],
-          "domain": "4:0-6:3"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/character",
-      "languageId": "textual",
-      "facet": "character",
-      "code": "aaa",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:0-0:1",
-              "removal": "0:0-0:1"
-            }
-          ],
-          "domain": "0:0-0:1"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:1-0:2",
-              "removal": "0:1-0:2"
-            }
-          ],
-          "domain": "0:1-0:2"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:2-0:3",
-              "removal": "0:2-0:3"
-            }
-          ],
-          "domain": "0:2-0:3"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/collectionItem/collectionItem.textual.iteration",
-      "languageId": "textual",
-      "facet": "collectionItem.textual.iteration",
-      "code": "(1, 2, 3)",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:1-0:8"
-            }
-          ],
-          "domain": "0:1-0:8"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/collectionItem/collectionItem.textual.iteration2",
-      "languageId": "textual",
-      "facet": "collectionItem.textual.iteration",
-      "code": "[1, 2, 3]",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:1-0:8"
-            }
-          ],
-          "domain": "0:1-0:8"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/collectionItem/collectionItem.textual.iteration3",
-      "languageId": "textual",
-      "facet": "collectionItem.textual.iteration",
-      "code": "{1, 2, 3}",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:1-0:8"
-            }
-          ],
-          "domain": "0:1-0:8"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/collectionItem/collectionItem.textual.iteration4",
-      "languageId": "textual",
-      "facet": "collectionItem.textual.iteration",
-      "code": "<1, 2, 3>",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:1-0:8"
-            }
-          ],
-          "domain": "0:1-0:8"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/collectionItem/collectionItem.textual.iteration5",
-      "languageId": "textual",
-      "facet": "collectionItem.textual.iteration",
-      "code": "( 1, 2, 3 )",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:2-0:9"
-            }
-          ],
-          "domain": "0:1-0:10"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/collectionItem/collectionItem.textual.iteration6",
-      "languageId": "textual",
-      "facet": "collectionItem.textual.iteration",
-      "code": "[\n    1,\n    2,\n    3,\n]",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "1:4-3:6"
-            }
-          ],
-          "domain": "0:1-4:0"
-        },
-        {
-          "targets": [
-            {
-              "content": "1:4-1:6"
-            }
-          ],
-          "domain": "1:0-1:6"
-        },
-        {
-          "targets": [
-            {
-              "content": "2:4-2:6"
-            }
-          ],
-          "domain": "2:0-2:6"
-        },
-        {
-          "targets": [
-            {
-              "content": "3:4-3:6"
-            }
-          ],
-          "domain": "3:0-3:6"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/collectionItem/collectionItem.textual.iteration7",
-      "languageId": "textual",
-      "facet": "collectionItem.textual.iteration",
-      "code": "{\n    a: 1,\n    b: 2,\n    c: 3,\n}",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "1:4-3:9"
-            }
-          ],
-          "domain": "0:1-4:0"
-        },
-        {
-          "targets": [
-            {
-              "content": "1:4-1:9"
-            }
-          ],
-          "domain": "1:0-1:9"
-        },
-        {
-          "targets": [
-            {
-              "content": "2:4-2:9"
-            }
-          ],
-          "domain": "2:0-2:9"
-        },
-        {
-          "targets": [
-            {
-              "content": "3:4-3:9"
-            }
-          ],
-          "domain": "3:0-3:9"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/collectionItem/collectionItem.textual",
-      "languageId": "textual",
-      "facet": "collectionItem.textual",
-      "code": "(1, 2, 3)",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:1-0:2",
-              "removal": "0:1-0:4"
-            }
-          ],
-          "domain": "0:1-0:2"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:4-0:5",
-              "removal": "0:4-0:7"
-            }
-          ],
-          "domain": "0:4-0:5"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:7-0:8",
-              "removal": "0:5-0:8"
-            }
-          ],
-          "domain": "0:7-0:8"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/collectionItem/collectionItem.textual10",
-      "languageId": "textual",
-      "facet": "collectionItem.textual",
-      "code": "aaa, ( bbb, ccc )",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:0-0:3",
-              "removal": "0:0-0:5"
-            }
-          ],
-          "domain": "0:0-0:3"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:5-0:17",
-              "removal": "0:3-0:17"
-            }
-          ],
-          "domain": "0:5-0:17"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:7-0:10",
-              "removal": "0:7-0:12"
-            }
-          ],
-          "domain": "0:7-0:10"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:12-0:15",
-              "removal": "0:10-0:15"
-            }
-          ],
-          "domain": "0:12-0:15"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/collectionItem/collectionItem.textual11",
-      "languageId": "textual",
-      "facet": "collectionItem.textual",
-      "code": "[\n    1,\n\n    2,\n]",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "1:4-1:5",
-              "removal": "1:4-3:4"
-            }
-          ],
-          "domain": "1:4-1:5"
-        },
-        {
-          "targets": [
-            {
-              "content": "3:4-3:5",
-              "removal": "1:5-3:5"
-            }
-          ],
-          "domain": "3:4-3:5"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/collectionItem/collectionItem.textual12",
-      "languageId": "textual",
-      "facet": "collectionItem.textual",
-      "code": "[\n\n    1\n\n]",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "2:4-2:5",
-              "removal": "2:0-4:0"
-            }
-          ],
-          "domain": "2:4-2:5"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/collectionItem/collectionItem.textual13",
-      "languageId": "textual",
-      "facet": "collectionItem.textual",
-      "code": "(aaa)",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:1-0:4",
-              "removal": "0:1-0:4"
-            }
-          ],
-          "domain": "0:1-0:4"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/collectionItem/collectionItem.textual14",
-      "languageId": "textual",
-      "facet": "collectionItem.textual",
-      "code": "( aaa )",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:2-0:5",
-              "removal": "0:2-0:6"
-            }
-          ],
-          "domain": "0:2-0:5"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/collectionItem/collectionItem.textual15",
-      "languageId": "textual",
-      "facet": "collectionItem.textual",
-      "code": "{\n    language: {},\n    choices: {\n        disabled: true,\n        items: {\n            colWidth: [2, 10]\n        }\n    },\n    versions: {}\n}",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "1:4-1:16",
-              "removal": "1:4-2:4"
-            }
-          ],
-          "domain": "1:4-1:16"
-        },
-        {
-          "targets": [
-            {
-              "content": "2:4-7:5",
-              "removal": "2:4-8:4"
-            }
-          ],
-          "domain": "2:4-7:5"
-        },
-        {
-          "targets": [
-            {
-              "content": "3:8-3:22",
-              "removal": "3:8-4:8"
-            }
-          ],
-          "domain": "3:8-3:22"
-        },
-        {
-          "targets": [
-            {
-              "content": "4:8-6:9",
-              "removal": "3:22-6:9"
-            }
-          ],
-          "domain": "4:8-6:9"
-        },
-        {
-          "targets": [
-            {
-              "content": "5:12-5:29",
-              "removal": "5:0-6:0"
-            }
-          ],
-          "domain": "5:12-5:29"
-        },
-        {
-          "targets": [
-            {
-              "content": "5:23-5:24",
-              "removal": "5:23-5:26"
-            }
-          ],
-          "domain": "5:23-5:24"
-        },
-        {
-          "targets": [
-            {
-              "content": "5:26-5:28",
-              "removal": "5:24-5:28"
-            }
-          ],
-          "domain": "5:26-5:28"
-        },
-        {
-          "targets": [
-            {
-              "content": "8:4-8:16",
-              "removal": "7:5-8:16"
-            }
-          ],
-          "domain": "8:4-8:16"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/collectionItem/collectionItem.textual2",
-      "languageId": "textual",
-      "facet": "collectionItem.textual",
-      "code": "[1, 2, 3]",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:1-0:2",
-              "removal": "0:1-0:4"
-            }
-          ],
-          "domain": "0:1-0:2"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:4-0:5",
-              "removal": "0:4-0:7"
-            }
-          ],
-          "domain": "0:4-0:5"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:7-0:8",
-              "removal": "0:5-0:8"
-            }
-          ],
-          "domain": "0:7-0:8"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/collectionItem/collectionItem.textual3",
-      "languageId": "textual",
-      "facet": "collectionItem.textual",
-      "code": "{1, 2, 3}",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:1-0:2",
-              "removal": "0:1-0:4"
-            }
-          ],
-          "domain": "0:1-0:2"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:4-0:5",
-              "removal": "0:4-0:7"
-            }
-          ],
-          "domain": "0:4-0:5"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:7-0:8",
-              "removal": "0:5-0:8"
-            }
-          ],
-          "domain": "0:7-0:8"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/collectionItem/collectionItem.textual4",
-      "languageId": "textual",
-      "facet": "collectionItem.textual",
-      "code": "<1, 2, 3>",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:1-0:2",
-              "removal": "0:1-0:4"
-            }
-          ],
-          "domain": "0:1-0:2"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:4-0:5",
-              "removal": "0:4-0:7"
-            }
-          ],
-          "domain": "0:4-0:5"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:7-0:8",
-              "removal": "0:5-0:8"
-            }
-          ],
-          "domain": "0:7-0:8"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/collectionItem/collectionItem.textual5",
-      "languageId": "textual",
-      "facet": "collectionItem.textual",
-      "code": "( 1, 2, 3 )",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:2-0:3",
-              "removal": "0:2-0:5"
-            }
-          ],
-          "domain": "0:2-0:3"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:5-0:6",
-              "removal": "0:5-0:8"
-            }
-          ],
-          "domain": "0:5-0:6"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:8-0:9",
-              "removal": "0:6-0:9"
-            }
-          ],
-          "domain": "0:8-0:9"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/collectionItem/collectionItem.textual6",
-      "languageId": "textual",
-      "facet": "collectionItem.textual",
-      "code": "[\n    1,\n    2,\n    3,\n]",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "1:4-1:5",
-              "removal": "1:4-2:4"
-            }
-          ],
-          "domain": "1:4-1:5"
-        },
-        {
-          "targets": [
-            {
-              "content": "2:4-2:5",
-              "removal": "2:4-3:4"
-            }
-          ],
-          "domain": "2:4-2:5"
-        },
-        {
-          "targets": [
-            {
-              "content": "3:4-3:5",
-              "removal": "2:5-3:5"
-            }
-          ],
-          "domain": "3:4-3:5"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/collectionItem/collectionItem.textual7",
-      "languageId": "textual",
-      "facet": "collectionItem.textual",
-      "code": "{\n    a: 1,\n    b: 2,\n    c: 3,\n}",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "1:4-1:8",
-              "removal": "1:4-2:4"
-            }
-          ],
-          "domain": "1:4-1:8"
-        },
-        {
-          "targets": [
-            {
-              "content": "2:4-2:8",
-              "removal": "2:4-3:4"
-            }
-          ],
-          "domain": "2:4-2:8"
-        },
-        {
-          "targets": [
-            {
-              "content": "3:4-3:8",
-              "removal": "2:8-3:8"
-            }
-          ],
-          "domain": "3:4-3:8"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/collectionItem/collectionItem.textual8",
-      "languageId": "textual",
-      "facet": "collectionItem.textual",
-      "code": "[1, \"2, 3\"]",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:1-0:2",
-              "removal": "0:1-0:4"
-            }
-          ],
-          "domain": "0:1-0:2"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:4-0:10",
-              "removal": "0:2-0:10"
-            }
-          ],
-          "domain": "0:4-0:10"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/collectionItem/collectionItem.textual9",
-      "languageId": "textual",
-      "facet": "collectionItem.textual",
-      "code": "aaa, bbb",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:0-0:3",
-              "removal": "0:0-0:5"
-            }
-          ],
-          "domain": "0:0-0:3"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:5-0:8",
-              "removal": "0:3-0:8"
-            }
-          ],
-          "domain": "0:5-0:8"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/document",
-      "languageId": "textual",
-      "facet": "document",
-      "code": "\n  aaa\n\nbbb\n\nccc\n",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:0-6:0",
-              "removal": "0:0-6:0"
-            }
-          ],
-          "domain": "0:0-6:0"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/identifier",
-      "languageId": "textual",
-      "facet": "identifier",
-      "code": "(foo)",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:1-0:4",
-              "removal": "0:1-0:4"
-            }
-          ],
-          "domain": "0:1-0:4"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/interior.surroundingPair",
-      "languageId": "textual",
-      "facet": "interior.surroundingPair",
-      "code": "( text )",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:2-0:6",
-              "removal": "0:1-0:7"
-            }
-          ],
-          "domain": "0:0-0:8"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/line",
-      "languageId": "textual",
-      "facet": "line",
-      "code": "aaa",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:0-0:3",
-              "removal": "0:0-0:3"
-            }
-          ],
-          "domain": "0:0-0:3"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/line2",
-      "languageId": "textual",
-      "facet": "line",
-      "code": "\naaa\n",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:0-0:0",
-              "removal": "0:0-1:0"
-            }
-          ],
-          "domain": "0:0-0:0"
-        },
-        {
-          "targets": [
-            {
-              "content": "1:0-1:3",
-              "removal": "1:0-2:0"
-            }
-          ],
-          "domain": "1:0-1:3"
-        },
-        {
-          "targets": [
-            {
-              "content": "2:0-2:0",
-              "removal": "1:3-2:0"
-            }
-          ],
-          "domain": "2:0-2:0"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/nonWhitespaceSequence",
-      "languageId": "textual",
-      "facet": "nonWhitespaceSequence",
-      "code": " b.c(?!å_*/\\)|d4",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:1-0:16",
-              "removal": "0:0-0:16"
-            }
-          ],
-          "domain": "0:1-0:16"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/paragraph",
-      "languageId": "textual",
-      "facet": "paragraph",
-      "code": "\naaa\nbbb\n",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "1:0-2:3",
-              "removal": "0:0-3:0"
-            }
-          ],
-          "domain": "1:0-2:3"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/sentence",
-      "languageId": "textual",
-      "facet": "sentence",
-      "code": "This is a sentence.",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:0-0:19",
-              "removal": "0:0-0:19"
-            }
-          ],
-          "domain": "0:0-0:19"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/surroundingPair/surroundingPair.iteration",
-      "languageId": "textual",
-      "facet": "surroundingPair.iteration",
-      "code": "\n( )\n",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "1:0-1:3"
-            }
-          ],
-          "domain": "1:0-1:3"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/surroundingPair/surroundingPair.iteration2",
-      "languageId": "textual",
-      "facet": "surroundingPair.iteration",
-      "code": "\nhello\n",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "1:0-1:5"
-            }
-          ],
-          "domain": "1:0-1:5"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/surroundingPair/surroundingPair",
-      "languageId": "textual",
-      "facet": "surroundingPair",
-      "code": "( )",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:0-0:3",
-              "removal": "0:0-0:3"
-            }
-          ],
-          "domain": "0:0-0:3"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/surroundingPair/surroundingPair2",
-      "languageId": "textual",
-      "facet": "surroundingPair",
-      "code": "\"\n\"hello\"\n\"",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "1:0-1:7",
-              "removal": "1:0-1:7"
-            }
-          ],
-          "domain": "1:0-1:7"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/surroundingPair/surroundingPair3",
-      "languageId": "textual",
-      "facet": "surroundingPair",
-      "code": "(()) ()",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:0-0:4",
-              "removal": "0:0-0:5"
-            }
-          ],
-          "domain": "0:0-0:4"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:1-0:3",
-              "removal": "0:1-0:3"
-            }
-          ],
-          "domain": "0:1-0:3"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:5-0:7",
-              "removal": "0:4-0:7"
-            }
-          ],
-          "domain": "0:5-0:7"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/surroundingPair/surroundingPair4",
-      "languageId": "textual",
-      "facet": "surroundingPair",
-      "code": "(a < b)\n(c > d)",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:0-0:7",
-              "removal": "0:0-0:7"
-            }
-          ],
-          "domain": "0:0-0:7"
-        },
-        {
-          "targets": [
-            {
-              "content": "1:0-1:7",
-              "removal": "1:0-1:7"
-            }
-          ],
-          "domain": "1:0-1:7"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/surroundingPair/surroundingPair5",
-      "languageId": "textual",
-      "facet": "surroundingPair",
-      "code": "(  [  )  ]",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:0-0:7",
-              "removal": "0:0-0:9"
-            }
-          ],
-          "domain": "0:0-0:7"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/surroundingPair/surroundingPair6",
-      "languageId": "textual",
-      "facet": "surroundingPair",
-      "code": "([)]",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:0-0:3",
-              "removal": "0:0-0:3"
-            }
-          ],
-          "domain": "0:0-0:3"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/token",
-      "languageId": "textual",
-      "facet": "token",
-      "code": "  aaa  ",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:2-0:5",
-              "removal": "0:0-0:7"
-            }
-          ],
-          "domain": "0:2-0:5"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/url",
-      "languageId": "textual",
-      "facet": "url",
-      "code": "https://www.cursorless.org",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:0-0:26",
-              "removal": "0:0-0:26"
-            }
-          ],
-          "domain": "0:0-0:26"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/word",
-      "languageId": "textual",
-      "facet": "word",
-      "code": "aaa_bbb",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:0-0:3",
-              "removal": "0:0-0:4"
-            }
-          ],
-          "domain": "0:0-0:3"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:4-0:7",
-              "removal": "0:3-0:7"
-            }
-          ],
-          "domain": "0:4-0:7"
-        }
-      ]
-    },
-    {
-      "name": "scopes/textual/word2",
-      "languageId": "textual",
-      "facet": "word",
-      "code": "aaaBbb",
-      "scopes": [
-        {
-          "targets": [
-            {
-              "content": "0:0-0:3",
-              "removal": "0:0-0:3"
-            }
-          ],
-          "domain": "0:0-0:3"
-        },
-        {
-          "targets": [
-            {
-              "content": "0:3-0:6",
-              "removal": "0:3-0:6"
-            }
-          ],
-          "domain": "0:3-0:6"
         }
       ]
     },
