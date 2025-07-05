@@ -24,9 +24,6 @@ interface Fixture {
 const fixtures: Fixture[] = [];
 
 for (const test of getScopeTestPaths()) {
-  //   if (test.languageId !== "xml" || test.facet !== "tags") {
-  //     continue;
-  //   }
   const fixture = parseTest(test);
   if (fixture != null) {
     fixtures.push(fixture);
@@ -51,7 +48,6 @@ function parseTest(test: ScopeTestPath) {
   const lines = fixture.substring(delimiterIndex + 4).split(/\n/);
   const scopes: Scope[] = [];
   const unprocessedTypes: string[] = [];
-  const unprocessedTargets: Scope[] = [];
   let currentScopeIndex = "";
   let currentScope: Scope = {};
 
@@ -105,8 +101,6 @@ function parseTest(test: ScopeTestPath) {
       // TODO: handle target index fixtures
       return;
     }
-
-    // console.log(scopeIndex, targetIndex, type, value);
 
     if (scopeIndex != null && scopeIndex !== currentScopeIndex) {
       if (currentScopeIndex !== "") {

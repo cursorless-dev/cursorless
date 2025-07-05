@@ -1,10 +1,6 @@
-import { Range } from "@cursorless/common";
+import type { Range } from "@cursorless/common";
 import React, { useEffect, useState } from "react";
-import {
-  codeToHtml,
-  createCssVariablesTheme,
-  type DecorationItem,
-} from "shiki";
+import { codeToHtml, type DecorationItem } from "shiki";
 import "./Code.css";
 
 export interface Highlight {
@@ -18,8 +14,6 @@ interface Props {
   highlights?: Highlight[];
   children: string;
 }
-
-const myTheme = createCssVariablesTheme();
 
 export function Code({
   languageId,
@@ -39,7 +33,9 @@ export function Code({
       lang: languageId,
       theme: "nord",
       decorations: getDecorations(highlights),
-    }).then(setHtml);
+    })
+      .then(setHtml)
+      .catch(console.error);
   }, [languageId, renderWhitespace, highlights, children]);
 
   const handleCopy = async () => {

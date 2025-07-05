@@ -1,7 +1,7 @@
 import { Range } from "@cursorless/common";
 import React, { useState } from "react";
 import scopeTestsExport from "../../../../../static/scopeTests.json";
-import { Code, Highlight } from "./Code";
+import { Code, type Highlight } from "./Code";
 
 type RangeType = "content" | "removal";
 
