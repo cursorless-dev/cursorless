@@ -44,8 +44,8 @@ export function ScopeVisualizer({ languageId }: Props) {
           value={rangeType}
           onChange={(e) => setRangeType(e.target.value as RangeType)}
         >
-          <option value="content">Content</option>
-          <option value="removal">Removal</option>
+          <option value="content">Content range</option>
+          <option value="removal">Removal range</option>
         </select>
 
         <label className="ml-1">
