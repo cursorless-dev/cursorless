@@ -8,8 +8,21 @@ import * as cp from "child_process";
 
 const extraExtensions = ["pokey.command-server"];
 
+const vsCodeToolName : string = "code"
+const validCliToolParams : Array<string> = ["--code", "--codium"]
+
 async function main() {
   try {
+    // Read cli tool name from arguments, assume tool name is 'code' if not present
+    var cliToolName = vsCodeToolName;
+
+    process.argv.forEach(argument => {
+      if (validCliToolParams.includes(argument)) {
+        cliToolName = argument.replace("--", "");
+        console.log("Cli tool name manually set to " + cliToolName);
+      }
+    });
+
     const args = [
       "--profile=cursorlessDevelopment",
       ...[...extensionDependencies, ...extraExtensions].flatMap(
@@ -21,8 +34,16 @@ async function main() {
       args.push("--force");
     }
 
+    // Do not attempt to install jrieken:vscode-tree-sitter-query if editor is NOT VSCode, assuming lack of access to VSCode Marketplace
+    if (cliToolName  !== vsCodeToolName) {
+      const index: number = args.findIndex((value) => value.includes("vscode-tree-sitter-query"))
+      args.splice(index, 1)
+      console.log("Not installing jrieken:vscode-tree-sitter-query as it is not on the OpenVSX Marketplace.")
+      console.log("You should install this extension manually. Check the Cursorless contributor documentation for more info.")
+    }
+
     // Install extension dependencies
-    const subprocess = cp.spawn("code", args, {
+    const subprocess = cp.spawn(cliToolName, args, {
       stdio: "inherit",
       shell: true,
     });
