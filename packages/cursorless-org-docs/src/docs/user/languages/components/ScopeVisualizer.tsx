@@ -199,6 +199,9 @@ function getOverlap(a: Range, b: Range): Range | null {
 }
 
 function getScopeFixtures(languageId: string): Scope[] {
+  if (languageId === "plaintext") {
+    languageId = "textual";
+  }
   const languageIds = new Set<string>(
     scopeTests.imports[languageId] ?? [languageId],
   );

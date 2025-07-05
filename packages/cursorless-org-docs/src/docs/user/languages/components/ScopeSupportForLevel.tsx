@@ -1,15 +1,22 @@
 import {
   groupBy,
-  scopeSupportFacetInfos,
   serializeScopeType,
   type ScopeSupportFacet,
   type ScopeSupportFacetInfo,
+  type ScopeSupportFacetLevel,
+  type TextualScopeSupportFacet,
 } from "@cursorless/common";
 import React, { useState, type JSX } from "react";
 import { prettifyFacet, prettifyScopeType } from "./util";
 
+export interface FacetWrapper {
+  facet: ScopeSupportFacet | TextualScopeSupportFacet;
+  supportLevel: ScopeSupportFacetLevel | undefined;
+  info: ScopeSupportFacetInfo;
+}
+
 interface Props {
-  facets: ScopeSupportFacet[];
+  facets: FacetWrapper[];
   title: string;
   subtitle: string;
   description?: React.ReactNode;
@@ -25,15 +32,8 @@ export function ScopeSupportForLevel({
 }: Props): JSX.Element | null {
   const [open, setOpen] = useState(openProp ?? false);
 
-  const facetInfos = facets.map(
-    (facet): AugmentedFacetInfo => ({
-      facet,
-      ...scopeSupportFacetInfos[facet],
-    }),
-  );
-  const scopeGroups: Map<string, AugmentedFacetInfo[]> = groupBy(
-    facetInfos,
-    (facetInfo) => serializeScopeType(facetInfo.scopeType),
+  const scopeGroups: Map<string, FacetWrapper[]> = groupBy(facets, (f) =>
+    serializeScopeType(f.info.scopeType),
   );
   const scopeTypes = Array.from(scopeGroups.keys())
     .filter((scope) => !scope.startsWith("private."))
@@ -57,18 +57,18 @@ export function ScopeSupportForLevel({
         {description && <p>{description}</p>}
 
         {scopeTypes.map((scopeType) => {
-          const facetInfos = scopeGroups.get(scopeType) ?? [];
+          const facets = scopeGroups.get(scopeType) ?? [];
           return (
             <div key={scopeType}>
               <h4>{prettifyScopeType(scopeType)}</h4>
               <ul>
-                {facetInfos.map((facetInfo) => {
+                {facets.map((facet) => {
                   return (
-                    <li key={facetInfo.facet}>
-                      <span className="facet-name" title={facetInfo.facet}>
-                        {prettifyFacet(facetInfo.facet, false)}
+                    <li key={facet.facet}>
+                      <span className="facet-name" title={facet.facet}>
+                        {prettifyFacet(facet.facet, false)}
                       </span>
-                      : {facetInfo.description}
+                      : {facet.info.description}
                     </li>
                   );
                 })}
@@ -90,8 +90,4 @@ export function ScopeSupportForLevel({
       {renderBody()}
     </div>
   );
-}
-
-interface AugmentedFacetInfo extends ScopeSupportFacetInfo {
-  facet: ScopeSupportFacet;
 }
