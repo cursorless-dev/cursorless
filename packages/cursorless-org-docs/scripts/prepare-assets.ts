@@ -176,5 +176,6 @@ function saveFixtures(fixtures: Fixture[]) {
     "static",
     "scopeTests.json",
   );
-  fs.writeFileSync(assetPath, JSON.stringify(fixtures, null, 2), "utf8");
+  const content = JSON.stringify(fixtures, null, 2) + "\n";
+  fs.writeFileSync(assetPath, content, "utf8");
 }
