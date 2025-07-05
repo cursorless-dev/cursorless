@@ -1,38 +1,64 @@
 import {
   ScopeSupportFacetLevel,
   languageScopeSupport,
+  plaintextScopeSupportFacetInfos,
+  scopeSupportFacetInfos,
   scopeSupportFacets,
+  type PlaintextScopeSupportFacet,
+  type ScopeSupportFacet,
 } from "@cursorless/common";
 import * as React from "react";
-import { ScopeSupportForLevel } from "./ScopeSupportForLevel";
+import {
+  ScopeSupportForLevel,
+  type FacetWrapper,
+} from "./ScopeSupportForLevel";
 
 interface Props {
   languageId: string;
 }
 
-export function ScopeSupport({ languageId }: Props): React.JSX.Element {
-  const facetsSorted = [...scopeSupportFacets].sort();
-  const scopeSupport = languageScopeSupport[languageId] ?? {};
+function getSupport(languageId: string): FacetWrapper[] {
+  if (languageId === "plaintext") {
+    return Object.keys(plaintextScopeSupportFacetInfos)
+      .sort()
+      .map((f) => {
+        const facet = f as PlaintextScopeSupportFacet;
+        return {
+          facet,
+          supportLevel: ScopeSupportFacetLevel.supported,
+          info: plaintextScopeSupportFacetInfos[facet],
+        };
+      });
+  }
+  const supportLevels = languageScopeSupport[languageId] ?? {};
+  return [...scopeSupportFacets].sort().map((f) => {
+    const facet = f as ScopeSupportFacet;
+    return {
+      facet,
+      supportLevel: supportLevels[facet],
+      info: scopeSupportFacetInfos[facet],
+    };
+  });
+}
 
-  const supportedFacets = facetsSorted.filter(
-    (facet) => scopeSupport[facet] === ScopeSupportFacetLevel.supported,
+export function ScopeSupport({ languageId }: Props): React.JSX.Element {
+  const facets = getSupport(languageId);
+  const supportedFacets = facets.filter(
+    (facet) => facet.supportLevel === ScopeSupportFacetLevel.supported,
   );
-  const unsupportedFacets = facetsSorted.filter(
-    (facet) => scopeSupport[facet] === ScopeSupportFacetLevel.unsupported,
+  const unsupportedFacets = facets.filter(
+    (facet) => facet.supportLevel === ScopeSupportFacetLevel.unsupported,
   );
-  const unspecifiedFacets = facetsSorted.filter(
-    (facet) => scopeSupport[facet] == null,
+  const unspecifiedFacets = facets.filter(
+    (facet) => facet.supportLevel == null,
   );
 
   return (
     <>
-      <h2>Scopes</h2>
-
       <ScopeSupportForLevel
         facets={supportedFacets}
         title="Supported facets"
-        subtitle="These facets are supported"
-        open
+        subtitle="These scope facets are supported"
       />
 
       <ScopeSupportForLevel

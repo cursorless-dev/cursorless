@@ -1,0 +1,100 @@
+import type { Range } from "@cursorless/common";
+import React, { useEffect, useState } from "react";
+import { codeToHtml, type DecorationItem } from "shiki";
+import "./Code.css";
+
+export interface Highlight {
+  type: "content" | "removal" | "domain" | "iteration";
+  range: Range;
+}
+
+interface Props {
+  languageId: string;
+  renderWhitespace?: boolean;
+  highlights?: Highlight[];
+  children: string;
+}
+
+export function Code({
+  languageId,
+  renderWhitespace,
+  highlights,
+  children,
+}: Props) {
+  const [html, setHtml] = React.useState("");
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    if (renderWhitespace) {
+      children = children.replaceAll(" ", "␣").replaceAll("\t", "⭾");
+    }
+    codeToHtml(children, {
+      lang: getFallbackLanguage(languageId),
+      theme: "nord",
+      decorations: getDecorations(highlights),
+    })
+      .then((html) => {
+        if (renderWhitespace) {
+          html = html
+            .replace(/␣/g, '<span class="code-ws-symbol">·</span>')
+            .replace(/⭾/g, '<span class="code-ws-symbol"> →  </span>');
+        }
+        setHtml(html);
+      })
+      .catch(console.error);
+  }, [languageId, renderWhitespace, highlights, children]);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(children);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch (err) {
+      console.error("Failed to copy!", err);
+    }
+  };
+
+  return (
+    <div className="code-container">
+      <button onClick={handleCopy} className="code-copy-button">
+        {copied ? "✅ Copied!" : "📋 Copy"}
+      </button>
+      <div dangerouslySetInnerHTML={{ __html: html }}></div>{" "}
+    </div>
+  );
+}
+
+function getDecorations(
+  highlights?: Highlight[],
+): DecorationItem[] | undefined {
+  if (highlights == null || highlights.length === 0) {
+    return undefined;
+  }
+
+  return highlights.map((highlight): DecorationItem => {
+    const { start, end } = highlight.range;
+    return {
+      start,
+      end,
+      alwaysWrap: true,
+      properties: {
+        class: `code-highlight-${highlight.type}`,
+      },
+    };
+  });
+}
+
+// Use a fallback language for languages that are not supported by Shiki
+// https://shiki.style/languages
+function getFallbackLanguage(languageId: string): string {
+  switch (languageId) {
+    case "javascriptreact":
+      return "jsx";
+    case "typescriptreact":
+      return "tsx";
+    case "scm":
+      return "scheme";
+    default:
+      return languageId;
+  }
+}
