@@ -56,6 +56,15 @@ The below example indicates that the content range, removal range, and domain ra
 
 Each range is also visualized:
 
+Single line range
+
+```
+  >------------<
+0| if (true) {}
+```
+
+Multi line range
+
 ```
   >-----------
 0| if (true) {
@@ -65,3 +74,30 @@ Each range is also visualized:
 ```
 
 On the left hand side we first have the line numbers, a pipe separator, and finally the source code. The range is visualized by starting after `>` and ending before `<`. Note that `>` and `<` is excluded from the range. That means a range of length one is `>-<` and an empty range is `><`.
+
+## Style guidelines
+
+For ease of readability we want all scope test to follow the recommended style guidelines.
+
+### Naming convention and values
+
+- For classes, functions and variables we use the classic: `foo`, `bar`, `baz`, `bongo`. Language specific formatting still applies. eg `Foo` for a class in Java, `IFoo` for an interface in C# etc.
+- For arguments and parameters we usually use: `aaa`, `bbb`, `ccc` and so on.
+- For data type we usually use `int` or `number`.
+- For value we usually use `0`, `1`, `2` and so on.
+
+### Keep it compact
+
+Don't add more lines than the example actually needs. For example if the test is about the class name, the facet `name.class`: there is no point having a lot of code in the class body or having its span multiple lines.
+
+```
+        >---<
+0| class Foo {}
+```
+
+Sometimes we actually need a body but that doesn't mean that we need it to be multiple lines. The facet `interior.class` can look like this:
+
+```
+             >-<
+0| class Foo { }
+```
