@@ -86,6 +86,14 @@ For ease of readability we want all scope test to follow the recommended style g
 - For data type we usually use `int` or `number`.
 - For value we usually use `0`, `1`, `2` and so on.
 
+Examples:
+
+```
+class Foo {}
+int foo = 0;
+foo(aaa, bbb);
+```
+
 ### Keep it compact
 
 Don't add more lines than the example actually needs. For example if the test is about the class name, the facet `name.class`: there is no point having a lot of code in the class body or having its span multiple lines.
