@@ -29,7 +29,7 @@ export function Code({
       children = children.replaceAll(" ", "␣").replaceAll("\t", "⭾");
     }
     codeToHtml(children, {
-      lang: languageId,
+      lang: getFallbackLanguage(languageId),
       theme: "nord",
       decorations: getDecorations(highlights),
     })
@@ -82,4 +82,14 @@ function getDecorations(
       },
     };
   });
+}
+
+// Use a fallback language for languages that are not supported by Shiki
+function getFallbackLanguage(languageId: string): string {
+  switch (languageId) {
+    case "scm":
+      return "scheme";
+    default:
+      return languageId;
+  }
 }
