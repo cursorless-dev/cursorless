@@ -71,20 +71,26 @@ function renderFixture(
       rangeType === "content"
         ? scope.content
         : (scope.removal ?? scope.content);
-    const range = Range.fromConcise(conciseRange);
-
-    // TODO: fix overlapping ranges
-    if (previousRange != null && previousRange.intersection(range) != null) {
-      // If the previous range intersects with the current range, we skip
-      // highlighting the current range to avoid overlapping highlights
-      break;
-    }
+    let range = Range.fromConcise(conciseRange);
 
     if (scope.domain != null && scope.domain !== conciseRange) {
       highlights.push({
         type: "domain",
         range: Range.fromConcise(scope.domain),
       });
+    }
+
+    if (previousRange != null) {
+      const intersection = previousRange.intersection(range);
+
+      if (intersection != null && !intersection.isEmpty) {
+        highlights.push({
+          type: rangeType,
+          range: intersection,
+        });
+
+        range = new Range(intersection.end, range.end);
+      }
     }
 
     highlights.push({
