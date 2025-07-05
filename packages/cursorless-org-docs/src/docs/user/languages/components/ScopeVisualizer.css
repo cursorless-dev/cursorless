@@ -1,0 +1,11 @@
+.facet-name {
+  font-weight: 600;
+}
+
+.link-icon {
+  margin-left: 0.25rem;
+}
+
+.link-icon:hover {
+  text-decoration: none;
+}

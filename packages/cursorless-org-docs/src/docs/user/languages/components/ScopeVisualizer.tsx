@@ -8,6 +8,7 @@ import {
 import React, { useState } from "react";
 import scopeTestsJson from "../../../../../static/scopeTests.json";
 import { Code, type Highlight } from "./Code";
+import "./ScopeVisualizer.css";
 import type { Fixture, ScopeTestsJson } from "./types";
 import { getFacetInfo, prettifyFacet, prettifyScopeType } from "./util";
 
@@ -83,9 +84,15 @@ function renderScope(
   renderWhitespace: boolean,
   scope: Scope,
 ) {
+  const href = scope.scope.toLowerCase().replaceAll(" ", "-");
   return (
     <div key={scope.scope}>
-      <h3>[{scope.scope}]</h3>
+      <h3 id={href}>
+        {scope.scope}
+        <a href={`#${href}`} className="link-icon">
+          🔗
+        </a>
+      </h3>
       {scope.facets.map((f) =>
         renderFacet(languageId, rangeType, renderWhitespace, f),
       )}
