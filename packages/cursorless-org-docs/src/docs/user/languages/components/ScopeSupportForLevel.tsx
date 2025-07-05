@@ -1,13 +1,11 @@
 import {
-  camelCaseToAllDown,
-  capitalize,
   groupBy,
   scopeSupportFacetInfos,
-  serializeScopeType,
   type ScopeSupportFacet,
   type ScopeSupportFacetInfo,
 } from "@cursorless/common";
 import React, { useState, type JSX } from "react";
+import { prettifyFacet, prettifyScopeType, serializeScopeType } from "./util";
 
 interface Props {
   facets: ScopeSupportFacet[];
@@ -67,7 +65,7 @@ export function ScopeSupportForLevel({
                   return (
                     <li key={facetInfo.facet}>
                       <span className="facet-name" title={facetInfo.facet}>
-                        {prettifyFacet(facetInfo.facet)}
+                        {prettifyFacet(facetInfo.facet, false)}
                       </span>
                       : {facetInfo.description}
                     </li>
@@ -95,21 +93,4 @@ export function ScopeSupportForLevel({
 
 interface AugmentedFacetInfo extends ScopeSupportFacetInfo {
   facet: ScopeSupportFacet;
-}
-
-function prettifyScopeType(scopeType: string): string {
-  return capitalize(camelCaseToAllDown(scopeType));
-}
-
-function prettifyFacet(facet: ScopeSupportFacet): string {
-  const parts = facet.split(".").map(camelCaseToAllDown);
-  if (parts.length === 1) {
-    return capitalize(parts[0]);
-  }
-  const isIteration = parts[parts.length - 1] === "iteration";
-  if (isIteration) {
-    parts.pop();
-  }
-  const name = capitalize(parts.slice(1).join(" "));
-  return isIteration ? `${name} (iteration)` : name;
 }
