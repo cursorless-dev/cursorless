@@ -33,7 +33,7 @@
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
-    "build": "docusaurus buildu && pnpm run prepare-assets",
+    "build": "docusaurus build && pnpm run prepare-assets",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
