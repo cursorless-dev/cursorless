@@ -4,16 +4,12 @@ import {
   type ScopeSupportFacetInfo,
   type TextualScopeSupportFacet,
 } from "@cursorless/common";
+import { serializeScopeType } from "@cursorless/common/src/util/serializeScopeType";
 import React, { useState } from "react";
 import scopeTestsJson from "../../../../../static/scopeTests.json";
 import { Code, type Highlight } from "./Code";
 import type { Fixture, ScopeTestsJson } from "./types";
-import {
-  getFacetInfo,
-  prettifyFacet,
-  prettifyScopeType,
-  serializeScopeType,
-} from "./util";
+import { getFacetInfo, prettifyFacet, prettifyScopeType } from "./util";
 
 const scopeTests = scopeTestsJson as ScopeTestsJson;
 
@@ -65,6 +61,13 @@ export function ScopeVisualizer({ languageId }: Props) {
 
   return (
     <>
+      <div className="mb-4">
+        Below are visualizations of all our scope tests for this language. These
+        were designed primarily as tests rather than documentation. There are
+        quite a few of them, and they may be a bit overwhelming from a
+        documentation perspective.
+      </div>
+
       {renderOptions()}
 
       {scopes.map((scope) =>

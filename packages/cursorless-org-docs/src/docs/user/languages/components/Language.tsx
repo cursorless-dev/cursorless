@@ -10,7 +10,9 @@ export function Language({ languageId }: Props) {
   return (
     <>
       <h2>Scopes</h2>
+
       <ScopeVisualizer languageId={languageId} />
+
       <ScopeSupport languageId={languageId} />
     </>
   );

@@ -29,7 +29,7 @@ export function ScopeSupport({ languageId }: Props): React.JSX.Element {
       <ScopeSupportForLevel
         facets={supportedFacets}
         title="Supported facets"
-        subtitle="These facets are supported"
+        subtitle="These scope facets are supported"
       />
 
       <ScopeSupportForLevel

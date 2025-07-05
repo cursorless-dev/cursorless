@@ -5,8 +5,6 @@ import {
   textualScopeSupportFacetInfos,
   type ScopeSupportFacet,
   type ScopeSupportFacetInfo,
-  type ScopeType,
-  type SimpleScopeTypeType,
   type TextualScopeSupportFacet,
 } from "@cursorless/common";
 
@@ -34,15 +32,6 @@ export function prettifyFacet(
     name += ` (${iterationParts.join(" ")})`;
   }
   return name;
-}
-
-export function serializeScopeType(
-  scopeType: SimpleScopeTypeType | ScopeType,
-): string {
-  if (typeof scopeType === "string") {
-    return scopeType;
-  }
-  return scopeType.type;
 }
 
 export function prettifyScopeType(scopeType: string): string {

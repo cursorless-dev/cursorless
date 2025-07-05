@@ -4,8 +4,9 @@ import {
   type ScopeSupportFacet,
   type ScopeSupportFacetInfo,
 } from "@cursorless/common";
+import { serializeScopeType } from "@cursorless/common/src/util/serializeScopeType";
 import React, { useState, type JSX } from "react";
-import { prettifyFacet, prettifyScopeType, serializeScopeType } from "./util";
+import { prettifyFacet, prettifyScopeType } from "./util";
 
 interface Props {
   facets: ScopeSupportFacet[];
