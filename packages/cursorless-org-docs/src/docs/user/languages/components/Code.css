@@ -62,3 +62,7 @@
   cursor: pointer;
   font-size: 0.75rem;
 }
+
+.code-ws-symbol {
+  color: #555;
+}

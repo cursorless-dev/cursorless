@@ -26,15 +26,21 @@ export function Code({
 
   useEffect(() => {
     if (renderWhitespace) {
-      children = children.replaceAll(" ", "·");
+      children = children.replaceAll(" ", "␣").replaceAll("\t", "⭾");
     }
-
     codeToHtml(children, {
       lang: languageId,
       theme: "nord",
       decorations: getDecorations(highlights),
     })
-      .then(setHtml)
+      .then((html) => {
+        if (renderWhitespace) {
+          html = html
+            .replace(/␣/g, '<span class="code-ws-symbol">·</span>')
+            .replace(/⭾/g, '<span class="code-ws-symbol"> →  </span>');
+        }
+        setHtml(html);
+      })
       .catch(console.error);
   }, [languageId, renderWhitespace, highlights, children]);
 
