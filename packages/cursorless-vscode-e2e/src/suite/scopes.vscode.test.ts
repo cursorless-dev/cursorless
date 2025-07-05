@@ -1,7 +1,7 @@
 import type {
   ScopeSupportFacet,
   ScopeType,
-  TextualScopeSupportFacet,
+  PlaintextScopeSupportFacet,
 } from "@cursorless/common";
 import {
   asyncSafety,
@@ -9,7 +9,7 @@ import {
   scopeSupportFacetInfos,
   ScopeSupportFacetLevel,
   shouldUpdateFixtures,
-  textualScopeSupportFacetInfos,
+  plaintextScopeSupportFacetInfos,
 } from "@cursorless/common";
 import { getScopeTestPathsRecursively } from "@cursorless/node-common";
 import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
@@ -76,8 +76,8 @@ suite("Scope test cases", async function () {
  */
 async function testLanguageSupport(languageId: string, testedFacets: string[]) {
   const supportedFacets = (() => {
-    if (languageId === "textual") {
-      return Object.keys(textualScopeSupportFacetInfos);
+    if (languageId === "plaintext") {
+      return Object.keys(plaintextScopeSupportFacetInfos);
     }
 
     const scopeSupport = languageScopeSupport[languageId];
@@ -174,8 +174,8 @@ function getFacetInfo(
   isIteration: boolean;
 } {
   const facetInfo =
-    languageId === "textual"
-      ? textualScopeSupportFacetInfos[facetId as TextualScopeSupportFacet]
+    languageId === "plaintext"
+      ? plaintextScopeSupportFacetInfos[facetId as PlaintextScopeSupportFacet]
       : scopeSupportFacetInfos[facetId as ScopeSupportFacet];
 
   if (facetInfo == null) {
