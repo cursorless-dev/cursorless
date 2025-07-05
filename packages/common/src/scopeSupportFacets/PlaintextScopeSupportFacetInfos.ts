@@ -1,10 +1,10 @@
 import type {
   ScopeSupportFacetInfo,
-  TextualScopeSupportFacet,
+  PlaintextScopeSupportFacet,
 } from "./scopeSupportFacets.types";
 
-export const textualScopeSupportFacetInfos: Record<
-  TextualScopeSupportFacet,
+export const plaintextScopeSupportFacetInfos: Record<
+  PlaintextScopeSupportFacet,
   ScopeSupportFacetInfo
 > = {
   character: {

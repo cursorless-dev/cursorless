@@ -284,7 +284,7 @@ export enum ScopeSupportFacetLevel {
 
 export type ScopeSupportFacet = (typeof scopeSupportFacets)[number];
 
-export type TextualScopeSupportFacet =
+export type PlaintextScopeSupportFacet =
   | "character"
   | "word"
   | "token"
