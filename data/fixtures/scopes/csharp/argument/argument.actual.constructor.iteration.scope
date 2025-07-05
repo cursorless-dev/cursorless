@@ -1,7 +1,7 @@
 new Foo(a, b);
 ---
 
-[Range] = 0:8-0:12
+[Content] = 0:8-0:12
           >----<
 0| new Foo(a, b);
 

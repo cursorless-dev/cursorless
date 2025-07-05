@@ -5,7 +5,7 @@ bbb = ccc
 ddd = eee
 ---
 
-[#1 Range] = 0:5-0:8
+[#1 Content] = 0:5-0:8
        >---<
 0| with aaa:
 
@@ -16,7 +16,7 @@ ddd = eee
    --------<
 
 
-[#2 Range] =
+[#2 Content] =
 [#2 Domain] = 0:0-4:9
   >---------
 0| with aaa:
@@ -27,7 +27,7 @@ ddd = eee
    ---------<
 
 
-[#3 Range] =
+[#3 Content] =
 [#3 Domain] = 1:4-1:8
       >----<
 1|     pass

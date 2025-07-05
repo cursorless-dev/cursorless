@@ -1,13 +1,13 @@
 function foo() { }
 ---
 
-[#1 Range] =
+[#1 Content] =
 [#1 Domain] = 0:0-0:18
   >------------------<
 0| function foo() { }
 
 
-[#2 Range] =
+[#2 Content] =
 [#2 Domain] = 0:16-0:17
                   >-<
 0| function foo() { }

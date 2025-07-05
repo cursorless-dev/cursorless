@@ -3,7 +3,7 @@ obj:
   value: 123
 ---
 
-[#1 Range] =
+[#1 Content] =
 [#1 Domain] = 0:0-2:12
   >----
 0| obj:
@@ -12,7 +12,7 @@ obj:
    ------------<
 
 
-[#2 Range] =
+[#2 Content] =
 [#2 Domain] = 1:2-2:12
     >-----------
 1|   name: "foo"

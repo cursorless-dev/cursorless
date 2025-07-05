@@ -2,7 +2,7 @@ def for(name: str, value: int):
     pass
 ---
 
-[Range] = 0:8-0:29
+[Content] = 0:8-0:29
           >---------------------<
 0| def for(name: str, value: int):
 

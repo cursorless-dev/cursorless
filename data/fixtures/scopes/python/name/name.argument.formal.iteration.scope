@@ -2,7 +2,7 @@ def foo(aaa: str, bbb: int):
     pass
 ---
 
-[#1 Range] =
+[#1 Content] =
 [#1 Domain] = 0:0-1:8
   >----------------------------
 0| def foo(aaa: str, bbb: int):
@@ -10,13 +10,13 @@ def foo(aaa: str, bbb: int):
    --------<
 
 
-[#2 Range] =
+[#2 Content] =
 [#2 Domain] = 0:8-0:26
           >------------------<
 0| def foo(aaa: str, bbb: int):
 
 
-[#3 Range] =
+[#3 Content] =
 [#3 Domain] = 1:4-1:8
       >----<
 1|     pass

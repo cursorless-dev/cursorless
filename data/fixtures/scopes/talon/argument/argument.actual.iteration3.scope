@@ -1,7 +1,7 @@
 command: sleep(100ms)
 ---
 
-[Range] = 0:15-0:20
+[Content] = 0:15-0:20
                  >-----<
 0| command: sleep(100ms)
 

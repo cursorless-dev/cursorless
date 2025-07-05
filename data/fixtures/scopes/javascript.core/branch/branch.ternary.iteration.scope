@@ -1,7 +1,7 @@
 true ? 0 : 1
 ---
 
-[Range] =
+[Content] =
 [Domain] = 0:0-0:12
   >------------<
 0| true ? 0 : 1

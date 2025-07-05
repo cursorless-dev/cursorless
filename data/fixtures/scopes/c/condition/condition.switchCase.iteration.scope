@@ -1,7 +1,7 @@
 switch (value) { }
 ---
 
-[Range] = 0:16-0:17
+[Content] = 0:16-0:17
                   >-<
 0| switch (value) { }
 

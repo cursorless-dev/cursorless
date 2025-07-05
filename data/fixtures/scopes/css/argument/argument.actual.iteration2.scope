@@ -3,7 +3,7 @@
 }
 ---
 
-[Range] = 1:40-1:56
+[Content] = 1:40-1:56
                                           >----------------<
 1|   background: repeating-linear-gradient(red, orange 50px);
 

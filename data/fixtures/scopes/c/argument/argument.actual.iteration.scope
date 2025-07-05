@@ -1,7 +1,7 @@
 foo(aaa, bbb);
 ---
 
-[Range] = 0:4-0:12
+[Content] = 0:4-0:12
       >--------<
 0| foo(aaa, bbb);
 

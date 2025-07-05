@@ -1,7 +1,7 @@
 class Foo(aaa: Int, bbb: Int) {}
 ---
 
-[Range] = 0:10-0:28
+[Content] = 0:10-0:28
             >------------------<
 0| class Foo(aaa: Int, bbb: Int) {}
 
