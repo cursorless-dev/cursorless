@@ -7,13 +7,13 @@ settings():
     foo = 0
 ---
 
-[#1 Range] =
+[#1 Content] =
 [#1 Domain] = 0:0-0:13
   >-------------<
 0| mode: command
 
 
-[#2 Range] =
+[#2 Content] =
 [#2 Domain] = 0:0-6:11
   >-------------
 0| mode: command
@@ -26,7 +26,7 @@ settings():
    -----------<
 
 
-[#3 Range] =
+[#3 Content] =
 [#3 Domain] = 3:0-6:11
   >--------------
 3| hello: "world"
@@ -36,13 +36,13 @@ settings():
    -----------<
 
 
-[#4 Range] =
+[#4 Content] =
 [#4 Domain] = 3:7-3:14
          >-------<
 3| hello: "world"
 
 
-[#5 Range] =
+[#5 Content] =
 [#5 Domain] = 6:4-6:11
       >-------<
 6|     foo = 0

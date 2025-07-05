@@ -1,7 +1,7 @@
 import foo, bar
 ---
 
-[Range] = 0:7-0:15
+[Content] = 0:7-0:15
          >--------<
 0| import foo, bar
 

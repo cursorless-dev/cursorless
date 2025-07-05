@@ -4,7 +4,7 @@ switch (value) {
 }
 ---
 
-[Range] = 0:16-3:0
+[Content] = 0:16-3:0
                   >
 0| switch (value) {
 1|   case 0: { }

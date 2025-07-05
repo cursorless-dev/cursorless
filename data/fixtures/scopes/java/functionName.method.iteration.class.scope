@@ -1,7 +1,7 @@
 class MyClass { }
 ---
 
-[Range] =
+[Content] =
 [Domain] = 0:15-0:16
                  >-<
 0| class MyClass { }

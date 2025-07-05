@@ -3,7 +3,7 @@ public class Foo {
 }
 ---
 
-[Range] = 1:15-1:31
+[Content] = 1:15-1:31
                  >----------------<
 1|     public Foo(int aaa, int bbb) {}
 

@@ -1,13 +1,13 @@
 class Foo { }
 ---
 
-[#1 Range] =
+[#1 Content] =
 [#1 Domain] = 0:0-0:13
   >-------------<
 0| class Foo { }
 
 
-[#2 Range] =
+[#2 Content] =
 [#2 Domain] = 0:11-0:12
              >-<
 0| class Foo { }

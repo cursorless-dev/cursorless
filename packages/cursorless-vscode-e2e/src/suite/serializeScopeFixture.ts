@@ -133,7 +133,7 @@ function serializeIterationScope(
 
     lines.push(
       serializeHeader({
-        header: "Range",
+        header: "Content",
         scopeNumber,
         targetNumber: ranges.length > 1 ? index + 1 : undefined,
         range: groupHeaders ? undefined : range.range,

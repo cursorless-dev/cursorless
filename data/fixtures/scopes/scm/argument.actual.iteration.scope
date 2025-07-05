@@ -1,7 +1,7 @@
 (#foo? @aaa bbb)
 ---
 
-[Range] = 0:7-0:15
+[Content] = 0:7-0:15
          >--------<
 0| (#foo? @aaa bbb)
 

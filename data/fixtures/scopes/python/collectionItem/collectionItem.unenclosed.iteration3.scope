@@ -2,7 +2,7 @@ def foo():
     global bar, baz
 ---
 
-[#1 Range] = 1:4-1:19
+[#1 Content] = 1:4-1:19
       >---------------<
 1|     global bar, baz
 
@@ -11,7 +11,7 @@ def foo():
 1|     global bar, baz
 
 
-[#2 Range] = 1:11-1:19
+[#2 Content] = 1:11-1:19
              >--------<
 1|     global bar, baz
 
