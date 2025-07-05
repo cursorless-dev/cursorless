@@ -123,7 +123,6 @@ function renderFacet(
 function getHighlights(fixture: Fixture, rangeType: RangeType): Highlight[] {
   const highlights: Highlight[] = [];
   const domainRanges: Range[] = [];
-  let previousRange: Range | undefined;
 
   for (const scope of fixture.scopes) {
     const conciseRanges =
@@ -155,8 +154,6 @@ function getHighlights(fixture: Fixture, rangeType: RangeType): Highlight[] {
         type: rangeType,
         range,
       });
-
-      previousRange = range;
     }
   }
 
