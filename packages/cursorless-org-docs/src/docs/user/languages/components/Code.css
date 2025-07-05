@@ -46,12 +46,25 @@
 }
 
 /* Line numbers */
+.shiki {
+  counter-reset: line;
+}
+
+.shiki .line {
+  margin-left: 1.5rem;
+  position: relative;
+}
+
 .shiki .line::before {
-  content: counter(step);
-  counter-increment: step;
+  content: counter(line);
+  counter-increment: line;
+  position: absolute;
+  left: -40px;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
   width: 1rem;
-  margin-right: 1.5rem;
-  display: inline-block;
   text-align: right;
+  height: 135%;
   color: rgba(115, 138, 148, 0.4);
+  border-right: 1px solid rgba(115, 138, 148, 0.4);
 }

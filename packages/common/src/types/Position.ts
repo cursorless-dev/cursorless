@@ -13,6 +13,19 @@ export class Position {
   public readonly character: number;
 
   /**
+   * Create a position from a concise string representation.
+   * The string should be in the format `line:character`, where both line and character
+   * are zero-based.
+   *
+   * @param concise A concise string representation of a position.
+   * @return A position with the given line and character values.
+   */
+  static fromConcise(concise: string): Position {
+    const [line, character] = concise.split(":").map((s) => parseInt(s, 10));
+    return new Position(line, character);
+  }
+
+  /**
    * @param line A zero-based line value.
    * @param character A zero-based character value.
    */

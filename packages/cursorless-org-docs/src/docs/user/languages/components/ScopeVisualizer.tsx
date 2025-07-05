@@ -1,44 +1,83 @@
 import { Range } from "@cursorless/common";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { createCssVariablesTheme } from "shiki";
+import scopeTestsExport from "../../../../../static/scopeTests.json";
 import { Code, Highlight } from "./Code";
+
+type RangeType = "content" | "removal";
+
+interface Scope {
+  content: string;
+  removal?: string;
+  domain?: string;
+  insertionDelimiter?: string;
+}
+
+interface Fixture {
+  name: string;
+  facet: string;
+  languageId: string;
+  code: string;
+  scopes: Scope[];
+}
+
+const scopeTests = scopeTestsExport as Fixture[];
 
 interface Props {
   languageId: string;
 }
 
-const myTheme = createCssVariablesTheme({
-  //   variablePrefix: "--code-",
-  fontStyle: true,
-});
+const myTheme = createCssVariablesTheme();
 
 export function ScopeVisualizer({ languageId }: Props) {
-  const code = `\
-import { createHighlighter } from 'shiki'
-
-// \`createHighlighter\` is async, it initializes the internal and
-// loads the themes and languages specified.
-const highlighter = await createHighlighter({
-  themes: ['nord'],
-  langs: ['javascript'],
-})
-
-// then later you can use \`highlighter.codeToHtml\` synchronously
-// with the loaded themes and languages.
-const code = highlighter.codeToHtml('const a = 1', {
-  lang: 'javascript',
-  theme: 'nord'
-})
-    `;
-
-  const highlights: Highlight[] = [
-    { type: "domain", range: new Range(0, 7, 0, 28) },
-    { type: "content", range: new Range(0, 9, 0, 26) },
-  ];
+  const [fixtures] = useState(
+    scopeTests.filter((s) => s.languageId === languageId),
+  );
+  const [rangeType, setRangeType] = useState<RangeType>("content");
 
   return (
-    <Code languageId="javascript" highlights={highlights}>
-      {code}
-    </Code>
+    <div>
+      <select
+        value={rangeType}
+        onChange={(e) => setRangeType(e.target.value as RangeType)}
+      >
+        <option value="content">Content</option>
+        <option value="removal">Removal</option>
+      </select>
+
+      {fixtures.map((f) => renderFixture(f, rangeType))}
+    </div>
+  );
+}
+
+function renderFixture(fixture: Fixture, rangeType: RangeType) {
+  const highlights: Highlight[] = [];
+
+  for (const scope of fixture.scopes) {
+    const range =
+      rangeType === "content"
+        ? scope.content
+        : (scope.removal ?? scope.content);
+
+    if (scope.domain != null && scope.domain !== range) {
+      highlights.push({
+        type: "domain",
+        range: Range.fromConcise(scope.domain),
+      });
+    }
+
+    highlights.push({
+      type: rangeType,
+      range: Range.fromConcise(range),
+    });
+  }
+
+  return (
+    <div key={fixture.name}>
+      {fixture.facet}
+      <Code languageId={fixture.languageId} highlights={highlights}>
+        {fixture.code}
+      </Code>
+    </div>
   );
 }

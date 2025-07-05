@@ -14,6 +14,7 @@ interface Scope {
 }
 
 interface Fixture {
+  name: string;
   facet: string;
   languageId: string;
   code: string;
@@ -23,6 +24,9 @@ interface Fixture {
 const fixtures: Fixture[] = [];
 
 for (const test of getScopeTestPaths()) {
+  //   if (test.languageId !== "xml" || test.facet !== "tags") {
+  //     continue;
+  //   }
   const fixture = parseTest(test);
   if (fixture != null) {
     fixtures.push(fixture);
@@ -47,6 +51,7 @@ function parseTest(test: ScopeTestPath) {
   const lines = fixture.substring(delimiterIndex + 4).split(/\n/);
   const scopes: Scope[] = [];
   const unprocessedTypes: string[] = [];
+  const unprocessedTargets: Scope[] = [];
   let currentScopeIndex = "";
   let currentScope: Scope = {};
 
@@ -101,10 +106,7 @@ function parseTest(test: ScopeTestPath) {
       return;
     }
 
-    if (type.startsWith(".")) {
-      // TODO: should be fixed soon
-      return;
-    }
+    // console.log(scopeIndex, targetIndex, type, value);
 
     if (scopeIndex != null && scopeIndex !== currentScopeIndex) {
       if (currentScopeIndex !== "") {
@@ -134,6 +136,7 @@ function parseTest(test: ScopeTestPath) {
   }
 
   const result: Fixture = {
+    name: test.name,
     languageId: test.languageId,
     facet: test.facet,
     code,

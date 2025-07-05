@@ -46,6 +46,8 @@ function getDecorations(
     return {
       start,
       end,
+      // Without this the highlight goes all the way to the line number
+      alwaysWrap: true,
       properties: {
         class: `shiki-highlight-${highlight.type}`,
       },
