@@ -1,37 +1,17 @@
 {
   "imports": {
-    "cpp": [
-      "cpp",
-      "c"
-    ],
-    "javascript": [
-      "javascript",
-      "javascript.core",
-      "javascript.jsx"
-    ],
+    "cpp": ["cpp", "c"],
+    "javascript": ["javascript", "javascript.core", "javascript.jsx"],
     "javascriptreact": [
       "javascriptreact",
       "javascript",
       "javascript.core",
       "javascript.jsx"
     ],
-    "jsonc": [
-      "jsonc",
-      "json"
-    ],
-    "jsonl": [
-      "jsonl",
-      "json"
-    ],
-    "scss": [
-      "scss",
-      "css"
-    ],
-    "typescript": [
-      "typescript",
-      "typescript.core",
-      "javascript.core"
-    ],
+    "jsonc": ["jsonc", "json"],
+    "jsonl": ["jsonl", "json"],
+    "scss": ["scss", "css"],
+    "typescript": ["typescript", "typescript.core", "javascript.core"],
     "typescriptreact": [
       "typescriptreact",
       "typescript.core",

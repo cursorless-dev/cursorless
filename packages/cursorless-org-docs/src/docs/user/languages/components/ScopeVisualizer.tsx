@@ -1,10 +1,10 @@
 import {
   Range,
+  serializeScopeType,
   type ScopeSupportFacet,
   type ScopeSupportFacetInfo,
   type TextualScopeSupportFacet,
 } from "@cursorless/common";
-import { serializeScopeType } from "@cursorless/common/src/util/serializeScopeType";
 import React, { useState } from "react";
 import scopeTestsJson from "../../../../../static/scopeTests.json";
 import { Code, type Highlight } from "./Code";
