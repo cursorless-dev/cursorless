@@ -14,23 +14,33 @@ export interface Highlight {
 
 interface Props {
   languageId: string;
+  renderWhitespace?: boolean;
   highlights?: Highlight[];
   children: string;
 }
 
 const myTheme = createCssVariablesTheme();
 
-export function Code({ languageId, highlights, children }: Props) {
+export function Code({
+  languageId,
+  renderWhitespace,
+  highlights,
+  children,
+}: Props) {
   const [html, setHtml] = React.useState("");
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
+    if (renderWhitespace) {
+      children = children.replaceAll(" ", "·");
+    }
+
     codeToHtml(children, {
       lang: languageId,
       theme: "nord",
       decorations: getDecorations(highlights),
     }).then(setHtml);
-  }, [languageId, highlights, children]);
+  }, [languageId, renderWhitespace, highlights, children]);
 
   const handleCopy = async () => {
     try {

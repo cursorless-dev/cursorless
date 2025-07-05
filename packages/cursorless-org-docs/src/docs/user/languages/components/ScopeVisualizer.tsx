@@ -34,6 +34,7 @@ export function ScopeVisualizer({ languageId }: Props) {
     scopeTests.filter((s) => s.languageId === languageId),
   );
   const [rangeType, setRangeType] = useState<RangeType>("content");
+  const [renderWhitespace, setRenderWhitespace] = useState(false);
 
   return (
     <div>
@@ -45,12 +46,25 @@ export function ScopeVisualizer({ languageId }: Props) {
         <option value="removal">Removal</option>
       </select>
 
-      {fixtures.map((f) => renderFixture(f, rangeType))}
+      <label>
+        <input
+          type="checkbox"
+          checked={renderWhitespace}
+          onChange={(e) => setRenderWhitespace(e.target.checked)}
+        />
+        Render whitespace
+      </label>
+
+      {fixtures.map((f) => renderFixture(f, rangeType, renderWhitespace))}
     </div>
   );
 }
 
-function renderFixture(fixture: Fixture, rangeType: RangeType) {
+function renderFixture(
+  fixture: Fixture,
+  rangeType: RangeType,
+  renderWhitespace: boolean,
+) {
   const highlights: Highlight[] = [];
 
   let previousRange: Range | undefined;
@@ -87,7 +101,11 @@ function renderFixture(fixture: Fixture, rangeType: RangeType) {
   return (
     <div key={fixture.name}>
       {fixture.facet}
-      <Code languageId={fixture.languageId} highlights={highlights}>
+      <Code
+        languageId={fixture.languageId}
+        renderWhitespace={renderWhitespace}
+        highlights={highlights}
+      >
         {fixture.code}
       </Code>
     </div>
