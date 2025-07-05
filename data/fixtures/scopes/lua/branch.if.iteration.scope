@@ -7,7 +7,7 @@ else
 end
 ---
 
-[Range] =
+[Content] =
 [Domain] = 0:0-6:3
   >------------
 0| if true then

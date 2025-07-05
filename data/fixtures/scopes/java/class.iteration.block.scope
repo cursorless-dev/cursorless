@@ -1,13 +1,13 @@
 public class MyClass { }
 ---
 
-[#1 Range] =
+[#1 Content] =
 [#1 Domain] = 0:0-0:24
   >------------------------<
 0| public class MyClass { }
 
 
-[#2 Range] =
+[#2 Content] =
 [#2 Domain] = 0:22-0:23
                         >-<
 0| public class MyClass { }

@@ -1,7 +1,7 @@
 function myFunk(aaa, bbb) { }
 ---
 
-[Range] = 0:16-0:24
+[Content] = 0:16-0:24
                   >--------<
 0| function myFunk(aaa, bbb) { }
 

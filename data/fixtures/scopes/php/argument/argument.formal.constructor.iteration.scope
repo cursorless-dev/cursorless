@@ -4,7 +4,7 @@ class MyClass {
 }
 ---
 
-[Range] = 2:25-2:38
+[Content] = 2:25-2:38
                            >-------------<
 2|     function __construct($name, $value) { }
 

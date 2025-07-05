@@ -3,7 +3,7 @@ class MyClass {
 }
 ---
 
-[Range] = 1:12-1:24
+[Content] = 1:12-1:24
               >------------<
 1|     MyClass(int a, int b) {}
 

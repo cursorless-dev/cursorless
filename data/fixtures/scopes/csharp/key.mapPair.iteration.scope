@@ -3,7 +3,7 @@ new StudentName {
 };
 ---
 
-[Range] =
+[Content] =
 [Domain] = 0:17-2:0
                    >
 0| new StudentName {

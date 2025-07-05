@@ -3,7 +3,7 @@ class Foo:
         pass
 ---
 
-[#1 Range] =
+[#1 Content] =
 [#1 Domain] = 0:0-2:12
   >----------
 0| class Foo:
@@ -12,7 +12,7 @@ class Foo:
    ------------<
 
 
-[#2 Range] =
+[#2 Content] =
 [#2 Domain] = 1:4-2:12
       >----------
 1|     def bar():
@@ -20,7 +20,7 @@ class Foo:
    ------------<
 
 
-[#3 Range] =
+[#3 Content] =
 [#3 Domain] = 2:8-2:12
           >----<
 2|         pass

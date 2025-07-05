@@ -4,7 +4,7 @@ class MyClass {
 }
 ---
 
-[Range] = 2:20-2:40
+[Content] = 2:20-2:40
                       >--------------------<
 2|     function myFunc($value, string $name) { }
 

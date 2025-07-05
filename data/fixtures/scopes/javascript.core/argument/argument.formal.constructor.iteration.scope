@@ -3,7 +3,7 @@ class MyClass {
 }
 ---
 
-[Range] = 1:14-1:22
+[Content] = 1:14-1:22
                 >--------<
 1|   constructor(aaa, bbb) { }
 

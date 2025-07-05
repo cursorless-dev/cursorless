@@ -3,7 +3,7 @@ class Foo:
         pass
 ---
 
-[Range] = 1:17-1:41
+[Content] = 1:17-1:41
                    >------------------------<
 1|     def __init__(self, aaa: str, bbb: int):
 
