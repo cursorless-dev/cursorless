@@ -1,39 +1,19 @@
 import { Range } from "@cursorless/common";
 import React, { useState } from "react";
-import scopeTestsExport from "../../../../../static/scopeTests.json";
+import scopeTestsJson from "../../../../../static/scopeTests.json";
 import { Code, type Highlight } from "./Code";
+import type { Fixture, ScopeTestsJson } from "./types";
 
 type RangeType = "content" | "removal";
 
-interface Fixture {
-  name: string;
-  facet: string;
-  languageId: string;
-  code: string;
-  scopes: Scope[];
-}
-
-interface Scope {
-  domain?: string;
-  targets: Target[];
-}
-
-interface Target {
-  content: string;
-  removal?: string;
-  insertionDelimiter?: string;
-}
-
-const scopeTests = scopeTestsExport as Fixture[];
+const scopeTests = scopeTestsJson as ScopeTestsJson;
 
 interface Props {
   languageId: string;
 }
 
 export function ScopeVisualizer({ languageId }: Props) {
-  const [fixtures] = useState(
-    scopeTests.filter((s) => s.languageId === languageId),
-  );
+  const [fixtures] = useState(getFixtures(languageId));
   const [rangeType, setRangeType] = useState<RangeType>("content");
   const [renderWhitespace, setRenderWhitespace] = useState(false);
 
@@ -56,22 +36,25 @@ export function ScopeVisualizer({ languageId }: Props) {
         Render whitespace
       </label>
 
-      {fixtures.map((f) => renderFixture(f, rangeType, renderWhitespace))}
+      {fixtures.map((f) =>
+        renderFixture(languageId, rangeType, renderWhitespace, f),
+      )}
     </div>
   );
 }
 
 function renderFixture(
-  fixture: Fixture,
+  languageId: string,
   rangeType: RangeType,
   renderWhitespace: boolean,
+  fixture: Fixture,
 ) {
   const highlights = getHighlights(fixture, rangeType);
   return (
     <div key={fixture.name}>
       {fixture.facet}
       <Code
-        languageId={fixture.languageId}
+        languageId={languageId}
         renderWhitespace={renderWhitespace}
         highlights={highlights}
       >
@@ -153,4 +136,11 @@ function getOverlap(a: Range, b: Range): Range | null {
     !b.contains(a)
     ? intersection
     : null;
+}
+
+function getFixtures(languageId: string): Fixture[] {
+  const languageIds = new Set<string>(
+    scopeTests.imports[languageId] ?? [languageId],
+  );
+  return scopeTests.fixtures.filter((f) => languageIds.has(f.languageId));
 }

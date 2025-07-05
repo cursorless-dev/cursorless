@@ -1,31 +1,21 @@
 import {
+  getPackagePath,
+  getScopeTestLanguagesRecursively,
   getScopeTestPaths,
   type ScopeTestPath,
-  getPackagePath,
 } from "@cursorless/node-common";
 import * as fs from "node:fs";
 import * as path from "node:path";
-
-interface Fixture {
-  name: string;
-  facet: string;
-  languageId: string;
-  code: string;
-  scopes: Scope[];
-}
-
-interface Scope {
-  domain?: string;
-  targets: Target[];
-}
-
-interface Target {
-  content?: string;
-  removal?: string;
-  insertionDelimiter?: string;
-}
+import type {
+  Fixture,
+  Scope,
+  ScopeTestsJson,
+  Target,
+} from "../docs/user/languages/components/types";
 
 const fixtures: Fixture[] = [];
+
+const importedLanguages = getScopeTestLanguagesRecursively();
 
 for (const test of getScopeTestPaths()) {
   const fixture = parseTest(test);
@@ -34,7 +24,12 @@ for (const test of getScopeTestPaths()) {
   }
 }
 
-saveFixtures(fixtures);
+const result: ScopeTestsJson = {
+  imports: importedLanguages,
+  fixtures,
+};
+
+saveJson(result);
 
 function parseTest(test: ScopeTestPath) {
   const fixture = fs
@@ -54,7 +49,7 @@ function parseTest(test: ScopeTestPath) {
   const unprocessedTypes: string[] = [];
   let currentScopeIndex = "1";
   let currentTargetIndex = "1";
-  let currentTarget: Target = {};
+  let currentTarget: Target = { content: "" };
   let currentScope: Scope = { targets: [currentTarget] };
 
   function processLine(type: string, value: string) {
@@ -107,11 +102,11 @@ function parseTest(test: ScopeTestPath) {
       scopes.push(currentScope);
       currentScopeIndex = scopeIndex;
       currentTargetIndex = "1";
-      currentTarget = {};
+      currentTarget = { content: "" };
       currentScope = { targets: [currentTarget] };
     } else if (targetIndex != null && targetIndex !== currentTargetIndex) {
       currentTargetIndex = targetIndex;
-      currentTarget = {};
+      currentTarget = { content: "" };
       currentScope.targets.push(currentTarget);
     }
 
@@ -131,6 +126,13 @@ function parseTest(test: ScopeTestPath) {
   }
 
   scopes.push(currentScope);
+
+  if (scopes.some((s) => s.targets.some((t) => !t.content))) {
+    throw Error(`Scope fixture ${test.path} contains targets without content.`);
+  }
+  if (scopes.some((s) => s.targets.length === 0)) {
+    throw Error(`Scope fixture ${test.path} contains empty scopes.`);
+  }
 
   const result: Fixture = {
     name: test.name,
@@ -173,12 +175,12 @@ function parseLine(line: string) {
   return { scopeIndex, targetIndex, type, value };
 }
 
-function saveFixtures(fixtures: Fixture[]) {
+function saveJson(result: ScopeTestsJson) {
   const assetPath = path.join(
     getPackagePath("cursorless-org-docs"),
     "static",
     "scopeTests.json",
   );
-  const content = JSON.stringify(fixtures, null, 2) + "\n";
+  const content = JSON.stringify(result, null, 2) + "\n";
   fs.writeFileSync(assetPath, content, "utf8");
 }

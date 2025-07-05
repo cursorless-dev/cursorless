@@ -85,8 +85,13 @@ function getDecorations(
 }
 
 // Use a fallback language for languages that are not supported by Shiki
+// https://shiki.style/languages
 function getFallbackLanguage(languageId: string): string {
   switch (languageId) {
+    case "javascriptreact":
+      return "jsx";
+    case "typescriptreact":
+      return "tsx";
     case "scm":
       return "scheme";
     default:
