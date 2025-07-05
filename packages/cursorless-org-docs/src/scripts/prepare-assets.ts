@@ -58,7 +58,6 @@ function parseTest(test: ScopeTestPath) {
         currentScope.domain = value;
         break;
       case "Content":
-      case "Range":
         currentTarget.content = value;
         break;
       case "Removal":
