@@ -1,6 +1,5 @@
 import { Range } from "@cursorless/common";
 import React, { useState } from "react";
-import { createCssVariablesTheme } from "shiki";
 import scopeTestsExport from "../../../../../static/scopeTests.json";
 import { Code, Highlight } from "./Code";
 
@@ -26,8 +25,6 @@ const scopeTests = scopeTestsExport as Fixture[];
 interface Props {
   languageId: string;
 }
-
-const myTheme = createCssVariablesTheme();
 
 export function ScopeVisualizer({ languageId }: Props) {
   const [fixtures] = useState(
