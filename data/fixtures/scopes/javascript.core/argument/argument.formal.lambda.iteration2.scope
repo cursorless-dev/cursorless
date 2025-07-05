@@ -1,7 +1,7 @@
 function (aaa, bbb) { }
 ---
 
-[Range] = 0:10-0:18
+[Content] = 0:10-0:18
             >--------<
 0| function (aaa, bbb) { }
 

@@ -1,13 +1,13 @@
 @mixin replace-text($image, $color: red) {}
 ---
 
-[#1 Range] =
+[#1 Content] =
 [#1 Domain] = 0:0-0:43
   >-------------------------------------------<
 0| @mixin replace-text($image, $color: red) {}
 
 
-[#2 Range] =
+[#2 Content] =
 [#2 Domain] = 0:20-0:39
                       >-------------------<
 0| @mixin replace-text($image, $color: red) {}

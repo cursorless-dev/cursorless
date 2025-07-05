@@ -199,6 +199,7 @@
   (switch_label
     (_) @condition
   )
+  (#allow-multiple! @condition)
 ) @condition.domain
 
 ;;!! case "0" -> "zero";
@@ -524,9 +525,17 @@
 ;;!         ^^^^^
 ;;!  -------------
 (
-  (return_statement) @value @_.domain
-  (#child-range! @value 1 -2)
+  (return_statement
+    (_) @value
+  ) @_.domain
 )
+
+;;!! yield value;
+;;!        ^^^^^
+;;!  ------------
+(yield_statement
+  (_) @value
+) @_.domain
 
 ;;!! str -> str.length > 0
 ;;!         ^^^^^^^^^^^^^^

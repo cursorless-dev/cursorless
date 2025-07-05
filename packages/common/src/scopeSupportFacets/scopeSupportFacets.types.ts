@@ -224,7 +224,6 @@ export const scopeSupportFacets = [
   "type.field.class",
   "type.field.interface",
   "type.foreach",
-  "type.enum",
   "type.alias",
   "type.cast",
   "type.class",

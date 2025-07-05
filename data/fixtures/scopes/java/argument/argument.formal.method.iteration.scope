@@ -3,7 +3,7 @@ public class Foo {
 }
 ---
 
-[Range] = 1:20-1:36
+[Content] = 1:20-1:36
                       >----------------<
 1|     public void bar(int aaa, int bbb) {}
 

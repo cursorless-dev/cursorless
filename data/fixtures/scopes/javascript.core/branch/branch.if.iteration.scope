@@ -9,7 +9,7 @@ else {
 }
 ---
 
-[Range] =
+[Content] =
 [Domain] = 0:0-8:1
   >-----------
 0| if (true) {
