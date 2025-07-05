@@ -1,10 +1,10 @@
-"hello world"; 
+"hello world";
 ---
 
 [Content] =
 [Removal] =
 [Domain] = 0:0-0:13
   >-------------<
-0| "hello world"; 
+0| "hello world";
 
 [Insertion delimiter] = " "
