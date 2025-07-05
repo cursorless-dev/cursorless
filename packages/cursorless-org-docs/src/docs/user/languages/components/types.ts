@@ -24,5 +24,4 @@ export interface Scope {
 export interface Target {
   content: string;
   removal?: string;
-  insertionDelimiter?: string;
 }

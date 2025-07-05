@@ -64,8 +64,6 @@ function parseTest(test: ScopeTestPath) {
         currentTarget.removal = value;
         break;
       case "Insertion delimiter":
-        currentTarget.insertionDelimiter = value.substring(1, value.length - 1);
-        break;
       case "Leading delimiter":
       case "Leading delimiter: Content":
       case "Leading delimiter: Removal":
