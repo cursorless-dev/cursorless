@@ -1,5 +1,5 @@
 import { Range } from "@cursorless/common";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { createCssVariablesTheme } from "shiki";
 import scopeTestsExport from "../../../../../static/scopeTests.json";
 import { Code, Highlight } from "./Code";
