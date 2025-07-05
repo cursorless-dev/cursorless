@@ -4,22 +4,16 @@ We have a custom format we use to test that our scopes are correct. The format i
 
 ## Example
 
-Example of `.scope` file for the javascript if statement scope.
+Example of `.scope` file for the javascript statement scope.
 
 ```
-if (true) {
-
-}
+const value = 0;
 ---
-
 [Content] =
 [Removal] =
-[Domain] = 0:0-2:1
-  >-----------
-0| if (true) {
-1|
-2| }
-   -<
+[Domain] = 0:0-0:16
+  >----------------<
+0| const value = 0;
 
 [Insertion delimiter] = "\n"
 ```
@@ -46,11 +40,20 @@ A description of the different ranges and how they are used is available in our 
 
 ### Scope ranges
 
-The below example indicates that the content range, removal range, and domain range was the same. Line 0, column 0, to line 2, column 1. These ranges could also be different and in that case each show up as a separate range.
+The below example indicates that the content range, removal range, and domain range was the same. Line 0, column 0, to line 0, column 16.
 
 ```
 [Content] =
 [Removal] =
+[Domain] = 0:0-2:1
+```
+
+These ranges could also be different and in that case each show up as a separate range.
+
+```
+[Removal] =
+[Content] = 0:0-0:6
+
 [Domain] = 0:0-2:1
 ```
 
