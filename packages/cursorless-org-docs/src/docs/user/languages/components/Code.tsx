@@ -1,5 +1,5 @@
 import { Range } from "@cursorless/common";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   codeToHtml,
   createCssVariablesTheme,
@@ -22,16 +22,34 @@ const myTheme = createCssVariablesTheme();
 
 export function Code({ languageId, highlights, children }: Props) {
   const [html, setHtml] = React.useState("");
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     codeToHtml(children, {
       lang: languageId,
-      theme: myTheme,
+      theme: "nord",
       decorations: getDecorations(highlights),
     }).then(setHtml);
   }, [languageId, highlights, children]);
 
-  return <div dangerouslySetInnerHTML={{ __html: html }}></div>;
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(children);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch (err) {
+      console.error("Failed to copy!", err);
+    }
+  };
+
+  return (
+    <div className="code-container">
+      <button onClick={handleCopy} className="code-copy-button">
+        {copied ? "✅ Copied!" : "📋 Copy"}
+      </button>
+      <div dangerouslySetInnerHTML={{ __html: html }}></div>{" "}
+    </div>
+  );
 }
 
 function getDecorations(
@@ -46,10 +64,9 @@ function getDecorations(
     return {
       start,
       end,
-      // Without this the highlight goes all the way to the line number
       alwaysWrap: true,
       properties: {
-        class: `shiki-highlight-${highlight.type}`,
+        class: `code-highlight-${highlight.type}`,
       },
     };
   });

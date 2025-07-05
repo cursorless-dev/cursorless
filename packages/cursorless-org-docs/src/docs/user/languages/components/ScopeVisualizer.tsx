@@ -53,13 +53,23 @@ export function ScopeVisualizer({ languageId }: Props) {
 function renderFixture(fixture: Fixture, rangeType: RangeType) {
   const highlights: Highlight[] = [];
 
+  let previousRange: Range | undefined;
+
   for (const scope of fixture.scopes) {
-    const range =
+    const conciseRange =
       rangeType === "content"
         ? scope.content
         : (scope.removal ?? scope.content);
+    const range = Range.fromConcise(conciseRange);
 
-    if (scope.domain != null && scope.domain !== range) {
+    // TODO: fix overlapping ranges
+    if (previousRange != null && previousRange.intersection(range) != null) {
+      // If the previous range intersects with the current range, we skip
+      // highlighting the current range to avoid overlapping highlights
+      break;
+    }
+
+    if (scope.domain != null && scope.domain !== conciseRange) {
       highlights.push({
         type: "domain",
         range: Range.fromConcise(scope.domain),
@@ -68,8 +78,10 @@ function renderFixture(fixture: Fixture, rangeType: RangeType) {
 
     highlights.push({
       type: rangeType,
-      range: Range.fromConcise(range),
+      range,
     });
+
+    previousRange = range;
   }
 
   return (

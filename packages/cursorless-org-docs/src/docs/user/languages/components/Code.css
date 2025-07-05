@@ -1,61 +1,38 @@
-:root {
-  --shiki-background: rgb(46, 52, 64);
-  /* Variable names */
-  --shiki-foreground: rgb(216, 222, 233);
-  /* Constant names */
-  --shiki-token-constant: rgb(216, 222, 233);
-  /* Comments */
-  --shiki-token-comment: #616e88;
-  /* const, import */
-  --shiki-token-keyword: rgb(129, 161, 193);
-  /* Function names */
-  --shiki-token-function: rgb(136, 192, 208);
-  /* String literals */
-  --shiki-token-string-expression: #a3be8c;
-  /* . , */
-  --shiki-token-punctuation: #eceff4;
-
-  /* TODO: Unknown */
-  --shiki-token-string: red;
-  --shiki-color-text: red;
-  --shiki-token-parameter: red;
-  --shiki-token-link: red;
-}
-
 /* Range highlights */
 /* https://github.com/cursorless-dev/cursorless/blob/a9affbb83a0d81476760c5c4fdd5b67c8162ae25/packages/cursorless-vscode/package.json#L560-L581 */
 
-.shiki-highlight-domain {
+.code-highlight-domain {
   background-color: #00e1ff18;
   border: 1px solid #ebdeec84;
 }
 
-.shiki-highlight-content {
+.code-highlight-content {
   background-color: #ad00bc5b;
   border: 1px solid #ee00ff78;
 }
 
-.shiki-highlight-removal {
+.code-highlight-removal {
   background-color: #ff00002d;
   border: 1px solid #ff000078;
 }
 
-.shiki-highlight-iteration {
+.code-highlight-iteration {
   background-color: #00725f6c;
   border: 1px solid #00ffd578;
 }
 
-/* Line numbers */
-.shiki {
+.code-container {
+  position: relative;
+  width: 100%;
   counter-reset: line;
 }
 
-.shiki .line {
+.code-container .line {
   margin-left: 1.5rem;
   position: relative;
 }
 
-.shiki .line::before {
+.code-container .line::before {
   content: counter(line);
   counter-increment: line;
   position: absolute;
@@ -67,4 +44,21 @@
   height: 135%;
   color: rgba(115, 138, 148, 0.4);
   border-right: 1px solid rgba(115, 138, 148, 0.4);
+}
+
+.code-container:hover .code-copy-button {
+  display: block;
+}
+
+.code-copy-button {
+  display: none;
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  background-color: rgb(216, 222, 233);
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.75rem;
 }
