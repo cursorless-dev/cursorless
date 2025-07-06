@@ -21,7 +21,11 @@ import type { InstallationDependencies } from "./InstallationDependencies";
 import type { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
 import type { VscodeSnippets } from "./VscodeSnippets";
 import type { VscodeTutorial } from "./VscodeTutorial";
-import { showDocumentation, showQuickPick } from "./commands";
+import {
+  showDocumentation,
+  showQuickPick,
+  showScopeVisualizerItemDocumentation,
+} from "./commands";
 import type { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import type { VscodeHats } from "./ide/vscode/hats/VscodeHats";
 import type { KeyboardCommands } from "./keyboard/KeyboardCommands";
@@ -100,9 +104,8 @@ export function registerCommands(
     // Scope visualizer
     ["cursorless.showScopeVisualizer"]: scopeVisualizer.start,
     ["cursorless.hideScopeVisualizer"]: scopeVisualizer.stop,
-    ["cursorless.scopeVisualizer.openUrl"]: (item) => {
-      return vscode.env.openExternal(vscode.Uri.parse(item.url));
-    },
+    ["cursorless.scopeVisualizer.openUrl"]:
+      showScopeVisualizerItemDocumentation,
 
     // Command history
     ["cursorless.analyzeCommandHistory"]: () =>

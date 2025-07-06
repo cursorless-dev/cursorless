@@ -9,7 +9,7 @@ import type {
   SpokenFormMapKeyTypes,
   SpokenFormType,
 } from "@cursorless/common";
-import { camelCaseToAllDown } from "@cursorless/common";
+import { camelCaseToAllDown, DOCS_URL } from "@cursorless/common";
 import type { SpokenFormMap } from "../spokenForms/SpokenFormMap";
 import { NoSpokenFormError } from "./NoSpokenFormError";
 import type { SpokenFormComponent } from "./SpokenFormComponent";
@@ -310,11 +310,9 @@ function constructSpokenForms(component: SpokenFormComponent): string[] {
       helpInfo =
         "this is a private spoken form currently only for internal experimentation";
     } else if (component.spokenForms.requiresTalonUpdate) {
-      helpInfo =
-        "please update talon to the latest version (see https://www.cursorless.org/docs/user/updating/)";
+      helpInfo = `please update talon to the latest version (see ${DOCS_URL}/user/updating)`;
     } else {
-      helpInfo =
-        "please see https://www.cursorless.org/docs/user/customization/ for more information";
+      helpInfo = `please see ${DOCS_URL}/user/customization/ for more information`;
     }
 
     throw new NoSpokenFormError(
