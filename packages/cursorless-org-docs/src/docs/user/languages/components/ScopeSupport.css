@@ -2,10 +2,11 @@
   font-weight: 600;
 }
 
-.link-icon {
-  margin-left: 0.25rem;
+.scope-header a {
+  display: none;
+  margin-left: 0.5rem;
 }
 
-.link-icon:hover {
-  text-decoration: none;
+.scope-header:hover a {
+  display: inline;
 }
