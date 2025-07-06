@@ -1,11 +1,12 @@
 import type {
   ScopeType,
+  ScopeTypeType,
   SimpleScopeTypeType,
 } from "../types/command/PartialTargetDescriptor.types";
 
 export function serializeScopeType(
   scopeType: SimpleScopeTypeType | ScopeType,
-): string {
+): ScopeTypeType {
   if (typeof scopeType === "string") {
     return scopeType;
   }

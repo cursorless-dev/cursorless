@@ -12,7 +12,7 @@ command:
   usePrePhraseSnapshot: true
 spokenFormError: >-
   custom regex with id \p{Zs}+; please see
-  https://www.cursorless.org/docs/user/customization/ for more information
+  https://www.cursorless.org/docs/user/customization for more information
 initialState:
   documentContents: "\"  \""
   selections:
