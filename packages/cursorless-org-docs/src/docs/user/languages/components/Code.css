@@ -47,23 +47,39 @@
   border-right: 1px solid rgba(115, 138, 148, 0.4);
 }
 
-.code-container:hover .code-copy-button {
-  display: block;
+.code-ws-symbol {
+  color: #666;
 }
 
-.code-copy-button {
+.code-copy-button,
+.code-container > .code-link {
   display: none;
   position: absolute;
   top: 0.5em;
-  right: 0.5em;
   background-color: rgb(216, 222, 233);
   border: none;
   padding: 4px 8px;
   border-radius: 4px;
   cursor: pointer;
   font-size: 0.75rem;
+  height: 1.75rem;
 }
 
-.code-ws-symbol {
-  color: #666;
+.code-container:hover .code-copy-button,
+.code-container:hover .code-link {
+  display: block;
+}
+
+.code-copy-button {
+  right: 7.5em;
+}
+
+.code-container > .code-link {
+  right: 0.5em;
+}
+
+.code-container > .code-link:before {
+  display: inline-block;
+  width: 1.25rem;
+  height: 0.75rem;
 }

@@ -12,6 +12,10 @@ interface Props {
   languageId: string;
   renderWhitespace?: boolean;
   highlights?: Highlight[];
+  link?: {
+    name: string;
+    url: string;
+  };
   children: string;
 }
 
@@ -19,6 +23,7 @@ export function Code({
   languageId,
   renderWhitespace,
   highlights,
+  link,
   children,
 }: Props) {
   const [html, setHtml] = React.useState("");
@@ -54,8 +59,25 @@ export function Code({
     }
   };
 
+  const renderLink = () => {
+    if (link == null) {
+      return null;
+    }
+    return (
+      <a
+        className="code-link header-github-link"
+        href={link.url}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {link.name}
+      </a>
+    );
+  };
+
   return (
     <div className="code-container">
+      {renderLink()}
       <button onClick={handleCopy} className="code-copy-button">
         {copied ? "✅ Copied!" : "📋 Copy"}
       </button>

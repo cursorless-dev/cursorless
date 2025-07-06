@@ -133,6 +133,10 @@ function renderFacet(
       {facet.fixtures.map((fixture) => (
         <Code
           key={fixture.name}
+          link={{
+            name: "GitHub",
+            url: `https://github.com/cursorless-dev/cursorless/blob/main/data/fixtures/${fixture.name}.scope`,
+          }}
           languageId={languageId}
           renderWhitespace={renderWhitespace}
           highlights={calculateHighlights(fixture, rangeType)}
