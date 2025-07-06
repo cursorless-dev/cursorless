@@ -312,7 +312,7 @@ function constructSpokenForms(component: SpokenFormComponent): string[] {
     } else if (component.spokenForms.requiresTalonUpdate) {
       helpInfo = `please update talon to the latest version (see ${DOCS_URL}/user/updating)`;
     } else {
-      helpInfo = `please see ${DOCS_URL}/user/customization/ for more information`;
+      helpInfo = `please see ${DOCS_URL}/user/customization for more information`;
     }
 
     throw new NoSpokenFormError(
