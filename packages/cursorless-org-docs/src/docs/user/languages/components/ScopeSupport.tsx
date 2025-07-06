@@ -8,7 +8,7 @@ import {
 import { usePluginData } from "@docusaurus/useGlobalData";
 import React, { useState } from "react";
 import { Code, type Highlight } from "./Code";
-import { H2, H3 } from "./Header";
+import { H2, H3, H4 } from "./Header";
 import "./ScopeSupport.css";
 import type { Fixture, ScopeTests } from "./types";
 import { getFacetInfo, prettifyFacet, prettifyScopeType } from "./util";
@@ -104,10 +104,9 @@ function renderFacet(
 ) {
   return (
     <div key={facet.facet}>
-      <span className="facet-name" title={facet.facet}>
+      <H4 className="facet-name" title={facet.facet}>
         {facet.name}
-      </span>
-      <br />
+      </H4>
       <i>{facet.info.description}</i>
       {facet.fixtures.map((fixture) => (
         <Code
