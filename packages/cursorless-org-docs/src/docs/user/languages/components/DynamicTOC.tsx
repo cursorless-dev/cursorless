@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 
 interface Props {
-  minHeadingLevel: number;
-  maxHeadingLevel: number;
+  minHeadingLevel?: number;
+  maxHeadingLevel?: number;
 }
 
 export default function DynamicTOC({
