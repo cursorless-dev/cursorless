@@ -1,6 +1,14 @@
 import { useEffect } from "react";
 
-export default function DynamicTOC() {
+interface Props {
+  minHeadingLevel: number;
+  maxHeadingLevel: number;
+}
+
+export default function DynamicTOC({
+  minHeadingLevel = 2,
+  maxHeadingLevel = 3,
+}: Props) {
   useEffect(() => {
     const row = document.querySelector("main .row");
 
@@ -9,13 +17,13 @@ export default function DynamicTOC() {
       return;
     }
 
-    row.appendChild(getTOC());
+    row.appendChild(getTOC(minHeadingLevel, maxHeadingLevel));
   }, []);
 
   return null;
 }
 
-function getTOC() {
+function getTOC(minHeadingLevel: number, maxHeadingLevel: number) {
   const col = document.createElement("div");
   col.className = "col col--3";
 
@@ -25,13 +33,26 @@ function getTOC() {
   const ul = document.createElement("ul");
   ul.className = "table-of-contents table-of-contents__left-border";
 
-  document.querySelectorAll("h3").forEach((header) => {
+  let currentLevel: number | undefined = undefined;
+  let indent = 0;
+
+  getHeaderElements(minHeadingLevel, maxHeadingLevel).forEach((header) => {
+    const level = parseInt(header.tagName[1], 10);
+
+    if (level !== currentLevel) {
+      if (currentLevel != null) {
+        indent += level < currentLevel ? -1 : 1;
+      }
+      currentLevel = level;
+    }
+
     const li = document.createElement("li");
 
     const a = document.createElement("a");
     a.href = `#${header.id}`;
     a.className = "table-of-contents__link";
     a.textContent = header.textContent;
+    a.style.paddingLeft = `${indent}rem`;
 
     li.appendChild(a);
     ul.appendChild(li);
@@ -41,4 +62,15 @@ function getTOC() {
   col.appendChild(toc);
 
   return col;
+}
+
+function getHeaderElements(
+  minHeadingLevel: number,
+  maxHeadingLevel: number,
+): NodeListOf<HTMLHeadingElement> {
+  const queryParts = [];
+  for (let i = minHeadingLevel; i <= maxHeadingLevel; i++) {
+    queryParts.push(`h${i}`);
+  }
+  return document.querySelectorAll(queryParts.join(", "));
 }
