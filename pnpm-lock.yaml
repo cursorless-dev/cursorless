@@ -460,6 +460,9 @@ importers:
       '@cursorless/cheatsheet':
         specifier: workspace:*
         version: link:../cheatsheet
+      '@cursorless/common':
+        specifier: workspace:*
+        version: link:../common
       '@mdx-js/loader':
         specifier: 3.1.0
         version: 3.1.0(webpack@5.99.9(esbuild@0.25.5))
