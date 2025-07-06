@@ -1,16 +1,18 @@
 import {
   camelCaseToAllDown,
   capitalize,
-  scopeSupportFacetInfos,
   plaintextScopeSupportFacetInfos,
+  scopeSupportFacetInfos,
+  serializeScopeType,
+  type PlaintextScopeSupportFacet,
   type ScopeSupportFacet,
   type ScopeSupportFacetInfo,
-  type PlaintextScopeSupportFacet,
+  type ScopeType,
+  type SimpleScopeTypeType,
 } from "@cursorless/common";
 
 export function prettifyFacet(
   facet: ScopeSupportFacet | PlaintextScopeSupportFacet,
-  keepScopeType: boolean,
 ): string {
   let parts = facet.split(".").map(camelCaseToAllDown);
   if (parts.length === 1) {
@@ -24,18 +26,19 @@ export function prettifyFacet(
     parts.length = iterationIndex;
   }
   const scopeName = parts.shift()!;
-  let name = capitalize(parts.join(" "));
-  if (keepScopeType) {
-    name = capitalize(scopeName) + (parts.length > 0 ? ": " : " ") + name;
-  }
+  const trailing = capitalize(parts.join(" "));
+  let name =
+    capitalize(scopeName) + (trailing.length > 0 ? ": " : " ") + trailing;
   if (iterationParts.length > 0) {
     name += ` (${iterationParts.join(" ")})`;
   }
   return name;
 }
 
-export function prettifyScopeType(scopeType: string): string {
-  return capitalize(camelCaseToAllDown(scopeType));
+export function prettifyScopeType(
+  scopeType: SimpleScopeTypeType | ScopeType,
+): string {
+  return capitalize(camelCaseToAllDown(serializeScopeType(scopeType)));
 }
 
 export function getFacetInfo(

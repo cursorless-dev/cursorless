@@ -4,6 +4,7 @@ import {
   type PlaintextScopeSupportFacet,
   type ScopeSupportFacet,
   type ScopeSupportFacetInfo,
+  type ScopeTypeType,
 } from "@cursorless/common";
 import { usePluginData } from "@docusaurus/useGlobalData";
 import React, { useState } from "react";
@@ -14,14 +15,21 @@ import type { Fixture, ScopeTests } from "./types";
 import { getFacetInfo, prettifyFacet, prettifyScopeType } from "./util";
 
 type RangeType = "content" | "removal";
+type FacetValue = ScopeSupportFacet | PlaintextScopeSupportFacet;
+
+interface Scopes {
+  public: Scope[];
+  internal: Scope[];
+}
 
 interface Scope {
-  scope: string;
+  scopeTypeType: ScopeTypeType;
+  name: string;
   facets: Facet[];
 }
 
 interface Facet {
-  facet: ScopeSupportFacet | PlaintextScopeSupportFacet;
+  facet: FacetValue;
   name: string;
   info: ScopeSupportFacetInfo;
   fixtures: Fixture[];
@@ -66,14 +74,26 @@ export function ScopeSupport({ languageId }: Props) {
 
       <p>
         Below are visualizations of all our scope tests for this language. These
-        were designed primarily as tests rather than documentation. There are
-        quite a few of them, and they may be a bit overwhelming from a
-        documentation perspective.
+        were created primarily for testing purposes rather than as
+        documentation. There are quite a few, and they may feel a bit
+        overwhelming from a documentation standpoint.
       </p>
 
       {renderOptions()}
 
-      {scopes.map((scope) =>
+      {scopes.public.map((scope) =>
+        renderScope(languageId, rangeType, renderWhitespace, scope),
+      )}
+
+      <H2>Internal scopes</H2>
+
+      <p>
+        The following are internal scopes. They are not intended for user
+        interaction or spoken use. These scopes exist solely for internal
+        Cursorless functionality.
+      </p>
+
+      {scopes.internal.map((scope) =>
         renderScope(languageId, rangeType, renderWhitespace, scope),
       )}
     </>
@@ -87,8 +107,8 @@ function renderScope(
   scope: Scope,
 ) {
   return (
-    <div key={scope.scope}>
-      <H3>{scope.scope}</H3>
+    <div key={scope.scopeTypeType}>
+      <H3>{scope.name}</H3>
       {scope.facets.map((f, i) =>
         renderFacet(languageId, rangeType, renderWhitespace, f, i),
       )}
@@ -194,49 +214,76 @@ function getOverlap(a: Range, b: Range): Range | null {
     : null;
 }
 
-function getScopeFixtures(scopeTests: ScopeTests, languageId: string): Scope[] {
+function getScopeFixtures(scopeTests: ScopeTests, languageId: string): Scopes {
   const languageIds = new Set<string>(
     scopeTests.imports[languageId] ?? [languageId],
   );
   const fixtures = scopeTests.fixtures.filter((f) =>
     languageIds.has(f.languageId),
   );
-  const map: Record<string, Record<string, Facet>> = {};
+  const scopeMap: Partial<Record<ScopeTypeType, Scope>> = {};
+  const facetMap: Partial<Record<string, Facet>> = {};
 
   for (const fixture of fixtures) {
     const info = getFacetInfo(fixture.languageId, fixture.facet);
-    let scope = serializeScopeType(info.scopeType);
+    const scopeTypeType = serializeScopeType(info.scopeType);
 
-    if (scope.startsWith("private.")) {
+    if (scopeTypeType.startsWith("private.")) {
       continue;
     }
 
-    scope = prettifyScopeType(scope);
-
-    const facet = prettifyFacet(fixture.facet, true);
-    if (map[scope] == null) {
-      map[scope] = {};
+    if (scopeMap[scopeTypeType] == null) {
+      scopeMap[scopeTypeType] = {
+        scopeTypeType,
+        name: prettifyScopeType(info.scopeType),
+        facets: [],
+      };
     }
-    if (map[scope][fixture.facet] == null) {
-      map[scope][fixture.facet] = {
+
+    const facetKey = `${scopeTypeType}.${fixture.facet}`;
+
+    if (facetMap[fixture.facet] == null) {
+      const facet = {
         facet: fixture.facet,
-        name: facet,
+        name: prettifyFacet(fixture.facet),
         info,
         fixtures: [],
       };
+      facetMap[fixture.facet] = facet;
+      scopeMap[scopeTypeType].facets.push(facet);
     }
-    map[scope][fixture.facet].fixtures.push(fixture);
+
+    facetMap[fixture.facet]?.fixtures.push(fixture);
   }
 
-  return Object.keys(map)
-    .sort()
-    .map((scope): Scope => {
-      const data = map[scope];
-      const facets = Object.keys(data)
-        .sort()
-        .map((facet): Facet => {
-          return data[facet];
-        });
-      return { scope, facets };
+  const result: Scopes = { public: [], internal: [] };
+
+  Object.values(scopeMap)
+    .sort(comparator)
+    .forEach((scope) => {
+      scope.facets.sort(comparator);
+      scope.facets.forEach((f) => f.fixtures.sort(comparator));
+      if (isScopeInternal(scope.scopeTypeType)) {
+        result.internal.push(scope);
+      } else {
+        result.public.push(scope);
+      }
     });
+
+  return result;
+}
+
+function comparator(a: { name: string }, b: { name: string }): number {
+  return a.name.localeCompare(b.name);
+}
+
+function isScopeInternal(scope: ScopeTypeType): boolean {
+  switch (scope) {
+    case "disqualifyDelimiter":
+    case "pairDelimiter":
+    case "textFragment":
+      return true;
+    default:
+      return false;
+  }
 }
