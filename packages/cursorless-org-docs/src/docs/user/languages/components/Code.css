@@ -24,12 +24,13 @@
 .code-container {
   position: relative;
   width: 100%;
+  min-height: 50px;
   counter-reset: line;
 }
 
 .code-container .line {
-  margin-left: 1.5rem;
   position: relative;
+  margin-left: 1.5rem;
 }
 
 .code-container .line::before {

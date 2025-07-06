@@ -3,6 +3,7 @@ import type {
   PlaintextScopeSupportFacet,
 } from "@cursorless/common";
 
+export type RangeType = "content" | "removal";
 export type FacetValue = ScopeSupportFacet | PlaintextScopeSupportFacet;
 
 export interface ScopeTests {
