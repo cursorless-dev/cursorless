@@ -1,97 +1,247 @@
 import {
-  ScopeSupportFacetLevel,
-  languageScopeSupport,
-  plaintextScopeSupportFacetInfos,
-  scopeSupportFacetInfos,
-  scopeSupportFacets,
+  Range,
+  serializeScopeType,
   type PlaintextScopeSupportFacet,
   type ScopeSupportFacet,
+  type ScopeSupportFacetInfo,
 } from "@cursorless/common";
-import * as React from "react";
-import {
-  ScopeSupportForLevel,
-  type FacetWrapper,
-} from "./ScopeSupportForLevel";
+import React, { useState } from "react";
+import { Code, type Highlight } from "./Code";
+import "./ScopeSupport.css";
+import type { Fixture, ScopeTests } from "./types";
+import { getFacetInfo, prettifyFacet, prettifyScopeType } from "./util";
+import { usePluginData } from "@docusaurus/useGlobalData";
+
+type RangeType = "content" | "removal";
+
+interface Scope {
+  scope: string;
+  facets: Facet[];
+}
+
+interface Facet {
+  facet: ScopeSupportFacet | PlaintextScopeSupportFacet;
+  name: string;
+  info: ScopeSupportFacetInfo;
+  fixtures: Fixture[];
+}
 
 interface Props {
   languageId: string;
 }
 
-function getSupport(languageId: string): FacetWrapper[] {
-  if (languageId === "plaintext") {
-    return Object.keys(plaintextScopeSupportFacetInfos)
-      .sort()
-      .map((f) => {
-        const facet = f as PlaintextScopeSupportFacet;
-        return {
-          facet,
-          supportLevel: ScopeSupportFacetLevel.supported,
-          info: plaintextScopeSupportFacetInfos[facet],
-        };
-      });
-  }
-  const supportLevels = languageScopeSupport[languageId] ?? {};
-  return [...scopeSupportFacets].sort().map((f) => {
-    const facet = f as ScopeSupportFacet;
-    return {
-      facet,
-      supportLevel: supportLevels[facet],
-      info: scopeSupportFacetInfos[facet],
-    };
-  });
-}
+export function ScopeSupport({ languageId }: Props) {
+  const scopeTests = usePluginData("scope-tests-plugin") as ScopeTests;
+  const [scopes] = useState(getScopeFixtures(scopeTests, languageId));
+  const [rangeType, setRangeType] = useState<RangeType>("content");
+  const [renderWhitespace, setRenderWhitespace] = useState(false);
 
-export function ScopeSupport({ languageId }: Props): React.JSX.Element {
-  const facets = getSupport(languageId);
-  const supportedFacets = facets.filter(
-    (facet) => facet.supportLevel === ScopeSupportFacetLevel.supported,
-  );
-  const unsupportedFacets = facets.filter(
-    (facet) => facet.supportLevel === ScopeSupportFacetLevel.unsupported,
-  );
-  const unspecifiedFacets = facets.filter(
-    (facet) => facet.supportLevel == null,
-  );
+  const renderOptions = () => {
+    return (
+      <div className="mb-4">
+        <select
+          value={rangeType}
+          onChange={(e) => setRangeType(e.target.value as RangeType)}
+        >
+          <option value="content">Content range</option>
+          <option value="removal">Removal range</option>
+        </select>
+
+        <label className="ml-1">
+          <input
+            type="checkbox"
+            checked={renderWhitespace}
+            onChange={(e) => setRenderWhitespace(e.target.checked)}
+          />
+          Render whitespace
+        </label>
+      </div>
+    );
+  };
 
   return (
     <>
-      <ScopeSupportForLevel
-        facets={supportedFacets}
-        title="Supported facets"
-        subtitle="These scope facets are supported"
-      />
+      <h2>Scopes</h2>
 
-      <ScopeSupportForLevel
-        facets={unsupportedFacets}
-        title="Unsupported facets"
-        subtitle="These facets are not supported yet and needs a developer to implement them"
-        description={
-          <>
-            We would happily accept{" "}
-            <a href="https://www.cursorless.org/docs/contributing/adding-a-new-scope">
-              contributions
-            </a>
-          </>
-        }
-      />
+      <p>
+        Below are visualizations of all our scope tests for this language. These
+        were designed primarily as tests rather than documentation. There are
+        quite a few of them, and they may be a bit overwhelming from a
+        documentation perspective.
+      </p>
 
-      <ScopeSupportForLevel
-        facets={unspecifiedFacets}
-        title="Unspecified facets"
-        subtitle="These facets are unspecified"
-        description={
-          <>
-            Note that in many instances we actually do support these scopes and
-            facets, but we have not yet updated 'languageScopeSupport' to
-            reflect this fact.
-            <br />
-            We would happily accept{" "}
-            <a href="https://www.cursorless.org/docs/contributing/adding-a-new-scope">
-              contributions
-            </a>
-          </>
-        }
-      />
+      {renderOptions()}
+
+      {scopes.map((scope) =>
+        renderScope(languageId, rangeType, renderWhitespace, scope),
+      )}
     </>
   );
+}
+
+function renderScope(
+  languageId: string,
+  rangeType: RangeType,
+  renderWhitespace: boolean,
+  scope: Scope,
+) {
+  const href = scope.scope.toLowerCase().replaceAll(" ", "-");
+  return (
+    <div key={scope.scope}>
+      <h3 id={href}>
+        {scope.scope}
+        <a href={`#${href}`} className="link-icon">
+          🔗
+        </a>
+      </h3>
+      {scope.facets.map((f) =>
+        renderFacet(languageId, rangeType, renderWhitespace, f),
+      )}
+    </div>
+  );
+}
+
+function renderFacet(
+  languageId: string,
+  rangeType: RangeType,
+  renderWhitespace: boolean,
+  facet: Facet,
+) {
+  return (
+    <div key={facet.facet}>
+      <span className="facet-name" title={facet.facet}>
+        {facet.name}
+      </span>
+      <br />
+      <i>{facet.info.description}</i>
+      {facet.fixtures.map((fixture) => (
+        <Code
+          key={fixture.name}
+          languageId={languageId}
+          renderWhitespace={renderWhitespace}
+          highlights={getHighlights(fixture, rangeType)}
+        >
+          {fixture.code}
+        </Code>
+      ))}
+    </div>
+  );
+}
+
+function getHighlights(fixture: Fixture, rangeType: RangeType): Highlight[] {
+  const highlights: Highlight[] = [];
+  const domainRanges: Range[] = [];
+
+  for (const scope of fixture.scopes) {
+    const conciseRanges =
+      rangeType === "content"
+        ? scope.targets.map((t) => t.content)
+        : scope.targets.map((t) => t.removal ?? t.content);
+    const ranges = conciseRanges.map((r) => Range.fromConcise(r));
+
+    if (scope.domain != null && !conciseRanges.includes(scope.domain)) {
+      domainRanges.push(Range.fromConcise(scope.domain));
+    }
+
+    for (const r of ranges) {
+      let range = r;
+
+      const overlap = highlights
+        .map((h) => getOverlap(h.range, range))
+        .find((o) => o != null);
+
+      if (overlap != null) {
+        highlights.push({
+          type: rangeType,
+          range: overlap,
+        });
+        range = new Range(overlap.end, range.end);
+      }
+
+      highlights.push({
+        type: rangeType,
+        range,
+      });
+    }
+  }
+
+  for (const range of domainRanges) {
+    if (highlights.every((h) => !hasOverlap(h.range, range))) {
+      highlights.push({
+        type: "domain",
+        range,
+      });
+    }
+  }
+
+  if (
+    highlights.some((h) => highlights.some((o) => hasOverlap(h.range, o.range)))
+  ) {
+    console.error("Overlapping highlights detected:");
+    console.error(fixture.name);
+    console.error(highlights);
+  }
+
+  return highlights;
+}
+
+function hasOverlap(a: Range, b: Range): boolean {
+  return getOverlap(a, b) != null;
+}
+
+function getOverlap(a: Range, b: Range): Range | null {
+  const intersection = a.intersection(b);
+  return intersection != null &&
+    !intersection.isEmpty &&
+    !a.contains(b) &&
+    !b.contains(a)
+    ? intersection
+    : null;
+}
+
+function getScopeFixtures(scopeTests: ScopeTests, languageId: string): Scope[] {
+  const languageIds = new Set<string>(
+    scopeTests.imports[languageId] ?? [languageId],
+  );
+  const fixtures = scopeTests.fixtures.filter((f) =>
+    languageIds.has(f.languageId),
+  );
+  const map: Record<string, Record<string, Facet>> = {};
+
+  for (const fixture of fixtures) {
+    const info = getFacetInfo(fixture.languageId, fixture.facet);
+    let scope = serializeScopeType(info.scopeType);
+
+    if (scope.startsWith("private.")) {
+      continue;
+    }
+
+    scope = prettifyScopeType(scope);
+
+    const facet = prettifyFacet(fixture.facet, true);
+    if (map[scope] == null) {
+      map[scope] = {};
+    }
+    if (map[scope][fixture.facet] == null) {
+      map[scope][fixture.facet] = {
+        facet: fixture.facet,
+        name: facet,
+        info,
+        fixtures: [],
+      };
+    }
+    map[scope][fixture.facet].fixtures.push(fixture);
+  }
+
+  return Object.keys(map)
+    .sort()
+    .map((scope): Scope => {
+      const data = map[scope];
+      const facets = Object.keys(data)
+        .sort()
+        .map((facet): Facet => {
+          return data[facet];
+        });
+      return { scope, facets };
+    });
 }
