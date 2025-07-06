@@ -42,7 +42,6 @@
     "write-heading-ids": "docusaurus write-heading-ids",
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
-    "prepare-assets": "my-ts-node src/scripts/prepare-assets.ts",
     "clean": "pnpm clear && rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {

@@ -6,13 +6,11 @@ import {
   type ScopeSupportFacetInfo,
 } from "@cursorless/common";
 import React, { useState } from "react";
-import scopeTestsJson from "../../../../../static/scopeTests.json";
 import { Code, type Highlight } from "./Code";
 import "./ScopeVisualizer.css";
-import type { Fixture, ScopeTestsJson } from "./types";
+import type { Fixture, ScopeTests } from "./types";
 import { getFacetInfo, prettifyFacet, prettifyScopeType } from "./util";
-
-const scopeTests = scopeTestsJson as ScopeTestsJson;
+import { usePluginData } from "@docusaurus/useGlobalData";
 
 type RangeType = "content" | "removal";
 
@@ -33,7 +31,8 @@ interface Props {
 }
 
 export function ScopeVisualizer({ languageId }: Props) {
-  const [scopes] = useState(getScopeFixtures(languageId));
+  const scopeTests = usePluginData("scope-tests-plugin") as ScopeTests;
+  const [scopes] = useState(getScopeFixtures(scopeTests, languageId));
   const [rangeType, setRangeType] = useState<RangeType>("content");
   const [renderWhitespace, setRenderWhitespace] = useState(false);
 
@@ -198,7 +197,7 @@ function getOverlap(a: Range, b: Range): Range | null {
     : null;
 }
 
-function getScopeFixtures(languageId: string): Scope[] {
+function getScopeFixtures(scopeTests: ScopeTests, languageId: string): Scope[] {
   const languageIds = new Set<string>(
     scopeTests.imports[languageId] ?? [languageId],
   );

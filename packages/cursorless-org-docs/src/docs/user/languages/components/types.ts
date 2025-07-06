@@ -3,7 +3,7 @@ import type {
   PlaintextScopeSupportFacet,
 } from "@cursorless/common";
 
-export interface ScopeTestsJson {
+export interface ScopeTests {
   imports: Record<string, string[]>;
   fixtures: Fixture[];
 }

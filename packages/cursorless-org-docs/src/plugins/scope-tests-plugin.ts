@@ -4,32 +4,54 @@ import {
   getScopeTestPaths,
   type ScopeTestPath,
 } from "@cursorless/node-common";
+import { LoadContext, Plugin } from "@docusaurus/types";
 import * as fs from "node:fs";
 import * as path from "node:path";
 import type {
   Fixture,
   Scope,
-  ScopeTestsJson,
+  ScopeTests,
   Target,
 } from "../docs/user/languages/components/types";
 
-const fixtures: Fixture[] = [];
+export default function prepareAssetsPlugin(
+  context: LoadContext,
+  options: {},
+): Plugin<ScopeTests> {
+  let data: ScopeTests;
 
-const importedLanguages = getScopeTestLanguagesRecursively();
+  return {
+    name: "scope-tests-plugin",
 
-for (const test of getScopeTestPaths()) {
-  const fixture = parseTest(test);
-  if (fixture != null) {
-    fixtures.push(fixture);
-  }
+    loadContent(): ScopeTests {
+      const repoRoot = path.join(__dirname, "../../../..");
+      process.env.CURSORLESS_REPO_ROOT = repoRoot;
+      return prepareAssets();
+    },
+
+    async contentLoaded({ content, actions }) {
+      actions.setGlobalData(content);
+    },
+  };
 }
 
-const result: ScopeTestsJson = {
-  imports: importedLanguages,
-  fixtures,
-};
+function prepareAssets(): ScopeTests {
+  const fixtures: Fixture[] = [];
 
-saveJson(result);
+  const importedLanguages = getScopeTestLanguagesRecursively();
+
+  for (const test of getScopeTestPaths()) {
+    const fixture = parseTest(test);
+    if (fixture != null) {
+      fixtures.push(fixture);
+    }
+  }
+
+  return {
+    imports: importedLanguages,
+    fixtures,
+  };
+}
 
 function parseTest(test: ScopeTestPath) {
   const fixture = fs
@@ -170,14 +192,4 @@ function parseLine(line: string) {
   const value = rawValue.length > 0 ? rawValue : undefined;
 
   return { scopeIndex, targetIndex, type, value };
-}
-
-function saveJson(result: ScopeTestsJson) {
-  const assetPath = path.join(
-    getPackagePath("cursorless-org-docs"),
-    "static",
-    "scopeTests.json",
-  );
-  const content = JSON.stringify(result, null, 2) + "\n";
-  fs.writeFileSync(assetPath, content, "utf8");
 }
