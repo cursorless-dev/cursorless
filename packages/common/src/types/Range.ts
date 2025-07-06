@@ -20,7 +20,13 @@ export class Range {
    * @return A range with the given start and end positions.
    */
   static fromConcise(concise: string): Range {
-    const [start, end] = concise.split("-").map((s) => Position.fromConcise(s));
+    const parts = concise.split("-");
+    if (parts.length !== 2) {
+      throw new Error(
+        `Invalid concise range format: "${concise}". Expected "start-end" format.`,
+      );
+    }
+    const [start, end] = parts.map((s) => Position.fromConcise(s));
     return new Range(start, end);
   }
 

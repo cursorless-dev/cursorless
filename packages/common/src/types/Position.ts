@@ -21,7 +21,13 @@ export class Position {
    * @return A position with the given line and character values.
    */
   static fromConcise(concise: string): Position {
-    const [line, character] = concise.split(":").map((s) => parseInt(s, 10));
+    const parts = concise.split(":");
+    if (parts.length !== 2) {
+      throw new Error(
+        `Invalid concise position format: "${concise}". Expected "line:character" format.`,
+      );
+    }
+    const [line, character] = parts.map((s) => parseInt(s, 10));
     return new Position(line, character);
   }
 
