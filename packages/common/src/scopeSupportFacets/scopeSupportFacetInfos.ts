@@ -910,12 +910,8 @@ export const scopeSupportFacetInfos: Record<
     description: "The body of a method declaration",
     scopeType: { type: "interior" },
   },
-  "interior.lambda.block": {
+  "interior.lambda": {
     description: "The block body of a lambda/anonymous function",
-    scopeType: { type: "interior" },
-  },
-  "interior.lambda.expression": {
-    description: "The expression body of a lambda/anonymous function",
     scopeType: { type: "interior" },
   },
   "interior.if": {
