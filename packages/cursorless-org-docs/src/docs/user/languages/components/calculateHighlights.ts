@@ -1,4 +1,4 @@
-import { Range, sortRanges } from "@cursorless/common";
+import { Range } from "@cursorless/common";
 import { type Highlight } from "./Code";
 import type { Fixture, RangeType } from "./types";
 
@@ -14,7 +14,7 @@ export function calculateHighlights(
       rangeType === "content"
         ? scope.targets.map((t) => t.content)
         : scope.targets.map((t) => t.removal ?? t.content);
-    const ranges = sortRanges(conciseRanges.map((r) => Range.fromConcise(r)));
+    const ranges = conciseRanges.map((r) => Range.fromConcise(r));
 
     if (scope.domain != null && !conciseRanges.includes(scope.domain)) {
       domainRanges.push(Range.fromConcise(scope.domain));

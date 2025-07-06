@@ -121,6 +121,10 @@
         "title": "Cursorless: Hide the scope visualizer"
       },
       {
+        "command": "cursorless.scopeVisualizer.openUrl",
+        "title": "Cursorless: Open in browser"
+      },
+      {
         "command": "cursorless.analyzeCommandHistory",
         "title": "Cursorless: Analyze collected command history"
       },
@@ -1231,6 +1235,15 @@
           "id": "cursorless",
           "title": "Cursorless",
           "icon": "images/logo.svg"
+        }
+      ]
+    },
+    "menus": {
+      "view/item/context": [
+        {
+          "command": "cursorless.scopeVisualizer.openUrl",
+          "when": "view == cursorless.scopes && viewItem == scopeVisualizerTreeItem",
+          "group": "navigation"
         }
       ]
     }

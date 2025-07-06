@@ -100,6 +100,9 @@ export function registerCommands(
     // Scope visualizer
     ["cursorless.showScopeVisualizer"]: scopeVisualizer.start,
     ["cursorless.hideScopeVisualizer"]: scopeVisualizer.stop,
+    ["cursorless.scopeVisualizer.openUrl"]: (item) => {
+      return vscode.env.openExternal(vscode.Uri.parse(item.url));
+    },
 
     // Command history
     ["cursorless.analyzeCommandHistory"]: () =>

@@ -8,6 +8,8 @@ import {
   CURSORLESS_SCOPE_TREE_VIEW_ID,
   ScopeSupport,
   disposableFrom,
+  serializeScopeType,
+  uriEncodeHashId,
 } from "@cursorless/common";
 import type { CustomSpokenFormGenerator } from "@cursorless/cursorless-engine";
 import type { VscodeApi } from "@cursorless/vscode-common";
@@ -214,6 +216,7 @@ function getSupportCategories(): SupportCategoryTreeItem[] {
 
 class ScopeSupportTreeItem extends TreeItem {
   public declare readonly label: TreeItemLabel;
+  public url: string | undefined;
 
   /**
    * @param scopeTypeInfo The scope type info
@@ -277,13 +280,24 @@ class ScopeSupportTreeItem extends TreeItem {
             "cursorless-dummy://dummy/dummy" + fileExtension,
           );
         }
+        this.setUrl(languageId);
       }
 
       if (this.resourceUri == null) {
         // Fall back to a generic icon
         this.iconPath = new ThemeIcon("code");
       }
+    } else {
+      this.setUrl("plaintext");
     }
+  }
+
+  private setUrl(languageId: string) {
+    const scopeTypeType = uriEncodeHashId(
+      serializeScopeType(this.scopeTypeInfo.scopeType),
+    );
+    this.url = `https://www.cursorless.org/docs/user/languages/${languageId}#${scopeTypeType}`;
+    this.contextValue = "scopeVisualizerTreeItem";
   }
 }
 

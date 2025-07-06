@@ -1,3 +1,4 @@
+import { uriEncodeHashId } from "@cursorless/common";
 import React from "react";
 
 interface Props {
@@ -23,7 +24,7 @@ function renderHeader(
   { className, title, children }: Props,
 ): React.JSX.Element {
   const Tag = `h${level}` as keyof React.JSX.IntrinsicElements;
-  const href = encodeHash(children);
+  const href = uriEncodeHashId(children);
   return (
     <Tag
       id={href}
@@ -37,11 +38,4 @@ function renderHeader(
       <a className="hash-link" href={`#${href}`} />
     </Tag>
   );
-}
-
-export function encodeHash(text: string): string {
-  return text
-    .toLowerCase()
-    .replaceAll(" ", "-")
-    .replace(/[^a-z0-9-]/g, "");
 }

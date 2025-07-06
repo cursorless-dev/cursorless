@@ -54,6 +54,7 @@ export const cursorlessCommandIds = [
   "cursorless.toggleDecorations",
   "cursorless.showScopeVisualizer",
   "cursorless.hideScopeVisualizer",
+  "cursorless.scopeVisualizer.openUrl",
   "cursorless.tutorial.start",
   "cursorless.tutorial.next",
   "cursorless.tutorial.previous",
@@ -100,6 +101,7 @@ export const cursorlessCommandDescriptions: Record<
   ["cursorless.hideScopeVisualizer"]: new VisibleCommand(
     "Hide the scope visualizer",
   ),
+  ["cursorless.scopeVisualizer.openUrl"]: new VisibleCommand("Open in browser"),
   ["cursorless.analyzeCommandHistory"]: new VisibleCommand(
     "Analyze collected command history",
   ),
