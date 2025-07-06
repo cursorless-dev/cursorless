@@ -8,6 +8,7 @@ import {
   type ScopeSupportFacet,
   type ScopeSupportFacetInfo,
   type ScopeType,
+  type ScopeTypeType,
   type SimpleScopeTypeType,
 } from "@cursorless/common";
 
@@ -55,4 +56,22 @@ export function getFacetInfo(
   }
 
   return facetInfo;
+}
+
+export function nameComparator(
+  a: { name: string },
+  b: { name: string },
+): number {
+  return a.name.localeCompare(b.name);
+}
+
+export function isScopeInternal(scope: ScopeTypeType): boolean {
+  switch (scope) {
+    case "disqualifyDelimiter":
+    case "pairDelimiter":
+    case "textFragment":
+      return true;
+    default:
+      return false;
+  }
 }

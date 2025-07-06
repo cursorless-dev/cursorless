@@ -3,6 +3,8 @@ import type {
   PlaintextScopeSupportFacet,
 } from "@cursorless/common";
 
+export type FacetValue = ScopeSupportFacet | PlaintextScopeSupportFacet;
+
 export interface ScopeTests {
   imports: Record<string, string[]>;
   fixtures: Fixture[];
@@ -10,7 +12,7 @@ export interface ScopeTests {
 
 export interface Fixture {
   name: string;
-  facet: ScopeSupportFacet | PlaintextScopeSupportFacet;
+  facet: FacetValue;
   languageId: string;
   code: string;
   scopes: Scope[];

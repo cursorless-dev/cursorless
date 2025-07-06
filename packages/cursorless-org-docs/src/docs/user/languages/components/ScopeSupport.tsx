@@ -1,8 +1,6 @@
 import {
   Range,
   serializeScopeType,
-  type PlaintextScopeSupportFacet,
-  type ScopeSupportFacet,
   type ScopeSupportFacetInfo,
   type ScopeTypeType,
 } from "@cursorless/common";
@@ -11,11 +9,16 @@ import React, { useState } from "react";
 import { Code, type Highlight } from "./Code";
 import { H2, H3, H4 } from "./Header";
 import "./ScopeSupport.css";
-import type { Fixture, ScopeTests } from "./types";
-import { getFacetInfo, prettifyFacet, prettifyScopeType } from "./util";
+import type { FacetValue, Fixture, ScopeTests } from "./types";
+import {
+  getFacetInfo,
+  isScopeInternal,
+  nameComparator,
+  prettifyFacet,
+  prettifyScopeType,
+} from "./util";
 
 type RangeType = "content" | "removal";
-type FacetValue = ScopeSupportFacet | PlaintextScopeSupportFacet;
 
 interface Scopes {
   public: Scope[];
@@ -222,7 +225,7 @@ function getScopeFixtures(scopeTests: ScopeTests, languageId: string): Scopes {
     languageIds.has(f.languageId),
   );
   const scopeMap: Partial<Record<ScopeTypeType, Scope>> = {};
-  const facetMap: Partial<Record<string, Facet>> = {};
+  const facetMap: Partial<Record<FacetValue, Facet>> = {};
 
   for (const fixture of fixtures) {
     const info = getFacetInfo(fixture.languageId, fixture.facet);
@@ -239,8 +242,6 @@ function getScopeFixtures(scopeTests: ScopeTests, languageId: string): Scopes {
         facets: [],
       };
     }
-
-    const facetKey = `${scopeTypeType}.${fixture.facet}`;
 
     if (facetMap[fixture.facet] == null) {
       const facet = {
@@ -259,10 +260,10 @@ function getScopeFixtures(scopeTests: ScopeTests, languageId: string): Scopes {
   const result: Scopes = { public: [], internal: [] };
 
   Object.values(scopeMap)
-    .sort(comparator)
+    .sort(nameComparator)
     .forEach((scope) => {
-      scope.facets.sort(comparator);
-      scope.facets.forEach((f) => f.fixtures.sort(comparator));
+      scope.facets.sort(nameComparator);
+      scope.facets.forEach((f) => f.fixtures.sort(nameComparator));
       if (isScopeInternal(scope.scopeTypeType)) {
         result.internal.push(scope);
       } else {
@@ -271,19 +272,4 @@ function getScopeFixtures(scopeTests: ScopeTests, languageId: string): Scopes {
     });
 
   return result;
-}
-
-function comparator(a: { name: string }, b: { name: string }): number {
-  return a.name.localeCompare(b.name);
-}
-
-function isScopeInternal(scope: ScopeTypeType): boolean {
-  switch (scope) {
-    case "disqualifyDelimiter":
-    case "pairDelimiter":
-    case "textFragment":
-      return true;
-    default:
-      return false;
-  }
 }
