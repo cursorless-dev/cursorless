@@ -187,8 +187,7 @@
 - `interior.function` The body of a function declaration
 - `interior.if` The body of an if/elif/else branch
 - `interior.interface` The body of a interface
-- `interior.lambda.block` The block body of a lambda/anonymous function
-- `interior.lambda.expression` The expression body of a lambda/anonymous function
+- `interior.lambda` The block body of a lambda/anonymous function
 - `interior.method` The body of a method declaration
 - `interior.namespace` the body of a namespace statement
 - `interior.resource` the body of a 'with' / 'use' / 'using' statement

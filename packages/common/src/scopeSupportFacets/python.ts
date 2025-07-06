@@ -152,7 +152,6 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.function": supported,
   "interior.constructor": supported,
   "interior.method": supported,
-  "interior.lambda.expression": supported,
   "interior.if": supported,
   "interior.try": supported,
   "interior.switch": supported,
@@ -272,7 +271,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   // Multiline lambda
   "argumentList.formal.lambda.multiLine": notApplicable,
   "argument.formal.lambda.multiLine": notApplicable,
-  "interior.lambda.block": notApplicable,
+  "interior.lambda": notApplicable,
 
   // Block comments
   "comment.block": notApplicable,
