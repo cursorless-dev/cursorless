@@ -110,6 +110,7 @@ export * from "./util/regex";
 export * from "./util/selectionsEqual";
 export * from "./util/serializedMarksToTokenHats";
 export * from "./util/serializeScopeType";
+export * from "./util/sortRanges";
 export * from "./util/splitKey";
 export * from "./util/toPlainObject";
 export * from "./util/type";

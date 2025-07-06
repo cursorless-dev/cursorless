@@ -1,6 +1,7 @@
 import {
   Range,
   serializeScopeType,
+  sortRanges,
   type ScopeSupportFacetInfo,
   type ScopeTypeType,
 } from "@cursorless/common";
@@ -155,7 +156,7 @@ function getHighlights(fixture: Fixture, rangeType: RangeType): Highlight[] {
       rangeType === "content"
         ? scope.targets.map((t) => t.content)
         : scope.targets.map((t) => t.removal ?? t.content);
-    const ranges = conciseRanges.map((r) => Range.fromConcise(r));
+    const ranges = sortRanges(conciseRanges.map((r) => Range.fromConcise(r)));
 
     if (scope.domain != null && !conciseRanges.includes(scope.domain)) {
       domainRanges.push(Range.fromConcise(scope.domain));
@@ -196,7 +197,7 @@ function getHighlights(fixture: Fixture, rangeType: RangeType): Highlight[] {
     highlights.some((h) => highlights.some((o) => hasOverlap(h.range, o.range)))
   ) {
     console.error("Overlapping highlights detected:");
-    console.error(fixture.name);
+    console.error(fixture);
     console.error(highlights);
   }
 
