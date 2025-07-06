@@ -5,12 +5,13 @@ import {
   type ScopeSupportFacet,
   type ScopeSupportFacetInfo,
 } from "@cursorless/common";
+import { usePluginData } from "@docusaurus/useGlobalData";
 import React, { useState } from "react";
 import { Code, type Highlight } from "./Code";
+import { H2, H3 } from "./Header";
 import "./ScopeSupport.css";
 import type { Fixture, ScopeTests } from "./types";
 import { getFacetInfo, prettifyFacet, prettifyScopeType } from "./util";
-import { usePluginData } from "@docusaurus/useGlobalData";
 
 type RangeType = "content" | "removal";
 
@@ -61,7 +62,7 @@ export function ScopeSupport({ languageId }: Props) {
 
   return (
     <>
-      <h2>Scopes</h2>
+      <H2>Scopes</H2>
 
       <p>
         Below are visualizations of all our scope tests for this language. These
@@ -85,13 +86,9 @@ function renderScope(
   renderWhitespace: boolean,
   scope: Scope,
 ) {
-  const href = scope.scope.toLowerCase().replaceAll(" ", "-");
   return (
     <div key={scope.scope}>
-      <h3 id={href} className="scope-header anchorWithStickyNavbar_IncK">
-        {scope.scope}
-        <a className="hash-link" href={`#${href}`} />
-      </h3>
+      <H3>{scope.scope}</H3>
       {scope.facets.map((f) =>
         renderFacet(languageId, rangeType, renderWhitespace, f),
       )}

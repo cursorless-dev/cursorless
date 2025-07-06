@@ -5,7 +5,7 @@ interface Props {
   maxHeadingLevel?: number;
 }
 
-export default function DynamicTOC({
+export function DynamicTOC({
   minHeadingLevel = 2,
   maxHeadingLevel = 3,
 }: Props) {
