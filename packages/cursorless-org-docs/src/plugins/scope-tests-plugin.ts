@@ -1,10 +1,9 @@
 import {
-  getPackagePath,
   getScopeTestLanguagesRecursively,
   getScopeTestPaths,
   type ScopeTestPath,
 } from "@cursorless/node-common";
-import { LoadContext, Plugin } from "@docusaurus/types";
+import type { LoadContext, Plugin, PluginOptions } from "@docusaurus/types";
 import * as fs from "node:fs";
 import * as path from "node:path";
 import type {
@@ -15,21 +14,20 @@ import type {
 } from "../docs/user/languages/components/types";
 
 export default function prepareAssetsPlugin(
-  context: LoadContext,
-  options: {},
+  _context: LoadContext,
+  _options: PluginOptions,
 ): Plugin<ScopeTests> {
-  let data: ScopeTests;
-
   return {
     name: "scope-tests-plugin",
 
     loadContent(): ScopeTests {
+      // eslint-disable-next-line unicorn/prefer-module
       const repoRoot = path.join(__dirname, "../../../..");
       process.env.CURSORLESS_REPO_ROOT = repoRoot;
       return prepareAssets();
     },
 
-    async contentLoaded({ content, actions }) {
+    contentLoaded({ content, actions }) {
       actions.setGlobalData(content);
     },
   };
