@@ -14,7 +14,7 @@ command:
   usePrePhraseSnapshot: true
 spokenFormError: >-
   custom regex with id [^\s"'`]+; please see
-  https://www.cursorless.org/docs/user/customization/ for more information
+  https://www.cursorless.org/docs/user/customization for more information
 initialState:
   documentContents: aaa-bbb ccc-ddd eee-fff ggg-hhh
   selections:

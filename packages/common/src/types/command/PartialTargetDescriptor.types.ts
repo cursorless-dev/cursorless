@@ -222,6 +222,8 @@ export interface SimpleScopeType {
   type: SimpleScopeTypeType;
 }
 
+export type ScopeTypeType = SimpleScopeTypeType | ScopeType["type"];
+
 export interface CustomRegexScopeType {
   type: "customRegex";
   regex: string;
