@@ -17,7 +17,14 @@ export function DynamicTOC({
       return;
     }
 
-    row.appendChild(getTOC(minHeadingLevel, maxHeadingLevel));
+    const toc = getTOC(minHeadingLevel, maxHeadingLevel);
+
+    // Remove existing TOC if it exists
+    if (row.childNodes.length > 1) {
+      row.replaceChild(toc, row.childNodes[1]);
+    } else {
+      row.appendChild(toc);
+    }
   }, []);
 
   return null;
