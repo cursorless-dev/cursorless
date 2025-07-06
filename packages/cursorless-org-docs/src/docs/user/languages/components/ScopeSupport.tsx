@@ -89,8 +89,8 @@ function renderScope(
   return (
     <div key={scope.scope}>
       <H3>{scope.scope}</H3>
-      {scope.facets.map((f) =>
-        renderFacet(languageId, rangeType, renderWhitespace, f),
+      {scope.facets.map((f, i) =>
+        renderFacet(languageId, rangeType, renderWhitespace, f, i),
       )}
     </div>
   );
@@ -101,11 +101,12 @@ function renderFacet(
   rangeType: RangeType,
   renderWhitespace: boolean,
   facet: Facet,
+  index: number,
 ) {
   return (
     <div key={facet.facet}>
       <H4 className="facet-name" title={facet.facet}>
-        {facet.name}
+        {`${index + 1}. ${facet.name}`}
       </H4>
       <i>{facet.info.description}</i>
       {facet.fixtures.map((fixture) => (

@@ -23,7 +23,7 @@ function renderHeader(
   { className, title, children }: Props,
 ): React.JSX.Element {
   const Tag = `h${level}` as keyof React.JSX.IntrinsicElements;
-  const href = children.toLowerCase().replaceAll(" ", "-");
+  const href = encodeHash(children);
   return (
     <Tag
       id={href}
@@ -37,4 +37,11 @@ function renderHeader(
       <a className="hash-link" href={`#${href}`} />
     </Tag>
   );
+}
+
+export function encodeHash(text: string): string {
+  return text
+    .toLowerCase()
+    .replaceAll(" ", "-")
+    .replace(/[^a-z0-9-]/g, "");
 }
