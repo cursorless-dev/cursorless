@@ -246,8 +246,7 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.formal.lambda.empty": notApplicable,
   "argumentList.formal.lambda.multiLine": notApplicable,
   "argumentList.formal.lambda.singleLine": notApplicable,
-  "interior.lambda.block": notApplicable,
-  "interior.lambda.expression": notApplicable,
+  "interior.lambda": notApplicable,
   "value.return.lambda": notApplicable,
   anonymousFunction: notApplicable,
 
