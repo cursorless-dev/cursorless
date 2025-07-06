@@ -7,8 +7,9 @@ import { readWantedLockfile } from "@pnpm/lockfile-file";
 import { createUpdateOptions } from "@pnpm/meta-updater";
 import type { Context } from "./Context";
 import { textFormat } from "./textFormat";
-import { updateLanguageMdxConfig } from "./updateLanguageScopeSupportConfig";
+import { updateLanguageMdx } from "./updateLanguageMdx";
 import { updatePackageJson } from "./updatePackageJson";
+import { getScopeTypeTypes, updateScopeMdx } from "./updateScopeMdx";
 import { updateTSConfig } from "./updateTSConfig";
 import { updatesScopeSupportFacetInfos } from "./updatesScopeSupportFacetInfos";
 
@@ -32,12 +33,16 @@ export const updater = async (workspaceDir: string) => {
       ["tsconfig.json"]: updateTSConfig.bind(null, context),
       ["data/scopeSupportFacetInfos.md"]: updatesScopeSupportFacetInfos,
       ...Object.fromEntries(
-        Object.keys(languageScopeSupport).map((languageId) => {
-          return [
-            `src/docs/user/languages/${languageId}.mdx`,
-            updateLanguageMdxConfig.bind(null, languageId),
-          ];
-        }),
+        Object.keys(languageScopeSupport).map((languageId) => [
+          `src/docs/user/languages/${languageId}.mdx`,
+          updateLanguageMdx.bind(null, languageId),
+        ]),
+      ),
+      ...Object.fromEntries(
+        getScopeTypeTypes().map(({ scopeTypeType, name }) => [
+          `src/docs/contributing/scopes/${scopeTypeType}.mdx`,
+          updateScopeMdx.bind(null, scopeTypeType, name),
+        ]),
       ),
     },
     formats: {

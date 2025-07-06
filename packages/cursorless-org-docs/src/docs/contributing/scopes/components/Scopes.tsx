@@ -1,19 +1,20 @@
+import type { ScopeTypeType } from "@cursorless/common";
 import React from "react";
 import { DynamicTOC } from "../../../components/DynamicTOC";
 import { ScopeSupport } from "../../../components/ScopeSupport";
 import { ScrollToHash } from "../../../components/ScrollToHash";
 
 interface Props {
-  languageId: string;
+  scopeTypeType: ScopeTypeType;
 }
 
-export function Language({ languageId }: Props) {
+export function Scopes({ scopeTypeType }: Props) {
   return (
     <>
       <DynamicTOC />
       <ScrollToHash />
 
-      <ScopeSupport languageId={languageId} />
+      <ScopeSupport scopeTypeType={scopeTypeType} />
     </>
   );
 }

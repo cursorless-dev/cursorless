@@ -3,43 +3,41 @@ import {
   capitalize,
   plaintextScopeSupportFacetInfos,
   scopeSupportFacetInfos,
-  serializeScopeType,
   type PlaintextScopeSupportFacet,
   type ScopeSupportFacet,
   type ScopeSupportFacetInfo,
-  type ScopeType,
   type ScopeTypeType,
-  type SimpleScopeTypeType,
 } from "@cursorless/common";
 
 export function prettifyFacet(
   facet: ScopeSupportFacet | PlaintextScopeSupportFacet,
 ): string {
-  let parts = facet.split(".").map(camelCaseToAllDown);
+  const parts = facet.split(".").map(camelCaseToAllDown);
+
   if (parts.length === 1) {
     return capitalize(parts[0]);
   }
-  const iterationIndex = parts.indexOf("iteration");
-  let iterationParts: string[] = [];
-  if (iterationIndex > 0) {
-    iterationParts = parts.slice(iterationIndex);
-    parts = parts.slice(0, iterationIndex);
-    parts.length = iterationIndex;
-  }
-  const scopeName = parts.shift()!;
-  const trailing = capitalize(parts.join(" "));
-  let name =
-    capitalize(scopeName) + (trailing.length > 0 ? ": " : " ") + trailing;
-  if (iterationParts.length > 0) {
-    name += ` (${iterationParts.join(" ")})`;
-  }
-  return name;
-}
 
-export function prettifyScopeType(
-  scopeType: SimpleScopeTypeType | ScopeType,
-): string {
-  return capitalize(camelCaseToAllDown(serializeScopeType(scopeType)));
+  const iterationIndex = parts.indexOf("iteration");
+
+  // Capitalize scope
+  parts[0] = capitalize(parts[0]);
+
+  // Unless the second part is the iteration scope we want to add `:` to the first part
+  // and capitalize the second part.
+  if (iterationIndex < 0 || iterationIndex > 1) {
+    parts[0] = parts[0] + ":";
+    parts[1] = capitalize(parts[1]);
+  }
+
+  // If we have an iteration, we want to put it in parentheses at the end
+  if (iterationIndex > 0) {
+    const iteration = parts.slice(iterationIndex).join(" ");
+    parts.length = iterationIndex;
+    parts.push(`(${iteration})`);
+  }
+
+  return parts.join(" ");
 }
 
 export function getFacetInfo(

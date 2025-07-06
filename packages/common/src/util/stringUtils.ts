@@ -10,7 +10,7 @@
  */
 export function camelCaseToAllDown(input: string): string {
   return input
-    .replace(/([A-Z])/g, " $1")
+    .replace(/(?<=[a-z0-9])([A-Z])/g, " $1")
     .split(" ")
     .map((word) => word.toLowerCase())
     .join(" ");

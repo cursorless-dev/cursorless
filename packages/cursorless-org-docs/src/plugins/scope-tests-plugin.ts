@@ -11,7 +11,7 @@ import type {
   Scope,
   ScopeTests,
   Target,
-} from "../docs/user/languages/components/types";
+} from "../docs/components/types";
 
 export default function prepareAssetsPlugin(
   _context: LoadContext,

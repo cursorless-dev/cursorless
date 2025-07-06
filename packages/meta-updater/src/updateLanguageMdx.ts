@@ -1,6 +1,7 @@
+import { prettifyLanguageName } from "@cursorless/common";
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 
-export function updateLanguageMdxConfig(
+export function updateLanguageMdx(
   languageId: string,
   actual: string | null,
   options: FormatPluginFnOptions,
@@ -16,9 +17,9 @@ export function updateLanguageMdxConfig(
   const expected = `
 import { Language } from "./components/Language";
 
-# ${languageId}
+# ${prettifyLanguageName(languageId)}
 
-<Language languageId="${languageId}"></Language>
+<Language languageId="${languageId}" />
 `.trimStart();
 
   return expected;
