@@ -88,9 +88,9 @@ function renderScope(
   const href = scope.scope.toLowerCase().replaceAll(" ", "-");
   return (
     <div key={scope.scope}>
-      <h3 id={href} className="scope-header">
+      <h3 id={href} className="scope-header anchorWithStickyNavbar_IncK">
         {scope.scope}
-        <a href={`#${href}`}>#</a>
+        <a className="hash-link" href={`#${href}`} />
       </h3>
       {scope.facets.map((f) =>
         renderFacet(languageId, rangeType, renderWhitespace, f),

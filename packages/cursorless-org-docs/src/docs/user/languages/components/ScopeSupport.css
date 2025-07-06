@@ -1,12 +1,3 @@
 .facet-name {
   font-weight: 600;
 }
-
-.scope-header a {
-  display: none;
-  margin-left: 0.5rem;
-}
-
-.scope-header:hover a {
-  display: inline;
-}

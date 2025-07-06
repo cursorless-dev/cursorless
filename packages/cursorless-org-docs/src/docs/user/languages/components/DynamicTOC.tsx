@@ -16,38 +16,29 @@ export default function DynamicTOC() {
 }
 
 function getTOC() {
-  const headingElements = Array.from(document.querySelectorAll("h3")).map(
-    (el) => ({
-      id: el.id,
-      text: el.textContent?.replace("#", "") ?? "",
-    }),
-  );
-
   const col = document.createElement("div");
   col.className = "col col--3";
 
   const toc = document.createElement("div");
   toc.className = "tableOfContents_tkZC thin-scrollbar";
-  toc.style.position = "fixed";
-  toc.style.right = "1rem";
-  toc.style.width = "14rem";
-  col.appendChild(toc);
 
   const ul = document.createElement("ul");
   ul.className = "table-of-contents table-of-contents__left-border";
-  toc.appendChild(ul);
 
-  headingElements.forEach((h) => {
+  document.querySelectorAll("h3").forEach((header) => {
     const li = document.createElement("li");
 
     const a = document.createElement("a");
-    a.href = `#${h.id}`;
+    a.href = `#${header.id}`;
     a.className = "table-of-contents__link";
-    a.textContent = h.text;
+    a.textContent = header.textContent;
 
     li.appendChild(a);
     ul.appendChild(li);
   });
+
+  toc.appendChild(ul);
+  col.appendChild(toc);
 
   return col;
 }

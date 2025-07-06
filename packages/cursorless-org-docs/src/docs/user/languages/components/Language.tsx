@@ -10,6 +10,7 @@ export function Language({ languageId }: Props) {
   return (
     <>
       <DynamicTOC />
+
       <ScopeSupport languageId={languageId} />
     </>
   );
