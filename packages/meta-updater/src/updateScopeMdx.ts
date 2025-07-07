@@ -43,6 +43,7 @@ export function getScopeTypeTypes() {
 
   const result: { scopeTypeType: ScopeTypeType; name: string }[] = [];
   const used = new Set<ScopeTypeType>();
+
   for (const scopeType of scopeTypes) {
     const scopeTypeType = serializeScopeType(scopeType);
     if (used.has(scopeTypeType)) {
@@ -51,5 +52,6 @@ export function getScopeTypeTypes() {
     used.add(scopeTypeType);
     result.push({ scopeTypeType, name: prettifyScopeType(scopeType) });
   }
+
   return result;
 }
