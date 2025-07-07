@@ -292,10 +292,10 @@ class ScopeSupportTreeItem extends TreeItem {
   }
 
   private setUrl(languageId: string) {
-    const scopeTypeType = uriEncodeHashId(
+    const id = uriEncodeHashId(
       serializeScopeType(this.scopeTypeInfo.scopeType),
     );
-    this.url = `${DOCS_URL}/user/languages/${languageId}#${scopeTypeType}`;
+    this.url = `${DOCS_URL}/user/languages/${languageId}#${id}`;
     this.contextValue = "scopeVisualizerTreeItem";
   }
 }
