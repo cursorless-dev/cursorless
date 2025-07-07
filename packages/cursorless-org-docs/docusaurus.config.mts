@@ -135,7 +135,7 @@ const config: Config = {
           routeBasePath: "/",
           editUrl:
             "https://github.com/cursorless-dev/cursorless/edit/main/packages/cursorless-org-docs/",
-          sidebarPath: require.resolve("./sidebar.js"),
+          sidebarPath: require.resolve("./sidebar.ts"),
           beforeDefaultRemarkPlugins: [
             remarkPluginFixLinksToRepositoryArtifacts,
           ],
