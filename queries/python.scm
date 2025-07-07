@@ -720,13 +720,16 @@
   (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
+;;!! lambda _: pass
+;;!  ^^^^^^^^^^^^^^
+(lambda) @anonymousFunction
+
 ;;!! lambda a, b: pass
-;;!  ^^^^^^^^^^^^^^^^^
 ;;!         ^^^^
 (lambda
   (lambda_parameters) @argumentList @argumentOrParameter.iteration
   (#insertion-delimiter! @argumentList ", ")
-) @anonymousFunction @argumentList.domain @argumentOrParameter.iteration.domain
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;;!! lambda: pass
 (lambda
