@@ -457,7 +457,7 @@
 ;;!         ^
 ;;!  --------
 (arrow_function
-  body: (_) @value @interior
+  body: (_) @value
   (#not-type? @value statement_block)
 ) @_.domain
 

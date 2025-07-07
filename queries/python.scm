@@ -406,12 +406,6 @@
   function: (_) @functionCallee
 ) @_.domain
 
-;;!! lambda _: pass
-;;!  ^^^^^^^^^^^^^^
-(lambda
-  body: (_) @interior
-) @anonymousFunction @interior.domain
-
 ;;!! match value:
 ;;!        ^^^^^
 (match_statement
@@ -727,11 +721,12 @@
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;;!! lambda a, b: pass
+;;!  ^^^^^^^^^^^^^^^^^
 ;;!         ^^^^
 (lambda
   (lambda_parameters) @argumentList @argumentOrParameter.iteration
   (#insertion-delimiter! @argumentList ", ")
-) @argumentList.domain @argumentOrParameter.iteration.domain
+) @anonymousFunction @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;;!! lambda: pass
 (lambda
