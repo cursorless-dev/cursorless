@@ -43,17 +43,21 @@ function Language({
 }): React.JSX.Element | null {
   const scopeSupport = languageScopeSupport[languageId] ?? {};
 
-  const unsupportedFacets = scopeSupportFacets.filter(
-    (facet) => scopeSupport[facet] === ScopeSupportFacetLevel.unsupported,
-  );
-  const unspecifiedFacets = scopeSupportFacets.filter(
-    (facet) => scopeSupport[facet] == null,
-  );
+  let unsupportedFacets = scopeSupportFacets
+    .filter(
+      (facet) => scopeSupport[facet] === ScopeSupportFacetLevel.unsupported,
+    )
+    .sort();
+  let unspecifiedFacets = scopeSupportFacets
+    .filter((facet) => scopeSupport[facet] == null)
+    .sort();
 
-  const unsupportedScopes = facetsToScopes(unsupportedFacets, showPrivate);
-  const unspecifiedScopes = facetsToScopes(unspecifiedFacets, showPrivate);
+  if (!showPrivate) {
+    unsupportedFacets = unsupportedFacets.filter((f) => !isPrivate(f));
+    unspecifiedFacets = unspecifiedFacets.filter((f) => !isPrivate(f));
+  }
 
-  if (unsupportedScopes.length === 0 && unspecifiedScopes.length === 0) {
+  if (unsupportedFacets.length === 0 && unspecifiedFacets.length === 0) {
     return null;
   }
 
@@ -67,19 +71,19 @@ function Language({
         </small>
       </h3>
 
-      {renderFacets("Unsupported", unsupportedScopes)}
-      {renderFacets("Unspecified", unspecifiedScopes)}
+      {renderFacets("Unsupported", unsupportedFacets)}
+      {renderFacets("Unspecified", unspecifiedFacets)}
     </>
   );
 }
 
 function renderFacets(
   title: string,
-  scopes: string[],
+  facets: string[],
 ): React.JSX.Element | null {
-  const [open, setOpen] = useState(scopes.length < 4);
+  const [open, setOpen] = useState(facets.length < 10);
 
-  if (scopes.length === 0) {
+  if (facets.length === 0) {
     return null;
   }
 
@@ -91,7 +95,7 @@ function renderFacets(
     return (
       <div className="card__body">
         <ul>
-          {scopes.map((scope) => {
+          {facets.map((scope) => {
             return <li key={scope}>{scope}</li>;
           })}
         </ul>
@@ -102,7 +106,7 @@ function renderFacets(
   return (
     <div className={"card" + (open ? " open" : "")}>
       <div className="card__header pointer" onClick={() => setOpen(!open)}>
-        {title} ({scopes.length})
+        {title} ({facets.length})
       </div>
 
       {renderBody()}
@@ -110,14 +114,7 @@ function renderFacets(
   );
 }
 
-function facetsToScopes(facets: ScopeSupportFacet[], showPrivate: boolean) {
-  return Array.from(
-    new Set(
-      facets.map((f) =>
-        serializeScopeType(scopeSupportFacetInfos[f].scopeType),
-      ),
-    ),
-  )
-    .filter((scope) => showPrivate || !scope.startsWith("private."))
-    .sort();
+function isPrivate(facet: ScopeSupportFacet): boolean {
+  const scopeType = serializeScopeType(scopeSupportFacetInfos[facet].scopeType);
+  return scopeType.startsWith("private.");
 }
