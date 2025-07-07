@@ -156,7 +156,6 @@ def update():
             ],
             extra_allowed_values=[
                 "private.fieldAccess",
-                "private.switchStatementSubject",
                 "textFragment",
                 "disqualifyDelimiter",
                 "pairDelimiter",
