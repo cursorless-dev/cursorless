@@ -106,9 +106,21 @@ Don't add more lines than the example actually needs. For example if the test is
 0| class Foo {}
 ```
 
-Sometimes we actually need a body but that doesn't mean that we need it to be multiple lines. The facet `interior.class` can look like this:
+There are two exceptions to this rule:
+
+1. Sometimes we actually need a body, but that doesn't mean that we need it to be multiple lines. The facet `interior.class` can look like this:
 
 ```
              >-<
 0| class Foo { }
+```
+
+2. If you're doing a `iteration.document` test we want to include a leading and trailing new line. eg:
+
+```
+  >
+0|
+1| int foo;
+2|
+   <
 ```
