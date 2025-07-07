@@ -3,7 +3,7 @@ import React from "react";
 
 interface Props {
   className?: string;
-  value?: string;
+  id?: string;
   title?: string;
   children: string;
 }
@@ -26,13 +26,13 @@ export function H5(props: Props) {
 
 function renderHeader(
   level: number,
-  { className, value, title, children }: Props,
+  { className, id, title, children }: Props,
 ): React.JSX.Element {
   const Tag = `h${level}` as keyof React.JSX.IntrinsicElements;
-  const href = uriEncodeHashId(value ?? children);
+  const encodedId = uriEncodeHashId(id ?? children);
   return (
     <Tag
-      id={href}
+      id={encodedId}
       title={title}
       className={
         "scope-header anchorWithStickyNavbar_IncK" +
@@ -40,7 +40,7 @@ function renderHeader(
       }
     >
       {children}
-      <a className="hash-link" href={`#${href}`} />
+      <a className="hash-link" href={`#${encodedId}`} />
     </Tag>
   );
 }
