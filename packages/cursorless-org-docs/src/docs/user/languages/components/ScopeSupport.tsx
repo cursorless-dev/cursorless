@@ -10,7 +10,10 @@ interface Props {
   languageId: string;
 }
 
-export function ScopeSupport({ languageId }: Props): React.JSX.Element {
+export function ScopeSupport({ languageId }: Props) {
+  if (languageId === "plaintext") {
+    return <div>Coming soon!</div>;
+  }
   const facetsSorted = [...scopeSupportFacets].sort();
   const scopeSupport = languageScopeSupport[languageId] ?? {};
 
