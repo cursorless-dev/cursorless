@@ -19,7 +19,7 @@ export function prettifyLanguageName(name: string): string {
     case "jsonc":
       return "JSON with comments (JSONC)";
     case "scm":
-      return "Tree sitter query language (scm)";
+      return "Tree sitter query (SCM)";
     case "css":
     case "scss":
     case "json":
