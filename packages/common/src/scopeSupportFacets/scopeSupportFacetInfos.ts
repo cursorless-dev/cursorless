@@ -61,10 +61,6 @@ export const scopeSupportFacetInfos: Record<
     description: "A regular expression",
     scopeType: "regularExpression",
   },
-  switchStatementSubject: {
-    description: "The subject of a switch statement",
-    scopeType: "private.switchStatementSubject",
-  },
   fieldAccess: {
     description: "A field access",
     scopeType: "private.fieldAccess",
@@ -723,6 +719,10 @@ export const scopeSupportFacetInfos: Record<
   },
   "value.yield": {
     description: "Value of a yield statement",
+    scopeType: "value",
+  },
+  "value.switch": {
+    description: "The value / subject of a switch statement",
     scopeType: "value",
   },
   "value.iteration.block": blockIter("value", "values"),

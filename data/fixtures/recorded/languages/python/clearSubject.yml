@@ -1,18 +1,15 @@
 languageId: python
 command:
   version: 6
-  spokenForm: change subject
+  spokenForm: change value
   action:
     name: clearAndSetSelection
     target:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: private.switchStatementSubject}
+          scopeType: {type: value}
   usePrePhraseSnapshot: true
-spokenFormError: >-
-  simple scope type type with id private.switchStatementSubject; this is a
-  private spoken form currently only for internal experimentation
 initialState:
   documentContents: |
     match 0:

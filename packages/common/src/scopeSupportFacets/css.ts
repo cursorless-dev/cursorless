@@ -221,7 +221,6 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   startTag: notApplicable,
   "statement.iteration.block": notApplicable,
   "string.multiLine": notApplicable,
-  switchStatementSubject: notApplicable,
   tags: notApplicable,
   "textFragment.comment.line": notApplicable,
   "textFragment.element": notApplicable,
@@ -262,6 +261,7 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   "value.variable.pattern": notApplicable,
   "value.variable": notApplicable,
   "value.yield": notApplicable,
+  "value.switch": notApplicable,
   "value.iteration.block": notApplicable,
   "value.iteration.document": notApplicable,
 };

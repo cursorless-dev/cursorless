@@ -415,7 +415,7 @@
 ;;!! match value:
 ;;!        ^^^^^
 (match_statement
-  subject: (_) @private.switchStatementSubject
+  subject: (_) @value
   body: (_) @interior
 ) @_.domain
 

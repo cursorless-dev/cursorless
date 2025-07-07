@@ -4,7 +4,6 @@ import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
-  switchStatementSubject: supported,
   anonymousFunction: supported,
   map: supported,
   list: supported,
@@ -99,6 +98,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "value.return": supported,
   "value.variable": supported,
   "value.yield": supported,
+  "value.switch": supported,
   "value.iteration.block": supported,
   "value.iteration.class": supported,
   "value.iteration.enum": supported,

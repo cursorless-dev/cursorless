@@ -35,7 +35,7 @@
 ) @namedFunction @functionName.domain
 
 (match_expression
-  value: (_) @private.switchStatementSubject
+  value: (_) @value
 ) @_.domain
 
 (_

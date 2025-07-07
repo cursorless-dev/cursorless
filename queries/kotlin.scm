@@ -149,8 +149,8 @@
 ) @_.domain
 
 (when_expression
-  (when_subject) @private.switchStatementSubject
-  (#child-range! @private.switchStatementSubject 0 -1 true true)
+  (when_subject) @value
+  (#child-range! @value 0 -1 true true)
 ) @_.domain
 
 ;;
