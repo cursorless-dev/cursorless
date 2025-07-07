@@ -134,10 +134,6 @@
   name: (_) @name @functionName
 ) @namedFunction @_.domain
 
-;;!! ((value) -> true)
-;;!   ^^^^^^^^^^^^^^^
-(lambda_expression) @anonymousFunction
-
 ;;!! "string"
 ;;!  ^^^^^^^^
 (
@@ -537,11 +533,15 @@
   (_) @value
 ) @_.domain
 
+;;!! ((value) -> true)
+;;!   ^^^^^^^^^^^^^^^
+(lambda_expression) @anonymousFunction
+
 ;;!! str -> str.length > 0
 ;;!         ^^^^^^^^^^^^^^
 ;;!  ---------------------
 (lambda_expression
-  body: (_) @value @interior
+  body: (_) @value
   (#not-type? @value block)
 ) @_.domain
 

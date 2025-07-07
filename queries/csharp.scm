@@ -255,7 +255,7 @@
 ;;!! () => 2;
 ;;!        ^
 (lambda_expression
-  body: (_) @value @interior
+  body: (_) @value
   (#not-type? @value block initializer_expression)
 ) @_.domain
 

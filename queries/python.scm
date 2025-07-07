@@ -406,12 +406,6 @@
   function: (_) @functionCallee
 ) @_.domain
 
-;;!! lambda _: pass
-;;!  ^^^^^^^^^^^^^^
-(lambda
-  body: (_) @interior
-) @anonymousFunction @interior.domain
-
 ;;!! match value:
 ;;!        ^^^^^
 (match_statement
@@ -725,6 +719,10 @@
   ) @argumentList
   (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
+
+;;!! lambda _: pass
+;;!  ^^^^^^^^^^^^^^
+(lambda) @anonymousFunction
 
 ;;!! lambda a, b: pass
 ;;!         ^^^^
