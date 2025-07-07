@@ -174,7 +174,6 @@ export const simpleScopeTypeTypes = [
   "sectionLevelFive",
   "sectionLevelSix",
   "selector",
-  "private.switchStatementSubject",
   "unit",
   "xmlBothTags",
   "xmlElement",

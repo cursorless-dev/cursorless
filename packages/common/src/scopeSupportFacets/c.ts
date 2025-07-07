@@ -6,7 +6,6 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   list: supported,
   disqualifyDelimiter: supported,
-  switchStatementSubject: supported,
 
   ifStatement: supported,
   statement: supported,
@@ -94,6 +93,7 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "value.assignment": supported,
   "value.variable": supported,
   "value.return": supported,
+  "value.switch": supported,
   "value.field.enum": supported,
   "value.iteration.block": supported,
   "value.iteration.class": supported,

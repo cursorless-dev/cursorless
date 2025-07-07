@@ -322,10 +322,6 @@
 - `surroundingPair` A delimiter pair, such as parentheses or quotes
 - `surroundingPair.iteration` The iteration scope for delimiter pairs
 
-### private.switchStatementSubject
-
-- `switchStatementSubject` The subject of a switch statement
-
 ### xmlBothTags
 
 - `tags` Both tags in a xml element
@@ -404,6 +400,7 @@
 - `value.resource.iteration` Iteration scope for values in a 'with' / 'use' / 'using' statement: the resource list. The domain should be the entire statement.
 - `value.return` Return value of a function
 - `value.return.lambda` Implicit return value from a lambda
+- `value.switch` The value / subject of a switch statement
 - `value.typeAlias` Value of a type alias declaration
 - `value.variable` Value (RHS) of a variable declaration
 - `value.variable.pattern` Value (RHS) of a variable declaration with pattern destructuring

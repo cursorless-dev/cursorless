@@ -7,7 +7,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   disqualifyDelimiter: supported,
   anonymousFunction: supported,
   list: supported,
-  switchStatementSubject: supported,
 
   "argument.actual.singleLine": supported,
   "argument.actual.multiLine": supported,
@@ -139,6 +138,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
 
   "value.assignment": supported,
   "value.foreach": supported,
+  "value.switch": supported,
   "value.field.class": supported,
   "value.return": supported,
   "value.yield": supported,

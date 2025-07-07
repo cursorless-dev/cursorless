@@ -24,7 +24,6 @@ export async function runCustomSpokenFormScopeInfoTest() {
       lambdaStandard,
       statementStandard,
       squareStandard,
-      subjectStandard,
     );
 
     await writeFile(
@@ -33,7 +32,6 @@ export async function runCustomSpokenFormScopeInfoTest() {
     );
     await assertCalledWithScopeInfo(
       fake,
-      subjectCustom,
       roundCustom,
       namedFunctionCustom,
       lambdaCustom,
@@ -49,7 +47,6 @@ export async function runCustomSpokenFormScopeInfoTest() {
       lambdaStandard,
       statementStandard,
       squareStandard,
-      subjectStandard,
     );
   } finally {
     disposable.dispose();
@@ -77,11 +74,6 @@ const spokenFormJsonContents = {
     },
     {
       type: "simpleScopeTypeType",
-      id: "private.switchStatementSubject",
-      spokenForms: ["custom subject"],
-    },
-    {
-      type: "simpleScopeTypeType",
       id: "namedFunction",
       spokenForms: ["custom funk"],
     },
@@ -91,29 +83,6 @@ const spokenFormJsonContents = {
       spokenForms: [],
     },
   ],
-};
-
-const subjectStandard: ScopeTypeInfo = {
-  humanReadableName: "private switch statement subject",
-  isLanguageSpecific: true,
-  scopeType: { type: "private.switchStatementSubject" },
-  spokenForm: {
-    isPrivate: true,
-    reason:
-      "simple scope type type with id private.switchStatementSubject; this is a private spoken form currently only for internal experimentation",
-    requiresTalonUpdate: false,
-    type: "error",
-  },
-};
-
-const subjectCustom: ScopeTypeInfo = {
-  humanReadableName: "private switch statement subject",
-  isLanguageSpecific: true,
-  scopeType: { type: "private.switchStatementSubject" },
-  spokenForm: {
-    spokenForms: ["custom subject"],
-    type: "success",
-  },
 };
 
 const roundStandard: ScopeTypeInfo = {

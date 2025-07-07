@@ -40,7 +40,7 @@ export const updater = async (workspaceDir: string) => {
       ),
       ...Object.fromEntries(
         getScopeTypeTypes().map(({ scopeTypeType, name }) => [
-          `src/docs/contributing/scopes/${scopeTypeType}.mdx`,
+          `src/docs/contributing/scopes/${scopeTypeType.replace("private.", "")}.mdx`,
           updateScopeMdx.bind(null, scopeTypeType, name),
         ]),
       ),

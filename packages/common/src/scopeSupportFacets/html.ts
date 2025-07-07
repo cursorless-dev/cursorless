@@ -233,6 +233,7 @@ export const htmlScopeSupport: LanguageScopeSupportFacetMap = {
   "value.variable.pattern": notApplicable,
   "value.variable": notApplicable,
   "value.yield": notApplicable,
+  "value.switch": notApplicable,
   "value.iteration.block": notApplicable,
   "value.iteration.document": notApplicable,
   anonymousFunction: notApplicable,
@@ -251,7 +252,6 @@ export const htmlScopeSupport: LanguageScopeSupportFacetMap = {
   regularExpression: notApplicable,
   section: notApplicable,
   statement: notApplicable,
-  switchStatementSubject: notApplicable,
   selector: notApplicable,
   unit: notApplicable,
 };
