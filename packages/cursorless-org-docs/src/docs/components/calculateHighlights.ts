@@ -79,8 +79,6 @@ export function calculateHighlights(
     ...domainEqualsNestedHighlights,
   ];
 
-  //   console.log(allHighlights.map((h) => h.range.toString()).sort());
-
   const positions = uniquePositions(
     allHighlights.flatMap((h) => [h.range.start, h.range.end]),
   );
@@ -89,10 +87,6 @@ export function calculateHighlights(
 
   for (let i = 0; i < positions.length - 1; i++) {
     const subRange: Range = new Range(positions[i], positions[i + 1]);
-
-    // if (subRange.start.line !== 0) {
-    //   continue;
-    // }
 
     // We have created ranges between two lines. Just skip these.
     if (!subRange.isSingleLine) {
@@ -106,9 +100,6 @@ export function calculateHighlights(
     if (matchingHighlights.length > 1) {
       console.log("--------------------");
       console.log(subRange.toString());
-      //   for (const m of matchingHighlights) {
-      //     console.log(m);
-      //   }
     }
 
     const style = combineHighlightStyles(subRange, matchingHighlights);
@@ -160,24 +151,12 @@ function combineHighlightStyles(range: Range, highlights: Highlight[]): Style {
   );
 
   return {
-    // TODO: Background color
-    // backgroundColor,
-    backgroundColor: lastHighlight.style.backgroundColor,
+    backgroundColor,
     borderStyle,
     borderColorSolid: lastHighlight.style.borderColorSolid,
     borderColorPorous: lastHighlight.style.borderColorPorous,
   };
 }
-
-// function getStrongestBorder(available: Set<BorderStyle>): BorderStyle {
-//   if (available.has(BorderStyle.solid)) {
-//     return BorderStyle.solid;
-//   }
-//   if (available.has(BorderStyle.porous)) {
-//     return BorderStyle.porous;
-//   }
-//   return BorderStyle.none;
-// }
 
 function uniquePositions(positions: Position[]): Position[] {
   const result: Position[] = [];
