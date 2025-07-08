@@ -56,7 +56,7 @@ export function calculateHighlights(
   ]);
 }
 
-function flattenHighlights(highlights: Highlight[]) {
+function flattenHighlights(highlights: Highlight[]): Highlight[] {
   const positions = getUniquePositions(highlights);
   const results: Highlight[] = [];
 

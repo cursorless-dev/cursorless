@@ -1,0 +1,17 @@
+diff --git a/dist/index.mjs b/dist/index.mjs
+index 5ba9a077425954c8099a26820a3411b017093b0d..28a0d61a7c36c4f796f66fe0ada874b264bc5930 100644
+--- a/dist/index.mjs
++++ b/dist/index.mjs
+@@ -441,10 +441,10 @@ function verifyIntersections(items) {
+       throw new ShikiError$1(`Invalid decoration range: ${JSON.stringify(foo.start)} - ${JSON.stringify(foo.end)}`);
+     for (let j = i + 1; j < items.length; j++) {
+       const bar = items[j];
+-      const isFooHasBarStart = foo.start.offset <= bar.start.offset && bar.start.offset < foo.end.offset;
++      const isFooHasBarStart = foo.start.offset <= bar.start.offset && bar.start.offset <= foo.end.offset;
+       const isFooHasBarEnd = foo.start.offset < bar.end.offset && bar.end.offset <= foo.end.offset;
+       const isBarHasFooStart = bar.start.offset <= foo.start.offset && foo.start.offset < bar.end.offset;
+-      const isBarHasFooEnd = bar.start.offset < foo.end.offset && foo.end.offset <= bar.end.offset;
++      const isBarHasFooEnd = bar.start.offset <= foo.end.offset && foo.end.offset <= bar.end.offset;
+       if (isFooHasBarStart || isFooHasBarEnd || isBarHasFooStart || isBarHasFooEnd) {
+         if (isFooHasBarStart && isFooHasBarEnd)
+           continue;
