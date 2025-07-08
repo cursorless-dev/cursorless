@@ -1,4 +1,11 @@
-import { CompositeKeyDefaultMap } from "@cursorless/common";
+import {
+  BORDER_WIDTH,
+  CompositeKeyDefaultMap,
+  getBorderColor,
+  getBorderRadius,
+  getBorderStyle,
+  type DecorationStyle,
+} from "@cursorless/common";
 import { toVscodeRange } from "@cursorless/vscode-common";
 import type { DecorationRenderOptions, TextEditorDecorationType } from "vscode";
 import { DecorationRangeBehavior } from "vscode";
@@ -6,15 +13,10 @@ import { vscodeApi } from "../../../../vscodeApi";
 import type { VscodeTextEditorImpl } from "../../VscodeTextEditorImpl";
 import type { RangeTypeColors } from "../RangeTypeColors";
 import type {
-  DecorationStyle,
   DifferentiatedStyle,
   DifferentiatedStyledRangeList,
 } from "./decorationStyle.types";
-import { BorderStyle } from "./decorationStyle.types";
 import { getDifferentiatedStyleMapKey } from "./getDifferentiatedStyleMapKey";
-
-const BORDER_WIDTH = "1px";
-const BORDER_RADIUS = "2px";
 
 /**
  * Handles the actual rendering of decorations for
@@ -115,39 +117,4 @@ function getDecorationStyle(
   };
 
   return vscodeApi.window.createTextEditorDecorationType(options);
-}
-
-function getBorderStyle(borders: DecorationStyle): string {
-  return [borders.top, borders.right, borders.bottom, borders.left].join(" ");
-}
-
-function getBorderColor(
-  solidColor: string,
-  porousColor: string,
-  borders: DecorationStyle,
-): string {
-  return [
-    borders.top === BorderStyle.solid ? solidColor : porousColor,
-    borders.right === BorderStyle.solid ? solidColor : porousColor,
-    borders.bottom === BorderStyle.solid ? solidColor : porousColor,
-    borders.left === BorderStyle.solid ? solidColor : porousColor,
-  ].join(" ");
-}
-
-function getBorderRadius(borders: DecorationStyle): string {
-  return [
-    getSingleCornerBorderRadius(borders.top, borders.left),
-    getSingleCornerBorderRadius(borders.top, borders.right),
-    getSingleCornerBorderRadius(borders.bottom, borders.right),
-    getSingleCornerBorderRadius(borders.bottom, borders.left),
-  ].join(" ");
-}
-
-function getSingleCornerBorderRadius(side1: BorderStyle, side2: BorderStyle) {
-  // We only round the corners if both sides are solid, as that makes them look
-  // more finished, whereas we want the dotted borders to look unfinished / cut
-  // off.
-  return side1 === BorderStyle.solid && side2 === BorderStyle.solid
-    ? BORDER_RADIUS
-    : "0px";
 }

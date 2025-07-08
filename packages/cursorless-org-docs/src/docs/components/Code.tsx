@@ -4,8 +4,16 @@ import { codeToHtml, type DecorationItem } from "shiki";
 import "./Code.css";
 
 export interface Highlight {
-  type: "content" | "removal" | "domain" | "iteration";
   range: Range;
+  style: Style;
+}
+
+interface Style {
+  backgroundColor: string;
+  borderColor: string;
+  borderStyle: string;
+  borderWidth: string;
+  borderRadius: string;
 }
 
 interface Props {
@@ -100,10 +108,20 @@ function getDecorations(
       end,
       alwaysWrap: true,
       properties: {
-        class: `code-highlight-${highlight.type}`,
+        style: getStyleString(highlight.style),
       },
     };
   });
+}
+
+function getStyleString(style: Style): string {
+  return (
+    `background-color: ${style.backgroundColor};` +
+    `border-color: ${style.borderColor};` +
+    `border-style: ${style.borderStyle};` +
+    `border-width: ${style.borderWidth};` +
+    `border-radius: ${style.borderRadius};`
+  );
 }
 
 // Use a fallback language for languages that are not supported by Shiki

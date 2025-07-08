@@ -1,26 +1,3 @@
-/* Range highlights */
-/* https://github.com/cursorless-dev/cursorless/blob/a9affbb83a0d81476760c5c4fdd5b67c8162ae25/packages/cursorless-vscode/package.json#L560-L581 */
-
-.code-highlight-domain {
-  background-color: #00e1ff18;
-  border: 1px solid #ebdeec84;
-}
-
-.code-highlight-content {
-  background-color: #ad00bc5b;
-  border: 1px solid #ee00ff78;
-}
-
-.code-highlight-removal {
-  background-color: #ff00002d;
-  border: 1px solid #ff000078;
-}
-
-.code-highlight-iteration {
-  background-color: #00725f6c;
-  border: 1px solid #00ffd578;
-}
-
 .code-container {
   position: relative;
   width: 100%;

@@ -1,5 +1,5 @@
-import type { Range, TextEditor } from "@cursorless/common";
-import { getLineRanges } from "@cursorless/common";
+import type { Range } from "../../types/Range";
+import type { TextEditor } from "../../types/TextEditor";
 import type { StyledRange } from "../decorationStyle.types";
 import { BorderStyle } from "../decorationStyle.types";
 import { handleMultipleLines } from "./handleMultipleLines";
@@ -10,7 +10,7 @@ import { handleMultipleLines } from "./handleMultipleLines";
  * that the range is visually distinct from adjacent ranges but looks continuous.
  */
 export function* generateDecorationsForCharacterRange(
-  editor: TextEditor,
+  getLineRanges: (range: Range) => Range[],
   range: Range,
 ): Iterable<StyledRange> {
   if (range.isSingleLine) {
@@ -26,5 +26,15 @@ export function* generateDecorationsForCharacterRange(
     return;
   }
 
-  yield* handleMultipleLines(getLineRanges(editor, range));
+  // A list of ranges, one for each line in the given range, with the first and
+  // last ranges trimmed to the start and end of the given range.
+  const lineRanges = getLineRanges(range);
+
+  lineRanges[0] = lineRanges[0].with(range.start);
+  lineRanges[lineRanges.length - 1] = lineRanges[lineRanges.length - 1].with(
+    undefined,
+    range.end,
+  );
+
+  yield* handleMultipleLines(lineRanges);
 }

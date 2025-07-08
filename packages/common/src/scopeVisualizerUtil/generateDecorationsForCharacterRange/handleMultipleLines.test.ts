@@ -1,8 +1,8 @@
 import assert from "assert";
+import { map } from "itertools";
+import { Range } from "../../types/Range";
 import { BorderStyle } from "../decorationStyle.types";
 import { handleMultipleLines } from "./handleMultipleLines";
-import { Range } from "@cursorless/common";
-import { map } from "itertools";
 
 const solid = BorderStyle.solid;
 const porous = BorderStyle.porous;

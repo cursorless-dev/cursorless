@@ -28,3 +28,9 @@ export interface Target {
   content: string;
   removal?: string;
 }
+
+export interface RangeTypeColors {
+  background: string;
+  borderSolid: string;
+  borderPorous: string;
+}
