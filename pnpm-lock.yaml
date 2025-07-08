@@ -6,7 +6,7 @@ settings:
 
 patchedDependencies:
   '@shikijs/core':
-    hash: ywefm2stkeote2fll4isix3bky
+    hash: pboip74ghl4mfpkgi5l4nlq6x4
     path: patches/@shikijs__core.patch
   '@types/nearley@2.11.5':
     hash: 5bomp3nnmdzdyzcgrxyr5kymae
@@ -14408,7 +14408,7 @@ snapshots:
 
   '@rushstack/eslint-patch@1.10.4': {}
 
-  '@shikijs/core@3.7.0(patch_hash=ywefm2stkeote2fll4isix3bky)':
+  '@shikijs/core@3.7.0(patch_hash=pboip74ghl4mfpkgi5l4nlq6x4)':
     dependencies:
       '@shikijs/types': 3.7.0
       '@shikijs/vscode-textmate': 10.0.2
@@ -22095,7 +22095,7 @@ snapshots:
 
   shiki@3.7.0:
     dependencies:
-      '@shikijs/core': 3.7.0(patch_hash=ywefm2stkeote2fll4isix3bky)
+      '@shikijs/core': 3.7.0(patch_hash=pboip74ghl4mfpkgi5l4nlq6x4)
       '@shikijs/engine-javascript': 3.7.0
       '@shikijs/engine-oniguruma': 3.7.0
       '@shikijs/langs': 3.7.0

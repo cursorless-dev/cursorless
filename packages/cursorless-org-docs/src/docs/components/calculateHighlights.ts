@@ -159,13 +159,18 @@ function combineHighlightStyles(range: Range, highlights: Highlight[]): Style {
 
 function getUniquePositions(highlights: Highlight[]): Position[] {
   const result: Position[] = [];
+  const emptyHighlights = highlights.filter((h) => h.range.isEmpty);
   const positions = highlights
     .flatMap((h) => [h.range.start, h.range.end])
     .sort((a, b) =>
       a.line === b.line ? a.character - b.character : a.line - b.line,
     );
   for (let i = 0; i < positions.length; i++) {
-    if (i === 0 || !positions[i].isEqual(positions[i - 1])) {
+    if (
+      i === 0 ||
+      !positions[i].isEqual(positions[i - 1]) ||
+      emptyHighlights.some((h) => h.range.start.isEqual(positions[i]))
+    ) {
       result.push(positions[i]);
     }
   }
