@@ -1,7 +1,7 @@
 import type { ScopeTypeType } from "@cursorless/common";
 import React from "react";
 import { DynamicTOC } from "../../../components/DynamicTOC";
-import { ScopeSupport } from "../../../components/ScopeSupport";
+import { ScopeVisualizer } from "../../../components/ScopeVisualizer";
 import { ScrollToHash } from "../../../components/ScrollToHash";
 
 interface Props {
@@ -14,7 +14,7 @@ export function Scopes({ scopeTypeType }: Props) {
       <DynamicTOC />
       <ScrollToHash />
 
-      <ScopeSupport scopeTypeType={scopeTypeType} />
+      <ScopeVisualizer scopeTypeType={scopeTypeType} />
     </>
   );
 }

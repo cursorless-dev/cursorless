@@ -7,7 +7,7 @@ import {
 } from "@cursorless/common";
 import { usePluginData } from "@docusaurus/useGlobalData";
 import React, { useState } from "react";
-import { calculateHighlights } from "./calculateHighlights";
+import { generateDecorations } from "./calculateHighlights";
 import { Code } from "./Code";
 import { H2, H3, H4, H5 } from "./Header";
 import "./ScopeSupport.css";
@@ -42,7 +42,7 @@ interface Props {
   scopeTypeType?: ScopeTypeType;
 }
 
-export function ScopeSupport({ languageId, scopeTypeType }: Props) {
+export function ScopeVisualizer({ languageId, scopeTypeType }: Props) {
   const scopeTests = usePluginData("scope-tests-plugin") as ScopeTests;
   const [scopes] = useState(
     getScopeFixtures(scopeTests, languageId, scopeTypeType),
@@ -207,7 +207,7 @@ function renderFacet(
             }}
             languageId={languageId ?? fixture.languageId}
             renderWhitespace={renderWhitespace}
-            highlights={calculateHighlights(fixture, rangeType)}
+            decorations={generateDecorations(fixture, rangeType)}
           >
             {fixture.code}
           </Code>

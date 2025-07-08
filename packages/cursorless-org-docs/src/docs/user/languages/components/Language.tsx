@@ -1,6 +1,6 @@
 import React from "react";
 import { DynamicTOC } from "../../../components/DynamicTOC";
-import { ScopeSupport } from "../../../components/ScopeSupport";
+import { ScopeVisualizer } from "../../../components/ScopeVisualizer";
 import { ScrollToHash } from "../../../components/ScrollToHash";
 
 interface Props {
@@ -13,7 +13,7 @@ export function Language({ languageId }: Props) {
       <DynamicTOC />
       <ScrollToHash />
 
-      <ScopeSupport languageId={languageId} />
+      <ScopeVisualizer languageId={languageId} />
     </>
   );
 }

@@ -5,7 +5,7 @@ import {
   BorderStyle,
   Range,
 } from "@cursorless/common";
-import { type Highlight, type Style } from "./Code";
+import type { BorderRadius, Highlight, Style } from "./types";
 
 export function flattenHighlights(highlights: Highlight[]): Highlight[] {
   const positions = getUniquePositions(highlights);
@@ -55,21 +55,20 @@ function getUniquePositions(highlights: Highlight[]): Position[] {
 }
 
 function combineHighlightStyles(range: Range, highlights: Highlight[]): Style {
-  if (highlights.length === 1) {
-    return highlights[0].style;
-  }
-
   const lastHighlight = highlights[highlights.length - 1];
 
   const borderStyle: DecorationStyle = {
     left: BorderStyle.none,
     right: BorderStyle.none,
-    top: BorderStyle.none,
-    bottom: BorderStyle.none,
+    top: lastHighlight.style.borderStyle.top,
+    bottom: lastHighlight.style.borderStyle.bottom,
   };
-
-  borderStyle.top = lastHighlight.style.borderStyle.top;
-  borderStyle.bottom = lastHighlight.style.borderStyle.bottom;
+  const borderRadius: BorderRadius = {
+    topLeft: false,
+    topRight: false,
+    bottomRight: false,
+    bottomLeft: false,
+  };
 
   const matchingStart = highlights.filter((h) =>
     h.range.start.isEqual(range.start),
@@ -77,11 +76,17 @@ function combineHighlightStyles(range: Range, highlights: Highlight[]): Style {
   const matchingEnd = highlights.filter((h) => h.range.end.isEqual(range.end));
 
   if (matchingStart.length > 0) {
-    borderStyle.left = matchingStart.at(-1)!.style.borderStyle.left;
+    const start = matchingStart.at(-1)!;
+    borderStyle.left = start.style.borderStyle.left;
+    borderRadius.topLeft = start.style.borderRadius.topLeft;
+    borderRadius.bottomLeft = start.style.borderRadius.bottomLeft;
   }
 
   if (matchingEnd.length > 0) {
-    borderStyle.right = matchingEnd.at(-1)!.style.borderStyle.right;
+    const end = matchingEnd.at(-1)!;
+    borderStyle.right = end.style.borderStyle.right;
+    borderRadius.topRight = end.style.borderRadius.topRight;
+    borderRadius.bottomRight = end.style.borderRadius.bottomRight;
   }
 
   const backgroundColor = blendMultipleColors(
@@ -91,6 +96,7 @@ function combineHighlightStyles(range: Range, highlights: Highlight[]): Style {
   return {
     backgroundColor,
     borderStyle,
+    borderRadius,
     borderColorSolid: lastHighlight.style.borderColorSolid,
     borderColorPorous: lastHighlight.style.borderColorPorous,
   };

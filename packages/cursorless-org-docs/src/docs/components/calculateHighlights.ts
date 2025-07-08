@@ -1,18 +1,20 @@
 import {
   generateDecorationsForCharacterRange,
   Range,
+  useSingleCornerBorderRadius,
   type DecorationStyle,
 } from "@cursorless/common";
+import type { DecorationItem } from "shiki";
 import { blendRangeTypeColors } from "./blendRangeColors";
-import { type Highlight } from "./Code";
 import { flattenHighlights } from "./combineHighlightStyles";
 import { highlightColors } from "./highlightColors";
-import type { Fixture, RangeType, RangeTypeColors } from "./types";
+import { highlightsToDecorations } from "./highlightsToDecorations";
+import type { Fixture, Highlight, RangeType, RangeTypeColors } from "./types";
 
-export function calculateHighlights(
+export function generateDecorations(
   fixture: Fixture,
   rangeType: RangeType,
-): Highlight[] {
+): DecorationItem[] {
   const { domainRanges, allNestedRanges, domainEqualsNestedRanges } = getRanges(
     fixture,
     rangeType,
@@ -47,11 +49,13 @@ export function calculateHighlights(
     getHighlights(domainEqualsNestedColors, d.range, d.style),
   );
 
-  return flattenHighlights([
+  const highlights = flattenHighlights([
     ...domainHighlights,
     ...nestedRangeHighlights,
     ...domainEqualsNestedHighlights,
   ]);
+
+  return highlightsToDecorations(highlights);
 }
 
 function getRanges(fixture: Fixture, rangeType: RangeType) {
@@ -98,6 +102,12 @@ function getHighlights(
       borderColorSolid: colors.borderSolid,
       borderColorPorous: colors.borderPorous,
       borderStyle: borders,
+      borderRadius: {
+        topLeft: useSingleCornerBorderRadius(borders.top, borders.left),
+        topRight: useSingleCornerBorderRadius(borders.top, borders.right),
+        bottomRight: useSingleCornerBorderRadius(borders.bottom, borders.right),
+        bottomLeft: useSingleCornerBorderRadius(borders.bottom, borders.left),
+      },
     },
   };
 }
