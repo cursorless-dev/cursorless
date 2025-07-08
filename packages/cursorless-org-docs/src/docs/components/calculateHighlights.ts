@@ -40,45 +40,47 @@ export function calculateHighlights(
   );
 
   const domainHighlights = domainDecorations.map((d) =>
-    getHighlight(domainColors, d.range, d.style),
+    getHighlights(domainColors, d.range, d.style),
   );
   const nestedRangeHighlights = nestedRangeDecorations.map((d) =>
-    getHighlight(nestedRangeColors, d.range, d.style),
+    getHighlights(nestedRangeColors, d.range, d.style),
   );
   const domainEqualsNestedHighlights = domainEqualsNestedDecorations.map((d) =>
-    getHighlight(domainEqualsNestedColors, d.range, d.style),
+    getHighlights(domainEqualsNestedColors, d.range, d.style),
   );
 
-  const allHighlights = [
+  return flattenHighlights([
     ...domainHighlights,
     ...nestedRangeHighlights,
     ...domainEqualsNestedHighlights,
-  ];
+  ]);
+}
 
-  const positions = getUniquePositions(allHighlights);
-  const highlights: Highlight[] = [];
+function flattenHighlights(highlights: Highlight[]) {
+  const positions = getUniquePositions(highlights);
+  const results: Highlight[] = [];
 
   for (let i = 0; i < positions.length - 1; i++) {
     const subRange: Range = new Range(positions[i], positions[i + 1]);
 
-    // We have created ranges between two lines. Just skip these.
-    if (!subRange.isSingleLine) {
-      continue;
-    }
-
-    const matchingHighlights = allHighlights.filter(({ range }) =>
+    const matchingHighlights = highlights.filter(({ range }) =>
       range.contains(subRange),
     );
 
+    // This sub range could be between two scopes.
+    if (matchingHighlights.length === 0) {
+      continue;
+    }
+
     const style = combineHighlightStyles(subRange, matchingHighlights);
 
-    highlights.push({
+    results.push({
       range: subRange,
       style,
     });
   }
 
-  return highlights;
+  return results;
 }
 
 function getRanges(fixture: Fixture, rangeType: RangeType) {
@@ -170,7 +172,7 @@ function getUniquePositions(highlights: Highlight[]): Position[] {
   return result;
 }
 
-function getHighlight(
+function getHighlights(
   colors: RangeTypeColors,
   range: Range,
   borders: DecorationStyle,

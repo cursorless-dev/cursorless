@@ -166,10 +166,6 @@ function renderFacet(
 ) {
   let previousLanguageId: string | undefined;
 
-  if (facet.facet !== "interior.switchCase") {
-    return null;
-  }
-
   const renderFacetName = () => {
     if (scopeTypeType != null) {
       return (
