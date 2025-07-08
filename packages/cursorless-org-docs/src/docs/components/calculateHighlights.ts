@@ -2,7 +2,6 @@ import {
   blendMultipleColors,
   BorderStyle,
   generateDecorationsForCharacterRange,
-  getBorderColor,
   Range,
   type DecorationStyle,
   type Position,
@@ -206,18 +205,4 @@ function getCodeLineRanges(code: string): Range[] {
 
 function getLineRanges(lineRanges: Range[], range: Range): Range[] {
   return lineRanges.slice(range.start.line, range.end.line + 1);
-}
-
-function hasOverlap(a: Range, b: Range): boolean {
-  return getOverlap(a, b) != null;
-}
-
-function getOverlap(a: Range, b: Range): Range | null {
-  const intersection = a.intersection(b);
-  return intersection != null &&
-    !intersection.isEmpty &&
-    !a.contains(b) &&
-    !b.contains(a)
-    ? intersection
-    : null;
 }

@@ -1,4 +1,5 @@
-import { BorderStyle, DecorationStyle } from "./decorationStyle.types";
+import { BorderStyle } from "./decorationStyle.types";
+import type { DecorationStyle } from "./decorationStyle.types";
 
 export const BORDER_WIDTH = "1px";
 const BORDER_RADIUS = "2px";

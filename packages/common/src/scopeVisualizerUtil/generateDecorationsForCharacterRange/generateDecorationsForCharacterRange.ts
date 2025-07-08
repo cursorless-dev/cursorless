@@ -1,5 +1,4 @@
 import type { Range } from "../../types/Range";
-import type { TextEditor } from "../../types/TextEditor";
 import type { StyledRange } from "../decorationStyle.types";
 import { BorderStyle } from "../decorationStyle.types";
 import { handleMultipleLines } from "./handleMultipleLines";

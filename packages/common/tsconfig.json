@@ -1,10 +1,5 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.json",
-    "../../typings/**/*.d.ts",
-    "../cursorless-vscode/src/ide/vscode/VSCodeScopeVisualizer/VscodeFancyRangeHighlighter/getLineRanges.ts"
-  ],
+  "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"],
   "references": []
 }
