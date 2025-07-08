@@ -100,10 +100,6 @@ export function calculateHighlights(
     domainEqualsNestedRanges,
   );
 
-  console.log(domainDecorations);
-  console.log(nestedRangeDecorations);
-  console.log(domainEqualsNestedDecorations);
-
   const domainColors = highlightColors.domain;
   const nestedRangeColors =
     rangeType === "content" ? highlightColors.content : highlightColors.removal;
@@ -122,19 +118,75 @@ export function calculateHighlights(
     getHighlight(domainEqualsNestedColors, d.range, d.style),
   );
 
-  const highlights: Highlight[] = [
-    // ...domainHighlights,
+  let highlights: Highlight[] = [
+    ...domainHighlights,
     ...nestedRangeHighlights,
-    // ...domainEqualsNestedHighlights,
+    ...domainEqualsNestedHighlights,
   ];
+
+  //   console.log(domainHighlights);
+  //   console.log(nestedRangeHighlights);
+  // console.log(domainEqualsNestedHighlights);
+  //   console.log(highlights);
+
+  //   for (const h of nestedRangeHighlights) {
+  //     console.log(h.range.concise());
+  //   }
+
+  //   if (
+  //     highlights.length &&
+  //     highlights.some(
+  //       (h) => h.range.start.line === 2 && h.range.start.character === 4,
+  //     ) &&
+  //     highlights.some(
+  //       (h) => h.range.start.line === 2 && h.range.start.character === 8,
+  //     )
+  //   ) {
+  //     console.log(fixture.facet);
+  //   }
 
   if (
     highlights.some((h) => highlights.some((o) => hasOverlap(h.range, o.range)))
   ) {
+    console.log("--------------------");
     console.error("Overlapping highlights detected:");
     console.error(fixture);
-    console.error(highlights);
+
+    const conflicts = highlights
+      .filter((h) => highlights.some((o) => hasOverlap(h.range, o.range)))
+      .map((h) => h.range.concise())
+      .sort();
+    // for (const c of conflicts) {
+    //   console.log(c);
+    // }
+
+    // console.error(highlights);
+    highlights = highlights.filter(
+      //   (h) => !highlights.some((o) => hasOverlap(h.range, o.range)),
+      (h, index, self) => {
+        const conflictIndex = self.findIndex((o) =>
+          hasOverlap(h.range, o.range),
+        );
+
+        if (conflictIndex > -1 && conflictIndex < index) {
+          console.log(
+            `Conflict at index ${index} with ${conflictIndex}: ${h.range.concise()} vs ${self[conflictIndex].range.concise()}, ${h.style.borderStyle} vs ${self[conflictIndex].style.borderStyle}`,
+          );
+          return false;
+        }
+
+        // return conflictIndex === -1 || index < conflictIndex;
+        return true;
+      },
+    );
+    // console.log("**********");
+    // for (const c of highlights) {
+    //   console.log(c.range.concise());
+    // }
+    // highlights.length = 0;
   }
+
+  //   console.log(highlights);
 
   return highlights;
 }
