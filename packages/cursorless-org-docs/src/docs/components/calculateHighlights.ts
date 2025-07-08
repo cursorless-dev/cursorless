@@ -79,6 +79,8 @@ export function calculateHighlights(
     ...domainEqualsNestedHighlights,
   ];
 
+  //   console.log(allHighlights.map((h) => h.range.toString()).sort());
+
   const positions = uniquePositions(
     allHighlights.flatMap((h) => [h.range.start, h.range.end]),
   );
@@ -88,7 +90,7 @@ export function calculateHighlights(
   for (let i = 0; i < positions.length - 1; i++) {
     const subRange: Range = new Range(positions[i], positions[i + 1]);
 
-    // if (subRange.start.line !== 1) {
+    // if (subRange.start.line !== 0) {
     //   continue;
     // }
 
@@ -104,10 +106,11 @@ export function calculateHighlights(
     if (matchingHighlights.length > 1) {
       console.log("--------------------");
       console.log(subRange.toString());
-      for (const m of matchingHighlights) {
-        console.log(m);
-      }
+      //   for (const m of matchingHighlights) {
+      //     console.log(m);
+      //   }
     }
+
     const style = combineHighlightStyles(subRange, matchingHighlights);
 
     highlights.push({
@@ -124,43 +127,32 @@ function combineHighlightStyles(range: Range, highlights: Highlight[]): Style {
   if (highlights.length === 1) {
     return highlights[0].style;
   }
-  highlights.sort((a, b) => b.priority - a.priority);
 
-  const borderStyle = highlights[0].style.borderStyle;
+  highlights.sort((a, b) => a.priority - b.priority);
+
+  const lastHighlight = highlights[highlights.length - 1];
+
+  const borderStyle: DecorationStyle = {
+    left: BorderStyle.none,
+    right: BorderStyle.none,
+    top: BorderStyle.none,
+    bottom: BorderStyle.none,
+  };
+
+  borderStyle.top = lastHighlight.style.borderStyle.top;
+  borderStyle.bottom = lastHighlight.style.borderStyle.bottom;
+
   const matchingStart = highlights.filter((h) =>
     h.range.start.isEqual(range.start),
   );
   const matchingEnd = highlights.filter((h) => h.range.end.isEqual(range.end));
 
-  borderStyle.top = getStrongestBorder(
-    new Set(highlights.map((h) => h.style.borderStyle.top)),
-  );
-  borderStyle.bottom = getStrongestBorder(
-    new Set(highlights.map((h) => h.style.borderStyle.bottom)),
-  );
-
-  if (matchingStart.length === 0) {
-    borderStyle.left = BorderStyle.none;
-  } else if (matchingStart.length === 1) {
-    borderStyle.left = matchingStart[0].style.borderStyle.left;
-  } else {
-    const values = new Set(matchingStart.map((h) => h.style.borderStyle.left));
-    if (values.size > 1) {
-      if (values.size > 1) {
-        borderStyle.left = getStrongestBorder(values);
-      }
-    }
+  if (matchingStart.length > 0) {
+    borderStyle.left = matchingStart.at(-1)!.style.borderStyle.left;
   }
 
-  if (matchingEnd.length === 0) {
-    borderStyle.right = BorderStyle.none;
-  } else if (matchingEnd.length === 1) {
-    borderStyle.right = matchingEnd[0].style.borderStyle.right;
-  } else {
-    const values = new Set(matchingEnd.map((h) => h.style.borderStyle.right));
-    if (values.size > 1) {
-      borderStyle.right = getStrongestBorder(values);
-    }
+  if (matchingEnd.length > 0) {
+    borderStyle.right = matchingEnd.at(-1)!.style.borderStyle.right;
   }
 
   const backgroundColor = blendMultipleColors(
@@ -170,22 +162,22 @@ function combineHighlightStyles(range: Range, highlights: Highlight[]): Style {
   return {
     // TODO: Background color
     // backgroundColor,
-    backgroundColor: highlights[0].style.backgroundColor,
+    backgroundColor: lastHighlight.style.backgroundColor,
     borderStyle,
-    borderColorSolid: highlights[0].style.borderColorSolid,
-    borderColorPorous: highlights[0].style.borderColorPorous,
+    borderColorSolid: lastHighlight.style.borderColorSolid,
+    borderColorPorous: lastHighlight.style.borderColorPorous,
   };
 }
 
-function getStrongestBorder(available: Set<BorderStyle>): BorderStyle {
-  if (available.has(BorderStyle.solid)) {
-    return BorderStyle.solid;
-  }
-  if (available.has(BorderStyle.porous)) {
-    return BorderStyle.porous;
-  }
-  return BorderStyle.none;
-}
+// function getStrongestBorder(available: Set<BorderStyle>): BorderStyle {
+//   if (available.has(BorderStyle.solid)) {
+//     return BorderStyle.solid;
+//   }
+//   if (available.has(BorderStyle.porous)) {
+//     return BorderStyle.porous;
+//   }
+//   return BorderStyle.none;
+// }
 
 function uniquePositions(positions: Position[]): Position[] {
   const result: Position[] = [];

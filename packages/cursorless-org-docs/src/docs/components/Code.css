@@ -6,13 +6,12 @@
 }
 
 .code-container .shiki {
-  /* line-height: 1rem; */
+  line-height: 1rem;
 }
 
 .code-container .line {
   position: relative;
   margin-left: 1.5rem;
-  /* display: inline-block; */
 }
 
 .code-container .line::before {
