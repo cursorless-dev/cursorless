@@ -16,6 +16,73 @@ export function calculateHighlights(
   fixture: Fixture,
   rangeType: RangeType,
 ): Highlight[] {
+  const { domainRanges, allNestedRanges, domainEqualsNestedRanges } = getRanges(
+    fixture,
+    rangeType,
+  );
+
+  const codeLineRanges = getCodeLineRanges(fixture.code);
+  const domainDecorations = getDecorations(codeLineRanges, domainRanges);
+  const nestedRangeDecorations = getDecorations(
+    codeLineRanges,
+    allNestedRanges,
+  );
+  const domainEqualsNestedDecorations = getDecorations(
+    codeLineRanges,
+    domainEqualsNestedRanges,
+  );
+
+  const domainColors = highlightColors.domain;
+  const nestedRangeColors =
+    rangeType === "content" ? highlightColors.content : highlightColors.removal;
+  const domainEqualsNestedColors = blendRangeTypeColors(
+    domainColors,
+    nestedRangeColors,
+  );
+
+  const domainHighlights = domainDecorations.map((d) =>
+    getHighlight(domainColors, d.range, d.style),
+  );
+  const nestedRangeHighlights = nestedRangeDecorations.map((d) =>
+    getHighlight(nestedRangeColors, d.range, d.style),
+  );
+  const domainEqualsNestedHighlights = domainEqualsNestedDecorations.map((d) =>
+    getHighlight(domainEqualsNestedColors, d.range, d.style),
+  );
+
+  const allHighlights = [
+    ...domainHighlights,
+    ...nestedRangeHighlights,
+    ...domainEqualsNestedHighlights,
+  ];
+
+  const positions = getUniquePositions(allHighlights);
+  const highlights: Highlight[] = [];
+
+  for (let i = 0; i < positions.length - 1; i++) {
+    const subRange: Range = new Range(positions[i], positions[i + 1]);
+
+    // We have created ranges between two lines. Just skip these.
+    if (!subRange.isSingleLine) {
+      continue;
+    }
+
+    const matchingHighlights = allHighlights.filter(({ range }) =>
+      range.contains(subRange),
+    );
+
+    const style = combineHighlightStyles(subRange, matchingHighlights);
+
+    highlights.push({
+      range: subRange,
+      style,
+    });
+  }
+
+  return highlights;
+}
+
+function getRanges(fixture: Fixture, rangeType: RangeType) {
   const domainRanges: Range[] = [];
   const allNestedRanges: Range[] = [];
   const domainEqualsNestedRanges: Range[] = [];
@@ -44,82 +111,13 @@ export function calculateHighlights(
     allNestedRanges.push(...nestedRanges);
   }
 
-  const codeLineRanges = getCodeLineRanges(fixture.code);
-  const domainDecorations = getDecorations(codeLineRanges, domainRanges);
-  const nestedRangeDecorations = getDecorations(
-    codeLineRanges,
-    allNestedRanges,
-  );
-  const domainEqualsNestedDecorations = getDecorations(
-    codeLineRanges,
-    domainEqualsNestedRanges,
-  );
-
-  const domainColors = highlightColors.domain;
-  const nestedRangeColors =
-    rangeType === "content" ? highlightColors.content : highlightColors.removal;
-  const domainEqualsNestedColors = blendRangeTypeColors(
-    domainColors,
-    nestedRangeColors,
-  );
-
-  const domainHighlights = domainDecorations.map((d) =>
-    getHighlight(domainColors, d.range, d.style, 0),
-  );
-  const nestedRangeHighlights = nestedRangeDecorations.map((d) =>
-    getHighlight(nestedRangeColors, d.range, d.style, 2),
-  );
-  const domainEqualsNestedHighlights = domainEqualsNestedDecorations.map((d) =>
-    getHighlight(domainEqualsNestedColors, d.range, d.style, 1),
-  );
-
-  const allHighlights = [
-    ...domainHighlights,
-    ...nestedRangeHighlights,
-    ...domainEqualsNestedHighlights,
-  ];
-
-  const positions = uniquePositions(
-    allHighlights.flatMap((h) => [h.range.start, h.range.end]),
-  );
-
-  let highlights: Highlight[] = [];
-
-  for (let i = 0; i < positions.length - 1; i++) {
-    const subRange: Range = new Range(positions[i], positions[i + 1]);
-
-    // We have created ranges between two lines. Just skip these.
-    if (!subRange.isSingleLine) {
-      continue;
-    }
-
-    const matchingHighlights = allHighlights.filter(({ range }) =>
-      range.contains(subRange),
-    );
-
-    if (matchingHighlights.length > 1) {
-      console.log("--------------------");
-      console.log(subRange.toString());
-    }
-
-    const style = combineHighlightStyles(subRange, matchingHighlights);
-
-    highlights.push({
-      range: subRange,
-      style,
-      priority: 0,
-    });
-  }
-
-  return highlights;
+  return { domainRanges, allNestedRanges, domainEqualsNestedRanges };
 }
 
 function combineHighlightStyles(range: Range, highlights: Highlight[]): Style {
   if (highlights.length === 1) {
     return highlights[0].style;
   }
-
-  highlights.sort((a, b) => a.priority - b.priority);
 
   const lastHighlight = highlights[highlights.length - 1];
 
@@ -158,9 +156,13 @@ function combineHighlightStyles(range: Range, highlights: Highlight[]): Style {
   };
 }
 
-function uniquePositions(positions: Position[]): Position[] {
+function getUniquePositions(highlights: Highlight[]): Position[] {
   const result: Position[] = [];
-  positions.sort(comparePos);
+  const positions = highlights
+    .flatMap((h) => [h.range.start, h.range.end])
+    .sort((a, b) =>
+      a.line === b.line ? a.character - b.character : a.line - b.line,
+    );
   for (let i = 0; i < positions.length; i++) {
     if (i === 0 || !positions[i].isEqual(positions[i - 1])) {
       result.push(positions[i]);
@@ -169,19 +171,13 @@ function uniquePositions(positions: Position[]): Position[] {
   return result;
 }
 
-function comparePos(a: Position, b: Position): number {
-  return a.line === b.line ? a.character - b.character : a.line - b.line;
-}
-
 function getHighlight(
   colors: RangeTypeColors,
   range: Range,
   borders: DecorationStyle,
-  priority: number,
 ): Highlight {
   return {
     range,
-    priority,
     style: {
       backgroundColor: colors.background,
       borderColorSolid: colors.borderSolid,

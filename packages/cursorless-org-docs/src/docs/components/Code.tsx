@@ -1,6 +1,7 @@
 import {
   BORDER_WIDTH,
   getBorderColor,
+  getBorderRadius,
   getBorderStyle,
   type BorderStyle,
   type Range,
@@ -12,7 +13,6 @@ import "./Code.css";
 export interface Highlight {
   range: Range;
   style: Style;
-  priority: number;
 }
 
 export interface Style {
@@ -135,8 +135,7 @@ function getStyleString(style: Style): string {
     `background-color: ${style.backgroundColor};` +
     `border-color: ${borderColor};` +
     `border-style: ${getBorderStyle(style.borderStyle)};` +
-    // TODO: Border radius
-    // `border-radius: ${getBorderRadius(style.borderStyle)};` +
+    `border-radius: ${getBorderRadius(style.borderStyle)};` +
     `border-width: ${BORDER_WIDTH};`
   );
 }
