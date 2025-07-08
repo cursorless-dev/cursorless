@@ -30,3 +30,11 @@ export function blendColors(base: string, top: string): string {
     a: blendedAlpha,
   }).toHex8String();
 }
+
+export function blendMultipleColors(colors: string[]): string {
+  let color = colors[0];
+  for (let i = 1; i < colors.length; i++) {
+    color = blendColors(color, colors[i]);
+  }
+  return color;
+}

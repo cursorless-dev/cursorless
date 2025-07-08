@@ -165,11 +165,10 @@ function renderFacet(
   index: number,
 ) {
   let previousLanguageId: string | undefined;
-  //   console.log(facet.facet);
 
-  //   if (facet.facet !== "argumentList.actual.multiLine") {
-  //     return null;
-  //   }
+  if (facet.facet !== "interior.switchCase") {
+    return null;
+  }
 
   const renderFacetName = () => {
     if (scopeTypeType != null) {

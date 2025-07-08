@@ -1,4 +1,10 @@
-import type { Range } from "@cursorless/common";
+import {
+  BORDER_WIDTH,
+  getBorderColor,
+  getBorderStyle,
+  type BorderStyle,
+  type Range,
+} from "@cursorless/common";
 import React, { useEffect, useState } from "react";
 import { codeToHtml, type DecorationItem } from "shiki";
 import "./Code.css";
@@ -6,14 +12,19 @@ import "./Code.css";
 export interface Highlight {
   range: Range;
   style: Style;
+  priority: number;
 }
 
-interface Style {
+export interface Style {
   backgroundColor: string;
-  borderColor: string;
-  borderStyle: string;
-  borderWidth: string;
-  borderRadius: string;
+  borderColorSolid: string;
+  borderColorPorous: string;
+  borderStyle: {
+    top: BorderStyle;
+    bottom: BorderStyle;
+    left: BorderStyle;
+    right: BorderStyle;
+  };
 }
 
 interface Props {
@@ -115,12 +126,18 @@ function getDecorations(
 }
 
 function getStyleString(style: Style): string {
+  const borderColor = getBorderColor(
+    style.borderColorSolid,
+    style.borderColorPorous,
+    style.borderStyle,
+  );
   return (
     `background-color: ${style.backgroundColor};` +
-    `border-color: ${style.borderColor};` +
-    `border-style: ${style.borderStyle};` +
-    `border-width: ${style.borderWidth};` +
-    `border-radius: ${style.borderRadius};`
+    `border-color: ${borderColor};` +
+    `border-style: ${getBorderStyle(style.borderStyle)};` +
+    // TODO: Border radius
+    // `border-radius: ${getBorderRadius(style.borderStyle)};` +
+    `border-width: ${BORDER_WIDTH};`
   );
 }
 

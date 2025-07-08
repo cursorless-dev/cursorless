@@ -1,14 +1,14 @@
 import {
-  BORDER_WIDTH,
+  blendMultipleColors,
+  BorderStyle,
   generateDecorationsForCharacterRange,
   getBorderColor,
-  getBorderRadius,
-  getBorderStyle,
   Range,
   type DecorationStyle,
+  type Position,
 } from "@cursorless/common";
 import { blendRangeTypeColors } from "./blendRangeColors";
-import { type Highlight } from "./Code";
+import { type Highlight, type Style } from "./Code";
 import { highlightColors } from "./highlightColors";
 import type { Fixture, RangeType, RangeTypeColors } from "./types";
 
@@ -16,51 +16,6 @@ export function calculateHighlights(
   fixture: Fixture,
   rangeType: RangeType,
 ): Highlight[] {
-  //   const highlights: Highlight[] = [];
-  //   const domainRanges: Range[] = [];
-
-  //   for (const scope of fixture.scopes) {
-  //     const conciseRanges =
-  //       rangeType === "content"
-  //         ? scope.targets.map((t) => t.content)
-  //         : scope.targets.map((t) => t.removal ?? t.content);
-  //     const ranges = conciseRanges.map((r) => Range.fromConcise(r));
-
-  //     if (scope.domain != null && !conciseRanges.includes(scope.domain)) {
-  //       domainRanges.push(Range.fromConcise(scope.domain));
-  //     }
-
-  //     for (const r of ranges) {
-  //       let range = r;
-
-  //       const overlap = highlights
-  //         .map((h) => getOverlap(h.range, range))
-  //         .find((o) => o != null);
-
-  //       if (overlap != null) {
-  //         highlights.push({
-  //           type: rangeType,
-  //           range: overlap,
-  //         });
-  //         range = new Range(overlap.end, range.end);
-  //       }
-
-  //       highlights.push({
-  //         type: rangeType,
-  //         range,
-  //       });
-  //     }
-  //   }
-
-  //   for (const range of domainRanges) {
-  //     if (highlights.every((h) => !hasOverlap(h.range, range))) {
-  //       highlights.push({
-  //         type: "domain",
-  //         range,
-  //       });
-  //     }
-  //   }
-
   const domainRanges: Range[] = [];
   const allNestedRanges: Range[] = [];
   const domainEqualsNestedRanges: Range[] = [];
@@ -109,105 +64,158 @@ export function calculateHighlights(
   );
 
   const domainHighlights = domainDecorations.map((d) =>
-    getHighlight(domainColors, d.range, d.style),
+    getHighlight(domainColors, d.range, d.style, 0),
   );
   const nestedRangeHighlights = nestedRangeDecorations.map((d) =>
-    getHighlight(nestedRangeColors, d.range, d.style),
+    getHighlight(nestedRangeColors, d.range, d.style, 2),
   );
   const domainEqualsNestedHighlights = domainEqualsNestedDecorations.map((d) =>
-    getHighlight(domainEqualsNestedColors, d.range, d.style),
+    getHighlight(domainEqualsNestedColors, d.range, d.style, 1),
   );
 
-  let highlights: Highlight[] = [
+  const allHighlights = [
     ...domainHighlights,
     ...nestedRangeHighlights,
     ...domainEqualsNestedHighlights,
   ];
 
-  //   console.log(domainHighlights);
-  //   console.log(nestedRangeHighlights);
-  // console.log(domainEqualsNestedHighlights);
-  //   console.log(highlights);
+  const positions = uniquePositions(
+    allHighlights.flatMap((h) => [h.range.start, h.range.end]),
+  );
 
-  //   for (const h of nestedRangeHighlights) {
-  //     console.log(h.range.concise());
-  //   }
+  let highlights: Highlight[] = [];
 
-  //   if (
-  //     highlights.length &&
-  //     highlights.some(
-  //       (h) => h.range.start.line === 2 && h.range.start.character === 4,
-  //     ) &&
-  //     highlights.some(
-  //       (h) => h.range.start.line === 2 && h.range.start.character === 8,
-  //     )
-  //   ) {
-  //     console.log(fixture.facet);
-  //   }
+  for (let i = 0; i < positions.length - 1; i++) {
+    const subRange: Range = new Range(positions[i], positions[i + 1]);
 
-  if (
-    highlights.some((h) => highlights.some((o) => hasOverlap(h.range, o.range)))
-  ) {
-    console.log("--------------------");
-    console.error("Overlapping highlights detected:");
-    console.error(fixture);
-
-    const conflicts = highlights
-      .filter((h) => highlights.some((o) => hasOverlap(h.range, o.range)))
-      .map((h) => h.range.concise())
-      .sort();
-    // for (const c of conflicts) {
-    //   console.log(c);
+    // if (subRange.start.line !== 1) {
+    //   continue;
     // }
 
-    // console.error(highlights);
-    highlights = highlights.filter(
-      //   (h) => !highlights.some((o) => hasOverlap(h.range, o.range)),
-      (h, index, self) => {
-        const conflictIndex = self.findIndex((o) =>
-          hasOverlap(h.range, o.range),
-        );
+    // We have created ranges between two lines. Just skip these.
+    if (!subRange.isSingleLine) {
+      continue;
+    }
 
-        if (conflictIndex > -1 && conflictIndex < index) {
-          console.log(
-            `Conflict at index ${index} with ${conflictIndex}: ${h.range.concise()} vs ${self[conflictIndex].range.concise()}, ${h.style.borderStyle} vs ${self[conflictIndex].style.borderStyle}`,
-          );
-          return false;
-        }
-
-        // return conflictIndex === -1 || index < conflictIndex;
-        return true;
-      },
+    const matchingHighlights = allHighlights.filter(({ range }) =>
+      range.contains(subRange),
     );
-    // console.log("**********");
-    // for (const c of highlights) {
-    //   console.log(c.range.concise());
-    // }
-    // highlights.length = 0;
+
+    if (matchingHighlights.length > 1) {
+      console.log("--------------------");
+      console.log(subRange.toString());
+      for (const m of matchingHighlights) {
+        console.log(m);
+      }
+    }
+    const style = combineHighlightStyles(subRange, matchingHighlights);
+
+    highlights.push({
+      range: subRange,
+      style,
+      priority: 0,
+    });
   }
 
-  //   console.log(highlights);
-
   return highlights;
+}
+
+function combineHighlightStyles(range: Range, highlights: Highlight[]): Style {
+  if (highlights.length === 1) {
+    return highlights[0].style;
+  }
+  highlights.sort((a, b) => b.priority - a.priority);
+
+  const borderStyle = highlights[0].style.borderStyle;
+  const matchingStart = highlights.filter((h) =>
+    h.range.start.isEqual(range.start),
+  );
+  const matchingEnd = highlights.filter((h) => h.range.end.isEqual(range.end));
+
+  borderStyle.top = getStrongestBorder(
+    new Set(highlights.map((h) => h.style.borderStyle.top)),
+  );
+  borderStyle.bottom = getStrongestBorder(
+    new Set(highlights.map((h) => h.style.borderStyle.bottom)),
+  );
+
+  if (matchingStart.length === 0) {
+    borderStyle.left = BorderStyle.none;
+  } else if (matchingStart.length === 1) {
+    borderStyle.left = matchingStart[0].style.borderStyle.left;
+  } else {
+    const values = new Set(matchingStart.map((h) => h.style.borderStyle.left));
+    if (values.size > 1) {
+      if (values.size > 1) {
+        borderStyle.left = getStrongestBorder(values);
+      }
+    }
+  }
+
+  if (matchingEnd.length === 0) {
+    borderStyle.right = BorderStyle.none;
+  } else if (matchingEnd.length === 1) {
+    borderStyle.right = matchingEnd[0].style.borderStyle.right;
+  } else {
+    const values = new Set(matchingEnd.map((h) => h.style.borderStyle.right));
+    if (values.size > 1) {
+      borderStyle.right = getStrongestBorder(values);
+    }
+  }
+
+  const backgroundColor = blendMultipleColors(
+    highlights.map((h) => h.style.backgroundColor),
+  );
+
+  return {
+    // TODO: Background color
+    // backgroundColor,
+    backgroundColor: highlights[0].style.backgroundColor,
+    borderStyle,
+    borderColorSolid: highlights[0].style.borderColorSolid,
+    borderColorPorous: highlights[0].style.borderColorPorous,
+  };
+}
+
+function getStrongestBorder(available: Set<BorderStyle>): BorderStyle {
+  if (available.has(BorderStyle.solid)) {
+    return BorderStyle.solid;
+  }
+  if (available.has(BorderStyle.porous)) {
+    return BorderStyle.porous;
+  }
+  return BorderStyle.none;
+}
+
+function uniquePositions(positions: Position[]): Position[] {
+  const result: Position[] = [];
+  positions.sort(comparePos);
+  for (let i = 0; i < positions.length; i++) {
+    if (i === 0 || !positions[i].isEqual(positions[i - 1])) {
+      result.push(positions[i]);
+    }
+  }
+  return result;
+}
+
+function comparePos(a: Position, b: Position): number {
+  return a.line === b.line ? a.character - b.character : a.line - b.line;
 }
 
 function getHighlight(
   colors: RangeTypeColors,
   range: Range,
   borders: DecorationStyle,
+  priority: number,
 ): Highlight {
   return {
     range,
+    priority,
     style: {
       backgroundColor: colors.background,
-      borderColor: getBorderColor(
-        colors.borderSolid,
-        colors.borderPorous,
-        borders,
-      ),
-      borderStyle: getBorderStyle(borders),
-      borderWidth: BORDER_WIDTH,
-      borderRadius: getBorderRadius(borders),
+      borderColorSolid: colors.borderSolid,
+      borderColorPorous: colors.borderPorous,
+      borderStyle: borders,
     },
   };
 }
