@@ -1,6 +1,7 @@
+import { BorderStyle, Range } from "@cursorless/common";
 import * as assert from "assert";
-import { generateDecorations } from "./calculateHighlights";
-import type { Fixture, Scope } from "./types";
+import { flattenHighlights } from "./combineHighlightStyles";
+import type { Highlight, Scope } from "./types";
 
 interface Test {
   name: string;
@@ -16,7 +17,7 @@ const tests: Test[] = [
         targets: [{ content: "0:3-0:5" }, { content: "0:7-0:9" }],
       },
     ],
-    expected: ["0:3-0:5", "0:7-0:9"],
+    expected: ["0:3-0:5", "0:5-0:7", "0:7-0:9"],
   },
   {
     name: "Adjacent targets",
@@ -34,7 +35,7 @@ const tests: Test[] = [
         targets: [{ content: "0:3-0:5" }, { content: "0:4-0:9" }],
       },
     ],
-    expected: ["0:3-0:5", "0:4-0:5", "0:5-0:9"],
+    expected: ["0:3-0:4", "0:4-0:5", "0:5-0:9"],
   },
   {
     name: "Domain == target",
@@ -54,7 +55,7 @@ const tests: Test[] = [
         targets: [{ content: "0:3-0:5" }],
       },
     ],
-    expected: ["0:3-0:5", "0:3-0:6"],
+    expected: ["0:3-0:5", "0:5-0:6"],
   },
   {
     name: "Target contains domain",
@@ -64,7 +65,7 @@ const tests: Test[] = [
         targets: [{ content: "0:3-0:6" }],
       },
     ],
-    expected: ["0:3-0:6", "0:3-0:5"],
+    expected: ["0:3-0:5", "0:5-0:6"],
   },
   {
     name: "Domain overlaps target",
@@ -74,26 +75,49 @@ const tests: Test[] = [
         targets: [{ content: "0:4-0:6" }],
       },
     ],
-    expected: ["0:4-0:6"],
+    expected: ["0:3-0:4", "0:4-0:5", "0:5-0:6"],
   },
 ];
 
-suite("calculate highlights", () => {
+suite("flatten highlights", () => {
   tests.forEach((t) => {
-    const fixture: Fixture = {
-      name: t.name,
-      scopes: t.scopes,
-      facet: "line",
-      languageId: "plaintext",
-      code: "",
-    };
-    test(fixture.name, () => {
-      const decorations = generateDecorations(fixture, "content") ?? [];
-      assert.equal(decorations.length, t.expected.length);
-      // TODO: decorations test
-      //   for (let i = 0; i < decorations.length; i++) {
-      //     assert.equal(decorations[i].range.concise(), t.expected[i]);
-      //   }
+    const highlights = t.scopes.flatMap((s) => {
+      const result: Highlight[] = [];
+      if (s.domain) {
+        result.push(createHighlight(s.domain));
+      }
+      result.push(...s.targets.map((t) => createHighlight(t.content)));
+      return result;
+    });
+    test(t.name, () => {
+      const actual = flattenHighlights(highlights);
+      assert.equal(actual.length, t.expected.length);
+      for (let i = 0; i < actual.length; i++) {
+        assert.equal(actual[i].range.concise(), t.expected[i]);
+      }
     });
   });
 });
+
+function createHighlight(range: string): Highlight {
+  return {
+    range: Range.fromConcise(range),
+    style: {
+      backgroundColor: "black",
+      borderColorSolid: "red",
+      borderColorPorous: "pink",
+      borderRadius: {
+        topLeft: false,
+        topRight: false,
+        bottomLeft: false,
+        bottomRight: false,
+      },
+      borderStyle: {
+        top: BorderStyle.none,
+        bottom: BorderStyle.none,
+        left: BorderStyle.none,
+        right: BorderStyle.none,
+      },
+    },
+  };
+}
