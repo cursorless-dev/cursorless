@@ -81,15 +81,15 @@ const tests: Test[] = [
 
 suite("flatten highlights", () => {
   tests.forEach((t) => {
-    const highlights = t.scopes.flatMap((s) => {
-      const result: Highlight[] = [];
-      if (s.domain) {
-        result.push(createHighlight(s.domain));
-      }
-      result.push(...s.targets.map((t) => createHighlight(t.content)));
-      return result;
-    });
     test(t.name, () => {
+      const highlights = t.scopes.flatMap((s) => {
+        const result: Highlight[] = [];
+        if (s.domain) {
+          result.push(createHighlight(s.domain));
+        }
+        result.push(...s.targets.map((t) => createHighlight(t.content)));
+        return result;
+      });
       const actual = flattenHighlights(highlights);
       assert.equal(actual.length, t.expected.length);
       for (let i = 0; i < actual.length; i++) {
