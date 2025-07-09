@@ -10,15 +10,14 @@ import type { BorderRadius, Highlight, Style } from "./types";
 export function flattenHighlights(highlights: Highlight[]): Highlight[] {
   const positions = getUniquePositions(highlights);
   const results: Highlight[] = [];
+
   for (let i = 0; i < positions.length - 1; i++) {
     const range = new Range(positions[i], positions[i + 1]);
 
-    const matchingHighlights = range.isEmpty
-      ? highlights.filter((h) => h.range.contains(range))
-      : highlights.filter((h) => {
-          const intersection = h.range.intersection(range);
-          return intersection && !intersection.isEmpty;
-        });
+    const matchingHighlights = highlights.filter((h) => {
+      const intersection = h.range.intersection(range);
+      return intersection && !intersection.isEmpty;
+    });
 
     // This range could be between two scopes.
     if (matchingHighlights.length === 0) {
@@ -34,8 +33,14 @@ export function flattenHighlights(highlights: Highlight[]): Highlight[] {
 
   if (emptyHighlights.length > 0) {
     for (const emptyHighlight of emptyHighlights) {
-      if (!results.some((h) => h.range.isRangeEqual(emptyHighlight.range))) {
-        results.push(emptyHighlight);
+      const { range } = emptyHighlight;
+      if (!results.some((h) => h.range.isRangeEqual(range))) {
+        const matchingHighlights = highlights.filter((h) =>
+          h.range.contains(range),
+        );
+        const style = combineHighlightStyles(range, matchingHighlights);
+
+        results.push({ range, style });
       }
     }
 
@@ -43,24 +48,6 @@ export function flattenHighlights(highlights: Highlight[]): Highlight[] {
   }
 
   return results;
-}
-
-function sortHighlights(highlights: Highlight[]) {
-  highlights.sort((a, b) => {
-    if (a.range.start.isBefore(b.range.start)) {
-      return -1;
-    }
-    if (a.range.start.isAfter(b.range.start)) {
-      return 1;
-    }
-    if (a.range.end.isBefore(b.range.end)) {
-      return -1;
-    }
-    if (a.range.end.isAfter(b.range.end)) {
-      return 1;
-    }
-    return 0;
-  });
 }
 
 function getUniquePositions(highlights: Highlight[]): Position[] {
@@ -124,4 +111,22 @@ function combineHighlightStyles(range: Range, highlights: Highlight[]): Style {
     borderColorSolid: lastHighlight.style.borderColorSolid,
     borderColorPorous: lastHighlight.style.borderColorPorous,
   };
+}
+
+function sortHighlights(highlights: Highlight[]) {
+  highlights.sort((a, b) => {
+    if (a.range.start.isBefore(b.range.start)) {
+      return -1;
+    }
+    if (a.range.start.isAfter(b.range.start)) {
+      return 1;
+    }
+    if (a.range.end.isBefore(b.range.end)) {
+      return -1;
+    }
+    if (a.range.end.isAfter(b.range.end)) {
+      return 1;
+    }
+    return 0;
+  });
 }
