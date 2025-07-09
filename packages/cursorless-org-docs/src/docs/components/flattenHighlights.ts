@@ -10,13 +10,15 @@ import type { BorderRadius, Highlight, Style } from "./types";
 export function flattenHighlights(highlights: Highlight[]): Highlight[] {
   const positions = getPositions(highlights);
   const results: Highlight[] = [];
-
   for (let i = 0; i < positions.length - 1; i++) {
     const range = new Range(positions[i], positions[i + 1]);
 
-    const matchingHighlights = highlights.filter(({ range }) =>
-      range.contains(range),
-    );
+    const matchingHighlights = range.isEmpty
+      ? highlights.filter((h) => range.contains(range))
+      : highlights.filter((h) => {
+          const intersection = h.range.intersection(range);
+          return intersection && !intersection.isEmpty;
+        });
 
     // This sub could be between two scopes.
     if (matchingHighlights.length === 0) {
