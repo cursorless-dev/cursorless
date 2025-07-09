@@ -20,7 +20,7 @@ export function flattenHighlights(highlights: Highlight[]): Highlight[] {
           return intersection && !intersection.isEmpty;
         });
 
-    // This sub could be between two scopes.
+    // This range could be between two scopes.
     if (matchingHighlights.length === 0) {
       continue;
     }
