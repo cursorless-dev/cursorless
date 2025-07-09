@@ -121,6 +121,10 @@
         "title": "Cursorless: Hide the scope visualizer"
       },
       {
+        "command": "cursorless.scopeVisualizer.openUrl",
+        "title": "Cursorless: Open in browser"
+      },
+      {
         "command": "cursorless.analyzeCommandHistory",
         "title": "Cursorless: Analyze collected command history"
       },
@@ -1233,6 +1237,15 @@
           "icon": "images/logo.svg"
         }
       ]
+    },
+    "menus": {
+      "view/item/context": [
+        {
+          "command": "cursorless.scopeVisualizer.openUrl",
+          "when": "view == cursorless.scopes && viewItem == scopeVisualizerTreeItem",
+          "group": "navigation"
+        }
+      ]
     }
   },
   "scripts": {
@@ -1277,7 +1290,6 @@
     "nearley": "2.20.1",
     "semver": "7.7.2",
     "talon-snippets": "1.3.0",
-    "tinycolor2": "1.6.0",
     "trie-search": "2.2.0",
     "uuid": "11.1.0",
     "vscode-uri": "3.1.0"
@@ -1290,7 +1302,6 @@
     "@types/node": "20.17.50",
     "@types/semver": "7.7.0",
     "@types/sinon": "17.0.4",
-    "@types/tinycolor2": "1.4.6",
     "@types/uuid": "10.0.0",
     "@types/vscode": "1.82.0",
     "esbuild": "0.25.5",

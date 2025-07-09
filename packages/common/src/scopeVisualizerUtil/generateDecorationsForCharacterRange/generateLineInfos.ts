@@ -1,4 +1,4 @@
-import type { Range } from "@cursorless/common";
+import type { Range } from "../..";
 
 /**
  * Generates a line info for each line in the given range, which includes

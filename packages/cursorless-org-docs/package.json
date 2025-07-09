@@ -59,9 +59,11 @@
     "prism-react-renderer": "2.4.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "shiki": "3.7.0",
     "unist-util-visit": "5.0.0"
   },
   "devDependencies": {
+    "@cursorless/node-common": "workspace:*",
     "@docusaurus/module-type-aliases": "3.8.1",
     "@docusaurus/types": "3.8.1",
     "@tailwindcss/postcss": "4.1.10",
