@@ -10,15 +10,36 @@ export function ScrollToHash() {
 
   useEffect(() => {
     if (location.hash) {
-      setTimeout(() => {
-        const id = location.hash.replace("#", "");
+      const id = location.hash.replace("#", "");
+      const delay = 100;
+      let attemptsLeft = 5;
+
+      const scrollToId = () => {
         const element = document.getElementById(id);
+
         if (element != null) {
+          if (isElementAtTop(element)) {
+            return;
+          }
           element.scrollIntoView();
         }
-      }, 100);
+
+        attemptsLeft--;
+
+        if (attemptsLeft > 0) {
+          setTimeout(scrollToId, delay);
+        }
+      };
+
+      setTimeout(scrollToId, delay);
     }
   }, []);
 
   return null;
+}
+
+function isElementAtTop(el: HTMLElement, tolerance = 10) {
+  const rect = el.getBoundingClientRect();
+  // 68px is the offset for the navbar
+  return Math.abs(rect.top - 68) <= tolerance;
 }
