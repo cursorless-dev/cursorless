@@ -14,7 +14,7 @@ export function flattenHighlights(highlights: Highlight[]): Highlight[] {
     const range = new Range(positions[i], positions[i + 1]);
 
     const matchingHighlights = range.isEmpty
-      ? highlights.filter((h) => range.contains(range))
+      ? highlights.filter((h) => h.range.contains(range))
       : highlights.filter((h) => {
           const intersection = h.range.intersection(range);
           return intersection && !intersection.isEmpty;
