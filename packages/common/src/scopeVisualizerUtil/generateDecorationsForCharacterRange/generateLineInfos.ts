@@ -1,4 +1,4 @@
-import type { Range } from "../../types/Range";
+import type { Range } from "../..";
 
 /**
  * Generates a line info for each line in the given range, which includes

@@ -1,5 +1,5 @@
 import { flatmap } from "itertools";
-import { Range } from "../../types/Range";
+import { Range } from "../..";
 import type { DecorationStyle, StyledRange } from "../decorationStyle.types";
 import { BorderStyle } from "../decorationStyle.types";
 import type { LineInfo } from "./generateLineInfos";

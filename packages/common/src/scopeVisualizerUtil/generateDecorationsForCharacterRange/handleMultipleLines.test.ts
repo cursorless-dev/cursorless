@@ -1,6 +1,6 @@
 import assert from "assert";
 import { map } from "itertools";
-import { Range } from "../../types/Range";
+import { Range } from "../..";
 import { BorderStyle } from "../decorationStyle.types";
 import { handleMultipleLines } from "./handleMultipleLines";
 

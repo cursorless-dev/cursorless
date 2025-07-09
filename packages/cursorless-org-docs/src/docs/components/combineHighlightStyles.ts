@@ -8,33 +8,30 @@ import {
 import type { BorderRadius, Highlight, Style } from "./types";
 
 export function flattenHighlights(highlights: Highlight[]): Highlight[] {
-  const positions = getUniquePositions(highlights);
+  const positions = getPositions(highlights);
   const results: Highlight[] = [];
 
   for (let i = 0; i < positions.length - 1; i++) {
-    const subRange: Range = new Range(positions[i], positions[i + 1]);
+    const range = new Range(positions[i], positions[i + 1]);
 
     const matchingHighlights = highlights.filter(({ range }) =>
-      range.contains(subRange),
+      range.contains(range),
     );
 
-    // This sub range could be between two scopes.
+    // This sub could be between two scopes.
     if (matchingHighlights.length === 0) {
       continue;
     }
 
-    const style = combineHighlightStyles(subRange, matchingHighlights);
+    const style = combineHighlightStyles(range, matchingHighlights);
 
-    results.push({
-      range: subRange,
-      style,
-    });
+    results.push({ range, style });
   }
 
   return results;
 }
 
-function getUniquePositions(highlights: Highlight[]): Position[] {
+function getPositions(highlights: Highlight[]): Position[] {
   const result: Position[] = [];
   const emptyHighlights = highlights.filter((h) => h.range.isEmpty);
   const positions = highlights
