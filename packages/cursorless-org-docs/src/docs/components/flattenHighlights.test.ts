@@ -17,7 +17,7 @@ const tests: Test[] = [
         targets: [{ content: "0:3-0:5" }, { content: "0:7-0:9" }],
       },
     ],
-    expected: ["0:3-0:5", "0:5-0:7", "0:7-0:9"],
+    expected: ["0:3-0:5", "0:7-0:9"],
   },
   {
     name: "Adjacent targets",
