@@ -17,14 +17,16 @@ export function generateDecorations(
   const { domainRanges, targetRanges } = getRanges(fixture, rangeType);
 
   const codeLineRanges = getCodeLineRanges(fixture.code);
+  const colors = getColors(rangeType);
+
   const domainDecorations = getDecorations(codeLineRanges, domainRanges);
   const targetRangeDecorations = getDecorations(codeLineRanges, targetRanges);
 
   const domainHighlights = domainDecorations.map((d) =>
-    getHighlights(highlightColors.domain, d.range, d.style),
+    getHighlights(colors.domain, d.range, d.style),
   );
   const targetRangeHighlights = targetRangeDecorations.map((d) =>
-    getHighlights(getTargetRangeColor(rangeType), d.range, d.style),
+    getHighlights(colors.target, d.range, d.style),
   );
 
   const highlights = flattenHighlights([
@@ -35,10 +37,14 @@ export function generateDecorations(
   return highlightsToDecorations(highlights);
 }
 
-function getTargetRangeColor(rangeType: RangeType): RangeTypeColors {
-  return rangeType === "content"
-    ? highlightColors.content
-    : highlightColors.removal;
+function getColors(rangeType: RangeType) {
+  return {
+    domain: highlightColors.domain,
+    target:
+      rangeType === "content"
+        ? highlightColors.content
+        : highlightColors.removal,
+  };
 }
 
 function getRanges(fixture: Fixture, rangeType: RangeType) {
