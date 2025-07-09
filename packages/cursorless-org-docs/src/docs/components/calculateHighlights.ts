@@ -14,55 +14,50 @@ export function generateDecorations(
   fixture: Fixture,
   rangeType: RangeType,
 ): DecorationItem[] {
-  const { domainRanges, allNestedRanges } = getRanges(fixture, rangeType);
+  const { domainRanges, targetRanges } = getRanges(fixture, rangeType);
 
   const codeLineRanges = getCodeLineRanges(fixture.code);
   const domainDecorations = getDecorations(codeLineRanges, domainRanges);
-  const nestedRangeDecorations = getDecorations(
-    codeLineRanges,
-    allNestedRanges,
-  );
-
-  const domainColors = highlightColors.domain;
-  const nestedRangeColors =
-    rangeType === "content" ? highlightColors.content : highlightColors.removal;
+  const targetRangeDecorations = getDecorations(codeLineRanges, targetRanges);
 
   const domainHighlights = domainDecorations.map((d) =>
-    getHighlights(domainColors, d.range, d.style),
+    getHighlights(highlightColors.domain, d.range, d.style),
   );
-  const nestedRangeHighlights = nestedRangeDecorations.map((d) =>
-    getHighlights(nestedRangeColors, d.range, d.style),
+  const targetRangeHighlights = targetRangeDecorations.map((d) =>
+    getHighlights(getTargetRangeColor(rangeType), d.range, d.style),
   );
 
   const highlights = flattenHighlights([
     ...domainHighlights,
-    ...nestedRangeHighlights,
+    ...targetRangeHighlights,
   ]);
 
   return highlightsToDecorations(highlights);
 }
 
+function getTargetRangeColor(rangeType: RangeType): RangeTypeColors {
+  return rangeType === "content"
+    ? highlightColors.content
+    : highlightColors.removal;
+}
+
 function getRanges(fixture: Fixture, rangeType: RangeType) {
   const domainRanges: Range[] = [];
-  const allNestedRanges: Range[] = [];
+  const targetRanges: Range[] = [];
 
   for (const { domain, targets } of fixture.scopes) {
-    const nestedRanges = targets
-      .map((t) =>
-        rangeType === "content" ? t.content : (t.removal ?? t.content),
-      )
-      .map((r) => Range.fromConcise(r));
-
-    const domainRange = domain != null ? Range.fromConcise(domain) : null;
-
-    if (domainRange != null) {
-      domainRanges.push(domainRange);
+    if (domain != null) {
+      domainRanges.push(Range.fromConcise(domain));
     }
 
-    allNestedRanges.push(...nestedRanges);
+    for (const t of targets) {
+      const range =
+        rangeType === "content" ? t.content : (t.removal ?? t.content);
+      targetRanges.push(Range.fromConcise(range));
+    }
   }
 
-  return { domainRanges, allNestedRanges };
+  return { domainRanges, targetRanges };
 }
 
 function getHighlights(
