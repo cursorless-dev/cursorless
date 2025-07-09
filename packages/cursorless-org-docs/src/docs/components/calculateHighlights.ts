@@ -13,11 +13,12 @@ import type { Fixture, Highlight, RangeType, RangeTypeColors } from "./types";
 export function generateDecorations(
   fixture: Fixture,
   rangeType: RangeType,
+  isIteration: boolean,
 ): DecorationItem[] {
   const { domainRanges, targetRanges } = getRanges(fixture, rangeType);
 
   const codeLineRanges = getCodeLineRanges(fixture.code);
-  const colors = getColors(rangeType);
+  const colors = getColors(rangeType, isIteration);
 
   const domainDecorations = getDecorations(codeLineRanges, domainRanges);
   const targetRangeDecorations = getDecorations(codeLineRanges, targetRanges);
@@ -37,13 +38,19 @@ export function generateDecorations(
   return highlightsToDecorations(highlights);
 }
 
-function getColors(rangeType: RangeType) {
+function getColors(rangeType: RangeType, isIteration: boolean) {
+  const target = (() => {
+    if (isIteration) {
+      return highlightColors.iteration;
+    }
+    if (rangeType === "content") {
+      return highlightColors.content;
+    }
+    return highlightColors.removal;
+  })();
   return {
     domain: highlightColors.domain,
-    target:
-      rangeType === "content"
-        ? highlightColors.content
-        : highlightColors.removal,
+    target,
   };
 }
 

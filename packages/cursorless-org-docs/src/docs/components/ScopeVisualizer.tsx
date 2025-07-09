@@ -207,7 +207,11 @@ function renderFacet(
             }}
             languageId={languageId ?? fixture.languageId}
             renderWhitespace={renderWhitespace}
-            decorations={generateDecorations(fixture, rangeType)}
+            decorations={generateDecorations(
+              fixture,
+              rangeType,
+              facet.info.isIteration ?? false,
+            )}
           >
             {fixture.code}
           </Code>
