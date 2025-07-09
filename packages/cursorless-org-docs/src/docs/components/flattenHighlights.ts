@@ -8,7 +8,7 @@ import {
 import type { BorderRadius, Highlight, Style } from "./types";
 
 export function flattenHighlights(highlights: Highlight[]): Highlight[] {
-  const positions = getPositions(highlights);
+  const positions = getUniquePositions(highlights);
   const results: Highlight[] = [];
   for (let i = 0; i < positions.length - 1; i++) {
     const range = new Range(positions[i], positions[i + 1]);
@@ -30,23 +30,48 @@ export function flattenHighlights(highlights: Highlight[]): Highlight[] {
     results.push({ range, style });
   }
 
+  const emptyHighlights = highlights.filter((h) => h.range.isEmpty);
+
+  if (emptyHighlights.length > 0) {
+    for (const emptyHighlight of emptyHighlights) {
+      if (!results.some((h) => h.range.isRangeEqual(emptyHighlight.range))) {
+        results.push(emptyHighlight);
+      }
+    }
+
+    sortHighlights(results);
+  }
+
   return results;
 }
 
-function getPositions(highlights: Highlight[]): Position[] {
+function sortHighlights(highlights: Highlight[]) {
+  highlights.sort((a, b) => {
+    if (a.range.start.isBefore(b.range.start)) {
+      return -1;
+    }
+    if (a.range.start.isAfter(b.range.start)) {
+      return 1;
+    }
+    if (a.range.end.isBefore(b.range.end)) {
+      return -1;
+    }
+    if (a.range.end.isAfter(b.range.end)) {
+      return 1;
+    }
+    return 0;
+  });
+}
+
+function getUniquePositions(highlights: Highlight[]): Position[] {
   const result: Position[] = [];
-  const emptyHighlights = highlights.filter((h) => h.range.isEmpty);
   const positions = highlights
     .flatMap((h) => [h.range.start, h.range.end])
     .sort((a, b) =>
       a.line === b.line ? a.character - b.character : a.line - b.line,
     );
   for (let i = 0; i < positions.length; i++) {
-    if (
-      i === 0 ||
-      !positions[i].isEqual(positions[i - 1]) ||
-      emptyHighlights.some((h) => h.range.start.isEqual(positions[i]))
-    ) {
+    if (i === 0 || !positions[i].isEqual(positions[i - 1])) {
       result.push(positions[i]);
     }
   }
