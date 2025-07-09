@@ -5,7 +5,7 @@ import { useLocation } from "@docusaurus/router";
  * Scrolls to the element with the ID matching the current hash in the URL.
  * This is needed when a hash ID is provided in the initial load to scroll to a heading rendered by a react component.
  */
-export function ScrollToHash() {
+export function ScrollToHashId() {
   const location = useLocation();
 
   useEffect(() => {
