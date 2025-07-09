@@ -5,7 +5,6 @@ import {
   type DecorationStyle,
 } from "@cursorless/common";
 import type { DecorationItem } from "shiki";
-import { blendRangeTypeColors } from "./blendRangeColors";
 import { flattenHighlights } from "./flattenHighlights";
 import { highlightColors } from "./highlightColors";
 import { highlightsToDecorations } from "./highlightsToDecorations";
@@ -15,10 +14,7 @@ export function generateDecorations(
   fixture: Fixture,
   rangeType: RangeType,
 ): DecorationItem[] {
-  const { domainRanges, allNestedRanges, domainEqualsNestedRanges } = getRanges(
-    fixture,
-    rangeType,
-  );
+  const { domainRanges, allNestedRanges } = getRanges(fixture, rangeType);
 
   const codeLineRanges = getCodeLineRanges(fixture.code);
   const domainDecorations = getDecorations(codeLineRanges, domainRanges);
@@ -26,18 +22,10 @@ export function generateDecorations(
     codeLineRanges,
     allNestedRanges,
   );
-  const domainEqualsNestedDecorations = getDecorations(
-    codeLineRanges,
-    domainEqualsNestedRanges,
-  );
 
   const domainColors = highlightColors.domain;
   const nestedRangeColors =
     rangeType === "content" ? highlightColors.content : highlightColors.removal;
-  const domainEqualsNestedColors = blendRangeTypeColors(
-    domainColors,
-    nestedRangeColors,
-  );
 
   const domainHighlights = domainDecorations.map((d) =>
     getHighlights(domainColors, d.range, d.style),
@@ -45,14 +33,10 @@ export function generateDecorations(
   const nestedRangeHighlights = nestedRangeDecorations.map((d) =>
     getHighlights(nestedRangeColors, d.range, d.style),
   );
-  const domainEqualsNestedHighlights = domainEqualsNestedDecorations.map((d) =>
-    getHighlights(domainEqualsNestedColors, d.range, d.style),
-  );
 
   const highlights = flattenHighlights([
     ...domainHighlights,
     ...nestedRangeHighlights,
-    ...domainEqualsNestedHighlights,
   ]);
 
   return highlightsToDecorations(highlights);
@@ -61,7 +45,6 @@ export function generateDecorations(
 function getRanges(fixture: Fixture, rangeType: RangeType) {
   const domainRanges: Range[] = [];
   const allNestedRanges: Range[] = [];
-  const domainEqualsNestedRanges: Range[] = [];
 
   for (const { domain, targets } of fixture.scopes) {
     const nestedRanges = targets
@@ -73,21 +56,13 @@ function getRanges(fixture: Fixture, rangeType: RangeType) {
     const domainRange = domain != null ? Range.fromConcise(domain) : null;
 
     if (domainRange != null) {
-      if (
-        nestedRanges.length === 1 &&
-        nestedRanges[0].isRangeEqual(domainRange)
-      ) {
-        domainEqualsNestedRanges.push(domainRange);
-        continue;
-      }
-
       domainRanges.push(domainRange);
     }
 
     allNestedRanges.push(...nestedRanges);
   }
 
-  return { domainRanges, allNestedRanges, domainEqualsNestedRanges };
+  return { domainRanges, allNestedRanges };
 }
 
 function getHighlights(
