@@ -1,6 +1,6 @@
 import { BorderStyle, Range } from "@cursorless/common";
 import * as assert from "assert";
-import { flattenHighlights } from "./combineHighlightStyles";
+import { flattenHighlights } from "./flattenHighlights";
 import type { Highlight, Scope } from "./types";
 
 interface Test {

@@ -6,7 +6,7 @@ import {
 } from "@cursorless/common";
 import type { DecorationItem } from "shiki";
 import { blendRangeTypeColors } from "./blendRangeColors";
-import { flattenHighlights } from "./combineHighlightStyles";
+import { flattenHighlights } from "./flattenHighlights";
 import { highlightColors } from "./highlightColors";
 import { highlightsToDecorations } from "./highlightsToDecorations";
 import type { Fixture, Highlight, RangeType, RangeTypeColors } from "./types";
