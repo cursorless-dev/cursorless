@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "The root of the Cursorless monorepo",
   "license": "MIT",
-  "packageManager": "pnpm@10.12.4",
+  "packageManager": "pnpm@10.13.1",
   "type": "module",
   "main": "index.js",
   "engines": {
@@ -54,6 +54,10 @@
       "@shikijs/core": "patches/@shikijs__core.patch",
       "@types/nearley@2.11.5": "patches/@types__nearley@2.11.5.patch",
       "nearley@2.20.1": "patches/nearley@2.20.1.patch"
+    },
+    "overrides": {
+      "@docusaurus/core>webpack-dev-server": "5.2.2",
+      "@octokit/core": "6.1.5"
     }
   }
 }
