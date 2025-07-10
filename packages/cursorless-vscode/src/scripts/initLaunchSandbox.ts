@@ -14,7 +14,7 @@ const validCliToolParams : Array<string> = ["--code", "--codium"]
 async function main() {
   try {
     // Read cli tool name from arguments, assume tool name is 'code' if not present
-    var cliToolName = vsCodeToolName;
+    let cliToolName = vsCodeToolName;
 
     process.argv.forEach(argument => {
       if (validCliToolParams.includes(argument)) {
