@@ -35,6 +35,12 @@ function getErrorMessage(
     return issue.message;
   }
 
+  const argIndex = issue.path[0] as number;
+
+  if (argIndex >= inputOperands.length) {
+    return "Too few arguments";
+  }
+
   let message = issue.message;
 
   if (issue.code === "invalid_value" && issue.path[1] === "type") {
@@ -44,7 +50,6 @@ function getErrorMessage(
         : "Expected string, but received capture";
   }
 
-  const argIndex = issue.path[0] as number;
   const operandString = operandToString(inputOperands[argIndex]);
   return `Error on argument ${argIndex} (\`${operandString}\`): ${message}`;
 }
