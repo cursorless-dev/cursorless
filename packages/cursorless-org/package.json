@@ -42,7 +42,7 @@
   "devDependencies": {
     "@svgr/webpack": "8.1.0",
     "@types/mdx": "2.0.13",
-    "@types/node": "20.17.50",
+    "@types/node": "24.0.12",
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
     "autoprefixer": "10.4.21",

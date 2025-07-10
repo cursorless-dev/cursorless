@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "The root of the Cursorless monorepo",
   "license": "MIT",
-  "packageManager": "pnpm@10.12.1",
+  "packageManager": "pnpm@10.12.4",
   "type": "module",
   "main": "index.js",
   "engines": {
@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@pnpm/meta-updater": "2.0.4",
-    "@types/node": "20.17.50",
+    "@types/node": "24.0.12",
     "@typescript-eslint/eslint-plugin": "8.36.0",
     "@typescript-eslint/parser": "8.36.0",
     "cross-env": "7.0.3",
