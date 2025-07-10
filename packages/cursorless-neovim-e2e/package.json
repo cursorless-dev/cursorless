@@ -28,7 +28,7 @@
   "devDependencies": {
     "@types/chai": "5.2.2",
     "@types/js-yaml": "4.0.9",
-    "@types/lodash": "4.17.17",
+    "@types/lodash": "4.17.20",
     "@types/sinon": "17.0.4",
     "neovim": "5.3.0"
   }
