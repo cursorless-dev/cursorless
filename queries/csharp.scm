@@ -255,7 +255,7 @@
 ;;!! () => 2;
 ;;!        ^
 (lambda_expression
-  body: (_) @value @interior
+  body: (_) @value
   (#not-type? @value block initializer_expression)
 ) @_.domain
 
@@ -323,11 +323,11 @@
 ) @_.domain
 
 (switch_statement
-  (tuple_expression) @private.switchStatementSubject
+  (tuple_expression) @value
 ) @_.domain
 
 (switch_statement
-  value: (_) @private.switchStatementSubject
+  value: (_) @value
 ) @_.domain
 
 (_

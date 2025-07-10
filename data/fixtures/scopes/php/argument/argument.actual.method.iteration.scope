@@ -2,7 +2,7 @@
 obj.myFunc(2, "foo");
 ---
 
-[Range] = 1:11-1:19
+[Content] = 1:11-1:19
              >--------<
 1| obj.myFunc(2, "foo");
 

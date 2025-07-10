@@ -61,10 +61,6 @@ export const scopeSupportFacetInfos: Record<
     description: "A regular expression",
     scopeType: "regularExpression",
   },
-  switchStatementSubject: {
-    description: "The subject of a switch statement",
-    scopeType: "private.switchStatementSubject",
-  },
   fieldAccess: {
     description: "A field access",
     scopeType: "private.fieldAccess",
@@ -725,6 +721,10 @@ export const scopeSupportFacetInfos: Record<
     description: "Value of a yield statement",
     scopeType: "value",
   },
+  "value.switch": {
+    description: "The value / subject of a switch statement",
+    scopeType: "value",
+  },
   "value.iteration.block": blockIter("value", "values"),
   "value.iteration.class": classIter("value", "values"),
   "value.iteration.enum": enumIter("value", "values"),
@@ -910,12 +910,8 @@ export const scopeSupportFacetInfos: Record<
     description: "The body of a method declaration",
     scopeType: { type: "interior" },
   },
-  "interior.lambda.block": {
+  "interior.lambda": {
     description: "The block body of a lambda/anonymous function",
-    scopeType: { type: "interior" },
-  },
-  "interior.lambda.expression": {
-    description: "The expression body of a lambda/anonymous function",
     scopeType: { type: "interior" },
   },
   "interior.if": {

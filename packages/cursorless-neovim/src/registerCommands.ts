@@ -98,6 +98,7 @@ export async function registerCommands(
     // Scope visualizer
     ["cursorless.showScopeVisualizer"]: dummyCommandHandler,
     ["cursorless.hideScopeVisualizer"]: dummyCommandHandler,
+    ["cursorless.scopeVisualizer.openUrl"]: dummyCommandHandler,
 
     // Command history
     ["cursorless.analyzeCommandHistory"]: dummyCommandHandler,

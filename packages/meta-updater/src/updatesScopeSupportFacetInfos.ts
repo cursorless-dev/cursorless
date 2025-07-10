@@ -1,9 +1,9 @@
 import {
   scopeSupportFacetInfos,
   serializeScopeType,
-  textualScopeSupportFacetInfos,
+  plaintextScopeSupportFacetInfos,
   type ScopeSupportFacet,
-  type TextualScopeSupportFacet,
+  type PlaintextScopeSupportFacet,
 } from "@cursorless/common";
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 
@@ -17,7 +17,7 @@ export function updatesScopeSupportFacetInfos(
 
   const facetsInfos = {
     ...scopeSupportFacetInfos,
-    ...textualScopeSupportFacetInfos,
+    ...plaintextScopeSupportFacetInfos,
   };
 
   const facets = Object.keys(facetsInfos).sort();
@@ -26,7 +26,7 @@ export function updatesScopeSupportFacetInfos(
 
   for (const facet of facets) {
     const facetInfo =
-      facetsInfos[facet as ScopeSupportFacet | TextualScopeSupportFacet];
+      facetsInfos[facet as ScopeSupportFacet | PlaintextScopeSupportFacet];
     const scopeType = serializeScopeType(facetInfo.scopeType);
     if (scopeType !== currentScopeType) {
       if (currentScopeType != null) {

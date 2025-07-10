@@ -5,7 +5,7 @@ import type {
   ScopeType,
   TextEditor,
 } from "@cursorless/common";
-import { ScopeSupport, showError } from "@cursorless/common";
+import { DOCS_URL, ScopeSupport, showError } from "@cursorless/common";
 import type {
   ScopeRangeType,
   ScopeVisualizerColorConfig,
@@ -67,7 +67,7 @@ export abstract class VscodeScopeVisualizer {
         void showError(
           this.ide.messages,
           "ScopeVisualizer.scopeTypeNotSupported",
-          `Scope type not supported for ${editor.document.languageId}, or only defined using legacy API which doesn't support visualization.  See https://www.cursorless.org/docs/contributing/adding-a-new-language/ for more about how to upgrade your language.`,
+          `Scope type not supported for ${editor.document.languageId}, or only defined using legacy API which doesn't support visualization.  See ${DOCS_URL}/contributing/adding-a-new-language for more about how to upgrade your language.`,
         );
     }
   }

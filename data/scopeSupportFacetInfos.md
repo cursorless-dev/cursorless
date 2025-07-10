@@ -187,8 +187,7 @@
 - `interior.function` The body of a function declaration
 - `interior.if` The body of an if/elif/else branch
 - `interior.interface` The body of a interface
-- `interior.lambda.block` The block body of a lambda/anonymous function
-- `interior.lambda.expression` The expression body of a lambda/anonymous function
+- `interior.lambda` The block body of a lambda/anonymous function
 - `interior.method` The body of a method declaration
 - `interior.namespace` the body of a namespace statement
 - `interior.resource` the body of a 'with' / 'use' / 'using' statement
@@ -323,10 +322,6 @@
 - `surroundingPair` A delimiter pair, such as parentheses or quotes
 - `surroundingPair.iteration` The iteration scope for delimiter pairs
 
-### private.switchStatementSubject
-
-- `switchStatementSubject` The subject of a switch statement
-
 ### xmlBothTags
 
 - `tags` Both tags in a xml element
@@ -405,6 +400,7 @@
 - `value.resource.iteration` Iteration scope for values in a 'with' / 'use' / 'using' statement: the resource list. The domain should be the entire statement.
 - `value.return` Return value of a function
 - `value.return.lambda` Implicit return value from a lambda
+- `value.switch` The value / subject of a switch statement
 - `value.typeAlias` Value of a type alias declaration
 - `value.variable` Value (RHS) of a variable declaration
 - `value.variable.pattern` Value (RHS) of a variable declaration with pattern destructuring

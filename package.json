@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "The root of the Cursorless monorepo",
   "license": "MIT",
-  "packageManager": "pnpm@9.12.1",
+  "packageManager": "pnpm@10.13.1",
   "type": "module",
   "main": "index.js",
   "engines": {
@@ -31,28 +31,33 @@
     "watch:tsc": "tsc --build --watch"
   },
   "devDependencies": {
-    "@pnpm/meta-updater": "2.0.4",
-    "@types/node": "20.17.50",
-    "@typescript-eslint/eslint-plugin": "8.34.0",
-    "@typescript-eslint/parser": "8.34.0",
+    "@pnpm/meta-updater": "2.0.6",
+    "@types/node": "24.0.12",
+    "@typescript-eslint/eslint-plugin": "8.36.0",
+    "@typescript-eslint/parser": "8.36.0",
     "cross-env": "7.0.3",
-    "esbuild": "0.25.5",
-    "eslint": "9.28.0",
+    "esbuild": "0.25.6",
+    "eslint": "9.30.1",
     "eslint-config-prettier": "10.1.5",
-    "eslint-import-resolver-typescript": "4.4.3",
-    "eslint-plugin-import": "2.31.0",
+    "eslint-import-resolver-typescript": "4.4.4",
+    "eslint-plugin-import": "2.32.0",
     "eslint-plugin-mocha": "10.5.0",
     "eslint-plugin-unicorn": "56.0.1",
     "eslint-plugin-unused-imports": "4.1.4",
     "prettier": "3.3.3",
-    "prettier-plugin-tailwindcss": "0.6.12",
+    "prettier-plugin-tailwindcss": "0.6.14",
     "syncpack": "13.0.4",
     "typescript": "5.8.3"
   },
   "pnpm": {
     "patchedDependencies": {
+      "@shikijs/core": "patches/@shikijs__core.patch",
       "@types/nearley@2.11.5": "patches/@types__nearley@2.11.5.patch",
       "nearley@2.20.1": "patches/nearley@2.20.1.patch"
+    },
+    "overrides": {
+      "@docusaurus/core>webpack-dev-server": "5.2.2",
+      "@yarnpkg/shell>cross-spawn": "7.0.6"
     }
   }
 }

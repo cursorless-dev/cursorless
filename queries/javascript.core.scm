@@ -457,7 +457,7 @@
 ;;!         ^
 ;;!  --------
 (arrow_function
-  body: (_) @value @interior
+  body: (_) @value
   (#not-type? @value statement_block)
 ) @_.domain
 
@@ -665,13 +665,13 @@
 ;;!          ^^^^^
 ;;!                  ^
 (switch_statement
-  value: (_) @private.switchStatementSubject
+  value: (_) @value
   body: (_
     "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
     "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
   )
-  (#child-range! @private.switchStatementSubject 0 -1 true true)
-) @branch.iteration.domain @condition.iteration.domain @private.switchStatementSubject.domain
+  (#child-range! @value 0 -1 true true)
+) @branch.iteration.domain @condition.iteration.domain @value.domain
 
 ;;!! case 0: break;
 ;;!  ^^^^^^^^^^^^^^

@@ -6,7 +6,7 @@ switch (value) {
 }
 ---
 
-[Range] =
+[Content] =
 [Domain] = 0:16-5:0
                   >
 0| switch (value) {

@@ -1,7 +1,7 @@
 @mixin replace-text($image, $color: red) {}
 ---
 
-[Range] = 0:20-0:39
+[Content] = 0:20-0:39
                       >-------------------<
 0| @mixin replace-text($image, $color: red) {}
 

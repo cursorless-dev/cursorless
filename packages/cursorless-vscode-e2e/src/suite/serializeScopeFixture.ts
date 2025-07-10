@@ -71,6 +71,11 @@ function serializeScope(
     });
   }
 
+  // If we're going to add a target number we need a scope number as well.
+  if (scopeNumber == null) {
+    scopeNumber = 1;
+  }
+
   // If we have multiple targets or the domain is not equal to the content range: add domain last
   return [
     ...targets.map((target, index) =>
@@ -128,7 +133,7 @@ function serializeIterationScope(
 
     lines.push(
       serializeHeader({
-        header: "Range",
+        header: "Content",
         scopeNumber,
         targetNumber: ranges.length > 1 ? index + 1 : undefined,
         range: groupHeaders ? undefined : range.range,

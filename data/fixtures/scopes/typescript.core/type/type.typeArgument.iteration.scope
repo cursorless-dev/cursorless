@@ -1,13 +1,13 @@
 let value: Map<string, number>;
 ---
 
-[#1 Range] =
+[#1 Content] =
 [#1 Domain] = 0:0-0:31
   >-------------------------------<
 0| let value: Map<string, number>;
 
 
-[#2 Range] =
+[#2 Content] =
 [#2 Domain] = 0:15-0:29
                  >--------------<
 0| let value: Map<string, number>;

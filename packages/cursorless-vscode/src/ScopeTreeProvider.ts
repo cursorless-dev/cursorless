@@ -6,8 +6,11 @@ import type {
 } from "@cursorless/common";
 import {
   CURSORLESS_SCOPE_TREE_VIEW_ID,
+  DOCS_URL,
   ScopeSupport,
   disposableFrom,
+  serializeScopeType,
+  uriEncodeHashId,
 } from "@cursorless/common";
 import type { CustomSpokenFormGenerator } from "@cursorless/cursorless-engine";
 import type { VscodeApi } from "@cursorless/vscode-common";
@@ -144,9 +147,7 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
 
     if (result === HOW_BUTTON_TEXT) {
       await this.vscodeApi.env.openExternal(
-        URI.parse(
-          "https://www.cursorless.org/docs/user/updating/#updating-the-talon-side",
-        ),
+        URI.parse(`${DOCS_URL}/user/updating/#updating-the-talon-side`),
       );
     } else if (result === DONT_SHOW_AGAIN_BUTTON_TEXT) {
       await this.context.globalState.update(
@@ -214,6 +215,7 @@ function getSupportCategories(): SupportCategoryTreeItem[] {
 
 class ScopeSupportTreeItem extends TreeItem {
   public declare readonly label: TreeItemLabel;
+  public url: string | undefined;
 
   /**
    * @param scopeTypeInfo The scope type info
@@ -235,8 +237,8 @@ class ScopeSupportTreeItem extends TreeItem {
     } else {
       label = "-";
       tooltip = scopeTypeInfo.spokenForm.requiresTalonUpdate
-        ? "Requires Talon update; see [update instructions](https://www.cursorless.org/docs/user/updating/#updating-the-talon-side)"
-        : "Spoken form disabled; see [customization docs](https://www.cursorless.org/docs/user/customization/#talon-side-settings)";
+        ? `Requires Talon update; see [update instructions](${DOCS_URL}/user/updating/#updating-the-talon-side)`
+        : `Spoken form disabled; see [customization docs](${DOCS_URL}/user/customization/#talon-side-settings)`;
     }
 
     super(
@@ -277,13 +279,24 @@ class ScopeSupportTreeItem extends TreeItem {
             "cursorless-dummy://dummy/dummy" + fileExtension,
           );
         }
+        this.setUrl(languageId);
       }
 
       if (this.resourceUri == null) {
         // Fall back to a generic icon
         this.iconPath = new ThemeIcon("code");
       }
+    } else {
+      this.setUrl("plaintext");
     }
+  }
+
+  private setUrl(languageId: string) {
+    const id = uriEncodeHashId(
+      serializeScopeType(this.scopeTypeInfo.scopeType),
+    );
+    this.url = `${DOCS_URL}/user/languages/${languageId}#${id}`;
+    this.contextValue = "scopeVisualizerTreeItem";
   }
 }
 

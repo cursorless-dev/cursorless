@@ -6,7 +6,7 @@ finally:
     pass
 ---
 
-[Range] =
+[Content] =
 [Domain] = 0:0-5:8
   >----
 0| try:

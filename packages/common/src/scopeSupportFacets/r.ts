@@ -53,8 +53,7 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.class": unsupported,
   "interior.function": unsupported,
   "interior.if": unsupported,
-  "interior.lambda.block": unsupported,
-  "interior.lambda.expression": unsupported,
+  "interior.lambda": unsupported,
   "interior.try": unsupported,
   "key.attribute": unsupported,
   "name.class": unsupported,
@@ -68,6 +67,7 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   "value.attribute": unsupported,
   "value.foreach": unsupported,
   "value.return": unsupported,
+  "value.switch": unsupported,
   attribute: unsupported,
   class: unsupported,
   className: unsupported,
@@ -75,7 +75,6 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   fieldAccess: unsupported,
   map: unsupported,
   regularExpression: unsupported,
-  switchStatementSubject: unsupported,
 
   // Not applicable
 

@@ -1,13 +1,13 @@
 * { color: red; }
 ---
 
-[#1 Range] =
+[#1 Content] =
 [#1 Domain] = 0:0-0:17
   >-----------------<
 0| * { color: red; }
 
 
-[#2 Range] =
+[#2 Content] =
 [#2 Domain] = 0:3-0:16
      >-------------<
 0| * { color: red; }

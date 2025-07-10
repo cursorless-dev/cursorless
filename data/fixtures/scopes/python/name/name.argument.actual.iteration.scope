@@ -1,13 +1,13 @@
 aaa(bbb=0, ccc=1)
 ---
 
-[#1 Range] =
+[#1 Content] =
 [#1 Domain] = 0:0-0:17
   >-----------------<
 0| aaa(bbb=0, ccc=1)
 
 
-[#2 Range] =
+[#2 Content] =
 [#2 Domain] = 0:4-0:16
       >------------<
 0| aaa(bbb=0, ccc=1)

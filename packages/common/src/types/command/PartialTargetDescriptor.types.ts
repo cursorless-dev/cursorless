@@ -174,7 +174,6 @@ export const simpleScopeTypeTypes = [
   "sectionLevelFive",
   "sectionLevelSix",
   "selector",
-  "private.switchStatementSubject",
   "unit",
   "xmlBothTags",
   "xmlElement",
@@ -221,6 +220,8 @@ export type SimpleScopeTypeType = (typeof simpleScopeTypeTypes)[number];
 export interface SimpleScopeType {
   type: SimpleScopeTypeType;
 }
+
+export type ScopeTypeType = SimpleScopeTypeType | ScopeType["type"];
 
 export interface CustomRegexScopeType {
   type: "customRegex";

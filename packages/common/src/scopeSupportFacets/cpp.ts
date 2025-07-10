@@ -76,7 +76,7 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   "type.typeArgument": supported,
   "type.typeArgument.iteration": supported,
 
-  "interior.lambda.block": supported,
+  "interior.lambda": supported,
   "interior.try": supported,
   "interior.foreach": supported,
   "interior.constructor": supported,
@@ -85,6 +85,5 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
 
   /* NOT APPLICABLE */
 
-  "interior.lambda.expression": notApplicable,
   "value.return.lambda": notApplicable,
 };

@@ -134,10 +134,6 @@
   name: (_) @name @functionName
 ) @namedFunction @_.domain
 
-;;!! ((value) -> true)
-;;!   ^^^^^^^^^^^^^^^
-(lambda_expression) @anonymousFunction
-
 ;;!! "string"
 ;;!  ^^^^^^^^
 (
@@ -321,8 +317,8 @@
 ;;!          ^^^^^
 ;;!  -----------------
 (switch_expression
-  condition: (_) @private.switchStatementSubject
-  (#child-range! @private.switchStatementSubject 0 -1 true true)
+  condition: (_) @value
+  (#child-range! @value 0 -1 true true)
 ) @_.domain
 
 ;;!! true ? 1 : 2
@@ -537,11 +533,15 @@
   (_) @value
 ) @_.domain
 
+;;!! ((value) -> true)
+;;!   ^^^^^^^^^^^^^^^
+(lambda_expression) @anonymousFunction
+
 ;;!! str -> str.length > 0
 ;;!         ^^^^^^^^^^^^^^
 ;;!  ---------------------
 (lambda_expression
-  body: (_) @value @interior
+  body: (_) @value
   (#not-type? @value block)
 ) @_.domain
 

@@ -6,7 +6,6 @@ export const scopeSupportFacets = [
   "environment",
   "notebookCell",
   "regularExpression",
-  "switchStatementSubject",
   "fieldAccess",
 
   "element",
@@ -203,6 +202,7 @@ export const scopeSupportFacets = [
   "value.field.class",
   "value.field.enum",
   "value.yield",
+  "value.switch",
   "value.typeAlias",
   "value.resource",
   "value.resource.iteration",
@@ -251,8 +251,7 @@ export const scopeSupportFacets = [
   "interior.function",
   "interior.constructor",
   "interior.method",
-  "interior.lambda.block",
-  "interior.lambda.expression",
+  "interior.lambda",
   "interior.element",
   "interior.command",
   "interior.cell",
@@ -284,7 +283,7 @@ export enum ScopeSupportFacetLevel {
 
 export type ScopeSupportFacet = (typeof scopeSupportFacets)[number];
 
-export type TextualScopeSupportFacet =
+export type PlaintextScopeSupportFacet =
   | "character"
   | "word"
   | "token"

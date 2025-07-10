@@ -13,11 +13,7 @@ import type { MutableQueryCapture } from "./QueryCapture";
  * captures to nodes, because that will be done dynamically each time we run a
  * query.
  */
-type OperandListSchemaType = z.ZodType<
-  SchemaOutputType[],
-  z.ZodTypeDef,
-  SchemaInputType[]
->;
+type OperandListSchemaType = z.ZodType<SchemaOutputType[], SchemaInputType[]>;
 
 // These two types are used to allow us to infer the schema type from the
 // operator type.  For example, if we have a type `NotType` that extends
