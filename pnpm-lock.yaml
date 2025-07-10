@@ -306,8 +306,8 @@ importers:
         specifier: 11.1.0
         version: 11.1.0
       zod:
-        specifier: 3.25.76
-        version: 3.25.76
+        specifier: 4.0.2
+        version: 4.0.2
     devDependencies:
       '@types/js-yaml':
         specifier: 4.0.9
@@ -10769,8 +10769,8 @@ packages:
   youtube-video-element@1.6.0:
     resolution: {integrity: sha512-yu6aMaSyyp8ygqNNnf01xjJdy7AaWwEhLlJ/XRdFteLP/djM7i7JOrK0INgjvBnv88dAtiW9PKZ0OQQzGFeydw==}
 
-  zod@3.25.76:
-    resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
+  zod@4.0.2:
+    resolution: {integrity: sha512-X2niJNY54MGam4L6Kj0AxeedeDIi/E5QFW0On2faSX5J4/pfLk1tW+cRMIMoojnCavn/u5W/kX17e1CSGnKMxA==}
 
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
@@ -23137,6 +23137,6 @@ snapshots:
 
   youtube-video-element@1.6.0: {}
 
-  zod@3.25.76: {}
+  zod@4.0.2: {}
 
   zwitch@2.0.4: {}
