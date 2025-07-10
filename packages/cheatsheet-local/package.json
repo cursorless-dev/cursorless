@@ -42,7 +42,6 @@
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
     "@types/webpack": "5.28.5",
-    "@webpack-cli/generators": "3.0.7",
     "autoprefixer": "10.4.21",
     "css-loader": "7.1.2",
     "html-webpack-plugin": "5.6.3",
