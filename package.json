@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "The root of the Cursorless monorepo",
   "license": "MIT",
-  "packageManager": "pnpm@10.13.1",
+  "packageManager": "pnpm@10.12.1",
   "type": "module",
   "main": "index.js",
   "engines": {
