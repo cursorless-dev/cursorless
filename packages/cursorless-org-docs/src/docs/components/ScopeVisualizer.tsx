@@ -48,7 +48,9 @@ export function ScopeVisualizer({ languageId, scopeTypeType }: Props) {
     getScopeFixtures(scopeTests, languageId, scopeTypeType),
   );
   const [rangeType, setRangeType] = useState<RangeType>("content");
-  const [renderWhitespace, setRenderWhitespace] = useState(false);
+  const [renderWhitespace, setRenderWhitespace] = useState(
+    scopeTypeType != null,
+  );
 
   const renderOptions = () => {
     return (
