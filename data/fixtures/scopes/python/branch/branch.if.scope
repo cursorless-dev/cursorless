@@ -1,13 +1,10 @@
-if True:
-    pass
+if True: pass
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-1:8
-  >--------
-0| if True:
-1|     pass
-   --------<
+[Domain] = 0:0-0:13
+  >-------------<
+0| if True: pass
 
 [Insertion delimiter] = "\n"

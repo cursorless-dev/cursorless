@@ -1,21 +1,15 @@
-void func() {
-    if (true) { }
-}
+if (true) {}
+else if (false) {}
+else {}
 ---
 
 [Content] =
-[Domain] = 1:4-1:17
-      >-------------<
-1|     if (true) { }
-
-[Removal] = 1:0-2:0
-  >-----------------
-1|     if (true) { }
-2| }
-   <
-
-[Leading delimiter] = 1:0-1:4
-  >----<
-1|     if (true) { }
+[Removal] =
+[Domain] = 0:0-2:7
+  >------------
+0| if (true) {}
+1| else if (false) {}
+2| else {}
+   -------<
 
 [Insertion delimiter] = "\n"

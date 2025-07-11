@@ -1,6 +1,9 @@
 ;; https://github.com/tree-sitter/tree-sitter-scala/blob/master/src/grammar.json
 
-(if_expression) @ifStatement
+(
+  (if_expression) @ifStatement
+  (#not-parent-type? @ifStatement if_expression)
+)
 
 [
   (string)
