@@ -1,20 +1,20 @@
-obj:
-  name: "foo"
-  value: 123
+foo:
+  aaa: 0
+  bbb: 1
 ---
 
 [#1 Content] =
-[#1 Domain] = 0:0-2:12
+[#1 Domain] = 0:0-2:8
   >----
-0| obj:
-1|   name: "foo"
-2|   value: 123
-   ------------<
+0| foo:
+1|   aaa: 0
+2|   bbb: 1
+   --------<
 
 
 [#2 Content] =
-[#2 Domain] = 1:2-2:12
-    >-----------
-1|   name: "foo"
-2|   value: 123
-   ------------<
+[#2 Domain] = 1:2-2:8
+    >------
+1|   aaa: 0
+2|   bbb: 1
+   --------<

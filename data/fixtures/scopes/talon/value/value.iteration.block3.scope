@@ -1,4 +1,5 @@
 mode: command
+tag: browser
 -
 
 hello: "world"
@@ -8,41 +9,44 @@ settings():
 ---
 
 [#1 Content] =
-[#1 Domain] = 0:0-0:13
-  >-------------<
+[#1 Domain] = 0:0-1:12
+  >-------------
 0| mode: command
+1| tag: browser
+   ------------<
 
 
 [#2 Content] =
-[#2 Domain] = 0:0-6:11
+[#2 Domain] = 0:0-7:11
   >-------------
 0| mode: command
-1| -
-2|
-3| hello: "world"
-4|
-5| settings():
-6|     foo = 0
+1| tag: browser
+2| -
+3|
+4| hello: "world"
+5|
+6| settings():
+7|     foo = 0
    -----------<
 
 
 [#3 Content] =
-[#3 Domain] = 3:0-6:11
+[#3 Domain] = 4:0-7:11
   >--------------
-3| hello: "world"
-4|
-5| settings():
-6|     foo = 0
+4| hello: "world"
+5|
+6| settings():
+7|     foo = 0
    -----------<
 
 
 [#4 Content] =
-[#4 Domain] = 3:7-3:14
+[#4 Domain] = 4:7-4:14
          >-------<
-3| hello: "world"
+4| hello: "world"
 
 
 [#5 Content] =
-[#5 Domain] = 6:4-6:11
+[#5 Domain] = 7:4-7:11
       >-------<
-6|     foo = 0
+7|     foo = 0
