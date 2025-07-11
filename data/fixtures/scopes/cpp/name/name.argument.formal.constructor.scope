@@ -1,28 +1,28 @@
-class MyClass {
-    MyClass(int aaa, int bbb = 2) {}
+class Foo {
+    Foo(int aaa, int bbb = 2) {}
 }
 ---
 
-[#1 Content] = 0:6-0:13
-        >-------<
-0| class MyClass {
+[#1 Content] = 0:6-0:9
+        >---<
+0| class Foo {
 
-[#1 Removal] = 0:6-0:14
-        >--------<
-0| class MyClass {
+[#1 Removal] = 0:6-0:10
+        >----<
+0| class Foo {
 
 [#1 Leading delimiter] = 0:5-0:6
        >-<
-0| class MyClass {
+0| class Foo {
 
-[#1 Trailing delimiter] = 0:13-0:14
-               >-<
-0| class MyClass {
+[#1 Trailing delimiter] = 0:9-0:10
+           >-<
+0| class Foo {
 
 [#1 Domain] = 0:0-2:1
-  >---------------
-0| class MyClass {
-1|     MyClass(int aaa, int bbb = 2) {}
+  >-----------
+0| class Foo {
+1|     Foo(int aaa, int bbb = 2) {}
 2| }
    -<
 
@@ -30,58 +30,58 @@ class MyClass {
 
 
 [#2 Content] =
-[#2 Removal] = 1:4-1:11
-      >-------<
-1|     MyClass(int aaa, int bbb = 2) {}
+[#2 Removal] = 1:4-1:7
+      >---<
+1|     Foo(int aaa, int bbb = 2) {}
 
 [#2 Leading delimiter] = 1:0-1:4
   >----<
-1|     MyClass(int aaa, int bbb = 2) {}
+1|     Foo(int aaa, int bbb = 2) {}
 
-[#2 Domain] = 1:4-1:36
-      >--------------------------------<
-1|     MyClass(int aaa, int bbb = 2) {}
+[#2 Domain] = 1:4-1:32
+      >----------------------------<
+1|     Foo(int aaa, int bbb = 2) {}
 
 [#2 Insertion delimiter] = " "
 
 
-[#3 Content] = 1:16-1:19
-                  >---<
-1|     MyClass(int aaa, int bbb = 2) {}
+[#3 Content] = 1:12-1:15
+              >---<
+1|     Foo(int aaa, int bbb = 2) {}
 
-[#3 Removal] = 1:15-1:19
-                 >----<
-1|     MyClass(int aaa, int bbb = 2) {}
+[#3 Removal] = 1:11-1:15
+             >----<
+1|     Foo(int aaa, int bbb = 2) {}
 
-[#3 Leading delimiter] = 1:15-1:16
-                 >-<
-1|     MyClass(int aaa, int bbb = 2) {}
+[#3 Leading delimiter] = 1:11-1:12
+             >-<
+1|     Foo(int aaa, int bbb = 2) {}
 
-[#3 Domain] = 1:12-1:19
-              >-------<
-1|     MyClass(int aaa, int bbb = 2) {}
+[#3 Domain] = 1:8-1:15
+          >-------<
+1|     Foo(int aaa, int bbb = 2) {}
 
 [#3 Insertion delimiter] = " "
 
 
-[#4 Content] = 1:25-1:28
-                           >---<
-1|     MyClass(int aaa, int bbb = 2) {}
+[#4 Content] = 1:21-1:24
+                       >---<
+1|     Foo(int aaa, int bbb = 2) {}
 
-[#4 Removal] = 1:25-1:29
-                           >----<
-1|     MyClass(int aaa, int bbb = 2) {}
+[#4 Removal] = 1:21-1:25
+                       >----<
+1|     Foo(int aaa, int bbb = 2) {}
 
-[#4 Leading delimiter] = 1:24-1:25
+[#4 Leading delimiter] = 1:20-1:21
+                      >-<
+1|     Foo(int aaa, int bbb = 2) {}
+
+[#4 Trailing delimiter] = 1:24-1:25
                           >-<
-1|     MyClass(int aaa, int bbb = 2) {}
+1|     Foo(int aaa, int bbb = 2) {}
 
-[#4 Trailing delimiter] = 1:28-1:29
-                              >-<
-1|     MyClass(int aaa, int bbb = 2) {}
-
-[#4 Domain] = 1:21-1:32
-                       >-----------<
-1|     MyClass(int aaa, int bbb = 2) {}
+[#4 Domain] = 1:17-1:28
+                   >-----------<
+1|     Foo(int aaa, int bbb = 2) {}
 
 [#4 Insertion delimiter] = " "

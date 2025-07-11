@@ -1,29 +1,29 @@
-class MyClass:
-    def funk(a: int):
+class Foo:
+    def bar(aaa: int, bbb: int):
         pass
 ---
 
 [#1 Content] =
 [#1 Domain] = 0:0-2:12
-  >--------------
-0| class MyClass:
-1|     def funk(a: int):
+  >----------
+0| class Foo:
+1|     def bar(aaa: int, bbb: int):
 2|         pass
    ------------<
 
 
 [#2 Content] =
 [#2 Domain] = 1:4-2:12
-      >-----------------
-1|     def funk(a: int):
+      >----------------------------
+1|     def bar(aaa: int, bbb: int):
 2|         pass
    ------------<
 
 
 [#3 Content] =
-[#3 Domain] = 1:13-1:19
-               >------<
-1|     def funk(a: int):
+[#3 Domain] = 1:12-1:30
+              >------------------<
+1|     def bar(aaa: int, bbb: int):
 
 
 [#4 Content] =

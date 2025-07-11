@@ -1,13 +1,13 @@
 <?php
-class MyClass {
-    function myFunc($value, string $name) { }
+class Foo {
+    function bar($aaa, number $bbb) { }
 }
 ---
 
-[Content] = 2:20-2:40
-                      >--------------------<
-2|     function myFunc($value, string $name) { }
+[Content] = 2:17-2:34
+                   >-----------------<
+2|     function bar($aaa, number $bbb) { }
 
-[Domain] = 2:4-2:45
-      >-----------------------------------------<
-2|     function myFunc($value, string $name) { }
+[Domain] = 2:4-2:39
+      >-----------------------------------<
+2|     function bar($aaa, number $bbb) { }

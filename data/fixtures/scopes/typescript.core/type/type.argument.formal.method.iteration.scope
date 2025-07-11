@@ -1,33 +1,27 @@
-class MyClass {
-  myFunk(value: number) { }
+class Foo {
+  bar(aaa: number, bbb: number) {}
 }
 ---
 
 [#1 Content] =
 [#1 Domain] = 0:0-2:1
-  >---------------
-0| class MyClass {
-1|   myFunk(value: number) { }
+  >-----------
+0| class Foo {
+1|   bar(aaa: number, bbb: number) {}
 2| }
    -<
 
 
 [#2 Content] =
-[#2 Domain] = 0:15-2:0
-                 >
-0| class MyClass {
-1|   myFunk(value: number) { }
+[#2 Domain] = 0:11-2:0
+             >
+0| class Foo {
+1|   bar(aaa: number, bbb: number) {}
 2| }
    <
 
 
 [#3 Content] =
-[#3 Domain] = 1:9-1:22
-           >-------------<
-1|   myFunk(value: number) { }
-
-
-[#4 Content] =
-[#4 Domain] = 1:25-1:26
-                           >-<
-1|   myFunk(value: number) { }
+[#3 Domain] = 1:6-1:30
+        >------------------------<
+1|   bar(aaa: number, bbb: number) {}

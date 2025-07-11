@@ -1,5 +1,5 @@
-public class MyClass {
-    public MyClass(
+public class Foo {
+    public Foo(
         int aaa,
         int bbb
     ) {}
@@ -12,9 +12,9 @@ public class MyClass {
 3|         int bbb
    ---------------<
 
-[Removal] = 1:19-4:4
-                     >
-1|     public MyClass(
+[Removal] = 1:15-4:4
+                 >
+1|     public Foo(
 2|         int aaa,
 3|         int bbb
 4|     ) {}
@@ -25,8 +25,8 @@ public class MyClass {
 2|         int aaa,
 
 [Domain] = 1:4-4:8
-      >---------------
-1|     public MyClass(
+      >-----------
+1|     public Foo(
 2|         int aaa,
 3|         int bbb
 4|     ) {}

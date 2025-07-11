@@ -1,19 +1,13 @@
-function myFunk(value: number) { }
+function foo(aaa: number, bbb: number) {}
 ---
 
 [#1 Content] =
-[#1 Domain] = 0:0-0:34
-  >----------------------------------<
-0| function myFunk(value: number) { }
+[#1 Domain] = 0:0-0:41
+  >-----------------------------------------<
+0| function foo(aaa: number, bbb: number) {}
 
 
 [#2 Content] =
-[#2 Domain] = 0:16-0:29
-                  >-------------<
-0| function myFunk(value: number) { }
-
-
-[#3 Content] =
-[#3 Domain] = 0:32-0:33
-                                  >-<
-0| function myFunk(value: number) { }
+[#2 Domain] = 0:13-0:37
+               >------------------------<
+0| function foo(aaa: number, bbb: number) {}

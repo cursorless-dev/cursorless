@@ -1,47 +1,47 @@
 <?php
-class MyClass {
-    function myFunc(
-        $value,
-        string $name
+class Foo {
+    function bar(
+        $aaa,
+        number $bbb
     ) {}
 }
 ---
 
 [#1 Content] =
-[#1 Domain] = 3:8-3:14
-          >------<
-3|         $value,
+[#1 Domain] = 3:8-3:12
+          >----<
+3|         $aaa,
 
 [#1 Removal] = 3:8-4:8
-          >-------
-3|         $value,
-4|         string $name
+          >-----
+3|         $aaa,
+4|         number $bbb
    --------<
 
-[#1 Trailing delimiter] = 3:14-4:8
-                >-
-3|         $value,
-4|         string $name
+[#1 Trailing delimiter] = 3:12-4:8
+              >-
+3|         $aaa,
+4|         number $bbb
    --------<
 
 [#1 Insertion delimiter] = ",\n"
 
 
 [#2 Content] =
-[#2 Domain] = 4:8-4:20
-          >------------<
-4|         string $name
+[#2 Domain] = 4:8-4:19
+          >-----------<
+4|         number $bbb
 
-[#2 Removal] = 3:14-4:20
-                >-
-3|         $value,
-4|         string $name
-   --------------------<
+[#2 Removal] = 3:12-4:19
+              >-
+3|         $aaa,
+4|         number $bbb
+   -------------------<
 
-[#2 Leading delimiter] = 3:14-4:8
-                >-
-3|         $value,
-4|         string $name
+[#2 Leading delimiter] = 3:12-4:8
+              >-
+3|         $aaa,
+4|         number $bbb
    --------<
 
 [#2 Insertion delimiter] = ",\n"

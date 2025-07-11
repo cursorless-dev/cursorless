@@ -1,29 +1,29 @@
-class MyClass:
-    def __init__(self, a: int):
+class Foo:
+    def __init__(self, aaa: int, bbb: int):
         pass
 ---
 
 [#1 Content] =
 [#1 Domain] = 0:0-2:12
-  >--------------
-0| class MyClass:
-1|     def __init__(self, a: int):
+  >----------
+0| class Foo:
+1|     def __init__(self, aaa: int, bbb: int):
 2|         pass
    ------------<
 
 
 [#2 Content] =
 [#2 Domain] = 1:4-2:12
-      >---------------------------
-1|     def __init__(self, a: int):
+      >---------------------------------------
+1|     def __init__(self, aaa: int, bbb: int):
 2|         pass
    ------------<
 
 
 [#3 Content] =
-[#3 Domain] = 1:17-1:29
-                   >------------<
-1|     def __init__(self, a: int):
+[#3 Domain] = 1:17-1:41
+                   >------------------------<
+1|     def __init__(self, aaa: int, bbb: int):
 
 
 [#4 Content] =

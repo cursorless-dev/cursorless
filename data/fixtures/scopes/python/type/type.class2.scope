@@ -1,5 +1,5 @@
 @value
-class MyClass:
+class Foo:
     pass
 ---
 
@@ -8,7 +8,7 @@ class MyClass:
 [Domain] = 0:0-2:8
   >------
 0| @value
-1| class MyClass:
+1| class Foo:
 2|     pass
    --------<
 

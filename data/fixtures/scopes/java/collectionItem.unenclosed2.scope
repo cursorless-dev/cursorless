@@ -1,92 +1,92 @@
-public class MyClass {
-    public void myFunk() {
-        String foo, bar;
+public class Foo {
+    public void bar() {
+        int aaa, bbb;
     }
 }
 ---
 
 [#1 Content] =
 [#1 Domain] = 1:4-3:5
-      >----------------------
-1|     public void myFunk() {
-2|         String foo, bar;
+      >-------------------
+1|     public void bar() {
+2|         int aaa, bbb;
 3|     }
    -----<
 
 [#1 Removal] = 1:0-4:0
-  >--------------------------
-1|     public void myFunk() {
-2|         String foo, bar;
+  >-----------------------
+1|     public void bar() {
+2|         int aaa, bbb;
 3|     }
 4| }
    <
 
 [#1 Leading delimiter] = 1:0-1:4
   >----<
-1|     public void myFunk() {
+1|     public void bar() {
 
 [#1 Insertion delimiter] = ",\n"
 
 
 [#2 Content] =
-[#2 Domain] = 2:8-2:18
-          >----------<
-2|         String foo, bar;
+[#2 Domain] = 2:8-2:15
+          >-------<
+2|         int aaa, bbb;
 
-[#2 Removal] = 2:8-2:20
-          >------------<
-2|         String foo, bar;
+[#2 Removal] = 2:8-2:17
+          >---------<
+2|         int aaa, bbb;
 
-[#2 Trailing delimiter] = 2:18-2:20
-                    >--<
-2|         String foo, bar;
+[#2 Trailing delimiter] = 2:15-2:17
+                 >--<
+2|         int aaa, bbb;
 
 [#2 Insertion delimiter] = ",\n"
 
 
 [#3 Content] =
-[#3 Domain] = 2:15-2:18
-                 >---<
-2|         String foo, bar;
+[#3 Domain] = 2:12-2:15
+              >---<
+2|         int aaa, bbb;
 
-[#3 Removal] = 2:15-2:20
-                 >-----<
-2|         String foo, bar;
+[#3 Removal] = 2:12-2:17
+              >-----<
+2|         int aaa, bbb;
 
-[#3 Trailing delimiter] = 2:18-2:20
-                    >--<
-2|         String foo, bar;
+[#3 Trailing delimiter] = 2:15-2:17
+                 >--<
+2|         int aaa, bbb;
 
 [#3 Insertion delimiter] = ", "
 
 
 [#4 Content] =
-[#4 Domain] = 2:20-2:23
-                      >---<
-2|         String foo, bar;
+[#4 Domain] = 2:17-2:20
+                   >---<
+2|         int aaa, bbb;
 
-[#4 Removal] = 2:18-2:23
-                    >-----<
-2|         String foo, bar;
+[#4 Removal] = 2:15-2:20
+                 >-----<
+2|         int aaa, bbb;
 
-[#4 Leading delimiter] = 2:18-2:20
-                    >--<
-2|         String foo, bar;
+[#4 Leading delimiter] = 2:15-2:17
+                 >--<
+2|         int aaa, bbb;
 
 [#4 Insertion delimiter] = ", "
 
 
 [#5 Content] =
-[#5 Domain] = 2:20-2:24
-                      >----<
-2|         String foo, bar;
+[#5 Domain] = 2:17-2:21
+                   >----<
+2|         int aaa, bbb;
 
-[#5 Removal] = 2:18-2:24
-                    >------<
-2|         String foo, bar;
+[#5 Removal] = 2:15-2:21
+                 >------<
+2|         int aaa, bbb;
 
-[#5 Leading delimiter] = 2:18-2:20
-                    >--<
-2|         String foo, bar;
+[#5 Leading delimiter] = 2:15-2:17
+                 >--<
+2|         int aaa, bbb;
 
 [#5 Insertion delimiter] = ",\n"

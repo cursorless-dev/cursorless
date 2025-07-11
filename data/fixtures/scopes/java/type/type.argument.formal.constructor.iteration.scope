@@ -1,27 +1,27 @@
-public class MyClass {
-    public MyClass(String name, int age) {}
+public class Foo {
+    public Foo(int aaa, int bbb) {}
 }
 ---
 
 [#1 Content] =
 [#1 Domain] = 0:0-2:1
-  >----------------------
-0| public class MyClass {
-1|     public MyClass(String name, int age) {}
+  >------------------
+0| public class Foo {
+1|     public Foo(int aaa, int bbb) {}
 2| }
    -<
 
 
 [#2 Content] =
-[#2 Domain] = 0:22-2:0
-                        >
-0| public class MyClass {
-1|     public MyClass(String name, int age) {}
+[#2 Domain] = 0:18-2:0
+                    >
+0| public class Foo {
+1|     public Foo(int aaa, int bbb) {}
 2| }
    <
 
 
 [#3 Content] =
-[#3 Domain] = 1:19-1:39
-                     >--------------------<
-1|     public MyClass(String name, int age) {}
+[#3 Domain] = 1:15-1:31
+                 >----------------<
+1|     public Foo(int aaa, int bbb) {}
