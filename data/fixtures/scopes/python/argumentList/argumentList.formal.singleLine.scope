@@ -1,15 +1,15 @@
-def for(aaa: str, bbb: int):
+def foo(aaa: str, bbb: int):
     pass
 ---
 
 [Content] =
 [Removal] = 0:8-0:26
           >------------------<
-0| def for(aaa: str, bbb: int):
+0| def foo(aaa: str, bbb: int):
 
 [Domain] = 0:0-1:8
   >----------------------------
-0| def for(aaa: str, bbb: int):
+0| def foo(aaa: str, bbb: int):
 1|     pass
    --------<
 

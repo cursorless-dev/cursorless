@@ -1,7 +1,7 @@
 function(
     aaa,
     bbb
-) { }
+) {}
 ---
 
 [Content] = 1:4-2:7
@@ -15,19 +15,19 @@ function(
 0| function(
 1|     aaa,
 2|     bbb
-3| ) { }
+3| ) {}
    <
 
 [Leading delimiter] = 1:0-1:4
   >----<
 1|     aaa,
 
-[Domain] = 0:0-3:5
+[Domain] = 0:0-3:4
   >---------
 0| function(
 1|     aaa,
 2|     bbb
-3| ) { }
-   -----<
+3| ) {}
+   ----<
 
 [Insertion delimiter] = ",\n"
