@@ -1,20 +1,20 @@
-void Aaa::bbb() {}
+void Foo::bar() {}
 ---
 
 [Content] = 0:5-0:8
        >---<
-0| void Aaa::bbb() {}
+0| void Foo::bar() {}
 
 [Removal] = 0:4-0:8
       >----<
-0| void Aaa::bbb() {}
+0| void Foo::bar() {}
 
 [Leading delimiter] = 0:4-0:5
       >-<
-0| void Aaa::bbb() {}
+0| void Foo::bar() {}
 
 [Domain] = 0:0-0:18
   >------------------<
-0| void Aaa::bbb() {}
+0| void Foo::bar() {}
 
 [Insertion delimiter] = " "
