@@ -1,16 +1,16 @@
-do something:
-    a = 2
+command:
+    foo = 0
 ---
 
 [Content] =
-[Removal] = 1:4-1:9
-      >-----<
-1|     a = 2
+[Removal] = 1:4-1:11
+      >-------<
+1|     foo = 0
 
-[Domain] = 0:0-1:9
-  >-------------
-0| do something:
-1|     a = 2
-   ---------<
+[Domain] = 0:0-1:11
+  >--------
+0| command:
+1|     foo = 0
+   -----------<
 
 [Insertion delimiter] = " "

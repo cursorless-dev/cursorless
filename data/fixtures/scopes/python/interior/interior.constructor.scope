@@ -1,35 +1,29 @@
 class Foo:
-    def __init__(self):
-        pass
+    def __init__(self): pass
 ---
 
 [#1 Content] =
-[#1 Removal] = 1:4-2:12
-      >-------------------
-1|     def __init__(self):
-2|         pass
-   ------------<
+[#1 Removal] = 1:4-1:28
+      >------------------------<
+1|     def __init__(self): pass
 
-[#1 Domain] = 0:0-2:12
+[#1 Domain] = 0:0-1:28
   >----------
 0| class Foo:
-1|     def __init__(self):
-2|         pass
-   ------------<
+1|     def __init__(self): pass
+   ----------------------------<
 
 [#1 Insertion delimiter] = " "
 
 
 [#2 Content] =
-[#2 Removal] = 2:8-2:12
-          >----<
-2|         pass
+[#2 Removal] = 1:24-1:28
+                          >----<
+1|     def __init__(self): pass
 
-[#2 Domain] = 1:4-2:12
-      >-------------------
-1|     def __init__(self):
-2|         pass
-   ------------<
+[#2 Domain] = 1:4-1:28
+      >------------------------<
+1|     def __init__(self): pass
 
 [#2 Insertion delimiter] = " "
 
@@ -37,10 +31,10 @@ class Foo:
 [#3 Content] =
 [#3 Removal] = 1:17-1:21
                    >----<
-1|     def __init__(self):
+1|     def __init__(self): pass
 
 [#3 Domain] = 1:16-1:22
                   >------<
-1|     def __init__(self):
+1|     def __init__(self): pass
 
 [#3 Insertion delimiter] = " "

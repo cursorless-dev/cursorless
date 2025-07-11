@@ -1,6 +1,6 @@
-match value:
+match foo:
     case 0:
-        foo
+        bar
         pass
     case _:
         pass
@@ -9,27 +9,27 @@ match value:
 [#1 Content] = 1:4-5:12
       >-------
 1|     case 0:
-2|         foo
+2|         bar
 3|         pass
 4|     case _:
 5|         pass
    ------------<
 
-[#1 Removal] = 0:12-5:12
-              >
-0| match value:
+[#1 Removal] = 0:10-5:12
+            >
+0| match foo:
 1|     case 0:
-2|         foo
+2|         bar
 3|         pass
 4|     case _:
 5|         pass
    ------------<
 
 [#1 Domain] = 0:0-5:12
-  >------------
-0| match value:
+  >----------
+0| match foo:
 1|     case 0:
-2|         foo
+2|         bar
 3|         pass
 4|     case _:
 5|         pass
@@ -41,14 +41,14 @@ match value:
 [#2 Content] =
 [#2 Removal] = 2:8-3:12
           >---
-2|         foo
+2|         bar
 3|         pass
    ------------<
 
 [#2 Domain] = 1:4-3:12
       >-------
 1|     case 0:
-2|         foo
+2|         bar
 3|         pass
    ------------<
 
