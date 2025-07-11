@@ -1,4 +1,4 @@
-@value
+@bar
 class Foo:
     pass
 ---
@@ -6,8 +6,8 @@ class Foo:
 [Content] =
 [Removal] =
 [Domain] = 0:0-2:8
-  >------
-0| @value
+  >----
+0| @bar
 1| class Foo:
 2|     pass
    --------<
