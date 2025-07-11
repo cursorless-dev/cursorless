@@ -185,7 +185,10 @@ function renderFacet(
     if (scopeTypeType != null && previousLanguageId !== facetLanguageId) {
       previousLanguageId = facetLanguageId;
       return (
-        <H5 className="language-id" id={`${facet.name}-${facetLanguageId}`}>
+        <H5
+          className="language-id mb-1 mt-2"
+          id={`${facet.name}-${facetLanguageId}`}
+        >
           {prettifyLanguageName(facetLanguageId)}
         </H5>
       );
