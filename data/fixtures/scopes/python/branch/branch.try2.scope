@@ -1,6 +1,6 @@
 try:
     pass
-except* ValueError as eg:
+except Exception as e:
     pass
 else:
     pass
@@ -17,7 +17,7 @@ else:
   >----
 0| try:
 1|     pass
-2| except* ValueError as eg:
+2| except Exception as e:
    <
 
 [#1 Insertion delimiter] = "\n"
@@ -25,14 +25,14 @@ else:
 
 [#2 Content] =
 [#2 Domain] = 2:0-3:8
-  >-------------------------
-2| except* ValueError as eg:
+  >----------------------
+2| except Exception as e:
 3|     pass
    --------<
 
 [#2 Removal] = 2:0-4:0
-  >-------------------------
-2| except* ValueError as eg:
+  >----------------------
+2| except Exception as e:
 3|     pass
 4| else:
    <

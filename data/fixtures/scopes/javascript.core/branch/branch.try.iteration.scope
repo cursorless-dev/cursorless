@@ -1,5 +1,5 @@
 try {}
-catch(error) {}
+catch(e) {}
 finally {}
 ---
 
@@ -7,6 +7,6 @@ finally {}
 [Domain] = 0:0-2:10
   >------
 0| try {}
-1| catch(error) {}
+1| catch(e) {}
 2| finally {}
    ----------<

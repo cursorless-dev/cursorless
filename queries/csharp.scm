@@ -391,7 +391,7 @@
     "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
     "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
   )
-)
+) @branch.iteration.domain
 
 (object_creation_expression
   initializer: (_) @map @list
