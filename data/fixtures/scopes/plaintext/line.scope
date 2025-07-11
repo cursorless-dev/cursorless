@@ -1,10 +1,10 @@
-aaa
+foo bar
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-0:3
-  >---<
-0| aaa
+[Domain] = 0:0-0:7
+  >-------<
+0| foo bar
 
 [Insertion delimiter] = "\n"
