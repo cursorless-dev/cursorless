@@ -1,20 +1,20 @@
-[(foo) (bar)] @list
+[(aaa) (bbb)] @list
 ---
 
 [Content] = 0:0-0:13
   >-------------<
-0| [(foo) (bar)] @list
+0| [(aaa) (bbb)] @list
 
 [Removal] = 0:0-0:14
   >--------------<
-0| [(foo) (bar)] @list
+0| [(aaa) (bbb)] @list
 
 [Trailing delimiter] = 0:13-0:14
                >-<
-0| [(foo) (bar)] @list
+0| [(aaa) (bbb)] @list
 
 [Domain] = 0:0-0:19
   >-------------------<
-0| [(foo) (bar)] @list
+0| [(aaa) (bbb)] @list
 
 [Insertion delimiter] = " "
