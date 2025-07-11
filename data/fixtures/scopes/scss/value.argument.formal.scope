@@ -1,20 +1,20 @@
-@mixin replace-text($image, $color: red) {}
+@mixin foo($aaa, $bbb: 0) {}
 ---
 
-[Content] = 0:36-0:39
-                                      >---<
-0| @mixin replace-text($image, $color: red) {}
+[Content] = 0:23-0:24
+                         >-<
+0| @mixin foo($aaa, $bbb: 0) {}
 
-[Removal] = 0:35-0:39
-                                     >----<
-0| @mixin replace-text($image, $color: red) {}
+[Removal] = 0:22-0:24
+                        >--<
+0| @mixin foo($aaa, $bbb: 0) {}
 
-[Leading delimiter] = 0:35-0:36
-                                     >-<
-0| @mixin replace-text($image, $color: red) {}
+[Leading delimiter] = 0:22-0:23
+                        >-<
+0| @mixin foo($aaa, $bbb: 0) {}
 
-[Domain] = 0:28-0:39
-                              >-----------<
-0| @mixin replace-text($image, $color: red) {}
+[Domain] = 0:17-0:24
+                   >-------<
+0| @mixin foo($aaa, $bbb: 0) {}
 
 [Insertion delimiter] = " "

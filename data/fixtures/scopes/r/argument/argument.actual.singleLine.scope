@@ -1,33 +1,33 @@
-func(x, y)
+func(aaa, bbb)
 ---
 
 [#1 Content] =
-[#1 Domain] = 0:5-0:6
-       >-<
-0| func(x, y)
-
-[#1 Removal] = 0:5-0:8
+[#1 Domain] = 0:5-0:8
        >---<
-0| func(x, y)
+0| func(aaa, bbb)
 
-[#1 Trailing delimiter] = 0:6-0:8
-        >--<
-0| func(x, y)
+[#1 Removal] = 0:5-0:10
+       >-----<
+0| func(aaa, bbb)
+
+[#1 Trailing delimiter] = 0:8-0:10
+          >--<
+0| func(aaa, bbb)
 
 [#1 Insertion delimiter] = ", "
 
 
 [#2 Content] =
-[#2 Domain] = 0:8-0:9
-          >-<
-0| func(x, y)
+[#2 Domain] = 0:10-0:13
+            >---<
+0| func(aaa, bbb)
 
-[#2 Removal] = 0:6-0:9
-        >---<
-0| func(x, y)
+[#2 Removal] = 0:8-0:13
+          >-----<
+0| func(aaa, bbb)
 
-[#2 Leading delimiter] = 0:6-0:8
-        >--<
-0| func(x, y)
+[#2 Leading delimiter] = 0:8-0:10
+          >--<
+0| func(aaa, bbb)
 
 [#2 Insertion delimiter] = ", "

@@ -1,18 +1,18 @@
-def foo(aaa: Int, bbb: Int) = x
+def foo(aaa: Int, bbb: Int) = {}
 ---
 
 [#1 Content] =
 [#1 Domain] = 0:8-0:16
           >--------<
-0| def foo(aaa: Int, bbb: Int) = x
+0| def foo(aaa: Int, bbb: Int) = {}
 
 [#1 Removal] = 0:8-0:18
           >----------<
-0| def foo(aaa: Int, bbb: Int) = x
+0| def foo(aaa: Int, bbb: Int) = {}
 
 [#1 Trailing delimiter] = 0:16-0:18
                   >--<
-0| def foo(aaa: Int, bbb: Int) = x
+0| def foo(aaa: Int, bbb: Int) = {}
 
 [#1 Insertion delimiter] = ", "
 
@@ -20,14 +20,14 @@ def foo(aaa: Int, bbb: Int) = x
 [#2 Content] =
 [#2 Domain] = 0:18-0:26
                     >--------<
-0| def foo(aaa: Int, bbb: Int) = x
+0| def foo(aaa: Int, bbb: Int) = {}
 
 [#2 Removal] = 0:16-0:26
                   >----------<
-0| def foo(aaa: Int, bbb: Int) = x
+0| def foo(aaa: Int, bbb: Int) = {}
 
 [#2 Leading delimiter] = 0:16-0:18
                   >--<
-0| def foo(aaa: Int, bbb: Int) = x
+0| def foo(aaa: Int, bbb: Int) = {}
 
 [#2 Insertion delimiter] = ", "

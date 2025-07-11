@@ -1,7 +1,7 @@
 def foo(
     aaa: Int,
     bbb: Int
-) = x
+) = {}
 ---
 
 [#1 Content] =

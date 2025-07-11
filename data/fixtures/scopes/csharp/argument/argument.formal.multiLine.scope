@@ -1,44 +1,44 @@
 void Foo(
-    String name,
-    int value
+    int aaa,
+    int bbb
 ) {}
 ---
 
 [#1 Content] =
-[#1 Domain] = 1:4-1:15
-      >-----------<
-1|     String name,
+[#1 Domain] = 1:4-1:11
+      >-------<
+1|     int aaa,
 
 [#1 Removal] = 1:4-2:4
-      >------------
-1|     String name,
-2|     int value
+      >--------
+1|     int aaa,
+2|     int bbb
    ----<
 
-[#1 Trailing delimiter] = 1:15-2:4
-                 >-
-1|     String name,
-2|     int value
+[#1 Trailing delimiter] = 1:11-2:4
+             >-
+1|     int aaa,
+2|     int bbb
    ----<
 
 [#1 Insertion delimiter] = ",\n"
 
 
 [#2 Content] =
-[#2 Domain] = 2:4-2:13
-      >---------<
-2|     int value
+[#2 Domain] = 2:4-2:11
+      >-------<
+2|     int bbb
 
-[#2 Removal] = 1:15-2:13
-                 >-
-1|     String name,
-2|     int value
-   -------------<
+[#2 Removal] = 1:11-2:11
+             >-
+1|     int aaa,
+2|     int bbb
+   -----------<
 
-[#2 Leading delimiter] = 1:15-2:4
-                 >-
-1|     String name,
-2|     int value
+[#2 Leading delimiter] = 1:11-2:4
+             >-
+1|     int aaa,
+2|     int bbb
    ----<
 
 [#2 Insertion delimiter] = ",\n"
