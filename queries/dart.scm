@@ -1,7 +1,7 @@
 ;;!! if () {}
 ;;!  ^^^^^^^^
 (
-  (if_statement) @ifStatement
+  (if_statement) @ifStatement @statement
   (#not-parent-type? @ifStatement if_statement)
 )
 

@@ -35,7 +35,7 @@
 ;;!! if v < 0 {}
 ;;!  ^^^^^^^^^^^
 (
-  (if_expression) @ifStatement
+  (if_expression) @ifStatement @statement
   (#not-parent-type? @ifStatement else_clause)
 )
 
