@@ -1,13 +1,13 @@
-void aaa(int bbb, int ccc) {}
+void foo(int aaa, int bbb);
 ---
 
 [#1 Content] =
-[#1 Domain] = 0:0-0:29
-  >-----------------------------<
-0| void aaa(int bbb, int ccc) {}
+[#1 Domain] = 0:0-0:27
+  >---------------------------<
+0| void foo(int aaa, int bbb);
 
 
 [#2 Content] =
 [#2 Domain] = 0:9-0:25
            >----------------<
-0| void aaa(int bbb, int ccc) {}
+0| void foo(int aaa, int bbb);

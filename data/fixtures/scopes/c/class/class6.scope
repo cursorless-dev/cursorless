@@ -1,10 +1,10 @@
-typedef enum { } Foo;
+typedef enum {} Foo;
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-0:21
-  >---------------------<
-0| typedef enum { } Foo;
+[Domain] = 0:0-0:20
+  >--------------------<
+0| typedef enum {} Foo;
 
 [Insertion delimiter] = "\n\n"
