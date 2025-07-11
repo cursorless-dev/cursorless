@@ -1,6 +1,4 @@
-abc <- function(arg){
-    TRUE
-}
+foo <- function() {}
 ---
 
 [Content] = 0:0-0:3

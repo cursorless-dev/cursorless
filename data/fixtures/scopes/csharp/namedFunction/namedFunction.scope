@@ -1,10 +1,10 @@
-void Foo() { }
+void Foo() {}
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-0:14
-  >--------------<
-0| void Foo() { }
+[Domain] = 0:0-0:13
+  >-------------<
+0| void Foo() {}
 
 [Insertion delimiter] = "\n\n"

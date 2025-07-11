@@ -1,10 +1,10 @@
-foo(123, 456);
+foo();
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-0:13
-  >-------------<
-0| foo(123, 456);
+[Domain] = 0:0-0:5
+  >-----<
+0| foo();
 
 [Insertion delimiter] = " "
