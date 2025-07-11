@@ -1,15 +1,10 @@
-function() {
-
-}
+function() {}
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-2:1
-  >------------
-0| function() {
-1|
-2| }
-   -<
+[Domain] = 0:0-0:13
+  >-------------<
+0| function() {}
 
 [Insertion delimiter] = "\n"

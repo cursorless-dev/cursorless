@@ -3,6 +3,7 @@
   width: 100%;
   min-height: 50px;
   counter-reset: line;
+  margin-bottom: 0.25rem;
 }
 
 .code-container .shiki {
