@@ -1,50 +1,22 @@
-switch (value) {
-    case 1:
-        break;
-    case 2:
-        break;
-    default:
-        break;
+switch (foo) {
+    case 0: break;
 }
 ---
 
-[#1 Content] = 1:9-1:10
+[Content] = 1:9-1:10
            >-<
-1|     case 1:
+1|     case 0: break;
 
-[#1 Removal] = 1:8-1:10
+[Removal] = 1:8-1:10
           >--<
-1|     case 1:
+1|     case 0: break;
 
-[#1 Leading delimiter] = 1:8-1:9
+[Leading delimiter] = 1:8-1:9
           >-<
-1|     case 1:
+1|     case 0: break;
 
-[#1 Domain] = 1:4-2:14
-      >-------
-1|     case 1:
-2|         break;
-   --------------<
+[Domain] = 1:4-1:18
+      >--------------<
+1|     case 0: break;
 
-[#1 Insertion delimiter] = " "
-
-
-[#2 Content] = 3:9-3:10
-           >-<
-3|     case 2:
-
-[#2 Removal] = 3:8-3:10
-          >--<
-3|     case 2:
-
-[#2 Leading delimiter] = 3:8-3:9
-          >-<
-3|     case 2:
-
-[#2 Domain] = 3:4-4:14
-      >-------
-3|     case 2:
-4|         break;
-   --------------<
-
-[#2 Insertion delimiter] = " "
+[Insertion delimiter] = " "

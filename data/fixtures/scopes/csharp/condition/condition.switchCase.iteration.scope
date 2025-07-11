@@ -1,15 +1,7 @@
-switch(expression)
-{
-  case x: break;
-  default: break;
-}
+switch(foo) { }
 ---
 
 [Content] =
-[Domain] = 1:1-4:0
-   >
-1| {
-2|   case x: break;
-3|   default: break;
-4| }
-   <
+[Domain] = 0:13-0:14
+               >-<
+0| switch(foo) { }

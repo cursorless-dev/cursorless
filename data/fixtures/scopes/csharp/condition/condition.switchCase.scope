@@ -1,25 +1,22 @@
-switch(value) {
-    case x:
-        break;
+switch(foo) {
+    case 0: break;
 }
 ---
 
 [Content] = 1:9-1:10
            >-<
-1|     case x:
+1|     case 0: break;
 
 [Removal] = 1:8-1:10
           >--<
-1|     case x:
+1|     case 0: break;
 
 [Leading delimiter] = 1:8-1:9
           >-<
-1|     case x:
+1|     case 0: break;
 
-[Domain] = 1:4-2:14
-      >-------
-1|     case x:
-2|         break;
-   --------------<
+[Domain] = 1:4-1:18
+      >--------------<
+1|     case 0: break;
 
 [Insertion delimiter] = " "

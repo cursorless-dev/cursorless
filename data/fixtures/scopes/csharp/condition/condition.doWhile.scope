@@ -1,20 +1,13 @@
-do {
-
-}
-while (1 > 5);
+do {} while (true);
 ---
 
 [Content] =
-[Removal] = 3:7-3:12
-         >-----<
-3| while (1 > 5);
+[Removal] = 0:13-0:17
+               >----<
+0| do {} while (true);
 
-[Domain] = 0:0-3:14
-  >----
-0| do {
-1|
-2| }
-3| while (1 > 5);
-   --------------<
+[Domain] = 0:0-0:19
+  >-------------------<
+0| do {} while (true);
 
 [Insertion delimiter] = " "
