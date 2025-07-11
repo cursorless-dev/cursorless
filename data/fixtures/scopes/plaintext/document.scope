@@ -1,32 +1,19 @@
 
-  aaa
-
-bbb
-
-ccc
+Hello world
 
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-6:0
+[Domain] = 0:0-2:0
   >
 0|
-1|   aaa
+1| Hello world
 2|
-3| bbb
-4|
-5| ccc
-6|
    <
 
-[Interior] = 1:2-5:3
-    >---
-1|   aaa
-2|
-3| bbb
-4|
-5| ccc
-   ---<
+[Interior] = 1:0-1:11
+  >-----------<
+1| Hello world
 
 [Insertion delimiter] = "\n\n"
