@@ -20,10 +20,7 @@ export function upgradeV7ToV8(command: CommandV7): CommandV8 {
 export function upgradePrimitiveTarget(
   target: PartialPrimitiveTargetDescriptor,
 ) {
-  if (target.modifiers == null) {
-    return;
-  }
-  target.modifiers = target.modifiers.flatMap(upgradeModifier);
+  target.modifiers = target.modifiers?.flatMap(upgradeModifier);
 }
 
 const upgrades: Partial<Record<ScopeType["type"], SimpleScopeTypeType>> = {
@@ -58,6 +55,7 @@ function upgradeModifier(modifier: Modifier): Modifier[] {
         },
       ];
     }
+
     case "extendThroughStartOf":
     case "extendThroughEndOf":
       return [
@@ -66,6 +64,7 @@ function upgradeModifier(modifier: Modifier): Modifier[] {
           modifiers: modifier.modifiers?.flatMap(upgradeModifier),
         },
       ];
+
     case "modifyIfUntyped":
       return [
         {
@@ -75,6 +74,7 @@ function upgradeModifier(modifier: Modifier): Modifier[] {
           modifier: upgradeModifier(modifier.modifier)[0],
         },
       ];
+
     default:
       return [modifier];
   }
