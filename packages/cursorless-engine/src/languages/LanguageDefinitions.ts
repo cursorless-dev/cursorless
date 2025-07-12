@@ -1,4 +1,4 @@
-import type { Disposable, Range, TextDocument } from "@cursorless/common";
+import type { Disposable } from "@cursorless/common";
 import {
   Notifier,
   showError,
@@ -8,7 +8,6 @@ import {
   type TreeSitter,
 } from "@cursorless/common";
 import { toString } from "lodash-es";
-import type { Node } from "web-tree-sitter";
 import { LanguageDefinition } from "./LanguageDefinition";
 import { treeSitterQueryCache } from "./TreeSitterQuery/treeSitterQueryCache";
 

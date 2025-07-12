@@ -1,5 +1,4 @@
-import type { TextDocument, Range, Listener } from "@cursorless/common";
-import type { Node } from "web-tree-sitter";
+import type { Listener } from "@cursorless/common";
 import type { LanguageDefinition } from "../languages/LanguageDefinition";
 import type { LanguageDefinitions } from "../languages/LanguageDefinitions";
 
