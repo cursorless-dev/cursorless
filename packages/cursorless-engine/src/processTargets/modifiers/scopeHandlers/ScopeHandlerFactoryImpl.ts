@@ -138,6 +138,10 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
       case "instance":
         // Handle instance pseudoscope with its own special modifier
         throw Error("Unexpected scope type 'instance'");
+      case "className":
+      case "functionName":
+        // Handle pseudoscopes with inference
+        throw Error(`Unexpected scope type '${scopeType.type}'`);
       default:
         return this.languageDefinitions
           .get(languageId)
