@@ -1,5 +1,5 @@
 class Foo {
-    Foo(int aaa, int bbb = 2) {}
+    Foo(int aaa = 0, int bbb = 1) {}
 }
 ---
 
@@ -7,7 +7,7 @@ class Foo {
 [#1 Domain] = 0:0-2:1
   >-----------
 0| class Foo {
-1|     Foo(int aaa, int bbb = 2) {}
+1|     Foo(int aaa = 0, int bbb = 1) {}
 2| }
    -<
 
@@ -16,12 +16,12 @@ class Foo {
 [#2 Domain] = 0:11-2:0
              >
 0| class Foo {
-1|     Foo(int aaa, int bbb = 2) {}
+1|     Foo(int aaa = 0, int bbb = 1) {}
 2| }
    <
 
 
 [#3 Content] =
-[#3 Domain] = 1:8-1:28
-          >--------------------<
-1|     Foo(int aaa, int bbb = 2) {}
+[#3 Domain] = 1:8-1:32
+          >------------------------<
+1|     Foo(int aaa = 0, int bbb = 1) {}

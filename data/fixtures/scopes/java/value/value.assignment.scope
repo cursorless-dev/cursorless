@@ -1,20 +1,20 @@
-value = 123;
+foo = 0;
 ---
 
-[Content] = 0:8-0:11
-          >---<
-0| value = 123;
+[Content] = 0:6-0:7
+        >-<
+0| foo = 0;
 
-[Removal] = 0:5-0:11
-       >------<
-0| value = 123;
+[Removal] = 0:3-0:7
+     >----<
+0| foo = 0;
 
-[Leading delimiter] = 0:5-0:8
-       >---<
-0| value = 123;
+[Leading delimiter] = 0:3-0:6
+     >---<
+0| foo = 0;
 
-[Domain] = 0:0-0:12
-  >------------<
-0| value = 123;
+[Domain] = 0:0-0:8
+  >--------<
+0| foo = 0;
 
 [Insertion delimiter] = " "

@@ -1,22 +1,41 @@
 class Foo {
-    Foo(int aaa, int bbb = 0) {}
+    Foo(int aaa = 0, int bbb = 1) {}
 }
 ---
 
-[Content] = 1:27-1:28
-                             >-<
-1|     Foo(int aaa, int bbb = 0) {}
+[#1 Content] = 1:18-1:19
+                    >-<
+1|     Foo(int aaa = 0, int bbb = 1) {}
 
-[Removal] = 1:24-1:28
-                          >----<
-1|     Foo(int aaa, int bbb = 0) {}
+[#1 Removal] = 1:15-1:19
+                 >----<
+1|     Foo(int aaa = 0, int bbb = 1) {}
 
-[Leading delimiter] = 1:24-1:27
-                          >---<
-1|     Foo(int aaa, int bbb = 0) {}
+[#1 Leading delimiter] = 1:15-1:18
+                 >---<
+1|     Foo(int aaa = 0, int bbb = 1) {}
 
-[Domain] = 1:17-1:28
-                   >-----------<
-1|     Foo(int aaa, int bbb = 0) {}
+[#1 Domain] = 1:8-1:19
+          >-----------<
+1|     Foo(int aaa = 0, int bbb = 1) {}
 
-[Insertion delimiter] = " "
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:31-1:32
+                                 >-<
+1|     Foo(int aaa = 0, int bbb = 1) {}
+
+[#2 Removal] = 1:28-1:32
+                              >----<
+1|     Foo(int aaa = 0, int bbb = 1) {}
+
+[#2 Leading delimiter] = 1:28-1:31
+                              >---<
+1|     Foo(int aaa = 0, int bbb = 1) {}
+
+[#2 Domain] = 1:21-1:32
+                       >-----------<
+1|     Foo(int aaa = 0, int bbb = 1) {}
+
+[#2 Insertion delimiter] = " "

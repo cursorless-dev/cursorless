@@ -1,18 +1,18 @@
-function foo(aaa?: number, bbb?: number = 0) { }
+function foo(aaa?: number, bbb?: number = 0) {}
 ---
 
 [#1 Content] =
 [#1 Removal] = 0:9-0:12
            >---<
-0| function foo(aaa?: number, bbb?: number = 0) { }
+0| function foo(aaa?: number, bbb?: number = 0) {}
 
 [#1 Leading delimiter] = 0:8-0:9
           >-<
-0| function foo(aaa?: number, bbb?: number = 0) { }
+0| function foo(aaa?: number, bbb?: number = 0) {}
 
-[#1 Domain] = 0:0-0:48
-  >------------------------------------------------<
-0| function foo(aaa?: number, bbb?: number = 0) { }
+[#1 Domain] = 0:0-0:47
+  >-----------------------------------------------<
+0| function foo(aaa?: number, bbb?: number = 0) {}
 
 [#1 Insertion delimiter] = " "
 
@@ -20,11 +20,11 @@ function foo(aaa?: number, bbb?: number = 0) { }
 [#2 Content] =
 [#2 Removal] = 0:13-0:16
                >---<
-0| function foo(aaa?: number, bbb?: number = 0) { }
+0| function foo(aaa?: number, bbb?: number = 0) {}
 
 [#2 Domain] = 0:13-0:25
                >------------<
-0| function foo(aaa?: number, bbb?: number = 0) { }
+0| function foo(aaa?: number, bbb?: number = 0) {}
 
 [#2 Insertion delimiter] = " "
 
@@ -32,14 +32,14 @@ function foo(aaa?: number, bbb?: number = 0) { }
 [#3 Content] =
 [#3 Removal] = 0:27-0:30
                              >---<
-0| function foo(aaa?: number, bbb?: number = 0) { }
+0| function foo(aaa?: number, bbb?: number = 0) {}
 
 [#3 Leading delimiter] = 0:26-0:27
                             >-<
-0| function foo(aaa?: number, bbb?: number = 0) { }
+0| function foo(aaa?: number, bbb?: number = 0) {}
 
 [#3 Domain] = 0:27-0:43
                              >----------------<
-0| function foo(aaa?: number, bbb?: number = 0) { }
+0| function foo(aaa?: number, bbb?: number = 0) {}
 
 [#3 Insertion delimiter] = " "

@@ -1,20 +1,16 @@
 settings():
-    aaa = 0
-    bbb = 1
+    foo = 0
 ---
 
 [#1 Content] =
-[#1 Domain] = 0:0-2:11
+[#1 Domain] = 0:0-1:11
   >-----------
 0| settings():
-1|     aaa = 0
-2|     bbb = 1
+1|     foo = 0
    -----------<
 
 
 [#2 Content] =
-[#2 Domain] = 1:4-2:11
-      >-------
-1|     aaa = 0
-2|     bbb = 1
-   -----------<
+[#2 Domain] = 1:4-1:11
+      >-------<
+1|     foo = 0

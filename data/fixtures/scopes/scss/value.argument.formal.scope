@@ -1,20 +1,39 @@
-@mixin foo($aaa, $bbb: 0) {}
+@mixin foo($aaa: 0, $bbb: 1) {}
 ---
 
-[Content] = 0:23-0:24
-                         >-<
-0| @mixin foo($aaa, $bbb: 0) {}
+[#1 Content] = 0:17-0:18
+                   >-<
+0| @mixin foo($aaa: 0, $bbb: 1) {}
 
-[Removal] = 0:22-0:24
-                        >--<
-0| @mixin foo($aaa, $bbb: 0) {}
+[#1 Removal] = 0:16-0:18
+                  >--<
+0| @mixin foo($aaa: 0, $bbb: 1) {}
 
-[Leading delimiter] = 0:22-0:23
-                        >-<
-0| @mixin foo($aaa, $bbb: 0) {}
+[#1 Leading delimiter] = 0:16-0:17
+                  >-<
+0| @mixin foo($aaa: 0, $bbb: 1) {}
 
-[Domain] = 0:17-0:24
-                   >-------<
-0| @mixin foo($aaa, $bbb: 0) {}
+[#1 Domain] = 0:11-0:18
+             >-------<
+0| @mixin foo($aaa: 0, $bbb: 1) {}
 
-[Insertion delimiter] = " "
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 0:26-0:27
+                            >-<
+0| @mixin foo($aaa: 0, $bbb: 1) {}
+
+[#2 Removal] = 0:25-0:27
+                           >--<
+0| @mixin foo($aaa: 0, $bbb: 1) {}
+
+[#2 Leading delimiter] = 0:25-0:26
+                           >-<
+0| @mixin foo($aaa: 0, $bbb: 1) {}
+
+[#2 Domain] = 0:20-0:27
+                      >-------<
+0| @mixin foo($aaa: 0, $bbb: 1) {}
+
+[#2 Insertion delimiter] = " "
