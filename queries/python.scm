@@ -73,6 +73,7 @@
 
 (_
   name: (_) @name
+  (#not-parent-type? @name function_definition class_definition)
 ) @_.domain
 
 ;;!! def aaa(bbb):
@@ -123,18 +124,6 @@
     "]" @type.iteration.end.startOf
   )
 )
-
-;;!!  def aaa() -> str:
-;;!                ^^^
-;;!            xxxxxxx
-;;!  [-----------------
-;;!!      pass
-;;!   --------]
-(function_definition
-  (_) @_.leading.endOf
-  .
-  return_type: (_) @type
-) @_.domain
 
 ;;!! d = {"a": 1234}
 ;;!            ^^^^
@@ -305,24 +294,37 @@
 
 (
   (function_definition
-    name: (_) @functionName
+    name: (_) @functionName @name
     body: (_) @interior
-  ) @namedFunction @functionName.domain @interior.domain
+  ) @namedFunction @_.domain
   (#not-parent-type? @namedFunction decorated_definition)
 )
+
 (decorated_definition
   (function_definition
-    name: (_) @functionName
+    name: (_) @functionName @name
     body: (_) @interior
   )
-) @namedFunction @functionName.domain @interior.domain
+) @namedFunction @_.domain
+
+;;!!  def aaa() -> str:
+;;!                ^^^
+;;!            xxxxxxx
+;;!  [-----------------
+;;!!      pass
+;;!   --------]
+(function_definition
+  (_) @_.leading.endOf
+  .
+  return_type: (_) @type
+) @_.domain
 
 ;;!! class MyClass:
 (
   (class_definition
-    name: (_) @className
+    name: (_) @className @name
     body: (_) @interior
-  ) @class @className.domain @interior.domain
+  ) @class @_.domain
   (#not-parent-type? @class decorated_definition)
 )
 
@@ -335,10 +337,10 @@
 ;;!! class MyClass:
 (decorated_definition
   (class_definition
-    name: (_) @className
+    name: (_) @className @name
     body: (_) @interior
   )
-) @class @className.domain @interior.domain
+) @class @_.domain
 
 (decorated_definition
   (class_definition)

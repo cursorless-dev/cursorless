@@ -123,17 +123,17 @@
   (singleton_method)
 ] @namedFunction
 
-(class) @class
+(program) @class.iteration @className.iteration
+(program) @namedFunction.iteration @functionName.iteration @name.iteration
 
-(class) @namedFunction.iteration @class.iteration
-(program) @namedFunction.iteration @class.iteration @className.iteration
-
-(class) @functionName.iteration @name.iteration
-(program) @functionName.iteration @name.iteration
+(class
+  name: (_) @class.iteration.start.endOf @namedFunction.iteration.start.endOf @name.iteration.start.endOf
+  "end" @class.iteration.end.startOf @namedFunction.iteration.end.startOf @name.iteration.end.startOf
+) @class
 
 (class
   name: (_) @className @name
-) @_.domain
+) @class @_.domain
 
 (string) @string
 
