@@ -1,15 +1,15 @@
-class MyClass {
-  constructor(aaa, bbb) { }
+class Foo {
+  constructor(aaa, bbb) {}
 }
 ---
 
 [Content] =
 [Removal] = 1:14-1:22
                 >--------<
-1|   constructor(aaa, bbb) { }
+1|   constructor(aaa, bbb) {}
 
-[Domain] = 1:2-1:27
-    >-------------------------<
-1|   constructor(aaa, bbb) { }
+[Domain] = 1:2-1:26
+    >------------------------<
+1|   constructor(aaa, bbb) {}
 
 [Insertion delimiter] = ", "

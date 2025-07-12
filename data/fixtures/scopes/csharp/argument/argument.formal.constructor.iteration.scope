@@ -1,12 +1,12 @@
-class MyClass {
-    MyClass(int a, int b) {}
+class Foo {
+    Foo(int aaa, int bbb) {}
 }
 ---
 
-[Content] = 1:12-1:24
-              >------------<
-1|     MyClass(int a, int b) {}
+[Content] = 1:8-1:24
+          >----------------<
+1|     Foo(int aaa, int bbb) {}
 
 [Domain] = 1:4-1:28
       >------------------------<
-1|     MyClass(int a, int b) {}
+1|     Foo(int aaa, int bbb) {}

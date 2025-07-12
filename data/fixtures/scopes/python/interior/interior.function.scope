@@ -1,17 +1,14 @@
-def foo():
-    pass
+def foo(): pass
 ---
 
 [#1 Content] =
-[#1 Removal] = 1:4-1:8
-      >----<
-1|     pass
+[#1 Removal] = 0:11-0:15
+             >----<
+0| def foo(): pass
 
-[#1 Domain] = 0:0-1:8
-  >----------
-0| def foo():
-1|     pass
-   --------<
+[#1 Domain] = 0:0-0:15
+  >---------------<
+0| def foo(): pass
 
 [#1 Insertion delimiter] = " "
 
@@ -19,10 +16,10 @@ def foo():
 [#2 Content] =
 [#2 Removal] = 0:8-0:8
           ><
-0| def foo():
+0| def foo(): pass
 
 [#2 Domain] = 0:7-0:9
          >--<
-0| def foo():
+0| def foo(): pass
 
 [#2 Insertion delimiter] = " "

@@ -42,12 +42,16 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
 
   "type.argument.formal": supported,
   "type.argument.formal.iteration": supported,
+  "type.argument.catch": supported,
   "type.cast": supported,
   "type.field.class": supported,
 
   "name.argument.formal": supported,
   "name.argument.formal.iteration": supported,
+  "name.argument.catch": supported,
   "name.field.class": supported,
+
+  "string.singleLine": supported,
 
   disqualifyDelimiter: supported,
 };

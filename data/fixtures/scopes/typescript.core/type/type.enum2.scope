@@ -1,10 +1,10 @@
-const enum Foo { }
+const enum Foo {}
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-0:18
-  >------------------<
-0| const enum Foo { }
+[Domain] = 0:0-0:17
+  >-----------------<
+0| const enum Foo {}
 
 [Insertion delimiter] = " "

@@ -70,6 +70,14 @@
   (identifier) @name
 ) @_.domain
 
+;;!! function foo(...aaa: number[]) {}
+;;!                  ^^^
+(_
+  (rest_pattern
+    (identifier) @name
+  )
+) @_.domain
+
 ;; Define these here because these node types don't exist in javascript.
 (_
   [
@@ -417,7 +425,7 @@
 ;;!                   ------------
 (_
   (property_signature
-    name: (_) @collectionKey @type.leading.endOf
+    name: (_) @name @collectionKey @type.leading.endOf
     type: (_
       ":"
       (_) @type @collectionKey.trailing.startOf

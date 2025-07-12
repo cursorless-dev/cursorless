@@ -1,44 +1,44 @@
-@mixin replace-text(
-    $image,
-    $color: red
+@mixin foo(
+    $aaa,
+    $bbb: 0
 ) {}
 ---
 
 [#1 Content] =
-[#1 Domain] = 1:4-1:10
-      >------<
-1|     $image,
+[#1 Domain] = 1:4-1:8
+      >----<
+1|     $aaa,
 
 [#1 Removal] = 1:4-2:4
-      >-------
-1|     $image,
-2|     $color: red
+      >-----
+1|     $aaa,
+2|     $bbb: 0
    ----<
 
-[#1 Trailing delimiter] = 1:10-2:4
-            >-
-1|     $image,
-2|     $color: red
+[#1 Trailing delimiter] = 1:8-2:4
+          >-
+1|     $aaa,
+2|     $bbb: 0
    ----<
 
 [#1 Insertion delimiter] = ",\n"
 
 
 [#2 Content] =
-[#2 Domain] = 2:4-2:15
-      >-----------<
-2|     $color: red
+[#2 Domain] = 2:4-2:11
+      >-------<
+2|     $bbb: 0
 
-[#2 Removal] = 1:10-2:15
-            >-
-1|     $image,
-2|     $color: red
-   ---------------<
+[#2 Removal] = 1:8-2:11
+          >-
+1|     $aaa,
+2|     $bbb: 0
+   -----------<
 
-[#2 Leading delimiter] = 1:10-2:4
-            >-
-1|     $image,
-2|     $color: red
+[#2 Leading delimiter] = 1:8-2:4
+          >-
+1|     $aaa,
+2|     $bbb: 0
    ----<
 
 [#2 Insertion delimiter] = ",\n"

@@ -34,7 +34,10 @@
 
 ;;!! if v < 0 {}
 ;;!  ^^^^^^^^^^^
-(if_expression) @ifStatement
+(
+  (if_expression) @ifStatement @statement
+  (#not-parent-type? @ifStatement else_clause)
+)
 
 ;;!! if let Some(i) = number {}
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^

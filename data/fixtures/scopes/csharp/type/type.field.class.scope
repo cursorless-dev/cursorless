@@ -33,8 +33,8 @@ class Foo {
          >-<
 1|     int bar;
 
-[#2 Domain] = 1:4-1:11
-      >-------<
+[#2 Domain] = 1:4-1:12
+      >--------<
 1|     int bar;
 
 [#2 Insertion delimiter] = " "
@@ -56,8 +56,8 @@ class Foo {
          >-<
 2|     int baz = 0;
 
-[#3 Domain] = 2:4-2:15
-      >-----------<
+[#3 Domain] = 2:4-2:16
+      >------------<
 2|     int baz = 0;
 
 [#3 Insertion delimiter] = " "

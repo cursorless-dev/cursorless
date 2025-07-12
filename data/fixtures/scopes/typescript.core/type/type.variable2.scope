@@ -1,0 +1,24 @@
+const foo: number = 0;
+---
+
+[Content] = 0:11-0:17
+             >------<
+0| const foo: number = 0;
+
+[Removal] = 0:9-0:17
+           >--------<
+0| const foo: number = 0;
+
+[Leading delimiter] = 0:10-0:11
+            >-<
+0| const foo: number = 0;
+
+[Trailing delimiter] = 0:17-0:18
+                   >-<
+0| const foo: number = 0;
+
+[Domain] = 0:0-0:22
+  >----------------------<
+0| const foo: number = 0;
+
+[Insertion delimiter] = " "

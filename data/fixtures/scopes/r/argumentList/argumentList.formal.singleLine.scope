@@ -1,13 +1,13 @@
-abc <- function(aaa, bbb) { }
+foo <- function(aaa, bbb) {}
 ---
 
 [Content] =
 [Removal] = 0:16-0:24
                   >--------<
-0| abc <- function(aaa, bbb) { }
+0| foo <- function(aaa, bbb) {}
 
-[Domain] = 0:0-0:29
-  >-----------------------------<
-0| abc <- function(aaa, bbb) { }
+[Domain] = 0:0-0:28
+  >----------------------------<
+0| foo <- function(aaa, bbb) {}
 
 [Insertion delimiter] = ", "

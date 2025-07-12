@@ -1,25 +1,20 @@
-for (const item of items) {
-
-}
+for (const v of values) {}
 ---
 
-[Content] = 0:19-0:24
-                     >-----<
-0| for (const item of items) {
+[Content] = 0:16-0:22
+                  >------<
+0| for (const v of values) {}
 
-[Removal] = 0:18-0:24
-                    >------<
-0| for (const item of items) {
+[Removal] = 0:15-0:22
+                 >-------<
+0| for (const v of values) {}
 
-[Leading delimiter] = 0:18-0:19
-                    >-<
-0| for (const item of items) {
+[Leading delimiter] = 0:15-0:16
+                 >-<
+0| for (const v of values) {}
 
-[Domain] = 0:0-2:1
-  >---------------------------
-0| for (const item of items) {
-1|
-2| }
-   -<
+[Domain] = 0:0-0:26
+  >--------------------------<
+0| for (const v of values) {}
 
 [Insertion delimiter] = " "

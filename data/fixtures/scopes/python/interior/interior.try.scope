@@ -1,48 +1,39 @@
-try:
-    a
-except:
-    b
-finally:
-    c
+try: pass
+except: pass
+finally: pass
 ---
 
 [#1 Content] =
-[#1 Removal] = 1:4-1:5
-      >-<
-1|     a
+[#1 Removal] = 0:5-0:9
+       >----<
+0| try: pass
 
-[#1 Domain] = 0:0-1:5
-  >----
-0| try:
-1|     a
-   -----<
+[#1 Domain] = 0:0-0:9
+  >---------<
+0| try: pass
 
 [#1 Insertion delimiter] = " "
 
 
 [#2 Content] =
-[#2 Removal] = 3:4-3:5
-      >-<
-3|     b
+[#2 Removal] = 1:8-1:12
+          >----<
+1| except: pass
 
-[#2 Domain] = 2:0-3:5
-  >-------
-2| except:
-3|     b
-   -----<
+[#2 Domain] = 1:0-1:12
+  >------------<
+1| except: pass
 
 [#2 Insertion delimiter] = " "
 
 
 [#3 Content] =
-[#3 Removal] = 5:4-5:5
-      >-<
-5|     c
+[#3 Removal] = 2:9-2:13
+           >----<
+2| finally: pass
 
-[#3 Domain] = 4:0-5:5
-  >--------
-4| finally:
-5|     c
-   -----<
+[#3 Domain] = 2:0-2:13
+  >-------------<
+2| finally: pass
 
 [#3 Insertion delimiter] = " "

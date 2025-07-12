@@ -1,5 +1,5 @@
-class MyClass {
-    void foo(
+class Foo {
+    void Bar(
         int aaa,
         int bbb
     ) {}
@@ -14,7 +14,7 @@ class MyClass {
 
 [Removal] = 1:13-4:4
                >
-1|     void foo(
+1|     void Bar(
 2|         int aaa,
 3|         int bbb
 4|     ) {}
@@ -26,7 +26,7 @@ class MyClass {
 
 [Domain] = 1:4-4:8
       >---------
-1|     void foo(
+1|     void Bar(
 2|         int aaa,
 3|         int bbb
 4|     ) {}

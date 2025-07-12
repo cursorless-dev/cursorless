@@ -1,48 +1,39 @@
-if True:
-    a
-elif False:
-    b
-else:
-    c
+if True: pass
+elif False: pass
+else: pass
 ---
 
 [#1 Content] =
-[#1 Removal] = 1:4-1:5
-      >-<
-1|     a
+[#1 Removal] = 0:9-0:13
+           >----<
+0| if True: pass
 
-[#1 Domain] = 0:0-1:5
-  >--------
-0| if True:
-1|     a
-   -----<
+[#1 Domain] = 0:0-0:13
+  >-------------<
+0| if True: pass
 
 [#1 Insertion delimiter] = " "
 
 
 [#2 Content] =
-[#2 Removal] = 3:4-3:5
-      >-<
-3|     b
+[#2 Removal] = 1:12-1:16
+              >----<
+1| elif False: pass
 
-[#2 Domain] = 2:0-3:5
-  >-----------
-2| elif False:
-3|     b
-   -----<
+[#2 Domain] = 1:0-1:16
+  >----------------<
+1| elif False: pass
 
 [#2 Insertion delimiter] = " "
 
 
 [#3 Content] =
-[#3 Removal] = 5:4-5:5
-      >-<
-5|     c
+[#3 Removal] = 2:6-2:10
+        >----<
+2| else: pass
 
-[#3 Domain] = 4:0-5:5
-  >-----
-4| else:
-5|     c
-   -----<
+[#3 Domain] = 2:0-2:10
+  >----------<
+2| else: pass
 
 [#3 Insertion delimiter] = " "

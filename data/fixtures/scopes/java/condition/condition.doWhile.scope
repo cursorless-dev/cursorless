@@ -1,13 +1,13 @@
-do { } while(value != null);
+do {} while (true);
 ---
 
 [Content] =
-[Removal] = 0:13-0:26
-               >-------------<
-0| do { } while(value != null);
+[Removal] = 0:13-0:17
+               >----<
+0| do {} while (true);
 
-[Domain] = 0:0-0:28
-  >----------------------------<
-0| do { } while(value != null);
+[Domain] = 0:0-0:19
+  >-------------------<
+0| do {} while (true);
 
 [Insertion delimiter] = " "

@@ -1,21 +1,21 @@
-class MyClass {
-    MyClass() {}
+class Foo {
+    Foo() {}
 }
 ---
 
 [Content] =
-[Domain] = 1:4-1:16
-      >------------<
-1|     MyClass() {}
+[Domain] = 1:4-1:12
+      >--------<
+1|     Foo() {}
 
 [Removal] = 1:0-2:0
-  >----------------
-1|     MyClass() {}
+  >------------
+1|     Foo() {}
 2| }
    <
 
 [Leading delimiter] = 1:0-1:4
   >----<
-1|     MyClass() {}
+1|     Foo() {}
 
 [Insertion delimiter] = "\n\n"

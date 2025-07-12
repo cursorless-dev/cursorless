@@ -1,17 +1,17 @@
-@mixin replace-text() {}
+@mixin foo() {}
 ---
 
 [Content] =
-[Removal] = 0:7-0:19
-         >------------<
-0| @mixin replace-text() {}
+[Removal] = 0:7-0:10
+         >---<
+0| @mixin foo() {}
 
 [Leading delimiter] = 0:6-0:7
         >-<
-0| @mixin replace-text() {}
+0| @mixin foo() {}
 
-[Domain] = 0:0-0:24
-  >------------------------<
-0| @mixin replace-text() {}
+[Domain] = 0:0-0:15
+  >---------------<
+0| @mixin foo() {}
 
 [Insertion delimiter] = " "

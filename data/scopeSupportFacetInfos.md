@@ -220,7 +220,7 @@
 ### name
 
 - `name.argument.actual` Name of a (keyword) argument in a function call
-- `name.argument.actual.iteration` Iteration scope for names of the arguments in a function call: the argument list. The domain should be the whole function call.
+- `name.argument.actual.iteration` Iteration scope for names of (keyword) arguments in a function call: the argument list..
 - `name.argument.catch` Name of a parameter in a catch clause
 - `name.argument.formal` Name of a parameter in a function declaration
 - `name.argument.formal.constructor` The name of a parameter in a constructor declaration
@@ -377,7 +377,7 @@
 ### value
 
 - `value.argument.actual` The value of a (keyword) argument in a function call
-- `value.argument.actual.iteration` Iteration scope for values of arguments in a function call: the arguments list. The domain should be the entire function call.
+- `value.argument.actual.iteration` Iteration scope for values of (keyword) arguments in a function call: the arguments list..
 - `value.argument.formal` The value of a (keyword) argument in a function declaration
 - `value.argument.formal.constructor` The value of a parameter in a constructor declaration
 - `value.argument.formal.constructor.iteration` Iteration scope for values of formal parameters in a constructor declaration: the parameters list. The domain should be the entire constructor.

@@ -1,16 +1,13 @@
-class MyClass:
-    pass
+class Foo: pass
 ---
 
 [Content] =
-[Removal] = 1:4-1:8
-      >----<
-1|     pass
+[Removal] = 0:11-0:15
+             >----<
+0| class Foo: pass
 
-[Domain] = 0:0-1:8
-  >--------------
-0| class MyClass:
-1|     pass
-   --------<
+[Domain] = 0:0-0:15
+  >---------------<
+0| class Foo: pass
 
 [Insertion delimiter] = " "

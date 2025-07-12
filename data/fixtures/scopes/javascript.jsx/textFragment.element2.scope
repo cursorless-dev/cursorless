@@ -1,10 +1,10 @@
-<div>({value})</div>
+<div>({foo})</div>
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:5-0:14
-       >---------<
-0| <div>({value})</div>
+[Domain] = 0:5-0:12
+       >-------<
+0| <div>({foo})</div>
 
 [Insertion delimiter] = " "

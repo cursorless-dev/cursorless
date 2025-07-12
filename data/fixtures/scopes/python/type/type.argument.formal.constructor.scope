@@ -1,34 +1,51 @@
-class MyClass:
-    def __init__(self, a: int):
-        pass
+class Foo:
+    def __init__(self, aaa: int, bbb: int): pass
 ---
 
 [#1 Content] =
 [#1 Removal] =
-[#1 Domain] = 0:0-2:12
-  >--------------
-0| class MyClass:
-1|     def __init__(self, a: int):
-2|         pass
-   ------------<
+[#1 Domain] = 0:0-1:48
+  >----------
+0| class Foo:
+1|     def __init__(self, aaa: int, bbb: int): pass
+   ------------------------------------------------<
 
 [#1 Insertion delimiter] = " "
 
 
-[#2 Content] = 1:26-1:29
-                            >---<
-1|     def __init__(self, a: int):
+[#2 Content] = 1:28-1:31
+                              >---<
+1|     def __init__(self, aaa: int, bbb: int): pass
 
-[#2 Removal] = 1:24-1:29
-                          >-----<
-1|     def __init__(self, a: int):
+[#2 Removal] = 1:26-1:31
+                            >-----<
+1|     def __init__(self, aaa: int, bbb: int): pass
 
-[#2 Leading delimiter] = 1:24-1:26
-                          >--<
-1|     def __init__(self, a: int):
+[#2 Leading delimiter] = 1:26-1:28
+                            >--<
+1|     def __init__(self, aaa: int, bbb: int): pass
 
-[#2 Domain] = 1:23-1:29
-                         >------<
-1|     def __init__(self, a: int):
+[#2 Domain] = 1:23-1:31
+                         >--------<
+1|     def __init__(self, aaa: int, bbb: int): pass
 
 [#2 Insertion delimiter] = " "
+
+
+[#3 Content] = 1:38-1:41
+                                        >---<
+1|     def __init__(self, aaa: int, bbb: int): pass
+
+[#3 Removal] = 1:36-1:41
+                                      >-----<
+1|     def __init__(self, aaa: int, bbb: int): pass
+
+[#3 Leading delimiter] = 1:36-1:38
+                                      >--<
+1|     def __init__(self, aaa: int, bbb: int): pass
+
+[#3 Domain] = 1:33-1:41
+                                   >--------<
+1|     def __init__(self, aaa: int, bbb: int): pass
+
+[#3 Insertion delimiter] = " "

@@ -1,10 +1,10 @@
-foo.bar(0);
+foo();
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-0:10
-  >----------<
-0| foo.bar(0);
+[Domain] = 0:0-0:5
+  >-----<
+0| foo();
 
 [Insertion delimiter] = " "

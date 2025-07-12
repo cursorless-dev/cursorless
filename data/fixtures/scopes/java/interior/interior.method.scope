@@ -1,23 +1,23 @@
-public class MyClass {
-    public void foo() { }
+public class Foo {
+    public void bar() { }
 }
 ---
 
 [#1 Content] = 1:4-1:25
       >---------------------<
-1|     public void foo() { }
+1|     public void bar() { }
 
-[#1 Removal] = 0:22-2:0
-                        >
-0| public class MyClass {
-1|     public void foo() { }
+[#1 Removal] = 0:18-2:0
+                    >
+0| public class Foo {
+1|     public void bar() { }
 2| }
    <
 
 [#1 Domain] = 0:0-2:1
-  >----------------------
-0| public class MyClass {
-1|     public void foo() { }
+  >------------------
+0| public class Foo {
+1|     public void bar() { }
 2| }
    -<
 
@@ -26,19 +26,19 @@ public class MyClass {
 
 [#2 Content] = 1:4-1:25
       >---------------------<
-1|     public void foo() { }
+1|     public void bar() { }
 
-[#2 Removal] = 0:22-2:0
-                        >
-0| public class MyClass {
-1|     public void foo() { }
+[#2 Removal] = 0:18-2:0
+                    >
+0| public class Foo {
+1|     public void bar() { }
 2| }
    <
 
-[#2 Domain] = 0:21-2:1
-                       >-
-0| public class MyClass {
-1|     public void foo() { }
+[#2 Domain] = 0:17-2:1
+                   >-
+0| public class Foo {
+1|     public void bar() { }
 2| }
    -<
 
@@ -48,11 +48,11 @@ public class MyClass {
 [#3 Content] =
 [#3 Removal] = 1:23-1:24
                          >-<
-1|     public void foo() { }
+1|     public void bar() { }
 
 [#3 Domain] = 1:4-1:25
       >---------------------<
-1|     public void foo() { }
+1|     public void bar() { }
 
 [#3 Insertion delimiter] = " "
 
@@ -60,11 +60,11 @@ public class MyClass {
 [#4 Content] =
 [#4 Removal] = 1:20-1:20
                       ><
-1|     public void foo() { }
+1|     public void bar() { }
 
 [#4 Domain] = 1:19-1:21
                      >--<
-1|     public void foo() { }
+1|     public void bar() { }
 
 [#4 Insertion delimiter] = " "
 
@@ -72,10 +72,10 @@ public class MyClass {
 [#5 Content] =
 [#5 Removal] = 1:23-1:24
                          >-<
-1|     public void foo() { }
+1|     public void bar() { }
 
 [#5 Domain] = 1:22-1:25
                         >---<
-1|     public void foo() { }
+1|     public void bar() { }
 
 [#5 Insertion delimiter] = " "

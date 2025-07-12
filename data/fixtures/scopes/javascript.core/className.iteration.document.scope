@@ -1,5 +1,5 @@
 
-int foo;
+class Foo {}
 
 ---
 
@@ -7,6 +7,6 @@ int foo;
 [Domain] = 0:0-2:0
   >
 0|
-1| int foo;
+1| class Foo {}
 2|
    <

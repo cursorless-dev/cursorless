@@ -1,33 +1,33 @@
-lambda a, b: pass
+lambda aaa, bbb: pass
 ---
 
 [#1 Content] =
-[#1 Domain] = 0:7-0:8
-         >-<
-0| lambda a, b: pass
-
-[#1 Removal] = 0:7-0:10
+[#1 Domain] = 0:7-0:10
          >---<
-0| lambda a, b: pass
+0| lambda aaa, bbb: pass
 
-[#1 Trailing delimiter] = 0:8-0:10
-          >--<
-0| lambda a, b: pass
+[#1 Removal] = 0:7-0:12
+         >-----<
+0| lambda aaa, bbb: pass
+
+[#1 Trailing delimiter] = 0:10-0:12
+            >--<
+0| lambda aaa, bbb: pass
 
 [#1 Insertion delimiter] = ", "
 
 
 [#2 Content] =
-[#2 Domain] = 0:10-0:11
-            >-<
-0| lambda a, b: pass
+[#2 Domain] = 0:12-0:15
+              >---<
+0| lambda aaa, bbb: pass
 
-[#2 Removal] = 0:8-0:11
-          >---<
-0| lambda a, b: pass
+[#2 Removal] = 0:10-0:15
+            >-----<
+0| lambda aaa, bbb: pass
 
-[#2 Leading delimiter] = 0:8-0:10
-          >--<
-0| lambda a, b: pass
+[#2 Leading delimiter] = 0:10-0:12
+            >--<
+0| lambda aaa, bbb: pass
 
 [#2 Insertion delimiter] = ", "

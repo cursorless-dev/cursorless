@@ -1,8 +1,8 @@
-class MyClass {
+class Foo {
   constructor(
     aaa,
     bbb
-  ) { }
+  ) {}
 }
 ---
 
@@ -17,19 +17,19 @@ class MyClass {
 1|   constructor(
 2|     aaa,
 3|     bbb
-4|   ) { }
+4|   ) {}
    --<
 
 [Leading delimiter] = 2:0-2:4
   >----<
 2|     aaa,
 
-[Domain] = 1:2-4:7
+[Domain] = 1:2-4:6
     >------------
 1|   constructor(
 2|     aaa,
 3|     bbb
-4|   ) { }
-   -------<
+4|   ) {}
+   ------<
 
 [Insertion delimiter] = ",\n"

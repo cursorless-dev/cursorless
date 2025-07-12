@@ -1,20 +1,20 @@
-yield 5;
+yield 0;
 ---
 
 [Content] = 0:6-0:7
         >-<
-0| yield 5;
+0| yield 0;
 
 [Removal] = 0:5-0:7
        >--<
-0| yield 5;
+0| yield 0;
 
 [Leading delimiter] = 0:5-0:6
        >-<
-0| yield 5;
+0| yield 0;
 
-[Domain] = 0:0-0:7
-  >-------<
-0| yield 5;
+[Domain] = 0:0-0:8
+  >--------<
+0| yield 0;
 
 [Insertion delimiter] = " "

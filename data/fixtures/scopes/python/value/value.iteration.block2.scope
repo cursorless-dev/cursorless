@@ -1,16 +1,13 @@
-def foo():
-    pass
+def foo(): pass
 ---
 
 [#1 Content] =
-[#1 Domain] = 0:0-1:8
-  >----------
-0| def foo():
-1|     pass
-   --------<
+[#1 Domain] = 0:0-0:15
+  >---------------<
+0| def foo(): pass
 
 
 [#2 Content] =
-[#2 Domain] = 1:4-1:8
-      >----<
-1|     pass
+[#2 Domain] = 0:11-0:15
+             >----<
+0| def foo(): pass

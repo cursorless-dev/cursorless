@@ -24,10 +24,10 @@ export function Code({
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    if (renderWhitespace) {
-      children = children.replaceAll(" ", "␣").replaceAll("\t", "⭾");
-    }
-    codeToHtml(children, {
+    const code = renderWhitespace
+      ? children.replaceAll(" ", "␣").replaceAll("\t", "⭾")
+      : children;
+    codeToHtml(code, {
       lang: getFallbackLanguage(languageId),
       theme: "nord",
       decorations,

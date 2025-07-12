@@ -1,28 +1,28 @@
-public class MyClass {
-    public void foo() { }
+public class Foo {
+    public void bar() {}
 }
 ---
 
-[#1 Content] = 0:13-0:20
-               >-------<
-0| public class MyClass {
+[#1 Content] = 0:13-0:16
+               >---<
+0| public class Foo {
 
-[#1 Removal] = 0:13-0:21
-               >--------<
-0| public class MyClass {
+[#1 Removal] = 0:13-0:17
+               >----<
+0| public class Foo {
 
 [#1 Leading delimiter] = 0:12-0:13
               >-<
-0| public class MyClass {
+0| public class Foo {
 
-[#1 Trailing delimiter] = 0:20-0:21
-                      >-<
-0| public class MyClass {
+[#1 Trailing delimiter] = 0:16-0:17
+                  >-<
+0| public class Foo {
 
 [#1 Domain] = 0:0-2:1
-  >----------------------
-0| public class MyClass {
-1|     public void foo() { }
+  >------------------
+0| public class Foo {
+1|     public void bar() {}
 2| }
    -<
 
@@ -32,14 +32,14 @@ public class MyClass {
 [#2 Content] =
 [#2 Removal] = 1:16-1:19
                   >---<
-1|     public void foo() { }
+1|     public void bar() {}
 
 [#2 Leading delimiter] = 1:15-1:16
                  >-<
-1|     public void foo() { }
+1|     public void bar() {}
 
-[#2 Domain] = 1:4-1:25
-      >---------------------<
-1|     public void foo() { }
+[#2 Domain] = 1:4-1:24
+      >--------------------<
+1|     public void bar() {}
 
 [#2 Insertion delimiter] = " "

@@ -1,22 +1,22 @@
-foo: "bar"
-baz: "bongo"
+aaa: "0"
+bbb: "1"
 ---
 
 [#1 Content] =
-[#1 Domain] = 0:0-1:12
-  >----------
-0| foo: "bar"
-1| baz: "bongo"
-   ------------<
+[#1 Domain] = 0:0-1:8
+  >--------
+0| aaa: "0"
+1| bbb: "1"
+   --------<
 
 
 [#2 Content] =
-[#2 Domain] = 0:5-0:10
-       >-----<
-0| foo: "bar"
+[#2 Domain] = 0:5-0:8
+       >---<
+0| aaa: "0"
 
 
 [#3 Content] =
-[#3 Domain] = 1:5-1:12
-       >-------<
-1| baz: "bongo"
+[#3 Domain] = 1:5-1:8
+       >---<
+1| bbb: "1"

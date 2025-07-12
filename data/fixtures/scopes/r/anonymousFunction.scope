@@ -1,17 +1,10 @@
-lapply(1:10, function(x) x^2)
+function() {}
 ---
 
 [Content] =
-[Domain] = 0:13-0:28
-               >---------------<
-0| lapply(1:10, function(x) x^2)
-
-[Removal] = 0:12-0:28
-              >----------------<
-0| lapply(1:10, function(x) x^2)
-
-[Leading delimiter] = 0:12-0:13
-              >-<
-0| lapply(1:10, function(x) x^2)
+[Removal] =
+[Domain] = 0:0-0:13
+  >-------------<
+0| function() {}
 
 [Insertion delimiter] = "\n"

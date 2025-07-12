@@ -1,5 +1,5 @@
-public class MyClass {
-    public void foo(
+public class Foo {
+    public void bar(
         int aaa,
         int bbb
     ) {}
@@ -14,7 +14,7 @@ public class MyClass {
 
 [Removal] = 1:20-4:4
                       >
-1|     public void foo(
+1|     public void bar(
 2|         int aaa,
 3|         int bbb
 4|     ) {}
@@ -26,7 +26,7 @@ public class MyClass {
 
 [Domain] = 1:4-4:8
       >----------------
-1|     public void foo(
+1|     public void bar(
 2|         int aaa,
 3|         int bbb
 4|     ) {}

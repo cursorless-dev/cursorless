@@ -1,15 +1,15 @@
-class MyClass {
-    MyClass(int aaa, int bbb) {}
+class Foo {
+    Foo(int aaa, int bbb) {}
 }
 ---
 
 [Content] =
-[Removal] = 1:12-1:28
-              >----------------<
-1|     MyClass(int aaa, int bbb) {}
+[Removal] = 1:8-1:24
+          >----------------<
+1|     Foo(int aaa, int bbb) {}
 
-[Domain] = 1:4-1:32
-      >----------------------------<
-1|     MyClass(int aaa, int bbb) {}
+[Domain] = 1:4-1:28
+      >------------------------<
+1|     Foo(int aaa, int bbb) {}
 
 [Insertion delimiter] = ", "

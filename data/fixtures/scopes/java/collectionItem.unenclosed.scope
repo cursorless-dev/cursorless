@@ -1,67 +1,67 @@
-public class MyClass {
-    String foo, bar;
+public class Foo {
+    int aaa, bbb;
 }
 ---
 
 [#1 Content] =
-[#1 Domain] = 1:4-1:14
-      >----------<
-1|     String foo, bar;
+[#1 Domain] = 1:4-1:11
+      >-------<
+1|     int aaa, bbb;
 
-[#1 Removal] = 1:4-1:16
-      >------------<
-1|     String foo, bar;
+[#1 Removal] = 1:4-1:13
+      >---------<
+1|     int aaa, bbb;
 
-[#1 Trailing delimiter] = 1:14-1:16
-                >--<
-1|     String foo, bar;
+[#1 Trailing delimiter] = 1:11-1:13
+             >--<
+1|     int aaa, bbb;
 
 [#1 Insertion delimiter] = ",\n"
 
 
 [#2 Content] =
-[#2 Domain] = 1:11-1:14
-             >---<
-1|     String foo, bar;
+[#2 Domain] = 1:8-1:11
+          >---<
+1|     int aaa, bbb;
 
-[#2 Removal] = 1:11-1:16
-             >-----<
-1|     String foo, bar;
+[#2 Removal] = 1:8-1:13
+          >-----<
+1|     int aaa, bbb;
 
-[#2 Trailing delimiter] = 1:14-1:16
-                >--<
-1|     String foo, bar;
+[#2 Trailing delimiter] = 1:11-1:13
+             >--<
+1|     int aaa, bbb;
 
 [#2 Insertion delimiter] = ", "
 
 
 [#3 Content] =
-[#3 Domain] = 1:16-1:19
-                  >---<
-1|     String foo, bar;
+[#3 Domain] = 1:13-1:16
+               >---<
+1|     int aaa, bbb;
 
-[#3 Removal] = 1:14-1:19
-                >-----<
-1|     String foo, bar;
+[#3 Removal] = 1:11-1:16
+             >-----<
+1|     int aaa, bbb;
 
-[#3 Leading delimiter] = 1:14-1:16
-                >--<
-1|     String foo, bar;
+[#3 Leading delimiter] = 1:11-1:13
+             >--<
+1|     int aaa, bbb;
 
 [#3 Insertion delimiter] = ", "
 
 
 [#4 Content] =
-[#4 Domain] = 1:16-1:20
-                  >----<
-1|     String foo, bar;
+[#4 Domain] = 1:13-1:17
+               >----<
+1|     int aaa, bbb;
 
-[#4 Removal] = 1:14-1:20
-                >------<
-1|     String foo, bar;
+[#4 Removal] = 1:11-1:17
+             >------<
+1|     int aaa, bbb;
 
-[#4 Leading delimiter] = 1:14-1:16
-                >--<
-1|     String foo, bar;
+[#4 Leading delimiter] = 1:11-1:13
+             >--<
+1|     int aaa, bbb;
 
 [#4 Insertion delimiter] = ",\n"

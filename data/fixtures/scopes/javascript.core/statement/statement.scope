@@ -1,10 +1,10 @@
-const value = 0;
+const foo = 0;
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-0:16
-  >----------------<
-0| const value = 0;
+[Domain] = 0:0-0:14
+  >--------------<
+0| const foo = 0;
 
 [Insertion delimiter] = "\n"

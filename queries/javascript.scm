@@ -57,6 +57,12 @@
   ) @_.domain
 )
 
+;;!! function foo(...aaa) {}
+;;!                  ^^^
+(rest_pattern
+  (identifier) @name
+) @_.domain
+
 ;;!! catch(error) {}
 ;;!        ^^^^^
 (catch_clause

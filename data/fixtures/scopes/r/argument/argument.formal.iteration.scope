@@ -1,10 +1,10 @@
-abc <- function(x, y){}
+foo <- function(aaa, bbb) {}
 ---
 
-[Content] = 0:16-0:20
-                  >----<
-0| abc <- function(x, y){}
+[Content] = 0:16-0:24
+                  >--------<
+0| foo <- function(aaa, bbb) {}
 
-[Domain] = 0:0-0:23
-  >-----------------------<
-0| abc <- function(x, y){}
+[Domain] = 0:0-0:28
+  >----------------------------<
+0| foo <- function(aaa, bbb) {}

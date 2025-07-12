@@ -1,6 +1,6 @@
-switch (value) {
+switch (foo) {
     case 0:
-        foo;
+        bar;
         break;
     case 1: {
         break;
@@ -13,7 +13,7 @@ switch (value) {
 [#1 Content] = 1:4-8:14
       >-------
 1|     case 0:
-2|         foo;
+2|         bar;
 3|         break;
 4|     case 1: {
 5|         break;
@@ -22,11 +22,11 @@ switch (value) {
 8|         break;
    --------------<
 
-[#1 Removal] = 0:16-9:0
-                  >
-0| switch (value) {
+[#1 Removal] = 0:14-9:0
+                >
+0| switch (foo) {
 1|     case 0:
-2|         foo;
+2|         bar;
 3|         break;
 4|     case 1: {
 5|         break;
@@ -37,10 +37,10 @@ switch (value) {
    <
 
 [#1 Domain] = 0:0-9:1
-  >----------------
-0| switch (value) {
+  >--------------
+0| switch (foo) {
 1|     case 0:
-2|         foo;
+2|         bar;
 3|         break;
 4|     case 1: {
 5|         break;
@@ -54,13 +54,13 @@ switch (value) {
 
 
 [#2 Content] =
-[#2 Removal] = 0:8-0:13
-          >-----<
-0| switch (value) {
+[#2 Removal] = 0:8-0:11
+          >---<
+0| switch (foo) {
 
-[#2 Domain] = 0:7-0:14
-         >-------<
-0| switch (value) {
+[#2 Domain] = 0:7-0:12
+         >-----<
+0| switch (foo) {
 
 [#2 Insertion delimiter] = " "
 
@@ -68,7 +68,7 @@ switch (value) {
 [#3 Content] = 1:4-8:14
       >-------
 1|     case 0:
-2|         foo;
+2|         bar;
 3|         break;
 4|     case 1: {
 5|         break;
@@ -77,11 +77,11 @@ switch (value) {
 8|         break;
    --------------<
 
-[#3 Removal] = 0:16-9:0
-                  >
-0| switch (value) {
+[#3 Removal] = 0:14-9:0
+                >
+0| switch (foo) {
 1|     case 0:
-2|         foo;
+2|         bar;
 3|         break;
 4|     case 1: {
 5|         break;
@@ -91,11 +91,11 @@ switch (value) {
 9| }
    <
 
-[#3 Domain] = 0:15-9:1
-                 >-
-0| switch (value) {
+[#3 Domain] = 0:13-9:1
+               >-
+0| switch (foo) {
 1|     case 0:
-2|         foo;
+2|         bar;
 3|         break;
 4|     case 1: {
 5|         break;
@@ -111,14 +111,14 @@ switch (value) {
 [#4 Content] =
 [#4 Removal] = 2:8-3:14
           >----
-2|         foo;
+2|         bar;
 3|         break;
    --------------<
 
 [#4 Domain] = 1:4-3:14
       >-------
 1|     case 0:
-2|         foo;
+2|         bar;
 3|         break;
    --------------<
 

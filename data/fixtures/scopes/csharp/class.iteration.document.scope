@@ -1,18 +1,12 @@
 
-public class BankAccount { }
+class Foo {}
 
 ---
 
-[#1 Content] =
-[#1 Domain] = 0:0-2:0
+[Content] =
+[Domain] = 0:0-2:0
   >
 0|
-1| public class BankAccount { }
+1| class Foo {}
 2|
    <
-
-
-[#2 Content] =
-[#2 Domain] = 1:26-1:27
-                            >-<
-1| public class BankAccount { }

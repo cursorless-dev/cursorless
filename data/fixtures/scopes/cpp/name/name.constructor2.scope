@@ -1,28 +1,28 @@
-class MyClass {
-    ~MyClass() {}
+class Foo {
+    ~Foo() {}
 }
 ---
 
-[#1 Content] = 0:6-0:13
-        >-------<
-0| class MyClass {
+[#1 Content] = 0:6-0:9
+        >---<
+0| class Foo {
 
-[#1 Removal] = 0:6-0:14
-        >--------<
-0| class MyClass {
+[#1 Removal] = 0:6-0:10
+        >----<
+0| class Foo {
 
 [#1 Leading delimiter] = 0:5-0:6
        >-<
-0| class MyClass {
+0| class Foo {
 
-[#1 Trailing delimiter] = 0:13-0:14
-               >-<
-0| class MyClass {
+[#1 Trailing delimiter] = 0:9-0:10
+           >-<
+0| class Foo {
 
 [#1 Domain] = 0:0-2:1
-  >---------------
-0| class MyClass {
-1|     ~MyClass() {}
+  >-----------
+0| class Foo {
+1|     ~Foo() {}
 2| }
    -<
 
@@ -30,16 +30,16 @@ class MyClass {
 
 
 [#2 Content] =
-[#2 Removal] = 1:4-1:12
-      >--------<
-1|     ~MyClass() {}
+[#2 Removal] = 1:4-1:8
+      >----<
+1|     ~Foo() {}
 
 [#2 Leading delimiter] = 1:0-1:4
   >----<
-1|     ~MyClass() {}
+1|     ~Foo() {}
 
-[#2 Domain] = 1:4-1:17
-      >-------------<
-1|     ~MyClass() {}
+[#2 Domain] = 1:4-1:13
+      >---------<
+1|     ~Foo() {}
 
 [#2 Insertion delimiter] = " "

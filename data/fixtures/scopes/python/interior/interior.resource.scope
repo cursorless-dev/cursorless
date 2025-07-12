@@ -1,16 +1,13 @@
-with file:
-    pass
+with file: pass
 ---
 
 [Content] =
-[Removal] = 1:4-1:8
-      >----<
-1|     pass
+[Removal] = 0:11-0:15
+             >----<
+0| with file: pass
 
-[Domain] = 0:0-1:8
-  >----------
-0| with file:
-1|     pass
-   --------<
+[Domain] = 0:0-0:15
+  >---------------<
+0| with file: pass
 
 [Insertion delimiter] = " "

@@ -1,18 +1,18 @@
-function (aaa, bbb) { }
+function (aaa, bbb) {}
 ---
 
 [#1 Content] =
 [#1 Domain] = 0:10-0:13
             >---<
-0| function (aaa, bbb) { }
+0| function (aaa, bbb) {}
 
 [#1 Removal] = 0:10-0:15
             >-----<
-0| function (aaa, bbb) { }
+0| function (aaa, bbb) {}
 
 [#1 Trailing delimiter] = 0:13-0:15
                >--<
-0| function (aaa, bbb) { }
+0| function (aaa, bbb) {}
 
 [#1 Insertion delimiter] = ", "
 
@@ -20,14 +20,14 @@ function (aaa, bbb) { }
 [#2 Content] =
 [#2 Domain] = 0:15-0:18
                  >---<
-0| function (aaa, bbb) { }
+0| function (aaa, bbb) {}
 
 [#2 Removal] = 0:13-0:18
                >-----<
-0| function (aaa, bbb) { }
+0| function (aaa, bbb) {}
 
 [#2 Leading delimiter] = 0:13-0:15
                >--<
-0| function (aaa, bbb) { }
+0| function (aaa, bbb) {}
 
 [#2 Insertion delimiter] = ", "

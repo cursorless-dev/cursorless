@@ -1,14 +1,27 @@
 not mode: command
+tag: browser
 -
 ---
 
-[Content] =
-[Removal] = 0:0-0:8
+[#1 Content] =
+[#1 Removal] = 0:0-0:8
   >--------<
 0| not mode: command
 
-[Domain] = 0:0-0:17
+[#1 Domain] = 0:0-0:17
   >-----------------<
 0| not mode: command
 
-[Insertion delimiter] = " "
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] = 1:0-1:3
+  >---<
+1| tag: browser
+
+[#2 Domain] = 1:0-1:12
+  >------------<
+1| tag: browser
+
+[#2 Insertion delimiter] = " "

@@ -1,10 +1,10 @@
-lapply(1:10, function(x) x^2)
+foo()
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-0:6
-  >------<
-0| lapply(1:10, function(x) x^2)
+[Domain] = 0:0-0:3
+  >---<
+0| foo()
 
 [Insertion delimiter] = " "
