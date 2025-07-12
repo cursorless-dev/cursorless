@@ -1,17 +1,10 @@
-char* a = "hello world";
+"Hello world"
 ---
 
 [Content] =
-[Domain] = 0:10-0:23
-            >-------------<
-0| char* a = "hello world";
-
-[Removal] = 0:9-0:23
-           >--------------<
-0| char* a = "hello world";
-
-[Leading delimiter] = 0:9-0:10
-           >-<
-0| char* a = "hello world";
+[Removal] =
+[Domain] = 0:0-0:13
+  >-------------<
+0| "Hello world"
 
 [Insertion delimiter] = " "
