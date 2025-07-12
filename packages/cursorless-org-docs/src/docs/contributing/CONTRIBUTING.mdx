@@ -1,5 +1,5 @@
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 # Contributing
 
@@ -13,7 +13,7 @@ Welcome! So glad you've decided to help make Cursorless better. You'll want to s
 - [Node.js](https://nodejs.org/en/)
 - [Corepack](https://nodejs.org/api/corepack.html) or [pnpm](https://pnpm.io/installation)
 - [VSCode](https://code.visualstudio.com/) or [VSCodium](https://vscodium.com/)
-Both VSCode and VSCodium will be referred to as VSCode except when instructions differ between the editors.
+  Both VSCode and VSCodium will be referred to as VSCode except when instructions differ between the editors.
 
 ### Steps
 
@@ -29,16 +29,12 @@ Both VSCode and VSCodium will be referred to as VSCode except when instructions 
 4. Run the following in the terminal:
 
    <Tabs groupId="vsx">
-      <TabItem value="vscode" label="VSCode" default>
-      ```bash
-      code --profile=cursorlessDevelopment
-      ```
-      </TabItem>
-      <TabItem value="vscodium" label="VSCodium">
-      ```bash
-      codium --profile=cursorlessDevelopment
-      ```
-      </TabItem>
+     <TabItem value="vscode" label="VSCode" default>
+       ```bash code --profile=cursorlessDevelopment ```
+     </TabItem>
+     <TabItem value="vscodium" label="VSCodium">
+       ```bash codium --profile=cursorlessDevelopment ```
+     </TabItem>
    </Tabs>
 
    and then close the window that opens (eg say `"window close"`). This step is necessary to create the [VSCode settings profile](https://code.visualstudio.com/updates/v1_72#_settings-profiles) that acts as a sandbox containing a specific set of VSCode extensions that will be run alongside Cursorless when you launch Cursorless in debug or test mode. Once https://github.com/microsoft/vscode/issues/172046 is resolved, we will be able to remove this step, as the profile can then automatically be created.
@@ -46,33 +42,35 @@ Both VSCode and VSCodium will be referred to as VSCode except when instructions 
 5. Run the following in the terminal:
 
    <Tabs groupId="vsx">
-      <TabItem value="vscode" label="VSCode">
-      ```bash
-      pnpm init-vscode-sandbox
-      ```
-      </TabItem>
-      <TabItem value="vscodium" label="VSCodium">
-      ```bash
-      pnpm init-vscode-sandbox --codium
-      ```
-      VSCodium users will also need to manually download and install the `jrieken:vscode-tree-sitter-query` extension, as it is [currently not avalible](https://github.com/jrieken/vscode-tree-sitter-query/issues/28) on the OpenVSX Marketplace.
-      Instructions on how to manually download the extension can be found [in this Stack Overflow post](https://stackoverflow.com/a/79565372) ([archived](https://web.archive.org/web/20250421130639/https://stackoverflow.com/questions/79359919/how-can-i-manually-download-vsix-files-now-that-the-vs-code-marketplace-no-long/79565372#79565372)), while manual installation instructions can be found directly below—replace `some.extension` with the acquired `.vsix` file's path instead of an extension id.
-      </TabItem>
+     <TabItem value="vscode" label="VSCode">
+       ```bash pnpm init-vscode-sandbox ```
+     </TabItem>
+     <TabItem value="vscodium" label="VSCodium">
+       ```bash pnpm init-vscode-sandbox --codium ``` VSCodium users will also
+       need to manually download and install the
+       `jrieken:vscode-tree-sitter-query` extension, as it is [currently not
+       avalible](https://github.com/jrieken/vscode-tree-sitter-query/issues/28)
+       on the OpenVSX Marketplace. Instructions on how to manually download the
+       extension can be found [in this Stack Overflow
+       post](https://stackoverflow.com/a/79565372)
+       ([archived](https://web.archive.org/web/20250421130639/https://stackoverflow.com/questions/79359919/how-can-i-manually-download-vsix-files-now-that-the-vs-code-marketplace-no-long/79565372#79565372)),
+       while manual installation instructions can be found directly
+       below—replace `some.extension` with the acquired `.vsix` file's path
+       instead of an extension id.
+     </TabItem>
    </Tabs>
 
    Said command adds extensions to the aforementioned settings profile that acts as a sandbox containing a specific set of VSCode extensions that will be run alongside Cursorless when you launch Cursorless in debug or test mode. This approach is [suggested](https://code.visualstudio.com/updates/v1_72#_extension-debugging-in-a-clean-environment) by the VSCode documentation. If you need to update any of the extension dependencies in the sandbox, you can add `--force` to the command. If you'd like to use additional extensions when debugging locally, you can use the following command:
 
    <Tabs groupId="vsx">
-      <TabItem value="vscode" label="VSCode">
-      ```bash
-      code --profile=cursorlessDevelopment --install-extension some.extension
-      ```
-      </TabItem>
-      <TabItem value="vscodium" label="VSCodium">
-      ```bash
-      codium --profile=cursorlessDevelopment --install-extension some.extension
-      ```
-      </TabItem>
+     <TabItem value="vscode" label="VSCode">
+       ```bash code --profile=cursorlessDevelopment --install-extension
+       some.extension ```
+     </TabItem>
+     <TabItem value="vscodium" label="VSCodium">
+       ```bash codium --profile=cursorlessDevelopment --install-extension
+       some.extension ```
+     </TabItem>
    </Tabs>
 
    where `some.extension` is the id of the extension you'd like to install into the sandbox.
@@ -138,18 +136,18 @@ vsce package -o bundle.vsix
 
 Once you have your package then you can install it into the sandbox using the following command:
 
-   <Tabs groupId="vsx">
-      <TabItem value="vscode" label="VSCode">
-      ```bash
-      code --profile=cursorlessDevelopment --install-extension bundle.vsix
-      ```
-      </TabItem>
-      <TabItem value="vscodium" label="VSCodium">
-      ```bash
-      codium --profile=cursorlessDevelopment --install-extension bundle.vsix
-      ```
-      </TabItem>
-   </Tabs>
+{" "}
+
+<Tabs groupId="vsx">
+  <TabItem value="vscode" label="VSCode">
+    ```bash code --profile=cursorlessDevelopment --install-extension bundle.vsix
+    ```
+  </TabItem>
+  <TabItem value="vscodium" label="VSCodium">
+    ```bash codium --profile=cursorlessDevelopment --install-extension
+    bundle.vsix ```
+  </TabItem>
+</Tabs>
 
 ## Installing a local build of the Cursorless extension
 
