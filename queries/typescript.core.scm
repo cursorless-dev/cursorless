@@ -425,7 +425,7 @@
 ;;!                   ------------
 (_
   (property_signature
-    name: (_) @collectionKey @type.leading.endOf
+    name: (_) @name @collectionKey @type.leading.endOf
     type: (_
       ":"
       (_) @type @collectionKey.trailing.startOf

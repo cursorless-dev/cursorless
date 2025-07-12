@@ -71,6 +71,7 @@
     public_field_definition
     field_definition
     generic_type
+    property_signature
   )
 )
 
@@ -449,9 +450,13 @@
 ;;!! yield 0;
 ;;!        ^
 ;;!  --------
-(yield_expression
-  (_) @value
-) @_.domain
+(_
+  (yield_expression
+    (_) @value
+  ) @_.domain.start
+  .
+  ";"? @_.domain.end
+)
 
 ;;!! str => 0
 ;;!         ^

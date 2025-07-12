@@ -421,6 +421,7 @@
     left: (_) @collectionKey
   ) @_.domain
 )
+
 (initializer_expression
   "{" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
   "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
@@ -455,10 +456,14 @@
 ;;!  ^^^
 ;;!! foo = 2;
 ;;!        ^
-(assignment_expression
-  left: (_) @name @value.leading.endOf
-  right: (_) @value
-) @_.domain
+(_
+  (assignment_expression
+    left: (_) @name @value.leading.endOf
+    right: (_) @value
+  ) @_.domain.start
+  .
+  ";"? @_.domain.end
+)
 
 (_
   name: (_) @name
@@ -593,15 +598,18 @@ operator: [
   ">="
   ">>"
 ] @disqualifyDelimiter
+
 (assignment_operator
   [
     "<<="
     ">>="
   ] @disqualifyDelimiter
 )
+
 (lambda_expression
   "=>" @disqualifyDelimiter
 )
+
 (member_access_expression
   "->" @disqualifyDelimiter
 )

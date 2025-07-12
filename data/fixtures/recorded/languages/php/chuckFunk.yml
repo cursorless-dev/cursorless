@@ -22,9 +22,7 @@ initialState:
       active: {line: 3, character: 0}
   marks: {}
 finalState:
-  documentContents: |+
-    <?php
-
+  documentContents: <?php
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}

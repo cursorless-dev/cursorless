@@ -74,21 +74,20 @@
 ) @class @className.domain
 
 [
-  (function_definition) @namedFunction
-  (method_declaration) @namedFunction
-  (expression_statement
-    (assignment_expression
-      right: (anonymous_function)
-    ) @namedFunction
-    ";" @_.trailing
-  )
-  (expression_statement
-    (assignment_expression
-      right: (arrow_function)
-    ) @namedFunction
-    ";" @_.trailing
-  )
-] @namedFunction.domain
+  (function_definition)
+  (method_declaration)
+] @namedFunction
+
+(expression_statement
+  (assignment_expression
+    right: [
+      (anonymous_function)
+      (arrow_function)
+    ]
+  ) @namedFunction.start
+  .
+  ";"? @namedFunction.end
+)
 
 [
   (anonymous_function)
@@ -112,18 +111,26 @@
 ;;!! $value = 2;
 ;;!  ^^^^^^
 ;;!           ^
-(assignment_expression
-  left: (_) @name @value.leading.endOf
-  right: (_) @value
-) @_.domain
+(_
+  (assignment_expression
+    left: (_) @name @value.leading.endOf
+    right: (_) @value
+  ) @_.domain.start
+  .
+  ";"? @_.domain.end
+)
 
 ;;!! $value += 2;
 ;;!  ^^^^^^
 ;;!            ^
-(augmented_assignment_expression
-  left: (_) @name @value.leading.endOf
-  right: (_) @value
-) @_.domain
+(_
+  (augmented_assignment_expression
+    left: (_) @name @value.leading.endOf
+    right: (_) @value
+  ) @_.domain.start
+  .
+  ";"? @_.domain.end
+)
 
 (class_declaration
   name: (_) @name
@@ -210,10 +217,14 @@
 
 ;;!! yield 2;
 ;;!        ^
-(yield_expression
-  "yield" @_.leading.endOf
-  (_) @value
-) @_.domain
+(_
+  (yield_expression
+    "yield" @_.leading.endOf
+    (_) @value
+  ) @_.domain.start
+  .
+  ";"? @_.domain.end
+)
 
 ;;!! (string $str)
 ;;!   ^^^^^^

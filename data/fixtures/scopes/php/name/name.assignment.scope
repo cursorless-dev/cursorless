@@ -14,8 +14,8 @@ $foo = 0;
       >-<
 1| $foo = 0;
 
-[Domain] = 1:0-1:8
-  >--------<
+[Domain] = 1:0-1:9
+  >---------<
 1| $foo = 0;
 
 [Insertion delimiter] = " "

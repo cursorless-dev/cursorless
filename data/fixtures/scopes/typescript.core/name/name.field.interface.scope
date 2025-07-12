@@ -41,8 +41,8 @@ interface Foo {
   >----<
 1|     bar: number;
 
-[#2 Domain] = 1:4-1:15
-      >-----------<
+[#2 Domain] = 1:4-1:16
+      >------------<
 1|     bar: number;
 
 [#2 Insertion delimiter] = " "
