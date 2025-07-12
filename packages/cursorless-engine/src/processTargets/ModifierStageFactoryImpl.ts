@@ -83,7 +83,7 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
         if (modifier.scopeType.type === "instance") {
           return new InstanceStage(this, this.storedTargets, modifier);
         }
-        return new RelativeScopeStage(this, this.scopeHandlerFactory, modifier);
+        return new RelativeScopeStage(this.scopeHandlerFactory, modifier);
       case "keepContentFilter":
         return new KeepContentFilterStage(modifier);
       case "keepEmptyFilter":

@@ -4,7 +4,6 @@ import {
 } from "@cursorless/common";
 import { islice, itake } from "itertools";
 import type { Target } from "../../typings/target.types";
-import type { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
 import { getPreferredScopeTouchingPosition } from "./getPreferredScopeTouchingPosition";
@@ -24,7 +23,6 @@ import type {
  */
 export class RelativeScopeStage implements ModifierStage {
   constructor(
-    private modifierStageFactory: ModifierStageFactory,
     private scopeHandlerFactory: ScopeHandlerFactory,
     private modifier: RelativeScopeModifier,
   ) {}
