@@ -70,6 +70,14 @@
   (identifier) @name
 ) @_.domain
 
+;;!! function foo(...aaa: number[]) {}
+;;!                  ^^^
+(_
+  (rest_pattern
+    (identifier) @name
+  )
+) @_.domain
+
 ;; Define these here because these node types don't exist in javascript.
 (_
   [

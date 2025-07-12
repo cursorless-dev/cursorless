@@ -1,17 +1,17 @@
-void aaa() {}
+void foo() {}
 ---
 
 [Content] =
 [Removal] = 0:5-0:8
        >---<
-0| void aaa() {}
+0| void foo() {}
 
 [Leading delimiter] = 0:4-0:5
       >-<
-0| void aaa() {}
+0| void foo() {}
 
 [Domain] = 0:0-0:13
   >-------------<
-0| void aaa() {}
+0| void foo() {}
 
 [Insertion delimiter] = " "

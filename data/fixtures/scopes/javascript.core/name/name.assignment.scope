@@ -1,20 +1,20 @@
-aaa = bbb;
+foo = bar;
 ---
 
 [Content] = 0:0-0:3
   >---<
-0| aaa = bbb;
+0| foo = bar;
 
 [Removal] = 0:0-0:6
   >------<
-0| aaa = bbb;
+0| foo = bar;
 
 [Trailing delimiter] = 0:3-0:6
      >---<
-0| aaa = bbb;
+0| foo = bar;
 
 [Domain] = 0:0-0:10
   >----------<
-0| aaa = bbb;
+0| foo = bar;
 
 [Insertion delimiter] = " "

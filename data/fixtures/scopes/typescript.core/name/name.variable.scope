@@ -1,24 +1,24 @@
-export type Aaa = Bbb<Ccc>;
+export type Foo = Bar<Baz>;
 ---
 
 [Content] = 0:12-0:15
               >---<
-0| export type Aaa = Bbb<Ccc>;
+0| export type Foo = Bar<Baz>;
 
 [Removal] = 0:12-0:16
               >----<
-0| export type Aaa = Bbb<Ccc>;
+0| export type Foo = Bar<Baz>;
 
 [Leading delimiter] = 0:11-0:12
              >-<
-0| export type Aaa = Bbb<Ccc>;
+0| export type Foo = Bar<Baz>;
 
 [Trailing delimiter] = 0:15-0:16
                  >-<
-0| export type Aaa = Bbb<Ccc>;
+0| export type Foo = Bar<Baz>;
 
 [Domain] = 0:0-0:27
   >---------------------------<
-0| export type Aaa = Bbb<Ccc>;
+0| export type Foo = Bar<Baz>;
 
 [Insertion delimiter] = " "

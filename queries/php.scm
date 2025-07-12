@@ -254,7 +254,7 @@
 ;;!         ^^^^^^
 ;;!                ^^^^^^
 (property_declaration
-  type: (_) @type
+  type: (_)? @type
   (property_element
     (variable_name) @name
   )
