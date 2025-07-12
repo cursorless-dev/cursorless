@@ -1,14 +1,16 @@
 languageId: rust
 command:
   version: 6
-  spokenForm: change funk name
+  spokenForm: change name funk
   action:
     name: clearAndSetSelection
     target:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: functionName}
+          scopeType: {type: name}
+        - type: containingScope
+          scopeType: {type: namedFunction}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: fn main() {}

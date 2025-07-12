@@ -1,14 +1,16 @@
 languageId: java
 command:
   version: 6
-  spokenForm: take class name
+  spokenForm: take name class
   action:
     name: setSelection
     target:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: className}
+          scopeType: {type: name}
+        - type: containingScope
+          scopeType: {type: class}
   usePrePhraseSnapshot: false
 initialState:
   documentContents: |

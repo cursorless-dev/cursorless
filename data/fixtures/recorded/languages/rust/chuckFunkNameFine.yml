@@ -1,14 +1,16 @@
 languageId: rust
 command:
   version: 6
-  spokenForm: chuck funk name fine
+  spokenForm: chuck name funk fine
   action:
     name: remove
     target:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: functionName}
+          scopeType: {type: name}
+        - type: containingScope
+          scopeType: {type: namedFunction}
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
   usePrePhraseSnapshot: false
 initialState:

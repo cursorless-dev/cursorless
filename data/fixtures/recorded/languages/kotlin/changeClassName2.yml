@@ -1,14 +1,16 @@
 languageId: kotlin
 command:
   version: 7
-  spokenForm: change class name
+  spokenForm: change name class
   action:
     name: clearAndSetSelection
     target:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: className}
+          scopeType: {type: name}
+        - type: containingScope
+          scopeType: {type: class}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-

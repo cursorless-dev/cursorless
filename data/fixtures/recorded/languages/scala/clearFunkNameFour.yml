@@ -1,14 +1,16 @@
 languageId: scala
 command:
   version: 6
-  spokenForm: change funk name four
+  spokenForm: change name funk four
   action:
     name: clearAndSetSelection
     target:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: functionName}
+          scopeType: {type: name}
+        - type: containingScope
+          scopeType: {type: namedFunction}
       mark: {type: decoratedSymbol, symbolColor: default, character: '4'}
   usePrePhraseSnapshot: false
 initialState:

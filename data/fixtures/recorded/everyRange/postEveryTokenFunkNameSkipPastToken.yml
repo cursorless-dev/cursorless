@@ -12,7 +12,9 @@ command:
           - type: everyScope
             scopeType: {type: token}
           - type: containingScope
-            scopeType: {type: functionName}
+            scopeType: {type: name}
+          - type: containingScope
+            scopeType: {type: namedFunction}
       active:
         type: primitive
         modifiers:

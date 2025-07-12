@@ -1,7 +1,7 @@
 languageId: python
 command:
   version: 6
-  spokenForm: pre every token until funk name
+  spokenForm: pre every token until name funk
   action:
     name: setSelectionBefore
     target:
@@ -15,7 +15,9 @@ command:
         type: primitive
         modifiers:
           - type: containingScope
-            scopeType: {type: functionName}
+            scopeType: {type: name}
+          - type: containingScope
+            scopeType: {type: namedFunction}
       excludeAnchor: false
       excludeActive: true
   usePrePhraseSnapshot: true

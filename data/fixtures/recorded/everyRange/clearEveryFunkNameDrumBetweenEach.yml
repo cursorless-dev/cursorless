@@ -1,7 +1,7 @@
 languageId: python
 command:
   version: 6
-  spokenForm: change every funk name drum between each
+  spokenForm: change name every funk drum between each
   action:
     name: clearAndSetSelection
     target:
@@ -9,8 +9,10 @@ command:
       anchor:
         type: primitive
         modifiers:
+          - type: containingScope
+            scopeType: {type: name}
           - type: everyScope
-            scopeType: {type: functionName}
+            scopeType: {type: namedFunction}
         mark: {type: decoratedSymbol, symbolColor: default, character: d}
       active:
         type: primitive

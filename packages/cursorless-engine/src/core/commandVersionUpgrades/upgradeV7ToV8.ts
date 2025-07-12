@@ -65,15 +65,20 @@ function upgradeModifier(modifier: Modifier): Modifier[] {
         },
       ];
 
-    case "modifyIfUntyped":
+    case "modifyIfUntyped": {
+      const modifiers = upgradeModifier(modifier.modifier);
+      if (modifiers.length !== 0) {
+        throw Error(
+          "Can't upgrade modifier modifyIfUntyped. Please update to latest version of cursorless-talon",
+        );
+      }
       return [
         {
           type: "modifyIfUntyped",
-          // TODO: This is a hack
-          // We should really use a new type of modifier that chains modifiers
-          modifier: upgradeModifier(modifier.modifier)[0],
+          modifier: modifiers[0],
         },
       ];
+    }
 
     default:
       return [modifier];

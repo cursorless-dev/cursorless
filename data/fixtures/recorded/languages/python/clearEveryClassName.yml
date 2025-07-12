@@ -1,14 +1,16 @@
 languageId: python
 command:
   version: 6
-  spokenForm: change every class name
+  spokenForm: change name every class
   action:
     name: clearAndSetSelection
     target:
       type: primitive
       modifiers:
+        - type: containingScope
+          scopeType: {type: name}
         - type: everyScope
-          scopeType: {type: className}
+          scopeType: {type: class}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |

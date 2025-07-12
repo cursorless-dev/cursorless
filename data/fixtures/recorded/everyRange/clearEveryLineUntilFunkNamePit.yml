@@ -1,7 +1,7 @@
 languageId: python
 command:
   version: 6
-  spokenForm: change every line until funk name pit
+  spokenForm: change every line until name funk pit
   action:
     name: clearAndSetSelection
     target:
@@ -15,7 +15,9 @@ command:
         type: primitive
         modifiers:
           - type: containingScope
-            scopeType: {type: functionName}
+            scopeType: {type: name}
+          - type: containingScope
+            scopeType: {type: namedFunction}
         mark: {type: decoratedSymbol, symbolColor: default, character: p}
       excludeAnchor: false
       excludeActive: true

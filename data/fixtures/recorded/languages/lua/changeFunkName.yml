@@ -1,14 +1,16 @@
 languageId: lua
 command:
   version: 6
-  spokenForm: change funk name
+  spokenForm: change name funk
   action:
     name: clearAndSetSelection
     target:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: functionName}
+          scopeType: {type: name}
+        - type: containingScope
+          scopeType: {type: namedFunction}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
@@ -19,11 +21,4 @@ initialState:
     - anchor: {line: 1, character: 7}
       active: {line: 1, character: 7}
   marks: {}
-finalState:
-  documentContents: |-
-    function (x, b)
-        return x + y
-    end
-  selections:
-    - anchor: {line: 0, character: 9}
-      active: {line: 0, character: 9}
+thrownError: {name: NoContainingScopeError}

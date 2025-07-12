@@ -1,14 +1,16 @@
 languageId: typescript
 command:
   version: 6
-  spokenForm: change every funk name
+  spokenForm: change name every funk
   action:
     name: clearAndSetSelection
     target:
       type: primitive
       modifiers:
+        - type: containingScope
+          scopeType: {type: name}
         - type: everyScope
-          scopeType: {type: functionName}
+          scopeType: {type: namedFunction}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
