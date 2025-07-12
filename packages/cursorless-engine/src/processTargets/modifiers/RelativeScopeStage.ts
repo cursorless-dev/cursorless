@@ -5,10 +5,7 @@ import {
 import { islice, itake } from "itertools";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStageFactory } from "../ModifierStageFactory";
-import type {
-  ModifierStage,
-  ModifierStateOptions,
-} from "../PipelineStages.types";
+import type { ModifierStage } from "../PipelineStages.types";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
 import { getPreferredScopeTouchingPosition } from "./getPreferredScopeTouchingPosition";
 import { OutOfRangeError } from "./listUtils";
@@ -32,7 +29,7 @@ export class RelativeScopeStage implements ModifierStage {
     private modifier: RelativeScopeModifier,
   ) {}
 
-  run(target: Target, options: ModifierStateOptions): Target[] {
+  run(target: Target): Target[] {
     const scopeHandler = this.scopeHandlerFactory.create(
       this.modifier.scopeType,
       target.editor.document.languageId,
