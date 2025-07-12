@@ -618,8 +618,8 @@ export const scopeSupportFacetInfos: Record<
   },
   "name.argument.actual.iteration": iteration(
     "name",
-    "names of the arguments in a function call",
-    "the argument list. The domain should be the whole function call",
+    "names of (keyword) arguments in a function call",
+    "the argument list.",
   ),
   "name.argument.formal": {
     description: "Name of a parameter in a function declaration",
@@ -744,8 +744,8 @@ export const scopeSupportFacetInfos: Record<
   },
   "value.argument.actual.iteration": iteration(
     "value",
-    "values of arguments in a function call",
-    "the arguments list. The domain should be the entire function call",
+    "values of (keyword) arguments in a function call",
+    "the arguments list.",
   ),
   "value.argument.formal": {
     description: "The value of a (keyword) argument in a function declaration",

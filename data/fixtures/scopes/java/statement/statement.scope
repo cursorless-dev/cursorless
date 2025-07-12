@@ -1,10 +1,10 @@
-if (true) { }
+int foo = 0;
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-0:13
-  >-------------<
-0| if (true) { }
+[Domain] = 0:0-0:12
+  >------------<
+0| int foo = 0;
 
 [Insertion delimiter] = "\n"

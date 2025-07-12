@@ -1,20 +1,20 @@
-try (PrintWriter writer = create()) { }
+try (Foo foo = create()) {}
 ---
 
-[Content] = 0:26-0:34
-                            >--------<
-0| try (PrintWriter writer = create()) { }
+[Content] = 0:15-0:23
+                 >--------<
+0| try (Foo foo = create()) {}
 
-[Removal] = 0:25-0:34
-                           >---------<
-0| try (PrintWriter writer = create()) { }
+[Removal] = 0:14-0:23
+                >---------<
+0| try (Foo foo = create()) {}
 
-[Leading delimiter] = 0:25-0:26
-                           >-<
-0| try (PrintWriter writer = create()) { }
+[Leading delimiter] = 0:14-0:15
+                >-<
+0| try (Foo foo = create()) {}
 
-[Domain] = 0:0-0:39
-  >---------------------------------------<
-0| try (PrintWriter writer = create()) { }
+[Domain] = 0:0-0:27
+  >---------------------------<
+0| try (Foo foo = create()) {}
 
 [Insertion delimiter] = " "

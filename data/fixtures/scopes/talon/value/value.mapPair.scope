@@ -1,21 +1,41 @@
 not mode: command
+tag: browser
 -
 ---
 
-[Content] = 0:10-0:17
+[#1 Content] = 0:10-0:17
             >-------<
 0| not mode: command
 
-[Removal] = 0:9-0:17
+[#1 Removal] = 0:9-0:17
            >--------<
 0| not mode: command
 
-[Leading delimiter] = 0:9-0:10
+[#1 Leading delimiter] = 0:9-0:10
            >-<
 0| not mode: command
 
-[Domain] = 0:0-0:17
+[#1 Domain] = 0:0-0:17
   >-----------------<
 0| not mode: command
 
-[Insertion delimiter] = " "
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:5-1:12
+       >-------<
+1| tag: browser
+
+[#2 Removal] = 1:4-1:12
+      >--------<
+1| tag: browser
+
+[#2 Leading delimiter] = 1:4-1:5
+      >-<
+1| tag: browser
+
+[#2 Domain] = 1:0-1:12
+  >------------<
+1| tag: browser
+
+[#2 Insertion delimiter] = " "

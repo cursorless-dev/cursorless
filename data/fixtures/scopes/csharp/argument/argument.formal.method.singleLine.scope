@@ -1,35 +1,35 @@
-class MyClass {
-    void foo(int a, int b) {}
+class Foo {
+    void Bar(int aaa, int bbb) {}
 }
 ---
 
 [#1 Content] =
-[#1 Domain] = 1:13-1:18
-               >-----<
-1|     void foo(int a, int b) {}
-
-[#1 Removal] = 1:13-1:20
+[#1 Domain] = 1:13-1:20
                >-------<
-1|     void foo(int a, int b) {}
+1|     void Bar(int aaa, int bbb) {}
 
-[#1 Trailing delimiter] = 1:18-1:20
-                    >--<
-1|     void foo(int a, int b) {}
+[#1 Removal] = 1:13-1:22
+               >---------<
+1|     void Bar(int aaa, int bbb) {}
+
+[#1 Trailing delimiter] = 1:20-1:22
+                      >--<
+1|     void Bar(int aaa, int bbb) {}
 
 [#1 Insertion delimiter] = ", "
 
 
 [#2 Content] =
-[#2 Domain] = 1:20-1:25
-                      >-----<
-1|     void foo(int a, int b) {}
+[#2 Domain] = 1:22-1:29
+                        >-------<
+1|     void Bar(int aaa, int bbb) {}
 
-[#2 Removal] = 1:18-1:25
-                    >-------<
-1|     void foo(int a, int b) {}
+[#2 Removal] = 1:20-1:29
+                      >---------<
+1|     void Bar(int aaa, int bbb) {}
 
-[#2 Leading delimiter] = 1:18-1:20
-                    >--<
-1|     void foo(int a, int b) {}
+[#2 Leading delimiter] = 1:20-1:22
+                      >--<
+1|     void Bar(int aaa, int bbb) {}
 
 [#2 Insertion delimiter] = ", "

@@ -1,20 +1,39 @@
-void myFunk(String name, int value = 5) {}
+void Bar(int aaa = 0, int bbb = 1) {}
 ---
 
-[Content] = 0:37-0:38
-                                       >-<
-0| void myFunk(String name, int value = 5) {}
+[#1 Content] = 0:19-0:20
+                     >-<
+0| void Bar(int aaa = 0, int bbb = 1) {}
 
-[Removal] = 0:34-0:38
-                                    >----<
-0| void myFunk(String name, int value = 5) {}
+[#1 Removal] = 0:16-0:20
+                  >----<
+0| void Bar(int aaa = 0, int bbb = 1) {}
 
-[Leading delimiter] = 0:34-0:37
-                                    >---<
-0| void myFunk(String name, int value = 5) {}
+[#1 Leading delimiter] = 0:16-0:19
+                  >---<
+0| void Bar(int aaa = 0, int bbb = 1) {}
 
-[Domain] = 0:25-0:38
-                           >-------------<
-0| void myFunk(String name, int value = 5) {}
+[#1 Domain] = 0:9-0:20
+           >-----------<
+0| void Bar(int aaa = 0, int bbb = 1) {}
 
-[Insertion delimiter] = " "
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 0:32-0:33
+                                  >-<
+0| void Bar(int aaa = 0, int bbb = 1) {}
+
+[#2 Removal] = 0:29-0:33
+                               >----<
+0| void Bar(int aaa = 0, int bbb = 1) {}
+
+[#2 Leading delimiter] = 0:29-0:32
+                               >---<
+0| void Bar(int aaa = 0, int bbb = 1) {}
+
+[#2 Domain] = 0:22-0:33
+                        >-----------<
+0| void Bar(int aaa = 0, int bbb = 1) {}
+
+[#2 Insertion delimiter] = " "

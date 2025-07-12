@@ -1,33 +1,16 @@
-with aaa:
-    pass
-
-bbb = ccc
-ddd = eee
+with foo: pass
 ---
 
 [#1 Content] = 0:5-0:8
        >---<
-0| with aaa:
+0| with foo: pass
 
-[#1 Domain] = 0:0-1:8
-  >---------
-0| with aaa:
-1|     pass
-   --------<
+[#1 Domain] = 0:0-0:14
+  >--------------<
+0| with foo: pass
 
 
 [#2 Content] =
-[#2 Domain] = 0:0-4:9
-  >---------
-0| with aaa:
-1|     pass
-2|
-3| bbb = ccc
-4| ddd = eee
-   ---------<
-
-
-[#3 Content] =
-[#3 Domain] = 1:4-1:8
-      >----<
-1|     pass
+[#2 Domain] = 0:10-0:14
+            >----<
+0| with foo: pass

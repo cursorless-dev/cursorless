@@ -1,21 +1,21 @@
-List<int> values;
+List<int> foo;
 ---
 
 [#1 Content] = 0:0-0:9
   >---------<
-0| List<int> values;
+0| List<int> foo;
 
 [#1 Removal] = 0:0-0:10
   >----------<
-0| List<int> values;
+0| List<int> foo;
 
 [#1 Trailing delimiter] = 0:9-0:10
            >-<
-0| List<int> values;
+0| List<int> foo;
 
-[#1 Domain] = 0:0-0:16
-  >----------------<
-0| List<int> values;
+[#1 Domain] = 0:0-0:14
+  >--------------<
+0| List<int> foo;
 
 [#1 Insertion delimiter] = " "
 
@@ -24,6 +24,6 @@ List<int> values;
 [#2 Removal] =
 [#2 Domain] = 0:5-0:8
        >---<
-0| List<int> values;
+0| List<int> foo;
 
 [#2 Insertion delimiter] = ", "

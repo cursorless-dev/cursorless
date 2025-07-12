@@ -1,13 +1,13 @@
-void myFunk(String name, int value = 5) {}
+void Foo(int aaa = 0, int bbb = 1) {}
 ---
 
 [#1 Content] =
-[#1 Domain] = 0:0-0:42
-  >------------------------------------------<
-0| void myFunk(String name, int value = 5) {}
+[#1 Domain] = 0:0-0:37
+  >-------------------------------------<
+0| void Foo(int aaa = 0, int bbb = 1) {}
 
 
 [#2 Content] =
-[#2 Domain] = 0:12-0:38
-              >--------------------------<
-0| void myFunk(String name, int value = 5) {}
+[#2 Domain] = 0:9-0:33
+           >------------------------<
+0| void Foo(int aaa = 0, int bbb = 1) {}

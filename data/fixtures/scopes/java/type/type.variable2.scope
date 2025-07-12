@@ -1,20 +1,20 @@
-int value = 123;
+int value = 0;
 ---
 
 [Content] = 0:0-0:3
   >---<
-0| int value = 123;
+0| int value = 0;
 
 [Removal] = 0:0-0:4
   >----<
-0| int value = 123;
+0| int value = 0;
 
 [Trailing delimiter] = 0:3-0:4
      >-<
-0| int value = 123;
+0| int value = 0;
 
-[Domain] = 0:0-0:16
-  >----------------<
-0| int value = 123;
+[Domain] = 0:0-0:14
+  >--------------<
+0| int value = 0;
 
 [Insertion delimiter] = " "

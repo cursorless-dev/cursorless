@@ -1,20 +1,12 @@
 
-command:
-    value = 123
+tag(): browser
 
 ---
 
-[#1 Content] =
-[#1 Domain] = 0:0-3:0
+[Content] =
+[Domain] = 0:0-2:0
   >
 0|
-1| command:
-2|     value = 123
-3|
+1| tag(): browser
+2|
    <
-
-
-[#2 Content] =
-[#2 Domain] = 2:4-2:15
-      >-----------<
-2|     value = 123

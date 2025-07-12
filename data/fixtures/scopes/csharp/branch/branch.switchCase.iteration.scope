@@ -1,18 +1,10 @@
-switch (value) {
-    case 1:
-        break;
-    default:
-        break;
-}
+switch (foo) { }
 ---
 
-[Content] =
-[Domain] = 0:16-5:0
-                  >
-0| switch (value) {
-1|     case 1:
-2|         break;
-3|     default:
-4|         break;
-5| }
-   <
+[Content] = 0:14-0:15
+                >-<
+0| switch (foo) { }
+
+[Domain] = 0:0-0:16
+  >----------------<
+0| switch (foo) { }

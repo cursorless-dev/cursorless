@@ -1,24 +1,24 @@
-const {aaa: bbb} = ccc;
+const {foo: bar} = baz;
 ---
 
 [Content] = 0:6-0:16
         >----------<
-0| const {aaa: bbb} = ccc;
+0| const {foo: bar} = baz;
 
 [Removal] = 0:0-0:19
   >-------------------<
-0| const {aaa: bbb} = ccc;
+0| const {foo: bar} = baz;
 
 [Leading delimiter] = 0:5-0:6
        >-<
-0| const {aaa: bbb} = ccc;
+0| const {foo: bar} = baz;
 
 [Trailing delimiter] = 0:16-0:17
                   >-<
-0| const {aaa: bbb} = ccc;
+0| const {foo: bar} = baz;
 
 [Domain] = 0:0-0:23
   >-----------------------<
-0| const {aaa: bbb} = ccc;
+0| const {foo: bar} = baz;
 
 [Insertion delimiter] = " "

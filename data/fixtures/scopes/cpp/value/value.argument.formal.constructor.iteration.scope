@@ -1,27 +1,27 @@
-class MyClass {
-    MyClass(int aaa, int bbb = 2) {}
+class Foo {
+    Foo(int aaa = 0, int bbb = 1) {}
 }
 ---
 
 [#1 Content] =
 [#1 Domain] = 0:0-2:1
-  >---------------
-0| class MyClass {
-1|     MyClass(int aaa, int bbb = 2) {}
+  >-----------
+0| class Foo {
+1|     Foo(int aaa = 0, int bbb = 1) {}
 2| }
    -<
 
 
 [#2 Content] =
-[#2 Domain] = 0:15-2:0
-                 >
-0| class MyClass {
-1|     MyClass(int aaa, int bbb = 2) {}
+[#2 Domain] = 0:11-2:0
+             >
+0| class Foo {
+1|     Foo(int aaa = 0, int bbb = 1) {}
 2| }
    <
 
 
 [#3 Content] =
-[#3 Domain] = 1:12-1:32
-              >--------------------<
-1|     MyClass(int aaa, int bbb = 2) {}
+[#3 Domain] = 1:8-1:32
+          >------------------------<
+1|     Foo(int aaa = 0, int bbb = 1) {}

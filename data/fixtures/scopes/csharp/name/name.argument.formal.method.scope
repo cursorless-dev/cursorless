@@ -1,28 +1,28 @@
-class MyClass {
-    void funk(int foo) {}
+class Foo {
+    void Bar(int aaa, int bbb) {}
 }
 ---
 
-[#1 Content] = 0:6-0:13
-        >-------<
-0| class MyClass {
+[#1 Content] = 0:6-0:9
+        >---<
+0| class Foo {
 
-[#1 Removal] = 0:6-0:14
-        >--------<
-0| class MyClass {
+[#1 Removal] = 0:6-0:10
+        >----<
+0| class Foo {
 
 [#1 Leading delimiter] = 0:5-0:6
        >-<
-0| class MyClass {
+0| class Foo {
 
-[#1 Trailing delimiter] = 0:13-0:14
-               >-<
-0| class MyClass {
+[#1 Trailing delimiter] = 0:9-0:10
+           >-<
+0| class Foo {
 
 [#1 Domain] = 0:0-2:1
-  >---------------
-0| class MyClass {
-1|     void funk(int foo) {}
+  >-----------
+0| class Foo {
+1|     void Bar(int aaa, int bbb) {}
 2| }
    -<
 
@@ -30,35 +30,54 @@ class MyClass {
 
 
 [#2 Content] =
-[#2 Removal] = 1:9-1:13
-           >----<
-1|     void funk(int foo) {}
+[#2 Removal] = 1:9-1:12
+           >---<
+1|     void Bar(int aaa, int bbb) {}
 
 [#2 Leading delimiter] = 1:8-1:9
           >-<
-1|     void funk(int foo) {}
+1|     void Bar(int aaa, int bbb) {}
 
-[#2 Domain] = 1:4-1:25
-      >---------------------<
-1|     void funk(int foo) {}
+[#2 Domain] = 1:4-1:33
+      >-----------------------------<
+1|     void Bar(int aaa, int bbb) {}
 
 [#2 Insertion delimiter] = " "
 
 
-[#3 Content] = 1:18-1:21
-                    >---<
-1|     void funk(int foo) {}
+[#3 Content] = 1:17-1:20
+                   >---<
+1|     void Bar(int aaa, int bbb) {}
 
-[#3 Removal] = 1:17-1:21
-                   >----<
-1|     void funk(int foo) {}
+[#3 Removal] = 1:16-1:20
+                  >----<
+1|     void Bar(int aaa, int bbb) {}
 
-[#3 Leading delimiter] = 1:17-1:18
-                   >-<
-1|     void funk(int foo) {}
+[#3 Leading delimiter] = 1:16-1:17
+                  >-<
+1|     void Bar(int aaa, int bbb) {}
 
-[#3 Domain] = 1:14-1:21
-                >-------<
-1|     void funk(int foo) {}
+[#3 Domain] = 1:13-1:20
+               >-------<
+1|     void Bar(int aaa, int bbb) {}
 
 [#3 Insertion delimiter] = " "
+
+
+[#4 Content] = 1:26-1:29
+                            >---<
+1|     void Bar(int aaa, int bbb) {}
+
+[#4 Removal] = 1:25-1:29
+                           >----<
+1|     void Bar(int aaa, int bbb) {}
+
+[#4 Leading delimiter] = 1:25-1:26
+                           >-<
+1|     void Bar(int aaa, int bbb) {}
+
+[#4 Domain] = 1:22-1:29
+                        >-------<
+1|     void Bar(int aaa, int bbb) {}
+
+[#4 Insertion delimiter] = " "

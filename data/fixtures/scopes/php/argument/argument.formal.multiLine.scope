@@ -1,45 +1,45 @@
 <?php
-function myFunc(
-    $value,
-    string $name
+function foo(
+    $aaa,
+    number $bbb
 ) {}
 ---
 
 [#1 Content] =
-[#1 Domain] = 2:4-2:10
-      >------<
-2|     $value,
+[#1 Domain] = 2:4-2:8
+      >----<
+2|     $aaa,
 
 [#1 Removal] = 2:4-3:4
-      >-------
-2|     $value,
-3|     string $name
+      >-----
+2|     $aaa,
+3|     number $bbb
    ----<
 
-[#1 Trailing delimiter] = 2:10-3:4
-            >-
-2|     $value,
-3|     string $name
+[#1 Trailing delimiter] = 2:8-3:4
+          >-
+2|     $aaa,
+3|     number $bbb
    ----<
 
 [#1 Insertion delimiter] = ",\n"
 
 
 [#2 Content] =
-[#2 Domain] = 3:4-3:16
-      >------------<
-3|     string $name
+[#2 Domain] = 3:4-3:15
+      >-----------<
+3|     number $bbb
 
-[#2 Removal] = 2:10-3:16
-            >-
-2|     $value,
-3|     string $name
-   ----------------<
+[#2 Removal] = 2:8-3:15
+          >-
+2|     $aaa,
+3|     number $bbb
+   ---------------<
 
-[#2 Leading delimiter] = 2:10-3:4
-            >-
-2|     $value,
-3|     string $name
+[#2 Leading delimiter] = 2:8-3:4
+          >-
+2|     $aaa,
+3|     number $bbb
    ----<
 
 [#2 Insertion delimiter] = ",\n"

@@ -1,13 +1,13 @@
-print("a is greater than 10")
+foo()
 ---
 
 [Content] =
-[Removal] = 0:0-0:5
-  >-----<
-0| print("a is greater than 10")
+[Removal] = 0:0-0:3
+  >---<
+0| foo()
 
-[Domain] = 0:0-0:29
-  >-----------------------------<
-0| print("a is greater than 10")
+[Domain] = 0:0-0:5
+  >-----<
+0| foo()
 
 [Insertion delimiter] = " "

@@ -1,24 +1,20 @@
 class Foo:
-    def bar():
-        pass
+    def bar(): pass
 ---
 
 [Content] =
-[Domain] = 1:4-2:12
-      >----------
-1|     def bar():
-2|         pass
-   ------------<
+[Domain] = 1:4-1:19
+      >---------------<
+1|     def bar(): pass
 
-[Removal] = 0:10-2:12
+[Removal] = 0:10-1:19
             >
 0| class Foo:
-1|     def bar():
-2|         pass
-   ------------<
+1|     def bar(): pass
+   -------------------<
 
 [Leading delimiter] = 1:0-1:4
   >----<
-1|     def bar():
+1|     def bar(): pass
 
 [Insertion delimiter] = "\n\n"

@@ -1,17 +1,10 @@
-/*
-  the
-  comment
-*/
+/* Hello world */
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-3:2
-  >--
-0| /*
-1|   the
-2|   comment
-3| */
-   --<
+[Domain] = 0:0-0:17
+  >-----------------<
+0| /* Hello world */
 
 [Insertion delimiter] = "\n"

@@ -1,14 +1,11 @@
 class Foo:
-    def __init__(self, aaa: str, bbb: int):
-        pass
+    def __init__(self, aaa: str, bbb: int): pass
 ---
 
 [Content] = 1:17-1:41
                    >------------------------<
-1|     def __init__(self, aaa: str, bbb: int):
+1|     def __init__(self, aaa: str, bbb: int): pass
 
-[Domain] = 1:4-2:12
-      >---------------------------------------
-1|     def __init__(self, aaa: str, bbb: int):
-2|         pass
-   ------------<
+[Domain] = 1:4-1:48
+      >--------------------------------------------<
+1|     def __init__(self, aaa: str, bbb: int): pass

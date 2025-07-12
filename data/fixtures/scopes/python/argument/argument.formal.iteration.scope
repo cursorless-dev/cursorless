@@ -1,13 +1,10 @@
-def for(name: str, value: int):
-    pass
+def for(aaa: int, bbb: int): pass
 ---
 
-[Content] = 0:8-0:29
-          >---------------------<
-0| def for(name: str, value: int):
+[Content] = 0:8-0:26
+          >------------------<
+0| def for(aaa: int, bbb: int): pass
 
-[Domain] = 0:0-1:8
-  >-------------------------------
-0| def for(name: str, value: int):
-1|     pass
-   --------<
+[Domain] = 0:0-0:33
+  >---------------------------------<
+0| def for(aaa: int, bbb: int): pass

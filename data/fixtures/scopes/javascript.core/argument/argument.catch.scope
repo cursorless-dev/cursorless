@@ -1,11 +1,11 @@
 try {}
-catch(error) {}
+catch(e) {}
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 1:6-1:11
-        >-----<
-1| catch(error) {}
+[Domain] = 1:6-1:7
+        >-<
+1| catch(e) {}
 
 [Insertion delimiter] = " "

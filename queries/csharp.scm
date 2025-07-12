@@ -391,7 +391,7 @@
     "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
     "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
   )
-)
+) @branch.iteration.domain
 
 (object_creation_expression
   initializer: (_) @map @list
@@ -421,6 +421,7 @@
     left: (_) @collectionKey
   ) @_.domain
 )
+
 (initializer_expression
   "{" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
   "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
@@ -428,48 +429,41 @@
 
 ;;!! String aaa;
 ;;!         ^^^
-(variable_declaration
-  (variable_declarator
-    (identifier) @name
+(_
+  (variable_declaration
+    type: (_) @type
+    (variable_declarator
+      (identifier) @name
+    )
   )
 ) @_.domain
 
 ;;!! String aaa = "bbb";
 ;;!         ^^^
-(variable_declaration
-  (variable_declarator
-    (identifier) @name @value.leading.endOf
-    (equals_value_clause
-      (_) @value
+(_
+  (variable_declaration
+    type: (_) @type
+    (variable_declarator
+      (identifier) @name @value.leading.endOf
+      (equals_value_clause
+        (_) @value
+      )
     )
   )
 ) @_.domain
-
-(
-  (variable_declarator
-    (identifier) @name
-  ) @_.domain
-  (#not-parent-type? @_.domain variable_declaration)
-)
-
-(
-  (variable_declarator
-    (identifier) @name @value.leading.endOf
-    (equals_value_clause
-      (_) @value
-    )
-  ) @_.domain
-  (#not-parent-type? @_.domain variable_declaration)
-)
 
 ;;!! aaa = "bbb";
 ;;!  ^^^
 ;;!! foo = 2;
 ;;!        ^
-(assignment_expression
-  left: (_) @name @value.leading.endOf
-  right: (_) @value
-) @_.domain
+(_
+  (assignment_expression
+    left: (_) @name @value.leading.endOf
+    right: (_) @value
+  ) @_.domain.start
+  .
+  ";"? @_.domain.end
+)
 
 (_
   name: (_) @name
@@ -480,7 +474,7 @@
   (_
     type: (_) @type
   ) @_.domain
-  (#not-type? @_.domain catch_declaration cast_expression)
+  (#not-type? @_.domain catch_declaration cast_expression variable_declaration)
 )
 
 ;;!! (int)5.5;
@@ -604,15 +598,18 @@ operator: [
   ">="
   ">>"
 ] @disqualifyDelimiter
+
 (assignment_operator
   [
     "<<="
     ">>="
   ] @disqualifyDelimiter
 )
+
 (lambda_expression
   "=>" @disqualifyDelimiter
 )
+
 (member_access_expression
   "->" @disqualifyDelimiter
 )

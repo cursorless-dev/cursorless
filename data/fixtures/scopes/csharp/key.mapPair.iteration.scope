@@ -1,12 +1,7 @@
-new StudentName {
-    FirstName = "Craig"
-};
+new Foo {aaa = 0, bbb = 1};
 ---
 
 [Content] =
-[Domain] = 0:17-2:0
-                   >
-0| new StudentName {
-1|     FirstName = "Craig"
-2| };
-   <
+[Domain] = 0:9-0:25
+           >----------------<
+0| new Foo {aaa = 0, bbb = 1};

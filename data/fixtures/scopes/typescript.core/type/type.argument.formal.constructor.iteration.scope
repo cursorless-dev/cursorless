@@ -1,33 +1,27 @@
-class MyClass {
-  constructor(value: number) { }
+class Foo {
+  constructor(aaa: number, bbb: number) {}
 }
 ---
 
 [#1 Content] =
 [#1 Domain] = 0:0-2:1
-  >---------------
-0| class MyClass {
-1|   constructor(value: number) { }
+  >-----------
+0| class Foo {
+1|   constructor(aaa: number, bbb: number) {}
 2| }
    -<
 
 
 [#2 Content] =
-[#2 Domain] = 0:15-2:0
-                 >
-0| class MyClass {
-1|   constructor(value: number) { }
+[#2 Domain] = 0:11-2:0
+             >
+0| class Foo {
+1|   constructor(aaa: number, bbb: number) {}
 2| }
    <
 
 
 [#3 Content] =
-[#3 Domain] = 1:14-1:27
-                >-------------<
-1|   constructor(value: number) { }
-
-
-[#4 Content] =
-[#4 Domain] = 1:30-1:31
-                                >-<
-1|   constructor(value: number) { }
+[#3 Domain] = 1:14-1:38
+                >------------------------<
+1|   constructor(aaa: number, bbb: number) {}

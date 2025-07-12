@@ -218,7 +218,8 @@
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 (function_declaration
   name: (_) @functionName
-  body: (_)? @interior
+  parameters: (_) @interior.start.endOf
+  "end" @interior.end.startOf
 ) @namedFunction @_.domain
 
 ;; inside lambda:
@@ -228,9 +229,9 @@
 ;;!! __add = function(a, b) return a + b end
 ;;!          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 (function_definition
-  !name
-  body: (_)? @interior
-) @anonymousFunction @interior.domain
+  parameters: (_) @interior.start.endOf
+  "end" @interior.end.startOf
+) @anonymousFunction @_.domain
 
 ;; Names and values
 

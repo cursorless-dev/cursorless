@@ -428,7 +428,7 @@
     "{" @interior.start.endOf
     "}" @interior.end.startOf
   )
-) @_.domain
+) @branch @_.domain
 
 ;;!! true ? 0 : 1
 ;;!  ^^^^

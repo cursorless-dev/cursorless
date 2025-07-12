@@ -1,4 +1,4 @@
-function myFunk() {
+function foo() {
   return 0;
 }
 ---

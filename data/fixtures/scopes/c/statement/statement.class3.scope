@@ -1,0 +1,10 @@
+typedef struct {} Foo;
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:22
+  >----------------------<
+0| typedef struct {} Foo;
+
+[Insertion delimiter] = "\n"

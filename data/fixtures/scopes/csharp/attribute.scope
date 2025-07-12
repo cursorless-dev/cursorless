@@ -1,11 +1,11 @@
-[Obsolete("Deprecated")]
-void foo() {}
+[Foo]
+void Bar() {}
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:1-0:23
-   >----------------------<
-0| [Obsolete("Deprecated")]
+[Domain] = 0:1-0:4
+   >---<
+0| [Foo]
 
 [Insertion delimiter] = " "

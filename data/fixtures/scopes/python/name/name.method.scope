@@ -1,6 +1,5 @@
 class Foo:
-    def bar():
-        pass
+    def bar(): pass
 ---
 
 [#1 Content] = 0:6-0:9
@@ -15,12 +14,11 @@ class Foo:
        >-<
 0| class Foo:
 
-[#1 Domain] = 0:0-2:12
+[#1 Domain] = 0:0-1:19
   >----------
 0| class Foo:
-1|     def bar():
-2|         pass
-   ------------<
+1|     def bar(): pass
+   -------------------<
 
 [#1 Insertion delimiter] = " "
 
@@ -28,16 +26,14 @@ class Foo:
 [#2 Content] =
 [#2 Removal] = 1:8-1:11
           >---<
-1|     def bar():
+1|     def bar(): pass
 
 [#2 Leading delimiter] = 1:7-1:8
          >-<
-1|     def bar():
+1|     def bar(): pass
 
-[#2 Domain] = 1:4-2:12
-      >----------
-1|     def bar():
-2|         pass
-   ------------<
+[#2 Domain] = 1:4-1:19
+      >---------------<
+1|     def bar(): pass
 
 [#2 Insertion delimiter] = " "

@@ -1,5 +1,5 @@
 <?php
-new MyClass(
+new Foo(
     aaa,
     bbb
 )

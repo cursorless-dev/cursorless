@@ -2,39 +2,74 @@
 aaa
 bbb
 
+ccc
+
 ---
 
-[Content] =
-[Domain] = 1:0-2:3
+[#1 Content] =
+[#1 Domain] = 1:0-2:3
   >---
 1| aaa
 2| bbb
    ---<
 
-[Removal] = 0:0-3:0
-  >
-0|
+[#1 Removal] = 1:0-4:0
+  >---
 1| aaa
 2| bbb
 3|
+4| ccc
    <
 
-[Leading delimiter: Content] = 0:0-0:0
+[#1 Leading delimiter: Content] = 0:0-0:0
   ><
 0|
-[Leading delimiter: Removal] = 0:0-1:0
+[#1 Leading delimiter: Removal] = 0:0-1:0
   >
 0|
 1| aaa
    <
 
-[Trailing delimiter: Content] = 3:0-3:0
+[#1 Trailing delimiter: Content] = 3:0-3:0
   ><
 3|
-[Trailing delimiter: Removal] = 2:3-3:0
+[#1 Trailing delimiter: Removal] = 3:0-4:0
+  >
+3|
+4| ccc
+   <
+
+[#1 Insertion delimiter] = "\n\n"
+
+
+[#2 Content] =
+[#2 Domain] = 4:0-4:3
+  >---<
+4| ccc
+
+[#2 Removal] = 3:0-5:0
+  >
+3|
+4| ccc
+5|
+   <
+
+[#2 Leading delimiter: Content] = 3:0-3:0
+  ><
+3|
+[#2 Leading delimiter: Removal] = 3:0-4:0
+  >
+3|
+4| ccc
+   <
+
+[#2 Trailing delimiter: Content] = 5:0-5:0
+  ><
+5|
+[#2 Trailing delimiter: Removal] = 4:3-5:0
      >
-2| bbb
-3|
+4| ccc
+5|
    <
 
-[Insertion delimiter] = "\n\n"
+[#2 Insertion delimiter] = "\n\n"

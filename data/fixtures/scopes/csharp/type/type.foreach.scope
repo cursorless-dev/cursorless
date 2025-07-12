@@ -1,20 +1,20 @@
-foreach (int value in values) {}
+foreach (int v in values) {}
 ---
 
 [Content] = 0:9-0:12
            >---<
-0| foreach (int value in values) {}
+0| foreach (int v in values) {}
 
 [Removal] = 0:9-0:13
            >----<
-0| foreach (int value in values) {}
+0| foreach (int v in values) {}
 
 [Trailing delimiter] = 0:12-0:13
               >-<
-0| foreach (int value in values) {}
+0| foreach (int v in values) {}
 
-[Domain] = 0:0-0:32
-  >--------------------------------<
-0| foreach (int value in values) {}
+[Domain] = 0:0-0:28
+  >----------------------------<
+0| foreach (int v in values) {}
 
 [Insertion delimiter] = " "

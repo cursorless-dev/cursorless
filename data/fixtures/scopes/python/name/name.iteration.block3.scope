@@ -1,36 +1,30 @@
-if True:
-    pass
-elif False:
-    pass
-else:
-    pass
+if True: pass
+elif False: pass
+else: pass
 ---
 
 [#1 Content] =
-[#1 Domain] = 0:0-5:8
-  >--------
-0| if True:
-1|     pass
-2| elif False:
-3|     pass
-4| else:
-5|     pass
-   --------<
+[#1 Domain] = 0:0-2:10
+  >-------------
+0| if True: pass
+1| elif False: pass
+2| else: pass
+   ----------<
 
 
 [#2 Content] =
-[#2 Domain] = 1:4-1:8
-      >----<
-1|     pass
+[#2 Domain] = 0:9-0:13
+           >----<
+0| if True: pass
 
 
 [#3 Content] =
-[#3 Domain] = 3:4-3:8
-      >----<
-3|     pass
+[#3 Domain] = 1:12-1:16
+              >----<
+1| elif False: pass
 
 
 [#4 Content] =
-[#4 Domain] = 5:4-5:8
-      >----<
-5|     pass
+[#4 Domain] = 2:6-2:10
+        >----<
+2| else: pass

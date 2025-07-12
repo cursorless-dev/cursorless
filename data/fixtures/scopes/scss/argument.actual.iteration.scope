@@ -1,10 +1,10 @@
-@mixin replace-text($image, $color: red) {}
+@mixin foo($aaa, $bbb: 0) {}
 ---
 
-[Content] = 0:20-0:39
-                      >-------------------<
-0| @mixin replace-text($image, $color: red) {}
+[Content] = 0:11-0:24
+             >-------------<
+0| @mixin foo($aaa, $bbb: 0) {}
 
-[Domain] = 0:0-0:43
-  >-------------------------------------------<
-0| @mixin replace-text($image, $color: red) {}
+[Domain] = 0:0-0:28
+  >----------------------------<
+0| @mixin foo($aaa, $bbb: 0) {}

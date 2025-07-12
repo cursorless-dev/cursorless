@@ -1,52 +1,52 @@
-public class MyClass {
-    public void myFunk() {
-        String foo, bar;
+public class Foo {
+    public void bar() {
+        int aaa, bbb;
     }
 }
 ---
 
 [#1 Content] = 1:4-3:5
-      >----------------------
-1|     public void myFunk() {
-2|         String foo, bar;
+      >-------------------
+1|     public void bar() {
+2|         int aaa, bbb;
 3|     }
    -----<
 
-[#1 Domain] = 0:22-4:0
-                        >
-0| public class MyClass {
-1|     public void myFunk() {
-2|         String foo, bar;
+[#1 Domain] = 0:18-4:0
+                    >
+0| public class Foo {
+1|     public void bar() {
+2|         int aaa, bbb;
 3|     }
 4| }
    <
 
 
-[#2 Content] = 2:8-2:24
-          >----------------<
-2|         String foo, bar;
+[#2 Content] = 2:8-2:21
+          >-------------<
+2|         int aaa, bbb;
 
-[#2 Domain] = 1:26-3:4
-                            >
-1|     public void myFunk() {
-2|         String foo, bar;
+[#2 Domain] = 1:23-3:4
+                         >
+1|     public void bar() {
+2|         int aaa, bbb;
 3|     }
    ----<
 
 
-[#3 Content] = 2:8-2:24
-          >----------------<
-2|         String foo, bar;
+[#3 Content] = 2:8-2:21
+          >-------------<
+2|         int aaa, bbb;
 
-[#3 Domain] = 2:0-2:24
-  >------------------------<
-2|         String foo, bar;
+[#3 Domain] = 2:0-2:21
+  >---------------------<
+2|         int aaa, bbb;
 
 
-[#4 Content] = 2:15-2:23
-                 >--------<
-2|         String foo, bar;
+[#4 Content] = 2:12-2:20
+              >--------<
+2|         int aaa, bbb;
 
-[#4 Domain] = 2:8-2:24
-          >----------------<
-2|         String foo, bar;
+[#4 Domain] = 2:8-2:21
+          >-------------<
+2|         int aaa, bbb;

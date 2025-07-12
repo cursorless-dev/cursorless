@@ -1,22 +1,22 @@
-IEnumerable<int> funk() {
-    yield return 2;
+IEnumerable<int> foo() {
+    yield return 0;
 }
 ---
 
 [Content] = 1:17-1:18
                    >-<
-1|     yield return 2;
+1|     yield return 0;
 
 [Removal] = 1:16-1:18
                   >--<
-1|     yield return 2;
+1|     yield return 0;
 
 [Leading delimiter] = 1:16-1:17
                   >-<
-1|     yield return 2;
+1|     yield return 0;
 
 [Domain] = 1:4-1:19
       >---------------<
-1|     yield return 2;
+1|     yield return 0;
 
 [Insertion delimiter] = " "

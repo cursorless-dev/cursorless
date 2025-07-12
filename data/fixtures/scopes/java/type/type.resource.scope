@@ -1,20 +1,20 @@
-try (PrintWriter writer = create()) { }
+try (Foo foo = create()) {}
 ---
 
-[Content] = 0:5-0:16
-       >-----------<
-0| try (PrintWriter writer = create()) { }
+[Content] = 0:5-0:8
+       >---<
+0| try (Foo foo = create()) {}
 
-[Removal] = 0:5-0:17
-       >------------<
-0| try (PrintWriter writer = create()) { }
+[Removal] = 0:5-0:9
+       >----<
+0| try (Foo foo = create()) {}
 
-[Trailing delimiter] = 0:16-0:17
-                  >-<
-0| try (PrintWriter writer = create()) { }
+[Trailing delimiter] = 0:8-0:9
+          >-<
+0| try (Foo foo = create()) {}
 
-[Domain] = 0:0-0:39
-  >---------------------------------------<
-0| try (PrintWriter writer = create()) { }
+[Domain] = 0:0-0:27
+  >---------------------------<
+0| try (Foo foo = create()) {}
 
 [Insertion delimiter] = " "

@@ -35,7 +35,7 @@ function getTOC(minHeadingLevel: number, maxHeadingLevel: number) {
   col.className = "col col--3";
 
   const toc = document.createElement("div");
-  toc.className = "tableOfContents_tkZC thin-scrollbar";
+  toc.className = "tableOfContents_TDAO thin-scrollbar";
 
   const ul = document.createElement("ul");
   ul.className = "table-of-contents table-of-contents__left-border";

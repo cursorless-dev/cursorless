@@ -1,8 +1,7 @@
 def foo(
     aaa,
     bbb,
-):
-    pass
+): pass
 ---
 
 [#1 Content] =

@@ -41,8 +41,8 @@ interface IFoo {
          >-<
 1|     int bar;
 
-[#2 Domain] = 1:4-1:11
-      >-------<
+[#2 Domain] = 1:4-1:12
+      >--------<
 1|     int bar;
 
 [#2 Insertion delimiter] = " "

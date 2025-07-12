@@ -1,13 +1,13 @@
-def foo() = x
+def foo() = {}
 ---
 
 [Content] =
 [Removal] = 0:8-0:8
           ><
-0| def foo() = x
+0| def foo() = {}
 
-[Domain] = 0:0-0:13
-  >-------------<
-0| def foo() = x
+[Domain] = 0:0-0:14
+  >--------------<
+0| def foo() = {}
 
 [Insertion delimiter] = ""

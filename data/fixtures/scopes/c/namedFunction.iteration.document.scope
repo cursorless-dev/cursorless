@@ -1,5 +1,5 @@
 
-void foo() { }
+void foo() {}
 
 ---
 
@@ -7,6 +7,6 @@ void foo() { }
 [Domain] = 0:0-2:0
   >
 0|
-1| void foo() { }
+1| void foo() {}
 2|
    <

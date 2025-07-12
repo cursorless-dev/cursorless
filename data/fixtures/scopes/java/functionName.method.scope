@@ -1,19 +1,19 @@
-public class MyClass {
-    public void foo() { }
+public class Foo {
+    public void bar() {}
 }
 ---
 
 [Content] =
 [Removal] = 1:16-1:19
                   >---<
-1|     public void foo() { }
+1|     public void bar() {}
 
 [Leading delimiter] = 1:15-1:16
                  >-<
-1|     public void foo() { }
+1|     public void bar() {}
 
-[Domain] = 1:4-1:25
-      >---------------------<
-1|     public void foo() { }
+[Domain] = 1:4-1:24
+      >--------------------<
+1|     public void bar() {}
 
 [Insertion delimiter] = " "

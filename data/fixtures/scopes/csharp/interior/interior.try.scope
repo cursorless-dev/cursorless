@@ -1,5 +1,5 @@
 try { }
-catch(Exception ex) { }
+catch(Exception e) { }
 finally { }
 ---
 
@@ -28,37 +28,37 @@ finally { }
 
 
 [#3 Content] =
-[#3 Removal] = 1:21-1:22
-                       >-<
-1| catch(Exception ex) { }
+[#3 Removal] = 1:20-1:21
+                      >-<
+1| catch(Exception e) { }
 
-[#3 Domain] = 1:0-1:23
-  >-----------------------<
-1| catch(Exception ex) { }
+[#3 Domain] = 1:0-1:22
+  >----------------------<
+1| catch(Exception e) { }
 
 [#3 Insertion delimiter] = " "
 
 
 [#4 Content] =
-[#4 Removal] = 1:6-1:18
-        >------------<
-1| catch(Exception ex) { }
+[#4 Removal] = 1:6-1:17
+        >-----------<
+1| catch(Exception e) { }
 
-[#4 Domain] = 1:5-1:19
-       >--------------<
-1| catch(Exception ex) { }
+[#4 Domain] = 1:5-1:18
+       >-------------<
+1| catch(Exception e) { }
 
 [#4 Insertion delimiter] = " "
 
 
 [#5 Content] =
-[#5 Removal] = 1:21-1:22
-                       >-<
-1| catch(Exception ex) { }
+[#5 Removal] = 1:20-1:21
+                      >-<
+1| catch(Exception e) { }
 
-[#5 Domain] = 1:20-1:23
-                      >---<
-1| catch(Exception ex) { }
+[#5 Domain] = 1:19-1:22
+                     >---<
+1| catch(Exception e) { }
 
 [#5 Insertion delimiter] = " "
 

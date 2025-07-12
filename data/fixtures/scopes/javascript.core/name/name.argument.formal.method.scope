@@ -1,28 +1,28 @@
-class MyClass {
-  myFunk(aaa, bbb) { }
+class Foo {
+  bar(aaa, bbb = 0) {}
 }
 ---
 
-[#1 Content] = 0:6-0:13
-        >-------<
-0| class MyClass {
+[#1 Content] = 0:6-0:9
+        >---<
+0| class Foo {
 
-[#1 Removal] = 0:6-0:14
-        >--------<
-0| class MyClass {
+[#1 Removal] = 0:6-0:10
+        >----<
+0| class Foo {
 
 [#1 Leading delimiter] = 0:5-0:6
        >-<
-0| class MyClass {
+0| class Foo {
 
-[#1 Trailing delimiter] = 0:13-0:14
-               >-<
-0| class MyClass {
+[#1 Trailing delimiter] = 0:9-0:10
+           >-<
+0| class Foo {
 
 [#1 Domain] = 0:0-2:1
-  >---------------
-0| class MyClass {
-1|   myFunk(aaa, bbb) { }
+  >-----------
+0| class Foo {
+1|   bar(aaa, bbb = 0) {}
 2| }
    -<
 
@@ -30,41 +30,48 @@ class MyClass {
 
 
 [#2 Content] =
-[#2 Removal] = 1:2-1:8
-    >------<
-1|   myFunk(aaa, bbb) { }
+[#2 Removal] = 1:2-1:5
+    >---<
+1|   bar(aaa, bbb = 0) {}
 
 [#2 Leading delimiter] = 1:0-1:2
   >--<
-1|   myFunk(aaa, bbb) { }
+1|   bar(aaa, bbb = 0) {}
 
 [#2 Domain] = 1:2-1:22
     >--------------------<
-1|   myFunk(aaa, bbb) { }
+1|   bar(aaa, bbb = 0) {}
 
 [#2 Insertion delimiter] = " "
 
 
 [#3 Content] =
 [#3 Removal] =
-[#3 Domain] = 1:9-1:12
-           >---<
-1|   myFunk(aaa, bbb) { }
+[#3 Domain] = 1:6-1:9
+        >---<
+1|   bar(aaa, bbb = 0) {}
 
 [#3 Insertion delimiter] = " "
 
 
-[#4 Content] =
-[#4 Domain] = 1:14-1:17
-                >---<
-1|   myFunk(aaa, bbb) { }
+[#4 Content] = 1:11-1:14
+             >---<
+1|   bar(aaa, bbb = 0) {}
 
-[#4 Removal] = 1:13-1:17
-               >----<
-1|   myFunk(aaa, bbb) { }
+[#4 Removal] = 1:11-1:15
+             >----<
+1|   bar(aaa, bbb = 0) {}
 
-[#4 Leading delimiter] = 1:13-1:14
-               >-<
-1|   myFunk(aaa, bbb) { }
+[#4 Leading delimiter] = 1:10-1:11
+            >-<
+1|   bar(aaa, bbb = 0) {}
+
+[#4 Trailing delimiter] = 1:14-1:15
+                >-<
+1|   bar(aaa, bbb = 0) {}
+
+[#4 Domain] = 1:11-1:18
+             >-------<
+1|   bar(aaa, bbb = 0) {}
 
 [#4 Insertion delimiter] = " "

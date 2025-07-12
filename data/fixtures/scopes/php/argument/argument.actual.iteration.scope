@@ -1,11 +1,11 @@
 <?php
-myFunc(2, "foo")
+foo(aaa, bbb)
 ---
 
-[Content] = 1:7-1:15
-         >--------<
-1| myFunc(2, "foo")
+[Content] = 1:4-1:12
+      >--------<
+1| foo(aaa, bbb)
 
-[Domain] = 1:0-1:16
-  >----------------<
-1| myFunc(2, "foo")
+[Domain] = 1:0-1:13
+  >-------------<
+1| foo(aaa, bbb)

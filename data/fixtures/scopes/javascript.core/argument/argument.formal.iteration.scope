@@ -1,10 +1,10 @@
-function myFunk(aaa, bbb) { }
+function foo(aaa, bbb) {}
 ---
 
-[Content] = 0:16-0:24
-                  >--------<
-0| function myFunk(aaa, bbb) { }
+[Content] = 0:13-0:21
+               >--------<
+0| function foo(aaa, bbb) {}
 
-[Domain] = 0:0-0:29
-  >-----------------------------<
-0| function myFunk(aaa, bbb) { }
+[Domain] = 0:0-0:25
+  >-------------------------<
+0| function foo(aaa, bbb) {}

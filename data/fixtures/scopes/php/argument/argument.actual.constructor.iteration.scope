@@ -1,11 +1,11 @@
 <?php
-new MyClass(2, "foo")
+new Foo(aaa, bbb)
 ---
 
-[Content] = 1:12-1:20
-              >--------<
-1| new MyClass(2, "foo")
+[Content] = 1:8-1:16
+          >--------<
+1| new Foo(aaa, bbb)
 
-[Domain] = 1:0-1:21
-  >---------------------<
-1| new MyClass(2, "foo")
+[Domain] = 1:0-1:17
+  >-----------------<
+1| new Foo(aaa, bbb)

@@ -1,29 +1,24 @@
-for (final Item item : items) {
-
-}
+for (final int v : values) {}
 ---
 
-[Content] = 0:11-0:15
-             >----<
-0| for (final Item item : items) {
+[Content] = 0:11-0:14
+             >---<
+0| for (final int v : values) {}
 
-[Removal] = 0:11-0:16
-             >-----<
-0| for (final Item item : items) {
+[Removal] = 0:11-0:15
+             >----<
+0| for (final int v : values) {}
 
 [Leading delimiter] = 0:10-0:11
             >-<
-0| for (final Item item : items) {
+0| for (final int v : values) {}
 
-[Trailing delimiter] = 0:15-0:16
-                 >-<
-0| for (final Item item : items) {
+[Trailing delimiter] = 0:14-0:15
+                >-<
+0| for (final int v : values) {}
 
-[Domain] = 0:0-2:1
-  >-------------------------------
-0| for (final Item item : items) {
-1|
-2| }
-   -<
+[Domain] = 0:0-0:29
+  >-----------------------------<
+0| for (final int v : values) {}
 
 [Insertion delimiter] = " "

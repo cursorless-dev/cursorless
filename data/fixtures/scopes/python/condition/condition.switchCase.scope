@@ -1,47 +1,21 @@
-match value:
-    case 0:
-        pass
-    case 1:
-        pass
+match foo:
+    case 0: pass
 ---
 
-[#1 Content] = 1:9-1:10
+[Content] = 1:9-1:10
            >-<
-1|     case 0:
+1|     case 0: pass
 
-[#1 Removal] = 1:8-1:10
+[Removal] = 1:8-1:10
           >--<
-1|     case 0:
+1|     case 0: pass
 
-[#1 Leading delimiter] = 1:8-1:9
+[Leading delimiter] = 1:8-1:9
           >-<
-1|     case 0:
+1|     case 0: pass
 
-[#1 Domain] = 1:4-2:12
-      >-------
-1|     case 0:
-2|         pass
-   ------------<
+[Domain] = 1:4-1:16
+      >------------<
+1|     case 0: pass
 
-[#1 Insertion delimiter] = " "
-
-
-[#2 Content] = 3:9-3:10
-           >-<
-3|     case 1:
-
-[#2 Removal] = 3:8-3:10
-          >--<
-3|     case 1:
-
-[#2 Leading delimiter] = 3:8-3:9
-          >-<
-3|     case 1:
-
-[#2 Domain] = 3:4-4:12
-      >-------
-3|     case 1:
-4|         pass
-   ------------<
-
-[#2 Insertion delimiter] = " "
+[Insertion delimiter] = " "

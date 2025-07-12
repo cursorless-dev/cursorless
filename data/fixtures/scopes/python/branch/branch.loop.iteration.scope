@@ -1,14 +1,10 @@
-while True:
-    pass
-else:
-    pass
+while True: pass
+else: pass
 ---
 
 [Content] =
-[Domain] = 0:0-3:8
-  >-----------
-0| while True:
-1|     pass
-2| else:
-3|     pass
-   --------<
+[Domain] = 0:0-1:10
+  >----------------
+0| while True: pass
+1| else: pass
+   ----------<

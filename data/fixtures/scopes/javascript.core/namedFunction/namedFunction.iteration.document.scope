@@ -1,5 +1,5 @@
 
-function myFunk() { }
+function foo() {}
 
 ---
 
@@ -7,6 +7,6 @@ function myFunk() { }
 [Domain] = 0:0-2:0
   >
 0|
-1| function myFunk() { }
+1| function foo() {}
 2|
    <

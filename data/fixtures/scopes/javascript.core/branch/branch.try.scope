@@ -1,5 +1,5 @@
 try {}
-catch(error) {}
+catch(e) {}
 finally {}
 ---
 
@@ -11,20 +11,20 @@ finally {}
 [#1 Removal] = 0:0-1:0
   >------
 0| try {}
-1| catch(error) {}
+1| catch(e) {}
    <
 
 [#1 Insertion delimiter] = "\n"
 
 
 [#2 Content] =
-[#2 Domain] = 1:0-1:15
-  >---------------<
-1| catch(error) {}
+[#2 Domain] = 1:0-1:11
+  >-----------<
+1| catch(e) {}
 
 [#2 Removal] = 1:0-2:0
-  >---------------
-1| catch(error) {}
+  >-----------
+1| catch(e) {}
 2| finally {}
    <
 
@@ -36,9 +36,9 @@ finally {}
   >----------<
 2| finally {}
 
-[#3 Removal] = 1:15-2:10
-                 >
-1| catch(error) {}
+[#3 Removal] = 1:11-2:10
+             >
+1| catch(e) {}
 2| finally {}
    ----------<
 

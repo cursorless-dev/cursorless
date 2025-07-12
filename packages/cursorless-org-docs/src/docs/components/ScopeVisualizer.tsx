@@ -48,7 +48,9 @@ export function ScopeVisualizer({ languageId, scopeTypeType }: Props) {
     getScopeFixtures(scopeTests, languageId, scopeTypeType),
   );
   const [rangeType, setRangeType] = useState<RangeType>("content");
-  const [renderWhitespace, setRenderWhitespace] = useState(false);
+  const [renderWhitespace, setRenderWhitespace] = useState(
+    scopeTypeType != null,
+  );
 
   const renderOptions = () => {
     return (
@@ -185,7 +187,10 @@ function renderFacet(
     if (scopeTypeType != null && previousLanguageId !== facetLanguageId) {
       previousLanguageId = facetLanguageId;
       return (
-        <H5 className="language-id" id={`${facet.name}-${facetLanguageId}`}>
+        <H5
+          className="language-id mb-1 mt-2"
+          id={`${facet.name}-${facetLanguageId}`}
+        >
           {prettifyLanguageName(facetLanguageId)}
         </H5>
       );

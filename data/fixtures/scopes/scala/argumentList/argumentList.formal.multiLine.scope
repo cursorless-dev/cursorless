@@ -1,7 +1,7 @@
 def foo(
     aaa: Int,
     bbb: Int
-) = x
+) = {}
 ---
 
 [Content] = 1:4-2:12
@@ -15,19 +15,19 @@ def foo(
 0| def foo(
 1|     aaa: Int,
 2|     bbb: Int
-3| ) = x
+3| ) = {}
    <
 
 [Leading delimiter] = 1:0-1:4
   >----<
 1|     aaa: Int,
 
-[Domain] = 0:0-3:5
+[Domain] = 0:0-3:6
   >--------
 0| def foo(
 1|     aaa: Int,
 2|     bbb: Int
-3| ) = x
-   -----<
+3| ) = {}
+   ------<
 
 [Insertion delimiter] = ",\n"
