@@ -1,26 +1,31 @@
-command: user.do_something()
+command:
+    foo = 0
 ---
 
 [#1 Content] =
 [#1 Removal] =
-[#1 Domain] = 0:0-0:28
-  >----------------------------<
-0| command: user.do_something()
+[#1 Domain] = 0:0-1:11
+  >--------
+0| command:
+1|     foo = 0
+   -----------<
 
 [#1 Insertion delimiter] = "\n"
 
 
 [#2 Content] =
-[#2 Domain] = 0:9-0:28
-           >-------------------<
-0| command: user.do_something()
+[#2 Domain] = 1:4-1:11
+      >-------<
+1|     foo = 0
 
-[#2 Removal] = 0:8-0:28
-          >--------------------<
-0| command: user.do_something()
+[#2 Removal] = 0:8-1:11
+          >
+0| command:
+1|     foo = 0
+   -----------<
 
-[#2 Leading delimiter] = 0:8-0:9
-          >-<
-0| command: user.do_something()
+[#2 Leading delimiter] = 1:0-1:4
+  >----<
+1|     foo = 0
 
 [#2 Insertion delimiter] = "\n"
