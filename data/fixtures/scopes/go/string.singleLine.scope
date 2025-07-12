@@ -1,10 +1,10 @@
-<name></name>
+"Hello world"
 ---
 
 [Content] =
 [Removal] =
 [Domain] = 0:0-0:13
   >-------------<
-0| <name></name>
+0| "Hello world"
 
-[Insertion delimiter] = "\n"
+[Insertion delimiter] = " "
