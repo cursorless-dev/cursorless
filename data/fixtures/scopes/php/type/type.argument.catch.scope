@@ -15,8 +15,8 @@ catch (Exception $e) {}
                   >-<
 2| catch (Exception $e) {}
 
-[Domain] = 2:0-2:23
-  >-----------------------<
+[Domain] = 2:7-2:19
+         >------------<
 2| catch (Exception $e) {}
 
 [Insertion delimiter] = " "

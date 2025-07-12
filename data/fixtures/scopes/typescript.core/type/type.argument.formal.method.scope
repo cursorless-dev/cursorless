@@ -1,5 +1,5 @@
 class Foo {
-  bar(aaa: number, bbb: number) {}
+  bar(aaa: number, bbb: number = 0) {}
 }
 ---
 
@@ -8,7 +8,7 @@ class Foo {
 [#1 Domain] = 0:0-2:1
   >-----------
 0| class Foo {
-1|   bar(aaa: number, bbb: number) {}
+1|   bar(aaa: number, bbb: number = 0) {}
 2| }
    -<
 
@@ -17,37 +17,37 @@ class Foo {
 
 [#2 Content] = 1:11-1:17
              >------<
-1|   bar(aaa: number, bbb: number) {}
+1|   bar(aaa: number, bbb: number = 0) {}
 
 [#2 Removal] = 1:9-1:17
            >--------<
-1|   bar(aaa: number, bbb: number) {}
+1|   bar(aaa: number, bbb: number = 0) {}
 
 [#2 Leading delimiter] = 1:9-1:11
            >--<
-1|   bar(aaa: number, bbb: number) {}
+1|   bar(aaa: number, bbb: number = 0) {}
 
 [#2 Domain] = 1:6-1:17
         >-----------<
-1|   bar(aaa: number, bbb: number) {}
+1|   bar(aaa: number, bbb: number = 0) {}
 
 [#2 Insertion delimiter] = " "
 
 
 [#3 Content] = 1:24-1:30
                           >------<
-1|   bar(aaa: number, bbb: number) {}
+1|   bar(aaa: number, bbb: number = 0) {}
 
 [#3 Removal] = 1:22-1:30
                         >--------<
-1|   bar(aaa: number, bbb: number) {}
+1|   bar(aaa: number, bbb: number = 0) {}
 
 [#3 Leading delimiter] = 1:22-1:24
                         >--<
-1|   bar(aaa: number, bbb: number) {}
+1|   bar(aaa: number, bbb: number = 0) {}
 
-[#3 Domain] = 1:19-1:30
-                     >-----------<
-1|   bar(aaa: number, bbb: number) {}
+[#3 Domain] = 1:19-1:34
+                     >---------------<
+1|   bar(aaa: number, bbb: number = 0) {}
 
 [#3 Insertion delimiter] = " "

@@ -1,17 +1,17 @@
 <?php
-(string) $str;
+(int)$foo;
 ---
 
-[Content] = 1:1-1:7
-   >------<
-1| (string) $str;
+[Content] = 1:1-1:4
+   >---<
+1| (int)$foo;
 
-[Removal] = 1:0-1:9
+[Removal] = 1:0-1:5
+  >-----<
+1| (int)$foo;
+
+[Domain] = 1:0-1:9
   >---------<
-1| (string) $str;
-
-[Domain] = 1:0-1:13
-  >-------------<
-1| (string) $str;
+1| (int)$foo;
 
 [Insertion delimiter] = " "

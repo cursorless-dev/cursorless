@@ -1,19 +1,15 @@
 public class Foo {
-    public int foo() {
-        return 0;
-    }
+    public int foo() {}
 }
 ---
 
 [#1 Content] =
 [#1 Removal] =
-[#1 Domain] = 0:0-4:1
+[#1 Domain] = 0:0-2:1
   >------------------
 0| public class Foo {
-1|     public int foo() {
-2|         return 0;
-3|     }
-4| }
+1|     public int foo() {}
+2| }
    -<
 
 [#1 Insertion delimiter] = " "
@@ -21,25 +17,22 @@ public class Foo {
 
 [#2 Content] = 1:11-1:14
              >---<
-1|     public int foo() {
+1|     public int foo() {}
 
 [#2 Removal] = 1:11-1:15
              >----<
-1|     public int foo() {
+1|     public int foo() {}
 
 [#2 Leading delimiter] = 1:10-1:11
             >-<
-1|     public int foo() {
+1|     public int foo() {}
 
 [#2 Trailing delimiter] = 1:14-1:15
                 >-<
-1|     public int foo() {
+1|     public int foo() {}
 
-[#2 Domain] = 1:4-3:5
-      >------------------
-1|     public int foo() {
-2|         return 0;
-3|     }
-   -----<
+[#2 Domain] = 1:4-1:23
+      >-------------------<
+1|     public int foo() {}
 
 [#2 Insertion delimiter] = " "

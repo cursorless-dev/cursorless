@@ -3,8 +3,7 @@ class Foo:
         self,
         aaa: str,
         bbb: int
-    ):
-        pass
+    ): pass
 ---
 
 [#1 Content] =

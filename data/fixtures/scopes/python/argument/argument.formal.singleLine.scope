@@ -1,19 +1,18 @@
-def for(aaa: int, bbb: int):
-    pass
+def for(aaa: int, bbb: int): pass
 ---
 
 [#1 Content] =
 [#1 Domain] = 0:8-0:16
           >--------<
-0| def for(aaa: int, bbb: int):
+0| def for(aaa: int, bbb: int): pass
 
 [#1 Removal] = 0:8-0:18
           >----------<
-0| def for(aaa: int, bbb: int):
+0| def for(aaa: int, bbb: int): pass
 
 [#1 Trailing delimiter] = 0:16-0:18
                   >--<
-0| def for(aaa: int, bbb: int):
+0| def for(aaa: int, bbb: int): pass
 
 [#1 Insertion delimiter] = ", "
 
@@ -21,14 +20,14 @@ def for(aaa: int, bbb: int):
 [#2 Content] =
 [#2 Domain] = 0:18-0:26
                     >--------<
-0| def for(aaa: int, bbb: int):
+0| def for(aaa: int, bbb: int): pass
 
 [#2 Removal] = 0:16-0:26
                   >----------<
-0| def for(aaa: int, bbb: int):
+0| def for(aaa: int, bbb: int): pass
 
 [#2 Leading delimiter] = 0:16-0:18
                   >--<
-0| def for(aaa: int, bbb: int):
+0| def for(aaa: int, bbb: int): pass
 
 [#2 Insertion delimiter] = ", "

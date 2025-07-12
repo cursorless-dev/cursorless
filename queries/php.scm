@@ -234,9 +234,9 @@
 ;;!! catch (Exception $e) {}
 ;;!         ^^^^^^^^^
 (catch_clause
-  type: (_) @type
-  name: (_) @name
-) @_.domain
+  type: (_) @type @_.domain.start
+  name: (_) @name @_.domain.end
+)
 
 (formal_parameters
   "(" @type.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf

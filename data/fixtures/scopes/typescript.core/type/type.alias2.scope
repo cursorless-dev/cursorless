@@ -1,10 +1,10 @@
-export type Aaa = Bbb;
+export type Foo = Bar;
 ---
 
 [Content] =
 [Removal] =
 [Domain] = 0:0-0:22
   >----------------------<
-0| export type Aaa = Bbb;
+0| export type Foo = Bar;
 
 [Insertion delimiter] = " "

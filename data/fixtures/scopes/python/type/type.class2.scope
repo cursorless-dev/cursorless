@@ -1,15 +1,13 @@
-@value
-class Foo:
-    pass
+@bar
+class Foo: pass
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-2:8
-  >------
-0| @value
-1| class Foo:
-2|     pass
-   --------<
+[Domain] = 0:0-1:15
+  >----
+0| @bar
+1| class Foo: pass
+   ---------------<
 
 [Insertion delimiter] = " "
