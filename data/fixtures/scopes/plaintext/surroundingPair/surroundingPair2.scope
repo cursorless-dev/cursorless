@@ -1,24 +1,24 @@
 "
-"hello"
+"Hello world"
 "
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 1:0-1:7
-  >-------<
-1| "hello"
+[Domain] = 1:0-1:13
+  >-------------<
+1| "Hello world"
 
-[Interior] = 1:1-1:6
-   >-----<
-1| "hello"
+[Interior] = 1:1-1:12
+   >-----------<
+1| "Hello world"
 
 [Boundary L] = 1:0-1:1
   >-<
-1| "hello"
+1| "Hello world"
 
-[Boundary R] = 1:6-1:7
-        >-<
-1| "hello"
+[Boundary R] = 1:12-1:13
+              >-<
+1| "Hello world"
 
 [Insertion delimiter] = " "
