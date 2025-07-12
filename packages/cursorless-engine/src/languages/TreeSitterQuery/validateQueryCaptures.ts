@@ -1,8 +1,20 @@
-import { showError, simpleScopeTypeTypes } from "@cursorless/common";
+import {
+  showError,
+  simpleScopeTypeTypes,
+  type SimpleScopeTypeType,
+} from "@cursorless/common";
 import { ide } from "../../singletons/ide.singleton";
 
 const wildcard = "_";
-const captureNames = [wildcard, "interior", ...simpleScopeTypeTypes];
+const psuedoScopes = new Set<SimpleScopeTypeType>([
+  "className",
+  "functionName",
+]);
+const captureNames = [
+  wildcard,
+  "interior",
+  ...simpleScopeTypeTypes.filter((s) => !psuedoScopes.has(s)),
+];
 
 const positionRelationships = ["prefix", "leading", "trailing"];
 const positionSuffixes = [

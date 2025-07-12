@@ -199,26 +199,26 @@
 ;; func foo[]() {}
 ;; func foo()
 (function_declaration
-  name: (_) @functionName
+  name: (_) @name
   body: (block
     .
     "{" @interior.start.endOf
     "}" @interior.end.startOf
     .
   )?
-) @namedFunction @functionName.domain @interior.domain
+) @namedFunction @_.domain
 
 ;; method declaration
 ;; func (X) foo() {}
 (method_declaration
-  name: (_) @functionName
+  name: (_) @name
   body: (block
     .
     "{" @interior.start.endOf
     "}" @interior.end.startOf
     .
   )
-) @namedFunction @functionName.domain @interior.domain
+) @namedFunction @_.domain
 
 ;; func literal
 (func_literal

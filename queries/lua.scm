@@ -217,7 +217,7 @@
 ;;!! function add(x, b) return x + y end
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 (function_declaration
-  name: (_) @functionName
+  name: (_) @name
   parameters: (_) @interior.start.endOf
   "end" @interior.end.startOf
 ) @namedFunction @_.domain
