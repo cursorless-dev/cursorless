@@ -1,13 +1,13 @@
-<div id="root"></div>
+<div></div>
 ---
 
 [Content] =
-[Removal] = 0:0-0:15
-  >---------------<
-0| <div id="root"></div>
+[Removal] = 0:0-0:5
+  >-----<
+0| <div></div>
 
-[Domain] = 0:0-0:21
-  >---------------------<
-0| <div id="root"></div>
+[Domain] = 0:0-0:11
+  >-----------<
+0| <div></div>
 
 [Insertion delimiter] = " "
