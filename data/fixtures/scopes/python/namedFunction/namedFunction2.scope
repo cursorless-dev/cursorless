@@ -1,15 +1,13 @@
-@foo
-def bar(value: string) -> str:
-    return value
+@bar
+def foo() -> str: pass
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-2:16
+[Domain] = 0:0-1:22
   >----
-0| @foo
-1| def bar(value: string) -> str:
-2|     return value
-   ----------------<
+0| @bar
+1| def foo() -> str: pass
+   ----------------------<
 
 [Insertion delimiter] = "\n\n"
