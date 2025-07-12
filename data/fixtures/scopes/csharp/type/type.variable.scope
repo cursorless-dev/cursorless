@@ -13,8 +13,8 @@ int foo;
      >-<
 0| int foo;
 
-[Domain] = 0:0-0:7
-  >-------<
+[Domain] = 0:0-0:8
+  >--------<
 0| int foo;
 
 [Insertion delimiter] = " "

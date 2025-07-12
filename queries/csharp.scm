@@ -428,39 +428,28 @@
 
 ;;!! String aaa;
 ;;!         ^^^
-(variable_declaration
-  (variable_declarator
-    (identifier) @name
+(_
+  (variable_declaration
+    type: (_) @type
+    (variable_declarator
+      (identifier) @name
+    )
   )
 ) @_.domain
 
 ;;!! String aaa = "bbb";
 ;;!         ^^^
-(variable_declaration
-  (variable_declarator
-    (identifier) @name @value.leading.endOf
-    (equals_value_clause
-      (_) @value
+(_
+  (variable_declaration
+    type: (_) @type
+    (variable_declarator
+      (identifier) @name @value.leading.endOf
+      (equals_value_clause
+        (_) @value
+      )
     )
   )
 ) @_.domain
-
-(
-  (variable_declarator
-    (identifier) @name
-  ) @_.domain
-  (#not-parent-type? @_.domain variable_declaration)
-)
-
-(
-  (variable_declarator
-    (identifier) @name @value.leading.endOf
-    (equals_value_clause
-      (_) @value
-    )
-  ) @_.domain
-  (#not-parent-type? @_.domain variable_declaration)
-)
 
 ;;!! aaa = "bbb";
 ;;!  ^^^
@@ -480,7 +469,7 @@
   (_
     type: (_) @type
   ) @_.domain
-  (#not-type? @_.domain catch_declaration cast_expression)
+  (#not-type? @_.domain catch_declaration cast_expression variable_declaration)
 )
 
 ;;!! (int)5.5;

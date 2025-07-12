@@ -13,8 +13,8 @@ List<int> foo;
            >-<
 0| List<int> foo;
 
-[#1 Domain] = 0:0-0:13
-  >-------------<
+[#1 Domain] = 0:0-0:14
+  >--------------<
 0| List<int> foo;
 
 [#1 Insertion delimiter] = " "
