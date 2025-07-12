@@ -1,21 +1,21 @@
-```ts
-let foo;
+```
+Hello world
 ```
 
 ---
 
 [Content] =
 [Domain] = 0:0-2:3
-  >-----
-0| ```ts
-1| let foo;
+  >---
+0| ```
+1| Hello world
 2| ```
    ---<
 
 [Removal] = 0:0-3:0
-  >-----
-0| ```ts
-1| let foo;
+  >---
+0| ```
+1| Hello world
 2| ```
 3|
    <
