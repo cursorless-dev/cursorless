@@ -75,8 +75,7 @@ export class LanguageDefinition {
   /**
    * @param scopeType The scope type for which to get a scope handler
    * @returns A scope handler for the given scope type and language id, or
-   * undefined if the given scope type / language id combination is still using
-   * legacy pathways
+   * undefined if the given scope type is not supported by this language.
    */
   getScopeHandler(scopeType: ScopeType) {
     if (!this.query.hasCapture(scopeType.type)) {

@@ -32,11 +32,6 @@ export interface LanguageDefinitions {
    * the given language id doesn't have a new-style query definition
    */
   get(languageId: string): LanguageDefinition | undefined;
-
-  /**
-   * @deprecated Only for use in legacy containing scope stage
-   */
-  getNodeAtLocation(document: TextDocument, range: Range): Node | undefined;
 }
 
 /**
@@ -158,10 +153,6 @@ export class LanguageDefinitionsImpl
     }
 
     return definition === LANGUAGE_UNDEFINED ? undefined : definition;
-  }
-
-  public getNodeAtLocation(document: TextDocument, range: Range): Node {
-    return this.treeSitter.getNodeAtLocation(document, range);
   }
 
   onDidChangeDefinition = this.notifier.registerListener;

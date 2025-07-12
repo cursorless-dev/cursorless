@@ -16,10 +16,6 @@ export class DisabledLanguageDefinitions implements LanguageDefinitions {
     return undefined;
   }
 
-  getNodeAtLocation(_document: TextDocument, _range: Range): Node | undefined {
-    return undefined;
-  }
-
   dispose(): void {
     // Do nothing
   }
