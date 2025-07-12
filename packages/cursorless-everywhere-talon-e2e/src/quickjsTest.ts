@@ -72,7 +72,7 @@ async function testChuck() {
 
 function runAction(action: ActionDescriptor) {
   const command: CommandLatest = {
-    version: 7,
+    version: 8,
     usePrePhraseSnapshot: false,
     action,
   };

@@ -2,6 +2,7 @@ import type { TestCaseFixtureLegacy } from "../types/TestCaseFixture";
 import type { ActionDescriptor } from "../types/command/ActionDescriptor";
 import type { CommandV6 } from "../types/command/CommandV6.types";
 import type { CommandV7 } from "../types/command/CommandV7.types";
+import type { CommandV8 } from "../types/command/CommandV8.types";
 import type { Command } from "../types/command/command.types";
 import type { CommandV5 } from "../types/command/legacy/CommandV5.types";
 import type { EnforceUndefined } from "../util/typeUtils";
@@ -41,6 +42,8 @@ function reorderCommandFields(command: Command): Command {
       return reorderCommandV6Fields(command);
     case 7:
       return reorderCommandV7Fields(command);
+    case 8:
+      return reorderCommandV8Fields(command);
   }
 }
 
@@ -73,6 +76,17 @@ function reorderCommandV6Fields(
 function reorderCommandV7Fields(
   command: CommandV7,
 ): EnforceUndefined<CommandV7> {
+  return {
+    version: command.version,
+    spokenForm: command.spokenForm,
+    action: reorderActionFields(command.action),
+    usePrePhraseSnapshot: command.usePrePhraseSnapshot,
+  };
+}
+
+function reorderCommandV8Fields(
+  command: CommandV8,
+): EnforceUndefined<CommandV8> {
   return {
     version: command.version,
     spokenForm: command.spokenForm,

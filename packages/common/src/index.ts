@@ -53,6 +53,7 @@ export * from "./types/command/ActionDescriptor";
 export * from "./types/command/command.types";
 export * from "./types/command/CommandV6.types";
 export * from "./types/command/CommandV7.types";
+export * from "./types/command/CommandV8.types";
 export * from "./types/command/DestinationDescriptor.types";
 export * from "./types/command/legacy/ActionCommandV5";
 export * from "./types/command/legacy/CommandV0V1.types";
