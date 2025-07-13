@@ -7,9 +7,9 @@ import { ide } from "../../singletons/ide.singleton";
 
 const wildcard = "_";
 const captureNames = [
+  ...simpleScopeTypeTypes.filter((s) => !pseudoScopes.has(s)),
   wildcard,
   "interior",
-  ...simpleScopeTypeTypes.filter((s) => !pseudoScopes.has(s)),
 ];
 
 const positionRelationships = ["prefix", "leading", "trailing"];
