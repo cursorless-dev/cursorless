@@ -136,7 +136,7 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
       case "conditional":
         return new ConditionalScopeHandler(this, scopeType, languageId);
       default:
-        // Pseudoscopes are handled separately
+        // Pseudoscopes are handled separately in their own modifiers.
         if (pseudoScopes.has(scopeType.type)) {
           throw Error(`Unexpected scope type '${scopeType.type}'`);
         }

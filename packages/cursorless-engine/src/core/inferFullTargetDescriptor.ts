@@ -14,7 +14,6 @@ import type {
   TargetDescriptor,
 } from "../typings/TargetDescriptor";
 import { handleHoistedModifiers } from "./handleHoistedModifiers";
-import { inferNameModifier } from "./inferNameModifier";
 
 /**
  * Performs inference on the partial target provided by the user, using previous
@@ -111,12 +110,11 @@ function inferPrimitiveTarget(
       },
   );
 
-  const modifiers = inferNameModifier(
+  const modifiers =
     getPreservedModifiers(target) ??
-      getPreviousPreservedModifiers(previousTargets) ??
-      getPreviousLineNumberMarkModifiers(previousTargets) ??
-      [],
-  );
+    getPreviousPreservedModifiers(previousTargets) ??
+    getPreviousLineNumberMarkModifiers(previousTargets) ??
+    [];
 
   return {
     type: target.type,
