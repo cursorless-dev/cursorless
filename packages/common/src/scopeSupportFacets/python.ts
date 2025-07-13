@@ -76,7 +76,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "namedFunction.constructor": supported,
   "namedFunction.iteration.document": supported,
   "namedFunction.method": supported,
-  "namedFunction.method.iteration.class": supported,
+  "namedFunction.iteration.class": supported,
 
   "argument.actual.singleLine": supported,
   "argument.actual.multiLine": supported,
@@ -227,9 +227,6 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Nested classes
   "class.iteration.block": notApplicable,
-
-  // Nested functions. Technically supported, but creates problem with `every funk` in a method.
-  "namedFunction.iteration.block": notApplicable,
 
   // Type. Python have some types, but not these.
   "type.alias": notApplicable,

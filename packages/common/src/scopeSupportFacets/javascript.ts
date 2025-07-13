@@ -36,7 +36,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   namedFunction: supported,
   "namedFunction.iteration.document": supported,
   "namedFunction.method": supported,
-  "namedFunction.method.iteration.class": supported,
+  "namedFunction.iteration.class": supported,
   "namedFunction.constructor": supported,
 
   functionCall: supported,
@@ -179,9 +179,6 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Nested classes
   "class.iteration.block": notApplicable,
-
-  // Nested functions. Technically supported, but creates problem with `every funk` in a method.
-  "namedFunction.iteration.block": notApplicable,
 
   // Section
   section: notApplicable,

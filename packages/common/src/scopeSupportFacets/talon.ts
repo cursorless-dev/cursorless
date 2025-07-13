@@ -66,7 +66,7 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "value.field.class": notApplicable,
   "value.iteration.class": notApplicable,
   "interior.class": notApplicable,
-  "namedFunction.method.iteration.class": notApplicable,
+  "namedFunction.iteration.class": notApplicable,
 
   // Interface
   "statement.interface": notApplicable,
@@ -204,7 +204,6 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "name.variable.pattern": notApplicable,
   namedFunction: notApplicable,
   "namedFunction.constructor": notApplicable,
-  "namedFunction.iteration.block": notApplicable,
   "namedFunction.iteration.document": notApplicable,
   "namedFunction.method": notApplicable,
   notebookCell: notApplicable,

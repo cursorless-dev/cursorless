@@ -114,19 +114,15 @@ export const scopeSupportFacetInfos: Record<
     description: "A named method declaration in a class",
     scopeType: "namedFunction",
   },
-  "namedFunction.method.iteration.class": classIter(
-    "namedFunction",
-    "named functions",
-  ),
   "namedFunction.constructor": {
     description: "A constructor declaration in a class",
     scopeType: "namedFunction",
   },
-  "namedFunction.iteration.block": blockIter(
+  "namedFunction.iteration.document": documentIter(
     "namedFunction",
     "named functions",
   ),
-  "namedFunction.iteration.document": documentIter(
+  "namedFunction.iteration.class": classIter(
     "namedFunction",
     "named functions",
   ),

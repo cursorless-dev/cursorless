@@ -83,7 +83,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
 
   "namedFunction.constructor": supported,
   "namedFunction.method": supported,
-  "namedFunction.method.iteration.class": supported,
+  "namedFunction.iteration.class": supported,
 
   ifStatement: supported,
   statement: supported,
@@ -190,7 +190,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   // Functions (not methods)
   namedFunction: notApplicable,
   "namedFunction.iteration.document": notApplicable,
-  "namedFunction.iteration.block": notApplicable,
   "argument.formal.singleLine": notApplicable,
   "argument.formal.multiLine": notApplicable,
   "argument.formal.iteration": notApplicable,

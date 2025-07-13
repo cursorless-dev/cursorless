@@ -26,7 +26,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "namedFunction.iteration.document": supported,
   "namedFunction.constructor": supported,
   "namedFunction.method": supported,
-  "namedFunction.method.iteration.class": supported,
+  "namedFunction.iteration.class": supported,
 
   "branch.if": supported,
   "branch.if.elif.else": supported,
@@ -224,9 +224,6 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.actual.iteration": notApplicable,
   "value.argument.actual": notApplicable,
   "value.argument.actual.iteration": notApplicable,
-
-  // Functions in blocks
-  "namedFunction.iteration.block": notApplicable,
 
   // Resource syntax
   "interior.resource": notApplicable,
