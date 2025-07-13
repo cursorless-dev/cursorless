@@ -95,9 +95,9 @@
     ;;!! export [default] function *foo() {}
     (generator_function_declaration)
 
-    ;;!! export [default] (let | const | var) foo = () => {}
     ;;!! export [default] (let | const | var) foo = function() {}
     ;;!! export [default] (let | const | var) foo = function *() {}
+    ;;!! export [default] (let | const | var) foo = () => {}
     (_
       (variable_declarator
         value: [
@@ -115,13 +115,19 @@
 ) @namedFunction
 
 ;;!! (function foo() {})
-(function_expression
-  name: (_)
-) @namedFunction
+;;!! (function *foo() {})
+[
+  (function_expression
+    name: (_)
+  )
+  (generator_function
+    name: (_)
+  )
+] @namedFunction
 
-;;!! foo = () => {};
 ;;!! foo = function() {};
 ;;!! foo = function *() {};
+;;!! foo = () => {};
 (assignment_expression
   right: [
     (function_expression
@@ -134,24 +140,24 @@
   ]
 ) @namedFunction
 
+;;!! { foo: function() {} }
+;;!! { foo: *() {} }
+;;!! { foo: () => {} }
 (pair
   key: (_) @name
   value: [
-    ;;!! { foo: function() {} }
     (function_expression
       !name
     )
-    ;;!! { foo: *() {} }
     (generator_function
       !name
     )
-    ;;!! { foo: () => {} }
     (arrow_function)
   ] @name.trailing.startOf
 ) @namedFunction @name.domain
 
-;;!! class Foo { foo() {} }
-;;!              ^^^^^^^^
+;;!! class Foo { @bar foo() {} }
+;;!              ^^^^^^^^^^^^^
 (
   (decorator)? @namedFunction.start @name.domain.start
   .
