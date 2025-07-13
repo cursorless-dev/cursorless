@@ -14,7 +14,7 @@
     }
   },
   "scripts": {
-    "build": "esbuild ./src/index.ts --conditions=cursorless:bundler --bundle --outfile=dist/index.cjs --format=cjs --platform=node --external:@reflink/*",
+    "build": "esbuild ./src/index.ts --conditions=cursorless:bundler --bundle --outfile=dist/index.cjs --format=cjs --platform=node --external:@reflink/* --external:./get-uid-gid.js",
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
