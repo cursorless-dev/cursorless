@@ -30,15 +30,21 @@ export type Command =
 
 export type CommandResponse = { returnValue: unknown } | { fallback: Fallback };
 
-export type FallbackModifier = Modifier | { type: "containingTokenIfEmpty" };
+export type FallbackCommandModifier =
+  | Modifier
+  | { type: "containingTokenIfEmpty" };
 
 export type Fallback =
-  | { action: ActionDescriptor["name"]; modifiers: FallbackModifier[] }
-  | { action: "insert"; modifiers: FallbackModifier[]; text: string }
-  | { action: "callAsFunction"; modifiers: FallbackModifier[]; callee: string }
+  | { action: ActionDescriptor["name"]; modifiers: FallbackCommandModifier[] }
+  | { action: "insert"; modifiers: FallbackCommandModifier[]; text: string }
+  | {
+      action: "callAsFunction";
+      modifiers: FallbackCommandModifier[];
+      callee: string;
+    }
   | {
       action: "wrapWithPairedDelimiter" | "rewrapWithPairedDelimiter";
-      modifiers: FallbackModifier[];
+      modifiers: FallbackCommandModifier[];
       left: string;
       right: string;
     };

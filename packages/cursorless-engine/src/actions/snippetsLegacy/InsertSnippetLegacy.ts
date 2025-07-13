@@ -43,7 +43,7 @@ export default class InsertSnippetLegacy {
       ? []
       : [
           new ModifyIfUntypedExplicitStage(this.modifierStageFactory, {
-            type: "cascading",
+            type: "fallback",
             modifiers: defaultScopeTypes.map((scopeType) => ({
               type: "containingScope",
               scopeType,
