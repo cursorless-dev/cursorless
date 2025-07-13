@@ -42,14 +42,10 @@ export class EveryScopeStage implements ModifierStage {
     const { scopeType } = this.modifier;
     const { editor, isReversed } = target;
 
-    const scopeHandler = this.scopeHandlerFactory.maybeCreate(
+    const scopeHandler = this.scopeHandlerFactory.create(
       scopeType,
       editor.document.languageId,
     );
-
-    if (scopeHandler == null) {
-      throw new NoContainingScopeError(scopeType.type);
-    }
 
     let scopes: TargetScope[] | undefined;
 
@@ -97,14 +93,10 @@ export class EveryScopeStage implements ModifierStage {
     scopeHandlerFactory: ScopeHandlerFactory,
     target: Target,
   ): Range[] {
-    const iterationScopeHandler = scopeHandlerFactory.maybeCreate(
+    const iterationScopeHandler = scopeHandlerFactory.create(
       scopeHandler.iterationScopeType,
       target.editor.document.languageId,
     );
-
-    if (iterationScopeHandler == null) {
-      throw Error("Could not find iteration scope handler");
-    }
 
     const iterationScopeTarget = getContainingScopeTarget(
       target,

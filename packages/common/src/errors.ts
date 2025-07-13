@@ -1,4 +1,5 @@
 import { DOCS_URL } from "./constants";
+import type { ScopeTypeType } from "./types/command/PartialTargetDescriptor.types";
 
 export class UnsupportedLanguageError extends Error {
   constructor(languageId: string) {
@@ -6,6 +7,15 @@ export class UnsupportedLanguageError extends Error {
       `Language '${languageId}' is not implemented yet; See ${DOCS_URL}/contributing/adding-a-new-language`,
     );
     this.name = "UnsupportedLanguageError";
+  }
+}
+
+export class UnsupportedScopeError extends Error {
+  constructor(scopeType: string) {
+    super(
+      `Scope '${scopeType}' is not implemented yet; See ${DOCS_URL}/contributing/adding-a-new-scope`,
+    );
+    this.name = "UnsupportedScopeError";
   }
 }
 
