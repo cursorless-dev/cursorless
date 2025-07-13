@@ -9,5 +9,5 @@ export const dartScopeSupport: LanguageScopeSupportFacetMap = {
   list: supported,
   map: supported,
   class: supported,
-  className: supported,
+  "name.class": supported,
 };

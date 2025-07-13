@@ -105,12 +105,6 @@ export const scopeSupportFacetInfos: Record<
   },
   "class.iteration.document": documentIter("class", "classes"),
   "class.iteration.block": blockIter("class", "classes"),
-  className: {
-    description: "The name of a class",
-    scopeType: "className",
-  },
-  "className.iteration.document": documentIter("className", "class names"),
-  "className.iteration.block": blockIter("className", "class names"),
 
   namedFunction: {
     description: "A named function declaration",
@@ -141,27 +135,6 @@ export const scopeSupportFacetInfos: Record<
       "An anonymous function, eg a lambda function, an arrow function, etc",
     scopeType: "anonymousFunction",
   },
-  functionName: {
-    description: "The name of a function",
-    scopeType: "functionName",
-  },
-  "functionName.method": {
-    description: "The name of a method in a class",
-    scopeType: "functionName",
-  },
-  "functionName.method.iteration.class": classIter(
-    "functionName",
-    "method names",
-  ),
-  "functionName.constructor": {
-    description: "The name of a constructor in a class",
-    scopeType: "functionName",
-  },
-  "functionName.iteration.block": blockIter("functionName", "function names"),
-  "functionName.iteration.document": documentIter(
-    "functionName",
-    "function names",
-  ),
 
   functionCall: {
     description: "A function call",

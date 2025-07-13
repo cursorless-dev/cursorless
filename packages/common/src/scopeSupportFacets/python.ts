@@ -78,12 +78,6 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "namedFunction.method": supported,
   "namedFunction.method.iteration.class": supported,
 
-  functionName: supported,
-  "functionName.constructor": supported,
-  "functionName.iteration.document": supported,
-  "functionName.method": supported,
-  "functionName.method.iteration.class": supported,
-
   "argument.actual.singleLine": supported,
   "argument.actual.multiLine": supported,
   "argument.actual.iteration": supported,
@@ -145,9 +139,6 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
 
   class: supported,
   "class.iteration.document": supported,
-
-  className: supported,
-  "className.iteration.document": supported,
 
   "interior.class": supported,
   "interior.function": supported,
@@ -228,18 +219,16 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "name.namespace": notApplicable,
   "interior.namespace": notApplicable,
 
-  // Nested classes
-  "class.iteration.block": notApplicable,
-  "className.iteration.block": notApplicable,
-
   // for and do-while loops
   "condition.doWhile": notApplicable,
   "condition.for": notApplicable,
   "interior.for": notApplicable,
   "interior.doWhile": notApplicable,
 
-  // Nested functions. Technically supported, but great problem with `every funk` in a method.
-  "functionName.iteration.block": notApplicable,
+  // Nested classes
+  "class.iteration.block": notApplicable,
+
+  // Nested functions. Technically supported, but creates problem with `every funk` in a method.
   "namedFunction.iteration.block": notApplicable,
 
   // Type. Python have some types, but not these.

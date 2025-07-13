@@ -31,9 +31,6 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   class: supported,
   "class.iteration.document": supported,
 
-  className: supported,
-  "className.iteration.document": supported,
-
   anonymousFunction: supported,
 
   namedFunction: supported,
@@ -41,12 +38,6 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "namedFunction.method": supported,
   "namedFunction.method.iteration.class": supported,
   "namedFunction.constructor": supported,
-
-  functionName: supported,
-  "functionName.iteration.document": supported,
-  "functionName.method": supported,
-  "functionName.method.iteration.class": supported,
-  "functionName.constructor": supported,
 
   functionCall: supported,
   "functionCall.constructor": supported,
@@ -186,9 +177,11 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
 
   /* NOT APPLICABLE (JS & TS) */
 
-  // Nested the classes
+  // Nested classes
   "class.iteration.block": notApplicable,
-  "className.iteration.block": notApplicable,
+
+  // Nested functions. Technically supported, but creates problem with `every funk` in a method.
+  "namedFunction.iteration.block": notApplicable,
 
   // Section
   section: notApplicable,
@@ -219,10 +212,6 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.actual": notApplicable,
   "value.argument.actual.iteration": notApplicable,
   "value.argument.actual": notApplicable,
-
-  // Nested functions. Technically supported, but great problem with `every funk` in a method.
-  "functionName.iteration.block": notApplicable,
-  "namedFunction.iteration.block": notApplicable,
 
   // Namespace
   "name.namespace": notApplicable,

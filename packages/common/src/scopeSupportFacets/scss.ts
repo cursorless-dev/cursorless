@@ -13,13 +13,11 @@ export const scssScopeSupport: LanguageScopeSupportFacetMap = {
   "namedFunction.iteration.block": supported,
   "namedFunction.iteration.document": supported,
 
-  functionName: supported,
-  "functionName.iteration.block": supported,
-  "functionName.iteration.document": supported,
-
   "name.argument.formal": supported,
   "name.argument.formal.iteration": supported,
   "name.function": supported,
+  "name.iteration.document": supported,
+  "name.iteration.block": supported,
 
   "value.argument.formal": supported,
   "value.argument.formal.iteration": supported,
