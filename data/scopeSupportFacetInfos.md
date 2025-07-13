@@ -90,12 +90,6 @@
 - `class.iteration.block` Iteration scope for classes: statement blocks (body of functions/if-statements/for-loops/etc).
 - `class.iteration.document` Iteration scope for classes: the entire document including leading and trailing empty lines.
 
-### className
-
-- `className` The name of a class
-- `className.iteration.block` Iteration scope for class names: statement blocks (body of functions/if-statements/for-loops/etc).
-- `className.iteration.document` Iteration scope for class names: the entire document including leading and trailing empty lines.
-
 ### collectionItem
 
 - `collectionItem.textual` A text based collection item
@@ -155,15 +149,6 @@
 
 - `functionCallee` The function being called in a function call
 - `functionCallee.constructor` The class being constructed in a class instantiation, including the `new` keyword
-
-### functionName
-
-- `functionName` The name of a function
-- `functionName.constructor` The name of a constructor in a class
-- `functionName.iteration.block` Iteration scope for function names: statement blocks (body of functions/if-statements/for-loops/etc).
-- `functionName.iteration.document` Iteration scope for function names: the entire document including leading and trailing empty lines.
-- `functionName.method` The name of a method in a class
-- `functionName.method.iteration.class` Iteration scope for method names: class bodies.
 
 ### identifier
 
