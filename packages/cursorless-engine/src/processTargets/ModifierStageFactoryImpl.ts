@@ -77,7 +77,7 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
           modifier,
         );
       case "everyScope":
-        if (modifier.scopeType.type === "instance") {
+        if (InstanceStage.use(modifier.scopeType)) {
           return new InstanceStage(this, this.storedTargets, modifier);
         }
         if (ClassFunctionNameStage.use(modifier.scopeType)) {
@@ -85,7 +85,7 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
         }
         return new EveryScopeStage(this, this.scopeHandlerFactory, modifier);
       case "ordinalScope":
-        if (modifier.scopeType.type === "instance") {
+        if (InstanceStage.use(modifier.scopeType)) {
           return new InstanceStage(this, this.storedTargets, modifier);
         }
         if (ClassFunctionNameStage.use(modifier.scopeType)) {
@@ -93,7 +93,7 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
         }
         return new OrdinalScopeStage(this, modifier);
       case "relativeScope":
-        if (modifier.scopeType.type === "instance") {
+        if (InstanceStage.use(modifier.scopeType)) {
           return new InstanceStage(this, this.storedTargets, modifier);
         }
         if (ClassFunctionNameStage.use(modifier.scopeType)) {
