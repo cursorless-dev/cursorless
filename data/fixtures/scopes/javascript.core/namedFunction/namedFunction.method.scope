@@ -1,21 +1,21 @@
 class Foo {
-  bar() {}
+    bar() {}
 }
 ---
 
 [Content] =
-[Domain] = 1:2-1:10
-    >--------<
-1|   bar() {}
+[Domain] = 1:4-1:12
+      >--------<
+1|     bar() {}
 
 [Removal] = 1:0-2:0
-  >----------
-1|   bar() {}
+  >------------
+1|     bar() {}
 2| }
    <
 
-[Leading delimiter] = 1:0-1:2
-  >--<
-1|   bar() {}
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     bar() {}
 
 [Insertion delimiter] = "\n\n"

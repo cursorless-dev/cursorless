@@ -1,0 +1,24 @@
+const foo = function() {};
+---
+
+[Content] = 0:6-0:9
+        >---<
+0| const foo = function() {};
+
+[Removal] = 0:0-0:12
+  >------------<
+0| const foo = function() {};
+
+[Leading delimiter] = 0:5-0:6
+       >-<
+0| const foo = function() {};
+
+[Trailing delimiter] = 0:9-0:10
+           >-<
+0| const foo = function() {};
+
+[Domain] = 0:0-0:26
+  >--------------------------<
+0| const foo = function() {};
+
+[Insertion delimiter] = " "

@@ -147,7 +147,7 @@
     )
     ;;!! { foo: () => {} }
     (arrow_function)
-  ]
+  ] @name.trailing.startOf
 ) @namedFunction @name.domain
 
 ;;!! class Foo { foo() {} }
