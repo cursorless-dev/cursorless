@@ -1,4 +1,8 @@
-import { pseudoScopes, type ScopeType } from "@cursorless/common";
+import {
+  pseudoScopes,
+  UnsupportedScopeError,
+  type ScopeType,
+} from "@cursorless/common";
 import type { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import {
   BoundedNonWhitespaceSequenceScopeHandler,
@@ -145,7 +149,7 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
   ): ScopeHandler {
     const handler = this.maybeCreate(scopeType, languageId);
     if (handler == null) {
-      throw new Error(`Couldn't create scope handler for '${scopeType.type}'`);
+      throw new UnsupportedScopeError(scopeType.type);
     }
     return handler;
   }

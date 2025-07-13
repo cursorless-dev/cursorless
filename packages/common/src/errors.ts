@@ -9,10 +9,12 @@ export class UnsupportedLanguageError extends Error {
   }
 }
 
-export class UnsupportedError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = "UnsupportedError";
+export class UnsupportedScopeError extends Error {
+  constructor(scopeType: string) {
+    super(
+      `Scope '${scopeType}' is not implemented yet; See ${DOCS_URL}/contributing/adding-a-new-scope`,
+    );
+    this.name = "UnsupportedScopeError";
   }
 }
 
