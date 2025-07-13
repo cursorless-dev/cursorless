@@ -1,55 +1,55 @@
 * {
-  clip-path: polygon(50% 0%, 60% 40%, 100% 50%);
+    clip-path: polygon(50% 0%, 60% 40%, 100% 50%);
 }
 ---
 
 [#1 Content] =
-[#1 Domain] = 1:21-1:27
-                       >------<
-1|   clip-path: polygon(50% 0%, 60% 40%, 100% 50%);
+[#1 Domain] = 1:23-1:29
+                         >------<
+1|     clip-path: polygon(50% 0%, 60% 40%, 100% 50%);
 
-[#1 Removal] = 1:21-1:29
-                       >--------<
-1|   clip-path: polygon(50% 0%, 60% 40%, 100% 50%);
+[#1 Removal] = 1:23-1:31
+                         >--------<
+1|     clip-path: polygon(50% 0%, 60% 40%, 100% 50%);
 
-[#1 Trailing delimiter] = 1:27-1:29
-                             >--<
-1|   clip-path: polygon(50% 0%, 60% 40%, 100% 50%);
+[#1 Trailing delimiter] = 1:29-1:31
+                               >--<
+1|     clip-path: polygon(50% 0%, 60% 40%, 100% 50%);
 
 [#1 Insertion delimiter] = ", "
 
 
 [#2 Content] =
-[#2 Domain] = 1:29-1:36
-                               >-------<
-1|   clip-path: polygon(50% 0%, 60% 40%, 100% 50%);
+[#2 Domain] = 1:31-1:38
+                                 >-------<
+1|     clip-path: polygon(50% 0%, 60% 40%, 100% 50%);
 
-[#2 Removal] = 1:29-1:38
-                               >---------<
-1|   clip-path: polygon(50% 0%, 60% 40%, 100% 50%);
+[#2 Removal] = 1:31-1:40
+                                 >---------<
+1|     clip-path: polygon(50% 0%, 60% 40%, 100% 50%);
 
-[#2 Leading delimiter] = 1:27-1:29
-                             >--<
-1|   clip-path: polygon(50% 0%, 60% 40%, 100% 50%);
+[#2 Leading delimiter] = 1:29-1:31
+                               >--<
+1|     clip-path: polygon(50% 0%, 60% 40%, 100% 50%);
 
-[#2 Trailing delimiter] = 1:36-1:38
-                                      >--<
-1|   clip-path: polygon(50% 0%, 60% 40%, 100% 50%);
+[#2 Trailing delimiter] = 1:38-1:40
+                                        >--<
+1|     clip-path: polygon(50% 0%, 60% 40%, 100% 50%);
 
 [#2 Insertion delimiter] = ", "
 
 
 [#3 Content] =
-[#3 Domain] = 1:38-1:46
-                                        >--------<
-1|   clip-path: polygon(50% 0%, 60% 40%, 100% 50%);
+[#3 Domain] = 1:40-1:48
+                                          >--------<
+1|     clip-path: polygon(50% 0%, 60% 40%, 100% 50%);
 
-[#3 Removal] = 1:36-1:46
-                                      >----------<
-1|   clip-path: polygon(50% 0%, 60% 40%, 100% 50%);
+[#3 Removal] = 1:38-1:48
+                                        >----------<
+1|     clip-path: polygon(50% 0%, 60% 40%, 100% 50%);
 
-[#3 Leading delimiter] = 1:36-1:38
-                                      >--<
-1|   clip-path: polygon(50% 0%, 60% 40%, 100% 50%);
+[#3 Leading delimiter] = 1:38-1:40
+                                        >--<
+1|     clip-path: polygon(50% 0%, 60% 40%, 100% 50%);
 
 [#3 Insertion delimiter] = ", "
