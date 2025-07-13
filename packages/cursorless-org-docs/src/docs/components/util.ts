@@ -60,7 +60,7 @@ export function nameComparator(
   a: { name: string },
   b: { name: string },
 ): number {
-  return a.name.localeCompare(b.name);
+  return a.name.localeCompare(b.name, undefined, { numeric: true });
 }
 
 export function isScopeInternal(scope: ScopeTypeType): boolean {
