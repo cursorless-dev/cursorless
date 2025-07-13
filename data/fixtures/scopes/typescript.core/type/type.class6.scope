@@ -10,4 +10,4 @@ abstract class Foo {}
 1| abstract class Foo {}
    ---------------------<
 
-[Insertion delimiter] = "\n\n"
+[Insertion delimiter] = " "

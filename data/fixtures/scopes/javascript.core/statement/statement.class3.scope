@@ -10,4 +10,4 @@ class Foo {}
 1| class Foo {}
    ------------<
 
-[Insertion delimiter] = " "
+[Insertion delimiter] = "\n"
