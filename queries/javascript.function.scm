@@ -1,3 +1,8 @@
+;; Note that there are a few Typescript-specific function declarations that we
+;; don't handle here; see typescript.scm.
+;; We also don't handle function declarations that only exist in Javascript;
+;; see javascript.scm.
+
 ;; Anonymous functions
 [
   ;;!! function() {}
@@ -109,45 +114,50 @@
   ]
 ) @namedFunction
 
-;; Note that there are a few Typescript-specific function declarations that we
-;; don't handle here; see typescript.scm.
-;; We also don't handle function declarations that only exist in Javascript;
-;; see javascript.scm.
-[
-  ;;!! (function foo() {})
-  (function_expression
-    name: (_)
-  )
+;;!! (function foo() {})
+(function_expression
+  name: (_)
+) @namedFunction
 
-  ;;!! (function *foo() {})
-  (generator_function)
+;;!! foo = () => {};
+;;!! foo = function() {};
+;;!! foo = function *() {};
+(assignment_expression
+  right: [
+    (function_expression
+      !name
+    )
+    (generator_function
+      !name
+    )
+    (arrow_function)
+  ]
+) @namedFunction
 
-  ;;!! class Foo { foo() {} }
-  ;;!              ^^^^^^^^
-  (method_definition)
+(pair
+  key: (_) @name
+  value: [
+    ;;!! { foo: function() {} }
+    (function_expression
+      !name
+    )
+    ;;!! { foo: *() {} }
+    (generator_function
+      !name
+    )
+    ;;!! { foo: () => {} }
+    (arrow_function)
+  ]
+) @namedFunction @name.domain
 
-  ;;!! foo = () => {};
-  ;;!! foo = function() {};
-  ;;!! foo = function *() {};
-  (assignment_expression
-    right: [
-      (function_expression
-        !name
-      )
-      (generator_function
-        !name
-      )
-      (arrow_function)
-    ]
-  )
-] @namedFunction
-
+;;!! class Foo { foo() {} }
+;;!              ^^^^^^^^
 (
-  (decorator)? @name.domain.start
+  (decorator)? @namedFunction.start @name.domain.start
   .
   (method_definition
     name: (_) @name
-  ) @name.domain.end
+  ) @namedFunction.end @name.domain.end
 )
 
 (
@@ -166,17 +176,3 @@
   "{" @namedFunction.iteration.start.endOf
   "}" @namedFunction.iteration.end.startOf
 )
-
-;;!! { funk: function() { } }
-;;!    ^^^^
-(pair
-  key: (_) @name
-  value: (function_expression)
-) @_.domain
-
-;;!! { funk: () => { } }
-;;!    ^^^^
-(pair
-  key: (_) @name
-  value: (arrow_function)
-) @_.domain
