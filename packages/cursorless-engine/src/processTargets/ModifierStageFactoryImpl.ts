@@ -107,11 +107,6 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
         }
         return new RelativeScopeStage(this, this.scopeHandlerFactory, modifier);
 
-      case "inferPreviousMark":
-        throw Error(
-          `Unexpected modifier '${modifier.type}'; it should have been removed during inference`,
-        );
-
       case "keepContentFilter":
         return new KeepContentFilterStage(modifier);
       case "keepEmptyFilter":
@@ -122,6 +117,10 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
         return new ModifyIfUntypedStage(this, modifier);
       case "range":
         return new RangeModifierStage(this, modifier);
+      case "inferPreviousMark":
+        throw Error(
+          `Unexpected modifier '${modifier.type}'; it should have been removed during inference`,
+        );
 
       default: {
         // Ensure we don't miss any new modifiers. Needed because we don't have input validation.
