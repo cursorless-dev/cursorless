@@ -67,7 +67,7 @@ export abstract class VscodeScopeVisualizer {
         void showError(
           this.ide.messages,
           "ScopeVisualizer.scopeTypeNotSupported",
-          `Scope type not supported for ${editor.document.languageId}, or only defined using legacy API which doesn't support visualization.  See ${DOCS_URL}/contributing/adding-a-new-language for more about how to upgrade your language.`,
+          `Scope type not supported for ${editor.document.languageId}. See ${DOCS_URL}/contributing/adding-a-new-language for more about how to update your language.`,
         );
     }
   }

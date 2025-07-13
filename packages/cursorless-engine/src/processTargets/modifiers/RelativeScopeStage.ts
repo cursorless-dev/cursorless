@@ -4,15 +4,10 @@ import {
 } from "@cursorless/common";
 import { islice, itake } from "itertools";
 import type { Target } from "../../typings/target.types";
-import type { ModifierStageFactory } from "../ModifierStageFactory";
-import type {
-  ModifierStage,
-  ModifierStateOptions,
-} from "../PipelineStages.types";
+import type { ModifierStage } from "../PipelineStages.types";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
 import { getPreferredScopeTouchingPosition } from "./getPreferredScopeTouchingPosition";
 import { OutOfRangeError } from "./listUtils";
-import { runLegacy } from "./relativeScopeLegacy";
 import type { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 import type { TargetScope } from "./scopeHandlers/scope.types";
 import type {
@@ -28,25 +23,15 @@ import type {
  */
 export class RelativeScopeStage implements ModifierStage {
   constructor(
-    private modifierStageFactory: ModifierStageFactory,
     private scopeHandlerFactory: ScopeHandlerFactory,
     private modifier: RelativeScopeModifier,
   ) {}
 
-  run(target: Target, options: ModifierStateOptions): Target[] {
-    const scopeHandler = this.scopeHandlerFactory.maybeCreate(
+  run(target: Target): Target[] {
+    const scopeHandler = this.scopeHandlerFactory.create(
       this.modifier.scopeType,
       target.editor.document.languageId,
     );
-
-    if (scopeHandler == null) {
-      return runLegacy(
-        this.modifierStageFactory,
-        this.modifier,
-        target,
-        options,
-      );
-    }
 
     const scopes = Array.from(
       this.modifier.offset === 0

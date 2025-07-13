@@ -105,7 +105,7 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
         if (ClassFunctionNameStage.use(modifier.scopeType)) {
           return new ClassFunctionNameStage(this, modifier);
         }
-        return new RelativeScopeStage(this, this.scopeHandlerFactory, modifier);
+        return new RelativeScopeStage(this.scopeHandlerFactory, modifier);
 
       case "keepContentFilter":
         return new KeepContentFilterStage(modifier);

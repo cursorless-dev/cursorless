@@ -1,4 +1,4 @@
-import type { Disposable, Range, TextDocument } from "@cursorless/common";
+import type { Disposable } from "@cursorless/common";
 import {
   Notifier,
   showError,
@@ -8,7 +8,6 @@ import {
   type TreeSitter,
 } from "@cursorless/common";
 import { toString } from "lodash-es";
-import type { Node } from "web-tree-sitter";
 import { LanguageDefinition } from "./LanguageDefinition";
 import { treeSitterQueryCache } from "./TreeSitterQuery/treeSitterQueryCache";
 
@@ -32,11 +31,6 @@ export interface LanguageDefinitions {
    * the given language id doesn't have a new-style query definition
    */
   get(languageId: string): LanguageDefinition | undefined;
-
-  /**
-   * @deprecated Only for use in legacy containing scope stage
-   */
-  getNodeAtLocation(document: TextDocument, range: Range): Node | undefined;
 }
 
 /**
@@ -158,10 +152,6 @@ export class LanguageDefinitionsImpl
     }
 
     return definition === LANGUAGE_UNDEFINED ? undefined : definition;
-  }
-
-  public getNodeAtLocation(document: TextDocument, range: Range): Node {
-    return this.treeSitter.getNodeAtLocation(document, range);
   }
 
   onDidChangeDefinition = this.notifier.registerListener;
