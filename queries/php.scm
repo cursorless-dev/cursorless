@@ -70,8 +70,8 @@
 ] @list
 
 (class_declaration
-  name: (_) @className
-) @class @className.domain
+  name: (_) @name
+) @class @name.domain
 
 [
   (function_definition)
@@ -96,12 +96,12 @@
 
 [
   (function_definition
-    name: (_) @functionName
+    name: (_) @name
   )
   (method_declaration
-    name: (_) @functionName
+    name: (_) @name
   )
-] @functionName.domain
+] @name.domain
 
 [
   (function_call_expression)

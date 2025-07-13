@@ -99,10 +99,10 @@
 
 [
   (struct_item
-    name: (_) @className @name
+    name: (_) @name
   )
   (enum_item
-    name: (_) @className @name
+    name: (_) @name
   )
 ] @class @_.domain
 
@@ -113,14 +113,14 @@
 ) @_.domain
 
 (trait_item
-  name: (_) @className @name
+  name: (_) @name
 ) @_.domain
 
 ;;!! fn foo() {}
 ;;!  ^^^^^^^^^^^
 (function_item
-  name: (_) @functionName @name
-) @namedFunction @_.domain
+  name: (_) @name
+) @namedFunction @name.domain
 
 ;;!! fn foo() -> int {}
 ;;!              ^^^

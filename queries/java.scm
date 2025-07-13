@@ -62,7 +62,7 @@
 ;;!  ^^^^^^^^^^^^
 ;;!        ^^^
 (class_declaration
-  name: (_) @name @className
+  name: (_) @name
 ) @class @type @_.domain
 
 ;;!! interface Foo {}
@@ -73,8 +73,8 @@
 ) @type @_.domain
 
 (
-  (program) @class.iteration @className.iteration @statement.iteration
-  (#document-range! @class.iteration @className.iteration @statement.iteration)
+  (program) @class.iteration @statement.iteration
+  (#document-range! @class.iteration @statement.iteration)
 )
 
 (
@@ -85,13 +85,8 @@
 ;;!! class MyClass { }
 ;;!                 ^
 (class_body
-  "{" @class.iteration.start.endOf @className.iteration.start.endOf
-  "}" @class.iteration.end.startOf @className.iteration.end.startOf
-)
-
-(class_body
-  "{" @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf
-  "}" @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf
+  "{" @class.iteration.start.endOf @namedFunction.iteration.start.endOf
+  "}" @class.iteration.end.startOf @namedFunction.iteration.end.startOf
 )
 
 ;;!! { }
@@ -128,11 +123,12 @@
 ;;!! void myFunk() {}
 ;;!  ^^^^^^^^^^^^^^^^
 (method_declaration
-  name: (_) @name @functionName
-) @namedFunction @_.domain
+  name: (_) @name
+) @namedFunction @name.domain
+
 (constructor_declaration
-  name: (_) @name @functionName
-) @namedFunction @_.domain
+  name: (_) @name
+) @namedFunction @name.domain
 
 ;;!! "string"
 ;;!  ^^^^^^^^

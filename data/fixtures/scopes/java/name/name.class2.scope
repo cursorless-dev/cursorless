@@ -1,0 +1,27 @@
+@bar
+public class Foo {}
+---
+
+[Content] = 1:13-1:16
+               >---<
+1| public class Foo {}
+
+[Removal] = 1:13-1:17
+               >----<
+1| public class Foo {}
+
+[Leading delimiter] = 1:12-1:13
+              >-<
+1| public class Foo {}
+
+[Trailing delimiter] = 1:16-1:17
+                  >-<
+1| public class Foo {}
+
+[Domain] = 0:0-1:19
+  >----
+0| @bar
+1| public class Foo {}
+   -------------------<
+
+[Insertion delimiter] = " "

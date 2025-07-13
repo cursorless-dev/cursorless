@@ -32,13 +32,13 @@
 (binary_operator
   ;;!! abc <- function(x){ }
   ;;!  ^^^
-  lhs: (identifier) @functionName
+  lhs: (identifier) @name
   rhs: (function_definition
     name: "function"
     parameters: (parameters)
     body: (braced_expression) @interior
-  ) @functionName.trailing.startOf
-) @namedFunction @namedFunction.domain @functionName.domain
+  ) @name.trailing.startOf
+) @namedFunction @_.domain
 
 ;; anonymous function
 ;;!! function(x){ }
@@ -148,8 +148,8 @@
 ;;!! list(1, 2, 3)
 ;;!  ^^^^^^^^^^^^^
 (call
-  function: (identifier) @functionName
-  (#match? @functionName "^(c|list)$")
+  function: (identifier) @name
+  (#match? @name "^(c|list)$")
 ) @list
 
 (binary_operator

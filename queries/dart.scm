@@ -22,5 +22,5 @@
 ;;!! class Foo {}
 ;;!  ^^^^^^^^^^^^
 (class_definition
-  name: (_) @className
-) @class @className.domain
+  name: (_) @name
+) @class @name.domain

@@ -18,7 +18,7 @@
 
 (_
   (class_specifier
-    name: (_) @className @name
+    name: (_) @name
     body: (_
       "{" @interior.start.endOf
       "}" @interior.end.startOf
@@ -47,8 +47,8 @@
 ) @_.domain
 
 (field_declaration_list
-  "{" @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf
-  "}" @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf
+  "{" @namedFunction.iteration.start.endOf
+  "}" @namedFunction.iteration.end.startOf
 ) @_.domain
 
 ;;!! int aaa = 0;
@@ -56,15 +56,6 @@
 (field_declaration
   declarator: (_) @_.leading.endOf
   default_value: (_) @value
-) @_.domain
-
-;;!! void ClassName::method() {}
-(function_definition
-  declarator: (_
-    declarator: (_
-      scope: (_) @className
-    )
-  )
 ) @_.domain
 
 ;;!! []() {}

@@ -18,15 +18,15 @@
 ;; treating classes = classlike
 [
   (class_definition
-    name: (_) @className
+    name: (_) @name
   )
   (object_definition
-    name: (_) @className
+    name: (_) @name
   )
   (trait_definition
-    name: (_) @className
+    name: (_) @name
   )
-] @class @className.domain
+] @class @name.domain
 
 ;; list.size(), does not count foo.size (field_expression), or foo size (postfix_expression)
 (call_expression) @functionCall
@@ -34,8 +34,8 @@
 (lambda_expression) @anonymousFunction
 
 (function_definition
-  name: (_) @functionName
-) @namedFunction @functionName.domain
+  name: (_) @name
+) @namedFunction @name.domain
 
 (match_expression
   value: (_) @value

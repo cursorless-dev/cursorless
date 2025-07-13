@@ -31,13 +31,8 @@
 ] @statement
 
 (
-  (translation_unit) @statement.iteration @class.iteration @className.iteration
-  (#document-range! @statement.iteration @class.iteration @className.iteration)
-)
-
-(
-  (translation_unit) @namedFunction.iteration @functionName.iteration
-  (#document-range! @namedFunction.iteration @functionName.iteration)
+  (translation_unit) @statement.iteration @class.iteration @namedFunction.iteration
+  (#document-range! @statement.iteration @class.iteration @namedFunction.iteration)
 )
 
 (
@@ -82,7 +77,7 @@
 ;;!! enum foo { };
 (_
   (_
-    name: (_) @className @name
+    name: (_) @name
     body: (_
       "{" @interior.start.endOf
       "}" @interior.end.startOf
@@ -113,7 +108,7 @@
       "}" @interior.end.startOf
     )
   ) @_dummy
-  declarator: (type_identifier) @className @name
+  declarator: (type_identifier) @name
   (#type? @_dummy struct_specifier union_specifier enum_specifier)
 ) @_.domain @class @type
 
@@ -135,35 +130,35 @@
   (function_declarator
     declarator: (_
       !name
-    ) @functionName @name
+    ) @name
   )
-) @namedFunction @functionName.domain @name.domain
+) @namedFunction @name.domain
 
 ;;!! void C::foo() {}
 (declaration
   (function_declarator
     declarator: (_
-      name: (_) @functionName @name
+      name: (_) @name
     )
   )
-) @namedFunction @functionName.domain @name.domain
+) @namedFunction @name.domain
 
 (function_definition
   declarator: (_
     declarator: (_
-      name: (_) @functionName @name
+      name: (_) @name
     )
   )
-) @namedFunction @functionName.domain @name.domain
+) @namedFunction @name.domain
 
 ;;!! void foo() {}
 (function_definition
   declarator: (_
     declarator: (_
       !name
-    ) @functionName @name
+    ) @name
   )
-) @namedFunction @functionName.domain @name.domain
+) @namedFunction @name.domain
 
 ;;!! void foo() { }
 ;;!              ^

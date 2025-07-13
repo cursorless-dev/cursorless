@@ -294,7 +294,7 @@
 
 (
   (function_definition
-    name: (_) @functionName @name
+    name: (_) @name
     body: (_) @interior
   ) @namedFunction @_.domain
   (#not-parent-type? @namedFunction decorated_definition)
@@ -302,7 +302,7 @@
 
 (decorated_definition
   (function_definition
-    name: (_) @functionName @name
+    name: (_) @name
     body: (_) @interior
   )
 ) @namedFunction @_.domain
@@ -322,7 +322,7 @@
 ;;!! class MyClass:
 (
   (class_definition
-    name: (_) @className @name
+    name: (_) @name
     body: (_) @interior
   ) @class @_.domain
   (#not-parent-type? @class decorated_definition)
@@ -337,7 +337,7 @@
 ;;!! class MyClass:
 (decorated_definition
   (class_definition
-    name: (_) @className @name
+    name: (_) @name
     body: (_) @interior
   )
 ) @class @_.domain
@@ -347,13 +347,8 @@
 ) @type
 
 (
-  (module) @class.iteration @className.iteration
-  (#document-range! @class.iteration @className.iteration)
-)
-
-(
-  (module) @statement.iteration
-  (#document-range! @statement.iteration)
+  (module) @statement.iteration @class.iteration @namedFunction.iteration
+  (#document-range! @statement.iteration @class.iteration @namedFunction.iteration)
 )
 
 ;; This is a hack to handle the case where the entire document is a `with` statement
@@ -365,13 +360,8 @@
   (#document-range! @name.iteration @value.iteration @type.iteration)
 )
 
-(
-  (module) @namedFunction.iteration @functionName.iteration
-  (#document-range! @namedFunction.iteration @functionName.iteration)
-)
-
 (class_definition
-  body: (_) @namedFunction.iteration @functionName.iteration
+  body: (_) @namedFunction.iteration @name.iteration
 )
 
 ;;!! def foo():

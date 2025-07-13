@@ -123,8 +123,7 @@
   (singleton_method)
 ] @namedFunction
 
-(program) @class.iteration @className.iteration
-(program) @namedFunction.iteration @functionName.iteration @name.iteration
+(program) @class.iteration @namedFunction.iteration @name.iteration
 
 (class
   name: (_) @class.iteration.start.endOf @namedFunction.iteration.start.endOf @name.iteration.start.endOf
@@ -132,7 +131,7 @@
 ) @class
 
 (class
-  name: (_) @className @name
+  name: (_) @name
 ) @class @_.domain
 
 (string) @string
@@ -143,15 +142,17 @@
 ] @textFragment
 
 (method
-  name: (_) @functionName @name
+  name: (_) @name
 ) @_.domain
+
 (singleton_method
-  name: (_) @functionName @name
+  name: (_) @name
 ) @_.domain
 
 (assignment
   left: (_) @name
 ) @_.domain
+
 (operator_assignment
   left: (_) @name
 ) @_.domain
