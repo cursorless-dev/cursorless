@@ -1,0 +1,25 @@
+class Foo {
+    @baz
+    bar() {}
+}
+---
+
+[Content] =
+[Domain] = 1:4-2:12
+      >----
+1|     @baz
+2|     bar() {}
+   ------------<
+
+[Removal] = 1:0-3:0
+  >--------
+1|     @baz
+2|     bar() {}
+3| }
+   <
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     @baz
+
+[Insertion delimiter] = "\n\n"

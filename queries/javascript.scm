@@ -16,7 +16,6 @@
   ;;!    ^^^^^^^^^^^^^^^^^^^^^^
   ;;!! }
   (field_definition
-    property: (_) @name
     value: [
       (function_expression
         !name

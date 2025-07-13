@@ -1,5 +1,5 @@
 class Foo {
-    bar() {}
+    bar = () => {}
 }
 ---
 
@@ -22,24 +22,27 @@ class Foo {
 [#1 Domain] = 0:0-2:1
   >-----------
 0| class Foo {
-1|     bar() {}
+1|     bar = () => {}
 2| }
    -<
 
 [#1 Insertion delimiter] = " "
 
 
-[#2 Content] =
-[#2 Removal] = 1:4-1:7
+[#2 Content] = 1:4-1:7
       >---<
-1|     bar() {}
+1|     bar = () => {}
 
-[#2 Leading delimiter] = 1:0-1:4
-  >----<
-1|     bar() {}
+[#2 Removal] = 1:4-1:10
+      >------<
+1|     bar = () => {}
 
-[#2 Domain] = 1:4-1:12
-      >--------<
-1|     bar() {}
+[#2 Trailing delimiter] = 1:7-1:10
+         >---<
+1|     bar = () => {}
+
+[#2 Domain] = 1:4-1:18
+      >--------------<
+1|     bar = () => {}
 
 [#2 Insertion delimiter] = " "
