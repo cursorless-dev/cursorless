@@ -18,8 +18,6 @@ import type {
  * Replace `functionName` scope with `name` and `namedFunction`.
  */
 export class ClassFunctionNameStage implements ModifierStage {
-  private nestedStages_?: ModifierStage[];
-
   static use(scopeType: ScopeType): boolean {
     return scopeType.type === "className" || scopeType.type === "functionName";
   }
