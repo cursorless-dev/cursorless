@@ -442,8 +442,8 @@ export interface ModifyIfUntypedModifier {
  * doesn't throw an error, returning the output from the first modifier not
  * throwing an error.
  */
-export interface CascadingModifier {
-  type: "cascading";
+export interface FallbackModifier {
+  type: "fallback";
 
   /**
    * The modifiers to try in turn
@@ -480,7 +480,7 @@ export type Modifier =
   | TrailingModifier
   | RawSelectionModifier
   | ModifyIfUntypedModifier
-  | CascadingModifier
+  | FallbackModifier
   | RangeModifier
   | KeepContentFilterModifier
   | KeepEmptyFilterModifier

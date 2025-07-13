@@ -3,11 +3,11 @@ import type { StoredTargetMap } from "../core/StoredTargets";
 import type { LanguageDefinitions } from "../languages/LanguageDefinitions";
 import type { ModifierStageFactory } from "./ModifierStageFactory";
 import type { ModifierStage } from "./PipelineStages.types";
-import { CascadingStage } from "./modifiers/CascadingStage";
 import { ClassFunctionNameStage } from "./modifiers/ClassFunctionNameStage";
 import { ModifyIfUntypedStage } from "./modifiers/ConditionalModifierStages";
 import { ContainingScopeStage } from "./modifiers/ContainingScopeStage";
 import { EveryScopeStage } from "./modifiers/EveryScopeStage";
+import { FallbackStage } from "./modifiers/FallbackStage";
 import {
   KeepContentFilterStage,
   KeepEmptyFilterStage,
@@ -111,8 +111,8 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
         return new KeepContentFilterStage(modifier);
       case "keepEmptyFilter":
         return new KeepEmptyFilterStage(modifier);
-      case "cascading":
-        return new CascadingStage(this, modifier);
+      case "fallback":
+        return new FallbackStage(this, modifier);
       case "modifyIfUntyped":
         return new ModifyIfUntypedStage(this, modifier);
       case "range":
