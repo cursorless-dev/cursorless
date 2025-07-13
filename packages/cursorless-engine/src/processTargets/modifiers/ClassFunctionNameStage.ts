@@ -20,6 +20,10 @@ import type {
 export class ClassFunctionNameStage implements ModifierStage {
   private nestedStages_?: ModifierStage[];
 
+  static use(scopeType: ScopeType): boolean {
+    return scopeType.type === "className" || scopeType.type === "functionName";
+  }
+
   constructor(
     private modifierStageFactory: ModifierStageFactory,
     private modifier:

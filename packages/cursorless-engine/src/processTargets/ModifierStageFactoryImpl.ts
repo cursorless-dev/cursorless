@@ -59,10 +59,8 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
       case "visible":
         return new VisibleStage(modifier);
       case "containingScope":
-        switch (modifier.scopeType.type) {
-          case "className":
-          case "functionName":
-            return new ClassFunctionNameStage(this, modifier);
+        if (ClassFunctionNameStage.use(modifier.scopeType)) {
+          return new ClassFunctionNameStage(this, modifier);
         }
         return new ContainingScopeStage(
           this,
@@ -70,10 +68,8 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
           modifier,
         );
       case "preferredScope":
-        switch (modifier.scopeType.type) {
-          case "className":
-          case "functionName":
-            return new ClassFunctionNameStage(this, modifier);
+        if (ClassFunctionNameStage.use(modifier.scopeType)) {
+          return new ClassFunctionNameStage(this, modifier);
         }
         return new PreferredScopeStage(
           this,
@@ -81,30 +77,27 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
           modifier,
         );
       case "everyScope":
-        switch (modifier.scopeType.type) {
-          case "instance":
-            return new InstanceStage(this, this.storedTargets, modifier);
-          case "className":
-          case "functionName":
-            return new ClassFunctionNameStage(this, modifier);
+        if (modifier.scopeType.type === "instance") {
+          return new InstanceStage(this, this.storedTargets, modifier);
+        }
+        if (ClassFunctionNameStage.use(modifier.scopeType)) {
+          return new ClassFunctionNameStage(this, modifier);
         }
         return new EveryScopeStage(this, this.scopeHandlerFactory, modifier);
       case "ordinalScope":
-        switch (modifier.scopeType.type) {
-          case "instance":
-            return new InstanceStage(this, this.storedTargets, modifier);
-          case "className":
-          case "functionName":
-            return new ClassFunctionNameStage(this, modifier);
+        if (modifier.scopeType.type === "instance") {
+          return new InstanceStage(this, this.storedTargets, modifier);
+        }
+        if (ClassFunctionNameStage.use(modifier.scopeType)) {
+          return new ClassFunctionNameStage(this, modifier);
         }
         return new OrdinalScopeStage(this, modifier);
       case "relativeScope":
-        switch (modifier.scopeType.type) {
-          case "instance":
-            return new InstanceStage(this, this.storedTargets, modifier);
-          case "className":
-          case "functionName":
-            return new ClassFunctionNameStage(this, modifier);
+        if (modifier.scopeType.type === "instance") {
+          return new InstanceStage(this, this.storedTargets, modifier);
+        }
+        if (ClassFunctionNameStage.use(modifier.scopeType)) {
+          return new ClassFunctionNameStage(this, modifier);
         }
         return new RelativeScopeStage(this, this.scopeHandlerFactory, modifier);
       case "keepContentFilter":
