@@ -44,8 +44,8 @@
 )
 
 (
-  (program) @statement.iteration @class.iteration @className.iteration
-  (#document-range! @statement.iteration @class.iteration @className.iteration)
+  (program) @statement.iteration @class.iteration
+  (#document-range! @statement.iteration @class.iteration)
 )
 
 (
@@ -67,6 +67,7 @@
     enum_assignment
     variable_declarator
     method_signature
+    method_definition
     abstract_method_signature
     public_field_definition
     field_definition
@@ -605,13 +606,9 @@
 ;;!  ^^^^^^^^^^^^
 (
   [
-    (class_declaration
-      name: (_) @className
-    )
-    (class
-      name: (_) @className
-    )
-  ] @class @type @_.domain
+    (class_declaration)
+    (class)
+  ] @class @type
   (#not-parent-type? @class export_statement)
 )
 
@@ -619,14 +616,10 @@
 ;;!  ^^^^^^^^^^^^^^^^^^^
 (export_statement
   [
-    (class_declaration
-      name: (_) @className
-    )
-    (class
-      name: (_) @className
-    )
+    (class_declaration)
+    (class)
   ]
-) @class @type @_.domain
+) @class @type
 
 ;;!! true ? 0 : 1
 ;;!  ^^^^

@@ -16,7 +16,6 @@
   ;;!    ^^^^^^^^^^^^^^^^^^^^^^
   ;;!! }
   (field_definition
-    property: (_) @functionName
     value: [
       (function_expression
         !name
@@ -26,9 +25,9 @@
       )
       (arrow_function)
     ]
-  ) @statement.start @namedFunction.start @functionName.domain.start
+  ) @statement.start @namedFunction.start @name.domain.start
   .
-  ";"? @statement.end @namedFunction.end @functionName.domain.end
+  ";"? @statement.end @namedFunction.end @name.domain.end
 )
 
 (_

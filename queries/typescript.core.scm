@@ -78,27 +78,32 @@
   )
 ) @_.domain
 
+(
+  ;;!! function foo();
+  ;;!  ^^^^^^^^^^^^^^^
+  (function_signature) @namedFunction
+  (#not-parent-type? @namedFunction export_statement)
+)
+
+(export_statement
+  (function_signature)
+) @namedFunction
+
 ;; Define these here because these node types don't exist in javascript.
 (_
   [
-    ;;!! function foo();
-    ;;!  ^^^^^^^^^^^^^^^
-    (function_signature
-      name: (_) @functionName @name
-    )
-
     ;;!! class Foo { foo() {} }
     ;;!              ^^^^^^^^
     ;;!! interface Foo { foo(): void; }
     ;;!                  ^^^^^^^^^^^^
     (method_signature
-      name: (_) @functionName @name
+      name: (_) @name
     )
 
     ;;!! class Foo { abstract foo(): void; }
     ;;!              ^^^^^^^^^^^^^^^^^^^^^
     (abstract_method_signature
-      name: (_) @functionName @name
+      name: (_) @name
     )
 
     ;;!! class Foo {
@@ -110,7 +115,6 @@
     ;;!                                   ^^^^^^^^^^^^^^^^^^^^^^
     ;;!! }
     (public_field_definition
-      name: (_) @functionName
       value: [
         (function_expression
           !name
@@ -121,9 +125,9 @@
         (arrow_function)
       ]
     )
-  ] @namedFunction.start @functionName.domain.start @name.domain.start
+  ] @namedFunction.start @name.domain.start
   .
-  ";"? @namedFunction.end @functionName.domain.end @name.domain.end
+  ";"? @namedFunction.end @name.domain.end
 )
 
 (_
@@ -168,7 +172,7 @@
 [
   (interface_declaration)
   (object_type)
-] @namedFunction.iteration @functionName.iteration
+] @namedFunction.iteration
 
 ;; Special cases for `(let | const | var) foo = ...;` because the full statement
 ;; is actually a grandparent of the `name` node, so we want the domain to include
@@ -398,26 +402,15 @@
 ;;!! abstract class MyClass {}
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^
 (
-  (abstract_class_declaration
-    name: (_) @className
-  ) @class @type @_.domain
+  (abstract_class_declaration) @class @type
   (#not-parent-type? @class export_statement)
 )
 
 ;;!! export abstract class MyClass {}
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 (export_statement
-  (abstract_class_declaration
-    name: (_) @className
-  )
-) @class @type @_.domain
-
-;;!! class MyClass {}
-;;!        ^^^^^^^
-;;!  ----------------
-(abstract_class_declaration
-  name: (_) @name
-) @_.domain
+  (abstract_class_declaration)
+) @class @type
 
 ;;!! interface Type { name: string; }
 ;;!                   ^^^^

@@ -22,6 +22,10 @@ import { ContainingTokenIfUntypedEmptyStage } from "./ConditionalModifierStages"
 import { OutOfRangeError } from "./listUtils";
 
 export class InstanceStage implements ModifierStage {
+  static use(scopeType: ScopeType): boolean {
+    return scopeType.type === "instance";
+  }
+
   constructor(
     private modifierStageFactory: ModifierStageFactory,
     private storedTargets: StoredTargetMap,

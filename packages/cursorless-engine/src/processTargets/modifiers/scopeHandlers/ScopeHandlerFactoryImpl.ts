@@ -1,4 +1,4 @@
-import type { ScopeType } from "@cursorless/common";
+import { pseudoScopes, type ScopeType } from "@cursorless/common";
 import type { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import {
   BoundedNonWhitespaceSequenceScopeHandler,
@@ -12,7 +12,6 @@ import { FallbackScopeHandler } from "./FallbackScopeHandler";
 import { IdentifierScopeHandler } from "./IdentifierScopeHandler";
 import { LineScopeHandler } from "./LineScopeHandler";
 import { NotebookCellScopeHandler } from "./NotebookCellScopeHandler";
-import { SortedScopeHandler } from "./SortedScopeHandler";
 import { ParagraphScopeHandler } from "./ParagraphScopeHandler";
 import {
   CustomRegexScopeHandler,
@@ -23,6 +22,7 @@ import {
 import type { ComplexScopeType, ScopeHandler } from "./scopeHandler.types";
 import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 import { SentenceScopeHandler } from "./SentenceScopeHandler/SentenceScopeHandler";
+import { SortedScopeHandler } from "./SortedScopeHandler";
 import {
   SurroundingPairInteriorScopeHandler,
   SurroundingPairScopeHandler,
@@ -128,10 +128,11 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
         return FallbackScopeHandler.create(this, scopeType, languageId);
       case "conditional":
         return new ConditionalScopeHandler(this, scopeType, languageId);
-      case "instance":
-        // Handle instance pseudoscope with its own special modifier
-        throw Error("Unexpected scope type 'instance'");
       default:
+        // Pseudoscopes are handled separately in their own modifiers.
+        if (pseudoScopes.has(scopeType.type)) {
+          throw Error(`Unexpected scope type '${scopeType.type}'`);
+        }
         return this.languageDefinitions
           .get(languageId)
           ?.getScopeHandler(scopeType);

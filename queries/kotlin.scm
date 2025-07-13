@@ -29,20 +29,21 @@
 )
 
 (class_declaration
-  (type_identifier) @name @className
+  (type_identifier) @name
 ) @class @_.domain
 
 (object_declaration
-  (type_identifier) @name @className
+  (type_identifier) @name
 ) @class @_.domain
 
 (companion_object
-  (type_identifier) @name @className
+  (type_identifier) @name
 ) @class @_.domain
 
 (function_declaration
-  (simple_identifier) @name @functionName
+  (simple_identifier) @name
 ) @namedFunction @_.domain
+
 (secondary_constructor) @namedFunction
 
 (if_expression) @ifStatement

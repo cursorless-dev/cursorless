@@ -42,10 +42,6 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   "functionCall.constructor": supported,
   "functionCallee.constructor": supported,
 
-  "functionName.constructor": supported,
-  "functionName.method": supported,
-  "functionName.method.iteration.class": supported,
-
   "namedFunction.method": supported,
   "namedFunction.method.iteration.class": supported,
   "namedFunction.constructor": supported,
@@ -58,6 +54,7 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   "name.foreach": supported,
   "name.method": supported,
   "name.namespace": supported,
+  "name.iteration.class": supported,
 
   "value.argument.formal": supported,
   "value.argument.formal.iteration": supported,

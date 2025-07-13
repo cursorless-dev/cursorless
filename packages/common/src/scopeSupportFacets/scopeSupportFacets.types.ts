@@ -41,10 +41,6 @@ export const scopeSupportFacets = [
   "class.iteration.document",
   "class.iteration.block",
 
-  "className",
-  "className.iteration.document",
-  "className.iteration.block",
-
   "anonymousFunction",
 
   "namedFunction",
@@ -53,13 +49,6 @@ export const scopeSupportFacets = [
   "namedFunction.method",
   "namedFunction.method.iteration.class",
   "namedFunction.constructor",
-
-  "functionName",
-  "functionName.iteration.block",
-  "functionName.iteration.document",
-  "functionName.method",
-  "functionName.method.iteration.class",
-  "functionName.constructor",
 
   "functionCall",
   "functionCall.constructor",
@@ -179,11 +168,11 @@ export const scopeSupportFacets = [
   "name.argument.formal.constructor",
   "name.argument.formal.constructor.iteration",
   "name.argument.catch",
-  "name.iteration.block",
+  "name.iteration.document",
   "name.iteration.class",
+  "name.iteration.block",
   "name.iteration.interface",
   "name.iteration.enum",
-  "name.iteration.document",
 
   "key.attribute",
   "key.mapPair",

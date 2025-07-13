@@ -299,10 +299,10 @@ export function processModifierStages(
   // First we apply each stage in sequence, letting each stage see the targets
   // one-by-one and concatenating the results before passing them on to the
   // next stage.
+  const options: ModifierStateOptions = {
+    multipleTargets: targets.length > 1,
+  };
   modifierStages.forEach((stage) => {
-    const options: ModifierStateOptions = {
-      multipleTargets: targets.length > 1,
-    };
     targets = targets.flatMap((target) => stage.run(target, options));
   });
 

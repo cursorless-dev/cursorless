@@ -5,7 +5,11 @@ import type {
   ScopeTypeInfoEventCallback,
   SurroundingPairScopeType,
 } from "@cursorless/common";
-import { simpleScopeTypeTypes, surroundingPairNames } from "@cursorless/common";
+import {
+  pseudoScopes,
+  simpleScopeTypeTypes,
+  surroundingPairNames,
+} from "@cursorless/common";
 import { pull } from "lodash-es";
 
 import type { CustomSpokenFormGeneratorImpl } from "../generateSpokenForm/CustomSpokenFormGeneratorImpl";
@@ -63,7 +67,7 @@ export class ScopeInfoProvider {
     const scopeTypes: ScopeType[] = [
       ...simpleScopeTypeTypes
         // Ignore instance pseudo-scope because it's not really a scope
-        .filter((scopeTypeType) => scopeTypeType !== "instance")
+        .filter((scopeTypeType) => !pseudoScopes.has(scopeTypeType))
         .map((scopeTypeType) => ({
           type: scopeTypeType,
         })),

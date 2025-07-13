@@ -77,12 +77,12 @@
 (else_clause) @branch
 
 (mixin_statement
-  (name) @functionName @name
-) @namedFunction @functionName.domain @name.domain
+  (name) @name
+) @namedFunction @name.domain
 
 (function_statement
-  (name) @functionName @name
-) @namedFunction @functionName.domain @name.domain
+  (name) @name
+) @namedFunction @name.domain
 
 (declaration
   (variable_name) @name
@@ -124,13 +124,13 @@
 )
 
 (
-  (stylesheet) @namedFunction.iteration @functionName.iteration
-  (#document-range! @namedFunction.iteration @functionName.iteration)
+  (stylesheet) @namedFunction.iteration @name.iteration
+  (#document-range! @namedFunction.iteration @name.iteration)
 )
 
 (block
-  "{" @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf
-  "}" @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf
+  "{" @namedFunction.iteration.start.endOf @name.iteration.start.endOf
+  "}" @namedFunction.iteration.end.startOf @name.iteration.end.startOf
 )
 
 (binary_expression

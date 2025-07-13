@@ -65,10 +65,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "class.iteration.block": supported,
   "class.iteration.document": supported,
 
-  className: supported,
-  "className.iteration.block": supported,
-  "className.iteration.document": supported,
-
   "comment.block": supported,
   "comment.line": supported,
 
@@ -88,10 +84,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "namedFunction.constructor": supported,
   "namedFunction.method": supported,
   "namedFunction.method.iteration.class": supported,
-
-  "functionName.constructor": supported,
-  "functionName.method": supported,
-  "functionName.method.iteration.class": supported,
 
   ifStatement: supported,
   statement: supported,
@@ -199,9 +191,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   namedFunction: notApplicable,
   "namedFunction.iteration.document": notApplicable,
   "namedFunction.iteration.block": notApplicable,
-  functionName: notApplicable,
-  "functionName.iteration.document": notApplicable,
-  "functionName.iteration.block": notApplicable,
   "argument.formal.singleLine": notApplicable,
   "argument.formal.multiLine": notApplicable,
   "argument.formal.iteration": notApplicable,

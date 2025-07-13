@@ -217,6 +217,12 @@ export function isSimpleScopeType(
 
 export type SimpleScopeTypeType = (typeof simpleScopeTypeTypes)[number];
 
+export const pseudoScopes = new Set<SimpleScopeTypeType>([
+  "instance",
+  "className",
+  "functionName",
+]);
+
 export interface SimpleScopeType {
   type: SimpleScopeTypeType;
 }

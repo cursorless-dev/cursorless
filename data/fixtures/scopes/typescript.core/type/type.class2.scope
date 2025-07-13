@@ -1,10 +1,10 @@
-abstract class Foo {}
+export class Foo {}
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-0:21
-  >---------------------<
-0| abstract class Foo {}
+[Domain] = 0:0-0:19
+  >-------------------<
+0| export class Foo {}
 
 [Insertion delimiter] = " "

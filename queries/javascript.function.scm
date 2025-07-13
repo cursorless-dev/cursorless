@@ -1,3 +1,8 @@
+;; Note that there are a few Typescript-specific function declarations that we
+;; don't handle here; see typescript.scm.
+;; We also don't handle function declarations that only exist in Javascript;
+;; see javascript.scm.
+
 ;; Anonymous functions
 [
   ;;!! function() {}
@@ -37,21 +42,16 @@
 (
   [
     ;;!! function foo() {}
-    (function_declaration
-      name: (_) @functionName
-    )
+    (function_declaration)
 
     ;;!! function *foo() {}
-    (generator_function_declaration
-      name: (_) @functionName
-    )
+    (generator_function_declaration)
 
     ;;!! (let | const) foo = () => {}
     ;;!! (let | const) foo = function() {}
     ;;!! (let | const) foo = function *() {}
     (lexical_declaration
       (variable_declarator
-        name: (_) @functionName
         value: [
           (function_expression
             !name
@@ -71,7 +71,6 @@
     ;; of https://github.com/tree-sitter/tree-sitter/issues/1442#issuecomment-1584628651
     (variable_declaration
       (variable_declarator
-        name: (_) @functionName
         value: [
           (function_expression
             !name
@@ -83,7 +82,7 @@
         ]
       )
     )
-  ] @namedFunction @functionName.domain
+  ] @namedFunction
   (#not-parent-type? @namedFunction export_statement)
 )
 
@@ -91,21 +90,16 @@
 (export_statement
   [
     ;;!! export [default] function foo() {}
-    (function_declaration
-      name: (_) @functionName
-    )
+    (function_declaration)
 
     ;;!! export [default] function *foo() {}
-    (generator_function_declaration
-      name: (_) @functionName
-    )
+    (generator_function_declaration)
 
-    ;;!! export [default] (let | const | var) foo = () => {}
     ;;!! export [default] (let | const | var) foo = function() {}
     ;;!! export [default] (let | const | var) foo = function *() {}
+    ;;!! export [default] (let | const | var) foo = () => {}
     (_
       (variable_declarator
-        name: (_) @functionName
         value: [
           (function_expression
             !name
@@ -118,49 +112,63 @@
       )
     )
   ]
-) @namedFunction @functionName.domain
+) @namedFunction
 
-;; Note that there are a few Typescript-specific function declarations that we
-;; don't handle here; see typescript.scm.
-;; We also don't handle function declarations that only exist in Javascript;
-;; see javascript.scm.
+;;!! (function foo() {})
+;;!! (function *foo() {})
 [
-  ;;!! (function foo() {})
   (function_expression
-    name: (_) @functionName
+    name: (_)
   )
-
-  ;;!! (function *foo() {})
   (generator_function
-    name: (_) @functionName
+    name: (_)
   )
+] @namedFunction
 
-  ;;!! class Foo { foo() {} }
-  ;;!              ^^^^^^^^
+;;!! foo = function() {};
+;;!! foo = function *() {};
+;;!! foo = () => {};
+(assignment_expression
+  right: [
+    (function_expression
+      !name
+    )
+    (generator_function
+      !name
+    )
+    (arrow_function)
+  ]
+) @namedFunction
+
+;;!! { foo: function() {} }
+;;!! { foo: *() {} }
+;;!! { foo: () => {} }
+(pair
+  key: (_) @name
+  value: [
+    (function_expression
+      !name
+    )
+    (generator_function
+      !name
+    )
+    (arrow_function)
+  ] @name.trailing.startOf
+) @namedFunction @name.domain
+
+;;!! class Foo { @bar foo() {} }
+;;!              ^^^^^^^^^^^^^
+(
+  (decorator)? @namedFunction.start @name.domain.start
+  .
   (method_definition
-    name: (_) @functionName
-  )
-
-  ;;!! foo = () => {};
-  ;;!! foo = function() {};
-  ;;!! foo = function *() {};
-  (assignment_expression
-    left: (_) @functionName
-    right: [
-      (function_expression
-        !name
-      )
-      (generator_function
-        !name
-      )
-      (arrow_function)
-    ]
-  )
-] @namedFunction @functionName.domain
+    name: (_) @name
+  ) @namedFunction.end @name.domain.end
+)
 
 (
-  (program) @namedFunction.iteration @functionName.iteration
-  (#document-range! @namedFunction.iteration @functionName.iteration)
+  (program) @namedFunction.iteration
+  (#document-range! @namedFunction.iteration)
 )
 
 [
@@ -168,23 +176,9 @@
   (object
     (method_definition)
   )
-] @namedFunction.iteration @functionName.iteration
+] @namedFunction.iteration
 
 (class_body
-  "{" @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf
-  "}" @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf
+  "{" @namedFunction.iteration.start.endOf
+  "}" @namedFunction.iteration.end.startOf
 )
-
-;;!! { funk: function() { } }
-;;!    ^^^^
-(pair
-  key: (_) @functionName @name
-  value: (function_expression)
-) @_.domain
-
-;;!! { funk: () => { } }
-;;!    ^^^^
-(pair
-  key: (_) @functionName @name
-  value: (arrow_function)
-) @_.domain

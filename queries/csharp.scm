@@ -50,13 +50,8 @@
 ] @statement
 
 (
-  (compilation_unit) @statement.iteration @class.iteration @className.iteration
-  (#document-range! @statement.iteration @class.iteration @className.iteration)
-)
-
-(
-  (compilation_unit) @namedFunction.iteration @functionName.iteration
-  (#document-range! @namedFunction.iteration @functionName.iteration)
+  (compilation_unit) @statement.iteration @class.iteration @namedFunction.iteration
+  (#document-range! @statement.iteration @class.iteration @namedFunction.iteration)
 )
 
 (
@@ -196,7 +191,7 @@
 ;;!! class Foo {}
 ;;!  ^^^^^^^^^^^^
 (class_declaration
-  name: (identifier) @className
+  name: (identifier) @name
   body: (_
     "{" @interior.start.endOf
     "}" @interior.end.startOf
@@ -205,8 +200,8 @@
 
 (class_declaration
   body: (_
-    "{" @class.iteration.start.endOf @className.iteration.start.endOf @statement.iteration.start.endOf
-    "}" @class.iteration.end.startOf @className.iteration.end.startOf @statement.iteration.end.startOf
+    "{" @class.iteration.start.endOf @name.iteration.start.endOf @statement.iteration.start.endOf
+    "}" @class.iteration.end.startOf @name.iteration.end.startOf @statement.iteration.end.startOf
   )
 )
 
@@ -277,23 +272,23 @@
 
 [
   (delegate_declaration
-    name: (_) @functionName
+    name: (_) @name
   )
   (local_function_statement
-    name: (_) @functionName
+    name: (_) @name
   )
   (method_declaration
-    name: (_) @functionName
+    name: (_) @name
   )
   (constructor_declaration
-    name: (_) @functionName
+    name: (_) @name
   )
-] @namedFunction @functionName.domain
+] @namedFunction @name.domain
 
 (class_declaration
   body: (_
-    "{" @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf
-    "}" @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf
+    "{" @namedFunction.iteration.start.endOf @name.iteration.start.endOf
+    "}" @namedFunction.iteration.end.startOf @name.iteration.end.startOf
   )
 )
 

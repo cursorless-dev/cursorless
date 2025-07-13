@@ -14,10 +14,6 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "class.iteration.document": supported,
   "class.iteration.block": supported,
 
-  className: supported,
-  "className.iteration.document": supported,
-  "className.iteration.block": supported,
-
   "comment.line": supported,
   "comment.block": supported,
 
@@ -31,12 +27,6 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "namedFunction.constructor": supported,
   "namedFunction.method": supported,
   "namedFunction.method.iteration.class": supported,
-
-  functionName: supported,
-  "functionName.iteration.document": supported,
-  "functionName.constructor": supported,
-  "functionName.method": supported,
-  "functionName.method.iteration.class": supported,
 
   "branch.if": supported,
   "branch.if.elif.else": supported,
@@ -236,7 +226,6 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "value.argument.actual.iteration": notApplicable,
 
   // Functions in blocks
-  "functionName.iteration.block": notApplicable,
   "namedFunction.iteration.block": notApplicable,
 
   // Resource syntax

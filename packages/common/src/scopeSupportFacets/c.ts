@@ -18,15 +18,11 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
 
   class: supported,
   "class.iteration.document": supported,
-  className: supported,
-  "className.iteration.document": supported,
 
   "collectionItem.unenclosed": supported,
   "collectionItem.unenclosed.iteration": supported,
 
   namedFunction: supported,
-  functionName: supported,
-  "functionName.iteration.document": supported,
   "namedFunction.iteration.document": supported,
 
   functionCall: supported,
@@ -86,9 +82,9 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal": supported,
   "name.argument.formal.iteration": supported,
   "name.iteration.block": supported,
+  "name.iteration.document": supported,
   "name.iteration.class": supported,
   "name.iteration.enum": supported,
-  "name.iteration.document": supported,
 
   "value.assignment": supported,
   "value.variable": supported,
@@ -189,10 +185,8 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Nested class
   "class.iteration.block": notApplicable,
-  "className.iteration.block": notApplicable,
 
   // Nested function
-  "functionName.iteration.block": notApplicable,
   "namedFunction.iteration.block": notApplicable,
 
   // Try catch
@@ -265,7 +259,6 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.formal.constructor.singleLine": notApplicable,
   "functionCall.constructor": notApplicable,
   "functionCallee.constructor": notApplicable,
-  "functionName.constructor": notApplicable,
   "name.argument.formal.constructor.iteration": notApplicable,
   "name.argument.formal.constructor": notApplicable,
   "name.constructor": notApplicable,
@@ -283,8 +276,6 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.formal.method.empty": notApplicable,
   "argumentList.formal.method.multiLine": notApplicable,
   "argumentList.formal.method.singleLine": notApplicable,
-  "functionName.method.iteration.class": notApplicable,
-  "functionName.method": notApplicable,
   "name.argument.formal.method.iteration": notApplicable,
   "name.argument.formal.method": notApplicable,
   "name.method": notApplicable,
