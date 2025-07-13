@@ -18,13 +18,6 @@ export class UnsupportedScopeError extends Error {
   }
 }
 
-export class UnsupportedError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = "UnsupportedError";
-  }
-}
-
 export class OutdatedExtensionError extends Error {
   constructor() {
     super(
