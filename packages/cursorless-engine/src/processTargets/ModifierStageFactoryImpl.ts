@@ -12,7 +12,7 @@ import {
   KeepContentFilterStage,
   KeepEmptyFilterStage,
 } from "./modifiers/FilterStages";
-import { HeadTailStage } from "./modifiers/HeadTailStage";
+import { HeadStage, TailStage } from "./modifiers/HeadTailStage";
 import { InstanceStage } from "./modifiers/InstanceStage";
 import {
   ExcludeInteriorStage,
@@ -44,8 +44,9 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
       case "endOf":
         return new EndOfStage();
       case "extendThroughStartOf":
+        return new HeadStage(this, modifier);
       case "extendThroughEndOf":
-        return new HeadTailStage(this, modifier);
+        return new TailStage(this, modifier);
       case "toRawSelection":
         return new RawSelectionStage(modifier);
       case "interiorOnly":
@@ -58,6 +59,7 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
         return new TrailingStage(this, modifier);
       case "visible":
         return new VisibleStage(modifier);
+
       case "containingScope":
         if (ClassFunctionNameStage.use(modifier.scopeType)) {
           return new ClassFunctionNameStage(this, modifier);
@@ -67,6 +69,7 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
           this.scopeHandlerFactory,
           modifier,
         );
+
       case "preferredScope":
         if (ClassFunctionNameStage.use(modifier.scopeType)) {
           return new ClassFunctionNameStage(this, modifier);
@@ -76,6 +79,7 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
           this.scopeHandlerFactory,
           modifier,
         );
+
       case "everyScope":
         if (InstanceStage.use(modifier.scopeType)) {
           return new InstanceStage(this, this.storedTargets, modifier);
@@ -84,6 +88,7 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
           return new ClassFunctionNameStage(this, modifier);
         }
         return new EveryScopeStage(this, this.scopeHandlerFactory, modifier);
+
       case "ordinalScope":
         if (InstanceStage.use(modifier.scopeType)) {
           return new InstanceStage(this, this.storedTargets, modifier);
@@ -92,6 +97,7 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
           return new ClassFunctionNameStage(this, modifier);
         }
         return new OrdinalScopeStage(this, modifier);
+
       case "relativeScope":
         if (InstanceStage.use(modifier.scopeType)) {
           return new InstanceStage(this, this.storedTargets, modifier);
@@ -100,6 +106,12 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
           return new ClassFunctionNameStage(this, modifier);
         }
         return new RelativeScopeStage(this, this.scopeHandlerFactory, modifier);
+
+      case "inferPreviousMark":
+        throw Error(
+          `Unexpected modifier '${modifier.type}'; it should have been removed during inference`,
+        );
+
       case "keepContentFilter":
         return new KeepContentFilterStage(modifier);
       case "keepEmptyFilter":
@@ -110,10 +122,7 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
         return new ModifyIfUntypedStage(this, modifier);
       case "range":
         return new RangeModifierStage(this, modifier);
-      case "inferPreviousMark":
-        throw Error(
-          `Unexpected modifier '${modifier.type}'; it should have been removed during inference`,
-        );
+
       default: {
         // Ensure we don't miss any new modifiers. Needed because we don't have input validation.
         // FIXME: remove once we have schema validation (#983)
