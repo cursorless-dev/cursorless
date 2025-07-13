@@ -1,12 +1,3 @@
-export interface UnknownValuesOptions {
-  allowed: true;
-
-  /**
-
-   */
-  newValueTemplate?: string;
-}
-
 export interface QuickPickOptions {
   /**
    * An optional string that represents the title of the quick pick.

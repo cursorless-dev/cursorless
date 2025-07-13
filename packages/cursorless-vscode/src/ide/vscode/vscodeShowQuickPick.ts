@@ -1,8 +1,5 @@
+import type { QuickPickOptions } from "@cursorless/common";
 import * as vscode from "vscode";
-import type {
-  QuickPickOptions,
-  UnknownValuesOptions,
-} from "@cursorless/common";
 
 /**
  * Show a quick pick that allows the user to enter a new value.  We do this by
@@ -48,7 +45,6 @@ export function vscodeShowQuickPick(
           : "Add new value '{}' →";
 
       quickPick.onDidChangeValue(() => {
-        console.log(quickPick.value);
         quickPick.items = [
           ...quickPickItems,
 
