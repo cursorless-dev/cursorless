@@ -1,15 +1,15 @@
 * {
-  width: calc();
+    width: calc();
 }
 ---
 
 [Content] =
-[Removal] = 1:14-1:14
-                ><
-1|   width: calc();
+[Removal] = 1:16-1:16
+                  ><
+1|     width: calc();
 
-[Domain] = 1:9-1:15
-           >------<
-1|   width: calc();
+[Domain] = 1:11-1:17
+             >------<
+1|     width: calc();
 
 [Insertion delimiter] = ""

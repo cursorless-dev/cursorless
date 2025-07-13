@@ -1,12 +1,12 @@
 * {
-  background: repeating-linear-gradient(red, orange 50px);
+    background: repeating-linear-gradient(red, orange 50px);
 }
 ---
 
-[Content] = 1:40-1:56
-                                          >----------------<
-1|   background: repeating-linear-gradient(red, orange 50px);
+[Content] = 1:42-1:58
+                                            >----------------<
+1|     background: repeating-linear-gradient(red, orange 50px);
 
-[Domain] = 1:14-1:57
-                >-------------------------------------------<
-1|   background: repeating-linear-gradient(red, orange 50px);
+[Domain] = 1:16-1:59
+                  >-------------------------------------------<
+1|     background: repeating-linear-gradient(red, orange 50px);

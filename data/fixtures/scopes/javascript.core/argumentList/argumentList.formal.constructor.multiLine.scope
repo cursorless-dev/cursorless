@@ -1,35 +1,35 @@
 class Foo {
-  constructor(
-    aaa,
-    bbb
-  ) {}
+    constructor(
+        aaa,
+        bbb
+    ) {}
 }
 ---
 
-[Content] = 2:4-3:7
-      >----
-2|     aaa,
-3|     bbb
-   -------<
+[Content] = 2:8-3:11
+          >----
+2|         aaa,
+3|         bbb
+   -----------<
 
-[Removal] = 1:14-4:2
-                >
-1|   constructor(
-2|     aaa,
-3|     bbb
-4|   ) {}
-   --<
+[Removal] = 1:16-4:4
+                  >
+1|     constructor(
+2|         aaa,
+3|         bbb
+4|     ) {}
+   ----<
 
-[Leading delimiter] = 2:0-2:4
-  >----<
-2|     aaa,
+[Leading delimiter] = 2:0-2:8
+  >--------<
+2|         aaa,
 
-[Domain] = 1:2-4:6
-    >------------
-1|   constructor(
-2|     aaa,
-3|     bbb
-4|   ) {}
-   ------<
+[Domain] = 1:4-4:8
+      >------------
+1|     constructor(
+2|         aaa,
+3|         bbb
+4|     ) {}
+   --------<
 
 [Insertion delimiter] = ",\n"

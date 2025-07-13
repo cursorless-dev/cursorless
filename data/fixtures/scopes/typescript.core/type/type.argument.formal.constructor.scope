@@ -1,5 +1,5 @@
 class Foo {
-  constructor(aaa: number, bbb: number = 0) {}
+    constructor(aaa: number, bbb: number = 0) {}
 }
 ---
 
@@ -8,46 +8,46 @@ class Foo {
 [#1 Domain] = 0:0-2:1
   >-----------
 0| class Foo {
-1|   constructor(aaa: number, bbb: number = 0) {}
+1|     constructor(aaa: number, bbb: number = 0) {}
 2| }
    -<
 
 [#1 Insertion delimiter] = " "
 
 
-[#2 Content] = 1:19-1:25
-                     >------<
-1|   constructor(aaa: number, bbb: number = 0) {}
+[#2 Content] = 1:21-1:27
+                       >------<
+1|     constructor(aaa: number, bbb: number = 0) {}
 
-[#2 Removal] = 1:17-1:25
-                   >--------<
-1|   constructor(aaa: number, bbb: number = 0) {}
+[#2 Removal] = 1:19-1:27
+                     >--------<
+1|     constructor(aaa: number, bbb: number = 0) {}
 
-[#2 Leading delimiter] = 1:17-1:19
-                   >--<
-1|   constructor(aaa: number, bbb: number = 0) {}
+[#2 Leading delimiter] = 1:19-1:21
+                     >--<
+1|     constructor(aaa: number, bbb: number = 0) {}
 
-[#2 Domain] = 1:14-1:25
-                >-----------<
-1|   constructor(aaa: number, bbb: number = 0) {}
+[#2 Domain] = 1:16-1:27
+                  >-----------<
+1|     constructor(aaa: number, bbb: number = 0) {}
 
 [#2 Insertion delimiter] = " "
 
 
-[#3 Content] = 1:32-1:38
-                                  >------<
-1|   constructor(aaa: number, bbb: number = 0) {}
+[#3 Content] = 1:34-1:40
+                                    >------<
+1|     constructor(aaa: number, bbb: number = 0) {}
 
-[#3 Removal] = 1:30-1:38
-                                >--------<
-1|   constructor(aaa: number, bbb: number = 0) {}
+[#3 Removal] = 1:32-1:40
+                                  >--------<
+1|     constructor(aaa: number, bbb: number = 0) {}
 
-[#3 Leading delimiter] = 1:30-1:32
-                                >--<
-1|   constructor(aaa: number, bbb: number = 0) {}
+[#3 Leading delimiter] = 1:32-1:34
+                                  >--<
+1|     constructor(aaa: number, bbb: number = 0) {}
 
-[#3 Domain] = 1:27-1:42
-                             >---------------<
-1|   constructor(aaa: number, bbb: number = 0) {}
+[#3 Domain] = 1:29-1:44
+                               >---------------<
+1|     constructor(aaa: number, bbb: number = 0) {}
 
 [#3 Insertion delimiter] = " "
