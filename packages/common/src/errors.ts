@@ -1,5 +1,4 @@
 import { DOCS_URL } from "./constants";
-import type { ScopeTypeType } from "./types/command/PartialTargetDescriptor.types";
 
 export class UnsupportedLanguageError extends Error {
   constructor(languageId: string) {
