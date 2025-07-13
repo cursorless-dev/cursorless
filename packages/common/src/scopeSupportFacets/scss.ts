@@ -10,7 +10,7 @@ export const scssScopeSupport: LanguageScopeSupportFacetMap = {
   "comment.line": supported,
 
   namedFunction: supported,
-  "namedFunction.iteration.block": supported,
+  "namedFunction.iteration.class": supported,
   "namedFunction.iteration.document": supported,
 
   "name.argument.formal": supported,

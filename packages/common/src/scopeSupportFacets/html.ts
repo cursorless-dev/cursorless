@@ -36,7 +36,7 @@ export const htmlScopeSupport: LanguageScopeSupportFacetMap = {
   "value.field.class": notApplicable,
   "value.iteration.class": notApplicable,
   "interior.class": notApplicable,
-  "namedFunction.method.iteration.class": notApplicable,
+  "namedFunction.iteration.class": notApplicable,
 
   // Interface
   "statement.interface": notApplicable,
@@ -178,7 +178,6 @@ export const htmlScopeSupport: LanguageScopeSupportFacetMap = {
   "name.variable": notApplicable,
   "name.namespace": notApplicable,
   "namedFunction.constructor": notApplicable,
-  "namedFunction.iteration.block": notApplicable,
   "namedFunction.iteration.document": notApplicable,
   "namedFunction.method": notApplicable,
   "section.iteration.document": notApplicable,

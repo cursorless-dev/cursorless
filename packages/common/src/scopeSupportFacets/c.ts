@@ -186,9 +186,6 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   // Nested class
   "class.iteration.block": notApplicable,
 
-  // Nested function
-  "namedFunction.iteration.block": notApplicable,
-
   // Try catch
   "branch.try": notApplicable,
   "branch.try.iteration": notApplicable,
@@ -279,7 +276,7 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal.method.iteration": notApplicable,
   "name.argument.formal.method": notApplicable,
   "name.method": notApplicable,
-  "namedFunction.method.iteration.class": notApplicable,
+  "namedFunction.iteration.class": notApplicable,
   "namedFunction.method": notApplicable,
   "type.argument.formal.method.iteration": notApplicable,
   "type.argument.formal.method": notApplicable,

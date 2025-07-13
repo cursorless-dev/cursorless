@@ -43,7 +43,7 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   "functionCallee.constructor": supported,
 
   "namedFunction.method": supported,
-  "namedFunction.method.iteration.class": supported,
+  "namedFunction.iteration.class": supported,
   "namedFunction.constructor": supported,
 
   "name.argument.formal.method": supported,

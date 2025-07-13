@@ -241,10 +241,9 @@
 
 - `namedFunction` A named function declaration
 - `namedFunction.constructor` A constructor declaration in a class
-- `namedFunction.iteration.block` Iteration scope for named functions: statement blocks (body of functions/if-statements/for-loops/etc).
+- `namedFunction.iteration.class` Iteration scope for named functions: class bodies.
 - `namedFunction.iteration.document` Iteration scope for named functions: the entire document including leading and trailing empty lines.
 - `namedFunction.method` A named method declaration in a class
-- `namedFunction.method.iteration.class` Iteration scope for named functions: class bodies.
 
 ### nonWhitespaceSequence
 
