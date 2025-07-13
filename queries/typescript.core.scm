@@ -78,15 +78,20 @@
   )
 ) @_.domain
 
+(
+  ;;!! function foo();
+  ;;!  ^^^^^^^^^^^^^^^
+  (function_signature) @namedFunction
+  (#not-parent-type? @namedFunction export_statement)
+)
+
+(export_statement
+  (function_signature)
+) @namedFunction
+
 ;; Define these here because these node types don't exist in javascript.
 (_
   [
-    ;;!! function foo();
-    ;;!  ^^^^^^^^^^^^^^^
-    (function_signature
-      name: (_) @name
-    )
-
     ;;!! class Foo { foo() {} }
     ;;!              ^^^^^^^^
     ;;!! interface Foo { foo(): void; }
@@ -406,13 +411,6 @@
 (export_statement
   (abstract_class_declaration)
 ) @class @type
-
-;;!! class MyClass {}
-;;!        ^^^^^^^
-;;!  ----------------
-(abstract_class_declaration
-  name: (_) @name
-) @_.domain
 
 ;;!! interface Type { name: string; }
 ;;!                   ^^^^

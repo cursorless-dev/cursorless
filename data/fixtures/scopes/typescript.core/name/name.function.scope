@@ -1,0 +1,17 @@
+function foo();
+---
+
+[Content] =
+[Removal] = 0:9-0:12
+           >---<
+0| function foo();
+
+[Leading delimiter] = 0:8-0:9
+          >-<
+0| function foo();
+
+[Domain] = 0:0-0:15
+  >---------------<
+0| function foo();
+
+[Insertion delimiter] = " "
