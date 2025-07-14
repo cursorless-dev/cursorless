@@ -118,6 +118,7 @@ export class ScopeTestRecorder {
     languageIds.sort();
     return this.ide.showQuickPick(languageIds, {
       title: "Select language to record scope tests for",
+      defaultValue: this.ide.activeTextEditor?.document.languageId,
     });
   }
 }

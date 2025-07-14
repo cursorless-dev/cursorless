@@ -1,10 +1,21 @@
-export interface UnknownValuesOptions {
-  allowed: true;
+export interface QuickPickOptions {
+  /**
+   * An optional string that represents the title of the quick pick.
+   */
+  title?: string;
 
   /**
-   * An optional template to use when displaying the new option to the user. The
-   * template must include `{}` as a substring, which will be replaced with the
-   * user's input when displaying an option to add the unknown item.
+   * An optional string that represents the default value to be selected in the quick pick.
+   */
+  defaultValue?: string;
+
+  /**
+   * Indicates whether the quick pick should allow unknown values, and if so,
+   * how to handle them.
+   *
+   * If provided as a string: An optional template to use when displaying the new
+   * option to the user. The template must include `{}` as a substring, which will
+   * be replaced with the user's input when displaying an option to add the unknown item.
    *
    * For example:
    *
@@ -16,18 +27,5 @@ export interface UnknownValuesOptions {
    *
    * "Add new value 'foo' →"
    */
-  newValueTemplate?: string;
-}
-
-export interface QuickPickOptions {
-  /**
-   * An optional string that represents the title of the quick pick.
-   */
-  title?: string;
-
-  /**
-   * Indicates whether the quick pick should allow unknown values, and if so,
-   * how to handle them.
-   */
-  unknownValues?: UnknownValuesOptions;
+  unknownValues?: boolean | string;
 }
