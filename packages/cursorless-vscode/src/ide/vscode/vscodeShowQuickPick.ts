@@ -33,9 +33,12 @@ export function vscodeShowQuickPick(
     }
 
     if (options?.defaultValue != null) {
-      quickPick.activeItems = quickPickItems.filter(
+      const activeItem = quickPickItems.find(
         (item) => item.value === options.defaultValue,
       );
+      if (activeItem != null) {
+        quickPick.activeItems = [activeItem];
+      }
     }
 
     if (options?.unknownValues) {
@@ -45,19 +48,17 @@ export function vscodeShowQuickPick(
           : "Add new value '{}' →";
 
       quickPick.onDidChangeValue(() => {
-        quickPick.items = [
-          ...quickPickItems,
-
-          // INJECT user values into proposed values
-          ...(items.includes(quickPick.value) || quickPick.value.trim() === ""
-            ? []
+        const value = quickPick.value.trim();
+        quickPick.items =
+          value === "" || items.includes(value)
+            ? quickPickItems
             : [
+                ...quickPickItems,
                 {
-                  label: newValueTemplate.replace("{}", quickPick.value),
-                  value: quickPick.value,
+                  label: newValueTemplate.replace("{}", value),
+                  value,
                 },
-              ]),
-        ];
+              ];
       });
     }
 
