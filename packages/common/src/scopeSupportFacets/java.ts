@@ -78,8 +78,10 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
 
   functionCall: supported,
   "functionCall.constructor": supported,
+  "functionCall.method": supported,
   functionCallee: supported,
   "functionCallee.constructor": supported,
+  "functionCallee.method": supported,
 
   "namedFunction.constructor": supported,
   "namedFunction.method": supported,

@@ -57,8 +57,10 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
 
   functionCall: supported,
   "functionCall.constructor": supported,
+  "functionCall.method": supported,
   functionCallee: supported,
   "functionCallee.constructor": supported,
+  "functionCallee.method": supported,
 
   "argument.actual.singleLine": supported,
   "argument.actual.multiLine": supported,

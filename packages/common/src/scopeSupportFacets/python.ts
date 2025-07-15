@@ -200,8 +200,10 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
 
   functionCall: supported,
   "functionCall.constructor": supported,
+  "functionCall.method": supported,
   functionCallee: supported,
   "functionCallee.constructor": supported,
+  "functionCallee.method": supported,
 
   disqualifyDelimiter: supported,
   pairDelimiter: supported,

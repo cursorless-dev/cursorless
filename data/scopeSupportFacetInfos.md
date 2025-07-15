@@ -1,14 +1,14 @@
 ### anonymousFunction
 
-- `anonymousFunction` An anonymous function, eg a lambda function, an arrow function, etc
+- `anonymousFunction` An anonymous function, eg a lambda function, an arrow function, etc.
 
 ### argumentOrParameter
 
-- `argument.actual.constructor.iteration` Iteration scope for arguments in a constructor call: the argument list. The domain should be the entire constructor call.
+- `argument.actual.constructor.iteration` Iteration scope for arguments in a constructor call: the argument list. The domain should be the entire constructor call..
 - `argument.actual.constructor.multiLine` A multi line argument in a constructor call. Insertion delimiter should include new line.
 - `argument.actual.constructor.singleLine` A single line argument in a constructor call
 - `argument.actual.iteration` Iteration scope for arguments in a function call: the argument list. The domain should be the entire function call.
-- `argument.actual.method.iteration` Iteration scope for arguments in a method call: the argument list. The domain should be the entire method call.
+- `argument.actual.method.iteration` Iteration scope for arguments in a method call: the argument list. The domain should be the entire method call..
 - `argument.actual.method.multiLine` A multi line argument in a method call. Insertion delimiter should include new line.
 - `argument.actual.method.singleLine` A single line argument in a method call
 - `argument.actual.multiLine` A multiline argument in a function call. Insertion delimiter should include new line.
@@ -144,11 +144,13 @@
 
 - `functionCall` A function call
 - `functionCall.constructor` A constructor call
+- `functionCall.method` A method call
 
 ### functionCallee
 
 - `functionCallee` The function being called in a function call
-- `functionCallee.constructor` The class being constructed in a class instantiation, including the `new` keyword
+- `functionCallee.constructor` The class being constructed in a class instantiation, including the `new` keyword.
+- `functionCallee.method` The function being called in a method call, including parent objects.
 
 ### identifier
 

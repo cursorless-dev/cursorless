@@ -5,12 +5,18 @@ const { supported, notApplicable } = ScopeSupportFacetLevel;
 
 export const luaScopeSupport: LanguageScopeSupportFacetMap = {
   tags: notApplicable,
-  functionCall: supported,
-  functionCallee: supported,
   map: supported,
-  ifStatement: supported,
   namedFunction: supported,
   disqualifyDelimiter: supported,
+
+  ifStatement: supported,
+
+  "statement.if": supported,
+
+  functionCall: supported,
+  "functionCall.method": supported,
+  functionCallee: supported,
+  "functionCallee.method": supported,
 
   "key.attribute": notApplicable,
 

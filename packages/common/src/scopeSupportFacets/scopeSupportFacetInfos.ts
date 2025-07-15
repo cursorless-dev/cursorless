@@ -209,7 +209,7 @@ export const scopeSupportFacetInfos: Record<
   ),
   anonymousFunction: {
     description:
-      "An anonymous function, eg a lambda function, an arrow function, etc",
+      "An anonymous function, eg a lambda function, an arrow function, etc.",
     scopeType: "anonymousFunction",
   },
 
@@ -221,13 +221,22 @@ export const scopeSupportFacetInfos: Record<
     description: "A constructor call",
     scopeType: "functionCall",
   },
+  "functionCall.method": {
+    description: "A method call",
+    scopeType: "functionCall",
+  },
   functionCallee: {
     description: "The function being called in a function call",
     scopeType: "functionCallee",
   },
   "functionCallee.constructor": {
     description:
-      "The class being constructed in a class instantiation, including the `new` keyword",
+      "The class being constructed in a class instantiation, including the `new` keyword.",
+    scopeType: "functionCallee",
+  },
+  "functionCallee.method": {
+    description:
+      "The function being called in a method call, including parent objects.",
     scopeType: "functionCallee",
   },
 
@@ -257,7 +266,7 @@ export const scopeSupportFacetInfos: Record<
   "argument.actual.method.iteration": iteration(
     "argumentOrParameter",
     "arguments in a method call",
-    "the argument list. The domain should be the entire method call",
+    "the argument list. The domain should be the entire method call.",
   ),
   "argument.actual.constructor.singleLine": {
     description: "A single line argument in a constructor call",
@@ -271,7 +280,7 @@ export const scopeSupportFacetInfos: Record<
   "argument.actual.constructor.iteration": iteration(
     "argumentOrParameter",
     "arguments in a constructor call",
-    "the argument list. The domain should be the entire constructor call",
+    "the argument list. The domain should be the entire constructor call.",
   ),
 
   "argument.formal.singleLine": {

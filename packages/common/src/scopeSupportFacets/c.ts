@@ -38,7 +38,9 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "namedFunction.iteration.document": supported,
 
   functionCall: supported,
+  "functionCall.method": supported,
   functionCallee: supported,
+  "functionCallee.method": supported,
 
   "argument.actual.singleLine": supported,
   "argument.actual.multiLine": supported,
