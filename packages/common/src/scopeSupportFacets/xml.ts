@@ -52,8 +52,6 @@ export const xmlScopeSupport: LanguageScopeSupportFacetMap = {
   // Constructor
   "statement.constructor": notApplicable,
   "namedFunction.constructor": notApplicable,
-  "functionCall.constructor": notApplicable,
-  "functionCallee.constructor": notApplicable,
   "argument.actual.constructor.singleLine": notApplicable,
   "argument.actual.constructor.multiLine": notApplicable,
   "argument.actual.constructor.iteration": notApplicable,
@@ -74,6 +72,8 @@ export const xmlScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.constructor.iteration": notApplicable,
   "value.argument.formal.constructor": notApplicable,
   "value.argument.formal.constructor.iteration": notApplicable,
+  "functionCall.constructor": notApplicable,
+  "functionCallee.constructor": notApplicable,
 
   // Method
   "statement.method": notApplicable,
@@ -98,6 +98,8 @@ export const xmlScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.method.iteration": notApplicable,
   "value.argument.formal.method": notApplicable,
   "value.argument.formal.method.iteration": notApplicable,
+  "functionCall.method": notApplicable,
+  "functionCallee.method": notApplicable,
 
   // Function
   namedFunction: notApplicable,

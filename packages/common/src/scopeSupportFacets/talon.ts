@@ -48,6 +48,8 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
 
   functionCall: supported,
   functionCallee: supported,
+  "functionCall.method": supported,
+  "functionCallee.method": supported,
 
   /* UNSUPPORTED */
 
