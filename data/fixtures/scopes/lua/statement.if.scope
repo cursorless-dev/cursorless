@@ -1,23 +1,17 @@
 if true then
-    a = 1
 elseif false then
-    a = 2
 else
-    a = 3
 end
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-6:3
+[Domain] = 0:0-3:3
   >------------
 0| if true then
-1|     a = 1
-2| elseif false then
-3|     a = 2
-4| else
-5|     a = 3
-6| end
+1| elseif false then
+2| else
+3| end
    ---<
 
 [Insertion delimiter] = "\n"

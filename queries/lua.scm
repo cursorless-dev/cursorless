@@ -51,7 +51,7 @@
 (if_statement
   "if" @interior.domain.start
   condition: (_) @condition
-  consequence: (_) @interior @interior.domain.end
+  consequence: (_)? @interior @interior.domain.end
 ) @ifStatement @condition.domain @branch.iteration
 
 ;;!! if true then end

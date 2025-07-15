@@ -2,9 +2,12 @@ foo()
 ---
 
 [Content] =
-[Removal] =
-[Domain] = 0:0-0:3
+[Removal] = 0:0-0:3
   >---<
+0| foo()
+
+[Domain] = 0:0-0:5
+  >-----<
 0| foo()
 
 [Insertion delimiter] = " "

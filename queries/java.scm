@@ -397,22 +397,20 @@
 
 ;;!! new test();
 ;;!  ^^^^^^^^
-;;!  -----------
+;;!  ----------
 (_
   (object_creation_expression
     (argument_list) @functionCallee.end.startOf
-  ) @functionCallee.start.startOf @_.domain.start
-  ";"? @_.domain.end
+  ) @functionCallee.start.startOf @_.domain
 )
 
 ;;!! new test().bar();
 ;;!  ^^^^^^^^^^^^^^
-;;!  -----------------
+;;!  ----------------
 (_
   (method_invocation
     (argument_list) @functionCallee.end.startOf
-  ) @functionCallee.start.startOf @_.domain.start
-  ";"? @_.domain.end
+  ) @functionCallee.start.startOf @_.domain
 )
 
 ;;!! super();

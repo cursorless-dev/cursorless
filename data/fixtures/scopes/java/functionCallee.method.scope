@@ -6,8 +6,8 @@ foo.bar();
   >-------<
 0| foo.bar();
 
-[Domain] = 0:0-0:10
-  >----------<
+[Domain] = 0:0-0:9
+  >---------<
 0| foo.bar();
 
 [Insertion delimiter] = " "

@@ -2,9 +2,12 @@ foo.bar()
 ---
 
 [Content] =
-[Removal] =
-[Domain] = 0:0-0:7
+[Removal] = 0:0-0:7
   >-------<
+0| foo.bar()
+
+[Domain] = 0:0-0:9
+  >---------<
 0| foo.bar()
 
 [Insertion delimiter] = " "
