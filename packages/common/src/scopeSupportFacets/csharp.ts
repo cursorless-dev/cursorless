@@ -19,8 +19,10 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
 
   functionCall: supported,
   "functionCall.constructor": supported,
+  "functionCall.method": supported,
   functionCallee: supported,
   "functionCallee.constructor": supported,
+  "functionCallee.method": supported,
 
   namedFunction: supported,
   "namedFunction.iteration.document": supported,
@@ -167,16 +169,32 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.catch": supported,
 
   ifStatement: supported,
-  statement: supported,
+
   "statement.class": supported,
   "statement.interface": supported,
   "statement.enum": supported,
   "statement.field.class": supported,
   "statement.field.interface": supported,
-  "statement.iteration.block": supported,
+  "statement.function": supported,
+  "statement.constructor": supported,
+  "statement.method": supported,
+  "statement.if": supported,
+  "statement.try": supported,
+  "statement.switch": supported,
+  "statement.for": supported,
+  "statement.foreach": supported,
+  "statement.while": supported,
+  "statement.doWhile": supported,
+  "statement.variable": supported,
+  "statement.assignment": supported,
+  "statement.return": supported,
+  "statement.yield": supported,
+  "statement.break": supported,
+  "statement.continue": supported,
+  "statement.iteration.document": supported,
   "statement.iteration.class": supported,
   "statement.iteration.interface": supported,
-  "statement.iteration.document": supported,
+  "statement.iteration.block": supported,
 
   "string.singleLine": supported,
   "string.multiLine": supported,
@@ -226,6 +244,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "value.argument.actual.iteration": notApplicable,
 
   // Resource syntax
+  "statement.resource": notApplicable,
   "interior.resource": notApplicable,
   "type.resource": notApplicable,
   "type.resource.iteration": notApplicable,
@@ -250,6 +269,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Command
   command: notApplicable,
+  "statement.command": notApplicable,
   "name.command": notApplicable,
   "value.command": notApplicable,
   "interior.command": notApplicable,
@@ -263,6 +283,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "collectionItem.unenclosed": notApplicable,
 
   // Namespace
+  "statement.namespace": notApplicable,
   "name.namespace": notApplicable,
   "interior.namespace": notApplicable,
 
@@ -270,11 +291,15 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.loop": notApplicable,
   "branch.loop.iteration": notApplicable,
 
+  // Static
+  "statement.static": notApplicable,
+  "interior.static": notApplicable,
+
   // Miscellaneous
+  "statement.misc": notApplicable,
   environment: notApplicable,
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,
   selector: notApplicable,
   unit: notApplicable,
-  "interior.static": notApplicable,
 };

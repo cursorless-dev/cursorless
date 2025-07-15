@@ -1,5 +1,5 @@
 try {}
-catch (const std::exception& e) {}
+catch (const std::exception e) {}
 ---
 
 [#1 Content] =
@@ -10,21 +10,21 @@ catch (const std::exception& e) {}
 [#1 Removal] = 0:0-1:0
   >------
 0| try {}
-1| catch (const std::exception& e) {}
+1| catch (const std::exception e) {}
    <
 
 [#1 Insertion delimiter] = "\n"
 
 
 [#2 Content] =
-[#2 Domain] = 1:0-1:34
-  >----------------------------------<
-1| catch (const std::exception& e) {}
+[#2 Domain] = 1:0-1:33
+  >---------------------------------<
+1| catch (const std::exception e) {}
 
-[#2 Removal] = 0:6-1:34
+[#2 Removal] = 0:6-1:33
         >
 0| try {}
-1| catch (const std::exception& e) {}
-   ----------------------------------<
+1| catch (const std::exception e) {}
+   ---------------------------------<
 
 [#2 Insertion delimiter] = "\n"

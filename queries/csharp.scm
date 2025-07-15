@@ -22,7 +22,6 @@
   (record_declaration)
   (struct_declaration)
   (using_directive)
-  (block)
   (break_statement)
   (checked_statement)
   (continue_statement)
@@ -45,6 +44,8 @@
   (using_statement)
   (while_statement)
   (yield_statement)
+  ;; Disabled on purpose. This is the entire body of statements.
+  ;; (block)
   ;; Disabled on purpose. We have a better definition of this below.
   ;; (if_statement)
 ] @statement

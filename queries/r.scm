@@ -142,7 +142,7 @@
 ;;!  -----
 (call
   (identifier) @functionCallee
-)
+) @_.domain
 
 ;; Technically lists and arrays are just calls to the function `list` or `c`
 ;;!! list(1, 2, 3)

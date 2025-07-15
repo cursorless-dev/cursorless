@@ -175,17 +175,34 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "textFragment.string.singleLine": supported,
 
   ifStatement: supported,
-  statement: supported,
+
   "statement.class": supported,
   "statement.field.class": supported,
-  "statement.iteration.block": supported,
-  "statement.iteration.class": supported,
+  "statement.function": supported,
+  "statement.constructor": supported,
+  "statement.method": supported,
+  "statement.if": supported,
+  "statement.try": supported,
+  "statement.switch": supported,
+  "statement.foreach": supported,
+  "statement.while": supported,
+  "statement.variable": supported,
+  "statement.assignment": supported,
+  "statement.return": supported,
+  "statement.yield": supported,
+  "statement.break": supported,
+  "statement.continue": supported,
+  "statement.resource": supported,
   "statement.iteration.document": supported,
+  "statement.iteration.class": supported,
+  "statement.iteration.block": supported,
 
   functionCall: supported,
   "functionCall.constructor": supported,
+  "functionCall.method": supported,
   functionCallee: supported,
   "functionCallee.constructor": supported,
+  "functionCallee.method": supported,
 
   disqualifyDelimiter: supported,
   pairDelimiter: supported,
@@ -211,18 +228,24 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Command
   command: notApplicable,
+  "statement.command": notApplicable,
   "name.command": notApplicable,
   "value.command": notApplicable,
   "interior.command": notApplicable,
 
   // Namespace
+  "statement.namespace": notApplicable,
   "name.namespace": notApplicable,
   "interior.namespace": notApplicable,
 
-  // for and do-while loops
-  "condition.doWhile": notApplicable,
+  // For loop
+  "statement.for": notApplicable,
   "condition.for": notApplicable,
   "interior.for": notApplicable,
+
+  // Do-while loop
+  "statement.doWhile": notApplicable,
+  "condition.doWhile": notApplicable,
   "interior.doWhile": notApplicable,
 
   // Nested classes
@@ -271,7 +294,12 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "name.field.interface": notApplicable,
   "name.iteration.interface": notApplicable,
 
+  // Static
   "interior.static": notApplicable,
+  "statement.static": notApplicable,
+
+  // Miscellaneous
+  "statement.misc": notApplicable,
   environment: notApplicable,
   regularExpression: notApplicable,
   selector: notApplicable,

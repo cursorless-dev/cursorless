@@ -10,6 +10,11 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   attribute: supported,
   anonymousFunction: supported,
 
+  "statement.try": supported,
+  "statement.foreach": supported,
+  "statement.constructor": supported,
+  "statement.method": supported,
+
   "branch.try": supported,
   "branch.try.iteration": supported,
 
@@ -25,6 +30,7 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal.lambda.singleLine": supported,
   "argument.formal.lambda.multiLine": supported,
   "argument.formal.lambda.iteration": supported,
+  "argument.catch": supported,
 
   "argumentList.actual.constructor.empty": supported,
   "argumentList.actual.constructor.singleLine": supported,
@@ -50,6 +56,7 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal.method.iteration": supported,
   "name.argument.formal.constructor": supported,
   "name.argument.formal.constructor.iteration": supported,
+  "name.argument.catch": supported,
   "name.constructor": supported,
   "name.foreach": supported,
   "name.method": supported,
@@ -69,6 +76,7 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.method.iteration": supported,
   "type.argument.formal.constructor": supported,
   "type.argument.formal.constructor.iteration": supported,
+  "type.argument.catch": supported,
   "type.foreach": supported,
   "type.typeArgument": supported,
   "type.typeArgument.iteration": supported,

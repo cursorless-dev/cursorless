@@ -1,0 +1,13 @@
+try {}
+catch (const std::exception e) {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-1:33
+  >------
+0| try {}
+1| catch (const std::exception e) {}
+   ---------------------------------<
+
+[Insertion delimiter] = "\n"

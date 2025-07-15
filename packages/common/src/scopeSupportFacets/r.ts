@@ -25,9 +25,12 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.formal.lambda.singleLine": supported,
   "argumentList.formal.lambda.multiLine": supported,
 
-  "comment.line": supported,
   functionCall: supported,
+  "functionCall.method": supported,
   functionCallee: supported,
+  "functionCallee.method": supported,
+
+  "comment.line": supported,
   ifStatement: supported,
   "name.assignment": supported,
   "name.function": supported,

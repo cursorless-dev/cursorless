@@ -8,28 +8,29 @@
 [
   (assert_statement)
   (break_statement)
-  (class_definition)
   (continue_statement)
   (decorated_definition)
   (delete_statement)
   (exec_statement)
   (expression_statement)
   (for_statement)
-  (function_definition)
   (future_import_statement)
   (global_statement)
   (import_from_statement)
   (import_statement)
   (match_statement)
   (nonlocal_statement)
-  (pass_statement)
   (print_statement)
   (raise_statement)
   (return_statement)
   (try_statement)
   (while_statement)
   (with_statement)
-  ;; Disabled on purpose. We have a better definition of this below.
+  ;; Disabled on purpose. We don't think this is a statement.
+  ;; (pass_statement)
+  ;; Disabled on purpose. We have a better definition for these below.
+  ;; (class_definition)
+  ;; (function_definition)
   ;; (if_statement)
 ] @statement
 
@@ -292,14 +293,18 @@
   (set)
 ] @list
 
+;;!! def foo(): pass
+;;!  ^^^^^^^^^^^^^^^
 (
   (function_definition
     name: (_) @name
     body: (_) @interior
-  ) @namedFunction @_.domain
+  ) @namedFunction @statement @_.domain
   (#not-parent-type? @namedFunction decorated_definition)
 )
 
+;;!! @value def foo(): pass
+;;!  ^^^^^^^^^^^^^^^^^^^^^^
 (decorated_definition
   (function_definition
     name: (_) @name
@@ -321,30 +326,30 @@
 
 ;;!! class MyClass:
 (
-  (class_definition
-    name: (_) @name
-    body: (_) @interior
-  ) @class @_.domain
+  (class_definition) @class @type @statement
   (#not-parent-type? @class decorated_definition)
 )
 
 (
-  (class_definition) @type
-  (#not-parent-type? @type decorated_definition)
+  (class_definition
+    name: (_) @name
+    body: (_) @interior
+  ) @_.domain
+  (#not-parent-type? @_.domain decorated_definition)
 )
 
 ;;!! @value
 ;;!! class MyClass:
 (decorated_definition
+  (class_definition)
+) @class @type @statement
+
+(decorated_definition
   (class_definition
     name: (_) @name
     body: (_) @interior
   )
-) @class @_.domain
-
-(decorated_definition
-  (class_definition)
-) @type
+) @_.domain
 
 (
   (module) @statement.iteration @class.iteration @namedFunction.iteration

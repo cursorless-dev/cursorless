@@ -1,14 +1,14 @@
 ### anonymousFunction
 
-- `anonymousFunction` An anonymous function, eg a lambda function, an arrow function, etc
+- `anonymousFunction` An anonymous function, eg a lambda function, an arrow function, etc.
 
 ### argumentOrParameter
 
-- `argument.actual.constructor.iteration` Iteration scope for arguments in a constructor call: the argument list. The domain should be the entire constructor call.
+- `argument.actual.constructor.iteration` Iteration scope for arguments in a constructor call: the argument list. The domain should be the entire constructor call..
 - `argument.actual.constructor.multiLine` A multi line argument in a constructor call. Insertion delimiter should include new line.
 - `argument.actual.constructor.singleLine` A single line argument in a constructor call
 - `argument.actual.iteration` Iteration scope for arguments in a function call: the argument list. The domain should be the entire function call.
-- `argument.actual.method.iteration` Iteration scope for arguments in a method call: the argument list. The domain should be the entire method call.
+- `argument.actual.method.iteration` Iteration scope for arguments in a method call: the argument list. The domain should be the entire method call..
 - `argument.actual.method.multiLine` A multi line argument in a method call. Insertion delimiter should include new line.
 - `argument.actual.method.singleLine` A single line argument in a method call
 - `argument.actual.multiLine` A multiline argument in a function call. Insertion delimiter should include new line.
@@ -144,11 +144,13 @@
 
 - `functionCall` A function call
 - `functionCall.constructor` A constructor call
+- `functionCall.method` A method call
 
 ### functionCallee
 
 - `functionCallee` The function being called in a function call
-- `functionCallee.constructor` The class being constructed in a class instantiation, including the `new` keyword
+- `functionCallee.constructor` The class being constructed in a class instantiation, including the `new` keyword.
+- `functionCallee.method` The function being called in a method call, including parent objects.
 
 ### identifier
 
@@ -285,16 +287,36 @@
 
 ### statement
 
-- `statement` A statement, eg assignment, for loop, etc
+- `statement.assignment` An assignment statement
+- `statement.break` A break statement
 - `statement.class` A class declaration
+- `statement.command` A command statement, eg Talon spoken command or bash
+- `statement.constructor` A constructor declaration
+- `statement.continue` A continue statement
+- `statement.doWhile` A do-while loop statement
 - `statement.enum` An enum declaration
 - `statement.field.class` A field declaration in a class
 - `statement.field.interface` A field declaration in a interface
+- `statement.for` A for loop statement
+- `statement.foreach` A for-each loop statement
+- `statement.function` A named function declaration
+- `statement.if` A if/elif/else statement
 - `statement.interface` An interface declaration
 - `statement.iteration.block` Iteration scope for statements: statement blocks (body of functions/if-statements/for-loops/etc).
 - `statement.iteration.class` Iteration scope for statements: class bodies.
 - `statement.iteration.document` Iteration scope for statements: the entire document including leading and trailing empty lines.
 - `statement.iteration.interface` Iteration scope for statements: interface bodies.
+- `statement.method` A method declaration
+- `statement.misc` A miscellaneous statement
+- `statement.namespace` A namespace declaration
+- `statement.resource` A 'with' / 'use' / 'using' statement
+- `statement.return` A return statement
+- `statement.static` A static statement
+- `statement.switch` A switch statement
+- `statement.try` A try/catch/finally statement
+- `statement.variable` A variable declaration
+- `statement.while` A while loop statement
+- `statement.yield` A yield statement
 
 ### string
 

@@ -1,10 +1,10 @@
-int foo();
+foo::bar();
 ---
 
 [Content] =
 [Removal] =
 [Domain] = 0:0-0:10
   >----------<
-0| int foo();
+0| foo::bar();
 
-[Insertion delimiter] = "\n\n"
+[Insertion delimiter] = " "

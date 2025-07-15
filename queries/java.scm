@@ -19,7 +19,6 @@
   (expression_statement)
   (for_statement)
   (labeled_statement)
-  (local_variable_declaration)
   (return_statement)
   (switch_expression)
   (synchronized_statement)
@@ -32,7 +31,9 @@
   (constructor_declaration)
   (field_declaration)
   (constant_declaration)
+  (static_initializer)
 
+  ;; Disabled on purpose. We don't consider these to be statements.
   ;; exceptions
   ;; ";",
   ;; "block",
@@ -40,6 +41,11 @@
   ;; Disabled on purpose. We have a better definition of this below.
   ;; (if_statement)
 ] @statement
+
+(
+  (local_variable_declaration) @statement
+  (#not-parent-type? @statement for_statement)
+)
 
 ;;!! enum Foo {}
 ;;!  ^^^^^^^^^^^
@@ -391,22 +397,20 @@
 
 ;;!! new test();
 ;;!  ^^^^^^^^
-;;!  -----------
+;;!  ----------
 (_
   (object_creation_expression
     (argument_list) @functionCallee.end.startOf
-  ) @functionCallee.start.startOf @_.domain.start
-  ";"? @_.domain.end
+  ) @functionCallee.start.startOf @_.domain
 )
 
 ;;!! new test().bar();
 ;;!  ^^^^^^^^^^^^^^
-;;!  -----------------
+;;!  ----------------
 (_
   (method_invocation
     (argument_list) @functionCallee.end.startOf
-  ) @functionCallee.start.startOf @_.domain.start
-  ";"? @_.domain.end
+  ) @functionCallee.start.startOf @_.domain
 )
 
 ;;!! super();

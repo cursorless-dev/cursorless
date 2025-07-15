@@ -1,13 +1,13 @@
-switch (value) {}
+switch (foo) {}
 ---
 
 [Content] =
-[Removal] = 0:8-0:13
-          >-----<
-0| switch (value) {}
+[Removal] = 0:8-0:11
+          >---<
+0| switch (foo) {}
 
-[Domain] = 0:0-0:17
-  >-----------------<
-0| switch (value) {}
+[Domain] = 0:0-0:15
+  >---------------<
+0| switch (foo) {}
 
 [Insertion delimiter] = " "

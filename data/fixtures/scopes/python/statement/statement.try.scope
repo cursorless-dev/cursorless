@@ -1,0 +1,15 @@
+try: pass
+except: pass
+finally: pass
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-2:13
+  >---------
+0| try: pass
+1| except: pass
+2| finally: pass
+   -------------<
+
+[Insertion delimiter] = "\n"

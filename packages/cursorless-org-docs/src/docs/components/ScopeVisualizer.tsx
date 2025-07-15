@@ -292,7 +292,7 @@ function getScopeFixtures(
   Object.values(scopeMap)
     .sort(nameComparator)
     .forEach((scope) => {
-      scope.facets.sort(nameComparator);
+      scope.facets.sort(facetComparator);
       scope.facets.forEach((f) => f.fixtures.sort(nameComparator));
       if (scopeTypeType == null && isScopeInternal(scope.scopeTypeType)) {
         result.internal.push(scope);
@@ -302,4 +302,14 @@ function getScopeFixtures(
     });
 
   return result;
+}
+
+export function facetComparator(a: Facet, b: Facet): number {
+  if (a.info.isIteration && !b.info.isIteration) {
+    return 1;
+  }
+  if (!a.info.isIteration && b.info.isIteration) {
+    return -1;
+  }
+  return nameComparator(a, b);
 }

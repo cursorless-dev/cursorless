@@ -1,16 +1,16 @@
-command:
-    foo = 0
+foo:
+    bar = 0
 ---
 
 [#1 Content] =
 [#1 Domain] = 0:0-1:11
-  >--------
-0| command:
-1|     foo = 0
+  >----
+0| foo:
+1|     bar = 0
    -----------<
 
 
 [#2 Content] =
 [#2 Domain] = 1:4-1:11
       >-------<
-1|     foo = 0
+1|     bar = 0

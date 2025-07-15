@@ -1,13 +1,13 @@
-command:
-    foo = 0
+def foo():
+    yield 0
 ---
 
 [#1 Content] =
 [#1 Removal] =
 [#1 Domain] = 0:0-1:11
-  >--------
-0| command:
-1|     foo = 0
+  >----------
+0| def foo():
+1|     yield 0
    -----------<
 
 [#1 Insertion delimiter] = "\n"
@@ -16,16 +16,16 @@ command:
 [#2 Content] =
 [#2 Domain] = 1:4-1:11
       >-------<
-1|     foo = 0
+1|     yield 0
 
-[#2 Removal] = 0:8-1:11
-          >
-0| command:
-1|     foo = 0
+[#2 Removal] = 0:10-1:11
+            >
+0| def foo():
+1|     yield 0
    -----------<
 
 [#2 Leading delimiter] = 1:0-1:4
   >----<
-1|     foo = 0
+1|     yield 0
 
 [#2 Insertion delimiter] = "\n"
