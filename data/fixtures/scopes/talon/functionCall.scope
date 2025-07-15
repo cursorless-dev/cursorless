@@ -1,0 +1,17 @@
+foo: skip()
+---
+
+[Content] =
+[Domain] = 0:5-0:11
+       >------<
+0| foo: skip()
+
+[Removal] = 0:4-0:11
+      >-------<
+0| foo: skip()
+
+[Leading delimiter] = 0:4-0:5
+      >-<
+0| foo: skip()
+
+[Insertion delimiter] = " "
