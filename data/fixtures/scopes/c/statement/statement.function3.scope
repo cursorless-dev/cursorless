@@ -2,12 +2,9 @@ void Foo::bar() {}
 ---
 
 [Content] =
-[Removal] = 0:10-0:13
-            >---<
-0| void Foo::bar() {}
-
+[Removal] =
 [Domain] = 0:0-0:18
   >------------------<
 0| void Foo::bar() {}
 
-[Insertion delimiter] = " "
+[Insertion delimiter] = "\n"

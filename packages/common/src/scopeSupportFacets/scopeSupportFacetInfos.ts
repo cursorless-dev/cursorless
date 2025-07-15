@@ -70,10 +70,6 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "ifStatement",
   },
 
-  statement: {
-    description: "A statement, eg assignment, for loop, etc",
-    scopeType: "statement",
-  },
   "statement.class": {
     description: "A class declaration",
     scopeType: "statement",
@@ -94,6 +90,91 @@ export const scopeSupportFacetInfos: Record<
     description: "A field declaration in a interface",
     scopeType: "statement",
   },
+  "statement.function": {
+    description: "A named function declaration",
+    scopeType: "statement",
+  },
+  "statement.constructor": {
+    description: "A constructor declaration",
+    scopeType: "statement",
+  },
+  "statement.method": {
+    description: "A method declaration",
+    scopeType: "statement",
+  },
+  "statement.if": {
+    description: "A if/elif/else statement",
+    scopeType: "statement",
+  },
+  "statement.try": {
+    description: "A try/catch/finally statement",
+    scopeType: "statement",
+  },
+  "statement.switch": {
+    description: "A switch statement",
+    scopeType: "statement",
+  },
+  "statement.for": {
+    description: "A for loop statement",
+    scopeType: "statement",
+  },
+  "statement.foreach": {
+    description: "A for-each loop statement",
+    scopeType: "statement",
+  },
+  "statement.while": {
+    description: "A while loop statement",
+    scopeType: "statement",
+  },
+  "statement.doWhile": {
+    description: "A do-while loop statement",
+    scopeType: "statement",
+  },
+  "statement.variable": {
+    description: "A variable declaration",
+    scopeType: "statement",
+  },
+  "statement.assignment": {
+    description: "An assignment statement",
+    scopeType: "statement",
+  },
+  "statement.return": {
+    description: "A return statement",
+    scopeType: "statement",
+  },
+  "statement.yield": {
+    description: "A yield statement",
+    scopeType: "statement",
+  },
+  "statement.break": {
+    description: "A break statement",
+    scopeType: "statement",
+  },
+  "statement.continue": {
+    description: "A continue statement",
+    scopeType: "statement",
+  },
+  "statement.resource": {
+    description: "A 'with' / 'use' / 'using' statement",
+    scopeType: "statement",
+  },
+  "statement.command": {
+    description: "A command statement, eg Talon spoken command or bash",
+    scopeType: "statement",
+  },
+  "statement.namespace": {
+    description: "A namespace declaration",
+    scopeType: "statement",
+  },
+  "statement.static": {
+    description: "A static statement",
+    scopeType: "statement",
+  },
+  "statement.misc": {
+    description: "A miscellaneous statement",
+    scopeType: "statement",
+  },
+
   "statement.iteration.document": documentIter("statement", "statements"),
   "statement.iteration.class": classIter("statement", "statements"),
   "statement.iteration.interface": interfaceIter("statement", "statements"),

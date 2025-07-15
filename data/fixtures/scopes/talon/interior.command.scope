@@ -1,5 +1,5 @@
-command:
-    foo = 0
+foo:
+    bar = 0
 ---
 
 [Content] =

@@ -34,7 +34,6 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   "collectionItem.unenclosed": supported,
   "collectionItem.unenclosed.iteration": supported,
 
-  statement: supported,
   "statement.iteration.document": supported,
 
   selector: supported,

@@ -204,7 +204,6 @@ export const yamlScopeSupport: LanguageScopeSupportFacetMap = {
   "section.iteration.document": notApplicable,
   "section.iteration.parent": notApplicable,
   startTag: notApplicable,
-  statement: notApplicable,
   "statement.iteration.block": notApplicable,
   "statement.iteration.document": notApplicable,
   tags: notApplicable,

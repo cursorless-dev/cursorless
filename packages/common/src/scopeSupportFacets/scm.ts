@@ -4,7 +4,7 @@ import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 const { supported, notApplicable } = ScopeSupportFacetLevel;
 
 export const scmScopeSupport: LanguageScopeSupportFacetMap = {
-  statement: supported,
+  "statement.misc": supported,
   list: supported,
 
   "argument.actual.singleLine": supported,

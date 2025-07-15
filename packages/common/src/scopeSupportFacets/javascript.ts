@@ -21,7 +21,6 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
 
   ifStatement: supported,
 
-  statement: supported,
   "statement.class": supported,
   "statement.field.class": supported,
   "statement.iteration.document": supported,

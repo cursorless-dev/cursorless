@@ -241,7 +241,7 @@ export const htmlScopeSupport: LanguageScopeSupportFacetMap = {
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,
   section: notApplicable,
-  statement: notApplicable,
+
   selector: notApplicable,
   unit: notApplicable,
 };

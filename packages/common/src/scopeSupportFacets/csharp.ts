@@ -167,7 +167,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.catch": supported,
 
   ifStatement: supported,
-  statement: supported,
+
   "statement.class": supported,
   "statement.interface": supported,
   "statement.enum": supported,

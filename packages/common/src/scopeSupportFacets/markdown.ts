@@ -194,7 +194,7 @@ export const markdownScopeSupport: LanguageScopeSupportFacetMap = {
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,
   startTag: notApplicable,
-  statement: notApplicable,
+
   "statement.iteration.block": notApplicable,
   "statement.iteration.document": notApplicable,
   "string.multiLine": notApplicable,

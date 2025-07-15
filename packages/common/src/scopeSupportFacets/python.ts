@@ -175,7 +175,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "textFragment.string.singleLine": supported,
 
   ifStatement: supported,
-  statement: supported,
+
   "statement.class": supported,
   "statement.field.class": supported,
   "statement.iteration.block": supported,

@@ -32,7 +32,6 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "value.iteration.document": supported,
 
   command: supported,
-  statement: supported,
 
   "string.singleLine": supported,
 
