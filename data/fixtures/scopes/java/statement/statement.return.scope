@@ -1,0 +1,60 @@
+public class Foo {
+    public int bar() {
+        return 0;
+    }
+}
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-4:1
+  >------------------
+0| public class Foo {
+1|     public int bar() {
+2|         return 0;
+3|     }
+4| }
+   -<
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 1:4-3:5
+      >------------------
+1|     public int bar() {
+2|         return 0;
+3|     }
+   -----<
+
+[#2 Removal] = 1:0-4:0
+  >----------------------
+1|     public int bar() {
+2|         return 0;
+3|     }
+4| }
+   <
+
+[#2 Leading delimiter] = 1:0-1:4
+  >----<
+1|     public int bar() {
+
+[#2 Insertion delimiter] = "\n"
+
+
+[#3 Content] =
+[#3 Domain] = 2:8-2:17
+          >---------<
+2|         return 0;
+
+[#3 Removal] = 2:0-3:0
+  >-----------------
+2|         return 0;
+3|     }
+   <
+
+[#3 Leading delimiter] = 2:0-2:8
+  >--------<
+2|         return 0;
+
+[#3 Insertion delimiter] = "\n"

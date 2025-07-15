@@ -90,14 +90,29 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.class": supported,
   "statement.interface": supported,
   "statement.enum": supported,
-  "statement.variable": supported,
-  "statement.assignment": supported,
   "statement.field.class": supported,
   "statement.field.interface": supported,
-  "statement.iteration.block": supported,
+  "statement.constructor": supported,
+  "statement.method": supported,
+  "statement.if": supported,
+  "statement.try": supported,
+  "statement.switch": supported,
+  "statement.for": supported,
+  "statement.foreach": supported,
+  "statement.while": supported,
+  "statement.doWhile": supported,
+  "statement.variable": supported,
+  "statement.assignment": supported,
+  "statement.return": supported,
+  "statement.yield": supported,
+  "statement.break": supported,
+  "statement.continue": supported,
+  "statement.resource": supported,
+  "statement.static": supported,
+  "statement.iteration.document": supported,
   "statement.iteration.class": supported,
   "statement.iteration.interface": supported,
-  "statement.iteration.document": supported,
+  "statement.iteration.block": supported,
 
   "string.singleLine": supported,
   "string.multiLine": supported,
@@ -192,6 +207,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   // Functions (not methods)
   namedFunction: notApplicable,
   "namedFunction.iteration.document": notApplicable,
+  "statement.function": notApplicable,
   "argument.formal.singleLine": notApplicable,
   "argument.formal.multiLine": notApplicable,
   "argument.formal.iteration": notApplicable,
@@ -253,6 +269,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Command
   command: notApplicable,
+  "statement.command": notApplicable,
   "name.command": notApplicable,
   "value.command": notApplicable,
   "interior.command": notApplicable,
@@ -267,6 +284,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "name.resource.iteration": notApplicable,
 
   // Namespace
+  "statement.namespace": notApplicable,
   "name.namespace": notApplicable,
   "interior.namespace": notApplicable,
 
@@ -279,6 +297,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.iteration.enum": notApplicable,
 
   // Miscellaneous
+  "statement.misc": notApplicable,
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,
   environment: notApplicable,
