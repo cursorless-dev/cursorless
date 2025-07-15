@@ -90,6 +90,8 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.class": supported,
   "statement.interface": supported,
   "statement.enum": supported,
+  "statement.variable": supported,
+  "statement.assignment": supported,
   "statement.field.class": supported,
   "statement.field.interface": supported,
   "statement.iteration.block": supported,

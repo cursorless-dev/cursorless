@@ -171,6 +171,8 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.class": supported,
   "statement.interface": supported,
   "statement.enum": supported,
+  "statement.assignment": supported,
+  "statement.variable": supported,
   "statement.field.class": supported,
   "statement.field.interface": supported,
   "statement.iteration.block": supported,

@@ -177,6 +177,8 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   ifStatement: supported,
 
   "statement.class": supported,
+  "statement.variable": supported,
+  "statement.assignment": supported,
   "statement.field.class": supported,
   "statement.iteration.block": supported,
   "statement.iteration.class": supported,

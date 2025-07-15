@@ -22,6 +22,9 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "name.iteration.block": supported,
   "name.iteration.document": supported,
 
+  "statement.command": supported,
+  "statement.variable": supported,
+  "statement.assignment": supported,
   "statement.iteration.block": supported,
   "statement.iteration.document": supported,
 
