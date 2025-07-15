@@ -200,15 +200,6 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   // Nested class
   "class.iteration.block": notApplicable,
 
-  // Try catch
-  "statement.try": notApplicable,
-  "branch.try": notApplicable,
-  "branch.try.iteration": notApplicable,
-  "interior.try": notApplicable,
-  "argument.catch": notApplicable,
-  "name.argument.catch": notApplicable,
-  "type.argument.catch": notApplicable,
-
   // Interface
   "statement.interface": notApplicable,
   "statement.field.interface": notApplicable,
@@ -306,6 +297,15 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
   "value.argument.formal.method.iteration": notApplicable,
   "value.argument.formal.method": notApplicable,
   "interior.method": notApplicable,
+
+  // Try catch
+  "statement.try": notApplicable,
+  "branch.try": notApplicable,
+  "branch.try.iteration": notApplicable,
+  "interior.try": notApplicable,
+  "argument.catch": notApplicable,
+  "name.argument.catch": notApplicable,
+  "type.argument.catch": notApplicable,
 
   // Foreach
   "statement.foreach": notApplicable,

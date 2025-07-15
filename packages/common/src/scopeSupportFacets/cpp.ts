@@ -10,6 +10,11 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   attribute: supported,
   anonymousFunction: supported,
 
+  "statement.try": supported,
+  "statement.foreach": supported,
+  "statement.constructor": supported,
+  "statement.method": supported,
+
   "branch.try": supported,
   "branch.try.iteration": supported,
 
