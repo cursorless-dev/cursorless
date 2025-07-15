@@ -226,6 +226,7 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "value.field.class": notApplicable,
   "branch.loop": notApplicable,
   "branch.loop.iteration": notApplicable,
+  "statement.misc": notApplicable,
   environment: notApplicable,
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,

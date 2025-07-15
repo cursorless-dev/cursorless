@@ -83,9 +83,9 @@
       .
       (_) @_.trailing.startOf
     )?
-  )
+  ) @_dummyList
   (#grow-to-named-siblings! @argumentOrParameter "at")
-  (#insertion-delimiter! @argumentOrParameter ", ")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummyList ", " ",\n")
 )
 
 ;;!! translate(-50%, -50%)
