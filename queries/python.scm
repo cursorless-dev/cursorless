@@ -20,13 +20,14 @@
   (import_statement)
   (match_statement)
   (nonlocal_statement)
-  (pass_statement)
   (print_statement)
   (raise_statement)
   (return_statement)
   (try_statement)
   (while_statement)
   (with_statement)
+  ;; Disabled on purpose. We don't think this is a statement.
+  ;; (pass_statement)
   ;; Disabled on purpose. We have a better definition for these below.
   ;; (class_definition)
   ;; (function_definition)

@@ -1,26 +1,10 @@
 class Foo: pass
 ---
 
-[#1 Content] =
-[#1 Removal] =
-[#1 Domain] = 0:0-0:15
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:15
   >---------------<
 0| class Foo: pass
 
-[#1 Insertion delimiter] = "\n"
-
-
-[#2 Content] =
-[#2 Domain] = 0:11-0:15
-             >----<
-0| class Foo: pass
-
-[#2 Removal] = 0:10-0:15
-            >-----<
-0| class Foo: pass
-
-[#2 Leading delimiter] = 0:10-0:11
-            >-<
-0| class Foo: pass
-
-[#2 Insertion delimiter] = "\n"
+[Insertion delimiter] = "\n"

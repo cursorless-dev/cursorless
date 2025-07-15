@@ -193,7 +193,6 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.break": supported,
   "statement.continue": supported,
   "statement.resource": supported,
-  "statement.misc": supported,
   "statement.iteration.document": supported,
   "statement.iteration.class": supported,
   "statement.iteration.block": supported,
@@ -300,6 +299,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.static": notApplicable,
 
   // Miscellaneous
+  "statement.misc": notApplicable,
   environment: notApplicable,
   regularExpression: notApplicable,
   selector: notApplicable,

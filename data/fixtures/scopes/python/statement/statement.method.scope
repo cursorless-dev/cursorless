@@ -29,19 +29,3 @@ class Foo:
 1|     def bar(): pass
 
 [#2 Insertion delimiter] = "\n"
-
-
-[#3 Content] =
-[#3 Domain] = 1:15-1:19
-                 >----<
-1|     def bar(): pass
-
-[#3 Removal] = 1:14-1:19
-                >-----<
-1|     def bar(): pass
-
-[#3 Leading delimiter] = 1:14-1:15
-                >-<
-1|     def bar(): pass
-
-[#3 Insertion delimiter] = "\n"

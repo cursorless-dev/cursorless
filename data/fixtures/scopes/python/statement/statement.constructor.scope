@@ -29,19 +29,3 @@ class Foo:
 1|     def __init__(self): pass
 
 [#2 Insertion delimiter] = "\n"
-
-
-[#3 Content] =
-[#3 Domain] = 1:24-1:28
-                          >----<
-1|     def __init__(self): pass
-
-[#3 Removal] = 1:23-1:28
-                         >-----<
-1|     def __init__(self): pass
-
-[#3 Leading delimiter] = 1:23-1:24
-                         >-<
-1|     def __init__(self): pass
-
-[#3 Insertion delimiter] = "\n"
