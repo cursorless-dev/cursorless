@@ -103,7 +103,7 @@
   ) @branch.end @interior.domain.end
 ) @branch.iteration
 
-;;!! catch (const std::exception& e) {}
+;;!! catch (const std::exception e) {}
 (catch_clause
   body: (_
     "{" @interior.start.endOf
