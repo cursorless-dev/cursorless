@@ -159,11 +159,11 @@
 ;;!! class Foo { @bar foo() {} }
 ;;!              ^^^^^^^^^^^^^
 (
-  (decorator)? @namedFunction.start @name.domain.start
+  (decorator)? @namedFunction.start @statement.start @name.domain.start
   .
   (method_definition
     name: (_) @name
-  ) @namedFunction.end @name.domain.end
+  ) @namedFunction.end @statement.end @name.domain.end
 )
 
 (

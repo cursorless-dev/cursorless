@@ -17,13 +17,11 @@
     (do_statement)
     (empty_statement)
     (export_statement)
-    (expression_statement)
     (for_in_statement)
     (for_statement)
     (generator_function_declaration)
     (import_statement)
     (labeled_statement)
-    (lexical_declaration)
     (return_statement)
     (switch_statement)
     (throw_statement)
@@ -31,16 +29,22 @@
     (variable_declaration)
     (while_statement)
     (with_statement)
+    (class_static_block)
 
     ;; Disabled on purpose. We have a better definition of this below.
     ;; (if_statement)
     ;; This is disabled since we want the whole statement and not just the block
     ;; (statement_block)
-
-    ;; Manually added
-    (method_definition)
   ] @statement
   (#not-parent-type? @statement export_statement)
+)
+
+(
+  [
+    (expression_statement)
+    (lexical_declaration)
+  ] @statement
+  (#not-parent-type? @statement export_statement for_statement)
 )
 
 (

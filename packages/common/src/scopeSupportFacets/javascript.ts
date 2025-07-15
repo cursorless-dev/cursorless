@@ -22,9 +22,24 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   ifStatement: supported,
 
   "statement.class": supported,
+  "statement.field.class": supported,
+  "statement.function": supported,
+  "statement.constructor": supported,
+  "statement.method": supported,
+  "statement.if": supported,
+  "statement.try": supported,
+  "statement.switch": supported,
+  "statement.for": supported,
+  "statement.foreach": supported,
+  "statement.while": supported,
+  "statement.doWhile": supported,
   "statement.variable": supported,
   "statement.assignment": supported,
-  "statement.field.class": supported,
+  "statement.return": supported,
+  "statement.yield": supported,
+  "statement.break": supported,
+  "statement.continue": supported,
+  "statement.static": supported,
   "statement.iteration.document": supported,
   "statement.iteration.class": supported,
   "statement.iteration.block": supported,
@@ -188,6 +203,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Command
   command: notApplicable,
+  "statement.command": notApplicable,
   "name.command": notApplicable,
   "value.command": notApplicable,
   "interior.command": notApplicable,
@@ -197,6 +213,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.cell": notApplicable,
 
   // Resource
+  "statement.resource": notApplicable,
   "interior.resource": notApplicable,
   "name.resource.iteration": notApplicable,
   "name.resource": notApplicable,
@@ -212,6 +229,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "value.argument.actual": notApplicable,
 
   // Namespace
+  "statement.namespace": notApplicable,
   "name.namespace": notApplicable,
   "interior.namespace": notApplicable,
 
@@ -220,6 +238,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.loop.iteration": notApplicable,
 
   // Miscellaneous
+  "statement.misc": notApplicable,
   environment: notApplicable,
   selector: notApplicable,
   unit: notApplicable,

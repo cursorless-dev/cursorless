@@ -1,0 +1,10 @@
+export default () => {};
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:24
+  >------------------------<
+0| export default () => {};
+
+[Insertion delimiter] = "\n"
