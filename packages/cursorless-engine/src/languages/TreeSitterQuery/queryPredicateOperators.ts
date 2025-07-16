@@ -291,7 +291,6 @@ class CallChain extends QueryPredicateOperator<CallChain> {
     }
 
     let start = children[nodeIndex];
-    let end = start;
 
     for (let i = nodeIndex; i > -1; --i) {
       const child = children[i];
@@ -307,10 +306,10 @@ class CallChain extends QueryPredicateOperator<CallChain> {
       }
     }
 
-    if (start.id !== end.id) {
+    if (start.id !== node.id) {
       nodeInfo.range = makeRangeFromPositions(
         start.startPosition,
-        end.endPosition,
+        children[nodeIndex].endPosition,
       );
     }
 
