@@ -149,8 +149,8 @@
 ;;!! list(1, 2, 3)
 ;;!  ^^^^^^^^^^^^^
 (call
-  function: (identifier) @name
-  (#match? @name "^(c|list)$")
+  function: (identifier) @_dummy
+  (#match? @_dummy "^(c|list)$")
 ) @list
 
 (binary_operator
