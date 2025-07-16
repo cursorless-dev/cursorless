@@ -1,11 +1,11 @@
-import type { Position } from "@cursorless/common";
-import { Range, adjustPosition } from "@cursorless/common";
+import { Position, Range, adjustPosition } from "@cursorless/common";
+import type { Point } from "web-tree-sitter";
 import { z } from "zod";
+import { isEven } from "./isEven";
 import { makeRangeFromPositions } from "./makeRangeFromPositions";
+import { q } from "./operatorArgumentSchemaTypes";
 import type { MutableQueryCapture } from "./QueryCapture";
 import { QueryPredicateOperator } from "./QueryPredicateOperator";
-import { isEven } from "./isEven";
-import { q } from "./operatorArgumentSchemaTypes";
 
 /**
  * A predicate operator that returns true if the node is at an even index within
@@ -226,7 +226,7 @@ class GrowToNamedSiblings extends QueryPredicateOperator<GrowToNamedSiblings> {
   schema = z.union([z.tuple([q.node]), z.tuple([q.node, q.string])]);
 
   run(nodeInfo: MutableQueryCapture, notText?: string) {
-    const { node, range, document } = nodeInfo;
+    const { node, range } = nodeInfo;
 
     if (node.parent == null) {
       throw Error("Node has no parent");
@@ -234,7 +234,7 @@ class GrowToNamedSiblings extends QueryPredicateOperator<GrowToNamedSiblings> {
 
     const { children } = node.parent;
     const nodeIndex = children.findIndex((n) => n.id === node.id);
-    let endPosition: Position | null = null;
+    let endPosition: Point | undefined;
 
     if (nodeIndex === -1) {
       throw Error("Node not found in parent");
@@ -245,20 +245,19 @@ class GrowToNamedSiblings extends QueryPredicateOperator<GrowToNamedSiblings> {
       if (!child.isNamed) {
         break;
       }
-      const childRange = makeRangeFromPositions(
-        child.startPosition,
-        child.endPosition,
-      );
 
-      if (notText != null && notText === document.getText(childRange)) {
+      if (notText != null && notText === child.text) {
         break;
       }
 
-      endPosition = childRange.end;
+      endPosition = child.endPosition;
     }
 
     if (endPosition != null) {
-      nodeInfo.range = new Range(range.start, endPosition);
+      nodeInfo.range = new Range(
+        range.start,
+        new Position(endPosition.row, endPosition.column),
+      );
     }
 
     return true;
@@ -278,7 +277,7 @@ class CallChain extends QueryPredicateOperator<CallChain> {
   schema = z.union([z.tuple([q.node]), z.tuple([q.node, q.string])]);
 
   run(nodeInfo: MutableQueryCapture, leadingSeparator: string) {
-    const { node, range, document } = nodeInfo;
+    const { node, range } = nodeInfo;
 
     if (node.parent == null) {
       throw Error("Node has no parent");
@@ -303,14 +302,7 @@ class CallChain extends QueryPredicateOperator<CallChain> {
 
       start = child;
 
-      const childRange = makeRangeFromPositions(
-        child.startPosition,
-        child.endPosition,
-      );
-
-      const childText = document.getText(childRange);
-
-      if (!childText.startsWith(leadingSeparator)) {
+      if (!child.text.startsWith(leadingSeparator)) {
         break;
       }
     }
