@@ -146,6 +146,10 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.actual.multiLine": notApplicable,
   "argumentList.actual.multiLine": notApplicable,
 
+  // Function call chain
+  "functionCall.chain": notApplicable,
+  "functionCallee.chain": notApplicable,
+
   // Anonymous function / lambda
   anonymousFunction: notApplicable,
   "argumentList.formal.lambda.empty": notApplicable,

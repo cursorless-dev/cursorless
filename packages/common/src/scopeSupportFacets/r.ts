@@ -27,8 +27,10 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
 
   functionCall: supported,
   "functionCall.method": supported,
+  "functionCall.chain": supported,
   functionCallee: supported,
   "functionCallee.method": supported,
+  "functionCallee.chain": supported,
 
   "comment.line": supported,
   ifStatement: supported,
