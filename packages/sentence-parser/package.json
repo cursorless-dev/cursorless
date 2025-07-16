@@ -22,7 +22,7 @@
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "devDependencies": {
-    "@types/mocha": "10.0.10",
-    "mocha": "11.7.1"
+    "@types/mocha": "^10.0.10",
+    "mocha": "^11.7.1"
   }
 }
