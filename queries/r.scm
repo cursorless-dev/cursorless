@@ -134,22 +134,23 @@
 ;; Function calls
 ;;!! foo()
 ;;!  ^^^^^
-;;!  -----
-(call) @functionCall @argumentOrParameter.iteration.domain
-
-;;!! foo()
 ;;!  ^^^
 ;;!  -----
-(call
-  (identifier) @functionCallee
-) @_.domain
+(
+  (call
+    (identifier) @functionCallee.end
+  ) @functionCall @functionCallee.start.startOf @functionCallee.domain
+  (#call-chain! @functionCall ".")
+  (#call-chain! @functionCallee.start.startOf ".")
+  (#call-chain! @functionCallee.domain ".")
+)
 
 ;; Technically lists and arrays are just calls to the function `list` or `c`
 ;;!! list(1, 2, 3)
 ;;!  ^^^^^^^^^^^^^
 (call
-  function: (identifier) @name
-  (#match? @name "^(c|list)$")
+  function: (identifier) @_dummy
+  (#match? @_dummy "^(c|list)$")
 ) @list
 
 (binary_operator

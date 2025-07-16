@@ -72,9 +72,11 @@ export const scopeSupportFacets = [
   "functionCall",
   "functionCall.constructor",
   "functionCall.method",
+  "functionCall.chain",
   "functionCallee",
   "functionCallee.constructor",
   "functionCallee.method",
+  "functionCallee.chain",
 
   "argument.actual.singleLine",
   "argument.actual.multiLine",

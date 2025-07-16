@@ -155,6 +155,10 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   "value.return.lambda": notApplicable,
   "interior.lambda": notApplicable,
 
+  // Function call chain
+  "functionCall.chain": notApplicable,
+  "functionCallee.chain": notApplicable,
+
   // Keyword argument
   "name.argument.actual": notApplicable,
   "name.argument.actual.iteration": notApplicable,

@@ -135,6 +135,8 @@ export const htmlScopeSupport: LanguageScopeSupportFacetMap = {
   // Function call
   functionCall: notApplicable,
   functionCallee: notApplicable,
+  "functionCall.chain": notApplicable,
+  "functionCallee.chain": notApplicable,
   "argumentList.actual.empty": notApplicable,
   "argumentList.actual.singleLine": notApplicable,
   "argumentList.actual.multiLine": notApplicable,

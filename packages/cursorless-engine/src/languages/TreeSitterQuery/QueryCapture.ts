@@ -21,6 +21,7 @@ export interface SimpleSyntaxNode {
 interface SimpleChildSyntaxNode extends SimpleSyntaxNode {
   readonly startPosition: Point;
   readonly endPosition: Point;
+  readonly text: string;
 }
 
 /**

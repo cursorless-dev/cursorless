@@ -225,6 +225,10 @@ export const scopeSupportFacetInfos: Record<
     description: "A method call",
     scopeType: "functionCall",
   },
+  "functionCall.chain": {
+    description: "A chain of function calls, eg `foo().bar()`",
+    scopeType: "functionCall",
+  },
   functionCallee: {
     description: "The function being called in a function call",
     scopeType: "functionCallee",
@@ -237,6 +241,11 @@ export const scopeSupportFacetInfos: Record<
   "functionCallee.method": {
     description:
       "The function being called in a method call, including parent objects.",
+    scopeType: "functionCallee",
+  },
+  "functionCallee.chain": {
+    description:
+      "The function being called in a chain of function calls, including parent objects.",
     scopeType: "functionCallee",
   },
 

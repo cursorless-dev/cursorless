@@ -39,8 +39,10 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
 
   functionCall: supported,
   "functionCall.method": supported,
+  "functionCall.chain": supported,
   functionCallee: supported,
   "functionCallee.method": supported,
+  "functionCallee.chain": supported,
 
   "argument.actual.singleLine": supported,
   "argument.actual.multiLine": supported,

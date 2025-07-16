@@ -1,13 +1,13 @@
-foo();
+Foo();
 ---
 
 [Content] =
 [Removal] = 0:0-0:3
   >---<
-0| foo();
+0| Foo();
 
 [Domain] = 0:0-0:5
   >-----<
-0| foo();
+0| Foo();
 
 [Insertion delimiter] = " "

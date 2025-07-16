@@ -20,9 +20,11 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   functionCall: supported,
   "functionCall.constructor": supported,
   "functionCall.method": supported,
+  "functionCall.chain": supported,
   functionCallee: supported,
   "functionCallee.constructor": supported,
   "functionCallee.method": supported,
+  "functionCallee.chain": supported,
 
   namedFunction: supported,
   "namedFunction.iteration.document": supported,

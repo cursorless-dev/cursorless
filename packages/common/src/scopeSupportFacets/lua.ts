@@ -15,8 +15,10 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
 
   functionCall: supported,
   "functionCall.method": supported,
+  "functionCall.chain": supported,
   functionCallee: supported,
   "functionCallee.method": supported,
+  "functionCallee.chain": supported,
 
   "key.attribute": notApplicable,
 
