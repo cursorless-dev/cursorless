@@ -277,7 +277,7 @@ class CallChain extends QueryPredicateOperator<CallChain> {
   schema = z.union([z.tuple([q.node]), z.tuple([q.node, q.string])]);
 
   run(nodeInfo: MutableQueryCapture, leadingSeparator: string) {
-    const { node, range } = nodeInfo;
+    const { node } = nodeInfo;
 
     if (node.parent == null) {
       throw Error("Node has no parent");
