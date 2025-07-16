@@ -143,12 +143,14 @@
 ### functionCall
 
 - `functionCall` A function call
+- `functionCall.chain` A chain of function calls, eg `foo().bar()`
 - `functionCall.constructor` A constructor call
 - `functionCall.method` A method call
 
 ### functionCallee
 
 - `functionCallee` The function being called in a function call
+- `functionCallee.chain` The function being called in a chain of function calls, including parent objects.
 - `functionCallee.constructor` The class being constructed in a class instantiation, including the `new` keyword.
 - `functionCallee.method` The function being called in a method call, including parent objects.
 
