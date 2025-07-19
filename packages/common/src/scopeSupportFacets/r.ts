@@ -27,10 +27,8 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
 
   functionCall: supported,
   "functionCall.method": supported,
-  "functionCall.chain": supported,
   functionCallee: supported,
   "functionCallee.method": supported,
-  "functionCallee.chain": supported,
 
   "comment.line": supported,
   ifStatement: supported,
@@ -80,6 +78,10 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   regularExpression: unsupported,
 
   // Not applicable
+
+  // Chained function calls
+  "functionCall.chain": notApplicable,
+  "functionCallee.chain": notApplicable,
 
   "interior.cell": notApplicable,
   "interior.command": notApplicable,
