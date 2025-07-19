@@ -17,15 +17,6 @@
 ;;!  ^^^^^^^^^^^^^^
 (if_statement) @ifStatement
 
-;; ;;!! if (TRUE) { print("hello") } else { print("world") }
-;; ;;!      ^^^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-;; (if_statement
-;;   "if" @branch.start
-;;   (_) @condition
-;;   consequence: (braced_expression) @branch.end
-;;   alternative: (braced_expression)? @branch.end
-;; ) @branch.iteration
-
 ;; named function
 ;;!! abc <- function(x){ }
 ;;!  ^^^^^^^^^^^^^^^^^^^^^
@@ -136,14 +127,10 @@
 ;;!  ^^^^^
 ;;!  ^^^
 ;;!  -----
-(
-  (call
-    (identifier) @functionCallee.end
-  ) @functionCall @functionCallee.start.startOf @functionCallee.domain
-  (#call-chain! @functionCall ".")
-  (#call-chain! @functionCallee.start.startOf ".")
-  (#call-chain! @functionCallee.domain ".")
-)
+
+(call
+  (identifier) @functionCallee
+) @functionCall @functionCallee.domain
 
 ;; Technically lists and arrays are just calls to the function `list` or `c`
 ;;!! list(1, 2, 3)

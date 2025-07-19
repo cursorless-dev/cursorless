@@ -263,59 +263,6 @@ class GrowToNamedSiblings extends QueryPredicateOperator<GrowToNamedSiblings> {
     return true;
   }
 }
-/**
- * A predicate operator that modifies the range of the match to grow to leading siblings of the same type.
- *
- * The `leadingSeparator` argument specificies the separator each node except the first sibling will be separated by.
- *
- * ```
- * (#call-chain! @foo ".")
- * ```
- */
-class CallChain extends QueryPredicateOperator<CallChain> {
-  name = "call-chain!" as const;
-  schema = z.union([z.tuple([q.node]), z.tuple([q.node, q.string])]);
-
-  run(nodeInfo: MutableQueryCapture, leadingSeparator: string) {
-    const { node } = nodeInfo;
-
-    if (node.parent == null) {
-      throw Error("Node has no parent");
-    }
-
-    const { children } = node.parent;
-    const nodeIndex = children.findIndex((n) => n.id === node.id);
-
-    if (nodeIndex === -1) {
-      throw Error("Node not found in parent");
-    }
-
-    let start = children[nodeIndex];
-
-    for (let i = nodeIndex; i > -1; --i) {
-      const child = children[i];
-
-      if (child.type !== node.type) {
-        break;
-      }
-
-      start = child;
-
-      if (!child.text.startsWith(leadingSeparator)) {
-        break;
-      }
-    }
-
-    if (start.id !== node.id) {
-      nodeInfo.range = makeRangeFromPositions(
-        start.startPosition,
-        children[nodeIndex].endPosition,
-      );
-    }
-
-    return true;
-  }
-}
 
 /**
  * A predicate operator that modifies the range of the match by trimming trailing whitespace,
@@ -494,7 +441,6 @@ export const queryPredicateOperators = [
   new CharacterRange(),
   new ShrinkToMatch(),
   new GrowToNamedSiblings(),
-  new CallChain(),
   new AllowMultiple(),
   new InsertionDelimiter(),
   new SingleOrMultilineDelimiter(),
