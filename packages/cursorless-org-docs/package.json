@@ -45,7 +45,7 @@
     "clean": "pnpm clear && rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
-    "@algolia/client-search": "^5.33.0",
+    "@algolia/client-search": "^5.34.0",
     "@cursorless/common": "workspace:*",
     "@docsearch/react": "^3.9.0",
     "@docusaurus/core": "^3.8.1",
@@ -59,7 +59,7 @@
     "prism-react-renderer": "^2.4.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "shiki": "^3.8.0",
+    "shiki": "^3.8.1",
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
