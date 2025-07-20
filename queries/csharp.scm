@@ -576,6 +576,31 @@
   ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
 )
 
+;;!! int foo, bar;
+;;!      ^^^  ^^^
+(
+  (variable_declaration
+    type: (_)
+    (variable_declarator)? @_.leading.endOf
+    .
+    (variable_declarator) @collectionItem
+    .
+    (variable_declarator)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @collectionItem @_dummy ", " ",\n")
+)
+
+;;!! int foo, bar;
+;;!      ^^^^^^^^
+;;!  -------------
+(_
+  (variable_declaration
+    type: (_)
+    .
+    (_) @collectionItem.iteration.start.startOf
+  ) @collectionItem.iteration.end.endOf
+) @collectionItem.iteration.domain
+
 ;;!! catch(Exception ex) {}
 ;;!        ^^^^^^^^^^^^
 ;;!        ^^^^^^^^^

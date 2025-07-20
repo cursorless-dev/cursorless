@@ -1,0 +1,111 @@
+class Foo {
+    void bar() {
+        int aaa,
+            bbb;
+    }
+}
+---
+
+[#1 Content] =
+[#1 Domain] = 1:4-4:5
+      >------------
+1|     void bar() {
+2|         int aaa,
+3|             bbb;
+4|     }
+   -----<
+
+[#1 Removal] = 1:0-5:0
+  >----------------
+1|     void bar() {
+2|         int aaa,
+3|             bbb;
+4|     }
+5| }
+   <
+
+[#1 Leading delimiter] = 1:0-1:4
+  >----<
+1|     void bar() {
+
+[#1 Insertion delimiter] = ",\n"
+
+
+[#2 Content] =
+[#2 Domain] = 2:8-2:15
+          >-------<
+2|         int aaa,
+
+[#2 Removal] = 2:8-3:12
+          >--------
+2|         int aaa,
+3|             bbb;
+   ------------<
+
+[#2 Trailing delimiter] = 2:15-3:12
+                 >-
+2|         int aaa,
+3|             bbb;
+   ------------<
+
+[#2 Insertion delimiter] = ",\n"
+
+
+[#3 Content] =
+[#3 Domain] = 2:12-2:15
+              >---<
+2|         int aaa,
+
+[#3 Removal] = 2:12-3:12
+              >----
+2|         int aaa,
+3|             bbb;
+   ------------<
+
+[#3 Trailing delimiter] = 2:15-3:12
+                 >-
+2|         int aaa,
+3|             bbb;
+   ------------<
+
+[#3 Insertion delimiter] = ",\n"
+
+
+[#4 Content] =
+[#4 Domain] = 3:12-3:15
+              >---<
+3|             bbb;
+
+[#4 Removal] = 2:15-3:15
+                 >-
+2|         int aaa,
+3|             bbb;
+   ---------------<
+
+[#4 Leading delimiter] = 2:15-3:12
+                 >-
+2|         int aaa,
+3|             bbb;
+   ------------<
+
+[#4 Insertion delimiter] = ",\n"
+
+
+[#5 Content] =
+[#5 Domain] = 3:12-3:16
+              >----<
+3|             bbb;
+
+[#5 Removal] = 2:15-3:16
+                 >-
+2|         int aaa,
+3|             bbb;
+   ----------------<
+
+[#5 Leading delimiter] = 2:15-3:12
+                 >-
+2|         int aaa,
+3|             bbb;
+   ------------<
+
+[#5 Insertion delimiter] = ",\n"

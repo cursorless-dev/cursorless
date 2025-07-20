@@ -11,7 +11,8 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   disqualifyDelimiter: supported,
   pairDelimiter: supported,
 
-  "collectionItem.unenclosed": supported,
+  "collectionItem.unenclosed.singleLine": supported,
+  "collectionItem.unenclosed.multiLine": supported,
   "collectionItem.unenclosed.iteration": supported,
 
   "textFragment.string.singleLine": supported,

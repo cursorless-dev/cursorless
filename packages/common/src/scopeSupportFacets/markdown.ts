@@ -14,12 +14,15 @@ export const markdownScopeSupport: LanguageScopeSupportFacetMap = {
   notebookCell: supported,
   "interior.cell": supported,
 
-  "collectionItem.unenclosed": supported,
+  "collectionItem.unenclosed.multiLine": supported,
   "collectionItem.unenclosed.iteration": supported,
 
   list: supported,
 
   /* NOT APPLICABLE */
+
+  // Single line unenclosed item
+  "collectionItem.unenclosed.singleLine": notApplicable,
 
   // Variable
   "statement.variable": notApplicable,

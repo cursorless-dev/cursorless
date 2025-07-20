@@ -47,7 +47,8 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.formal.constructor.singleLine": supported,
   "argumentList.formal.constructor.multiLine": supported,
 
-  "collectionItem.unenclosed": supported,
+  "collectionItem.unenclosed.singleLine": supported,
+  "collectionItem.unenclosed.multiLine": supported,
   "collectionItem.unenclosed.iteration": supported,
 
   "branch.if": supported,

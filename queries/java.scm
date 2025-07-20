@@ -472,8 +472,8 @@
     (variable_declarator) @collectionItem
     .
     (variable_declarator)? @_.trailing.startOf
-  )
-  (#insertion-delimiter! @collectionItem ", ")
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @collectionItem @_dummy ", " ",\n")
 )
 
 (
@@ -484,8 +484,8 @@
     (variable_declarator) @collectionItem
     .
     (variable_declarator)? @_.trailing.startOf
-  )
-  (#insertion-delimiter! @collectionItem ", ")
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @collectionItem @_dummy ", " ",\n")
 )
 
 ;;!! int foo, bar;
@@ -504,6 +504,27 @@
   (_) @collectionItem.iteration.start.startOf
   ";"? @collectionItem.iteration.end.startOf
 ) @collectionItem.iteration.domain
+
+;;!! throws Exception, IOException
+;;!         ^^^^^^^^^  ^^^^^^^^^^^
+(
+  (throws
+    (_)? @_.leading.endOf
+    .
+    (_) @collectionItem
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @collectionItem @_dummy ", " ",\n")
+)
+
+(
+  (throws
+    .
+    (_) @collectionItem.iteration.start.startOf
+  ) @collectionItem.iteration.end.endOf
+)
+ @collectionItem.iteration.domain
 
 ;;!! value = 1;
 ;;!          ^
@@ -547,13 +568,15 @@
 
 ;;!! Map<int, int> foo;
 ;;!      ^^^  ^^^
-(type_arguments
-  (_)? @_.leading.endOf
-  .
-  (_) @type
-  .
-  (_)? @_.trailing.startOf
-  (#insertion-delimiter! @type ", ")
+(
+  (type_arguments
+    (_)? @_.leading.endOf
+    .
+    (_) @type
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @type @_dummy ", " ",\n")
 )
 
 ;;!! Map<int, int> foo;

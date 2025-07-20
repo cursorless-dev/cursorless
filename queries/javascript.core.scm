@@ -340,8 +340,8 @@
     (variable_declarator) @collectionItem
     .
     (variable_declarator)? @_.trailing.startOf
-  )
-  (#insertion-delimiter! @collectionItem ", ")
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @collectionItem @_dummy ", " ",\n")
 )
 
 (lexical_declaration

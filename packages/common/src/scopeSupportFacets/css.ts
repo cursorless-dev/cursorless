@@ -32,7 +32,7 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   "value.mapPair": supported,
   "value.mapPair.iteration": supported,
 
-  "collectionItem.unenclosed": supported,
+  "collectionItem.unenclosed.multiLine": supported,
   "collectionItem.unenclosed.iteration": supported,
 
   "statement.misc": supported,
@@ -42,6 +42,9 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   unit: supported,
 
   /* NOT APPLICABLE */
+
+  // Multiline unenclosed item
+  "collectionItem.unenclosed.singleLine": notApplicable,
 
   // Variable
   "statement.variable": notApplicable,

@@ -121,7 +121,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.formal.constructor.singleLine": supported,
   "argumentList.formal.constructor.multiLine": supported,
 
-  "collectionItem.unenclosed": supported,
+  "collectionItem.unenclosed.singleLine": supported,
   "collectionItem.unenclosed.iteration": supported,
 
   "branch.if": supported,
@@ -211,6 +211,9 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   fieldAccess: supported,
 
   /* NOT APPLICABLE */
+
+  // Multiline unenclosed item
+  "collectionItem.unenclosed.multiLine": notApplicable,
 
   // Element and tags
   element: notApplicable,
