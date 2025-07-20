@@ -94,8 +94,9 @@
 
 - `collectionItem.textual` A text based collection item
 - `collectionItem.textual.iteration` Iteration scope for text based collection items
-- `collectionItem.unenclosed` An item in a comma-separated list without enclosing delimiters. This could be multi-variable declarations, import statements, etc.
 - `collectionItem.unenclosed.iteration` Iteration scope for items in a comma-separated list without enclosing delimiters
+- `collectionItem.unenclosed.multiLine` An item in a comma-separated multi line list without enclosing delimiters. This could be multi-variable declarations, import statements, etc. Insertion delimiter should include new line.
+- `collectionItem.unenclosed.singleLine` An item in a comma-separated single line list without enclosing delimiters. This could be multi-variable declarations, import statements, etc.
 
 ### command
 
