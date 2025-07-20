@@ -44,7 +44,7 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   /* NOT APPLICABLE */
 
   // Multiline unenclosed item
-  "collectionItem.unenclosed.singleLine": supported,
+  "collectionItem.unenclosed.singleLine": notApplicable,
 
   // Variable
   "statement.variable": notApplicable,
