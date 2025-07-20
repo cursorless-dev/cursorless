@@ -451,9 +451,16 @@
 
 ;;!! int foo, bar;
 ;;!      ^^^  ^^^
-(declaration
-  type: (_)
-  (_) @collectionItem
+(
+  (declaration
+    type: (_)
+    (_)? @_.leading.endOf
+    .
+    (_) @collectionItem
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @collectionItem @_dummy ", " ",\n")
 )
 
 (declaration

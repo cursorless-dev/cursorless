@@ -153,7 +153,8 @@ export const scopeSupportFacets = [
   "branch.loop",
   "branch.loop.iteration",
 
-  "collectionItem.unenclosed",
+  "collectionItem.unenclosed.singleLine",
+  "collectionItem.unenclosed.multiLine",
   "collectionItem.unenclosed.iteration",
 
   "condition.if",

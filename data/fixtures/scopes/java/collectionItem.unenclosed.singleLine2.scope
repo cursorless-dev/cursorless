@@ -1,5 +1,5 @@
-public class Foo {
-    public void bar() {
+class Foo {
+    void bar() {
         int aaa, bbb;
     }
 }
@@ -7,15 +7,15 @@ public class Foo {
 
 [#1 Content] =
 [#1 Domain] = 1:4-3:5
-      >-------------------
-1|     public void bar() {
+      >------------
+1|     void bar() {
 2|         int aaa, bbb;
 3|     }
    -----<
 
 [#1 Removal] = 1:0-4:0
-  >-----------------------
-1|     public void bar() {
+  >----------------
+1|     void bar() {
 2|         int aaa, bbb;
 3|     }
 4| }
@@ -23,7 +23,7 @@ public class Foo {
 
 [#1 Leading delimiter] = 1:0-1:4
   >----<
-1|     public void bar() {
+1|     void bar() {
 
 [#1 Insertion delimiter] = ",\n"
 

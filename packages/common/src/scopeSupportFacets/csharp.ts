@@ -223,6 +223,10 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.ternary": supported,
   "interior.try": supported,
 
+  "collectionItem.unenclosed.singleLine": supported,
+  "collectionItem.unenclosed.multiLine": supported,
+  "collectionItem.unenclosed.iteration": supported,
+
   /* UNSUPPORTED  */
 
   fieldAccess: unsupported,
@@ -279,10 +283,6 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   // Notebook cell
   notebookCell: notApplicable,
   "interior.cell": notApplicable,
-
-  // Collection item
-  "collectionItem.unenclosed.iteration": notApplicable,
-  "collectionItem.unenclosed": notApplicable,
 
   // Namespace
   "statement.namespace": notApplicable,

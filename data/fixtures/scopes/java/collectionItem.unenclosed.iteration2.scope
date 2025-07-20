@@ -1,21 +1,21 @@
-public class Foo {
-    public void bar() {
+class Foo {
+    void bar() {
         int aaa, bbb;
     }
 }
 ---
 
 [#1 Content] = 1:4-3:5
-      >-------------------
-1|     public void bar() {
+      >------------
+1|     void bar() {
 2|         int aaa, bbb;
 3|     }
    -----<
 
-[#1 Domain] = 0:18-4:0
-                    >
-0| public class Foo {
-1|     public void bar() {
+[#1 Domain] = 0:11-4:0
+             >
+0| class Foo {
+1|     void bar() {
 2|         int aaa, bbb;
 3|     }
 4| }
@@ -26,9 +26,9 @@ public class Foo {
           >-------------<
 2|         int aaa, bbb;
 
-[#2 Domain] = 1:23-3:4
-                         >
-1|     public void bar() {
+[#2 Domain] = 1:16-3:4
+                  >
+1|     void bar() {
 2|         int aaa, bbb;
 3|     }
    ----<

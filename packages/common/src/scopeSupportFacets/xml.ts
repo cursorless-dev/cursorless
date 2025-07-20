@@ -267,7 +267,8 @@ export const xmlScopeSupport: LanguageScopeSupportFacetMap = {
   "textFragment.comment.line": notApplicable,
 
   // Collection item
-  "collectionItem.unenclosed": notApplicable,
+  "collectionItem.unenclosed.singleLine": notApplicable,
+  "collectionItem.unenclosed.multiLine": notApplicable,
   "collectionItem.unenclosed.iteration": notApplicable,
 
   // Static

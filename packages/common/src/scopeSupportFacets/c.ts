@@ -31,7 +31,8 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   class: supported,
   "class.iteration.document": supported,
 
-  "collectionItem.unenclosed": supported,
+  "collectionItem.unenclosed.singleLine": supported,
+  "collectionItem.unenclosed.multiLine": supported,
   "collectionItem.unenclosed.iteration": supported,
 
   namedFunction: supported,

@@ -561,9 +561,14 @@ export const scopeSupportFacetInfos: Record<
     "ternary expression branches",
     "the ternary expression",
   ),
-  "collectionItem.unenclosed": {
+  "collectionItem.unenclosed.singleLine": {
     description:
-      "An item in a comma-separated list without enclosing delimiters. This could be multi-variable declarations, import statements, etc.",
+      "An item in a comma-separated single line list without enclosing delimiters. This could be multi-variable declarations, import statements, etc.",
+    scopeType: "collectionItem",
+  },
+  "collectionItem.unenclosed.multiLine": {
+    description:
+      "An item in a comma-separated multi line list without enclosing delimiters. This could be multi-variable declarations, import statements, etc. Insertion delimiter should include new line.",
     scopeType: "collectionItem",
   },
   "collectionItem.unenclosed.iteration": iteration(

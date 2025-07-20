@@ -9,7 +9,7 @@ export const yamlScopeSupport: LanguageScopeSupportFacetMap = {
   list: supported,
   map: supported,
 
-  "collectionItem.unenclosed": supported,
+  "collectionItem.unenclosed.multiLine": supported,
   "collectionItem.unenclosed.iteration": supported,
 
   "key.mapPair": supported,
@@ -28,6 +28,9 @@ export const yamlScopeSupport: LanguageScopeSupportFacetMap = {
   "textFragment.comment.line": supported,
 
   /* NOT APPLICABLE */
+
+  // Single line unenclosed item
+  "collectionItem.unenclosed.singleLine": notApplicable,
 
   // Variable
   "statement.variable": notApplicable,
