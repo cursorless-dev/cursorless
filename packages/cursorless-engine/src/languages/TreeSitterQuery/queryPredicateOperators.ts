@@ -1,11 +1,13 @@
 import { Position, Range, adjustPosition } from "@cursorless/common";
 import type { Point } from "web-tree-sitter";
 import { z } from "zod";
+import { getNode } from "./getNode";
 import { isEven } from "./isEven";
 import { makeRangeFromPositions } from "./makeRangeFromPositions";
 import { q } from "./operatorArgumentSchemaTypes";
 import type { MutableQueryCapture } from "./QueryCapture";
 import { QueryPredicateOperator } from "./QueryPredicateOperator";
+import { setRange } from "./setRange";
 
 /**
  * A predicate operator that returns true if the node is at an even index within
@@ -15,8 +17,8 @@ import { QueryPredicateOperator } from "./QueryPredicateOperator";
 class Even extends QueryPredicateOperator<Even> {
   name = "even?" as const;
   schema = z.tuple([q.node, q.string]);
-  run({ node }: MutableQueryCapture, fieldName: string) {
-    return isEven(node, fieldName);
+  run(capture: MutableQueryCapture, fieldName: string) {
+    return isEven(getNode(capture), fieldName);
   }
 }
 
@@ -28,8 +30,8 @@ class Even extends QueryPredicateOperator<Even> {
 class Odd extends QueryPredicateOperator<Odd> {
   name = "odd?" as const;
   schema = z.tuple([q.node, q.string]);
-  run({ node }: MutableQueryCapture, fieldName: string) {
-    return !isEven(node, fieldName);
+  run(capture: MutableQueryCapture, fieldName: string) {
+    return !isEven(getNode(capture), fieldName);
   }
 }
 
@@ -42,8 +44,8 @@ class Odd extends QueryPredicateOperator<Odd> {
 class Text extends QueryPredicateOperator<Text> {
   name = "text?" as const;
   schema = z.tuple([q.node, q.string]).rest(q.string);
-  run({ document, range }: MutableQueryCapture, ...texts: string[]) {
-    return texts.includes(document.getText(range));
+  run(capture: MutableQueryCapture, ...texts: string[]) {
+    return texts.includes(getNode(capture).text);
   }
 }
 
@@ -56,8 +58,8 @@ class Text extends QueryPredicateOperator<Text> {
 class Type extends QueryPredicateOperator<Type> {
   name = "type?" as const;
   schema = z.tuple([q.node, q.string]).rest(q.string);
-  run({ node }: MutableQueryCapture, ...types: string[]) {
-    return types.includes(node.type);
+  run(capture: MutableQueryCapture, ...types: string[]) {
+    return types.includes(getNode(capture).type);
   }
 }
 
@@ -70,8 +72,8 @@ class Type extends QueryPredicateOperator<Type> {
 class NotType extends QueryPredicateOperator<NotType> {
   name = "not-type?" as const;
   schema = z.tuple([q.node, q.string]).rest(q.string);
-  run({ node }: MutableQueryCapture, ...types: string[]) {
-    return !types.includes(node.type);
+  run(capture: MutableQueryCapture, ...types: string[]) {
+    return !types.includes(getNode(capture).type);
   }
 }
 
@@ -84,21 +86,9 @@ class NotType extends QueryPredicateOperator<NotType> {
 class NotParentType extends QueryPredicateOperator<NotParentType> {
   name = "not-parent-type?" as const;
   schema = z.tuple([q.node, q.string]).rest(q.string);
-  run({ node }: MutableQueryCapture, ...types: string[]) {
+  run(capture: MutableQueryCapture, ...types: string[]) {
+    const node = getNode(capture);
     return node.parent == null || !types.includes(node.parent.type);
-  }
-}
-
-/**
- * A predicate operator that returns true if the node is the nth child of its
- * parent.  For example, `(#is-nth-child? @foo 0)` will reject the match if the
- * `@foo` capture is not the first child of its parent.
- */
-class IsNthChild extends QueryPredicateOperator<IsNthChild> {
-  name = "is-nth-child?" as const;
-  schema = z.tuple([q.node, q.integer]);
-  run({ node }: MutableQueryCapture, n: number) {
-    return node.parent?.children.findIndex((n) => n.id === node.id) === n;
   }
 }
 
@@ -112,8 +102,10 @@ class HasMultipleChildrenOfType extends QueryPredicateOperator<HasMultipleChildr
   name = "has-multiple-children-of-type?" as const;
   schema = z.tuple([q.node, q.string]);
 
-  run({ node }: MutableQueryCapture, type: string) {
-    const count = node.children.filter((n) => n.type === type).length;
+  run(capture: MutableQueryCapture, type: string) {
+    const count = getNode(capture).children.filter(
+      (n) => n.type === type,
+    ).length;
     return count > 1;
   }
 }
@@ -128,15 +120,13 @@ class ChildRange extends QueryPredicateOperator<ChildRange> {
   ]);
 
   run(
-    nodeInfo: MutableQueryCapture,
+    capture: MutableQueryCapture,
     startIndex: number,
     endIndex?: number,
     excludeStart?: boolean,
     excludeEnd?: boolean,
   ) {
-    const {
-      node: { children },
-    } = nodeInfo;
+    const children = getNode(capture).children;
 
     startIndex = startIndex < 0 ? children.length + startIndex : startIndex;
     endIndex = endIndex == null ? -1 : endIndex;
@@ -145,9 +135,12 @@ class ChildRange extends QueryPredicateOperator<ChildRange> {
     const start = children[startIndex];
     const end = children[endIndex];
 
-    nodeInfo.range = makeRangeFromPositions(
-      excludeStart ? start.endPosition : start.startPosition,
-      excludeEnd ? end.startPosition : end.endPosition,
+    setRange(
+      capture,
+      makeRangeFromPositions(
+        excludeStart ? start.endPosition : start.startPosition,
+        excludeEnd ? end.startPosition : end.endPosition,
+      ),
     );
 
     return true;
@@ -161,10 +154,13 @@ class CharacterRange extends QueryPredicateOperator<CharacterRange> {
     z.tuple([q.node, q.integer, q.integer]),
   ]);
 
-  run(nodeInfo: MutableQueryCapture, startOffset: number, endOffset?: number) {
-    nodeInfo.range = new Range(
-      nodeInfo.range.start.translate(undefined, startOffset),
-      nodeInfo.range.end.translate(undefined, endOffset ?? 0),
+  run(capture: MutableQueryCapture, startOffset: number, endOffset?: number) {
+    setRange(
+      capture,
+      new Range(
+        capture.range.start.translate(undefined, startOffset),
+        capture.range.end.translate(undefined, endOffset ?? 0),
+      ),
     );
 
     return true;
@@ -189,9 +185,9 @@ class ShrinkToMatch extends QueryPredicateOperator<ShrinkToMatch> {
   name = "shrink-to-match!" as const;
   schema = z.tuple([q.node, q.string]);
 
-  run(nodeInfo: MutableQueryCapture, pattern: string) {
-    const { document, range } = nodeInfo;
-    const text = document.getText(range);
+  run(capture: MutableQueryCapture, pattern: string) {
+    const { document, range } = capture;
+    const text = getNode(capture).text;
     const match = text.match(new RegExp(pattern, "ds"));
 
     if (match?.index == null) {
@@ -203,9 +199,12 @@ class ShrinkToMatch extends QueryPredicateOperator<ShrinkToMatch> {
 
     const baseOffset = document.offsetAt(range.start);
 
-    nodeInfo.range = new Range(
-      document.positionAt(baseOffset + startOffset),
-      document.positionAt(baseOffset + endOffset),
+    setRange(
+      capture,
+      new Range(
+        document.positionAt(baseOffset + startOffset),
+        document.positionAt(baseOffset + endOffset),
+      ),
     );
 
     return true;
@@ -225,8 +224,8 @@ class GrowToNamedSiblings extends QueryPredicateOperator<GrowToNamedSiblings> {
   name = "grow-to-named-siblings!" as const;
   schema = z.union([z.tuple([q.node]), z.tuple([q.node, q.string])]);
 
-  run(nodeInfo: MutableQueryCapture, notText?: string) {
-    const { node, range } = nodeInfo;
+  run(capture: MutableQueryCapture, notText?: string) {
+    const node = getNode(capture);
 
     if (node.parent == null) {
       throw Error("Node has no parent");
@@ -254,9 +253,12 @@ class GrowToNamedSiblings extends QueryPredicateOperator<GrowToNamedSiblings> {
     }
 
     if (endPosition != null) {
-      nodeInfo.range = new Range(
-        range.start,
-        new Position(endPosition.row, endPosition.column),
+      setRange(
+        capture,
+        new Range(
+          capture.range.start,
+          new Position(endPosition.row, endPosition.column),
+        ),
       );
     }
 
@@ -272,16 +274,21 @@ class TrimEnd extends QueryPredicateOperator<TrimEnd> {
   name = "trim-end!" as const;
   schema = z.tuple([q.node]);
 
-  run(nodeInfo: MutableQueryCapture) {
-    const { document, range } = nodeInfo;
-    const text = document.getText(range);
+  run(capture: MutableQueryCapture) {
+    const { document, range } = capture;
+    const text = getNode(capture).text;
     const whitespaceLength = text.length - text.trimEnd().length;
+
     if (whitespaceLength > 0) {
-      nodeInfo.range = new Range(
-        range.start,
-        adjustPosition(document, range.end, -whitespaceLength),
+      setRange(
+        capture,
+        new Range(
+          range.start,
+          adjustPosition(document, range.end, -whitespaceLength),
+        ),
       );
     }
+
     return true;
   }
 }
@@ -293,9 +300,9 @@ class DocumentRange extends QueryPredicateOperator<DocumentRange> {
   name = "document-range!" as const;
   schema = z.tuple([q.node]).rest(q.node);
 
-  run(...nodeInfos: MutableQueryCapture[]) {
-    for (const nodeInfo of nodeInfos) {
-      nodeInfo.range = nodeInfo.document.range;
+  run(...captures: MutableQueryCapture[]) {
+    for (const capture of captures) {
+      setRange(capture, capture.document.range);
     }
 
     return true;
@@ -321,24 +328,11 @@ class AllowMultiple extends QueryPredicateOperator<AllowMultiple> {
     return true;
   }
 
-  run(...nodeInfos: MutableQueryCapture[]) {
-    for (const nodeInfo of nodeInfos) {
-      nodeInfo.allowMultiple = true;
+  run(...captures: MutableQueryCapture[]) {
+    for (const capture of captures) {
+      capture.allowMultiple = true;
     }
 
-    return true;
-  }
-}
-
-/**
- * A predicate operator that logs a node, for debugging.
- */
-class Log extends QueryPredicateOperator<Log> {
-  name = "log!" as const;
-  schema = z.tuple([q.node]);
-
-  run(nodeInfo: MutableQueryCapture) {
-    console.log(`#log!: ${nodeInfo.name}@${nodeInfo.range}`);
     return true;
   }
 }
@@ -352,18 +346,18 @@ class InsertionDelimiter extends QueryPredicateOperator<InsertionDelimiter> {
   name = "insertion-delimiter!" as const;
   schema = z.tuple([q.node, q.string]);
 
-  run(nodeInfo: MutableQueryCapture, insertionDelimiter: string) {
-    nodeInfo.insertionDelimiter = insertionDelimiter;
+  run(capture: MutableQueryCapture, insertionDelimiter: string) {
+    capture.insertionDelimiter = insertionDelimiter;
 
     return true;
   }
 }
 
 /**
- * A predicate operator that sets the insertion delimiter of {@link nodeInfo} to
+ * A predicate operator that sets the insertion delimiter of {@link capture} to
  * either {@link insertionDelimiterConsequence} or
  * {@link insertionDelimiterAlternative} depending on whether
- * {@link conditionNodeInfo} is single or multiline, respectively. For example,
+ * {@link conditionCapture} is single or multiline, respectively. For example,
  *
  * ```scm
  * (#single-or-multi-line-delimiter! @foo @bar ", " ",\n")
@@ -377,12 +371,12 @@ class SingleOrMultilineDelimiter extends QueryPredicateOperator<SingleOrMultilin
   schema = z.tuple([q.node, q.node, q.string, q.string]);
 
   run(
-    nodeInfo: MutableQueryCapture,
-    conditionNodeInfo: MutableQueryCapture,
+    capture: MutableQueryCapture,
+    conditionCapture: MutableQueryCapture,
     insertionDelimiterConsequence: string,
     insertionDelimiterAlternative: string,
   ) {
-    nodeInfo.insertionDelimiter = conditionNodeInfo.range.isSingleLine
+    capture.insertionDelimiter = conditionCapture.range.isSingleLine
       ? insertionDelimiterConsequence
       : insertionDelimiterAlternative;
 
@@ -391,9 +385,9 @@ class SingleOrMultilineDelimiter extends QueryPredicateOperator<SingleOrMultilin
 }
 
 /**
- * A predicate operator that sets the insertion delimiter of {@link nodeInfo}
- * depending on the content of {@link conditionNodeInfo}. It sets the insertion
- * delimiter to {@link insertionDelimiterEmpty} if {@link conditionNodeInfo} is empty,
+ * A predicate operator that sets the insertion delimiter of {@link capture}
+ * depending on the content of {@link conditionCapture}. It sets the insertion
+ * delimiter to {@link insertionDelimiterEmpty} if {@link conditionCapture} is empty,
  * {@link insertionDelimiterSingleLine} if it is a single line, and
  * {@link insertionDelimiterMultiline} if it is multiline. For example,
  *
@@ -406,19 +400,19 @@ class EmptySingleMultiDelimiter extends QueryPredicateOperator<EmptySingleMultiD
   schema = z.tuple([q.node, q.node, q.string, q.string, q.string]);
 
   run(
-    nodeInfo: MutableQueryCapture,
-    conditionNodeInfo: MutableQueryCapture,
+    capture: MutableQueryCapture,
+    conditionCapture: MutableQueryCapture,
     insertionDelimiterEmpty: string,
     insertionDelimiterSingleLine: string,
     insertionDelimiterMultiline: string,
   ) {
-    const isEmpty = !conditionNodeInfo.node.children.some(
+    const isEmpty = !getNode(conditionCapture).children.some(
       (child) => child.isNamed,
     );
 
-    nodeInfo.insertionDelimiter = isEmpty
+    capture.insertionDelimiter = isEmpty
       ? insertionDelimiterEmpty
-      : conditionNodeInfo.range.isSingleLine
+      : conditionCapture.range.isSingleLine
         ? insertionDelimiterSingleLine
         : insertionDelimiterMultiline;
 
@@ -427,7 +421,6 @@ class EmptySingleMultiDelimiter extends QueryPredicateOperator<EmptySingleMultiD
 }
 
 export const queryPredicateOperators = [
-  new Log(),
   new Even(),
   new Odd(),
   new Text(),
@@ -436,7 +429,6 @@ export const queryPredicateOperators = [
   new TrimEnd(),
   new DocumentRange(),
   new NotParentType(),
-  new IsNthChild(),
   new ChildRange(),
   new CharacterRange(),
   new ShrinkToMatch(),

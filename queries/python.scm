@@ -744,8 +744,8 @@
     "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
     ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
   ) @argumentList
-  (#child-range! @argumentList 1 -2)
   (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;;!! foo (aaa, bbb)
@@ -755,8 +755,8 @@
     "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
     ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
   ) @argumentList
-  (#child-range! @argumentList 1 -2)
   (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;;!! foo (aaa=1, bbb=2)

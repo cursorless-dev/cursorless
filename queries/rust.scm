@@ -89,7 +89,6 @@
 (
   (raw_string_literal) @string @textFragment
   (#shrink-to-match! @textFragment "r#+\"(?<keep>.*)\"#+")
-
 )
 
 [
