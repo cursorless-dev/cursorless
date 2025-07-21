@@ -93,6 +93,20 @@ class NotParentType extends QueryPredicateOperator<NotParentType> {
 }
 
 /**
+ * A predicate operator that returns true if the node is the nth child of its
+ * parent.  For example, `(#is-nth-child? @foo 0)` will reject the match if the
+ * `@foo` capture is not the first child of its parent.
+ */
+class IsNthChild extends QueryPredicateOperator<IsNthChild> {
+  name = "is-nth-child?" as const;
+  schema = z.tuple([q.node, q.integer]);
+  run(capture: MutableQueryCapture, n: number) {
+    const node = getNode(capture);
+    return node.parent?.children.findIndex((n) => n.id === node.id) === n;
+  }
+}
+
+/**
  * A predicate operator that returns true if the node has more than 1 child of
  * type {@link type} (inclusive).  For example, `(#has-multiple-children-of-type?
  * @foo bar)` will accept the match if the `@foo` capture has 2 or more children
@@ -429,6 +443,7 @@ export const queryPredicateOperators = [
   new TrimEnd(),
   new DocumentRange(),
   new NotParentType(),
+  new IsNthChild(),
   new ChildRange(),
   new CharacterRange(),
   new ShrinkToMatch(),
