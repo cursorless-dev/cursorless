@@ -1,4 +1,4 @@
-import type { SimpleSyntaxNode } from "./QueryCapture";
+import type { Node } from "web-tree-sitter";
 
 /**
  * Checks if a node is at an even index within its parent's field.
@@ -7,7 +7,7 @@ import type { SimpleSyntaxNode } from "./QueryCapture";
  * @param fieldName - The name of the field in the parent node.
  * @returns True if the node is at an even index, false otherwise.
  */
-export function isEven(node: SimpleSyntaxNode, fieldName: string): boolean {
+export function isEven(node: Node, fieldName: string): boolean {
   if (node.parent == null) {
     throw Error("Node has no parent");
   }
