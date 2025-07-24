@@ -17,7 +17,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CURSORLESS_REPO_ROOT: ${{ github.workspace }}
-      ESLINT_USE_FLAT_CONFIG: false
 
     steps:
       - name: Checkout repository
