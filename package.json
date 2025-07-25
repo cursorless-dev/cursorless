@@ -34,7 +34,7 @@
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.31.0",
     "@pnpm/meta-updater": "^2.0.6",
-    "@types/node": "^24.0.15",
+    "@types/node": "^24.1.0",
     "esbuild": "^0.25.8",
     "eslint": "^9.31.0",
     "eslint-config-prettier": "^10.1.8",
