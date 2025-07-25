@@ -7,3 +7,5 @@
 pnpm-lock.yaml
 
 .github/PULL_REQUEST_TEMPLATE.md
+# Formatting breaks code blocks nested within tabs
+packages/cursorless-org-docs/src/docs/contributing/CONTRIBUTING.mdx
