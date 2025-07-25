@@ -21,7 +21,6 @@ export default function prepareAssetsPlugin(
     name: "scope-tests-plugin",
 
     loadContent(): ScopeTests {
-      // eslint-disable-next-line unicorn/prefer-module
       const repoRoot = path.join(__dirname, "../../../..");
       process.env.CURSORLESS_REPO_ROOT = repoRoot;
       return prepareAssets();

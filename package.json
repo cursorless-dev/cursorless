@@ -18,7 +18,7 @@
     "fix:syncpack": "pnpm syncpack fix-mismatches",
     "init-vscode-sandbox": "pnpm --filter=@cursorless/cursorless-vscode init-launch-sandbox",
     "lint:meta": "pnpm run meta-updater:base --test",
-    "lint:ts": "cross-env ESLINT_USE_FLAT_CONFIG=false eslint packages --ext ts,tsx,mts",
+    "lint:ts": "eslint packages --ext ts,tsx,mts",
     "lint": "pnpm run lint:meta && syncpack list-mismatches && pnpm run lint:ts",
     "meta-updater:base": "pnpm --filter=@cursorless/meta-updater build && meta-updater",
     "preinstall": "npx only-allow pnpm",
@@ -31,23 +31,23 @@
     "watch:tsc": "tsc --build --watch"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.31.0",
     "@pnpm/meta-updater": "^2.0.6",
     "@types/node": "^24.0.15",
-    "@typescript-eslint/eslint-plugin": "^8.38.0",
-    "@typescript-eslint/parser": "^8.38.0",
-    "cross-env": "^7.0.3",
     "esbuild": "^0.25.8",
     "eslint": "^9.31.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-mocha": "^10.5.0",
-    "eslint-plugin-unicorn": "^56.0.1",
+    "eslint-plugin-mocha": "^11.1.0",
+    "eslint-plugin-unicorn": "^60.0.0",
     "eslint-plugin-unused-imports": "^4.1.4",
     "prettier": "~3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.14",
     "syncpack": "^13.0.4",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.38.0"
   },
   "pnpm": {
     "patchedDependencies": {
