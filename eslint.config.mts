@@ -2,10 +2,10 @@ import eslintJs from "@eslint/js";
 import eslintPrettier from "eslint-config-prettier/flat";
 import path from "node:path";
 import eslintTs from "typescript-eslint";
-import unusedImports from "eslint-plugin-unused-imports";
+import unusedImportsPlugin from "eslint-plugin-unused-imports";
 import importPlugin from "eslint-plugin-import";
 import mochaPlugin from "eslint-plugin-mocha";
-import eslintPluginUnicorn from "eslint-plugin-unicorn";
+import unicornPlugin from "eslint-plugin-unicorn";
 import type { Linter } from "eslint";
 import cursorlessOrgConfig from "./packages/cursorless-org/eslint.config.mts";
 
@@ -29,9 +29,9 @@ export default eslintTs.config(
   eslintPrettier,
   {
     plugins: {
-      "unused-imports": unusedImports,
+      "unused-imports": unusedImportsPlugin,
       import: importPlugin,
-      unicorn: eslintPluginUnicorn,
+      unicorn: unicornPlugin,
       mocha: mochaPlugin,
     },
 
