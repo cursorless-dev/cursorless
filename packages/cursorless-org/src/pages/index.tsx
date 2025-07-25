@@ -11,9 +11,9 @@ export async function getStaticProps() {
 }
 
 export default function LandingPage() {
-  const smallScaling = "sm:w-smBase sm:h-smBase sm:text-smBase";
+  const smallScaling = "sm:w-sm-base sm:h-sm-base sm:text-sm-base";
   const stretchedScaling =
-    "sm:stretched:w-stretchedBase sm:stretched:h-stretchedBase sm:stretched:text-stretchedBase";
+    "sm:stretched:w-stretched-base sm:stretched:h-stretched-base sm:stretched:text-stretched-base";
 
   return (
     <>
@@ -21,7 +21,7 @@ export default function LandingPage() {
         <title>{TITLE}</title>
         <IndexSocial />
       </Head>
-      <main className="text-salmon-900 dark:text-salmon-100 font-monoWide fixed bottom-0 left-0 right-0 top-0 items-center justify-center overflow-auto p-2 font-bold tracking-[0.18em] sm:flex sm:p-0">
+      <main className="text-salmon-900 dark:text-salmon-100 font-mono-wide fixed bottom-0 left-0 right-0 top-0 items-center justify-center overflow-auto p-2 font-bold tracking-[0.18em] sm:flex sm:p-0">
         {/*
         Note that the font scale gets applied to this element so that all nested elements can use
         `em` units and will automatically be scaled.
@@ -43,7 +43,7 @@ export default function LandingPage() {
             </header>
             <Slogan />
           </div>
-          <div className="border-salmon-100 border-[0.5px] p-[1px]">
+          <div className="border-salmon-100 border-[0.5px] p-px">
             <EmbeddedVideo youtubeSlug={YOUTUBE_SLUG} />
           </div>
           <div className="flex flex-1 flex-col">

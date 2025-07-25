@@ -38,7 +38,7 @@ export default function CheatsheetLegendComponent({
           {data.map(({ term, definition, link, id }) => (
             <tr
               key={id}
-              className="odd:bg-violet-200 dark:bg-violet-800 odd:dark:bg-violet-600"
+              className="odd:bg-violet-200 dark:bg-violet-800 dark:odd:bg-violet-600"
             >
               <td className="px-1">{formatCaptures(`<${term}>`)}</td>
               <td className="border-l border-violet-400 px-1">

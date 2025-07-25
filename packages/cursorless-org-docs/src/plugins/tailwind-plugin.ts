@@ -12,7 +12,7 @@ export default function tailwindPlugin(
   return {
     name: "tailwind-plugin",
 
-    configurePos1tCss(postcssOptions: PostCssOptions): PostCssOptions {
+    configurePostCss(postcssOptions: PostCssOptions): PostCssOptions {
       postcssOptions.plugins.push(tailwindcss);
       return postcssOptions;
     },

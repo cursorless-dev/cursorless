@@ -45,14 +45,14 @@ const components: MDXComponents = {
     // FIXME: Figure out how to use next/image with MDX
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      className="mx-auto my-12 rounded-sm border border-teal-400 p-3 sm:p-6"
+      className="mx-auto my-12 rounded-xs border border-teal-400 p-3 sm:p-6"
       src={src}
       alt={alt}
       style={{ maxWidth: "100%" }}
     />
   ),
   CalloutBox: ({ children }) => (
-    <div className="my-12 rounded-sm border border-teal-400 px-7 pb-6">
+    <div className="my-12 rounded-xs border border-teal-400 px-7 pb-6">
       {children}
     </div>
   ),
@@ -60,7 +60,7 @@ const components: MDXComponents = {
     <div className="mt-8 flex flex-col gap-5">{children}</div>
   ),
   Testimonial: ({ children, src, name, title, company }) => (
-    <div className="flex flex-col items-center rounded-sm border border-teal-400 bg-teal-100 p-3 text-teal-700 sm:p-6 dark:bg-teal-900 dark:text-teal-300">
+    <div className="flex flex-col items-center rounded-xs border border-teal-400 bg-teal-100 p-3 text-teal-700 sm:p-6 dark:bg-teal-900 dark:text-teal-300">
       <blockquote className="mb-5 flex flex-col gap-4 sm:mb-6">
         {children}
       </blockquote>
@@ -71,7 +71,7 @@ const components: MDXComponents = {
           src={src}
           alt={name}
         />
-        <div className="flex flex-col gap-[0.375rem]">
+        <div className="flex flex-col gap-1.5">
           <div className="text-[1.2em] font-semibold leading-none text-teal-800 dark:text-teal-200">
             {name}
           </div>
@@ -82,7 +82,7 @@ const components: MDXComponents = {
     </div>
   ),
   Tiers: ({ children }) => (
-    <div className="my-8 text-[1.2em] font-medium tracking-[0.1em]">
+    <div className="my-8 text-[1.2em] font-medium tracking-widest">
       {children}
     </div>
   ),
