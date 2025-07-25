@@ -129,8 +129,6 @@ const disabledTypeCheckConfig: ConfigWithExtends = {
     "**/jest.config.ts",
     "**/docusaurus.config.mts",
     "**/mdx-components.tsx",
-    "**/scripts/**",
-    "**/resources/**",
     "typings/**",
     "**/*.js",
     "**/*.mjs",
