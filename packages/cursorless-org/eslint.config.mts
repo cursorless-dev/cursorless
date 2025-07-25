@@ -1,10 +1,11 @@
 import { FlatCompat } from "@eslint/eslintrc";
+import type { ConfigWithExtends } from "typescript-eslint";
 
 const compat = new FlatCompat({
   baseDirectory: import.meta.dirname,
 });
 
-export default {
+export const cursorlessOrgConfig: ConfigWithExtends = {
   files: ["packages/cursorless-org/**/*"],
 
   extends: [compat.extends("next/core-web-vitals")],

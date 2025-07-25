@@ -5,7 +5,10 @@ import mochaPlugin from "eslint-plugin-mocha";
 import unicornPlugin from "eslint-plugin-unicorn";
 import unusedImportsPlugin from "eslint-plugin-unused-imports";
 import eslintTs, { type ConfigWithExtends } from "typescript-eslint";
-import cursorlessOrgConfig from "./packages/cursorless-org/eslint.config.mts";
+import { commonConfig } from "./packages/common/eslint.config.mts";
+import { cursorlessEngineConfig } from "./packages/cursorless-engine/eslint.config.mts";
+import { cursorlessOrgConfig } from "./packages/cursorless-org/eslint.config.mts";
+import { cursorlessVscodeConfig } from "./packages/cursorless-vscode/eslint.config.mts";
 
 const ignoresConfig: ConfigWithExtends = {
   ignores: [
@@ -146,5 +149,8 @@ export default eslintTs.config(
   rootConfig,
   tsxConfig,
   disabledTypeCheckConfig,
+  commonConfig,
+  cursorlessEngineConfig,
+  cursorlessVscodeConfig,
   cursorlessOrgConfig,
 );
