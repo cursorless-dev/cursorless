@@ -103,7 +103,13 @@ abstract class BringMoveSwap {
       // Add source edit
       // Prevent multiple instances of the same expanded source.
       if (!usedSources.includes(source)) {
-        usedSources.push(source);
+        // Allow move where the destination contains the source. eg "bring token to line"
+        if (
+          this.type !== "move" ||
+          !destination.target.getRemovalRange().contains(source.contentRange)
+        ) {
+          usedSources.push(source);
+        }
         if (this.type === "bring") {
           results.push({
             edit: source
