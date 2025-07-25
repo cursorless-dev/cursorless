@@ -44,6 +44,7 @@ const {
 } = getScalingStrings(5, 5);
 
 const references = JSON.parse(
+  // eslint-disable-next-line unicorn/prefer-module
   readFileSync(join(__dirname, "tsconfig.json"), "utf-8"),
 ).references.map((ref) => ref.path);
 

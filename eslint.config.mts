@@ -16,6 +16,7 @@ const ignoresConfig: ConfigWithExtends = {
     "**/vendor/**/*",
     "**/.next/**/*",
     "**/.docusaurus/**/*",
+    "**/eslint.config.mts",
     "data/playground/**/*",
   ],
 };
@@ -130,7 +131,6 @@ const disabledTypeCheckConfig: ConfigWithExtends = {
     "typings/**",
     "**/*.js",
     "**/*.mjs",
-    "eslint.config.mts",
   ],
 
   extends: [eslintTs.configs.disableTypeChecked],

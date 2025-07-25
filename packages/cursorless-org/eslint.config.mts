@@ -5,9 +5,9 @@ const compat = new FlatCompat({
 });
 
 export default {
-  files: ["packages/cursorless-org/src/**/*"],
+  files: ["packages/cursorless-org/**/*"],
 
-  extends: [...compat.extends("next/core-web-vitals")],
+  extends: [compat.extends("next/core-web-vitals")],
 
   settings: {
     next: {
