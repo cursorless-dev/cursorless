@@ -6,13 +6,9 @@ const references = JSON.parse(
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [".", ...references].map((pkg) => `${pkg}/src/**/*.{js,ts,jsx,tsx}`),
+  content: [".", ...references].map((pkg) => `${pkg}/src/**/*.{ts,tsx,html}`),
   theme: {
-    extend: {
-      fontSize: {
-        ["2xs"]: "0.625rem",
-      },
-    },
+    extend: {},
   },
   plugins: [],
 };
