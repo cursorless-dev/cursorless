@@ -205,10 +205,12 @@ def check_for_duplicates(filename, default_values):
     for list_name, dict in default_values.items():
         for key, value in dict.items():
             if value in results_map:
-                existing_list_name = results_map[value]["list"]
+                existing_list_name = results_map[value]
                 warning = f"WARNING ({filename}): Value `{value}` duplicated between lists '{existing_list_name}' and '{list_name}'"
                 print(warning)
                 app.notify(warning)
+            else:
+                results_map[value] = list_name
 
 
 def is_removed(value: str):
@@ -236,9 +238,9 @@ def update_dicts(
     extra_ignored_values: list[str],
     extra_allowed_values: list[str],
     allow_unknown_values: bool,
-    default_list_name: Optional[str],
+    default_list_name: str | None,
     pluralize_lists: list[str],
-    handle_new_values: Optional[Callable[[list[SpokenFormEntry]], None]],
+    handle_new_values: Callable[[list[SpokenFormEntry]], None] | None,
 ):
     # Create map with all default values
     results_map: dict[str, ResultsListEntry] = {}
