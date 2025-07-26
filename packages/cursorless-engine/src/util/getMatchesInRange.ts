@@ -1,5 +1,5 @@
-import type { TextEditor } from "@cursorless/common";
-import { Range, matchAll, type Direction } from "@cursorless/common";
+import type { Direction, TextEditor } from "@cursorless/common";
+import { matchAll, Range } from "@cursorless/common";
 import { imap } from "itertools";
 
 export function getMatchesInRange(

@@ -1,10 +1,9 @@
-import type { TextEditor } from "@cursorless/common";
+import type { Direction, TextEditor } from "@cursorless/common";
 import { Range } from "@cursorless/common";
-import { NestedScopeHandler } from "../NestedScopeHandler";
-import { WordTokenizer } from "./WordTokenizer";
-import type { Direction } from "@cursorless/common";
 import { SubTokenWordTarget } from "../../../targets";
+import { NestedScopeHandler } from "../NestedScopeHandler";
 import type { TargetScope } from "../scope.types";
+import { WordTokenizer } from "./WordTokenizer";
 
 export class WordScopeHandler extends NestedScopeHandler {
   public readonly scopeType = { type: "word" } as const;

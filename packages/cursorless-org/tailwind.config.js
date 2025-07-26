@@ -1,3 +1,5 @@
+/* eslint-disable import/no-anonymous-default-export */
+
 import { fontFamily } from "tailwindcss/defaultTheme";
 import { readFileSync } from "node:fs";
 

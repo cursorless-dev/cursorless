@@ -1,12 +1,11 @@
-import type { Disposable } from "@cursorless/common";
-import {
-  Notifier,
-  showError,
-  type IDE,
-  type Listener,
-  type RawTreeSitterQueryProvider,
-  type TreeSitter,
+import type {
+  Disposable,
+  IDE,
+  Listener,
+  RawTreeSitterQueryProvider,
+  TreeSitter,
 } from "@cursorless/common";
+import { Notifier, showError } from "@cursorless/common";
 import { toString } from "lodash-es";
 import { LanguageDefinition } from "./LanguageDefinition";
 import { treeSitterQueryCache } from "./TreeSitterQuery/treeSitterQueryCache";

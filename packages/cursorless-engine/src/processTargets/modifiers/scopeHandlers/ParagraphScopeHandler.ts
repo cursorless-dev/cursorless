@@ -1,11 +1,12 @@
 import type {
+  Direction,
   Position,
   Range,
+  ScopeType,
   TextDocument,
   TextEditor,
   TextLine,
 } from "@cursorless/common";
-import type { Direction, ScopeType } from "@cursorless/common";
 import { ParagraphTarget } from "../../targets";
 import { BaseScopeHandler } from "./BaseScopeHandler";
 import { fitRangeToLineContent } from "./LineScopeHandler";

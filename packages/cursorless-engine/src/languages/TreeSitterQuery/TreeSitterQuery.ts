@@ -1,18 +1,17 @@
-import type { Position, TextDocument } from "@cursorless/common";
-import { type TreeSitter } from "@cursorless/common";
+import type { Position, TextDocument, TreeSitter } from "@cursorless/common";
 import type * as treeSitter from "web-tree-sitter";
 import { ide } from "../../singletons/ide.singleton";
+import { checkCaptureStartEnd } from "./checkCaptureStartEnd";
 import { getNodeRange } from "./getNodeRange";
+import { isContainedInErrorNode } from "./isContainedInErrorNode";
+import { normalizeCaptureName } from "./normalizeCaptureName";
+import { parsePredicatesWithErrorHandling } from "./parsePredicatesWithErrorHandling";
+import { positionToPoint } from "./positionToPoint";
 import type {
   MutableQueryCapture,
   MutableQueryMatch,
   QueryMatch,
 } from "./QueryCapture";
-import { checkCaptureStartEnd } from "./checkCaptureStartEnd";
-import { isContainedInErrorNode } from "./isContainedInErrorNode";
-import { normalizeCaptureName } from "./normalizeCaptureName";
-import { parsePredicatesWithErrorHandling } from "./parsePredicatesWithErrorHandling";
-import { positionToPoint } from "./positionToPoint";
 import {
   getStartOfEndOfRange,
   rewriteStartOfEndOf,

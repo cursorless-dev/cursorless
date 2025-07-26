@@ -1,16 +1,13 @@
 import type {
+  IDE,
   RawTreeSitterQueryProvider,
   ScopeType,
   SimpleScopeType,
   SimpleScopeTypeType,
+  TextDocument,
   TreeSitter,
 } from "@cursorless/common";
-import {
-  matchAll,
-  showError,
-  type IDE,
-  type TextDocument,
-} from "@cursorless/common";
+import { matchAll, showError } from "@cursorless/common";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
 import { TreeSitterQuery } from "./TreeSitterQuery";
 import type { QueryCapture } from "./TreeSitterQuery/QueryCapture";

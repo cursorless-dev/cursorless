@@ -4,17 +4,18 @@ import type {
   CommandServerApi,
   HatTokenMap,
   ReadOnlyHatMap,
+  TreeSitter,
 } from "@cursorless/common";
-import { clientSupportsFallback, type TreeSitter } from "@cursorless/common";
+import { clientSupportsFallback } from "@cursorless/common";
 import type { CommandRunner } from "./CommandRunner";
 import { Actions } from "./actions/Actions";
 import type { CommandRunnerDecorator } from "./api/CursorlessEngineApi";
 import type { Debug } from "./core/Debug";
+import type { Snippets } from "./core/Snippets";
+import type { StoredTargetMap } from "./core/StoredTargets";
 import { CommandRunnerImpl } from "./core/commandRunner/CommandRunnerImpl";
 import { canonicalizeAndValidateCommand } from "./core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 import type { RangeUpdater } from "./core/updateSelections/RangeUpdater";
-import type { Snippets } from "./core/Snippets";
-import type { StoredTargetMap } from "./core/StoredTargets";
 import type { LanguageDefinitions } from "./languages/LanguageDefinitions";
 import { TargetPipelineRunner } from "./processTargets";
 import { MarkStageFactoryImpl } from "./processTargets/MarkStageFactoryImpl";
