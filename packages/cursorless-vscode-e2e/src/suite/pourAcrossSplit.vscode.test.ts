@@ -1,7 +1,10 @@
-import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
-import * as assert from "assert";
+import {
+  getCursorlessApi,
+  openNewEditor,
+  runCursorlessCommand,
+} from "@cursorless/vscode-common";
+import * as assert from "node:assert";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-import { runCursorlessCommand } from "@cursorless/vscode-common";
 
 suite("Pour across split", async function () {
   endToEndTestSetup(this);

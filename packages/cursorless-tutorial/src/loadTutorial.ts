@@ -1,11 +1,11 @@
 import type {
   Hats,
+  KeyValueStore,
   RawTutorialContent,
   TutorialContentProvider,
   TutorialId,
   TutorialState,
 } from "@cursorless/common";
-import { type KeyValueStore } from "@cursorless/common";
 import type { CustomSpokenFormGenerator } from "@cursorless/cursorless-engine";
 import { TutorialError } from "./TutorialError";
 import { TutorialStepParser } from "./TutorialStepParser";

@@ -8,22 +8,22 @@ import type {
   SerializedMarks,
   SpyIDE,
   TestCaseFixtureLegacy,
+  TestHelpers,
   TextEditor,
 } from "@cursorless/common";
 import {
-  Position,
-  Selection,
   clientSupportsFallback,
   getSnapshotForComparison,
   omitByDeep,
+  Position,
   rangeToPlainObject,
-  serializeTestFixture,
+  Selection,
   serializedMarksToTokenHats,
+  serializeTestFixture,
   shouldUpdateFixtures,
   splitKey,
   spyIDERecordedValuesToPlainObject,
   storedTargetKeys,
-  type TestHelpers,
 } from "@cursorless/common";
 import { assert } from "chai";
 import { isUndefined } from "lodash-es";

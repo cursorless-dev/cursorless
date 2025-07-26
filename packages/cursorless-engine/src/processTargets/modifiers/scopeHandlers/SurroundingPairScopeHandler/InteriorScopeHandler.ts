@@ -1,25 +1,24 @@
-import {
-  NoContainingScopeError,
-  Range,
-  type Direction,
-  type InteriorScopeType,
-  type Position,
-  type ScopeType,
-  type TextEditor,
+import type {
+  Direction,
+  InteriorScopeType,
+  Position,
+  ScopeType,
+  TextEditor,
 } from "@cursorless/common";
+import { NoContainingScopeError, Range } from "@cursorless/common";
 import type { LanguageDefinitions } from "../../../../languages/LanguageDefinitions";
 import type { Target } from "../../../../typings/target.types";
 import { InteriorTarget } from "../../../targets";
 import { BaseScopeHandler } from "../BaseScopeHandler";
 import { FallbackScopeHandler } from "../FallbackScopeHandler";
-import { SortedScopeHandler } from "../SortedScopeHandler";
 import type { TargetScope } from "../scope.types";
 import type {
   ComplexScopeType,
+  ScopeHandler,
   ScopeIteratorRequirements,
 } from "../scopeHandler.types";
-import { type ScopeHandler } from "../scopeHandler.types";
 import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
+import { SortedScopeHandler } from "../SortedScopeHandler";
 
 export class InteriorScopeHandler extends BaseScopeHandler {
   protected isHierarchical = true;

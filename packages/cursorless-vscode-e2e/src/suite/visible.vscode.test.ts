@@ -1,8 +1,7 @@
-import * as assert from "assert";
+import { openNewEditor, runCursorlessCommand } from "@cursorless/vscode-common";
+import * as assert from "node:assert";
 import * as vscode from "vscode";
-import { openNewEditor } from "@cursorless/vscode-common";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-import { runCursorlessCommand } from "@cursorless/vscode-common";
 
 suite("visible", async function () {
   endToEndTestSetup(this);
