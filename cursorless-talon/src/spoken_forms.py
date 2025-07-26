@@ -129,7 +129,9 @@ def update():
             update_spoken_forms_output()
 
     handle_csv = auto_construct_defaults(
-        spoken_forms, handle_new_values, init_csv_and_watch_changes
+        spoken_forms,
+        handle_new_values,
+        init_csv_and_watch_changes,
     )
 
     disposables = [
