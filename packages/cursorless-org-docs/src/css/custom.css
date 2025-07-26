@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@config "../../tailwind.config.js";
+
 /* From https://github.com/facebook/docusaurus/blob/cc0bceab9c1678303f6237f5526753edc1b12fc3/website/src/css/custom.css#L70-L86 */
 .header-github-link:hover {
   opacity: 0.6;
