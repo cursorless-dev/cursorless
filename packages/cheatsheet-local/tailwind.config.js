@@ -6,7 +6,10 @@ const references = JSON.parse(
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [".", ...references].map((pkg) => `${pkg}/src/**/*.{ts,tsx,html}`),
+  content: [".", ...references].flatMap((pkg) => [
+    `${pkg}/src/**/*.{ts,tsx,html}`,
+    `!${pkg}/src/**/*.{stories,spec}.{ts,tsx,html}`,
+  ]),
   theme: {
     extend: {},
   },
