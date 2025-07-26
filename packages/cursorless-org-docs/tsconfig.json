@@ -3,7 +3,8 @@
   "compilerOptions": {
     "target": "es5",
     "lib": ["dom", "es2022"],
-    "moduleResolution": "node",
+    "moduleResolution": "nodenext",
+    "module": "nodenext",
     "esModuleInterop": true,
     "emitDeclarationOnly": false,
     "jsx": "react"
