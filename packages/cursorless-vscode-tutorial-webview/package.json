@@ -14,7 +14,7 @@
     "watch:tailwind": "pnpm build:tailwind --watch",
     "watch": "pnpm run --filter @cursorless/cursorless-vscode-tutorial-webview --parallel '/^watch:.*/'",
     "build:esbuild": "esbuild ./src/index.tsx --sourcemap --format=cjs --bundle --outfile=./out/index.js",
-    "build:tailwind": "tailwindcss -i ./src/index.css -o ./out/index.css",
+    "build:tailwind": "pnpx @tailwindcss/cli -i ./src/index.css -o ./out/index.css",
     "build": "pnpm build:esbuild --minify && pnpm build:tailwind --minify",
     "build:dev": "pnpm build:esbuild && pnpm build:tailwind",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
