@@ -27,6 +27,7 @@ export interface EditorState {
   active: boolean;
   visible: boolean;
   editable: boolean;
+  writable: boolean;
 }
 
 export interface EditorChange {

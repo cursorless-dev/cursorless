@@ -29,7 +29,7 @@ export function createTextEditor(
     createSelection(document, selection),
   );
 
-  return new JetbrainsEditor(
+  const editor = new JetbrainsEditor(
     client,
     ide,
     id,
@@ -37,6 +37,14 @@ export function createTextEditor(
     visibleRanges,
     selections,
   );
+  
+  // Set editor properties based on editor state
+  editor.isActive = editorState.active;
+  editor.isVisible = editorState.visible;
+  editor.isEditable = editorState.editable;
+  editor.isWritable = editorState.writable;
+  
+  return editor;
 }
 
 export function createSelection(

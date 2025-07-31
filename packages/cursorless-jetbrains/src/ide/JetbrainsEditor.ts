@@ -27,6 +27,7 @@ export class JetbrainsEditor implements EditableTextEditor {
   isActive = true;
   isVisible = true;
   isEditable = true;
+  isWritable = true;
 
   constructor(
     private client: JetbrainsClient,
@@ -54,6 +55,9 @@ export class JetbrainsEditor implements EditableTextEditor {
 
   edit(edits: Edit[]): Promise<boolean> {
     // console.log("editor.edit");
+    if (!this.isWritable) {
+      return Promise.resolve(false);
+    }
     jetbrainsPerformEdits(this.client, this.ide, this.document, this.id, edits);
     return Promise.resolve(true);
   }

@@ -311,6 +311,7 @@ function updateEditor(editor: JetbrainsEditor, editorState: EditorState) {
   editor.isActive = editorState.active;
   editor.isVisible = editorState.visible;
   editor.isEditable = editorState.editable;
+  editor.isWritable = editorState.writable;
 }
 
 function getLines(text: string, firstLine: number, lastLine: number) {
