@@ -1,5 +1,6 @@
 import type { Range, TextDocument, TreeSitter } from "@cursorless/common";
-import type { Language, Query, Node, Tree } from "web-tree-sitter";
+import type { Language, Node, Tree } from "web-tree-sitter";
+import { Query } from "web-tree-sitter";
 import { Parser, Language as ParserLanguage } from "web-tree-sitter";
 import { pathJoin } from "./pathJoin";
 
@@ -65,7 +66,7 @@ export class JetbrainsTreeSitter implements TreeSitter {
     }
     
     try {
-      return language.query(source);
+      return new Query(language, source);
     } catch (error) {
       console.error(`Failed to create query for language ${languageId}:`, error);
       return undefined;
