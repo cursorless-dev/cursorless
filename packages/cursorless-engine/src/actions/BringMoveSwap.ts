@@ -91,13 +91,14 @@ abstract class BringMoveSwap {
         } else {
           text = source.contentText;
         }
+
+        // Add destination edit
         destinationEdit = {
           edit: destination.constructChangeEdit(text),
           editor: destination.editor,
           originalTarget: destination.target,
           isSource: false,
         };
-        // Add destination edit
         results.push(destinationEdit);
       } else {
         destination = destinations[0];
@@ -108,12 +109,14 @@ abstract class BringMoveSwap {
       if (!usedSources.includes(source)) {
         // Allow move where the destination contains the source. eg "bring token to line"
         if (
+          this.type !== "move" ||
           destinationEdit == null ||
           destinationEdit.editor.id !== source.editor.id ||
           !destinationEdit.edit.range.contains(source.contentRange)
         ) {
           usedSources.push(source);
         }
+
         if (this.type === "bring") {
           results.push({
             edit: source
