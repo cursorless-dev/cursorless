@@ -44,7 +44,7 @@
     "clean": "pnpm clear && rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
-    "@algolia/client-search": "^5.34.1",
+    "@algolia/client-search": "^5.35.0",
     "@cursorless/common": "workspace:*",
     "@docsearch/react": "^3.9.0",
     "@docusaurus/core": "^3.8.1",
@@ -56,9 +56,9 @@
     "clsx": "^2.1.1",
     "mdast-util-find-and-replace": "^3.0.2",
     "prism-react-renderer": "^2.4.1",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "shiki": "^3.8.1",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "shiki": "^3.9.2",
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
@@ -68,10 +68,10 @@
     "@tailwindcss/postcss": "^4.1.11",
     "@tsconfig/docusaurus": "^2.0.3",
     "@types/mdast": "^4.0.4",
-    "@types/react": "^19.1.8",
+    "@types/react": "^19.1.9",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.11",
-    "typescript": "^5.8.3",
+    "typescript": "^5.9.2",
     "unified": "^11.0.5"
   }
 }

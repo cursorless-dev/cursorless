@@ -408,7 +408,6 @@ Note that the `"from"` modifier was not enabled by default on older Cursorless i
 The `"just"` modifier strips the target of any semantic information, treating it as just a raw range, with the following effects:
 
 - The new target has no leading or trailing delimiters. For example:
-
   - `"chuck just air"` will delete just the air token, leaving adjacent spaces undisturbed, unlike the default behaviour of `"chuck air"` that deletes the air token _and_ cleans up adjacent whitespace as appropriate. Ie for
 
     ```
