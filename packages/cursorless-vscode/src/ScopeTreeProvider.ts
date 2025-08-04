@@ -214,7 +214,7 @@ function getSupportCategories(): SupportCategoryTreeItem[] {
 }
 
 class ScopeSupportTreeItem extends TreeItem {
-  public declare readonly label: TreeItemLabel;
+  declare public readonly label: TreeItemLabel;
   public url: string | undefined;
 
   /**
