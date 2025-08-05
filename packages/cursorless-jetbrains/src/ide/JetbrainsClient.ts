@@ -11,4 +11,5 @@ export interface JetbrainsClient {
   revealLine(editorId: string, line: number, revealAt: string): void;
   readQuery(filename: string): string | undefined;
   flashRanges(flashRangesJson: string): string | undefined;
+  setHighlightRanges(highlightId: string | undefined, editorId: string, rangesJson: string): void;
 }

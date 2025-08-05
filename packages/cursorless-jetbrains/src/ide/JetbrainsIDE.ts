@@ -89,11 +89,13 @@ export class JetbrainsIDE implements IDE {
   }
 
   async setHighlightRanges(
-    _highlightId: string | undefined,
-    _editor: TextEditor,
-    _ranges: GeneralizedRange[],
+    highlightId: string | undefined,
+    editor: TextEditor,
+    ranges: GeneralizedRange[],
   ): Promise<void> {
-    throw Error("setHighlightRanges Not implemented");
+    const editorId = editor.id;
+    const rangesJson = JSON.stringify(ranges);
+    this.client.setHighlightRanges(highlightId, editorId, rangesJson);
   }
 
   async flashRanges(flashDescriptors: FlashDescriptor[]): Promise<void> {
