@@ -155,11 +155,16 @@ export class JetbrainsEditor implements EditableTextEditor {
     await this.client.executeRangeCommand(this.id, JSON.stringify(command));
   }
 
-  insertSnippet(
-    _snippet: string,
-    _ranges?: Range[] | undefined,
+  async insertSnippet(
+    snippet: string,
+    ranges?: Range[] | undefined,
   ): Promise<void> {
-    throw new Error("insertSnippet not implemented.");
+    console.log("insertSnippet" + snippet);
+    if (ranges != null) {
+      await this.setSelections(ranges.map((range) => range.toSelection(false)));
+    }
+
+    await this.client.insertSnippet(this.id, snippet);
   }
 
   async rename(range?: Range | undefined): Promise<void> {

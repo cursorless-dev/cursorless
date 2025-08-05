@@ -8,6 +8,7 @@ export interface JetbrainsClient {
   executeCommand(editorId: string, command: string, jsonArgs: string): string;
   executeRangeCommand(editorId: string, commandJson: string): string;
   insertLineAfter(editorId: string, rangesJson: string): void;
+  insertSnippet(editorId: string, snippet: string): void;
   revealLine(editorId: string, line: number, revealAt: string): void;
   readQuery(filename: string): string | undefined;
   flashRanges(flashRangesJson: string): string | undefined;
