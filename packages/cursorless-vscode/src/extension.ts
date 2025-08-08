@@ -6,12 +6,12 @@ import type {
   ScopeProvider,
   ScopeType,
   TextDocument,
+  TreeSitter,
 } from "@cursorless/common";
 import {
   FakeCommandServerApi,
   FakeIDE,
   NormalizedIDE,
-  type TreeSitter,
 } from "@cursorless/common";
 import type { EngineProps } from "@cursorless/cursorless-engine";
 import {

@@ -3,7 +3,7 @@ import type {
   PluginOptions,
   PostCssOptions,
 } from "@docusaurus/types";
-import tailwindcss from "tailwindcss";
+import tailwindcss from "@tailwindcss/postcss";
 
 export default function tailwindPlugin(
   _context: LoadContext,
@@ -12,7 +12,7 @@ export default function tailwindPlugin(
   return {
     name: "tailwind-plugin",
 
-    configurePos1tCss(postcssOptions: PostCssOptions): PostCssOptions {
+    configurePostCss(postcssOptions: PostCssOptions): PostCssOptions {
       postcssOptions.plugins.push(tailwindcss);
       return postcssOptions;
     },

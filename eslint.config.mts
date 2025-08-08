@@ -53,6 +53,8 @@ const rootConfig: ConfigWithExtends = {
 
   rules: {
     "import/no-relative-packages": "error",
+    "import/no-duplicates": "error",
+    "unused-imports/no-unused-imports": "error",
     "@typescript-eslint/consistent-type-imports": "error",
     "@typescript-eslint/consistent-type-assertions": [
       "error",
@@ -75,7 +77,6 @@ const rootConfig: ConfigWithExtends = {
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-inferrable-types": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
-    "unused-imports/no-unused-imports": "error",
     "@typescript-eslint/no-unused-vars": [
       "error",
       {

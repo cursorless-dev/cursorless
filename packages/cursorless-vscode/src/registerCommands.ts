@@ -1,8 +1,8 @@
-import type { CursorlessCommandId } from "@cursorless/common";
-import {
-  CURSORLESS_COMMAND_ID,
-  type CommandHistoryStorage,
+import type {
+  CommandHistoryStorage,
+  CursorlessCommandId,
 } from "@cursorless/common";
+import { CURSORLESS_COMMAND_ID } from "@cursorless/common";
 import {
   showCheatsheet,
   updateDefaults,

@@ -1,5 +1,4 @@
-import type { Edit } from "@cursorless/common";
-import { type InMemoryTextDocument } from "@cursorless/common";
+import type { Edit, InMemoryTextDocument } from "@cursorless/common";
 import type { Talon } from "../types/talon.types";
 import type { EditorEdit } from "../types/types";
 import type { TalonJsIDE } from "./TalonJsIDE";

@@ -1,8 +1,7 @@
-import { openNewEditor } from "@cursorless/vscode-common";
+import { openNewEditor, runCursorlessCommand } from "@cursorless/vscode-common";
+import assert from "node:assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-import { runCursorlessCommand } from "@cursorless/vscode-common";
-import assert from "assert";
 
 suite("revealRange", async function () {
   endToEndTestSetup(this);

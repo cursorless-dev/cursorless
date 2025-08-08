@@ -4,11 +4,11 @@ import type {
   Disposable,
   Listener,
   ScopeType,
+  TalonSpokenForms,
 } from "@cursorless/common";
-import { SpokenFormGenerator } from "./generateSpokenForm";
 import type { CustomSpokenFormGenerator } from "../api/CursorlessEngineApi";
 import { CustomSpokenForms } from "../spokenForms/CustomSpokenForms";
-import type { TalonSpokenForms } from "@cursorless/common";
+import { SpokenFormGenerator } from "./generateSpokenForm";
 
 /**
  * Simple facade that combines the {@link CustomSpokenForms} and

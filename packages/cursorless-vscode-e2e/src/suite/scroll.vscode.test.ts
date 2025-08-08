@@ -1,7 +1,6 @@
-import { openNewEditor } from "@cursorless/vscode-common";
+import { openNewEditor, runCursorlessCommand } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-import { runCursorlessCommand } from "@cursorless/vscode-common";
 
 suite("scroll", async function () {
   endToEndTestSetup(this);
