@@ -43,6 +43,7 @@
   (arguments
     (
       (argument) @_.leading.endOf
+      .
       (comma)
     )?
     .
@@ -50,6 +51,7 @@
     .
     (
       (comma)
+      .
       (argument) @_.trailing.startOf
     )?
   ) @_dummy
@@ -63,6 +65,7 @@
   (parameters
     (
       (parameter) @_.leading.endOf
+      .
       (comma)
     )?
     .
@@ -70,6 +73,7 @@
     .
     (
       (comma)
+      .
       (parameter) @_.trailing.startOf
     )?
   ) @_dummy
