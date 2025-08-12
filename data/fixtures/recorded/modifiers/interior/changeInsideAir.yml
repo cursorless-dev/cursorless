@@ -11,7 +11,7 @@ command:
         - {type: interiorOnly}
   usePrePhraseSnapshot: false
 initialState:
-  documentContents: "true ? \"aaa\" : \"bbb\""
+  documentContents: "true ? 'aaa' : 'bbb'"
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -20,7 +20,7 @@ initialState:
       start: {line: 0, character: 8}
       end: {line: 0, character: 11}
 finalState:
-  documentContents: "true ? \"\" : \"bbb\""
+  documentContents: "true ? '' : 'bbb'"
   selections:
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}
