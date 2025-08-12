@@ -1,0 +1,26 @@
+languageId: javascript
+command:
+  version: 7
+  spokenForm: change inside air
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      modifiers:
+        - {type: interiorOnly}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "true ? \"aaa\" : \"bbb\""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 8}
+      end: {line: 0, character: 11}
+finalState:
+  documentContents: "true ? \"\" : \"bbb\""
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
