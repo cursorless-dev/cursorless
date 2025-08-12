@@ -1,0 +1,40 @@
+true ? "bbb" : "ccc";
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-0:4
+  >----<
+0| true ? "bbb" : "ccc";
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] =
+[#2 Domain] = 0:7-0:12
+         >-----<
+0| true ? "bbb" : "ccc";
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] =
+[#3 Removal] =
+[#3 Domain] = 0:15-0:20
+                 >-----<
+0| true ? "bbb" : "ccc";
+
+[#3 Insertion delimiter] = " "
+
+
+[#4 Content] =
+[#4 Removal] = 1:1-1:6
+   >-----<
+1| "hello"
+
+[#4 Domain] = 1:0-1:7
+  >-------<
+1| "hello"
+
+[#4 Insertion delimiter] = " "
