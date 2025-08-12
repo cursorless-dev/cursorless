@@ -100,7 +100,7 @@ export class InteriorScopeHandler extends BaseScopeHandler {
     return SortedScopeHandler.createFromScopeHandlers(
       this.scopeHandlerFactory,
       this.languageId,
-      [languageScopeHandler, pairScopeHandler],
+      [pairScopeHandler, languageScopeHandler],
     );
   }
 
