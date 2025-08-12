@@ -288,6 +288,14 @@
   )
 ) @_.domain
 
+;;!! foo() => string;
+;;!           ^^^^^^
+(_
+  parameters: (_) @_.leading.endOf
+  "=>"
+  return_type: (_) @type
+)
+
 ;;!! new Aaa<Bbb>()
 ;;!      ^^^^^^^^
 (new_expression
