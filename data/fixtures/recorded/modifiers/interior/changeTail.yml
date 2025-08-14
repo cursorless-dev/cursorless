@@ -10,13 +10,13 @@ command:
         - {type: extendThroughEndOf}
   usePrePhraseSnapshot: false
 initialState:
-  documentContents: <div>a b c</div>
+  documentContents: <div>abcd</div>
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}
   marks: {}
 finalState:
-  documentContents: <div>a </div>
+  documentContents: <div>ab</div>
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}
