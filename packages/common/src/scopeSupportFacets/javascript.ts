@@ -192,7 +192,6 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.doWhile": supported,
   "interior.switch": supported,
   "interior.switchCase": supported,
-  "interior.ternary": supported,
   "interior.try": supported,
   "interior.static": supported,
 

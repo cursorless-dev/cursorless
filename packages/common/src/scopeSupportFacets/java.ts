@@ -198,7 +198,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.doWhile": supported,
   "interior.switch": supported,
   "interior.switchCase": supported,
-  "interior.ternary": supported,
   "interior.try": supported,
   "interior.resource": supported,
   "interior.static": supported,

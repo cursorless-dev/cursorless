@@ -433,20 +433,13 @@
 
 ;;!! true ? 0 : 1
 ;;!  ^^^^
+;;!         ^   ^
 (conditional_expression
-  condition: (_) @condition @interior
+  condition: (_) @condition
+  consequence: (_) @branch
 ) @condition.domain @branch.iteration
-
-;;!! true ? 0 : 1
-;;!         ^
 (conditional_expression
-  consequence: (_) @branch @interior
-)
-
-;;!! true ? 0 : 1
-;;!             ^
-(conditional_expression
-  alternative: (_) @branch @interior
+  alternative: (_) @branch
 )
 
 ;;!! int foo, bar;

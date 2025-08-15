@@ -446,36 +446,19 @@
 
 ;;!! 1 if True else 0
 ;;!       ^^^^
-;;!  ----------------
-(
-  (conditional_expression
-    "if" @interior.domain.start
-    .
-    (_) @condition @interior @interior.domain.end
-  ) @condition.domain
+;;!  ^              ^
+(conditional_expression
+  .
+  (_) @branch
+  .
+  "if"
+  .
+  (_) @condition
+) @condition.domain @branch.iteration
+(conditional_expression
+  (_) @branch
+  .
 )
-
-;;!! 1 if True else 0
-;;!  ^
-(
-  (conditional_expression
-    (_) @branch @interior
-    .
-    "if"
-  )
-)
-
-;;!! 1 if True else 0
-;;!                 ^
-(
-  (conditional_expression
-    "else" @interior.domain.start
-    .
-    (_) @branch @interior @interior.domain.end
-  )
-)
-
-(conditional_expression) @branch.iteration
 
 ;;!! [aaa for aaa in bbb if ccc]
 ;;!! (aaa for aaa in bbb if ccc)

@@ -1003,10 +1003,6 @@ export const scopeSupportFacetInfos: Record<
     description: "The body of a switch case branch",
     scopeType: { type: "interior" },
   },
-  "interior.ternary": {
-    description: "The body of a ternary condition/branch",
-    scopeType: { type: "interior" },
-  },
   "interior.for": {
     description: "The body of a for loop",
     scopeType: { type: "interior" },

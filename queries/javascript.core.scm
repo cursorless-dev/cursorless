@@ -630,15 +630,11 @@
 ;;!         ^   ^
 ;;! -------------
 (ternary_expression
-  condition: (_) @condition @interior
+  condition: (_) @condition
+  consequence: (_) @branch
 ) @condition.domain @branch.iteration
-
 (ternary_expression
-  consequence: (_) @branch @interior
-)
-
-(ternary_expression
-  alternative: (_) @branch @interior
+  alternative: (_) @branch
 )
 
 ;;!! for (let i = 0; i < 2; ++i) {}
