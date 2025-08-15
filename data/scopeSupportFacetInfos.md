@@ -185,7 +185,6 @@
 - `interior.surroundingPair` The interior scope of a surrounding pair
 - `interior.switch` The body of a switch statement
 - `interior.switchCase` The body of a switch case branch
-- `interior.ternary` The body of a ternary condition/branch
 - `interior.try` The body of a try/catch/finally branch
 - `interior.while` The body of a while loop
 
