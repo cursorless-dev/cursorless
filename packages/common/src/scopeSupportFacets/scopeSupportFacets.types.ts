@@ -274,7 +274,6 @@ export const scopeSupportFacets = [
   "interior.try",
   "interior.switch",
   "interior.switchCase",
-  "interior.ternary",
   "interior.for",
   "interior.foreach",
   "interior.while",

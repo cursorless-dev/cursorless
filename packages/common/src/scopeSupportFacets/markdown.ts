@@ -287,7 +287,6 @@ export const markdownScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.ternary": notApplicable,
   "branch.ternary.iteration": notApplicable,
   "condition.ternary": notApplicable,
-  "interior.ternary": notApplicable,
 
   // Element
   element: notApplicable,

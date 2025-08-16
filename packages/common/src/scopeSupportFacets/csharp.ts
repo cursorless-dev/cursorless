@@ -220,7 +220,6 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.doWhile": supported,
   "interior.switch": supported,
   "interior.switchCase": supported,
-  "interior.ternary": supported,
   "interior.try": supported,
 
   "collectionItem.unenclosed.singleLine": supported,

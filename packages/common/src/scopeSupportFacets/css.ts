@@ -292,7 +292,6 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.ternary": notApplicable,
   "branch.ternary.iteration": notApplicable,
   "condition.ternary": notApplicable,
-  "interior.ternary": notApplicable,
 
   // Section
   section: notApplicable,
