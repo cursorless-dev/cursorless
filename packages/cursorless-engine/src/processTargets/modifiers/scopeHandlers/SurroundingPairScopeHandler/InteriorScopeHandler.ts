@@ -74,6 +74,7 @@ export class InteriorScopeHandler extends BaseScopeHandler {
       {
         type: "surroundingPair",
         delimiter: "any",
+        requireStrongContainment: this.scopeType.requireStrongContainment,
       },
       this.languageId,
     );

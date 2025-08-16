@@ -101,6 +101,7 @@ class BoundedLineStage implements ModifierStage {
     try {
       return this.getContaining(target, options, {
         type: "interior",
+        requireStrongContainment: true,
       });
     } catch (error) {
       if (error instanceof NoContainingScopeError) {
