@@ -74,6 +74,7 @@ export class InteriorScopeHandler extends BaseScopeHandler {
       {
         type: "surroundingPair",
         delimiter: "any",
+        requireStrongContainment: this.scopeType.requireStrongContainment,
       },
       this.languageId,
     );
@@ -100,7 +101,7 @@ export class InteriorScopeHandler extends BaseScopeHandler {
     return SortedScopeHandler.createFromScopeHandlers(
       this.scopeHandlerFactory,
       this.languageId,
-      [languageScopeHandler, pairScopeHandler],
+      [pairScopeHandler, languageScopeHandler],
     );
   }
 

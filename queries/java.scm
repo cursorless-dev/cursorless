@@ -323,20 +323,16 @@
   (#child-range! @value 0 -1 true true)
 ) @_.domain
 
-;;!! true ? 1 : 2
+;;!! true ? 0 : 1
+;;!  ^^^^
+;;!         ^   ^
 (ternary_expression
-  condition: (_) @condition @interior
-) @condition.domain
+  condition: (_) @condition
+  consequence: (_) @branch
+) @condition.domain @branch.iteration
 (ternary_expression
-  consequence: (_) @branch @interior
+  alternative: (_) @branch
 )
-(ternary_expression
-  alternative: (_) @branch @interior
-)
-
-;;!! true ? 1 : 2
-;;!  ^^^^^^^^^^^^
-(ternary_expression) @branch.iteration
 
 ;;!! void myFunk(int value) {}
 ;;!                  ^^^^^

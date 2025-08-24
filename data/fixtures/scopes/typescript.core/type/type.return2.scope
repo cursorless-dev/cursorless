@@ -1,0 +1,36 @@
+const foo: () => number;
+---
+
+[#1 Content] = 0:11-0:23
+             >------------<
+0| const foo: () => number;
+
+[#1 Removal] = 0:9-0:23
+           >--------------<
+0| const foo: () => number;
+
+[#1 Leading delimiter] = 0:10-0:11
+            >-<
+0| const foo: () => number;
+
+[#1 Domain] = 0:0-0:24
+  >------------------------<
+0| const foo: () => number;
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Domain] = 0:17-0:23
+                   >------<
+0| const foo: () => number;
+
+[#2 Removal] = 0:13-0:23
+               >----------<
+0| const foo: () => number;
+
+[#2 Leading delimiter] = 0:13-0:17
+               >----<
+0| const foo: () => number;
+
+[#2 Insertion delimiter] = " "

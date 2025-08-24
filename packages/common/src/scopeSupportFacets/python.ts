@@ -148,7 +148,6 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.try": supported,
   "interior.switch": supported,
   "interior.switchCase": supported,
-  "interior.ternary": supported,
   "interior.foreach": supported,
   "interior.while": supported,
   "interior.resource": supported,

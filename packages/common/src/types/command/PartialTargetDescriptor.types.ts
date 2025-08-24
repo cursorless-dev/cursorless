@@ -240,6 +240,9 @@ export interface InteriorScopeType {
 
   // The user has specified a scope type. eg "inside element".
   explicitScopeType?: boolean;
+
+  // Gets passed to surrounding pair scope handler
+  requireStrongContainment?: boolean;
 }
 
 export type SurroundingPairDirection = "left" | "right";

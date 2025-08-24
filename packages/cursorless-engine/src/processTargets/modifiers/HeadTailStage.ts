@@ -74,11 +74,11 @@ class BoundedLineStage implements ModifierStage {
 
   run(target: Target, options: ModifierStateOptions): Target[] {
     const line = this.getContainingLine(target, options);
-    const pairInterior = this.getContainingPairInterior(target, options);
+    const interior = this.getContainingInterior(target, options);
 
     const intersection =
-      pairInterior != null
-        ? line.contentRange.intersection(pairInterior.contentRange)
+      interior != null
+        ? line.contentRange.intersection(interior.contentRange)
         : null;
 
     if (intersection == null || intersection.isEmpty) {
@@ -94,15 +94,15 @@ class BoundedLineStage implements ModifierStage {
     ];
   }
 
-  private getContainingPairInterior(
+  private getContainingInterior(
     target: Target,
     options: ModifierStateOptions,
   ): Target | undefined {
     try {
       return this.getContaining(target, options, {
-        type: "surroundingPairInterior",
-        delimiter: "any",
-      })[0];
+        type: "interior",
+        requireStrongContainment: true,
+      });
     } catch (error) {
       if (error instanceof NoContainingScopeError) {
         return undefined;
@@ -117,16 +117,16 @@ class BoundedLineStage implements ModifierStage {
   ): Target {
     return this.getContaining(target, options, {
       type: "line",
-    })[0];
+    });
   }
 
   private getContaining(
     target: Target,
     options: ModifierStateOptions,
     scopeType: ScopeType,
-  ): Target[] {
+  ): Target {
     return this.modifierStageFactory
       .create({ type: "containingScope", scopeType })
-      .run(target, options);
+      .run(target, options)[0];
   }
 }

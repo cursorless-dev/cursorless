@@ -131,7 +131,6 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.if": supported,
   "interior.switch": supported,
   "interior.switchCase": supported,
-  "interior.ternary": supported,
   "interior.for": supported,
   "interior.while": supported,
   "interior.doWhile": supported,
