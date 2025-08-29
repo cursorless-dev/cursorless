@@ -1,0 +1,13 @@
+foo.bar=baz
+---
+
+[Content] =
+[Removal] = 0:0-0:7
+  >-------<
+0| foo.bar=baz
+
+[Domain] = 0:0-0:11
+  >-----------<
+0| foo.bar=baz
+
+[Insertion delimiter] = " "
