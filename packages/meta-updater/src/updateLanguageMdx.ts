@@ -14,11 +14,6 @@ export function updateLanguageMdx(
     return actual;
   }
 
-  // This is just an alias for `properties` so don't need a separate page
-  if (languageId === "java-properties") {
-    return null;
-  }
-
   const expected = `
 import { Language } from "./components/Language";
 
