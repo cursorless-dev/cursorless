@@ -75,6 +75,8 @@ export const propertiesScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal.method.multiLine": notApplicable,
   "argument.formal.method.iteration": notApplicable,
   "argumentList.actual.method.multiLine": notApplicable,
+  "argumentList.actual.method.singleLine": notApplicable,
+  "argumentList.actual.method.empty": notApplicable,
   "argumentList.formal.method.empty": notApplicable,
   "argumentList.formal.method.singleLine": notApplicable,
   "argumentList.formal.method.multiLine": notApplicable,
