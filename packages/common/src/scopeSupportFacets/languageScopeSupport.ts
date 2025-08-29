@@ -53,6 +53,7 @@ export const languageScopeSupport: StringRecord<LanguageScopeSupportFacetMap> =
     markdown: markdownScopeSupport,
     php: phpScopeSupport,
     properties: propertiesScopeSupport,
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     "java-properties": propertiesScopeSupport,
     python: pythonScopeSupport,
     r: rScopeSupport,
