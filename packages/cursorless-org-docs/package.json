@@ -44,7 +44,7 @@
     "clean": "pnpm clear && rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
-    "@algolia/client-search": "^5.35.0",
+    "@algolia/client-search": "^5.36.0",
     "@cursorless/common": "workspace:*",
     "@docsearch/react": "^3.9.0",
     "@docusaurus/core": "^3.8.1",
@@ -52,25 +52,25 @@
     "@docusaurus/theme-classic": "^3.8.1",
     "@docusaurus/theme-common": "^3.8.1",
     "@docusaurus/theme-search-algolia": "^3.8.1",
-    "@mdx-js/react": "^3.1.0",
+    "@mdx-js/react": "^3.1.1",
     "clsx": "^2.1.1",
     "mdast-util-find-and-replace": "^3.0.2",
     "prism-react-renderer": "^2.4.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "shiki": "^3.9.2",
+    "shiki": "^3.12.0",
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
     "@cursorless/node-common": "workspace:*",
     "@docusaurus/module-type-aliases": "^3.8.1",
     "@docusaurus/types": "^3.8.1",
-    "@tailwindcss/postcss": "^4.1.11",
+    "@tailwindcss/postcss": "^4.1.12",
     "@tsconfig/docusaurus": "^2.0.3",
     "@types/mdast": "^4.0.4",
-    "@types/react": "^19.1.9",
+    "@types/react": "^19.1.12",
     "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.11",
+    "tailwindcss": "^4.1.12",
     "typescript": "^5.9.2",
     "unified": "^11.0.5"
   }

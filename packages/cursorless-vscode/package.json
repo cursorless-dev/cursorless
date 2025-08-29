@@ -1299,14 +1299,14 @@
     "@types/js-yaml": "^4.0.9",
     "@types/lodash-es": "^4.17.12",
     "@types/nearley": "^2.11.5",
-    "@types/node": "^24.2.0",
+    "@types/node": "^24.3.0",
     "@types/semver": "^7.7.0",
     "@types/sinon": "^17.0.4",
     "@types/uuid": "^10.0.0",
     "@types/vscode": "1.82.0",
-    "esbuild": "^0.25.8",
+    "esbuild": "^0.25.9",
     "fast-xml-parser": "^5.2.5",
-    "fs-extra": "^11.3.0",
+    "fs-extra": "^11.3.1",
     "sinon": "^21.0.0"
   }
 }

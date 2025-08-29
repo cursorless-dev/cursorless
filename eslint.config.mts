@@ -37,7 +37,8 @@ const rootConfig: ConfigWithExtends = {
     ecmaVersion: 6,
     sourceType: "module",
     parserOptions: {
-      project: true,
+      projectService: true,
+      tsconfigRootDir: import.meta.dirname,
     },
   },
 
