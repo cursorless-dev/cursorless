@@ -53,7 +53,7 @@ export class ScopeTestRecorder {
 
   async saveActiveDocument() {
     const text = this.ide.activeTextEditor?.document.getText() ?? "";
-    const matchLanguageId = text.match(/^\[\[(\w+)\]\]\n/);
+    const matchLanguageId = text.match(/^\[\[([\w-]+)\]\]\n/);
 
     if (matchLanguageId == null) {
       throw Error(`Can't match language id`);
