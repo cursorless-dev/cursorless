@@ -36,7 +36,7 @@
     "@types/mocha": "^10.0.10",
     "@types/tinycolor2": "^1.4.6",
     "cross-spawn": "^7.0.6",
-    "fast-check": "^4.2.0",
+    "fast-check": "^4.3.0",
     "js-yaml": "^4.1.0",
     "mocha": "^11.7.1"
   }

@@ -34,6 +34,6 @@
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
     "@types/lodash-es": "^4.17.12",
-    "esbuild": "^0.25.8"
+    "esbuild": "^0.25.9"
   }
 }

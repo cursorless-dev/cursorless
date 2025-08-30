@@ -19,8 +19,8 @@ const ignoresConfig: ConfigWithExtends = {
     "**/vendor/**/*",
     "**/.next/**/*",
     "**/.docusaurus/**/*",
-    "**/eslint.config.mts",
     "data/playground/**/*",
+    "packages/cursorless-org/next-env.d.ts",
   ],
 };
 
@@ -37,7 +37,8 @@ const rootConfig: ConfigWithExtends = {
     ecmaVersion: 6,
     sourceType: "module",
     parserOptions: {
-      project: true,
+      projectService: true,
+      tsconfigRootDir: import.meta.dirname,
     },
   },
 
@@ -46,6 +47,7 @@ const rootConfig: ConfigWithExtends = {
       typescript: {
         // Always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
         alwaysTryTypes: true,
+        noWarnOnMultipleProjects: true,
         project: ["tsconfig.json", "packages/*/tsconfig.json"],
       },
     },
@@ -129,6 +131,7 @@ const disabledTypeCheckConfig: ConfigWithExtends = {
   files: [
     "**/jest.config.ts",
     "**/docusaurus.config.mts",
+    "**/eslint.config.mts",
     "**/mdx-components.tsx",
     "typings/**",
     "**/*.js",
