@@ -3,7 +3,7 @@ import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
 const { supported, notApplicable } = ScopeSupportFacetLevel;
 
-export const propertiesScopeSupport: LanguageScopeSupportFacetMap = {
+export const talonListScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.variable": supported,
   "statement.iteration.document": supported,
 
@@ -17,6 +17,9 @@ export const propertiesScopeSupport: LanguageScopeSupportFacetMap = {
   "value.mapPair.iteration": supported,
   "value.variable": supported,
   "value.iteration.document": supported,
+
+  "string.singleLine": supported,
+  "textFragment.string.singleLine": supported,
 
   "comment.line": supported,
   "textFragment.comment.line": supported,
@@ -241,9 +244,7 @@ export const propertiesScopeSupport: LanguageScopeSupportFacetMap = {
   "value.variable.pattern": notApplicable,
 
   // String
-  "string.singleLine": notApplicable,
   "string.multiLine": notApplicable,
-  "textFragment.string.singleLine": notApplicable,
   "textFragment.string.multiLine": notApplicable,
 
   // Block comment

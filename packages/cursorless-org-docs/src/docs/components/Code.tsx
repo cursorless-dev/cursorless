@@ -94,6 +94,8 @@ function getFallbackLanguage(languageId: string): string {
       return "tsx";
     case "scm":
       return "scheme";
+    case "talon-list":
+      return "talon";
     default:
       return languageId;
   }

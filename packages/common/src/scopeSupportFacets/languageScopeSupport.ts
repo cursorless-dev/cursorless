@@ -27,13 +27,17 @@ import { scmScopeSupport } from "./scm";
 import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { scssScopeSupport } from "./scss";
 import { talonScopeSupport } from "./talon";
+import { talonListScopeSupport } from "./talon-list";
 import { typescriptScopeSupport } from "./typescript";
 import { typescriptreactScopeSupport } from "./typescriptreact";
 import { xmlScopeSupport } from "./xml";
 import { yamlScopeSupport } from "./yaml";
 
+/* eslint-disable @typescript-eslint/naming-convention */
+
 export const languageScopeSupport: StringRecord<LanguageScopeSupportFacetMap> =
   {
+    "talon-list": talonListScopeSupport,
     c: cScopeSupport,
     clojure: clojureScopeSupport,
     cpp: cppScopeSupport,

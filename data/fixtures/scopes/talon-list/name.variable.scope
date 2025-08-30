@@ -1,0 +1,21 @@
+not app: vscode
+-
+---
+
+[Content] = 0:4-0:7
+      >---<
+0| not app: vscode
+
+[Removal] = 0:3-0:7
+     >----<
+0| not app: vscode
+
+[Leading delimiter] = 0:3-0:4
+     >-<
+0| not app: vscode
+
+[Domain] = 0:0-0:15
+  >---------------<
+0| not app: vscode
+
+[Insertion delimiter] = " "
