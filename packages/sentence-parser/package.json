@@ -23,6 +23,6 @@
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",
-    "mocha": "^11.7.1"
+    "mocha": "^11.7.2"
   }
 }

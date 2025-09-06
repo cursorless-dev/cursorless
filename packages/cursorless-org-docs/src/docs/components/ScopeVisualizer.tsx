@@ -63,9 +63,10 @@ export function ScopeVisualizer({ languageId, scopeTypeType }: Props) {
           <option value="removal">Removal range</option>
         </select>
 
-        <label className="ml-1">
+        <label className="ml-2">
           <input
             type="checkbox"
+            className="mr-1"
             checked={renderWhitespace}
             onChange={(e) => setRenderWhitespace(e.target.checked)}
           />
