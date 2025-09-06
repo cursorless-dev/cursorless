@@ -2,6 +2,7 @@ import type {
   CursorlessCommandId,
   ScopeProvider,
   ScopeSupportInfo,
+  ScopeType,
   ScopeTypeInfo,
 } from "@cursorless/common";
 import {
@@ -12,13 +13,17 @@ import {
   serializeScopeType,
   uriEncodeHashId,
 } from "@cursorless/common";
-import type { CustomSpokenFormGenerator } from "@cursorless/cursorless-engine";
-import type { VscodeApi } from "@cursorless/vscode-common";
+import {
+  ide,
+  type CustomSpokenFormGenerator,
+} from "@cursorless/cursorless-engine";
+import { fromVscodeSelection, type VscodeApi } from "@cursorless/vscode-common";
 import { isEqual } from "lodash-es";
 import type {
   Disposable,
   Event,
   ExtensionContext,
+  TextEditorSelectionChangeEvent,
   TreeDataProvider,
   TreeItemLabel,
   TreeView,
@@ -61,6 +66,8 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
     private customSpokenFormGenerator: CustomSpokenFormGenerator,
     private hasCommandServer: boolean,
   ) {
+    this.onChangeTextSelection = this.onChangeTextSelection.bind(this);
+
     this.treeView = vscodeApi.window.createTreeView(
       CURSORLESS_SCOPE_TREE_VIEW_ID,
       {
@@ -79,7 +86,7 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
     }
   }
 
-  onDidChangeVisible(e: TreeViewVisibilityChangeEvent) {
+  private onDidChangeVisible(e: TreeViewVisibilityChangeEvent) {
     if (e.visible) {
       if (this.visibleDisposable != null) {
         return;
@@ -96,6 +103,46 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
     }
   }
 
+  private onChangeTextSelection(e: TextEditorSelectionChangeEvent) {
+    if (e.selections.length !== 1) {
+      return;
+    }
+
+    const editor = ide().activeTextEditor;
+
+    if (editor == null) {
+      return;
+    }
+
+    const selection = fromVscodeSelection(e.selections[0]);
+
+    console.log("selection", selection.concise());
+
+    for (const supportLevel of this.supportLevels) {
+      if (supportLevel.support !== ScopeSupport.supportedAndPresentInEditor) {
+        continue;
+      }
+
+      const scopes = this.scopeProvider.provideScopeRangesForRange(
+        editor,
+        supportLevel.scopeType,
+        selection,
+      );
+
+      if (scopes.length === 0) {
+        continue;
+      }
+
+      console.log(supportLevel.scopeType.type);
+
+      for (const scope of scopes) {
+        for (const target of scope.targets) {
+          console.log(target.contentRange.concise());
+        }
+      }
+    }
+  }
+
   private registerScopeSupportListener() {
     this.visibleDisposable = disposableFrom(
       this.scopeProvider.onDidChangeScopeSupport((supportLevels) => {
@@ -105,6 +152,9 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
       this.scopeVisualizer.onDidChangeScopeType(() => {
         this._onDidChangeTreeData.fire();
       }),
+      this.vscodeApi.window.onDidChangeTextEditorSelection(
+        this.onChangeTextSelection,
+      ),
     );
   }
 

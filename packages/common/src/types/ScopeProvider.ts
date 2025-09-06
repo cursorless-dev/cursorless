@@ -19,6 +19,12 @@ export interface ScopeProvider {
     config: ScopeRangeConfig,
   ) => ScopeRanges[];
 
+  provideScopeRangesForRange(
+    editor: TextEditor,
+    scopeType: ScopeType,
+    range: Range,
+  ): ScopeRanges[];
+
   /**
    * Get the iteration scope ranges for the given editor.
    * @param editor The editor
