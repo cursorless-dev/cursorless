@@ -1,9 +1,13 @@
 import type {
   CursorlessCommandId,
+  Range,
   ScopeProvider,
+  ScopeRanges,
   ScopeSupportInfo,
   ScopeType,
   ScopeTypeInfo,
+  Selection,
+  TextEditor,
 } from "@cursorless/common";
 import {
   CURSORLESS_SCOPE_TREE_VIEW_ID,
@@ -43,6 +47,7 @@ import type {
   ScopeVisualizer,
   VisualizationType,
 } from "./ScopeVisualizerCommandApi";
+import { getRangeLength } from "../../cursorless-engine/src/util/rangeUtils";
 
 export const DONT_SHOW_TALON_UPDATE_MESSAGE_KEY = "dontShowUpdateTalonMessage";
 
@@ -51,6 +56,7 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
   private treeView: TreeView<MyTreeItem>;
   private supportLevels: ScopeSupportInfo[] = [];
   private shownUpdateTalonMessage = false;
+  private selection: Selection | null = null;
 
   private _onDidChangeTreeData: EventEmitter<
     MyTreeItem | undefined | null | void
@@ -66,8 +72,6 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
     private customSpokenFormGenerator: CustomSpokenFormGenerator,
     private hasCommandServer: boolean,
   ) {
-    this.onChangeTextSelection = this.onChangeTextSelection.bind(this);
-
     this.treeView = vscodeApi.window.createTreeView(
       CURSORLESS_SCOPE_TREE_VIEW_ID,
       {
@@ -103,46 +107,6 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
     }
   }
 
-  private onChangeTextSelection(e: TextEditorSelectionChangeEvent) {
-    if (e.selections.length !== 1) {
-      return;
-    }
-
-    const editor = ide().activeTextEditor;
-
-    if (editor == null) {
-      return;
-    }
-
-    const selection = fromVscodeSelection(e.selections[0]);
-
-    console.log("selection", selection.concise());
-
-    for (const supportLevel of this.supportLevels) {
-      if (supportLevel.support !== ScopeSupport.supportedAndPresentInEditor) {
-        continue;
-      }
-
-      const scopes = this.scopeProvider.provideScopeRangesForRange(
-        editor,
-        supportLevel.scopeType,
-        selection,
-      );
-
-      if (scopes.length === 0) {
-        continue;
-      }
-
-      console.log(supportLevel.scopeType.type);
-
-      for (const scope of scopes) {
-        for (const target of scope.targets) {
-          console.log(target.contentRange.concise());
-        }
-      }
-    }
-  }
-
   private registerScopeSupportListener() {
     this.visibleDisposable = disposableFrom(
       this.scopeProvider.onDidChangeScopeSupport((supportLevels) => {
@@ -152,9 +116,13 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
       this.scopeVisualizer.onDidChangeScopeType(() => {
         this._onDidChangeTreeData.fire();
       }),
-      this.vscodeApi.window.onDidChangeTextEditorSelection(
-        this.onChangeTextSelection,
-      ),
+      this.vscodeApi.window.onDidChangeTextEditorSelection((e) => {
+        this.selection =
+          e.selections.length === 1
+            ? fromVscodeSelection(e.selections[0])
+            : null;
+        this._onDidChangeTreeData.fire();
+      }),
     );
   }
 
@@ -170,6 +138,10 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
 
     if (element instanceof SupportCategoryTreeItem) {
       return this.getScopeTypesWithSupport(element.scopeSupport);
+    }
+
+    if (element instanceof SelectedCategoryTreeItem) {
+      return this.getSelectedScopeTypes();
     }
 
     throw new Error("Unexpected element");
@@ -210,18 +182,7 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
   private getScopeTypesWithSupport(
     scopeSupport: ScopeSupport,
   ): ScopeSupportTreeItem[] {
-    return this.supportLevels
-      .filter(
-        (supportLevel) =>
-          supportLevel.support === scopeSupport &&
-          // Skip scope if it doesn't have a spoken form and it's private. That
-          // is the default state for scopes that are private; we don't want to
-          // show these to the user.
-          !(
-            supportLevel.spokenForm.type === "error" &&
-            supportLevel.spokenForm.isPrivate
-          ),
-      )
+    return this.getScopeSupportInfo(scopeSupport)
       .map(
         (supportLevel) =>
           new ScopeSupportTreeItem(
@@ -250,16 +211,69 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
       });
   }
 
+  private getSelectedScopeTypes(): ScopeSupportTreeItem[] {
+    if (this.selection == null) {
+      return [];
+    }
+
+    const editor = ide().activeTextEditor;
+    const selection = this.selection;
+
+    if (editor == null) {
+      return [];
+    }
+
+    return this.getScopeSupportInfo(ScopeSupport.supportedAndPresentInEditor)
+      .map((supportLevel) => {
+        const scopes = this.scopeProvider.provideScopeRangesForRange(
+          editor,
+          supportLevel.scopeType,
+          selection,
+        );
+        return {
+          supportLevel,
+          length: getSmallestTargetLength(editor, selection, scopes),
+        };
+      })
+      .filter(({ length }) => length > -1)
+      .sort((a, b) => a.length - b.length)
+      .map(({ supportLevel, length }) => {
+        console.log(serializeScopeType(supportLevel.scopeType), length);
+        return new ScopeSupportTreeItem(
+          supportLevel,
+          isEqual(supportLevel.scopeType, this.scopeVisualizer.scopeType),
+        );
+      });
+  }
+
+  private getScopeSupportInfo(scopeSupport: ScopeSupport): ScopeSupportInfo[] {
+    return this.supportLevels.filter(
+      (supportLevel) =>
+        supportLevel.support === scopeSupport &&
+        // Skip scope if it doesn't have a spoken form and it's private. That
+        // is the default state for scopes that are private; we don't want to
+        // show these to the user.
+        !(
+          supportLevel.spokenForm.type === "error" &&
+          supportLevel.spokenForm.isPrivate
+        ),
+    );
+  }
+
   dispose() {
     this.visibleDisposable?.dispose();
   }
 }
 
-function getSupportCategories(): SupportCategoryTreeItem[] {
+function getSupportCategories(): (
+  | SupportCategoryTreeItem
+  | SelectedCategoryTreeItem
+)[] {
   return [
     new SupportCategoryTreeItem(ScopeSupport.supportedAndPresentInEditor),
     new SupportCategoryTreeItem(ScopeSupport.supportedButNotPresentInEditor),
     new SupportCategoryTreeItem(ScopeSupport.unsupported),
+    new SelectedCategoryTreeItem(),
   ];
 }
 
@@ -378,7 +392,17 @@ class SupportCategoryTreeItem extends TreeItem {
   }
 }
 
-type MyTreeItem = ScopeSupportTreeItem | SupportCategoryTreeItem;
+class SelectedCategoryTreeItem extends TreeItem {
+  constructor() {
+    super("Selected", TreeItemCollapsibleState.Collapsed);
+    this.description = "scopes";
+  }
+}
+
+type MyTreeItem =
+  | ScopeSupportTreeItem
+  | SupportCategoryTreeItem
+  | SelectedCategoryTreeItem;
 
 /**
  * Get file extension example from vscode [Language Id](https://code.visualstudio.com/docs/languages/identifiers)
@@ -404,4 +428,30 @@ export function getLanguageExtensionSampleFromLanguageId(
       }
     }
   }
+}
+
+function getSmallestTargetLength(
+  editor: TextEditor,
+  selection: Range,
+  scopes: ScopeRanges[],
+): number {
+  let length: number | null = null;
+  for (const scope of scopes) {
+    for (const target of scope.targets) {
+      // Don't use targets smaller than the selection
+      if (
+        selection.contains(target.contentRange) &&
+        !selection.isRangeEqual(target.contentRange)
+      ) {
+        continue;
+      }
+      const targetIntersection = target.contentRange.intersection(selection);
+      if (targetIntersection == null) {
+        continue;
+      }
+      const targetLength = getRangeLength(editor, target.contentRange);
+      length = length != null ? Math.min(length, targetLength) : targetLength;
+    }
+  }
+  return length ?? -1;
 }
