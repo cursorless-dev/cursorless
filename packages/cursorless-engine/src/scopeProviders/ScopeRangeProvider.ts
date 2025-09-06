@@ -1,13 +1,12 @@
-import {
+import type {
   IterationScopeRangeConfig,
   IterationScopeRanges,
-  Range,
   ScopeRangeConfig,
   ScopeRanges,
   ScopeType,
   TextEditor,
 } from "@cursorless/common";
-
+import { Range } from "@cursorless/common";
 import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import type { ScopeHandlerFactory } from "../processTargets/modifiers/scopeHandlers/ScopeHandlerFactory";
 import { getIterationRange } from "./getIterationRange";
