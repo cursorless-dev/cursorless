@@ -4,7 +4,6 @@ import type {
   ScopeProvider,
   ScopeRanges,
   ScopeSupportInfo,
-  ScopeType,
   ScopeTypeInfo,
   Selection,
   TextEditor,
@@ -14,6 +13,7 @@ import {
   DOCS_URL,
   ScopeSupport,
   disposableFrom,
+  getRangeLength,
   serializeScopeType,
   uriEncodeHashId,
 } from "@cursorless/common";
@@ -27,7 +27,6 @@ import type {
   Disposable,
   Event,
   ExtensionContext,
-  TextEditorSelectionChangeEvent,
   TreeDataProvider,
   TreeItemLabel,
   TreeView,
@@ -47,7 +46,6 @@ import type {
   ScopeVisualizer,
   VisualizationType,
 } from "./ScopeVisualizerCommandApi";
-import { getRangeLength } from "../../cursorless-engine/src/util/rangeUtils";
 
 export const DONT_SHOW_TALON_UPDATE_MESSAGE_KEY = "dontShowUpdateTalonMessage";
 

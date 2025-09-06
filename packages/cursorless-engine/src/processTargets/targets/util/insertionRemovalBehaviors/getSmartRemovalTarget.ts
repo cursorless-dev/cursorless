@@ -1,6 +1,6 @@
 import type { Range, TextDocument } from "@cursorless/common";
+import { union } from "@cursorless/common";
 import type { Target } from "../../../../typings/target.types";
-import { union } from "../../../../util/rangeUtils";
 import { LineTarget } from "../../LineTarget";
 import { ParagraphTarget } from "../../ParagraphTarget";
 import { TokenTarget } from "../../TokenTarget";

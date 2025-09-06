@@ -110,6 +110,7 @@ export * from "./util/Notifier";
 export * from "./util/object";
 export * from "./util/omitByDeep";
 export * from "./util/prettifyLanguageName";
+export * from "./util/rangeUtils";
 export * from "./util/regex";
 export * from "./util/selectionsEqual";
 export * from "./util/serializedMarksToTokenHats";

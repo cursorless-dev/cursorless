@@ -1,6 +1,5 @@
 import type { Range, TextEditor } from "@cursorless/common";
-
-import { getRangeLength } from "../../../../util/rangeUtils";
+import { getRangeLength } from "@cursorless/common";
 
 /**
  * Picks which of the leading and trailing delimiter ranges to use for removal when both are present.
