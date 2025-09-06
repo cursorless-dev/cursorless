@@ -175,6 +175,7 @@ function createScopeProvider(
 
   return {
     provideScopeRanges: rangeProvider.provideScopeRanges,
+    provideScopeRangesForRange: rangeProvider.provideScopeRangesForRange,
     provideIterationScopeRanges: rangeProvider.provideIterationScopeRanges,
     onDidChangeScopeRanges: rangeWatcher.onDidChangeScopeRanges,
     onDidChangeIterationScopeRanges:

@@ -1,7 +1,6 @@
 import type { TextEditor } from "@cursorless/common";
-import { Range } from "@cursorless/common";
+import { expandToFullLine, Range, union } from "@cursorless/common";
 import type { Target } from "../../../../typings/target.types";
-import { expandToFullLine, union } from "../../../../util/rangeUtils";
 import { PlainTarget } from "../../PlainTarget";
 
 const leadingDelimiters = ['"', "'", "(", "[", "{", "<"];

@@ -1,6 +1,6 @@
 import type { Range } from "@cursorless/common";
+import { union } from "@cursorless/common";
 import type { Target } from "../../../../typings/target.types";
-import { union } from "../../../../util/rangeUtils";
 
 /**
  * Constructs a removal range for the given target that includes either the
