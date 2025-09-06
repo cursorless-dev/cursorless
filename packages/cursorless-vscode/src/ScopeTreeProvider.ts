@@ -111,6 +111,11 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
     this.visibleDisposable = disposableFrom(
       this.scopeProvider.onDidChangeScopeSupport((supportLevels) => {
         this.supportLevels = supportLevels;
+        const editor = ide().activeTextEditor;
+        this.selection =
+          editor != null && editor.selections.length === 1
+            ? editor.selections[0]
+            : null;
         this._onDidChangeTreeData.fire();
       }),
       this.scopeVisualizer.onDidChangeScopeType(() => {
@@ -190,25 +195,7 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
             isEqual(supportLevel.scopeType, this.scopeVisualizer.scopeType),
           ),
       )
-      .sort((a, b) => {
-        if (
-          a.scopeTypeInfo.spokenForm.type !== b.scopeTypeInfo.spokenForm.type
-        ) {
-          // Scopes with no spoken form are sorted to the bottom
-          return a.scopeTypeInfo.spokenForm.type === "error" ? 1 : -1;
-        }
-
-        if (
-          a.scopeTypeInfo.isLanguageSpecific !==
-          b.scopeTypeInfo.isLanguageSpecific
-        ) {
-          // Then language-specific scopes are sorted to the top
-          return a.scopeTypeInfo.isLanguageSpecific ? -1 : 1;
-        }
-
-        // Then alphabetical by label
-        return a.label.label.localeCompare(b.label.label);
-      });
+      .sort(treeItemComparator);
   }
 
   private getSelectedScopeTypes(): ScopeSupportTreeItem[] {
@@ -236,14 +223,14 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
         };
       })
       .filter(({ length }) => length > -1)
-      .sort((a, b) => a.length - b.length)
       .map(({ supportLevel, length }) => {
-        console.log(serializeScopeType(supportLevel.scopeType), length);
         return new ScopeSupportTreeItem(
           supportLevel,
           isEqual(supportLevel.scopeType, this.scopeVisualizer.scopeType),
+          length,
         );
-      });
+      })
+      .sort(treeItemComparator);
   }
 
   private getScopeSupportInfo(scopeSupport: ScopeSupport): ScopeSupportInfo[] {
@@ -270,10 +257,10 @@ function getSupportCategories(): (
   | SelectedCategoryTreeItem
 )[] {
   return [
+    new SelectedCategoryTreeItem(),
     new SupportCategoryTreeItem(ScopeSupport.supportedAndPresentInEditor),
     new SupportCategoryTreeItem(ScopeSupport.supportedButNotPresentInEditor),
     new SupportCategoryTreeItem(ScopeSupport.unsupported),
-    new SelectedCategoryTreeItem(),
   ];
 }
 
@@ -289,6 +276,7 @@ class ScopeSupportTreeItem extends TreeItem {
   constructor(
     public readonly scopeTypeInfo: ScopeTypeInfo,
     isVisualized: boolean,
+    public priority: number = 0,
   ) {
     let label: string;
     let tooltip: string;
@@ -378,7 +366,7 @@ class SupportCategoryTreeItem extends TreeItem {
       case ScopeSupport.supportedButNotPresentInEditor:
         label = "Supported";
         description = "but not present in active editor";
-        collapsibleState = TreeItemCollapsibleState.Expanded;
+        collapsibleState = TreeItemCollapsibleState.Collapsed;
         break;
       case ScopeSupport.unsupported:
         label = "Unsupported";
@@ -394,7 +382,7 @@ class SupportCategoryTreeItem extends TreeItem {
 
 class SelectedCategoryTreeItem extends TreeItem {
   constructor() {
-    super("Selected", TreeItemCollapsibleState.Collapsed);
+    super("Selected", TreeItemCollapsibleState.Expanded);
     this.description = "scopes";
   }
 }
@@ -454,4 +442,26 @@ function getSmallestTargetLength(
     }
   }
   return length ?? -1;
+}
+
+function treeItemComparator(a: ScopeSupportTreeItem, b: ScopeSupportTreeItem) {
+  // First by priority (lower number is higher priority)
+  if (a.priority !== b.priority) {
+    return a.priority - b.priority;
+  }
+
+  // Scopes with no spoken form are sorted to the bottom
+  if (a.scopeTypeInfo.spokenForm.type !== b.scopeTypeInfo.spokenForm.type) {
+    return a.scopeTypeInfo.spokenForm.type === "error" ? 1 : -1;
+  }
+
+  // Then language-specific scopes are sorted to the top
+  if (
+    a.scopeTypeInfo.isLanguageSpecific !== b.scopeTypeInfo.isLanguageSpecific
+  ) {
+    return a.scopeTypeInfo.isLanguageSpecific ? -1 : 1;
+  }
+
+  // Then alphabetical by label
+  return a.label.label.localeCompare(b.label.label);
 }
