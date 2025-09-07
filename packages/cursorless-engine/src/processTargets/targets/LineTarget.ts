@@ -1,11 +1,7 @@
 import type { TextEditor } from "@cursorless/common";
-import {
-  expandToFullLine,
-  Position,
-  Range,
-  toLineRange,
-} from "@cursorless/common";
+import { Position, Range, toLineRange } from "@cursorless/common";
 import type { TextualType } from "../../typings/target.types";
+import { expandToFullLine } from "../../util/rangeUtils";
 import { tryConstructTarget } from "../../util/tryConstructTarget";
 import type { CommonTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";

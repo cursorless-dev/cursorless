@@ -4,6 +4,7 @@ import type {
   ScopeProvider,
   ScopeRanges,
   ScopeSupportInfo,
+  ScopeType,
   ScopeTypeInfo,
   Selection,
   TextEditor,
@@ -13,7 +14,6 @@ import {
   DOCS_URL,
   ScopeSupport,
   disposableFrom,
-  getRangeLength,
   serializeScopeType,
   uriEncodeHashId,
 } from "@cursorless/common";
@@ -54,7 +54,6 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
   private treeView: TreeView<MyTreeItem>;
   private supportLevels: ScopeSupportInfo[] = [];
   private shownUpdateTalonMessage = false;
-  private selection: Selection | null = null;
 
   private _onDidChangeTreeData: EventEmitter<
     MyTreeItem | undefined | null | void
@@ -109,21 +108,12 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
     this.visibleDisposable = disposableFrom(
       this.scopeProvider.onDidChangeScopeSupport((supportLevels) => {
         this.supportLevels = supportLevels;
-        const editor = ide().activeTextEditor;
-        this.selection =
-          editor != null && editor.selections.length === 1
-            ? editor.selections[0]
-            : null;
         this._onDidChangeTreeData.fire();
       }),
       this.scopeVisualizer.onDidChangeScopeType(() => {
         this._onDidChangeTreeData.fire();
       }),
-      this.vscodeApi.window.onDidChangeTextEditorSelection((e) => {
-        this.selection =
-          e.selections.length === 1
-            ? fromVscodeSelection(e.selections[0])
-            : null;
+      this.vscodeApi.window.onDidChangeTextEditorSelection(() => {
         this._onDidChangeTreeData.fire();
       }),
     );
@@ -141,10 +131,6 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
 
     if (element instanceof SupportCategoryTreeItem) {
       return this.getScopeTypesWithSupport(element.scopeSupport);
-    }
-
-    if (element instanceof SelectedCategoryTreeItem) {
-      return this.getSelectedScopeTypes();
     }
 
     throw new Error("Unexpected element");
@@ -182,67 +168,89 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
     }
   }
 
+  private getIntersectionIcon(
+    editor: TextEditor,
+    selection: Selection,
+    scopeType: ScopeType,
+  ): string | undefined {
+    const scopes = this.scopeProvider.provideScopeRangesForRange(
+      editor,
+      scopeType,
+      selection,
+    );
+
+    for (const scope of scopes) {
+      for (const target of scope.targets) {
+        // Scope target exactly matches selection
+        if (target.contentRange.isRangeEqual(selection)) {
+          return "🎯";
+        }
+        // Scope target contains selection
+        if (target.contentRange.contains(selection)) {
+          return "📦";
+        }
+      }
+    }
+
+    return undefined;
+  }
+
   private getScopeTypesWithSupport(
     scopeSupport: ScopeSupport,
   ): ScopeSupportTreeItem[] {
-    return this.getScopeSupportInfo(scopeSupport)
-      .map(
+    const getIntersectionIcon = (() => {
+      if (scopeSupport !== ScopeSupport.supportedAndPresentInEditor) {
+        return null;
+      }
+      const editor = ide().activeTextEditor;
+      if (editor == null || editor.selections.length !== 1) {
+        return null;
+      }
+      const selection = editor.selections[0];
+      return (scopeType: ScopeType) => {
+        return this.getIntersectionIcon(editor, selection, scopeType);
+      };
+    })();
+
+    return this.supportLevels
+      .filter(
         (supportLevel) =>
-          new ScopeSupportTreeItem(
-            supportLevel,
-            isEqual(supportLevel.scopeType, this.scopeVisualizer.scopeType),
+          supportLevel.support === scopeSupport &&
+          // Skip scope if it doesn't have a spoken form and it's private. That
+          // is the default state for scopes that are private; we don't want to
+          // show these to the user.
+          !(
+            supportLevel.spokenForm.type === "error" &&
+            supportLevel.spokenForm.isPrivate
           ),
       )
-      .sort(treeItemComparator);
-  }
-
-  private getSelectedScopeTypes(): ScopeSupportTreeItem[] {
-    if (this.selection == null) {
-      return [];
-    }
-
-    const editor = ide().activeTextEditor;
-    const selection = this.selection;
-
-    if (editor == null) {
-      return [];
-    }
-
-    return this.getScopeSupportInfo(ScopeSupport.supportedAndPresentInEditor)
       .map((supportLevel) => {
-        const scopes = this.scopeProvider.provideScopeRangesForRange(
-          editor,
-          supportLevel.scopeType,
-          selection,
-        );
-        return {
-          supportLevel,
-          length: getSmallestTargetLength(editor, selection, scopes),
-        };
-      })
-      .filter(({ length }) => length > -1)
-      .map(({ supportLevel, length }) => {
+        const intersectionIcon = getIntersectionIcon?.(supportLevel.scopeType);
         return new ScopeSupportTreeItem(
           supportLevel,
           isEqual(supportLevel.scopeType, this.scopeVisualizer.scopeType),
-          length,
+          intersectionIcon,
         );
       })
-      .sort(treeItemComparator);
-  }
+      .sort((a, b) => {
+        // Scopes with no spoken form are sorted to the bottom
+        if (
+          a.scopeTypeInfo.spokenForm.type !== b.scopeTypeInfo.spokenForm.type
+        ) {
+          return a.scopeTypeInfo.spokenForm.type === "error" ? 1 : -1;
+        }
 
-  private getScopeSupportInfo(scopeSupport: ScopeSupport): ScopeSupportInfo[] {
-    return this.supportLevels.filter(
-      (supportLevel) =>
-        supportLevel.support === scopeSupport &&
-        // Skip scope if it doesn't have a spoken form and it's private. That
-        // is the default state for scopes that are private; we don't want to
-        // show these to the user.
-        !(
-          supportLevel.spokenForm.type === "error" &&
-          supportLevel.spokenForm.isPrivate
-        ),
-    );
+        // Then language-specific scopes are sorted to the top
+        if (
+          a.scopeTypeInfo.isLanguageSpecific !==
+          b.scopeTypeInfo.isLanguageSpecific
+        ) {
+          return a.scopeTypeInfo.isLanguageSpecific ? -1 : 1;
+        }
+
+        // Then alphabetical by label
+        return a.label.label.localeCompare(b.label.label);
+      });
   }
 
   dispose() {
@@ -250,12 +258,8 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
   }
 }
 
-function getSupportCategories(): (
-  | SupportCategoryTreeItem
-  | SelectedCategoryTreeItem
-)[] {
+function getSupportCategories(): SupportCategoryTreeItem[] {
   return [
-    new SelectedCategoryTreeItem(),
     new SupportCategoryTreeItem(ScopeSupport.supportedAndPresentInEditor),
     new SupportCategoryTreeItem(ScopeSupport.supportedButNotPresentInEditor),
     new SupportCategoryTreeItem(ScopeSupport.unsupported),
@@ -274,7 +278,7 @@ class ScopeSupportTreeItem extends TreeItem {
   constructor(
     public readonly scopeTypeInfo: ScopeTypeInfo,
     isVisualized: boolean,
-    public priority: number = 0,
+    intersectionIcon: string | undefined,
   ) {
     let label: string;
     let tooltip: string;
@@ -300,7 +304,10 @@ class ScopeSupportTreeItem extends TreeItem {
     );
 
     this.tooltip = tooltip == null ? tooltip : new MarkdownString(tooltip);
-    this.description = scopeTypeInfo.humanReadableName;
+    this.description =
+      intersectionIcon != null
+        ? `${intersectionIcon} ${scopeTypeInfo.humanReadableName}`
+        : scopeTypeInfo.humanReadableName;
 
     this.command = isVisualized
       ? {
@@ -321,9 +328,8 @@ class ScopeSupportTreeItem extends TreeItem {
     if (scopeTypeInfo.isLanguageSpecific) {
       const languageId = window.activeTextEditor?.document.languageId;
       if (languageId != null) {
-        const fileExtension = getLanguageExtensionSampleFromLanguageId(
-          window.activeTextEditor!.document.languageId,
-        );
+        const fileExtension =
+          getLanguageExtensionSampleFromLanguageId(languageId);
         if (fileExtension != null) {
           this.resourceUri = URI.parse(
             "cursorless-dummy://dummy/dummy" + fileExtension,
@@ -364,7 +370,7 @@ class SupportCategoryTreeItem extends TreeItem {
       case ScopeSupport.supportedButNotPresentInEditor:
         label = "Supported";
         description = "but not present in active editor";
-        collapsibleState = TreeItemCollapsibleState.Collapsed;
+        collapsibleState = TreeItemCollapsibleState.Expanded;
         break;
       case ScopeSupport.unsupported:
         label = "Unsupported";
@@ -378,17 +384,7 @@ class SupportCategoryTreeItem extends TreeItem {
   }
 }
 
-class SelectedCategoryTreeItem extends TreeItem {
-  constructor() {
-    super("Selected", TreeItemCollapsibleState.Expanded);
-    this.description = "scopes";
-  }
-}
-
-type MyTreeItem =
-  | ScopeSupportTreeItem
-  | SupportCategoryTreeItem
-  | SelectedCategoryTreeItem;
+type MyTreeItem = ScopeSupportTreeItem | SupportCategoryTreeItem;
 
 /**
  * Get file extension example from vscode [Language Id](https://code.visualstudio.com/docs/languages/identifiers)
@@ -414,52 +410,4 @@ export function getLanguageExtensionSampleFromLanguageId(
       }
     }
   }
-}
-
-function getSmallestTargetLength(
-  editor: TextEditor,
-  selection: Range,
-  scopes: ScopeRanges[],
-): number {
-  let length: number | null = null;
-  for (const scope of scopes) {
-    for (const target of scope.targets) {
-      // Don't use targets smaller than the selection
-      if (
-        selection.contains(target.contentRange) &&
-        !selection.isRangeEqual(target.contentRange)
-      ) {
-        continue;
-      }
-      const targetIntersection = target.contentRange.intersection(selection);
-      if (targetIntersection == null) {
-        continue;
-      }
-      const targetLength = getRangeLength(editor, target.contentRange);
-      length = length != null ? Math.min(length, targetLength) : targetLength;
-    }
-  }
-  return length ?? -1;
-}
-
-function treeItemComparator(a: ScopeSupportTreeItem, b: ScopeSupportTreeItem) {
-  // First by priority (lower number is higher priority)
-  if (a.priority !== b.priority) {
-    return a.priority - b.priority;
-  }
-
-  // Scopes with no spoken form are sorted to the bottom
-  if (a.scopeTypeInfo.spokenForm.type !== b.scopeTypeInfo.spokenForm.type) {
-    return a.scopeTypeInfo.spokenForm.type === "error" ? 1 : -1;
-  }
-
-  // Then language-specific scopes are sorted to the top
-  if (
-    a.scopeTypeInfo.isLanguageSpecific !== b.scopeTypeInfo.isLanguageSpecific
-  ) {
-    return a.scopeTypeInfo.isLanguageSpecific ? -1 : 1;
-  }
-
-  // Then alphabetical by label
-  return a.label.label.localeCompare(b.label.label);
 }
