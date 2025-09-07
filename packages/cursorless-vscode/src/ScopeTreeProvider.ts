@@ -166,33 +166,6 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
     }
   }
 
-  private getIntersectionIcon(
-    editor: TextEditor,
-    selection: Selection,
-    scopeType: ScopeType,
-  ): string | undefined {
-    const scopes = this.scopeProvider.provideScopeRangesForRange(
-      editor,
-      scopeType,
-      selection,
-    );
-
-    for (const scope of scopes) {
-      for (const target of scope.targets) {
-        // Scope target exactly matches selection
-        if (target.contentRange.isRangeEqual(selection)) {
-          return "🎯";
-        }
-        // Scope target contains selection
-        if (target.contentRange.contains(selection)) {
-          return "📦";
-        }
-      }
-    }
-
-    return undefined;
-  }
-
   private getScopeTypesWithSupport(
     scopeSupport: ScopeSupport,
   ): ScopeSupportTreeItem[] {
@@ -249,6 +222,33 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
         // Then alphabetical by label
         return a.label.label.localeCompare(b.label.label);
       });
+  }
+
+  private getIntersectionIcon(
+    editor: TextEditor,
+    selection: Selection,
+    scopeType: ScopeType,
+  ): string | undefined {
+    const scopes = this.scopeProvider.provideScopeRangesForRange(
+      editor,
+      scopeType,
+      selection,
+    );
+
+    for (const scope of scopes) {
+      for (const target of scope.targets) {
+        // Scope target exactly matches selection
+        if (target.contentRange.isRangeEqual(selection)) {
+          return "🎯";
+        }
+        // Scope target contains selection
+        if (target.contentRange.contains(selection)) {
+          return "📦";
+        }
+      }
+    }
+
+    return undefined;
   }
 
   dispose() {
