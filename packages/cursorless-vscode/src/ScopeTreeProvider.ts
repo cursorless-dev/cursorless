@@ -224,27 +224,27 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
             supportLevel.spokenForm.isPrivate
           ),
       )
-      .map((supportLevel) => {
-        const intersectionIcon = getIntersectionIcon?.(supportLevel.scopeType);
-        return new ScopeSupportTreeItem(
-          supportLevel,
-          isEqual(supportLevel.scopeType, this.scopeVisualizer.scopeType),
-          intersectionIcon,
-        );
-      })
+      .map(
+        (supportLevel) =>
+          new ScopeSupportTreeItem(
+            supportLevel,
+            isEqual(supportLevel.scopeType, this.scopeVisualizer.scopeType),
+            getIntersectionIcon?.(supportLevel.scopeType),
+          ),
+      )
       .sort((a, b) => {
-        // Scopes with no spoken form are sorted to the bottom
         if (
           a.scopeTypeInfo.spokenForm.type !== b.scopeTypeInfo.spokenForm.type
         ) {
+          // Scopes with no spoken form are sorted to the bottom
           return a.scopeTypeInfo.spokenForm.type === "error" ? 1 : -1;
         }
 
-        // Then language-specific scopes are sorted to the top
         if (
           a.scopeTypeInfo.isLanguageSpecific !==
           b.scopeTypeInfo.isLanguageSpecific
         ) {
+          // Then language-specific scopes are sorted to the top
           return a.scopeTypeInfo.isLanguageSpecific ? -1 : 1;
         }
 
