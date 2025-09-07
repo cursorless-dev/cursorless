@@ -169,7 +169,7 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
   private getScopeTypesWithSupport(
     scopeSupport: ScopeSupport,
   ): ScopeSupportTreeItem[] {
-    const getIntersectionIcon = (() => {
+    const getContainmentIcon = (() => {
       if (scopeSupport !== ScopeSupport.supportedAndPresentInEditor) {
         return null;
       }
@@ -179,7 +179,7 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
       }
       const selection = editor.selections[0];
       return (scopeType: ScopeType) => {
-        return this.getIntersectionIcon(editor, selection, scopeType);
+        return this.getContainmentIcon(editor, selection, scopeType);
       };
     })();
 
@@ -200,7 +200,7 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
           new ScopeSupportTreeItem(
             supportLevel,
             isEqual(supportLevel.scopeType, this.scopeVisualizer.scopeType),
-            getIntersectionIcon?.(supportLevel.scopeType),
+            getContainmentIcon?.(supportLevel.scopeType),
           ),
       )
       .sort((a, b) => {
@@ -224,7 +224,7 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
       });
   }
 
-  private getIntersectionIcon(
+  private getContainmentIcon(
     editor: TextEditor,
     selection: Selection,
     scopeType: ScopeType,
@@ -276,7 +276,7 @@ class ScopeSupportTreeItem extends TreeItem {
   constructor(
     public readonly scopeTypeInfo: ScopeTypeInfo,
     isVisualized: boolean,
-    intersectionIcon: string | undefined,
+    containmentIcon: string | undefined,
   ) {
     let label: string;
     let tooltip: string;
@@ -303,8 +303,8 @@ class ScopeSupportTreeItem extends TreeItem {
 
     this.tooltip = tooltip == null ? tooltip : new MarkdownString(tooltip);
     this.description =
-      intersectionIcon != null
-        ? `${intersectionIcon} ${scopeTypeInfo.humanReadableName}`
+      containmentIcon != null
+        ? `${containmentIcon} ${scopeTypeInfo.humanReadableName}`
         : scopeTypeInfo.humanReadableName;
 
     this.command = isVisualized
