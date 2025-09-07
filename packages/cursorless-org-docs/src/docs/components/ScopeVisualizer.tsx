@@ -110,8 +110,6 @@ export function ScopeVisualizer({ languageId, scopeTypeType }: Props) {
   if (languageId != null) {
     return (
       <>
-        {renderPublicScopesHeader()}
-
         <p>
           Below are visualizations of all our scope tests for this language.
           These were created primarily for testing purposes rather than as
@@ -119,6 +117,7 @@ export function ScopeVisualizer({ languageId, scopeTypeType }: Props) {
           overwhelming from a documentation standpoint.
         </p>
 
+        {renderPublicScopesHeader()}
         {renderOptions()}
         {renderScopes(scopes.public)}
 
