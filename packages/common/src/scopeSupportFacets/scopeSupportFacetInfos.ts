@@ -1016,26 +1016,26 @@ export const scopeSupportFacetInfos: Record<
   // Internal scope facets
 
   "textFragment.comment.line": {
-    description: "Internally used text fragment consisting of a line comment.",
+    description: "Internally used text fragment consisting of a line comment",
     scopeType: "textFragment",
   },
   "textFragment.comment.block": {
-    description: "Internally used text fragment consisting of a block comment.",
+    description: "Internally used text fragment consisting of a block comment",
     scopeType: "textFragment",
   },
   "textFragment.string.singleLine": {
     description:
-      "Internally used text fragment consisting of a single-line string.",
+      "Internally used text fragment consisting of a single-line string",
     scopeType: "textFragment",
   },
   "textFragment.string.multiLine": {
     description:
-      "Internally used text fragment consisting of a multi-line string.",
+      "Internally used text fragment consisting of a multi-line string",
     scopeType: "textFragment",
   },
   "textFragment.element": {
     description:
-      "Internally used text fragment consisting of a xml element interior.",
+      "Internally used text fragment consisting of a xml element interior",
     scopeType: "textFragment",
   },
 
