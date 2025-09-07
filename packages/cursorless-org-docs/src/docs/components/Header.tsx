@@ -1,5 +1,6 @@
 import { uriEncodeHashId } from "@cursorless/common";
 import React from "react";
+import "./Header.css";
 
 interface Props {
   className?: string;
@@ -35,8 +36,7 @@ function renderHeader(
       id={encodedId}
       title={title}
       className={
-        "scope-header anchorWithStickyNavbar_IncK" +
-        (className ? " " + className : "")
+        "anchor-with-sticky-navbar" + (className ? " " + className : "")
       }
     >
       {children}
