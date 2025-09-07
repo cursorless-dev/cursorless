@@ -1,8 +1,6 @@
 import type {
   CursorlessCommandId,
-  Range,
   ScopeProvider,
-  ScopeRanges,
   ScopeSupportInfo,
   ScopeType,
   ScopeTypeInfo,
@@ -21,7 +19,7 @@ import {
   ide,
   type CustomSpokenFormGenerator,
 } from "@cursorless/cursorless-engine";
-import { fromVscodeSelection, type VscodeApi } from "@cursorless/vscode-common";
+import { type VscodeApi } from "@cursorless/vscode-common";
 import { isEqual } from "lodash-es";
 import type {
   Disposable,
