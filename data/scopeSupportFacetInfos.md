@@ -336,11 +336,11 @@
 
 ### textFragment
 
-- `textFragment.comment.block` Internally used text fragment consisting of a block comment.
-- `textFragment.comment.line` Internally used text fragment consisting of a line comment.
-- `textFragment.element` Internally used text fragment consisting of a xml element interior.
-- `textFragment.string.multiLine` Internally used text fragment consisting of a multi-line string.
-- `textFragment.string.singleLine` Internally used text fragment consisting of a single-line string.
+- `textFragment.comment.block` Internally used text fragment consisting of a block comment
+- `textFragment.comment.line` Internally used text fragment consisting of a line comment
+- `textFragment.element` Internally used text fragment consisting of a xml element interior
+- `textFragment.string.multiLine` Internally used text fragment consisting of a multi-line string
+- `textFragment.string.singleLine` Internally used text fragment consisting of a single-line string
 
 ### token
 
