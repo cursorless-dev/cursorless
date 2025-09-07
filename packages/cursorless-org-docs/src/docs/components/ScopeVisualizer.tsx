@@ -52,6 +52,24 @@ export function ScopeVisualizer({ languageId, scopeTypeType }: Props) {
     scopeTypeType != null,
   );
 
+  const renderPublicScopesHeader = () => {
+    return <H2>Scopes</H2>;
+  };
+
+  const renderInternalScopesHeader = () => {
+    return (
+      <>
+        <H2>Internal scopes</H2>
+
+        <p>
+          The following are internal scopes. They are not intended for user
+          interaction or spoken use. These scopes exist solely for internal
+          Cursorless functionality.
+        </p>
+      </>
+    );
+  };
+
   const renderOptions = () => {
     return (
       <div className="mb-4">
@@ -76,61 +94,61 @@ export function ScopeVisualizer({ languageId, scopeTypeType }: Props) {
     );
   };
 
-  const renderInternalScopes = () => {
-    if (scopes.internal.length === 0) {
-      return null;
-    }
-    return (
-      <>
-        <H2>Internal scopes</H2>
-
-        {languageId && (
-          <p>
-            The following are internal scopes. They are not intended for user
-            interaction or spoken use. These scopes exist solely for internal
-            Cursorless functionality.
-          </p>
-        )}
-
-        {scopes.internal.map((scope) =>
-          renderScope(
-            languageId,
-            scopeTypeType,
-            rangeType,
-            renderWhitespace,
-            scope,
-          ),
-        )}
-      </>
+  const renderScopes = (scopes: Scope[]) => {
+    return scopes.map((scope) =>
+      renderScope(
+        languageId,
+        scopeTypeType,
+        rangeType,
+        renderWhitespace,
+        scope,
+      ),
     );
   };
 
-  return (
-    <>
-      <H2>Scopes</H2>
+  // Specific language. Public scopes followed by (optional) internal scopes.
+  if (languageId != null) {
+    return (
+      <>
+        {renderPublicScopesHeader()}
 
-      {languageId && (
         <p>
           Below are visualizations of all our scope tests for this language.
           These were created primarily for testing purposes rather than as
           documentation. There are quite a few, and they may feel a bit
           overwhelming from a documentation standpoint.
         </p>
-      )}
 
+        {renderOptions()}
+        {renderScopes(scopes.public)}
+
+        {scopes.internal.length > 0 && (
+          <>
+            {renderInternalScopesHeader()}
+            {renderScopes(scopes.internal)}
+          </>
+        )}
+      </>
+    );
+  }
+
+  // Specific public scope
+  if (scopes.public.length > 0) {
+    return (
+      <>
+        {renderPublicScopesHeader()}
+        {renderOptions()}
+        {renderScopes(scopes.public)}
+      </>
+    );
+  }
+
+  // Specific internal scope
+  return (
+    <>
+      {renderInternalScopesHeader()}
       {renderOptions()}
-
-      {scopes.public.map((scope) =>
-        renderScope(
-          languageId,
-          scopeTypeType,
-          rangeType,
-          renderWhitespace,
-          scope,
-        ),
-      )}
-
-      {renderInternalScopes()}
+      {renderScopes(scopes.internal)}
     </>
   );
 }
@@ -295,7 +313,7 @@ function getScopeFixtures(
     .forEach((scope) => {
       scope.facets.sort(facetComparator);
       scope.facets.forEach((f) => f.fixtures.sort(nameComparator));
-      if (scopeTypeType == null && isScopeInternal(scope.scopeTypeType)) {
+      if (isScopeInternal(scope.scopeTypeType)) {
         result.internal.push(scope);
       } else {
         result.public.push(scope);

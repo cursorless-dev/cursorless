@@ -474,38 +474,6 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "string",
   },
 
-  "textFragment.comment.line": {
-    description: "Text fragment consisting of a line comment",
-    scopeType: "textFragment",
-  },
-  "textFragment.comment.block": {
-    description: "Text fragment consisting of a block comment",
-    scopeType: "textFragment",
-  },
-  "textFragment.string.singleLine": {
-    description: "Text fragment consisting of a single-line string",
-    scopeType: "textFragment",
-  },
-  "textFragment.string.multiLine": {
-    description: "Text fragment consisting of a multi-line string",
-    scopeType: "textFragment",
-  },
-  "textFragment.element": {
-    description: "Text fragment consisting of a xml element interior",
-    scopeType: "textFragment",
-  },
-
-  disqualifyDelimiter: {
-    description:
-      "Used to disqualify a token from being treated as a surrounding pair delimiter. This will usually be operators containing `>` or `<`, eg `<`, `<=`, `->`, etc",
-    scopeType: "disqualifyDelimiter",
-  },
-  pairDelimiter: {
-    description:
-      "A pair delimiter, eg parentheses, brackets, braces, quotes, etc",
-    scopeType: "pairDelimiter",
-  },
-
   "branch.if": {
     description: "An if branch",
     scopeType: "branch",
@@ -1043,6 +1011,43 @@ export const scopeSupportFacetInfos: Record<
   unit: {
     description: "A unit in a css rule set",
     scopeType: "unit",
+  },
+
+  // Internal scope facets
+
+  "textFragment.comment.line": {
+    description: "Internally used text fragment consisting of a line comment.",
+    scopeType: "textFragment",
+  },
+  "textFragment.comment.block": {
+    description: "Internally used text fragment consisting of a block comment.",
+    scopeType: "textFragment",
+  },
+  "textFragment.string.singleLine": {
+    description:
+      "Internally used text fragment consisting of a single-line string.",
+    scopeType: "textFragment",
+  },
+  "textFragment.string.multiLine": {
+    description:
+      "Internally used text fragment consisting of a multi-line string.",
+    scopeType: "textFragment",
+  },
+  "textFragment.element": {
+    description:
+      "Internally used text fragment consisting of a xml element interior.",
+    scopeType: "textFragment",
+  },
+
+  disqualifyDelimiter: {
+    description:
+      "Internally used to disqualify a token from being treated as a surrounding pair delimiter. This will usually be operators containing `>` or `<`, eg `<`, `<=`, `->`, etc.",
+    scopeType: "disqualifyDelimiter",
+  },
+  pairDelimiter: {
+    description:
+      'Internally used to add additional language specific surrounding pair delimiters in addition to the text based definitions. eg `r"`.',
+    scopeType: "pairDelimiter",
   },
 };
 

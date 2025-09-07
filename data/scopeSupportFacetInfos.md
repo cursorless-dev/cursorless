@@ -119,7 +119,7 @@
 
 ### disqualifyDelimiter
 
-- `disqualifyDelimiter` Used to disqualify a token from being treated as a surrounding pair delimiter. This will usually be operators containing `>` or `<`, eg `<`, `<=`, `->`, etc
+- `disqualifyDelimiter` Internally used to disqualify a token from being treated as a surrounding pair delimiter. This will usually be operators containing `>` or `<`, eg `<`, `<=`, `->`, etc.
 
 ### document
 
@@ -259,7 +259,7 @@
 
 ### pairDelimiter
 
-- `pairDelimiter` A pair delimiter, eg parentheses, brackets, braces, quotes, etc
+- `pairDelimiter` Internally used to add additional language specific surrounding pair delimiters in addition to the text based definitions. eg `r"`.
 
 ### paragraph
 
@@ -336,11 +336,11 @@
 
 ### textFragment
 
-- `textFragment.comment.block` Text fragment consisting of a block comment
-- `textFragment.comment.line` Text fragment consisting of a line comment
-- `textFragment.element` Text fragment consisting of a xml element interior
-- `textFragment.string.multiLine` Text fragment consisting of a multi-line string
-- `textFragment.string.singleLine` Text fragment consisting of a single-line string
+- `textFragment.comment.block` Internally used text fragment consisting of a block comment.
+- `textFragment.comment.line` Internally used text fragment consisting of a line comment.
+- `textFragment.element` Internally used text fragment consisting of a xml element interior.
+- `textFragment.string.multiLine` Internally used text fragment consisting of a multi-line string.
+- `textFragment.string.singleLine` Internally used text fragment consisting of a single-line string.
 
 ### token
 
