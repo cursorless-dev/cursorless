@@ -46,3 +46,11 @@
 .pointer {
   cursor: pointer;
 }
+
+/* list-style is set to none for some reason. This restores default. */
+ul {
+  list-style: disc;
+}
+ol {
+  list-style: decimal;
+}
