@@ -4,17 +4,19 @@ You can say `"bar cursorless"` to show the Cursorless sidebar.
 
 ## Scopes
 
-- List showing all scopes, organized by whether they are present and supported in the active text editor.
-- As you type or move your selection, the list of present scopes will update in real time.
-- Clicking on a scope will visualize it using the [scope visualizer](scope-visualizer.md).
-- Display the users custom spoken forms
+- Displays all available scopes, grouped by whether they are currently present and supported in the active text editor.
+- The list updates in real time as you type or move your selection.
+- Clicking a scope highlights it using the [scope visualizer](scope-visualizer.md).
+- Shows your custom spoken forms for scopes.
 
 ### Scope icons
 
-To find a scope that matches your current selection look for the following icons:
+To identify the scope for a piece of code:
 
-🎯 scope is equal to selection\
-📦 scope contains selection
+1. First select the code in your editor.
+2. Then look in the sidebar for the following icons:\
+   🎯 The scope exactly matches your selection\
+   📦 The scope contains your selection
 
 ![sidebar scopes](./images/sidebar-scopes.png)
 
