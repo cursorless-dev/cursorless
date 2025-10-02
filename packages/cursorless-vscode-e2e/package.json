@@ -32,10 +32,10 @@
     "@types/mocha": "^10.0.10",
     "@types/semver": "^7.7.1",
     "@types/sinon": "^17.0.4",
-    "@types/vscode": "1.82.0",
-    "chai": "^6.0.1",
+    "@types/vscode": "1.95.0",
+    "chai": "^6.2.0",
     "js-yaml": "^4.1.0",
-    "mocha": "^11.7.2",
+    "mocha": "^11.7.4",
     "semver": "^7.7.2",
     "sinon": "^21.0.0"
   }
