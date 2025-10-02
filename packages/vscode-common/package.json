@@ -25,6 +25,6 @@
     "@cursorless/common": "workspace:*"
   },
   "devDependencies": {
-    "@types/vscode": "1.82.0"
+    "@types/vscode": "1.95.0"
   }
 }
