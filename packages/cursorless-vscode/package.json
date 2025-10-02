@@ -1291,7 +1291,7 @@
     "semver": "^7.7.2",
     "talon-snippets": "^1.3.0",
     "trie-search": "^2.2.0",
-    "uuid": "^12.0.0",
+    "uuid": "^13.0.0",
     "vscode-uri": "^3.1.0"
   },
   "devDependencies": {
@@ -1302,7 +1302,6 @@
     "@types/node": "^24.6.2",
     "@types/semver": "^7.7.1",
     "@types/sinon": "^17.0.4",
-    "@types/uuid": "^10.0.0",
     "@types/vscode": "1.95.0",
     "esbuild": "^0.25.10",
     "fast-xml-parser": "^5.2.5",

@@ -29,7 +29,7 @@
     "lodash-es": "^4.17.21",
     "normalize-path": "^3.0.0",
     "path-exists": "^5.0.0",
-    "type-fest": "^4.41.0"
+    "type-fest": "^5.0.1"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
