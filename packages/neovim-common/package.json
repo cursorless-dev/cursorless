@@ -27,6 +27,7 @@
     "@cursorless/node-common": "workspace:*",
     "lodash": "^4.17.21",
     "neovim": "^5.4.0",
+    "uuid": "^13.0.0",
     "vscode-uri": "^3.1.0"
   },
   "devDependencies": {
