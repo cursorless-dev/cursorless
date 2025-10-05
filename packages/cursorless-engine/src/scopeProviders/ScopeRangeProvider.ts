@@ -3,9 +3,10 @@ import type {
   IterationScopeRanges,
   ScopeRangeConfig,
   ScopeRanges,
+  ScopeType,
   TextEditor,
 } from "@cursorless/common";
-
+import { Range } from "@cursorless/common";
 import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import type { ScopeHandlerFactory } from "../processTargets/modifiers/scopeHandlers/ScopeHandlerFactory";
 import { getIterationRange } from "./getIterationRange";
@@ -21,6 +22,8 @@ export class ScopeRangeProvider {
     private modifierStageFactory: ModifierStageFactory,
   ) {
     this.provideScopeRanges = this.provideScopeRanges.bind(this);
+    this.provideScopeRangesForRange =
+      this.provideScopeRangesForRange.bind(this);
     this.provideIterationScopeRanges =
       this.provideIterationScopeRanges.bind(this);
   }
@@ -43,6 +46,32 @@ export class ScopeRangeProvider {
       scopeHandler,
       getIterationRange(editor, scopeHandler, visibleOnly),
     );
+  }
+
+  provideScopeRangesForRange(
+    editor: TextEditor,
+    scopeType: ScopeType,
+    range: Range,
+  ): ScopeRanges[] {
+    const scopeHandler = this.scopeHandlerFactory.maybeCreate(
+      scopeType,
+      editor.document.languageId,
+    );
+
+    if (scopeHandler == null) {
+      return [];
+    }
+
+    // Need to have a non empty intersection with the scopes
+    if (range.isEmpty) {
+      const offset = editor.document.offsetAt(range.start);
+      range = new Range(
+        editor.document.positionAt(offset - 1),
+        editor.document.positionAt(offset + 1),
+      );
+    }
+
+    return getScopeRanges(editor, scopeHandler, range);
   }
 
   provideIterationScopeRanges(

@@ -32,6 +32,7 @@
   (field_declaration)
   (constant_declaration)
   (static_initializer)
+  (record_declaration)
 
   ;; Disabled on purpose. We don't consider these to be statements.
   ;; exceptions
@@ -138,17 +139,14 @@
 
 ;;!! "string"
 ;;!  ^^^^^^^^
-(
-  (string_literal) @string @textFragment
-  (#character-range! @textFragment 1 -1)
-)
-
 ;;!! """string"""
 ;;!  ^^^^^^^^^^^^
-(
-  (text_block) @string @textFragment
-  (#character-range! @textFragment 3 -3)
-)
+(string_literal) @string
+
+[
+  (string_fragment)
+  (multiline_string_fragment)
+] @textFragment
 
 ;;!! // comment
 ;;!  ^^^^^^^^^^

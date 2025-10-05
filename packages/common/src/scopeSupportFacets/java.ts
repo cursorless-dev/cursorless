@@ -114,6 +114,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.continue": supported,
   "statement.resource": supported,
   "statement.static": supported,
+  "statement.misc": supported,
   "statement.iteration.document": supported,
   "statement.iteration.class": supported,
   "statement.iteration.interface": supported,
@@ -301,7 +302,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.iteration.enum": notApplicable,
 
   // Miscellaneous
-  "statement.misc": notApplicable,
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,
   environment: notApplicable,

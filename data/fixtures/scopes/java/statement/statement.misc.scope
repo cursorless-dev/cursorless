@@ -1,0 +1,10 @@
+public record Foo(int a) {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:27
+  >---------------------------<
+0| public record Foo(int a) {}
+
+[Insertion delimiter] = "\n"

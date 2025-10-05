@@ -2,7 +2,10 @@ import type {
   CursorlessCommandId,
   ScopeProvider,
   ScopeSupportInfo,
+  ScopeType,
   ScopeTypeInfo,
+  Selection,
+  TextEditor,
 } from "@cursorless/common";
 import {
   CURSORLESS_SCOPE_TREE_VIEW_ID,
@@ -12,8 +15,11 @@ import {
   serializeScopeType,
   uriEncodeHashId,
 } from "@cursorless/common";
-import type { CustomSpokenFormGenerator } from "@cursorless/cursorless-engine";
-import type { VscodeApi } from "@cursorless/vscode-common";
+import {
+  ide,
+  type CustomSpokenFormGenerator,
+} from "@cursorless/cursorless-engine";
+import { type VscodeApi } from "@cursorless/vscode-common";
 import { isEqual } from "lodash-es";
 import type {
   Disposable,
@@ -79,7 +85,7 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
     }
   }
 
-  onDidChangeVisible(e: TreeViewVisibilityChangeEvent) {
+  private onDidChangeVisible(e: TreeViewVisibilityChangeEvent) {
     if (e.visible) {
       if (this.visibleDisposable != null) {
         return;
@@ -103,6 +109,9 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
         this._onDidChangeTreeData.fire();
       }),
       this.scopeVisualizer.onDidChangeScopeType(() => {
+        this._onDidChangeTreeData.fire();
+      }),
+      this.vscodeApi.window.onDidChangeTextEditorSelection(() => {
         this._onDidChangeTreeData.fire();
       }),
     );
@@ -160,6 +169,20 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
   private getScopeTypesWithSupport(
     scopeSupport: ScopeSupport,
   ): ScopeSupportTreeItem[] {
+    const getContainmentIcon = (() => {
+      if (scopeSupport !== ScopeSupport.supportedAndPresentInEditor) {
+        return null;
+      }
+      const editor = ide().activeTextEditor;
+      if (editor == null || editor.selections.length !== 1) {
+        return null;
+      }
+      const selection = editor.selections[0];
+      return (scopeType: ScopeType) => {
+        return this.getContainmentIcon(editor, selection, scopeType);
+      };
+    })();
+
     return this.supportLevels
       .filter(
         (supportLevel) =>
@@ -177,6 +200,7 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
           new ScopeSupportTreeItem(
             supportLevel,
             isEqual(supportLevel.scopeType, this.scopeVisualizer.scopeType),
+            getContainmentIcon?.(supportLevel.scopeType),
           ),
       )
       .sort((a, b) => {
@@ -198,6 +222,33 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
         // Then alphabetical by label
         return a.label.label.localeCompare(b.label.label);
       });
+  }
+
+  private getContainmentIcon(
+    editor: TextEditor,
+    selection: Selection,
+    scopeType: ScopeType,
+  ): string | undefined {
+    const scopes = this.scopeProvider.provideScopeRangesForRange(
+      editor,
+      scopeType,
+      selection,
+    );
+
+    for (const scope of scopes) {
+      for (const target of scope.targets) {
+        // Scope target exactly matches selection
+        if (target.contentRange.isRangeEqual(selection)) {
+          return "🎯";
+        }
+        // Scope target contains selection
+        if (target.contentRange.contains(selection)) {
+          return "📦";
+        }
+      }
+    }
+
+    return undefined;
   }
 
   dispose() {
@@ -225,6 +276,7 @@ class ScopeSupportTreeItem extends TreeItem {
   constructor(
     public readonly scopeTypeInfo: ScopeTypeInfo,
     isVisualized: boolean,
+    containmentIcon: string | undefined,
   ) {
     let label: string;
     let tooltip: string;
@@ -250,7 +302,10 @@ class ScopeSupportTreeItem extends TreeItem {
     );
 
     this.tooltip = tooltip == null ? tooltip : new MarkdownString(tooltip);
-    this.description = scopeTypeInfo.humanReadableName;
+    this.description =
+      containmentIcon != null
+        ? `${containmentIcon} ${scopeTypeInfo.humanReadableName}`
+        : scopeTypeInfo.humanReadableName;
 
     this.command = isVisualized
       ? {
@@ -271,9 +326,8 @@ class ScopeSupportTreeItem extends TreeItem {
     if (scopeTypeInfo.isLanguageSpecific) {
       const languageId = window.activeTextEditor?.document.languageId;
       if (languageId != null) {
-        const fileExtension = getLanguageExtensionSampleFromLanguageId(
-          window.activeTextEditor!.document.languageId,
-        );
+        const fileExtension =
+          getLanguageExtensionSampleFromLanguageId(languageId);
         if (fileExtension != null) {
           this.resourceUri = URI.parse(
             "cursorless-dummy://dummy/dummy" + fileExtension,

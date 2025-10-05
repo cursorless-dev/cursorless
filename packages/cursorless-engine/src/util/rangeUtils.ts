@@ -27,10 +27,15 @@ export function expandToFullLine(editor: TextEditor, range: Range) {
 }
 
 export function getRangeLength(editor: TextEditor, range: Range) {
-  return range.isEmpty
-    ? 0
-    : editor.document.offsetAt(range.end) -
-        editor.document.offsetAt(range.start);
+  if (range.isEmpty) {
+    return 0;
+  }
+  if (range.isSingleLine) {
+    return range.end.character - range.start.character;
+  }
+  return (
+    editor.document.offsetAt(range.end) - editor.document.offsetAt(range.start)
+  );
 }
 
 /**

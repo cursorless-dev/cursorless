@@ -32,22 +32,22 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
-    "@eslint/js": "^9.35.0",
+    "@eslint/js": "^9.36.0",
     "@pnpm/meta-updater": "^2.0.6",
-    "@types/node": "^24.3.1",
-    "esbuild": "^0.25.9",
-    "eslint": "^9.35.0",
+    "@types/node": "^24.6.2",
+    "esbuild": "^0.25.10",
+    "eslint": "^9.36.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-mocha": "^11.1.0",
-    "eslint-plugin-unicorn": "^61.0.0",
+    "eslint-plugin-unicorn": "^61.0.2",
     "eslint-plugin-unused-imports": "^4.2.0",
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.6.14",
     "syncpack": "^13.0.4",
-    "typescript": "^5.9.2",
-    "typescript-eslint": "^8.42.0"
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.45.0"
   },
   "pnpm": {
     "patchedDependencies": {
