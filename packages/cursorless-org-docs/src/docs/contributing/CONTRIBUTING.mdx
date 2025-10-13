@@ -190,9 +190,22 @@ Once you have your package then you can install it into the sandbox using the fo
 
 You can install a local build of the Cursorless extension by running the following command:
 
-```bash
-pnpm -F cursorless-vscode install-local
-```
+<Tabs groupId="vsx">
+  <TabItem value="vscode" label="VSCode">
+
+    ```bash
+    pnpm -F cursorless-vscode install-local
+    ```
+
+  </TabItem>
+  <TabItem value="vscodium" label="VSCodium">
+
+    ```bash
+    pnpm -F cursorless-vscode install-local codium
+    ```
+
+  </TabItem>
+</Tabs>
 
 This will bundle and install a local version of Cursorless, uninstalling production Cursorless first and using a special extension id to break the update chain.
 
@@ -201,15 +214,41 @@ use `install-from-pr` instead, and pass a PR number to the command and it will
 download and install the artifact from the PR build. This requires the [`gh`
 cli](https://cli.github.com/). For example:
 
-```bash
-pnpm -F cursorless-vscode install-from-pr 1281
-```
+<Tabs groupId="vsx">
+  <TabItem value="vscode" label="VSCode">
+
+    ```bash
+    pnpm -F cursorless-vscode install-from-pr 1281
+    ```
+
+  </TabItem>
+  <TabItem value="vscodium" label="VSCodium">
+
+    ```bash
+    pnpm -F cursorless-vscode install-from-pr 1281 codium
+    ```
+
+  </TabItem>
+</Tabs>
 
 To uninstall the local build and revert to production cursorless, run the following command:
 
-```bash
-pnpm -F cursorless-vscode uninstall-local
-```
+<Tabs groupId="vsx">
+  <TabItem value="vscode" label="VSCode">
+
+    ```bash
+    pnpm -F cursorless-vscode uninstall-local
+    ```
+
+  </TabItem>
+  <TabItem value="vscodium" label="VSCodium">
+
+    ```bash
+    pnpm -F cursorless-vscode uninstall-local codium
+    ```
+
+  </TabItem>
+</Tabs>
 
 ## Regular manual maintenance tasks
 

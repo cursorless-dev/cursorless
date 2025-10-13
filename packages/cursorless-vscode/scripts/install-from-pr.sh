@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -eo pipefail
 # Installs a version of Cursorless from a PR branch, uninstalling production
 # Cursorless first and using a special extension id to break update chain.
 # Requires gh cli to be installed (https://cli.github.com/).
 
-# Ensure we have a PR number
-if [ $# -ne 1 ]; then
-  echo "Usage: $0 <pr-number>"
+# Ensure we have a variable at $1 (the pr number)
+if [ -z "$1" ]; then
+  echo "Usage: install-from-pr $1 <pr-number> $2 <optional-cli-name>" # I'm sure there's a better way to specifiy this argument is optional than this but idk what it is
   exit 1
 fi
 
@@ -16,10 +16,13 @@ if ! command -v gh &>/dev/null; then
   exit 1
 fi
 
-# Ensure VSCode 'code' command is installed
-if ! command -v code &>/dev/null; then
-  echo "VSCode 'code' command not found; see https://code.visualstudio.com/docs/editor/command-line#_launching-from-command-line"
-  exit 1
+# Skip VSCode cli check if a cli tool name is specified by the user
+if [ -z "$2" ]; then
+  # Ensure VSCode 'code' command is installed
+  if ! command -v code &>/dev/null; then
+    echo "VSCode 'code' command not found; see https://code.visualstudio.com/docs/editor/command-line#_launching-from-command-line"
+    exit 1
+  fi
 fi
 
 pr_number="$1"
@@ -46,11 +49,27 @@ trap finish EXIT
 # 3. Download extension vsix
 gh run download "$check_number" --repo "$repo" --name vsix --dir "$tmpdir"
 
-# 4. Uninstall production cursorless
-code --uninstall-extension pokey.cursorless || echo "Cursorless not currently installed"
+if [ -z "$2" ]; then
+  # 4. Uninstall production cursorless
+  code --uninstall-extension pokey.cursorless || echo "Cursorless not currently installed"
 
-# 5. Install downloaded extension
-code --install-extension "$tmpdir/cursorless-development.vsix" --force
+  # 5. Install downloaded extension
+  code --install-extension "$tmpdir/cursorless-development.vsix" --force
+else
+  # We need to build the above two commands in an array due to having the cli tool passed as an argument to this script
+  # See https://unix.stackexchange.com/a/444949 for why using eval for this is a bad idea
+
+  # 4. Uninstall production cursorless
+  cmd_uninstall=($2)
+  cmd_uninstall+=(--uninstall-extension pokey.cursorless \|\| echo "Cursorless not currently installed")
+  echo ${cmd_uninstall[@]}
+  "${cmd_uninstall[@]}"
+
+  # 5. Install downloaded extension
+  cmd_from_pr=($2)
+  cmd_from_pr+=(--install-extension "$tmpdir/cursorless-development.vsix" --force)
+  "${cmd_from_pr[@]}"
+fi
 
 echo -e "\e[1;32mPlease restart VSCode\e[0m"
 echo "To uninstall and revert to production Cursorless, run the adjacent uninstall-local.sh"
