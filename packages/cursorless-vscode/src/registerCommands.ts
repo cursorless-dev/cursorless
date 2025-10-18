@@ -1,6 +1,7 @@
 import type {
   CommandHistoryStorage,
   CursorlessCommandId,
+  ScopeType,
 } from "@cursorless/common";
 import { CURSORLESS_COMMAND_ID } from "@cursorless/common";
 import {
@@ -18,7 +19,10 @@ import type {
 } from "@cursorless/test-case-recorder";
 import * as vscode from "vscode";
 import type { InstallationDependencies } from "./InstallationDependencies";
-import type { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
+import type {
+  ScopeVisualizer,
+  VisualizationType,
+} from "./ScopeVisualizerCommandApi";
 import type { VscodeSnippets } from "./VscodeSnippets";
 import type { VscodeTutorial } from "./VscodeTutorial";
 import {
@@ -102,7 +106,15 @@ export function registerCommands(
     ["cursorless.recomputeDecorationStyles"]: hats.recomputeDecorationStyles,
 
     // Scope visualizer
-    ["cursorless.showScopeVisualizer"]: scopeVisualizer.start,
+    ["cursorless.showScopeVisualizer"]: (
+      scopeType?: ScopeType,
+      visualizationType?: VisualizationType,
+    ) => {
+      if (scopeType == null || visualizationType == null) {
+        throw new Error("Missing arguments. Only for internal use.");
+      }
+      scopeVisualizer.start(scopeType, visualizationType);
+    },
     ["cursorless.hideScopeVisualizer"]: scopeVisualizer.stop,
     ["cursorless.scopeVisualizer.openUrl"]:
       showScopeVisualizerItemDocumentation,
