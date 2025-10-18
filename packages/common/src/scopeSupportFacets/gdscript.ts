@@ -1,17 +1,11 @@
 import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
-const { supported, notApplicable } = ScopeSupportFacetLevel;
+// eslint-disable-next-line
+const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const gdscriptScopeSupport: LanguageScopeSupportFacetMap = {
-  // supported
-  "comment.line": supported,
-  "statement.return": supported,
-
-  // unsupported (none currently defined)
-
   // not applicable
-  "comment.block": notApplicable,
   "statement.interface": notApplicable,
   "statement.field.interface": notApplicable,
   "statement.iteration.interface": notApplicable,
