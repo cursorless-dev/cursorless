@@ -5,7 +5,6 @@
 [
   (annotation_type_declaration)
   (class_declaration)
-  (enum_declaration)
   (import_declaration)
   (interface_declaration)
   (module_declaration)
@@ -13,7 +12,6 @@
   (assert_statement)
   (break_statement)
   (continue_statement)
-  (declaration)
   (do_statement)
   (enhanced_for_statement)
   (expression_statement)
@@ -38,9 +36,11 @@
   ;; exceptions
   ;; ";",
   ;; "block",
+  ;; (declaration)
 
   ;; Disabled on purpose. We have a better definition of this below.
   ;; (if_statement)
+  ;; (enum_declaration)
 ] @statement
 
 (
@@ -54,10 +54,10 @@
 (enum_declaration
   name: (_) @name
   body: (_
-    "{" @interior.start.endOf @name.iteration.start.endOf
-    "}" @interior.end.startOf @name.iteration.end.startOf
+    "{" @statement.interior.start.endOf @name.iteration.start.endOf
+    "}" @statement.interior.end.startOf @name.iteration.end.startOf
   )
-) @type @name.domain @interior.domain
+) @statement @type @name.domain
 
 ;;!! enum Foo { bar, baz }
 ;;!             ^^^  ^^^
