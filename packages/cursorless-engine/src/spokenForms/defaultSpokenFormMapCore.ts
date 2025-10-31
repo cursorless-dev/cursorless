@@ -122,6 +122,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     toRawSelection: "just",
     leading: "leading",
     trailing: "trailing",
+    expandToFullLine: "expand",
     keepContentFilter: "content",
     keepEmptyFilter: "empty",
     inferPreviousMark: "its",

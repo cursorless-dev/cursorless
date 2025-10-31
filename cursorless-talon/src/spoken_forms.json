@@ -89,6 +89,7 @@
       "trailing": "trailing",
       "content": "keepContentFilter",
       "empty": "keepEmptyFilter",
+      "expand": "expandToFullLine",
       "its": "inferPreviousMark",
       "visible": "visible"
     },

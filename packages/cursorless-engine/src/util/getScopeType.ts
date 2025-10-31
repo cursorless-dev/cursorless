@@ -22,6 +22,7 @@ export function getScopeType(modifier: Modifier): ScopeType | undefined {
     case "endOf":
     case "extendThroughStartOf":
     case "extendThroughEndOf":
+    case "expandToFullLine":
     case "fallback":
     case "range":
     case "modifyIfUntyped":

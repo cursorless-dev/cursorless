@@ -397,6 +397,10 @@ export interface TrailingModifier {
   type: "trailing";
 }
 
+export interface ExpandToFullLineModifier {
+  type: "expandToFullLine";
+}
+
 export interface KeepContentFilterModifier {
   type: "keepContentFilter";
 }
@@ -482,6 +486,7 @@ export type Modifier =
   | LeadingModifier
   | TrailingModifier
   | RawSelectionModifier
+  | ExpandToFullLineModifier
   | ModifyIfUntypedModifier
   | FallbackModifier
   | RangeModifier
