@@ -1,6 +1,7 @@
-import type {
-  ExcludeInteriorModifier,
-  InteriorOnlyModifier,
+import {
+  NoContainingScopeError,
+  type ExcludeInteriorModifier,
+  type InteriorOnlyModifier,
 } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStageFactory } from "../ModifierStageFactory";
@@ -23,11 +24,14 @@ export class InteriorOnlyStage implements ModifierStage {
       return interior;
     }
 
+    if (target.hasExplicitScopeType) {
+      throw new NoContainingScopeError("interior");
+    }
+
     const containingModifier = this.modifierHandlerFactory.create({
       type: "containingScope",
       scopeType: {
         type: "interior",
-        explicitScopeType: target.hasExplicitScopeType,
       },
     });
 

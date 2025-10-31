@@ -10,7 +10,6 @@ import type { LanguageDefinitions } from "../../../../languages/LanguageDefiniti
 import type { Target } from "../../../../typings/target.types";
 import { InteriorTarget } from "../../../targets";
 import { BaseScopeHandler } from "../BaseScopeHandler";
-import { FallbackScopeHandler } from "../FallbackScopeHandler";
 import type { TargetScope } from "../scope.types";
 import type {
   ComplexScopeType,
@@ -59,9 +58,7 @@ export class InteriorScopeHandler extends BaseScopeHandler {
     );
 
     for (const scope of scopes) {
-      if (this.shouldYield(targetDomain, scope)) {
-        yield createInteriorScope(scope);
-      }
+      yield createInteriorScope(scope);
     }
   }
 
@@ -72,27 +69,11 @@ export class InteriorScopeHandler extends BaseScopeHandler {
 
     const pairScopeHandler = this.scopeHandlerFactory.create(
       {
-        type: "surroundingPair",
+        type: "surroundingPairInterior",
         delimiter: "any",
-        requireStrongContainment: this.scopeType.requireStrongContainment,
       },
       this.languageId,
     );
-
-    // If the scope type is explicit (ie, the user has specified a scope
-    // type), then we want to prioritize language scopes. For example,
-    // if the user says "inside element" inside a `<div>` tag, the angle
-    // brackets of the tag are also a surrounding pair which should have
-    // lower priority.
-    if (this.scopeType.explicitScopeType) {
-      if (languageScopeHandler == null) {
-        return pairScopeHandler;
-      }
-      return FallbackScopeHandler.createFromScopeHandlers([
-        languageScopeHandler,
-        pairScopeHandler,
-      ]);
-    }
 
     if (languageScopeHandler == null) {
       return pairScopeHandler;
@@ -101,16 +82,7 @@ export class InteriorScopeHandler extends BaseScopeHandler {
     return SortedScopeHandler.createFromScopeHandlers(
       this.scopeHandlerFactory,
       this.languageId,
-      [pairScopeHandler, languageScopeHandler],
-    );
-  }
-
-  private shouldYield(targetDomain: Range, scope: TargetScope): boolean {
-    // For an explicit scope type we only yield scopes that are contained within
-    // the target domain. For example, if the user said "inside token", we don't
-    // want to yield scopes that are larger than the token.
-    return (
-      !this.scopeType.explicitScopeType || targetDomain.contains(scope.domain)
+      [languageScopeHandler, pairScopeHandler],
     );
   }
 }
@@ -120,21 +92,18 @@ function createInteriorScope(scope: TargetScope): TargetScope {
     editor: scope.editor,
     domain: scope.domain,
     getTargets(isReversed) {
-      return scope.getTargets(isReversed).flatMap(createInteriorTargets);
+      return scope.getTargets(isReversed).map(createInteriorTarget);
     },
   };
 }
 
-function createInteriorTargets(target: Target): Target[] {
-  const interior = target.getInterior();
-  if (interior != null) {
-    return interior;
+function createInteriorTarget(target: Target): Target {
+  if (target instanceof InteriorTarget) {
+    return target;
   }
-  return [
-    new InteriorTarget({
-      editor: target.editor,
-      isReversed: target.isReversed,
-      fullInteriorRange: target.contentRange,
-    }),
-  ];
+  return new InteriorTarget({
+    editor: target.editor,
+    isReversed: target.isReversed,
+    fullInteriorRange: target.contentRange,
+  });
 }
