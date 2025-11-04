@@ -65,7 +65,9 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
       case "identifier":
         return new IdentifierScopeHandler(this, scopeType, languageId);
       case "line":
-        return new LineScopeHandler(scopeType, languageId);
+        return new LineScopeHandler({ type: scopeType.type }, languageId);
+      case "fullLine":
+        return new LineScopeHandler({ type: scopeType.type }, languageId);
       case "sentence":
         return new SentenceScopeHandler(this, scopeType, languageId);
       case "paragraph":

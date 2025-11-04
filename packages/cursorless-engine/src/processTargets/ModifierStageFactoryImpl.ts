@@ -7,7 +7,6 @@ import { ClassFunctionNameStage } from "./modifiers/ClassFunctionNameStage";
 import { ModifyIfUntypedStage } from "./modifiers/ConditionalModifierStages";
 import { ContainingScopeStage } from "./modifiers/ContainingScopeStage";
 import { EveryScopeStage } from "./modifiers/EveryScopeStage";
-import { ExpandToFullLineStage } from "./modifiers/ExpandToFullLineStage";
 import { FallbackStage } from "./modifiers/FallbackStage";
 import {
   KeepContentFilterStage,
@@ -58,8 +57,6 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
         return new LeadingStage(this, modifier);
       case "trailing":
         return new TrailingStage(this, modifier);
-      case "expandToFullLine":
-        return new ExpandToFullLineStage(modifier);
       case "visible":
         return new VisibleStage(modifier);
 

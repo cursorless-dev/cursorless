@@ -24,8 +24,14 @@ export const plaintextScopeSupportFacetInfos: Record<
     scopeType: "identifier",
   },
   line: {
-    description: "A single line in the document",
+    description:
+      "A single line in the document. Excludes leading and trailing whitespace.",
     scopeType: "line",
+  },
+  fullLine: {
+    description:
+      "A single full line in the document. Includes leading and trailing whitespace.",
+    scopeType: "fullLine",
   },
   sentence: {
     description: "A single sentence in the document",
