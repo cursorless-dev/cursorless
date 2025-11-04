@@ -5,8 +5,8 @@ import type {
 } from "@cursorless/common";
 import { ide } from "../../singletons/ide.singleton";
 import type { MarkStage } from "../PipelineStages.types";
-import { createLineTarget } from "../modifiers/scopeHandlers";
 import type { LineTarget } from "../targets";
+import { createLineTarget } from "../targets";
 
 export class LineNumberStage implements MarkStage {
   constructor(private mark: LineNumberMark) {}

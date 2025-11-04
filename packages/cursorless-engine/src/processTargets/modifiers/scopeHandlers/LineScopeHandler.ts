@@ -3,9 +3,8 @@ import type {
   Position,
   ScopeType,
   TextEditor,
-  TextLine,
 } from "@cursorless/common";
-import { LineTarget } from "../../targets";
+import { createLineTarget } from "../../targets";
 import { BaseScopeHandler } from "./BaseScopeHandler";
 import type { TargetScope } from "./scope.types";
 
@@ -60,20 +59,4 @@ function lineNumberToScope(
       createLineTarget(editor, isReversed, line, useFullLine),
     ],
   };
-}
-
-export function createLineTarget(
-  editor: TextEditor,
-  isReversed: boolean,
-  line: TextLine,
-  useFullRange = false,
-) {
-  return new LineTarget({
-    editor,
-    isReversed,
-    contentRange:
-      useFullRange || line.rangeTrimmed == null
-        ? line.range
-        : line.rangeTrimmed,
-  });
 }
