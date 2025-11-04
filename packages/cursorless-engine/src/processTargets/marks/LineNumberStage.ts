@@ -21,8 +21,8 @@ export class LineNumberStage implements MarkStage {
       this.mark.lineNumberType,
       this.mark.lineNumber,
     );
-    const contentRange = editor.document.lineAt(lineNumber).range;
-    return [createLineTarget(editor, false, contentRange)];
+    const line = editor.document.lineAt(lineNumber);
+    return [createLineTarget(editor, false, line)];
   }
 }
 
