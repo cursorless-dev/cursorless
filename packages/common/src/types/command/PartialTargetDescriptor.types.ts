@@ -193,6 +193,7 @@ export const simpleScopeTypeTypes = [
   "token",
   "identifier",
   "line",
+  "fullLine",
   "sentence",
   "paragraph",
   "boundedParagraph",

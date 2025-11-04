@@ -93,6 +93,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     token: "token",
     identifier: "identifier",
     line: "line",
+    fullLine: "full line",
     sentence: "sentence",
     paragraph: "block",
     boundedParagraph: "short block",

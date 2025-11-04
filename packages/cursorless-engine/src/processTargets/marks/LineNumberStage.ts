@@ -5,8 +5,8 @@ import type {
 } from "@cursorless/common";
 import { ide } from "../../singletons/ide.singleton";
 import type { MarkStage } from "../PipelineStages.types";
-import { createLineTarget } from "../modifiers/scopeHandlers";
 import type { LineTarget } from "../targets";
+import { createLineTarget } from "../targets";
 
 export class LineNumberStage implements MarkStage {
   constructor(private mark: LineNumberMark) {}
@@ -21,8 +21,8 @@ export class LineNumberStage implements MarkStage {
       this.mark.lineNumberType,
       this.mark.lineNumber,
     );
-    const contentRange = editor.document.lineAt(lineNumber).range;
-    return [createLineTarget(editor, false, contentRange)];
+    const line = editor.document.lineAt(lineNumber);
+    return [createLineTarget(editor, false, line)];
   }
 }
 
