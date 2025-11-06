@@ -2,36 +2,18 @@ for (int i = 0; i < size; ++i) { }
 ---
 
 [#1 Content] =
-[#1 Removal] = 0:32-0:33
-                                  >-<
-0| for (int i = 0; i < size; ++i) { }
-
-[#1 Domain] = 0:0-0:34
-  >----------------------------------<
+[#1 Removal] =
+[#1 Domain] = 0:5-0:29
+       >------------------------<
 0| for (int i = 0; i < size; ++i) { }
 
 [#1 Insertion delimiter] = " "
 
 
 [#2 Content] =
-[#2 Removal] = 0:5-0:29
-       >------------------------<
-0| for (int i = 0; i < size; ++i) { }
-
-[#2 Domain] = 0:4-0:30
-      >--------------------------<
-0| for (int i = 0; i < size; ++i) { }
-
-[#2 Insertion delimiter] = " "
-
-
-[#3 Content] =
-[#3 Removal] = 0:32-0:33
+[#2 Removal] =
+[#2 Domain] = 0:32-0:33
                                   >-<
 0| for (int i = 0; i < size; ++i) { }
 
-[#3 Domain] = 0:31-0:34
-                                 >---<
-0| for (int i = 0; i < size; ++i) { }
-
-[#3 Insertion delimiter] = " "
+[#2 Insertion delimiter] = " "

@@ -72,16 +72,6 @@
   "}" @statement.iteration.end.startOf
 )
 
-(
-  (_
-    (block
-      "{" @interior.start.endOf
-      "}" @interior.end.startOf
-    )
-  ) @_.domain
-  (#not-type? @_.domain try_statement if_statement)
-)
-
 ;;!! if () {} else {}
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 (
@@ -101,47 +91,28 @@
   (#not-parent-type? @condition.domain if_statement)
 )
 
-(
-  (if_statement
-    consequence: (_
-      "{" @interior.start.endOf
-      "}" @interior.end.startOf
-    ) @interior.domain.end.endOf
-  ) @interior.domain.start.startOf
-  (#not-parent-type? @interior.domain.start.startOf if_statement)
-)
-
 ;;!! else if () {}
 ;;!  ^^^^^^^^^^^^^
 (if_statement
-  "else" @branch.start.startOf @interior.domain.start.startOf @condition.domain.start.startOf
+  "else" @branch.start.startOf @condition.domain.start.startOf
   (if_statement
     condition: (_) @condition
-    consequence: (_
-      "{" @interior.start.endOf
-      "}" @interior.end.startOf
-    ) @branch.end.endOf @interior.domain.end.endOf @condition.domain.end.endOf
+    consequence: (_) @branch.end.endOf @condition.domain.end.endOf
   )
 )
 
 ;;!! else {}
 ;;!  ^^^^^^^
 (if_statement
-  "else" @branch.start @interior.domain.start.startOf
-  alternative: (block
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  ) @branch.end @interior.domain.end.endOf
+  "else" @branch.start
+  alternative: (block) @branch.end
 )
 
 ;;!! try () {}
 ;;!  ^^^^^^^^^
 (try_statement
-  body: (_
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  ) @branch.end.endOf @interior.domain.end.endOf
-) @branch.start.startOf @interior.domain.start.startOf
+  body: (_) @branch.end.endOf
+) @branch.start.startOf
 
 ;;!! catch () {}
 ;;!  ^^^^^^^^^^^
@@ -149,12 +120,7 @@
 
 ;;!! finally {}
 ;;!  ^^^^^^^^^^
-(finally_clause
-  (block
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  )
-) @branch @interior.domain
+(finally_clause) @branch
 
 ;;!! try () {} catch () {} finally {}
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -189,10 +155,6 @@
 ;;!  ^^^^^^^^^^^^
 (class_declaration
   name: (identifier) @name
-  body: (_
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  )
 ) @class @type @_.domain
 
 (class_declaration
@@ -211,12 +173,7 @@
 
 ;;!! interface IFoo {}
 ;;!  ^^^^^^^^^^^^^^^^^
-(interface_declaration
-  body: (_
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  )
-) @type @interior.domain
+(interface_declaration) @type
 
 (interface_declaration
   body: (_
@@ -303,44 +260,31 @@
     "new" @functionCallee.start
     type: (_) @functionCallee.end
   )
-] @_.domain
-
-;;!! switch(value) { }
-;;!                 ^
-(switch_statement
-  (switch_body
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  )
-) @_.domain
+] @functionCallee.domain
 
 (switch_statement
   (tuple_expression) @value
-) @_.domain
+) @value.domain
 
 (switch_statement
   value: (_) @value
-) @_.domain
+) @value.domain
 
 (_
   condition: (_) @condition
   (#not-parent-type? @condition if_statement)
-) @_.domain
+) @condition.domain
 
 (while_statement
   .
   (_) @condition
-) @_.domain
+) @condition.domain
 
 (do_statement
-  (block
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  )
   "while"
   .
   (_) @condition
-) @_.domain
+) @condition.domain
 
 ;;!! case 0: break;
 ;;!  ^^^^^^^^^^^^^^
@@ -361,22 +305,11 @@
   [
     (case_switch_label)
     (default_switch_label)
-  ]
+  ] @interior.start.endOf
   .
-  (_) @interior.start
-  (_)? @interior.end
-  .
-  (#not-type? @interior.start "block")
-) @_.domain
-
-;;!! case 0: { }
-;;!           ^
-(switch_section
-  (block
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  )
-) @_.domain
+  (_) @_dummy
+  (#not-type? @_dummy block)
+) @interior.end.endOf
 
 (switch_statement
   body: (switch_body
@@ -480,10 +413,10 @@
 ;;!! enum Foo {}
 (enum_declaration
   body: (_
-    "{" @interior.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
-    "}" @interior.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+    "{" @name.iteration.start.endOf @value.iteration.start.endOf
+    "}" @name.iteration.end.startOf @value.iteration.end.startOf
   )
-) @type @interior.domain
+) @type
 
 ;;!! bar = 0
 ;;!        ^
