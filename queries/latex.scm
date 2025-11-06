@@ -16,14 +16,20 @@
 (subparagraph) @subParagraph
 
 (_
-  (begin) @xmlStartTag @interior.start.endOf
-  (end) @xmlEndTag @interior.end.startOf
+  (begin) @xmlStartTag
+  (end) @xmlEndTag
 ) @environment @xmlElement @_.domain
+
+(_
+  (begin) @interior.start.endOf
+  (end) @interior.end.startOf
+)
 
 (_
   (begin) @xmlBothTags
   (#allow-multiple! @xmlBothTags)
 ) @_.domain
+
 (_
   (end) @xmlBothTags
   (#allow-multiple! @xmlBothTags)
