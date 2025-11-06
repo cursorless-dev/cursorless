@@ -52,7 +52,7 @@
 (element
   (STag) @interior.start.endOf
   (ETag) @interior.end.startOf
-) @xmlElement @interior.domain
+) @xmlElement
 
 ;;!! <aaa>text</aaa>
 ;;!  ^^^^^    ^^^^^^
