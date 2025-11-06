@@ -7,8 +7,4 @@ public enum Foo {}
   >------------------<
 0| public enum Foo {}
 
-[Interior] = 0:17-0:17
-                   ><
-0| public enum Foo {}
-
 [Insertion delimiter] = "\n"
