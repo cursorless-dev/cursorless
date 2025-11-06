@@ -30,13 +30,6 @@
   (while_statement)
 ] @statement
 
-(_
-  (block
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  )
-) @_.domain
-
 (single_line_comment) @comment @textFragment
 
 ;;!! @if true { }  @else { }
