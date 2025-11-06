@@ -502,17 +502,6 @@
   (#type? @_dummy statement_block class_body interface_body)
 )
 
-(
-  (_
-    (_
-      "{" @interior.start.endOf
-      "}" @interior.end.startOf
-    ) @_dummy
-  ) @_.domain
-  (#type? @_dummy statement_block class_body interface_body switch_body)
-  (#not-type? @_.domain if_statement try_statement)
-)
-
 ;;!! const aaa = {bbb: 0, ccc: 0};
 ;;!               **************
 (object
@@ -682,19 +671,23 @@
 ;;!  ^^^^^^^^^^^^^^^
 (switch_default) @branch
 
+;;!! case 0: break;
+;;!          ^^^^^^
 (switch_case
-  body: (_) @interior.start
-  body: (_)? @interior.end
+  ":" @interior.start.endOf
   .
-  (#not-type? @interior.start statement_block)
-) @_.domain
+  (_) @_dummy
+  (#not-type? @_dummy statement_block)
+) @interior.end.endOf
 
+;;!! default: break;
+;;!           ^^^^^^
 (switch_default
-  body: (_) @interior.start
-  body: (_)? @interior.end
+  ":" @interior.start.endOf
   .
-  (#not-type? @interior.start statement_block)
-) @_.domain
+  (_) @_dummy
+  (#not-type? @_dummy statement_block)
+) @interior.end.endOf
 
 ;;!! if () {} else {}
 ;;!  ^^^^^^^^^^^^^^^^
@@ -707,12 +700,9 @@
 ;;!  ^^^^^^^^
 (
   (if_statement
-    "if" @branch.start.startOf @branch.removal.start.startOf @interior.domain.start.startOf
+    "if" @branch.start.startOf @branch.removal.start.startOf
     condition: (_) @condition
-    consequence: (_
-      "{" @interior.start.endOf
-      "}" @interior.end.startOf
-    ) @branch.end.endOf @branch.removal.end.endOf @interior.domain.end.endOf
+    consequence: (_) @branch.end.endOf @branch.removal.end.endOf
     alternative: (else_clause
       (if_statement)? @branch.removal.end.startOf
     )? @branch.removal.end.startOf
@@ -724,13 +714,10 @@
 ;;!! else if () {}
 ;;!  ^^^^^^^^^^^^^
 (else_clause
-  "else" @branch.start.startOf @condition.domain.start.startOf @interior.domain.start.startOf
+  "else" @branch.start.startOf @condition.domain.start.startOf
   (if_statement
     condition: (_) @condition
-    consequence: (_
-      "{" @interior.start.endOf
-      "}" @interior.end.startOf
-    ) @branch.end.endOf @condition.domain.end.endOf @interior.domain.end.endOf
+    consequence: (_) @branch.end.endOf @condition.domain.end.endOf
   )
   (#child-range! @condition 0 -1 true true)
 )
@@ -738,20 +725,14 @@
 ;;!! else {}
 ;;!  ^^^^^^^
 (else_clause
-  (statement_block
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  )
-) @branch @interior.domain
+  (statement_block)
+) @branch
 
 ;;!! try () {}
 ;;!  ^^^^^^^^^
 (try_statement
-  "try" @branch.start @interior.domain.start.startOf
-  body: (_
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  ) @branch.end @interior.domain.end.endOf
+  "try" @branch.start
+  body: (_) @branch.end
 )
 
 ;;!! catch () {}
