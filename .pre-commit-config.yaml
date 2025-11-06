@@ -72,7 +72,7 @@ repos:
         language: system
         entry: pnpm exec ./packages/common/scripts/my-ts-node.js packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts --check-marks
   - repo: https://github.com/ikamensh/flynt
-    rev: "1.0.1"
+    rev: "1.0.6"
     hooks:
       - id: flynt
   - repo: https://github.com/astral-sh/ruff-pre-commit

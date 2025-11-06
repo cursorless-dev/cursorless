@@ -171,6 +171,7 @@ function isLanguageSpecific(scopeType: ScopeType): boolean {
     case "token":
     case "identifier":
     case "line":
+    case "fullLine":
     case "sentence":
     case "paragraph":
     case "boundedParagraph":

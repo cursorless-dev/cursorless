@@ -303,6 +303,7 @@ export type PlaintextScopeSupportFacet =
   | "token"
   | "identifier"
   | "line"
+  | "fullLine"
   | "sentence"
   | "paragraph"
   | "boundedParagraph"

@@ -141,6 +141,10 @@
 
 - `fieldAccess` A field access
 
+### fullLine
+
+- `fullLine` A single full line in the document. Includes leading and trailing whitespace.
+
 ### functionCall
 
 - `functionCall` A function call
@@ -196,7 +200,7 @@
 
 ### line
 
-- `line` A single line in the document
+- `line` A single line in the document. Excludes leading and trailing whitespace.
 
 ### list
 
