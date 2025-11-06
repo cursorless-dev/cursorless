@@ -84,10 +84,6 @@
 (_
   (_
     name: (_) @name
-    body: (_
-      "{" @interior.start.endOf
-      "}" @interior.end.startOf
-    )
   ) @_.domain.start @class.start @type.start
   .
   ";"? @_.domain.end @class.end @type.end
@@ -108,12 +104,7 @@
 ;;!! typedef union {} foo;
 ;;!! typedef enum {} foo;
 (type_definition
-  type: (_
-    body: (_
-      "{" @interior.start.endOf
-      "}" @interior.end.startOf
-    )
-  ) @_dummy
+  type: (_) @_dummy
   declarator: (type_identifier) @name
   (#type? @_dummy struct_specifier union_specifier enum_specifier)
 ) @_.domain @class @type
@@ -165,15 +156,6 @@
     ) @name
   )
 ) @namedFunction @name.domain
-
-;;!! void foo() { }
-;;!              ^
-(function_definition
-  body: (_
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  )
-) @_.domain
 
 ;;!! int aaa;
 ;;!      ^^^
@@ -312,12 +294,9 @@
 ;;!  ^^^^^^^^
 (
   (if_statement
-    "if" @branch.start @branch.removal.start @interior.domain.start
+    "if" @branch.start @branch.removal.start
     condition: (_) @condition
-    consequence: (_
-      "{" @interior.start.endOf
-      "}" @interior.end.startOf
-    ) @branch.end @branch.removal.end @interior.domain.end
+    consequence: (_) @branch.end @branch.removal.end
     alternative: (else_clause
       (if_statement)? @branch.removal.end.startOf
     )? @branch.removal.end.startOf
@@ -329,13 +308,10 @@
 ;;!! else if () {}
 ;;!  ^^^^^^^^^^^^^
 (else_clause
-  "else" @branch.start @condition.domain.start @interior.domain.start
+  "else" @branch.start @condition.domain.start
   (if_statement
     condition: (_) @condition
-    consequence: (_
-      "{" @interior.start.endOf
-      "}" @interior.end.startOf
-    ) @branch.end @condition.domain.end @interior.domain.end
+    consequence: (_) @branch.end @condition.domain.end
     (#child-range! @condition 0 -1 true true)
   )
 )
@@ -344,11 +320,8 @@
 ;;!  ^^^^^^^
 (if_statement
   (else_clause
-    (compound_statement
-      "{" @interior.start.endOf
-      "}" @interior.end.startOf
-    )
-  ) @branch @interior.domain
+    (compound_statement)
+  ) @branch
 )
 
 ;;!! for (int i = 0; i < size; ++i) {}
@@ -356,10 +329,6 @@
 ;;!                  ^^^^^^^^
 (for_statement
   condition: (_) @condition
-  body: (_
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  )
 ) @branch @_.domain
 
 ;;!! while (true) {}
@@ -367,10 +336,6 @@
 ;;!         ^^^^
 (while_statement
   condition: (_) @condition
-  body: (_
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  )
   (#child-range! @condition 0 -1 true true)
 ) @branch @_.domain
 
@@ -378,10 +343,6 @@
 ;;!  ^^^^^^^^^^^^^^^^^^^
 ;;!               ^^^^
 (do_statement
-  body: (_
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  )
   condition: (_) @condition
   (#child-range! @condition 0 -1 true true)
 ) @branch @_.domain
@@ -394,42 +355,29 @@
     ")" @value.end.startOf
   )
   body: (_
-    "{" @branch.iteration.start.endOf @condition.iteration.start.endOf @interior.start.endOf
-    "}" @branch.iteration.end.startOf @condition.iteration.end.startOf @interior.end.startOf
+    "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
+    "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
   )
 ) @_.domain @branch.iteration.domain @condition.iteration.domain
 
 ;;!! case 0: break;
 ;;!  ^^^^^^^^^^^^^^
+(case_statement) @branch
+
+;;!! case 0: break;
 ;;!       ^
 (case_statement
   value: (_) @condition
-  .
-  (_) @interior.start
-  (_)? @interior.end
-  .
-  (#not-type? @interior.start "compound_statement")
-) @branch @_.domain
+) @condition.domain
 
-;;!! default: break;
-;;!  ^^^^^^^^^^^^^^;
+;;!! case 0: break;
+;;!          ^^^^^^
 (case_statement
-  !value
+  ":" @interior.start.endOf
   .
-  (_) @interior.start
-  (_)? @interior.end
-  .
-  (#not-type? @interior.start "compound_statement")
-) @branch @_.domain
-
-;;!! case 0: { }
-;;!           ^
-(case_statement
-  (compound_statement
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  )
-) @branch @_.domain
+  (_) @_dummy
+  (#not-type? @_dummy compound_statement)
+) @interior.end.endOf
 
 ;;!! true ? 0 : 1
 ;;!  ^^^^
