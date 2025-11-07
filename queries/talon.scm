@@ -121,10 +121,17 @@
 ;;!! slap: key(enter)
 ;;!  ^^^^^^^^^^^^^^^^
 (
-  (command_declaration
-    right: (_) @interior
-  ) @command @interior.domain
+  (command_declaration) @command
   (#insertion-delimiter! @command "\n")
+)
+
+;;!! slap: key(enter)
+;;!       ^^^^^^^^^^^
+(
+  (command_declaration
+    ":" @interior.start.endOf
+    right: (_) @interior.end.endOf
+  )
 )
 
 ;;!! key(enter)
