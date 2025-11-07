@@ -297,10 +297,10 @@
     .
     (_) @condition
   )
-) @_.domain
+) @condition.domain
 
 ;;!! default: break;
-;;!           ^^^^^^
+;;!          ^^^^^^^
 (switch_section
   [
     (case_switch_label)

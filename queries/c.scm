@@ -371,7 +371,7 @@
 ) @condition.domain
 
 ;;!! case 0: break;
-;;!          ^^^^^^
+;;!         ^^^^^^^
 (case_statement
   ":" @interior.start.endOf
   .

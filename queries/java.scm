@@ -195,14 +195,14 @@
 ) @condition.domain
 
 ;;!! case "0" -> "zero";
-;;!              ^^^^^^^
+;;!             ^^^^^^^^
 (switch_rule
   "->" @interior.start.endOf
   (expression_statement)
 ) @interior.end.endOf
 
 ;;!! case 0: break;
-;;!          ^^^^^^
+;;!         ^^^^^^^
 (switch_block_statement_group
   ":" @interior.start.endOf
   (_) @_dummy

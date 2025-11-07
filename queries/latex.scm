@@ -20,6 +20,8 @@
   (end) @xmlEndTag
 ) @environment @xmlElement @_.domain
 
+;;!! \begin{quote} Hello \end{quote}
+;;!               ^^^^^^^
 (_
   (begin) @interior.start.endOf
   (end) @interior.end.startOf

@@ -672,7 +672,7 @@
 (switch_default) @branch
 
 ;;!! case 0: break;
-;;!          ^^^^^^
+;;!         ^^^^^^^
 (switch_case
   ":" @interior.start.endOf
   .
@@ -681,7 +681,7 @@
 ) @interior.end.endOf
 
 ;;!! default: break;
-;;!           ^^^^^^
+;;!          ^^^^^^^
 (switch_default
   ":" @interior.start.endOf
   .

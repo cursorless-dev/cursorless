@@ -35,8 +35,7 @@
 ] @statement
 
 ;;!! if True: pass
-;;!           ^^^^
-;;!          -----
+;;!          ^^^^^
 (_
   ":" @interior.start.endOf
   .
