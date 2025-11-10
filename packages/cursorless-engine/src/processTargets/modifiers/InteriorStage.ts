@@ -1,4 +1,7 @@
-import { type InteriorOnlyModifier } from "@cursorless/common";
+import {
+  NoContainingScopeError,
+  type InteriorOnlyModifier,
+} from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStageFactory } from "../ModifierStageFactory";
 import type {
@@ -36,10 +39,17 @@ export class InteriorOnlyStage implements ModifierStage {
     }
 
     // eg `inside air`
-    return createContainingInteriorStage(this.modifierHandlerFactory).run(
-      target,
-      options,
-    );
+    try {
+      return createContainingInteriorStage(this.modifierHandlerFactory).run(
+        target,
+        options,
+      );
+    } catch (e) {
+      if (e instanceof NoContainingScopeError) {
+        throw new NoContainingScopeError("interior");
+      }
+      throw e;
+    }
   }
 }
 
