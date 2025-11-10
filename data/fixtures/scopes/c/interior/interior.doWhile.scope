@@ -1,19 +1,10 @@
 do { } while (true);
 ---
 
-[#1 Content] =
-[#1 Removal] =
-[#1 Domain] = 0:4-0:5
+[Content] =
+[Removal] =
+[Domain] = 0:4-0:5
       >-<
 0| do { } while (true);
 
-[#1 Insertion delimiter] = " "
-
-
-[#2 Content] =
-[#2 Removal] =
-[#2 Domain] = 0:14-0:18
-                >----<
-0| do { } while (true);
-
-[#2 Insertion delimiter] = " "
+[Insertion delimiter] = " "

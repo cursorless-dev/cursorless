@@ -59,6 +59,15 @@
   )
 ) @statement @type @name.domain
 
+;;!! { }
+;;!   ^
+(_
+  .
+  "{" @interior.start.endOf
+  "}" @interior.end.startOf
+  .
+)
+
 ;;!! enum Foo { bar, baz }
 ;;!             ^^^  ^^^
 (enum_constant

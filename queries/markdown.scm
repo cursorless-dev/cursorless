@@ -47,7 +47,28 @@
 ;;!! ```
 ;;!  ^^^
 (
-  (fenced_code_block) @notebookCell
+  (fenced_code_block
+    (fenced_code_block_delimiter) @interior.start.endOf
+    .
+    (block_continuation)
+    (fenced_code_block_delimiter) @interior.end.startOf
+  ) @notebookCell
+  (#trim-end! @notebookCell)
+  (#insertion-delimiter! @notebookCell "\n\n")
+)
+
+;;!! ```python
+;;!  ^^^^^^^^^
+;;!! pass
+;;!  ----
+;;!  ####
+;;!! ```
+;;!  ^^^
+(
+  (fenced_code_block
+    (info_string) @interior.start.endOf
+    (fenced_code_block_delimiter) @interior.end.startOf
+  ) @notebookCell
   (#trim-end! @notebookCell)
   (#insertion-delimiter! @notebookCell "\n\n")
 )

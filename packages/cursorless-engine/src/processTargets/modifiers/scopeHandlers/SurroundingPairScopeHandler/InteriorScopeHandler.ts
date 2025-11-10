@@ -1,11 +1,10 @@
 import type {
   Direction,
-  InteriorScopeType,
   Position,
   ScopeType,
   TextEditor,
 } from "@cursorless/common";
-import { NoContainingScopeError, Range } from "@cursorless/common";
+import { NoContainingScopeError } from "@cursorless/common";
 import type { LanguageDefinitions } from "../../../../languages/LanguageDefinitions";
 import type { Target } from "../../../../typings/target.types";
 import { InteriorTarget } from "../../../targets";
@@ -13,11 +12,9 @@ import { BaseScopeHandler } from "../BaseScopeHandler";
 import type { TargetScope } from "../scope.types";
 import type {
   ComplexScopeType,
-  ScopeHandler,
   ScopeIteratorRequirements,
 } from "../scopeHandler.types";
 import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
-import { SortedScopeHandler } from "../SortedScopeHandler";
 
 export class InteriorScopeHandler extends BaseScopeHandler {
   protected isHierarchical = true;
@@ -25,7 +22,7 @@ export class InteriorScopeHandler extends BaseScopeHandler {
   constructor(
     private scopeHandlerFactory: ScopeHandlerFactory,
     private languageDefinitions: LanguageDefinitions,
-    public readonly scopeType: InteriorScopeType,
+    public readonly scopeType: ScopeType,
     private languageId: string,
   ) {
     super();
@@ -43,8 +40,9 @@ export class InteriorScopeHandler extends BaseScopeHandler {
     direction: Direction,
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
-    const targetDomain = new Range(position, hints.distalPosition);
-    const scopeHandler = this.getScopeHandler();
+    const scopeHandler = this.languageDefinitions
+      .get(this.languageId)
+      ?.getScopeHandler(this.scopeType);
 
     if (scopeHandler == null) {
       return;
@@ -58,36 +56,12 @@ export class InteriorScopeHandler extends BaseScopeHandler {
     );
 
     for (const scope of scopes) {
-      yield createInteriorScope(scope);
+      yield createScope(scope);
     }
-  }
-
-  private getScopeHandler(): ScopeHandler | undefined {
-    const languageScopeHandler = this.languageDefinitions
-      .get(this.languageId)
-      ?.getScopeHandler(this.scopeType);
-
-    const pairScopeHandler = this.scopeHandlerFactory.create(
-      {
-        type: "surroundingPairInterior",
-        delimiter: "any",
-      },
-      this.languageId,
-    );
-
-    if (languageScopeHandler == null) {
-      return pairScopeHandler;
-    }
-
-    return SortedScopeHandler.createFromScopeHandlers(
-      this.scopeHandlerFactory,
-      this.languageId,
-      [languageScopeHandler, pairScopeHandler],
-    );
   }
 }
 
-function createInteriorScope(scope: TargetScope): TargetScope {
+function createScope(scope: TargetScope): TargetScope {
   return {
     editor: scope.editor,
     domain: scope.domain,
@@ -97,10 +71,7 @@ function createInteriorScope(scope: TargetScope): TargetScope {
   };
 }
 
-function createInteriorTarget(target: Target): Target {
-  if (target instanceof InteriorTarget) {
-    return target;
-  }
+function createInteriorTarget(target: Target): InteriorTarget {
   return new InteriorTarget({
     editor: target.editor,
     isReversed: target.isReversed,

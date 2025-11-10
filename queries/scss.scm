@@ -30,6 +30,15 @@
   (while_statement)
 ] @statement
 
+;;!! { }
+;;!   ^
+(_
+  .
+  "{" @interior.start.endOf
+  "}" @interior.end.startOf
+  .
+)
+
 (single_line_comment) @comment @textFragment
 
 ;;!! @if true { }  @else { }

@@ -20,7 +20,7 @@ initialState:
 finalState:
   documentContents: |-
 
-    "'' 'fsd'"
+    ""
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
+    - anchor: {line: 1, character: 1}
+      active: {line: 1, character: 1}

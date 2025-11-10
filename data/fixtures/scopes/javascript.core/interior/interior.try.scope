@@ -14,8 +14,8 @@ finally { }
 
 [#2 Content] =
 [#2 Removal] =
-[#2 Domain] = 1:6-1:7
-        >-<
+[#2 Domain] = 1:10-1:11
+            >-<
 1| catch(e) { }
 
 [#2 Insertion delimiter] = " "
@@ -23,17 +23,8 @@ finally { }
 
 [#3 Content] =
 [#3 Removal] =
-[#3 Domain] = 1:10-1:11
-            >-<
-1| catch(e) { }
-
-[#3 Insertion delimiter] = " "
-
-
-[#4 Content] =
-[#4 Removal] =
-[#4 Domain] = 2:9-2:10
+[#3 Domain] = 2:9-2:10
            >-<
 2| finally { }
 
-[#4 Insertion delimiter] = " "
+[#3 Insertion delimiter] = " "

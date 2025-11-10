@@ -1,19 +1,10 @@
 switch (value) { }
 ---
 
-[#1 Content] =
-[#1 Removal] =
-[#1 Domain] = 0:8-0:13
-          >-----<
-0| switch (value) { }
-
-[#1 Insertion delimiter] = " "
-
-
-[#2 Content] =
-[#2 Removal] =
-[#2 Domain] = 0:16-0:17
+[Content] =
+[Removal] =
+[Domain] = 0:16-0:17
                   >-<
 0| switch (value) { }
 
-[#2 Insertion delimiter] = " "
+[Insertion delimiter] = " "

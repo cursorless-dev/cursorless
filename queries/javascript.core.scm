@@ -57,6 +57,15 @@
   (#document-range! @name.iteration @value.iteration @type.iteration)
 )
 
+;;!! { }
+;;!   ^
+(_
+  .
+  "{" @interior.start.endOf
+  "}" @interior.end.startOf
+  .
+)
+
 ;; `name` scope without `export`
 (
   (_

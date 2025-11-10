@@ -7,16 +7,7 @@ switch (foo) {
 }
 ---
 
-[#1 Content] =
-[#1 Removal] =
-[#1 Domain] = 0:8-0:11
-          >---<
-0| switch (foo) {
-
-[#1 Insertion delimiter] = " "
-
-
-[#2 Content] = 1:4-5:17
+[#1 Content] = 1:4-5:17
       >------------
 1|     case 0 -> 1;
 2|     case 1 -> {
@@ -25,7 +16,7 @@ switch (foo) {
 5|     default -> 3;
    -----------------<
 
-[#2 Removal] = 0:14-6:0
+[#1 Removal] = 0:14-6:0
                 >
 0| switch (foo) {
 1|     case 0 -> 1;
@@ -36,7 +27,7 @@ switch (foo) {
 6| }
    <
 
-[#2 Domain] = 0:14-6:0
+[#1 Domain] = 0:14-6:0
                 >
 0| switch (foo) {
 1|     case 0 -> 1;
@@ -46,56 +37,56 @@ switch (foo) {
 5|     default -> 3;
 6| }
    <
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:14-1:16
+                >--<
+1|     case 0 -> 1;
+
+[#2 Removal] = 1:13-1:16
+               >---<
+1|     case 0 -> 1;
+
+[#2 Domain] = 1:13-1:16
+               >---<
+1|     case 0 -> 1;
 
 [#2 Insertion delimiter] = " "
 
 
-[#3 Content] = 1:14-1:16
-                >--<
-1|     case 0 -> 1;
+[#3 Content] = 3:8-3:16
+          >--------<
+3|         yield 2;
 
-[#3 Removal] = 1:13-1:16
-               >---<
-1|     case 0 -> 1;
+[#3 Removal] = 2:15-4:4
+                 >
+2|     case 1 -> {
+3|         yield 2;
+4|     };
+   ----<
 
-[#3 Domain] = 1:13-1:16
-               >---<
-1|     case 0 -> 1;
+[#3 Domain] = 2:15-4:4
+                 >
+2|     case 1 -> {
+3|         yield 2;
+4|     };
+   ----<
 
 [#3 Insertion delimiter] = " "
 
 
-[#4 Content] = 3:8-3:16
-          >--------<
-3|         yield 2;
-
-[#4 Removal] = 2:15-4:4
-                 >
-2|     case 1 -> {
-3|         yield 2;
-4|     };
-   ----<
-
-[#4 Domain] = 2:15-4:4
-                 >
-2|     case 1 -> {
-3|         yield 2;
-4|     };
-   ----<
-
-[#4 Insertion delimiter] = " "
-
-
-[#5 Content] = 5:15-5:17
+[#4 Content] = 5:15-5:17
                  >--<
 5|     default -> 3;
 
-[#5 Removal] = 5:14-5:17
+[#4 Removal] = 5:14-5:17
                 >---<
 5|     default -> 3;
 
-[#5 Domain] = 5:14-5:17
+[#4 Domain] = 5:14-5:17
                 >---<
 5|     default -> 3;
 
-[#5 Insertion delimiter] = " "
+[#4 Insertion delimiter] = " "

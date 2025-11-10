@@ -26,17 +26,8 @@ class Foo {
 
 [#2 Content] =
 [#2 Removal] =
-[#2 Domain] = 1:8-1:8
-          ><
-1|     bar() { }
-
-[#2 Insertion delimiter] = " "
-
-
-[#3 Content] =
-[#3 Removal] =
-[#3 Domain] = 1:11-1:12
+[#2 Domain] = 1:11-1:12
              >-<
 1|     bar() { }
 
-[#3 Insertion delimiter] = " "
+[#2 Insertion delimiter] = " "

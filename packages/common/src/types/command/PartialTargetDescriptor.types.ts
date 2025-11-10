@@ -208,6 +208,7 @@ export const simpleScopeTypeTypes = [
   "textFragment",
   "disqualifyDelimiter",
   "pairDelimiter",
+  "interior",
 ] as const;
 
 export function isSimpleScopeType(
@@ -234,10 +235,6 @@ export interface CustomRegexScopeType {
   type: "customRegex";
   regex: string;
   flags?: string;
-}
-
-export interface InteriorScopeType {
-  type: "interior";
 }
 
 export type SurroundingPairDirection = "left" | "right";
@@ -283,7 +280,6 @@ export type ScopeType =
   | SurroundingPairScopeType
   | SurroundingPairInteriorScopeType
   | CustomRegexScopeType
-  | InteriorScopeType
   | OneOfScopeType
   | GlyphScopeType;
 

@@ -26,17 +26,8 @@ class Foo {
 
 [#2 Content] =
 [#2 Removal] =
-[#2 Domain] = 1:20-1:20
-                      ><
-1|     public void Bar() { }
-
-[#2 Insertion delimiter] = " "
-
-
-[#3 Content] =
-[#3 Removal] =
-[#3 Domain] = 1:23-1:24
+[#2 Domain] = 1:23-1:24
                          >-<
 1|     public void Bar() { }
 
-[#3 Insertion delimiter] = " "
+[#2 Insertion delimiter] = " "

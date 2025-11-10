@@ -72,6 +72,15 @@
   "}" @statement.iteration.end.startOf
 )
 
+;;!! { }
+;;!   ^
+(_
+  .
+  "{" @interior.start.endOf
+  "}" @interior.end.startOf
+  .
+)
+
 ;;!! if () {} else {}
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 (

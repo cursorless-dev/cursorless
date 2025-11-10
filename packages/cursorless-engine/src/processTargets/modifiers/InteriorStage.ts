@@ -20,52 +20,40 @@ export class InteriorOnlyStage implements ModifierStage {
   run(target: Target, options: ModifierStateOptions): Target[] {
     const interior = target.getInterior();
 
+    // eg `inside pair`
     if (interior != null) {
       return interior;
     }
 
+    // eg `inside funk`
     if (target.hasExplicitScopeType) {
-      throw new NoContainingScopeError("interior");
+      const everyModifier = this.modifierHandlerFactory.create({
+        type: "everyScope",
+        scopeType: {
+          type: "interior",
+        },
+      });
+
+      return everyModifier.run(target, options);
     }
 
+    // eg `inside air`
     const containingModifier = this.modifierHandlerFactory.create({
       type: "containingScope",
       scopeType: {
-        type: "interior",
+        type: "oneOf",
+        scopeTypes: [
+          {
+            type: "interior",
+          },
+          {
+            type: "surroundingPairInterior",
+            delimiter: "any",
+          },
+        ],
       },
     });
 
     return containingModifier.run(target, options);
   }
-}
-
-export class ExcludeInteriorStage implements ModifierStage {
-  private containingSurroundingPairIfNoBoundaryStage: ModifierStage;
-
-  constructor(
-    private modifierStageFactory: ModifierStageFactory,
-    private modifier: ExcludeInteriorModifier,
-  ) {
-    this.containingSurroundingPairIfNoBoundaryStage =
-      getContainingSurroundingPairIfNoBoundaryStage(this.modifierStageFactory);
-  }
-
-  run(target: Target, options: ModifierStateOptions): Target[] {
-    return this.containingSurroundingPairIfNoBoundaryStage
-      .run(target, options)
-      .flatMap((target) => target.getBoundary()!);
-  }
-}
-
-export function getContainingSurroundingPairIfNoBoundaryStage(
-  modifierStageFactory: ModifierStageFactory,
-): ModifierStage {
-  return new ModifyIfConditionStage(
-    modifierStageFactory,
-    {
-      type: "containingScope",
-      scopeType: { type: "surroundingPair", delimiter: "any" },
-    },
-    (target) => target.getBoundary() == null,
-  );
 }
