@@ -74,13 +74,6 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
       true,
     )?.with(contentRange.end);
 
-    const interiorRange = getRelatedRange(
-      match,
-      scopeTypeType,
-      "interior",
-      true,
-    );
-
     let removalRange = getRelatedRange(match, scopeTypeType, "removal", true);
 
     if (
@@ -109,7 +102,6 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
           contentRange,
           prefixRange,
           removalRange,
-          interiorRange,
           leadingDelimiterRange,
           trailingDelimiterRange,
           insertionDelimiter,
