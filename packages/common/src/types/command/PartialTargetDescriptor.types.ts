@@ -221,6 +221,7 @@ export type SimpleScopeTypeType = (typeof simpleScopeTypeTypes)[number];
 
 export const pseudoScopes = new Set<SimpleScopeTypeType>([
   "instance",
+  "interior",
   "className",
   "functionName",
 ]);
