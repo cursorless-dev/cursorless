@@ -21,7 +21,7 @@ export class InteriorOnlyStage implements ModifierStage {
     }
 
     // eg `inside funk`
-    // The reason for this being in every scope when we have an explicit scope
+    // The reason for this being an every scope when we have an explicit scope
     // type is because we are looking for interiors inside of the scope. We
     // don't want a normal containing behavior that expands.
     if (target.hasExplicitScopeType) {
