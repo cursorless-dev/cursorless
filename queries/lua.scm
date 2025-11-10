@@ -15,6 +15,15 @@
   (while_statement)
 ] @statement
 
+;;!! { }
+;;!   ^
+(_
+  .
+  "{" @interior.start.endOf
+  "}" @interior.end.startOf
+  .
+)
+
 ;; Only treat function declarions and calls as statements if they
 ;; aren't part of assignments, etc
 (

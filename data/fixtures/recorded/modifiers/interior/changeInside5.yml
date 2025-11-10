@@ -14,8 +14,8 @@ initialState:
     def testing():
         pass
   selections:
-    - anchor: {line: 1, character: 14}
-      active: {line: 1, character: 14}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
   marks: {}
 finalState:
   documentContents: |-
