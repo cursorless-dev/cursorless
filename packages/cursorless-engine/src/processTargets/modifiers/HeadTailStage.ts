@@ -2,7 +2,6 @@ import {
   NoContainingScopeError,
   type HeadModifier,
   type Modifier,
-  type ScopeType,
   type TailModifier,
 } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
