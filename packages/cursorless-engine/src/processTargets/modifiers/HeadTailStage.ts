@@ -16,6 +16,7 @@ import {
   processModifierStages,
 } from "../TargetPipelineRunner";
 import { HeadTailTarget, PlainTarget } from "../targets";
+import { createContainingInteriorStage } from "./InteriorStage";
 
 class HeadTailStage implements ModifierStage {
   constructor(
@@ -99,9 +100,10 @@ class BoundedLineStage implements ModifierStage {
     options: ModifierStateOptions,
   ): Target | undefined {
     try {
-      return this.getContaining(target, options, {
-        type: "interior",
-      });
+      return createContainingInteriorStage(this.modifierStageFactory).run(
+        target,
+        options,
+      )[0];
     } catch (error) {
       if (error instanceof NoContainingScopeError) {
         return undefined;
@@ -114,18 +116,8 @@ class BoundedLineStage implements ModifierStage {
     target: Target,
     options: ModifierStateOptions,
   ): Target {
-    return this.getContaining(target, options, {
-      type: "line",
-    });
-  }
-
-  private getContaining(
-    target: Target,
-    options: ModifierStateOptions,
-    scopeType: ScopeType,
-  ): Target {
     return this.modifierStageFactory
-      .create({ type: "containingScope", scopeType })
+      .create({ type: "containingScope", scopeType: { type: "line" } })
       .run(target, options)[0];
   }
 }

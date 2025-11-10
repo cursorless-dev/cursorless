@@ -33,22 +33,29 @@ export class InteriorOnlyStage implements ModifierStage {
     }
 
     // eg `inside air`
-    const containingModifier = this.modifierHandlerFactory.create({
-      type: "containingScope",
-      scopeType: {
-        type: "oneOf",
-        scopeTypes: [
-          {
-            type: "interior",
-          },
-          {
-            type: "surroundingPairInterior",
-            delimiter: "any",
-          },
-        ],
-      },
-    });
-
-    return containingModifier.run(target, options);
+    return createContainingInteriorStage(this.modifierHandlerFactory).run(
+      target,
+      options,
+    );
   }
+}
+
+export function createContainingInteriorStage(
+  modifierHandlerFactory: ModifierStageFactory,
+): ModifierStage {
+  return modifierHandlerFactory.create({
+    type: "containingScope",
+    scopeType: {
+      type: "oneOf",
+      scopeTypes: [
+        {
+          type: "interior",
+        },
+        {
+          type: "surroundingPairInterior",
+          delimiter: "any",
+        },
+      ],
+    },
+  });
 }
