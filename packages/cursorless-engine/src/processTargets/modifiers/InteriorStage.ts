@@ -1,15 +1,10 @@
-import {
-  NoContainingScopeError,
-  type ExcludeInteriorModifier,
-  type InteriorOnlyModifier,
-} from "@cursorless/common";
+import { type InteriorOnlyModifier } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStageFactory } from "../ModifierStageFactory";
 import type {
   ModifierStage,
   ModifierStateOptions,
 } from "../PipelineStages.types";
-import { ModifyIfConditionStage } from "./ConditionalModifierStages";
 
 export class InteriorOnlyStage implements ModifierStage {
   constructor(
