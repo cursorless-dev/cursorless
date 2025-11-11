@@ -64,3 +64,10 @@
   width: 1.25rem;
   height: 0.75rem;
 }
+
+[data-theme="dark"]:root {
+  .code-copy-button,
+  .code-container > .code-link {
+    background-color: #444;
+  }
+}
