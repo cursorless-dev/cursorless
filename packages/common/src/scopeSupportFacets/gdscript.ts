@@ -5,6 +5,9 @@ import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const gdscriptScopeSupport: LanguageScopeSupportFacetMap = {
+  // supported
+  ifStatement: supported,
+  "statement.if": supported,
   // not applicable
   "statement.interface": notApplicable,
   "statement.field.interface": notApplicable,
