@@ -24,9 +24,15 @@ export class InteriorOnlyStage implements ModifierStage {
     }
 
     // eg `inside funk`
-    // The reason for this being an every scope when we have an explicit scope
-    // type is because we are looking for interiors inside of the scope. We
-    // don't want a normal containing behavior that expands.
+    // When you say "inside funk", in an ideal world, the function target would
+    // have a defined interior property that we could just use directly.
+    // However, it is painful to define interiors for every single scope in
+    // every single language, particularly scopes like "if", which could have
+    // multiple interiors and tends to be defined in a tricky nested way in the
+    // parse tree. Instead, we just define interior as a scope, and then call
+    // every interior on the input target here. This will work as expected in
+    // most cases, as long as the nearest interior is what we expect, which it
+    // usually is.
     if (target.hasExplicitScopeType) {
       const everyModifier = this.modifierHandlerFactory.create({
         type: "everyScope",
