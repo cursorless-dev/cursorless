@@ -18,12 +18,12 @@ export class InteriorOnlyStage implements ModifierStage {
   run(target: Target, options: ModifierStateOptions): Target[] {
     const interior = target.getInterior();
 
-    // eg `inside pair`
+    // eg "inside pair"
     if (interior != null) {
       return interior;
     }
 
-    // eg `inside funk`
+    // eg "inside funk"
     // When you say "inside funk", in an ideal world, the function target would
     // have a defined interior property that we could just use directly.
     // However, it is painful to define interiors for every single scope in
@@ -44,7 +44,7 @@ export class InteriorOnlyStage implements ModifierStage {
       return everyModifier.run(target, options);
     }
 
-    // eg `inside air`
+    // eg "inside air"
     try {
       return createContainingInteriorStage(this.modifierHandlerFactory).run(
         target,
