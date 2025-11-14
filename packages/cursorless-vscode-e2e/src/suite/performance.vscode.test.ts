@@ -5,7 +5,7 @@ import {
   type ScopeType,
   type SimpleScopeTypeType,
 } from "@cursorless/common";
-import { openNewEditor, runCursorlessCommand } from "@cursorless/vscode-common";
+import { openNewEditor, runCursorlessAction } from "@cursorless/vscode-common";
 import assert from "assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
@@ -35,6 +35,11 @@ suite("Performance", async function () {
   test(
     "Remove token",
     asyncSafety(() => removeToken(smallThresholdMs)),
+  );
+
+  test(
+    "Select with multiple cursors",
+    asyncSafety(() => selectWithMultipleCursors(largeThresholdMs)),
   );
 
   const fixtures: (
@@ -112,6 +117,28 @@ async function selectScopeType(
   });
 }
 
+async function selectWithMultipleCursors(thresholdMs: number) {
+  const callback = async () => {
+    await runCursorlessAction({
+      name: "setSelectionBefore",
+      target: {
+        type: "primitive",
+        modifiers: [getModifier({ type: "collectionItem" }, "every")],
+      },
+    });
+
+    await runCursorlessAction({
+      name: "setSelection",
+      target: {
+        type: "primitive",
+        modifiers: [getModifier({ type: "surroundingPair", delimiter: "any" })],
+      },
+    });
+  };
+
+  await testPerformanceCallback(thresholdMs, callback);
+}
+
 function getModifier(
   scopeType: ScopeType,
   modifierType: ModifierType = "containing",
@@ -142,11 +169,27 @@ async function testPerformance(thresholdMs: number, action: ActionDescriptor) {
 
   const start = performance.now();
 
-  await runCursorlessCommand({
-    version: 7,
-    usePrePhraseSnapshot: false,
-    action,
-  });
+  const callback = async () => {
+    await runCursorlessAction(action);
+  };
+
+  testPerformanceCallback(thresholdMs, callback);
+}
+
+async function testPerformanceCallback(
+  thresholdMs: number,
+  callback: () => Promise<void>,
+) {
+  const editor = await openNewEditor(testData, { languageId: "json" });
+  // This is the position of the last json key in the document
+  const position = new vscode.Position(editor.document.lineCount - 3, 5);
+  const selection = new vscode.Selection(position, position);
+  editor.selections = [selection];
+  editor.revealRange(selection);
+
+  const start = performance.now();
+
+  await callback();
 
   const duration = Math.round(performance.now() - start);
 
