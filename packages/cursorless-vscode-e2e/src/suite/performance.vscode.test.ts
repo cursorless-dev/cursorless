@@ -5,11 +5,7 @@ import {
   type ScopeType,
   type SimpleScopeTypeType,
 } from "@cursorless/common";
-import {
-  getCursorlessApi,
-  openNewEditor,
-  runCursorlessAction,
-} from "@cursorless/vscode-common";
+import { openNewEditor, runCursorlessAction } from "@cursorless/vscode-common";
 import assert from "assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
