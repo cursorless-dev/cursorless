@@ -16,7 +16,7 @@ import {
   getStartOfEndOfRange,
   rewriteStartOfEndOf,
 } from "./rewriteStartOfEndOf";
-import { treeSitterQueryCache } from "./treeSitterQueryCache";
+import { treeSitterQueryCache } from "./aTreeSitterQueryCache";
 
 /**
  * Wrapper around a tree-sitter query that provides a more convenient API, and
