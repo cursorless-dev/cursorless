@@ -93,8 +93,8 @@ suite("Performance", async function () {
   }
 });
 
-async function removeToken(thresholdMs: number) {
-  await testPerformance(thresholdMs, {
+function removeToken(thresholdMs: number) {
+  return testPerformance(thresholdMs, {
     name: "remove",
     target: {
       type: "primitive",
@@ -103,22 +103,8 @@ async function removeToken(thresholdMs: number) {
   });
 }
 
-async function selectScopeType(
-  scopeType: ScopeType,
-  thresholdMs: number,
-  modifierType?: ModifierType,
-) {
-  await testPerformance(thresholdMs, {
-    name: "setSelection",
-    target: {
-      type: "primitive",
-      modifiers: [getModifier(scopeType, modifierType)],
-    },
-  });
-}
-
-async function selectWithMultipleCursors(thresholdMs: number) {
-  const callback = async () => {
+function selectWithMultipleCursors(thresholdMs: number) {
+  return testPerformanceCallback(thresholdMs, async () => {
     await runCursorlessAction({
       name: "setSelectionBefore",
       target: {
@@ -134,51 +120,32 @@ async function selectWithMultipleCursors(thresholdMs: number) {
         modifiers: [getModifier({ type: "surroundingPair", delimiter: "any" })],
       },
     });
-  };
-
-  await testPerformanceCallback(thresholdMs, callback);
+  });
 }
 
-function getModifier(
+function selectScopeType(
   scopeType: ScopeType,
-  modifierType: ModifierType = "containing",
-): Modifier {
-  switch (modifierType) {
-    case "containing":
-      return { type: "containingScope", scopeType };
-    case "every":
-      return { type: "everyScope", scopeType };
-    case "previous":
-      return {
-        type: "relativeScope",
-        direction: "backward",
-        offset: 1,
-        length: 1,
-        scopeType,
-      };
-  }
+  thresholdMs: number,
+  modifierType?: ModifierType,
+) {
+  return testPerformance(thresholdMs, {
+    name: "setSelection",
+    target: {
+      type: "primitive",
+      modifiers: [getModifier(scopeType, modifierType)],
+    },
+  });
 }
 
-async function testPerformance(thresholdMs: number, action: ActionDescriptor) {
-  const editor = await openNewEditor(testData, { languageId: "json" });
-  // This is the position of the last json key in the document
-  const position = new vscode.Position(editor.document.lineCount - 3, 5);
-  const selection = new vscode.Selection(position, position);
-  editor.selections = [selection];
-  editor.revealRange(selection);
-
-  const start = performance.now();
-
-  const callback = async () => {
-    await runCursorlessAction(action);
-  };
-
-  testPerformanceCallback(thresholdMs, callback);
+function testPerformance(thresholdMs: number, action: ActionDescriptor) {
+  return testPerformanceCallback(thresholdMs, () => {
+    return runCursorlessAction(action);
+  });
 }
 
 async function testPerformanceCallback(
   thresholdMs: number,
-  callback: () => Promise<void>,
+  callback: () => Promise<unknown>,
 ) {
   const editor = await openNewEditor(testData, { languageId: "json" });
   // This is the position of the last json key in the document
@@ -199,6 +166,26 @@ async function testPerformanceCallback(
     duration < thresholdMs,
     `Duration ${duration}ms exceeds threshold ${thresholdMs}ms`,
   );
+}
+
+function getModifier(
+  scopeType: ScopeType,
+  modifierType: ModifierType = "containing",
+): Modifier {
+  switch (modifierType) {
+    case "containing":
+      return { type: "containingScope", scopeType };
+    case "every":
+      return { type: "everyScope", scopeType };
+    case "previous":
+      return {
+        type: "relativeScope",
+        direction: "backward",
+        offset: 1,
+        length: 1,
+        scopeType,
+      };
+  }
 }
 
 function getScopeTypeAndTitle(
