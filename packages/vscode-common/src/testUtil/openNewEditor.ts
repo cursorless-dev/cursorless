@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { getParseTreeApi } from "../getExtensionApi";
+import { getCursorlessApi, getParseTreeApi } from "../getExtensionApi";
 
 interface NewEditorOptions {
   languageId?: string;
@@ -35,6 +35,8 @@ export async function openNewEditor(
 
   // Many times running these tests opens the sidebar, which slows performance. Close it.
   vscode.commands.executeCommand("workbench.action.closeSidebar");
+
+  (await getCursorlessApi()).testHelpers!.clearCache();
 
   return editor;
 }

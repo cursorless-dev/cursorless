@@ -173,8 +173,6 @@ async function testPerformanceCallback(
   editor.selections = [selection];
   editor.revealRange(selection);
 
-  (await getCursorlessApi()).testHelpers!.clearCache();
-
   const start = performance.now();
 
   await callback();
