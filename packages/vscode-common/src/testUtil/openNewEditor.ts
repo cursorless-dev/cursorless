@@ -21,6 +21,8 @@ export async function openNewEditor(
 
   await (await getParseTreeApi()).loadLanguage(languageId);
 
+  (await getCursorlessApi()).testHelpers!.clearCache();
+
   const editor = await vscode.window.showTextDocument(
     document,
     openBeside ? vscode.ViewColumn.Beside : undefined,
@@ -35,8 +37,6 @@ export async function openNewEditor(
 
   // Many times running these tests opens the sidebar, which slows performance. Close it.
   vscode.commands.executeCommand("workbench.action.closeSidebar");
-
-  (await getCursorlessApi()).testHelpers!.clearCache();
 
   return editor;
 }
@@ -97,6 +97,8 @@ export async function openNewNotebookEditor(
   );
 
   await (await getParseTreeApi()).loadLanguage(language);
+
+  (await getCursorlessApi()).testHelpers!.clearCache();
 
   // FIXME: There seems to be some timing issue when you create a notebook
   // editor
