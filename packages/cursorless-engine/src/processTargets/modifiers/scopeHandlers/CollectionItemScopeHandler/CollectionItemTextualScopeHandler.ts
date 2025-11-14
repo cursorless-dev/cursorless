@@ -23,8 +23,6 @@ import { getInteriorRanges } from "./getInteriorRanges";
 import { getSeparatorOccurrences } from "./getSeparatorOccurrences";
 import { scopeHandlerCache } from "../ScopeHandlerCache";
 
-const cacheKey = "CollectionItemTextualScopeHandler";
-
 export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
   public scopeType: ScopeType = { type: "collectionItem" };
   protected isHierarchical = true;
@@ -46,8 +44,11 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
     direction: Direction,
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
+    const isEveryScope = isEveryScopeModifier(hints);
+    const cacheKey = "CollectionItemTextualScopeHandler_" + isEveryScope;
+
     if (!scopeHandlerCache.isValid(cacheKey, editor.document)) {
-      const scopes = this.getsScopes(editor, direction, hints);
+      const scopes = this.getsScopes(editor, direction, isEveryScope);
 
       scopeHandlerCache.update(cacheKey, editor.document, scopes);
     }
@@ -62,9 +63,8 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
   private getsScopes(
     editor: TextEditor,
     direction: Direction,
-    hints: ScopeIteratorRequirements,
+    isEveryScope: boolean,
   ) {
-    const isEveryScope = isEveryScopeModifier(hints);
     const separatorRanges = getSeparatorOccurrences(editor.document);
     const interiorRanges = getInteriorRanges(
       this.scopeHandlerFactory,
