@@ -8,7 +8,7 @@ import type {
 import { Notifier, showError } from "@cursorless/common";
 import { toString } from "lodash-es";
 import { LanguageDefinition } from "./LanguageDefinition";
-import { treeSitterQueryCache } from "./TreeSitterQuery/aTreeSitterQueryCache";
+import { treeSitterQueryCache } from "./TreeSitterQuery/TreeSitterQueryCache";
 
 /**
  * Sentinel value to indicate that a language doesn't have
