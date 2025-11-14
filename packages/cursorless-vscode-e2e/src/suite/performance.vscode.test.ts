@@ -5,7 +5,11 @@ import {
   type ScopeType,
   type SimpleScopeTypeType,
 } from "@cursorless/common";
-import { openNewEditor, runCursorlessAction } from "@cursorless/vscode-common";
+import {
+  getCursorlessApi,
+  openNewEditor,
+  runCursorlessAction,
+} from "@cursorless/vscode-common";
 import assert from "assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
@@ -14,6 +18,7 @@ const testData = generateTestData(100);
 
 const smallThresholdMs = 100;
 const largeThresholdMs = 600;
+const xlThresholdMs = 1500;
 
 type ModifierType = "containing" | "previous" | "every";
 
@@ -35,11 +40,6 @@ suite("Performance", async function () {
   test(
     "Remove token",
     asyncSafety(() => removeToken(smallThresholdMs)),
-  );
-
-  test(
-    "Select with multiple cursors",
-    asyncSafety(() => selectWithMultipleCursors(largeThresholdMs)),
   );
 
   const fixtures: (
@@ -91,6 +91,25 @@ suite("Performance", async function () {
       asyncSafety(() => selectScopeType(scopeType, threshold, modifierType)),
     );
   }
+
+  test(
+    "Select surroundingPair with multiple cursors",
+    asyncSafety(() =>
+      selectWithMultipleCursors(xlThresholdMs, {
+        type: "surroundingPair",
+        delimiter: "any",
+      }),
+    ),
+  );
+
+  test(
+    "Select collectionItem with multiple cursors",
+    asyncSafety(() =>
+      selectWithMultipleCursors(xlThresholdMs, {
+        type: "collectionItem",
+      }),
+    ),
+  );
 });
 
 function removeToken(thresholdMs: number) {
@@ -103,7 +122,7 @@ function removeToken(thresholdMs: number) {
   });
 }
 
-function selectWithMultipleCursors(thresholdMs: number) {
+function selectWithMultipleCursors(thresholdMs: number, scopeType: ScopeType) {
   return testPerformanceCallback(thresholdMs, async () => {
     await runCursorlessAction({
       name: "setSelectionBefore",
@@ -117,7 +136,7 @@ function selectWithMultipleCursors(thresholdMs: number) {
       name: "setSelection",
       target: {
         type: "primitive",
-        modifiers: [getModifier({ type: "surroundingPair", delimiter: "any" })],
+        modifiers: [getModifier(scopeType)],
       },
     });
   });
@@ -153,6 +172,8 @@ async function testPerformanceCallback(
   const selection = new vscode.Selection(position, position);
   editor.selections = [selection];
   editor.revealRange(selection);
+
+  (await getCursorlessApi()).testHelpers!.clearCache();
 
   const start = performance.now();
 

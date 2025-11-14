@@ -13,13 +13,17 @@ import type {
   TextEditor,
 } from "@cursorless/common";
 import type { StoredTargetMap } from "@cursorless/cursorless-engine";
-import { plainObjectToTarget } from "@cursorless/cursorless-engine";
+import {
+  plainObjectToTarget,
+  scopeHandlerCache,
+  treeSitterQueryCache,
+} from "@cursorless/cursorless-engine";
+import { takeSnapshot } from "@cursorless/test-case-recorder";
 import type { VscodeTestHelpers } from "@cursorless/vscode-common";
 import type * as vscode from "vscode";
-import { takeSnapshot } from "@cursorless/test-case-recorder";
+import { toVscodeEditor } from "./ide/vscode/toVscodeEditor";
 import type { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
 import type { VscodeIDE } from "./ide/vscode/VscodeIDE";
-import { toVscodeEditor } from "./ide/vscode/toVscodeEditor";
 import { vscodeApi } from "./vscodeApi";
 import type { VscodeTutorial } from "./VscodeTutorial";
 
@@ -43,6 +47,11 @@ export function constructTestHelpers(
     toVscodeEditor,
     fromVscodeEditor(editor: vscode.TextEditor): TextEditor {
       return vscodeIDE.fromVscodeEditor(editor);
+    },
+
+    clearCache() {
+      scopeHandlerCache.clear();
+      treeSitterQueryCache.clear();
     },
 
     // FIXME: Remove this once we have a better way to get this function

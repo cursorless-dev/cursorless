@@ -21,6 +21,9 @@ import { collectionItemTextualIterationScopeHandler } from "./collectionItemText
 import { createTargetScope } from "./createTargetScope";
 import { getInteriorRanges } from "./getInteriorRanges";
 import { getSeparatorOccurrences } from "./getSeparatorOccurrences";
+import { scopeHandlerCache } from "../ScopeHandlerCache";
+
+const cacheKey = "CollectionItemTextualScopeHandler";
 
 export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
   public scopeType: ScopeType = { type: "collectionItem" };
@@ -43,6 +46,24 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
     direction: Direction,
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
+    if (!scopeHandlerCache.isValid(cacheKey, editor.document)) {
+      const scopes = this.getsScopes(editor, direction, hints);
+
+      scopeHandlerCache.update(cacheKey, editor.document, scopes);
+    }
+
+    const scopes = scopeHandlerCache.get<TargetScope>();
+
+    scopes.sort((a, b) => compareTargetScopes(direction, position, a, b));
+
+    yield* scopes;
+  }
+
+  private getsScopes(
+    editor: TextEditor,
+    direction: Direction,
+    hints: ScopeIteratorRequirements,
+  ) {
     const isEveryScope = isEveryScopeModifier(hints);
     const separatorRanges = getSeparatorOccurrences(editor.document);
     const interiorRanges = getInteriorRanges(
@@ -134,9 +155,7 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
       }
     }
 
-    scopes.sort((a, b) => compareTargetScopes(direction, position, a, b));
-
-    yield* scopes;
+    return scopes;
   }
 
   private addScopes(scopes: TargetScope[], state: IterationState) {
