@@ -52,7 +52,7 @@
     .
     (block_continuation)
     (fenced_code_block_delimiter) @interior.end.startOf
-  ) @notebookCell @interior.domain
+  ) @notebookCell
   (#trim-end! @notebookCell)
   (#insertion-delimiter! @notebookCell "\n\n")
 )
@@ -68,7 +68,7 @@
   (fenced_code_block
     (info_string) @interior.start.endOf
     (fenced_code_block_delimiter) @interior.end.startOf
-  ) @notebookCell @interior.domain
+  ) @notebookCell
   (#trim-end! @notebookCell)
   (#insertion-delimiter! @notebookCell "\n\n")
 )

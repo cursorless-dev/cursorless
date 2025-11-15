@@ -4,84 +4,27 @@ finally { }
 ---
 
 [#1 Content] =
-[#1 Removal] = 0:5-0:6
+[#1 Removal] =
+[#1 Domain] = 0:5-0:6
        >-<
-0| try { }
-
-[#1 Domain] = 0:0-0:7
-  >-------<
 0| try { }
 
 [#1 Insertion delimiter] = " "
 
 
 [#2 Content] =
-[#2 Removal] = 0:5-0:6
-       >-<
-0| try { }
-
-[#2 Domain] = 0:4-0:7
-      >---<
-0| try { }
+[#2 Removal] =
+[#2 Domain] = 1:20-1:21
+                      >-<
+1| catch(Exception e) { }
 
 [#2 Insertion delimiter] = " "
 
 
 [#3 Content] =
-[#3 Removal] = 1:20-1:21
-                      >-<
-1| catch(Exception e) { }
-
-[#3 Domain] = 1:0-1:22
-  >----------------------<
-1| catch(Exception e) { }
+[#3 Removal] =
+[#3 Domain] = 2:9-2:10
+           >-<
+2| finally { }
 
 [#3 Insertion delimiter] = " "
-
-
-[#4 Content] =
-[#4 Removal] = 1:6-1:17
-        >-----------<
-1| catch(Exception e) { }
-
-[#4 Domain] = 1:5-1:18
-       >-------------<
-1| catch(Exception e) { }
-
-[#4 Insertion delimiter] = " "
-
-
-[#5 Content] =
-[#5 Removal] = 1:20-1:21
-                      >-<
-1| catch(Exception e) { }
-
-[#5 Domain] = 1:19-1:22
-                     >---<
-1| catch(Exception e) { }
-
-[#5 Insertion delimiter] = " "
-
-
-[#6 Content] =
-[#6 Removal] = 2:9-2:10
-           >-<
-2| finally { }
-
-[#6 Domain] = 2:0-2:11
-  >-----------<
-2| finally { }
-
-[#6 Insertion delimiter] = " "
-
-
-[#7 Content] =
-[#7 Removal] = 2:9-2:10
-           >-<
-2| finally { }
-
-[#7 Domain] = 2:8-2:11
-          >---<
-2| finally { }
-
-[#7 Insertion delimiter] = " "

@@ -1,25 +1,10 @@
 public interface Foo { }
 ---
 
-[#1 Content] =
-[#1 Removal] = 0:22-0:23
+[Content] =
+[Removal] =
+[Domain] = 0:22-0:23
                         >-<
 0| public interface Foo { }
 
-[#1 Domain] = 0:0-0:24
-  >------------------------<
-0| public interface Foo { }
-
-[#1 Insertion delimiter] = " "
-
-
-[#2 Content] =
-[#2 Removal] = 0:22-0:23
-                        >-<
-0| public interface Foo { }
-
-[#2 Domain] = 0:21-0:24
-                       >---<
-0| public interface Foo { }
-
-[#2 Insertion delimiter] = " "
+[Insertion delimiter] = " "

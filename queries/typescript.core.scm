@@ -39,10 +39,10 @@
 ;;!            ^
 (enum_declaration
   (enum_body
-    "{" @interior.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
-    "}" @interior.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+    "{" @name.iteration.start.endOf @value.iteration.start.endOf
+    "}" @name.iteration.end.startOf @value.iteration.end.startOf
   )
-) @type @interior.domain
+) @type
 
 ;;!! enum Foo { aaa, bbb }
 ;;!             ^^^  ^^^

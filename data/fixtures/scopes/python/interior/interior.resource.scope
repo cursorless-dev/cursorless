@@ -1,13 +1,16 @@
 with file: pass
 ---
 
-[Content] =
-[Removal] = 0:11-0:15
+[Content] = 0:11-0:15
              >----<
 0| with file: pass
 
-[Domain] = 0:0-0:15
-  >---------------<
+[Removal] = 0:10-0:15
+            >-----<
+0| with file: pass
+
+[Domain] = 0:10-0:15
+            >-----<
 0| with file: pass
 
 [Insertion delimiter] = " "

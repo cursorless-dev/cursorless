@@ -9,8 +9,8 @@
    >------<
 0| ( text )
 
-[Domain] = 0:0-0:8
-  >--------<
+[Domain] = 0:1-0:7
+   >------<
 0| ( text )
 
 [Insertion delimiter] = " "

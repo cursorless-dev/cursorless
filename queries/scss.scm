@@ -30,12 +30,14 @@
   (while_statement)
 ] @statement
 
+;;!! { }
+;;!   ^
 (_
-  (block
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  )
-) @_.domain
+  .
+  "{" @interior.start.endOf
+  "}" @interior.end.startOf
+  .
+)
 
 (single_line_comment) @comment @textFragment
 

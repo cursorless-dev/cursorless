@@ -5,7 +5,6 @@
 [
   (annotation_type_declaration)
   (class_declaration)
-  (enum_declaration)
   (import_declaration)
   (interface_declaration)
   (module_declaration)
@@ -13,7 +12,6 @@
   (assert_statement)
   (break_statement)
   (continue_statement)
-  (declaration)
   (do_statement)
   (enhanced_for_statement)
   (expression_statement)
@@ -38,9 +36,11 @@
   ;; exceptions
   ;; ";",
   ;; "block",
+  ;; (declaration) ;; Is a compound of all other declarations
 
   ;; Disabled on purpose. We have a better definition of this below.
   ;; (if_statement)
+  ;; (enum_declaration)
 ] @statement
 
 (
@@ -54,10 +54,19 @@
 (enum_declaration
   name: (_) @name
   body: (_
-    "{" @interior.start.endOf @name.iteration.start.endOf
-    "}" @interior.end.startOf @name.iteration.end.startOf
+    "{" @name.iteration.start.endOf
+    "}" @name.iteration.end.startOf
   )
-) @type @name.domain @interior.domain
+) @statement @type @name.domain
+
+;;!! { }
+;;!   ^
+(_
+  .
+  "{" @interior.start.endOf
+  "}" @interior.end.startOf
+  .
+)
 
 ;;!! enum Foo { bar, baz }
 ;;!             ^^^  ^^^
@@ -112,19 +121,6 @@
     "}" @statement.iteration.end.startOf
   ) @_dummy
   (#type? @_dummy block class_body interface_body constructor_body)
-)
-
-;;!! { }
-;;!   ^
-(
-  (_
-    (_
-      "{" @interior.start.endOf
-      "}" @interior.end.startOf
-    ) @_dummy
-  ) @_.domain
-  (#type? @_dummy block class_body interface_body constructor_body switch_block)
-  (#not-type? @_.domain try_statement if_statement)
 )
 
 ;;!! void myFunk() {}
@@ -207,16 +203,20 @@
   )
 ) @condition.domain
 
+;;!! case "0" -> "zero";
+;;!             ^^^^^^^^
+(switch_rule
+  "->" @interior.start.endOf
+  (expression_statement)
+) @interior.end.endOf
+
 ;;!! case 0: break;
-;;!          ^^^^^^
-(_
-  (switch_label)
-  .
-  (_) @interior.start
-  (_)? @interior.end
-  .
-  (#not-type? @interior.start block)
-) @_.domain
+;;!         ^^^^^^^
+(switch_block_statement_group
+  ":" @interior.start.endOf
+  (_) @_dummy
+  (#not-type? @_dummy block)
+) @interior.end.endOf
 
 (switch_expression
   body: (_
@@ -236,12 +236,9 @@
 ;;!  ^^^^^^^^
 (
   (if_statement
-    "if" @branch.start @branch.removal.start @interior.domain.start.startOf
+    "if" @branch.start @branch.removal.start
     condition: (_) @condition
-    consequence: (block
-      "{" @interior.start.endOf
-      "}" @interior.end.startOf
-    ) @branch.end @branch.removal.end @interior.domain.end.endOf
+    consequence: (_) @branch.end @branch.removal.end
     "else"? @branch.removal.end.startOf
     alternative: (if_statement)? @branch.removal.end.startOf
   ) @condition.domain
@@ -252,13 +249,10 @@
 ;;!! else if () {}
 ;;!  ^^^^^^^^^^^^^
 (if_statement
-  "else" @branch.start @condition.domain.start @interior.domain.start.startOf
+  "else" @branch.start @condition.domain.start
   alternative: (if_statement
     condition: (_) @condition
-    consequence: (block
-      "{" @interior.start.endOf
-      "}" @interior.end.startOf
-    ) @branch.end @condition.domain.end @interior.domain.end.endOf
+    consequence: (block) @branch.end @condition.domain.end
     (#child-range! @condition 0 -1 true true)
   )
 )
@@ -266,21 +260,15 @@
 ;;!! else {}
 ;;!  ^^^^^^^
 (if_statement
-  "else" @branch.start @interior.domain.start.startOf
-  alternative: (block
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  ) @branch.end @interior.domain.end.endOf
+  "else" @branch.start
+  alternative: (block) @branch.end
 )
 
 ;;!! try {}
 ;;!  ^^^^^^
 (try_statement
-  "try" @branch.start @interior.domain.start.startOf
-  body: (_
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  ) @branch.end @interior.domain.end.endOf
+  "try" @branch.start
+  body: (_) @branch.end
 )
 
 ;;!! catch (Exception e) {}

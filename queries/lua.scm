@@ -49,10 +49,17 @@
 ;;!  ^^^^^^^^^^^^^^^^
 ;;!     ^^^^
 (if_statement
-  "if" @interior.domain.start
   condition: (_) @condition
-  consequence: (_)? @interior @interior.domain.end
 ) @ifStatement @condition.domain @branch.iteration
+
+;;!! if true then a=1 end
+;;!              ^^^^^
+(if_statement
+  "then" @interior.start.endOf
+  consequence: (_)
+  .
+  _ @interior.end.startOf
+)
 
 ;;!! if true then end
 ;;!  ^^^^^^^^^^^^
@@ -85,16 +92,25 @@
 ;;!! elseif true then
 ;;!  ^^^^^^^^^^^^^^^^
 ;;!         ^^^^
-(elseif_statement
-  condition: (_) @condition
-  consequence: (_) @interior
-) @branch @_.domain
+(if_statement
+  (elseif_statement
+    condition: (_) @condition
+    "then" @interior.start.endOf
+  ) @branch @condition.domain
+  .
+  _ @interior.end.startOf
+)
 
 ;;!! else then
 ;;!  ^^^^^^^^^
-(else_statement
-  body: (_) @interior
-) @branch @interior.domain
+
+(if_statement
+  (else_statement
+    "else" @interior.start.endOf
+  ) @branch
+  .
+  _ @interior.end.startOf
+)
 
 ;;!! while true do
 ;;!        ^^^^
@@ -220,7 +236,7 @@
   name: (_) @name
   parameters: (_) @interior.start.endOf
   "end" @interior.end.startOf
-) @namedFunction @_.domain
+) @namedFunction @name.domain
 
 ;; inside lambda:
 ;;!! __add = function(a, b) return a + b end
@@ -231,7 +247,7 @@
 (function_definition
   parameters: (_) @interior.start.endOf
   "end" @interior.end.startOf
-) @anonymousFunction @_.domain
+) @anonymousFunction
 
 ;; Names and values
 

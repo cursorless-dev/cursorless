@@ -1,25 +1,10 @@
 enum Foo { }
 ---
 
-[#1 Content] =
-[#1 Removal] = 0:10-0:11
+[Content] =
+[Removal] =
+[Domain] = 0:10-0:11
             >-<
 0| enum Foo { }
 
-[#1 Domain] = 0:0-0:12
-  >------------<
-0| enum Foo { }
-
-[#1 Insertion delimiter] = " "
-
-
-[#2 Content] =
-[#2 Removal] = 0:10-0:11
-            >-<
-0| enum Foo { }
-
-[#2 Domain] = 0:9-0:12
-           >---<
-0| enum Foo { }
-
-[#2 Insertion delimiter] = " "
+[Insertion delimiter] = " "

@@ -3,37 +3,46 @@ elif False: pass
 else: pass
 ---
 
-[#1 Content] =
-[#1 Removal] = 0:9-0:13
+[#1 Content] = 0:9-0:13
            >----<
 0| if True: pass
 
-[#1 Domain] = 0:0-0:13
-  >-------------<
+[#1 Removal] = 0:8-0:13
+          >-----<
+0| if True: pass
+
+[#1 Domain] = 0:8-0:13
+          >-----<
 0| if True: pass
 
 [#1 Insertion delimiter] = " "
 
 
-[#2 Content] =
-[#2 Removal] = 1:12-1:16
+[#2 Content] = 1:12-1:16
               >----<
 1| elif False: pass
 
-[#2 Domain] = 1:0-1:16
-  >----------------<
+[#2 Removal] = 1:11-1:16
+             >-----<
+1| elif False: pass
+
+[#2 Domain] = 1:11-1:16
+             >-----<
 1| elif False: pass
 
 [#2 Insertion delimiter] = " "
 
 
-[#3 Content] =
-[#3 Removal] = 2:6-2:10
+[#3 Content] = 2:6-2:10
         >----<
 2| else: pass
 
-[#3 Domain] = 2:0-2:10
-  >----------<
+[#3 Removal] = 2:5-2:10
+       >-----<
+2| else: pass
+
+[#3 Domain] = 2:5-2:10
+       >-----<
 2| else: pass
 
 [#3 Insertion delimiter] = " "

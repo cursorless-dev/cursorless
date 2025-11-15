@@ -31,6 +31,15 @@
   (var_declaration)
 ] @statement
 
+;;!! { }
+;;!   ^
+(_
+  .
+  "{" @interior.start.endOf
+  "}" @interior.end.startOf
+  .
+)
+
 (
   (interpreted_string_literal) @string @textFragment
   (#child-range! @textFragment 0 -1 true true)
@@ -200,35 +209,16 @@
 ;; func foo()
 (function_declaration
   name: (_) @name
-  body: (block
-    .
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-    .
-  )?
-) @namedFunction @_.domain
+) @namedFunction @name.domain
 
 ;; method declaration
 ;; func (X) foo() {}
 (method_declaration
   name: (_) @name
-  body: (block
-    .
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-    .
-  )
-) @namedFunction @_.domain
+) @namedFunction @name.domain
 
 ;; func literal
-(func_literal
-  body: (block
-    .
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-    .
-  )
-) @anonymousFunction @namedFunction @interior.domain
+(func_literal) @anonymousFunction @namedFunction
 
 ;; switch-based branch
 

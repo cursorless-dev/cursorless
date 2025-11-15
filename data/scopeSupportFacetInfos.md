@@ -186,7 +186,13 @@
 - `interior.namespace` the body of a namespace statement
 - `interior.resource` the body of a 'with' / 'use' / 'using' statement
 - `interior.static` the body of a static statement
+
+### surroundingPairInterior
+
 - `interior.surroundingPair` The interior scope of a surrounding pair
+
+### interior
+
 - `interior.switch` The body of a switch statement
 - `interior.switchCase` The body of a switch case branch
 - `interior.try` The body of a try/catch/finally branch

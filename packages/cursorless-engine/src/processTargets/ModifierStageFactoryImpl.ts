@@ -3,6 +3,7 @@ import type { StoredTargetMap } from "../core/StoredTargets";
 import type { LanguageDefinitions } from "../languages/LanguageDefinitions";
 import type { ModifierStageFactory } from "./ModifierStageFactory";
 import type { ModifierStage } from "./PipelineStages.types";
+import { ExcludeInteriorStage } from "./modifiers/BoundaryStage";
 import { ClassFunctionNameStage } from "./modifiers/ClassFunctionNameStage";
 import { ModifyIfUntypedStage } from "./modifiers/ConditionalModifierStages";
 import { ContainingScopeStage } from "./modifiers/ContainingScopeStage";
@@ -14,10 +15,7 @@ import {
 } from "./modifiers/FilterStages";
 import { HeadStage, TailStage } from "./modifiers/HeadTailStage";
 import { InstanceStage } from "./modifiers/InstanceStage";
-import {
-  ExcludeInteriorStage,
-  InteriorOnlyStage,
-} from "./modifiers/InteriorStage";
+import { InteriorOnlyStage } from "./modifiers/InteriorStage";
 import { LeadingStage, TrailingStage } from "./modifiers/LeadingTrailingStages";
 import { OrdinalScopeStage } from "./modifiers/OrdinalScopeStage";
 import { EndOfStage, StartOfStage } from "./modifiers/PositionStage";

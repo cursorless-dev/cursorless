@@ -92,7 +92,8 @@ export const plaintextScopeSupportFacetInfos: Record<
   "interior.surroundingPair": {
     description: "The interior scope of a surrounding pair",
     scopeType: {
-      type: "interior",
+      type: "surroundingPairInterior",
+      delimiter: "any",
     },
   },
   "collectionItem.textual": {

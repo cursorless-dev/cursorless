@@ -1,6 +1,7 @@
 ```
 Hello world
 ```
+
 ---
 
 [Content] = 1:0-1:11
@@ -14,11 +15,11 @@ Hello world
 2| ```
    <
 
-[Domain] = 0:0-2:3
-  >---
+[Domain] = 0:3-2:0
+     >
 0| ```
 1| Hello world
 2| ```
-   ---<
+   <
 
 [Insertion delimiter] = " "

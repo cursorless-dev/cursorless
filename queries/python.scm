@@ -34,6 +34,14 @@
   ;; (if_statement)
 ] @statement
 
+;;!! if True: pass
+;;!          ^^^^^
+(_
+  ":" @interior.start.endOf
+  .
+  (block) @interior.end.endOf
+)
+
 ;;!! a = 25
 ;;!      ^^
 ;;!   xxxxx
@@ -172,12 +180,6 @@
 
 ;;!! with aaa:
 ;;!       ^^^
-(with_statement
-  body: (_) @interior
-) @interior.domain
-
-;;!! with aaa:
-;;!       ^^^
 ;;!  --------
 (
   (with_statement
@@ -298,7 +300,6 @@
 (
   (function_definition
     name: (_) @name
-    body: (_) @interior
   ) @namedFunction @statement @_.domain
   (#not-parent-type? @namedFunction decorated_definition)
 )
@@ -308,7 +309,6 @@
 (decorated_definition
   (function_definition
     name: (_) @name
-    body: (_) @interior
   )
 ) @namedFunction @_.domain
 
@@ -333,7 +333,6 @@
 (
   (class_definition
     name: (_) @name
-    body: (_) @interior
   ) @_.domain
   (#not-parent-type? @_.domain decorated_definition)
 )
@@ -347,7 +346,6 @@
 (decorated_definition
   (class_definition
     name: (_) @name
-    body: (_) @interior
   )
 ) @_.domain
 
@@ -407,7 +405,6 @@
 ;;!        ^^^^^
 (match_statement
   subject: (_) @value
-  body: (_) @interior
 ) @_.domain
 
 ;;!! { "value": 0 }
@@ -433,7 +430,6 @@
 (case_clause
   (case_pattern) @condition.start
   guard: (_)? @condition.end
-  consequence: (_) @interior
 ) @_.domain
 
 ;;!! case 0: pass
@@ -485,13 +481,6 @@
 ;;!! if True: pass
 ;;!  ^^^^^^^^^^^^^
 (if_statement
-  "if" @interior.domain.start
-  consequence: (_) @interior @interior.domain.end
-)
-
-;;!! if True: pass
-;;!  ^^^^^^^^^^^^^
-(if_statement
   "if" @branch.start @branch.removal.start
   consequence: (_) @branch.end @branch.removal.end
   alternative: (else_clause)? @branch.removal.end.startOf
@@ -511,33 +500,27 @@
 ;;!! elif True: pass
 ;;!  ^^^^^^^^^^^^^^^
 (elif_clause
-  consequence: (_) @interior
-) @branch @interior.domain
+  consequence: (_)
+) @branch
 
 ;;!! else: pass
 ;;!  ^^^^^^^^^^
-(else_clause
-  body: (_) @interior
-) @branch @interior.domain
+(else_clause) @branch
 
 ;;!! try: pass
 ;;!  ^^^^^^^^^
 (try_statement
-  "try" @branch.start @interior.domain.start
-  body: (_) @branch.end @interior @interior.domain.end
+  "try" @branch.start
+  body: (_) @branch.end
 )
 
 ;;!! except: pass
 ;;!  ^^^^^^^^^^^^
-(except_clause
-  (block) @interior
-) @branch @interior.domain
+(except_clause) @branch
 
 ;;!! except*: pass
 ;;!  ^^^^^^^^^^^^^
-(except_group_clause
-  (block) @interior
-) @branch @interior.domain
+(except_group_clause) @branch
 
 ;;!! except Exception as ex:
 ;;!         ^^^^^^^^^^^^^^^
@@ -553,8 +536,8 @@
 ;;!! finally: pass
 ;;!  ^^^^^^^^^^^^^
 (finally_clause
-  (block) @interior
-) @branch @interior.domain
+  (block)
+) @branch
 
 (try_statement) @branch.iteration
 
@@ -562,8 +545,8 @@
 ;;!  ^^^^^^^^^^^^^^^^
 (while_statement
   "while" @branch.start
-  body: (_) @branch.end @interior
-) @interior.domain
+  body: (_) @branch.end
+)
 
 (while_statement) @branch.iteration
 
@@ -571,8 +554,8 @@
 ;;!  ^^^^^^^^^^^^^^^^^^^^
 (for_statement
   "for" @branch.start
-  body: (_) @branch.end @interior
-) @interior.domain
+  body: (_) @branch.end
+)
 
 (for_statement) @branch.iteration
 

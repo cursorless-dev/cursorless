@@ -70,7 +70,7 @@
 (_
   (start_tag) @interior.start.endOf
   (end_tag) @interior.end.startOf
-) @xmlElement @interior.domain
+) @xmlElement
 
 ;;!! <aaa>text</aaa>
 ;;!  ^^^^^    ^^^^^^
