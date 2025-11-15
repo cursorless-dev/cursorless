@@ -5,7 +5,7 @@ import {
   type ScopeType,
   type SimpleScopeTypeType,
 } from "@cursorless/common";
-import { openNewEditor, runCursorlessCommand } from "@cursorless/vscode-common";
+import { openNewEditor, runCursorlessAction } from "@cursorless/vscode-common";
 import assert from "assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
@@ -51,7 +51,7 @@ suite("Performance", async function () {
     ["paragraph", smallThresholdMs],
     ["document", smallThresholdMs],
     ["nonWhitespaceSequence", smallThresholdMs],
-    // Parse tree based, containing/every scope
+    // Parse tree based, containing / every scope
     ["string", smallThresholdMs],
     ["map", smallThresholdMs],
     ["collectionKey", smallThresholdMs],
@@ -65,9 +65,11 @@ suite("Performance", async function () {
     ["boundedParagraph", largeThresholdMs],
     ["boundedNonWhitespaceSequence", largeThresholdMs],
     ["collectionItem", largeThresholdMs],
+    ["collectionItem", largeThresholdMs, "every"],
+    ["collectionItem", largeThresholdMs, "previous"],
     // Surrounding pair
-    [{ type: "surroundingPair", delimiter: "any" }, largeThresholdMs],
     [{ type: "surroundingPair", delimiter: "curlyBrackets" }, largeThresholdMs],
+    [{ type: "surroundingPair", delimiter: "any" }, largeThresholdMs],
     [{ type: "surroundingPair", delimiter: "any" }, largeThresholdMs, "every"],
     [
       { type: "surroundingPair", delimiter: "any" },
@@ -86,10 +88,29 @@ suite("Performance", async function () {
       asyncSafety(() => selectScopeType(scopeType, threshold, modifierType)),
     );
   }
+
+  test(
+    "Select surroundingPair with multiple cursors",
+    asyncSafety(() =>
+      selectWithMultipleCursors(largeThresholdMs, {
+        type: "surroundingPair",
+        delimiter: "any",
+      }),
+    ),
+  );
+
+  test(
+    "Select collectionItem with multiple cursors",
+    asyncSafety(() =>
+      selectWithMultipleCursors(largeThresholdMs, {
+        type: "collectionItem",
+      }),
+    ),
+  );
 });
 
-async function removeToken(thresholdMs: number) {
-  await testPerformance(thresholdMs, {
+function removeToken(thresholdMs: number) {
+  return testPerformance(thresholdMs, {
     name: "remove",
     target: {
       type: "primitive",
@@ -98,18 +119,78 @@ async function removeToken(thresholdMs: number) {
   });
 }
 
-async function selectScopeType(
+function selectWithMultipleCursors(thresholdMs: number, scopeType: ScopeType) {
+  return testPerformanceCallback(
+    thresholdMs,
+    () => {
+      return runCursorlessAction({
+        name: "setSelectionBefore",
+        target: {
+          type: "primitive",
+          modifiers: [getModifier({ type: "collectionItem" }, "every")],
+        },
+      });
+    },
+    () => {
+      return runCursorlessAction({
+        name: "setSelection",
+        target: {
+          type: "primitive",
+          modifiers: [getModifier(scopeType)],
+        },
+      });
+    },
+  );
+}
+
+function selectScopeType(
   scopeType: ScopeType,
   thresholdMs: number,
   modifierType?: ModifierType,
 ) {
-  await testPerformance(thresholdMs, {
+  return testPerformance(thresholdMs, {
     name: "setSelection",
     target: {
       type: "primitive",
       modifiers: [getModifier(scopeType, modifierType)],
     },
   });
+}
+
+function testPerformance(thresholdMs: number, action: ActionDescriptor) {
+  return testPerformanceCallback(thresholdMs, () => {
+    return runCursorlessAction(action);
+  });
+}
+
+async function testPerformanceCallback(
+  thresholdMs: number,
+  callback: () => Promise<unknown>,
+  beforeCallback?: () => Promise<unknown>,
+) {
+  const editor = await openNewEditor(testData, { languageId: "json" });
+  // This is the position of the last json key in the document
+  const position = new vscode.Position(editor.document.lineCount - 3, 5);
+  const selection = new vscode.Selection(position, position);
+  editor.selections = [selection];
+  editor.revealRange(selection);
+
+  if (beforeCallback != null) {
+    await beforeCallback();
+  }
+
+  const start = performance.now();
+
+  await callback();
+
+  const duration = Math.round(performance.now() - start);
+
+  console.log(`      ${duration} ms`);
+
+  assert.ok(
+    duration < thresholdMs,
+    `Duration ${duration}ms exceeds threshold ${thresholdMs}ms`,
+  );
 }
 
 function getModifier(
@@ -130,32 +211,6 @@ function getModifier(
         scopeType,
       };
   }
-}
-
-async function testPerformance(thresholdMs: number, action: ActionDescriptor) {
-  const editor = await openNewEditor(testData, { languageId: "json" });
-  // This is the position of the last json key in the document
-  const position = new vscode.Position(editor.document.lineCount - 3, 5);
-  const selection = new vscode.Selection(position, position);
-  editor.selections = [selection];
-  editor.revealRange(selection);
-
-  const start = performance.now();
-
-  await runCursorlessCommand({
-    version: 7,
-    usePrePhraseSnapshot: false,
-    action,
-  });
-
-  const duration = Math.round(performance.now() - start);
-
-  console.log(`      ${duration} ms`);
-
-  assert.ok(
-    duration < thresholdMs,
-    `Duration ${duration}ms exceeds threshold ${thresholdMs}ms`,
-  );
 }
 
 function getScopeTypeAndTitle(

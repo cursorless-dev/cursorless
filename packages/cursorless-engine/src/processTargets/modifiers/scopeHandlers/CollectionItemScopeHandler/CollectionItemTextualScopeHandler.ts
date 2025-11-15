@@ -13,6 +13,7 @@ import type {
   ComplexScopeType,
   ScopeIteratorRequirements,
 } from "../scopeHandler.types";
+import { scopeHandlerCache } from "../ScopeHandlerCache";
 import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
 import { isEveryScopeModifier } from "../util/isHintsEveryScope";
 import { OneWayNestedRangeFinder } from "../util/OneWayNestedRangeFinder";
@@ -44,6 +45,25 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
     const isEveryScope = isEveryScopeModifier(hints);
+    const cacheKey = "CollectionItemTextualScopeHandler_" + isEveryScope;
+
+    if (!scopeHandlerCache.isValid(cacheKey, editor.document)) {
+      const scopes = this.getsScopes(editor, direction, isEveryScope);
+      scopeHandlerCache.update(cacheKey, editor.document, scopes);
+    }
+
+    const scopes = scopeHandlerCache.get<TargetScope>();
+
+    scopes.sort((a, b) => compareTargetScopes(direction, position, a, b));
+
+    yield* scopes;
+  }
+
+  private getsScopes(
+    editor: TextEditor,
+    direction: Direction,
+    isEveryScope: boolean,
+  ) {
     const separatorRanges = getSeparatorOccurrences(editor.document);
     const interiorRanges = getInteriorRanges(
       this.scopeHandlerFactory,
@@ -134,9 +154,7 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
       }
     }
 
-    scopes.sort((a, b) => compareTargetScopes(direction, position, a, b));
-
-    yield* scopes;
+    return scopes;
   }
 
   private addScopes(scopes: TargetScope[], state: IterationState) {

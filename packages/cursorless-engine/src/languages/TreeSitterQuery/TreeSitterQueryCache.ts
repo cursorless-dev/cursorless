@@ -1,7 +1,7 @@
 import type { Position, TextDocument } from "@cursorless/common";
 import type { QueryMatch } from "./QueryCapture";
 
-export class Cache {
+export class TreeSitterQueryCache {
   private documentVersion: number = -1;
   private documentUri: string = "";
   private documentLanguageId: string = "";
@@ -58,4 +58,4 @@ function positionsEqual(a: Position | undefined, b: Position | undefined) {
   return a.isEqual(b);
 }
 
-export const treeSitterQueryCache = new Cache();
+export const treeSitterQueryCache = new TreeSitterQueryCache();
