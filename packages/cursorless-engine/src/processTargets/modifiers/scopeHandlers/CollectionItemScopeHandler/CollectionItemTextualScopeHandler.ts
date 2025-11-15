@@ -13,6 +13,7 @@ import type {
   ComplexScopeType,
   ScopeIteratorRequirements,
 } from "../scopeHandler.types";
+import { scopeHandlerCache } from "../ScopeHandlerCache";
 import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
 import { isEveryScopeModifier } from "../util/isHintsEveryScope";
 import { OneWayNestedRangeFinder } from "../util/OneWayNestedRangeFinder";
@@ -21,7 +22,6 @@ import { collectionItemTextualIterationScopeHandler } from "./collectionItemText
 import { createTargetScope } from "./createTargetScope";
 import { getInteriorRanges } from "./getInteriorRanges";
 import { getSeparatorOccurrences } from "./getSeparatorOccurrences";
-import { scopeHandlerCache } from "../ScopeHandlerCache";
 
 export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
   public scopeType: ScopeType = { type: "collectionItem" };
@@ -49,7 +49,6 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
 
     if (!scopeHandlerCache.isValid(cacheKey, editor.document)) {
       const scopes = this.getsScopes(editor, direction, isEveryScope);
-
       scopeHandlerCache.update(cacheKey, editor.document, scopes);
     }
 
