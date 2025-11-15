@@ -14,7 +14,6 @@ const testData = generateTestData(100);
 
 const smallThresholdMs = 100;
 const largeThresholdMs = 600;
-const xlThresholdMs = 1500;
 
 type ModifierType = "containing" | "previous" | "every";
 
@@ -52,7 +51,7 @@ suite("Performance", async function () {
     ["paragraph", smallThresholdMs],
     ["document", smallThresholdMs],
     ["nonWhitespaceSequence", smallThresholdMs],
-    // Parse tree based, containing/every scope
+    // Parse tree based, containing / every scope
     ["string", smallThresholdMs],
     ["map", smallThresholdMs],
     ["collectionKey", smallThresholdMs],
@@ -66,9 +65,11 @@ suite("Performance", async function () {
     ["boundedParagraph", largeThresholdMs],
     ["boundedNonWhitespaceSequence", largeThresholdMs],
     ["collectionItem", largeThresholdMs],
+    ["collectionItem", largeThresholdMs, "every"],
+    ["collectionItem", largeThresholdMs, "previous"],
     // Surrounding pair
-    [{ type: "surroundingPair", delimiter: "any" }, largeThresholdMs],
     [{ type: "surroundingPair", delimiter: "curlyBrackets" }, largeThresholdMs],
+    [{ type: "surroundingPair", delimiter: "any" }, largeThresholdMs],
     [{ type: "surroundingPair", delimiter: "any" }, largeThresholdMs, "every"],
     [
       { type: "surroundingPair", delimiter: "any" },
@@ -91,7 +92,7 @@ suite("Performance", async function () {
   test(
     "Select surroundingPair with multiple cursors",
     asyncSafety(() =>
-      selectWithMultipleCursors(xlThresholdMs, {
+      selectWithMultipleCursors(largeThresholdMs, {
         type: "surroundingPair",
         delimiter: "any",
       }),
@@ -101,7 +102,7 @@ suite("Performance", async function () {
   test(
     "Select collectionItem with multiple cursors",
     asyncSafety(() =>
-      selectWithMultipleCursors(xlThresholdMs, {
+      selectWithMultipleCursors(largeThresholdMs, {
         type: "collectionItem",
       }),
     ),
@@ -119,23 +120,27 @@ function removeToken(thresholdMs: number) {
 }
 
 function selectWithMultipleCursors(thresholdMs: number, scopeType: ScopeType) {
-  return testPerformanceCallback(thresholdMs, async () => {
-    await runCursorlessAction({
-      name: "setSelectionBefore",
-      target: {
-        type: "primitive",
-        modifiers: [getModifier({ type: "collectionItem" }, "every")],
-      },
-    });
-
-    await runCursorlessAction({
-      name: "setSelection",
-      target: {
-        type: "primitive",
-        modifiers: [getModifier(scopeType)],
-      },
-    });
-  });
+  return testPerformanceCallback(
+    thresholdMs,
+    () => {
+      return runCursorlessAction({
+        name: "setSelectionBefore",
+        target: {
+          type: "primitive",
+          modifiers: [getModifier({ type: "collectionItem" }, "every")],
+        },
+      });
+    },
+    () => {
+      return runCursorlessAction({
+        name: "setSelection",
+        target: {
+          type: "primitive",
+          modifiers: [getModifier(scopeType)],
+        },
+      });
+    },
+  );
 }
 
 function selectScopeType(
@@ -161,6 +166,7 @@ function testPerformance(thresholdMs: number, action: ActionDescriptor) {
 async function testPerformanceCallback(
   thresholdMs: number,
   callback: () => Promise<unknown>,
+  beforeCallback?: () => Promise<unknown>,
 ) {
   const editor = await openNewEditor(testData, { languageId: "json" });
   // This is the position of the last json key in the document
@@ -168,6 +174,10 @@ async function testPerformanceCallback(
   const selection = new vscode.Selection(position, position);
   editor.selections = [selection];
   editor.revealRange(selection);
+
+  if (beforeCallback != null) {
+    await beforeCallback();
+  }
 
   const start = performance.now();
 
