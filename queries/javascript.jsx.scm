@@ -1,23 +1,19 @@
 ;;!! <foo>bar</foo>
 ;;!  ^^^^^^^^^^^^^^
-;;!       ###
-;;!       ***
-(
-  (jsx_element) @xmlElement @interior @interior.domain
-  (#child-range! @interior 0 -1 true true)
-)
-(
-  (jsx_element) @xmlElement.iteration
-  (#child-range! @xmlElement.iteration 0 -1 true true)
+(jsx_element) @xmlElement
+
+;;!! <foo>bar</foo>
+;;!       ^^^
+(jsx_element
+  (jsx_opening_element) @interior.start.endOf @xmlElement.iteration.start.endOf
+  (jsx_closing_element) @interior.end.startOf @xmlElement.iteration.end.startOf
 )
 
 ;;!! <foo>bar</foo>
-;;!       ***
-(
-  (jsx_element) @xmlStartTag.iteration @xmlEndTag.iteration @xmlBothTags.iteration
-  (#child-range! @xmlStartTag.iteration 0 -1 true true)
-  (#child-range! @xmlEndTag.iteration 0 -1 true true)
-  (#child-range! @xmlBothTags.iteration 0 -1 true true)
+;;!       ^^^
+(jsx_element
+  (jsx_opening_element) @xmlStartTag.iteration.start.endOf @xmlEndTag.iteration.start.endOf @xmlBothTags.iteration.start.endOf
+  (jsx_closing_element) @xmlStartTag.iteration.end.startOf @xmlEndTag.iteration.end.startOf @xmlBothTags.iteration.end.startOf
 )
 
 ;;!! <foo>bar</foo>

@@ -208,6 +208,7 @@ export const simpleScopeTypeTypes = [
   "textFragment",
   "disqualifyDelimiter",
   "pairDelimiter",
+  "interior",
 ] as const;
 
 export function isSimpleScopeType(
@@ -220,6 +221,7 @@ export type SimpleScopeTypeType = (typeof simpleScopeTypeTypes)[number];
 
 export const pseudoScopes = new Set<SimpleScopeTypeType>([
   "instance",
+  "interior",
   "className",
   "functionName",
 ]);
@@ -234,16 +236,6 @@ export interface CustomRegexScopeType {
   type: "customRegex";
   regex: string;
   flags?: string;
-}
-
-export interface InteriorScopeType {
-  type: "interior";
-
-  // The user has specified a scope type. eg "inside element".
-  explicitScopeType?: boolean;
-
-  // Gets passed to surrounding pair scope handler
-  requireStrongContainment?: boolean;
 }
 
 export type SurroundingPairDirection = "left" | "right";
@@ -289,7 +281,6 @@ export type ScopeType =
   | SurroundingPairScopeType
   | SurroundingPairInteriorScopeType
   | CustomRegexScopeType
-  | InteriorScopeType
   | OneOfScopeType
   | GlyphScopeType;
 

@@ -41,9 +41,11 @@ export class SurroundingPairTarget extends BaseTarget<SurroundingPairTargetParam
   getLeadingDelimiterTarget(): Target | undefined {
     return getTokenLeadingDelimiterTarget(this);
   }
+
   getTrailingDelimiterTarget(): Target | undefined {
     return getTokenTrailingDelimiterTarget(this);
   }
+
   getRemovalRange(): Range {
     return getTokenRemovalRange(this);
   }

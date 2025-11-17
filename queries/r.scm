@@ -27,7 +27,7 @@
   rhs: (function_definition
     name: "function"
     parameters: (parameters)
-    body: (braced_expression) @interior
+    body: (braced_expression)
   ) @name.trailing.startOf
 ) @namedFunction @_.domain
 

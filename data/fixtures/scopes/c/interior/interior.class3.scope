@@ -1,25 +1,10 @@
 typedef struct { } Foo;
 ---
 
-[#1 Content] =
-[#1 Removal] = 0:16-0:17
+[Content] =
+[Removal] =
+[Domain] = 0:16-0:17
                   >-<
 0| typedef struct { } Foo;
 
-[#1 Domain] = 0:0-0:23
-  >-----------------------<
-0| typedef struct { } Foo;
-
-[#1 Insertion delimiter] = " "
-
-
-[#2 Content] =
-[#2 Removal] = 0:16-0:17
-                  >-<
-0| typedef struct { } Foo;
-
-[#2 Domain] = 0:15-0:18
-                 >---<
-0| typedef struct { } Foo;
-
-[#2 Insertion delimiter] = " "
+[Insertion delimiter] = " "
