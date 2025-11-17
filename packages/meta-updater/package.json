@@ -25,7 +25,7 @@
     "@pnpm/logger": "^1001.0.0",
     "@pnpm/types": "^1000.8.0",
     "@types/normalize-path": "^3.0.2",
-    "js-yaml": "^4.1.0",
+    "js-yaml": "^4.1.1",
     "lodash-es": "^4.17.21",
     "normalize-path": "^3.0.0",
     "path-exists": "^5.0.0",
