@@ -7,43 +7,64 @@ else
 end
 ---
 
-[#1 Content] =
-[#1 Removal] = 1:4-1:9
+[#1 Content] = 1:4-1:9
       >-----<
 1|     a = 1
 
-[#1 Domain] = 0:0-1:9
-  >------------
+[#1 Removal] = 0:12-2:0
+              >
 0| if true then
 1|     a = 1
-   ---------<
+2| elseif false then
+   <
+
+[#1 Domain] = 0:12-2:0
+              >
+0| if true then
+1|     a = 1
+2| elseif false then
+   <
 
 [#1 Insertion delimiter] = " "
 
 
-[#2 Content] =
-[#2 Removal] = 3:4-3:9
+[#2 Content] = 3:4-3:9
       >-----<
 3|     a = 2
 
-[#2 Domain] = 2:0-3:9
-  >-----------------
+[#2 Removal] = 2:17-4:0
+                   >
 2| elseif false then
 3|     a = 2
-   ---------<
+4| else
+   <
+
+[#2 Domain] = 2:17-4:0
+                   >
+2| elseif false then
+3|     a = 2
+4| else
+   <
 
 [#2 Insertion delimiter] = " "
 
 
-[#3 Content] =
-[#3 Removal] = 5:4-5:9
+[#3 Content] = 5:4-5:9
       >-----<
 5|     a = 3
 
-[#3 Domain] = 4:0-5:9
-  >----
+[#3 Removal] = 4:4-6:0
+      >
 4| else
 5|     a = 3
-   ---------<
+6| end
+   <
+
+[#3 Domain] = 4:4-6:0
+      >
+4| else
+5|     a = 3
+6| end
+   <
 
 [#3 Insertion delimiter] = " "

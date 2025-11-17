@@ -68,6 +68,8 @@ export function isScopeInternal(scope: ScopeTypeType): boolean {
     case "disqualifyDelimiter":
     case "pairDelimiter":
     case "textFragment":
+    case "interior":
+    case "surroundingPairInterior":
       return true;
     default:
       return false;

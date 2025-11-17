@@ -25,8 +25,8 @@ match foo:
 5|         pass
    ------------<
 
-[#1 Domain] = 0:0-5:12
-  >----------
+[#1 Domain] = 0:10-5:12
+            >
 0| match foo:
 1|     case 0:
 2|         bar
@@ -38,15 +38,21 @@ match foo:
 [#1 Insertion delimiter] = " "
 
 
-[#2 Content] =
-[#2 Removal] = 2:8-3:12
+[#2 Content] = 2:8-3:12
           >---
 2|         bar
 3|         pass
    ------------<
 
-[#2 Domain] = 1:4-3:12
-      >-------
+[#2 Removal] = 1:11-3:12
+             >
+1|     case 0:
+2|         bar
+3|         pass
+   ------------<
+
+[#2 Domain] = 1:11-3:12
+             >
 1|     case 0:
 2|         bar
 3|         pass
@@ -55,13 +61,18 @@ match foo:
 [#2 Insertion delimiter] = " "
 
 
-[#3 Content] =
-[#3 Removal] = 5:8-5:12
+[#3 Content] = 5:8-5:12
           >----<
 5|         pass
 
-[#3 Domain] = 4:4-5:12
-      >-------
+[#3 Removal] = 4:11-5:12
+             >
+4|     case _:
+5|         pass
+   ------------<
+
+[#3 Domain] = 4:11-5:12
+             >
 4|     case _:
 5|         pass
    ------------<

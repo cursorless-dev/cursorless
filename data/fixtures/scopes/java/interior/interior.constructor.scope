@@ -14,68 +14,20 @@ public class Foo {
 2| }
    <
 
-[#1 Domain] = 0:0-2:1
-  >------------------
-0| public class Foo {
-1|     public Foo() { }
-2| }
-   -<
-
-[#1 Insertion delimiter] = " "
-
-
-[#2 Content] = 1:4-1:20
-      >----------------<
-1|     public Foo() { }
-
-[#2 Removal] = 0:18-2:0
+[#1 Domain] = 0:18-2:0
                     >
 0| public class Foo {
 1|     public Foo() { }
 2| }
    <
 
-[#2 Domain] = 0:17-2:1
-                   >-
-0| public class Foo {
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] =
+[#2 Domain] = 1:18-1:19
+                    >-<
 1|     public Foo() { }
-2| }
-   -<
 
 [#2 Insertion delimiter] = " "
-
-
-[#3 Content] =
-[#3 Removal] = 1:18-1:19
-                    >-<
-1|     public Foo() { }
-
-[#3 Domain] = 1:4-1:20
-      >----------------<
-1|     public Foo() { }
-
-[#3 Insertion delimiter] = " "
-
-
-[#4 Content] =
-[#4 Removal] = 1:15-1:15
-                 ><
-1|     public Foo() { }
-
-[#4 Domain] = 1:14-1:16
-                >--<
-1|     public Foo() { }
-
-[#4 Insertion delimiter] = " "
-
-
-[#5 Content] =
-[#5 Removal] = 1:18-1:19
-                    >-<
-1|     public Foo() { }
-
-[#5 Domain] = 1:17-1:20
-                   >---<
-1|     public Foo() { }
-
-[#5 Insertion delimiter] = " "

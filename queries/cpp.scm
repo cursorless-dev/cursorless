@@ -19,10 +19,6 @@
 (_
   (class_specifier
     name: (_) @name
-    body: (_
-      "{" @interior.start.endOf
-      "}" @interior.end.startOf
-    )
   ) @_.domain.start @class.start @type.start
   .
   ";"? @_.domain.end @class.end @type.end
@@ -40,10 +36,6 @@
 ;;!! namespace NS { }
 (namespace_definition
   name: (_) @name
-  body: (_
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  )
 ) @_.domain
 
 (field_declaration_list
@@ -60,12 +52,7 @@
 
 ;;!! []() {}
 ;;!  ^^^^^^^
-(lambda_expression
-  body: (_
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  )
-) @anonymousFunction @interior.domain
+(lambda_expression) @anonymousFunction
 
 ;;!! [[attribute]]
 ;;!    ^^^^^^^^^
@@ -96,20 +83,12 @@
 ;;!! try {}
 ;;!  ^^^^^^
 (try_statement
-  "try" @branch.start @interior.domain.start
-  body: (_
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  ) @branch.end @interior.domain.end
+  "try" @branch.start
+  body: (_) @branch.end
 ) @branch.iteration
 
 ;;!! catch (const std::exception e) {}
-(catch_clause
-  body: (_
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  )
-) @branch @interior.domain
+(catch_clause) @branch
 
 ;;!! new Foo()
 ;;!  ^^^^^^^^^
@@ -146,10 +125,6 @@
 (for_range_loop
   declarator: (_) @name
   right: (_) @value
-  body: (_
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  )
 ) @_.domain
 
 (trailing_return_type
