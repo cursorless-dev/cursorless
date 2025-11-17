@@ -56,16 +56,13 @@
     >----------------------------------------<
 2| - This is the first level of a list again.
 
-[#3 Removal] = 2:0-2:42
+[#3 Removal] =
+[#3 Domain] = 2:0-2:42
   >------------------------------------------<
 2| - This is the first level of a list again.
 
 [#3 Leading delimiter] = 2:0-2:0
   ><
-2| - This is the first level of a list again.
-
-[#3 Domain] = 2:0-2:42
-  >------------------------------------------<
 2| - This is the first level of a list again.
 
 [#3 Insertion delimiter] = "\n"

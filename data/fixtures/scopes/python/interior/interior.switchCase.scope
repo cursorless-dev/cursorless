@@ -15,16 +15,7 @@ match foo:
 5|         pass
    ------------<
 
-[#1 Removal] = 0:10-5:12
-            >
-0| match foo:
-1|     case 0:
-2|         bar
-3|         pass
-4|     case _:
-5|         pass
-   ------------<
-
+[#1 Removal] =
 [#1 Domain] = 0:10-5:12
             >
 0| match foo:
@@ -44,13 +35,7 @@ match foo:
 3|         pass
    ------------<
 
-[#2 Removal] = 1:11-3:12
-             >
-1|     case 0:
-2|         bar
-3|         pass
-   ------------<
-
+[#2 Removal] =
 [#2 Domain] = 1:11-3:12
              >
 1|     case 0:
@@ -65,12 +50,7 @@ match foo:
           >----<
 5|         pass
 
-[#3 Removal] = 4:11-5:12
-             >
-4|     case _:
-5|         pass
-   ------------<
-
+[#3 Removal] =
 [#3 Domain] = 4:11-5:12
              >
 4|     case _:

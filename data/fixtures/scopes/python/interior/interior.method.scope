@@ -6,12 +6,7 @@ class Foo:
       >---------------<
 1|     def bar(): pass
 
-[#1 Removal] = 0:10-1:19
-            >
-0| class Foo:
-1|     def bar(): pass
-   -------------------<
-
+[#1 Removal] =
 [#1 Domain] = 0:10-1:19
             >
 0| class Foo:
@@ -25,10 +20,7 @@ class Foo:
                  >----<
 1|     def bar(): pass
 
-[#2 Removal] = 1:14-1:19
-                >-----<
-1|     def bar(): pass
-
+[#2 Removal] =
 [#2 Domain] = 1:14-1:19
                 >-----<
 1|     def bar(): pass

@@ -22,20 +22,7 @@ switch (foo) {
 8|         break;
    --------------<
 
-[#1 Removal] = 0:14-9:0
-                >
-0| switch (foo) {
-1|     case 0:
-2|         bar;
-3|         break;
-4|     case 1: {
-5|         break;
-6|     }
-7|     default:
-8|         break;
-9| }
-   <
-
+[#1 Removal] =
 [#1 Domain] = 0:14-9:0
                 >
 0| switch (foo) {
@@ -59,13 +46,7 @@ switch (foo) {
 3|         break;
    --------------<
 
-[#2 Removal] = 1:11-3:14
-             >
-1|     case 0:
-2|         bar;
-3|         break;
-   --------------<
-
+[#2 Removal] =
 [#2 Domain] = 1:11-3:14
              >
 1|     case 0:
@@ -80,13 +61,7 @@ switch (foo) {
           >------<
 5|         break;
 
-[#3 Removal] = 4:13-6:4
-               >
-4|     case 1: {
-5|         break;
-6|     }
-   ----<
-
+[#3 Removal] =
 [#3 Domain] = 4:13-6:4
                >
 4|     case 1: {
@@ -101,12 +76,7 @@ switch (foo) {
           >------<
 8|         break;
 
-[#4 Removal] = 7:12-8:14
-              >
-7|     default:
-8|         break;
-   --------------<
-
+[#4 Removal] =
 [#4 Domain] = 7:12-8:14
               >
 7|     default:

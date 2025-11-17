@@ -6,12 +6,7 @@ class Foo:
       >------------------------<
 1|     def __init__(self): pass
 
-[#1 Removal] = 0:10-1:28
-            >
-0| class Foo:
-1|     def __init__(self): pass
-   ----------------------------<
-
+[#1 Removal] =
 [#1 Domain] = 0:10-1:28
             >
 0| class Foo:
@@ -25,10 +20,7 @@ class Foo:
                           >----<
 1|     def __init__(self): pass
 
-[#2 Removal] = 1:23-1:28
-                         >-----<
-1|     def __init__(self): pass
-
+[#2 Removal] =
 [#2 Domain] = 1:23-1:28
                          >-----<
 1|     def __init__(self): pass

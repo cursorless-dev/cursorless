@@ -11,13 +11,7 @@ end
       >-----<
 1|     a = 1
 
-[#1 Removal] = 0:12-2:0
-              >
-0| if true then
-1|     a = 1
-2| elseif false then
-   <
-
+[#1 Removal] =
 [#1 Domain] = 0:12-2:0
               >
 0| if true then
@@ -32,13 +26,7 @@ end
       >-----<
 3|     a = 2
 
-[#2 Removal] = 2:17-4:0
-                   >
-2| elseif false then
-3|     a = 2
-4| else
-   <
-
+[#2 Removal] =
 [#2 Domain] = 2:17-4:0
                    >
 2| elseif false then
@@ -53,13 +41,7 @@ end
       >-----<
 5|     a = 3
 
-[#3 Removal] = 4:4-6:0
-      >
-4| else
-5|     a = 3
-6| end
-   <
-
+[#3 Removal] =
 [#3 Domain] = 4:4-6:0
       >
 4| else

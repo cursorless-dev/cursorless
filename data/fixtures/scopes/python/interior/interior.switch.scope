@@ -6,12 +6,7 @@ match value:
       >------------<
 1|     case 0: pass
 
-[#1 Removal] = 0:12-1:16
-              >
-0| match value:
-1|     case 0: pass
-   ----------------<
-
+[#1 Removal] =
 [#1 Domain] = 0:12-1:16
               >
 0| match value:
@@ -25,10 +20,7 @@ match value:
               >----<
 1|     case 0: pass
 
-[#2 Removal] = 1:11-1:16
-             >-----<
-1|     case 0: pass
-
+[#2 Removal] =
 [#2 Domain] = 1:11-1:16
              >-----<
 1|     case 0: pass
