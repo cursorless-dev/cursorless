@@ -5,10 +5,7 @@ with file: pass
              >----<
 0| with file: pass
 
-[Removal] = 0:10-0:15
-            >-----<
-0| with file: pass
-
+[Removal] =
 [Domain] = 0:10-0:15
             >-----<
 0| with file: pass

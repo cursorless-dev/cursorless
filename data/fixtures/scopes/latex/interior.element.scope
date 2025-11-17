@@ -7,13 +7,7 @@
       >-----<
 1|     Hello
 
-[Removal] = 0:13-2:0
-               >
-0| \begin{quote}
-1|     Hello
-2| \end{quote}
-   <
-
+[Removal] =
 [Domain] = 0:13-2:0
                >
 0| \begin{quote}

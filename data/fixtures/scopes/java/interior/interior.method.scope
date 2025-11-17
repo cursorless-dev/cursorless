@@ -7,13 +7,7 @@ public class Foo {
       >---------------------<
 1|     public void bar() { }
 
-[#1 Removal] = 0:18-2:0
-                    >
-0| public class Foo {
-1|     public void bar() { }
-2| }
-   <
-
+[#1 Removal] =
 [#1 Domain] = 0:18-2:0
                     >
 0| public class Foo {

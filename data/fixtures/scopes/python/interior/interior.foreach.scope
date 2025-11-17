@@ -5,10 +5,7 @@ for v in values: pass
                    >----<
 0| for v in values: pass
 
-[Removal] = 0:16-0:21
-                  >-----<
-0| for v in values: pass
-
+[Removal] =
 [Domain] = 0:16-0:21
                   >-----<
 0| for v in values: pass

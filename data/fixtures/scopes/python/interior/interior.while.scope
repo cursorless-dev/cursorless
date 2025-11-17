@@ -5,10 +5,7 @@ while True: pass
               >----<
 0| while True: pass
 
-[Removal] = 0:11-0:16
-             >-----<
-0| while True: pass
-
+[Removal] =
 [Domain] = 0:11-0:16
              >-----<
 0| while True: pass

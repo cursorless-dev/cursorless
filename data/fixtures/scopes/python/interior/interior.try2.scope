@@ -6,10 +6,7 @@ except*: pass
        >----<
 0| try: pass
 
-[#1 Removal] = 0:4-0:9
-      >-----<
-0| try: pass
-
+[#1 Removal] =
 [#1 Domain] = 0:4-0:9
       >-----<
 0| try: pass
@@ -21,10 +18,7 @@ except*: pass
            >----<
 1| except*: pass
 
-[#2 Removal] = 1:8-1:13
-          >-----<
-1| except*: pass
-
+[#2 Removal] =
 [#2 Domain] = 1:8-1:13
           >-----<
 1| except*: pass

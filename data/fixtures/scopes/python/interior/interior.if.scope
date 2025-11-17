@@ -7,10 +7,7 @@ else: pass
            >----<
 0| if True: pass
 
-[#1 Removal] = 0:8-0:13
-          >-----<
-0| if True: pass
-
+[#1 Removal] =
 [#1 Domain] = 0:8-0:13
           >-----<
 0| if True: pass
@@ -22,10 +19,7 @@ else: pass
               >----<
 1| elif False: pass
 
-[#2 Removal] = 1:11-1:16
-             >-----<
-1| elif False: pass
-
+[#2 Removal] =
 [#2 Domain] = 1:11-1:16
              >-----<
 1| elif False: pass
@@ -37,10 +31,7 @@ else: pass
         >----<
 2| else: pass
 
-[#3 Removal] = 2:5-2:10
-       >-----<
-2| else: pass
-
+[#3 Removal] =
 [#3 Domain] = 2:5-2:10
        >-----<
 2| else: pass

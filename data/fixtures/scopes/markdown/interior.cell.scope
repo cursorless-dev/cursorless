@@ -8,13 +8,7 @@ let foo;
   >--------<
 1| let foo;
 
-[Removal] = 0:5-2:0
-       >
-0| ```ts
-1| let foo;
-2| ```
-   <
-
+[Removal] =
 [Domain] = 0:5-2:0
        >
 0| ```ts
