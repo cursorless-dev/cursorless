@@ -35,7 +35,7 @@
     "@cursorless/neovim-common": "workspace:*",
     "@cursorless/neovim-registry": "workspace:*",
     "@cursorless/node-common": "workspace:*",
-    "glob": "^11.0.3",
+    "glob": "^11.1.0",
     "neovim": "^5.4.0",
     "tail": "^2.2.6"
   },
