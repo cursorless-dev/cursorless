@@ -1284,7 +1284,7 @@
     "@cursorless/node-common": "workspace:*",
     "@cursorless/test-case-recorder": "workspace:*",
     "@cursorless/vscode-common": "workspace:*",
-    "glob": "^11.0.3",
+    "glob": "^11.1.0",
     "itertools": "^2.5.0",
     "lodash-es": "^4.17.21",
     "nearley": "^2.20.1",
