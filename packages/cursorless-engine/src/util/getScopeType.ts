@@ -26,6 +26,8 @@ export function getScopeType(modifier: Modifier): ScopeType | undefined {
     case "range":
     case "modifyIfUntyped":
     case "reference":
+    case "filename":
+    case "filenameWithoutExtension":
       return undefined;
 
     default: {

@@ -9,6 +9,7 @@ import { ModifyIfUntypedStage } from "./modifiers/ConditionalModifierStages";
 import { ContainingScopeStage } from "./modifiers/ContainingScopeStage";
 import { EveryScopeStage } from "./modifiers/EveryScopeStage";
 import { FallbackStage } from "./modifiers/FallbackStage";
+import { FilenameStage } from "./modifiers/FilenameStage";
 import {
   KeepContentFilterStage,
   KeepEmptyFilterStage,
@@ -118,6 +119,10 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
         return new RangeModifierStage(this, modifier);
       case "reference":
         return new ReferenceStage(this, modifier);
+      case "filename":
+        return new FilenameStage("filename");
+      case "filenameWithoutExtension":
+        return new FilenameStage("filenameWithoutExtension");
       case "inferPreviousMark":
         throw Error(
           `Unexpected modifier '${modifier.type}'; it should have been removed during inference`,

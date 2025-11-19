@@ -135,6 +135,8 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     extendThroughEndOf: "tail",
     everyScope: "every",
     reference: "reference",
+    filename: "filename",
+    filenameWithoutExtension: "basename",
   },
 
   modifierExtra: {

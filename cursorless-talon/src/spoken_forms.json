@@ -91,7 +91,9 @@
       "empty": "keepEmptyFilter",
       "its": "inferPreviousMark",
       "visible": "visible",
-      "reference": "reference"
+      "reference": "reference",
+      "file name": "filename",
+      "base": "filenameWithoutExtension"
     },
     "every_scope_modifier": { "every": "every" },
     "ancestor_scope_modifier": { "grand": "ancestor" },

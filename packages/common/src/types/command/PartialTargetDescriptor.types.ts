@@ -439,6 +439,14 @@ export interface ReferenceModifier {
   snippets?: ReferenceSnippetDescriptor[];
 }
 
+export interface FilenameModifier {
+  type: "filename";
+}
+
+export interface FilenameWithoutExtensionModifier {
+  type: "filenameWithoutExtension";
+}
+
 /**
  * Runs {@link modifier} if the target has no explicit scope type, ie if
  * {@link Target.hasExplicitScopeType} is `false`.
@@ -500,7 +508,9 @@ export type Modifier =
   | KeepContentFilterModifier
   | KeepEmptyFilterModifier
   | InferPreviousMarkModifier
-  | ReferenceModifier;
+  | ReferenceModifier
+  | FilenameModifier
+  | FilenameWithoutExtensionModifier;
 
 export type ModifierType = Modifier["type"];
 
