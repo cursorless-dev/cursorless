@@ -64,6 +64,15 @@ export interface IDE {
   readonly workspaceFolders: readonly WorkspaceFolder[] | undefined;
 
   /**
+   * Provide a path / URI for the given document in the requested mode, eg
+   * workspace-relative path, absolute path, or remote Git URL.
+   */
+  getReferencePath?(
+    document: TextDocument,
+    mode: ReferencePathMode,
+  ): string | undefined;
+
+  /**
    * The currently active editor or `undefined`. The active editor is the one
    * that currently has focus or, when none has focus, the one that has changed
    * input most recently.
@@ -247,6 +256,12 @@ export interface IDE {
     ranges: GeneralizedRange[],
   ): Promise<void>;
 }
+
+export type ReferencePathMode =
+  | "relative"
+  | "absolute"
+  | "gitRemoteWithBranch"
+  | "gitRemoteCanonical";
 
 export interface WorkspaceFolder {
   uri: URI;

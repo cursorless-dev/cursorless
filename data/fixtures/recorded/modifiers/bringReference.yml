@@ -1,0 +1,42 @@
+languageId: plaintext
+command:
+  version: 7
+  spokenForm: bring reference
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
+      modifiers:
+        - {type: reference}
+    destination: {type: implicit}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |+
+    aaa bbb ccc
+
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+  marks: {}
+finalState:
+  documentContents: |-
+    aaa bbb ccc
+
+    Untitled-1#L3
+  selections:
+    - anchor: {line: 2, character: 13}
+      active: {line: 2, character: 13}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 2, character: 0}
+        end: {line: 2, character: 13}
+      isReversed: false
+      hasExplicitRange: true
+  sourceMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 2, character: 13}
+        end: {line: 2, character: 13}
+      isReversed: false
+      hasExplicitRange: true

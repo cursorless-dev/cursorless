@@ -22,6 +22,7 @@ import { EndOfStage, StartOfStage } from "./modifiers/PositionStage";
 import { PreferredScopeStage } from "./modifiers/PreferredScopeStage";
 import { RangeModifierStage } from "./modifiers/RangeModifierStage";
 import { RawSelectionStage } from "./modifiers/RawSelectionStage";
+import { ReferenceStage } from "./modifiers/ReferenceStage";
 import { RelativeScopeStage } from "./modifiers/RelativeScopeStage";
 import { VisibleStage } from "./modifiers/VisibleStage";
 import type { ScopeHandlerFactory } from "./modifiers/scopeHandlers/ScopeHandlerFactory";
@@ -115,6 +116,8 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
         return new ModifyIfUntypedStage(this, modifier);
       case "range":
         return new RangeModifierStage(this, modifier);
+      case "reference":
+        return new ReferenceStage(this, modifier);
       case "inferPreviousMark":
         throw Error(
           `Unexpected modifier '${modifier.type}'; it should have been removed during inference`,

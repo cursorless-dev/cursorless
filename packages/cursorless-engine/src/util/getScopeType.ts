@@ -25,6 +25,7 @@ export function getScopeType(modifier: Modifier): ScopeType | undefined {
     case "fallback":
     case "range":
     case "modifyIfUntyped":
+    case "reference":
       return undefined;
 
     default: {

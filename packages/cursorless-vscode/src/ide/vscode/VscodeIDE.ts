@@ -8,8 +8,10 @@ import type {
   InputBoxOptions,
   NotebookEditor,
   OpenUntitledTextDocumentOptions,
+  ReferencePathMode,
   QuickPickOptions,
   RunMode,
+  TextDocument,
   TextDocumentChangeEvent,
   TextEditor,
 } from "@cursorless/common";
@@ -19,6 +21,7 @@ import {
   fromVscodeSelection,
 } from "@cursorless/vscode-common";
 import { pull } from "lodash-es";
+import * as path from "path";
 import { v4 as uuid } from "uuid";
 import type { ExtensionContext, WorkspaceFolder } from "vscode";
 import * as vscode from "vscode";
@@ -36,6 +39,7 @@ import { vscodeRunMode } from "./VscodeRunMode";
 import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 import { vscodeShowQuickPick } from "./vscodeShowQuickPick";
+import { getGitInfo } from "./getGitInfo";
 
 export class VscodeIDE implements IDE {
   readonly configuration: VscodeConfiguration;
@@ -99,6 +103,25 @@ export class VscodeIDE implements IDE {
 
   get workspaceFolders(): readonly WorkspaceFolder[] | undefined {
     return workspace.workspaceFolders;
+  }
+
+  getReferencePath(
+    document: TextDocument,
+    mode: ReferencePathMode,
+  ): string | undefined {
+    const absolutePath = document.uri.fsPath ?? document.uri.path;
+    switch (mode) {
+      case "relative":
+        return workspace.asRelativePath(absolutePath, false);
+      case "absolute":
+        return absolutePath;
+      case "gitRemoteWithBranch":
+        return getRemoteGitPath(absolutePath, false);
+      case "gitRemoteCanonical":
+        return getRemoteGitPath(absolutePath, true);
+      default:
+        return undefined;
+    }
   }
 
   get activeTextEditor(): VscodeTextEditorImpl | undefined {
@@ -247,4 +270,52 @@ export class VscodeIDE implements IDE {
 
     return () => pull(this.extensionContext.subscriptions, ...disposables);
   }
+}
+
+function normalizeRemote(remoteUrl: string): string | undefined {
+  const trimmed = remoteUrl.replace(/\.git$/, "");
+  if (trimmed.startsWith("https://") || trimmed.startsWith("http://")) {
+    return trimmed;
+  }
+
+  const sshMatch = trimmed.match(/^(?:ssh:\/\/)?git@([^:/]+)[:/](.+)$/);
+  if (sshMatch) {
+    return `https://${sshMatch[1]}/${sshMatch[2]}`;
+  }
+
+  return undefined;
+}
+
+function getRemoteGitPath(
+  absolutePath: string | undefined,
+  isCanonical: boolean,
+): string | undefined {
+  if (absolutePath == null || absolutePath.length === 0) {
+    return undefined;
+  }
+
+  const { remoteUrl, headSha, relativePath, defaultBranch } =
+    getGitInfo(absolutePath);
+
+  if (
+    remoteUrl == null ||
+    relativePath == null ||
+    relativePath.length === 0 ||
+    relativePath.startsWith("..")
+  ) {
+    return undefined;
+  }
+
+  const normalizedRemote = normalizeRemote(remoteUrl);
+  if (normalizedRemote == null) {
+    return undefined;
+  }
+
+  const branchOrSha = isCanonical ? headSha : (defaultBranch ?? "main");
+
+  if (branchOrSha == null || branchOrSha.length === 0) {
+    return undefined;
+  }
+
+  return `${normalizedRemote}/blob/${branchOrSha}/${relativePath}`;
 }
