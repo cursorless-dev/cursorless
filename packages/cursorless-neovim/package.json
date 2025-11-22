@@ -34,7 +34,7 @@
     "@cursorless/test-case-recorder": "workspace:*"
   },
   "devDependencies": {
-    "@types/chai": "^5.2.2",
+    "@types/chai": "^5.2.3",
     "@types/js-yaml": "^4.0.9",
     "@types/lodash": "^4.17.20",
     "lodash": "^4.17.21",

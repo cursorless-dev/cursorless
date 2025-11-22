@@ -24,7 +24,7 @@
   "dependencies": {
     "@cursorless/common": "workspace:*",
     "@cursorless/node-common": "workspace:*",
-    "immer": "^10.1.3",
+    "immer": "^10.2.0",
     "lodash-es": "^4.17.21",
     "node-html-parser": "^7.0.1"
   },

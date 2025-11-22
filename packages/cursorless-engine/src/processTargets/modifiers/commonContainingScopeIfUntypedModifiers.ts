@@ -4,7 +4,7 @@ import type { Modifier } from "@cursorless/common";
 // switch to `{import("foo")}` syntax in the `{@link}` tag.
 // - https://github.com/microsoft/TypeScript/issues/43869
 // - https://github.com/microsoft/TypeScript/issues/43950
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { Target } from "../../typings/target.types";
 
 /**
