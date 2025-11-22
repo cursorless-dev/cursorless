@@ -35,7 +35,7 @@
     "@cursorless/neovim-common": "workspace:*",
     "@cursorless/neovim-registry": "workspace:*",
     "@cursorless/node-common": "workspace:*",
-    "glob": "^11.0.3",
+    "glob": "^13.0.0",
     "neovim": "^5.4.0",
     "tail": "^2.2.6"
   },
@@ -45,6 +45,6 @@
     "@types/tail": "^2.2.3",
     "@vscode/test-electron": "^2.5.2",
     "cross-spawn": "^7.0.6",
-    "mocha": "^11.7.4"
+    "mocha": "^11.7.5"
   }
 }
