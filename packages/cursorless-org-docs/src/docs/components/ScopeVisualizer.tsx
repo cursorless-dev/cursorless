@@ -206,7 +206,7 @@ function renderFacet(
       previousLanguageId = facetLanguageId;
       return (
         <H5
-          className="language-id mb-1 mt-2"
+          className="language-id mt-2 mb-1"
           id={`${facet.name}-${facetLanguageId}`}
         >
           {prettifyLanguageName(facetLanguageId)}

@@ -16,9 +16,9 @@ export const ProgressBar: FunctionComponent<ProgressBarProps> = ({
 }) => {
   const progress = ((currentStep + 1) / stepCount) * 100;
   return (
-    <div className="bg-(--vscode-welcomePage-progress\.background) h-2.5 w-full rounded-full">
+    <div className="h-2.5 w-full rounded-full bg-(--vscode-welcomePage-progress\.background)">
       <div
-        className="bg-(--vscode-welcomePage-progress\.foreground) h-2.5 rounded-full"
+        className="h-2.5 rounded-full bg-(--vscode-welcomePage-progress\.foreground)"
         style={{ width: `${progress}%` }}
       ></div>
     </div>

@@ -21,7 +21,7 @@ export default function LandingPage() {
         <title>{TITLE}</title>
         <IndexSocial />
       </Head>
-      <main className="text-salmon-900 dark:text-salmon-100 font-mono-wide fixed bottom-0 left-0 right-0 top-0 items-center justify-center overflow-auto p-2 font-bold tracking-[0.18em] sm:flex sm:p-0">
+      <main className="text-salmon-900 dark:text-salmon-100 font-mono-wide fixed top-0 right-0 bottom-0 left-0 items-center justify-center overflow-auto p-2 font-bold tracking-[0.18em] sm:flex sm:p-0">
         {/*
         Note that the font scale gets applied to this element so that all nested elements can use
         `em` units and will automatically be scaled.
@@ -65,7 +65,7 @@ export default function LandingPage() {
 
 function Slogan() {
   return (
-    <h1 className="my-auto text-center text-lg uppercase leading-[1.048888]">
+    <h1 className="my-auto text-center text-lg leading-[1.048888] uppercase">
       <span className="inline-block">Voice coding</span>{" "}
       <span className="inline-block">at the speed of thought</span>
     </h1>

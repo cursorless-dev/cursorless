@@ -18,7 +18,7 @@ export const TutorialStep: FunctionComponent<TutorialStepProps> = ({
 }) => {
   return (
     <div>
-      <div className="mb-2 mt-2 flex items-center gap-[0.2em]">
+      <div className="mt-2 mb-2 flex items-center gap-[0.2em]">
         <ProgressBar
           currentStep={state.stepNumber}
           stepCount={state.stepCount}
