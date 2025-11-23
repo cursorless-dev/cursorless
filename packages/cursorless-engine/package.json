@@ -30,7 +30,7 @@
     "@cursorless/common": "workspace:*",
     "@cursorless/node-common": "workspace:*",
     "@cursorless/sentence-parser": "workspace:*",
-    "immer": "^10.2.0",
+    "immer": "^11.0.0",
     "immutability-helper": "^3.1.1",
     "itertools": "^2.5.0",
     "lodash-es": "^4.17.21",

@@ -1,6 +1,6 @@
-import type { ConfigArray } from "typescript-eslint";
+import type { ConfigWithExtendsArray } from "@eslint/config-helpers";
 
-export const commonConfig: ConfigArray = [
+export const commonConfig: ConfigWithExtendsArray = [
   {
     files: ["packages/common/**/*.ts"],
 
