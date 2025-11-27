@@ -1,12 +1,12 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "target": "es2020",
+    "lib": ["dom", "es2020"],
     "jsx": "react-jsx",
-    "lib": ["es5", "es6", "dom"],
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "target": "es5",
     "allowJs": true
   },
   "ts-node": {

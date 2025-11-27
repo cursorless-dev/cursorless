@@ -1,9 +1,8 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "target": "ES2022",
+    "target": "esnext",
     "noEmit": true,
-    "emitDeclarationOnly": false,
     "typeRoots": ["src/types", "node_modules/@types"]
   },
   "references": [
