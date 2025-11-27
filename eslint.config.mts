@@ -1,3 +1,5 @@
+/* eslint-disable import/no-relative-packages */
+
 import type { ConfigWithExtends } from "@eslint/config-helpers";
 import eslintJs from "@eslint/js";
 import prettierConfig from "eslint-config-prettier/flat";
@@ -6,7 +8,7 @@ import mochaPlugin from "eslint-plugin-mocha";
 import unicornPlugin from "eslint-plugin-unicorn";
 import unusedImportsPlugin from "eslint-plugin-unused-imports";
 import { defineConfig } from "eslint/config";
-import eslintTs from "typescript-eslint";
+import tsEslint from "typescript-eslint";
 import { commonConfig } from "./packages/common/eslint.config.mts";
 import { cursorlessEngineConfig } from "./packages/cursorless-engine/eslint.config.mts";
 import { cursorlessOrgConfig } from "./packages/cursorless-org/eslint.config.mts";
@@ -35,7 +37,7 @@ const rootConfig: ConfigWithExtends = {
   },
 
   languageOptions: {
-    parser: eslintTs.parser,
+    parser: tsEslint.parser,
     ecmaVersion: 6,
     sourceType: "module",
     parserOptions: {
@@ -139,8 +141,7 @@ const disabledTypeCheckConfig: ConfigWithExtends = {
     "**/*.js",
     "**/*.mjs",
   ],
-
-  extends: [eslintTs.configs.disableTypeChecked],
+  extends: [tsEslint.configs.disableTypeChecked],
 };
 
 export default defineConfig(
@@ -148,7 +149,7 @@ export default defineConfig(
   eslintJs.configs.recommended,
   // We want to enable this in the long run. For now there are a lot of errors that needs to be handled.
   // eslintTs.configs.recommendedTypeChecked,
-  eslintTs.configs.recommended,
+  tsEslint.configs.recommended,
   prettierConfig,
   rootConfig,
   tsxConfig,
