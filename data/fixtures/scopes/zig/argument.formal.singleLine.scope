@@ -1,0 +1,10 @@
+fn foo(arg: u8) void {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:7-0:14
+         >-------<
+0| fn foo(arg: u8) void {}
+
+[Insertion delimiter] = " "
