@@ -1,14 +1,15 @@
-import { FlatCompat } from "@eslint/eslintrc";
-import type { ConfigWithExtends } from "typescript-eslint";
-
-const compat = new FlatCompat({
-  baseDirectory: import.meta.dirname,
-});
+import type { ConfigWithExtends } from "@eslint/config-helpers";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import tsEslint from "typescript-eslint";
 
 export const cursorlessOrgConfig: ConfigWithExtends = {
   files: ["packages/cursorless-org/**/*"],
 
-  extends: [compat.extends("next/core-web-vitals")],
+  extends: nextVitals,
+
+  languageOptions: {
+    parser: tsEslint.parser,
+  },
 
   settings: {
     next: {

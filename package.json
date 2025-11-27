@@ -33,6 +33,7 @@
     "watch:tsc": "tsc --build --watch"
   },
   "devDependencies": {
+    "@eslint/config-helpers": "^0.5.0",
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.39.1",
     "@pnpm/meta-updater": "^2.0.6",
