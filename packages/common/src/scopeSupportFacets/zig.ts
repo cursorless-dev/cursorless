@@ -7,6 +7,8 @@ export const zigScopeSupport: LanguageScopeSupportFacetMap = {
   namedFunction: supported,
   list: unsupported,
 
+/* UNSUPPORTED  */
+
   "textFragment.string.singleLine": unsupported,
   "textFragment.string.multiLine": unsupported,
   "textFragment.comment.line": unsupported,
