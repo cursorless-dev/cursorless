@@ -46,11 +46,11 @@
     "eslint-plugin-mocha": "^11.2.0",
     "eslint-plugin-unicorn": "^62.0.0",
     "eslint-plugin-unused-imports": "^4.3.0",
-    "prettier": "^3.6.2",
+    "prettier": "^3.7.1",
     "prettier-plugin-tailwindcss": "^0.7.1",
     "syncpack": "^13.0.4",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.47.0"
+    "typescript-eslint": "^8.48.0"
   },
   "pnpm": {
     "patchedDependencies": {
