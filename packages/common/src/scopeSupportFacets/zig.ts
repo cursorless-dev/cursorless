@@ -14,6 +14,8 @@ export const zigScopeSupport: LanguageScopeSupportFacetMap = {
   "textFragment.comment.line": unsupported,
   "textFragment.comment.block": unsupported,
 
+/* NOT APPLICABLE */
+
   // Section
   section: notApplicable,
   "section.iteration.document": notApplicable,
