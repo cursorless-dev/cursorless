@@ -1,4 +1,4 @@
-import type { ConfigWithExtends } from "typescript-eslint";
+import type { ConfigWithExtends } from "@eslint/config-helpers";
 
 export const cursorlessVscodeConfig: ConfigWithExtends = {
   files: ["packages/cursorless-vscode/src/scripts/**/*.ts"],
