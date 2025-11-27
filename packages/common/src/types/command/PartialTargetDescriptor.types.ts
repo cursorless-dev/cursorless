@@ -284,8 +284,7 @@ export type ScopeType =
   | OneOfScopeType
   | GlyphScopeType;
 
-export interface ContainingSurroundingPairModifier
-  extends ContainingScopeModifier {
+export interface ContainingSurroundingPairModifier extends ContainingScopeModifier {
   scopeType: SurroundingPairScopeType;
 }
 
