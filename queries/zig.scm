@@ -1,56 +1,61 @@
 ;;!! fn foo() void {}
-;;!           ^^^^
-;;!  ^^^^^^^^^^^^^^^^ 
+;;!     ^^^           name
+;;!           ^^^^    type
+;;!  ^^^^^^^^^^^^^^^^ namedFunction
 (function_declaration
-  (builtin_type) @type
-) @namedFunction
+  name: (_) @name
+  type: (_) @type
+) @namedFunction @_.domain
 
-;;!! fn foo(aa: u8, bb:u8) void {}
+;;!! fn foo(aa: u8) void {}
 ;;!         ^^^^^^^^^^^^^          argumentList
 ;;!         ^^                     name
 ;;!             ^^                 type
-;;!         ^^^^^^                 argumentOrParameter
-(_
+(function_declaration
   (parameters
-    "(" @argumentList.removal.start.endOf
     (_)? @_.leading.endOf
     .
     (parameter
       (identifier) @name
       ":"
-      (builtin_type) @type
-    ) @argumentOrParameter
+      type: (_) @type
+    ) @argumentOrParameter @_.domain
     .
     (_)? @_.trailing.startOf
-    ")" @argumentList.removal.end.startOf
-  ) @argumentList
-  (#child-range! @argumentList 1 -2)
+  )
 )
 
-(call_expression
-  (identifier) @functionCallee
-  (arguments
-    "("
-    (_)* @argumentOrParameter
-    ")"
-  ) @argumentList
+;;!! fn foo(aa: u8, bb:u8) void {}
+;;!         ^^^^^^^^^^^^^          argumentList
+(function_declaration
+  (parameters) @argumentList
   (#child-range! @argumentList 1 -2)
-) @functionCall
+) @argumentList.domain
+
+;;!! foo(aa, bb);
+;;!  ^^^            functionCallee
+;;!      ^^^^^^     argumentList
+;;!      ^^  ^^     argumentOrParameter
+;;!  -----------    functionCall ^domain
+(call_expression
+  function: (_) @functionCallee
+  (arguments
+    (_)* @argumentOrParameter
+  ) @argumentList @_.domain
+  (#child-range! @argumentList 1 -2)
+) @functionCall @_.domain
 
 (statement) @statement
 
+;;!! const foo: *const [3]u8 = "bar";
+;;!        ^^^                          name
+;;!             ^^^^^^^^^^^^            type
+;;!                            ^^^^^    value
+;;!  --------------------------------   statement ^domain
 (variable_declaration
   (identifier) @name
-  ":"
-  (_) @type
+  type: (_)? @type
   "="
   (_) @value
   ";"
-) @statement
-
-(variable_declaration
-  (identifier) @name
-  "="
-  (_) @value
-  ";"
-) @statement
+) @statement @_.domain
