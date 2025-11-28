@@ -1,0 +1,10 @@
+foo(aa);
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:4-0:6
+      >--<
+0| foo(aa);
+
+[Insertion delimiter] = " "

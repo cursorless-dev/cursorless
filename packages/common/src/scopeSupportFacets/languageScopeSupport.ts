@@ -32,6 +32,7 @@ import { typescriptScopeSupport } from "./typescript";
 import { typescriptreactScopeSupport } from "./typescriptreact";
 import { xmlScopeSupport } from "./xml";
 import { yamlScopeSupport } from "./yaml";
+import { zigScopeSupport } from "./zig";
 
 /* eslint-disable @typescript-eslint/naming-convention */
 
@@ -69,4 +70,5 @@ export const languageScopeSupport: StringRecord<LanguageScopeSupportFacetMap> =
     typescriptreact: typescriptreactScopeSupport,
     xml: xmlScopeSupport,
     yaml: yamlScopeSupport,
+    zig: zigScopeSupport,
   };
