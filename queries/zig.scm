@@ -1,22 +1,27 @@
-;;!! (fn foo() void {})
-;;!   ^^^^^^^^^^^^^^^^
-(function_declaration) @namedFunction
-
-;;!! (fn foo() void {})
-;;!            ^^^^
+;;!! fn foo() void {}
+;;!           ^^^^
+;;!  ^^^^^^^^^^^^^^^^ 
 (function_declaration
   (builtin_type) @type
-)
+) @namedFunction
 
-;;!! (fn foo(aa: u8, bb:u8) void {})
+;;!! fn foo(aa: u8, bb:u8) void {}
+;;!         ^^^^^^^^^^^^^          argumentList
+;;!         ^^                     name
+;;!             ^^                 type
+;;!         ^^^^^^                 argumentOrParameter
 (_
   (parameters
     "(" @argumentList.removal.start.endOf
+    (_)? @_.leading.endOf
+    .
     (parameter
       (identifier) @name
       ":"
       (builtin_type) @type
     ) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
     ")" @argumentList.removal.end.startOf
   ) @argumentList
   (#child-range! @argumentList 1 -2)
