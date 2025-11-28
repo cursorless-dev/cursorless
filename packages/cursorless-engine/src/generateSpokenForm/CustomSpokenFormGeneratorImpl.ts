@@ -15,9 +15,7 @@ import { SpokenFormGenerator } from "./generateSpokenForm";
  * {@link SpokenFormGenerator} classes. Its main purpose is to reconstruct the
  * {@link SpokenFormGenerator} when the {@link CustomSpokenForms} change.
  */
-export class CustomSpokenFormGeneratorImpl
-  implements CustomSpokenFormGenerator
-{
+export class CustomSpokenFormGeneratorImpl implements CustomSpokenFormGenerator {
   private customSpokenForms: CustomSpokenForms;
   private spokenFormGenerator: SpokenFormGenerator;
   private disposable: Disposable;
