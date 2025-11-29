@@ -34,6 +34,12 @@
       ] (nixpkgs.lib.importTOML ./pyproject.toml).tool.ruff.target-version;
     in
     {
+      packages = forEachSupportedSystem (
+        { pkgs }:
+        {
+          lua-language-server = pkgs.lua-language-server;
+        }
+      );
       devShells = forEachSupportedSystem (
         { pkgs }:
         {
