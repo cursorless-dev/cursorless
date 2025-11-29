@@ -20,6 +20,8 @@ languages/go/
  */
 function run() {
   const testSubsetGrepPath = testSubsetFilePath();
+  // Use CURSORLESS_VSCODE_COMMAND environment variable if set, otherwise default to 'code'
+  const vscodeCommand = process.env.CURSORLESS_VSCODE_COMMAND || "code";
 
   const exists = fs.existsSync(testSubsetGrepPath);
 
@@ -28,7 +30,7 @@ function run() {
   }
 
   if (!exists || process.argv.includes("--always-open")) {
-    child.execSync(`code ${testSubsetGrepPath}`);
+    child.execSync(`${vscodeCommand} ${testSubsetGrepPath}`);
   }
 
   if (!exists && process.argv.includes("--fail-if-not-exists")) {
