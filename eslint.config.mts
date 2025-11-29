@@ -38,7 +38,7 @@ const rootConfig: ConfigWithExtends = {
 
   languageOptions: {
     parser: tsEslint.parser,
-    ecmaVersion: 6,
+    ecmaVersion: 2022,
     sourceType: "module",
     parserOptions: {
       projectService: true,

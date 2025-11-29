@@ -1,8 +1,8 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "jsx": "react-jsx",
-    "lib": ["es2022", "dom"]
+    "lib": ["dom", "es2022"],
+    "jsx": "react-jsx"
   },
   "references": [
     {
