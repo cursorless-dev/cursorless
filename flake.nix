@@ -53,6 +53,7 @@
                 pkgs.corepack
                 pkgs.vsce
                 pkgs.nodejs_20
+                pkgs.pre-commit
 
                 python
                 pkgs.lua-language-server # language server used by pre-commit hooks
