@@ -8,7 +8,7 @@
 ) @namedFunction @_.domain
 
 ;;!! fn foo(aa: u8) void {}
-;;!         ^^^^^^^^^^^^^          argumentList
+;;!         ^^^^^^                 argumentOrParameter
 ;;!         ^^                     name
 ;;!             ^^                 type
 (function_declaration
@@ -27,6 +27,7 @@
 
 ;;!! fn foo(aa: u8, bb:u8) void {}
 ;;!         ^^^^^^^^^^^^^          argumentList
+;;!  ----------------------------- ^domain
 (function_declaration
   (parameters) @argumentList
   (#child-range! @argumentList 1 -2)
