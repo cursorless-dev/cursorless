@@ -2,9 +2,12 @@ fn foo(aaa: u8, bbb: u8) void {}
 ---
 
 [Content] =
-[Removal] =
-[Domain] = 0:7-0:23
+[Removal] = 0:7-0:23
          >----------------<
+0| fn foo(aaa: u8, bbb: u8) void {}
+
+[Domain] = 0:0-0:32
+  >--------------------------------<
 0| fn foo(aaa: u8, bbb: u8) void {}
 
 [Insertion delimiter] = " "
