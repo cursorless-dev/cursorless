@@ -1,16 +1,17 @@
 ;;!! fn foo() void {}
 ;;!     ^^^           name
 ;;!           ^^^^    type
-;;!  ^^^^^^^^^^^^^^^^ namedFunction
+;;!  ---------------- namedFunction ^domain
 (function_declaration
   name: (_) @name
   type: (_) @type
 ) @namedFunction @_.domain
 
 ;;!! fn foo(aa: u8) void {}
-;;!         ^^^^^^                 argumentOrParameter
 ;;!         ^^                     name
 ;;!             ^^                 type
+;;!         ^^^^^^                 argumentOrParameter ^domain
+;;!  ----------------------        ^domain
 (function_declaration
   (parameters
     (_)? @_.leading.endOf
@@ -22,8 +23,10 @@
     ) @argumentOrParameter @_.domain
     .
     (_)? @_.trailing.startOf
-  )
-)
+  ) @_dummy
+  (#not-type? @argumentOrParameter "comment")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+) @argumentOrParameter.domain @_.domain
 
 ;;!! fn foo(aa: u8, bb:u8) void {}
 ;;!         ^^^^^^^^^^^^^          argumentList

@@ -1,0 +1,62 @@
+fn foo(aaa: u8, bbb: u8) void {}
+---
+
+[#1 Content] = 0:25-0:29
+                           >----<
+0| fn foo(aaa: u8, bbb: u8) void {}
+
+[#1 Removal] = 0:25-0:30
+                           >-----<
+0| fn foo(aaa: u8, bbb: u8) void {}
+
+[#1 Leading delimiter] = 0:24-0:25
+                          >-<
+0| fn foo(aaa: u8, bbb: u8) void {}
+
+[#1 Trailing delimiter] = 0:29-0:30
+                               >-<
+0| fn foo(aaa: u8, bbb: u8) void {}
+
+[#1 Domain] = 0:0-0:32
+  >--------------------------------<
+0| fn foo(aaa: u8, bbb: u8) void {}
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 0:12-0:14
+              >--<
+0| fn foo(aaa: u8, bbb: u8) void {}
+
+[#2 Removal] = 0:12-0:16
+              >----<
+0| fn foo(aaa: u8, bbb: u8) void {}
+
+[#2 Trailing delimiter] = 0:14-0:16
+                >--<
+0| fn foo(aaa: u8, bbb: u8) void {}
+
+[#2 Domain] = 0:7-0:14
+         >-------<
+0| fn foo(aaa: u8, bbb: u8) void {}
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] = 0:21-0:23
+                       >--<
+0| fn foo(aaa: u8, bbb: u8) void {}
+
+[#3 Removal] = 0:14-0:23
+                >---------<
+0| fn foo(aaa: u8, bbb: u8) void {}
+
+[#3 Leading delimiter] = 0:14-0:21
+                >-------<
+0| fn foo(aaa: u8, bbb: u8) void {}
+
+[#3 Domain] = 0:16-0:23
+                  >-------<
+0| fn foo(aaa: u8, bbb: u8) void {}
+
+[#3 Insertion delimiter] = " "

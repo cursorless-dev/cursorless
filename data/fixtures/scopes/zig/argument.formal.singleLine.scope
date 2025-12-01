@@ -7,4 +7,4 @@ fn foo(arg: u8) void {}
          >-------<
 0| fn foo(arg: u8) void {}
 
-[Insertion delimiter] = " "
+[Insertion delimiter] = ", "

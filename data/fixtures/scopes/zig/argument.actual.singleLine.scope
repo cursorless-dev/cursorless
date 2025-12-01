@@ -1,4 +1,4 @@
-foo(aa);
+foo(aaa, bbb);
 ---
 
 [Content] =
