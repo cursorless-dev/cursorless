@@ -1,0 +1,2 @@
+fn foo(aaa: u8, bbb: u8) void {}
+---
