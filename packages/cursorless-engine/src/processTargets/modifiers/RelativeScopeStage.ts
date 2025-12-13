@@ -1,8 +1,11 @@
-import {
-  NoContainingScopeError,
-  type RelativeScopeModifier,
+import type {
+  Position,
+  Range,
+  RelativeScopeModifier,
+  TextEditor,
 } from "@cursorless/common";
-import { islice, itake } from "itertools";
+import { NoContainingScopeError } from "@cursorless/common";
+import { find, ifilter, islice, itake } from "itertools";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStage } from "../PipelineStages.types";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
@@ -36,7 +39,12 @@ export class RelativeScopeStage implements ModifierStage {
     const scopes = Array.from(
       this.modifier.offset === 0
         ? generateScopesInclusive(scopeHandler, target, this.modifier)
-        : generateScopesExclusive(scopeHandler, target, this.modifier),
+        : generateScopesExclusive(
+            this.scopeHandlerFactory,
+            scopeHandler,
+            target,
+            this.modifier,
+          ),
     );
 
     if (scopes.length < this.modifier.length) {
@@ -113,6 +121,7 @@ function generateScopesInclusive(
  * first scope if input range is empty and is at start of that scope.
  */
 function generateScopesExclusive(
+  scopeHandlerFactory: ScopeHandlerFactory,
   scopeHandler: ScopeHandler,
   target: Target,
   modifier: RelativeScopeModifier,
@@ -130,12 +139,68 @@ function generateScopesExclusive(
     ? "disallowed"
     : "disallowedIfStrict";
 
-  return islice(
-    scopeHandler.generateScopes(editor, initialPosition, direction, {
-      containment,
+  let scopes = scopeHandler.generateScopes(editor, initialPosition, direction, {
+    containment,
+    skipAncestorScopes: true,
+  });
+
+  const interiorRanges = getInteriorRanges(
+    scopeHandlerFactory,
+    scopeHandler,
+    editor,
+    initialPosition,
+  );
+
+  if (interiorRanges != null) {
+    scopes = ifilter(
+      scopes,
+      (s) => !interiorRanges.some((r) => r.contains(s.domain)),
+    );
+  }
+
+  return islice(scopes, offset - 1, offset + desiredScopeCount - 1);
+}
+
+function getInteriorRanges(
+  scopeHandlerFactory: ScopeHandlerFactory,
+  scopeHandler: ScopeHandler,
+  editor: TextEditor,
+  initialPosition: Position,
+): Range[] | undefined {
+  const interiorScopeHandler = scopeHandlerFactory.maybeCreate(
+    { type: "interior" },
+    editor.document.languageId,
+  );
+
+  if (interiorScopeHandler == null) {
+    return undefined;
+  }
+
+  const containingScope = find(
+    scopeHandler.generateScopes(editor, initialPosition, "forward", {
+      containment: "required",
+      allowAdjacentScopes: true,
       skipAncestorScopes: true,
     }),
-    offset - 1,
-    offset + desiredScopeCount - 1,
   );
+
+  if (containingScope == null) {
+    return undefined;
+  }
+
+  const interiorScopes = interiorScopeHandler.generateScopes(
+    editor,
+    containingScope.domain.start,
+    "forward",
+    {
+      skipAncestorScopes: true,
+      distalPosition: containingScope.domain.end,
+    },
+  );
+
+  // Interiors containing the initial position are excluded
+  const interiorRanges = Array.from(interiorScopes)
+    .filter((s) => !s.domain.contains(initialPosition))
+    .map((s) => s.domain);
+  return interiorRanges.length > 0 ? interiorRanges : undefined;
 }
