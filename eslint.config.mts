@@ -137,6 +137,7 @@ const disabledTypeCheckConfig: ConfigWithExtends = {
     "**/docusaurus.config.mts",
     "**/eslint.config.mts",
     "**/mdx-components.tsx",
+    "prettier.config.cjs",
     "typings/**",
     "**/*.js",
     "**/*.mjs",
