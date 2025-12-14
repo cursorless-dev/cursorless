@@ -1,4 +1,5 @@
 import type {
+  Direction,
   Position,
   Range,
   RelativeScopeModifier,
@@ -149,6 +150,7 @@ function generateScopesExclusive(
     scopeHandler,
     editor,
     initialPosition,
+    direction,
   );
 
   if (interiorRanges != null) {
@@ -166,6 +168,7 @@ function getInteriorRanges(
   scopeHandler: ScopeHandler,
   editor: TextEditor,
   initialPosition: Position,
+  direction: Direction,
 ): Range[] | undefined {
   const interiorScopeHandler = scopeHandlerFactory.maybeCreate(
     { type: "interior" },
@@ -177,7 +180,7 @@ function getInteriorRanges(
   }
 
   const containingScope = find(
-    scopeHandler.generateScopes(editor, initialPosition, "forward", {
+    scopeHandler.generateScopes(editor, initialPosition, direction, {
       containment: "required",
       allowAdjacentScopes: true,
       skipAncestorScopes: true,
@@ -188,13 +191,22 @@ function getInteriorRanges(
     return undefined;
   }
 
+  const containingInitialPosition =
+    direction === "forward"
+      ? containingScope.domain.start
+      : containingScope.domain.end;
+  const containingDistalPosition =
+    direction === "forward"
+      ? containingScope.domain.end
+      : containingScope.domain.start;
+
   const interiorScopes = interiorScopeHandler.generateScopes(
     editor,
-    containingScope.domain.start,
-    "forward",
+    containingInitialPosition,
+    direction,
     {
       skipAncestorScopes: true,
-      distalPosition: containingScope.domain.end,
+      distalPosition: containingDistalPosition,
     },
   );
 
