@@ -175,15 +175,6 @@ function getInteriorScopeRanges(
   initialPosition: Position,
   direction: Direction,
 ): Range[] | undefined {
-  const interiorScopeHandler = scopeHandlerFactory.maybeCreate(
-    { type: "interior" },
-    editor.document.languageId,
-  );
-
-  if (interiorScopeHandler == null) {
-    return undefined;
-  }
-
   const containingScope = find(
     scopeHandler.generateScopes(editor, initialPosition, direction, {
       containment: "required",
@@ -195,6 +186,11 @@ function getInteriorScopeRanges(
   if (containingScope == null) {
     return undefined;
   }
+
+  const interiorScopeHandler = scopeHandlerFactory.create(
+    { type: "interior" },
+    editor.document.languageId,
+  );
 
   const containingInitialPosition =
     direction === "forward"
