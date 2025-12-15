@@ -6,7 +6,7 @@ import type {
   TextEditor,
 } from "@cursorless/common";
 import { NoContainingScopeError } from "@cursorless/common";
-import { find, ifilter, islice, itake } from "itertools";
+import { find, ifilter, imap, islice, itake } from "itertools";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStage } from "../PipelineStages.types";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
@@ -145,7 +145,7 @@ function generateScopesExclusive(
     skipAncestorScopes: true,
   });
 
-  const interiorRanges = getInteriorRanges(
+  const interiorRanges = getInteriorScopeRanges(
     scopeHandlerFactory,
     scopeHandler,
     editor,
@@ -163,7 +163,12 @@ function generateScopesExclusive(
   return islice(scopes, offset - 1, offset + desiredScopeCount - 1);
 }
 
-function getInteriorRanges(
+/**
+ * Gets interior scope ranges within the containing scope at the given position.
+ * These are used to filter out scopes that are within interior scopes when
+ * applying relative scope modifiers.
+ */
+function getInteriorScopeRanges(
   scopeHandlerFactory: ScopeHandlerFactory,
   scopeHandler: ScopeHandler,
   editor: TextEditor,
@@ -210,9 +215,13 @@ function getInteriorRanges(
     },
   );
 
-  // Interiors containing the initial position are excluded
-  const interiorRanges = Array.from(interiorScopes)
-    .filter((s) => !s.domain.contains(initialPosition))
-    .map((s) => s.domain);
+  // Interiors containing the initial position are excluded. This happens when
+  // you are in the body of an if statement and use `next state` and in that
+  // case we don't want to exclude scopes within the same interior.
+  const interiorRangesIt = imap(
+    ifilter(interiorScopes, (s) => !s.domain.contains(initialPosition)),
+    (s) => s.domain,
+  );
+  const interiorRanges = Array.from(interiorRangesIt);
   return interiorRanges.length > 0 ? interiorRanges : undefined;
 }
