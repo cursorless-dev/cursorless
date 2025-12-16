@@ -6,7 +6,7 @@ import type {
   TextEditor,
 } from "@cursorless/common";
 import { NoContainingScopeError } from "@cursorless/common";
-import { find, ifilter, imap, islice, itake } from "itertools";
+import { find, flatmap, ifilter, imap, islice, itake } from "itertools";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStage } from "../PipelineStages.types";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
@@ -145,7 +145,7 @@ function generateScopesExclusive(
     skipAncestorScopes: true,
   });
 
-  const interiorRanges = getInteriorScopeRanges(
+  const interiorRanges = getExcludedInteriorRanges(
     scopeHandlerFactory,
     scopeHandler,
     editor,
@@ -164,11 +164,29 @@ function generateScopesExclusive(
 }
 
 /**
- * Gets interior scope ranges within the containing scope at the given position.
- * These are used to filter out scopes that are within interior scopes when
- * applying relative scope modifiers.
+ * Gets the interior scope range(s) within the containing scope of
+ * {@link initialPosition} that should be used to exclude next / previous
+ * scopes.
+ *
+ * The idea is that when you're in the headline of an if statement / function /
+ * etc, you're thinking at the same level as that scope, so the next scope
+ * should be outside of it. But when you're inside the body, so the next scope
+ * should be within it.
+ *
+ * For example, in the following code:
+ *
+ * ```typescript
+ * if (aaa) {
+ *   bbb();
+ *   ccc();
+ * }
+ * ddd();
+ * ```
+ *
+ * The target `"next state air"` should refer to `ddd();`, not `bbb();`.
+ * However, `"next state bat"` should refer to `ccc();`.
  */
-function getInteriorScopeRanges(
+function getExcludedInteriorRanges(
   scopeHandlerFactory: ScopeHandlerFactory,
   scopeHandler: ScopeHandler,
   editor: TextEditor,
@@ -214,10 +232,10 @@ function getInteriorScopeRanges(
   // Interiors containing the initial position are excluded. This happens when
   // you are in the body of an if statement and use `next state` and in that
   // case we don't want to exclude scopes within the same interior.
-  const interiorRangesIt = imap(
-    ifilter(interiorScopes, (s) => !s.domain.contains(initialPosition)),
-    (s) => s.domain,
+  const relevantScopes = ifilter(
+    interiorScopes,
+    (s) => !s.domain.contains(initialPosition),
   );
-  const interiorRanges = Array.from(interiorRangesIt);
-  return interiorRanges.length > 0 ? interiorRanges : undefined;
+  const targets = flatmap(relevantScopes, (s) => s.getTargets(false));
+  return Array.from(imap(targets, (t) => t.contentRange));
 }
