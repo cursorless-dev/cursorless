@@ -193,18 +193,6 @@ function getExcludedInteriorRanges(
   initialPosition: Position,
   direction: Direction,
 ): Range[] {
-  const containingScope = find(
-    scopeHandler.generateScopes(editor, initialPosition, direction, {
-      containment: "required",
-      allowAdjacentScopes: true,
-      skipAncestorScopes: true,
-    }),
-  );
-
-  if (containingScope == null) {
-    return [];
-  }
-
   const interiorScopeHandler = scopeHandlerFactory.maybeCreate(
     scopeHandler.scopeType?.type === "surroundingPair"
       ? {
@@ -216,6 +204,18 @@ function getExcludedInteriorRanges(
   );
 
   if (interiorScopeHandler == null) {
+    return [];
+  }
+
+  const containingScope = find(
+    scopeHandler.generateScopes(editor, initialPosition, direction, {
+      containment: "required",
+      allowAdjacentScopes: true,
+      skipAncestorScopes: true,
+    }),
+  );
+
+  if (containingScope == null) {
     return [];
   }
 
