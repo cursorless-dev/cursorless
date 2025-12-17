@@ -1,5 +1,6 @@
 import {
   NoContainingScopeError,
+  UnsupportedScopeError,
   type InteriorOnlyModifier,
   type ScopeType,
 } from "@cursorless/common";
@@ -42,7 +43,14 @@ export class InteriorOnlyStage implements ModifierStage {
         },
       });
 
-      return everyModifier.run(target, options);
+      try {
+        return everyModifier.run(target, options);
+      } catch (e) {
+        if (e instanceof UnsupportedScopeError) {
+          throw new NoContainingScopeError("interior");
+        }
+        throw e;
+      }
     }
 
     // eg "inside air"

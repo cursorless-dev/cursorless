@@ -9,6 +9,7 @@ import { NoContainingScopeError } from "@cursorless/common";
 import { find, ifilter, islice, itake } from "itertools";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStage } from "../PipelineStages.types";
+import { InteriorTarget } from "../targets";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
 import { getPreferredScopeTouchingPosition } from "./getPreferredScopeTouchingPosition";
 import { OutOfRangeError } from "./listUtils";
@@ -193,13 +194,64 @@ function getExcludedInteriorRanges(
   initialPosition: Position,
   direction: Direction,
 ): Range[] {
-  const interiorScopeHandler = scopeHandlerFactory.maybeCreate(
+  const interiorTargets =
     scopeHandler.scopeType?.type === "surroundingPair"
-      ? {
-          type: "surroundingPairInterior",
-          delimiter: scopeHandler.scopeType.delimiter,
-        }
-      : { type: "interior" },
+      ? getSurroundingPairInteriorTargets(
+          scopeHandler,
+          editor,
+          initialPosition,
+          direction,
+        )
+      : getLanguageInteriorTargets(
+          scopeHandlerFactory,
+          scopeHandler,
+          editor,
+          initialPosition,
+          direction,
+        );
+
+  // Interiors containing the initial position are excluded. This happens when
+  // you are in the body of an if statement and use `next state` and in that
+  // case we don't want to exclude scopes within the same interior.
+  return interiorTargets
+    .map((t) =>
+      t instanceof InteriorTarget ? t.fullInteriorRange : t.contentRange,
+    )
+    .filter((r) => !r.contains(initialPosition));
+}
+
+function getSurroundingPairInteriorTargets(
+  scopeHandler: ScopeHandler,
+  editor: TextEditor,
+  initialPosition: Position,
+  direction: Direction,
+): Target[] {
+  const containingScope = getContainingScope(
+    scopeHandler,
+    editor,
+    initialPosition,
+    direction,
+  );
+
+  if (containingScope == null) {
+    return [];
+  }
+
+  return containingScope
+    .getTargets(false)
+    .flatMap((t) => t.getInterior())
+    .filter((t): t is Target => t != null);
+}
+
+function getLanguageInteriorTargets(
+  scopeHandlerFactory: ScopeHandlerFactory,
+  scopeHandler: ScopeHandler,
+  editor: TextEditor,
+  initialPosition: Position,
+  direction: Direction,
+): Target[] {
+  const interiorScopeHandler = scopeHandlerFactory.maybeCreate(
+    { type: "interior" },
     editor.document.languageId,
   );
 
@@ -207,12 +259,11 @@ function getExcludedInteriorRanges(
     return [];
   }
 
-  const containingScope = find(
-    scopeHandler.generateScopes(editor, initialPosition, direction, {
-      containment: "required",
-      allowAdjacentScopes: true,
-      skipAncestorScopes: true,
-    }),
+  const containingScope = getContainingScope(
+    scopeHandler,
+    editor,
+    initialPosition,
+    direction,
   );
 
   if (containingScope == null) {
@@ -238,11 +289,20 @@ function getExcludedInteriorRanges(
     },
   );
 
-  // Interiors containing the initial position are excluded. This happens when
-  // you are in the body of an if statement and use `next state` and in that
-  // case we don't want to exclude scopes within the same interior.
-  return Array.from(interiorScopes)
-    .filter((s) => !s.domain.contains(initialPosition))
-    .flatMap((s) => s.getTargets(false))
-    .map((t) => t.contentRange);
+  return Array.from(interiorScopes).flatMap((s) => s.getTargets(false));
+}
+
+function getContainingScope(
+  scopeHandler: ScopeHandler,
+  editor: TextEditor,
+  initialPosition: Position,
+  direction: Direction,
+): TargetScope | undefined {
+  return find(
+    scopeHandler.generateScopes(editor, initialPosition, direction, {
+      containment: "required",
+      allowAdjacentScopes: true,
+      skipAncestorScopes: true,
+    }),
+  );
 }
