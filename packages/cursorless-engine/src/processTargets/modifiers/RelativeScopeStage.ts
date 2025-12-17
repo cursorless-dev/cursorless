@@ -9,7 +9,6 @@ import { NoContainingScopeError } from "@cursorless/common";
 import { find, ifilter, islice, itake } from "itertools";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStage } from "../PipelineStages.types";
-import { createCompoundInteriorScopeType } from "./InteriorStage";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
 import { getPreferredScopeTouchingPosition } from "./getPreferredScopeTouchingPosition";
 import { OutOfRangeError } from "./listUtils";
@@ -206,7 +205,7 @@ function getExcludedInteriorRanges(
     return [];
   }
 
-  const interiorScopeHandler = scopeHandlerFactory.create(
+  const interiorScopeHandler = scopeHandlerFactory.maybeCreate(
     scopeHandler.scopeType?.type === "surroundingPair"
       ? {
           type: "surroundingPairInterior",
@@ -215,6 +214,10 @@ function getExcludedInteriorRanges(
       : { type: "interior" },
     editor.document.languageId,
   );
+
+  if (interiorScopeHandler == null) {
+    return containingScope.getTargets(false).map((t) => t.contentRange);
+  }
 
   const containingInitialPosition =
     direction === "forward"
