@@ -119,10 +119,8 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
           languageId,
         );
       case "interior":
-        return new InteriorScopeHandler(
-          this,
+        return InteriorScopeHandler.maybeCreate(
           this.languageDefinitions,
-          scopeType,
           languageId,
         );
       case "custom":
