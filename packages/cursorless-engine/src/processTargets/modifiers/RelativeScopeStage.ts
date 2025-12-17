@@ -239,8 +239,7 @@ function getSurroundingPairInteriorTargets(
 
   return containingScope
     .getTargets(false)
-    .flatMap((t) => t.getInterior())
-    .filter((t): t is Target => t != null);
+    .flatMap((t) => t.getInterior() ?? []);
 }
 
 function getLanguageInteriorTargets(
