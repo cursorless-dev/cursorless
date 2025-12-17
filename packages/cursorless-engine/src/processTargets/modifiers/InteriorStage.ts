@@ -50,7 +50,7 @@ export class InteriorOnlyStage implements ModifierStage {
       return this.modifierStageFactory
         .create({
           type: "containingScope",
-          scopeType: createCompoundInteriorScopeType(),
+          scopeType: compoundInteriorScopeType,
         })
         .run(target, options);
     } catch (e) {
@@ -62,17 +62,15 @@ export class InteriorOnlyStage implements ModifierStage {
   }
 }
 
-export function createCompoundInteriorScopeType(): ScopeType {
-  return {
-    type: "oneOf",
-    scopeTypes: [
-      {
-        type: "interior",
-      },
-      {
-        type: "surroundingPairInterior",
-        delimiter: "any",
-      },
-    ],
-  };
-}
+export const compoundInteriorScopeType: ScopeType = {
+  type: "oneOf",
+  scopeTypes: [
+    {
+      type: "interior",
+    },
+    {
+      type: "surroundingPairInterior",
+      delimiter: "any",
+    },
+  ],
+};

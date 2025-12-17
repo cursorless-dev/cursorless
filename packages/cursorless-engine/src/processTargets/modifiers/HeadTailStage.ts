@@ -15,7 +15,7 @@ import {
   processModifierStages,
 } from "../TargetPipelineRunner";
 import { HeadTailTarget, PlainTarget } from "../targets";
-import { createCompoundInteriorScopeType } from "./InteriorStage";
+import { compoundInteriorScopeType } from "./InteriorStage";
 
 class HeadTailStage implements ModifierStage {
   constructor(
@@ -102,7 +102,7 @@ class BoundedLineStage implements ModifierStage {
       return this.modifierStageFactory
         .create({
           type: "containingScope",
-          scopeType: createCompoundInteriorScopeType(),
+          scopeType: compoundInteriorScopeType,
         })
         .run(target, options)[0];
     } catch (error) {
