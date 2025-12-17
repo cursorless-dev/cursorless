@@ -207,7 +207,12 @@ function getExcludedInteriorRanges(
   }
 
   const interiorScopeHandler = scopeHandlerFactory.create(
-    createCompoundInteriorScopeType(),
+    scopeHandler.scopeType?.type === "surroundingPair"
+      ? {
+          type: "surroundingPairInterior",
+          delimiter: scopeHandler.scopeType.delimiter,
+        }
+      : { type: "interior" },
     editor.document.languageId,
   );
 
