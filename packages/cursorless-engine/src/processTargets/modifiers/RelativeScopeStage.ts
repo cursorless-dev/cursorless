@@ -170,7 +170,7 @@ function generateScopesExclusive(
  *
  * The idea is that when you're in the headline of an if statement / function /
  * etc, you're thinking at the same level as that scope, so the next scope
- * should be outside of it. But when you're inside the body, so the next scope
+ * should be outside of it. But when you're inside the body, the next scope
  * should be within it.
  *
  * For example, in the following code:
@@ -216,7 +216,7 @@ function getExcludedInteriorRanges(
   );
 
   if (interiorScopeHandler == null) {
-    return containingScope.getTargets(false).map((t) => t.contentRange);
+    return [];
   }
 
   const containingInitialPosition =
