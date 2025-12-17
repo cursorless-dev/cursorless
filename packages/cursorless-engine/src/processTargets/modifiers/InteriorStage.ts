@@ -1,6 +1,7 @@
 import {
   NoContainingScopeError,
   type InteriorOnlyModifier,
+  type ScopeType,
 } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStageFactory } from "../ModifierStageFactory";
@@ -11,7 +12,7 @@ import type {
 
 export class InteriorOnlyStage implements ModifierStage {
   constructor(
-    private modifierHandlerFactory: ModifierStageFactory,
+    private modifierStageFactory: ModifierStageFactory,
     private modifier: InteriorOnlyModifier,
   ) {}
 
@@ -34,7 +35,7 @@ export class InteriorOnlyStage implements ModifierStage {
     // most cases, as long as the nearest interior is what we expect, which it
     // usually is.
     if (target.hasExplicitScopeType) {
-      const everyModifier = this.modifierHandlerFactory.create({
+      const everyModifier = this.modifierStageFactory.create({
         type: "everyScope",
         scopeType: {
           type: "interior",
@@ -46,10 +47,12 @@ export class InteriorOnlyStage implements ModifierStage {
 
     // eg "inside air"
     try {
-      return createContainingInteriorStage(this.modifierHandlerFactory).run(
-        target,
-        options,
-      );
+      return this.modifierStageFactory
+        .create({
+          type: "containingScope",
+          scopeType: createCompoundInteriorScopeType(),
+        })
+        .run(target, options);
     } catch (e) {
       if (e instanceof NoContainingScopeError) {
         throw new NoContainingScopeError("interior");
@@ -59,22 +62,17 @@ export class InteriorOnlyStage implements ModifierStage {
   }
 }
 
-export function createContainingInteriorStage(
-  modifierHandlerFactory: ModifierStageFactory,
-): ModifierStage {
-  return modifierHandlerFactory.create({
-    type: "containingScope",
-    scopeType: {
-      type: "oneOf",
-      scopeTypes: [
-        {
-          type: "interior",
-        },
-        {
-          type: "surroundingPairInterior",
-          delimiter: "any",
-        },
-      ],
-    },
-  });
+export function createCompoundInteriorScopeType(): ScopeType {
+  return {
+    type: "oneOf",
+    scopeTypes: [
+      {
+        type: "interior",
+      },
+      {
+        type: "surroundingPairInterior",
+        delimiter: "any",
+      },
+    ],
+  };
 }

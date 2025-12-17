@@ -6,9 +6,10 @@ import type {
   TextEditor,
 } from "@cursorless/common";
 import { NoContainingScopeError } from "@cursorless/common";
-import { find, flatmap, ifilter, imap, islice, itake } from "itertools";
+import { find, ifilter, islice, itake } from "itertools";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStage } from "../PipelineStages.types";
+import { createCompoundInteriorScopeType } from "./InteriorStage";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
 import { getPreferredScopeTouchingPosition } from "./getPreferredScopeTouchingPosition";
 import { OutOfRangeError } from "./listUtils";
@@ -153,7 +154,7 @@ function generateScopesExclusive(
     direction,
   );
 
-  if (interiorRanges != null) {
+  if (interiorRanges.length > 0) {
     scopes = ifilter(
       scopes,
       (s) => !interiorRanges.some((r) => r.contains(s.domain)),
@@ -192,7 +193,7 @@ function getExcludedInteriorRanges(
   editor: TextEditor,
   initialPosition: Position,
   direction: Direction,
-): Range[] | undefined {
+): Range[] {
   const containingScope = find(
     scopeHandler.generateScopes(editor, initialPosition, direction, {
       containment: "required",
@@ -202,11 +203,11 @@ function getExcludedInteriorRanges(
   );
 
   if (containingScope == null) {
-    return undefined;
+    return [];
   }
 
   const interiorScopeHandler = scopeHandlerFactory.create(
-    { type: "interior" },
+    createCompoundInteriorScopeType(),
     editor.document.languageId,
   );
 
@@ -232,10 +233,8 @@ function getExcludedInteriorRanges(
   // Interiors containing the initial position are excluded. This happens when
   // you are in the body of an if statement and use `next state` and in that
   // case we don't want to exclude scopes within the same interior.
-  const relevantScopes = ifilter(
-    interiorScopes,
-    (s) => !s.domain.contains(initialPosition),
-  );
-  const targets = flatmap(relevantScopes, (s) => s.getTargets(false));
-  return Array.from(imap(targets, (t) => t.contentRange));
+  return Array.from(interiorScopes)
+    .filter((s) => !s.domain.contains(initialPosition))
+    .flatMap((s) => s.getTargets(false))
+    .map((t) => t.contentRange);
 }
