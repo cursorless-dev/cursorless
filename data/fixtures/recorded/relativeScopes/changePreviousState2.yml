@@ -15,22 +15,20 @@ command:
   usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
-    const b = 2;
     if (true) {
        const a = 1;
        
     }
   selections:
-    - anchor: {line: 3, character: 3}
-      active: {line: 3, character: 3}
+    - anchor: {line: 2, character: 3}
+      active: {line: 2, character: 3}
   marks: {}
 finalState:
   documentContents: |-
-    const b = 2;
     if (true) {
        
        
     }
   selections:
-    - anchor: {line: 2, character: 3}
-      active: {line: 2, character: 3}
+    - anchor: {line: 1, character: 3}
+      active: {line: 1, character: 3}
