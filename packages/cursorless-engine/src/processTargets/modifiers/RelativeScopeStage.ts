@@ -194,91 +194,53 @@ function getExcludedInteriorRanges(
   initialPosition: Position,
   direction: Direction,
 ): Range[] {
-  return scopeHandler.scopeType?.type === "surroundingPair"
-    ? getSurroundingPairInteriorTargets(
-        scopeHandler,
-        editor,
-        initialPosition,
-        direction,
-      )
-    : getLanguageInteriorTargets(
-        scopeHandlerFactory,
-        scopeHandler,
-        editor,
-        initialPosition,
-        direction,
-      );
-}
-
-function getSurroundingPairInteriorTargets(
-  scopeHandler: ScopeHandler,
-  editor: TextEditor,
-  initialPosition: Position,
-  direction: Direction,
-): Range[] {
-  const containingScope = getContainingScope(
+  const containingScopeTarget = getContainingScopeTarget(
     scopeHandler,
     editor,
     initialPosition,
     direction,
   );
 
-  if (containingScope == null) {
+  // No containing scope, nothing to exclude.
+  if (containingScopeTarget == null) {
     return [];
   }
 
-  return containingScope
-    .getTargets(false)
-    .flatMap((t) => t.getInterior() ?? [])
-    .map((t) =>
-      t instanceof InteriorTarget ? t.fullInteriorRange : t.contentRange,
-    )
-    .filter((r) => !r.contains(initialPosition));
-}
+  const containingInteriorTargets = containingScopeTarget.getInterior();
 
-function getLanguageInteriorTargets(
-  scopeHandlerFactory: ScopeHandlerFactory,
-  scopeHandler: ScopeHandler,
-  editor: TextEditor,
-  initialPosition: Position,
-  direction: Direction,
-): Range[] {
+  // Containing targets already has an interior. eg a surrounding pair scope.
+  if (containingInteriorTargets != null) {
+    return getFilteredInteriorRanges(
+      containingInteriorTargets,
+      initialPosition,
+    );
+  }
+
+  // Fallback to language specific interior scope handler
   const interiorScopeHandler = scopeHandlerFactory.maybeCreate(
     { type: "interior" },
     editor.document.languageId,
   );
 
+  // No interior scope handler, nothing to exclude.
+  // For languages that hasn't defined the interior scope handler yet we default
+  // to NOT excluding anything.
   if (interiorScopeHandler == null) {
     return [];
   }
 
-  const containingScope = getContainingScope(
-    scopeHandler,
-    editor,
-    initialPosition,
+  const containingPositions = getPositions(
+    containingScopeTarget.contentRange,
     direction,
   );
 
-  if (containingScope == null) {
-    return [];
-  }
-
-  const containingInitialPosition =
-    direction === "forward"
-      ? containingScope.domain.start
-      : containingScope.domain.end;
-  const containingDistalPosition =
-    direction === "forward"
-      ? containingScope.domain.end
-      : containingScope.domain.start;
-
   const interiorScopes = interiorScopeHandler.generateScopes(
     editor,
-    containingInitialPosition,
+    containingPositions.initial,
     direction,
     {
       skipAncestorScopes: true,
-      distalPosition: containingDistalPosition,
+      distalPosition: containingPositions.distal,
     },
   );
 
@@ -286,32 +248,46 @@ function getLanguageInteriorTargets(
     s.getTargets(false),
   );
 
+  if (interiorTargets.length > 0) {
+    return getFilteredInteriorRanges(interiorTargets, initialPosition);
+  }
+
+  // This containing scope has no interior.
+  // Default to excluding the entire containing scope.
+  return [containingScopeTarget.contentRange];
+}
+
+function getPositions(range: Range, direction: Direction) {
+  return direction === "forward"
+    ? { initial: range.start, distal: range.end }
+    : { initial: range.end, distal: range.start };
+}
+
+function getFilteredInteriorRanges(
+  interiorTargets: Target[],
+  initialPosition: Position,
+) {
   // Interiors containing the initial position are excluded. This happens when
   // you are in the body of an if statement and use `next state` and in that
   // case we don't want to exclude scopes within the same interior.
-  if (interiorTargets.length > 0) {
-    return interiorTargets
-      .map((t) =>
-        t instanceof InteriorTarget ? t.fullInteriorRange : t.contentRange,
-      )
-      .filter((r) => !r.contains(initialPosition));
-  }
-
-  // This containing scope has no interior. Exclude the entire containing scope.
-  return containingScope.getTargets(false).map((t) => t.contentRange);
+  return interiorTargets
+    .map((t) =>
+      t instanceof InteriorTarget ? t.fullInteriorRange : t.contentRange,
+    )
+    .filter((r) => !r.contains(initialPosition));
 }
 
-function getContainingScope(
+function getContainingScopeTarget(
   scopeHandler: ScopeHandler,
   editor: TextEditor,
   initialPosition: Position,
   direction: Direction,
-): TargetScope | undefined {
+): Target | undefined {
   return find(
     scopeHandler.generateScopes(editor, initialPosition, direction, {
       containment: "required",
       allowAdjacentScopes: true,
       skipAncestorScopes: true,
     }),
-  );
+  )?.getTargets(false)[0];
 }
