@@ -283,11 +283,12 @@ function getContainingScopeTarget(
   initialPosition: Position,
   direction: Direction,
 ): Target | undefined {
-  return find(
+  const containingScope = find(
     scopeHandler.generateScopes(editor, initialPosition, direction, {
       containment: "required",
       allowAdjacentScopes: true,
       skipAncestorScopes: true,
     }),
-  )?.getTargets(false)[0];
+  );
+  return containingScope?.getTargets(false)[0];
 }
