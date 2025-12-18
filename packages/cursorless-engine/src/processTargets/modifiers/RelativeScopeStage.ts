@@ -1,10 +1,15 @@
-import {
-  NoContainingScopeError,
-  type RelativeScopeModifier,
+import type {
+  Direction,
+  Position,
+  Range,
+  RelativeScopeModifier,
+  TextEditor,
 } from "@cursorless/common";
-import { islice, itake } from "itertools";
+import { NoContainingScopeError } from "@cursorless/common";
+import { find, ifilter, islice, itake } from "itertools";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStage } from "../PipelineStages.types";
+import { InteriorTarget } from "../targets";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
 import { getPreferredScopeTouchingPosition } from "./getPreferredScopeTouchingPosition";
 import { OutOfRangeError } from "./listUtils";
@@ -36,7 +41,12 @@ export class RelativeScopeStage implements ModifierStage {
     const scopes = Array.from(
       this.modifier.offset === 0
         ? generateScopesInclusive(scopeHandler, target, this.modifier)
-        : generateScopesExclusive(scopeHandler, target, this.modifier),
+        : generateScopesExclusive(
+            this.scopeHandlerFactory,
+            scopeHandler,
+            target,
+            this.modifier,
+          ),
     );
 
     if (scopes.length < this.modifier.length) {
@@ -113,6 +123,7 @@ function generateScopesInclusive(
  * first scope if input range is empty and is at start of that scope.
  */
 function generateScopesExclusive(
+  scopeHandlerFactory: ScopeHandlerFactory,
   scopeHandler: ScopeHandler,
   target: Target,
   modifier: RelativeScopeModifier,
@@ -130,12 +141,167 @@ function generateScopesExclusive(
     ? "disallowed"
     : "disallowedIfStrict";
 
-  return islice(
+  let scopes = scopeHandler.generateScopes(editor, initialPosition, direction, {
+    containment,
+    skipAncestorScopes: true,
+  });
+
+  const interiorRanges = getExcludedInteriorRanges(
+    scopeHandlerFactory,
+    scopeHandler,
+    editor,
+    initialPosition,
+    direction,
+  );
+
+  if (interiorRanges.length > 0) {
+    scopes = ifilter(
+      scopes,
+      (s) => !interiorRanges.some((r) => r.contains(s.domain)),
+    );
+  }
+
+  return islice(scopes, offset - 1, offset + desiredScopeCount - 1);
+}
+
+/**
+ * Gets the interior scope range(s) within the containing scope of
+ * {@link initialPosition} that should be used to exclude next / previous
+ * scopes.
+ *
+ * The idea is that when you're in the headline of an if statement / function /
+ * etc, you're thinking at the same level as that scope, so the next scope
+ * should be outside of it. But when you're inside the body, the next scope
+ * should be within it.
+ *
+ * For example, in the following code:
+ *
+ * ```typescript
+ * if (aaa) {
+ *   bbb();
+ *   ccc();
+ * }
+ * ddd();
+ * ```
+ *
+ * The target `"next state air"` should refer to `ddd();`, not `bbb();`.
+ * However, `"next state bat"` should refer to `ccc();`.
+ */
+function getExcludedInteriorRanges(
+  scopeHandlerFactory: ScopeHandlerFactory,
+  scopeHandler: ScopeHandler,
+  editor: TextEditor,
+  initialPosition: Position,
+  direction: Direction,
+): Range[] {
+  const interiorTargets =
+    scopeHandler.scopeType?.type === "surroundingPair"
+      ? getSurroundingPairInteriorTargets(
+          scopeHandler,
+          editor,
+          initialPosition,
+          direction,
+        )
+      : getLanguageInteriorTargets(
+          scopeHandlerFactory,
+          scopeHandler,
+          editor,
+          initialPosition,
+          direction,
+        );
+
+  // Interiors containing the initial position are excluded. This happens when
+  // you are in the body of an if statement and use `next state` and in that
+  // case we don't want to exclude scopes within the same interior.
+  return interiorTargets
+    .map((t) =>
+      t instanceof InteriorTarget ? t.fullInteriorRange : t.contentRange,
+    )
+    .filter((r) => !r.contains(initialPosition));
+}
+
+function getSurroundingPairInteriorTargets(
+  scopeHandler: ScopeHandler,
+  editor: TextEditor,
+  initialPosition: Position,
+  direction: Direction,
+): Target[] {
+  const containingScope = getContainingScope(
+    scopeHandler,
+    editor,
+    initialPosition,
+    direction,
+  );
+
+  if (containingScope == null) {
+    return [];
+  }
+
+  return containingScope
+    .getTargets(false)
+    .flatMap((t) => t.getInterior() ?? []);
+}
+
+function getLanguageInteriorTargets(
+  scopeHandlerFactory: ScopeHandlerFactory,
+  scopeHandler: ScopeHandler,
+  editor: TextEditor,
+  initialPosition: Position,
+  direction: Direction,
+): Target[] {
+  const interiorScopeHandler = scopeHandlerFactory.maybeCreate(
+    { type: "interior" },
+    editor.document.languageId,
+  );
+
+  if (interiorScopeHandler == null) {
+    return [];
+  }
+
+  const containingScope = getContainingScope(
+    scopeHandler,
+    editor,
+    initialPosition,
+    direction,
+  );
+
+  if (containingScope == null) {
+    return [];
+  }
+
+  const containingInitialPosition =
+    direction === "forward"
+      ? containingScope.domain.start
+      : containingScope.domain.end;
+  const containingDistalPosition =
+    direction === "forward"
+      ? containingScope.domain.end
+      : containingScope.domain.start;
+
+  const interiorScopes = interiorScopeHandler.generateScopes(
+    editor,
+    containingInitialPosition,
+    direction,
+    {
+      skipAncestorScopes: true,
+      distalPosition: containingDistalPosition,
+    },
+  );
+
+  return Array.from(interiorScopes).flatMap((s) => s.getTargets(false));
+}
+
+function getContainingScope(
+  scopeHandler: ScopeHandler,
+  editor: TextEditor,
+  initialPosition: Position,
+  direction: Direction,
+): TargetScope | undefined {
+  return find(
     scopeHandler.generateScopes(editor, initialPosition, direction, {
-      containment,
+      containment: "required",
+      allowAdjacentScopes: true,
       skipAncestorScopes: true,
     }),
-    offset - 1,
-    offset + desiredScopeCount - 1,
   );
 }
