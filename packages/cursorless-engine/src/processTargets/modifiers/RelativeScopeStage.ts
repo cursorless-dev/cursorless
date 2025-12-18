@@ -208,7 +208,7 @@ function getExcludedInteriorRanges(
 
   const containingInteriorTargets = containingScopeTarget.getInterior();
 
-  // Containing targets already has an interior. eg a surrounding pair scope.
+  // Containing target already has an interior. eg a surrounding pair scope.
   if (containingInteriorTargets != null) {
     return getFilteredInteriorRanges(
       containingInteriorTargets,
