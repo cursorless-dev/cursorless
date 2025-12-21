@@ -6,14 +6,62 @@
 
 ;; Define this here because the `field_definition` node type doesn't exist
 ;; in typescript.
+
+;;!! class Foo { bar = function () {}; }
+(
+  (field_definition
+    (function_expression
+      !name
+      (formal_parameters
+        "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+        ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+      ) @argumentList
+      (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+      (#child-range! @argumentList 1 -2)
+    )
+  ) @argumentList.domain.start @argumentOrParameter.iteration.domain.start
+  .
+  ";"? @argumentList.domain.end @argumentOrParameter.iteration.domain.end
+)
+
+;;!! class Foo { bar = function* () {}; }
+(
+  (field_definition
+    (generator_function
+      !name
+      (formal_parameters
+        "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+        ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+      ) @argumentList
+      (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+      (#child-range! @argumentList 1 -2)
+    )
+  ) @argumentList.domain.start @argumentOrParameter.iteration.domain.start
+  .
+  ";"? @argumentList.domain.end @argumentOrParameter.iteration.domain.end
+)
+
+;;!! class Foo { bar = () => {}; }
+(
+  (field_definition
+    (arrow_function
+      (formal_parameters
+        "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+        ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+      ) @argumentList
+      (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+      (#child-range! @argumentList 1 -2)
+    )
+  ) @argumentList.domain.start @argumentOrParameter.iteration.domain.start
+  .
+  ";"? @argumentList.domain.end @argumentOrParameter.iteration.domain.end
+)
+
 (_
   ;;!! class Foo {
-  ;;!!   foo = () => {};
-  ;;!    ^^^^^^^^^^^^^^^
-  ;;!!   foo = function() {};
-  ;;!    ^^^^^^^^^^^^^^^^^^^^
-  ;;!!   foo = function *() {};
-  ;;!    ^^^^^^^^^^^^^^^^^^^^^^
+  ;;!!   bar = function() {};
+  ;;!!   bar = function* () {};
+  ;;!!   bar = () => {};
   ;;!! }
   (field_definition
     value: [

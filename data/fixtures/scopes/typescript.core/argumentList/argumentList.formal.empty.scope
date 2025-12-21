@@ -1,0 +1,13 @@
+function foo();
+---
+
+[Content] =
+[Removal] = 0:13-0:13
+               ><
+0| function foo();
+
+[Domain] = 0:0-0:15
+  >---------------<
+0| function foo();
+
+[Insertion delimiter] = ""
