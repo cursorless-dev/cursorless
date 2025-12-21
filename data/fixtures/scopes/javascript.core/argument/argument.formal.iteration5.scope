@@ -1,0 +1,10 @@
+const foo = (aaa, bbb) => {};
+---
+
+[Content] = 0:13-0:21
+               >--------<
+0| const foo = (aaa, bbb) => {};
+
+[Domain] = 0:0-0:29
+  >-----------------------------<
+0| const foo = (aaa, bbb) => {};
