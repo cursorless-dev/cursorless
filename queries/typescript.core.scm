@@ -116,9 +116,9 @@
     ) @argumentList
     (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
     (#child-range! @argumentList 1 -2)
-  ) @namedFunction.start @_.domain.start @argumentOrParameter.iteration.domain.start
+  ) @namedFunction.start @argumentList.domain.start @argumentOrParameter.iteration.domain.start
   .
-  ";"? @namedFunction.end @_.domain.end @argumentOrParameter.iteration.domain.end
+  ";"? @namedFunction.end @argumentList.domain.end @argumentOrParameter.iteration.domain.end
 )
 
 ;;!! class Foo { abstract foo(): void; }
@@ -131,9 +131,9 @@
     ) @argumentList
     (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
     (#child-range! @argumentList 1 -2)
-  ) @namedFunction.start @_.domain.start @argumentOrParameter.iteration.domain.start
+  ) @namedFunction.start @argumentList.domain.start @argumentOrParameter.iteration.domain.start
   .
-  ";"? @namedFunction.end @_.domain.end @argumentOrParameter.iteration.domain.end
+  ";"? @namedFunction.end @argumentList.domain.end @argumentOrParameter.iteration.domain.end
 )
 
 ;;!! class Foo { public foo = function () {}; }
@@ -148,9 +148,9 @@
       (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
       (#child-range! @argumentList 1 -2)
     )
-  ) @namedFunction.start @_.domain.start @argumentOrParameter.iteration.domain.start
+  ) @namedFunction.start @argumentList.domain.start @argumentOrParameter.iteration.domain.start
   .
-  ";"? @namedFunction.end @_.domain.end @argumentOrParameter.iteration.domain.end
+  ";"? @namedFunction.end @argumentList.domain.end @argumentOrParameter.iteration.domain.end
 )
 
 ;;!! class Foo { public foo = function* () {}; }
@@ -165,9 +165,9 @@
       (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
       (#child-range! @argumentList 1 -2)
     )
-  ) @namedFunction.start @_.domain.start @argumentOrParameter.iteration.domain.start
+  ) @namedFunction.start @argumentList.domain.start @argumentOrParameter.iteration.domain.start
   .
-  ";"? @namedFunction.end @_.domain.end @argumentOrParameter.iteration.domain.end
+  ";"? @namedFunction.end @argumentList.domain.end @argumentOrParameter.iteration.domain.end
 )
 
 ;;!! class Foo { public foo = () => {}; }
@@ -181,9 +181,9 @@
       (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
       (#child-range! @argumentList 1 -2)
     )
-  ) @namedFunction.start @_.domain.start @argumentOrParameter.iteration.domain.start
+  ) @namedFunction.start @argumentList.domain.start @argumentOrParameter.iteration.domain.start
   .
-  ";"? @namedFunction.end @_.domain.end @argumentOrParameter.iteration.domain.end
+  ";"? @namedFunction.end @argumentList.domain.end @argumentOrParameter.iteration.domain.end
 )
 
 (_
