@@ -138,7 +138,7 @@
   (#not-parent-type? @namedFunction export_statement)
 )
 
-;;!! (let | const) foo = function () {}
+;;!! (let | const | var) foo = function () {}
 (
   (_
     (variable_declarator
@@ -156,7 +156,7 @@
   (#not-parent-type? @namedFunction export_statement)
 )
 
-;;!! (let | const) foo = function* () {}
+;;!! (let | const | var) foo = function* () {}
 (
   (_
     (variable_declarator
@@ -174,7 +174,7 @@
   (#not-parent-type? @namedFunction export_statement)
 )
 
-;;!! (let | const) foo = () => {}
+;;!! (let | const | var) foo = () => {}
 (
   (_
     (variable_declarator
@@ -190,62 +190,6 @@
   ) @namedFunction @argumentList.domain @argumentOrParameter.iteration.domain
   (#not-parent-type? @namedFunction export_statement)
 )
-
-;; Note that we can't merge this with the variable declaration above because
-;; of https://github.com/tree-sitter/tree-sitter/issues/1442#issuecomment-1584628651
-
-;;!! var foo = function () {}
-;; (
-;;   (variable_declaration
-;;     (variable_declarator
-;;       (function_expression
-;;         !name
-;;         (formal_parameters
-;;           "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
-;;           ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
-;;         ) @argumentList
-;;         (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
-;;         (#child-range! @argumentList 1 -2)
-;;       )
-;;     )
-;;   ) @namedFunction @argumentList.domain @argumentOrParameter.iteration.domain
-;;   (#not-parent-type? @namedFunction export_statement)
-;; )
-
-;; ;;!! var foo = function* () {}
-;; (
-;;   (variable_declaration
-;;     (variable_declarator
-;;       (generator_function
-;;         !name
-;;         (formal_parameters
-;;           "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
-;;           ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
-;;         ) @argumentList
-;;         (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
-;;         (#child-range! @argumentList 1 -2)
-;;       )
-;;     )
-;;   ) @namedFunction @argumentList.domain @argumentOrParameter.iteration.domain
-;;   (#not-parent-type? @namedFunction export_statement)
-;; )
-
-;; ;;!! var foo = () => {}
-;; (
-;;   (variable_declaration
-;;     (variable_declarator
-;;       (arrow_function
-;;         (formal_parameters
-;;           "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
-;;           ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
-;;         ) @argumentList
-;;         (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
-;;         (#child-range! @argumentList 1 -2)
-;;       )
-;;     )
-;;   ) @namedFunction @argumentList.domain @argumentOrParameter.iteration.domain
-;;   (#not-parent-type? @namedFunction export_statement)
-;; )
 
 ;; --------------------------------------------------------------------------
 
