@@ -60,7 +60,7 @@
 (call_expression
   function: (_) @functionCallee
   (arguments
-    (_)* @argumentOrParameter
+    (_) @argumentOrParameter
   ) @argumentList
   (#child-range! @argumentList 1 -2)
 ) @functionCall @functionCallee.domain @argumentList.domain
