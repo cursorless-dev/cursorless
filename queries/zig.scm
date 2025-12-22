@@ -76,7 +76,7 @@
     (_)? @_.trailing.startOf
   )
   (#not-type? @argumentOrParameter "comment")
-  (#single-or-multi-line-delimiter! @argumentOrParameter argumentOrParameter_dummy ", " ",\n")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @argumentOrParameter ", " ",\n")
 )
 
 (statement) @statement
@@ -87,8 +87,8 @@
 ;;!                            ^^^^^    value
 ;;!  --------------------------------   statement ^domain
 (variable_declaration
-  (identifier) @name
-  type: (_)? @type
+  (identifier) @name @type.leading.endOf
+  type: (_)? @type @name.leading.endOf
   "="
   (_) @value
   ";"
