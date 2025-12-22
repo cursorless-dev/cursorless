@@ -25,7 +25,7 @@
     (_)? @_.trailing.startOf
   ) @_dummy
   (#not-type? @argumentOrParameter "comment")
-  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @argumentOrParameter ", " ",\n")
 )
 
 ;;!! fn foo(aa: u8, bb:u8) void {}
@@ -76,7 +76,7 @@
     (_)? @_.trailing.startOf
   )
   (#not-type? @argumentOrParameter "comment")
-  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+  (#single-or-multi-line-delimiter! @argumentOrParameter argumentOrParameter_dummy ", " ",\n")
 )
 
 (statement) @statement
