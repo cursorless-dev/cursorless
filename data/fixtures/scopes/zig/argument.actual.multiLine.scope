@@ -3,3 +3,18 @@ foo(
     bbb
 );
 ---
+
+[Content] =
+[Domain] = 1:4-1:7
+      >---<
+1|     aaa,
+
+[Removal] = 1:0-1:7
+  >-------<
+1|     aaa,
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     aaa,
+
+[Insertion delimiter] = " "

@@ -12,7 +12,7 @@
 ;;!             ^^                 type
 ;;!         ^^^^^^                 argumentOrParameter ^domain
 ;;!  ----------------------        ^domain
-(function_declaration
+(_
   (parameters
     (_)? @_.leading.endOf
     .
@@ -26,7 +26,7 @@
   ) @_dummy
   (#not-type? @argumentOrParameter "comment")
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
-) @argumentOrParameter.domain @_.domain
+)
 
 ;;!! fn foo(aa: u8, bb:u8) void {}
 ;;!         ^^^^^^^^^^^^^          argumentList
@@ -36,18 +36,48 @@
   (#child-range! @argumentList 1 -2)
 ) @argumentList.domain
 
-;;!! foo(aa, bb);
+;;!! fn foo(aa: u8, bb:u8) void {}
+;;!         ^^^^^^^^^^^^^
+(_
+  (parameters
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
+) @argumentList.domain @argumentOrParameter.iteration.domain
+
+;; (parameters
+;;   "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+;;   ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+;; )
+
+;;!! foo(aaa, bbb);
 ;;!  ^^^            functionCallee
-;;!      ^^^^^^     argumentList
 ;;!      ^^  ^^     argumentOrParameter
-;;!  -----------    functionCall ^domain
+;;!      ^^^^^^     argumentList
+;;!  -----------    functionCall argumentList.domain
 (call_expression
   function: (_) @functionCallee
   (arguments
     (_)* @argumentOrParameter
-  ) @argumentList @_.domain
+  ) @argumentList
   (#child-range! @argumentList 1 -2)
-) @functionCall @_.domain
+) @functionCall @functionCallee.domain @argumentList.domain
+
+;;!! foo(aaa, bbb);
+;;!      ^^^  ^^^
+(
+  (arguments
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  )
+  (#not-type? @argumentOrParameter "comment")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
 
 (statement) @statement
 
