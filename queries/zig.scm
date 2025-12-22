@@ -23,7 +23,7 @@
     ) @argumentOrParameter @_.domain
     .
     (_)? @_.trailing.startOf
-  ) @_dummy
+  )
   (#not-type? @argumentOrParameter "comment")
   (#single-or-multi-line-delimiter! @argumentOrParameter @argumentOrParameter ", " ",\n")
 )
@@ -67,17 +67,17 @@
 
 ;;!! foo(aaa, bbb);
 ;;!      ^^^  ^^^
-(
+(_
   (arguments
-    (_)? @_.leading.endOf
+    (_)? @_.leading.endOf @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
     .
     (_) @argumentOrParameter
     .
-    (_)? @_.trailing.startOf
-  )
+    (_)? @_.trailing.startOf @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
   (#not-type? @argumentOrParameter "comment")
   (#single-or-multi-line-delimiter! @argumentOrParameter @argumentOrParameter ", " ",\n")
-)
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
 (statement) @statement
 

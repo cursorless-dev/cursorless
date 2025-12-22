@@ -12,12 +12,10 @@ export const zigScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal.iteration": supported,
   "argument.actual.singleLine": supported,
   "argument.actual.multiLine": supported,
-  "argument.actual.iteration": supported,
   "argumentList.formal.singleLine": supported,
   "argumentList.formal.multiLine": supported,
   "argumentList.formal.empty": supported,
   "argumentList.actual.singleLine": supported,
-  "argumentList.actual.multiLine": supported,
   "argumentList.actual.empty": supported,
   "statement.assignment": supported,
   "name.assignment": supported,
@@ -25,11 +23,14 @@ export const zigScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal": supported,
   "value.assignment": supported,
   "type.argument.formal": supported,
-  "type.argument.formal.iteration": supported,
   "type.return": supported,
   "type.variable": supported,
 
   /* UNSUPPORTED  */
+
+  "argument.actual.iteration": unsupported,
+  "argumentList.actual.multiLine": unsupported,
+  "type.argument.formal.iteration": unsupported,
 
   list: unsupported,
 
