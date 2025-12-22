@@ -3,7 +3,7 @@
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "moduleDetection": "force",
-    "target": "es6",
+    "target": "es2022",
     "lib": ["es2022"],
     "emitDeclarationOnly": true,
     "declarationMap": true,
