@@ -14,17 +14,28 @@ import type {
   ComplexScopeType,
   ScopeIteratorRequirements,
 } from "../scopeHandler.types";
-import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
+import type { TreeSitterScopeHandler } from "../TreeSitterScopeHandler";
 
 export class InteriorScopeHandler extends BaseScopeHandler {
+  public readonly scopeType = { type: "interior" } as const;
   protected isHierarchical = true;
 
-  constructor(
-    private scopeHandlerFactory: ScopeHandlerFactory,
-    private languageDefinitions: LanguageDefinitions,
-    public readonly scopeType: ScopeType,
-    private languageId: string,
-  ) {
+  static maybeCreate(
+    languageDefinitions: LanguageDefinitions,
+    languageId: string,
+  ): InteriorScopeHandler | undefined {
+    const scopeHandler = languageDefinitions
+      .get(languageId)
+      ?.getScopeHandler({ type: "interior" });
+
+    if (scopeHandler == null) {
+      return undefined;
+    }
+
+    return new InteriorScopeHandler(scopeHandler);
+  }
+
+  private constructor(private scopeHandler: TreeSitterScopeHandler) {
     super();
   }
 
@@ -40,15 +51,7 @@ export class InteriorScopeHandler extends BaseScopeHandler {
     direction: Direction,
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
-    const scopeHandler = this.languageDefinitions
-      .get(this.languageId)
-      ?.getScopeHandler(this.scopeType);
-
-    if (scopeHandler == null) {
-      return;
-    }
-
-    const scopes = scopeHandler.generateScopes(
+    const scopes = this.scopeHandler.generateScopes(
       editor,
       position,
       direction,

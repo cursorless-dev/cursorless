@@ -38,7 +38,7 @@ const rootConfig: ConfigWithExtends = {
 
   languageOptions: {
     parser: tsEslint.parser,
-    ecmaVersion: 6,
+    ecmaVersion: 2022,
     sourceType: "module",
     parserOptions: {
       projectService: true,
@@ -137,6 +137,7 @@ const disabledTypeCheckConfig: ConfigWithExtends = {
     "**/docusaurus.config.mts",
     "**/eslint.config.mts",
     "**/mdx-components.tsx",
+    "prettier.config.cjs",
     "typings/**",
     "**/*.js",
     "**/*.mjs",
