@@ -207,9 +207,14 @@
   (tuple_expression)
 ] @list
 
+;;!! match value {}
 (match_expression
   value: (_) @value
-) @_.domain
+  body: (_
+    "{" @branch.iteration.start.endOf
+    "}" @branch.iteration.end.startOf
+  )
+) @value.domain @branch.iteration.domain
 
 ;;!! #[derive(Debug)]
 ;;!  ^^^^^^^^^^^^^^^^
@@ -265,6 +270,13 @@
   value: (_) @value
 ) @_.domain
 
+(expression_statement
+  (assignment_expression
+    left: (_) @name @value.leading.start.endOf
+    right: (_) @value @name.trailing.start.startOf
+  )
+) @_.domain
+
 ;;!! #[cfg_attr(feature = "foo")]
 ;;!             ^^^^^^^
 ;;!                       ^^^^^
@@ -275,8 +287,10 @@
 
 ;;!! return 2;
 ;;!         ^
-(return_expression
-  (_) @value
+(expression_statement
+  (return_expression
+    (_) @value
+  )
 ) @_.domain
 
 ;; Implicit return value at end of function body
@@ -477,6 +491,12 @@
 (where_clause
   "where" @type.iteration.start.endOf
 ) @type.iteration.end.endOf @type.iteration.domain
+
+;;!! for v in values {}
+(for_expression
+  pattern: (_) @name
+  value: (_) @value
+) @_.domain
 
 operator: [
   "<"
