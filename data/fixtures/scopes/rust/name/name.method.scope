@@ -2,3 +2,44 @@ impl Foo {
     fn bar() {}
 }
 ---
+
+[#1 Content] = 0:5-0:8
+       >---<
+0| impl Foo {
+
+[#1 Removal] = 0:5-0:9
+       >----<
+0| impl Foo {
+
+[#1 Leading delimiter] = 0:4-0:5
+      >-<
+0| impl Foo {
+
+[#1 Trailing delimiter] = 0:8-0:9
+          >-<
+0| impl Foo {
+
+[#1 Domain] = 0:0-2:1
+  >----------
+0| impl Foo {
+1|     fn bar() {}
+2| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] = 1:7-1:10
+         >---<
+1|     fn bar() {}
+
+[#2 Leading delimiter] = 1:6-1:7
+        >-<
+1|     fn bar() {}
+
+[#2 Domain] = 1:4-1:15
+      >-----------<
+1|     fn bar() {}
+
+[#2 Insertion delimiter] = " "

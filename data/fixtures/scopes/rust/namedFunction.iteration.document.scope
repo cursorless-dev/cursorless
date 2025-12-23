@@ -1,4 +1,12 @@
 
-impl Foo {}
+fn foo() {}
 
 ---
+
+[Content] =
+[Domain] = 0:0-2:0
+  >
+0|
+1| fn foo() {}
+2|
+   <

@@ -9,10 +9,8 @@
       (attribute_item)
       (const_item)
       (empty_statement)
-      (enum_item)
       (extern_crate_declaration)
       (foreign_mod_item)
-      (impl_item)
       (inner_attribute_item)
       (let_declaration)
       (macro_definition)
@@ -21,7 +19,6 @@
       (function_signature_item)
       (mod_item)
       (static_item)
-      (struct_item)
       (trait_item)
       (type_item)
       (union_item)
@@ -30,6 +27,15 @@
     ] @statement
   ) @_dummy
   (#type? @_dummy source_file block declaration_list)
+)
+
+(
+  (source_file) @statement.iteration @class.iteration @namedFunction.iteration
+  (#document-range! @statement.iteration @class.iteration @namedFunction.iteration)
+)
+(
+  (source_file) @name.iteration @type.iteration @value.iteration
+  (#document-range! @name.iteration @value.iteration @type.iteration)
 )
 
 ;;!! if v < 0 {}
@@ -97,23 +103,42 @@
 ] @comment @textFragment
 
 [
-  (struct_item
-    name: (_) @name
-  )
-  (enum_item
-    name: (_) @name
-  )
-] @class @_.domain
+  (struct_item)
+  (impl_item)
+  (enum_item)
+  (trait_item)
+] @statement @class @type
 
-(struct_expression) @class
+;;!! struct Foo {}
+(struct_item
+  name: (_) @name
+) @name.domain
 
+;;!! impl Foo {}
+(impl_item
+  type: (_) @name
+) @name.domain
+
+;;!! enum Foo {}
+(enum_item
+  name: (_) @name
+) @name.domain
+
+;;!! mod foo {}
+(mod_item
+  name: (_) @name
+) @name.domain
+
+;;!! enum Foo { Bar, Baz }
+;;!             ^^^  ^^^
 (enum_variant
   name: (_) @name
-) @_.domain
+) @name.domain
 
+;;!! trait Foo {}
 (trait_item
   name: (_) @name
-) @_.domain
+) @name.domain
 
 ;;!! fn foo() {}
 ;;!  ^^^^^^^^^^^
@@ -126,7 +151,7 @@
 (function_item
   parameters: (_) @_.leading.endOf
   return_type: (_)? @type
-) @_.domain
+) @type.domain
 
 ;;!! fn foo<T: Display>() {}
 ;;!         ^
@@ -152,10 +177,11 @@
   )
 ) @_.domain
 
+;;!! struct Foo { bar: u8 }
 (field_declaration
   name: (_) @name @type.leading.endOf
   type: (_) @type
-) @_.domain
+) @statement @_.domain
 
 ;;!! (t: &T, u: &U)
 ;;!   ^      ^
@@ -315,16 +341,6 @@
 ;;!! match value { 5 => {} }
 ;;!                ^^^^^^^
 (match_arm) @branch
-
-[
-  (struct_item)
-  (trait_item)
-  (impl_item)
-] @type
-
-(impl_item
-  type: (_) @type
-)
 
 (array_type
   element: (_) @type
