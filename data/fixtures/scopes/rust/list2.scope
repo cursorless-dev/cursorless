@@ -2,16 +2,16 @@ let foo = (1, "2", true);
 ---
 
 [Content] =
-[Domain] = 0:8-0:26
-          >------------------<
-0| let t = (1, "hello", true);
+[Domain] = 0:10-0:24
+            >--------------<
+0| let foo = (1, "2", true);
 
-[Removal] = 0:7-0:26
-         >-------------------<
-0| let t = (1, "hello", true);
+[Removal] = 0:9-0:24
+           >---------------<
+0| let foo = (1, "2", true);
 
-[Leading delimiter] = 0:7-0:8
-         >-<
-0| let t = (1, "hello", true);
+[Leading delimiter] = 0:9-0:10
+           >-<
+0| let foo = (1, "2", true);
 
 [Insertion delimiter] = " "

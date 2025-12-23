@@ -2,3 +2,17 @@ impl Foo {
     fn bar(&self, aaa: i32, bbb: i32) {}
 }
 ---
+
+[#1 Content] =
+[#1 Domain] = 0:0-2:1
+  >----------
+0| impl Foo {
+1|     fn bar(&self, aaa: i32, bbb: i32) {}
+2| }
+   -<
+
+
+[#2 Content] =
+[#2 Domain] = 1:11-1:36
+             >-------------------------<
+1|     fn bar(&self, aaa: i32, bbb: i32) {}
