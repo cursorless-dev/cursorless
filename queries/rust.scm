@@ -202,6 +202,8 @@
 
 (closure_expression) @anonymousFunction
 
+;;!! let foo = [1, 2, 3];
+;;!! let foo = (1, "2", true);
 [
   (array_expression)
   (tuple_expression)

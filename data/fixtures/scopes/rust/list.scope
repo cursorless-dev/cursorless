@@ -1,0 +1,17 @@
+let foo = [1, 2, 3];
+---
+
+[Content] =
+[Domain] = 0:8-0:14
+          >------<
+0| let a = [1, 2];
+
+[Removal] = 0:7-0:14
+         >-------<
+0| let a = [1, 2];
+
+[Leading delimiter] = 0:7-0:8
+         >-<
+0| let a = [1, 2];
+
+[Insertion delimiter] = " "
