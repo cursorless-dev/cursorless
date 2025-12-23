@@ -6,7 +6,6 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   disqualifyDelimiter: supported,
   anonymousFunction: supported,
-  list: supported,
 
   "argument.actual.singleLine": supported,
   "argument.actual.multiLine": supported,
@@ -304,6 +303,7 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "type.foreach": notApplicable,
   "class.iteration.block": notApplicable,
   "value.variable.pattern": notApplicable,
+  list: notApplicable,
   environment: notApplicable,
   regularExpression: notApplicable,
   selector: notApplicable,

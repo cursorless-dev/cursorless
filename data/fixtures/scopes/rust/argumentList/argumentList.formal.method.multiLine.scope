@@ -6,3 +6,34 @@ impl Foo {
     ) {}
 }
 ---
+
+[Content] = 2:8-4:16
+          >------
+2|         &self,
+3|         aaa: i32,
+4|         bbb: i32
+   ----------------<
+
+[Removal] = 1:11-5:4
+             >
+1|     fn bar(
+2|         &self,
+3|         aaa: i32,
+4|         bbb: i32
+5|     ) {}
+   ----<
+
+[Leading delimiter] = 2:0-2:8
+  >--------<
+2|         &self,
+
+[Domain] = 1:4-5:8
+      >-------
+1|     fn bar(
+2|         &self,
+3|         aaa: i32,
+4|         bbb: i32
+5|     ) {}
+   --------<
+
+[Insertion delimiter] = ",\n"

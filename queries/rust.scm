@@ -41,7 +41,7 @@
 ;;!! if v < 0 {}
 ;;!  ^^^^^^^^^^^
 (
-  (if_expression) @ifStatement @statement
+  (if_expression) @ifStatement @statement @branch.iteration
   (#not-parent-type? @ifStatement else_clause)
 )
 
@@ -211,10 +211,10 @@
 (match_expression
   value: (_) @value
   body: (_
-    "{" @branch.iteration.start.endOf
-    "}" @branch.iteration.end.startOf
+    "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
+    "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
   )
-) @value.domain @branch.iteration.domain
+) @value.domain @branch.iteration.domain @condition.iteration.domain
 
 ;;!! #[derive(Debug)]
 ;;!  ^^^^^^^^^^^^^^^^
@@ -268,6 +268,15 @@
   pattern: (_) @name @type.leading.endOf
   type: (_) @type @value.leading.start.endOf
   value: (_) @value
+) @_.domain
+
+;;!! let foo: u8;
+;;!      ^^^
+;;!            ^
+(let_declaration
+  pattern: (_) @name @type.leading.endOf
+  type: (_) @type
+  !value
 ) @_.domain
 
 (expression_statement
@@ -329,6 +338,13 @@
   )
 )
 
+;;!! |x| x + 1
+;;!     ^^^^^^
+(closure_expression
+  body: (_) @value
+  (#not-type? @value block)
+)
+
 ;;!! while v < 0 {}
 ;;!        ^^^^^
 (while_expression
@@ -354,7 +370,9 @@
 
 ;;!! match value { 5 => {} }
 ;;!                ^^^^^^^
-(match_arm) @branch
+(match_arm
+  pattern: (_) @condition
+) @branch @condition.domain
 
 (array_type
   element: (_) @type
@@ -362,7 +380,7 @@
 ;;!! fn foo(a: u32, b: u32) -> {}
 ;;!         ^^^^^^  ^^^^^^
 (_
-  (parameters
+  parameters: (_
     (_)? @_.leading.endOf
     .
     (_) @argumentOrParameter
@@ -375,11 +393,18 @@
 ;;!! fn foo(a: u32, b: u32) -> {}
 ;;!         ^^^^^^^^^^^^^^
 (_
-  (parameters
-    "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
-    ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
-  ) @_dummy
-  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+  parameters: (_
+    [
+      "("
+      "|"
+    ] @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    [
+      ")"
+      "|"
+    ] @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;;!! foo(aaa, bbb)
@@ -399,10 +424,11 @@
 ;;!      ^^^^^^^^
 (_
   (arguments
-    "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
-    ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
-  ) @_dummy
-  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;;!! enum E { C(u16, u16) }
@@ -496,6 +522,37 @@
 (for_expression
   pattern: (_) @name
   value: (_) @value
+) @_.domain
+
+;;!! type Foo = Bar;
+(type_item
+  name: (_) @value.leading.endOf
+  type: (_) @value
+) @type @value.domain
+
+;;!! let foo: Foo<i32, u64>;
+;;!               ^^^  ^^^
+(generic_type
+  (type_arguments
+    (_)? @_.leading.endOf
+    .
+    (_) @type
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @type @_dummy ", " ",\n")
+)
+
+;;!! <i32, u64>;
+(type_arguments
+  "<" @type.iteration.start.endOf
+  ">" @type.iteration.end.startOf
+)
+
+;;!! foo as i32
+(type_cast_expression
+  value: (_) @type.leading.endOf
+  type: (_) @type
 ) @_.domain
 
 operator: [

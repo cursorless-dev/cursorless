@@ -5,12 +5,12 @@ export type For = Bar;
                     >---<
 0| export type For = Bar;
 
-[Removal] = 0:17-0:21
-                   >----<
+[Removal] = 0:15-0:21
+                 >------<
 0| export type For = Bar;
 
-[Leading delimiter] = 0:17-0:18
-                   >-<
+[Leading delimiter] = 0:15-0:18
+                 >---<
 0| export type For = Bar;
 
 [Domain] = 0:0-0:22
