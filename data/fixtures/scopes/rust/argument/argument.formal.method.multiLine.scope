@@ -1,0 +1,8 @@
+impl Foo {
+    fn bar(
+        &self,
+        aaa: i32,
+        bbb: i32
+    ) {}
+}
+---
