@@ -1,0 +1,10 @@
+function *foo(aaa, bbb) {}
+---
+
+[Content] = 0:14-0:22
+                >--------<
+0| function *foo(aaa, bbb) {}
+
+[Domain] = 0:0-0:26
+  >--------------------------<
+0| function *foo(aaa, bbb) {}

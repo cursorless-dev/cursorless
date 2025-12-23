@@ -1,0 +1,18 @@
+class Foo {
+    @baz
+    bar() {}
+}
+---
+
+[Content] =
+[Removal] = 2:8-2:8
+          ><
+2|     bar() {}
+
+[Domain] = 1:4-2:12
+      >----
+1|     @baz
+2|     bar() {}
+   ------------<
+
+[Insertion delimiter] = ""

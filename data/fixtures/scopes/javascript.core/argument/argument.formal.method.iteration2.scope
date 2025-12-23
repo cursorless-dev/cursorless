@@ -1,0 +1,15 @@
+class Foo {
+    @baz
+    bar(aaa, bbb) {}
+}
+---
+
+[Content] = 2:8-2:16
+          >--------<
+2|     bar(aaa, bbb) {}
+
+[Domain] = 1:4-2:20
+      >----
+1|     @baz
+2|     bar(aaa, bbb) {}
+   --------------------<

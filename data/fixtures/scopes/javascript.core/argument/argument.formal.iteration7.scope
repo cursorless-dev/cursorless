@@ -1,0 +1,10 @@
+export function *foo(aaa, bbb) {}
+---
+
+[Content] = 0:21-0:29
+                       >--------<
+0| export function *foo(aaa, bbb) {}
+
+[Domain] = 0:0-0:33
+  >---------------------------------<
+0| export function *foo(aaa, bbb) {}
