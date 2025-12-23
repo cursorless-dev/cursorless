@@ -78,56 +78,112 @@
   )
 ) @_.domain
 
+;; Define these here because these node types don't exist in javascript.
+
+;;!! function foo();
 (
-  ;;!! function foo();
-  ;;!  ^^^^^^^^^^^^^^^
-  (function_signature) @namedFunction
+  (function_signature
+    (formal_parameters
+      "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+      ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+    ) @argumentList
+    (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+    (#child-range! @argumentList 1 -2)
+  ) @namedFunction @argumentList.domain @argumentOrParameter.iteration.domain
   (#not-parent-type? @namedFunction export_statement)
 )
 
+;;!! export function foo();
 (export_statement
-  (function_signature)
-) @namedFunction
+  (function_signature
+    (formal_parameters
+      "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+      ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+    ) @argumentList
+    (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+    (#child-range! @argumentList 1 -2)
+  )
+) @namedFunction @argumentList.domain @argumentOrParameter.iteration.domain
 
-;; Define these here because these node types don't exist in javascript.
+;;!! class Foo { foo(): void; }
+;;!! interface Foo { foo(): void; }
 (_
-  [
-    ;;!! class Foo { foo() {} }
-    ;;!              ^^^^^^^^
-    ;;!! interface Foo { foo(): void; }
-    ;;!                  ^^^^^^^^^^^^
-    (method_signature
-      name: (_) @name
-    )
-
-    ;;!! class Foo { abstract foo(): void; }
-    ;;!              ^^^^^^^^^^^^^^^^^^^^^
-    (abstract_method_signature
-      name: (_) @name
-    )
-
-    ;;!! class Foo {
-    ;;!!   (public | private | protected) foo = () => {};
-    ;;!                                   ^^^^^^^^^^^^^^^
-    ;;!!   (public | private | protected) foo = function() {};
-    ;;!                                   ^^^^^^^^^^^^^^^^^^^^
-    ;;!!   (public | private | protected) foo = function *() {};
-    ;;!                                   ^^^^^^^^^^^^^^^^^^^^^^
-    ;;!! }
-    (public_field_definition
-      value: [
-        (function_expression
-          !name
-        )
-        (generator_function
-          !name
-        )
-        (arrow_function)
-      ]
-    )
-  ] @namedFunction.start @name.domain.start
+  (method_signature
+    name: (_) @name
+    (formal_parameters
+      "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+      ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+    ) @argumentList
+    (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+    (#child-range! @argumentList 1 -2)
+  ) @namedFunction.start @_.domain.start @argumentOrParameter.iteration.domain.start
   .
-  ";"? @namedFunction.end @name.domain.end
+  ";"? @namedFunction.end @_.domain.end @argumentOrParameter.iteration.domain.end
+)
+
+;;!! class Foo { abstract foo(): void; }
+(class_body
+  (abstract_method_signature
+    name: (_) @name
+    (formal_parameters
+      "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+      ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+    ) @argumentList
+    (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+    (#child-range! @argumentList 1 -2)
+  ) @namedFunction.start @_.domain.start @argumentOrParameter.iteration.domain.start
+  .
+  ";"? @namedFunction.end @_.domain.end @argumentOrParameter.iteration.domain.end
+)
+
+;;!! class Foo { public foo = function () {}; }
+(class_body
+  (public_field_definition
+    (function_expression
+      !name
+      (formal_parameters
+        "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+        ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+      ) @argumentList
+      (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+      (#child-range! @argumentList 1 -2)
+    )
+  ) @namedFunction.start @argumentList.domain.start @argumentOrParameter.iteration.domain.start
+  .
+  ";"? @namedFunction.end @argumentList.domain.end @argumentOrParameter.iteration.domain.end
+)
+
+;;!! class Foo { public foo = function* () {}; }
+(class_body
+  (public_field_definition
+    (generator_function
+      !name
+      (formal_parameters
+        "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+        ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+      ) @argumentList
+      (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+      (#child-range! @argumentList 1 -2)
+    )
+  ) @namedFunction.start @argumentList.domain.start @argumentOrParameter.iteration.domain.start
+  .
+  ";"? @namedFunction.end @argumentList.domain.end @argumentOrParameter.iteration.domain.end
+)
+
+;;!! class Foo { public foo = () => {}; }
+(class_body
+  (public_field_definition
+    (arrow_function
+      (formal_parameters
+        "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+        ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+      ) @argumentList
+      (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+      (#child-range! @argumentList 1 -2)
+    )
+  ) @namedFunction.start @argumentList.domain.start @argumentOrParameter.iteration.domain.start
+  .
+  ";"? @namedFunction.end @argumentList.domain.end @argumentOrParameter.iteration.domain.end
 )
 
 (_

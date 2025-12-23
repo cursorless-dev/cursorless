@@ -1,0 +1,13 @@
+const foo = function bar() {};
+---
+
+[Content] =
+[Removal] = 0:25-0:25
+                           ><
+0| const foo = function bar() {};
+
+[Domain] = 0:12-0:29
+              >-----------------<
+0| const foo = function bar() {};
+
+[Insertion delimiter] = ""

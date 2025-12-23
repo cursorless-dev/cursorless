@@ -807,17 +807,6 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
-;;!! function foo(aaa, bbb) {}
-;;!               ^^^^^^^^
-(_
-  (formal_parameters
-    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
-    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
-  ) @argumentList
-  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
-  (#child-range! @argumentList 1 -2)
-) @argumentList.domain @argumentOrParameter.iteration.domain
-
 (formal_parameters
   "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
   ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
