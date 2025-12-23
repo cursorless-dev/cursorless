@@ -76,6 +76,7 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.interface": supported,
   "statement.enum": supported,
   "statement.field.class": supported,
+  "statement.field.interface": supported,
   "statement.function": supported,
   "statement.method": supported,
   "statement.if": supported,
@@ -111,6 +112,7 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "name.interface": supported,
   "name.enum": supported,
   "name.field.class": supported,
+  "name.field.interface": supported,
   "name.field.enum": supported,
   "name.foreach": supported,
   "name.function": supported,
@@ -126,8 +128,6 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
 
   "value.assignment": supported,
   "value.foreach": supported,
-  "value.field.class": supported,
-  "value.field.enum": supported,
   "value.return": supported,
   "value.return.lambda": supported,
   "value.switch": supported,
@@ -145,6 +145,7 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "type.enum": supported,
   "type.interface": supported,
   "type.field.class": supported,
+  "type.field.interface": supported,
   "type.return": supported,
   "type.variable": supported,
   "type.typeArgument": supported,
@@ -279,11 +280,6 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.loop.iteration": notApplicable,
   "condition.ternary": notApplicable,
 
-  // Interface fields
-  "statement.field.interface": notApplicable,
-  "name.field.interface": notApplicable,
-  "type.field.interface": notApplicable,
-
   // Collection items without delimiters
   "collectionItem.unenclosed.singleLine": notApplicable,
   "collectionItem.unenclosed.multiLine": notApplicable,
@@ -297,8 +293,12 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   notebookCell: notApplicable,
   "interior.cell": notApplicable,
 
-  // Miscellaneous
+  // Field values
+  "value.field.enum": notApplicable,
+  "value.field.class": notApplicable,
   "value.iteration.enum": notApplicable,
+
+  // Miscellaneous
   "statement.static": notApplicable,
   "statement.misc": notApplicable,
   "type.foreach": notApplicable,
