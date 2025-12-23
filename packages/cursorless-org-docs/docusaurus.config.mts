@@ -120,9 +120,14 @@ const config: Config = {
     { rel: "shortcut icon", href: "/favicon.ico?v=1" },
   ],
   onBrokenLinks: "throw",
-  onBrokenMarkdownLinks: "throw",
   onBrokenAnchors: "throw",
   trailingSlash: true,
+
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: "throw",
+    },
+  },
 
   presets: [
     [
