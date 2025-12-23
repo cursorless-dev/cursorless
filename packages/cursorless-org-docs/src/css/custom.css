@@ -29,6 +29,11 @@
   filter: invert(90%) hue-rotate(180deg);
 }
 
+/* Necessary to make dropdown options work in dark mode */
+select {
+  background-color: var(--ifm-background-color);
+}
+
 .hidden {
   display: none;
 }
