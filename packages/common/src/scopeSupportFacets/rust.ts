@@ -75,7 +75,6 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.class": supported,
   "statement.interface": supported,
   "statement.enum": supported,
-  "statement.field.class": supported,
   "statement.field.interface": supported,
   "statement.function": supported,
   "statement.method": supported,
@@ -111,7 +110,6 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "name.class": supported,
   "name.interface": supported,
   "name.enum": supported,
-  "name.field.class": supported,
   "name.field.interface": supported,
   "name.field.enum": supported,
   "name.foreach": supported,
@@ -144,7 +142,6 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "type.class": supported,
   "type.enum": supported,
   "type.interface": supported,
-  "type.field.class": supported,
   "type.field.interface": supported,
   "type.return": supported,
   "type.variable": supported,
@@ -293,10 +290,15 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   notebookCell: notApplicable,
   "interior.cell": notApplicable,
 
-  // Field values
+  // Enum field values
   "value.field.enum": notApplicable,
-  "value.field.class": notApplicable,
   "value.iteration.enum": notApplicable,
+
+  // Class field values
+  "statement.field.class": notApplicable,
+  "name.field.class": notApplicable,
+  "value.field.class": notApplicable,
+  "type.field.class": notApplicable,
 
   // Miscellaneous
   "statement.static": notApplicable,

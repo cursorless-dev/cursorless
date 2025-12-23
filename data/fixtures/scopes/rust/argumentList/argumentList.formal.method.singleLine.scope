@@ -2,3 +2,14 @@ impl Foo {
     fn bar(&self, aaa: i32, bbb: i32) {}
 }
 ---
+
+[Content] =
+[Removal] = 1:11-1:36
+             >-------------------------<
+1|     fn bar(&self, aaa: i32, bbb: i32) {}
+
+[Domain] = 1:4-1:40
+      >------------------------------------<
+1|     fn bar(&self, aaa: i32, bbb: i32) {}
+
+[Insertion delimiter] = ", "

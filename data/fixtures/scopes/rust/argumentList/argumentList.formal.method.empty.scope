@@ -2,3 +2,14 @@ impl Foo {
     fn bar() {}
 }
 ---
+
+[Content] =
+[Removal] = 1:11-1:11
+             ><
+1|     fn bar() {}
+
+[Domain] = 1:4-1:15
+      >-----------<
+1|     fn bar() {}
+
+[Insertion delimiter] = ""

@@ -3,3 +3,42 @@ fn foo(
     bbb: i32
 ) {}
 ---
+
+[#1 Content] =
+[#1 Domain] = 1:4-1:12
+      >--------<
+1|     aaa: i32,
+
+[#1 Removal] = 1:4-2:4
+      >---------
+1|     aaa: i32,
+2|     bbb: i32
+   ----<
+
+[#1 Trailing delimiter] = 1:12-2:4
+              >-
+1|     aaa: i32,
+2|     bbb: i32
+   ----<
+
+[#1 Insertion delimiter] = ",\n"
+
+
+[#2 Content] =
+[#2 Domain] = 2:4-2:12
+      >--------<
+2|     bbb: i32
+
+[#2 Removal] = 1:12-2:12
+              >-
+1|     aaa: i32,
+2|     bbb: i32
+   ------------<
+
+[#2 Leading delimiter] = 1:12-2:4
+              >-
+1|     aaa: i32,
+2|     bbb: i32
+   ----<
+
+[#2 Insertion delimiter] = ",\n"

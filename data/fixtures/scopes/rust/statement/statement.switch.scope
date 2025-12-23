@@ -1,2 +1,10 @@
-match foo { }
+match foo {}
 ---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:12
+  >------------<
+0| match foo {}
+
+[Insertion delimiter] = "\n"

@@ -1,2 +1,13 @@
 fn foo(aaa: i32, bbb: i32) {}
 ---
+
+[Content] =
+[Removal] = 0:7-0:25
+         >------------------<
+0| fn foo(aaa: i32, bbb: i32) {}
+
+[Domain] = 0:0-0:29
+  >-----------------------------<
+0| fn foo(aaa: i32, bbb: i32) {}
+
+[Insertion delimiter] = ", "
