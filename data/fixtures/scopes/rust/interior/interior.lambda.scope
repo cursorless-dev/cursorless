@@ -1,2 +1,10 @@
 || { }
 ---
+
+[Content] =
+[Removal] =
+[Domain] = 0:4-0:5
+      >-<
+0| || { }
+
+[Insertion delimiter] = " "

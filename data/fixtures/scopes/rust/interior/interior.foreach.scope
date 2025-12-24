@@ -1,2 +1,10 @@
 for v in values { }
 ---
+
+[Content] =
+[Removal] =
+[Domain] = 0:17-0:18
+                   >-<
+0| for v in values { }
+
+[Insertion delimiter] = " "

@@ -38,10 +38,12 @@
   (#document-range! @name.iteration @value.iteration @type.iteration)
 )
 
+;;!! { }
+;;!   ^
 (_
   .
-  "{" @statement.iteration.start.endOf
-  "}" @statement.iteration.end.startOf
+  "{" @interior.start.endOf @statement.iteration.start.endOf
+  "}" @interior.end.startOf @statement.iteration.end.startOf
   .
 )
 (_
@@ -392,6 +394,14 @@
 (match_arm
   pattern: (_) @condition
 ) @branch @condition.domain
+
+;;!! match value { 5 => 0, }
+;;!                    ^^^
+(match_arm
+  "=>" @interior.start.endOf
+  value: (_) @_dummy
+  (#not-type? @_dummy block)
+) @interior.end.endOf
 
 (array_type
   element: (_) @type
