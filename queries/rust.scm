@@ -20,6 +20,9 @@
       (mod_item)
       (static_item)
       (trait_item)
+      (struct_item)
+      (impl_item)
+      (enum_item)
       (type_item)
       (union_item)
       (use_declaration)
@@ -117,17 +120,10 @@
   (block_comment)
 ] @comment @textFragment
 
-[
-  (struct_item)
-  (impl_item)
-  (enum_item)
-  (trait_item)
-] @statement @class @type
-
 ;;!! struct Foo {}
 (struct_item
   name: (_) @name
-) @name.domain
+) @class @type @name.domain
 
 ;;!! impl Foo {}
 (impl_item
@@ -147,17 +143,12 @@
     "{" @namedFunction.iteration.start.endOf
     "}" @namedFunction.iteration.end.startOf
   )
-)
+) @class @type
 
 ;;!! enum Foo {}
 (enum_item
   name: (_) @name
-) @name.domain
-
-;;!! mod foo {}
-(mod_item
-  name: (_) @name
-) @name.domain
+) @class @type @name.domain
 
 ;;!! enum Foo { Bar, Baz }
 ;;!             ^^^  ^^^
@@ -167,6 +158,11 @@
 
 ;;!! trait Foo {}
 (trait_item
+  name: (_) @name
+) @class @type @name.domain
+
+;;!! mod foo {}
+(mod_item
   name: (_) @name
 ) @name.domain
 

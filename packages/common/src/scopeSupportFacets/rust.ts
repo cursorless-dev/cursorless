@@ -299,8 +299,11 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "value.field.enum": notApplicable,
   "value.iteration.enum": notApplicable,
 
-  // Miscellaneous
+  // Static
   "statement.static": notApplicable,
+  "interior.static": notApplicable,
+
+  // Miscellaneous
   "statement.misc": notApplicable,
   "value.field.class": notApplicable,
   "type.foreach": notApplicable,
