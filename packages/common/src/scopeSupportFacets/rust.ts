@@ -73,10 +73,8 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   ifStatement: supported,
 
   "statement.class": supported,
-  "statement.interface": supported,
   "statement.enum": supported,
   "statement.field.class": supported,
-  "statement.field.interface": supported,
   "statement.function": supported,
   "statement.method": supported,
   "statement.if": supported,
@@ -91,7 +89,6 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.namespace": supported,
   "statement.iteration.document": supported,
   "statement.iteration.class": supported,
-  "statement.iteration.interface": supported,
   "statement.iteration.block": supported,
 
   "string.singleLine": supported,
@@ -109,10 +106,8 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "name.assignment": supported,
   "name.assignment.pattern": supported,
   "name.class": supported,
-  "name.interface": supported,
   "name.enum": supported,
   "name.field.class": supported,
-  "name.field.interface": supported,
   "name.field.enum": supported,
   "name.foreach": supported,
   "name.function": supported,
@@ -122,7 +117,6 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "name.variable.pattern": supported,
   "name.iteration.block": supported,
   "name.iteration.class": supported,
-  "name.iteration.interface": supported,
   "name.iteration.enum": supported,
   "name.iteration.document": supported,
 
@@ -143,9 +137,7 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.method.iteration": supported,
   "type.class": supported,
   "type.enum": supported,
-  "type.interface": supported,
   "type.field.class": supported,
-  "type.field.interface": supported,
   "type.return": supported,
   "type.variable": supported,
   "type.typeArgument": supported,
@@ -154,11 +146,9 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "type.cast": supported,
   "type.iteration.block": supported,
   "type.iteration.class": supported,
-  "type.iteration.interface": supported,
   "type.iteration.document": supported,
 
   "interior.class": supported,
-  "interior.interface": supported,
   "interior.enum": supported,
   "interior.function": supported,
   "interior.method": supported,
@@ -201,6 +191,18 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "value.argument.formal.constructor": notApplicable,
   "value.argument.formal.constructor.iteration": notApplicable,
   "interior.constructor": notApplicable,
+
+  // Interface
+  "statement.interface": notApplicable,
+  "statement.field.interface": notApplicable,
+  "statement.iteration.interface": notApplicable,
+  "name.interface": notApplicable,
+  "name.field.interface": notApplicable,
+  "name.iteration.interface": notApplicable,
+  "type.interface": notApplicable,
+  "type.field.interface": notApplicable,
+  "type.iteration.interface": notApplicable,
+  "interior.interface": notApplicable,
 
   // Element and tags
   element: notApplicable,

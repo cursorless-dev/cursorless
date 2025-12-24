@@ -13,6 +13,15 @@ impl Foo {
 
 
 [#2 Content] =
-[#2 Domain] = 1:11-1:36
+[#2 Domain] = 0:10-2:0
+            >
+0| impl Foo {
+1|     fn bar(&self, aaa: i32, bbb: i32) {}
+2| }
+   <
+
+
+[#3 Content] =
+[#3 Domain] = 1:11-1:36
              >-------------------------<
 1|     fn bar(&self, aaa: i32, bbb: i32) {}

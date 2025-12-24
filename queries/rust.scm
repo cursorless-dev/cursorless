@@ -38,6 +38,19 @@
   (#document-range! @name.iteration @value.iteration @type.iteration)
 )
 
+(_
+  .
+  "{" @statement.iteration.start.endOf
+  "}" @statement.iteration.end.startOf
+  .
+)
+(_
+  .
+  "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+  .
+)
+
 ;;!! if v < 0 {}
 ;;!  ^^^^^^^^^^^
 (
@@ -117,6 +130,10 @@
 ;;!! impl Foo {}
 (impl_item
   type: (_) @name
+  body: (_
+    "{" @namedFunction.iteration.start.endOf
+    "}" @namedFunction.iteration.end.startOf
+  )
 ) @name.domain
 
 ;;!! enum Foo {}
