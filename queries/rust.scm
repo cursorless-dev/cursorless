@@ -131,12 +131,23 @@
 
 ;;!! impl Foo {}
 (impl_item
+  !trait
   type: (_) @name
+) @name.domain
+
+;;!! impl Foo for Bar {}
+(impl_item
+  trait: (_) @name
+  type: (_) @type
+) @name.domain
+
+;;!! impl Foo {}
+(impl_item
   body: (_
     "{" @namedFunction.iteration.start.endOf
     "}" @namedFunction.iteration.end.startOf
   )
-) @name.domain
+)
 
 ;;!! enum Foo {}
 (enum_item
@@ -379,9 +390,13 @@
   value: (_) @condition.end
 ) @_.domain
 
+;;!! match value { 5 => {} }
+;;!                ^^^^^^^
+(match_arm) @branch
+
 ;;!! User { value } if value.use() => {}
 ;;!                    ^^^^^^^^^^^
-(_
+(match_arm
   (match_pattern
     (_) @_.leading.endOf
     .
@@ -392,8 +407,10 @@
 ;;!! match value { 5 => {} }
 ;;!                ^^^^^^^
 (match_arm
-  pattern: (_) @condition
-) @branch @condition.domain
+  (match_pattern
+    !condition
+  ) @condition
+) @condition.domain
 
 ;;!! match value { 5 => 0, }
 ;;!                    ^^^
