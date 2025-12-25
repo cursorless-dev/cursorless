@@ -136,7 +136,15 @@
 ;;!! for i = 1, 3 do end
 ;;!      ^^^^^^^^
 (for_statement
-  clause: (_) @condition
+  (for_numeric_clause) @condition
+) @condition.domain
+
+;;!! for v in values do end
+(for_statement
+  (for_generic_clause
+    (variable_list) @name
+    (expression_list) @value
+  )
 ) @_.domain
 
 ;; Lists and maps
