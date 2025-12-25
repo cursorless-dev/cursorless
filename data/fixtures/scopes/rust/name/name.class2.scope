@@ -1,0 +1,24 @@
+impl Foo for Bar {}
+---
+
+[Content] = 0:5-0:8
+       >---<
+0| impl Foo for Bar {}
+
+[Removal] = 0:5-0:9
+       >----<
+0| impl Foo for Bar {}
+
+[Leading delimiter] = 0:4-0:5
+      >-<
+0| impl Foo for Bar {}
+
+[Trailing delimiter] = 0:8-0:9
+          >-<
+0| impl Foo for Bar {}
+
+[Domain] = 0:0-0:19
+  >-------------------<
+0| impl Foo for Bar {}
+
+[Insertion delimiter] = " "

@@ -1,0 +1,48 @@
+struct Foo {
+    bar: i32
+}
+---
+
+[#1 Content] = 0:7-0:10
+         >---<
+0| struct Foo {
+
+[#1 Removal] = 0:7-0:11
+         >----<
+0| struct Foo {
+
+[#1 Leading delimiter] = 0:6-0:7
+        >-<
+0| struct Foo {
+
+[#1 Trailing delimiter] = 0:10-0:11
+            >-<
+0| struct Foo {
+
+[#1 Domain] = 0:0-2:1
+  >------------
+0| struct Foo {
+1|     bar: i32
+2| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:4-1:7
+      >---<
+1|     bar: i32
+
+[#2 Removal] = 1:0-1:7
+  >-------<
+1|     bar: i32
+
+[#2 Leading delimiter] = 1:0-1:4
+  >----<
+1|     bar: i32
+
+[#2 Domain] = 1:4-1:12
+      >--------<
+1|     bar: i32
+
+[#2 Insertion delimiter] = " "

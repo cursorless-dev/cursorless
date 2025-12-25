@@ -1,0 +1,25 @@
+if true {}
+else {}
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-0:10
+  >----------<
+0| if true {}
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 1:0-1:7
+  >-------<
+1| else {}
+
+[#2 Removal] = 0:10-1:7
+            >
+0| if true {}
+1| else {}
+   -------<
+
+[#2 Insertion delimiter] = "\n"

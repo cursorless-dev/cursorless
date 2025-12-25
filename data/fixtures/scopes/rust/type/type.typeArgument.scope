@@ -1,0 +1,52 @@
+let foo: Foo<i32, u64>;
+---
+
+[#1 Content] = 0:9-0:22
+           >-------------<
+0| let foo: Foo<i32, u64>;
+
+[#1 Removal] = 0:7-0:22
+         >---------------<
+0| let foo: Foo<i32, u64>;
+
+[#1 Leading delimiter] = 0:7-0:9
+         >--<
+0| let foo: Foo<i32, u64>;
+
+[#1 Domain] = 0:0-0:23
+  >-----------------------<
+0| let foo: Foo<i32, u64>;
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Domain] = 0:13-0:16
+               >---<
+0| let foo: Foo<i32, u64>;
+
+[#2 Removal] = 0:13-0:18
+               >-----<
+0| let foo: Foo<i32, u64>;
+
+[#2 Trailing delimiter] = 0:16-0:18
+                  >--<
+0| let foo: Foo<i32, u64>;
+
+[#2 Insertion delimiter] = ", "
+
+
+[#3 Content] =
+[#3 Domain] = 0:18-0:21
+                    >---<
+0| let foo: Foo<i32, u64>;
+
+[#3 Removal] = 0:16-0:21
+                  >-----<
+0| let foo: Foo<i32, u64>;
+
+[#3 Leading delimiter] = 0:16-0:18
+                  >--<
+0| let foo: Foo<i32, u64>;
+
+[#3 Insertion delimiter] = ", "
