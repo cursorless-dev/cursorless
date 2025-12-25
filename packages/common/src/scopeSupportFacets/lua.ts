@@ -5,7 +5,6 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const luaScopeSupport: LanguageScopeSupportFacetMap = {
   disqualifyDelimiter: supported,
-  pairDelimiter: supported,
   list: supported,
   map: supported,
   ifStatement: supported,
@@ -309,6 +308,7 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Miscellaneous
   "statement.misc": notApplicable,
+  pairDelimiter: notApplicable,
   environment: notApplicable,
   regularExpression: notApplicable,
   selector: notApplicable,
