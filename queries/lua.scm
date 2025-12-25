@@ -24,16 +24,6 @@
   ] @statement
   (#not-parent-type? @statement expression_list)
 )
-[
-  (block)
-  (chunk)
-] @statement.iteration @namedFunction.iteration @functionCall.iteration
-
-;; Duplicate above due to 3 label node limit
-[
-  (block)
-  (chunk)
-] @ifStatement.iteration @value.iteration @name.iteration
 
 ;; Capture assignment only if without variable prefix
 ;;!! count = count + 1
@@ -203,11 +193,11 @@
 ;;!                  xxx-
 (
   (arguments
-    (_)? @_.leading.endOf
+    (_)? @argumentOrParameter.leading.endOf
     .
     (_) @argumentOrParameter
     .
-    (_)? @_.trailing.startOf
+    (_)? @argumentOrParameter.trailing.startOf
   ) @_dummy
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
@@ -226,11 +216,11 @@
 ;;!               xxx-
 (
   (parameters
-    (_)? @_.leading.endOf
+    (_)? @argumentOrParameter.leading.endOf
     .
     (_) @argumentOrParameter @name
     .
-    (_)? @_.trailing.startOf
+    (_)? @argumentOrParameter.trailing.startOf
   ) @_dummy
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
@@ -242,7 +232,7 @@
     "(" @argumentOrParameter.iteration.start.endOf @name.iteration.start.endOf
     ")" @argumentOrParameter.iteration.end.startOf @name.iteration.end.startOf
   )
-) @argumentOrParameter.iteration.domain @name.iteration.domain
+) @argumentOrParameter.iteration.domain
 
 ;; funk name:
 ;;!! function add(x, b) return x + y end
