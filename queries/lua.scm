@@ -44,6 +44,11 @@
   (#document-range! @name.iteration @value.iteration)
 )
 
+;; Block iteration scopes
+
+(block) @statement.iteration @namedFunction.iteration
+(block) @name.iteration @value.iteration
+
 ;; Conditionals
 
 ;;!! if true then end

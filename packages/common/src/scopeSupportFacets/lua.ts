@@ -14,7 +14,6 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
   namedFunction: supported,
   "namedFunction.method": supported,
   "namedFunction.iteration.document": supported,
-  "namedFunction.iteration.class": supported,
 
   functionCall: supported,
   "functionCall.method": supported,
@@ -174,6 +173,7 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
   "type.field.class": notApplicable,
   "interior.class": notApplicable,
   "statement.iteration.class": notApplicable,
+  "namedFunction.iteration.class": notApplicable,
 
   // Interface
   "statement.interface": notApplicable,

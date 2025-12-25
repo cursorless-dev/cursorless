@@ -1,0 +1,18 @@
+while true do
+    a = 0
+end
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-2:3
+  >-------------
+0| while true do
+1|     a = 0
+2| end
+   ---<
+
+
+[#2 Content] =
+[#2 Domain] = 1:4-1:9
+      >-----<
+1|     a = 0
