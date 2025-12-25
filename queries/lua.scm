@@ -331,9 +331,34 @@ local_declaration: (variable_declaration
   )
 )
 
-;; Structures and object access
+;;!! local a, b, c
+(
+  (variable_list
+    (_)? @collectionItem.leading.endOf
+    .
+    (_) @collectionItem
+    .
+    (_)? @collectionItem.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @collectionItem @_dummy ", " ",\n")
+)
 
-;; (method_index_expression) @private.fieldAccess
+;;!! = 1, 2, 3
+(
+  (expression_list
+    (_)? @collectionItem.leading.endOf
+    .
+    (_) @collectionItem
+    .
+    (_)? @collectionItem.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @collectionItem @_dummy ", " ",\n")
+)
+
+[
+  (variable_list)
+  (expression_list)
+] @collectionItem.iteration
 
 (binary_expression
   [
