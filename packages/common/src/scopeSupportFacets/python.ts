@@ -48,7 +48,6 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "value.return": supported,
   "value.return.lambda": supported,
   "value.variable": supported,
-  "value.variable.pattern": supported,
   "value.switch": supported,
   "value.iteration.block": supported,
   "value.iteration.class": supported,
@@ -304,6 +303,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Miscellaneous
   "statement.misc": notApplicable,
+  "value.variable.pattern": notApplicable,
   environment: notApplicable,
   regularExpression: notApplicable,
   selector: notApplicable,

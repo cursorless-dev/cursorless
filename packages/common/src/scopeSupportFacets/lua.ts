@@ -63,6 +63,7 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
   "name.function": supported,
   "name.method": supported,
   "name.variable": supported,
+  "name.variable.pattern": supported,
   "name.iteration.block": supported,
   "name.iteration.document": supported,
 
@@ -308,6 +309,7 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Miscellaneous
   "statement.misc": notApplicable,
+  "value.variable.pattern": notApplicable,
   pairDelimiter: notApplicable,
   environment: notApplicable,
   regularExpression: notApplicable,
