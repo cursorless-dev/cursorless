@@ -1,12 +1,11 @@
 import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
-const { supported, notApplicable } = ScopeSupportFacetLevel;
+const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const luaScopeSupport: LanguageScopeSupportFacetMap = {
   disqualifyDelimiter: supported,
   pairDelimiter: supported,
-  fieldAccess: supported,
   list: supported,
   map: supported,
   ifStatement: supported,
@@ -128,6 +127,10 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.doWhile": supported,
   "interior.for": supported,
   "interior.foreach": supported,
+
+  /* UNSUPPORTED */
+
+  fieldAccess: unsupported,
 
   /* NOT APPLICABLE */
 

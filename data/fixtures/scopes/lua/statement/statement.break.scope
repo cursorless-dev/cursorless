@@ -1,0 +1,33 @@
+while true do
+  break
+end
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-2:3
+  >-------------
+0| while true do
+1|   break
+2| end
+   ---<
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 1:2-1:7
+    >-----<
+1|   break
+
+[#2 Removal] = 1:0-2:0
+  >-------
+1|   break
+2| end
+   <
+
+[#2 Leading delimiter] = 1:0-1:2
+  >--<
+1|   break
+
+[#2 Insertion delimiter] = "\n"

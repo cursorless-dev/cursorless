@@ -127,6 +127,12 @@
   condition: (_) @condition
 ) @_.domain
 
+;;!! for i = 1, 3 do end
+;;!      ^^^^^^^^
+(for_statement
+  clause: (_) @condition
+) @_.domain
+
 ;; Lists and maps
 (table_constructor
   (field
