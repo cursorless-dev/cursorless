@@ -122,7 +122,9 @@
 ;;!        ^^^^
 (while_statement
   condition: (_) @condition
-) @_.domain
+  "do" @interior.start.endOf
+  "end" @interior.end.startOf
+) @condition.domain
 
 ;;!! repeat
 ;;!! ...
@@ -130,8 +132,10 @@
 ;;!        ^^^^^
 ;;!        xxxxx
 (repeat_statement
+  "repeat" @interior.start.endOf
+  "until" @interior.end.startOf
   condition: (_) @condition
-) @_.domain
+) @condition.domain
 
 ;;!! for i = 1, 3 do end
 ;;!      ^^^^^^^^
@@ -146,6 +150,11 @@
     (expression_list) @value
   )
 ) @_.domain
+
+(for_statement
+  "do" @interior.start.endOf
+  "end" @interior.end.startOf
+)
 
 ;; Lists and maps
 (table_constructor
