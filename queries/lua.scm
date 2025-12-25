@@ -43,6 +43,17 @@
   (#not-parent-type? @statement variable_declaration)
 )
 
+;; Document iteration scopes
+
+(
+  (chunk) @statement.iteration @namedFunction.iteration
+  (#document-range! @statement.iteration @namedFunction.iteration)
+)
+(
+  (chunk) @name.iteration @value.iteration
+  (#document-range! @name.iteration @value.iteration)
+)
+
 ;; Conditionals
 
 ;;!! if true then end
@@ -187,9 +198,9 @@
   name: (_) @functionCallee
 ) @_.domain @functionCall
 
-;;!!local sum = add(5, 7)
-;;!                 ^---
-;;!                 xxx-
+;;!! local sum = add(5, 7)
+;;!                  ^---
+;;!                  xxx-
 (
   (arguments
     (_)? @_.leading.endOf
@@ -201,33 +212,37 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
-;;!!local sum = add(5, 7)
-;;!                 ****
-(arguments
-  "(" @argumentOrParameter.iteration.start.endOf
-  ")" @argumentOrParameter.iteration.end.startOf
-)
+;;!! local sum = add(5, 7)
+;;!                  ****
+(function_call
+  (arguments
+    "(" @argumentOrParameter.iteration.start.endOf
+    ")" @argumentOrParameter.iteration.end.startOf
+  )
+) @argumentOrParameter.iteration.domain
 
-;;!!function add(5, 7)
-;;!              ^---
-;;!              xxx-
+;;!! function add(5, 7)
+;;!               ^---
+;;!               xxx-
 (
   (parameters
     (_)? @_.leading.endOf
     .
-    (_) @argumentOrParameter
+    (_) @argumentOrParameter @name
     .
     (_)? @_.trailing.startOf
   ) @_dummy
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
-;;!!function add(5, 7)
-;;!              ****
-(parameters
-  "(" @argumentOrParameter.iteration.start.endOf
-  ")" @argumentOrParameter.iteration.end.startOf
-)
+;;!! function add(5, 7)
+;;!               ****
+(_
+  (parameters
+    "(" @argumentOrParameter.iteration.start.endOf @name.iteration.start.endOf
+    ")" @argumentOrParameter.iteration.end.startOf @name.iteration.end.startOf
+  )
+) @argumentOrParameter.iteration.domain @name.iteration.domain
 
 ;; funk name:
 ;;!! function add(x, b) return x + y end

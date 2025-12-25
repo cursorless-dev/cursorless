@@ -1,0 +1,20 @@
+
+function foo() end
+
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-2:0
+  >
+0|
+1| function foo() end
+2|
+   <
+
+
+[#2 Content] =
+[#2 Domain] = 1:0-2:0
+  >------------------
+1| function foo() end
+2|
+   <
