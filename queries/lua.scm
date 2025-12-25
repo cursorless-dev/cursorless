@@ -24,16 +24,6 @@
   ] @statement
   (#not-parent-type? @statement expression_list)
 )
-[
-  (block)
-  (chunk)
-] @statement.iteration @namedFunction.iteration @functionCall.iteration
-
-;; Duplicate above due to 3 label node limit
-[
-  (block)
-  (chunk)
-] @ifStatement.iteration @value.iteration @name.iteration
 
 ;; Capture assignment only if without variable prefix
 ;;!! count = count + 1
@@ -42,6 +32,22 @@
   (assignment_statement) @statement
   (#not-parent-type? @statement variable_declaration)
 )
+
+;; Document iteration scopes
+
+(
+  (chunk) @statement.iteration @namedFunction.iteration
+  (#document-range! @statement.iteration @namedFunction.iteration)
+)
+(
+  (chunk) @name.iteration @value.iteration
+  (#document-range! @name.iteration @value.iteration)
+)
+
+;; Block iteration scopes
+
+(block) @statement.iteration @namedFunction.iteration
+(block) @name.iteration @value.iteration
 
 ;; Conditionals
 
@@ -116,7 +122,9 @@
 ;;!        ^^^^
 (while_statement
   condition: (_) @condition
-) @_.domain
+  "do" @interior.start.endOf
+  "end" @interior.end.startOf
+) @condition.domain
 
 ;;!! repeat
 ;;!! ...
@@ -124,8 +132,29 @@
 ;;!        ^^^^^
 ;;!        xxxxx
 (repeat_statement
+  "repeat" @interior.start.endOf
+  "until" @interior.end.startOf
   condition: (_) @condition
+) @condition.domain
+
+;;!! for i = 1, 3 do end
+;;!      ^^^^^^^^
+(for_statement
+  (for_numeric_clause) @condition
+) @condition.domain
+
+;;!! for v in values do end
+(for_statement
+  (for_generic_clause
+    (variable_list) @name
+    (expression_list) @value
+  )
 ) @_.domain
+
+(for_statement
+  "do" @interior.start.endOf
+  "end" @interior.end.startOf
+)
 
 ;; Lists and maps
 (table_constructor
@@ -181,47 +210,55 @@
   name: (_) @functionCallee
 ) @_.domain @functionCall
 
-;;!!local sum = add(5, 7)
-;;!                 ^---
-;;!                 xxx-
+;;!! local sum = add(5, 7)
+;;!                  ^---
+;;!                  xxx-
 (
   (arguments
-    (_)? @_.leading.endOf
+    (_)? @argumentOrParameter.leading.endOf
     .
     (_) @argumentOrParameter
     .
-    (_)? @_.trailing.startOf
+    (_)? @argumentOrParameter.trailing.startOf
   ) @_dummy
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
-;;!!local sum = add(5, 7)
-;;!                 ****
-(arguments
-  "(" @argumentOrParameter.iteration.start.endOf
-  ")" @argumentOrParameter.iteration.end.startOf
-)
+;;!! local sum = add(5, 7)
+;;!                  ****
+(function_call
+  (arguments
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
-;;!!function add(5, 7)
-;;!              ^---
-;;!              xxx-
+;;!! function add(5, 7)
+;;!               ^---
+;;!               xxx-
 (
   (parameters
-    (_)? @_.leading.endOf
+    (_)? @argumentOrParameter.leading.endOf
     .
-    (_) @argumentOrParameter
+    (_) @argumentOrParameter @name
     .
-    (_)? @_.trailing.startOf
+    (_)? @argumentOrParameter.trailing.startOf
   ) @_dummy
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
-;;!!function add(5, 7)
-;;!              ****
-(parameters
-  "(" @argumentOrParameter.iteration.start.endOf
-  ")" @argumentOrParameter.iteration.end.startOf
-)
+;;!! function add(5, 7)
+;;!               ****
+(_
+  (parameters
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf @name.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf @name.iteration.end.startOf
+  ) @argumentList
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;; funk name:
 ;;!! function add(x, b) return x + y end
@@ -315,9 +352,34 @@ local_declaration: (variable_declaration
   )
 )
 
-;; Structures and object access
+;;!! local a, b, c
+(
+  (variable_list
+    (_)? @collectionItem.leading.endOf
+    .
+    (_) @collectionItem
+    .
+    (_)? @collectionItem.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @collectionItem @_dummy ", " ",\n")
+)
 
-;; (method_index_expression) @private.fieldAccess
+;;!! = 1, 2, 3
+(
+  (expression_list
+    (_)? @collectionItem.leading.endOf
+    .
+    (_) @collectionItem
+    .
+    (_)? @collectionItem.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @collectionItem @_dummy ", " ",\n")
+)
+
+[
+  (variable_list)
+  (expression_list)
+] @collectionItem.iteration
 
 (binary_expression
   [

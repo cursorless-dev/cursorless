@@ -7,4 +7,4 @@ function foo() end
   >------------------<
 0| function foo() end
 
-[Insertion delimiter] = "\n\n"
+[Insertion delimiter] = "\n"

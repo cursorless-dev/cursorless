@@ -1,0 +1,33 @@
+function foo()
+    return 0
+end
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-2:3
+  >--------------
+0| function foo()
+1|     return 0
+2| end
+   ---<
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 1:4-1:12
+      >--------<
+1|     return 0
+
+[#2 Removal] = 1:0-2:0
+  >------------
+1|     return 0
+2| end
+   <
+
+[#2 Leading delimiter] = 1:0-1:4
+  >----<
+1|     return 0
+
+[#2 Insertion delimiter] = "\n"

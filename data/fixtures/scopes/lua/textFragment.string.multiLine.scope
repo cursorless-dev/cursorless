@@ -1,0 +1,13 @@
+foo = [[Hello
+world]]
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:8-1:5
+          >-----
+0| foo = [[Hello
+1| world]]
+   -----<
+
+[Insertion delimiter] = " "

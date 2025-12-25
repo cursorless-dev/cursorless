@@ -1,0 +1,18 @@
+f = function()
+  a = 1
+end
+---
+
+[Content] = 1:2-1:7
+    >-----<
+1|   a = 1
+
+[Removal] =
+[Domain] = 0:14-2:0
+                >
+0| f = function()
+1|   a = 1
+2| end
+   <
+
+[Insertion delimiter] = " "

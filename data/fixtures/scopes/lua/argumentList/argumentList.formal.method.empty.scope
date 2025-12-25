@@ -1,0 +1,13 @@
+function foo:bar() end
+---
+
+[Content] =
+[Removal] = 0:17-0:17
+                   ><
+0| function foo:bar() end
+
+[Domain] = 0:0-0:22
+  >----------------------<
+0| function foo:bar() end
+
+[Insertion delimiter] = ""

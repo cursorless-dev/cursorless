@@ -1,0 +1,10 @@
+foo = "Hello world"
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:7-0:18
+         >-----------<
+0| foo = "Hello world"
+
+[Insertion delimiter] = " "
