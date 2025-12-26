@@ -19,10 +19,8 @@ export const latexScopeSupport: LanguageScopeSupportFacetMap = {
 
   section: supported,
   "section.iteration.document": supported,
-  "section.iteration.parent": supported,
 
   list: supported,
-  "collectionItem.unenclosed.singleLine": supported,
   "collectionItem.unenclosed.multiLine": supported,
   "collectionItem.unenclosed.iteration": supported,
 
@@ -31,9 +29,6 @@ export const latexScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.actual.singleLine": supported,
   "argument.actual.multiLine": supported,
   "argument.actual.iteration": supported,
-  "argumentList.actual.empty": supported,
-  "argumentList.actual.singleLine": supported,
-  "argumentList.actual.multiLine": supported,
 
   disqualifyDelimiter: supported,
 
@@ -309,6 +304,11 @@ export const latexScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.iteration.document": notApplicable,
   "statement.iteration.block": notApplicable,
 
+  // Argument list. Even though latex have arguments, finding a definition for the argument list is problematic.
+  "argumentList.actual.empty": notApplicable,
+  "argumentList.actual.singleLine": notApplicable,
+  "argumentList.actual.multiLine": notApplicable,
+
   // Miscellaneous
   fieldAccess: notApplicable,
   "name.iteration.block": notApplicable,
@@ -322,6 +322,8 @@ export const latexScopeSupport: LanguageScopeSupportFacetMap = {
   "type.iteration.document": notApplicable,
   "value.iteration.block": notApplicable,
   "value.iteration.document": notApplicable,
+  "section.iteration.parent": notApplicable,
+  "collectionItem.unenclosed.singleLine": notApplicable,
   selector: notApplicable,
   unit: notApplicable,
 };

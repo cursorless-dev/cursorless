@@ -1,11 +1,15 @@
 ;; https://github.com/latex-lsp/tree-sitter-latex/blob/master/src/grammar.json
 
+(source_file) @section.iteration
+
 [
   (block_comment)
   (line_comment)
-] @comment
+] @comment @textFragment
 
-(command_name) @functionCallee
+(_
+  (command_name) @functionCallee
+) @functionCallee.domain
 
 (part) @part
 (chapter) @chapter
@@ -23,8 +27,8 @@
 ;;!! \begin{quote} Hello \end{quote}
 ;;!               ^^^^^^^
 (_
-  (begin) @interior.start.endOf
-  (end) @interior.end.startOf
+  (begin) @interior.start.endOf @textFragment.start.endOf
+  (end) @interior.end.startOf @textFragment.end.startOf
 )
 
 (_
@@ -46,18 +50,14 @@
 
 ;;!! \item one \LaTeX
 ;;!        ^^^^^^^^^^
-(
-  (_
-    (enum_item
-      (text) @collectionItem.start.startOf
-    ) @collectionItem.leading.startOf @collectionItem.end.endOf
-  )
-)
+(enum_item
+  (text) @collectionItem.start.startOf
+) @collectionItem.leading.startOf @collectionItem.end.endOf
 
 (generic_environment
   (begin) @collectionItem.iteration.start.endOf
   (end) @collectionItem.iteration.end.startOf
-) @collectionItem.iteration.domain
+) @list @collectionItem.iteration.domain
 
 ;;!! \section{foo bar}
 ;;!           ^^^^^^^

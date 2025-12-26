@@ -1,0 +1,17 @@
+\begin{itemize}
+  \item one
+  \item two
+\end{itemize}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-3:13
+  >---------------
+0| \begin{itemize}
+1|   \item one
+2|   \item two
+3| \end{itemize}
+   -------------<
+
+[Insertion delimiter] = " "
