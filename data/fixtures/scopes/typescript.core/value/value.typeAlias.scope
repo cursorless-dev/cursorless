@@ -5,12 +5,12 @@ type Foo = Bar;
              >---<
 0| type Foo = Bar;
 
-[Removal] = 0:10-0:14
-            >----<
+[Removal] = 0:8-0:14
+          >------<
 0| type Foo = Bar;
 
-[Leading delimiter] = 0:10-0:11
-            >-<
+[Leading delimiter] = 0:8-0:11
+          >---<
 0| type Foo = Bar;
 
 [Domain] = 0:0-0:15

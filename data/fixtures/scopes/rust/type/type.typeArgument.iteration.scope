@@ -1,0 +1,13 @@
+let foo: Foo<i32, u64>;
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:23
+  >-----------------------<
+0| let foo: Foo<i32, u64>;
+
+
+[#2 Content] =
+[#2 Domain] = 0:13-0:21
+               >--------<
+0| let foo: Foo<i32, u64>;

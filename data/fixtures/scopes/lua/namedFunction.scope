@@ -1,15 +1,10 @@
-function foo()
-    bar = 0
-end
+function foo() end
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-2:3
-  >--------------
-0| function foo()
-1|     bar = 0
-2| end
-   ---<
+[Domain] = 0:0-0:18
+  >------------------<
+0| function foo() end
 
 [Insertion delimiter] = "\n\n"

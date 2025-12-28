@@ -1,0 +1,10 @@
+repeat until true
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:17
+  >-----------------<
+0| repeat until true
+
+[Insertion delimiter] = "\n"

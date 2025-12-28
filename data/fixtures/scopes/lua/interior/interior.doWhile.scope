@@ -1,0 +1,18 @@
+repeat
+  a = 1
+until true
+---
+
+[Content] = 1:2-1:7
+    >-----<
+1|   a = 1
+
+[Removal] =
+[Domain] = 0:6-2:0
+        >
+0| repeat
+1|   a = 1
+2| until true
+   <
+
+[Insertion delimiter] = " "

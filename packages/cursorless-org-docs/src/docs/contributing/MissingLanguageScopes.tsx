@@ -17,6 +17,7 @@ export function MissingLanguageScopes(): React.JSX.Element {
       <label className="ml-1">
         <input
           type="checkbox"
+          className="mr-1"
           checked={showPrivate}
           onChange={(e) => setShowPrivate(e.target.checked)}
         />

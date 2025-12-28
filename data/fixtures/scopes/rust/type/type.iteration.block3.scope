@@ -1,0 +1,13 @@
+while true { }
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:14
+  >--------------<
+0| while true { }
+
+
+[#2 Content] =
+[#2 Domain] = 0:12-0:13
+              >-<
+0| while true { }

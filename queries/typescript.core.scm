@@ -213,17 +213,22 @@
   ";"? @_.domain.end
 )
 
+;;!! type Foo = Bar;
 (
   (type_alias_declaration
+    name: (_) @value.leading.endOf
     value: (_) @value
-  ) @_.domain
-  (#not-parent-type? @_.domain export_statement)
+  ) @value.domain
+  (#not-parent-type? @value.domain export_statement)
 )
+
+;;!! export type Foo = Bar;
 (export_statement
   (type_alias_declaration
+    name: (_) @value.leading.endOf
     value: (_) @value
   )
-) @_.domain
+) @value.domain
 
 [
   (interface_declaration)

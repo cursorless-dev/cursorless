@@ -1,0 +1,10 @@
+\section{Introduction}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:22
+  >----------------------<
+0| \section{Introduction}
+
+[Insertion delimiter] = "\n\n"
