@@ -50,7 +50,7 @@ def get_actions() -> list[ListItemDescriptor]:
             ),
             (
                 lambda value: f"{value} <target>",
-                "Insert copy of <target> at cursor",
+                "Insert copy of <target> at selection",
             ),
         ],
         "pasteFromClipboard": [
@@ -66,7 +66,7 @@ def get_actions() -> list[ListItemDescriptor]:
             ),
             (
                 lambda value: f"{value} <target>",
-                "Move <target> to cursor position",
+                "Move <target> to selection",
             ),
         ],
         "applyFormatter": [
@@ -78,11 +78,11 @@ def get_actions() -> list[ListItemDescriptor]:
         "callAsFunction": [
             (
                 lambda value: f"{value} <target>",
-                "Call <target> on selection",
+                "Insert call to <target> on selection",
             ),
             (
                 lambda value: f"{value} <target 1> on <target 2>",
-                "Call <target 1> on <target 2>",
+                "Insert call to <target 1> on <target 2>",
             ),
         ],
         "wrapWithPairedDelimiter": [
