@@ -1,7 +1,7 @@
 {
   "name": "@cursorless/cursorless-vscode",
   "displayName": "Cursorless",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Structural voice coding at the speed of thought",
   "license": "MIT",
   "publisher": "pokey",
