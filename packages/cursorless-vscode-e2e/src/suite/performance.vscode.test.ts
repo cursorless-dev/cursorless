@@ -124,19 +124,19 @@ function selectWithMultipleCursors(thresholdMs: number, scopeType: ScopeType) {
     thresholdMs,
     () => {
       return runCursorlessAction({
-        name: "setSelectionBefore",
+        name: "setSelection",
         target: {
           type: "primitive",
-          modifiers: [getModifier({ type: "collectionItem" }, "every")],
+          modifiers: [getModifier(scopeType)],
         },
       });
     },
     () => {
       return runCursorlessAction({
-        name: "setSelection",
+        name: "setSelectionBefore",
         target: {
           type: "primitive",
-          modifiers: [getModifier(scopeType)],
+          modifiers: [getModifier({ type: "collectionItem" }, "every")],
         },
       });
     },
