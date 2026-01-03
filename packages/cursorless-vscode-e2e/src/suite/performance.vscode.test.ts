@@ -90,11 +90,10 @@ suite("Performance", async function () {
   }
 
   test(
-    "Select surroundingPair with multiple cursors",
+    "Select collectionKey with multiple cursors",
     asyncSafety(() =>
       selectWithMultipleCursors(largeThresholdMs, {
-        type: "surroundingPair",
-        delimiter: "any",
+        type: "collectionKey",
       }),
     ),
   );
@@ -104,6 +103,16 @@ suite("Performance", async function () {
     asyncSafety(() =>
       selectWithMultipleCursors(largeThresholdMs, {
         type: "collectionItem",
+      }),
+    ),
+  );
+
+  test(
+    "Select surroundingPair.any with multiple cursors",
+    asyncSafety(() =>
+      selectWithMultipleCursors(largeThresholdMs, {
+        type: "surroundingPair",
+        delimiter: "any",
       }),
     ),
   );
@@ -120,27 +129,29 @@ function removeToken(thresholdMs: number) {
 }
 
 function selectWithMultipleCursors(thresholdMs: number, scopeType: ScopeType) {
-  return testPerformanceCallback(
-    thresholdMs,
-    () => {
-      return runCursorlessAction({
-        name: "setSelectionBefore",
-        target: {
-          type: "primitive",
-          modifiers: [getModifier({ type: "collectionItem" }, "every")],
-        },
-      });
-    },
-    () => {
-      return runCursorlessAction({
-        name: "setSelection",
-        target: {
-          type: "primitive",
-          modifiers: [getModifier(scopeType)],
-        },
-      });
-    },
-  );
+  const beforeCallback = async (editor: vscode.TextEditor) => {
+    await runCursorlessAction({
+      name: "setSelectionBefore",
+      target: {
+        type: "primitive",
+        modifiers: [getModifier({ type: "collectionItem" }, "every")],
+      },
+    });
+
+    assert.equal(editor.selections.length, 100, "Expected 100 cursors");
+  };
+
+  const callback = () => {
+    return runCursorlessAction({
+      name: "setSelection",
+      target: {
+        type: "primitive",
+        modifiers: [getModifier(scopeType)],
+      },
+    });
+  };
+
+  return testPerformanceCallback(thresholdMs, callback, beforeCallback);
 }
 
 function selectScopeType(
@@ -166,7 +177,7 @@ function testPerformance(thresholdMs: number, action: ActionDescriptor) {
 async function testPerformanceCallback(
   thresholdMs: number,
   callback: () => Promise<unknown>,
-  beforeCallback?: () => Promise<unknown>,
+  beforeCallback?: (editor: vscode.TextEditor) => Promise<unknown>,
 ) {
   const editor = await openNewEditor(testData, { languageId: "json" });
   // This is the position of the last json key in the document
@@ -176,7 +187,7 @@ async function testPerformanceCallback(
   editor.revealRange(selection);
 
   if (beforeCallback != null) {
-    await beforeCallback();
+    await beforeCallback(editor);
   }
 
   const start = performance.now();
