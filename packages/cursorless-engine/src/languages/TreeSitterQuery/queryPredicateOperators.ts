@@ -286,21 +286,23 @@ class GrowToNamedSiblings extends QueryPredicateOperator<GrowToNamedSiblings> {
  */
 class TrimEnd extends QueryPredicateOperator<TrimEnd> {
   name = "trim-end!" as const;
-  schema = z.tuple([q.node]);
+  schema = z.tuple([q.node]).rest(q.node);
 
-  run(capture: MutableQueryCapture) {
-    const { document, range } = capture;
-    const text = getNode(capture).text;
-    const whitespaceLength = text.length - text.trimEnd().length;
+  run(...captures: MutableQueryCapture[]) {
+    for (const capture of captures) {
+      const { document, range } = capture;
+      const text = getNode(capture).text;
+      const whitespaceLength = text.length - text.trimEnd().length;
 
-    if (whitespaceLength > 0) {
-      setRange(
-        capture,
-        new Range(
-          range.start,
-          adjustPosition(document, range.end, -whitespaceLength),
-        ),
-      );
+      if (whitespaceLength > 0) {
+        setRange(
+          capture,
+          new Range(
+            range.start,
+            adjustPosition(document, range.end, -whitespaceLength),
+          ),
+        );
+      }
     }
 
     return true;

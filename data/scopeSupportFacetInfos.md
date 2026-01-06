@@ -86,7 +86,7 @@
 
 ### class
 
-- `class` A class in an object-oriented language
+- `class` A class/struct in an object-oriented language
 - `class.iteration.block` Iteration scope for classes: statement blocks (body of functions/if-statements/for-loops/etc).
 - `class.iteration.document` Iteration scope for classes: the entire document including leading and trailing empty lines.
 
@@ -301,13 +301,13 @@
 
 - `statement.assignment` An assignment statement
 - `statement.break` A break statement
-- `statement.class` A class declaration
+- `statement.class` A class/struct declaration
 - `statement.command` A command statement, eg Talon spoken command or bash
 - `statement.constructor` A constructor declaration
 - `statement.continue` A continue statement
 - `statement.doWhile` A do-while loop statement
 - `statement.enum` An enum declaration
-- `statement.field.class` A field declaration in a class
+- `statement.field.class` A field declaration in a class/struct
 - `statement.field.interface` A field declaration in a interface
 - `statement.for` A for loop statement
 - `statement.foreach` A for-each loop statement

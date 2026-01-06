@@ -1,0 +1,17 @@
+func foo() {}
+---
+
+[Content] =
+[Removal] = 0:5-0:8
+       >---<
+0| func foo() {}
+
+[Leading delimiter] = 0:4-0:5
+      >-<
+0| func foo() {}
+
+[Domain] = 0:0-0:13
+  >-------------<
+0| func foo() {}
+
+[Insertion delimiter] = " "

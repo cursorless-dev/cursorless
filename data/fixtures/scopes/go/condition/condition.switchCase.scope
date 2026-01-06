@@ -1,0 +1,42 @@
+switch (foo) {
+    case 0: break
+    case 1, 2: break
+}
+---
+
+[#1 Content] = 1:9-1:10
+           >-<
+1|     case 0: break
+
+[#1 Removal] = 1:8-1:10
+          >--<
+1|     case 0: break
+
+[#1 Leading delimiter] = 1:8-1:9
+          >-<
+1|     case 0: break
+
+[#1 Domain] = 1:4-1:17
+      >-------------<
+1|     case 0: break
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 2:9-2:13
+           >----<
+2|     case 1, 2: break
+
+[#2 Removal] = 2:8-2:13
+          >-----<
+2|     case 1, 2: break
+
+[#2 Leading delimiter] = 2:8-2:9
+          >-<
+2|     case 1, 2: break
+
+[#2 Domain] = 2:4-2:20
+      >----------------<
+2|     case 1, 2: break
+
+[#2 Insertion delimiter] = " "

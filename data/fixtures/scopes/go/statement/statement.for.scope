@@ -1,0 +1,10 @@
+for i := 0; i < size; i++ {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:28
+  >----------------------------<
+0| for i := 0; i < size; i++ {}
+
+[Insertion delimiter] = "\n"

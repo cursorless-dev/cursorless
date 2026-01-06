@@ -1,0 +1,17 @@
+foo := func() {}
+---
+
+[Content] =
+[Domain] = 0:7-0:16
+         >---------<
+0| foo := func() {}
+
+[Removal] = 0:6-0:16
+        >----------<
+0| foo := func() {}
+
+[Leading delimiter] = 0:6-0:7
+        >-<
+0| foo := func() {}
+
+[Insertion delimiter] = "\n"
