@@ -457,17 +457,23 @@
 ;;!           ^
 (_
   parameters: (parameter_list
-    "(" @argumentOrParameter.iteration.start.endOf
-    ")" @argumentOrParameter.iteration.end.startOf
-  )
-) @argumentOrParameter.iteration.domain
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
+;;!! foo( )
+;;!      ^
 (_
   (argument_list
-    "(" @argumentOrParameter.iteration.start.endOf
-    ")" @argumentOrParameter.iteration.end.startOf
-  )
-) @argumentOrParameter.iteration.domain
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;;!! var foo int = 0
 ;;!      ^^^
