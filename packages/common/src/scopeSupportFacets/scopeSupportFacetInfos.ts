@@ -71,7 +71,7 @@ export const scopeSupportFacetInfos: Record<
   },
 
   "statement.class": {
-    description: "A class declaration",
+    description: "A class/struct declaration",
     scopeType: "statement",
   },
   "statement.interface": {
@@ -83,7 +83,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "statement",
   },
   "statement.field.class": {
-    description: "A field declaration in a class",
+    description: "A field declaration in a class/struct",
     scopeType: "statement",
   },
   "statement.field.interface": {
@@ -181,7 +181,7 @@ export const scopeSupportFacetInfos: Record<
   "statement.iteration.block": blockIter("statement", "statements"),
 
   class: {
-    description: "A class in an object-oriented language",
+    description: "A class/struct in an object-oriented language",
     scopeType: "class",
   },
   "class.iteration.document": documentIter("class", "classes"),
