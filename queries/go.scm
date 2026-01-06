@@ -44,10 +44,18 @@
   (source_file) @class.iteration @statement.iteration @namedFunction.iteration
   (#document-range! @class.iteration @statement.iteration @namedFunction.iteration)
 )
-
 (
   (source_file) @name.iteration @value.iteration @type.iteration
   (#document-range! @name.iteration @value.iteration @type.iteration)
+)
+
+(block
+  "{" @statement.iteration.start.endOf
+  "}" @statement.iteration.end.startOf
+)
+(block
+  "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
 )
 
 ;;!! { }
@@ -69,6 +77,7 @@
   (#character-range! @textFragment 1 -1)
 )
 
+;; // Hello world
 (comment) @comment @textFragment
 
 ;;!! type Foo struct {}
@@ -275,8 +284,6 @@
 ;; func literal
 (func_literal) @anonymousFunction
 
-;; switch-based branch
-
 (
   [
     (default_case)
@@ -287,12 +294,23 @@
   (#insertion-delimiter! @branch "\n")
 )
 
-[
-  (type_switch_statement)
-  (expression_switch_statement)
-] @branch.iteration
+;;!! switch foo {}
+(expression_switch_statement
+  value: (_) @value
+  "{" @interior.start.endOf @branch.iteration.start.endOf @condition.iteration.start.endOf
+  "}" @interior.end.startOf @branch.iteration.end.startOf @condition.iteration.end.startOf
+) @value.domain
 
-;; if-else-based branch
+;;!! switch v := x.(type) {}
+(type_switch_statement
+  "switch"
+  .
+  _ @value.start
+  _ @value.end
+  .
+  "{" @interior.start.endOf @branch.iteration.start.endOf @condition.iteration.start.endOf
+  "}" @interior.end.startOf @branch.iteration.end.startOf @condition.iteration.end.startOf
+) @value.domain
 
 ;; The outermost if statement
 (
