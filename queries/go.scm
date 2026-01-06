@@ -286,11 +286,20 @@
 
 (
   [
+    ;;!! default:
     (default_case)
-    (expression_case)
-    (type_case)
-  ] @branch
-  (#trim-end! @branch)
+
+    ;;!! case 0:
+    (expression_case
+      value: (_) @condition
+    )
+
+    ;;!! case int:
+    (type_case
+      type: (_) @condition
+    )
+  ] @branch @condition.domain
+  (#trim-end! @branch @condition.domain)
   (#insertion-delimiter! @branch "\n")
 )
 
