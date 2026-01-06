@@ -3,8 +3,8 @@
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-0:15
-  >---------------<
+[Domain] = 0:5-0:15
+       >----------<
 0| []int{aaa, bbb}
 
 [Insertion delimiter] = " "
