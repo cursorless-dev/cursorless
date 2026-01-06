@@ -1,0 +1,12 @@
+
+type Foo struct {}
+
+---
+
+[Content] =
+[Domain] = 0:0-2:0
+  >
+0|
+1| type Foo struct {}
+2|
+   <

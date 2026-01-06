@@ -19,7 +19,6 @@
   (for_statement)
   (go_statement)
   (goto_statement)
-  (if_statement)
   (inc_statement)
   (labeled_statement)
   (return_statement)
@@ -29,7 +28,20 @@
   (type_declaration)
   (type_switch_statement)
   (var_declaration)
+
+  ;; Disabled on purpose. We have a better definition of this below.
+  ;; (if_statement)
 ] @statement
+
+(
+  (source_file) @class.iteration @statement.iteration @namedFunction.iteration
+  (#document-range! @class.iteration @statement.iteration @namedFunction.iteration)
+)
+
+(
+  (source_file) @name.iteration @value.iteration @type.iteration
+  (#document-range! @name.iteration @value.iteration @type.iteration)
+)
 
 ;;!! { }
 ;;!   ^
@@ -51,6 +63,13 @@
 )
 
 (comment) @comment @textFragment
+
+;;!! type Foo struct {}
+(type_declaration
+  (type_spec
+    type: (struct_type)
+  )
+) @class @type
 
 ;; What should map and list refer to in Go programs?
 ;;
@@ -239,6 +258,12 @@
 
 ;; if-else-based branch
 
+;; The outermost if statement
+(
+  (if_statement) @ifStatement @statement @branch.iteration
+  (#not-parent-type? @ifStatement if_statement)
+)
+
 ;; first if in an if-else chain
 (
   (if_statement
@@ -265,14 +290,6 @@
   ) @branch.end.endOf
   (#insertion-delimiter! @branch.start.startOf " ")
 )
-
-;; iteration scope is always the outermost if statement
-(
-  (if_statement) @branch.iteration
-  (#not-parent-type? @branch.iteration if_statement)
-)
-
-(if_statement) @ifStatement
 
 [
   (call_expression)
@@ -302,12 +319,12 @@
 [
   (pointer_type)
   (qualified_type)
-  (type_identifier)
 ] @type
 
 (function_declaration
   result: (_) @type
 ) @_.domain
+
 (method_declaration
   result: (_) @type
 ) @_.domain
@@ -318,6 +335,7 @@
     condition: (_) @condition
   ) @_.domain
   (#not-type? @condition parenthesized_expression)
+  (#not-type? @_.domain for_clause)
 )
 
 ;;!! if (true) {}
@@ -327,6 +345,13 @@
   ) @_.domain
   (#child-range! @condition 0 -1 true true)
 )
+
+;;!! for i := 0; i < size; i++ {}
+(for_statement
+  (for_clause
+    condition: (_) @condition
+  )
+) @condition.domain
 
 ;;!! func add(x int, y int) int {}
 (
