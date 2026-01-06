@@ -139,6 +139,16 @@
   ) @list
 )
 
+;;!! T{}
+;;!   ^^
+(composite_literal
+  body: (literal_value
+    "{"
+    .
+    "}"
+  ) @list @map
+)
+
 ;; Functions
 
 ;; function declaration, generic function declaration, function stub
@@ -155,8 +165,17 @@
   name: (_) @name
 ) @namedFunction @statement @name.domain
 
-;; func literal
+;;!! func() {}
 (func_literal) @anonymousFunction
+
+;;!! foo = func() {}
+(assignment_statement
+  right: (expression_list
+    .
+    (func_literal)
+    .
+  )
+) @namedFunction
 
 (
   [

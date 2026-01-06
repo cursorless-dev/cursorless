@@ -1,0 +1,10 @@
+foo = func() {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:15
+  >---------------<
+0| foo = func() {}
+
+[Insertion delimiter] = "\n\n"
