@@ -384,6 +384,31 @@
   (qualified_type)
 ] @type
 
+;;!! type Foo = Bar
+(type_declaration
+  (type_alias
+    name: (_) @name @value.leading.endOf
+    type: (_) @value
+  )
+) @type @_.domain
+
+;;!! var foo Bar[int, string]
+;;!              ^^^  ^^^^^^
+(generic_type
+  (type_arguments
+    (_) @type
+  )
+)
+
+;;!! var foo Bar[int, string]
+;;!              ^^^^^^^^^^^
+(generic_type
+  (type_arguments
+    "[" @type.iteration.start.endOf
+    "]" @type.iteration.end.startOf
+  )
+)
+
 (function_declaration
   result: (_) @type
 ) @_.domain

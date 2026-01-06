@@ -1,0 +1,10 @@
+type Foo = Bar
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:14
+  >--------------<
+0| type Foo = Bar
+
+[Insertion delimiter] = " "
