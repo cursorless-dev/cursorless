@@ -1,0 +1,10 @@
+map[string]int{"aaa": 1, "bbb": 2}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:34
+  >----------------------------------<
+0| map[string]int{"aaa": 1, "bbb": 2}
+
+[Insertion delimiter] = " "

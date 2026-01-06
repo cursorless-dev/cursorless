@@ -5,8 +5,6 @@
 ;; and then cleaned up.
 [
   (assignment_statement)
-  ;; omit block for now, as it is not clear that it matches Cursorless user expectations
-  ;; (block)
   (break_statement)
   (const_declaration)
   (continue_statement)
@@ -31,6 +29,8 @@
 
   ;; Disabled on purpose. We have a better definition of this below.
   ;; (if_statement)
+  ;; omit block for now, as it is not clear that it matches Cursorless user expectations
+  ;; (block)
 ] @statement
 
 (
@@ -299,10 +299,18 @@
 (call_expression
   function: (_) @functionCallee
 ) @_.domain
+
 (composite_literal
   type: (_) @functionCallee
 ) @_.domain
 
+(return_statement
+  (expression_list) @value
+) @_.domain
+
+;;!! map[string]int{"aaa": 1, "bbb": 2}
+;;!                 ^^^^^     ^^^^^
+;;!                        ^         ^
 (keyed_element
   .
   (_) @collectionKey
@@ -310,11 +318,12 @@
   (_) @value
 ) @_.domain
 
-(return_statement
-  (expression_list) @value
-) @_.domain
-
-(literal_value) @collectionKey.iteration @value.iteration
+;;!! map[string]int{"aaa": 1, "bbb": 2}
+;;!                 ^^^^^^^^^^^^^^^^^^
+(literal_value
+  "{" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
+  "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+)
 
 [
   (pointer_type)
@@ -392,6 +401,45 @@
     ")" @argumentOrParameter.iteration.end.startOf
   )
 ) @argumentOrParameter.iteration.domain
+
+;;!! var foo int = 0
+;;!      ^^^
+;;!          ^^^
+;;!               ^
+(var_declaration
+  (var_spec
+    name: (_) @name
+    type: (_) @type @value.leading.endOf
+    value: (_)? @value
+  )
+) @_.domain
+
+;;!! var foo = 0
+;;!      ^^^
+;;!            ^
+(var_declaration
+  (var_spec
+    name: (_) @name @value.leading.endOf
+    !type
+    value: (_) @value
+  )
+) @_.domain
+
+;;!! foo := 0
+;;!  ^^^
+;;!         ^
+(short_var_declaration
+  left: (_) @name @value.leading.endOf
+  right: (_) @value
+) @_.domain
+
+;;!! foo = 0
+;;!  ^^^
+;;!        ^
+(assignment_statement
+  left: (_) @name @value.leading.endOf
+  right: (_) @value
+) @_.domain
 
 operator: [
   "<-"

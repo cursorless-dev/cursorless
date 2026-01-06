@@ -1,0 +1,10 @@
+[]int{aaa, bbb}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:15
+  >---------------<
+0| []int{aaa, bbb}
+
+[Insertion delimiter] = " "

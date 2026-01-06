@@ -1,0 +1,7 @@
+map[string]int{"aaa": 1, "bbb": 2}
+---
+
+[Content] =
+[Domain] = 0:15-0:33
+                 >------------------<
+0| map[string]int{"aaa": 1, "bbb": 2}
