@@ -18,6 +18,7 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.class": supported,
   "statement.interface": supported,
   "statement.field.class": supported,
+  "statement.field.interface": supported,
   "statement.function": supported,
   "statement.method": supported,
   "statement.if": supported,
@@ -114,6 +115,7 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   "name.class": supported,
   "name.interface": supported,
   "name.field.class": supported,
+  "name.field.interface": supported,
   "name.argument.formal": supported,
   "name.argument.formal.iteration": supported,
   "name.argument.formal.method": supported,
@@ -153,7 +155,6 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   "type.iteration.block": supported,
   "type.iteration.class": supported,
   "type.iteration.document": supported,
-  "type.iteration.interface": supported,
 
   "interior.class": supported,
   "interior.interface": supported,
@@ -210,11 +211,6 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.enum": notApplicable,
   "value.field.enum": notApplicable,
   "value.iteration.enum": notApplicable,
-
-  // Interface field declarations
-  "statement.field.interface": notApplicable,
-  "name.field.interface": notApplicable,
-  "type.field.interface": notApplicable,
 
   // Constructors
   "statement.constructor": notApplicable,
@@ -304,6 +300,10 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   // Notebook cell
   notebookCell: notApplicable,
   "interior.cell": notApplicable,
+
+  // Interface field types
+  "type.field.interface": notApplicable,
+  "type.iteration.interface": notApplicable,
 
   // Miscellaneous
   "statement.misc": notApplicable,

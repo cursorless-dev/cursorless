@@ -75,7 +75,12 @@
 (type_declaration
   (type_spec
     name: (_) @name
-    type: (struct_type)
+    type: (struct_type
+      (field_declaration_list
+        "{" @statement.iteration.start.endOf @name.iteration.start.endOf @type.iteration.start.endOf
+        "}" @statement.iteration.end.startOf @name.iteration.end.startOf @type.iteration.end.startOf
+      )
+    )
   )
 ) @class @type @name.domain
 
@@ -83,9 +88,24 @@
 (type_declaration
   (type_spec
     name: (_) @name
-    type: (interface_type)
+    type: (interface_type
+      "{" @statement.iteration.start.endOf @name.iteration.start.endOf
+      "}" @statement.iteration.end.startOf @name.iteration.end.startOf
+    )
   )
 ) @type @name.domain
+
+;;!! type Foo interface { bar() }
+(method_spec
+  name: (_) @name
+) @statement @name.domain
+
+;;!! type Foo struct { bar int }
+;;!! type Foo interface { bar() }
+(field_declaration
+  name: (_) @name
+  type: (_) @type
+) @statement @_.domain
 
 ;; What should map and list refer to in Go programs?
 ;;
