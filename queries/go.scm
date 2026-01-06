@@ -453,8 +453,10 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
+;;!! func bar( ) {}
+;;!           ^
 (_
-  (parameter_list
+  parameters: (parameter_list
     "(" @argumentOrParameter.iteration.start.endOf
     ")" @argumentOrParameter.iteration.end.startOf
   )
