@@ -464,6 +464,13 @@
   (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
+(_
+  parameters: (parameter_list
+    "(" @name.iteration.start.endOf @type.iteration.start.endOf
+    ")" @name.iteration.end.startOf @type.iteration.end.startOf
+  )
+)
+
 ;;!! foo( )
 ;;!      ^
 (_
@@ -474,6 +481,12 @@
   (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
   (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
+
+;;!! func foo(aaa int) {}
+(parameter_declaration
+  name: (_) @name
+  type: (_) @type
+) @_.domain
 
 ;;!! var foo int = 0
 ;;!      ^^^

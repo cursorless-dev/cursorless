@@ -1,17 +1,36 @@
 func (f Foo) bar() {}
 ---
 
-[Content] =
-[Removal] = 0:13-0:16
+[#1 Content] =
+[#1 Removal] = 0:13-0:16
                >---<
 0| func (f Foo) bar() {}
 
-[Leading delimiter] = 0:12-0:13
+[#1 Leading delimiter] = 0:12-0:13
               >-<
 0| func (f Foo) bar() {}
 
-[Domain] = 0:0-0:21
+[#1 Domain] = 0:0-0:21
   >---------------------<
 0| func (f Foo) bar() {}
 
-[Insertion delimiter] = " "
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 0:6-0:7
+        >-<
+0| func (f Foo) bar() {}
+
+[#2 Removal] = 0:6-0:8
+        >--<
+0| func (f Foo) bar() {}
+
+[#2 Trailing delimiter] = 0:7-0:8
+         >-<
+0| func (f Foo) bar() {}
+
+[#2 Domain] = 0:6-0:11
+        >-----<
+0| func (f Foo) bar() {}
+
+[#2 Insertion delimiter] = " "
