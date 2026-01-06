@@ -41,8 +41,8 @@
 )
 
 (
-  (source_file) @class.iteration @statement.iteration @namedFunction.iteration
-  (#document-range! @class.iteration @statement.iteration @namedFunction.iteration)
+  (source_file) @statement.iteration @class.iteration @namedFunction.iteration
+  (#document-range! @statement.iteration @class.iteration @namedFunction.iteration)
 )
 (
   (source_file) @name.iteration @value.iteration @type.iteration
@@ -50,8 +50,8 @@
 )
 
 (block
-  "{" @statement.iteration.start.endOf
-  "}" @statement.iteration.end.startOf
+  "{" @class.iteration.start.endOf @statement.iteration.start.endOf
+  "}" @class.iteration.end.startOf @statement.iteration.end.startOf
 )
 (block
   "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
@@ -92,6 +92,13 @@
     )
   )
 ) @class @type @name.domain
+
+(struct_type
+  (field_declaration_list
+    "{" @namedFunction.iteration.start.endOf
+    "}" @namedFunction.iteration.end.startOf
+  )
+)
 
 ;;!! type Foo interface {}
 (type_declaration
