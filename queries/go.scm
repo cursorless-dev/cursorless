@@ -4,11 +4,9 @@
 ;;  curl https://raw.githubusercontent.com/tree-sitter/tree-sitter-go/master/src/node-types.json | jq '[.[] | select(.type == "_statement" or .type == "_simple_statement") | .subtypes[].type]' | grep -v '\"_' | sed -n '1d;p' | sed '$d' | sort
 ;; and then cleaned up.
 [
-  (assignment_statement)
   (break_statement)
   (const_declaration)
   (continue_statement)
-  (dec_statement)
   (defer_statement)
   (empty_statement)
   (expression_statement)
@@ -17,21 +15,30 @@
   (for_statement)
   (go_statement)
   (goto_statement)
-  (inc_statement)
   (labeled_statement)
   (return_statement)
   (select_statement)
   (send_statement)
-  (short_var_declaration)
   (type_declaration)
   (type_switch_statement)
-  (var_declaration)
 
   ;; Disabled on purpose. We have a better definition of this below.
   ;; (if_statement)
   ;; omit block for now, as it is not clear that it matches Cursorless user expectations
   ;; (block)
 ] @statement
+
+;; Exclude statements that are part of for clauses
+(
+  [
+    (assignment_statement)
+    (short_var_declaration)
+    (var_declaration)
+    (inc_statement)
+    (dec_statement)
+  ] @statement
+  (#not-parent-type? @statement for_clause)
+)
 
 (
   (source_file) @class.iteration @statement.iteration @namedFunction.iteration
@@ -67,9 +74,18 @@
 ;;!! type Foo struct {}
 (type_declaration
   (type_spec
+    name: (_) @name
     type: (struct_type)
   )
-) @class @type
+) @class @type @name.domain
+
+;;!! type Foo interface {}
+(type_declaration
+  (type_spec
+    name: (_) @name
+    type: (interface_type)
+  )
+) @type @name.domain
 
 ;; What should map and list refer to in Go programs?
 ;;
@@ -228,16 +244,16 @@
 ;; func foo()
 (function_declaration
   name: (_) @name
-) @namedFunction @name.domain
+) @namedFunction @statement @name.domain
 
 ;; method declaration
 ;; func (X) foo() {}
 (method_declaration
   name: (_) @name
-) @namedFunction @name.domain
+) @namedFunction @statement @name.domain
 
 ;; func literal
-(func_literal) @anonymousFunction @namedFunction
+(func_literal) @anonymousFunction
 
 ;; switch-based branch
 
@@ -356,11 +372,22 @@
 )
 
 ;;!! for i := 0; i < size; i++ {}
+;;!              ^^^^^^^^
 (for_statement
   (for_clause
     condition: (_) @condition
   )
 ) @condition.domain
+
+;;!! for i, v := range values {}
+;;!      ^^^^
+;;!                    ^^^^^^
+(for_statement
+  (range_clause
+    left: (_) @name
+    right: (_) @value
+  )
+) @_.domain
 
 ;;!! func add(x int, y int) int {}
 (

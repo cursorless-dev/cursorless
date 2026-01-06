@@ -1,0 +1,17 @@
+func (f Foo) bar() {}
+---
+
+[Content] =
+[Removal] = 0:13-0:16
+               >---<
+0| func (f Foo) bar() {}
+
+[Leading delimiter] = 0:12-0:13
+              >-<
+0| func (f Foo) bar() {}
+
+[Domain] = 0:0-0:21
+  >---------------------<
+0| func (f Foo) bar() {}
+
+[Insertion delimiter] = " "
