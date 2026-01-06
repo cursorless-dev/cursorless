@@ -303,6 +303,32 @@
   (#insertion-delimiter! @branch "\n")
 )
 
+;; The parent object has trailing whitespace that we want to exclude. 
+;; Our trim predicate can't operate on positions only ranges.
+(_
+  [
+    "case"
+    "default"
+  ]
+  ":" @interior.start.endOf
+  .
+  (_) @_dummy
+  (_) @interior.end.endOf
+  .
+  (#not-type? @_dummy block)
+)
+(_
+  [
+    "case"
+    "default"
+  ]
+  ":" @interior.start.endOf
+  .
+  (_) @interior.end.endOf
+  .
+  (#not-type? @interior.end.endOf block)
+)
+
 ;;!! switch foo {}
 (expression_switch_statement
   value: (_) @value
@@ -460,6 +486,21 @@
     right: (_) @value
   )
 ) @_.domain
+
+;;!! foo, bar := 1, 2
+;;!  ^^^  ^^^    ^  ^
+(
+  (expression_list
+    (_)? @collectionItem.leading.endOf
+    .
+    (_) @collectionItem
+    .
+    (_)? @collectionItem.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @collectionItem @_dummy ", " ",\n")
+)
+
+(expression_list) @collectionItem.iteration
 
 ;;!! func add(x int, y int) int {}
 (
