@@ -1,0 +1,32 @@
+languageId: plaintext
+command:
+  version: 7
+  spokenForm: decrement first sub
+  action:
+    name: decrement
+    target:
+      type: primitive
+      modifiers:
+        - type: ordinalScope
+          scopeType: {type: word}
+          start: 0
+          length: 1
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "2026_015"
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+  marks: {}
+finalState:
+  documentContents: "2025_015"
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 4}
+      isReversed: false
+      hasExplicitRange: true
