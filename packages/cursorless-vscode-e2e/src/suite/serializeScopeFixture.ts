@@ -71,6 +71,11 @@ function serializeScope(
     });
   }
 
+  // If we're going to add a target number we need a scope number as well.
+  if (scopeNumber == null) {
+    scopeNumber = 1;
+  }
+
   // If we have multiple targets or the domain is not equal to the content range: add domain last
   return [
     ...targets.map((target, index) =>
@@ -128,7 +133,7 @@ function serializeIterationScope(
 
     lines.push(
       serializeHeader({
-        header: "Range",
+        header: "Content",
         scopeNumber,
         targetNumber: ranges.length > 1 ? index + 1 : undefined,
         range: groupHeaders ? undefined : range.range,
@@ -174,41 +179,37 @@ function serializeTarget({
 }: SerializeTargetArg): string {
   const lines: string[] = [""];
 
-  const headers = ["Content"];
+  // Group headers for identical ranges
+  const ranges: [string, Range][] = [
+    ["Content", target.contentRange],
+    ["Removal", target.removalRange],
+  ];
 
-  // Add removal and domain headers below content header if their ranges are equal
-  if (target.contentRange.isRangeEqual(target.removalRange)) {
-    headers.push("Removal");
-  }
-  if (domain != null && target.contentRange.isRangeEqual(domain)) {
-    headers.push("Domain");
+  // Domain should always be added last unless it's part of a group
+  const groupDomain =
+    domain != null && ranges.some(([_, range]) => domain.isRangeEqual(range));
+  if (groupDomain) {
+    ranges.push(["Domain", domain]);
   }
 
-  lines.push(
-    ...headers.map((header, index) =>
-      serializeHeader({
-        header,
-        scopeNumber,
-        targetNumber,
-        range: index === headers.length - 1 ? target.contentRange : undefined,
-      }),
-    ),
-    serializeTargetRange(codeLines, target.contentRange),
-  );
+  const rangeGroups = groupRanges(ranges);
 
-  // Add separate removal header below content if their ranges are not equal
-  if (!target.contentRange.isRangeEqual(target.removalRange)) {
-    lines.push(
-      "",
-      serializeHeader({
-        header: "Removal",
-        scopeNumber,
-        targetNumber,
-        range: target.removalRange,
-      }),
-      serializeTargetRange(codeLines, target.removalRange),
-    );
-  }
+  rangeGroups.forEach((group, i) => {
+    if (i > 0) {
+      lines.push("");
+    }
+    group.headers.forEach((header, j) => {
+      lines.push(
+        serializeHeader({
+          header,
+          scopeNumber,
+          targetNumber,
+          range: j === group.headers.length - 1 ? group.range : undefined,
+        }),
+      );
+    });
+    lines.push(serializeTargetRange(codeLines, group.range));
+  });
 
   if (target.leadingDelimiter != null) {
     lines.push(
@@ -262,7 +263,7 @@ function serializeTarget({
     );
   }
 
-  if (domain != null && !target.contentRange.isRangeEqual(domain)) {
+  if (domain != null && !groupDomain) {
     lines.push(
       "",
       serializeHeader({
@@ -280,6 +281,24 @@ function serializeTarget({
   );
 
   return lines.join("\n");
+}
+
+function groupRanges(ranges: [string, Range][]) {
+  const groups: { headers: string[]; range: Range }[] = [];
+  const map: Record<string, { headers: string[]; range: Range }> = {};
+
+  ranges.forEach(([header, range]) => {
+    const existingGroup = map[range.concise()];
+    if (existingGroup != null) {
+      existingGroup.headers.push(header);
+    } else {
+      const group = { headers: [header], range };
+      groups.push(group);
+      map[range.concise()] = group;
+    }
+  });
+
+  return groups;
 }
 
 function serializeTargetInsertionDelimiter(

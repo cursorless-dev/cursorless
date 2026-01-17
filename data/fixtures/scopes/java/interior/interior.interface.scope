@@ -1,0 +1,10 @@
+public interface Foo { }
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:22-0:23
+                        >-<
+0| public interface Foo { }
+
+[Insertion delimiter] = " "

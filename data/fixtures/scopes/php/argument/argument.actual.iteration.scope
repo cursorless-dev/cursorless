@@ -1,0 +1,11 @@
+<?php
+foo(aaa, bbb)
+---
+
+[Content] = 1:4-1:12
+      >--------<
+1| foo(aaa, bbb)
+
+[Domain] = 1:0-1:13
+  >-------------<
+1| foo(aaa, bbb)

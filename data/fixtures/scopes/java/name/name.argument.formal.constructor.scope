@@ -1,0 +1,83 @@
+public class Foo {
+    public Foo(int aaa, int bbb) {}
+}
+---
+
+[#1 Content] = 0:13-0:16
+               >---<
+0| public class Foo {
+
+[#1 Removal] = 0:13-0:17
+               >----<
+0| public class Foo {
+
+[#1 Leading delimiter] = 0:12-0:13
+              >-<
+0| public class Foo {
+
+[#1 Trailing delimiter] = 0:16-0:17
+                  >-<
+0| public class Foo {
+
+[#1 Domain] = 0:0-2:1
+  >------------------
+0| public class Foo {
+1|     public Foo(int aaa, int bbb) {}
+2| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] = 1:11-1:14
+             >---<
+1|     public Foo(int aaa, int bbb) {}
+
+[#2 Leading delimiter] = 1:10-1:11
+            >-<
+1|     public Foo(int aaa, int bbb) {}
+
+[#2 Domain] = 1:4-1:35
+      >-------------------------------<
+1|     public Foo(int aaa, int bbb) {}
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] = 1:19-1:22
+                     >---<
+1|     public Foo(int aaa, int bbb) {}
+
+[#3 Removal] = 1:18-1:22
+                    >----<
+1|     public Foo(int aaa, int bbb) {}
+
+[#3 Leading delimiter] = 1:18-1:19
+                    >-<
+1|     public Foo(int aaa, int bbb) {}
+
+[#3 Domain] = 1:15-1:22
+                 >-------<
+1|     public Foo(int aaa, int bbb) {}
+
+[#3 Insertion delimiter] = " "
+
+
+[#4 Content] = 1:28-1:31
+                              >---<
+1|     public Foo(int aaa, int bbb) {}
+
+[#4 Removal] = 1:27-1:31
+                             >----<
+1|     public Foo(int aaa, int bbb) {}
+
+[#4 Leading delimiter] = 1:27-1:28
+                             >-<
+1|     public Foo(int aaa, int bbb) {}
+
+[#4 Domain] = 1:24-1:31
+                          >-------<
+1|     public Foo(int aaa, int bbb) {}
+
+[#4 Insertion delimiter] = " "

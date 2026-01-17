@@ -1,0 +1,10 @@
+while True: pass
+else: pass
+---
+
+[Content] =
+[Domain] = 0:0-1:10
+  >----------------
+0| while True: pass
+1| else: pass
+   ----------<

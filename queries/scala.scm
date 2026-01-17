@@ -1,6 +1,9 @@
 ;; https://github.com/tree-sitter/tree-sitter-scala/blob/master/src/grammar.json
 
-(if_expression) @ifStatement
+(
+  (if_expression) @ifStatement @statement
+  (#not-parent-type? @ifStatement if_expression)
+)
 
 [
   (string)
@@ -15,15 +18,15 @@
 ;; treating classes = classlike
 [
   (class_definition
-    name: (_) @className
+    name: (_) @name
   )
   (object_definition
-    name: (_) @className
+    name: (_) @name
   )
   (trait_definition
-    name: (_) @className
+    name: (_) @name
   )
-] @class @className.domain
+] @class @name.domain
 
 ;; list.size(), does not count foo.size (field_expression), or foo size (postfix_expression)
 (call_expression) @functionCall
@@ -31,11 +34,11 @@
 (lambda_expression) @anonymousFunction
 
 (function_definition
-  name: (_) @functionName
-) @namedFunction @functionName.domain
+  name: (_) @name
+) @namedFunction @name.domain
 
 (match_expression
-  value: (_) @private.switchStatementSubject
+  value: (_) @value
 ) @_.domain
 
 (_
@@ -154,8 +157,8 @@
     "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
     ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
   ) @argumentList
-  (#child-range! @argumentList 1 -2)
   (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;;!! def foo(aaa: Int, bbb: Int) = x
@@ -165,8 +168,8 @@
     "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
     ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
   ) @argumentList
-  (#child-range! @argumentList 1 -2)
   (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;;!! foo(aaa, bbb)
@@ -176,8 +179,8 @@
     "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
     ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
   ) @argumentList
-  (#child-range! @argumentList 1 -2)
   (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 operator: (operator_identifier) @disqualifyDelimiter

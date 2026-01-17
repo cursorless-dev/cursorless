@@ -1,0 +1,13 @@
+union Foo { };
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:14
+  >--------------<
+0| union Foo { };
+
+
+[#2 Content] =
+[#2 Domain] = 0:11-0:12
+             >-<
+0| union Foo { };

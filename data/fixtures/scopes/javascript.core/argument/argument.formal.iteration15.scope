@@ -1,0 +1,10 @@
+const foo = function *bar(aaa, bbb) {};
+---
+
+[Content] = 0:26-0:34
+                            >--------<
+0| const foo = function *bar(aaa, bbb) {};
+
+[Domain] = 0:12-0:38
+              >--------------------------<
+0| const foo = function *bar(aaa, bbb) {};

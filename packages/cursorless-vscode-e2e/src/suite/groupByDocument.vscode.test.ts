@@ -1,9 +1,11 @@
 import { splitKey } from "@cursorless/common";
-import { getCursorlessApi } from "@cursorless/vscode-common";
-import * as assert from "assert";
+import {
+  getCursorlessApi,
+  runCursorlessCommand,
+} from "@cursorless/vscode-common";
+import * as assert from "node:assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-import { runCursorlessCommand } from "@cursorless/vscode-common";
 
 suite("Group by document", async function () {
   endToEndTestSetup(this);

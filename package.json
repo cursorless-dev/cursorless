@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "The root of the Cursorless monorepo",
   "license": "MIT",
-  "packageManager": "pnpm@9.12.1",
+  "packageManager": "pnpm@10.13.1",
   "type": "module",
   "main": "index.js",
   "engines": {
@@ -15,10 +15,12 @@
     "compile": "tsc --build && pnpm -r --if-present compile:esbuild",
     "fix:eslint": "pnpm lint:ts --fix",
     "fix:meta": "pnpm run meta-updater:base && pnpm -r exec prettier --write tsconfig.json package.json",
+    "fix:prettier": "prettier --write --list-different .",
     "fix:syncpack": "pnpm syncpack fix-mismatches",
     "init-vscode-sandbox": "pnpm --filter=@cursorless/cursorless-vscode init-launch-sandbox",
     "lint:meta": "pnpm run meta-updater:base --test",
-    "lint:ts": "cross-env ESLINT_USE_FLAT_CONFIG=false eslint packages --ext ts,tsx,mts",
+    "lint:ts": "eslint packages --ext ts,tsx,mts",
+    "lint:prettier": "prettier --check .",
     "lint": "pnpm run lint:meta && syncpack list-mismatches && pnpm run lint:ts",
     "meta-updater:base": "pnpm --filter=@cursorless/meta-updater build && meta-updater",
     "preinstall": "npx only-allow pnpm",
@@ -31,28 +33,33 @@
     "watch:tsc": "tsc --build --watch"
   },
   "devDependencies": {
-    "@pnpm/meta-updater": "2.0.4",
-    "@types/node": "20.17.50",
-    "@typescript-eslint/eslint-plugin": "8.34.0",
-    "@typescript-eslint/parser": "8.34.0",
-    "cross-env": "7.0.3",
-    "esbuild": "0.25.5",
-    "eslint": "9.28.0",
-    "eslint-config-prettier": "10.1.5",
-    "eslint-import-resolver-typescript": "4.4.3",
-    "eslint-plugin-import": "2.31.0",
-    "eslint-plugin-mocha": "10.5.0",
-    "eslint-plugin-unicorn": "56.0.1",
-    "eslint-plugin-unused-imports": "4.1.4",
-    "prettier": "3.3.3",
-    "prettier-plugin-tailwindcss": "0.6.12",
-    "syncpack": "13.0.4",
-    "typescript": "5.8.3"
+    "@eslint/config-helpers": "^0.5.0",
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.39.1",
+    "@pnpm/meta-updater": "^2.0.6",
+    "@types/node": "^24.10.1",
+    "esbuild": "^0.27.0",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-mocha": "^11.2.0",
+    "eslint-plugin-unicorn": "^62.0.0",
+    "eslint-plugin-unused-imports": "^4.3.0",
+    "prettier": "^3.7.1",
+    "prettier-plugin-tailwindcss": "^0.7.1",
+    "syncpack": "^13.0.4",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.48.0"
   },
   "pnpm": {
     "patchedDependencies": {
       "@types/nearley@2.11.5": "patches/@types__nearley@2.11.5.patch",
       "nearley@2.20.1": "patches/nearley@2.20.1.patch"
+    },
+    "overrides": {
+      "@docusaurus/core>webpack-dev-server": "5.2.2",
+      "@yarnpkg/shell>cross-spawn": "7.0.6"
     }
   }
 }

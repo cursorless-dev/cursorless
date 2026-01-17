@@ -8,7 +8,7 @@ Bbb
 Ccc
 ---
 
-[#1 Range] =
+[#1 Content] =
 [#1 Domain] = 0:0-7:3
   >----
 0| # h1
@@ -22,7 +22,7 @@ Ccc
    ---<
 
 
-[#2 Range] =
+[#2 Content] =
 [#2 Domain] = 1:0-7:3
   >---
 1| Aaa
@@ -35,13 +35,13 @@ Ccc
    ---<
 
 
-[#3 Range] =
+[#3 Content] =
 [#3 Domain] = 4:0-4:3
   >---<
 4| Bbb
 
 
-[#4 Range] =
+[#4 Content] =
 [#4 Domain] = 7:0-7:3
   >---<
 7| Ccc

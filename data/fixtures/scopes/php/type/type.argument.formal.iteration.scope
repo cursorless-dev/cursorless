@@ -1,0 +1,8 @@
+<?php
+function foo(int $aaa, int $bbb) {}
+---
+
+[Content] =
+[Domain] = 1:13-1:31
+               >------------------<
+1| function foo(int $aaa, int $bbb) {}

@@ -1,0 +1,13 @@
+for v in values: pass
+---
+
+[Content] = 0:17-0:21
+                   >----<
+0| for v in values: pass
+
+[Removal] =
+[Domain] = 0:16-0:21
+                  >-----<
+0| for v in values: pass
+
+[Insertion delimiter] = " "

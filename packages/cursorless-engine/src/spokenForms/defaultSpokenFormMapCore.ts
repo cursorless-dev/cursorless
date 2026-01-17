@@ -93,6 +93,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     token: "token",
     identifier: "identifier",
     line: "line",
+    fullLine: "full line",
     sentence: "sentence",
     paragraph: "block",
     boundedParagraph: "short block",
@@ -106,8 +107,8 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     textFragment: isPrivate("text fragment"),
     disqualifyDelimiter: isPrivate("disqualify delimiter"),
     pairDelimiter: isPrivate("pair delimiter"),
+    interior: isPrivate("interior"),
     ["private.fieldAccess"]: isPrivate("access"),
-    ["private.switchStatementSubject"]: isPrivate("subject"),
   },
   complexScopeTypeType: {
     glyph: "glyph",

@@ -17,28 +17,19 @@
 ;;!  ^^^^^^^^^^^^^^
 (if_statement) @ifStatement
 
-;; ;;!! if (TRUE) { print("hello") } else { print("world") }
-;; ;;!      ^^^^   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-;; (if_statement
-;;   "if" @branch.start
-;;   (_) @condition
-;;   consequence: (braced_expression) @branch.end
-;;   alternative: (braced_expression)? @branch.end
-;; ) @branch.iteration
-
 ;; named function
 ;;!! abc <- function(x){ }
 ;;!  ^^^^^^^^^^^^^^^^^^^^^
 (binary_operator
   ;;!! abc <- function(x){ }
   ;;!  ^^^
-  lhs: (identifier) @functionName
+  lhs: (identifier) @name
   rhs: (function_definition
     name: "function"
     parameters: (parameters)
-    body: (braced_expression) @interior
-  ) @functionName.trailing.startOf
-) @namedFunction @namedFunction.domain @functionName.domain
+    body: (braced_expression)
+  ) @name.trailing.startOf
+) @namedFunction @_.domain
 
 ;; anonymous function
 ;;!! function(x){ }
@@ -52,6 +43,7 @@
   (arguments
     (
       (argument) @_.leading.endOf
+      .
       (comma)
     )?
     .
@@ -59,6 +51,7 @@
     .
     (
       (comma)
+      .
       (argument) @_.trailing.startOf
     )?
   ) @_dummy
@@ -72,6 +65,7 @@
   (parameters
     (
       (parameter) @_.leading.endOf
+      .
       (comma)
     )?
     .
@@ -79,6 +73,7 @@
     .
     (
       (comma)
+      .
       (parameter) @_.trailing.startOf
     )?
   ) @_dummy
@@ -93,8 +88,8 @@
     "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
     ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
   ) @argumentList
-  (#child-range! @argumentList 1 -2)
   (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;; argumentList.formal
@@ -106,8 +101,8 @@
       "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
       ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
     ) @argumentList
-    (#child-range! @argumentList 1 -2)
     (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+    (#child-range! @argumentList 1 -2)
   )
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
@@ -120,8 +115,8 @@
       "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
       ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
     ) @argumentList
-    (#child-range! @argumentList 1 -2)
     (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+    (#child-range! @argumentList 1 -2)
   ) @argumentList.domain @argumentOrParameter.iteration.domain
   (#not-parent-type? @argumentList.domain binary_operator)
 )
@@ -134,22 +129,19 @@
 ;; Function calls
 ;;!! foo()
 ;;!  ^^^^^
-;;!  -----
-(call) @functionCall @argumentOrParameter.iteration.domain
-
-;;!! foo()
 ;;!  ^^^
 ;;!  -----
+
 (call
   (identifier) @functionCallee
-)
+) @functionCall @functionCallee.domain
 
 ;; Technically lists and arrays are just calls to the function `list` or `c`
 ;;!! list(1, 2, 3)
 ;;!  ^^^^^^^^^^^^^
 (call
-  function: (identifier) @functionName
-  (#match? @functionName "^(c|list)$")
+  function: (identifier) @_dummy
+  (#match? @_dummy "^(c|list)$")
 ) @list
 
 (binary_operator

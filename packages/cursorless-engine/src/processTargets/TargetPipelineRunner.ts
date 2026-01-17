@@ -27,6 +27,7 @@ import { PlainTarget } from "./targets";
 interface TargetPipelineRunnerOpts {
   actionFinalStages?: ModifierStage[];
   noAutomaticTokenExpansion?: boolean;
+  allowDuplicateTargets?: boolean;
 }
 
 export class TargetPipelineRunner {
@@ -53,13 +54,14 @@ export class TargetPipelineRunner {
     {
       actionFinalStages = [],
       noAutomaticTokenExpansion = false,
+      allowDuplicateTargets = false,
     }: TargetPipelineRunnerOpts = {},
   ): Target[] {
     return new TargetPipeline(
       this.modifierStageFactory,
       this.markStageFactory,
       target,
-      { actionFinalStages, noAutomaticTokenExpansion },
+      { actionFinalStages, noAutomaticTokenExpansion, allowDuplicateTargets },
     ).run();
   }
 }
@@ -87,7 +89,8 @@ class TargetPipeline {
    * the target
    */
   run(): Target[] {
-    return uniqTargets(this.processTarget(this.target));
+    const targets = this.processTarget(this.target);
+    return this.opts.allowDuplicateTargets ? targets : uniqTargets(targets);
   }
 
   processTarget(target: TargetDescriptor): Target[] {
@@ -299,10 +302,10 @@ export function processModifierStages(
   // First we apply each stage in sequence, letting each stage see the targets
   // one-by-one and concatenating the results before passing them on to the
   // next stage.
+  const options: ModifierStateOptions = {
+    multipleTargets: targets.length > 1,
+  };
   modifierStages.forEach((stage) => {
-    const options: ModifierStateOptions = {
-      multipleTargets: targets.length > 1,
-    };
     targets = targets.flatMap((target) => stage.run(target, options));
   });
 

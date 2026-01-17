@@ -1,21 +1,21 @@
-class MyClass {
-    void foo() {}
+class Foo {
+    void bar() {}
 }
 ---
 
 [Content] =
 [Domain] = 1:4-1:17
       >-------------<
-1|     void foo() {}
+1|     void bar() {}
 
 [Removal] = 1:0-2:0
   >-----------------
-1|     void foo() {}
+1|     void bar() {}
 2| }
    <
 
 [Leading delimiter] = 1:0-1:4
   >----<
-1|     void foo() {}
+1|     void bar() {}
 
 [Insertion delimiter] = "\n\n"

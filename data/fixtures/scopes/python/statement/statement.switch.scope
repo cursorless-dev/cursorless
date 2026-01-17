@@ -1,0 +1,13 @@
+match foo:
+    pass
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-1:8
+  >----------
+0| match foo:
+1|     pass
+   --------<
+
+[Insertion delimiter] = "\n"

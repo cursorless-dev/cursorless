@@ -1,9 +1,9 @@
-import type { SimpleSyntaxNode } from "./QueryCapture";
+import type { Node } from "web-tree-sitter";
 
 export function getChildNodesForFieldName(
-  node: SimpleSyntaxNode,
+  node: Node,
   fieldName: string,
-): SimpleSyntaxNode[] {
+): Node[] {
   const nodes = [];
   const treeCursor = node.walk();
   let hasNext = treeCursor.gotoFirstChild();

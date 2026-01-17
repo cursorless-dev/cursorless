@@ -1,0 +1,20 @@
+not mode: command
+tag: browser
+-
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-1:12
+  >-----------------
+0| not mode: command
+1| tag: browser
+   ------------<
+
+
+[#2 Content] =
+[#2 Domain] = 0:0-2:1
+  >-----------------
+0| not mode: command
+1| tag: browser
+2| -
+   -<

@@ -1,0 +1,22 @@
+class Foo {
+    int bar = 0;
+}
+---
+
+[Content] = 1:14-1:15
+                >-<
+1|     int bar = 0;
+
+[Removal] = 1:11-1:15
+             >----<
+1|     int bar = 0;
+
+[Leading delimiter] = 1:11-1:14
+             >---<
+1|     int bar = 0;
+
+[Domain] = 1:4-1:16
+      >------------<
+1|     int bar = 0;
+
+[Insertion delimiter] = " "

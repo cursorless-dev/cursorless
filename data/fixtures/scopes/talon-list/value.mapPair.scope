@@ -1,0 +1,22 @@
+
+foo: bar
+
+---
+
+[Content] = 1:5-1:8
+       >---<
+1| foo: bar
+
+[Removal] = 1:4-1:8
+      >----<
+1| foo: bar
+
+[Leading delimiter] = 1:4-1:5
+      >-<
+1| foo: bar
+
+[Domain] = 1:0-1:8
+  >--------<
+1| foo: bar
+
+[Insertion delimiter] = " "

@@ -1,8 +1,0 @@
-
-class MyClass { }
----
-
-[Range] =
-[Domain] = 1:0-1:17
-  >-----------------<
-1| class MyClass { }

@@ -1,0 +1,10 @@
+for v in values: pass
+else: pass
+---
+
+[Content] =
+[Domain] = 0:0-1:10
+  >---------------------
+0| for v in values: pass
+1| else: pass
+   ----------<

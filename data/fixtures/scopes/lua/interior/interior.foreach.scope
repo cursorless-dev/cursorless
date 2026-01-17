@@ -1,0 +1,18 @@
+for v in values do
+  a = 1
+end
+---
+
+[Content] = 1:2-1:7
+    >-----<
+1|   a = 1
+
+[Removal] =
+[Domain] = 0:18-2:0
+                    >
+0| for v in values do
+1|   a = 1
+2| end
+   <
+
+[Insertion delimiter] = " "

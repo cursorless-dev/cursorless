@@ -1,0 +1,21 @@
+try {}
+catch (const std::exception e) {}
+---
+
+[Content] = 1:28-1:29
+                              >-<
+1| catch (const std::exception e) {}
+
+[Removal] = 1:27-1:29
+                             >--<
+1| catch (const std::exception e) {}
+
+[Leading delimiter] = 1:27-1:28
+                             >-<
+1| catch (const std::exception e) {}
+
+[Domain] = 1:7-1:29
+         >----------------------<
+1| catch (const std::exception e) {}
+
+[Insertion delimiter] = " "

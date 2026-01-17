@@ -3,27 +3,26 @@
 // switch to `{import("foo")}` syntax in the `{@link}` tag.
 // - https://github.com/microsoft/TypeScript/issues/43869
 // - https://github.com/microsoft/TypeScript/issues/43950
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { ModifyIfUntypedStage } from "../processTargets/modifiers/ConditionalModifierStages";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
 import type {
   GeneralizedRange,
   InsertionMode,
   Range,
   Selection,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   Snippet,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   SnippetVariable,
   TargetPlainObject,
   TextEditor,
 } from "@cursorless/common";
 import type {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ScopeTypeTarget,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   TokenTarget,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   UntypedTarget,
 } from "../processTargets/targets";
 import type { EditWithRangeUpdater } from "./Types";

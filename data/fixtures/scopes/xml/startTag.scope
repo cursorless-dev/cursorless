@@ -1,13 +1,13 @@
-<name id="name">Me</name>
+<name></name>
 ---
 
 [Content] =
-[Removal] = 0:0-0:16
-  >----------------<
-0| <name id="name">Me</name>
+[Removal] = 0:0-0:6
+  >------<
+0| <name></name>
 
-[Domain] = 0:0-0:25
-  >-------------------------<
-0| <name id="name">Me</name>
+[Domain] = 0:0-0:13
+  >-------------<
+0| <name></name>
 
 [Insertion delimiter] = " "

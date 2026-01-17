@@ -9,10 +9,8 @@
       (attribute_item)
       (const_item)
       (empty_statement)
-      (enum_item)
       (extern_crate_declaration)
       (foreign_mod_item)
-      (impl_item)
       (inner_attribute_item)
       (let_declaration)
       (macro_definition)
@@ -21,8 +19,10 @@
       (function_signature_item)
       (mod_item)
       (static_item)
-      (struct_item)
       (trait_item)
+      (struct_item)
+      (impl_item)
+      (enum_item)
       (type_item)
       (union_item)
       (use_declaration)
@@ -32,9 +32,36 @@
   (#type? @_dummy source_file block declaration_list)
 )
 
+(
+  (source_file) @statement.iteration @class.iteration @namedFunction.iteration
+  (#document-range! @statement.iteration @class.iteration @namedFunction.iteration)
+)
+(
+  (source_file) @name.iteration @type.iteration @value.iteration
+  (#document-range! @name.iteration @value.iteration @type.iteration)
+)
+
+;;!! { }
+;;!   ^
+(_
+  .
+  "{" @interior.start.endOf @statement.iteration.start.endOf
+  "}" @interior.end.startOf @statement.iteration.end.startOf
+  .
+)
+(_
+  .
+  "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+  .
+)
+
 ;;!! if v < 0 {}
 ;;!  ^^^^^^^^^^^
-(if_expression) @ifStatement
+(
+  (if_expression) @ifStatement @statement @branch.iteration
+  (#not-parent-type? @ifStatement else_clause)
+)
 
 ;;!! if let Some(i) = number {}
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -86,7 +113,6 @@
 (
   (raw_string_literal) @string @textFragment
   (#shrink-to-match! @textFragment "r#+\"(?<keep>.*)\"#+")
-
 )
 
 [
@@ -94,37 +120,64 @@
   (block_comment)
 ] @comment @textFragment
 
-[
-  (struct_item
-    name: (_) @className @name
-  )
-  (enum_item
-    name: (_) @className @name
-  )
-] @class @_.domain
+;;!! struct Foo {}
+(struct_item
+  name: (_) @name
+) @class @type @name.domain
 
-(struct_expression) @class
+;;!! impl Foo {}
+(impl_item
+  !trait
+  type: (_) @name
+) @name.domain
 
+;;!! impl Foo for Bar {}
+(impl_item
+  trait: (_) @name
+  type: (_) @type
+) @name.domain
+
+;;!! impl Foo {}
+(impl_item
+  body: (_
+    "{" @namedFunction.iteration.start.endOf
+    "}" @namedFunction.iteration.end.startOf
+  )
+) @class @type
+
+;;!! enum Foo {}
+(enum_item
+  name: (_) @name
+) @class @type @name.domain
+
+;;!! enum Foo { Bar, Baz }
+;;!             ^^^  ^^^
 (enum_variant
   name: (_) @name
-) @_.domain
+) @name.domain
 
+;;!! trait Foo {}
 (trait_item
-  name: (_) @className @name
-) @_.domain
+  name: (_) @name
+) @class @type @name.domain
+
+;;!! mod foo {}
+(mod_item
+  name: (_) @name
+) @name.domain
 
 ;;!! fn foo() {}
 ;;!  ^^^^^^^^^^^
 (function_item
-  name: (_) @functionName @name
-) @namedFunction @_.domain
+  name: (_) @name
+) @namedFunction @name.domain
 
 ;;!! fn foo() -> int {}
 ;;!              ^^^
 (function_item
   parameters: (_) @_.leading.endOf
   return_type: (_)? @type
-) @_.domain
+) @type.domain
 
 ;;!! fn foo<T: Display>() {}
 ;;!         ^
@@ -150,10 +203,11 @@
   )
 ) @_.domain
 
+;;!! struct Foo { bar: u8 }
 (field_declaration
   name: (_) @name @type.leading.endOf
   type: (_) @type
-) @_.domain
+) @statement @_.domain
 
 ;;!! (t: &T, u: &U)
 ;;!   ^      ^
@@ -174,14 +228,21 @@
 
 (closure_expression) @anonymousFunction
 
+;;!! let foo = [1, 2, 3];
+;;!! let foo = (1, "2", true);
 [
   (array_expression)
   (tuple_expression)
 ] @list
 
+;;!! match value {}
 (match_expression
-  value: (_) @private.switchStatementSubject
-) @_.domain
+  value: (_) @value
+  body: (_
+    "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
+    "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
+  )
+) @value.domain @branch.iteration.domain @condition.iteration.domain
 
 ;;!! #[derive(Debug)]
 ;;!  ^^^^^^^^^^^^^^^^
@@ -237,6 +298,22 @@
   value: (_) @value
 ) @_.domain
 
+;;!! let foo: u8;
+;;!      ^^^
+;;!            ^
+(let_declaration
+  pattern: (_) @name @type.leading.endOf
+  type: (_) @type
+  !value
+) @_.domain
+
+(expression_statement
+  (assignment_expression
+    left: (_) @name @value.leading.start.endOf
+    right: (_) @value @name.trailing.start.startOf
+  )
+) @_.domain
+
 ;;!! #[cfg_attr(feature = "foo")]
 ;;!             ^^^^^^^
 ;;!                       ^^^^^
@@ -247,8 +324,10 @@
 
 ;;!! return 2;
 ;;!         ^
-(return_expression
-  (_) @value
+(expression_statement
+  (return_expression
+    (_) @value
+  )
 ) @_.domain
 
 ;; Implicit return value at end of function body
@@ -287,6 +366,13 @@
   )
 )
 
+;;!! |x| x + 1
+;;!     ^^^^^^
+(closure_expression
+  body: (_) @value
+  (#not-type? @value block)
+)
+
 ;;!! while v < 0 {}
 ;;!        ^^^^^
 (while_expression
@@ -300,9 +386,13 @@
   value: (_) @condition.end
 ) @_.domain
 
+;;!! match value { 5 => {} }
+;;!                ^^^^^^^
+(match_arm) @branch
+
 ;;!! User { value } if value.use() => {}
 ;;!                    ^^^^^^^^^^^
-(_
+(match_arm
   (match_pattern
     (_) @_.leading.endOf
     .
@@ -312,17 +402,19 @@
 
 ;;!! match value { 5 => {} }
 ;;!                ^^^^^^^
-(match_arm) @branch
+(match_arm
+  (match_pattern
+    !condition
+  ) @condition
+) @condition.domain
 
-[
-  (struct_item)
-  (trait_item)
-  (impl_item)
-] @type
-
-(impl_item
-  type: (_) @type
-)
+;;!! match value { 5 => 0, }
+;;!                    ^^^
+(match_arm
+  "=>" @interior.start.endOf
+  value: (_) @_dummy
+  (#not-type? @_dummy block)
+) @interior.end.endOf
 
 (array_type
   element: (_) @type
@@ -330,7 +422,7 @@
 ;;!! fn foo(a: u32, b: u32) -> {}
 ;;!         ^^^^^^  ^^^^^^
 (_
-  (parameters
+  parameters: (_
     (_)? @_.leading.endOf
     .
     (_) @argumentOrParameter
@@ -343,12 +435,32 @@
 ;;!! fn foo(a: u32, b: u32) -> {}
 ;;!         ^^^^^^^^^^^^^^
 (_
-  (parameters
-    "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
-    ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
-  ) @_dummy
-  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+  parameters: (_
+    [
+      "("
+      "|"
+    ] @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    [
+      ")"
+      "|"
+    ] @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
+
+(_
+  parameters: (_
+    [
+      "("
+      "|"
+    ] @name.iteration.start.endOf @type.iteration.start.endOf
+    [
+      ")"
+      "|"
+    ] @name.iteration.end.startOf @type.iteration.end.startOf
+  )
+)
 
 ;;!! foo(aaa, bbb)
 ;;!      ^^^  ^^^
@@ -367,10 +479,11 @@
 ;;!      ^^^^^^^^
 (_
   (arguments
-    "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
-    ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
-  ) @_dummy
-  (#empty-single-multi-delimiter! @argumentList.start.endOf @_dummy "" ", " ",\n")
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;;!! enum E { C(u16, u16) }
@@ -459,6 +572,43 @@
 (where_clause
   "where" @type.iteration.start.endOf
 ) @type.iteration.end.endOf @type.iteration.domain
+
+;;!! for v in values {}
+(for_expression
+  pattern: (_) @name
+  value: (_) @value
+) @_.domain
+
+;;!! type Foo = Bar;
+(type_item
+  name: (_) @value.leading.endOf
+  type: (_) @value
+) @type @value.domain
+
+;;!! let foo: Foo<i32, u64>;
+;;!               ^^^  ^^^
+(generic_type
+  (type_arguments
+    (_)? @_.leading.endOf
+    .
+    (_) @type
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @type @_dummy ", " ",\n")
+)
+
+;;!! <i32, u64>;
+(type_arguments
+  "<" @type.iteration.start.endOf
+  ">" @type.iteration.end.startOf
+)
+
+;;!! foo as i32
+(type_cast_expression
+  value: (_) @type.leading.endOf
+  type: (_) @type
+) @_.domain
 
 operator: [
   "<"

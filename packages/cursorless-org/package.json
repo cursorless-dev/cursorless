@@ -15,8 +15,7 @@
   },
   "postcss": {
     "plugins": {
-      "tailwindcss": {},
-      "autoprefixer": {}
+      "@tailwindcss/postcss": {}
     }
   },
   "scripts": {
@@ -30,26 +29,27 @@
   },
   "dependencies": {
     "@cursorless/cheatsheet": "workspace:*",
-    "@mdx-js/loader": "3.1.0",
-    "@mdx-js/react": "3.1.0",
-    "@next/mdx": "15.3.3",
-    "next": "15.3.3",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "react-player": "2.16.0"
+    "@cursorless/common": "workspace:*",
+    "@mdx-js/loader": "^3.1.1",
+    "@mdx-js/react": "^3.1.1",
+    "@next/mdx": "^15.5.6",
+    "next": "^15.5.9",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-player": "^3.4.0"
   },
   "devDependencies": {
-    "@svgr/webpack": "8.1.0",
-    "@types/mdx": "2.0.13",
-    "@types/node": "20.17.50",
-    "@types/react": "19.1.8",
-    "@types/react-dom": "19.1.6",
-    "autoprefixer": "10.4.21",
-    "eslint": "9.28.0",
-    "eslint-config-next": "15.3.3",
-    "http-server": "14.1.1",
-    "postcss": "8.5.5",
-    "tailwindcss": "3.4.17",
-    "typescript": "5.8.3"
+    "@svgr/webpack": "^8.1.0",
+    "@tailwindcss/postcss": "^4.1.17",
+    "@types/mdx": "^2.0.13",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^9.39.1",
+    "eslint-config-next": "^16.0.5",
+    "http-server": "^14.1.1",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.17",
+    "typescript": "^5.9.3"
   }
 }

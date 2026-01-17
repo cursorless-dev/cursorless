@@ -1,0 +1,10 @@
+for v in values do end
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:22
+  >----------------------<
+0| for v in values do end
+
+[Insertion delimiter] = "\n"

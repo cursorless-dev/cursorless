@@ -1,8 +1,14 @@
-import type { SimpleScopeTypeType } from "../types/command/PartialTargetDescriptor.types";
-import { type ScopeType } from "../types/command/PartialTargetDescriptor.types";
+import type {
+  ScopeType,
+  SimpleScopeTypeType,
+} from "../types/command/PartialTargetDescriptor.types";
 
 export const scopeSupportFacets = [
   "command",
+  "environment",
+  "notebookCell",
+  "regularExpression",
+  "fieldAccess",
 
   "element",
   "tags",
@@ -10,68 +16,93 @@ export const scopeSupportFacets = [
   "endTag",
   "attribute",
 
-  "environment",
-
   "section",
   "section.iteration.document",
   "section.iteration.parent",
 
+  "selector",
+  "unit",
+
   "list",
   "map",
-  "ifStatement",
-  "regularExpression",
-  "switchStatementSubject",
-  "fieldAccess",
 
-  "statement",
+  "ifStatement",
+
   "statement.class",
+  "statement.interface",
+  "statement.enum",
+  "statement.field.class",
+  "statement.field.interface",
+  "statement.function",
+  "statement.constructor",
+  "statement.method",
+  "statement.if",
+  "statement.try",
+  "statement.switch",
+  "statement.for",
+  "statement.foreach",
+  "statement.while",
+  "statement.doWhile",
+  "statement.variable",
+  "statement.assignment",
+  "statement.return",
+  "statement.yield",
+  "statement.break",
+  "statement.continue",
+  "statement.resource",
+  "statement.command",
+  "statement.namespace",
+  "statement.static",
+  "statement.misc",
   "statement.iteration.document",
+  "statement.iteration.class",
+  "statement.iteration.interface",
   "statement.iteration.block",
 
   "class",
   "class.iteration.document",
   "class.iteration.block",
 
-  "className",
-  "className.iteration.document",
-  "className.iteration.block",
-
   "anonymousFunction",
 
   "namedFunction",
-  "namedFunction.iteration.block",
-  "namedFunction.iteration.document",
-  "namedFunction.method",
-  "namedFunction.method.iteration.class",
   "namedFunction.constructor",
-
-  "functionName",
-  "functionName.iteration.block",
-  "functionName.iteration.document",
-  "functionName.method",
-  "functionName.method.iteration.class",
-  "functionName.constructor",
+  "namedFunction.method",
+  "namedFunction.iteration.document",
+  "namedFunction.iteration.class",
 
   "functionCall",
   "functionCall.constructor",
+  "functionCall.method",
+  "functionCall.chain",
   "functionCallee",
   "functionCallee.constructor",
+  "functionCallee.method",
+  "functionCallee.chain",
 
-  "argument.actual",
+  "argument.actual.singleLine",
+  "argument.actual.multiLine",
   "argument.actual.iteration",
-  "argument.actual.method",
+  "argument.actual.method.singleLine",
+  "argument.actual.method.multiLine",
   "argument.actual.method.iteration",
-  "argument.actual.constructor",
+  "argument.actual.constructor.singleLine",
+  "argument.actual.constructor.multiLine",
   "argument.actual.constructor.iteration",
 
-  "argument.formal",
+  "argument.formal.singleLine",
+  "argument.formal.multiLine",
   "argument.formal.iteration",
-  "argument.formal.method",
+  "argument.formal.method.singleLine",
+  "argument.formal.method.multiLine",
   "argument.formal.method.iteration",
-  "argument.formal.constructor",
+  "argument.formal.constructor.singleLine",
+  "argument.formal.constructor.multiLine",
   "argument.formal.constructor.iteration",
-  "argument.formal.lambda",
+  "argument.formal.lambda.singleLine",
+  "argument.formal.lambda.multiLine",
   "argument.formal.lambda.iteration",
+  "argument.catch",
 
   "argumentList.actual.empty",
   "argumentList.actual.singleLine",
@@ -86,15 +117,15 @@ export const scopeSupportFacets = [
   "argumentList.formal.empty",
   "argumentList.formal.singleLine",
   "argumentList.formal.multiLine",
-  "argumentList.formal.lambda.empty",
-  "argumentList.formal.lambda.singleLine",
-  "argumentList.formal.lambda.multiLine",
   "argumentList.formal.method.empty",
   "argumentList.formal.method.singleLine",
   "argumentList.formal.method.multiLine",
   "argumentList.formal.constructor.empty",
   "argumentList.formal.constructor.singleLine",
   "argumentList.formal.constructor.multiLine",
+  "argumentList.formal.lambda.empty",
+  "argumentList.formal.lambda.singleLine",
+  "argumentList.formal.lambda.multiLine",
 
   "comment.line",
   "comment.block",
@@ -112,15 +143,20 @@ export const scopeSupportFacets = [
   "pairDelimiter",
 
   "branch.if",
+  "branch.if.elif.else",
+  "branch.if.else",
   "branch.if.iteration",
   "branch.try",
   "branch.try.iteration",
   "branch.switchCase",
   "branch.switchCase.iteration",
   "branch.ternary",
+  "branch.ternary.iteration",
   "branch.loop",
+  "branch.loop.iteration",
 
-  "collectionItem.unenclosed",
+  "collectionItem.unenclosed.singleLine",
+  "collectionItem.unenclosed.multiLine",
   "collectionItem.unenclosed.iteration",
 
   "condition.if",
@@ -133,6 +169,7 @@ export const scopeSupportFacets = [
 
   "name.assignment",
   "name.assignment.pattern",
+  "name.command",
   "name.variable",
   "name.variable.pattern",
   "name.foreach",
@@ -140,7 +177,12 @@ export const scopeSupportFacets = [
   "name.method",
   "name.constructor",
   "name.class",
-  "name.field",
+  "name.interface",
+  "name.enum",
+  "name.namespace",
+  "name.field.class",
+  "name.field.interface",
+  "name.field.enum",
   "name.resource",
   "name.resource.iteration",
   "name.argument.actual",
@@ -151,14 +193,19 @@ export const scopeSupportFacets = [
   "name.argument.formal.method.iteration",
   "name.argument.formal.constructor",
   "name.argument.formal.constructor.iteration",
-  "name.iteration.block",
+  "name.argument.catch",
   "name.iteration.document",
+  "name.iteration.class",
+  "name.iteration.block",
+  "name.iteration.interface",
+  "name.iteration.enum",
 
   "key.attribute",
   "key.mapPair",
   "key.mapPair.iteration",
 
   "value.assignment",
+  "value.command",
   "value.variable",
   "value.variable.pattern",
   "value.mapPair",
@@ -167,8 +214,11 @@ export const scopeSupportFacets = [
   "value.foreach",
   "value.return",
   "value.return.lambda",
-  "value.field",
+  "value.field.class",
+  "value.field.enum",
   "value.yield",
+  "value.switch",
+  "value.typeAlias",
   "value.resource",
   "value.resource.iteration",
   "value.argument.actual",
@@ -179,56 +229,64 @@ export const scopeSupportFacets = [
   "value.argument.formal.method.iteration",
   "value.argument.formal.constructor",
   "value.argument.formal.constructor.iteration",
-  "value.typeAlias",
+  "value.iteration.block",
+  "value.iteration.class",
+  "value.iteration.enum",
+  "value.iteration.document",
 
   "type.variable",
+  "type.return",
+  "type.field.class",
+  "type.field.interface",
+  "type.foreach",
+  "type.alias",
+  "type.cast",
+  "type.class",
+  "type.interface",
+  "type.enum",
+  "type.resource",
+  "type.resource.iteration",
+  "type.typeArgument",
+  "type.typeArgument.iteration",
   "type.argument.formal",
   "type.argument.formal.iteration",
   "type.argument.formal.method",
   "type.argument.formal.method.iteration",
   "type.argument.formal.constructor",
   "type.argument.formal.constructor.iteration",
-  "type.return",
-  "type.field",
-  "type.field.iteration",
-  "type.foreach",
-  "type.interface",
-  "type.enum",
-  "type.alias",
-  "type.cast",
-  "type.class",
-  "type.typeArgument",
-  "type.typeArgument.iteration",
-  "type.resource",
-  "type.resource.iteration",
+  "type.argument.catch",
+  "type.iteration.block",
+  "type.iteration.class",
+  "type.iteration.interface",
+  "type.iteration.document",
 
   "interior.class",
+  "interior.interface",
+  "interior.enum",
   "interior.function",
+  "interior.constructor",
+  "interior.method",
   "interior.lambda",
   "interior.element",
   "interior.command",
   "interior.cell",
   "interior.if",
   "interior.try",
+  "interior.switch",
   "interior.switchCase",
-  "interior.ternary",
-  "interior.loop",
+  "interior.for",
+  "interior.foreach",
+  "interior.while",
+  "interior.doWhile",
   "interior.resource",
-
-  "notebookCell",
-
-  // FIXME: Still in legacy
-  // selector
-  // unit
+  "interior.namespace",
+  "interior.static",
 ] as const;
 
 export interface ScopeSupportFacetInfo {
   readonly description: string;
   readonly scopeType: SimpleScopeTypeType | ScopeType;
   readonly isIteration?: boolean;
-  readonly domainHint?: string;
-  readonly removalHint?: string;
-  readonly insertionDelimiterHint?: string;
 }
 
 export enum ScopeSupportFacetLevel {
@@ -239,12 +297,13 @@ export enum ScopeSupportFacetLevel {
 
 export type ScopeSupportFacet = (typeof scopeSupportFacets)[number];
 
-export type TextualScopeSupportFacet =
+export type PlaintextScopeSupportFacet =
   | "character"
   | "word"
   | "token"
   | "identifier"
   | "line"
+  | "fullLine"
   | "sentence"
   | "paragraph"
   | "boundedParagraph"

@@ -1,0 +1,10 @@
+type Foo interface { }
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:20-0:21
+                      >-<
+0| type Foo interface { }
+
+[Insertion delimiter] = " "

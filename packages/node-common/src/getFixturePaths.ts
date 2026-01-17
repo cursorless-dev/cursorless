@@ -1,9 +1,17 @@
+import type {
+  PlaintextScopeSupportFacet,
+  ScopeSupportFacet,
+} from "@cursorless/common";
+import { getCursorlessRepoRoot } from "@cursorless/node-common";
 import * as path from "path";
 import { walkFilesSync } from "./walkSync";
-import { getCursorlessRepoRoot } from "@cursorless/node-common";
 
 export function getFixturesPath() {
   return path.join(getCursorlessRepoRoot(), "data", "fixtures");
+}
+
+export function getPackagePath(name: string) {
+  return path.join(getCursorlessRepoRoot(), "packages", name);
 }
 
 export function getFixturePath(fixturePath: string) {
@@ -34,7 +42,7 @@ export interface ScopeTestPath {
   path: string;
   name: string;
   languageId: string;
-  facet: string;
+  facet: ScopeSupportFacet | PlaintextScopeSupportFacet;
 }
 
 export function getScopeTestPaths(): ScopeTestPath[] {
@@ -47,7 +55,9 @@ export function getScopeTestPaths(): ScopeTestPath[] {
       path: p,
       name: pathToName(relativeDir, p),
       languageId: path.dirname(path.relative(directory, p)).split(path.sep)[0],
-      facet: path.basename(p).match(/([a-zA-Z.]+)\d*\.scope/)![1],
+      facet: path.basename(p).match(/([a-zA-Z.]+)\d*\.scope/)![1] as
+        | ScopeSupportFacet
+        | PlaintextScopeSupportFacet,
     }));
 }
 

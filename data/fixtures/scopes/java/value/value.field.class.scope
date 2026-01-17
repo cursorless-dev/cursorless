@@ -1,0 +1,22 @@
+public class Foo {
+    private int bar = 0;
+}
+---
+
+[Content] = 1:22-1:23
+                        >-<
+1|     private int bar = 0;
+
+[Removal] = 1:19-1:23
+                     >----<
+1|     private int bar = 0;
+
+[Leading delimiter] = 1:19-1:22
+                     >---<
+1|     private int bar = 0;
+
+[Domain] = 1:4-1:24
+      >--------------------<
+1|     private int bar = 0;
+
+[Insertion delimiter] = " "

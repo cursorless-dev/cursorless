@@ -1,16 +1,13 @@
 import type {
+  IDE,
   RawTreeSitterQueryProvider,
   ScopeType,
   SimpleScopeType,
   SimpleScopeTypeType,
+  TextDocument,
   TreeSitter,
 } from "@cursorless/common";
-import {
-  matchAll,
-  showError,
-  type IDE,
-  type TextDocument,
-} from "@cursorless/common";
+import { matchAll, showError } from "@cursorless/common";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
 import { TreeSitterQuery } from "./TreeSitterQuery";
 import type { QueryCapture } from "./TreeSitterQuery/QueryCapture";
@@ -75,8 +72,7 @@ export class LanguageDefinition {
   /**
    * @param scopeType The scope type for which to get a scope handler
    * @returns A scope handler for the given scope type and language id, or
-   * undefined if the given scope type / language id combination is still using
-   * legacy pathways
+   * undefined if the given scope type is not supported by this language.
    */
   getScopeHandler(scopeType: ScopeType) {
     if (!this.query.hasCapture(scopeType.type)) {

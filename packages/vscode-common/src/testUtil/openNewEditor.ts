@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { getParseTreeApi } from "../getExtensionApi";
+import { getCursorlessApi, getParseTreeApi } from "../getExtensionApi";
 
 interface NewEditorOptions {
   languageId?: string;
@@ -20,6 +20,8 @@ export async function openNewEditor(
   });
 
   await (await getParseTreeApi()).loadLanguage(languageId);
+
+  (await getCursorlessApi()).testHelpers!.clearCache();
 
   const editor = await vscode.window.showTextDocument(
     document,
@@ -95,6 +97,8 @@ export async function openNewNotebookEditor(
   );
 
   await (await getParseTreeApi()).loadLanguage(language);
+
+  (await getCursorlessApi()).testHelpers!.clearCache();
 
   // FIXME: There seems to be some timing issue when you create a notebook
   // editor

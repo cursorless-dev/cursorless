@@ -29,20 +29,21 @@
 )
 
 (class_declaration
-  (type_identifier) @name @className
+  (type_identifier) @name
 ) @class @_.domain
 
 (object_declaration
-  (type_identifier) @name @className
+  (type_identifier) @name
 ) @class @_.domain
 
 (companion_object
-  (type_identifier) @name @className
+  (type_identifier) @name
 ) @class @_.domain
 
 (function_declaration
-  (simple_identifier) @name @functionName
+  (simple_identifier) @name
 ) @namedFunction @_.domain
+
 (secondary_constructor) @namedFunction
 
 (if_expression) @ifStatement
@@ -149,8 +150,8 @@
 ) @_.domain
 
 (when_expression
-  (when_subject) @private.switchStatementSubject
-  (#child-range! @private.switchStatementSubject 0 -1 true true)
+  (when_subject) @value
+  (#child-range! @value 0 -1 true true)
 ) @_.domain
 
 ;;

@@ -1,0 +1,10 @@
+lambda aaa, bbb: pass
+---
+
+[Content] = 0:7-0:15
+         >--------<
+0| lambda aaa, bbb: pass
+
+[Domain] = 0:0-0:21
+  >---------------------<
+0| lambda aaa, bbb: pass

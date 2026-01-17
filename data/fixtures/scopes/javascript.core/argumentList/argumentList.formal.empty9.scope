@@ -1,0 +1,13 @@
+export const foo = function *() {};
+---
+
+[Content] =
+[Removal] = 0:30-0:30
+                                ><
+0| export const foo = function *() {};
+
+[Domain] = 0:0-0:35
+  >-----------------------------------<
+0| export const foo = function *() {};
+
+[Insertion delimiter] = ""

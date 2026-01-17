@@ -1,6 +1,5 @@
-import type { Position } from "@cursorless/common";
+import type { Direction, Position } from "@cursorless/common";
 import { Range } from "@cursorless/common";
-import type { Direction } from "@cursorless/common";
 import { strictlyContains } from "../../../util/rangeUtils";
 import { compareTargetScopes } from "./compareTargetScopes";
 import type { TargetScope } from "./scope.types";

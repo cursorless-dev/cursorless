@@ -1,0 +1,47 @@
+<?php
+class Foo {
+    function __construct(
+        number $aaa,
+        number $bbb
+    ) {}
+}
+---
+
+[#1 Content] =
+[#1 Domain] = 3:8-3:19
+          >-----------<
+3|         number $aaa,
+
+[#1 Removal] = 3:8-4:8
+          >------------
+3|         number $aaa,
+4|         number $bbb
+   --------<
+
+[#1 Trailing delimiter] = 3:19-4:8
+                     >-
+3|         number $aaa,
+4|         number $bbb
+   --------<
+
+[#1 Insertion delimiter] = ",\n"
+
+
+[#2 Content] =
+[#2 Domain] = 4:8-4:19
+          >-----------<
+4|         number $bbb
+
+[#2 Removal] = 3:19-4:19
+                     >-
+3|         number $aaa,
+4|         number $bbb
+   -------------------<
+
+[#2 Leading delimiter] = 3:19-4:8
+                     >-
+3|         number $aaa,
+4|         number $bbb
+   --------<
+
+[#2 Insertion delimiter] = ",\n"

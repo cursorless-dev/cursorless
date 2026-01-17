@@ -1,0 +1,44 @@
+func(
+    aaa int,
+    bbb string,
+) {}
+---
+
+[#1 Content] =
+[#1 Domain] = 1:4-1:11
+      >-------<
+1|     aaa int,
+
+[#1 Removal] = 1:4-2:4
+      >--------
+1|     aaa int,
+2|     bbb string,
+   ----<
+
+[#1 Trailing delimiter] = 1:11-2:4
+             >-
+1|     aaa int,
+2|     bbb string,
+   ----<
+
+[#1 Insertion delimiter] = ",\n"
+
+
+[#2 Content] =
+[#2 Domain] = 2:4-2:14
+      >----------<
+2|     bbb string,
+
+[#2 Removal] = 1:11-2:14
+             >-
+1|     aaa int,
+2|     bbb string,
+   --------------<
+
+[#2 Leading delimiter] = 1:11-2:4
+             >-
+1|     aaa int,
+2|     bbb string,
+   ----<
+
+[#2 Insertion delimiter] = ",\n"

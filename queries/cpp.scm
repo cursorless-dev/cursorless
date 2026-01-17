@@ -18,8 +18,7 @@
 
 (_
   (class_specifier
-    name: (_) @className @name
-    body: (_)
+    name: (_) @name
   ) @_.domain.start @class.start @type.start
   .
   ";"? @_.domain.end @class.end @type.end
@@ -34,9 +33,14 @@
   ";"? @statement.end
 )
 
+;;!! namespace NS { }
+(namespace_definition
+  name: (_) @name
+) @_.domain
+
 (field_declaration_list
-  "{" @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf
-  "}" @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf
+  "{" @namedFunction.iteration.start.endOf
+  "}" @namedFunction.iteration.end.startOf
 ) @_.domain
 
 ;;!! int aaa = 0;
@@ -46,26 +50,13 @@
   default_value: (_) @value
 ) @_.domain
 
-;;!! void ClassName::method() {}
-(function_definition
-  declarator: (_
-    declarator: (_
-      scope: (_) @className
-    )
-  )
-) @_.domain
-
 ;;!! []() {}
 ;;!  ^^^^^^^
-(lambda_expression
-  body: (_
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  )
-) @anonymousFunction @interior.domain
+(lambda_expression) @anonymousFunction
 
 ;;!! [[attribute]]
-(attribute_declaration) @attribute
+;;!    ^^^^^^^^^
+(attribute) @attribute
 
 ;; >  curl https://raw.githubusercontent.com/tree-sitter/tree-sitter-cpp/master/src/node-types.json | jq '[.[] | select(.type == "_type_specifier") | .subtypes[].type]'
 [
@@ -92,20 +83,12 @@
 ;;!! try {}
 ;;!  ^^^^^^
 (try_statement
-  "try" @branch.start @interior.domain.start
-  body: (_
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  ) @branch.end @interior.domain.end
+  "try" @branch.start
+  body: (_) @branch.end
 ) @branch.iteration
 
-;;!! catch (const std::exception& e) {}
-(catch_clause
-  body: (_
-    "{" @interior.start.endOf
-    "}" @interior.end.startOf
-  )
-) @branch @interior.domain
+;;!! catch (const std::exception e) {}
+(catch_clause) @branch
 
 ;;!! new Foo()
 ;;!  ^^^^^^^^^
@@ -135,9 +118,10 @@
   ">" @type.iteration.end.startOf
 )
 
-;;!! for (int value : values) {}
+;;!! for (int value : values) { }
 ;;!           ^^^^^
 ;;!                   ^^^^^^
+;;!                            ^
 (for_range_loop
   declarator: (_) @name
   right: (_) @value

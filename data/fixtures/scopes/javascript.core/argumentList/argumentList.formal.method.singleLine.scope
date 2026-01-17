@@ -1,15 +1,15 @@
-class MyClass {
-  myFunk(aaa, bbb) { }
+class Foo {
+    bar(aaa, bbb) {}
 }
 ---
 
 [Content] =
-[Removal] = 1:9-1:17
-           >--------<
-1|   myFunk(aaa, bbb) { }
+[Removal] = 1:8-1:16
+          >--------<
+1|     bar(aaa, bbb) {}
 
-[Domain] = 1:2-1:22
-    >--------------------<
-1|   myFunk(aaa, bbb) { }
+[Domain] = 1:4-1:20
+      >----------------<
+1|     bar(aaa, bbb) {}
 
 [Insertion delimiter] = ", "

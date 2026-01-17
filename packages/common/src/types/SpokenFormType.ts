@@ -65,7 +65,7 @@ type SimpleModifierType = Exclude<
   | "ordinalScope"
   | "relativeScope"
   | "modifyIfUntyped"
-  | "cascading"
+  | "fallback"
   | "range"
 >;
 

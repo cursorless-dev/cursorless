@@ -1,18 +1,8 @@
-import type { GeneralizedRange, Range } from "@cursorless/common";
-
-export enum BorderStyle {
-  porous = "dashed",
-  solid = "solid",
-  none = "none",
-}
-
-export interface DecorationStyle {
-  top: BorderStyle;
-  bottom: BorderStyle;
-  left: BorderStyle;
-  right: BorderStyle;
-  isWholeLine?: boolean;
-}
+import type {
+  DecorationStyle,
+  GeneralizedRange,
+  Range,
+} from "@cursorless/common";
 
 /**
  * A decoration style that is differentiated from other styles by a number. We
@@ -28,11 +18,6 @@ export interface DifferentiatedStyle {
    * ranges that are touching this range.
    */
   differentiationIndex: number;
-}
-
-export interface StyledRange {
-  style: DecorationStyle;
-  range: Range;
 }
 
 export interface DifferentiatedStyledRange {

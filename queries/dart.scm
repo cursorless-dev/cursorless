@@ -1,6 +1,9 @@
 ;;!! if () {}
 ;;!  ^^^^^^^^
-(if_statement) @ifStatement
+(
+  (if_statement) @ifStatement @statement
+  (#not-parent-type? @ifStatement if_statement)
+)
 
 ;;!! [ 0 ]
 ;;!  ^^^^^
@@ -19,5 +22,5 @@
 ;;!! class Foo {}
 ;;!  ^^^^^^^^^^^^
 (class_definition
-  name: (_) @className
-) @class @className.domain
+  name: (_) @name
+) @class @name.domain

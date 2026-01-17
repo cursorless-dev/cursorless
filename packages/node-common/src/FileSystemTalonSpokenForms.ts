@@ -1,14 +1,11 @@
 import type {
   Disposable,
   FileSystem,
+  Listener,
   SpokenFormEntry,
   TalonSpokenForms,
 } from "@cursorless/common";
-import {
-  NeedsInitialTalonUpdateError,
-  Notifier,
-  type Listener,
-} from "@cursorless/common";
+import { NeedsInitialTalonUpdateError, Notifier } from "@cursorless/common";
 import { readFile } from "node:fs/promises";
 import * as path from "node:path";
 

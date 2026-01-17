@@ -1,0 +1,39 @@
+map[string]int{"aaa": 1, "bbb": 2}
+---
+
+[#1 Content] = 0:22-0:23
+                        >-<
+0| map[string]int{"aaa": 1, "bbb": 2}
+
+[#1 Removal] = 0:21-0:23
+                       >--<
+0| map[string]int{"aaa": 1, "bbb": 2}
+
+[#1 Leading delimiter] = 0:21-0:22
+                       >-<
+0| map[string]int{"aaa": 1, "bbb": 2}
+
+[#1 Domain] = 0:15-0:23
+                 >--------<
+0| map[string]int{"aaa": 1, "bbb": 2}
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 0:32-0:33
+                                  >-<
+0| map[string]int{"aaa": 1, "bbb": 2}
+
+[#2 Removal] = 0:31-0:33
+                                 >--<
+0| map[string]int{"aaa": 1, "bbb": 2}
+
+[#2 Leading delimiter] = 0:31-0:32
+                                 >-<
+0| map[string]int{"aaa": 1, "bbb": 2}
+
+[#2 Domain] = 0:25-0:33
+                           >--------<
+0| map[string]int{"aaa": 1, "bbb": 2}
+
+[#2 Insertion delimiter] = " "

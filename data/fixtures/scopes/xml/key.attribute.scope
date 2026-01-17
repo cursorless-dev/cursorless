@@ -1,20 +1,20 @@
-<name id="name">Me</name>
+<name id="foo"></name>
 ---
 
 [Content] = 0:6-0:8
         >--<
-0| <name id="name">Me</name>
+0| <name id="foo"></name>
 
 [Removal] = 0:6-0:9
         >---<
-0| <name id="name">Me</name>
+0| <name id="foo"></name>
 
 [Trailing delimiter] = 0:8-0:9
           >-<
-0| <name id="name">Me</name>
+0| <name id="foo"></name>
 
-[Domain] = 0:6-0:15
-        >---------<
-0| <name id="name">Me</name>
+[Domain] = 0:6-0:14
+        >--------<
+0| <name id="foo"></name>
 
 [Insertion delimiter] = " "

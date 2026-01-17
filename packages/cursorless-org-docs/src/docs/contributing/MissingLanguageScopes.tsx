@@ -3,31 +3,60 @@ import {
   scopeSupportFacetInfos,
   ScopeSupportFacetLevel,
   scopeSupportFacets,
+  serializeScopeType,
   type ScopeSupportFacet,
-  type ScopeType,
-  type SimpleScopeTypeType,
 } from "@cursorless/common";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-export function MissingLanguageScopes(): React.JSX.Element[] {
-  return Object.keys(languageScopeSupport)
-    .sort()
-    .map((languageId) => <Language key={languageId} languageId={languageId} />);
+export function MissingLanguageScopes(): React.JSX.Element {
+  const [showPrivate, setShowPrivate] = useState(false);
+  const languageIds = Object.keys(languageScopeSupport).sort();
+
+  return (
+    <>
+      <label className="ml-1">
+        <input
+          type="checkbox"
+          className="mr-1"
+          checked={showPrivate}
+          onChange={(e) => setShowPrivate(e.target.checked)}
+        />
+        Show private scopes
+      </label>
+
+      {languageIds.map((languageId) => (
+        <Language
+          key={languageId}
+          languageId={languageId}
+          showPrivate={showPrivate}
+        />
+      ))}
+    </>
+  );
 }
 
 function Language({
   languageId,
+  showPrivate,
 }: {
   languageId: string;
+  showPrivate: boolean;
 }): React.JSX.Element | null {
   const scopeSupport = languageScopeSupport[languageId] ?? {};
 
-  const unsupportedFacets = scopeSupportFacets.filter(
-    (facet) => scopeSupport[facet] === ScopeSupportFacetLevel.unsupported,
-  );
-  const unspecifiedFacets = scopeSupportFacets.filter(
-    (facet) => scopeSupport[facet] == null,
-  );
+  let unsupportedFacets = scopeSupportFacets
+    .filter(
+      (facet) => scopeSupport[facet] === ScopeSupportFacetLevel.unsupported,
+    )
+    .sort();
+  let unspecifiedFacets = scopeSupportFacets
+    .filter((facet) => scopeSupport[facet] == null)
+    .sort();
+
+  if (!showPrivate) {
+    unsupportedFacets = unsupportedFacets.filter((f) => !isPrivate(f));
+    unspecifiedFacets = unspecifiedFacets.filter((f) => !isPrivate(f));
+  }
 
   if (unsupportedFacets.length === 0 && unspecifiedFacets.length === 0) {
     return null;
@@ -42,6 +71,7 @@ function Language({
           <a href={`../../user/languages/${languageId}`}>link</a>
         </small>
       </h3>
+
       {renderFacets("Unsupported", unsupportedFacets)}
       {renderFacets("Unspecified", unspecifiedFacets)}
     </>
@@ -50,24 +80,11 @@ function Language({
 
 function renderFacets(
   title: string,
-  facets: ScopeSupportFacet[],
+  facets: string[],
 ): React.JSX.Element | null {
-  const [open, setOpen] = useState(false);
-  const [scopes, setScopes] = useState<string[]>([]);
+  const [open, setOpen] = useState(facets.length < 10);
 
-  useEffect(() => {
-    const scopes = Array.from(
-      new Set(
-        facets.map((f) =>
-          serializeScopeType(scopeSupportFacetInfos[f].scopeType),
-        ),
-      ),
-    ).sort();
-    setScopes(scopes);
-    setOpen(scopes.length < 4);
-  }, []);
-
-  if (scopes.length === 0) {
+  if (facets.length === 0) {
     return null;
   }
 
@@ -79,7 +96,7 @@ function renderFacets(
     return (
       <div className="card__body">
         <ul>
-          {scopes.map((scope) => {
+          {facets.map((scope) => {
             return <li key={scope}>{scope}</li>;
           })}
         </ul>
@@ -90,7 +107,7 @@ function renderFacets(
   return (
     <div className={"card" + (open ? " open" : "")}>
       <div className="card__header pointer" onClick={() => setOpen(!open)}>
-        {title} ({scopes.length})
+        {title} ({facets.length})
       </div>
 
       {renderBody()}
@@ -98,11 +115,7 @@ function renderFacets(
   );
 }
 
-function serializeScopeType(
-  scopeType: SimpleScopeTypeType | ScopeType,
-): string {
-  if (typeof scopeType === "string") {
-    return scopeType;
-  }
-  return scopeType.type;
+function isPrivate(facet: ScopeSupportFacet): boolean {
+  const scopeType = serializeScopeType(scopeSupportFacetInfos[facet].scopeType);
+  return scopeType.startsWith("private.");
 }

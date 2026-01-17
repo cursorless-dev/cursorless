@@ -1,0 +1,13 @@
+foo: "bar"
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:10
+  >----------<
+0| foo: "bar"
+
+
+[#2 Content] =
+[#2 Domain] = 0:5-0:10
+       >-----<
+0| foo: "bar"

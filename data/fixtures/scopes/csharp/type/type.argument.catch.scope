@@ -1,0 +1,41 @@
+try {}
+catch(MyException e) {}
+catch(Exception e) {}
+---
+
+[#1 Content] = 1:6-1:17
+        >-----------<
+1| catch(MyException e) {}
+
+[#1 Removal] = 1:6-1:18
+        >------------<
+1| catch(MyException e) {}
+
+[#1 Trailing delimiter] = 1:17-1:18
+                   >-<
+1| catch(MyException e) {}
+
+[#1 Domain] = 1:6-1:19
+        >-------------<
+1| catch(MyException e) {}
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 2:6-2:15
+        >---------<
+2| catch(Exception e) {}
+
+[#2 Removal] = 2:6-2:16
+        >----------<
+2| catch(Exception e) {}
+
+[#2 Trailing delimiter] = 2:15-2:16
+                 >-<
+2| catch(Exception e) {}
+
+[#2 Domain] = 2:6-2:17
+        >-----------<
+2| catch(Exception e) {}
+
+[#2 Insertion delimiter] = " "

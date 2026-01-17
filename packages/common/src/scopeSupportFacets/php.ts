@@ -9,18 +9,24 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
   "comment.block": supported,
   "textFragment.string.singleLine": supported,
 
-  "argument.formal": supported,
+  "argument.formal.singleLine": supported,
+  "argument.formal.multiLine": supported,
   "argument.formal.iteration": supported,
-  "argument.formal.constructor": supported,
+  "argument.formal.constructor.singleLine": supported,
+  "argument.formal.constructor.multiLine": supported,
   "argument.formal.constructor.iteration": supported,
-  "argument.formal.method": supported,
+  "argument.formal.method.singleLine": supported,
+  "argument.formal.method.multiLine": supported,
   "argument.formal.method.iteration": supported,
 
-  "argument.actual.constructor": supported,
+  "argument.actual.constructor.singleLine": supported,
+  "argument.actual.constructor.multiLine": supported,
   "argument.actual.constructor.iteration": supported,
-  "argument.actual.method": supported,
+  "argument.actual.method.singleLine": supported,
+  "argument.actual.method.multiLine": supported,
   "argument.actual.method.iteration": supported,
-  "argument.actual": supported,
+  "argument.actual.singleLine": supported,
+  "argument.actual.multiLine": supported,
   "argument.actual.iteration": supported,
 
   "name.variable": supported,
@@ -36,12 +42,16 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
 
   "type.argument.formal": supported,
   "type.argument.formal.iteration": supported,
+  "type.argument.catch": supported,
   "type.cast": supported,
-  "type.field": supported,
+  "type.field.class": supported,
 
   "name.argument.formal": supported,
   "name.argument.formal.iteration": supported,
-  "name.field": supported,
+  "name.argument.catch": supported,
+  "name.field.class": supported,
+
+  "string.singleLine": supported,
 
   disqualifyDelimiter: supported,
 };

@@ -1,0 +1,13 @@
+( text )
+---
+
+[Content] = 0:2-0:6
+    >----<
+0| ( text )
+
+[Removal] =
+[Domain] = 0:1-0:7
+   >------<
+0| ( text )
+
+[Insertion delimiter] = " "

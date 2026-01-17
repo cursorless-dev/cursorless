@@ -1,0 +1,45 @@
+try: pass
+except: pass
+finally: pass
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:9
+  >---------<
+0| try: pass
+
+[#1 Removal] = 0:0-1:0
+  >---------
+0| try: pass
+1| except: pass
+   <
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 1:0-1:12
+  >------------<
+1| except: pass
+
+[#2 Removal] = 1:0-2:0
+  >------------
+1| except: pass
+2| finally: pass
+   <
+
+[#2 Insertion delimiter] = "\n"
+
+
+[#3 Content] =
+[#3 Domain] = 2:0-2:13
+  >-------------<
+2| finally: pass
+
+[#3 Removal] = 1:12-2:13
+              >
+1| except: pass
+2| finally: pass
+   -------------<
+
+[#3 Insertion delimiter] = "\n"

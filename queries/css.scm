@@ -83,9 +83,9 @@
       .
       (_) @_.trailing.startOf
     )?
-  )
+  ) @_dummyList
   (#grow-to-named-siblings! @argumentOrParameter "at")
-  (#insertion-delimiter! @argumentOrParameter ", ")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummyList ", " ",\n")
 )
 
 ;;!! translate(-50%, -50%)
@@ -95,8 +95,8 @@
     "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
     ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
   ) @argumentList
-  (#child-range! @argumentList 1 -2)
   (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;; Entire file

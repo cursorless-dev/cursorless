@@ -1,3 +1,5 @@
+/* global document, acquireVsCodeApi */
+
 const letter = document.querySelector("#letter");
 const container = document.querySelector("#container");
 const baselineHeight =

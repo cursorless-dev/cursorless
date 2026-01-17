@@ -34,14 +34,10 @@ export class ContainingScopeStage implements ModifierStage {
   run(target: Target): Target[] {
     const { scopeType, ancestorIndex = 0 } = this.modifier;
 
-    const scopeHandler = this.scopeHandlerFactory.maybeCreate(
+    const scopeHandler = this.scopeHandlerFactory.create(
       scopeType,
       target.editor.document.languageId,
     );
-
-    if (scopeHandler == null) {
-      throw new NoContainingScopeError(scopeType.type);
-    }
 
     const containingScopes = getContainingScopeTarget(
       target,

@@ -70,25 +70,24 @@
 ] @list
 
 (class_declaration
-  name: (_) @className
-) @class @className.domain
+  name: (_) @name
+) @class @name.domain
 
 [
-  (function_definition) @namedFunction
-  (method_declaration) @namedFunction
-  (expression_statement
-    (assignment_expression
-      right: (anonymous_function)
-    ) @namedFunction
-    ";" @_.trailing
-  )
-  (expression_statement
-    (assignment_expression
-      right: (arrow_function)
-    ) @namedFunction
-    ";" @_.trailing
-  )
-] @namedFunction.domain
+  (function_definition)
+  (method_declaration)
+] @namedFunction
+
+(expression_statement
+  (assignment_expression
+    right: [
+      (anonymous_function)
+      (arrow_function)
+    ]
+  ) @namedFunction.start
+  .
+  ";"? @namedFunction.end
+)
 
 [
   (anonymous_function)
@@ -97,12 +96,12 @@
 
 [
   (function_definition
-    name: (_) @functionName
+    name: (_) @name
   )
   (method_declaration
-    name: (_) @functionName
+    name: (_) @name
   )
-] @functionName.domain
+] @name.domain
 
 [
   (function_call_expression)
@@ -112,18 +111,26 @@
 ;;!! $value = 2;
 ;;!  ^^^^^^
 ;;!           ^
-(assignment_expression
-  left: (_) @name @value.leading.endOf
-  right: (_) @value
-) @_.domain
+(_
+  (assignment_expression
+    left: (_) @name @value.leading.endOf
+    right: (_) @value
+  ) @_.domain.start
+  .
+  ";"? @_.domain.end
+)
 
 ;;!! $value += 2;
 ;;!  ^^^^^^
 ;;!            ^
-(augmented_assignment_expression
-  left: (_) @name @value.leading.endOf
-  right: (_) @value
-) @_.domain
+(_
+  (augmented_assignment_expression
+    left: (_) @name @value.leading.endOf
+    right: (_) @value
+  ) @_.domain.start
+  .
+  ";"? @_.domain.end
+)
 
 (class_declaration
   name: (_) @name
@@ -210,10 +217,14 @@
 
 ;;!! yield 2;
 ;;!        ^
-(yield_expression
-  "yield" @_.leading.endOf
-  (_) @value
-) @_.domain
+(_
+  (yield_expression
+    "yield" @_.leading.endOf
+    (_) @value
+  ) @_.domain.start
+  .
+  ";"? @_.domain.end
+)
 
 ;;!! (string $str)
 ;;!   ^^^^^^
@@ -234,9 +245,9 @@
 ;;!! catch (Exception $e) {}
 ;;!         ^^^^^^^^^
 (catch_clause
-  type: (_) @type
-  name: (_) @name
-) @_.domain
+  type: (_) @type @_.domain.start
+  name: (_) @name @_.domain.end
+)
 
 (formal_parameters
   "(" @type.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
@@ -254,7 +265,7 @@
 ;;!         ^^^^^^
 ;;!                ^^^^^^
 (property_declaration
-  type: (_) @type
+  type: (_)? @type
   (property_element
     (variable_name) @name
   )

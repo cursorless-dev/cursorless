@@ -1,4 +1,4 @@
-@"hello
+@"Hello
 world";
 ---
 
@@ -6,7 +6,7 @@ world";
 [Removal] =
 [Domain] = 0:0-1:6
   >-------
-0| @"hello
+0| @"Hello
 1| world";
    ------<
 

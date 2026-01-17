@@ -1,0 +1,10 @@
+foo := func() { }
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:15-0:16
+                 >-<
+0| foo := func() { }
+
+[Insertion delimiter] = " "

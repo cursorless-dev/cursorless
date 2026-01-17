@@ -1,13 +1,13 @@
-import * as os from "node:os";
-import { HatStability } from "@cursorless/common";
-import * as vscode from "vscode";
 import type {
   Configuration,
   ConfigurationScope,
   CursorlessConfiguration,
+  GetFieldType,
+  Paths,
 } from "@cursorless/common";
-import type { GetFieldType, Paths } from "@cursorless/common";
-import { Notifier } from "@cursorless/common";
+import { HatStability, Notifier } from "@cursorless/common";
+import * as os from "node:os";
+import * as vscode from "vscode";
 import type { VscodeIDE } from "./VscodeIDE";
 
 type TranslatorMap = {

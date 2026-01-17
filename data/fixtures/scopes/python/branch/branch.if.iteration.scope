@@ -1,0 +1,12 @@
+if True: pass
+elif False: pass
+else: pass
+---
+
+[Content] =
+[Domain] = 0:0-2:10
+  >-------------
+0| if True: pass
+1| elif False: pass
+2| else: pass
+   ----------<

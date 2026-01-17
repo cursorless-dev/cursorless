@@ -1,5 +1,5 @@
-import type { Snippet, SnippetMap, TextEditor } from "@cursorless/common";
-import { mergeStrict, showError, type IDE } from "@cursorless/common";
+import type { IDE, Snippet, SnippetMap, TextEditor } from "@cursorless/common";
+import { mergeStrict, showError } from "@cursorless/common";
 import { type Snippets } from "@cursorless/cursorless-engine";
 import { walkFiles } from "@cursorless/node-common";
 import { max } from "lodash-es";

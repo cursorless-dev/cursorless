@@ -3,14 +3,12 @@ import type {
   CommandServerApi,
   Hats,
   IDE,
+  RawTreeSitterQueryProvider,
   ScopeProvider,
+  TalonSpokenForms,
+  TreeSitter,
 } from "@cursorless/common";
-import {
-  ensureCommandShape,
-  type RawTreeSitterQueryProvider,
-  type TalonSpokenForms,
-  type TreeSitter,
-} from "@cursorless/common";
+import { ensureCommandShape } from "@cursorless/common";
 import { KeyboardTargetUpdater } from "./KeyboardTargetUpdater";
 import type {
   CommandRunnerDecorator,
@@ -177,6 +175,7 @@ function createScopeProvider(
 
   return {
     provideScopeRanges: rangeProvider.provideScopeRanges,
+    provideScopeRangesForRange: rangeProvider.provideScopeRangesForRange,
     provideIterationScopeRanges: rangeProvider.provideIterationScopeRanges,
     onDidChangeScopeRanges: rangeWatcher.onDidChangeScopeRanges,
     onDidChangeIterationScopeRanges:

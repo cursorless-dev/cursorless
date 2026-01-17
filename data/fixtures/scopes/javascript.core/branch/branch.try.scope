@@ -1,0 +1,45 @@
+try {}
+catch(e) {}
+finally {}
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:6
+  >------<
+0| try {}
+
+[#1 Removal] = 0:0-1:0
+  >------
+0| try {}
+1| catch(e) {}
+   <
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 1:0-1:11
+  >-----------<
+1| catch(e) {}
+
+[#2 Removal] = 1:0-2:0
+  >-----------
+1| catch(e) {}
+2| finally {}
+   <
+
+[#2 Insertion delimiter] = "\n"
+
+
+[#3 Content] =
+[#3 Domain] = 2:0-2:10
+  >----------<
+2| finally {}
+
+[#3 Removal] = 1:11-2:10
+             >
+1| catch(e) {}
+2| finally {}
+   ----------<
+
+[#3 Insertion delimiter] = "\n"

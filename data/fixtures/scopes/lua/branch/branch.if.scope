@@ -1,0 +1,20 @@
+if true then
+    a = 1
+end
+---
+
+[Content] =
+[Domain] = 0:0-1:9
+  >------------
+0| if true then
+1|     a = 1
+   ---------<
+
+[Removal] = 0:0-2:3
+  >------------
+0| if true then
+1|     a = 1
+2| end
+   ---<
+
+[Insertion delimiter] = "\n"

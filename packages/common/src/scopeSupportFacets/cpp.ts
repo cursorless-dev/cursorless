@@ -2,7 +2,7 @@ import { cCoreScopeSupport } from "./c";
 import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
-const { supported } = ScopeSupportFacetLevel;
+const { supported, notApplicable } = ScopeSupportFacetLevel;
 
 export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   ...cCoreScopeSupport,
@@ -10,17 +10,27 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   attribute: supported,
   anonymousFunction: supported,
 
+  "statement.try": supported,
+  "statement.foreach": supported,
+  "statement.constructor": supported,
+  "statement.method": supported,
+
   "branch.try": supported,
   "branch.try.iteration": supported,
 
-  "argument.actual.constructor": supported,
+  "argument.actual.constructor.singleLine": supported,
+  "argument.actual.constructor.multiLine": supported,
   "argument.actual.constructor.iteration": supported,
-  "argument.formal.method": supported,
+  "argument.formal.method.singleLine": supported,
+  "argument.formal.method.multiLine": supported,
   "argument.formal.method.iteration": supported,
-  "argument.formal.constructor": supported,
+  "argument.formal.constructor.singleLine": supported,
+  "argument.formal.constructor.multiLine": supported,
   "argument.formal.constructor.iteration": supported,
-  "argument.formal.lambda": supported,
+  "argument.formal.lambda.singleLine": supported,
+  "argument.formal.lambda.multiLine": supported,
   "argument.formal.lambda.iteration": supported,
+  "argument.catch": supported,
 
   "argumentList.actual.constructor.empty": supported,
   "argumentList.actual.constructor.singleLine": supported,
@@ -38,21 +48,20 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   "functionCall.constructor": supported,
   "functionCallee.constructor": supported,
 
-  "functionName.constructor": supported,
-  "functionName.method": supported,
-  "functionName.method.iteration.class": supported,
-
   "namedFunction.method": supported,
-  "namedFunction.method.iteration.class": supported,
+  "namedFunction.iteration.class": supported,
   "namedFunction.constructor": supported,
 
   "name.argument.formal.method": supported,
   "name.argument.formal.method.iteration": supported,
   "name.argument.formal.constructor": supported,
   "name.argument.formal.constructor.iteration": supported,
+  "name.argument.catch": supported,
   "name.constructor": supported,
   "name.foreach": supported,
   "name.method": supported,
+  "name.namespace": supported,
+  "name.iteration.class": supported,
 
   "value.argument.formal": supported,
   "value.argument.formal.iteration": supported,
@@ -61,17 +70,25 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   "value.argument.formal.constructor": supported,
   "value.argument.formal.constructor.iteration": supported,
   "value.foreach": supported,
-  "value.return.lambda": supported,
-  "value.field": supported,
+  "value.field.class": supported,
 
   "type.argument.formal.method": supported,
   "type.argument.formal.method.iteration": supported,
   "type.argument.formal.constructor": supported,
   "type.argument.formal.constructor.iteration": supported,
+  "type.argument.catch": supported,
   "type.foreach": supported,
   "type.typeArgument": supported,
   "type.typeArgument.iteration": supported,
 
   "interior.lambda": supported,
   "interior.try": supported,
+  "interior.foreach": supported,
+  "interior.constructor": supported,
+  "interior.method": supported,
+  "interior.namespace": supported,
+
+  /* NOT APPLICABLE */
+
+  "value.return.lambda": notApplicable,
 };

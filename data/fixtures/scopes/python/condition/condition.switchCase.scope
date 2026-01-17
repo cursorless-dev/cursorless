@@ -1,0 +1,21 @@
+match foo:
+    case 0: pass
+---
+
+[Content] = 1:9-1:10
+           >-<
+1|     case 0: pass
+
+[Removal] = 1:8-1:10
+          >--<
+1|     case 0: pass
+
+[Leading delimiter] = 1:8-1:9
+          >-<
+1|     case 0: pass
+
+[Domain] = 1:4-1:16
+      >------------<
+1|     case 0: pass
+
+[Insertion delimiter] = " "

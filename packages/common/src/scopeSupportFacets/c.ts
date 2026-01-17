@@ -6,35 +6,53 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   list: supported,
   disqualifyDelimiter: supported,
-  switchStatementSubject: supported,
 
   ifStatement: supported,
-  statement: supported,
+
   "statement.class": supported,
+  "statement.enum": supported,
+  "statement.field.class": supported,
+  "statement.function": supported,
+  "statement.if": supported,
+  "statement.switch": supported,
+  "statement.for": supported,
+  "statement.while": supported,
+  "statement.doWhile": supported,
+  "statement.variable": supported,
+  "statement.assignment": supported,
+  "statement.return": supported,
+  "statement.break": supported,
+  "statement.continue": supported,
+  "statement.namespace": supported,
   "statement.iteration.document": supported,
+  "statement.iteration.class": supported,
   "statement.iteration.block": supported,
 
   class: supported,
   "class.iteration.document": supported,
-  className: supported,
-  "className.iteration.document": supported,
 
-  "collectionItem.unenclosed": supported,
+  "collectionItem.unenclosed.singleLine": supported,
+  "collectionItem.unenclosed.multiLine": supported,
   "collectionItem.unenclosed.iteration": supported,
 
   namedFunction: supported,
-  functionName: supported,
-  "functionName.iteration.document": supported,
   "namedFunction.iteration.document": supported,
 
   functionCall: supported,
+  "functionCall.method": supported,
+  "functionCall.chain": supported,
   functionCallee: supported,
+  "functionCallee.method": supported,
+  "functionCallee.chain": supported,
 
-  "argument.actual": supported,
+  "argument.actual.singleLine": supported,
+  "argument.actual.multiLine": supported,
   "argument.actual.iteration": supported,
-  "argument.actual.method": supported,
+  "argument.actual.method.singleLine": supported,
+  "argument.actual.method.multiLine": supported,
   "argument.actual.method.iteration": supported,
-  "argument.formal": supported,
+  "argument.formal.singleLine": supported,
+  "argument.formal.multiLine": supported,
   "argument.formal.iteration": supported,
 
   "argumentList.actual.empty": supported,
@@ -48,11 +66,13 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.formal.multiLine": supported,
 
   "branch.if": supported,
+  "branch.if.elif.else": supported,
+  "branch.if.else": supported,
   "branch.if.iteration": supported,
   "branch.switchCase": supported,
   "branch.switchCase.iteration": supported,
   "branch.ternary": supported,
-  "branch.loop": supported,
+  "branch.ternary.iteration": supported,
 
   "comment.line": supported,
   "comment.block": supported,
@@ -73,32 +93,47 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "name.variable": supported,
   "name.function": supported,
   "name.class": supported,
-  "name.field": supported,
-  "name.iteration.block": supported,
-  "name.iteration.document": supported,
+  "name.enum": supported,
+  "name.field.class": supported,
+  "name.field.enum": supported,
   "name.argument.formal": supported,
   "name.argument.formal.iteration": supported,
+  "name.iteration.block": supported,
+  "name.iteration.document": supported,
+  "name.iteration.class": supported,
+  "name.iteration.enum": supported,
 
   "value.assignment": supported,
   "value.variable": supported,
   "value.return": supported,
+  "value.switch": supported,
+  "value.field.enum": supported,
+  "value.iteration.block": supported,
+  "value.iteration.class": supported,
+  "value.iteration.enum": supported,
+  "value.iteration.document": supported,
 
   "type.variable": supported,
   "type.argument.formal": supported,
   "type.argument.formal.iteration": supported,
-  "type.field": supported,
-  "type.field.iteration": supported,
+  "type.field.class": supported,
   "type.enum": supported,
   "type.cast": supported,
   "type.class": supported,
   "type.return": supported,
+  "type.iteration.block": supported,
+  "type.iteration.class": supported,
+  "type.iteration.document": supported,
 
   "interior.class": supported,
+  "interior.enum": supported,
   "interior.function": supported,
   "interior.if": supported,
+  "interior.switch": supported,
   "interior.switchCase": supported,
-  "interior.ternary": supported,
-  "interior.loop": supported,
+  "interior.for": supported,
+  "interior.while": supported,
+  "interior.doWhile": supported,
 
   /* UNSUPPORTED  */
 
@@ -115,6 +150,7 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "textFragment.element": notApplicable,
 
   // Resource syntax
+  "statement.resource": notApplicable,
   "interior.resource": notApplicable,
   "type.resource": notApplicable,
   "type.resource.iteration": notApplicable,
@@ -152,6 +188,9 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Command
   command: notApplicable,
+  "statement.command": notApplicable,
+  "name.command": notApplicable,
+  "value.command": notApplicable,
   "interior.command": notApplicable,
 
   // Type alias
@@ -164,26 +203,39 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Nested class
   "class.iteration.block": notApplicable,
-  "className.iteration.block": notApplicable,
 
-  // Nested function
-  "functionName.iteration.block": notApplicable,
-  "namedFunction.iteration.block": notApplicable,
+  // Interface
+  "statement.interface": notApplicable,
+  "statement.field.interface": notApplicable,
+  "statement.iteration.interface": notApplicable,
+  "name.interface": notApplicable,
+  "name.field.interface": notApplicable,
+  "name.iteration.interface": notApplicable,
+  "type.interface": notApplicable,
+  "type.field.interface": notApplicable,
+  "type.iteration.interface": notApplicable,
+  "interior.interface": notApplicable,
 
-  // Try catch
-  "branch.try": notApplicable,
-  "branch.try.iteration": notApplicable,
-  "interior.try": notApplicable,
+  // Static
+  "statement.static": notApplicable,
+  "interior.static": notApplicable,
+
+  // Yield
+  "statement.yield": notApplicable,
+  "value.yield": notApplicable,
 
   // Miscellaneous
   "key.attribute": notApplicable,
-  "type.interface": notApplicable,
   "value.attribute": notApplicable,
-  "value.yield": notApplicable,
-  "value.field": notApplicable,
+  "value.field.class": notApplicable,
+  "branch.loop": notApplicable,
+  "branch.loop.iteration": notApplicable,
+  "statement.misc": notApplicable,
   environment: notApplicable,
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,
+  selector: notApplicable,
+  unit: notApplicable,
 };
 
 export const cScopeSupport: LanguageScopeSupportFacetMap = {
@@ -197,7 +249,8 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Lambda
   "argument.formal.lambda.iteration": notApplicable,
-  "argument.formal.lambda": notApplicable,
+  "argument.formal.lambda.singleLine": notApplicable,
+  "argument.formal.lambda.multiLine": notApplicable,
   "argumentList.formal.lambda.empty": notApplicable,
   "argumentList.formal.lambda.multiLine": notApplicable,
   "argumentList.formal.lambda.singleLine": notApplicable,
@@ -207,9 +260,11 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Constructor
   "argument.actual.constructor.iteration": notApplicable,
-  "argument.actual.constructor": notApplicable,
+  "argument.actual.constructor.singleLine": notApplicable,
+  "argument.actual.constructor.multiLine": notApplicable,
   "argument.formal.constructor.iteration": notApplicable,
-  "argument.formal.constructor": notApplicable,
+  "argument.formal.constructor.singleLine": notApplicable,
+  "argument.formal.constructor.multiLine": notApplicable,
   "argumentList.actual.constructor.empty": notApplicable,
   "argumentList.actual.constructor.multiLine": notApplicable,
   "argumentList.actual.constructor.singleLine": notApplicable,
@@ -218,38 +273,51 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.formal.constructor.singleLine": notApplicable,
   "functionCall.constructor": notApplicable,
   "functionCallee.constructor": notApplicable,
-  "functionName.constructor": notApplicable,
   "name.argument.formal.constructor.iteration": notApplicable,
   "name.argument.formal.constructor": notApplicable,
   "name.constructor": notApplicable,
   "namedFunction.constructor": notApplicable,
+  "statement.constructor": notApplicable,
   "type.argument.formal.constructor.iteration": notApplicable,
   "type.argument.formal.constructor": notApplicable,
   "value.argument.formal.constructor.iteration": notApplicable,
   "value.argument.formal.constructor": notApplicable,
+  "interior.constructor": notApplicable,
 
   // Method
+  "namedFunction.method": notApplicable,
+  "namedFunction.iteration.class": notApplicable,
+  "statement.method": notApplicable,
   "argument.formal.method.iteration": notApplicable,
-  "argument.formal.method": notApplicable,
+  "argument.formal.method.singleLine": notApplicable,
+  "argument.formal.method.multiLine": notApplicable,
   "argumentList.formal.method.empty": notApplicable,
   "argumentList.formal.method.multiLine": notApplicable,
   "argumentList.formal.method.singleLine": notApplicable,
-  "functionName.method.iteration.class": notApplicable,
-  "functionName.method": notApplicable,
   "name.argument.formal.method.iteration": notApplicable,
   "name.argument.formal.method": notApplicable,
   "name.method": notApplicable,
-  "namedFunction.method.iteration.class": notApplicable,
-  "namedFunction.method": notApplicable,
   "type.argument.formal.method.iteration": notApplicable,
   "type.argument.formal.method": notApplicable,
   "value.argument.formal.method.iteration": notApplicable,
   "value.argument.formal.method": notApplicable,
+  "interior.method": notApplicable,
+
+  // Try catch
+  "statement.try": notApplicable,
+  "branch.try": notApplicable,
+  "branch.try.iteration": notApplicable,
+  "interior.try": notApplicable,
+  "argument.catch": notApplicable,
+  "name.argument.catch": notApplicable,
+  "type.argument.catch": notApplicable,
 
   // Foreach
+  "statement.foreach": notApplicable,
   "name.foreach": notApplicable,
   "type.foreach": notApplicable,
   "value.foreach": notApplicable,
+  "interior.foreach": notApplicable,
 
   // Default argument value
   "value.argument.formal": notApplicable,
@@ -258,4 +326,9 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
   // Generic type
   "type.typeArgument": notApplicable,
   "type.typeArgument.iteration": notApplicable,
+
+  // Namespace
+  "statement.namespace": notApplicable,
+  "name.namespace": notApplicable,
+  "interior.namespace": notApplicable,
 };

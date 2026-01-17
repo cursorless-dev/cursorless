@@ -110,8 +110,8 @@
     .
     value: (_) @_dummy
     .
-    value: (_) @name @functionName
-  ) @namedFunction @name.domain @functionName.domain
+    value: (_) @name
+  ) @namedFunction @name.domain
   (#text? @_dummy defn defmacro)
   (#not-parent-type? @namedFunction quoting_lit)
 )

@@ -1,0 +1,58 @@
+const {aaa = 0, bbb = 1} = foo;
+---
+
+[#1 Content] = 0:27-0:30
+                             >---<
+0| const {aaa = 0, bbb = 1} = foo;
+
+[#1 Removal] = 0:24-0:30
+                          >------<
+0| const {aaa = 0, bbb = 1} = foo;
+
+[#1 Leading delimiter] = 0:24-0:27
+                          >---<
+0| const {aaa = 0, bbb = 1} = foo;
+
+[#1 Domain] = 0:0-0:31
+  >-------------------------------<
+0| const {aaa = 0, bbb = 1} = foo;
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 0:13-0:14
+               >-<
+0| const {aaa = 0, bbb = 1} = foo;
+
+[#2 Removal] = 0:10-0:14
+            >----<
+0| const {aaa = 0, bbb = 1} = foo;
+
+[#2 Leading delimiter] = 0:10-0:13
+            >---<
+0| const {aaa = 0, bbb = 1} = foo;
+
+[#2 Domain] = 0:7-0:14
+         >-------<
+0| const {aaa = 0, bbb = 1} = foo;
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] = 0:22-0:23
+                        >-<
+0| const {aaa = 0, bbb = 1} = foo;
+
+[#3 Removal] = 0:19-0:23
+                     >----<
+0| const {aaa = 0, bbb = 1} = foo;
+
+[#3 Leading delimiter] = 0:19-0:22
+                     >---<
+0| const {aaa = 0, bbb = 1} = foo;
+
+[#3 Domain] = 0:16-0:23
+                  >-------<
+0| const {aaa = 0, bbb = 1} = foo;
+
+[#3 Insertion delimiter] = " "

@@ -1,0 +1,10 @@
+r#"Hello world"#
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:3-0:14
+     >-----------<
+0| r#"Hello world"#
+
+[Insertion delimiter] = " "

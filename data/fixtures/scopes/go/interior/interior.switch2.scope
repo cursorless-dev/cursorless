@@ -1,0 +1,10 @@
+switch v := x.(type) { }
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:22-0:23
+                        >-<
+0| switch v := x.(type) { }
+
+[Insertion delimiter] = " "

@@ -60,11 +60,11 @@
           "variations": [
             {
               "spokenForm": "call <target>",
-              "description": "Call <target> on selection"
+              "description": "Insert call to <target> on selection"
             },
             {
               "spokenForm": "call <target 1> on <target 2>",
-              "description": "Call <target 1> on <target 2>"
+              "description": "Insert call to <target 1> on <target 2>"
             }
           ]
         },
@@ -368,7 +368,7 @@
             },
             {
               "spokenForm": "move <target>",
-              "description": "Move <target> to cursor position"
+              "description": "Move <target> to selection"
             }
           ]
         },
@@ -442,7 +442,7 @@
             },
             {
               "spokenForm": "bring <target>",
-              "description": "Insert copy of <target> at cursor"
+              "description": "Insert copy of <target> at selection"
             }
           ]
         },

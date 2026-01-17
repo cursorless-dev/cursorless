@@ -1,0 +1,67 @@
+class Foo {
+    private int bar, baz;
+}
+---
+
+[#1 Content] =
+[#1 Domain] = 1:4-1:19
+      >---------------<
+1|     private int bar, baz;
+
+[#1 Removal] = 1:4-1:21
+      >-----------------<
+1|     private int bar, baz;
+
+[#1 Trailing delimiter] = 1:19-1:21
+                     >--<
+1|     private int bar, baz;
+
+[#1 Insertion delimiter] = ",\n"
+
+
+[#2 Content] =
+[#2 Domain] = 1:16-1:19
+                  >---<
+1|     private int bar, baz;
+
+[#2 Removal] = 1:16-1:21
+                  >-----<
+1|     private int bar, baz;
+
+[#2 Trailing delimiter] = 1:19-1:21
+                     >--<
+1|     private int bar, baz;
+
+[#2 Insertion delimiter] = ", "
+
+
+[#3 Content] =
+[#3 Domain] = 1:21-1:24
+                       >---<
+1|     private int bar, baz;
+
+[#3 Removal] = 1:19-1:24
+                     >-----<
+1|     private int bar, baz;
+
+[#3 Leading delimiter] = 1:19-1:21
+                     >--<
+1|     private int bar, baz;
+
+[#3 Insertion delimiter] = ", "
+
+
+[#4 Content] =
+[#4 Domain] = 1:21-1:25
+                       >----<
+1|     private int bar, baz;
+
+[#4 Removal] = 1:19-1:25
+                     >------<
+1|     private int bar, baz;
+
+[#4 Leading delimiter] = 1:19-1:21
+                     >--<
+1|     private int bar, baz;
+
+[#4 Insertion delimiter] = ",\n"

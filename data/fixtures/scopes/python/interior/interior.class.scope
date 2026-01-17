@@ -1,0 +1,13 @@
+class Foo: pass
+---
+
+[Content] = 0:11-0:15
+             >----<
+0| class Foo: pass
+
+[Removal] =
+[Domain] = 0:10-0:15
+            >-----<
+0| class Foo: pass
+
+[Insertion delimiter] = " "

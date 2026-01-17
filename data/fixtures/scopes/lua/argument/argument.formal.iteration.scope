@@ -1,0 +1,10 @@
+function foo(aaa, bbb) end
+---
+
+[Content] = 0:13-0:21
+               >--------<
+0| function foo(aaa, bbb) end
+
+[Domain] = 0:0-0:26
+  >--------------------------<
+0| function foo(aaa, bbb) end

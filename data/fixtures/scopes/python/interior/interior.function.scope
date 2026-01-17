@@ -1,0 +1,13 @@
+def foo(): pass
+---
+
+[Content] = 0:11-0:15
+             >----<
+0| def foo(): pass
+
+[Removal] =
+[Domain] = 0:10-0:15
+            >-----<
+0| def foo(): pass
+
+[Insertion delimiter] = " "

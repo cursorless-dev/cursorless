@@ -1,8 +1,17 @@
-import { fontFamily as _fontFamily } from "tailwindcss/defaultTheme";
+import { readFileSync } from "node:fs";
+
+const references = JSON.parse(
+  readFileSync("tsconfig.json", "utf-8"),
+).references.map((ref) => ref.path);
 
 /** @type {import('tailwindcss').Config} */
-export const content = ["./src/**/*.{js,ts,jsx,tsx}"];
-export const corePlugins = {
-  preflight: false,
+export default {
+  content: [".", ...references].map((pkg) => `${pkg}/src/**/*.{js,ts,jsx,tsx}`),
+  theme: {
+    extend: {},
+  },
+  corePlugins: {
+    preflight: false,
+  },
+  plugins: [],
 };
-export const plugins = [];

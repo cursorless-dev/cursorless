@@ -39,7 +39,7 @@
   (_
     left: _ @name
   ) @_.domain
-  (#not-type? @_.domain "binary_operator")
+  (#not-type? @_.domain binary_operator)
 )
 
 ;;!! not mode: command
@@ -53,7 +53,7 @@
     modifiers: (_)? @collectionKey.start
     left: _ @collectionKey.end
   ) @_.domain
-  (#not-type? @_.domain "binary_operator")
+  (#not-type? @_.domain binary_operator)
 )
 
 ;;!! not mode: command
@@ -64,32 +64,36 @@
   (_
     right: (_) @value
   ) @_.domain
-  (#not-type? @_.domain "binary_operator")
+  (#not-type? @_.domain binary_operator)
 )
 
-;;!!   mode: command
-;;!   <*************
-;;!!   tag: user.foo
-;;!    *************>
-;;!!   -
-;;!!   settings():
-;;!!       speech.debug = 1
-;;!       <****************
-;;!!       user.foo = "bar"
-;;!        ****************>
-;;!!
-;;!!   hello: "world"
-;;!1  <**************
-;;!!   foo:
-;;!1   ****
-;;!!       bar = 5
-;;!1       *******>
-;;!2      <*******>
-(_
-  (_
-    right: (_)
-  )
-) @name.iteration @collectionKey.iteration @value.iteration
+;;!! mode: command
+;;!  ^^^^^^^^^^^^^
+(matches
+  (_) @name.iteration.end.endOf @collectionKey.iteration.end.endOf @value.iteration.end.endOf
+  .
+) @name.iteration.start.startOf @collectionKey.iteration.start.startOf @value.iteration.start.startOf
+
+;;!! hello: "world"
+;;!  ^^^^^^^^^^^^^^
+(declarations) @name.iteration @collectionKey.iteration @value.iteration
+
+;;!! hello: "world"
+;;!         ^^^^^^^
+;;!! settings():
+;;!!     speech.debug = 1
+;;!      ^^^^^^^^^^^^^^^^
+(block) @name.iteration @collectionKey.iteration @value.iteration
+
+(
+  (source_file) @command.iteration @statement.iteration
+  (#document-range! @command.iteration @statement.iteration)
+)
+
+(
+  (source_file) @name.iteration @collectionKey.iteration @value.iteration
+  (#document-range! @name.iteration @collectionKey.iteration @value.iteration)
+)
 
 ;;!!  tag: user.foo
 ;;!  {^^^^^^^^^^^^^
@@ -117,15 +121,17 @@
 ;;!! slap: key(enter)
 ;;!  ^^^^^^^^^^^^^^^^
 (
-  (command_declaration
-    right: (_) @interior
-  ) @command @interior.domain
+  (command_declaration) @command
   (#insertion-delimiter! @command "\n")
 )
 
+;;!! slap: key(enter)
+;;!       ^^^^^^^^^^^
 (
-  (source_file) @command.iteration @statement.iteration
-  (#document-range! @command.iteration @statement.iteration)
+  (command_declaration
+    ":" @interior.start.endOf
+    right: (_) @interior.end.endOf
+  )
 )
 
 ;;!! key(enter)
@@ -184,8 +190,8 @@
     "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
     ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
   ) @argumentList
-  (#child-range! @argumentList 1 -2)
   (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;;!! # foo

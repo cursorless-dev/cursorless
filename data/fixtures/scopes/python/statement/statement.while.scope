@@ -1,0 +1,10 @@
+while True: pass
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:16
+  >----------------<
+0| while True: pass
+
+[Insertion delimiter] = "\n"

@@ -4,20 +4,18 @@ import type {
   Disposable,
   Listener,
   ScopeType,
+  TalonSpokenForms,
 } from "@cursorless/common";
-import { SpokenFormGenerator } from "./generateSpokenForm";
 import type { CustomSpokenFormGenerator } from "../api/CursorlessEngineApi";
 import { CustomSpokenForms } from "../spokenForms/CustomSpokenForms";
-import type { TalonSpokenForms } from "@cursorless/common";
+import { SpokenFormGenerator } from "./generateSpokenForm";
 
 /**
  * Simple facade that combines the {@link CustomSpokenForms} and
  * {@link SpokenFormGenerator} classes. Its main purpose is to reconstruct the
  * {@link SpokenFormGenerator} when the {@link CustomSpokenForms} change.
  */
-export class CustomSpokenFormGeneratorImpl
-  implements CustomSpokenFormGenerator
-{
+export class CustomSpokenFormGeneratorImpl implements CustomSpokenFormGenerator {
   private customSpokenForms: CustomSpokenForms;
   private spokenFormGenerator: SpokenFormGenerator;
   private disposable: Disposable;

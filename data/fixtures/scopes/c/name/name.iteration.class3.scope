@@ -1,0 +1,13 @@
+typedef struct { } Foo;
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:23
+  >-----------------------<
+0| typedef struct { } Foo;
+
+
+[#2 Content] =
+[#2 Domain] = 0:16-0:17
+                  >-<
+0| typedef struct { } Foo;

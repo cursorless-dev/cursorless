@@ -17,6 +17,7 @@ import { latexScopeSupport } from "./latex";
 import { luaScopeSupport } from "./lua";
 import { markdownScopeSupport } from "./markdown";
 import { phpScopeSupport } from "./php";
+import { propertiesScopeSupport } from "./properties";
 import { pythonScopeSupport } from "./python";
 import { rScopeSupport } from "./r";
 import { rubyScopeSupport } from "./ruby";
@@ -26,13 +27,17 @@ import { scmScopeSupport } from "./scm";
 import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { scssScopeSupport } from "./scss";
 import { talonScopeSupport } from "./talon";
+import { talonListScopeSupport } from "./talon-list";
 import { typescriptScopeSupport } from "./typescript";
 import { typescriptreactScopeSupport } from "./typescriptreact";
 import { xmlScopeSupport } from "./xml";
 import { yamlScopeSupport } from "./yaml";
 
+/* eslint-disable @typescript-eslint/naming-convention */
+
 export const languageScopeSupport: StringRecord<LanguageScopeSupportFacetMap> =
   {
+    "talon-list": talonListScopeSupport,
     c: cScopeSupport,
     clojure: clojureScopeSupport,
     cpp: cppScopeSupport,
@@ -51,6 +56,7 @@ export const languageScopeSupport: StringRecord<LanguageScopeSupportFacetMap> =
     lua: luaScopeSupport,
     markdown: markdownScopeSupport,
     php: phpScopeSupport,
+    properties: propertiesScopeSupport,
     python: pythonScopeSupport,
     r: rScopeSupport,
     ruby: rubyScopeSupport,

@@ -24,16 +24,6 @@
   ] @statement
   (#not-parent-type? @statement expression_list)
 )
-[
-  (block)
-  (chunk)
-] @statement.iteration @namedFunction.iteration @functionCall.iteration
-
-;; Duplicate above due to 3 label node limit
-[
-  (block)
-  (chunk)
-] @ifStatement.iteration @value.iteration @name.iteration
 
 ;; Capture assignment only if without variable prefix
 ;;!! count = count + 1
@@ -43,66 +33,98 @@
   (#not-parent-type? @statement variable_declaration)
 )
 
+;; Document iteration scopes
+
+(
+  (chunk) @statement.iteration @namedFunction.iteration
+  (#document-range! @statement.iteration @namedFunction.iteration)
+)
+(
+  (chunk) @name.iteration @value.iteration
+  (#document-range! @name.iteration @value.iteration)
+)
+
+;; Block iteration scopes
+
+(block) @statement.iteration @namedFunction.iteration
+(block) @name.iteration @value.iteration
+
 ;; Conditionals
-;;!! if x < y then
-;;!  ---^^^^^-----
-;;!  ---xxxxxx----
-;;!! end
-;;!  ---
+
+;;!! if true then end
+;;!  ^^^^^^^^^^^^^^^^
+;;!     ^^^^
 (if_statement
-  _ @condition.domain.start.startOf
   condition: (_) @condition
+) @ifStatement @condition.domain @branch.iteration
+
+;;!! if true then a=1 end
+;;!              ^^^^^
+(if_statement
+  "then" @interior.start.endOf
   consequence: (_)
-  !alternative
-  "end" @condition.domain.end.endOf
+  .
+  _ @interior.end.startOf
 )
 
-;;!! if x < y then
-;;!  ---^^^^^-----
-;;!  ---xxxxxx----
-;;!! elseif x < y then
+;;!! if true then end
+;;!  ^^^^^^^^^^^^
 (if_statement
-  _ @_.domain.start.startOf
-  condition: (_) @condition
-  consequence: (_) @_.domain.end.endOf
-  alternative: (_)
+  "if" @branch.start @branch.removal.start
+  consequence: (_) @branch.end
+  .
+  "end" @branch.removal.end
 )
 
-;;!! elseif x < y then
-;;!  -------^^^^^-----
-;;!  -------xxxxxx----
-(elseif_statement
-  condition: (_) @condition
-) @_.domain
-
-;;!!
+;;!! if true then elseif false then
+;;!  ^^^^^^^^^^^^
 (if_statement
-  "if" @branch.start @interior.domain.start
-  consequence: (_) @branch.end @interior @interior.domain.end
-) @ifStatement @branch.iteration @condition.iteration
+  "if" @branch.start @branch.removal.start.startOf
+  consequence: (_) @branch.end
+  .
+  alternative: (elseif_statement) @branch.removal.end.startOf
+  (#character-range! @branch.removal.end.startOf 4)
+)
 
-;;!! if x < y then
-;;!!     print("x smaller")
-;;!! else
-;;!  ^^^^
-;;!!     print("x bigger")
-;;!      ^^^^^^^^^^^^^^^^^
-;;!! end
-[
+;;!! if true then else then
+;;!  ^^^^^^^^^^^^
+(if_statement
+  "if" @branch.start @branch.removal.start.startOf
+  consequence: (_) @branch.end
+  .
+  alternative: (else_statement) @branch.removal.end.startOf
+)
+
+;;!! elseif true then
+;;!  ^^^^^^^^^^^^^^^^
+;;!         ^^^^
+(if_statement
   (elseif_statement
-    consequence: (_) @interior
-  )
-  (else_statement
-    body: (_) @interior
-  )
-] @branch @interior.domain
+    condition: (_) @condition
+    "then" @interior.start.endOf
+  ) @branch @condition.domain
+  .
+  _ @interior.end.startOf
+)
 
-;;!! while i <= 5 do
-;;!        ^^^^^^
-;;!        xxxxxx
+;;!! else then
+;;!  ^^^^^^^^^
+
+(if_statement
+  (else_statement
+    "else" @interior.start.endOf
+  ) @branch
+  .
+  _ @interior.end.startOf
+)
+
+;;!! while true do
+;;!        ^^^^
 (while_statement
   condition: (_) @condition
-) @_.domain
+  "do" @interior.start.endOf
+  "end" @interior.end.startOf
+) @condition.domain
 
 ;;!! repeat
 ;;!! ...
@@ -110,8 +132,29 @@
 ;;!        ^^^^^
 ;;!        xxxxx
 (repeat_statement
+  "repeat" @interior.start.endOf
+  "until" @interior.end.startOf
   condition: (_) @condition
+) @condition.domain
+
+;;!! for i = 1, 3 do end
+;;!      ^^^^^^^^
+(for_statement
+  (for_numeric_clause) @condition
+) @condition.domain
+
+;;!! for v in values do end
+(for_statement
+  (for_generic_clause
+    (variable_list) @name
+    (expression_list) @value
+  )
 ) @_.domain
+
+(for_statement
+  "do" @interior.start.endOf
+  "end" @interior.end.startOf
+)
 
 ;; Lists and maps
 (table_constructor
@@ -167,47 +210,55 @@
   name: (_) @functionCallee
 ) @_.domain @functionCall
 
-;;!!local sum = add(5, 7)
-;;!                 ^---
-;;!                 xxx-
+;;!! local sum = add(5, 7)
+;;!                  ^---
+;;!                  xxx-
 (
   (arguments
-    (_)? @_.leading.endOf
+    (_)? @argumentOrParameter.leading.endOf
     .
     (_) @argumentOrParameter
     .
-    (_)? @_.trailing.startOf
+    (_)? @argumentOrParameter.trailing.startOf
   ) @_dummy
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
-;;!!local sum = add(5, 7)
-;;!                 ****
-(arguments
-  "(" @argumentOrParameter.iteration.start.endOf
-  ")" @argumentOrParameter.iteration.end.startOf
-)
+;;!! local sum = add(5, 7)
+;;!                  ****
+(function_call
+  (arguments
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
-;;!!function add(5, 7)
-;;!              ^---
-;;!              xxx-
+;;!! function add(5, 7)
+;;!               ^---
+;;!               xxx-
 (
   (parameters
-    (_)? @_.leading.endOf
+    (_)? @argumentOrParameter.leading.endOf
     .
-    (_) @argumentOrParameter
+    (_) @argumentOrParameter @name
     .
-    (_)? @_.trailing.startOf
+    (_)? @argumentOrParameter.trailing.startOf
   ) @_dummy
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
-;;!!function add(5, 7)
-;;!              ****
-(parameters
-  "(" @argumentOrParameter.iteration.start.endOf
-  ")" @argumentOrParameter.iteration.end.startOf
-)
+;;!! function add(5, 7)
+;;!               ****
+(_
+  (parameters
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf @name.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf @name.iteration.end.startOf
+  ) @argumentList
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;; funk name:
 ;;!! function add(x, b) return x + y end
@@ -219,9 +270,10 @@
 ;;!! function add(x, b) return x + y end
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 (function_declaration
-  name: (_) @functionName
-  body: (_)? @interior
-) @namedFunction @_.domain
+  name: (_) @name
+  parameters: (_) @interior.start.endOf
+  "end" @interior.end.startOf
+) @namedFunction @name.domain
 
 ;; inside lambda:
 ;;!! __add = function(a, b) return a + b end
@@ -230,9 +282,9 @@
 ;;!! __add = function(a, b) return a + b end
 ;;!          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 (function_definition
-  !name
-  body: (_)? @interior
-) @anonymousFunction @interior.domain
+  parameters: (_) @interior.start.endOf
+  "end" @interior.end.startOf
+) @anonymousFunction
 
 ;; Names and values
 
@@ -300,9 +352,34 @@ local_declaration: (variable_declaration
   )
 )
 
-;; Structures and object access
+;;!! local a, b, c
+(
+  (variable_list
+    (_)? @collectionItem.leading.endOf
+    .
+    (_) @collectionItem
+    .
+    (_)? @collectionItem.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @collectionItem @_dummy ", " ",\n")
+)
 
-;; (method_index_expression) @private.fieldAccess
+;;!! = 1, 2, 3
+(
+  (expression_list
+    (_)? @collectionItem.leading.endOf
+    .
+    (_) @collectionItem
+    .
+    (_)? @collectionItem.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @collectionItem @_dummy ", " ",\n")
+)
+
+[
+  (variable_list)
+  (expression_list)
+] @collectionItem.iteration
 
 (binary_expression
   [

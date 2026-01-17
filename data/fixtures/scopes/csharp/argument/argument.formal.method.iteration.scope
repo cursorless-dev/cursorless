@@ -1,0 +1,12 @@
+class Foo {
+    void Bar(int aaa, int bbb) {}
+}
+---
+
+[Content] = 1:13-1:29
+               >----------------<
+1|     void Bar(int aaa, int bbb) {}
+
+[Domain] = 1:4-1:33
+      >-----------------------------<
+1|     void Bar(int aaa, int bbb) {}

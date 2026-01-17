@@ -1,0 +1,13 @@
+new Foo {aaa = 0, bbb = 1};
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:27
+  >---------------------------<
+0| new Foo {aaa = 0, bbb = 1};
+
+
+[#2 Content] =
+[#2 Domain] = 0:9-0:25
+           >----------------<
+0| new Foo {aaa = 0, bbb = 1};

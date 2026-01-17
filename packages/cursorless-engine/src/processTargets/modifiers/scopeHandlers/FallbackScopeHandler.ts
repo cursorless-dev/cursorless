@@ -23,8 +23,8 @@ export class FallbackScopeHandler extends BaseScopeHandler {
     scopeType: FallbackScopeType,
     languageId: string,
   ): ScopeHandler {
-    const scopeHandlers: ScopeHandler[] = scopeType.scopeTypes.map(
-      (scopeType) => scopeHandlerFactory.create(scopeType, languageId),
+    const scopeHandlers = scopeType.scopeTypes.map((scopeType) =>
+      scopeHandlerFactory.create(scopeType, languageId),
     );
 
     return this.createFromScopeHandlers(scopeHandlers);

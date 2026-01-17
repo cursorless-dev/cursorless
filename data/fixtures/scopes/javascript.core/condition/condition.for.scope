@@ -1,0 +1,20 @@
+for (let i = 0; i < size; i++) {}
+---
+
+[Content] = 0:16-0:24
+                  >--------<
+0| for (let i = 0; i < size; i++) {}
+
+[Removal] = 0:15-0:24
+                 >---------<
+0| for (let i = 0; i < size; i++) {}
+
+[Leading delimiter] = 0:15-0:16
+                 >-<
+0| for (let i = 0; i < size; i++) {}
+
+[Domain] = 0:0-0:33
+  >---------------------------------<
+0| for (let i = 0; i < size; i++) {}
+
+[Insertion delimiter] = " "

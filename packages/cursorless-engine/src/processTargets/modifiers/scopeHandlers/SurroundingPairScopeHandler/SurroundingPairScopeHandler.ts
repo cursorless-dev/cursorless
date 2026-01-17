@@ -19,6 +19,7 @@ import { getDelimiterOccurrences } from "./getDelimiterOccurrences";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";
 import { getSurroundingPairOccurrences } from "./getSurroundingPairOccurrences";
 import type { SurroundingPairOccurrence } from "./types";
+import { scopeHandlerCache } from "../ScopeHandlerCache";
 
 export class SurroundingPairScopeHandler extends BaseScopeHandler {
   public readonly iterationScopeType: ConditionalScopeType = {
@@ -52,22 +53,31 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
       return;
     }
 
-    const delimiterOccurrences = getDelimiterOccurrences(
-      this.languageDefinitions.get(this.languageId),
-      editor.document,
-      getIndividualDelimiters(this.scopeType.delimiter, this.languageId),
-    );
+    const cacheKey = "SurroundingPairScopeHandler_" + this.scopeType.delimiter;
 
-    let surroundingPairs = getSurroundingPairOccurrences(delimiterOccurrences);
+    if (!scopeHandlerCache.isValid(cacheKey, editor.document)) {
+      const delimiterOccurrences = getDelimiterOccurrences(
+        this.languageDefinitions.get(this.languageId),
+        editor.document,
+        getIndividualDelimiters(this.scopeType.delimiter, this.languageId),
+      );
 
-    surroundingPairs = maybeApplyEmptyTargetHack(
+      const surroundingPairs =
+        getSurroundingPairOccurrences(delimiterOccurrences);
+
+      scopeHandlerCache.update(cacheKey, editor.document, surroundingPairs);
+    }
+
+    const surroundingPairs = scopeHandlerCache.get<SurroundingPairOccurrence>();
+
+    const updatedSurroundingPairs = maybeApplyEmptyTargetHack(
       direction,
       hints,
       position,
       surroundingPairs,
     );
 
-    yield* surroundingPairs
+    yield* updatedSurroundingPairs
       .map((pair) =>
         createTargetScope(
           editor,

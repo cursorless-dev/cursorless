@@ -123,17 +123,16 @@
   (singleton_method)
 ] @namedFunction
 
-(class) @class
-
-(class) @namedFunction.iteration @class.iteration
-(program) @namedFunction.iteration @class.iteration @className.iteration
-
-(class) @functionName.iteration @name.iteration
-(program) @functionName.iteration @name.iteration
+(program) @class.iteration @namedFunction.iteration @name.iteration
 
 (class
-  name: (_) @className @name
-) @_.domain
+  name: (_) @class.iteration.start.endOf @namedFunction.iteration.start.endOf @name.iteration.start.endOf
+  "end" @class.iteration.end.startOf @namedFunction.iteration.end.startOf @name.iteration.end.startOf
+) @class
+
+(class
+  name: (_) @name
+) @class @_.domain
 
 (string) @string
 
@@ -143,15 +142,17 @@
 ] @textFragment
 
 (method
-  name: (_) @functionName @name
+  name: (_) @name
 ) @_.domain
+
 (singleton_method
-  name: (_) @functionName @name
+  name: (_) @name
 ) @_.domain
 
 (assignment
   left: (_) @name
 ) @_.domain
+
 (operator_assignment
   left: (_) @name
 ) @_.domain
@@ -319,8 +320,8 @@ operator: [
     "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
     ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
   ) @argumentList
-  (#child-range! @argumentList 1 -2)
   (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;;!! foo(aaa, bbb)
@@ -330,8 +331,8 @@ operator: [
     "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
     ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
   ) @argumentList
-  (#child-range! @argumentList 1 -2)
   (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;;!! foo{ |aaa, bbb| }
@@ -342,7 +343,7 @@ operator: [
       "|" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
       "|" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
     ) @argumentList
-    (#child-range! @argumentList 1 -2)
     (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+    (#child-range! @argumentList 1 -2)
   )
 ) @argumentList.domain @argumentOrParameter.iteration.domain

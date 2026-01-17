@@ -25,13 +25,13 @@
     "@cursorless/common": "workspace:*",
     "@cursorless/neovim-registry": "workspace:*",
     "@cursorless/node-common": "workspace:*",
-    "lodash": "4.17.21",
-    "neovim": "5.3.0",
-    "vscode-uri": "3.1.0"
+    "lodash": "^4.17.21",
+    "neovim": "^5.4.0",
+    "uuid": "^13.0.0",
+    "vscode-uri": "^3.1.0"
   },
   "devDependencies": {
-    "@types/lodash": "4.17.17",
-    "@types/uuid": "10.0.0",
-    "@types/vscode": "1.82.0"
+    "@types/lodash": "^4.17.21",
+    "@types/vscode": "1.95.0"
   }
 }

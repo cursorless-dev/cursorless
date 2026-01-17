@@ -1,0 +1,16 @@
+with foo: pass
+---
+
+[#1 Content] = 0:5-0:8
+       >---<
+0| with foo: pass
+
+[#1 Domain] = 0:0-0:14
+  >--------------<
+0| with foo: pass
+
+
+[#2 Content] =
+[#2 Domain] = 0:10-0:14
+            >----<
+0| with foo: pass

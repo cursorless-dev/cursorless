@@ -12,6 +12,25 @@ export class Range {
   readonly end: Position;
 
   /**
+   * Create a new range from a concise string representation.
+   * The string should be in the format `start-end`, where both start and end
+   * are in the format `line:character`, where both line and character are zero-based.
+   *
+   * @param concise A concise string representation of a range.
+   * @return A range with the given start and end positions.
+   */
+  static fromConcise(concise: string): Range {
+    const parts = concise.split("-");
+    if (parts.length !== 2) {
+      throw new Error(
+        `Invalid concise range format: "${concise}". Expected "start-end" format.`,
+      );
+    }
+    const [start, end] = parts.map((s) => Position.fromConcise(s));
+    return new Range(start, end);
+  }
+
+  /**
    * Create a new range from two positions.
    * The earlier of `p1` and `p2` will be used as the start position.
    *

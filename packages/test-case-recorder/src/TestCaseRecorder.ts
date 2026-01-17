@@ -418,10 +418,7 @@ export class TestCaseRecorder {
       walkDirsSync(this.fixtureRoot).concat("/"),
       {
         title: "Select directory for new test cases",
-        unknownValues: {
-          allowed: true,
-          newValueTemplate: "Create new directory '{}' →",
-        },
+        unknownValues: "Create new directory '{}' →",
       },
     );
 

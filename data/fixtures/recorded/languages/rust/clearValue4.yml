@@ -13,7 +13,7 @@ command:
 initialState:
   documentContents: |-
     fn foo() -> i32 {
-        return 3
+        return 3;
     }
   selections:
     - anchor: {line: 1, character: 11}
@@ -22,7 +22,7 @@ initialState:
 finalState:
   documentContents: |-
     fn foo() -> i32 {
-        return 
+        return ;
     }
   selections:
     - anchor: {line: 1, character: 11}

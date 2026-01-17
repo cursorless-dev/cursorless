@@ -1,5 +1,4 @@
 import type { Range, TextEditor } from "@cursorless/common";
-
 import { getRangeLength } from "../../../../util/rangeUtils";
 
 /**

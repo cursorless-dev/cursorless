@@ -1,0 +1,44 @@
+<?php
+function foo(int $aaa, int $bbb) {}
+---
+
+[#1 Content] = 1:13-1:16
+               >---<
+1| function foo(int $aaa, int $bbb) {}
+
+[#1 Removal] = 1:13-1:17
+               >----<
+1| function foo(int $aaa, int $bbb) {}
+
+[#1 Trailing delimiter] = 1:16-1:17
+                  >-<
+1| function foo(int $aaa, int $bbb) {}
+
+[#1 Domain] = 1:13-1:21
+               >--------<
+1| function foo(int $aaa, int $bbb) {}
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:23-1:26
+                         >---<
+1| function foo(int $aaa, int $bbb) {}
+
+[#2 Removal] = 1:23-1:27
+                         >----<
+1| function foo(int $aaa, int $bbb) {}
+
+[#2 Leading delimiter] = 1:22-1:23
+                        >-<
+1| function foo(int $aaa, int $bbb) {}
+
+[#2 Trailing delimiter] = 1:26-1:27
+                            >-<
+1| function foo(int $aaa, int $bbb) {}
+
+[#2 Domain] = 1:23-1:31
+                         >--------<
+1| function foo(int $aaa, int $bbb) {}
+
+[#2 Insertion delimiter] = " "

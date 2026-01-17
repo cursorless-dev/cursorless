@@ -1,0 +1,12 @@
+public class Foo {
+    public void bar(int aaa, int bbb) {}
+}
+---
+
+[Content] = 1:20-1:36
+                      >----------------<
+1|     public void bar(int aaa, int bbb) {}
+
+[Domain] = 1:4-1:40
+      >------------------------------------<
+1|     public void bar(int aaa, int bbb) {}

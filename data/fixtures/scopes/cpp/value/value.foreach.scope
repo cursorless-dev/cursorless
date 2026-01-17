@@ -1,0 +1,20 @@
+for (int v : values) {}
+---
+
+[Content] = 0:13-0:19
+               >------<
+0| for (int v : values) {}
+
+[Removal] = 0:12-0:19
+              >-------<
+0| for (int v : values) {}
+
+[Leading delimiter] = 0:12-0:13
+              >-<
+0| for (int v : values) {}
+
+[Domain] = 0:0-0:23
+  >-----------------------<
+0| for (int v : values) {}
+
+[Insertion delimiter] = " "

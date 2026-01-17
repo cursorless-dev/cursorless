@@ -1,0 +1,72 @@
+class Foo:
+    def __init__(
+        self,
+        aaa: str,
+        bbb: int
+    ): pass
+---
+
+[#1 Content] =
+[#1 Domain] = 2:8-2:12
+          >----<
+2|         self,
+
+[#1 Removal] = 2:8-3:8
+          >-----
+2|         self,
+3|         aaa: str,
+   --------<
+
+[#1 Trailing delimiter] = 2:12-3:8
+              >-
+2|         self,
+3|         aaa: str,
+   --------<
+
+[#1 Insertion delimiter] = ",\n"
+
+
+[#2 Content] =
+[#2 Domain] = 3:8-3:16
+          >--------<
+3|         aaa: str,
+
+[#2 Removal] = 3:8-4:8
+          >---------
+3|         aaa: str,
+4|         bbb: int
+   --------<
+
+[#2 Leading delimiter] = 2:12-3:8
+              >-
+2|         self,
+3|         aaa: str,
+   --------<
+
+[#2 Trailing delimiter] = 3:16-4:8
+                  >-
+3|         aaa: str,
+4|         bbb: int
+   --------<
+
+[#2 Insertion delimiter] = ",\n"
+
+
+[#3 Content] =
+[#3 Domain] = 4:8-4:16
+          >--------<
+4|         bbb: int
+
+[#3 Removal] = 3:16-4:16
+                  >-
+3|         aaa: str,
+4|         bbb: int
+   ----------------<
+
+[#3 Leading delimiter] = 3:16-4:8
+                  >-
+3|         aaa: str,
+4|         bbb: int
+   --------<
+
+[#3 Insertion delimiter] = ",\n"

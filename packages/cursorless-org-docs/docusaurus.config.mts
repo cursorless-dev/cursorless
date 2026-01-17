@@ -120,9 +120,14 @@ const config: Config = {
     { rel: "shortcut icon", href: "/favicon.ico?v=1" },
   ],
   onBrokenLinks: "throw",
-  onBrokenMarkdownLinks: "throw",
   onBrokenAnchors: "throw",
   trailingSlash: true,
+
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: "throw",
+    },
+  },
 
   presets: [
     [
@@ -146,7 +151,10 @@ const config: Config = {
       },
     ],
   ],
-  plugins: ["./src/plugins/tailwind-plugin.js"],
+  plugins: [
+    "./src/plugins/tailwind-plugin.ts",
+    "./src/plugins/scope-tests-plugin.ts",
+  ],
 
   themeConfig: {
     navbar: {

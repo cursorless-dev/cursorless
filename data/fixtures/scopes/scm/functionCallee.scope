@@ -1,17 +1,13 @@
-(#not-parent-type? @statement variable_declaration)
+(#foo!)
 ---
 
 [Content] =
-[Removal] = 0:2-0:18
-    >----------------<
-0| (#not-parent-type? @statement variable_declaration)
+[Removal] = 0:2-0:6
+    >----<
+0| (#foo!)
 
-[Trailing delimiter] = 0:18-0:19
-                    >-<
-0| (#not-parent-type? @statement variable_declaration)
-
-[Domain] = 0:0-0:51
-  >---------------------------------------------------<
-0| (#not-parent-type? @statement variable_declaration)
+[Domain] = 0:0-0:7
+  >-------<
+0| (#foo!)
 
 [Insertion delimiter] = " "

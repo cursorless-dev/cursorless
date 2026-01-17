@@ -1,0 +1,10 @@
+const foo = function *bar() {};
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:31
+  >-------------------------------<
+0| const foo = function *bar() {};
+
+[Insertion delimiter] = "\n"

@@ -1,0 +1,10 @@
+foo.bar(aaa, bbb, ccc)
+---
+
+[Content] = 0:8-0:21
+          >-------------<
+0| foo.bar(aaa, bbb, ccc)
+
+[Domain] = 0:0-0:22
+  >----------------------<
+0| foo.bar(aaa, bbb, ccc)

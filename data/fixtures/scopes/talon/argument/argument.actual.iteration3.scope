@@ -1,0 +1,10 @@
+command: sleep(100ms)
+---
+
+[Content] = 0:15-0:20
+                 >-----<
+0| command: sleep(100ms)
+
+[Domain] = 0:9-0:21
+           >------------<
+0| command: sleep(100ms)

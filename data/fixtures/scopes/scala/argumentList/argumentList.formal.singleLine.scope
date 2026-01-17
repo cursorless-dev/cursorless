@@ -1,0 +1,13 @@
+def foo(aaa: Int, bbb: Int) = {}
+---
+
+[Content] =
+[Removal] = 0:8-0:26
+          >------------------<
+0| def foo(aaa: Int, bbb: Int) = {}
+
+[Domain] = 0:0-0:32
+  >--------------------------------<
+0| def foo(aaa: Int, bbb: Int) = {}
+
+[Insertion delimiter] = ", "

@@ -1,0 +1,48 @@
+public interface Foo {
+    private int bar;
+}
+---
+
+[#1 Content] = 0:17-0:20
+                   >---<
+0| public interface Foo {
+
+[#1 Removal] = 0:17-0:21
+                   >----<
+0| public interface Foo {
+
+[#1 Leading delimiter] = 0:16-0:17
+                  >-<
+0| public interface Foo {
+
+[#1 Trailing delimiter] = 0:20-0:21
+                      >-<
+0| public interface Foo {
+
+[#1 Domain] = 0:0-2:1
+  >----------------------
+0| public interface Foo {
+1|     private int bar;
+2| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:16-1:19
+                  >---<
+1|     private int bar;
+
+[#2 Removal] = 1:15-1:19
+                 >----<
+1|     private int bar;
+
+[#2 Leading delimiter] = 1:15-1:16
+                 >-<
+1|     private int bar;
+
+[#2 Domain] = 1:4-1:20
+      >----------------<
+1|     private int bar;
+
+[#2 Insertion delimiter] = " "

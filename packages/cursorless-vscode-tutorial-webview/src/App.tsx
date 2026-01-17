@@ -62,7 +62,7 @@ export const App: FunctionComponent<Props> = ({ vscode }) => {
     case "doingTutorial":
       return state.hasErrors ? (
         <div>
-          <h1 className="text-[color:var(--vscode-walkthrough-stepTitle\.foreground)]">
+          <h1 className="text-(--vscode-walkthrough-stepTitle\.foreground)">
             Error
           </h1>
           <p>
