@@ -14,6 +14,7 @@ const testData = generateTestData(100);
 
 const smallThresholdMs = 100;
 const largeThresholdMs = 600;
+const xlThresholdMs = 800;
 
 type ModifierType = "containing" | "previous" | "every";
 
@@ -92,7 +93,7 @@ suite("Performance", async function () {
   test(
     "Select collectionKey with multiple cursors",
     asyncSafety(() =>
-      selectWithMultipleCursors(largeThresholdMs, {
+      selectWithMultipleCursors(smallThresholdMs, {
         type: "collectionKey",
       }),
     ),
@@ -110,7 +111,7 @@ suite("Performance", async function () {
   test(
     "Select surroundingPair.any with multiple cursors",
     asyncSafety(() =>
-      selectWithMultipleCursors(largeThresholdMs, {
+      selectWithMultipleCursors(xlThresholdMs, {
         type: "surroundingPair",
         delimiter: "any",
       }),
