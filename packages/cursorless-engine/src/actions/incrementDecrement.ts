@@ -121,7 +121,7 @@ function formatNumber(
   const absValue = Math.abs(value);
 
   if (hasLeadingZeros(text)) {
-    const integerPartLength = text.replace(/^-/, "").split(".")[0].length;
+    const integerPartLength = /^-?(\d+)/.exec(text)![1].length;
     const integerPart = Math.floor(absValue)
       .toString()
       .padStart(integerPartLength, "0");
