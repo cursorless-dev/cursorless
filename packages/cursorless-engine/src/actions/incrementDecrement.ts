@@ -88,10 +88,28 @@ function createDestination(
   return target.toDestination("to");
 }
 
-function hasLeadingZeros(text: string): boolean {
-  const withoutSign = text.replace(/^-/, "");
-  const integerPart = withoutSign.split(".")[0];
-  return integerPart.startsWith("0") && integerPart.length > 1;
+function updateNumber(isIncrement: boolean, text: string): string {
+  return text.includes(".")
+    ? updateFloat(isIncrement, text)
+    : updateInteger(isIncrement, text);
+}
+
+function updateInteger(isIncrement: boolean, text: string): string {
+  const original = parseInt(text);
+  const diff = 1;
+  const value = original + (isIncrement ? diff : -diff);
+  return formatNumber(value, text);
+}
+
+function updateFloat(isIncrement: boolean, text: string): string {
+  const original = parseFloat(text);
+  const isPercentage = Math.abs(original) <= 1.0;
+  const diff = isPercentage ? 0.1 : 1;
+  const updated = original + (isIncrement ? diff : -diff);
+  // Remove precision problems that would add a lot of extra digits
+  const value = parseFloat(updated.toPrecision(15)) / 1;
+  const decimalPlaces = text.split(".")[1]?.length;
+  return formatNumber(value, text, decimalPlaces);
 }
 
 function formatNumber(
@@ -108,7 +126,7 @@ function formatNumber(
       .toString()
       .padStart(integerPartLength, "0");
 
-    if (decimalPlaces !== undefined) {
+    if (decimalPlaces != null) {
       const fractionPart = (absValue - Math.floor(absValue))
         .toFixed(decimalPlaces)
         .slice(2);
@@ -118,30 +136,11 @@ function formatNumber(
     return `${sign}${integerPart}`;
   }
 
-  return decimalPlaces !== undefined
+  return decimalPlaces != null
     ? value.toFixed(decimalPlaces)
     : value.toString();
 }
 
-function updateNumber(isIncrement: boolean, text: string): string {
-  return text.includes(".")
-    ? updateFloat(isIncrement, text)
-    : updateInteger(isIncrement, text);
-}
-
-function updateInteger(isIncrement: boolean, text: string): string {
-  const value = parseInt(text) + (isIncrement ? 1 : -1);
-  return formatNumber(value, text);
-}
-
-function updateFloat(isIncrement: boolean, text: string): string {
-  const original = parseFloat(text);
-  const isPercentage = Math.abs(original) <= 1.0;
-  const diff = isPercentage ? 0.1 : 1;
-  const value = parseFloat(
-    (original + (isIncrement ? diff : -diff)).toPrecision(15),
-  );
-
-  const decimalPlaces = text.split(".")[1]?.length || 1;
-  return formatNumber(value, text, decimalPlaces);
+function hasLeadingZeros(text: string): boolean {
+  return /^-?0\d/.test(text);
 }
