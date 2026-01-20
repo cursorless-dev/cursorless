@@ -121,7 +121,7 @@ function formatNumber(
   const absValue = Math.abs(value);
 
   if (hasLeadingZeros(text)) {
-    const integerPartLength = /^-?(\d+)/.exec(text)![1].length;
+    const integerPartLength = getIntegerPartLength(text);
     const integerPart = Math.floor(absValue)
       .toString()
       .padStart(integerPartLength, "0");
@@ -129,6 +129,7 @@ function formatNumber(
     if (decimalPlaces != null) {
       const fractionPart = (absValue - Math.floor(absValue))
         .toFixed(decimalPlaces)
+        // Remove "0."
         .slice(2);
       return `${sign}${integerPart}.${fractionPart}`;
     }
@@ -143,4 +144,8 @@ function formatNumber(
 
 function hasLeadingZeros(text: string): boolean {
   return /^-?0\d/.test(text);
+}
+
+function getIntegerPartLength(text: string): number {
+  return /^-?(\d+)/.exec(text)![1].length;
 }
