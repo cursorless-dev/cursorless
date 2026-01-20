@@ -90,21 +90,62 @@ function createDestination(
 
 function updateNumber(isIncrement: boolean, text: string): string {
   return text.includes(".")
-    ? updateFloat(isIncrement, text).toString()
-    : updateInteger(isIncrement, text).toString();
+    ? updateFloat(isIncrement, text)
+    : updateInteger(isIncrement, text);
 }
 
-function updateInteger(isIncrement: boolean, text: string): number {
+function updateInteger(isIncrement: boolean, text: string): string {
   const original = parseInt(text);
   const diff = 1;
-  return original + (isIncrement ? diff : -diff);
+  const value = original + (isIncrement ? diff : -diff);
+  return formatNumber(value, text);
 }
 
-function updateFloat(isIncrement: boolean, text: string): number {
+function updateFloat(isIncrement: boolean, text: string): string {
   const original = parseFloat(text);
   const isPercentage = Math.abs(original) <= 1.0;
   const diff = isPercentage ? 0.1 : 1;
   const updated = original + (isIncrement ? diff : -diff);
   // Remove precision problems that would add a lot of extra digits
-  return parseFloat(updated.toPrecision(15)) / 1;
+  const value = parseFloat(updated.toPrecision(15)) / 1;
+  const decimalPlaces = text.split(".")[1]?.length;
+  return formatNumber(value, text, decimalPlaces);
+}
+
+function formatNumber(
+  value: number,
+  text: string,
+  decimalPlaces?: number,
+): string {
+  const sign = value < 0 ? "-" : "";
+  const absValue = Math.abs(value);
+
+  if (hasLeadingZeros(text)) {
+    const integerPartLength = getIntegerPartLength(text);
+    const integerPart = Math.floor(absValue)
+      .toString()
+      .padStart(integerPartLength, "0");
+
+    if (decimalPlaces != null) {
+      const fractionPart = (absValue - Math.floor(absValue))
+        .toFixed(decimalPlaces)
+        // Remove "0."
+        .slice(2);
+      return `${sign}${integerPart}.${fractionPart}`;
+    }
+
+    return `${sign}${integerPart}`;
+  }
+
+  return decimalPlaces != null
+    ? value.toFixed(decimalPlaces)
+    : value.toString();
+}
+
+function hasLeadingZeros(text: string): boolean {
+  return /^-?0\d/.test(text);
+}
+
+function getIntegerPartLength(text: string): number {
+  return /^-?(\d+)/.exec(text)![1].length;
 }
