@@ -27,7 +27,7 @@
     "@cursorless/node-common": "workspace:*",
     "glob": "^13.0.0",
     "immutability-helper": "^3.1.1",
-    "lodash-es": "^4.17.21"
+    "lodash-es": "^4.17.23"
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.12"

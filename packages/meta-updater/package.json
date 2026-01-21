@@ -26,7 +26,7 @@
     "@pnpm/types": "^1001.0.1",
     "@types/normalize-path": "^3.0.2",
     "js-yaml": "^4.1.1",
-    "lodash-es": "^4.17.21",
+    "lodash-es": "^4.17.23",
     "normalize-path": "^3.0.0",
     "path-exists": "^5.0.0",
     "type-fest": "^5.2.0"
