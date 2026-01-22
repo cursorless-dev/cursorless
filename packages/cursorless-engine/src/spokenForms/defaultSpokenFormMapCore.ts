@@ -102,6 +102,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     boundedNonWhitespaceSequence: "short paint",
     url: "link",
     notebookCell: "cell",
+    that: "that",
 
     string: isPrivate("parse tree string"),
     textFragment: isPrivate("text fragment"),

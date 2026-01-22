@@ -180,6 +180,7 @@ function isLanguageSpecific(scopeType: ScopeType): boolean {
     case "boundedNonWhitespaceSequence":
     case "url":
     case "notebookCell":
+    case "that":
     case "surroundingPair":
     case "surroundingPairInterior":
     case "customRegex":

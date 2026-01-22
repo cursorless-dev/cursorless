@@ -202,6 +202,7 @@ export const simpleScopeTypeTypes = [
   "boundedNonWhitespaceSequence",
   "url",
   "notebookCell",
+  "that",
   // Talon
   "command",
   // Private scope types
