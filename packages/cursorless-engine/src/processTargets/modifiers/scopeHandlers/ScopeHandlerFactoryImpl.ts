@@ -32,8 +32,10 @@ import {
   SurroundingPairScopeHandler,
 } from "./SurroundingPairScopeHandler";
 import { InteriorScopeHandler } from "./SurroundingPairScopeHandler/InteriorScopeHandler";
+import { ThatScopeHandler } from "./ThatScopeHandler";
 import { TokenScopeHandler } from "./TokenScopeHandler";
 import { WordScopeHandler } from "./WordScopeHandler/WordScopeHandler";
+import type { StoredTargetMap } from "../../../core/StoredTargets";
 
 /**
  * Returns a scope handler for the given scope type and language id, or
@@ -46,7 +48,10 @@ import { WordScopeHandler } from "./WordScopeHandler/WordScopeHandler";
  * undefined if the given scope type / language id combination is not supported.
  */
 export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
-  constructor(private languageDefinitions: LanguageDefinitions) {
+  constructor(
+    private languageDefinitions: LanguageDefinitions,
+    private storedTargets: StoredTargetMap,
+  ) {
     this.maybeCreate = this.maybeCreate.bind(this);
     this.create = this.create.bind(this);
   }
@@ -117,6 +122,13 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
           this.languageDefinitions,
           scopeType,
           languageId,
+        );
+      case "that":
+        return new ThatScopeHandler(
+          this,
+          scopeType,
+          languageId,
+          this.storedTargets,
         );
       case "interior":
         return InteriorScopeHandler.maybeCreate(

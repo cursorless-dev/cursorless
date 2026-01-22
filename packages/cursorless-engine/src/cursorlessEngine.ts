@@ -150,7 +150,10 @@ function createScopeProvider(
   storedTargets: StoredTargetMap,
   customSpokenFormGenerator: CustomSpokenFormGeneratorImpl,
 ): ScopeProvider {
-  const scopeHandlerFactory = new ScopeHandlerFactoryImpl(languageDefinitions);
+  const scopeHandlerFactory = new ScopeHandlerFactoryImpl(
+    languageDefinitions,
+    storedTargets,
+  );
 
   const rangeProvider = new ScopeRangeProvider(
     scopeHandlerFactory,
@@ -164,6 +167,7 @@ function createScopeProvider(
   const rangeWatcher = new ScopeRangeWatcher(
     languageDefinitions,
     rangeProvider,
+    storedTargets,
   );
   const supportChecker = new ScopeSupportChecker(scopeHandlerFactory);
   const infoProvider = new ScopeInfoProvider(customSpokenFormGenerator);

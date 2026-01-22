@@ -103,7 +103,7 @@ function createCommandRunner(
   const modifierStageFactory = new ModifierStageFactoryImpl(
     languageDefinitions,
     storedTargets,
-    new ScopeHandlerFactoryImpl(languageDefinitions),
+    new ScopeHandlerFactoryImpl(languageDefinitions, storedTargets),
   );
 
   const markStageFactory = new MarkStageFactoryImpl(

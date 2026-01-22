@@ -13,6 +13,7 @@ import type { LanguageDefinitions } from "../languages/LanguageDefinitions";
 import { ide } from "../singletons/ide.singleton";
 import type { ScopeRangeProvider } from "./ScopeRangeProvider";
 import { DecorationDebouncer } from "../util/DecorationDebouncer";
+import type { StoredTargetMap } from "../core/StoredTargets";
 
 /**
  * Watches for changes to the scope ranges of visible editors and notifies
@@ -25,6 +26,7 @@ export class ScopeRangeWatcher {
   constructor(
     languageDefinitions: LanguageDefinitions,
     private scopeRangeProvider: ScopeRangeProvider,
+    storedTargets: StoredTargetMap,
   ) {
     this.onChange = this.onChange.bind(this);
     this.onDidChangeScopeRanges = this.onDidChangeScopeRanges.bind(this);
@@ -48,6 +50,12 @@ export class ScopeRangeWatcher {
       ide().onDidChangeTextDocument(debouncer.run),
       ide().onDidChangeTextEditorVisibleRanges(debouncer.run),
       languageDefinitions.onDidChangeDefinition(this.onChange),
+      // Listen for "that" mark changes to update the "that" scope visualization
+      storedTargets.onStoredTargets((key, _targets) => {
+        if (key === "that") {
+          debouncer.run();
+        }
+      }),
       debouncer,
     );
   }
