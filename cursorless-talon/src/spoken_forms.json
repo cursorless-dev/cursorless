@@ -182,7 +182,8 @@
       "short paint": "boundedNonWhitespaceSequence",
       "short block": "boundedParagraph",
       "link": "url",
-      "cell": "notebookCell"
+      "cell": "notebookCell",
+      "that": "that"
     },
     "surrounding_pair_scope_type": {
       "string": "string"
