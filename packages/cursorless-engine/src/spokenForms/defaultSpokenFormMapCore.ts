@@ -114,11 +114,6 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     glyph: "glyph",
   },
 
-  surroundingPairForceDirection: {
-    left: "left",
-    right: "right",
-  },
-
   simpleModifier: {
     excludeInterior: "bounds",
     toRawSelection: "just",
