@@ -43,16 +43,6 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
     direction: Direction,
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
-    if (this.scopeType.forceDirection != null) {
-      //  DEPRECATED @ 2024-07-01
-      void showError(
-        ide().messages,
-        "deprecatedForceDirection",
-        "forceDirection is deprecated. If this is important to you please file an issue on the cursorless repo.",
-      );
-      return;
-    }
-
     const cacheKey = "SurroundingPairScopeHandler_" + this.scopeType.delimiter;
 
     if (!scopeHandlerCache.isValid(cacheKey, editor.document)) {
