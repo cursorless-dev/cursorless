@@ -95,10 +95,11 @@ function updateNumber(isIncrement: boolean, text: string): string {
 }
 
 function updateInteger(isIncrement: boolean, text: string): string {
-  const original = parseInt(text.replaceAll("_", ""));
+  const textWithoutUnderscores = text.replaceAll("_", "");
+  const original = parseInt(textWithoutUnderscores);
   const diff = 1;
   const value = original + (isIncrement ? diff : -diff);
-  return formatNumber(value, text);
+  return formatNumber(value, text, textWithoutUnderscores);
 }
 
 function updateFloat(isIncrement: boolean, text: string): string {
@@ -110,20 +111,22 @@ function updateFloat(isIncrement: boolean, text: string): string {
   // Remove precision problems that would add a lot of extra digits
   const value = parseFloat(updated.toPrecision(15)) / 1;
   const decimalPlaces = textWithoutUnderscores.split(".")[1]?.length;
-  return formatNumber(value, text, decimalPlaces);
+  return formatNumber(value, text, textWithoutUnderscores, decimalPlaces);
 }
 
 function formatNumber(
   value: number,
   text: string,
+  textWithoutUnderscores: string,
   decimalPlaces?: number,
 ): string {
-  const sign = value < 0 ? "-" : "";
-  const absValue = Math.abs(value);
-
   const result = (() => {
-    if (hasLeadingZeros(text)) {
-      return formatNumberWithLeadingZeros(absValue, sign, text, decimalPlaces);
+    if (hasLeadingZeros(textWithoutUnderscores)) {
+      return formatNumberWithLeadingZeros(
+        value,
+        textWithoutUnderscores,
+        decimalPlaces,
+      );
     }
 
     return decimalPlaces != null
@@ -135,11 +138,12 @@ function formatNumber(
 }
 
 function formatNumberWithLeadingZeros(
-  absValue: number,
-  sign: string,
+  value: number,
   text: string,
   decimalPlaces?: number,
 ): string {
+  const sign = value < 0 ? "-" : "";
+  const absValue = Math.abs(value);
   const integerPartLength = getIntegerPartLength(text);
   const integerPart = Math.floor(absValue)
     .toString()
@@ -156,6 +160,7 @@ function formatNumberWithLeadingZeros(
   return `${sign}${integerPart}`;
 }
 
+// Reinsert underscores at original positions
 function formatNumberWithUnderscores(
   original: string,
   updated: string,
@@ -166,11 +171,11 @@ function formatNumberWithUnderscores(
     return updated;
   }
 
-  // Reinsert underscores at original position
   let resultWithUnderscores = updated;
+  const offset = (updated[0] === "-" ? 1 : 0) - (original[0] === "-" ? 1 : 0);
 
   for (const match of underscoreMatches) {
-    const index = match.index;
+    const index = match.index + offset;
     if (index < resultWithUnderscores.length) {
       resultWithUnderscores =
         resultWithUnderscores.slice(0, index) +

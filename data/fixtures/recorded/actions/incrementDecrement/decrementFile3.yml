@@ -1,0 +1,56 @@
+languageId: plaintext
+command:
+  version: 7
+  spokenForm: decrement file
+  action:
+    name: decrement
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: document}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    10_000
+    10_000.0
+    10_000.0_10
+    0_0.0_1
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |-
+    99_99
+    99_99.0
+    99_99.01_0
+    -0_0.0_9
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 5}
+      isReversed: false
+      hasExplicitRange: true
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 1, character: 0}
+        end: {line: 1, character: 7}
+      isReversed: false
+      hasExplicitRange: true
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 2, character: 0}
+        end: {line: 2, character: 10}
+      isReversed: false
+      hasExplicitRange: true
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 3, character: 0}
+        end: {line: 3, character: 8}
+      isReversed: false
+      hasExplicitRange: true
