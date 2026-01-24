@@ -134,13 +134,13 @@ function formatNumber(
       : value.toString();
   })();
 
-  return formatNumberWithUnderscores(text, result);
+  return formatNumberWithUnderscores(text, textWithoutUnderscores, result);
 }
 
 function formatNumberWithLeadingZeros(
   value: number,
   text: string,
-  decimalPlaces?: number,
+  decimalPlaces: number | undefined,
 ): string {
   const sign = value < 0 ? "-" : "";
   const absValue = Math.abs(value);
@@ -163,6 +163,7 @@ function formatNumberWithLeadingZeros(
 // Reinsert underscores at original positions
 function formatNumberWithUnderscores(
   original: string,
+  originalWithoutUnderscores: string,
   updated: string,
 ): string {
   const underscoreMatches = Array.from(original.matchAll(/_/g));
@@ -172,7 +173,12 @@ function formatNumberWithUnderscores(
   }
 
   let resultWithUnderscores = updated;
-  const offset = (updated[0] === "-" ? 1 : 0) - (original[0] === "-" ? 1 : 0);
+  const signOffset =
+    (updated[0] === "-" ? 1 : 0) - (original[0] === "-" ? 1 : 0);
+  const intOffset =
+    getIntegerPartLength(updated) -
+    getIntegerPartLength(originalWithoutUnderscores);
+  const offset = signOffset + intOffset;
 
   for (const match of underscoreMatches) {
     const index = match.index + offset;
