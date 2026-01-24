@@ -173,12 +173,9 @@ function formatNumberWithUnderscores(
   }
 
   let resultWithUnderscores = updated;
-  const signOffset =
-    (updated[0] === "-" ? 1 : 0) - (original[0] === "-" ? 1 : 0);
-  const intOffset =
-    getIntegerPartLength(updated) -
-    getIntegerPartLength(originalWithoutUnderscores);
-  const offset = signOffset + intOffset;
+  const offset =
+    getIntegerAndSignPartLength(updated) -
+    getIntegerAndSignPartLength(originalWithoutUnderscores);
 
   for (const match of underscoreMatches) {
     const index = match.index + offset;
@@ -199,4 +196,8 @@ function hasLeadingZeros(text: string): boolean {
 
 function getIntegerPartLength(text: string): number {
   return /^-?(\d+)/.exec(text)![1].length;
+}
+
+function getIntegerAndSignPartLength(text: string): number {
+  return /^-?\d+/.exec(text)![0].length;
 }
