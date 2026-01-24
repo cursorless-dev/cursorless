@@ -29,7 +29,7 @@ import type { EditWithRangeUpdater } from "./Types";
 
 export type EditNewActionType = "edit" | "insertLineAfter";
 
-export type TextualType = "character" | "word" | "token" | "line";
+export type TextualType = "character" | "word" | "token" | "line" | "document";
 
 export interface Target {
   /** The text editor used for all ranges */
@@ -118,6 +118,15 @@ export interface Target {
 
   /** If true this target is a notebook cell */
   readonly isNotebookCell: boolean;
+
+  /**
+   * If `true`, this target represents synthesized text that doesn't directly
+   * correspond to the underlying document contents. Actions that rely on
+   * reading from the document (eg clipboard copy via the IDE) should avoid
+   * using this target's {@link contentRange} and instead use
+   * {@link contentText}.
+   */
+  readonly isTextOnly: boolean;
 
   /** The text contained in the content range */
   readonly contentText: string;

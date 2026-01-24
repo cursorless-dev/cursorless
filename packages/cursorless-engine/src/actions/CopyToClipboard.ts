@@ -23,7 +23,12 @@ export class CopyToClipboard implements SimpleAction {
     targets: Target[],
     options: Options = { showDecorations: true },
   ): Promise<ActionReturnValue> {
-    if (ide().capabilities.commands.clipboardCopy != null) {
+    const hasTextOnlyTarget = targets.some((target) => target.isTextOnly);
+
+    if (
+      !hasTextOnlyTarget &&
+      ide().capabilities.commands.clipboardCopy != null
+    ) {
       const simpleAction = new CopyToClipboardSimple(this.rangeUpdater);
       return simpleAction.run(targets, options);
     }
@@ -38,6 +43,6 @@ export class CopyToClipboard implements SimpleAction {
 
     await ide().clipboard.writeText(text);
 
-    return { thatTargets: targets };
+    return { thatTargets: targets.map((t) => t.thatTarget) };
   }
 }
