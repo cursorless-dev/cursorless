@@ -7,7 +7,7 @@ import { runForEachEditor } from "../util/targetUtils";
 import type { Actions } from "./Actions";
 import type { ActionReturnValue } from "./actions.types";
 
-const REGEX = /-?\d+(\.\d+)?/g;
+const REGEX = /-?[\d_]+(\.[\d_]+)?/g;
 
 class IncrementDecrement {
   constructor(
@@ -95,51 +95,102 @@ function updateNumber(isIncrement: boolean, text: string): string {
 }
 
 function updateInteger(isIncrement: boolean, text: string): string {
-  const original = parseInt(text);
+  const textWithoutUnderscores = text.replaceAll("_", "");
+  const original = parseInt(textWithoutUnderscores);
   const diff = 1;
   const value = original + (isIncrement ? diff : -diff);
-  return formatNumber(value, text);
+  return formatNumber(value, text, textWithoutUnderscores);
 }
 
 function updateFloat(isIncrement: boolean, text: string): string {
-  const original = parseFloat(text);
+  const textWithoutUnderscores = text.replaceAll("_", "");
+  const original = parseFloat(textWithoutUnderscores);
   const isPercentage = Math.abs(original) <= 1.0;
   const diff = isPercentage ? 0.1 : 1;
   const updated = original + (isIncrement ? diff : -diff);
   // Remove precision problems that would add a lot of extra digits
   const value = parseFloat(updated.toPrecision(15)) / 1;
-  const decimalPlaces = text.split(".")[1]?.length;
-  return formatNumber(value, text, decimalPlaces);
+  const decimalPlaces = textWithoutUnderscores.split(".")[1]?.length;
+  return formatNumber(value, text, textWithoutUnderscores, decimalPlaces);
 }
 
 function formatNumber(
   value: number,
   text: string,
+  textWithoutUnderscores: string,
   decimalPlaces?: number,
+): string {
+  const result = (() => {
+    if (hasLeadingZeros(textWithoutUnderscores)) {
+      return formatNumberWithLeadingZeros(
+        value,
+        textWithoutUnderscores,
+        decimalPlaces,
+      );
+    }
+
+    return decimalPlaces != null
+      ? value.toFixed(decimalPlaces)
+      : value.toString();
+  })();
+
+  return formatNumberWithUnderscores(text, textWithoutUnderscores, result);
+}
+
+function formatNumberWithLeadingZeros(
+  value: number,
+  text: string,
+  decimalPlaces: number | undefined,
 ): string {
   const sign = value < 0 ? "-" : "";
   const absValue = Math.abs(value);
+  const integerPartLength = getIntegerPartLength(text);
+  const integerPart = Math.floor(absValue)
+    .toString()
+    .padStart(integerPartLength, "0");
 
-  if (hasLeadingZeros(text)) {
-    const integerPartLength = getIntegerPartLength(text);
-    const integerPart = Math.floor(absValue)
-      .toString()
-      .padStart(integerPartLength, "0");
-
-    if (decimalPlaces != null) {
-      const fractionPart = (absValue - Math.floor(absValue))
-        .toFixed(decimalPlaces)
-        // Remove "0."
-        .slice(2);
-      return `${sign}${integerPart}.${fractionPart}`;
-    }
-
-    return `${sign}${integerPart}`;
+  if (decimalPlaces != null) {
+    const fractionPart = (absValue - Math.floor(absValue))
+      .toFixed(decimalPlaces)
+      // Remove "0."
+      .slice(2);
+    return `${sign}${integerPart}.${fractionPart}`;
   }
 
-  return decimalPlaces != null
-    ? value.toFixed(decimalPlaces)
-    : value.toString();
+  return `${sign}${integerPart}`;
+}
+
+// Reinsert underscores at original positions
+function formatNumberWithUnderscores(
+  original: string,
+  originalWithoutUnderscores: string,
+  updated: string,
+): string {
+  const underscoreMatches = Array.from(original.matchAll(/_/g));
+
+  if (underscoreMatches.length === 0) {
+    return updated;
+  }
+
+  let resultWithUnderscores = updated;
+  const signOffset =
+    (updated[0] === "-" ? 1 : 0) - (original[0] === "-" ? 1 : 0);
+  const intOffset =
+    getIntegerPartLength(updated) -
+    getIntegerPartLength(originalWithoutUnderscores);
+  const offset = signOffset + intOffset;
+
+  for (const match of underscoreMatches) {
+    const index = match.index + offset;
+    if (index < resultWithUnderscores.length) {
+      resultWithUnderscores =
+        resultWithUnderscores.slice(0, index) +
+        "_" +
+        resultWithUnderscores.slice(index);
+    }
+  }
+
+  return resultWithUnderscores;
 }
 
 function hasLeadingZeros(text: string): boolean {
