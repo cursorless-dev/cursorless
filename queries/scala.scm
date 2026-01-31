@@ -51,23 +51,37 @@
 ;; level if expressions only
 (
   (if_expression
+    "if" @branch.start @branch.removal.start
     condition: (parenthesized_expression
       (_) @condition
     )
+    consequence: (_) @branch.end @branch.removal.end
+    "else"? @branch.removal.end.startOf
+    alternative: (if_expression)? @branch.removal.end.startOf
   ) @ifStatement @statement @condition.domain
-
   (#not-parent-type? @ifStatement if_expression)
+)
+
+(
+  (if_expression) @branch.iteration
+  (#not-parent-type? @branch.iteration if_expression)
 )
 
 ;;!! else if (true) {}
 (if_expression
-  "else" @condition.domain.start
+  "else" @branch.start @condition.domain.start
   (if_expression
     condition: (parenthesized_expression
       (_) @condition
     )
-    consequence: (_) @condition.domain.end
+    consequence: (_) @branch.end @condition.domain.end
   )
+)
+
+;;!! else {}
+(if_expression
+  "else" @branch.start
+  alternative: (block) @branch.end
 )
 
 [
@@ -144,10 +158,10 @@
 (match_expression
   value: (_) @value
   (case_block
-    "{" @condition.iteration.start.endOf
-    "}" @condition.iteration.end.startOf
+    "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
+    "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
   )
-) @value.domain @condition.iteration.domain
+) @value.domain @branch.iteration.domain @condition.iteration.domain
 
 ;;!! for (v <- values) {}
 (for_expression
@@ -286,18 +300,18 @@
 ) @value.domain
 
 ;;!! case 0 => "zero"
-;;!  ^^^^^^^^^^^^^^^^
+;;!       ^
 (match_expression
   (case_block
     (case_clause
       pattern: (_) @condition
-    ) @condition.domain
+    ) @branch @condition.domain
   )
-  (#trim-end! @condition.domain)
+  (#trim-end! @branch @condition.domain)
 )
 
-;;!! case 0 => "zero"
-;;!  ^^^^^^^^^^^^^^^^
+;;!! case 0 => 0
+;;!           ^^
 (match_expression
   (case_block
     (case_clause
@@ -308,12 +322,17 @@
   (#not-type? @interior.end.endOf block)
 )
 
-;;!! case 0 => "zero"
-;;!  ^^^^^^^^^^^^^^^^
-(
-  (case_clause) @branch
-  (#trim-end! @branch)
-)
+;;!! try {}
+(try_expression
+  "try" @branch.start
+  body: (_) @branch.end
+) @branch.iteration
+
+;;!! catch {}
+(catch_clause) @branch
+
+;;!! catch {}
+(finally_clause) @branch
 
 ;;!! var foo: Bar[Int, Int]
 ;;!               ^^^  ^^^

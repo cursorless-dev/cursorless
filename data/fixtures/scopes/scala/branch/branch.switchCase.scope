@@ -1,0 +1,40 @@
+foo match {
+    case 0 => 0
+    case _ => {}
+}
+---
+
+[#1 Content] =
+[#1 Domain] = 1:4-1:15
+      >-----------<
+1|     case 0 => 0
+
+[#1 Removal] = 1:0-2:0
+  >---------------
+1|     case 0 => 0
+2|     case _ => {}
+   <
+
+[#1 Leading delimiter] = 1:0-1:4
+  >----<
+1|     case 0 => 0
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 2:4-2:16
+      >------------<
+2|     case _ => {}
+
+[#2 Removal] = 2:0-3:0
+  >----------------
+2|     case _ => {}
+3| }
+   <
+
+[#2 Leading delimiter] = 2:0-2:4
+  >----<
+2|     case _ => {}
+
+[#2 Insertion delimiter] = "\n"
