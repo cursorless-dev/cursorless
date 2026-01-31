@@ -1,13 +1,13 @@
-new Foo(aaa, bbb);
+foo.bar(aaa, bbb)
 ---
 
 [Content] =
 [Removal] = 0:8-0:16
           >--------<
-0| new Foo(aaa, bbb);
+0| foo.bar(aaa, bbb)
 
 [Domain] = 0:0-0:17
   >-----------------<
-0| new Foo(aaa, bbb);
+0| foo.bar(aaa, bbb)
 
 [Insertion delimiter] = ", "

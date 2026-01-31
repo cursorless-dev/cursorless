@@ -385,10 +385,21 @@
   (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
-;;!! def foo(aaa: Int, bbb: Int) = x
+;;!! def foo(aaa: Int, bbb: Int) {}
 ;;!          ^^^^^^^^^^^^^^^^^^
 (_
   (parameters
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
+) @argumentList.domain @argumentOrParameter.iteration.domain
+
+;;!! (aaa: Int, bbb: Int) => {}
+;;!   ^^^^^^^^^^^^^^^^^^
+(lambda_expression
+  parameters: (bindings
     "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
     ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
   ) @argumentList

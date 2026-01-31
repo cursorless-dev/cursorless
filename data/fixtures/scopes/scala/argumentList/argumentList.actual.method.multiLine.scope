@@ -1,7 +1,7 @@
 foo.bar(
     aaa,
     bbb
-);
+)
 ---
 
 [Content] = 1:4-2:7
@@ -15,7 +15,7 @@ foo.bar(
 0| foo.bar(
 1|     aaa,
 2|     bbb
-3| );
+3| )
    <
 
 [Leading delimiter] = 1:0-1:4
@@ -27,7 +27,7 @@ foo.bar(
 0| foo.bar(
 1|     aaa,
 2|     bbb
-3| );
+3| )
    -<
 
 [Insertion delimiter] = ",\n"
