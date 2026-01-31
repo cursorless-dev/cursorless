@@ -6,9 +6,6 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   disqualifyDelimiter: supported,
   anonymousFunction: supported,
-  list: supported,
-  map: supported,
-  attribute: supported,
 
   "argument.actual.singleLine": supported,
   "argument.actual.multiLine": supported,
@@ -113,7 +110,6 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.variable": supported,
   "statement.assignment": supported,
   "statement.return": supported,
-  "statement.yield": supported,
   "statement.namespace": supported,
   "statement.misc": supported,
   "statement.iteration.document": supported,
@@ -171,7 +167,6 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.field.class": supported,
   "value.field.enum": supported,
   "value.return": supported,
-  "value.yield": supported,
   "value.return.lambda": supported,
   "value.variable": supported,
   "value.variable.pattern": supported,
@@ -179,8 +174,6 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.iteration.class": supported,
   "value.iteration.enum": supported,
   "value.iteration.document": supported,
-  "value.mapPair": supported,
-  "value.mapPair.iteration": supported,
   "value.typeAlias": supported,
 
   "type.argument.formal": supported,
@@ -206,9 +199,6 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "type.iteration.class": supported,
   "type.iteration.interface": supported,
   "type.iteration.document": supported,
-
-  "key.mapPair": supported,
-  "key.mapPair.iteration": supported,
 
   "interior.class": supported,
   "interior.interface": supported,
@@ -297,10 +287,23 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.static": notApplicable,
   "interior.static": notApplicable,
 
+  // Literal map and list
+  list: notApplicable,
+  map: notApplicable,
+  "key.mapPair": notApplicable,
+  "key.mapPair.iteration": notApplicable,
+  "value.mapPair": notApplicable,
+  "value.mapPair.iteration": notApplicable,
+
+  // Yield statement
+  "statement.yield": notApplicable,
+  "value.yield": notApplicable,
+
   // Miscellaneous
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,
   environment: notApplicable,
   selector: notApplicable,
   unit: notApplicable,
+  attribute: notApplicable,
 };

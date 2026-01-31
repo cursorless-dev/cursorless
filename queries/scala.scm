@@ -1,5 +1,20 @@
 ;; https://github.com/tree-sitter/tree-sitter-scala/blob/master/src/grammar.json
 
+[
+  (class_definition)
+  (var_definition)
+  (assignment_expression)
+  (function_definition)
+  (instance_expression)
+  (call_expression)
+  (match_expression)
+  (return_expression)
+  (while_expression)
+  (do_while_expression)
+  (for_expression)
+  (try_expression)
+] @statement
+
 (
   (compilation_unit) @class.iteration @statement.iteration @namedFunction.iteration
   (#document-range! @class.iteration @statement.iteration @namedFunction.iteration)
@@ -38,6 +53,24 @@
   )
 ] @class @name.domain
 
+;;!! class Foo { }
+;;!             ^
+(template_body
+  "{" @class.iteration.start.endOf @namedFunction.iteration.start.endOf
+  "}" @class.iteration.end.startOf @namedFunction.iteration.end.startOf
+)
+
+;;!! { }
+;;!   ^
+(_
+  "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+)
+(_
+  "{" @statement.iteration.start.endOf
+  "}" @statement.iteration.end.startOf
+)
+
 ;;!! foo()
 ;; does not count foo.size (field_expression), or foo size (postfix_expression)
 (call_expression
@@ -50,7 +83,16 @@
   (type_identifier) @functionCallee.end
 ) @functionCall @functionCallee.domain
 
+;;!! () => {}
 (lambda_expression) @anonymousFunction
+
+;;!! () => 0
+;;!        ^
+(lambda_expression
+  "=>"
+  (_) @value
+  (#not-type? @value block)
+) @value.domain
 
 (function_definition
   name: (_) @name
@@ -122,6 +164,12 @@
   (parameters) @_.leading.endOf
   return_type: (_) @type
 ) @_.domain
+
+;;!! return 0
+;;!         ^
+(return_expression
+  (_) @value
+) @value.domain
 
 ;;!! case 0 => "zero"
 ;;!  ^^^^^^^^^^^^^^^^
