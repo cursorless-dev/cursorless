@@ -22,7 +22,6 @@ import {
   FileSystemCommandHistoryStorage,
   FileSystemRawTreeSitterQueryProvider,
   FileSystemTalonSpokenForms,
-  getFixturePath,
 } from "@cursorless/node-common";
 import {
   ScopeTestRecorder,
