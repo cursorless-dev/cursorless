@@ -1,0 +1,3 @@
+try {} catch { case e: Exception => }
+---
+

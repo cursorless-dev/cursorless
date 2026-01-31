@@ -18,6 +18,9 @@
   (do_while_expression)
   (for_expression)
   (try_expression)
+
+  ;; Disabled on purpose. We have a better definition of this below.
+  ;; (if_expression)
 ] @statement
 
 [
@@ -36,9 +39,26 @@
   (#document-range! @name.iteration @value.iteration @type.iteration)
 )
 
+;; Top level if expressions only
 (
-  (if_expression) @ifStatement @statement
+  (if_expression
+    condition: (parenthesized_expression
+      (_) @condition
+    )
+  ) @ifStatement @statement @condition.domain
+
   (#not-parent-type? @ifStatement if_expression)
+)
+
+;;!! else if (true) {}
+(if_expression
+  "else" @condition.domain.start
+  (if_expression
+    condition: (parenthesized_expression
+      (_) @condition
+    )
+    consequence: (_) @condition.domain.end
+  )
 )
 
 [
@@ -114,7 +134,11 @@
 ;;!  ^^^
 (match_expression
   value: (_) @value
-) @value.domain
+  (case_block
+    "{" @condition.iteration.start.endOf
+    "}" @condition.iteration.end.startOf
+  )
+) @value.domain @condition.iteration.domain
 
 ;;!! for (v <- values) {}
 (for_expression
@@ -173,14 +197,14 @@
   right: (_) @value
 ) @_.domain
 
-(_
-  condition: (_
-    .
-    "(" @condition.start.endOf
-    ")" @condition.end.startOf
-    .
-  )
-) @_.domain
+(
+  (_
+    condition: (parenthesized_expression
+      (_) @condition
+    )
+  ) @_.domain
+  (#not-type? @_.domain if_expression)
+)
 
 ;;!! type Vector = (Int, Int)
 ;;!                ^^^^^^^^^^
@@ -251,6 +275,17 @@
 (return_expression
   (_) @value
 ) @value.domain
+
+;;!! case 0 => "zero"
+;;!  ^^^^^^^^^^^^^^^^
+(match_expression
+  (case_block
+    (case_clause
+      pattern: (_) @condition
+    ) @condition.domain
+  )
+  (#trim-end! @condition.domain)
+)
 
 ;;!! case 0 => "zero"
 ;;!  ^^^^^^^^^^^^^^^^

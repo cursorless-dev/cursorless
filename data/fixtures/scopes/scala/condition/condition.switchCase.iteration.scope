@@ -1,0 +1,10 @@
+foo match { }
+---
+
+[Content] = 0:11-0:12
+             >-<
+0| foo match { }
+
+[Domain] = 0:0-0:13
+  >-------------<
+0| foo match { }

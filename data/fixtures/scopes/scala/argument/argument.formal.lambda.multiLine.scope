@@ -1,0 +1,6 @@
+val f = (
+  aaa: Int,
+  bbb: Int,
+) => aaa + bbb
+---
+

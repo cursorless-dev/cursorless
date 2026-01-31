@@ -1,0 +1,10 @@
+class Foo { def bar(aaa: Int, bbb: Int): Int = aaa + bbb }
+---
+
+[Content] = 0:20-0:38
+                      >------------------<
+0| class Foo { def bar(aaa: Int, bbb: Int): Int = aaa + bbb }
+
+[Domain] = 0:12-0:56
+              >--------------------------------------------<
+0| class Foo { def bar(aaa: Int, bbb: Int): Int = aaa + bbb }

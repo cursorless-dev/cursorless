@@ -1,7 +1,7 @@
-def foo(
+class Foo(
   aaa: Int,
   bbb: Int,
-): Int = aaa + bbb
+)
 ---
 
 [#1 Content] =

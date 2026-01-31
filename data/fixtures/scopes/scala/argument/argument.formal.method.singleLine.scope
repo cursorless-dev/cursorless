@@ -1,0 +1,33 @@
+class Foo { def bar(aaa: Int, bbb: Int): Int = aaa + bbb }
+---
+
+[#1 Content] =
+[#1 Domain] = 0:20-0:28
+                      >--------<
+0| class Foo { def bar(aaa: Int, bbb: Int): Int = aaa + bbb }
+
+[#1 Removal] = 0:20-0:30
+                      >----------<
+0| class Foo { def bar(aaa: Int, bbb: Int): Int = aaa + bbb }
+
+[#1 Trailing delimiter] = 0:28-0:30
+                              >--<
+0| class Foo { def bar(aaa: Int, bbb: Int): Int = aaa + bbb }
+
+[#1 Insertion delimiter] = ", "
+
+
+[#2 Content] =
+[#2 Domain] = 0:30-0:38
+                                >--------<
+0| class Foo { def bar(aaa: Int, bbb: Int): Int = aaa + bbb }
+
+[#2 Removal] = 0:28-0:38
+                              >----------<
+0| class Foo { def bar(aaa: Int, bbb: Int): Int = aaa + bbb }
+
+[#2 Leading delimiter] = 0:28-0:30
+                              >--<
+0| class Foo { def bar(aaa: Int, bbb: Int): Int = aaa + bbb }
+
+[#2 Insertion delimiter] = ", "
