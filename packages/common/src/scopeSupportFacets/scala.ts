@@ -111,7 +111,6 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.assignment": supported,
   "statement.return": supported,
   "statement.namespace": supported,
-  "statement.misc": supported,
   "statement.iteration.document": supported,
   "statement.iteration.class": supported,
   "statement.iteration.interface": supported,
@@ -308,4 +307,5 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   attribute: notApplicable,
   "value.variable.pattern": notApplicable,
   "type.cast": notApplicable,
+  "statement.misc": notApplicable,
 };

@@ -1,0 +1,13 @@
+def foo() { }
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:13
+  >-------------<
+0| def foo() { }
+
+
+[#2 Content] =
+[#2 Domain] = 0:11-0:12
+             >-<
+0| def foo() { }
