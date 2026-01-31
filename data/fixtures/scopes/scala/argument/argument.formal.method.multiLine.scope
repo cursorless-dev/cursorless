@@ -1,46 +1,46 @@
 class Foo {
-  def bar(
-    aaa: Int,
-    bbb: Int,
-  ): Int = aaa + bbb
+    def bar(
+        aaa: Int,
+        bbb: Int
+    ) {}
 }
 ---
 
 [#1 Content] =
-[#1 Domain] = 2:4-2:12
-      >--------<
-2|     aaa: Int,
+[#1 Domain] = 2:8-2:16
+          >--------<
+2|         aaa: Int,
 
-[#1 Removal] = 2:4-3:4
-      >---------
-2|     aaa: Int,
-3|     bbb: Int,
-   ----<
+[#1 Removal] = 2:8-3:8
+          >---------
+2|         aaa: Int,
+3|         bbb: Int
+   --------<
 
-[#1 Trailing delimiter] = 2:12-3:4
-              >-
-2|     aaa: Int,
-3|     bbb: Int,
-   ----<
+[#1 Trailing delimiter] = 2:16-3:8
+                  >-
+2|         aaa: Int,
+3|         bbb: Int
+   --------<
 
 [#1 Insertion delimiter] = ",\n"
 
 
 [#2 Content] =
-[#2 Domain] = 3:4-3:12
-      >--------<
-3|     bbb: Int,
+[#2 Domain] = 3:8-3:16
+          >--------<
+3|         bbb: Int
 
-[#2 Removal] = 2:12-3:12
-              >-
-2|     aaa: Int,
-3|     bbb: Int,
-   ------------<
+[#2 Removal] = 2:16-3:16
+                  >-
+2|         aaa: Int,
+3|         bbb: Int
+   ----------------<
 
-[#2 Leading delimiter] = 2:12-3:4
-              >-
-2|     aaa: Int,
-3|     bbb: Int,
-   ----<
+[#2 Leading delimiter] = 2:16-3:8
+                  >-
+2|         aaa: Int,
+3|         bbb: Int
+   --------<
 
 [#2 Insertion delimiter] = ",\n"

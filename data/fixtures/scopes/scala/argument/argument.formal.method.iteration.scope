@@ -1,10 +1,12 @@
-class Foo { def bar(aaa: Int, bbb: Int): Int = aaa + bbb }
+class Foo {
+    def bar(aaa: Int, bbb: Int) {}
+}
 ---
 
-[Content] = 0:20-0:38
-                      >------------------<
-0| class Foo { def bar(aaa: Int, bbb: Int): Int = aaa + bbb }
+[Content] = 1:12-1:30
+              >------------------<
+1|     def bar(aaa: Int, bbb: Int) {}
 
-[Domain] = 0:12-0:56
-              >--------------------------------------------<
-0| class Foo { def bar(aaa: Int, bbb: Int): Int = aaa + bbb }
+[Domain] = 1:4-1:34
+      >------------------------------<
+1|     def bar(aaa: Int, bbb: Int) {}
