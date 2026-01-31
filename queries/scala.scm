@@ -299,15 +299,41 @@
   (_) @value
 ) @value.domain
 
-;;!! case 0 => "zero"
+;;!! case 0 => 0
+;;!  ^^^^^^^^^^^
+(match_expression
+  (case_block
+    (case_clause) @branch
+  )
+  (#trim-end! @branch)
+)
+
+;;!! case 0 => 0
 ;;!       ^
 (match_expression
   (case_block
     (case_clause
       pattern: (_) @condition
-    ) @branch @condition.domain
+    ) @condition.domain
   )
-  (#trim-end! @branch @condition.domain)
+  (#not-type? @condition typed_pattern)
+  (#trim-end! @condition.domain)
+)
+
+;;!! case foo: Int => 0
+;;!       ^^^
+;;!            ^^^
+(match_expression
+  (case_block
+    (case_clause
+      pattern: (typed_pattern
+        pattern: (_) @condition @type.leading.endOf
+        type: (_) @type
+      ) @type.domain
+    ) @condition.domain
+  )
+  (#not-type? @condition typed_pattern)
+  (#trim-end! @condition.domain)
 )
 
 ;;!! case 0 => 0
@@ -390,6 +416,19 @@
 ;;!          ^^^^^^^^  ^^^^^^^^
 (
   (parameters
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
+;;!! (aaa: Int, bbb: Int) => {}
+;;!   ^^^^^^^^  ^^^^^^^^
+(lambda_expression
+  (bindings
     (_)? @_.leading.endOf
     .
     (_) @argumentOrParameter
