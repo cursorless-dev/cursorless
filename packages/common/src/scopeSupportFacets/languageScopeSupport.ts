@@ -13,6 +13,7 @@ import { javascriptreactScopeSupport } from "./javascriptreact";
 import { jsonScopeSupport } from "./json";
 import { jsoncScopeSupport } from "./jsonc";
 import { jsonlScopeSupport } from "./jsonl";
+import { kotlinScopeSupport } from "./kotlin";
 import { latexScopeSupport } from "./latex";
 import { luaScopeSupport } from "./lua";
 import { markdownScopeSupport } from "./markdown";
@@ -27,17 +28,14 @@ import { scmScopeSupport } from "./scm";
 import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { scssScopeSupport } from "./scss";
 import { talonScopeSupport } from "./talon";
-import { talonListScopeSupport } from "./talon-list";
+import { talonListScopeSupport } from "./talonList";
 import { typescriptScopeSupport } from "./typescript";
 import { typescriptreactScopeSupport } from "./typescriptreact";
 import { xmlScopeSupport } from "./xml";
 import { yamlScopeSupport } from "./yaml";
 
-/* eslint-disable @typescript-eslint/naming-convention */
-
 export const languageScopeSupport: StringRecord<LanguageScopeSupportFacetMap> =
   {
-    "talon-list": talonListScopeSupport,
     c: cScopeSupport,
     clojure: clojureScopeSupport,
     cpp: cppScopeSupport,
@@ -47,11 +45,13 @@ export const languageScopeSupport: StringRecord<LanguageScopeSupportFacetMap> =
     go: goScopeSupport,
     html: htmlScopeSupport,
     java: javaScopeSupport,
+    // java-properties - handled by properties
     javascript: javascriptScopeSupport,
     javascriptreact: javascriptreactScopeSupport,
     json: jsonScopeSupport,
     jsonc: jsoncScopeSupport,
     jsonl: jsonlScopeSupport,
+    kotlin: kotlinScopeSupport,
     latex: latexScopeSupport,
     lua: luaScopeSupport,
     markdown: markdownScopeSupport,
@@ -64,6 +64,7 @@ export const languageScopeSupport: StringRecord<LanguageScopeSupportFacetMap> =
     scala: scalaScopeSupport,
     scm: scmScopeSupport,
     scss: scssScopeSupport,
+    "talon-list": talonListScopeSupport,
     talon: talonScopeSupport,
     typescript: typescriptScopeSupport,
     typescriptreact: typescriptreactScopeSupport,
