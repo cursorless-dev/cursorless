@@ -546,7 +546,7 @@
 (lambda_expression
   body: (_) @value
   (#not-type? @value block)
-) @_.domain
+) @value.domain
 
 ;;!! Map<int, int> foo;
 ;;!      ^^^  ^^^

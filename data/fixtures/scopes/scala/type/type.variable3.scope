@@ -1,0 +1,22 @@
+foo match {
+    case foo: Foo => 0
+}
+---
+
+[Content] = 1:14-1:17
+                >---<
+1|     case foo: Foo => 0
+
+[Removal] = 1:12-1:17
+              >-----<
+1|     case foo: Foo => 0
+
+[Leading delimiter] = 1:12-1:14
+              >--<
+1|     case foo: Foo => 0
+
+[Domain] = 1:9-1:17
+           >--------<
+1|     case foo: Foo => 0
+
+[Insertion delimiter] = " "

@@ -1,8 +1,87 @@
 ;; https://github.com/tree-sitter/tree-sitter-scala/blob/master/src/grammar.json
 
+[
+  (package_clause)
+  (class_definition)
+  (enum_definition)
+  (trait_definition)
+  (var_definition)
+  (val_definition)
+  (val_declaration)
+  (assignment_expression)
+  (function_definition)
+  (instance_expression)
+  (call_expression)
+  (match_expression)
+  (return_expression)
+  (while_expression)
+  (do_while_expression)
+  (for_expression)
+  (try_expression)
+
+  ;; Disabled on purpose. We have a better definition of this below.
+  ;; (if_expression)
+] @statement
+
+[
+  (class_definition)
+  (enum_definition)
+  (trait_definition)
+] @type
+
 (
-  (if_expression) @ifStatement @statement
+  (compilation_unit) @class.iteration @statement.iteration @namedFunction.iteration
+  (#document-range! @class.iteration @statement.iteration @namedFunction.iteration)
+)
+
+(
+  (compilation_unit) @name.iteration @value.iteration @type.iteration
+  (#document-range! @name.iteration @value.iteration @type.iteration)
+)
+
+;;!! { }
+;;!   ^
+(_
+  .
+  "{" @interior.start.endOf
+  "}" @interior.end.startOf
+  .
+)
+
+;; level if expressions only
+(
+  (if_expression
+    "if" @branch.start @branch.removal.start
+    condition: (parenthesized_expression
+      (_) @condition
+    )
+    consequence: (_) @branch.end @branch.removal.end
+    "else"? @branch.removal.end.startOf
+    alternative: (if_expression)? @branch.removal.end.startOf
+  ) @ifStatement @statement @condition.domain
   (#not-parent-type? @ifStatement if_expression)
+)
+
+(
+  (if_expression) @branch.iteration
+  (#not-parent-type? @branch.iteration if_expression)
+)
+
+;;!! else if (true) {}
+(if_expression
+  "else" @branch.start @condition.domain.start
+  (if_expression
+    condition: (parenthesized_expression
+      (_) @condition
+    )
+    consequence: (_) @branch.end @condition.domain.end
+  )
+)
+
+;;!! else {}
+(if_expression
+  "else" @branch.start
+  alternative: (block) @branch.end
 )
 
 [
@@ -28,34 +107,127 @@
   )
 ] @class @name.domain
 
-;; list.size(), does not count foo.size (field_expression), or foo size (postfix_expression)
-(call_expression) @functionCall
+;;!! class Foo { }
+;;!             ^
+(template_body
+  "{" @class.iteration.start.endOf @namedFunction.iteration.start.endOf
+  "}" @class.iteration.end.startOf @namedFunction.iteration.end.startOf
+)
 
+;;!! { }
+;;!   ^
+(_
+  "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+)
+(_
+  "{" @statement.iteration.start.endOf
+  "}" @statement.iteration.end.startOf
+)
+
+;;!! foo()
+;; does not count foo.size (field_expression), or foo size (postfix_expression)
+(call_expression
+  function: (_) @functionCallee
+) @functionCall @functionCallee.domain
+
+;;!! new Foo()
+(instance_expression
+  "new" @functionCallee.start
+  (type_identifier) @functionCallee.end
+) @functionCall @functionCallee.domain
+
+;;!! () => {}
 (lambda_expression) @anonymousFunction
 
+;;!! () => 0
+;;!        ^
+(lambda_expression
+  "=>"
+  (_) @value
+  (#not-type? @value block)
+) @value.domain
+
+;;!! def foo() {}
 (function_definition
   name: (_) @name
 ) @namedFunction @name.domain
 
+;;!! foo match {}
+;;!  ^^^
 (match_expression
   value: (_) @value
-) @_.domain
+  (case_block
+    "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
+    "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
+  )
+) @value.domain @branch.iteration.domain @condition.iteration.domain
 
-(_
-  name: (_) @name
-) @_.domain
-(_
-  pattern: (_) @name
-) @_.domain
-
-(_
-  condition: (_
-    .
-    "(" @condition.start.endOf
-    ")" @condition.end.startOf
-    .
+;;!! for (v <- values) {}
+(for_expression
+  (enumerators
+    (enumerator
+      [
+        (identifier) @name
+        (typed_pattern
+          pattern: (_) @name @type.leading.endOf
+          type: (_) @type
+        )
+      ]
+      "<-"
+      (_) @value
+    )
   )
 ) @_.domain
+
+(
+  (_
+    name: (_) @name
+  ) @name.domain
+  (#not-type? @name.domain simple_enum_case full_enum_case)
+)
+
+;;!! var foo = 0
+;;!      ^^^
+(var_definition
+  pattern: (_) @name
+) @name.domain
+
+;;!! val foo = 0
+;;!      ^^^
+(val_definition
+  pattern: (_) @name
+) @name.domain
+
+(enum_case_definitions
+  [
+    ;;!! case Bar
+    (simple_enum_case
+      name: (_) @name
+    )
+    ;;!! case Baz(x: Int)
+    (full_enum_case
+      name: (_) @name
+    )
+  ]
+) @name.domain
+
+;;!! foo = 0
+;;!  ^^^
+;;!        ^
+(assignment_expression
+  left: (_) @name @value.leading.endOf
+  right: (_) @value
+) @_.domain
+
+(
+  (_
+    condition: (parenthesized_expression
+      (_) @condition
+    )
+  ) @_.domain
+  (#not-type? @_.domain if_expression)
+)
 
 ;;!! type Vector = (Int, Int)
 ;;!                ^^^^^^^^^^
@@ -84,6 +256,23 @@
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^^^
 (type_definition) @type
 
+;;!! case e: Exception => 0
+;;!! case e => 0
+(catch_clause
+  (case_block
+    (case_clause
+      pattern: [
+        (identifier) @name
+        (typed_pattern
+          pattern: (identifier) @name @type.leading.endOf
+          type: (_) @type
+        )
+      ]
+    ) @_.domain
+  )
+  (#trim-end! @_.domain)
+)
+
 ;;!! def str(bar: String)
 ;;!               ^^^^^^
 ;;!! val foo: String = "foo"
@@ -94,7 +283,7 @@
     .
     type: (_) @type
   ) @_.domain
-  (#not-type? @_.domain type_definition)
+  (#not-type? @_.domain type_definition typed_pattern)
 )
 
 ;;!! def str(): String = "bar"
@@ -104,11 +293,110 @@
   return_type: (_) @type
 ) @_.domain
 
-;;!! case 0 => "zero"
-;;!  ^^^^^^^^^^^^^^^^
-(
-  (case_clause) @branch
+;;!! return 0
+;;!         ^
+(return_expression
+  (_) @value
+) @value.domain
+
+;;!! case 0 => 0
+;;!  ^^^^^^^^^^^
+(match_expression
+  (case_block
+    (case_clause) @branch
+  )
   (#trim-end! @branch)
+)
+
+;;!! case 0 => 0
+;;!       ^
+(match_expression
+  (case_block
+    (case_clause
+      pattern: (_) @condition
+    ) @condition.domain
+  )
+  (#not-type? @condition typed_pattern)
+  (#trim-end! @condition.domain)
+)
+
+;;!! case foo: Int => 0
+;;!       ^^^
+;;!            ^^^
+(match_expression
+  (case_block
+    (case_clause
+      pattern: (typed_pattern
+        pattern: (_) @condition @type.leading.endOf
+        type: (_) @type
+      ) @type.domain
+    ) @condition.domain
+  )
+  (#not-type? @condition typed_pattern)
+  (#trim-end! @condition.domain)
+)
+
+;;!! case 0 => 0
+;;!           ^^
+(match_expression
+  (case_block
+    (case_clause
+      "=>" @interior.start.endOf
+      body: (_) @interior.end.endOf
+    )
+  )
+  (#not-type? @interior.end.endOf block)
+)
+
+;;!! try {}
+(try_expression
+  "try" @branch.start
+  body: (_) @branch.end
+) @branch.iteration
+
+;;!! catch {}
+(catch_clause) @branch
+
+;;!! catch {}
+(finally_clause) @branch
+
+;;!! var a, b, c = 0
+;;!      ^^^^^^^
+(_
+  (identifiers) @collectionItem.iteration
+) @collectionItem.iteration.domain
+
+;;!! var a, b, c = 0
+;;!      ^  ^  ^
+(
+  (identifiers
+    (_)? @_.leading.endOf
+    .
+    (_) @collectionItem
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @collectionItem @_dummy ", " ",\n")
+)
+
+;;!! var foo: Bar[Int, Int]
+;;!               ^^^  ^^^
+(
+  (type_arguments
+    (_)? @_.leading.endOf
+    .
+    (_) @type
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @type @_dummy ", " ",\n")
+)
+
+;;!! var foo: Bar[Int, Int]
+;;!               ^^^^^^^^
+(type_arguments
+  "[" @type.iteration.start.endOf
+  "]" @type.iteration.end.startOf
 )
 
 ;;!! class Foo(aaa: Int, bbb: Int) {}
@@ -128,6 +416,19 @@
 ;;!          ^^^^^^^^  ^^^^^^^^
 (
   (parameters
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
+;;!! (aaa: Int, bbb: Int) => {}
+;;!   ^^^^^^^^  ^^^^^^^^
+(lambda_expression
+  (bindings
     (_)? @_.leading.endOf
     .
     (_) @argumentOrParameter
@@ -161,7 +462,12 @@
   (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
-;;!! def foo(aaa: Int, bbb: Int) = x
+(class_parameters
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+)
+
+;;!! def foo(aaa: Int, bbb: Int) {}
 ;;!          ^^^^^^^^^^^^^^^^^^
 (_
   (parameters
@@ -171,6 +477,27 @@
   (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
   (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
+
+(parameters
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+)
+
+;;!! (aaa: Int, bbb: Int) => {}
+;;!   ^^^^^^^^^^^^^^^^^^
+(lambda_expression
+  (bindings
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
+) @argumentList.domain @argumentOrParameter.iteration.domain
+
+(bindings
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+)
 
 ;;!! foo(aaa, bbb)
 ;;!      ^^^^^^^^
@@ -182,6 +509,11 @@
   (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
   (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
+
+(arguments
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf
+)
 
 operator: (operator_identifier) @disqualifyDelimiter
 (enumerator
