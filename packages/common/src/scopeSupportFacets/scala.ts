@@ -187,7 +187,6 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "type.variable": supported,
   "type.typeArgument": supported,
   "type.typeArgument.iteration": supported,
-  "type.cast": supported,
   "type.class": supported,
   "type.enum": supported,
   "type.interface": supported,
@@ -308,4 +307,5 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   unit: notApplicable,
   attribute: notApplicable,
   "value.variable.pattern": notApplicable,
+  "type.cast": notApplicable,
 };

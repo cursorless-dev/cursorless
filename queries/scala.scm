@@ -20,6 +20,12 @@
   (try_expression)
 ] @statement
 
+[
+  (class_definition)
+  (enum_definition)
+  (trait_definition)
+] @type
+
 (
   (compilation_unit) @class.iteration @statement.iteration @namedFunction.iteration
   (#document-range! @class.iteration @statement.iteration @namedFunction.iteration)
@@ -114,7 +120,13 @@
 (for_expression
   (enumerators
     (enumerator
-      (_) @name
+      [
+        (identifier) @name
+        (typed_pattern
+          pattern: (_) @name @type.leading.endOf
+          type: (_) @type
+        )
+      ]
       "<-"
       (_) @value
     )
@@ -128,7 +140,15 @@
   (#not-type? @name.domain simple_enum_case full_enum_case)
 )
 
-(_
+;;!! var foo = 0
+;;!      ^^^
+(var_definition
+  pattern: (_) @name
+) @name.domain
+
+;;!! val foo = 0
+;;!      ^^^
+(val_definition
   pattern: (_) @name
 ) @name.domain
 
@@ -189,6 +209,23 @@
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^^^
 (type_definition) @type
 
+;;!! case e: Exception => 0
+;;!! case e => 0
+(catch_clause
+  (case_block
+    (case_clause
+      pattern: [
+        (identifier) @name
+        (typed_pattern
+          pattern: (identifier) @name @type.leading.endOf
+          type: (_) @type
+        )
+      ]
+    ) @_.domain
+  )
+  (#trim-end! @_.domain)
+)
+
 ;;!! def str(bar: String)
 ;;!               ^^^^^^
 ;;!! val foo: String = "foo"
@@ -199,7 +236,7 @@
     .
     type: (_) @type
   ) @_.domain
-  (#not-type? @_.domain type_definition)
+  (#not-type? @_.domain type_definition typed_pattern)
 )
 
 ;;!! def str(): String = "bar"
@@ -220,6 +257,26 @@
 (
   (case_clause) @branch
   (#trim-end! @branch)
+)
+
+;;!! var foo: Bar[Int, Int]
+;;!               ^^^  ^^^
+(
+  (type_arguments
+    (_)? @_.leading.endOf
+    .
+    (_) @type
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @type @_dummy ", " ",\n")
+)
+
+;;!! var foo: Bar[Int, Int]
+;;!               ^^^^^^^^
+(type_arguments
+  "[" @type.iteration.start.endOf
+  "]" @type.iteration.end.startOf
 )
 
 ;;!! class Foo(aaa: Int, bbb: Int) {}

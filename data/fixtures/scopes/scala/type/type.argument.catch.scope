@@ -1,0 +1,23 @@
+try {}
+catch {
+    case e: Exception => 0
+}
+---
+
+[Content] = 2:12-2:21
+              >---------<
+2|     case e: Exception => 0
+
+[Removal] = 2:10-2:21
+            >-----------<
+2|     case e: Exception => 0
+
+[Leading delimiter] = 2:10-2:12
+            >--<
+2|     case e: Exception => 0
+
+[Domain] = 2:4-2:26
+      >----------------------<
+2|     case e: Exception => 0
+
+[Insertion delimiter] = " "

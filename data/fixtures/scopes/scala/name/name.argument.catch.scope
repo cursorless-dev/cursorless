@@ -1,0 +1,47 @@
+try {}
+catch {
+    case e: Exception => 0
+    case e => 0
+}
+---
+
+[#1 Content] = 2:9-2:10
+           >-<
+2|     case e: Exception => 0
+
+[#1 Removal] = 2:8-2:10
+          >--<
+2|     case e: Exception => 0
+
+[#1 Leading delimiter] = 2:8-2:9
+          >-<
+2|     case e: Exception => 0
+
+[#1 Domain] = 2:4-2:26
+      >----------------------<
+2|     case e: Exception => 0
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 3:9-3:10
+           >-<
+3|     case e => 0
+
+[#2 Removal] = 3:9-3:11
+           >--<
+3|     case e => 0
+
+[#2 Leading delimiter] = 3:8-3:9
+          >-<
+3|     case e => 0
+
+[#2 Trailing delimiter] = 3:10-3:11
+            >-<
+3|     case e => 0
+
+[#2 Domain] = 3:4-3:15
+      >-----------<
+3|     case e => 0
+
+[#2 Insertion delimiter] = " "
