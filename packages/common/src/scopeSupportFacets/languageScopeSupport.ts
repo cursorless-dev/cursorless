@@ -34,6 +34,8 @@ import { typescriptreactScopeSupport } from "./typescriptreact";
 import { xmlScopeSupport } from "./xml";
 import { yamlScopeSupport } from "./yaml";
 
+/* eslint-disable @typescript-eslint/naming-convention */
+
 export const languageScopeSupport: StringRecord<LanguageScopeSupportFacetMap> =
   {
     c: cScopeSupport,
