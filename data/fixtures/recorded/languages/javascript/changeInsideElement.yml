@@ -1,0 +1,24 @@
+languageId: javascriptreact
+command:
+  version: 7
+  spokenForm: change inside element
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: interiorOnly}
+        - type: containingScope
+          scopeType: {type: xmlElement}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: "<p style={{ textAlign: \"center\" }}>Hello world</p>"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: "<p style={{ textAlign: \"center\" }}></p>"
+  selections:
+    - anchor: {line: 0, character: 35}
+      active: {line: 0, character: 35}

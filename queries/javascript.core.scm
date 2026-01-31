@@ -59,11 +59,14 @@
 
 ;;!! { }
 ;;!   ^
-(_
-  .
-  "{" @interior.start.endOf
-  "}" @interior.end.startOf
-  .
+(
+  (_
+    .
+    "{" @interior.start.endOf
+    "}" @interior.end.startOf
+    .
+  ) @_dummy
+  (#not-type? @_dummy object jsx_expression)
 )
 
 ;; `name` scope without `export`
