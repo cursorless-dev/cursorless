@@ -711,10 +711,6 @@ The rewrap command, mapped to `"repack"` by default, can be used to swap a given
 
 See [paired delimiters](#paired-delimiters) for a list of possible wrappers.
 
-### \[experimental\] Snippets
-
-See [experimental documentation](experimental/snippets.md).
-
 ### Show definition/reference/quick fix
 
 Each of these commands performs a vscode action of the same or a similar name on the target.
