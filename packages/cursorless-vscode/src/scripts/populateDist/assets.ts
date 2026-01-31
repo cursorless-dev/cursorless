@@ -49,7 +49,6 @@ export const assets: Asset[] = [
     source: "resources/installationDependencies.js",
     destination: "resources/installationDependencies.js",
   },
-  { source: "../../schemas", destination: "schemas" },
   {
     source: "../../third-party-licenses.csv",
     destination: "third-party-licenses.csv",
