@@ -1,9 +1,9 @@
-import {
-  NamedSnippetsDeprecationError,
-  type CustomInsertSnippetArg,
-  type CustomWrapWithSnippetArg,
-  type InsertSnippetArg,
-  type WrapWithSnippetArg,
+import { NamedSnippetsDeprecationError } from "@cursorless/common";
+import type {
+  CustomInsertSnippetArg,
+  CustomWrapWithSnippetArg,
+  InsertSnippetArg,
+  WrapWithSnippetArg,
 } from "@cursorless/common";
 
 export function getPreferredSnippet(
