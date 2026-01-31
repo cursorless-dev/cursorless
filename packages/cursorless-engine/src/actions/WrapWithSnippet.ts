@@ -1,6 +1,5 @@
 import type { WrapWithSnippetArg } from "@cursorless/common";
-import { FlashStyle } from "@cursorless/common";
-import type { Snippets } from "../core/Snippets";
+import { FlashStyle, NamedSnippetsDeprecationError } from "@cursorless/common";
 import { getPreferredSnippet } from "../core/getPreferredSnippet";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
@@ -13,14 +12,12 @@ import { SnippetParser } from "../snippets/vendor/vscodeSnippet/snippetParser";
 import type { Target } from "../typings/target.types";
 import { ensureSingleEditor, flashTargets } from "../util/targetUtils";
 import type { ActionReturnValue } from "./actions.types";
-import WrapWithSnippetLegacy from "./snippetsLegacy/WrapWithSnippetLegacy";
 
 export default class WrapWithSnippet {
   private snippetParser = new SnippetParser();
 
   constructor(
     private rangeUpdater: RangeUpdater,
-    private snippets: Snippets,
     private modifierStageFactory: ModifierStageFactory,
   ) {
     this.run = this.run.bind(this);
@@ -31,7 +28,7 @@ export default class WrapWithSnippet {
     snippetDescription: WrapWithSnippetArg,
   ): ModifierStage[] {
     if (snippetDescription.type === "named") {
-      return this.legacy().getFinalStages(snippetDescription);
+      throw new NamedSnippetsDeprecationError();
     }
 
     const editor = ensureSingleEditor(targets);
@@ -60,7 +57,7 @@ export default class WrapWithSnippet {
     snippetDescription: WrapWithSnippetArg,
   ): Promise<ActionReturnValue> {
     if (snippetDescription.type === "named") {
-      return this.legacy().run(targets, snippetDescription);
+      throw new NamedSnippetsDeprecationError();
     }
 
     const editor = ide().getEditableTextEditor(ensureSingleEditor(targets));
@@ -96,14 +93,5 @@ export default class WrapWithSnippet {
         selection,
       })),
     };
-  }
-
-  // DEPRECATED @ 2025-02-01
-  private legacy() {
-    return new WrapWithSnippetLegacy(
-      this.rangeUpdater,
-      this.snippets,
-      this.modifierStageFactory,
-    );
   }
 }

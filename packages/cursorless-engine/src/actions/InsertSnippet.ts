@@ -1,6 +1,8 @@
 import type { InsertSnippetArg } from "@cursorless/common";
-import { RangeExpansionBehavior } from "@cursorless/common";
-import type { Snippets } from "../core/Snippets";
+import {
+  NamedSnippetsDeprecationError,
+  RangeExpansionBehavior,
+} from "@cursorless/common";
 import { getPreferredSnippet } from "../core/getPreferredSnippet";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
@@ -14,14 +16,12 @@ import type { Destination } from "../typings/target.types";
 import { ensureSingleEditor } from "../util/targetUtils";
 import type { Actions } from "./Actions";
 import type { ActionReturnValue } from "./actions.types";
-import InsertSnippetLegacy from "./snippetsLegacy/InsertSnippetLegacy";
 
 export default class InsertSnippet {
   private snippetParser = new SnippetParser();
 
   constructor(
     private rangeUpdater: RangeUpdater,
-    private snippets: Snippets,
     private actions: Actions,
     private modifierStageFactory: ModifierStageFactory,
   ) {
@@ -33,7 +33,7 @@ export default class InsertSnippet {
     snippetDescription: InsertSnippetArg,
   ): ModifierStage[] {
     if (snippetDescription.type === "named") {
-      return this.legacy().getFinalStages(snippetDescription);
+      throw new NamedSnippetsDeprecationError();
     }
 
     const editor = ensureSingleEditor(destinations);
@@ -60,7 +60,7 @@ export default class InsertSnippet {
     snippetDescription: InsertSnippetArg,
   ): Promise<ActionReturnValue> {
     if (snippetDescription.type === "named") {
-      return this.legacy().run(destinations, snippetDescription);
+      throw new NamedSnippetsDeprecationError();
     }
 
     const editor = ide().getEditableTextEditor(
@@ -102,15 +102,5 @@ export default class InsertSnippet {
         selection,
       })),
     };
-  }
-
-  // DEPRECATED @ 2025-02-01
-  private legacy() {
-    return new InsertSnippetLegacy(
-      this.rangeUpdater,
-      this.snippets,
-      this.actions,
-      this.modifierStageFactory,
-    );
   }
 }

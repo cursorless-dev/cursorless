@@ -38,7 +38,6 @@ export const cursorlessCommandIds = [
   "cursorless.keyboard.targeted.targetHat",
   "cursorless.keyboard.targeted.targetScope",
   "cursorless.keyboard.targeted.targetSelection",
-  "cursorless.migrateSnippets",
   "cursorless.pauseRecording",
   "cursorless.recomputeDecorationStyles",
   "cursorless.recordTestCase",
@@ -169,8 +168,5 @@ export const cursorlessCommandDescriptions: Record<
   ),
   ["cursorless.keyboard.redoTarget"]: new HiddenCommand(
     "Redo keyboard targeting changes",
-  ),
-  ["cursorless.migrateSnippets"]: new HiddenCommand(
-    "Migrate snippets from the old Cursorless format to the new community format",
   ),
 };

@@ -10,10 +10,6 @@ import type {
   InsertionMode,
   Range,
   Selection,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  Snippet,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  SnippetVariable,
   TargetPlainObject,
   TextEditor,
 } from "@cursorless/common";

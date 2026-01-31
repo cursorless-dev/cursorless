@@ -40,3 +40,10 @@ export class NoContainingScopeError extends Error {
     this.name = "NoContainingScopeError";
   }
 }
+
+export class NamedSnippetsDeprecationError extends Error {
+  constructor() {
+    super("Named snippets are deprecated and not supported anymore");
+    this.name = "NamedSnippetsDeprecationError";
+  }
+}
