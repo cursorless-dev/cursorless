@@ -1,6 +1,16 @@
 ;; https://github.com/tree-sitter/tree-sitter-scala/blob/master/src/grammar.json
 
 (
+  (compilation_unit) @class.iteration @statement.iteration @namedFunction.iteration
+  (#document-range! @class.iteration @statement.iteration @namedFunction.iteration)
+)
+
+(
+  (compilation_unit) @name.iteration @value.iteration @type.iteration
+  (#document-range! @name.iteration @value.iteration @type.iteration)
+)
+
+(
   (if_expression) @ifStatement @statement
   (#not-parent-type? @ifStatement if_expression)
 )
@@ -28,8 +38,17 @@
   )
 ] @class @name.domain
 
-;; list.size(), does not count foo.size (field_expression), or foo size (postfix_expression)
-(call_expression) @functionCall
+;;!! foo()
+;; does not count foo.size (field_expression), or foo size (postfix_expression)
+(call_expression
+  function: (_) @functionCallee
+) @functionCall @functionCallee.domain
+
+;;!! new Foo()
+(instance_expression
+  "new" @functionCallee.start
+  (type_identifier) @functionCallee.end
+) @functionCall @functionCallee.domain
 
 (lambda_expression) @anonymousFunction
 
