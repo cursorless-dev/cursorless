@@ -39,7 +39,16 @@
   (#document-range! @name.iteration @value.iteration @type.iteration)
 )
 
-;; Top level if expressions only
+;;!! { }
+;;!   ^
+(_
+  .
+  "{" @interior.start.endOf
+  "}" @interior.end.startOf
+  .
+)
+
+;; level if expressions only
 (
   (if_expression
     condition: (parenthesized_expression
@@ -285,6 +294,18 @@
     ) @condition.domain
   )
   (#trim-end! @condition.domain)
+)
+
+;;!! case 0 => "zero"
+;;!  ^^^^^^^^^^^^^^^^
+(match_expression
+  (case_block
+    (case_clause
+      "=>" @interior.start.endOf
+      body: (_) @interior.end.endOf
+    )
+  )
+  (#not-type? @interior.end.endOf block)
 )
 
 ;;!! case 0 => "zero"
