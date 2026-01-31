@@ -334,6 +334,25 @@
 ;;!! catch {}
 (finally_clause) @branch
 
+;;!! var a, b, c = 0
+;;!      ^^^^^^^
+(_
+  (identifiers) @collectionItem.iteration
+) @collectionItem.iteration.domain
+
+;;!! var a, b, c = 0
+;;!      ^  ^  ^
+(
+  (identifiers
+    (_)? @_.leading.endOf
+    .
+    (_) @collectionItem
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @collectionItem @_dummy ", " ",\n")
+)
+
 ;;!! var foo: Bar[Int, Int]
 ;;!               ^^^  ^^^
 (
