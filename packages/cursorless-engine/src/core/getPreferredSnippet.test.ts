@@ -1,17 +1,15 @@
 import type {
   CustomInsertSnippetArg,
   CustomWrapWithSnippetArg,
+  DeprecatedNamedSnippetArg,
   ListInsertSnippetArg,
   ListWrapWithSnippetArg,
-  NamedInsertSnippetArg,
-  NamedWrapWithSnippetArg,
 } from "@cursorless/common";
 import assert from "node:assert";
 import { getPreferredSnippet } from "./getPreferredSnippet";
 
-const insertNamed: NamedInsertSnippetArg = {
+const deprecatedNamed: DeprecatedNamedSnippetArg = {
   type: "named",
-  name: "named snippet",
 };
 
 const insertSingleLanguage: CustomInsertSnippetArg = {
@@ -36,12 +34,6 @@ const insertionSnippets = [
   insertMultiLanguage,
   insertSingleLanguage,
 ];
-
-const wrapNamed: NamedWrapWithSnippetArg = {
-  type: "named",
-  name: "named wrap snippet",
-  variableName: "var",
-};
 
 const wrapSingleLanguage: CustomWrapWithSnippetArg = {
   type: "custom",
@@ -68,7 +60,7 @@ const wrapSnippets = [wrapGlobal, wrapMultiLanguage, wrapSingleLanguage];
 suite("getPreferredSnippet", () => {
   test("Insert named", () => {
     assert.throws(() => {
-      getPreferredSnippet(insertNamed, "a");
+      getPreferredSnippet(deprecatedNamed, "a");
     });
   });
 
@@ -122,7 +114,7 @@ suite("getPreferredSnippet", () => {
 
   test("Wrap named", () => {
     assert.throws(() => {
-      getPreferredSnippet(wrapNamed, "a");
+      getPreferredSnippet(deprecatedNamed, "a");
     });
   });
 

@@ -32,10 +32,6 @@ export default class InsertSnippet {
     destinations: Destination[],
     snippetDescription: InsertSnippetArg,
   ): ModifierStage[] {
-    if (snippetDescription.type === "named") {
-      throw new NamedSnippetsDeprecationError();
-    }
-
     const editor = ensureSingleEditor(destinations);
     const snippet = getPreferredSnippet(
       snippetDescription,

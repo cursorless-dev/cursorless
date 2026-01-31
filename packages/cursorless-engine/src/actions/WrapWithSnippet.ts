@@ -1,5 +1,5 @@
 import type { WrapWithSnippetArg } from "@cursorless/common";
-import { FlashStyle, NamedSnippetsDeprecationError } from "@cursorless/common";
+import { FlashStyle } from "@cursorless/common";
 import { getPreferredSnippet } from "../core/getPreferredSnippet";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
@@ -27,10 +27,6 @@ export default class WrapWithSnippet {
     targets: Target[],
     snippetDescription: WrapWithSnippetArg,
   ): ModifierStage[] {
-    if (snippetDescription.type === "named") {
-      throw new NamedSnippetsDeprecationError();
-    }
-
     const editor = ensureSingleEditor(targets);
     const snippet = getPreferredSnippet(
       snippetDescription,
@@ -56,10 +52,6 @@ export default class WrapWithSnippet {
     targets: Target[],
     snippetDescription: WrapWithSnippetArg,
   ): Promise<ActionReturnValue> {
-    if (snippetDescription.type === "named") {
-      throw new NamedSnippetsDeprecationError();
-    }
-
     const editor = ide().getEditableTextEditor(ensureSingleEditor(targets));
     const snippet = getPreferredSnippet(
       snippetDescription,

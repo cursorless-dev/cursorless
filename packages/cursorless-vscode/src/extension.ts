@@ -85,7 +85,6 @@ export async function activate(
           vscodeIDE,
           new FakeIDE(),
           vscodeIDE.runMode === "test",
-          getFixturePath("cursorless-snippets"),
         );
 
   const fakeCommandServerApi = new FakeCommandServerApi();

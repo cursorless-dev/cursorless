@@ -20,9 +20,6 @@ const translators: TranslatorMap = {
   ["experimental.hatStability"]: (value: string) => {
     return HatStability[value as keyof typeof HatStability];
   },
-  ["experimental.snippetsDir"]: (value?: string) => {
-    return value != null ? evaluateStringVariables(value) : undefined;
-  },
 };
 
 export default class VscodeConfiguration implements Configuration {
@@ -56,7 +53,7 @@ export default class VscodeConfiguration implements Configuration {
  *
  * We currently only support `${userHome}`.
  *
- * @param path The path to the configuration value, eg `cursorless.snippetsDir`
+ * @param path The path to the configuration value, eg `cursorless.experimental.hatStability`
  * @returns The configuration value, with variables expanded, or undefined if
  * the value is not set
  */

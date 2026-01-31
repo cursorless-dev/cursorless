@@ -10,6 +10,10 @@ import type {
   InsertionMode,
   Range,
   Selection,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  CustomInsertSnippetArg,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  CustomWrapWithSnippetArg,
   TargetPlainObject,
   TextEditor,
 } from "@cursorless/common";
@@ -71,9 +75,9 @@ export interface Target {
    * - To expand to `"token"` for `"leading"` and `"trailing"`
    * - To expand to nearest containing pair for `"inside"`, `"bounds"`, and
    *   `"rewrap"`
-   * - To expand to {@link SnippetVariable.wrapperScopeType} for snippet
+   * - To expand to {@link CustomWrapWithSnippetArg.scopeType} for snippet
    *   wrapping
-   * - To expand to {@link Snippet.insertionScopeTypes} for snippet insertion
+   * - To expand to {@link CustomInsertSnippetArg.scopeType} for snippet insertion
    *
    * For example, when the user says `"pour air"`, the
    * {@link DecoratedSymbolStage} will return an {@link UntypedTarget}, which

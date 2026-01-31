@@ -30,7 +30,6 @@ export async function activate(plugin: NvimPlugin) {
           neovimIDE,
           new FakeIDE(),
           neovimIDE.runMode === "test",
-          undefined,
         );
 
   const fakeCommandServerApi = new FakeCommandServerApi();

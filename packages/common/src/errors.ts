@@ -43,7 +43,9 @@ export class NoContainingScopeError extends Error {
 
 export class NamedSnippetsDeprecationError extends Error {
   constructor() {
-    super("Named snippets are deprecated and not supported anymore");
+    super(
+      "Cursorless snippets are deprecated and have been removed. Please use community snippets.",
+    );
     this.name = "NamedSnippetsDeprecationError";
   }
 }
