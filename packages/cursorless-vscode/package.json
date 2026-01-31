@@ -1201,20 +1201,6 @@
         }
       }
     },
-    "languages": [
-      {
-        "id": "json",
-        "extensions": [
-          ".cursorless-snippets"
-        ]
-      }
-    ],
-    "jsonValidation": [
-      {
-        "fileMatch": "*.cursorless-snippets",
-        "url": "./schemas/cursorless-snippets.json"
-      }
-    ],
     "icons": {
       "cursorless-icon": {
         "description": "Cursorless icon",

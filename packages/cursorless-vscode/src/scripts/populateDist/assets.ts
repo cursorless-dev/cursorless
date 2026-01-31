@@ -14,7 +14,6 @@ export const assets: Asset[] = [
     // build, and is only used when they say "cursorless cheatsheet".
     optionalInDev: true,
   },
-  { source: "../../cursorless-snippets", destination: "cursorless-snippets" },
   {
     source: "../../fonts/cursorless-glyph.svg",
     destination: "fonts/cursorless-glyph.svg",
