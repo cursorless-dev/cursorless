@@ -1,8 +1,13 @@
 ;; https://github.com/tree-sitter/tree-sitter-scala/blob/master/src/grammar.json
 
 [
+  (package_clause)
   (class_definition)
+  (enum_definition)
+  (trait_definition)
   (var_definition)
+  (val_definition)
+  (val_declaration)
   (assignment_expression)
   (function_definition)
   (instance_expression)
@@ -94,19 +99,58 @@
   (#not-type? @value block)
 ) @value.domain
 
+;;!! def foo() {}
 (function_definition
   name: (_) @name
 ) @namedFunction @name.domain
 
+;;!! foo match {}
+;;!  ^^^
 (match_expression
   value: (_) @value
+) @value.domain
+
+;;!! for (v <- values) {}
+(for_expression
+  (enumerators
+    (enumerator
+      (_) @name
+      "<-"
+      (_) @value
+    )
+  )
 ) @_.domain
 
-(_
-  name: (_) @name
-) @_.domain
+(
+  (_
+    name: (_) @name
+  ) @name.domain
+  (#not-type? @name.domain simple_enum_case full_enum_case)
+)
+
 (_
   pattern: (_) @name
+) @name.domain
+
+(enum_case_definitions
+  [
+    ;;!! case Bar
+    (simple_enum_case
+      name: (_) @name
+    )
+    ;;!! case Baz(x: Int)
+    (full_enum_case
+      name: (_) @name
+    )
+  ]
+) @name.domain
+
+;;!! foo = 0
+;;!  ^^^
+;;!        ^
+(assignment_expression
+  left: (_) @name @value.leading.endOf
+  right: (_) @value
 ) @_.domain
 
 (_

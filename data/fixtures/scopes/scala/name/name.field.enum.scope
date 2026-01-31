@@ -1,0 +1,78 @@
+enum Foo {
+    case Bar
+    case Baz(x: Int)
+}
+---
+
+[#1 Content] = 0:5-0:8
+       >---<
+0| enum Foo {
+
+[#1 Removal] = 0:5-0:9
+       >----<
+0| enum Foo {
+
+[#1 Leading delimiter] = 0:4-0:5
+      >-<
+0| enum Foo {
+
+[#1 Trailing delimiter] = 0:8-0:9
+          >-<
+0| enum Foo {
+
+[#1 Domain] = 0:0-3:1
+  >----------
+0| enum Foo {
+1|     case Bar
+2|     case Baz(x: Int)
+3| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:9-1:12
+           >---<
+1|     case Bar
+
+[#2 Removal] = 1:8-1:12
+          >----<
+1|     case Bar
+
+[#2 Leading delimiter] = 1:8-1:9
+          >-<
+1|     case Bar
+
+[#2 Domain] = 1:4-1:12
+      >--------<
+1|     case Bar
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] =
+[#3 Removal] = 2:9-2:12
+           >---<
+2|     case Baz(x: Int)
+
+[#3 Leading delimiter] = 2:8-2:9
+          >-<
+2|     case Baz(x: Int)
+
+[#3 Domain] = 2:4-2:20
+      >----------------<
+2|     case Baz(x: Int)
+
+[#3 Insertion delimiter] = " "
+
+
+[#4 Content] =
+[#4 Removal] = 2:13-2:14
+               >-<
+2|     case Baz(x: Int)
+
+[#4 Domain] = 2:13-2:19
+               >------<
+2|     case Baz(x: Int)
+
+[#4 Insertion delimiter] = " "

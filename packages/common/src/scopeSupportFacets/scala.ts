@@ -165,14 +165,11 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.foreach": supported,
   "value.switch": supported,
   "value.field.class": supported,
-  "value.field.enum": supported,
   "value.return": supported,
   "value.return.lambda": supported,
   "value.variable": supported,
-  "value.variable.pattern": supported,
   "value.iteration.block": supported,
   "value.iteration.class": supported,
-  "value.iteration.enum": supported,
   "value.iteration.document": supported,
   "value.typeAlias": supported,
 
@@ -299,6 +296,10 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.yield": notApplicable,
   "value.yield": notApplicable,
 
+  // Enum value
+  "value.field.enum": notApplicable,
+  "value.iteration.enum": notApplicable,
+
   // Miscellaneous
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,
@@ -306,4 +307,5 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   selector: notApplicable,
   unit: notApplicable,
   attribute: notApplicable,
+  "value.variable.pattern": notApplicable,
 };
