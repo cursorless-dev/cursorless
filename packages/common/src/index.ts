@@ -80,7 +80,6 @@ export * from "./types/RangeOffsets";
 export * from "./types/RevealLineAt";
 export * from "./types/ScopeProvider";
 export * from "./types/Selection";
-export * from "./types/snippet.types";
 export * from "./types/SpokenForm";
 export * from "./types/SpokenFormType";
 export * from "./types/StringRecord";

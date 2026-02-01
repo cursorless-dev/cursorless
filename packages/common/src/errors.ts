@@ -40,3 +40,12 @@ export class NoContainingScopeError extends Error {
     this.name = "NoContainingScopeError";
   }
 }
+
+export class NamedSnippetsDeprecationError extends Error {
+  constructor() {
+    super(
+      "Cursorless snippets are deprecated and have been removed. Please use community snippets.",
+    );
+    this.name = "NamedSnippetsDeprecationError";
+  }
+}

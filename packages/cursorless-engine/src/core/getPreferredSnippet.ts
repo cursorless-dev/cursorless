@@ -1,3 +1,4 @@
+import { NamedSnippetsDeprecationError } from "@cursorless/common";
 import type {
   CustomInsertSnippetArg,
   CustomWrapWithSnippetArg,
@@ -20,9 +21,7 @@ export function getPreferredSnippet(
   languageId: string,
 ) {
   if (snippetDescription.type === "named") {
-    throw new Error(
-      "Cursorless snippets are deprecated. Please use community snippets. Update to latest cursorless-talon and say 'cursorless migrate snippets'.",
-    );
+    throw new NamedSnippetsDeprecationError();
   }
   if (snippetDescription.type === "custom") {
     return snippetDescription;

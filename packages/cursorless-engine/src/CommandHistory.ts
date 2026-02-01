@@ -122,8 +122,6 @@ function sanitizeActionInPlace(action: ActionDescriptor): void {
           snippet.body = "";
           delete snippet.substitutions;
         }
-      } else {
-        delete action.snippetDescription.substitutions;
       }
       break;
 

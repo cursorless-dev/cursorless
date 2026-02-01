@@ -145,10 +145,8 @@ export interface GenerateSnippetActionDescriptor {
   target: PartialTargetDescriptor;
 }
 
-export interface NamedInsertSnippetArg {
+export interface DeprecatedNamedSnippetArg {
   type: "named";
-  name: string;
-  substitutions?: Record<string, string>;
 }
 
 export interface CustomInsertSnippetArg {
@@ -167,7 +165,7 @@ export interface ListInsertSnippetArg {
 }
 
 export type InsertSnippetArg =
-  | NamedInsertSnippetArg
+  | DeprecatedNamedSnippetArg
   | CustomInsertSnippetArg
   | ListInsertSnippetArg;
 
@@ -175,12 +173,6 @@ export interface InsertSnippetActionDescriptor {
   name: "insertSnippet";
   snippetDescription: InsertSnippetArg;
   destination: DestinationDescriptor;
-}
-
-export interface NamedWrapWithSnippetArg {
-  type: "named";
-  name: string;
-  variableName: string;
 }
 
 export interface CustomWrapWithSnippetArg {
@@ -198,7 +190,7 @@ export interface ListWrapWithSnippetArg {
 }
 
 export type WrapWithSnippetArg =
-  | NamedWrapWithSnippetArg
+  | DeprecatedNamedSnippetArg
   | CustomWrapWithSnippetArg
   | ListWrapWithSnippetArg;
 

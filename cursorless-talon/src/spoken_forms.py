@@ -165,30 +165,6 @@ def update():
             ],
             default_list_name="scope_type",
         ),
-        # DEPRECATED @ 2025-02-01
-        handle_csv(
-            "experimental/wrapper_snippets.csv",
-            deprecated=True,
-            allow_unknown_values=True,
-            default_list_name="wrapper_snippet",
-        ),
-        handle_csv(
-            "experimental/insertion_snippets.csv",
-            deprecated=True,
-            allow_unknown_values=True,
-            default_list_name="insertion_snippet_no_phrase",
-        ),
-        handle_csv(
-            "experimental/insertion_snippets_single_phrase.csv",
-            deprecated=True,
-            allow_unknown_values=True,
-            default_list_name="insertion_snippet_single_phrase",
-        ),
-        handle_csv(
-            "experimental/miscellaneous.csv",
-            deprecated=True,
-        ),
-        # ---
         handle_csv(
             "experimental/actions_custom.csv",
             headers=[SPOKEN_FORM_HEADER, "VSCode command"],

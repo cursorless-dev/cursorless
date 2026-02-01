@@ -246,11 +246,6 @@
         "command": "cursorless.keyboard.redoTarget",
         "title": "Cursorless: Redo keyboard targeting changes",
         "enablement": "false"
-      },
-      {
-        "command": "cursorless.migrateSnippets",
-        "title": "Cursorless: Migrate snippets from the old Cursorless format to the new community format",
-        "enablement": "false"
       }
     ],
     "colors": [
@@ -1206,20 +1201,6 @@
         }
       }
     },
-    "languages": [
-      {
-        "id": "json",
-        "extensions": [
-          ".cursorless-snippets"
-        ]
-      }
-    ],
-    "jsonValidation": [
-      {
-        "fileMatch": "*.cursorless-snippets",
-        "url": "./schemas/cursorless-snippets.json"
-      }
-    ],
     "icons": {
       "cursorless-icon": {
         "description": "Cursorless icon",
