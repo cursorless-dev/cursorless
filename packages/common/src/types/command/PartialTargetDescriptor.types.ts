@@ -412,6 +412,35 @@ export interface TailModifier {
   modifiers?: Modifier[];
 }
 
+export type ReferenceSnippetLineMode = "singleLine" | "multiLine";
+
+export interface ReferenceSnippetDescriptor {
+  /**
+   * Snippet body supporting `$relative`, `$absolute`, `$remote`, `$canonical`,
+   * `$content`, and `$languageId` placeholders.
+   */
+  body: string;
+
+  /**
+   * Restrict snippet usage to either single-line or multi-line targets. When
+   * omitted, snippet applies to both.
+   */
+  lineMode?: ReferenceSnippetLineMode;
+}
+
+export interface ReferenceModifier {
+  type: "reference";
+  snippets?: ReferenceSnippetDescriptor[];
+}
+
+export interface FilenameModifier {
+  type: "filename";
+}
+
+export interface FilenameWithoutExtensionModifier {
+  type: "filenameWithoutExtension";
+}
+
 /**
  * Runs {@link modifier} if the target has no explicit scope type, ie if
  * {@link Target.hasExplicitScopeType} is `false`.
@@ -472,7 +501,10 @@ export type Modifier =
   | RangeModifier
   | KeepContentFilterModifier
   | KeepEmptyFilterModifier
-  | InferPreviousMarkModifier;
+  | InferPreviousMarkModifier
+  | ReferenceModifier
+  | FilenameModifier
+  | FilenameWithoutExtensionModifier;
 
 export type ModifierType = Modifier["type"];
 

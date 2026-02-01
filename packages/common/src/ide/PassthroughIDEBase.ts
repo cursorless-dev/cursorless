@@ -15,6 +15,7 @@ import type {
   Disposable,
   IDE,
   OpenUntitledTextDocumentOptions,
+  ReferencePathMode,
   RunMode,
   WorkspaceFolder,
 } from "./types/ide.types";
@@ -142,6 +143,13 @@ export default class PassthroughIDEBase implements IDE {
 
   public get workspaceFolders(): readonly WorkspaceFolder[] | undefined {
     return this.original.workspaceFolders;
+  }
+
+  public getReferencePath(
+    document: TextDocument,
+    mode: ReferencePathMode,
+  ): string | undefined {
+    return this.original.getReferencePath?.(document, mode);
   }
 
   public findInDocument(query: string, editor?: TextEditor): Promise<void> {

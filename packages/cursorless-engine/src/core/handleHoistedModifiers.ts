@@ -173,4 +173,14 @@ const hoistedModifierTypes: HoistedModifierType[] = [
       };
     },
   },
+
+  // "reference" modifiers are also hoisted, eg "reference air past bat"
+  // because they can't be easily joined into a range
+  {
+    accept(modifier: Modifier) {
+      return {
+        accepted: modifier.type === "reference",
+      };
+    },
+  },
 ];

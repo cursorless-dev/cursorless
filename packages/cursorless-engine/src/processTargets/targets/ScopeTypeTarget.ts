@@ -46,6 +46,7 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
       getInsertionDelimiter(parameters.scopeTypeType);
     this.hasDelimiterRange_ =
       !!this.leadingDelimiterRange_ || !!this.trailingDelimiterRange_;
+    this.textualType = getSmartRemovalTarget(this).textualType;
   }
 
   getLeadingDelimiterTarget(): Target | undefined {
