@@ -1,0 +1,12 @@
+
+var foo
+
+---
+
+[Content] =
+[Domain] = 0:0-2:0
+  >
+0|
+1| var foo
+2|
+   <

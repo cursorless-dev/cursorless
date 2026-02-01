@@ -4,49 +4,86 @@
 
 ;; Define @statement based on parent node, because a statement can be an arbitrary expression (with
 ;; no expression_statement parent node) and we don't want every nested expression to be a statement.
-(source_file
-  (_) @statement
-  (#not-type? @statement import_list)
+;; (source_file
+;;   (_) @statement
+;;   (#not-type? @statement import_list)
+;; )
+
+;; (import_header) @statement
+
+;; (statements
+;;   (_) @statement
+;; )
+
+;; (control_structure_body
+;;   (_) @statement
+;;   (#not-type? @statement statements)
+;; )
+
+;; (class_body
+;;   (_) @statement
+;; )
+
+;; (enum_class_body
+;;   (_) @statement
+;; )
+
+[
+  (class_declaration)
+
+  ;; Disabled on purpose. We have a better definition of this below.
+  ;; (if_expression)
+] @statement
+
+[
+  (class_declaration)
+] @type
+
+;; Entire document, including leading and trailing whitespace
+(
+  (source_file) @class.iteration @statement.iteration @namedFunction.iteration
+  (#document-range! @class.iteration @statement.iteration @namedFunction.iteration)
+)
+(
+  (source_file) @name.iteration @value.iteration @type.iteration
+  (#document-range! @name.iteration @value.iteration @type.iteration)
 )
 
-(import_header) @statement
-
-(statements
-  (_) @statement
+;;!! { }
+;;!   ^
+(_
+  "{" @statement.iteration.start.endOf @namedFunction.iteration.start.endOf
+  "}" @statement.iteration.end.startOf @namedFunction.iteration.end.startOf
+)
+(_
+  "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
 )
 
-(control_structure_body
-  (_) @statement
-  (#not-type? @statement statements)
-)
-
-(class_body
-  (_) @statement
-)
-
-(enum_class_body
-  (_) @statement
-)
-
+;;!! class Foo {}
 (class_declaration
   (type_identifier) @name
-) @class @_.domain
+) @class @name.domain
 
-(object_declaration
-  (type_identifier) @name
-) @class @_.domain
+;; (object_declaration
+;;   (type_identifier) @name
+;; ) @class @name.domain
 
-(companion_object
-  (type_identifier) @name
-) @class @_.domain
+;; (companion_object
+;;   (type_identifier) @name
+;; ) @class @name.domain
 
 (function_declaration
   (simple_identifier) @name
-) @namedFunction @_.domain
+) @namedFunction @name.domain
 
 (secondary_constructor) @namedFunction
 
-(if_expression) @ifStatement
+;; Top level if statement
+(
+  (if_expression) @ifStatement @statement
+  (#not-parent-type? @ifStatement control_structure_body)
+)
 
 ;;
 ;; Literals and comments
@@ -56,10 +93,15 @@
 
 (lambda_literal) @anonymousFunction
 
-(string_literal) @string @textFragment
+;;!! "Hello world"
+(string_literal
+  (string_content) @textFragment
+) @string
 
 [
+  ;;!! // Hello world
   (line_comment)
+  ;;!! /* Hello world */
   (multiline_comment)
 ] @comment @textFragment
 
