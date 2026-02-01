@@ -709,12 +709,12 @@
   (user_type) @functionCallee
 ) @_.domain
 
-(constructor_invocation
-  (value_arguments
-    "(" @argumentOrParameter.iteration.start.endOf
-    ")" @argumentOrParameter.iteration.end.startOf
-  )
-) @argumentOrParameter.iteration.domain
+;; (constructor_invocation
+;;   (value_arguments
+;;     "(" @argumentOrParameter.iteration.start.endOf
+;;     ")" @argumentOrParameter.iteration.end.startOf
+;;   )
+;; ) @argumentOrParameter.iteration.domain
 
 (constructor_delegation_call
   [
@@ -723,12 +723,12 @@
   ] @functionCallee
 ) @_.domain
 
-(constructor_delegation_call
-  (value_arguments
-    "(" @argumentOrParameter.iteration.start.endOf
-    ")" @argumentOrParameter.iteration.end.startOf
-  )
-) @argumentOrParameter.iteration.domain
+;; (constructor_delegation_call
+;;   (value_arguments
+;;     "(" @argumentOrParameter.iteration.start.endOf
+;;     ")" @argumentOrParameter.iteration.end.startOf
+;;   )
+;; ) @argumentOrParameter.iteration.domain
 
 ;;!! BAR,
 (enum_entry
