@@ -30,6 +30,18 @@
 
 [
   (class_declaration)
+  (function_declaration)
+  (secondary_constructor)
+  (anonymous_initializer)
+  (property_declaration)
+  (assignment)
+  (for_statement)
+  (while_statement)
+  (do_while_statement)
+  (jump_expression)
+  (when_expression)
+  (try_expression)
+  (call_expression)
 
   ;; Disabled on purpose. We have a better definition of this below.
   ;; (if_expression)
@@ -60,6 +72,12 @@
   "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
 )
 
+;; Top level if statement
+(
+  (if_expression) @ifStatement @statement
+  (#not-parent-type? @ifStatement control_structure_body)
+)
+
 ;;!! class Foo {}
 (class_declaration
   (type_identifier) @name
@@ -81,22 +99,15 @@
 ;;!! constructor() {}
 (secondary_constructor) @namedFunction
 
-;;!! init {}
-(anonymous_initializer) @namedFunction
+;;!! fun() {}
+(anonymous_function) @anonymousFunction
 
-;; Top level if statement
-(
-  (if_expression) @ifStatement @statement
-  (#not-parent-type? @ifStatement control_structure_body)
-)
+;;!! {x -> 0}
+(lambda_literal) @anonymousFunction
 
 ;;
 ;; Literals and comments
 ;;
-
-(anonymous_function) @anonymousFunction
-
-(lambda_literal) @anonymousFunction
 
 ;;!! "Hello world"
 (string_literal

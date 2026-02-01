@@ -1,0 +1,10 @@
+fun() {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:8
+  >--------<
+0| fun() {}
+
+[Insertion delimiter] = "\n"

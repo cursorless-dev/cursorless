@@ -1,0 +1,73 @@
+class Foo {
+    var bar: Int = 0
+    val baz = 0
+    val bongo
+}
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-4:1
+  >-----------
+0| class Foo {
+1|     var bar: Int = 0
+2|     val baz = 0
+3|     val bongo
+4| }
+   -<
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 1:4-1:20
+      >----------------<
+1|     var bar: Int = 0
+
+[#2 Removal] = 1:0-2:0
+  >--------------------
+1|     var bar: Int = 0
+2|     val baz = 0
+   <
+
+[#2 Leading delimiter] = 1:0-1:4
+  >----<
+1|     var bar: Int = 0
+
+[#2 Insertion delimiter] = "\n"
+
+
+[#3 Content] =
+[#3 Domain] = 2:4-2:15
+      >-----------<
+2|     val baz = 0
+
+[#3 Removal] = 2:0-3:0
+  >---------------
+2|     val baz = 0
+3|     val bongo
+   <
+
+[#3 Leading delimiter] = 2:0-2:4
+  >----<
+2|     val baz = 0
+
+[#3 Insertion delimiter] = "\n"
+
+
+[#4 Content] =
+[#4 Domain] = 3:4-3:13
+      >---------<
+3|     val bongo
+
+[#4 Removal] = 3:0-4:0
+  >-------------
+3|     val bongo
+4| }
+   <
+
+[#4 Leading delimiter] = 3:0-3:4
+  >----<
+3|     val bongo
+
+[#4 Insertion delimiter] = "\n"

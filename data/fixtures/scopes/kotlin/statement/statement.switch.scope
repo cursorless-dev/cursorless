@@ -1,0 +1,10 @@
+when (foo) {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:13
+  >-------------<
+0| when (foo) {}
+
+[Insertion delimiter] = "\n"
