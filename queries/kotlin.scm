@@ -1,3 +1,5 @@
+;; https://github.com/fwcd/tree-sitter-kotlin/blob/main/src/grammar.json
+
 ;;
 ;; Declarations and statements
 ;;
@@ -641,6 +643,41 @@
   (constructor_invocation)
   (constructor_delegation_call)
 ] @functionCall
+
+;;!! fun foo(aaa: Int, bbb: Int) {}
+;;!          ^^^^^^^^^^^^^^^^^^
+(_
+  (function_value_parameters
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
+) @argumentList.domain @argumentOrParameter.iteration.domain
+
+;;!! class Foo(aaa: Int, bbb: Int) {}
+;;!            ^^^^^^^^^^^^^^^^^^
+(_
+  (primary_constructor
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
+) @argumentList.domain @argumentOrParameter.iteration.domain
+
+;;!! foo(aaa, bbb)
+;;!      ^^^^^^^^
+(_
+  (call_suffix
+    (value_arguments
+      "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+      ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+    ) @argumentList
+    (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+    (#child-range! @argumentList 1 -2)
+  )
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
 (
   (value_arguments
