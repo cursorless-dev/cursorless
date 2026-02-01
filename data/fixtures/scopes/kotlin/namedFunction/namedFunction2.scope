@@ -1,0 +1,13 @@
+@baz
+fun bar() {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-1:12
+  >----
+0| @baz
+1| fun bar() {}
+   ------------<
+
+[Insertion delimiter] = "\n\n"

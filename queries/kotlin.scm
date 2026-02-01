@@ -73,11 +73,16 @@
 ;;   (type_identifier) @name
 ;; ) @class @name.domain
 
+;;!! fun foo() {}
 (function_declaration
   (simple_identifier) @name
 ) @namedFunction @name.domain
 
+;;!! constructor() {}
 (secondary_constructor) @namedFunction
+
+;;!! init {}
+(anonymous_initializer) @namedFunction
 
 ;; Top level if statement
 (
