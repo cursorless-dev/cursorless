@@ -74,11 +74,39 @@
   "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
 )
 
+;;!! { }
+;;!   ^
+(_
+  "{" @interior.start.endOf
+  "}" @interior.end.startOf
+)
+
 ;; Top level if statement
 (
-  (if_expression) @ifStatement @statement
-  (#not-parent-type? @ifStatement control_structure_body)
+  (_
+    (if_expression
+      condition: (_) @condition
+    ) @ifStatement @statement @condition.domain
+  ) @_dummy
+  (#not-parent-type? @_dummy if_expression)
 )
+
+;;!! else if (true) {}
+(if_expression
+  "else" @condition.domain.start
+  (control_structure_body
+    (if_expression
+      condition: (_) @condition
+      consequence: (_) @condition.domain.end
+    )
+  )
+)
+
+;;!! else {}
+;; (if_expression
+;;   "else" @statement.start
+;;   (control_structure_body) @statement.end
+;; )
 
 ;;!! class Foo {}
 (class_declaration
@@ -134,68 +162,84 @@
 ;; Branches and conditions
 ;;
 
-(when_entry) @branch
+;;!! when (foo) { }
+;;!        ^^^
+;;!              ^
+(when_expression
+  (when_subject
+    (_) @value
+  )
+  "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
+  "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
+) @value.domain @branch.iteration.domain @condition.iteration.domain
 
+;;!! 0, 1 -> break
+;;!  ^  ^
 (when_entry
-  [
-    (when_condition)
-    "else"
-  ] @condition
+  (when_condition) @condition
   (#allow-multiple! @condition)
-) @_.domain
+) @branch @condition.domain
 
-(when_expression) @branch.iteration @condition.iteration
+;;!! 0 -> break
+;;!      ^^^^^^
+(when_entry
+  "->" @interior.start.endOf
+  (control_structure_body
+    .
+    (_)
+  ) @interior.end.endOf
+) @interior.domain
 
-(if_expression
-  "if"
-  .
-  "("
-  .
-  (_) @condition
-  .
-  ")"
-) @_.domain
+;; (if_expression
+;;   "if"
+;;   .
+;;   "("
+;;   .
+;;   (_) @condition
+;;   .
+;;   ")"
+;; ) @_.domain
 
 ;; If branch
-(if_expression
-  "if" @branch.start @branch.removal.start
-  .
-  "("
-  .
-  (_)
-  .
-  ")"
-  .
-  (control_structure_body) @branch.end @branch.removal.end
-  (
-    "else"
-    (control_structure_body) @branch.removal.end.startOf
-  )?
-)
+;; (if_expression
+;;   "if" @branch.start @branch.removal.start
+;;   .
+;;   "("
+;;   .
+;;   (_)
+;;   .
+;;   ")"
+;;   .
+;;   (control_structure_body) @branch.end @branch.removal.end
+;;   (
+;;     "else"
+;;     (control_structure_body) @branch.removal.end.startOf
+;;   )?
+;; )
 
 ;; Else-if branch
-(if_expression
-  "else" @branch.start @condition.domain.start
-  (control_structure_body
-    (if_expression
-      "if"
-      .
-      "("
-      .
-      (_) @condition
-      .
-      ")"
-      .
-      (control_structure_body) @branch.end @condition.domain.end
-    )
-  )
-)
+;; (if_expression
+;;   "else" @branch.start @condition.domain.start
+;;   (control_structure_body
+;;     (if_expression
+;;       "if"
+;;       .
+;;       "("
+;;       .
+;;       (_) @condition
+;;       .
+;;       ")"
+;;       .
+;;       (control_structure_body) @branch.end @condition.domain.end
+;;     )
+;;   )
+;; )
 
 ;; Else branch
-(if_expression
-  "else" @branch.start
-  (control_structure_body) @branch.end
-)
+;; (if_expression
+;;   "else" @branch.start
+;;   (control_structure_body) @branch.end
+;; )
 
 (while_statement
   "while"
@@ -214,11 +258,6 @@
   .
   ")"
   .
-) @_.domain
-
-(when_expression
-  (when_subject) @value
-  (#child-range! @value 0 -1 true true)
 ) @_.domain
 
 ;;
@@ -478,82 +517,82 @@
   ">" @type.iteration.end.startOf
 )
 
-(anonymous_function
-  ":"
-  .
-  (_) @type.start
-  (_)? @type.end
-  .
-  (function_body)
-) @_.domain
+;; (anonymous_function
+;;   ":"
+;;   .u
+;;   (_) @type.start
+;;   (_)? @type.end
+;;   .
+;;   (function_body)
+;; ) @_.domain
 
-(
-  (anonymous_function
-    ":"
-    .
-    (_) @type
-    .
-  ) @_.domain
-)
-(
-  (anonymous_function
-    ":"
-    .
-    (_) @type.start
-    (_) @type.end
-    .
-  ) @_.domain
-  (#not-type? @type.end "function_body")
-)
+;; (
+;;   (anonymous_function
+;;     ":"
+;;     .
+;;     (_) @type
+;;     .
+;;   ) @_.domain
+;; )
+;; (
+;;   (anonymous_function
+;;     ":"
+;;     .
+;;     (_) @type.start
+;;     (_) @type.end
+;;     .
+;;   ) @_.domain
+;;   (#not-type? @type.end "function_body")
+;; )
 
+;;!! catch (e: Exception) {}
+;;!         ^
+;;!           ^^^^^^^^^^
 (catch_block
-  (simple_identifier) @name
+  (simple_identifier) @name @name.domain.start @value.domain.start
   ":"
-  .
-  (_) @type.start
-  (_)? @type.end
-  .
-  ")"
-) @_.domain
+  (_) @type @name.domain.end @value.domain.end
+)
 
+;;!! return 0
+;;!         ^
 (jump_expression
   [
     "return"
     "throw"
   ]
-  .
   (_) @value
-) @_.domain
+) @value.domain
 
-(jump_expression
-  "return@"
-  .
-  (label)
-  .
-  (_) @value
-) @_.domain
+;; (jump_expression
+;;   "return@"
+;;   .
+;;   (label)
+;;   .
+;;   (_) @value
+;; ) @_.domain
 
-(_
-  (function_body
-    "="
-    .
-    (_) @value
-  )
-) @_.domain
+;; (_
+;;   (function_body
+;;     "="
+;;     .
+;;     (_) @value
+;;   )
+;; ) @_.domain
 
-(value_argument
-  (simple_identifier) @name
-  "="
-  .
-  (_) @value.start
-) @value.end.endOf @_.domain
+;; (value_argument
+;;   (simple_identifier) @name
+;;   "="
+;;   .
+;;   (_) @value.start
+;; ) @value.end.endOf @_.domain
 
-(infix_expression
-  (_) @collectionKey
-  (simple_identifier) @_dummy
-  (#eq? @_dummy "to")
-  (_) @value
-) @_.domain
+;; (infix_expression
+;;   (_) @collectionKey
+;;   (simple_identifier) @_dummy
+;;   (#eq? @_dummy "to")
+;;   (_) @value
+;; ) @_.domain
 
 ;;
 ;; Function call, callee, arguments, and parameters

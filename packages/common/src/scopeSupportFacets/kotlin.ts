@@ -219,6 +219,7 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.switch": supported,
   "interior.switchCase": supported,
   "interior.try": supported,
+  "interior.for": supported,
 
   /* UNSUPPORTED */
 
@@ -280,7 +281,6 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   // For loop (C-style)
   "statement.for": notApplicable,
   "condition.for": notApplicable,
-  "interior.for": notApplicable,
 
   // Yield
   "statement.yield": notApplicable,
