@@ -206,9 +206,10 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     gitStage: "git stage",
     gitUnstage: "git unstage",
 
-    ["private.showParseTree"]: isPrivate("parse tree"),
-    ["experimental.setInstanceReference"]: isDisabledByDefault("from"),
+    // Was disabled by default before, but is now enabled by default
+    ["experimental.setInstanceReference"]: "from",
 
+    ["private.showParseTree"]: isPrivate("parse tree"),
     editNew: isPrivate("edit new"),
     executeCommand: isPrivate("execute command"),
     parsed: isPrivate("parsed"),
