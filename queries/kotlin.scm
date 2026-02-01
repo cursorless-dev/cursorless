@@ -81,38 +81,6 @@
   "}" @interior.end.startOf
 )
 
-;; Top level if statement
-(
-  (_
-    (if_expression
-      condition: (_) @condition
-    ) @ifStatement @statement @condition.domain
-  ) @_dummy
-  (#not-parent-type? @_dummy if_expression)
-)
-
-;;!! else if (true) {}
-(if_expression
-  "else" @condition.domain.start
-  (control_structure_body
-    (if_expression
-      condition: (_) @condition
-      consequence: (_) @condition.domain.end
-    )
-  )
-)
-
-;;!! else {}
-;; (if_expression
-;;   "else" @statement.start
-;;   (control_structure_body) @statement.end
-;; )
-
-;;!! class Foo {}
-(class_declaration
-  (type_identifier) @name
-) @class @type @name.domain
-
 ;; (object_declaration
 ;;   (type_identifier) @name
 ;; ) @class @name.domain
@@ -162,6 +130,77 @@
 ;; Branches and conditions
 ;;
 
+;; Top level if statement
+(
+  (_
+    (if_expression) @ifStatement @statement @branch.iteration
+  ) @_dummy
+  (#not-parent-type? @_dummy if_expression)
+)
+
+(
+  (_
+    (if_expression
+      "if" @branch.start @branch.removal.start.startOf
+      condition: (_) @condition
+      consequence: (_) @branch.end @branch.removal.end.endOf
+      "else"? @branch.removal.end.startOf
+      alternative: (control_structure_body
+        .
+        (if_expression) @branch.removal.end.startOf
+      )?
+    ) @condition.domain
+  ) @_dummy
+  (#not-parent-type? @_dummy if_expression)
+)
+
+;;!! else if (true) {}
+(if_expression
+  "else" @condition.domain.start @branch.start
+  (control_structure_body
+    (if_expression
+      condition: (_) @condition
+      consequence: (_) @condition.domain.end @branch.end
+    )
+  )
+)
+
+;;!! else {}
+(if_expression
+  "else" @branch.start
+  (control_structure_body
+    "{"
+  ) @branch.end
+)
+
+;;!! if (true) 0 else 1
+;;!              ^^^^^^
+(if_expression
+  "else" @branch.start
+  (control_structure_body
+    .
+    (_) @_dummy
+  ) @branch.end
+  (#not-type? @_dummy if_expression)
+)
+
+;;!! try {} catch {}
+(try_expression
+  "try" @branch.start
+  "}" @branch.end
+) @branch.iteration
+
+;;!! catch (e: Exception) {}
+;;!         ^
+;;!           ^^^^^^^^^^
+(catch_block
+  (simple_identifier) @name @name.domain.start @value.domain.start
+  ":"
+  (_) @type @name.domain.end @value.domain.end
+) @branch
+
+(finally_block) @branch
+
 ;;!! when (foo) { }
 ;;!        ^^^
 ;;!              ^
@@ -173,12 +212,15 @@
   "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
 ) @value.domain @branch.iteration.domain @condition.iteration.domain
 
+;;!! 0 -> break
+(when_entry) @branch
+
 ;;!! 0, 1 -> break
 ;;!  ^  ^
 (when_entry
   (when_condition) @condition
   (#allow-multiple! @condition)
-) @branch @condition.domain
+) @condition.domain
 
 ;;!! 0 -> break
 ;;!      ^^^^^^
@@ -274,6 +316,11 @@
   .
   (_) @value.start @type.start
 ) @value.end.endOf @type.end.endOf @_.domain
+
+;;!! class Foo {}
+(class_declaration
+  (type_identifier) @name
+) @class @type @name.domain
 
 (class_parameter
   (simple_identifier) @name
@@ -544,15 +591,6 @@
 ;;   ) @_.domain
 ;;   (#not-type? @type.end "function_body")
 ;; )
-
-;;!! catch (e: Exception) {}
-;;!         ^
-;;!           ^^^^^^^^^^
-(catch_block
-  (simple_identifier) @name @name.domain.start @value.domain.start
-  ":"
-  (_) @type @name.domain.end @value.domain.end
-)
 
 ;;!! return 0
 ;;!         ^
