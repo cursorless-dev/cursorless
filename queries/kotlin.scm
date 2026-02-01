@@ -41,15 +41,17 @@
   (jump_expression)
   (when_expression)
   (try_expression)
-  (call_expression)
 
   ;; Disabled on purpose. We have a better definition of this below.
   ;; (if_expression)
 ] @statement
 
-[
-  (class_declaration)
-] @type
+(control_structure_body
+  (call_expression) @statement
+)
+(source_file
+  (call_expression) @statement
+)
 
 ;; Entire document, including leading and trailing whitespace
 (
@@ -81,7 +83,7 @@
 ;;!! class Foo {}
 (class_declaration
   (type_identifier) @name
-) @class @name.domain
+) @class @type @name.domain
 
 ;; (object_declaration
 ;;   (type_identifier) @name

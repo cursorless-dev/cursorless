@@ -6,8 +6,6 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   disqualifyDelimiter: supported,
   anonymousFunction: supported,
-  list: supported,
-  map: supported,
 
   "argument.actual.singleLine": supported,
   "argument.actual.multiLine": supported,
@@ -306,4 +304,6 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   selector: notApplicable,
   unit: notApplicable,
   pairDelimiter: notApplicable,
+  list: notApplicable,
+  map: notApplicable,
 };
