@@ -655,6 +655,13 @@
   (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
+;;!! { aaa, bbb -> }
+;;!    ^^^^^^^^
+(_
+  (lambda_parameters) @argumentList @argumentOrParameter.iteration
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+) @argumentList.domain @argumentOrParameter.iteration.domain
+
 ;;!! class Foo(aaa: Int, bbb: Int) {}
 ;;!            ^^^^^^^^^^^^^^^^^^
 (_
