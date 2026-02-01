@@ -1,7 +1,7 @@
 class Foo {
     var bar: Int = 0
     val baz = 0
-    val bongo
+    val bongo: Int
 }
 ---
 
@@ -12,7 +12,7 @@ class Foo {
 0| class Foo {
 1|     var bar: Int = 0
 2|     val baz = 0
-3|     val bongo
+3|     val bongo: Int
 4| }
    -<
 
@@ -45,7 +45,7 @@ class Foo {
 [#3 Removal] = 2:0-3:0
   >---------------
 2|     val baz = 0
-3|     val bongo
+3|     val bongo: Int
    <
 
 [#3 Leading delimiter] = 2:0-2:4
@@ -56,18 +56,18 @@ class Foo {
 
 
 [#4 Content] =
-[#4 Domain] = 3:4-3:13
-      >---------<
-3|     val bongo
+[#4 Domain] = 3:4-3:18
+      >--------------<
+3|     val bongo: Int
 
 [#4 Removal] = 3:0-4:0
-  >-------------
-3|     val bongo
+  >------------------
+3|     val bongo: Int
 4| }
    <
 
 [#4 Leading delimiter] = 3:0-3:4
   >----<
-3|     val bongo
+3|     val bongo: Int
 
 [#4 Insertion delimiter] = "\n"

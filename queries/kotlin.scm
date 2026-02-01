@@ -99,13 +99,20 @@
 ) @namedFunction @name.domain
 
 ;;!! constructor() {}
-(secondary_constructor) @namedFunction
+(secondary_constructor
+  "constructor" @name
+) @namedFunction @name.domain
 
 ;;!! fun() {}
 (anonymous_function) @anonymousFunction
 
 ;;!! {x -> 0}
-(lambda_literal) @anonymousFunction
+(lambda_literal
+  (
+    "->"
+    (_) @value
+  )?
+) @anonymousFunction @value.domain
 
 ;;
 ;; Literals and comments
@@ -304,83 +311,106 @@
   (#not-type? @type.end "type_constraints")
 )
 
-(variable_declaration
-  (simple_identifier) @name
-) @_.domain
+;; (variable_declaration
+;;   (simple_identifier) @name
+;; ) @_.domain
 
-(variable_declaration
-  ":"
-  .
-  (_) @type.start
-) @type.end.endOf @_.domain
+;; (variable_declaration
+;;   ":"
+;;   .
+;;   (_) @type.start
+;; ) @type.end.endOf @_.domain
 
-(multi_variable_declaration) @name.iteration @type.iteration
+;; (multi_variable_declaration) @name.iteration @type.iteration
 
+;;!! val foo
 (property_declaration
   (variable_declaration
     (simple_identifier) @name
   )
+  .
 ) @_.domain
 
+;;!! val foo = 0
 (property_declaration
+  (variable_declaration
+    (simple_identifier) @name
+  ) @value.leading.endOf
   "="
-  .
   (_) @value
 ) @_.domain
 
-(property_declaration
-  (property_delegate
-    (_) @value
-  )
+;;!! foo = 0
+(assignment
+  (directly_assignable_expression) @name @value.leading.endOf
+  (_) @value
+  .
 ) @_.domain
 
-(property_declaration
-  (variable_declaration
-    ":"
-    .
-    (_) @type.start
-  ) @type.end.endOf
-) @_.domain
+;; (property_declaration
+;;   "="
+;;   .
+;;   (_) @value
+;; ) @_.domain
 
-(property_declaration
-  (multi_variable_declaration) @name.iteration @type.iteration
-) @name.iteration.domain @type.iteration.domain
+;; (property_declaration
+;;   (property_delegate
+;;     (_) @value
+;;   )
+;; ) @_.domain
 
+;; (property_declaration
+;;   (variable_declaration
+;;     ":"
+;;     .
+;;     (_) @type.start
+;;   ) @type.end.endOf
+;; ) @_.domain
+
+;; (property_declaration
+;;   (multi_variable_declaration) @name.iteration @type.iteration
+;; ) @name.iteration.domain @type.iteration.domain
+
+;;!! for (v in values) {}
 (for_statement
   (variable_declaration
     (simple_identifier) @name
   )
-) @_.domain
-
-(for_statement
   "in"
   .
   (_) @value
 ) @_.domain
 
-(for_statement
-  (variable_declaration
-    ":"
-    .
-    (_) @type.start
-  ) @type.end.endOf
-) @_.domain
+;;!! for (i in 0 until size) {}
+;; (for_statement
+;;   "in"
+;;   .
+;;   (_) @value
+;; ) @value.domain
 
-(for_statement
-  (multi_variable_declaration) @name.iteration @type.iteration
-) @name.iteration.domain @type.iteration.domain
+;; (for_statement
+;;   (variable_declaration
+;;     ":"
+;;     .
+;;     (_) @type.start
+;;   ) @type.end.endOf
+;; ) @type.domain
+
+;; (for_statement
+;;   (multi_variable_declaration) @name.iteration @type.iteration
+;; ) @name.iteration.domain @type.iteration.domain
 
 (when_subject
   (variable_declaration
     (simple_identifier) @name
   )
-) @_.domain
+) @name.domain
 
 (when_subject
   "="
   .
   (_) @value
-) @_.domain
+) @value.domain
 
 (when_subject
   (variable_declaration
@@ -388,7 +418,7 @@
     .
     (_) @type.start
   ) @type.end.endOf
-) @_.domain
+) @type.domain
 
 (getter
   ":"
@@ -396,7 +426,7 @@
   (_) @type.start
   (_)? @type.end
   (function_body)
-) @_.domain
+) @type.domain
 
 (setter
   ":"
@@ -404,17 +434,17 @@
   (_) @type.start
   (_)? @type.end
   (function_body)
-) @_.domain
+) @type.domain
 
 (parameter_with_optional_type
   (simple_identifier) @name
-) @_.domain
+) @name.domain
 
 (parameter_with_optional_type
   ":"
   .
   (_) @type.start
-) @type.end.endOf @_.domain
+) @type.end.endOf @type.domain
 
 ;; Function parameter without default
 (function_value_parameters
@@ -511,12 +541,6 @@
   )
 ) @_.domain
 
-(assignment
-  (directly_assignable_expression) @name
-  (_) @value
-  .
-) @_.domain
-
 (value_argument
   (simple_identifier) @name
   "="
@@ -539,9 +563,6 @@
   (call_expression)
   (constructor_invocation)
   (constructor_delegation_call)
-  (enum_entry
-    (value_arguments)
-  )
 ] @functionCall
 
 (
@@ -562,13 +583,13 @@
   )
 ) @_.domain.start
 
-(call_suffix
-  (annotated_lambda) @argumentOrParameter
-)
+;; (call_suffix
+;;   (annotated_lambda) @argumentOrParameter
+;; )
 
-(call_expression
-  (call_suffix) @argumentOrParameter.iteration
-) @argumentOrParameter.iteration.domain
+;; (call_expression
+;;   (call_suffix) @argumentOrParameter.iteration
+;; ) @argumentOrParameter.iteration.domain
 
 (constructor_invocation
   (user_type) @functionCallee
@@ -595,17 +616,19 @@
   )
 ) @argumentOrParameter.iteration.domain
 
+;;!! BAR,
+(enum_entry
+  (simple_identifier) @name
+) @name.domain
+
+;;!! BAR()
 (enum_entry
   (simple_identifier) @functionCallee
-  (value_arguments)
-) @_.domain
-
-(enum_entry
   (value_arguments
     "(" @argumentOrParameter.iteration.start.endOf
     ")" @argumentOrParameter.iteration.end.startOf
   )
-) @argumentOrParameter.iteration.domain
+) @functionCall @functionCallee.domain @argumentOrParameter.iteration.domain
 
 (
   (function_value_parameters
