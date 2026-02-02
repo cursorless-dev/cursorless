@@ -106,10 +106,7 @@
 
 ;;!! {x -> 0}
 (lambda_literal
-  (
-    "->"
-    (_) @value
-  )?
+  (statements)? @value
 ) @anonymousFunction @value.domain
 
 ;;
@@ -697,10 +694,21 @@
 
 ;;!! { aaa, bbb -> }
 ;;!    ^^^^^^^^
-(_
+(lambda_literal
   (lambda_parameters) @argumentList @argumentOrParameter.iteration
   (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
+
+;;!! { -> }
+(lambda_literal
+  "{" @argumentList.start.endOf @argumentList.removal.start.endOf
+  .
+  [
+    (statements)
+    "->"
+    "}"
+  ]
+) @argumentList.domain
 
 ;;!! class Foo(aaa: Int, bbb: Int) {}
 ;;!            ^^^^^^^^^^^^^^^^^^
