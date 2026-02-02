@@ -1,0 +1,33 @@
+class Foo(aaa: Int, bbb: Int) {}
+---
+
+[#1 Content] =
+[#1 Domain] = 0:10-0:18
+            >--------<
+0| class Foo(aaa: Int, bbb: Int) {}
+
+[#1 Removal] = 0:10-0:20
+            >----------<
+0| class Foo(aaa: Int, bbb: Int) {}
+
+[#1 Trailing delimiter] = 0:18-0:20
+                    >--<
+0| class Foo(aaa: Int, bbb: Int) {}
+
+[#1 Insertion delimiter] = ", "
+
+
+[#2 Content] =
+[#2 Domain] = 0:20-0:28
+                      >--------<
+0| class Foo(aaa: Int, bbb: Int) {}
+
+[#2 Removal] = 0:18-0:28
+                    >----------<
+0| class Foo(aaa: Int, bbb: Int) {}
+
+[#2 Leading delimiter] = 0:18-0:20
+                    >--<
+0| class Foo(aaa: Int, bbb: Int) {}
+
+[#2 Insertion delimiter] = ", "

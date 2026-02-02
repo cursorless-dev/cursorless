@@ -707,6 +707,17 @@
   ")" @name.iteration.end.startOf @type.iteration.end.startOf
 )
 
+(
+  (function_value_parameters
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
 ;;!! { aaa, bbb -> }
 ;;!    ^^^^^^^^
 (lambda_literal
@@ -725,6 +736,17 @@
   ]
 ) @argumentList.domain
 
+(
+  (lambda_parameters
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
 ;;!! class Foo(aaa: Int, bbb: Int) {}
 ;;!            ^^^^^^^^^^^^^^^^^^
 (class_declaration
@@ -739,6 +761,17 @@
 (primary_constructor
   "(" @name.iteration.start.endOf @type.iteration.start.endOf
   ")" @name.iteration.end.startOf @type.iteration.end.startOf
+)
+
+(
+  (primary_constructor
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
 ;;!! foo(aaa, bbb)
@@ -763,7 +796,7 @@
   (value_arguments
     (_)? @_.leading.endOf
     .
-    (value_argument) @argumentOrParameter
+    (_) @argumentOrParameter
     .
     (_)? @_.trailing.startOf
   ) @_dummy
