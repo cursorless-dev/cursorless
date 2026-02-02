@@ -638,11 +638,46 @@
 ;; Function call, callee, arguments, and parameters
 ;;
 
-[
-  (call_expression)
-  (constructor_invocation)
-  (constructor_delegation_call)
-] @functionCall
+;; [
+;;   (call_expression)
+;;   ;; (constructor_invocation)
+;;   ;; (constructor_delegation_call)
+;; ] @functionCall
+
+;;!! foo()
+;;!  ^^^
+(call_expression
+  [
+    (simple_identifier)
+    (navigation_expression)
+  ] @functionCallee
+) @functionCall @functionCallee.domain
+
+;; (call_suffix
+;;   (annotated_lambda) @argumentOrParameter
+;; )
+
+;; (call_expression
+;;   (call_suffix) @argumentOrParameter.iteration
+;; ) @argumentOrParameter.iteration.domain
+
+;; (constructor_invocation
+;;   (user_type) @functionCallee
+;; ) @_.domain
+
+;; (constructor_invocation
+;;   (value_arguments
+;;     "(" @argumentOrParameter.iteration.start.endOf
+;;     ")" @argumentOrParameter.iteration.end.startOf
+;;   )
+;; ) @argumentOrParameter.iteration.domain
+
+;; (constructor_delegation_call
+;;   [
+;;     "this"
+;;     "super"
+;;   ] @functionCallee
+;; ) @_.domain
 
 ;;!! fun foo(aaa: Int, bbb: Int) {}
 ;;!          ^^^^^^^^^^^^^^^^^^
@@ -654,6 +689,11 @@
   (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
   (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
+
+(function_value_parameters
+  "(" @name.iteration.start.endOf @type.iteration.start.endOf
+  ")" @name.iteration.end.startOf @type.iteration.end.startOf
+)
 
 ;;!! { aaa, bbb -> }
 ;;!    ^^^^^^^^
@@ -673,6 +713,11 @@
   (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
+(primary_constructor
+  "(" @name.iteration.start.endOf @type.iteration.start.endOf
+  ")" @name.iteration.end.startOf @type.iteration.end.startOf
+)
+
 ;;!! foo(aaa, bbb)
 ;;!      ^^^^^^^^
 (_
@@ -686,6 +731,11 @@
   )
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
+(value_arguments
+  "(" @name.iteration.start.endOf @type.iteration.start.endOf
+  ")" @name.iteration.end.startOf @type.iteration.end.startOf
+)
+
 (
   (value_arguments
     (_)? @_.leading.endOf
@@ -696,39 +746,6 @@
   ) @_dummy
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
-
-(call_expression
-  (_) @functionCallee.start
-  (call_suffix
-    (type_arguments)? @functionCallee.end
-  )
-) @_.domain.start
-
-;; (call_suffix
-;;   (annotated_lambda) @argumentOrParameter
-;; )
-
-;; (call_expression
-;;   (call_suffix) @argumentOrParameter.iteration
-;; ) @argumentOrParameter.iteration.domain
-
-(constructor_invocation
-  (user_type) @functionCallee
-) @_.domain
-
-;; (constructor_invocation
-;;   (value_arguments
-;;     "(" @argumentOrParameter.iteration.start.endOf
-;;     ")" @argumentOrParameter.iteration.end.startOf
-;;   )
-;; ) @argumentOrParameter.iteration.domain
-
-(constructor_delegation_call
-  [
-    "this"
-    "super"
-  ] @functionCallee
-) @_.domain
 
 ;; (constructor_delegation_call
 ;;   (value_arguments
@@ -745,121 +762,118 @@
 ;;!! BAR()
 (enum_entry
   (simple_identifier) @functionCallee
-  (value_arguments
-    "(" @argumentOrParameter.iteration.start.endOf
-    ")" @argumentOrParameter.iteration.end.startOf
-  )
-) @functionCall @functionCallee.domain @argumentOrParameter.iteration.domain
+  (value_arguments)
+) @functionCall @functionCallee.domain
 
-(
-  (function_value_parameters
-    (_)? @_.leading.endOf
-    .
-    [
-      ","
-      "("
-    ]
-    .
-    [
-      (line_comment)
-      (multiline_comment)
-    ] *
-    .
-    (parameter_modifiers)? @argumentOrParameter.start
-    .
-    (parameter) @argumentOrParameter.end
-    .
-    [
-      (line_comment)
-      (multiline_comment)
-    ] *
-    .
-    [
-      ","
-      ")"
-    ]
-    .
-    (_)? @_.trailing.startOf
-  ) @_dummy
-  (#single-or-multi-line-delimiter! @argumentOrParameter.end @_dummy ", " ",\n")
-)
+;; (
+;;   (function_value_parameters
+;;     (_)? @_.leading.endOf
+;;     .
+;;     [
+;;       ","
+;;       "("
+;;     ]
+;;     .
+;;     [
+;;       (line_comment)
+;;       (multiline_comment)
+;;     ] *
+;;     .
+;;     (parameter_modifiers)? @argumentOrParameter.start
+;;     .
+;;     (parameter) @argumentOrParameter.end
+;;     .
+;;     [
+;;       (line_comment)
+;;       (multiline_comment)
+;;     ] *
+;;     .
+;;     [
+;;       ","
+;;       ")"
+;;     ]
+;;     .
+;;     (_)? @_.trailing.startOf
+;;   ) @_dummy
+;;   (#single-or-multi-line-delimiter! @argumentOrParameter.end @_dummy ", " ",\n")
+;; )
 
-(
-  (function_value_parameters
-    (_)? @_.leading.endOf
-    .
-    [
-      ","
-      "("
-    ]
-    .
-    [
-      (line_comment)
-      (multiline_comment)
-    ] *
-    .
-    (parameter_modifiers)? @argumentOrParameter.start.startOf
-    .
-    (parameter) @argumentOrParameter.start
-    .
-    (_) @argumentOrParameter.end
-    (#not-type? @argumentOrParameter.end "parameter" "parameter_modifiers")
-    .
-    [
-      (line_comment)
-      (multiline_comment)
-    ] *
-    .
-    [
-      ","
-      ")"
-    ]
-    .
-    (_)? @_.trailing.startOf
-  ) @_dummy
-  (#single-or-multi-line-delimiter! @argumentOrParameter.end @_dummy ", " ",\n")
-)
+;; (
+;;   (function_value_parameters
+;;     (_)? @_.leading.endOf
+;;     .
+;;     [
+;;       ","
+;;       "("
+;;     ]
+;;     .
+;;     [
+;;       (line_comment)
+;;       (multiline_comment)
+;;     ] *
+;;     .
+;;     (parameter_modifiers)? @argumentOrParameter.start.startOf
+;;     .
+;;     (parameter) @argumentOrParameter.start
+;;     .
+;;     (_) @argumentOrParameter.end
+;;     (#not-type? @argumentOrParameter.end "parameter" "parameter_modifiers")
+;;     .
+;;     [
+;;       (line_comment)
+;;       (multiline_comment)
+;;     ] *
+;;     .
+;;     [
+;;       ","
+;;       ")"
+;;     ]
+;;     .
+;;     (_)? @_.trailing.startOf
+;;   ) @_dummy
+;;   (#single-or-multi-line-delimiter! @argumentOrParameter.end @_dummy ", " ",\n")
+;; )
 
-(_
-  (function_value_parameters) @argumentOrParameter.iteration
-) @argumentOrParameter.iteration.domain
+;; (_
+;;   (function_value_parameters) @argumentOrParameter.iteration
+;; ) @argumentOrParameter.iteration.domain
 
-(
-  (primary_constructor
-    (_)? @_.leading.endOf
-    .
-    (class_parameter) @argumentOrParameter
-    .
-    (_)? @_.trailing.startOf
-  ) @_dummy
-  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
-)
+;; (
+;;   (primary_constructor
+;;     (_)? @_.leading.endOf
+;;     .
+;;     (class_parameter) @argumentOrParameter
+;;     .
+;;     (_)? @_.trailing.startOf
+;;   ) @_dummy
+;;   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+;; )
 
-(class_declaration
-  (primary_constructor) @argumentOrParameter.iteration
-) @argumentOrParameter.iteration.domain
+;; (class_declaration
+;;   (primary_constructor) @argumentOrParameter.iteration
+;; ) @argumentOrParameter.iteration.domain
 
-(parameter_with_optional_type) @argumentOrParameter
+;; (parameter_with_optional_type) @argumentOrParameter
 
 ;; There is only one parameter allowed, but we treat it as iterable for consistency.
-(setter
-  (parameter_with_optional_type) @argumentOrParameter.iteration
-) @argumentOrParameter.iteration.domain
+;; (setter
+;;   (parameter_with_optional_type) @argumentOrParameter.iteration
+;; ) @argumentOrParameter.iteration.domain
 
-(
-  (lambda_parameters
-    (_)? @_.leading.endOf
-    .
-    [
-      (variable_declaration)
-      (multi_variable_declaration)
-    ] @argumentOrParameter
-    .
-    (_)? @_.trailing.startOf
-  ) @_dummy
-  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
-)
+;; (
+;;   (lambda_parameters
+;;     (_)? @_.leading.endOf
+;;     .
+;;     [
+;;       (variable_declaration)
+;;       (multi_variable_declaration)
+;;     ] @argumentOrParameter
+;;     .
+;;     (_)? @_.trailing.startOf
+;;   ) @_dummy
+;;   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+;; )
 
-(lambda_literal
-  (lambda_parameters) @argumentOrParameter.iteration
-) @argumentOrParameter.iteration.domain
+;; (lambda_literal
+;;   (lambda_parameters) @argumentOrParameter.iteration
+;; ) @argumentOrParameter.iteration.domain
