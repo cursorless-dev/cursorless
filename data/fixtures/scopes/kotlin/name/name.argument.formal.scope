@@ -1,18 +1,18 @@
-fun foo(aaa: Int, bbb: Int) {}
+fun foo(aaa: Int, bbb: Int = 1) {}
 ---
 
 [#1 Content] =
 [#1 Removal] = 0:4-0:7
       >---<
-0| fun foo(aaa: Int, bbb: Int) {}
+0| fun foo(aaa: Int, bbb: Int = 1) {}
 
 [#1 Leading delimiter] = 0:3-0:4
      >-<
-0| fun foo(aaa: Int, bbb: Int) {}
+0| fun foo(aaa: Int, bbb: Int = 1) {}
 
-[#1 Domain] = 0:0-0:30
-  >------------------------------<
-0| fun foo(aaa: Int, bbb: Int) {}
+[#1 Domain] = 0:0-0:34
+  >----------------------------------<
+0| fun foo(aaa: Int, bbb: Int = 1) {}
 
 [#1 Insertion delimiter] = " "
 
@@ -20,29 +20,29 @@ fun foo(aaa: Int, bbb: Int) {}
 [#2 Content] =
 [#2 Removal] = 0:8-0:11
           >---<
-0| fun foo(aaa: Int, bbb: Int) {}
+0| fun foo(aaa: Int, bbb: Int = 1) {}
 
 [#2 Domain] = 0:8-0:16
           >--------<
-0| fun foo(aaa: Int, bbb: Int) {}
+0| fun foo(aaa: Int, bbb: Int = 1) {}
 
 [#2 Insertion delimiter] = " "
 
 
 [#3 Content] = 0:18-0:21
                     >---<
-0| fun foo(aaa: Int, bbb: Int) {}
+0| fun foo(aaa: Int, bbb: Int = 1) {}
 
 [#3 Removal] = 0:17-0:21
                    >----<
-0| fun foo(aaa: Int, bbb: Int) {}
+0| fun foo(aaa: Int, bbb: Int = 1) {}
 
 [#3 Leading delimiter] = 0:17-0:18
                    >-<
-0| fun foo(aaa: Int, bbb: Int) {}
+0| fun foo(aaa: Int, bbb: Int = 1) {}
 
-[#3 Domain] = 0:18-0:26
-                    >--------<
-0| fun foo(aaa: Int, bbb: Int) {}
+[#3 Domain] = 0:18-0:30
+                    >------------<
+0| fun foo(aaa: Int, bbb: Int = 1) {}
 
 [#3 Insertion delimiter] = " "

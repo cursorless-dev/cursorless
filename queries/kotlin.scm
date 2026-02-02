@@ -427,30 +427,54 @@
 ;; (multi_variable_declaration) @name.iteration @type.iteration
 
 ;;!! val foo: Int
-(property_declaration
-  (variable_declaration
-    (simple_identifier) @name @type.leading.endOf
-    (user_type)? @type
-  )
-  .
-) @_.domain
+;;!      ^^^
+;;!           ^^^
+;; (property_declaration
+;;   (variable_declaration
+;;     (simple_identifier) @name @type.leading.endOf
+;;     (user_type)? @type
+;;   )
+;; ) @_.domain
 
 ;;!! val foo: Int = 0
+;;!      ^^^
+;;!           ^^^
+;;!                 ^
 (property_declaration
   (variable_declaration
     (simple_identifier) @name @type.leading.endOf
     (user_type)? @type
   ) @value.leading.endOf
-  "="
+  (
+    "="
+    (_) @value
+  )?
+) @_.domain
+
+;;!! val (foo, bar) = baz
+;;!      ^^^^^^^^^^
+;;!                   ^^^
+(property_declaration
+  (multi_variable_declaration) @name @value.leading.endOf
   (_) @value
 ) @_.domain
 
 ;;!! foo = 0
+;;!  ^^^
+;;!        ^
 (assignment
   (directly_assignable_expression) @name @value.leading.endOf
   (_) @value
   .
 ) @_.domain
+
+;;!! typealias Foo = Bar
+;;!            ^^^
+;;!                  ^^^
+(type_alias
+  (type_identifier) @name @value.leading.endOf
+  (user_type) @value
+) @type @_.domain
 
 ;; (property_declaration
 ;;   "="
@@ -703,8 +727,8 @@
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 (function_value_parameters
-  "(" @name.iteration.start.endOf @type.iteration.start.endOf
-  ")" @name.iteration.end.startOf @type.iteration.end.startOf
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
 )
 
 (
@@ -759,8 +783,8 @@
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 (primary_constructor
-  "(" @name.iteration.start.endOf @type.iteration.start.endOf
-  ")" @name.iteration.end.startOf @type.iteration.end.startOf
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
 )
 
 (
@@ -788,8 +812,8 @@
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 (value_arguments
-  "(" @name.iteration.start.endOf @type.iteration.start.endOf
-  ")" @name.iteration.end.startOf @type.iteration.end.startOf
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
 )
 
 (
@@ -802,6 +826,15 @@
   ) @_dummy
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
+
+;;!! foo(aaa = 0)
+;;!      ^^^
+;;!            ^
+(value_argument
+  (simple_identifier) @name @value.leading.endOf
+  "="
+  (_) @value
+) @_.domain
 
 ;;!! var foo: Map<Int, Int>
 ;;!               ^^^^^^^^
@@ -823,20 +856,34 @@
   (#single-or-multi-line-delimiter! @type @_dummy ", " ",\n")
 )
 
-;;!! fun foo(aaa: Int, bbb: Int) {}
-;;!          ^^^       ^^^
-;;!               ^^^       ^^^
-(parameter
-  (simple_identifier) @name @type.leading.endOf
-  (user_type) @type
-) @_.domain
+;;!! fun Foo(aaa: Int = 0) {}
+;;!          ^^^
+;;!               ^^^
+;;!                     ^
+(function_value_parameters
+  (parameter
+    (simple_identifier) @name @type.leading.endOf
+    (user_type) @type
+  ) @_.domain.start @value.leading.endOf
+  .
+  (
+    "="
+    .
+    (_) @value @_.domain.end
+  )?
+)
 
-;;!! class Foo(aaa: Int, bbb: Int) {}
-;;!            ^^^       ^^^
-;;!                 ^^^       ^^^
+;;!! class Foo(aaa: Int = 0) {}
+;;!            ^^^
+;;!                 ^^^
+;;!                       ^
 (class_parameter
   (simple_identifier) @name @type.leading.endOf
-  (user_type) @type
+  (user_type) @type @value.leading.endOf
+  (
+    "="
+    (_) @value
+  )?
 ) @_.domain
 
 ;; (constructor_delegation_call
