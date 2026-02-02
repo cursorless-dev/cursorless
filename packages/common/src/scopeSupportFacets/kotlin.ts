@@ -52,10 +52,6 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.formal.constructor.singleLine": supported,
   "argumentList.formal.constructor.multiLine": supported,
 
-  "collectionItem.unenclosed.singleLine": supported,
-  "collectionItem.unenclosed.multiLine": supported,
-  "collectionItem.unenclosed.iteration": supported,
-
   "branch.if": supported,
   "branch.if.elif.else": supported,
   "branch.if.else": supported,
@@ -297,6 +293,11 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "name.field.enum": notApplicable,
   "value.field.enum": notApplicable,
   "value.iteration.enum": notApplicable,
+
+  // Collection items unenclosed
+  "collectionItem.unenclosed.singleLine": notApplicable,
+  "collectionItem.unenclosed.multiLine": notApplicable,
+  "collectionItem.unenclosed.iteration": notApplicable,
 
   // Miscellaneous
   environment: notApplicable,

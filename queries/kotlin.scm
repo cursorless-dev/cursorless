@@ -921,3 +921,18 @@
 ;; (lambda_literal
 ;;   (lambda_parameters) @argumentOrParameter.iteration
 ;; ) @argumentOrParameter.iteration.domain
+
+(comparison_expression
+  [
+    "<"
+    ">"
+    "<="
+    ">="
+  ] @disqualifyDelimiter
+)
+(lambda_literal
+  "->" @disqualifyDelimiter
+)
+(when_entry
+  "->" @disqualifyDelimiter
+)
