@@ -1,0 +1,76 @@
+class Foo {
+    constructor(aaa: Int, bbb: Int) {}
+}
+---
+
+[#1 Content] = 0:6-0:9
+        >---<
+0| class Foo {
+
+[#1 Removal] = 0:6-0:10
+        >----<
+0| class Foo {
+
+[#1 Leading delimiter] = 0:5-0:6
+       >-<
+0| class Foo {
+
+[#1 Trailing delimiter] = 0:9-0:10
+           >-<
+0| class Foo {
+
+[#1 Domain] = 0:0-2:1
+  >-----------
+0| class Foo {
+1|     constructor(aaa: Int, bbb: Int) {}
+2| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] = 1:4-1:15
+      >-----------<
+1|     constructor(aaa: Int, bbb: Int) {}
+
+[#2 Leading delimiter] = 1:0-1:4
+  >----<
+1|     constructor(aaa: Int, bbb: Int) {}
+
+[#2 Domain] = 1:4-1:38
+      >----------------------------------<
+1|     constructor(aaa: Int, bbb: Int) {}
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] =
+[#3 Removal] = 1:16-1:19
+                  >---<
+1|     constructor(aaa: Int, bbb: Int) {}
+
+[#3 Domain] = 1:16-1:24
+                  >--------<
+1|     constructor(aaa: Int, bbb: Int) {}
+
+[#3 Insertion delimiter] = " "
+
+
+[#4 Content] = 1:26-1:29
+                            >---<
+1|     constructor(aaa: Int, bbb: Int) {}
+
+[#4 Removal] = 1:25-1:29
+                           >----<
+1|     constructor(aaa: Int, bbb: Int) {}
+
+[#4 Leading delimiter] = 1:25-1:26
+                           >-<
+1|     constructor(aaa: Int, bbb: Int) {}
+
+[#4 Domain] = 1:26-1:34
+                            >--------<
+1|     constructor(aaa: Int, bbb: Int) {}
+
+[#4 Insertion delimiter] = " "

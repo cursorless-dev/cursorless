@@ -91,10 +91,14 @@
 ;;   (type_identifier) @name
 ;; ) @class @name.domain
 
-;;!! fun foo() {}
+;;!! fun foo(): Int {}
+;;!      ^^^
+;;!             ^^^
 (function_declaration
   (simple_identifier) @name
-) @namedFunction @name.domain
+  (function_value_parameters) @type.leading.endOf
+  (user_type)? @type
+) @namedFunction @_.domain
 
 ;;!! constructor() {}
 (secondary_constructor
@@ -193,11 +197,12 @@
 ;;!         ^
 ;;!           ^^^^^^^^^^
 (catch_block
-  (simple_identifier) @name @name.domain.start @value.domain.start
+  (simple_identifier) @name @name.domain.start @type.domain.start
   ":"
-  (_) @type @name.domain.end @value.domain.end
+  (_) @type @name.domain.end @type.domain.end
 ) @branch
 
+;;!! finally {}
 (finally_block) @branch
 
 ;;!! when (foo) { }
@@ -282,119 +287,117 @@
 ;;   (control_structure_body) @branch.end
 ;; )
 
+;;!! while (true) {}
+;;!         ^^^^
 (while_statement
   "while"
-  .
   "("
-  .
   (_) @condition
-  .
   ")"
-) @_.domain
+) @condition.domain
 
+;;!! do {} while (true)
+;;!               ^^^^
 (do_while_statement
   "("
-  .
   (_) @condition
-  .
   ")"
-  .
-) @_.domain
+) @condition.domain
 
 ;;
 ;; Name, value, type, and key
 ;;
 
-(type_alias
-  "typealias"
-  .
-  (_) @name.start
-  (_)? @name.end
-  .
-  "="
-  .
-  (_) @value.start @type.start
-) @value.end.endOf @type.end.endOf @_.domain
+;; (type_alias
+;;   "typealias"
+;;   .
+;;   (_) @name.start
+;;   (_)? @name.end
+;;   .
+;;   "="
+;;   .
+;;   (_) @value.start @type.start
+;; ) @value.end.endOf @type.end.endOf @_.domain
 
 ;;!! class Foo {}
 (class_declaration
   (type_identifier) @name
 ) @class @type @name.domain
 
-(class_parameter
-  (simple_identifier) @name
-) @_.domain
+;; (class_parameter
+;;   (simple_identifier) @name
+;; ) @_.domain
 
-(class_parameter
-  ":"
-  .
-  (_) @type.start
-  (_)? @type.end
-  .
-  "="
-  (_) @value
-) @_.domain
+;; (class_parameter
+;;   ":"
+;;   .
+;;   (_) @type.start
+;;   (_)? @type.end
+;;   .
+;;   "="
+;;   (_) @value
+;; ) @_.domain
 
-;; Known issue: this won't work with multiple-node types.
-(class_parameter
-  ":"
-  .
-  (_) @type
-  .
-) @_.domain
+;; ;; Known issue: this won't work with multiple-node types.
+;; (class_parameter
+;;   ":"
+;;   .
+;;   (_) @type
+;;   .
+;; ) @_.domain
 
-;; Function declarations with type constraints
-(function_declaration
-  ":"
-  .
-  (_) @type.start
-  (_)? @type.end
-  .
-  (type_constraints)
-) @_.domain
+;; ;; Function declarations with type constraints
+;; (function_declaration
+;;   ":"
+;;   .
+;;   (_) @type.start
+;;   (_)? @type.end
+;;   .
+;;   (type_constraints)
+;; ) @_.domain
 
-;; Function declarations with no type constraints but with body
-(
-  (function_declaration
-    ":"
-    .
-    (_) @type
-    .
-    (function_body)
-  ) @_.domain
-)
-(
-  (function_declaration
-    ":"
-    .
-    (_) @type.start
-    (_) @type.end
-    .
-    (function_body)
-  ) @_.domain
-  (#not-type? @type.end "type_constraints")
-)
+;; ;; Function declarations with no type constraints but with body
+;; (
+;;   (function_declaration
+;;     ":"
+;;     .
+;;     (_) @type
+;;     .
+;;     (function_body)
+;;   ) @_.domain
+;; )
+;; (
+;;   (function_declaration
+;;     ":"
+;;     .
+;;     (_) @type.start
+;;     (_) @type.end
+;;     .
+;;     (function_body)
+;;   ) @_.domain
+;;   (#not-type? @type.end "type_constraints")
+;; )
 
-;; Function declaration without body or type constraints
-(
-  (function_declaration
-    ":"
-    .
-    (_) @type
-    .
-  ) @_.domain
-)
-(
-  (function_declaration
-    ":"
-    .
-    (_) @type.start
-    (_) @type.end
-    .
-  ) @_.domain
-  (#not-type? @type.end "function_body")
-  (#not-type? @type.end "type_constraints")
-)
+;; ;; Function declaration without body or type constraints
+;; (
+;;   (function_declaration
+;;     ":"
+;;     .
+;;     (_) @type
+;;     .
+;;   ) @_.domain
+;; )
+;; (
+;;   (function_declaration
+;;     ":"
+;;     .
+;;     (_) @type.start
+;;     (_) @type.end
+;;     .
+;;   ) @_.domain
+;;   (#not-type? @type.end "function_body")
+;;   (#not-type? @type.end "type_constraints")
+;; )
 
 ;; (variable_declaration
 ;;   (simple_identifier) @name
@@ -408,18 +411,20 @@
 
 ;; (multi_variable_declaration) @name.iteration @type.iteration
 
-;;!! val foo
+;;!! val foo: Int
 (property_declaration
   (variable_declaration
-    (simple_identifier) @name
+    (simple_identifier) @name @type.leading.endOf
+    (user_type)? @type
   )
   .
 ) @_.domain
 
-;;!! val foo = 0
+;;!! val foo: Int = 0
 (property_declaration
   (variable_declaration
-    (simple_identifier) @name
+    (simple_identifier) @name @type.leading.endOf
+    (user_type)? @type
   ) @value.leading.endOf
   "="
   (_) @value
@@ -456,10 +461,13 @@
 ;;   (multi_variable_declaration) @name.iteration @type.iteration
 ;; ) @name.iteration.domain @type.iteration.domain
 
-;;!! for (v in values) {}
+;;!! for (v: Int in values) {}
+;;!       ^
+;;!          ^^^
 (for_statement
   (variable_declaration
-    (simple_identifier) @name
+    (simple_identifier) @name @type.leading.endOf
+    (user_type)? @type
   )
   "in"
   .
@@ -485,83 +493,75 @@
 ;;   (multi_variable_declaration) @name.iteration @type.iteration
 ;; ) @name.iteration.domain @type.iteration.domain
 
-(when_subject
-  (variable_declaration
-    (simple_identifier) @name
-  )
-) @name.domain
+;; (when_subject
+;;   (variable_declaration
+;;     (simple_identifier) @name
+;;   )
+;; ) @name.domain
 
-(when_subject
-  "="
-  .
-  (_) @value
-) @value.domain
+;; (when_subject
+;;   "="
+;;   .
+;;   (_) @value
+;; ) @value.domain
 
-(when_subject
-  (variable_declaration
-    ":"
-    .
-    (_) @type.start
-  ) @type.end.endOf
-) @type.domain
+;; (when_subject
+;;   (variable_declaration
+;;     ":"
+;;     .
+;;     (_) @type.start
+;;   ) @type.end.endOf
+;; ) @type.domain
 
-(getter
-  ":"
-  .
-  (_) @type.start
-  (_)? @type.end
-  (function_body)
-) @type.domain
+;; (getter
+;;   ":"
+;;   .
+;;   (_) @type.start
+;;   (_)? @type.end
+;;   (function_body)
+;; ) @type.domain
 
-(setter
-  ":"
-  .
-  (_) @type.start
-  (_)? @type.end
-  (function_body)
-) @type.domain
+;; (setter
+;;   ":"
+;;   .
+;;   (_) @type.start
+;;   (_)? @type.end
+;;   (function_body)
+;; ) @type.domain
 
-(parameter_with_optional_type
-  (simple_identifier) @name
-) @name.domain
+;; (parameter_with_optional_type
+;;   (simple_identifier) @name
+;; ) @name.domain
 
-(parameter_with_optional_type
-  ":"
-  .
-  (_) @type.start
-) @type.end.endOf @type.domain
+;; (parameter_with_optional_type
+;;   ":"
+;;   .
+;;   (_) @type.start
+;; ) @type.end.endOf @type.domain
 
 ;; Function parameter without default
-(function_value_parameters
-  (parameter
-    (simple_identifier) @name
-    ":"
-    .
-    (_) @type.start
-  ) @type.end.endOf @_.domain
-)
+;; (function_value_parameters
+;;   (parameter
+;;     (simple_identifier) @name
+;;     ":"
+;;     .
+;;     (_) @type.start
+;;   ) @type.end.endOf @_.domain
+;; )
 
 ;; Function parameter with default
-(function_value_parameters
-  (parameter
-    (simple_identifier) @name
-    ":"
-    .
-    (_) @type.start
-  ) @type.end.endOf @_.domain.start
-  .
-  "="
-  .
-  (_) @value @_.domain.end
-)
-
-(type_arguments
-  (type_projection) @type
-)
-(type_arguments
-  "<" @type.iteration.start.endOf
-  ">" @type.iteration.end.startOf
-)
+;; (function_value_parameters
+;;   (parameter
+;;     (simple_identifier) @name
+;;     ":"
+;;     .
+;;     (_) @type.start
+;;   ) @type.end.endOf @_.domain.start
+;;   .
+;;   "="
+;;   .
+;;   (_) @value @_.domain.end
+;; )
 
 ;; (anonymous_function
 ;;   ":"
@@ -712,7 +712,7 @@
 
 ;;!! class Foo(aaa: Int, bbb: Int) {}
 ;;!            ^^^^^^^^^^^^^^^^^^
-(_
+(class_declaration
   (primary_constructor
     "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
     ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
@@ -728,7 +728,7 @@
 
 ;;!! foo(aaa, bbb)
 ;;!      ^^^^^^^^
-(_
+(call_expression
   (call_suffix
     (value_arguments
       "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
@@ -754,6 +754,42 @@
   ) @_dummy
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
+
+;;!! var foo: Map<Int, Int>
+;;!               ^^^^^^^^
+(type_arguments
+  "<" @type.iteration.start.endOf
+  ">" @type.iteration.end.startOf
+)
+
+;;!! var foo: Map<Int, Int>
+;;!               ^^^  ^^^
+(
+  (type_arguments
+    (_)? @_.leading.endOf
+    .
+    (_) @type
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @type @_dummy ", " ",\n")
+)
+
+;;!! fun foo(aaa: Int, bbb: Int) {}
+;;!          ^^^       ^^^
+;;!               ^^^       ^^^
+(parameter
+  (simple_identifier) @name @type.leading.endOf
+  (user_type) @type
+) @_.domain
+
+;;!! class Foo(aaa: Int, bbb: Int) {}
+;;!            ^^^       ^^^
+;;!                 ^^^       ^^^
+(class_parameter
+  (simple_identifier) @name @type.leading.endOf
+  (user_type) @type
+) @_.domain
 
 ;; (constructor_delegation_call
 ;;   (value_arguments
