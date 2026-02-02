@@ -60,9 +60,10 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.try.iteration": supported,
   "branch.switchCase": supported,
   "branch.switchCase.iteration": supported,
+  "branch.ternary": supported,
+  "branch.ternary.iteration": supported,
 
   class: supported,
-  "class.iteration.block": supported,
   "class.iteration.document": supported,
 
   "comment.block": supported,
@@ -73,6 +74,7 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "condition.switchCase": supported,
   "condition.switchCase.iteration": supported,
   "condition.while": supported,
+  "condition.ternary": supported,
 
   functionCall: supported,
   "functionCall.constructor": supported,
@@ -110,11 +112,11 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.return": supported,
   "statement.break": supported,
   "statement.continue": supported,
-  "statement.misc": supported,
   "statement.iteration.document": supported,
   "statement.iteration.class": supported,
   "statement.iteration.interface": supported,
   "statement.iteration.block": supported,
+  "statement.static": supported,
 
   "string.singleLine": supported,
   "string.multiLine": supported,
@@ -140,6 +142,7 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "name.constructor": supported,
   "name.field.class": supported,
   "name.field.interface": supported,
+  "name.field.enum": supported,
   "name.foreach": supported,
   "name.function": supported,
   "name.method": supported,
@@ -151,9 +154,6 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "name.iteration.enum": supported,
   "name.iteration.block": supported,
 
-  "key.mapPair": supported,
-  "key.mapPair.iteration": supported,
-
   "value.argument.actual": supported,
   "value.argument.actual.iteration": supported,
   "value.argument.formal": supported,
@@ -162,8 +162,6 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "value.argument.formal.constructor.iteration": supported,
   "value.argument.formal.method": supported,
   "value.argument.formal.method.iteration": supported,
-  "value.mapPair": supported,
-  "value.mapPair.iteration": supported,
   "value.assignment": supported,
   "value.foreach": supported,
   "value.switch": supported,
@@ -171,7 +169,6 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "value.return": supported,
   "value.return.lambda": supported,
   "value.variable": supported,
-  "value.variable.pattern": supported,
   "value.typeAlias": supported,
   "value.iteration.block": supported,
   "value.iteration.class": supported,
@@ -191,7 +188,6 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "type.variable": supported,
   "type.typeArgument": supported,
   "type.typeArgument.iteration": supported,
-  "type.cast": supported,
   "type.class": supported,
   "type.enum": supported,
   "type.interface": supported,
@@ -216,6 +212,7 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.switchCase": supported,
   "interior.try": supported,
   "interior.for": supported,
+  "interior.static": supported,
 
   /* UNSUPPORTED */
 
@@ -269,11 +266,6 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.loop": notApplicable,
   "branch.loop.iteration": notApplicable,
 
-  // Ternary
-  "branch.ternary": notApplicable,
-  "branch.ternary.iteration": notApplicable,
-  "condition.ternary": notApplicable,
-
   // For loop (C-style)
   "statement.for": notApplicable,
   "condition.for": notApplicable,
@@ -282,15 +274,10 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.yield": notApplicable,
   "value.yield": notApplicable,
 
-  // Static
-  "statement.static": notApplicable,
-  "interior.static": notApplicable,
-
   // Keyword argument assignment pattern
   "name.assignment.pattern": notApplicable,
 
   // Values in enum
-  "name.field.enum": notApplicable,
   "value.field.enum": notApplicable,
   "value.iteration.enum": notApplicable,
 
@@ -298,6 +285,12 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "collectionItem.unenclosed.singleLine": notApplicable,
   "collectionItem.unenclosed.multiLine": notApplicable,
   "collectionItem.unenclosed.iteration": notApplicable,
+
+  // Map pair
+  "key.mapPair": notApplicable,
+  "key.mapPair.iteration": notApplicable,
+  "value.mapPair": notApplicable,
+  "value.mapPair.iteration": notApplicable,
 
   // Miscellaneous
   environment: notApplicable,
@@ -307,4 +300,8 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   pairDelimiter: notApplicable,
   list: notApplicable,
   map: notApplicable,
+  "class.iteration.block": notApplicable,
+  "type.cast": notApplicable,
+  "statement.misc": notApplicable,
+  "value.variable.pattern": notApplicable,
 };
