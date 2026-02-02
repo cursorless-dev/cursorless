@@ -8,12 +8,12 @@ try {
               >-----------<
 1| } catch (e: MyException) {
 
-[#1 Removal] = 1:11-1:23
-             >------------<
+[#1 Removal] = 1:10-1:23
+            >-------------<
 1| } catch (e: MyException) {
 
-[#1 Leading delimiter] = 1:11-1:12
-             >-<
+[#1 Leading delimiter] = 1:10-1:12
+            >--<
 1| } catch (e: MyException) {
 
 [#1 Domain] = 1:9-1:23
@@ -27,12 +27,12 @@ try {
               >---------<
 2| } catch (e: Exception) {
 
-[#2 Removal] = 2:11-2:21
-             >----------<
+[#2 Removal] = 2:10-2:21
+            >-----------<
 2| } catch (e: Exception) {
 
-[#2 Leading delimiter] = 2:11-2:12
-             >-<
+[#2 Leading delimiter] = 2:10-2:12
+            >--<
 2| } catch (e: Exception) {
 
 [#2 Domain] = 2:9-2:21

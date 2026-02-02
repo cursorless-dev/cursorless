@@ -194,13 +194,28 @@
 ) @branch.iteration
 
 ;;!! catch (e: Exception) {}
-;;!         ^
-;;!           ^^^^^^^^^^
+;;!         ^^^^^^^^^^^^
 (catch_block
-  (simple_identifier) @name @name.domain.start @type.domain.start
+  (simple_identifier) @argumentOrParameter.start
   ":"
-  (_) @type @name.domain.end @type.domain.end
+  (user_type) @argumentOrParameter.end
 ) @branch
+
+;;!! catch (e: Exception) {}
+;;!         ^
+(catch_block
+  (simple_identifier) @name @name.domain.start
+  ":"
+  (user_type) @name.domain.end
+)
+
+;;!! catch (e: Exception) {}
+;;!            ^^^^^^^^^
+(catch_block
+  (simple_identifier) @type.domain.start @type.leading.endOf
+  ":"
+  (user_type) @type @type.domain.end
+)
 
 ;;!! finally {}
 (finally_block) @branch
