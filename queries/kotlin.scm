@@ -146,7 +146,7 @@
     (if_expression
       "if" @branch.start @branch.removal.start.startOf
       condition: (_) @condition
-      consequence: (_) @branch.end @branch.removal.end.endOf
+      consequence: (_)? @branch.end @branch.removal.end.endOf
       "else"? @branch.removal.end.startOf
       alternative: (control_structure_body
         .
@@ -747,7 +747,8 @@
     ]
     .
     (_)? @_.trailing.startOf
-  )
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
 ;;!! foo: Int = 0
@@ -767,7 +768,8 @@
     ]
     .
     (_)? @_.trailing.startOf
-  )
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @argumentOrParameter.start @_dummy ", " ",\n")
 )
 
 ;; (

@@ -14,7 +14,7 @@ fun bar(aaa: Int, bbb: Int = 0) {}
                   >--<
 0| fun bar(aaa: Int, bbb: Int = 0) {}
 
-[#1 Insertion delimiter] = " "
+[#1 Insertion delimiter] = ", "
 
 
 [#2 Content] =
@@ -30,4 +30,4 @@ fun bar(aaa: Int, bbb: Int = 0) {}
                   >--<
 0| fun bar(aaa: Int, bbb: Int = 0) {}
 
-[#2 Insertion delimiter] = " "
+[#2 Insertion delimiter] = ", "

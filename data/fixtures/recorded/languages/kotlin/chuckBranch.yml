@@ -26,7 +26,7 @@ finalState:
     fun main() {
         if (true) 0
             
-        1
+        else 1
     }
   selections:
     - anchor: {line: 3, character: 4}

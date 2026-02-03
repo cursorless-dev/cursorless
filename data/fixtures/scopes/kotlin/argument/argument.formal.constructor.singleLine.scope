@@ -16,7 +16,7 @@ class Foo {
                           >--<
 1|     constructor(aaa: Int, bbb: Int = 0) {}
 
-[#1 Insertion delimiter] = " "
+[#1 Insertion delimiter] = ", "
 
 
 [#2 Content] =
@@ -32,4 +32,4 @@ class Foo {
                           >--<
 1|     constructor(aaa: Int, bbb: Int = 0) {}
 
-[#2 Insertion delimiter] = " "
+[#2 Insertion delimiter] = ", "

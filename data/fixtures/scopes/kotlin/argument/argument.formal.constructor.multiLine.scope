@@ -23,7 +23,7 @@ class Foo {
 3|         bbb: Int = 0
    --------<
 
-[#1 Insertion delimiter] = " "
+[#1 Insertion delimiter] = ",\n"
 
 
 [#2 Content] =
@@ -43,4 +43,4 @@ class Foo {
 3|         bbb: Int = 0
    --------<
 
-[#2 Insertion delimiter] = " "
+[#2 Insertion delimiter] = ",\n"
