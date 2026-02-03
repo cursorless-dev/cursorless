@@ -1,33 +1,33 @@
-fun bar(aaa: Int, bbb: Int) {}
+fun bar(aaa: Int, bbb: Int = 0) {}
 ---
 
 [#1 Content] =
 [#1 Domain] = 0:8-0:16
           >--------<
-0| fun bar(aaa: Int, bbb: Int) {}
+0| fun bar(aaa: Int, bbb: Int = 0) {}
 
 [#1 Removal] = 0:8-0:18
           >----------<
-0| fun bar(aaa: Int, bbb: Int) {}
+0| fun bar(aaa: Int, bbb: Int = 0) {}
 
 [#1 Trailing delimiter] = 0:16-0:18
                   >--<
-0| fun bar(aaa: Int, bbb: Int) {}
+0| fun bar(aaa: Int, bbb: Int = 0) {}
 
-[#1 Insertion delimiter] = ", "
+[#1 Insertion delimiter] = " "
 
 
 [#2 Content] =
-[#2 Domain] = 0:18-0:26
-                    >--------<
-0| fun bar(aaa: Int, bbb: Int) {}
+[#2 Domain] = 0:18-0:30
+                    >------------<
+0| fun bar(aaa: Int, bbb: Int = 0) {}
 
-[#2 Removal] = 0:16-0:26
-                  >----------<
-0| fun bar(aaa: Int, bbb: Int) {}
+[#2 Removal] = 0:16-0:30
+                  >--------------<
+0| fun bar(aaa: Int, bbb: Int = 0) {}
 
 [#2 Leading delimiter] = 0:16-0:18
                   >--<
-0| fun bar(aaa: Int, bbb: Int) {}
+0| fun bar(aaa: Int, bbb: Int = 0) {}
 
-[#2 Insertion delimiter] = ", "
+[#2 Insertion delimiter] = " "

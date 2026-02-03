@@ -1,6 +1,6 @@
 class Foo(
         aaa: Int,
-        bbb: Int
+        bbb: Int = 0
     ) {}
 ---
 
@@ -12,33 +12,33 @@ class Foo(
 [#1 Removal] = 1:8-2:8
           >---------
 1|         aaa: Int,
-2|         bbb: Int
+2|         bbb: Int = 0
    --------<
 
 [#1 Trailing delimiter] = 1:16-2:8
                   >-
 1|         aaa: Int,
-2|         bbb: Int
+2|         bbb: Int = 0
    --------<
 
 [#1 Insertion delimiter] = ",\n"
 
 
 [#2 Content] =
-[#2 Domain] = 2:8-2:16
-          >--------<
-2|         bbb: Int
+[#2 Domain] = 2:8-2:20
+          >------------<
+2|         bbb: Int = 0
 
-[#2 Removal] = 1:16-2:16
+[#2 Removal] = 1:16-2:20
                   >-
 1|         aaa: Int,
-2|         bbb: Int
-   ----------------<
+2|         bbb: Int = 0
+   --------------------<
 
 [#2 Leading delimiter] = 1:16-2:8
                   >-
 1|         aaa: Int,
-2|         bbb: Int
+2|         bbb: Int = 0
    --------<
 
 [#2 Insertion delimiter] = ",\n"

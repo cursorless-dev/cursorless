@@ -1,7 +1,7 @@
 class Foo {
     fun bar(
         aaa: Int,
-        bbb: Int
+        bbb: Int = 0
     ) {}
 }
 ---
@@ -14,33 +14,33 @@ class Foo {
 [#1 Removal] = 2:8-3:8
           >---------
 2|         aaa: Int,
-3|         bbb: Int
+3|         bbb: Int = 0
    --------<
 
 [#1 Trailing delimiter] = 2:16-3:8
                   >-
 2|         aaa: Int,
-3|         bbb: Int
+3|         bbb: Int = 0
    --------<
 
-[#1 Insertion delimiter] = ",\n"
+[#1 Insertion delimiter] = " "
 
 
 [#2 Content] =
-[#2 Domain] = 3:8-3:16
-          >--------<
-3|         bbb: Int
+[#2 Domain] = 3:8-3:20
+          >------------<
+3|         bbb: Int = 0
 
-[#2 Removal] = 2:16-3:16
+[#2 Removal] = 2:16-3:20
                   >-
 2|         aaa: Int,
-3|         bbb: Int
-   ----------------<
+3|         bbb: Int = 0
+   --------------------<
 
 [#2 Leading delimiter] = 2:16-3:8
                   >-
 2|         aaa: Int,
-3|         bbb: Int
+3|         bbb: Int = 0
    --------<
 
-[#2 Insertion delimiter] = ",\n"
+[#2 Insertion delimiter] = " "
