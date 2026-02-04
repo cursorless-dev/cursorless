@@ -28,6 +28,6 @@
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@types/vscode-webview": "^1.57.5",
-    "tailwindcss": "^4.1.17"
+    "tailwindcss": "^4.1.18"
   }
 }
