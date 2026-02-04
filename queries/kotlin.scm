@@ -542,10 +542,13 @@
 ;;!       ^
 ;;!          ^^^
 (for_statement
-  (variable_declaration
-    (simple_identifier) @name @type.leading.endOf
-    (user_type)? @type
-  )
+  [
+    (variable_declaration
+      (simple_identifier) @name @type.leading.endOf
+      (user_type)? @type
+    )
+    (multi_variable_declaration) @name
+  ]
   "in"
   .
   (_) @value
@@ -1125,8 +1128,18 @@
 ) @functionCall @functionCallee.domain
 
 ;;!! class Foo: Bar()
+;;!             ^^^^^
 (constructor_invocation
   (user_type) @functionCallee
+) @functionCall @functionCallee.domain
+
+;;!! constructor(): this()
+;;!                 ^^^^^^
+(constructor_delegation_call
+  [
+    "this"
+    "super"
+  ] @functionCallee
 ) @functionCall @functionCallee.domain
 
 ;; (

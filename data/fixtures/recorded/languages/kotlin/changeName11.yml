@@ -25,13 +25,13 @@ initialState:
   marks: {}
 finalState:
   documentContents: |-
-    fun main() {
+    fun () {
         try {
             val result = 10 / 0
-        } catch (: ArithmeticException) {
+        } catch (e: ArithmeticException) {
             println("Division by zero!")
         }
     }
   selections:
-    - anchor: {line: 3, character: 13}
-      active: {line: 3, character: 13}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
