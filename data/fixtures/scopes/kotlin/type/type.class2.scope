@@ -7,4 +7,4 @@ object Foo {}
   >-------------<
 0| object Foo {}
 
-[Insertion delimiter] = "\n"
+[Insertion delimiter] = " "

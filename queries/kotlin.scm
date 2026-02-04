@@ -32,6 +32,8 @@
 
 [
   (class_declaration)
+  (object_declaration)
+  (companion_object)
   (function_declaration)
   (secondary_constructor)
   (anonymous_initializer)
@@ -82,14 +84,6 @@
   "{" @interior.start.endOf
   "}" @interior.end.startOf
 )
-
-;; (object_declaration
-;;   (type_identifier) @name
-;; ) @class @name.domain
-
-;; (companion_object
-;;   (type_identifier) @name
-;; ) @class @name.domain
 
 ;;!! fun foo(): Int {}
 ;;!      ^^^
@@ -220,16 +214,35 @@
 ;;!! finally {}
 (finally_block) @branch
 
-;;!! when (foo) { }
-;;!        ^^^
+;;!! when (true) { }
 ;;!              ^
 (when_expression
-  (when_subject
-    (_) @value
-  )
   "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
   "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
-) @value.domain @branch.iteration.domain @condition.iteration.domain
+) @branch.iteration.domain @condition.iteration.domain
+
+;;!! when (true) {}
+;;!        ^^^
+(when_expression
+  (when_subject
+    .
+    (_) @value
+    .
+  )
+) @value.domain
+
+;;!! when (foo) {}
+;;!        ^^^
+(when_expression
+  (when_subject
+    (variable_declaration
+      (simple_identifier) @name
+      (user_type)? @type
+    ) @value.leading.endOf
+    "="
+    (_) @value
+  )
+) @_.domain
 
 ;;!! 0 -> break
 (when_entry) @branch
@@ -339,6 +352,16 @@
 
 ;;!! class Foo {}
 (class_declaration
+  (type_identifier) @name
+) @class @type @name.domain
+
+;;!! object Foo {}
+(object_declaration
+  (type_identifier) @name
+) @class @type @name.domain
+
+;;!! companion object Foo {}
+(companion_object
   (type_identifier) @name
 ) @class @type @name.domain
 
@@ -476,7 +499,19 @@
 ;;!                  ^^^
 (type_alias
   (type_identifier) @name @value.leading.endOf
-  (user_type) @value
+  .
+  "="
+  (_) @value
+) @type @_.domain
+
+;;!! typealias Foo<T> = Bar
+;;!            ^^^^^^
+;;!                     ^^^
+(type_alias
+  (type_identifier) @name.start
+  (type_parameters) @name.end @value.leading.endOf
+  "="
+  (_) @value
 ) @type @_.domain
 
 ;; (property_declaration
@@ -932,6 +967,16 @@
     "}"
   ]
 ) @argumentList.domain
+
+;;!! { aaa: Int, bbb: Int -> }
+;;!    ^^^       ^^^
+;;!         ^^^       ^^^
+(lambda_parameters
+  (variable_declaration
+    (simple_identifier) @name @type.leading.endOf
+    (user_type)? @type
+  ) @_.domain
+)
 
 (
   (lambda_parameters
