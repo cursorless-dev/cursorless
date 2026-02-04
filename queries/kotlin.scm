@@ -473,7 +473,11 @@
 (property_declaration
   (variable_declaration
     (simple_identifier) @name @type.leading.endOf
-    (user_type)? @type
+    (type_modifiers)? @type.start
+    [
+      (user_type)
+      (function_type)
+    ] ? @type.end
   ) @value.leading.endOf
   (
     "="
