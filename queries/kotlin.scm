@@ -47,6 +47,8 @@
   (try_expression)
   (import_list)
   (package_header)
+  (getter)
+  (setter)
 
   ;; Disabled on purpose. We have a better definition of this below.
   ;; (if_expression)
@@ -914,6 +916,12 @@
   ]
 )
 
+;;!! foo() { -> }
+;;!        ^^^^^^
+(call_suffix
+  (annotated_lambda) @argumentOrParameter
+)
+
 ;;!! foo: Int
 ;; (
 ;;   (function_value_parameters
@@ -1303,6 +1311,28 @@
     (_) @value
   )?
 ) @_.domain
+
+;;!! get(): Int {}
+(getter
+  ")" @type.leading.endOf
+  (user_type) @type
+) @namedFunction @type.domain
+
+;;!! set(aaa: Int) {}
+;;!      ^^^^^^^^
+(setter
+  (parameter_with_optional_type
+    (simple_identifier) @name @type.leading.endOf
+    (user_type) @type
+  ) @argumentOrParameter @_.domain
+)
+
+;;!! set(aaa: Int) {}
+;;!      ^^^^^^^^
+;; There is only one parameter allowed, but we treat it as iterable for consistency.
+(setter
+  (parameter_with_optional_type) @argumentOrParameter.iteration
+) @namedFunction @argumentOrParameter.iteration.domain
 
 ;; (constructor_delegation_call
 ;;   (value_arguments
