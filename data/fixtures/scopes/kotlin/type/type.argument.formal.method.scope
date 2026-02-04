@@ -1,5 +1,5 @@
 class Foo {
-    fun bar(aaa: Int, bbb: Int) {}
+    fun bar(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
 }
 ---
 
@@ -8,7 +8,7 @@ class Foo {
 [#1 Domain] = 0:0-2:1
   >-----------
 0| class Foo {
-1|     fun bar(aaa: Int, bbb: Int) {}
+1|     fun bar(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
 2| }
    -<
 
@@ -17,37 +17,75 @@ class Foo {
 
 [#2 Content] = 1:17-1:20
                    >---<
-1|     fun bar(aaa: Int, bbb: Int) {}
+1|     fun bar(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
 
 [#2 Removal] = 1:15-1:20
                  >-----<
-1|     fun bar(aaa: Int, bbb: Int) {}
+1|     fun bar(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
 
 [#2 Leading delimiter] = 1:15-1:17
                  >--<
-1|     fun bar(aaa: Int, bbb: Int) {}
+1|     fun bar(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
 
 [#2 Domain] = 1:12-1:20
               >--------<
-1|     fun bar(aaa: Int, bbb: Int) {}
+1|     fun bar(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
 
 [#2 Insertion delimiter] = " "
 
 
-[#3 Content] = 1:27-1:30
-                             >---<
-1|     fun bar(aaa: Int, bbb: Int) {}
+[#3 Content] = 1:34-1:37
+                                    >---<
+1|     fun bar(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
 
-[#3 Removal] = 1:25-1:30
-                           >-----<
-1|     fun bar(aaa: Int, bbb: Int) {}
+[#3 Removal] = 1:32-1:37
+                                  >-----<
+1|     fun bar(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
 
-[#3 Leading delimiter] = 1:25-1:27
-                           >--<
-1|     fun bar(aaa: Int, bbb: Int) {}
+[#3 Leading delimiter] = 1:32-1:34
+                                  >--<
+1|     fun bar(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
 
-[#3 Domain] = 1:22-1:30
-                        >--------<
-1|     fun bar(aaa: Int, bbb: Int) {}
+[#3 Domain] = 1:22-1:37
+                        >---------------<
+1|     fun bar(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
 
 [#3 Insertion delimiter] = " "
+
+
+[#4 Content] = 1:44-1:47
+                                              >---<
+1|     fun bar(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
+
+[#4 Removal] = 1:42-1:47
+                                            >-----<
+1|     fun bar(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
+
+[#4 Leading delimiter] = 1:42-1:44
+                                            >--<
+1|     fun bar(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
+
+[#4 Domain] = 1:39-1:51
+                                         >------------<
+1|     fun bar(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
+
+[#4 Insertion delimiter] = " "
+
+
+[#5 Content] = 1:65-1:68
+                                                                   >---<
+1|     fun bar(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
+
+[#5 Removal] = 1:63-1:68
+                                                                 >-----<
+1|     fun bar(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
+
+[#5 Leading delimiter] = 1:63-1:65
+                                                                 >--<
+1|     fun bar(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
+
+[#5 Domain] = 1:53-1:72
+                                                       >-------------------<
+1|     fun bar(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
+
+[#5 Insertion delimiter] = " "

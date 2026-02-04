@@ -795,11 +795,29 @@
 )
 
 ;;!! foo: Int
+;;!! vararg foo: Int
 (
   (function_value_parameters
     (_)? @_.leading.endOf
     .
-    (parameter) @argumentOrParameter
+    [
+      ","
+      "("
+    ]
+    .
+    [
+      (line_comment)
+      (multiline_comment)
+    ] *
+    .
+    (parameter_modifiers)? @argumentOrParameter.start
+    .
+    (parameter) @argumentOrParameter.end
+    .
+    [
+      (line_comment)
+      (multiline_comment)
+    ] *
     .
     [
       ","
@@ -808,19 +826,59 @@
     .
     (_)? @_.trailing.startOf
   ) @_dummy
-  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+  (#single-or-multi-line-delimiter! @argumentOrParameter.end @_dummy ", " ",\n")
 )
 
-;;!! foo: Int = 0
+(
+  (function_value_parameters
+    (_)? @_dummy
+    .
+    [
+      ","
+      "("
+    ]
+    .
+    (parameter_modifiers)? @_.domain.start
+    .
+    (parameter
+      (simple_identifier) @name @type.leading.endOf
+      (user_type) @type
+    ) @_.domain.end
+    .
+    [
+      ","
+      ")"
+    ]
+  )
+)
+
+;; !! foo: Int = 0
+;; !! vararg foo: Int = 0
 (
   (function_value_parameters
     (_)? @_.leading.endOf
+    .
+    [
+      ","
+      "("
+    ]
+    .
+    [
+      (line_comment)
+      (multiline_comment)
+    ] *
+    .
+    (parameter_modifiers)? @argumentOrParameter.start.startOf
     .
     (parameter) @argumentOrParameter.start
     .
-    "="
-    .
     (_) @argumentOrParameter.end
+    (#not-type? @argumentOrParameter.end parameter parameter_modifiers)
+    .
+    [
+      (line_comment)
+      (multiline_comment)
+    ] *
     .
     [
       ","
@@ -829,8 +887,140 @@
     .
     (_)? @_.trailing.startOf
   ) @_dummy
-  (#single-or-multi-line-delimiter! @argumentOrParameter.start @_dummy ", " ",\n")
+  (#single-or-multi-line-delimiter! @argumentOrParameter.end @_dummy ", " ",\n")
 )
+
+(function_value_parameters
+  (_)? @_dummy
+  .
+  [
+    ","
+    "("
+  ]
+  .
+  (parameter_modifiers)? @_.domain.start
+  .
+  (parameter
+    (simple_identifier) @name @type.leading.endOf
+    (user_type) @type
+  ) @_.domain.start @value.leading.endOf
+  .
+  (_) @value @_.domain.end
+  (#not-type? @_.domain.end parameter parameter_modifiers)
+  .
+  [
+    ","
+    ")"
+  ]
+)
+
+;;!! foo: Int
+;; (
+;;   (function_value_parameters
+;;     (_)? @_.leading.endOf
+;;     .
+;;     (parameter) @argumentOrParameter
+;;     .
+;;     [
+;;       ","
+;;       ")"
+;;     ]
+;;     .
+;;     (_)? @_.trailing.startOf
+;;   ) @_dummy
+;;   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+;; )
+
+;;!! vararg foo: Int
+;; (
+;;   (function_value_parameters
+;;     (_)? @_.leading.endOf
+;;     .
+;;     (parameter_modifiers) @argumentOrParameter.start
+;;     .
+;;     (parameter) @argumentOrParameter.end
+;;     .
+;;     [
+;;       ","
+;;       ")"
+;;     ]
+;;     .
+;;     (_)? @_.trailing.startOf
+;;   ) @_dummy
+;;   (#single-or-multi-line-delimiter! @argumentOrParameter.start @_dummy ", " ",\n")
+;; )
+
+;;!! foo: Int = 0
+;; (
+;;   (function_value_parameters
+;;     (_)? @_.leading.endOf
+;;     .
+;;     (parameter) @argumentOrParameter.start
+;;     .
+;;     "="
+;;     .
+;;     (_) @argumentOrParameter.end
+;;     .
+;;     [
+;;       ","
+;;       ")"
+;;     ]
+;;     .
+;;     (_)? @_.trailing.startOf
+;;   ) @_dummy
+;;   (#single-or-multi-line-delimiter! @argumentOrParameter.start @_dummy ", " ",\n")
+;; )
+
+;;!! vararg foo: Int = 0
+;; (
+;;   (function_value_parameters
+;;     (_)? @_.leading.endOf
+;;     .
+;;     (parameter_modifiers) @argumentOrParameter.start
+;;     .
+;;     (parameter)
+;;     .
+;;     "="
+;;     .
+;;     (_) @argumentOrParameter.end
+;;     .
+;;     [
+;;       ","
+;;       ")"
+;;     ]
+;;     .
+;;     (_)? @_.trailing.startOf
+;;   ) @_dummy
+;;   (#single-or-multi-line-delimiter! @argumentOrParameter.start @_dummy ", " ",\n")
+;; )
+
+;;!! fun Foo(aaa: Int = 0) {}
+;;!          ^^^
+;;!               ^^^
+;;!                     ^
+;; (function_value_parameters
+;;   ;; [
+;;   ;;   "("
+;;   ;;   ","
+;;   ;;   (parameter_modifiers)? @_.domain.start.startOf
+;;   ;; ]
+;;   ;; .
+;;   (parameter
+;;     (simple_identifier) @name @type.leading.endOf
+;;     (user_type) @type
+;;   ) @_.domain.start @value.leading.endOf
+;;   .
+;;   (
+;;     "="
+;;     .
+;;     (_) @value @_.domain.end
+;;   )?
+;;   .
+;;   [
+;;     ","
+;;     ")"
+;;   ]
+;; )
 
 ;; (
 ;;   (function_value_parameters
@@ -1099,23 +1289,6 @@
     (_)? @_.trailing.startOf
   ) @_dummy
   (#single-or-multi-line-delimiter! @type @_dummy ", " ",\n")
-)
-
-;;!! fun Foo(aaa: Int = 0) {}
-;;!          ^^^
-;;!               ^^^
-;;!                     ^
-(function_value_parameters
-  (parameter
-    (simple_identifier) @name @type.leading.endOf
-    (user_type) @type
-  ) @_.domain.start @value.leading.endOf
-  .
-  (
-    "="
-    .
-    (_) @value @_.domain.end
-  )?
 )
 
 ;;!! class Foo(aaa: Int = 0) {}

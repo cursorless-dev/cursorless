@@ -1,5 +1,5 @@
 class Foo {
-    constructor(aaa: Int, bbb: Int) {}
+    constructor(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
 }
 ---
 
@@ -22,7 +22,7 @@ class Foo {
 [#1 Domain] = 0:0-2:1
   >-----------
 0| class Foo {
-1|     constructor(aaa: Int, bbb: Int) {}
+1|     constructor(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
 2| }
    -<
 
@@ -32,15 +32,15 @@ class Foo {
 [#2 Content] =
 [#2 Removal] = 1:4-1:15
       >-----------<
-1|     constructor(aaa: Int, bbb: Int) {}
+1|     constructor(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
 
 [#2 Leading delimiter] = 1:0-1:4
   >----<
-1|     constructor(aaa: Int, bbb: Int) {}
+1|     constructor(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
 
-[#2 Domain] = 1:4-1:38
-      >----------------------------------<
-1|     constructor(aaa: Int, bbb: Int) {}
+[#2 Domain] = 1:4-1:80
+      >----------------------------------------------------------------------------<
+1|     constructor(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
 
 [#2 Insertion delimiter] = " "
 
@@ -48,29 +48,67 @@ class Foo {
 [#3 Content] =
 [#3 Removal] = 1:16-1:19
                   >---<
-1|     constructor(aaa: Int, bbb: Int) {}
+1|     constructor(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
 
 [#3 Domain] = 1:16-1:24
                   >--------<
-1|     constructor(aaa: Int, bbb: Int) {}
+1|     constructor(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
 
 [#3 Insertion delimiter] = " "
 
 
-[#4 Content] = 1:26-1:29
-                            >---<
-1|     constructor(aaa: Int, bbb: Int) {}
+[#4 Content] = 1:33-1:36
+                                   >---<
+1|     constructor(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
 
-[#4 Removal] = 1:25-1:29
-                           >----<
-1|     constructor(aaa: Int, bbb: Int) {}
+[#4 Removal] = 1:32-1:36
+                                  >----<
+1|     constructor(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
 
-[#4 Leading delimiter] = 1:25-1:26
-                           >-<
-1|     constructor(aaa: Int, bbb: Int) {}
+[#4 Leading delimiter] = 1:32-1:33
+                                  >-<
+1|     constructor(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
 
-[#4 Domain] = 1:26-1:34
-                            >--------<
-1|     constructor(aaa: Int, bbb: Int) {}
+[#4 Domain] = 1:26-1:41
+                            >---------------<
+1|     constructor(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
 
 [#4 Insertion delimiter] = " "
+
+
+[#5 Content] = 1:43-1:46
+                                             >---<
+1|     constructor(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
+
+[#5 Removal] = 1:42-1:46
+                                            >----<
+1|     constructor(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
+
+[#5 Leading delimiter] = 1:42-1:43
+                                            >-<
+1|     constructor(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
+
+[#5 Domain] = 1:43-1:55
+                                             >------------<
+1|     constructor(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
+
+[#5 Insertion delimiter] = " "
+
+
+[#6 Content] = 1:64-1:67
+                                                                  >---<
+1|     constructor(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
+
+[#6 Removal] = 1:63-1:67
+                                                                 >----<
+1|     constructor(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
+
+[#6 Leading delimiter] = 1:63-1:64
+                                                                 >-<
+1|     constructor(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
+
+[#6 Domain] = 1:57-1:76
+                                                           >-------------------<
+1|     constructor(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
+
+[#6 Insertion delimiter] = " "
