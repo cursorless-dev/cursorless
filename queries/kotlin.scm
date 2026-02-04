@@ -95,7 +95,8 @@
 (function_declaration
   (simple_identifier) @name
   (function_value_parameters) @type.leading.endOf
-  (user_type)? @type
+  (type_modifiers)? @type.start
+  (user_type)? @type.end
 ) @namedFunction @_.domain
 
 ;;!! constructor() {}
@@ -104,7 +105,10 @@
 ) @namedFunction @name.domain
 
 ;;!! fun() {}
-(anonymous_function) @anonymousFunction
+(anonymous_function
+  (function_value_parameters) @type.leading.endOf
+  (user_type)? @type
+) @anonymousFunction @type.domain
 
 ;;!! {x -> 0}
 (lambda_literal
@@ -485,13 +489,25 @@
   )?
 ) @_.domain
 
-;;!! val (foo, bar) = baz
-;;!      ^^^^^^^^^^
-;;!                   ^^^
+;;!! val (foo: Int, bar: Int) = baz
+;;!       ^^^^^^^^^^^^^^^^^^
+;;!                             ^^^
 (property_declaration
-  (multi_variable_declaration) @name @value.leading.endOf
+  (multi_variable_declaration) @name.iteration @type.iteration @value.leading.endOf
   (_) @value
-) @_.domain
+) @value.domain @name.iteration.domain @type.iteration.domain
+
+;;!! val (foo: Int, bar: Int) = baz
+;;!       ^^^       ^^^
+;;!            ^^^       ^^^
+(property_declaration
+  (multi_variable_declaration
+    (variable_declaration
+      (simple_identifier) @name @type.leading.endOf
+      (user_type)? @type
+    ) @_.domain
+  )
+)
 
 ;;!! foo = 0
 ;;!  ^^^
@@ -1331,12 +1347,15 @@
   ) @argumentOrParameter @_.domain
 )
 
-;;!! set(aaa: Int) {}
+;;!! set(aaa: Int): Unit {}
 ;;!      ^^^^^^^^
+;;!                 ^^^^
 ;; There is only one parameter allowed, but we treat it as iterable for consistency.
 (setter
   (parameter_with_optional_type) @argumentOrParameter.iteration
-) @namedFunction @argumentOrParameter.iteration.domain
+  ")" @type.leading.endOf
+  (user_type)? @type
+) @namedFunction @type.domain @argumentOrParameter.iteration.domain
 
 ;; (constructor_delegation_call
 ;;   (value_arguments
