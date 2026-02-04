@@ -36,8 +36,6 @@ finalState:
   documentContents: |-
     package test
 
-
-
     @Annotation
     class Test {
         fun add(x: Int, y: Int) = x + y

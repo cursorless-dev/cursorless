@@ -45,6 +45,8 @@
   (jump_expression)
   (when_expression)
   (try_expression)
+  (import_list)
+  (package_header)
 
   ;; Disabled on purpose. We have a better definition of this below.
   ;; (if_expression)
@@ -704,12 +706,28 @@
 ;;   (_) @value.start
 ;; ) @value.end.endOf @_.domain
 
-;; (infix_expression
-;;   (_) @collectionKey
-;;   (simple_identifier) @_dummy
-;;   (#eq? @_dummy "to")
-;;   (_) @value
-;; ) @_.domain
+;;!! aaa to 0
+;;!  ^^^
+;;!         ^
+(infix_expression
+  (_) @collectionKey @value.leading.endOf
+  (simple_identifier) @_dummy
+  (_) @value
+  (#eq? @_dummy "to")
+) @_.domain
+
+;;!! mapOf( )
+;;!        ^
+(call_expression
+  (simple_identifier) @_dummy
+  (call_suffix
+    (value_arguments
+      "(" @collectionKey.iteration.start.endOf
+      ")" @collectionKey.iteration.end.startOf
+    )
+  )
+  (#eq? @_dummy "mapOf")
+)
 
 ;;
 ;; Function call, callee, arguments, and parameters
@@ -721,13 +739,17 @@
 ;;   ;; (constructor_delegation_call)
 ;; ] @functionCall
 
-;;!! foo()
-;;!  ^^^
+;;!! foo<T>()
+;;!  ^^^^^^^^
+;;!  ^^^^^^
 (call_expression
   [
     (simple_identifier)
     (navigation_expression)
-  ] @functionCallee
+  ] @functionCallee.start
+  (call_suffix
+    (type_arguments) @functionCallee.end
+  )?
 ) @functionCall @functionCallee.domain
 
 ;; (call_suffix

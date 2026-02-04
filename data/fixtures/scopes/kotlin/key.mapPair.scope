@@ -1,0 +1,43 @@
+mapOf(aaa to 0, bbb to 1)
+---
+
+[#1 Content] = 0:6-0:9
+        >---<
+0| mapOf(aaa to 0, bbb to 1)
+
+[#1 Removal] = 0:6-0:10
+        >----<
+0| mapOf(aaa to 0, bbb to 1)
+
+[#1 Trailing delimiter] = 0:9-0:10
+           >-<
+0| mapOf(aaa to 0, bbb to 1)
+
+[#1 Domain] = 0:6-0:14
+        >--------<
+0| mapOf(aaa to 0, bbb to 1)
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 0:16-0:19
+                  >---<
+0| mapOf(aaa to 0, bbb to 1)
+
+[#2 Removal] = 0:16-0:20
+                  >----<
+0| mapOf(aaa to 0, bbb to 1)
+
+[#2 Leading delimiter] = 0:15-0:16
+                 >-<
+0| mapOf(aaa to 0, bbb to 1)
+
+[#2 Trailing delimiter] = 0:19-0:20
+                     >-<
+0| mapOf(aaa to 0, bbb to 1)
+
+[#2 Domain] = 0:16-0:24
+                  >--------<
+0| mapOf(aaa to 0, bbb to 1)
+
+[#2 Insertion delimiter] = " "

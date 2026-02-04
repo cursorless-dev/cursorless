@@ -154,6 +154,9 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "name.iteration.enum": supported,
   "name.iteration.block": supported,
 
+  "key.mapPair": supported,
+  "key.mapPair.iteration": supported,
+
   "value.argument.actual": supported,
   "value.argument.actual.iteration": supported,
   "value.argument.formal": supported,
@@ -173,6 +176,8 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "value.iteration.block": supported,
   "value.iteration.class": supported,
   "value.iteration.document": supported,
+  "value.mapPair": supported,
+  "value.mapPair.iteration": supported,
 
   "type.argument.formal": supported,
   "type.argument.formal.iteration": supported,
@@ -285,12 +290,6 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "collectionItem.unenclosed.singleLine": notApplicable,
   "collectionItem.unenclosed.multiLine": notApplicable,
   "collectionItem.unenclosed.iteration": notApplicable,
-
-  // Map pair
-  "key.mapPair": notApplicable,
-  "key.mapPair.iteration": notApplicable,
-  "value.mapPair": notApplicable,
-  "value.mapPair.iteration": notApplicable,
 
   // Miscellaneous
   environment: notApplicable,
