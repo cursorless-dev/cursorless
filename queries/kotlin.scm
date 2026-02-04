@@ -64,9 +64,13 @@
 ;;!             ^^^
 (function_declaration
   (simple_identifier) @name
-  (function_value_parameters) @type.leading.endOf
+  (function_value_parameters) @type.leading.endOf @value.leading.start.endOf
   (type_modifiers)? @type.start
-  (user_type)? @type.end
+  (user_type)? @type.end @value.leading.start.endOf
+  (function_body
+    "="
+    (_) @value
+  )?
 ) @namedFunction @_.domain
 
 ;;!! constructor() {}
