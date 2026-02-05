@@ -521,9 +521,16 @@
   "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
 )
 
-;;!! const { aaa: bbb } = ccc;
-;;!               ^^^
-;;!          --------
+;;!! const {aaa: bbb} = ccc;
+;;!         ^^^^^^^^
+(object_pattern
+  "{" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
+  "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+) @_.domain
+
+;;!! const {aaa: bbb} = ccc;
+;;!         ^^^
+;;!              ^^^
 (pair_pattern
   key: (_) @collectionKey @value.leading.endOf
   value: (_) @value @collectionKey.trailing.startOf
