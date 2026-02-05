@@ -21,7 +21,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build --webpack",
-    "start": "http-server out -a 127.0.0.1 -p 8080",
+    "start": "http-server out -a 127.0.0.1 -p 8085",
     "lint": "next lint",
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
