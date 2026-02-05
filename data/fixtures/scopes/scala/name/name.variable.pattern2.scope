@@ -1,24 +1,24 @@
-val (a, b) = (0, 1)
+val (foo, bar) = baz
 ---
 
-[Content] = 0:4-0:10
-      >------<
-0| val (a, b) = (0, 1)
+[Content] = 0:4-0:14
+      >----------<
+0| val (foo, bar) = baz
 
-[Removal] = 0:4-0:11
-      >-------<
-0| val (a, b) = (0, 1)
+[Removal] = 0:4-0:15
+      >-----------<
+0| val (foo, bar) = baz
 
 [Leading delimiter] = 0:3-0:4
      >-<
-0| val (a, b) = (0, 1)
+0| val (foo, bar) = baz
 
-[Trailing delimiter] = 0:10-0:11
-            >-<
-0| val (a, b) = (0, 1)
+[Trailing delimiter] = 0:14-0:15
+                >-<
+0| val (foo, bar) = baz
 
-[Domain] = 0:0-0:19
-  >-------------------<
-0| val (a, b) = (0, 1)
+[Domain] = 0:0-0:20
+  >--------------------<
+0| val (foo, bar) = baz
 
 [Insertion delimiter] = " "

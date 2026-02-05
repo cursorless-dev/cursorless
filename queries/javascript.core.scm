@@ -448,10 +448,15 @@
 ;;!! function funk({ value = 2 })
 ;;!                  ^^^^^
 ;;!                          ^
-(object_assignment_pattern
-  left: (_) @name @value.leading.endOf
-  right: (_) @value
-) @_.domain
+(
+  (_
+    (object_assignment_pattern
+      left: (_) @name @value.leading.endOf
+      right: (_) @value
+    ) @_.domain
+  ) @_dummy
+  (#not-parent-type? @_dummy variable_declarator)
+)
 
 ;;!! const aaa = {bbb};
 ;;!               ^^^
