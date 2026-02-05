@@ -1,6 +1,6 @@
 languageId: java
 command:
-  version: 6
+  version: 7
   spokenForm: change quad
   action:
     name: clearAndSetSelection

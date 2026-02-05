@@ -1,6 +1,6 @@
 languageId: python
 command:
-  version: 6
+  version: 7
   spokenForm: post every token funk name skip past token
   action:
     name: setSelectionAfter

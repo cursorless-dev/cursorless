@@ -1,7 +1,7 @@
 languageId: python
 postEditorOpenSleepTimeMs: 200
 command:
-  version: 6
+  version: 7
   spokenForm: pour line
   action:
     name: editNewLineAfter

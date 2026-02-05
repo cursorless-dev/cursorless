@@ -1,6 +1,6 @@
 languageId: python
 command:
-  version: 6
+  version: 7
   spokenForm: take every access each
   action:
     name: setSelection

@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  version: 6
+  version: 7
   spokenForm: bring row one past two before bat
   action:
     name: replaceWithTarget

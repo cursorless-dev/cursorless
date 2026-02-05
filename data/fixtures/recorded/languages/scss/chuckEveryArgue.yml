@@ -1,6 +1,6 @@
 languageId: scss
 command:
-  version: 6
+  version: 7
   spokenForm: chuck every arg
   action:
     name: remove

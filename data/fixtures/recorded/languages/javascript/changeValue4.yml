@@ -1,6 +1,6 @@
 languageId: javascript
 command:
-  version: 6
+  version: 7
   spokenForm: change value
   action:
     name: clearAndSetSelection

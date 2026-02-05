@@ -1,6 +1,6 @@
 languageId: go
 command:
-  version: 6
+  version: 7
   spokenForm: pour branch drum
   action:
     name: editNewLineAfter

@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  version: 6
+  version: 7
   spokenForm: bring line bat past end of its funk to this
   action:
     name: replaceWithTarget

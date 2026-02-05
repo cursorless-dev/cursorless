@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  version: 6
+  version: 7
   spokenForm: pour line harp and block whale
   action:
     name: editNewLineAfter

@@ -1,6 +1,6 @@
 languageId: cpp
 command:
-  version: 6
+  version: 7
   spokenForm: take lambda
   action:
     name: setSelection

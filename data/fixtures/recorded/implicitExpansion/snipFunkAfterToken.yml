@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  version: 6
+  version: 7
   spokenForm: snippet funk after token
   action:
     name: insertSnippet

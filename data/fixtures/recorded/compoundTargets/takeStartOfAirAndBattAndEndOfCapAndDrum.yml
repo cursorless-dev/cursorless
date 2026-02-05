@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  version: 6
+  version: 7
   spokenForm: take start of air and bat and end of cap and drum
   action:
     name: setSelection
