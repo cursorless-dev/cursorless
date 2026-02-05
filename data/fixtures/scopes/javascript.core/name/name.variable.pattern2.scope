@@ -1,24 +1,24 @@
-const { foo = 1, bar: BAR } = baz;
+const {foo = 0, bar: BAR} = baz;
 ---
 
-[Content] = 0:6-0:27
-        >---------------------<
-0| const { foo = 1, bar: BAR } = baz;
+[Content] = 0:6-0:25
+        >-------------------<
+0| const {foo = 0, bar: BAR} = baz;
 
-[Removal] = 0:0-0:30
-  >------------------------------<
-0| const { foo = 1, bar: BAR } = baz;
+[Removal] = 0:0-0:28
+  >----------------------------<
+0| const {foo = 0, bar: BAR} = baz;
 
 [Leading delimiter] = 0:5-0:6
        >-<
-0| const { foo = 1, bar: BAR } = baz;
+0| const {foo = 0, bar: BAR} = baz;
 
-[Trailing delimiter] = 0:27-0:28
-                             >-<
-0| const { foo = 1, bar: BAR } = baz;
+[Trailing delimiter] = 0:25-0:26
+                           >-<
+0| const {foo = 0, bar: BAR} = baz;
 
-[Domain] = 0:0-0:34
-  >----------------------------------<
-0| const { foo = 1, bar: BAR } = baz;
+[Domain] = 0:0-0:32
+  >--------------------------------<
+0| const {foo = 0, bar: BAR} = baz;
 
 [Insertion delimiter] = " "
