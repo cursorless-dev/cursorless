@@ -2,9 +2,16 @@ not app: vscode
 -
 ---
 
-[Content] =
-[Removal] = 0:0-0:7
+[Content] = 0:0-0:7
   >-------<
+0| not app: vscode
+
+[Removal] = 0:0-0:9
+  >---------<
+0| not app: vscode
+
+[Trailing delimiter] = 0:7-0:9
+         >--<
 0| not app: vscode
 
 [Domain] = 0:0-0:15

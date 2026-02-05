@@ -1,9 +1,16 @@
 map[string]int{"aaa": 1, "bbb": 2}
 ---
 
-[#1 Content] =
-[#1 Removal] = 0:15-0:20
+[#1 Content] = 0:15-0:20
                  >-----<
+0| map[string]int{"aaa": 1, "bbb": 2}
+
+[#1 Removal] = 0:15-0:22
+                 >-------<
+0| map[string]int{"aaa": 1, "bbb": 2}
+
+[#1 Trailing delimiter] = 0:20-0:22
+                      >--<
 0| map[string]int{"aaa": 1, "bbb": 2}
 
 [#1 Domain] = 0:15-0:23
@@ -17,12 +24,12 @@ map[string]int{"aaa": 1, "bbb": 2}
                            >-----<
 0| map[string]int{"aaa": 1, "bbb": 2}
 
-[#2 Removal] = 0:24-0:30
-                          >------<
+[#2 Removal] = 0:25-0:32
+                           >-------<
 0| map[string]int{"aaa": 1, "bbb": 2}
 
-[#2 Leading delimiter] = 0:24-0:25
-                          >-<
+[#2 Trailing delimiter] = 0:30-0:32
+                                >--<
 0| map[string]int{"aaa": 1, "bbb": 2}
 
 [#2 Domain] = 0:25-0:33

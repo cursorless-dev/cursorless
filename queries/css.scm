@@ -36,9 +36,9 @@
 
 ;;!! width: 100px;
 (declaration
-  (property_name) @name @collectionKey
+  (property_name) @name @collectionKey @value.leading.endOf
   .
-  (_) @value.start
+  (_) @value.start @name.trailing.startOf @collectionKey.trailing.startOf
   (_)? @value.end
   .
 ) @collectionItem @_.domain

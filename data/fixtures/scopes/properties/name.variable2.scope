@@ -1,9 +1,16 @@
 foo.bar=baz
 ---
 
-[Content] =
-[Removal] = 0:0-0:7
+[Content] = 0:0-0:7
   >-------<
+0| foo.bar=baz
+
+[Removal] = 0:0-0:8
+  >--------<
+0| foo.bar=baz
+
+[Trailing delimiter] = 0:7-0:8
+         >-<
 0| foo.bar=baz
 
 [Domain] = 0:0-0:11

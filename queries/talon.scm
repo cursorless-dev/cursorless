@@ -30,42 +30,44 @@
 (block) @statement.iteration
 
 ;;!! not mode: command
-;;!  ----^^^^---------
+;;!      ^^^^
+;;!            ^^^^^^^
 ;;!! slap: key(enter)
-;;!  ^^^^------------
+;;!  ^^^^
+;;!        ^^^^^^^^^^
 ;;!! tag(): user.cursorless
-;;!  ^^^^^-----------------
+;;!  ^^^^^
+;;!         ^^^^^^^^^^^^^^^
 (
   (_
-    left: _ @name
+    left: _ @name @value.leading.endOf
+    right: (_) @value
   ) @_.domain
-  (#not-type? @_.domain binary_operator)
+  (#not-type? @_.domain binary_operator assignment_statement)
 )
 
 ;;!! not mode: command
-;;!  ^^^^^^^^---------
+;;!  ^^^^^^^^
 ;;!! slap: key(enter)
-;;!  ^^^^------------
+;;!  ^^^^
 ;;!! tag(): user.cursorless
-;;!  ^^^^^-----------------
+;;!  ^^^^^
 (
   (_
     modifiers: (_)? @collectionKey.start
     left: _ @collectionKey.end
+    right: (_) @collectionKey.trailing.startOf
   ) @_.domain
-  (#not-type? @_.domain binary_operator)
+  (#not-type? @_.domain binary_operator assignment_statement)
 )
 
-;;!! not mode: command
-;;!  ----------^^^^^^^
-;;!! slap: key(enter)
-;;!  ------^^^^^^^^^^
-(
-  (_
-    right: (_) @value
-  ) @_.domain
-  (#not-type? @_.domain binary_operator)
-)
+;;!! foo = 0
+;;!  ^^^
+;;!        ^
+(assignment_statement
+  left: (_) @name @value.leading.endOf
+  right: (_) @value @name.trailing.startOf
+) @_.domain
 
 ;;!! mode: command
 ;;!  ^^^^^^^^^^^^^

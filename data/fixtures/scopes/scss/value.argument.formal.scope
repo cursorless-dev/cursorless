@@ -5,12 +5,12 @@
                    >-<
 0| @mixin foo($aaa: 0, $bbb: 1) {}
 
-[#1 Removal] = 0:16-0:18
-                  >--<
+[#1 Removal] = 0:15-0:18
+                 >---<
 0| @mixin foo($aaa: 0, $bbb: 1) {}
 
-[#1 Leading delimiter] = 0:16-0:17
-                  >-<
+[#1 Leading delimiter] = 0:15-0:17
+                 >--<
 0| @mixin foo($aaa: 0, $bbb: 1) {}
 
 [#1 Domain] = 0:11-0:18
@@ -24,12 +24,12 @@
                             >-<
 0| @mixin foo($aaa: 0, $bbb: 1) {}
 
-[#2 Removal] = 0:25-0:27
-                           >--<
+[#2 Removal] = 0:24-0:27
+                          >---<
 0| @mixin foo($aaa: 0, $bbb: 1) {}
 
-[#2 Leading delimiter] = 0:25-0:26
-                           >-<
+[#2 Leading delimiter] = 0:24-0:26
+                          >--<
 0| @mixin foo($aaa: 0, $bbb: 1) {}
 
 [#2 Domain] = 0:20-0:27

@@ -6,12 +6,12 @@ $foo = 0;
   >----<
 1| $foo = 0;
 
-[Removal] = 1:0-1:5
-  >-----<
+[Removal] = 1:0-1:7
+  >-------<
 1| $foo = 0;
 
-[Trailing delimiter] = 1:4-1:5
-      >-<
+[Trailing delimiter] = 1:4-1:7
+      >---<
 1| $foo = 0;
 
 [Domain] = 1:0-1:9

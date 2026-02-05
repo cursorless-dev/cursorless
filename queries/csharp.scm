@@ -348,32 +348,15 @@
   (initializer_expression) @list
 )
 
-;;!! FirstName = "Craig"
-;;!  ^^^^^^^^^
-(initializer_expression
-  (assignment_expression
-    left: (_) @collectionKey
-  ) @_.domain
-)
-
 (initializer_expression
   "{" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
   "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
 )
 
-;;!! String aaa;
+;;!! String foo = 0
+;;!  ^^^^^^
 ;;!         ^^^
-(_
-  (variable_declaration
-    type: (_) @type
-    (variable_declarator
-      (identifier) @name
-    )
-  )
-) @_.domain
-
-;;!! String aaa = "bbb";
-;;!         ^^^
+;;!               ^
 (_
   (variable_declaration
     type: (_) @type
@@ -381,7 +364,7 @@
       (identifier) @name @value.leading.endOf
       (equals_value_clause
         (_) @value
-      )
+      )?
     )
   )
 ) @_.domain
@@ -393,10 +376,19 @@
 (_
   (assignment_expression
     left: (_) @name @value.leading.endOf
-    right: (_) @value
+    right: (_) @value @name.trailing.startOf
   ) @_.domain.start
   .
   ";"? @_.domain.end
+)
+
+;;!! new Foo { aaa = 0 }
+;;!            ^^^
+(initializer_expression
+  (assignment_expression
+    left: (_) @collectionKey
+    right: (_) @collectionKey.trailing.startOf
+  ) @_.domain
 )
 
 (_

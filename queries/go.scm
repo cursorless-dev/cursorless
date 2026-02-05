@@ -295,9 +295,9 @@
 ;;!                        ^         ^
 (keyed_element
   .
-  (_) @collectionKey
+  (_) @collectionKey @value.leading.endOf
   .
-  (_) @value
+  (_) @value @collectionKey.trailing.startOf
 ) @_.domain
 
 ;;!! map[string]int{"aaa": 1, "bbb": 2}
@@ -492,7 +492,7 @@
 ;;!        ^
 (assignment_statement
   left: (_) @name @value.leading.endOf
-  right: (_) @value
+  right: (_) @value @name.trailing.startOf
 ) @_.domain
 
 operator: [

@@ -5,12 +5,12 @@ foo = 1
   >---<
 0| foo = 1
 
-[Removal] = 0:0-0:4
-  >----<
+[Removal] = 0:0-0:6
+  >------<
 0| foo = 1
 
-[Trailing delimiter] = 0:3-0:4
-     >-<
+[Trailing delimiter] = 0:3-0:6
+     >---<
 0| foo = 1
 
 [Domain] = 0:0-0:7

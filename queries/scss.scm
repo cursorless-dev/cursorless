@@ -119,7 +119,7 @@
 ;;!      ^^^^  ^^^
 (
   (parameter
-    (variable_name) @name
+    (variable_name) @name @value.leading.endOf
     (default_value)? @value
   ) @_.domain
   (#not-eq? @_.domain "")

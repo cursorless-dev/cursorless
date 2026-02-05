@@ -8,12 +8,12 @@
              >---<
 1|     color: red;
 
-[#1 Removal] = 1:10-1:14
-            >----<
+[#1 Removal] = 1:9-1:14
+           >-----<
 1|     color: red;
 
-[#1 Leading delimiter] = 1:10-1:11
-            >-<
+[#1 Leading delimiter] = 1:9-1:11
+           >--<
 1|     color: red;
 
 [#1 Domain] = 1:4-1:15
@@ -27,12 +27,12 @@
                >----<
 2|     padding: 1rem;
 
-[#2 Removal] = 2:12-2:17
-              >-----<
+[#2 Removal] = 2:11-2:17
+             >------<
 2|     padding: 1rem;
 
-[#2 Leading delimiter] = 2:12-2:13
-              >-<
+[#2 Leading delimiter] = 2:11-2:13
+             >--<
 2|     padding: 1rem;
 
 [#2 Domain] = 2:4-2:18

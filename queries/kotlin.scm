@@ -64,14 +64,21 @@
 ;;!             ^^^
 (function_declaration
   (simple_identifier) @name
-  (function_value_parameters) @type.leading.endOf @value.leading.start.endOf
+  (function_value_parameters) @type.leading.endOf
   (type_modifiers)? @type.start
-  (user_type)? @type.end @value.leading.start.endOf
+  (user_type)? @type.end
+) @namedFunction @_.domain
+
+;;!! fun foo(): Int = 0
+;;!                   ^
+(function_declaration
+  (_) @value.leading.start.endOf
+  .
   (function_body
     "="
     (_) @value
-  )?
-) @namedFunction @_.domain
+  )
+) @value.domain
 
 ;;!! constructor() {}
 (secondary_constructor
@@ -317,7 +324,7 @@
 ;;!        ^
 (assignment
   (directly_assignable_expression) @name @value.leading.endOf
-  (_) @value
+  (_) @value @name.trailing.startOf
   .
 ) @_.domain
 
@@ -373,8 +380,8 @@
 (infix_expression
   (_) @collectionKey @value.leading.endOf
   (simple_identifier) @_dummy
-  (_) @value
-  (#eq? @_dummy "to")
+  (_) @value @collectionKey.trailing.startOf
+  (#eq? @_dummy to)
 ) @_.domain
 
 ;;!! mapOf( )
@@ -387,7 +394,7 @@
       ")" @collectionKey.iteration.end.startOf
     )
   )
-  (#eq? @_dummy "mapOf")
+  (#eq? @_dummy mapOf)
 )
 
 ;;!! foo<T>()
@@ -648,7 +655,7 @@
 (value_argument
   (simple_identifier) @name @value.leading.endOf
   "="
-  (_) @value
+  (_) @value @name.trailing.startOf
 ) @_.domain
 
 ;;!! var foo: Map<Int, Int>

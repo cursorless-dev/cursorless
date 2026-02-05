@@ -114,7 +114,7 @@
 (_
   (assignment_expression
     left: (_) @name @value.leading.endOf
-    right: (_) @value
+    right: (_) @value @name.trailing.startOf
   ) @_.domain.start
   .
   ";"? @_.domain.end
@@ -126,7 +126,7 @@
 (_
   (augmented_assignment_expression
     left: (_) @name @value.leading.endOf
-    right: (_) @value
+    right: (_) @value @name.trailing.startOf
   ) @_.domain.start
   .
   ";"? @_.domain.end

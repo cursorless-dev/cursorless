@@ -7,32 +7,26 @@
   (command_declaration)
 ] @statement
 
-;;!! not app: vscode
-;;!      ^^^
+;;!! not mode: command
+;;!      ^^^^
+;;!            ^^^^^^^
+;;!!  foo: "bar"
+;;!   ^^^
+;;!        ^^^^^
+(_
+  left: _ @name @value.leading.endOf
+  right: (_) @value
+) @_.domain
+
+;;!! not mode: command
+;;!  ^^^^^^^^
 ;;!!  foo: "bar"
 ;;!   ^^^
 (_
-  left: _ @name
-) @_.domain
-
-;;!! not app: vscode
-;;!  ^^^^^^^
-;;!!  foo: "bar"
-;;!   ^^^^^^^^^^
-(_
   modifiers: (_)? @collectionKey.start
   left: _ @collectionKey.end
+  right: (_) @collectionKey.trailing.startOf
 ) @_.domain
-
-;;!! not app: vscode
-;;!           ^^^^^^
-;;!!  foo: "bar"
-;;!        ^^^^^
-(
-  (_
-    right: (_) @value
-  ) @_.domain
-)
 
 ;;!! # foo
 ;;!  ^^^^^

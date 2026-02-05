@@ -6,15 +6,17 @@ command:
       >-------<
 1|     foo = 0
 
-[#1 Removal] = 0:8-1:11
-          >
+[#1 Removal] = 0:7-1:11
+         >-
 0| command:
 1|     foo = 0
    -----------<
 
-[#1 Leading delimiter] = 1:0-1:4
-  >----<
+[#1 Leading delimiter] = 0:7-1:4
+         >-
+0| command:
 1|     foo = 0
+   ----<
 
 [#1 Domain] = 0:0-1:11
   >--------
@@ -29,12 +31,12 @@ command:
             >-<
 1|     foo = 0
 
-[#2 Removal] = 1:9-1:11
-           >--<
+[#2 Removal] = 1:7-1:11
+         >----<
 1|     foo = 0
 
-[#2 Leading delimiter] = 1:9-1:10
-           >-<
+[#2 Leading delimiter] = 1:7-1:10
+         >---<
 1|     foo = 0
 
 [#2 Domain] = 1:4-1:11

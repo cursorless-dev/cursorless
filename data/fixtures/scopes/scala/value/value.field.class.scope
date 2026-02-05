@@ -1,6 +1,5 @@
 class Foo {
     var bar = 0
-    val baz = 0
 }
 ---
 

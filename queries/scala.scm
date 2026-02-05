@@ -217,7 +217,7 @@
 ;;!        ^
 (assignment_expression
   left: (_) @name @value.leading.endOf
-  right: (_) @value
+  right: (_) @value @name.trailing.startOf
 ) @_.domain
 
 (
@@ -225,8 +225,8 @@
     condition: (parenthesized_expression
       (_) @condition
     )
-  ) @_.domain
-  (#not-type? @_.domain if_expression)
+  ) @condition.domain
+  (#not-type? @condition.domain if_expression)
 )
 
 ;;!! type Vector = (Int, Int)
@@ -239,18 +239,18 @@
 ;;!! class Example(foo: String = "foo") {}
 ;;!                              ^^^^^
 (_
-  (_) @_.leading.endOf
+  (_) @value.leading.endOf
   .
   default_value: (_) @value
-) @_.domain
+) @value.domain
 
 ;;!! val bar = "bar"
 ;;!            ^^^^^
 (_
-  (_) @_.leading.endOf
+  (_) @value.leading.endOf
   .
   value: (_) @value
-) @_.domain
+) @value.domain
 
 ;;!! type Vector = (Int, Int)
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -279,19 +279,19 @@
 ;;!           ^^^^^^
 (
   (_
-    (_) @_.leading.endOf
+    (_) @type.leading.endOf
     .
     type: (_) @type
-  ) @_.domain
-  (#not-type? @_.domain type_definition typed_pattern)
+  ) @type.domain
+  (#not-type? @type.domain type_definition typed_pattern)
 )
 
 ;;!! def str(): String = "bar"
 ;;!             ^^^^^^
 (function_definition
-  (parameters) @_.leading.endOf
+  (parameters) @type.leading.endOf
   return_type: (_) @type
-) @_.domain
+) @type.domain
 
 ;;!! return 0
 ;;!         ^
