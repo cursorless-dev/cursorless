@@ -21,11 +21,11 @@
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
   },
   "devDependencies": {
-    "@types/react": "^19.2.7",
+    "@types/react": "^19.2.11",
     "@types/react-dom": "^19.2.3",
     "@types/vscode-webview": "^1.57.5",
     "tailwindcss": "^4.1.18"

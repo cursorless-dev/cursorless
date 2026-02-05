@@ -12,9 +12,9 @@
   "private": true,
   "devDependencies": {
     "@types/mocha": "^10.0.10",
-    "@types/node": "^20.17.50",
+    "@types/node": "^25.2.0",
     "@types/rimraf": "^^3.0.0",
-    "@types/vscode": "^1.95.0",
+    "@types/vscode": "^1.98.0",
     "@typescript-eslint/eslint-plugin": "^8.32.1",
     "@typescript-eslint/parser": "^8.32.1",
     "esbuild": "^0.27.0",
