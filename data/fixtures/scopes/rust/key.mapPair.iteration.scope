@@ -1,0 +1,7 @@
+let Foo {bar: BAR, baz: BAZ} = bongo;
+---
+
+[Content] =
+[Domain] = 0:9-0:27
+           >------------------<
+0| let Foo {bar: BAR, baz: BAZ} = bongo;

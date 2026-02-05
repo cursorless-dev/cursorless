@@ -172,6 +172,7 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "value.return": supported,
   "value.return.lambda": supported,
   "value.variable": supported,
+  "value.variable.pattern": supported,
   "value.typeAlias": supported,
   "value.iteration.block": supported,
   "value.iteration.class": supported,
@@ -302,5 +303,4 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "class.iteration.block": notApplicable,
   "type.cast": notApplicable,
   "statement.misc": notApplicable,
-  "value.variable.pattern": notApplicable,
 };

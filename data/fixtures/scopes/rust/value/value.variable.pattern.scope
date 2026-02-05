@@ -1,20 +1,16 @@
 let Foo {bar, baz} = bongo;
 ---
 
-[Content] = 0:4-0:18
-      >--------------<
+[Content] = 0:21-0:26
+                       >-----<
 0| let Foo {bar, baz} = bongo;
 
-[Removal] = 0:4-0:19
-      >---------------<
+[Removal] = 0:18-0:26
+                    >--------<
 0| let Foo {bar, baz} = bongo;
 
-[Leading delimiter] = 0:3-0:4
-     >-<
-0| let Foo {bar, baz} = bongo;
-
-[Trailing delimiter] = 0:18-0:19
-                    >-<
+[Leading delimiter] = 0:18-0:21
+                    >---<
 0| let Foo {bar, baz} = bongo;
 
 [Domain] = 0:0-0:27

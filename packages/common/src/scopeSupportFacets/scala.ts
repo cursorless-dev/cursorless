@@ -167,6 +167,7 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.return": supported,
   "value.return.lambda": supported,
   "value.variable": supported,
+  "value.variable.pattern": supported,
   "value.iteration.block": supported,
   "value.iteration.class": supported,
   "value.iteration.document": supported,
@@ -305,7 +306,6 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   selector: notApplicable,
   unit: notApplicable,
   attribute: notApplicable,
-  "value.variable.pattern": notApplicable,
   "type.cast": notApplicable,
   "statement.misc": notApplicable,
 };

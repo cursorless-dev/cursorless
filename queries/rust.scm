@@ -235,6 +235,13 @@
   (tuple_expression)
 ] @list
 
+;;!! let Foo {bar: baz} = bongo;
+;;!           ^^^^^^^^
+(struct_pattern
+  "{" @map.start @collectionKey.iteration.start.endOf @value.iteration.start.endOf
+  "}" @map.end @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+)
+
 ;;!! match value {}
 (match_expression
   value: (_) @value

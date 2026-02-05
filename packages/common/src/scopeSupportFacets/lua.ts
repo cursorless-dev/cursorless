@@ -71,6 +71,7 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.foreach": supported,
   "value.return": supported,
   "value.variable": supported,
+  "value.variable.pattern": supported,
   "value.iteration.block": supported,
   "value.iteration.document": supported,
 
@@ -309,7 +310,6 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Miscellaneous
   "statement.misc": notApplicable,
-  "value.variable.pattern": notApplicable,
   pairDelimiter: notApplicable,
   environment: notApplicable,
   regularExpression: notApplicable,

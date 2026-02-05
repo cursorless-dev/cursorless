@@ -7,6 +7,7 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   disqualifyDelimiter: supported,
   anonymousFunction: supported,
   list: supported,
+  map: supported,
 
   "argument.actual.singleLine": supported,
   "argument.actual.multiLine": supported,
@@ -120,6 +121,9 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "name.iteration.enum": supported,
   "name.iteration.document": supported,
 
+  "key.mapPair": supported,
+  "key.mapPair.iteration": supported,
+
   "value.assignment": supported,
   "value.foreach": supported,
   "value.return": supported,
@@ -127,9 +131,12 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "value.switch": supported,
   "value.typeAlias": supported,
   "value.variable": supported,
+  "value.variable.pattern": supported,
   "value.iteration.block": supported,
   "value.iteration.class": supported,
   "value.iteration.document": supported,
+  "value.mapPair": supported,
+  "value.mapPair.iteration": supported,
 
   "type.argument.formal": supported,
   "type.argument.formal.iteration": supported,
@@ -237,13 +244,6 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "type.resource.iteration": notApplicable,
   "interior.resource": notApplicable,
 
-  // Map literal
-  map: notApplicable,
-  "key.mapPair": notApplicable,
-  "key.mapPair.iteration": notApplicable,
-  "value.mapPair": notApplicable,
-  "value.mapPair.iteration": notApplicable,
-
   // Keyword argument
   "name.argument.actual": notApplicable,
   "name.argument.actual.iteration": notApplicable,
@@ -308,7 +308,6 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "value.field.class": notApplicable,
   "type.foreach": notApplicable,
   "class.iteration.block": notApplicable,
-  "value.variable.pattern": notApplicable,
   environment: notApplicable,
   regularExpression: notApplicable,
   selector: notApplicable,

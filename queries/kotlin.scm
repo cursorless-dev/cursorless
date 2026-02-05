@@ -303,7 +303,7 @@
 ;;!       ^^^^^^^^^^^^^^^^^^
 ;;!                             ^^^
 (property_declaration
-  (multi_variable_declaration) @name
+  (multi_variable_declaration) @name @value.leading.endOf
   (_) @value
 ) @_.domain
 
