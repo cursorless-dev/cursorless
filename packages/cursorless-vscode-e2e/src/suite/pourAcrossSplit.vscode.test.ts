@@ -1,3 +1,4 @@
+import { LATEST_VERSION } from "@cursorless/common";
 import {
   getCursorlessApi,
   openNewEditor,
@@ -21,10 +22,11 @@ async function runTest() {
   await hatTokenMap.allocateHats();
 
   await runCursorlessCommand({
-    version: 4,
-    action: { name: "editNewLineAfter" },
-    targets: [
-      {
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
+    action: {
+      name: "editNewLineAfter",
+      target: {
         type: "primitive",
         mark: {
           type: "decoratedSymbol",
@@ -32,8 +34,7 @@ async function runTest() {
           character: "e",
         },
       },
-    ],
-    usePrePhraseSnapshot: false,
+    },
   });
 
   assert.deepStrictEqual(document1.getText(), "hello world\n");

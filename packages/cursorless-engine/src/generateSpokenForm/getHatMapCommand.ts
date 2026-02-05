@@ -2,7 +2,7 @@ import type {
   CommandLatest,
   PartialPrimitiveTargetDescriptor,
 } from "@cursorless/common";
-import { splitKey } from "@cursorless/common";
+import { LATEST_VERSION, splitKey } from "@cursorless/common";
 
 /**
  * Constructs the command that would have been used as the second command when
@@ -24,6 +24,8 @@ export function getHatMapCommand(marks: string[]): CommandLatest {
   );
 
   return {
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
     action: {
       name: "setSelection",
       target:
@@ -34,7 +36,5 @@ export function getHatMapCommand(marks: string[]): CommandLatest {
               elements: primitiveTargets,
             },
     },
-    version: 7,
-    usePrePhraseSnapshot: false,
   };
 }

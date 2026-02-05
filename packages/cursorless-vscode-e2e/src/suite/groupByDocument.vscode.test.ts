@@ -1,4 +1,4 @@
-import { splitKey } from "@cursorless/common";
+import { LATEST_VERSION, splitKey } from "@cursorless/common";
 import {
   getCursorlessApi,
   runCursorlessCommand,
@@ -50,10 +50,11 @@ async function runTest() {
   const { hatStyle: hatStyle2, character: char2 } = splitKey(hat2![0]);
 
   await runCursorlessCommand({
-    version: 4,
-    action: { name: "swapTargets" },
-    targets: [
-      {
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
+    action: {
+      name: "swapTargets",
+      target1: {
         type: "primitive",
         mark: {
           type: "decoratedSymbol",
@@ -61,7 +62,7 @@ async function runTest() {
           character: char1,
         },
       },
-      {
+      target2: {
         type: "primitive",
         mark: {
           type: "decoratedSymbol",
@@ -69,8 +70,7 @@ async function runTest() {
           character: char2,
         },
       },
-    ],
-    usePrePhraseSnapshot: false,
+    },
   });
 
   assert.deepStrictEqual(document.getText(), "world hello");

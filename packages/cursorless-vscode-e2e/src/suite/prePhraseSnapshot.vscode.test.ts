@@ -1,4 +1,8 @@
-import { HatStability, selectionToPlainObject } from "@cursorless/common";
+import {
+  HatStability,
+  LATEST_VERSION,
+  selectionToPlainObject,
+} from "@cursorless/common";
 import {
   fromVscodeSelection,
   getCursorlessApi,
@@ -59,13 +63,12 @@ async function runTest(
   prePhraseVersion = "version2";
 
   await runCursorlessCommand({
-    version: 4,
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
     spokenForm: "whatever",
     action: {
       name: "replaceWithTarget",
-    },
-    targets: [
-      {
+      source: {
         type: "primitive",
         mark: {
           type: "decoratedSymbol",
@@ -73,11 +76,10 @@ async function runTest(
           character: "a",
         },
       },
-      {
+      destination: {
         type: "implicit",
       },
-    ],
-    usePrePhraseSnapshot: false,
+    },
   });
 
   await hatTokenMap.allocateHats();
@@ -88,11 +90,12 @@ async function runTest(
   }
 
   await runCursorlessCommand({
-    version: 1,
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot,
     spokenForm: "whatever",
-    action: "setSelection",
-    targets: [
-      {
+    action: {
+      name: "setSelection",
+      target: {
         type: "primitive",
         mark: {
           type: "decoratedSymbol",
@@ -100,8 +103,7 @@ async function runTest(
           character: "a",
         },
       },
-    ],
-    usePrePhraseSnapshot,
+    },
   });
 
   assert.deepStrictEqual(

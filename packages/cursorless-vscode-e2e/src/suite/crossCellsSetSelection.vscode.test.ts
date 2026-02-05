@@ -1,3 +1,4 @@
+import { LATEST_VERSION } from "@cursorless/common";
 import { isLinux } from "@cursorless/node-common";
 import {
   getCursorlessApi,
@@ -29,10 +30,11 @@ async function runTest() {
   await hatTokenMap.allocateHats();
 
   await runCursorlessCommand({
-    version: 1,
-    action: "setSelection",
-    targets: [
-      {
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
+    action: {
+      name: "setSelection",
+      target: {
         type: "primitive",
         mark: {
           type: "decoratedSymbol",
@@ -40,7 +42,7 @@ async function runTest() {
           character: "o",
         },
       },
-    ],
+    },
   });
 
   const editor = window.activeTextEditor;
