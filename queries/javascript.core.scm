@@ -629,36 +629,35 @@
 ;;!! true ? 0 : 1
 ;;!  ^^^^
 ;;!         ^   ^
-;;! -------------
 (ternary_expression
   condition: (_) @condition
   consequence: (_) @branch
 ) @condition.domain @branch.iteration
+
 (ternary_expression
   alternative: (_) @branch
 )
 
 ;;!! for (let i = 0; i < 2; ++i) {}
 ;;!                  ^^^^^
-;;!  ------------------------------
 (for_statement
   condition: (_) @condition
   (#child-range! @condition 0 -1 false true)
-) @_.domain
+) @condition.domain
 
 ;;!! while (true) {}
 ;;!         ^^^^
 (while_statement
   condition: (_) @condition
   (#child-range! @condition 0 -1 true true)
-) @_.domain
+) @condition.domain
 
 ;;!! do {} while (true);
 ;;!               ^^^^
 (do_statement
   condition: (_) @condition
   (#child-range! @condition 0 -1 true true)
-) @_.domain
+) @condition.domain
 
 ;;!! switch (value) { }
 ;;!          ^^^^^
@@ -670,7 +669,7 @@
     "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
   )
   (#child-range! @value 0 -1 true true)
-) @branch.iteration.domain @condition.iteration.domain @value.domain
+) @value.domain
 
 ;;!! case 0: break;
 ;;!  ^^^^^^^^^^^^^^
@@ -762,13 +761,6 @@
 ;;!! try () {} catch () {} finally {}
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 (try_statement) @branch.iteration
-
-[
-  (for_statement)
-  (for_in_statement)
-  (while_statement)
-  (do_statement)
-] @branch
 
 ;;!! { value: 0 }
 ;;!    ^^^^^

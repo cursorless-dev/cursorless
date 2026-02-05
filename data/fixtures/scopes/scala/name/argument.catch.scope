@@ -5,20 +5,21 @@ catch {
 }
 ---
 
-[#1 Content] = 2:9-2:10
-           >-<
+[#1 Content] =
+[#1 Domain] = 2:9-2:21
+           >------------<
 2|     case e: Exception => 0
 
-[#1 Removal] = 2:8-2:10
-          >--<
+[#1 Removal] = 2:9-2:22
+           >-------------<
 2|     case e: Exception => 0
 
 [#1 Leading delimiter] = 2:8-2:9
           >-<
 2|     case e: Exception => 0
 
-[#1 Domain] = 2:9-2:21
-           >------------<
+[#1 Trailing delimiter] = 2:21-2:22
+                       >-<
 2|     case e: Exception => 0
 
 [#1 Insertion delimiter] = " "

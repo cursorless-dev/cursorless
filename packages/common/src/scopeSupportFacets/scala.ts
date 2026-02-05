@@ -28,6 +28,7 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal.lambda.singleLine": supported,
   "argument.formal.lambda.multiLine": supported,
   "argument.formal.lambda.iteration": supported,
+  "argument.catch": supported,
 
   "argumentList.actual.empty": supported,
   "argumentList.actual.singleLine": supported,
@@ -307,5 +308,4 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.variable.pattern": notApplicable,
   "type.cast": notApplicable,
   "statement.misc": notApplicable,
-  "argument.catch": notApplicable,
 };

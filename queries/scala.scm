@@ -161,7 +161,7 @@
     "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
     "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
   )
-) @value.domain @branch.iteration.domain @condition.iteration.domain
+) @value.domain
 
 ;;!! for (v <- values) {}
 (for_expression
@@ -267,10 +267,9 @@
           pattern: (identifier) @name @type.leading.endOf
           type: (_) @type
         )
-      ]
-    ) @_.domain
+      ] @argumentOrParameter @_.domain
+    )
   )
-  (#trim-end! @_.domain)
 )
 
 ;;!! def str(bar: String)

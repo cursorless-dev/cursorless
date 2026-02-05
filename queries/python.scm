@@ -408,12 +408,6 @@
   function: (_) @functionCallee
 ) @_.domain
 
-;;!! match value:
-;;!        ^^^^^
-(match_statement
-  subject: (_) @value
-) @_.domain
-
 ;;!! { "value": 0 }
 ;;!    ^^^^^^^
 ;;!    xxxxxxxxx
@@ -432,6 +426,14 @@
   condition: (_) @condition
 ) @_.domain
 
+;;!! match foo: pass
+;;!        ^^^
+;;!             ^^^^
+(match_statement
+  subject: (_) @value
+  body: (_) @branch.iteration @condition.iteration
+) @value.domain
+
 ;;!! case value:
 ;;!        ^^^^^
 (case_clause
@@ -442,10 +444,6 @@
 ;;!! case 0: pass
 ;;!  ^^^^^^^^^^^^
 (case_clause) @branch
-
-(match_statement
-  body: (_) @branch.iteration @condition.iteration
-) @branch.iteration.domain @condition.iteration.domain
 
 ;;!! 1 if True else 0
 ;;!       ^^^^

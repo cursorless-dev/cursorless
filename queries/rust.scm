@@ -242,7 +242,7 @@
     "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
     "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
   )
-) @value.domain @branch.iteration.domain @condition.iteration.domain
+) @value.domain
 
 ;;!! #[derive(Debug)]
 ;;!  ^^^^^^^^^^^^^^^^
@@ -371,7 +371,7 @@
 (closure_expression
   body: (_) @value
   (#not-type? @value block)
-)
+) @value.domain
 
 ;;!! while v < 0 {}
 ;;!        ^^^^^

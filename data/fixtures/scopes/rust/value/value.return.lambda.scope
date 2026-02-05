@@ -1,8 +1,7 @@
 |x| 0;
 ---
 
-[Content] =
-[Domain] = 0:4-0:5
+[Content] = 0:4-0:5
       >-<
 0| |x| 0;
 
@@ -12,6 +11,10 @@
 
 [Leading delimiter] = 0:3-0:4
      >-<
+0| |x| 0;
+
+[Domain] = 0:0-0:5
+  >-----<
 0| |x| 0;
 
 [Insertion delimiter] = " "

@@ -135,13 +135,6 @@
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 (try_statement) @branch.iteration
 
-[
-  (for_statement)
-  (for_each_statement)
-  (while_statement)
-  (do_statement)
-] @branch
-
 ;;!! foreach (int value in values) {}
 ;;!               ^^^^^
 (for_each_statement
@@ -156,6 +149,7 @@
   condition: (_) @condition
   consequence: (_) @branch
 ) @condition.domain @branch.iteration
+
 (conditional_expression
   alternative: (_) @branch
 )
@@ -271,12 +265,15 @@
   )
 ] @functionCallee.domain
 
-(switch_statement
-  (tuple_expression) @value
-) @value.domain
-
+;;!! switch (foo) { }
+;;!          ^^^
+;;!                ^
 (switch_statement
   value: (_) @value
+  body: (switch_body
+    "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
+    "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
+  )
 ) @value.domain
 
 (_
@@ -319,13 +316,6 @@
   (_) @_dummy
   (#not-type? @_dummy block)
 ) @interior.end.endOf
-
-(switch_statement
-  body: (switch_body
-    "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
-    "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
-  )
-) @branch.iteration.domain
 
 (object_creation_expression
   initializer: (_) @map @list

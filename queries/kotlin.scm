@@ -195,14 +195,14 @@
 ;;!! finally {}
 (finally_block) @branch
 
-;;!! when (true) { }
+;;!! when (foo) { }
 ;;!              ^
 (when_expression
   "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
   "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
-) @branch.iteration.domain @condition.iteration.domain
+)
 
-;;!! when (true) {}
+;;!! when (foo) {}
 ;;!        ^^^
 (when_expression
   (when_subject

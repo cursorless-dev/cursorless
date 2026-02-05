@@ -22,7 +22,7 @@ initialState:
 finalState:
   documentContents: |
     a { 
-      margin-top:; 
+      margin-top; 
     }
   selections:
     - anchor: {line: 1, character: 7}
