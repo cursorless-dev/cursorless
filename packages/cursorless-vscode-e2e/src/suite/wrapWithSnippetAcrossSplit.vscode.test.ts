@@ -29,6 +29,7 @@ async function runTest() {
 
   await runCursorlessCommand({
     version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
     action: {
       name: "wrapWithSnippet",
       snippetDescription: {
@@ -45,7 +46,6 @@ async function runTest() {
         },
       },
     },
-    usePrePhraseSnapshot: false,
   });
 
   assert.deepStrictEqual(
