@@ -79,6 +79,7 @@ export function ScopeVisualizer({ languageId, scopeTypeType }: Props) {
         >
           <option value="content">Content range</option>
           <option value="removal">Removal range</option>
+          <option value="blend">Blended ranges</option>
         </select>
 
         <label className="ml-2">

@@ -5,7 +5,7 @@ import type {
   Range,
 } from "@cursorless/common";
 
-export type RangeType = "content" | "removal";
+export type RangeType = "content" | "removal" | "blend";
 export type FacetValue = ScopeSupportFacet | PlaintextScopeSupportFacet;
 
 export interface ScopeTests {

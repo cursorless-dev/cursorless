@@ -15,62 +15,80 @@ export function generateDecorations(
   rangeType: RangeType,
   isIteration: boolean,
 ): DecorationItem[] {
-  const { domainRanges, targetRanges } = getRanges(fixture, rangeType);
+  const { domainRanges, removalRanges, contentRanges } = getRanges(
+    fixture,
+    rangeType,
+  );
 
   const codeLineRanges = getCodeLineRanges(fixture.code);
-  const colors = getColors(rangeType, isIteration);
 
-  const domainDecorations = getDecorations(codeLineRanges, domainRanges);
-  const targetRangeDecorations = getDecorations(codeLineRanges, targetRanges);
-
-  const domainHighlights = domainDecorations.map((d) =>
-    getHighlights(colors.domain, d.range, d.style),
-  );
-  const targetRangeHighlights = targetRangeDecorations.map((d) =>
-    getHighlights(colors.target, d.range, d.style),
+  const highlights = getDecorations(codeLineRanges, domainRanges).map((d) =>
+    getHighlights(highlightColors.domain, d.range, d.style),
   );
 
-  const highlights = flattenHighlights([
-    ...domainHighlights,
-    ...targetRangeHighlights,
-  ]);
+  if (rangeType === "blend" && !isIteration) {
+    const removalHighlights = getDecorations(codeLineRanges, removalRanges).map(
+      (d) => getHighlights(highlightColors.removal, d.range, d.style),
+    );
+    const contentHighlights = getDecorations(codeLineRanges, contentRanges).map(
+      (d) => getHighlights(highlightColors.content, d.range, d.style),
+    );
 
-  return highlightsToDecorations(highlights);
+    highlights.push(...removalHighlights, ...contentHighlights);
+  } else {
+    const colors = getColors(rangeType, isIteration);
+    const targetRangeHighlights = getDecorations(
+      codeLineRanges,
+      rangeType === "removal" ? removalRanges : contentRanges,
+    ).map((d) => getHighlights(colors, d.range, d.style));
+
+    highlights.push(...targetRangeHighlights);
+  }
+
+  const flattenedHighlights = flattenHighlights(highlights);
+
+  return highlightsToDecorations(flattenedHighlights);
 }
 
 function getColors(rangeType: RangeType, isIteration: boolean) {
-  const target = (() => {
-    if (isIteration) {
-      return highlightColors.iteration;
-    }
-    if (rangeType === "content") {
-      return highlightColors.content;
-    }
-    return highlightColors.removal;
-  })();
-  return {
-    domain: highlightColors.domain,
-    target,
-  };
+  if (isIteration) {
+    return highlightColors.iteration;
+  }
+  if (rangeType === "content") {
+    return highlightColors.content;
+  }
+  return highlightColors.removal;
 }
 
 function getRanges(fixture: Fixture, rangeType: RangeType) {
-  const domainRanges: Range[] = [];
-  const targetRanges: Range[] = [];
+  const domainRanges: string[] = [];
+  const removalRanges: string[] = [];
+  const contentRanges: string[] = [];
 
   for (const { domain, targets } of fixture.scopes) {
     if (domain != null) {
-      domainRanges.push(Range.fromConcise(domain));
+      domainRanges.push(domain);
     }
 
     for (const t of targets) {
-      const range =
-        rangeType === "content" ? t.content : (t.removal ?? t.content);
-      targetRanges.push(Range.fromConcise(range));
+      if (rangeType === "blend") {
+        if (t.removal != null) {
+          removalRanges.push(t.removal);
+        }
+        contentRanges.push(t.content);
+      } else if (rangeType === "removal") {
+        removalRanges.push(t.removal ?? t.content);
+      } else {
+        contentRanges.push(t.content);
+      }
     }
   }
 
-  return { domainRanges, targetRanges };
+  return {
+    domainRanges: domainRanges.map(Range.fromConcise),
+    removalRanges: removalRanges.map(Range.fromConcise),
+    contentRanges: contentRanges.map(Range.fromConcise),
+  };
 }
 
 function getHighlights(
