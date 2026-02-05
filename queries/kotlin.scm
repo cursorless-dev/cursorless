@@ -228,14 +228,14 @@
 ;;!! 0 -> break
 (when_entry) @branch
 
-;;!! 0, 1 -> break
-;;!  ^  ^
+;;!! 0 -> break
+;;!  ^
 (when_entry
-  [
-    (when_condition)
-    "else"
-  ] @condition
-  (#allow-multiple! @condition)
+  .
+  (when_condition) @condition.start
+  (when_condition)? @condition.end
+  .
+  "->"
 ) @condition.domain
 
 ;;!! 0 -> break
@@ -303,21 +303,9 @@
 ;;!       ^^^^^^^^^^^^^^^^^^
 ;;!                             ^^^
 (property_declaration
-  (multi_variable_declaration) @name.iteration @type.iteration @value.leading.endOf
+  (multi_variable_declaration) @name
   (_) @value
-) @value.domain @name.iteration.domain @type.iteration.domain
-
-;;!! val (foo: Int, bar: Int) = baz
-;;!       ^^^       ^^^
-;;!            ^^^       ^^^
-(property_declaration
-  (multi_variable_declaration
-    (variable_declaration
-      (simple_identifier) @name @type.leading.endOf
-      (user_type)? @type
-    ) @_.domain
-  )
-)
+) @_.domain
 
 ;;!! foo = 0
 ;;!  ^^^

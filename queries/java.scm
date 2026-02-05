@@ -189,9 +189,11 @@
 ;;!  ------------------------
 (switch_block_statement_group
   (switch_label
-    (_) @condition
+    .
+    (_) @condition.start
+    (_)? @condition.end
+    .
   )
-  (#allow-multiple! @condition)
 ) @condition.domain
 
 ;;!! case "0" -> "zero";
@@ -199,7 +201,10 @@
 ;;!  -------------------
 (switch_rule
   (switch_label
-    (_) @condition
+    .
+    (_) @condition.start
+    (_)? @condition.end
+    .
   )
 ) @condition.domain
 
