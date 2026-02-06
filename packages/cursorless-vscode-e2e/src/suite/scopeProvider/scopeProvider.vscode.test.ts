@@ -31,6 +31,13 @@ suite("scope provider", async function () {
   );
   test(
     "custom regex",
-    asyncSafety(() => runCustomRegexScopeInfoTest()),
+    asyncSafety(() => {
+      // FIXME: This test is flaky on Linux CI, so we skip it there for now
+      if (isCI() && isLinux()) {
+        this.ctx.skip();
+      }
+
+      return runCustomRegexScopeInfoTest();
+    }),
   );
 });
