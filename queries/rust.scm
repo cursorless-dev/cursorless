@@ -207,7 +207,7 @@
 (field_declaration
   name: (_) @name @type.leading.endOf
   type: (_) @type
-) @statement @_.domain
+) @statement @_.domain @name.removal
 
 ;;!! (t: &T, u: &U)
 ;;!   ^      ^

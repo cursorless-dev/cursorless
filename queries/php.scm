@@ -265,10 +265,12 @@
 ;;!         ^^^^^^
 ;;!                ^^^^^^
 (property_declaration
-  type: (_)? @type
+  (_)? @name.removal.start.startOf
+  type: (_)? @type @name.removal.start.startOf
   (property_element
-    (variable_name) @name
-  )
+    name: (_) @name @name.removal.end.endOf @value.leading.endOf
+    default_value: (_)? @value @name.removal.end.startOf
+  ) @name.removal.start.startOf
 ) @_.domain
 
 operator: [

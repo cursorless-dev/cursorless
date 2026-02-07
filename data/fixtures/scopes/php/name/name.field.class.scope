@@ -36,8 +36,8 @@ class Foo {
                     >----<
 2|     public number $bar;
 
-[#2 Removal] = 2:17-2:22
-                   >-----<
+[#2 Removal] = 2:4-2:22
+      >------------------<
 2|     public number $bar;
 
 [#2 Leading delimiter] = 2:17-2:18
@@ -55,8 +55,8 @@ class Foo {
              >----<
 3|     public $baz = 0;
 
-[#3 Removal] = 3:11-3:16
-             >-----<
+[#3 Removal] = 3:4-3:18
+      >--------------<
 3|     public $baz = 0;
 
 [#3 Leading delimiter] = 3:10-3:11
