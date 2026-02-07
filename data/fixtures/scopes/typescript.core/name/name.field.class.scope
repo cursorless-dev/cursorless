@@ -71,20 +71,20 @@ class Foo {
 [#3 Insertion delimiter] = " "
 
 
-[#4 Content] = 3:9-3:14
-           >-----<
+[#4 Content] = 3:8-3:13
+          >-----<
 3|     @An bongo: number = 0;
 
-[#4 Removal] = 3:4-3:25
-      >---------------------<
+[#4 Removal] = 3:4-3:24
+      >--------------------<
 3|     @An bongo: number = 0;
 
-[#4 Leading delimiter] = 3:8-3:9
-          >-<
+[#4 Leading delimiter] = 3:7-3:8
+         >-<
 3|     @An bongo: number = 0;
 
-[#4 Domain] = 3:4-3:27
-      >-----------------------<
+[#4 Domain] = 3:4-3:26
+      >----------------------<
 3|     @An bongo: number = 0;
 
 [#4 Insertion delimiter] = " "

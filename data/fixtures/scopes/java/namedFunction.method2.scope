@@ -6,13 +6,13 @@ public class Foo {
 
 [Content] =
 [Domain] = 1:4-2:24
-      >----
+      >---
 1|     @An
 2|     public void bar() {}
    ------------------------<
 
 [Removal] = 1:0-3:0
-  >--------
+  >-------
 1|     @An
 2|     public void bar() {}
 3| }

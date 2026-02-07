@@ -19,13 +19,13 @@ public class Foo {
 
 [#2 Content] =
 [#2 Domain] = 1:4-2:24
-      >----
+      >---
 1|     @An
 2|     public void bar() {}
    ------------------------<
 
 [#2 Removal] = 1:0-3:0
-  >--------
+  >-------
 1|     @An
 2|     public void bar() {}
 3| }
