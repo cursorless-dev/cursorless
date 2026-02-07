@@ -35,8 +35,8 @@ public class Foo {
                   >---<
 1|     private int bar;
 
-[#2 Removal] = 1:15-1:19
-                 >----<
+[#2 Removal] = 1:4-1:19
+      >---------------<
 1|     private int bar;
 
 [#2 Leading delimiter] = 1:15-1:16
@@ -54,8 +54,8 @@ public class Foo {
                   >---<
 2|     private int baz = 0;
 
-[#3 Removal] = 2:16-2:20
-                  >----<
+[#3 Removal] = 2:4-2:22
+      >------------------<
 2|     private int baz = 0;
 
 [#3 Leading delimiter] = 2:15-2:16

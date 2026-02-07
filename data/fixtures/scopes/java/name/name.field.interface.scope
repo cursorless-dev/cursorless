@@ -33,8 +33,8 @@ public interface Foo {
                   >---<
 1|     private int bar;
 
-[#2 Removal] = 1:15-1:19
-                 >----<
+[#2 Removal] = 1:4-1:19
+      >---------------<
 1|     private int bar;
 
 [#2 Leading delimiter] = 1:15-1:16

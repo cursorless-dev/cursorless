@@ -29,16 +29,13 @@ class Foo:
       >---<
 1|     bar: int
 
-[#2 Removal] = 1:0-1:7
-  >-------<
+[#2 Removal] =
+[#2 Domain] = 1:4-1:12
+      >--------<
 1|     bar: int
 
 [#2 Leading delimiter] = 1:0-1:4
   >----<
-1|     bar: int
-
-[#2 Domain] = 1:4-1:12
-      >--------<
 1|     bar: int
 
 [#2 Insertion delimiter] = " "

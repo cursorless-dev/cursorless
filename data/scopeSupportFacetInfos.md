@@ -228,9 +228,10 @@
 - `name.argument.formal.method` Name of a parameter in a class method declaration
 - `name.argument.formal.method.iteration` Iteration scope for names of formal parameters in a method declaration: the parameters list. The domain should be the entire method.
 - `name.assignment` Name (LHS) of an assignment
-- `name.assignment.pattern` LHS of an assignment with pattern destructuring
+- `name.assignment.destructuring` LHS of an assignment with pattern destructuring
 - `name.class` Name of a class
 - `name.command` LHS of a command, eg Talon spoken command or bash
+- `name.constant` Name (LHS) of a constant declaration
 - `name.constructor` Name of a constructor
 - `name.enum` Name of an enum
 - `name.field.class` Name (LHS) of a field in a class
@@ -248,8 +249,9 @@
 - `name.namespace` Name of a namespace
 - `name.resource` Name in a 'with' / 'use' / 'using' statement
 - `name.resource.iteration` Iteration scope for names in a 'with' / 'use' / 'using' statement: the resource list. The domain should be the entire statement.
-- `name.variable` Name (LHS) of a variable declaration
-- `name.variable.pattern` Name (LHS) of a variable declaration with pattern destructuring
+- `name.variable.destructuring` Name (LHS) of a variable declaration with pattern destructuring
+- `name.variable.initialized` Name (LHS) of an initialized variable declaration
+- `name.variable.uninitialized` Name (LHS) of an uninitialized variable declaration
 
 ### namedFunction
 
@@ -300,9 +302,11 @@
 ### statement
 
 - `statement.assignment` An assignment statement
+- `statement.assignment.destructuring` An assignment statement with pattern destructuring
 - `statement.break` A break statement
 - `statement.class` A class/struct declaration
 - `statement.command` A command statement, eg Talon spoken command or bash
+- `statement.constant` A constant declaration
 - `statement.constructor` A constructor declaration
 - `statement.continue` A continue statement
 - `statement.doWhile` A do-while loop statement
@@ -326,7 +330,9 @@
 - `statement.static` A static statement
 - `statement.switch` A switch statement
 - `statement.try` A try/catch/finally statement
-- `statement.variable` A variable declaration
+- `statement.variable.destructuring` A variable declaration pattern destructuring
+- `statement.variable.initialized` An initialized variable declaration
+- `statement.variable.uninitialized` An uninitialized variable declaration
 - `statement.while` A while loop statement
 - `statement.yield` A yield statement
 
@@ -359,19 +365,20 @@
 ### type
 
 - `type.alias` A type alias declaration
-- `type.argument.catch` Type of parameter in a catch clause
-- `type.argument.formal` Type of formal parameter in a function declaration
-- `type.argument.formal.constructor` Type of formal parameter in a constructor declaration
+- `type.argument.catch` Type of a parameter in a catch clause
+- `type.argument.formal` Type of a formal parameter in a function declaration
+- `type.argument.formal.constructor` Type of a formal parameter in a constructor declaration
 - `type.argument.formal.constructor.iteration` Iteration scope for types of formal parameters in a constructor declaration: the parameters list. The domain should be the entire constructor.
 - `type.argument.formal.iteration` Iteration scope for types of formal parameters in a function declaration: the parameters list. The domain should be the entire function.
-- `type.argument.formal.method` Type of formal parameter in a class method declaration
+- `type.argument.formal.method` Type of a formal parameter in a class method declaration
 - `type.argument.formal.method.iteration` Iteration scope for types of formal parameters in a method declaration: the parameters list. The domain should be the entire method.
 - `type.cast` A type cast
 - `type.class` A class declaration
+- `type.constant` Type of a constant declaration
 - `type.enum` An enum declaration
-- `type.field.class` Type of field in a class
-- `type.field.interface` Type of field in a interface
-- `type.foreach` Type of variable in a for each loop
+- `type.field.class` Type of a field in a class
+- `type.field.interface` Type of a field in a interface
+- `type.foreach` Type of a variable in a for each loop
 - `type.interface` An interface declaration
 - `type.iteration.block` Iteration scope for types: statement blocks (body of functions/if-statements/for-loops/etc).
 - `type.iteration.class` Iteration scope for types: class bodies.
@@ -379,10 +386,11 @@
 - `type.iteration.interface` Iteration scope for types: interface bodies.
 - `type.resource` Type in a 'with' / 'use' / 'using' statement
 - `type.resource.iteration` Iteration scope for types in a 'with' / 'use' / 'using' statement: the resource list. The domain should be the entire statement.
-- `type.return` Type of return value in a function declaration
+- `type.return` Type of a return value in a function declaration
 - `type.typeArgument` Type argument to a generic / parametrized type
 - `type.typeArgument.iteration` Iteration scope for type arguments to a generic / parametrized type: the type argument list.
-- `type.variable` Type of variable in a variable declaration
+- `type.variable.initialized` Type of an initialized variable declaration
+- `type.variable.uninitialized` Type of an uninitialized variable declaration
 
 ### unit
 
@@ -405,6 +413,7 @@
 - `value.assignment` Value (RHS) of an assignment
 - `value.attribute` Value (RHS) of an attribute eg in a xml element
 - `value.command` Value (RHS) of an command, eg Talon spoken command
+- `value.constant` Value (RHS) of a constant declaration
 - `value.field.class` Value (RHS) of a field in a class
 - `value.field.enum` Value (RHS) of a field in an enum
 - `value.foreach` Iterable in a for each loop
@@ -421,7 +430,7 @@
 - `value.switch` The value / subject of a switch statement
 - `value.typeAlias` Value of a type alias declaration
 - `value.variable` Value (RHS) of a variable declaration
-- `value.variable.pattern` Value (RHS) of a variable declaration with pattern destructuring
+- `value.variable.destructuring` Value (RHS) of a variable declaration with pattern destructuring
 - `value.yield` Value of a yield statement
 
 ### word
