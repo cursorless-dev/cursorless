@@ -82,23 +82,9 @@
   ;;!! foo = 0;
   ;;!  ^^^
   (field_definition
-    .
-    property: (_) @name @value.leading.endOf
-    value: (_)? @value @name.trailing.startOf
-  ) @statement.start @_.domain.start
-  .
-  ";"? @statement.end @_.domain.end
-)
-
-(_
-  ;;!! [at]baz foo = 0;
-  ;;!      ^^^
-  (field_definition
-    .
-    (_) @name.removal.start.startOf
-    property: (_) @name @name.removal.end.startOf @value.leading.endOf
-    value: (_)? @value @name.removal.end.startOf
-  ) @statement.start @_.domain.start
+    property: (_) @name @name.removal.end.endOf @value.leading.endOf
+    value: (_)? @value @name.trailing.startOf @name.removal.end.startOf
+  ) @statement.start @_.domain.start @name.removal.start.startOf
   .
   ";"? @statement.end @_.domain.end
 )
