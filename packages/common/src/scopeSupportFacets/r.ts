@@ -34,7 +34,6 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   ifStatement: supported,
   "name.assignment": supported,
   "name.function": supported,
-  "name.variable.uninitialized": supported,
   "name.variable.initialized": supported,
   namedFunction: supported,
   "value.assignment": supported,
@@ -84,6 +83,11 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   "functionCall.chain": notApplicable,
   "functionCallee.chain": notApplicable,
 
+  // Uninitialized variables
+  "statement.variable.uninitialized": notApplicable,
+  "name.variable.uninitialized": notApplicable,
+  "type.variable.uninitialized": notApplicable,
+
   "interior.cell": notApplicable,
   "interior.command": notApplicable,
   "interior.element": notApplicable,
@@ -113,7 +117,6 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   "type.iteration.class": notApplicable,
   "type.typeArgument": notApplicable,
   "type.typeArgument.iteration": notApplicable,
-  "type.variable.uninitialized": notApplicable,
   "type.variable.initialized": notApplicable,
   "value.typeAlias": notApplicable,
   "value.variable.destructuring": notApplicable,

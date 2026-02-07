@@ -18,9 +18,10 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.for": supported,
   "statement.while": supported,
   "statement.doWhile": supported,
+  "statement.assignment": supported,
+  "statement.constant": supported,
   "statement.variable.uninitialized": supported,
   "statement.variable.initialized": supported,
-  "statement.assignment": supported,
   "statement.return": supported,
   "statement.break": supported,
   "statement.continue": supported,
@@ -91,6 +92,7 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "condition.switchCase.iteration": supported,
 
   "name.assignment": supported,
+  "name.constant": supported,
   "name.variable.uninitialized": supported,
   "name.variable.initialized": supported,
   "name.function": supported,
@@ -106,6 +108,7 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "name.iteration.enum": supported,
 
   "value.assignment": supported,
+  "value.constant": supported,
   "value.variable": supported,
   "value.return": supported,
   "value.switch": supported,
@@ -115,6 +118,7 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "value.iteration.enum": supported,
   "value.iteration.document": supported,
 
+  "type.constant": supported,
   "type.variable.uninitialized": supported,
   "type.variable.initialized": supported,
   "type.argument.formal": supported,

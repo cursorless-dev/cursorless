@@ -29,9 +29,6 @@ export const yamlScopeSupport: LanguageScopeSupportFacetMap = {
 
   /* NOT APPLICABLE */
 
-  // Single line unenclosed item
-  "collectionItem.unenclosed.singleLine": notApplicable,
-
   // Variable
   "statement.variable.uninitialized": notApplicable,
   "statement.variable.initialized": notApplicable,
@@ -46,6 +43,12 @@ export const yamlScopeSupport: LanguageScopeSupportFacetMap = {
   "value.assignment": notApplicable,
   "value.variable": notApplicable,
   "value.variable.destructuring": notApplicable,
+
+  // Constant
+  "statement.constant": notApplicable,
+  "name.constant": notApplicable,
+  "value.constant": notApplicable,
+  "type.constant": notApplicable,
 
   // Class
   class: notApplicable,
@@ -331,6 +334,7 @@ export const yamlScopeSupport: LanguageScopeSupportFacetMap = {
   "type.iteration.document": notApplicable,
   "value.iteration.block": notApplicable,
   "value.iteration.document": notApplicable,
+  "collectionItem.unenclosed.singleLine": notApplicable,
   selector: notApplicable,
   unit: notApplicable,
 };

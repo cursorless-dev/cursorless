@@ -327,8 +327,14 @@ export const talonListScopeSupport: LanguageScopeSupportFacetMap = {
   "type.variable.initialized": notApplicable,
 
   // Uninitialized variables
-  "statement.variable.uninitialized": supported,
-  "name.variable.uninitialized": supported,
+  "statement.variable.uninitialized": notApplicable,
+  "name.variable.uninitialized": notApplicable,
+
+  // Constant
+  "statement.constant": notApplicable,
+  "name.constant": notApplicable,
+  "value.constant": notApplicable,
+  "type.constant": notApplicable,
 
   // Miscellaneous
   "statement.misc": notApplicable,

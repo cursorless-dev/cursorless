@@ -35,6 +35,12 @@ export const xmlScopeSupport: LanguageScopeSupportFacetMap = {
   "value.variable": notApplicable,
   "value.variable.destructuring": notApplicable,
 
+  // Constant
+  "statement.constant": notApplicable,
+  "name.constant": notApplicable,
+  "value.constant": notApplicable,
+  "type.constant": notApplicable,
+
   // Class
   class: notApplicable,
   "class.iteration.block": notApplicable,

@@ -105,9 +105,11 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.doWhile": supported,
   "statement.for": supported,
   "statement.foreach": supported,
+  "statement.assignment": supported,
+  "statement.assignment.destructuring": supported,
   "statement.variable.uninitialized": supported,
   "statement.variable.initialized": supported,
-  "statement.assignment": supported,
+  "statement.variable.destructuring": supported,
   "statement.return": supported,
   "statement.break": supported,
   "statement.iteration.document": supported,
@@ -310,6 +312,12 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
   // Notebook cell
   notebookCell: notApplicable,
   "interior.cell": notApplicable,
+
+  // Constant
+  "statement.constant": notApplicable,
+  "name.constant": notApplicable,
+  "value.constant": notApplicable,
+  "type.constant": notApplicable,
 
   // Miscellaneous
   "statement.misc": notApplicable,

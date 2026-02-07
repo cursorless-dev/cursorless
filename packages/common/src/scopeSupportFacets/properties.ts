@@ -4,11 +4,9 @@ import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 const { supported, notApplicable } = ScopeSupportFacetLevel;
 
 export const propertiesScopeSupport: LanguageScopeSupportFacetMap = {
-  "statement.variable.uninitialized": supported,
   "statement.variable.initialized": supported,
   "statement.iteration.document": supported,
 
-  "name.variable.uninitialized": supported,
   "name.variable.initialized": supported,
   "name.iteration.document": supported,
 
@@ -326,6 +324,16 @@ export const propertiesScopeSupport: LanguageScopeSupportFacetMap = {
   "type.typeArgument": notApplicable,
   "type.variable.uninitialized": notApplicable,
   "type.variable.initialized": notApplicable,
+
+  // Constant
+  "statement.constant": notApplicable,
+  "name.constant": notApplicable,
+  "value.constant": notApplicable,
+  "type.constant": notApplicable,
+
+  // Uninitialized variables
+  "statement.variable.uninitialized": notApplicable,
+  "name.variable.uninitialized": notApplicable,
 
   // Miscellaneous
   "statement.misc": notApplicable,

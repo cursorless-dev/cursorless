@@ -22,6 +22,7 @@ export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
   "type.interface": supported,
   "type.enum": supported,
   "type.return": supported,
+  "type.constant": supported,
   "type.variable.uninitialized": supported,
   "type.variable.initialized": supported,
   "type.typeArgument": supported,

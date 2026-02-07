@@ -1,8 +1,7 @@
 import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
+const { supported, notApplicable } = ScopeSupportFacetLevel;
 
 export const phpScopeSupport: LanguageScopeSupportFacetMap = {
   "comment.line": supported,
@@ -29,7 +28,6 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.actual.multiLine": supported,
   "argument.actual.iteration": supported,
 
-  "name.variable.uninitialized": supported,
   "name.variable.initialized": supported,
   "name.assignment": supported,
 
@@ -55,4 +53,15 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
   "string.singleLine": supported,
 
   disqualifyDelimiter: supported,
+
+  /* NOT APPLICABLE */
+
+  // Constant
+  "statement.constant": notApplicable,
+  "name.constant": notApplicable,
+  "value.constant": notApplicable,
+  "type.constant": notApplicable,
+
+  // Miscellaneous
+  "name.variable.uninitialized": notApplicable,
 };

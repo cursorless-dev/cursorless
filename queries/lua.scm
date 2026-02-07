@@ -13,6 +13,9 @@
   (repeat_statement)
   (return_statement)
   (while_statement)
+
+  ;; Disabled on purpose. We have a better definition of this below.
+  ;; (assignment_statement)
 ] @statement
 
 ;; Only treat function declarions and calls as statements if they
@@ -23,14 +26,6 @@
     (function_call)
   ] @statement
   (#not-parent-type? @statement expression_list)
-)
-
-;; Capture assignment only if without variable prefix
-;;!! count = count + 1
-;;!  ^^^^^^^^^^^^^^^^^
-(
-  (assignment_statement) @statement
-  (#not-parent-type? @statement variable_declaration)
 )
 
 ;; Document iteration scopes
@@ -288,57 +283,43 @@
 
 ;; Names and values
 
-;; Handle variable assignments
-;;!! a = 42
-;;!  ^-----
-;;!  xxxx--
-(
-  (assignment_statement
+;;!! local foo
+;;!        ^^^
+(_
+  local_declaration: (variable_declaration
     (variable_list) @name
-    (_) @_.trailing.startOf
-  ) @_dummy @_.domain
-  (#not-parent-type? @_dummy variable_declaration)
-)
-;; Handle variable declarations
-;;!! local a = 42
-;;!  ------^-----
-;;!  xxxxxxxxxx--
-local_declaration: (variable_declaration
-  (assignment_statement
-    (variable_list) @name
-    (_) @_.removal.end.startOf
-  )
-) @_.domain @_.removal.start.startOf
-
-;; Handle assignment values
-;;!! a = 42
-;;!  ----^^
-;;!  -xxxxx
-(
-  (assignment_statement
-    (_) @_.leading.endOf
-    (expression_list) @value
-  ) @_dummy @_.domain
-  (#not-parent-type? @_dummy variable_declaration)
+  ) @name.domain @name.removal
 )
 
-;; Handle variable declaration values
-;;!! local a = 42
-;;!  ----------^^
-;;!  -------xxxxx
-local_declaration: (variable_declaration
+;;!! foo = 0
+;;!  ^^^
+;;!        ^
+(
   (assignment_statement
-    (_) @_.leading.endOf
-    (expression_list) @value
-  )
-) @_.domain
+    (variable_list) @name @value.leading.endOf
+    (_) @value @name.trailing.startOf
+  ) @statement @_.domain
+  (#not-parent-type? @statement variable_declaration)
+)
+
+;;!! local foo = 0
+;;!        ^^^
+;;!              ^
+(_
+  local_declaration: (variable_declaration
+    (assignment_statement
+      (variable_list) @name @value.leading.endOf
+      (_) @value @name.removal.end.startOf
+    )
+  ) @_.domain @name.removal.start.startOf
+)
 
 ;;!! return a + b
 ;;!  -------^^^^^
 ;;!  ------xxxxxx
 (return_statement
   (_) @value
-) @_.domain
+) @value.domain
 
 ;; match a ternary condition
 ;;!! local max = x > y and x or y

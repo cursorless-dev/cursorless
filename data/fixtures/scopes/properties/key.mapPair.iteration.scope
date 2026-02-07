@@ -1,5 +1,5 @@
 
-foo=bar
+foo=0
 
 ---
 
@@ -7,6 +7,6 @@ foo=bar
 [Domain] = 0:0-2:0
   >
 0|
-1| foo=bar
+1| foo=0
 2|
    <

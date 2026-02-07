@@ -18,6 +18,7 @@
   (do_while_expression)
   (for_expression)
   (try_expression)
+  (var_declaration)
 
   ;; Disabled on purpose. We have a better definition of this below.
   ;; (if_expression)
