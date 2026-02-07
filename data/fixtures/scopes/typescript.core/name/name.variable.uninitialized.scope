@@ -5,8 +5,8 @@ let foo: number;
       >---<
 0| let foo: number;
 
-[Removal] = 0:0-0:7
-  >-------<
+[Removal] = 0:0-0:15
+  >---------------<
 0| let foo: number;
 
 [Leading delimiter] = 0:3-0:4

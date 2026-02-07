@@ -263,7 +263,7 @@
   (_) @_.trailing.startOf
 ) @_.domain
 
-;;!! let Foo {aaa: 1, bbb: 2}
+;;!! let Foo {aaa: 0, bbb: 1}
 ;;!           ^^^     ^^^
 ;;!                ^       ^
 (field_initializer
@@ -271,7 +271,7 @@
   value: (_) @value @collectionKey.trailing.startOf
 ) @_.domain
 
-;;!! Foo {aaa: 1, bbb: 2}
+;;!! Foo {aaa: 0, bbb: 1}
 ;;!       ^^^     ^^^
 ;;!            ^       ^
 (field_pattern
@@ -279,45 +279,37 @@
   pattern: (_) @value @collectionKey.trailing.startOf
 ) @_.domain
 
-;;!! const foo: u8 = 2;
+;;!! const foo: u8 = 0;
 ;;!                  ^
 (const_item
   name: (_) @name @type.leading.endOf
   type: (_) @type @value.leading.endOf
-  value: (_) @value
-) @_.domain
+  value: (_) @value @name.removal.end.startOf
+) @_.domain @name.removal.start.startOf
 
-;;!! let foo = 2;
+;;!! let foo: i32 = 0;
 ;;!      ^^^
-;;!            ^
-(let_declaration
-  pattern: (_) @name @value.leading.start.endOf
-  .
-  value: (_) @value
-) @_.domain
-
-;;!! let foo: u8 = 2;
-;;!      ^^^
-;;!            ^
+;;!           ^^^
+;;!                 ^
 (let_declaration
   pattern: (_) @name @type.leading.endOf
-  type: (_) @type @value.leading.start.endOf
-  value: (_) @value
-) @_.domain
+  type: (_) @type @value.leading.endOf @name.removal.end.endOf
+  value: (_)? @value @name.removal.end.startOf
+) @_.domain @name.removal.start.startOf
 
-;;!! let foo: u8;
+;;!! let foo = 0;
 ;;!      ^^^
 ;;!            ^
 (let_declaration
-  pattern: (_) @name @type.leading.endOf
-  type: (_) @type
-  !value
-) @_.domain
+  pattern: (_) @name @value.leading.endOf @name.removal.end.endOf
+  !type
+  value: (_)? @value @name.removal.end.startOf
+) @_.domain @name.removal.start.startOf
 
 (expression_statement
   (assignment_expression
-    left: (_) @name @value.leading.start.endOf
-    right: (_) @value @name.trailing.start.startOf
+    left: (_) @name @value.leading.endOf
+    right: (_) @value @name.trailing.startOf
   )
 ) @_.domain
 
@@ -329,7 +321,7 @@
   value: (_) @value
 ) @_.domain
 
-;;!! return 2;
+;;!! return 0;
 ;;!         ^
 (expression_statement
   (return_expression

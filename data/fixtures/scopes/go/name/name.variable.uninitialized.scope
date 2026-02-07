@@ -5,8 +5,9 @@ var foo int
       >---<
 0| var foo int
 
-[Removal] = 0:4-0:8
-      >----<
+[Removal] =
+[Domain] = 0:0-0:11
+  >-----------<
 0| var foo int
 
 [Leading delimiter] = 0:3-0:4
@@ -15,10 +16,6 @@ var foo int
 
 [Trailing delimiter] = 0:7-0:8
          >-<
-0| var foo int
-
-[Domain] = 0:0-0:11
-  >-----------<
 0| var foo int
 
 [Insertion delimiter] = " "

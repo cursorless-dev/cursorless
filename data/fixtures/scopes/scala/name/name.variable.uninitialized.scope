@@ -5,16 +5,13 @@ var foo: Int
       >---<
 0| var foo: Int
 
-[Removal] = 0:3-0:7
-     >----<
+[Removal] =
+[Domain] = 0:0-0:12
+  >------------<
 0| var foo: Int
 
 [Leading delimiter] = 0:3-0:4
      >-<
-0| var foo: Int
-
-[Domain] = 0:0-0:12
-  >------------<
 0| var foo: Int
 
 [Insertion delimiter] = " "

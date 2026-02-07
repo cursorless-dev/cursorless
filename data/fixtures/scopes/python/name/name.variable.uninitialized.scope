@@ -1,11 +1,11 @@
 foo: int
 ---
 
-[Content] =
-[Removal] = 0:0-0:3
+[Content] = 0:0-0:3
   >---<
 0| foo: int
 
+[Removal] =
 [Domain] = 0:0-0:8
   >--------<
 0| foo: int

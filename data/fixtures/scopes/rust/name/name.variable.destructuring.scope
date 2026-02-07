@@ -5,8 +5,8 @@ let Foo {bar, baz} = bongo;
       >--------------<
 0| let Foo {bar, baz} = bongo;
 
-[Removal] = 0:4-0:19
-      >---------------<
+[Removal] = 0:0-0:21
+  >---------------------<
 0| let Foo {bar, baz} = bongo;
 
 [Leading delimiter] = 0:3-0:4

@@ -5,8 +5,8 @@ const foo: i32 = 0;
         >---<
 0| const foo: i32 = 0;
 
-[Removal] = 0:5-0:9
-       >----<
+[Removal] = 0:0-0:17
+  >-----------------<
 0| const foo: i32 = 0;
 
 [Leading delimiter] = 0:5-0:6

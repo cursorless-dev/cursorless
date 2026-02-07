@@ -5,8 +5,8 @@ var foo int = 0
       >---<
 0| var foo int = 0
 
-[Removal] = 0:4-0:8
-      >----<
+[Removal] = 0:0-0:14
+  >--------------<
 0| var foo int = 0
 
 [Leading delimiter] = 0:3-0:4

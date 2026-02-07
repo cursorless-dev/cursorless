@@ -42,15 +42,23 @@
   (block) @interior.end.endOf
 )
 
-;;!! a = 25
-;;!      ^^
-;;!   xxxxx
-;;!  ------
+;;!! foo = 0
+;;!  ^^^
+;;!        ^
 (assignment
-  (_) @_.leading.endOf
-  .
-  right: (_) @value
+  left: (_) @name
+  !type
+  right: (_)? @value @name.trailing.end.startOf
 ) @_.domain
+
+;;!! foo: int = 0
+;;!  ^^^
+;;!             ^
+(assignment
+  left: (_) @name
+  type: (_) @name.removal.end.endOf
+  right: (_)? @value @name.removal.end.startOf
+) @_.domain @name.removal.start.startOf
 
 ;; value:
 ;;!! a /= 25
@@ -66,19 +74,6 @@
   left: (_) @name @value.leading.endOf
   right: (_) @value @name.trailing.startOf
 ) @_.domain
-
-;;!! a = 25
-;;!  ^
-;;!  xxxx
-;;!  ------
-;;!! a: int = 25
-;;!  ^
-;;!  xxxxxxxxx
-;;!  -----------
-(assignment
-  left: (_) @name
-  right: (_)? @name.trailing.startOf
-) @name.domain
 
 ;;!! foo(aaa=1, bbb=2)
 ;;!      ^^^     ^^^

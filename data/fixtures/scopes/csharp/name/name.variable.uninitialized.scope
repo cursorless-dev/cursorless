@@ -5,8 +5,8 @@ int foo;
       >---<
 0| int foo;
 
-[Removal] = 0:3-0:7
-     >----<
+[Removal] = 0:0-0:7
+  >-------<
 0| int foo;
 
 [Leading delimiter] = 0:3-0:4

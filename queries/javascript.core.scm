@@ -89,6 +89,7 @@
     field_definition
     generic_type
     property_signature
+    type_alias_declaration
   )
 )
 
@@ -100,7 +101,7 @@
 
   ;; We have a special case for this one.  Note we don't need to list the other
   ;; special cases from above because they can't be exported
-  (#not-type? @_dummy variable_declarator)
+  (#not-type? @_dummy variable_declarator type_alias_declaration)
 ) @_.domain
 
 ;; Special cases for `(let | const | var) foo = ...;` because the full statement
@@ -120,10 +121,16 @@
     ;;!  ------------------------
     (lexical_declaration
       .
-      (variable_declarator
-        name: (_) @name @name.removal.end.endOf
-        value: (_)? @name.removal.end.startOf
-      )
+      [
+        (variable_declarator
+          name: (_) @name
+          value: (_) @name.removal.end.startOf
+        )
+        (variable_declarator
+          name: (_) @name
+          !value
+        ) @name.removal.end.endOf
+      ]
     )
 
     ;; name:
@@ -140,10 +147,16 @@
     ;; of https://github.com/tree-sitter/tree-sitter/issues/1442#issuecomment-1584628651
     (variable_declaration
       .
-      (variable_declarator
-        name: (_) @name @name.removal.end.endOf
-        value: (_)? @name.removal.end.startOf
-      )
+      [
+        (variable_declarator
+          name: (_) @name
+          value: (_) @name.removal.end.startOf
+        )
+        (variable_declarator
+          name: (_) @name
+          !value
+        ) @name.removal.end.endOf
+      ]
     )
   ] @_.domain @name.removal.start.startOf
   (#not-parent-type? @_.domain export_statement)

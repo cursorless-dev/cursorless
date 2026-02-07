@@ -463,10 +463,10 @@
 (var_declaration
   (var_spec
     name: (_) @name
-    type: (_) @type @value.leading.endOf
-    value: (_)? @value
+    type: (_) @type @value.leading.endOf @name.removal.end.endOf
+    value: (_)? @value @name.removal.end.startOf
   )
-) @_.domain
+) @_.domain @name.removal.start.startOf
 
 ;;!! var foo = 0
 ;;!      ^^^
@@ -475,17 +475,17 @@
   (var_spec
     name: (_) @name @value.leading.endOf
     !type
-    value: (_) @value
+    value: (_) @value @name.removal.end.startOf
   )
-) @_.domain
+) @_.domain @name.removal.start.startOf
 
 ;;!! foo := 0
 ;;!  ^^^
 ;;!         ^
 (short_var_declaration
   left: (_) @name @value.leading.endOf
-  right: (_) @value
-) @_.domain
+  right: (_) @value @name.removal.end.startOf
+) @_.domain @name.removal.start.startOf
 
 ;;!! foo = 0
 ;;!  ^^^

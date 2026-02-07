@@ -37,8 +37,8 @@ class Foo {
           >---<
 1|     var bar: Int = 0
 
-[#2 Removal] = 1:7-1:11
-         >----<
+[#2 Removal] = 1:4-1:19
+      >---------------<
 1|     var bar: Int = 0
 
 [#2 Leading delimiter] = 1:7-1:8
@@ -56,8 +56,8 @@ class Foo {
           >---<
 2|     val baz = 0
 
-[#3 Removal] = 2:8-2:12
-          >----<
+[#3 Removal] = 2:4-2:14
+      >----------<
 2|     val baz = 0
 
 [#3 Leading delimiter] = 2:7-2:8
@@ -79,16 +79,13 @@ class Foo {
           >-----<
 3|     val bongo: Int
 
-[#4 Removal] = 3:7-3:13
-         >------<
+[#4 Removal] =
+[#4 Domain] = 3:4-3:18
+      >--------------<
 3|     val bongo: Int
 
 [#4 Leading delimiter] = 3:7-3:8
          >-<
-3|     val bongo: Int
-
-[#4 Domain] = 3:4-3:18
-      >--------------<
 3|     val bongo: Int
 
 [#4 Insertion delimiter] = " "

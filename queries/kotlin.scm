@@ -285,27 +285,17 @@
 ;;!           ^^^
 ;;!                 ^
 (property_declaration
-  (variable_declaration
-    (simple_identifier) @name @type.leading.endOf
-    (type_modifiers)? @type.start
-    [
-      (user_type)
-      (function_type)
-    ] ? @type.end
-  ) @value.leading.endOf
-  (
-    "="
-    (_) @value
-  )?
-) @_.domain
-
-;;!! val (foo: Int, bar: Int) = baz
-;;!       ^^^^^^^^^^^^^^^^^^
-;;!                             ^^^
-(property_declaration
-  (multi_variable_declaration) @name @value.leading.endOf
-  (_) @value
-) @_.domain
+  [
+    (variable_declaration
+      (simple_identifier) @name @type.leading.endOf
+      (type_modifiers)? @type.start
+      (_)? @type.end
+      .
+    )
+    (multi_variable_declaration) @name
+  ] @value.leading.endOf @name.removal.end.endOf
+  (_)? @value @name.removal.end.startOf
+) @_.domain @name.removal.start.startOf
 
 ;;!! foo = 0
 ;;!  ^^^

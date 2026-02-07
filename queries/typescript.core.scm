@@ -216,19 +216,19 @@
 ;;!! type Foo = Bar;
 (
   (type_alias_declaration
-    name: (_) @value.leading.endOf
-    value: (_) @value
-  ) @value.domain
-  (#not-parent-type? @value.domain export_statement)
+    name: (_) @name @value.leading.endOf
+    value: (_) @value @name.removal.end.startOf
+  ) @_.domain @name.removal.start.startOf
+  (#not-parent-type? @_.domain export_statement)
 )
 
 ;;!! export type Foo = Bar;
 (export_statement
   (type_alias_declaration
-    name: (_) @value.leading.endOf
-    value: (_) @value
+    name: (_) @name @value.leading.endOf
+    value: (_) @value @name.removal.end.startOf
   )
-) @value.domain
+) @_.domain @name.removal.start.startOf
 
 [
   (interface_declaration)

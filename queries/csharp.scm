@@ -351,13 +351,13 @@
   (variable_declaration
     type: (_) @type
     (variable_declarator
-      (identifier) @name @value.leading.endOf
+      (identifier) @name @value.leading.endOf @name.removal.end.endOf
       (equals_value_clause
-        (_) @value
+        (_) @value @name.removal.end.startOf
       )?
     )
   )
-) @_.domain
+) @_.domain @name.removal.start.startOf
 
 ;;!! aaa = "bbb";
 ;;!  ^^^

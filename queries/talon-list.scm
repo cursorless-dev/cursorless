@@ -15,8 +15,8 @@
 ;;!        ^^^^^
 (_
   left: _ @name @value.leading.endOf
-  right: (_) @value
-) @_.domain
+  right: (_) @value @name.removal.end.startOf
+) @_.domain @name.removal.start.startOf
 
 ;;!! not mode: command
 ;;!  ^^^^^^^^

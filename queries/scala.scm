@@ -185,20 +185,34 @@
   (_
     name: (_) @name
   ) @name.domain
-  (#not-type? @name.domain simple_enum_case full_enum_case)
+  (#not-type? @name.domain simple_enum_case full_enum_case var_declaration val_declaration)
 )
+
+;;!! var foo: Int
+;;!      ^^^
+(var_declaration
+  name: (_) @name
+) @name.domain @name.removal
+
+;;!! val foo: Int
+;;!      ^^^
+(val_declaration
+  name: (_) @name
+) @name.domain @name.removal
 
 ;;!! var foo = 0
 ;;!      ^^^
 (var_definition
   pattern: (_) @name
-) @name.domain
+  value: (_) @name.removal.end.startOf
+) @name.domain @name.removal.start.startOf
 
 ;;!! val foo = 0
 ;;!      ^^^
 (val_definition
   pattern: (_) @name
-) @name.domain
+  value: (_) @name.removal.end.startOf
+) @name.domain @name.removal.start.startOf
 
 (enum_case_definitions
   [

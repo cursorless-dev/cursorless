@@ -5,8 +5,8 @@ foo := 0
   >---<
 0| foo := 0
 
-[Removal] = 0:0-0:4
-  >----<
+[Removal] = 0:0-0:7
+  >-------<
 0| foo := 0
 
 [Trailing delimiter] = 0:3-0:4

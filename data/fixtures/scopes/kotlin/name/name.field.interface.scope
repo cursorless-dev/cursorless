@@ -33,16 +33,13 @@ interface Foo {
           >---<
 1|     val bar: Int
 
-[#2 Removal] = 1:7-1:11
-         >----<
+[#2 Removal] =
+[#2 Domain] = 1:4-1:16
+      >------------<
 1|     val bar: Int
 
 [#2 Leading delimiter] = 1:7-1:8
          >-<
-1|     val bar: Int
-
-[#2 Domain] = 1:4-1:16
-      >------------<
 1|     val bar: Int
 
 [#2 Insertion delimiter] = " "

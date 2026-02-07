@@ -5,8 +5,8 @@ val foo = 0
       >---<
 0| val foo = 0
 
-[Removal] = 0:4-0:8
-      >----<
+[Removal] = 0:0-0:10
+  >----------<
 0| val foo = 0
 
 [Leading delimiter] = 0:3-0:4

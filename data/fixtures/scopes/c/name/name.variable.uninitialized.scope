@@ -5,16 +5,13 @@ int foo;
       >---<
 0| int foo;
 
-[Removal] = 0:3-0:7
-     >----<
+[Removal] =
+[Domain] = 0:0-0:8
+  >--------<
 0| int foo;
 
 [Leading delimiter] = 0:3-0:4
      >-<
-0| int foo;
-
-[Domain] = 0:0-0:8
-  >--------<
 0| int foo;
 
 [Insertion delimiter] = " "

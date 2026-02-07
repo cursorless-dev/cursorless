@@ -41,6 +41,7 @@
   ;; Disabled on purpose. We have a better definition of this below.
   ;; (if_statement)
   ;; (enum_declaration)
+  ;; (local_variable_declaration)
 ] @statement
 
 (
@@ -412,10 +413,10 @@
 (local_variable_declaration
   type: (_) @type
   (variable_declarator
-    name: (_) @name @value.leading.endOf
-    value: (_)? @value
+    name: (_) @name @value.leading.endOf @name.removal.end.endOf
+    value: (_)? @value @name.removal.end.startOf
   )
-) @_.domain
+) @_.domain @name.removal.start.startOf
 
 ;;!! int foo = 0;
 ;;!  ^^^
@@ -424,10 +425,10 @@
 (field_declaration
   type: (_) @type
   (variable_declarator
-    name: (_) @name @value.leading.endOf
-    value: (_)? @value
+    name: (_) @name @value.leading.endOf @name.removal.end.endOf
+    value: (_)? @value @name.removal.end.startOf
   )
-) @_.domain
+) @_.domain @name.removal.start.startOf
 
 ;;!! int value;
 ;;!  ^^^
@@ -436,9 +437,10 @@
   (constant_declaration
     type: (_) @type
     (variable_declarator
-      name: (_) @name
+      name: (_) @name @name.removal.end.endOf @value.leading.endOf
+      value: (_)? @value @name.removal.end.startOf
     )
-  ) @_.domain
+  ) @_.domain @name.removal.start.startOf
 )
 
 ;;!! int foo, bar;

@@ -5,8 +5,8 @@ let foo: i32;
       >---<
 0| let foo: i32;
 
-[Removal] = 0:3-0:7
-     >----<
+[Removal] = 0:0-0:12
+  >------------<
 0| let foo: i32;
 
 [Leading delimiter] = 0:3-0:4
