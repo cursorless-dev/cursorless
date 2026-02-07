@@ -190,10 +190,10 @@
   ;;!! (public | private | protected) foo = ...;
   ;;!  -----------------------------------------
   (public_field_definition
-    name: (_) @name @value.leading.endOf
+    name: (_) @name @name.removal.end.endOf @value.leading.endOf
     !type
-    value: (_)? @value @name.trailing.startOf
-  ) @_.domain.start
+    value: (_)? @value @name.trailing.startOf @name.removal.end.startOf
+  ) @_.domain.start @name.removal.start.startOf
   .
   ";"? @_.domain.end
 )
@@ -206,9 +206,9 @@
     type: (_
       ":"
       (_) @type
-    ) @value.leading.endOf
-    value: (_)? @value
-  ) @_.domain.start
+    ) @value.leading.endOf @name.removal.end.endOf
+    value: (_)? @value @name.removal.end.startOf
+  ) @_.domain.start @name.removal.start.startOf
   .
   ";"? @_.domain.end
 )
