@@ -1,0 +1,10 @@
+let Foo {bar, baz} = bongo;
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:27
+  >---------------------------<
+0| let Foo {bar, baz} = bongo;
+
+[Insertion delimiter] = "\n"
