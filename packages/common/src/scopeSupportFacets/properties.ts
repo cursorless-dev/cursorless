@@ -4,10 +4,12 @@ import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 const { supported, notApplicable } = ScopeSupportFacetLevel;
 
 export const propertiesScopeSupport: LanguageScopeSupportFacetMap = {
-  "statement.variable": supported,
+  "statement.variable.uninitialized": supported,
+  "statement.variable.initialized": supported,
   "statement.iteration.document": supported,
 
-  "name.variable": supported,
+  "name.variable.uninitialized": supported,
+  "name.variable.initialized": supported,
   "name.iteration.document": supported,
 
   "key.mapPair": supported,
@@ -235,10 +237,10 @@ export const propertiesScopeSupport: LanguageScopeSupportFacetMap = {
   "value.resource": notApplicable,
   "value.resource.iteration": notApplicable,
 
-  // Pattern destruction
-  "name.assignment.pattern": notApplicable,
-  "name.variable.pattern": notApplicable,
-  "value.variable.pattern": notApplicable,
+  // Pattern destructuring
+  "name.assignment.destructuring": notApplicable,
+  "name.variable.destructuring": notApplicable,
+  "value.variable.destructuring": notApplicable,
 
   // String
   "string.singleLine": notApplicable,
@@ -316,14 +318,17 @@ export const propertiesScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.break": notApplicable,
   "statement.continue": notApplicable,
 
-  // Miscellaneous
-  "statement.misc": notApplicable,
+  // Types
   "type.cast": notApplicable,
   "type.iteration.block": notApplicable,
   "type.iteration.document": notApplicable,
   "type.typeArgument.iteration": notApplicable,
   "type.typeArgument": notApplicable,
-  "type.variable": notApplicable,
+  "type.variable.uninitialized": notApplicable,
+  "type.variable.initialized": notApplicable,
+
+  // Miscellaneous
+  "statement.misc": notApplicable,
   disqualifyDelimiter: notApplicable,
   environment: notApplicable,
   fieldAccess: notApplicable,

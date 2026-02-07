@@ -29,7 +29,8 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.actual.multiLine": supported,
   "argument.actual.iteration": supported,
 
-  "name.variable": supported,
+  "name.variable.uninitialized": supported,
+  "name.variable.initialized": supported,
   "name.assignment": supported,
 
   "key.mapPair": supported,

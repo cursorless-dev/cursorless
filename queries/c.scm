@@ -193,9 +193,9 @@
 (declaration
   declarator: (_
     declarator: (_) @name @value.leading.endOf
-    value: (_) @value @name.removal.end.startOf
+    value: (_) @value
   )
-) @_.domain @name.removal.start.startOf
+) @_.domain
 
 ;;!! int aaa;
 (declaration

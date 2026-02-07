@@ -130,12 +130,28 @@ export const scopeSupportFacetInfos: Record<
     description: "A do-while loop statement",
     scopeType: "statement",
   },
-  "statement.variable": {
-    description: "A variable declaration",
+  "statement.variable.uninitialized": {
+    description: "An uninitialized variable declaration",
+    scopeType: "statement",
+  },
+  "statement.variable.initialized": {
+    description: "An initialized variable declaration",
+    scopeType: "statement",
+  },
+  "statement.variable.destructuring": {
+    description: "A variable declaration pattern destructuring",
+    scopeType: "statement",
+  },
+  "statement.constant": {
+    description: "A constant declaration",
     scopeType: "statement",
   },
   "statement.assignment": {
     description: "An assignment statement",
+    scopeType: "statement",
+  },
+  "statement.assignment.destructuring": {
+    description: "An assignment statement with pattern destructuring",
     scopeType: "statement",
   },
   "statement.return": {
@@ -574,25 +590,33 @@ export const scopeSupportFacetInfos: Record<
     "the switch statement body",
   ),
 
-  "name.assignment": {
-    description: "Name (LHS) of an assignment",
-    scopeType: "name",
-  },
-  "name.assignment.pattern": {
-    description: "LHS of an assignment with pattern destructuring",
-    scopeType: "name",
-  },
   "name.command": {
     description: "LHS of a command, eg Talon spoken command or bash",
     scopeType: "name",
   },
-  "name.variable": {
-    description: "Name (LHS) of a variable declaration",
+  "name.variable.uninitialized": {
+    description: "Name (LHS) of an uninitialized variable declaration",
     scopeType: "name",
   },
-  "name.variable.pattern": {
+  "name.variable.initialized": {
+    description: "Name (LHS) of an initialized variable declaration",
+    scopeType: "name",
+  },
+  "name.variable.destructuring": {
     description:
       "Name (LHS) of a variable declaration with pattern destructuring",
+    scopeType: "name",
+  },
+  "name.constant": {
+    description: "Name (LHS) of a constant declaration",
+    scopeType: "name",
+  },
+  "name.assignment": {
+    description: "Name (LHS) of an assignment",
+    scopeType: "name",
+  },
+  "name.assignment.destructuring": {
+    description: "LHS of an assignment with pattern destructuring",
     scopeType: "name",
   },
   "name.foreach": {
@@ -708,10 +732,6 @@ export const scopeSupportFacetInfos: Record<
     "should be between the braces",
   ),
 
-  "value.assignment": {
-    description: "Value (RHS) of an assignment",
-    scopeType: "value",
-  },
   "value.command": {
     description: "Value (RHS) of an command, eg Talon spoken command",
     scopeType: "value",
@@ -720,9 +740,17 @@ export const scopeSupportFacetInfos: Record<
     description: "Value (RHS) of a variable declaration",
     scopeType: "value",
   },
-  "value.variable.pattern": {
+  "value.variable.destructuring": {
     description:
       "Value (RHS) of a variable declaration with pattern destructuring",
+    scopeType: "value",
+  },
+  "value.constant": {
+    description: "Value (RHS) of a constant declaration",
+    scopeType: "value",
+  },
+  "value.assignment": {
+    description: "Value (RHS) of an assignment",
     scopeType: "value",
   },
   "value.mapPair": {
@@ -820,12 +848,20 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "value",
   },
 
-  "type.variable": {
-    description: "Type of variable in a variable declaration",
+  "type.variable.uninitialized": {
+    description: "Type of an uninitialized variable declaration",
+    scopeType: "type",
+  },
+  "type.variable.initialized": {
+    description: "Type of an initialized variable declaration",
+    scopeType: "type",
+  },
+  "type.constant": {
+    description: "Type of a constant declaration",
     scopeType: "type",
   },
   "type.argument.formal": {
-    description: "Type of formal parameter in a function declaration",
+    description: "Type of a formal parameter in a function declaration",
     scopeType: "type",
   },
   "type.argument.formal.iteration": iteration(
@@ -834,7 +870,7 @@ export const scopeSupportFacetInfos: Record<
     "the parameters list. The domain should be the entire function",
   ),
   "type.argument.formal.method": {
-    description: "Type of formal parameter in a class method declaration",
+    description: "Type of a formal parameter in a class method declaration",
     scopeType: "type",
   },
   "type.argument.formal.method.iteration": iteration(
@@ -843,7 +879,7 @@ export const scopeSupportFacetInfos: Record<
     "the parameters list. The domain should be the entire method",
   ),
   "type.argument.formal.constructor": {
-    description: "Type of formal parameter in a constructor declaration",
+    description: "Type of a formal parameter in a constructor declaration",
     scopeType: "type",
   },
   "type.argument.formal.constructor.iteration": iteration(
@@ -852,24 +888,24 @@ export const scopeSupportFacetInfos: Record<
     "the parameters list. The domain should be the entire constructor",
   ),
   "type.argument.catch": {
-    description: "Type of parameter in a catch clause",
+    description: "Type of a parameter in a catch clause",
     scopeType: "type",
   },
 
   "type.return": {
-    description: "Type of return value in a function declaration",
+    description: "Type of a return value in a function declaration",
     scopeType: "type",
   },
   "type.field.class": {
-    description: "Type of field in a class",
+    description: "Type of a field in a class",
     scopeType: "type",
   },
   "type.field.interface": {
-    description: "Type of field in a interface",
+    description: "Type of a field in a interface",
     scopeType: "type",
   },
   "type.foreach": {
-    description: "Type of variable in a for each loop",
+    description: "Type of a variable in a for each loop",
     scopeType: "type",
   },
   "type.enum": {

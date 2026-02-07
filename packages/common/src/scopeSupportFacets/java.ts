@@ -106,7 +106,8 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.foreach": supported,
   "statement.while": supported,
   "statement.doWhile": supported,
-  "statement.variable": supported,
+  "statement.variable.uninitialized": supported,
+  "statement.variable.initialized": supported,
   "statement.assignment": supported,
   "statement.return": supported,
   "statement.yield": supported,
@@ -143,7 +144,8 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "name.field.enum": supported,
   "name.foreach": supported,
   "name.method": supported,
-  "name.variable": supported,
+  "name.variable.uninitialized": supported,
+  "name.variable.initialized": supported,
   "name.iteration.document": supported,
   "name.iteration.class": supported,
   "name.iteration.interface": supported,
@@ -173,7 +175,8 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "type.field.class": supported,
   "type.field.interface": supported,
   "type.return": supported,
-  "type.variable": supported,
+  "type.variable.uninitialized": supported,
+  "type.variable.initialized": supported,
   "type.typeArgument": supported,
   "type.typeArgument.iteration": supported,
   "type.resource": supported,
@@ -243,10 +246,10 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.argument.actual": notApplicable,
   "value.argument.actual.iteration": notApplicable,
 
-  // Pattern destructing
-  "name.assignment.pattern": notApplicable,
-  "name.variable.pattern": notApplicable,
-  "value.variable.pattern": notApplicable,
+  // Pattern destructuring
+  "name.assignment.destructuring": notApplicable,
+  "name.variable.destructuring": notApplicable,
+  "value.variable.destructuring": notApplicable,
 
   // Map literal
   map: notApplicable,

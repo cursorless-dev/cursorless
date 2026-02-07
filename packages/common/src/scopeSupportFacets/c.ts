@@ -18,7 +18,8 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.for": supported,
   "statement.while": supported,
   "statement.doWhile": supported,
-  "statement.variable": supported,
+  "statement.variable.uninitialized": supported,
+  "statement.variable.initialized": supported,
   "statement.assignment": supported,
   "statement.return": supported,
   "statement.break": supported,
@@ -90,7 +91,8 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "condition.switchCase.iteration": supported,
 
   "name.assignment": supported,
-  "name.variable": supported,
+  "name.variable.uninitialized": supported,
+  "name.variable.initialized": supported,
   "name.function": supported,
   "name.class": supported,
   "name.enum": supported,
@@ -113,7 +115,8 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "value.iteration.enum": supported,
   "value.iteration.document": supported,
 
-  "type.variable": supported,
+  "type.variable.uninitialized": supported,
+  "type.variable.initialized": supported,
   "type.argument.formal": supported,
   "type.argument.formal.iteration": supported,
   "type.field.class": supported,
@@ -181,10 +184,10 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "section.iteration.document": notApplicable,
   "section.iteration.parent": notApplicable,
 
-  // Pattern destructing
-  "name.assignment.pattern": notApplicable,
-  "name.variable.pattern": notApplicable,
-  "value.variable.pattern": notApplicable,
+  // Pattern destructuring
+  "name.assignment.destructuring": notApplicable,
+  "name.variable.destructuring": notApplicable,
+  "value.variable.destructuring": notApplicable,
 
   // Command
   command: notApplicable,

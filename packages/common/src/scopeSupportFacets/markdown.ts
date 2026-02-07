@@ -25,16 +25,19 @@ export const markdownScopeSupport: LanguageScopeSupportFacetMap = {
   "collectionItem.unenclosed.singleLine": notApplicable,
 
   // Variable
-  "statement.variable": notApplicable,
+  "statement.variable.uninitialized": notApplicable,
+  "statement.variable.initialized": notApplicable,
   "statement.assignment": notApplicable,
   "name.assignment": notApplicable,
-  "name.assignment.pattern": notApplicable,
-  "name.variable": notApplicable,
-  "name.variable.pattern": notApplicable,
-  "type.variable": notApplicable,
+  "name.assignment.destructuring": notApplicable,
+  "name.variable.uninitialized": notApplicable,
+  "name.variable.initialized": notApplicable,
+  "name.variable.destructuring": notApplicable,
+  "type.variable.uninitialized": notApplicable,
+  "type.variable.initialized": notApplicable,
   "value.assignment": notApplicable,
   "value.variable": notApplicable,
-  "value.variable.pattern": notApplicable,
+  "value.variable.destructuring": notApplicable,
 
   // Class
   class: notApplicable,

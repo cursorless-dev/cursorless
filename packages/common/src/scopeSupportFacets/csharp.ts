@@ -69,7 +69,8 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "name.foreach": supported,
   "name.function": supported,
   "name.method": supported,
-  "name.variable": supported,
+  "name.variable.uninitialized": supported,
+  "name.variable.initialized": supported,
   "name.iteration.block": supported,
   "name.iteration.class": supported,
   "name.iteration.interface": supported,
@@ -113,7 +114,8 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "type.field.class": supported,
   "type.field.interface": supported,
   "type.return": supported,
-  "type.variable": supported,
+  "type.variable.uninitialized": supported,
+  "type.variable.initialized": supported,
   "type.typeArgument": supported,
   "type.typeArgument.iteration": supported,
   "type.iteration.block": supported,
@@ -187,7 +189,8 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.foreach": supported,
   "statement.while": supported,
   "statement.doWhile": supported,
-  "statement.variable": supported,
+  "statement.variable.uninitialized": supported,
+  "statement.variable.initialized": supported,
   "statement.assignment": supported,
   "statement.return": supported,
   "statement.yield": supported,
@@ -258,10 +261,10 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "value.resource": notApplicable,
   "value.resource.iteration": notApplicable,
 
-  // Pattern destructing
-  "name.assignment.pattern": notApplicable,
-  "name.variable.pattern": notApplicable,
-  "value.variable.pattern": notApplicable,
+  // Pattern destructuring
+  "name.assignment.destructuring": notApplicable,
+  "name.variable.destructuring": notApplicable,
+  "value.variable.destructuring": notApplicable,
 
   // Type alias
   "type.alias": notApplicable,
