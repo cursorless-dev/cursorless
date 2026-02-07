@@ -236,6 +236,8 @@ export const propertiesScopeSupport: LanguageScopeSupportFacetMap = {
   "value.resource.iteration": notApplicable,
 
   // Pattern destructuring
+  "statement.variable.destructuring": notApplicable,
+  "statement.assignment.destructuring": notApplicable,
   "name.assignment.destructuring": notApplicable,
   "name.variable.destructuring": notApplicable,
   "value.variable.destructuring": notApplicable,

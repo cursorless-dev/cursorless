@@ -479,6 +479,29 @@
   )
 ) @_.domain @name.removal.start.startOf
 
+;;!! const foo int = 0
+;;!        ^^^
+;;!            ^^^
+;;!                 ^
+(const_declaration
+  (const_spec
+    name: (_) @name
+    type: (_) @type @value.leading.endOf @name.removal.end.endOf
+    value: (_)? @value @name.removal.end.startOf
+  )
+) @_.domain @name.removal.start.startOf
+
+;;!! const foo = 0
+;;!        ^^^
+;;!              ^
+(const_declaration
+  (const_spec
+    name: (_) @name @value.leading.endOf
+    !type
+    value: (_) @value @name.removal.end.startOf
+  )
+) @_.domain @name.removal.start.startOf
+
 ;;!! foo := 0
 ;;!  ^^^
 ;;!         ^

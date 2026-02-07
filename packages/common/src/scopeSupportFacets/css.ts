@@ -49,7 +49,9 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   // Variable
   "statement.variable.uninitialized": notApplicable,
   "statement.variable.initialized": notApplicable,
+  "statement.variable.destructuring": notApplicable,
   "statement.assignment": notApplicable,
+  "statement.assignment.destructuring": notApplicable,
   "name.assignment": notApplicable,
   "name.assignment.destructuring": notApplicable,
   "name.variable.uninitialized": notApplicable,

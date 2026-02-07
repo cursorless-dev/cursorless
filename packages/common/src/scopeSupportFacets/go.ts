@@ -25,9 +25,10 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.switch": supported,
   "statement.for": supported,
   "statement.foreach": supported,
+  "statement.assignment": supported,
+  "statement.constant": supported,
   "statement.variable.uninitialized": supported,
   "statement.variable.initialized": supported,
-  "statement.assignment": supported,
   "statement.return": supported,
   "statement.break": supported,
   "statement.continue": supported,
@@ -109,6 +110,7 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   "condition.switchCase.iteration": supported,
 
   "name.assignment": supported,
+  "name.constant": supported,
   "name.variable.uninitialized": supported,
   "name.variable.initialized": supported,
   "name.foreach": supported,
@@ -131,6 +133,7 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   "key.mapPair.iteration": supported,
 
   "value.assignment": supported,
+  "value.constant": supported,
   "value.variable": supported,
   "value.mapPair": supported,
   "value.mapPair.iteration": supported,
@@ -141,6 +144,7 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   "value.iteration.block": supported,
   "value.iteration.document": supported,
 
+  "type.constant": supported,
   "type.variable.uninitialized": supported,
   "type.variable.initialized": supported,
   "type.argument.formal": supported,
@@ -308,9 +312,11 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   "type.iteration.interface": notApplicable,
 
   // Pattern destructuring
+  "statement.variable.destructuring": notApplicable,
+  "statement.assignment.destructuring": notApplicable,
+  "name.assignment.destructuring": notApplicable,
   "name.variable.destructuring": notApplicable,
   "value.variable.destructuring": notApplicable,
-  "name.assignment.destructuring": notApplicable,
 
   // Miscellaneous
   "statement.misc": notApplicable,

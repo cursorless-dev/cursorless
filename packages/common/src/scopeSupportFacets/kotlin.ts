@@ -308,5 +308,6 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "class.iteration.block": notApplicable,
   "type.cast": notApplicable,
   "statement.misc": notApplicable,
+  "statement.assignment.destructuring": notApplicable,
   "name.assignment.destructuring": notApplicable,
 };

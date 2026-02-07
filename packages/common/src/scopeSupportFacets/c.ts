@@ -189,6 +189,8 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "section.iteration.parent": notApplicable,
 
   // Pattern destructuring
+  "statement.variable.destructuring": notApplicable,
+  "statement.assignment.destructuring": notApplicable,
   "name.assignment.destructuring": notApplicable,
   "name.variable.destructuring": notApplicable,
   "value.variable.destructuring": notApplicable,
