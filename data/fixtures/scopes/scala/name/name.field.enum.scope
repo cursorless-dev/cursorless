@@ -1,6 +1,6 @@
 enum Foo {
     case Bar
-    case Baz(x: Int)
+    case Baz()
 }
 ---
 
@@ -24,7 +24,7 @@ enum Foo {
   >----------
 0| enum Foo {
 1|     case Bar
-2|     case Baz(x: Int)
+2|     case Baz()
 3| }
    -<
 
@@ -53,26 +53,14 @@ enum Foo {
 [#3 Content] =
 [#3 Removal] = 2:9-2:12
            >---<
-2|     case Baz(x: Int)
+2|     case Baz()
 
 [#3 Leading delimiter] = 2:8-2:9
           >-<
-2|     case Baz(x: Int)
+2|     case Baz()
 
-[#3 Domain] = 2:4-2:20
-      >----------------<
-2|     case Baz(x: Int)
+[#3 Domain] = 2:4-2:14
+      >----------<
+2|     case Baz()
 
 [#3 Insertion delimiter] = " "
-
-
-[#4 Content] =
-[#4 Removal] = 2:13-2:14
-               >-<
-2|     case Baz(x: Int)
-
-[#4 Domain] = 2:13-2:19
-               >------<
-2|     case Baz(x: Int)
-
-[#4 Insertion delimiter] = " "

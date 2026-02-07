@@ -253,12 +253,12 @@
 
 ;;!! #[derive(Debug)]
 ;;!  ^^^^^^^^^^^^^^^^
-(attribute_item) @attribute
+(attribute_item) @Anribute
 
 ;;!! &mut x;
 ;;!   ^^^
 (_
-  (mutable_specifier) @attribute
+  (mutable_specifier) @Anribute
   .
   (_) @_.trailing.startOf
 ) @_.domain

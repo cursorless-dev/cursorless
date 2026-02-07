@@ -128,7 +128,7 @@
 ;;!  ^^^   ^
 (enumerator
   name: (_) @name @value.leading.endOf
-  value: (_)? @value
+  value: (_)? @value @name.trailing.startOf
 ) @_.domain
 
 ;;!! void foo();

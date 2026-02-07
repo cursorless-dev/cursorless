@@ -1,6 +1,6 @@
 enum Foo {
-    bar = "-",
-    baz = 0,
+    bar = 0,
+    baz = 1,
     bongo
 }
 ---
@@ -24,8 +24,8 @@ enum Foo {
 [#1 Domain] = 0:0-4:1
   >----------
 0| enum Foo {
-1|     bar = "-",
-2|     baz = 0,
+1|     bar = 0,
+2|     baz = 1,
 3|     bongo
 4| }
    -<
@@ -35,46 +35,38 @@ enum Foo {
 
 [#2 Content] = 1:4-1:7
       >---<
-1|     bar = "-",
+1|     bar = 0,
 
-[#2 Removal] = 1:4-1:8
-      >----<
-1|     bar = "-",
+[#2 Removal] = 1:4-1:10
+      >------<
+1|     bar = 0,
 
-[#2 Leading delimiter] = 1:0-1:4
-  >----<
-1|     bar = "-",
+[#2 Trailing delimiter] = 1:7-1:10
+         >---<
+1|     bar = 0,
 
-[#2 Trailing delimiter] = 1:7-1:8
-         >-<
-1|     bar = "-",
-
-[#2 Domain] = 1:4-1:13
-      >---------<
-1|     bar = "-",
+[#2 Domain] = 1:4-1:11
+      >-------<
+1|     bar = 0,
 
 [#2 Insertion delimiter] = " "
 
 
 [#3 Content] = 2:4-2:7
       >---<
-2|     baz = 0,
+2|     baz = 1,
 
-[#3 Removal] = 2:4-2:8
-      >----<
-2|     baz = 0,
+[#3 Removal] = 2:4-2:10
+      >------<
+2|     baz = 1,
 
-[#3 Leading delimiter] = 2:0-2:4
-  >----<
-2|     baz = 0,
-
-[#3 Trailing delimiter] = 2:7-2:8
-         >-<
-2|     baz = 0,
+[#3 Trailing delimiter] = 2:7-2:10
+         >---<
+2|     baz = 1,
 
 [#3 Domain] = 2:4-2:11
       >-------<
-2|     baz = 0,
+2|     baz = 1,
 
 [#3 Insertion delimiter] = " "
 

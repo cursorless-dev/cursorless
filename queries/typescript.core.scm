@@ -55,7 +55,7 @@
 ;;!                   ^        ^
 (enum_assignment
   name: (_) @name @value.leading.endOf
-  value: (_) @value
+  value: (_) @value @name.trailing.startOf
 ) @_.domain
 
 ;;!! function foo(aaa: number = 0) {}
@@ -492,7 +492,7 @@
       ":"
       (_) @type @collectionKey.trailing.startOf
     )
-  ) @_.domain.start
+  ) @_.domain.start @name.removal
   .
   ";"? @_.domain.end
 )

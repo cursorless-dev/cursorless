@@ -1,5 +1,5 @@
 class Foo {
-    @baz
+    @An
     bar = () => {}
 }
 ---
@@ -7,19 +7,19 @@ class Foo {
 [Content] =
 [Domain] = 1:4-2:18
       >----
-1|     @baz
+1|     @An
 2|     bar = () => {}
    ------------------<
 
 [Removal] = 1:0-3:0
   >--------
-1|     @baz
+1|     @An
 2|     bar = () => {}
 3| }
    <
 
 [Leading delimiter] = 1:0-1:4
   >----<
-1|     @baz
+1|     @An
 
 [Insertion delimiter] = "\n\n"

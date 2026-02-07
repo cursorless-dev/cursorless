@@ -1,7 +1,7 @@
 public class Foo {
     private int bar;
     private int baz = 0;
-    @Att int bongo = 0;
+    @An int bongo = 0;
 }
 ---
 
@@ -26,7 +26,7 @@ public class Foo {
 0| public class Foo {
 1|     private int bar;
 2|     private int baz = 0;
-3|     @Att int bongo = 0;
+3|     @An int bongo = 0;
 4| }
    -<
 
@@ -77,22 +77,22 @@ public class Foo {
 
 [#4 Content] = 3:13-3:18
                >-----<
-3|     @Att int bongo = 0;
+3|     @An int bongo = 0;
 
 [#4 Removal] = 3:4-3:21
       >-----------------<
-3|     @Att int bongo = 0;
+3|     @An int bongo = 0;
 
 [#4 Leading delimiter] = 3:12-3:13
               >-<
-3|     @Att int bongo = 0;
+3|     @An int bongo = 0;
 
 [#4 Trailing delimiter] = 3:18-3:19
                     >-<
-3|     @Att int bongo = 0;
+3|     @An int bongo = 0;
 
 [#4 Domain] = 3:4-3:23
       >-------------------<
-3|     @Att int bongo = 0;
+3|     @An int bongo = 0;
 
 [#4 Insertion delimiter] = " "

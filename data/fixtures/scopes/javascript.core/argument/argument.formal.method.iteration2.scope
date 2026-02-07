@@ -1,5 +1,5 @@
 class Foo {
-    @baz
+    @An
     bar(aaa, bbb) {}
 }
 ---
@@ -10,6 +10,6 @@ class Foo {
 
 [Domain] = 1:4-2:20
       >----
-1|     @baz
+1|     @An
 2|     bar(aaa, bbb) {}
    --------------------<

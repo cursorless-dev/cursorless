@@ -225,7 +225,7 @@
 
 ;;!! [Obsolete("Deprecated")]
 ;;!   ^^^^^^^^^^^^^^^^^^^^^^
-(attribute) @attribute
+(attribute) @Anribute
 
 [
   (delegate_declaration
@@ -383,7 +383,7 @@
 
 (_
   name: (_) @name
-  (#not-parent-type? @name catch_declaration)
+  (#not-parent-type? @name catch_declaration enum_member_declaration)
 ) @_.domain
 
 (
@@ -412,8 +412,8 @@
 ;;!! bar = 0
 ;;!        ^
 (enum_member_declaration
-  name: (_) @value.leading.endOf
-  value: (_) @value
+  name: (_) @name @value.leading.endOf
+  value: (_) @value @name.trailing.startOf
 ) @_.domain
 
 ;; Dictionary<string, int> values;

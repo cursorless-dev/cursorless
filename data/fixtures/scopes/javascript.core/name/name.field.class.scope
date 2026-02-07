@@ -1,7 +1,7 @@
 class Foo {
     bar;
     baz = 0;
-    @Att bongo = 0;
+    @An bongo = 0;
 }
 ---
 
@@ -26,7 +26,7 @@ class Foo {
 0| class Foo {
 1|     bar;
 2|     baz = 0;
-3|     @Att bongo = 0;
+3|     @An bongo = 0;
 4| }
    -<
 
@@ -70,18 +70,18 @@ class Foo {
 
 [#4 Content] = 3:9-3:14
            >-----<
-3|     @Att bongo = 0;
+3|     @An bongo = 0;
 
 [#4 Removal] = 3:4-3:17
       >-------------<
-3|     @Att bongo = 0;
+3|     @An bongo = 0;
 
 [#4 Trailing delimiter] = 3:14-3:17
                 >---<
-3|     @Att bongo = 0;
+3|     @An bongo = 0;
 
 [#4 Domain] = 3:4-3:19
       >---------------<
-3|     @Att bongo = 0;
+3|     @An bongo = 0;
 
 [#4 Insertion delimiter] = " "

@@ -16,7 +16,7 @@
 
 ;;!! <aaa id="me">
 ;;!       ^^^^^^^
-(attribute) @attribute
+(attribute) @Anribute
 
 ;;!! <aaa id="me">
 ;;!       ^^
@@ -48,7 +48,7 @@
 
 ;;!! <aaa>
 ;;!  ^^^^^
-(start_tag) @attribute.iteration @collectionKey.iteration @value.iteration
+(start_tag) @Anribute.iteration @collectionKey.iteration @value.iteration
 
 ;;!! <!-- comment -->
 ;;!  ^^^^^^^^^^^^^^^^

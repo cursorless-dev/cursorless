@@ -1,6 +1,6 @@
 public enum Foo {
     bar,
-    baz;
+    baz();
 }
 ---
 
@@ -24,7 +24,7 @@ public enum Foo {
   >-----------------
 0| public enum Foo {
 1|     bar,
-2|     baz;
+2|     baz();
 3| }
    -<
 
@@ -48,16 +48,16 @@ public enum Foo {
 
 
 [#3 Content] =
-[#3 Domain] = 2:4-2:7
+[#3 Removal] = 2:4-2:7
       >---<
-2|     baz;
-
-[#3 Removal] = 2:0-2:7
-  >-------<
-2|     baz;
+2|     baz();
 
 [#3 Leading delimiter] = 2:0-2:4
   >----<
-2|     baz;
+2|     baz();
+
+[#3 Domain] = 2:4-2:9
+      >-----<
+2|     baz();
 
 [#3 Insertion delimiter] = " "
