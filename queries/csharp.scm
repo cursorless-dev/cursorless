@@ -225,7 +225,7 @@
 
 ;;!! [Obsolete("Deprecated")]
 ;;!   ^^^^^^^^^^^^^^^^^^^^^^
-(attribute) @Anribute
+(attribute) @Attribute
 
 [
   (delegate_declaration
