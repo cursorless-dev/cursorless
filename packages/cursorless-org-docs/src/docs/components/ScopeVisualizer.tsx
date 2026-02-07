@@ -47,7 +47,9 @@ export function ScopeVisualizer({ languageId, scopeTypeType }: Props) {
   const [scopes] = useState(
     getScopeFixtures(scopeTests, languageId, scopeTypeType),
   );
-  const [rangeType, setRangeType] = useState<RangeType>("content");
+  const [rangeType, setRangeType] = useState<RangeType>(
+    scopeTypeType != null ? "blend" : "content",
+  );
   const [renderWhitespace, setRenderWhitespace] = useState(
     scopeTypeType != null,
   );

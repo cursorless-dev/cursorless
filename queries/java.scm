@@ -335,13 +335,6 @@
   ")" @type.iteration.end.startOf @name.iteration.end.startOf
 )
 
-;;!! List<String> list = value;
-;;!  ^^^^^^^^^^^^
-;;!  --------------------------
-(local_variable_declaration
-  type: (_) @type
-) @_.domain
-
 ;;!! name = new ArrayList<String>();
 ;;!             ^^^^^^^^^^^^^^^^^
 ;;!         -----------------------
@@ -412,38 +405,41 @@
   value: (_) @value
 ) @branch @_.domain
 
-;;!! int value = 0;
-;;!              ^
-;;!           xxxx
-;;!  --------------
+;;!! int foo = 0;
+;;!  ^^^
+;;!      ^^^
+;;!            ^
 (local_variable_declaration
+  type: (_) @type
   (variable_declarator
     name: (_) @name @value.leading.endOf
-    value: (_)? @value @name.trailing.startOf
+    value: (_)? @value
   )
 ) @_.domain
 
-;;!! int value = 0;
+;;!! int foo = 0;
 ;;!  ^^^
-;;!      ^^^^^
-;;!              ^
+;;!      ^^^
+;;!            ^
 (field_declaration
   type: (_) @type
   (variable_declarator
     name: (_) @name @value.leading.endOf
-    value: (_)? @value @name.trailing.startOf
+    value: (_)? @value
   )
 ) @_.domain
 
 ;;!! int value;
 ;;!  ^^^
 ;;!      ^^^^^
-(constant_declaration
-  type: (_) @type
-  (variable_declarator
-    name: (_) @name
-  )
-) @_.domain
+(interface_body
+  (constant_declaration
+    type: (_) @type
+    (variable_declarator
+      name: (_) @name
+    )
+  ) @_.domain
+)
 
 ;;!! int foo, bar;
 ;;!      ^^^  ^^^
