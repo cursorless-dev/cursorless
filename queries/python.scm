@@ -46,7 +46,7 @@
 ;;!  ^^^
 ;;!        ^
 (assignment
-  left: (_) @name
+  left: (_) @name @value.leading.endOf
   !type
   right: (_)? @value @name.trailing.end.startOf
 ) @_.domain
@@ -56,7 +56,7 @@
 ;;!             ^
 (assignment
   left: (_) @name
-  type: (_) @name.removal.end.endOf
+  type: (_) @name.removal.end.endOf @value.leading.endOf
   right: (_)? @value @name.removal.end.startOf
 ) @_.domain @name.removal.start.startOf
 

@@ -172,13 +172,14 @@
   declarator: (_
     !declarator
   ) @name
-) @statement @name.domain
+  .
+) @statement @name.domain @name.removal
 
 (field_declaration
   declarator: (_
     declarator: (_) @name
   )
-) @statement @name.domain
+) @statement @name.domain @name.removal
 
 (initializer_list) @list
 
