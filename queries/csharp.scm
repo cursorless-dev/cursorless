@@ -225,7 +225,7 @@
 
 ;;!! [Obsolete("Deprecated")]
 ;;!   ^^^^^^^^^^^^^^^^^^^^^^
-(attribute) @Attribute
+(attribute) @attribute
 
 [
   (delegate_declaration

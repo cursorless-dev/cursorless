@@ -55,7 +55,7 @@
 
 ;;!! <aaa bbb="ccc" />
 ;;!       ^^^^^^^^^
-(jsx_attribute) @Attribute
+(jsx_attribute) @attribute
 
 ;;!! <aaa bbb="ccc" />
 ;;!       ^^^
@@ -76,15 +76,15 @@
 ;;!! <aaa />
 ;;!   ^^^^
 (jsx_self_closing_element
-  "<" @Attribute.iteration.start.endOf @collectionKey.iteration.start.endOf @value.iteration.start.endOf
-  "/>" @Attribute.iteration.end.startOf @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+  "<" @attribute.iteration.start.endOf @collectionKey.iteration.start.endOf @value.iteration.start.endOf
+  "/>" @attribute.iteration.end.startOf @collectionKey.iteration.end.startOf @value.iteration.end.startOf
 )
 
 ;;!! <aaa></aaa>
 ;;!   ^^^
 (jsx_opening_element
-  "<" @Attribute.iteration.start.endOf @collectionKey.iteration.start.endOf @value.iteration.start.endOf
-  ">" @Attribute.iteration.end.startOf @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+  "<" @attribute.iteration.start.endOf @collectionKey.iteration.start.endOf @value.iteration.start.endOf
+  ">" @attribute.iteration.end.startOf @collectionKey.iteration.end.startOf @value.iteration.end.startOf
 )
 
 ;;!! <div>text</div>
