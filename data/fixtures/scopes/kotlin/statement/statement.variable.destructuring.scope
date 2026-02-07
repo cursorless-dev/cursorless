@@ -1,0 +1,10 @@
+val (foo, bar) = baz
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:20
+  >--------------------<
+0| val (foo, bar) = baz
+
+[Insertion delimiter] = "\n"
