@@ -3,7 +3,6 @@ import type {
   ScopeType,
   PlaintextScopeSupportFacet,
   ScopeRangeConfig,
-  Range,
 } from "@cursorless/common";
 import {
   asyncSafety,
@@ -154,7 +153,7 @@ async function runTest(file: string, languageId: string, facetId: string) {
       if (!updateFixture) {
         assert.isFalse(
           iterationScopes.some((s) =>
-            s.ranges.some((r) => isContained(s.domain, r.range)),
+            s.ranges.some((r) => !s.domain.contains(r.range)),
           ),
           "Iteration range should not contain the domain",
         );
@@ -171,13 +170,13 @@ async function runTest(file: string, languageId: string, facetId: string) {
     if (!updateFixture) {
       assert.isFalse(
         scopes.some((s) =>
-          s.targets.some((t) => isContained(s.domain, t.contentRange)),
+          s.targets.some((t) => !s.domain.contains(t.contentRange)),
         ),
         "Content range should not contain the domain",
       );
       assert.isFalse(
         scopes.some((s) =>
-          s.targets.some((t) => isContained(t.removalRange, t.contentRange)),
+          s.targets.some((t) => !s.domain.contains(t.contentRange)),
         ),
         "Content range should not contain the removal range",
       );
@@ -218,8 +217,4 @@ function getFacetInfo(
     scopeType: fullScopeType,
     isIteration: isIteration ?? false,
   };
-}
-
-function isContained(domain: Range, range: Range): boolean {
-  return range.contains(domain) && !range.isRangeEqual(domain);
 }
