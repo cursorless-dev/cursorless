@@ -17,6 +17,7 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.command": supported,
 
   "name.assignment": supported,
+  "name.assignment.compound": supported,
   "name.command": supported,
   "name.variable.initialized": supported,
   "name.iteration.block": supported,
@@ -25,10 +26,14 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.command": supported,
   "statement.variable.initialized": supported,
   "statement.assignment": supported,
+  "statement.assignment.compound": supported,
+  "statement.update": supported,
+  "statement.functionCall": supported,
   "statement.iteration.block": supported,
   "statement.iteration.document": supported,
 
   "value.assignment": supported,
+  "value.assignment.compound": supported,
   "value.command": supported,
   "value.variable": supported,
   "value.iteration.block": supported,
@@ -121,6 +126,7 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.method.iteration": notApplicable,
   "value.argument.formal.method": notApplicable,
   "value.argument.formal.method.iteration": notApplicable,
+  "type.return.method": notApplicable,
 
   // Function
   namedFunction: notApplicable,
@@ -176,6 +182,10 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.yield": notApplicable,
   "value.yield": notApplicable,
 
+  // Throw statement
+  "statement.throw": notApplicable,
+  "value.throw": notApplicable,
+
   // Interface
   "statement.interface": notApplicable,
   "statement.field.interface": notApplicable,
@@ -187,6 +197,7 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "type.interface": notApplicable,
   "type.field.interface": notApplicable,
   "type.iteration.interface": notApplicable,
+  "value.field.interface": notApplicable,
 
   // Enum
   "statement.enum": notApplicable,
@@ -197,6 +208,9 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "value.iteration.enum": notApplicable,
   "type.enum": notApplicable,
   "interior.enum": notApplicable,
+  "functionCall.enum": notApplicable,
+  "functionCallee.enum": notApplicable,
+  "statement.field.enum": notApplicable,
 
   // Try catch
   "statement.try": notApplicable,
@@ -269,6 +283,7 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "name.assignment.destructuring": notApplicable,
   "name.variable.destructuring": notApplicable,
   "value.variable.destructuring": notApplicable,
+  "value.assignment.destructuring": notApplicable,
 
   // Multiline string
   "string.multiLine": notApplicable,
@@ -314,18 +329,17 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   notebookCell: notApplicable,
   "interior.cell": notApplicable,
 
-  // Type alias
-  "type.alias": notApplicable,
-  "value.typeAlias": notApplicable,
-
   // Collection item
   "collectionItem.unenclosed.singleLine": notApplicable,
   "collectionItem.unenclosed.multiLine": notApplicable,
   "collectionItem.unenclosed.iteration": notApplicable,
 
   // Miscellaneous statements
+  "statement.misc": notApplicable,
   "statement.break": notApplicable,
   "statement.continue": notApplicable,
+  "statement.package": notApplicable,
+  "statement.import": notApplicable,
 
   // Types
   "type.variable.uninitialized": notApplicable,
@@ -335,6 +349,14 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "type.typeArgument.iteration": notApplicable,
   "type.iteration.block": notApplicable,
   "type.iteration.document": notApplicable,
+  "functionCall.generic": notApplicable,
+  "functionCallee.generic": notApplicable,
+
+  // Type alias
+  "type.alias": notApplicable,
+  "statement.typeAlias": notApplicable,
+  "name.typeAlias": notApplicable,
+  "value.typeAlias": notApplicable,
 
   // Constant
   "statement.constant": notApplicable,
@@ -352,7 +374,6 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   environment: notApplicable,
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,
-  "statement.misc": notApplicable,
   selector: notApplicable,
   unit: notApplicable,
   disqualifyDelimiter: notApplicable,

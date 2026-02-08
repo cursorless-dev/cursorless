@@ -18,6 +18,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.catch": supported,
   "name.assignment": supported,
   "name.assignment.destructuring": supported,
+  "name.assignment.compound": supported,
   "name.variable.uninitialized": supported,
   "name.variable.initialized": supported,
   "name.variable.destructuring": supported,
@@ -43,6 +44,8 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "value.argument.formal.method": supported,
   "value.argument.formal.method.iteration": supported,
   "value.assignment": supported,
+  "value.assignment.destructuring": supported,
+  "value.assignment.compound": supported,
   "value.variable": supported,
   "value.variable.destructuring": supported,
   "value.field.class": supported,
@@ -50,6 +53,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "value.mapPair.iteration": supported,
   "value.return": supported,
   "value.return.lambda": supported,
+  "value.throw": supported,
   "value.switch": supported,
   "value.iteration.block": supported,
   "value.iteration.class": supported,
@@ -65,6 +69,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "type.class": supported,
   "type.field.class": supported,
   "type.return": supported,
+  "type.return.method": supported,
   "type.typeArgument": supported,
   "type.typeArgument.iteration": supported,
   "type.variable.uninitialized": supported,
@@ -182,6 +187,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.function": supported,
   "statement.constructor": supported,
   "statement.method": supported,
+  "statement.functionCall": supported,
   "statement.if": supported,
   "statement.try": supported,
   "statement.switch": supported,
@@ -189,14 +195,18 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.while": supported,
   "statement.assignment": supported,
   "statement.assignment.destructuring": supported,
+  "statement.assignment.compound": supported,
   "statement.variable.uninitialized": supported,
   "statement.variable.initialized": supported,
   "statement.variable.destructuring": supported,
+  "statement.update": supported,
   "statement.return": supported,
   "statement.yield": supported,
+  "statement.throw": supported,
   "statement.break": supported,
   "statement.continue": supported,
   "statement.resource": supported,
+  "statement.import": supported,
   "statement.iteration.document": supported,
   "statement.iteration.class": supported,
   "statement.iteration.block": supported,
@@ -261,7 +271,6 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "class.iteration.block": notApplicable,
 
   // Type. Python have some types, but not these.
-  "type.alias": notApplicable,
   "type.cast": notApplicable,
   "type.foreach": notApplicable,
   "type.interface": notApplicable,
@@ -269,6 +278,11 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "type.iteration.interface": notApplicable,
   "type.resource.iteration": notApplicable,
   "type.resource": notApplicable,
+
+  // Type alias
+  "type.alias": notApplicable,
+  "statement.typeAlias": notApplicable,
+  "name.typeAlias": notApplicable,
   "value.typeAlias": notApplicable,
 
   // Enum. The way python does enums is via class inheritance, and not as a separate keyword/syntax.
@@ -280,6 +294,13 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "type.enum": notApplicable,
   "interior.enum": notApplicable,
   "statement.enum": notApplicable,
+  "statement.field.enum": notApplicable,
+  "functionCall.enum": notApplicable,
+  "functionCallee.enum": notApplicable,
+
+  // Generic/enum calls
+  "functionCall.generic": notApplicable,
+  "functionCallee.generic": notApplicable,
 
   // Notebook cell
   notebookCell: notApplicable,
@@ -302,6 +323,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "name.interface": notApplicable,
   "name.field.interface": notApplicable,
   "name.iteration.interface": notApplicable,
+  "value.field.interface": notApplicable,
 
   // Static
   "interior.static": notApplicable,
@@ -315,6 +337,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Miscellaneous
   "statement.misc": notApplicable,
+  "statement.package": notApplicable,
   environment: notApplicable,
   regularExpression: notApplicable,
   selector: notApplicable,

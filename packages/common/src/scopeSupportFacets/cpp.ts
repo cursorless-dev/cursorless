@@ -14,6 +14,7 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.foreach": supported,
   "statement.constructor": supported,
   "statement.method": supported,
+  "statement.throw": supported,
 
   "branch.try": supported,
   "branch.try.iteration": supported,
@@ -46,7 +47,9 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.formal.method.multiLine": supported,
 
   "functionCall.constructor": supported,
+  "functionCall.generic": supported,
   "functionCallee.constructor": supported,
+  "functionCallee.generic": supported,
 
   "namedFunction.method": supported,
   "namedFunction.iteration.class": supported,
@@ -71,6 +74,7 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   "value.argument.formal.constructor.iteration": supported,
   "value.foreach": supported,
   "value.field.class": supported,
+  "value.throw": supported,
 
   "type.argument.formal.method": supported,
   "type.argument.formal.method.iteration": supported,
@@ -80,6 +84,7 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   "type.foreach": supported,
   "type.typeArgument": supported,
   "type.typeArgument.iteration": supported,
+  "type.return.method": supported,
 
   "interior.lambda": supported,
   "interior.try": supported,
@@ -91,4 +96,5 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   /* NOT APPLICABLE */
 
   "value.return.lambda": notApplicable,
+  "statement.package": notApplicable,
 };

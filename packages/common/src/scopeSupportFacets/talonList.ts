@@ -90,6 +90,7 @@ export const talonListScopeSupport: LanguageScopeSupportFacetMap = {
   "name.method": notApplicable,
   "type.argument.formal.method": notApplicable,
   "type.argument.formal.method.iteration": notApplicable,
+  "type.return.method": notApplicable,
   "value.argument.formal.method": notApplicable,
   "value.argument.formal.method.iteration": notApplicable,
   "functionCall.method": notApplicable,
@@ -120,8 +121,13 @@ export const talonListScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.iteration": notApplicable,
   "value.argument.formal": notApplicable,
   "value.argument.formal.iteration": notApplicable,
+
+  // Function call
   functionCall: notApplicable,
+  "functionCall.generic": notApplicable,
+  "statement.functionCall": notApplicable,
   functionCallee: notApplicable,
+  "functionCallee.generic": notApplicable,
   "functionCall.chain": notApplicable,
   "functionCallee.chain": notApplicable,
 
@@ -147,6 +153,10 @@ export const talonListScopeSupport: LanguageScopeSupportFacetMap = {
   "type.return": notApplicable,
   "value.return": notApplicable,
 
+  // Throw statement
+  "statement.throw": notApplicable,
+  "value.throw": notApplicable,
+
   // Yield statement
   "statement.yield": notApplicable,
   "value.yield": notApplicable,
@@ -161,10 +171,14 @@ export const talonListScopeSupport: LanguageScopeSupportFacetMap = {
   "name.iteration.interface": notApplicable,
   "type.interface": notApplicable,
   "type.field.interface": notApplicable,
+  "value.field.interface": notApplicable,
   "type.iteration.interface": notApplicable,
 
   // Enum
   "statement.enum": notApplicable,
+  "functionCallee.enum": notApplicable,
+  "functionCall.enum": notApplicable,
+  "statement.field.enum": notApplicable,
   "name.enum": notApplicable,
   "name.field.enum": notApplicable,
   "name.iteration.enum": notApplicable,
@@ -244,6 +258,7 @@ export const talonListScopeSupport: LanguageScopeSupportFacetMap = {
   "name.assignment.destructuring": notApplicable,
   "name.variable.destructuring": notApplicable,
   "value.variable.destructuring": notApplicable,
+  "value.assignment.destructuring": notApplicable,
 
   // String
   "string.multiLine": notApplicable,
@@ -289,10 +304,6 @@ export const talonListScopeSupport: LanguageScopeSupportFacetMap = {
   notebookCell: notApplicable,
   "interior.cell": notApplicable,
 
-  // Type alias
-  "type.alias": notApplicable,
-  "value.typeAlias": notApplicable,
-
   // Collection item
   "collectionItem.unenclosed.singleLine": notApplicable,
   "collectionItem.unenclosed.multiLine": notApplicable,
@@ -307,8 +318,12 @@ export const talonListScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Assignment
   "statement.assignment": notApplicable,
+  "statement.update": notApplicable,
+  "statement.assignment.compound": notApplicable,
   "name.assignment": notApplicable,
+  "name.assignment.compound": notApplicable,
   "value.assignment": notApplicable,
+  "value.assignment.compound": notApplicable,
 
   // Block
   "name.iteration.block": notApplicable,
@@ -316,8 +331,11 @@ export const talonListScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.iteration.block": notApplicable,
 
   // Miscellaneous statements
+  "statement.misc": notApplicable,
   "statement.break": notApplicable,
   "statement.continue": notApplicable,
+  "statement.package": notApplicable,
+  "statement.import": notApplicable,
 
   // Types
   "type.cast": notApplicable,
@@ -327,6 +345,12 @@ export const talonListScopeSupport: LanguageScopeSupportFacetMap = {
   "type.typeArgument": notApplicable,
   "type.variable.uninitialized": notApplicable,
   "type.variable.initialized": notApplicable,
+
+  // Type alias
+  "type.alias": notApplicable,
+  "statement.typeAlias": notApplicable,
+  "name.typeAlias": notApplicable,
+  "value.typeAlias": notApplicable,
 
   // Uninitialized variables
   "statement.variable.uninitialized": notApplicable,
@@ -339,7 +363,6 @@ export const talonListScopeSupport: LanguageScopeSupportFacetMap = {
   "type.constant": notApplicable,
 
   // Miscellaneous
-  "statement.misc": notApplicable,
   disqualifyDelimiter: notApplicable,
   environment: notApplicable,
   fieldAccess: notApplicable,

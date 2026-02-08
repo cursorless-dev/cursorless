@@ -90,6 +90,10 @@ export const scopeSupportFacetInfos: Record<
     description: "A field declaration in a interface",
     scopeType: "statement",
   },
+  "statement.field.enum": {
+    description: "A field declaration in an enum",
+    scopeType: "statement",
+  },
   "statement.function": {
     description: "A named function declaration",
     scopeType: "statement",
@@ -100,6 +104,10 @@ export const scopeSupportFacetInfos: Record<
   },
   "statement.method": {
     description: "A method declaration",
+    scopeType: "statement",
+  },
+  "statement.functionCall": {
+    description: "A function call statement",
     scopeType: "statement",
   },
   "statement.if": {
@@ -154,12 +162,28 @@ export const scopeSupportFacetInfos: Record<
     description: "An assignment statement with pattern destructuring",
     scopeType: "statement",
   },
+  "statement.assignment.compound": {
+    description: "A compound assignment statement, eg +=/-=",
+    scopeType: "statement",
+  },
+  "statement.typeAlias": {
+    description: "A type alias declaration",
+    scopeType: "statement",
+  },
+  "statement.update": {
+    description: "An update statement, eg ++/--",
+    scopeType: "statement",
+  },
   "statement.return": {
     description: "A return statement",
     scopeType: "statement",
   },
   "statement.yield": {
     description: "A yield statement",
+    scopeType: "statement",
+  },
+  "statement.throw": {
+    description: "A throw statement",
     scopeType: "statement",
   },
   "statement.break": {
@@ -178,12 +202,20 @@ export const scopeSupportFacetInfos: Record<
     description: "A command statement, eg Talon spoken command or bash",
     scopeType: "statement",
   },
+  "statement.package": {
+    description: "A package declaration",
+    scopeType: "statement",
+  },
   "statement.namespace": {
     description: "A namespace declaration",
     scopeType: "statement",
   },
   "statement.static": {
     description: "A static statement",
+    scopeType: "statement",
+  },
+  "statement.import": {
+    description: "An import statement",
     scopeType: "statement",
   },
   "statement.misc": {
@@ -245,6 +277,14 @@ export const scopeSupportFacetInfos: Record<
     description: "A chain of function calls, eg `foo().bar()`",
     scopeType: "functionCall",
   },
+  "functionCall.generic": {
+    description: "A function call with generic type arguments",
+    scopeType: "functionCall",
+  },
+  "functionCall.enum": {
+    description: "An enum constructor call",
+    scopeType: "functionCall",
+  },
   functionCallee: {
     description: "The function being called in a function call",
     scopeType: "functionCallee",
@@ -262,6 +302,15 @@ export const scopeSupportFacetInfos: Record<
   "functionCallee.chain": {
     description:
       "The function being called in a chain of function calls, including parent objects.",
+    scopeType: "functionCallee",
+  },
+  "functionCallee.generic": {
+    description:
+      "The function being called in a function call with generic type arguments",
+    scopeType: "functionCallee",
+  },
+  "functionCallee.enum": {
+    description: "The enum constructor being called",
     scopeType: "functionCallee",
   },
 
@@ -619,6 +668,10 @@ export const scopeSupportFacetInfos: Record<
     description: "LHS of an assignment with pattern destructuring",
     scopeType: "name",
   },
+  "name.assignment.compound": {
+    description: "Name (LHS) of a compound assignment, eg +=/-=",
+    scopeType: "name",
+  },
   "name.foreach": {
     description: "Iteration variable name in a for each loop",
     scopeType: "name",
@@ -645,6 +698,10 @@ export const scopeSupportFacetInfos: Record<
   },
   "name.enum": {
     description: "Name of an enum",
+    scopeType: "name",
+  },
+  "name.typeAlias": {
+    description: "Name of a type alias",
     scopeType: "name",
   },
   "name.namespace": {
@@ -753,6 +810,14 @@ export const scopeSupportFacetInfos: Record<
     description: "Value (RHS) of an assignment",
     scopeType: "value",
   },
+  "value.assignment.destructuring": {
+    description: "Value (RHS) of an assignment with pattern destructuring",
+    scopeType: "value",
+  },
+  "value.assignment.compound": {
+    description: "Value (RHS) of a compound assignment, eg +=/-=",
+    scopeType: "value",
+  },
   "value.mapPair": {
     description: "Value (RHS) of a key-value pair in a map",
     scopeType: "value",
@@ -782,12 +847,20 @@ export const scopeSupportFacetInfos: Record<
     description: "Value (RHS) of a field in a class",
     scopeType: "value",
   },
+  "value.field.interface": {
+    description: "Value (RHS) of a field in an interface",
+    scopeType: "value",
+  },
   "value.field.enum": {
     description: "Value (RHS) of a field in an enum",
     scopeType: "value",
   },
   "value.yield": {
     description: "Value of a yield statement",
+    scopeType: "value",
+  },
+  "value.throw": {
+    description: "Value of a throw statement",
     scopeType: "value",
   },
   "value.switch": {
@@ -894,6 +967,10 @@ export const scopeSupportFacetInfos: Record<
 
   "type.return": {
     description: "Type of a return value in a function declaration",
+    scopeType: "type",
+  },
+  "type.return.method": {
+    description: "Type of a return value in a method declaration",
     scopeType: "type",
   },
   "type.field.class": {

@@ -30,11 +30,13 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
 
   "name.variable.initialized": supported,
   "name.assignment": supported,
+  "name.assignment.compound": supported,
 
   "key.mapPair": supported,
 
   "value.variable": supported,
   "value.assignment": supported,
+  "value.assignment.compound": supported,
   "value.mapPair": supported,
   "value.return": supported,
   "value.yield": supported,
@@ -61,6 +63,10 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
   "name.constant": notApplicable,
   "value.constant": notApplicable,
   "type.constant": notApplicable,
+
+  // Throw statement
+  "statement.throw": notApplicable,
+  "value.throw": notApplicable,
 
   // Miscellaneous
   "name.variable.uninitialized": notApplicable,

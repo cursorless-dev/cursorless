@@ -150,6 +150,8 @@
 - `functionCall` A function call
 - `functionCall.chain` A chain of function calls, eg `foo().bar()`
 - `functionCall.constructor` A constructor call
+- `functionCall.enum` An enum constructor call
+- `functionCall.generic` A function call with generic type arguments
 - `functionCall.method` A method call
 
 ### functionCallee
@@ -157,6 +159,8 @@
 - `functionCallee` The function being called in a function call
 - `functionCallee.chain` The function being called in a chain of function calls, including parent objects.
 - `functionCallee.constructor` The class being constructed in a class instantiation, including the `new` keyword.
+- `functionCallee.enum` The enum constructor being called
+- `functionCallee.generic` The function being called in a function call with generic type arguments
 - `functionCallee.method` The function being called in a method call, including parent objects.
 
 ### identifier
@@ -228,6 +232,7 @@
 - `name.argument.formal.method` Name of a parameter in a class method declaration
 - `name.argument.formal.method.iteration` Iteration scope for names of formal parameters in a method declaration: the parameters list. The domain should be the entire method.
 - `name.assignment` Name (LHS) of an assignment
+- `name.assignment.compound` Name (LHS) of a compound assignment, eg +=/-=
 - `name.assignment.destructuring` LHS of an assignment with pattern destructuring
 - `name.class` Name of a class
 - `name.command` LHS of a command, eg Talon spoken command or bash
@@ -249,6 +254,7 @@
 - `name.namespace` Name of a namespace
 - `name.resource` Name in a 'with' / 'use' / 'using' statement
 - `name.resource.iteration` Iteration scope for names in a 'with' / 'use' / 'using' statement: the resource list. The domain should be the entire statement.
+- `name.typeAlias` Name of a type alias
 - `name.variable.destructuring` Name (LHS) of a variable declaration with pattern destructuring
 - `name.variable.initialized` Name (LHS) of an initialized variable declaration
 - `name.variable.uninitialized` Name (LHS) of an uninitialized variable declaration
@@ -302,6 +308,7 @@
 ### statement
 
 - `statement.assignment` An assignment statement
+- `statement.assignment.compound` A compound assignment statement, eg +=/-=
 - `statement.assignment.destructuring` An assignment statement with pattern destructuring
 - `statement.break` A break statement
 - `statement.class` A class/struct declaration
@@ -312,11 +319,14 @@
 - `statement.doWhile` A do-while loop statement
 - `statement.enum` An enum declaration
 - `statement.field.class` A field declaration in a class/struct
+- `statement.field.enum` A field declaration in an enum
 - `statement.field.interface` A field declaration in a interface
 - `statement.for` A for loop statement
 - `statement.foreach` A for-each loop statement
 - `statement.function` A named function declaration
+- `statement.functionCall` A function call statement
 - `statement.if` A if/elif/else statement
+- `statement.import` An import statement
 - `statement.interface` An interface declaration
 - `statement.iteration.block` Iteration scope for statements: statement blocks (body of functions/if-statements/for-loops/etc).
 - `statement.iteration.class` Iteration scope for statements: class bodies.
@@ -325,11 +335,15 @@
 - `statement.method` A method declaration
 - `statement.misc` A miscellaneous statement
 - `statement.namespace` A namespace declaration
+- `statement.package` A package declaration
 - `statement.resource` A 'with' / 'use' / 'using' statement
 - `statement.return` A return statement
 - `statement.static` A static statement
 - `statement.switch` A switch statement
+- `statement.throw` A throw statement
 - `statement.try` A try/catch/finally statement
+- `statement.typeAlias` A type alias declaration
+- `statement.update` An update statement, eg ++/--
 - `statement.variable.destructuring` A variable declaration pattern destructuring
 - `statement.variable.initialized` An initialized variable declaration
 - `statement.variable.uninitialized` An uninitialized variable declaration
@@ -387,6 +401,7 @@
 - `type.resource` Type in a 'with' / 'use' / 'using' statement
 - `type.resource.iteration` Iteration scope for types in a 'with' / 'use' / 'using' statement: the resource list. The domain should be the entire statement.
 - `type.return` Type of a return value in a function declaration
+- `type.return.method` Type of a return value in a method declaration
 - `type.typeArgument` Type argument to a generic / parametrized type
 - `type.typeArgument.iteration` Iteration scope for type arguments to a generic / parametrized type: the type argument list.
 - `type.variable.initialized` Type of an initialized variable declaration
@@ -411,11 +426,14 @@
 - `value.argument.formal.method` The value of a parameter in a class method declaration
 - `value.argument.formal.method.iteration` Iteration scope for values of formal parameters in a method declaration: the parameters list. The domain should be the entire method.
 - `value.assignment` Value (RHS) of an assignment
+- `value.assignment.compound` Value (RHS) of a compound assignment, eg +=/-=
+- `value.assignment.destructuring` Value (RHS) of an assignment with pattern destructuring
 - `value.attribute` Value (RHS) of an attribute eg in a xml element
 - `value.command` Value (RHS) of an command, eg Talon spoken command
 - `value.constant` Value (RHS) of a constant declaration
 - `value.field.class` Value (RHS) of a field in a class
 - `value.field.enum` Value (RHS) of a field in an enum
+- `value.field.interface` Value (RHS) of a field in an interface
 - `value.foreach` Iterable in a for each loop
 - `value.iteration.block` Iteration scope for values: statement blocks (body of functions/if-statements/for-loops/etc).
 - `value.iteration.class` Iteration scope for values: class bodies.
@@ -428,6 +446,7 @@
 - `value.return` Return value of a function
 - `value.return.lambda` Implicit return value from a lambda
 - `value.switch` The value / subject of a switch statement
+- `value.throw` Value of a throw statement
 - `value.typeAlias` Value of a type alias declaration
 - `value.variable` Value (RHS) of a variable declaration
 - `value.variable.destructuring` Value (RHS) of a variable declaration with pattern destructuring
