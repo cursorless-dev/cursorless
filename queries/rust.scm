@@ -156,6 +156,13 @@
   name: (_) @name
 ) @name.domain
 
+;;!! enum Foo { Bar() }
+;;!             ^^^^^
+(enum_variant
+  name: (_) @functionCallee
+  (ordered_field_declaration_list)
+) @functionCall @functionCallee.domain
+
 ;;!! trait Foo {}
 (trait_item
   name: (_) @name
@@ -306,8 +313,11 @@
   value: (_)? @value @name.removal.end.startOf
 ) @_.domain @name.removal.start.startOf
 
+;;!! foo = 0;
+;;!  ^^^
+;;!        ^
 (expression_statement
-  (assignment_expression
+  (_
     left: (_) @name @value.leading.endOf
     right: (_) @value @name.trailing.startOf
   )
@@ -579,10 +589,12 @@
 ) @_.domain
 
 ;;!! type Foo = Bar;
+;;!       ^^^
+;;!             ^^^
 (type_item
-  name: (_) @value.leading.endOf
-  type: (_) @value
-) @type @value.domain
+  name: (_) @name @value.leading.endOf
+  type: (_) @value @name.removal.end.startOf
+) @type @name.removal.start.startOf @_.domain
 
 ;;!! let foo: Foo<i32, u64>;
 ;;!               ^^^  ^^^
