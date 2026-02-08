@@ -2,6 +2,7 @@
 
 [
   (package_clause)
+  (import_declaration)
   (class_definition)
   (enum_definition)
   (trait_definition)
@@ -19,6 +20,10 @@
   (for_expression)
   (try_expression)
   (var_declaration)
+  (throw_expression)
+  (type_definition)
+  (infix_expression)
+  (postfix_expression)
 
   ;; Disabled on purpose. We have a better definition of this below.
   ;; (if_expression)
@@ -154,6 +159,14 @@
   name: (_) @name
 ) @namedFunction @name.domain
 
+;;!! foo += 0
+;;!  ^^^
+;;!         ^
+(infix_expression
+  left: (_) @name @value.leading.endOf
+  right: (_) @value @name.trailing.startOf
+) @_.domain
+
 ;;!! foo match {}
 ;;!  ^^^
 (match_expression
@@ -185,7 +198,7 @@
   (_
     name: (_) @name
   ) @name.domain
-  (#not-type? @name.domain simple_enum_case full_enum_case var_declaration val_declaration)
+  (#not-type? @name.domain simple_enum_case full_enum_case var_declaration val_declaration type_definition)
 )
 
 ;;!! var foo: Int
@@ -222,8 +235,9 @@
     )
     ;;!! case Baz(x: Int)
     (full_enum_case
-      name: (_) @name
-    )
+      name: (_) @name @functionCallee
+      class_parameters: (_)
+    ) @functionCall @functionCallee.domain
   ]
 ) @name.domain
 
@@ -247,9 +261,9 @@
 ;;!! type Vector = (Int, Int)
 ;;!                ^^^^^^^^^^
 (type_definition
-  name: (_) @_.leading.endOf
-  type: (_) @value
-) @_.domain
+  name: (_) @name @value.leading.endOf
+  type: (_) @value @name.removal.end.startOf
+) @type @name.removal.start.startOf @_.domain
 
 ;;!! class Example(foo: String = "foo") {}
 ;;!                              ^^^^^
@@ -266,10 +280,6 @@
   .
   value: (_) @value
 ) @value.domain
-
-;;!! type Vector = (Int, Int)
-;;!  ^^^^^^^^^^^^^^^^^^^^^^^^
-(type_definition) @type
 
 ;;!! case e: Exception => 0
 ;;!! case e => 0
@@ -300,16 +310,31 @@
   (#not-type? @type.domain type_definition typed_pattern)
 )
 
-;;!! def str(): String = "bar"
-;;!             ^^^^^^
+;;!! def str(): Int {}
+;;!             ^^^
 (function_definition
   (parameters) @type.leading.endOf
   return_type: (_) @type
 ) @type.domain
 
+;;!! class Foo { def bar(): Int {} }
+;;!                         ^^^
+(function_declaration
+  parameters: (_) @type.leading.endOf
+  return_type: (_
+    base: (_) @type
+  )
+) @type.domain
+
 ;;!! return 0
 ;;!         ^
 (return_expression
+  (_) @value
+) @value.domain
+
+;;!! throw foo
+;;!        ^^^
+(throw_expression
   (_) @value
 ) @value.domain
 
