@@ -204,20 +204,20 @@
 ;;!  ^^^^^^^^
 (lambda_expression) @anonymousFunction
 
-;;!! () => 2;
+;;!! () => 0;
 ;;!        ^
 (lambda_expression
   body: (_) @value
   (#not-type? @value block initializer_expression)
 ) @_.domain
 
-;;!! return 2;
+;;!! return 0;
 ;;!         ^
 (return_statement
   (_) @value
 ) @_.domain
 
-;;!! yield return 2;
+;;!! yield return 0;
 ;;!               ^
 (yield_statement
   (_) @value

@@ -161,9 +161,6 @@
 ;;!         ^
 ;;!        xx
 ;;!  --------
-;;
-;; NOTE: in tree-sitter, both "return" and the "1" are children of `return_statement`
-;; but "return" is anonymous whereas "1" is named node, so no need to exclude explicitly
 (return_statement
   (_) @value
 ) @_.domain
@@ -172,13 +169,15 @@
 ;;!        ^
 ;;!       xx
 ;;!  -------
-;;
-;; NOTE: in tree-sitter, both "yield" and the "1" are children of `yield` but
-;; "yield" is anonymous whereas "1" is named node, so no need to exclude
-;; explicitly
 (yield
   (_) @value
 ) @_.domain
+
+;;!! raise foo;
+;;!        ^^^
+(raise_statement
+  (_) @value
+) @value.domain
 
 ;;!! with aaa:
 ;;!       ^^^
