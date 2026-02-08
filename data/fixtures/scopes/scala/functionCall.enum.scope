@@ -1,19 +1,19 @@
 enum Foo {
-    case Bar();
+    case Bar()
 }
 ---
 
 [Content] =
 [Domain] = 1:9-1:14
            >-----<
-1|     case Bar();
+1|     case Bar()
 
 [Removal] = 1:8-1:14
           >------<
-1|     case Bar();
+1|     case Bar()
 
 [Leading delimiter] = 1:8-1:9
           >-<
-1|     case Bar();
+1|     case Bar()
 
 [Insertion delimiter] = " "
