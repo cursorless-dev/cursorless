@@ -17,7 +17,6 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.command": supported,
 
   "name.assignment": supported,
-  "name.assignment.compound": supported,
   "name.command": supported,
   "name.variable.initialized": supported,
   "name.iteration.block": supported,
@@ -26,14 +25,11 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.command": supported,
   "statement.variable.initialized": supported,
   "statement.assignment": supported,
-  "statement.assignment.compound": supported,
-  "statement.update": supported,
   "statement.functionCall": supported,
   "statement.iteration.block": supported,
   "statement.iteration.document": supported,
 
   "value.assignment": supported,
-  "value.assignment.compound": supported,
   "value.command": supported,
   "value.variable": supported,
   "value.iteration.block": supported,
@@ -362,6 +358,12 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "name.constant": notApplicable,
   "value.constant": notApplicable,
   "type.constant": notApplicable,
+
+  // Update variable
+  "name.assignment.compound": notApplicable,
+  "statement.assignment.compound": notApplicable,
+  "value.assignment.compound": notApplicable,
+  "statement.update": notApplicable,
 
   // Uninitialized variables
   "name.variable.uninitialized": notApplicable,
