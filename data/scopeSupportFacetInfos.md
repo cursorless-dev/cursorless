@@ -319,7 +319,6 @@
 - `statement.doWhile` A do-while loop statement
 - `statement.enum` An enum declaration
 - `statement.field.class` A field declaration in a class/struct
-- `statement.field.enum` A field declaration in an enum
 - `statement.field.interface` A field declaration in a interface
 - `statement.for` A for loop statement
 - `statement.foreach` A for-each loop statement

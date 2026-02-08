@@ -33,7 +33,6 @@ export const scopeSupportFacets = [
   "statement.enum",
   "statement.field.class",
   "statement.field.interface",
-  "statement.field.enum",
   "statement.function",
   "statement.constructor",
   "statement.method",

@@ -60,6 +60,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal.method.iteration": supported,
   "name.argument.formal": supported,
   "name.argument.catch": supported,
+  "name.namespace": supported,
   "name.class": supported,
   "name.interface": supported,
   "name.enum": supported,
@@ -184,12 +185,12 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
 
   ifStatement: supported,
 
+  "statement.namespace": supported,
   "statement.class": supported,
   "statement.interface": supported,
   "statement.enum": supported,
   "statement.field.class": supported,
   "statement.field.interface": supported,
-  "statement.field.enum": supported,
   "statement.function": supported,
   "statement.constructor": supported,
   "statement.method": supported,
@@ -212,7 +213,6 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.throw": supported,
   "statement.break": supported,
   "statement.continue": supported,
-  "statement.package": supported,
   "statement.import": supported,
   "statement.iteration.document": supported,
   "statement.iteration.class": supported,
@@ -227,6 +227,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "textFragment.comment.line": supported,
   "textFragment.comment.block": supported,
 
+  "interior.namespace": supported,
   "interior.class": supported,
   "interior.interface": supported,
   "interior.enum": supported,
@@ -313,11 +314,6 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   notebookCell: notApplicable,
   "interior.cell": notApplicable,
 
-  // Namespace
-  "statement.namespace": notApplicable,
-  "name.namespace": notApplicable,
-  "interior.namespace": notApplicable,
-
   // Branch loop
   "branch.loop": notApplicable,
   "branch.loop.iteration": notApplicable,
@@ -328,6 +324,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Miscellaneous
   "statement.misc": notApplicable,
+  "statement.package": notApplicable,
   environment: notApplicable,
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,

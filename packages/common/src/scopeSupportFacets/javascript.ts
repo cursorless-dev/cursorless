@@ -327,7 +327,6 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Enum
   "statement.enum": notApplicable,
-  "statement.field.enum": notApplicable,
   "name.enum": notApplicable,
   "name.field.enum": notApplicable,
   "name.iteration.enum": notApplicable,

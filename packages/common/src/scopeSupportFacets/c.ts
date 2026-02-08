@@ -12,7 +12,6 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.class": supported,
   "statement.enum": supported,
   "statement.field.class": supported,
-  "statement.field.enum": supported,
   "statement.function": supported,
   "statement.functionCall": supported,
   "statement.if": supported,

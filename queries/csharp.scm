@@ -223,6 +223,12 @@
   (_) @value
 ) @_.domain
 
+;;!! throw foo;
+;;!        ^^^
+(throw_statement
+  (_) @value
+) @value.domain
+
 ;;!! [Obsolete("Deprecated")]
 ;;!   ^^^^^^^^^^^^^^^^^^^^^^
 (attribute) @attribute

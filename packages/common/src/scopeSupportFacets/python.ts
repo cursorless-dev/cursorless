@@ -294,7 +294,6 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "type.enum": notApplicable,
   "interior.enum": notApplicable,
   "statement.enum": notApplicable,
-  "statement.field.enum": notApplicable,
   "functionCall.enum": notApplicable,
   "functionCallee.enum": notApplicable,
 

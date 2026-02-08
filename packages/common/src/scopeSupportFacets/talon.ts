@@ -210,7 +210,6 @@ export const talonScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.enum": notApplicable,
   "functionCall.enum": notApplicable,
   "functionCallee.enum": notApplicable,
-  "statement.field.enum": notApplicable,
 
   // Try catch
   "statement.try": notApplicable,

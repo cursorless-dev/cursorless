@@ -488,6 +488,12 @@
   ";"? @_.domain.end
 )
 
+;;!! throw foo;
+;;!        ^^^
+(throw_statement
+  (_) @value
+) @value.domain
+
 ;;!! str => 0
 ;;!         ^
 ;;!  --------

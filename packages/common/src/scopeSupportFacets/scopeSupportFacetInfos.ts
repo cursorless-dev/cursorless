@@ -90,10 +90,6 @@ export const scopeSupportFacetInfos: Record<
     description: "A field declaration in a interface",
     scopeType: "statement",
   },
-  "statement.field.enum": {
-    description: "A field declaration in an enum",
-    scopeType: "statement",
-  },
   "statement.function": {
     description: "A named function declaration",
     scopeType: "statement",

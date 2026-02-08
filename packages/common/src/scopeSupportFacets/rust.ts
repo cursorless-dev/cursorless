@@ -80,7 +80,6 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.class": supported,
   "statement.enum": supported,
   "statement.field.class": supported,
-  "statement.field.enum": supported,
   "statement.function": supported,
   "statement.method": supported,
   "statement.functionCall": supported,
