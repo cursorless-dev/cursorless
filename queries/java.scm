@@ -170,10 +170,13 @@
 ;;!  ^^^^^^^^^^
 ;;!! super(1);
 ;;!  ^^^^^^^^
+;;!! FOO(1);
+;;!  ^^^^^^
 [
   (method_invocation)
   (object_creation_expression)
   (explicit_constructor_invocation)
+  (enum_constant)
 ] @functionCall
 
 ;;!! case "0": return "zero";
@@ -397,6 +400,13 @@
   (argument_list) @functionCallee.end.startOf
 ) @functionCallee.start.startOf @_.domain
 
+;;!! Foo();
+;;!  ^^^
+;;!  -----
+(enum_constant
+  (argument_list) @functionCallee.end.startOf
+) @functionCallee.start.startOf @_.domain
+
 ;;!! for (int value : values) {}
 ;;!                   ^^^^^^
 ;;!  ---------------------------
@@ -499,13 +509,14 @@
   (#single-or-multi-line-delimiter! @collectionItem @_dummy ", " ",\n")
 )
 
-(
-  (throws
-    .
-    (_) @collectionItem.iteration.start.startOf
-  ) @collectionItem.iteration.end.endOf
-)
- @collectionItem.iteration.domain
+;;!! throws Exception, IOException
+;;!         ^^^^^^^^^^^^^^^^^^^^^^
+(throws
+  .
+  (_) @collectionItem.iteration.start
+  (_)? @collectionItem.iteration.end
+  .
+) @collectionItem.iteration.domain
 
 ;;!! value = 1;
 ;;!          ^
@@ -519,21 +530,23 @@
   ";"? @_.domain.end
 )
 
-;;!! return value;
-;;!         ^^^^^
-;;!  -------------
-(
-  (return_statement
-    (_) @value
-  ) @_.domain
-)
+;;!! return foo;
+;;!         ^^^
+(return_statement
+  (_) @value
+) @value.domain
 
-;;!! yield value;
-;;!        ^^^^^
-;;!  ------------
+;;!! yield foo;
+;;!        ^^^
 (yield_statement
   (_) @value
-) @_.domain
+) @value.domain
+
+;;!! throw foo;
+;;!        ^^^
+(throw_statement
+  (_) @value
+) @value.domain
 
 ;;!! ((value) -> true)
 ;;!   ^^^^^^^^^^^^^^^

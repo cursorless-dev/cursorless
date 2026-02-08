@@ -1,27 +1,27 @@
-public interface Foo {
+interface Foo {
     private int bar;
 }
 ---
 
-[#1 Content] = 0:17-0:20
-                   >---<
-0| public interface Foo {
+[#1 Content] = 0:10-0:13
+            >---<
+0| interface Foo {
 
-[#1 Removal] = 0:17-0:21
-                   >----<
-0| public interface Foo {
+[#1 Removal] = 0:10-0:14
+            >----<
+0| interface Foo {
 
-[#1 Leading delimiter] = 0:16-0:17
-                  >-<
-0| public interface Foo {
+[#1 Leading delimiter] = 0:9-0:10
+           >-<
+0| interface Foo {
 
-[#1 Trailing delimiter] = 0:20-0:21
-                      >-<
-0| public interface Foo {
+[#1 Trailing delimiter] = 0:13-0:14
+               >-<
+0| interface Foo {
 
 [#1 Domain] = 0:0-2:1
-  >----------------------
-0| public interface Foo {
+  >---------------
+0| interface Foo {
 1|     private int bar;
 2| }
    -<

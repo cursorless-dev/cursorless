@@ -1,0 +1,19 @@
+enum Foo {
+    bar();
+}
+---
+
+[Content] =
+[Removal] = 1:4-1:7
+      >---<
+1|     bar();
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     bar();
+
+[Domain] = 1:4-1:9
+      >-----<
+1|     bar();
+
+[Insertion delimiter] = " "

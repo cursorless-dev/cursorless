@@ -1,4 +1,4 @@
-public interface Foo {
+interface Foo {
     private int bar;
 }
 ---
@@ -6,8 +6,8 @@ public interface Foo {
 [#1 Content] =
 [#1 Removal] =
 [#1 Domain] = 0:0-2:1
-  >----------------------
-0| public interface Foo {
+  >---------------
+0| interface Foo {
 1|     private int bar;
 2| }
    -<
