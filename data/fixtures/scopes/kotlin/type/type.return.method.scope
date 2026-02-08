@@ -1,0 +1,34 @@
+class Foo {
+    fun bar(): Int {}
+}
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-2:1
+  >-----------
+0| class Foo {
+1|     fun bar(): Int {}
+2| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:15-1:18
+                 >---<
+1|     fun bar(): Int {}
+
+[#2 Removal] = 1:13-1:18
+               >-----<
+1|     fun bar(): Int {}
+
+[#2 Leading delimiter] = 1:13-1:15
+               >--<
+1|     fun bar(): Int {}
+
+[#2 Domain] = 1:4-1:21
+      >-----------------<
+1|     fun bar(): Int {}
+
+[#2 Insertion delimiter] = " "

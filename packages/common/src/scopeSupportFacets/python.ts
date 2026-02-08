@@ -199,7 +199,6 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.variable.uninitialized": supported,
   "statement.variable.initialized": supported,
   "statement.variable.destructuring": supported,
-  "statement.update": supported,
   "statement.return": supported,
   "statement.yield": supported,
   "statement.throw": supported,
@@ -337,6 +336,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   // Miscellaneous
   "statement.misc": notApplicable,
   "statement.package": notApplicable,
+  "statement.update": notApplicable,
   environment: notApplicable,
   regularExpression: notApplicable,
   selector: notApplicable,

@@ -19,6 +19,9 @@
   (package_header)
   (getter)
   (setter)
+  (prefix_expression)
+  (postfix_expression)
+  (type_alias)
 
   ;; Disabled on purpose. We have a better definition of this below.
   ;; (if_expression)
@@ -313,8 +316,8 @@
   (type_identifier) @name @value.leading.endOf
   .
   "="
-  (_) @value
-) @type @_.domain
+  (_) @value @name.removal.end.startOf
+) @type @name.removal.start.startOf @_.domain
 
 ;;!! typealias Foo<T> = Bar
 ;;!            ^^^^^^
@@ -323,8 +326,8 @@
   (type_identifier) @name.start
   (type_parameters) @name.end @value.leading.endOf
   "="
-  (_) @value
-) @type @_.domain
+  (_) @value @name.removal.end.startOf
+) @type @name.removal.start.startOf @_.domain
 
 ;;!! for (v: Int in values) {}
 ;;!       ^
