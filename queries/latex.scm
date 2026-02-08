@@ -131,7 +131,7 @@
   (tikz_library_import)
   (begin)
   (end)
-] @functionCall @argumentOrParameter.iteration
+] @functionCall @statement @argumentOrParameter.iteration
 
 (
   (_

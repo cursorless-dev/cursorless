@@ -30,13 +30,11 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
 
   "name.variable.initialized": supported,
   "name.assignment": supported,
-  "name.assignment.compound": supported,
 
   "key.mapPair": supported,
 
   "value.variable": supported,
   "value.assignment": supported,
-  "value.assignment.compound": supported,
   "value.mapPair": supported,
   "value.return": supported,
   "value.yield": supported,
