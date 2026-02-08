@@ -162,10 +162,13 @@
 ;;!! foo += 0
 ;;!  ^^^
 ;;!         ^
-(infix_expression
-  left: (_) @name @value.leading.endOf
-  right: (_) @value @name.trailing.startOf
-) @_.domain
+(
+  (infix_expression
+    left: (_) @name @value.leading.endOf
+    right: (_) @value @name.trailing.startOf
+  ) @_.domain
+  (#not-parent-type? @_.domain val_definition)
+)
 
 ;;!! foo match {}
 ;;!  ^^^
