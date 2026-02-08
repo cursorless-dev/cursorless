@@ -1,0 +1,13 @@
+foo[Bar]()
+---
+
+[Content] =
+[Removal] = 0:0-0:8
+  >--------<
+0| foo[Bar]()
+
+[Domain] = 0:0-0:10
+  >----------<
+0| foo[Bar]()
+
+[Insertion delimiter] = " "
