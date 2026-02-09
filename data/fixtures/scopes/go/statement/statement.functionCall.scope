@@ -3,8 +3,8 @@ foo();
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-0:5
-  >-----<
+[Domain] = 0:0-0:6
+  >------<
 0| foo();
 
 [Insertion delimiter] = "\n"

@@ -623,7 +623,9 @@
 ;;!  ^^^
 ;;!  -----
 (call_expression
-  function: (_) @functionCallee
+  function: (_) @functionCallee.start
+  (_)? @functionCallee.end
+  arguments: (_)
 ) @_.domain
 
 ;;!! new Foo()
