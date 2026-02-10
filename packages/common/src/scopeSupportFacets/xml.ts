@@ -124,7 +124,6 @@ export const xmlScopeSupport: LanguageScopeSupportFacetMap = {
   namedFunction: notApplicable,
   "namedFunction.iteration.document": notApplicable,
   "namedFunction.iteration.class": notApplicable,
-  "namedFunction.iteration.block": notApplicable,
   "statement.function": notApplicable,
   "name.function": notApplicable,
   "interior.function": notApplicable,

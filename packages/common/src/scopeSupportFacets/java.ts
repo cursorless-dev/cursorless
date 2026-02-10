@@ -93,7 +93,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "namedFunction.constructor": supported,
   "namedFunction.method": supported,
   "namedFunction.iteration.class": supported,
-  "namedFunction.iteration.block": supported,
 
   ifStatement: supported,
 

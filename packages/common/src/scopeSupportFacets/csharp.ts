@@ -33,7 +33,6 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "namedFunction.constructor": supported,
   "namedFunction.method": supported,
   "namedFunction.iteration.class": supported,
-  "namedFunction.iteration.block": supported,
 
   "branch.if": supported,
   "branch.if.elif.else": supported,

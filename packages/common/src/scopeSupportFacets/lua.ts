@@ -13,7 +13,6 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
   namedFunction: supported,
   "namedFunction.method": supported,
   "namedFunction.iteration.document": supported,
-  "namedFunction.iteration.block": supported,
 
   functionCall: supported,
   "functionCall.method": supported,

@@ -338,7 +338,6 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "value.field.class": notApplicable,
   "type.foreach": notApplicable,
   "class.iteration.block": notApplicable,
-  "namedFunction.iteration.block": notApplicable,
   environment: notApplicable,
   regularExpression: notApplicable,
   selector: notApplicable,

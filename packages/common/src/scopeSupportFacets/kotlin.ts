@@ -94,7 +94,6 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "namedFunction.method": supported,
   "namedFunction.iteration.document": supported,
   "namedFunction.iteration.class": supported,
-  "namedFunction.iteration.block": supported,
 
   ifStatement: supported,
 

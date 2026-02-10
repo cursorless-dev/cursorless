@@ -251,10 +251,6 @@ export const scopeSupportFacetInfos: Record<
     "namedFunction",
     "named functions",
   ),
-  "namedFunction.iteration.block": blockIter(
-    "namedFunction",
-    "named functions",
-  ),
   anonymousFunction: {
     description:
       "An anonymous function, eg a lambda function, an arrow function, etc.",

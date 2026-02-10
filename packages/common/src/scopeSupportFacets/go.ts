@@ -344,7 +344,6 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   "value.return.lambda": notApplicable,
   "type.foreach": notApplicable,
   "type.cast": notApplicable,
-  "namedFunction.iteration.block": notApplicable,
   regularExpression: notApplicable,
   selector: notApplicable,
   unit: notApplicable,

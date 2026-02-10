@@ -81,7 +81,6 @@ export const scopeSupportFacets = [
   "namedFunction.method",
   "namedFunction.iteration.document",
   "namedFunction.iteration.class",
-  "namedFunction.iteration.block",
 
   "functionCall",
   "functionCall.constructor",

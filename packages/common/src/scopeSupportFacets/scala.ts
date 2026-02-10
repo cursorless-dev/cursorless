@@ -96,7 +96,6 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "namedFunction.method": supported,
   "namedFunction.iteration.class": supported,
   "namedFunction.iteration.document": supported,
-  "namedFunction.iteration.block": supported,
 
   ifStatement: supported,
 

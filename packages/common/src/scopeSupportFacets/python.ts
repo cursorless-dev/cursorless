@@ -85,7 +85,6 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "namedFunction.iteration.document": supported,
   "namedFunction.method": supported,
   "namedFunction.iteration.class": supported,
-  "namedFunction.iteration.block": supported,
 
   "argument.actual.singleLine": supported,
   "argument.actual.multiLine": supported,
