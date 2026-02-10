@@ -1,7 +1,13 @@
-foo = lambda aaa, bbb: aaa + bbb
+lambda aaa, bbb: pass
 ---
 
-[Content] =
-[Domain] = 0:0-0:32
-  >--------------------------------<
-0| foo = lambda aaa, bbb: aaa + bbb
+[#1 Content] =
+[#1 Domain] = 0:0-0:21
+  >---------------------<
+0| lambda aaa, bbb: pass
+
+
+[#2 Content] =
+[#2 Domain] = 0:7-0:15
+         >--------<
+0| lambda aaa, bbb: pass

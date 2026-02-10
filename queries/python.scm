@@ -613,14 +613,21 @@
 ;;!  ^^^^^^^^^^^^^^
 (lambda) @anonymousFunction
 
-;;!! lambda a, b: pass
-;;!         ^^^^
+;;!! lambda aaa, bbb: pass
+;;!         ^^^^^^^^
 (lambda
-  (lambda_parameters) @argumentList @argumentOrParameter.iteration
+  (lambda_parameters) @argumentList @argumentOrParameter.iteration @name.iteration
   (#insertion-delimiter! @argumentList ", ")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
+;;!! lambda aaa, bbb: pass
+;;!         ^^^  ^^^
+(lambda_parameters
+  (_) @name
+)
+
 ;;!! lambda: pass
+;;!        ><
 (lambda
   .
   "lambda" @argumentList.start.endOf
