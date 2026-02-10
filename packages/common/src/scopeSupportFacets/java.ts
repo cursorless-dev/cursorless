@@ -93,6 +93,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "namedFunction.constructor": supported,
   "namedFunction.method": supported,
   "namedFunction.iteration.class": supported,
+  "namedFunction.iteration.block": supported,
 
   ifStatement: supported,
 
@@ -328,7 +329,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.iteration.enum": notApplicable,
 
   // Miscellaneous
-  "namedFunction.iteration.block": notApplicable,
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,
   environment: notApplicable,
