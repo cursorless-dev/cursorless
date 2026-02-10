@@ -31,6 +31,10 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal.lambda.singleLine": supported,
   "argument.formal.lambda.multiLine": supported,
   "argument.formal.lambda.iteration": supported,
+  "name.argument.formal.lambda": supported,
+  "name.argument.formal.lambda.iteration": supported,
+  "type.argument.formal.lambda": supported,
+  "type.argument.formal.lambda.iteration": supported,
   "argument.catch": supported,
 
   "argumentList.actual.constructor.empty": supported,

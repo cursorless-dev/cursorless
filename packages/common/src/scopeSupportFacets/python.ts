@@ -6,7 +6,6 @@ const { supported, notApplicable } = ScopeSupportFacetLevel;
 export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "name.foreach": supported,
   "name.resource": supported,
-  "name.resource.iteration": supported,
   "name.argument.actual": supported,
   "name.argument.actual.iteration": supported,
   "name.argument.formal": supported,
@@ -15,6 +14,8 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal.iteration": supported,
   "name.argument.formal.method": supported,
   "name.argument.formal.method.iteration": supported,
+  "name.argument.formal.lambda": supported,
+  "name.argument.formal.lambda.iteration": supported,
   "name.argument.catch": supported,
   "name.assignment": supported,
   "name.assignment.destructuring": supported,
@@ -33,8 +34,6 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
 
   "value.foreach": supported,
   "value.yield": supported,
-  "value.resource": supported,
-  "value.resource.iteration": supported,
   "value.argument.actual": supported,
   "value.argument.actual.iteration": supported,
   "value.argument.formal": supported,
@@ -64,6 +63,8 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.iteration": supported,
   "type.argument.formal.method": supported,
   "type.argument.formal.method.iteration": supported,
+  "type.argument.formal.lambda": notApplicable,
+  "type.argument.formal.lambda.iteration": notApplicable,
   "type.argument.formal": supported,
   "type.argument.catch": supported,
   "type.class": supported,
@@ -84,6 +85,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "namedFunction.iteration.document": supported,
   "namedFunction.method": supported,
   "namedFunction.iteration.class": supported,
+  "namedFunction.iteration.block": supported,
 
   "argument.actual.singleLine": supported,
   "argument.actual.multiLine": supported,
@@ -275,7 +277,6 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "type.interface": notApplicable,
   "type.field.interface": notApplicable,
   "type.iteration.interface": notApplicable,
-  "type.resource.iteration": notApplicable,
   "type.resource": notApplicable,
 
   // Type alias
@@ -337,6 +338,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.misc": notApplicable,
   "statement.package": notApplicable,
   "statement.update": notApplicable,
+  "value.resource": notApplicable,
   environment: notApplicable,
   regularExpression: notApplicable,
   selector: notApplicable,

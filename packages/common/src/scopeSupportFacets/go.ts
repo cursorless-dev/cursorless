@@ -134,6 +134,8 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal.iteration": supported,
   "name.argument.formal.method": supported,
   "name.argument.formal.method.iteration": supported,
+  "name.argument.formal.lambda": supported,
+  "name.argument.formal.lambda.iteration": supported,
   "name.iteration.block": supported,
   "name.iteration.class": supported,
   "name.iteration.document": supported,
@@ -162,6 +164,8 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.iteration": supported,
   "type.argument.formal.method": supported,
   "type.argument.formal.method.iteration": supported,
+  "type.argument.formal.lambda": supported,
+  "type.argument.formal.lambda.iteration": supported,
   "type.return": supported,
   "type.return.method": supported,
   "type.class": supported,
@@ -294,11 +298,8 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   // Resource syntax
   "statement.resource": notApplicable,
   "name.resource": notApplicable,
-  "name.resource.iteration": notApplicable,
   "value.resource": notApplicable,
-  "value.resource.iteration": notApplicable,
   "type.resource": notApplicable,
-  "type.resource.iteration": notApplicable,
   "interior.resource": notApplicable,
 
   // Static
@@ -343,6 +344,7 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   "value.return.lambda": notApplicable,
   "type.foreach": notApplicable,
   "type.cast": notApplicable,
+  "namedFunction.iteration.block": notApplicable,
   regularExpression: notApplicable,
   selector: notApplicable,
   unit: notApplicable,

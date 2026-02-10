@@ -33,6 +33,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "namedFunction.constructor": supported,
   "namedFunction.method": supported,
   "namedFunction.iteration.class": supported,
+  "namedFunction.iteration.block": supported,
 
   "branch.if": supported,
   "branch.if.elif.else": supported,
@@ -58,6 +59,8 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal.iteration": supported,
   "name.argument.formal.method": supported,
   "name.argument.formal.method.iteration": supported,
+  "name.argument.formal.lambda": supported,
+  "name.argument.formal.lambda.iteration": supported,
   "name.argument.formal": supported,
   "name.argument.catch": supported,
   "name.namespace": supported,
@@ -112,6 +115,8 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.iteration": supported,
   "type.argument.formal.method": supported,
   "type.argument.formal.method.iteration": supported,
+  "type.argument.formal.lambda": supported,
+  "type.argument.formal.lambda.iteration": supported,
   "type.argument.formal.constructor": supported,
   "type.argument.formal.constructor.iteration": supported,
   "type.argument.catch": supported,
@@ -274,11 +279,8 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.resource": notApplicable,
   "interior.resource": notApplicable,
   "type.resource": notApplicable,
-  "type.resource.iteration": notApplicable,
   "name.resource": notApplicable,
-  "name.resource.iteration": notApplicable,
   "value.resource": notApplicable,
-  "value.resource.iteration": notApplicable,
 
   // Pattern destructuring
   "statement.variable.destructuring": notApplicable,

@@ -223,14 +223,16 @@
 ### name
 
 - `name.argument.actual` Name of a (keyword) argument in a function call
-- `name.argument.actual.iteration` Iteration scope for names of (keyword) arguments in a function call: the argument list..
+- `name.argument.actual.iteration` Iteration scope for names of (keyword) arguments in a function call: the argument list.
 - `name.argument.catch` Name of a parameter in a catch clause
 - `name.argument.formal` Name of a parameter in a function declaration
 - `name.argument.formal.constructor` The name of a parameter in a constructor declaration
-- `name.argument.formal.constructor.iteration` Iteration scope for names of formal parameters in a constructor declaration: the parameters list. The domain should be the entire constructor.
-- `name.argument.formal.iteration` Iteration scope for names of formal parameters in a function declaration: the parameters list. The domain should be the entire function.
+- `name.argument.formal.constructor.iteration` Iteration scope for names of formal parameters in a constructor declaration: the parameters list.
+- `name.argument.formal.iteration` Iteration scope for names of formal parameters in a function declaration: the parameters list.
+- `name.argument.formal.lambda` Name of a parameter in a lambda declaration
+- `name.argument.formal.lambda.iteration` Iteration scope for names of formal parameters in a lambda declaration: the parameters list.
 - `name.argument.formal.method` Name of a parameter in a class method declaration
-- `name.argument.formal.method.iteration` Iteration scope for names of formal parameters in a method declaration: the parameters list. The domain should be the entire method.
+- `name.argument.formal.method.iteration` Iteration scope for names of formal parameters in a method declaration: the parameters list.
 - `name.assignment` Name (LHS) of an assignment
 - `name.assignment.compound` Name (LHS) of a compound assignment, eg +=/-=
 - `name.assignment.destructuring` LHS of an assignment with pattern destructuring
@@ -253,7 +255,6 @@
 - `name.method` Name of a class method
 - `name.namespace` Name of a namespace
 - `name.resource` Name in a 'with' / 'use' / 'using' statement
-- `name.resource.iteration` Iteration scope for names in a 'with' / 'use' / 'using' statement: the resource list. The domain should be the entire statement.
 - `name.typeAlias` Name of a type alias
 - `name.variable.destructuring` Name (LHS) of a variable declaration with pattern destructuring
 - `name.variable.initialized` Name (LHS) of an initialized variable declaration
@@ -263,6 +264,7 @@
 
 - `namedFunction` A named function declaration
 - `namedFunction.constructor` A constructor declaration in a class
+- `namedFunction.iteration.block` Iteration scope for named functions: statement blocks (body of functions/if-statements/for-loops/etc).
 - `namedFunction.iteration.class` Iteration scope for named functions: class bodies.
 - `namedFunction.iteration.document` Iteration scope for named functions: the entire document including leading and trailing empty lines.
 - `namedFunction.method` A named method declaration in a class
@@ -381,10 +383,12 @@
 - `type.argument.catch` Type of a parameter in a catch clause
 - `type.argument.formal` Type of a formal parameter in a function declaration
 - `type.argument.formal.constructor` Type of a formal parameter in a constructor declaration
-- `type.argument.formal.constructor.iteration` Iteration scope for types of formal parameters in a constructor declaration: the parameters list. The domain should be the entire constructor.
-- `type.argument.formal.iteration` Iteration scope for types of formal parameters in a function declaration: the parameters list. The domain should be the entire function.
+- `type.argument.formal.constructor.iteration` Iteration scope for types of formal parameters in a constructor declaration: the parameters list.
+- `type.argument.formal.iteration` Iteration scope for types of formal parameters in a function declaration: the parameters list.
+- `type.argument.formal.lambda` Type of a formal parameter in a lambda declaration
+- `type.argument.formal.lambda.iteration` Iteration scope for types of formal parameters in a lambda declaration: the parameters list.
 - `type.argument.formal.method` Type of a formal parameter in a class method declaration
-- `type.argument.formal.method.iteration` Iteration scope for types of formal parameters in a method declaration: the parameters list. The domain should be the entire method.
+- `type.argument.formal.method.iteration` Iteration scope for types of formal parameters in a method declaration: the parameters list.
 - `type.cast` A type cast
 - `type.class` A class declaration
 - `type.constant` Type of a constant declaration
@@ -398,7 +402,6 @@
 - `type.iteration.document` Iteration scope for types: the entire document including leading and trailing empty lines.
 - `type.iteration.interface` Iteration scope for types: interface bodies.
 - `type.resource` Type in a 'with' / 'use' / 'using' statement
-- `type.resource.iteration` Iteration scope for types in a 'with' / 'use' / 'using' statement: the resource list. The domain should be the entire statement.
 - `type.return` Type of a return value in a function declaration
 - `type.return.method` Type of a return value in a method declaration
 - `type.typeArgument` Type argument to a generic / parametrized type
@@ -417,13 +420,13 @@
 ### value
 
 - `value.argument.actual` The value of a (keyword) argument in a function call
-- `value.argument.actual.iteration` Iteration scope for values of (keyword) arguments in a function call: the arguments list..
+- `value.argument.actual.iteration` Iteration scope for values of (keyword) arguments in a function call: the arguments list.
 - `value.argument.formal` The value of a (keyword) argument in a function declaration
 - `value.argument.formal.constructor` The value of a parameter in a constructor declaration
-- `value.argument.formal.constructor.iteration` Iteration scope for values of formal parameters in a constructor declaration: the parameters list. The domain should be the entire constructor.
-- `value.argument.formal.iteration` Iteration scope for values of formal parameters in a function declaration: the parameters list. The domain should be the entire function.
+- `value.argument.formal.constructor.iteration` Iteration scope for values of formal parameters in a constructor declaration: the parameters list.
+- `value.argument.formal.iteration` Iteration scope for values of formal parameters in a function declaration: the parameters list.
 - `value.argument.formal.method` The value of a parameter in a class method declaration
-- `value.argument.formal.method.iteration` Iteration scope for values of formal parameters in a method declaration: the parameters list. The domain should be the entire method.
+- `value.argument.formal.method.iteration` Iteration scope for values of formal parameters in a method declaration: the parameters list.
 - `value.assignment` Value (RHS) of an assignment
 - `value.assignment.compound` Value (RHS) of a compound assignment, eg +=/-=
 - `value.assignment.destructuring` Value (RHS) of an assignment with pattern destructuring
@@ -441,7 +444,6 @@
 - `value.mapPair` Value (RHS) of a key-value pair in a map
 - `value.mapPair.iteration` Iteration scope for values of key-value pairs in a map: should be between the braces.
 - `value.resource` Value of a 'with' / 'use' / 'using' statement
-- `value.resource.iteration` Iteration scope for values in a 'with' / 'use' / 'using' statement: the resource list. The domain should be the entire statement.
 - `value.return` Return value of a function
 - `value.return.lambda` Implicit return value from a lambda
 - `value.switch` The value / subject of a switch statement

@@ -181,82 +181,9 @@
 
 ;;!! with aaa:
 ;;!       ^^^
-;;!  --------
-(
-  (with_statement
-    (with_clause
-      (with_item)? @_.leading.endOf
-      .
-      (with_item
-        value: (_) @value @name
-      )
-      .
-      (with_item)? @_.trailing.startOf
-    )
-  ) @_.domain
-  (#not-type? @value "as_pattern")
-  (#allow-multiple! @value @name)
-)
-
-;;!! with aaa:
-;;!       ^^^
-;;!  --------
-(
-  (with_statement
-    (with_clause
-      (with_item)? @_.leading.endOf
-      .
-      (with_item
-        value: (_) @value @name
-      )
-      .
-      (with_item)? @_.trailing.startOf
-    ) @_with_clause
-  )
-  (#not-type? @value "as_pattern")
-  (#has-multiple-children-of-type? @_with_clause "with_item")
-  (#allow-multiple! @value @name)
-)
-
-;;!! with aaa as bbb:
-;;!       ^^^        <~~ value
-;;!              ^^^ <~~ name
-;;!  ----------------
-(
-  (with_statement
-    (with_clause
-      (with_item
-        value: (as_pattern
-          (_) @value @name.leading.endOf
-          alias: (_) @name @value.trailing.startOf
-        )
-      )
-    )
-  ) @_.domain
-  (#allow-multiple! @value @name)
-)
-
-;;!! with aaa as ccc, bbb:
-;;!       ^^^         ^^^
-;;!       ----------  ---
-(
-  (with_statement
-    (with_clause
-      (with_item
-        value: (as_pattern
-          (_) @value @name.leading.endOf
-          alias: (_) @name @value.trailing.startOf
-        )
-      ) @_.domain
-    ) @_with_clause
-  )
-  (#has-multiple-children-of-type? @_with_clause "with_item")
-  (#allow-multiple! @value @name)
-)
-
 (with_statement
-  (with_clause) @name.iteration @value.iteration
-) @name.iteration.domain @value.iteration.domain
+  (with_clause) @name
+) @name.domain
 
 ;;!! lambda str: len(str) > 0
 ;;!              ^^^^^^^^^^^^

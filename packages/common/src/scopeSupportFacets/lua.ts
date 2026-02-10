@@ -13,6 +13,7 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
   namedFunction: supported,
   "namedFunction.method": supported,
   "namedFunction.iteration.document": supported,
+  "namedFunction.iteration.block": supported,
 
   functionCall: supported,
   "functionCall.method": supported,
@@ -59,6 +60,8 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal.iteration": supported,
   "name.argument.formal.method": supported,
   "name.argument.formal.method.iteration": supported,
+  "name.argument.formal.lambda": supported,
+  "name.argument.formal.lambda.iteration": supported,
   "name.foreach": supported,
   "name.function": supported,
   "name.method": supported,
@@ -212,6 +215,8 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.iteration": notApplicable,
   "type.argument.formal.method": notApplicable,
   "type.argument.formal.method.iteration": notApplicable,
+  "type.argument.formal.lambda": notApplicable,
+  "type.argument.formal.lambda.iteration": notApplicable,
   "type.argument.catch": notApplicable,
   "type.return": notApplicable,
   "type.return.method": notApplicable,
@@ -263,11 +268,8 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
   // Resource syntax
   "statement.resource": notApplicable,
   "name.resource": notApplicable,
-  "name.resource.iteration": notApplicable,
   "value.resource": notApplicable,
-  "value.resource.iteration": notApplicable,
   "type.resource": notApplicable,
-  "type.resource.iteration": notApplicable,
   "interior.resource": notApplicable,
 
   // Keyword argument

@@ -118,6 +118,8 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal.iteration": supported,
   "name.argument.formal.method": supported,
   "name.argument.formal.method.iteration": supported,
+  "name.argument.formal.lambda": supported,
+  "name.argument.formal.lambda.iteration": supported,
   "name.assignment": supported,
   "name.assignment.destructuring": supported,
   "name.assignment.compound": supported,
@@ -163,6 +165,8 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.iteration": supported,
   "type.argument.formal.method": supported,
   "type.argument.formal.method.iteration": supported,
+  "type.argument.formal.lambda": supported,
+  "type.argument.formal.lambda.iteration": supported,
   "type.class": supported,
   "type.enum": supported,
   "type.field.class": supported,
@@ -266,11 +270,8 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   // Resource syntax
   "statement.resource": notApplicable,
   "name.resource": notApplicable,
-  "name.resource.iteration": notApplicable,
   "value.resource": notApplicable,
-  "value.resource.iteration": notApplicable,
   "type.resource": notApplicable,
-  "type.resource.iteration": notApplicable,
   "interior.resource": notApplicable,
 
   // Keyword argument
@@ -337,6 +338,7 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "value.field.class": notApplicable,
   "type.foreach": notApplicable,
   "class.iteration.block": notApplicable,
+  "namedFunction.iteration.block": notApplicable,
   environment: notApplicable,
   regularExpression: notApplicable,
   selector: notApplicable,

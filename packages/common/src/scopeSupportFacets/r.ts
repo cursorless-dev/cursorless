@@ -113,7 +113,6 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   "type.interface": notApplicable,
   "type.return": notApplicable,
   "type.resource": notApplicable,
-  "type.resource.iteration": notApplicable,
   "type.iteration.class": notApplicable,
   "type.typeArgument": notApplicable,
   "type.typeArgument.iteration": notApplicable,

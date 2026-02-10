@@ -63,6 +63,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "namedFunction.iteration.document": supported,
   "namedFunction.method": supported,
   "namedFunction.iteration.class": supported,
+  "namedFunction.iteration.block": supported,
   "namedFunction.constructor": supported,
 
   functionCall: supported,
@@ -148,6 +149,8 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal.iteration": supported,
   "name.argument.formal.method": supported,
   "name.argument.formal.method.iteration": supported,
+  "name.argument.formal.lambda": supported,
+  "name.argument.formal.lambda.iteration": supported,
   "name.argument.formal.constructor": supported,
   "name.argument.formal.constructor.iteration": supported,
   "name.argument.catch": supported,
@@ -235,11 +238,8 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   // Resource
   "statement.resource": notApplicable,
   "interior.resource": notApplicable,
-  "name.resource.iteration": notApplicable,
   "name.resource": notApplicable,
-  "type.resource.iteration": notApplicable,
   "type.resource": notApplicable,
-  "value.resource.iteration": notApplicable,
   "value.resource": notApplicable,
 
   // Keyword argument
@@ -288,6 +288,8 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.iteration": notApplicable,
   "type.argument.formal.method": notApplicable,
   "type.argument.formal.method.iteration": notApplicable,
+  "type.argument.formal.lambda": notApplicable,
+  "type.argument.formal.lambda.iteration": notApplicable,
   "type.argument.formal.constructor": notApplicable,
   "type.argument.formal.constructor.iteration": notApplicable,
   "type.argument.catch": notApplicable,

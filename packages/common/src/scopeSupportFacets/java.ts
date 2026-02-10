@@ -144,6 +144,8 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal.constructor.iteration": supported,
   "name.argument.formal.method": supported,
   "name.argument.formal.method.iteration": supported,
+  "name.argument.formal.lambda": supported,
+  "name.argument.formal.lambda.iteration": supported,
   "name.argument.catch": supported,
   "name.class": supported,
   "name.interface": supported,
@@ -185,6 +187,8 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
 
   "type.argument.formal.constructor": supported,
   "type.argument.formal.method": supported,
+  "type.argument.formal.lambda": supported,
+  "type.argument.formal.lambda.iteration": supported,
   "type.argument.formal.constructor.iteration": supported,
   "type.argument.formal.method.iteration": supported,
   "type.argument.catch": supported,
@@ -310,11 +314,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   notebookCell: notApplicable,
   "interior.cell": notApplicable,
 
-  // Multiple resources
-  "value.resource.iteration": notApplicable,
-  "type.resource.iteration": notApplicable,
-  "name.resource.iteration": notApplicable,
-
   // Namespace
   "statement.namespace": notApplicable,
   "name.namespace": notApplicable,
@@ -329,6 +328,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.iteration.enum": notApplicable,
 
   // Miscellaneous
+  "namedFunction.iteration.block": notApplicable,
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,
   environment: notApplicable,

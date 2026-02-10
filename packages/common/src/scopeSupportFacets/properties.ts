@@ -97,6 +97,7 @@ export const propertiesScopeSupport: LanguageScopeSupportFacetMap = {
   namedFunction: notApplicable,
   "namedFunction.iteration.document": notApplicable,
   "namedFunction.iteration.class": notApplicable,
+  "namedFunction.iteration.block": notApplicable,
   "statement.function": notApplicable,
   "name.function": notApplicable,
   "interior.function": notApplicable,
@@ -136,6 +137,10 @@ export const propertiesScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal.lambda.singleLine": notApplicable,
   "argument.formal.lambda.multiLine": notApplicable,
   "argument.formal.lambda.iteration": notApplicable,
+  "name.argument.formal.lambda": notApplicable,
+  "name.argument.formal.lambda.iteration": notApplicable,
+  "type.argument.formal.lambda": notApplicable,
+  "type.argument.formal.lambda.iteration": notApplicable,
   "value.return.lambda": notApplicable,
   "interior.lambda": notApplicable,
 
@@ -242,11 +247,8 @@ export const propertiesScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.resource": notApplicable,
   "interior.resource": notApplicable,
   "name.resource": notApplicable,
-  "name.resource.iteration": notApplicable,
   "type.resource": notApplicable,
-  "type.resource.iteration": notApplicable,
   "value.resource": notApplicable,
-  "value.resource.iteration": notApplicable,
 
   // Pattern destructuring
   "statement.variable.destructuring": notApplicable,

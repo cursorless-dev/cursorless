@@ -1,0 +1,7 @@
+foo = lambda aaa, bbb: aaa + bbb
+---
+
+[Content] =
+[Domain] = 0:0-0:32
+  >--------------------------------<
+0| foo = lambda aaa, bbb: aaa + bbb

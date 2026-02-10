@@ -96,6 +96,7 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "namedFunction.method": supported,
   "namedFunction.iteration.class": supported,
   "namedFunction.iteration.document": supported,
+  "namedFunction.iteration.block": supported,
 
   ifStatement: supported,
 
@@ -145,6 +146,8 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal.iteration": supported,
   "name.argument.formal.method": supported,
   "name.argument.formal.method.iteration": supported,
+  "name.argument.formal.lambda": supported,
+  "name.argument.formal.lambda.iteration": supported,
   "name.argument.formal.constructor": supported,
   "name.argument.formal.constructor.iteration": supported,
   "name.argument.catch": supported,
@@ -200,6 +203,8 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.iteration": supported,
   "type.argument.formal.method": supported,
   "type.argument.formal.method.iteration": supported,
+  "type.argument.formal.lambda": supported,
+  "type.argument.formal.lambda.iteration": supported,
   "type.argument.formal.constructor": supported,
   "type.argument.formal.constructor.iteration": supported,
   "type.argument.catch": supported,
@@ -271,11 +276,8 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.resource": notApplicable,
   "interior.resource": notApplicable,
   "type.resource": notApplicable,
-  "type.resource.iteration": notApplicable,
   "name.resource": notApplicable,
-  "name.resource.iteration": notApplicable,
   "value.resource": notApplicable,
-  "value.resource.iteration": notApplicable,
 
   // Branches and conditions
   "branch.ternary": notApplicable,
