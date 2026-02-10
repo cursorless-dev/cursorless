@@ -46,13 +46,19 @@
 
 ;;!! { }
 ;;!   ^
-(_
-  "{" @statement.iteration.start.endOf @namedFunction.iteration.start.endOf
-  "}" @statement.iteration.end.startOf @namedFunction.iteration.end.startOf
+(
+  (_
+    "{" @statement.iteration.start.endOf @namedFunction.iteration.start.endOf
+    "}" @statement.iteration.end.startOf @namedFunction.iteration.end.startOf
+  ) @_dummy
+  (#not-type? @_dummy lambda_literal)
 )
-(_
-  "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
-  "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+(
+  (_
+    "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+    "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+  ) @_dummy
+  (#not-type? @_dummy lambda_literal)
 )
 
 ;;!! { }
@@ -536,9 +542,13 @@
 ;;!! { aaa, bbb -> }
 ;;!    ^^^^^^^^
 (lambda_literal
-  (lambda_parameters) @argumentList @argumentOrParameter.iteration
+  (lambda_parameters) @argumentList
   (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
+
+;;!! { aaa, bbb -> }
+;;!    ^^^^^^^^
+(lambda_parameters) @argumentOrParameter.iteration @name.iteration @type.iteration
 
 ;;!! { -> }
 (lambda_literal
