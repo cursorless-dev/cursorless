@@ -23,6 +23,7 @@ export interface TalonActions {
     cursorless_everywhere_set_selections(selections: SelectionOffsets[]): void;
     cursorless_everywhere_edit_text(edit: EditorEdit): void;
     cursorless_everywhere_flash_ranges(ranges: RangeOffsets[]): void;
+    cursorless_everywhere_set_hat_ranges(hatsJson: string): void;
   };
 }
 

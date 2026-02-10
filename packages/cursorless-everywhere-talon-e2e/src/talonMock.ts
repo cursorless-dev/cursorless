@@ -57,6 +57,9 @@ const actions: TalonActions = {
     cursorless_everywhere_flash_ranges(_ranges: RangeOffsets[]): void {
       // Do nothing
     },
+    cursorless_everywhere_set_hat_ranges(_hatsJson: string): void {
+      // Do nothing in tests
+    },
   },
 };
 

@@ -1,12 +1,14 @@
-import { CURSORLESS_COMMAND_ID } from "@cursorless/common";
+import { CURSORLESS_COMMAND_ID, type HatTokenMap } from "@cursorless/common";
 import type { CommandApi } from "@cursorless/cursorless-engine";
 import type { TalonJsIDE } from "./ide/TalonJsIDE";
 import type { Talon } from "./types/talon.types";
+import type { EditorState } from "./types/types";
 
 export function registerCommands(
   talon: Talon,
   ide: TalonJsIDE,
   commandApi: CommandApi,
+  hatTokenMap: HatTokenMap,
 ) {
   const ctx = new talon.Context();
   ctx.matches = "tag: user.cursorless_everywhere_talon";
@@ -41,6 +43,18 @@ export function registerCommands(
     command: unknown,
   ): Promise<unknown> {
     try {
+      // Hat reallocation only — no command execution needed.
+      // If command contains editor state (from file-based polling), use it
+      // directly; otherwise fall back to reading AX state via Talon action.
+      if (commandId === "hatbox.reallocateHats") {
+        const editorState: EditorState =
+          (command as EditorState) ??
+          talon.actions.user.cursorless_everywhere_get_editor_state();
+        ide.updateTextEditors(editorState);
+        await hatTokenMap.allocateHats();
+        return;
+      }
+
       if (commandId !== CURSORLESS_COMMAND_ID) {
         throw Error(`Unknown command ID: ${commandId}`);
       }
@@ -50,6 +64,11 @@ export function registerCommands(
       const editorState =
         talon.actions.user.cursorless_everywhere_get_editor_state();
       ide.updateTextEditors(editorState);
+
+      // TalonJsIDE event listeners are no-ops, so HatAllocator's debouncer
+      // never fires automatically. Explicitly allocate hats so the hat map
+      // is populated and HatBox can render them.
+      await hatTokenMap.allocateHats();
 
       return await commandApi.runCommandSafe(command);
     } catch (error) {

@@ -10,6 +10,10 @@
     ".": {
       "cursorless:bundler": "./src/index.ts",
       "default": "./out/index.js"
+    },
+    "./hatbox": {
+      "cursorless:bundler": "./src/hatbox/hatboxMain.ts",
+      "default": "./out/hatbox/hatboxMain.js"
     }
   },
   "scripts": {

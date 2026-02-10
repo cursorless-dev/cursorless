@@ -7,13 +7,15 @@ if (global.process == null) {
   };
 }
 
-// Allows us to use `console.*` with quickjs
-if (typeof print !== "undefined") {
+// Allows us to use `console.*` with quickjs.
+// Use `print` if available (Talon's QuickJS), otherwise no-op (HatBox's QuickJS).
+if (global.console == null) {
+  const sink = typeof print !== "undefined" ? print : () => {};
   global.console = {
-    log: print,
-    error: print,
-    warn: print,
-    debug: print,
+    log: sink,
+    error: sink,
+    warn: sink,
+    debug: sink,
   };
 }
 

@@ -9,6 +9,7 @@ import {
 import { createCursorlessEngine } from "@cursorless/cursorless-engine";
 import { constructTestHelpers } from "./constructTestHelpers";
 import { TalonJsIDE } from "./ide/TalonJsIDE";
+import { TalonJsHatBoxHats } from "./ide/TalonJsHatBoxHats";
 import { TalonJsTestHats } from "./ide/TalonJsTestHats";
 import { registerCommands } from "./registerCommands";
 import type { Talon } from "./types/talon.types";
@@ -35,7 +36,7 @@ async function activateHelper(
   const isTesting = runMode === "test";
   const talonJsIDE = new TalonJsIDE(talon, runMode);
   const commandServerApi = isTesting ? new FakeCommandServerApi() : undefined;
-  const hats = isTesting ? new TalonJsTestHats() : undefined;
+  const hats = isTesting ? new TalonJsTestHats() : new TalonJsHatBoxHats(talon);
 
   const normalizedIde =
     runMode === "production"
@@ -49,7 +50,7 @@ async function activateHelper(
       hats,
     });
 
-  registerCommands(talon, talonJsIDE, commandApi);
+  registerCommands(talon, talonJsIDE, commandApi, hatTokenMap);
 
   const testHelpers = isTesting
     ? constructTestHelpers({
