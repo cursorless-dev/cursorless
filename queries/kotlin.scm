@@ -542,13 +542,13 @@
 ;;!! { aaa, bbb -> }
 ;;!    ^^^^^^^^
 (lambda_literal
-  (lambda_parameters) @argumentList
+  (lambda_parameters) @argumentList @argumentOrParameter.iteration
   (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;;!! { aaa, bbb -> }
 ;;!    ^^^^^^^^
-(lambda_parameters) @argumentOrParameter.iteration @name.iteration @type.iteration
+(lambda_parameters) @name.iteration @type.iteration
 
 ;;!! { -> }
 (lambda_literal
