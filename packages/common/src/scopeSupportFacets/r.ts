@@ -1,7 +1,7 @@
 import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
-const { supported, notApplicable } = ScopeSupportFacetLevel;
+const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const rScopeSupport: LanguageScopeSupportFacetMap = {
   disqualifyDelimiter: supported,
@@ -105,8 +105,6 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   "value.iteration.document": supported,
   "value.iteration.block": supported,
 
-  fieldAccess: supported,
-
   "interior.function": supported,
   "interior.lambda": supported,
   "interior.if": supported,
@@ -114,6 +112,10 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.switch": supported,
   "interior.foreach": supported,
   "interior.while": supported,
+
+  /* UNSUPPORTED  */
+
+  fieldAccess: unsupported,
 
   /* NOT APPLICABLE */
 
