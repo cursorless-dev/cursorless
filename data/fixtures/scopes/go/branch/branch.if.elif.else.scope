@@ -11,11 +11,11 @@ if true {
 1| } else if false {
    -<
 
-[#1 Removal] = 0:0-1:2
+[#1 Removal] = 0:0-1:7
   >---------
 0| if true {
 1| } else if false {
-   --<
+   -------<
 
 [#1 Trailing delimiter] = 1:1-1:2
    >-<
