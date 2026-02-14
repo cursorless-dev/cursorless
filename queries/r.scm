@@ -60,6 +60,7 @@
     alternative: (if_statement)? @branch.removal.end.startOf
   ) @condition.domain
   (#not-parent-type? @condition.domain if_statement)
+  (#insertion-delimiter! @branch.start " ")
 )
 
 ;;!! else if () {}
@@ -69,12 +70,14 @@
     condition: (_) @condition
     consequence: (_) @branch.end @condition.domain.end
   )
+  (#insertion-delimiter! @branch.start " ")
 )
 
 ;;!! else {}
 (if_statement
   "else" @branch.start
   alternative: (braced_expression) @branch.end
+  (#insertion-delimiter! @branch.start " ")
 )
 
 ;;!! foo <- function(){}
