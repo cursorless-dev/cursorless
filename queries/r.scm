@@ -15,6 +15,9 @@
   ;; (function_definition)
 ] @statement
 
+(program) @statement.iteration @namedFunction.iteration
+(program) @name.iteration @value.iteration
+
 ;;!! { }
 ;;!   ^
 (_
@@ -23,9 +26,12 @@
   "}" @interior.end.startOf
   .
 )
-
-(program) @statement.iteration @namedFunction.iteration
-(program) @name.iteration @value.iteration
+(_
+  .
+  "{" @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
+  "}" @statement.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+  .
+)
 
 ;;!! # hello world
 ;;!  ^^^^^^^^^^^^^
