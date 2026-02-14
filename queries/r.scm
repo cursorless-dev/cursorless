@@ -110,6 +110,20 @@
 )
 
 ;;!! foo(aaa = 0)
+;;!      ^^^^^^^
+(arguments
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf
+)
+
+;;!! function(aaa, bbb){}
+;;!           ^^^^^^^^
+(parameters
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf
+)
+
+;;!! foo(aaa = 0)
 ;;!      ^^^
 ;;!            ^
 (argument
@@ -117,16 +131,13 @@
   value: (_) @value @name.trailing.startOf
 ) @_.domain
 
-;;!! foo(aaa = 0)
-;;!      ^^^^^^^
-(arguments
-  "(" @name.iteration.start.endOf @value.iteration.start.endOf
-  (argument
-    name: (_)
-    value: (_)
-  )
-  ")" @name.iteration.end.startOf @value.iteration.end.startOf
-)
+;;!! function(aaa = 0)
+;;!           ^^^
+;;!                 ^
+(parameter
+  name: (_) @name @value.leading.endOf
+  default: (_)? @value @name.trailing.startOf
+) @_.domain
 
 ;;!! foo(aaa, bbb)
 ;;!      ^^^^^^^^
@@ -166,11 +177,6 @@
   (#not-parent-type? @argumentList.domain binary_operator)
 )
 
-(parameters
-  "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
-  ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
-)
-
 ;;!! foo()
 ;;!  ^^^^^
 ;;!  ^^^
@@ -185,6 +191,18 @@
   function: (_) @_dummy
   (#match? @_dummy "^(c|list)$")
 ) @list
+
+;;!! switch(foo, ...)
+;;!         ^^^
+(call
+  function: (_) @_dummy
+  (arguments
+    "("
+    .
+    (argument) @value
+  )
+  (#eq? @_dummy switch)
+) @value.domain
 
 ;;!! return(0, 1)
 ;;!         ^^^^
