@@ -1,0 +1,15 @@
+if (TRUE) {
+} else if (FALSE) {
+} else {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-2:9
+  >-----------
+0| if (TRUE) {
+1| } else if (FALSE) {
+2| } else {}
+   ---------<
+
+[Insertion delimiter] = "\n"

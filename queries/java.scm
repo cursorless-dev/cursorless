@@ -38,7 +38,7 @@
   ;; "block",
   ;; (declaration) ;; Is a compound of all other declarations
 
-  ;; Disabled on purpose. We have a better definition of this below.
+  ;; Disabled on purpose. We have a better definition of these below.
   ;; (if_statement)
   ;; (enum_declaration)
   ;; (local_variable_declaration)

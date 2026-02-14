@@ -3,42 +3,72 @@
 
 [
   (for_statement)
-  (if_statement)
   (repeat_statement)
-  (function_definition)
   (while_statement)
+  (binary_operator)
+  (call)
+  (next)
+  (break)
+
+  ;; Disabled on purpose. We have a better definition of these below.
+  ;; (if_statement)
+  ;; (function_definition)
 ] @statement
 
-;;!! # hello
-;;!  ^^^^^^^
-(comment) @comment
+;;!! { }
+;;!   ^
+(_
+  .
+  "{" @interior.start.endOf
+  "}" @interior.end.startOf
+  .
+)
 
-;;!! if (x > 0) { }
-;;!  ^^^^^^^^^^^^^^
-(if_statement) @ifStatement
+(program) @statement.iteration @namedFunction.iteration
+(program) @name.iteration @value.iteration
 
-;; named function
-;;!! abc <- function(x){ }
-;;!  ^^^^^^^^^^^^^^^^^^^^^
+;;!! # hello world
+;;!  ^^^^^^^^^^^^^
+(comment) @comment @textFragment
+
+;;!! "hello world"
+;;!  ^^^^^^^^^^^^^
+;;!   ^^^^^^^^^^^
+(string
+  (string_content)? @textFragment
+) @string
+
+;;!! if (TRUE) {} else {}
+(
+  (if_statement
+    condition: (_) @condition
+  ) @ifStatement @statement @condition.domain
+  (#not-parent-type? @ifStatement if_statement)
+)
+
+;;!! else if (TRUE) {}
+(if_statement
+  "else" @condition.domain.start
+  alternative: (if_statement
+    condition: (_) @condition
+    consequence: (_) @condition.domain.end
+  )
+)
+
+;;!! foo <- function(){}
+;;!  ^^^^^^^^^^^^^^^^^^^
+;;!  ^^^
 (binary_operator
-  ;;!! abc <- function(x){ }
-  ;;!  ^^^
   lhs: (identifier) @name
-  rhs: (function_definition
-    name: "function"
-    parameters: (parameters)
-    body: (braced_expression)
-  ) @name.trailing.startOf
-) @namedFunction @_.domain
+  rhs: (function_definition) @name.trailing.startOf
+) @namedFunction @statement @_.domain
 
-;; anonymous function
-;;!! function(x){ }
-;;!  ^^^^^^^^^^^^^^
+;;!! function(){}
+;;!  ^^^^^^^^^^^^
 (function_definition) @anonymousFunction
 
-;; argument.actual
-;;!! foo(a, b")
-;;!      ^  ^
+;;!! foo(aaa, bbb)
+;;!      ^^^  ^^^
 (
   (arguments
     (
@@ -58,9 +88,8 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
-;; argument.formal
-;;!! function(a, b){}
-;;!           ^  ^
+;;!! function(aaa, bbb){}
+;;!           ^^^  ^^^
 (
   (parameters
     (
@@ -80,9 +109,27 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
-;; argumentList.actual
-;;!! foo(a, b)
-;;!      ^^^^
+;;!! foo(aaa = 0)
+;;!      ^^^
+;;!            ^
+(argument
+  name: (_) @name @value.leading.endOf
+  value: (_) @value @name.trailing.startOf
+) @_.domain
+
+;;!! foo(aaa = 0)
+;;!      ^^^^^^^
+(arguments
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf
+  (argument
+    name: (_)
+    value: (_)
+  )
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf
+)
+
+;;!! foo(aaa, bbb)
+;;!      ^^^^^^^^
 (call
   (arguments
     "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
@@ -92,9 +139,8 @@
   (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
-;; argumentList.formal
-;;!! foo <- function(a, b){ }
-;;!                  ^^^^
+;;!! foo <- function(aaa, bbb){}
+;;!                  ^^^^^^^^
 (binary_operator
   (function_definition
     (parameters
@@ -106,9 +152,8 @@
   )
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
-;; argumentList.formal
-;;!! function(a, b){}
-;;!           ^^^^
+;;!! function(aaa, bbb){}
+;;!           ^^^^^^^^
 (
   (function_definition
     (parameters
@@ -126,43 +171,55 @@
   ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
 )
 
-;; Function calls
 ;;!! foo()
 ;;!  ^^^^^
 ;;!  ^^^
-;;!  -----
-
 (call
-  (identifier) @functionCallee
+  function: (_) @functionCallee
 ) @functionCall @functionCallee.domain
 
 ;; Technically lists and arrays are just calls to the function `list` or `c`
 ;;!! list(1, 2, 3)
 ;;!  ^^^^^^^^^^^^^
 (call
-  function: (identifier) @_dummy
+  function: (_) @_dummy
   (#match? @_dummy "^(c|list)$")
 ) @list
 
+;;!! return(0, 1)
+;;!         ^^^^
+(call
+  function: (return)
+  (arguments
+    "("
+    .
+    (argument) @value.start
+    (argument)? @value.end
+    .
+    ")"
+  )
+) @value.domain
+
+;;!! foo <- 0
+;;!  ^^^
+;;!         ^
 (binary_operator
-  ;;!! hello <- "world"
-  ;;!  ^^^^^
-  ;;!  -----
-  lhs: (identifier) @name @value.leading.endOf
-  operator: [
-    "<-"
-    "="
-  ]
-  ;;!! hello <- "world"
-  ;;!           ^^^^^^^
-  ;;!  -----
+  lhs: (_) @name @value.leading.endOf
   rhs: (_) @value @name.trailing.startOf
 ) @_.domain
 
-;;!! foo(hello)
-;;!      ^^^^^
-;;!  -----
-;; (identifier) @value
+;;!! while (TRUE) {}
+(while_statement
+  condition: (_) @condition
+) @condition.domain
+
+;;!! for (v in values) {}
+;;!       ^
+;;!            ^^^^^^
+(for_statement
+  variable: (_) @name
+  sequence: (_) @value
+) @_.domain
 
 ;; ;; from https://github.com/r-lib/tree-sitter-r/blob/main/queries/highlights.scm
 ;; ;; Plus magrittr operators

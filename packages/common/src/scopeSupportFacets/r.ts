@@ -71,7 +71,6 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.return": supported,
   "statement.break": supported,
   "statement.continue": supported,
-  "statement.misc": supported,
   "statement.iteration.document": supported,
   "statement.iteration.block": supported,
 
@@ -343,6 +342,7 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.cell": notApplicable,
 
   // Miscellaneous statements
+  "statement.misc": notApplicable,
   "statement.package": notApplicable,
   "statement.import": notApplicable,
 

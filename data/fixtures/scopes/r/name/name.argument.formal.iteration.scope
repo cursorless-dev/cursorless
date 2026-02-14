@@ -1,0 +1,13 @@
+function(aaa, bbb) {}
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:21
+  >---------------------<
+0| function(aaa, bbb) {}
+
+
+[#2 Content] =
+[#2 Domain] = 0:9-0:17
+           >--------<
+0| function(aaa, bbb) {}
