@@ -251,13 +251,13 @@
   "}" @interior.end.startOf @branch.iteration.end.startOf @condition.iteration.end.startOf
 ) @value.domain
 
-;;!! if true {} else {}
+;;!! if () {} else {}
 (
   (if_statement) @ifStatement @statement @branch.iteration
   (#not-parent-type? @ifStatement if_statement)
 )
 
-;;!! if true {}
+;;!! if () {}
 (
   (if_statement
     "if" @branch.start @branch.removal.start
@@ -271,7 +271,7 @@
   (#shrink-to-match! @condition "^\\(?(?<keep>[^)]*)\\)?$")
 )
 
-;;!! else if true {}
+;;!! else if () {}
 (if_statement
   "else" @branch.start @condition.domain.start
   alternative: (if_statement
