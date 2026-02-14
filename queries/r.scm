@@ -5,15 +5,29 @@
   (for_statement)
   (repeat_statement)
   (while_statement)
-  (binary_operator)
-  (call)
   (next)
   (break)
 
   ;; Disabled on purpose. We have a better definition of these below.
   ;; (if_statement)
   ;; (function_definition)
+  ;; (binary_operator)
+  ;; (call)
 ] @statement
+
+(program
+  [
+    (binary_operator)
+    (call)
+  ] @statement
+)
+
+(braced_expression
+  [
+    (binary_operator)
+    (call)
+  ] @statement
+)
 
 (program) @statement.iteration @namedFunction.iteration
 (program) @name.iteration @value.iteration
@@ -308,6 +322,10 @@
 ;;!         ^
 (binary_operator
   lhs: (_) @name @value.leading.endOf
+  operator: [
+    "<-"
+    "="
+  ]
   rhs: (_) @value @name.trailing.startOf
 ) @_.domain
 
