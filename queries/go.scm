@@ -360,15 +360,6 @@
   result: (_) @type
 ) @_.domain
 
-;;!! if true {}
-(
-  (_
-    condition: (_) @condition
-  ) @_.domain
-  (#not-type? @condition parenthesized_expression)
-  (#not-type? @_.domain for_clause if_statement)
-)
-
 ;;!! if (true) {}
 (
   (_
