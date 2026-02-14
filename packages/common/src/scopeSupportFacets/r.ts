@@ -109,7 +109,7 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.lambda": supported,
   "interior.if": supported,
   "interior.try": supported,
-  "interior.switch": supported,
+  "interior.switchCase": supported,
   "interior.foreach": supported,
   "interior.while": supported,
 
@@ -352,6 +352,7 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   // Miscellaneous
   "comment.block": notApplicable,
   "textFragment.comment.block": notApplicable,
+  "interior.switch": notApplicable,
   environment: notApplicable,
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,

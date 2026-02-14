@@ -208,19 +208,50 @@
   (#match? @_dummy "^(c|list)$")
 ) @list
 
-;;!! switch(foo, ...)
+;;!! switch(foo, )
 ;;!         ^^^
+;;!         ^^^^^
 (call
   function: (_) @_dummy
   (arguments
-    "("
+    "(" @branch.iteration.start.endOf
     .
-    (argument) @value
+    (argument)? @value
+    ")" @branch.iteration.end.startOf
   )
   (#eq? @_dummy switch)
 ) @value.domain
 
-;;!! tryCatch()
+;;!! switch(foo, aaa=0)
+;;!              ^^^^^
+(call
+  function: (_) @_dummy
+  (arguments
+    .
+    (argument)
+    (argument) @branch
+  )
+  (#eq? @_dummy switch)
+)
+
+;;!! switch(foo, aaa=0)
+;;!                  ^
+(call
+  function: (_) @_dummy
+  (arguments
+    .
+    (argument)
+    (argument
+      "=" @interior.start.endOf
+      value: (_) @interior.end.endOf
+    )
+  )
+  (#eq? @_dummy switch)
+  (#not-type? @interior.end.endOf braced_expression)
+)
+
+;;!! tryCatch({})
+;;!           ^^
 (call
   function: (_) @_dummy
   (arguments
@@ -229,7 +260,8 @@
   (#eq? @_dummy tryCatch)
 )
 
-;;!! tryCatch()
+;;!! tryCatch( )
+;;!           ^
 (call
   function: (_) @_dummy
   (arguments
