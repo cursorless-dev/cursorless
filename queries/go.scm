@@ -268,6 +268,7 @@
   ) @condition.domain
   (#not-parent-type? @condition.domain if_statement)
   (#insertion-delimiter! @branch.start " ")
+  (#shrink-to-match! @condition "^\\(?(?<keep>[^)]*)\\)?$")
 )
 
 ;;!! else if true {}
@@ -278,6 +279,7 @@
     consequence: (_) @branch.end @condition.domain.end
   )
   (#insertion-delimiter! @branch.start " ")
+  (#shrink-to-match! @condition "^\\(?(?<keep>[^)]*)\\)?$")
 )
 
 ;;!! else {}
@@ -359,14 +361,6 @@
 (method_declaration
   result: (_) @type
 ) @_.domain
-
-;;!! if (true) {}
-(
-  (_
-    condition: (parenthesized_expression) @condition
-  ) @_.domain
-  (#child-range! @condition 0 -1 true true)
-)
 
 ;;!! for i := 0; i < size; i++ {}
 ;;!              ^^^^^^^^
