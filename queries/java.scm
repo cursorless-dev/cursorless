@@ -651,18 +651,20 @@
   )
 ) @_.domain
 
-operator: [
-  "<"
-  ">"
-  "<="
-  ">="
-  "<<"
-  ">>"
-  "<<="
-  ">>="
-  ">>>"
-  ">>>="
-] @disqualifyDelimiter
+(_
+  operator: [
+    "<"
+    ">"
+    "<="
+    ">="
+    "<<"
+    ">>"
+    "<<="
+    ">>="
+    ">>>"
+    ">>>="
+  ] @disqualifyDelimiter
+)
 (lambda_expression
   "->" @disqualifyDelimiter
 )

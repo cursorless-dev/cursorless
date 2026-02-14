@@ -34,10 +34,6 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.formal.lambda.singleLine": supported,
   "argumentList.formal.lambda.multiLine": supported,
 
-  "collectionItem.unenclosed.singleLine": supported,
-  "collectionItem.unenclosed.multiLine": supported,
-  "collectionItem.unenclosed.iteration": supported,
-
   "branch.if": supported,
   "branch.if.elif.else": supported,
   "branch.if.else": supported,
@@ -340,6 +336,11 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   // Notebook cell
   notebookCell: notApplicable,
   "interior.cell": notApplicable,
+
+  // Unenclosed collection items
+  "collectionItem.unenclosed.singleLine": notApplicable,
+  "collectionItem.unenclosed.multiLine": notApplicable,
+  "collectionItem.unenclosed.iteration": notApplicable,
 
   // Miscellaneous statements
   "statement.misc": notApplicable,

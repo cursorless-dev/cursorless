@@ -38,21 +38,37 @@
   (string_content)? @textFragment
 ) @string
 
-;;!! if (TRUE) {} else {}
+;;!! if () {} else {}
 (
-  (if_statement
-    condition: (_) @condition
-  ) @ifStatement @statement @condition.domain
+  (if_statement) @ifStatement @statement @branch.iteration
   (#not-parent-type? @ifStatement if_statement)
 )
 
-;;!! else if (TRUE) {}
+;;!! if () {}
+(
+  (if_statement
+    "if" @branch.start @branch.removal.start
+    condition: (_) @condition
+    consequence: (_) @branch.end @branch.removal.end
+    "else"? @branch.removal.end.startOf
+    alternative: (if_statement)? @branch.removal.end.startOf
+  ) @condition.domain
+  (#not-parent-type? @condition.domain if_statement)
+)
+
+;;!! else if () {}
 (if_statement
-  "else" @condition.domain.start
+  "else" @branch.start @condition.domain.start
   alternative: (if_statement
     condition: (_) @condition
-    consequence: (_) @condition.domain.end
+    consequence: (_) @branch.end @condition.domain.end
   )
+)
+
+;;!! else {}
+(if_statement
+  "else" @branch.start
+  alternative: (braced_expression) @branch.end
 )
 
 ;;!! foo <- function(){}
@@ -239,13 +255,16 @@
   sequence: (_) @value
 ) @_.domain
 
-;; ;; from https://github.com/r-lib/tree-sitter-r/blob/main/queries/highlights.scm
-;; ;; Plus magrittr operators
-;; operator: [ "?" ":=" "=" "<-" "<<-" "->" "->>"
-;;   "~" "|>" "||" "|" "&&" "&"
-;;   "<" "<=" ">" ">=" "==" "!="
-;;   "+" "-" "*" "/" "::" ":::"
-;;   "**" "^" "$" "@" ":" "%in%"
-;;   "%>%" "%<>%" "%T>%" "%$%"
-;;   "special"
-;; ] @disqualifyDelimiter
+(_
+  operator: [
+    "<"
+    ">"
+    "<-"
+    "->"
+    "<="
+    ">="
+    "<<-"
+    "->>"
+    "|>"
+  ] @disqualifyDelimiter
+)
