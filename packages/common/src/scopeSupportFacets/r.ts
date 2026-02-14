@@ -47,6 +47,8 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
 
   "condition.if": supported,
   "condition.while": supported,
+  "condition.switchCase": supported,
+  "condition.switchCase.iteration": supported,
 
   functionCall: supported,
   "functionCall.method": supported,
@@ -163,9 +165,15 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   // Constructor
   "statement.constructor": notApplicable,
   "namedFunction.constructor": notApplicable,
+  "argument.actual.constructor.singleLine": notApplicable,
+  "argument.actual.constructor.multiLine": notApplicable,
+  "argument.actual.constructor.iteration": notApplicable,
   "argument.formal.constructor.singleLine": notApplicable,
   "argument.formal.constructor.multiLine": notApplicable,
   "argument.formal.constructor.iteration": notApplicable,
+  "argumentList.actual.constructor.empty": notApplicable,
+  "argumentList.actual.constructor.singleLine": notApplicable,
+  "argumentList.actual.constructor.multiLine": notApplicable,
   "argumentList.formal.constructor.empty": notApplicable,
   "argumentList.formal.constructor.singleLine": notApplicable,
   "argumentList.formal.constructor.multiLine": notApplicable,

@@ -1,34 +1,34 @@
 switch(foo,
-  a = bar,
-  b = {
-    baz
-  },
-  "_"
+    a = bar,
+    b = {
+        baz
+    },
+    "_"
 )
 ---
 
-[#1 Content] = 1:6-1:9
-        >---<
-1|   a = bar,
+[#1 Content] = 1:8-1:11
+          >---<
+1|     a = bar,
 
 [#1 Removal] =
-[#1 Domain] = 1:5-1:9
-       >----<
-1|   a = bar,
+[#1 Domain] = 1:7-1:11
+         >----<
+1|     a = bar,
 
 [#1 Insertion delimiter] = " "
 
 
-[#2 Content] = 3:4-3:7
-      >---<
-3|     baz
+[#2 Content] = 3:8-3:11
+          >---<
+3|         baz
 
 [#2 Removal] =
-[#2 Domain] = 2:7-4:2
-         >
-2|   b = {
-3|     baz
-4|   },
-   --<
+[#2 Domain] = 2:9-4:4
+           >
+2|     b = {
+3|         baz
+4|     },
+   ----<
 
 [#2 Insertion delimiter] = " "

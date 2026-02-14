@@ -220,22 +220,31 @@
 (call
   function: (_) @_dummy
   (arguments
-    "(" @branch.iteration.start.endOf
+    "(" @branch.iteration.start.endOf @condition.iteration.start.endOf
     .
     (argument)? @value
-    ")" @branch.iteration.end.startOf
+    ")" @branch.iteration.end.startOf @condition.iteration.end.startOf
   )
   (#eq? @_dummy switch)
 ) @value.domain
 
 ;;!! switch(foo, aaa=0)
+;;!              ^^^
 ;;!              ^^^^^
 (call
   function: (_) @_dummy
   (arguments
     .
     (argument)
-    (argument) @branch
+    [
+      (argument
+        name: (_) @condition
+      )
+      (argument
+        !name
+        value: (_) @condition
+      )
+    ] @branch @condition.domain
   )
   (#eq? @_dummy switch)
 )
