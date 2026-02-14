@@ -220,6 +220,25 @@
   (#eq? @_dummy switch)
 ) @value.domain
 
+;;!! tryCatch()
+(call
+  function: (_) @_dummy
+  (arguments
+    (argument) @branch
+  )
+  (#eq? @_dummy tryCatch)
+)
+
+;;!! tryCatch()
+(call
+  function: (_) @_dummy
+  (arguments
+    "(" @branch.iteration.start.endOf
+    ")" @branch.iteration.end.startOf
+  )
+  (#eq? @_dummy tryCatch)
+)
+
 ;;!! return(0, 1)
 ;;!         ^^^^
 (call
