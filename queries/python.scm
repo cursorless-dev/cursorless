@@ -671,6 +671,11 @@
     ">"
     "<="
     ">="
+  ] @disqualifyDelimiter
+)
+
+(_
+  operator: [
     "<<"
     ">>"
     "<<="
