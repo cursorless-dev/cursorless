@@ -1,21 +1,21 @@
-foo match {
-    case 0 => 0
+switch (foo) {
+    default: {}
 }
 ---
 
 [Content] =
 [Domain] = 1:4-1:15
       >-----------<
-1|     case 0 => 0
+1|     default: {}
 
 [Removal] = 1:0-2:0
   >---------------
-1|     case 0 => 0
+1|     default: {}
 2| }
    <
 
 [Leading delimiter] = 1:0-1:4
   >----<
-1|     case 0 => 0
+1|     default: {}
 
 [Insertion delimiter] = "\n"
