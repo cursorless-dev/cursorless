@@ -26,7 +26,7 @@ suite(`Performance ${thresholds.join("/")} ms`, async function () {
 
   let previousTitle = "";
 
-  // Before each test, print the test title. This is done we have the test
+  // Before each test, print the test title. This is done so we have the test
   // title before the test run time / duration.
   this.beforeEach(function () {
     const title = this.currentTest!.title;
