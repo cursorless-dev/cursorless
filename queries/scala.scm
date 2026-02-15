@@ -557,7 +557,9 @@
   ")" @name.iteration.end.startOf @value.iteration.end.startOf
 )
 
-operator: (operator_identifier) @disqualifyDelimiter
+(_
+  operator: (operator_identifier) @disqualifyDelimiter
+)
 (enumerator
   "<-" @disqualifyDelimiter
 )

@@ -536,15 +536,17 @@
   name: (_) @argumentOrParameter.end @name @_.domain.end
 )
 
-operator: [
-  "->"
-  "<"
-  "<<"
-  "<="
-  ">"
-  ">="
-  ">>"
-] @disqualifyDelimiter
+(_
+  operator: [
+    "->"
+    "<"
+    "<<"
+    "<="
+    ">"
+    ">="
+    ">>"
+  ] @disqualifyDelimiter
+)
 
 (assignment_operator
   [

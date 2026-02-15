@@ -426,14 +426,16 @@
   (_) @value
 ) @_.domain
 
-operator: [
-  "->"
-  "<"
-  "<<"
-  "<<="
-  "<="
-  ">"
-  ">="
-  ">>"
-  ">>="
-] @disqualifyDelimiter
+(_
+  operator: [
+    "->"
+    "<"
+    "<<"
+    "<<="
+    "<="
+    ">"
+    ">="
+    ">>"
+    ">>="
+  ] @disqualifyDelimiter
+)

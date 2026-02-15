@@ -518,17 +518,19 @@
   right: (_) @value @name.trailing.startOf
 ) @_.domain
 
-operator: [
-  "<-"
-  "<"
-  "<<"
-  "<<="
-  "<="
-  ">"
-  ">="
-  ">>"
-  ">>="
-] @disqualifyDelimiter
+(_
+  operator: [
+    "<-"
+    "<"
+    "<<"
+    "<<="
+    "<="
+    ">"
+    ">="
+    ">>"
+    ">>="
+  ] @disqualifyDelimiter
+)
 (send_statement
   "<-" @disqualifyDelimiter
 )

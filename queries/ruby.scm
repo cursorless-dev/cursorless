@@ -157,16 +157,18 @@
   left: (_) @name
 ) @_.domain
 
-operator: [
-  "<"
-  "<<"
-  "<<="
-  "<="
-  ">"
-  ">="
-  ">>"
-  ">>="
-] @disqualifyDelimiter
+(_
+  operator: [
+    "<"
+    ">"
+    "<="
+    ">="
+    "<<"
+    ">>"
+    "<<="
+    ">>="
+  ] @disqualifyDelimiter
+)
 (pair
   "=>" @disqualifyDelimiter
 )
