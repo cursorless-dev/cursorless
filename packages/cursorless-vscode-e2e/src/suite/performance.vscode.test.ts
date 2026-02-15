@@ -203,7 +203,7 @@ async function testPerformanceCallback(
   console.log(`      ${duration} / ${thresholdMs} ms`);
 
   assert.ok(
-    duration < thresholdMs,
+    duration <= thresholdMs,
     `Duration ${duration}ms exceeds threshold ${thresholdMs}ms`,
   );
 }
