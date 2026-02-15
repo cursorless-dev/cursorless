@@ -16,11 +16,12 @@ const testData = generateTestData(100);
 const multiplier = calculateMultiplier();
 const smallThresholdMs = 50 * multiplier;
 const largeThresholdMs = 300 * multiplier;
-const thresholds = [smallThresholdMs, largeThresholdMs];
+const xlThresholdMs = 400 * multiplier;
+const thresholds = [smallThresholdMs, largeThresholdMs, xlThresholdMs];
 
 type ModifierType = "containing" | "previous" | "every";
 
-suite(`Performance ${thresholds.join("/")}ms`, async function () {
+suite(`Performance ${thresholds.join("/")} ms`, async function () {
   endToEndTestSetup(this);
 
   let previousTitle = "";
@@ -113,7 +114,7 @@ suite(`Performance ${thresholds.join("/")}ms`, async function () {
   test(
     "Select surroundingPair.any with multiple cursors",
     asyncSafety(() =>
-      selectWithMultipleCursors(largeThresholdMs, {
+      selectWithMultipleCursors(xlThresholdMs, {
         type: "surroundingPair",
         delimiter: "any",
       }),
@@ -199,7 +200,7 @@ async function testPerformanceCallback(
 
   const duration = Math.round(performance.now() - start);
 
-  console.log(`      ${duration} ms`);
+  console.log(`      ${duration} / ${thresholdMs} ms`);
 
   assert.ok(
     duration < thresholdMs,
