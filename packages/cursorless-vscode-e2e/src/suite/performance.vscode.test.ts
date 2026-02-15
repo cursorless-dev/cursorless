@@ -9,16 +9,18 @@ import { openNewEditor, runCursorlessAction } from "@cursorless/vscode-common";
 import assert from "assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
+import { isCI } from "../isCI";
+import { isMac } from "@cursorless/node-common";
 
 const testData = generateTestData(100);
-
-const smallThresholdMs = 100;
-const largeThresholdMs = 600;
-const xlThresholdMs = 800;
+const multiplier = calculateMultiplier();
+const smallThresholdMs = 50 * multiplier;
+const largeThresholdMs = 300 * multiplier;
+const thresholds = [smallThresholdMs, largeThresholdMs];
 
 type ModifierType = "containing" | "previous" | "every";
 
-suite("Performance", async function () {
+suite(`Performance ${thresholds.join("/")}ms`, async function () {
   endToEndTestSetup(this);
 
   let previousTitle = "";
@@ -111,7 +113,7 @@ suite("Performance", async function () {
   test(
     "Select surroundingPair.any with multiple cursors",
     asyncSafety(() =>
-      selectWithMultipleCursors(xlThresholdMs, {
+      selectWithMultipleCursors(largeThresholdMs, {
         type: "surroundingPair",
         delimiter: "any",
       }),
@@ -254,4 +256,15 @@ function generateTestData(n: number): string {
     new Array(n).fill("").map((_, i) => [i.toString(), value]),
   );
   return JSON.stringify(obj, null, 2);
+}
+
+function calculateMultiplier() {
+  if (isCI()) {
+    // The GitHub test runner for macOS is very slow, so we increase the thresholds for macOS in CI.
+    if (isMac()) {
+      return 4;
+    }
+    return 2;
+  }
+  return 1;
 }
