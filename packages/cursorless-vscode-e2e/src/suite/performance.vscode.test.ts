@@ -21,8 +21,7 @@ const thresholds = [smallThresholdMs, largeThresholdMs, xlThresholdMs];
 
 type ModifierType = "containing" | "previous" | "every";
 
-// eslint-disable-next-line mocha/no-exclusive-tests
-suite.only(`Performance ${thresholds.join("/")} ms`, async function () {
+suite(`Performance ${thresholds.join("/")} ms`, async function () {
   endToEndTestSetup(this);
 
   let previousTitle = "";
