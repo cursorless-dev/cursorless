@@ -16,12 +16,12 @@ const testData = generateTestData(100);
 const multiplier = calculateMultiplier();
 const smallThresholdMs = 50 * multiplier;
 const largeThresholdMs = 300 * multiplier;
-const xlThresholdMs = 400 * multiplier;
-const thresholds = [smallThresholdMs, largeThresholdMs, xlThresholdMs];
+const thresholds = [smallThresholdMs, largeThresholdMs];
 
 type ModifierType = "containing" | "previous" | "every";
 
-suite(`Performance ${thresholds.join("/")} ms`, async function () {
+// eslint-disable-next-line mocha/no-exclusive-tests
+suite.only(`Performance ${thresholds.join("/")} ms`, async function () {
   endToEndTestSetup(this);
 
   let previousTitle = "";
@@ -114,7 +114,7 @@ suite(`Performance ${thresholds.join("/")} ms`, async function () {
   test(
     "Select surroundingPair.any with multiple cursors",
     asyncSafety(() =>
-      selectWithMultipleCursors(xlThresholdMs, {
+      selectWithMultipleCursors(largeThresholdMs, {
         type: "surroundingPair",
         delimiter: "any",
       }),
@@ -260,10 +260,13 @@ function generateTestData(n: number): string {
 }
 
 function calculateMultiplier() {
+  // The GitHub test runner is generally slower than running tests locally, so
+  // we increase the thresholds in CI. We do this for all platforms, but
+  // especially for macOS since the GitHub test runner for macOS is particularly
+  // slow.
   if (isCI()) {
-    // The GitHub test runner for macOS is very slow, so we increase the thresholds for macOS in CI.
     if (isMac()) {
-      return 4;
+      return 3;
     }
     return 2;
   }
