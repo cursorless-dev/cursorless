@@ -1,22 +1,22 @@
 * {
-    @if $container-width < $base-width {}
-    @if $container-width <= $base-width {}
-    @if $container-width > $base-width {}
-    @if $container-width >= $base-width {}
+    @if 1 < 2 {}
+    @if 1 > 2 {}
+    @if 1 <= 2 {}
+    @if 1 >= 2 {}
 }
 ---
-[#1 Content] = 1:25-1:26
-                           >-<
-1|     @if $container-width < $base-width {}
+[#1 Content] = 1:10-1:11
+            >-<
+1|     @if 1 < 2 {}
 
-[#2 Content] = 2:25-2:27
-                           >--<
-2|     @if $container-width <= $base-width {}
+[#2 Content] = 2:10-2:11
+            >-<
+2|     @if 1 > 2 {}
 
-[#3 Content] = 3:25-3:26
-                           >-<
-3|     @if $container-width > $base-width {}
+[#3 Content] = 3:10-3:12
+            >--<
+3|     @if 1 <= 2 {}
 
-[#4 Content] = 4:25-4:27
-                           >--<
-4|     @if $container-width >= $base-width {}
+[#4 Content] = 4:10-4:12
+            >--<
+4|     @if 1 >= 2 {}
