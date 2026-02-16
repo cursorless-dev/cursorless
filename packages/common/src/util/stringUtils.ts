@@ -42,3 +42,25 @@ export function uriEncodeHashId(text: string): string {
     .replaceAll(" ", "-")
     .replace(/[^a-z0-9-]/g, "");
 }
+
+/**
+ * Converts a string to an integer, throwing an error if the string is not a valid integer.
+ *
+ * This function trims the input string and checks if it can be parsed as an integer.
+ * If the trimmed string is not empty and can be parsed as an integer, the integer value is returned.
+ * Otherwise, an error is thrown indicating that the input is not a valid integer.
+ *
+ * @param input The string to be converted to an integer
+ * @returns The integer value represented by the input string
+ * @throws An error if the input string is not a valid integer
+ */
+export function stringToInteger(input: string): number {
+  const trimmedValue = input.trim();
+  if (trimmedValue.length > 0) {
+    const value = Number(trimmedValue);
+    if (Number.isInteger(value)) {
+      return value;
+    }
+  }
+  throw new Error(`Invalid integer '${input}'`);
+}

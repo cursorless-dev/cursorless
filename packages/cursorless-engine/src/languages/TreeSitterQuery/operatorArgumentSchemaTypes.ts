@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { assertTypesEqual } from "./assertTypesEqual";
 import type { PredicateStep } from "web-tree-sitter";
+import { stringToInteger } from "@cursorless/common";
 
 const string = z.object({ type: z.literal("string"), value: z.string() });
 
@@ -19,9 +20,10 @@ export const q = {
 
   /** Expect an integer */
   integer: string.transform((val, ctx) => {
-    const parsedValue = Number(val.value);
-
-    if (!Number.isInteger(parsedValue)) {
+    try {
+      const parsedValue = stringToInteger(val.value);
+      return { type: "integer", value: parsedValue } as const;
+    } catch (_e) {
       ctx.addIssue({
         code: "custom",
         message: "Expected an integer",
@@ -33,7 +35,6 @@ export const q = {
       // inferred return type.
       return z.NEVER;
     }
-    return { type: "integer", value: parsedValue } as const;
   }),
 
   /** Expect a boolean */
