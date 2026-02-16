@@ -92,8 +92,13 @@ function getFontRatios(extensionContext: vscode.ExtensionContext) {
     heightRatio: number;
   }
 
-  return new Promise<FontRatios>((resolve) => {
+  return new Promise<FontRatios>((resolve, reject) => {
+    const timeout = setTimeout(() => {
+      reject(new Error("Timed out while measuring font"));
+    }, 5000);
+
     panel.webview.onDidReceiveMessage((message) => {
+      clearTimeout(timeout);
       panel.dispose();
       resolve(message);
     });
