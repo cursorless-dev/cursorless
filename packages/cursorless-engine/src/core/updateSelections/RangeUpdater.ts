@@ -27,22 +27,6 @@ export class RangeUpdater {
     this.listenForDocumentChanges();
   }
 
-  private ensureDocumentRangeInfoLists(document: TextDocument) {
-    return getDefault(this.rangeInfoLists, document.uri.toString(), () => []);
-  }
-
-  private ensureDocumentReplaceEditLists(document: TextDocument) {
-    return getDefault(this.replaceEditLists, document.uri.toString(), () => []);
-  }
-
-  private getDocumentRangeInfoLists(document: TextDocument) {
-    return this.rangeInfoLists.get(document.uri.toString()) ?? [];
-  }
-
-  private getDocumentReplaceEditLists(document: TextDocument) {
-    return this.replaceEditLists.get(document.uri.toString()) ?? [];
-  }
-
   /**
    * Registers a list of range infos to be kept up to date.  It is ok to
    * add to this list after registering it; any items in the list at the time of
@@ -58,7 +42,11 @@ export class RangeUpdater {
     rangeInfoList: FullRangeInfo[],
   ): () => void {
     const key = document.uri.toString();
-    const documentRangeInfoLists = this.ensureDocumentRangeInfoLists(document);
+    const documentRangeInfoLists = getDefault(
+      this.rangeInfoLists,
+      document.uri.toString(),
+      () => [],
+    );
 
     documentRangeInfoLists.push(rangeInfoList);
 
@@ -91,8 +79,11 @@ export class RangeUpdater {
     replaceEditList: Edit[],
   ): () => void {
     const key = document.uri.toString();
-    const documentReplaceEditLists =
-      this.ensureDocumentReplaceEditLists(document);
+    const documentReplaceEditLists = getDefault(
+      this.replaceEditLists,
+      document.uri.toString(),
+      () => [],
+    );
 
     documentReplaceEditLists.push(replaceEditList);
 
@@ -105,7 +96,8 @@ export class RangeUpdater {
   }
 
   private *documentRangeInfoGenerator(document: TextDocument) {
-    const documentRangeInfoLists = this.getDocumentRangeInfoLists(document);
+    const documentRangeInfoLists =
+      this.rangeInfoLists.get(document.uri.toString()) ?? [];
 
     for (const rangeInfoLists of documentRangeInfoLists) {
       for (const rangeInfo of rangeInfoLists) {
@@ -117,9 +109,8 @@ export class RangeUpdater {
   private listenForDocumentChanges() {
     this.disposables.push(
       ide().onDidChangeTextDocument((event: TextDocumentChangeEvent) => {
-        const documentReplaceEditLists = this.getDocumentReplaceEditLists(
-          event.document,
-        );
+        const documentReplaceEditLists =
+          this.replaceEditLists.get(event.document.uri.toString()) ?? [];
 
         const extendedEvent: ExtendedTextDocumentChangeEvent = {
           ...event,
