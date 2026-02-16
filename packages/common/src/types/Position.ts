@@ -29,7 +29,7 @@ export class Position {
     }
     const line = stringToInteger(parts[0]);
     const character = stringToInteger(parts[1]);
-    if (line < 0 || character < 0) {
+    if (line == null || character == null || line < 0 || character < 0) {
       throw new Error(
         `Invalid concise position format: "${concise}". Line and character should be non-negative integers.`,
       );

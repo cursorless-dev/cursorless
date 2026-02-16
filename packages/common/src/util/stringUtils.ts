@@ -48,19 +48,19 @@ export function uriEncodeHashId(text: string): string {
  *
  * This function trims the input string and checks if it can be parsed as an integer.
  * If the trimmed string is not empty and can be parsed as an integer, the integer value is returned.
- * Otherwise, an error is thrown indicating that the input is not a valid integer.
+ * Otherwise, `undefined` is returned indicating that the input is not a valid integer.
  *
  * @param input The string to be converted to an integer
- * @returns The integer value represented by the input string
- * @throws An error if the input string is not a valid integer
+ * @returns The integer value represented by the input string, or `undefined` if the input is not a valid integer
  */
-export function stringToInteger(input: string): number {
+export function stringToInteger(input: string): number | undefined {
   const trimmedValue = input.trim();
-  if (trimmedValue.length > 0) {
-    const value = Number(trimmedValue);
-    if (Number.isInteger(value)) {
-      return value;
-    }
+  if (trimmedValue.length === 0) {
+    return undefined;
   }
-  throw new Error(`Invalid integer '${input}'`);
+  const value = Number(trimmedValue);
+  if (Number.isInteger(value)) {
+    return value;
+  }
+  return undefined;
 }

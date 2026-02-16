@@ -20,10 +20,9 @@ export const q = {
 
   /** Expect an integer */
   integer: string.transform((val, ctx) => {
-    try {
-      const parsedValue = stringToInteger(val.value);
-      return { type: "integer", value: parsedValue } as const;
-    } catch (_e) {
+    const parsedValue = stringToInteger(val.value);
+
+    if (parsedValue == null) {
       ctx.addIssue({
         code: "custom",
         message: "Expected an integer",
@@ -35,6 +34,7 @@ export const q = {
       // inferred return type.
       return z.NEVER;
     }
+    return { type: "integer", value: parsedValue } as const;
   }),
 
   /** Expect a boolean */
