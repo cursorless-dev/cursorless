@@ -18,7 +18,7 @@ import { SpokenFormGenerator } from "./generateSpokenForm";
 export class CustomSpokenFormGeneratorImpl implements CustomSpokenFormGenerator {
   private customSpokenForms: CustomSpokenForms;
   private spokenFormGenerator: SpokenFormGenerator;
-  private disposable: Disposable;
+  private disposables: Disposable[] = [];
 
   /**
    * A promise that resolves when the custom spoken forms have been loaded.
@@ -32,13 +32,15 @@ export class CustomSpokenFormGeneratorImpl implements CustomSpokenFormGenerator 
     this.spokenFormGenerator = new SpokenFormGenerator(
       this.customSpokenForms.spokenFormMap,
     );
-    this.disposable = this.customSpokenForms.onDidChangeCustomSpokenForms(
-      () => {
+    this.disposables = [
+      this.customSpokenForms,
+
+      this.customSpokenForms.onDidChangeCustomSpokenForms(() => {
         this.spokenFormGenerator = new SpokenFormGenerator(
           this.customSpokenForms.spokenFormMap,
         );
-      },
-    );
+      }),
+    ];
   }
 
   onDidChangeCustomSpokenForms(listener: Listener<[]>) {
@@ -76,6 +78,6 @@ export class CustomSpokenFormGeneratorImpl implements CustomSpokenFormGenerator 
   }
 
   dispose() {
-    this.disposable.dispose();
+    this.disposables.forEach((disposable) => disposable.dispose());
   }
 }
