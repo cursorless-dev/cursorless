@@ -74,8 +74,8 @@ export class LanguageDefinitionsImpl
       }),
 
       ide.onDidChangeVisibleTextEditors((editors) => {
-        editors.forEach(({ document }) =>
-          this.loadLanguage(document.languageId),
+        editors.forEach(
+          ({ document }) => void this.loadLanguage(document.languageId),
         );
       }),
 

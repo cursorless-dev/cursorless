@@ -79,6 +79,9 @@ export class CustomSpokenForms {
       if (allCustomEntries.length === 0) {
         throw new Error("Custom spoken forms list empty");
       }
+      // We successfully loaded spoken forms, so any previous "needs update"
+      // state is no longer relevant.
+      this.needsInitialTalonUpdate_ = false;
     } catch (err) {
       if (err instanceof NeedsInitialTalonUpdateError) {
         // Handle case where spokenForms.json doesn't exist yet
