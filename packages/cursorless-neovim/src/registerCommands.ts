@@ -129,7 +129,7 @@ export async function registerCommands(
     ["cursorless.documentationOpened"]: dummyCommandHandler,
   };
 
-  Object.entries(commands).map(([commandId, callback]) =>
+  Object.entries(commands).forEach(([commandId, callback]) =>
     getNeovimRegistry().registerCommand(commandId, callback),
   );
 }
