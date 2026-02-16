@@ -32,4 +32,9 @@ export class StatusBarItem {
   unsetText() {
     this.statusBarItem!.text = DEFAULT_TEXT;
   }
+
+  dispose() {
+    this.statusBarItem?.dispose();
+    this.statusBarItem = undefined;
+  }
 }

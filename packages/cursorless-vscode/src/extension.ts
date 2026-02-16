@@ -141,6 +141,8 @@ export async function activate(
   const scopeTestRecorder = new ScopeTestRecorder(normalizedIde);
 
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
+  context.subscriptions.push(statusBarItem);
+
   const keyboardCommands = KeyboardCommands.create(
     context,
     vscodeApi,
