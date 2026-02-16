@@ -34,6 +34,7 @@ import {
   toVscodeRange,
 } from "@cursorless/vscode-common";
 import * as crypto from "crypto";
+import { pull } from "lodash-es";
 import * as os from "node:os";
 import * as path from "node:path";
 import * as vscode from "vscode";
@@ -283,14 +284,16 @@ function createScopeVisualizer(
       );
       scopeVisualizer.start();
       currentScopeType = scopeType;
-      listeners.forEach((listener) => listener(scopeType, visualizationType));
+      listeners
+        .slice()
+        .forEach((listener) => listener(scopeType, visualizationType));
     },
 
     stop() {
       scopeVisualizer?.dispose();
       scopeVisualizer = undefined;
       currentScopeType = undefined;
-      listeners.forEach((listener) => listener(undefined, undefined));
+      listeners.slice().forEach((listener) => listener(undefined, undefined));
     },
 
     get scopeType() {
@@ -302,10 +305,7 @@ function createScopeVisualizer(
 
       return {
         dispose() {
-          const i = listeners.indexOf(listener);
-          if (i > -1) {
-            listeners.splice(i, 1);
-          }
+          pull(listeners, listener);
         },
       };
     },

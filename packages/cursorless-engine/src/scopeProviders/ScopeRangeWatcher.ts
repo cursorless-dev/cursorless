@@ -138,7 +138,7 @@ export class ScopeRangeWatcher {
   }
 
   private onChange() {
-    this.listeners.forEach((listener) => listener());
+    this.listeners.slice().forEach((listener) => listener());
   }
 
   dispose(): void {

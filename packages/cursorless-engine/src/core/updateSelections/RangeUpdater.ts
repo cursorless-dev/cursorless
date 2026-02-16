@@ -21,18 +21,26 @@ import { updateRangeInfos } from "./updateRangeInfos";
 export class RangeUpdater {
   private rangeInfoLists: Map<string, FullRangeInfo[][]> = new Map();
   private replaceEditLists: Map<string, Edit[][]> = new Map();
-  private disposable!: Disposable;
+  private disposables: Disposable[] = [];
 
   constructor() {
     this.listenForDocumentChanges();
   }
 
-  private getDocumentRangeInfoLists(document: TextDocument) {
+  private ensureDocumentRangeInfoLists(document: TextDocument) {
     return getDefault(this.rangeInfoLists, document.uri.toString(), () => []);
   }
 
-  private getDocumentReplaceEditLists(document: TextDocument) {
+  private ensureDocumentReplaceEditLists(document: TextDocument) {
     return getDefault(this.replaceEditLists, document.uri.toString(), () => []);
+  }
+
+  private getDocumentRangeInfoLists(document: TextDocument) {
+    return this.rangeInfoLists.get(document.uri.toString()) ?? [];
+  }
+
+  private getDocumentReplaceEditLists(document: TextDocument) {
+    return this.replaceEditLists.get(document.uri.toString()) ?? [];
   }
 
   /**
@@ -49,11 +57,17 @@ export class RangeUpdater {
     document: TextDocument,
     rangeInfoList: FullRangeInfo[],
   ): () => void {
-    const documentRangeInfoLists = this.getDocumentRangeInfoLists(document);
+    const key = document.uri.toString();
+    const documentRangeInfoLists = this.ensureDocumentRangeInfoLists(document);
 
     documentRangeInfoLists.push(rangeInfoList);
 
-    return () => pull(documentRangeInfoLists, rangeInfoList);
+    return () => {
+      pull(documentRangeInfoLists, rangeInfoList);
+      if (documentRangeInfoLists.length === 0) {
+        this.rangeInfoLists.delete(key);
+      }
+    };
   }
 
   /**
@@ -76,11 +90,18 @@ export class RangeUpdater {
     document: TextDocument,
     replaceEditList: Edit[],
   ): () => void {
-    const documentReplaceEditLists = this.getDocumentReplaceEditLists(document);
+    const key = document.uri.toString();
+    const documentReplaceEditLists =
+      this.ensureDocumentReplaceEditLists(document);
 
     documentReplaceEditLists.push(replaceEditList);
 
-    return () => pull(documentReplaceEditLists, replaceEditList);
+    return () => {
+      pull(documentReplaceEditLists, replaceEditList);
+      if (documentReplaceEditLists.length === 0) {
+        this.replaceEditLists.delete(key);
+      }
+    };
   }
 
   private *documentRangeInfoGenerator(document: TextDocument) {
@@ -94,8 +115,8 @@ export class RangeUpdater {
   }
 
   private listenForDocumentChanges() {
-    this.disposable = ide().onDidChangeTextDocument(
-      (event: TextDocumentChangeEvent) => {
+    this.disposables.push(
+      ide().onDidChangeTextDocument((event: TextDocumentChangeEvent) => {
         const documentReplaceEditLists = this.getDocumentReplaceEditLists(
           event.document,
         );
@@ -116,12 +137,17 @@ export class RangeUpdater {
           extendedEvent,
           this.documentRangeInfoGenerator(event.document),
         );
-      },
+      }),
+      ide().onDidCloseTextDocument((document) => {
+        const key = document.uri.toString();
+        this.rangeInfoLists.delete(key);
+        this.replaceEditLists.delete(key);
+      }),
     );
   }
 
   dispose() {
-    this.disposable.dispose();
+    this.disposables.forEach((disposable) => disposable.dispose());
   }
 }
 
