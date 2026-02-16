@@ -19,11 +19,11 @@ export const q = {
 
   /** Expect an integer */
   integer: string.transform((val, ctx) => {
-    const parsedValue = parseInt(val.value);
+    const parsedValue = Number(val.value);
 
-    if (isNaN(parsedValue)) {
+    if (!Number.isInteger(parsedValue)) {
       ctx.addIssue({
-        code: z.ZodIssueCode.custom,
+        code: "custom",
         message: "Expected an integer",
       });
 
@@ -47,7 +47,7 @@ export const q = {
     }
 
     ctx.addIssue({
-      code: z.ZodIssueCode.custom,
+      code: "custom",
       message: "Expected true or false",
     });
 

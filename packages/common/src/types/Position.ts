@@ -27,11 +27,16 @@ export class Position {
         `Invalid concise position format: "${concise}". Expected "line:character" format.`,
       );
     }
-    const line = parseInt(parts[0], 10);
-    const character = parseInt(parts[1], 10);
-    if (isNaN(line) || isNaN(character)) {
+    const line = Number(parts[0]);
+    const character = Number(parts[1]);
+    if (
+      !Number.isInteger(line) ||
+      !Number.isInteger(character) ||
+      line < 0 ||
+      character < 0
+    ) {
       throw new Error(
-        `Invalid concise position format: "${concise}". Line and character should be numbers.`,
+        `Invalid concise position format: "${concise}". Line and character should be non-negative integers.`,
       );
     }
     return new Position(line, character);
