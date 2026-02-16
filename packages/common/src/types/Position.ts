@@ -27,7 +27,13 @@ export class Position {
         `Invalid concise position format: "${concise}". Expected "line:character" format.`,
       );
     }
-    const [line, character] = parts.map((s) => parseInt(s, 10));
+    const line = parseInt(parts[0], 10);
+    const character = parseInt(parts[1], 10);
+    if (isNaN(line) || isNaN(character)) {
+      throw new Error(
+        `Invalid concise position format: "${concise}". Line and character should be numbers.`,
+      );
+    }
     return new Position(line, character);
   }
 
