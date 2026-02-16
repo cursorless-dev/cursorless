@@ -44,7 +44,7 @@ export class RangeUpdater {
     const key = document.uri.toString();
     const documentRangeInfoLists = getDefault(
       this.rangeInfoLists,
-      document.uri.toString(),
+      key,
       () => [],
     );
 
@@ -81,7 +81,7 @@ export class RangeUpdater {
     const key = document.uri.toString();
     const documentReplaceEditLists = getDefault(
       this.replaceEditLists,
-      document.uri.toString(),
+      key,
       () => [],
     );
 
@@ -129,6 +129,7 @@ export class RangeUpdater {
           this.documentRangeInfoGenerator(event.document),
         );
       }),
+
       ide().onDidCloseTextDocument((document) => {
         const key = document.uri.toString();
         this.rangeInfoLists.delete(key);
