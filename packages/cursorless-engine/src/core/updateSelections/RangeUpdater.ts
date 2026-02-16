@@ -52,6 +52,8 @@ export class RangeUpdater {
 
     return () => {
       pull(documentRangeInfoLists, rangeInfoList);
+      // If there are no more lists for this document, remove the entry from the map to avoid memory leaks
+      // Note that we check that the value in the map is the same array that we modified before deleting.
       if (
         documentRangeInfoLists.length === 0 &&
         this.rangeInfoLists.get(key) === documentRangeInfoLists
