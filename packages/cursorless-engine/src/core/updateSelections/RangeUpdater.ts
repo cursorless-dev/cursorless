@@ -52,7 +52,10 @@ export class RangeUpdater {
 
     return () => {
       pull(documentRangeInfoLists, rangeInfoList);
-      if (documentRangeInfoLists.length === 0) {
+      if (
+        documentRangeInfoLists.length === 0 &&
+        this.rangeInfoLists.get(key) === documentRangeInfoLists
+      ) {
         this.rangeInfoLists.delete(key);
       }
     };
@@ -89,7 +92,10 @@ export class RangeUpdater {
 
     return () => {
       pull(documentReplaceEditLists, replaceEditList);
-      if (documentReplaceEditLists.length === 0) {
+      if (
+        documentReplaceEditLists.length === 0 &&
+        this.replaceEditLists.get(key) === documentReplaceEditLists
+      ) {
         this.replaceEditLists.delete(key);
       }
     };
