@@ -88,13 +88,18 @@ async function focusNotebookCell(editor: VscodeTextEditorImpl) {
     editor.vscodeEditor.document,
   );
 
-  const desiredSelections = [
+  if (desiredEditorIndex < 0) {
+    throw new Error(
+      "Couldn't find cell corresponding to given document in notebook editor",
+    );
+  }
+
+  desiredNotebookEditor.selections = [
     desiredNotebookEditor.selection.with({
       start: desiredEditorIndex,
       end: desiredEditorIndex + 1,
     }),
   ];
-  desiredNotebookEditor.selections = desiredSelections;
 
   // Issue a command to tell VSCode to focus the cell input editor
   // NB: We don't issue the command if it's already focused, because it turns

@@ -300,7 +300,10 @@ function createScopeVisualizer(
 
       return {
         dispose() {
-          listeners.splice(listeners.indexOf(listener), 1);
+          const i = listeners.indexOf(listener);
+          if (i > -1) {
+            listeners.splice(i, 1);
+          }
         },
       };
     },

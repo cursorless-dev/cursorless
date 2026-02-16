@@ -108,7 +108,7 @@ export class VscodeHats implements Hats {
     );
 
     this.hatRanges.forEach(({ editor, range, styleName }) => {
-      decorationRanges.get(editor)![styleName]!.push(range);
+      decorationRanges.get(editor)?.[styleName]?.push(range);
     });
 
     decorationRanges.forEach((ranges, editor) => {

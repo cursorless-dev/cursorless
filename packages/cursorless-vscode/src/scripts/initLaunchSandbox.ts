@@ -21,13 +21,12 @@ async function main() {
       }
     });
 
-    const extensions = [...extensionDependencies, "pokey.command-server"];
+    let extensions = [...extensionDependencies, "pokey.command-server"];
 
     // Do not attempt to install jrieken:vscode-tree-sitter-query if editor is NOT VSCode, assuming lack of access to VSCode Marketplace
     if (cliToolName !== vsCodeToolName) {
-      extensions.splice(
-        extensions.findIndex((e) => e === "jrieken.vscode-tree-sitter-query"),
-        1,
+      extensions = extensions.filter(
+        (e) => e !== "jrieken.vscode-tree-sitter-query",
       );
       console.log(
         "Not installing jrieken:vscode-tree-sitter-query as it is not on the OpenVSX Marketplace.",
