@@ -38,6 +38,7 @@ type HatDecorationMap = Partial<
 const hatConfigSections = [
   "editor.fontSize",
   "editor.fontFamily",
+  "editor.fontWeight",
   "cursorless.colors",
   "cursorless.hatSizeAdjustment",
   "cursorless.hatVerticalOffset",

@@ -10,13 +10,20 @@ export class VscodeSnippets implements Snippets {
     snippetName: string,
     directory: string,
   ): Promise<TextEditor> {
-    const path = join(directory, `${snippetName}.snippet`);
-    await touch(path);
-    return this.ide.openTextDocument(path);
+    const snippetPath = join(directory, `${snippetName}.snippet`);
+    await createNewFile(snippetPath);
+    return this.ide.openTextDocument(snippetPath);
   }
 }
 
-async function touch(path: string) {
-  const file = await open(path, "w");
-  await file.close();
+async function createNewFile(path: string) {
+  try {
+    const file = await open(path, "wx");
+    await file.close();
+  } catch (error) {
+    if (error instanceof Error && "code" in error && error.code === "EEXIST") {
+      throw new Error(`Snippet file already exists: ${path}`);
+    }
+    throw error;
+  }
 }

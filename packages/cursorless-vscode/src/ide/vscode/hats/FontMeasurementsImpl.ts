@@ -26,18 +26,26 @@ export class FontMeasurementsImpl implements FontMeasurements {
 
   async calculate() {
     const fontFamily = getFontFamily();
+    const fontWeight = getFontWeight();
     let widthRatio, heightRatio;
+
     const fontRatiosCache = this.extensionContext.globalState.get<{
       widthRatio: number;
       heightRatio: number;
       fontFamily: string;
+      fontWeight: string;
     }>("fontRatios");
 
-    if (fontRatiosCache == null || fontRatiosCache.fontFamily !== fontFamily) {
+    if (
+      fontRatiosCache == null ||
+      fontRatiosCache.fontFamily !== fontFamily ||
+      fontRatiosCache.fontWeight !== fontWeight
+    ) {
       const fontRatios = await getFontRatios(this.extensionContext);
       await this.extensionContext.globalState.update("fontRatios", {
         ...fontRatios,
         fontFamily,
+        fontWeight,
       });
       widthRatio = fontRatios.widthRatio;
       heightRatio = fontRatios.heightRatio;
@@ -113,6 +121,11 @@ function getFontSize() {
 function getFontFamily() {
   const config = vscode.workspace.getConfiguration("editor");
   return config.get<string>("fontFamily")!;
+}
+
+function getFontWeight() {
+  const config = vscode.workspace.getConfiguration("editor");
+  return config.get<string>("fontWeight")!;
 }
 
 function getWebviewContent(
