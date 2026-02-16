@@ -16,7 +16,7 @@ export async function runEditNewNotebookCellTargets(
 
   if (destination.insertionMode === "to") {
     throw Error(
-      `Unsupported insertion mode '${destination.insertionMode}' for notebookcapell`,
+      `Unsupported insertion mode '${destination.insertionMode}' for notebook cell`,
     );
   }
 

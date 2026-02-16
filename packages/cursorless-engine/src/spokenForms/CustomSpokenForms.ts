@@ -74,14 +74,16 @@ export class CustomSpokenForms {
 
   private async updateSpokenFormMaps(): Promise<void> {
     let allCustomEntries: SpokenFormEntry[];
+
+    // We successfully loaded spoken forms, so any previous "needs update"
+    // state is no longer relevant.
+    this.needsInitialTalonUpdate_ = false;
+
     try {
       allCustomEntries = await this.talonSpokenForms.getSpokenFormEntries();
       if (allCustomEntries.length === 0) {
         throw new Error("Custom spoken forms list empty");
       }
-      // We successfully loaded spoken forms, so any previous "needs update"
-      // state is no longer relevant.
-      this.needsInitialTalonUpdate_ = false;
     } catch (err) {
       if (err instanceof NeedsInitialTalonUpdateError) {
         // Handle case where spokenForms.json doesn't exist yet
