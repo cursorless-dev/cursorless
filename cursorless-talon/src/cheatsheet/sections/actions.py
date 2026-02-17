@@ -123,8 +123,8 @@ def get_actions() -> list[ListItemDescriptor]:
         ]
 
     for action_id, variations in fixtures.items():
+        # This happens if the user has disabled the spoken form for a complex action
         if action_id not in complex_actions:
-            print(f"Warning: no complex action found for {action_id}")
             continue
         action = complex_actions[action_id]
         items.append(
