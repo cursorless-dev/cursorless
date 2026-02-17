@@ -20,10 +20,10 @@ async function createNewFile(path: string) {
   try {
     const file = await open(path, "wx");
     await file.close();
-  } catch (error) {
-    if (error instanceof Error && "code" in error && error.code === "EEXIST") {
-      throw new Error(`Snippet file already exists: ${path}`);
+  } catch (e) {
+    if (e instanceof Error && "code" in e && e.code === "EEXIST") {
+      throw new Error(`Snippet file already exists: ${path}`, { cause: e });
     }
-    throw error;
+    throw e;
   }
 }

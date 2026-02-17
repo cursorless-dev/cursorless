@@ -203,7 +203,7 @@ export function isURL(str: string) {
 // Starting a new sentence if beginning with capital letter
 // Exception: The word is enclosed in brackets
 export function isConcatenated(word: string) {
-  let i = 0;
+  let i;
 
   if (
     (i = word.indexOf(".")) > -1 ||

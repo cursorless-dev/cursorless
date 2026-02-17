@@ -39,13 +39,14 @@
     "react-player": "^3.4.0"
   },
   "devDependencies": {
+    "@eslint/compat": "^2.0.2",
     "@svgr/webpack": "^8.1.0",
     "@tailwindcss/postcss": "4.1.17",
     "@types/mdx": "^2.0.13",
     "@types/node": "^25.2.3",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "eslint": "^9.39.2",
+    "eslint": "^10.0.0",
     "eslint-config-next": "^16.1.6",
     "http-server": "^14.1.1",
     "postcss": "^8.5.6",

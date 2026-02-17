@@ -351,8 +351,8 @@ export class PrefixSumComputer {
     let low = 0;
     let high = this.values.length - 1;
     let mid = 0;
-    let midStop = 0;
     let midStart = 0;
+    let midStop;
 
     while (low <= high) {
       mid = (low + (high - low) / 2) | 0;
