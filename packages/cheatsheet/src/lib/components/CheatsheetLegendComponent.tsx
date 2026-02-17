@@ -58,12 +58,11 @@ function renderDefinition(
   linkName?: string,
 ) {
   if (link == null) {
-    return formatCaptures(definition);
+    return definition;
   }
   if (linkName == null) {
     return <SmartLink to={link}>{definition}</SmartLink>;
   }
-
   return (
     <>
       <SmartLink to={link}>{linkName}</SmartLink>

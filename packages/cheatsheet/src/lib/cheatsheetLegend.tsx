@@ -11,12 +11,13 @@ export type CheatsheetLegend = CheatsheetLegendEntry[];
 const cheatsheetLegend: CheatsheetLegend = [
   {
     term: "formatter",
-    definition: 'Formatter (eg "camel", "snake"). Say "help format" for a list',
+    definition:
+      'Formatter (eg "camel", "snake"). Say "help format" for a list.',
     id: "formatter",
   },
   {
     term: "snippet",
-    definition: '(eg "if", "for"). Say "help snip" for a list',
+    definition: '(eg "if", "for"). Say "help snip" for a list.',
     link: "https://github.com/talonhub/community/tree/main/core/snippets",
     linkName: "Community snippet",
     id: "snippet",
