@@ -7,7 +7,7 @@
   "type": "module",
   "main": "index.js",
   "engines": {
-    "node": ">=24"
+    "node": ">=24.13.1"
   },
   "scripts": {
     "build": "pnpm -r build",
