@@ -58,19 +58,22 @@ export default {
       },
       fontFamily: {
         mono: ["Inconsolata", ...defaultTheme.fontFamily.mono],
-        monoWide: ["Inconsolata-SemiExpanded", ...defaultTheme.fontFamily.mono],
+        "mono-wide": [
+          "Inconsolata-SemiExpanded",
+          ...defaultTheme.fontFamily.mono,
+        ],
       },
       width: {
-        smBase: smallWidth,
-        stretchedBase: stretchedWidth,
+        "sm-base": smallWidth,
+        "stretched-base": stretchedWidth,
       },
       height: {
-        smBase: smallHeight,
-        stretchedBase: stretchedHeight,
+        "sm-base": smallHeight,
+        "stretched-base": stretchedHeight,
       },
       fontSize: {
-        smBase: smallFontSize,
-        stretchedBase: stretchedFontSize,
+        "sm-base": smallFontSize,
+        "stretched-base": stretchedFontSize,
         xs: "1.2em",
         lg: "1.8em",
         "2xl": "2.4em",
