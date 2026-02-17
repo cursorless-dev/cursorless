@@ -44,9 +44,9 @@
     "clean": "pnpm clear && rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
-    "@algolia/client-search": "^5.47.0",
+    "@algolia/client-search": "^5.48.1",
     "@cursorless/common": "workspace:*",
-    "@docsearch/react": "^4.5.3",
+    "@docsearch/react": "^4.5.4",
     "@docusaurus/core": "^3.9.2",
     "@docusaurus/preset-classic": "^3.9.2",
     "@docusaurus/theme-classic": "^3.9.2",
@@ -66,9 +66,9 @@
     "@docusaurus/module-type-aliases": "^3.9.2",
     "@docusaurus/types": "^3.9.2",
     "@tailwindcss/postcss": "4.1.17",
-    "@tsconfig/docusaurus": "^2.0.8",
+    "@tsconfig/docusaurus": "^2.0.9",
     "@types/mdast": "^4.0.4",
-    "@types/react": "^19.2.11",
+    "@types/react": "^19.2.14",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3",

@@ -1,6 +1,6 @@
 /* eslint-disable import/no-relative-packages */
 
-import type { ConfigWithExtends } from "@eslint/config-helpers";
+import type { ConfigWithExtends, Plugin } from "@eslint/config-helpers";
 import eslintJs from "@eslint/js";
 import prettierConfig from "eslint-config-prettier/flat";
 import importPlugin from "eslint-plugin-import";
@@ -33,7 +33,8 @@ const rootConfig: ConfigWithExtends = {
     "unused-imports": unusedImportsPlugin,
     import: importPlugin,
     unicorn: unicornPlugin,
-    mocha: mochaPlugin,
+    // eslint-plugin-mocha's type definitions don't match ESLint 9's Plugin type yet.
+    mocha: mochaPlugin as Plugin,
   },
 
   languageOptions: {
