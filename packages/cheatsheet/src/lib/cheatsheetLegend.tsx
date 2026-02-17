@@ -2,6 +2,7 @@ interface CheatsheetLegendEntry {
   term: string;
   definition: string;
   link?: string;
+  linkName?: string;
   id: string;
 }
 
@@ -15,16 +16,10 @@ const cheatsheetLegend: CheatsheetLegend = [
   },
   {
     term: "snippet",
-    definition:
-      'Community snippet (eg "if", "for"). Say "help snip" for a list',
+    definition: '(eg "if", "for"). Say "help snip" for a list',
     link: "https://github.com/talonhub/community/tree/main/core/snippets",
+    linkName: "Community snippet",
     id: "snippet",
-  },
-  {
-    term: "modifier",
-    definition: "Cursorless modifier",
-    link: "#modifiers",
-    id: "modifier",
   },
   {
     term: "pair",
@@ -43,6 +38,12 @@ const cheatsheetLegend: CheatsheetLegend = [
     definition: "Cursorless destination",
     link: "#destinations",
     id: "destination",
+  },
+  {
+    term: "modifier",
+    definition: "Cursorless modifier",
+    link: "#modifiers",
+    id: "modifier",
   },
   {
     term: "scope",
