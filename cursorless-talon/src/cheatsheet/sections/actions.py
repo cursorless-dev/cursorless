@@ -9,7 +9,7 @@ def get_actions() -> list[ListItemDescriptor]:
     for name in ACTION_LIST_NAMES:
         all_actions.update(get_raw_list(name))
 
-    multiple_target_action_names = [
+    complex_action_names = [
         "replaceWithTarget",
         "moveToTarget",
         "swapTargets",
@@ -18,16 +18,17 @@ def get_actions() -> list[ListItemDescriptor]:
         "wrapWithPairedDelimiter",
         "rewrap",
         "pasteFromClipboard",
+        "insertSnippet",
     ]
     simple_actions = {
         f"{key} <target>": value
         for key, value in all_actions.items()
-        if value not in multiple_target_action_names
+        if value not in complex_action_names
     }
     complex_actions = {
         value: key
         for key, value in all_actions.items()
-        if value in multiple_target_action_names
+        if value in complex_action_names
     }
 
     swap_connectives = list(get_raw_list("swap_connective").keys())
@@ -89,12 +90,22 @@ def get_actions() -> list[ListItemDescriptor]:
             (
                 lambda value: f"<pair> {value} <target>",
                 "Wrap <target> with <pair>",
-            )
+            ),
+            (
+                lambda value: f"<snippet> {value} <target>",
+                "Wrap <target> with <snippet>",
+            ),
         ],
         "rewrap": [
             (
                 lambda value: f"<pair> {value} <target>",
                 "Rewrap <target> with <pair>",
+            )
+        ],
+        "insertSnippet": [
+            (
+                lambda value: f"{value} <snippet> <destination>",
+                "Insert snippet",
             )
         ],
     }
@@ -113,6 +124,7 @@ def get_actions() -> list[ListItemDescriptor]:
 
     for action_id, variations in fixtures.items():
         if action_id not in complex_actions:
+            print(f"Warning: no complex action found for {action_id}")
             continue
         action = complex_actions[action_id]
         items.append(
@@ -128,5 +140,4 @@ def get_actions() -> list[ListItemDescriptor]:
                 ],
             }
         )
-
     return items
