@@ -40,10 +40,11 @@ def get_actions() -> list[ListItemDescriptor]:
         {
             "editNewLineAfter": "Edit new line/scope after",
             "editNewLineBefore": "Edit new line/scope before",
+            "experimental.setInstanceReference": "Set instance reference",
         },
     )
 
-    fixtures: dict[str, list[tuple[Callable, str]]] = {
+    complex_action_defs: dict[str, list[tuple[Callable, str]]] = {
         "replaceWithTarget": [
             (
                 lambda value: f"{value} <target> <destination>",
@@ -105,13 +106,13 @@ def get_actions() -> list[ListItemDescriptor]:
         "insertSnippet": [
             (
                 lambda value: f"{value} <snippet> <destination>",
-                "Insert snippet",
+                "Insert snippet at <destination>",
             )
         ],
     }
 
     if swap_connective:
-        fixtures["swapTargets"] = [
+        complex_action_defs["swapTargets"] = [
             (
                 lambda value: f"{value} <target 1> {swap_connective} <target 2>",
                 "Swap <target 1> with <target 2>",
@@ -122,7 +123,7 @@ def get_actions() -> list[ListItemDescriptor]:
             ),
         ]
 
-    for action_id, variations in fixtures.items():
+    for action_id, variations in complex_action_defs.items():
         # This happens if the user has disabled the spoken form for a complex action
         if action_id not in complex_actions:
             continue

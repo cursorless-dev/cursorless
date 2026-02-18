@@ -354,7 +354,7 @@
           "variations": [
             {
               "spokenForm": "snip <snippet> <destination>",
-              "description": "Insert snippet"
+              "description": "Insert snippet at <destination>"
             }
           ]
         },
