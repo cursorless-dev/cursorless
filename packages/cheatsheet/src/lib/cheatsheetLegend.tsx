@@ -59,7 +59,7 @@ const cheatsheetLegend: CheatsheetLegend = [
   },
   {
     term: "ordinal",
-    definition: "Ordinal, eg first, second, third",
+    definition: 'Ordinal (eg "first", "second", "third")',
     id: "ordinal",
   },
 ];
