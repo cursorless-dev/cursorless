@@ -150,9 +150,16 @@
   name: (_) @name
 ) @class @_.domain
 
+;;!! class Foo end
+;;!           ^
 (class
-  name: (_) @class.iteration.start.endOf @namedFunction.iteration.start.endOf @name.iteration.start.endOf
-  "end" @class.iteration.end.startOf @namedFunction.iteration.end.startOf @name.iteration.end.startOf
+  name: (_) @class.iteration.start.endOf @namedFunction.iteration.start.endOf @statement.iteration.start.endOf
+  "end" @class.iteration.end.startOf @namedFunction.iteration.end.startOf @statement.iteration.end.startOf
+) @class
+
+(class
+  name: (_) @name.iteration.start.endOf @value.iteration.start.endOf
+  "end" @name.iteration.end.startOf @value.iteration.end.startOf
 ) @class
 
 ;;!! "Hello world"
@@ -163,6 +170,8 @@
   (heredoc_content)
 ] @textFragment
 
+;;!! class foo def bar() end end
+;;!                ^^^
 (method
   name: (_) @name
 ) @_.domain
@@ -171,32 +180,37 @@
   name: (_) @name
 ) @_.domain
 
+;;!! foo = 0
+;;!  ^^^
+;;!        ^
 (assignment
-  left: (_) @name
+  left: (_) @name @value.leading.endOf
+  right: (_) @value @name.trailing.startOf
 ) @_.domain
 
+;;!! foo += 0
+;;!  ^^^
+;;!         ^
 (operator_assignment
-  left: (_) @name
+  left: (_) @name @value.leading.endOf
+  right: (_) @value @name.trailing.startOf
 ) @_.domain
 
-(_
-  operator: [
-    "<"
-    ">"
-    "<="
-    ">="
-    "<<"
-    ">>"
-    "<<="
-    ">>="
-  ] @disqualifyDelimiter
-)
-(pair
-  "=>" @disqualifyDelimiter
-)
-(match_pattern
-  "=>" @disqualifyDelimiter
-)
+;;!! for v in values end
+;;!      ^
+;;!           ^^^^^^
+(for
+  pattern: (_) @name
+  value: (in
+    (_) @value
+  )
+) @_.domain
+
+;;!! case foo end
+;;!       ^^^
+(case
+  value: (_) @value
+) @value.domain
 
 ;;!! %w(foo bar)
 ;;!     ^^^ ^^^
@@ -232,6 +246,17 @@
 
 ;;!! -> {}
 (lambda) @anonymousFunction
+
+;;!! -> { 0 }
+(lambda
+  (block
+    (block_body
+      .
+      (_) @value
+      .
+    )
+  )
+) @value.domain
 
 ;;!! [1,2,3].each do |i| end
 ;;!               ^^^^^^^^^^
@@ -281,20 +306,6 @@
 ;;!         ^^
 (return
   (argument_list) @value
-) @_.domain
-
-;;!! a = 10
-;;!      ^^
-(assignment
-  left: (_) @_.leading.endOf
-  right: (_) @value
-) @_.domain
-
-;;!! a += 10
-;;!       ^^
-(operator_assignment
-  left: (_) @_.leading.endOf
-  right: (_) @value
 ) @_.domain
 
 ;;!! def foo(aaa, bbb)
@@ -370,3 +381,22 @@
     (#child-range! @argumentList 1 -2)
   )
 ) @argumentList.domain @argumentOrParameter.iteration.domain
+
+(_
+  operator: [
+    "<"
+    ">"
+    "<="
+    ">="
+    "<<"
+    ">>"
+    "<<="
+    ">>="
+  ] @disqualifyDelimiter
+)
+(pair
+  "=>" @disqualifyDelimiter
+)
+(match_pattern
+  "=>" @disqualifyDelimiter
+)
