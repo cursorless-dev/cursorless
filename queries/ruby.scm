@@ -123,6 +123,10 @@
 (call
   receiver: (_)? @functionCallee.start
   method: (_) @functionCallee.end
+  arguments: (_
+    "(" @name.iteration.start.endOf @value.iteration.start.endOf
+    ")" @name.iteration.end.startOf @value.iteration.end.startOf
+  )
 ) @functionCall @functionCallee.domain
 
 [
@@ -295,6 +299,16 @@
   value: (_) @value @collectionKey.trailing.startOf
 ) @_.domain
 
+;;!! foo(aaa: 0, bbb: 1)
+;;!      ^^^
+;;!              ^^^
+(argument_list
+  (pair
+    key: (_) @name
+    value: (_) @name.trailing.startOf
+  ) @name.domain
+)
+
 ;;!! {"1" => "one", "2" => "two"}
 ;;!   ^^^^^^^^^^^^^^^^^^^^^^^^^^
 (hash
@@ -302,11 +316,11 @@
   "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
 )
 
-;;!! return 10
-;;!         ^^
+;;!! return 0
+;;!         ^
 (return
   (argument_list) @value
-) @_.domain
+) @value.domain
 
 ;;!! def foo(aaa, bbb)
 ;;!          ^^^  ^^^
