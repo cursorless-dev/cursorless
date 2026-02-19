@@ -87,7 +87,6 @@ export const rubyScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.if": supported,
   "statement.try": supported,
   "statement.switch": supported,
-  "statement.for": supported,
   "statement.foreach": supported,
   "statement.while": supported,
   "statement.assignment": supported,
@@ -340,6 +339,7 @@ export const rubyScopeSupport: LanguageScopeSupportFacetMap = {
   // Misc
   "statement.package": notApplicable,
   "statement.import": notApplicable,
+  "statement.for": notApplicable,
   pairDelimiter: notApplicable,
   environment: notApplicable,
   selector: notApplicable,

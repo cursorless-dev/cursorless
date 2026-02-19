@@ -81,9 +81,10 @@
   ) @_dummy
   (#type?
     @_dummy
+    program
+    block_body
     begin_block
     begin
-    block_body
     block
     body_statement
     do_block
@@ -94,9 +95,7 @@
     heredoc_beginning
     interpolation
     lambda
-    method
     parenthesized_statements
-    program
     singleton_class
     singleton_method
     then
@@ -138,23 +137,23 @@
 ;;!! {aaa: 0, bbb: 1}
 (hash) @map
 
-(_
-  (if) @ifStatement
-) @_.iteration
+;;!! if true end
+(if) @ifStatement
 
 [
   (method)
   (singleton_method)
 ] @namedFunction
 
+;;!! class Foo end
+(class
+  name: (_) @name
+) @class @_.domain
+
 (class
   name: (_) @class.iteration.start.endOf @namedFunction.iteration.start.endOf @name.iteration.start.endOf
   "end" @class.iteration.end.startOf @namedFunction.iteration.end.startOf @name.iteration.end.startOf
 ) @class
-
-(class
-  name: (_) @name
-) @class @_.domain
 
 ;;!! "Hello world"
 (string) @string
@@ -231,8 +230,7 @@
   condition: (_) @condition
 ) @_.domain
 
-;;!! hi = -> { puts "Hi!" }
-;;!       ^^^^^^^^^^^^^^^^^
+;;!! -> {}
 (lambda) @anonymousFunction
 
 ;;!! [1,2,3].each do |i| end

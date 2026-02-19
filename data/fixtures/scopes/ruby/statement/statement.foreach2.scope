@@ -1,0 +1,10 @@
+values.each do |v| end
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:22
+  >----------------------<
+0| values.each do |v| end
+
+[Insertion delimiter] = "\n"
