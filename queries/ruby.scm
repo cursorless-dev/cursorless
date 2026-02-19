@@ -321,6 +321,19 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
+;;!! ->(aaa, bbb) {}
+;;!     ^^^  ^^^
+(
+  (lambda_parameters
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
 ;;!! foo(aaa, bbb)
 ;;!      ^^^  ^^^
 (
