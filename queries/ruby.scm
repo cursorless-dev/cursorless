@@ -258,8 +258,8 @@
   )
 ) @value.domain
 
-;;!! [1,2,3].each do |i| end
-;;!               ^^^^^^^^^^
+;;!! values.each do |v| end
+;;!              ^^^^^^^^^^
 (do_block) @anonymousFunction
 
 (call
