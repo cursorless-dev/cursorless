@@ -385,6 +385,24 @@
   (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
+(method_parameters
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf
+)
+
+;;!! def foo(aaa, bbb = 0)
+;;!          ^^^  ^^^
+;;!                     ^
+(method_parameters
+  [
+    (identifier) @name
+    (optional_parameter
+      name: (_) @name @value.leading.endOf
+      value: (_) @value
+    ) @_.domain
+  ]
+)
+
 ;;!! ->(aaa, bbb) {}
 ;;!     ^^^^^^^^
 (_
@@ -395,6 +413,24 @@
   (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
   (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
+
+(lambda_parameters
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf
+)
+
+;;!! ->(aaa, bbb = 0)
+;;!     ^^^  ^^^
+;;!                ^
+(lambda_parameters
+  [
+    (identifier) @name
+    (optional_parameter
+      name: (_) @name @value.leading.endOf
+      value: (_) @value
+    ) @_.domain
+  ]
+)
 
 ;;!! foo(aaa, bbb)
 ;;!      ^^^^^^^^
