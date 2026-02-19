@@ -116,7 +116,14 @@
 (comment) @comment @textFragment
 (hash) @map
 (regex) @regularExpression
-(call) @functionCall
+
+;;!! foo()
+;;!  ^^^^^
+;;!  ^^^
+(call
+  receiver: (_)? @functionCallee.start
+  method: (_) @functionCallee.end
+) @functionCall @functionCallee.domain
 
 [
   (array)
