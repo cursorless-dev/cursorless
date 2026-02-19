@@ -115,6 +115,8 @@
 
 (comment) @comment @textFragment
 (hash) @map
+
+;;!! /foo/
 (regex) @regularExpression
 
 ;;!! foo()
