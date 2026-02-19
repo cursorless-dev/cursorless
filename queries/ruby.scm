@@ -142,7 +142,30 @@
 (hash) @map
 
 ;;!! if true end
-(if) @ifStatement
+;;!  ^^^^^^^^^^^
+;;!     ^^^^
+(if
+  condition: (_) @condition
+) @ifStatement @condition.domain
+
+;;!! elsif true end
+;;!        ^^^^
+(elsif
+  condition: (_) @condition
+  consequence: (_) @condition.domain.end.endOf
+) @condition.domain.start.startOf
+
+;;!! while true end
+;;!        ^^^^
+(while
+  condition: (_) @condition
+) @condition.domain
+
+;;!! true ? 0 : 1
+;;!  ^^^^
+(conditional
+  condition: (_) @condition
+) @condition.domain
 
 [
   (method)
@@ -150,6 +173,7 @@
 ] @namedFunction
 
 ;;!! class Foo end
+;;!        ^^^
 (class
   name: (_) @name
 ) @class @_.domain
@@ -212,9 +236,19 @@
 
 ;;!! case foo end
 ;;!       ^^^
+;;!          ^
 (case
-  value: (_) @value
+  value: (_) @value @condition.iteration.start.endOf @branch.iteration.start.endOf
+  "end" @condition.iteration.end.startOf @branch.iteration.end.startOf
 ) @value.domain
+
+;;!! in 0
+;;!     ^
+(case_match
+  (in_clause
+    pattern: (_) @condition
+  ) @condition.domain
+)
 
 ;;!! %w(foo bar)
 ;;!     ^^^ ^^^
@@ -241,12 +275,6 @@
   )
   (#insertion-delimiter! @collectionItem " ")
 )
-
-;;!! if true
-;;!     ^^^^
-(_
-  condition: (_) @condition
-) @_.domain
 
 ;;!! -> {}
 (lambda) @anonymousFunction

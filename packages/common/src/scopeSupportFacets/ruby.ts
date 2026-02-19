@@ -75,7 +75,6 @@ export const rubyScopeSupport: LanguageScopeSupportFacetMap = {
 
   "condition.if": supported,
   "condition.while": supported,
-  "condition.for": supported,
   "condition.switchCase": supported,
   "condition.switchCase.iteration": supported,
   "condition.ternary": supported,
@@ -155,7 +154,6 @@ export const rubyScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.try": supported,
   "interior.switch": supported,
   "interior.switchCase": supported,
-  "interior.for": supported,
   "interior.foreach": supported,
   "interior.while": supported,
 
@@ -336,10 +334,14 @@ export const rubyScopeSupport: LanguageScopeSupportFacetMap = {
   "collectionItem.unenclosed.multiLine": notApplicable,
   "collectionItem.unenclosed.iteration": notApplicable,
 
+  // For loop
+  "statement.for": notApplicable,
+  "condition.for": notApplicable,
+  "interior.for": notApplicable,
+
   // Misc
   "statement.package": notApplicable,
   "statement.import": notApplicable,
-  "statement.for": notApplicable,
   pairDelimiter: notApplicable,
   environment: notApplicable,
   selector: notApplicable,
