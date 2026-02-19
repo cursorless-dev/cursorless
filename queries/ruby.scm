@@ -103,6 +103,16 @@
   )
 )
 
+(
+  (program) @class.iteration @statement.iteration @namedFunction.iteration
+  (#document-range! @class.iteration @statement.iteration @namedFunction.iteration)
+)
+
+(
+  (program) @name.iteration @value.iteration
+  (#document-range! @name.iteration @value.iteration)
+)
+
 (comment) @comment @textFragment
 (hash) @map
 (regex) @regularExpression
@@ -123,8 +133,6 @@
   (singleton_method)
 ] @namedFunction
 
-(program) @class.iteration @namedFunction.iteration @name.iteration
-
 (class
   name: (_) @class.iteration.start.endOf @namedFunction.iteration.start.endOf @name.iteration.start.endOf
   "end" @class.iteration.end.startOf @namedFunction.iteration.end.startOf @name.iteration.end.startOf
@@ -134,6 +142,7 @@
   name: (_) @name
 ) @class @_.domain
 
+;;!! "Hello world"
 (string) @string
 
 [

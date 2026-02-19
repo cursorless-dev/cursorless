@@ -1,0 +1,21 @@
+class Foo
+    def bar() end
+end
+---
+
+[Content] =
+[Domain] = 1:4-1:17
+      >-------------<
+1|     def bar() end
+
+[Removal] = 1:0-2:0
+  >-----------------
+1|     def bar() end
+2| end
+   <
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     def bar() end
+
+[Insertion delimiter] = "\n\n"
