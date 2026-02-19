@@ -114,7 +114,6 @@
 )
 
 (comment) @comment @textFragment
-(hash) @map
 
 ;;!! /foo/
 (regex) @regularExpression
@@ -128,10 +127,16 @@
 ) @functionCall @functionCallee.domain
 
 [
+  ;;!! [1, 2, 3]
   (array)
+  ;;!! %w[foo bar baz]
   (string_array)
+  ;;!! %i[foo bar baz]
   (symbol_array)
 ] @list
+
+;;!! {aaa: 0, bbb: 1}
+(hash) @map
 
 (_
   (if) @ifStatement
