@@ -22,11 +22,6 @@ const thresholds = [smallThresholdMs, largeThresholdMs, xlThresholdMs];
 type ModifierType = "containing" | "previous" | "every";
 
 suite(`Performance ${thresholds.join("/")} ms`, async function () {
-  // FIXME: This test is flaky on Mac CI, so we skip it there for now
-  if (isCI() && isMac()) {
-    this.ctx.skip();
-  }
-
   endToEndTestSetup(this);
 
   let previousTitle = "";
@@ -34,6 +29,12 @@ suite(`Performance ${thresholds.join("/")} ms`, async function () {
   // Before each test, print the test title. This is done so we have the test
   // title before the test run time / duration.
   this.beforeEach(function () {
+    // FIXME: This test is flaky on Mac CI, so we skip it there for now
+    if (isCI() && isMac()) {
+      this.skip();
+      return;
+    }
+
     const title = this.currentTest!.title;
     if (title !== previousTitle) {
       console.log(`    ${title}`);
