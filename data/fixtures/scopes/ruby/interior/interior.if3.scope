@@ -1,4 +1,4 @@
-def foo.bar
+if true
     a
 end
 ---
@@ -8,9 +8,9 @@ end
 1|     a
 
 [Removal] =
-[Domain] = 0:11-2:0
-             >
-0| def foo.bar
+[Domain] = 0:7-2:0
+         >
+0| if true
 1|     a
 2| end
    <

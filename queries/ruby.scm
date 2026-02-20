@@ -112,6 +112,13 @@
   (#document-range! @name.iteration @value.iteration)
 )
 
+;;!! { }
+;;!   ^
+(block
+  "{" @interior.start.endOf
+  "}" @interior.end.startOf
+)
+
 (comment) @comment @textFragment
 
 ;;!! /foo/
@@ -142,11 +149,19 @@
 (hash) @map
 
 ;;!! if true end
-;;!  ^^^^^^^^^^^
 ;;!     ^^^^
 (if
   condition: (_) @condition
 ) @ifStatement @condition.domain @branch.iteration
+
+;;!! if true end
+;;!         ^
+(if
+  condition: (_) @interior.start.endOf
+  consequence: (_)
+  .
+  _ @interior.end.startOf
+)
 
 ;;!! if true elsif false end
 (if
@@ -175,8 +190,24 @@
   consequence: (_) @branch.end @condition.domain.end.endOf
 ) @condition.domain.start.startOf
 
+;;!! elsif true else end
+;;!            ^
+(elsif
+  condition: (_) @interior.start.endOf
+  alternative: (_) @interior.end.startOf
+)
+
+;;!! elsif true end
+;;!            ^
+(elsif
+  condition: (_) @interior.start.endOf
+  !alternative
+) @interior.end.endOf
+
 ;;!! else end
-(else) @branch
+(else
+  "else" @interior.start.endOf
+) @branch @interior.end.endOf
 
 ;;!! begin rescue end
 ;;!! begin end
