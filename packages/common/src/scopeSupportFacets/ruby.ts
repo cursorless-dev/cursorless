@@ -13,7 +13,6 @@ export const rubyScopeSupport: LanguageScopeSupportFacetMap = {
 
   class: supported,
   "class.iteration.document": supported,
-  "class.iteration.block": supported,
 
   namedFunction: supported,
   "namedFunction.method": supported,
@@ -342,6 +341,7 @@ export const rubyScopeSupport: LanguageScopeSupportFacetMap = {
   // Misc
   "statement.package": notApplicable,
   "statement.import": notApplicable,
+  "class.iteration.block": notApplicable,
   pairDelimiter: notApplicable,
   environment: notApplicable,
   selector: notApplicable,
