@@ -119,7 +119,19 @@
   "}" @interior.end.startOf
 )
 
+;;!! # Hello world
 (comment) @comment @textFragment
+
+;;!! "Hello world"
+;;!! ^^^^^^^^^^^^^
+;;!!  ^^^^^^^^^^^
+(string
+  (string_content)? @textFragment
+) @string
+
+[
+  (heredoc_content)
+] @textFragment
 
 ;;!! /foo/
 (regex) @regularExpression
@@ -277,14 +289,6 @@
   "end" @name.iteration.end.startOf @value.iteration.end.startOf @interior.end.startOf
 ) @class
 
-;;!! "Hello world"
-(string) @string
-
-[
-  (string_content)
-  (heredoc_content)
-] @textFragment
-
 ;;!! def foo() end
 ;;!      ^^^
 (method
@@ -348,30 +352,42 @@
 
 ;;!! case foo when 0 end
 ;;!       ^^^
+(case
+  value: (_) @value
+) @value.domain
+
+;;!! case foo when 0 end
 ;;!          ^^^^^^^^
 (case
-  value: (_) @value @condition.iteration.start.endOf @branch.iteration.start.endOf
-  "end" @condition.iteration.end.startOf @branch.iteration.end.startOf
-) @value.domain
+  value: (_) @interior.start.endOf @condition.iteration.start.endOf @branch.iteration.start.endOf
+  "end" @interior.end.startOf @condition.iteration.end.startOf @branch.iteration.end.startOf
+)
 
 ;;!! case foo in 0 end
 ;;!       ^^^
+(case_match
+  value: (_) @value
+) @value.domain
+
+;;!! case foo in 0 end
 ;;!          ^^^^^^
 (case_match
-  value: (_) @value @condition.iteration.start.endOf @branch.iteration.start.endOf
-  "end" @condition.iteration.end.startOf @branch.iteration.end.startOf
-) @value.domain
+  value: (_) @interior.start.endOf @condition.iteration.start.endOf @branch.iteration.start.endOf
+  "end" @interior.end.startOf @condition.iteration.end.startOf @branch.iteration.end.startOf
+)
 
 ;;!! when 0
 ;;!       ^
 (when
   pattern: (_) @condition
+  body: (_) @interior
 ) @branch @condition.domain
 
 ;;!! in foo
 ;;!     ^^^
 (in_clause
   pattern: (_) @condition
+  body: (_) @interior
 ) @branch @condition.domain
 
 ;;!! %w(foo bar)
