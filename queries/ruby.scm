@@ -179,32 +179,41 @@
 (else) @branch
 
 ;;!! begin rescue end
+;;!! begin end
 (begin) @branch.iteration
 
 ;;!! begin rescue end
 (begin
-  "begin" @branch.start @branch.removal.start
+  "begin" @branch.start @branch.removal.start @interior.start.endOf
   (_) @branch.end @branch.removal.end
   .
-  (rescue)
+  (rescue) @interior.end.startOf
 )
 
 ;;!! begin end
 (begin
-  "begin" @branch.start
+  "begin" @branch.start @interior.start.endOf
   (_) @branch.end
   .
-  "end"
+  "end" @interior.end.startOf
   (#not-type? @branch.end rescue)
 ) @branch.removal
 
 ;;!! rescue end
-(rescue) @branch
+(begin
+  (rescue
+    "rescue" @interior.start.endOf
+  ) @branch
+  "end" @interior.end.startOf
+)
 
 ;;!! while true end
 ;;!        ^^^^
 (while
-  condition: (_) @condition
+  condition: (_) @condition @interior.start.endOf
+  (do
+    "end" @interior.end.startOf
+  )
 ) @condition.domain
 
 ;;!! true ? 0 : 1
@@ -218,11 +227,6 @@
 (conditional
   alternative: (_) @branch
 )
-
-[
-  (method)
-  (singleton_method)
-] @namedFunction
 
 ;;!! class Foo end
 ;;!        ^^^
@@ -238,8 +242,8 @@
 ) @class
 
 (class
-  name: (_) @name.iteration.start.endOf @value.iteration.start.endOf
-  "end" @name.iteration.end.startOf @value.iteration.end.startOf
+  name: (_) @name.iteration.start.endOf @value.iteration.start.endOf @interior.start.endOf
+  "end" @name.iteration.end.startOf @value.iteration.end.startOf @interior.end.startOf
 ) @class
 
 ;;!! "Hello world"
@@ -250,15 +254,37 @@
   (heredoc_content)
 ] @textFragment
 
-;;!! class foo def bar() end end
-;;!                ^^^
+;;!! def foo() end
+;;!      ^^^
 (method
   name: (_) @name
-) @_.domain
+  parameters: (_) @interior.start.endOf
+  "end" @interior.end.startOf
+) @namedFunction @name.domain
 
+;;!! def foo end
+;;!      ^^^
+(method
+  name: (_) @name @interior.start.endOf
+  !parameters
+  "end" @interior.end.startOf
+) @namedFunction @name.domain
+
+;;!! def foo.bar() end
+;;!      ^^^
 (singleton_method
   name: (_) @name
-) @_.domain
+  parameters: (_) @interior.start.endOf
+  "end" @interior.end.startOf
+) @namedFunction @name.domain
+
+;;!! def foo.bar end
+;;!      ^^^
+(singleton_method
+  name: (_) @name @interior.start.endOf
+  !parameters
+  "end" @interior.end.startOf
+) @namedFunction @name.domain
 
 ;;!! foo = 0
 ;;!  ^^^
@@ -283,8 +309,11 @@
   pattern: (_) @name
   value: (in
     (_) @value
+  ) @interior.start.endOf
+  (do
+    "end" @interior.end.startOf
   )
-) @_.domain
+) @name.domain @value.domain
 
 ;;!! case foo when 0 end
 ;;!       ^^^
