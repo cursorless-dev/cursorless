@@ -146,14 +146,60 @@
 ;;!     ^^^^
 (if
   condition: (_) @condition
-) @ifStatement @condition.domain
+) @ifStatement @condition.domain @branch.iteration
+
+;;!! if true elsif false end
+(if
+  "if" @branch.start @branch.removal.start.startOf
+  consequence: (_) @branch.end
+  (elsif) @branch.removal.end.startOf
+  (#character-range! @branch.removal.end.startOf 3)
+)
+
+;;!! if true end
+;;!! if true else end
+(if
+  "if" @branch.start @branch.removal.start.startOf
+  consequence: (_) @branch.end
+  [
+    (else) @branch.removal.end.startOf
+    "end" @branch.removal.end.endOf
+  ]
+)
 
 ;;!! elsif true end
 ;;!        ^^^^
 (elsif
+  "elsif" @branch.start
   condition: (_) @condition
-  consequence: (_) @condition.domain.end.endOf
+  consequence: (_) @branch.end @condition.domain.end.endOf
 ) @condition.domain.start.startOf
+
+;;!! else end
+(else) @branch
+
+;;!! begin rescue end
+(begin) @branch.iteration
+
+;;!! begin rescue end
+(begin
+  "begin" @branch.start @branch.removal.start
+  (_) @branch.end @branch.removal.end
+  .
+  (rescue)
+)
+
+;;!! begin end
+(begin
+  "begin" @branch.start
+  (_) @branch.end
+  .
+  "end"
+  (#not-type? @branch.end rescue)
+) @branch.removal
+
+;;!! rescue end
+(rescue) @branch
 
 ;;!! while true end
 ;;!        ^^^^
@@ -163,9 +209,15 @@
 
 ;;!! true ? 0 : 1
 ;;!  ^^^^
+;;!         ^   ^
 (conditional
   condition: (_) @condition
-) @condition.domain
+  consequence: (_) @branch
+) @condition.domain @branch.iteration
+
+(conditional
+  alternative: (_) @branch
+)
 
 [
   (method)
@@ -234,21 +286,33 @@
   )
 ) @_.domain
 
-;;!! case foo end
+;;!! case foo when 0 end
 ;;!       ^^^
-;;!          ^
+;;!          ^^^^^^^^
 (case
   value: (_) @value @condition.iteration.start.endOf @branch.iteration.start.endOf
   "end" @condition.iteration.end.startOf @branch.iteration.end.startOf
 ) @value.domain
 
-;;!! in 0
-;;!     ^
+;;!! case foo in 0 end
+;;!       ^^^
+;;!          ^^^^^^
 (case_match
-  (in_clause
-    pattern: (_) @condition
-  ) @condition.domain
-)
+  value: (_) @value @condition.iteration.start.endOf @branch.iteration.start.endOf
+  "end" @condition.iteration.end.startOf @branch.iteration.end.startOf
+) @value.domain
+
+;;!! when 0
+;;!       ^
+(when
+  pattern: (_) @condition
+) @branch @condition.domain
+
+;;!! in foo
+;;!     ^^^
+(in_clause
+  pattern: (_) @condition
+) @branch @condition.domain
 
 ;;!! %w(foo bar)
 ;;!     ^^^ ^^^

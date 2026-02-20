@@ -1,5 +1,5 @@
 case foo
-when 0
+in 0
 end
 ---
 
@@ -18,7 +18,7 @@ end
 [Domain] = 0:0-2:3
   >--------
 0| case foo
-1| when 0
+1| in 0
 2| end
    ---<
 
