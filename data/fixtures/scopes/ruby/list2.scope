@@ -1,0 +1,10 @@
+%w[foo bar baz]
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:15
+  >---------------<
+0| %w[foo bar baz]
+
+[Insertion delimiter] = " "

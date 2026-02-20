@@ -1,0 +1,21 @@
+case foo
+in 0
+    puts 0
+end
+---
+
+[Content] =
+[Domain] = 1:0-2:10
+  >----
+1| in 0
+2|     puts 0
+   ----------<
+
+[Removal] = 1:0-3:0
+  >----
+1| in 0
+2|     puts 0
+3| end
+   <
+
+[Insertion delimiter] = "\n"

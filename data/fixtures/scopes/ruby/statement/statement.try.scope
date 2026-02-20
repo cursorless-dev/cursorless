@@ -1,0 +1,15 @@
+begin
+rescue
+end
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-2:3
+  >-----
+0| begin
+1| rescue
+2| end
+   ---<
+
+[Insertion delimiter] = "\n"
