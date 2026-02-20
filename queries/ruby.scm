@@ -119,6 +119,52 @@
   "}" @interior.end.startOf
 )
 
+(_
+  _ @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
+  .
+  body: (_)
+  .
+  "end" @statement.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+)
+
+(_
+  _ @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
+  .
+  body: (_
+    "end" @statement.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+  )
+)
+
+;; (method
+;;   "def"
+;;   name: (identifier)
+;;   parameters: (method_parameters
+;;     "("
+;;     ")"
+;;   )
+;;   body: (body_statement
+;;     (identifier)
+;;   )
+;;   "end"
+;; )
+
+;; (class
+;;   "class"
+;;   name: (constant)
+;;   body: (body_statement
+;;   )
+;;   "end"
+;; )
+
+;; (while
+;;     "while"
+;;     condition: (true)
+;;     body: (do
+;;       (identifier)
+;;       "end"
+;;     )
+;;   )
+
 ;;!! # Hello world
 (comment) @comment @textFragment
 

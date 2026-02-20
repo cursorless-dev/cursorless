@@ -1,0 +1,21 @@
+def foo()
+    a
+end
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-2:3
+  >---------
+0| def foo()
+1|     a
+2| end
+   ---<
+
+
+[#2 Content] =
+[#2 Domain] = 0:9-2:0
+           >
+0| def foo()
+1|     a
+2| end
+   <
