@@ -128,6 +128,14 @@
 )
 
 (_
+  _ @interior.start.endOf
+  .
+  body: (_)
+  .
+  "end" @interior.end.startOf
+)
+
+(_
   _ @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
   .
   body: (_
@@ -135,35 +143,13 @@
   )
 )
 
-;; (method
-;;   "def"
-;;   name: (identifier)
-;;   parameters: (method_parameters
-;;     "("
-;;     ")"
-;;   )
-;;   body: (body_statement
-;;     (identifier)
-;;   )
-;;   "end"
-;; )
-
-;; (class
-;;   "class"
-;;   name: (constant)
-;;   body: (body_statement
-;;   )
-;;   "end"
-;; )
-
-;; (while
-;;     "while"
-;;     condition: (true)
-;;     body: (do
-;;       (identifier)
-;;       "end"
-;;     )
-;;   )
+(_
+  _ @interior.start.endOf
+  .
+  body: (_
+    "end" @interior.end.startOf
+  )
+)
 
 ;;!! # Hello world
 (comment) @comment @textFragment
@@ -175,9 +161,9 @@
   (string_content)? @textFragment
 ) @string
 
-[
-  (heredoc_content)
-] @textFragment
+;;!! <<EOF EOF
+;;!       ^
+(heredoc_content) @textFragment
 
 ;;!! /foo/
 (regex) @regularExpression
@@ -220,6 +206,12 @@
   .
   _ @interior.end.startOf
 )
+(if
+  condition: (_) @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
+  consequence: (_)
+  .
+  _ @statement.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+)
 
 ;;!! if true elsif false end
 (if
@@ -254,6 +246,10 @@
   condition: (_) @interior.start.endOf
   alternative: (_) @interior.end.startOf
 )
+(elsif
+  condition: (_) @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
+  alternative: (_) @statement.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+)
 
 ;;!! elsif true end
 ;;!            ^
@@ -261,11 +257,18 @@
   condition: (_) @interior.start.endOf
   !alternative
 ) @interior.end.endOf
+(elsif
+  condition: (_) @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
+  !alternative
+) @statement.iteration.end.endOf @name.iteration.end.endOf @value.iteration.end.endOf
 
 ;;!! else end
 (else
   "else" @interior.start.endOf
 ) @branch @interior.end.endOf
+(else
+  "else" @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
+) @statement.iteration.end.endOf @name.iteration.end.endOf @value.iteration.end.endOf
 
 ;;!! begin rescue end
 ;;!! begin end
@@ -299,10 +302,7 @@
 ;;!! while true end
 ;;!        ^^^^
 (while
-  condition: (_) @condition @interior.start.endOf
-  (do
-    "end" @interior.end.startOf
-  )
+  condition: (_) @condition
 ) @condition.domain
 
 ;;!! true ? 0 : 1
@@ -319,52 +319,22 @@
 
 ;;!! class Foo end
 ;;!        ^^^
-(class
-  name: (_) @name
-) @class @_.domain
-
-;;!! class Foo end
 ;;!           ^
 (class
-  name: (_) @class.iteration.start.endOf @namedFunction.iteration.start.endOf @statement.iteration.start.endOf
-  "end" @class.iteration.end.startOf @namedFunction.iteration.end.startOf @statement.iteration.end.startOf
-) @class
-
-(class
-  name: (_) @name.iteration.start.endOf @value.iteration.start.endOf @interior.start.endOf
-  "end" @name.iteration.end.startOf @value.iteration.end.startOf @interior.end.startOf
-) @class
+  name: (_) @name @class.iteration.start.endOf @namedFunction.iteration.start.endOf
+  "end" @class.iteration.end.startOf @namedFunction.iteration.end.startOf
+) @class @name.domain
 
 ;;!! def foo() end
 ;;!      ^^^
 (method
   name: (_) @name
-  parameters: (_) @interior.start.endOf
-  "end" @interior.end.startOf
-) @namedFunction @name.domain
-
-;;!! def foo end
-;;!      ^^^
-(method
-  name: (_) @name @interior.start.endOf
-  !parameters
-  "end" @interior.end.startOf
 ) @namedFunction @name.domain
 
 ;;!! def foo.bar() end
 ;;!      ^^^
 (singleton_method
   name: (_) @name
-  parameters: (_) @interior.start.endOf
-  "end" @interior.end.startOf
-) @namedFunction @name.domain
-
-;;!! def foo.bar end
-;;!      ^^^
-(singleton_method
-  name: (_) @name @interior.start.endOf
-  !parameters
-  "end" @interior.end.startOf
 ) @namedFunction @name.domain
 
 ;;!! foo = 0
@@ -390,11 +360,8 @@
   pattern: (_) @name
   value: (in
     (_) @value
-  ) @interior.start.endOf
-  (do
-    "end" @interior.end.startOf
   )
-) @name.domain @value.domain
+) @_.domain
 
 ;;!! case foo when 0 end
 ;;!       ^^^
