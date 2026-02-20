@@ -139,6 +139,8 @@ export const rubyScopeSupport: LanguageScopeSupportFacetMap = {
   "value.foreach": supported,
   "value.return": supported,
   "value.return.lambda": supported,
+  "value.yield": supported,
+  "value.throw": supported,
   "value.switch": supported,
   "value.variable": supported,
   "value.iteration.document": supported,

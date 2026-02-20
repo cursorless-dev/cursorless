@@ -177,7 +177,7 @@
   arguments: (_
     "(" @name.iteration.start.endOf @value.iteration.start.endOf
     ")" @name.iteration.end.startOf @value.iteration.end.startOf
-  )
+  )?
 ) @functionCall @functionCallee.domain
 
 [
@@ -501,6 +501,20 @@
 ;;!         ^
 (return
   (argument_list) @value
+) @value.domain
+
+;;!! yield 0
+;;!        ^
+(yield
+  (argument_list) @value
+) @value.domain
+
+;;!! raise 0
+;;!        ^
+(call
+  method: (_) @_dummy
+  (argument_list) @value
+  (#eq? @_dummy raise)
 ) @value.domain
 
 ;;!! def foo(aaa, bbb)
