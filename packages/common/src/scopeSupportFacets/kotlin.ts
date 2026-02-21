@@ -64,6 +64,7 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.ternary.iteration": supported,
 
   class: supported,
+  "class.iteration.class": supported,
   "class.iteration.document": supported,
 
   "comment.block": supported,
@@ -327,7 +328,6 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   pairDelimiter: notApplicable,
   list: notApplicable,
   map: notApplicable,
-  "class.iteration.block": notApplicable,
   "type.cast": notApplicable,
   "statement.misc": notApplicable,
   "value.field.interface": notApplicable,

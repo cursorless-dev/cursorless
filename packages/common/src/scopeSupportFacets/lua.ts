@@ -171,7 +171,7 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
   // Class
   class: notApplicable,
   "class.iteration.document": notApplicable,
-  "class.iteration.block": notApplicable,
+  "class.iteration.class": notApplicable,
   "statement.class": notApplicable,
   "statement.field.class": notApplicable,
   "statement.continue": notApplicable,

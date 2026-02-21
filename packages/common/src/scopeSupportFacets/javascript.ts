@@ -216,7 +216,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   /* NOT APPLICABLE (JS & TS) */
 
   // Nested classes
-  "class.iteration.block": notApplicable,
+  "class.iteration.class": notApplicable,
 
   // Section
   section: notApplicable,

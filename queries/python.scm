@@ -252,7 +252,7 @@
   return_type: (_) @type
 ) @_.domain
 
-;;!! class MyClass:
+;;!! class Foo:
 (
   (class_definition) @class @type @statement
   (#not-parent-type? @class decorated_definition)
@@ -266,7 +266,7 @@
 )
 
 ;;!! @value
-;;!! class MyClass:
+;;!! class Foo:
 (decorated_definition
   (class_definition)
 ) @class @type @statement
@@ -276,6 +276,13 @@
     name: (_) @name
   )
 ) @name.domain
+
+;;!! class Foo: pass
+;;!            ^^^^^
+(class_definition
+  ":" @class.iteration.start.endOf
+  body: (_) @class.iteration.end.endOf
+)
 
 (
   (module) @statement.iteration @class.iteration @namedFunction.iteration

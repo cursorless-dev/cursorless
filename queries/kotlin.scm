@@ -277,6 +277,10 @@
 ;;!! class Foo {}
 (class_declaration
   (type_identifier) @name
+  (class_body
+    "{" @class.iteration.start.endOf
+    "}" @class.iteration.end.startOf
+  )
 ) @class @type @name.domain
 
 ;;!! object Foo {}

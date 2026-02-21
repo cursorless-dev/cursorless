@@ -146,6 +146,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.loop.iteration": supported,
 
   class: supported,
+  "class.iteration.class": supported,
   "class.iteration.document": supported,
 
   "interior.class": supported,
@@ -266,9 +267,6 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.doWhile": notApplicable,
   "condition.doWhile": notApplicable,
   "interior.doWhile": notApplicable,
-
-  // Nested classes
-  "class.iteration.block": notApplicable,
 
   // Type. Python have some types, but not these.
   "type.cast": notApplicable,

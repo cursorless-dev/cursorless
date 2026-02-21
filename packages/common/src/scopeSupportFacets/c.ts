@@ -217,7 +217,7 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.cell": notApplicable,
 
   // Nested class
-  "class.iteration.block": notApplicable,
+  "class.iteration.class": notApplicable,
 
   // Interface
   "statement.interface": notApplicable,

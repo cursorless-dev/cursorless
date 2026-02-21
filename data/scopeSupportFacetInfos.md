@@ -87,7 +87,7 @@
 ### class
 
 - `class` A class/struct in an object-oriented language
-- `class.iteration.block` Iteration scope for classes: statement blocks (body of functions/if-statements/for-loops/etc).
+- `class.iteration.class` Iteration scope for classes: class bodies.
 - `class.iteration.document` Iteration scope for classes: the entire document including leading and trailing empty lines.
 
 ### collectionItem

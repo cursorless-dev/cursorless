@@ -72,7 +72,7 @@ export const scopeSupportFacets = [
 
   "class",
   "class.iteration.document",
-  "class.iteration.block",
+  "class.iteration.class",
 
   "anonymousFunction",
 

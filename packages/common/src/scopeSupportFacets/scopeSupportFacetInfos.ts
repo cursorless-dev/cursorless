@@ -229,7 +229,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "class",
   },
   "class.iteration.document": documentIter("class", "classes"),
-  "class.iteration.block": blockIter("class", "classes"),
+  "class.iteration.class": classIter("class", "classes"),
 
   namedFunction: {
     description: "A named function declaration",

@@ -12,7 +12,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
 
   class: supported,
   "class.iteration.document": supported,
-  "class.iteration.block": supported,
+  "class.iteration.class": supported,
 
   "comment.line": supported,
   "comment.block": supported,

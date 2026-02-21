@@ -57,7 +57,7 @@ export const scmScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Class
   class: notApplicable,
-  "class.iteration.block": notApplicable,
+  "class.iteration.class": notApplicable,
   "class.iteration.document": notApplicable,
   "name.class": notApplicable,
   "name.field.class": notApplicable,
