@@ -253,6 +253,8 @@ export const scopeSupportFacets = [
   "value.argument.formal.method.iteration",
   "value.argument.formal.constructor",
   "value.argument.formal.constructor.iteration",
+  "value.argument.formal.lambda",
+  "value.argument.formal.lambda.iteration",
   "value.iteration.block",
   "value.iteration.class",
   "value.iteration.enum",

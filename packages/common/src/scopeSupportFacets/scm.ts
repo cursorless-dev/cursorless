@@ -157,6 +157,8 @@ export const scmScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal.lambda.iteration": notApplicable,
   "type.argument.formal.lambda": notApplicable,
   "type.argument.formal.lambda.iteration": notApplicable,
+  "value.argument.formal.lambda": notApplicable,
+  "value.argument.formal.lambda.iteration": notApplicable,
   "value.return.lambda": notApplicable,
   "interior.lambda": notApplicable,
 

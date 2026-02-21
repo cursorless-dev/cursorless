@@ -420,11 +420,13 @@
 
 - `value.argument.actual` The value of a (keyword) argument in a function call
 - `value.argument.actual.iteration` Iteration scope for values of (keyword) arguments in a function call: the arguments list.
-- `value.argument.formal` The value of a (keyword) argument in a function declaration
-- `value.argument.formal.constructor` The value of a parameter in a constructor declaration
+- `value.argument.formal` The (default) value of a argument in a function declaration
+- `value.argument.formal.constructor` The (default) value of a parameter in a constructor declaration
 - `value.argument.formal.constructor.iteration` Iteration scope for values of formal parameters in a constructor declaration: the parameters list.
 - `value.argument.formal.iteration` Iteration scope for values of formal parameters in a function declaration: the parameters list.
-- `value.argument.formal.method` The value of a parameter in a class method declaration
+- `value.argument.formal.lambda` The (default) value of a parameter in a lambda declaration
+- `value.argument.formal.lambda.iteration` Iteration scope for values of formal parameters in a lambda declaration: the parameters list.
+- `value.argument.formal.method` The (default) value of a parameter in a method declaration
 - `value.argument.formal.method.iteration` Iteration scope for values of formal parameters in a method declaration: the parameters list.
 - `value.assignment` Value (RHS) of an assignment
 - `value.assignment.compound` Value (RHS) of a compound assignment, eg +=/-=

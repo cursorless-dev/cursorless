@@ -185,13 +185,6 @@
   (with_clause) @name
 ) @name.domain
 
-;;!! lambda str: len(str) > 0
-;;!              ^^^^^^^^^^^^
-;;!  ------------------------
-(lambda
-  body: (_) @value
-) @_.domain
-
 ;; value:
 ;;!! for aaa in bbb:
 ;;!             ^^^
@@ -616,21 +609,28 @@
   (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
-;;!! lambda _: pass
-;;!  ^^^^^^^^^^^^^^
-(lambda) @anonymousFunction
+;;!! lambda: 0
+;;!  ^^^^^^^^^
+;;!          ^
+(lambda
+  body: (_) @value
+) @anonymousFunction @value.domain
 
 ;;!! lambda aaa, bbb: pass
 ;;!         ^^^^^^^^
 (lambda
-  (lambda_parameters) @argumentList @argumentOrParameter.iteration @name.iteration
+  (lambda_parameters) @argumentList @argumentOrParameter.iteration
   (#insertion-delimiter! @argumentList ", ")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;;!! lambda aaa, bbb: pass
+;;!         ^^^^^^^^
+(lambda_parameters) @name.iteration @value.iteration
+
+;;!! lambda aaa, bbb: pass
 ;;!         ^^^  ^^^
 (lambda_parameters
-  (_) @name
+  (identifier) @name
 )
 
 ;;!! lambda: pass

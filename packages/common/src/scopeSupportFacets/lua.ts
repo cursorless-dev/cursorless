@@ -282,6 +282,8 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.argument.formal.iteration": notApplicable,
   "value.argument.formal.method": notApplicable,
   "value.argument.formal.method.iteration": notApplicable,
+  "value.argument.formal.lambda": notApplicable,
+  "value.argument.formal.lambda.iteration": notApplicable,
   "value.switch": notApplicable,
   "value.field.class": notApplicable,
   "value.field.enum": notApplicable,

@@ -320,6 +320,10 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "name.assignment.destructuring": notApplicable,
   "value.assignment.destructuring": notApplicable,
 
+  // Default argument value in lambdas
+  "value.argument.formal.lambda": notApplicable,
+  "value.argument.formal.lambda.iteration": notApplicable,
+
   // Miscellaneous
   environment: notApplicable,
   regularExpression: notApplicable,
