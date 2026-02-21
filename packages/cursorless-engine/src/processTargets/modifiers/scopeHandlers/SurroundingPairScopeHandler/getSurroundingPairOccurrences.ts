@@ -6,10 +6,15 @@ import type {
   SurroundingPairOccurrence,
 } from "./types";
 
-interface ResolvedDelimiterOccurrence {
+interface OpeningDelimiterStackOccurrence {
   delimiterInfo: IndividualDelimiter;
   range: Range;
   textFragmentRange: Range | undefined;
+}
+
+interface OpeningDelimiterMatch {
+  delimiterInfo: IndividualDelimiter;
+  openingDelimiterIndex: number;
 }
 
 /**
@@ -23,7 +28,7 @@ export function getSurroundingPairOccurrences(
   delimiterOccurrences: DelimiterOccurrence[],
 ): SurroundingPairOccurrence[] {
   const result: SurroundingPairOccurrence[] = [];
-  const openingDelimitersStack: ResolvedDelimiterOccurrence[] = [];
+  const openingDelimitersStack: OpeningDelimiterStackOccurrence[] = [];
 
   for (const occurrence of delimiterOccurrences) {
     // One token can represent multiple delimiters (eg ")" could close
@@ -34,20 +39,7 @@ export function getSurroundingPairOccurrences(
       openingDelimitersStack,
     );
 
-    if (closestOpeningDelimiterMatch != null) {
-      const { delimiterInfo, openingDelimiterIndex } =
-        closestOpeningDelimiterMatch;
-      const openingDelimiter = openingDelimitersStack[openingDelimiterIndex];
-
-      // Pop stack up to and including the opening delimiter
-      openingDelimitersStack.length = openingDelimiterIndex;
-
-      result.push({
-        delimiterName: delimiterInfo.delimiterName,
-        openingDelimiterRange: openingDelimiter.range,
-        closingDelimiterRange: occurrence.range,
-      });
-    } else {
+    if (closestOpeningDelimiterMatch == null) {
       const openingDelimiterInfo = occurrence.delimiterInfos.find(
         ({ side }) => side === "left" || side === "unknown",
       );
@@ -63,26 +55,37 @@ export function getSurroundingPairOccurrences(
         range: occurrence.range,
         textFragmentRange: occurrence.textFragmentRange,
       });
+      continue;
     }
+
+    const { delimiterInfo, openingDelimiterIndex } =
+      closestOpeningDelimiterMatch;
+    const openingDelimiter = openingDelimitersStack[openingDelimiterIndex];
+
+    // Pop stack up to and including the opening delimiter
+    openingDelimitersStack.length = openingDelimiterIndex;
+
+    result.push({
+      delimiterName: delimiterInfo.delimiterName,
+      openingDelimiterRange: openingDelimiter.range,
+      closingDelimiterRange: occurrence.range,
+    });
   }
 
   return result;
 }
 
+// When multiple interpretations are possible, choose the one whose opener is
+// closest on the stack, which preserves normal nesting behavior.
 function getClosestOpeningDelimiterMatch(
   occurrence: DelimiterOccurrence,
-  openingDelimitersStack: ResolvedDelimiterOccurrence[],
-):
-  | { delimiterInfo: IndividualDelimiter; openingDelimiterIndex: number }
-  | undefined {
-  // When multiple interpretations are possible, choose the one whose opener is
-  // closest on the stack, which preserves normal nesting behavior.
-  return occurrence.delimiterInfos.reduce<
-    | { delimiterInfo: IndividualDelimiter; openingDelimiterIndex: number }
-    | undefined
-  >((closestMatch, delimiterInfo) => {
+  openingDelimitersStack: OpeningDelimiterStackOccurrence[],
+): OpeningDelimiterMatch | undefined {
+  let closestMatch: OpeningDelimiterMatch | undefined;
+
+  for (const delimiterInfo of occurrence.delimiterInfos) {
     if (delimiterInfo.side === "left") {
-      return closestMatch;
+      continue;
     }
 
     const openingDelimiterIndex = findLastIndex(
@@ -93,18 +96,21 @@ function getClosestOpeningDelimiterMatch(
         isValidLine(delimiterInfo.isSingleLine, o.range, occurrence.range),
     );
 
-    // Keep the existing candidate unless this interpretation found a valid
-    // opener that is strictly closer (larger stack index).
-    if (
-      openingDelimiterIndex === -1 ||
-      (closestMatch != null &&
-        closestMatch.openingDelimiterIndex >= openingDelimiterIndex)
-    ) {
-      return closestMatch;
+    // No opening delimiter found for this interpretation, so skip it
+    if (openingDelimiterIndex === -1) {
+      continue;
     }
 
-    return { delimiterInfo, openingDelimiterIndex };
-  }, undefined);
+    // If this is the closest opening delimiter so far, remember it
+    if (
+      closestMatch == null ||
+      openingDelimiterIndex > closestMatch.openingDelimiterIndex
+    ) {
+      closestMatch = { delimiterInfo, openingDelimiterIndex };
+    }
+  }
+
+  return closestMatch;
 }
 
 function isSameTextFragment(
