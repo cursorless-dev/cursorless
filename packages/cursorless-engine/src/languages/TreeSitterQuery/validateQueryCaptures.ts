@@ -1,76 +1,6 @@
-import {
-  pseudoScopes,
-  showError,
-  simpleScopeTypeTypes,
-} from "@cursorless/common";
+import { showError } from "@cursorless/common";
 import { ide } from "../../singletons/ide.singleton";
-
-const wildcard = "_";
-const captureNames = [
-  ...simpleScopeTypeTypes.filter((s) => !pseudoScopes.has(s)),
-  wildcard,
-  "interior",
-];
-
-const positionRelationships = ["prefix", "leading", "trailing"];
-const positionSuffixes = [
-  "startOf",
-  "endOf",
-  "start.startOf",
-  "start.endOf",
-  "end.startOf",
-  "end.endOf",
-];
-
-const rangeRelationships = [
-  "domain",
-  "removal",
-  "iteration",
-  "iteration.domain",
-];
-const rangeSuffixes = [
-  "start",
-  "end",
-  "start.startOf",
-  "start.endOf",
-  "end.startOf",
-  "end.endOf",
-];
-
-const allowedCaptures = new Set<string>();
-
-for (const captureName of captureNames) {
-  // Wildcard is not allowed by itself without a relationship
-  if (captureName !== wildcard) {
-    // eg: statement
-    allowedCaptures.add(captureName);
-
-    // eg: statement.start | statement.start.endOf
-    for (const suffix of rangeSuffixes) {
-      allowedCaptures.add(`${captureName}.${suffix}`);
-    }
-  }
-
-  for (const relationship of positionRelationships) {
-    // eg: statement.leading
-    allowedCaptures.add(`${captureName}.${relationship}`);
-
-    for (const suffix of positionSuffixes) {
-      // eg: statement.leading.endOf
-      allowedCaptures.add(`${captureName}.${relationship}.${suffix}`);
-    }
-  }
-
-  for (const relationship of rangeRelationships) {
-    // eg: statement.domain
-    allowedCaptures.add(`${captureName}.${relationship}`);
-
-    for (const suffix of rangeSuffixes) {
-      // eg: statement.domain.start | statement.domain.start.endOf
-      allowedCaptures.add(`${captureName}.${relationship}.${suffix}`);
-    }
-  }
-}
+import { isCaptureAllowed } from "./captureNames";
 
 // Not a comment. ie line is not starting with `;;`
 // Not a string.
@@ -94,7 +24,7 @@ export function validateQueryCaptures(file: string, rawQuery: string): void {
       continue;
     }
 
-    if (!allowedCaptures.has(captureName)) {
+    if (!isCaptureAllowed(captureName)) {
       const lineNumber = match.input.slice(0, match.index).split("\n").length;
       errors.push(`${file}(${lineNumber}) invalid capture '@${captureName}'.`);
     }

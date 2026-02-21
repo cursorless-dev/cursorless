@@ -1,10 +1,10 @@
 import type { Position, TextDocument, TreeSitter } from "@cursorless/common";
 import type * as treeSitter from "web-tree-sitter";
 import { ide } from "../../singletons/ide.singleton";
+import { getNormalizedCaptureName } from "./captureNames";
 import { checkCaptureStartEnd } from "./checkCaptureStartEnd";
 import { getNodeRange } from "./getNodeRange";
 import { isContainedInErrorNode } from "./isContainedInErrorNode";
-import { normalizeCaptureName } from "./normalizeCaptureName";
 import { parsePredicatesWithErrorHandling } from "./parsePredicatesWithErrorHandling";
 import { positionToPoint } from "./positionToPoint";
 import type {
@@ -55,7 +55,7 @@ export class TreeSitterQuery {
 
   hasCapture(name: string): boolean {
     return this.query.captureNames.some(
-      (n) => normalizeCaptureName(n) === name,
+      (n) => getNormalizedCaptureName(n) === name,
     );
   }
 
@@ -91,7 +91,7 @@ export class TreeSitterQuery {
       if (
         captureNameFilter != null &&
         !match.captures.some((capture) =>
-          captureNameFilter.has(normalizeCaptureName(capture.name)),
+          captureNameFilter.has(getNormalizedCaptureName(capture.name)),
         )
       ) {
         continue;
@@ -165,7 +165,7 @@ export class TreeSitterQuery {
     // name, for which we'd return a capture with name `foo`.
 
     for (const capture of match.captures) {
-      const name = normalizeCaptureName(capture.name);
+      const name = getNormalizedCaptureName(capture.name);
       if (captureNameFilter != null && !captureNameFilter.has(name)) {
         continue;
       }
