@@ -1,9 +1,6 @@
 switch(foo,
     a = bar,
-    b = {
-        baz
-    },
-    "_"
+    "_" = bar
 )
 ---
 
@@ -19,16 +16,13 @@ switch(foo,
 [#1 Insertion delimiter] = " "
 
 
-[#2 Content] = 3:8-3:11
-          >---<
-3|         baz
+[#2 Content] = 2:10-2:13
+            >---<
+2|     "_" = bar
 
 [#2 Removal] =
-[#2 Domain] = 2:9-4:4
-           >
-2|     b = {
-3|         baz
-4|     },
-   ----<
+[#2 Domain] = 2:9-2:13
+           >----<
+2|     "_" = bar
 
 [#2 Insertion delimiter] = " "

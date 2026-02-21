@@ -247,15 +247,15 @@
   "->"
 ) @condition.domain
 
-;;!! 0 -> break
-;;!      ^^^^^^
+;;!! 0 -> 0
+;;!      ^^
 (when_entry
   "->" @interior.start.endOf
   (control_structure_body
     .
     (_)
   ) @interior.end.endOf
-) @interior.domain
+)
 
 ;;!! while (true) {}
 ;;!         ^^^^

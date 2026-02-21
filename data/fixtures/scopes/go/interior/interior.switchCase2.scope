@@ -1,4 +1,4 @@
-switch (foo) {
+switch foo {
     case 0: { }
     default: { }
 }
@@ -11,9 +11,9 @@ switch (foo) {
    ----------------<
 
 [#1 Removal] =
-[#1 Domain] = 0:14-3:0
-                >
-0| switch (foo) {
+[#1 Domain] = 0:12-3:0
+              >
+0| switch foo {
 1|     case 0: { }
 2|     default: { }
 3| }
