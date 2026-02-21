@@ -82,6 +82,7 @@ export class TreeSitterQuery {
     document: TextDocument,
     start?: Position,
     end?: Position,
+    captureNameFilter?: Set<string>,
   ): QueryMatch[] {
     const matches = this.getTreeMatches(document, start, end);
     const results: QueryMatch[] = [];
