@@ -1,18 +1,18 @@
-fun foo(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
+fun foo(aaa: Int, bbb: Int = 0) {}
 ---
 
 [#1 Content] =
 [#1 Removal] = 0:4-0:7
       >---<
-0| fun foo(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
+0| fun foo(aaa: Int, bbb: Int = 0) {}
 
 [#1 Leading delimiter] = 0:3-0:4
      >-<
-0| fun foo(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
+0| fun foo(aaa: Int, bbb: Int = 0) {}
 
-[#1 Domain] = 0:0-0:72
-  >------------------------------------------------------------------------<
-0| fun foo(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
+[#1 Domain] = 0:0-0:34
+  >----------------------------------<
+0| fun foo(aaa: Int, bbb: Int = 0) {}
 
 [#1 Insertion delimiter] = " "
 
@@ -20,67 +20,29 @@ fun foo(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
 [#2 Content] =
 [#2 Removal] = 0:8-0:11
           >---<
-0| fun foo(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
+0| fun foo(aaa: Int, bbb: Int = 0) {}
 
 [#2 Domain] = 0:8-0:16
           >--------<
-0| fun foo(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
+0| fun foo(aaa: Int, bbb: Int = 0) {}
 
 [#2 Insertion delimiter] = " "
 
 
-[#3 Content] = 0:25-0:28
-                           >---<
-0| fun foo(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
+[#3 Content] = 0:18-0:21
+                    >---<
+0| fun foo(aaa: Int, bbb: Int = 0) {}
 
-[#3 Removal] = 0:24-0:28
-                          >----<
-0| fun foo(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
+[#3 Removal] = 0:17-0:21
+                   >----<
+0| fun foo(aaa: Int, bbb: Int = 0) {}
 
-[#3 Leading delimiter] = 0:24-0:25
-                          >-<
-0| fun foo(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
+[#3 Leading delimiter] = 0:17-0:18
+                   >-<
+0| fun foo(aaa: Int, bbb: Int = 0) {}
 
-[#3 Domain] = 0:18-0:33
-                    >---------------<
-0| fun foo(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
+[#3 Domain] = 0:18-0:30
+                    >------------<
+0| fun foo(aaa: Int, bbb: Int = 0) {}
 
 [#3 Insertion delimiter] = " "
-
-
-[#4 Content] = 0:35-0:38
-                                     >---<
-0| fun foo(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
-
-[#4 Removal] = 0:34-0:38
-                                    >----<
-0| fun foo(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
-
-[#4 Leading delimiter] = 0:34-0:35
-                                    >-<
-0| fun foo(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
-
-[#4 Domain] = 0:35-0:47
-                                     >------------<
-0| fun foo(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
-
-[#4 Insertion delimiter] = " "
-
-
-[#5 Content] = 0:56-0:59
-                                                          >---<
-0| fun foo(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
-
-[#5 Removal] = 0:55-0:59
-                                                         >----<
-0| fun foo(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
-
-[#5 Leading delimiter] = 0:55-0:56
-                                                         >-<
-0| fun foo(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
-
-[#5 Domain] = 0:49-0:68
-                                                   >-------------------<
-0| fun foo(aaa: Int, vararg bbb: Int, ccc: Int = 0, vararg ddd: Int = 1) {}
-
-[#5 Insertion delimiter] = " "

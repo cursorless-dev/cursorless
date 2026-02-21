@@ -1,26 +1,33 @@
-(aaa, bbb) => {}
+(aaa, bbb = 0) => {}
 ---
 
 [#1 Content] =
 [#1 Removal] =
 [#1 Domain] = 0:1-0:4
    >---<
-0| (aaa, bbb) => {}
+0| (aaa, bbb = 0) => {}
 
 [#1 Insertion delimiter] = " "
 
 
-[#2 Content] =
-[#2 Domain] = 0:6-0:9
+[#2 Content] = 0:6-0:9
         >---<
-0| (aaa, bbb) => {}
+0| (aaa, bbb = 0) => {}
 
-[#2 Removal] = 0:5-0:9
-       >----<
-0| (aaa, bbb) => {}
+[#2 Removal] = 0:6-0:10
+        >----<
+0| (aaa, bbb = 0) => {}
 
 [#2 Leading delimiter] = 0:5-0:6
        >-<
-0| (aaa, bbb) => {}
+0| (aaa, bbb = 0) => {}
+
+[#2 Trailing delimiter] = 0:9-0:10
+           >-<
+0| (aaa, bbb = 0) => {}
+
+[#2 Domain] = 0:6-0:13
+        >-------<
+0| (aaa, bbb = 0) => {}
 
 [#2 Insertion delimiter] = " "
