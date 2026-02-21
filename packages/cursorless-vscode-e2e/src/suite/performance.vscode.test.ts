@@ -15,9 +15,15 @@ import { isMac } from "@cursorless/node-common";
 const testData = generateTestData(100);
 const multiplier = calculateMultiplier();
 const smallThresholdMs = 50 * multiplier;
+const midThresholdMs = 200 * multiplier;
 const largeThresholdMs = 300 * multiplier;
 const xlThresholdMs = 400 * multiplier;
-const thresholds = [smallThresholdMs, largeThresholdMs, xlThresholdMs];
+const thresholds = [
+  smallThresholdMs,
+  midThresholdMs,
+  largeThresholdMs,
+  xlThresholdMs,
+];
 
 type ModifierType = "containing" | "previous" | "every";
 
@@ -73,19 +79,15 @@ suite(`Performance ${thresholds.join("/")} ms`, async function () {
     ["value", largeThresholdMs, "previous"],
     // Text based, but utilizes surrounding pair
     ["boundedParagraph", largeThresholdMs],
-    ["boundedNonWhitespaceSequence", largeThresholdMs],
+    ["boundedNonWhitespaceSequence", midThresholdMs],
     ["collectionItem", largeThresholdMs],
     ["collectionItem", largeThresholdMs, "every"],
     ["collectionItem", largeThresholdMs, "previous"],
     // Surrounding pair
-    [{ type: "surroundingPair", delimiter: "curlyBrackets" }, largeThresholdMs],
-    [{ type: "surroundingPair", delimiter: "any" }, largeThresholdMs],
-    [{ type: "surroundingPair", delimiter: "any" }, largeThresholdMs, "every"],
-    [
-      { type: "surroundingPair", delimiter: "any" },
-      largeThresholdMs,
-      "previous",
-    ],
+    [{ type: "surroundingPair", delimiter: "curlyBrackets" }, midThresholdMs],
+    [{ type: "surroundingPair", delimiter: "any" }, midThresholdMs],
+    [{ type: "surroundingPair", delimiter: "any" }, midThresholdMs, "every"],
+    [{ type: "surroundingPair", delimiter: "any" }, midThresholdMs, "previous"],
   ];
 
   for (const [scope, threshold, modifierType] of fixtures) {
@@ -111,7 +113,7 @@ suite(`Performance ${thresholds.join("/")} ms`, async function () {
   test(
     "Select collectionItem with multiple cursors",
     asyncSafety(() =>
-      selectWithMultipleCursors(largeThresholdMs, {
+      selectWithMultipleCursors(midThresholdMs, {
         type: "collectionItem",
       }),
     ),

@@ -8,6 +8,7 @@ export class TreeSitterQueryCache {
   private startPosition: Position | undefined;
   private endPosition: Position | undefined;
   private matches: QueryMatch[] = [];
+  private captureNames: Set<string> | undefined;
 
   clear() {
     this.documentUri = "";
@@ -15,6 +16,7 @@ export class TreeSitterQueryCache {
     this.documentLanguageId = "";
     this.startPosition = undefined;
     this.endPosition = undefined;
+    this.captureNames = undefined;
     this.matches = [];
   }
 
@@ -22,13 +24,15 @@ export class TreeSitterQueryCache {
     document: TextDocument,
     startPosition: Position | undefined,
     endPosition: Position | undefined,
+    captureNames: Set<string> | undefined,
   ) {
     return (
       this.documentVersion === document.version &&
       this.documentUri === document.uri.toString() &&
       this.documentLanguageId === document.languageId &&
       positionsEqual(this.startPosition, startPosition) &&
-      positionsEqual(this.endPosition, endPosition)
+      positionsEqual(this.endPosition, endPosition) &&
+      setEqual(this.captureNames, captureNames)
     );
   }
 
@@ -36,6 +40,7 @@ export class TreeSitterQueryCache {
     document: TextDocument,
     startPosition: Position | undefined,
     endPosition: Position | undefined,
+    captureNames: Set<string> | undefined,
     matches: QueryMatch[],
   ) {
     this.documentVersion = document.version;
@@ -43,6 +48,7 @@ export class TreeSitterQueryCache {
     this.documentLanguageId = document.languageId;
     this.startPosition = startPosition;
     this.endPosition = endPosition;
+    this.captureNames = captureNames;
     this.matches = matches;
   }
 
@@ -56,6 +62,21 @@ function positionsEqual(a: Position | undefined, b: Position | undefined) {
     return a === b;
   }
   return a.isEqual(b);
+}
+
+function setEqual(a: Set<string> | undefined, b: Set<string> | undefined) {
+  if (a == null || b == null) {
+    return a === b;
+  }
+  if (a.size !== b.size) {
+    return false;
+  }
+  for (const item of a) {
+    if (!b.has(item)) {
+      return false;
+    }
+  }
+  return true;
 }
 
 export const treeSitterQueryCache = new TreeSitterQueryCache();

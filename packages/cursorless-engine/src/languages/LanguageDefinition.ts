@@ -90,19 +90,19 @@ export class LanguageDefinition {
    * @param captureNames Optional capture names to include
    * @returns A map of captures in the document
    */
-  getCapturesMap(
+  getCapturesMap<T extends SimpleScopeTypeType>(
     document: TextDocument,
-    captureNames?: readonly SimpleScopeTypeType[],
+    captureNames: readonly T[],
   ) {
-    const matches =
-      captureNames == null
-        ? this.query.matches(document)
-        : this.query.matchesForCaptures(document, new Set(captureNames));
-    const result: Partial<Record<SimpleScopeTypeType, QueryCapture[]>> = {};
+    const matches = this.query.matchesForCaptures(
+      document,
+      new Set(captureNames),
+    );
+    const result: Partial<Record<T, QueryCapture[]>> = {};
 
     for (const match of matches) {
       for (const capture of match.captures) {
-        const name = capture.name as SimpleScopeTypeType;
+        const name = capture.name as T;
         if (result[name] == null) {
           result[name] = [];
         }

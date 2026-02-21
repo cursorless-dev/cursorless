@@ -64,25 +64,47 @@ export class TreeSitterQuery {
     start?: Position,
     end?: Position,
   ): QueryMatch[] {
-    if (!treeSitterQueryCache.isValid(document, start, end)) {
-      const matches = this.getAllMatches(document, start, end);
-      treeSitterQueryCache.update(document, start, end, matches);
-    }
-    return treeSitterQueryCache.get();
+    return this.getMatches(document, start, end, undefined);
   }
 
   matchesForCaptures(
     document: TextDocument,
     captureNames: Set<string>,
   ): QueryMatch[] {
-    return this.getAllMatches(document, undefined, undefined, captureNames);
+    return this.getMatches(document, undefined, undefined, captureNames);
   }
 
-  private getAllMatches(
+  private getMatches(
     document: TextDocument,
-    start?: Position,
-    end?: Position,
-    captureNameFilter?: Set<string>,
+    start: Position | undefined,
+    end: Position | undefined,
+    captureNameFilter: Set<string> | undefined,
+  ): QueryMatch[] {
+    if (
+      !treeSitterQueryCache.isValid(document, start, end, captureNameFilter)
+    ) {
+      const matches = this.calculateMatches(
+        document,
+        start,
+        end,
+        captureNameFilter,
+      );
+      treeSitterQueryCache.update(
+        document,
+        start,
+        end,
+        captureNameFilter,
+        matches,
+      );
+    }
+    return treeSitterQueryCache.get();
+  }
+
+  private calculateMatches(
+    document: TextDocument,
+    start: Position | undefined,
+    end: Position | undefined,
+    captureNameFilter: Set<string> | undefined,
   ): QueryMatch[] {
     const matches = this.getTreeMatches(document, start, end);
     const results: QueryMatch[] = [];
