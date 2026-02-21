@@ -71,6 +71,13 @@ export class TreeSitterQuery {
     return treeSitterQueryCache.get();
   }
 
+  matchesForCaptures(
+    document: TextDocument,
+    captureNames: Set<string>,
+  ): QueryMatch[] {
+    return this.getAllMatches(document, undefined, undefined, captureNames);
+  }
+
   private getAllMatches(
     document: TextDocument,
     start?: Position,
@@ -80,13 +87,23 @@ export class TreeSitterQuery {
     const results: QueryMatch[] = [];
 
     for (const match of matches) {
+      if (
+        captureNameFilter != null &&
+        !match.captures.some((capture) =>
+          captureNameFilter.has(normalizeCaptureName(capture.name)),
+        )
+      ) {
+        continue;
+      }
       const mutableMatch = this.createMutableQueryMatch(document, match);
 
       if (!this.runPredicates(mutableMatch)) {
         continue;
       }
-
-      results.push(this.createQueryMatch(mutableMatch));
+      const queryMatch = this.createQueryMatch(mutableMatch, captureNameFilter);
+      if (queryMatch != null) {
+        results.push(queryMatch);
+      }
     }
 
     return results;
@@ -131,7 +148,10 @@ export class TreeSitterQuery {
     return true;
   }
 
-  private createQueryMatch(match: MutableQueryMatch): QueryMatch {
+  private createQueryMatch(
+    match: MutableQueryMatch,
+    captureNameFilter?: Set<string>,
+  ): QueryMatch | undefined {
     const result: MutableQueryCapture[] = [];
     const map = new Map<
       string,
@@ -145,6 +165,9 @@ export class TreeSitterQuery {
 
     for (const capture of match.captures) {
       const name = normalizeCaptureName(capture.name);
+      if (captureNameFilter != null && !captureNameFilter.has(name)) {
+        continue;
+      }
       const range = getStartOfEndOfRange(capture);
       const existing = map.get(name);
 
@@ -166,6 +189,10 @@ export class TreeSitterQuery {
           existing.acc.insertionDelimiter ?? capture.insertionDelimiter;
         existing.captures.push(capture);
       }
+    }
+
+    if (result.length === 0) {
+      return undefined;
     }
 
     if (this.shouldCheckCaptures) {
