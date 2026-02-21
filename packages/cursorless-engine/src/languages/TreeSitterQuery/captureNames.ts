@@ -82,17 +82,5 @@ export function isCaptureAllowed(captureName: string): boolean {
 }
 
 export function getNormalizedCaptureName(captureName: string): string {
-  const normalizedCaptureName = normalizedCaptureNamesMap.get(captureName);
-
-  if (normalizedCaptureName != null) {
-    return normalizedCaptureName;
-  }
-
-  if (captureName.startsWith("_")) {
-    return captureName;
-  }
-
-  throw new Error(
-    `No normalized name for unknown capture name: ${captureName}`,
-  );
+  return normalizedCaptureNamesMap.get(captureName) ?? captureName;
 }
