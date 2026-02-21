@@ -66,7 +66,7 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.switchCase.iteration": supported,
 
   class: supported,
-  "class.iteration.block": supported,
+  "class.iteration.class": supported,
   "class.iteration.document": supported,
 
   "comment.block": supported,
@@ -327,6 +327,10 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.assignment.destructuring": notApplicable,
   "name.assignment.destructuring": notApplicable,
   "value.assignment.destructuring": notApplicable,
+
+  // Default argument value in lambdas
+  "value.argument.formal.lambda": notApplicable,
+  "value.argument.formal.lambda.iteration": notApplicable,
 
   // Miscellaneous
   pairDelimiter: notApplicable,

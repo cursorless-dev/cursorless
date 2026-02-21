@@ -12,7 +12,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
 
   class: supported,
   "class.iteration.document": supported,
-  "class.iteration.block": supported,
+  "class.iteration.class": supported,
 
   "comment.line": supported,
   "comment.block": supported,
@@ -84,12 +84,14 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "name.iteration.enum": supported,
   "name.iteration.document": supported,
 
-  "value.argument.formal.constructor": supported,
-  "value.argument.formal.constructor.iteration": supported,
+  "value.argument.formal": supported,
   "value.argument.formal.iteration": supported,
   "value.argument.formal.method": supported,
   "value.argument.formal.method.iteration": supported,
-  "value.argument.formal": supported,
+  "value.argument.formal.constructor": supported,
+  "value.argument.formal.constructor.iteration": supported,
+  "value.argument.formal.lambda": supported,
+  "value.argument.formal.lambda.iteration": supported,
   "value.field.class": supported,
   "value.field.enum": supported,
   "value.field.interface": supported,

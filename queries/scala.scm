@@ -384,10 +384,13 @@
   (case_block
     (case_clause
       "=>" @interior.start.endOf
-      body: (_) @interior.end.endOf
+      .
+      (_) @interior.end.endOf @_dummy
+      (_)? @interior.end.endOf
+      .
     )
   )
-  (#not-type? @interior.end.endOf block)
+  (#not-type? @_dummy block)
 )
 
 ;;!! try {}

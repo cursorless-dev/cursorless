@@ -1,28 +1,16 @@
 match value:
-    case 0: pass
+    pass
 ---
 
-[#1 Content] = 1:4-1:16
-      >------------<
-1|     case 0: pass
+[Content] = 1:4-1:8
+      >----<
+1|     pass
 
-[#1 Removal] =
-[#1 Domain] = 0:12-1:16
+[Removal] =
+[Domain] = 0:12-1:8
               >
 0| match value:
-1|     case 0: pass
-   ----------------<
+1|     pass
+   --------<
 
-[#1 Insertion delimiter] = " "
-
-
-[#2 Content] = 1:12-1:16
-              >----<
-1|     case 0: pass
-
-[#2 Removal] =
-[#2 Domain] = 1:11-1:16
-             >-----<
-1|     case 0: pass
-
-[#2 Insertion delimiter] = " "
+[Insertion delimiter] = " "

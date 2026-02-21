@@ -99,6 +99,8 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   "value.argument.actual.iteration": supported,
   "value.argument.formal": supported,
   "value.argument.formal.iteration": supported,
+  "value.argument.formal.lambda": supported,
+  "value.argument.formal.lambda.iteration": supported,
   "value.assignment": supported,
   "value.foreach": supported,
   "value.return": supported,
@@ -147,7 +149,7 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Class
   class: notApplicable,
-  "class.iteration.block": notApplicable,
+  "class.iteration.class": notApplicable,
   "class.iteration.document": notApplicable,
   "name.class": notApplicable,
   "name.field.class": notApplicable,
