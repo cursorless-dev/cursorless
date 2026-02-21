@@ -1,5 +1,6 @@
 import type { Range } from "@cursorless/common";
 import findLastIndex from "lodash-es/findLastIndex";
+import { DelimiterSide } from "./types";
 import type {
   DelimiterOccurrence,
   IndividualDelimiter,
@@ -41,7 +42,8 @@ export function getSurroundingPairOccurrences(
 
     if (closestOpeningDelimiterMatch == null) {
       const openingDelimiterInfo = occurrence.delimiterInfos.find(
-        ({ side }) => side === "left" || side === "unknown",
+        ({ side }) =>
+          side === DelimiterSide.left || side === DelimiterSide.unknown,
       );
 
       // Pure closing delimiters with no matching opener are ignored.
@@ -84,7 +86,7 @@ function getClosestOpeningDelimiterMatch(
   let closestMatch: OpeningDelimiterMatch | undefined;
 
   for (const delimiterInfo of occurrence.delimiterInfos) {
-    if (delimiterInfo.side === "left") {
+    if (delimiterInfo.side === DelimiterSide.left) {
       continue;
     }
 
