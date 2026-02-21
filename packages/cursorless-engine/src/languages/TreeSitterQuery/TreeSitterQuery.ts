@@ -106,16 +106,18 @@ export class TreeSitterQuery {
         // If there are pattern predicates, we need to include all captures when
         // creating the mutable match, since the predicates may depend on any of
         // the captures.
-        captureNameFilter != null && !hasPatternPredicates
-          ? captureNameFilter
-          : undefined,
+        !hasPatternPredicates ? captureNameFilter : undefined,
       );
 
       if (!this.runPredicates(mutableMatch)) {
         continue;
       }
 
-      const queryMatch = this.createQueryMatch(mutableMatch, captureNameFilter);
+      const queryMatch = this.createQueryMatch(
+        mutableMatch,
+        // We only need to filter here if we didn't filter in createMutableQueryMatch()
+        hasPatternPredicates ? captureNameFilter : undefined,
+      );
 
       if (queryMatch != null) {
         results.push(queryMatch);
