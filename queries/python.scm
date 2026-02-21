@@ -211,9 +211,16 @@
 ] @map
 
 [
+  ;;!! [aaa, bbb]
   (list)
+  ;;!! [aaa for i in bbb]
   (list_comprehension)
+  ;;!! {aaa, bbb}
   (set)
+  ;;!! {aaa for i in bbb}
+  (set_comprehension)
+  ;;!! (aaa, bbb)
+  (tuple)
 ] @list
 
 ;;!! def foo(): pass

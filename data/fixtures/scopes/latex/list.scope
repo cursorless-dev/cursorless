@@ -1,6 +1,6 @@
 \begin{itemize}
-  \item one
-  \item two
+  \item aaa
+  \item bbb
 \end{itemize}
 ---
 
@@ -9,8 +9,8 @@
 [Domain] = 0:0-3:13
   >---------------
 0| \begin{itemize}
-1|   \item one
-2|   \item two
+1|   \item aaa
+2|   \item bbb
 3| \end{itemize}
    -------------<
 
