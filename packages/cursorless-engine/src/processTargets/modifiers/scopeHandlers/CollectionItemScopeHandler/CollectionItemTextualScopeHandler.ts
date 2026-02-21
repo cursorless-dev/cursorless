@@ -1,10 +1,10 @@
-import {
-  type Direction,
-  type Position,
-  Range,
-  type ScopeType,
-  type TextEditor,
+import type {
+  Direction,
+  Position,
+  ScopeType,
+  TextEditor,
 } from "@cursorless/common";
+import { Range } from "@cursorless/common";
 import { shrinkRangeToFitContent } from "../../../../util/selectionUtils";
 import { BaseScopeHandler } from "../BaseScopeHandler";
 import { compareTargetScopes } from "../compareTargetScopes";
@@ -194,45 +194,68 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
       return;
     }
 
-    const trimmedRanges: Range[] = [];
-    let previousDelimiterEnd = iterationRange.start;
-
-    for (const delimiter of delimiters) {
-      trimmedRanges.push(
-        shrinkRangeToFitContent(
-          editor,
-          new Range(previousDelimiterEnd, delimiter.start),
-        ),
-      );
-      previousDelimiterEnd = delimiter.end;
-    }
-
-    trimmedRanges.push(
-      shrinkRangeToFitContent(
-        editor,
-        new Range(previousDelimiterEnd, iterationRange.end),
-      ),
+    const firstDelimiter = delimiters[0];
+    let previousRange: Range | undefined;
+    let currentRange = shrinkRangeToFitContent(
+      editor,
+      new Range(iterationRange.start, firstDelimiter.start),
     );
+    let previousDelimiterEnd = firstDelimiter.end;
 
-    for (let i = 0; i < trimmedRanges.length; ++i) {
-      // Handle trailing delimiter
-      if (
-        i === trimmedRanges.length - 1 &&
-        editor.document.getText(trimmedRanges[i]).trim() === ""
-      ) {
-        continue;
-      }
+    for (let i = 1; i < delimiters.length; ++i) {
+      const nextRange = shrinkRangeToFitContent(
+        editor,
+        new Range(previousDelimiterEnd, delimiters[i].start),
+      );
+
       scopes.push(
         createTargetScope(
           isEveryScope,
           editor,
           iterationRange,
-          trimmedRanges[i],
-          trimmedRanges[i - 1],
-          trimmedRanges[i + 1],
+          currentRange,
+          previousRange,
+          nextRange,
         ),
       );
+
+      previousRange = currentRange;
+      currentRange = nextRange;
+      previousDelimiterEnd = delimiters[i].end;
     }
+
+    const trailingRange = shrinkRangeToFitContent(
+      editor,
+      new Range(previousDelimiterEnd, iterationRange.end),
+    );
+
+    // Emit the item before the final delimiter, using the trailing range as
+    // nextRange so delimiter metadata remains correct.
+    scopes.push(
+      createTargetScope(
+        isEveryScope,
+        editor,
+        iterationRange,
+        currentRange,
+        previousRange,
+        trailingRange,
+      ),
+    );
+
+    // Handle trailing delimiter.
+    if (editor.document.getText(trailingRange).trim() === "") {
+      return;
+    }
+
+    scopes.push(
+      createTargetScope(
+        isEveryScope,
+        editor,
+        iterationRange,
+        trailingRange,
+        currentRange,
+      ),
+    );
   }
 }
 
