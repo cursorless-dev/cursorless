@@ -230,7 +230,7 @@ export interface SimpleScopeType {
   type: SimpleScopeTypeType;
 }
 
-export type ScopeTypeType = SimpleScopeTypeType | ScopeType["type"];
+export type ScopeTypeType = ScopeType["type"];
 
 export interface CustomRegexScopeType {
   type: "customRegex";
