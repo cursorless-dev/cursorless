@@ -1,7 +1,6 @@
 import type {
   Direction,
   Position,
-  Range,
   ScopeType,
   TextEditor,
 } from "@cursorless/common";
