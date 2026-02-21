@@ -61,8 +61,8 @@ export class TreeSitterQuery {
 
   matches(
     document: TextDocument,
-    start?: Position,
-    end?: Position,
+    start: Position,
+    end: Position,
   ): QueryMatch[] {
     return this.getMatches(document, start, end, undefined);
   }
