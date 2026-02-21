@@ -48,7 +48,7 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
     const cacheKey = "CollectionItemTextualScopeHandler_" + isEveryScope;
 
     if (!scopeHandlerCache.isValid(cacheKey, editor.document)) {
-      const scopes = this.getsScopes(editor, direction, isEveryScope);
+      const scopes = this.getScopes(editor, isEveryScope);
       scopeHandlerCache.update(cacheKey, editor.document, scopes);
     }
 
@@ -59,29 +59,72 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
     yield* scopes;
   }
 
-  private getsScopes(
-    editor: TextEditor,
-    direction: Direction,
-    isEveryScope: boolean,
-  ) {
-    const separatorRanges = getSeparatorOccurrences(editor.document);
+  private getScopes(editor: TextEditor, isEveryScope: boolean) {
     const interiorRanges = getInteriorRanges(
       this.scopeHandlerFactory,
       this.languageId,
       editor,
       "collectionBoundary",
     );
-    const interiorRangeFinder = new OneWayNestedRangeFinder(interiorRanges);
-    const stringRanges = getInteriorRanges(
-      this.scopeHandlerFactory,
-      this.languageId,
-      editor,
-      "string",
-    );
-    const stringRangeFinder = new OneWayRangeFinder(stringRanges);
     const scopes: TargetScope[] = [];
+
+    const usedInteriors = this.addSeparatorRanges(
+      editor,
+      isEveryScope,
+      interiorRanges,
+      scopes,
+    );
+
+    // Add interior ranges without a delimiter in them. eg: `[foo]`
+    for (const interior of interiorRanges) {
+      if (!usedInteriors.has(interior.range) && !interior.range.isEmpty) {
+        const range = shrinkRangeToFitContent(editor, interior.range);
+        if (!range.isEmpty) {
+          scopes.push(
+            createTargetScope(isEveryScope, editor, interior.range, range),
+          );
+        }
+      }
+    }
+
+    return scopes;
+  }
+
+  private addSeparatorRanges(
+    editor: TextEditor,
+    isEveryScope: boolean,
+    interiorRanges: { range: Range }[],
+    scopes: TargetScope[],
+  ): Set<Range> {
+    const separatorRanges = getSeparatorOccurrences(editor.document);
     const usedInteriors = new Set<Range>();
+
+    if (separatorRanges.length === 0) {
+      return usedInteriors;
+    }
+
     const iterationStatesStack: IterationState[] = [];
+    const interiorRangeFinder = new OneWayNestedRangeFinder(interiorRanges);
+    const stringRangeFinder = new OneWayRangeFinder(
+      getInteriorRanges(
+        this.scopeHandlerFactory,
+        this.languageId,
+        editor,
+        "string",
+      ),
+    );
+    let previousLine = -1;
+    let previousLineRange: Range | undefined;
+
+    const getLineRange = (line: number) => {
+      // Separators are processed in document order, so line numbers are
+      // monotonically increasing.
+      if (line !== previousLine || previousLineRange == null) {
+        previousLine = line;
+        previousLineRange = editor.document.lineAt(line).range;
+      }
+      return previousLineRange;
+    };
 
     for (const separator of separatorRanges) {
       // Separators in a string are not considered
@@ -109,8 +152,7 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
 
       // The containing iteration range is either the interior or the line containing the separator
       const containingIterationRange =
-        containingInteriorRange ??
-        editor.document.lineAt(separator.start.line).range;
+        containingInteriorRange ?? getLineRange(separator.start.line);
 
       // The current containing iteration range is the same as the previous one. Just append delimiter.
       if (
@@ -142,19 +184,7 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
       this.addScopes(scopes, state);
     }
 
-    // Add interior ranges without a delimiter in them. eg: `[foo]`
-    for (const interior of interiorRanges) {
-      if (!usedInteriors.has(interior.range) && !interior.range.isEmpty) {
-        const range = shrinkRangeToFitContent(editor, interior.range);
-        if (!range.isEmpty) {
-          scopes.push(
-            createTargetScope(isEveryScope, editor, interior.range, range),
-          );
-        }
-      }
-    }
-
-    return scopes;
+    return usedInteriors;
   }
 
   private addScopes(scopes: TargetScope[], state: IterationState) {
@@ -164,20 +194,24 @@ export class CollectionItemTextualScopeHandler extends BaseScopeHandler {
       return;
     }
 
-    const itemRanges: Range[] = [];
+    const trimmedRanges: Range[] = [];
+    let previousDelimiterEnd = iterationRange.start;
 
-    for (let i = 0; i < delimiters.length; ++i) {
-      const current = delimiters[i];
-
-      const previous = delimiters[i - 1]?.end ?? iterationRange.start;
-      itemRanges.push(new Range(previous, current.start));
+    for (const delimiter of delimiters) {
+      trimmedRanges.push(
+        shrinkRangeToFitContent(
+          editor,
+          new Range(previousDelimiterEnd, delimiter.start),
+        ),
+      );
+      previousDelimiterEnd = delimiter.end;
     }
 
-    const lastDelimiter = delimiters[delimiters.length - 1];
-    itemRanges.push(new Range(lastDelimiter.end, iterationRange.end));
-
-    const trimmedRanges = itemRanges.map((range) =>
-      shrinkRangeToFitContent(editor, range),
+    trimmedRanges.push(
+      shrinkRangeToFitContent(
+        editor,
+        new Range(previousDelimiterEnd, iterationRange.end),
+      ),
     );
 
     for (let i = 0; i < trimmedRanges.length; ++i) {
