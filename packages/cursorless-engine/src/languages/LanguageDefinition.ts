@@ -103,10 +103,7 @@ export class LanguageDefinition {
     for (const match of matches) {
       for (const capture of match.captures) {
         const name = capture.name as T;
-        if (result[name] == null) {
-          result[name] = [];
-        }
-        result[name]!.push(capture);
+        (result[name] ??= []).push(capture);
       }
     }
 
