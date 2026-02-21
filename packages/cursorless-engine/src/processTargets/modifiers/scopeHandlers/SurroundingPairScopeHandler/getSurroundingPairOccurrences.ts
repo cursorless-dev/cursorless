@@ -43,8 +43,16 @@ export function getSurroundingPairOccurrences(
 
       const openingDelimiter = openingDelimitersStack[openingDelimiterIndex];
 
-      // Pop stack up to and including the opening delimiter
-      openingDelimitersStack.length = openingDelimiterIndex;
+      if (side === "unknown") {
+        // For ambiguous delimiters (eg quotes), remove only the matched
+        // entry so that unrelated delimiter types pushed between the
+        // matched pair are preserved.  See #3109.
+        openingDelimitersStack.splice(openingDelimiterIndex, 1);
+      } else {
+        // For non-ambiguous delimiters (eg parentheses), truncate the
+        // stack to enforce proper nesting.
+        openingDelimitersStack.length = openingDelimiterIndex;
+      }
 
       result.push({
         delimiterName: delimiterName,
