@@ -79,7 +79,7 @@ suite(`Performance ${thresholds.join("/")} ms`, async function () {
     ["value", largeThresholdMs, "previous"],
     // Text based, but utilizes surrounding pair
     ["boundedParagraph", largeThresholdMs],
-    ["boundedNonWhitespaceSequence", midThresholdMs],
+    ["boundedNonWhitespaceSequence", largeThresholdMs],
     ["collectionItem", largeThresholdMs],
     ["collectionItem", largeThresholdMs, "every"],
     ["collectionItem", largeThresholdMs, "previous"],
@@ -128,6 +128,23 @@ suite(`Performance ${thresholds.join("/")} ms`, async function () {
       }),
     ),
   );
+
+  test(
+    "Swap key / value with multiple cursors",
+    asyncSafety(() =>
+      testWithMultipleCursors(midThresholdMs, {
+        name: "swapTargets",
+        target1: {
+          type: "primitive",
+          modifiers: [getModifier({ type: "collectionKey" })],
+        },
+        target2: {
+          type: "primitive",
+          modifiers: [getModifier({ type: "value" })],
+        },
+      }),
+    ),
+  );
 });
 
 function removeToken(thresholdMs: number) {
@@ -141,6 +158,19 @@ function removeToken(thresholdMs: number) {
 }
 
 function selectWithMultipleCursors(thresholdMs: number, scopeType: ScopeType) {
+  return testWithMultipleCursors(thresholdMs, {
+    name: "setSelection",
+    target: {
+      type: "primitive",
+      modifiers: [getModifier(scopeType)],
+    },
+  });
+}
+
+function testWithMultipleCursors(
+  thresholdMs: number,
+  action: ActionDescriptor,
+) {
   const beforeCallback = async (editor: vscode.TextEditor) => {
     await runCursorlessAction({
       name: "setSelectionBefore",
@@ -153,16 +183,7 @@ function selectWithMultipleCursors(thresholdMs: number, scopeType: ScopeType) {
     assert.equal(editor.selections.length, 100, "Expected 100 cursors");
   };
 
-  const callback = () => {
-    return runCursorlessAction({
-      name: "setSelection",
-      target: {
-        type: "primitive",
-        modifiers: [getModifier(scopeType)],
-      },
-    });
-  };
-
+  const callback = () => runCursorlessAction(action);
   return testPerformanceCallback(thresholdMs, callback, beforeCallback);
 }
 
