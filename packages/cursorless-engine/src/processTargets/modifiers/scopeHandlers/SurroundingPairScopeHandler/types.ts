@@ -38,9 +38,9 @@ export interface IndividualDelimiter {
  */
 export interface DelimiterOccurrence {
   /**
-   * Information about the delimiter itself
+   * Possible delimiter interpretations for this text occurrence
    */
-  delimiterInfo: IndividualDelimiter;
+  delimiterInfos: IndividualDelimiter[];
 
   /**
    * The range of the delimiter in the document

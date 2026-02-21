@@ -34,12 +34,12 @@ export function getDelimiterOccurrences(
     getSortedCaptures(capturesMap.textFragment),
   );
 
-  const delimiterTextToDelimiterInfoMap = Object.fromEntries(
-    individualDelimiters.map((individualDelimiter) => [
-      individualDelimiter.text,
-      individualDelimiter,
-    ]),
-  );
+  const delimiterTextToDelimiterInfoMap = individualDelimiters.reduce<
+    Record<string, IndividualDelimiter[]>
+  >((acc, individualDelimiter) => {
+    (acc[individualDelimiter.text] ??= []).push(individualDelimiter);
+    return acc;
+  }, {});
 
   const regexMatches = matchAllIterator(
     document.getText(),
@@ -64,7 +64,7 @@ export function getDelimiterOccurrences(
     }
 
     results.push({
-      delimiterInfo: delimiterTextToDelimiterInfoMap[text],
+      delimiterInfos: delimiterTextToDelimiterInfoMap[text],
       textFragmentRange: textFragments.getSmallestContaining(matchRange)?.range,
       range:
         ifNoErrors(pairDelimiters.getContaining(matchRange))?.range ??
