@@ -86,22 +86,49 @@ export class TreeSitterQuery {
   ): QueryMatch[] {
     const matches = this.getTreeMatches(document, start, end);
     const results: QueryMatch[] = [];
+    const patternContainsFilteredCapture = new Map<number, boolean>();
 
     for (const match of matches) {
-      if (
-        captureNameFilter != null &&
-        !match.captures.some((capture) =>
-          captureNameFilter.has(getNormalizedCaptureName(capture.name)),
-        )
-      ) {
-        continue;
+      if (captureNameFilter != null) {
+        let hasFilteredCapture = patternContainsFilteredCapture.get(
+          match.patternIndex,
+        );
+
+        if (hasFilteredCapture == null) {
+          hasFilteredCapture = match.captures.some((capture) =>
+            captureNameFilter.has(getNormalizedCaptureName(capture.name)),
+          );
+          patternContainsFilteredCapture.set(
+            match.patternIndex,
+            hasFilteredCapture,
+          );
+        }
+
+        if (!hasFilteredCapture) {
+          continue;
+        }
       }
-      const mutableMatch = this.createMutableQueryMatch(document, match);
+
+      const hasPatternPredicates =
+        this.patternPredicates[match.patternIndex].length > 0;
+
+      const mutableMatch = this.createMutableQueryMatch(
+        document,
+        match,
+        // If there are pattern predicates, we need to include all captures when
+        // creating the mutable match, since the predicates may depend on any of
+        // the captures.
+        captureNameFilter != null && !hasPatternPredicates
+          ? captureNameFilter
+          : undefined,
+      );
 
       if (!this.runPredicates(mutableMatch)) {
         continue;
       }
+
       const queryMatch = this.createQueryMatch(mutableMatch, captureNameFilter);
+
       if (queryMatch != null) {
         results.push(queryMatch);
       }
@@ -125,10 +152,19 @@ export class TreeSitterQuery {
   private createMutableQueryMatch(
     document: TextDocument,
     match: treeSitter.QueryMatch,
+    captureNameFilter?: Set<string>,
   ): MutableQueryMatch {
-    return {
-      patternIdx: match.patternIndex,
-      captures: match.captures.map(({ name, node }) => ({
+    const captures: MutableQueryCapture[] = [];
+
+    for (const { name, node } of match.captures) {
+      if (
+        captureNameFilter != null &&
+        !captureNameFilter.has(getNormalizedCaptureName(name))
+      ) {
+        continue;
+      }
+
+      captures.push({
         name,
         node,
         document,
@@ -136,7 +172,12 @@ export class TreeSitterQuery {
         insertionDelimiter: undefined,
         allowMultiple: false,
         hasError: () => isContainedInErrorNode(node),
-      })),
+      });
+    }
+
+    return {
+      patternIdx: match.patternIndex,
+      captures,
     };
   }
 
