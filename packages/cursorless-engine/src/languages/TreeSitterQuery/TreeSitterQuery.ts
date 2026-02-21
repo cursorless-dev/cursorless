@@ -86,27 +86,15 @@ export class TreeSitterQuery {
   ): QueryMatch[] {
     const matches = this.getTreeMatches(document, start, end);
     const results: QueryMatch[] = [];
-    const patternContainsFilteredCapture = new Map<number, boolean>();
 
     for (const match of matches) {
-      if (captureNameFilter != null) {
-        let hasFilteredCapture = patternContainsFilteredCapture.get(
-          match.patternIndex,
-        );
-
-        if (hasFilteredCapture == null) {
-          hasFilteredCapture = match.captures.some((capture) =>
-            captureNameFilter.has(getNormalizedCaptureName(capture.name)),
-          );
-          patternContainsFilteredCapture.set(
-            match.patternIndex,
-            hasFilteredCapture,
-          );
-        }
-
-        if (!hasFilteredCapture) {
-          continue;
-        }
+      if (
+        captureNameFilter != null &&
+        !match.captures.some((capture) =>
+          captureNameFilter.has(getNormalizedCaptureName(capture.name)),
+        )
+      ) {
+        continue;
       }
 
       const hasPatternPredicates =
