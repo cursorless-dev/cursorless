@@ -1,5 +1,5 @@
 class Foo {
-    constructor(aaa: Int, bbb: Int) {}
+    constructor(aaa: Int, bbb: Int = 0) {}
 }
 ---
 
@@ -7,7 +7,7 @@ class Foo {
 [#1 Domain] = 0:0-2:1
   >-----------
 0| class Foo {
-1|     constructor(aaa: Int, bbb: Int) {}
+1|     constructor(aaa: Int, bbb: Int = 0) {}
 2| }
    -<
 
@@ -16,12 +16,12 @@ class Foo {
 [#2 Domain] = 0:11-2:0
              >
 0| class Foo {
-1|     constructor(aaa: Int, bbb: Int) {}
+1|     constructor(aaa: Int, bbb: Int = 0) {}
 2| }
    <
 
 
 [#3 Content] =
-[#3 Domain] = 1:16-1:34
-                  >------------------<
-1|     constructor(aaa: Int, bbb: Int) {}
+[#3 Domain] = 1:16-1:38
+                  >----------------------<
+1|     constructor(aaa: Int, bbb: Int = 0) {}

@@ -1,10 +1,10 @@
-%w[foo bar baz]
+%w[aaa bbb]
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-0:15
-  >---------------<
-0| %w[foo bar baz]
+[Domain] = 0:0-0:11
+  >-----------<
+0| %w[aaa bbb]
 
 [Insertion delimiter] = " "

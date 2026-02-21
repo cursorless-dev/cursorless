@@ -1,5 +1,5 @@
 class Foo {
-    def bar(aaa: Int, bbb: Int) {}
+    def bar(aaa: Int, bbb: Int = 0) {}
 }
 ---
 
@@ -22,7 +22,7 @@ class Foo {
 [#1 Domain] = 0:0-2:1
   >-----------
 0| class Foo {
-1|     def bar(aaa: Int, bbb: Int) {}
+1|     def bar(aaa: Int, bbb: Int = 0) {}
 2| }
    -<
 
@@ -32,15 +32,15 @@ class Foo {
 [#2 Content] =
 [#2 Removal] = 1:8-1:11
           >---<
-1|     def bar(aaa: Int, bbb: Int) {}
+1|     def bar(aaa: Int, bbb: Int = 0) {}
 
 [#2 Leading delimiter] = 1:7-1:8
          >-<
-1|     def bar(aaa: Int, bbb: Int) {}
+1|     def bar(aaa: Int, bbb: Int = 0) {}
 
-[#2 Domain] = 1:4-1:34
-      >------------------------------<
-1|     def bar(aaa: Int, bbb: Int) {}
+[#2 Domain] = 1:4-1:38
+      >----------------------------------<
+1|     def bar(aaa: Int, bbb: Int = 0) {}
 
 [#2 Insertion delimiter] = " "
 
@@ -48,29 +48,29 @@ class Foo {
 [#3 Content] =
 [#3 Removal] = 1:12-1:15
               >---<
-1|     def bar(aaa: Int, bbb: Int) {}
+1|     def bar(aaa: Int, bbb: Int = 0) {}
 
 [#3 Domain] = 1:12-1:20
               >--------<
-1|     def bar(aaa: Int, bbb: Int) {}
+1|     def bar(aaa: Int, bbb: Int = 0) {}
 
 [#3 Insertion delimiter] = " "
 
 
 [#4 Content] = 1:22-1:25
                         >---<
-1|     def bar(aaa: Int, bbb: Int) {}
+1|     def bar(aaa: Int, bbb: Int = 0) {}
 
 [#4 Removal] = 1:21-1:25
                        >----<
-1|     def bar(aaa: Int, bbb: Int) {}
+1|     def bar(aaa: Int, bbb: Int = 0) {}
 
 [#4 Leading delimiter] = 1:21-1:22
                        >-<
-1|     def bar(aaa: Int, bbb: Int) {}
+1|     def bar(aaa: Int, bbb: Int = 0) {}
 
-[#4 Domain] = 1:22-1:30
-                        >--------<
-1|     def bar(aaa: Int, bbb: Int) {}
+[#4 Domain] = 1:22-1:34
+                        >------------<
+1|     def bar(aaa: Int, bbb: Int = 0) {}
 
 [#4 Insertion delimiter] = " "

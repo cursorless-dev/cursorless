@@ -39,6 +39,8 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "value.argument.formal": supported,
   "value.argument.formal.constructor": supported,
   "value.argument.formal.constructor.iteration": supported,
+  "value.argument.formal.lambda": supported,
+  "value.argument.formal.lambda.iteration": supported,
   "value.argument.formal.iteration": supported,
   "value.argument.formal.method": supported,
   "value.argument.formal.method.iteration": supported,
@@ -146,6 +148,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.loop.iteration": supported,
 
   class: supported,
+  "class.iteration.class": supported,
   "class.iteration.document": supported,
 
   "interior.class": supported,
@@ -266,9 +269,6 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.doWhile": notApplicable,
   "condition.doWhile": notApplicable,
   "interior.doWhile": notApplicable,
-
-  // Nested classes
-  "class.iteration.block": notApplicable,
 
   // Type. Python have some types, but not these.
   "type.cast": notApplicable,

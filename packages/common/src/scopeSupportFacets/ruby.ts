@@ -12,6 +12,7 @@ export const rubyScopeSupport: LanguageScopeSupportFacetMap = {
   anonymousFunction: supported,
 
   class: supported,
+  "class.iteration.class": supported,
   "class.iteration.document": supported,
 
   namedFunction: supported,
@@ -133,6 +134,8 @@ export const rubyScopeSupport: LanguageScopeSupportFacetMap = {
   "value.argument.formal.iteration": supported,
   "value.argument.formal.method": supported,
   "value.argument.formal.method.iteration": supported,
+  "value.argument.formal.lambda": supported,
+  "value.argument.formal.lambda.iteration": supported,
   "value.mapPair": supported,
   "value.mapPair.iteration": supported,
   "value.assignment": supported,
@@ -343,7 +346,6 @@ export const rubyScopeSupport: LanguageScopeSupportFacetMap = {
   // Misc
   "statement.package": notApplicable,
   "statement.import": notApplicable,
-  "class.iteration.block": notApplicable,
   pairDelimiter: notApplicable,
   environment: notApplicable,
   selector: notApplicable,

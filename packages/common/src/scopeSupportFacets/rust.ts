@@ -285,6 +285,8 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "value.argument.formal.iteration": notApplicable,
   "value.argument.formal.method": notApplicable,
   "value.argument.formal.method.iteration": notApplicable,
+  "value.argument.formal.lambda": notApplicable,
+  "value.argument.formal.lambda.iteration": notApplicable,
 
   // For loop
   "statement.for": notApplicable,
@@ -337,7 +339,7 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.misc": notApplicable,
   "value.field.class": notApplicable,
   "type.foreach": notApplicable,
-  "class.iteration.block": notApplicable,
+  "class.iteration.class": notApplicable,
   environment: notApplicable,
   regularExpression: notApplicable,
   selector: notApplicable,

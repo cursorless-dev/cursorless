@@ -12,7 +12,6 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   ifStatement: supported,
 
   class: supported,
-  "class.iteration.block": supported,
   "class.iteration.document": supported,
 
   "statement.class": supported,
@@ -317,6 +316,8 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   "value.argument.formal.iteration": notApplicable,
   "value.argument.formal.method": notApplicable,
   "value.argument.formal.method.iteration": notApplicable,
+  "value.argument.formal.lambda": notApplicable,
+  "value.argument.formal.lambda.iteration": notApplicable,
 
   // Yield
   "statement.yield": notApplicable,
@@ -344,6 +345,7 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   "value.return.lambda": notApplicable,
   "type.foreach": notApplicable,
   "type.cast": notApplicable,
+  "class.iteration.class": notApplicable,
   regularExpression: notApplicable,
   selector: notApplicable,
   unit: notApplicable,

@@ -78,7 +78,7 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Class
   class: notApplicable,
-  "class.iteration.block": notApplicable,
+  "class.iteration.class": notApplicable,
   "class.iteration.document": notApplicable,
   "name.class": notApplicable,
   "name.field.class": notApplicable,
@@ -178,6 +178,8 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal.lambda.iteration": notApplicable,
   "type.argument.formal.lambda": notApplicable,
   "type.argument.formal.lambda.iteration": notApplicable,
+  "value.argument.formal.lambda": notApplicable,
+  "value.argument.formal.lambda.iteration": notApplicable,
   "value.return.lambda": notApplicable,
   "interior.lambda": notApplicable,
 

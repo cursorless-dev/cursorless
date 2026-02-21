@@ -229,7 +229,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "class",
   },
   "class.iteration.document": documentIter("class", "classes"),
-  "class.iteration.block": blockIter("class", "classes"),
+  "class.iteration.class": classIter("class", "classes"),
 
   namedFunction: {
     description: "A named function declaration",
@@ -885,7 +885,7 @@ export const scopeSupportFacetInfos: Record<
     "the arguments list",
   ),
   "value.argument.formal": {
-    description: "The value of a (keyword) argument in a function declaration",
+    description: "The (default) value of a argument in a function declaration",
     scopeType: "value",
   },
   "value.argument.formal.iteration": iteration(
@@ -894,7 +894,7 @@ export const scopeSupportFacetInfos: Record<
     "the parameters list",
   ),
   "value.argument.formal.method": {
-    description: "The value of a parameter in a class method declaration",
+    description: "The (default) value of a parameter in a method declaration",
     scopeType: "value",
   },
   "value.argument.formal.method.iteration": iteration(
@@ -903,12 +903,22 @@ export const scopeSupportFacetInfos: Record<
     "the parameters list",
   ),
   "value.argument.formal.constructor": {
-    description: "The value of a parameter in a constructor declaration",
+    description:
+      "The (default) value of a parameter in a constructor declaration",
     scopeType: "value",
   },
   "value.argument.formal.constructor.iteration": iteration(
     "value",
     "values of formal parameters in a constructor declaration",
+    "the parameters list",
+  ),
+  "value.argument.formal.lambda": {
+    description: "The (default) value of a parameter in a lambda declaration",
+    scopeType: "value",
+  },
+  "value.argument.formal.lambda.iteration": iteration(
+    "value",
+    "values of formal parameters in a lambda declaration",
     "the parameters list",
   ),
   "value.typeAlias": {

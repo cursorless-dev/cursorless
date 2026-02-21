@@ -1,56 +1,68 @@
 case foo
 in 0
-    a
+    bar
+    baz
 else
-    a
+    bar
+    baz
 end
 ---
 
-[#1 Content] = 1:0-4:5
+[#1 Content] = 1:0-6:7
   >----
 1| in 0
-2|     a
-3| else
-4|     a
-   -----<
+2|     bar
+3|     baz
+4| else
+5|     bar
+6|     baz
+   -------<
 
 [#1 Removal] =
-[#1 Domain] = 0:8-5:0
+[#1 Domain] = 0:8-7:0
           >
 0| case foo
 1| in 0
-2|     a
-3| else
-4|     a
-5| end
+2|     bar
+3|     baz
+4| else
+5|     bar
+6|     baz
+7| end
    <
 
 [#1 Insertion delimiter] = " "
 
 
-[#2 Content] = 2:4-2:5
-      >-<
-2|     a
+[#2 Content] = 2:4-3:7
+      >---
+2|     bar
+3|     baz
+   -------<
 
 [#2 Removal] =
-[#2 Domain] = 1:4-2:5
+[#2 Domain] = 1:4-3:7
       >
 1| in 0
-2|     a
-   -----<
+2|     bar
+3|     baz
+   -------<
 
 [#2 Insertion delimiter] = " "
 
 
-[#3 Content] = 4:4-4:5
-      >-<
-4|     a
+[#3 Content] = 5:4-6:7
+      >---
+5|     bar
+6|     baz
+   -------<
 
 [#3 Removal] =
-[#3 Domain] = 3:4-4:5
+[#3 Domain] = 4:4-6:7
       >
-3| else
-4|     a
-   -----<
+4| else
+5|     bar
+6|     baz
+   -------<
 
 [#3 Insertion delimiter] = " "
