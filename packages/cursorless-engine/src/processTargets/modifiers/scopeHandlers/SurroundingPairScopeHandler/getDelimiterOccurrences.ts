@@ -23,7 +23,12 @@ export function getDelimiterOccurrences(
     return [];
   }
 
-  const capturesMap = languageDefinition?.getCapturesMap(document) ?? {};
+  const capturesMap =
+    languageDefinition?.getCapturesMap(document, [
+      "disqualifyDelimiter",
+      "pairDelimiter",
+      "textFragment",
+    ]) ?? {};
   const disqualifyDelimiters = new OneWayRangeFinder(
     getSortedCaptures(capturesMap.disqualifyDelimiter),
   );

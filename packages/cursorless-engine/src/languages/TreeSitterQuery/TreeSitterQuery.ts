@@ -1,10 +1,10 @@
 import type { Position, TextDocument, TreeSitter } from "@cursorless/common";
 import type * as treeSitter from "web-tree-sitter";
 import { ide } from "../../singletons/ide.singleton";
+import { getNormalizedCaptureName } from "./captureNames";
 import { checkCaptureStartEnd } from "./checkCaptureStartEnd";
 import { getNodeRange } from "./getNodeRange";
 import { isContainedInErrorNode } from "./isContainedInErrorNode";
-import { normalizeCaptureName } from "./normalizeCaptureName";
 import { parsePredicatesWithErrorHandling } from "./parsePredicatesWithErrorHandling";
 import { positionToPoint } from "./positionToPoint";
 import type {
@@ -55,7 +55,7 @@ export class TreeSitterQuery {
 
   hasCapture(name: string): boolean {
     return this.query.captureNames.some(
-      (n) => normalizeCaptureName(n) === name,
+      (n) => getNormalizedCaptureName(n) === name,
     );
   }
 
@@ -64,29 +64,86 @@ export class TreeSitterQuery {
     start?: Position,
     end?: Position,
   ): QueryMatch[] {
-    if (!treeSitterQueryCache.isValid(document, start, end)) {
-      const matches = this.getAllMatches(document, start, end);
-      treeSitterQueryCache.update(document, start, end, matches);
+    return this.getMatches(document, start, end, undefined);
+  }
+
+  matchesForCaptures(
+    document: TextDocument,
+    captureNames: Set<string>,
+  ): QueryMatch[] {
+    return this.getMatches(document, undefined, undefined, captureNames);
+  }
+
+  private getMatches(
+    document: TextDocument,
+    start: Position | undefined,
+    end: Position | undefined,
+    captureNameFilter: Set<string> | undefined,
+  ): QueryMatch[] {
+    if (
+      !treeSitterQueryCache.isValid(document, start, end, captureNameFilter)
+    ) {
+      const matches = this.calculateMatches(
+        document,
+        start,
+        end,
+        captureNameFilter,
+      );
+      treeSitterQueryCache.update(
+        document,
+        start,
+        end,
+        captureNameFilter,
+        matches,
+      );
     }
     return treeSitterQueryCache.get();
   }
 
-  private getAllMatches(
+  private calculateMatches(
     document: TextDocument,
-    start?: Position,
-    end?: Position,
+    start: Position | undefined,
+    end: Position | undefined,
+    captureNameFilter: Set<string> | undefined,
   ): QueryMatch[] {
     const matches = this.getTreeMatches(document, start, end);
     const results: QueryMatch[] = [];
 
     for (const match of matches) {
-      const mutableMatch = this.createMutableQueryMatch(document, match);
+      if (
+        captureNameFilter != null &&
+        !match.captures.some((capture) =>
+          captureNameFilter.has(getNormalizedCaptureName(capture.name)),
+        )
+      ) {
+        continue;
+      }
+
+      const hasPatternPredicates =
+        this.patternPredicates[match.patternIndex].length > 0;
+
+      const mutableMatch = this.createMutableQueryMatch(
+        document,
+        match,
+        // If there are pattern predicates, we need to include all captures when
+        // creating the mutable match, since the predicates may depend on any of
+        // the captures.
+        !hasPatternPredicates ? captureNameFilter : undefined,
+      );
 
       if (!this.runPredicates(mutableMatch)) {
         continue;
       }
 
-      results.push(this.createQueryMatch(mutableMatch));
+      const queryMatch = this.createQueryMatch(
+        mutableMatch,
+        // We only need to filter here if we didn't filter in createMutableQueryMatch()
+        hasPatternPredicates ? captureNameFilter : undefined,
+      );
+
+      if (queryMatch != null) {
+        results.push(queryMatch);
+      }
     }
 
     return results;
@@ -107,10 +164,19 @@ export class TreeSitterQuery {
   private createMutableQueryMatch(
     document: TextDocument,
     match: treeSitter.QueryMatch,
+    captureNameFilter?: Set<string>,
   ): MutableQueryMatch {
-    return {
-      patternIdx: match.patternIndex,
-      captures: match.captures.map(({ name, node }) => ({
+    const captures: MutableQueryCapture[] = [];
+
+    for (const { name, node } of match.captures) {
+      if (
+        captureNameFilter != null &&
+        !captureNameFilter.has(getNormalizedCaptureName(name))
+      ) {
+        continue;
+      }
+
+      captures.push({
         name,
         node,
         document,
@@ -118,7 +184,12 @@ export class TreeSitterQuery {
         insertionDelimiter: undefined,
         allowMultiple: false,
         hasError: () => isContainedInErrorNode(node),
-      })),
+      });
+    }
+
+    return {
+      patternIdx: match.patternIndex,
+      captures,
     };
   }
 
@@ -131,7 +202,10 @@ export class TreeSitterQuery {
     return true;
   }
 
-  private createQueryMatch(match: MutableQueryMatch): QueryMatch {
+  private createQueryMatch(
+    match: MutableQueryMatch,
+    captureNameFilter?: Set<string>,
+  ): QueryMatch | undefined {
     const result: MutableQueryCapture[] = [];
     const map = new Map<
       string,
@@ -144,7 +218,10 @@ export class TreeSitterQuery {
     // name, for which we'd return a capture with name `foo`.
 
     for (const capture of match.captures) {
-      const name = normalizeCaptureName(capture.name);
+      const name = getNormalizedCaptureName(capture.name);
+      if (captureNameFilter != null && !captureNameFilter.has(name)) {
+        continue;
+      }
       const range = getStartOfEndOfRange(capture);
       const existing = map.get(name);
 
@@ -166,6 +243,10 @@ export class TreeSitterQuery {
           existing.acc.insertionDelimiter ?? capture.insertionDelimiter;
         existing.captures.push(capture);
       }
+    }
+
+    if (result.length === 0) {
+      return undefined;
     }
 
     if (this.shouldCheckCaptures) {

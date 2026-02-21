@@ -87,16 +87,22 @@ export class LanguageDefinition {
    * document. We use this in our surrounding pair code.
    *
    * @param document The document to search
-   * @param captureName The name of a capture to search for
+   * @param captureNames Optional capture names to include
    * @returns A map of captures in the document
    */
-  getCapturesMap(document: TextDocument) {
-    const matches = this.query.matches(document);
-    const result: Partial<Record<SimpleScopeTypeType, QueryCapture[]>> = {};
+  getCapturesMap<T extends SimpleScopeTypeType>(
+    document: TextDocument,
+    captureNames: readonly T[],
+  ) {
+    const matches = this.query.matchesForCaptures(
+      document,
+      new Set(captureNames),
+    );
+    const result: Partial<Record<T, QueryCapture[]>> = {};
 
     for (const match of matches) {
       for (const capture of match.captures) {
-        const name = capture.name as SimpleScopeTypeType;
+        const name = capture.name as T;
         if (result[name] == null) {
           result[name] = [];
         }

@@ -5,7 +5,11 @@ import type { Range, SimpleSurroundingPairName } from "@cursorless/common";
  * or if we do not know. Note that the terms "opening" and "closing" could be
  * used instead of "left" and "right", respectively.
  */
-export type DelimiterSide = "unknown" | "left" | "right";
+export enum DelimiterSide {
+  unknown,
+  left,
+  right,
+}
 
 /**
  * A description of one possible side of a delimiter
