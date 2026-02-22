@@ -13,13 +13,13 @@ import { parsePredicatesWithErrorHandling } from "./parsePredicatesWithErrorHand
 import { positionToPoint } from "./positionToPoint";
 import type {
   MutableQueryCapture,
-  MutableQueryMatch,
   PatternPredicate,
   QueryCapture,
   QueryMatch,
 } from "./QueryCapture";
 import {
   createTestQueryCapture,
+  getStartOfEndOfNodeRange,
   getStartOfEndOfRange,
   rewriteStartOfEndOf,
 } from "./rewriteStartOfEndOf";
@@ -190,16 +190,14 @@ export class TreeSitterQuery {
         node,
         document,
         range: getNodeRange(node),
-        insertionDelimiter: undefined,
         allowMultiple: false,
+        insertionDelimiter: undefined,
         hasError: () => isContainedInErrorNode(node),
       });
     }
 
-    const mutableMatch: MutableQueryMatch = { captures };
-
     for (const predicate of predicates) {
-      if (!predicate(mutableMatch)) {
+      if (!predicate({ captures })) {
         return undefined;
       }
     }
@@ -215,13 +213,14 @@ export class TreeSitterQuery {
     // with names `@foo`, `@foo.start`, and `@foo.end` to have the same
     // name, for which we'd return a capture with name `foo`.
 
-    for (const capture of mutableMatch.captures) {
+    for (const capture of captures) {
       if (
         captureNameFilter != null &&
         !captureNameFilter.has(getNormalizedCaptureIndex(capture.name))
       ) {
         continue;
       }
+
       const name = getNormalizedCaptureName(capture.name);
       const range = getStartOfEndOfRange(capture.name, capture.range);
       const existing = map.get(name);
@@ -280,11 +279,9 @@ export class TreeSitterQuery {
       ) {
         continue;
       }
+
       const name = getNormalizedCaptureName(capture.name);
-      const range = getStartOfEndOfRange(
-        capture.name,
-        getNodeRange(capture.node),
-      );
+      const range = getStartOfEndOfNodeRange(capture.name, capture.node);
       const existing = map.get(name);
 
       if (existing == null) {
@@ -312,8 +309,8 @@ export class TreeSitterQuery {
 
     if (this.shouldCheckCaptures) {
       checkCaptures(
-        Array.from(map.values()).map(({ captures }) => ({
-          captures: captures.map((c) =>
+        Array.from(map.values(), (v) => ({
+          captures: v.captures.map((c) =>
             createTestQueryCapture(c.name, getNodeRange(c.node)),
           ),
         })),

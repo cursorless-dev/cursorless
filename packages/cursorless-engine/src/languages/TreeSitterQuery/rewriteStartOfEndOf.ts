@@ -1,5 +1,14 @@
 import type { Range } from "@cursorless/common";
+import type { Node } from "web-tree-sitter";
 import type { QueryCapture } from "./QueryCapture";
+import {
+  getNodeEndRange,
+  getNodeRange,
+  getNodeStartRange,
+} from "./getNodeRange";
+
+const START_OF = ".startOf";
+const END_OF = ".endOf";
 
 /**
  * Modifies captures by applying any `.startOf` or `.endOf` suffixes. For
@@ -18,21 +27,34 @@ export function rewriteStartOfEndOf(captures: QueryCapture[]): QueryCapture[] {
 }
 
 export function getStartOfEndOfRange(captureName: string, range: Range): Range {
-  if (captureName.endsWith(".startOf")) {
+  if (captureName.endsWith(START_OF)) {
     return range.start.toEmptyRange();
   }
-  if (captureName.endsWith(".endOf")) {
+  if (captureName.endsWith(END_OF)) {
     return range.end.toEmptyRange();
   }
   return range;
 }
 
-function getStartOfEndOfName(capture: QueryCapture): string {
-  if (capture.name.endsWith(".startOf")) {
-    return capture.name.slice(0, -8);
+export function getStartOfEndOfNodeRange(
+  captureName: string,
+  node: Node,
+): Range {
+  if (captureName.endsWith(START_OF)) {
+    return getNodeStartRange(node);
   }
-  if (capture.name.endsWith(".endOf")) {
-    return capture.name.slice(0, -6);
+  if (captureName.endsWith(END_OF)) {
+    return getNodeEndRange(node);
+  }
+  return getNodeRange(node);
+}
+
+function getStartOfEndOfName(capture: QueryCapture): string {
+  if (capture.name.endsWith(START_OF)) {
+    return capture.name.slice(0, -START_OF.length);
+  }
+  if (capture.name.endsWith(END_OF)) {
+    return capture.name.slice(0, -END_OF.length);
   }
   return capture.name;
 }
