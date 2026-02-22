@@ -1,5 +1,6 @@
 import type { Position, TextDocument } from "@cursorless/common";
 import type { QueryMatch } from "./QueryCapture";
+import { setIsEqual } from "../../util/setIsEqual";
 
 export class TreeSitterQueryCache {
   private documentVersion: number = -1;
@@ -8,7 +9,7 @@ export class TreeSitterQueryCache {
   private startPosition: Position | undefined;
   private endPosition: Position | undefined;
   private matches: QueryMatch[] = [];
-  private captureNames: Set<string> | undefined;
+  private captureNames: Set<number> | undefined;
 
   clear() {
     this.documentUri = "";
@@ -24,7 +25,7 @@ export class TreeSitterQueryCache {
     document: TextDocument,
     startPosition: Position | undefined,
     endPosition: Position | undefined,
-    captureNames: Set<string> | undefined,
+    captureNames: Set<number> | undefined,
   ) {
     return (
       this.documentVersion === document.version &&
@@ -32,7 +33,7 @@ export class TreeSitterQueryCache {
       this.documentLanguageId === document.languageId &&
       positionsEqual(this.startPosition, startPosition) &&
       positionsEqual(this.endPosition, endPosition) &&
-      setEqual(this.captureNames, captureNames)
+      setIsEqual(this.captureNames, captureNames)
     );
   }
 
@@ -40,7 +41,7 @@ export class TreeSitterQueryCache {
     document: TextDocument,
     startPosition: Position | undefined,
     endPosition: Position | undefined,
-    captureNames: Set<string> | undefined,
+    captureNames: Set<number> | undefined,
     matches: QueryMatch[],
   ) {
     this.documentVersion = document.version;
@@ -62,21 +63,6 @@ function positionsEqual(a: Position | undefined, b: Position | undefined) {
     return a === b;
   }
   return a.isEqual(b);
-}
-
-function setEqual(a: Set<string> | undefined, b: Set<string> | undefined) {
-  if (a == null || b == null) {
-    return a === b;
-  }
-  if (a.size !== b.size) {
-    return false;
-  }
-  for (const item of a) {
-    if (!b.has(item)) {
-      return false;
-    }
-  }
-  return true;
 }
 
 export const treeSitterQueryCache = new TreeSitterQueryCache();
