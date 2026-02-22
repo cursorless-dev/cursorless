@@ -21,19 +21,19 @@ const END_OF = ".endOf";
 export function rewriteStartOfEndOf(captures: QueryCapture[]): QueryCapture[] {
   return captures.map((capture) => ({
     ...capture,
-    range: getStartOfEndOfRange(capture.name, capture.range),
+    range: getStartOfEndOfRange(capture),
     name: getStartOfEndOfName(capture),
   }));
 }
 
-export function getStartOfEndOfRange(captureName: string, range: Range): Range {
-  if (captureName.endsWith(START_OF)) {
-    return range.start.toEmptyRange();
+export function getStartOfEndOfRange(capture: QueryCapture): Range {
+  if (capture.name.endsWith(START_OF)) {
+    return capture.range.start.toEmptyRange();
   }
-  if (captureName.endsWith(END_OF)) {
-    return range.end.toEmptyRange();
+  if (capture.name.endsWith(END_OF)) {
+    return capture.range.end.toEmptyRange();
   }
-  return range;
+  return capture.range;
 }
 
 export function getStartOfEndOfNodeRange(

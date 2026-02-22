@@ -195,7 +195,7 @@ export class TreeSitterQuery {
     const result: QueryCapture[] = [];
     const map = new Map<
       string,
-      { acc: MutableQueryCapture; captures: QueryCapture[] }
+      { acc: Mutable<QueryCapture>; captures: QueryCapture[] }
     >();
 
     // Merge the ranges of all captures with the same name into a single
@@ -212,15 +212,16 @@ export class TreeSitterQuery {
       }
 
       const name = getNormalizedCaptureName(capture.name);
-      const range = getStartOfEndOfRange(capture.name, capture.range);
+      const range = getStartOfEndOfRange(capture);
       const existing = map.get(name);
 
       if (existing == null) {
         const captures = [capture];
-        const acc: MutableQueryCapture = {
-          ...capture,
+        const acc: QueryCapture = {
           name,
           range,
+          allowMultiple: capture.allowMultiple,
+          insertionDelimiter: capture.insertionDelimiter,
           hasError: () => captures.some((c) => c.hasError()),
         };
         result.push(acc);
