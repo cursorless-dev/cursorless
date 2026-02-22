@@ -158,8 +158,8 @@ export class TreeSitterQuery {
 
   private getTreeMatches(
     document: TextDocument,
-    start?: Position,
-    end?: Position,
+    start: Position | undefined,
+    end: Position | undefined,
   ) {
     const { rootNode } = this.treeSitter.getTree(document);
     return this.query.matches(rootNode, {
