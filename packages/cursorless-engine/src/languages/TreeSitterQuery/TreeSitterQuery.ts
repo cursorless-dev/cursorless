@@ -136,6 +136,8 @@ export class TreeSitterQuery {
 
       const patternPredicates = this.patternPredicates[match.patternIndex];
 
+      // The split path here is to avoid creating query captures if there are no
+      // predicates, Solely for performance.
       const captures =
         patternPredicates.length > 0
           ? this.createQueryCapturesWithPredicates(
@@ -172,8 +174,10 @@ export class TreeSitterQuery {
     predicates: PatternPredicate[],
     captureNameFilter: Set<number> | undefined,
   ): QueryCapture[] {
-    const captures = match.captures.map(
-      (capture): MutableQueryCapture => ({
+    const captures: MutableQueryCapture[] = [];
+
+    for (const capture of match.captures) {
+      captures.push({
         name: capture.name,
         node: capture.node,
         document,
@@ -181,8 +185,8 @@ export class TreeSitterQuery {
         allowMultiple: false,
         insertionDelimiter: undefined,
         hasError: () => isContainedInErrorNode(capture.node),
-      }),
-    );
+      });
+    }
 
     for (const predicate of predicates) {
       if (!predicate({ captures })) {
