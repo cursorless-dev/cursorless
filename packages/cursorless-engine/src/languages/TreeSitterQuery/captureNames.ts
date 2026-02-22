@@ -73,9 +73,7 @@ for (const captureName of captureNames) {
 
 const normalizedCaptureNamesMap = new Map<string, string>();
 const normalizedCaptureIndexMap = new Map<string, number>();
-const captureNameIndex: Record<string, number> = Object.fromEntries(
-  captureNames.map((n, i) => [n, i]),
-);
+const captureNameIndex = Object.fromEntries(captureNames.map((n, i) => [n, i]));
 
 for (const captureName of allowedCaptures) {
   const normalizedCaptureName = normalizeCaptureName(captureName);
