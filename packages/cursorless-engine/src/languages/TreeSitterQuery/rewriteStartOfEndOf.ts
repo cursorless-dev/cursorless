@@ -59,6 +59,8 @@ function getStartOfEndOfName(capture: QueryCapture): string {
   return capture.name;
 }
 
+const hasError = () => false;
+
 export function createTestQueryCapture(
   name: string,
   range: Range,
@@ -68,6 +70,6 @@ export function createTestQueryCapture(
     range,
     allowMultiple: false,
     insertionDelimiter: undefined,
-    hasError: () => false,
+    hasError,
   };
 }
