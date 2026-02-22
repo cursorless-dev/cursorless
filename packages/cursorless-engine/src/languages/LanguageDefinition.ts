@@ -83,11 +83,11 @@ export class LanguageDefinition {
   }
 
   /**
-   * This is a low-level function that just returns a map of all captures in the
+   * This is a low-level function that just returns a map of specified captures in the
    * document. We use this in our surrounding pair code.
    *
    * @param document The document to search
-   * @param scopeTypes Optional scope types to include
+   * @param scopeTypes Which scope types to include
    * @returns A map of captures in the document
    */
   getCapturesMap<T extends ScopeCaptureName>(
