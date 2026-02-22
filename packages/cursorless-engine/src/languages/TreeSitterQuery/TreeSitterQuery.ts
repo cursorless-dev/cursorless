@@ -172,19 +172,17 @@ export class TreeSitterQuery {
     predicates: PatternPredicate[],
     captureNameFilter: Set<number> | undefined,
   ): QueryCapture[] {
-    const captures: MutableQueryCapture[] = [];
-
-    for (const { name, node } of match.captures) {
-      captures.push({
-        name,
-        node,
+    const captures = match.captures.map(
+      (capture): MutableQueryCapture => ({
+        name: capture.name,
+        node: capture.node,
         document,
-        range: getNodeRange(node),
+        range: getNodeRange(capture.node),
         allowMultiple: false,
         insertionDelimiter: undefined,
-        hasError: () => isContainedInErrorNode(node),
-      });
-    }
+        hasError: () => isContainedInErrorNode(capture.node),
+      }),
+    );
 
     for (const predicate of predicates) {
       if (!predicate({ captures })) {
