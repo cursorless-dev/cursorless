@@ -1,7 +1,10 @@
 import { Range } from "@cursorless/common";
 import assert from "assert";
 import type { MutableQueryCapture, QueryCapture } from "./QueryCapture";
-import { rewriteStartOfEndOf } from "./rewriteStartOfEndOf";
+import {
+  createTestQueryCapture,
+  rewriteStartOfEndOf,
+} from "./rewriteStartOfEndOf";
 
 type NameRange = Pick<MutableQueryCapture, "name" | "range">;
 
@@ -50,12 +53,7 @@ const testCases: TestCase[] = [
 ];
 
 function fillOutCapture(capture: NameRange): QueryCapture {
-  return {
-    ...capture,
-    allowMultiple: false,
-    insertionDelimiter: undefined,
-    hasError: () => false,
-  };
+  return createTestQueryCapture(capture.name, capture.range);
 }
 
 suite("rewriteStartOfEndOf", () => {

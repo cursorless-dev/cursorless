@@ -36,3 +36,16 @@ function getStartOfEndOfName(capture: QueryCapture): string {
   }
   return capture.name;
 }
+
+export function createTestQueryCapture(
+  name: string,
+  range: Range,
+): QueryCapture {
+  return {
+    name,
+    range,
+    allowMultiple: false,
+    insertionDelimiter: undefined,
+    hasError: () => false,
+  };
+}

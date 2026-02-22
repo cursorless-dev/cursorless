@@ -2,10 +2,6 @@ import type { Position, TextDocument, TreeSitter } from "@cursorless/common";
 import type * as treeSitter from "web-tree-sitter";
 import { ide } from "../../singletons/ide.singleton";
 import {
-  PerformanceInterval,
-  PerformanceTick,
-} from "../../testUtil/Performance";
-import {
   getNormalizedCaptureIndex,
   getNormalizedCaptureName,
   type ScopeCaptureName,
@@ -23,6 +19,7 @@ import type {
   QueryMatch,
 } from "./QueryCapture";
 import {
+  createTestQueryCapture,
   getStartOfEndOfRange,
   rewriteStartOfEndOf,
 } from "./rewriteStartOfEndOf";
@@ -254,7 +251,7 @@ export class TreeSitterQuery {
     }
 
     if (this.shouldCheckCaptures) {
-      this.checkCaptures(Array.from(map.values()));
+      checkCaptures(Array.from(map.values()));
     }
 
     return { captures: result };
@@ -314,31 +311,27 @@ export class TreeSitterQuery {
     }
 
     if (this.shouldCheckCaptures) {
-      this.checkCaptures(
+      checkCaptures(
         Array.from(map.values()).map(({ captures }) => ({
-          captures: captures.map((c) => ({
-            name: c.name,
-            range: getNodeRange(c.node),
-            allowMultiple: false,
-            insertionDelimiter: undefined,
-            hasError: () => isContainedInErrorNode(c.node),
-          })),
+          captures: captures.map((c) =>
+            createTestQueryCapture(c.name, getNodeRange(c.node)),
+          ),
         })),
       );
     }
 
     return { captures: result };
   }
+}
 
-  private checkCaptures(matches: { captures: QueryCapture[] }[]) {
-    for (const match of matches) {
-      const capturesAreValid = checkCaptureStartEnd(
-        rewriteStartOfEndOf(match.captures),
-        ide().messages,
-      );
-      if (!capturesAreValid && ide().runMode === "test") {
-        throw new Error("Invalid captures");
-      }
+function checkCaptures(matches: { captures: QueryCapture[] }[]) {
+  for (const match of matches) {
+    const capturesAreValid = checkCaptureStartEnd(
+      rewriteStartOfEndOf(match.captures),
+      ide().messages,
+    );
+    if (!capturesAreValid && ide().runMode === "test") {
+      throw new Error("Invalid captures");
     }
   }
 }
