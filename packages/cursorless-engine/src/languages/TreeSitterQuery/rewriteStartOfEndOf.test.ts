@@ -1,9 +1,7 @@
-import type { TextDocument } from "@cursorless/common";
 import { Range } from "@cursorless/common";
-import type { Node } from "web-tree-sitter";
+import assert from "assert";
 import type { MutableQueryCapture, QueryCapture } from "./QueryCapture";
 import { rewriteStartOfEndOf } from "./rewriteStartOfEndOf";
-import assert from "assert";
 
 type NameRange = Pick<MutableQueryCapture, "name" | "range">;
 
