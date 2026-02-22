@@ -30,13 +30,11 @@ export function getDelimiterOccurrences(
       "textFragment",
     ]) ?? {};
   const disqualifyDelimiters = new OneWayRangeFinder(
-    getSortedCaptures(capturesMap.disqualifyDelimiter),
+    capturesMap.disqualifyDelimiter ?? [],
   );
-  const pairDelimiters = new OneWayRangeFinder(
-    getSortedCaptures(capturesMap.pairDelimiter),
-  );
+  const pairDelimiters = new OneWayRangeFinder(capturesMap.pairDelimiter ?? []);
   const textFragments = new OneWayNestedRangeFinder(
-    getSortedCaptures(capturesMap.textFragment),
+    capturesMap.textFragment ?? [],
   );
 
   const delimiterTextToDelimiterInfoMap = individualDelimiters.reduce<
@@ -55,9 +53,10 @@ export function getDelimiterOccurrences(
 
   for (const match of regexMatches) {
     const text = match[0];
+    const startPos = document.positionAt(match.index!);
     const matchRange = new Range(
-      document.positionAt(match.index!),
-      document.positionAt(match.index! + text.length),
+      startPos,
+      startPos.translate(undefined, text.length),
     );
 
     const disqualifiedDelimiter = ifNoErrors(
@@ -82,12 +81,4 @@ export function getDelimiterOccurrences(
 
 function ifNoErrors(capture?: QueryCapture): QueryCapture | undefined {
   return capture != null && !capture.hasError() ? capture : undefined;
-}
-
-function getSortedCaptures(items?: QueryCapture[]): QueryCapture[] {
-  if (items == null) {
-    return [];
-  }
-  items.sort((a, b) => a.range.start.compareTo(b.range.start));
-  return items;
 }
