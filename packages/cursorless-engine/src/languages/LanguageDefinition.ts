@@ -3,13 +3,13 @@ import type {
   RawTreeSitterQueryProvider,
   ScopeType,
   SimpleScopeType,
-  SimpleScopeTypeType,
   TextDocument,
   TreeSitter,
 } from "@cursorless/common";
 import { matchAll, showError } from "@cursorless/common";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
 import { TreeSitterQuery } from "./TreeSitterQuery";
+import type { ScopeCaptureName } from "./TreeSitterQuery/captureNames";
 import type { QueryCapture } from "./TreeSitterQuery/QueryCapture";
 import { validateQueryCaptures } from "./TreeSitterQuery/validateQueryCaptures";
 
@@ -83,27 +83,23 @@ export class LanguageDefinition {
   }
 
   /**
-   * This is a low-level function that just returns a map of all captures in the
+   * This is a low-level function that just returns a map of specified captures in the
    * document. We use this in our surrounding pair code.
    *
    * @param document The document to search
-   * @param captureNames Optional capture names to include
+   * @param scopeTypes Which scope types to include
    * @returns A map of captures in the document
    */
-  getCapturesMap<T extends SimpleScopeTypeType>(
+  getCapturesMap<T extends ScopeCaptureName>(
     document: TextDocument,
-    captureNames: readonly T[],
+    scopeTypes: readonly T[],
   ) {
-    const matches = this.query.matchesForCaptures(
-      document,
-      new Set(captureNames),
-    );
+    const matches = this.query.matchesForScopeTypes(document, scopeTypes);
     const result: Partial<Record<T, QueryCapture[]>> = {};
 
     for (const match of matches) {
       for (const capture of match.captures) {
-        const name = capture.name as T;
-        (result[name] ??= []).push(capture);
+        (result[capture.name as T] ??= []).push(capture);
       }
     }
 
