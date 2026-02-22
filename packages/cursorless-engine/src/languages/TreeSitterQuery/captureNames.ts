@@ -2,7 +2,7 @@ import { pseudoScopes, simpleScopeTypeTypes } from "@cursorless/common";
 
 const scopeCaptureNames = [
   ...simpleScopeTypeTypes.filter((s) => !pseudoScopes.has(s)),
-  // Interior is pseudo scope` but it's implemented with an actual internal scope
+  // Interior is a pseudo scope, but it's implemented with an actual internal scope
   "interior",
 ] as const;
 
