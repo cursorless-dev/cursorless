@@ -91,8 +91,8 @@ function normalizeCaptureName(name: string): string {
 }
 
 // eg: for `statement.start.endOf`, returns `statement`
-function getScopeName(name: string): string {
-  return /^(private\.[^.]*|[^.]*)/.exec(name)![0];
+function getScopeName(captureName: string): string {
+  return /^(private\.[^.]*|[^.]*)/.exec(captureName)![0];
 }
 
 export function isCaptureAllowed(captureName: string): boolean {
