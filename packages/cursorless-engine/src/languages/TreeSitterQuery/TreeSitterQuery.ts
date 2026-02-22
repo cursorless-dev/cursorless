@@ -1,4 +1,9 @@
-import type { Position, TextDocument, TreeSitter } from "@cursorless/common";
+import type {
+  Mutable,
+  Position,
+  TextDocument,
+  TreeSitter,
+} from "@cursorless/common";
 import type * as treeSitter from "web-tree-sitter";
 import { ide } from "../../singletons/ide.singleton";
 import {
@@ -131,33 +136,18 @@ export class TreeSitterQuery {
 
       const patternPredicates = this.patternPredicates[match.patternIndex];
 
-      let queryMatch: QueryMatch | undefined;
+      const captures =
+        patternPredicates.length > 0
+          ? this.createQueryCapturesWithPredicates(
+              document,
+              match,
+              patternPredicates,
+              captureNameFilter,
+            )
+          : this.createQueryCapturesWithoutPredicates(match, captureNameFilter);
 
-      if (patternPredicates.length > 0) {
-        queryMatch = this.createQueryMatchWithPredicates(
-          document,
-          match,
-          patternPredicates,
-          captureNameFilter,
-        );
-      } else {
-        queryMatch = this.createQueryMatchWithoutPredicates(
-          document,
-          match,
-          captureNameFilter,
-        );
-      }
-
-      //   const queryMatch = hasPatternPredicates
-      //     ? this.createQueryMatchWithPredicates(
-      //         document,
-      //         match,
-      //         captureNameFilter,
-      //       )
-      //     : this.createQueryMatchWithoutPredicates(match, captureNameFilter);
-
-      if (queryMatch != null) {
-        results.push(queryMatch);
+      if (captures.length > 0) {
+        results.push({ captures });
       }
     }
 
@@ -176,12 +166,12 @@ export class TreeSitterQuery {
     });
   }
 
-  private createQueryMatchWithPredicates(
+  private createQueryCapturesWithPredicates(
     document: TextDocument,
     match: treeSitter.QueryMatch,
     predicates: PatternPredicate[],
     captureNameFilter: Set<number> | undefined,
-  ): QueryMatch | undefined {
+  ): QueryCapture[] {
     const captures: MutableQueryCapture[] = [];
 
     for (const { name, node } of match.captures) {
@@ -198,7 +188,7 @@ export class TreeSitterQuery {
 
     for (const predicate of predicates) {
       if (!predicate({ captures })) {
-        return undefined;
+        return [];
       }
     }
 
@@ -245,32 +235,25 @@ export class TreeSitterQuery {
       }
     }
 
-    if (result.length === 0) {
-      return undefined;
-    }
-
     if (this.shouldCheckCaptures) {
       checkCaptures(Array.from(map.values()));
     }
 
-    return { captures: result };
+    return result;
   }
 
-  private createQueryMatchWithoutPredicates(
-    document: TextDocument,
+  private createQueryCapturesWithoutPredicates(
     match: treeSitter.QueryMatch,
     captureNameFilter: Set<number> | undefined,
-  ): QueryMatch | undefined {
+  ): QueryCapture[] {
     const result: QueryCapture[] = [];
     const map = new Map<
       string,
-      { acc: MutableQueryCapture; captures: treeSitter.QueryCapture[] }
+      {
+        acc: Mutable<QueryCapture>;
+        captures: treeSitter.QueryCapture[];
+      }
     >();
-
-    // Merge the ranges of all captures with the same name into a single
-    // range and return one capture with that name.  We consider captures
-    // with names `@foo`, `@foo.start`, and `@foo.end` to have the same
-    // name, for which we'd return a capture with name `foo`.
 
     for (const capture of match.captures) {
       if (
@@ -286,9 +269,7 @@ export class TreeSitterQuery {
 
       if (existing == null) {
         const captures = [capture];
-        const acc: MutableQueryCapture = {
-          node: capture.node,
-          document,
+        const acc: QueryCapture = {
           name,
           range,
           allowMultiple: false,
@@ -303,10 +284,6 @@ export class TreeSitterQuery {
       }
     }
 
-    if (result.length === 0) {
-      return undefined;
-    }
-
     if (this.shouldCheckCaptures) {
       checkCaptures(
         Array.from(map.values(), (v) => ({
@@ -317,7 +294,7 @@ export class TreeSitterQuery {
       );
     }
 
-    return { captures: result };
+    return result;
   }
 }
 
