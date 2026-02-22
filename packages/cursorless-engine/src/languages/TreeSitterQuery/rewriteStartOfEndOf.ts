@@ -1,5 +1,5 @@
 import type { Range } from "@cursorless/common";
-import type { MutableQueryCapture } from "./QueryCapture";
+import type { QueryCapture } from "./QueryCapture";
 
 /**
  * Modifies captures by applying any `.startOf` or `.endOf` suffixes. For
@@ -9,27 +9,25 @@ import type { MutableQueryCapture } from "./QueryCapture";
  * @param captures A list of captures
  * @returns rewritten captures, with .startOf and .endOf removed
  */
-export function rewriteStartOfEndOf(
-  captures: MutableQueryCapture[],
-): MutableQueryCapture[] {
+export function rewriteStartOfEndOf(captures: QueryCapture[]): QueryCapture[] {
   return captures.map((capture) => ({
     ...capture,
-    range: getStartOfEndOfRange(capture),
+    range: getStartOfEndOfRange(capture.name, capture.range),
     name: getStartOfEndOfName(capture),
   }));
 }
 
-export function getStartOfEndOfRange(capture: MutableQueryCapture): Range {
-  if (capture.name.endsWith(".startOf")) {
-    return capture.range.start.toEmptyRange();
+export function getStartOfEndOfRange(captureName: string, range: Range): Range {
+  if (captureName.endsWith(".startOf")) {
+    return range.start.toEmptyRange();
   }
-  if (capture.name.endsWith(".endOf")) {
-    return capture.range.end.toEmptyRange();
+  if (captureName.endsWith(".endOf")) {
+    return range.end.toEmptyRange();
   }
-  return capture.range;
+  return range;
 }
 
-function getStartOfEndOfName(capture: MutableQueryCapture): string {
+function getStartOfEndOfName(capture: QueryCapture): string {
   if (capture.name.endsWith(".startOf")) {
     return capture.name.slice(0, -8);
   }

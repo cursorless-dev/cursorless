@@ -18,6 +18,7 @@ import { positionToPoint } from "./positionToPoint";
 import type {
   MutableQueryCapture,
   MutableQueryMatch,
+  PatternPredicate,
   QueryCapture,
   QueryMatch,
 } from "./QueryCapture";
@@ -26,8 +27,6 @@ import {
   rewriteStartOfEndOf,
 } from "./rewriteStartOfEndOf";
 import { treeSitterQueryCache } from "./TreeSitterQueryCache";
-
-type PatternPredicate = (match: MutableQueryMatch) => boolean;
 
 /**
  * Wrapper around a tree-sitter query that provides a more convenient API, and
@@ -227,7 +226,7 @@ export class TreeSitterQuery {
         continue;
       }
       const name = getNormalizedCaptureName(capture.name);
-      const range = getStartOfEndOfRange(capture);
+      const range = getStartOfEndOfRange(capture.name, capture.range);
       const existing = map.get(name);
 
       if (existing == null) {
@@ -260,6 +259,7 @@ export class TreeSitterQuery {
 
     return { captures: result };
   }
+
   private createQueryMatchWithoutPredicates(
     document: TextDocument,
     match: treeSitter.QueryMatch,
@@ -284,10 +284,10 @@ export class TreeSitterQuery {
         continue;
       }
       const name = getNormalizedCaptureName(capture.name);
-      const range = getStartOfEndOfRange({
-        name: capture.name,
-        range: getNodeRange(capture.node),
-      });
+      const range = getStartOfEndOfRange(
+        capture.name,
+        getNodeRange(capture.node),
+      );
       const existing = map.get(name);
 
       if (existing == null) {
@@ -313,9 +313,19 @@ export class TreeSitterQuery {
       return undefined;
     }
 
-    // if (this.shouldCheckCaptures) {
-    //   this.checkCaptures(Array.from(map.values()));
-    // }
+    if (this.shouldCheckCaptures) {
+      this.checkCaptures(
+        Array.from(map.values()).map(({ captures }) => ({
+          captures: captures.map((c) => ({
+            name: c.name,
+            range: getNodeRange(c.node),
+            allowMultiple: false,
+            insertionDelimiter: undefined,
+            hasError: () => isContainedInErrorNode(c.node),
+          })),
+        })),
+      );
+    }
 
     return { captures: result };
   }

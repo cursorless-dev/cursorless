@@ -1,7 +1,7 @@
 import type { TextDocument } from "@cursorless/common";
 import { Range } from "@cursorless/common";
 import type { Node } from "web-tree-sitter";
-import type { MutableQueryCapture } from "./QueryCapture";
+import type { MutableQueryCapture, QueryCapture } from "./QueryCapture";
 import { rewriteStartOfEndOf } from "./rewriteStartOfEndOf";
 import assert from "assert";
 
@@ -51,16 +51,12 @@ const testCases: TestCase[] = [
   },
 ];
 
-const hasError = () => false;
-
-function fillOutCapture(capture: NameRange): MutableQueryCapture {
+function fillOutCapture(capture: NameRange): QueryCapture {
   return {
     ...capture,
     allowMultiple: false,
     insertionDelimiter: undefined,
-    document: null as unknown as TextDocument,
-    node: null as unknown as Node,
-    hasError,
+    hasError: () => false,
   };
 }
 

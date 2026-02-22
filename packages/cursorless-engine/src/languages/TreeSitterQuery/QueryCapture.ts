@@ -64,3 +64,5 @@ export interface MutableQueryCapture extends QueryCapture {
 export interface MutableQueryMatch extends QueryMatch {
   readonly captures: MutableQueryCapture[];
 }
+
+export type PatternPredicate = (match: MutableQueryMatch) => boolean;
