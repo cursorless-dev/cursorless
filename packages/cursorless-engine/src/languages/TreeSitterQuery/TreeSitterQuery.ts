@@ -26,6 +26,7 @@ import {
   rewriteStartOfEndOf,
 } from "./rewriteStartOfEndOf";
 import { treeSitterQueryCache } from "./TreeSitterQueryCache";
+
 type PatternPredicate = (match: MutableQueryMatch) => boolean;
 
 /**
@@ -145,6 +146,7 @@ export class TreeSitterQuery {
         );
       } else {
         queryMatch = this.createQueryMatchWithoutPredicates(
+          document,
           match,
           captureNameFilter,
         );
@@ -206,18 +208,10 @@ export class TreeSitterQuery {
       }
     }
 
-    return this.createQueryMatch(mutableMatch.captures, captureNameFilter);
-  }
-  }
-
-  private createQueryMatch(
-    match: MutableQueryMatch,
-    captureNameFilter: Set<number> | undefined,
-  ): QueryMatch | undefined {
-    const result: MutableQueryCapture[] = [];
+    const result: QueryCapture[] = [];
     const map = new Map<
       string,
-      { acc: MutableQueryCapture; captures: MutableQueryCapture[] }
+      { acc: MutableQueryCapture; captures: QueryCapture[] }
     >();
 
     // Merge the ranges of all captures with the same name into a single
@@ -225,7 +219,7 @@ export class TreeSitterQuery {
     // with names `@foo`, `@foo.start`, and `@foo.end` to have the same
     // name, for which we'd return a capture with name `foo`.
 
-    for (const capture of match.captures) {
+    for (const capture of mutableMatch.captures) {
       if (
         captureNameFilter != null &&
         !captureNameFilter.has(getNormalizedCaptureIndex(capture.name))
@@ -238,7 +232,7 @@ export class TreeSitterQuery {
 
       if (existing == null) {
         const captures = [capture];
-        const acc = {
+        const acc: MutableQueryCapture = {
           ...capture,
           name,
           range,
@@ -266,8 +260,67 @@ export class TreeSitterQuery {
 
     return { captures: result };
   }
+  private createQueryMatchWithoutPredicates(
+    document: TextDocument,
+    match: treeSitter.QueryMatch,
+    captureNameFilter: Set<number> | undefined,
+  ): QueryMatch | undefined {
+    const result: QueryCapture[] = [];
+    const map = new Map<
+      string,
+      { acc: MutableQueryCapture; captures: treeSitter.QueryCapture[] }
+    >();
 
-  private checkCaptures(matches: { captures: MutableQueryCapture[] }[]) {
+    // Merge the ranges of all captures with the same name into a single
+    // range and return one capture with that name.  We consider captures
+    // with names `@foo`, `@foo.start`, and `@foo.end` to have the same
+    // name, for which we'd return a capture with name `foo`.
+
+    for (const capture of match.captures) {
+      if (
+        captureNameFilter != null &&
+        !captureNameFilter.has(getNormalizedCaptureIndex(capture.name))
+      ) {
+        continue;
+      }
+      const name = getNormalizedCaptureName(capture.name);
+      const range = getStartOfEndOfRange({
+        name: capture.name,
+        range: getNodeRange(capture.node),
+      });
+      const existing = map.get(name);
+
+      if (existing == null) {
+        const captures = [capture];
+        const acc: MutableQueryCapture = {
+          node: capture.node,
+          document,
+          name,
+          range,
+          allowMultiple: false,
+          insertionDelimiter: undefined,
+          hasError: () => captures.some((c) => isContainedInErrorNode(c.node)),
+        };
+        result.push(acc);
+        map.set(name, { acc, captures });
+      } else {
+        existing.acc.range = existing.acc.range.union(range);
+        existing.captures.push(capture);
+      }
+    }
+
+    if (result.length === 0) {
+      return undefined;
+    }
+
+    // if (this.shouldCheckCaptures) {
+    //   this.checkCaptures(Array.from(map.values()));
+    // }
+
+    return { captures: result };
+  }
+
+  private checkCaptures(matches: { captures: QueryCapture[] }[]) {
     for (const match of matches) {
       const capturesAreValid = checkCaptureStartEnd(
         rewriteStartOfEndOf(match.captures),
