@@ -2,6 +2,10 @@ import type { Position, TextDocument, TreeSitter } from "@cursorless/common";
 import type * as treeSitter from "web-tree-sitter";
 import { ide } from "../../singletons/ide.singleton";
 import {
+  PerformanceInterval,
+  PerformanceTick,
+} from "../../testUtil/Performance";
+import {
   getNormalizedCaptureIndex,
   getNormalizedCaptureName,
   type ScopeCaptureName,
@@ -14,6 +18,7 @@ import { positionToPoint } from "./positionToPoint";
 import type {
   MutableQueryCapture,
   MutableQueryMatch,
+  QueryCapture,
   QueryMatch,
 } from "./QueryCapture";
 import {
@@ -21,6 +26,7 @@ import {
   rewriteStartOfEndOf,
 } from "./rewriteStartOfEndOf";
 import { treeSitterQueryCache } from "./TreeSitterQueryCache";
+type PatternPredicate = (match: MutableQueryMatch) => boolean;
 
 /**
  * Wrapper around a tree-sitter query that provides a more convenient API, and
@@ -42,7 +48,7 @@ export class TreeSitterQuery {
      * array corresponds to a pattern, and each element of the inner array
      * corresponds to a predicate for that pattern.
      */
-    private patternPredicates: ((match: MutableQueryMatch) => boolean)[][],
+    private patternPredicates: PatternPredicate[][],
   ) {
     this.shouldCheckCaptures = ide().runMode !== "production";
   }
@@ -126,27 +132,31 @@ export class TreeSitterQuery {
         continue;
       }
 
-      const hasPatternPredicates =
-        this.patternPredicates[match.patternIndex].length > 0;
+      const patternPredicates = this.patternPredicates[match.patternIndex];
 
-      const mutableMatch = this.createMutableQueryMatch(
-        document,
-        match,
-        // If there are pattern predicates, we need to include all captures when
-        // creating the mutable match, since the predicates may depend on any of
-        // the captures.
-        !hasPatternPredicates ? captureNameFilter : undefined,
-      );
+      let queryMatch: QueryMatch | undefined;
 
-      if (!this.runPredicates(mutableMatch)) {
-        continue;
+      if (patternPredicates.length > 0) {
+        queryMatch = this.createQueryMatchWithPredicates(
+          document,
+          match,
+          patternPredicates,
+          captureNameFilter,
+        );
+      } else {
+        queryMatch = this.createQueryMatchWithoutPredicates(
+          match,
+          captureNameFilter,
+        );
       }
 
-      const queryMatch = this.createQueryMatch(
-        mutableMatch,
-        // We only need to filter here if we didn't filter in createMutableQueryMatch()
-        hasPatternPredicates ? captureNameFilter : undefined,
-      );
+      //   const queryMatch = hasPatternPredicates
+      //     ? this.createQueryMatchWithPredicates(
+      //         document,
+      //         match,
+      //         captureNameFilter,
+      //       )
+      //     : this.createQueryMatchWithoutPredicates(match, captureNameFilter);
 
       if (queryMatch != null) {
         results.push(queryMatch);
@@ -168,21 +178,15 @@ export class TreeSitterQuery {
     });
   }
 
-  private createMutableQueryMatch(
+  private createQueryMatchWithPredicates(
     document: TextDocument,
     match: treeSitter.QueryMatch,
+    predicates: PatternPredicate[],
     captureNameFilter: Set<number> | undefined,
-  ): MutableQueryMatch {
+  ): QueryMatch | undefined {
     const captures: MutableQueryCapture[] = [];
 
     for (const { name, node } of match.captures) {
-      if (
-        captureNameFilter != null &&
-        !captureNameFilter.has(getNormalizedCaptureIndex(name))
-      ) {
-        continue;
-      }
-
       captures.push({
         name,
         node,
@@ -194,19 +198,16 @@ export class TreeSitterQuery {
       });
     }
 
-    return {
-      patternIdx: match.patternIndex,
-      captures,
-    };
-  }
+    const mutableMatch: MutableQueryMatch = { captures };
 
-  private runPredicates(match: MutableQueryMatch): boolean {
-    for (const predicate of this.patternPredicates[match.patternIdx]) {
-      if (!predicate(match)) {
-        return false;
+    for (const predicate of predicates) {
+      if (!predicate(mutableMatch)) {
+        return undefined;
       }
     }
-    return true;
+
+    return this.createQueryMatch(mutableMatch.captures, captureNameFilter);
+  }
   }
 
   private createQueryMatch(

@@ -62,10 +62,5 @@ export interface MutableQueryCapture extends QueryCapture {
  * match.
  */
 export interface MutableQueryMatch extends QueryMatch {
-  /**
-   * The index of the pattern that was matched.
-   */
-  readonly patternIdx: number;
-
   readonly captures: MutableQueryCapture[];
 }
