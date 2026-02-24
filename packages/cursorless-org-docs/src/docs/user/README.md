@@ -305,6 +305,15 @@ The word '`"file"` can be used to expand the target to refer to the entire file.
 
 For example, `"take file [blue] air"` selects the file including the token containing letter 'a' with a blue hat.
 
+##### `"visible"`
+
+The word `"visible"` refers to the currently visible content in the editor viewport, excluding any folded/collapsed regions.
+
+- `"take visible"`
+- `"chuck visible"`
+
+This is useful for limiting operations to what's on screen. For example, `"from visible take every instance air"` will only match visible instances of the token with an 'a' hat, skipping matches hidden in folded regions or scrolled out of view.
+
 ##### `"head"` and `"tail"`
 
 The modifiers `"head"` and `"tail"` can be used to expand a target through the beginning or end of the line, respectively.
