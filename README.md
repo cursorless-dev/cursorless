@@ -52,7 +52,7 @@ This extension contributes the following settings:
 
 ## Known Issues
 
-- Cursorless calculates the position of the hats based on the characteristics of your font. If you find that the hats are off center you can try running this command: [`cursorless.recomputeDecorationStyles`](vscode://settings/cursorless.recomputeDecorationStyles)
+- Cursorless calculates the position of the hats based on the characteristics of your font. If you find that the hats are off center you can try running this command: `cursorless.recomputeDecorationStyles`
 
 ## Contributing
 
