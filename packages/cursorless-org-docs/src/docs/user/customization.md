@@ -128,7 +128,7 @@ hats off: user.run_rpc_command("cursorless.toggleDecorations", false)
 
 ## Updating word separators
 
-The word separators are characters that defines the boundary between words in a identifier. eg `hello_world` is an identifier with two words separated by `_`. If you like to support other separators like `-` in `hello-world` that can be accomplished by changing the `cursorless.wordSeparators` setting. This setting is also language overridable.
+The word separators are characters that defines the boundary between words in a identifier. eg `hello_world` is an identifier with two words separated by `_`. If you like to support other separators like `-` in `hello-world` that can be accomplished by changing the [`cursorless.wordSeparators`](vscode://settings/cursorless.wordSeparators) setting. This setting is also language overridable.
 
 ```json
 // Sets the word separator for all languages

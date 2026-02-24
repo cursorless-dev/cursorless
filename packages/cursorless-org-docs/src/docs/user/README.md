@@ -64,14 +64,14 @@ The following colors are supported. Note that to target the default (gray) hat y
 | `"navy"`    | navy    | `userColor1` | ❌                  |
 | `"apricot"` | apricot | `userColor2` | ❌                  |
 
-You can enable or disable colors in your VSCode settings, by searching for `cursorless.hatEnablement.colors` and checking the box next to the internal ID for the given shape as listed above. To navigate to your VSCode settings, either say "show settings", or go to File --> Preferences --> Settings.
+You can enable or disable colors in your VSCode settings, by searching for [`cursorless.hatEnablement.colors`](vscode://settings/cursorless.hatEnablement.colors) and checking the box next to the internal ID for the given shape as listed above. To navigate to your VSCode settings, either say "show settings", or go to File --> Preferences --> Settings.
 
-You can also tweak the visible colors for any of these colors in your VSCode settings, by searching for `cursorless.colors` and changing the hex color code next to the internal ID for the given shape as listed above. Note that you can configure different colors for dark and light themes. See our [visual accessibility guide](visualAccessibility.md) for more on visual accessibility.
+You can also tweak the visible colors for any of these colors in your VSCode settings, by searching for [`cursorless.colors`](vscode://settings/cursorless.colors) and changing the hex color code next to the internal ID for the given shape as listed above. Note that you can configure different colors for dark and light themes. See our [visual accessibility guide](visualAccessibility.md) for more on visual accessibility.
 
 If you find these color names unintuitive / tough to remember, their
 spoken forms can be [customized](customization.md) like any other spoken form
 in Cursorless. If you change a spoken form to be more than one syllable, you
-can change the penalty in the `cursorless.hatPenalties.colors` setting to the
+can change the penalty in the [`cursorless.hatPenalties.colors`](vscode://settings/cursorless.hatPenalties.colors) setting to the
 number of syllables you use, so that Cursorless can optimize hat allocation to
 minimize syllables.
 
@@ -93,12 +93,12 @@ The following shapes are supported. Note that to target the default (dot) shape 
 | `"cross"`   | ![Crosshairs](../../../../../images/hats/crosshairs.svg) | `crosshairs` | ❌                  |
 | `"eye"`     | ![Eye](../../../../../images/hats/eye.svg)               | `eye`        | ❌                  |
 
-You can enable or disable shapes in your VSCode settings, by searching for `cursorless.hatEnablement.shapes` and checking the box next to the internal ID for the given shape as listed above. To navigate to your VSCode settings, either say "show settings", or go to File --> Preferences --> Settings.
+You can enable or disable shapes in your VSCode settings, by searching for [`cursorless.hatEnablement.shapes`](vscode://settings/cursorless.hatEnablement.shapes) and checking the box next to the internal ID for the given shape as listed above. To navigate to your VSCode settings, either say "show settings", or go to File --> Preferences --> Settings.
 
 If you find these shape names unintuitive / tough to remember, their
 spoken forms can be [customized](customization.md) like any other spoken form
 in cursorless. If you change a spoken form to be more than one syllable, you
-can change the penalty in the `cursorless.hatPenalties.shapes` setting to the
+can change the penalty in the [`cursorless.hatPenalties.shapes`](vscode://settings/cursorless.hatPenalties.shapes) setting to the
 number of syllables you use, so that cursorless can optimize hat allocation to
 minimize syllables.
 
