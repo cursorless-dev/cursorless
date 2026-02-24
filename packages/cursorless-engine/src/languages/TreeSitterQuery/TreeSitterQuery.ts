@@ -1,18 +1,30 @@
-import type { Position, TextDocument, TreeSitter } from "@cursorless/common";
+import type {
+  Mutable,
+  Position,
+  TextDocument,
+  TreeSitter,
+} from "@cursorless/common";
 import type * as treeSitter from "web-tree-sitter";
 import { ide } from "../../singletons/ide.singleton";
+import {
+  getNormalizedCaptureIndex,
+  getNormalizedCaptureName,
+  type ScopeCaptureName,
+} from "./captureNames";
 import { checkCaptureStartEnd } from "./checkCaptureStartEnd";
 import { getNodeRange } from "./getNodeRange";
 import { isContainedInErrorNode } from "./isContainedInErrorNode";
-import { normalizeCaptureName } from "./normalizeCaptureName";
 import { parsePredicatesWithErrorHandling } from "./parsePredicatesWithErrorHandling";
 import { positionToPoint } from "./positionToPoint";
 import type {
   MutableQueryCapture,
-  MutableQueryMatch,
+  PatternPredicate,
+  QueryCapture,
   QueryMatch,
 } from "./QueryCapture";
 import {
+  createTestQueryCapture,
+  getStartOfEndOfNodeRange,
   getStartOfEndOfRange,
   rewriteStartOfEndOf,
 } from "./rewriteStartOfEndOf";
@@ -38,7 +50,7 @@ export class TreeSitterQuery {
      * array corresponds to a pattern, and each element of the inner array
      * corresponds to a predicate for that pattern.
      */
-    private patternPredicates: ((match: MutableQueryMatch) => boolean)[][],
+    private patternPredicates: PatternPredicate[][],
   ) {
     this.shouldCheckCaptures = ide().runMode !== "production";
   }
@@ -55,38 +67,90 @@ export class TreeSitterQuery {
 
   hasCapture(name: string): boolean {
     return this.query.captureNames.some(
-      (n) => normalizeCaptureName(n) === name,
+      (n) => getNormalizedCaptureName(n) === name,
     );
   }
 
   matches(
     document: TextDocument,
-    start?: Position,
-    end?: Position,
+    start: Position,
+    end: Position,
   ): QueryMatch[] {
-    if (!treeSitterQueryCache.isValid(document, start, end)) {
-      const matches = this.getAllMatches(document, start, end);
-      treeSitterQueryCache.update(document, start, end, matches);
+    return this.getMatches(document, start, end, undefined);
+  }
+
+  matchesForScopeTypes(
+    document: TextDocument,
+    scopeTypes: readonly ScopeCaptureName[],
+  ): QueryMatch[] {
+    const captureNameFilter = new Set(
+      scopeTypes.map(getNormalizedCaptureIndex),
+    );
+    return this.getMatches(document, undefined, undefined, captureNameFilter);
+  }
+
+  private getMatches(
+    document: TextDocument,
+    start: Position | undefined,
+    end: Position | undefined,
+    captureNameFilter: Set<number> | undefined,
+  ): QueryMatch[] {
+    if (
+      !treeSitterQueryCache.isValid(document, start, end, captureNameFilter)
+    ) {
+      const matches = this.calculateMatches(
+        document,
+        start,
+        end,
+        captureNameFilter,
+      );
+      treeSitterQueryCache.update(
+        document,
+        start,
+        end,
+        captureNameFilter,
+        matches,
+      );
     }
     return treeSitterQueryCache.get();
   }
 
-  private getAllMatches(
+  private calculateMatches(
     document: TextDocument,
-    start?: Position,
-    end?: Position,
+    start: Position | undefined,
+    end: Position | undefined,
+    captureNameFilter: Set<number> | undefined,
   ): QueryMatch[] {
     const matches = this.getTreeMatches(document, start, end);
     const results: QueryMatch[] = [];
 
     for (const match of matches) {
-      const mutableMatch = this.createMutableQueryMatch(document, match);
-
-      if (!this.runPredicates(mutableMatch)) {
+      if (
+        captureNameFilter != null &&
+        !match.captures.some((capture) =>
+          captureNameFilter.has(getNormalizedCaptureIndex(capture.name)),
+        )
+      ) {
         continue;
       }
 
-      results.push(this.createQueryMatch(mutableMatch));
+      const patternPredicates = this.patternPredicates[match.patternIndex];
+
+      // The split path here is to avoid creating query captures if there are no
+      // predicates, Solely for performance.
+      const captures =
+        patternPredicates.length > 0
+          ? this.createQueryCapturesWithPredicates(
+              document,
+              match,
+              patternPredicates,
+              captureNameFilter,
+            )
+          : this.createQueryCapturesWithoutPredicates(match, captureNameFilter);
+
+      if (captures.length > 0) {
+        results.push({ captures });
+      }
     }
 
     return results;
@@ -94,8 +158,8 @@ export class TreeSitterQuery {
 
   private getTreeMatches(
     document: TextDocument,
-    start?: Position,
-    end?: Position,
+    start: Position | undefined,
+    end: Position | undefined,
   ) {
     const { rootNode } = this.treeSitter.getTree(document);
     return this.query.matches(rootNode, {
@@ -104,38 +168,36 @@ export class TreeSitterQuery {
     });
   }
 
-  private createMutableQueryMatch(
+  private createQueryCapturesWithPredicates(
     document: TextDocument,
     match: treeSitter.QueryMatch,
-  ): MutableQueryMatch {
-    return {
-      patternIdx: match.patternIndex,
-      captures: match.captures.map(({ name, node }) => ({
-        name,
-        node,
-        document,
-        range: getNodeRange(node),
-        insertionDelimiter: undefined,
-        allowMultiple: false,
-        hasError: () => isContainedInErrorNode(node),
-      })),
-    };
-  }
+    predicates: PatternPredicate[],
+    captureNameFilter: Set<number> | undefined,
+  ): QueryCapture[] {
+    const captures: MutableQueryCapture[] = [];
 
-  private runPredicates(match: MutableQueryMatch): boolean {
-    for (const predicate of this.patternPredicates[match.patternIdx]) {
-      if (!predicate(match)) {
-        return false;
+    for (const capture of match.captures) {
+      captures.push({
+        name: capture.name,
+        node: capture.node,
+        document,
+        range: getNodeRange(capture.node),
+        allowMultiple: false,
+        insertionDelimiter: undefined,
+        hasError: () => isContainedInErrorNode(capture.node),
+      });
+    }
+
+    for (const predicate of predicates) {
+      if (!predicate({ captures })) {
+        return [];
       }
     }
-    return true;
-  }
 
-  private createQueryMatch(match: MutableQueryMatch): QueryMatch {
-    const result: MutableQueryCapture[] = [];
+    const result: QueryCapture[] = [];
     const map = new Map<
       string,
-      { acc: MutableQueryCapture; captures: MutableQueryCapture[] }
+      { acc: Mutable<QueryCapture>; captures: QueryCapture[] }
     >();
 
     // Merge the ranges of all captures with the same name into a single
@@ -143,17 +205,25 @@ export class TreeSitterQuery {
     // with names `@foo`, `@foo.start`, and `@foo.end` to have the same
     // name, for which we'd return a capture with name `foo`.
 
-    for (const capture of match.captures) {
-      const name = normalizeCaptureName(capture.name);
+    for (const capture of captures) {
+      if (
+        captureNameFilter != null &&
+        !captureNameFilter.has(getNormalizedCaptureIndex(capture.name))
+      ) {
+        continue;
+      }
+
+      const name = getNormalizedCaptureName(capture.name);
       const range = getStartOfEndOfRange(capture);
       const existing = map.get(name);
 
       if (existing == null) {
         const captures = [capture];
-        const acc = {
-          ...capture,
+        const acc: QueryCapture = {
           name,
           range,
+          allowMultiple: capture.allowMultiple,
+          insertionDelimiter: capture.insertionDelimiter,
           hasError: () => captures.some((c) => c.hasError()),
         };
         result.push(acc);
@@ -169,21 +239,76 @@ export class TreeSitterQuery {
     }
 
     if (this.shouldCheckCaptures) {
-      this.checkCaptures(Array.from(map.values()));
+      checkCaptures(Array.from(map.values()));
     }
 
-    return { captures: result };
+    return result;
   }
 
-  private checkCaptures(matches: { captures: MutableQueryCapture[] }[]) {
-    for (const match of matches) {
-      const capturesAreValid = checkCaptureStartEnd(
-        rewriteStartOfEndOf(match.captures),
-        ide().messages,
-      );
-      if (!capturesAreValid && ide().runMode === "test") {
-        throw new Error("Invalid captures");
+  private createQueryCapturesWithoutPredicates(
+    match: treeSitter.QueryMatch,
+    captureNameFilter: Set<number> | undefined,
+  ): QueryCapture[] {
+    const result: QueryCapture[] = [];
+    const map = new Map<
+      string,
+      {
+        acc: Mutable<QueryCapture>;
+        captures: treeSitter.QueryCapture[];
       }
+    >();
+
+    for (const capture of match.captures) {
+      if (
+        captureNameFilter != null &&
+        !captureNameFilter.has(getNormalizedCaptureIndex(capture.name))
+      ) {
+        continue;
+      }
+
+      const name = getNormalizedCaptureName(capture.name);
+      const range = getStartOfEndOfNodeRange(capture.name, capture.node);
+      const existing = map.get(name);
+
+      if (existing == null) {
+        const captures = [capture];
+        const acc: QueryCapture = {
+          name,
+          range,
+          allowMultiple: false,
+          insertionDelimiter: undefined,
+          hasError: () => captures.some((c) => isContainedInErrorNode(c.node)),
+        };
+        result.push(acc);
+        map.set(name, { acc, captures });
+      } else {
+        existing.acc.range = existing.acc.range.union(range);
+        existing.captures.push(capture);
+      }
+    }
+
+    if (this.shouldCheckCaptures) {
+      checkCaptures(
+        Array.from(map.values(), (v) => ({
+          captures: v.captures.map((c) =>
+            createTestQueryCapture(c.name, getNodeRange(c.node)),
+          ),
+        })),
+      );
+    }
+
+    return result;
+  }
+}
+
+function checkCaptures(matches: { captures: QueryCapture[] }[]) {
+  for (const match of matches) {
+    const capturesAreValid = checkCaptureStartEnd(
+      rewriteStartOfEndOf(match.captures),
+      ide().messages,
+    );
+    if (!capturesAreValid && ide().runMode === "test") {
+      throw new Error("Invalid captures");
     }
   }
 }

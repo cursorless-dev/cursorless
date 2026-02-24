@@ -81,9 +81,10 @@
   ) @_dummy
   (#type?
     @_dummy
+    program
+    block_body
     begin_block
     begin
-    block_body
     block
     body_statement
     do_block
@@ -94,85 +95,313 @@
     heredoc_beginning
     interpolation
     lambda
-    method
     parenthesized_statements
-    program
     singleton_class
     singleton_method
     then
   )
 )
 
+(
+  (program) @class.iteration @statement.iteration @namedFunction.iteration
+  (#document-range! @class.iteration @statement.iteration @namedFunction.iteration)
+)
+
+(
+  (program) @name.iteration @value.iteration
+  (#document-range! @name.iteration @value.iteration)
+)
+
+;;!! { }
+;;!   ^
+(block
+  "{" @interior.start.endOf
+  "}" @interior.end.startOf
+)
+
+(_
+  _ @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
+  .
+  body: (_)
+  .
+  "end" @statement.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+)
+
+(_
+  _ @interior.start.endOf
+  .
+  body: (_)
+  .
+  "end" @interior.end.startOf
+)
+
+(_
+  _ @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
+  .
+  body: (_
+    "end" @statement.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+  )
+)
+
+(_
+  _ @interior.start.endOf
+  .
+  body: (_
+    "end" @interior.end.startOf
+  )
+)
+
+;;!! # Hello world
 (comment) @comment @textFragment
-(hash) @map
+
+;;!! "Hello world"
+;;!! ^^^^^^^^^^^^^
+;;!!  ^^^^^^^^^^^
+(string
+  (string_content)? @textFragment
+) @string
+
+;;!! <<EOF EOF
+;;!       ^
+(heredoc_content) @textFragment
+
+;;!! /foo/
 (regex) @regularExpression
-(call) @functionCall
+
+;;!! foo()
+;;!  ^^^^^
+;;!  ^^^
+(call
+  receiver: (_)? @functionCallee.start
+  method: (_) @functionCallee.end
+  arguments: (_
+    "(" @name.iteration.start.endOf @value.iteration.start.endOf
+    ")" @name.iteration.end.startOf @value.iteration.end.startOf
+  )?
+) @functionCall @functionCallee.domain
 
 [
+  ;;!! [1, 2, 3]
   (array)
+  ;;!! %w[foo bar baz]
   (string_array)
+  ;;!! %i[foo bar baz]
   (symbol_array)
 ] @list
 
-(_
-  (if) @ifStatement
-) @_.iteration
+;;!! {aaa: 0, bbb: 1}
+(hash) @map
 
-[
-  (method)
-  (singleton_method)
-] @namedFunction
+;;!! if true end
+;;!     ^^^^
+(if
+  condition: (_) @condition
+) @ifStatement @condition.domain @branch.iteration
 
-(program) @class.iteration @namedFunction.iteration @name.iteration
+;;!! if true end
+;;!         ^
+(if
+  condition: (_) @interior.start.endOf
+  consequence: (_)
+  .
+  _ @interior.end.startOf
+)
+(if
+  condition: (_) @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
+  consequence: (_)
+  .
+  _ @statement.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+)
 
+;;!! if true elsif false end
+(if
+  "if" @branch.start @branch.removal.start.startOf
+  consequence: (_) @branch.end
+  (elsif) @branch.removal.end.startOf
+  (#character-range! @branch.removal.end.startOf 3)
+)
+
+;;!! if true end
+;;!! if true else end
+(if
+  "if" @branch.start @branch.removal.start.startOf
+  consequence: (_) @branch.end
+  [
+    (else) @branch.removal.end.startOf
+    "end" @branch.removal.end.endOf
+  ]
+)
+
+;;!! elsif true end
+;;!        ^^^^
+(elsif
+  "elsif" @branch.start
+  condition: (_) @condition
+  consequence: (_) @branch.end @condition.domain.end.endOf
+) @condition.domain.start.startOf
+
+;;!! elsif true else end
+;;!            ^
+(elsif
+  condition: (_) @interior.start.endOf
+  alternative: (_) @interior.end.startOf
+)
+(elsif
+  condition: (_) @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
+  alternative: (_) @statement.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+)
+
+;;!! elsif true end
+;;!            ^
+(elsif
+  condition: (_) @interior.start.endOf
+  !alternative
+) @interior.end.endOf
+(elsif
+  condition: (_) @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
+  !alternative
+) @statement.iteration.end.endOf @name.iteration.end.endOf @value.iteration.end.endOf
+
+;;!! else end
+(else
+  "else" @interior.start.endOf
+) @branch @interior.end.endOf
+(else
+  "else" @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
+) @statement.iteration.end.endOf @name.iteration.end.endOf @value.iteration.end.endOf
+
+;;!! begin rescue end
+;;!! begin end
+(begin) @branch.iteration
+
+;;!! begin rescue end
+(begin
+  "begin" @branch.start @branch.removal.start @interior.start.endOf
+  (_) @branch.end @branch.removal.end
+  .
+  (rescue) @interior.end.startOf
+)
+
+;;!! begin end
+(begin
+  "begin" @branch.start @interior.start.endOf
+  (_) @branch.end
+  .
+  "end" @interior.end.startOf
+  (#not-type? @branch.end rescue)
+) @branch.removal
+
+;;!! rescue end
+(begin
+  (rescue
+    "rescue" @interior.start.endOf
+  ) @branch
+  "end" @interior.end.startOf
+)
+
+;;!! while true end
+;;!        ^^^^
+(while
+  condition: (_) @condition
+) @condition.domain
+
+;;!! true ? 0 : 1
+;;!  ^^^^
+;;!         ^   ^
+(conditional
+  condition: (_) @condition
+  consequence: (_) @branch
+) @condition.domain @branch.iteration
+
+(conditional
+  alternative: (_) @branch
+)
+
+;;!! class Foo end
+;;!        ^^^
+;;!           ^
 (class
-  name: (_) @class.iteration.start.endOf @namedFunction.iteration.start.endOf @name.iteration.start.endOf
-  "end" @class.iteration.end.startOf @namedFunction.iteration.end.startOf @name.iteration.end.startOf
-) @class
+  name: (_) @name @class.iteration.start.endOf @namedFunction.iteration.start.endOf
+  "end" @class.iteration.end.startOf @namedFunction.iteration.end.startOf
+) @class @name.domain
 
-(class
-  name: (_) @name
-) @class @_.domain
-
-(string) @string
-
-[
-  (string_content)
-  (heredoc_content)
-] @textFragment
-
+;;!! def foo() end
+;;!      ^^^
 (method
   name: (_) @name
-) @_.domain
+) @namedFunction @name.domain
 
+;;!! def foo.bar() end
+;;!      ^^^
 (singleton_method
   name: (_) @name
-) @_.domain
+) @namedFunction @name.domain
 
+;;!! foo = 0
+;;!  ^^^
+;;!        ^
 (assignment
-  left: (_) @name
+  left: (_) @name @value.leading.endOf
+  right: (_) @value @name.trailing.startOf
 ) @_.domain
 
+;;!! foo += 0
+;;!  ^^^
+;;!         ^
 (operator_assignment
-  left: (_) @name
+  left: (_) @name @value.leading.endOf
+  right: (_) @value @name.trailing.startOf
 ) @_.domain
 
-operator: [
-  "<"
-  "<<"
-  "<<="
-  "<="
-  ">"
-  ">="
-  ">>"
-  ">>="
-] @disqualifyDelimiter
-(pair
-  "=>" @disqualifyDelimiter
+;;!! for v in values end
+;;!      ^
+;;!           ^^^^^^
+(for
+  pattern: (_) @name
+  value: (in
+    (_) @value
+  )
+) @_.domain
+
+;;!! case foo when 0 end
+;;!       ^^^
+(case
+  value: (_) @value
+) @value.domain
+
+;;!! case foo when 0 end
+;;!          ^^^^^^^^
+(case
+  value: (_) @interior.start.endOf @condition.iteration.start.endOf @branch.iteration.start.endOf
+  "end" @interior.end.startOf @condition.iteration.end.startOf @branch.iteration.end.startOf
 )
-(match_pattern
-  "=>" @disqualifyDelimiter
+
+;;!! case foo in 0 end
+;;!       ^^^
+(case_match
+  value: (_) @value
+) @value.domain
+
+;;!! case foo in 0 end
+;;!          ^^^^^^
+(case_match
+  value: (_) @interior.start.endOf @condition.iteration.start.endOf @branch.iteration.start.endOf
+  "end" @interior.end.startOf @condition.iteration.end.startOf @branch.iteration.end.startOf
 )
+
+;;!! when 0
+;;!       ^
+(when
+  pattern: (_) @condition
+  body: (_) @interior
+) @branch @condition.domain
+
+;;!! in foo
+;;!     ^^^
+(in_clause
+  pattern: (_) @condition
+  body: (_) @interior
+) @branch @condition.domain
 
 ;;!! %w(foo bar)
 ;;!     ^^^ ^^^
@@ -200,18 +429,22 @@ operator: [
   (#insertion-delimiter! @collectionItem " ")
 )
 
-;;!! if true
-;;!     ^^^^
-(_
-  condition: (_) @condition
-) @_.domain
-
-;;!! hi = -> { puts "Hi!" }
-;;!       ^^^^^^^^^^^^^^^^^
+;;!! -> {}
 (lambda) @anonymousFunction
 
-;;!! [1,2,3].each do |i| end
-;;!               ^^^^^^^^^^
+;;!! -> { 0 }
+(lambda
+  (block
+    (block_body
+      .
+      (_) @value
+      .
+    )
+  )
+) @value.domain
+
+;;!! values.each do |v| end
+;;!              ^^^^^^^^^^
 (do_block) @anonymousFunction
 
 (call
@@ -247,6 +480,16 @@ operator: [
   value: (_) @value @collectionKey.trailing.startOf
 ) @_.domain
 
+;;!! foo(aaa: 0, bbb: 1)
+;;!      ^^^
+;;!              ^^^
+(argument_list
+  (pair
+    key: (_) @name
+    value: (_) @name.trailing.startOf
+  ) @name.domain
+)
+
 ;;!! {"1" => "one", "2" => "two"}
 ;;!   ^^^^^^^^^^^^^^^^^^^^^^^^^^
 (hash
@@ -254,30 +497,43 @@ operator: [
   "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
 )
 
-;;!! return 10
-;;!         ^^
+;;!! return 0
+;;!         ^
 (return
   (argument_list) @value
-) @_.domain
+) @value.domain
 
-;;!! a = 10
-;;!      ^^
-(assignment
-  left: (_) @_.leading.endOf
-  right: (_) @value
-) @_.domain
+;;!! yield 0
+;;!        ^
+(yield
+  (argument_list) @value
+) @value.domain
 
-;;!! a += 10
-;;!       ^^
-(operator_assignment
-  left: (_) @_.leading.endOf
-  right: (_) @value
-) @_.domain
+;;!! raise 0
+;;!        ^
+(call
+  method: (_) @_dummy
+  (argument_list) @value
+  (#eq? @_dummy raise)
+) @value.domain
 
 ;;!! def foo(aaa, bbb)
 ;;!          ^^^  ^^^
 (
   (method_parameters
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
+;;!! ->(aaa, bbb) {}
+;;!     ^^^  ^^^
+(
+  (lambda_parameters
     (_)? @_.leading.endOf
     .
     (_) @argumentOrParameter
@@ -324,6 +580,53 @@ operator: [
   (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
+(method_parameters
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf
+)
+
+;;!! def foo(aaa, bbb = 0)
+;;!          ^^^  ^^^
+;;!                     ^
+(method_parameters
+  [
+    (identifier) @name
+    (optional_parameter
+      name: (_) @name @value.leading.endOf
+      value: (_) @value
+    ) @_.domain
+  ]
+)
+
+;;!! ->(aaa, bbb) {}
+;;!     ^^^^^^^^
+(_
+  (lambda_parameters
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
+) @argumentList.domain @argumentOrParameter.iteration.domain
+
+(lambda_parameters
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf
+)
+
+;;!! ->(aaa, bbb = 0)
+;;!     ^^^  ^^^
+;;!                ^
+(lambda_parameters
+  [
+    (identifier) @name
+    (optional_parameter
+      name: (_) @name @value.leading.endOf
+      value: (_) @value
+    ) @_.domain
+  ]
+)
+
 ;;!! foo(aaa, bbb)
 ;;!      ^^^^^^^^
 (_
@@ -347,3 +650,22 @@ operator: [
     (#child-range! @argumentList 1 -2)
   )
 ) @argumentList.domain @argumentOrParameter.iteration.domain
+
+(_
+  operator: [
+    "<"
+    ">"
+    "<="
+    ">="
+    "<<"
+    ">>"
+    "<<="
+    ">>="
+  ] @disqualifyDelimiter
+)
+(pair
+  "=>" @disqualifyDelimiter
+)
+(match_pattern
+  "=>" @disqualifyDelimiter
+)

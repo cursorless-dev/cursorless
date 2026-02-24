@@ -1,28 +1,28 @@
 class Foo:
-    def __init__(self, aaa: int, bbb: int): pass
+    def __init__(self, aaa: int, bbb: int = 0): pass
 ---
 
 [#1 Content] =
-[#1 Domain] = 0:0-1:48
+[#1 Domain] = 0:0-1:52
   >----------
 0| class Foo:
-1|     def __init__(self, aaa: int, bbb: int): pass
-   ------------------------------------------------<
+1|     def __init__(self, aaa: int, bbb: int = 0): pass
+   ----------------------------------------------------<
 
 
 [#2 Content] =
-[#2 Domain] = 1:4-1:48
-      >--------------------------------------------<
-1|     def __init__(self, aaa: int, bbb: int): pass
+[#2 Domain] = 1:4-1:52
+      >------------------------------------------------<
+1|     def __init__(self, aaa: int, bbb: int = 0): pass
 
 
 [#3 Content] =
-[#3 Domain] = 1:17-1:41
-                   >------------------------<
-1|     def __init__(self, aaa: int, bbb: int): pass
+[#3 Domain] = 1:17-1:45
+                   >----------------------------<
+1|     def __init__(self, aaa: int, bbb: int = 0): pass
 
 
 [#4 Content] =
-[#4 Domain] = 1:44-1:48
-                                              >----<
-1|     def __init__(self, aaa: int, bbb: int): pass
+[#4 Domain] = 1:48-1:52
+                                                  >----<
+1|     def __init__(self, aaa: int, bbb: int = 0): pass

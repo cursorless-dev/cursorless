@@ -1,0 +1,17 @@
+if true
+elsif false
+else
+end
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-3:3
+  >-------
+0| if true
+1| elsif false
+2| else
+3| end
+   ---<
+
+[Insertion delimiter] = "\n"

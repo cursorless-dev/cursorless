@@ -20,6 +20,7 @@ export function vscodeShowQuickPick(
 ) {
   return new Promise<string | undefined>((resolve, _reject) => {
     const quickPick = vscode.window.createQuickPick<CustomQuickPickItem>();
+    let selectedValue: string | undefined;
 
     const quickPickItems = items.map((item) => ({
       label: item,
@@ -63,13 +64,13 @@ export function vscodeShowQuickPick(
     }
 
     quickPick.onDidAccept(() => {
-      const selection = quickPick.activeItems[0];
-      resolve(selection.value);
+      selectedValue = quickPick.activeItems[0]?.value;
       quickPick.hide();
     });
 
     quickPick.onDidHide(() => {
-      resolve(undefined);
+      resolve(selectedValue);
+      quickPick.dispose();
     });
 
     quickPick.show();

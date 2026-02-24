@@ -7,3 +7,7 @@ export function isWindows() {
 export function isLinux() {
   return os.platform() === "linux";
 }
+
+export function isMac() {
+  return os.platform() === "darwin";
+}

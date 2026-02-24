@@ -2,6 +2,7 @@ interface CheatsheetLegendEntry {
   term: string;
   definition: string;
   link?: string;
+  linkName?: string;
   id: string;
 }
 
@@ -10,14 +11,16 @@ export type CheatsheetLegend = CheatsheetLegendEntry[];
 const cheatsheetLegend: CheatsheetLegend = [
   {
     term: "formatter",
-    definition: 'Formatter (eg "camel", "snake"). Say "format help" for a list',
+    definition:
+      'Formatter (eg "camel", "snake"). Say "help format" for a list.',
     id: "formatter",
   },
   {
-    term: "modifier",
-    definition: "Cursorless modifier",
-    link: "#modifiers",
-    id: "modifier",
+    term: "snippet",
+    definition: '(eg "if", "for"). Say "help snip" for a list.',
+    link: "https://github.com/talonhub/community/tree/main/core/snippets",
+    linkName: "Community snippet",
+    id: "snippet",
   },
   {
     term: "pair",
@@ -38,6 +41,12 @@ const cheatsheetLegend: CheatsheetLegend = [
     id: "destination",
   },
   {
+    term: "modifier",
+    definition: "Cursorless modifier",
+    link: "#modifiers",
+    id: "modifier",
+  },
+  {
     term: "scope",
     definition: "Cursorless scope",
     link: "#scopes",
@@ -50,7 +59,7 @@ const cheatsheetLegend: CheatsheetLegend = [
   },
   {
     term: "ordinal",
-    definition: "Ordinal, eg first, second, third",
+    definition: 'Ordinal (eg "first", "second", "third")',
     id: "ordinal",
   },
 ];

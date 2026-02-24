@@ -185,13 +185,6 @@
   (with_clause) @name
 ) @name.domain
 
-;;!! lambda str: len(str) > 0
-;;!              ^^^^^^^^^^^^
-;;!  ------------------------
-(lambda
-  body: (_) @value
-) @_.domain
-
 ;; value:
 ;;!! for aaa in bbb:
 ;;!             ^^^
@@ -218,9 +211,16 @@
 ] @map
 
 [
+  ;;!! [aaa, bbb]
   (list)
+  ;;!! [aaa for i in bbb]
   (list_comprehension)
+  ;;!! {aaa, bbb}
   (set)
+  ;;!! {aaa for i in bbb}
+  (set_comprehension)
+  ;;!! (aaa, bbb)
+  (tuple)
 ] @list
 
 ;;!! def foo(): pass
@@ -252,7 +252,7 @@
   return_type: (_) @type
 ) @_.domain
 
-;;!! class MyClass:
+;;!! class Foo:
 (
   (class_definition) @class @type @statement
   (#not-parent-type? @class decorated_definition)
@@ -266,7 +266,7 @@
 )
 
 ;;!! @value
-;;!! class MyClass:
+;;!! class Foo:
 (decorated_definition
   (class_definition)
 ) @class @type @statement
@@ -276,6 +276,13 @@
     name: (_) @name
   )
 ) @name.domain
+
+;;!! class Foo: pass
+;;!            ^^^^^
+(class_definition
+  ":" @class.iteration.start.endOf
+  body: (_) @class.iteration.end.endOf
+)
 
 (
   (module) @statement.iteration @class.iteration @namedFunction.iteration
@@ -609,21 +616,28 @@
   (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
-;;!! lambda _: pass
-;;!  ^^^^^^^^^^^^^^
-(lambda) @anonymousFunction
+;;!! lambda: 0
+;;!  ^^^^^^^^^
+;;!          ^
+(lambda
+  body: (_) @value
+) @anonymousFunction @value.domain
 
 ;;!! lambda aaa, bbb: pass
 ;;!         ^^^^^^^^
 (lambda
-  (lambda_parameters) @argumentList @argumentOrParameter.iteration @name.iteration
+  (lambda_parameters) @argumentList @argumentOrParameter.iteration
   (#insertion-delimiter! @argumentList ", ")
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;;!! lambda aaa, bbb: pass
+;;!         ^^^^^^^^
+(lambda_parameters) @name.iteration @value.iteration
+
+;;!! lambda aaa, bbb: pass
 ;;!         ^^^  ^^^
 (lambda_parameters
-  (_) @name
+  (identifier) @name
 )
 
 ;;!! lambda: pass
@@ -665,19 +679,23 @@
   ")" @name.iteration.end.startOf @value.iteration.end.startOf
 )
 
-operators: [
-  "<"
-  "<="
-  ">"
-  ">="
-] @disqualifyDelimiter
+(_
+  operators: [
+    "<"
+    ">"
+    "<="
+    ">="
+  ] @disqualifyDelimiter
+)
 
-operator: [
-  "<<"
-  "<<="
-  ">>"
-  ">>="
-] @disqualifyDelimiter
+(_
+  operator: [
+    "<<"
+    ">>"
+    "<<="
+    ">>="
+  ] @disqualifyDelimiter
+)
 
 (function_definition
   "->" @disqualifyDelimiter

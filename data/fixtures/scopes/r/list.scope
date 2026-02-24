@@ -1,10 +1,10 @@
-list(1, 2, 3)
+list(aaa, bbb)
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-0:13
-  >-------------<
-0| list(1, 2, 3)
+[Domain] = 0:0-0:14
+  >--------------<
+0| list(aaa, bbb)
 
 [Insertion delimiter] = " "

@@ -29,11 +29,11 @@
     "lodash-es": "^4.17.23",
     "normalize-path": "^3.0.0",
     "path-exists": "^5.0.0",
-    "type-fest": "^5.4.3"
+    "type-fest": "^5.4.4"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
     "@types/lodash-es": "^4.17.12",
-    "esbuild": "^0.27.2"
+    "esbuild": "^0.27.3"
   }
 }

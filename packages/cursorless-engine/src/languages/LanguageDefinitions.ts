@@ -64,18 +64,21 @@ export class LanguageDefinitionsImpl
   ) {
     const isTesting = ide.runMode === "test";
 
-    ide.onDidOpenTextDocument((document) => {
-      // During testing we open untitled documents that all have the same uri and version which breaks our cache
-      if (isTesting) {
-        treeSitterQueryCache.clear();
-      }
-      void this.loadLanguage(document.languageId);
-    });
-    ide.onDidChangeVisibleTextEditors((editors) => {
-      editors.forEach(({ document }) => this.loadLanguage(document.languageId));
-    });
-
     this.disposables.push(
+      ide.onDidOpenTextDocument((document) => {
+        // During testing we open untitled documents that all have the same uri and version which breaks our cache
+        if (isTesting) {
+          treeSitterQueryCache.clear();
+        }
+        void this.loadLanguage(document.languageId);
+      }),
+
+      ide.onDidChangeVisibleTextEditors((editors) => {
+        editors.forEach(
+          ({ document }) => void this.loadLanguage(document.languageId),
+        );
+      }),
+
       treeSitterQueryProvider.onChanges(() => this.reloadLanguageDefinitions()),
     );
   }

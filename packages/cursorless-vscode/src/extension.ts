@@ -34,6 +34,7 @@ import {
   toVscodeRange,
 } from "@cursorless/vscode-common";
 import * as crypto from "crypto";
+import { pull } from "lodash-es";
 import * as os from "node:os";
 import * as path from "node:path";
 import * as vscode from "vscode";
@@ -141,6 +142,8 @@ export async function activate(
   const scopeTestRecorder = new ScopeTestRecorder(normalizedIde);
 
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
+  context.subscriptions.push(statusBarItem);
+
   const keyboardCommands = KeyboardCommands.create(
     context,
     vscodeApi,
@@ -281,14 +284,16 @@ function createScopeVisualizer(
       );
       scopeVisualizer.start();
       currentScopeType = scopeType;
-      listeners.forEach((listener) => listener(scopeType, visualizationType));
+      listeners
+        .slice()
+        .forEach((listener) => listener(scopeType, visualizationType));
     },
 
     stop() {
       scopeVisualizer?.dispose();
       scopeVisualizer = undefined;
       currentScopeType = undefined;
-      listeners.forEach((listener) => listener(undefined, undefined));
+      listeners.slice().forEach((listener) => listener(undefined, undefined));
     },
 
     get scopeType() {
@@ -300,7 +305,7 @@ function createScopeVisualizer(
 
       return {
         dispose() {
-          listeners.splice(listeners.indexOf(listener), 1);
+          pull(listeners, listener);
         },
       };
     },

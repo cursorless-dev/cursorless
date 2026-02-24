@@ -384,10 +384,13 @@
   (case_block
     (case_clause
       "=>" @interior.start.endOf
-      body: (_) @interior.end.endOf
+      .
+      (_) @interior.end.endOf @_dummy
+      (_)? @interior.end.endOf
+      .
     )
   )
-  (#not-type? @interior.end.endOf block)
+  (#not-type? @_dummy block)
 )
 
 ;;!! try {}
@@ -557,7 +560,9 @@
   ")" @name.iteration.end.startOf @value.iteration.end.startOf
 )
 
-operator: (operator_identifier) @disqualifyDelimiter
+(_
+  operator: (operator_identifier) @disqualifyDelimiter
+)
 (enumerator
   "<-" @disqualifyDelimiter
 )

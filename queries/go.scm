@@ -207,8 +207,10 @@
   (#insertion-delimiter! @branch "\n")
 )
 
-;; The parent object has trailing whitespace that we want to exclude.
-;; Our trim predicate can't operate on positions only ranges.
+;;!! case 0: 0
+;;!!        ^^
+;;!! default: 0
+;;!!         ^^
 (_
   [
     "case"
@@ -216,21 +218,10 @@
   ]
   ":" @interior.start.endOf
   .
-  (_) @_dummy
-  (_) @interior.end.endOf
+  (_) @interior.end.endOf @_dummy
+  (_)? @interior.end.endOf
   .
   (#not-type? @_dummy block)
-)
-(_
-  [
-    "case"
-    "default"
-  ]
-  ":" @interior.start.endOf
-  .
-  (_) @interior.end.endOf
-  .
-  (#not-type? @interior.end.endOf block)
 )
 
 ;;!! switch foo {}
@@ -518,17 +509,19 @@
   right: (_) @value @name.trailing.startOf
 ) @_.domain
 
-operator: [
-  "<-"
-  "<"
-  "<<"
-  "<<="
-  "<="
-  ">"
-  ">="
-  ">>"
-  ">>="
-] @disqualifyDelimiter
+(_
+  operator: [
+    "<-"
+    "<"
+    "<<"
+    "<<="
+    "<="
+    ">"
+    ">="
+    ">>"
+    ">>="
+  ] @disqualifyDelimiter
+)
 (send_statement
   "<-" @disqualifyDelimiter
 )

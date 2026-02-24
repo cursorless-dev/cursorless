@@ -41,7 +41,7 @@ export interface QueryMatch {
 
 /**
  * A capture of a query pattern against a syntax tree. This type is used
- * internally by the query engine to allow operators to modify the capture.
+ * internally by the query engine to allow predicates to modify the capture.
  */
 export interface MutableQueryCapture extends QueryCapture {
   /**
@@ -58,14 +58,11 @@ export interface MutableQueryCapture extends QueryCapture {
 
 /**
  * A match of a query pattern against a syntax tree that can be mutated. This
- * type is used internally by the query engine to allow operators to modify the
+ * type is used internally by the query engine to allow predicates to modify the
  * match.
  */
 export interface MutableQueryMatch extends QueryMatch {
-  /**
-   * The index of the pattern that was matched.
-   */
-  readonly patternIdx: number;
-
   readonly captures: MutableQueryCapture[];
 }
+
+export type PatternPredicate = (match: MutableQueryMatch) => boolean;

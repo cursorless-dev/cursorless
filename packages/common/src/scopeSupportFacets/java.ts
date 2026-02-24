@@ -63,7 +63,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.ternary.iteration": supported,
 
   class: supported,
-  "class.iteration.block": supported,
+  "class.iteration.class": supported,
   "class.iteration.document": supported,
 
   "comment.block": supported,
@@ -287,10 +287,12 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   // Default argument value
   "value.argument.formal": notApplicable,
   "value.argument.formal.iteration": notApplicable,
-  "value.argument.formal.constructor": notApplicable,
-  "value.argument.formal.constructor.iteration": notApplicable,
   "value.argument.formal.method": notApplicable,
   "value.argument.formal.method.iteration": notApplicable,
+  "value.argument.formal.constructor": notApplicable,
+  "value.argument.formal.constructor.iteration": notApplicable,
+  "value.argument.formal.lambda": notApplicable,
+  "value.argument.formal.lambda.iteration": notApplicable,
 
   // Type alias
   "type.alias": notApplicable,

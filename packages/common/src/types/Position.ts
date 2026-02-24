@@ -1,5 +1,5 @@
 import type { TextDocument } from "..";
-import { Range } from "..";
+import { Range, stringToInteger } from "..";
 
 export class Position {
   /**
@@ -27,7 +27,13 @@ export class Position {
         `Invalid concise position format: "${concise}". Expected "line:character" format.`,
       );
     }
-    const [line, character] = parts.map((s) => parseInt(s, 10));
+    const line = stringToInteger(parts[0]);
+    const character = stringToInteger(parts[1]);
+    if (line == null || character == null || line < 0 || character < 0) {
+      throw new Error(
+        `Invalid concise position format: "${concise}". Line and character should be non-negative integers.`,
+      );
+    }
     return new Position(line, character);
   }
 

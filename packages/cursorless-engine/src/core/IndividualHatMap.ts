@@ -67,6 +67,7 @@ export class IndividualHatMap implements ReadOnlyHatMap {
     this.map = {};
     this.documentTokenLists = new Map();
     this.deregisterFunctions.forEach((func) => func());
+    this.deregisterFunctions = [];
 
     // Iterate through the hats in the new assignment, registering them with the
     // rangeUpdater so that their ranges stay up to date
@@ -124,5 +125,6 @@ export class IndividualHatMap implements ReadOnlyHatMap {
   dispose() {
     this.isExpired = true;
     this.deregisterFunctions.forEach((func) => func());
+    this.deregisterFunctions = [];
   }
 }

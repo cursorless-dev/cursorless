@@ -9,3 +9,21 @@ export function getNodeRange(node: Node) {
     node.endPosition.column,
   );
 }
+
+export function getNodeStartRange(node: Node) {
+  return new Range(
+    node.startPosition.row,
+    node.startPosition.column,
+    node.startPosition.row,
+    node.startPosition.column,
+  );
+}
+
+export function getNodeEndRange(node: Node) {
+  return new Range(
+    node.endPosition.row,
+    node.endPosition.column,
+    node.endPosition.row,
+    node.endPosition.column,
+  );
+}

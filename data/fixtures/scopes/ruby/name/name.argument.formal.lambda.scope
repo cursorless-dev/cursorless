@@ -1,0 +1,33 @@
+->(aaa, bbb = 0) {}
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:3-0:6
+     >---<
+0| ->(aaa, bbb = 0) {}
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 0:8-0:11
+          >---<
+0| ->(aaa, bbb = 0) {}
+
+[#2 Removal] = 0:8-0:12
+          >----<
+0| ->(aaa, bbb = 0) {}
+
+[#2 Leading delimiter] = 0:7-0:8
+         >-<
+0| ->(aaa, bbb = 0) {}
+
+[#2 Trailing delimiter] = 0:11-0:12
+             >-<
+0| ->(aaa, bbb = 0) {}
+
+[#2 Domain] = 0:8-0:15
+          >-------<
+0| ->(aaa, bbb = 0) {}
+
+[#2 Insertion delimiter] = " "

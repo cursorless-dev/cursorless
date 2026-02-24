@@ -16,12 +16,18 @@ export function blendColors(base: string, top: string): string {
   const topRgba = tinycolor(top).toRgb();
   const blendedAlpha = 1 - (1 - topRgba.a) * (1 - baseRgba.a);
 
-  function interpolateChannel(channel: "r" | "g" | "b"): number {
+  // If both colors are fully transparent, channel interpolation divides by zero.
+  // In this case, the blend is simply fully transparent.
+  if (blendedAlpha === 0) {
+    return tinycolor({ r: 0, g: 0, b: 0, a: 0 }).toHex8String();
+  }
+
+  const interpolateChannel = (channel: "r" | "g" | "b"): number => {
     return Math.round(
       (topRgba[channel] * topRgba.a) / blendedAlpha +
         (baseRgba[channel] * baseRgba.a * (1 - topRgba.a)) / blendedAlpha,
     );
-  }
+  };
 
   return tinycolor({
     r: interpolateChannel("r"),
@@ -32,6 +38,10 @@ export function blendColors(base: string, top: string): string {
 }
 
 export function blendMultipleColors(colors: string[]): string {
+  if (colors.length === 0) {
+    throw new Error("blendMultipleColors requires at least one color");
+  }
+
   let color = colors[0];
   for (let i = 1; i < colors.length; i++) {
     color = blendColors(color, colors[i]);

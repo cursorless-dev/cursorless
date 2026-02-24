@@ -1,55 +1,19 @@
 switch(foo,
     a = 0,
-    b = {},
-    "_"
 )
 ---
 
-[#1 Content] =
-[#1 Domain] = 1:4-1:9
+[Content] =
+[Domain] = 1:4-1:9
       >-----<
 1|     a = 0,
 
-[#1 Removal] = 1:0-1:9
+[Removal] = 1:0-1:9
   >---------<
 1|     a = 0,
 
-[#1 Leading delimiter] = 1:0-1:4
+[Leading delimiter] = 1:0-1:4
   >----<
 1|     a = 0,
 
-[#1 Insertion delimiter] = "\n"
-
-
-[#2 Content] =
-[#2 Domain] = 2:4-2:10
-      >------<
-2|     b = {},
-
-[#2 Removal] = 2:0-2:10
-  >----------<
-2|     b = {},
-
-[#2 Leading delimiter] = 2:0-2:4
-  >----<
-2|     b = {},
-
-[#2 Insertion delimiter] = "\n"
-
-
-[#3 Content] =
-[#3 Domain] = 3:4-3:7
-      >---<
-3|     "_"
-
-[#3 Removal] = 3:0-4:0
-  >-------
-3|     "_"
-4| )
-   <
-
-[#3 Leading delimiter] = 3:0-3:4
-  >----<
-3|     "_"
-
-[#3 Insertion delimiter] = "\n"
+[Insertion delimiter] = "\n"

@@ -139,6 +139,16 @@
           ]
         },
         {
+          "id": "experimental.setInstanceReference",
+          "type": "action",
+          "variations": [
+            {
+              "spokenForm": "from <target>",
+              "description": "Set instance reference"
+            }
+          ]
+        },
+        {
           "id": "extractVariable",
           "type": "action",
           "variations": [
@@ -343,8 +353,8 @@
           "type": "action",
           "variations": [
             {
-              "spokenForm": "snip <target>",
-              "description": "Insert snippet"
+              "spokenForm": "snip <snippet> <destination>",
+              "description": "Insert snippet at <destination>"
             }
           ]
         },
@@ -647,6 +657,10 @@
             {
               "spokenForm": "<pair> wrap <target>",
               "description": "Wrap <target> with <pair>"
+            },
+            {
+              "spokenForm": "<snippet> wrap <target>",
+              "description": "Wrap <target> with <snippet>"
             }
           ]
         }
@@ -1453,6 +1467,16 @@
             {
               "spokenForm": "environment",
               "description": "Environment"
+            }
+          ]
+        },
+        {
+          "id": "fullLine",
+          "type": "scopeType",
+          "variations": [
+            {
+              "spokenForm": "full line",
+              "description": "Full line"
             }
           ]
         },

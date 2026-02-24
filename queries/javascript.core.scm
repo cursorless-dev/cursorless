@@ -846,18 +846,20 @@
   (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
-operator: [
-  "<"
-  "<<"
-  "<<="
-  "<="
-  ">"
-  ">="
-  ">>"
-  ">>="
-  ">>>"
-  ">>>="
-] @disqualifyDelimiter
+(_
+  operator: [
+    "<"
+    "<<"
+    "<<="
+    "<="
+    ">"
+    ">="
+    ">>"
+    ">>="
+    ">>>"
+    ">>>="
+  ] @disqualifyDelimiter
+)
 
 (arrow_function
   "=>" @disqualifyDelimiter

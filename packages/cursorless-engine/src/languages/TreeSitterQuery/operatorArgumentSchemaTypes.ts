@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { assertTypesEqual } from "./assertTypesEqual";
 import type { PredicateStep } from "web-tree-sitter";
+import { stringToInteger } from "@cursorless/common";
 
 const string = z.object({ type: z.literal("string"), value: z.string() });
 
@@ -19,11 +20,11 @@ export const q = {
 
   /** Expect an integer */
   integer: string.transform((val, ctx) => {
-    const parsedValue = parseInt(val.value);
+    const parsedValue = stringToInteger(val.value);
 
-    if (isNaN(parsedValue)) {
+    if (parsedValue == null) {
       ctx.addIssue({
-        code: z.ZodIssueCode.custom,
+        code: "custom",
         message: "Expected an integer",
       });
 
@@ -47,7 +48,7 @@ export const q = {
     }
 
     ctx.addIssue({
-      code: z.ZodIssueCode.custom,
+      code: "custom",
       message: "Expected true or false",
     });
 

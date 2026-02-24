@@ -273,16 +273,18 @@
   ) @name.removal.start.startOf
 ) @_.domain
 
-operator: [
-  "<"
-  "<<"
-  "<<="
-  "<="
-  ">"
-  ">="
-  ">>"
-  ">>="
-] @disqualifyDelimiter
+(_
+  operator: [
+    "<"
+    "<<"
+    "<<="
+    "<="
+    ">"
+    ">="
+    ">>"
+    ">>="
+  ] @disqualifyDelimiter
+)
 (array_element_initializer
   "=>" @disqualifyDelimiter
 )

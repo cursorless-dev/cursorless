@@ -247,15 +247,15 @@
   "->"
 ) @condition.domain
 
-;;!! 0 -> break
-;;!      ^^^^^^
+;;!! 0 -> 0
+;;!      ^^
 (when_entry
   "->" @interior.start.endOf
   (control_structure_body
     .
     (_)
   ) @interior.end.endOf
-) @interior.domain
+)
 
 ;;!! while (true) {}
 ;;!         ^^^^
@@ -277,6 +277,10 @@
 ;;!! class Foo {}
 (class_declaration
   (type_identifier) @name
+  (class_body
+    "{" @class.iteration.start.endOf
+    "}" @class.iteration.end.startOf
+  )?
 ) @class @type @name.domain
 
 ;;!! object Foo {}
