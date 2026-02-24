@@ -1227,7 +1227,24 @@
           "group": "navigation"
         }
       ]
-    }
+    },
+    "languages": [
+      {
+        "id": "talon"
+      },
+      {
+        "id": "talon-list"
+      },
+      {
+        "id": "scala"
+      },
+      {
+        "id": "kotlin"
+      },
+      {
+        "id": "scm"
+      }
+    ]
   },
   "scripts": {
     "build": "pnpm run esbuild:prod && pnpm -F cheatsheet-local build:prod && pnpm -F cursorless-vscode-tutorial-webview build:prod && pnpm run populate-dist",
