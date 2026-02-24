@@ -21,7 +21,11 @@ async function main() {
       }
     });
 
-    const extensions = [...extensionDependencies, "pokey.command-server"];
+    const extensions = [
+      ...extensionDependencies,
+      "pokey.command-server",
+      "mrob95.vscode-talonscript",
+    ];
 
     // Do not attempt to install jrieken:vscode-tree-sitter-query if editor is NOT VSCode, assuming lack of access to VSCode Marketplace
     if (cliToolName === vsCodeToolName) {
