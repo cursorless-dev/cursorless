@@ -3,7 +3,7 @@ from ..get_list import ListItemDescriptor, get_raw_list
 
 def get_destinations() -> list[ListItemDescriptor]:
     insertion_modes = {
-        **{p: "to" for p in get_raw_list("insertion_mode_to")},
+        **dict.fromkeys(get_raw_list("insertion_mode_to"), "to"),
         **get_raw_list("insertion_mode_before_after"),
     }
 

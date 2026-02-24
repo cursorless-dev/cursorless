@@ -1,3 +1,5 @@
+# ruff: noqa: SIM905
+
 from talon import Context, Module
 
 mod = Module()
