@@ -25,7 +25,7 @@ When a token is picking its hat, it will have a pool of available hats based on
 
 One of these candidate hats might be the hat the token was already wearing before this pass started (if it had one), and some of them will be hats that lower ranked tokens were wearing before the pass started.
 
-The token will start by figuring out the penalty of the best candidate hat (eg is there a gray dot? Are they all colored shapes? etc). Based on that penalty, it will consider only the candidate hats whose penalty is sufficiently close to the best hat. The definition of "sufficiently close" is determined by the user setting `cursorless.experimental.hatStability`:
+The token will start by figuring out the penalty of the best candidate hat (eg is there a gray dot? Are they all colored shapes? etc). Based on that penalty, it will consider only the candidate hats whose penalty is sufficiently close to the best hat. The definition of "sufficiently close" is determined by the user setting [`cursorless.experimental.hatStability`](vscode://settings/cursorless.experimental.hatStability):
 
 | Setting value          | Behaviour                                                                                                                                                                                                                                                           |
 | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
