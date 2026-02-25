@@ -1282,7 +1282,7 @@
     "@cursorless/node-common": "workspace:*",
     "@cursorless/test-case-recorder": "workspace:*",
     "@cursorless/vscode-common": "workspace:*",
-    "glob": "^13.0.4",
+    "glob": "^13.0.6",
     "itertools": "^2.5.0",
     "lodash-es": "^4.17.23",
     "nearley": "^2.20.1",
@@ -1297,12 +1297,12 @@
     "@types/js-yaml": "^4.0.9",
     "@types/lodash-es": "^4.17.12",
     "@types/nearley": "^2.11.5",
-    "@types/node": "^25.2.3",
+    "@types/node": "^25.3.0",
     "@types/semver": "^7.7.1",
     "@types/sinon": "^21.0.0",
     "@types/vscode": "1.98.0",
     "esbuild": "^0.27.3",
-    "fast-xml-parser": "^5.3.6",
+    "fast-xml-parser": "^5.3.9",
     "fs-extra": "^11.3.3",
     "sinon": "^21.0.1"
   }
