@@ -7,7 +7,7 @@ import { runForEachEditor } from "../util/targetUtils";
 import type { Actions } from "./Actions";
 import type { ActionReturnValue } from "./actions.types";
 
-const REGEX = /-?[\d_]+(\.[\d_]+)?/g;
+const REGEX = /-?\d+(?:_?\d+)*(\.\d+(?:_?\d+)*)?/g;
 
 class IncrementDecrement {
   constructor(
