@@ -98,10 +98,21 @@
 
 ;;!! ["aaa" => 0, "bbb" => 1];
 (array_creation_expression
+  "[" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
   (array_element_initializer
     "=>"
   )
+  "]" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
 ) @map
+
+;;!! ['num' => 1];
+;;!   ^^^^^
+;;!            ^
+(array_element_initializer
+  (_) @collectionKey @value.leading.endOf
+  "=>"
+  (_) @value @collectionKey.trailing.startOf
+) @_.domain
 
 ;;!! class Foo {}
 (class_declaration
@@ -262,14 +273,6 @@
   ) @argumentOrParameter.iteration.domain
   (#not-parent-type? @argumentOrParameter.iteration.domain binary_expression)
 )
-
-;;!! ['num' => 1];
-;;!   ^^^^^
-;;!            ^
-(array_element_initializer
-  (_) @collectionKey @value.leading.endOf
-  (_) @value @collectionKey.trailing.startOf
-) @_.domain
 
 ;;!! return 2;
 ;;!         ^
