@@ -1,0 +1,41 @@
+<?php
+switch ($foo) {
+    case 0: { }
+    default: { }
+}
+---
+
+[#1 Content] = 2:4-3:16
+      >-----------
+2|     case 0: { }
+3|     default: { }
+   ----------------<
+
+[#1 Removal] =
+[#1 Domain] = 1:15-4:0
+                 >
+1| switch ($foo) {
+2|     case 0: { }
+3|     default: { }
+4| }
+   <
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] =
+[#2 Domain] = 2:13-2:14
+               >-<
+2|     case 0: { }
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] =
+[#3 Removal] =
+[#3 Domain] = 3:14-3:15
+                >-<
+3|     default: { }
+
+[#3 Insertion delimiter] = " "

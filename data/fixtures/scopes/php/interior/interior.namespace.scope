@@ -1,0 +1,11 @@
+<?php
+namespace Foo\Bar { }
+---
+
+[Content] =
+[Removal] =
+[Domain] = 1:19-1:20
+                     >-<
+1| namespace Foo\Bar { }
+
+[Insertion delimiter] = " "

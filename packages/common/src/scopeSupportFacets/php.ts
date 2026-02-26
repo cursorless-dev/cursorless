@@ -234,7 +234,6 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.while": supported,
   "interior.doWhile": supported,
   "interior.namespace": supported,
-  "interior.static": supported,
 
   /* UNSUPPORTED  */
 
@@ -318,7 +317,10 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
   "name.variable.uninitialized": notApplicable,
   "type.variable.uninitialized": notApplicable,
 
+  // Static statement
+  "statement.static": notApplicable,
+  "interior.static": notApplicable,
+
   // Miscellaneous
   "statement.misc": notApplicable,
-  "statement.static": notApplicable,
 };

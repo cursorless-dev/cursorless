@@ -1,16 +1,16 @@
 <?php
-namespace Foo\Bar;
+namespace Foo\Bar {}
 ---
 
 [Content] =
-[Domain] = 1:0-1:18
-  >------------------<
-1| namespace Foo\Bar;
+[Domain] = 1:0-1:20
+  >--------------------<
+1| namespace Foo\Bar {}
 
-[Removal] = 0:5-1:18
+[Removal] = 0:5-1:20
        >
 0| <?php
-1| namespace Foo\Bar;
-   ------------------<
+1| namespace Foo\Bar {}
+   --------------------<
 
 [Insertion delimiter] = "\n"

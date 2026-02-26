@@ -1,21 +1,25 @@
 <?php
-namespace Foo\Bar;
+namespace Foo\Bar {}
 ---
 
 [Content] = 1:10-1:17
             >-------<
-1| namespace Foo\Bar;
+1| namespace Foo\Bar {}
 
-[Removal] = 1:9-1:17
-           >--------<
-1| namespace Foo\Bar;
+[Removal] = 1:10-1:18
+            >--------<
+1| namespace Foo\Bar {}
 
 [Leading delimiter] = 1:9-1:10
            >-<
-1| namespace Foo\Bar;
+1| namespace Foo\Bar {}
 
-[Domain] = 1:0-1:18
-  >------------------<
-1| namespace Foo\Bar;
+[Trailing delimiter] = 1:17-1:18
+                   >-<
+1| namespace Foo\Bar {}
+
+[Domain] = 1:0-1:20
+  >--------------------<
+1| namespace Foo\Bar {}
 
 [Insertion delimiter] = " "

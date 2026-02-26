@@ -248,6 +248,26 @@
   value: (_) @condition
 ) @condition.domain
 
+;;!! case 0: break;
+;;!         ^
+(case_statement
+  ":" @interior.start.endOf
+  (_) @interior.end.endOf @_dummy
+  (_)? @interior.end.endOf
+  .
+  (#not-type? @_dummy compound_statement)
+)
+
+;;!! default: break;
+;;!          ^
+(default_statement
+  ":" @interior.start.endOf
+  (_) @interior.end.endOf @_dummy
+  (_)? @interior.end.endOf
+  .
+  (#not-type? @_dummy compound_statement)
+)
+
 ;;!! do {} while (true);
 ;;!               ^^^^
 (do_statement
