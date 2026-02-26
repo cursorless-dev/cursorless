@@ -346,7 +346,6 @@
 )
 
 ;;!! try {} catch () {} finally {}
-;;!  
 (try_statement
   "try" @branch.start
   body: (_) @branch.end
