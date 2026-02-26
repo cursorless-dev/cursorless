@@ -88,9 +88,26 @@
 (comment) @comment @textFragment
 
 ;;!! if (true) {} else {}
+;;!      ^^^^
 (
-  (if_statement) @ifStatement @statement
+  (if_statement
+    condition: (_
+      (_) @condition
+    )
+  ) @ifStatement @statement @condition.domain
   (#not-parent-type? @ifStatement else_clause)
+)
+
+;;!! else if (true) {}
+;;!           ^^^^
+(else_clause
+  "else" @condition.domain.start
+  (if_statement
+    condition: (_
+      (_) @condition
+    )
+    body: (_) @condition.domain.end
+  )
 )
 
 ;;!! [aaa, bbb]
@@ -212,13 +229,52 @@
   (_) @value
 ) @value.domain
 
-;;!! switch ($foo) {}
+;;!! switch ($foo) { }
 ;;!         ^^^^^
+;;!                 ^
 (switch_statement
   condition: (_
     (_) @value
   )
+  body: (_
+    "{" @condition.iteration.start.endOf
+    "}" @condition.iteration.end.startOf
+  )
 ) @value.domain
+
+;;!! case 0: break;
+;;!       ^
+(case_statement
+  value: (_) @condition
+) @condition.domain
+
+;;!! do {} while (true);
+;;!               ^^^^
+(do_statement
+  condition: (_
+    (_) @condition
+  )
+) @condition.domain
+
+;;!! while (true) {}
+;;!         ^^^^
+(while_statement
+  condition: (_
+    (_) @condition
+  )
+) @condition.domain
+
+;;!! for ($i = 0; $i < $size; $i++) {}
+;;!               ^^^^^^^^^^
+(for_statement
+  condition: (_) @condition
+) @condition.domain
+
+;;!! true ? 0 : 1
+;;!  ^^^^
+(conditional_expression
+  condition: (_) @condition
+) @condition.domain
 
 ;;!! $foo = 0;
 ;;!  ^^^
