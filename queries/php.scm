@@ -218,7 +218,10 @@
 (anonymous_function) @anonymousFunction
 
 ;;!! fn() => 0;
-(arrow_function) @anonymousFunction
+;;!          ^
+(arrow_function
+  body: (_) @value
+) @anonymousFunction @value.domain
 
 ;;!! foo()
 (function_call_expression
