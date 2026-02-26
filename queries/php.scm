@@ -485,10 +485,12 @@
 ) @_.domain
 
 ;;!! catch (Exception $e) {}
+;;!         ^^^^^^^^^^^^
 ;;!         ^^^^^^^^^
+;;!                   ^^
 (catch_clause
-  type: (_) @type @_.domain.start
-  name: (_) @name @_.domain.end
+  type: (_) @type @argumentOrParameter.start @_.domain.start
+  name: (_) @name @argumentOrParameter.end @_.domain.end
 )
 
 (formal_parameters
