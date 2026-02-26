@@ -38,6 +38,16 @@
   ;; (if_statement)
 ] @statement
 
+(
+  (program) @class.iteration @statement.iteration @namedFunction.iteration
+  (#document-range! @class.iteration @statement.iteration @namedFunction.iteration)
+)
+
+(
+  (program) @name.iteration @value.iteration
+  (#document-range! @name.iteration @value.iteration)
+)
+
 [
   (shell_command_expression)
   (string)
