@@ -95,8 +95,8 @@
 )
 
 (
-  (program) @name.iteration @value.iteration
-  (#document-range! @name.iteration @value.iteration)
+  (program) @name.iteration @value.iteration @type.iteration
+  (#document-range! @name.iteration @value.iteration @type.iteration)
 )
 
 ;;!! class MyClass { }
