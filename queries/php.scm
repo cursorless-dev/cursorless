@@ -146,9 +146,13 @@
 
 ;;!! function foo() {}
 [
-  (function_definition)
-  (method_declaration)
-] @namedFunction
+  (function_definition
+    name: (_) @name
+  )
+  (method_declaration
+    name: (_) @name
+  )
+] @namedFunction @name.domain
 
 (expression_statement
   (assignment_expression
@@ -166,15 +170,6 @@
 
 ;;!! fn() => 0;
 (arrow_function) @anonymousFunction
-
-[
-  (function_definition
-    name: (_) @name
-  )
-  (method_declaration
-    name: (_) @name
-  )
-] @name.domain
 
 ;;!! foo()
 (function_call_expression
@@ -199,6 +194,31 @@
 (namespace_definition
   name: (_) @name
 ) @name.domain
+
+;;!! foreach ($values as $v) {}
+;;!           ^^^^^^^
+;;!                      ^^
+(foreach_statement
+  (_) @value
+  .
+  "as"
+  .
+  (_) @name
+) @_.domain
+
+;;!! throw $foo;
+;;!        ^^^^
+(throw_expression
+  (_) @value
+) @value.domain
+
+;;!! switch ($foo) {}
+;;!         ^^^^^
+(switch_statement
+  condition: (_
+    (_) @value
+  )
+) @value.domain
 
 ;;!! $foo = 0;
 ;;!  ^^^
@@ -363,9 +383,9 @@
 (const_declaration
   (const_element
     (name) @name @value.leading.endOf
-    (_) @value
+    (_) @value @name.removal.end.startOf
   )
-) @_.domain
+) @name.removal.start.startOf @_.domain
 
 ;;!! case foo = 0;
 ;;!       ^^^
@@ -374,7 +394,7 @@
   "case" @name.removal.start.startOf
   name: (_) @name @value.leading.endOf @name.removal.end.endOf
   value: (_)? @value @name.removal.end.startOf
-)
+) @_.domain
 
 (_
   operator: [
