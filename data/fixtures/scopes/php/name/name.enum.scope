@@ -1,0 +1,25 @@
+<?php
+enum Foo {}
+---
+
+[Content] = 1:5-1:8
+       >---<
+1| enum Foo {}
+
+[Removal] = 1:5-1:9
+       >----<
+1| enum Foo {}
+
+[Leading delimiter] = 1:4-1:5
+      >-<
+1| enum Foo {}
+
+[Trailing delimiter] = 1:8-1:9
+          >-<
+1| enum Foo {}
+
+[Domain] = 1:0-1:11
+  >-----------<
+1| enum Foo {}
+
+[Insertion delimiter] = " "

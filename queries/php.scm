@@ -118,17 +118,29 @@
 (class_declaration
   name: (_) @name
   body: (_
-    "{" @statement.iteration.start.endOf @namedFunction.iteration.start.endOf
-    "}" @statement.iteration.end.startOf @namedFunction.iteration.end.startOf
+    "{" @namedFunction.iteration.start.endOf
+    "}" @namedFunction.iteration.end.startOf
   )
 ) @class @name.domain
+
+;;!! class Foo { }
+;;!! interface Foo { }
+(declaration_list
+  "{" @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
+  "}" @statement.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+)
 
 ;;!! interface Foo {}
 (interface_declaration
   name: (_) @name
+) @name.domain
+
+;;!! enum Foo {}
+(enum_declaration
+  name: (_) @name
   body: (_
-    "{" @statement.iteration.start.endOf
-    "}" @statement.iteration.end.startOf
+    "{" @name.iteration.start.endOf
+    "}" @name.iteration.end.startOf
   )
 ) @name.domain
 
@@ -182,9 +194,15 @@
   (_) @functionCallee.end
 ) @functionCall @functionCallee.domain
 
-;;!! $value = 2;
-;;!  ^^^^^^
-;;!           ^
+;;!! namespace Foo\Bar;
+;;!            ^^^^^^^
+(namespace_definition
+  name: (_) @name
+) @name.domain
+
+;;!! $foo = 0;
+;;!  ^^^
+;;!         ^
 (_
   (assignment_expression
     left: (_) @name @value.leading.endOf
@@ -194,9 +212,9 @@
   ";"? @_.domain.end
 )
 
-;;!! $value += 2;
-;;!  ^^^^^^
-;;!            ^
+;;!! $foo += 0;
+;;!  ^^^
+;;!          ^
 (_
   (augmented_assignment_expression
     left: (_) @name @value.leading.endOf
@@ -338,6 +356,25 @@
     default_value: (_)? @value @name.removal.end.startOf
   ) @name.removal.start.startOf
 ) @_.domain @statement
+
+;;!! const bar = 0;
+;;!        ^^^
+;;!              ^
+(const_declaration
+  (const_element
+    (name) @name @value.leading.endOf
+    (_) @value
+  )
+) @_.domain
+
+;;!! case foo = 0;
+;;!       ^^^
+;;!             ^
+(enum_case
+  "case" @name.removal.start.startOf
+  name: (_) @name @value.leading.endOf @name.removal.end.endOf
+  value: (_)? @value @name.removal.end.startOf
+)
 
 (_
   operator: [

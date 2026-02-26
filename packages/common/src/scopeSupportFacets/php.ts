@@ -146,7 +146,6 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.catch": supported,
   "name.assignment": supported,
   "name.assignment.compound": supported,
-  "name.variable.uninitialized": supported,
   "name.variable.initialized": supported,
   "name.foreach": supported,
   "name.function": supported,
@@ -209,7 +208,6 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
   "type.field.class": supported,
   "type.field.interface": supported,
   "type.constant": supported,
-  "type.variable.uninitialized": supported,
   "type.variable.initialized": supported,
   "type.class": supported,
   "type.interface": supported,
@@ -315,8 +313,12 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
   "functionCall.enum": notApplicable,
   "functionCallee.enum": notApplicable,
 
+  // Uninitialized variables
+  "statement.variable.uninitialized": notApplicable,
+  "name.variable.uninitialized": notApplicable,
+  "type.variable.uninitialized": notApplicable,
+
   // Miscellaneous
   "statement.misc": notApplicable,
-  "statement.variable.uninitialized": notApplicable,
   "statement.static": notApplicable,
 };
