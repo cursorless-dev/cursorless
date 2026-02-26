@@ -1,0 +1,16 @@
+<?php
+class Foo {
+    function __construct() {}
+}
+---
+
+[Content] =
+[Removal] = 2:25-2:25
+                           ><
+2|     function __construct() {}
+
+[Domain] = 2:4-2:29
+      >-------------------------<
+2|     function __construct() {}
+
+[Insertion delimiter] = ""

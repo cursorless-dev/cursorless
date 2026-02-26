@@ -370,8 +370,8 @@
   name: (_) @name
 ) @_.domain
 
-;;!! function foo($name) {}
-;;!               ^^^^^
+;;!! function foo($aaa, $bbb) {}
+;;!               ^^^^  ^^^^
 (
   (formal_parameters
     (_)? @_.leading.endOf
@@ -398,34 +398,46 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
+;;!! function foo($aaa, $bbb) {}
+;;!               ^^^^^^^^^^
 (_
   (formal_parameters
-    "(" @argumentOrParameter.iteration.start.endOf
-    ")" @argumentOrParameter.iteration.end.startOf
-  )
-) @argumentOrParameter.iteration.domain
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
-;;!! foo.bar(a, b);
-;;!          ^^^^
+;;!! foo.bar(aaa, bbb);
+;;!          ^^^^^^^^
 (binary_expression
   (function_call_expression
     (arguments
-      "(" @argumentOrParameter.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
-      ")" @argumentOrParameter.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
-    )
+      "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+      ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+    ) @argumentList
+    (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+    (#child-range! @argumentList 1 -2)
   )
-) @argumentOrParameter.iteration.domain
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
-;;!! foo(a, b);
-;;!      ^^^^
-(
+;;!! foo(aaa, bbb);
+;;!      ^^^^^^^^
+(expression_statement
   (_
     (arguments
-      "(" @argumentOrParameter.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
-      ")" @argumentOrParameter.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
-    )
-  ) @argumentOrParameter.iteration.domain
-  (#not-parent-type? @argumentOrParameter.iteration.domain binary_expression)
+      "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+      ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+    ) @argumentList
+    (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+    (#child-range! @argumentList 1 -2)
+  ) @argumentList.domain @argumentOrParameter.iteration.domain
+)
+
+(arguments
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf
 )
 
 ;;!! foo(aaa: 0, bbb: 1);
