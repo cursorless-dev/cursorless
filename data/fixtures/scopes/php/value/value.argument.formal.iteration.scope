@@ -1,16 +1,16 @@
 <?php
-function foo(int $aaa, int $bbb) {}
+function foo($aaa = 0, $bbb = 1) {}
 ---
 
 [#1 Content] =
 [#1 Domain] = 0:0-1:35
   >-----
 0| <?php
-1| function foo(int $aaa, int $bbb) {}
+1| function foo($aaa = 0, $bbb = 1) {}
    -----------------------------------<
 
 
 [#2 Content] =
 [#2 Domain] = 1:13-1:31
                >------------------<
-1| function foo(int $aaa, int $bbb) {}
+1| function foo($aaa = 0, $bbb = 1) {}

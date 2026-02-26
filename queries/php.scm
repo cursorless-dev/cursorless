@@ -436,14 +436,24 @@
   (_) @value @name.trailing.startOf
 ) @_.domain
 
-;;!! return 2;
+;;!! (int $aaa = 0)
+;;!   ^^^
+;;!       ^^^^
+;;!              ^
+(simple_parameter
+  type: (_)? @type
+  name: (_) @name @value.leading.endOf
+  default_value: (_)? @value
+) @_.domain
+
+;;!! return 0;
 ;;!         ^
 (return_statement
   "return" @_.leading.endOf
   (_) @value
 ) @_.domain
 
-;;!! yield 2;
+;;!! yield 0;
 ;;!        ^
 (_
   (yield_expression
@@ -453,14 +463,6 @@
   .
   ";"? @_.domain.end
 )
-
-;;!! (string $str)
-;;!   ^^^^^^
-;;!          ^^^^
-(simple_parameter
-  type: (_) @type
-  name: (_) @name
-) @_.domain
 
 ;;!! (array ...$nums)
 ;;!   ^^^^^
