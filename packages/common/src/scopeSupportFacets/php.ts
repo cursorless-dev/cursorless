@@ -112,7 +112,6 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.doWhile": supported,
   "statement.assignment": supported,
   "statement.assignment.compound": supported,
-  "statement.variable.uninitialized": supported,
   "statement.variable.initialized": supported,
   "statement.return": supported,
   "statement.yield": supported,
@@ -121,8 +120,6 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.continue": supported,
   "statement.import": supported,
   "statement.namespace": supported,
-  "statement.static": supported,
-  "statement.misc": supported,
   "statement.iteration.document": supported,
   "statement.iteration.class": supported,
   "statement.iteration.interface": supported,
@@ -317,4 +314,9 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
   "functionCallee.generic": notApplicable,
   "functionCall.enum": notApplicable,
   "functionCallee.enum": notApplicable,
+
+  // Miscellaneous
+  "statement.misc": notApplicable,
+  "statement.variable.uninitialized": notApplicable,
+  "statement.static": notApplicable,
 };

@@ -30,6 +30,7 @@
   (try_statement)
   (unset_statement)
   (while_statement)
+  (method_declaration)
 
   ;; Disabled on purpose. We don't consider these to be statements.
   ;; (compound_statement)
@@ -46,6 +47,15 @@
 (
   (program) @name.iteration @value.iteration
   (#document-range! @name.iteration @value.iteration)
+)
+
+;;!! { }
+;;!   ^
+(_
+  .
+  "{" @interior.start.endOf
+  "}" @interior.end.startOf
+  .
 )
 
 [
@@ -77,7 +87,11 @@
 
 (comment) @comment @textFragment
 
-(if_statement) @ifStatement
+;;!! if (true) {} else {}
+(
+  (if_statement) @ifStatement @statement
+  (#not-parent-type? @ifStatement else_clause)
+)
 
 ;;!! [aaa, bbb]
 (array_creation_expression) @list
@@ -92,7 +106,20 @@
 ;;!! class Foo {}
 (class_declaration
   name: (_) @name
+  body: (_
+    "{" @statement.iteration.start.endOf @namedFunction.iteration.start.endOf
+    "}" @statement.iteration.end.startOf @namedFunction.iteration.end.startOf
+  )
 ) @class @name.domain
+
+;;!! interface Foo {}
+(interface_declaration
+  name: (_) @name
+  body: (_
+    "{" @statement.iteration.start.endOf
+    "}" @statement.iteration.end.startOf
+  )
+) @name.domain
 
 ;;!! function foo() {}
 [
@@ -307,7 +334,7 @@
     name: (_) @name @name.removal.end.endOf @value.leading.endOf
     default_value: (_)? @value @name.removal.end.startOf
   ) @name.removal.start.startOf
-) @_.domain
+) @_.domain @statement
 
 (_
   operator: [
