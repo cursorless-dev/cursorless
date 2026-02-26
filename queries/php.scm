@@ -231,6 +231,12 @@
   name: (_) @functionCallee.end
 ) @functionCall @functionCallee.domain
 
+;;!! foo()?->bar()
+(nullsafe_member_call_expression
+  object: (_) @functionCallee.start
+  name: (_) @functionCallee.end
+) @functionCall @functionCallee.domain
+
 ;;!! new Foo()
 (object_creation_expression
   "new" @functionCallee.start
