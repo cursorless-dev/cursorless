@@ -58,6 +58,13 @@
   .
 )
 
+;;!! { }
+;;!   ^
+(compound_statement
+  "{" @name.iteration.start.endOf @value.iteration.start.endOf @statement.iteration.start.endOf
+  "}" @name.iteration.end.startOf @value.iteration.end.startOf @statement.iteration.end.startOf
+)
+
 [
   (shell_command_expression)
   (string)

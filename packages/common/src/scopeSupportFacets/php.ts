@@ -213,7 +213,6 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
   "type.iteration.document": supported,
   "type.iteration.class": supported,
   "type.iteration.interface": supported,
-  "type.iteration.block": supported,
 
   "interior.class": supported,
   "interior.interface": supported,
@@ -323,4 +322,5 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.misc": notApplicable,
   "type.variable.initialized": notApplicable,
   "type.foreach": notApplicable,
+  "type.iteration.block": notApplicable,
 };
