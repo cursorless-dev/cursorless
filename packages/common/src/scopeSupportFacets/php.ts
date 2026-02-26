@@ -204,11 +204,8 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.catch": supported,
   "type.return": supported,
   "type.return.method": supported,
-  "type.foreach": supported,
   "type.field.class": supported,
   "type.field.interface": supported,
-  "type.constant": supported,
-  "type.variable.initialized": supported,
   "type.class": supported,
   "type.interface": supported,
   "type.enum": supported,
@@ -300,6 +297,7 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.constant": notApplicable,
   "name.constant": notApplicable,
   "value.constant": notApplicable,
+  "type.constant": notApplicable,
 
   // Unenclosed collection items
   "collectionItem.unenclosed.singleLine": notApplicable,
@@ -323,4 +321,6 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Miscellaneous
   "statement.misc": notApplicable,
+  "type.variable.initialized": notApplicable,
+  "type.foreach": notApplicable,
 };

@@ -45,8 +45,8 @@
 )
 
 (
-  (program) @name.iteration @value.iteration
-  (#document-range! @name.iteration @value.iteration)
+  (program) @name.iteration @value.iteration @type.iteration
+  (#document-range! @name.iteration @value.iteration @type.iteration)
 )
 
 ;;!! { }
@@ -155,38 +155,46 @@
     "{" @namedFunction.iteration.start.endOf
     "}" @namedFunction.iteration.end.startOf
   )
-) @class @name.domain
+) @class @type @name.domain
 
 ;;!! class Foo { }
 ;;!! interface Foo { }
 (declaration_list
-  "{" @statement.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
-  "}" @statement.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
+  "{" @statement.iteration.start.endOf
+  "}" @statement.iteration.end.startOf
+)
+(declaration_list
+  "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
 )
 
 ;;!! interface Foo {}
 (interface_declaration
   name: (_) @name
-) @name.domain
+) @type @name.domain
 
 ;;!! enum Foo {}
 (enum_declaration
   name: (_) @name
   body: (_
-    "{" @name.iteration.start.endOf @value.iteration.start.endOf
-    "}" @name.iteration.end.startOf @value.iteration.end.startOf
+    "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+    "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
   )
-) @name.domain
+) @type @name.domain
 
 ;;!! function foo() {}
 [
   (function_definition
     name: (_) @name
+    parameters: (_)? @type.leading.endOf
+    return_type: (_)? @type
   )
   (method_declaration
     name: (_) @name
+    parameters: (_)? @type.leading.endOf
+    return_type: (_)? @type
   )
-] @namedFunction @name.domain
+] @namedFunction @_.domain
 
 (expression_statement
   (assignment_expression
@@ -498,16 +506,16 @@
   ")" @type.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
 ) @_.domain
 
-;;!! (string) $str;
-;;!   ^^^^^^
+;;!! (int) $str;
+;;!   ^^^
 (cast_expression
   type: (_) @type
   value: (_) @_.removal.end.startOf
 ) @_.removal.start.startOf @_.domain
 
-;;!! public string $value;
-;;!         ^^^^^^
-;;!                ^^^^^^
+;;!! public int $foo;
+;;!         ^^^
+;;!             ^^^^
 (property_declaration
   (_)? @name.removal.start.startOf
   type: (_)? @type @name.removal.start.startOf
@@ -517,10 +525,12 @@
   ) @name.removal.start.startOf
 ) @_.domain @statement
 
-;;!! const bar = 0;
+;;!! const int foo = 0;
 ;;!        ^^^
-;;!              ^
+;;!            ^^^
+;;!                  ^
 (const_declaration
+  type: (_)? @type
   (const_element
     (name) @name @value.leading.endOf
     (_) @value @name.removal.end.startOf

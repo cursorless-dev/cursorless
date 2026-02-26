@@ -195,7 +195,6 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "type.foreach": supported,
   "type.field.class": supported,
   "type.field.interface": supported,
-  "type.return": supported,
   "type.return.method": supported,
   "type.constant": supported,
   "type.variable.uninitialized": supported,
@@ -251,6 +250,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal": notApplicable,
   "type.argument.formal.iteration": notApplicable,
   "interior.function": notApplicable,
+  "type.return": notApplicable,
 
   // Element and tags
   element: notApplicable,
