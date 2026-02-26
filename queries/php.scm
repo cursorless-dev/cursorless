@@ -88,27 +88,44 @@
 (comment) @comment @textFragment
 
 ;;!! if (true) {} else {}
+(
+  (if_statement) @ifStatement @statement @branch.iteration
+  (#not-parent-type? @ifStatement else_clause)
+)
+
+;;!! if (true) {} else {}
 ;;!      ^^^^
 (
   (if_statement
+    "if" @branch.start @branch.removal.start
     condition: (_
       (_) @condition
     )
-  ) @ifStatement @statement @condition.domain
-  (#not-parent-type? @ifStatement else_clause)
+    body: (_) @branch.end @branch.removal.end
+    alternative: (else_clause
+      "else" @branch.removal.end.startOf
+      (if_statement)? @branch.removal.end.startOf
+    )?
+  ) @condition.domain
+  (#not-parent-type? @condition.domain else_clause)
 )
 
 ;;!! else if (true) {}
 ;;!           ^^^^
 (else_clause
-  "else" @condition.domain.start
+  "else" @condition.domain.start @branch.start
   (if_statement
     condition: (_
       (_) @condition
     )
-    body: (_) @condition.domain.end
+    body: (_) @condition.domain.end @branch.end
   )
 )
+
+;;!! else {}
+(else_clause
+  body: (compound_statement)
+) @branch
 
 ;;!! [aaa, bbb]
 (array_creation_expression) @list
@@ -237,8 +254,8 @@
     (_) @value
   )
   body: (_
-    "{" @condition.iteration.start.endOf
-    "}" @condition.iteration.end.startOf
+    "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
+    "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
   )
 ) @value.domain
 
@@ -268,6 +285,11 @@
   (#not-type? @_dummy compound_statement)
 )
 
+[
+  (case_statement)
+  (default_statement)
+] @branch
+
 ;;!! do {} while (true);
 ;;!               ^^^^
 (do_statement
@@ -292,9 +314,27 @@
 
 ;;!! true ? 0 : 1
 ;;!  ^^^^
+;;!         ^   ^
 (conditional_expression
   condition: (_) @condition
-) @condition.domain
+  body: (_) @branch
+) @condition.domain @branch.iteration
+
+(conditional_expression
+  alternative: (_) @branch
+)
+
+;;!! try {} catch () {} finally {}
+;;!  
+(try_statement
+  "try" @branch.start
+  body: (_) @branch.end
+) @branch.iteration
+
+[
+  (catch_clause)
+  (finally_clause)
+] @branch
 
 ;;!! $foo = 0;
 ;;!  ^^^

@@ -1,0 +1,46 @@
+<?php
+try {}
+catch (Exception $e) {}
+finally {}
+---
+
+[#1 Content] =
+[#1 Domain] = 1:0-1:6
+  >------<
+1| try {}
+
+[#1 Removal] = 1:0-2:0
+  >------
+1| try {}
+2| catch (Exception $e) {}
+   <
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 2:0-2:23
+  >-----------------------<
+2| catch (Exception $e) {}
+
+[#2 Removal] = 2:0-3:0
+  >-----------------------
+2| catch (Exception $e) {}
+3| finally {}
+   <
+
+[#2 Insertion delimiter] = "\n"
+
+
+[#3 Content] =
+[#3 Domain] = 3:0-3:10
+  >----------<
+3| finally {}
+
+[#3 Removal] = 2:23-3:10
+                         >
+2| catch (Exception $e) {}
+3| finally {}
+   ----------<
+
+[#3 Insertion delimiter] = "\n"
