@@ -6,7 +6,6 @@
 [
   (break_statement)
   (class_declaration)
-  (compound_statement)
   (const_declaration)
   (continue_statement)
   (declare_statement)
@@ -21,7 +20,6 @@
   (function_static_declaration)
   (global_declaration)
   (goto_statement)
-  (if_statement)
   (interface_declaration)
   (named_label_statement)
   (namespace_definition)
@@ -32,6 +30,12 @@
   (try_statement)
   (unset_statement)
   (while_statement)
+
+  ;; Disabled on purpose. We don't consider these to be statements.
+  ;; (compound_statement)
+
+  ;; Disabled on purpose. We have a better definition of these below.
+  ;; (if_statement)
 ] @statement
 
 [
@@ -65,14 +69,22 @@
 
 (if_statement) @ifStatement
 
-[
-  (array_creation_expression)
-] @list
+;;!! [aaa, bbb]
+(array_creation_expression) @list
 
+;;!! ["aaa" => 0, "bbb" => 1];
+(array_creation_expression
+  (array_element_initializer
+    "=>"
+  )
+) @map
+
+;;!! class Foo {}
 (class_declaration
   name: (_) @name
 ) @class @name.domain
 
+;;!! function foo() {}
 [
   (function_definition)
   (method_declaration)
@@ -89,10 +101,11 @@
   ";"? @namedFunction.end
 )
 
-[
-  (anonymous_function)
-  (arrow_function)
-] @anonymousFunction
+;;!! function() {}
+(anonymous_function) @anonymousFunction
+
+;;!! fn() => 0;
+(arrow_function) @anonymousFunction
 
 [
   (function_definition
@@ -103,10 +116,23 @@
   )
 ] @name.domain
 
-[
-  (function_call_expression)
-  (object_creation_expression)
-] @functionCall
+;;!! foo()
+(function_call_expression
+  function: (_) @functionCallee
+) @functionCall @functionCallee.domain
+
+;;!! foo()->bar()
+(member_call_expression
+  object: (_) @functionCallee.start
+  name: (_) @functionCallee.end
+) @functionCall @functionCallee.domain
+
+;;!! new Foo()
+(object_creation_expression
+  "new" @functionCallee.start
+  .
+  (_) @functionCallee.end
+) @functionCall @functionCallee.domain
 
 ;;!! $value = 2;
 ;;!  ^^^^^^
