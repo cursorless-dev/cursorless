@@ -99,10 +99,15 @@
 
 ;;!! if () {} else {}
 ;;!  ^^^^^^^^^^^^^^^^
+;;!  ^^^^^^^^
 (
   (if_statement
+    "if" @branch.start @branch.removal.start
     .
     (_) @condition
+    consequence: (_) @branch.end @branch.removal.end
+    "else"? @branch.removal.end.startOf
+    alternative: (if_statement)? @branch.removal.end.startOf
   ) @ifStatement @statement @condition.domain
   (#not-parent-type? @ifStatement if_statement)
 )
@@ -115,12 +120,20 @@
 ;;!! else if () {}
 ;;!  ^^^^^^^^^^^^^
 (if_statement
-  "else" @condition.domain.start
+  "else" @condition.domain.start @branch.start @branch.removal.start
   (if_statement
     .
     (_) @condition
-    consequence: (_) @condition.domain.end
+    consequence: (_) @condition.domain.end @branch.end @branch.removal.end
+    "else"? @branch.removal.end.startOf
   )
+)
+
+;;!! else {}
+;;!  ^^^^^^^
+(if_statement
+  "else" @branch.start
+  alternative: (block) @branch.end
 )
 
 ;;!! try {} catch () {} finally {}

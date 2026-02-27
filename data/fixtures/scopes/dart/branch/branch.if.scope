@@ -1,0 +1,16 @@
+void main() {
+    if (true) {}
+}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 1:4-1:16
+      >------------<
+1|     if (true) {}
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     if (true) {}
+
+[Insertion delimiter] = "\n"
