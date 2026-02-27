@@ -1,0 +1,23 @@
+<?php
+try {}
+catch (Exception $e) {}
+finally {}
+---
+
+[Content] =
+[Domain] = 1:0-3:10
+  >------
+1| try {}
+2| catch (Exception $e) {}
+3| finally {}
+   ----------<
+
+[Removal] = 0:5-3:10
+       >
+0| <?php
+1| try {}
+2| catch (Exception $e) {}
+3| finally {}
+   ----------<
+
+[Insertion delimiter] = "\n"

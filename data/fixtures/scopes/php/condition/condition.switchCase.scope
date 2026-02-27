@@ -1,0 +1,23 @@
+<?php
+switch ($foo) {
+    case 0: break;
+}
+---
+
+[Content] = 2:9-2:10
+           >-<
+2|     case 0: break;
+
+[Removal] = 2:8-2:10
+          >--<
+2|     case 0: break;
+
+[Leading delimiter] = 2:8-2:9
+          >-<
+2|     case 0: break;
+
+[Domain] = 2:4-2:18
+      >--------------<
+2|     case 0: break;
+
+[Insertion delimiter] = " "

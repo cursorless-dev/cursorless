@@ -1,0 +1,25 @@
+<?php
+interface Foo {}
+---
+
+[Content] = 1:10-1:13
+            >---<
+1| interface Foo {}
+
+[Removal] = 1:10-1:14
+            >----<
+1| interface Foo {}
+
+[Leading delimiter] = 1:9-1:10
+           >-<
+1| interface Foo {}
+
+[Trailing delimiter] = 1:13-1:14
+               >-<
+1| interface Foo {}
+
+[Domain] = 1:0-1:16
+  >----------------<
+1| interface Foo {}
+
+[Insertion delimiter] = " "

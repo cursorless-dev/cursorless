@@ -1,0 +1,41 @@
+<?php
+class Foo {
+    function bar() {}
+}
+---
+
+[#1 Content] =
+[#1 Domain] = 1:0-3:1
+  >-----------
+1| class Foo {
+2|     function bar() {}
+3| }
+   -<
+
+[#1 Removal] = 0:5-3:1
+       >
+0| <?php
+1| class Foo {
+2|     function bar() {}
+3| }
+   -<
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 2:4-2:21
+      >-----------------<
+2|     function bar() {}
+
+[#2 Removal] = 2:0-3:0
+  >---------------------
+2|     function bar() {}
+3| }
+   <
+
+[#2 Leading delimiter] = 2:0-2:4
+  >----<
+2|     function bar() {}
+
+[#2 Insertion delimiter] = "\n"
