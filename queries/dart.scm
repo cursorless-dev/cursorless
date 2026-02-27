@@ -18,13 +18,18 @@
 ] @statement
 
 (
+  (local_variable_declaration) @statement
+  (#not-parent-type? @statement for_loop_parts)
+)
+
+(
   (program) @class.iteration @statement.iteration @namedFunction.iteration
   (#document-range! @class.iteration @statement.iteration @namedFunction.iteration)
 )
 
 (
-  (program) @name.iteration @value.iteration
-  (#document-range! @name.iteration @value.iteration)
+  (program) @name.iteration @value.iteration @type.iteration
+  (#document-range! @name.iteration @value.iteration @type.iteration)
 )
 
 ;;!! { }
@@ -36,48 +41,39 @@
   .
 )
 
-;;!! var foo = 0;
-;;!  ^^^^^^^^^^^^
+;;!! int foo = 0;
+;;!  ^^^
 ;;!      ^^^
 ;;!            ^
-(_
-  (inferred_type) @statement.start @_.domain.start @name.removal.start.startOf
-  .
-  (initialized_identifier_list
-    (initialized_identifier
-      (_) @name @value.leading.endOf
-      "="
-      .
-      (_) @value.start @name.removal.end.startOf
-      (_)? @value.end
-      .
-    )
+(local_variable_declaration
+  (initialized_variable_definition
+    (type_identifier)? @type.start
+    (type_arguments)? @type.end
+    name: (_) @name @value.leading.endOf @name.removal.end.endOf
+    value: (_)? @value @name.removal.end.startOf @name.removal.end.startOf
   )
-  .
-  ";" @statement.end @_.domain.end
+) @_.domain @name.removal.start.startOf
+
+;;!! Map<int, int> foo;
+;;!      ^^^^^^^^^
+(type_arguments
+  "<" @type.iteration.start.endOf
+  ">" @type.iteration.end.startOf
 )
 
-;;!! var foo;
-;;!  ^^^^^^^^
-;;!      ^^^
-(_
-  (inferred_type) @statement.start @name.removal.start @name.domain.start
-  .
-  (initialized_identifier_list
-    (initialized_identifier
-      .
-      (_) @name
-      .
-    )
-  )
-  .
-  ";" @statement.end @name.removal.end @name.domain.end
+;;!! Map<int, int> foo;
+;;!      ^^^  ^^^
+(type_arguments
+  (type_identifier) @type
 )
 
 ;;!! var foo, bar;
 ;;!      ^^^^^^^^
 (_
-  (inferred_type) @collectionItem.iteration.domain.start
+  [
+    (inferred_type)
+    (type_identifier)
+  ] @collectionItem.iteration.domain.start
   .
   (initialized_identifier_list) @collectionItem.iteration
   .
@@ -104,6 +100,8 @@
 ;;!              ^
 (_
   (const_builtin) @statement.start @_.domain.start @name.removal.start.startOf
+  .
+  (type_identifier)? @type
   .
   (static_final_declaration_list
     (static_final_declaration
@@ -175,6 +173,7 @@
 ;;!  ^^^^^^^^^^^^^^^
 ;;!         ^^^^
 (try_statement
+  (type_identifier)? @type
   (catch_clause
     "catch" @branch.start @argumentList.domain.start @argumentOrParameter.iteration.domain.start
     (catch_parameters
@@ -250,7 +249,7 @@
 ;;!  ^^^^^^^^^^^^
 (class_definition
   name: (_) @name
-) @class @name.domain
+) @class @type @name.domain
 
 ;;!! class Foo { }
 ;;!             ^
@@ -260,8 +259,8 @@
 )
 
 (class_body
-  "{" @name.iteration.start.endOf @value.iteration.start.endOf
-  "}" @name.iteration.end.startOf @value.iteration.end.startOf
+  "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
 )
 
 ;;!! var foo = 0;
@@ -270,14 +269,14 @@
 ;;!            ^
 (class_body
   (declaration
-    (inferred_type) @statement.start @name.removal.start.startOf @_.domain.start
+    (type_identifier)? @type
     (initialized_identifier_list
       (initialized_identifier
         (_) @name @value.leading.endOf
         (_) @value @name.removal.end.startOf
       )
     )
-  )
+  ) @statement.start @name.removal.start.startOf @_.domain.start
   .
   ";" @statement.end @_.domain.end
 )
@@ -287,7 +286,7 @@
 ;;!      ^^^
 (class_body
   (declaration
-    (inferred_type) @statement.start @name.removal.start @name.domain.start
+    (type_identifier)? @type
     (initialized_identifier_list
       (initialized_identifier
         .
@@ -295,16 +294,16 @@
         .
       )
     )
-  )
+  ) @statement.start @name.removal.start @_.domain.start
   .
-  ";" @statement.end @name.removal.end @name.domain.end
+  ";" @statement.end @name.removal.end @_.domain.end
 )
 
 ;;!! enum Foo {}
 ;;!       ^^^
 (enum_declaration
   name: (_) @name
-) @name.domain
+) @type @name.domain
 
 ;;!! enum Foo { }
 ;;!            ^
@@ -330,6 +329,15 @@
   (argument_part)
 ) @functionCall @functionCallee.domain
 
+;;!! foo as int
+;;!         ^^^
+(type_cast_expression
+  (type_cast
+    (as_operator)
+    (_) @type
+  )
+) @type.domain
+
 ;;!! "hello world"
 ;;!  ^^^^^^^^^^^^^
 ;;!   ^^^^^^^^^^^
@@ -344,26 +352,32 @@
 
 ;;!! void foo() {}
 ;;!  ^^^^^^^^^^^^^
+;;!  ^^^^
 ;;!       ^^^
 (_
   (function_signature
+    .
+    (_) @type
     name: (_) @name
-  ) @namedFunction.start @statement.start @name.domain.start
+  ) @namedFunction.start @statement.start @_.domain.start
   .
-  (function_body) @namedFunction.end @statement.end @name.domain.end
+  (function_body) @namedFunction.end @statement.end @_.domain.end
 )
 
 ;;!! void foo() {}
 ;;!  ^^^^^^^^^^^^^
+;;!  ^^^^
 ;;!       ^^^
 (_
   (method_signature
     (_
+      .
+      (_)? @type
       name: (_) @name
     )
-  ) @namedFunction.start @statement.start @name.domain.start
+  ) @namedFunction.start @statement.start @_.domain.start
   .
-  (function_body) @namedFunction.end @statement.end @name.domain.end
+  (function_body) @namedFunction.end @statement.end @_.domain.end
 )
 
 ;;!! void foo(aaa, bbb) {}
@@ -415,8 +429,8 @@
 ;;!! void foo(aaa, bbb) {}
 ;;!           ^^^^^^^^
 (formal_parameter_list
-  "(" @name.iteration.start.endOf @value.iteration.start.endOf
-  ")" @name.iteration.end.startOf @value.iteration.end.startOf
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
 )
 
 ;;!! int aaa = 0
@@ -560,6 +574,7 @@
 ;;!                  ^^^^^^
 (for_statement
   (for_loop_parts
+    (type_identifier)? @type
     name: (_) @name
     value: (_) @value
   )
@@ -654,7 +669,7 @@
   "typedef" @name.removal.start.startOf
   (_) @name @value.leading.endOf
   (_) @value @name.removal.end.startOf
-) @_.domain
+) @type @_.domain
 
 (relational_operator
   [

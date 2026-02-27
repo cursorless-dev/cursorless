@@ -1,10 +1,12 @@
-var foo = (aaa, bbb) {};
+void main() {
+    var foo = (aaa, bbb) {};
+}
 ---
 
-[Content] = 0:11-0:19
-             >--------<
-0| var foo = (aaa, bbb) {};
+[Content] = 1:15-1:23
+                 >--------<
+1|     var foo = (aaa, bbb) {};
 
-[Domain] = 0:10-0:23
-            >-------------<
-0| var foo = (aaa, bbb) {};
+[Domain] = 1:14-1:27
+                >-------------<
+1|     var foo = (aaa, bbb) {};

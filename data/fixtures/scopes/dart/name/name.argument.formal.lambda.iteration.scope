@@ -1,13 +1,18 @@
-var foo = (aaa, [int bbb, ccc = 0]) {}
+void main() {
+    var foo = (aaa, [int bbb, ccc = 0]) {}
+}
 ---
 
 [#1 Content] =
-[#1 Domain] = 0:0-0:38
-  >--------------------------------------<
-0| var foo = (aaa, [int bbb, ccc = 0]) {}
+[#1 Domain] = 0:0-2:1
+  >-------------
+0| void main() {
+1|     var foo = (aaa, [int bbb, ccc = 0]) {}
+2| }
+   -<
 
 
 [#2 Content] =
-[#2 Domain] = 0:11-0:34
-             >-----------------------<
-0| var foo = (aaa, [int bbb, ccc = 0]) {}
+[#2 Domain] = 1:15-1:38
+                 >-----------------------<
+1|     var foo = (aaa, [int bbb, ccc = 0]) {}

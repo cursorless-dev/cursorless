@@ -1,33 +1,53 @@
-var foo = (
-    aaa,
-    bbb
-) {};
+void main() {
+    var foo = (
+        aaa,
+        bbb
+    ) {};
+}
 ---
 
-[Content] = 1:4-2:7
-      >----
-1|     aaa,
-2|     bbb
-   -------<
+[#1 Content] =
+[#1 Removal] = 0:10-0:10
+            ><
+0| void main() {
 
-[Removal] = 0:11-3:0
-             >
-0| var foo = (
-1|     aaa,
-2|     bbb
-3| ) {};
-   <
+[#1 Domain] = 0:0-5:1
+  >-------------
+0| void main() {
+1|     var foo = (
+2|         aaa,
+3|         bbb
+4|     ) {};
+5| }
+   -<
 
-[Leading delimiter] = 1:0-1:4
-  >----<
-1|     aaa,
+[#1 Insertion delimiter] = ""
 
-[Domain] = 0:10-3:4
-            >-
-0| var foo = (
-1|     aaa,
-2|     bbb
-3| ) {};
+
+[#2 Content] = 2:8-3:11
+          >----
+2|         aaa,
+3|         bbb
+   -----------<
+
+[#2 Removal] = 1:15-4:4
+                 >
+1|     var foo = (
+2|         aaa,
+3|         bbb
+4|     ) {};
    ----<
 
-[Insertion delimiter] = ",\n"
+[#2 Leading delimiter] = 2:0-2:8
+  >--------<
+2|         aaa,
+
+[#2 Domain] = 1:14-4:8
+                >-
+1|     var foo = (
+2|         aaa,
+3|         bbb
+4|     ) {};
+   --------<
+
+[#2 Insertion delimiter] = ",\n"
