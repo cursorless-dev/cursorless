@@ -419,6 +419,23 @@
   ")" @name.iteration.end.startOf @value.iteration.end.startOf
 )
 
+;;!! int aaa = 0
+;;!  ^^^
+;;!      ^^^
+;;!            ^
+(_
+  (formal_parameter
+    (type_identifier)? @type
+    (identifier) @name @value.leading.endOf
+  ) @_.domain.start
+  .
+  (
+    "="
+    .
+    (_) @value @_.domain.end
+  )?
+)
+
 ;;!! foo();
 ;;!  ^^^^^
 ;;!  ^^^
