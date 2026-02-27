@@ -27,6 +27,15 @@
   (#document-range! @name.iteration @value.iteration)
 )
 
+;;!! { }
+;;!   ^
+(_
+  .
+  "{" @interior.start.endOf
+  "}" @interior.end.startOf
+  .
+)
+
 ;;!! var foo = 0;
 ;;!  ^^^^^^^^^^^^
 ;;!      ^^^
@@ -396,9 +405,31 @@
   (_) @condition
 ) @branch @condition.domain
 
+;;!! case 0: break;
+;;!         ^^^^^^^
+(switch_statement_case
+  ":" @interior.start.endOf
+  .
+  (_) @interior.end.endOf @_dummy
+  (_)? @interior.end.endOf
+  .
+  (#not-type? @_dummy block)
+)
+
 ;;!! default: break;
 ;;!  ^^^^^^^^^^^^^^^
 (switch_statement_default) @branch
+
+;;!! default: break;
+;;!          ^^^^^^^
+(switch_statement_default
+  ":" @interior.start.endOf
+  .
+  (_) @interior.end.endOf @_dummy
+  (_)? @interior.end.endOf
+  .
+  (#not-type? @_dummy block)
+)
 
 ;;!! switch () { }
 ;;!             ^

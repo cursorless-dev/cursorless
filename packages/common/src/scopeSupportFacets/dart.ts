@@ -241,7 +241,6 @@ export const dartScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.foreach": supported,
   "interior.while": supported,
   "interior.doWhile": supported,
-  "interior.static": supported,
 
   /* UNSUPPORTED  */
 
@@ -310,9 +309,12 @@ export const dartScopeSupport: LanguageScopeSupportFacetMap = {
   "value.field.enum": notApplicable,
   "value.iteration.enum": notApplicable,
 
+  // Static statement
+  "interior.static": notApplicable,
+  "statement.static": notApplicable,
+
   // Miscellaneous
   "statement.misc": notApplicable,
-  "statement.static": notApplicable,
   regularExpression: notApplicable,
   environment: notApplicable,
   selector: notApplicable,
