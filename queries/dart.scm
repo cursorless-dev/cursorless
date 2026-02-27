@@ -178,3 +178,32 @@
     (_) @condition
   )
 ) @condition.domain
+
+(relational_operator
+  [
+    "<"
+    ">"
+    "<="
+    ">="
+  ]
+) @disqualifyDelimiter
+(shift_operator
+  [
+    "<<"
+    ">>"
+    ">>>"
+  ]
+) @disqualifyDelimiter
+(assignment_expression
+  operator: [
+    "<<="
+    ">>="
+    ">>>="
+  ] @disqualifyDelimiter
+)
+(function_expression_body
+  "=>" @disqualifyDelimiter
+)
+(function_body
+  "=>" @disqualifyDelimiter
+)
