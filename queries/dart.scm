@@ -46,7 +46,11 @@
   (initialized_identifier_list
     (initialized_identifier
       (_) @name @value.leading.endOf
-      (_) @value @name.removal.end.startOf
+      "="
+      .
+      (_) @value.start @name.removal.end.startOf
+      (_)? @value.end
+      .
     )
   )
   .
@@ -68,6 +72,30 @@
   )
   .
   ";" @statement.end @name.removal.end @name.domain.end
+)
+
+;;!! var foo, bar;
+;;!      ^^^^^^^^
+(_
+  (inferred_type) @collectionItem.iteration.domain.start
+  .
+  (initialized_identifier_list) @collectionItem.iteration
+  .
+  ";" @collectionItem.iteration.domain.end
+)
+
+;;!! var foo, bar;
+;;!      ^^^  ^^^
+(
+  (initialized_identifier_list
+    (_)? @_.leading.endOf
+    .
+    (_) @collectionItem
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#not-type? @collectionItem comment)
+  (#single-or-multi-line-delimiter! @collectionItem @_dummy ", " ",\n")
 )
 
 ;;!! const foo = 0;
