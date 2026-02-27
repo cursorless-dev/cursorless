@@ -1,0 +1,18 @@
+void main() {
+    foo(aaa: 0, bbb: 1);
+}
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-2:1
+  >-------------
+0| void main() {
+1|     foo(aaa: 0, bbb: 1);
+2| }
+   -<
+
+
+[#2 Content] =
+[#2 Domain] = 1:8-1:22
+          >--------------<
+1|     foo(aaa: 0, bbb: 1);

@@ -468,6 +468,23 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
+;;!! foo(aaa, bbb);
+;;!      ^^^^^^^^
+(arguments
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf
+)
+
+;;!! foo(aaa: 0, bbb: 1);
+;;!      ^^^     ^^^
+;;!           ^       ^
+(named_argument
+  (label
+    (_) @name @value.leading.endOf
+  )
+  (_) @value @name.trailing.startOf
+) @_.domain
+
 ;;!! () {}
 ;;!! () => 0
 (function_expression
