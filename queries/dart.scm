@@ -17,29 +17,6 @@
   (type_alias)
 ] @statement
 
-;;!! var foo = 0;
-;;!  ^^^^^^^^^^^^
-(_
-  (inferred_type) @statement.start
-  .
-  (initialized_identifier_list)
-  .
-  ";" @statement.end
-)
-
-;;!! const foo = 0;
-;;!  ^^^^^^^^^^^^^^
-(_
-  (const_builtin) @statement.start
-  .
-  (static_final_declaration_list
-    .
-    (static_final_declaration)
-  )
-  .
-  ";" @statement.end
-)
-
 (
   (program) @class.iteration @statement.iteration @namedFunction.iteration
   (#document-range! @class.iteration @statement.iteration @namedFunction.iteration)
@@ -49,6 +26,67 @@
   (program) @name.iteration @value.iteration
   (#document-range! @name.iteration @value.iteration)
 )
+
+;;!! var foo = 0;
+;;!  ^^^^^^^^^^^^
+;;!      ^^^
+;;!            ^
+(_
+  (inferred_type) @statement.start @_.domain.start @name.removal.start.startOf
+  .
+  (initialized_identifier_list
+    (initialized_identifier
+      (_) @name @value.leading.endOf
+      (_) @value @name.removal.end.startOf
+    )
+  )
+  .
+  ";" @statement.end @_.domain.end
+)
+
+;;!! var foo;
+;;!  ^^^^^^^^
+;;!      ^^^
+(_
+  (inferred_type) @statement.start @name.removal.start @name.domain.start
+  .
+  (initialized_identifier_list
+    (initialized_identifier
+      .
+      (_) @name
+      .
+    )
+  )
+  .
+  ";" @statement.end @name.removal.end @name.domain.end
+)
+
+;;!! const foo = 0;
+;;!  ^^^^^^^^^^^^^^
+;;!        ^^^
+;;!              ^
+(_
+  (const_builtin) @statement.start @_.domain.start @name.removal.start.startOf
+  .
+  (static_final_declaration_list
+    (static_final_declaration
+      (_) @name @value.leading.endOf
+      (_) @value @name.removal.end.startOf
+    )
+  )
+  .
+  ";" @statement.end @_.domain.end
+)
+
+;;!! foo = 0;
+;;!  ^^^
+;;!        ^
+(expression_statement
+  (assignment_expression
+    left: (_) @name @value.leading.endOf
+    right: (_) @value @name.trailing.startOf
+  )
+) @_.domain
 
 ;;!! if () {} else {}
 ;;!  ^^^^^^^^^^^^^^^^

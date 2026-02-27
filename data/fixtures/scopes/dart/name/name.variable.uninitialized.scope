@@ -1,0 +1,17 @@
+var foo;
+---
+
+[Content] = 0:4-0:7
+      >---<
+0| var foo;
+
+[Removal] =
+[Domain] = 0:0-0:8
+  >--------<
+0| var foo;
+
+[Leading delimiter] = 0:3-0:4
+     >-<
+0| var foo;
+
+[Insertion delimiter] = " "
