@@ -41,6 +41,18 @@
   .
 )
 
+;;!! { }
+;;!   ^
+(block
+  "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+)
+
+(block
+  "{" @statement.iteration.start.endOf
+  "}" @statement.iteration.end.startOf
+)
+
 ;;!! int foo = 0;
 ;;!  ^^^
 ;;!      ^^^
