@@ -1,14 +1,13 @@
 import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
-const { supported, notApplicable } = ScopeSupportFacetLevel;
+const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const dartScopeSupport: LanguageScopeSupportFacetMap = {
   disqualifyDelimiter: supported,
   pairDelimiter: supported,
   list: supported,
   map: supported,
-  fieldAccess: supported,
   ifStatement: supported,
   anonymousFunction: supported,
 
@@ -246,6 +245,10 @@ export const dartScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.while": supported,
   "interior.doWhile": supported,
   "interior.static": supported,
+
+  /* UNSUPPORTED  */
+
+  fieldAccess: unsupported,
 
   /* NOT APPLICABLE */
 

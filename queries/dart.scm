@@ -1,3 +1,8 @@
+(
+  (program) @class.iteration @statement.iteration @namedFunction.iteration
+  (#document-range! @class.iteration @statement.iteration @namedFunction.iteration)
+)
+
 ;;!! if () {}
 ;;!  ^^^^^^^^
 (
@@ -36,3 +41,50 @@
 ;;!! // Hello world
 ;;!  ^^^^^^^^^^^^^^
 (comment) @comment @textFragment
+
+;;!! void foo() {}
+;;!  ^^^^^^^^^^^^^
+;;!       ^^^
+(_
+  (function_signature
+    name: (_) @name
+  ) @namedFunction.start @name.domain.start
+  .
+  (function_body) @namedFunction.end @name.domain.end
+)
+
+;;!! void foo() {}
+;;!  ^^^^^^^^^^^^^
+;;!       ^^^
+(_
+  (method_signature
+    (_
+      name: (_) @name
+    )
+  ) @namedFunction.start @name.domain.start
+  .
+  (function_body) @namedFunction.end @name.domain.end
+)
+
+;;!! foo();
+;;!  ^^^^^
+;;!  ^^^
+(_
+  (identifier) @functionCallee.start @functionCall.start @functionCallee.domain.start
+  .
+  (selector)* @functionCallee.end
+  .
+  (selector
+    (argument_part
+      (type_arguments)? @functionCallee.end
+      (arguments)
+    )
+  ) @functionCall.end @functionCallee.domain.end
+)
+
+;;!! class Foo { }
+;;!             ^
+(class_body
+  "{" @namedFunction.iteration.start.endOf
+  "}" @namedFunction.iteration.end.startOf
+)
