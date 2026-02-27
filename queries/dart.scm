@@ -317,6 +317,59 @@
   (function_body) @namedFunction.end @statement.end @name.domain.end
 )
 
+;;!! void foo(aaa, bbb) {}
+;;!           ^^^^^^^^
+(_
+  (function_signature
+    (formal_parameter_list
+      "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+      ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+    ) @argumentList
+    (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+    (#child-range! @argumentList 1 -2)
+  ) @argumentList.domain.start @argumentOrParameter.iteration.domain.start
+  .
+  (function_body) @argumentList.domain.end @argumentOrParameter.iteration.domain.end
+)
+
+;;!! void foo(aaa, bbb) {}
+;;!           ^^^^^^^^
+(_
+  (method_signature
+    (_
+      (formal_parameter_list
+        "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+        ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+      ) @argumentList
+      (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+      (#child-range! @argumentList 1 -2)
+    ) @argumentList.domain.start @argumentOrParameter.iteration.domain.start
+  )
+  .
+  (function_body) @argumentList.domain.end @argumentOrParameter.iteration.domain.end
+)
+
+;;!! void foo(aaa, bbb) {}
+;;!           ^^^  ^^^
+(
+  (formal_parameter_list
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#not-type? @argumentOrParameter comment)
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
+;;!! void foo(aaa, bbb) {}
+;;!           ^^^^^^^^
+(formal_parameter_list
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf
+)
+
 ;;!! foo();
 ;;!  ^^^^^
 ;;!  ^^^
@@ -333,6 +386,39 @@
   ) @functionCall.end @functionCallee.domain.end
 )
 
+;;!! foo(aaa, bbb)
+;;!      ^^^^^^^^
+(_
+  (identifier) @argumentList.domain.start @argumentOrParameter.iteration.domain.start
+  .
+  (selector)*
+  .
+  (selector
+    (argument_part
+      (arguments
+        "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+        ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+      ) @argumentList
+    )
+  ) @argumentList.domain.end @argumentOrParameter.iteration.domain.end
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
+)
+
+;;!! foo(aaa, bbb);
+;;!      ^^^  ^^^
+(
+  (arguments
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#not-type? @argumentOrParameter comment)
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
 ;;!! () {}
 ;;!! () => 0
 (function_expression
@@ -346,6 +432,17 @@
     ]
   )
 ) @anonymousFunction @value.domain
+
+;;!! (aaa, bbb) => {}
+;;!   ^^^^^^^^
+(function_expression
+  (formal_parameter_list
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;;!! return 0;
 ;;!         ^

@@ -812,7 +812,7 @@
     .
     (_)? @_.trailing.startOf
   ) @_dummy
-  (#not-type? @argumentOrParameter "comment")
+  (#not-type? @argumentOrParameter comment)
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
@@ -826,7 +826,7 @@
     .
     (_)? @_.trailing.startOf
   ) @_dummy
-  (#not-type? @argumentOrParameter "comment")
+  (#not-type? @argumentOrParameter comment)
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 

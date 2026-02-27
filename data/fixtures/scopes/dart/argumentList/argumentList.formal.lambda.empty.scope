@@ -1,0 +1,13 @@
+var foo = () {};
+---
+
+[Content] =
+[Removal] = 0:11-0:11
+             ><
+0| var foo = () {};
+
+[Domain] = 0:10-0:15
+            >-----<
+0| var foo = () {};
+
+[Insertion delimiter] = ""
