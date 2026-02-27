@@ -143,12 +143,33 @@
   body: (_) @branch.end
 ) @branch.iteration
 
-;;!! catch ()
-;;!  ^^^^^^^^
+;;!! catch (e, s) {}
+;;!  ^^^^^^^^^^^^^^^
+;;!         ^^^^
 (try_statement
-  (catch_clause) @branch.start
+  (catch_clause
+    "catch" @branch.start @argumentList.domain.start @argumentOrParameter.iteration.domain.start
+    (catch_parameters
+      "(" @argumentList.start.endOf @argumentOrParameter.iteration.start.endOf
+      ")" @argumentList.end.startOf @argumentOrParameter.iteration.end.startOf
+    )
+  )
   .
-  (block) @branch.end
+  (block) @branch.end @argumentList.domain.end @argumentOrParameter.iteration.domain.end
+)
+
+;;!! catch (e, s) {}
+;;!         ^  ^
+(
+  (catch_parameters
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#not-type? @argumentOrParameter comment)
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
 ;;!! finally ()
