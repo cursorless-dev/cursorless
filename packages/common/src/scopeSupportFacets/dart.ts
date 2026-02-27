@@ -5,7 +5,6 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const dartScopeSupport: LanguageScopeSupportFacetMap = {
   disqualifyDelimiter: supported,
-  pairDelimiter: supported,
   list: supported,
   map: supported,
   ifStatement: supported,
@@ -128,9 +127,7 @@ export const dartScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.throw": supported,
   "statement.break": supported,
   "statement.continue": supported,
-  "statement.static": supported,
   "statement.import": supported,
-  "statement.misc": supported,
   "statement.iteration.document": supported,
   "statement.iteration.class": supported,
   "statement.iteration.block": supported,
@@ -313,9 +310,12 @@ export const dartScopeSupport: LanguageScopeSupportFacetMap = {
   "functionCall.enum": notApplicable,
   "functionCallee.enum": notApplicable,
 
-  // Not applicable misc
+  // Miscellaneous
+  "statement.misc": notApplicable,
+  "statement.static": notApplicable,
   regularExpression: notApplicable,
   environment: notApplicable,
   selector: notApplicable,
   unit: notApplicable,
+  pairDelimiter: notApplicable,
 };
