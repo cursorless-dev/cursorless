@@ -59,12 +59,40 @@
   (list_pattern)
 ] @list
 
-;;!! { value: 0 }
-;;!  ^^^^^^^^^^^^
-[
-  (set_or_map_literal)
-  (map_pattern)
-] @map
+;;!! {"aaa": 0, "bbb": 1}
+;;!  ^^^^^^^^^^^^^^^^^^^^
+;;!   ^^^^^^^^^^^^^^^^^^
+(set_or_map_literal
+  "{" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
+  "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+) @map
+
+;;!! final {"aaa": 0, "bbb": 1} = foo;
+;;!        ^^^^^^^^^^^^^^^^^^^^
+;;!         ^^^^^^^^^^^^^^^^^^
+(map_pattern
+  "{" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
+  "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+) @map
+
+;;!! {"aaa": 0, "bbb": 1}
+;;!   ^^^^^     ^^^^^
+;;!          ^         ^
+(pair
+  key: (_) @collectionKey @value.leading.endOf
+  value: (_) @value @collectionKey.trailing.startOf
+) @_.domain
+
+;;!! final {"aaa": bar, "bbb": baz} = foo;
+;;!         ^^^^^     ^^^^^
+;;!                ^^^         ^^^
+(map_pattern
+  (_) @collectionKey @value.leading.endOf @_.domain.start
+  .
+  ":"
+  .
+  (_) @value @collectionKey.trailing.startOf @_.domain.end
+)
 
 ;;!! class Foo {}
 ;;!  ^^^^^^^^^^^^
