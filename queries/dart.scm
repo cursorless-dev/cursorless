@@ -24,3 +24,15 @@
 (class_definition
   name: (_) @name
 ) @class @name.domain
+
+;;!! "hello world"
+;;!  ^^^^^^^^^^^^^
+;;!   ^^^^^^^^^^^
+(string_literal
+  _ @textFragment.start.endOf
+  _ @textFragment.end.startOf
+) @string
+
+;;!! // Hello world
+;;!  ^^^^^^^^^^^^^^
+(comment) @comment @textFragment
