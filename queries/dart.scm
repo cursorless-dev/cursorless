@@ -45,12 +45,55 @@
   (#document-range! @class.iteration @statement.iteration @namedFunction.iteration)
 )
 
-;;!! if () {}
-;;!  ^^^^^^^^
 (
-  (if_statement) @ifStatement @statement
+  (program) @name.iteration @value.iteration
+  (#document-range! @name.iteration @value.iteration)
+)
+
+;;!! if () {} else {}
+;;!  ^^^^^^^^^^^^^^^^
+(
+  (if_statement
+    .
+    (_) @condition
+  ) @ifStatement @statement @condition.domain
   (#not-parent-type? @ifStatement if_statement)
 )
+
+(
+  (if_statement) @branch.iteration
+  (#not-parent-type? @branch.iteration if_statement)
+)
+
+;;!! else if () {}
+;;!  ^^^^^^^^^^^^^
+(if_statement
+  "else" @condition.domain.start
+  (if_statement
+    .
+    (_) @condition
+    consequence: (_) @condition.domain.end
+  )
+)
+
+;;!! try {} catch () {} finally {}
+;;!  ^^^^^^
+(try_statement
+  "try" @branch.start
+  body: (_) @branch.end
+) @branch.iteration
+
+;;!! catch ()
+;;!  ^^^^^^^^
+(try_statement
+  (catch_clause) @branch.start
+  .
+  (block) @branch.end
+)
+
+;;!! finally ()
+;;!  ^^^^^^^^^^
+(finally_clause) @branch
 
 ;;!! [ 0 ]
 ;;!  ^^^^^
@@ -191,6 +234,24 @@
   )
 ) @value.domain
 
+;;!! for (var i = 0; i < size; i++) {}
+;;!                  ^^^^^^^^
+(for_statement
+  (for_loop_parts
+    condition: (_) @condition
+  )
+) @condition.domain
+
+;;!! for (final v in values) {}
+;;!             ^
+;;!                  ^^^^^^
+(for_statement
+  (for_loop_parts
+    name: (_) @name
+    value: (_) @value
+  )
+) @_.domain
+
 ;;!! while (true) {}
 ;;!         ^^^^
 (while_statement
@@ -206,6 +267,59 @@
     (_) @condition
   )
 ) @condition.domain
+
+;;!! switch (foo) {}
+;;!          ^^^
+(switch_statement
+  (parenthesized_expression
+    (_) @value
+  )
+) @value.domain
+
+;;!! case 0: break;
+;;!  ^^^^^^^^^^^^^^
+;;!       ^
+(switch_statement_case
+  (case_builtin)
+  .
+  (_) @condition
+) @branch @condition.domain
+
+;;!! default: break;
+;;!  ^^^^^^^^^^^^^^^
+(switch_statement_default) @branch
+
+;;!! switch () { }
+;;!             ^
+(switch_block
+  "{" @branch.iteration.start.endOf @condition.iteration.start.endOf
+  "}" @branch.iteration.end.startOf @condition.iteration.end.startOf
+)
+
+;;!! true ? 0 : 1;
+;;!  ^^^^
+;;!         ^   ^
+(conditional_expression
+  .
+  (_) @condition
+  consequence: (_) @branch
+) @condition.domain
+
+(conditional_expression
+  alternative: (_) @branch
+)
+
+;;!! true ? 0 : 1;
+(conditional_expression) @branch.iteration
+
+;;!! typedef Foo = int;
+;;!          ^^^
+;;!                ^^^
+(type_alias
+  "typedef" @name.removal.start.startOf
+  (_) @name @value.leading.endOf
+  (_) @value @name.removal.end.startOf
+) @_.domain
 
 (relational_operator
   [

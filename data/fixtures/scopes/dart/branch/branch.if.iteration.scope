@@ -1,0 +1,14 @@
+void main() {
+    if (true) {}
+    else if (false) {}
+    else {}
+}
+---
+
+[Content] =
+[Domain] = 1:4-3:11
+      >------------
+1|     if (true) {}
+2|     else if (false) {}
+3|     else {}
+   -----------<
