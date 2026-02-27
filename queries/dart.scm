@@ -188,13 +188,76 @@
   "}" @namedFunction.iteration.end.startOf @statement.iteration.end.startOf
 )
 
+(class_body
+  "{" @name.iteration.start.endOf @value.iteration.start.endOf
+  "}" @name.iteration.end.startOf @value.iteration.end.startOf
+)
+
 ;;!! var foo = 0;
 ;;!  ^^^^^^^^^^^^
+;;!      ^^^
+;;!            ^
 (class_body
-  (declaration) @statement.start
+  (declaration
+    (inferred_type) @statement.start @name.removal.start.startOf @_.domain.start
+    (initialized_identifier_list
+      (initialized_identifier
+        (_) @name @value.leading.endOf
+        (_) @value @name.removal.end.startOf
+      )
+    )
+  )
   .
-  ";" @statement.end
+  ";" @statement.end @_.domain.end
 )
+
+;;!! var foo;
+;;!  ^^^^^^^^
+;;!      ^^^
+(class_body
+  (declaration
+    (inferred_type) @statement.start @name.removal.start @name.domain.start
+    (initialized_identifier_list
+      (initialized_identifier
+        .
+        (_) @name
+        .
+      )
+    )
+  )
+  .
+  ";" @statement.end @name.removal.end @name.domain.end
+)
+
+;;!! enum Foo {}
+;;!       ^^^
+(enum_declaration
+  name: (_) @name
+) @name.domain
+
+;;!! enum Foo { }
+;;!            ^
+(enum_body
+  "{" @name.iteration.start.endOf
+  "}" @name.iteration.end.startOf
+)
+
+;;!! bar,
+;;!  ^^^
+(
+  (enum_constant
+    name: (_) @name
+  ) @name.domain
+  (#not-eq? @name.domain "")
+)
+
+;;!! bar(),
+;;!  ^^^^^
+;;!  ^^^
+(enum_constant
+  name: (_) @functionCallee
+  (argument_part)
+) @functionCall @functionCallee.domain
 
 ;;!! "hello world"
 ;;!  ^^^^^^^^^^^^^
@@ -250,7 +313,17 @@
 
 ;;!! () {}
 ;;!! () => 0
-(function_expression) @anonymousFunction
+(function_expression
+  (function_expression_body
+    [
+      (block)
+      (
+        "=>"
+        (_) @value
+      )
+    ]
+  )
+) @anonymousFunction @value.domain
 
 ;;!! return 0;
 ;;!         ^

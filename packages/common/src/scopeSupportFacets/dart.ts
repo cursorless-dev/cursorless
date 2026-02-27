@@ -24,11 +24,13 @@ export const dartScopeSupport: LanguageScopeSupportFacetMap = {
   "functionCall.method": supported,
   "functionCall.chain": supported,
   "functionCall.generic": supported,
+  "functionCall.enum": supported,
   functionCallee: supported,
   "functionCallee.constructor": supported,
   "functionCallee.method": supported,
   "functionCallee.chain": supported,
   "functionCallee.generic": supported,
+  "functionCallee.enum": supported,
 
   "argument.actual.singleLine": supported,
   "argument.actual.multiLine": supported,
@@ -192,13 +194,11 @@ export const dartScopeSupport: LanguageScopeSupportFacetMap = {
   "value.return.lambda": supported,
   "value.switch": supported,
   "value.field.class": supported,
-  "value.field.enum": supported,
   "value.yield": supported,
   "value.throw": supported,
   "value.typeAlias": supported,
   "value.iteration.document": supported,
   "value.iteration.class": supported,
-  "value.iteration.enum": supported,
   "value.iteration.block": supported,
 
   "type.argument.formal": supported,
@@ -306,9 +306,9 @@ export const dartScopeSupport: LanguageScopeSupportFacetMap = {
   "value.assignment.destructuring": notApplicable,
   "value.variable.destructuring": notApplicable,
 
-  // No enum constructor call facet
-  "functionCall.enum": notApplicable,
-  "functionCallee.enum": notApplicable,
+  // Enum values
+  "value.field.enum": notApplicable,
+  "value.iteration.enum": notApplicable,
 
   // Miscellaneous
   "statement.misc": notApplicable,
