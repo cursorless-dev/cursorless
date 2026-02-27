@@ -179,6 +179,8 @@ export const dartScopeSupport: LanguageScopeSupportFacetMap = {
   "value.argument.actual.iteration": supported,
   "value.argument.formal": supported,
   "value.argument.formal.iteration": supported,
+  "value.argument.formal.lambda": supported,
+  "value.argument.formal.lambda.iteration": supported,
   "value.argument.formal.constructor": supported,
   "value.argument.formal.constructor.iteration": supported,
   "value.argument.formal.method": supported,
@@ -315,6 +317,7 @@ export const dartScopeSupport: LanguageScopeSupportFacetMap = {
 
   // Miscellaneous
   "statement.misc": notApplicable,
+  "class.iteration.class": notApplicable,
   regularExpression: notApplicable,
   environment: notApplicable,
   selector: notApplicable,
