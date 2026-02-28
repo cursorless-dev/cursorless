@@ -16,8 +16,6 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.actual.method.singleLine": supported,
   "argument.actual.method.multiLine": supported,
   "argument.actual.method.iteration": supported,
-  "argument.actual.enum": supported,
-  "argument.actual.enum.iteration": supported,
 
   "argument.formal.singleLine": supported,
   "argument.formal.multiLine": supported,
@@ -42,7 +40,6 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.actual.constructor.empty": supported,
   "argumentList.actual.constructor.singleLine": supported,
   "argumentList.actual.constructor.multiLine": supported,
-  "argumentList.actual.enum": supported,
 
   "argumentList.formal.empty": supported,
   "argumentList.formal.singleLine": supported,
@@ -88,14 +85,12 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "functionCall.method": supported,
   "functionCall.chain": supported,
   "functionCall.generic": supported,
-  "functionCall.enum": supported,
 
   functionCallee: supported,
   "functionCallee.constructor": supported,
   "functionCallee.method": supported,
   "functionCallee.chain": supported,
   "functionCallee.generic": supported,
-  "functionCallee.enum": supported,
 
   namedFunction: supported,
   "namedFunction.method": supported,
@@ -336,6 +331,13 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   // Default argument value in lambdas
   "value.argument.formal.lambda": notApplicable,
   "value.argument.formal.lambda.iteration": notApplicable,
+
+  // Constructor calls in enum
+  "functionCall.enum": notApplicable,
+  "functionCallee.enum": notApplicable,
+  "argument.actual.enum": notApplicable,
+  "argument.actual.enum.iteration": notApplicable,
+  "argumentList.actual.enum": notApplicable,
 
   // Miscellaneous
   pairDelimiter: notApplicable,

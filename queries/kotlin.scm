@@ -625,7 +625,19 @@
     ) @argumentList
     (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
     (#child-range! @argumentList 1 -2)
-  )
+  ) @_dummy
+  (#not-type? @_dummy enum_entry)
+) @argumentList.domain @argumentOrParameter.iteration.domain
+
+;;!! foo(aaa, bbb)
+;;!      ^^^^^^^^
+(enum_entry
+  (value_arguments
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
 (value_arguments

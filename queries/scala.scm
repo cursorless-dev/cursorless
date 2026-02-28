@@ -238,9 +238,8 @@
     )
     ;;!! case Baz(x: Int)
     (full_enum_case
-      name: (_) @name @functionCallee
-      class_parameters: (_)
-    ) @functionCall @functionCallee.domain
+      name: (_) @name
+    )
   ]
 ) @name.domain
 

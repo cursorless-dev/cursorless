@@ -341,6 +341,19 @@
   (argument_part)
 ) @functionCall @functionCallee.domain
 
+;;!! bar(aaa, bbb),
+;;!      ^^^^^^^^
+(enum_constant
+  (argument_part
+    (arguments
+      "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+      ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+    ) @argumentList
+  )
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
+) @argumentList.domain @argumentOrParameter.iteration.domain
+
 ;;!! foo as int
 ;;!         ^^^
 (type_cast_expression
