@@ -183,6 +183,26 @@
   result: (_)? @type
 ) @anonymousFunction @type.domain
 
+;;!! const foo = func() {}
+(const_declaration
+  (const_spec
+    value: (expression_list
+      .
+      (func_literal)
+      .
+    )
+  )
+) @namedFunction
+
+;;!! foo := func() {}
+(short_var_declaration
+  right: (expression_list
+    .
+    (func_literal)
+    .
+  )
+) @namedFunction
+
 ;;!! foo = func() {}
 (assignment_statement
   right: (expression_list
