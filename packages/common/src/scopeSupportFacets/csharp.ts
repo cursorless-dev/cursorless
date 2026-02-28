@@ -62,6 +62,8 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal.lambda.iteration": supported,
   "name.argument.formal": supported,
   "name.argument.catch": supported,
+  "name.argument.actual": supported,
+  "name.argument.actual.iteration": supported,
   "name.namespace": supported,
   "name.class": supported,
   "name.interface": supported,
@@ -84,6 +86,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "name.iteration.interface": supported,
   "name.iteration.enum": supported,
   "name.iteration.document": supported,
+  "name.typeAlias": supported,
 
   "value.argument.formal": supported,
   "value.argument.formal.iteration": supported,
@@ -93,6 +96,8 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "value.argument.formal.constructor.iteration": supported,
   "value.argument.formal.lambda": supported,
   "value.argument.formal.lambda.iteration": supported,
+  "value.argument.actual": supported,
+  "value.argument.actual.iteration": supported,
   "value.field.class": supported,
   "value.field.enum": supported,
   "value.field.interface": supported,
@@ -112,6 +117,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "value.iteration.class": supported,
   "value.iteration.enum": supported,
   "value.iteration.document": supported,
+  "value.typeAlias": supported,
 
   "type.argument.formal": supported,
   "type.argument.formal.iteration": supported,
@@ -140,6 +146,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "type.iteration.class": supported,
   "type.iteration.interface": supported,
   "type.iteration.document": supported,
+  "type.alias": supported,
 
   "key.mapPair": supported,
   "key.mapPair.iteration": supported,
@@ -221,6 +228,8 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.throw": supported,
   "statement.break": supported,
   "statement.continue": supported,
+  "statement.resource": supported,
+  "statement.typeAlias": supported,
   "statement.import": supported,
   "statement.iteration.document": supported,
   "statement.iteration.class": supported,
@@ -272,14 +281,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "key.attribute": notApplicable,
   "value.attribute": notApplicable,
 
-  // Keyword argument
-  "name.argument.actual": notApplicable,
-  "name.argument.actual.iteration": notApplicable,
-  "value.argument.actual": notApplicable,
-  "value.argument.actual.iteration": notApplicable,
-
   // Resource syntax
-  "statement.resource": notApplicable,
   "interior.resource": notApplicable,
   "type.resource": notApplicable,
   "name.resource": notApplicable,
@@ -292,12 +294,6 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "name.variable.destructuring": notApplicable,
   "value.variable.destructuring": notApplicable,
   "value.assignment.destructuring": notApplicable,
-
-  // Type alias
-  "type.alias": notApplicable,
-  "statement.typeAlias": notApplicable,
-  "name.typeAlias": notApplicable,
-  "value.typeAlias": notApplicable,
 
   // Enum calls
   "functionCall.enum": notApplicable,

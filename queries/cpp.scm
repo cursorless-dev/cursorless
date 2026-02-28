@@ -44,6 +44,14 @@
   name: (_) @name
 ) @_.domain
 
+;;!! using Foo = Bar;
+;;!        ^^^
+;;!              ^^^
+(alias_declaration
+  name: (_) @name @value.leading.endOf
+  type: (_) @value @name.removal.end.startOf
+) @type @_.domain @name.removal.start.startOf
+
 (field_declaration_list
   "{" @namedFunction.iteration.start.endOf
   "}" @namedFunction.iteration.end.startOf

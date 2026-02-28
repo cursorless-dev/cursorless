@@ -28,6 +28,7 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.return": supported,
   "statement.break": supported,
   "statement.continue": supported,
+  "statement.typeAlias": supported,
   "statement.namespace": supported,
   "statement.import": supported,
   "statement.iteration.document": supported,
@@ -105,6 +106,7 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "name.enum": supported,
   "name.field.class": supported,
   "name.field.enum": supported,
+  "name.typeAlias": supported,
   "name.argument.formal": supported,
   "name.argument.formal.iteration": supported,
   "name.iteration.block": supported,
@@ -119,6 +121,7 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "value.return": supported,
   "value.switch": supported,
   "value.field.enum": supported,
+  "value.typeAlias": supported,
   "value.iteration.block": supported,
   "value.iteration.class": supported,
   "value.iteration.enum": supported,
@@ -133,6 +136,7 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "type.enum": supported,
   "type.cast": supported,
   "type.class": supported,
+  "type.alias": supported,
   "type.return": supported,
   "type.iteration.block": supported,
   "type.iteration.class": supported,
@@ -205,12 +209,6 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "name.command": notApplicable,
   "value.command": notApplicable,
   "interior.command": notApplicable,
-
-  // Type alias
-  "type.alias": notApplicable,
-  "statement.typeAlias": notApplicable,
-  "name.typeAlias": notApplicable,
-  "value.typeAlias": notApplicable,
 
   // Notebook cell
   notebookCell: notApplicable,
