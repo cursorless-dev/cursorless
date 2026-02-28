@@ -17,7 +17,8 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.actual.method.singleLine": supported,
   "argument.actual.method.multiLine": supported,
   "argument.actual.method.iteration": supported,
-  "argument.actual.enum": supported,
+  "argument.actual.enum.singleLine": supported,
+  "argument.actual.enum.multiLine": supported,
   "argument.actual.enum.iteration": supported,
 
   "argument.formal.constructor.singleLine": supported,
@@ -40,7 +41,9 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.actual.constructor.empty": supported,
   "argumentList.actual.constructor.singleLine": supported,
   "argumentList.actual.constructor.multiLine": supported,
-  "argumentList.actual.enum": supported,
+  "argumentList.actual.enum.empty": supported,
+  "argumentList.actual.enum.singleLine": supported,
+  "argumentList.actual.enum.multiLine": supported,
 
   "argumentList.formal.lambda.empty": supported,
   "argumentList.formal.lambda.singleLine": supported,

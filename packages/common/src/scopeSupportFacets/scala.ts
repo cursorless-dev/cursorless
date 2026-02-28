@@ -332,12 +332,15 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.argument.formal.lambda": notApplicable,
   "value.argument.formal.lambda.iteration": notApplicable,
 
-  // Constructor calls in enum
+  // Enum constructor calls
   "functionCall.enum": notApplicable,
   "functionCallee.enum": notApplicable,
-  "argument.actual.enum": notApplicable,
+  "argument.actual.enum.singleLine": notApplicable,
+  "argument.actual.enum.multiLine": notApplicable,
   "argument.actual.enum.iteration": notApplicable,
-  "argumentList.actual.enum": notApplicable,
+  "argumentList.actual.enum.empty": notApplicable,
+  "argumentList.actual.enum.singleLine": notApplicable,
+  "argumentList.actual.enum.multiLine": notApplicable,
 
   // Miscellaneous
   pairDelimiter: notApplicable,

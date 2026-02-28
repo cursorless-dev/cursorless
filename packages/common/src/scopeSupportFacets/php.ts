@@ -242,30 +242,6 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
 
   /* NOT APPLunICABLE */
 
-  // Not a language construct in PHP
-  "type.typeArgument": notApplicable,
-  "type.typeArgument.iteration": notApplicable,
-  "type.alias": notApplicable,
-  "statement.typeAlias": notApplicable,
-  "name.typeAlias": notApplicable,
-  "value.typeAlias": notApplicable,
-
-  // Not used by PHP syntax
-  section: notApplicable,
-  "section.iteration.document": notApplicable,
-  "section.iteration.parent": notApplicable,
-  command: notApplicable,
-  "statement.command": notApplicable,
-  "name.command": notApplicable,
-  "value.command": notApplicable,
-  "interior.command": notApplicable,
-  notebookCell: notApplicable,
-  "interior.cell": notApplicable,
-  environment: notApplicable,
-  selector: notApplicable,
-  unit: notApplicable,
-  pairDelimiter: notApplicable,
-
   // XML/HTML facets
   element: notApplicable,
   tags: notApplicable,
@@ -308,13 +284,20 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
   "collectionItem.unenclosed.multiLine": notApplicable,
   "collectionItem.unenclosed.iteration": notApplicable,
 
-  // Generic / enum call variants
+  // Generic types
   "functionCall.generic": notApplicable,
   "functionCallee.generic": notApplicable,
+  "type.typeArgument": notApplicable,
+  "type.typeArgument.iteration": notApplicable,
+
+  // Enum constructor call.
   "functionCall.enum": notApplicable,
   "functionCallee.enum": notApplicable,
-  "argument.actual.enum": notApplicable,
-  "argumentList.actual.enum": notApplicable,
+  "argument.actual.enum.singleLine": notApplicable,
+  "argument.actual.enum.multiLine": notApplicable,
+  "argumentList.actual.enum.empty": notApplicable,
+  "argumentList.actual.enum.singleLine": notApplicable,
+  "argumentList.actual.enum.multiLine": notApplicable,
   "argument.actual.enum.iteration": notApplicable,
 
   // Uninitialized variables
@@ -326,6 +309,28 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.static": notApplicable,
   "interior.static": notApplicable,
 
+  // Command
+  command: notApplicable,
+  "statement.command": notApplicable,
+  "name.command": notApplicable,
+  "value.command": notApplicable,
+  "interior.command": notApplicable,
+
+  // Notebook cell
+  notebookCell: notApplicable,
+  "interior.cell": notApplicable,
+
+  // Section
+  section: notApplicable,
+  "section.iteration.document": notApplicable,
+  "section.iteration.parent": notApplicable,
+
+  // Type alias
+  "type.alias": notApplicable,
+  "statement.typeAlias": notApplicable,
+  "name.typeAlias": notApplicable,
+  "value.typeAlias": notApplicable,
+
   // Miscellaneous
   "statement.misc": notApplicable,
   "type.variable.initialized": notApplicable,
@@ -333,4 +338,8 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
   "type.iteration.block": notApplicable,
   "class.iteration.class": notApplicable,
   regularExpression: notApplicable,
+  environment: notApplicable,
+  selector: notApplicable,
+  unit: notApplicable,
+  pairDelimiter: notApplicable,
 };

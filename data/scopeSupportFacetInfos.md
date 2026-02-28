@@ -7,10 +7,11 @@
 - `argument.actual.constructor.iteration` Iteration scope for arguments in a constructor call: the argument list. The domain should be the entire constructor call..
 - `argument.actual.constructor.multiLine` A multi line argument in a constructor call. Insertion delimiter should include new line.
 - `argument.actual.constructor.singleLine` A single line argument in a constructor call
-- `argument.actual.enum` An argument in an enum constructor call
 - `argument.actual.enum.iteration` Iteration scope for arguments in an enum constructor call: the argument list. The domain should be the entire enum constructor call..
+- `argument.actual.enum.multiLine` A multi line argument in an enum constructor call. Insertion delimiter should include new line.
+- `argument.actual.enum.singleLine` A single line argument in an enum constructor call
 - `argument.actual.iteration` Iteration scope for arguments in a function call: the argument list. The domain should be the entire function call.
-- `argument.actual.method.iteration` Iteration scope for arguments in a method call: the argument list. The domain should be the entire method call..
+- `argument.actual.method.iteration` Iteration scope for arguments in a method call: the argument list. The domain should be the entire method call.
 - `argument.actual.method.multiLine` A multi line argument in a method call. Insertion delimiter should include new line.
 - `argument.actual.method.singleLine` A single line argument in a method call
 - `argument.actual.multiLine` A multiline argument in a function call. Insertion delimiter should include new line.
@@ -35,7 +36,9 @@
 - `argumentList.actual.constructor.multiLine` A multi line list of arguments in a constructor call. Insertion delimiter should include new line.
 - `argumentList.actual.constructor.singleLine` A single line list of arguments in a constructor call
 - `argumentList.actual.empty` An empty list of arguments in a function call. Insertion delimiter should be empty.
-- `argumentList.actual.enum` A list of arguments in an enum constructor call
+- `argumentList.actual.enum.empty` An empty list of arguments in an enum constructor call. Insertion delimiter should be empty.
+- `argumentList.actual.enum.multiLine` A multi line list of arguments in an enum constructor call. Insertion delimiter should include new line.
+- `argumentList.actual.enum.singleLine` A single line list of arguments in an enum constructor call
 - `argumentList.actual.method.empty` An empty list of arguments in a method call. Insertion delimiter should be empty.
 - `argumentList.actual.method.multiLine` A multi line list of arguments in a method call. Insertion delimiter should include new line.
 - `argumentList.actual.method.singleLine` A single line list of arguments in a method call

@@ -224,8 +224,11 @@ export const rubyScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.enum": notApplicable,
   "functionCall.enum": notApplicable,
   "functionCallee.enum": notApplicable,
-  "argument.actual.enum": notApplicable,
-  "argumentList.actual.enum": notApplicable,
+  "argument.actual.enum.singleLine": notApplicable,
+  "argument.actual.enum.multiLine": notApplicable,
+  "argumentList.actual.enum.empty": notApplicable,
+  "argumentList.actual.enum.singleLine": notApplicable,
+  "argumentList.actual.enum.multiLine": notApplicable,
   "argument.actual.enum.iteration": notApplicable,
 
   // Type system

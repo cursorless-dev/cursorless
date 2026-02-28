@@ -337,7 +337,7 @@ export const scopeSupportFacetInfos: Record<
   "argument.actual.method.iteration": iteration(
     "argumentOrParameter",
     "arguments in a method call",
-    "the argument list. The domain should be the entire method call.",
+    "the argument list. The domain should be the entire method call",
   ),
   "argument.actual.constructor.singleLine": {
     description: "A single line argument in a constructor call",
@@ -353,8 +353,13 @@ export const scopeSupportFacetInfos: Record<
     "arguments in a constructor call",
     "the argument list. The domain should be the entire constructor call.",
   ),
-  "argument.actual.enum": {
-    description: "An argument in an enum constructor call",
+  "argument.actual.enum.singleLine": {
+    description: "A single line argument in an enum constructor call",
+    scopeType: "argumentOrParameter",
+  },
+  "argument.actual.enum.multiLine": {
+    description:
+      "A multi line argument in an enum constructor call. Insertion delimiter should include new line.",
     scopeType: "argumentOrParameter",
   },
   "argument.actual.enum.iteration": iteration(
@@ -467,8 +472,18 @@ export const scopeSupportFacetInfos: Record<
       "A multi line list of arguments in a constructor call. Insertion delimiter should include new line.",
     scopeType: "argumentList",
   },
-  "argumentList.actual.enum": {
-    description: "A list of arguments in an enum constructor call",
+  "argumentList.actual.enum.empty": {
+    description:
+      "An empty list of arguments in an enum constructor call. Insertion delimiter should be empty.",
+    scopeType: "argumentList",
+  },
+  "argumentList.actual.enum.singleLine": {
+    description: "A single line list of arguments in an enum constructor call",
+    scopeType: "argumentList",
+  },
+  "argumentList.actual.enum.multiLine": {
+    description:
+      "A multi line list of arguments in an enum constructor call. Insertion delimiter should include new line.",
     scopeType: "argumentList",
   },
 

@@ -15,7 +15,8 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.actual.method.singleLine": supported,
   "argument.actual.method.multiLine": supported,
   "argument.actual.method.iteration": supported,
-  "argument.actual.enum": supported,
+  "argument.actual.enum.singleLine": supported,
+  "argument.actual.enum.multiLine": supported,
   "argument.actual.enum.iteration": supported,
 
   "argument.formal.singleLine": supported,
@@ -34,7 +35,9 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.actual.method.empty": supported,
   "argumentList.actual.method.singleLine": supported,
   "argumentList.actual.method.multiLine": supported,
-  "argumentList.actual.enum": supported,
+  "argumentList.actual.enum.empty": supported,
+  "argumentList.actual.enum.singleLine": supported,
+  "argumentList.actual.enum.multiLine": supported,
 
   "argumentList.formal.empty": supported,
   "argumentList.formal.singleLine": supported,

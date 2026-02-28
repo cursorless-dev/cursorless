@@ -104,7 +104,8 @@ export const scopeSupportFacets = [
   "argument.actual.constructor.singleLine",
   "argument.actual.constructor.multiLine",
   "argument.actual.constructor.iteration",
-  "argument.actual.enum",
+  "argument.actual.enum.singleLine",
+  "argument.actual.enum.multiLine",
   "argument.actual.enum.iteration",
 
   "argument.formal.singleLine",
@@ -130,7 +131,9 @@ export const scopeSupportFacets = [
   "argumentList.actual.constructor.empty",
   "argumentList.actual.constructor.singleLine",
   "argumentList.actual.constructor.multiLine",
-  "argumentList.actual.enum",
+  "argumentList.actual.enum.empty",
+  "argumentList.actual.enum.singleLine",
+  "argumentList.actual.enum.multiLine",
 
   "argumentList.formal.empty",
   "argumentList.formal.singleLine",
