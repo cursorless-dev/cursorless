@@ -203,7 +203,7 @@
     value: (_) @branch
     .
   ) @_dummyif
-  (#text? @_dummy "if" "if-let" "when" "when-let")
+  (#text? @_dummy "if" "if-let")
   (#not-parent-type? @_dummyif quoting_lit)
   (#is-nth-child? @branch 4)
 )
