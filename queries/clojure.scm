@@ -113,8 +113,9 @@
   close: "}" @collectionItem.iteration.end.startOf
 ) @collectionItem.iteration.domain
 
-;;!! (foo)
-;;!  ^^^^^
+;;!! (foo aaa bbb)
+;;!  ^^^^^^^^^^^^^
+;;!   ^^^
 (
   (list_lit
     .
@@ -180,7 +181,6 @@
 ;;!! (if true "hello")
 ;;!  ^^^^^^^^^^^^^^^^^
 ;;!      ^^^^
-;;!           ^^^^^^
 (
   (list_lit
     .
