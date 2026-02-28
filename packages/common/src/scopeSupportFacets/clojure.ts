@@ -46,9 +46,6 @@ export const clojureScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal.iteration": supported,
   "name.argument.formal.lambda": supported,
   "name.argument.formal.lambda.iteration": supported,
-  "interior.function": supported,
-  "interior.lambda": supported,
-  "interior.if": supported,
 
   /* NOT APPLICABLE */
 
@@ -314,6 +311,11 @@ export const clojureScopeSupport: LanguageScopeSupportFacetMap = {
   "collectionItem.unenclosed.singleLine": notApplicable,
   "collectionItem.unenclosed.multiLine": notApplicable,
   "collectionItem.unenclosed.iteration": notApplicable,
+
+  // Interior
+  "interior.function": notApplicable,
+  "interior.lambda": notApplicable,
+  "interior.if": notApplicable,
 
   // Miscellaneous statements
   "statement.misc": notApplicable,

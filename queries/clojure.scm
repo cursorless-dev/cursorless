@@ -167,15 +167,32 @@
 ;;!! (if true "hello")
 ;;!  ^^^^^^^^^^^^^^^^^
 ;;!      ^^^^
+;;!           ^^^^^^
 (
   (list_lit
     .
     value: (_) @_dummy
     .
     value: (_) @condition
-  ) @ifStatement @condition.domain
+    .
+    value: (_) @branch
+  ) @ifStatement @condition.domain @branch.iteration
   (#text? @_dummy "if" "if-let" "when" "when-let")
   (#not-parent-type? @ifStatement quoting_lit)
+)
+
+;;!! (if true "hello" "world")
+;;!                   ^^^^^^^
+(
+  (list_lit
+    .
+    value: (_) @_dummy
+    value: (_) @branch
+    .
+  ) @_dummyif
+  (#text? @_dummy "if" "if-let" "when" "when-let")
+  (#not-parent-type? @_dummyif quoting_lit)
+  (#is-nth-child? @branch 4)
 )
 
 ;;!! {:foo 1, :bar 2}
