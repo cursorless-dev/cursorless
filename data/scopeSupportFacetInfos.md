@@ -408,6 +408,7 @@
 - `type.iteration.interface` Iteration scope for types: interface bodies.
 - `type.resource` Type in a 'with' / 'use' / 'using' statement
 - `type.return` Type of a return value in a function declaration
+- `type.return.lambda` Type of a return value in a lambda declaration
 - `type.return.method` Type of a return value in a method declaration
 - `type.typeArgument` Type argument to a generic / parametrized type
 - `type.typeArgument.iteration` Iteration scope for type arguments to a generic / parametrized type: the type argument list.

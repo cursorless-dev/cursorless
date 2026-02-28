@@ -271,6 +271,7 @@ export const scopeSupportFacets = [
   "type.constant",
   "type.return",
   "type.return.method",
+  "type.return.lambda",
   "type.field.class",
   "type.field.interface",
   "type.foreach",

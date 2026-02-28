@@ -214,14 +214,23 @@
   ";"? @namedFunction.end
 )
 
-;;!! function() {}
-(anonymous_function) @anonymousFunction
+;;!! function(): int {}
+;;!  ^^^^^^^^^^^^^^^^^^
+;;!              ^^^
+(anonymous_function
+  parameters: (_) @type.leading.endOf
+  return_type: (_)? @type
+) @anonymousFunction @type.domain
 
-;;!! fn() => 0;
+;;!! fn(): int => 0;
+;;!  ^^^^^^^^^^^^^^
+;;!        ^^^
 ;;!          ^
 (arrow_function
+  parameters: (_) @type.leading.endOf
+  return_type: (_)? @type
   body: (_) @value
-) @anonymousFunction @value.domain
+) @anonymousFunction @_.domain
 
 ;;!! foo()
 (function_call_expression

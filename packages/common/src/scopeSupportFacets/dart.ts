@@ -324,6 +324,7 @@ export const dartScopeSupport: LanguageScopeSupportFacetMap = {
   // Miscellaneous
   "statement.misc": notApplicable,
   "class.iteration.class": notApplicable,
+  "type.return.lambda": notApplicable,
   regularExpression: notApplicable,
   environment: notApplicable,
   selector: notApplicable,

@@ -223,6 +223,7 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.lambda": notApplicable,
   "type.argument.formal.lambda.iteration": notApplicable,
   "type.return": notApplicable,
+  "type.return.lambda": notApplicable,
   "type.foreach": notApplicable,
   "type.resource": notApplicable,
   "type.typeArgument": notApplicable,

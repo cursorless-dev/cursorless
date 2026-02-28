@@ -233,7 +233,13 @@
   function: (_) @functionCallee
 ) @_.domain
 
-(closure_expression) @anonymousFunction
+;;!! || -> i32 {}
+;;!  ^^^^^^^^^^^^
+;;!        ^^^
+(closure_expression
+  parameters: (_) @type.leading.endOf
+  return_type: (_)? @type
+) @anonymousFunction @type.domain
 
 ;;!! let foo = [1, 2, 3];
 ;;!! let foo = (1, "2", true);

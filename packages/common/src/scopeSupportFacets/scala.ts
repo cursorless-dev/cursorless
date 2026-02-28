@@ -351,4 +351,5 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   attribute: notApplicable,
   "type.cast": notApplicable,
   "statement.misc": notApplicable,
+  "type.return.lambda": notApplicable,
 };

@@ -1016,6 +1016,10 @@ export const scopeSupportFacetInfos: Record<
     description: "Type of a return value in a method declaration",
     scopeType: "type",
   },
+  "type.return.lambda": {
+    description: "Type of a return value in a lambda declaration",
+    scopeType: "type",
+  },
   "type.field.class": {
     description: "Type of a field in a class",
     scopeType: "type",

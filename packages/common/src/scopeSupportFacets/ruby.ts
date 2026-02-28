@@ -240,6 +240,7 @@ export const rubyScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.lambda.iteration": notApplicable,
   "type.return": notApplicable,
   "type.return.method": notApplicable,
+  "type.return.lambda": notApplicable,
   "type.variable.uninitialized": notApplicable,
   "type.variable.initialized": notApplicable,
   "type.typeArgument": notApplicable,

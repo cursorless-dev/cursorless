@@ -302,6 +302,7 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   "type.foreach": notApplicable,
   "type.return": notApplicable,
   "type.return.method": notApplicable,
+  "type.return.lambda": notApplicable,
   "type.constant": notApplicable,
   "type.variable.uninitialized": notApplicable,
   "type.variable.initialized": notApplicable,

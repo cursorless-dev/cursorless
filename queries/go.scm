@@ -176,8 +176,12 @@
   name: (_) @name
 ) @namedFunction @statement @name.domain
 
-;;!! func() {}
-(func_literal) @anonymousFunction
+;;!! func() int {}
+;;!  ^^^^^^^^^^^^^
+;;!         ^^^
+(func_literal
+  result: (_)? @type
+) @anonymousFunction @type.domain
 
 ;;!! foo = func() {}
 (assignment_statement

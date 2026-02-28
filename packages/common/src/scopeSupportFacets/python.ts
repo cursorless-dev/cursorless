@@ -277,6 +277,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "type.field.interface": notApplicable,
   "type.iteration.interface": notApplicable,
   "type.resource": notApplicable,
+  "type.return.lambda": notApplicable,
 
   // Type alias
   "type.alias": notApplicable,

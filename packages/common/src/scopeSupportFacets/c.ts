@@ -277,7 +277,7 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
 
   attribute: notApplicable,
 
-  // Lambda
+  // Anonymous function / lambda
   "argument.formal.lambda.iteration": notApplicable,
   "argument.formal.lambda.singleLine": notApplicable,
   "argument.formal.lambda.multiLine": notApplicable,
@@ -292,6 +292,7 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
   "value.argument.formal.lambda.iteration": notApplicable,
   "interior.lambda": notApplicable,
   "value.return.lambda": notApplicable,
+  "type.return.lambda": notApplicable,
   anonymousFunction: notApplicable,
 
   // Constructor

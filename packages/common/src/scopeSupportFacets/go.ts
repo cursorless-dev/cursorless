@@ -167,6 +167,7 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.lambda.iteration": supported,
   "type.return": supported,
   "type.return.method": supported,
+  "type.return.lambda": supported,
   "type.class": supported,
   "type.interface": supported,
   "type.field.class": supported,

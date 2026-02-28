@@ -334,6 +334,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   // Miscellaneous
   "statement.misc": notApplicable,
   "statement.package": notApplicable,
+  "type.return.lambda": notApplicable,
   environment: notApplicable,
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,

@@ -209,6 +209,7 @@ export const phpScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.catch": supported,
   "type.return": supported,
   "type.return.method": supported,
+  "type.return.lambda": supported,
   "type.field.class": supported,
   "type.field.interface": supported,
   "type.class": supported,

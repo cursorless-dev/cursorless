@@ -344,4 +344,5 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "type.cast": notApplicable,
   "statement.misc": notApplicable,
   "value.field.interface": notApplicable,
+  "type.return.lambda": notApplicable,
 };

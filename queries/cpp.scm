@@ -57,9 +57,17 @@
   default_value: (_) @value @name.removal.end.startOf
 ) @_.domain @name.removal.start.startOf
 
-;;!! []() {}
-;;!  ^^^^^^^
-(lambda_expression) @anonymousFunction
+;;!! []() -> int {}
+;;!  ^^^^^^^^^^^^^^
+;;!          ^^^
+(lambda_expression
+  (abstract_function_declarator
+    parameters: (_) @type.leading.endOf
+    (trailing_return_type
+      (_) @type
+    )?
+  )
+) @anonymousFunction @type.domain
 
 ;;!! [[attribute]]
 ;;!    ^^^^^^^^^

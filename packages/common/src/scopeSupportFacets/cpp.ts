@@ -91,6 +91,7 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   "type.typeArgument": supported,
   "type.typeArgument.iteration": supported,
   "type.return.method": supported,
+  "type.return.lambda": supported,
 
   "interior.lambda": supported,
   "interior.try": supported,

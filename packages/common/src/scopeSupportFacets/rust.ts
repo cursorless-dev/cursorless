@@ -181,6 +181,7 @@ export const rustScopeSupport: LanguageScopeSupportFacetMap = {
   "type.field.class": supported,
   "type.return": supported,
   "type.return.method": supported,
+  "type.return.lambda": supported,
   "type.constant": supported,
   "type.variable.uninitialized": supported,
   "type.variable.initialized": supported,

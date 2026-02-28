@@ -360,6 +360,7 @@ export const clojureScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.iteration": notApplicable,
   "type.argument.formal.lambda": notApplicable,
   "type.argument.formal.lambda.iteration": notApplicable,
+  "type.return.lambda": notApplicable,
   "type.cast": notApplicable,
   "type.typeArgument": notApplicable,
   "type.typeArgument.iteration": notApplicable,

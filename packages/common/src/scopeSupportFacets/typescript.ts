@@ -34,6 +34,7 @@ export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
   "type.iteration.interface": supported,
   "type.iteration.document": supported,
   "type.return.method": supported,
+  "type.return.lambda": supported,
 
   "functionCall.generic": supported,
   "functionCallee.generic": supported,

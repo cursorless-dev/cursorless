@@ -219,6 +219,7 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.catch": notApplicable,
   "type.return": notApplicable,
   "type.return.method": notApplicable,
+  "type.return.lambda": notApplicable,
   "type.variable.uninitialized": notApplicable,
   "type.variable.initialized": notApplicable,
   "type.typeArgument": notApplicable,

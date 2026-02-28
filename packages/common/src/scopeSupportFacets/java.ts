@@ -339,6 +339,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.iteration.enum": notApplicable,
 
   // Miscellaneous
+  "type.return.lambda": notApplicable,
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,
   environment: notApplicable,
