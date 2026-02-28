@@ -16,12 +16,7 @@ export const clojureScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.actual.singleLine": supported,
   "argument.actual.multiLine": supported,
   "argument.actual.iteration": supported,
-  "argument.formal.singleLine": supported,
-  "argument.formal.multiLine": supported,
-  "argument.formal.iteration": supported,
-  "argument.formal.lambda.singleLine": supported,
-  "argument.formal.lambda.multiLine": supported,
-  "argument.formal.lambda.iteration": supported,
+
   "argumentList.actual.empty": supported,
   "argumentList.actual.singleLine": supported,
   "argumentList.actual.multiLine": supported,
@@ -42,12 +37,20 @@ export const clojureScopeSupport: LanguageScopeSupportFacetMap = {
   "textFragment.string.singleLine": supported,
   "textFragment.string.multiLine": supported,
   "name.function": supported,
-  "name.argument.formal": supported,
-  "name.argument.formal.iteration": supported,
-  "name.argument.formal.lambda": supported,
-  "name.argument.formal.lambda.iteration": supported,
 
   /* NOT APPLICABLE */
+
+  // In Clojure every function definition is also a function call
+  "argument.formal.singleLine": notApplicable,
+  "argument.formal.multiLine": notApplicable,
+  "argument.formal.iteration": notApplicable,
+  "argument.formal.lambda.singleLine": notApplicable,
+  "argument.formal.lambda.multiLine": notApplicable,
+  "argument.formal.lambda.iteration": notApplicable,
+  "name.argument.formal": notApplicable,
+  "name.argument.formal.iteration": notApplicable,
+  "name.argument.formal.lambda": notApplicable,
+  "name.argument.formal.lambda.iteration": notApplicable,
 
   // Assignment
   "statement.assignment": notApplicable,
