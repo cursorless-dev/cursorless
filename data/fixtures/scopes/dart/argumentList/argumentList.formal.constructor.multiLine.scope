@@ -1,0 +1,35 @@
+class Foo {
+    Foo(
+        aaa,
+        bbb
+    ) {}
+}
+---
+
+[Content] = 2:8-3:11
+          >----
+2|         aaa,
+3|         bbb
+   -----------<
+
+[Removal] = 1:8-4:4
+          >
+1|     Foo(
+2|         aaa,
+3|         bbb
+4|     ) {}
+   ----<
+
+[Leading delimiter] = 2:0-2:8
+  >--------<
+2|         aaa,
+
+[Domain] = 1:4-4:8
+      >----
+1|     Foo(
+2|         aaa,
+3|         bbb
+4|     ) {}
+   --------<
+
+[Insertion delimiter] = ",\n"

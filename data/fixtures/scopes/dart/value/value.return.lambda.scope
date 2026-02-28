@@ -1,0 +1,22 @@
+void main() {
+    foo(() => 0);
+}
+---
+
+[Content] = 1:14-1:15
+                >-<
+1|     foo(() => 0);
+
+[Removal] = 1:13-1:15
+               >--<
+1|     foo(() => 0);
+
+[Leading delimiter] = 1:13-1:14
+               >-<
+1|     foo(() => 0);
+
+[Domain] = 1:8-1:15
+          >-------<
+1|     foo(() => 0);
+
+[Insertion delimiter] = " "

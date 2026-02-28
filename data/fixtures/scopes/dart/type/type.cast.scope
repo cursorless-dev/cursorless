@@ -1,0 +1,44 @@
+void main() {
+    foo as int;
+}
+---
+
+[#1 Content] = 0:0-0:4
+  >----<
+0| void main() {
+
+[#1 Removal] = 0:0-0:5
+  >-----<
+0| void main() {
+
+[#1 Trailing delimiter] = 0:4-0:5
+      >-<
+0| void main() {
+
+[#1 Domain] = 0:0-2:1
+  >-------------
+0| void main() {
+1|     foo as int;
+2| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:11-1:14
+             >---<
+1|     foo as int;
+
+[#2 Removal] = 1:10-1:14
+            >----<
+1|     foo as int;
+
+[#2 Leading delimiter] = 1:10-1:11
+            >-<
+1|     foo as int;
+
+[#2 Domain] = 1:4-1:14
+      >----------<
+1|     foo as int;
+
+[#2 Insertion delimiter] = " "

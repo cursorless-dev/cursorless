@@ -1,0 +1,22 @@
+void main() {
+    throw foo;
+}
+---
+
+[Content] = 1:10-1:13
+            >---<
+1|     throw foo;
+
+[Removal] = 1:9-1:13
+           >----<
+1|     throw foo;
+
+[Leading delimiter] = 1:9-1:10
+           >-<
+1|     throw foo;
+
+[Domain] = 1:4-1:14
+      >----------<
+1|     throw foo;
+
+[Insertion delimiter] = " "
