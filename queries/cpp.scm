@@ -66,7 +66,7 @@
     (trailing_return_type
       (_) @type
     )?
-  )
+  )?
 ) @anonymousFunction @type.domain
 
 ;;!! [[attribute]]
