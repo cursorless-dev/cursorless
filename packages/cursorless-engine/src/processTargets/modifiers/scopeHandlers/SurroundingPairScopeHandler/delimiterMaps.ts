@@ -75,6 +75,10 @@ const delimiterToTextOverrides: Record<string, Partial<DelimiterMap>> = {
     tripleDoubleQuotes: ["%Q(", ")"],
   },
 
+  clojure: {
+    doubleQuotes: ['"', '"', { isSingleLine: false }],
+  },
+
   csharp: {
     doubleQuotes: [
       ['@"', '"'],

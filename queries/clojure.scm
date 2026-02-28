@@ -1,14 +1,47 @@
 ;; https://github.com/sogaiu/tree-sitter-clojure/blob/master/src/grammar.json
 
+(source) @namedFunction.iteration
+
+;;!! ;; Hello world
+;;!  ^^^^^^^^^^^^^^
 (comment) @comment @textFragment
 
-(str_lit) @string @textFragment
+;;!! "Hello world"
+;;!  ^^^^^^^^^^^^^
+;;!   ^^^^^^^^^^^
+(
+  (str_lit) @string @textFragment
+  (#character-range! @textFragment 1 -1)
+)
 
-(map_lit) @map
+;;!! {:aaa 0 :bbb 1}
+;;!  ^^^^^^^^^^^^^^^
+(
+  (map_lit) @map
+  (#not-parent-type? @map quoting_lit)
+)
 
-;; A list is either a vector literal or a quoted list literal
-(vec_lit) @list
+;;!! '{:aaa 0 :bbb 1}
+;;!  ^^^^^^^^^^^^^^^^
+(quoting_lit
+  (map_lit)
+) @map
 
+;;!! [aaa bbb]
+;;!  ^^^^^^^^^
+(
+  (vec_lit) @list
+  (#not-parent-type? @list quoting_lit)
+)
+
+;;!! '[aaa bbb]
+;;!  ^^^^^^^^^^
+(quoting_lit
+  (vec_lit)
+) @list
+
+;;!! '(aaa bbb)
+;;!  ^^^^^^^^^^
 (quoting_lit
   (list_lit)
 ) @list
@@ -71,8 +104,8 @@
   _ @_dummy
   .
   value: (_) @collectionItem
-  (#not-type? @_dummy "kwd_lit")
-  (#not-type? @collectionItem "kwd_lit")
+  (#not-type? @_dummy kwd_lit)
+  (#not-type? @collectionItem kwd_lit)
 )
 
 (map_lit
@@ -80,19 +113,32 @@
   close: "}" @collectionItem.iteration.end.startOf
 ) @collectionItem.iteration.domain
 
-;;!! (foo)
-;;!  ^^^^^
+;;!! (foo aaa bbb)
+;;!  ^^^^^^^^^^^^^
+;;!   ^^^
 (
   (list_lit
     .
     value: (_) @functionCallee
-  ) @functionCall @functionCallee.domain @argumentOrParameter.iteration
+  ) @functionCall @functionCallee.domain
   ;; A function call is a list literal which is not quoted
   (#not-parent-type? @functionCall quoting_lit)
 )
 
-;;!! (foo :bar)
-;;!       ^^^^
+;;!! (foo)
+;;!   ^^^
+(
+  (list_lit
+    "(" @argumentOrParameter.iteration.start.endOf
+    ")" @argumentOrParameter.iteration.end.startOf
+  ) @argumentList @argumentList.domain @argumentOrParameter.iteration.domain
+  (#not-parent-type? @argumentList quoting_lit)
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" " " "\n")
+  (#child-range! @argumentList 1 -2)
+)
+
+;;!! (foo aaa bbb)
+;;!       ^^^ ^^^
 (
   (list_lit
     .
@@ -100,6 +146,7 @@
     value: (_) @argumentOrParameter
   ) @_dummy
   (#not-parent-type? @_dummy quoting_lit)
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy " " "\n")
 )
 
 ;;!! (defn foo [] 5)
@@ -160,4 +207,9 @@
 (map_lit
   "{" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
   "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+)
+
+(
+  (sym_name) @disqualifyDelimiter
+  (#text? @disqualifyDelimiter "<" ">" "<=" ">=")
 )
