@@ -27,10 +27,6 @@ export const clojureScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.actual.singleLine": supported,
   "argumentList.actual.multiLine": supported,
 
-  "branch.if": supported,
-  "branch.if.else": supported,
-  "branch.if.iteration": supported,
-
   "string.singleLine": supported,
   "string.multiLine": supported,
 
@@ -233,6 +229,9 @@ export const clojureScopeSupport: LanguageScopeSupportFacetMap = {
   // If statement
   "statement.if": notApplicable,
   "branch.if.elif.else": notApplicable,
+  "branch.if": notApplicable,
+  "branch.if.else": notApplicable,
+  "branch.if.iteration": notApplicable,
 
   // Switch statement
   "statement.switch": notApplicable,
