@@ -40,7 +40,8 @@ export const clojureScopeSupport: LanguageScopeSupportFacetMap = {
 
   /* NOT APPLICABLE */
 
-  // In Clojure every function definition is also a function call
+  // In Clojure every function definition is also a function call.
+  // Defining formal arguments therefore became problematic.
   "argument.formal.singleLine": notApplicable,
   "argument.formal.multiLine": notApplicable,
   "argument.formal.iteration": notApplicable,
@@ -51,6 +52,8 @@ export const clojureScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal.iteration": notApplicable,
   "name.argument.formal.lambda": notApplicable,
   "name.argument.formal.lambda.iteration": notApplicable,
+  "value.argument.formal.lambda": notApplicable,
+  "value.argument.formal.lambda.iteration": notApplicable,
   "argumentList.formal.empty": notApplicable,
   "argumentList.formal.singleLine": notApplicable,
   "argumentList.formal.multiLine": notApplicable,
@@ -326,6 +329,10 @@ export const clojureScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.lambda": notApplicable,
   "interior.if": notApplicable,
 
+  // Block comments
+  "comment.block": notApplicable,
+  "textFragment.comment.block": notApplicable,
+
   // Miscellaneous statements
   "statement.misc": notApplicable,
   "statement.break": notApplicable,
@@ -336,7 +343,6 @@ export const clojureScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.iteration.block": notApplicable,
 
   // Miscellaneous
-  "comment.block": notApplicable,
   environment: notApplicable,
   fieldAccess: notApplicable,
   "key.mapPair": notApplicable,
