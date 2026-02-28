@@ -44,8 +44,10 @@
   (using_statement)
   (while_statement)
   (yield_statement)
+
   ;; Disabled on purpose. This is the entire body of statements.
   ;; (block)
+
   ;; Disabled on purpose. We have a better definition of this below.
   ;; (if_statement)
 ] @statement
@@ -353,17 +355,20 @@
 ;;!  ^^^^^^
 ;;!         ^^^
 ;;!               ^
-(_
-  (variable_declaration
-    type: (_) @type
-    (variable_declarator
-      (identifier) @name @value.leading.endOf @name.removal.end.endOf
-      (equals_value_clause
-        (_) @value @name.removal.end.startOf
-      )?
+(
+  (_
+    (variable_declaration
+      type: (_) @type
+      (variable_declarator
+        (identifier) @name @value.leading.endOf @name.removal.end.endOf
+        (equals_value_clause
+          (_) @value @name.removal.end.startOf
+        )?
+      )
     )
-  )
-) @_.domain @name.removal.start.startOf
+  ) @_.domain @name.removal.start.startOf
+  (#not-type? @_.domain using_statement)
+)
 
 ;;!! aaa = "bbb";
 ;;!  ^^^
@@ -472,6 +477,23 @@
   (#child-range! @argumentList 1 -2)
 ) @argumentList.domain @argumentOrParameter.iteration.domain
 
+;;!! foo(aaa: 0, bbb: 1);
+;;!      ^^^^^^^^^^^^^^
+(argument_list
+  "(" @name.iteration.start.endOf @value.iteration.start.endOf
+  ")" @name.iteration.end.startOf @value.iteration.end.startOf
+)
+
+;;!! foo(aaa: 0, bbb: 1);
+;;!      ^^^     ^^^
+;;!           ^       ^
+(argument
+  (name_colon
+    (_) @name @value.leading.endOf
+  )
+  (_) @value @name.trailing.startOf
+) @_.domain
+
 ;; !! void foo(int a, int b)
 ;; !           ^^^^^  ^^^^^
 (
@@ -511,6 +533,22 @@
   )
   (_) @value @name.removal.end.startOf
 ) @type @_.domain @name.removal.start.startOf
+
+;;!! using (Foo foo = create()) {}
+;;!         ^^^ 
+;;!             ^^^
+;;!                   ^^^^^^^^
+(using_statement
+  (variable_declaration
+    type: (_) @type
+    (variable_declarator
+      (identifier) @name @value.leading.endOf
+      (equals_value_clause
+        (_) @value
+      )
+    )
+  )
+) @_.domain
 
 ;;!! int foo, bar;
 ;;!      ^^^  ^^^

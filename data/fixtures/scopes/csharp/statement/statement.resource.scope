@@ -1,10 +1,10 @@
-using (var foo = create()) {}
+using (Foo foo = create()) {}
 ---
 
 [Content] =
 [Removal] =
 [Domain] = 0:0-0:29
   >-----------------------------<
-0| using (var foo = create()) {}
+0| using (Foo foo = create()) {}
 
 [Insertion delimiter] = "\n"
