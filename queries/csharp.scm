@@ -535,7 +535,7 @@
 ) @type @_.domain @name.removal.start.startOf
 
 ;;!! using (Foo foo = create()) {}
-;;!         ^^^ 
+;;!         ^^^
 ;;!             ^^^
 ;;!                   ^^^^^^^^
 (using_statement
