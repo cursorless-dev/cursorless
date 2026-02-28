@@ -1,14 +1,47 @@
 ;; https://github.com/sogaiu/tree-sitter-clojure/blob/master/src/grammar.json
 
+(source) @namedFunction.iteration
+
+;;!! ;; Hello world
+;;!  ^^^^^^^^^^^^^^
 (comment) @comment @textFragment
 
-(str_lit) @string @textFragment
+;;!! "Hello world"
+;;!  ^^^^^^^^^^^^^
+;;!   ^^^^^^^^^^^
+(
+  (str_lit) @string @textFragment
+  (#character-range! @textFragment 1 -1)
+)
 
-(map_lit) @map
+;;!! {:aaa 0 :bbb 1}
+;;!  ^^^^^^^^^^^^^^^
+(
+  (map_lit) @map
+  (#not-parent-type? @map quoting_lit)
+)
 
-;; A list is either a vector literal or a quoted list literal
-(vec_lit) @list
+;;!! '{:aaa 0 :bbb 1}
+;;!  ^^^^^^^^^^^^^^^^
+(quoting_lit
+  (map_lit)
+) @map
 
+;;!! [aaa bbb]
+;;!  ^^^^^^^^^
+(
+  (vec_lit) @list
+  (#not-parent-type? @list quoting_lit)
+)
+
+;;!! '[aaa bbb]
+;;!  ^^^^^^^^^^
+(quoting_lit
+  (vec_lit)
+) @list
+
+;;!! '(aaa bbb)
+;;!  ^^^^^^^^^^
 (quoting_lit
   (list_lit)
 ) @list
@@ -160,4 +193,9 @@
 (map_lit
   "{" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
   "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+)
+
+(
+  (sym_name) @disqualifyDelimiter
+  (#text? @disqualifyDelimiter "<" ">" "<=" ">=")
 )

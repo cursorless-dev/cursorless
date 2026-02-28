@@ -1,0 +1,41 @@
+(if true
+    aaa
+    (if false
+        bbb
+        ccc))
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-4:13
+  >--------
+0| (if true
+1|     aaa
+2|     (if false
+3|         bbb
+4|         ccc))
+   -------------<
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 2:4-4:12
+      >---------
+2|     (if false
+3|         bbb
+4|         ccc))
+   ------------<
+
+[#2 Removal] = 2:0-4:12
+  >-------------
+2|     (if false
+3|         bbb
+4|         ccc))
+   ------------<
+
+[#2 Leading delimiter] = 2:0-2:4
+  >----<
+2|     (if false
+
+[#2 Insertion delimiter] = "\n"
