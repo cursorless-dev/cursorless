@@ -83,6 +83,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.actual.constructor.singleLine": supported,
   "argument.actual.constructor.multiLine": supported,
   "argument.actual.constructor.iteration": supported,
+
   "argument.formal.singleLine": supported,
   "argument.formal.multiLine": supported,
   "argument.formal.iteration": supported,
@@ -95,7 +96,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal.lambda.singleLine": supported,
   "argument.formal.lambda.multiLine": supported,
   "argument.formal.lambda.iteration": supported,
-  "argument.catch": supported,
+  "argument.formal.catch": supported,
 
   "argumentList.actual.empty": supported,
   "argumentList.actual.singleLine": supported,
@@ -106,6 +107,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.actual.constructor.empty": supported,
   "argumentList.actual.constructor.singleLine": supported,
   "argumentList.actual.constructor.multiLine": supported,
+
   "argumentList.formal.empty": supported,
   "argumentList.formal.singleLine": supported,
   "argumentList.formal.multiLine": supported,
@@ -339,6 +341,9 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.enum": notApplicable,
   "functionCall.enum": notApplicable,
   "functionCallee.enum": notApplicable,
+  "argument.actual.enum": notApplicable,
+  "argumentList.actual.enum": notApplicable,
+  "argument.actual.enum.iteration": notApplicable,
 
   // Miscellaneous
   "statement.package": notApplicable,

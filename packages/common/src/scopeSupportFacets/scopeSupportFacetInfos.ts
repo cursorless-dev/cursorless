@@ -281,6 +281,7 @@ export const scopeSupportFacetInfos: Record<
     description: "An enum constructor call",
     scopeType: "functionCall",
   },
+
   functionCallee: {
     description: "The function being called in a function call",
     scopeType: "functionCallee",
@@ -352,6 +353,15 @@ export const scopeSupportFacetInfos: Record<
     "arguments in a constructor call",
     "the argument list. The domain should be the entire constructor call.",
   ),
+  "argument.actual.enum": {
+    description: "An argument in an enum constructor call",
+    scopeType: "argumentOrParameter",
+  },
+  "argument.actual.enum.iteration": iteration(
+    "argumentOrParameter",
+    "arguments in an enum constructor call",
+    "the argument list. The domain should be the entire enum constructor call.",
+  ),
 
   "argument.formal.singleLine": {
     description: "A single line parameter in a function declaration",
@@ -410,7 +420,7 @@ export const scopeSupportFacetInfos: Record<
     "formal parameters in a lambda declaration",
     "the parameter list. The domain should be the entire lambda",
   ),
-  "argument.catch": {
+  "argument.formal.catch": {
     description: "A parameter in a catch clause",
     scopeType: "argumentOrParameter",
   },
@@ -455,6 +465,10 @@ export const scopeSupportFacetInfos: Record<
   "argumentList.actual.constructor.multiLine": {
     description:
       "A multi line list of arguments in a constructor call. Insertion delimiter should include new line.",
+    scopeType: "argumentList",
+  },
+  "argumentList.actual.enum": {
+    description: "A list of arguments in an enum constructor call",
     scopeType: "argumentList",
   },
 

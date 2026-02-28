@@ -224,6 +224,9 @@ export const rubyScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.enum": notApplicable,
   "functionCall.enum": notApplicable,
   "functionCallee.enum": notApplicable,
+  "argument.actual.enum": notApplicable,
+  "argumentList.actual.enum": notApplicable,
+  "argument.actual.enum.iteration": notApplicable,
 
   // Type system
   "type.argument.formal": notApplicable,
@@ -273,7 +276,7 @@ export const rubyScopeSupport: LanguageScopeSupportFacetMap = {
   "type.constant": notApplicable,
 
   // Catch parameter
-  "argument.catch": notApplicable,
+  "argument.formal.catch": notApplicable,
   "name.argument.catch": notApplicable,
   "type.argument.catch": notApplicable,
 

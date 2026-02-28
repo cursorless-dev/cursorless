@@ -25,6 +25,9 @@ export const dartScopeSupport: LanguageScopeSupportFacetMap = {
   "functionCall.chain": supported,
   "functionCall.generic": supported,
   "functionCall.enum": supported,
+  "argument.actual.enum": supported,
+  "argumentList.actual.enum": supported,
+  "argument.actual.enum.iteration": supported,
   functionCallee: supported,
   "functionCallee.constructor": supported,
   "functionCallee.method": supported,
@@ -53,7 +56,7 @@ export const dartScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal.lambda.singleLine": supported,
   "argument.formal.lambda.multiLine": supported,
   "argument.formal.lambda.iteration": supported,
-  "argument.catch": supported,
+  "argument.formal.catch": supported,
 
   "argumentList.actual.empty": supported,
   "argumentList.actual.singleLine": supported,

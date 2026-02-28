@@ -108,7 +108,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal.method.iteration": supported,
   "argument.formal.lambda.singleLine": supported,
   "argument.formal.lambda.iteration": supported,
-  "argument.catch": supported,
+  "argument.formal.catch": supported,
 
   "argumentList.actual.empty": supported,
   "argumentList.actual.singleLine": supported,
@@ -295,6 +295,9 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.enum": notApplicable,
   "functionCall.enum": notApplicable,
   "functionCallee.enum": notApplicable,
+  "argument.actual.enum": notApplicable,
+  "argumentList.actual.enum": notApplicable,
+  "argument.actual.enum.iteration": notApplicable,
 
   // Generic/enum calls
   "functionCall.generic": notApplicable,

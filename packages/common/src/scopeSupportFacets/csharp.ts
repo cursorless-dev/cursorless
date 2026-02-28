@@ -187,7 +187,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal.method.singleLine": supported,
   "argument.formal.method.multiLine": supported,
   "argument.formal.method.iteration": supported,
-  "argument.catch": supported,
+  "argument.formal.catch": supported,
 
   ifStatement: supported,
 
@@ -300,6 +300,9 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   // Enum calls
   "functionCall.enum": notApplicable,
   "functionCallee.enum": notApplicable,
+  "argument.actual.enum": notApplicable,
+  "argumentList.actual.enum": notApplicable,
+  "argument.actual.enum.iteration": notApplicable,
 
   // Section
   section: notApplicable,

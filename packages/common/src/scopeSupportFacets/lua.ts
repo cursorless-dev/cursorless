@@ -295,7 +295,7 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.try": notApplicable,
   "branch.try.iteration": notApplicable,
   "interior.try": notApplicable,
-  "argument.catch": notApplicable,
+  "argument.formal.catch": notApplicable,
   "name.argument.catch": notApplicable,
 
   // Switch
@@ -331,6 +331,9 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
   "functionCallee.generic": notApplicable,
   "functionCall.enum": notApplicable,
   "functionCallee.enum": notApplicable,
+  "argument.actual.enum": notApplicable,
+  "argumentList.actual.enum": notApplicable,
+  "argument.actual.enum.iteration": notApplicable,
 
   // Static
   "statement.static": notApplicable,

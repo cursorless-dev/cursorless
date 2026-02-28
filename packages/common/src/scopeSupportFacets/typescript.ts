@@ -75,6 +75,9 @@ export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
   // Enum calls
   "functionCall.enum": notApplicable,
   "functionCallee.enum": notApplicable,
+  "argument.actual.enum": notApplicable,
+  "argumentList.actual.enum": notApplicable,
+  "argument.actual.enum.iteration": notApplicable,
 
   // Miscellaneous
   "type.foreach": notApplicable,

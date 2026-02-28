@@ -17,6 +17,9 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.actual.method.singleLine": supported,
   "argument.actual.method.multiLine": supported,
   "argument.actual.method.iteration": supported,
+  "argument.actual.enum": supported,
+  "argument.actual.enum.iteration": supported,
+
   "argument.formal.constructor.singleLine": supported,
   "argument.formal.constructor.multiLine": supported,
   "argument.formal.constructor.iteration": supported,
@@ -26,7 +29,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal.lambda.singleLine": supported,
   "argument.formal.lambda.multiLine": supported,
   "argument.formal.lambda.iteration": supported,
-  "argument.catch": supported,
+  "argument.formal.catch": supported,
 
   "argumentList.actual.empty": supported,
   "argumentList.actual.singleLine": supported,
@@ -37,6 +40,8 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.actual.constructor.empty": supported,
   "argumentList.actual.constructor.singleLine": supported,
   "argumentList.actual.constructor.multiLine": supported,
+  "argumentList.actual.enum": supported,
+
   "argumentList.formal.lambda.empty": supported,
   "argumentList.formal.lambda.singleLine": supported,
   "argumentList.formal.lambda.multiLine": supported,
@@ -83,6 +88,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "functionCall.chain": supported,
   "functionCall.generic": supported,
   "functionCall.enum": supported,
+
   functionCallee: supported,
   "functionCallee.constructor": supported,
   "functionCallee.method": supported,
