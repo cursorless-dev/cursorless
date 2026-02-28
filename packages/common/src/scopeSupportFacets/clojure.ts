@@ -8,11 +8,17 @@ export const clojureScopeSupport: LanguageScopeSupportFacetMap = {
   list: supported,
   map: supported,
   ifStatement: supported,
+  "condition.if": supported,
+  "comment.line": supported,
+  "name.function": supported,
+  anonymousFunction: supported,
+
   namedFunction: supported,
   "namedFunction.iteration.document": supported,
-  anonymousFunction: supported,
+
   functionCall: supported,
   functionCallee: supported,
+
   "argument.actual.singleLine": supported,
   "argument.actual.multiLine": supported,
   "argument.actual.iteration": supported,
@@ -20,23 +26,17 @@ export const clojureScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.actual.empty": supported,
   "argumentList.actual.singleLine": supported,
   "argumentList.actual.multiLine": supported,
-  "argumentList.formal.empty": supported,
-  "argumentList.formal.singleLine": supported,
-  "argumentList.formal.multiLine": supported,
-  "argumentList.formal.lambda.empty": supported,
-  "argumentList.formal.lambda.singleLine": supported,
-  "argumentList.formal.lambda.multiLine": supported,
+
   "branch.if": supported,
   "branch.if.else": supported,
   "branch.if.iteration": supported,
-  "condition.if": supported,
-  "comment.line": supported,
+
   "string.singleLine": supported,
   "string.multiLine": supported,
+
   "textFragment.comment.line": supported,
   "textFragment.string.singleLine": supported,
   "textFragment.string.multiLine": supported,
-  "name.function": supported,
 
   /* NOT APPLICABLE */
 
@@ -51,6 +51,12 @@ export const clojureScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal.iteration": notApplicable,
   "name.argument.formal.lambda": notApplicable,
   "name.argument.formal.lambda.iteration": notApplicable,
+  "argumentList.formal.empty": notApplicable,
+  "argumentList.formal.singleLine": notApplicable,
+  "argumentList.formal.multiLine": notApplicable,
+  "argumentList.formal.lambda.empty": notApplicable,
+  "argumentList.formal.lambda.singleLine": notApplicable,
+  "argumentList.formal.lambda.multiLine": notApplicable,
 
   // Assignment
   "statement.assignment": notApplicable,
