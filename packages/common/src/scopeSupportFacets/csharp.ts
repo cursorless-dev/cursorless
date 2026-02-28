@@ -65,6 +65,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.actual": supported,
   "name.argument.actual.iteration": supported,
   "name.namespace": supported,
+  "name.resource": supported,
   "name.class": supported,
   "name.interface": supported,
   "name.enum": supported,
@@ -112,6 +113,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "value.variable": supported,
   "value.yield": supported,
   "value.throw": supported,
+  "value.resource": supported,
   "value.switch": supported,
   "value.iteration.block": supported,
   "value.iteration.class": supported,
@@ -135,6 +137,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "type.foreach": supported,
   "type.field.class": supported,
   "type.field.interface": supported,
+  "type.resource": supported,
   "type.return": supported,
   "type.return.method": supported,
   "type.constant": supported,
@@ -260,6 +263,7 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.switch": supported,
   "interior.switchCase": supported,
   "interior.try": supported,
+  "interior.resource": supported,
 
   "collectionItem.unenclosed.singleLine": supported,
   "collectionItem.unenclosed.multiLine": supported,
@@ -280,12 +284,6 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   "textFragment.element": notApplicable,
   "key.attribute": notApplicable,
   "value.attribute": notApplicable,
-
-  // Resource syntax
-  "interior.resource": notApplicable,
-  "type.resource": notApplicable,
-  "name.resource": notApplicable,
-  "value.resource": notApplicable,
 
   // Pattern destructuring
   "statement.variable.destructuring": notApplicable,

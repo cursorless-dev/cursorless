@@ -502,6 +502,16 @@
   ")" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
 )
 
+;;!! using Foo = Bar;
+;;!        ^^^
+;;!              ^^^
+(using_directive
+  (name_equals
+    (_) @name @value.leading.endOf
+  )
+  (_) @value @name.removal.end.startOf
+) @type @_.domain @name.removal.start.startOf
+
 ;;!! int foo, bar;
 ;;!      ^^^  ^^^
 (

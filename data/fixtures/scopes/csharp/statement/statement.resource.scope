@@ -1,0 +1,10 @@
+using (var foo = create()) {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:29
+  >-----------------------------<
+0| using (var foo = create()) {}
+
+[Insertion delimiter] = "\n"
