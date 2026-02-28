@@ -259,6 +259,7 @@
 - `name.iteration.enum` Iteration scope for names: enum bodies.
 - `name.iteration.interface` Iteration scope for names: interface bodies.
 - `name.method` Name of a class method
+- `name.method.interface` Name of a interface method
 - `name.namespace` Name of a namespace
 - `name.resource` Name in a 'with' / 'use' / 'using' statement
 - `name.typeAlias` Name of a type alias
@@ -339,6 +340,7 @@
 - `statement.iteration.document` Iteration scope for statements: the entire document including leading and trailing empty lines.
 - `statement.iteration.interface` Iteration scope for statements: interface bodies.
 - `statement.method` A method declaration
+- `statement.method.interface` A method declaration in a interface
 - `statement.misc` A miscellaneous statement
 - `statement.namespace` A namespace declaration
 - `statement.package` A package declaration

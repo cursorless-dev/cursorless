@@ -17,9 +17,9 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.class": supported,
   "statement.interface": supported,
   "statement.field.class": supported,
-  "statement.field.interface": supported,
   "statement.function": supported,
   "statement.method": supported,
+  "statement.method.interface": supported,
   "statement.functionCall": supported,
   "statement.if": supported,
   "statement.switch": supported,
@@ -124,10 +124,10 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   "name.foreach": supported,
   "name.function": supported,
   "name.method": supported,
+  "name.method.interface": supported,
   "name.class": supported,
   "name.interface": supported,
   "name.field.class": supported,
-  "name.field.interface": supported,
   "name.typeAlias": supported,
   "name.argument.formal": supported,
   "name.argument.formal.iteration": supported,
@@ -334,7 +334,9 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   notebookCell: notApplicable,
   "interior.cell": notApplicable,
 
-  // Interface field types
+  // Interface fields
+  "statement.field.interface": notApplicable,
+  "name.field.interface": notApplicable,
   "type.field.interface": notApplicable,
   "type.iteration.interface": notApplicable,
 

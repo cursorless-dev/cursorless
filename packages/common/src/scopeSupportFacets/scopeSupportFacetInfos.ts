@@ -102,6 +102,10 @@ export const scopeSupportFacetInfos: Record<
     description: "A method declaration",
     scopeType: "statement",
   },
+  "statement.method.interface": {
+    description: "A method declaration in a interface",
+    scopeType: "statement",
+  },
   "statement.functionCall": {
     description: "A function call statement",
     scopeType: "statement",
@@ -707,6 +711,10 @@ export const scopeSupportFacetInfos: Record<
   },
   "name.method": {
     description: "Name of a class method",
+    scopeType: "name",
+  },
+  "name.method.interface": {
+    description: "Name of a interface method",
     scopeType: "name",
   },
   "name.constructor": {

@@ -46,12 +46,14 @@ export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
   "name.typeAlias": supported,
   "name.iteration.interface": supported,
   "name.iteration.enum": supported,
+  "name.method.interface": supported,
 
   "statement.interface": supported,
   "statement.enum": supported,
   "statement.field.interface": supported,
   "statement.iteration.interface": supported,
   "statement.typeAlias": supported,
+  "statement.method.interface": supported,
 
   "value.typeAlias": supported,
   "value.field.enum": supported,
