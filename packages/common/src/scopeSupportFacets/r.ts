@@ -213,7 +213,7 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   "namedFunction.iteration.class": notApplicable,
 
   // Catch parameter
-  "argument.catch": notApplicable,
+  "argument.formal.catch": notApplicable,
   "name.argument.catch": notApplicable,
   "type.argument.catch": notApplicable,
 
@@ -223,6 +223,7 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.lambda": notApplicable,
   "type.argument.formal.lambda.iteration": notApplicable,
   "type.return": notApplicable,
+  "type.return.lambda": notApplicable,
   "type.foreach": notApplicable,
   "type.resource": notApplicable,
   "type.typeArgument": notApplicable,
@@ -234,10 +235,12 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   // Interface
   "statement.interface": notApplicable,
   "statement.field.interface": notApplicable,
+  "statement.method.interface": notApplicable,
   "statement.iteration.interface": notApplicable,
   "interior.interface": notApplicable,
   "name.interface": notApplicable,
   "name.field.interface": notApplicable,
+  "name.method.interface": notApplicable,
   "name.iteration.interface": notApplicable,
   "type.interface": notApplicable,
   "type.field.interface": notApplicable,
@@ -248,6 +251,12 @@ export const rScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.enum": notApplicable,
   "functionCallee.enum": notApplicable,
   "functionCall.enum": notApplicable,
+  "argument.actual.enum.singleLine": notApplicable,
+  "argument.actual.enum.multiLine": notApplicable,
+  "argumentList.actual.enum.empty": notApplicable,
+  "argumentList.actual.enum.singleLine": notApplicable,
+  "argumentList.actual.enum.multiLine": notApplicable,
+  "argument.actual.enum.iteration": notApplicable,
   "name.enum": notApplicable,
   "name.field.enum": notApplicable,
   "name.iteration.enum": notApplicable,

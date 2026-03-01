@@ -83,6 +83,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.actual.constructor.singleLine": supported,
   "argument.actual.constructor.multiLine": supported,
   "argument.actual.constructor.iteration": supported,
+
   "argument.formal.singleLine": supported,
   "argument.formal.multiLine": supported,
   "argument.formal.iteration": supported,
@@ -95,7 +96,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal.lambda.singleLine": supported,
   "argument.formal.lambda.multiLine": supported,
   "argument.formal.lambda.iteration": supported,
-  "argument.catch": supported,
+  "argument.formal.catch": supported,
 
   "argumentList.actual.empty": supported,
   "argumentList.actual.singleLine": supported,
@@ -106,6 +107,7 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.actual.constructor.empty": supported,
   "argumentList.actual.constructor.singleLine": supported,
   "argumentList.actual.constructor.multiLine": supported,
+
   "argumentList.formal.empty": supported,
   "argumentList.formal.singleLine": supported,
   "argumentList.formal.multiLine": supported,
@@ -300,6 +302,7 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   "type.foreach": notApplicable,
   "type.return": notApplicable,
   "type.return.method": notApplicable,
+  "type.return.lambda": notApplicable,
   "type.constant": notApplicable,
   "type.variable.uninitialized": notApplicable,
   "type.variable.initialized": notApplicable,
@@ -318,9 +321,11 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   // Interface
   "statement.interface": notApplicable,
   "statement.field.interface": notApplicable,
+  "statement.method.interface": notApplicable,
   "statement.iteration.interface": notApplicable,
   "name.interface": notApplicable,
   "name.field.interface": notApplicable,
+  "name.method.interface": notApplicable,
   "name.iteration.interface": notApplicable,
   "value.field.interface": notApplicable,
   "type.interface": notApplicable,
@@ -339,6 +344,12 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.enum": notApplicable,
   "functionCall.enum": notApplicable,
   "functionCallee.enum": notApplicable,
+  "argument.actual.enum.singleLine": notApplicable,
+  "argument.actual.enum.multiLine": notApplicable,
+  "argumentList.actual.enum.empty": notApplicable,
+  "argumentList.actual.enum.singleLine": notApplicable,
+  "argumentList.actual.enum.multiLine": notApplicable,
+  "argument.actual.enum.iteration": notApplicable,
 
   // Miscellaneous
   "statement.package": notApplicable,

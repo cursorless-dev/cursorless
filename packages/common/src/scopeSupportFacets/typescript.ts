@@ -34,6 +34,7 @@ export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
   "type.iteration.interface": supported,
   "type.iteration.document": supported,
   "type.return.method": supported,
+  "type.return.lambda": supported,
 
   "functionCall.generic": supported,
   "functionCallee.generic": supported,
@@ -45,12 +46,14 @@ export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
   "name.typeAlias": supported,
   "name.iteration.interface": supported,
   "name.iteration.enum": supported,
+  "name.method.interface": supported,
 
   "statement.interface": supported,
   "statement.enum": supported,
   "statement.field.interface": supported,
   "statement.iteration.interface": supported,
   "statement.typeAlias": supported,
+  "statement.method.interface": supported,
 
   "value.typeAlias": supported,
   "value.field.enum": supported,
@@ -72,9 +75,15 @@ export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.element": notApplicable,
   "textFragment.element": notApplicable,
 
-  // Enum calls
+  // Enum constructor calls
   "functionCall.enum": notApplicable,
   "functionCallee.enum": notApplicable,
+  "argument.actual.enum.singleLine": notApplicable,
+  "argument.actual.enum.multiLine": notApplicable,
+  "argumentList.actual.enum.empty": notApplicable,
+  "argumentList.actual.enum.singleLine": notApplicable,
+  "argumentList.actual.enum.multiLine": notApplicable,
+  "argument.actual.enum.iteration": notApplicable,
 
   // Miscellaneous
   "type.foreach": notApplicable,

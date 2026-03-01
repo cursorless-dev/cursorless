@@ -118,6 +118,15 @@
   (#type? @_dummy struct_specifier union_specifier enum_specifier)
 ) @_.domain @class @type
 
+;;!! typedef int foo;
+;;!          ^^^
+;;!              ^^^
+(type_definition
+  type: (_) @value
+  declarator: (type_identifier) @name
+  (#not-type? @value struct_specifier union_specifier enum_specifier)
+) @type @_.domain
+
 ;;!! enum Foo {}
 (enumerator_list
   "{" @name.iteration.start.endOf @value.iteration.start.endOf
@@ -219,7 +228,7 @@
   (_
     type: (_) @type
   ) @_.domain
-  (#not-type? @_.domain type_definition type_descriptor cast_expression)
+  (#not-type? @_.domain type_definition type_descriptor cast_expression alias_declaration)
 )
 
 ;;!! (int)5.5;

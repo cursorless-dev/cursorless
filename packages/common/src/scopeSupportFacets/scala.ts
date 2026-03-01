@@ -16,6 +16,7 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.actual.method.singleLine": supported,
   "argument.actual.method.multiLine": supported,
   "argument.actual.method.iteration": supported,
+
   "argument.formal.singleLine": supported,
   "argument.formal.multiLine": supported,
   "argument.formal.iteration": supported,
@@ -28,7 +29,7 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal.lambda.singleLine": supported,
   "argument.formal.lambda.multiLine": supported,
   "argument.formal.lambda.iteration": supported,
-  "argument.catch": supported,
+  "argument.formal.catch": supported,
 
   "argumentList.actual.empty": supported,
   "argumentList.actual.singleLine": supported,
@@ -39,6 +40,7 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.actual.constructor.empty": supported,
   "argumentList.actual.constructor.singleLine": supported,
   "argumentList.actual.constructor.multiLine": supported,
+
   "argumentList.formal.empty": supported,
   "argumentList.formal.singleLine": supported,
   "argumentList.formal.multiLine": supported,
@@ -83,14 +85,12 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "functionCall.method": supported,
   "functionCall.chain": supported,
   "functionCall.generic": supported,
-  "functionCall.enum": supported,
 
   functionCallee: supported,
   "functionCallee.constructor": supported,
   "functionCallee.method": supported,
   "functionCallee.chain": supported,
   "functionCallee.generic": supported,
-  "functionCallee.enum": supported,
 
   namedFunction: supported,
   "namedFunction.method": supported,
@@ -106,6 +106,7 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.field.interface": supported,
   "statement.function": supported,
   "statement.method": supported,
+  "statement.method.interface": supported,
   "statement.functionCall": supported,
   "statement.if": supported,
   "statement.try": supported,
@@ -160,6 +161,7 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "name.foreach": supported,
   "name.function": supported,
   "name.method": supported,
+  "name.method.interface": supported,
   "name.assignment": supported,
   "name.assignment.compound": supported,
   "name.constant": supported,
@@ -332,6 +334,16 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.argument.formal.lambda": notApplicable,
   "value.argument.formal.lambda.iteration": notApplicable,
 
+  // Enum constructor calls
+  "functionCall.enum": notApplicable,
+  "functionCallee.enum": notApplicable,
+  "argument.actual.enum.singleLine": notApplicable,
+  "argument.actual.enum.multiLine": notApplicable,
+  "argument.actual.enum.iteration": notApplicable,
+  "argumentList.actual.enum.empty": notApplicable,
+  "argumentList.actual.enum.singleLine": notApplicable,
+  "argumentList.actual.enum.multiLine": notApplicable,
+
   // Miscellaneous
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,
@@ -341,4 +353,5 @@ export const scalaScopeSupport: LanguageScopeSupportFacetMap = {
   attribute: notApplicable,
   "type.cast": notApplicable,
   "statement.misc": notApplicable,
+  "type.return.lambda": notApplicable,
 };

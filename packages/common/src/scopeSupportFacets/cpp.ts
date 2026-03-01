@@ -35,7 +35,7 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   "name.argument.formal.lambda.iteration": supported,
   "type.argument.formal.lambda": supported,
   "type.argument.formal.lambda.iteration": supported,
-  "argument.catch": supported,
+  "argument.formal.catch": supported,
 
   "argumentList.actual.constructor.empty": supported,
   "argumentList.actual.constructor.singleLine": supported,
@@ -91,6 +91,7 @@ export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   "type.typeArgument": supported,
   "type.typeArgument.iteration": supported,
   "type.return.method": supported,
+  "type.return.lambda": supported,
 
   "interior.lambda": supported,
   "interior.try": supported,

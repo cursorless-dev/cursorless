@@ -16,6 +16,10 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.actual.method.singleLine": supported,
   "argument.actual.method.multiLine": supported,
   "argument.actual.method.iteration": supported,
+  "argument.actual.enum.singleLine": supported,
+  "argument.actual.enum.multiLine": supported,
+  "argument.actual.enum.iteration": supported,
+
   "argument.formal.singleLine": supported,
   "argument.formal.multiLine": supported,
   "argument.formal.iteration": supported,
@@ -28,7 +32,7 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal.lambda.singleLine": supported,
   "argument.formal.lambda.multiLine": supported,
   "argument.formal.lambda.iteration": supported,
-  "argument.catch": supported,
+  "argument.formal.catch": supported,
 
   "argumentList.actual.empty": supported,
   "argumentList.actual.singleLine": supported,
@@ -39,6 +43,10 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.actual.constructor.empty": supported,
   "argumentList.actual.constructor.singleLine": supported,
   "argumentList.actual.constructor.multiLine": supported,
+  "argumentList.actual.enum.empty": supported,
+  "argumentList.actual.enum.singleLine": supported,
+  "argumentList.actual.enum.multiLine": supported,
+
   "argumentList.formal.empty": supported,
   "argumentList.formal.singleLine": supported,
   "argumentList.formal.multiLine": supported,
@@ -83,6 +91,7 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "functionCall.chain": supported,
   "functionCall.generic": supported,
   "functionCall.enum": supported,
+
   functionCallee: supported,
   "functionCallee.constructor": supported,
   "functionCallee.method": supported,
@@ -106,6 +115,7 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.function": supported,
   "statement.constructor": supported,
   "statement.method": supported,
+  "statement.method.interface": supported,
   "statement.functionCall": supported,
   "statement.if": supported,
   "statement.try": supported,
@@ -163,6 +173,7 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "name.foreach": supported,
   "name.function": supported,
   "name.method": supported,
+  "name.method.interface": supported,
   "name.assignment": supported,
   "name.assignment.compound": supported,
   "name.constant": supported,
@@ -335,4 +346,5 @@ export const kotlinScopeSupport: LanguageScopeSupportFacetMap = {
   "type.cast": notApplicable,
   "statement.misc": notApplicable,
   "value.field.interface": notApplicable,
+  "type.return.lambda": notApplicable,
 };

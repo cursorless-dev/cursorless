@@ -1,0 +1,10 @@
+using (Foo foo = create()) { }
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:28-0:29
+                              >-<
+0| using (Foo foo = create()) { }
+
+[Insertion delimiter] = " "

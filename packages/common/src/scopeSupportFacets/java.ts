@@ -17,6 +17,10 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.actual.method.singleLine": supported,
   "argument.actual.method.multiLine": supported,
   "argument.actual.method.iteration": supported,
+  "argument.actual.enum.singleLine": supported,
+  "argument.actual.enum.multiLine": supported,
+  "argument.actual.enum.iteration": supported,
+
   "argument.formal.constructor.singleLine": supported,
   "argument.formal.constructor.multiLine": supported,
   "argument.formal.constructor.iteration": supported,
@@ -26,7 +30,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal.lambda.singleLine": supported,
   "argument.formal.lambda.multiLine": supported,
   "argument.formal.lambda.iteration": supported,
-  "argument.catch": supported,
+  "argument.formal.catch": supported,
 
   "argumentList.actual.empty": supported,
   "argumentList.actual.singleLine": supported,
@@ -37,6 +41,10 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "argumentList.actual.constructor.empty": supported,
   "argumentList.actual.constructor.singleLine": supported,
   "argumentList.actual.constructor.multiLine": supported,
+  "argumentList.actual.enum.empty": supported,
+  "argumentList.actual.enum.singleLine": supported,
+  "argumentList.actual.enum.multiLine": supported,
+
   "argumentList.formal.lambda.empty": supported,
   "argumentList.formal.lambda.singleLine": supported,
   "argumentList.formal.lambda.multiLine": supported,
@@ -83,6 +91,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "functionCall.chain": supported,
   "functionCall.generic": supported,
   "functionCall.enum": supported,
+
   functionCallee: supported,
   "functionCallee.constructor": supported,
   "functionCallee.method": supported,
@@ -103,6 +112,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.field.interface": supported,
   "statement.constructor": supported,
   "statement.method": supported,
+  "statement.method.interface": supported,
   "statement.functionCall": supported,
   "statement.if": supported,
   "statement.try": supported,
@@ -156,6 +166,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "name.field.enum": supported,
   "name.foreach": supported,
   "name.method": supported,
+  "name.method.interface": supported,
   "name.assignment": supported,
   "name.assignment.compound": supported,
   "name.constant": supported,
@@ -330,6 +341,7 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.iteration.enum": notApplicable,
 
   // Miscellaneous
+  "type.return.lambda": notApplicable,
   pairDelimiter: notApplicable,
   regularExpression: notApplicable,
   environment: notApplicable,

@@ -1,0 +1,20 @@
+using (Foo foo = bar()) {}
+---
+
+[Content] = 0:7-0:10
+         >---<
+0| using (Foo foo = bar()) {}
+
+[Removal] = 0:7-0:11
+         >----<
+0| using (Foo foo = bar()) {}
+
+[Trailing delimiter] = 0:10-0:11
+            >-<
+0| using (Foo foo = bar()) {}
+
+[Domain] = 0:0-0:26
+  >--------------------------<
+0| using (Foo foo = bar()) {}
+
+[Insertion delimiter] = " "

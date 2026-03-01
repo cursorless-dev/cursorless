@@ -191,8 +191,10 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
   // Interface
   "statement.interface": notApplicable,
   "statement.field.interface": notApplicable,
+  "statement.method.interface": notApplicable,
   "name.interface": notApplicable,
   "name.field.interface": notApplicable,
+  "name.method.interface": notApplicable,
   "name.iteration.interface": notApplicable,
   "type.interface": notApplicable,
   "type.field.interface": notApplicable,
@@ -219,6 +221,7 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.catch": notApplicable,
   "type.return": notApplicable,
   "type.return.method": notApplicable,
+  "type.return.lambda": notApplicable,
   "type.variable.uninitialized": notApplicable,
   "type.variable.initialized": notApplicable,
   "type.typeArgument": notApplicable,
@@ -295,7 +298,7 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.try": notApplicable,
   "branch.try.iteration": notApplicable,
   "interior.try": notApplicable,
-  "argument.catch": notApplicable,
+  "argument.formal.catch": notApplicable,
   "name.argument.catch": notApplicable,
 
   // Switch
@@ -326,11 +329,19 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
   "name.namespace": notApplicable,
   "interior.namespace": notApplicable,
 
-  // Generic/enum calls
+  // Generic types
   "functionCall.generic": notApplicable,
   "functionCallee.generic": notApplicable,
+
+  // Enum constructor calls
   "functionCall.enum": notApplicable,
   "functionCallee.enum": notApplicable,
+  "argument.actual.enum.singleLine": notApplicable,
+  "argument.actual.enum.multiLine": notApplicable,
+  "argumentList.actual.enum.empty": notApplicable,
+  "argumentList.actual.enum.singleLine": notApplicable,
+  "argumentList.actual.enum.multiLine": notApplicable,
+  "argument.actual.enum.iteration": notApplicable,
 
   // Static
   "statement.static": notApplicable,

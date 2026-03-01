@@ -108,7 +108,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal.method.iteration": supported,
   "argument.formal.lambda.singleLine": supported,
   "argument.formal.lambda.iteration": supported,
-  "argument.catch": supported,
+  "argument.formal.catch": supported,
 
   "argumentList.actual.empty": supported,
   "argumentList.actual.singleLine": supported,
@@ -277,6 +277,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "type.field.interface": notApplicable,
   "type.iteration.interface": notApplicable,
   "type.resource": notApplicable,
+  "type.return.lambda": notApplicable,
 
   // Type alias
   "type.alias": notApplicable,
@@ -295,6 +296,12 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.enum": notApplicable,
   "functionCall.enum": notApplicable,
   "functionCallee.enum": notApplicable,
+  "argument.actual.enum.singleLine": notApplicable,
+  "argument.actual.enum.multiLine": notApplicable,
+  "argumentList.actual.enum.empty": notApplicable,
+  "argumentList.actual.enum.singleLine": notApplicable,
+  "argumentList.actual.enum.multiLine": notApplicable,
+  "argument.actual.enum.iteration": notApplicable,
 
   // Generic/enum calls
   "functionCall.generic": notApplicable,
@@ -316,10 +323,12 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   // Interface
   "statement.interface": notApplicable,
   "statement.field.interface": notApplicable,
+  "statement.method.interface": notApplicable,
   "statement.iteration.interface": notApplicable,
   "interior.interface": notApplicable,
   "name.interface": notApplicable,
   "name.field.interface": notApplicable,
+  "name.method.interface": notApplicable,
   "name.iteration.interface": notApplicable,
   "value.field.interface": notApplicable,
 

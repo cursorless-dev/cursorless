@@ -102,6 +102,10 @@ export const scopeSupportFacetInfos: Record<
     description: "A method declaration",
     scopeType: "statement",
   },
+  "statement.method.interface": {
+    description: "A method declaration in a interface",
+    scopeType: "statement",
+  },
   "statement.functionCall": {
     description: "A function call statement",
     scopeType: "statement",
@@ -281,6 +285,7 @@ export const scopeSupportFacetInfos: Record<
     description: "An enum constructor call",
     scopeType: "functionCall",
   },
+
   functionCallee: {
     description: "The function being called in a function call",
     scopeType: "functionCallee",
@@ -336,7 +341,7 @@ export const scopeSupportFacetInfos: Record<
   "argument.actual.method.iteration": iteration(
     "argumentOrParameter",
     "arguments in a method call",
-    "the argument list. The domain should be the entire method call.",
+    "the argument list. The domain should be the entire method call",
   ),
   "argument.actual.constructor.singleLine": {
     description: "A single line argument in a constructor call",
@@ -351,6 +356,20 @@ export const scopeSupportFacetInfos: Record<
     "argumentOrParameter",
     "arguments in a constructor call",
     "the argument list. The domain should be the entire constructor call.",
+  ),
+  "argument.actual.enum.singleLine": {
+    description: "A single line argument in an enum constructor call",
+    scopeType: "argumentOrParameter",
+  },
+  "argument.actual.enum.multiLine": {
+    description:
+      "A multi line argument in an enum constructor call. Insertion delimiter should include new line.",
+    scopeType: "argumentOrParameter",
+  },
+  "argument.actual.enum.iteration": iteration(
+    "argumentOrParameter",
+    "arguments in an enum constructor call",
+    "the argument list. The domain should be the entire enum constructor call.",
   ),
 
   "argument.formal.singleLine": {
@@ -410,7 +429,7 @@ export const scopeSupportFacetInfos: Record<
     "formal parameters in a lambda declaration",
     "the parameter list. The domain should be the entire lambda",
   ),
-  "argument.catch": {
+  "argument.formal.catch": {
     description: "A parameter in a catch clause",
     scopeType: "argumentOrParameter",
   },
@@ -455,6 +474,20 @@ export const scopeSupportFacetInfos: Record<
   "argumentList.actual.constructor.multiLine": {
     description:
       "A multi line list of arguments in a constructor call. Insertion delimiter should include new line.",
+    scopeType: "argumentList",
+  },
+  "argumentList.actual.enum.empty": {
+    description:
+      "An empty list of arguments in an enum constructor call. Insertion delimiter should be empty.",
+    scopeType: "argumentList",
+  },
+  "argumentList.actual.enum.singleLine": {
+    description: "A single line list of arguments in an enum constructor call",
+    scopeType: "argumentList",
+  },
+  "argumentList.actual.enum.multiLine": {
+    description:
+      "A multi line list of arguments in an enum constructor call. Insertion delimiter should include new line.",
     scopeType: "argumentList",
   },
 
@@ -678,6 +711,10 @@ export const scopeSupportFacetInfos: Record<
   },
   "name.method": {
     description: "Name of a class method",
+    scopeType: "name",
+  },
+  "name.method.interface": {
+    description: "Name of a interface method",
     scopeType: "name",
   },
   "name.constructor": {
@@ -985,6 +1022,10 @@ export const scopeSupportFacetInfos: Record<
   },
   "type.return.method": {
     description: "Type of a return value in a method declaration",
+    scopeType: "type",
+  },
+  "type.return.lambda": {
+    description: "Type of a return value in a lambda declaration",
     scopeType: "type",
   },
   "type.field.class": {

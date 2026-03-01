@@ -28,6 +28,7 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.return": supported,
   "statement.break": supported,
   "statement.continue": supported,
+  "statement.typeAlias": supported,
   "statement.namespace": supported,
   "statement.import": supported,
   "statement.iteration.document": supported,
@@ -105,6 +106,7 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "name.enum": supported,
   "name.field.class": supported,
   "name.field.enum": supported,
+  "name.typeAlias": supported,
   "name.argument.formal": supported,
   "name.argument.formal.iteration": supported,
   "name.iteration.block": supported,
@@ -119,6 +121,7 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "value.return": supported,
   "value.switch": supported,
   "value.field.enum": supported,
+  "value.typeAlias": supported,
   "value.iteration.block": supported,
   "value.iteration.class": supported,
   "value.iteration.enum": supported,
@@ -133,6 +136,7 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "type.enum": supported,
   "type.cast": supported,
   "type.class": supported,
+  "type.alias": supported,
   "type.return": supported,
   "type.iteration.block": supported,
   "type.iteration.class": supported,
@@ -206,12 +210,6 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "value.command": notApplicable,
   "interior.command": notApplicable,
 
-  // Type alias
-  "type.alias": notApplicable,
-  "statement.typeAlias": notApplicable,
-  "name.typeAlias": notApplicable,
-  "value.typeAlias": notApplicable,
-
   // Notebook cell
   notebookCell: notApplicable,
   "interior.cell": notApplicable,
@@ -222,9 +220,11 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   // Interface
   "statement.interface": notApplicable,
   "statement.field.interface": notApplicable,
+  "statement.method.interface": notApplicable,
   "statement.iteration.interface": notApplicable,
   "name.interface": notApplicable,
   "name.field.interface": notApplicable,
+  "name.method.interface": notApplicable,
   "name.iteration.interface": notApplicable,
   "type.interface": notApplicable,
   "type.field.interface": notApplicable,
@@ -247,6 +247,12 @@ export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
   // Enum calls
   "functionCall.enum": notApplicable,
   "functionCallee.enum": notApplicable,
+  "argument.actual.enum.singleLine": notApplicable,
+  "argument.actual.enum.multiLine": notApplicable,
+  "argumentList.actual.enum.empty": notApplicable,
+  "argumentList.actual.enum.singleLine": notApplicable,
+  "argumentList.actual.enum.multiLine": notApplicable,
+  "argument.actual.enum.iteration": notApplicable,
 
   // Miscellaneous
   "key.attribute": notApplicable,
@@ -271,7 +277,7 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
 
   attribute: notApplicable,
 
-  // Lambda
+  // Anonymous function / lambda
   "argument.formal.lambda.iteration": notApplicable,
   "argument.formal.lambda.singleLine": notApplicable,
   "argument.formal.lambda.multiLine": notApplicable,
@@ -286,6 +292,7 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
   "value.argument.formal.lambda.iteration": notApplicable,
   "interior.lambda": notApplicable,
   "value.return.lambda": notApplicable,
+  "type.return.lambda": notApplicable,
   anonymousFunction: notApplicable,
 
   // Constructor
@@ -339,7 +346,7 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.try": notApplicable,
   "branch.try.iteration": notApplicable,
   "interior.try": notApplicable,
-  "argument.catch": notApplicable,
+  "argument.formal.catch": notApplicable,
   "name.argument.catch": notApplicable,
   "type.argument.catch": notApplicable,
 

@@ -17,9 +17,9 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   "statement.class": supported,
   "statement.interface": supported,
   "statement.field.class": supported,
-  "statement.field.interface": supported,
   "statement.function": supported,
   "statement.method": supported,
+  "statement.method.interface": supported,
   "statement.functionCall": supported,
   "statement.if": supported,
   "statement.switch": supported,
@@ -124,10 +124,10 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   "name.foreach": supported,
   "name.function": supported,
   "name.method": supported,
+  "name.method.interface": supported,
   "name.class": supported,
   "name.interface": supported,
   "name.field.class": supported,
-  "name.field.interface": supported,
   "name.typeAlias": supported,
   "name.argument.formal": supported,
   "name.argument.formal.iteration": supported,
@@ -167,6 +167,7 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.lambda.iteration": supported,
   "type.return": supported,
   "type.return.method": supported,
+  "type.return.lambda": supported,
   "type.class": supported,
   "type.interface": supported,
   "type.field.class": supported,
@@ -238,6 +239,12 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   "value.iteration.enum": notApplicable,
   "functionCall.enum": notApplicable,
   "functionCallee.enum": notApplicable,
+  "argument.actual.enum.singleLine": notApplicable,
+  "argument.actual.enum.multiLine": notApplicable,
+  "argumentList.actual.enum.empty": notApplicable,
+  "argumentList.actual.enum.singleLine": notApplicable,
+  "argumentList.actual.enum.multiLine": notApplicable,
+  "argument.actual.enum.iteration": notApplicable,
 
   // Constructors
   "statement.constructor": notApplicable,
@@ -275,7 +282,7 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.try": notApplicable,
   "branch.try.iteration": notApplicable,
   "interior.try": notApplicable,
-  "argument.catch": notApplicable,
+  "argument.formal.catch": notApplicable,
   "name.argument.catch": notApplicable,
   "type.argument.catch": notApplicable,
 
@@ -327,7 +334,9 @@ export const goScopeSupport: LanguageScopeSupportFacetMap = {
   notebookCell: notApplicable,
   "interior.cell": notApplicable,
 
-  // Interface field types
+  // Interface fields
+  "statement.field.interface": notApplicable,
+  "name.field.interface": notApplicable,
   "type.field.interface": notApplicable,
   "type.iteration.interface": notApplicable,
 

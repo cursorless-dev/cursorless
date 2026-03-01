@@ -1,10 +1,10 @@
-foo = func() {}
+const foo = func() {}
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-0:15
-  >---------------<
-0| foo = func() {}
+[Domain] = 0:0-0:21
+  >---------------------<
+0| const foo = func() {}
 
 [Insertion delimiter] = "\n\n"

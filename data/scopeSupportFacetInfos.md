@@ -7,13 +7,16 @@
 - `argument.actual.constructor.iteration` Iteration scope for arguments in a constructor call: the argument list. The domain should be the entire constructor call..
 - `argument.actual.constructor.multiLine` A multi line argument in a constructor call. Insertion delimiter should include new line.
 - `argument.actual.constructor.singleLine` A single line argument in a constructor call
+- `argument.actual.enum.iteration` Iteration scope for arguments in an enum constructor call: the argument list. The domain should be the entire enum constructor call..
+- `argument.actual.enum.multiLine` A multi line argument in an enum constructor call. Insertion delimiter should include new line.
+- `argument.actual.enum.singleLine` A single line argument in an enum constructor call
 - `argument.actual.iteration` Iteration scope for arguments in a function call: the argument list. The domain should be the entire function call.
-- `argument.actual.method.iteration` Iteration scope for arguments in a method call: the argument list. The domain should be the entire method call..
+- `argument.actual.method.iteration` Iteration scope for arguments in a method call: the argument list. The domain should be the entire method call.
 - `argument.actual.method.multiLine` A multi line argument in a method call. Insertion delimiter should include new line.
 - `argument.actual.method.singleLine` A single line argument in a method call
 - `argument.actual.multiLine` A multiline argument in a function call. Insertion delimiter should include new line.
 - `argument.actual.singleLine` A single line argument in a function call
-- `argument.catch` A parameter in a catch clause
+- `argument.formal.catch` A parameter in a catch clause
 - `argument.formal.constructor.iteration` Iteration scope for formal parameters in a constructor declaration: the parameter list. The domain should be the entire constructor.
 - `argument.formal.constructor.multiLine` A multi line parameter in a constructor declaration. Insertion delimiter should include new line.
 - `argument.formal.constructor.singleLine` A single line parameter in a constructor declaration
@@ -33,6 +36,9 @@
 - `argumentList.actual.constructor.multiLine` A multi line list of arguments in a constructor call. Insertion delimiter should include new line.
 - `argumentList.actual.constructor.singleLine` A single line list of arguments in a constructor call
 - `argumentList.actual.empty` An empty list of arguments in a function call. Insertion delimiter should be empty.
+- `argumentList.actual.enum.empty` An empty list of arguments in an enum constructor call. Insertion delimiter should be empty.
+- `argumentList.actual.enum.multiLine` A multi line list of arguments in an enum constructor call. Insertion delimiter should include new line.
+- `argumentList.actual.enum.singleLine` A single line list of arguments in an enum constructor call
 - `argumentList.actual.method.empty` An empty list of arguments in a method call. Insertion delimiter should be empty.
 - `argumentList.actual.method.multiLine` A multi line list of arguments in a method call. Insertion delimiter should include new line.
 - `argumentList.actual.method.singleLine` A single line list of arguments in a method call
@@ -253,6 +259,7 @@
 - `name.iteration.enum` Iteration scope for names: enum bodies.
 - `name.iteration.interface` Iteration scope for names: interface bodies.
 - `name.method` Name of a class method
+- `name.method.interface` Name of a interface method
 - `name.namespace` Name of a namespace
 - `name.resource` Name in a 'with' / 'use' / 'using' statement
 - `name.typeAlias` Name of a type alias
@@ -333,6 +340,7 @@
 - `statement.iteration.document` Iteration scope for statements: the entire document including leading and trailing empty lines.
 - `statement.iteration.interface` Iteration scope for statements: interface bodies.
 - `statement.method` A method declaration
+- `statement.method.interface` A method declaration in a interface
 - `statement.misc` A miscellaneous statement
 - `statement.namespace` A namespace declaration
 - `statement.package` A package declaration
@@ -402,6 +410,7 @@
 - `type.iteration.interface` Iteration scope for types: interface bodies.
 - `type.resource` Type in a 'with' / 'use' / 'using' statement
 - `type.return` Type of a return value in a function declaration
+- `type.return.lambda` Type of a return value in a lambda declaration
 - `type.return.method` Type of a return value in a method declaration
 - `type.typeArgument` Type argument to a generic / parametrized type
 - `type.typeArgument.iteration` Iteration scope for type arguments to a generic / parametrized type: the type argument list.

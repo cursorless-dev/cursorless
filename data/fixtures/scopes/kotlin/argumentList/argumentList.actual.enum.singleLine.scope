@@ -1,0 +1,15 @@
+enum class Foo {
+    bar(aaa, bbb)
+}
+---
+
+[Content] =
+[Removal] = 1:8-1:16
+          >--------<
+1|     bar(aaa, bbb)
+
+[Domain] = 1:4-1:17
+      >-------------<
+1|     bar(aaa, bbb)
+
+[Insertion delimiter] = ", "

@@ -203,9 +203,11 @@ export const rubyScopeSupport: LanguageScopeSupportFacetMap = {
   // Interface
   "statement.interface": notApplicable,
   "statement.field.interface": notApplicable,
+  "statement.method.interface": notApplicable,
   "statement.iteration.interface": notApplicable,
   "name.interface": notApplicable,
   "name.field.interface": notApplicable,
+  "name.method.interface": notApplicable,
   "name.iteration.interface": notApplicable,
   "type.interface": notApplicable,
   "type.field.interface": notApplicable,
@@ -224,6 +226,12 @@ export const rubyScopeSupport: LanguageScopeSupportFacetMap = {
   "interior.enum": notApplicable,
   "functionCall.enum": notApplicable,
   "functionCallee.enum": notApplicable,
+  "argument.actual.enum.singleLine": notApplicable,
+  "argument.actual.enum.multiLine": notApplicable,
+  "argumentList.actual.enum.empty": notApplicable,
+  "argumentList.actual.enum.singleLine": notApplicable,
+  "argumentList.actual.enum.multiLine": notApplicable,
+  "argument.actual.enum.iteration": notApplicable,
 
   // Type system
   "type.argument.formal": notApplicable,
@@ -234,6 +242,7 @@ export const rubyScopeSupport: LanguageScopeSupportFacetMap = {
   "type.argument.formal.lambda.iteration": notApplicable,
   "type.return": notApplicable,
   "type.return.method": notApplicable,
+  "type.return.lambda": notApplicable,
   "type.variable.uninitialized": notApplicable,
   "type.variable.initialized": notApplicable,
   "type.typeArgument": notApplicable,
@@ -273,7 +282,7 @@ export const rubyScopeSupport: LanguageScopeSupportFacetMap = {
   "type.constant": notApplicable,
 
   // Catch parameter
-  "argument.catch": notApplicable,
+  "argument.formal.catch": notApplicable,
   "name.argument.catch": notApplicable,
   "type.argument.catch": notApplicable,
 
