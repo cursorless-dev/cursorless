@@ -10,7 +10,7 @@ from .versions import COMMAND_VERSION
 @dataclasses.dataclass
 class CursorlessCommand:
     version = COMMAND_VERSION
-    spokenForm: str
+    spokenForm: str | None
     usePrePhraseSnapshot: bool
     action: dict
 
@@ -66,7 +66,7 @@ def construct_cursorless_command(action: dict) -> dict:
     except KeyError:
         use_pre_phrase_snapshot = False
 
-    spoken_form = " ".join(last_phrase["phrase"])
+    spoken_form = " ".join(last_phrase["phrase"]) if "phrase" in last_phrase else None
 
     return make_serializable(
         CursorlessCommand(
