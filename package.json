@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "description": "The root of the Cursorless monorepo",
   "license": "MIT",
-  "packageManager": "pnpm@10.13.1",
+  "packageManager": "pnpm@10.30.3",
   "type": "module",
   "main": "index.js",
   "engines": {
-    "node": ">=24.13.1"
+    "node": ">=24.14.0"
   },
   "scripts": {
     "build": "pnpm -r build",
@@ -34,13 +34,13 @@
     "watch:tsc": "tsc --build --watch"
   },
   "devDependencies": {
-    "@eslint/config-helpers": "^0.5.2",
-    "@eslint/eslintrc": "^3.3.4",
+    "@eslint/config-helpers": "^0.5.3",
+    "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^10.0.1",
     "@pnpm/meta-updater": "^2.0.6",
-    "@types/node": "^25.3.3",
+    "@types/node": "^24.12.0",
     "esbuild": "^0.27.3",
-    "eslint": "^10.0.2",
+    "eslint": "^10.0.3",
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import": "^2.32.0",
@@ -49,7 +49,7 @@
     "eslint-plugin-unused-imports": "^4.4.1",
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "syncpack": "^14.0.0",
+    "syncpack": "^14.0.2",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.56.1"
   },
