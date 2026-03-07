@@ -60,6 +60,8 @@ def get_modifiers() -> list[ListItemDescriptor]:
             "trailing": "Trailing delimiter range",
             "start": "Empty position at start of target",
             "end": "Empty position at end of target",
+            "filename": "File name including extension",
+            "filenameWithoutExtension": "File name without extension",
         },
     )
 

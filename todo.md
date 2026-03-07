@@ -1,0 +1,15 @@
+- [x] Support "copy"
+  - Probably need a flag on Target indicating it's `textOnly` or something?
+- [x] Support multiple targets
+  - Probably join with `, ` for lineAndColumn targets; with `\n\n` otherwise. Can prob use insertionDelimiter on the target?
+- [x] Probably throw error if they try to acces range?
+- [x] Rename `referenceTo` to just `reference`?
+- [x] Record file target test
+- [x] Auto expand implicit to line (and add “token air” test)
+- [ ] Add spoken forms / field on modifier descriptor to allow including text
+- [ ] Add spoken forms / field on modifier descriptor to allow specifying absolute path
+- [ ] Add spoken forms / field on modifier descriptor to allow specifying to use GitHub link
+- [ ] Add spoken forms / field on modifier descriptor to allow specifying to use canonical GitHub link
+- [ ] Add lang id to code fence block
+- [ ] Implement follow
+- [ ] Switch to templates? Would need to support separate for inline vs block
