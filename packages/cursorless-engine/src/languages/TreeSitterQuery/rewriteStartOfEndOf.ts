@@ -1,4 +1,14 @@
-import type { MutableQueryCapture } from "./QueryCapture";
+import type { Range } from "@cursorless/common";
+import type { Node } from "web-tree-sitter";
+import type { QueryCapture } from "./QueryCapture";
+import {
+  getNodeEndRange,
+  getNodeRange,
+  getNodeStartRange,
+} from "./getNodeRange";
+
+const START_OF = ".startOf";
+const END_OF = ".endOf";
 
 /**
  * Modifies captures by applying any `.startOf` or `.endOf` suffixes. For
@@ -8,25 +18,58 @@ import type { MutableQueryCapture } from "./QueryCapture";
  * @param captures A list of captures
  * @returns rewritten captures, with .startOf and .endOf removed
  */
-export function rewriteStartOfEndOf(
-  captures: MutableQueryCapture[],
-): MutableQueryCapture[] {
-  return captures.map((capture) => {
-    // Remove trailing .startOf and .endOf, adjusting ranges.
-    if (capture.name.endsWith(".startOf")) {
-      return {
-        ...capture,
-        name: capture.name.replace(/\.startOf$/, ""),
-        range: capture.range.start.toEmptyRange(),
-      };
-    }
-    if (capture.name.endsWith(".endOf")) {
-      return {
-        ...capture,
-        name: capture.name.replace(/\.endOf$/, ""),
-        range: capture.range.end.toEmptyRange(),
-      };
-    }
-    return capture;
-  });
+export function rewriteStartOfEndOf(captures: QueryCapture[]): QueryCapture[] {
+  return captures.map((capture) => ({
+    ...capture,
+    range: getStartOfEndOfRange(capture),
+    name: getStartOfEndOfName(capture),
+  }));
+}
+
+export function getStartOfEndOfRange(capture: QueryCapture): Range {
+  if (capture.name.endsWith(START_OF)) {
+    return capture.range.start.toEmptyRange();
+  }
+  if (capture.name.endsWith(END_OF)) {
+    return capture.range.end.toEmptyRange();
+  }
+  return capture.range;
+}
+
+export function getStartOfEndOfNodeRange(
+  captureName: string,
+  node: Node,
+): Range {
+  if (captureName.endsWith(START_OF)) {
+    return getNodeStartRange(node);
+  }
+  if (captureName.endsWith(END_OF)) {
+    return getNodeEndRange(node);
+  }
+  return getNodeRange(node);
+}
+
+function getStartOfEndOfName(capture: QueryCapture): string {
+  if (capture.name.endsWith(START_OF)) {
+    return capture.name.slice(0, -START_OF.length);
+  }
+  if (capture.name.endsWith(END_OF)) {
+    return capture.name.slice(0, -END_OF.length);
+  }
+  return capture.name;
+}
+
+const hasError = () => false;
+
+export function createTestQueryCapture(
+  name: string,
+  range: Range,
+): QueryCapture {
+  return {
+    name,
+    range,
+    allowMultiple: false,
+    insertionDelimiter: undefined,
+    hasError,
+  };
 }

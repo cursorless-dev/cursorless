@@ -118,6 +118,7 @@ export const simpleSurroundingPairNames = [
   "parentheses",
   "singleQuotes",
   "squareBrackets",
+  "tripleBacktickQuotes",
   "tripleDoubleQuotes",
   "tripleSingleQuotes",
 ] as const;
@@ -140,6 +141,7 @@ export type SurroundingPairName =
 
 export const simpleScopeTypeTypes = [
   "argumentOrParameter",
+  "argumentList",
   "anonymousFunction",
   "attribute",
   "branch",
@@ -172,7 +174,6 @@ export const simpleScopeTypeTypes = [
   "sectionLevelFive",
   "sectionLevelSix",
   "selector",
-  "private.switchStatementSubject",
   "unit",
   "xmlBothTags",
   "xmlElement",
@@ -192,6 +193,7 @@ export const simpleScopeTypeTypes = [
   "token",
   "identifier",
   "line",
+  "fullLine",
   "sentence",
   "paragraph",
   "boundedParagraph",
@@ -205,6 +207,8 @@ export const simpleScopeTypeTypes = [
   // Private scope types
   "textFragment",
   "disqualifyDelimiter",
+  "pairDelimiter",
+  "interior",
 ] as const;
 
 export function isSimpleScopeType(
@@ -215,13 +219,23 @@ export function isSimpleScopeType(
 
 export type SimpleScopeTypeType = (typeof simpleScopeTypeTypes)[number];
 
+export const pseudoScopes = new Set<SimpleScopeTypeType>([
+  "instance",
+  "interior",
+  "className",
+  "functionName",
+]);
+
 export interface SimpleScopeType {
   type: SimpleScopeTypeType;
 }
 
+export type ScopeTypeType = ScopeType["type"];
+
 export interface CustomRegexScopeType {
   type: "customRegex";
   regex: string;
+  flags?: string;
 }
 
 export type SurroundingPairDirection = "left" | "right";
@@ -229,12 +243,6 @@ export type SurroundingPairDirection = "left" | "right";
 export interface SurroundingPairScopeType {
   type: "surroundingPair";
   delimiter: SurroundingPairName;
-
-  /**
-   * @deprecated Not supported by next-gen surrounding pairs; we don't believe
-   * anyone uses this
-   */
-  forceDirection?: SurroundingPairDirection;
 
   /**
    * If `true`, then only accept pairs where the pair completely contains the
@@ -270,8 +278,7 @@ export type ScopeType =
   | OneOfScopeType
   | GlyphScopeType;
 
-export interface ContainingSurroundingPairModifier
-  extends ContainingScopeModifier {
+export interface ContainingSurroundingPairModifier extends ContainingScopeModifier {
   scopeType: SurroundingPairScopeType;
 }
 
@@ -299,6 +306,11 @@ export interface ContainingScopeModifier {
   type: "containingScope";
   scopeType: ScopeType;
   ancestorIndex?: number;
+}
+
+export interface PreferredScopeModifier {
+  type: "preferredScope";
+  scopeType: ScopeType;
 }
 
 export interface EveryScopeModifier {
@@ -418,8 +430,8 @@ export interface ModifyIfUntypedModifier {
  * doesn't throw an error, returning the output from the first modifier not
  * throwing an error.
  */
-export interface CascadingModifier {
-  type: "cascading";
+export interface FallbackModifier {
+  type: "fallback";
 
   /**
    * The modifiers to try in turn
@@ -446,6 +458,7 @@ export type Modifier =
   | ExcludeInteriorModifier
   | VisibleModifier
   | ContainingScopeModifier
+  | PreferredScopeModifier
   | EveryScopeModifier
   | OrdinalScopeModifier
   | RelativeScopeModifier
@@ -455,7 +468,7 @@ export type Modifier =
   | TrailingModifier
   | RawSelectionModifier
   | ModifyIfUntypedModifier
-  | CascadingModifier
+  | FallbackModifier
   | RangeModifier
   | KeepContentFilterModifier
   | KeepEmptyFilterModifier

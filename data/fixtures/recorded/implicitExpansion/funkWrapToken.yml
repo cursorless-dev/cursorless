@@ -1,16 +1,21 @@
 languageId: typescript
 command:
-  version: 6
+  version: 7
   spokenForm: funk wrap token
   action:
     name: wrapWithSnippet
-    snippetDescription: {type: named, name: functionDeclaration, variableName: body}
+    snippetDescription:
+      type: custom
+      variableName: body
+      scopeType: {type: statement}
+      body: "function $name($parameterList) {\n\t$body\n}"
     target:
       type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: token}
   usePrePhraseSnapshot: true
+spokenFormError: custom wrap with snippet
 initialState:
   documentContents: const whatever = "hello";
   selections:

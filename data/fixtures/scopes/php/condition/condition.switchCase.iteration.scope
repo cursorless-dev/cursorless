@@ -1,0 +1,8 @@
+<?php
+switch ($foo) { }
+---
+
+[Content] =
+[Domain] = 1:15-1:16
+                 >-<
+1| switch ($foo) { }

@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  version: 6
+  version: 7
   spokenForm: bring comma to end of dot take dot
   action:
     name: replaceWithTarget

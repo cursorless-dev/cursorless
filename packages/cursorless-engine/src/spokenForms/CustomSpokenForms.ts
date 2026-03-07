@@ -59,11 +59,10 @@ export class CustomSpokenForms {
 
   constructor(private talonSpokenForms: TalonSpokenForms) {
     this.disposable = talonSpokenForms.onDidChange(() =>
-      this.updateSpokenFormMaps().catch(() => {}),
+      this.updateSpokenFormMaps(),
     );
 
     this.customSpokenFormsInitialized = this.updateSpokenFormMaps();
-    this.customSpokenFormsInitialized.catch(() => {});
   }
 
   /**
@@ -75,6 +74,11 @@ export class CustomSpokenForms {
 
   private async updateSpokenFormMaps(): Promise<void> {
     let allCustomEntries: SpokenFormEntry[];
+
+    // We successfully loaded spoken forms, so any previous "needs update"
+    // state is no longer relevant.
+    this.needsInitialTalonUpdate_ = false;
+
     try {
       allCustomEntries = await this.talonSpokenForms.getSpokenFormEntries();
       if (allCustomEntries.length === 0) {
@@ -99,7 +103,7 @@ export class CustomSpokenForms {
       this.spokenFormMap_ = { ...defaultSpokenFormMap };
       this.notifier.notifyListeners();
 
-      throw err;
+      return;
     }
 
     for (const entryType of SUPPORTED_ENTRY_TYPES) {

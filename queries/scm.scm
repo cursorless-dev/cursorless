@@ -15,6 +15,7 @@
 
 (anonymous_node
   name: (_) @string @textFragment
+  (#child-range! @textFragment 0 -1 true true)
 )
 
 ;; functionCall:
@@ -39,8 +40,18 @@
 (predicate
   (parameters
     (_) @argumentOrParameter
-  )
-) @_.iteration
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy " " "\n")
+)
+
+;;!! (#aaa? @bbb "ccc")
+;;!         ^^^^^^^^^^
+(
+  (predicate
+    (parameters) @argumentList @argumentOrParameter.iteration
+  ) @argumentList.domain @argumentOrParameter.iteration.domain
+  (#single-or-multi-line-delimiter! @argumentList @argumentList " " "\n")
+)
 
 ;;!! (aaa) @bbb
 ;;!   ^^^
@@ -55,9 +66,8 @@
 (anonymous_node
   name: [
     "_" @type
-    (identifier
-      "\"" @type.start.endOf
-      "\"" @type.end.startOf
+    (string
+      (string_content) @type
     )
   ]
 ) @_.domain
@@ -100,7 +110,7 @@
   ":"
   (anonymous_node
     [
-      (identifier)
+      (string)
       "_"
     ] @value.end
     (quantifier)? @value.end

@@ -19,7 +19,7 @@ class CustomizableTerm:
 
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://www.cursorless.org/docs/user/customization/
+# See https://www.cursorless.org/docs/user/customization
 directions = [
     CustomizableTerm("lineNumberModulo100", "modulo100", lambda number: number - 1),
     CustomizableTerm("lineNumberRelativeUp", "relative", lambda number: -number),
@@ -31,13 +31,13 @@ directions_map = {d.cursorlessIdentifier: d for d in directions}
 
 @mod.capture(
     rule=(
-        "{user.cursorless_line_direction} <user.private_cursorless_number_small> "
-        "[<user.cursorless_range_connective> <user.private_cursorless_number_small>]"
+        "{user.cursorless_line_direction} <number_small> "
+        "[<user.cursorless_range_connective> <number_small>]"
     )
 )
 def cursorless_line_number(m) -> LineNumber:
     direction = directions_map[m.cursorless_line_direction]
-    numbers: list[int] = m.private_cursorless_number_small_list
+    numbers: list[int] = m.number_small_list
     anchor = create_line_number_mark(direction.type, direction.formatter(numbers[0]))
     if len(numbers) > 1:
         active = create_line_number_mark(

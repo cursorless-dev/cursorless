@@ -38,6 +38,7 @@ type HatDecorationMap = Partial<
 const hatConfigSections = [
   "editor.fontSize",
   "editor.fontFamily",
+  "editor.fontWeight",
   "cursorless.colors",
   "cursorless.hatSizeAdjustment",
   "cursorless.hatVerticalOffset",
@@ -466,14 +467,25 @@ export default class VscodeHatRenderer {
   }
 
   private getViewBoxDimensions(rawSvg: string) {
-    const viewBoxMatch = rawSvg.match(/viewBox="([^"]+)"/)!;
+    const viewBoxValue = rawSvg.match(/viewBox="([^"]+)"/)?.[1];
+    if (viewBoxValue == null) {
+      throw new Error("Missing viewBox");
+    }
 
-    const originalViewBoxString = viewBoxMatch[1];
-    const [_0, _1, originalViewBoxWidthStr, originalViewBoxHeightStr] =
-      originalViewBoxString.split(" ");
+    const viewBoxParts = viewBoxValue.trim().split(/\s+/);
+    // A valid viewBox should have 4 parts: min-x, min-y, width and height
+    if (viewBoxParts.length !== 4) {
+      throw new Error(`Invalid viewBox format: ${viewBoxValue}`);
+    }
 
-    const originalViewBoxWidth = Number(originalViewBoxWidthStr);
-    const originalViewBoxHeight = Number(originalViewBoxHeightStr);
+    const originalViewBoxWidth = Number(viewBoxParts[2]);
+    const originalViewBoxHeight = Number(viewBoxParts[3]);
+    if (
+      Number.isNaN(originalViewBoxWidth) ||
+      Number.isNaN(originalViewBoxHeight)
+    ) {
+      throw new Error(`Invalid viewBox dimensions: ${viewBoxValue}`);
+    }
 
     return { originalViewBoxHeight, originalViewBoxWidth };
   }

@@ -1,37 +1,37 @@
 import type {
   Disposable,
   EditableTextEditor,
-  IDE,
-  OpenUntitledTextDocumentOptions,
-  Range,
-  RunMode,
-  Selection,
-  TextDocumentChangeEvent,
-  TextEditor,
-  WorkspaceFolder,
-} from "@cursorless/common";
-import type {
   Event,
   FlashDescriptor,
   GeneralizedRange,
+  IDE,
+  NotebookEditor,
+  OpenUntitledTextDocumentOptions,
   QuickPickOptions,
+  Range,
+  RunMode,
+  Selection,
   TextDocument,
+  TextDocumentChangeEvent,
+  TextEditor,
   TextEditorSelectionChangeEvent,
   TextEditorVisibleRangesChangeEvent,
+  WorkspaceFolder,
 } from "@cursorless/common";
+import { nodeGetRunMode } from "@cursorless/node-common";
 import { pull } from "lodash";
 import type { Buffer, NeovimClient, Window } from "neovim";
+import path from "path";
 import { v4 as uuid } from "uuid";
+import { URI } from "vscode-uri";
 import { NeovimCapabilities } from "./NeovimCapabilities";
 import NeovimClipboard from "./NeovimClipboard";
 import NeovimConfiguration from "./NeovimConfiguration";
 import NeovimKeyValueStore from "./NeovimKeyValueStore";
 import NeovimMessages from "./NeovimMessages";
 import { NeovimTextEditorImpl } from "./NeovimTextEditorImpl";
-import path from "path";
-import { URI } from "vscode-uri";
-import { nodeGetRunMode } from "@cursorless/node-common";
 
+import { getNeovimRegistry } from "@cursorless/neovim-registry";
 import {
   bufferGetSelections,
   getCursorlessNvimPath,
@@ -43,7 +43,6 @@ import {
   neovimOnDidOpenTextDocument,
 } from "./NeovimEvents";
 import { NeovimTextDocumentImpl } from "./NeovimTextDocumentImpl";
-import { getNeovimRegistry } from "@cursorless/neovim-registry";
 
 export class NeovimIDE implements IDE {
   readonly configuration: NeovimConfiguration;
@@ -159,6 +158,10 @@ export class NeovimIDE implements IDE {
   get visibleTextEditors(): NeovimTextEditorImpl[] {
     return Array.from(this.editorMap.values());
     // throw Error("visibleTextEditors Not implemented");
+  }
+
+  get visibleNotebookEditors(): NotebookEditor[] {
+    return [];
   }
 
   public getEditableTextEditor(editor: TextEditor): EditableTextEditor {

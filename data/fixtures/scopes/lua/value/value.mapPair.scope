@@ -1,0 +1,39 @@
+{ aaa = 1, bbb = 2 }
+---
+
+[#1 Content] = 0:8-0:9
+          >-<
+0| { aaa = 1, bbb = 2 }
+
+[#1 Removal] = 0:5-0:9
+       >----<
+0| { aaa = 1, bbb = 2 }
+
+[#1 Leading delimiter] = 0:5-0:8
+       >---<
+0| { aaa = 1, bbb = 2 }
+
+[#1 Domain] = 0:2-0:9
+    >-------<
+0| { aaa = 1, bbb = 2 }
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 0:17-0:18
+                   >-<
+0| { aaa = 1, bbb = 2 }
+
+[#2 Removal] = 0:14-0:18
+                >----<
+0| { aaa = 1, bbb = 2 }
+
+[#2 Leading delimiter] = 0:14-0:17
+                >---<
+0| { aaa = 1, bbb = 2 }
+
+[#2 Domain] = 0:11-0:18
+             >-------<
+0| { aaa = 1, bbb = 2 }
+
+[#2 Insertion delimiter] = " "

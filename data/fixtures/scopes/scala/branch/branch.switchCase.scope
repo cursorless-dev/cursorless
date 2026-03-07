@@ -1,0 +1,21 @@
+foo match {
+    case 0 => 0
+}
+---
+
+[Content] =
+[Domain] = 1:4-1:15
+      >-----------<
+1|     case 0 => 0
+
+[Removal] = 1:0-2:0
+  >---------------
+1|     case 0 => 0
+2| }
+   <
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     case 0 => 0
+
+[Insertion delimiter] = "\n"

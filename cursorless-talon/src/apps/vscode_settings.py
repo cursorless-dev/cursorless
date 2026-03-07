@@ -1,5 +1,4 @@
 import os
-import traceback
 from pathlib import Path
 from typing import Any
 
@@ -61,12 +60,16 @@ class Actions:
             return actions.user.vscode_get_setting(key, default_value), False
         except Exception:
             print(fallback_message)
-            traceback.print_exc()
             return fallback_value, True
 
 
 def pick_path(paths: list[Path]) -> Path:
     existing_paths = [path for path in paths if path.exists()]
+    if not existing_paths:
+        paths_str = ", ".join(str(path) for path in paths)
+        raise FileNotFoundError(
+            f"Couldn't find VSCode's settings JSON. Tried these paths: {paths_str}"
+        )
     return max(existing_paths, key=lambda path: path.stat().st_mtime)
 
 
@@ -94,6 +97,7 @@ class LinuxUserActions:
                 xdg_config_home / "Code/User/settings.json",
                 xdg_config_home / "VSCodium/User/settings.json",
                 xdg_config_home / "Code - OSS/User/settings.json",
+                xdg_config_home / "Cursor/User/settings.json",
                 flatpak_apps / "com.visualstudio.code/config/Code/User/settings.json",
                 flatpak_apps / "com.vscodium.codium/config/VSCodium/User/settings.json",
                 flatpak_apps

@@ -1,6 +1,6 @@
 languageId: python
 command:
-  version: 6
+  version: 7
   spokenForm: change every class
   action:
     name: clearAndSetSelection
@@ -31,8 +31,8 @@ initialState:
             def fff():
                 pass
   selections:
-    - anchor: {line: 10, character: 16}
-      active: {line: 10, character: 16}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
   marks: {}
 finalState:
   documentContents: |+

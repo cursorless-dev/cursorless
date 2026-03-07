@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  version: 6
+  version: 7
   spokenForm: chuck second char fine past third char whale
   action:
     name: remove

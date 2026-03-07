@@ -1,12 +1,12 @@
-import type { SimpleSurroundingPairName } from "@cursorless/common";
-import {
-  isString,
-  type ComplexSurroundingPairName,
-  type SurroundingPairName,
+import type {
+  ComplexSurroundingPairName,
+  SimpleSurroundingPairName,
+  SurroundingPairName,
 } from "@cursorless/common";
+import { isString } from "@cursorless/common";
 import { concat, uniq } from "lodash-es";
 import { complexDelimiterMap, getSimpleDelimiterMap } from "./delimiterMaps";
-import type { IndividualDelimiter } from "./types";
+import { DelimiterSide, type IndividualDelimiter } from "./types";
 
 /**
  * Given a list of delimiters, returns a list where each element corresponds to
@@ -21,7 +21,7 @@ import type { IndividualDelimiter } from "./types";
 export function getIndividualDelimiters(
   delimiter: SurroundingPairName,
   languageId: string,
-) {
+): IndividualDelimiter[] {
   const delimiters = complexDelimiterMap[
     delimiter as ComplexSurroundingPairName
   ] ?? [delimiter];
@@ -36,7 +36,7 @@ function getSimpleIndividualDelimiters(
   return delimiters.flatMap((delimiterName) => {
     const [leftDelimiter, rightDelimiter, options] =
       delimiterToText[delimiterName];
-    const { isSingleLine = false, isUnknownSide = false } = options ?? {};
+    const { isSingleLine = false } = options ?? {};
 
     // Allow for the fact that a delimiter might have multiple ways to indicate
     // its opening / closing
@@ -54,18 +54,15 @@ function getSimpleIndividualDelimiters(
       const isRight = rightDelimiters.includes(text);
 
       const side = (() => {
-        if (isUnknownSide) {
-          return "unknown";
-        }
         if (isLeft && !isRight) {
-          return "left";
+          return DelimiterSide.left;
         }
         if (!isLeft && isRight) {
-          return "right";
+          return DelimiterSide.right;
         }
         // If delimiter text is the same for left and right, we say its side
         // is "unknown", so must be determined from context.
-        return "unknown";
+        return DelimiterSide.unknown;
       })();
 
       return {

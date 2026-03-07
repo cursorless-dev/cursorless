@@ -1,5 +1,6 @@
 ---
 slug: 2022-year-in-review
+sidebar_position: -1
 ---
 
 # 2022 Year in Review

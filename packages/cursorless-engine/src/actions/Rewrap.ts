@@ -1,7 +1,7 @@
 import { FlashStyle } from "@cursorless/common";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import { getContainingSurroundingPairIfNoBoundaryStage } from "../processTargets/modifiers/InteriorStage";
+import { getContainingSurroundingPairIfNoBoundaryStage } from "../processTargets/modifiers/BoundaryStage";
 import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { ide } from "../singletons/ide.singleton";
 import type { Target } from "../typings/target.types";

@@ -6,7 +6,7 @@
  * Based on https://stackoverflow.com/a/54523103
  */
 export class CompositeKeyMap<K, V> {
-  private map: Record<string, V> = {};
+  private map = new Map<string, V>();
 
   /**
    *
@@ -19,25 +19,25 @@ export class CompositeKeyMap<K, V> {
   }
 
   set(key: K, item: V): this {
-    this.map[this.hash(key)] = item;
+    this.map.set(this.hash(key), item);
     return this;
   }
 
   has(key: K): boolean {
-    return this.hash(key) in this.map;
+    return this.map.has(this.hash(key));
   }
 
   get(key: K): V | undefined {
-    return this.map[this.hash(key)];
+    return this.map.get(this.hash(key));
   }
 
   delete(key: K): this {
-    delete this.map[this.hash(key)];
+    this.map.delete(this.hash(key));
     return this;
   }
 
   clear(): this {
-    this.map = {};
+    this.map.clear();
     return this;
   }
 }

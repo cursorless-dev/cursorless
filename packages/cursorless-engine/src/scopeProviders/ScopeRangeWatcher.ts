@@ -138,14 +138,14 @@ export class ScopeRangeWatcher {
   }
 
   private onChange() {
-    this.listeners.forEach((listener) => listener());
+    this.listeners.slice().forEach((listener) => listener());
   }
 
   dispose(): void {
     this.disposables.forEach(({ dispose }) => {
       try {
         dispose();
-      } catch (e) {
+      } catch (_e) {
         // do nothing; some of the VSCode disposables misbehave, and we don't
         // want that to prevent us from disposing the rest of the disposables
       }

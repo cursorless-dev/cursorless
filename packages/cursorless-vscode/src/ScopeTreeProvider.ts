@@ -2,15 +2,24 @@ import type {
   CursorlessCommandId,
   ScopeProvider,
   ScopeSupportInfo,
+  ScopeType,
   ScopeTypeInfo,
+  Selection,
+  TextEditor,
 } from "@cursorless/common";
 import {
   CURSORLESS_SCOPE_TREE_VIEW_ID,
+  DOCS_URL,
   ScopeSupport,
   disposableFrom,
+  serializeScopeType,
+  uriEncodeHashId,
 } from "@cursorless/common";
-import type { CustomSpokenFormGenerator } from "@cursorless/cursorless-engine";
-import type { VscodeApi } from "@cursorless/vscode-common";
+import {
+  ide,
+  type CustomSpokenFormGenerator,
+} from "@cursorless/cursorless-engine";
+import { type VscodeApi } from "@cursorless/vscode-common";
 import { isEqual } from "lodash-es";
 import type {
   Disposable,
@@ -76,7 +85,7 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
     }
   }
 
-  onDidChangeVisible(e: TreeViewVisibilityChangeEvent) {
+  private onDidChangeVisible(e: TreeViewVisibilityChangeEvent) {
     if (e.visible) {
       if (this.visibleDisposable != null) {
         return;
@@ -100,6 +109,9 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
         this._onDidChangeTreeData.fire();
       }),
       this.scopeVisualizer.onDidChangeScopeType(() => {
+        this._onDidChangeTreeData.fire();
+      }),
+      this.vscodeApi.window.onDidChangeTextEditorSelection(() => {
         this._onDidChangeTreeData.fire();
       }),
     );
@@ -144,9 +156,7 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
 
     if (result === HOW_BUTTON_TEXT) {
       await this.vscodeApi.env.openExternal(
-        URI.parse(
-          "https://www.cursorless.org/docs/user/updating/#updating-the-talon-side",
-        ),
+        URI.parse(`${DOCS_URL}/user/updating/#updating-the-talon-side`),
       );
     } else if (result === DONT_SHOW_AGAIN_BUTTON_TEXT) {
       await this.context.globalState.update(
@@ -156,7 +166,23 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
     }
   }
 
-  getScopeTypesWithSupport(scopeSupport: ScopeSupport): ScopeSupportTreeItem[] {
+  private getScopeTypesWithSupport(
+    scopeSupport: ScopeSupport,
+  ): ScopeSupportTreeItem[] {
+    const getContainmentIcon = (() => {
+      if (scopeSupport !== ScopeSupport.supportedAndPresentInEditor) {
+        return null;
+      }
+      const editor = ide().activeTextEditor;
+      if (editor == null || editor.selections.length !== 1) {
+        return null;
+      }
+      const selection = editor.selections[0];
+      return (scopeType: ScopeType) => {
+        return this.getContainmentIcon(editor, selection, scopeType);
+      };
+    })();
+
     return this.supportLevels
       .filter(
         (supportLevel) =>
@@ -174,6 +200,7 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
           new ScopeSupportTreeItem(
             supportLevel,
             isEqual(supportLevel.scopeType, this.scopeVisualizer.scopeType),
+            getContainmentIcon?.(supportLevel.scopeType),
           ),
       )
       .sort((a, b) => {
@@ -197,6 +224,33 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
       });
   }
 
+  private getContainmentIcon(
+    editor: TextEditor,
+    selection: Selection,
+    scopeType: ScopeType,
+  ): string | undefined {
+    const scopes = this.scopeProvider.provideScopeRangesForRange(
+      editor,
+      scopeType,
+      selection,
+    );
+
+    for (const scope of scopes) {
+      for (const target of scope.targets) {
+        // Scope target exactly matches selection
+        if (target.contentRange.isRangeEqual(selection)) {
+          return "🎯";
+        }
+        // Scope target contains selection
+        if (target.contentRange.contains(selection)) {
+          return "📦";
+        }
+      }
+    }
+
+    return undefined;
+  }
+
   dispose() {
     this.visibleDisposable?.dispose();
   }
@@ -206,13 +260,13 @@ function getSupportCategories(): SupportCategoryTreeItem[] {
   return [
     new SupportCategoryTreeItem(ScopeSupport.supportedAndPresentInEditor),
     new SupportCategoryTreeItem(ScopeSupport.supportedButNotPresentInEditor),
-    new SupportCategoryTreeItem(ScopeSupport.supportedLegacy),
     new SupportCategoryTreeItem(ScopeSupport.unsupported),
   ];
 }
 
 class ScopeSupportTreeItem extends TreeItem {
-  public readonly label!: TreeItemLabel;
+  declare public readonly label: TreeItemLabel;
+  public url: string | undefined;
 
   /**
    * @param scopeTypeInfo The scope type info
@@ -222,6 +276,7 @@ class ScopeSupportTreeItem extends TreeItem {
   constructor(
     public readonly scopeTypeInfo: ScopeTypeInfo,
     isVisualized: boolean,
+    containmentIcon: string | undefined,
   ) {
     let label: string;
     let tooltip: string;
@@ -234,8 +289,8 @@ class ScopeSupportTreeItem extends TreeItem {
     } else {
       label = "-";
       tooltip = scopeTypeInfo.spokenForm.requiresTalonUpdate
-        ? "Requires Talon update; see [update instructions](https://www.cursorless.org/docs/user/updating/#updating-the-talon-side)"
-        : "Spoken form disabled; see [customization docs](https://www.cursorless.org/docs/user/customization/#talon-side-settings)";
+        ? `Requires Talon update; see [update instructions](${DOCS_URL}/user/updating/#updating-the-talon-side)`
+        : `Spoken form disabled; see [customization docs](${DOCS_URL}/user/customization/#talon-side-settings)`;
     }
 
     super(
@@ -247,7 +302,10 @@ class ScopeSupportTreeItem extends TreeItem {
     );
 
     this.tooltip = tooltip == null ? tooltip : new MarkdownString(tooltip);
-    this.description = scopeTypeInfo.humanReadableName;
+    this.description =
+      containmentIcon != null
+        ? `${containmentIcon} ${scopeTypeInfo.humanReadableName}`
+        : scopeTypeInfo.humanReadableName;
 
     this.command = isVisualized
       ? {
@@ -268,21 +326,31 @@ class ScopeSupportTreeItem extends TreeItem {
     if (scopeTypeInfo.isLanguageSpecific) {
       const languageId = window.activeTextEditor?.document.languageId;
       if (languageId != null) {
-        const fileExtension = getLanguageExtensionSampleFromLanguageId(
-          window.activeTextEditor!.document.languageId,
-        );
+        const fileExtension =
+          getLanguageExtensionSampleFromLanguageId(languageId);
         if (fileExtension != null) {
           this.resourceUri = URI.parse(
             "cursorless-dummy://dummy/dummy" + fileExtension,
           );
         }
+        this.setUrl(languageId);
       }
 
       if (this.resourceUri == null) {
         // Fall back to a generic icon
         this.iconPath = new ThemeIcon("code");
       }
+    } else {
+      this.setUrl("plaintext");
     }
+  }
+
+  private setUrl(languageId: string) {
+    const id = uriEncodeHashId(
+      serializeScopeType(this.scopeTypeInfo.scopeType),
+    );
+    this.url = `${DOCS_URL}/user/languages/${languageId}#${id}`;
+    this.contextValue = "scopeVisualizerTreeItem";
   }
 }
 
@@ -300,11 +368,6 @@ class SupportCategoryTreeItem extends TreeItem {
       case ScopeSupport.supportedButNotPresentInEditor:
         label = "Supported";
         description = "but not present in active editor";
-        collapsibleState = TreeItemCollapsibleState.Expanded;
-        break;
-      case ScopeSupport.supportedLegacy:
-        label = "Legacy";
-        description = "may or may not be present in active editor";
         collapsibleState = TreeItemCollapsibleState.Expanded;
         break;
       case ScopeSupport.unsupported:

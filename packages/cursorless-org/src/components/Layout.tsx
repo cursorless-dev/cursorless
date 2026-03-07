@@ -8,22 +8,22 @@ import Link from "next/link";
 
 const components: MDXComponents = {
   h1: ({ children }) => (
-    <h1 className="mt-7 text-center text-[1.88em] font-semibold uppercase leading-tight tracking-[0.14em]">
+    <h1 className="mt-7 text-center text-[1.88em] leading-tight font-semibold tracking-[0.14em] uppercase">
       {children}
     </h1>
   ),
   h2: ({ children }) => (
-    <h2 className="mb-4 mt-8 text-[1.5em] font-semibold uppercase leading-[1.2] tracking-[0.08em] sm:mb-8">
+    <h2 className="mt-8 mb-4 text-[1.5em] leading-[1.2] font-semibold tracking-[0.08em] uppercase sm:mb-8">
       {children}
     </h2>
   ),
   h3: ({ children }) => (
-    <h3 className="mb-3 mt-6 text-[1.25rem] font-medium uppercase leading-tight tracking-[0.08em] sm:mb-6">
+    <h3 className="mt-6 mb-3 text-[1.25rem] leading-tight font-medium tracking-[0.08em] uppercase sm:mb-6">
       {children}
     </h3>
   ),
   h4: ({ children }) => (
-    <h4 className="mb-3 mt-11 text-[1.125rem] font-medium uppercase tracking-[0.08em] sm:mb-6">
+    <h4 className="mt-11 mb-3 text-[1.125rem] font-medium tracking-[0.08em] uppercase sm:mb-6">
       {children}
     </h4>
   ),
@@ -45,14 +45,14 @@ const components: MDXComponents = {
     // FIXME: Figure out how to use next/image with MDX
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      className="mx-auto my-12 rounded-sm border border-teal-400 p-3 sm:p-6"
+      className="mx-auto my-12 rounded-xs border border-teal-400 p-3 sm:p-6"
       src={src}
       alt={alt}
       style={{ maxWidth: "100%" }}
     />
   ),
   CalloutBox: ({ children }) => (
-    <div className="my-12 rounded-sm border border-teal-400 px-7 pb-6">
+    <div className="my-12 rounded-xs border border-teal-400 px-7 pb-6">
       {children}
     </div>
   ),
@@ -60,7 +60,7 @@ const components: MDXComponents = {
     <div className="mt-8 flex flex-col gap-5">{children}</div>
   ),
   Testimonial: ({ children, src, name, title, company }) => (
-    <div className="flex flex-col items-center rounded-sm border border-teal-400 bg-teal-100 p-3 text-teal-700 sm:p-6 dark:bg-teal-900 dark:text-teal-300">
+    <div className="flex flex-col items-center rounded-xs border border-teal-400 bg-teal-100 p-3 text-teal-700 sm:p-6 dark:bg-teal-900 dark:text-teal-300">
       <blockquote className="mb-5 flex flex-col gap-4 sm:mb-6">
         {children}
       </blockquote>
@@ -71,8 +71,8 @@ const components: MDXComponents = {
           src={src}
           alt={name}
         />
-        <div className="flex flex-col gap-[0.375rem]">
-          <div className="text-[1.2em] font-semibold leading-none text-teal-800 dark:text-teal-200">
+        <div className="flex flex-col gap-1.5">
+          <div className="text-[1.2em] leading-none font-semibold text-teal-800 dark:text-teal-200">
             {name}
           </div>
           <div className="text-[0.9em] leading-none">{title}</div>
@@ -82,7 +82,7 @@ const components: MDXComponents = {
     </div>
   ),
   Tiers: ({ children }) => (
-    <div className="my-8 text-[1.2em] font-medium tracking-[0.1em]">
+    <div className="my-8 text-[1.2em] font-medium tracking-widest">
       {children}
     </div>
   ),
@@ -118,7 +118,7 @@ export function Layout({ title, description, relativeUrl, children }: Props) {
         />
       </Head>
       <MDXProvider components={components}>
-        <main className="text-salmon-900 dark:text-salmon-100 px-4 pb-8 pt-8 font-mono font-normal leading-6 tracking-[0.08em] sm:pt-16 lg:pt-20 sm:dark:font-light">
+        <main className="text-salmon-900 dark:text-salmon-100 px-4 pt-8 pb-8 font-mono leading-6 font-normal tracking-[0.08em] sm:pt-16 lg:pt-20 sm:dark:font-light">
           <div className="mx-auto max-w-prose">
             <Link href="/">
               <Logo

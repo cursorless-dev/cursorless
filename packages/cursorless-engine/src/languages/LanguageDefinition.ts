@@ -1,18 +1,15 @@
 import type {
+  IDE,
   RawTreeSitterQueryProvider,
   ScopeType,
   SimpleScopeType,
-  SimpleScopeTypeType,
+  TextDocument,
   TreeSitter,
 } from "@cursorless/common";
-import {
-  matchAll,
-  showError,
-  type IDE,
-  type TextDocument,
-} from "@cursorless/common";
+import { matchAll, showError } from "@cursorless/common";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
 import { TreeSitterQuery } from "./TreeSitterQuery";
+import type { ScopeCaptureName } from "./TreeSitterQuery/captureNames";
 import type { QueryCapture } from "./TreeSitterQuery/QueryCapture";
 import { validateQueryCaptures } from "./TreeSitterQuery/validateQueryCaptures";
 
@@ -59,9 +56,14 @@ export class LanguageDefinition {
       return undefined;
     }
 
-    const rawQuery = treeSitter
-      .getLanguage(languageId)!
-      .query(rawLanguageQueryString);
+    const rawQuery = treeSitter.createQuery(languageId, rawLanguageQueryString);
+
+    if (rawQuery == null) {
+      throw Error(
+        `Could not create Tree sitter query for language ${languageId}`,
+      );
+    }
+
     const query = TreeSitterQuery.create(languageId, treeSitter, rawQuery);
 
     return new LanguageDefinition(query);
@@ -70,11 +72,10 @@ export class LanguageDefinition {
   /**
    * @param scopeType The scope type for which to get a scope handler
    * @returns A scope handler for the given scope type and language id, or
-   * undefined if the given scope type / language id combination is still using
-   * legacy pathways
+   * undefined if the given scope type is not supported by this language.
    */
   getScopeHandler(scopeType: ScopeType) {
-    if (!this.query.captureNames.includes(scopeType.type)) {
+    if (!this.query.hasCapture(scopeType.type)) {
       return undefined;
     }
 
@@ -82,21 +83,27 @@ export class LanguageDefinition {
   }
 
   /**
-   * This is a low-level function that just returns a list of captures of the given
-   * capture name in the document. We use this in our surrounding pair code.
+   * This is a low-level function that just returns a map of specified captures in the
+   * document. We use this in our surrounding pair code.
    *
    * @param document The document to search
-   * @param captureName The name of a capture to search for
-   * @returns A list of captures of the given capture name in the document
+   * @param scopeTypes Which scope types to include
+   * @returns A map of captures in the document
    */
-  getCaptures(
+  getCapturesMap<T extends ScopeCaptureName>(
     document: TextDocument,
-    captureName: SimpleScopeTypeType,
-  ): QueryCapture[] {
-    return this.query
-      .matches(document)
-      .map((match) => match.captures.find(({ name }) => name === captureName))
-      .filter((capture) => capture != null);
+    scopeTypes: readonly T[],
+  ) {
+    const matches = this.query.matchesForScopeTypes(document, scopeTypes);
+    const result: Partial<Record<T, QueryCapture[]>> = {};
+
+    for (const match of matches) {
+      for (const capture of match.captures) {
+        (result[capture.name as T] ??= []).push(capture);
+      }
+    }
+
+    return result;
   }
 }
 

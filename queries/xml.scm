@@ -35,7 +35,12 @@
 
 ;;!! <aaa id="me">
 ;;!          ^^^^
-(AttValue) @string @textFragment
+(AttValue
+  .
+  _ @textFragment.start.endOf
+  _ @textFragment.end.startOf
+  .
+) @string
 
 ;;!! <aaa>text</aaa>
 ;;!       ^^^^
@@ -45,8 +50,8 @@
 ;;!  ^^^^^^^^^^^^^^^
 ;;!       ^^^^
 (element
-  (STag) @xmlElement.interior.start.endOf
-  (ETag) @xmlElement.interior.end.startOf
+  (STag) @interior.start.endOf
+  (ETag) @interior.end.startOf
 ) @xmlElement
 
 ;;!! <aaa>text</aaa>

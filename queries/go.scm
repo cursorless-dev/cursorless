@@ -4,32 +4,79 @@
 ;;  curl https://raw.githubusercontent.com/tree-sitter/tree-sitter-go/master/src/node-types.json | jq '[.[] | select(.type == "_statement" or .type == "_simple_statement") | .subtypes[].type]' | grep -v '\"_' | sed -n '1d;p' | sed '$d' | sort
 ;; and then cleaned up.
 [
-  (assignment_statement)
-  ;; omit block for now, as it is not clear that it matches Cursorless user expectations
-  ;; (block)
+  (package_clause)
+  (import_declaration)
   (break_statement)
   (const_declaration)
   (continue_statement)
-  (dec_statement)
   (defer_statement)
   (empty_statement)
-  (expression_statement)
   (expression_switch_statement)
   (fallthrough_statement)
   (for_statement)
   (go_statement)
   (goto_statement)
-  (if_statement)
-  (inc_statement)
   (labeled_statement)
   (return_statement)
   (select_statement)
   (send_statement)
-  (short_var_declaration)
   (type_declaration)
   (type_switch_statement)
-  (var_declaration)
+
+  ;; Disabled on purpose. We have a better definition of this below.
+  ;; (if_statement)
+  ;; (expression_statement)
+
+  ;; omit block for now, as it is not clear that it matches Cursorless user expectations
+  ;; (block)
 ] @statement
+
+;; Exclude statements that are part of for clauses
+(
+  [
+    (assignment_statement)
+    (short_var_declaration)
+    (var_declaration)
+    (inc_statement)
+    (dec_statement)
+  ] @statement
+  (#not-parent-type? @statement for_clause)
+)
+
+;;!! foo();
+;;!! ++foo;
+(_
+  (expression_statement) @statement.start
+  .
+  ";"? @statement.end
+)
+
+(
+  (source_file) @statement.iteration @class.iteration @namedFunction.iteration
+  (#document-range! @statement.iteration @class.iteration @namedFunction.iteration)
+)
+(
+  (source_file) @name.iteration @value.iteration @type.iteration
+  (#document-range! @name.iteration @value.iteration @type.iteration)
+)
+
+(block
+  "{" @class.iteration.start.endOf @statement.iteration.start.endOf
+  "}" @class.iteration.end.startOf @statement.iteration.end.startOf
+)
+(block
+  "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+  "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
+)
+
+;;!! { }
+;;!   ^
+(_
+  .
+  "{" @interior.start.endOf
+  "}" @interior.end.startOf
+  .
+)
 
 (
   (interpreted_string_literal) @string @textFragment
@@ -41,155 +88,76 @@
   (#character-range! @textFragment 1 -1)
 )
 
+;; // Hello world
 (comment) @comment @textFragment
 
-;; What should map and list refer to in Go programs?
-;;
-;; The obvious answer is that map should refer to map and struct composite literals,
-;; and that list should refer to slice and array composite literals.
-;;
-;; There are two problems with this answer.
-;;
-;;   * The type of a composite literal is a semantic, not a syntactic property of a program.
-;;       - What is the type of T{1: 2}? It could be array, map, or slice.
-;;       - What about T{a: 1}? It could be map or struct.
-;;       - What about T{1, 2}? It could be struct, array, or slice.
-;;     Cursorless only has syntactic information available to it.
-;;
-;;   * The user might not know the type either. With a named type, the type definition might be far away.
-;;     Or it might just be offscreen. Either way, the user needs to be able to make a decision about
-;;     what scope to use using only locally available, syntactic information.
-;;     Note that this also means that has-a predicates work better than has-no predicates.
-;;     The user can locally confirm that there is a keyed element.
-;;     She cannot confirm locally that there is no keyed element; it might just not be visible.
-;;
-;; Combining all these constraints suggests the following simple rules:
-;;
-;;   * If there is a keyed element present, then it is a map.
-;;   * If there is a non-keyed element present, then it is a list.
-;;   * If there are both or neither, then it is both a map and a list.
-;;
-;; Conveniently, this is also simple to implement.
-;;
-;; This guarantees that a user always knows how to refer to any composite literal.
-;; There are cases in which being overgenerous in matching is not ideal,
-;; but they are rarer, so let's optimize for the common case.
-;; Mixed keyed and non-keyed elements are also rare in practice.
-;; The main ambiguity is with {}, but there's little we can do about that.
-;;
-;; Go users also expect that the map and list scopes will include the type definition,
-;; as well as any & before the type. (Strictly speaking it is not part of the literal,
-;; but that's not how most humans think about it.)
-;;
-;; If you are considering changing the map and list scopes, take a look at the examples in
-;; data/playground/go/maps_and_lists.go, which cover a fairly wide variety of cases.
-
-;; maps
-
-;; &T{a: 1}
-(unary_expression
-  operator: "&"
-  (composite_literal
-    body: (literal_value
-      (keyed_element)
+;;!! type Foo struct {}
+(type_declaration
+  (type_spec
+    name: (_) @name
+    type: (struct_type
+      (field_declaration_list
+        "{" @statement.iteration.start.endOf @name.iteration.start.endOf @type.iteration.start.endOf
+        "}" @statement.iteration.end.startOf @name.iteration.end.startOf @type.iteration.end.startOf
+      )
     )
   )
-) @map
+) @class @type @name.domain
 
-;; T{a: 1}
-(
-  (composite_literal
-    body: (literal_value
-      (keyed_element)
-    )
-  ) @map
-  (#not-parent-type? @map unary_expression)
+(struct_type
+  (field_declaration_list
+    "{" @namedFunction.iteration.start.endOf
+    "}" @namedFunction.iteration.end.startOf
+  )
 )
 
-;; {a: 1}
-(
-  (literal_value
+;;!! type Foo interface {}
+(type_declaration
+  (type_spec
+    name: (_) @name
+    type: (interface_type
+      "{" @statement.iteration.start.endOf @name.iteration.start.endOf
+      "}" @statement.iteration.end.startOf @name.iteration.end.startOf
+    )
+  )
+) @type @name.domain
+
+;;!! type Foo interface { bar() }
+(method_spec
+  name: (_) @name
+) @statement @name.domain
+
+;;!! type Foo struct { bar int }
+;;!! type Foo interface { bar() }
+(field_declaration
+  name: (_) @name
+  type: (_) @type
+) @statement @_.domain
+
+;;!! T{a: 1}
+;;!   ^^^^^^
+(composite_literal
+  body: (literal_value
     (keyed_element)
   ) @map
-  (#not-parent-type? @map composite_literal)
 )
 
-;; lists
-
-;; &T{1}
-(unary_expression
-  operator: "&"
-  (composite_literal
-    body: (literal_value
-      (literal_element)
-    )
-  )
-) @list
-
-;; T{1}
-(
-  (composite_literal
-    body: (literal_value
-      (literal_element)
-    )
-  ) @list
-  (#not-parent-type? @list unary_expression)
-)
-
-;; {1}
-(
-  (literal_value
+;;!! T{1, 2}
+;;!   ^^^^^^
+(composite_literal
+  body: (literal_value
     (literal_element)
   ) @list
-  (#not-parent-type? @list composite_literal)
 )
 
-;; empty composite literals
-
-;; &T{}
-(unary_expression
-  operator: "&"
-  (composite_literal
-    body: (literal_value
-      .
-      "{"
-      .
-      (comment)*
-      .
-      "}"
-      .
-    )
-  )
-) @list @map
-
-;; T{}
-(
-  (composite_literal
-    body: (literal_value
-      .
-      "{"
-      .
-      (comment)*
-      .
-      "}"
-      .
-    )
-  ) @list @map
-  (#not-parent-type? @list unary_expression)
-)
-
-;; {}
-(
-  (literal_value
-    .
+;;!! T{}
+;;!   ^^
+(composite_literal
+  body: (literal_value
     "{"
     .
-    (comment)*
-    .
     "}"
-    .
   ) @list @map
-  (#not-parent-type? @list composite_literal)
 )
 
 ;; Functions
@@ -199,90 +167,143 @@
 ;; func foo[]() {}
 ;; func foo()
 (function_declaration
-  name: (_) @functionName
-  body: (block
-    .
-    "{" @namedFunction.interior.start.endOf
-    "}" @namedFunction.interior.end.startOf
-    .
-  )?
-) @namedFunction @functionName.domain
+  name: (_) @name
+) @namedFunction @statement @name.domain
 
 ;; method declaration
 ;; func (X) foo() {}
 (method_declaration
-  name: (_) @functionName
-  body: (block
-    .
-    "{" @namedFunction.interior.start.endOf
-    "}" @namedFunction.interior.end.startOf
-    .
-  )
-) @namedFunction @functionName.domain
+  name: (_) @name
+) @namedFunction @statement @name.domain
 
-;; func literal
+;;!! func() int {}
+;;!  ^^^^^^^^^^^^^
+;;!         ^^^
 (func_literal
-  body: (block
+  result: (_)? @type
+) @anonymousFunction @type.domain
+
+;;!! const foo = func() {}
+(const_declaration
+  (const_spec
+    value: (expression_list
+      .
+      (func_literal)
+      .
+    )
+  )
+) @namedFunction
+
+;;!! foo := func() {}
+(short_var_declaration
+  right: (expression_list
     .
-    "{" @anonymousFunction.interior.start.endOf @namedFunction.interior.start.endOf
-    "}" @anonymousFunction.interior.end.startOf @namedFunction.interior.end.startOf
+    (func_literal)
     .
   )
-) @anonymousFunction @namedFunction
+) @namedFunction
 
-;; switch-based branch
+;;!! foo = func() {}
+(assignment_statement
+  right: (expression_list
+    .
+    (func_literal)
+    .
+  )
+) @namedFunction
 
 (
   [
+    ;;!! default:
     (default_case)
-    (expression_case)
-    (type_case)
-  ] @branch
-  (#trim-end! @branch)
+
+    ;;!! case 0:
+    (expression_case
+      value: (_) @condition
+    )
+
+    ;;!! case int:
+    (type_case
+      type: (_) @condition
+    )
+  ] @branch @condition.domain
+  (#trim-end! @branch @condition.domain)
   (#insertion-delimiter! @branch "\n")
 )
 
-[
-  (type_switch_statement)
-  (expression_switch_statement)
-] @branch.iteration
-
-;; if-else-based branch
-
-;; first if in an if-else chain
-(
-  (if_statement
-    consequence: (block) @branch.end.endOf
-  ) @branch.start.startOf
-  (#not-parent-type? @branch.start.startOf if_statement)
-  (#insertion-delimiter! @branch.start.startOf " ")
+;;!! case 0: 0
+;;!!        ^^
+;;!! default: 0
+;;!!         ^^
+(_
+  [
+    "case"
+    "default"
+  ]
+  ":" @interior.start.endOf
+  .
+  (_) @interior.end.endOf @_dummy
+  (_)? @interior.end.endOf
+  .
+  (#not-type? @_dummy block)
 )
 
-;; internal if in an if-else chain
+;;!! switch foo {}
+(expression_switch_statement
+  value: (_) @value
+  "{" @interior.start.endOf @branch.iteration.start.endOf @condition.iteration.start.endOf
+  "}" @interior.end.startOf @branch.iteration.end.startOf @condition.iteration.end.startOf
+) @value.domain
+
+;;!! switch v := x.(type) {}
+(type_switch_statement
+  "switch"
+  .
+  _ @value.start
+  _ @value.end
+  .
+  "{" @interior.start.endOf @branch.iteration.start.endOf @condition.iteration.start.endOf
+  "}" @interior.end.startOf @branch.iteration.end.startOf @condition.iteration.end.startOf
+) @value.domain
+
+;;!! if () {} else {}
+(
+  (if_statement) @ifStatement @statement @branch.iteration
+  (#not-parent-type? @ifStatement if_statement)
+)
+
+;;!! if () {}
+(
+  (if_statement
+    "if" @branch.start @branch.removal.start
+    condition: (_) @condition
+    consequence: (_) @branch.end @branch.removal.end
+    "else"? @branch.removal.end.startOf
+    alternative: (if_statement)? @branch.removal.end.startOf
+  ) @condition.domain
+  (#not-parent-type? @condition.domain if_statement)
+  (#insertion-delimiter! @branch.start " ")
+  (#shrink-to-match! @condition "^\\(?(?<keep>[^)]*)\\)?$")
+)
+
+;;!! else if () {}
 (if_statement
-  "else" @branch.start
+  "else" @branch.start @condition.domain.start
   alternative: (if_statement
-    consequence: (block) @branch.end
+    condition: (_) @condition
+    consequence: (_) @branch.end @condition.domain.end
   )
   (#insertion-delimiter! @branch.start " ")
+  (#shrink-to-match! @condition "^\\(?(?<keep>[^)]*)\\)?$")
 )
 
-;; final else branch in an if-else chain
-(
-  (if_statement
-    "else" @branch.start.startOf
-    alternative: (block)
-  ) @branch.end.endOf
-  (#insertion-delimiter! @branch.start.startOf " ")
-)
+;;!! else {}
 
-;; iteration scope is always the outermost if statement
-(
-  (if_statement) @branch.iteration
-  (#not-parent-type? @branch.iteration if_statement)
+(if_statement
+  "else" @branch.start
+  alternative: (block) @branch.end
+  (#insertion-delimiter! @branch.start " ")
 )
-
-(if_statement) @ifStatement
 
 [
   (call_expression)
@@ -292,51 +313,102 @@
 (call_expression
   function: (_) @functionCallee
 ) @_.domain
+
 (composite_literal
   type: (_) @functionCallee
-) @_.domain
-
-(keyed_element
-  .
-  (_) @collectionKey
-  .
-  (_) @value
 ) @_.domain
 
 (return_statement
   (expression_list) @value
 ) @_.domain
 
-(literal_value) @collectionKey.iteration @value.iteration
+;;!! map[string]int{"aaa": 1, "bbb": 2}
+;;!                 ^^^^^     ^^^^^
+;;!                        ^         ^
+(keyed_element
+  .
+  (_) @collectionKey @value.leading.endOf
+  .
+  (_) @value @collectionKey.trailing.startOf
+) @_.domain
+
+;;!! map[string]int{"aaa": 1, "bbb": 2}
+;;!                 ^^^^^^^^^^^^^^^^^^
+(literal_value
+  "{" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
+  "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+)
 
 [
   (pointer_type)
   (qualified_type)
-  (type_identifier)
 ] @type
+
+;;!! type Foo = Bar
+(type_declaration
+  (type_alias
+    name: (_) @name @value.leading.endOf
+    type: (_) @value @name.removal.end.startOf
+  )
+) @type @name.removal.start.startOf @_.domain
+
+;;!! var foo Bar[int, string]
+;;!              ^^^  ^^^^^^
+(generic_type
+  (type_arguments
+    (_) @type
+  )
+)
+
+;;!! var foo Bar[int, string]
+;;!              ^^^^^^^^^^^
+(generic_type
+  (type_arguments
+    "[" @type.iteration.start.endOf
+    "]" @type.iteration.end.startOf
+  )
+)
 
 (function_declaration
   result: (_) @type
 ) @_.domain
+
 (method_declaration
   result: (_) @type
 ) @_.domain
 
-;;!! if true {}
-(
-  (_
+;;!! for i := 0; i < size; i++ {}
+;;!              ^^^^^^^^
+(for_statement
+  (for_clause
     condition: (_) @condition
-  ) @_.domain
-  (#not-type? @condition parenthesized_expression)
+  )
+) @condition.domain
+
+;;!! for i, v := range values {}
+;;!      ^^^^
+;;!                    ^^^^^^
+(for_statement
+  (range_clause
+    left: (_) @name
+    right: (_) @value
+  )
+) @_.domain
+
+;;!! foo, bar := 1, 2
+;;!  ^^^  ^^^    ^  ^
+(
+  (expression_list
+    (_)? @collectionItem.leading.endOf
+    .
+    (_) @collectionItem
+    .
+    (_)? @collectionItem.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @collectionItem @_dummy ", " ",\n")
 )
 
-;;!! if (true) {}
-(
-  (_
-    condition: (parenthesized_expression) @condition
-  ) @_.domain
-  (#child-range! @condition 0 -1 true true)
-)
+(expression_list) @collectionItem.iteration
 
 ;;!! func add(x int, y int) int {}
 (
@@ -364,26 +436,116 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
-(parameter_list
-  "(" @argumentOrParameter.iteration.start.endOf
-  ")" @argumentOrParameter.iteration.end.startOf
-) @argumentOrParameter.iteration.domain
-(argument_list
-  "(" @argumentOrParameter.iteration.start.endOf
-  ")" @argumentOrParameter.iteration.end.startOf
-) @argumentOrParameter.iteration.domain
+;;!! func bar( ) {}
+;;!           ^
+(_
+  parameters: (parameter_list
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
-operator: [
-  "<-"
-  "<"
-  "<<"
-  "<<="
-  "<="
-  ">"
-  ">="
-  ">>"
-  ">>="
-] @disqualifyDelimiter
+(_
+  parameters: (parameter_list
+    "(" @name.iteration.start.endOf @type.iteration.start.endOf
+    ")" @name.iteration.end.startOf @type.iteration.end.startOf
+  )
+)
+
+;;!! foo( )
+;;!      ^
+(_
+  (argument_list
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
+) @argumentList.domain @argumentOrParameter.iteration.domain
+
+;;!! func foo(aaa int) {}
+(parameter_declaration
+  name: (_) @name
+  type: (_) @type
+) @_.domain
+
+;;!! var foo int = 0
+;;!      ^^^
+;;!          ^^^
+;;!               ^
+(var_declaration
+  (var_spec
+    name: (_) @name
+    type: (_) @type @value.leading.endOf @name.removal.end.endOf
+    value: (_)? @value @name.removal.end.startOf
+  )
+) @_.domain @name.removal.start.startOf
+
+;;!! var foo = 0
+;;!      ^^^
+;;!            ^
+(var_declaration
+  (var_spec
+    name: (_) @name @value.leading.endOf
+    !type
+    value: (_) @value @name.removal.end.startOf
+  )
+) @_.domain @name.removal.start.startOf
+
+;;!! const foo int = 0
+;;!        ^^^
+;;!            ^^^
+;;!                 ^
+(const_declaration
+  (const_spec
+    name: (_) @name
+    type: (_) @type @value.leading.endOf @name.removal.end.endOf
+    value: (_)? @value @name.removal.end.startOf
+  )
+) @_.domain @name.removal.start.startOf
+
+;;!! const foo = 0
+;;!        ^^^
+;;!              ^
+(const_declaration
+  (const_spec
+    name: (_) @name @value.leading.endOf
+    !type
+    value: (_) @value @name.removal.end.startOf
+  )
+) @_.domain @name.removal.start.startOf
+
+;;!! foo := 0
+;;!  ^^^
+;;!         ^
+(short_var_declaration
+  left: (_) @name @value.leading.endOf
+  right: (_) @value @name.removal.end.startOf
+) @_.domain @name.removal.start.startOf
+
+;;!! foo = 0
+;;!  ^^^
+;;!        ^
+(assignment_statement
+  left: (_) @name @value.leading.endOf
+  right: (_) @value @name.trailing.startOf
+) @_.domain
+
+(_
+  operator: [
+    "<-"
+    "<"
+    "<<"
+    "<<="
+    "<="
+    ">"
+    ">="
+    ">>"
+    ">>="
+  ] @disqualifyDelimiter
+)
 (send_statement
   "<-" @disqualifyDelimiter
 )

@@ -1,6 +1,6 @@
 languageId: rust
 command:
-  version: 6
+  version: 7
   spokenForm: chuck state
   action:
     name: remove
@@ -18,8 +18,7 @@ initialState:
       active: {line: 0, character: 10}
   marks: {}
 finalState:
-  documentContents: |+
-
+  documentContents: ""
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

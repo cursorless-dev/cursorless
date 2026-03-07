@@ -7,7 +7,6 @@ export type CursorlessConfiguration = {
   tokenHatSplittingMode: TokenHatSplittingMode;
   wordSeparators: string[];
   experimental: {
-    snippetsDir: string | undefined;
     hatStability: HatStability;
     keyboardTargetFollowsSelection: boolean;
   };
@@ -28,7 +27,6 @@ export const CONFIGURATION_DEFAULTS: CursorlessConfiguration = {
   wordSeparators: ["_"],
   decorationDebounceDelayMs: 50,
   experimental: {
-    snippetsDir: undefined,
     hatStability: HatStability.balanced,
     keyboardTargetFollowsSelection: false,
   },
@@ -40,7 +38,7 @@ export interface Configuration {
   /**
    * Returns a Cursorless configuration value.  Dots are accepted in
    * {@link path}, and are interpreted as child access, eg
-   * `experimental.snippetsDir`.
+   * `experimental.hatStability`.
    *
    * @param path A configuration key or path.  Dots are interpreted as child
    * access

@@ -1,0 +1,38 @@
+public class Foo {
+    @bar
+    public Foo() {}
+}
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-3:1
+  >------------------
+0| public class Foo {
+1|     @bar
+2|     public Foo() {}
+3| }
+   -<
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 1:4-2:19
+      >----
+1|     @bar
+2|     public Foo() {}
+   -------------------<
+
+[#2 Removal] = 1:0-3:0
+  >--------
+1|     @bar
+2|     public Foo() {}
+3| }
+   <
+
+[#2 Leading delimiter] = 1:0-1:4
+  >----<
+1|     @bar
+
+[#2 Insertion delimiter] = "\n"

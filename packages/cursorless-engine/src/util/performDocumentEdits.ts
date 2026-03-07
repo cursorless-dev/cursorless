@@ -11,9 +11,9 @@ export async function performDocumentEdits(
     edits.filter((edit) => edit.isReplace),
   );
 
-  const wereEditsApplied = await editor.edit(edits);
-
-  deregister();
-
-  return wereEditsApplied;
+  try {
+    return await editor.edit(edits);
+  } finally {
+    deregister();
+  }
 }

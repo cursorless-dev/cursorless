@@ -1,0 +1,20 @@
+raise foo
+---
+
+[Content] = 0:6-0:9
+        >---<
+0| raise foo
+
+[Removal] = 0:5-0:9
+       >----<
+0| raise foo
+
+[Leading delimiter] = 0:5-0:6
+       >-<
+0| raise foo
+
+[Domain] = 0:0-0:9
+  >---------<
+0| raise foo
+
+[Insertion delimiter] = " "

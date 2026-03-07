@@ -64,14 +64,14 @@ The following colors are supported. Note that to target the default (gray) hat y
 | `"navy"`    | navy    | `userColor1` | ❌                  |
 | `"apricot"` | apricot | `userColor2` | ❌                  |
 
-You can enable or disable colors in your VSCode settings, by searching for `cursorless.hatEnablement.colors` and checking the box next to the internal ID for the given shape as listed above. To navigate to your VSCode settings, either say "show settings", or go to File --> Preferences --> Settings.
+You can enable or disable colors in your VSCode settings, by searching for [`cursorless.hatEnablement.colors`](vscode://settings/cursorless.hatEnablement.colors) and checking the box next to the internal ID for the given shape as listed above. To navigate to your VSCode settings, either say "show settings", or go to File --> Preferences --> Settings.
 
-You can also tweak the visible colors for any of these colors in your VSCode settings, by searching for `cursorless.colors` and changing the hex color code next to the internal ID for the given shape as listed above. Note that you can configure different colors for dark and light themes. See our [visual accessibility guide](visualAccessibility.md) for more on visual accessibility.
+You can also tweak the visible colors for any of these colors in your VSCode settings, by searching for [`cursorless.colors`](vscode://settings/cursorless.colors) and changing the hex color code next to the internal ID for the given shape as listed above. Note that you can configure different colors for dark and light themes. See our [visual accessibility guide](visualAccessibility.md) for more on visual accessibility.
 
 If you find these color names unintuitive / tough to remember, their
 spoken forms can be [customized](customization.md) like any other spoken form
 in Cursorless. If you change a spoken form to be more than one syllable, you
-can change the penalty in the `cursorless.hatPenalties.colors` setting to the
+can change the penalty in the [`cursorless.hatPenalties.colors`](vscode://settings/cursorless.hatPenalties.colors) setting to the
 number of syllables you use, so that Cursorless can optimize hat allocation to
 minimize syllables.
 
@@ -93,12 +93,12 @@ The following shapes are supported. Note that to target the default (dot) shape 
 | `"cross"`   | ![Crosshairs](../../../../../images/hats/crosshairs.svg) | `crosshairs` | ❌                  |
 | `"eye"`     | ![Eye](../../../../../images/hats/eye.svg)               | `eye`        | ❌                  |
 
-You can enable or disable shapes in your VSCode settings, by searching for `cursorless.hatEnablement.shapes` and checking the box next to the internal ID for the given shape as listed above. To navigate to your VSCode settings, either say "show settings", or go to File --> Preferences --> Settings.
+You can enable or disable shapes in your VSCode settings, by searching for [`cursorless.hatEnablement.shapes`](vscode://settings/cursorless.hatEnablement.shapes) and checking the box next to the internal ID for the given shape as listed above. To navigate to your VSCode settings, either say "show settings", or go to File --> Preferences --> Settings.
 
 If you find these shape names unintuitive / tough to remember, their
 spoken forms can be [customized](customization.md) like any other spoken form
 in cursorless. If you change a spoken form to be more than one syllable, you
-can change the penalty in the `cursorless.hatPenalties.shapes` setting to the
+can change the penalty in the [`cursorless.hatPenalties.shapes`](vscode://settings/cursorless.hatPenalties.shapes) setting to the
 number of syllables you use, so that cursorless can optimize hat allocation to
 minimize syllables.
 
@@ -233,7 +233,11 @@ The modifier `"grand"` can be used to select the parent of the containing syntac
 - `"take grand statement air"`
 - `"take grand funk air"`
 
-For example, the command `"take grand statement [blue] air"` will select that parent statement of the statement containing the token with a blue hat over the letter 'a'.
+For example, the command `"take grand statement [blue] air"` will select the parent statement of the statement containing the token with a blue hat over the letter 'a'.
+
+You can also repeat `"grand"` multiple times.
+
+For example, the command `"take grand grand statement [blue] air"` will select the parent statement of the parent statement of the statement containing the token with a blue hat over the letter 'a'.
 
 ##### Sub-token modifiers
 
@@ -274,6 +278,23 @@ The `"block"` modifier expands to above and below the target to select lines unt
 - `"take block"`
 - `"take block <TARGET>"`
 
+##### `"short block"`
+
+The `"short block"` scope is like `"block"`, but in addition to stopping at empty lines, it will also stop at the boundary of a [surrounding pair](#surrounding-pair).
+For example, given the text...
+
+```
+{
+  aaa
+  {
+    bbb
+    ccc
+  }
+}
+```
+
+`"take short block bat"` would select the two lines with `bbb` and `ccc`. See [short paint](#short-paint) for a more detailed walkthrough of a scope not exiting surrounding pairs.
+
 ##### `"file"`
 
 The word '`"file"` can be used to expand the target to refer to the entire file.
@@ -284,6 +305,15 @@ The word '`"file"` can be used to expand the target to refer to the entire file.
 
 For example, `"take file [blue] air"` selects the file including the token containing letter 'a' with a blue hat.
 
+##### `"visible"`
+
+The word `"visible"` refers to the currently visible content in the editor viewport, excluding any folded/collapsed regions.
+
+- `"take visible"`
+- `"chuck visible"`
+
+This is useful for limiting operations to what's on screen. For example, `"from visible take every instance air"` will only match visible instances of the token with an 'a' hat, skipping matches hidden in folded regions or scrolled out of view.
+
 ##### `"head"` and `"tail"`
 
 The modifiers `"head"` and `"tail"` can be used to expand a target through the beginning or end of the line, respectively.
@@ -292,6 +322,8 @@ The modifiers `"head"` and `"tail"` can be used to expand a target through the b
 - `"take tail"`: select from the cursor to the end of the line
 - `"take head air"`: selects the mark through to start of the line
 - `"take tail air"`: selects the mark through to the end of the line
+
+When inside a surrounding pair (eg parentheses, brackets, etc) the head/tail modifier will only expand to the interior of that pair instead of the whole line. You can explicitly say `"head line"` or `"tail line"` to get the line behavior.
 
 When followed by a modifier, they will expand their input to the start or end of the given modifier range. For example:
 
@@ -333,7 +365,7 @@ Saying `"every paint"` would select `foo.bar` and `baz|bongo`.
 
 ##### `"short paint"`
 
-The `"short paint"` scope is like `"paint"`, but stops not only at whitespace but also stops if it would exit the nearest [surrounding pair](#surrounding-pair). For example, given the text
+The `"short paint"` scope is like `"paint"`, but in addition to stopping at whitespace, it will also stop at the boundary of a [surrounding pair](#surrounding-pair). For example, given the text
 
 ```
 (aaa[bbb]ccc ddd)
@@ -371,21 +403,20 @@ If your cursor is touching a token, you can say `"take every instance"` to selec
 
 Pro tip: if you say eg `"take five instances air"`, and it turns out you need more, you can say eg `"take that and next two instances that"` to select the next two instances after the last instance you selected.
 
-###### Experimental: `"from"`
+###### `"from"`
 
-We have experimental support for prefixing a command with `"from <target>"` to narrow the range within which `"every instance"` searches, or to set the start point from which `"next instance"` searches. For example:
+We have support for prefixing a command with `"from <target>"` to narrow the range within which `"every instance"` searches, or to set the start point from which `"next instance"` searches. For example:
 
 - `"from funk take every instance air"`: selects all instances of the token with a hat over the letter `a` in the current function
 - `"from air take next instance bat"`: selects the next instance of the token with a hat over the letter `b` starting from the token with a hat over the letter `a`
 
-Note that the `"from"` modifier is not enabled by default; you must remove the `-` at the start of the line starting with `-from` in your `experimental/experimental_actions.csv` [settings csv](./customization.md). Note also that this feature is considered experimental and may change in the future.
+Note that the `"from"` modifier was not enabled by default on older Cursorless installations; you must remove the `-` at the start of the line starting with `-from` in your `experimental/experimental_actions.csv` [settings csv](./customization.md).
 
 ##### `"just"`
 
 The `"just"` modifier strips the target of any semantic information, treating it as just a raw range, with the following effects:
 
 - The new target has no leading or trailing delimiters. For example:
-
   - `"chuck just air"` will delete just the air token, leaving adjacent spaces undisturbed, unlike the default behaviour of `"chuck air"` that deletes the air token _and_ cleans up adjacent whitespace as appropriate. Ie for
 
     ```
@@ -437,16 +468,6 @@ This is a "line with" a few "quotation marks" on it
        opening   closing opening         closing
 ```
 
-This heuristic works well in most cases, but when it does get tripped up, you can override its behavior. Position your cursor directly next to the delimiter (or just use the delimiter as a mark), and then prefix the name of the delimiter pair with "left" or "right" to force cursorless to expand the selection to the left or right, respectively.
-
-For example:
-
-- `"take left quad"` (with your cursor adjacent to a quote)
-- `"take left pair green double"` (with your cursor anywhere)
-- `"take inside right quad"`
-
-If your cursor / mark is between two delimiters (not adjacent to one), then saying either "left" or "right" will cause cursorless to just expand to the nearest delimiters on either side, without trying to determine whether they are opening or closing delimiters.
-
 ##### `"its"`
 
 The the modifier `"its"` is intended to be used as part of a compound target, and will tell Cursorless to use the previously mentioned mark in the compound target.
@@ -469,8 +490,6 @@ Note that if the first target is omitted, the start of the range will be the cur
 - `"take past [blue] air"`
 - `"take funk [blue] air past [blue] bat"` (note end of range inherits `"funk"`)
 - `"take funk [blue] air past token [blue] bat"`
-- `"take past before [blue] air"`
-- `"take after [blue] air past before [blue] bat"`
 - `"take past end of line"`
 - `"take past start of line"`
 - `"take [blue] air past end of line"`
@@ -522,9 +541,12 @@ Despite the name cursorless, some of the most basic commands in cursorless are f
 
 Note that when combined with list targets, `take`/`pre`/`post` commands will result in multiple cursors.
 
+- `"take <TARGET>"`: Selects the given target.
 - `"pre <TARGET>"`: Places the cursor before the given target.
 - `"post <TARGET>"`: Places the cursor after the given target.
-- `"take <TARGET>"`: Selects the given target.
+- `"append <TARGET>"`: Selects the given target, while preserving your existing selections.
+- `"append pre <TARGET>"`: Adds a new cursor before the given target, while preserving your existing selections.
+- `"append post <TARGET>"`: Adds a new cursor after the given target, while preserving your existing selections.
 - `"give <TARGET>"`: Deselects the given target.
 
 eg:
@@ -604,14 +626,19 @@ For example:
 
 - `"drink <TARGET>"`: Inserts a new line above the target line, and moves the cursor to the newly created line
 - `"pour <TARGET>"`: Inserts a new line below the target line, and moves the cursor to the newly created line
+- `"drop <TARGET>"`: Inserts an empty line above the target line (without moving the cursor)
+- `"float <TARGET>"`: Inserts an empty line below the target line (without moving the cursor)
+- `"puff <TARGET>"`: Inserts empty lines/spaces around the target (without moving the cursor)
 
 eg: `pour blue air` will insert empty line below the token containing letter 'a' with a blue hat and moves the cursor to the new line.
 
-Note: `"drink"` and `"pour"` are actually a bit more versatile than just lines.
-If you use a [syntactic scope](#syntactic-scopes) modifier on the target, then`"drink"` and `"pour"` will do the
+Note: `"drink"`, `"pour"`, `"drop"`, `"float"`, and `"puff"` are actually more versatile than just handling lines.
+If you use a [syntactic scope](#syntactic-scopes) modifier on the target, they will do the
 appropriate insertions to prepare the text for a new instance of that scope.
 
 eg: `pour item air` will insert a comma and space after the air item, and place the cursor after the inserted characters.
+eg: `puff token air` will insert spaces around the token with a hat over the letter 'a'.
+eg: `float item air` will insert a comma after the item containing letter 'a' with a hat.
 
 ### Homophones
 
@@ -693,10 +720,6 @@ The rewrap command, mapped to `"repack"` by default, can be used to swap a given
 
 See [paired delimiters](#paired-delimiters) for a list of possible wrappers.
 
-### \[experimental\] Snippets
-
-See [experimental documentation](experimental/snippets.md).
-
 ### Show definition/reference/quick fix
 
 Each of these commands performs a vscode action of the same or a similar name on the target.
@@ -741,7 +764,7 @@ Join multiple lines together.
 eg:
 
 - `join air`: Join the line with the token containing the letter 'a' with its next line.
-- `join block air`: Joines all lines in the paragraph with the token containing the letter 'a' together into a single line.
+- `join block air`: Joins all lines in the paragraph with the token containing the letter 'a' together into a single line.
 
 ### Break
 

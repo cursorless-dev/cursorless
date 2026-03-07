@@ -1,0 +1,17 @@
+class Foo:
+    def bar():
+        pass
+---
+
+[Content] =
+[Removal] = 1:12-1:12
+              ><
+1|     def bar():
+
+[Domain] = 1:4-2:12
+      >----------
+1|     def bar():
+2|         pass
+   ------------<
+
+[Insertion delimiter] = ""

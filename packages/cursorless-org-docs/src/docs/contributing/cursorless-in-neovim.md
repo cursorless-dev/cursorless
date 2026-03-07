@@ -8,7 +8,7 @@ Note that Cursorless is maintained as a monorepo, hosted at [`cursorless`](https
 
 ### 1. Follow the initial contributor setup guide
 
-Follow the steps in [CONTRIBUTING.md](./CONTRIBUTING.md#initial-setup).
+Follow the steps in [CONTRIBUTING.mdx](./CONTRIBUTING.mdx#initial-setup).
 
 ### 2. Get production Cursorless neovim working
 
@@ -45,7 +45,7 @@ In order to test out your local version of the extension or to run unit tests lo
 
 NOTE: This will spawn a standalone nvim instance that is independent of VSCode. Consequently after you're done debugging, you need to close nvim.
 
-If you don't have the `cursorless-talon-dev` files in your Talon user directory as described in step 6 of [CONTRIBUTING.md](./CONTRIBUTING.md#initial-setup), then you instead need to run the `workbench.action.debug.selectandstart` command in VSCode and then select either "Neovim: Run" or "Neovim: Test".
+If you don't have the `cursorless-talon-dev` files in your Talon user directory as described in step 6 of [CONTRIBUTING.mdx](./CONTRIBUTING.mdx#initial-setup), then you instead need to run the `workbench.action.debug.selectandstart` command in VSCode and then select either "Neovim: Run" or "Neovim: Test".
 
 ### Running lua tests
 

@@ -9,9 +9,9 @@ import type { Disposable } from "../ide/types/ide.types";
 export function disposableFrom(...disposables: Disposable[]): Disposable {
   return {
     dispose(): void {
-      disposables.forEach(({ dispose }) => {
+      disposables.forEach((disposable) => {
         try {
-          dispose();
+          disposable.dispose();
         } catch (e) {
           // just log, but don't throw; some of the VSCode disposables misbehave,
           // and we don't want that to prevent us from disposing the rest of the

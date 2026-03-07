@@ -14,6 +14,8 @@ const failingFixtures = [
   "recorded/implicitExpansion/cloneThat2",
   "recorded/implicitExpansion/cloneThis",
   "recorded/implicitExpansion/cloneThis2",
+  // Incorrect final state
+  "recorded/relativeScopes/changePreviousPair",
 ];
 
 function isFailingFixture(name: string, fixture: TestCaseFixtureLegacy) {
@@ -49,6 +51,8 @@ function isFailingFixture(name: string, fixture: TestCaseFixtureLegacy) {
     case "insertSnippet":
       return true;
     case "wrapWithSnippet":
+      return true;
+    case "generateSnippet":
       return true;
     // "recorded/actions/insertEmptyLines/floatThis*" -> wrong fixture.finalState.selections and fixture.thatMark.contentRange
     case "breakLine":

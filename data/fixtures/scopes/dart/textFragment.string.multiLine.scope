@@ -1,0 +1,13 @@
+var foo = """Hello
+world""";
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:13-1:5
+               >-----
+0| var foo = """Hello
+1| world""";
+   -----<
+
+[Insertion delimiter] = " "

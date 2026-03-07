@@ -34,6 +34,7 @@ export class TreeSitterIterationScopeHandler extends BaseTreeSitterScopeHandler 
   protected matchToScope(
     editor: TextEditor,
     match: QueryMatch,
+    _isEveryScope: boolean,
   ): ExtendedTargetScope | undefined {
     const scopeTypeType = this.iterateeScopeType.type;
 
@@ -45,6 +46,11 @@ export class TreeSitterIterationScopeHandler extends BaseTreeSitterScopeHandler 
     }
 
     const { range: contentRange, allowMultiple } = capture;
+
+    // Don't yield empty iteration scopes
+    if (contentRange.isEmpty) {
+      return undefined;
+    }
 
     const domain =
       getRelatedRange(match, scopeTypeType, "iteration.domain", false) ??

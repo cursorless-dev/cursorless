@@ -1,24 +1,23 @@
-import type { SyntaxNode } from "web-tree-sitter";
+import type { Node } from "web-tree-sitter";
 
-export const getValueNode = (node: SyntaxNode) =>
-  node.childForFieldName("value");
+export const getValueNode = (node: Node) => node.childForFieldName("value");
 
-export const getLeftNode = (node: SyntaxNode) => node.childForFieldName("left");
+export const getLeftNode = (node: Node) => node.childForFieldName("left");
 
-export const getNameNode = (node: SyntaxNode) => node.childForFieldName("name");
+export const getNameNode = (node: Node) => node.childForFieldName("name");
 
-export const getKeyNode = (node: SyntaxNode) => node.childForFieldName("key");
+export const getKeyNode = (node: Node) => node.childForFieldName("key");
 
-export const getDefinitionNode = (node: SyntaxNode) =>
+export const getDefinitionNode = (node: Node) =>
   node.childForFieldName("definition");
 
-export const getDeclarationNode = (node: SyntaxNode) =>
+export const getDeclarationNode = (node: Node) =>
   node.childForFieldName("declarator");
 
 export function getChildNodesForFieldName(
-  node: SyntaxNode,
+  node: Node,
   fieldName: string,
-): SyntaxNode[] {
+): Node[] {
   const treeCursor = node.walk();
   treeCursor.gotoFirstChild();
 
@@ -44,11 +43,11 @@ export function getChildNodesForFieldName(
  * @param includeNode Whether to include the node itself in the returned list
  * @returns A list of ancestors possibly including the includeNode node itself
  */
-export function getAncestors(node: SyntaxNode, includeNode: boolean = true) {
-  const ancestors: SyntaxNode[] = includeNode ? [node] : [];
+export function getAncestors(node: Node, includeNode: boolean = true) {
+  const ancestors: Node[] = includeNode ? [node] : [];
 
   for (
-    let currentNode: SyntaxNode | null = node.parent;
+    let currentNode: Node | null = node.parent;
     currentNode != null;
     currentNode = currentNode.parent
   ) {
@@ -63,6 +62,6 @@ export function getAncestors(node: SyntaxNode, includeNode: boolean = true) {
  * @param node The node to check
  * @returns True if the given node is contained in an error node
  */
-export function isContainedInErrorNode(node: SyntaxNode) {
+export function isContainedInErrorNode(node: Node) {
   return getAncestors(node).some((ancestor) => ancestor.type === "ERROR");
 }

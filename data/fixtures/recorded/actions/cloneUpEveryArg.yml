@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  version: 6
+  version: 7
   spokenForm: clone up every arg
   action:
     name: insertCopyBefore

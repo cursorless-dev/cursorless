@@ -1,70 +1,84 @@
-import type {
-  ExcludeInteriorModifier,
-  InteriorOnlyModifier,
+import {
+  NoContainingScopeError,
+  UnsupportedScopeError,
+  type InteriorOnlyModifier,
+  type ScopeType,
 } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStageFactory } from "../ModifierStageFactory";
-import type { ModifierStage } from "../PipelineStages.types";
-import { ModifyIfConditionStage } from "./ConditionalModifierStages";
+import type {
+  ModifierStage,
+  ModifierStateOptions,
+} from "../PipelineStages.types";
 
 export class InteriorOnlyStage implements ModifierStage {
-  private containingSurroundingPairIfNoInteriorStage: ModifierStage;
-
   constructor(
     private modifierStageFactory: ModifierStageFactory,
     private modifier: InteriorOnlyModifier,
-  ) {
-    this.containingSurroundingPairIfNoInteriorStage =
-      getContainingSurroundingPairIfNoInteriorStage(this.modifierStageFactory);
-  }
+  ) {}
 
-  run(target: Target): Target[] {
-    return this.containingSurroundingPairIfNoInteriorStage
-      .run(target)
-      .flatMap((target) => target.getInterior()!);
+  run(target: Target, options: ModifierStateOptions): Target[] {
+    const interior = target.getInterior();
+
+    // eg "inside pair"
+    if (interior != null) {
+      return interior;
+    }
+
+    // eg "inside funk"
+    // When you say "inside funk", in an ideal world, the function target would
+    // have a defined interior property that we could just use directly.
+    // However, it is painful to define interiors for every single scope in
+    // every single language, particularly scopes like "if", which could have
+    // multiple interiors and tends to be defined in a tricky nested way in the
+    // parse tree. Instead, we just define interior as a scope, and then call
+    // every interior on the input target here. This will work as expected in
+    // most cases, as long as the nearest interior is what we expect, which it
+    // usually is.
+    if (target.hasExplicitScopeType) {
+      const everyModifier = this.modifierStageFactory.create({
+        type: "everyScope",
+        scopeType: {
+          type: "interior",
+        },
+      });
+
+      try {
+        return everyModifier.run(target, options);
+      } catch (e) {
+        if (e instanceof UnsupportedScopeError) {
+          throw new NoContainingScopeError("interior");
+        }
+        throw e;
+      }
+    }
+
+    // eg "inside air"
+    try {
+      return this.modifierStageFactory
+        .create({
+          type: "containingScope",
+          scopeType: compoundInteriorScopeType,
+        })
+        .run(target, options);
+    } catch (e) {
+      if (e instanceof NoContainingScopeError) {
+        throw new NoContainingScopeError("interior");
+      }
+      throw e;
+    }
   }
 }
 
-export class ExcludeInteriorStage implements ModifierStage {
-  private containingSurroundingPairIfNoBoundaryStage: ModifierStage;
-
-  constructor(
-    private modifierStageFactory: ModifierStageFactory,
-    private modifier: ExcludeInteriorModifier,
-  ) {
-    this.containingSurroundingPairIfNoBoundaryStage =
-      getContainingSurroundingPairIfNoBoundaryStage(this.modifierStageFactory);
-  }
-
-  run(target: Target): Target[] {
-    return this.containingSurroundingPairIfNoBoundaryStage
-      .run(target)
-      .flatMap((target) => target.getBoundary()!);
-  }
-}
-
-function getContainingSurroundingPairIfNoInteriorStage(
-  modifierStageFactory: ModifierStageFactory,
-): ModifierStage {
-  return new ModifyIfConditionStage(
-    modifierStageFactory,
+export const compoundInteriorScopeType: ScopeType = {
+  type: "oneOf",
+  scopeTypes: [
     {
-      type: "containingScope",
-      scopeType: { type: "surroundingPair", delimiter: "any" },
+      type: "interior",
     },
-    (target) => target.getInterior() == null,
-  );
-}
-
-export function getContainingSurroundingPairIfNoBoundaryStage(
-  modifierStageFactory: ModifierStageFactory,
-): ModifierStage {
-  return new ModifyIfConditionStage(
-    modifierStageFactory,
     {
-      type: "containingScope",
-      scopeType: { type: "surroundingPair", delimiter: "any" },
+      type: "surroundingPairInterior",
+      delimiter: "any",
     },
-    (target) => target.getBoundary() == null,
-  );
-}
+  ],
+};

@@ -1,7 +1,7 @@
 import type { Range } from "@cursorless/common";
+import type { Target, TextualType } from "../../typings/target.types";
 import type { CommonTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";
-import type { Target } from "../../typings/target.types";
 import {
   getTokenLeadingDelimiterTarget,
   getTokenRemovalRange,
@@ -10,6 +10,7 @@ import {
 
 export class TokenTarget extends BaseTarget<CommonTargetParameters> {
   type = "TokenTarget";
+  textualType: TextualType = "token";
   insertionDelimiter = " ";
 
   getLeadingDelimiterTarget(): Target | undefined {

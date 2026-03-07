@@ -18,6 +18,10 @@ const COMMAND_CAPABILITIES: CommandCapabilityMap = {
   unfold: undefined,
   showReferences: undefined,
   insertLineAfter: undefined,
+  gitAccept: undefined,
+  gitRevert: undefined,
+  gitStage: undefined,
+  gitUnstage: undefined,
 };
 
 export class NeovimCapabilities implements Capabilities {

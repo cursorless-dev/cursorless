@@ -53,8 +53,8 @@ export function isLineRange(range: GeneralizedRange): range is LineRange {
   return range.type === "line";
 }
 
-export function toLineRange(range: Range): LineRange {
-  return { type: "line", start: range.start.line, end: range.end.line };
+export function toLineRange({ start, end }: Range): LineRange {
+  return { type: "line", start: start.line, end: end.line };
 }
 
 export function toCharacterRange({ start, end }: Range): CharacterRange {

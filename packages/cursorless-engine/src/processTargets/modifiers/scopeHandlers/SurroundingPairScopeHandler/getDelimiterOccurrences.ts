@@ -1,5 +1,8 @@
-import { matchAll, Range, type TextDocument } from "@cursorless/common";
+import { matchAllIterator, Range, type TextDocument } from "@cursorless/common";
 import type { LanguageDefinition } from "../../../../languages/LanguageDefinition";
+import type { QueryCapture } from "../../../../languages/TreeSitterQuery/QueryCapture";
+import { OneWayNestedRangeFinder } from "../util/OneWayNestedRangeFinder";
+import { OneWayRangeFinder } from "../util/OneWayRangeFinder";
 import { getDelimiterRegex } from "./getDelimiterRegex";
 import type { DelimiterOccurrence, IndividualDelimiter } from "./types";
 
@@ -20,42 +23,71 @@ export function getDelimiterOccurrences(
     return [];
   }
 
-  const delimiterRegex = getDelimiterRegex(individualDelimiters);
-
-  const disqualifyDelimiters =
-    languageDefinition?.getCaptures(document, "disqualifyDelimiter") ?? [];
-  const textFragments =
-    languageDefinition?.getCaptures(document, "textFragment") ?? [];
-
-  const delimiterTextToDelimiterInfoMap = Object.fromEntries(
-    individualDelimiters.map((individualDelimiter) => [
-      individualDelimiter.text,
-      individualDelimiter,
-    ]),
+  const capturesMap =
+    languageDefinition?.getCapturesMap(document, [
+      "disqualifyDelimiter",
+      "pairDelimiter",
+      "textFragment",
+    ]) ?? {};
+  const disqualifyDelimiters = new OneWayRangeFinder(
+    getSortedCaptures(capturesMap.disqualifyDelimiter),
+  );
+  const pairDelimiters = new OneWayRangeFinder(
+    getSortedCaptures(capturesMap.pairDelimiter),
+  );
+  const textFragments = new OneWayNestedRangeFinder(
+    getSortedCaptures(capturesMap.textFragment),
   );
 
-  const text = document.getText();
+  const delimiterTextToDelimiterInfoMap = individualDelimiters.reduce<
+    Record<string, IndividualDelimiter[]>
+  >((acc, individualDelimiter) => {
+    (acc[individualDelimiter.text] ??= []).push(individualDelimiter);
+    return acc;
+  }, {});
 
-  return matchAll(text, delimiterRegex, (match): DelimiterOccurrence => {
+  const regexMatches = matchAllIterator(
+    document.getText(),
+    getDelimiterRegex(individualDelimiters),
+  );
+
+  const results: DelimiterOccurrence[] = [];
+
+  for (const match of regexMatches) {
     const text = match[0];
-    const range = new Range(
-      document.positionAt(match.index!),
-      document.positionAt(match.index! + text.length),
+    const startPos = document.positionAt(match.index!);
+    const matchRange = new Range(
+      startPos,
+      startPos.translate(undefined, text.length),
     );
 
-    const isDisqualified = disqualifyDelimiters.some(
-      (c) => c.range.contains(range) && !c.hasError(),
+    const disqualifiedDelimiter = ifNoErrors(
+      disqualifyDelimiters.getContaining(matchRange),
     );
 
-    const textFragmentRange = textFragments.find((c) =>
-      c.range.contains(range),
-    )?.range;
+    if (disqualifiedDelimiter != null) {
+      continue;
+    }
 
-    return {
-      delimiterInfo: delimiterTextToDelimiterInfoMap[text],
-      isDisqualified,
-      textFragmentRange,
-      range,
-    };
-  });
+    results.push({
+      delimiterInfos: delimiterTextToDelimiterInfoMap[text],
+      textFragmentRange: textFragments.getSmallestContaining(matchRange)?.range,
+      range:
+        ifNoErrors(pairDelimiters.getContaining(matchRange))?.range ??
+        matchRange,
+    });
+  }
+
+  return results;
+}
+
+function ifNoErrors(capture?: QueryCapture): QueryCapture | undefined {
+  return capture != null && !capture.hasError() ? capture : undefined;
+}
+
+function getSortedCaptures(items?: QueryCapture[]): QueryCapture[] {
+  if (items == null) {
+    return [];
+  }
+  return items.sort((a, b) => a.range.start.compareTo(b.range.start));
 }

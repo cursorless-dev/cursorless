@@ -1,6 +1,22 @@
-import type { SimpleSurroundingPairName } from "@cursorless/common";
-import { DefaultMap } from "@cursorless/common";
-import type { DelimiterOccurrence, SurroundingPairOccurrence } from "./types";
+import type { Range } from "@cursorless/common";
+import findLastIndex from "lodash-es/findLastIndex";
+import { DelimiterSide } from "./types";
+import type {
+  DelimiterOccurrence,
+  IndividualDelimiter,
+  SurroundingPairOccurrence,
+} from "./types";
+
+interface OpeningDelimiterStackOccurrence {
+  delimiterInfo: IndividualDelimiter;
+  range: Range;
+  textFragmentRange: Range | undefined;
+}
+
+interface OpeningDelimiterMatch {
+  delimiterInfo: IndividualDelimiter;
+  openingDelimiterIndex: number;
+}
 
 /**
  * Given a list of occurrences of delimiters, returns a list of occurrences of
@@ -13,77 +29,102 @@ export function getSurroundingPairOccurrences(
   delimiterOccurrences: DelimiterOccurrence[],
 ): SurroundingPairOccurrence[] {
   const result: SurroundingPairOccurrence[] = [];
-
-  /**
-   * A map from delimiter names to occurrences of the opening delimiter
-   */
-  const openingDelimiterOccurrences = new DefaultMap<
-    SimpleSurroundingPairName,
-    DelimiterOccurrence[]
-  >(() => []);
+  const openingDelimitersStack: OpeningDelimiterStackOccurrence[] = [];
 
   for (const occurrence of delimiterOccurrences) {
-    const {
-      delimiterInfo: { delimiterName, side, isSingleLine },
-      isDisqualified,
-      textFragmentRange,
-      range,
-    } = occurrence;
-
-    if (isDisqualified) {
-      continue;
-    }
-
-    let openingDelimiters = openingDelimiterOccurrences.get(delimiterName);
-
-    if (isSingleLine) {
-      // If single line, remove all opening delimiters that are not on the same line
-      // as occurrence
-      openingDelimiters = openingDelimiters.filter(
-        (openingDelimiter) =>
-          openingDelimiter.range.start.line === range.start.line,
-      );
-      openingDelimiterOccurrences.set(delimiterName, openingDelimiters);
-    }
-
-    /**
-     * A list of opening delimiters that are relevant to the current occurrence.
-     * We exclude delimiters that are not in the same text fragment range as the
-     * current occurrence.
-     */
-    const relevantOpeningDelimiters = openingDelimiters.filter(
-      (openingDelimiter) =>
-        (textFragmentRange == null &&
-          openingDelimiter.textFragmentRange == null) ||
-        (textFragmentRange != null &&
-          openingDelimiter.textFragmentRange != null &&
-          openingDelimiter.textFragmentRange.isRangeEqual(textFragmentRange)),
+    // One token can represent multiple delimiters (eg ")" could close
+    // `parentheses` or Ruby `%Q(`), so pick the best closing interpretation
+    // based on currently open delimiters.
+    const closestOpeningDelimiterMatch = getClosestOpeningDelimiterMatch(
+      occurrence,
+      openingDelimitersStack,
     );
 
-    if (
-      side === "left" ||
-      (side === "unknown" && relevantOpeningDelimiters.length % 2 === 0)
-    ) {
-      openingDelimiters.push(occurrence);
-    } else {
-      const openingDelimiter = relevantOpeningDelimiters.at(-1);
+    if (closestOpeningDelimiterMatch == null) {
+      const openingDelimiterInfo = occurrence.delimiterInfos.find(
+        ({ side }) =>
+          side === DelimiterSide.left || side === DelimiterSide.unknown,
+      );
 
-      if (openingDelimiter == null) {
+      // Pure closing delimiters with no matching opener are ignored.
+      if (openingDelimiterInfo == null) {
         continue;
       }
 
-      openingDelimiters.splice(
-        openingDelimiters.lastIndexOf(openingDelimiter),
-        1,
-      );
-
-      result.push({
-        delimiterName: delimiterName,
-        openingDelimiterRange: openingDelimiter.range,
-        closingDelimiterRange: range,
+      // If this token can't close anything, treat it as an opener.
+      openingDelimitersStack.push({
+        delimiterInfo: openingDelimiterInfo,
+        range: occurrence.range,
+        textFragmentRange: occurrence.textFragmentRange,
       });
+      continue;
     }
+
+    const { delimiterInfo, openingDelimiterIndex } =
+      closestOpeningDelimiterMatch;
+    const openingDelimiter = openingDelimitersStack[openingDelimiterIndex];
+
+    // Pop stack up to and including the opening delimiter
+    openingDelimitersStack.length = openingDelimiterIndex;
+
+    result.push({
+      delimiterName: delimiterInfo.delimiterName,
+      openingDelimiterRange: openingDelimiter.range,
+      closingDelimiterRange: occurrence.range,
+    });
   }
 
   return result;
+}
+
+// When multiple interpretations are possible, choose the one whose opener is
+// closest on the stack, which preserves normal nesting behavior.
+function getClosestOpeningDelimiterMatch(
+  occurrence: DelimiterOccurrence,
+  openingDelimitersStack: OpeningDelimiterStackOccurrence[],
+): OpeningDelimiterMatch | undefined {
+  let closestMatch: OpeningDelimiterMatch | undefined;
+
+  for (const delimiterInfo of occurrence.delimiterInfos) {
+    if (delimiterInfo.side === DelimiterSide.left) {
+      continue;
+    }
+
+    const openingDelimiterIndex = findLastIndex(
+      openingDelimitersStack,
+      (o) =>
+        o.delimiterInfo.delimiterName === delimiterInfo.delimiterName &&
+        isSameTextFragment(o.textFragmentRange, occurrence.textFragmentRange) &&
+        isValidLine(delimiterInfo.isSingleLine, o.range, occurrence.range),
+    );
+
+    // No opening delimiter found for this interpretation, so skip it
+    if (openingDelimiterIndex === -1) {
+      continue;
+    }
+
+    // If this is the closest opening delimiter so far, remember it
+    if (
+      closestMatch == null ||
+      openingDelimiterIndex > closestMatch.openingDelimiterIndex
+    ) {
+      closestMatch = { delimiterInfo, openingDelimiterIndex };
+    }
+  }
+
+  return closestMatch;
+}
+
+function isSameTextFragment(
+  a: Range | undefined,
+  b: Range | undefined,
+): boolean {
+  if (a == null || b == null) {
+    return a === b;
+  }
+  return a.isRangeEqual(b);
+}
+
+function isValidLine(isSingleLine: boolean, a: Range, b: Range): boolean {
+  return !isSingleLine || a.start.line === b.start.line;
 }

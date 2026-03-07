@@ -1,0 +1,17 @@
+def foo() {}
+---
+
+[Content] =
+[Removal] = 0:4-0:7
+      >---<
+0| def foo() {}
+
+[Leading delimiter] = 0:3-0:4
+     >-<
+0| def foo() {}
+
+[Domain] = 0:0-0:12
+  >------------<
+0| def foo() {}
+
+[Insertion delimiter] = " "

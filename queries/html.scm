@@ -68,8 +68,8 @@
 ;;!  ^^^^^^^^^^^^^^^
 ;;!       ^^^^
 (_
-  (start_tag) @xmlElement.interior.start.endOf
-  (end_tag) @xmlElement.interior.end.startOf
+  (start_tag) @interior.start.endOf
+  (end_tag) @interior.end.startOf
 ) @xmlElement
 
 ;;!! <aaa>text</aaa>

@@ -1,6 +1,6 @@
 languageId: markdown
 command:
-  version: 6
+  version: 7
   spokenForm: chuck item
   action:
     name: remove
@@ -23,6 +23,7 @@ finalState:
   documentContents: |-
     - values
         - 0
+        
   selections:
-    - anchor: {line: 1, character: 7}
-      active: {line: 1, character: 7}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}

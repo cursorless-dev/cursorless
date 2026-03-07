@@ -1,0 +1,42 @@
+languageId: typescript
+command:
+  version: 7
+  spokenForm: if wrap air
+  action:
+    name: wrapWithSnippet
+    snippetDescription:
+      type: list
+      snippets:
+        - type: custom
+          body: "if ($1) {\n\t$0\n}"
+          variableName: "0"
+          languages: [c, cpp, csharp, java, javascript, typescript, javascriptreact, typescriptreact]
+    target:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: true
+spokenFormError: list wrap with snippet
+initialState:
+  documentContents: aaa
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 3}
+finalState:
+  documentContents: |-
+    if () {
+        aaa
+    }
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 2, character: 1}
+      isReversed: false
+      hasExplicitRange: true

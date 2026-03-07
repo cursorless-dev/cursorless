@@ -1,0 +1,35 @@
+* {
+    background: repeating-linear-gradient(red, orange 50px);
+}
+---
+
+[#1 Content] =
+[#1 Domain] = 1:42-1:45
+                                            >---<
+1|     background: repeating-linear-gradient(red, orange 50px);
+
+[#1 Removal] = 1:42-1:47
+                                            >-----<
+1|     background: repeating-linear-gradient(red, orange 50px);
+
+[#1 Trailing delimiter] = 1:45-1:47
+                                               >--<
+1|     background: repeating-linear-gradient(red, orange 50px);
+
+[#1 Insertion delimiter] = ", "
+
+
+[#2 Content] =
+[#2 Domain] = 1:47-1:58
+                                                 >-----------<
+1|     background: repeating-linear-gradient(red, orange 50px);
+
+[#2 Removal] = 1:45-1:58
+                                               >-------------<
+1|     background: repeating-linear-gradient(red, orange 50px);
+
+[#2 Leading delimiter] = 1:45-1:47
+                                               >--<
+1|     background: repeating-linear-gradient(red, orange 50px);
+
+[#2 Insertion delimiter] = ", "

@@ -6,7 +6,7 @@ a << 2
 a >> 2
 a <<= 2
 a >>= 2
-def foo() -> int:
+def foo() -> int: pass
 ---
 [#1 Content] = 0:2-0:3
     >-<
@@ -42,4 +42,4 @@ def foo() -> int:
 
 [#9 Content] = 8:10-8:12
             >--<
-8| def foo() -> int:
+8| def foo() -> int: pass

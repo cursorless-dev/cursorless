@@ -1,6 +1,6 @@
 languageId: ruby
 command:
-  version: 6
+  version: 7
   spokenForm: chuck state
   action:
     name: remove
@@ -28,7 +28,6 @@ finalState:
     begin
       a = 10
     else
-
     ensure 
       a = 10
     end

@@ -14,6 +14,7 @@ import type { ActionReturnValue } from "./actions.types";
  */
 export default class ExecuteCommand {
   private callbackAction: CallbackAction;
+
   constructor(rangeUpdater: RangeUpdater) {
     this.callbackAction = new CallbackAction(rangeUpdater);
     this.run = this.run.bind(this);

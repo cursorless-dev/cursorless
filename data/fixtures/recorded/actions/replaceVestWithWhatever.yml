@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  version: 6
+  version: 7
   spokenForm: replace vest with whatever
   action:
     name: replace

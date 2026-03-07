@@ -54,29 +54,3 @@ def cursorless_wrapper_paired_delimiter(m) -> list[str]:
     except AttributeError:
         id = m.cursorless_wrapper_selectable_paired_delimiter
     return paired_delimiters[id]
-
-
-@mod.capture(
-    rule=(
-        "{user.cursorless_selectable_only_paired_delimiter} |"
-        "{user.cursorless_wrapper_selectable_paired_delimiter}"
-    )
-)
-def cursorless_selectable_paired_delimiter(m) -> str:
-    try:
-        return m.cursorless_selectable_only_paired_delimiter
-    except AttributeError:
-        return m.cursorless_wrapper_selectable_paired_delimiter
-
-
-@mod.capture(
-    rule=(
-        "{user.cursorless_selectable_only_paired_delimiter_plural} |"
-        "{user.cursorless_wrapper_selectable_paired_delimiter_plural}"
-    )
-)
-def cursorless_selectable_paired_delimiter_plural(m) -> str:
-    try:
-        return m.cursorless_selectable_only_paired_delimiter_plural
-    except AttributeError:
-        return m.cursorless_wrapper_selectable_paired_delimiter_plural

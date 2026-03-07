@@ -1,6 +1,6 @@
 languageId: rust
 command:
-  version: 6
+  version: 7
   spokenForm: change funk name
   action:
     name: clearAndSetSelection

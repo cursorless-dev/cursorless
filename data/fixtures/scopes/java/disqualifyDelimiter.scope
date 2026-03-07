@@ -9,7 +9,9 @@ a >>= 2;
 a >>> 2;
 a >>>= 2;
 () -> 2;
-switch () { case "foo" -> 1 }
+switch (foo) {
+    case a -> 2
+}
 ---
 [#1 Content] = 0:2-0:3
     >-<
@@ -55,6 +57,6 @@ switch () { case "foo" -> 1 }
       >--<
 10| () -> 2;
 
-[#12 Content] = 11:23-11:25
-                          >--<
-11| switch () { case "foo" -> 1 }
+[#12 Content] = 12:11-12:13
+              >--<
+12|     case a -> 2

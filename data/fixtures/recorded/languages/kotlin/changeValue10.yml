@@ -1,0 +1,25 @@
+languageId: kotlin
+command:
+  version: 7
+  spokenForm: change value
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    fun double(x: Int) = x * 2
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |
+    fun double(x: Int) = 
+  selections:
+    - anchor: {line: 0, character: 21}
+      active: {line: 0, character: 21}

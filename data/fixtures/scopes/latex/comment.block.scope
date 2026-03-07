@@ -1,15 +1,10 @@
-\iffalse
-some comment
-\fi
+\iffalse Hello world \fi
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-2:3
-  >--------
-0| \iffalse
-1| some comment
-2| \fi
-   ---<
+[Domain] = 0:0-0:24
+  >------------------------<
+0| \iffalse Hello world \fi
 
 [Insertion delimiter] = "\n"

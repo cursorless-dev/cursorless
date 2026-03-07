@@ -1,8 +1,8 @@
-import { openNewEditor } from "@cursorless/vscode-common";
+import { LATEST_VERSION } from "@cursorless/common";
+import { openNewEditor, runCursorlessCommand } from "@cursorless/vscode-common";
+import assert from "node:assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-import { runCursorlessCommand } from "@cursorless/vscode-common";
-import assert from "assert";
 
 suite("revealRange", async function () {
   endToEndTestSetup(this);
@@ -20,7 +20,7 @@ async function preFile() {
   editor.revealRange(new vscode.Range(startLine, 0, startLine, 0));
 
   await runCursorlessCommand({
-    version: 7,
+    version: LATEST_VERSION,
     usePrePhraseSnapshot: false,
     action: {
       name: "setSelectionBefore",
@@ -47,7 +47,7 @@ async function postFile() {
   editor.selections = [new vscode.Selection(0, 0, 0, 0)];
 
   await runCursorlessCommand({
-    version: 7,
+    version: LATEST_VERSION,
     usePrePhraseSnapshot: false,
     action: {
       name: "setSelectionAfter",

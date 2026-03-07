@@ -1,20 +1,10 @@
-class aaa { int bbb; };
-enum class ccc { ddd, eee };
+class Foo {};
 ---
 
-[#1 Content] =
-[#1 Removal] =
-[#1 Domain] = 0:0-0:23
-  >-----------------------<
-0| class aaa { int bbb; };
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:13
+  >-------------<
+0| class Foo {};
 
-[#1 Insertion delimiter] = "\n\n"
-
-
-[#2 Content] =
-[#2 Removal] =
-[#2 Domain] = 1:0-1:28
-  >----------------------------<
-1| enum class ccc { ddd, eee };
-
-[#2 Insertion delimiter] = "\n\n"
+[Insertion delimiter] = "\n\n"

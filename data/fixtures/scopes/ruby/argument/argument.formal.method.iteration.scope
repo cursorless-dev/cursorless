@@ -1,0 +1,12 @@
+class Foo
+    def bar(aaa, bbb) end
+end
+---
+
+[Content] = 1:12-1:20
+              >--------<
+1|     def bar(aaa, bbb) end
+
+[Domain] = 1:4-1:25
+      >---------------------<
+1|     def bar(aaa, bbb) end

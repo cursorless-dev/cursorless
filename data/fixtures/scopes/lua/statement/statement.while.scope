@@ -1,0 +1,10 @@
+while true do end
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:17
+  >-----------------<
+0| while true do end
+
+[Insertion delimiter] = "\n"

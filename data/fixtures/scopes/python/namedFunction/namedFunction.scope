@@ -1,0 +1,10 @@
+def foo(): pass
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:15
+  >---------------<
+0| def foo(): pass
+
+[Insertion delimiter] = "\n\n"

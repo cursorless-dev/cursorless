@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  version: 6
+  version: 7
   spokenForm: bring fine to last char whale
   action:
     name: replaceWithTarget

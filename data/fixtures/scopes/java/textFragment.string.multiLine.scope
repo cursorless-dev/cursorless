@@ -1,0 +1,17 @@
+"""
+Hello
+world
+"""
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:3-3:0
+     >
+0| """
+1| Hello
+2| world
+3| """
+   <
+
+[Insertion delimiter] = " "

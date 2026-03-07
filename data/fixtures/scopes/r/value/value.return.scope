@@ -1,0 +1,15 @@
+function() {
+    return(0)
+}
+---
+
+[Content] =
+[Removal] = 1:11-1:12
+             >-<
+1|     return(0)
+
+[Domain] = 1:4-1:13
+      >---------<
+1|     return(0)
+
+[Insertion delimiter] = " "

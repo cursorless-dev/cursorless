@@ -1,12 +1,85 @@
 import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
-export const cScopeSupport: LanguageScopeSupportFacetMap = {
-  ifStatement: supported,
+export const cCoreScopeSupport: LanguageScopeSupportFacetMap = {
+  list: supported,
   disqualifyDelimiter: supported,
+
+  ifStatement: supported,
+
+  "statement.class": supported,
+  "statement.enum": supported,
+  "statement.field.class": supported,
+  "statement.function": supported,
+  "statement.functionCall": supported,
+  "statement.if": supported,
+  "statement.switch": supported,
+  "statement.for": supported,
+  "statement.while": supported,
+  "statement.doWhile": supported,
+  "statement.assignment": supported,
+  "statement.assignment.compound": supported,
+  "statement.constant": supported,
+  "statement.variable.uninitialized": supported,
+  "statement.variable.initialized": supported,
+  "statement.update": supported,
+  "statement.return": supported,
+  "statement.break": supported,
+  "statement.continue": supported,
+  "statement.typeAlias": supported,
+  "statement.namespace": supported,
+  "statement.import": supported,
+  "statement.iteration.document": supported,
+  "statement.iteration.class": supported,
+  "statement.iteration.block": supported,
+
+  class: supported,
+  "class.iteration.document": supported,
+
+  "collectionItem.unenclosed.singleLine": supported,
+  "collectionItem.unenclosed.multiLine": supported,
+  "collectionItem.unenclosed.iteration": supported,
+
+  namedFunction: supported,
+  "namedFunction.iteration.document": supported,
+
+  functionCall: supported,
+  "functionCall.method": supported,
+  "functionCall.chain": supported,
+  functionCallee: supported,
+  "functionCallee.method": supported,
+  "functionCallee.chain": supported,
+
+  "argument.actual.singleLine": supported,
+  "argument.actual.multiLine": supported,
+  "argument.actual.iteration": supported,
+  "argument.actual.method.singleLine": supported,
+  "argument.actual.method.multiLine": supported,
+  "argument.actual.method.iteration": supported,
+  "argument.formal.singleLine": supported,
+  "argument.formal.multiLine": supported,
+  "argument.formal.iteration": supported,
+
+  "argumentList.actual.empty": supported,
+  "argumentList.actual.singleLine": supported,
+  "argumentList.actual.multiLine": supported,
+  "argumentList.actual.method.empty": supported,
+  "argumentList.actual.method.singleLine": supported,
+  "argumentList.actual.method.multiLine": supported,
+  "argumentList.formal.empty": supported,
+  "argumentList.formal.singleLine": supported,
+  "argumentList.formal.multiLine": supported,
+
+  "branch.if": supported,
+  "branch.if.elif.else": supported,
+  "branch.if.else": supported,
+  "branch.if.iteration": supported,
+  "branch.switchCase": supported,
+  "branch.switchCase.iteration": supported,
+  "branch.ternary": supported,
+  "branch.ternary.iteration": supported,
 
   "comment.line": supported,
   "comment.block": supported,
@@ -15,27 +88,294 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
   "textFragment.comment.block": supported,
   "textFragment.string.singleLine": supported,
 
-  class: supported,
-  className: supported,
+  "condition.if": supported,
+  "condition.while": supported,
+  "condition.doWhile": supported,
+  "condition.for": supported,
+  "condition.ternary": supported,
+  "condition.switchCase": supported,
+  "condition.switchCase.iteration": supported,
 
-  namedFunction: supported,
+  "name.assignment": supported,
+  "name.assignment.compound": supported,
+  "name.constant": supported,
+  "name.variable.uninitialized": supported,
+  "name.variable.initialized": supported,
   "name.function": supported,
   "name.class": supported,
-  "name.field": supported,
-  functionName: supported,
-
+  "name.enum": supported,
+  "name.field.class": supported,
+  "name.field.enum": supported,
+  "name.typeAlias": supported,
   "name.argument.formal": supported,
   "name.argument.formal.iteration": supported,
-  "name.variable": supported,
-  "value.variable": supported,
-  "name.assignment": supported,
+  "name.iteration.block": supported,
+  "name.iteration.document": supported,
+  "name.iteration.class": supported,
+  "name.iteration.enum": supported,
+
   "value.assignment": supported,
+  "value.assignment.compound": supported,
+  "value.constant": supported,
+  "value.variable": supported,
+  "value.return": supported,
+  "value.switch": supported,
+  "value.field.enum": supported,
+  "value.typeAlias": supported,
+  "value.iteration.block": supported,
+  "value.iteration.class": supported,
+  "value.iteration.enum": supported,
+  "value.iteration.document": supported,
 
-  "statement.class": supported,
-
+  "type.constant": supported,
+  "type.variable.uninitialized": supported,
+  "type.variable.initialized": supported,
+  "type.argument.formal": supported,
+  "type.argument.formal.iteration": supported,
+  "type.field.class": supported,
+  "type.enum": supported,
+  "type.cast": supported,
   "type.class": supported,
-  "type.field": supported,
+  "type.alias": supported,
+  "type.return": supported,
+  "type.iteration.block": supported,
+  "type.iteration.class": supported,
+  "type.iteration.document": supported,
 
+  "interior.class": supported,
+  "interior.enum": supported,
+  "interior.function": supported,
+  "interior.if": supported,
+  "interior.switch": supported,
+  "interior.switchCase": supported,
+  "interior.for": supported,
+  "interior.while": supported,
+  "interior.doWhile": supported,
+
+  /* UNSUPPORTED  */
+
+  fieldAccess: unsupported,
+
+  /* NOT APPLICABLE (C and C++) */
+
+  // Element and tags
+  element: notApplicable,
+  tags: notApplicable,
+  startTag: notApplicable,
+  endTag: notApplicable,
+  "interior.element": notApplicable,
+  "textFragment.element": notApplicable,
+
+  // Resource syntax
+  "statement.resource": notApplicable,
+  "interior.resource": notApplicable,
+  "type.resource": notApplicable,
+  "name.resource": notApplicable,
+  "value.resource": notApplicable,
+
+  // Map literal
+  map: notApplicable,
+  "key.mapPair": notApplicable,
+  "key.mapPair.iteration": notApplicable,
+  "value.mapPair": notApplicable,
+  "value.mapPair.iteration": notApplicable,
+
+  // Keyword argument
+  "name.argument.actual": notApplicable,
+  "name.argument.actual.iteration": notApplicable,
+  "value.argument.actual": notApplicable,
+  "value.argument.actual.iteration": notApplicable,
+
+  // Multiline string
+  "string.multiLine": notApplicable,
+  "textFragment.string.multiLine": notApplicable,
+
+  // Section
+  section: notApplicable,
+  "section.iteration.document": notApplicable,
+  "section.iteration.parent": notApplicable,
+
+  // Pattern destructuring
+  "statement.variable.destructuring": notApplicable,
+  "statement.assignment.destructuring": notApplicable,
+  "name.assignment.destructuring": notApplicable,
+  "name.variable.destructuring": notApplicable,
+  "value.variable.destructuring": notApplicable,
+  "value.assignment.destructuring": notApplicable,
+
+  // Command
+  command: notApplicable,
+  "statement.command": notApplicable,
+  "name.command": notApplicable,
+  "value.command": notApplicable,
+  "interior.command": notApplicable,
+
+  // Notebook cell
+  notebookCell: notApplicable,
+  "interior.cell": notApplicable,
+
+  // Nested class
+  "class.iteration.class": notApplicable,
+
+  // Interface
+  "statement.interface": notApplicable,
+  "statement.field.interface": notApplicable,
+  "statement.method.interface": notApplicable,
+  "statement.iteration.interface": notApplicable,
+  "name.interface": notApplicable,
+  "name.field.interface": notApplicable,
+  "name.method.interface": notApplicable,
+  "name.iteration.interface": notApplicable,
+  "type.interface": notApplicable,
+  "type.field.interface": notApplicable,
+  "type.iteration.interface": notApplicable,
+  "interior.interface": notApplicable,
+  "value.field.interface": notApplicable,
+
+  // Static
+  "statement.static": notApplicable,
+  "interior.static": notApplicable,
+
+  // Yield
+  "statement.yield": notApplicable,
+  "value.yield": notApplicable,
+
+  // Throw statement
+  "statement.throw": notApplicable,
+  "value.throw": notApplicable,
+
+  // Enum calls
+  "functionCall.enum": notApplicable,
+  "functionCallee.enum": notApplicable,
+  "argument.actual.enum.singleLine": notApplicable,
+  "argument.actual.enum.multiLine": notApplicable,
+  "argumentList.actual.enum.empty": notApplicable,
+  "argumentList.actual.enum.singleLine": notApplicable,
+  "argumentList.actual.enum.multiLine": notApplicable,
+  "argument.actual.enum.iteration": notApplicable,
+
+  // Miscellaneous
+  "key.attribute": notApplicable,
+  "value.attribute": notApplicable,
+  "value.field.class": notApplicable,
+  "branch.loop": notApplicable,
+  "branch.loop.iteration": notApplicable,
+  "statement.misc": notApplicable,
+  environment: notApplicable,
+  pairDelimiter: notApplicable,
+  regularExpression: notApplicable,
+  selector: notApplicable,
+  unit: notApplicable,
+};
+
+export const cScopeSupport: LanguageScopeSupportFacetMap = {
+  ...cCoreScopeSupport,
+
+  // Not applicable for C, but supported for C++
+  // These are defined here because we don't want C++ to import them and
+  // accidentally forget to add support for them.
+
+  attribute: notApplicable,
+
+  // Anonymous function / lambda
+  "argument.formal.lambda.iteration": notApplicable,
+  "argument.formal.lambda.singleLine": notApplicable,
+  "argument.formal.lambda.multiLine": notApplicable,
+  "argumentList.formal.lambda.empty": notApplicable,
+  "argumentList.formal.lambda.multiLine": notApplicable,
+  "argumentList.formal.lambda.singleLine": notApplicable,
+  "name.argument.formal.lambda": notApplicable,
+  "name.argument.formal.lambda.iteration": notApplicable,
+  "type.argument.formal.lambda": notApplicable,
+  "type.argument.formal.lambda.iteration": notApplicable,
+  "value.argument.formal.lambda": notApplicable,
+  "value.argument.formal.lambda.iteration": notApplicable,
+  "interior.lambda": notApplicable,
+  "value.return.lambda": notApplicable,
+  "type.return.lambda": notApplicable,
+  anonymousFunction: notApplicable,
+
+  // Constructor
+  "argument.actual.constructor.iteration": notApplicable,
+  "argument.actual.constructor.singleLine": notApplicable,
+  "argument.actual.constructor.multiLine": notApplicable,
+  "argument.formal.constructor.iteration": notApplicable,
+  "argument.formal.constructor.singleLine": notApplicable,
+  "argument.formal.constructor.multiLine": notApplicable,
+  "argumentList.actual.constructor.empty": notApplicable,
+  "argumentList.actual.constructor.multiLine": notApplicable,
+  "argumentList.actual.constructor.singleLine": notApplicable,
+  "argumentList.formal.constructor.empty": notApplicable,
+  "argumentList.formal.constructor.multiLine": notApplicable,
+  "argumentList.formal.constructor.singleLine": notApplicable,
+  "functionCall.constructor": notApplicable,
+  "functionCallee.constructor": notApplicable,
+  "name.argument.formal.constructor.iteration": notApplicable,
+  "name.argument.formal.constructor": notApplicable,
+  "name.constructor": notApplicable,
+  "namedFunction.constructor": notApplicable,
+  "statement.constructor": notApplicable,
+  "type.argument.formal.constructor.iteration": notApplicable,
+  "type.argument.formal.constructor": notApplicable,
+  "value.argument.formal.constructor.iteration": notApplicable,
+  "value.argument.formal.constructor": notApplicable,
+  "interior.constructor": notApplicable,
+
+  // Method
+  "namedFunction.method": notApplicable,
+  "namedFunction.iteration.class": notApplicable,
+  "statement.method": notApplicable,
+  "argument.formal.method.iteration": notApplicable,
+  "argument.formal.method.singleLine": notApplicable,
+  "argument.formal.method.multiLine": notApplicable,
+  "argumentList.formal.method.empty": notApplicable,
+  "argumentList.formal.method.multiLine": notApplicable,
+  "argumentList.formal.method.singleLine": notApplicable,
+  "name.argument.formal.method.iteration": notApplicable,
+  "name.argument.formal.method": notApplicable,
+  "name.method": notApplicable,
+  "type.argument.formal.method.iteration": notApplicable,
+  "type.argument.formal.method": notApplicable,
+  "value.argument.formal.method.iteration": notApplicable,
+  "value.argument.formal.method": notApplicable,
+  "interior.method": notApplicable,
+  "type.return.method": notApplicable,
+
+  // Try catch
+  "statement.try": notApplicable,
+  "branch.try": notApplicable,
+  "branch.try.iteration": notApplicable,
+  "interior.try": notApplicable,
+  "argument.formal.catch": notApplicable,
+  "name.argument.catch": notApplicable,
+  "type.argument.catch": notApplicable,
+
+  // Foreach
+  "statement.foreach": notApplicable,
+  "name.foreach": notApplicable,
+  "type.foreach": notApplicable,
+  "value.foreach": notApplicable,
+  "interior.foreach": notApplicable,
+
+  // Default argument value
   "value.argument.formal": notApplicable,
   "value.argument.formal.iteration": notApplicable,
+
+  // Generic type
+  "type.typeArgument": notApplicable,
+  "type.typeArgument.iteration": notApplicable,
+
+  // Namespace
+  "statement.namespace": notApplicable,
+  "name.namespace": notApplicable,
+  "interior.namespace": notApplicable,
+
+  // Exceptions
+
+  // Package/import
+  "statement.package": notApplicable,
+
+  // Generic calls
+  "functionCall.generic": notApplicable,
+  "functionCallee.generic": notApplicable,
 };

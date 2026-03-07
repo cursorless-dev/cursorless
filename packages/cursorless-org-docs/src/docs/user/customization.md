@@ -128,7 +128,7 @@ hats off: user.run_rpc_command("cursorless.toggleDecorations", false)
 
 ## Updating word separators
 
-The word separators are characters that defines the boundary between words in a identifier. eg `hello_world` is an identifier with two words separated by `_`. If you like to support other separators like `-` in `hello-world` that can be accomplished by changing the `cursorless.wordSeparators` setting. This setting is also language overridable.
+The word separators are characters that defines the boundary between words in a identifier. eg `hello_world` is an identifier with two words separated by `_`. If you like to support other separators like `-` in `hello-world` that can be accomplished by changing the [`cursorless.wordSeparators`](vscode://settings/cursorless.wordSeparators) setting. This setting is also language overridable.
 
 ```json
 // Sets the word separator for all languages
@@ -176,12 +176,8 @@ Cursorless exposes a couple talon actions and captures that you can use to defin
 
 #### Snippet actions
 
-See [snippets](./experimental/snippets.md) for more information about Cursorless snippets.
-
-- `user.cursorless_insert_snippet_by_name(name: str)`: Insert a snippet with the given name, eg `functionDeclaration`
-- `user.cursorless_insert_snippet(body: str, destination: Optional[CursorlessDestination], scope_type: Optional[Union[str, list[str]]])`: Insert a snippet with the given body defined using our snippet body syntax (see the [snippet format docs](./experimental/snippet-format.md)). The body should be a single string, which could contain newline `\n` characters, rather than a list of strings as is expected in our snippet json representation. Destination is where the snippet will be inserted. If omitted will default to current selection. An optional scope type can be provided for the target to expand to. `"snip if after air"` for example could be desired to go after the statement containing `air` instead of the token.
-- `user.cursorless_wrap_with_snippet_by_name(name: str, variable_name: str, target: CursorlessTarget)`: Wrap the given target with a snippet with the given name, eg `functionDeclaration`. Note that `variable_name` should be one of the variables defined in the named snippet. Eg, if the named snippet has a variable `$foo`, you can pass in `"foo"` for `variable_name`, and `target` will be inserted into the position of `$foo` in the given named snippet.
-- `user.cursorless_wrap_with_snippet(body, target, variable_name, scope)`: Wrap the given target with a snippet with the given body defined using our snippet body syntax (see the [snippet format docs](./experimental/snippet-format.md)). The body should be a single string, which could contain newline `\n` characters, rather than a list of strings as is expected in our snippet json representation. Note that `variable_name` should be one of the variables defined in `body`. Eg, if `body` has a variable `$foo`, you can pass in `"foo"` for `variable_name`, and `target` will be inserted into the position of `$foo` in the given named snippet. The `scope` variable can be used to automatically expand the target to the given scope type, eg `"line"`.
+- `user.cursorless_insert_snippet(body: str, destination: Optional[CursorlessDestination], scope_type: Optional[Union[str, list[str]]])`: Insert a snippet with the given body. The body should be a single string, which could contain newline `\n` characters, rather than a list of strings as is expected in our snippet json representation. Destination is where the snippet will be inserted. If omitted will default to current selection. An optional scope type can be provided for the target to expand to. `"snip if after air"` for example could be desired to go after the statement containing `air` instead of the token.
+- `user.cursorless_wrap_with_snippet(body, target, variable_name, scope)`: Wrap the given target with a snippet with the given body. The body should be a single string, which could contain newline `\n` characters, rather than a list of strings as is expected in our snippet json representation. Note that `variable_name` should be one of the variables defined in `body`. Eg, if `body` has a variable `$foo`, you can pass in `"foo"` for `variable_name`, and `target` will be inserted into the position of `$foo` in the given named snippet. The `scope` variable can be used to automatically expand the target to the given scope type, eg `"line"`.
 
 ### Example of combining capture and action
 
@@ -205,6 +201,39 @@ _You can disable the default Cursorless reformat command by prefixing the spoken
     user.cursorless_reformat(cursorless_target, formatters)
 ```
 
-### Disable legacy destination grammar
+### Experimental custom command action
 
-The grammar currently supports `paste to before air`. This grammar is considered deprecated/legacy and replaced by `paste before air`. You can today disable this legacy grammar by enabling the tag `user.cursorless_disable_legacy_destination`
+:::warning
+
+This feature is experimental! Not as thoroughly tested as the rest of Cursorless and might change in the future. Early adopters should subscribe to this [discussion](https://github.com/cursorless-dev/cursorless/discussions/2942) to get updates about breaking changes\_
+
+:::
+
+`user.cursorless_x_custom_command(command: string, *args)`
+
+Run a custom Cursorless command by parsing the specified command string. Supports a subset of the Cursorless grammar, with **default** spoken forms (not your custom spoken forms). See https://www.cursorless.org/custom-command-railroad to see the subset of our grammar that we support today.
+
+- Utilizes default Cursorless spoken forms in the command string.
+- Optional target arguments can be interpolated in the command string. (see examples below)
+
+#### Examples
+
+In order to map `"scratch"` to perform `"chuck block"`:
+
+```talon
+scratch: user.cursorless_x_custom_command("chuck block")
+```
+
+To map `"scratch air"` => `"chuck block air"`
+
+```talon
+scratch <user.cursorless_target>:
+    user.cursorless_x_custom_command("chuck block <target>", cursorless_target)
+```
+
+To map `"combine air plus bat"` => `"bring block air after bat"`
+
+```talon
+combine <user.cursorless_target> plus <user.cursorless_target>:
+    user.cursorless_x_custom_command("bring block <target1> after <target2>", cursorless_target_1, cursorless_target_2)
+```

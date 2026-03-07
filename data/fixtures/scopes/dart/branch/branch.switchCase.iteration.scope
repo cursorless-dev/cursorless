@@ -1,0 +1,9 @@
+void main() {
+    switch (foo) { }
+}
+---
+
+[Content] =
+[Domain] = 1:18-1:19
+                    >-<
+1|     switch (foo) { }

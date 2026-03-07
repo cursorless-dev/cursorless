@@ -1,0 +1,28 @@
+class Foo:
+    def bar(): pass
+---
+
+[#1 Content] = 1:4-1:19
+      >---------------<
+1|     def bar(): pass
+
+[#1 Removal] =
+[#1 Domain] = 0:10-1:19
+            >
+0| class Foo:
+1|     def bar(): pass
+   -------------------<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:15-1:19
+                 >----<
+1|     def bar(): pass
+
+[#2 Removal] =
+[#2 Domain] = 1:14-1:19
+                >-----<
+1|     def bar(): pass
+
+[#2 Insertion delimiter] = " "

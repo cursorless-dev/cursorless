@@ -1,22 +1,13 @@
-import type { SnippetMap } from "@cursorless/common";
-//import * as vscode from "vscode";
 import { getNeovimRegistry } from "@cursorless/neovim-registry";
 import type { NeovimTestHelpers } from "./TestHelpers";
 
 export interface CursorlessApi {
   testHelpers: NeovimTestHelpers | undefined;
-
-  experimental: {
-    registerThirdPartySnippets: (
-      extensionId: string,
-      snippets: SnippetMap,
-    ) => void;
-  };
 }
 
 // See packages\cursorless-neovim\src\extension.ts:createTreeSitter() for neovim
 // export interface ParseTreeApi {
-//   getNodeAtLocation(location: vscode.Location): SyntaxNode;
+//   getNodeAtLocation(location: vscode.Location): Node;
 //   getTreeForUri(uri: vscode.Uri): Tree;
 //   loadLanguage: (languageId: string) => Promise<boolean>;
 //   getLanguage(languageId: string): Language | undefined;

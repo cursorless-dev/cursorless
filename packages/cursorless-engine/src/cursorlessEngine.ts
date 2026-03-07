@@ -3,14 +3,12 @@ import type {
   CommandServerApi,
   Hats,
   IDE,
+  RawTreeSitterQueryProvider,
   ScopeProvider,
+  TalonSpokenForms,
+  TreeSitter,
 } from "@cursorless/common";
-import {
-  ensureCommandShape,
-  type RawTreeSitterQueryProvider,
-  type TalonSpokenForms,
-  type TreeSitter,
-} from "@cursorless/common";
+import { ensureCommandShape } from "@cursorless/common";
 import { KeyboardTargetUpdater } from "./KeyboardTargetUpdater";
 import type {
   CommandRunnerDecorator,
@@ -35,7 +33,6 @@ import {
 import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
 import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
 import { runCommand } from "./runCommand";
-import { runIntegrationTests } from "./runIntegrationTests";
 import { ScopeInfoProvider } from "./scopeProviders/ScopeInfoProvider";
 import { ScopeRangeProvider } from "./scopeProviders/ScopeRangeProvider";
 import { ScopeRangeWatcher } from "./scopeProviders/ScopeRangeWatcher";
@@ -93,6 +90,7 @@ export async function createCursorlessEngine({
     hatTokenMap,
     debug,
     keyboardTargetUpdater,
+    customSpokenFormGenerator,
   );
 
   const commandRunnerDecorators: CommandRunnerDecorator[] = [];
@@ -134,6 +132,7 @@ export async function createCursorlessEngine({
       },
     },
     scopeProvider: createScopeProvider(
+      ide,
       languageDefinitions,
       storedTargets,
       customSpokenFormGenerator,
@@ -142,8 +141,6 @@ export async function createCursorlessEngine({
     storedTargets,
     hatTokenMap,
     injectIde,
-    runIntegrationTests: () =>
-      runIntegrationTests(treeSitter, languageDefinitions),
     addCommandRunnerDecorator: (decorator: CommandRunnerDecorator) => {
       commandRunnerDecorators.push(decorator);
     },
@@ -151,6 +148,7 @@ export async function createCursorlessEngine({
 }
 
 function createScopeProvider(
+  ide: IDE,
   languageDefinitions: LanguageDefinitions,
   storedTargets: StoredTargetMap,
   customSpokenFormGenerator: CustomSpokenFormGeneratorImpl,
@@ -177,9 +175,11 @@ function createScopeProvider(
     supportChecker,
     infoProvider,
   );
+  ide.disposeOnExit(rangeWatcher, infoProvider, supportWatcher);
 
   return {
     provideScopeRanges: rangeProvider.provideScopeRanges,
+    provideScopeRangesForRange: rangeProvider.provideScopeRangesForRange,
     provideIterationScopeRanges: rangeProvider.provideIterationScopeRanges,
     onDidChangeScopeRanges: rangeWatcher.onDidChangeScopeRanges,
     onDidChangeIterationScopeRanges:

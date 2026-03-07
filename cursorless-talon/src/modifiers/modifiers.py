@@ -27,7 +27,6 @@ head_tail_swallowed_modifiers = [
     "<user.cursorless_simple_scope_modifier>",  # funk, state, class, every funk
     "<user.cursorless_ordinal_scope>",  # first past second word
     "<user.cursorless_relative_scope>",  # next funk, 3 funks
-    "<user.cursorless_surrounding_pair_force_direction>",  # DEPRECATED "left quad" / "right quad"
 ]
 
 modifiers = [

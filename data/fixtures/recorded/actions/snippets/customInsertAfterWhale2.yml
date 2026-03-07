@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  version: 6
+  version: 7
   spokenForm: custom insert after whale
   action:
     name: insertSnippet
@@ -16,7 +16,7 @@ command:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: w}
   usePrePhraseSnapshot: true
-spokenFormError: Custom insertion snippet
+spokenFormError: custom insertion snippet
 initialState:
   documentContents: hello world
   selections:

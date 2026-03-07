@@ -1,25 +1,5 @@
 import type { Range, TextDocument } from "@cursorless/common";
-import type { Point } from "web-tree-sitter";
-
-/**
- * Simple representation of the tree sitter syntax node. Used by
- * {@link MutableQueryCapture} to avoid using range/text and other mutable
- * parameters directly from the node.
- */
-interface SimpleSyntaxNode {
-  readonly id: number;
-  readonly type: string;
-  readonly parent: SimpleSyntaxNode | null;
-  readonly children: Array<SimpleChildSyntaxNode>;
-}
-
-/**
- * Add start and end position to the simple syntax node. Used by the `child-range!` predicate.
- */
-interface SimpleChildSyntaxNode extends SimpleSyntaxNode {
-  readonly startPosition: Point;
-  readonly endPosition: Point;
-}
+import type { Node } from "web-tree-sitter";
 
 /**
  * A capture of a query pattern against a syntax tree.  Often corresponds to a
@@ -61,13 +41,14 @@ export interface QueryMatch {
 
 /**
  * A capture of a query pattern against a syntax tree. This type is used
- * internally by the query engine to allow operators to modify the capture.
+ * internally by the query engine to allow predicates to modify the capture.
  */
 export interface MutableQueryCapture extends QueryCapture {
   /**
    * The tree-sitter node that was captured.
+   * This may be undefined if the range has been modified by a query predicate.
    */
-  readonly node: SimpleSyntaxNode;
+  node: Node | undefined;
 
   readonly document: TextDocument;
   range: Range;
@@ -77,14 +58,11 @@ export interface MutableQueryCapture extends QueryCapture {
 
 /**
  * A match of a query pattern against a syntax tree that can be mutated. This
- * type is used internally by the query engine to allow operators to modify the
+ * type is used internally by the query engine to allow predicates to modify the
  * match.
  */
 export interface MutableQueryMatch extends QueryMatch {
-  /**
-   * The index of the pattern that was matched.
-   */
-  readonly patternIdx: number;
-
   readonly captures: MutableQueryCapture[];
 }
+
+export type PatternPredicate = (match: MutableQueryMatch) => boolean;

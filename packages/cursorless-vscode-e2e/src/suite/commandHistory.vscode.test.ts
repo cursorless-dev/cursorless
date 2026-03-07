@@ -45,7 +45,7 @@ suite("commandHistory", function () {
 async function testActive(tmpdir: string) {
   await injectFakeIsActive(true);
   await initalizeEditor();
-  const command = takeCommand("h");
+  const command = takeCommand("e");
   await runCursorlessCommand(command);
 
   const content = await getLogEntry(tmpdir);
@@ -71,7 +71,7 @@ async function testSanitization(tmpdir: string) {
 async function testInactive(tmpdir: string) {
   await injectFakeIsActive(false);
   await initalizeEditor();
-  await runCursorlessCommand(takeCommand("h"));
+  await runCursorlessCommand(takeCommand("e"));
 
   assert.notOk(existsSync(tmpdir));
 }
@@ -83,7 +83,7 @@ async function testError(tmpdir: string) {
 
   try {
     await runCursorlessCommand(command);
-  } catch (error) {
+  } catch (_error) {
     // Do nothing
   }
 

@@ -1,0 +1,7 @@
+if (true) 0 else 1
+---
+
+[Content] =
+[Domain] = 0:0-0:18
+  >------------------<
+0| if (true) 0 else 1

@@ -57,7 +57,7 @@ export class UrlScopeHandler extends RegexStageBase {
 
 export class CustomRegexScopeHandler extends RegexStageBase {
   get regex() {
-    return new RegExp(this.scopeType.regex, "gu");
+    return new RegExp(this.scopeType.regex, this.scopeType.flags ?? "gu");
   }
 
   constructor(

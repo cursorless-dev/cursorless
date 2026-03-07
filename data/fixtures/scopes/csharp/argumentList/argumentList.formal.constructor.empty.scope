@@ -1,0 +1,15 @@
+class Foo {
+    Foo() {}
+}
+---
+
+[Content] =
+[Removal] = 1:8-1:8
+          ><
+1|     Foo() {}
+
+[Domain] = 1:4-1:12
+      >--------<
+1|     Foo() {}
+
+[Insertion delimiter] = ""

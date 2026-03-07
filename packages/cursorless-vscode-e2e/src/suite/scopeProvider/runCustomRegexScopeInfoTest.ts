@@ -33,6 +33,10 @@ export async function runCustomRegexScopeInfoTest() {
     await assertCalledWithScopeInfo(fake, unsupported);
 
     await openNewEditor(contents);
+    // The scope provider relies on the open document event (among others) to
+    // update available scopes. Add a short sleep here to give it time to
+    // trigger.
+    await sleep(100);
     await assertCalledWithScopeInfo(fake, present);
 
     await unlink(cursorlessTalonStateJsonPath);
@@ -47,7 +51,7 @@ export async function runCustomRegexScopeInfoTest() {
       // Sleep to ensure that the scope support provider has time to update
       // before the next test starts
       await sleep(250);
-    } catch (e) {
+    } catch (_e) {
       // Do nothing
     }
   }

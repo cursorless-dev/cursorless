@@ -1,0 +1,12 @@
+class Foo {
+    set(aaa: Int) {}
+}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 1:8-1:16
+          >--------<
+1|     set(aaa: Int) {}
+
+[Insertion delimiter] = " "

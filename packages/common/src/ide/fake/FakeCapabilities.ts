@@ -19,5 +19,9 @@ export class FakeCapabilities implements Capabilities {
     unfold: undefined,
     showReferences: undefined,
     insertLineAfter: undefined,
+    gitAccept: undefined,
+    gitRevert: undefined,
+    gitStage: undefined,
+    gitUnstage: undefined,
   };
 }

@@ -1,8 +1,11 @@
-import { HatStability } from "@cursorless/common";
-import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
-import * as assert from "assert";
+import { HatStability, LATEST_VERSION } from "@cursorless/common";
+import {
+  getCursorlessApi,
+  openNewEditor,
+  runCursorlessCommand,
+} from "@cursorless/vscode-common";
+import * as assert from "node:assert";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-import { runCursorlessCommand } from "@cursorless/vscode-common";
 import { setupFake } from "./setupFake";
 
 suite("Wrap with snippet across split", async function () {
@@ -25,19 +28,24 @@ async function runTest() {
   await hatTokenMap.allocateHats();
 
   await runCursorlessCommand({
-    version: 4,
-    action: { name: "wrapWithSnippet", args: ["spaghetti.foo"] },
-    targets: [
-      {
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
+    action: {
+      name: "wrapWithSnippet",
+      snippetDescription: {
+        type: "custom",
+        body: "My friend $foo likes to eat spaghetti!",
+        variableName: "foo",
+      },
+      target: {
         type: "primitive",
         mark: {
           type: "decoratedSymbol",
           symbolColor: "default",
-          character: "h",
+          character: "e",
         },
       },
-    ],
-    usePrePhraseSnapshot: false,
+    },
   });
 
   assert.deepStrictEqual(

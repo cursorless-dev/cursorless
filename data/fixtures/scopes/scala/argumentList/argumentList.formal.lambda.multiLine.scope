@@ -1,0 +1,33 @@
+(
+    aaa: Int,
+    bbb: Int
+) => {}
+---
+
+[Content] = 1:4-2:12
+      >---------
+1|     aaa: Int,
+2|     bbb: Int
+   ------------<
+
+[Removal] = 0:1-3:0
+   >
+0| (
+1|     aaa: Int,
+2|     bbb: Int
+3| ) => {}
+   <
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     aaa: Int,
+
+[Domain] = 0:0-3:7
+  >-
+0| (
+1|     aaa: Int,
+2|     bbb: Int
+3| ) => {}
+   -------<
+
+[Insertion delimiter] = ",\n"

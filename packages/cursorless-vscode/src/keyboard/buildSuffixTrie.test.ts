@@ -129,7 +129,7 @@ suite("buildSuffixTrie", () => {
       const actual = uniqWith(
         sortEntries(chars.flatMap((char) => trie.search(char))),
         isEqual,
-      );
+      ).map(({ key, value }) => ({ key, value }));
       assert.deepStrictEqual(actual, sortEntries(expected));
       assert.deepStrictEqual(
         sortBy(conflicts.map(sortEntries), (conflict) =>

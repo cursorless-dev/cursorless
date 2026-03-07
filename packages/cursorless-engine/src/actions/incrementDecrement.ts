@@ -7,7 +7,7 @@ import { runForEachEditor } from "../util/targetUtils";
 import type { Actions } from "./Actions";
 import type { ActionReturnValue } from "./actions.types";
 
-const REGEX = /-?\d+(\.\d+)?/g;
+const REGEX = /-?\d+(?:_?\d+)*(\.\d+(?:_?\d+)*)?/g;
 
 class IncrementDecrement {
   constructor(
@@ -90,21 +90,114 @@ function createDestination(
 
 function updateNumber(isIncrement: boolean, text: string): string {
   return text.includes(".")
-    ? updateFloat(isIncrement, text).toString()
-    : updateInteger(isIncrement, text).toString();
+    ? updateFloat(isIncrement, text)
+    : updateInteger(isIncrement, text);
 }
 
-function updateInteger(isIncrement: boolean, text: string): number {
-  const original = parseInt(text);
+function updateInteger(isIncrement: boolean, text: string): string {
+  const textWithoutUnderscores = text.replaceAll("_", "");
+  const original = parseInt(textWithoutUnderscores);
   const diff = 1;
-  return original + (isIncrement ? diff : -diff);
+  const value = original + (isIncrement ? diff : -diff);
+  return formatNumber(value, text, textWithoutUnderscores);
 }
 
-function updateFloat(isIncrement: boolean, text: string): number {
-  const original = parseFloat(text);
+function updateFloat(isIncrement: boolean, text: string): string {
+  const textWithoutUnderscores = text.replaceAll("_", "");
+  const original = parseFloat(textWithoutUnderscores);
   const isPercentage = Math.abs(original) <= 1.0;
   const diff = isPercentage ? 0.1 : 1;
   const updated = original + (isIncrement ? diff : -diff);
   // Remove precision problems that would add a lot of extra digits
-  return parseFloat(updated.toPrecision(15)) / 1;
+  const value = parseFloat(updated.toPrecision(15)) / 1;
+  const decimalPlaces = textWithoutUnderscores.split(".")[1]?.length;
+  return formatNumber(value, text, textWithoutUnderscores, decimalPlaces);
+}
+
+function formatNumber(
+  value: number,
+  text: string,
+  textWithoutUnderscores: string,
+  decimalPlaces?: number,
+): string {
+  const result = (() => {
+    if (hasLeadingZeros(textWithoutUnderscores)) {
+      return formatNumberWithLeadingZeros(
+        value,
+        textWithoutUnderscores,
+        decimalPlaces,
+      );
+    }
+
+    return decimalPlaces != null
+      ? value.toFixed(decimalPlaces)
+      : value.toString();
+  })();
+
+  return formatNumberWithUnderscores(text, textWithoutUnderscores, result);
+}
+
+function formatNumberWithLeadingZeros(
+  value: number,
+  text: string,
+  decimalPlaces: number | undefined,
+): string {
+  const sign = value < 0 ? "-" : "";
+  const absValue = Math.abs(value);
+  const integerPartLength = getIntegerPartLength(text);
+  const integerPart = Math.floor(absValue)
+    .toString()
+    .padStart(integerPartLength, "0");
+
+  if (decimalPlaces != null) {
+    const fractionPart = (absValue - Math.floor(absValue))
+      .toFixed(decimalPlaces)
+      // Remove "0."
+      .slice(2);
+    return `${sign}${integerPart}.${fractionPart}`;
+  }
+
+  return `${sign}${integerPart}`;
+}
+
+// Reinsert underscores at original positions
+function formatNumberWithUnderscores(
+  original: string,
+  originalWithoutUnderscores: string,
+  updated: string,
+): string {
+  const underscoreMatches = Array.from(original.matchAll(/_/g));
+
+  if (underscoreMatches.length === 0) {
+    return updated;
+  }
+
+  let resultWithUnderscores = updated;
+  const offset =
+    getIntegerAndSignPartLength(updated) -
+    getIntegerAndSignPartLength(originalWithoutUnderscores);
+
+  for (const match of underscoreMatches) {
+    const index = match.index + offset;
+    if (index < resultWithUnderscores.length) {
+      resultWithUnderscores =
+        resultWithUnderscores.slice(0, index) +
+        "_" +
+        resultWithUnderscores.slice(index);
+    }
+  }
+
+  return resultWithUnderscores;
+}
+
+function hasLeadingZeros(text: string): boolean {
+  return /^-?0\d/.test(text);
+}
+
+function getIntegerPartLength(text: string): number {
+  return /^-?(\d+)/.exec(text)![1].length;
+}
+
+function getIntegerAndSignPartLength(text: string): number {
+  return /^-?\d+/.exec(text)![0].length;
 }

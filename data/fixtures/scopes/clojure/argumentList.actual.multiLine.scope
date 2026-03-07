@@ -1,0 +1,21 @@
+(foo
+    aaa
+    bbb)
+---
+
+[Content] =
+[Removal] = 0:1-2:7
+   >---
+0| (foo
+1|     aaa
+2|     bbb)
+   -------<
+
+[Domain] = 0:0-2:8
+  >----
+0| (foo
+1|     aaa
+2|     bbb)
+   --------<
+
+[Insertion delimiter] = "\n"

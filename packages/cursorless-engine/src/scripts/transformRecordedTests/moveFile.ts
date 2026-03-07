@@ -17,7 +17,7 @@ export default async function moveFile(file: string) {
   }
   const childDirName =
     inputFixture.languageId === "plaintext"
-      ? "textual"
+      ? "plaintext"
       : `parseTree/${inputFixture.languageId}`;
   const childDir = path.join(parent, childDirName);
   await mkdir(childDir, { recursive: true });

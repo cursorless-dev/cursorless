@@ -12,6 +12,7 @@ import type {
   TextEditorOptions,
 } from "@cursorless/common";
 import {
+  capitalize,
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   extractTargetedMarks,
   getKey,
@@ -406,21 +407,18 @@ export class TestCaseRecorder {
         throw Error();
       }
       await access(this.fixtureRoot);
-    } catch (err) {
+    } catch (e) {
       const errorMessage =
         '"Cursorless record" must be run from within cursorless directory';
       void showError(ide().messages, "promptSubdirectoryError", errorMessage);
-      throw new Error(errorMessage);
+      throw new Error(errorMessage, { cause: e });
     }
 
     const subdirectorySelection = await ide().showQuickPick(
       walkDirsSync(this.fixtureRoot).concat("/"),
       {
         title: "Select directory for new test cases",
-        unknownValues: {
-          allowed: true,
-          newValueTemplate: "Create new directory '{}' →",
-        },
+        unknownValues: "Create new directory '{}' →",
       },
     );
 
@@ -505,10 +503,6 @@ function camelize(str: string) {
     .split(" ")
     .map((str, index) => (index === 0 ? str : capitalize(str)))
     .join("");
-}
-
-function capitalize(str: string) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 async function readJsonIfExists(

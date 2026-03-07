@@ -1,0 +1,10 @@
+foo: int
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:8
+  >--------<
+0| foo: int
+
+[Insertion delimiter] = "\n"

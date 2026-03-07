@@ -1,13 +1,13 @@
 languageId: plaintext
 command:
-  version: 6
+  version: 7
   spokenForm: custom insert
   action:
     name: insertSnippet
     snippetDescription: {type: custom, body: 'dummy snippet hole1: ($hole1), hole2: ($hole2)'}
     destination: {type: implicit}
   usePrePhraseSnapshot: true
-spokenFormError: Custom insertion snippet
+spokenFormError: custom insertion snippet
 initialState:
   documentContents: ""
   selections:

@@ -30,7 +30,6 @@ export async function activate(plugin: NvimPlugin) {
           neovimIDE,
           new FakeIDE(),
           neovimIDE.runMode === "test",
-          undefined,
         );
 
   const fakeCommandServerApi = new FakeCommandServerApi();
@@ -40,14 +39,8 @@ export async function activate(plugin: NvimPlugin) {
       ? fakeCommandServerApi
       : neovimCommandServerApi;
 
-  const {
-    commandApi,
-    storedTargets,
-    hatTokenMap,
-    scopeProvider,
-    injectIde,
-    runIntegrationTests,
-  } = await createCursorlessEngine({ ide: normalizedIde, commandServerApi });
+  const { commandApi, storedTargets, hatTokenMap, scopeProvider, injectIde } =
+    await createCursorlessEngine({ ide: normalizedIde, commandServerApi });
 
   await registerCommands(client, neovimIDE, commandApi, commandServerApi);
 
@@ -62,7 +55,6 @@ export async function activate(plugin: NvimPlugin) {
             normalizedIde as NormalizedIDE,
             scopeProvider,
             injectIde,
-            runIntegrationTests,
           )
         : undefined,
   };

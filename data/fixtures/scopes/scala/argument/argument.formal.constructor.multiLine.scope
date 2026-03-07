@@ -1,0 +1,44 @@
+class Foo(
+  aaa: Int,
+  bbb: Int,
+)
+---
+
+[#1 Content] =
+[#1 Domain] = 1:2-1:10
+    >--------<
+1|   aaa: Int,
+
+[#1 Removal] = 1:2-2:2
+    >---------
+1|   aaa: Int,
+2|   bbb: Int,
+   --<
+
+[#1 Trailing delimiter] = 1:10-2:2
+            >-
+1|   aaa: Int,
+2|   bbb: Int,
+   --<
+
+[#1 Insertion delimiter] = ",\n"
+
+
+[#2 Content] =
+[#2 Domain] = 2:2-2:10
+    >--------<
+2|   bbb: Int,
+
+[#2 Removal] = 1:10-2:10
+            >-
+1|   aaa: Int,
+2|   bbb: Int,
+   ----------<
+
+[#2 Leading delimiter] = 1:10-2:2
+            >-
+1|   aaa: Int,
+2|   bbb: Int,
+   --<
+
+[#2 Insertion delimiter] = ",\n"

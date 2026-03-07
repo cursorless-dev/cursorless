@@ -8,9 +8,7 @@ import {
 import * as path from "node:path";
 import { getCursorlessRepoRoot } from "./getCursorlessRepoRoot";
 
-export class FileSystemRawTreeSitterQueryProvider
-  implements RawTreeSitterQueryProvider
-{
+export class FileSystemRawTreeSitterQueryProvider implements RawTreeSitterQueryProvider {
   private queryDir: string;
   private notifier: Notifier = new Notifier();
   private disposables: Disposable[] = [];

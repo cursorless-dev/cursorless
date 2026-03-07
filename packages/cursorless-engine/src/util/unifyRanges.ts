@@ -56,5 +56,7 @@ function mergeTargets(targets: Target[]): Target {
 }
 
 function intersects(targetA: Target, targetB: Target) {
-  return !!targetA.getRemovalRange().intersection(targetB.getRemovalRange());
+  return (
+    targetA.getRemovalRange().intersection(targetB.getRemovalRange()) != null
+  );
 }

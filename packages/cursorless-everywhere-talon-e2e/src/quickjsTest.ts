@@ -1,4 +1,8 @@
-import type { ActionDescriptor, CommandLatest } from "@cursorless/common";
+import {
+  LATEST_VERSION,
+  type ActionDescriptor,
+  type CommandLatest,
+} from "@cursorless/common";
 import { activate } from "@cursorless/cursorless-everywhere-talon-core";
 import * as std from "std";
 import talonMock from "./talonMock";
@@ -6,13 +10,17 @@ import talonMock from "./talonMock";
 let hasFailed = false;
 
 async function runTests() {
-  await activate(talonMock, "test");
+  try {
+    await activate(talonMock, "test");
 
-  console.log();
-  console.log("Running quickjs tests");
+    console.log();
+    console.log("Running quickjs tests");
 
-  await test("testTake", testTake);
-  await test("testChuck", testChuck);
+    await test("testTake", testTake);
+    await test("testChuck", testChuck);
+  } catch (_error) {
+    hasFailed = true;
+  }
 
   std.exit(hasFailed ? 1 : 0);
 }
@@ -68,13 +76,13 @@ async function testChuck() {
 
 function runAction(action: ActionDescriptor) {
   const command: CommandLatest = {
-    version: 7,
+    version: LATEST_VERSION,
     usePrePhraseSnapshot: false,
     action,
   };
   return talonMock
     .getTestHelpers()
-    .contextActions.private_cursorless_run_rpc_command_get(
+    .contextActions.private_cursorless_talonjs_run_and_wait(
       "cursorless.command",
       command,
     );

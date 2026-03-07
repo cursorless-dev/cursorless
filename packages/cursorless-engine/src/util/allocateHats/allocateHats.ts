@@ -7,6 +7,7 @@ import type {
   TokenHat,
 } from "@cursorless/common";
 import { CompositeKeyMap, DefaultMap, Range } from "@cursorless/common";
+import { WordTokenizer } from "../../processTargets/modifiers/scopeHandlers/WordScopeHandler/WordTokenizer";
 import type {
   Grapheme,
   TokenGraphemeSplitter,
@@ -19,6 +20,7 @@ export interface HatCandidate {
   grapheme: Grapheme;
   style: HatStyleName;
   penalty: number;
+  isFirstLetter: boolean;
 }
 
 interface AllocateHatsOptions {
@@ -169,12 +171,21 @@ function getTokenRemainingHatCandidates(
   graphemeRemainingHatCandidates: DefaultMap<string, HatStyleName[]>,
   enabledHatStyles: HatStyleMap,
 ): HatCandidate[] {
+  const candidates: HatCandidate[] = [];
+  const graphemes = tokenGraphemeSplitter.getTokenGraphemes(token.text);
+  const firstLetterOffsets = new Set(
+    new WordTokenizer(token.editor.document.languageId)
+      .splitIdentifier(token.text)
+      .map((word) => word.index),
+  );
+
   // Use iteration here instead of functional constructs,
   // because this is a hot path and we want to avoid allocating arrays
   // and calling tiny functions lots of times.
-  const candidates: HatCandidate[] = [];
-  const graphemes = tokenGraphemeSplitter.getTokenGraphemes(token.text);
+
   for (const grapheme of graphemes) {
+    const isFirstLetter = firstLetterOffsets.has(grapheme.tokenStartOffset);
+
     for (const style of graphemeRemainingHatCandidates.get(grapheme.text)) {
       // Allocating and pushing all of these objects is
       // the single most expensive thing in hat allocation.
@@ -183,9 +194,11 @@ function getTokenRemainingHatCandidates(
         grapheme,
         style,
         penalty: enabledHatStyles[style].penalty,
+        isFirstLetter,
       });
     }
   }
+
   return candidates;
 }
 

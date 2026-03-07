@@ -1,6 +1,6 @@
 languageId: ruby
 command:
-  version: 6
+  version: 7
   spokenForm: chuck state
   action:
     name: remove
@@ -28,7 +28,6 @@ finalState:
     when true
       a = 0
     else
-
     end
   selections:
     - anchor: {line: 4, character: 0}

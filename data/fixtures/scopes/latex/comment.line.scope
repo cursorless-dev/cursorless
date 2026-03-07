@@ -1,17 +1,10 @@
-\LaTeX % some comment
+% Hello world
 ---
 
 [Content] =
-[Domain] = 0:7-0:21
-         >--------------<
-0| \LaTeX % some comment
-
-[Removal] = 0:6-0:21
-        >---------------<
-0| \LaTeX % some comment
-
-[Leading delimiter] = 0:6-0:7
-        >-<
-0| \LaTeX % some comment
+[Removal] =
+[Domain] = 0:0-0:13
+  >-------------<
+0| % Hello world
 
 [Insertion delimiter] = "\n"

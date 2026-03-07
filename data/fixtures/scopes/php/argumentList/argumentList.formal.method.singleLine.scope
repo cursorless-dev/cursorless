@@ -1,0 +1,16 @@
+<?php
+class Foo {
+    function bar($aaa, $bbb) {}
+}
+---
+
+[Content] =
+[Removal] = 2:17-2:27
+                   >----------<
+2|     function bar($aaa, $bbb) {}
+
+[Domain] = 2:4-2:31
+      >---------------------------<
+2|     function bar($aaa, $bbb) {}
+
+[Insertion delimiter] = ", "

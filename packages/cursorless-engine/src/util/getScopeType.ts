@@ -3,6 +3,7 @@ import type { Modifier, ScopeType } from "@cursorless/common";
 export function getScopeType(modifier: Modifier): ScopeType | undefined {
   switch (modifier.type) {
     case "containingScope":
+    case "preferredScope":
     case "everyScope":
     case "ordinalScope":
     case "relativeScope":
@@ -21,7 +22,7 @@ export function getScopeType(modifier: Modifier): ScopeType | undefined {
     case "endOf":
     case "extendThroughStartOf":
     case "extendThroughEndOf":
-    case "cascading":
+    case "fallback":
     case "range":
     case "modifyIfUntyped":
       return undefined;

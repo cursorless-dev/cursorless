@@ -1,6 +1,6 @@
 languageId: ruby
 command:
-  version: 6
+  version: 7
   spokenForm: chuck state
   action:
     name: remove
@@ -26,7 +26,6 @@ finalState:
   documentContents: |-
     case abc
     when true
-
     else
       a = 10
     end

@@ -1,0 +1,31 @@
+languageId: kotlin
+command:
+  version: 7
+  spokenForm: change value
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    fun riskyOperation(value: Int): Int {
+        if (value < 0) throw IllegalArgumentException("Negative value not allowed")
+        return value * 2
+    }
+  selections:
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
+  marks: {}
+finalState:
+  documentContents: |
+    fun riskyOperation(value: Int): Int {
+        if (value < 0) throw IllegalArgumentException("Negative value not allowed")
+        return 
+    }
+  selections:
+    - anchor: {line: 2, character: 11}
+      active: {line: 2, character: 11}

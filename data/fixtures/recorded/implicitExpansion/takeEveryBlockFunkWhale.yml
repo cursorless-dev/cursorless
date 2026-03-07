@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  version: 6
+  version: 7
   spokenForm: take every block funk whale
   action:
     name: setSelection

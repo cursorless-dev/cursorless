@@ -3,9 +3,10 @@ import type {
   IterationScopeRanges,
   ScopeRangeConfig,
   ScopeRanges,
+  ScopeType,
   TextEditor,
 } from "@cursorless/common";
-
+import { Range } from "@cursorless/common";
 import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import type { ScopeHandlerFactory } from "../processTargets/modifiers/scopeHandlers/ScopeHandlerFactory";
 import { getIterationRange } from "./getIterationRange";
@@ -21,6 +22,8 @@ export class ScopeRangeProvider {
     private modifierStageFactory: ModifierStageFactory,
   ) {
     this.provideScopeRanges = this.provideScopeRanges.bind(this);
+    this.provideScopeRangesForRange =
+      this.provideScopeRangesForRange.bind(this);
     this.provideIterationScopeRanges =
       this.provideIterationScopeRanges.bind(this);
   }
@@ -29,7 +32,7 @@ export class ScopeRangeProvider {
     editor: TextEditor,
     { scopeType, visibleOnly }: ScopeRangeConfig,
   ): ScopeRanges[] {
-    const scopeHandler = this.scopeHandlerFactory.create(
+    const scopeHandler = this.scopeHandlerFactory.maybeCreate(
       scopeType,
       editor.document.languageId,
     );
@@ -45,18 +48,47 @@ export class ScopeRangeProvider {
     );
   }
 
-  provideIterationScopeRanges(
+  provideScopeRangesForRange(
     editor: TextEditor,
-    { scopeType, visibleOnly, includeNestedTargets }: IterationScopeRangeConfig,
-  ): IterationScopeRanges[] {
-    const { languageId } = editor.document;
-    const scopeHandler = this.scopeHandlerFactory.create(scopeType, languageId);
+    scopeType: ScopeType,
+    range: Range,
+  ): ScopeRanges[] {
+    const scopeHandler = this.scopeHandlerFactory.maybeCreate(
+      scopeType,
+      editor.document.languageId,
+    );
 
     if (scopeHandler == null) {
       return [];
     }
 
-    const iterationScopeHandler = this.scopeHandlerFactory.create(
+    // Need to have a non empty intersection with the scopes
+    if (range.isEmpty) {
+      const offset = editor.document.offsetAt(range.start);
+      range = new Range(
+        editor.document.positionAt(offset - 1),
+        editor.document.positionAt(offset + 1),
+      );
+    }
+
+    return getScopeRanges(editor, scopeHandler, range);
+  }
+
+  provideIterationScopeRanges(
+    editor: TextEditor,
+    { scopeType, visibleOnly, includeNestedTargets }: IterationScopeRangeConfig,
+  ): IterationScopeRanges[] {
+    const { languageId } = editor.document;
+    const scopeHandler = this.scopeHandlerFactory.maybeCreate(
+      scopeType,
+      languageId,
+    );
+
+    if (scopeHandler == null) {
+      return [];
+    }
+
+    const iterationScopeHandler = this.scopeHandlerFactory.maybeCreate(
       scopeHandler.iterationScopeType,
       languageId,
     );

@@ -1,5 +1,5 @@
 \begin{quote}
-    Hello
+    Hello world
 \end{quote}
 ---
 
@@ -8,18 +8,8 @@
 [Domain] = 0:0-2:11
   >-------------
 0| \begin{quote}
-1|     Hello
+1|     Hello world
 2| \end{quote}
    -----------<
-
-[Interior: Content] = 1:4-1:9
-      >-----<
-1|     Hello
-[Interior: Removal] = 0:13-2:0
-               >
-0| \begin{quote}
-1|     Hello
-2| \end{quote}
-   <
 
 [Insertion delimiter] = "\n"

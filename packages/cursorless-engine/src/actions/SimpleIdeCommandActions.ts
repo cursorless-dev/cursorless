@@ -128,6 +128,26 @@ export class ExtractVariable extends SimpleIdeCommandAction {
   restoreSelection = false;
 }
 
+export class GitAccept extends SimpleIdeCommandAction {
+  command: CommandId = "gitAccept";
+  ensureSingleTarget = true;
+}
+
+export class GitRevert extends SimpleIdeCommandAction {
+  command: CommandId = "gitRevert";
+  ensureSingleTarget = true;
+}
+
+export class GitStage extends SimpleIdeCommandAction {
+  command: CommandId = "gitStage";
+  ensureSingleTarget = true;
+}
+
+export class GitUnstage extends SimpleIdeCommandAction {
+  command: CommandId = "gitUnstage";
+  ensureSingleTarget = true;
+}
+
 function callback(
   editor: EditableTextEditor,
   ranges: Range[] | undefined,
@@ -167,6 +187,14 @@ function callback(
       return editor.showDebugHover(ranges?.[0]);
     case "extractVariable":
       return editor.extractVariable(ranges?.[0]);
+    case "gitAccept":
+      return editor.gitAccept(ranges?.[0]);
+    case "gitRevert":
+      return editor.gitRevert(ranges?.[0]);
+    case "gitStage":
+      return editor.gitStage(ranges?.[0]);
+    case "gitUnstage":
+      return editor.gitUnstage(ranges?.[0]);
 
     // Unsupported as simple action
     case "highlight":

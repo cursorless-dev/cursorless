@@ -1,8 +1,8 @@
-import * as assert from "assert";
+import { LATEST_VERSION } from "@cursorless/common";
+import { openNewEditor, runCursorlessCommand } from "@cursorless/vscode-common";
+import * as assert from "node:assert";
 import * as vscode from "vscode";
-import { openNewEditor } from "@cursorless/vscode-common";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-import { runCursorlessCommand } from "@cursorless/vscode-common";
 
 suite("visible", async function () {
   endToEndTestSetup(this);
@@ -50,7 +50,7 @@ function foldRegion() {
 
 function clearVisible() {
   return runCursorlessCommand({
-    version: 6,
+    version: LATEST_VERSION,
     usePrePhraseSnapshot: false,
     action: {
       name: "clearAndSetSelection",

@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  version: 6
+  version: 7
   spokenForm: change every token bat between each
   action:
     name: clearAndSetSelection

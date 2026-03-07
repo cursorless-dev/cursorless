@@ -26,7 +26,7 @@ class Actions:
 
 @mod.action_class
 class CommandActions:
-    def cursorless_custom_command(
+    def cursorless_x_custom_command(
         content: str,  # pyright: ignore [reportGeneralTypeIssues]
         arg1: Optional[Any] = None,
         arg2: Optional[Any] = None,

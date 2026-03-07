@@ -1,6 +1,6 @@
 languageId: ruby
 command:
-  version: 6
+  version: 7
   spokenForm: change two calls air
   action:
     name: clearAndSetSelection

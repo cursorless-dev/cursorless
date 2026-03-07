@@ -1,9 +1,10 @@
-import type { Range } from "@cursorless/common";
+import { toLineRange, type Range } from "@cursorless/common";
+import type { InteriorTarget, ParagraphTarget } from ".";
+import type { TextualType } from "../../typings/target.types";
+import { expandToFullLine } from "../../util/rangeUtils";
 import type { MinimumTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";
 import { LineTarget } from "./LineTarget";
-import { expandToFullLine } from "../../util/rangeUtils";
-import type { InteriorTarget, ParagraphTarget } from ".";
 
 interface BoundedParagraphTargetParameters extends MinimumTargetParameters {
   readonly paragraphTarget: ParagraphTarget;
@@ -12,8 +13,8 @@ interface BoundedParagraphTargetParameters extends MinimumTargetParameters {
 
 export class BoundedParagraphTarget extends BaseTarget<BoundedParagraphTargetParameters> {
   readonly type = "BoundedParagraphTarget";
+  readonly textualType: TextualType = "line";
   readonly insertionDelimiter = "\n\n";
-  readonly isLine = true;
   private containingInterior: InteriorTarget;
   private paragraphTarget: ParagraphTarget;
   private startLineGap: number;
@@ -86,16 +87,20 @@ export class BoundedParagraphTarget extends BaseTarget<BoundedParagraphTargetPar
   }
 
   getRemovalHighlightRange() {
-    if (this.startLineGap < 1 || this.endLineGap < 1) {
-      return this.getRemovalRange();
-    }
+    const range = (() => {
+      if (this.startLineGap < 1 || this.endLineGap < 1) {
+        return this.getRemovalRange();
+      }
 
-    const delimiterTarget =
-      this.getTrailingDelimiterTarget() ?? this.getLeadingDelimiterTarget();
+      const delimiterTarget =
+        this.getTrailingDelimiterTarget() ?? this.getLeadingDelimiterTarget();
 
-    return delimiterTarget != null
-      ? this.fullLineContentRange.union(delimiterTarget.contentRange)
-      : this.fullLineContentRange;
+      return delimiterTarget != null
+        ? this.fullLineContentRange.union(delimiterTarget.contentRange)
+        : this.fullLineContentRange;
+    })();
+
+    return toLineRange(range);
   }
 
   maybeCreateRichRangeTarget(

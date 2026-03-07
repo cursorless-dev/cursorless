@@ -30,6 +30,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     singleQuotes: "twin",
     tripleDoubleQuotes: isPrivate("triple quad"),
     tripleSingleQuotes: isPrivate("triple twin"),
+    tripleBacktickQuotes: isPrivate("triple skis"),
     any: "pair",
     string: "string",
     whitespace: "void",
@@ -39,6 +40,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
 
   simpleScopeTypeType: {
     argumentOrParameter: "arg",
+    argumentList: "arg list",
     attribute: "attribute",
     functionCall: "call",
     functionCallee: "callee",
@@ -91,6 +93,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     token: "token",
     identifier: "identifier",
     line: "line",
+    fullLine: "full line",
     sentence: "sentence",
     paragraph: "block",
     boundedParagraph: "short block",
@@ -103,16 +106,12 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     string: isPrivate("parse tree string"),
     textFragment: isPrivate("text fragment"),
     disqualifyDelimiter: isPrivate("disqualify delimiter"),
+    pairDelimiter: isPrivate("pair delimiter"),
+    interior: isPrivate("interior"),
     ["private.fieldAccess"]: isPrivate("access"),
-    ["private.switchStatementSubject"]: isPrivate("subject"),
   },
   complexScopeTypeType: {
     glyph: "glyph",
-  },
-
-  surroundingPairForceDirection: {
-    left: "left",
-    right: "right",
   },
 
   simpleModifier: {
@@ -144,6 +143,9 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
 
   customRegex: {},
   action: {
+    addSelection: "append",
+    addSelectionAfter: "append post",
+    addSelectionBefore: "append pre",
     breakLine: "break",
     scrollToBottom: "bottom",
     toggleLineBreakpoint: "break point",
@@ -165,6 +167,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     foldRegion: "fold",
     followLink: "follow",
     followLinkAside: "follow split",
+    flashTargets: "flash",
     deselect: "give",
     highlight: "highlight",
     showHover: "hover",
@@ -198,10 +201,15 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     insertSnippet: "snippet",
     pasteFromClipboard: "paste",
     joinLines: "join",
+    gitAccept: "git accept",
+    gitRevert: "git revert",
+    gitStage: "git stage",
+    gitUnstage: "git unstage",
+
+    // Was disabled by default before, but is now enabled by default
+    ["experimental.setInstanceReference"]: "from",
 
     ["private.showParseTree"]: isPrivate("parse tree"),
-    ["experimental.setInstanceReference"]: isDisabledByDefault("from"),
-
     editNew: isPrivate("edit new"),
     executeCommand: isPrivate("execute command"),
     parsed: isPrivate("parsed"),

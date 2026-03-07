@@ -1,0 +1,21 @@
+foo, bar = 0, 1
+
+---
+
+[Content] = 0:11-0:15
+             >----<
+0| foo, bar = 0, 1
+
+[Removal] = 0:8-0:15
+          >-------<
+0| foo, bar = 0, 1
+
+[Leading delimiter] = 0:8-0:11
+          >---<
+0| foo, bar = 0, 1
+
+[Domain] = 0:0-0:15
+  >---------------<
+0| foo, bar = 0, 1
+
+[Insertion delimiter] = " "

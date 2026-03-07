@@ -1,0 +1,10 @@
+with foo as bar: pass
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:21
+  >---------------------<
+0| with foo as bar: pass
+
+[Insertion delimiter] = "\n"

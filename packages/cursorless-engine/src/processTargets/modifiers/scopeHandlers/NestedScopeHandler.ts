@@ -1,5 +1,9 @@
-import type { Direction, ScopeType } from "@cursorless/common";
-import type { Position, TextEditor } from "@cursorless/common";
+import type {
+  Direction,
+  Position,
+  ScopeType,
+  TextEditor,
+} from "@cursorless/common";
 import { flatmap } from "itertools";
 import { BaseScopeHandler } from "./BaseScopeHandler";
 import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
@@ -63,7 +67,7 @@ export abstract class NestedScopeHandler extends BaseScopeHandler {
       this._searchScopeHandler = this.scopeHandlerFactory.create(
         this.searchScopeType,
         this.languageId,
-      )!;
+      );
     }
 
     return this._searchScopeHandler;

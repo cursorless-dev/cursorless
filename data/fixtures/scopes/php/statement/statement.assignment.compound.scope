@@ -1,0 +1,16 @@
+<?php
+$foo += 0;
+---
+
+[Content] =
+[Domain] = 1:0-1:10
+  >----------<
+1| $foo += 0;
+
+[Removal] = 0:5-1:10
+       >
+0| <?php
+1| $foo += 0;
+   ----------<
+
+[Insertion delimiter] = "\n"

@@ -1,6 +1,6 @@
 languageId: rust
 command:
-  version: 6
+  version: 7
   spokenForm: change item one
   action:
     name: clearAndSetSelection
@@ -23,7 +23,7 @@ initialState:
       end: {line: 0, character: 21}
 finalState:
   documentContents: |
-    let x = [None, ];
+    let x = [None, Some()];
   selections:
-    - anchor: {line: 0, character: 15}
-      active: {line: 0, character: 15}
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}

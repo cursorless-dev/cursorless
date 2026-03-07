@@ -1,144 +1,314 @@
-import type { Position, TextDocument } from "@cursorless/common";
-import { showError, type TreeSitter } from "@cursorless/common";
-import { groupBy, uniq } from "lodash-es";
-import type { Point, Query } from "web-tree-sitter";
-import { ide } from "../../singletons/ide.singleton";
-import { getNodeRange } from "../../util/nodeSelectors";
 import type {
-  MutableQueryMatch,
+  Mutable,
+  Position,
+  TextDocument,
+  TreeSitter,
+} from "@cursorless/common";
+import type * as treeSitter from "web-tree-sitter";
+import { ide } from "../../singletons/ide.singleton";
+import {
+  getNormalizedCaptureIndex,
+  getNormalizedCaptureName,
+  type ScopeCaptureName,
+} from "./captureNames";
+import { checkCaptureStartEnd } from "./checkCaptureStartEnd";
+import { getNodeRange } from "./getNodeRange";
+import { isContainedInErrorNode } from "./isContainedInErrorNode";
+import { parsePredicatesWithErrorHandling } from "./parsePredicatesWithErrorHandling";
+import { positionToPoint } from "./positionToPoint";
+import type {
+  MutableQueryCapture,
+  PatternPredicate,
   QueryCapture,
   QueryMatch,
 } from "./QueryCapture";
-import { checkCaptureStartEnd } from "./checkCaptureStartEnd";
-import { isContainedInErrorNode } from "./isContainedInErrorNode";
-import { parsePredicates } from "./parsePredicates";
-import { predicateToString } from "./predicateToString";
-import { rewriteStartOfEndOf } from "./rewriteStartOfEndOf";
+import {
+  createTestQueryCapture,
+  getStartOfEndOfNodeRange,
+  getStartOfEndOfRange,
+  rewriteStartOfEndOf,
+} from "./rewriteStartOfEndOf";
+import { treeSitterQueryCache } from "./TreeSitterQueryCache";
 
 /**
  * Wrapper around a tree-sitter query that provides a more convenient API, and
  * defines our own custom predicate operators
  */
 export class TreeSitterQuery {
+  private shouldCheckCaptures: boolean;
+
   private constructor(
     private treeSitter: TreeSitter,
 
     /**
      * The raw tree-sitter query as parsed by tree-sitter from the query file
      */
-    private query: Query,
+    private query: treeSitter.Query,
 
     /**
      * The predicates for each pattern in the query. Each element of the outer
      * array corresponds to a pattern, and each element of the inner array
      * corresponds to a predicate for that pattern.
      */
-    private patternPredicates: ((match: MutableQueryMatch) => boolean)[][],
-  ) {}
+    private patternPredicates: PatternPredicate[][],
+  ) {
+    this.shouldCheckCaptures = ide().runMode !== "production";
+  }
 
-  static create(languageId: string, treeSitter: TreeSitter, query: Query) {
-    const { errors, predicates } = parsePredicates(query.predicates);
-
-    if (errors.length > 0) {
-      for (const error of errors) {
-        const context = [
-          `language ${languageId}`,
-          `pattern ${error.patternIdx}`,
-          `predicate \`${predicateToString(
-            query.predicates[error.patternIdx][error.predicateIdx],
-          )}\``,
-        ].join(", ");
-
-        void showError(
-          ide().messages,
-          "TreeSitterQuery.parsePredicates",
-          `Error parsing predicate for ${context}: ${error.error}`,
-        );
-      }
-
-      // We show errors to the user, but we don't want to crash the extension
-      // unless we're in test mode
-      if (ide().runMode === "test") {
-        throw new Error("Invalid predicates");
-      }
-    }
+  static create(
+    languageId: string,
+    treeSitter: TreeSitter,
+    query: treeSitter.Query,
+  ) {
+    const predicates = parsePredicatesWithErrorHandling(languageId, query);
 
     return new TreeSitterQuery(treeSitter, query, predicates);
   }
 
+  hasCapture(name: string): boolean {
+    return this.query.captureNames.some(
+      (n) => getNormalizedCaptureName(n) === name,
+    );
+  }
+
   matches(
     document: TextDocument,
-    start?: Position,
-    end?: Position,
+    start: Position,
+    end: Position,
   ): QueryMatch[] {
-    return this.query
-      .matches(this.treeSitter.getTree(document).rootNode, {
-        startPosition: start == null ? undefined : positionToPoint(start),
-        endPosition: end == null ? undefined : positionToPoint(end),
-      })
-      .map(
-        ({ pattern, captures }): MutableQueryMatch => ({
-          patternIdx: pattern,
-          captures: captures.map(({ name, node }) => ({
-            name,
-            node,
-            document,
-            range: getNodeRange(node),
-            insertionDelimiter: undefined,
-            allowMultiple: false,
-            hasError: () => isContainedInErrorNode(node),
-          })),
-        }),
-      )
-      .filter((match) =>
-        this.patternPredicates[match.patternIdx].every((predicate) =>
-          predicate(match),
-        ),
-      )
-      .map((match): QueryMatch => {
-        // Merge the ranges of all captures with the same name into a single
-        // range and return one capture with that name.  We consider captures
-        // with names `@foo`, `@foo.start`, and `@foo.end` to have the same
-        // name, for which we'd return a capture with name `foo`.
-        const captures: QueryCapture[] = Object.entries(
-          groupBy(match.captures, ({ name }) => normalizeCaptureName(name)),
-        ).map(([name, captures]) => {
-          captures = rewriteStartOfEndOf(captures);
-          const capturesAreValid = checkCaptureStartEnd(
-            captures,
-            ide().messages,
-          );
+    return this.getMatches(document, start, end, undefined);
+  }
 
-          if (!capturesAreValid && ide().runMode === "test") {
-            throw new Error("Invalid captures");
-          }
+  matchesForScopeTypes(
+    document: TextDocument,
+    scopeTypes: readonly ScopeCaptureName[],
+  ): QueryMatch[] {
+    const captureNameFilter = new Set(
+      scopeTypes.map(getNormalizedCaptureIndex),
+    );
+    return this.getMatches(document, undefined, undefined, captureNameFilter);
+  }
 
-          return {
-            name,
-            range: captures
-              .map(({ range }) => range)
-              .reduce((accumulator, range) => range.union(accumulator)),
-            allowMultiple: captures.some((capture) => capture.allowMultiple),
-            insertionDelimiter: captures.find(
-              (capture) => capture.insertionDelimiter != null,
-            )?.insertionDelimiter,
-            hasError: () => captures.some((capture) => capture.hasError()),
-          };
-        });
+  private getMatches(
+    document: TextDocument,
+    start: Position | undefined,
+    end: Position | undefined,
+    captureNameFilter: Set<number> | undefined,
+  ): QueryMatch[] {
+    if (
+      !treeSitterQueryCache.isValid(document, start, end, captureNameFilter)
+    ) {
+      const matches = this.calculateMatches(
+        document,
+        start,
+        end,
+        captureNameFilter,
+      );
+      treeSitterQueryCache.update(
+        document,
+        start,
+        end,
+        captureNameFilter,
+        matches,
+      );
+    }
+    return treeSitterQueryCache.get();
+  }
 
-        return { ...match, captures };
+  private calculateMatches(
+    document: TextDocument,
+    start: Position | undefined,
+    end: Position | undefined,
+    captureNameFilter: Set<number> | undefined,
+  ): QueryMatch[] {
+    const matches = this.getTreeMatches(document, start, end);
+    const results: QueryMatch[] = [];
+
+    for (const match of matches) {
+      if (
+        captureNameFilter != null &&
+        !match.captures.some((capture) =>
+          captureNameFilter.has(getNormalizedCaptureIndex(capture.name)),
+        )
+      ) {
+        continue;
+      }
+
+      const patternPredicates = this.patternPredicates[match.patternIndex];
+
+      // The split path here is to avoid creating query captures if there are no
+      // predicates, Solely for performance.
+      const captures =
+        patternPredicates.length > 0
+          ? this.createQueryCapturesWithPredicates(
+              document,
+              match,
+              patternPredicates,
+              captureNameFilter,
+            )
+          : this.createQueryCapturesWithoutPredicates(match, captureNameFilter);
+
+      if (captures.length > 0) {
+        results.push({ captures });
+      }
+    }
+
+    return results;
+  }
+
+  private getTreeMatches(
+    document: TextDocument,
+    start: Position | undefined,
+    end: Position | undefined,
+  ) {
+    const { rootNode } = this.treeSitter.getTree(document);
+    return this.query.matches(rootNode, {
+      startPosition: start != null ? positionToPoint(start) : undefined,
+      endPosition: end != null ? positionToPoint(end) : undefined,
+    });
+  }
+
+  private createQueryCapturesWithPredicates(
+    document: TextDocument,
+    match: treeSitter.QueryMatch,
+    predicates: PatternPredicate[],
+    captureNameFilter: Set<number> | undefined,
+  ): QueryCapture[] {
+    const captures: MutableQueryCapture[] = [];
+
+    for (const capture of match.captures) {
+      captures.push({
+        name: capture.name,
+        node: capture.node,
+        document,
+        range: getNodeRange(capture.node),
+        allowMultiple: false,
+        insertionDelimiter: undefined,
+        hasError: () => isContainedInErrorNode(capture.node),
       });
+    }
+
+    for (const predicate of predicates) {
+      if (!predicate({ captures })) {
+        return [];
+      }
+    }
+
+    const result: QueryCapture[] = [];
+    const map = new Map<
+      string,
+      { acc: Mutable<QueryCapture>; captures: QueryCapture[] }
+    >();
+
+    // Merge the ranges of all captures with the same name into a single
+    // range and return one capture with that name.  We consider captures
+    // with names `@foo`, `@foo.start`, and `@foo.end` to have the same
+    // name, for which we'd return a capture with name `foo`.
+
+    for (const capture of captures) {
+      if (
+        captureNameFilter != null &&
+        !captureNameFilter.has(getNormalizedCaptureIndex(capture.name))
+      ) {
+        continue;
+      }
+
+      const name = getNormalizedCaptureName(capture.name);
+      const range = getStartOfEndOfRange(capture);
+      const existing = map.get(name);
+
+      if (existing == null) {
+        const captures = [capture];
+        const acc: QueryCapture = {
+          name,
+          range,
+          allowMultiple: capture.allowMultiple,
+          insertionDelimiter: capture.insertionDelimiter,
+          hasError: () => captures.some((c) => c.hasError()),
+        };
+        result.push(acc);
+        map.set(name, { acc, captures });
+      } else {
+        existing.acc.range = existing.acc.range.union(range);
+        existing.acc.allowMultiple =
+          existing.acc.allowMultiple || capture.allowMultiple;
+        existing.acc.insertionDelimiter =
+          existing.acc.insertionDelimiter ?? capture.insertionDelimiter;
+        existing.captures.push(capture);
+      }
+    }
+
+    if (this.shouldCheckCaptures) {
+      checkCaptures(Array.from(map.values()));
+    }
+
+    return result;
   }
 
-  get captureNames() {
-    return uniq(this.query.captureNames.map(normalizeCaptureName));
+  private createQueryCapturesWithoutPredicates(
+    match: treeSitter.QueryMatch,
+    captureNameFilter: Set<number> | undefined,
+  ): QueryCapture[] {
+    const result: QueryCapture[] = [];
+    const map = new Map<
+      string,
+      {
+        acc: Mutable<QueryCapture>;
+        captures: treeSitter.QueryCapture[];
+      }
+    >();
+
+    for (const capture of match.captures) {
+      if (
+        captureNameFilter != null &&
+        !captureNameFilter.has(getNormalizedCaptureIndex(capture.name))
+      ) {
+        continue;
+      }
+
+      const name = getNormalizedCaptureName(capture.name);
+      const range = getStartOfEndOfNodeRange(capture.name, capture.node);
+      const existing = map.get(name);
+
+      if (existing == null) {
+        const captures = [capture];
+        const acc: QueryCapture = {
+          name,
+          range,
+          allowMultiple: false,
+          insertionDelimiter: undefined,
+          hasError: () => captures.some((c) => isContainedInErrorNode(c.node)),
+        };
+        result.push(acc);
+        map.set(name, { acc, captures });
+      } else {
+        existing.acc.range = existing.acc.range.union(range);
+        existing.captures.push(capture);
+      }
+    }
+
+    if (this.shouldCheckCaptures) {
+      checkCaptures(
+        Array.from(map.values(), (v) => ({
+          captures: v.captures.map((c) =>
+            createTestQueryCapture(c.name, getNodeRange(c.node)),
+          ),
+        })),
+      );
+    }
+
+    return result;
   }
 }
 
-function normalizeCaptureName(name: string): string {
-  return name.replace(/(\.(start|end))?(\.(startOf|endOf))?$/, "");
-}
-
-function positionToPoint(start: Position): Point {
-  return { row: start.line, column: start.character };
+function checkCaptures(matches: { captures: QueryCapture[] }[]) {
+  for (const match of matches) {
+    const capturesAreValid = checkCaptureStartEnd(
+      rewriteStartOfEndOf(match.captures),
+      ide().messages,
+    );
+    if (!capturesAreValid && ide().runMode === "test") {
+      throw new Error("Invalid captures");
+    }
+  }
 }

@@ -1,0 +1,22 @@
+<?php
+try {}
+catch (Exception $e) {}
+---
+
+[Content] = 2:17-2:19
+                   >--<
+2| catch (Exception $e) {}
+
+[Removal] = 2:16-2:19
+                  >---<
+2| catch (Exception $e) {}
+
+[Leading delimiter] = 2:16-2:17
+                  >-<
+2| catch (Exception $e) {}
+
+[Domain] = 2:7-2:19
+         >------------<
+2| catch (Exception $e) {}
+
+[Insertion delimiter] = " "

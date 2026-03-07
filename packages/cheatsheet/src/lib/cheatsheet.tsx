@@ -17,7 +17,7 @@ export const CheatsheetPage: React.FC<CheatsheetPageProps> = ({
 }) => {
   return (
     <main className="dark:text-stone-100">
-      <h1 className="mb-1 mt-2 text-center text-2xl md:text-3xl xl:mt-4">
+      <h1 className="mt-2 mb-1 text-center text-2xl md:text-3xl xl:mt-4">
         Cursorless Cheatsheet{" "}
         <span className="inline-block align-middle text-sm">
           <SmartLink to="#legend">
@@ -64,7 +64,7 @@ type CheatsheetSectionProps = {
 };
 
 const CheatsheetSection: React.FC<CheatsheetSectionProps> = ({ children }) => (
-  <section className=" mb-5 break-inside-avoid last:mb-0 md:mb-3 xl:mb-4">
+  <section className="mb-5 break-inside-avoid last:mb-0 md:mb-3 xl:mb-4">
     {children}
   </section>
 );

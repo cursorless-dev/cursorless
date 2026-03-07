@@ -1,0 +1,33 @@
+func foo(aaa int, bbb string) {}
+---
+
+[#1 Content] =
+[#1 Domain] = 0:9-0:16
+           >-------<
+0| func foo(aaa int, bbb string) {}
+
+[#1 Removal] = 0:9-0:18
+           >---------<
+0| func foo(aaa int, bbb string) {}
+
+[#1 Trailing delimiter] = 0:16-0:18
+                  >--<
+0| func foo(aaa int, bbb string) {}
+
+[#1 Insertion delimiter] = ", "
+
+
+[#2 Content] =
+[#2 Domain] = 0:18-0:28
+                    >----------<
+0| func foo(aaa int, bbb string) {}
+
+[#2 Removal] = 0:16-0:28
+                  >------------<
+0| func foo(aaa int, bbb string) {}
+
+[#2 Leading delimiter] = 0:16-0:18
+                  >--<
+0| func foo(aaa int, bbb string) {}
+
+[#2 Insertion delimiter] = ", "

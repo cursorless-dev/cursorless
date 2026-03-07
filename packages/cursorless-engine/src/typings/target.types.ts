@@ -3,31 +3,33 @@
 // switch to `{import("foo")}` syntax in the `{@link}` tag.
 // - https://github.com/microsoft/TypeScript/issues/43869
 // - https://github.com/microsoft/TypeScript/issues/43950
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { ModifyIfUntypedStage } from "../processTargets/modifiers/ConditionalModifierStages";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
 import type {
+  GeneralizedRange,
   InsertionMode,
   Range,
   Selection,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
-  Snippet,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
-  SnippetVariable,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  CustomInsertSnippetArg,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  CustomWrapWithSnippetArg,
   TargetPlainObject,
   TextEditor,
 } from "@cursorless/common";
 import type {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ScopeTypeTarget,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   TokenTarget,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   UntypedTarget,
 } from "../processTargets/targets";
 import type { EditWithRangeUpdater } from "./Types";
 
 export type EditNewActionType = "edit" | "insertLineAfter";
+
+export type TextualType = "character" | "word" | "token" | "line";
 
 export interface Target {
   /** The text editor used for all ranges */
@@ -45,14 +47,8 @@ export interface Target {
   /** Optional prefix. For example, dash or asterisk for a markdown item */
   readonly prefixRange?: Range;
 
-  /** If true this target should be treated as a line */
-  readonly isLine: boolean;
-
-  /** If true this target should be treated as a token */
-  readonly isToken: boolean;
-
-  /** If true this target should be treated as a word */
-  readonly isWord: boolean;
+  /** Targets textual type. Is this target a line, a token, etc... */
+  readonly textualType: TextualType;
 
   /**
    * If `true`, then this target has an explicit scope type, and so should never
@@ -79,9 +75,9 @@ export interface Target {
    * - To expand to `"token"` for `"leading"` and `"trailing"`
    * - To expand to nearest containing pair for `"inside"`, `"bounds"`, and
    *   `"rewrap"`
-   * - To expand to {@link SnippetVariable.wrapperScopeType} for snippet
+   * - To expand to {@link CustomWrapWithSnippetArg.scopeType} for snippet
    *   wrapping
-   * - To expand to {@link Snippet.insertionScopeTypes} for snippet insertion
+   * - To expand to {@link CustomInsertSnippetArg.scopeType} for snippet insertion
    *
    * For example, when the user says `"pour air"`, the
    * {@link DecoratedSymbolStage} will return an {@link UntypedTarget}, which
@@ -152,7 +148,7 @@ export interface Target {
    * we want to highlight the line that they were on when they said `"chuck
    * line"`, as that is logically the line they've deleted.
    */
-  getRemovalHighlightRange(): Range;
+  getRemovalHighlightRange(): GeneralizedRange;
   withThatTarget(thatTarget: Target): Target;
   withContentRange(contentRange: Range): Target;
 
@@ -216,5 +212,8 @@ export interface Destination {
   withTarget(target: Target): Destination;
   getEditNewActionType(): EditNewActionType;
   /** Constructs change/insertion edit. Adds delimiter before/after if needed */
-  constructChangeEdit(text: string): EditWithRangeUpdater;
+  constructChangeEdit(
+    text: string,
+    skipIndentation?: boolean,
+  ): EditWithRangeUpdater;
 }

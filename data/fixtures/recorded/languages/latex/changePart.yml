@@ -1,6 +1,6 @@
 languageId: latex
 command:
-  version: 6
+  version: 7
   spokenForm: change part
   action:
     name: clearAndSetSelection

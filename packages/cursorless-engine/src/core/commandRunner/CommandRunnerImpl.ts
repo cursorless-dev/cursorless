@@ -27,6 +27,7 @@ export class CommandRunnerImpl implements CommandRunner {
   private inferenceContext: InferenceContext;
   private finalStages: ModifierStage[] = [];
   private noAutomaticTokenExpansion: boolean | undefined;
+  private allowDuplicateTargets: boolean | undefined;
 
   constructor(
     private commandServerApi: CommandServerApi,
@@ -103,6 +104,7 @@ export class CommandRunnerImpl implements CommandRunner {
 
     switch (actionDescriptor.name) {
       case "replaceWithTarget":
+        this.allowDuplicateTargets = true;
         return this.actions.replaceWithTarget.run(
           this.getTargets(actionDescriptor.source),
           this.getDestinations(actionDescriptor.destination),
@@ -169,11 +171,13 @@ export class CommandRunnerImpl implements CommandRunner {
       case "generateSnippet":
         return this.actions.generateSnippet.run(
           this.getTargets(actionDescriptor.target),
+          actionDescriptor.directory,
           actionDescriptor.snippetName,
         );
 
       case "insertSnippet":
         this.finalStages = this.actions.insertSnippet.getFinalStages(
+          this.getDestinations(actionDescriptor.destination),
           actionDescriptor.snippetDescription,
         );
         return this.actions.insertSnippet.run(
@@ -183,6 +187,7 @@ export class CommandRunnerImpl implements CommandRunner {
 
       case "wrapWithSnippet":
         this.finalStages = this.actions.wrapWithSnippet.getFinalStages(
+          this.getTargets(actionDescriptor.target),
           actionDescriptor.snippetDescription,
         );
         return this.actions.wrapWithSnippet.run(
@@ -211,6 +216,13 @@ export class CommandRunnerImpl implements CommandRunner {
 
       default: {
         const action = this.actions[actionDescriptor.name];
+
+        // Ensure we don't miss any new actions. Needed because we don't have input validation.
+        // FIXME: remove once we have schema validation (#983)
+        if (action == null) {
+          throw new Error(`Unknown action: ${actionDescriptor.name}`);
+        }
+
         this.finalStages = action.getFinalStages?.() ?? [];
         this.noAutomaticTokenExpansion =
           action.noAutomaticTokenExpansion ?? false;
@@ -229,6 +241,7 @@ export class CommandRunnerImpl implements CommandRunner {
     return this.pipelineRunner.run(targetDescriptor, {
       actionFinalStages: this.finalStages,
       noAutomaticTokenExpansion: this.noAutomaticTokenExpansion,
+      allowDuplicateTargets: this.allowDuplicateTargets,
     });
   }
 

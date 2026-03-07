@@ -1,4 +1,9 @@
-import type { Range, Selection, TextEditor } from "@cursorless/common";
+import type {
+  GeneralizedRange,
+  Range,
+  Selection,
+  TextEditor,
+} from "@cursorless/common";
 import { FlashStyle, RangeExpansionBehavior } from "@cursorless/common";
 import { flatten } from "lodash-es";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
@@ -8,8 +13,8 @@ import type { EditWithRangeUpdater } from "../typings/Types";
 import type { Destination, Target } from "../typings/target.types";
 import {
   flashTargets,
-  getContentRange,
   runForEachEditor,
+  toGeneralizedRange,
 } from "../util/targetUtils";
 import { unifyRemovalTargets } from "../util/unifyRanges";
 import type { ActionReturnValue } from "./actions.types";
@@ -34,7 +39,7 @@ abstract class BringMoveSwap {
   protected abstract decoration: {
     sourceStyle: FlashStyle;
     destinationStyle: FlashStyle;
-    getSourceRangeCallback: (target: Target) => Range;
+    getSourceRangeCallback?: (target: Target) => GeneralizedRange;
   };
 
   constructor(
@@ -65,6 +70,8 @@ abstract class BringMoveSwap {
 
     sources.forEach((source, i) => {
       let destination = destinations[i];
+      let destinationEdit: ExtendedEdit | undefined;
+
       if ((source == null || destination == null) && !shouldJoinSources) {
         throw new Error("Targets must have same number of args");
       }
@@ -84,13 +91,15 @@ abstract class BringMoveSwap {
         } else {
           text = source.contentText;
         }
+
         // Add destination edit
-        results.push({
+        destinationEdit = {
           edit: destination.constructChangeEdit(text),
           editor: destination.editor,
           originalTarget: destination.target,
           isSource: false,
-        });
+        };
+        results.push(destinationEdit);
       } else {
         destination = destinations[0];
       }
@@ -98,7 +107,16 @@ abstract class BringMoveSwap {
       // Add source edit
       // Prevent multiple instances of the same expanded source.
       if (!usedSources.includes(source)) {
-        usedSources.push(source);
+        // Allow move where the destination contains the source. eg "bring token to line"
+        if (
+          this.type !== "move" ||
+          destinationEdit == null ||
+          destinationEdit.editor.id !== source.editor.id ||
+          !destinationEdit.edit.range.contains(source.contentRange)
+        ) {
+          usedSources.push(source);
+        }
+
         if (this.type === "bring") {
           results.push({
             edit: source
@@ -209,8 +227,12 @@ abstract class BringMoveSwap {
   }
 
   protected async decorateThatMark(thatMark: MarkEntry[]) {
-    const getRange = (target: Target) =>
-      thatMark.find((t) => t.target === target)!.selection;
+    const getRange = (target: Target) => {
+      return toGeneralizedRange(
+        target,
+        thatMark.find((t) => t.target === target)!.selection,
+      );
+    };
     return Promise.all([
       flashTargets(
         ide(),
@@ -250,7 +272,6 @@ export class Bring extends BringMoveSwap {
   decoration = {
     sourceStyle: FlashStyle.referenced,
     destinationStyle: FlashStyle.pendingModification0,
-    getSourceRangeCallback: getContentRange,
   };
 
   constructor(rangeUpdater: RangeUpdater) {
@@ -320,7 +341,6 @@ export class Swap extends BringMoveSwap {
   decoration = {
     sourceStyle: FlashStyle.pendingModification1,
     destinationStyle: FlashStyle.pendingModification0,
-    getSourceRangeCallback: getContentRange,
   };
 
   constructor(rangeUpdater: RangeUpdater) {

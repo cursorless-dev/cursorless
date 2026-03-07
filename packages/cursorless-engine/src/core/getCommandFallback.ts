@@ -4,7 +4,7 @@ import type {
   CommandServerApi,
   DestinationDescriptor,
   Fallback,
-  FallbackModifier,
+  FallbackCommandModifier,
   PartialTargetDescriptor,
 } from "@cursorless/common";
 import type { ActionReturnValue } from "../actions/actions.types";
@@ -127,7 +127,7 @@ function targetIsSelection(target: PartialTargetDescriptor): boolean {
 
 function getModifiersFromDestination(
   destination: DestinationDescriptor,
-): FallbackModifier[] {
+): FallbackCommandModifier[] {
   if (destination.type === "primitive") {
     return getModifiersFromTarget(destination.target);
   }
@@ -136,15 +136,17 @@ function getModifiersFromDestination(
 
 function getModifiersFromTarget(
   target: PartialTargetDescriptor,
-): FallbackModifier[] {
+): FallbackCommandModifier[] {
   if (target.type === "primitive") {
     if (target.modifiers != null && target.modifiers.length > 0) {
       return target.modifiers;
     }
 
-    if (target.mark?.type === "cursor") {
-      return [{ type: "containingTokenIfEmpty" }];
-    }
+    // FIXME: Trying to select a word in the file explorer will create weird behavior.
+    // https://github.com/cursorless-dev/cursorless/issues/2800
+    // if (target.mark?.type === "cursor") {
+    //   return [{ type: "containingTokenIfEmpty" }];
+    // }
   }
   return [];
 }

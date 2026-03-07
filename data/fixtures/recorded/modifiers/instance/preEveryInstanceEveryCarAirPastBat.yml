@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  version: 6
+  version: 7
   spokenForm: pre every instance every char air past bat
   action:
     name: setSelectionBefore

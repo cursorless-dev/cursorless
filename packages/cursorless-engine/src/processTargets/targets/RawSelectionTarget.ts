@@ -1,4 +1,5 @@
 import type { EnforceUndefined } from "@cursorless/common";
+import type { TextualType } from "../../typings/target.types";
 import type { CommonTargetParameters } from "./BaseTarget";
 import { BaseTarget } from "./BaseTarget";
 
@@ -9,9 +10,9 @@ import { BaseTarget } from "./BaseTarget";
  */
 export class RawSelectionTarget extends BaseTarget<CommonTargetParameters> {
   type = "RawSelectionTarget";
+  textualType: TextualType = "character";
   insertionDelimiter = "";
   isRaw = true;
-  isToken = false;
 
   getLeadingDelimiterTarget = () => undefined;
   getTrailingDelimiterTarget = () => undefined;

@@ -300,7 +300,7 @@ cursorless.nvim/.busted
 ### Running lua unit tests
 
 Many of the cursorless.nvim lua functions are run in order to complete Cursorless actions and so are already
-indirectly tested by the tests described in the [previous section](#3-cursorless-tests-for-neovim). Nevertheless, we run
+indirectly tested by the tests described in the [previous section](#running-neovim-tests-locally). Nevertheless, we run
 more specific unit tests in order to give better visibility into exactly which functions are failing.
 The [busted](https://github.com/lunarmodules/busted) framework is used to test lua functions defined in cursorless.nvim.
 This relies on a `cursorless.nvim/.busted` file which directs busted to use a lua interpreter and test specifications files:

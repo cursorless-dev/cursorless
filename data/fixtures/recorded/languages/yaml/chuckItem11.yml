@@ -1,6 +1,6 @@
 languageId: yaml
 command:
-  version: 6
+  version: 7
   spokenForm: chuck item
   action:
     name: remove
@@ -19,8 +19,7 @@ initialState:
       active: {line: 1, character: 2}
   marks: {}
 finalState:
-  documentContents: |
-    foo:
+  documentContents: "foo:"
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}

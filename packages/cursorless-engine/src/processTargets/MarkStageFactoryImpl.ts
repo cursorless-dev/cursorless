@@ -47,6 +47,13 @@ export class MarkStageFactoryImpl implements MarkStageFactory {
         return new TargetMarkStage(this.targetPipelineRunner, mark);
       case "explicit":
         return new ExplicitMarkStage(mark);
+      default: {
+        // Ensure we don't miss any new marks. Needed because we don't have input validation.
+        // FIXME: remove once we have schema validation (#983)
+        const _exhaustiveCheck: never = mark;
+        const { type } = mark;
+        throw new Error(`Unknown mark: ${type}`);
+      }
     }
   }
 }

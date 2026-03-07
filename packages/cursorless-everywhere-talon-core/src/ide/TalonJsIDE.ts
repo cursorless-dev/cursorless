@@ -8,8 +8,10 @@ import type {
   GeneralizedRange,
   IDE,
   InputBoxOptions,
+  KeyValueStore,
   Listener,
   Messages,
+  NotebookEditor,
   OpenUntitledTextDocumentOptions,
   QuickPickOptions,
   RunMode,
@@ -20,18 +22,18 @@ import type {
   TextEditorVisibleRangesChangeEvent,
   WorkspaceFolder,
 } from "@cursorless/common";
-import { Notifier, type KeyValueStore } from "@cursorless/common";
+import { Notifier } from "@cursorless/common";
 import { pull } from "lodash-es";
 import type { Talon } from "../types/talon.types";
 import type { EditorState } from "../types/types";
+import { createTextEditor } from "./createTextEditor";
+import { flashRanges } from "./flashRanges";
 import { TalonJsCapabilities } from "./TalonJsCapabilities";
 import { TalonJsClipboard } from "./TalonJsClipboard";
 import { TalonJsConfiguration } from "./TalonJsConfiguration";
 import { TalonJsEditor } from "./TalonJsEditor";
-import { TalonJsMessages } from "./TalonJsMessages";
-
-import { createTextEditor } from "./createTextEditor";
 import { TalonJsKeyValueStore } from "./TalonJsKeyValueStore";
+import { TalonJsMessages } from "./TalonJsMessages";
 
 export class TalonJsIDE implements IDE {
   configuration: Configuration;
@@ -78,6 +80,10 @@ export class TalonJsIDE implements IDE {
 
   get visibleTextEditors(): TextEditor[] {
     return this.editors;
+  }
+
+  get visibleNotebookEditors(): NotebookEditor[] {
+    return [];
   }
 
   getEditableTextEditor(editor: TextEditor): EditableTextEditor {
@@ -134,8 +140,8 @@ export class TalonJsIDE implements IDE {
     throw new Error("executeCommand not implemented.");
   }
 
-  flashRanges(_flashDescriptors: FlashDescriptor[]): Promise<void> {
-    return Promise.resolve();
+  flashRanges(flashDescriptors: FlashDescriptor[]): Promise<void> {
+    return flashRanges(this.talon, flashDescriptors);
   }
 
   setHighlightRanges(

@@ -63,18 +63,6 @@ export function getRelatedRange(
 
 /**
  * Looks in the captures of a match for a capture with one of the given names, and
- * returns the range of that capture, or undefined if no matching capture was found
- *
- * @param match The match to get the range from
- * @param names The possible names of the capture to get the range for
- * @returns A range or undefined if no matching capture was found
- */
-export function findCaptureRangeByName(match: QueryMatch, ...names: string[]) {
-  return findCaptureByName(match, ...names)?.range;
-}
-
-/**
- * Looks in the captures of a match for a capture with one of the given names, and
  * returns that capture, or undefined if no matching capture was found
  *
  * @param match The match to get the range from

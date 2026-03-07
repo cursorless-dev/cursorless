@@ -1,6 +1,6 @@
 languageId: yaml
 command:
-  version: 6
+  version: 7
   spokenForm: change map
   action:
     name: clearAndSetSelection

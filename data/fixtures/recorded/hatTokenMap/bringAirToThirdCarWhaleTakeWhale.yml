@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  version: 6
+  version: 7
   spokenForm: bring air to third char whale take whale
   action:
     name: replaceWithTarget

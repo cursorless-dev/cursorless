@@ -4,6 +4,7 @@ import type {
   ScopeType,
   TextEditor,
 } from "@cursorless/common";
+import type { Target } from "../../../typings/target.types";
 import type { InteriorTarget } from "../../targets";
 import {
   BoundedParagraphTarget,
@@ -18,7 +19,7 @@ import type {
   ScopeIteratorRequirements,
 } from "./scopeHandler.types";
 import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
-import type { Target } from "../../../typings/target.types";
+import { isEveryScopeModifier } from "./util/isHintsEveryScope";
 
 abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
   protected readonly isHierarchical = true;
@@ -35,21 +36,24 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
     this.targetScopeHandler = this.scopeHandlerFactory.create(
       this.targetScopeType,
       this.languageId,
-    )!;
+    );
     this.surroundingPairInteriorScopeHandler = this.scopeHandlerFactory.create(
       {
         type: "surroundingPairInterior",
         delimiter: "any",
       },
       this.languageId,
-    )!;
+    );
   }
 
   get iterationScopeType(): ScopeType {
-    if (this.targetScopeHandler.iterationScopeType.type === "custom") {
-      throw Error(
-        "Iteration scope type can't be custom for BoundedBaseScopeHandler",
-      );
+    switch (this.targetScopeHandler.iterationScopeType.type) {
+      case "custom":
+      case "fallback":
+      case "conditional":
+        throw Error(
+          `Iteration scope type can't be '${this.targetScopeHandler.iterationScopeType.type}' for BoundedBaseScopeHandler`,
+        );
     }
     return {
       type: "oneOf",
@@ -88,27 +92,31 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
         direction,
         {
           ...hints,
-          // For every (skipAncestorScopes=true) we don't want to go outside of the surrounding pair
-          containment:
-            hints.containment == null && hints.skipAncestorScopes
-              ? "required"
-              : hints.containment,
+          // For the every scope, we don't want to go outside of the surrounding pair
+          containment: isEveryScopeModifier(hints)
+            ? "required"
+            : hints.containment,
         },
       ),
     );
 
+    if (interiorScopes.length === 0) {
+      yield* targetScopes;
+      return;
+    }
+
     for (const targetScope of targetScopes) {
-      const allScopes: TargetScope[] = [];
+      let allScopes: TargetScope[] | undefined;
 
       for (const interiorScope of interiorScopes) {
         const domain = targetScope.domain.intersection(interiorScope.domain);
         if (domain != null && !domain.isEmpty) {
-          allScopes.push({
+          (allScopes ??= []).push({
             editor,
             domain,
             getTargets: (isReversed) => {
               return [
-                this.getTargets(
+                this.createTarget(
                   ensureSingleTarget(targetScope, isReversed),
                   ensureSingleTarget(interiorScope, isReversed),
                 ),
@@ -116,6 +124,30 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
             },
           });
         }
+      }
+
+      if (allScopes == null) {
+        yield targetScope;
+        continue;
+      }
+
+      if (allScopes.length === 1) {
+        const intersectionScope = allScopes[0];
+        if (
+          compareTargetScopes(
+            direction,
+            position,
+            intersectionScope,
+            targetScope,
+          ) <= 0
+        ) {
+          yield intersectionScope;
+          yield targetScope;
+        } else {
+          yield targetScope;
+          yield intersectionScope;
+        }
+        continue;
       }
 
       // NB: We add the target scope last so that if it is identical to
@@ -129,7 +161,7 @@ abstract class BoundedBaseScopeHandler extends BaseScopeHandler {
     }
   }
 
-  protected abstract getTargets(target: Target, interior: Target): Target;
+  protected abstract createTarget(target: Target, interior: Target): Target;
 }
 
 function ensureSingleTarget(scope: TargetScope, isReversed: boolean): Target {
@@ -153,13 +185,13 @@ export class BoundedNonWhitespaceSequenceScopeHandler extends BoundedBaseScopeHa
     super(scopeHandlerFactory, languageId, { type: "nonWhitespaceSequence" });
   }
 
-  protected getTargets(target: Target, interior: Target): Target {
+  protected createTarget(target: Target, interior: Target): Target {
     const contentRange = target.contentRange.intersection(
       interior.contentRange,
     );
 
     if (contentRange == null || contentRange.isEmpty) {
-      throw Error("Expected non empty intersection");
+      throw Error("Expected non-empty intersection");
     }
 
     return new TokenTarget({
@@ -181,7 +213,7 @@ export class BoundedParagraphScopeHandler extends BoundedBaseScopeHandler {
     super(scopeHandlerFactory, languageId, { type: "paragraph" });
   }
 
-  protected getTargets(target: Target, interior: InteriorTarget): Target {
+  protected createTarget(target: Target, interior: InteriorTarget): Target {
     if (!(target instanceof ParagraphTarget)) {
       throw Error("Expected ParagraphTarget");
     }

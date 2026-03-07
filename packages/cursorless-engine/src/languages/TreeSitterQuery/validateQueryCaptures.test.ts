@@ -7,12 +7,12 @@ const testCases: { name: string; isOk: boolean; content: string }[] = [
   {
     name: "Scope captures",
     isOk: true,
-    content: "(if_statement) @statement @ifStatement @comment",
+    content: "(if_statement) @statement @ifStatement @comment @interior",
   },
   {
     name: "Relationships",
     isOk: true,
-    content: "(if_statement) @statement.domain @statement.interior @_.removal",
+    content: "(if_statement) @statement.domain @_.removal",
   },
   {
     name: "Position captures",
@@ -24,7 +24,7 @@ const testCases: { name: string; isOk: boolean; content: string }[] = [
     name: "Range captures",
     isOk: true,
     content:
-      "(if_statement) @statement.start @statement.start.endOf @statement.removal.start @statement.interior.start.endOf",
+      "(if_statement) @statement.start @statement.start.endOf @statement.removal.start",
   },
   {
     name: "Dummy capture",
@@ -50,6 +50,11 @@ const testCases: { name: string; isOk: boolean; content: string }[] = [
     name: "Unknown capture in comment",
     isOk: true,
     content: ";; (if_statement) @unknown",
+  },
+  {
+    name: "@ ending string",
+    isOk: true,
+    content: '"return@"',
   },
   {
     name: "Unknown capture",

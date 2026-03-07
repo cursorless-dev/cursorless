@@ -19,7 +19,6 @@ const CONFIGURATION_DEFAULTS: CursorlessConfiguration = {
   wordSeparators: ["_"],
   decorationDebounceDelayMs: 50,
   experimental: {
-    snippetsDir: undefined,
     hatStability: HatStability.balanced,
     keyboardTargetFollowsSelection: false,
   },

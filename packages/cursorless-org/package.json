@@ -2,42 +2,9 @@
   "name": "@cursorless/cursorless-org",
   "version": "0.1.0",
   "description": "The cursorless.org website",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "http-server out -a 127.0.0.1 -p 8080",
-    "lint": "next lint",
-    "compile": "tsc --build",
-    "watch": "tsc --build --watch",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
-  },
-  "dependencies": {
-    "@cursorless/cheatsheet": "workspace:*",
-    "@mdx-js/loader": "3.0.1",
-    "@mdx-js/react": "3.0.1",
-    "@next/mdx": "14.1.4",
-    "next": "14.1.4",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-player": "2.15.1"
-  },
-  "devDependencies": {
-    "@svgr/webpack": "8.1.0",
-    "@types/mdx": "2.0.12",
-    "@types/mdx-js__react": "1.5.8",
-    "@types/node": "18.18.2",
-    "@types/react": "18.2.71",
-    "@types/react-dom": "18.2.22",
-    "autoprefixer": "10.4.19",
-    "eslint": "^8.57.0",
-    "eslint-config-next": "14.2.5",
-    "http-server": "14.1.1",
-    "postcss": "8.4.38",
-    "tailwindcss": "3.4.1",
-    "typescript": "^5.5.3"
-  },
   "license": "MIT",
+  "private": true,
+  "type": "module",
   "main": "./out/index.js",
   "types": "./out/index.d.ts",
   "exports": {
@@ -48,9 +15,42 @@
   },
   "postcss": {
     "plugins": {
-      "tailwindcss": {},
-      "autoprefixer": {}
+      "@tailwindcss/postcss": {}
     }
   },
-  "type": "module"
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build --webpack",
+    "start": "http-server out -a 127.0.0.1 -p 8085",
+    "lint": "next lint",
+    "compile": "tsc --build",
+    "watch": "tsc --build --watch",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
+  },
+  "dependencies": {
+    "@cursorless/cheatsheet": "workspace:*",
+    "@cursorless/common": "workspace:*",
+    "@mdx-js/loader": "^3.1.1",
+    "@mdx-js/react": "^3.1.1",
+    "@next/mdx": "^16.1.6",
+    "next": "^16.1.6",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-player": "^3.4.0"
+  },
+  "devDependencies": {
+    "@eslint/compat": "^2.0.3",
+    "@svgr/webpack": "^8.1.0",
+    "@tailwindcss/postcss": "^4.2.1",
+    "@types/mdx": "^2.0.13",
+    "@types/node": "^24.12.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^10.0.3",
+    "eslint-config-next": "^16.1.6",
+    "http-server": "^14.1.1",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^4.2.1",
+    "typescript": "^5.9.3"
+  }
 }

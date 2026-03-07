@@ -1,11 +1,16 @@
-import type { Direction, Position, TextEditor } from "@cursorless/common";
-import { type SurroundingPairInteriorScopeType } from "@cursorless/common";
+import type {
+  Direction,
+  Position,
+  SurroundingPairInteriorScopeType,
+  TextEditor,
+} from "@cursorless/common";
 import { BaseScopeHandler } from "../BaseScopeHandler";
 import type { TargetScope } from "../scope.types";
-import type { ScopeIteratorRequirements } from "../scopeHandler.types";
-import { type ScopeHandler } from "../scopeHandler.types";
+import type {
+  ScopeHandler,
+  ScopeIteratorRequirements,
+} from "../scopeHandler.types";
 import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
-import { map } from "itertools";
 
 export class SurroundingPairInteriorScopeHandler extends BaseScopeHandler {
   protected isHierarchical = true;
@@ -25,27 +30,28 @@ export class SurroundingPairInteriorScopeHandler extends BaseScopeHandler {
         requireStrongContainment: true,
       },
       this.languageId,
-    )!;
+    );
   }
 
   get iterationScopeType() {
     return this.surroundingPairScopeHandler.iterationScopeType;
   }
 
-  generateScopeCandidates(
+  *generateScopeCandidates(
     editor: TextEditor,
     position: Position,
     direction: Direction,
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
-    return map(
-      this.surroundingPairScopeHandler.generateScopes(
-        editor,
-        position,
-        direction,
-        hints,
-      ),
-      (scope) => ({
+    const scopes = this.surroundingPairScopeHandler.generateScopes(
+      editor,
+      position,
+      direction,
+      hints,
+    );
+
+    for (const scope of scopes) {
+      yield {
         editor,
         domain: scope.domain,
         getTargets(isReversed) {
@@ -53,7 +59,7 @@ export class SurroundingPairInteriorScopeHandler extends BaseScopeHandler {
             .getTargets(isReversed)
             .flatMap((target) => target.getInterior()!);
         },
-      }),
-    );
+      };
+    }
   }
 }

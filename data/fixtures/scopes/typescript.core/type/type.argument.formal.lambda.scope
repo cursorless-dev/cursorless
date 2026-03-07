@@ -1,0 +1,39 @@
+(aaa: number, bbb: number) => {}
+---
+
+[#1 Content] = 0:6-0:12
+        >------<
+0| (aaa: number, bbb: number) => {}
+
+[#1 Removal] = 0:4-0:12
+      >--------<
+0| (aaa: number, bbb: number) => {}
+
+[#1 Leading delimiter] = 0:4-0:6
+      >--<
+0| (aaa: number, bbb: number) => {}
+
+[#1 Domain] = 0:1-0:12
+   >-----------<
+0| (aaa: number, bbb: number) => {}
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 0:19-0:25
+                     >------<
+0| (aaa: number, bbb: number) => {}
+
+[#2 Removal] = 0:17-0:25
+                   >--------<
+0| (aaa: number, bbb: number) => {}
+
+[#2 Leading delimiter] = 0:17-0:19
+                   >--<
+0| (aaa: number, bbb: number) => {}
+
+[#2 Domain] = 0:14-0:25
+                >-----------<
+0| (aaa: number, bbb: number) => {}
+
+[#2 Insertion delimiter] = " "

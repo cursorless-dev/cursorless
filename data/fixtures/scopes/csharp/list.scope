@@ -1,17 +1,17 @@
-List<int> values = new List<int>() { 1, 2, 3 };
+new List<int>() {aaa, bbb};
 ---
 
 [Content] =
-[Domain] = 0:35-0:46
-                                     >-----------<
-0| List<int> values = new List<int>() { 1, 2, 3 };
+[Domain] = 0:16-0:26
+                  >----------<
+0| new List<int>() {aaa, bbb};
 
-[Removal] = 0:34-0:46
-                                    >------------<
-0| List<int> values = new List<int>() { 1, 2, 3 };
+[Removal] = 0:15-0:26
+                 >-----------<
+0| new List<int>() {aaa, bbb};
 
-[Leading delimiter] = 0:34-0:35
-                                    >-<
-0| List<int> values = new List<int>() { 1, 2, 3 };
+[Leading delimiter] = 0:15-0:16
+                 >-<
+0| new List<int>() {aaa, bbb};
 
 [Insertion delimiter] = " "

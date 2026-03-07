@@ -1,0 +1,13 @@
+command: foo()
+---
+
+[Content] =
+[Removal] = 0:13-0:13
+               ><
+0| command: foo()
+
+[Domain] = 0:9-0:14
+           >-----<
+0| command: foo()
+
+[Insertion delimiter] = ""

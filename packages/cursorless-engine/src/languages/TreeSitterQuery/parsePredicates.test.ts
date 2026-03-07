@@ -1,8 +1,8 @@
 import assert from "assert";
 import { parsePredicates } from "./parsePredicates";
-import type { PredicateResult } from "web-tree-sitter";
+import type { QueryPredicate } from "web-tree-sitter";
 
-const predicates: PredicateResult[][] = [
+const predicates: QueryPredicate[][] = [
   [
     // (#not-type? @statement comment)
     // Valid
@@ -28,6 +28,26 @@ const predicates: PredicateResult[][] = [
         {
           type: "capture",
           name: "statement",
+        },
+      ],
+    },
+
+    // (#is-nth-child? @statement 1 2)
+    // Error: too many orgs
+    {
+      operator: "is-nth-child?",
+      operands: [
+        {
+          type: "capture",
+          name: "statement",
+        },
+        {
+          type: "string",
+          value: "1",
+        },
+        {
+          type: "string",
+          value: "2",
         },
       ],
     },
@@ -95,19 +115,24 @@ const expectedErrors = [
   {
     patternIdx: 0,
     predicateIdx: 2,
+    error: "Too many arguments",
+  },
+  {
+    patternIdx: 0,
+    predicateIdx: 3,
     error:
       "Error on argument 0 (`statement`): Capture names must be prefixed with @",
   },
   {
     patternIdx: 0,
-    predicateIdx: 3,
+    predicateIdx: 4,
     error: "Error on argument 1 (`hello`): Expected an integer",
   },
   {
+    patternIdx: 0,
+    predicateIdx: 5,
     error:
       "Error on argument 2 (`@foo`): Expected string, but received capture",
-    patternIdx: 0,
-    predicateIdx: 4,
   },
 ];
 

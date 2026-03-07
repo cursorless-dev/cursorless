@@ -1,12 +1,12 @@
 {
   "extends": ["@tsconfig/docusaurus/tsconfig.json", "../../tsconfig.base.json"],
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2022",
     "lib": ["dom", "es2022"],
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "emitDeclarationOnly": false,
-    "jsx": "react"
+    "moduleResolution": "nodenext",
+    "module": "nodenext",
+    "jsx": "react",
+    "esModuleInterop": true
   },
   "include": [
     "src/**/*.ts",
@@ -18,6 +18,9 @@
   "references": [
     {
       "path": "../common"
+    },
+    {
+      "path": "../node-common"
     }
   ]
 }

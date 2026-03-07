@@ -1,15 +1,14 @@
-import type { Disposable, Range, TextDocument } from "@cursorless/common";
-import {
-  Notifier,
-  showError,
-  type IDE,
-  type Listener,
-  type RawTreeSitterQueryProvider,
-  type TreeSitter,
+import type {
+  Disposable,
+  IDE,
+  Listener,
+  RawTreeSitterQueryProvider,
+  TreeSitter,
 } from "@cursorless/common";
+import { Notifier, showError } from "@cursorless/common";
 import { toString } from "lodash-es";
-import type { SyntaxNode } from "web-tree-sitter";
 import { LanguageDefinition } from "./LanguageDefinition";
+import { treeSitterQueryCache } from "./TreeSitterQuery/TreeSitterQueryCache";
 
 /**
  * Sentinel value to indicate that a language doesn't have
@@ -31,14 +30,6 @@ export interface LanguageDefinitions {
    * the given language id doesn't have a new-style query definition
    */
   get(languageId: string): LanguageDefinition | undefined;
-
-  /**
-   * @deprecated Only for use in legacy containing scope stage
-   */
-  getNodeAtLocation(
-    document: TextDocument,
-    range: Range,
-  ): SyntaxNode | undefined;
 }
 
 /**
@@ -71,14 +62,23 @@ export class LanguageDefinitionsImpl
     private treeSitter: TreeSitter,
     private treeSitterQueryProvider: RawTreeSitterQueryProvider,
   ) {
-    ide.onDidOpenTextDocument((document) => {
-      void this.loadLanguage(document.languageId);
-    });
-    ide.onDidChangeVisibleTextEditors((editors) => {
-      editors.forEach(({ document }) => this.loadLanguage(document.languageId));
-    });
+    const isTesting = ide.runMode === "test";
 
     this.disposables.push(
+      ide.onDidOpenTextDocument((document) => {
+        // During testing we open untitled documents that all have the same uri and version which breaks our cache
+        if (isTesting) {
+          treeSitterQueryCache.clear();
+        }
+        void this.loadLanguage(document.languageId);
+      }),
+
+      ide.onDidChangeVisibleTextEditors((editors) => {
+        editors.forEach(
+          ({ document }) => void this.loadLanguage(document.languageId),
+        );
+      }),
+
       treeSitterQueryProvider.onChanges(() => this.reloadLanguageDefinitions()),
     );
   }
@@ -139,6 +139,7 @@ export class LanguageDefinitionsImpl
   private async reloadLanguageDefinitions(): Promise<void> {
     this.languageDefinitions.clear();
     await this.loadAllLanguages();
+    treeSitterQueryCache.clear();
     this.notifier.notifyListeners();
   }
 
@@ -153,10 +154,6 @@ export class LanguageDefinitionsImpl
     }
 
     return definition === LANGUAGE_UNDEFINED ? undefined : definition;
-  }
-
-  public getNodeAtLocation(document: TextDocument, range: Range): SyntaxNode {
-    return this.treeSitter.getNodeAtLocation(document, range);
   }
 
   onDidChangeDefinition = this.notifier.registerListener;

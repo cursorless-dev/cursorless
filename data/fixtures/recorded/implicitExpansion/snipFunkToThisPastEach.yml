@@ -1,10 +1,15 @@
 languageId: typescript
 command:
-  version: 6
+  version: 7
   spokenForm: snippet funk to this past each
   action:
     name: insertSnippet
-    snippetDescription: {type: named, name: functionDeclaration}
+    snippetDescription:
+      type: custom
+      body: "function $name($parameterList) {\n\t$body\n}"
+      scopeTypes:
+        - {type: namedFunction}
+        - {type: statement}
     destination:
       type: primitive
       insertionMode: to
@@ -19,6 +24,7 @@ command:
         excludeAnchor: false
         excludeActive: false
   usePrePhraseSnapshot: true
+spokenFormError: custom insertion snippet
 initialState:
   documentContents: |-
     function whatever() {

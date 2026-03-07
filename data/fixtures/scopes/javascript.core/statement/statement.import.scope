@@ -1,0 +1,10 @@
+import foo from "./bar";
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:24
+  >------------------------<
+0| import foo from "./bar";
+
+[Insertion delimiter] = "\n"

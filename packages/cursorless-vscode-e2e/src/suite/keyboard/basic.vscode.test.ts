@@ -211,8 +211,8 @@ async function basic() {
 
   await vscode.commands.executeCommand("cursorless.keyboard.modal.modeOn");
 
-  // Target default f
-  await typeText("df");
+  // Target default o
+  await typeText("do");
 
   // Target containing function
   await typeText("sf");

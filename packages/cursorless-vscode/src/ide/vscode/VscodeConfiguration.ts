@@ -1,13 +1,13 @@
-import * as os from "node:os";
-import { HatStability } from "@cursorless/common";
-import * as vscode from "vscode";
 import type {
   Configuration,
   ConfigurationScope,
   CursorlessConfiguration,
+  GetFieldType,
+  Paths,
 } from "@cursorless/common";
-import type { GetFieldType, Paths } from "@cursorless/common";
-import { Notifier } from "@cursorless/common";
+import { HatStability, Notifier } from "@cursorless/common";
+import * as os from "node:os";
+import * as vscode from "vscode";
 import type { VscodeIDE } from "./VscodeIDE";
 
 type TranslatorMap = {
@@ -19,9 +19,6 @@ type TranslatorMap = {
 const translators: TranslatorMap = {
   ["experimental.hatStability"]: (value: string) => {
     return HatStability[value as keyof typeof HatStability];
-  },
-  ["experimental.snippetsDir"]: (value?: string) => {
-    return value != null ? evaluateStringVariables(value) : undefined;
   },
 };
 
@@ -56,7 +53,7 @@ export default class VscodeConfiguration implements Configuration {
  *
  * We currently only support `${userHome}`.
  *
- * @param path The path to the configuration value, eg `cursorless.snippetsDir`
+ * @param path The path to the configuration value, eg `cursorless.experimental.hatStability`
  * @returns The configuration value, with variables expanded, or undefined if
  * the value is not set
  */

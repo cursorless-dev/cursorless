@@ -1,14 +1,11 @@
 import type { TargetRanges } from "@cursorless/common";
-import { toCharacterRange, toLineRange } from "@cursorless/common";
 import type { Target } from "../typings/target.types";
 
 export function getTargetRanges(target: Target): TargetRanges {
   return {
     contentRange: target.contentRange,
     removalRange: target.getRemovalRange(),
-    removalHighlightRange: target.isLine
-      ? toLineRange(target.getRemovalHighlightRange())
-      : toCharacterRange(target.getRemovalHighlightRange()),
+    removalHighlightRange: target.getRemovalHighlightRange(),
     leadingDelimiter: getOptionalTarget(target.getLeadingDelimiterTarget()),
     trailingDelimiter: getOptionalTarget(target.getTrailingDelimiterTarget()),
     interior: target.getInterior()?.map(getTargetRanges),

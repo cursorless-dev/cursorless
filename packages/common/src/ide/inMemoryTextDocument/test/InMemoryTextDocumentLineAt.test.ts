@@ -34,41 +34,46 @@ suite("InMemoryTextDocument.lineAt", () => {
   }
 
   test("basic", () => {
-    const document = createTestDocument("hello  \n  world\n  ");
+    const document = createTestDocument("hello  \n  world\n  \n");
 
-    assert.equal(document.lineCount, 3);
+    assert.equal(document.lineCount, 4);
 
     const line0 = document.lineAt(0);
     const line1 = document.lineAt(1);
     const line2 = document.lineAt(2);
+    const line3 = document.lineAt(3);
     const lineUnderflow = document.lineAt(-1);
     const lineOverflow = document.lineAt(100);
 
     assert.equal(line0.lineNumber, 0);
     assert.equal(line0.text, "hello  ");
     assert.equal(line0.isEmptyOrWhitespace, false);
-    assert.equal(line0.firstNonWhitespaceCharacterIndex, 0);
-    assert.equal(line0.lastNonWhitespaceCharacterIndex, 5);
     assert.equal(line0.range.toString(), "0:0-0:7");
     assert.equal(line0.rangeIncludingLineBreak.toString(), "0:0-1:0");
+    assert.equal(line0.rangeTrimmed?.toString(), "0:0-0:5");
 
     assert.equal(line1.lineNumber, 1);
     assert.equal(line1.text, "  world");
     assert.equal(line1.isEmptyOrWhitespace, false);
-    assert.equal(line1.firstNonWhitespaceCharacterIndex, 2);
-    assert.equal(line1.lastNonWhitespaceCharacterIndex, 7);
     assert.equal(line1.range.toString(), "1:0-1:7");
     assert.equal(line1.rangeIncludingLineBreak.toString(), "1:0-2:0");
+    assert.equal(line1.rangeTrimmed?.toString(), "1:2-1:7");
 
     assert.equal(line2.lineNumber, 2);
     assert.equal(line2.text, "  ");
     assert.equal(line2.isEmptyOrWhitespace, true);
-    assert.equal(line2.firstNonWhitespaceCharacterIndex, 2);
-    assert.equal(line2.lastNonWhitespaceCharacterIndex, 0);
     assert.equal(line2.range.toString(), "2:0-2:2");
-    assert.equal(line2.rangeIncludingLineBreak.toString(), "2:0-2:2");
+    assert.equal(line2.rangeIncludingLineBreak.toString(), "2:0-3:0");
+    assert.equal(line2.rangeTrimmed, undefined);
+
+    assert.equal(line3.lineNumber, 3);
+    assert.equal(line3.text, "");
+    assert.equal(line3.isEmptyOrWhitespace, true);
+    assert.equal(line3.range.toString(), "3:0-3:0");
+    assert.equal(line3.rangeIncludingLineBreak.toString(), "3:0-3:0");
+    assert.equal(line3.rangeTrimmed, undefined);
 
     assert.equal(lineUnderflow.lineNumber, 0);
-    assert.equal(lineOverflow.lineNumber, 2);
+    assert.equal(lineOverflow.lineNumber, 3);
   });
 });

@@ -1,0 +1,24 @@
+public class Foo {
+    public int bar() {
+        return 0;
+    }
+}
+---
+
+[Content] = 2:15-2:16
+                 >-<
+2|         return 0;
+
+[Removal] = 2:14-2:16
+                >--<
+2|         return 0;
+
+[Leading delimiter] = 2:14-2:15
+                >-<
+2|         return 0;
+
+[Domain] = 2:8-2:17
+          >---------<
+2|         return 0;
+
+[Insertion delimiter] = " "

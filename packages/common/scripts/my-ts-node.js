@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 // @ts-check
-/*eslint-env node*/
+/* global process, console */
+
 // This script runs a TypeScript file using Node.js by first bundling it with
 // esbuild.
+
 import { spawn } from "cross-spawn";
 import { build } from "esbuild";
-import { existsSync, mkdirSync, rmdirSync } from "node:fs";
+import { existsSync, mkdirSync, rmSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { randomBytes } from "node:crypto";
@@ -49,7 +51,7 @@ function createTempDirectory(baseDir) {
  */
 function cleanupTempDirectory(tempDir) {
   if (existsSync(tempDir)) {
-    rmdirSync(tempDir, { recursive: true });
+    rmSync(tempDir, { recursive: true });
   }
 }
 

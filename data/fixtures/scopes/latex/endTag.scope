@@ -3,10 +3,15 @@
 \end{quote}
 ---
 
-[Content] =
-[Removal] = 2:0-2:11
+[Content] = 2:0-2:11
   >-----------<
 2| \end{quote}
+
+[Removal] = 1:9-2:11
+           >
+1|     Hello
+2| \end{quote}
+   -----------<
 
 [Domain] = 0:0-2:11
   >-------------

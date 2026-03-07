@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  version: 6
+  version: 7
   spokenForm: bring air to end of bat slice fine
   action:
     name: replaceWithTarget

@@ -1,9 +1,14 @@
 import type { ScopeType } from "@cursorless/common";
-import type { CustomScopeType, ScopeHandler } from "./scopeHandler.types";
+import type { ComplexScopeType, ScopeHandler } from "./scopeHandler.types";
 
 export interface ScopeHandlerFactory {
-  create(
-    scopeType: ScopeType | CustomScopeType,
+  maybeCreate(
+    scopeType: ScopeType | ComplexScopeType,
     languageId: string,
   ): ScopeHandler | undefined;
+
+  create(
+    scopeType: ScopeType | ComplexScopeType,
+    languageId: string,
+  ): ScopeHandler;
 }

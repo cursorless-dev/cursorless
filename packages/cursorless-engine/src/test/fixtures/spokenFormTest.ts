@@ -1,7 +1,8 @@
-import type {
-  ActionDescriptor,
-  CommandResponse,
-  CommandV6,
+import {
+  LATEST_VERSION,
+  type ActionDescriptor,
+  type CommandLatest,
+  type CommandResponse,
 } from "@cursorless/common";
 
 export interface SpokenFormTest {
@@ -22,25 +23,18 @@ export interface SpokenFormTest {
    * The sequence of Cursorless commands that should be executed when
    * {@link spokenForm} is spoken.
    */
-  commands: CommandV6[];
-
-  /**
-   * If `true`, use community snippets instead of Cursorless snippets
-   */
-  useCommunitySnippets: boolean;
+  commands: CommandLatest[];
 }
 
 export function spokenFormTest(
   spokenForm: string,
   action: ActionDescriptor,
   mockedGetValue?: unknown,
-  { useCommunitySnippets = false }: SpokenFormTestOpts = {},
 ): SpokenFormTest {
   return {
     spokenForm,
     mockedGetValue: wrapMockedGetValue(mockedGetValue),
     commands: [command(spokenForm, action)],
-    useCommunitySnippets,
   };
 }
 
@@ -48,13 +42,11 @@ export function multiActionSpokenFormTest(
   spokenForm: string,
   actions: ActionDescriptor[],
   mockedGetValue?: unknown,
-  { useCommunitySnippets = false }: SpokenFormTestOpts = {},
 ): SpokenFormTest {
   return {
     spokenForm,
     mockedGetValue: wrapMockedGetValue(mockedGetValue),
     commands: actions.map((action) => command(spokenForm, action)),
-    useCommunitySnippets,
   };
 }
 
@@ -64,15 +56,11 @@ function wrapMockedGetValue(
   return mockedGetValue == null ? undefined : { returnValue: mockedGetValue };
 }
 
-function command(spokenForm: string, action: ActionDescriptor): CommandV6 {
+function command(spokenForm: string, action: ActionDescriptor): CommandLatest {
   return {
-    version: 6,
+    version: LATEST_VERSION,
     spokenForm,
     usePrePhraseSnapshot: true,
     action,
   };
-}
-
-export interface SpokenFormTestOpts {
-  useCommunitySnippets?: boolean;
 }

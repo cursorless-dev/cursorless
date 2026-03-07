@@ -1,0 +1,13 @@
+@bar
+class Foo {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-1:12
+  >----
+0| @bar
+1| class Foo {}
+   ------------<
+
+[Insertion delimiter] = " "

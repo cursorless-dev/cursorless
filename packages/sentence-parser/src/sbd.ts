@@ -64,8 +64,8 @@ export function getSentences(
   }
 
   let wordCount = 0;
-  let index = 0;
-  let temp: string[] | boolean = [];
+  let index;
+  let temp: string[] | false;
   let sentences = [];
   let current = [];
 

@@ -4,23 +4,21 @@ import type {
   Disposable,
   Listener,
   ScopeType,
+  TalonSpokenForms,
 } from "@cursorless/common";
-import { SpokenFormGenerator } from "./generateSpokenForm";
 import type { CustomSpokenFormGenerator } from "../api/CursorlessEngineApi";
 import { CustomSpokenForms } from "../spokenForms/CustomSpokenForms";
-import type { TalonSpokenForms } from "@cursorless/common";
+import { SpokenFormGenerator } from "./generateSpokenForm";
 
 /**
  * Simple facade that combines the {@link CustomSpokenForms} and
  * {@link SpokenFormGenerator} classes. Its main purpose is to reconstruct the
  * {@link SpokenFormGenerator} when the {@link CustomSpokenForms} change.
  */
-export class CustomSpokenFormGeneratorImpl
-  implements CustomSpokenFormGenerator
-{
+export class CustomSpokenFormGeneratorImpl implements CustomSpokenFormGenerator {
   private customSpokenForms: CustomSpokenForms;
   private spokenFormGenerator: SpokenFormGenerator;
-  private disposable: Disposable;
+  private disposables: Disposable[] = [];
 
   /**
    * A promise that resolves when the custom spoken forms have been loaded.
@@ -34,13 +32,15 @@ export class CustomSpokenFormGeneratorImpl
     this.spokenFormGenerator = new SpokenFormGenerator(
       this.customSpokenForms.spokenFormMap,
     );
-    this.disposable = this.customSpokenForms.onDidChangeCustomSpokenForms(
-      () => {
+    this.disposables = [
+      this.customSpokenForms,
+
+      this.customSpokenForms.onDidChangeCustomSpokenForms(() => {
         this.spokenFormGenerator = new SpokenFormGenerator(
           this.customSpokenForms.spokenFormMap,
         );
-      },
-    );
+      }),
+    ];
   }
 
   onDidChangeCustomSpokenForms(listener: Listener<[]>) {
@@ -78,6 +78,6 @@ export class CustomSpokenFormGeneratorImpl
   }
 
   dispose() {
-    this.disposable.dispose();
+    this.disposables.forEach((disposable) => disposable.dispose());
   }
 }

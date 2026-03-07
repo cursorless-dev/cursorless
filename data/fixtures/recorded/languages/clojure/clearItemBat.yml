@@ -1,6 +1,6 @@
 languageId: clojure
 command:
-  version: 6
+  version: 7
   spokenForm: change item bat
   action:
     name: clearAndSetSelection
@@ -28,7 +28,9 @@ initialState:
 finalState:
   documentContents: |-
     {
-        ,
+        
+        ;; hello
+        "whatever",
     }
   selections:
     - anchor: {line: 1, character: 4}

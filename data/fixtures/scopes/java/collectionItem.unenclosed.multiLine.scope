@@ -1,0 +1,84 @@
+class Foo {
+    int aaa,
+        bbb;
+}
+---
+
+[#1 Content] =
+[#1 Domain] = 1:4-1:11
+      >-------<
+1|     int aaa,
+
+[#1 Removal] = 1:4-2:8
+      >--------
+1|     int aaa,
+2|         bbb;
+   --------<
+
+[#1 Trailing delimiter] = 1:11-2:8
+             >-
+1|     int aaa,
+2|         bbb;
+   --------<
+
+[#1 Insertion delimiter] = ",\n"
+
+
+[#2 Content] =
+[#2 Domain] = 1:8-1:11
+          >---<
+1|     int aaa,
+
+[#2 Removal] = 1:8-2:8
+          >----
+1|     int aaa,
+2|         bbb;
+   --------<
+
+[#2 Trailing delimiter] = 1:11-2:8
+             >-
+1|     int aaa,
+2|         bbb;
+   --------<
+
+[#2 Insertion delimiter] = ",\n"
+
+
+[#3 Content] =
+[#3 Domain] = 2:8-2:11
+          >---<
+2|         bbb;
+
+[#3 Removal] = 1:11-2:11
+             >-
+1|     int aaa,
+2|         bbb;
+   -----------<
+
+[#3 Leading delimiter] = 1:11-2:8
+             >-
+1|     int aaa,
+2|         bbb;
+   --------<
+
+[#3 Insertion delimiter] = ",\n"
+
+
+[#4 Content] =
+[#4 Domain] = 2:8-2:12
+          >----<
+2|         bbb;
+
+[#4 Removal] = 1:11-2:12
+             >-
+1|     int aaa,
+2|         bbb;
+   ------------<
+
+[#4 Leading delimiter] = 1:11-2:8
+             >-
+1|     int aaa,
+2|         bbb;
+   --------<
+
+[#4 Insertion delimiter] = ",\n"
