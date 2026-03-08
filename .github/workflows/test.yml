@@ -49,6 +49,12 @@ jobs:
           node-version-file: .nvmrc
           cache: pnpm
 
+      - name: Pyright
+        uses: jakebailey/pyright-action@v3
+        with:
+          pylance-version: latest-release
+          python-version: 3.13
+
       - name: Creating log directories
         run: mkdir -p "${{ env.VSCODE_CRASH_DIR }}" "${{ env.VSCODE_LOGS_DIR }}" "${{ env.TEMP_DIR }}"
         shell: bash
@@ -149,9 +155,3 @@ jobs:
         if: failure()
       - name: Forbid TODOs
         run: ./scripts/forbid-todo.sh
-
-      - name: Pyright
-        uses: jakebailey/pyright-action@v2
-        with:
-          version: 1.1.311 # Optional (change me!)
-          python-version: 3.11
