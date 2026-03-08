@@ -16,7 +16,6 @@ select = ["E", "F", "C4", "I001", "UP", "SIM", "FLY"]
 ignore = ["E501", "SIM105", "UP007", "UP035", "UP045"]
 
 [tool.pyright]
-# Talon classes don't use self so ignore the associated errors
 reportSelfClsParameterName = false
 reportMissingModuleSource = false
 exclude = ["**/node_modules", "**/__pycache__", "**/.*", "**/vendor", "data/playground"]
