@@ -138,7 +138,7 @@ def init_csv_and_watch_changes(
     check_for_duplicates(filename, default_values)
     create_default_vocabulary_dicts(default_values, pluralize_lists)
 
-    def on_watch(path: str, flags) -> None:
+    def on_watch(path: str, _flags) -> None:
         if file_path.match(path):
             current_values, has_errors = read_file(
                 path=file_path,
@@ -224,7 +224,7 @@ def create_default_vocabulary_dicts(
 ):
     default_values_updated = {}
     for key, value in default_values.items():
-        updated_dict = {}
+        updated_dict: dict[str, str] = {}
         for key2, value2 in value.items():
             # Enable deactivated(prefixed with a `-`) items
             active_key = key2[1:] if key2.startswith("-") else key2
@@ -481,7 +481,7 @@ def get_full_path(filename: str) -> Path:
     return (settings_directory / filename).resolve()
 
 
-def get_super_values(values: ListToSpokenForms):
+def get_super_values(values: ListToSpokenForms) -> dict[str, str]:
     result: dict[str, str] = {}
     for value_dict in values.values():
         result.update(value_dict)
