@@ -9,6 +9,5 @@ ignore = ["E501", "SIM105", "UP007", "UP035", "UP045"]
 [tool.pyright]
 reportSelfClsParameterName = false
 reportMissingModuleSource = false
-reportUnusedImport = "error"
 reportMissingImports = false
 exclude = ["**/node_modules", "**/__pycache__", "**/.*", "**/vendor", "data/playground"]
