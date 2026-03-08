@@ -411,6 +411,7 @@ def read_file(
         rows = list(csv_reader)
 
     result: dict[str, str] = {}
+    used_identifiers: set[str] = set()
     has_errors = False
     seen_headers = False
 
@@ -451,12 +452,13 @@ def read_file(
             csv_error(path, i, "Unknown identifier", value)
             continue
 
-        if value in result:
+        if value in used_identifiers:
             has_errors = True
             csv_error(path, i, "Duplicate identifier", value)
             continue
 
         result[key] = value
+        used_identifiers.add(value)
 
     if has_errors:
         app.notify("Cursorless settings error; see log")
