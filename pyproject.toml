@@ -1,3 +1,8 @@
+[project]
+name = "cursorless"
+version = "0.1.0"
+requires-python = "==3.13.*"
+
 [tool.ruff]
 target-version = "py313"
 extend-exclude = ["vendor", "data/playground/**/*.py"]
@@ -7,6 +12,7 @@ select = ["E", "F", "C4", "I001", "UP", "SIM", "FLY"]
 ignore = ["E501", "SIM105", "UP007", "UP035", "UP045"]
 
 [tool.pyright]
+pythonVersion = "3.13"
 reportSelfClsParameterName = false
 reportMissingModuleSource = false
 reportMissingImports = false
