@@ -61,6 +61,11 @@
     "overrides": {
       "@docusaurus/core>webpack-dev-server": "5.2.2",
       "@yarnpkg/shell>cross-spawn": "7.0.6"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "core-js",
+      "core-js-pure",
+      "esbuild"
+    ]
   }
 }

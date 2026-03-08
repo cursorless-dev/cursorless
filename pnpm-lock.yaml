@@ -388,6 +388,34 @@ importers:
         specifier: ^11.7.5
         version: 11.7.5
 
+  packages/cursorless-jetbrains:
+    dependencies:
+      '@cursorless/common':
+        specifier: workspace:*
+        version: link:../common
+      '@cursorless/cursorless-engine':
+        specifier: workspace:*
+        version: link:../cursorless-engine
+      '@cursorless/test-case-recorder':
+        specifier: workspace:*
+        version: link:../test-case-recorder
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.23
+      vscode-uri:
+        specifier: ^3.1.0
+        version: 3.1.0
+      web-tree-sitter:
+        specifier: 0.25.6
+        version: 0.25.6
+    devDependencies:
+      '@types/chai':
+        specifier: ^5.2.2
+        version: 5.2.3
+      '@types/lodash-es':
+        specifier: 4.17.12
+        version: 4.17.12
+
   packages/cursorless-neovim:
     dependencies:
       '@cursorless/common':
@@ -10752,6 +10780,9 @@ packages:
 
   web-namespaces@2.0.1:
     resolution: {integrity: sha512-bKr1DkiNa2krS7qxNtdrtHAmzuYGFQLiQ13TsorsdT6ULTkPLKuu5+GsFpDlg6JFjUTwX2DyhMPG2be8uPrqsQ==}
+
+  web-tree-sitter@0.25.6:
+    resolution: {integrity: sha512-WG+/YGbxw8r+rLlzzhV+OvgiOJCWdIpOucG3qBf3RCBFMkGDb1CanUi2BxCxjnkpzU3/hLWPT8VO5EKsMk9Fxg==}
 
   webidl-conversions@7.0.0:
     resolution: {integrity: sha512-VwddBukDzu71offAQR975unBIGqfKZpM+8ZX6ySk8nYhVoo5CYaZyzt3YBvYtRtO+aoGlqxPg/B87NGVZ/fu6g==}
@@ -23349,6 +23380,8 @@ snapshots:
   weakmap-polyfill@2.0.4: {}
 
   web-namespaces@2.0.1: {}
+
+  web-tree-sitter@0.25.6: {}
 
   webidl-conversions@7.0.0: {}
 
