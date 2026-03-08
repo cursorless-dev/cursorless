@@ -1,5 +1,5 @@
-import { Position, Range, TextEditor } from "@cursorless/common";
-import { getLeadingWhitespace, getTrailingWhitespace } from "./regex";
+import type { TextEditor } from "@cursorless/common";
+import { Position, Range } from "@cursorless/common";
 
 export function isAtEndOfLine(editor: TextEditor, position: Position) {
   const endLine = editor.document.lineAt(position);
@@ -27,10 +27,15 @@ export function expandToFullLine(editor: TextEditor, range: Range) {
 }
 
 export function getRangeLength(editor: TextEditor, range: Range) {
-  return range.isEmpty
-    ? 0
-    : editor.document.offsetAt(range.end) -
-        editor.document.offsetAt(range.start);
+  if (range.isEmpty) {
+    return 0;
+  }
+  if (range.isSingleLine) {
+    return range.end.character - range.start.character;
+  }
+  return (
+    editor.document.offsetAt(range.end) - editor.document.offsetAt(range.start)
+  );
 }
 
 /**
@@ -56,28 +61,13 @@ export function strictlyContains(
 }
 
 /**
- * Trim the given range of whitespaces
- * @param editor The editor to get the text from
- * @param range The range to trim
+ * Make union between range and additional optional ranges
  */
-export function trimRange(editor: TextEditor, range: Range): Range {
-  const text = editor.document.getText(range);
-  const leadingWhitespace = getLeadingWhitespace(text);
-  const trailingWhitespace = getTrailingWhitespace(text);
-
-  if (leadingWhitespace === "" && trailingWhitespace === "") {
-    return range;
+export function union(range: Range, ...unionWith: (Range | undefined)[]) {
+  for (const r of unionWith) {
+    if (r != null) {
+      range = range.union(r);
+    }
   }
-
-  const startOffset =
-    editor.document.offsetAt(range.start) + leadingWhitespace.length;
-  return new Range(
-    editor.document.positionAt(startOffset),
-    editor.document.positionAt(
-      startOffset +
-        text.length -
-        leadingWhitespace.length -
-        trailingWhitespace.length,
-    ),
-  );
+  return range;
 }

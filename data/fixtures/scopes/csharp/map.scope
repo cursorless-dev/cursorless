@@ -1,0 +1,17 @@
+new Foo {aaa = 0, bbb = 1};
+---
+
+[Content] =
+[Domain] = 0:8-0:26
+          >------------------<
+0| new Foo {aaa = 0, bbb = 1};
+
+[Removal] = 0:7-0:26
+         >-------------------<
+0| new Foo {aaa = 0, bbb = 1};
+
+[Leading delimiter] = 0:7-0:8
+         >-<
+0| new Foo {aaa = 0, bbb = 1};
+
+[Insertion delimiter] = " "

@@ -1,19 +1,5 @@
-import { Range, TextDocument } from "@cursorless/common";
-import { Point } from "web-tree-sitter";
-
-/**
- * Simple representation of the tree sitter syntax node. Used by
- * {@link MutableQueryCapture} to avoid using range/text and other mutable
- * parameters directly from the node.
- */
-export interface SimpleSyntaxNode {
-  readonly id: number;
-  readonly type: string;
-  readonly startPosition: Point;
-  readonly endPosition: Point;
-  readonly parent: SimpleSyntaxNode | null;
-  readonly children: Array<SimpleSyntaxNode>;
-}
+import type { Range, TextDocument } from "@cursorless/common";
+import type { Node } from "web-tree-sitter";
 
 /**
  * A capture of a query pattern against a syntax tree.  Often corresponds to a
@@ -38,6 +24,9 @@ export interface QueryCapture {
 
   /** The insertion delimiter to use if any */
   readonly insertionDelimiter: string | undefined;
+
+  /** Returns true if this node or any of its ancestors has errors */
+  hasError(): boolean;
 }
 
 /**
@@ -52,13 +41,14 @@ export interface QueryMatch {
 
 /**
  * A capture of a query pattern against a syntax tree. This type is used
- * internally by the query engine to allow operators to modify the capture.
+ * internally by the query engine to allow predicates to modify the capture.
  */
 export interface MutableQueryCapture extends QueryCapture {
   /**
    * The tree-sitter node that was captured.
+   * This may be undefined if the range has been modified by a query predicate.
    */
-  readonly node: Omit<SimpleSyntaxNode, "startPosition" | "endPosition">;
+  node: Node | undefined;
 
   readonly document: TextDocument;
   range: Range;
@@ -68,14 +58,11 @@ export interface MutableQueryCapture extends QueryCapture {
 
 /**
  * A match of a query pattern against a syntax tree that can be mutated. This
- * type is used internally by the query engine to allow operators to modify the
+ * type is used internally by the query engine to allow predicates to modify the
  * match.
  */
 export interface MutableQueryMatch extends QueryMatch {
-  /**
-   * The index of the pattern that was matched.
-   */
-  readonly patternIdx: number;
-
   readonly captures: MutableQueryCapture[];
 }
+
+export type PatternPredicate = (match: MutableQueryMatch) => boolean;

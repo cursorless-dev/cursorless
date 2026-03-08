@@ -1,0 +1,36 @@
+<?php
+class Foo {
+    function bar($aaa, number $bbb) {}
+}
+---
+
+[#1 Content] =
+[#1 Domain] = 2:17-2:21
+                   >----<
+2|     function bar($aaa, number $bbb) {}
+
+[#1 Removal] = 2:17-2:23
+                   >------<
+2|     function bar($aaa, number $bbb) {}
+
+[#1 Trailing delimiter] = 2:21-2:23
+                       >--<
+2|     function bar($aaa, number $bbb) {}
+
+[#1 Insertion delimiter] = ", "
+
+
+[#2 Content] =
+[#2 Domain] = 2:23-2:34
+                         >-----------<
+2|     function bar($aaa, number $bbb) {}
+
+[#2 Removal] = 2:21-2:34
+                       >-------------<
+2|     function bar($aaa, number $bbb) {}
+
+[#2 Leading delimiter] = 2:21-2:23
+                       >--<
+2|     function bar($aaa, number $bbb) {}
+
+[#2 Insertion delimiter] = ", "

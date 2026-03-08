@@ -1,0 +1,34 @@
+<?php
+fn(
+    $aaa,
+    $bbb
+) => 0;
+---
+
+[Content] = 2:4-3:8
+      >-----
+2|     $aaa,
+3|     $bbb
+   --------<
+
+[Removal] = 1:3-4:0
+     >
+1| fn(
+2|     $aaa,
+3|     $bbb
+4| ) => 0;
+   <
+
+[Leading delimiter] = 2:0-2:4
+  >----<
+2|     $aaa,
+
+[Domain] = 1:0-4:6
+  >---
+1| fn(
+2|     $aaa,
+3|     $bbb
+4| ) => 0;
+   ------<
+
+[Insertion delimiter] = ",\n"

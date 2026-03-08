@@ -1,12 +1,16 @@
-import { GeneralizedRange, Range } from "@cursorless/common";
+import type { GeneralizedRange, TextEditor } from "@cursorless/common";
+import {
+  generateDecorationsForCharacterRange,
+  generateDecorationsForLineRange,
+  Range,
+} from "@cursorless/common";
 import { flatmap } from "itertools";
-import { VscodeTextEditorImpl } from "../../VscodeTextEditorImpl";
-import { RangeTypeColors } from "../RangeTypeColors";
+import { range as lodashRange } from "lodash-es";
+import type { VscodeTextEditorImpl } from "../../VscodeTextEditorImpl";
+import type { RangeTypeColors } from "../RangeTypeColors";
 import { VscodeFancyRangeHighlighterRenderer } from "./VscodeFancyRangeHighlighterRenderer";
-import { generateDecorationsForCharacterRange } from "./generateDecorationsForCharacterRange";
-import { generateDecorationsForLineRange } from "./generateDecorationsForLineRange";
+import type { DifferentiatedStyledRange } from "./decorationStyle.types";
 import { generateDifferentiatedRanges } from "./generateDifferentiatedRanges";
-import { DifferentiatedStyledRange } from "./decorationStyle.types";
 import { groupDifferentiatedStyledRanges } from "./groupDifferentiatedStyledRanges";
 
 /**
@@ -45,7 +49,7 @@ export class VscodeFancyRangeHighlighter {
           range.type === "line"
             ? generateDecorationsForLineRange(range.start, range.end)
             : generateDecorationsForCharacterRange(
-                editor,
+                (range) => getLineRanges(editor, range),
                 new Range(range.start, range.end),
               );
 
@@ -69,4 +73,10 @@ export class VscodeFancyRangeHighlighter {
   dispose() {
     this.renderer.dispose();
   }
+}
+
+function getLineRanges(editor: TextEditor, range: Range): Range[] {
+  return lodashRange(range.start.line, range.end.line + 1).map(
+    (lineNumber) => editor.document.lineAt(lineNumber).range,
+  );
 }

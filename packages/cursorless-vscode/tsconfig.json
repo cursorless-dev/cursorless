@@ -1,17 +1,24 @@
 {
   "extends": "../../tsconfig.base.json",
-  "compilerOptions": {
-    "target": "es2020",
-    "outDir": "out",
-    "rootDir": "src"
-  },
   "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"],
   "references": [
     {
       "path": "../common"
     },
     {
+      "path": "../cursorless-cheatsheet"
+    },
+    {
       "path": "../cursorless-engine"
+    },
+    {
+      "path": "../cursorless-tutorial"
+    },
+    {
+      "path": "../node-common"
+    },
+    {
+      "path": "../test-case-recorder"
     },
     {
       "path": "../vscode-common"

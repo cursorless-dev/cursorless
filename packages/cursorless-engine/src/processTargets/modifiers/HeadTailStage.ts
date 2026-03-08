@@ -1,57 +1,54 @@
 import {
-  HeadModifier,
-  Modifier,
-  Range,
-  TailModifier,
+  NoContainingScopeError,
+  type HeadModifier,
+  type Modifier,
+  type TailModifier,
 } from "@cursorless/common";
-import { Target } from "../../typings/target.types";
-import { ModifierStageFactory } from "../ModifierStageFactory";
-import { ModifierStage } from "../PipelineStages.types";
+import type { Target } from "../../typings/target.types";
+import type { ModifierStageFactory } from "../ModifierStageFactory";
+import type {
+  ModifierStage,
+  ModifierStateOptions,
+} from "../PipelineStages.types";
 import {
   getModifierStagesFromTargetModifiers,
   processModifierStages,
 } from "../TargetPipelineRunner";
-import { TokenTarget } from "../targets";
+import { HeadTailTarget, PlainTarget } from "../targets";
+import { compoundInteriorScopeType } from "./InteriorStage";
 
-abstract class HeadTailStage implements ModifierStage {
+class HeadTailStage implements ModifierStage {
   constructor(
     private modifierStageFactory: ModifierStageFactory,
-    private isReversed: boolean,
-    private modifiers?: Modifier[],
+    private modifiers: Modifier[] | undefined,
+    private isHead: boolean,
   ) {}
 
   run(target: Target): Target[] {
-    const modifiers = this.modifiers ?? [
-      {
-        type: "containingScope",
-        scopeType: { type: "line" },
-      },
-    ];
-
-    const modifierStages = getModifierStagesFromTargetModifiers(
-      this.modifierStageFactory,
-      modifiers,
-    );
+    const modifierStages = this.getModifierStages();
     const modifiedTargets = processModifierStages(modifierStages, [target]);
 
     return modifiedTargets.map((modifiedTarget) => {
-      const contentRange = this.constructContentRange(
-        target.contentRange,
-        modifiedTarget.contentRange,
-      );
-
-      return new TokenTarget({
+      return new HeadTailTarget({
         editor: target.editor,
-        isReversed: this.isReversed,
-        contentRange,
+        isReversed: this.isHead,
+        inputTarget: target,
+        modifiedTarget,
+        isHead: this.isHead,
       });
     });
   }
 
-  protected abstract constructContentRange(
-    originalRange: Range,
-    modifiedRange: Range,
-  ): Range;
+  private getModifierStages(): ModifierStage[] {
+    if (this.modifiers != null) {
+      return getModifierStagesFromTargetModifiers(
+        this.modifierStageFactory,
+        this.modifiers,
+      );
+    }
+
+    return [new BoundedLineStage(this.modifierStageFactory)];
+  }
 }
 
 export class HeadStage extends HeadTailStage {
@@ -59,11 +56,7 @@ export class HeadStage extends HeadTailStage {
     modifierStageFactory: ModifierStageFactory,
     modifier: HeadModifier,
   ) {
-    super(modifierStageFactory, true, modifier.modifiers);
-  }
-
-  protected constructContentRange(originalRange: Range, modifiedRange: Range) {
-    return new Range(modifiedRange.start, originalRange.end);
+    super(modifierStageFactory, modifier.modifiers, true);
   }
 }
 
@@ -72,10 +65,60 @@ export class TailStage extends HeadTailStage {
     modifierStageFactory: ModifierStageFactory,
     modifier: TailModifier,
   ) {
-    super(modifierStageFactory, false, modifier.modifiers);
+    super(modifierStageFactory, modifier.modifiers, false);
+  }
+}
+
+class BoundedLineStage implements ModifierStage {
+  constructor(private modifierStageFactory: ModifierStageFactory) {}
+
+  run(target: Target, options: ModifierStateOptions): Target[] {
+    const line = this.getContainingLine(target, options);
+    const interior = this.getContainingInterior(target, options);
+
+    const intersection =
+      interior != null
+        ? line.contentRange.intersection(interior.contentRange)
+        : null;
+
+    if (intersection == null || intersection.isEmpty) {
+      return [line];
+    }
+
+    return [
+      new PlainTarget({
+        editor: target.editor,
+        isReversed: target.isReversed,
+        contentRange: intersection,
+      }),
+    ];
   }
 
-  protected constructContentRange(originalRange: Range, modifiedRange: Range) {
-    return new Range(originalRange.start, modifiedRange.end);
+  private getContainingInterior(
+    target: Target,
+    options: ModifierStateOptions,
+  ): Target | undefined {
+    try {
+      return this.modifierStageFactory
+        .create({
+          type: "containingScope",
+          scopeType: compoundInteriorScopeType,
+        })
+        .run(target, options)[0];
+    } catch (error) {
+      if (error instanceof NoContainingScopeError) {
+        return undefined;
+      }
+      throw error;
+    }
+  }
+
+  private getContainingLine(
+    target: Target,
+    options: ModifierStateOptions,
+  ): Target {
+    return this.modifierStageFactory
+      .create({ type: "containingScope", scopeType: { type: "line" } })
+      .run(target, options)[0];
   }
 }

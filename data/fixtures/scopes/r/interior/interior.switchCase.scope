@@ -1,0 +1,28 @@
+switch(foo,
+    a = bar,
+    "_" = bar
+)
+---
+
+[#1 Content] = 1:8-1:11
+          >---<
+1|     a = bar,
+
+[#1 Removal] =
+[#1 Domain] = 1:7-1:11
+         >----<
+1|     a = bar,
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 2:10-2:13
+            >---<
+2|     "_" = bar
+
+[#2 Removal] =
+[#2 Domain] = 2:9-2:13
+           >----<
+2|     "_" = bar
+
+[#2 Insertion delimiter] = " "

@@ -68,4 +68,9 @@ suite("Position", () => {
       new Position(1, 1).translate(undefined, 5).isEqual(new Position(1, 6)),
     );
   });
+
+  test("concise", () => {
+    assert.equal(new Position(1, 2).concise(), "1:2");
+    assert.equal(new Position(1, 2).conciseOneBased(), "2:3");
+  });
 });

@@ -1,17 +1,22 @@
+import { LATEST_VERSION } from "@cursorless/common";
+import { isLinux } from "@cursorless/node-common";
 import {
   getCursorlessApi,
   openNewNotebookEditor,
   runCursorlessCommand,
 } from "@cursorless/vscode-common";
-import * as assert from "assert";
+import assert from "assert";
 import { window } from "vscode";
-import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
-import { skipIfWindowsCi } from "./skipIfWindowsCi";
+import { endToEndTestSetup } from "../endToEndTestSetup";
+import { isCI } from "../isCI";
 
 // Check that setSelection is able to focus the correct cell
 suite("Cross-cell set selection", async function () {
-  // Skipped for now; see #1260
-  skipIfWindowsCi();
+  // FIXME: This test is flaky on Linux CI, so we skip it there for now
+  if (isCI() && isLinux()) {
+    this.ctx.skip();
+  }
+
   endToEndTestSetup(this);
 
   test("Cross-cell set selection", runTest);
@@ -22,28 +27,24 @@ async function runTest() {
 
   await openNewNotebookEditor(['"hello"', '"world"']);
 
-  // FIXME: There seems to be some timing issue when you create a notebook
-  // editor
-  await sleepWithBackoff(1000);
-
   await hatTokenMap.allocateHats();
 
   await runCursorlessCommand({
-    version: 1,
-    action: "setSelection",
-    targets: [
-      {
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
+    action: {
+      name: "setSelection",
+      target: {
         type: "primitive",
         mark: {
           type: "decoratedSymbol",
           symbolColor: "default",
-          character: "w",
+          character: "o",
         },
       },
-    ],
+    },
   });
 
-  // eslint-disable-next-line no-restricted-properties
   const editor = window.activeTextEditor;
 
   if (editor == null) {

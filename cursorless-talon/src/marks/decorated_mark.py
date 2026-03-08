@@ -4,6 +4,7 @@ from typing import Any
 from talon import Module, actions, cron, fs
 
 from ..csv_overrides import init_csv_and_watch_changes
+from .mark_types import DecoratedSymbol
 
 mod = Module()
 
@@ -22,15 +23,15 @@ def cursorless_grapheme(m) -> str:
     except AttributeError:
         # NB: This represents unknown char in Unicode.  It will be translated
         # to "[unk]" by Cursorless extension.
-        return "\uFFFD"
+        return "\ufffd"
 
 
 @mod.capture(
     rule="[{user.cursorless_hat_color}] [{user.cursorless_hat_shape}] <user.cursorless_grapheme>"
 )
-def cursorless_decorated_symbol(m) -> dict[str, Any]:
+def cursorless_decorated_symbol(m) -> DecoratedSymbol:
     """A decorated symbol"""
-    hat_color = getattr(m, "cursorless_hat_color", "default")
+    hat_color: str = getattr(m, "cursorless_hat_color", "default")
     try:
         hat_style_name = f"{hat_color}-{m.cursorless_hat_shape}"
     except AttributeError:
@@ -82,10 +83,10 @@ FALLBACK_SHAPE_ENABLEMENT = {
 }
 FALLBACK_COLOR_ENABLEMENT = DEFAULT_COLOR_ENABLEMENT
 
-unsubscribe_hat_styles = None
+unsubscribe_hat_styles: Any = None
 
 
-def setup_hat_styles_csv(hat_colors: dict, hat_shapes: dict):
+def setup_hat_styles_csv(hat_colors: dict[str, str], hat_shapes: dict[str, str]):
     global unsubscribe_hat_styles
 
     (
@@ -137,7 +138,7 @@ def setup_hat_styles_csv(hat_colors: dict, hat_shapes: dict):
             "hat_color": active_hat_colors,
             "hat_shape": active_hat_shapes,
         },
-        [*hat_colors.values(), *hat_shapes.values()],
+        extra_ignored_values=[*hat_colors.values(), *hat_shapes.values()],
         no_update_file=is_shape_error or is_color_error,
     )
 
@@ -149,10 +150,15 @@ fast_reload_job = None
 slow_reload_job = None
 
 
-def init_hats(hat_colors: dict, hat_shapes: dict):
+def init_hats(hat_colors: dict[str, str], hat_shapes: dict[str, str]):
     setup_hat_styles_csv(hat_colors, hat_shapes)
 
-    vscode_settings_path: Path = actions.user.vscode_settings_path().resolve()
+    vscode_settings_path: Path | None = None
+
+    try:
+        vscode_settings_path = actions.user.vscode_settings_path().resolve()
+    except Exception as ex:
+        print(ex)
 
     def on_watch(path, flags):
         global fast_reload_job, slow_reload_job
@@ -165,10 +171,12 @@ def init_hats(hat_colors: dict, hat_shapes: dict):
             "10s", lambda: setup_hat_styles_csv(hat_colors, hat_shapes)
         )
 
-    fs.watch(str(vscode_settings_path), on_watch)
+    if vscode_settings_path is not None:
+        fs.watch(vscode_settings_path, on_watch)
 
     def unsubscribe():
-        fs.unwatch(str(vscode_settings_path), on_watch)
+        if vscode_settings_path is not None:
+            fs.unwatch(vscode_settings_path, on_watch)
         if unsubscribe_hat_styles is not None:
             unsubscribe_hat_styles()
 

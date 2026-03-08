@@ -1,0 +1,34 @@
+class Foo {
+    set(aaa: Int) {}
+}
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-2:1
+  >-----------
+0| class Foo {
+1|     set(aaa: Int) {}
+2| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:13-1:16
+               >---<
+1|     set(aaa: Int) {}
+
+[#2 Removal] = 1:11-1:16
+             >-----<
+1|     set(aaa: Int) {}
+
+[#2 Leading delimiter] = 1:11-1:13
+             >--<
+1|     set(aaa: Int) {}
+
+[#2 Domain] = 1:8-1:16
+          >--------<
+1|     set(aaa: Int) {}
+
+[#2 Insertion delimiter] = " "

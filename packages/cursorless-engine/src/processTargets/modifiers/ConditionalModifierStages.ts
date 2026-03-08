@@ -1,7 +1,10 @@
-import { Modifier, ModifyIfUntypedModifier } from "@cursorless/common";
-import { Target } from "../../typings/target.types";
-import { ModifierStageFactory } from "../ModifierStageFactory";
-import { ModifierStage } from "../PipelineStages.types";
+import type { Modifier, ModifyIfUntypedModifier } from "@cursorless/common";
+import type { Target } from "../../typings/target.types";
+import type { ModifierStageFactory } from "../ModifierStageFactory";
+import type {
+  ModifierStage,
+  ModifierStateOptions,
+} from "../PipelineStages.types";
 
 abstract class ConditionalModifierBaseStage implements ModifierStage {
   private nestedStage_?: ModifierStage;
@@ -12,12 +15,12 @@ abstract class ConditionalModifierBaseStage implements ModifierStage {
     private nestedModifier: Modifier,
   ) {}
 
-  run(target: Target): Target[] {
+  run(target: Target, options: ModifierStateOptions): Target[] {
     if (this.shouldModify(target)) {
       // Modify this target
       try {
         return this.nestedStage
-          .run(target)
+          .run(target, options)
           .map((newTarget) => newTarget.withThatTarget(target));
       } catch (ex) {
         // suppressErrors === true => Allow this target to be returned unmodified
@@ -56,6 +59,23 @@ export class ModifyIfUntypedStage extends ConditionalModifierBaseStage {
 
   protected shouldModify(target: Target): boolean {
     return !target.hasExplicitScopeType;
+  }
+}
+
+/**
+ * Runs {@link nestedModifier} if {@link modificationCondition} returns `true`.
+ */
+export class ModifyIfConditionStage extends ConditionalModifierBaseStage {
+  constructor(
+    modifierStageFactory: ModifierStageFactory,
+    nestedModifier: Modifier,
+    private modificationCondition: (target: Target) => boolean,
+  ) {
+    super(modifierStageFactory, nestedModifier);
+  }
+
+  protected shouldModify(target: Target): boolean {
+    return this.modificationCondition(target);
   }
 }
 

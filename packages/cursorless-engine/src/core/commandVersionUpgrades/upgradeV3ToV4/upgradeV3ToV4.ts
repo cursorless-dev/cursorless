@@ -1,4 +1,4 @@
-import {
+import type {
   CommandV3,
   CommandV4,
   ImplicitTargetDescriptor,

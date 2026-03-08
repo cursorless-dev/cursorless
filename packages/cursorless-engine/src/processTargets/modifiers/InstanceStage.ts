@@ -1,70 +1,79 @@
-import {
+import type {
   Direction,
   Modifier,
   OrdinalScopeModifier,
-  Range,
   RelativeScopeModifier,
   ScopeType,
   TextEditor,
 } from "@cursorless/common";
+import { Range } from "@cursorless/common";
 import { flatmap, ifilter, imap, itake } from "itertools";
-import { escapeRegExp } from "lodash";
+import { escapeRegExp } from "lodash-es";
+import type { StoredTargetMap } from "../..";
 import type { Target } from "../../typings/target.types";
 import { generateMatchesInRange } from "../../util/getMatchesInRange";
-import { ModifierStageFactory } from "../ModifierStageFactory";
-import type { ModifierStage } from "../PipelineStages.types";
+import type { ModifierStageFactory } from "../ModifierStageFactory";
+import type {
+  ModifierStage,
+  ModifierStateOptions,
+} from "../PipelineStages.types";
 import { PlainTarget } from "../targets";
 import { ContainingTokenIfUntypedEmptyStage } from "./ConditionalModifierStages";
-import { OutOfRangeError } from "./targetSequenceUtils";
-import { StoredTargetMap } from "../..";
+import { OutOfRangeError } from "./listUtils";
 
-export default class InstanceStage implements ModifierStage {
+export class InstanceStage implements ModifierStage {
+  static use(scopeType: ScopeType): boolean {
+    return scopeType.type === "instance";
+  }
+
   constructor(
     private modifierStageFactory: ModifierStageFactory,
     private storedTargets: StoredTargetMap,
     private modifier: Modifier,
   ) {}
 
-  run(inputTarget: Target): Target[] {
+  run(inputTarget: Target, options: ModifierStateOptions): Target[] {
     // If the target is untyped and empty, we want to target the containing
     // token. This handles the case where they just say "instance" with an empty
     // selection, eg "take every instance".
     const target = new ContainingTokenIfUntypedEmptyStage(
       this.modifierStageFactory,
-    ).run(inputTarget)[0];
+    ).run(inputTarget, options)[0];
 
     switch (this.modifier.type) {
       case "everyScope":
-        return this.handleEveryScope(target);
+        return this.handleEveryScope(target, options);
       case "ordinalScope":
-        return this.handleOrdinalScope(target, this.modifier);
+        return this.handleOrdinalScope(target, options, this.modifier);
       case "relativeScope":
-        return this.handleRelativeScope(target, this.modifier);
+        return this.handleRelativeScope(target, options, this.modifier);
       default:
         throw Error(`${this.modifier.type} instance scope not supported`);
     }
   }
 
-  private handleEveryScope(target: Target): Target[] {
-    const { editor } = target;
-
+  private handleEveryScope(
+    target: Target,
+    options: ModifierStateOptions,
+  ): Target[] {
     return Array.from(
-      flatmap(this.getEveryRanges(editor), (searchRange) =>
-        this.getTargetIterable(target, editor, searchRange, "forward"),
+      flatmap(this.getEveryRanges(target), ([editor, searchRange]) =>
+        this.getTargetIterable(target, options, editor, searchRange, "forward"),
       ),
     );
   }
 
   private handleOrdinalScope(
     target: Target,
-    { start, length }: OrdinalScopeModifier,
+    options: ModifierStateOptions,
+    { start, length, scopeType }: OrdinalScopeModifier,
   ): Target[] {
-    const { editor } = target;
-
-    return this.getEveryRanges(editor).flatMap((searchRange) =>
+    return this.getEveryRanges(target).flatMap(([editor, searchRange]) =>
       takeFromOffset(
+        scopeType,
         this.getTargetIterable(
           target,
+          options,
           editor,
           searchRange,
           start >= 0 ? "forward" : "backward",
@@ -77,15 +86,15 @@ export default class InstanceStage implements ModifierStage {
 
   private handleRelativeScope(
     target: Target,
-    { direction, offset, length }: RelativeScopeModifier,
+    options: ModifierStateOptions,
+    { direction, offset, length, scopeType }: RelativeScopeModifier,
   ): Target[] {
-    const { editor } = target;
-
     const referenceTargets = this.storedTargets.get("instanceReference") ?? [
       target,
     ];
 
     return referenceTargets.flatMap((referenceTarget) => {
+      const { editor } = referenceTarget;
       const iterationRange =
         direction === "forward"
           ? new Range(
@@ -102,23 +111,34 @@ export default class InstanceStage implements ModifierStage {
             );
 
       return takeFromOffset(
-        this.getTargetIterable(target, editor, iterationRange, direction),
+        scopeType,
+        this.getTargetIterable(
+          target,
+          options,
+          editor,
+          iterationRange,
+          direction,
+        ),
         offset === 0 ? 0 : offset - 1,
         length,
       );
     });
   }
 
-  private getEveryRanges(editor: TextEditor): Range[] {
+  private getEveryRanges({
+    editor: targetEditor,
+  }: Target): readonly (readonly [TextEditor, Range])[] {
     return (
       this.storedTargets
         .get("instanceReference")
-        ?.map(({ contentRange }) => contentRange) ?? [editor.document.range]
+        ?.map(({ editor, contentRange }) => [editor, contentRange] as const) ??
+      ([[targetEditor, targetEditor.document.range]] as const)
     );
   }
 
   private getTargetIterable(
     target: Target,
+    options: ModifierStateOptions,
     editor: TextEditor,
     searchRange: Range,
     direction: Direction,
@@ -135,7 +155,7 @@ export default class InstanceStage implements ModifierStage {
           contentRange: range,
           editor,
           isReversed: false,
-          isToken: false,
+          textualType: "character",
         }),
     );
 
@@ -159,7 +179,10 @@ export default class InstanceStage implements ModifierStage {
             // Just try to expand to the containing scope. If it fails or is not
             // equal to the target, we know the match is not a line, token or
             // word.
-            const containingScope = containingScopeModifier.run(target);
+            const containingScope = containingScopeModifier.run(
+              target,
+              options,
+            );
 
             if (
               containingScope.length === 1 &&
@@ -169,7 +192,7 @@ export default class InstanceStage implements ModifierStage {
             }
 
             return null;
-          } catch (err) {
+          } catch (_err) {
             return null;
           }
         }),
@@ -182,19 +205,14 @@ export default class InstanceStage implements ModifierStage {
 }
 
 function getFilterScopeType(target: Target): ScopeType | null {
-  if (target.isLine) {
-    return { type: "line" };
+  switch (target.textualType) {
+    case "line":
+    case "token":
+    case "word":
+      return { type: target.textualType };
+    default:
+      return null;
   }
-
-  if (target.isToken) {
-    return { type: "token" };
-  }
-
-  if (target.isWord) {
-    return { type: "word" };
-  }
-
-  return null;
 }
 
 /**
@@ -208,6 +226,7 @@ function getFilterScopeType(target: Target): ScopeType | null {
  * starting at `offset`
  */
 function takeFromOffset<T>(
+  scopeType: ScopeType,
   iterable: Iterable<T>,
   offset: number,
   count: number,
@@ -219,7 +238,7 @@ function takeFromOffset<T>(
   const items = Array.from(itake(count, iterable));
 
   if (items.length < count) {
-    throw new OutOfRangeError();
+    throw new OutOfRangeError(scopeType, offset + count - 1);
   }
 
   return items;

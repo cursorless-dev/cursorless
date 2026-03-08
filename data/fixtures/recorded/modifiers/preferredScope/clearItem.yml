@@ -1,0 +1,24 @@
+languageId: plaintext
+command:
+  version: 7
+  spokenForm: clear item
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: preferredScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: true
+spokenFormError: Modifier 'preferredScope'
+initialState:
+  documentContents: foo, bar
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: ", bar"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

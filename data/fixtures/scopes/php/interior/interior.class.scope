@@ -1,0 +1,11 @@
+<?php
+class Foo { }
+---
+
+[Content] =
+[Removal] =
+[Domain] = 1:11-1:12
+             >-<
+1| class Foo { }
+
+[Insertion delimiter] = " "

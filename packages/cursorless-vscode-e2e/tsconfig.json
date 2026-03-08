@@ -1,12 +1,11 @@
 {
   "extends": "../../tsconfig.base.json",
-  "compilerOptions": {
-    "outDir": "out",
-    "rootDir": "src"
-  },
   "references": [
     {
       "path": "../common"
+    },
+    {
+      "path": "../node-common"
     },
     {
       "path": "../vscode-common"

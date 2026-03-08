@@ -1,0 +1,20 @@
+var foo: suspend () -> Int
+---
+
+[Content] = 0:9-0:26
+           >-----------------<
+0| var foo: suspend () -> Int
+
+[Removal] = 0:7-0:26
+         >-------------------<
+0| var foo: suspend () -> Int
+
+[Leading delimiter] = 0:7-0:9
+         >--<
+0| var foo: suspend () -> Int
+
+[Domain] = 0:0-0:26
+  >--------------------------<
+0| var foo: suspend () -> Int
+
+[Insertion delimiter] = " "

@@ -1,5 +1,5 @@
-import { Range } from "./Range";
-import { TextEditor } from "./TextEditor";
+import type { Range } from "./Range";
+import type { TextEditor } from "./TextEditor";
 
 export interface TextEditorRange {
   editor: TextEditor;

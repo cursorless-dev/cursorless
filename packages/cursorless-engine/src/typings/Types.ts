@@ -1,5 +1,5 @@
-import type { Range, Selection, TextEditor } from "@cursorless/common";
-import type { SyntaxNode } from "web-tree-sitter";
+import type { Edit, Range, Selection, TextEditor } from "@cursorless/common";
+import type { Node } from "web-tree-sitter";
 
 export interface SelectionWithEditor {
   selection: Selection;
@@ -46,7 +46,7 @@ export interface SelectionWithContext {
 }
 
 export type NodeMatcherValue = {
-  node: SyntaxNode;
+  node: Node;
   selection: SelectionWithContext;
 };
 
@@ -54,40 +54,20 @@ export type NodeMatcherAlternative = NodeMatcher | string[] | string;
 
 export type NodeMatcher = (
   selection: SelectionWithEditor,
-  node: SyntaxNode,
+  node: Node,
 ) => NodeMatcherValue[] | null;
 
 /**
  * Returns the desired relative of the provided node.
  * Returns null if matching node not found.
  **/
-export type NodeFinder = (
-  node: SyntaxNode,
-  selection?: Selection,
-) => SyntaxNode | null;
+export type NodeFinder = (node: Node, selection?: Selection) => Node | null;
 
-/** Returns one or more selections for a given SyntaxNode */
+/** Returns one or more selections for a given Node */
 export type SelectionExtractor = (
   editor: TextEditor,
-  nodes: SyntaxNode,
+  nodes: Node,
 ) => SelectionWithContext;
-
-/** Represent a single edit/change in the document */
-export interface Edit {
-  range: Range;
-  text: string;
-
-  /**
-   * If this edit is an insertion, ie the range has zero length, then this
-   * field can be set to `true` to indicate that any adjacent empty selection
-   * should *not* be shifted to the right, as would normally happen with an
-   * insertion. This is equivalent to the
-   * [distinction](https://code.visualstudio.com/api/references/vscode-api#TextEditorEdit)
-   * in a vscode edit builder between doing a replace with an empty range
-   * versus doing an insert.
-   */
-  isReplace?: boolean;
-}
 
 export interface EditWithRangeUpdater extends Edit {
   /**

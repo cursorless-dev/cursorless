@@ -1,0 +1,36 @@
+languageId: plaintext
+command:
+  version: 7
+  spokenForm: bring air to end of this
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: primitive
+        mark: {type: cursor}
+        modifiers:
+          - {type: endOf}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    a
+    bbb
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 1}
+finalState:
+  documentContents: |-
+    a
+    bbba
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

@@ -8,12 +8,10 @@ import * as assert from "assert";
 import { window } from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import { getPlainNotebookContents } from "../notebook";
-import { skipIfWindowsCi } from "./skipIfWindowsCi";
+import { LATEST_VERSION } from "@cursorless/common";
 
 // Check that setSelection is able to focus the correct cell
 suite("Edit new cell", async function () {
-  // Skipped for now; see #1260
-  skipIfWindowsCi();
   endToEndTestSetup(this);
 
   test("drink cell", () =>
@@ -24,33 +22,32 @@ suite("Edit new cell", async function () {
 
 async function runTest(
   spokenForm: string,
-  command: string,
+  command: "editNewLineBefore" | "editNewLineAfter",
   expectedActiveCellIndex: number,
   expectedNotebookContents: string[],
 ) {
   const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
   const notebook = await openNewNotebookEditor(["hello"]);
 
-  // FIXME: There seems to be some timing issue when you create a notebook
-  // editor
-  await sleepWithBackoff(500);
-
   await hatTokenMap.allocateHats();
 
   assert.equal(notebook.cellCount, 1);
 
   await runCursorlessCommand({
-    version: 1,
-    action: command,
-    targets: [
-      {
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
+    action: {
+      name: command,
+      target: {
         type: "primitive",
-        selectionType: "notebookCell",
+        modifiers: [
+          { type: "containingScope", scopeType: { type: "notebookCell" } },
+        ],
         mark: {
           type: "cursor",
         },
       },
-    ],
+    },
   });
 
   await sleepWithBackoff(100);
@@ -59,7 +56,6 @@ async function runTest(
 
   const activeCelIndex = getCellIndex(
     notebook,
-    // eslint-disable-next-line no-restricted-properties
     window.activeTextEditor!.document,
   );
 

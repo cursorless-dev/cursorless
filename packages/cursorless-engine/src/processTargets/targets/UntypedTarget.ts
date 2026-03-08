@@ -1,16 +1,16 @@
-import { Range } from "@cursorless/common";
-import { BaseTarget, CommonTargetParameters } from ".";
-import type { Target } from "../../typings/target.types";
-import { createContinuousRangeUntypedTarget } from "../targetUtil/createContinuousRange";
+import type { Range } from "@cursorless/common";
+import type { Target, TextualType } from "../../typings/target.types";
+import type { CommonTargetParameters } from "./BaseTarget";
+import { BaseTarget } from "./BaseTarget";
 import {
   getTokenLeadingDelimiterTarget,
   getTokenRemovalRange,
   getTokenTrailingDelimiterTarget,
-} from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
+} from "./util/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
 
 interface UntypedTargetParameters extends CommonTargetParameters {
   readonly hasExplicitRange: boolean;
-  readonly isToken?: boolean;
+  readonly textualType?: TextualType;
 }
 
 /**
@@ -18,7 +18,7 @@ interface UntypedTargetParameters extends CommonTargetParameters {
  * - Use token delimiters (space) for removal and insertion
  * - Expand to nearest containing pair when asked for boundary or interior
  */
-export default class UntypedTarget extends BaseTarget<UntypedTargetParameters> {
+export class UntypedTarget extends BaseTarget<UntypedTargetParameters> {
   type = "UntypedTarget";
   insertionDelimiter = " ";
   hasExplicitScopeType = false;
@@ -26,7 +26,7 @@ export default class UntypedTarget extends BaseTarget<UntypedTargetParameters> {
   constructor(parameters: UntypedTargetParameters) {
     super(parameters);
     this.hasExplicitRange = parameters.hasExplicitRange;
-    this.isToken = parameters.isToken ?? true;
+    this.textualType = parameters.textualType ?? "token";
   }
 
   getLeadingDelimiterTarget(): Target | undefined {
@@ -42,24 +42,17 @@ export default class UntypedTarget extends BaseTarget<UntypedTargetParameters> {
       : getTokenRemovalRange(this);
   }
 
-  createContinuousRangeTarget(
-    isReversed: boolean,
-    endTarget: Target,
-    includeStart: boolean,
-    includeEnd: boolean,
-  ): Target {
-    return createContinuousRangeUntypedTarget(
-      isReversed,
-      this,
-      endTarget,
-      includeStart,
-      includeEnd,
-    );
+  maybeCreateRichRangeTarget(): null {
+    // It never makes sense to create a rich range target from an untyped
+    // target. We let {@link createContinuousRangeTarget} handle constructing an
+    // untyped range.
+    return null;
   }
 
   protected getCloneParameters() {
     return {
       ...this.state,
+      textualType: this.textualType,
       hasExplicitRange: this.hasExplicitRange,
     };
   }

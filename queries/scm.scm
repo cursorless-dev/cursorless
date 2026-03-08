@@ -1,6 +1,8 @@
 ;; import scm.collections.scm
 ;; import scm.name.scm
 
+;; https://github.com/tree-sitter-grammars/tree-sitter-query/blob/master/src/grammar.json
+
 ;; A statement is any top-level node that's not a comment
 (
   (program
@@ -13,6 +15,7 @@
 
 (anonymous_node
   name: (_) @string @textFragment
+  (#child-range! @textFragment 0 -1 true true)
 )
 
 ;; functionCall:
@@ -37,8 +40,18 @@
 (predicate
   (parameters
     (_) @argumentOrParameter
-  )
-) @_.iteration
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy " " "\n")
+)
+
+;;!! (#aaa? @bbb "ccc")
+;;!         ^^^^^^^^^^
+(
+  (predicate
+    (parameters) @argumentList @argumentOrParameter.iteration
+  ) @argumentList.domain @argumentOrParameter.iteration.domain
+  (#single-or-multi-line-delimiter! @argumentList @argumentList " " "\n")
+)
 
 ;;!! (aaa) @bbb
 ;;!   ^^^
@@ -53,9 +66,8 @@
 (anonymous_node
   name: [
     "_" @type
-    (identifier
-      "\"" @type.start.endOf
-      "\"" @type.end.startOf
+    (string
+      (string_content) @type
     )
   ]
 ) @_.domain
@@ -65,9 +77,9 @@
 ;;!  xxxxx
 ;;!  ---------------
 (field_definition
-  name: (identifier) @collectionKey @collectionKey.trailing.start.endOf
+  name: (identifier) @collectionKey
   .
-  (_) @collectionKey.trailing.end.startOf
+  (_) @_.trailing.startOf
 ) @_.domain
 
 ;;!! aaa: (bbb) @ccc
@@ -98,7 +110,7 @@
   ":"
   (anonymous_node
     [
-      (identifier)
+      (string)
       "_"
     ] @value.end
     (quantifier)? @value.end

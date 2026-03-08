@@ -1,0 +1,17 @@
+class Foo:
+    def __init__():
+        pass
+---
+
+[Content] =
+[Removal] = 1:17-1:17
+                   ><
+1|     def __init__():
+
+[Domain] = 1:4-2:12
+      >---------------
+1|     def __init__():
+2|         pass
+   ------------<
+
+[Insertion delimiter] = ""

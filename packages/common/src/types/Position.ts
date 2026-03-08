@@ -1,4 +1,5 @@
-import { Range } from "..";
+import type { TextDocument } from "..";
+import { Range, stringToInteger } from "..";
 
 export class Position {
   /**
@@ -10,6 +11,31 @@ export class Position {
    * The zero-based character value.
    */
   public readonly character: number;
+
+  /**
+   * Create a position from a concise string representation.
+   * The string should be in the format `line:character`, where both line and character
+   * are zero-based.
+   *
+   * @param concise A concise string representation of a position.
+   * @return A position with the given line and character values.
+   */
+  static fromConcise(concise: string): Position {
+    const parts = concise.split(":");
+    if (parts.length !== 2) {
+      throw new Error(
+        `Invalid concise position format: "${concise}". Expected "line:character" format.`,
+      );
+    }
+    const line = stringToInteger(parts[0]);
+    const character = stringToInteger(parts[1]);
+    if (line == null || character == null || line < 0 || character < 0) {
+      throw new Error(
+        `Invalid concise position format: "${concise}". Line and character should be non-negative integers.`,
+      );
+    }
+    return new Position(line, character);
+  }
 
   /**
    * @param line A zero-based line value.
@@ -140,14 +166,38 @@ export class Position {
   }
 
   /**
-   * Return a concise string representation of the position.
+   * Return a concise string representation of the position. 0-based.
    * @returns concise representation
    **/
   public concise(): string {
     return `${this.line}:${this.character}`;
   }
 
+  /**
+   * Return a concise string representation of the position. 1-based.
+   * @returns concise representation
+   **/
+  public conciseOneBased(): string {
+    return `${this.line + 1}:${this.character + 1}`;
+  }
+
   public toString(): string {
     return this.concise();
   }
+}
+
+/**
+ * adjustPosition returns a new position that is offset by the given amount.
+ * It corrects line and character positions to remain valid in doc.
+ * @param doc The document
+ * @param pos The position to adjust
+ * @param by The amount to adjust by
+ * @returns The adjusted position
+ */
+export function adjustPosition(
+  doc: TextDocument,
+  pos: Position,
+  by: number,
+): Position {
+  return doc.positionAt(doc.offsetAt(pos) + by);
 }

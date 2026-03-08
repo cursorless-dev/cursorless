@@ -5,7 +5,7 @@ import type {
   PositionPlainObject,
   RangePlainObject,
   SelectionPlainObject,
-} from "./toPlainObject";
+} from "../util/toPlainObject";
 
 export function plainObjectToPosition({
   line,

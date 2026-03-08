@@ -1,11 +1,15 @@
-import { Messages, Range } from "@cursorless/common";
-import { QueryCapture } from "./QueryCapture";
+import type { Messages } from "@cursorless/common";
+import { Range } from "@cursorless/common";
+import type { QueryCapture } from "./QueryCapture";
 import { checkCaptureStartEnd } from "./checkCaptureStartEnd";
-import assert = require("assert");
+import assert from "assert";
 
 interface TestCase {
   name: string;
-  captures: Omit<QueryCapture, "allowMultiple" | "insertionDelimiter">[];
+  captures: Omit<
+    QueryCapture,
+    "allowMultiple" | "insertionDelimiter" | "hasError"
+  >[];
   isValid: boolean;
   expectedErrorMessageIds: string[];
 }
@@ -193,6 +197,7 @@ suite("checkCaptureStartEnd", () => {
           ...capture,
           allowMultiple: false,
           insertionDelimiter: undefined,
+          hasError: () => false,
         })),
         messages,
       );

@@ -1,4 +1,4 @@
-import { PartialTargetDescriptorV4 } from "./PartialTargetDescriptorV4.types";
+import type { PartialTargetDescriptorV4 } from "./PartialTargetDescriptorV4.types";
 
 type ActionType =
   | "callAsFunction"

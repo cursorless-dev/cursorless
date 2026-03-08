@@ -1,0 +1,14 @@
+
+<?php
+function foo() {}
+
+---
+
+[Content] =
+[Domain] = 0:0-3:0
+  >
+0|
+1| <?php
+2| function foo() {}
+3|
+   <

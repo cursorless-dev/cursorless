@@ -1,0 +1,78 @@
+<?php
+class Foo {
+    function bar($aaa, $bbb = 0) {}
+}
+---
+
+[#1 Content] = 1:6-1:9
+        >---<
+1| class Foo {
+
+[#1 Removal] = 1:6-1:10
+        >----<
+1| class Foo {
+
+[#1 Leading delimiter] = 1:5-1:6
+       >-<
+1| class Foo {
+
+[#1 Trailing delimiter] = 1:9-1:10
+           >-<
+1| class Foo {
+
+[#1 Domain] = 1:0-3:1
+  >-----------
+1| class Foo {
+2|     function bar($aaa, $bbb = 0) {}
+3| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] = 2:13-2:16
+               >---<
+2|     function bar($aaa, $bbb = 0) {}
+
+[#2 Leading delimiter] = 2:12-2:13
+              >-<
+2|     function bar($aaa, $bbb = 0) {}
+
+[#2 Domain] = 2:4-2:35
+      >-------------------------------<
+2|     function bar($aaa, $bbb = 0) {}
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] =
+[#3 Removal] =
+[#3 Domain] = 2:17-2:21
+                   >----<
+2|     function bar($aaa, $bbb = 0) {}
+
+[#3 Insertion delimiter] = " "
+
+
+[#4 Content] = 2:23-2:27
+                         >----<
+2|     function bar($aaa, $bbb = 0) {}
+
+[#4 Removal] = 2:23-2:28
+                         >-----<
+2|     function bar($aaa, $bbb = 0) {}
+
+[#4 Leading delimiter] = 2:22-2:23
+                        >-<
+2|     function bar($aaa, $bbb = 0) {}
+
+[#4 Trailing delimiter] = 2:27-2:28
+                             >-<
+2|     function bar($aaa, $bbb = 0) {}
+
+[#4 Domain] = 2:23-2:31
+                         >--------<
+2|     function bar($aaa, $bbb = 0) {}
+
+[#4 Insertion delimiter] = " "

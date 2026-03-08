@@ -1,13 +1,19 @@
+from typing import Callable, Union
+
 from talon import Module, actions
 
-from ..targets.target_types import CursorlessTarget, ImplicitDestination
+from ..targets.target_types import (
+    CursorlessDestination,
+    CursorlessExplicitTarget,
+    CursorlessTarget,
+    ImplicitDestination,
+)
 from .bring_move import BringMoveTargets
-from .call import cursorless_call_action
 from .execute_command import cursorless_execute_command_action
 from .homophones import cursorless_homophones_action
+from .replace import cursorless_replace_action
 
 mod = Module()
-
 
 mod.list(
     "cursorless_simple_action",
@@ -38,18 +44,17 @@ ACTION_LIST_NAMES = [
     "wrap_action",
     "insert_snippet_action",
     "reformat_action",
+    "call_action",
     "experimental_action",
+    "custom_action",
 ]
 
-callback_actions = {
-    "callAsFunction": cursorless_call_action,
-    "findInDocument": actions.user.private_cursorless_find,
+callback_actions: dict[str, Callable[[CursorlessExplicitTarget], None]] = {
     "nextHomophone": cursorless_homophones_action,
 }
 
 # Don't wait for these actions to finish, usually because they hang on some kind of user interaction
 no_wait_actions = [
-    "generateSnippet",
     "rename",
 ]
 
@@ -64,10 +69,11 @@ no_wait_actions_post_sleep = {
         "{user.cursorless_simple_action} |"
         "{user.cursorless_experimental_action} |"
         "{user.cursorless_callback_action} |"
+        "{user.cursorless_call_action} |"
         "{user.cursorless_custom_action}"
     )
 )
-def cursorless_action_or_ide_command(m) -> dict:
+def cursorless_action_or_ide_command(m) -> dict[str, str]:
     try:
         value = m.cursorless_custom_action
         type = "ide_command"
@@ -82,7 +88,8 @@ def cursorless_action_or_ide_command(m) -> dict:
 
 @mod.action_class
 class Actions:
-    def cursorless_command(action_name: str, target: CursorlessTarget):
+    @staticmethod
+    def cursorless_command(action_name: str, target: CursorlessExplicitTarget):
         """Perform cursorless command on target"""
         if action_name in callback_actions:
             callback_actions[action_name](target)
@@ -90,6 +97,10 @@ class Actions:
             actions.user.private_cursorless_bring_move(
                 action_name, BringMoveTargets(target, ImplicitDestination())
             )
+        elif action_name == "callAsFunction":
+            actions.user.private_cursorless_call(target)
+        elif action_name == "generateSnippet":
+            actions.user.private_cursorless_generate_snippet_action(target)
         elif action_name in no_wait_actions:
             action = {"name": action_name, "target": target}
             actions.user.private_cursorless_command_no_wait(action)
@@ -99,6 +110,7 @@ class Actions:
             action = {"name": action_name, "target": target}
             actions.user.private_cursorless_command_and_wait(action)
 
+    @staticmethod
     def cursorless_vscode_command(command_id: str, target: CursorlessTarget):
         """
         Perform vscode command on cursorless target
@@ -107,12 +119,25 @@ class Actions:
         """
         return actions.user.cursorless_ide_command(command_id, target)
 
+    @staticmethod
     def cursorless_ide_command(command_id: str, target: CursorlessTarget):
         """Perform ide command on cursorless target"""
         return cursorless_execute_command_action(command_id, target)
 
+    @staticmethod
+    def cursorless_insert(
+        destination: CursorlessDestination,
+        text: Union[str, list[str]],
+    ):
+        """Perform text insertion on Cursorless destination"""
+        if isinstance(text, str):
+            text = [text]
+        cursorless_replace_action(destination, text)
+
+    @staticmethod
     def private_cursorless_action_or_ide_command(
-        instruction: dict, target: CursorlessTarget
+        instruction: dict[str, str],
+        target: CursorlessTarget,
     ):
         """Perform cursorless action or ide command on target (internal use only)"""
         type = instruction["type"]

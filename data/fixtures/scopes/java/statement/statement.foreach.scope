@@ -1,0 +1,10 @@
+for (final int v : values) {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:29
+  >-----------------------------<
+0| for (final int v : values) {}
+
+[Insertion delimiter] = "\n"

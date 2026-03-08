@@ -1,35 +1,37 @@
-import type { EditableTextEditor, TextEditor } from "../..";
-import { pull } from "lodash";
-import { GeneralizedRange } from "../../types/GeneralizedRange";
-import { TextDocument } from "../../types/TextDocument";
+import { pull } from "lodash-es";
+import type { EditableTextEditor, NotebookEditor, TextEditor } from "../..";
+import type { GeneralizedRange } from "../../types/GeneralizedRange";
+import type { TextDocument } from "../../types/TextDocument";
 import type { TextDocumentChangeEvent } from "../types/Events";
-import {
+import type { FlashDescriptor } from "../types/FlashDescriptor";
+import type { QuickPickOptions } from "../types/QuickPickOptions";
+import type {
   Event,
   TextEditorSelectionChangeEvent,
   TextEditorVisibleRangesChangeEvent,
 } from "../types/events.types";
-import { FlashDescriptor } from "../types/FlashDescriptor";
 import type {
   Disposable,
   IDE,
+  OpenUntitledTextDocumentOptions,
   RunMode,
   WorkspaceFolder,
 } from "../types/ide.types";
-import { QuickPickOptions } from "../types/QuickPickOptions";
 import { FakeCapabilities } from "./FakeCapabilities";
 import FakeClipboard from "./FakeClipboard";
 import FakeConfiguration from "./FakeConfiguration";
-import FakeGlobalState from "./FakeGlobalState";
+import FakeKeyValueStore from "./FakeKeyValueStore";
 import FakeMessages from "./FakeMessages";
 
-export default class FakeIDE implements IDE {
+export class FakeIDE implements IDE {
   configuration: FakeConfiguration = new FakeConfiguration();
   messages: FakeMessages = new FakeMessages();
-  globalState: FakeGlobalState = new FakeGlobalState();
+  keyValueStore: FakeKeyValueStore = new FakeKeyValueStore();
   clipboard: FakeClipboard = new FakeClipboard();
   capabilities: FakeCapabilities = new FakeCapabilities();
 
   runMode: RunMode = "test";
+  cursorlessVersion: string = "0.0.0";
   workspaceFolders: readonly WorkspaceFolder[] | undefined = undefined;
   private disposables: Disposable[] = [];
   private assetsRoot_: string | undefined;
@@ -80,7 +82,15 @@ export default class FakeIDE implements IDE {
     throw Error("Not implemented");
   }
 
+  get visibleNotebookEditors(): NotebookEditor[] {
+    throw Error("Not implemented");
+  }
+
   public getEditableTextEditor(_editor: TextEditor): EditableTextEditor {
+    throw Error("Not implemented");
+  }
+
+  public findInDocument(_query: string, _editor: TextEditor): Promise<void> {
     throw Error("Not implemented");
   }
 
@@ -89,6 +99,12 @@ export default class FakeIDE implements IDE {
   }
 
   public openTextDocument(_path: string): Promise<TextEditor> {
+    throw Error("Not implemented");
+  }
+
+  public openUntitledTextDocument(
+    _options: OpenUntitledTextDocumentOptions,
+  ): Promise<TextEditor> {
     throw Error("Not implemented");
   }
 

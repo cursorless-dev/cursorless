@@ -1,0 +1,17 @@
+final foo = [aaa, bbb]
+---
+
+[Content] =
+[Domain] = 0:12-0:22
+              >----------<
+0| final foo = [aaa, bbb]
+
+[Removal] = 0:11-0:22
+             >-----------<
+0| final foo = [aaa, bbb]
+
+[Leading delimiter] = 0:11-0:12
+             >-<
+0| final foo = [aaa, bbb]
+
+[Insertion delimiter] = " "

@@ -1,6 +1,6 @@
 import { transformPackageJson } from "./transformPackageJson";
 import { generateBuildInfo } from "./generateBuildInfo";
-import { Asset } from "./Asset";
+import type { Asset } from "./Asset";
 
 export const assets: Asset[] = [
   { source: "../../CHANGELOG.md", destination: "CHANGELOG.md" },
@@ -14,7 +14,6 @@ export const assets: Asset[] = [
     // build, and is only used when they say "cursorless cheatsheet".
     optionalInDev: true,
   },
-  { source: "../../cursorless-snippets", destination: "cursorless-snippets" },
   {
     source: "../../fonts/cursorless-glyph.svg",
     destination: "fonts/cursorless-glyph.svg",
@@ -24,8 +23,32 @@ export const assets: Asset[] = [
     destination: "fonts/cursorless.woff",
   },
   { source: "../../images/hats", destination: "images/hats" },
-  { source: "../../images/icon.png", destination: "images/icon.png" },
-  { source: "../../schemas", destination: "schemas" },
+  {
+    source: "../../data/fixtures/recorded/tutorial",
+    destination: "tutorial",
+  },
+  {
+    source: "../cursorless-vscode-tutorial-webview/out/index.js",
+    destination: "media/tutorialWebview.js",
+  },
+  {
+    source: "../cursorless-vscode-tutorial-webview/out/index.css",
+    destination: "media/tutorialWebview.css",
+  },
+  { source: "./images/logo.png", destination: "images/logo.png" },
+  { source: "../../images/logo.svg", destination: "images/logo.svg" },
+  {
+    source: "resources/font_measurements.js",
+    destination: "resources/font_measurements.js",
+  },
+  {
+    source: "resources/installationDependencies.html",
+    destination: "resources/installationDependencies.html",
+  },
+  {
+    source: "resources/installationDependencies.js",
+    destination: "resources/installationDependencies.js",
+  },
   {
     source: "../../third-party-licenses.csv",
     destination: "third-party-licenses.csv",

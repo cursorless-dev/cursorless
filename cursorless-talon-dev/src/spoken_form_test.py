@@ -1,13 +1,19 @@
 import json
 from typing import Any, Optional
 
-from talon import Context, Module, actions, scope
+from talon import Context, Module, actions, scope, settings
 
 mod = Module()
 
 mod.mode(
     "cursorless_spoken_form_test",
     "Used to run tests on the Cursorless spoken forms/grammar",
+)
+
+mod.setting(
+    "cursorless_spoken_form_test_restore_microphone",
+    str,
+    desc="The microphone to switch to after the spoken form tests are done. If unset, the microphone that was active before tests started is restored. (If you want to switch back to 'System Default', you should set that as the value here)",
 )
 
 ctx = Context()
@@ -39,18 +45,27 @@ class UserActions:
     def did_emit_pre_phrase_signal():
         return True
 
+    @staticmethod
     def private_cursorless_run_rpc_command_and_wait(
-        command_id: str, arg1: Any, arg2: Any = None
+        command_id: str,
+        arg1: Any,
+        arg2: Any = None,
     ):
         commands_run.append(arg1)
 
+    @staticmethod
     def private_cursorless_run_rpc_command_no_wait(
-        command_id: str, arg1: Any, arg2: Any = None
+        command_id: str,
+        arg1: Any,
+        arg2: Any = None,
     ):
         commands_run.append(arg1)
 
+    @staticmethod
     def private_cursorless_run_rpc_command_get(
-        command_id: str, arg1: Any, arg2: Any = None
+        command_id: str,
+        arg1: Any,
+        arg2: Any = None,
     ) -> Any:
         commands_run.append(arg1)
         return mockedGetValue
@@ -58,13 +73,17 @@ class UserActions:
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def private_cursorless_spoken_form_test_mode(enable: bool):
         """Enable/disable Cursorless spoken form test mode"""
         global saved_modes, saved_microphone
 
         if enable:
             saved_modes = scope.get("mode")
-            saved_microphone = actions.sound.active_microphone()
+            saved_microphone = settings.get(
+                "user.cursorless_spoken_form_test_restore_microphone",
+                actions.sound.active_microphone(),
+            )
 
             disable_modes()
             actions.mode.enable("user.cursorless_spoken_form_test")
@@ -82,8 +101,10 @@ class Actions:
                 "Cursorless spoken form tests are done. Talon microphone is re-enabled."
             )
 
+    @staticmethod
     def private_cursorless_spoken_form_test(
-        phrase: str, mockedGetValue_: Optional[str]
+        phrase: str,
+        mockedGetValue_: Optional[str],
     ):
         """Run Cursorless spoken form test"""
         global commands_run, mockedGetValue
@@ -96,6 +117,25 @@ class Actions:
             print(json.dumps(commands_run))
         except Exception as e:
             print(f"{e.__class__.__name__}: {e}")
+
+    def private_cursorless_test_extract_decorated_marks(target: Any):
+        """Run test for Cursorless private extract decorated marks api"""
+        marks = actions.user.cursorless_private_extract_decorated_marks(target)
+        all_decorated_marks_target = actions.user.cursorless_private_build_list_target(
+            [
+                actions.user.cursorless_private_build_primitive_target([], mark)
+                for mark in marks
+            ]
+        )
+        actions.user.cursorless_private_action_highlight(
+            all_decorated_marks_target, "highlight1"
+        )
+
+    def private_cursorless_test_alternate_highlight_nothing():
+        """Run test for Cursorless private highlight nothing api"""
+        actions.user.cursorless_private_action_highlight(
+            actions.user.cursorless_private_target_nothing(), "highlight1"
+        )
 
 
 def enable_modes():

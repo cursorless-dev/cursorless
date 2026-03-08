@@ -1,51 +1,49 @@
-import { Range, SimpleScopeTypeType } from "@cursorless/common";
-import {
-  BaseTarget,
-  CommonTargetParameters,
-  InteriorTarget,
-  PlainTarget,
-} from ".";
-import { Target } from "../../typings/target.types";
-import { isSameType } from "../../util/typeUtils";
-import {
-  createContinuousRange,
-  createContinuousRangeFromRanges,
-} from "../targetUtil/createContinuousRange";
-import { getDelimitedSequenceRemovalRange } from "../targetUtil/insertionRemovalBehaviors/DelimitedSequenceInsertionRemovalBehavior";
+import type {
+  GeneralizedRange,
+  Range,
+  SimpleScopeTypeType,
+} from "@cursorless/common";
+import type { Target } from "../../typings/target.types";
+import { toGeneralizedRange } from "../../util/targetUtils";
+import type { CommonTargetParameters } from "./BaseTarget";
+import { BaseTarget } from "./BaseTarget";
+import { PlainTarget } from "./PlainTarget";
+import { getDelimitedSequenceRemovalRange } from "./util/insertionRemovalBehaviors/DelimitedSequenceInsertionRemovalBehavior";
 import {
   getTokenLeadingDelimiterTarget,
-  getTokenRemovalRange,
   getTokenTrailingDelimiterTarget,
-} from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
+} from "./util/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
+import { getSmartRemovalTarget } from "./util/insertionRemovalBehaviors/getSmartRemovalTarget";
 
 export interface ScopeTypeTargetParameters extends CommonTargetParameters {
   readonly scopeTypeType: SimpleScopeTypeType;
-  readonly delimiter?: string;
+  readonly insertionDelimiter?: string;
+  readonly prefixRange?: Range;
   readonly removalRange?: Range;
-  readonly interiorRange?: Range;
   readonly leadingDelimiterRange?: Range;
   readonly trailingDelimiterRange?: Range;
 }
 
-export default class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
+export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
   type = "ScopeTypeTarget";
   private scopeTypeType_: SimpleScopeTypeType;
   private removalRange_?: Range;
-  private interiorRange_?: Range;
   private leadingDelimiterRange_?: Range;
   private trailingDelimiterRange_?: Range;
   private hasDelimiterRange_: boolean;
-  insertionDelimiter: string;
+  public readonly prefixRange?: Range;
+  readonly insertionDelimiter: string;
 
   constructor(parameters: ScopeTypeTargetParameters) {
     super(parameters);
     this.scopeTypeType_ = parameters.scopeTypeType;
     this.removalRange_ = parameters.removalRange;
-    this.interiorRange_ = parameters.interiorRange;
     this.leadingDelimiterRange_ = parameters.leadingDelimiterRange;
     this.trailingDelimiterRange_ = parameters.trailingDelimiterRange;
+    this.prefixRange = parameters.prefixRange;
     this.insertionDelimiter =
-      parameters.delimiter ?? getDelimiter(parameters.scopeTypeType);
+      parameters.insertionDelimiter ??
+      getInsertionDelimiter(parameters.scopeTypeType);
     this.hasDelimiterRange_ =
       !!this.leadingDelimiterRange_ || !!this.trailingDelimiterRange_;
   }
@@ -78,82 +76,66 @@ export default class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameter
     return undefined;
   }
 
-  getInteriorStrict() {
-    if (this.interiorRange_ == null) {
-      return super.getInteriorStrict();
-    }
-    return [
-      new InteriorTarget({
-        editor: this.editor,
-        isReversed: this.isReversed,
-        fullInteriorRange: this.interiorRange_,
-      }),
-    ];
-  }
-
   getRemovalRange(): Range {
-    return this.removalRange_ != null
-      ? this.removalRange_
-      : this.hasDelimiterRange_
-      ? getDelimitedSequenceRemovalRange(this)
-      : getTokenRemovalRange(this);
+    if (this.removalRange_ != null) {
+      return this.removalRange_;
+    }
+    if (this.hasDelimiterRange_) {
+      return getDelimitedSequenceRemovalRange(this);
+    }
+    return getSmartRemovalTarget(this).getRemovalRange();
   }
 
-  createContinuousRangeTarget(
-    isReversed: boolean,
-    endTarget: Target,
-    includeStart: boolean,
-    includeEnd: boolean,
-  ): Target {
-    if (isSameType(this, endTarget)) {
-      const scopeTarget = endTarget;
-      if (this.scopeTypeType_ === scopeTarget.scopeTypeType_) {
-        const contentRemovalRange =
-          this.removalRange_ != null || scopeTarget.removalRange_ != null
-            ? createContinuousRangeFromRanges(
-                this.removalRange_ ?? this.contentRange,
-                scopeTarget.removalRange_ ?? scopeTarget.contentRange,
-                includeStart,
-                includeEnd,
-              )
-            : undefined;
+  getRemovalHighlightRange(): GeneralizedRange {
+    if (this.removalRange_ != null) {
+      return toGeneralizedRange(this, this.removalRange_);
+    }
+    if (this.hasDelimiterRange_) {
+      return toGeneralizedRange(this, getDelimitedSequenceRemovalRange(this));
+    }
+    return getSmartRemovalTarget(this).getRemovalHighlightRange();
+  }
 
-        return new ScopeTypeTarget({
-          ...this.getCloneParameters(),
-          isReversed,
-          leadingDelimiterRange: this.leadingDelimiterRange_,
-          trailingDelimiterRange: scopeTarget.trailingDelimiterRange_,
-          removalRange: contentRemovalRange,
-          contentRange: createContinuousRange(
-            this,
-            endTarget,
-            includeStart,
-            includeEnd,
-          ),
-        });
-      }
+  maybeCreateRichRangeTarget(
+    isReversed: boolean,
+    endTarget: ScopeTypeTarget,
+  ): ScopeTypeTarget | null {
+    if (this.scopeTypeType_ !== endTarget.scopeTypeType_) {
+      return null;
     }
 
-    return super.createContinuousRangeTarget(
+    const contentRemovalRange =
+      this.removalRange_ != null || endTarget.removalRange_ != null
+        ? (this.removalRange_ ?? this.contentRange).union(
+            endTarget.removalRange_ ?? endTarget.contentRange,
+          )
+        : undefined;
+
+    return new ScopeTypeTarget({
+      ...this.getCloneParameters(),
       isReversed,
-      endTarget,
-      includeStart,
-      includeEnd,
-    );
+      leadingDelimiterRange: this.leadingDelimiterRange_,
+      trailingDelimiterRange: endTarget.trailingDelimiterRange_,
+      removalRange: contentRemovalRange,
+      contentRange: this.contentRange.union(endTarget.contentRange),
+    });
   }
 
   protected getCloneParameters() {
     return {
       ...this.state,
+      insertionDelimiter: this.insertionDelimiter,
+      prefixRange: this.prefixRange,
+      removalRange: undefined,
+      interiorRange: undefined,
       scopeTypeType: this.scopeTypeType_,
-      contentRemovalRange: this.removalRange_,
       leadingDelimiterRange: this.leadingDelimiterRange_,
       trailingDelimiterRange: this.trailingDelimiterRange_,
     };
   }
 }
 
-function getDelimiter(scopeType: SimpleScopeTypeType): string {
+function getInsertionDelimiter(scopeType: SimpleScopeTypeType): string {
   switch (scopeType) {
     case "class":
     case "namedFunction":

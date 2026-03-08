@@ -2,33 +2,42 @@
   "name": "@cursorless/common",
   "version": "0.1.0",
   "description": "Common utilities for use anywhere in our codebase",
-  "main": "./out/index.js",
-  "scripts": {
-    "compile": "tsc --build",
-    "watch": "tsc --build --watch",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo"
-  },
-  "keywords": [],
-  "author": "",
   "license": "MIT",
-  "dependencies": {
-    "lodash": "^4.17.21",
-    "vscode-uri": "^3.0.6"
-  },
-  "devDependencies": {
-    "@types/js-yaml": "^4.0.2",
-    "@types/lodash": "4.14.181",
-    "@types/mocha": "^8.0.4",
-    "@types/sinon": "^10.0.2",
-    "js-yaml": "^4.1.0",
-    "mocha": "^10.2.0",
-    "sinon": "^11.1.1"
-  },
+  "type": "module",
+  "main": "./out/index.js",
   "types": "./out/index.d.ts",
+  "bin": {
+    "my-ts-node": "./scripts/my-ts-node.js"
+  },
   "exports": {
     ".": {
       "cursorless:bundler": "./src/index.ts",
       "default": "./out/index.js"
     }
+  },
+  "scripts": {
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
+    "compile:tsc": "tsc --build",
+    "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=esm --bundle --packages=external --outfile=./out/index.js",
+    "compile": "pnpm compile:tsc && pnpm compile:esbuild",
+    "watch:tsc": "pnpm compile:tsc --watch",
+    "watch:esbuild": "pnpm compile:esbuild --watch",
+    "watch": "pnpm run --filter @cursorless/common --parallel '/^watch:.*/'"
+  },
+  "dependencies": {
+    "itertools": "^2.6.0",
+    "lodash-es": "^4.17.23",
+    "tinycolor2": "^1.6.0",
+    "vscode-uri": "^3.1.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/lodash-es": "^4.17.12",
+    "@types/mocha": "^10.0.10",
+    "@types/tinycolor2": "^1.4.6",
+    "cross-spawn": "^7.0.6",
+    "fast-check": "^4.5.3",
+    "js-yaml": "^4.1.1",
+    "mocha": "^11.7.5"
   }
 }

@@ -1,7 +1,7 @@
-import { RangePlainObject } from "@cursorless/common";
-import { VscodeApi } from "@cursorless/vscode-common";
-import * as sinon from "sinon";
-import * as vscode from "vscode";
+import type { RangePlainObject } from "@cursorless/common";
+import type { VscodeApi } from "@cursorless/vscode-common";
+import type * as sinon from "sinon";
+import type * as vscode from "vscode";
 
 export interface MockDecorationType {
   dispose(): void;

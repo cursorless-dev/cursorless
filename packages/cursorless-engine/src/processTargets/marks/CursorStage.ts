@@ -1,13 +1,10 @@
-import type { CursorMark } from "@cursorless/common";
 import { ide } from "../../singletons/ide.singleton";
 import type { Target } from "../../typings/target.types";
 import type { MarkStage } from "../PipelineStages.types";
 import { UntypedTarget } from "../targets";
 import { getActiveSelections } from "./getActiveSelections";
 
-export default class CursorStage implements MarkStage {
-  constructor(private mark: CursorMark) {}
-
+export class CursorStage implements MarkStage {
   run(): Target[] {
     return getActiveSelections(ide()).map(
       (selection) =>
@@ -16,7 +13,7 @@ export default class CursorStage implements MarkStage {
           isReversed: selection.selection.isReversed,
           contentRange: selection.selection,
           hasExplicitRange: !selection.selection.isEmpty,
-          isToken: false,
+          textualType: "character",
         }),
     );
   }

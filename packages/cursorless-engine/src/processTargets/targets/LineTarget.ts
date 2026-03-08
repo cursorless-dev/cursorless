@@ -1,14 +1,17 @@
-import { Position, Range, TextEditor } from "@cursorless/common";
-import { BaseTarget, CommonTargetParameters } from ".";
-import { Target } from "../../typings/target.types";
+import type { TextEditor, TextLine } from "@cursorless/common";
+import { Position, Range, toLineRange } from "@cursorless/common";
+import type { TextualType } from "../../typings/target.types";
 import { expandToFullLine } from "../../util/rangeUtils";
-import { tryConstructPlainTarget } from "../../util/tryConstructTarget";
-import { createContinuousLineRange } from "../targetUtil/createContinuousRange";
+import { tryConstructTarget } from "../../util/tryConstructTarget";
+import type { CommonTargetParameters } from "./BaseTarget";
+import { BaseTarget } from "./BaseTarget";
+import { tryConstructPlainTarget } from "./PlainTarget";
+import { createContinuousLineRange } from "./util/createContinuousRange";
 
-export default class LineTarget extends BaseTarget<CommonTargetParameters> {
+export class LineTarget extends BaseTarget<CommonTargetParameters> {
   type = "LineTarget";
+  textualType: TextualType = "line";
   insertionDelimiter = "\n";
-  isLine = true;
 
   private get fullLineContentRange() {
     return expandToFullLine(this.editor, this.contentRange);
@@ -40,33 +43,19 @@ export default class LineTarget extends BaseTarget<CommonTargetParameters> {
       : contentRemovalRange.union(delimiterTarget.contentRange);
   }
 
-  getRemovalHighlightRange = () => this.fullLineContentRange;
+  getRemovalHighlightRange = () => {
+    return toLineRange(this.fullLineContentRange);
+  };
 
-  createContinuousRangeTarget(
+  maybeCreateRichRangeTarget(
     isReversed: boolean,
-    endTarget: Target,
-    includeStart: boolean,
-    includeEnd: boolean,
-  ): Target {
-    if (endTarget.isLine) {
-      return new LineTarget({
-        editor: this.editor,
-        isReversed,
-        contentRange: createContinuousLineRange(
-          this,
-          endTarget,
-          includeStart,
-          includeEnd,
-        ),
-      });
-    }
-
-    return super.createContinuousRangeTarget(
+    endTarget: LineTarget,
+  ): LineTarget {
+    return new LineTarget({
+      editor: this.editor,
       isReversed,
-      endTarget,
-      includeStart,
-      includeEnd,
-    );
+      contentRange: createContinuousLineRange(this, endTarget, true, true),
+    });
   }
 
   protected getCloneParameters() {
@@ -86,4 +75,38 @@ function getTrailingDelimiterRange(editor: TextEditor, range: Range) {
   return end.line + 1 < editor.document.lineCount
     ? new Range(range.end, new Position(end.line + 1, 0))
     : undefined;
+}
+
+/**
+ * Constructs a {@link LineTarget} from the given range, or returns undefined
+ * if the range is undefined
+ * @param editor The editor containing the range
+ * @param range The range to convert into a target
+ * @param isReversed Whether the rain should be backward
+ * @returns A new {@link LineTarget} constructed from the given range, or null
+ * if the range is undefined
+ */
+
+export function constructLineTarget(
+  editor: TextEditor,
+  range: Range | undefined,
+  isReversed: boolean,
+): LineTarget | undefined {
+  return tryConstructTarget(LineTarget, editor, range, isReversed);
+}
+
+export function createLineTarget(
+  editor: TextEditor,
+  isReversed: boolean,
+  line: TextLine,
+  useFullRange = false,
+) {
+  return new LineTarget({
+    editor,
+    isReversed,
+    contentRange:
+      useFullRange || line.rangeTrimmed == null
+        ? line.range
+        : line.rangeTrimmed,
+  });
 }

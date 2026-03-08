@@ -1,9 +1,9 @@
-import { CommandId, EditableTextEditor, Range } from "@cursorless/common";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import type { CommandId, EditableTextEditor, Range } from "@cursorless/common";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { ide } from "../singletons/ide.singleton";
-import { Target } from "../typings/target.types";
+import type { Target } from "../typings/target.types";
 import { CallbackAction } from "./CallbackAction";
-import { ActionReturnValue } from "./actions.types";
+import type { ActionReturnValue } from "./actions.types";
 
 interface Options {
   showDecorations?: boolean;
@@ -58,7 +58,7 @@ abstract class SimpleIdeCommandAction {
   }
 }
 
-export class CopyToClipboard extends SimpleIdeCommandAction {
+export class CopyToClipboardSimple extends SimpleIdeCommandAction {
   command: CommandId = "clipboardCopy";
   ensureSingleEditor = true;
 }
@@ -67,11 +67,11 @@ export class ToggleLineComment extends SimpleIdeCommandAction {
   command: CommandId = "toggleLineComment";
 }
 
-export class IndentLine extends SimpleIdeCommandAction {
+export class IndentLineSimpleAction extends SimpleIdeCommandAction {
   command: CommandId = "indentLine";
 }
 
-export class OutdentLine extends SimpleIdeCommandAction {
+export class OutdentLineSimpleAction extends SimpleIdeCommandAction {
   command: CommandId = "outdentLine";
 }
 
@@ -128,6 +128,26 @@ export class ExtractVariable extends SimpleIdeCommandAction {
   restoreSelection = false;
 }
 
+export class GitAccept extends SimpleIdeCommandAction {
+  command: CommandId = "gitAccept";
+  ensureSingleTarget = true;
+}
+
+export class GitRevert extends SimpleIdeCommandAction {
+  command: CommandId = "gitRevert";
+  ensureSingleTarget = true;
+}
+
+export class GitStage extends SimpleIdeCommandAction {
+  command: CommandId = "gitStage";
+  ensureSingleTarget = true;
+}
+
+export class GitUnstage extends SimpleIdeCommandAction {
+  command: CommandId = "gitUnstage";
+  ensureSingleTarget = true;
+}
+
 function callback(
   editor: EditableTextEditor,
   ranges: Range[] | undefined,
@@ -147,6 +167,8 @@ function callback(
       return editor.fold(ranges);
     case "unfold":
       return editor.unfold(ranges);
+    case "insertLineAfter":
+      return editor.insertLineAfter(ranges);
 
     // Single target actions
     case "rename":
@@ -165,6 +187,14 @@ function callback(
       return editor.showDebugHover(ranges?.[0]);
     case "extractVariable":
       return editor.extractVariable(ranges?.[0]);
+    case "gitAccept":
+      return editor.gitAccept(ranges?.[0]);
+    case "gitRevert":
+      return editor.gitRevert(ranges?.[0]);
+    case "gitStage":
+      return editor.gitStage(ranges?.[0]);
+    case "gitUnstage":
+      return editor.gitUnstage(ranges?.[0]);
 
     // Unsupported as simple action
     case "highlight":

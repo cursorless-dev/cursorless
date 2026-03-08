@@ -1,0 +1,13 @@
+() => { foo; };
+---
+
+[Content] = 0:8-0:12
+          >----<
+0| () => { foo; };
+
+[Removal] =
+[Domain] = 0:7-0:13
+         >------<
+0| () => { foo; };
+
+[Insertion delimiter] = " "

@@ -1,0 +1,33 @@
+\begin{itemize}
+  \item one
+  \item two
+\end{itemize}
+---
+
+[#1 Content] = 0:15-3:0
+                 >
+0| \begin{itemize}
+1|   \item one
+2|   \item two
+3| \end{itemize}
+   <
+
+[#1 Domain] = 0:0-3:13
+  >---------------
+0| \begin{itemize}
+1|   \item one
+2|   \item two
+3| \end{itemize}
+   -------------<
+
+
+[#2 Content] =
+[#2 Domain] = 0:7-0:14
+         >-------<
+0| \begin{itemize}
+
+
+[#3 Content] =
+[#3 Domain] = 3:5-3:12
+       >-------<
+3| \end{itemize}

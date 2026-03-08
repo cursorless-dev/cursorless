@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { FontMeasurements } from "./FontMeasurements";
+import type { FontMeasurements } from "./FontMeasurements";
 
 /**
  * Contains measurements for the user's font
@@ -20,24 +20,32 @@ export class FontMeasurementsImpl implements FontMeasurements {
 
   constructor(private extensionContext: vscode.ExtensionContext) {}
 
-  clearCache() {
-    this.extensionContext.globalState.update("fontRatios", undefined);
+  async clearCache() {
+    await this.extensionContext.globalState.update("fontRatios", undefined);
   }
 
   async calculate() {
     const fontFamily = getFontFamily();
+    const fontWeight = getFontWeight();
     let widthRatio, heightRatio;
+
     const fontRatiosCache = this.extensionContext.globalState.get<{
       widthRatio: number;
       heightRatio: number;
       fontFamily: string;
+      fontWeight: string;
     }>("fontRatios");
 
-    if (fontRatiosCache == null || fontRatiosCache.fontFamily !== fontFamily) {
-      const fontRatios = await getFontRatios();
-      this.extensionContext.globalState.update("fontRatios", {
+    if (
+      fontRatiosCache == null ||
+      fontRatiosCache.fontFamily !== fontFamily ||
+      fontRatiosCache.fontWeight !== fontWeight
+    ) {
+      const fontRatios = await getFontRatios(this.extensionContext);
+      await this.extensionContext.globalState.update("fontRatios", {
         ...fontRatios,
         fontFamily,
+        fontWeight,
       });
       widthRatio = fontRatios.widthRatio;
       heightRatio = fontRatios.heightRatio;
@@ -57,7 +65,7 @@ export class FontMeasurementsImpl implements FontMeasurements {
  *
  * @returns The width and height ratios of the font
  */
-function getFontRatios() {
+function getFontRatios(extensionContext: vscode.ExtensionContext) {
   const panel = vscode.window.createWebviewPanel(
     "cursorless.loading",
     "Cursorless",
@@ -70,7 +78,14 @@ function getFontRatios() {
     },
   );
 
-  panel.webview.html = getWebviewContent();
+  const fontMeasurementJs = panel.webview.asWebviewUri(
+    vscode.Uri.joinPath(
+      extensionContext.extensionUri,
+      "resources",
+      "font_measurements.js",
+    ),
+  );
+  panel.webview.html = getWebviewContent(panel.webview, fontMeasurementJs);
 
   interface FontRatios {
     /**
@@ -85,8 +100,13 @@ function getFontRatios() {
     heightRatio: number;
   }
 
-  return new Promise<FontRatios>((resolve) => {
+  return new Promise<FontRatios>((resolve, reject) => {
+    const timeout = setTimeout(() => {
+      reject(new Error("Timed out while measuring font"));
+    }, 5000);
+
     panel.webview.onDidReceiveMessage((message) => {
+      clearTimeout(timeout);
       panel.dispose();
       resolve(message);
     });
@@ -103,25 +123,28 @@ function getFontFamily() {
   return config.get<string>("fontFamily")!;
 }
 
-function getWebviewContent() {
+function getFontWeight() {
+  const config = vscode.workspace.getConfiguration("editor");
+  return config.get<string>("fontWeight")!;
+}
+
+function getWebviewContent(
+  webview: vscode.Webview,
+  fontMeasurementJs: vscode.Uri,
+) {
   // baseline adjustment based on https://stackoverflow.com/a/27295528
   return `<!DOCTYPE html>
   <html lang="en">
+  <head>
+  <meta http-equiv="Content-Security-Policy" content="script-src ${webview.cspSource};" />
+  </head>
+
   <body>
       <h1>Loading Cursorless...</h1>
       <div id="container">
       <span id="letter" style="line-height: 0; visibility:hidden; font-size: 1000px; font-family: var(--vscode-editor-font-family);  font-weight: var(--vscode-editor-font-weight);">A</span>
       </div>
-      <script>
-        const letter    = document.querySelector('#letter');
-        const container  = document.querySelector('#container');
-        const baselineHeight = letter.offsetTop + letter.offsetHeight - container.offsetHeight - container.offsetTop;
-        const vscode    = acquireVsCodeApi();
-        vscode.postMessage({
-          widthRatio: letter.offsetWidth / 1000,
-          heightRatio: (letter.offsetHeight - baselineHeight) / 1000
-        });
-      </script>
+      <script src="${fontMeasurementJs}"></script>
   </body>
   </html>`;
 }

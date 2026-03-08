@@ -84,4 +84,8 @@ export const subtokenFixture: Fixture[] = [
     input: "_quickBrownFox_",
     expectedOutput: ["quick", "Brown", "Fox"],
   },
+  {
+    input: "thisIsATest",
+    expectedOutput: ["this", "Is", "A", "Test"],
+  },
 ];

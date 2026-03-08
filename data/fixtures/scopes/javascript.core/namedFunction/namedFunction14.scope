@@ -1,0 +1,17 @@
+const foo = function bar() {};
+---
+
+[Content] =
+[Domain] = 0:12-0:29
+              >-----------------<
+0| const foo = function bar() {};
+
+[Removal] = 0:11-0:29
+             >------------------<
+0| const foo = function bar() {};
+
+[Leading delimiter] = 0:11-0:12
+             >-<
+0| const foo = function bar() {};
+
+[Insertion delimiter] = "\n\n"

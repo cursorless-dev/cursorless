@@ -1,5 +1,5 @@
 import { targetsToContinuousTarget } from "../processTargets/TargetPipelineRunner";
-import { Target } from "../typings/target.types";
+import type { Target } from "../typings/target.types";
 import { groupTargetsForEachEditor } from "./targetUtils";
 
 /** Unifies overlapping/intersecting targets */
@@ -16,7 +16,7 @@ export function unifyRemovalTargets(targets: Target[]): Target[] {
       a.contentRange.start.compareTo(b.contentRange.start),
     );
     let run = true;
-    // Merge targets untill there are no overlaps/intersections
+    // Merge targets until there are no overlaps/intersections
     while (run) {
       [results, run] = unifyTargetsOnePass(results);
     }
@@ -56,5 +56,7 @@ function mergeTargets(targets: Target[]): Target {
 }
 
 function intersects(targetA: Target, targetB: Target) {
-  return !!targetA.getRemovalRange().intersection(targetB.getRemovalRange());
+  return (
+    targetA.getRemovalRange().intersection(targetB.getRemovalRange()) != null
+  );
 }

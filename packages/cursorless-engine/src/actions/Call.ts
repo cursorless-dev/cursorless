@@ -1,7 +1,7 @@
-import { Target } from "../typings/target.types";
+import type { Target } from "../typings/target.types";
 import { ensureSingleTarget } from "../util/targetUtils";
-import { Actions } from "./Actions";
-import { ActionReturnValue } from "./actions.types";
+import type { Actions } from "./Actions";
+import type { ActionReturnValue } from "./actions.types";
 
 export default class Call {
   constructor(private actions: Actions) {

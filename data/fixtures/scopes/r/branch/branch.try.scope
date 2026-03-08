@@ -1,0 +1,72 @@
+tryCatch(
+    expr = {},
+    error = function() {},
+    warning = function() {},
+    finally = {}
+)
+---
+
+[#1 Content] =
+[#1 Domain] = 1:4-1:13
+      >---------<
+1|     expr = {},
+
+[#1 Removal] = 1:0-1:13
+  >-------------<
+1|     expr = {},
+
+[#1 Leading delimiter] = 1:0-1:4
+  >----<
+1|     expr = {},
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 2:4-2:25
+      >---------------------<
+2|     error = function() {},
+
+[#2 Removal] = 2:0-2:25
+  >-------------------------<
+2|     error = function() {},
+
+[#2 Leading delimiter] = 2:0-2:4
+  >----<
+2|     error = function() {},
+
+[#2 Insertion delimiter] = "\n"
+
+
+[#3 Content] =
+[#3 Domain] = 3:4-3:27
+      >-----------------------<
+3|     warning = function() {},
+
+[#3 Removal] = 3:0-3:27
+  >---------------------------<
+3|     warning = function() {},
+
+[#3 Leading delimiter] = 3:0-3:4
+  >----<
+3|     warning = function() {},
+
+[#3 Insertion delimiter] = "\n"
+
+
+[#4 Content] =
+[#4 Domain] = 4:4-4:16
+      >------------<
+4|     finally = {}
+
+[#4 Removal] = 4:0-5:0
+  >----------------
+4|     finally = {}
+5| )
+   <
+
+[#4 Leading delimiter] = 4:0-4:4
+  >----<
+4|     finally = {}
+
+[#4 Insertion delimiter] = "\n"

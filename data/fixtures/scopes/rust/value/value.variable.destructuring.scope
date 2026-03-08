@@ -1,0 +1,20 @@
+let Foo {bar, baz} = bongo;
+---
+
+[Content] = 0:21-0:26
+                       >-----<
+0| let Foo {bar, baz} = bongo;
+
+[Removal] = 0:18-0:26
+                    >--------<
+0| let Foo {bar, baz} = bongo;
+
+[Leading delimiter] = 0:18-0:21
+                    >---<
+0| let Foo {bar, baz} = bongo;
+
+[Domain] = 0:0-0:27
+  >---------------------------<
+0| let Foo {bar, baz} = bongo;
+
+[Insertion delimiter] = " "

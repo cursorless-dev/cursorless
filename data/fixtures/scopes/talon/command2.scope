@@ -1,0 +1,10 @@
+press {user.key}: key(key)
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:26
+  >--------------------------<
+0| press {user.key}: key(key)
+
+[Insertion delimiter] = "\n"

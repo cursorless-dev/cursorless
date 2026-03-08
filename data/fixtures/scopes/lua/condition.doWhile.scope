@@ -1,0 +1,20 @@
+repeat until true
+---
+
+[Content] = 0:13-0:17
+               >----<
+0| repeat until true
+
+[Removal] = 0:12-0:17
+              >-----<
+0| repeat until true
+
+[Leading delimiter] = 0:12-0:13
+              >-<
+0| repeat until true
+
+[Domain] = 0:0-0:17
+  >-----------------<
+0| repeat until true
+
+[Insertion delimiter] = " "

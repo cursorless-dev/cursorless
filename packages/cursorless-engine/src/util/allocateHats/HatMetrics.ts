@@ -1,6 +1,7 @@
-import { CompositeKeyMap, HatStability, TokenHat } from "@cursorless/common";
-import { min } from "lodash";
-import { HatCandidate } from "./allocateHats";
+import type { CompositeKeyMap, TokenHat } from "@cursorless/common";
+import { HatStability } from "@cursorless/common";
+import { memoize, min } from "lodash-es";
+import type { HatCandidate } from "./allocateHats";
 
 /**
  * A function that takes a hat candidate and returns a number representing its
@@ -13,6 +14,12 @@ export type HatMetric = (hat: HatCandidate) => number;
  * candidate
  */
 export const negativePenalty: HatMetric = ({ penalty }) => -penalty;
+
+/**
+ * @returns A metric that penalizes graphemes that are the first letter of a word within a token
+ */
+export const avoidFirstLetter: HatMetric = ({ isFirstLetter }) =>
+  isFirstLetter ? -1 : 0;
 
 /**
  * @param hatOldTokenRanks A map from a hat candidate (grapheme+style combination) to the score of the
@@ -50,8 +57,13 @@ export function minimumTokenRankContainingGrapheme(
   tokenRank: number,
   graphemeTokenRanks: { [key: string]: number[] },
 ): HatMetric {
-  return ({ grapheme: { text } }) =>
-    min(graphemeTokenRanks[text].filter((r) => r > tokenRank)) ?? Infinity;
+  const coreMetric = memoize((graphemeText: string): number => {
+    return (
+      min(graphemeTokenRanks[graphemeText].filter((r) => r > tokenRank)) ??
+      Infinity
+    );
+  });
+  return ({ grapheme: { text } }) => coreMetric(text);
 }
 
 /**

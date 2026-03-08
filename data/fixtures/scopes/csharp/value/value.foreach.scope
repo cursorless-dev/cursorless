@@ -1,0 +1,20 @@
+foreach (int value in values) {}
+---
+
+[Content] = 0:22-0:28
+                        >------<
+0| foreach (int value in values) {}
+
+[Removal] = 0:21-0:28
+                       >-------<
+0| foreach (int value in values) {}
+
+[Leading delimiter] = 0:21-0:22
+                       >-<
+0| foreach (int value in values) {}
+
+[Domain] = 0:0-0:32
+  >--------------------------------<
+0| foreach (int value in values) {}
+
+[Insertion delimiter] = " "

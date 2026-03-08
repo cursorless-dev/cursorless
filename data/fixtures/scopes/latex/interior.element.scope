@@ -1,0 +1,18 @@
+\begin{quote}
+    Hello
+\end{quote}
+---
+
+[Content] = 1:4-1:9
+      >-----<
+1|     Hello
+
+[Removal] =
+[Domain] = 0:13-2:0
+               >
+0| \begin{quote}
+1|     Hello
+2| \end{quote}
+   <
+
+[Insertion delimiter] = " "

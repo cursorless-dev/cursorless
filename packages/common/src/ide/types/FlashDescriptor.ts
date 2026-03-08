@@ -1,5 +1,5 @@
-import { TextEditor } from "../..";
-import { GeneralizedRange } from "../../types/GeneralizedRange";
+import type { TextEditor } from "../..";
+import type { GeneralizedRange } from "../../types/GeneralizedRange";
 
 export enum FlashStyle {
   pendingDelete = "pendingDelete",

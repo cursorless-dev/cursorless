@@ -1,21 +1,21 @@
-import {
-  Position,
-  Range,
+import type {
+  GeneralizedRange,
   TextDocument,
   TextEditor,
   TextLine,
 } from "@cursorless/common";
-import { BaseTarget, CommonTargetParameters, LineTarget } from ".";
-import { Target } from "../../typings/target.types";
+import { Position, Range, toLineRange } from "@cursorless/common";
+import type { TextualType } from "../../typings/target.types";
 import { expandToFullLine } from "../../util/rangeUtils";
-import { constructLineTarget } from "../../util/tryConstructTarget";
-import { isSameType } from "../../util/typeUtils";
-import { createContinuousLineRange } from "../targetUtil/createContinuousRange";
+import type { CommonTargetParameters } from "./BaseTarget";
+import { BaseTarget } from "./BaseTarget";
+import { constructLineTarget, LineTarget } from "./LineTarget";
+import { createContinuousLineRange } from "./util/createContinuousRange";
 
-export default class ParagraphTarget extends BaseTarget<CommonTargetParameters> {
+export class ParagraphTarget extends BaseTarget<CommonTargetParameters> {
   type = "ParagraphTarget";
+  textualType: TextualType = "line";
   insertionDelimiter = "\n\n";
-  isLine = true;
 
   getLeadingDelimiterTarget() {
     return constructLineTarget(
@@ -34,7 +34,7 @@ export default class ParagraphTarget extends BaseTarget<CommonTargetParameters> 
   }
 
   getRemovalRange(): Range {
-    // TODO: In the future we could get rid of this function if {@link
+    // FIXME: In the future we could get rid of this function if {@link
     // getDelimitedSequenceRemovalRange} made a continuous range from the target
     // past its delimiter target and then used the removal range of that.
     const delimiterTarget =
@@ -64,53 +64,27 @@ export default class ParagraphTarget extends BaseTarget<CommonTargetParameters> 
     return expandToFullLine(this.editor, this.contentRange);
   }
 
-  getRemovalHighlightRange() {
+  getRemovalHighlightRange(): GeneralizedRange {
     const delimiterTarget =
       this.getTrailingDelimiterTarget() ?? this.getLeadingDelimiterTarget();
 
-    return delimiterTarget != null
-      ? this.fullLineContentRange.union(delimiterTarget.contentRange)
-      : this.fullLineContentRange;
+    const range =
+      delimiterTarget != null
+        ? this.fullLineContentRange.union(delimiterTarget.contentRange)
+        : this.fullLineContentRange;
+
+    return toLineRange(range);
   }
 
-  createContinuousRangeTarget(
+  maybeCreateRichRangeTarget(
     isReversed: boolean,
-    endTarget: Target,
-    includeStart: boolean,
-    includeEnd: boolean,
-  ): Target {
-    if (isSameType(this, endTarget)) {
-      return new ParagraphTarget({
-        ...this.getCloneParameters(),
-        isReversed,
-        contentRange: createContinuousLineRange(
-          this,
-          endTarget,
-          includeStart,
-          includeEnd,
-        ),
-      });
-    }
-
-    if (endTarget.isLine) {
-      return new LineTarget({
-        editor: this.editor,
-        isReversed,
-        contentRange: createContinuousLineRange(
-          this,
-          endTarget,
-          includeStart,
-          includeEnd,
-        ),
-      });
-    }
-
-    return super.createContinuousRangeTarget(
+    endTarget: ParagraphTarget,
+  ): ParagraphTarget {
+    return new ParagraphTarget({
+      ...this.getCloneParameters(),
       isReversed,
-      endTarget,
-      includeStart,
-      includeEnd,
-    );
+      contentRange: createContinuousLineRange(this, endTarget, true, true),
+    });
   }
 
   protected getCloneParameters() {

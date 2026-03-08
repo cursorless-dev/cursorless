@@ -1,0 +1,114 @@
+languageId: plaintext
+command:
+  version: 7
+  spokenForm: decrement file
+  action:
+    name: decrement
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: document}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    10_000
+    10_000.0
+    10_000.0_10
+    010_000.0
+    0_0.0_1
+    a_b, 1
+    1
+    1_2
+    1_
+    _1
+    1_2_3.4_5_6
+    _
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |-
+    9_999
+    9_999.0
+    9_999.0_10
+    009_999.0
+    -0_0.0_9
+    a_b, 0
+    0
+    1_1
+    0_
+    _0
+    1_2_2.4_5_6
+    _
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 5}
+      isReversed: false
+      hasExplicitRange: true
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 1, character: 0}
+        end: {line: 1, character: 7}
+      isReversed: false
+      hasExplicitRange: true
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 2, character: 0}
+        end: {line: 2, character: 10}
+      isReversed: false
+      hasExplicitRange: true
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 3, character: 0}
+        end: {line: 3, character: 9}
+      isReversed: false
+      hasExplicitRange: true
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 4, character: 0}
+        end: {line: 4, character: 8}
+      isReversed: false
+      hasExplicitRange: true
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 5, character: 5}
+        end: {line: 5, character: 6}
+      isReversed: false
+      hasExplicitRange: true
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 6, character: 0}
+        end: {line: 6, character: 1}
+      isReversed: false
+      hasExplicitRange: true
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 7, character: 0}
+        end: {line: 7, character: 3}
+      isReversed: false
+      hasExplicitRange: true
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 8, character: 0}
+        end: {line: 8, character: 1}
+      isReversed: false
+      hasExplicitRange: true
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 9, character: 1}
+        end: {line: 9, character: 2}
+      isReversed: false
+      hasExplicitRange: true
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 10, character: 0}
+        end: {line: 10, character: 11}
+      isReversed: false
+      hasExplicitRange: true

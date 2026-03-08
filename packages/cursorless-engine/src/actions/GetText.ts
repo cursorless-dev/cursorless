@@ -1,8 +1,9 @@
-import { FlashStyle, GetTextActionOptions } from "@cursorless/common";
+import type { GetTextActionOptions } from "@cursorless/common";
+import { FlashStyle } from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
-import { Target } from "../typings/target.types";
+import type { Target } from "../typings/target.types";
 import { ensureSingleTarget, flashTargets } from "../util/targetUtils";
-import { ActionReturnValue } from "./actions.types";
+import type { ActionReturnValue } from "./actions.types";
 
 export default class GetText {
   constructor() {

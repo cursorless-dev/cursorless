@@ -1,0 +1,25 @@
+languageId: cpp
+command:
+  version: 7
+  spokenForm: change pair
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: any}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+  selections:
+    - anchor: {line: 0, character: 47}
+      active: {line: 0, character: 47}
+  marks: {}
+finalState:
+  documentContents: |
+    #pragma clang diagnostic ignored 
+  selections:
+    - anchor: {line: 0, character: 33}
+      active: {line: 0, character: 33}

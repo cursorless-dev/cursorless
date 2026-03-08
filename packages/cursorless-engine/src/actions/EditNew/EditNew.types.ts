@@ -1,5 +1,8 @@
 import type { Range } from "@cursorless/common";
-import type { Destination } from "../../typings/target.types";
+import type {
+  Destination,
+  EditNewActionType,
+} from "../../typings/target.types";
 
 /**
  * Internal type to be used for storing a reference to a destination that will use an
@@ -28,6 +31,13 @@ export interface State {
    * This field stores the original destinations.
    */
   destinations: Destination[];
+
+  /**
+   * The action types for each destination. It's important to read from this and not
+   * the destinations themselves, since they are changed as the action runs and
+   * we make multiple passes.
+   */
+  actionTypes: EditNewActionType[];
 
   /**
    * We use this field to track the desired `thatMark` at the end, updating it

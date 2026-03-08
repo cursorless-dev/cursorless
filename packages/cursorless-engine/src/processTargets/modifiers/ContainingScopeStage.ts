@@ -1,12 +1,10 @@
-import {
-  ContainingScopeModifier,
-  NoContainingScopeError,
-} from "@cursorless/common";
+import type { ContainingScopeModifier } from "@cursorless/common";
+import { NoContainingScopeError } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
-import { ModifierStageFactory } from "../ModifierStageFactory";
+import type { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
-import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 import { getContainingScopeTarget } from "./getContainingScopeTarget";
+import type { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 
 /**
  * This modifier stage expands from the input target to the smallest containing
@@ -41,29 +39,16 @@ export class ContainingScopeStage implements ModifierStage {
       target.editor.document.languageId,
     );
 
-    if (scopeHandler == null) {
-      return this.modifierStageFactory
-        .getLegacyScopeStage(this.modifier)
-        .run(target);
-    }
-
-    const containingScope = getContainingScopeTarget(
+    const containingScopes = getContainingScopeTarget(
       target,
       scopeHandler,
       ancestorIndex,
     );
 
-    if (containingScope == null) {
-      if (scopeType.type === "collectionItem") {
-        // For `collectionItem`, fall back to generic implementation
-        return this.modifierStageFactory
-          .getLegacyScopeStage(this.modifier)
-          .run(target);
-      }
-
-      throw new NoContainingScopeError(this.modifier.scopeType.type);
+    if (containingScopes == null) {
+      throw new NoContainingScopeError(scopeType.type);
     }
 
-    return containingScope;
+    return containingScopes;
   }
 }

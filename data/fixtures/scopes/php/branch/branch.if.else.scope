@@ -1,0 +1,31 @@
+<?php
+if (true) {}
+else {}
+---
+
+[#1 Content] =
+[#1 Domain] = 1:0-1:12
+  >------------<
+1| if (true) {}
+
+[#1 Removal] = 1:0-2:0
+  >------------
+1| if (true) {}
+2| else {}
+   <
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 2:0-2:7
+  >-------<
+2| else {}
+
+[#2 Removal] = 1:12-2:7
+              >
+1| if (true) {}
+2| else {}
+   -------<
+
+[#2 Insertion delimiter] = "\n"

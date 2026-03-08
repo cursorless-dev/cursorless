@@ -1,0 +1,7 @@
+\foo{aaa}{bbb}
+---
+
+[Content] =
+[Domain] = 0:0-0:14
+  >--------------<
+0| \foo{aaa}{bbb}

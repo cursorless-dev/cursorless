@@ -1,124 +1,144 @@
+from typing import Callable
+
 from ...actions.actions import ACTION_LIST_NAMES
-from ..get_list import get_raw_list, make_dict_readable
+from ..get_list import ListItemDescriptor, get_raw_list, make_dict_readable
 
 
-def get_actions():
+def get_actions() -> list[ListItemDescriptor]:
     all_actions = {}
     for name in ACTION_LIST_NAMES:
         all_actions.update(get_raw_list(name))
 
-    multiple_target_action_names = [
+    complex_action_names = [
         "replaceWithTarget",
         "moveToTarget",
         "swapTargets",
         "applyFormatter",
+        "callAsFunction",
         "wrapWithPairedDelimiter",
         "rewrap",
         "pasteFromClipboard",
+        "insertSnippet",
     ]
     simple_actions = {
         f"{key} <target>": value
         for key, value in all_actions.items()
-        if value not in multiple_target_action_names
+        if value not in complex_action_names
     }
     complex_actions = {
         value: key
         for key, value in all_actions.items()
-        if value in multiple_target_action_names
+        if value in complex_action_names
     }
 
-    swap_connective = list(get_raw_list("swap_connective").keys())[0]
+    swap_connectives = list(get_raw_list("swap_connective").keys())
+    swap_connective = swap_connectives[0] if swap_connectives else None
 
-    return [
-        *make_dict_readable(
-            "action",
-            simple_actions,
+    items = make_dict_readable(
+        "action",
+        simple_actions,
+        {
+            "editNewLineAfter": "Edit new line/scope after",
+            "editNewLineBefore": "Edit new line/scope before",
+            "experimental.setInstanceReference": "Set instance reference",
+        },
+    )
+
+    complex_action_defs: dict[str, list[tuple[Callable, str]]] = {
+        "replaceWithTarget": [
+            (
+                lambda value: f"{value} <target> <destination>",
+                "Copy <target> to <destination>",
+            ),
+            (
+                lambda value: f"{value} <target>",
+                "Insert copy of <target> at selection",
+            ),
+        ],
+        "pasteFromClipboard": [
+            (
+                lambda value: f"{value} <destination>",
+                "Paste from clipboard at <destination>",
+            )
+        ],
+        "moveToTarget": [
+            (
+                lambda value: f"{value} <target> <destination>",
+                "Move <target> to <destination>",
+            ),
+            (
+                lambda value: f"{value} <target>",
+                "Move <target> to selection",
+            ),
+        ],
+        "applyFormatter": [
+            (
+                lambda value: f"{value} <formatter> at <target>",
+                "Reformat <target> as <formatter>",
+            )
+        ],
+        "callAsFunction": [
+            (
+                lambda value: f"{value} <target>",
+                "Insert call to <target> on selection",
+            ),
+            (
+                lambda value: f"{value} <target 1> on <target 2>",
+                "Insert call to <target 1> on <target 2>",
+            ),
+        ],
+        "wrapWithPairedDelimiter": [
+            (
+                lambda value: f"<pair> {value} <target>",
+                "Wrap <target> with <pair>",
+            ),
+            (
+                lambda value: f"<snippet> {value} <target>",
+                "Wrap <target> with <snippet>",
+            ),
+        ],
+        "rewrap": [
+            (
+                lambda value: f"<pair> {value} <target>",
+                "Rewrap <target> with <pair>",
+            )
+        ],
+        "insertSnippet": [
+            (
+                lambda value: f"{value} <snippet> <destination>",
+                "Insert snippet at <destination>",
+            )
+        ],
+    }
+
+    if swap_connective:
+        complex_action_defs["swapTargets"] = [
+            (
+                lambda value: f"{value} <target 1> {swap_connective} <target 2>",
+                "Swap <target 1> with <target 2>",
+            ),
+            (
+                lambda value: f"{value} {swap_connective} <target>",
+                "Swap selection with <target>",
+            ),
+        ]
+
+    for action_id, variations in complex_action_defs.items():
+        # This happens if the user has disabled the spoken form for a complex action
+        if action_id not in complex_actions:
+            continue
+        action = complex_actions[action_id]
+        items.append(
             {
-                "callAsFunction": "Call <target> on selection",
-                "editNewLineAfter": "Edit new line/scope after",
-                "editNewLineBefore": "Edit new line/scope before",
-            },
-        ),
-        {
-            "id": "replaceWithTarget",
-            "type": "action",
-            "variations": [
-                {
-                    "spokenForm": f"{complex_actions['replaceWithTarget']} <target> <destination>",
-                    "description": "Copy <target> to <destination>",
-                },
-                {
-                    "spokenForm": f"{complex_actions['replaceWithTarget']} <target>",
-                    "description": "Insert copy of <target> at cursor",
-                },
-            ],
-        },
-        {
-            "id": "pasteFromClipboard",
-            "type": "action",
-            "variations": [
-                {
-                    "spokenForm": f"{complex_actions['pasteFromClipboard']} <destination>",
-                    "description": "Paste from clipboard at <destination>",
-                }
-            ],
-        },
-        {
-            "id": "moveToTarget",
-            "type": "action",
-            "variations": [
-                {
-                    "spokenForm": f"{complex_actions['moveToTarget']} <target> <destination>",
-                    "description": "Move <target> to <destination>",
-                },
-                {
-                    "spokenForm": f"{complex_actions['moveToTarget']} <target>",
-                    "description": "Move <target> to cursor position",
-                },
-            ],
-        },
-        {
-            "id": "swapTargets",
-            "type": "action",
-            "variations": [
-                {
-                    "spokenForm": f"{complex_actions['swapTargets']} <target 1> {swap_connective} <target 2>",
-                    "description": "Swap <target 1> with <target 2>",
-                },
-                {
-                    "spokenForm": f"{complex_actions['swapTargets']} {swap_connective} <target>",
-                    "description": "Swap selection with <target>",
-                },
-            ],
-        },
-        {
-            "id": "applyFormatter",
-            "type": "action",
-            "variations": [
-                {
-                    "spokenForm": f"{complex_actions['applyFormatter']} <formatter> at <target>",
-                    "description": "Reformat <target> as <formatter>",
-                }
-            ],
-        },
-        {
-            "id": "wrapWithPairedDelimiter",
-            "type": "action",
-            "variations": [
-                {
-                    "spokenForm": f"<pair> {complex_actions['wrapWithPairedDelimiter']} <target>",
-                    "description": "Wrap <target> with <pair>",
-                }
-            ],
-        },
-        {
-            "id": "rewrap",
-            "type": "action",
-            "variations": [
-                {
-                    "spokenForm": f"<pair> {complex_actions['rewrap']} <target>",
-                    "description": "Rewrap <target> with <pair>",
-                }
-            ],
-        },
-    ]
+                "id": action_id,
+                "type": "action",
+                "variations": [
+                    {
+                        "spokenForm": callback(action),
+                        "description": description,
+                    }
+                    for callback, description in variations
+                ],
+            }
+        )
+    return items

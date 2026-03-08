@@ -1,8 +1,8 @@
-import { Direction, Position, TextEditor } from "@cursorless/common";
+import type { Direction, Position, TextEditor } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
-import { TargetScope } from "./scopeHandlers/scope.types";
-import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
+import type { TargetScope } from "./scopeHandlers/scope.types";
+import type { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
 import { getPreferredScopeTouchingPosition } from "./getPreferredScopeTouchingPosition";
 
 /**
@@ -38,7 +38,8 @@ export function getContainingScopeTarget(
         editor,
         scope.domain.end,
         "forward",
-        ancestorIndex - 1,
+        ancestorIndex,
+        true,
       );
     }
 
@@ -86,10 +87,12 @@ function expandFromPosition(
   position: Position,
   direction: Direction,
   ancestorIndex: number,
+  allowAdjacentScopes: boolean = false,
 ): TargetScope | undefined {
   let nextAncestorIndex = 0;
   for (const scope of scopeHandler.generateScopes(editor, position, direction, {
     containment: "required",
+    allowAdjacentScopes,
   })) {
     if (nextAncestorIndex === ancestorIndex) {
       return scope;

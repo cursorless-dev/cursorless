@@ -1,14 +1,10 @@
-import { deburr, escapeRegExp } from "lodash";
+import type { Disposable, TokenHatSplittingMode } from "@cursorless/common";
+import { Notifier, matchAll } from "@cursorless/common";
+import { deburr, escapeRegExp } from "lodash-es";
 import { ide } from "../singletons/ide.singleton";
-import {
-  TokenHatSplittingMode,
-  Disposable,
-  Notifier,
-} from "@cursorless/common";
-import { matchAll } from "../util/regex";
 
 /**
- * A list of all symbols that are speakable by default in knausj.
+ * A list of all symbols that are speakable by default in community.
  */
 const KNOWN_SYMBOLS = [
   "!",

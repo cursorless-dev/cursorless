@@ -1,0 +1,21 @@
+class Foo {
+    abstract bar();
+}
+---
+
+[Content] =
+[Domain] = 1:4-1:19
+      >---------------<
+1|     abstract bar();
+
+[Removal] = 1:0-2:0
+  >-------------------
+1|     abstract bar();
+2| }
+   <
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     abstract bar();
+
+[Insertion delimiter] = "\n\n"

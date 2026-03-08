@@ -1,0 +1,10 @@
+for (const v of values) {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:26
+  >--------------------------<
+0| for (const v of values) {}
+
+[Insertion delimiter] = "\n"

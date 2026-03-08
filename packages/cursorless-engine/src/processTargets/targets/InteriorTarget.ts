@@ -1,21 +1,16 @@
-import { Range } from "@cursorless/common";
-import { BaseTarget, MinimumTargetParameters } from ".";
-import { Target } from "../../typings/target.types";
+import type { Range } from "@cursorless/common";
 import { shrinkRangeToFitContent } from "../../util/selectionUtils";
-import { isSameType } from "../../util/typeUtils";
-import {
-  createContinuousRangeFromRanges,
-  createContinuousRangeUntypedTarget,
-} from "../targetUtil/createContinuousRange";
+import type { MinimumTargetParameters } from "./BaseTarget";
+import { BaseTarget } from "./BaseTarget";
 
 export interface InteriorTargetParameters extends MinimumTargetParameters {
   readonly fullInteriorRange: Range;
 }
 
-export default class InteriorTarget extends BaseTarget<InteriorTargetParameters> {
+export class InteriorTarget extends BaseTarget<InteriorTargetParameters> {
   type = "InteriorTarget";
   insertionDelimiter = " ";
-  private readonly fullInteriorRange: Range;
+  readonly fullInteriorRange: Range;
 
   constructor(parameters: InteriorTargetParameters) {
     super({
@@ -39,33 +34,16 @@ export default class InteriorTarget extends BaseTarget<InteriorTargetParameters>
     };
   }
 
-  createContinuousRangeTarget(
+  maybeCreateRichRangeTarget(
     isReversed: boolean,
-    endTarget: Target,
-    includeStart: boolean,
-    includeEnd: boolean,
-  ): Target {
-    if (isSameType(this, endTarget)) {
-      const constructor = Object.getPrototypeOf(this).constructor;
-
-      return new constructor({
-        ...this.getCloneParameters(),
-        isReversed,
-        fullInteriorRange: createContinuousRangeFromRanges(
-          this.fullInteriorRange,
-          endTarget.fullInteriorRange,
-          includeStart,
-          includeEnd,
-        ),
-      });
-    }
-
-    return createContinuousRangeUntypedTarget(
+    endTarget: InteriorTarget,
+  ): InteriorTarget {
+    return new InteriorTarget({
+      ...this.getCloneParameters(),
       isReversed,
-      this,
-      endTarget,
-      includeStart,
-      includeEnd,
-    );
+      fullInteriorRange: this.fullInteriorRange.union(
+        endTarget.fullInteriorRange,
+      ),
+    });
   }
 }

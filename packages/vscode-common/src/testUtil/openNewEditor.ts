@@ -1,5 +1,5 @@
-import { getParseTreeApi } from "..";
 import * as vscode from "vscode";
+import { getCursorlessApi, getParseTreeApi } from "../getExtensionApi";
 
 interface NewEditorOptions {
   languageId?: string;
@@ -9,7 +9,7 @@ interface NewEditorOptions {
 export async function openNewEditor(
   content: string,
   { languageId = "plaintext", openBeside = false }: NewEditorOptions = {},
-) {
+): Promise<vscode.TextEditor> {
   if (!openBeside) {
     await vscode.commands.executeCommand("workbench.action.closeAllEditors");
   }
@@ -20,6 +20,8 @@ export async function openNewEditor(
   });
 
   await (await getParseTreeApi()).loadLanguage(languageId);
+
+  (await getCursorlessApi()).testHelpers!.clearCache();
 
   const editor = await vscode.window.showTextDocument(
     document,
@@ -32,6 +34,9 @@ export async function openNewEditor(
   if (eol !== editor.document.eol) {
     await editor.edit((editBuilder) => editBuilder.setEndOfLine(eol));
   }
+
+  // Many times running these tests opens the sidebar, which slows performance. Close it.
+  vscode.commands.executeCommand("workbench.action.closeSidebar");
 
   return editor;
 }
@@ -93,5 +98,29 @@ export async function openNewNotebookEditor(
 
   await (await getParseTreeApi()).loadLanguage(language);
 
+  (await getCursorlessApi()).testHelpers!.clearCache();
+
+  // FIXME: There seems to be some timing issue when you create a notebook
+  // editor
+  await waitForEditorToOpen();
+
   return document;
+}
+
+function waitForEditorToOpen(): Promise<void> {
+  return new Promise<void>((resolve, reject) => {
+    let count = 0;
+    const interval = setInterval(() => {
+      if (vscode.window.activeTextEditor != null) {
+        clearInterval(interval);
+        resolve();
+      } else {
+        count++;
+        if (count === 20) {
+          clearInterval(interval);
+          reject("Timed out waiting for editor to open");
+        }
+      }
+    }, 100);
+  });
 }

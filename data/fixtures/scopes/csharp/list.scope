@@ -1,0 +1,17 @@
+new List<int>() {aaa, bbb};
+---
+
+[Content] =
+[Domain] = 0:16-0:26
+                  >----------<
+0| new List<int>() {aaa, bbb};
+
+[Removal] = 0:15-0:26
+                 >-----------<
+0| new List<int>() {aaa, bbb};
+
+[Leading delimiter] = 0:15-0:16
+                 >-<
+0| new List<int>() {aaa, bbb};
+
+[Insertion delimiter] = " "

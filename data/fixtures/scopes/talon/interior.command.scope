@@ -1,0 +1,16 @@
+foo:
+    bar = 0
+---
+
+[Content] = 1:4-1:11
+      >-------<
+1|     bar = 0
+
+[Removal] =
+[Domain] = 0:4-1:11
+      >
+0| foo:
+1|     bar = 0
+   -----------<
+
+[Insertion delimiter] = " "

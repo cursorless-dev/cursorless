@@ -1,0 +1,68 @@
+- This is the first level of a list.
+  - This is the second level of a list.
+- This is the first level of a list again.
+---
+
+[#1 Content] = 0:2-1:39
+    >----------------------------------
+0| - This is the first level of a list.
+1|   - This is the second level of a list.
+   ---------------------------------------<
+
+[#1 Removal] = 0:0-2:0
+  >------------------------------------
+0| - This is the first level of a list.
+1|   - This is the second level of a list.
+2| - This is the first level of a list again.
+   <
+
+[#1 Trailing delimiter] = 1:39-2:0
+                                         >
+1|   - This is the second level of a list.
+2| - This is the first level of a list again.
+   <
+
+[#1 Domain] = 0:0-1:39
+  >------------------------------------
+0| - This is the first level of a list.
+1|   - This is the second level of a list.
+   ---------------------------------------<
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] = 1:4-1:39
+      >-----------------------------------<
+1|   - This is the second level of a list.
+
+[#2 Removal] = 1:0-2:0
+  >---------------------------------------
+1|   - This is the second level of a list.
+2| - This is the first level of a list again.
+   <
+
+[#2 Leading delimiter] = 1:0-1:2
+  >--<
+1|   - This is the second level of a list.
+
+[#2 Domain] = 1:2-1:39
+    >-------------------------------------<
+1|   - This is the second level of a list.
+
+[#2 Insertion delimiter] = "\n"
+
+
+[#3 Content] = 2:2-2:42
+    >----------------------------------------<
+2| - This is the first level of a list again.
+
+[#3 Removal] =
+[#3 Domain] = 2:0-2:42
+  >------------------------------------------<
+2| - This is the first level of a list again.
+
+[#3 Leading delimiter] = 2:0-2:0
+  ><
+2| - This is the first level of a list again.
+
+[#3 Insertion delimiter] = "\n"

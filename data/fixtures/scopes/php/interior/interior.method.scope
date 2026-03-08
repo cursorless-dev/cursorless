@@ -1,0 +1,28 @@
+<?php
+class Foo {
+    function bar() { }
+}
+---
+
+[#1 Content] = 2:4-2:22
+      >------------------<
+2|     function bar() { }
+
+[#1 Removal] =
+[#1 Domain] = 1:11-3:0
+             >
+1| class Foo {
+2|     function bar() { }
+3| }
+   <
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] =
+[#2 Domain] = 2:20-2:21
+                      >-<
+2|     function bar() { }
+
+[#2 Insertion delimiter] = " "

@@ -1,77 +1,23 @@
-import type {
-  CommandServerApi,
-  ExcludableSnapshotField,
-  ExtraSnapshotField,
-  HatTokenMap,
-  IDE,
-  NormalizedIDE,
-  SerializedMarks,
-  SnippetMap,
-  TargetPlainObject,
-  TestCaseSnapshot,
-  TextEditor,
-} from "@cursorless/common";
+import type { CommandServerApi } from "@cursorless/common";
 import * as vscode from "vscode";
-import type { Language, SyntaxNode, Tree } from "web-tree-sitter";
-import { VscodeApi } from "./VscodeApi";
-
-export interface TestHelpers {
-  ide: NormalizedIDE;
-  injectIde: (ide: IDE) => void;
-
-  hatTokenMap: HatTokenMap;
-
-  commandServerApi: CommandServerApi;
-
-  toVscodeEditor(editor: TextEditor): vscode.TextEditor;
-
-  setStoredTarget(
-    editor: vscode.TextEditor,
-    key: string,
-    targets: TargetPlainObject[] | undefined,
-  ): void;
-
-  // FIXME: Remove this once we have a better way to get this function
-  // accessible from our tests
-  takeSnapshot(
-    excludeFields: ExcludableSnapshotField[],
-    extraFields: ExtraSnapshotField[],
-    editor: TextEditor,
-    ide: IDE,
-    marks: SerializedMarks | undefined,
-    forceRealClipboard: boolean,
-  ): Promise<TestCaseSnapshot>;
-
-  runIntegrationTests(): Promise<void>;
-
-  /**
-   * A thin wrapper around the VSCode API that allows us to mock it for testing.
-   */
-  vscodeApi: VscodeApi;
-}
+import type { Node, Query, Tree } from "web-tree-sitter";
+import type { VscodeTestHelpers } from "./TestHelpers";
 
 export interface CursorlessApi {
-  testHelpers: TestHelpers | undefined;
-
-  experimental: {
-    registerThirdPartySnippets: (
-      extensionId: string,
-      snippets: SnippetMap,
-    ) => void;
-  };
+  testHelpers: VscodeTestHelpers | undefined;
 }
 
 export interface ParseTreeApi {
-  getNodeAtLocation(location: vscode.Location): SyntaxNode;
+  getNodeAtLocation(location: vscode.Location): Node;
   getTreeForUri(uri: vscode.Uri): Tree;
-  loadLanguage: (languageId: string) => Promise<boolean>;
-  getLanguage(languageId: string): Language | undefined;
+  loadLanguage(languageId: string): Promise<boolean>;
+  createQuery(languageId: string, source: string): Query | undefined;
 }
 
 export async function getExtensionApi<T>(extensionId: string) {
   const extension = vscode.extensions.getExtension(extensionId);
 
-  return extension == null ? null : ((await extension.activate()) as T);
+  return extension == null ? undefined : ((await extension.activate()) as T);
 }
 
 export async function getExtensionApiStrict<T>(extensionId: string) {
@@ -84,8 +30,11 @@ export async function getExtensionApiStrict<T>(extensionId: string) {
   return (await extension.activate()) as T;
 }
 
+export const EXTENSION_ID = "pokey.cursorless";
+export const COMMAND_SERVER_EXTENSION_ID = "pokey.command-server";
+
 export const getCursorlessApi = () =>
-  getExtensionApiStrict<CursorlessApi>("pokey.cursorless");
+  getExtensionApiStrict<CursorlessApi>(EXTENSION_ID);
 
 export const getParseTreeApi = () =>
   getExtensionApiStrict<ParseTreeApi>("pokey.parse-tree");
@@ -95,4 +44,4 @@ export const getParseTreeApi = () =>
  * @returns Command server API or null if not installed
  */
 export const getCommandServerApi = () =>
-  getExtensionApi<CommandServerApi>("pokey.command-server");
+  getExtensionApi<CommandServerApi>(COMMAND_SERVER_EXTENSION_ID);

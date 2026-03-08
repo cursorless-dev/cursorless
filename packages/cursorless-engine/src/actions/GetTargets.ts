@@ -1,5 +1,5 @@
-import { Target } from "../typings/target.types";
-import { ActionReturnValue, SimpleAction } from "./actions.types";
+import type { Target } from "../typings/target.types";
+import type { ActionReturnValue, SimpleAction } from "./actions.types";
 
 export default class GetTargets implements SimpleAction {
   constructor() {

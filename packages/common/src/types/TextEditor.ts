@@ -1,10 +1,10 @@
 import type {
-  Position,
+  Edit,
+  GeneralizedRange,
   Range,
   RevealLineAt,
   Selection,
   TextDocument,
-  TextEditorEdit,
   TextEditorOptions,
 } from "..";
 
@@ -53,8 +53,31 @@ export interface TextEditor {
   isEqual(other: TextEditor): boolean;
 }
 
+export interface SetSelectionsOpts {
+  focusEditor?: boolean;
+  revealRange?: boolean;
+  highlightWord?: boolean;
+}
+
+export type OpenLinkOptions = {
+  openAside: boolean;
+};
+
 export interface EditableTextEditor extends TextEditor {
-  selections: Selection[];
+  /**
+   * Set the selections in this text editor, optionally focusing the editor
+   * and/or revealing the ranges.
+   *
+   * Note that if your editor requires unique selections, you should deduplicate
+   * them in your implementation of this method.
+   *
+   * @param selections The new selections
+   * @param opts The options for setting the selections
+   */
+  setSelections(
+    selections: Selection[],
+    opts?: SetSelectionsOpts,
+  ): Promise<void>;
 
   options: TextEditorOptions;
 
@@ -81,27 +104,16 @@ export interface EditableTextEditor extends TextEditor {
   /**
    * Perform an edit on the document associated with this text editor.
    *
-   * The given callback-function is invoked with an {@link TextEditorEdit edit-builder} which must
-   * be used to make edits. Note that the edit-builder is only valid while the
-   * callback executes.
-   *
-   * @param callback A function which can create edits using an {@link TextEditorEdit edit-builder}.
-   * @param options The undo/redo behavior around this edit. By default, undo stops will be created before and after this edit.
+   * @param edits the list of edits that need to be applied to the document
+   *        (note that the implementation might need to sort them in reverse order)
    * @return A promise that resolves with a value indicating if the edits could be applied.
    */
-  edit(
-    callback: (editBuilder: TextEditorEdit) => void,
-    options?: { undoStopBefore: boolean; undoStopAfter: boolean },
-  ): Promise<boolean>;
+  edit(edits: Edit[]): Promise<boolean>;
 
   /**
    * Edit a new new notebook cell above.
-   * @return A promise that resolves to a function that must be applied to any
-   * selections that should be updated as result of this operation. This is a
-   * horrible hack to work around the fact that in vscode the promise resolves
-   * before the edits have actually been performed.
    */
-  editNewNotebookCellAbove(): Promise<(selection: Selection) => Selection>;
+  editNewNotebookCellAbove(): Promise<void>;
 
   /**
    * Edit a new new notebook cell below.
@@ -111,9 +123,9 @@ export interface EditableTextEditor extends TextEditor {
   /**
    * Open link at location.
    * @param location Position or range
-   * @return True if a link was opened
+   * @param options Options for opening the link.
    */
-  openLink(location?: Position | Range): Promise<boolean>;
+  openLink(range: Range, options?: OpenLinkOptions): Promise<void>;
 
   /**
    * Fold ranges
@@ -135,18 +147,17 @@ export interface EditableTextEditor extends TextEditor {
 
   /**
    * Paste clipboard content
-   * @param ranges A list of {@link Range ranges}
    */
-  clipboardPaste(ranges?: Range[]): Promise<void>;
+  clipboardPaste(): Promise<void>;
 
   /**
    * Toggle breakpoints. For each of the descriptors in {@link descriptors},
    * remove all breakpoints overlapping with the given descriptor if it overlaps
    * with any existing breakpoint, otherwise add a new breakpoint at the given
    * location.
-   * @param descriptors A list of breakpoint descriptors
+   * @param ranges A list of breakpoint ranges
    */
-  toggleBreakpoint(descriptors?: BreakpointDescriptor[]): Promise<void>;
+  toggleBreakpoint(ranges?: GeneralizedRange[]): Promise<void>;
 
   /**
    * Toggle line comments
@@ -226,22 +237,28 @@ export interface EditableTextEditor extends TextEditor {
    * @param range A {@link Range range}
    */
   extractVariable(range?: Range): Promise<void>;
-}
 
-interface LineBreakpointDescriptor {
-  type: "line";
-  startLine: number;
   /**
-   * Last line, inclusive
+   * Git accept conflict (use the range to resolve a conflict hunk)
+   * @param range A {@link Range range}
    */
-  endLine: number;
-}
+  gitAccept(range?: Range): Promise<void>;
 
-interface InlineBreakpointDescriptor {
-  type: "inline";
-  range: Range;
-}
+  /**
+   * Git revert range
+   * @param range A {@link Range range}
+   */
+  gitRevert(range?: Range): Promise<void>;
 
-export type BreakpointDescriptor =
-  | LineBreakpointDescriptor
-  | InlineBreakpointDescriptor;
+  /**
+   * Git stage range
+   * @param range A {@link Range range}
+   */
+  gitStage(range?: Range): Promise<void>;
+
+  /**
+   * Git unstage range
+   * @param range A {@link Range range}
+   */
+  gitUnstage(range?: Range): Promise<void>;
+}

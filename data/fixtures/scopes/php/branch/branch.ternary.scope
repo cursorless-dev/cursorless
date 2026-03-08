@@ -1,0 +1,38 @@
+<?php
+true ? 0 : 1
+---
+
+[#1 Content] =
+[#1 Domain] = 1:7-1:8
+         >-<
+1| true ? 0 : 1
+
+[#1 Removal] = 1:7-1:9
+         >--<
+1| true ? 0 : 1
+
+[#1 Leading delimiter] = 1:6-1:7
+        >-<
+1| true ? 0 : 1
+
+[#1 Trailing delimiter] = 1:8-1:9
+          >-<
+1| true ? 0 : 1
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 1:11-1:12
+             >-<
+1| true ? 0 : 1
+
+[#2 Removal] = 1:10-1:12
+            >--<
+1| true ? 0 : 1
+
+[#2 Leading delimiter] = 1:10-1:11
+            >-<
+1| true ? 0 : 1
+
+[#2 Insertion delimiter] = "\n"

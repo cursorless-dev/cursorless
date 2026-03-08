@@ -1,0 +1,26 @@
+languageId: plaintext
+command:
+  version: 7
+  spokenForm: change inside tail curly
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: interiorOnly}
+        - type: extendThroughEndOf
+          modifiers:
+            - type: containingScope
+              scopeType: {type: surroundingPair, delimiter: curlyBrackets}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "{(\"hello\")}"
+  selections:
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}
+  marks: {}
+finalState:
+  documentContents: "{(\"he}"
+  selections:
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}

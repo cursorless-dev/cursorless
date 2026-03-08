@@ -1,4 +1,4 @@
-import { Range, TextEditor } from "@cursorless/common";
+import type { Range, TextEditor } from "@cursorless/common";
 import type { Target } from "../../../typings/target.types";
 
 /**

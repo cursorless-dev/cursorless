@@ -1,0 +1,25 @@
+case foo
+in 0
+end
+---
+
+[Content] = 0:5-0:8
+       >---<
+0| case foo
+
+[Removal] = 0:4-0:8
+      >----<
+0| case foo
+
+[Leading delimiter] = 0:4-0:5
+      >-<
+0| case foo
+
+[Domain] = 0:0-2:3
+  >--------
+0| case foo
+1| in 0
+2| end
+   ---<
+
+[Insertion delimiter] = " "

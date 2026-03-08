@@ -1,4 +1,4 @@
-import { Lockfile } from "@pnpm/lockfile-file";
+import type { Lockfile } from "@pnpm/lockfile-file";
 
 /** Contains context to be used by all updaters */
 export interface Context {

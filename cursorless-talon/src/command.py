@@ -3,17 +3,20 @@ from typing import Any
 
 from talon import Module, actions, speech_system
 
+from .fallback import perform_fallback
+from .versions import COMMAND_VERSION
+
 
 @dataclasses.dataclass
 class CursorlessCommand:
-    version = 6
-    spokenForm: str
+    version = COMMAND_VERSION
+    spokenForm: str | None
     usePrePhraseSnapshot: bool
     action: dict
 
 
 CURSORLESS_COMMAND_ID = "cursorless.command"
-last_phrase = None
+last_phrase: dict = {}
 
 mod = Module()
 
@@ -28,13 +31,17 @@ speech_system.register("pre:phrase", on_phrase)
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def private_cursorless_command_and_wait(action: dict):
         """Execute cursorless command and wait for it to finish"""
-        actions.user.private_cursorless_run_rpc_command_and_wait(
+        response = actions.user.private_cursorless_run_rpc_command_get(
             CURSORLESS_COMMAND_ID,
             construct_cursorless_command(action),
         )
+        if "fallback" in response:
+            perform_fallback(response["fallback"])
 
+    @staticmethod
     def private_cursorless_command_no_wait(action: dict):
         """Execute cursorless command without waiting"""
         actions.user.private_cursorless_run_rpc_command_no_wait(
@@ -42,12 +49,18 @@ class Actions:
             construct_cursorless_command(action),
         )
 
+    @staticmethod
     def private_cursorless_command_get(action: dict):
         """Execute cursorless command and return result"""
-        return actions.user.private_cursorless_run_rpc_command_get(
+        response = actions.user.private_cursorless_run_rpc_command_get(
             CURSORLESS_COMMAND_ID,
             construct_cursorless_command(action),
         )
+        if "fallback" in response:
+            return perform_fallback(response["fallback"])
+        if "returnValue" in response:
+            return response["returnValue"]
+        return None
 
 
 def construct_cursorless_command(action: dict) -> dict:
@@ -56,7 +69,7 @@ def construct_cursorless_command(action: dict) -> dict:
     except KeyError:
         use_pre_phrase_snapshot = False
 
-    spoken_form = " ".join(last_phrase["phrase"])
+    spoken_form = " ".join(last_phrase["phrase"]) if "phrase" in last_phrase else None
 
     return make_serializable(
         CursorlessCommand(
@@ -86,7 +99,13 @@ def make_serializable(value: Any) -> Any:
         return [make_serializable(v) for v in value]
     if dataclasses.is_dataclass(value):
         items = {
-            **{k: v for k, v in value.__class__.__dict__.items() if k[0] != "_"},
+            **{
+                k: v
+                for k, v in vars(type(value)).items()
+                if not k.startswith("_")
+                and not isinstance(v, property)
+                and not isinstance(v, staticmethod)
+            },
             **value.__dict__,
         }
         return {k: make_serializable(v) for k, v in items.items() if v is not None}

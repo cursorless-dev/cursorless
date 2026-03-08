@@ -35,6 +35,7 @@ def cursorless_bring_move_targets(m) -> BringMoveTargets:
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def private_cursorless_bring_move(action_name: str, targets: BringMoveTargets):
         """Execute Cursorless move/bring action"""
         actions.user.private_cursorless_command_and_wait(

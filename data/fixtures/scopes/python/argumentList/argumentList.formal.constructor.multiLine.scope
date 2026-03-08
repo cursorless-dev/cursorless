@@ -1,0 +1,40 @@
+class Foo:
+    def __init__(
+        self,
+        aaa: str,
+        bbb: int
+    ):
+        pass
+---
+
+[Content] = 2:8-4:16
+          >-----
+2|         self,
+3|         aaa: str,
+4|         bbb: int
+   ----------------<
+
+[Removal] = 1:17-5:4
+                   >
+1|     def __init__(
+2|         self,
+3|         aaa: str,
+4|         bbb: int
+5|     ):
+   ----<
+
+[Leading delimiter] = 2:0-2:8
+  >--------<
+2|         self,
+
+[Domain] = 1:4-6:12
+      >-------------
+1|     def __init__(
+2|         self,
+3|         aaa: str,
+4|         bbb: int
+5|     ):
+6|         pass
+   ------------<
+
+[Insertion delimiter] = ",\n"

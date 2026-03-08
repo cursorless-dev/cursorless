@@ -1,0 +1,13 @@
+(aaa: number, bbb: number) => {}
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:32
+  >--------------------------------<
+0| (aaa: number, bbb: number) => {}
+
+
+[#2 Content] =
+[#2 Domain] = 0:1-0:25
+   >------------------------<
+0| (aaa: number, bbb: number) => {}

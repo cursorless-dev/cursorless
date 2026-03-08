@@ -1,0 +1,5 @@
+Promise<() => number>
+---
+[Content] = 0:11-0:13
+             >--<
+0| Promise<() => number>

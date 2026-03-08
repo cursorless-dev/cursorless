@@ -1,8 +1,4 @@
 export const extensionDependencies = [
+  // Cursorless access to Tree sitter
   "pokey.parse-tree",
-  "ms-toolsai.jupyter",
-  "scalameta.metals",
-  "ms-python.python",
-  "mrob95.vscode-talonscript",
-  "jrieken.vscode-tree-sitter-query",
 ];

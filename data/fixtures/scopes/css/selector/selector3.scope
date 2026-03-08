@@ -1,0 +1,20 @@
+.foo {}
+---
+
+[Content] = 0:0-0:4
+  >----<
+0| .foo {}
+
+[Removal] = 0:0-0:5
+  >-----<
+0| .foo {}
+
+[Trailing delimiter] = 0:4-0:5
+      >-<
+0| .foo {}
+
+[Domain] = 0:0-0:7
+  >-------<
+0| .foo {}
+
+[Insertion delimiter] = " "

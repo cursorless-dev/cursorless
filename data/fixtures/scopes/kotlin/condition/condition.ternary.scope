@@ -1,0 +1,13 @@
+if (true) 0 else 1
+---
+
+[Content] =
+[Removal] = 0:4-0:8
+      >----<
+0| if (true) 0 else 1
+
+[Domain] = 0:0-0:18
+  >------------------<
+0| if (true) 0 else 1
+
+[Insertion delimiter] = " "

@@ -1,0 +1,48 @@
+fn foo(aaa: i32, bbb: i32) {}
+---
+
+[#1 Content] =
+[#1 Removal] = 0:3-0:6
+     >---<
+0| fn foo(aaa: i32, bbb: i32) {}
+
+[#1 Leading delimiter] = 0:2-0:3
+    >-<
+0| fn foo(aaa: i32, bbb: i32) {}
+
+[#1 Domain] = 0:0-0:29
+  >-----------------------------<
+0| fn foo(aaa: i32, bbb: i32) {}
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] = 0:7-0:10
+         >---<
+0| fn foo(aaa: i32, bbb: i32) {}
+
+[#2 Domain] = 0:7-0:15
+         >--------<
+0| fn foo(aaa: i32, bbb: i32) {}
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] = 0:17-0:20
+                   >---<
+0| fn foo(aaa: i32, bbb: i32) {}
+
+[#3 Removal] = 0:16-0:20
+                  >----<
+0| fn foo(aaa: i32, bbb: i32) {}
+
+[#3 Leading delimiter] = 0:16-0:17
+                  >-<
+0| fn foo(aaa: i32, bbb: i32) {}
+
+[#3 Domain] = 0:17-0:25
+                   >--------<
+0| fn foo(aaa: i32, bbb: i32) {}
+
+[#3 Insertion delimiter] = " "

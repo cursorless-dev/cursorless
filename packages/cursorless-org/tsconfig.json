@@ -1,20 +1,16 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "target": "es2022",
+    "lib": ["dom", "es2022"],
+    "jsx": "preserve",
     "allowJs": true,
     "skipLibCheck": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "nodenext",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "rootDir": "src",
-    "outDir": "out"
+    "incremental": true
   },
   "include": [
     "src/**/*.ts",
@@ -26,6 +22,9 @@
   "references": [
     {
       "path": "../cheatsheet"
+    },
+    {
+      "path": "../common"
     }
   ],
   "exclude": ["node_modules"]

@@ -1,0 +1,35 @@
+languageId: typescript
+command:
+  version: 7
+  spokenForm: snippet funk hello world
+  action:
+    name: insertSnippet
+    snippetDescription:
+      type: custom
+      body: "function $name($parameterList) {\n\t$body\n}"
+      scopeTypes:
+        - {type: statement}
+      substitutions: {name: helloWorld}
+    destination: {type: implicit}
+  usePrePhraseSnapshot: false
+spokenFormError: custom insertion snippet
+initialState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+finalState:
+  documentContents: |-
+    function helloWorld() {
+        
+    }
+  selections:
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 2, character: 1}
+      isReversed: false
+      hasExplicitRange: true

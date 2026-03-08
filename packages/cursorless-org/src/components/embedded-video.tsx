@@ -6,7 +6,7 @@ interface Props {
 
 import dynamic from "next/dynamic";
 const ReactPlayer = dynamic(
-  () => import("react-player/lazy").then((mod) => mod.default),
+  () => import("react-player").then((mod) => mod.default),
   { ssr: false },
 );
 
@@ -17,7 +17,7 @@ export function EmbeddedVideo({ youtubeSlug }: Props) {
     <div style={{ position: "relative", paddingTop: "56.25%" }}>
       {isError ? (
         <div
-          className={`text-red-600 text-center w-full h-full flex border border-black`}
+          className={`flex h-full w-full border border-black text-center text-red-600`}
           style={{ position: "absolute", top: 0, left: 0 }}
         >
           <div className="m-auto">Error loading YouTube video</div>
@@ -25,7 +25,7 @@ export function EmbeddedVideo({ youtubeSlug }: Props) {
       ) : (
         <ReactPlayer
           style={{ position: "absolute", top: 0, left: 0 }}
-          url={`https://www.youtube-nocookie.com/watch?v=${youtubeSlug}`}
+          src={`https://www.youtube-nocookie.com/watch?v=${youtubeSlug}`}
           width="100%"
           height="100%"
           controls={true}

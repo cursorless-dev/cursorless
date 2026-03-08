@@ -1,0 +1,32 @@
+diff --git a/lib/generate.js b/lib/generate.js
+index e0bd2c7bf86ed3e09fb99b792cd2d210c0c4f67a..f56765d2b6d8f5a47feaafd3e36e3e4c78fe870d 100644
+--- a/lib/generate.js
++++ b/lib/generate.js
+@@ -199,11 +199,11 @@
+         output += "};\n";
+         output += "\n";
+         output += "interface NearleyLexer {\n";
+-        output += "  reset: (chunk: string, info: any) => void;\n";
++        output += "  reset: (chunk: any, info: any) => void;\n";
+         output += "  next: () => NearleyToken | undefined;\n";
+         output += "  save: () => any;\n";
+-        output += "  formatError: (token: never) => string;\n";
+-        output += "  has: (tokenType: string) => boolean;\n";
++        output += "  formatError: (token: any, message: string) => string;\n";
++        output += "  has: (tokenType: any) => boolean;\n";
+         output += "};\n";
+         output += "\n";
+         output += "interface NearleyRule {\n";
+diff --git a/lib/nearley.js b/lib/nearley.js
+index b564e11e24d2bcc597d46bb01af84a1972cc6b9d..1d559ea3c96059f764bb5138a387039fe290ee26 100644
+--- a/lib/nearley.js
++++ b/lib/nearley.js
+@@ -311,7 +311,7 @@
+ 
+             // Advance all tokens that expect the symbol
+             var literal = token.text !== undefined ? token.text : token.value;
+-            var value = lexer.constructor === StreamLexer ? token.value : token;
++            var value = lexer.constructor === StreamLexer ? token.value : lexer.transform?.(token) ?? token;
+             var scannable = column.scannable;
+             for (var w = scannable.length; w--; ) {
+                 var state = scannable[w];

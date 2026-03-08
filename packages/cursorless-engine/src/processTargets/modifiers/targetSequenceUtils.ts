@@ -1,13 +1,9 @@
-import { ScopeType } from "@cursorless/common";
-import { Target } from "../../typings/target.types";
-import { ModifierStageFactory } from "../ModifierStageFactory";
-
-export class OutOfRangeError extends Error {
-  constructor() {
-    super("Scope index out of range");
-    this.name = "OutOfRangeError";
-  }
-}
+import type { ScopeType } from "@cursorless/common";
+import type { Target } from "../../typings/target.types";
+import type { ModifierStageFactory } from "../ModifierStageFactory";
+import { createContinuousRangeTarget } from "../createContinuousRangeTarget";
+import { assertIndices } from "./listUtils";
+import type { ModifierStateOptions } from "../PipelineStages.types";
 
 /**
  * Construct a single range target between two targets in a list of targets,
@@ -19,21 +15,21 @@ export class OutOfRangeError extends Error {
  * end of the range
  */
 export function createRangeTargetFromIndices(
+  scopeType: ScopeType,
   isReversed: boolean,
   targets: Target[],
   startIndex: number,
   endIndex: number,
 ): Target {
-  if (startIndex < 0 || endIndex >= targets.length) {
-    throw new OutOfRangeError();
-  }
+  assertIndices(scopeType, targets, startIndex, endIndex);
 
   if (startIndex === endIndex) {
     return targets[startIndex];
   }
 
-  return targets[startIndex].createContinuousRangeTarget(
+  return createContinuousRangeTarget(
     isReversed,
+    targets[startIndex],
     targets[endIndex],
     true,
     true,
@@ -43,11 +39,12 @@ export function createRangeTargetFromIndices(
 export function getEveryScopeTargets(
   modifierStageFactory: ModifierStageFactory,
   target: Target,
+  options: ModifierStateOptions,
   scopeType: ScopeType,
 ): Target[] {
   const containingStage = modifierStageFactory.create({
     type: "everyScope",
     scopeType,
   });
-  return containingStage.run(target);
+  return containingStage.run(target, options);
 }

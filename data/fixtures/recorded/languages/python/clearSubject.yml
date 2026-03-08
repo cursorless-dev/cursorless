@@ -1,0 +1,29 @@
+languageId: python
+command:
+  version: 7
+  spokenForm: change value
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    match 0:
+        case [0]:
+            pass
+  selections:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
+  marks: {}
+finalState:
+  documentContents: |
+    match :
+        case [0]:
+            pass
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

@@ -1,0 +1,12 @@
+class Foo {
+    constructor(aaa: number);
+}
+---
+
+[Content] = 1:16-1:27
+                  >-----------<
+1|     constructor(aaa: number);
+
+[Domain] = 1:4-1:29
+      >-------------------------<
+1|     constructor(aaa: number);

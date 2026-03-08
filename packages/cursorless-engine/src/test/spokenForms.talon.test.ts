@@ -1,19 +1,20 @@
-import {
+import type {
   Command,
   CommandLatest,
   TestCaseFixtureLegacy,
-  asyncSafety,
-  getRecordedTestPaths,
 } from "@cursorless/common";
-import * as assert from "assert";
+import { asyncSafety } from "@cursorless/common";
+import { getRecordedTestPaths } from "@cursorless/node-common";
+import assert from "assert";
 import * as yaml from "js-yaml";
 import { promises as fsp } from "node:fs";
 import { canonicalizeAndValidateCommand } from "../core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { getHatMapCommand } from "../generateSpokenForm/getHatMapCommand";
 import { TalonRepl } from "../testUtil/TalonRepl";
+import { communitySnippetsSpokenFormsFixture } from "./fixtures/communitySnippets.fixture";
+import { multiActionFixture } from "./fixtures/multiAction.fixture";
 import { synonymousSpokenFormsFixture } from "./fixtures/synonymousSpokenForms.fixture";
 import { talonApiFixture } from "./fixtures/talonApi.fixture";
-import { multiActionFixture } from "./fixtures/multiAction.fixture";
 
 suite("Talon spoken forms", async function () {
   const repl = new TalonRepl();
@@ -42,6 +43,7 @@ suite("Talon spoken forms", async function () {
     ...synonymousSpokenFormsFixture,
     ...talonApiFixture,
     ...multiActionFixture,
+    ...communitySnippetsSpokenFormsFixture,
   ].forEach(({ spokenForm, commands, mockedGetValue }) =>
     test(spokenForm, () => runTest(repl, spokenForm, commands, mockedGetValue)),
   );
@@ -109,7 +111,7 @@ async function runTest(
     try {
       return JSON.parse(result);
     } catch (e) {
-      throw Error(result);
+      throw Error(result, { cause: e });
     }
   })();
 

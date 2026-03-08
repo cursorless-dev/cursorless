@@ -2,8 +2,8 @@ import type { Disposable, Hats, TokenHat } from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
 import tokenGraphemeSplitter from "../singletons/tokenGraphemeSplitter.singleton";
 import { allocateHats } from "../util/allocateHats";
-import { Debouncer } from "./Debouncer";
-import { IndividualHatMap } from "./IndividualHatMap";
+import type { IndividualHatMap } from "./IndividualHatMap";
+import { DecorationDebouncer } from "../util/DecorationDebouncer";
 
 interface Context {
   getActiveMap(): Promise<IndividualHatMap>;
@@ -11,7 +11,6 @@ interface Context {
 
 export class HatAllocator {
   private disposables: Disposable[] = [];
-  private debouncer = new Debouncer(() => this.allocateHats());
 
   constructor(
     private hats: Hats,
@@ -19,53 +18,63 @@ export class HatAllocator {
   ) {
     ide().disposeOnExit(this);
 
+    const debouncer = new DecorationDebouncer(ide().configuration, () =>
+      this.allocateHats(),
+    );
+
     this.disposables.push(
-      this.hats.onDidChangeEnabledHatStyles(this.debouncer.run),
-      this.hats.onDidChangeIsEnabled(this.debouncer.run),
+      this.hats.onDidChangeEnabledHatStyles(debouncer.run),
+      this.hats.onDidChangeIsEnabled(debouncer.run),
 
       // An event that fires when a text document opens
-      ide().onDidOpenTextDocument(this.debouncer.run),
+      ide().onDidOpenTextDocument(debouncer.run),
       // An event that fires when a text document closes
-      ide().onDidCloseTextDocument(this.debouncer.run),
+      ide().onDidCloseTextDocument(debouncer.run),
       // An Event which fires when the active editor has changed. Note that the event also fires when the active editor changes to undefined.
-      ide().onDidChangeActiveTextEditor(this.debouncer.run),
+      ide().onDidChangeActiveTextEditor(debouncer.run),
       // An Event which fires when the array of visible editors has changed.
-      ide().onDidChangeVisibleTextEditors(this.debouncer.run),
+      ide().onDidChangeVisibleTextEditors(debouncer.run),
       // An event that is emitted when a text document is changed. This usually happens when the contents changes but also when other things like the dirty-state changes.
-      ide().onDidChangeTextDocument(this.debouncer.run),
+      ide().onDidChangeTextDocument(debouncer.run),
       // An Event which fires when the selection in an editor has changed.
-      ide().onDidChangeTextEditorSelection(this.debouncer.run),
+      ide().onDidChangeTextEditorSelection(debouncer.run),
       // An Event which fires when the visible ranges of an editor has changed.
-      ide().onDidChangeTextEditorVisibleRanges(this.debouncer.run),
+      ide().onDidChangeTextEditorVisibleRanges(debouncer.run),
       // Re-draw hats on grapheme splitting algorithm change in case they
       // changed their token hat splitting setting.
-      tokenGraphemeSplitter().registerAlgorithmChangeListener(
-        this.debouncer.run,
-      ),
+      tokenGraphemeSplitter().registerAlgorithmChangeListener(debouncer.run),
 
-      this.debouncer,
+      debouncer,
     );
   }
 
   /**
    * Allocate hats to the visible tokens.
    *
-   * @param oldTokenHats If supplied, pretend that this allocation was the
-   * previous allocation when trying to maintain stable hats.  This parameter is
-   * used for testing.
+   * @param forceTokenHats If supplied, force the allocator to use these hats
+   * for the given tokens. This is used for the tutorial, and for testing.
    */
-  async allocateHats(oldTokenHats?: TokenHat[]) {
+  async allocateHats(forceTokenHats?: TokenHat[]) {
     const activeMap = await this.context.getActiveMap();
 
+    // Forced graphemes won't have been normalized
+    forceTokenHats = forceTokenHats?.map((tokenHat) => ({
+      ...tokenHat,
+      grapheme: tokenGraphemeSplitter().normalizeGrapheme(tokenHat.grapheme),
+    }));
+
     const tokenHats = this.hats.isEnabled
-      ? allocateHats(
-          tokenGraphemeSplitter(),
-          this.hats.enabledHatStyles,
-          oldTokenHats ?? activeMap.tokenHats,
-          ide().configuration.getOwnConfiguration("experimental.hatStability"),
-          ide().activeTextEditor,
-          ide().visibleTextEditors,
-        )
+      ? allocateHats({
+          tokenGraphemeSplitter: tokenGraphemeSplitter(),
+          enabledHatStyles: this.hats.enabledHatStyles,
+          forceTokenHats,
+          oldTokenHats: activeMap.tokenHats,
+          hatStability: ide().configuration.getOwnConfiguration(
+            "experimental.hatStability",
+          ),
+          activeTextEditor: ide().activeTextEditor,
+          visibleTextEditors: ide().visibleTextEditors,
+        })
       : [];
 
     activeMap.setTokenHats(tokenHats);

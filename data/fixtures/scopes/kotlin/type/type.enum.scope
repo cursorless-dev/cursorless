@@ -1,0 +1,10 @@
+enum class Foo {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:17
+  >-----------------<
+0| enum class Foo {}
+
+[Insertion delimiter] = " "

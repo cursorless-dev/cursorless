@@ -1,0 +1,18 @@
+foo:
+    bar.baz()
+---
+
+[Content] =
+[Removal] = 1:4-1:11
+      >-------<
+1|     bar.baz()
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     bar.baz()
+
+[Domain] = 1:4-1:13
+      >---------<
+1|     bar.baz()
+
+[Insertion delimiter] = " "

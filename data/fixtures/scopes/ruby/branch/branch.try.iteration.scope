@@ -1,0 +1,16 @@
+begin
+    a
+rescue
+    a
+end
+---
+
+[Content] =
+[Domain] = 0:0-4:3
+  >-----
+0| begin
+1|     a
+2| rescue
+3|     a
+4| end
+   ---<

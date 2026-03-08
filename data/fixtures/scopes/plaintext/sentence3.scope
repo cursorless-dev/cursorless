@@ -1,0 +1,22 @@
+// This is a longer sentence
+// spanning multiple lines.
+---
+
+[Content] =
+[Domain] = 0:3-1:27
+     >-------------------------
+0| // This is a longer sentence
+1| // spanning multiple lines.
+   ---------------------------<
+
+[Removal] = 0:2-1:27
+    >--------------------------
+0| // This is a longer sentence
+1| // spanning multiple lines.
+   ---------------------------<
+
+[Leading delimiter] = 0:2-0:3
+    >-<
+0| // This is a longer sentence
+
+[Insertion delimiter] = " "

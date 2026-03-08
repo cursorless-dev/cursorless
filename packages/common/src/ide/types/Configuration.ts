@@ -1,13 +1,17 @@
-import { Listener } from "../..";
+import type { Listener } from "../..";
 import { HatStability } from "./HatStability";
-import { Disposable } from "./ide.types";
-import { GetFieldType, Paths } from "./Paths";
+import type { Disposable } from "./ide.types";
+import type { GetFieldType, Paths } from "./Paths";
 
 export type CursorlessConfiguration = {
   tokenHatSplittingMode: TokenHatSplittingMode;
   wordSeparators: string[];
-  experimental: { snippetsDir: string | undefined; hatStability: HatStability };
+  experimental: {
+    hatStability: HatStability;
+    keyboardTargetFollowsSelection: boolean;
+  };
   decorationDebounceDelayMs: number;
+  commandHistory: boolean;
   debug: boolean;
 };
 
@@ -23,9 +27,10 @@ export const CONFIGURATION_DEFAULTS: CursorlessConfiguration = {
   wordSeparators: ["_"],
   decorationDebounceDelayMs: 50,
   experimental: {
-    snippetsDir: undefined,
     hatStability: HatStability.balanced,
+    keyboardTargetFollowsSelection: false,
   },
+  commandHistory: false,
   debug: false,
 };
 
@@ -33,7 +38,7 @@ export interface Configuration {
   /**
    * Returns a Cursorless configuration value.  Dots are accepted in
    * {@link path}, and are interpreted as child access, eg
-   * `experimental.snippetsDir`.
+   * `experimental.hatStability`.
    *
    * @param path A configuration key or path.  Dots are interpreted as child
    * access

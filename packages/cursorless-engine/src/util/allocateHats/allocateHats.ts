@@ -1,16 +1,17 @@
-import {
-  CompositeKeyMap,
-  DefaultMap,
+import type {
   HatStability,
   HatStyleMap,
   HatStyleName,
-  Range,
   TextEditor,
   Token,
   TokenHat,
 } from "@cursorless/common";
-import { clone } from "lodash";
-import { Grapheme, TokenGraphemeSplitter } from "../../tokenGraphemeSplitter";
+import { CompositeKeyMap, DefaultMap, Range } from "@cursorless/common";
+import { WordTokenizer } from "../../processTargets/modifiers/scopeHandlers/WordScopeHandler/WordTokenizer";
+import type {
+  Grapheme,
+  TokenGraphemeSplitter,
+} from "../../tokenGraphemeSplitter";
 import { chooseTokenHat } from "./chooseTokenHat";
 import { getHatRankingContext } from "./getHatRankingContext";
 import { getRankedTokens } from "./getRankedTokens";
@@ -19,6 +20,17 @@ export interface HatCandidate {
   grapheme: Grapheme;
   style: HatStyleName;
   penalty: number;
+  isFirstLetter: boolean;
+}
+
+interface AllocateHatsOptions {
+  tokenGraphemeSplitter: TokenGraphemeSplitter;
+  enabledHatStyles: HatStyleMap;
+  forceTokenHats: readonly TokenHat[] | undefined;
+  oldTokenHats: readonly TokenHat[];
+  hatStability: HatStability;
+  activeTextEditor: TextEditor | undefined;
+  visibleTextEditors: readonly TextEditor[];
 }
 
 /**
@@ -40,14 +52,21 @@ export interface HatCandidate {
  * @returns A hat assignment, which is a list where each entry contains a token
  * and the hat that it will wear
  */
-export function allocateHats(
-  tokenGraphemeSplitter: TokenGraphemeSplitter,
-  enabledHatStyles: HatStyleMap,
-  oldTokenHats: readonly TokenHat[],
-  hatStability: HatStability,
-  activeTextEditor: TextEditor | undefined,
-  visibleTextEditors: readonly TextEditor[],
-): TokenHat[] {
+export function allocateHats({
+  tokenGraphemeSplitter,
+  enabledHatStyles,
+  forceTokenHats,
+  oldTokenHats,
+  hatStability,
+  activeTextEditor,
+  visibleTextEditors,
+}: AllocateHatsOptions): TokenHat[] {
+  /**
+   * Maps from tokens to their forced hat, if any
+   */
+  const forcedHatMap =
+    forceTokenHats == null ? undefined : getTokenOldHatMap(forceTokenHats);
+
   /**
    * Maps from tokens to their assigned hat in previous allocation
    */
@@ -57,7 +76,11 @@ export function allocateHats(
    * A list of tokens in all visible document, ranked by how likely they are to
    * be used.
    */
-  const rankedTokens = getRankedTokens(activeTextEditor, visibleTextEditors);
+  const rankedTokens = getRankedTokens(
+    activeTextEditor,
+    visibleTextEditors,
+    forcedHatMap,
+  );
 
   /**
    * Lookup tables with information about which graphemes / hats appear in which
@@ -69,13 +92,19 @@ export function allocateHats(
     tokenGraphemeSplitter,
   );
 
+  /* All initially enabled hat styles. */
+  const enabledHatStyleNames = Object.keys(enabledHatStyles);
+
   /**
    * A map from graphemes to the remaining hat styles that have not yet been
    * used for that grapheme.  As we assign hats to tokens, we remove them from
-   * these lists so that they don't get used again in this pass.
+   * these arrays so that they don't get used again in this pass.
+   * We use an array rather than a map to make iteration cheaper;
+   * we only remove elements once, but we iterate many times,
+   * and this is a hot path.
    */
-  const graphemeRemainingHatCandidates = new DefaultMap<string, HatStyleMap>(
-    () => clone(enabledHatStyles),
+  const graphemeRemainingHatCandidates = new DefaultMap<string, HatStyleName[]>(
+    () => [...enabledHatStyleNames],
   );
 
   // Iterate through tokens in order of decreasing rank, assigning each one a
@@ -90,12 +119,14 @@ export function allocateHats(
         tokenGraphemeSplitter,
         token,
         graphemeRemainingHatCandidates,
+        enabledHatStyles,
       );
 
       const chosenHat = chooseTokenHat(
         context,
         hatStability,
         tokenRank,
+        forcedHatMap?.get(token),
         tokenOldHatMap.get(token),
         tokenRemainingHatCandidates,
       );
@@ -107,10 +138,12 @@ export function allocateHats(
       }
 
       // Remove the hat we chose from consideration for lower ranked tokens
-      delete graphemeRemainingHatCandidates.get(chosenHat.grapheme.text)[
-        chosenHat.style
-      ];
-
+      graphemeRemainingHatCandidates.set(
+        chosenHat.grapheme.text,
+        graphemeRemainingHatCandidates
+          .get(chosenHat.grapheme.text)
+          .filter((style) => style !== chosenHat.style),
+      );
       return constructHatRangeDescriptor(token, chosenHat);
     })
     .filter((value): value is TokenHat => value != null);
@@ -135,23 +168,42 @@ function getTokenOldHatMap(oldTokenHats: readonly TokenHat[]) {
 function getTokenRemainingHatCandidates(
   tokenGraphemeSplitter: TokenGraphemeSplitter,
   token: Token,
-  availableGraphemeStyles: DefaultMap<string, HatStyleMap>,
+  graphemeRemainingHatCandidates: DefaultMap<string, HatStyleName[]>,
+  enabledHatStyles: HatStyleMap,
 ): HatCandidate[] {
-  return tokenGraphemeSplitter
-    .getTokenGraphemes(token.text)
-    .flatMap((grapheme) =>
-      Object.entries(availableGraphemeStyles.get(grapheme.text)).map(
-        ([style, { penalty }]) => ({
-          grapheme,
-          style,
-          penalty,
-        }),
-      ),
-    );
+  const candidates: HatCandidate[] = [];
+  const graphemes = tokenGraphemeSplitter.getTokenGraphemes(token.text);
+  const firstLetterOffsets = new Set(
+    new WordTokenizer(token.editor.document.languageId)
+      .splitIdentifier(token.text)
+      .map((word) => word.index),
+  );
+
+  // Use iteration here instead of functional constructs,
+  // because this is a hot path and we want to avoid allocating arrays
+  // and calling tiny functions lots of times.
+
+  for (const grapheme of graphemes) {
+    const isFirstLetter = firstLetterOffsets.has(grapheme.tokenStartOffset);
+
+    for (const style of graphemeRemainingHatCandidates.get(grapheme.text)) {
+      // Allocating and pushing all of these objects is
+      // the single most expensive thing in hat allocation.
+      // Please pay attention to performance when modifying this code.
+      candidates.push({
+        grapheme,
+        style,
+        penalty: enabledHatStyles[style].penalty,
+        isFirstLetter,
+      });
+    }
+  }
+
+  return candidates;
 }
 
 /**
- * @param token The token that recevied the hat
+ * @param token The token that received the hat
  * @param chosenHat The hat we chose for the token
  * @returns An object indicating the hat assigned to the token, along with the
  * range of the grapheme upon which it sits

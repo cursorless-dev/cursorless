@@ -1,4 +1,4 @@
-import { repeat } from "lodash";
+import { repeat } from "lodash-es";
 
 interface Line {
   /**

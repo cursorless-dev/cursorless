@@ -1,6 +1,6 @@
-@tailwind components;
-@tailwind base;
-@tailwind utilities;
+@import "tailwindcss";
+
+@config "../../tailwind.config.js";
 
 :root {
   --safe-area-inset-top: env(safe-area-inset-top);
@@ -73,4 +73,68 @@
     local(""),
     /* Modern Browsers */ url("/fonts/Inconsolata_SemiExpanded-ExtraBold.ttf")
       format("truetype");
+}
+
+@font-face {
+  font-family: "Inconsolata";
+  font-style: normal;
+  font-weight: 200;
+  font-stretch: 1% 500%; /* Required by Chrome */
+  src:
+    local(""),
+    /* Modern Browsers */ url("/fonts/Inconsolata-ExtraLight.ttf")
+      format("truetype");
+}
+
+@font-face {
+  font-family: "Inconsolata";
+  font-style: normal;
+  font-weight: 300;
+  font-stretch: 1% 500%; /* Required by Chrome */
+  src:
+    local(""),
+    /* Modern Browsers */ url("/fonts/Inconsolata-Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Inconsolata";
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 1% 500%; /* Required by Chrome */
+  src:
+    local(""),
+    /* Modern Browsers */ url("/fonts/Inconsolata-Regular.ttf")
+      format("truetype");
+}
+
+@font-face {
+  font-family: "Inconsolata";
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 1% 500%; /* Required by Chrome */
+  src:
+    local(""),
+    /* Modern Browsers */ url("/fonts/Inconsolata-Medium.ttf")
+      format("truetype");
+}
+
+@font-face {
+  font-family: "Inconsolata";
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 1% 500%; /* Required by Chrome */
+  src:
+    local(""),
+    /* Modern Browsers */ url("/fonts/Inconsolata-SemiBold.ttf")
+      format("truetype");
+}
+
+@font-face {
+  font-family: "Inconsolata";
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: 1% 500%; /* Required by Chrome */
+  src:
+    local(""),
+    /* Modern Browsers */ url("/fonts/Inconsolata-Bold.ttf") format("truetype");
 }

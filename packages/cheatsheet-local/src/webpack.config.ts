@@ -1,5 +1,4 @@
 // Generated using webpack-cli https://github.com/webpack/webpack-cli
-/*eslint-env node*/
 
 import {
   cheatsheetBodyClasses,
@@ -38,6 +37,12 @@ const config: Configuration = {
         test: /\.(ts|tsx)$/i,
         loader: "ts-loader",
         exclude: ["/node_modules/"],
+        options: {
+          compilerOptions: {
+            noEmit: false,
+            emitDeclarationOnly: false,
+          },
+        },
       },
       {
         test: /\.css$/i,
@@ -54,4 +59,4 @@ const config: Configuration = {
   },
 };
 
-module.exports = () => config;
+export default () => config;

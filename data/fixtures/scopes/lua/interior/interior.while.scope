@@ -1,0 +1,18 @@
+while true do
+  a = 1
+end
+---
+
+[Content] = 1:2-1:7
+    >-----<
+1|   a = 1
+
+[Removal] =
+[Domain] = 0:13-2:0
+               >
+0| while true do
+1|   a = 1
+2| end
+   <
+
+[Insertion delimiter] = " "

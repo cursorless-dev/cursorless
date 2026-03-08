@@ -1,16 +1,20 @@
+import { DOCS_URL } from "./constants";
+
 export class UnsupportedLanguageError extends Error {
   constructor(languageId: string) {
     super(
-      `Language '${languageId}' is not implemented yet; See https://www.cursorless.org/docs/contributing/adding-a-new-language/`,
+      `Language '${languageId}' is not implemented yet; See ${DOCS_URL}/contributing/adding-a-new-language`,
     );
     this.name = "UnsupportedLanguageError";
   }
 }
 
-export class UnsupportedError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = "UnsupportedError";
+export class UnsupportedScopeError extends Error {
+  constructor(scopeType: string) {
+    super(
+      `Scope '${scopeType}' is not implemented yet; See ${DOCS_URL}/contributing/adding-a-new-scope`,
+    );
+    this.name = "UnsupportedScopeError";
   }
 }
 
@@ -34,5 +38,14 @@ export class NoContainingScopeError extends Error {
   constructor(scopeType: string) {
     super(`Couldn't find containing ${scopeType}.`);
     this.name = "NoContainingScopeError";
+  }
+}
+
+export class NamedSnippetsDeprecationError extends Error {
+  constructor() {
+    super(
+      "Cursorless snippets are deprecated and have been removed. Please use community snippets.",
+    );
+    this.name = "NamedSnippetsDeprecationError";
   }
 }
