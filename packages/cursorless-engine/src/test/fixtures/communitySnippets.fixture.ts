@@ -22,7 +22,13 @@ const snippetAfterAction: ActionDescriptor = {
     snippets: [
       {
         type: "custom",
-        body: "```\n$0\n```",
+        languages: [
+          "javascript",
+          "typescript",
+          "javascriptreact",
+          "typescriptreact",
+        ],
+        body: 'import * as $0 from "$0";',
       },
     ],
   },
@@ -34,5 +40,5 @@ const snippetAfterAction: ActionDescriptor = {
  * Talon tests by relying on our recorded test fixtures alone.
  */
 export const communitySnippetsSpokenFormsFixture = [
-  spokenFormTest("snip code after air", snippetAfterAction, undefined),
+  spokenFormTest("snip import star after air", snippetAfterAction, undefined),
 ];
