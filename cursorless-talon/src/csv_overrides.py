@@ -4,7 +4,7 @@ from collections import defaultdict
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Callable, Iterable, Optional, TypedDict
+from typing import Callable, Container, Iterable, Optional, TypedDict
 
 from talon import Context, Module, actions, app, fs, settings
 
@@ -404,7 +404,7 @@ def csv_error(path: Path, index: int, message: str, value: str) -> None:
 def read_file(
     path: Path,
     headers: list[str],
-    default_identifiers: list[str],
+    default_identifiers: Container[str],
     extra_ignored_values: list[str],
     extra_allowed_values: list[str],
     allow_unknown_values: bool,
