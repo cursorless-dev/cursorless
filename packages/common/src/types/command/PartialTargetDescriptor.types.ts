@@ -174,7 +174,6 @@ export const simpleScopeTypeTypes = [
   "sectionLevelFive",
   "sectionLevelSix",
   "selector",
-  "private.switchStatementSubject",
   "unit",
   "xmlBothTags",
   "xmlElement",
@@ -194,6 +193,7 @@ export const simpleScopeTypeTypes = [
   "token",
   "identifier",
   "line",
+  "fullLine",
   "sentence",
   "paragraph",
   "boundedParagraph",
@@ -208,6 +208,7 @@ export const simpleScopeTypeTypes = [
   "textFragment",
   "disqualifyDelimiter",
   "pairDelimiter",
+  "interior",
 ] as const;
 
 export function isSimpleScopeType(
@@ -218,9 +219,18 @@ export function isSimpleScopeType(
 
 export type SimpleScopeTypeType = (typeof simpleScopeTypeTypes)[number];
 
+export const pseudoScopes = new Set<SimpleScopeTypeType>([
+  "instance",
+  "interior",
+  "className",
+  "functionName",
+]);
+
 export interface SimpleScopeType {
   type: SimpleScopeTypeType;
 }
+
+export type ScopeTypeType = ScopeType["type"];
 
 export interface CustomRegexScopeType {
   type: "customRegex";
@@ -228,24 +238,11 @@ export interface CustomRegexScopeType {
   flags?: string;
 }
 
-export interface InteriorScopeType {
-  type: "interior";
-
-  // The user has specified a scope type. eg "inside element".
-  explicitScopeType?: boolean;
-}
-
 export type SurroundingPairDirection = "left" | "right";
 
 export interface SurroundingPairScopeType {
   type: "surroundingPair";
   delimiter: SurroundingPairName;
-
-  /**
-   * @deprecated Not supported by next-gen surrounding pairs; we don't believe
-   * anyone uses this
-   */
-  forceDirection?: SurroundingPairDirection;
 
   /**
    * If `true`, then only accept pairs where the pair completely contains the
@@ -278,12 +275,10 @@ export type ScopeType =
   | SurroundingPairScopeType
   | SurroundingPairInteriorScopeType
   | CustomRegexScopeType
-  | InteriorScopeType
   | OneOfScopeType
   | GlyphScopeType;
 
-export interface ContainingSurroundingPairModifier
-  extends ContainingScopeModifier {
+export interface ContainingSurroundingPairModifier extends ContainingScopeModifier {
   scopeType: SurroundingPairScopeType;
 }
 
@@ -435,8 +430,8 @@ export interface ModifyIfUntypedModifier {
  * doesn't throw an error, returning the output from the first modifier not
  * throwing an error.
  */
-export interface CascadingModifier {
-  type: "cascading";
+export interface FallbackModifier {
+  type: "fallback";
 
   /**
    * The modifiers to try in turn
@@ -473,7 +468,7 @@ export type Modifier =
   | TrailingModifier
   | RawSelectionModifier
   | ModifyIfUntypedModifier
-  | CascadingModifier
+  | FallbackModifier
   | RangeModifier
   | KeepContentFilterModifier
   | KeepEmptyFilterModifier

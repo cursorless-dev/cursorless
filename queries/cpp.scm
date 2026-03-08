@@ -18,12 +18,12 @@
 
 (_
   (class_specifier
-    name: (_) @className @name
-    body: (_)
+    name: (_) @name
   ) @_.domain.start @class.start @type.start
   .
   ";"? @_.domain.end @class.end @type.end
 )
+
 (_
   (class_specifier
     name: (_)
@@ -33,24 +33,59 @@
   ";"? @statement.end
 )
 
-;;!! void ClassName::method() {}
-(function_definition
-  declarator: (_
-    declarator: (_
-      scope: (_) @className
-    )
-  )
+;;!! throw foo;
+;;!        ^^^
+(throw_statement
+  (_) @value
+) @value.domain
+
+;;!! namespace NS { }
+(namespace_definition
+  name: (_) @name
 ) @_.domain
 
-(lambda_expression) @anonymousFunction
-(attribute_declaration) @attribute
+;;!! using Foo = Bar;
+;;!        ^^^
+;;!              ^^^
+(alias_declaration
+  name: (_) @name @value.leading.endOf
+  type: (_) @value @name.removal.end.startOf
+) @type @_.domain @name.removal.start.startOf
+
+(field_declaration_list
+  "{" @namedFunction.iteration.start.endOf
+  "}" @namedFunction.iteration.end.startOf
+) @_.domain
+
+;;!! int aaa = 0;
+;;!      ^^^
+;;!            ^
+(field_declaration
+  declarator: (_) @name @_.leading.endOf
+  default_value: (_) @value @name.removal.end.startOf
+) @_.domain @name.removal.start.startOf
+
+;;!! []() -> int {}
+;;!  ^^^^^^^^^^^^^^
+;;!          ^^^
+(lambda_expression
+  (abstract_function_declarator
+    parameters: (_) @type.leading.endOf
+    (trailing_return_type
+      (_) @type
+    )?
+  )?
+) @anonymousFunction @type.domain
+
+;;!! [[attribute]]
+;;!    ^^^^^^^^^
+(attribute) @attribute
 
 ;; >  curl https://raw.githubusercontent.com/tree-sitter/tree-sitter-cpp/master/src/node-types.json | jq '[.[] | select(.type == "_type_specifier") | .subtypes[].type]'
 [
   (auto)
   (decltype)
   (dependent_type)
-  (template_type)
 ] @type
 
 ;;!! void foo(int value = 0) {}
@@ -67,6 +102,53 @@
     value: (argument_list)
   ) @functionCall.end @_.domain.end
 )
+
+;;!! try {}
+;;!  ^^^^^^
+(try_statement
+  "try" @branch.start
+  body: (_) @branch.end
+) @branch.iteration
+
+;;!! catch (const std::exception e) {}
+(catch_clause) @branch
+
+;;!! new Foo()
+;;!  ^^^^^^^^^
+;;!  ^^^^^^^
+(new_expression
+  "new" @functionCallee.start
+  type: (_) @functionCallee.end
+) @functionCall @functionCallee.domain
+
+;;!! Map<string, int> foo;
+;;!      ^^^^^^  ^^^
+(
+  (template_argument_list
+    (_)? @_.leading.endOf
+    .
+    (type_descriptor) @type
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @type @_dummy ", " ",\n")
+)
+
+;;!! Map<string, int> foo;
+;;!      ^^^^^^^^^^^
+(template_argument_list
+  "<" @type.iteration.start.endOf
+  ">" @type.iteration.end.startOf
+)
+
+;;!! for (int value : values) { }
+;;!           ^^^^^
+;;!                   ^^^^^^
+;;!                            ^
+(for_range_loop
+  declarator: (_) @name
+  right: (_) @value
+) @_.domain
 
 (trailing_return_type
   "->" @disqualifyDelimiter

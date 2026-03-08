@@ -1,4 +1,8 @@
-import type { ScopeType } from "@cursorless/common";
+import {
+  pseudoScopes,
+  UnsupportedScopeError,
+  type ScopeType,
+} from "@cursorless/common";
 import type { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import {
   BoundedNonWhitespaceSequenceScopeHandler,
@@ -12,7 +16,6 @@ import { FallbackScopeHandler } from "./FallbackScopeHandler";
 import { IdentifierScopeHandler } from "./IdentifierScopeHandler";
 import { LineScopeHandler } from "./LineScopeHandler";
 import { NotebookCellScopeHandler } from "./NotebookCellScopeHandler";
-import { SortedScopeHandler } from "./SortedScopeHandler";
 import { ParagraphScopeHandler } from "./ParagraphScopeHandler";
 import {
   CustomRegexScopeHandler,
@@ -23,6 +26,7 @@ import {
 import type { ComplexScopeType, ScopeHandler } from "./scopeHandler.types";
 import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 import { SentenceScopeHandler } from "./SentenceScopeHandler/SentenceScopeHandler";
+import { SortedScopeHandler } from "./SortedScopeHandler";
 import {
   SurroundingPairInteriorScopeHandler,
   SurroundingPairScopeHandler,
@@ -33,20 +37,13 @@ import { WordScopeHandler } from "./WordScopeHandler/WordScopeHandler";
 
 /**
  * Returns a scope handler for the given scope type and language id, or
- * undefined if the given scope type / language id combination is still using
- * legacy pathways.
- *
- * Note that once all our scope types are migrated to the new scope handler
- * setup for all languages, we can stop returning `undefined`, change the return
- * type of this function, and remove the legacy checks in the clients of this
- * function.
+ * undefined if the given scope type / language id combination is not supported.
  *
  * @param scopeType The scope type for which to get a scope handler
  * @param languageId The language id of the document where the scope handler
  * will be used
  * @returns A scope handler for the given scope type and language id, or
- * undefined if the given scope type / language id combination is still using
- * legacy pathways
+ * undefined if the given scope type / language id combination is not supported.
  */
 export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
   constructor(private languageDefinitions: LanguageDefinitions) {
@@ -68,7 +65,8 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
       case "identifier":
         return new IdentifierScopeHandler(this, scopeType, languageId);
       case "line":
-        return new LineScopeHandler(scopeType, languageId);
+      case "fullLine":
+        return new LineScopeHandler({ type: scopeType.type }, languageId);
       case "sentence":
         return new SentenceScopeHandler(this, scopeType, languageId);
       case "paragraph":
@@ -121,10 +119,8 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
           languageId,
         );
       case "interior":
-        return new InteriorScopeHandler(
-          this,
+        return InteriorScopeHandler.maybeCreate(
           this.languageDefinitions,
-          scopeType,
           languageId,
         );
       case "custom":
@@ -135,10 +131,11 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
         return FallbackScopeHandler.create(this, scopeType, languageId);
       case "conditional":
         return new ConditionalScopeHandler(this, scopeType, languageId);
-      case "instance":
-        // Handle instance pseudoscope with its own special modifier
-        throw Error("Unexpected scope type 'instance'");
       default:
+        // Pseudoscopes are handled separately in their own modifiers.
+        if (pseudoScopes.has(scopeType.type)) {
+          throw Error(`Unexpected scope type '${scopeType.type}'`);
+        }
         return this.languageDefinitions
           .get(languageId)
           ?.getScopeHandler(scopeType);
@@ -151,7 +148,7 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
   ): ScopeHandler {
     const handler = this.maybeCreate(scopeType, languageId);
     if (handler == null) {
-      throw new Error(`Couldn't create scope handler for '${scopeType.type}'`);
+      throw new UnsupportedScopeError(scopeType.type);
     }
     return handler;
   }

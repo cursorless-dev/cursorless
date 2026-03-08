@@ -205,11 +205,12 @@ async function callFunctionAndUpdateFullSelectionInfos(
     flatten(originalSelectionInfos),
   );
 
-  await func();
-
-  unsubscribe();
-
-  return selectionInfosToSelections(originalSelectionInfos);
+  try {
+    await func();
+    return selectionInfosToSelections(originalSelectionInfos);
+  } finally {
+    unsubscribe();
+  }
 }
 
 /**

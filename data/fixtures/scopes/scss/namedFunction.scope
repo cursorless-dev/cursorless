@@ -1,10 +1,10 @@
-@function calculate-margin($size) {}
+@function foo() {}
 ---
 
 [Content] =
 [Removal] =
-[Domain] = 0:0-0:36
-  >------------------------------------<
-0| @function calculate-margin($size) {}
+[Domain] = 0:0-0:18
+  >------------------<
+0| @function foo() {}
 
 [Insertion delimiter] = "\n\n"

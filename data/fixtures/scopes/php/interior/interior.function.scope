@@ -1,0 +1,11 @@
+<?php
+function foo() { }
+---
+
+[Content] =
+[Removal] =
+[Domain] = 1:16-1:17
+                  >-<
+1| function foo() { }
+
+[Insertion delimiter] = " "

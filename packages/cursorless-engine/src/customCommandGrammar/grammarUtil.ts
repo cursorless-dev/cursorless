@@ -1,26 +1,26 @@
 import type {
   BringMoveActionDescriptor,
+  ContainingScopeModifier,
   DestinationDescriptor,
+  Direction,
   InsertionMode,
+  Modifier,
   PartialListTargetDescriptor,
+  PartialMark,
+  PartialPrimitiveTargetDescriptor,
   PartialRangeTargetDescriptor,
+  PartialTargetDescriptor,
   PartialTargetMark,
   PrimitiveDestinationDescriptor,
-} from "@cursorless/common";
-import {
-  type ContainingScopeModifier,
-  type Modifier,
-  type PartialMark,
-  type PartialPrimitiveTargetDescriptor,
-  type PartialTargetDescriptor,
-  type ScopeType,
-  type SimpleActionDescriptor,
-  type SimpleActionName,
-  type SimplePartialMark,
-  type SimpleScopeType,
-  type SimpleScopeTypeType,
-  type SurroundingPairName,
-  type SurroundingPairScopeType,
+  RelativeScopeModifier,
+  ScopeType,
+  SimpleActionDescriptor,
+  SimpleActionName,
+  SimplePartialMark,
+  SimpleScopeType,
+  SimpleScopeTypeType,
+  SurroundingPairName,
+  SurroundingPairScopeType,
 } from "@cursorless/common";
 import type { WithPlaceholders } from "./WithPlaceholders";
 
@@ -72,6 +72,19 @@ export function containingScopeModifier(
   return {
     type: "containingScope",
     scopeType,
+  };
+}
+
+export function relativeScopeModifier(
+  scopeType: ScopeType,
+  direction: Direction,
+): RelativeScopeModifier {
+  return {
+    type: "relativeScope",
+    scopeType,
+    offset: 1,
+    length: 1,
+    direction,
   };
 }
 

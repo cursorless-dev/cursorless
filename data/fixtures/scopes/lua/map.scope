@@ -1,17 +1,10 @@
-foo = { bar = "a", baz = "b" }
+{ aaa = 0, bbb = 1 }
 ---
 
 [Content] =
-[Domain] = 0:6-0:30
-        >------------------------<
-0| foo = { bar = "a", baz = "b" }
-
-[Removal] = 0:5-0:30
-       >-------------------------<
-0| foo = { bar = "a", baz = "b" }
-
-[Leading delimiter] = 0:5-0:6
-       >-<
-0| foo = { bar = "a", baz = "b" }
+[Removal] =
+[Domain] = 0:0-0:20
+  >--------------------<
+0| { aaa = 0, bbb = 1 }
 
 [Insertion delimiter] = " "

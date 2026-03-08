@@ -1,3 +1,5 @@
+/* global window, document, acquireVsCodeApi */
+
 const vscode = acquireVsCodeApi();
 const msgTalon = document.getElementById("msg-talon");
 const msgCursorlessTalon = document.getElementById("msg-cursorless-talon");

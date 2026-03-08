@@ -5,7 +5,11 @@ import type {
   ScopeTypeInfoEventCallback,
   SurroundingPairScopeType,
 } from "@cursorless/common";
-import { simpleScopeTypeTypes, surroundingPairNames } from "@cursorless/common";
+import {
+  pseudoScopes,
+  simpleScopeTypeTypes,
+  surroundingPairNames,
+} from "@cursorless/common";
 import { pull } from "lodash-es";
 
 import type { CustomSpokenFormGeneratorImpl } from "../generateSpokenForm/CustomSpokenFormGeneratorImpl";
@@ -56,14 +60,14 @@ export class ScopeInfoProvider {
   private async onChange() {
     this.updateScopeTypeInfos();
 
-    this.listeners.forEach((listener) => listener(this.scopeInfos));
+    this.listeners.slice().forEach((listener) => listener(this.scopeInfos));
   }
 
   private updateScopeTypeInfos(): void {
     const scopeTypes: ScopeType[] = [
       ...simpleScopeTypeTypes
         // Ignore instance pseudo-scope because it's not really a scope
-        .filter((scopeTypeType) => scopeTypeType !== "instance")
+        .filter((scopeTypeType) => !pseudoScopes.has(scopeTypeType))
         .map((scopeTypeType) => ({
           type: scopeTypeType,
         })),
@@ -145,7 +149,6 @@ function isLanguageSpecific(scopeType: ScopeType): boolean {
     case "sectionLevelFive":
     case "sectionLevelSix":
     case "selector":
-    case "private.switchStatementSubject":
     case "unit":
     case "xmlBothTags":
     case "xmlElement":
@@ -168,6 +171,7 @@ function isLanguageSpecific(scopeType: ScopeType): boolean {
     case "token":
     case "identifier":
     case "line":
+    case "fullLine":
     case "sentence":
     case "paragraph":
     case "boundedParagraph":

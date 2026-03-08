@@ -23,7 +23,12 @@ export function getDelimiterOccurrences(
     return [];
   }
 
-  const capturesMap = languageDefinition?.getCapturesMap(document) ?? {};
+  const capturesMap =
+    languageDefinition?.getCapturesMap(document, [
+      "disqualifyDelimiter",
+      "pairDelimiter",
+      "textFragment",
+    ]) ?? {};
   const disqualifyDelimiters = new OneWayRangeFinder(
     getSortedCaptures(capturesMap.disqualifyDelimiter),
   );
@@ -34,12 +39,12 @@ export function getDelimiterOccurrences(
     getSortedCaptures(capturesMap.textFragment),
   );
 
-  const delimiterTextToDelimiterInfoMap = Object.fromEntries(
-    individualDelimiters.map((individualDelimiter) => [
-      individualDelimiter.text,
-      individualDelimiter,
-    ]),
-  );
+  const delimiterTextToDelimiterInfoMap = individualDelimiters.reduce<
+    Record<string, IndividualDelimiter[]>
+  >((acc, individualDelimiter) => {
+    (acc[individualDelimiter.text] ??= []).push(individualDelimiter);
+    return acc;
+  }, {});
 
   const regexMatches = matchAllIterator(
     document.getText(),
@@ -50,9 +55,10 @@ export function getDelimiterOccurrences(
 
   for (const match of regexMatches) {
     const text = match[0];
+    const startPos = document.positionAt(match.index!);
     const matchRange = new Range(
-      document.positionAt(match.index!),
-      document.positionAt(match.index! + text.length),
+      startPos,
+      startPos.translate(undefined, text.length),
     );
 
     const disqualifiedDelimiter = ifNoErrors(
@@ -64,7 +70,7 @@ export function getDelimiterOccurrences(
     }
 
     results.push({
-      delimiterInfo: delimiterTextToDelimiterInfoMap[text],
+      delimiterInfos: delimiterTextToDelimiterInfoMap[text],
       textFragmentRange: textFragments.getSmallestContaining(matchRange)?.range,
       range:
         ifNoErrors(pairDelimiters.getContaining(matchRange))?.range ??
@@ -83,6 +89,5 @@ function getSortedCaptures(items?: QueryCapture[]): QueryCapture[] {
   if (items == null) {
     return [];
   }
-  items.sort((a, b) => a.range.start.compareTo(b.range.start));
-  return items;
+  return items.sort((a, b) => a.range.start.compareTo(b.range.start));
 }

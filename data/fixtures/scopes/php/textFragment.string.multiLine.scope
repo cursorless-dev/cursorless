@@ -1,0 +1,14 @@
+<?php
+"hello
+world"
+---
+
+[Content] =
+[Removal] =
+[Domain] = 1:1-2:5
+   >-----
+1| "hello
+2| world"
+   -----<
+
+[Insertion delimiter] = " "

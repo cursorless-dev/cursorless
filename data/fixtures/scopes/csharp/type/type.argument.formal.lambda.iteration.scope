@@ -1,0 +1,13 @@
+(int aaa, int bbb) => {}
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:24
+  >------------------------<
+0| (int aaa, int bbb) => {}
+
+
+[#2 Content] =
+[#2 Domain] = 0:1-0:17
+   >----------------<
+0| (int aaa, int bbb) => {}

@@ -1,8 +1,11 @@
-import { HatStability } from "@cursorless/common";
-import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
-import * as assert from "assert";
+import { HatStability, LATEST_VERSION } from "@cursorless/common";
+import {
+  getCursorlessApi,
+  openNewEditor,
+  runCursorlessCommand,
+} from "@cursorless/vscode-common";
+import * as assert from "node:assert";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-import { runCursorlessCommand } from "@cursorless/vscode-common";
 import { setupFake } from "./setupFake";
 
 suite("Wrap with snippet across split", async function () {
@@ -25,7 +28,8 @@ async function runTest() {
   await hatTokenMap.allocateHats();
 
   await runCursorlessCommand({
-    version: 7,
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
     action: {
       name: "wrapWithSnippet",
       snippetDescription: {
@@ -42,7 +46,6 @@ async function runTest() {
         },
       },
     },
-    usePrePhraseSnapshot: false,
   });
 
   assert.deepStrictEqual(

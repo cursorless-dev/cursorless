@@ -30,23 +30,61 @@
   (while_statement)
 ] @statement
 
+;;!! { }
+;;!   ^
+(_
+  .
+  "{" @interior.start.endOf
+  "}" @interior.end.startOf
+  .
+)
+
 (single_line_comment) @comment @textFragment
 
-(if_statement) @ifStatement
-
+;;!! @if true { }  @else { }
+;;!  ^^^^^^^^^^^^^^^^^^^^^^^
+;;!      ^^^^
 (if_statement
   (if_clause
     (condition) @condition
   )
-) @_.domain
+) @ifStatement @condition.domain @branch.iteration
+
+;;!! @if true { }  @else if false { }
+;;!   xxxxxxxxxxxxxxxxxxx
+(if_statement
+  (if_clause) @branch @branch.removal.start.startOf
+  (else_if_clause
+    "if" @branch.removal.end.startOf
+  )
+  (#character-range! @branch.removal.start.startOf 1)
+)
+
+;; Single if statement are else if. Remove range is content range.
+(if_statement
+  (if_clause) @branch
+  (else_clause)?
+  .
+)
+
+;;!! @else false { }
+;;!  ^^^^^^^^^^^^^^^
+;;!        ^^^^^
+(else_if_clause
+  (condition) @condition
+) @branch @condition.domain
+
+;;!! @else { }
+;;!  ^^^^^^^^^
+(else_clause) @branch
 
 (mixin_statement
-  (name) @functionName @name
-) @namedFunction @functionName.domain @name.domain
+  (name) @name
+) @namedFunction @name.domain
 
 (function_statement
-  (name) @functionName @name
-) @namedFunction @functionName.domain @name.domain
+  (name) @name
+) @namedFunction @name.domain
 
 (declaration
   (variable_name) @name
@@ -61,46 +99,40 @@
     (_) @argumentOrParameter
     .
     (_)? @_.trailing.startOf
-  )
-  (#insertion-delimiter! @argumentOrParameter ", ")
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
 (_
   (parameters
-    .
     "(" @argumentOrParameter.iteration.start.endOf
     ")" @argumentOrParameter.iteration.end.startOf
-    .
   )
 ) @argumentOrParameter.iteration.domain
 
 (parameters
-  .
   "(" @name.iteration.start.endOf @value.iteration.start.endOf
   ")" @name.iteration.end.startOf @value.iteration.end.startOf
-  .
-) @name.iteration.domain @value.iteration.domain
+)
 
 ;;!! foo($foo: 123)
 ;;!      ^^^^  ^^^
 (
   (parameter
-    (variable_name) @name
+    (variable_name) @name @value.leading.endOf
     (default_value)? @value
   ) @_.domain
   (#not-eq? @_.domain "")
 )
 
 (
-  (stylesheet) @namedFunction.iteration @functionName.iteration
-  (#document-range! @namedFunction.iteration @functionName.iteration)
+  (stylesheet) @namedFunction.iteration @name.iteration
+  (#document-range! @namedFunction.iteration @name.iteration)
 )
 
 (block
-  .
-  "{" @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf
-  "}" @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf
-  .
+  "{" @namedFunction.iteration.start.endOf @name.iteration.start.endOf
+  "}" @namedFunction.iteration.end.startOf @name.iteration.end.startOf
 )
 
 (binary_expression

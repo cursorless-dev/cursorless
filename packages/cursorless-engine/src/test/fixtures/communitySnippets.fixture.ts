@@ -17,6 +17,8 @@ const snippetAfterAction: ActionDescriptor = {
   },
   snippetDescription: {
     type: "list",
+    // This will be the current active language
+    fallbackLanguage: "typescript",
     snippets: [
       {
         type: "custom",

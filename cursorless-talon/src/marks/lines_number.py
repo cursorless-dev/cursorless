@@ -19,7 +19,7 @@ class CustomizableTerm:
 
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://www.cursorless.org/docs/user/customization/
+# See https://www.cursorless.org/docs/user/customization
 directions = [
     CustomizableTerm("lineNumberModulo100", "modulo100", lambda number: number - 1),
     CustomizableTerm("lineNumberRelativeUp", "relative", lambda number: -number),

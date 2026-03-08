@@ -43,8 +43,7 @@ export interface CloneWithParameters {
  */
 export abstract class BaseTarget<
   in out TParameters extends MinimumTargetParameters,
-> implements Target
-{
+> implements Target {
   protected abstract readonly type: string;
   protected readonly state: EnforceUndefined<CommonTargetParameters>;
   hasExplicitScopeType = true;

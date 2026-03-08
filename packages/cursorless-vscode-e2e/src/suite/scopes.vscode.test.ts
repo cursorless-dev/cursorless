@@ -1,7 +1,8 @@
 import type {
   ScopeSupportFacet,
   ScopeType,
-  TextualScopeSupportFacet,
+  PlaintextScopeSupportFacet,
+  ScopeRangeConfig,
 } from "@cursorless/common";
 import {
   asyncSafety,
@@ -9,7 +10,7 @@ import {
   scopeSupportFacetInfos,
   ScopeSupportFacetLevel,
   shouldUpdateFixtures,
-  textualScopeSupportFacetInfos,
+  plaintextScopeSupportFacetInfos,
 } from "@cursorless/common";
 import { getScopeTestPathsRecursively } from "@cursorless/node-common";
 import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
@@ -21,6 +22,7 @@ import {
   serializeIterationScopeFixture,
   serializeScopeFixture,
 } from "./serializeScopeFixture";
+import { shouldSkipScopeTest } from "./shouldSkipTest";
 
 suite("Scope test cases", async function () {
   endToEndTestSetup(this);
@@ -37,23 +39,32 @@ suite("Scope test cases", async function () {
       languages[language] ??= [];
     }
 
-    Object.entries(languages).forEach(([languageId, testPaths]) =>
-      test(
-        `${languageId} facet coverage`,
-        asyncSafety(() =>
-          testLanguageSupport(
-            languageId,
-            testPaths.map((test) => test.facet),
+    Object.keys(languages)
+      .sort()
+      .forEach((languageId) => {
+        const tests = languages[languageId];
+        test(
+          `${languageId} facet coverage`,
+          asyncSafety(() =>
+            testLanguageSupport(
+              languageId,
+              tests.map((test) => test.facet),
+            ),
           ),
-        ),
-      ),
-    );
+        );
+      });
   }
 
   testPaths.forEach(({ path, name, languageId, facet }) =>
     test(
       name,
-      asyncSafety(() => runTest(path, languageId, facet)),
+      asyncSafety(() => {
+        if (shouldSkipScopeTest(languageId)) {
+          this.ctx.skip();
+        }
+
+        return runTest(path, languageId, facet);
+      }),
     ),
   );
 });
@@ -66,8 +77,8 @@ suite("Scope test cases", async function () {
  */
 async function testLanguageSupport(languageId: string, testedFacets: string[]) {
   const supportedFacets = (() => {
-    if (languageId === "textual") {
-      return Object.keys(textualScopeSupportFacetInfos);
+    if (languageId === "plaintext") {
+      return Object.keys(plaintextScopeSupportFacetInfos);
     }
 
     const scopeSupport = languageScopeSupport[languageId];
@@ -88,7 +99,7 @@ async function testLanguageSupport(languageId: string, testedFacets: string[]) {
     (testedFacet) => !supportedFacets.includes(testedFacet),
   );
   if (unsupportedFacets.length > 0) {
-    const values = uniq(unsupportedFacets).join(", ");
+    const values = uniq(unsupportedFacets).sort().join(", ");
     assert.fail(
       `Facets [${values}] are tested but not listed in getLanguageScopeSupport`,
     );
@@ -99,7 +110,7 @@ async function testLanguageSupport(languageId: string, testedFacets: string[]) {
     (supportedFacet) => !testedFacets.includes(supportedFacet),
   );
   if (untestedFacets.length > 0) {
-    const values = untestedFacets.join(", ");
+    const values = untestedFacets.sort().join(", ");
     assert.fail(`Missing test for scope support facets [${values}]`);
   }
 }
@@ -122,9 +133,10 @@ async function runTest(file: string, languageId: string, facetId: string) {
   await openNewEditor(code, { languageId });
 
   const editor = ide.activeTextEditor!;
+  const updateFixture = shouldUpdateFixtures();
 
   const [outputFixture, numScopes] = ((): [string, number] => {
-    const config = {
+    const config: ScopeRangeConfig = {
       visibleOnly: false,
       scopeType,
     };
@@ -137,6 +149,16 @@ async function runTest(file: string, languageId: string, facetId: string) {
           includeNestedTargets: false,
         },
       );
+
+      if (!updateFixture) {
+        assert.isFalse(
+          iterationScopes.some((s) =>
+            s.ranges.some((r) => !s.domain.contains(r.range)),
+          ),
+          "Iteration range should not contain the domain",
+        );
+      }
+
       return [
         serializeIterationScopeFixture(code, iterationScopes),
         iterationScopes.length,
@@ -145,10 +167,25 @@ async function runTest(file: string, languageId: string, facetId: string) {
 
     const scopes = scopeProvider.provideScopeRanges(editor, config);
 
+    if (!updateFixture) {
+      assert.isFalse(
+        scopes.some((s) =>
+          s.targets.some((t) => !s.domain.contains(t.contentRange)),
+        ),
+        "Content range should not contain the domain",
+      );
+      assert.isFalse(
+        scopes.some((s) =>
+          s.targets.some((t) => !s.domain.contains(t.contentRange)),
+        ),
+        "Content range should not contain the removal range",
+      );
+    }
+
     return [serializeScopeFixture(facetId, code, scopes), scopes.length];
   })();
 
-  if (shouldUpdateFixtures()) {
+  if (updateFixture) {
     await fsp.writeFile(file, outputFixture);
   } else {
     assert.isAbove(numScopes, 0, "No scopes found");
@@ -164,8 +201,8 @@ function getFacetInfo(
   isIteration: boolean;
 } {
   const facetInfo =
-    languageId === "textual"
-      ? textualScopeSupportFacetInfos[facetId as TextualScopeSupportFacet]
+    languageId === "plaintext"
+      ? plaintextScopeSupportFacetInfos[facetId as PlaintextScopeSupportFacet]
       : scopeSupportFacetInfos[facetId as ScopeSupportFacet];
 
   if (facetInfo == null) {

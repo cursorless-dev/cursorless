@@ -1,3 +1,4 @@
+import { LATEST_VERSION } from "@cursorless/common";
 import {
   getCursorlessApi,
   openNewNotebookEditor,
@@ -22,10 +23,11 @@ async function runTest() {
   await hatTokenMap.allocateHats();
 
   await runCursorlessCommand({
-    version: 1,
-    action: "setSelection",
-    targets: [
-      {
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
+    action: {
+      name: "setSelection",
+      target: {
         type: "primitive",
         mark: {
           type: "decoratedSymbol",
@@ -33,7 +35,7 @@ async function runTest() {
           character: "r",
         },
       },
-    ],
+    },
   });
 
   const editor = window.activeTextEditor;

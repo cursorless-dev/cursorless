@@ -120,11 +120,14 @@ function getTextAction(options: GetTextActionOptions): ActionDescriptor {
   };
 }
 
-const parsedActionNoTargets: ActionDescriptor = {
-  name: "parsed",
-  content: "chuck block",
-  arguments: [],
-};
+function parsedAction(content: string): ActionDescriptor {
+  return {
+    name: "parsed",
+    content,
+    arguments: [],
+  };
+}
+
 const parsedActionAir: ActionDescriptor = {
   name: "parsed",
   content: "chuck block <target>",
@@ -221,7 +224,15 @@ export const talonApiFixture = [
     "test api alternate highlight nothing",
     alternateHighlightNothingAction,
   ),
-  spokenFormTest("test api parsed", parsedActionNoTargets),
+  spokenFormTest("test api parsed chuck block", parsedAction("chuck block")),
+  spokenFormTest(
+    "test api parsed take next token",
+    parsedAction("take next token"),
+  ),
+  spokenFormTest(
+    "test api parsed change next instance",
+    parsedAction("change next instance"),
+  ),
   spokenFormTest("test api parsed air and bat", parsedActionAir),
   spokenFormTest("test api parsed air plus bat", parsedActionAirPlusBat),
 ];

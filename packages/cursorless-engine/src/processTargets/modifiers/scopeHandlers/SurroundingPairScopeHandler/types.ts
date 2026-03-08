@@ -1,12 +1,15 @@
-import type { SimpleSurroundingPairName } from "@cursorless/common";
-import { type Range } from "@cursorless/common";
+import type { Range, SimpleSurroundingPairName } from "@cursorless/common";
 
 /**
  * Used to indicate whether a particular side of the delimiter is left or right
  * or if we do not know. Note that the terms "opening" and "closing" could be
  * used instead of "left" and "right", respectively.
  */
-export type DelimiterSide = "unknown" | "left" | "right";
+export enum DelimiterSide {
+  unknown,
+  left,
+  right,
+}
 
 /**
  * A description of one possible side of a delimiter
@@ -39,9 +42,9 @@ export interface IndividualDelimiter {
  */
 export interface DelimiterOccurrence {
   /**
-   * Information about the delimiter itself
+   * Possible delimiter interpretations for this text occurrence
    */
-  delimiterInfo: IndividualDelimiter;
+  delimiterInfos: IndividualDelimiter[];
 
   /**
    * The range of the delimiter in the document

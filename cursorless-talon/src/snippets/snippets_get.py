@@ -30,6 +30,7 @@ def get_list_insertion_snippet(
         raise
 
     return ListInsertionSnippet(
+        get_fallback_language(),
         substitutions,
         [CustomInsertionSnippet.create(s) for s in snippets],
     )
@@ -49,5 +50,13 @@ def get_list_wrapper_snippet(name: str) -> ListWrapperSnippet | CustomWrapperSni
         raise
 
     return ListWrapperSnippet(
+        get_fallback_language(),
         [CustomWrapperSnippet.create(s) for s in snippets],
     )
+
+
+def get_fallback_language():
+    language = actions.code.language()
+    if language and isinstance(language, str):
+        return language
+    return None

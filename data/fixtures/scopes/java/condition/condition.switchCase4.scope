@@ -1,0 +1,26 @@
+switch (foo) {
+    case 0, 1 -> 0;
+}
+---
+
+[Content] = 1:9-1:13
+           >----<
+1|     case 0, 1 -> 0;
+
+[Removal] = 1:9-1:14
+           >-----<
+1|     case 0, 1 -> 0;
+
+[Leading delimiter] = 1:8-1:9
+          >-<
+1|     case 0, 1 -> 0;
+
+[Trailing delimiter] = 1:13-1:14
+               >-<
+1|     case 0, 1 -> 0;
+
+[Domain] = 1:4-1:19
+      >---------------<
+1|     case 0, 1 -> 0;
+
+[Insertion delimiter] = " "

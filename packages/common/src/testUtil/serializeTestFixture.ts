@@ -1,9 +1,7 @@
 import type { TestCaseFixtureLegacy } from "../types/TestCaseFixture";
 import type { ActionDescriptor } from "../types/command/ActionDescriptor";
-import type { CommandV6 } from "../types/command/CommandV6.types";
 import type { CommandV7 } from "../types/command/CommandV7.types";
 import type { Command } from "../types/command/command.types";
-import type { CommandV5 } from "../types/command/legacy/CommandV5.types";
 import type { EnforceUndefined } from "../util/typeUtils";
 import { serialize } from "./serialize";
 
@@ -34,40 +32,12 @@ function reorderCommandFields(command: Command): Command {
     case 2:
     case 3:
     case 4:
-      throw new Error("All tests must use at least command version 5");
     case 5:
-      return reorderCommandV5Fields(command);
     case 6:
-      return reorderCommandV6Fields(command);
+      throw new Error("All tests must use at least command version 7");
     case 7:
       return reorderCommandV7Fields(command);
   }
-}
-
-function reorderCommandV5Fields(
-  command: CommandV5,
-): EnforceUndefined<CommandV5> {
-  return {
-    version: command.version,
-    spokenForm: command.spokenForm,
-    action: {
-      name: command.action.name,
-      args: command.action.args,
-    },
-    targets: command.targets,
-    usePrePhraseSnapshot: command.usePrePhraseSnapshot,
-  };
-}
-
-function reorderCommandV6Fields(
-  command: CommandV6,
-): EnforceUndefined<CommandV6> {
-  return {
-    version: command.version,
-    spokenForm: command.spokenForm,
-    action: reorderActionFields(command.action),
-    usePrePhraseSnapshot: command.usePrePhraseSnapshot,
-  };
 }
 
 function reorderCommandV7Fields(

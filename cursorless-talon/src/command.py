@@ -10,7 +10,7 @@ from .versions import COMMAND_VERSION
 @dataclasses.dataclass
 class CursorlessCommand:
     version = COMMAND_VERSION
-    spokenForm: str
+    spokenForm: str | None
     usePrePhraseSnapshot: bool
     action: dict
 
@@ -31,7 +31,8 @@ speech_system.register("pre:phrase", on_phrase)
 
 @mod.action_class
 class Actions:
-    def private_cursorless_command_and_wait(action: dict):  # pyright: ignore [reportGeneralTypeIssues]
+    @staticmethod
+    def private_cursorless_command_and_wait(action: dict):
         """Execute cursorless command and wait for it to finish"""
         response = actions.user.private_cursorless_run_rpc_command_get(
             CURSORLESS_COMMAND_ID,
@@ -40,14 +41,16 @@ class Actions:
         if "fallback" in response:
             perform_fallback(response["fallback"])
 
-    def private_cursorless_command_no_wait(action: dict):  # pyright: ignore [reportGeneralTypeIssues]
+    @staticmethod
+    def private_cursorless_command_no_wait(action: dict):
         """Execute cursorless command without waiting"""
         actions.user.private_cursorless_run_rpc_command_no_wait(
             CURSORLESS_COMMAND_ID,
             construct_cursorless_command(action),
         )
 
-    def private_cursorless_command_get(action: dict):  # pyright: ignore [reportGeneralTypeIssues]
+    @staticmethod
+    def private_cursorless_command_get(action: dict):
         """Execute cursorless command and return result"""
         response = actions.user.private_cursorless_run_rpc_command_get(
             CURSORLESS_COMMAND_ID,
@@ -66,7 +69,7 @@ def construct_cursorless_command(action: dict) -> dict:
     except KeyError:
         use_pre_phrase_snapshot = False
 
-    spoken_form = " ".join(last_phrase["phrase"])
+    spoken_form = " ".join(last_phrase["phrase"]) if "phrase" in last_phrase else None
 
     return make_serializable(
         CursorlessCommand(

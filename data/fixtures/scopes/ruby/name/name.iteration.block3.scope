@@ -1,0 +1,46 @@
+if true
+    a
+elsif false
+    a
+else
+    a
+end
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-6:3
+  >-------
+0| if true
+1|     a
+2| elsif false
+3|     a
+4| else
+5|     a
+6| end
+   ---<
+
+
+[#2 Content] =
+[#2 Domain] = 0:7-2:0
+         >
+0| if true
+1|     a
+2| elsif false
+   <
+
+
+[#3 Content] =
+[#3 Domain] = 2:11-4:0
+             >
+2| elsif false
+3|     a
+4| else
+   <
+
+
+[#4 Content] =
+[#4 Domain] = 4:4-5:5
+      >
+4| else
+5|     a
+   -----<

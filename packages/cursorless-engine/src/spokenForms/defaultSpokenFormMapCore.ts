@@ -93,6 +93,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     token: "token",
     identifier: "identifier",
     line: "line",
+    fullLine: "full line",
     sentence: "sentence",
     paragraph: "block",
     boundedParagraph: "short block",
@@ -106,16 +107,11 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     textFragment: isPrivate("text fragment"),
     disqualifyDelimiter: isPrivate("disqualify delimiter"),
     pairDelimiter: isPrivate("pair delimiter"),
+    interior: isPrivate("interior"),
     ["private.fieldAccess"]: isPrivate("access"),
-    ["private.switchStatementSubject"]: isPrivate("subject"),
   },
   complexScopeTypeType: {
     glyph: "glyph",
-  },
-
-  surroundingPairForceDirection: {
-    left: "left",
-    right: "right",
   },
 
   simpleModifier: {
@@ -210,9 +206,10 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     gitStage: "git stage",
     gitUnstage: "git unstage",
 
-    ["private.showParseTree"]: isPrivate("parse tree"),
-    ["experimental.setInstanceReference"]: isDisabledByDefault("from"),
+    // Was disabled by default before, but is now enabled by default
+    ["experimental.setInstanceReference"]: "from",
 
+    ["private.showParseTree"]: isPrivate("parse tree"),
     editNew: isPrivate("edit new"),
     executeCommand: isPrivate("execute command"),
     parsed: isPrivate("parsed"),

@@ -1,6 +1,6 @@
 languageId: json
 command:
-  version: 6
+  version: 7
   spokenForm: take parse tree string
   action:
     name: setSelection

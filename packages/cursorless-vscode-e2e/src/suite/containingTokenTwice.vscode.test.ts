@@ -1,3 +1,4 @@
+import { LATEST_VERSION } from "@cursorless/common";
 import {
   getCursorlessApi,
   openNewEditor,
@@ -25,18 +26,18 @@ async function runTest() {
     editor.selection = new vscode.Selection(0, 1, 0, 1);
 
     await runCursorlessCommand({
-      version: 3,
-      action: { name: "setSelection" },
+      version: LATEST_VERSION,
       usePrePhraseSnapshot: false,
-      targets: [
-        {
+      action: {
+        name: "setSelection",
+        target: {
           type: "primitive",
           modifiers: [
             { type: "containingScope", scopeType: { type: "token" } },
           ],
           mark: { type: "cursor" },
         },
-      ],
+      },
     });
 
     assert.isTrue(editor.selection.isEqual(new vscode.Selection(0, 0, 0, 1)));

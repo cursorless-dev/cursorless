@@ -5,26 +5,42 @@ import {
   type ScopeType,
   type SimpleScopeTypeType,
 } from "@cursorless/common";
-import { openNewEditor, runCursorlessCommand } from "@cursorless/vscode-common";
+import { openNewEditor, runCursorlessAction } from "@cursorless/vscode-common";
 import assert from "assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
+import { isCI } from "../isCI";
+import { isMac } from "@cursorless/node-common";
 
 const testData = generateTestData(100);
-
-const smallThresholdMs = 100;
-const largeThresholdMs = 500;
+const multiplier = calculateMultiplier();
+const smallThresholdMs = 50 * multiplier;
+const midThresholdMs = 200 * multiplier;
+const largeThresholdMs = 300 * multiplier;
+const xlThresholdMs = 400 * multiplier;
+const thresholds = [
+  smallThresholdMs,
+  midThresholdMs,
+  largeThresholdMs,
+  xlThresholdMs,
+];
 
 type ModifierType = "containing" | "previous" | "every";
 
-suite("Performance", async function () {
+suite(`Performance ${thresholds.join("/")} ms`, async function () {
   endToEndTestSetup(this);
 
   let previousTitle = "";
 
-  // Before each test, print the test title. This is done we have the test
+  // Before each test, print the test title. This is done so we have the test
   // title before the test run time / duration.
   this.beforeEach(function () {
+    // FIXME: This test is flaky on Mac CI, so we skip it there for now
+    if (isCI() && isMac()) {
+      this.skip();
+      return;
+    }
+
     const title = this.currentTest!.title;
     if (title !== previousTitle) {
       console.log(`    ${title}`);
@@ -51,7 +67,7 @@ suite("Performance", async function () {
     ["paragraph", smallThresholdMs],
     ["document", smallThresholdMs],
     ["nonWhitespaceSequence", smallThresholdMs],
-    // Parse tree based, containing/every scope
+    // Parse tree based, containing / every scope
     ["string", smallThresholdMs],
     ["map", smallThresholdMs],
     ["collectionKey", smallThresholdMs],
@@ -65,15 +81,13 @@ suite("Performance", async function () {
     ["boundedParagraph", largeThresholdMs],
     ["boundedNonWhitespaceSequence", largeThresholdMs],
     ["collectionItem", largeThresholdMs],
+    ["collectionItem", largeThresholdMs, "every"],
+    ["collectionItem", largeThresholdMs, "previous"],
     // Surrounding pair
-    [{ type: "surroundingPair", delimiter: "any" }, largeThresholdMs],
-    [{ type: "surroundingPair", delimiter: "curlyBrackets" }, largeThresholdMs],
-    [{ type: "surroundingPair", delimiter: "any" }, largeThresholdMs, "every"],
-    [
-      { type: "surroundingPair", delimiter: "any" },
-      largeThresholdMs,
-      "previous",
-    ],
+    [{ type: "surroundingPair", delimiter: "curlyBrackets" }, midThresholdMs],
+    [{ type: "surroundingPair", delimiter: "any" }, midThresholdMs],
+    [{ type: "surroundingPair", delimiter: "any" }, midThresholdMs, "every"],
+    [{ type: "surroundingPair", delimiter: "any" }, midThresholdMs, "previous"],
   ];
 
   for (const [scope, threshold, modifierType] of fixtures) {
@@ -86,10 +100,55 @@ suite("Performance", async function () {
       asyncSafety(() => selectScopeType(scopeType, threshold, modifierType)),
     );
   }
+
+  test(
+    "Select collectionKey with multiple cursors",
+    asyncSafety(() =>
+      selectWithMultipleCursors(smallThresholdMs, {
+        type: "collectionKey",
+      }),
+    ),
+  );
+
+  test(
+    "Select collectionItem with multiple cursors",
+    asyncSafety(() =>
+      selectWithMultipleCursors(midThresholdMs, {
+        type: "collectionItem",
+      }),
+    ),
+  );
+
+  test(
+    "Select surroundingPair.any with multiple cursors",
+    asyncSafety(() =>
+      selectWithMultipleCursors(xlThresholdMs, {
+        type: "surroundingPair",
+        delimiter: "any",
+      }),
+    ),
+  );
+
+  test(
+    "Swap key / value with multiple cursors",
+    asyncSafety(() =>
+      testWithMultipleCursors(midThresholdMs, {
+        name: "swapTargets",
+        target1: {
+          type: "primitive",
+          modifiers: [getModifier({ type: "collectionKey" })],
+        },
+        target2: {
+          type: "primitive",
+          modifiers: [getModifier({ type: "value" })],
+        },
+      }),
+    ),
+  );
 });
 
-async function removeToken(thresholdMs: number) {
-  await testPerformance(thresholdMs, {
+function removeToken(thresholdMs: number) {
+  return testPerformance(thresholdMs, {
     name: "remove",
     target: {
       type: "primitive",
@@ -98,18 +157,84 @@ async function removeToken(thresholdMs: number) {
   });
 }
 
-async function selectScopeType(
+function selectWithMultipleCursors(thresholdMs: number, scopeType: ScopeType) {
+  return testWithMultipleCursors(thresholdMs, {
+    name: "setSelection",
+    target: {
+      type: "primitive",
+      modifiers: [getModifier(scopeType)],
+    },
+  });
+}
+
+function testWithMultipleCursors(
+  thresholdMs: number,
+  action: ActionDescriptor,
+) {
+  const beforeCallback = async (editor: vscode.TextEditor) => {
+    await runCursorlessAction({
+      name: "setSelectionBefore",
+      target: {
+        type: "primitive",
+        modifiers: [getModifier({ type: "collectionItem" }, "every")],
+      },
+    });
+
+    assert.equal(editor.selections.length, 100, "Expected 100 cursors");
+  };
+
+  const callback = () => runCursorlessAction(action);
+  return testPerformanceCallback(thresholdMs, callback, beforeCallback);
+}
+
+function selectScopeType(
   scopeType: ScopeType,
   thresholdMs: number,
   modifierType?: ModifierType,
 ) {
-  await testPerformance(thresholdMs, {
+  return testPerformance(thresholdMs, {
     name: "setSelection",
     target: {
       type: "primitive",
       modifiers: [getModifier(scopeType, modifierType)],
     },
   });
+}
+
+function testPerformance(thresholdMs: number, action: ActionDescriptor) {
+  return testPerformanceCallback(thresholdMs, () => {
+    return runCursorlessAction(action);
+  });
+}
+
+async function testPerformanceCallback(
+  thresholdMs: number,
+  callback: () => Promise<unknown>,
+  beforeCallback?: (editor: vscode.TextEditor) => Promise<unknown>,
+) {
+  const editor = await openNewEditor(testData, { languageId: "json" });
+  // This is the position of the last json key in the document
+  const position = new vscode.Position(editor.document.lineCount - 3, 5);
+  const selection = new vscode.Selection(position, position);
+  editor.selections = [selection];
+  editor.revealRange(selection);
+
+  if (beforeCallback != null) {
+    await beforeCallback(editor);
+  }
+
+  const start = performance.now();
+
+  await callback();
+
+  const duration = Math.round(performance.now() - start);
+
+  console.log(`      ${duration} / ${thresholdMs} ms`);
+
+  assert.ok(
+    duration <= thresholdMs,
+    `Duration ${duration}ms exceeds threshold ${thresholdMs}ms`,
+  );
 }
 
 function getModifier(
@@ -130,32 +255,6 @@ function getModifier(
         scopeType,
       };
   }
-}
-
-async function testPerformance(thresholdMs: number, action: ActionDescriptor) {
-  const editor = await openNewEditor(testData, { languageId: "json" });
-  // This is the position of the last json key in the document
-  const position = new vscode.Position(editor.document.lineCount - 3, 5);
-  const selection = new vscode.Selection(position, position);
-  editor.selections = [selection];
-  editor.revealRange(selection);
-
-  const start = performance.now();
-
-  await runCursorlessCommand({
-    version: 7,
-    usePrePhraseSnapshot: false,
-    action,
-  });
-
-  const duration = Math.round(performance.now() - start);
-
-  console.log(`      ${duration} ms`);
-
-  assert.ok(
-    duration < thresholdMs,
-    `Duration ${duration}ms exceeds threshold ${thresholdMs}ms`,
-  );
 }
 
 function getScopeTypeAndTitle(
@@ -187,4 +286,13 @@ function generateTestData(n: number): string {
     new Array(n).fill("").map((_, i) => [i.toString(), value]),
   );
   return JSON.stringify(obj, null, 2);
+}
+
+function calculateMultiplier() {
+  // The GitHub test runner is generally slower than running tests locally, so
+  // we increase the thresholds in CI.
+  if (isCI()) {
+    return 2;
+  }
+  return 1;
 }

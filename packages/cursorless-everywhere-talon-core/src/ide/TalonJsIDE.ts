@@ -8,6 +8,7 @@ import type {
   GeneralizedRange,
   IDE,
   InputBoxOptions,
+  KeyValueStore,
   Listener,
   Messages,
   NotebookEditor,
@@ -21,7 +22,7 @@ import type {
   TextEditorVisibleRangesChangeEvent,
   WorkspaceFolder,
 } from "@cursorless/common";
-import { Notifier, type KeyValueStore } from "@cursorless/common";
+import { Notifier } from "@cursorless/common";
 import { pull } from "lodash-es";
 import type { Talon } from "../types/talon.types";
 import type { EditorState } from "../types/types";

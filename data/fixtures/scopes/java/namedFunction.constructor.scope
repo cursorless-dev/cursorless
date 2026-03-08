@@ -1,21 +1,21 @@
-public class MyClass {
-    public MyClass() { }
+public class Foo {
+    public Foo() {}
 }
 ---
 
 [Content] =
-[Domain] = 1:4-1:24
-      >--------------------<
-1|     public MyClass() { }
+[Domain] = 1:4-1:19
+      >---------------<
+1|     public Foo() {}
 
 [Removal] = 1:0-2:0
-  >------------------------
-1|     public MyClass() { }
+  >-------------------
+1|     public Foo() {}
 2| }
    <
 
 [Leading delimiter] = 1:0-1:4
   >----<
-1|     public MyClass() { }
+1|     public Foo() {}
 
 [Insertion delimiter] = "\n\n"

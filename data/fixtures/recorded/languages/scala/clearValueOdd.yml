@@ -1,6 +1,6 @@
 languageId: scala
 command:
-  version: 6
+  version: 7
   spokenForm: change value odd
   action:
     name: clearAndSetSelection

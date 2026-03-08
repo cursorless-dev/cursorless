@@ -23,9 +23,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
-          python-version: 3.x
+          python-version-file: "pyproject.toml"
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -51,3 +51,8 @@ jobs:
       - name: Auto-fix pre-commit issues
         uses: pre-commit-ci/lite-action@v1.0.2
         if: always()
+
+      - name: Pyright
+        uses: jakebailey/pyright-action@v3
+        with:
+          pylance-version: latest-release

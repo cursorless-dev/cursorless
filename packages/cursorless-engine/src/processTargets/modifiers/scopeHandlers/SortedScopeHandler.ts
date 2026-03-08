@@ -26,9 +26,17 @@ export class SortedScopeHandler extends BaseScopeHandler {
     scopeType: OneOfScopeType,
     languageId: string,
   ): ScopeHandler {
-    const scopeHandlers: ScopeHandler[] = scopeType.scopeTypes.map(
-      (scopeType) => scopeHandlerFactory.create(scopeType, languageId),
-    );
+    const scopeHandlers = scopeType.scopeTypes
+      .map((scopeType) =>
+        scopeHandlerFactory.maybeCreate(scopeType, languageId),
+      )
+      .filter(
+        (scopeHandler): scopeHandler is ScopeHandler => scopeHandler != null,
+      );
+
+    if (scopeHandlers.length === 1) {
+      return scopeHandlers[0];
+    }
 
     return this.createFromScopeHandlers(
       scopeHandlerFactory,

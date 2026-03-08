@@ -1,8 +1,38 @@
 {
   "name": "@cursorless/cursorless-vscode",
   "displayName": "Cursorless",
+  "version": "1.1.0",
   "description": "Structural voice coding at the speed of thought",
+  "license": "MIT",
+  "publisher": "pokey",
+  "homepage": "https://www.cursorless.org/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cursorless-dev/cursorless.git"
+  },
+  "funding": "https://github.com/sponsors/cursorless-dev",
+  "sponsor": {
+    "url": "https://github.com/sponsors/cursorless-dev"
+  },
   "private": true,
+  "type": "module",
+  "main": "./extension.cjs",
+  "engines": {
+    "vscode": "^1.98.0"
+  },
+  "extensionKind": [
+    "ui",
+    "workspace"
+  ],
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "Voice coding"
+  ],
+  "activationEvents": [
+    "onLanguage"
+  ],
   "icon": "images/logo.png",
   "galleryBanner": {
     "color": "#00001A",
@@ -20,34 +50,6 @@
       "description": "Tests"
     }
   ],
-  "version": "1.0.0",
-  "publisher": "pokey",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/cursorless-dev/cursorless.git"
-  },
-  "homepage": "https://www.cursorless.org/",
-  "engines": {
-    "vscode": "^1.82.0"
-  },
-  "extensionKind": [
-    "ui",
-    "workspace"
-  ],
-  "categories": [
-    "Other"
-  ],
-  "keywords": [
-    "Voice coding"
-  ],
-  "extensionDependencies": [
-    "pokey.parse-tree"
-  ],
-  "activationEvents": [
-    "onLanguage"
-  ],
-  "main": "./extension.cjs",
   "capabilities": {
     "untrustedWorkspaces": {
       "supported": true
@@ -59,11 +61,13 @@
         {
           "type": "webview",
           "id": "cursorless.tutorial",
-          "name": "Tutorial"
+          "name": "Tutorial",
+          "icon": "images/logo.svg"
         },
         {
           "id": "cursorless.scopes",
-          "name": "Scopes"
+          "name": "Scopes",
+          "icon": "images/logo.svg"
         }
       ]
     },
@@ -115,6 +119,10 @@
       {
         "command": "cursorless.hideScopeVisualizer",
         "title": "Cursorless: Hide the scope visualizer"
+      },
+      {
+        "command": "cursorless.scopeVisualizer.openUrl",
+        "title": "Cursorless: Open in browser"
       },
       {
         "command": "cursorless.analyzeCommandHistory",
@@ -237,11 +245,6 @@
       {
         "command": "cursorless.keyboard.redoTarget",
         "title": "Cursorless: Redo keyboard targeting changes",
-        "enablement": "false"
-      },
-      {
-        "command": "cursorless.migrateSnippets",
-        "title": "Cursorless: Migrate snippets from the old Cursorless format to the new community format",
         "enablement": "false"
       }
     ],
@@ -1198,20 +1201,6 @@
         }
       }
     },
-    "languages": [
-      {
-        "id": "json",
-        "extensions": [
-          ".cursorless-snippets"
-        ]
-      }
-    ],
-    "jsonValidation": [
-      {
-        "fileMatch": "*.cursorless-snippets",
-        "url": "./schemas/cursorless-snippets.json"
-      }
-    ],
     "icons": {
       "cursorless-icon": {
         "description": "Cursorless icon",
@@ -1229,12 +1218,34 @@
           "icon": "images/logo.svg"
         }
       ]
-    }
+    },
+    "menus": {
+      "view/item/context": [
+        {
+          "command": "cursorless.scopeVisualizer.openUrl",
+          "when": "view == cursorless.scopes && viewItem == scopeVisualizerTreeItem",
+          "group": "navigation"
+        }
+      ]
+    },
+    "languages": [
+      {
+        "id": "talon"
+      },
+      {
+        "id": "talon-list"
+      },
+      {
+        "id": "scala"
+      },
+      {
+        "id": "kotlin"
+      },
+      {
+        "id": "scm"
+      }
+    ]
   },
-  "sponsor": {
-    "url": "https://github.com/sponsors/cursorless-dev"
-  },
-  "funding": "https://github.com/sponsors/cursorless-dev",
   "scripts": {
     "build": "pnpm run esbuild:prod && pnpm -F cheatsheet-local build:prod && pnpm -F cursorless-vscode-tutorial-webview build:prod && pnpm run populate-dist",
     "build:dev": "pnpm generate-grammar && pnpm run esbuild && pnpm -F cheatsheet-local build && pnpm -F cursorless-vscode-tutorial-webview build && pnpm run populate-dist",
@@ -1260,22 +1271,9 @@
     "watch": "tsc --build --watch",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
-  "devDependencies": {
-    "@types/fs-extra": "11.0.4",
-    "@types/js-yaml": "^4.0.9",
-    "@types/lodash-es": "4.17.12",
-    "@types/nearley": "2.11.5",
-    "@types/node": "20.16.0",
-    "@types/semver": "^7.5.8",
-    "@types/sinon": "^17.0.3",
-    "@types/tinycolor2": "1.4.6",
-    "@types/uuid": "^10.0.0",
-    "@types/vscode": "1.82.0",
-    "esbuild": "^0.25.0",
-    "fast-xml-parser": "^4.5.0",
-    "fs-extra": "11.2.0",
-    "sinon": "^19.0.2"
-  },
+  "extensionDependencies": [
+    "pokey.parse-tree"
+  ],
   "dependencies": {
     "@cursorless/common": "workspace:*",
     "@cursorless/cursorless-cheatsheet": "workspace:*",
@@ -1284,16 +1282,28 @@
     "@cursorless/node-common": "workspace:*",
     "@cursorless/test-case-recorder": "workspace:*",
     "@cursorless/vscode-common": "workspace:*",
-    "glob": "^11.0.0",
-    "itertools": "^2.3.2",
-    "lodash-es": "^4.17.21",
-    "nearley": "2.20.1",
-    "semver": "^7.6.3",
-    "talon-snippets": "1.3.0",
-    "tinycolor2": "1.6.0",
-    "trie-search": "2.0.0",
-    "uuid": "^10.0.0",
-    "vscode-uri": "^3.0.8"
+    "glob": "^13.0.6",
+    "itertools": "^2.6.0",
+    "lodash-es": "^4.17.23",
+    "nearley": "^2.20.1",
+    "semver": "^7.7.4",
+    "talon-snippets": "^1.3.0",
+    "trie-search": "^2.2.1",
+    "uuid": "^13.0.0",
+    "vscode-uri": "^3.1.0"
   },
-  "type": "module"
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/js-yaml": "^4.0.9",
+    "@types/lodash-es": "^4.17.12",
+    "@types/nearley": "^2.11.5",
+    "@types/node": "^24.12.0",
+    "@types/semver": "^7.7.1",
+    "@types/sinon": "^21.0.0",
+    "@types/vscode": "1.98.0",
+    "esbuild": "^0.27.3",
+    "fast-xml-parser": "^5.4.2",
+    "fs-extra": "^11.3.4",
+    "sinon": "^21.0.2"
+  }
 }

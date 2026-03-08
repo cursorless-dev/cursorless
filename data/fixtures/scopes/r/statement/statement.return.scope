@@ -1,0 +1,21 @@
+function() {
+    return(0)
+}
+---
+
+[Content] =
+[Domain] = 1:4-1:13
+      >---------<
+1|     return(0)
+
+[Removal] = 1:0-2:0
+  >-------------
+1|     return(0)
+2| }
+   <
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     return(0)
+
+[Insertion delimiter] = "\n"

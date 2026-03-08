@@ -5,9 +5,10 @@ import { lexer } from "../lexer";
 import {
   bringMoveActionDescriptor,
   containingScopeModifier,
-  partialPrimitiveTargetDescriptor,
   createPlaceholderTarget,
+  partialPrimitiveTargetDescriptor,
   primitiveDestinationDescriptor,
+  relativeScopeModifier,
   simpleActionDescriptor,
   simplePartialMark,
   simpleScopeType,
@@ -54,12 +55,12 @@ primitiveTarget -> modifier:+ mark {%
 
 # --------------------------- Modifiers ---------------------------
 
-modifier -> containingScopeModifier {%
-  ([containingScopeModifier]) => containingScopeModifier
+modifier -> scopeType {%
+  ([scopeType]) => containingScopeModifier(scopeType)
 %}
 
-containingScopeModifier -> scopeType {%
-  ([scopeType]) => containingScopeModifier(scopeType)
+modifier -> %direction scopeType {%
+  ([direction, scopeType]) => relativeScopeModifier(scopeType, direction)
 %}
 
 # --------------------------- Scope types ---------------------------

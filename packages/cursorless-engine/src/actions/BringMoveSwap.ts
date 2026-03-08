@@ -70,6 +70,8 @@ abstract class BringMoveSwap {
 
     sources.forEach((source, i) => {
       let destination = destinations[i];
+      let destinationEdit: ExtendedEdit | undefined;
+
       if ((source == null || destination == null) && !shouldJoinSources) {
         throw new Error("Targets must have same number of args");
       }
@@ -89,13 +91,15 @@ abstract class BringMoveSwap {
         } else {
           text = source.contentText;
         }
+
         // Add destination edit
-        results.push({
+        destinationEdit = {
           edit: destination.constructChangeEdit(text),
           editor: destination.editor,
           originalTarget: destination.target,
           isSource: false,
-        });
+        };
+        results.push(destinationEdit);
       } else {
         destination = destinations[0];
       }
@@ -103,7 +107,16 @@ abstract class BringMoveSwap {
       // Add source edit
       // Prevent multiple instances of the same expanded source.
       if (!usedSources.includes(source)) {
-        usedSources.push(source);
+        // Allow move where the destination contains the source. eg "bring token to line"
+        if (
+          this.type !== "move" ||
+          destinationEdit == null ||
+          destinationEdit.editor.id !== source.editor.id ||
+          !destinationEdit.edit.range.contains(source.contentRange)
+        ) {
+          usedSources.push(source);
+        }
+
         if (this.type === "bring") {
           results.push({
             edit: source

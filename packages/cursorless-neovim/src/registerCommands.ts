@@ -88,7 +88,6 @@ export async function registerCommands(
     ["cursorless.showQuickPick"]: dummyCommandHandler,
     ["cursorless.showDocumentation"]: dummyCommandHandler,
     ["cursorless.showInstallationDependencies"]: dummyCommandHandler,
-    ["cursorless.migrateSnippets"]: dummyCommandHandler,
     ["cursorless.private.logQuickActions"]: dummyCommandHandler,
 
     // Hats
@@ -98,6 +97,7 @@ export async function registerCommands(
     // Scope visualizer
     ["cursorless.showScopeVisualizer"]: dummyCommandHandler,
     ["cursorless.hideScopeVisualizer"]: dummyCommandHandler,
+    ["cursorless.scopeVisualizer.openUrl"]: dummyCommandHandler,
 
     // Command history
     ["cursorless.analyzeCommandHistory"]: dummyCommandHandler,
@@ -129,7 +129,7 @@ export async function registerCommands(
     ["cursorless.documentationOpened"]: dummyCommandHandler,
   };
 
-  Object.entries(commands).map(([commandId, callback]) =>
+  Object.entries(commands).forEach(([commandId, callback]) =>
     getNeovimRegistry().registerCommand(commandId, callback),
   );
 }

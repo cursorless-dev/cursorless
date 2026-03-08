@@ -1,5 +1,10 @@
 import type { Modifier, SpyIDE } from "@cursorless/common";
-import { HatStability, Range, asyncSafety } from "@cursorless/common";
+import {
+  HatStability,
+  LATEST_VERSION,
+  Range,
+  asyncSafety,
+} from "@cursorless/common";
 import {
   getCursorlessApi,
   openNewEditor,
@@ -120,7 +125,8 @@ async function runTest(
 
   // "from this" / "from file this", depending on the value of `useWholeFile`
   await runCursorlessCommand({
-    version: 6,
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
     action: {
       name: "experimental.setInstanceReference",
       target: {
@@ -133,13 +139,13 @@ async function runTest(
           : [],
       },
     },
-    usePrePhraseSnapshot: false,
   });
 
   // "change <modifier> air", where <modifier> is some kind of "instance"
   // modifier
   await runCursorlessCommand({
-    version: 6,
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
     action: {
       name: "clearAndSetSelection",
       target: {
@@ -152,7 +158,6 @@ async function runTest(
         modifiers: [modifier],
       },
     },
-    usePrePhraseSnapshot: false,
   });
 
   assert.deepStrictEqual(instanceDocument.getText(), "aaa");

@@ -4,21 +4,27 @@ import type {
   SurroundingPairScopeType,
   TextEditor,
 } from "@cursorless/common";
-import { showError, type ScopeType } from "@cursorless/common";
 import type { LanguageDefinitions } from "../../../../languages/LanguageDefinitions";
-import { ide } from "../../../../singletons/ide.singleton";
 import { BaseScopeHandler } from "../BaseScopeHandler";
 import { compareTargetScopes } from "../compareTargetScopes";
 import type { TargetScope } from "../scope.types";
-import type { ScopeIteratorRequirements } from "../scopeHandler.types";
+import type {
+  ConditionalScopeType,
+  ScopeIteratorRequirements,
+} from "../scopeHandler.types";
 import { createTargetScope } from "./createTargetScope";
 import { getDelimiterOccurrences } from "./getDelimiterOccurrences";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";
 import { getSurroundingPairOccurrences } from "./getSurroundingPairOccurrences";
 import type { SurroundingPairOccurrence } from "./types";
+import { scopeHandlerCache } from "../ScopeHandlerCache";
 
 export class SurroundingPairScopeHandler extends BaseScopeHandler {
-  public readonly iterationScopeType: ScopeType = { type: "line" };
+  public readonly iterationScopeType: ConditionalScopeType = {
+    type: "conditional",
+    scopeType: { type: "line" },
+    predicate: (scope) => !scope.domain.isEmpty,
+  };
   protected isHierarchical = true;
 
   constructor(
@@ -35,32 +41,31 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
     direction: Direction,
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
-    if (this.scopeType.forceDirection != null) {
-      //  DEPRECATED @ 2024-07-01
-      void showError(
-        ide().messages,
-        "deprecatedForceDirection",
-        "forceDirection is deprecated. If this is important to you please file an issue on the cursorless repo.",
+    const cacheKey = "SurroundingPairScopeHandler_" + this.scopeType.delimiter;
+
+    if (!scopeHandlerCache.isValid(cacheKey, editor.document)) {
+      const delimiterOccurrences = getDelimiterOccurrences(
+        this.languageDefinitions.get(this.languageId),
+        editor.document,
+        getIndividualDelimiters(this.scopeType.delimiter, this.languageId),
       );
-      return;
+
+      const surroundingPairs =
+        getSurroundingPairOccurrences(delimiterOccurrences);
+
+      scopeHandlerCache.update(cacheKey, editor.document, surroundingPairs);
     }
 
-    const delimiterOccurrences = getDelimiterOccurrences(
-      this.languageDefinitions.get(this.languageId),
-      editor.document,
-      getIndividualDelimiters(this.scopeType.delimiter, this.languageId),
-    );
+    const surroundingPairs = scopeHandlerCache.get<SurroundingPairOccurrence>();
 
-    let surroundingPairs = getSurroundingPairOccurrences(delimiterOccurrences);
-
-    surroundingPairs = maybeApplyEmptyTargetHack(
+    const updatedSurroundingPairs = maybeApplyEmptyTargetHack(
       direction,
       hints,
       position,
       surroundingPairs,
     );
 
-    yield* surroundingPairs
+    yield* updatedSurroundingPairs
       .map((pair) =>
         createTargetScope(
           editor,

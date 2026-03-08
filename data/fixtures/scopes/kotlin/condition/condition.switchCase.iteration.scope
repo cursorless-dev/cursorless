@@ -1,0 +1,7 @@
+when (foo) { }
+---
+
+[Content] =
+[Domain] = 0:12-0:13
+              >-<
+0| when (foo) { }

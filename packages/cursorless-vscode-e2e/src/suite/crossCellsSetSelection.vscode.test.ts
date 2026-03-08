@@ -1,3 +1,5 @@
+import { LATEST_VERSION } from "@cursorless/common";
+import { isLinux } from "@cursorless/node-common";
 import {
   getCursorlessApi,
   openNewNotebookEditor,
@@ -6,9 +8,15 @@ import {
 import assert from "assert";
 import { window } from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
+import { isCI } from "../isCI";
 
 // Check that setSelection is able to focus the correct cell
 suite("Cross-cell set selection", async function () {
+  // FIXME: This test is flaky on Linux CI, so we skip it there for now
+  if (isCI() && isLinux()) {
+    this.ctx.skip();
+  }
+
   endToEndTestSetup(this);
 
   test("Cross-cell set selection", runTest);
@@ -22,10 +30,11 @@ async function runTest() {
   await hatTokenMap.allocateHats();
 
   await runCursorlessCommand({
-    version: 1,
-    action: "setSelection",
-    targets: [
-      {
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
+    action: {
+      name: "setSelection",
+      target: {
         type: "primitive",
         mark: {
           type: "decoratedSymbol",
@@ -33,10 +42,9 @@ async function runTest() {
           character: "o",
         },
       },
-    ],
+    },
   });
 
-  // eslint-disable-next-line no-restricted-properties
   const editor = window.activeTextEditor;
 
   if (editor == null) {

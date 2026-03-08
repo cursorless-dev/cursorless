@@ -1,0 +1,24 @@
+interface IFoo {}
+---
+
+[Content] = 0:10-0:14
+            >----<
+0| interface IFoo {}
+
+[Removal] = 0:10-0:15
+            >-----<
+0| interface IFoo {}
+
+[Leading delimiter] = 0:9-0:10
+           >-<
+0| interface IFoo {}
+
+[Trailing delimiter] = 0:14-0:15
+                >-<
+0| interface IFoo {}
+
+[Domain] = 0:0-0:17
+  >-----------------<
+0| interface IFoo {}
+
+[Insertion delimiter] = " "

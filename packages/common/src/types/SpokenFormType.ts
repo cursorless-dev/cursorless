@@ -16,7 +16,6 @@ export interface SpokenFormMapKeyTypes {
   pairedDelimiter: SpeakableSurroundingPairName;
   simpleScopeTypeType: SimpleScopeTypeType;
   complexScopeTypeType: "glyph";
-  surroundingPairForceDirection: "left" | "right";
 
   /**
    * These modifier types are spoken by directly saying the spoken form for the
@@ -65,7 +64,7 @@ type SimpleModifierType = Exclude<
   | "ordinalScope"
   | "relativeScope"
   | "modifyIfUntyped"
-  | "cascading"
+  | "fallback"
   | "range"
 >;
 

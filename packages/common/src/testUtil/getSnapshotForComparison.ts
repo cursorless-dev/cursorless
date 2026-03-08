@@ -47,12 +47,18 @@ export async function getSnapshotForComparison(
     }
   }
 
+  const editor = spyIde.activeTextEditor;
+
+  if (editor == null) {
+    throw new Error("No active text editor found in SpyIDE");
+  }
+
   // FIXME Visible ranges are not asserted, see:
   // https://github.com/cursorless-dev/cursorless/issues/160
   const { visibleRanges, ...resultState } = await takeSnapshot(
     excludeFields,
     [],
-    spyIde.activeTextEditor!,
+    editor,
     spyIde,
     marks,
   );

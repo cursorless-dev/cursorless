@@ -1,4 +1,4 @@
-import type { TextEditor } from "@cursorless/common";
+import type { TextEditor, TextLine } from "@cursorless/common";
 import { Position, Range, toLineRange } from "@cursorless/common";
 import type { TextualType } from "../../typings/target.types";
 import { expandToFullLine } from "../../util/rangeUtils";
@@ -93,4 +93,20 @@ export function constructLineTarget(
   isReversed: boolean,
 ): LineTarget | undefined {
   return tryConstructTarget(LineTarget, editor, range, isReversed);
+}
+
+export function createLineTarget(
+  editor: TextEditor,
+  isReversed: boolean,
+  line: TextLine,
+  useFullRange = false,
+) {
+  return new LineTarget({
+    editor,
+    isReversed,
+    contentRange:
+      useFullRange || line.rangeTrimmed == null
+        ? line.range
+        : line.rangeTrimmed,
+  });
 }

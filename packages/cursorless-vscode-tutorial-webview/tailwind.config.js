@@ -1,17 +1,17 @@
-import { readFileSync } from "fs";
+import { readFileSync } from "node:fs";
 
 const references = JSON.parse(
   readFileSync("tsconfig.json", "utf-8"),
 ).references.map((ref) => ref.path);
 
-export const content = [".", ...references].map(
-  (dir) => `${dir}/src/**/*!(*.stories|*.spec).{ts,tsx,html}`,
-);
-export const theme = {
-  extend: {
-    fontSize: {
-      ["2xs"]: "0.625rem",
-    },
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [".", ...references].flatMap((pkg) => [
+    `${pkg}/src/**/*.{ts,tsx,html}`,
+    `!${pkg}/src/**/*.{stories,spec}.{ts,tsx,html}`,
+  ]),
+  theme: {
+    extend: {},
   },
+  plugins: [],
 };
-export const plugins = [];

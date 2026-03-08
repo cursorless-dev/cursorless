@@ -1,6 +1,6 @@
 languageId: python
 command:
-  version: 6
+  version: 7
   spokenForm: swap string air with whale
   action:
     name: swapTargets

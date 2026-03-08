@@ -1,20 +1,20 @@
-<div id="root"></div>
+<div id="foo"></div>
 ---
 
 [Content] = 0:5-0:7
        >--<
-0| <div id="root"></div>
+0| <div id="foo"></div>
 
 [Removal] = 0:5-0:8
        >---<
-0| <div id="root"></div>
+0| <div id="foo"></div>
 
 [Trailing delimiter] = 0:7-0:8
          >-<
-0| <div id="root"></div>
+0| <div id="foo"></div>
 
-[Domain] = 0:5-0:14
-       >---------<
-0| <div id="root"></div>
+[Domain] = 0:5-0:13
+       >--------<
+0| <div id="foo"></div>
 
 [Insertion delimiter] = " "

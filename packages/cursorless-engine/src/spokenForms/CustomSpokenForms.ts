@@ -74,6 +74,11 @@ export class CustomSpokenForms {
 
   private async updateSpokenFormMaps(): Promise<void> {
     let allCustomEntries: SpokenFormEntry[];
+
+    // We successfully loaded spoken forms, so any previous "needs update"
+    // state is no longer relevant.
+    this.needsInitialTalonUpdate_ = false;
+
     try {
       allCustomEntries = await this.talonSpokenForms.getSpokenFormEntries();
       if (allCustomEntries.length === 0) {

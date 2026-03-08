@@ -1,0 +1,12 @@
+const foo = {
+    bar: function(aaa, bbb) {}
+}
+---
+
+[Content] = 1:18-1:26
+                    >--------<
+1|     bar: function(aaa, bbb) {}
+
+[Domain] = 1:4-1:30
+      >--------------------------<
+1|     bar: function(aaa, bbb) {}

@@ -34,9 +34,8 @@ For example, if you'd like to add support for the `namedFunction` facet of the `
 ```ts
   namedFunction: supported,
   "namedFunction.method": supported,
-  "namedFunction.method.iteration.class": supported,
+  "namedFunction.iteration.class": supported,
   "namedFunction.constructor": supported,
-  "namedFunction.iteration.block": supported,
   "namedFunction.iteration.document": supported,
 ```
 

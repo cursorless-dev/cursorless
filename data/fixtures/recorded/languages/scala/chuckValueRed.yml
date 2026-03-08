@@ -1,6 +1,6 @@
 languageId: scala
 command:
-  version: 6
+  version: 7
   spokenForm: chuck value red
   action:
     name: remove

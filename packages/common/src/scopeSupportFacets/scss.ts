@@ -2,40 +2,39 @@ import { cssScopeSupport } from "./css";
 import type { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { ScopeSupportFacetLevel } from "./scopeSupportFacets.types";
 
-const { supported, unsupported } = ScopeSupportFacetLevel;
+const { supported } = ScopeSupportFacetLevel;
 
 export const scssScopeSupport: LanguageScopeSupportFacetMap = {
   ...cssScopeSupport,
 
   "comment.line": supported,
 
-  "condition.if": supported,
-
   namedFunction: supported,
-  "namedFunction.iteration.block": supported,
+  "namedFunction.iteration.class": supported,
   "namedFunction.iteration.document": supported,
-
-  functionName: supported,
-  "functionName.iteration.block": supported,
-  "functionName.iteration.document": supported,
 
   "name.argument.formal": supported,
   "name.argument.formal.iteration": supported,
   "name.function": supported,
+  "name.iteration.document": supported,
+  "name.iteration.block": supported,
 
   "value.argument.formal": supported,
   "value.argument.formal.iteration": supported,
   "value.return": supported,
 
-  ifStatement: supported,
-
   "textFragment.comment.line": supported,
 
-  // Unsupported
+  ifStatement: supported,
+  "branch.if": supported,
+  "branch.if.elif.else": supported,
+  "branch.if.else": supported,
+  "branch.if.iteration": supported,
+  "condition.if": supported,
 
-  "branch.if": unsupported,
-  "branch.if.iteration": unsupported,
+  "interior.if": supported,
+  "interior.function": supported,
 
-  "interior.function": unsupported,
-  "interior.if": unsupported,
+  "argument.actual.singleLine": supported,
+  "argument.actual.multiLine": supported,
 };

@@ -10,9 +10,20 @@ import type { SpyWebViewEvent } from "@cursorless/vscode-common";
 export class SpyWebviewView {
   readonly webview: SpyWebview;
   private eventLog: SpyWebViewEvent[] = [];
+  private _view: WebviewView;
 
-  constructor(public view: WebviewView) {
+  constructor(view: WebviewView) {
+    this._view = view;
     this.webview = new SpyWebview(this.eventLog, view.webview);
+  }
+
+  get view(): WebviewView {
+    return this._view;
+  }
+
+  set view(view: WebviewView) {
+    this._view = view;
+    this.webview.setView(view.webview);
   }
 
   getEventLog(): SpyWebViewEvent[] {
@@ -20,17 +31,27 @@ export class SpyWebviewView {
   }
 
   show(preserveFocus: boolean): void {
-    this.view.show(preserveFocus);
+    this._view.show(preserveFocus);
     this.eventLog.push({ type: "viewShown", preserveFocus });
   }
 }
 
 class SpyWebview {
+  private view: Webview;
+  private messageListenerDisposable?: Disposable;
+
   constructor(
     private eventLog: SpyWebViewEvent[],
-    private view: Webview,
+    view: Webview,
   ) {
-    this.view.onDidReceiveMessage((data) => {
+    this.view = view;
+    this.setView(view);
+  }
+
+  setView(view: Webview): void {
+    this.view = view;
+    this.messageListenerDisposable?.dispose();
+    this.messageListenerDisposable = this.view.onDidReceiveMessage((data) => {
       this.eventLog.push({ type: "messageReceived", data });
     });
   }

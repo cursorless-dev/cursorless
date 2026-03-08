@@ -1,17 +1,17 @@
-@function calculate-margin() {}
+@function foo() {}
 ---
 
 [Content] =
-[Removal] = 0:10-0:26
-            >----------------<
-0| @function calculate-margin() {}
+[Removal] = 0:10-0:13
+            >---<
+0| @function foo() {}
 
 [Leading delimiter] = 0:9-0:10
            >-<
-0| @function calculate-margin() {}
+0| @function foo() {}
 
-[Domain] = 0:0-0:31
-  >-------------------------------<
-0| @function calculate-margin() {}
+[Domain] = 0:0-0:18
+  >------------------<
+0| @function foo() {}
 
 [Insertion delimiter] = " "

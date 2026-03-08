@@ -1,0 +1,10 @@
+for (const k in values) { }
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:25-0:26
+                           >-<
+0| for (const k in values) { }
+
+[Insertion delimiter] = " "

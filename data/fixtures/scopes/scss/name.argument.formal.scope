@@ -1,45 +1,45 @@
-@mixin replace-text($image, $color: red) {}
+@mixin foo($aaa, $bbb: 0) {}
 ---
 
 [#1 Content] =
-[#1 Removal] = 0:7-0:19
-         >------------<
-0| @mixin replace-text($image, $color: red) {}
+[#1 Removal] = 0:7-0:10
+         >---<
+0| @mixin foo($aaa, $bbb: 0) {}
 
 [#1 Leading delimiter] = 0:6-0:7
         >-<
-0| @mixin replace-text($image, $color: red) {}
+0| @mixin foo($aaa, $bbb: 0) {}
 
-[#1 Domain] = 0:0-0:43
-  >-------------------------------------------<
-0| @mixin replace-text($image, $color: red) {}
+[#1 Domain] = 0:0-0:28
+  >----------------------------<
+0| @mixin foo($aaa, $bbb: 0) {}
 
 [#1 Insertion delimiter] = " "
 
 
 [#2 Content] =
 [#2 Removal] =
-[#2 Domain] = 0:20-0:26
-                      >------<
-0| @mixin replace-text($image, $color: red) {}
+[#2 Domain] = 0:11-0:15
+             >----<
+0| @mixin foo($aaa, $bbb: 0) {}
 
 [#2 Insertion delimiter] = " "
 
 
-[#3 Content] = 0:28-0:34
-                              >------<
-0| @mixin replace-text($image, $color: red) {}
+[#3 Content] = 0:17-0:21
+                   >----<
+0| @mixin foo($aaa, $bbb: 0) {}
 
-[#3 Removal] = 0:27-0:34
-                             >-------<
-0| @mixin replace-text($image, $color: red) {}
+[#3 Removal] = 0:16-0:21
+                  >-----<
+0| @mixin foo($aaa, $bbb: 0) {}
 
-[#3 Leading delimiter] = 0:27-0:28
-                             >-<
-0| @mixin replace-text($image, $color: red) {}
+[#3 Leading delimiter] = 0:16-0:17
+                  >-<
+0| @mixin foo($aaa, $bbb: 0) {}
 
-[#3 Domain] = 0:28-0:39
-                              >-----------<
-0| @mixin replace-text($image, $color: red) {}
+[#3 Domain] = 0:17-0:24
+                   >-------<
+0| @mixin foo($aaa, $bbb: 0) {}
 
 [#3 Insertion delimiter] = " "

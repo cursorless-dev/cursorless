@@ -1,8 +1,8 @@
-import * as assert from "assert";
+import { LATEST_VERSION } from "@cursorless/common";
+import { openNewEditor, runCursorlessCommand } from "@cursorless/vscode-common";
+import * as assert from "node:assert";
 import * as vscode from "vscode";
-import { openNewEditor } from "@cursorless/vscode-common";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-import { runCursorlessCommand } from "@cursorless/vscode-common";
 
 suite("fold", async function () {
   endToEndTestSetup(this);
@@ -17,16 +17,17 @@ async function foldMade() {
   });
 
   await runCursorlessCommand({
-    version: 1,
-    action: "fold",
-    targets: [
-      {
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
+    action: {
+      name: "foldRegion",
+      target: {
         type: "primitive",
         mark: {
           type: "cursor",
         },
       },
-    ],
+    },
   });
 
   assert.equal(editor.visibleRanges.length, 2);
@@ -47,16 +48,17 @@ async function unfoldMade() {
   assert.equal(editor.visibleRanges.length, 2);
 
   await runCursorlessCommand({
-    version: 1,
-    action: "unfold",
-    targets: [
-      {
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
+    action: {
+      name: "unfoldRegion",
+      target: {
         type: "primitive",
         mark: {
           type: "cursor",
         },
       },
-    ],
+    },
   });
 
   assert.equal(editor.visibleRanges.length, 1);

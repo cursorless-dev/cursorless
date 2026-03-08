@@ -3,11 +3,12 @@ import type { Query } from "web-tree-sitter";
 import { ide } from "../../singletons/ide.singleton";
 import { parsePredicates } from "./parsePredicates";
 import { predicateToString } from "./predicateToString";
+import type { PatternPredicate } from "./QueryCapture";
 
 export function parsePredicatesWithErrorHandling(
   languageId: string,
   query: Query,
-) {
+): PatternPredicate[][] {
   const { errors, predicates } = parsePredicates(query.predicates);
 
   if (errors.length > 0) {

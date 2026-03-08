@@ -1,9 +1,15 @@
-import type { Direction, Position, TextEditor } from "@cursorless/common";
-import { type SurroundingPairInteriorScopeType } from "@cursorless/common";
+import type {
+  Direction,
+  Position,
+  SurroundingPairInteriorScopeType,
+  TextEditor,
+} from "@cursorless/common";
 import { BaseScopeHandler } from "../BaseScopeHandler";
 import type { TargetScope } from "../scope.types";
-import type { ScopeIteratorRequirements } from "../scopeHandler.types";
-import { type ScopeHandler } from "../scopeHandler.types";
+import type {
+  ScopeHandler,
+  ScopeIteratorRequirements,
+} from "../scopeHandler.types";
 import type { ScopeHandlerFactory } from "../ScopeHandlerFactory";
 
 export class SurroundingPairInteriorScopeHandler extends BaseScopeHandler {

@@ -27,6 +27,7 @@ export class CommandRunnerImpl implements CommandRunner {
   private inferenceContext: InferenceContext;
   private finalStages: ModifierStage[] = [];
   private noAutomaticTokenExpansion: boolean | undefined;
+  private allowDuplicateTargets: boolean | undefined;
 
   constructor(
     private commandServerApi: CommandServerApi,
@@ -103,6 +104,7 @@ export class CommandRunnerImpl implements CommandRunner {
 
     switch (actionDescriptor.name) {
       case "replaceWithTarget":
+        this.allowDuplicateTargets = true;
         return this.actions.replaceWithTarget.run(
           this.getTargets(actionDescriptor.source),
           this.getDestinations(actionDescriptor.destination),
@@ -239,6 +241,7 @@ export class CommandRunnerImpl implements CommandRunner {
     return this.pipelineRunner.run(targetDescriptor, {
       actionFinalStages: this.finalStages,
       noAutomaticTokenExpansion: this.noAutomaticTokenExpansion,
+      allowDuplicateTargets: this.allowDuplicateTargets,
     });
   }
 

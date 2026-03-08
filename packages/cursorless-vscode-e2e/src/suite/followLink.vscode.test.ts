@@ -3,6 +3,7 @@ import { openNewEditor, runCursorlessCommand } from "@cursorless/vscode-common";
 import * as assert from "assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
+import { LATEST_VERSION } from "@cursorless/common";
 
 suite("followLink", async function () {
   endToEndTestSetup(this);
@@ -25,16 +26,17 @@ async function followDefinition() {
   // assert.equal(editor.visibleRanges[0].start.line, 1);
 
   await runCursorlessCommand({
-    version: 1,
-    action: "followLink",
-    targets: [
-      {
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
+    action: {
+      name: "followLink",
+      target: {
         type: "primitive",
         mark: {
           type: "cursor",
         },
       },
-    ],
+    },
   });
 
   // FIXME: Disabled to work around CI failure; see #2243
@@ -49,19 +51,19 @@ async function followLink() {
   await openNewEditor(linkTextContent);
 
   await runCursorlessCommand({
-    version: 1,
-    action: "followLink",
-    targets: [
-      {
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
+    action: {
+      name: "followLink",
+      target: {
         type: "primitive",
         mark: {
           type: "cursor",
         },
       },
-    ],
+    },
   });
 
-  // eslint-disable-next-line no-restricted-properties
   const editor = vscode.window.activeTextEditor;
   assert.equal(editor?.document?.uri?.scheme, "file");
   assert.equal(editor?.document.getText().trimEnd(), "hello world");

@@ -1,9 +1,9 @@
-import { getCursorlessApi } from "@cursorless/vscode-common";
 import type { ScopeTypeInfo } from "@cursorless/common";
-import { sleep } from "@cursorless/common";
+import { DOCS_URL, sleep } from "@cursorless/common";
+import { getCursorlessApi } from "@cursorless/vscode-common";
+import { stat, unlink, writeFile } from "fs/promises";
 import * as sinon from "sinon";
 import { assertCalledWithScopeInfo } from "./assertCalledWithScopeInfo";
-import { stat, unlink, writeFile } from "fs/promises";
 
 /**
  * Tests that the scope provider correctly reports custom spoken forms
@@ -24,7 +24,6 @@ export async function runCustomSpokenFormScopeInfoTest() {
       lambdaStandard,
       statementStandard,
       squareStandard,
-      subjectStandard,
     );
 
     await writeFile(
@@ -33,7 +32,6 @@ export async function runCustomSpokenFormScopeInfoTest() {
     );
     await assertCalledWithScopeInfo(
       fake,
-      subjectCustom,
       roundCustom,
       namedFunctionCustom,
       lambdaCustom,
@@ -49,7 +47,6 @@ export async function runCustomSpokenFormScopeInfoTest() {
       lambdaStandard,
       statementStandard,
       squareStandard,
-      subjectStandard,
     );
   } finally {
     disposable.dispose();
@@ -77,11 +74,6 @@ const spokenFormJsonContents = {
     },
     {
       type: "simpleScopeTypeType",
-      id: "private.switchStatementSubject",
-      spokenForms: ["custom subject"],
-    },
-    {
-      type: "simpleScopeTypeType",
       id: "namedFunction",
       spokenForms: ["custom funk"],
     },
@@ -91,29 +83,6 @@ const spokenFormJsonContents = {
       spokenForms: [],
     },
   ],
-};
-
-const subjectStandard: ScopeTypeInfo = {
-  humanReadableName: "private switch statement subject",
-  isLanguageSpecific: true,
-  scopeType: { type: "private.switchStatementSubject" },
-  spokenForm: {
-    isPrivate: true,
-    reason:
-      "simple scope type type with id private.switchStatementSubject; this is a private spoken form currently only for internal experimentation",
-    requiresTalonUpdate: false,
-    type: "error",
-  },
-};
-
-const subjectCustom: ScopeTypeInfo = {
-  humanReadableName: "private switch statement subject",
-  isLanguageSpecific: true,
-  scopeType: { type: "private.switchStatementSubject" },
-  spokenForm: {
-    spokenForms: ["custom subject"],
-    type: "success",
-  },
 };
 
 const roundStandard: ScopeTypeInfo = {
@@ -152,8 +121,7 @@ const squareMissing: ScopeTypeInfo = {
   scopeType: { type: "surroundingPair", delimiter: "squareBrackets" },
   spokenForm: {
     isPrivate: false,
-    reason:
-      "paired delimiter with id squareBrackets; please update talon to the latest version (see https://www.cursorless.org/docs/user/updating/)",
+    reason: `paired delimiter with id squareBrackets; please update talon to the latest version (see ${DOCS_URL}/user/updating)`,
     requiresTalonUpdate: true,
     type: "error",
   },
@@ -195,8 +163,7 @@ const lambdaCustom: ScopeTypeInfo = {
   scopeType: { type: "anonymousFunction" },
   spokenForm: {
     isPrivate: false,
-    reason:
-      "simple scope type type with id anonymousFunction; please see https://www.cursorless.org/docs/user/customization/ for more information",
+    reason: `simple scope type type with id anonymousFunction; please see ${DOCS_URL}/user/customization for more information`,
     requiresTalonUpdate: false,
     type: "error",
   },
@@ -218,8 +185,7 @@ const statementMissing: ScopeTypeInfo = {
   scopeType: { type: "statement" },
   spokenForm: {
     isPrivate: false,
-    reason:
-      "simple scope type type with id statement; please update talon to the latest version (see https://www.cursorless.org/docs/user/updating/)",
+    reason: `simple scope type type with id statement; please update talon to the latest version (see ${DOCS_URL}/user/updating)`,
     requiresTalonUpdate: true,
     type: "error",
   },

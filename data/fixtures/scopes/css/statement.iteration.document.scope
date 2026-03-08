@@ -1,12 +1,12 @@
 
-* { color: red; }
+* {}
 
 ---
 
-[Range] =
+[Content] =
 [Domain] = 0:0-2:0
   >
 0|
-1| * { color: red; }
+1| * {}
 2|
    <

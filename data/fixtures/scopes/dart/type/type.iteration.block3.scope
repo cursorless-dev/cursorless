@@ -1,0 +1,45 @@
+void main() {
+    if (true) { }
+    else if (false) { }
+    else { }
+}
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-4:1
+  >-------------
+0| void main() {
+1|     if (true) { }
+2|     else if (false) { }
+3|     else { }
+4| }
+   -<
+
+
+[#2 Content] =
+[#2 Domain] = 0:13-4:0
+               >
+0| void main() {
+1|     if (true) { }
+2|     else if (false) { }
+3|     else { }
+4| }
+   <
+
+
+[#3 Content] =
+[#3 Domain] = 1:15-1:16
+                 >-<
+1|     if (true) { }
+
+
+[#4 Content] =
+[#4 Domain] = 2:21-2:22
+                       >-<
+2|     else if (false) { }
+
+
+[#5 Content] =
+[#5 Domain] = 3:10-3:11
+            >-<
+3|     else { }

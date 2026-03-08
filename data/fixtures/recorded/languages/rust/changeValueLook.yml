@@ -1,6 +1,6 @@
 languageId: rust
 command:
-  version: 6
+  version: 7
   spokenForm: change value look
   action:
     name: clearAndSetSelection

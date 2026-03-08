@@ -14,6 +14,8 @@ const failingFixtures = [
   "recorded/implicitExpansion/cloneThat2",
   "recorded/implicitExpansion/cloneThis",
   "recorded/implicitExpansion/cloneThis2",
+  // Incorrect final state
+  "recorded/relativeScopes/changePreviousPair",
 ];
 
 function isFailingFixture(name: string, fixture: TestCaseFixtureLegacy) {

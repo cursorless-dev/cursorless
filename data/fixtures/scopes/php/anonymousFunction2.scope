@@ -1,0 +1,11 @@
+<?php
+fn() => 0;
+---
+
+[Content] =
+[Removal] =
+[Domain] = 1:0-1:9
+  >---------<
+1| fn() => 0;
+
+[Insertion delimiter] = "\n"

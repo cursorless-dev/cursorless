@@ -54,14 +54,11 @@ function helloWorld() {
 }
 `;
 
-function getExpectedScope(
-  scopeSupport: ScopeSupport,
-  iterationScopeSupport?: ScopeSupport,
-): ScopeSupportInfo {
+function getExpectedScope(scopeSupport: ScopeSupport): ScopeSupportInfo {
   return {
     humanReadableName: "named function",
     isLanguageSpecific: true,
-    iterationScopeSupport: iterationScopeSupport ?? scopeSupport,
+    iterationScopeSupport: scopeSupport,
     scopeType: {
       type: "namedFunction",
     },
@@ -74,8 +71,5 @@ function getExpectedScope(
 }
 
 const unsupported = getExpectedScope(ScopeSupport.unsupported);
-const supported = getExpectedScope(
-  ScopeSupport.supportedButNotPresentInEditor,
-  ScopeSupport.supportedAndPresentInEditor,
-);
+const supported = getExpectedScope(ScopeSupport.supportedButNotPresentInEditor);
 const present = getExpectedScope(ScopeSupport.supportedAndPresentInEditor);

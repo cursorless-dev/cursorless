@@ -1,9 +1,10 @@
-import type { TextDocument } from "@cursorless/common";
 import { Range } from "@cursorless/common";
-import type { Node } from "web-tree-sitter";
-import type { MutableQueryCapture } from "./QueryCapture";
-import { rewriteStartOfEndOf } from "./rewriteStartOfEndOf";
 import assert from "assert";
+import type { MutableQueryCapture, QueryCapture } from "./QueryCapture";
+import {
+  createTestQueryCapture,
+  rewriteStartOfEndOf,
+} from "./rewriteStartOfEndOf";
 
 type NameRange = Pick<MutableQueryCapture, "name" | "range">;
 
@@ -51,17 +52,8 @@ const testCases: TestCase[] = [
   },
 ];
 
-const hasError = () => false;
-
-function fillOutCapture(capture: NameRange): MutableQueryCapture {
-  return {
-    ...capture,
-    allowMultiple: false,
-    insertionDelimiter: undefined,
-    document: null as unknown as TextDocument,
-    node: null as unknown as Node,
-    hasError,
-  };
+function fillOutCapture(capture: NameRange): QueryCapture {
+  return createTestQueryCapture(capture.name, capture.range);
 }
 
 suite("rewriteStartOfEndOf", () => {

@@ -1,3 +1,4 @@
+import { LATEST_VERSION } from "@cursorless/common";
 import {
   getCursorlessApi,
   openNewEditor,
@@ -19,7 +20,7 @@ async function explicitMark() {
   const editorId = ide.visibleTextEditors[0].id;
 
   await runCursorlessCommand({
-    version: 6,
+    version: LATEST_VERSION,
     usePrePhraseSnapshot: false,
     action: {
       name: "clearAndSetSelection",

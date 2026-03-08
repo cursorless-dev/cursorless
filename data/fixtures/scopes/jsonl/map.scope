@@ -1,5 +1,5 @@
 {"aaa": 0}
-{"bbb": 0}
+{"bbb": 1}
 ---
 
 [#1 Content] =
@@ -10,7 +10,7 @@
 [#1 Removal] = 0:0-1:0
   >----------
 0| {"aaa": 0}
-1| {"bbb": 0}
+1| {"bbb": 1}
    <
 
 [#1 Insertion delimiter] = " "
@@ -19,12 +19,12 @@
 [#2 Content] =
 [#2 Domain] = 1:0-1:10
   >----------<
-1| {"bbb": 0}
+1| {"bbb": 1}
 
 [#2 Removal] = 0:10-1:10
             >
 0| {"aaa": 0}
-1| {"bbb": 0}
+1| {"bbb": 1}
    ----------<
 
 [#2 Insertion delimiter] = " "

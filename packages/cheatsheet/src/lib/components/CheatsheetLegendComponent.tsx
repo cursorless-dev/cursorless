@@ -10,7 +10,7 @@ type Props = {
 
 export default function CheatsheetLegendComponent({
   data,
-}: Props): JSX.Element {
+}: Props): React.JSX.Element {
   const isHighlighted = useIsHighlighted("legend");
 
   const borderClassName = isHighlighted
@@ -35,23 +35,39 @@ export default function CheatsheetLegendComponent({
           </tr>
         </thead>
         <tbody>
-          {data.map(({ term, definition, link, id }) => (
+          {data.map(({ term, definition, link, linkName, id }) => (
             <tr
               key={id}
-              className="odd:bg-violet-200 dark:bg-violet-800 odd:dark:bg-violet-600"
+              className="odd:bg-violet-200 dark:bg-violet-800 dark:odd:bg-violet-600"
             >
               <td className="px-1">{formatCaptures(`<${term}>`)}</td>
               <td className="border-l border-violet-400 px-1">
-                {link != null ? (
-                  <SmartLink to={link}>{definition}</SmartLink>
-                ) : (
-                  formatCaptures(definition)
-                )}
+                {renderDefinition(definition, link, linkName)}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
+  );
+}
+
+function renderDefinition(
+  definition: string,
+  link?: string,
+  linkName?: string,
+) {
+  if (link == null) {
+    return definition;
+  }
+  if (linkName == null) {
+    return <SmartLink to={link}>{definition}</SmartLink>;
+  }
+  return (
+    <>
+      <SmartLink to={link}>{linkName}</SmartLink>
+      &nbsp;
+      {definition}
+    </>
   );
 }

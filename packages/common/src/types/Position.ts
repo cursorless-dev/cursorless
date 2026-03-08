@@ -1,5 +1,5 @@
 import type { TextDocument } from "..";
-import { Range } from "..";
+import { Range, stringToInteger } from "..";
 
 export class Position {
   /**
@@ -11,6 +11,31 @@ export class Position {
    * The zero-based character value.
    */
   public readonly character: number;
+
+  /**
+   * Create a position from a concise string representation.
+   * The string should be in the format `line:character`, where both line and character
+   * are zero-based.
+   *
+   * @param concise A concise string representation of a position.
+   * @return A position with the given line and character values.
+   */
+  static fromConcise(concise: string): Position {
+    const parts = concise.split(":");
+    if (parts.length !== 2) {
+      throw new Error(
+        `Invalid concise position format: "${concise}". Expected "line:character" format.`,
+      );
+    }
+    const line = stringToInteger(parts[0]);
+    const character = stringToInteger(parts[1]);
+    if (line == null || character == null || line < 0 || character < 0) {
+      throw new Error(
+        `Invalid concise position format: "${concise}". Line and character should be non-negative integers.`,
+      );
+    }
+    return new Position(line, character);
+  }
 
   /**
    * @param line A zero-based line value.

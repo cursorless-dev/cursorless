@@ -6,9 +6,13 @@ a << 2;
 a >> 2;
 a <<= 2;
 a >>= 2;
-fn foo() -> string {}
-match number { 0 => "fail" }
-macro_rules! my_expr { ($x:expr) => {}; }
+fn foo() -> i32 {}
+match number {
+    0 => "fail"
+}
+macro_rules! my_expr {
+    ($x:expr) => {};
+}
 ---
 [#1 Content] = 0:2-0:3
     >-<
@@ -44,12 +48,12 @@ macro_rules! my_expr { ($x:expr) => {}; }
 
 [#9 Content] = 8:9-8:11
            >--<
-8| fn foo() -> string {}
+8| fn foo() -> i32 {}
 
-[#10 Content] = 9:17-9:19
-                   >--<
-9| match number { 0 => "fail" }
+[#10 Content] = 10:6-10:8
+         >--<
+10|     0 => "fail"
 
-[#11 Content] = 10:33-10:35
-                                    >--<
-10| macro_rules! my_expr { ($x:expr) => {}; }
+[#11 Content] = 13:14-13:16
+                 >--<
+13|     ($x:expr) => {};

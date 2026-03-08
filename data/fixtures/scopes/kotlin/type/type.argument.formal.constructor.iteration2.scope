@@ -1,0 +1,13 @@
+class Foo(aaa: Int, bbb: Int) {}
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:32
+  >--------------------------------<
+0| class Foo(aaa: Int, bbb: Int) {}
+
+
+[#2 Content] =
+[#2 Domain] = 0:10-0:28
+            >------------------<
+0| class Foo(aaa: Int, bbb: Int) {}

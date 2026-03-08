@@ -1,17 +1,17 @@
-<name id="name">Me</name>
+<name id="foo"></name>
 ---
 
 [Content] =
-[Domain] = 0:6-0:15
-        >---------<
-0| <name id="name">Me</name>
+[Domain] = 0:6-0:14
+        >--------<
+0| <name id="foo"></name>
 
-[Removal] = 0:5-0:15
-       >----------<
-0| <name id="name">Me</name>
+[Removal] = 0:5-0:14
+       >---------<
+0| <name id="foo"></name>
 
 [Leading delimiter] = 0:5-0:6
        >-<
-0| <name id="name">Me</name>
+0| <name id="foo"></name>
 
 [Insertion delimiter] = " "

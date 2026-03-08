@@ -62,6 +62,7 @@ class CustomInsertionSnippet:
 @dataclass
 class ListInsertionSnippet:
     type = "list"
+    fallbackLanguage: str | None
     substitutions: dict[str, str] | None
     snippets: list[CustomInsertionSnippet]
 
@@ -98,6 +99,7 @@ class CustomWrapperSnippet:
 @dataclass
 class ListWrapperSnippet:
     type = "list"
+    fallbackLanguage: str | None
     snippets: list[CustomWrapperSnippet]
 
 

@@ -1,10 +1,11 @@
 languageId: plaintext
 command:
-  version: 5
+  version: 7
   spokenForm: take each
-  action: {name: setSelection}
-  targets:
-    - type: primitive
+  action:
+    name: setSelection
+    target:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: e}
   usePrePhraseSnapshot: false
 initialState:

@@ -57,6 +57,32 @@ export function getScopeTestPathsRecursively(): ScopeTestPath[] {
   return result;
 }
 
+export function getScopeTestLanguagesRecursively(): Record<string, string[]> {
+  const configPaths = getScopeTestConfigPaths();
+  const configs = readConfigFiles(configPaths);
+  const result: Record<string, string[]> = {};
+
+  function add(languageId: string, importLanguageId: string): void {
+    if (result[languageId] == null) {
+      result[languageId] = [languageId];
+    }
+    if (!result[languageId].includes(importLanguageId)) {
+      result[languageId].push(importLanguageId);
+      const config = configs[importLanguageId];
+      config?.imports?.forEach((lang) => add(languageId, lang));
+    }
+  }
+
+  for (const [languageId, config] of Object.entries(configs)) {
+    if (config.skip) {
+      continue;
+    }
+    config.imports?.forEach((lang) => add(languageId, lang));
+  }
+
+  return result;
+}
+
 function addTestPathsForLanguageRecursively(
   languages: Record<string, ScopeTestPath[]>,
   configs: Record<string, ScopeTestConfig | undefined>,

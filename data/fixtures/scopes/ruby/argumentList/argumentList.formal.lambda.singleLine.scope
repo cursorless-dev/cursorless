@@ -1,0 +1,13 @@
+->(aaa, bbb) {}
+---
+
+[Content] =
+[Removal] = 0:3-0:11
+     >--------<
+0| ->(aaa, bbb) {}
+
+[Domain] = 0:0-0:15
+  >---------------<
+0| ->(aaa, bbb) {}
+
+[Insertion delimiter] = ", "

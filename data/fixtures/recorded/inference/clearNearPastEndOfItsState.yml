@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  version: 6
+  version: 7
   spokenForm: change near past end of its state
   action:
     name: clearAndSetSelection

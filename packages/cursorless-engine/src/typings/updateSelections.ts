@@ -33,16 +33,14 @@ export interface FullRangeInfo extends RangeInfo {
   text: string;
 }
 
-export interface ExtendedTextDocumentContentChangeEvent
-  extends TextDocumentContentChangeEvent {
+export interface ExtendedTextDocumentContentChangeEvent extends TextDocumentContentChangeEvent {
   /**
    * If this is true then we should not shift an empty selection to the right
    */
   isReplace?: boolean;
 }
 
-export interface ExtendedTextDocumentChangeEvent
-  extends TextDocumentChangeEvent {
+export interface ExtendedTextDocumentChangeEvent extends TextDocumentChangeEvent {
   readonly contentChanges: ReadonlyArray<ExtendedTextDocumentContentChangeEvent>;
 }
 

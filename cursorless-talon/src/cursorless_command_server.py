@@ -7,8 +7,9 @@ mod = Module()
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def private_cursorless_run_rpc_command_and_wait(
-        command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
+        command_id: str,
         arg1: Any = None,
         arg2: Any = None,
     ):
@@ -18,8 +19,9 @@ class Actions:
         except KeyError:
             actions.user.vscode_with_plugin_and_wait(command_id, arg1, arg2)
 
+    @staticmethod
     def private_cursorless_run_rpc_command_no_wait(
-        command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
+        command_id: str,
         arg1: Any = None,
         arg2: Any = None,
     ):
@@ -29,8 +31,9 @@ class Actions:
         except KeyError:
             actions.user.vscode_with_plugin(command_id, arg1, arg2)
 
+    @staticmethod
     def private_cursorless_run_rpc_command_get(
-        command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
+        command_id: str,
         arg1: Any = None,
         arg2: Any = None,
     ) -> Any:

@@ -1,4 +1,8 @@
-import type { ActionDescriptor, CommandLatest } from "@cursorless/common";
+import {
+  LATEST_VERSION,
+  type ActionDescriptor,
+  type CommandLatest,
+} from "@cursorless/common";
 import { activate } from "@cursorless/cursorless-everywhere-talon-core";
 import * as std from "std";
 import talonMock from "./talonMock";
@@ -72,7 +76,7 @@ async function testChuck() {
 
 function runAction(action: ActionDescriptor) {
   const command: CommandLatest = {
-    version: 7,
+    version: LATEST_VERSION,
     usePrePhraseSnapshot: false,
     action,
   };

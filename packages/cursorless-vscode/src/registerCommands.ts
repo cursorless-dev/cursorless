@@ -1,8 +1,9 @@
-import type { CursorlessCommandId } from "@cursorless/common";
-import {
-  CURSORLESS_COMMAND_ID,
-  type CommandHistoryStorage,
+import type {
+  CommandHistoryStorage,
+  CursorlessCommandId,
+  ScopeType,
 } from "@cursorless/common";
+import { CURSORLESS_COMMAND_ID } from "@cursorless/common";
 import {
   showCheatsheet,
   updateDefaults,
@@ -18,15 +19,20 @@ import type {
 } from "@cursorless/test-case-recorder";
 import * as vscode from "vscode";
 import type { InstallationDependencies } from "./InstallationDependencies";
-import type { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
-import type { VscodeSnippets } from "./VscodeSnippets";
+import type {
+  ScopeVisualizer,
+  VisualizationType,
+} from "./ScopeVisualizerCommandApi";
 import type { VscodeTutorial } from "./VscodeTutorial";
-import { showDocumentation, showQuickPick } from "./commands";
+import {
+  showDocumentation,
+  showQuickPick,
+  showScopeVisualizerItemDocumentation,
+} from "./commands";
 import type { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import type { VscodeHats } from "./ide/vscode/hats/VscodeHats";
 import type { KeyboardCommands } from "./keyboard/KeyboardCommands";
 import { logQuickActions } from "./logQuickActions";
-import { migrateSnippets } from "./migrateSnippets";
 
 export function registerCommands(
   extensionContext: vscode.ExtensionContext,
@@ -41,7 +47,6 @@ export function registerCommands(
   tutorial: VscodeTutorial,
   installationDependencies: InstallationDependencies,
   storedTargets: StoredTargetMap,
-  snippets: VscodeSnippets,
 ): void {
   const runCommandWrapper = async (run: () => Promise<unknown>) => {
     try {
@@ -89,8 +94,6 @@ export function registerCommands(
     ["cursorless.showDocumentation"]: showDocumentation,
     ["cursorless.showInstallationDependencies"]: installationDependencies.show,
 
-    ["cursorless.migrateSnippets"]: migrateSnippets.bind(null, snippets),
-
     ["cursorless.private.logQuickActions"]: logQuickActions,
 
     // Hats
@@ -98,8 +101,18 @@ export function registerCommands(
     ["cursorless.recomputeDecorationStyles"]: hats.recomputeDecorationStyles,
 
     // Scope visualizer
-    ["cursorless.showScopeVisualizer"]: scopeVisualizer.start,
+    ["cursorless.showScopeVisualizer"]: (
+      scopeType?: ScopeType,
+      visualizationType?: VisualizationType,
+    ) => {
+      if (scopeType == null || visualizationType == null) {
+        throw new Error("Missing arguments. Only for internal use.");
+      }
+      scopeVisualizer.start(scopeType, visualizationType);
+    },
     ["cursorless.hideScopeVisualizer"]: scopeVisualizer.stop,
+    ["cursorless.scopeVisualizer.openUrl"]:
+      showScopeVisualizerItemDocumentation,
 
     // Command history
     ["cursorless.analyzeCommandHistory"]: () =>

@@ -1,0 +1,10 @@
+import "foo.dart";
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:18
+  >------------------<
+0| import "foo.dart";
+
+[Insertion delimiter] = "\n"

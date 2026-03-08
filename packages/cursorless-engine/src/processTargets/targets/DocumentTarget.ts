@@ -7,7 +7,7 @@ import { PlainTarget } from "./PlainTarget";
 export class DocumentTarget extends BaseTarget<CommonTargetParameters> {
   type = "DocumentTarget";
   textualType: TextualType = "line";
-  insertionDelimiter = "\n";
+  insertionDelimiter = "\n\n";
 
   constructor(parameters: CommonTargetParameters) {
     super(parameters);

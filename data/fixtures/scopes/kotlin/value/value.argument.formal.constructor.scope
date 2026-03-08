@@ -1,0 +1,41 @@
+class Foo {
+    constructor(aaa: Int = 0, vararg bbb: Int = 1) {}
+}
+---
+
+[#1 Content] = 1:27-1:28
+                             >-<
+1|     constructor(aaa: Int = 0, vararg bbb: Int = 1) {}
+
+[#1 Removal] = 1:24-1:28
+                          >----<
+1|     constructor(aaa: Int = 0, vararg bbb: Int = 1) {}
+
+[#1 Leading delimiter] = 1:24-1:27
+                          >---<
+1|     constructor(aaa: Int = 0, vararg bbb: Int = 1) {}
+
+[#1 Domain] = 1:16-1:28
+                  >------------<
+1|     constructor(aaa: Int = 0, vararg bbb: Int = 1) {}
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:48-1:49
+                                                  >-<
+1|     constructor(aaa: Int = 0, vararg bbb: Int = 1) {}
+
+[#2 Removal] = 1:45-1:49
+                                               >----<
+1|     constructor(aaa: Int = 0, vararg bbb: Int = 1) {}
+
+[#2 Leading delimiter] = 1:45-1:48
+                                               >---<
+1|     constructor(aaa: Int = 0, vararg bbb: Int = 1) {}
+
+[#2 Domain] = 1:30-1:49
+                                >-------------------<
+1|     constructor(aaa: Int = 0, vararg bbb: Int = 1) {}
+
+[#2 Insertion delimiter] = " "

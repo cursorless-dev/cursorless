@@ -1,0 +1,45 @@
+try: pass
+except Exception as e: pass
+else: pass
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-0:9
+  >---------<
+0| try: pass
+
+[#1 Removal] = 0:0-1:0
+  >---------
+0| try: pass
+1| except Exception as e: pass
+   <
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 1:0-1:27
+  >---------------------------<
+1| except Exception as e: pass
+
+[#2 Removal] = 1:0-2:0
+  >---------------------------
+1| except Exception as e: pass
+2| else: pass
+   <
+
+[#2 Insertion delimiter] = "\n"
+
+
+[#3 Content] =
+[#3 Domain] = 2:0-2:10
+  >----------<
+2| else: pass
+
+[#3 Removal] = 1:27-2:10
+                             >
+1| except Exception as e: pass
+2| else: pass
+   ----------<
+
+[#3 Insertion delimiter] = "\n"

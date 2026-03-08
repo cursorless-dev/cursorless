@@ -43,7 +43,7 @@ export class PrimitiveTargetSpokenFormGenerator {
 
   private handleModifier(modifier: Modifier): SpokenFormComponent {
     switch (modifier.type) {
-      case "cascading":
+      case "fallback":
       case "modifyIfUntyped":
       case "preferredScope":
         throw new NoSpokenFormError(`Modifier '${modifier.type}'`);
@@ -239,16 +239,7 @@ export class PrimitiveTargetSpokenFormGenerator {
           ),
         ];
       case "surroundingPair": {
-        const pair = this.spokenFormMap.pairedDelimiter[scopeType.delimiter];
-        if (scopeType.forceDirection != null) {
-          return [
-            this.spokenFormMap.surroundingPairForceDirection[
-              scopeType.forceDirection
-            ],
-            pair,
-          ];
-        }
-        return pair;
+        return this.spokenFormMap.pairedDelimiter[scopeType.delimiter];
       }
 
       case "customRegex":

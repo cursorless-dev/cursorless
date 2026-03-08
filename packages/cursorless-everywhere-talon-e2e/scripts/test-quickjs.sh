@@ -13,6 +13,7 @@ esbuild \
     --conditions=cursorless:bundler \
     --bundle \
     --external:std \
+    --external:node:crypto \
     src/quickjsTest.ts
 
 echo $ cd testOut

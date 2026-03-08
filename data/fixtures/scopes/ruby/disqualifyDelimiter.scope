@@ -7,7 +7,9 @@ a >> 2
 a <<= 2
 a >>= 2
 a = { :b => 2 }
-case 85 when 0 then => "Fail" end
+case foo
+    when a then => 2
+end
 ---
 [#1 Content] = 0:2-0:3
     >-<
@@ -45,6 +47,6 @@ case 85 when 0 then => "Fail" end
            >--<
 8| a = { :b => 2 }
 
-[#10 Content] = 9:20-9:22
-                      >--<
-9| case 85 when 0 then => "Fail" end
+[#10 Content] = 10:16-10:18
+                   >--<
+10|     when a then => 2

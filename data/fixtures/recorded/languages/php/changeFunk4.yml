@@ -1,6 +1,6 @@
 languageId: php
 command:
-  version: 6
+  version: 7
   spokenForm: change funk
   action:
     name: clearAndSetSelection
@@ -20,10 +20,10 @@ initialState:
       active: {line: 2, character: 24}
   marks: {}
 finalState:
-  documentContents: |
+  documentContents: |+
     <?php
 
-    ;
+
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}

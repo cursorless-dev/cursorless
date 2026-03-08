@@ -1,5 +1,6 @@
 **/vendor
 **/generated
+**/.docusaurus
 
 # We use our own format for our recorded yaml tests to keep them compact
 /data/fixtures/recorded/**/*.yml

@@ -1,0 +1,15 @@
+try {}
+catch {}
+finally {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-2:10
+  >------
+0| try {}
+1| catch {}
+2| finally {}
+   ----------<
+
+[Insertion delimiter] = "\n"

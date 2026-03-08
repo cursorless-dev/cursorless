@@ -1,0 +1,24 @@
+foo := func() int {}
+---
+
+[Content] = 0:14-0:17
+                >---<
+0| foo := func() int {}
+
+[Removal] = 0:14-0:18
+                >----<
+0| foo := func() int {}
+
+[Leading delimiter] = 0:13-0:14
+               >-<
+0| foo := func() int {}
+
+[Trailing delimiter] = 0:17-0:18
+                   >-<
+0| foo := func() int {}
+
+[Domain] = 0:7-0:20
+         >-------------<
+0| foo := func() int {}
+
+[Insertion delimiter] = " "

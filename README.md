@@ -41,14 +41,14 @@ See [installation](https://www.cursorless.org/docs/user/installation/) for insta
 
 This extension contributes the following settings:
 
-- `cursorless.showOnStart`: Whether decorations should appear on workspace start
-- `cursorless.hatSizeAdjustment`: Percentage to increase or decrease hat size; positive increases size
-- `cursorless.hatVerticalOffset`: How much to vertically shift the hats as a percentage of font size; positive is up
-- `cursorless.hatEnablement.colors`: Whether to enable particular hat colors.
-- `cursorless.hatEnablement.shapes`: Whether to enable particular hat shapes.
-- `cursorless.hatPenalties.colors`: How much to penalize each hat color. You will probably want to set this one to the number of syllables in the given style. Cursorless will then sort every style combination by number of syllables to refer to it.
-- `cursorless.hatPenalties.shapes`: How much to penalize each hat shape. You will probably want to set this one to the number of syllables in the given style. Cursorless will then sort every style combination by number of syllables to refer to it.
-- `cursorless.maximumHatStylePenalty`: The maximum allowed penalty for a hat style. Any hat style whose penalty is greater than this amount will not be used. A hat style penalty is defined to be the shape penalty plus the colour penalty. Setting this value less than or equal to zero is treated as no maximum.
+- [`cursorless.showOnStart`](vscode://settings/cursorless.showOnStart): Whether decorations should appear on workspace start
+- [`cursorless.hatSizeAdjustment`](vscode://settings/cursorless.hatSizeAdjustment): Percentage to increase or decrease hat size; positive increases size
+- [`cursorless.hatVerticalOffset`](vscode://settings/cursorless.hatVerticalOffset): How much to vertically shift the hats as a percentage of font size; positive is up
+- [`cursorless.hatEnablement.colors`](vscode://settings/cursorless.hatEnablement.colors): Whether to enable particular hat colors.
+- [`cursorless.hatEnablement.shapes`](vscode://settings/cursorless.hatEnablement.shapes): Whether to enable particular hat shapes.
+- [`cursorless.hatPenalties.colors`](vscode://settings/cursorless.hatPenalties.colors): How much to penalize each hat color. You will probably want to set this one to the number of syllables in the given style. Cursorless will then sort every style combination by number of syllables to refer to it.
+- [`cursorless.hatPenalties.shapes`](vscode://settings/cursorless.hatPenalties.shapes): How much to penalize each hat shape. You will probably want to set this one to the number of syllables in the given style. Cursorless will then sort every style combination by number of syllables to refer to it.
+- [`cursorless.maximumHatStylePenalty`](vscode://settings/cursorless.maximumHatStylePenalty): The maximum allowed penalty for a hat style. Any hat style whose penalty is greater than this amount will not be used. A hat style penalty is defined to be the shape penalty plus the colour penalty. Setting this value less than or equal to zero is treated as no maximum.
 
 ## Known Issues
 

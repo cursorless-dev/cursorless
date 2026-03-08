@@ -1,0 +1,12 @@
+public class Foo {
+    public Foo(int aaa, int bbb) {}
+}
+---
+
+[Content] = 1:15-1:31
+                 >----------------<
+1|     public Foo(int aaa, int bbb) {}
+
+[Domain] = 1:4-1:35
+      >-------------------------------<
+1|     public Foo(int aaa, int bbb) {}

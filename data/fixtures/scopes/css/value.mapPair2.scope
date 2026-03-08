@@ -7,12 +7,12 @@
               >---------------<
 1|     margin: 1px 2px 3px 4px;
 
-[Removal] = 1:11-1:27
-             >----------------<
+[Removal] = 1:10-1:27
+            >-----------------<
 1|     margin: 1px 2px 3px 4px;
 
-[Leading delimiter] = 1:11-1:12
-             >-<
+[Leading delimiter] = 1:10-1:12
+            >--<
 1|     margin: 1px 2px 3px 4px;
 
 [Domain] = 1:4-1:28

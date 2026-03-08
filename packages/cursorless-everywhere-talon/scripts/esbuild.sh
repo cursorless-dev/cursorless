@@ -10,6 +10,7 @@ esbuild \
   --bundle \
   --sourcemap \
   --external:talon \
+  --external:node:crypto \
   "$@"
 
 # FIXME: Talon javascript files needs to start with an import from Talon before any other code

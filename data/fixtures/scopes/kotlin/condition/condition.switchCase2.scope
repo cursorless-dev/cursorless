@@ -1,0 +1,26 @@
+when (foo) {
+    0, 1 -> break
+}
+---
+
+[Content] = 1:4-1:8
+      >----<
+1|     0, 1 -> break
+
+[Removal] = 1:4-1:9
+      >-----<
+1|     0, 1 -> break
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     0, 1 -> break
+
+[Trailing delimiter] = 1:8-1:9
+          >-<
+1|     0, 1 -> break
+
+[Domain] = 1:4-1:17
+      >-------------<
+1|     0, 1 -> break
+
+[Insertion delimiter] = " "

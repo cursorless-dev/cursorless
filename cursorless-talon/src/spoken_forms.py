@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from typing import Callable, Concatenate, ParamSpec, TypeVar
+from typing import Callable, Concatenate
 
 from talon import app, cron, fs, registry
 
@@ -24,11 +24,7 @@ JSON_FILE = Path(__file__).parent / "spoken_forms.json"
 disposables: list[Callable] = []
 
 
-P = ParamSpec("P")
-R = TypeVar("R")
-
-
-def auto_construct_defaults(
+def auto_construct_defaults[**P, R](
     spoken_forms: dict[str, ListToSpokenForms],
     handle_new_values: Callable[[str, list[SpokenFormEntry]], None],
     f: Callable[
@@ -129,7 +125,9 @@ def update():
             update_spoken_forms_output()
 
     handle_csv = auto_construct_defaults(
-        spoken_forms, handle_new_values, init_csv_and_watch_changes
+        spoken_forms,
+        handle_new_values,
+        init_csv_and_watch_changes,
     )
 
     disposables = [
@@ -156,7 +154,6 @@ def update():
             ],
             extra_allowed_values=[
                 "private.fieldAccess",
-                "private.switchStatementSubject",
                 "textFragment",
                 "disqualifyDelimiter",
                 "pairDelimiter",
@@ -164,30 +161,6 @@ def update():
             ],
             default_list_name="scope_type",
         ),
-        # DEPRECATED @ 2025-02-01
-        handle_csv(
-            "experimental/wrapper_snippets.csv",
-            deprecated=True,
-            allow_unknown_values=True,
-            default_list_name="wrapper_snippet",
-        ),
-        handle_csv(
-            "experimental/insertion_snippets.csv",
-            deprecated=True,
-            allow_unknown_values=True,
-            default_list_name="insertion_snippet_no_phrase",
-        ),
-        handle_csv(
-            "experimental/insertion_snippets_single_phrase.csv",
-            deprecated=True,
-            allow_unknown_values=True,
-            default_list_name="insertion_snippet_single_phrase",
-        ),
-        handle_csv(
-            "experimental/miscellaneous.csv",
-            deprecated=True,
-        ),
-        # ---
         handle_csv(
             "experimental/actions_custom.csv",
             headers=[SPOKEN_FORM_HEADER, "VSCode command"],

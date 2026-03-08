@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  version: 6
+  version: 7
   spokenForm: change second char look past end of its token
   action:
     name: clearAndSetSelection

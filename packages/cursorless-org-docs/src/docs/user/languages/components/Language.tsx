@@ -1,10 +1,19 @@
 import React from "react";
-import { ScopeSupport } from "./ScopeSupport";
+import { DynamicTOC } from "../../../components/DynamicTOC";
+import { ScopeVisualizer } from "../../../components/ScopeVisualizer";
+import { ScrollToHashId } from "../../../components/ScrollToHashId";
 
 interface Props {
   languageId: string;
 }
 
 export function Language({ languageId }: Props) {
-  return <ScopeSupport languageId={languageId} />;
+  return (
+    <>
+      <DynamicTOC />
+      <ScrollToHashId />
+
+      <ScopeVisualizer languageId={languageId} />
+    </>
+  );
 }

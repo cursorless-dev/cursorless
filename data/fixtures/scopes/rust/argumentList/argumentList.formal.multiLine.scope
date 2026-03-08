@@ -1,0 +1,33 @@
+fn foo(
+    aaa: i32,
+    bbb: i32,
+) {}
+---
+
+[Content] = 1:4-2:13
+      >---------
+1|     aaa: i32,
+2|     bbb: i32,
+   -------------<
+
+[Removal] = 0:7-3:0
+         >
+0| fn foo(
+1|     aaa: i32,
+2|     bbb: i32,
+3| ) {}
+   <
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     aaa: i32,
+
+[Domain] = 0:0-3:4
+  >-------
+0| fn foo(
+1|     aaa: i32,
+2|     bbb: i32,
+3| ) {}
+   ----<
+
+[Insertion delimiter] = ",\n"

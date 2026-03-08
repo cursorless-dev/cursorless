@@ -1,7 +1,8 @@
-import type {
-  ActionDescriptor,
-  CommandResponse,
-  CommandV6,
+import {
+  LATEST_VERSION,
+  type ActionDescriptor,
+  type CommandLatest,
+  type CommandResponse,
 } from "@cursorless/common";
 
 export interface SpokenFormTest {
@@ -22,7 +23,7 @@ export interface SpokenFormTest {
    * The sequence of Cursorless commands that should be executed when
    * {@link spokenForm} is spoken.
    */
-  commands: CommandV6[];
+  commands: CommandLatest[];
 }
 
 export function spokenFormTest(
@@ -55,9 +56,9 @@ function wrapMockedGetValue(
   return mockedGetValue == null ? undefined : { returnValue: mockedGetValue };
 }
 
-function command(spokenForm: string, action: ActionDescriptor): CommandV6 {
+function command(spokenForm: string, action: ActionDescriptor): CommandLatest {
   return {
-    version: 6,
+    version: LATEST_VERSION,
     spokenForm,
     usePrePhraseSnapshot: true,
     action,

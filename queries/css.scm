@@ -36,9 +36,9 @@
 
 ;;!! width: 100px;
 (declaration
-  (property_name) @name @collectionKey
+  (property_name) @name @collectionKey @value.leading.endOf
   .
-  (_) @value.start
+  (_) @value.start @name.trailing.startOf @collectionKey.trailing.startOf
   (_)? @value.end
   .
 ) @collectionItem @_.domain
@@ -83,17 +83,21 @@
       .
       (_) @_.trailing.startOf
     )?
-  )
+  ) @_dummyList
   (#grow-to-named-siblings! @argumentOrParameter "at")
-  (#insertion-delimiter! @argumentOrParameter ", ")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummyList ", " ",\n")
 )
 
-(arguments
-  .
-  "(" @argumentOrParameter.iteration.start.endOf
-  ")" @argumentOrParameter.iteration.end.startOf
-  .
-) @argumentOrParameter.iteration.domain
+;;!! translate(-50%, -50%)
+;;!            ^^^^^^^^^^
+(_
+  (arguments
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;; Entire file
 (
@@ -107,10 +111,8 @@
 
 ;; { }
 (block
-  .
   "{" @name.iteration.start.endOf @collectionKey.iteration.start.endOf @value.iteration.start.endOf
   "}" @name.iteration.end.startOf @collectionKey.iteration.end.startOf @value.iteration.end.startOf
-  .
 ) @map
 
 ;;!! width: 100px;

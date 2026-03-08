@@ -1,5 +1,5 @@
+import { CURSORLESS_ORG_URL } from "@cursorless/common";
 import {
-  BASE_URL,
   VIDEO_SHARE_THUMBNAIL_HEIGHT,
   VIDEO_SHARE_THUMBNAIL_URL,
   VIDEO_SHARE_THUMBNAIL_WIDTH,
@@ -24,7 +24,7 @@ export default function BaseSocial({
   thumbnailWidth = VIDEO_SHARE_THUMBNAIL_WIDTH,
   thumbnailHeight = VIDEO_SHARE_THUMBNAIL_HEIGHT,
 }: Props) {
-  const url = `${BASE_URL}/${relativeUrl}`;
+  const url = `${CURSORLESS_ORG_URL}/${relativeUrl}`;
 
   return (
     <>

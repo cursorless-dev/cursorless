@@ -1,6 +1,6 @@
 languageId: ruby
 command:
-  version: 6
+  version: 7
   spokenForm: chuck name this
   action:
     name: remove
@@ -18,7 +18,7 @@ initialState:
       active: {line: 0, character: 4}
   marks: {}
 finalState:
-  documentContents: "= 1"
+  documentContents: "1"
   selections:
-    - anchor: {line: 0, character: 2}
-      active: {line: 0, character: 2}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

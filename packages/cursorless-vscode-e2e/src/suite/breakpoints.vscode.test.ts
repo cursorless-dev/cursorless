@@ -1,3 +1,4 @@
+import { LATEST_VERSION } from "@cursorless/common";
 import {
   getCursorlessApi,
   openNewEditor,
@@ -18,31 +19,17 @@ suite("breakpoints", async function () {
     removeBreakpoints();
   });
 
-  test("breakpoint harp add", breakpointHarpAdd);
-  test("breakpoint token harp add", breakpointTokenHarpAdd);
-  test("breakpoint harp remove", breakpointHarpRemove);
-  test("breakpoint token harp remove", breakpointTokenHarpRemove);
+  test("breakpoint harp add", breakpointAdd);
+  test("breakpoint token harp add", breakpointTokenAdd);
+  test("breakpoint harp remove", breakpointRemove);
+  test("breakpoint token harp remove", breakpointTokenRemove);
 });
 
-async function breakpointHarpAdd() {
+async function breakpointAdd() {
   const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
   await openNewEditor("  hello");
   await hatTokenMap.allocateHats();
-
-  await runCursorlessCommand({
-    version: 1,
-    action: "setBreakpoint",
-    targets: [
-      {
-        type: "primitive",
-        mark: {
-          type: "decoratedSymbol",
-          symbolColor: "default",
-          character: "e",
-        },
-      },
-    ],
-  });
+  await toggleBreakpoint();
 
   const breakpoints = vscode.debug.breakpoints;
   assert.deepStrictEqual(breakpoints.length, 1);
@@ -51,26 +38,11 @@ async function breakpointHarpAdd() {
   assert.ok(breakpoint.location.range.isEqual(new vscode.Range(0, 0, 0, 0)));
 }
 
-async function breakpointTokenHarpAdd() {
+async function breakpointTokenAdd() {
   const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
   await openNewEditor("  hello");
   await hatTokenMap.allocateHats();
-
-  await runCursorlessCommand({
-    version: 1,
-    action: "setBreakpoint",
-    targets: [
-      {
-        type: "primitive",
-        selectionType: "token",
-        mark: {
-          type: "decoratedSymbol",
-          symbolColor: "default",
-          character: "e",
-        },
-      },
-    ],
-  });
+  await toggleTokenBreakpoint();
 
   const breakpoints = vscode.debug.breakpoints;
   assert.deepStrictEqual(breakpoints.length, 1);
@@ -79,7 +51,7 @@ async function breakpointTokenHarpAdd() {
   assert.ok(breakpoint.location.range.isEqual(new vscode.Range(0, 2, 0, 7)));
 }
 
-async function breakpointHarpRemove() {
+async function breakpointRemove() {
   const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
   const editor = await openNewEditor("  hello");
   await hatTokenMap.allocateHats();
@@ -92,25 +64,12 @@ async function breakpointHarpRemove() {
 
   assert.deepStrictEqual(vscode.debug.breakpoints.length, 1);
 
-  await runCursorlessCommand({
-    version: 1,
-    action: "setBreakpoint",
-    targets: [
-      {
-        type: "primitive",
-        mark: {
-          type: "decoratedSymbol",
-          symbolColor: "default",
-          character: "e",
-        },
-      },
-    ],
-  });
+  await toggleBreakpoint();
 
   assert.deepStrictEqual(vscode.debug.breakpoints.length, 0);
 }
 
-async function breakpointTokenHarpRemove() {
+async function breakpointTokenRemove() {
   const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
   const editor = await openNewEditor("  hello");
   await hatTokenMap.allocateHats();
@@ -126,21 +85,7 @@ async function breakpointTokenHarpRemove() {
 
   assert.deepStrictEqual(vscode.debug.breakpoints.length, 2);
 
-  await runCursorlessCommand({
-    version: 1,
-    action: "setBreakpoint",
-    targets: [
-      {
-        type: "primitive",
-        selectionType: "token",
-        mark: {
-          type: "decoratedSymbol",
-          symbolColor: "default",
-          character: "e",
-        },
-      },
-    ],
-  });
+  await toggleTokenBreakpoint();
 
   const breakpoints = vscode.debug.breakpoints;
   assert.deepStrictEqual(breakpoints.length, 1);
@@ -151,4 +96,41 @@ async function breakpointTokenHarpRemove() {
 
 function removeBreakpoints() {
   vscode.debug.removeBreakpoints(vscode.debug.breakpoints);
+}
+
+function toggleTokenBreakpoint() {
+  return runCursorlessCommand({
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
+    action: {
+      name: "toggleLineBreakpoint",
+      target: {
+        type: "primitive",
+        modifiers: [{ type: "containingScope", scopeType: { type: "token" } }],
+        mark: {
+          type: "decoratedSymbol",
+          symbolColor: "default",
+          character: "e",
+        },
+      },
+    },
+  });
+}
+
+function toggleBreakpoint() {
+  return runCursorlessCommand({
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
+    action: {
+      name: "toggleLineBreakpoint",
+      target: {
+        type: "primitive",
+        mark: {
+          type: "decoratedSymbol",
+          symbolColor: "default",
+          character: "e",
+        },
+      },
+    },
+  });
 }

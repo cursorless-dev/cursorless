@@ -1,0 +1,22 @@
+<?php
+class Foo {
+    function bar() {}
+}
+---
+
+[Content] =
+[Domain] = 2:4-2:21
+      >-----------------<
+2|     function bar() {}
+
+[Removal] = 2:0-3:0
+  >---------------------
+2|     function bar() {}
+3| }
+   <
+
+[Leading delimiter] = 2:0-2:4
+  >----<
+2|     function bar() {}
+
+[Insertion delimiter] = "\n\n"

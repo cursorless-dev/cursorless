@@ -1,0 +1,10 @@
+const {foo, bar} = baz;
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:23
+  >-----------------------<
+0| const {foo, bar} = baz;
+
+[Insertion delimiter] = "\n"

@@ -1,3 +1,5 @@
+/* global Crawler */
+
 new Crawler({
   rateLimit: 8,
   startUrls: ["https://www.cursorless.org/docs"],

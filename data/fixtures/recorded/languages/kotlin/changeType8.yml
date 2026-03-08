@@ -17,7 +17,7 @@ initialState:
       active: {line: 0, character: 10}
   marks: {}
 finalState:
-  documentContents: "typealias Predicate<T> = "
+  documentContents: ""
   selections:
-    - anchor: {line: 0, character: 25}
-      active: {line: 0, character: 25}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

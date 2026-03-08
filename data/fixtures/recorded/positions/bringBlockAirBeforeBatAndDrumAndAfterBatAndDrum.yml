@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  version: 6
+  version: 7
   spokenForm: bring block air before bat and drum and after bat and drum
   action:
     name: replaceWithTarget

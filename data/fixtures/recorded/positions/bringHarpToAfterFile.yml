@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  version: 6
+  version: 7
   spokenForm: bring harp after file
   action:
     name: replaceWithTarget
@@ -28,6 +28,7 @@ initialState:
 finalState:
   documentContents: |-
     hello world
+
     hello
   selections:
     - anchor: {line: 0, character: 0}

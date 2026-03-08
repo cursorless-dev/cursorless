@@ -1,12 +1,12 @@
-import { fromVscodeRange } from "@cursorless/vscode-common";
-import * as vscode from "vscode";
 import type {
+  Disposable,
+  Event,
   TextDocumentChangeEvent,
   TextDocumentChangeReason,
   TextDocumentContentChangeEvent,
 } from "@cursorless/common";
-import type { Event } from "@cursorless/common";
-import type { Disposable } from "@cursorless/common";
+import { fromVscodeRange } from "@cursorless/vscode-common";
+import * as vscode from "vscode";
 import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
 
 export function vscodeOnDidChangeTextDocument(

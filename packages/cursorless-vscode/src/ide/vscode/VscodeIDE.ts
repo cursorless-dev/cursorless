@@ -58,11 +58,11 @@ export class VscodeIDE implements IDE {
     this.editorMap = new WeakMap<vscode.TextEditor, VscodeTextEditorImpl>();
   }
 
-  async showQuickPick(
+  showQuickPick(
     items: readonly string[],
     options?: QuickPickOptions,
   ): Promise<string | undefined> {
-    return await vscodeShowQuickPick(items, options);
+    return vscodeShowQuickPick(items, options);
   }
 
   setHighlightRanges(

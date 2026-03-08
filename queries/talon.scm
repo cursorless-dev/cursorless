@@ -30,66 +30,72 @@
 (block) @statement.iteration
 
 ;;!! not mode: command
-;;!  ----^^^^---------
+;;!      ^^^^
+;;!            ^^^^^^^
 ;;!! slap: key(enter)
-;;!  ^^^^------------
+;;!  ^^^^
+;;!        ^^^^^^^^^^
 ;;!! tag(): user.cursorless
-;;!  ^^^^^-----------------
+;;!  ^^^^^
+;;!         ^^^^^^^^^^^^^^^
 (
   (_
-    left: _ @name
+    left: _ @name @value.leading.endOf
+    right: (_) @value
   ) @_.domain
-  (#not-type? @_.domain "binary_operator")
+  (#not-type? @_.domain binary_operator assignment_statement)
 )
 
 ;;!! not mode: command
-;;!  ^^^^^^^^---------
+;;!  ^^^^^^^^
 ;;!! slap: key(enter)
-;;!  ^^^^------------
+;;!  ^^^^
 ;;!! tag(): user.cursorless
-;;!  ^^^^^-----------------
+;;!  ^^^^^
 (
   (_
     modifiers: (_)? @collectionKey.start
     left: _ @collectionKey.end
+    right: (_) @collectionKey.trailing.startOf
   ) @_.domain
-  (#not-type? @_.domain "binary_operator")
+  (#not-type? @_.domain binary_operator assignment_statement)
 )
 
-;;!! not mode: command
-;;!  ----------^^^^^^^
-;;!! slap: key(enter)
-;;!  ------^^^^^^^^^^
+;;!! foo = 0
+;;!  ^^^
+;;!        ^
+(assignment_statement
+  left: (_) @name @value.leading.endOf
+  right: (_) @value @name.trailing.startOf
+) @_.domain
+
+;;!! mode: command
+;;!  ^^^^^^^^^^^^^
+(matches
+  (_) @name.iteration.end.endOf @collectionKey.iteration.end.endOf @value.iteration.end.endOf
+  .
+) @name.iteration.start.startOf @collectionKey.iteration.start.startOf @value.iteration.start.startOf
+
+;;!! hello: "world"
+;;!  ^^^^^^^^^^^^^^
+(declarations) @name.iteration @collectionKey.iteration @value.iteration
+
+;;!! hello: "world"
+;;!         ^^^^^^^
+;;!! settings():
+;;!!     speech.debug = 1
+;;!      ^^^^^^^^^^^^^^^^
+(block) @name.iteration @collectionKey.iteration @value.iteration
+
 (
-  (_
-    right: (_) @value
-  ) @_.domain
-  (#not-type? @_.domain "binary_operator")
+  (source_file) @command.iteration @statement.iteration
+  (#document-range! @command.iteration @statement.iteration)
 )
 
-;;!!   mode: command
-;;!   <*************
-;;!!   tag: user.foo
-;;!    *************>
-;;!!   -
-;;!!   settings():
-;;!!       speech.debug = 1
-;;!       <****************
-;;!!       user.foo = "bar"
-;;!        ****************>
-;;!!
-;;!!   hello: "world"
-;;!1  <**************
-;;!!   foo:
-;;!1   ****
-;;!!       bar = 5
-;;!1       *******>
-;;!2      <*******>
-(_
-  (_
-    right: (_)
-  )
-) @name.iteration @collectionKey.iteration @value.iteration
+(
+  (source_file) @name.iteration @collectionKey.iteration @value.iteration
+  (#document-range! @name.iteration @collectionKey.iteration @value.iteration)
+)
 
 ;;!!  tag: user.foo
 ;;!  {^^^^^^^^^^^^^
@@ -117,15 +123,17 @@
 ;;!! slap: key(enter)
 ;;!  ^^^^^^^^^^^^^^^^
 (
-  (command_declaration
-    right: (_) @interior
-  ) @command @interior.domain
+  (command_declaration) @command
   (#insertion-delimiter! @command "\n")
 )
 
+;;!! slap: key(enter)
+;;!       ^^^^^^^^^^^
 (
-  (source_file) @command.iteration @statement.iteration
-  (#document-range! @command.iteration @statement.iteration)
+  (command_declaration
+    ":" @interior.start.endOf
+    right: (_) @interior.end.endOf
+  )
 )
 
 ;;!! key(enter)
@@ -157,11 +165,14 @@
 ;;!! key(enter)
 ;;!      ^^^^^
 (key_action
-  arguments: (_) @argumentOrParameter
-)
+  (implicit_string) @argumentOrParameter @argumentOrParameter.iteration @argumentList
+) @argumentOrParameter.iteration.domain @argumentList.domain
+
+;;!! sleep(100ms)
+;;!        ^^^^^
 (sleep_action
-  arguments: (_) @argumentOrParameter
-)
+  (implicit_string) @argumentOrParameter @argumentOrParameter.iteration @argumentList
+) @argumentOrParameter.iteration.domain @argumentList.domain
 
 ;;!! print("hello", "world")
 ;;!        ^^^^^^^  ^^^^^^^
@@ -176,16 +187,14 @@
   (#insertion-delimiter! @argumentOrParameter ", ")
 )
 
-(argument_list
-  .
-  "(" @argumentOrParameter.iteration.start.endOf
-  ")" @argumentOrParameter.iteration.end.startOf
-  .
-) @argumentOrParameter.iteration.domain
-
-;;!! key(enter)
-;;!      ^^^^^
-arguments: (implicit_string) @argumentOrParameter.iteration
+(_
+  (argument_list
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;;!! # foo
 ;;!  ^^^^^

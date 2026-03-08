@@ -1,0 +1,17 @@
+class Foo: Bar()
+---
+
+[Content] =
+[Domain] = 0:11-0:16
+             >-----<
+0| class Foo: Bar()
+
+[Removal] = 0:10-0:16
+            >------<
+0| class Foo: Bar()
+
+[Leading delimiter] = 0:10-0:11
+            >-<
+0| class Foo: Bar()
+
+[Insertion delimiter] = " "

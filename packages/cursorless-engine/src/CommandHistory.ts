@@ -2,11 +2,11 @@ import type {
   ActionDescriptor,
   CommandComplete,
   CommandHistoryEntry,
+  CommandHistoryStorage,
   CommandServerApi,
   IDE,
   ReadOnlyHatMap,
 } from "@cursorless/common";
-import { type CommandHistoryStorage } from "@cursorless/common";
 import { produce } from "immer";
 import { v4 as uuid } from "uuid";
 import type { CommandRunner } from "./CommandRunner";
@@ -122,8 +122,6 @@ function sanitizeActionInPlace(action: ActionDescriptor): void {
           snippet.body = "";
           delete snippet.substitutions;
         }
-      } else {
-        delete action.snippetDescription.substitutions;
       }
       break;
 

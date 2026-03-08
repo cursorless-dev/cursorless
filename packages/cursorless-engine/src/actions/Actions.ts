@@ -131,7 +131,6 @@ export class Actions implements ActionRecord {
     );
     this.insertSnippet = new InsertSnippet(
       rangeUpdater,
-      snippets,
       this,
       modifierStageFactory,
     );
@@ -170,7 +169,6 @@ export class Actions implements ActionRecord {
     this.wrapWithPairedDelimiter = new Wrap(rangeUpdater);
     this.wrapWithSnippet = new WrapWithSnippet(
       rangeUpdater,
-      snippets,
       modifierStageFactory,
     );
 

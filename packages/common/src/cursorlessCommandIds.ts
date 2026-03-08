@@ -38,7 +38,6 @@ export const cursorlessCommandIds = [
   "cursorless.keyboard.targeted.targetHat",
   "cursorless.keyboard.targeted.targetScope",
   "cursorless.keyboard.targeted.targetSelection",
-  "cursorless.migrateSnippets",
   "cursorless.pauseRecording",
   "cursorless.recomputeDecorationStyles",
   "cursorless.recordTestCase",
@@ -54,6 +53,7 @@ export const cursorlessCommandIds = [
   "cursorless.toggleDecorations",
   "cursorless.showScopeVisualizer",
   "cursorless.hideScopeVisualizer",
+  "cursorless.scopeVisualizer.openUrl",
   "cursorless.tutorial.start",
   "cursorless.tutorial.next",
   "cursorless.tutorial.previous",
@@ -94,12 +94,16 @@ export const cursorlessCommandDescriptions: Record<
   ["cursorless.showInstallationDependencies"]: new VisibleCommand(
     "Show installation dependencies",
   ),
+  // showScopeVisualizer can't be called from the command palatte because it
+  // requires an argument, but it still needs to be visible or the scope buttons
+  // will be disabled in the sidebar
   ["cursorless.showScopeVisualizer"]: new VisibleCommand(
     "Show the scope visualizer",
   ),
   ["cursorless.hideScopeVisualizer"]: new VisibleCommand(
     "Hide the scope visualizer",
   ),
+  ["cursorless.scopeVisualizer.openUrl"]: new VisibleCommand("Open in browser"),
   ["cursorless.analyzeCommandHistory"]: new VisibleCommand(
     "Analyze collected command history",
   ),
@@ -164,8 +168,5 @@ export const cursorlessCommandDescriptions: Record<
   ),
   ["cursorless.keyboard.redoTarget"]: new HiddenCommand(
     "Redo keyboard targeting changes",
-  ),
-  ["cursorless.migrateSnippets"]: new HiddenCommand(
-    "Migrate snippets from the old Cursorless format to the new community format",
   ),
 };

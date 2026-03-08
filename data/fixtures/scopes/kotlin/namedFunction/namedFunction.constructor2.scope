@@ -1,0 +1,25 @@
+class Foo {
+    @bar
+    constructor() {}
+}
+---
+
+[Content] =
+[Domain] = 1:4-2:20
+      >----
+1|     @bar
+2|     constructor() {}
+   --------------------<
+
+[Removal] = 1:0-3:0
+  >--------
+1|     @bar
+2|     constructor() {}
+3| }
+   <
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     @bar
+
+[Insertion delimiter] = "\n\n"

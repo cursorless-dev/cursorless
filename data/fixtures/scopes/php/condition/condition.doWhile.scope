@@ -1,0 +1,14 @@
+<?php
+do {} while (true);
+---
+
+[Content] =
+[Removal] = 1:13-1:17
+               >----<
+1| do {} while (true);
+
+[Domain] = 1:0-1:19
+  >-------------------<
+1| do {} while (true);
+
+[Insertion delimiter] = " "
