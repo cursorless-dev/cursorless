@@ -27,7 +27,7 @@ suite("UndoStack", () => {
     assert.strictEqual(undoStack.redo(), undefined);
   });
 
-  test("should truncate history if max lenght exceeded", () => {
+  test("should truncate history if max length exceeded", () => {
     const undoStack = new UndoStack<string>(3);
     undoStack.push("a");
     undoStack.push("b");
