@@ -143,6 +143,7 @@ The configuration file is divided into several sections, each mapping keyboard s
 Here are some example command sequences (spaces are added only for readability and should be ignored when typing the commands):
 
 ### `dx fa dy c`
+
 - What it does: Delete two tokens marked with default color hats
 - Voice command equivalent: "change plex and yank"
 - Breakdown:
@@ -152,6 +153,7 @@ Here are some example command sequences (spaces are added only for readability a
   - `c`: clear and set selection (exits Cursorless mode)
 
 ### `da *st c`
+
 - What it does: Delete every token
 - Voice command equivalent: "change every token air"
 - Breakdown:
@@ -161,6 +163,7 @@ Here are some example command sequences (spaces are added only for readability a
   - `c`: clear and set selection (exits Cursorless mode)
 
 ### `db 3st c`
+
 - What it does: Delete three consecutive tokens starting with blue hat
 - Voice command equivalent: "change three tokens bat"
 - Breakdown:
@@ -170,6 +173,7 @@ Here are some example command sequences (spaces are added only for readability a
   - `c`: clear and set selection (exits Cursorless mode)
 
 ### `dd -3st c`
+
 - What it does: Delete three consecutive tokens going backwards from default hat
 - Voice command equivalent: "change three tokens backwards drum"
 - Breakdown:
@@ -179,6 +183,7 @@ Here are some example command sequences (spaces are added only for readability a
   - `c`: clear and set selection (exits Cursorless mode)
 
 ### `db wp c`
+
 - What it does: Delete the parentheses and their contents
 - Voice command equivalent: "change parens bat"
 - Breakdown:
@@ -187,6 +192,7 @@ Here are some example command sequences (spaces are added only for readability a
   - `c`: clear and set selection (exits Cursorless mode)
 
 ### `dw wj c`
+
 - What it does: Delete any pair of matching delimiters and their contents
 - Voice command equivalent: "change pair whale"
 - Breakdown:
@@ -195,6 +201,7 @@ Here are some example command sequences (spaces are added only for readability a
   - `c`: clear and set selection (exits Cursorless mode)
 
 ### `da mi c`
+
 - What it does: Delete the content inside delimiters while preserving the delimiters
 - Voice command equivalent: "change inside air"
 - Breakdown:
@@ -203,6 +210,7 @@ Here are some example command sequences (spaces are added only for readability a
   - `c`: clear and set selection (exits Cursorless mode)
 
 ### `db mt wb mi c`
+
 - What it does: Delete from the token to the end of the containing curly bracket block
 - Voice command equivalent: "change inside tail curly bat"
 - Breakdown:
@@ -213,6 +221,7 @@ Here are some example command sequences (spaces are added only for readability a
   - `c`: clear and set selection (exits Cursorless mode)
 
 ### `da aw wp`
+
 - What it does: Wrap the token in parentheses
 - Voice command equivalent: "round wrap air"
 - Breakdown:
@@ -221,6 +230,7 @@ Here are some example command sequences (spaces are added only for readability a
   - `wp`: parentheses (round)
 
 ### `da fs dc st c`
+
 - What it does: Delete tokens in a vertical slice from one token to another
 - Voice command equivalent: "keyboard air; keyboard slice past cap; change token"
 - Breakdown:
