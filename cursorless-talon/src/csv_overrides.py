@@ -4,7 +4,7 @@ from collections import defaultdict
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Callable, Container, Iterable, Optional, TypedDict
+from typing import Callable, Container, Iterable, Optional, Sequence, TypedDict
 
 from talon import Context, Module, actions, app, fs, settings
 
@@ -65,16 +65,16 @@ def csv_get_normalized_ctx():
 def init_csv_and_watch_changes(
     filename: str,
     default_values: ListToSpokenForms,
-    handle_new_values: Optional[Callable[[list[SpokenFormEntry]], None]] = None,
+    handle_new_values: Optional[Callable[[Sequence[SpokenFormEntry]], None]] = None,
     *,
-    extra_ignored_values: list[str] = [],
-    extra_allowed_values: Optional[list[str]] = None,
+    extra_ignored_values: Optional[Sequence[str]] = None,
+    extra_allowed_values: Optional[Sequence[str]] = None,
     allow_unknown_values: bool = False,
     deprecated: bool = False,
     default_list_name: Optional[str] = None,
-    headers: list[str] = [SPOKEN_FORM_HEADER, CURSORLESS_IDENTIFIER_HEADER],
+    headers: Optional[Sequence[str]] = None,
     no_update_file: bool = False,
-    pluralize_lists: list[str] = [],
+    pluralize_lists: Optional[Sequence[str]] = None,
 ) -> Callable[[], None]:
     """
     Initialize a cursorless settings csv, creating it if necessary, and watch
@@ -96,21 +96,21 @@ def init_csv_and_watch_changes(
             `cursorles-settings` dir
         default_values (ListToSpokenForms): The default values for the lists to
             be customized in the given csv
-        handle_new_values (Optional[Callable[[list[SpokenFormEntry]], None]]): A
+        handle_new_values (Optional[Callable[[Sequence[SpokenFormEntry]], None]]): A
             callback to be called when the lists are updated
-        extra_ignored_values (list[str]): Don't throw an exception if
+        extra_ignored_values (Optional[Sequence[str]]): Don't throw an exception if
             any of these appear as values; just ignore them and don't add them
             to any list
         allow_unknown_values (bool): If unknown values appear, just put them in
             the list
         default_list_name (Optional[str]): If unknown values are
             allowed, put any unknown values in this list
-        headers (list[str]): The headers to use for the csv
+        headers (Optional[Sequence[str]]): The headers to use for the csv
         no_update_file (bool): Set this to `True` to indicate that we should not
             update the csv. This is used generally in case there was an issue
             coming up with the default set of values so we don't want to persist
             those to disk
-        pluralize_lists (list[str]): Create plural version of given lists
+        pluralize_lists (Optional[Sequence[str]]): Create plural version of given lists
     """
     # Don't allow both `extra_allowed_values` and `allow_unknown_values`
     assert not (extra_allowed_values and allow_unknown_values)
@@ -121,8 +121,14 @@ def init_csv_and_watch_changes(
         (extra_allowed_values or allow_unknown_values) and not default_list_name
     )
 
+    if headers is None:
+        headers = (SPOKEN_FORM_HEADER, CURSORLESS_IDENTIFIER_HEADER)
+    if extra_ignored_values is None:
+        extra_ignored_values = []
     if extra_allowed_values is None:
         extra_allowed_values = []
+    if pluralize_lists is None:
+        pluralize_lists = []
 
     file_path = get_full_path(filename)
     is_file = file_path.is_file()
@@ -220,7 +226,7 @@ def is_removed(value: str) -> bool:
 
 def create_default_vocabulary_dicts(
     default_values: ListToSpokenForms,
-    pluralize_lists: list[str],
+    pluralize_lists: Sequence[str],
 ):
     default_values_updated = {}
     for key, value in default_values.items():
@@ -237,13 +243,13 @@ def create_default_vocabulary_dicts(
 def update_dicts(
     default_values: ListToSpokenForms,
     current_values: dict[str, str],
-    extra_ignored_values: list[str],
-    extra_allowed_values: list[str],
+    extra_ignored_values: Sequence[str],
+    extra_allowed_values: Sequence[str],
     allow_unknown_values: bool,
     default_list_name: str | None,
-    pluralize_lists: list[str],
-    handle_new_values: Callable[[list[SpokenFormEntry]], None] | None,
-):
+    pluralize_lists: Sequence[str],
+    handle_new_values: Callable[[Sequence[SpokenFormEntry]], None] | None,
+) -> None:
     # Create map with all default values
     results_map: dict[str, ResultsListEntry] = {}
     for list_name, values in default_values.items():
@@ -283,7 +289,9 @@ def update_dicts(
         handle_new_values(spoken_form_entries)
 
 
-def generate_spoken_forms(results_list: Iterable[ResultsListEntry]):
+def generate_spoken_forms(
+    results_list: Iterable[ResultsListEntry],
+) -> Iterable[SpokenFormEntry]:
     for obj in results_list:
         id = obj["id"]
         spoken = obj["spoken"]
@@ -311,8 +319,8 @@ def generate_spoken_forms(results_list: Iterable[ResultsListEntry]):
 def assign_lists_to_context(
     ctx: Context,
     lists: ListToSpokenForms,
-    pluralize_lists: list[str],
-):
+    pluralize_lists: Sequence[str],
+) -> None:
     for list_name, values in lists.items():
         list_singular_name = get_cursorless_list_name(list_name)
         ctx.lists[list_singular_name] = values
@@ -323,10 +331,10 @@ def assign_lists_to_context(
 
 def update_file(
     path: Path,
-    headers: list[str],
+    headers: Sequence[str],
     default_values: dict[str, str],
-    extra_ignored_values: list[str],
-    extra_allowed_values: list[str],
+    extra_ignored_values: Sequence[str],
+    extra_allowed_values: Sequence[str],
     allow_unknown_values: bool,
     no_update_file: bool,
 ) -> dict[str, str]:
@@ -373,15 +381,19 @@ def update_file(
     return current_values
 
 
-def create_line(*cells: str) -> str:
-    return ", ".join(cells)
-
-
-def create_file(path: Path, headers: list[str], default_values: dict[str, str]) -> None:
+def create_file(
+    path: Path,
+    headers: Sequence[str],
+    default_values: dict[str, str],
+) -> None:
     lines = [create_line(key, value) for key, value in sorted(default_values.items())]
     lines.insert(0, create_line(*headers))
     lines.append("")
     path.write_text("\n".join(lines))
+
+
+def create_line(*cells: str) -> str:
+    return ", ".join(cells)
 
 
 def csv_error(path: Path, index: int, message: str, value: str) -> None:
@@ -399,10 +411,10 @@ def csv_error(path: Path, index: int, message: str, value: str) -> None:
 
 def read_file(
     path: Path,
-    headers: list[str],
+    headers: Sequence[str],
     default_identifiers: Container[str],
-    extra_ignored_values: list[str],
-    extra_allowed_values: list[str],
+    extra_ignored_values: Sequence[str],
+    extra_allowed_values: Sequence[str],
     allow_unknown_values: bool,
 ) -> tuple[dict[str, str], bool]:
     with open(path) as csv_file:
@@ -424,7 +436,7 @@ def read_file(
 
         if not seen_headers:
             seen_headers = True
-            if row != headers:
+            if row != list(headers):
                 has_errors = True
                 csv_error(path, i, "Malformed header", create_line(*row))
                 print(f"Expected '{create_line(*headers)}'")
