@@ -20,7 +20,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup python
         uses: actions/setup-python@v6
@@ -31,7 +31,7 @@ jobs:
         uses: pnpm/action-setup@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
           cache: pnpm
@@ -40,16 +40,16 @@ jobs:
         run: pnpm --color install
 
       - name: Install lua
-        uses: leafo/gh-actions-lua@v11
+        uses: leafo/gh-actions-lua@v12
 
       - name: Install luarocks
-        uses: leafo/gh-actions-luarocks@v5
+        uses: leafo/gh-actions-luarocks@v6
 
       - name: Run pre-commit hooks
         uses: pre-commit/action@v3.0.1
 
       - name: Auto-fix pre-commit issues
-        uses: pre-commit-ci/lite-action@v1.0.2
+        uses: pre-commit-ci/lite-action@v1.1.0
         if: always()
 
       - name: Pyright
