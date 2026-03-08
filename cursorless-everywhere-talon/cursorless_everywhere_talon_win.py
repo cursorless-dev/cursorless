@@ -1,4 +1,7 @@
-from talon import Context, app, ui
+import sys
+from typing import Any
+
+from talon import Context, ui
 
 from .cursorless_everywhere_talon import (
     EditorEdit,
@@ -6,8 +9,10 @@ from .cursorless_everywhere_talon import (
     SelectionOffsets,
 )
 
-if app.platform == "windows":
+if sys.platform == "win32":
     from talon.windows.ax import TextRange
+else:
+    TextRange = Any
 
 
 # https://learn.microsoft.com/en-us/dotnet/api/system.windows.automation.text.textpatternrange?view=windowsdesktop-8.0
@@ -47,9 +52,8 @@ class Actions:
             "selections": selections,
         }
 
-    def cursorless_everywhere_set_selections(
-        selections: list[SelectionOffsets],  # pyright: ignore [reportGeneralTypeIssues]
-    ):
+    @staticmethod
+    def cursorless_everywhere_set_selections(selections: list[SelectionOffsets]):
         if selections.length != 1:  # pyright: ignore [reportAttributeAccessIssue]
             raise ValueError("Only single selection supported")
 
@@ -67,9 +71,8 @@ class Actions:
 
         set_selection(document_range, anchor, active)
 
-    def cursorless_everywhere_edit_text(
-        edit: EditorEdit,  # pyright: ignore [reportGeneralTypeIssues]
-    ):
+    @staticmethod
+    def cursorless_everywhere_edit_text(edit: EditorEdit):
         text = edit["text"]
 
         el = ui.focused_element()

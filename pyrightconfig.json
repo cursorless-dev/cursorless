@@ -1,0 +1,7 @@
+{
+  "reportMissingModuleSource": false,
+  "reportSelfClsParameterName": false,
+  "reportUnusedImport": "error",
+  "reportMissingImports": false,
+  "ignore": ["data/playground", "cursorless-talon/src/vendor"]
+}

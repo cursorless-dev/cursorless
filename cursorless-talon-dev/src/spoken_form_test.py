@@ -45,22 +45,25 @@ class UserActions:
     def did_emit_pre_phrase_signal():
         return True
 
+    @staticmethod
     def private_cursorless_run_rpc_command_and_wait(
-        command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
+        command_id: str,
         arg1: Any,
         arg2: Any = None,
     ):
         commands_run.append(arg1)
 
+    @staticmethod
     def private_cursorless_run_rpc_command_no_wait(
-        command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
+        command_id: str,
         arg1: Any,
         arg2: Any = None,
     ):
         commands_run.append(arg1)
 
+    @staticmethod
     def private_cursorless_run_rpc_command_get(
-        command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
+        command_id: str,
         arg1: Any,
         arg2: Any = None,
     ) -> Any:
@@ -70,7 +73,8 @@ class UserActions:
 
 @mod.action_class
 class Actions:
-    def private_cursorless_spoken_form_test_mode(enable: bool):  # pyright: ignore [reportGeneralTypeIssues]
+    @staticmethod
+    def private_cursorless_spoken_form_test_mode(enable: bool):
         """Enable/disable Cursorless spoken form test mode"""
         global saved_modes, saved_microphone
 
@@ -97,8 +101,9 @@ class Actions:
                 "Cursorless spoken form tests are done. Talon microphone is re-enabled."
             )
 
+    @staticmethod
     def private_cursorless_spoken_form_test(
-        phrase: str,  # pyright: ignore [reportGeneralTypeIssues]
+        phrase: str,
         mockedGetValue_: Optional[str],
     ):
         """Run Cursorless spoken form test"""
