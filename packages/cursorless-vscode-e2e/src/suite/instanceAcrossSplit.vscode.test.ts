@@ -1,8 +1,8 @@
+import type { Modifier, SpyIDE } from "@cursorless/common";
 import {
   HatStability,
-  Modifier,
+  LATEST_VERSION,
   Range,
-  SpyIDE,
   asyncSafety,
 } from "@cursorless/common";
 import {
@@ -29,7 +29,7 @@ suite("Instance across split", async function () {
     "Every instance",
     asyncSafety(() =>
       runTest(
-        getSpy()!,
+        getSpy(),
         {
           type: "everyScope",
           scopeType: { type: "instance" },
@@ -43,7 +43,7 @@ suite("Instance across split", async function () {
     "Next instance",
     asyncSafety(() =>
       runTest(
-        getSpy()!,
+        getSpy(),
         {
           type: "relativeScope",
           scopeType: { type: "instance" },
@@ -60,7 +60,7 @@ suite("Instance across split", async function () {
     "Two instances",
     asyncSafety(() =>
       runTest(
-        getSpy()!,
+        getSpy(),
         {
           type: "relativeScope",
           scopeType: { type: "instance" },
@@ -77,7 +77,7 @@ suite("Instance across split", async function () {
     "Second instance",
     asyncSafety(() =>
       runTest(
-        getSpy()!,
+        getSpy(),
         {
           type: "ordinalScope",
           scopeType: { type: "instance" },
@@ -125,7 +125,8 @@ async function runTest(
 
   // "from this" / "from file this", depending on the value of `useWholeFile`
   await runCursorlessCommand({
-    version: 6,
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
     action: {
       name: "experimental.setInstanceReference",
       target: {
@@ -138,13 +139,13 @@ async function runTest(
           : [],
       },
     },
-    usePrePhraseSnapshot: false,
   });
 
   // "change <modifier> air", where <modifier> is some kind of "instance"
   // modifier
   await runCursorlessCommand({
-    version: 6,
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
     action: {
       name: "clearAndSetSelection",
       target: {
@@ -157,7 +158,6 @@ async function runTest(
         modifiers: [modifier],
       },
     },
-    usePrePhraseSnapshot: false,
   });
 
   assert.deepStrictEqual(instanceDocument.getText(), "aaa");

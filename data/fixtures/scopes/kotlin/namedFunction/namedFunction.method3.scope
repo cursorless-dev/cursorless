@@ -1,0 +1,21 @@
+class Foo {
+    get(): Int {}
+}
+---
+
+[Content] =
+[Domain] = 1:4-1:17
+      >-------------<
+1|     get(): Int {}
+
+[Removal] = 1:0-2:0
+  >-----------------
+1|     get(): Int {}
+2| }
+   <
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     get(): Int {}
+
+[Insertion delimiter] = "\n\n"

@@ -1,4 +1,5 @@
 import csv
+import typing
 from collections import defaultdict
 from collections.abc import Container
 from dataclasses import dataclass
@@ -48,6 +49,14 @@ class SpokenFormEntry:
     spoken_forms: list[str]
 
 
+def csv_get_ctx():
+    return ctx
+
+
+def csv_get_normalized_ctx():
+    return normalized_ctx
+
+
 def init_csv_and_watch_changes(
     filename: str,
     default_values: ListToSpokenForms,
@@ -56,6 +65,7 @@ def init_csv_and_watch_changes(
     extra_ignored_values: Optional[list[str]] = None,
     extra_allowed_values: Optional[list[str]] = None,
     allow_unknown_values: bool = False,
+    deprecated: bool = False,
     default_list_name: Optional[str] = None,
     headers: list[str] = [SPOKEN_FORM_HEADER, CURSORLESS_IDENTIFIER_HEADER],
     no_update_file: bool = False,
@@ -114,6 +124,12 @@ def init_csv_and_watch_changes(
         pluralize_lists = []
 
     file_path = get_full_path(filename)
+    is_file = file_path.is_file()
+
+    # Deprecated file that doesn't exist. Do nothing.
+    if deprecated and not is_file:
+        return lambda: None
+
     super_default_values = get_super_values(default_values)
 
     file_path.parent.mkdir(parents=True, exist_ok=True)
@@ -142,9 +158,9 @@ def init_csv_and_watch_changes(
                 handle_new_values=handle_new_values,
             )
 
-    fs.watch(str(file_path.parent), on_watch)
+    fs.watch(file_path.parent, on_watch)
 
-    if file_path.is_file():
+    if is_file:
         current_values = update_file(
             path=file_path,
             headers=headers,
@@ -179,7 +195,7 @@ def init_csv_and_watch_changes(
         )
 
     def unsubscribe():
-        fs.unwatch(str(file_path.parent), on_watch)
+        fs.unwatch(file_path.parent, on_watch)
 
     return unsubscribe
 
@@ -189,10 +205,12 @@ def check_for_duplicates(filename, default_values):
     for list_name, dict in default_values.items():
         for key, value in dict.items():
             if value in results_map:
-                existing_list_name = results_map[value]["list"]
+                existing_list_name = results_map[value]
                 warning = f"WARNING ({filename}): Value `{value}` duplicated between lists '{existing_list_name}' and '{list_name}'"
                 print(warning)
                 app.notify(warning)
+            else:
+                results_map[value] = list_name
 
 
 def is_removed(value: str):
@@ -220,9 +238,9 @@ def update_dicts(
     extra_ignored_values: list[str],
     extra_allowed_values: list[str],
     allow_unknown_values: bool,
-    default_list_name: Optional[str],
+    default_list_name: str | None,
     pluralize_lists: list[str],
-    handle_new_values: Optional[Callable[[list[SpokenFormEntry]], None]],
+    handle_new_values: Callable[[list[SpokenFormEntry]], None] | None,
 ):
     # Create map with all default values
     results_map: dict[str, ResultsListEntry] = {}
@@ -254,6 +272,9 @@ def update_dicts(
     for entry in spoken_form_entries:
         for spoken_form in entry.spoken_forms:
             lists[entry.list_name][spoken_form] = entry.id
+        # Make sure that we add empty lists. Otherwise we can't remove spoken forms for existing lists.
+        if not entry.spoken_forms:
+            lists.setdefault(entry.list_name, {})
     assign_lists_to_context(ctx, lists, pluralize_lists)
 
     if handle_new_values is not None:
@@ -376,7 +397,7 @@ def csv_error(path: Path, index: int, message: str, value: str):
         index (int): The index into the file (for error reporting)
         text (str): The text of the error message to report if condition is false
     """
-    print(f"ERROR: {path}:{index+1}: {message} '{value}'")
+    print(f"ERROR: {path}:{index + 1}: {message} '{value}'")
 
 
 def read_file(
@@ -453,7 +474,9 @@ def get_full_path(filename: str):
         filename = f"{filename}.csv"
 
     user_dir: Path = actions.path.talon_user()
-    settings_directory = Path(settings.get("user.cursorless_settings_directory"))
+    settings_directory = Path(
+        typing.cast(str, settings.get("user.cursorless_settings_directory"))
+    )
 
     if not settings_directory.is_absolute():
         settings_directory = user_dir / settings_directory

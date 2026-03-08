@@ -1,0 +1,13 @@
+foo <- function() {}
+---
+
+[Content] =
+[Removal] = 0:16-0:16
+                  ><
+0| foo <- function() {}
+
+[Domain] = 0:0-0:20
+  >--------------------<
+0| foo <- function() {}
+
+[Insertion delimiter] = ""

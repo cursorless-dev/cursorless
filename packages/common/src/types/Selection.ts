@@ -74,11 +74,19 @@ export class Selection extends Range {
   }
 
   /**
-   * Return a concise string representation of the selection
+   * Return a concise string representation of the selection. 0-based.
    * @returns concise representation
    **/
   public concise(): string {
     return `${this.anchor.concise()}->${this.active.concise()}`;
+  }
+
+  /**
+   * Return a concise string representation of the selection. 1-based.
+   * @returns concise representation
+   **/
+  public conciseOneBased(): string {
+    return `${this.start.conciseOneBased()}->${this.end.conciseOneBased()}`;
   }
 
   public toString(): string {

@@ -1,15 +1,15 @@
-import {
+import type {
+  Direction,
   Position,
-  Range,
+  ScopeType,
   TextDocument,
   TextEditor,
   TextLine,
 } from "@cursorless/common";
-import { Direction, ScopeType } from "@cursorless/common";
+import { Range } from "@cursorless/common";
 import { ParagraphTarget } from "../../targets";
 import { BaseScopeHandler } from "./BaseScopeHandler";
-import { fitRangeToLineContent } from "./LineScopeHandler";
-import { TargetScope } from "./scope.types";
+import type { TargetScope } from "./scope.types";
 
 export class ParagraphScopeHandler extends BaseScopeHandler {
   public readonly scopeType: ScopeType = { type: "paragraph" };
@@ -93,4 +93,13 @@ function createScope(editor: TextEditor, domain: Range): TargetScope {
       }),
     ],
   };
+}
+
+function fitRangeToLineContent(editor: TextEditor, range: Range) {
+  const startLine = editor.document.lineAt(range.start);
+  const endLine = editor.document.lineAt(range.end);
+  return new Range(
+    startLine.rangeTrimmed?.start ?? startLine.range.start,
+    endLine.rangeTrimmed?.end ?? endLine.range.end,
+  );
 }

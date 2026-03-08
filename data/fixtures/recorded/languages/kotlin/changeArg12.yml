@@ -1,0 +1,23 @@
+languageId: kotlin
+command:
+  version: 7
+  spokenForm: change arg
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "class Person(val firstName: String, var isEmployed: Boolean = true)"
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}
+  marks: {}
+finalState:
+  documentContents: "class Person(, var isEmployed: Boolean = true)"
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}

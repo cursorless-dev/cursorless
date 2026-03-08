@@ -1,0 +1,19 @@
+* {
+    transform: translate(-50%, -50%);
+}
+---
+
+[Content] =
+[Domain] = 1:15-1:36
+                 >---------------------<
+1|     transform: translate(-50%, -50%);
+
+[Removal] = 1:14-1:36
+                >----------------------<
+1|     transform: translate(-50%, -50%);
+
+[Leading delimiter] = 1:14-1:15
+                >-<
+1|     transform: translate(-50%, -50%);
+
+[Insertion delimiter] = " "

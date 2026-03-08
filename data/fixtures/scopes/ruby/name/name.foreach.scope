@@ -1,0 +1,24 @@
+for v in values end
+---
+
+[Content] = 0:4-0:5
+      >-<
+0| for v in values end
+
+[Removal] = 0:4-0:6
+      >--<
+0| for v in values end
+
+[Leading delimiter] = 0:3-0:4
+     >-<
+0| for v in values end
+
+[Trailing delimiter] = 0:5-0:6
+       >-<
+0| for v in values end
+
+[Domain] = 0:0-0:19
+  >-------------------<
+0| for v in values end
+
+[Insertion delimiter] = " "

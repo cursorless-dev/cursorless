@@ -1,5 +1,5 @@
 import { targetsToContinuousTarget } from "../processTargets/TargetPipelineRunner";
-import { Target } from "../typings/target.types";
+import type { Target } from "../typings/target.types";
 import { groupTargetsForEachEditor } from "./targetUtils";
 
 /** Unifies overlapping/intersecting targets */
@@ -56,5 +56,7 @@ function mergeTargets(targets: Target[]): Target {
 }
 
 function intersects(targetA: Target, targetB: Target) {
-  return !!targetA.getRemovalRange().intersection(targetB.getRemovalRange());
+  return (
+    targetA.getRemovalRange().intersection(targetB.getRemovalRange()) != null
+  );
 }

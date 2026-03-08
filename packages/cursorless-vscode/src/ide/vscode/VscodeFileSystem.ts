@@ -1,10 +1,10 @@
-import {
+import type {
   Disposable,
   FileSystem,
   PathChangeListener,
   RunMode,
 } from "@cursorless/common";
-import { isAbsolute, join } from "path";
+import { isAbsolute, join } from "node:path";
 import * as vscode from "vscode";
 
 export class VscodeFileSystem implements FileSystem {

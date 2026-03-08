@@ -1,17 +1,25 @@
-import {
-  CommandComplete,
-  DestinationDescriptor,
+import type {
   ActionDescriptor,
+  CommandComplete,
+  CommandResponse,
+  CommandServerApi,
+  DestinationDescriptor,
   PartialTargetDescriptor,
 } from "@cursorless/common";
-import { CommandRunner } from "../../CommandRunner";
-import { ActionRecord, ActionReturnValue } from "../../actions/actions.types";
-import { StoredTargetMap } from "../../index";
-import { TargetPipelineRunner } from "../../processTargets";
-import { ModifierStage } from "../../processTargets/PipelineStages.types";
-import { SelectionWithEditor } from "../../typings/Types";
-import { Destination, Target } from "../../typings/target.types";
-import { Debug } from "../Debug";
+import { clientSupportsFallback } from "@cursorless/common";
+import type { CommandRunner } from "../../CommandRunner";
+import type {
+  ActionRecord,
+  ActionReturnValue,
+} from "../../actions/actions.types";
+import { parseAndFillOutAction } from "../../customCommandGrammar/parseAndFillOutAction";
+import type { StoredTargetMap } from "../../index";
+import type { TargetPipelineRunner } from "../../processTargets";
+import type { ModifierStage } from "../../processTargets/PipelineStages.types";
+import type { SelectionWithEditor } from "../../typings/Types";
+import type { Destination, Target } from "../../typings/target.types";
+import type { Debug } from "../Debug";
+import { getCommandFallback } from "../getCommandFallback";
 import { inferFullTargetDescriptor } from "../inferFullTargetDescriptor";
 import { selectionToStoredTarget } from "./selectionToStoredTarget";
 
@@ -19,13 +27,16 @@ export class CommandRunnerImpl implements CommandRunner {
   private inferenceContext: InferenceContext;
   private finalStages: ModifierStage[] = [];
   private noAutomaticTokenExpansion: boolean | undefined;
+  private allowDuplicateTargets: boolean | undefined;
 
   constructor(
+    private commandServerApi: CommandServerApi,
     private debug: Debug,
     private storedTargets: StoredTargetMap,
     private pipelineRunner: TargetPipelineRunner,
     private actions: ActionRecord,
   ) {
+    this.runAction = this.runAction.bind(this);
     this.inferenceContext = new InferenceContext(this.debug);
   }
 
@@ -46,7 +57,19 @@ export class CommandRunnerImpl implements CommandRunner {
    *    action, and returns the desired return value indicated by the action, if
    *    it has one.
    */
-  async run({ action }: CommandComplete): Promise<unknown> {
+  async run(command: CommandComplete): Promise<CommandResponse> {
+    if (clientSupportsFallback(command)) {
+      const fallback = await getCommandFallback(
+        this.commandServerApi,
+        this.runAction,
+        command,
+      );
+
+      if (fallback != null) {
+        return { fallback };
+      }
+    }
+
     const {
       returnValue,
       thatSelections: newThatSelections,
@@ -55,7 +78,7 @@ export class CommandRunnerImpl implements CommandRunner {
       sourceTargets: newSourceTargets,
       instanceReferenceTargets: newInstanceReferenceTargets,
       keyboardTargets: newKeyboardTargets,
-    } = await this.runAction(action);
+    } = await this.runAction(command.action);
 
     this.storedTargets.set(
       "that",
@@ -66,9 +89,9 @@ export class CommandRunnerImpl implements CommandRunner {
       constructStoredTarget(newSourceTargets, newSourceSelections),
     );
     this.storedTargets.set("instanceReference", newInstanceReferenceTargets);
-    this.storedTargets.set("keyboard", newKeyboardTargets);
+    this.storedTargets.set("keyboard", newKeyboardTargets, { history: true });
 
-    return returnValue;
+    return { returnValue };
   }
 
   private runAction(
@@ -81,6 +104,7 @@ export class CommandRunnerImpl implements CommandRunner {
 
     switch (actionDescriptor.name) {
       case "replaceWithTarget":
+        this.allowDuplicateTargets = true;
         return this.actions.replaceWithTarget.run(
           this.getTargets(actionDescriptor.source),
           this.getDestinations(actionDescriptor.destination),
@@ -147,11 +171,13 @@ export class CommandRunnerImpl implements CommandRunner {
       case "generateSnippet":
         return this.actions.generateSnippet.run(
           this.getTargets(actionDescriptor.target),
+          actionDescriptor.directory,
           actionDescriptor.snippetName,
         );
 
       case "insertSnippet":
         this.finalStages = this.actions.insertSnippet.getFinalStages(
+          this.getDestinations(actionDescriptor.destination),
           actionDescriptor.snippetDescription,
         );
         return this.actions.insertSnippet.run(
@@ -161,6 +187,7 @@ export class CommandRunnerImpl implements CommandRunner {
 
       case "wrapWithSnippet":
         this.finalStages = this.actions.wrapWithSnippet.getFinalStages(
+          this.getTargets(actionDescriptor.target),
           actionDescriptor.snippetDescription,
         );
         return this.actions.wrapWithSnippet.run(
@@ -179,8 +206,23 @@ export class CommandRunnerImpl implements CommandRunner {
           actionDescriptor.options,
         );
 
+      case "parsed":
+        return this.runAction(
+          parseAndFillOutAction(
+            actionDescriptor.content,
+            actionDescriptor.arguments,
+          ),
+        );
+
       default: {
         const action = this.actions[actionDescriptor.name];
+
+        // Ensure we don't miss any new actions. Needed because we don't have input validation.
+        // FIXME: remove once we have schema validation (#983)
+        if (action == null) {
+          throw new Error(`Unknown action: ${actionDescriptor.name}`);
+        }
+
         this.finalStages = action.getFinalStages?.() ?? [];
         this.noAutomaticTokenExpansion =
           action.noAutomaticTokenExpansion ?? false;
@@ -199,6 +241,7 @@ export class CommandRunnerImpl implements CommandRunner {
     return this.pipelineRunner.run(targetDescriptor, {
       actionFinalStages: this.finalStages,
       noAutomaticTokenExpansion: this.noAutomaticTokenExpansion,
+      allowDuplicateTargets: this.allowDuplicateTargets,
     });
   }
 

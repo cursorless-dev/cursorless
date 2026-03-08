@@ -1,0 +1,13 @@
+export default () => {};
+---
+
+[Content] =
+[Removal] = 0:16-0:16
+                  ><
+0| export default () => {};
+
+[Domain] = 0:0-0:24
+  >------------------------<
+0| export default () => {};
+
+[Insertion delimiter] = ""

@@ -1,0 +1,28 @@
+( )
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:3
+  >---<
+0| ( )
+
+[Interior] = 0:1-0:2
+   >-<
+0| ( )
+
+[Boundary L: Content] = 0:0-0:1
+  >-<
+0| ( )
+[Boundary L: Removal] = 0:0-0:2
+  >--<
+0| ( )
+
+[Boundary R: Content] = 0:2-0:3
+    >-<
+0| ( )
+[Boundary R: Removal] = 0:1-0:3
+   >--<
+0| ( )
+
+[Insertion delimiter] = " "

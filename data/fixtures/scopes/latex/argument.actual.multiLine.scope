@@ -1,0 +1,27 @@
+\foo
+    {aaa}
+    {bbb}
+---
+
+[#1 Content] =
+[#1 Domain] = 1:5-1:8
+       >---<
+1|     {aaa}
+
+[#1 Removal] = 1:4-1:9
+      >-----<
+1|     {aaa}
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Domain] = 2:5-2:8
+       >---<
+2|     {bbb}
+
+[#2 Removal] = 2:4-2:9
+      >-----<
+2|     {bbb}
+
+[#2 Insertion delimiter] = " "

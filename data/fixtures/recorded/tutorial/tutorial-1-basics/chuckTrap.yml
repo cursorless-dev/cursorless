@@ -1,0 +1,38 @@
+languageId: plaintext
+command:
+  version: 7
+  spokenForm: chuck trap
+  action:
+    name: remove
+    target:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: t}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    Welcome to Cursorless!
+
+    Notice the hats above each word in this sentence.
+
+    Now, see the sidebar.
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 6}
+    - anchor: {line: 2, character: 35}
+      active: {line: 2, character: 39}
+  marks:
+    default.t:
+      start: {line: 0, character: 8}
+      end: {line: 0, character: 10}
+finalState:
+  documentContents: |-
+    Welcome Cursorless!
+
+    Notice the hats above each word in this sentence.
+
+    Now, see the sidebar.
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 6}
+    - anchor: {line: 2, character: 35}
+      active: {line: 2, character: 39}

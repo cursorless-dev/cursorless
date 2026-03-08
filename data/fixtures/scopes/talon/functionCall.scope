@@ -1,0 +1,20 @@
+foo: 
+    bar()
+---
+
+[Content] =
+[Domain] = 1:4-1:9
+      >-----<
+1|     bar()
+
+[Removal] = 0:5-1:9
+       >
+0| foo: 
+1|     bar()
+   ---------<
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     bar()
+
+[Insertion delimiter] = " "

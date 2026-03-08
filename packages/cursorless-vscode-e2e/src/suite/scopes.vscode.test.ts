@@ -1,49 +1,70 @@
+import type {
+  ScopeSupportFacet,
+  ScopeType,
+  PlaintextScopeSupportFacet,
+  ScopeRangeConfig,
+} from "@cursorless/common";
 import {
   asyncSafety,
-  getLanguageScopeSupport,
-  getScopeTestPaths,
-  ScopeSupportFacet,
+  languageScopeSupport,
   scopeSupportFacetInfos,
   ScopeSupportFacetLevel,
-  ScopeType,
   shouldUpdateFixtures,
-  TextualScopeSupportFacet,
-  textualScopeSupportFacetInfos,
+  plaintextScopeSupportFacetInfos,
 } from "@cursorless/common";
+import { getScopeTestPathsRecursively } from "@cursorless/node-common";
 import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
 import { assert } from "chai";
-import { groupBy, uniq } from "lodash";
+import { groupBy, uniq } from "lodash-es";
 import { promises as fsp } from "node:fs";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 import {
   serializeIterationScopeFixture,
   serializeScopeFixture,
 } from "./serializeScopeFixture";
+import { shouldSkipScopeTest } from "./shouldSkipTest";
 
 suite("Scope test cases", async function () {
   endToEndTestSetup(this);
 
-  const testPaths = getScopeTestPaths();
-  const languages = groupBy(testPaths, (test) => test.languageId);
+  const testPaths = getScopeTestPathsRecursively();
 
   if (!shouldUpdateFixtures()) {
-    Object.entries(languages).forEach(([languageId, testPaths]) =>
-      test(
-        `${languageId} facet coverage`,
-        asyncSafety(() =>
-          testLanguageSupport(
-            languageId,
-            testPaths.map((test) => test.facet),
+    const languages = groupBy(testPaths, (test) => test.languageId);
+
+    // This handles the case where a language has no tests, but is still listed
+    // in the config. In that case, just using the language ids from the tests
+    // would miss the language entirely even though it appears in the config.
+    for (const language of Object.keys(languageScopeSupport)) {
+      languages[language] ??= [];
+    }
+
+    Object.keys(languages)
+      .sort()
+      .forEach((languageId) => {
+        const tests = languages[languageId];
+        test(
+          `${languageId} facet coverage`,
+          asyncSafety(() =>
+            testLanguageSupport(
+              languageId,
+              tests.map((test) => test.facet),
+            ),
           ),
-        ),
-      ),
-    );
+        );
+      });
   }
 
   testPaths.forEach(({ path, name, languageId, facet }) =>
     test(
       name,
-      asyncSafety(() => runTest(path, languageId, facet)),
+      asyncSafety(() => {
+        if (shouldSkipScopeTest(languageId)) {
+          this.ctx.skip();
+        }
+
+        return runTest(path, languageId, facet);
+      }),
     ),
   );
 });
@@ -56,11 +77,15 @@ suite("Scope test cases", async function () {
  */
 async function testLanguageSupport(languageId: string, testedFacets: string[]) {
   const supportedFacets = (() => {
-    if (languageId === "textual") {
-      return Object.keys(textualScopeSupportFacetInfos);
+    if (languageId === "plaintext") {
+      return Object.keys(plaintextScopeSupportFacetInfos);
     }
 
-    const scopeSupport = getLanguageScopeSupport(languageId);
+    const scopeSupport = languageScopeSupport[languageId];
+
+    if (scopeSupport == null) {
+      return [];
+    }
 
     return Object.keys(scopeSupport).filter(
       (facet) =>
@@ -74,7 +99,7 @@ async function testLanguageSupport(languageId: string, testedFacets: string[]) {
     (testedFacet) => !supportedFacets.includes(testedFacet),
   );
   if (unsupportedFacets.length > 0) {
-    const values = uniq(unsupportedFacets).join(", ");
+    const values = uniq(unsupportedFacets).sort().join(", ");
     assert.fail(
       `Facets [${values}] are tested but not listed in getLanguageScopeSupport`,
     );
@@ -85,20 +110,20 @@ async function testLanguageSupport(languageId: string, testedFacets: string[]) {
     (supportedFacet) => !testedFacets.includes(supportedFacet),
   );
   if (untestedFacets.length > 0) {
-    const values = untestedFacets.join(", ");
+    const values = untestedFacets.sort().join(", ");
     assert.fail(`Missing test for scope support facets [${values}]`);
   }
 }
 
 async function runTest(file: string, languageId: string, facetId: string) {
   const { ide, scopeProvider } = (await getCursorlessApi()).testHelpers!;
-  const { scopeType, isIteration } = getScopeType(languageId, facetId);
+  const { scopeType, isIteration } = getFacetInfo(languageId, facetId);
   const fixture = (await fsp.readFile(file, "utf8"))
     .toString()
     .replaceAll("\r\n", "\n");
   const delimiterIndex = fixture.match(/^---$/m)?.index;
 
-  assert.isNotNull(
+  assert.isDefined(
     delimiterIndex,
     "Can't find delimiter '---' in scope fixture",
   );
@@ -108,9 +133,10 @@ async function runTest(file: string, languageId: string, facetId: string) {
   await openNewEditor(code, { languageId });
 
   const editor = ide.activeTextEditor!;
+  const updateFixture = shouldUpdateFixtures();
 
-  const outputFixture = ((): string => {
-    const config = {
+  const [outputFixture, numScopes] = ((): [string, number] => {
+    const config: ScopeRangeConfig = {
       visibleOnly: false,
       scopeType,
     };
@@ -123,41 +149,72 @@ async function runTest(file: string, languageId: string, facetId: string) {
           includeNestedTargets: false,
         },
       );
-      return serializeIterationScopeFixture(code, iterationScopes);
+
+      if (!updateFixture) {
+        assert.isFalse(
+          iterationScopes.some((s) =>
+            s.ranges.some((r) => !s.domain.contains(r.range)),
+          ),
+          "Iteration range should not contain the domain",
+        );
+      }
+
+      return [
+        serializeIterationScopeFixture(code, iterationScopes),
+        iterationScopes.length,
+      ];
     }
 
     const scopes = scopeProvider.provideScopeRanges(editor, config);
 
-    return serializeScopeFixture(code, scopes);
+    if (!updateFixture) {
+      assert.isFalse(
+        scopes.some((s) =>
+          s.targets.some((t) => !s.domain.contains(t.contentRange)),
+        ),
+        "Content range should not contain the domain",
+      );
+      assert.isFalse(
+        scopes.some((s) =>
+          s.targets.some((t) => !s.domain.contains(t.contentRange)),
+        ),
+        "Content range should not contain the removal range",
+      );
+    }
+
+    return [serializeScopeFixture(facetId, code, scopes), scopes.length];
   })();
 
-  if (shouldUpdateFixtures()) {
+  if (updateFixture) {
     await fsp.writeFile(file, outputFixture);
   } else {
+    assert.isAbove(numScopes, 0, "No scopes found");
     assert.equal(outputFixture, fixture);
   }
 }
 
-function getScopeType(
+function getFacetInfo(
   languageId: string,
   facetId: string,
 ): {
   scopeType: ScopeType;
   isIteration: boolean;
 } {
-  if (languageId === "textual") {
-    const { scopeType, isIteration } =
-      textualScopeSupportFacetInfos[facetId as TextualScopeSupportFacet];
-    return {
-      scopeType: { type: scopeType },
-      isIteration: isIteration ?? false,
-    };
+  const facetInfo =
+    languageId === "plaintext"
+      ? plaintextScopeSupportFacetInfos[facetId as PlaintextScopeSupportFacet]
+      : scopeSupportFacetInfos[facetId as ScopeSupportFacet];
+
+  if (facetInfo == null) {
+    throw Error(`Missing scope support facet info for: ${facetId}`);
   }
 
-  const { scopeType, isIteration } =
-    scopeSupportFacetInfos[facetId as ScopeSupportFacet];
+  const { scopeType, isIteration } = facetInfo;
+  const fullScopeType =
+    typeof scopeType === "string" ? { type: scopeType } : scopeType;
+
   return {
-    scopeType: { type: scopeType },
+    scopeType: fullScopeType,
     isIteration: isIteration ?? false,
   };
 }

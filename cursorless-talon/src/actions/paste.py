@@ -9,7 +9,9 @@ mod.list("cursorless_paste_action", desc="Cursorless paste action")
 
 @mod.action_class
 class Actions:
-    def private_cursorless_paste(destination: CursorlessDestination):
+    def private_cursorless_paste(
+        destination: CursorlessDestination,  # pyright: ignore [reportGeneralTypeIssues]
+    ):
         """Execute Cursorless paste action"""
         actions.user.private_cursorless_command_and_wait(
             {

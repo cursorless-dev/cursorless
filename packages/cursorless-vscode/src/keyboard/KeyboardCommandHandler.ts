@@ -1,14 +1,19 @@
-import { Modifier, SurroundingPairName } from "@cursorless/common";
+import type {
+  Modifier,
+  PartialMark,
+  SurroundingPairName,
+} from "@cursorless/common";
+import { surroundingPairsDelimiters } from "@cursorless/cursorless-engine";
+import { isString } from "lodash-es";
 import * as vscode from "vscode";
-import { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
-import {
+import type { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
+import type {
   SimpleKeyboardActionDescriptor,
   SpecificKeyboardActionDescriptor,
 } from "./KeyboardActionType";
-import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
-import { ModalVscodeCommandDescriptor } from "./TokenTypes";
-import { surroundingPairsDelimiters } from "@cursorless/cursorless-engine";
-import { isString } from "lodash";
+import type { TargetingMode } from "./KeyboardCommandsTargeted";
+import type KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
+import type { ModalVscodeCommandDescriptor } from "./TokenTypes";
 
 /**
  * This class defines the keyboard commands available to our modal keyboard
@@ -32,8 +37,8 @@ import { isString } from "lodash";
 export class KeyboardCommandHandler {
   constructor(private targeted: KeyboardCommandsTargeted) {}
 
-  targetDecoratedMark({ decoratedMark, mode }: DecoratedMarkArg) {
-    this.targeted.targetDecoratedMark({ ...decoratedMark, mode });
+  async targetDecoratedMark({ decoratedMark, mode }: DecoratedMarkArg) {
+    await this.targeted.targetDecoratedMark({ ...decoratedMark, mode });
   }
 
   async vscodeCommand({
@@ -68,17 +73,20 @@ export class KeyboardCommandHandler {
     await vscode.commands.executeCommand(commandId, ...(args ?? []));
   }
 
-  performSimpleActionOnTarget({
+  async performSimpleActionOnTarget({
     actionDescriptor,
   }: {
     actionDescriptor: SimpleKeyboardActionDescriptor;
   }) {
-    this.targeted.performSimpleActionOnTarget(actionDescriptor);
+    await this.targeted.performSimpleActionOnTarget(actionDescriptor);
   }
 
-  performWrapActionOnTarget({ actionDescriptor, delimiter }: WrapActionArg) {
+  async performWrapActionOnTarget({
+    actionDescriptor,
+    delimiter,
+  }: WrapActionArg) {
     const [left, right] = surroundingPairsDelimiters[delimiter]!;
-    this.targeted.performActionOnTarget(
+    await this.targeted.performActionOnTarget(
       (target) => ({
         name: "wrapWithPairedDelimiter",
         target,
@@ -89,8 +97,24 @@ export class KeyboardCommandHandler {
     );
   }
 
-  modifyTarget({ modifier }: { modifier: Modifier }) {
-    this.targeted.targetModifier(modifier);
+  async modifyTarget({
+    modifier,
+    mode,
+  }: {
+    modifier: Modifier;
+    mode?: TargetingMode;
+  }) {
+    await this.targeted.targetModifier(modifier, mode);
+  }
+
+  async targetMark({
+    mark,
+    mode,
+  }: {
+    mark: PartialMark;
+    mode?: TargetingMode;
+  }) {
+    await this.targeted.targetMark(mark, mode);
   }
 }
 
@@ -99,7 +123,7 @@ interface DecoratedMarkArg {
     color?: HatColor;
     shape?: HatShape;
   };
-  mode: "replace" | "extend" | "append";
+  mode: TargetingMode;
 }
 
 interface WrapActionArg {

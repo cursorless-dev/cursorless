@@ -4,73 +4,201 @@
 
 ;; import javascript.core.scm
 
-;;!! function aaa(bbb?: Ccc = "ddd") {}
-;;!               ^^^--------------
-(optional_parameter
-  (identifier) @name
+;;!! class Foo { bar(); }
+;;!              ^^^^^^
+(_
+  (method_signature) @statement.start
+  .
+  ";"? @statement.end
+)
+
+;;!! function foo(aaa = 0) {}
+;;!               ^^^----
+(required_parameter
+  (identifier) @value.leading.endOf
+  value: (_) @value
+  !type
 ) @_.domain
 
-;;!! function aaa(bbb: Ccc = "ddd") {}
-;;!               ^^^-------------
+;;!! function foo(aaa: number = 0) {}
+;;!               ^^^------------
+(required_parameter
+  type: (_) @value.leading.endOf
+  value: (_) @value
+) @_.domain
+
+;;!! function foo(aaa?: Ccc = "ddd") {}
+;;!               ^^^--------------
+(optional_parameter
+  type: (_) @value.leading.endOf
+  value: (_) @value
+) @_.domain
+
+;;!! enum Foo { }
+;;!  ^^^^^^^^^^^^
+;;!            ^
+(enum_declaration
+  (enum_body
+    "{" @name.iteration.start.endOf @value.iteration.start.endOf
+    "}" @name.iteration.end.startOf @value.iteration.end.startOf
+  )
+) @type
+
+;;!! enum Foo { aaa, bbb }
+;;!             ^^^  ^^^
+(enum_body
+  name: (_) @name
+)
+
+;;!! enum Foo { aaa = 0, bbb = 1 }
+;;!             ^^^      ^^^
+;;!                   ^        ^
+(enum_assignment
+  name: (_) @name @value.leading.endOf
+  value: (_) @value @name.trailing.startOf
+) @_.domain
+
+;;!! function foo(aaa: number = 0) {}
+;;!               ^^^------------
 (required_parameter
   (identifier) @name
 ) @_.domain
 
+;;!! function foo(aaa?: number) {}
+;;!               ^^^---------
+(optional_parameter
+  (identifier) @name
+) @_.domain
+
+;;!! function foo(...aaa: number[]) {}
+;;!                  ^^^
+(_
+  (rest_pattern
+    (identifier) @name
+  )
+) @_.domain
+
 ;; Define these here because these node types don't exist in javascript.
+
+;;!! function foo();
 (
-  [
-    ;;!! class Foo { foo() {} }
-    ;;!              ^^^^^^^^
-    ;;!! interface Foo { foo(): void; }
-    ;;!                  ^^^^^^^^^^^^
-    (method_signature
-      name: (_) @functionName @name
-    )
-
-    ;;!! class Foo { abstract foo(): void; }
-    ;;!              ^^^^^^^^^^^^^^^^^^^^^
-    (abstract_method_signature
-      name: (_) @functionName @name
-    )
-
-    ;;!! class Foo {
-    ;;!!   (public | private | protected) foo = () => {};
-    ;;!                                   ^^^^^^^^^^^^^^^
-    ;;!!   (public | private | protected) foo = function() {};
-    ;;!                                   ^^^^^^^^^^^^^^^^^^^^
-    ;;!!   (public | private | protected) foo = function *() {};
-    ;;!                                   ^^^^^^^^^^^^^^^^^^^^^^
-    ;;!! }
-    (public_field_definition
-      name: (_) @functionName
-      value: [
-        (function
-          !name
-        )
-        (generator_function
-          !name
-        )
-        (arrow_function)
-      ]
-    )
-  ] @namedFunction.start @functionName.domain.start @name.domain.start
-  .
-  ";"? @namedFunction.end @functionName.domain.end @name.domain.end
+  (function_signature
+    (formal_parameters
+      "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+      ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+    ) @argumentList
+    (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+    (#child-range! @argumentList 1 -2)
+  ) @namedFunction @argumentList.domain @argumentOrParameter.iteration.domain
+  (#not-parent-type? @namedFunction export_statement)
 )
 
-(
+;;!! export function foo();
+(export_statement
+  (function_signature
+    (formal_parameters
+      "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+      ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+    ) @argumentList
+    (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+    (#child-range! @argumentList 1 -2)
+  )
+) @namedFunction @argumentList.domain @argumentOrParameter.iteration.domain
+
+;;!! class Foo { foo(): void; }
+;;!! interface Foo { foo(): void; }
+(_
+  (method_signature
+    name: (_) @name
+    (formal_parameters
+      "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+      ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+    ) @argumentList
+    (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+    (#child-range! @argumentList 1 -2)
+  ) @namedFunction.start @_.domain.start @argumentOrParameter.iteration.domain.start
+  .
+  ";"? @namedFunction.end @_.domain.end @argumentOrParameter.iteration.domain.end
+)
+
+;;!! class Foo { abstract foo(): void; }
+(class_body
+  (abstract_method_signature
+    name: (_) @name
+    (formal_parameters
+      "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+      ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+    ) @argumentList
+    (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+    (#child-range! @argumentList 1 -2)
+  ) @namedFunction.start @_.domain.start @argumentOrParameter.iteration.domain.start
+  .
+  ";"? @namedFunction.end @_.domain.end @argumentOrParameter.iteration.domain.end
+)
+
+;;!! class Foo { public foo = function () {}; }
+(class_body
+  (public_field_definition
+    (function_expression
+      !name
+      (formal_parameters
+        "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+        ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+      ) @argumentList
+      (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+      (#child-range! @argumentList 1 -2)
+    )
+  ) @namedFunction.start @argumentList.domain.start @argumentOrParameter.iteration.domain.start
+  .
+  ";"? @namedFunction.end @argumentList.domain.end @argumentOrParameter.iteration.domain.end
+)
+
+;;!! class Foo { public foo = function* () {}; }
+(class_body
+  (public_field_definition
+    (generator_function
+      !name
+      (formal_parameters
+        "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+        ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+      ) @argumentList
+      (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+      (#child-range! @argumentList 1 -2)
+    )
+  ) @namedFunction.start @argumentList.domain.start @argumentOrParameter.iteration.domain.start
+  .
+  ";"? @namedFunction.end @argumentList.domain.end @argumentOrParameter.iteration.domain.end
+)
+
+;;!! class Foo { public foo = () => {}; }
+(class_body
+  (public_field_definition
+    (arrow_function
+      (formal_parameters
+        "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+        ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+      ) @argumentList
+      (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+      (#child-range! @argumentList 1 -2)
+    )
+  ) @namedFunction.start @argumentList.domain.start @argumentOrParameter.iteration.domain.start
+  .
+  ";"? @namedFunction.end @argumentList.domain.end @argumentOrParameter.iteration.domain.end
+)
+
+(_
   ;;!! (public | private | protected) foo = ...;
   ;;!  -----------------------------------------
   (public_field_definition
-    name: (_) @name @value.leading.endOf
+    name: (_) @name @name.removal.end.endOf @value.leading.endOf
     !type
-    value: (_)? @value
-  ) @_.domain.start
+    value: (_)? @value @name.trailing.startOf @name.removal.end.startOf
+  ) @_.domain.start @name.removal.start.startOf
   .
   ";"? @_.domain.end
 )
 
-(
+(_
   ;;!! (public | private | protected) foo: Bar = ...;
   ;;!  ----------------------------------------------
   (public_field_definition
@@ -78,17 +206,34 @@
     type: (_
       ":"
       (_) @type
-    ) @value.leading.endOf
-    value: (_)? @value
-  ) @_.domain.start
+    ) @value.leading.endOf @name.removal.end.endOf
+    value: (_)? @value @name.removal.end.startOf
+  ) @_.domain.start @name.removal.start.startOf
   .
   ";"? @_.domain.end
 )
 
+;;!! type Foo = Bar;
+(
+  (type_alias_declaration
+    name: (_) @name @value.leading.endOf
+    value: (_) @value @name.removal.end.startOf
+  ) @_.domain @name.removal.start.startOf
+  (#not-parent-type? @_.domain export_statement)
+)
+
+;;!! export type Foo = Bar;
+(export_statement
+  (type_alias_declaration
+    name: (_) @name @value.leading.endOf
+    value: (_) @value @name.removal.end.startOf
+  )
+) @_.domain @name.removal.start.startOf
+
 [
   (interface_declaration)
   (object_type)
-] @namedFunction.iteration @functionName.iteration
+] @namedFunction.iteration
 
 ;; Special cases for `(let | const | var) foo = ...;` because the full statement
 ;; is actually a grandparent of the `name` node, so we want the domain to include
@@ -168,11 +313,23 @@
   (#has-multiple-children-of-type? @_dummy variable_declarator)
 )
 
-;;!! function ccc(aaa: string, bbb?: string) {}
-;;!                    ^^^^^^        ^^^^^^
+;;!! function ccc(aaa: string) {}
+;;!                    ^^^^^^
 (formal_parameters
-  (_
+  (required_parameter
     pattern: (_) @_.leading.endOf
+    type: (_
+      ":"
+      (_) @type
+    )
+  ) @_.domain
+)
+
+;;!! function ccc(aaa?: string) {}
+;;!                     ^^^^^^
+(formal_parameters
+  (optional_parameter
+    "?" @_.leading.endOf
     type: (_
       ":"
       (_) @type
@@ -192,6 +349,14 @@
   )
 ) @_.domain
 
+;;!! foo() => string;
+;;!           ^^^^^^
+(_
+  parameters: (_) @_.leading.endOf
+  "=>"
+  return_type: (_) @type
+)
+
 ;;!! new Aaa<Bbb>()
 ;;!      ^^^^^^^^
 (new_expression
@@ -199,15 +364,33 @@
   type_arguments: (_)? @type.end
 )
 
+;;!! Map<string, number>
+;;!      ^^^^^^  ^^^^^^
 ;;!! useState<string>()
 ;;!           ^^^^^^
-;;!! useState<Record<string, string>>()
-;;!           ^^^^^^^^^^^^^^^^^^^^^^
-;;!                  ^^^^^^  ^^^^^^
-(type_arguments
-  (_) @type
+(
+  (type_arguments
+    (_)? @_.leading.endOf
+    .
+    (_) @type
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
   (#not-parent-type? @_dummy type_assertion)
-) @_dummy
+  (#insertion-delimiter! @type ", ")
+)
+
+;;!! Map<string, number>
+;;!      ^^^^^^^^^^^^^^
+(
+  (type_arguments
+    .
+    "<" @type.iteration.start.endOf
+    ">" @type.iteration.end.startOf
+    .
+  ) @_dummy
+  (#not-parent-type? @_dummy type_assertion)
+)
 
 ;;!! function foo<A>() {}
 ;;!               ^
@@ -215,6 +398,25 @@
 ;;!               ^
 (type_parameters
   (_) @type
+)
+
+;;!! catch(error: unknown) {}
+;;!        ^^^^^^^^^^^^^^
+(catch_clause
+  parameter: (_) @argumentOrParameter.start
+  type: (_
+    (_) @argumentOrParameter.end
+  )?
+)
+
+;;!! catch(error: unknown) {}
+;;!        ^^^^^
+;;!               ^^^^^^^
+(catch_clause
+  parameter: (_) @name @type.leading.endOf @_.domain.start
+  type: (_
+    (_) @type @_.domain.end
+  )?
 )
 
 ;;!! interface Aaa {}
@@ -245,6 +447,15 @@
   (_) @type
 ) @_.domain
 
+;;!! aaa as const
+;;!         ^^^
+;;!     xxxxxxx
+;;!  ----------
+(as_expression
+  (_) @_.leading.endOf
+  "const" @type
+) @_.domain
+
 ;;!! aaa satisfies Bbb
 ;;!                ^^^
 ;;!     xxxxxxxxxxxxxx
@@ -260,39 +471,29 @@
 ;;!! abstract class MyClass {}
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^
 (
-  (abstract_class_declaration
-    name: (_) @className
-  ) @class @_.domain
+  (abstract_class_declaration) @class @type
   (#not-parent-type? @class export_statement)
 )
 
 ;;!! export abstract class MyClass {}
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 (export_statement
-  (abstract_class_declaration
-    name: (_) @className
-  )
-) @class @_.domain
-
-;;!! class MyClass {}
-;;!        ^^^^^^^
-;;!  ----------------
-(abstract_class_declaration
-  name: (_) @name
-) @_.domain
+  (abstract_class_declaration)
+) @class @type
 
 ;;!! interface Type { name: string; }
 ;;!                   ^^^^
 ;;!                   xxxxxx
 ;;!                   ------------
-(
+(_
   (property_signature
-    name: (_) @collectionKey @type.leading.endOf
+    name: (_) @name @collectionKey @type.leading.endOf
     type: (_
       ":"
       (_) @type @collectionKey.trailing.startOf
     )
-  ) @_.domain.start
+  ) @_.domain.start @name.removal
+  .
   ";"? @_.domain.end
 )
 
@@ -317,11 +518,17 @@
 )
 
 ;; Statements with optional trailing `;`
-(
+(_
   [
     (property_signature)
     (public_field_definition)
     (abstract_method_signature)
   ] @statement.start
+  .
   ";"? @statement.end
+)
+
+;; () => number
+(function_type
+  "=>" @disqualifyDelimiter
 )

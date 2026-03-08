@@ -1,0 +1,10 @@
+union Foo { };
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:11-0:12
+             >-<
+0| union Foo { };
+
+[Insertion delimiter] = " "

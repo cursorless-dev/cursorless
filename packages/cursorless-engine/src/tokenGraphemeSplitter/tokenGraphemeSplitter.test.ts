@@ -1,4 +1,4 @@
-import { TokenHatSplittingMode } from "@cursorless/common";
+import type { TokenHatSplittingMode } from "@cursorless/common";
 import * as assert from "assert";
 import { unitTestSetup } from "../test/unitTestSetup";
 import { TokenGraphemeSplitter, UNKNOWN } from "./tokenGraphemeSplitter";

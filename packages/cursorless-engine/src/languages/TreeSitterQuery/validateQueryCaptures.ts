@@ -1,73 +1,11 @@
-import { showError, simpleScopeTypeTypes } from "@cursorless/common";
+import { showError } from "@cursorless/common";
 import { ide } from "../../singletons/ide.singleton";
-
-const wildcard = "_";
-const textFragment = "textFragment";
-const captureNames = [wildcard, ...simpleScopeTypeTypes];
-
-const positionRelationships = ["prefix", "leading", "trailing"];
-const positionSuffixes = ["startOf", "endOf"];
-
-const rangeRelationships = [
-  "domain",
-  "removal",
-  "interior",
-  "iteration",
-  "iteration.domain",
-];
-const rangeSuffixes = [
-  "start",
-  "end",
-  "start.startOf",
-  "start.endOf",
-  "end.startOf",
-  "end.endOf",
-];
-
-const allowedCaptures = new Set<string>();
-
-allowedCaptures.add(textFragment);
-
-for (const suffix of rangeSuffixes) {
-  allowedCaptures.add(`${textFragment}.${suffix}`);
-}
-
-for (const captureName of captureNames) {
-  // Wildcard is not allowed by itself without a relationship
-  if (captureName !== wildcard) {
-    // eg: statement
-    allowedCaptures.add(captureName);
-
-    // eg: statement.start | statement.start.endOf
-    for (const suffix of rangeSuffixes) {
-      allowedCaptures.add(`${captureName}.${suffix}`);
-    }
-  }
-
-  for (const relationship of positionRelationships) {
-    // eg: statement.leading
-    allowedCaptures.add(`${captureName}.${relationship}`);
-
-    for (const suffix of positionSuffixes) {
-      // eg: statement.leading.endOf
-      allowedCaptures.add(`${captureName}.${relationship}.${suffix}`);
-    }
-  }
-
-  for (const relationship of rangeRelationships) {
-    // eg: statement.domain
-    allowedCaptures.add(`${captureName}.${relationship}`);
-
-    for (const suffix of rangeSuffixes) {
-      // eg: statement.domain.start | statement.domain.start.endOf
-      allowedCaptures.add(`${captureName}.${relationship}.${suffix}`);
-    }
-  }
-}
+import { isCaptureAllowed } from "./captureNames";
 
 // Not a comment. ie line is not starting with `;;`
+// Not a string.
 // Capture starts with `@` and is followed by words and/or dots
-const capturePattern = new RegExp(`^(?!;;).*@([\\w.]*)`, "gm");
+const capturePattern = /^(?!;;).*(?<!"\w*)@([\w.]*)/gm;
 
 export function validateQueryCaptures(file: string, rawQuery: string): void {
   const matches = rawQuery.matchAll(capturePattern);
@@ -86,8 +24,8 @@ export function validateQueryCaptures(file: string, rawQuery: string): void {
       continue;
     }
 
-    if (!allowedCaptures.has(captureName)) {
-      const lineNumber = match.input!.slice(0, match.index!).split("\n").length;
+    if (!isCaptureAllowed(captureName)) {
+      const lineNumber = match.input.slice(0, match.index).split("\n").length;
       errors.push(`${file}(${lineNumber}) invalid capture '@${captureName}'.`);
     }
   }
@@ -98,7 +36,7 @@ export function validateQueryCaptures(file: string, rawQuery: string): void {
 
   const message = errors.join("\n");
 
-  showError(
+  void showError(
     ide().messages,
     "validateQueryCaptures.invalidCaptureName",
     message,

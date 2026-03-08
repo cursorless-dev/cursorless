@@ -1,0 +1,27 @@
+void main() {
+    Map<int, int> foo;
+}
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-2:1
+  >-------------
+0| void main() {
+1|     Map<int, int> foo;
+2| }
+   -<
+
+
+[#2 Content] =
+[#2 Domain] = 0:13-2:0
+               >
+0| void main() {
+1|     Map<int, int> foo;
+2| }
+   <
+
+
+[#3 Content] =
+[#3 Domain] = 1:8-1:16
+          >--------<
+1|     Map<int, int> foo;

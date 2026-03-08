@@ -22,7 +22,7 @@ const SmartLink: React.FC<SmartLinkProps> = ({
 }) => {
   const className = noFormatting
     ? ""
-    : "text-blue-500 hover:text-violet-700 dark:text-cyan-400 hover:dark:text-violet-200";
+    : "text-blue-500 hover:text-violet-700 dark:text-cyan-400 dark:hover:text-violet-200";
 
   return (
     <span className={className}>

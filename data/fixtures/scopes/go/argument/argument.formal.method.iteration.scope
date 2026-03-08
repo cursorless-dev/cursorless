@@ -1,0 +1,10 @@
+func (f Foo) bar(aaa int, bbb string, ccc int) {}
+---
+
+[Content] = 0:17-0:45
+                   >----------------------------<
+0| func (f Foo) bar(aaa int, bbb string, ccc int) {}
+
+[Domain] = 0:0-0:49
+  >-------------------------------------------------<
+0| func (f Foo) bar(aaa int, bbb string, ccc int) {}

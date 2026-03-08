@@ -1,7 +1,11 @@
-import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
-import * as assert from "assert";
+import { LATEST_VERSION } from "@cursorless/common";
+import {
+  getCursorlessApi,
+  openNewEditor,
+  runCursorlessCommand,
+} from "@cursorless/vscode-common";
+import * as assert from "node:assert";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-import { runCursorlessCommand } from "@cursorless/vscode-common";
 
 suite("Pour across split", async function () {
   endToEndTestSetup(this);
@@ -18,19 +22,19 @@ async function runTest() {
   await hatTokenMap.allocateHats();
 
   await runCursorlessCommand({
-    version: 4,
-    action: { name: "editNewLineAfter" },
-    targets: [
-      {
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
+    action: {
+      name: "editNewLineAfter",
+      target: {
         type: "primitive",
         mark: {
           type: "decoratedSymbol",
           symbolColor: "default",
-          character: "h",
+          character: "e",
         },
       },
-    ],
-    usePrePhraseSnapshot: false,
+    },
   });
 
   assert.deepStrictEqual(document1.getText(), "hello world\n");

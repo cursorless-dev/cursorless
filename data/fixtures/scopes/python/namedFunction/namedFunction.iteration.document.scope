@@ -1,0 +1,12 @@
+
+def foo(): pass
+
+---
+
+[Content] =
+[Domain] = 0:0-2:0
+  >
+0|
+1| def foo(): pass
+2|
+   <

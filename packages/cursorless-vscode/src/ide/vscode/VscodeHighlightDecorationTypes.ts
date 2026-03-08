@@ -1,10 +1,5 @@
-import {
-  DecorationRangeBehavior,
-  DecorationRenderOptions,
-  TextEditorDecorationType,
-  ThemeColor,
-  window,
-} from "vscode";
+import type { DecorationRenderOptions, TextEditorDecorationType } from "vscode";
+import { DecorationRangeBehavior, ThemeColor, window } from "vscode";
 import type { VscodeStyle } from "./VscodeHighlights";
 
 /**

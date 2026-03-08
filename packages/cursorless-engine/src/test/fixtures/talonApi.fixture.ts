@@ -1,4 +1,4 @@
-import {
+import type {
   ActionDescriptor,
   GetTextActionOptions,
   PartialPrimitiveTargetDescriptor,
@@ -60,14 +60,6 @@ const insertSnippetWithScopeAction: ActionDescriptor = {
     scopeTypes: [{ type: "statement" }],
   },
 };
-const insertSnippetByNameAction: ActionDescriptor = {
-  name: "insertSnippet",
-  destination: { type: "implicit" },
-  snippetDescription: {
-    type: "named",
-    name: "functionDeclaration",
-  },
-};
 const wrapWithSnippetAction: ActionDescriptor = {
   name: "wrapWithSnippet",
   target: {
@@ -79,18 +71,6 @@ const wrapWithSnippetAction: ActionDescriptor = {
     body: "Hello, $foo!  My name is $bar!",
     variableName: "foo",
     scopeType: { type: "statement" },
-  },
-};
-const wrapWithSnippetByNameAction: ActionDescriptor = {
-  name: "wrapWithSnippet",
-  target: {
-    type: "primitive",
-    mark: { type: "cursor" },
-  },
-  snippetDescription: {
-    type: "named",
-    name: "functionDeclaration",
-    variableName: "body",
   },
 };
 const alternateHighlightAirAndBatAction: ActionDescriptor = {
@@ -140,6 +120,64 @@ function getTextAction(options: GetTextActionOptions): ActionDescriptor {
   };
 }
 
+function parsedAction(content: string): ActionDescriptor {
+  return {
+    name: "parsed",
+    content,
+    arguments: [],
+  };
+}
+
+const parsedActionAir: ActionDescriptor = {
+  name: "parsed",
+  content: "chuck block <target>",
+  arguments: [
+    {
+      type: "list",
+      elements: [
+        {
+          type: "primitive",
+          mark: {
+            type: "decoratedSymbol",
+            symbolColor: "default",
+            character: "a",
+          },
+        },
+        {
+          type: "primitive",
+          mark: {
+            type: "decoratedSymbol",
+            symbolColor: "default",
+            character: "b",
+          },
+        },
+      ],
+    },
+  ],
+};
+const parsedActionAirPlusBat: ActionDescriptor = {
+  name: "parsed",
+  content: "bring block <target1> after <target2>",
+  arguments: [
+    {
+      type: "primitive",
+      mark: {
+        type: "decoratedSymbol",
+        symbolColor: "default",
+        character: "a",
+      },
+    },
+    {
+      type: "primitive",
+      mark: {
+        type: "decoratedSymbol",
+        symbolColor: "default",
+        character: "b",
+      },
+    },
+  ],
+};
+
 /**
  * These test our Talon api using dummy spoken forms defined in
  * cursorless-talon-dev/src/cursorless_test.talon
@@ -157,12 +195,7 @@ export const talonApiFixture = [
     "test api insert snippet after air",
     insertSnippetWithScopeAction,
   ),
-  spokenFormTest("test api insert snippet by name", insertSnippetByNameAction),
   spokenFormTest("test api wrap with snippet this", wrapWithSnippetAction),
-  spokenFormTest(
-    "test api wrap with snippet by name this",
-    wrapWithSnippetByNameAction,
-  ),
   spokenFormTest(
     "test api get text air",
     getTextAction({ showDecorations: true, ensureSingleTarget: true }),
@@ -191,6 +224,17 @@ export const talonApiFixture = [
     "test api alternate highlight nothing",
     alternateHighlightNothingAction,
   ),
+  spokenFormTest("test api parsed chuck block", parsedAction("chuck block")),
+  spokenFormTest(
+    "test api parsed take next token",
+    parsedAction("take next token"),
+  ),
+  spokenFormTest(
+    "test api parsed change next instance",
+    parsedAction("change next instance"),
+  ),
+  spokenFormTest("test api parsed air and bat", parsedActionAir),
+  spokenFormTest("test api parsed air plus bat", parsedActionAirPlusBat),
 ];
 
 function decoratedPrimitiveTarget(

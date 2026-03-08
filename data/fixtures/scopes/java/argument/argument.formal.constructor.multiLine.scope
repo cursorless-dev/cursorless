@@ -1,0 +1,46 @@
+public class Foo {
+    public Foo(
+        int aaa,
+        int bbb
+    ) {}
+}
+---
+
+[#1 Content] =
+[#1 Domain] = 2:8-2:15
+          >-------<
+2|         int aaa,
+
+[#1 Removal] = 2:8-3:8
+          >--------
+2|         int aaa,
+3|         int bbb
+   --------<
+
+[#1 Trailing delimiter] = 2:15-3:8
+                 >-
+2|         int aaa,
+3|         int bbb
+   --------<
+
+[#1 Insertion delimiter] = ",\n"
+
+
+[#2 Content] =
+[#2 Domain] = 3:8-3:15
+          >-------<
+3|         int bbb
+
+[#2 Removal] = 2:15-3:15
+                 >-
+2|         int aaa,
+3|         int bbb
+   ---------------<
+
+[#2 Leading delimiter] = 2:15-3:8
+                 >-
+2|         int aaa,
+3|         int bbb
+   --------<
+
+[#2 Insertion delimiter] = ",\n"

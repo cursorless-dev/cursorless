@@ -1,6 +1,5 @@
-import { Position, Range } from "@cursorless/common";
-import { Direction } from "@cursorless/common";
-import { TargetScope } from "./scope.types";
+import type { Direction, Position, Range } from "@cursorless/common";
+import type { TargetScope } from "./scope.types";
 
 /**
  * Defines the canonical scope ordering.

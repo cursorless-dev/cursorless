@@ -1,0 +1,30 @@
+languageId: plaintext
+command:
+  version: 7
+  spokenForm: change sit
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: i}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    Welcome Cursorless!
+
+    Notice the hats above each word in this sentence.
+  selections:
+    - anchor: {line: 2, character: 15}
+      active: {line: 2, character: 15}
+  marks:
+    default.i:
+      start: {line: 2, character: 32}
+      end: {line: 2, character: 34}
+finalState:
+  documentContents: |
+    Welcome Cursorless!
+
+    Notice the hats above each word  this sentence.
+  selections:
+    - anchor: {line: 2, character: 32}
+      active: {line: 2, character: 32}

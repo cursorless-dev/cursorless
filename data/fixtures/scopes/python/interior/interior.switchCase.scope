@@ -1,0 +1,66 @@
+match foo:
+    case 0:
+        bar
+        baz
+    case _:
+        bar
+        baz
+---
+
+[#1 Content] = 1:4-6:11
+      >-------
+1|     case 0:
+2|         bar
+3|         baz
+4|     case _:
+5|         bar
+6|         baz
+   -----------<
+
+[#1 Removal] =
+[#1 Domain] = 0:10-6:11
+            >
+0| match foo:
+1|     case 0:
+2|         bar
+3|         baz
+4|     case _:
+5|         bar
+6|         baz
+   -----------<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 2:8-3:11
+          >---
+2|         bar
+3|         baz
+   -----------<
+
+[#2 Removal] =
+[#2 Domain] = 1:11-3:11
+             >
+1|     case 0:
+2|         bar
+3|         baz
+   -----------<
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] = 5:8-6:11
+          >---
+5|         bar
+6|         baz
+   -----------<
+
+[#3 Removal] =
+[#3 Domain] = 4:11-6:11
+             >
+4|     case _:
+5|         bar
+6|         baz
+   -----------<
+
+[#3 Insertion delimiter] = " "

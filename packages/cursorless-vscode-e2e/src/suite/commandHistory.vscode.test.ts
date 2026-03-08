@@ -1,9 +1,9 @@
-import {
+import type {
   CommandComplete,
   CommandHistoryEntry,
-  LATEST_VERSION,
   ReplaceActionDescriptor,
 } from "@cursorless/common";
+import { LATEST_VERSION } from "@cursorless/common";
 import {
   getCursorlessApi,
   openNewEditor,
@@ -12,10 +12,10 @@ import {
 import { assert } from "chai";
 import { existsSync } from "node:fs";
 import { readFile, readdir, rm } from "node:fs/promises";
-import path from "node:path";
+import * as path from "node:path";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-import produce from "immer";
+import { produce } from "immer";
 
 /*
  * All tests in this file are running against the latest version of the command
@@ -45,7 +45,7 @@ suite("commandHistory", function () {
 async function testActive(tmpdir: string) {
   await injectFakeIsActive(true);
   await initalizeEditor();
-  const command = takeCommand("h");
+  const command = takeCommand("e");
   await runCursorlessCommand(command);
 
   const content = await getLogEntry(tmpdir);
@@ -71,7 +71,7 @@ async function testSanitization(tmpdir: string) {
 async function testInactive(tmpdir: string) {
   await injectFakeIsActive(false);
   await initalizeEditor();
-  await runCursorlessCommand(takeCommand("h"));
+  await runCursorlessCommand(takeCommand("e"));
 
   assert.notOk(existsSync(tmpdir));
 }
@@ -83,7 +83,7 @@ async function testError(tmpdir: string) {
 
   try {
     await runCursorlessCommand(command);
-  } catch (error) {
+  } catch (_error) {
     // Do nothing
   }
 

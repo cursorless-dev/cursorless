@@ -1,0 +1,15 @@
+class Foo {
+    fun bar() {}
+}
+---
+
+[Content] =
+[Removal] = 1:12-1:12
+              ><
+1|     fun bar() {}
+
+[Domain] = 1:4-1:16
+      >------------<
+1|     fun bar() {}
+
+[Insertion delimiter] = ""

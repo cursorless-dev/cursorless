@@ -1,10 +1,9 @@
-import { openNewEditor } from "@cursorless/vscode-common";
+import { getFixturePath, isWindows } from "@cursorless/node-common";
+import { openNewEditor, runCursorlessCommand } from "@cursorless/vscode-common";
 import * as assert from "assert";
-import * as os from "os";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-import { runCursorlessCommand } from "@cursorless/vscode-common";
-import { getFixturePath } from "@cursorless/common";
+import { LATEST_VERSION } from "@cursorless/common";
 
 suite("followLink", async function () {
   endToEndTestSetup(this);
@@ -27,16 +26,17 @@ async function followDefinition() {
   // assert.equal(editor.visibleRanges[0].start.line, 1);
 
   await runCursorlessCommand({
-    version: 1,
-    action: "followLink",
-    targets: [
-      {
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
+    action: {
+      name: "followLink",
+      target: {
         type: "primitive",
         mark: {
           type: "cursor",
         },
       },
-    ],
+    },
   });
 
   // FIXME: Disabled to work around CI failure; see #2243
@@ -45,24 +45,25 @@ async function followDefinition() {
 
 async function followLink() {
   const filename = getFixturePath("helloWorld.txt");
-  const linkTextContent =
-    os.platform() === "win32" ? `file:///${filename}` : `file://${filename}`;
+  const linkTextContent = isWindows()
+    ? `file:///${filename}`
+    : `file://${filename}`;
   await openNewEditor(linkTextContent);
 
   await runCursorlessCommand({
-    version: 1,
-    action: "followLink",
-    targets: [
-      {
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
+    action: {
+      name: "followLink",
+      target: {
         type: "primitive",
         mark: {
           type: "cursor",
         },
       },
-    ],
+    },
   });
 
-  // eslint-disable-next-line no-restricted-properties
   const editor = vscode.window.activeTextEditor;
   assert.equal(editor?.document?.uri?.scheme, "file");
   assert.equal(editor?.document.getText().trimEnd(), "hello world");

@@ -1,6 +1,4 @@
-;;!! "string"
-;;!   ^^^^^^
-(string_content) @textFragment
+;; https://github.com/tree-sitter/tree-sitter-json/blob/master/src/grammar.json
 
 ;;!! {"value": 0}
 ;;!  ^^^^^^^^^^^^
@@ -13,6 +11,10 @@
 ;;!! "string"
 ;;!  ^^^^^^^^
 (string) @string
+
+;;!! "string"
+;;!   ^^^^^^
+(string_content) @textFragment
 
 ;;!! // aaa
 ;;!  ^^^^^^

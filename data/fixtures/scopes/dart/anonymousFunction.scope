@@ -1,0 +1,17 @@
+var foo = () {};
+---
+
+[Content] =
+[Domain] = 0:10-0:15
+            >-----<
+0| var foo = () {};
+
+[Removal] = 0:9-0:15
+           >------<
+0| var foo = () {};
+
+[Leading delimiter] = 0:9-0:10
+           >-<
+0| var foo = () {};
+
+[Insertion delimiter] = "\n"

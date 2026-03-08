@@ -1,0 +1,11 @@
+<?php
+switch ($foo) { }
+---
+
+[Content] =
+[Removal] =
+[Domain] = 1:15-1:16
+                 >-<
+1| switch ($foo) { }
+
+[Insertion delimiter] = " "

@@ -1,13 +1,19 @@
 import json
 from typing import Any, Optional
 
-from talon import Context, Module, actions, scope
+from talon import Context, Module, actions, scope, settings
 
 mod = Module()
 
 mod.mode(
     "cursorless_spoken_form_test",
     "Used to run tests on the Cursorless spoken forms/grammar",
+)
+
+mod.setting(
+    "cursorless_spoken_form_test_restore_microphone",
+    str,
+    desc="The microphone to switch to after the spoken form tests are done. If unset, the microphone that was active before tests started is restored. (If you want to switch back to 'System Default', you should set that as the value here)",
 )
 
 ctx = Context()
@@ -40,17 +46,23 @@ class UserActions:
         return True
 
     def private_cursorless_run_rpc_command_and_wait(
-        command_id: str, arg1: Any, arg2: Any = None
+        command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
+        arg1: Any,
+        arg2: Any = None,
     ):
         commands_run.append(arg1)
 
     def private_cursorless_run_rpc_command_no_wait(
-        command_id: str, arg1: Any, arg2: Any = None
+        command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
+        arg1: Any,
+        arg2: Any = None,
     ):
         commands_run.append(arg1)
 
     def private_cursorless_run_rpc_command_get(
-        command_id: str, arg1: Any, arg2: Any = None
+        command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
+        arg1: Any,
+        arg2: Any = None,
     ) -> Any:
         commands_run.append(arg1)
         return mockedGetValue
@@ -58,13 +70,16 @@ class UserActions:
 
 @mod.action_class
 class Actions:
-    def private_cursorless_spoken_form_test_mode(enable: bool):
+    def private_cursorless_spoken_form_test_mode(enable: bool):  # pyright: ignore [reportGeneralTypeIssues]
         """Enable/disable Cursorless spoken form test mode"""
         global saved_modes, saved_microphone
 
         if enable:
             saved_modes = scope.get("mode")
-            saved_microphone = actions.sound.active_microphone()
+            saved_microphone = settings.get(
+                "user.cursorless_spoken_form_test_restore_microphone",
+                actions.sound.active_microphone(),
+            )
 
             disable_modes()
             actions.mode.enable("user.cursorless_spoken_form_test")
@@ -83,7 +98,8 @@ class Actions:
             )
 
     def private_cursorless_spoken_form_test(
-        phrase: str, mockedGetValue_: Optional[str]
+        phrase: str,  # pyright: ignore [reportGeneralTypeIssues]
+        mockedGetValue_: Optional[str],
     ):
         """Run Cursorless spoken form test"""
         global commands_run, mockedGetValue

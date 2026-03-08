@@ -1,16 +1,13 @@
-import {
-  FlashStyle,
-  RangeExpansionBehavior,
-  ReplaceWith,
-} from "@cursorless/common";
-import { zip } from "lodash";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { performEditsAndUpdateSelectionsWithBehavior } from "../core/updateSelections/updateSelections";
+import type { ReplaceWith } from "@cursorless/common";
+import { FlashStyle, RangeExpansionBehavior } from "@cursorless/common";
+import { zip } from "lodash-es";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
-import { SelectionWithEditor } from "../typings/Types";
-import { Destination, Target } from "../typings/target.types";
+import type { SelectionWithEditor } from "../typings/Types";
+import type { Destination, Target } from "../typings/target.types";
 import { flashTargets, runForEachEditor } from "../util/targetUtils";
-import { ActionReturnValue } from "./actions.types";
+import type { ActionReturnValue } from "./actions.types";
 
 export default class Replace {
   constructor(private rangeUpdater: RangeUpdater) {
@@ -63,33 +60,38 @@ export default class Replace {
     await runForEachEditor(
       edits,
       (edit) => edit.editor,
-      async (editor, edits) => {
-        const contentSelections = {
-          selections: edits.map(({ target }) => target.contentSelection),
-        };
-        const editSelections = {
-          selections: edits.map(({ edit }) => edit.range.toSelection(false)),
-          rangeBehavior: RangeExpansionBehavior.openOpen,
-        };
+      async (editor, editWrappers) => {
+        const edits = editWrappers.map(({ edit }) => edit);
 
-        const [updatedContentSelections, updatedEditSelections] =
-          await performEditsAndUpdateSelectionsWithBehavior(
-            this.rangeUpdater,
-            ide().getEditableTextEditor(editor),
-            edits.map(({ edit }) => edit),
-            [contentSelections, editSelections],
-          );
+        const {
+          contentSelections: updatedContentSelections,
+          editRanges: updatedEditRanges,
+        } = await performEditsAndUpdateSelections({
+          rangeUpdater: this.rangeUpdater,
+          editor: ide().getEditableTextEditor(editor),
+          edits,
+          selections: {
+            contentSelections: editWrappers.map(
+              ({ target }) => target.contentSelection,
+            ),
+            editRanges: {
+              selections: edits.map(({ range }) => range),
+              behavior: RangeExpansionBehavior.openOpen,
+            },
+          },
+        });
 
-        for (const [edit, selection] of zip(edits, updatedContentSelections)) {
-          sourceTargets.push(edit!.target.withContentRange(selection!));
+        for (const [wrapper, selection] of zip(
+          editWrappers,
+          updatedContentSelections,
+        )) {
+          sourceTargets.push(wrapper!.target.withContentRange(selection!));
         }
 
-        for (const [edit, selection] of zip(edits, updatedEditSelections)) {
+        for (const [wrapper, range] of zip(editWrappers, updatedEditRanges)) {
           thatSelections.push({
             editor,
-            selection: edit!.edit
-              .updateRange(selection!)
-              .toSelection(selection!.isReversed),
+            selection: wrapper!.edit.updateRange(range!).toSelection(false),
           });
         }
       },

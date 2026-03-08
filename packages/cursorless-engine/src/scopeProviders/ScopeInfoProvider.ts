@@ -1,15 +1,18 @@
-import {
+import type {
   Disposable,
   ScopeType,
   ScopeTypeInfo,
   ScopeTypeInfoEventCallback,
   SurroundingPairScopeType,
+} from "@cursorless/common";
+import {
+  pseudoScopes,
   simpleScopeTypeTypes,
   surroundingPairNames,
 } from "@cursorless/common";
-import { pull } from "lodash";
+import { pull } from "lodash-es";
 
-import { CustomSpokenFormGeneratorImpl } from "../generateSpokenForm/CustomSpokenFormGeneratorImpl";
+import type { CustomSpokenFormGeneratorImpl } from "../generateSpokenForm/CustomSpokenFormGeneratorImpl";
 import { scopeTypeToString } from "./scopeTypeToString";
 
 /**
@@ -57,14 +60,14 @@ export class ScopeInfoProvider {
   private async onChange() {
     this.updateScopeTypeInfos();
 
-    this.listeners.forEach((listener) => listener(this.scopeInfos));
+    this.listeners.slice().forEach((listener) => listener(this.scopeInfos));
   }
 
   private updateScopeTypeInfos(): void {
     const scopeTypes: ScopeType[] = [
       ...simpleScopeTypeTypes
         // Ignore instance pseudo-scope because it's not really a scope
-        .filter((scopeTypeType) => scopeTypeType !== "instance")
+        .filter((scopeTypeType) => !pseudoScopes.has(scopeTypeType))
         .map((scopeTypeType) => ({
           type: scopeTypeType,
         })),
@@ -112,6 +115,7 @@ function isLanguageSpecific(scopeType: ScopeType): boolean {
   switch (scopeType.type) {
     case "string":
     case "argumentOrParameter":
+    case "argumentList":
     case "anonymousFunction":
     case "attribute":
     case "branch":
@@ -127,6 +131,7 @@ function isLanguageSpecific(scopeType: ScopeType): boolean {
     case "functionName":
     case "ifStatement":
     case "instance":
+    case "interior":
     case "list":
     case "map":
     case "name":
@@ -144,7 +149,6 @@ function isLanguageSpecific(scopeType: ScopeType): boolean {
     case "sectionLevelFive":
     case "sectionLevelSix":
     case "selector":
-    case "private.switchStatementSubject":
     case "unit":
     case "xmlBothTags":
     case "xmlElement":
@@ -157,6 +161,9 @@ function isLanguageSpecific(scopeType: ScopeType): boolean {
     case "namedParagraph":
     case "subParagraph":
     case "environment":
+    case "textFragment":
+    case "disqualifyDelimiter":
+    case "pairDelimiter":
       return true;
 
     case "character":
@@ -164,14 +171,17 @@ function isLanguageSpecific(scopeType: ScopeType): boolean {
     case "token":
     case "identifier":
     case "line":
+    case "fullLine":
     case "sentence":
     case "paragraph":
+    case "boundedParagraph":
     case "document":
     case "nonWhitespaceSequence":
     case "boundedNonWhitespaceSequence":
     case "url":
     case "notebookCell":
     case "surroundingPair":
+    case "surroundingPairInterior":
     case "customRegex":
     case "glyph":
       return false;

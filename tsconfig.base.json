@@ -3,7 +3,7 @@
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "moduleDetection": "force",
-    "target": "es6",
+    "target": "es2022",
     "lib": ["es2022"],
     "emitDeclarationOnly": true,
     "declarationMap": true,
@@ -11,6 +11,8 @@
     "composite": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    "strict": true
+    "strict": true,
+    "rootDir": "${configDir}/src",
+    "outDir": "${configDir}/out"
   }
 }

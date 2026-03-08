@@ -1,0 +1,24 @@
+using (Foo foo = create()) {}
+---
+
+[Content] = 0:11-0:14
+             >---<
+0| using (Foo foo = create()) {}
+
+[Removal] = 0:11-0:15
+             >----<
+0| using (Foo foo = create()) {}
+
+[Leading delimiter] = 0:10-0:11
+            >-<
+0| using (Foo foo = create()) {}
+
+[Trailing delimiter] = 0:14-0:15
+                >-<
+0| using (Foo foo = create()) {}
+
+[Domain] = 0:0-0:29
+  >-----------------------------<
+0| using (Foo foo = create()) {}
+
+[Insertion delimiter] = " "

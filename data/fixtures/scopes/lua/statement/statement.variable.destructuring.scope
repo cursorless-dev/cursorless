@@ -1,0 +1,10 @@
+local foo, bar = baz
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:20
+  >--------------------<
+0| local foo, bar = baz
+
+[Insertion delimiter] = "\n"

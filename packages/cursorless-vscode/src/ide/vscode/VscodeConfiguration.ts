@@ -1,24 +1,24 @@
-import * as os from "node:os";
-import { HatStability } from "@cursorless/common";
-import { get } from "lodash";
-import * as vscode from "vscode";
-import {
+import type {
   Configuration,
   ConfigurationScope,
   CursorlessConfiguration,
+  GetFieldType,
+  Paths,
 } from "@cursorless/common";
-import { GetFieldType, Paths } from "@cursorless/common";
-import { Notifier } from "@cursorless/common";
+import { HatStability, Notifier } from "@cursorless/common";
+import * as os from "node:os";
+import * as vscode from "vscode";
 import type { VscodeIDE } from "./VscodeIDE";
 
-const translators = {
-  experimental: {
-    hatStability(value: string) {
-      return HatStability[value as keyof typeof HatStability];
-    },
-    snippetsDir: (value?: string) => {
-      return value != null ? evaluateStringVariables(value) : undefined;
-    },
+type TranslatorMap = {
+  [K in Paths<CursorlessConfiguration>]?: (
+    arg: any,
+  ) => GetFieldType<CursorlessConfiguration, K>;
+};
+
+const translators: TranslatorMap = {
+  ["experimental.hatStability"]: (value: string) => {
+    return HatStability[value as keyof typeof HatStability];
   },
 };
 
@@ -41,7 +41,7 @@ export default class VscodeConfiguration implements Configuration {
       .getConfiguration("cursorless", scope)
       .get<GetFieldType<CursorlessConfiguration, Path>>(path)!;
 
-    return get(translators, path)?.(rawValue) ?? rawValue;
+    return translators[path]?.(rawValue) ?? rawValue;
   }
 
   onDidChangeConfiguration = this.notifier.registerListener;
@@ -53,7 +53,7 @@ export default class VscodeConfiguration implements Configuration {
  *
  * We currently only support `${userHome}`.
  *
- * @param path The path to the configuration value, eg `cursorless.snippetsDir`
+ * @param path The path to the configuration value, eg `cursorless.experimental.hatStability`
  * @returns The configuration value, with variables expanded, or undefined if
  * the value is not set
  */

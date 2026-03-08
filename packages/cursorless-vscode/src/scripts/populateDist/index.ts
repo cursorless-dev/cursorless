@@ -1,3 +1,3 @@
 import { run } from "./populateDist";
 
-run();
+void run();

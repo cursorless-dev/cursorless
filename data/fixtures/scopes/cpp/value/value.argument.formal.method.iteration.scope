@@ -1,0 +1,27 @@
+class Foo {
+    void bar(int aaa = 0, int bbb = 1) {}
+}
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-2:1
+  >-----------
+0| class Foo {
+1|     void bar(int aaa = 0, int bbb = 1) {}
+2| }
+   -<
+
+
+[#2 Content] =
+[#2 Domain] = 0:11-2:0
+             >
+0| class Foo {
+1|     void bar(int aaa = 0, int bbb = 1) {}
+2| }
+   <
+
+
+[#3 Content] =
+[#3 Domain] = 1:13-1:37
+               >------------------------<
+1|     void bar(int aaa = 0, int bbb = 1) {}

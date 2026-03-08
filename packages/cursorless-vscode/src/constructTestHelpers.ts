@@ -1,7 +1,7 @@
-import {
-  CommandServerApi,
+import type {
   ExcludableSnapshotField,
   ExtraSnapshotField,
+  FakeCommandServerApi,
   HatTokenMap,
   IDE,
   NormalizedIDE,
@@ -12,20 +12,23 @@ import {
   TestCaseSnapshot,
   TextEditor,
 } from "@cursorless/common";
+import type { StoredTargetMap } from "@cursorless/cursorless-engine";
 import {
-  StoredTargetMap,
   plainObjectToTarget,
-  takeSnapshot,
+  scopeHandlerCache,
+  treeSitterQueryCache,
 } from "@cursorless/cursorless-engine";
-import { TestHelpers } from "@cursorless/vscode-common";
-import * as vscode from "vscode";
-import { VscodeIDE } from "./ide/vscode/VscodeIDE";
+import { takeSnapshot } from "@cursorless/test-case-recorder";
+import type { VscodeTestHelpers } from "@cursorless/vscode-common";
+import type * as vscode from "vscode";
 import { toVscodeEditor } from "./ide/vscode/toVscodeEditor";
+import type { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
+import type { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { vscodeApi } from "./vscodeApi";
-import { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
+import type { VscodeTutorial } from "./VscodeTutorial";
 
 export function constructTestHelpers(
-  commandServerApi: CommandServerApi | null,
+  commandServerApi: FakeCommandServerApi,
   storedTargets: StoredTargetMap,
   hatTokenMap: HatTokenMap,
   vscodeIDE: VscodeIDE,
@@ -33,8 +36,8 @@ export function constructTestHelpers(
   fileSystem: VscodeFileSystem,
   scopeProvider: ScopeProvider,
   injectIde: (ide: IDE) => void,
-  runIntegrationTests: () => Promise<void>,
-): TestHelpers | undefined {
+  vscodeTutorial: VscodeTutorial,
+): VscodeTestHelpers | undefined {
   return {
     commandServerApi: commandServerApi!,
     ide: normalizedIde,
@@ -42,6 +45,14 @@ export function constructTestHelpers(
     scopeProvider,
 
     toVscodeEditor,
+    fromVscodeEditor(editor: vscode.TextEditor): TextEditor {
+      return vscodeIDE.fromVscodeEditor(editor);
+    },
+
+    clearCache() {
+      scopeHandlerCache.clear();
+      treeSitterQueryCache.clear();
+    },
 
     // FIXME: Remove this once we have a better way to get this function
     // accessible from our tests
@@ -51,7 +62,6 @@ export function constructTestHelpers(
       editor: TextEditor,
       ide: IDE,
       marks: SerializedMarks | undefined,
-      forceRealClipboard: boolean,
     ): Promise<TestCaseSnapshot> {
       return takeSnapshot(
         storedTargets,
@@ -62,7 +72,6 @@ export function constructTestHelpers(
         marks,
         undefined,
         undefined,
-        forceRealClipboard ? vscodeIDE.clipboard : undefined,
       );
     },
 
@@ -70,19 +79,19 @@ export function constructTestHelpers(
     cursorlessCommandHistoryDirPath: fileSystem.cursorlessCommandHistoryDirPath,
 
     setStoredTarget(
-      editor: vscode.TextEditor,
+      editor: TextEditor,
       key: StoredTargetKey,
       targets: TargetPlainObject[] | undefined,
     ): void {
       storedTargets.set(
         key,
-        targets?.map((target) =>
-          plainObjectToTarget(vscodeIDE.fromVscodeEditor(editor), target),
-        ),
+        targets?.map((target) => plainObjectToTarget(editor, target)),
       );
     },
     hatTokenMap,
-    runIntegrationTests,
     vscodeApi,
+    getTutorialWebviewEventLog() {
+      return vscodeTutorial.getEventLog();
+    },
   };
 }

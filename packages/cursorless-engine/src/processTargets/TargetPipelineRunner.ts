@@ -1,21 +1,24 @@
-import {
+import type {
   Direction,
   ImplicitTargetDescriptor,
   Modifier,
-  Range,
   ScopeType,
-  uniqWithHash,
 } from "@cursorless/common";
-import { zip } from "lodash";
-import {
+import { Range, uniqWithHash } from "@cursorless/common";
+import { zip } from "lodash-es";
+import type {
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
   TargetDescriptor,
 } from "../typings/TargetDescriptor";
-import { Target } from "../typings/target.types";
-import { MarkStageFactory } from "./MarkStageFactory";
-import { ModifierStageFactory } from "./ModifierStageFactory";
-import { MarkStage, ModifierStage } from "./PipelineStages.types";
+import type { Target } from "../typings/target.types";
+import type { MarkStageFactory } from "./MarkStageFactory";
+import type { ModifierStageFactory } from "./ModifierStageFactory";
+import type {
+  MarkStage,
+  ModifierStage,
+  ModifierStateOptions,
+} from "./PipelineStages.types";
 import { createContinuousRangeTarget } from "./createContinuousRangeTarget";
 import { ImplicitStage } from "./marks/ImplicitStage";
 import { ContainingTokenIfUntypedEmptyStage } from "./modifiers/ConditionalModifierStages";
@@ -24,6 +27,7 @@ import { PlainTarget } from "./targets";
 interface TargetPipelineRunnerOpts {
   actionFinalStages?: ModifierStage[];
   noAutomaticTokenExpansion?: boolean;
+  allowDuplicateTargets?: boolean;
 }
 
 export class TargetPipelineRunner {
@@ -50,13 +54,14 @@ export class TargetPipelineRunner {
     {
       actionFinalStages = [],
       noAutomaticTokenExpansion = false,
+      allowDuplicateTargets = false,
     }: TargetPipelineRunnerOpts = {},
   ): Target[] {
     return new TargetPipeline(
       this.modifierStageFactory,
       this.markStageFactory,
       target,
-      { actionFinalStages, noAutomaticTokenExpansion },
+      { actionFinalStages, noAutomaticTokenExpansion, allowDuplicateTargets },
     ).run();
   }
 }
@@ -84,7 +89,8 @@ class TargetPipeline {
    * the target
    */
   run(): Target[] {
-    return uniqTargets(this.processTarget(this.target));
+    const targets = this.processTarget(this.target);
+    return this.opts.allowDuplicateTargets ? targets : uniqTargets(targets);
   }
 
   processTarget(target: TargetDescriptor): Target[] {
@@ -209,6 +215,7 @@ class TargetPipeline {
   ): Target[] {
     let markStage: MarkStage;
     let targetModifierStages: ModifierStage[];
+    let automaticTokenExpansionBefore = false;
 
     if (targetDescriptor.type === "implicit") {
       markStage = new ImplicitStage();
@@ -219,28 +226,62 @@ class TargetPipeline {
         this.modifierStageFactory,
         targetDescriptor.modifiers,
       );
+      automaticTokenExpansionBefore =
+        doAutomaticTokenExpansionBefore(targetDescriptor);
     }
 
     // First, get the targets output by the mark
     const markOutputTargets = markStage.run();
 
+    const [preStages, postStages] = this.getPreAndPostStages(
+      automaticTokenExpansionBefore,
+    );
+
     /**
      * The modifier pipeline that will be applied to construct our final targets
      */
     const modifierStages = [
+      ...preStages,
       ...targetModifierStages,
       ...this.opts.actionFinalStages,
-
-      // This performs auto-expansion to token when you say eg "take this" with an
-      // empty selection
-      ...(this.opts.noAutomaticTokenExpansion
-        ? []
-        : [new ContainingTokenIfUntypedEmptyStage(this.modifierStageFactory)]),
+      ...postStages,
     ];
 
     // Run all targets through the modifier stages
     return processModifierStages(modifierStages, markOutputTargets);
   }
+
+  private getPreAndPostStages(
+    automaticTokenExpansionBefore: boolean,
+  ): [ModifierStage[], ModifierStage[]] {
+    if (this.opts.noAutomaticTokenExpansion) {
+      return [[], []];
+    }
+    // This performs auto-expansion to token when you say eg "take this" with an
+    // empty selection
+    const stage = new ContainingTokenIfUntypedEmptyStage(
+      this.modifierStageFactory,
+    );
+    if (automaticTokenExpansionBefore) {
+      return [[stage], []];
+    }
+    return [[], [stage]];
+  }
+}
+
+/**
+ * Determines whether we should automatically expand the token before the target.
+ * True if the target has modifiers that are all "startOf" or "endOf".
+ */
+function doAutomaticTokenExpansionBefore(
+  targetDescriptor: PrimitiveTargetDescriptor,
+): boolean {
+  return (
+    targetDescriptor.modifiers.length > 0 &&
+    targetDescriptor.modifiers.every(
+      ({ type }) => type === "startOf" || type === "endOf",
+    )
+  );
 }
 
 /** Convert a list of target modifiers to modifier stages */
@@ -261,8 +302,11 @@ export function processModifierStages(
   // First we apply each stage in sequence, letting each stage see the targets
   // one-by-one and concatenating the results before passing them on to the
   // next stage.
+  const options: ModifierStateOptions = {
+    multipleTargets: targets.length > 1,
+  };
   modifierStages.forEach((stage) => {
-    targets = targets.flatMap((target) => stage.run(target));
+    targets = targets.flatMap((target) => stage.run(target, options));
   });
 
   // Then return the output from the final stage
@@ -275,6 +319,9 @@ function getExcludedScope(
   scopeType: ScopeType,
   direction: Direction,
 ): Target {
+  const options: ModifierStateOptions = {
+    multipleTargets: false,
+  };
   return (
     modifierStageFactory
       .create({
@@ -287,7 +334,7 @@ function getExcludedScope(
       // NB: The following line assumes that content range is always
       // contained by domain, so that "every" will properly reconstruct
       // the target from the content range.
-      .run(target)[0]
+      .run(target, options)[0]
   );
 }
 

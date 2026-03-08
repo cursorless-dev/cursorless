@@ -1,0 +1,39 @@
+languageId: kotlin
+command:
+  version: 7
+  spokenForm: change callee
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionCallee}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    fun <T> convertToString(value: T): String {
+        return value.toString()
+    }
+
+    fun main() {
+        val stringValue: String = convertToString<Int>(42)
+        println(stringValue)
+    }
+  selections:
+    - anchor: {line: 5, character: 54}
+      active: {line: 5, character: 54}
+  marks: {}
+finalState:
+  documentContents: |
+    fun <T> convertToString(value: T): String {
+        return value.toString()
+    }
+
+    fun main() {
+        val stringValue: String = (42)
+        println(stringValue)
+    }
+  selections:
+    - anchor: {line: 5, character: 30}
+      active: {line: 5, character: 30}

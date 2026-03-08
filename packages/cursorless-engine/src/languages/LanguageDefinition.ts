@@ -1,19 +1,17 @@
-import {
-  FileSystem,
+import type {
+  IDE,
+  RawTreeSitterQueryProvider,
   ScopeType,
   SimpleScopeType,
-  showError,
+  TextDocument,
+  TreeSitter,
 } from "@cursorless/common";
-import { basename, dirname, join } from "path";
+import { matchAll, showError } from "@cursorless/common";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
-import { TreeSitterTextFragmentScopeHandler } from "../processTargets/modifiers/scopeHandlers/TreeSitterScopeHandler/TreeSitterTextFragmentScopeHandler";
-import { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
-import { ide } from "../singletons/ide.singleton";
-import { TreeSitter } from "../typings/TreeSitter";
-import { matchAll } from "../util/regex";
 import { TreeSitterQuery } from "./TreeSitterQuery";
+import type { ScopeCaptureName } from "./TreeSitterQuery/captureNames";
+import type { QueryCapture } from "./TreeSitterQuery/QueryCapture";
 import { validateQueryCaptures } from "./TreeSitterQuery/validateQueryCaptures";
-import { TEXT_FRAGMENT_CAPTURE_NAME } from "./captureNames";
 
 /**
  * Represents a language definition for a single language, including the
@@ -39,25 +37,33 @@ export class LanguageDefinition {
    * id doesn't have a new-style query definition
    */
   static async create(
+    ide: IDE,
+    treeSitterQueryProvider: RawTreeSitterQueryProvider,
     treeSitter: TreeSitter,
-    fileSystem: FileSystem,
-    queryDir: string,
     languageId: string,
   ): Promise<LanguageDefinition | undefined> {
-    const languageQueryPath = join(queryDir, `${languageId}.scm`);
-
     const rawLanguageQueryString = await readQueryFileAndImports(
-      fileSystem,
-      languageQueryPath,
+      ide,
+      treeSitterQueryProvider,
+      `${languageId}.scm`,
     );
 
     if (rawLanguageQueryString == null) {
       return undefined;
     }
 
-    const rawQuery = treeSitter
-      .getLanguage(languageId)!
-      .query(rawLanguageQueryString);
+    if (!(await treeSitter.loadLanguage(languageId))) {
+      return undefined;
+    }
+
+    const rawQuery = treeSitter.createQuery(languageId, rawLanguageQueryString);
+
+    if (rawQuery == null) {
+      throw Error(
+        `Could not create Tree sitter query for language ${languageId}`,
+      );
+    }
+
     const query = TreeSitterQuery.create(languageId, treeSitter, rawQuery);
 
     return new LanguageDefinition(query);
@@ -66,23 +72,38 @@ export class LanguageDefinition {
   /**
    * @param scopeType The scope type for which to get a scope handler
    * @returns A scope handler for the given scope type and language id, or
-   * undefined if the given scope type / language id combination is still using
-   * legacy pathways
+   * undefined if the given scope type is not supported by this language.
    */
   getScopeHandler(scopeType: ScopeType) {
-    if (!this.query.captureNames.includes(scopeType.type)) {
+    if (!this.query.hasCapture(scopeType.type)) {
       return undefined;
     }
 
     return new TreeSitterScopeHandler(this.query, scopeType as SimpleScopeType);
   }
 
-  getTextFragmentScopeHandler(): ScopeHandler | undefined {
-    if (!this.query.captureNames.includes(TEXT_FRAGMENT_CAPTURE_NAME)) {
-      return undefined;
+  /**
+   * This is a low-level function that just returns a map of specified captures in the
+   * document. We use this in our surrounding pair code.
+   *
+   * @param document The document to search
+   * @param scopeTypes Which scope types to include
+   * @returns A map of captures in the document
+   */
+  getCapturesMap<T extends ScopeCaptureName>(
+    document: TextDocument,
+    scopeTypes: readonly T[],
+  ) {
+    const matches = this.query.matchesForScopeTypes(document, scopeTypes);
+    const result: Partial<Record<T, QueryCapture[]>> = {};
+
+    for (const match of matches) {
+      for (const capture of match.captures) {
+        (result[capture.name as T] ??= []).push(capture);
+      }
     }
 
-    return new TreeSitterTextFragmentScopeHandler(this.query);
+    return result;
   }
 }
 
@@ -98,43 +119,42 @@ export class LanguageDefinition {
  * @returns The text of the query file, with all imports inlined
  */
 async function readQueryFileAndImports(
-  fileSystem: FileSystem,
-  languageQueryPath: string,
+  ide: IDE,
+  provider: RawTreeSitterQueryProvider,
+  languageQueryName: string,
 ) {
   // Seed the map with the query file itself
   const rawQueryStrings: Record<string, string | null> = {
-    [languageQueryPath]: null,
+    [languageQueryName]: null,
   };
 
-  const doValidation = ide().runMode !== "production";
+  const doValidation = ide.runMode !== "production";
 
   // Keep reading imports until we've read all the imports. Every time we
   // encounter an import in a query file, we add it to the map with a value
   // of null, so that it will be read on the next iteration
   while (Object.values(rawQueryStrings).some((v) => v == null)) {
-    for (const [queryPath, rawQueryString] of Object.entries(rawQueryStrings)) {
+    for (const [queryName, rawQueryString] of Object.entries(rawQueryStrings)) {
       if (rawQueryString != null) {
         continue;
       }
 
-      const fileName = basename(queryPath);
-
-      let rawQuery = await fileSystem.readBundledFile(queryPath);
+      let rawQuery = await provider.readQuery(queryName);
 
       if (rawQuery == null) {
-        if (queryPath === languageQueryPath) {
+        if (queryName === languageQueryName) {
           // If this is the main query file, then we know that this language
           // just isn't defined using new-style queries
           return undefined;
         }
 
-        showError(
-          ide().messages,
+        void showError(
+          ide.messages,
           "LanguageDefinition.readQueryFileAndImports.queryNotFound",
-          `Could not find imported query file ${queryPath}`,
+          `Could not find imported query file ${queryName}`,
         );
 
-        if (ide().runMode === "test") {
+        if (ide.runMode === "test") {
           throw new Error("Invalid import statement");
         }
 
@@ -143,10 +163,10 @@ async function readQueryFileAndImports(
       }
 
       if (doValidation) {
-        validateQueryCaptures(fileName, rawQuery);
+        validateQueryCaptures(queryName, rawQuery);
       }
 
-      rawQueryStrings[queryPath] = rawQuery;
+      rawQueryStrings[queryName] = rawQuery;
       matchAll(
         rawQuery,
         // Matches lines like:
@@ -156,17 +176,15 @@ async function readQueryFileAndImports(
         // but is very lenient about whitespace and quotes, and also allows
         // include instead of import, so that we can throw a nice error message
         // if the developer uses the wrong syntax
-        /^[^\S\r\n]*;;?[^\S\r\n]*(?:import|include)[^\S\r\n]+['"]?([\w|/.]+)['"]?[^\S\r\n]*$/gm,
+        /^[^\S\r\n]*;;?[^\S\r\n]*(?:import|include)[^\S\r\n]+['"]?([\w|/\\.]+)['"]?[^\S\r\n]*$/gm,
         (match) => {
-          const relativeImportPath = match[1];
+          const importName = match[1];
 
           if (doValidation) {
-            validateImportSyntax(fileName, relativeImportPath, match[0]);
+            validateImportSyntax(ide, queryName, importName, match[0]);
           }
 
-          const importQueryPath = join(dirname(queryPath), relativeImportPath);
-          rawQueryStrings[importQueryPath] =
-            rawQueryStrings[importQueryPath] ?? null;
+          rawQueryStrings[importName] = rawQueryStrings[importName] ?? null;
         },
       );
     }
@@ -176,21 +194,35 @@ async function readQueryFileAndImports(
 }
 
 function validateImportSyntax(
+  ide: IDE,
   file: string,
-  relativeImportPath: string,
+  importName: string,
   actual: string,
 ) {
-  const canonicalSyntax = `;; import ${relativeImportPath}`;
+  let isError = false;
 
+  if (/[/\\]/g.test(importName)) {
+    void showError(
+      ide.messages,
+      "LanguageDefinition.readQueryFileAndImports.invalidImport",
+      `Invalid import statement in ${file}: "${actual}". Relative import paths not supported`,
+    );
+
+    isError = true;
+  }
+
+  const canonicalSyntax = `;; import ${importName}`;
   if (actual !== canonicalSyntax) {
-    showError(
-      ide().messages,
+    void showError(
+      ide.messages,
       "LanguageDefinition.readQueryFileAndImports.malformedImport",
       `Malformed import statement in ${file}: "${actual}". Import statements must be of the form "${canonicalSyntax}"`,
     );
 
-    if (ide().runMode === "test") {
-      throw new Error("Invalid import statement");
-    }
+    isError = true;
+  }
+
+  if (isError && ide.runMode === "test") {
+    throw new Error("Invalid import statement");
   }
 }

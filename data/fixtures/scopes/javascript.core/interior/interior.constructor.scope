@@ -1,0 +1,27 @@
+class Foo {
+    constructor() { }
+}
+---
+
+[#1 Content] = 1:4-1:21
+      >-----------------<
+1|     constructor() { }
+
+[#1 Removal] =
+[#1 Domain] = 0:11-2:0
+             >
+0| class Foo {
+1|     constructor() { }
+2| }
+   <
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] =
+[#2 Domain] = 1:19-1:20
+                     >-<
+1|     constructor() { }
+
+[#2 Insertion delimiter] = " "

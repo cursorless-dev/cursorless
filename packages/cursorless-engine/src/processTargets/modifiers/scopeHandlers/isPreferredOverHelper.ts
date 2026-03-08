@@ -1,4 +1,4 @@
-import { testRegex } from "../../../util/regex";
+import { testRegex } from "@cursorless/common";
 import type { TargetScope } from "./scope.types";
 
 export function isPreferredOverHelper(

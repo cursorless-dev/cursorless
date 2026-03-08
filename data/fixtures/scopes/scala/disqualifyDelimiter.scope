@@ -1,0 +1,77 @@
+1 < 2
+1 > 2
+1 <= 2
+1 >= 2
+a << 2
+a >> 2
+a <<= 2
+a >>= 2
+() => 2
+var a: () => Int
+for (a <- b) {}
+def function[T <% Int] = {}
+def method[T <: Int] = {}
+def method[T >: Int] = {}
+foo match {
+    case a => 2
+}
+---
+[#1 Content] = 0:2-0:3
+    >-<
+0| 1 < 2
+
+[#2 Content] = 1:2-1:3
+    >-<
+1| 1 > 2
+
+[#3 Content] = 2:2-2:4
+    >--<
+2| 1 <= 2
+
+[#4 Content] = 3:2-3:4
+    >--<
+3| 1 >= 2
+
+[#5 Content] = 4:2-4:4
+    >--<
+4| a << 2
+
+[#6 Content] = 5:2-5:4
+    >--<
+5| a >> 2
+
+[#7 Content] = 6:2-6:5
+    >---<
+6| a <<= 2
+
+[#8 Content] = 7:2-7:5
+    >---<
+7| a >>= 2
+
+[#9 Content] = 8:3-8:5
+     >--<
+8| () => 2
+
+[#10 Content] = 9:10-9:12
+            >--<
+9| var a: () => Int
+
+[#11 Content] = 10:7-10:9
+          >--<
+10| for (a <- b) {}
+
+[#12 Content] = 11:15-11:17
+                  >--<
+11| def function[T <% Int] = {}
+
+[#13 Content] = 12:13-12:15
+                >--<
+12| def method[T <: Int] = {}
+
+[#14 Content] = 13:13-13:15
+                >--<
+13| def method[T >: Int] = {}
+
+[#15 Content] = 15:11-15:13
+              >--<
+15|     case a => 2

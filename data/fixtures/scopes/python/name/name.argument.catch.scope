@@ -1,0 +1,41 @@
+try: pass
+except MyException as e: pass
+except Exception as e: pass
+---
+
+[#1 Content] = 1:22-1:23
+                        >-<
+1| except MyException as e: pass
+
+[#1 Removal] = 1:21-1:23
+                       >--<
+1| except MyException as e: pass
+
+[#1 Leading delimiter] = 1:21-1:22
+                       >-<
+1| except MyException as e: pass
+
+[#1 Domain] = 1:7-1:23
+         >----------------<
+1| except MyException as e: pass
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 2:20-2:21
+                      >-<
+2| except Exception as e: pass
+
+[#2 Removal] = 2:19-2:21
+                     >--<
+2| except Exception as e: pass
+
+[#2 Leading delimiter] = 2:19-2:20
+                     >-<
+2| except Exception as e: pass
+
+[#2 Domain] = 2:7-2:21
+         >--------------<
+2| except Exception as e: pass
+
+[#2 Insertion delimiter] = " "

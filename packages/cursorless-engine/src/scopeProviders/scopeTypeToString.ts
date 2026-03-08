@@ -1,8 +1,5 @@
-import {
-  ScopeType,
-  camelCaseToAllDown,
-  isSimpleScopeType,
-} from "@cursorless/common";
+import type { ScopeType } from "@cursorless/common";
+import { camelCaseToAllDown, isSimpleScopeType } from "@cursorless/common";
 
 export function scopeTypeToString(scopeType: ScopeType): string {
   if (isSimpleScopeType(scopeType)) {

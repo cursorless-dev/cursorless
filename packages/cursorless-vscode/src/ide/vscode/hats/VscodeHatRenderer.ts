@@ -1,29 +1,29 @@
-import {
+import type {
   Listener,
   Messages,
-  Notifier,
   PathChangeListener,
-  walkFiles,
 } from "@cursorless/common";
-import { VscodeApi } from "@cursorless/vscode-common";
-import { cloneDeep, isEqual } from "lodash";
-import * as fs from "fs/promises";
+import { Notifier } from "@cursorless/common";
+import { walkFiles } from "@cursorless/node-common";
+import type { VscodeApi } from "@cursorless/vscode-common";
+import * as fs from "node:fs/promises";
+import { cloneDeep, isEqual } from "lodash-es";
 import * as path from "node:path";
 import * as vscode from "vscode";
 import { vscodeGetConfigurationString } from "../VscodeConfiguration";
-import VscodeEnabledHatStyleManager, {
-  ExtendedHatStyleMap,
-} from "../VscodeEnabledHatStyleManager";
-import { HAT_SHAPES, HatShape, VscodeHatStyleName } from "../hatStyles.types";
-import { FontMeasurements } from "./FontMeasurements";
+import type { ExtendedHatStyleMap } from "../VscodeEnabledHatStyleManager";
+import type VscodeEnabledHatStyleManager from "../VscodeEnabledHatStyleManager";
+import type { HatShape, VscodeHatStyleName } from "../hatStyles.types";
+import { HAT_SHAPES } from "../hatStyles.types";
+import type { FontMeasurements } from "./FontMeasurements";
 import getHatThemeColors from "./getHatThemeColors";
+import { performPr1868ShapeUpdateInit } from "./performPr1868ShapeUpdateInit";
+import type { IndividualHatAdjustmentMap } from "./shapeAdjustments";
 import {
   DEFAULT_HAT_HEIGHT_EM,
   DEFAULT_VERTICAL_OFFSET_EM,
-  IndividualHatAdjustmentMap,
   defaultShapeAdjustments,
 } from "./shapeAdjustments";
-import { performPr1868ShapeUpdateInit } from "./performPr1868ShapeUpdateInit";
 
 const CURSORLESS_HAT_SHAPES_SUFFIX = ".svg";
 
@@ -38,6 +38,7 @@ type HatDecorationMap = Partial<
 const hatConfigSections = [
   "editor.fontSize",
   "editor.fontFamily",
+  "editor.fontWeight",
   "cursorless.colors",
   "cursorless.hatSizeAdjustment",
   "cursorless.hatVerticalOffset",
@@ -95,7 +96,7 @@ export default class VscodeHatRenderer {
   }
 
   public async forceRecomputeDecorationStyles() {
-    this.fontMeasurements.clearCache();
+    await this.fontMeasurements.clearCache();
     await this.recomputeDecorations();
   }
 
@@ -203,7 +204,7 @@ export default class VscodeHatRenderer {
       .getConfiguration("cursorless")
       .get<IndividualHatAdjustmentMap>("individualHatAdjustments")!;
 
-    performPr1868ShapeUpdateInit(
+    void performPr1868ShapeUpdateInit(
       this.extensionContext,
       this.vscodeApi,
       this.messages,
@@ -310,7 +311,7 @@ export default class VscodeHatRenderer {
       svg.match(/fill="(?!none)[^"]+"/) == null &&
       svg.match(/fill:(?!none)[^;]+;/) == null
     ) {
-      vscode.window.showErrorMessage(
+      void vscode.window.showErrorMessage(
         `Raw svg '${shape}' is missing 'fill' property`,
       );
       isOk = false;
@@ -319,7 +320,7 @@ export default class VscodeHatRenderer {
     const viewBoxMatch = svg.match(/viewBox="([^"]+)"/);
 
     if (viewBoxMatch == null) {
-      vscode.window.showErrorMessage(
+      void vscode.window.showErrorMessage(
         `Raw svg '${shape}' is missing 'viewBox' property`,
       );
       isOk = false;
@@ -361,7 +362,7 @@ export default class VscodeHatRenderer {
       return svg;
     }
     const pathData = pathMatch[1];
-    const pathEnd = pathMatch.index! + pathMatch[0].length;
+    const pathEnd = pathMatch.index + pathMatch[0].length;
 
     // Construct the stroke path and clipPath elements
     const clipPathElem = `<clipPath id="clipPath"><path d="${pathData}" /></clipPath>`;
@@ -466,14 +467,25 @@ export default class VscodeHatRenderer {
   }
 
   private getViewBoxDimensions(rawSvg: string) {
-    const viewBoxMatch = rawSvg.match(/viewBox="([^"]+)"/)!;
+    const viewBoxValue = rawSvg.match(/viewBox="([^"]+)"/)?.[1];
+    if (viewBoxValue == null) {
+      throw new Error("Missing viewBox");
+    }
 
-    const originalViewBoxString = viewBoxMatch[1];
-    const [_0, _1, originalViewBoxWidthStr, originalViewBoxHeightStr] =
-      originalViewBoxString.split(" ");
+    const viewBoxParts = viewBoxValue.trim().split(/\s+/);
+    // A valid viewBox should have 4 parts: min-x, min-y, width and height
+    if (viewBoxParts.length !== 4) {
+      throw new Error(`Invalid viewBox format: ${viewBoxValue}`);
+    }
 
-    const originalViewBoxWidth = Number(originalViewBoxWidthStr);
-    const originalViewBoxHeight = Number(originalViewBoxHeightStr);
+    const originalViewBoxWidth = Number(viewBoxParts[2]);
+    const originalViewBoxHeight = Number(viewBoxParts[3]);
+    if (
+      Number.isNaN(originalViewBoxWidth) ||
+      Number.isNaN(originalViewBoxHeight)
+    ) {
+      throw new Error(`Invalid viewBox dimensions: ${viewBoxValue}`);
+    }
 
     return { originalViewBoxHeight, originalViewBoxWidth };
   }

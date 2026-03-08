@@ -1,8 +1,15 @@
-import { IterationScopeRanges, Range, TextEditor } from "@cursorless/common";
+import type {
+  IterationScopeRanges,
+  Range,
+  TextEditor,
+} from "@cursorless/common";
 import { map } from "itertools";
-import { ModifierStage } from "../processTargets/PipelineStages.types";
-import { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
-import { Target } from "../typings/target.types";
+import type {
+  ModifierStage,
+  ModifierStateOptions,
+} from "../processTargets/PipelineStages.types";
+import type { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
+import type { Target } from "../typings/target.types";
 import { getTargetRanges } from "./getTargetRanges";
 
 /**
@@ -23,6 +30,9 @@ export function getIterationScopeRanges(
   iterationRange: Range,
   includeIterationNestedTargets: boolean,
 ): IterationScopeRanges[] {
+  const options: ModifierStateOptions = {
+    multipleTargets: true,
+  };
   return map(
     iterationScopeHandler.generateScopes(
       editor,
@@ -39,7 +49,9 @@ export function getIterationScopeRanges(
         ranges: scope.getTargets(false).map((target) => ({
           range: target.contentRange,
           targets: includeIterationNestedTargets
-            ? getEveryScopeLenient(everyStage, target).map(getTargetRanges)
+            ? getEveryScopeLenient(everyStage, target, options).map(
+                getTargetRanges,
+              )
             : undefined,
         })),
       };
@@ -47,9 +59,13 @@ export function getIterationScopeRanges(
   );
 }
 
-function getEveryScopeLenient(everyStage: ModifierStage, target: Target) {
+function getEveryScopeLenient(
+  everyStage: ModifierStage,
+  target: Target,
+  options: ModifierStateOptions,
+) {
   try {
-    return everyStage.run(target);
+    return everyStage.run(target, options);
   } catch (err) {
     if ((err as Error).name === "NoContainingScopeError") {
       return [];

@@ -1,7 +1,7 @@
-import { StoredTargetKey } from "@cursorless/common";
-import { StoredTargetMap } from "../../core/StoredTargets";
-import { Target } from "../../typings/target.types";
-import { MarkStage } from "../PipelineStages.types";
+import type { StoredTargetKey } from "@cursorless/common";
+import type { StoredTargetMap } from "../../core/StoredTargets";
+import type { Target } from "../../typings/target.types";
+import type { MarkStage } from "../PipelineStages.types";
 
 export class StoredTargetStage implements MarkStage {
   constructor(

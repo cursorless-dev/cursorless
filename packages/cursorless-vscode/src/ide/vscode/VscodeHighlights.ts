@@ -1,14 +1,13 @@
-import * as vscode from "vscode";
-import { ExtensionContext } from "vscode";
-import { FlashStyle, partition } from "@cursorless/common";
-import {
+import type {
   CharacterRange,
   GeneralizedRange,
-  isLineRange,
   LineRange,
 } from "@cursorless/common";
+import { FlashStyle, isLineRange, partition } from "@cursorless/common";
+import type { ExtensionContext } from "vscode";
+import * as vscode from "vscode";
 import { VscodeHighlightDecorationTypes } from "./VscodeHighlightDecorationTypes";
-import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
+import type { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
 export enum HighlightStyle {
   highlight0 = "highlight0",

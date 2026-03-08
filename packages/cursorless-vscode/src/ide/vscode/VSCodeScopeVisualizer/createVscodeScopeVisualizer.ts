@@ -1,5 +1,5 @@
-import { IDE, ScopeProvider, ScopeType } from "@cursorless/common";
-import { VisualizationType } from "../../../ScopeVisualizerCommandApi";
+import type { IDE, ScopeProvider, ScopeType } from "@cursorless/common";
+import type { VisualizationType } from "../../../ScopeVisualizerCommandApi";
 import { VscodeIterationScopeVisualizer } from "./VscodeIterationScopeVisualizer";
 import {
   VscodeScopeContentVisualizer,

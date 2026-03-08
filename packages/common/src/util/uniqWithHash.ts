@@ -1,4 +1,4 @@
-import { uniqWith } from "lodash";
+import { uniqWith } from "lodash-es";
 
 /**
  * Like lodash.uniqWith, but uses a hash function to (mostly) avoid quadratic runtime.
@@ -51,7 +51,7 @@ export function uniqWithHash<T>(
   // For hash collisions, uniq the items,
   // letting uniqWith provide correct semantics.
   needsUniq.forEach((key) => {
-    hashToItems.set(key, uniqWith(hashToItems.get(key)!, isEqual));
+    hashToItems.set(key, uniqWith(hashToItems.get(key), isEqual));
   });
 
   // To preserve order, step through the original items
@@ -67,7 +67,7 @@ export function uniqWithHash<T>(
       // Removed by uniqWith.
       return [];
     }
-    const first = items[0]!;
+    const first = items[0];
     if (!isEqual(first, item)) {
       // Removed by uniqWith.
       // Note that it is sufficient to check the first item,

@@ -1,0 +1,29 @@
+languageId: kotlin
+command:
+  version: 7
+  spokenForm: change arg
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    class Test(x: Int, y: Int) {
+        constructor() : this(0, 0)
+    }
+  selections:
+    - anchor: {line: 1, character: 25}
+      active: {line: 1, character: 25}
+  marks: {}
+finalState:
+  documentContents: |-
+    class Test(x: Int, y: Int) {
+        constructor() : this(, 0)
+    }
+  selections:
+    - anchor: {line: 1, character: 25}
+      active: {line: 1, character: 25}

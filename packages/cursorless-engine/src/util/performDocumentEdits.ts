@@ -1,6 +1,5 @@
-import { EditableTextEditor } from "@cursorless/common";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { Edit } from "../typings/Types";
+import type { Edit, EditableTextEditor } from "@cursorless/common";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 
 export async function performDocumentEdits(
   rangeUpdater: RangeUpdater,
@@ -12,19 +11,9 @@ export async function performDocumentEdits(
     edits.filter((edit) => edit.isReplace),
   );
 
-  const wereEditsApplied = await editor.edit((editBuilder) => {
-    edits.forEach(({ range, text, isReplace }) => {
-      if (text === "") {
-        editBuilder.delete(range);
-      } else if (range.isEmpty && !isReplace) {
-        editBuilder.insert(range.start, text);
-      } else {
-        editBuilder.replace(range, text);
-      }
-    });
-  });
-
-  deregister();
-
-  return wereEditsApplied;
+  try {
+    return await editor.edit(edits);
+  } finally {
+    deregister();
+  }
 }

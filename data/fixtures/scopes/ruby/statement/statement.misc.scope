@@ -1,0 +1,10 @@
+retry if false
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:14
+  >--------------<
+0| retry if false
+
+[Insertion delimiter] = "\n"

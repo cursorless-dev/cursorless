@@ -1,4 +1,4 @@
-import {
+import type {
   Disposable,
   GeneralizedRange,
   Range,
@@ -18,6 +18,19 @@ export interface ScopeProvider {
     editor: TextEditor,
     config: ScopeRangeConfig,
   ) => ScopeRanges[];
+
+  /**
+   * Get the scope ranges for the given editor and range.
+   * @param editor The editor
+   * @param scopeType The scope type to get ranges for
+   * @param range The range to get scope ranges for
+   * @returns A list of scope ranges
+   */
+  provideScopeRangesForRange(
+    editor: TextEditor,
+    scopeType: ScopeType,
+    range: Range,
+  ): ScopeRanges[];
 
   /**
    * Get the iteration scope ranges for the given editor.
@@ -218,6 +231,5 @@ export interface IterationScopeRanges {
 export enum ScopeSupport {
   supportedAndPresentInEditor,
   supportedButNotPresentInEditor,
-  supportedLegacy,
   unsupported,
 }

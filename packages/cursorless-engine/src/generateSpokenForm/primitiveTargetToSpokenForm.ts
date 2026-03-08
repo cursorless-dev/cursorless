@@ -1,4 +1,4 @@
-import {
+import type {
   LineNumberMark,
   Modifier,
   PartialMark,
@@ -20,9 +20,8 @@ import {
   numberToSpokenForm,
   ordinalToSpokenForm,
 } from "./defaultSpokenForms/numbers";
-import { characterToSpokenForm } from "./defaultSpokenForms/characters";
-import { SpokenFormComponentMap } from "./getSpokenFormComponentMap";
-import { SpokenFormComponent } from "./SpokenFormComponent";
+import type { SpokenFormComponentMap } from "./getSpokenFormComponentMap";
+import type { SpokenFormComponent } from "./SpokenFormComponent";
 
 export class PrimitiveTargetSpokenFormGenerator {
   constructor(private spokenFormMap: SpokenFormComponentMap) {
@@ -44,23 +43,21 @@ export class PrimitiveTargetSpokenFormGenerator {
 
   private handleModifier(modifier: Modifier): SpokenFormComponent {
     switch (modifier.type) {
-      case "cascading":
+      case "fallback":
       case "modifyIfUntyped":
+      case "preferredScope":
         throw new NoSpokenFormError(`Modifier '${modifier.type}'`);
 
       case "containingScope":
         if (modifier.ancestorIndex == null || modifier.ancestorIndex === 0) {
           return this.handleScopeType(modifier.scopeType);
         }
-        if (modifier.ancestorIndex === 1) {
-          return [
+        return [
+          new Array(modifier.ancestorIndex).fill(
             this.spokenFormMap.modifierExtra.ancestor,
-            this.handleScopeType(modifier.scopeType),
-          ];
-        }
-        throw new NoSpokenFormError(
-          `Modifier '${modifier.type}' with ancestor index ${modifier.ancestorIndex}`,
-        );
+          ),
+          this.handleScopeType(modifier.scopeType),
+        ];
 
       case "everyScope":
         return [
@@ -83,28 +80,33 @@ export class PrimitiveTargetSpokenFormGenerator {
 
       case "ordinalScope": {
         const scope = this.handleScopeType(modifier.scopeType);
+        const isEvery = modifier.isEvery
+          ? this.spokenFormMap.simpleModifier.everyScope
+          : [];
 
         if (modifier.length === 1) {
           if (modifier.start === -1) {
-            return [this.spokenFormMap.modifierExtra.last, scope];
+            return [isEvery, this.spokenFormMap.modifierExtra.last, scope];
           }
           if (modifier.start === 0) {
-            return [this.spokenFormMap.modifierExtra.first, scope];
+            return [isEvery, this.spokenFormMap.modifierExtra.first, scope];
           }
           if (modifier.start < 0) {
             return [
+              isEvery,
               ordinalToSpokenForm(Math.abs(modifier.start)),
               this.spokenFormMap.modifierExtra.last,
               scope,
             ];
           }
-          return [ordinalToSpokenForm(modifier.start + 1), scope];
+          return [isEvery, ordinalToSpokenForm(modifier.start + 1), scope];
         }
 
         const number = numberToSpokenForm(modifier.length);
 
         if (modifier.start === 0) {
           return [
+            isEvery,
             this.spokenFormMap.modifierExtra.first,
             number,
             pluralize(scope),
@@ -112,6 +114,7 @@ export class PrimitiveTargetSpokenFormGenerator {
         }
         if (modifier.start === -modifier.length) {
           return [
+            isEvery,
             this.spokenFormMap.modifierExtra.last,
             number,
             pluralize(scope),
@@ -157,6 +160,9 @@ export class PrimitiveTargetSpokenFormGenerator {
     modifier: RelativeScopeModifier,
   ): SpokenFormComponent {
     const scope = this.handleScopeType(modifier.scopeType);
+    const isEvery = modifier.isEvery
+      ? this.spokenFormMap.simpleModifier.everyScope
+      : [];
 
     if (modifier.length === 1) {
       const direction =
@@ -165,7 +171,7 @@ export class PrimitiveTargetSpokenFormGenerator {
           : connectives.backward;
 
       // token forward/backward
-      return [scope, direction];
+      return [isEvery, scope, direction];
     }
 
     const length = numberToSpokenForm(modifier.length);
@@ -174,11 +180,11 @@ export class PrimitiveTargetSpokenFormGenerator {
     // two tokens
     // This could also have been "two tokens forward"; there is no way to disambiguate.
     if (modifier.direction === "forward") {
-      return [length, scopePlural];
+      return [isEvery, length, scopePlural];
     }
 
     // two tokens backward
-    return [length, scopePlural, connectives.backward];
+    return [isEvery, length, scopePlural, connectives.backward];
   }
 
   private handleRelativeScopeExclusive(
@@ -189,25 +195,28 @@ export class PrimitiveTargetSpokenFormGenerator {
       modifier.direction === "forward"
         ? connectives.next
         : connectives.previous;
+    const isEvery = modifier.isEvery
+      ? this.spokenFormMap.simpleModifier.everyScope
+      : [];
 
     if (modifier.offset === 1) {
       const number = numberToSpokenForm(modifier.length);
 
       if (modifier.length === 1) {
         // next/previous token
-        return [direction, scope];
+        return [isEvery, direction, scope];
       }
 
       const scopePlural = pluralize(scope);
 
       // next/previous two tokens
-      return [direction, number, scopePlural];
+      return [isEvery, direction, number, scopePlural];
     }
 
     if (modifier.length === 1) {
       const ordinal = ordinalToSpokenForm(modifier.offset);
       // second next/previous token
-      return [ordinal, direction, scope];
+      return [isEvery, ordinal, direction, scope];
     }
 
     throw new NoSpokenFormError(
@@ -218,23 +227,19 @@ export class PrimitiveTargetSpokenFormGenerator {
   handleScopeType(scopeType: ScopeType): SpokenFormComponent {
     switch (scopeType.type) {
       case "oneOf":
+      case "surroundingPairInterior":
         throw new NoSpokenFormError(`Scope type '${scopeType.type}'`);
       case "glyph":
         return [
           this.spokenFormMap.complexScopeTypeType.glyph,
-          characterToSpokenForm(scopeType.character),
+          getSpokenFormStrict(
+            this.spokenFormMap.grapheme,
+            "grapheme",
+            scopeType.character,
+          ),
         ];
       case "surroundingPair": {
-        const pair = this.spokenFormMap.pairedDelimiter[scopeType.delimiter];
-        if (scopeType.forceDirection != null) {
-          return [
-            this.spokenFormMap.surroundingPairForceDirection[
-              scopeType.forceDirection
-            ],
-            pair,
-          ];
-        }
-        return pair;
+        return this.spokenFormMap.pairedDelimiter[scopeType.delimiter];
       }
 
       case "customRegex":
@@ -253,6 +258,9 @@ export class PrimitiveTargetSpokenFormGenerator {
           }
         );
 
+      case "interior":
+        return this.spokenFormMap.simpleModifier.interiorOnly;
+
       default:
         return this.spokenFormMap.simpleScopeTypeType[scopeType.type];
     }
@@ -262,14 +270,20 @@ export class PrimitiveTargetSpokenFormGenerator {
     switch (mark.type) {
       case "decoratedSymbol": {
         const [color, shape] = mark.symbolColor.split("-");
-        const components: string[] = [];
+        const components: SpokenFormComponent[] = [];
         if (color !== "default") {
           components.push(hatColorToSpokenForm(color));
         }
         if (shape != null) {
           components.push(hatShapeToSpokenForm(shape));
         }
-        components.push(characterToSpokenForm(mark.character));
+        components.push(
+          getSpokenFormStrict(
+            this.spokenFormMap.grapheme,
+            "grapheme",
+            mark.character,
+          ),
+        );
         return components;
       }
 
@@ -303,6 +317,7 @@ export class PrimitiveTargetSpokenFormGenerator {
       }
       case "explicit":
       case "keyboard":
+      case "target":
         throw new NoSpokenFormError(`Mark '${mark.type}'`);
 
       default:
@@ -361,4 +376,18 @@ function pluralize(name: SpokenFormComponent): SpokenFormComponent {
 // FIXME: Properly pluralize
 function pluralizeString(name: string): string {
   return `${name}s`;
+}
+
+function getSpokenFormStrict(
+  map: Readonly<Record<string, SpokenFormComponent>>,
+  typeName: string,
+  key: string,
+): SpokenFormComponent {
+  const spokenForm = map[key];
+
+  if (spokenForm == null) {
+    throw new NoSpokenFormError(`${typeName} '${key}'`);
+  }
+
+  return spokenForm;
 }

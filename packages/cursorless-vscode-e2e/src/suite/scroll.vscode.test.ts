@@ -1,7 +1,7 @@
-import { openNewEditor } from "@cursorless/vscode-common";
+import { LATEST_VERSION } from "@cursorless/common";
+import { openNewEditor, runCursorlessCommand } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-import { runCursorlessCommand } from "@cursorless/vscode-common";
 
 suite("scroll", async function () {
   endToEndTestSetup(this);
@@ -15,16 +15,17 @@ async function topWhale() {
   editor.selections = [new vscode.Selection(1, 0, 1, 0)];
 
   await runCursorlessCommand({
-    version: 1,
-    action: "scrollToTop",
-    targets: [
-      {
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
+    action: {
+      name: "scrollToTop",
+      target: {
         type: "primitive",
         mark: {
           type: "cursor",
         },
       },
-    ],
+    },
   });
 
   // FIXME: Disabled to work around CI failure; see #2243
@@ -44,16 +45,17 @@ async function bottomWhale() {
   // assert.equal(editor.visibleRanges[0].start.line, 1);
 
   await runCursorlessCommand({
-    version: 1,
-    action: "scrollToBottom",
-    targets: [
-      {
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
+    action: {
+      name: "scrollToBottom",
+      target: {
         type: "primitive",
         mark: {
           type: "cursor",
         },
       },
-    ],
+    },
   });
 
   // FIXME: Disabled to work around CI failure; see #2243

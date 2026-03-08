@@ -1,11 +1,7 @@
-import {
-  InsertionMode,
-  Range,
-  Selection,
-  TextEditor,
-} from "@cursorless/common";
-import { EditWithRangeUpdater } from "../../typings/Types";
-import {
+import type { InsertionMode, Selection, TextEditor } from "@cursorless/common";
+import { Range } from "@cursorless/common";
+import type { EditWithRangeUpdater } from "../../typings/Types";
+import type {
   Destination,
   EditNewActionType,
   Target,
@@ -28,7 +24,7 @@ export class DestinationImpl implements Destination {
     this.isBefore = insertionMode === "before";
     this.isLineDelimiter = target.insertionDelimiter.includes("\n");
     this.indentationString =
-      indentationString ?? this.isLineDelimiter
+      (indentationString ?? this.isLineDelimiter)
         ? getIndentationString(target.editor, target.contentRange)
         : "";
     this.insertionPrefix =
@@ -84,18 +80,24 @@ export class DestinationImpl implements Destination {
     return "edit";
   }
 
-  constructChangeEdit(text: string): EditWithRangeUpdater {
+  constructChangeEdit(
+    text: string,
+    skipIndentation = false,
+  ): EditWithRangeUpdater {
     return this.insertionMode === "before" || this.insertionMode === "after"
-      ? this.constructEditWithDelimiters(text)
+      ? this.constructEditWithDelimiters(text, skipIndentation)
       : this.constructEditWithoutDelimiters(text);
   }
 
-  private constructEditWithDelimiters(text: string): EditWithRangeUpdater {
+  private constructEditWithDelimiters(
+    text: string,
+    skipIndentation: boolean,
+  ): EditWithRangeUpdater {
     const range = this.getEditRange();
-    const editText = this.getEditText(text);
+    const editText = this.getEditText(text, skipIndentation);
 
     const updateRange = (range: Range) => {
-      return this.updateRange(range, text);
+      return this.updateRange(range, text, skipIndentation);
     };
 
     return {
@@ -122,12 +124,12 @@ export class DestinationImpl implements Destination {
 
       if (this.isLineDelimiter) {
         const line = this.editor.document.lineAt(insertionPosition);
-        const nonWhitespaceCharacterIndex = this.isBefore
-          ? line.firstNonWhitespaceCharacterIndex
-          : line.lastNonWhitespaceCharacterIndex;
+        const trimmedPosition = this.isBefore
+          ? (line.rangeTrimmed?.start ?? line.range.start)
+          : (line.rangeTrimmed?.end ?? line.range.end);
 
-        // Use the full line with included indentation and trailing whitespaces
-        if (insertionPosition.character === nonWhitespaceCharacterIndex) {
+        // Use the full line, including indentation and trailing whitespaces
+        if (insertionPosition.isEqual(trimmedPosition)) {
           return this.isBefore ? line.range.start : line.range.end;
         }
       }
@@ -138,19 +140,20 @@ export class DestinationImpl implements Destination {
     return new Range(position, position);
   }
 
-  private getEditText(text: string) {
+  private getEditText(text: string, skipIndentation: boolean) {
+    const indentationString = skipIndentation ? "" : this.indentationString;
     const insertionText =
-      this.indentationString + (this.insertionPrefix ?? "") + text;
+      indentationString + (this.insertionPrefix ?? "") + text;
 
     return this.isBefore
       ? insertionText + this.insertionDelimiter
       : this.insertionDelimiter + insertionText;
   }
 
-  private updateRange(range: Range, text: string) {
+  private updateRange(range: Range, text: string, skipIndentation: boolean) {
     const baseStartOffset =
       this.editor.document.offsetAt(range.start) +
-      this.indentationString.length +
+      (skipIndentation ? 0 : this.indentationString.length) +
       (this.insertionPrefix?.length ?? 0);
 
     const startIndex = this.isBefore
@@ -185,10 +188,22 @@ function getIndentationString(editor: TextEditor, range: Range) {
   for (let i = range.start.line; i <= range.end.line; ++i) {
     const line = editor.document.lineAt(i);
     if (
-      !line.isEmptyOrWhitespace &&
-      line.firstNonWhitespaceCharacterIndex < length
+      line.range.isEmpty ||
+      (line.isEmptyOrWhitespace && !range.isSingleLine)
     ) {
-      length = line.firstNonWhitespaceCharacterIndex;
+      // Skip empty lines. If the range is a single line, we want to include the
+      // indentation of the line even if it is all whitespace so that you can
+      // "drink line" on an indented but empty line and get the same
+      // indentation. If the range is not a single line, we want to skip any
+      // lines that are all whitespace to avoid including a random line of
+      // whitespace in the indentation.
+      continue;
+    }
+
+    const trimmedPosition = line.rangeTrimmed?.start ?? line.range.end;
+
+    if (trimmedPosition.character < length) {
+      length = trimmedPosition.character;
       indentationString = line.text.slice(0, length);
     }
   }

@@ -4,9 +4,9 @@ import type {
   LineRange,
 } from "../types/GeneralizedRange";
 import { isLineRange } from "../types/GeneralizedRange";
-import { FlashStyle } from "../ide/types/FlashDescriptor";
-import { Token } from "../types/Token";
-import { Selection } from "../types/Selection";
+import type { FlashStyle } from "../ide/types/FlashDescriptor";
+import type { Token } from "../types/Token";
+import type { Selection } from "../types/Selection";
 
 export type PositionPlainObject = {
   line: number;

@@ -1,11 +1,11 @@
-import { pull } from "lodash";
-import type { EditableTextEditor, TextEditor } from "../..";
-import { GeneralizedRange } from "../../types/GeneralizedRange";
-import { TextDocument } from "../../types/TextDocument";
+import { pull } from "lodash-es";
+import type { EditableTextEditor, NotebookEditor, TextEditor } from "../..";
+import type { GeneralizedRange } from "../../types/GeneralizedRange";
+import type { TextDocument } from "../../types/TextDocument";
 import type { TextDocumentChangeEvent } from "../types/Events";
-import { FlashDescriptor } from "../types/FlashDescriptor";
-import { QuickPickOptions } from "../types/QuickPickOptions";
-import {
+import type { FlashDescriptor } from "../types/FlashDescriptor";
+import type { QuickPickOptions } from "../types/QuickPickOptions";
+import type {
   Event,
   TextEditorSelectionChangeEvent,
   TextEditorVisibleRangesChangeEvent,
@@ -20,13 +20,13 @@ import type {
 import { FakeCapabilities } from "./FakeCapabilities";
 import FakeClipboard from "./FakeClipboard";
 import FakeConfiguration from "./FakeConfiguration";
-import FakeGlobalState from "./FakeGlobalState";
+import FakeKeyValueStore from "./FakeKeyValueStore";
 import FakeMessages from "./FakeMessages";
 
-export default class FakeIDE implements IDE {
+export class FakeIDE implements IDE {
   configuration: FakeConfiguration = new FakeConfiguration();
   messages: FakeMessages = new FakeMessages();
-  globalState: FakeGlobalState = new FakeGlobalState();
+  keyValueStore: FakeKeyValueStore = new FakeKeyValueStore();
   clipboard: FakeClipboard = new FakeClipboard();
   capabilities: FakeCapabilities = new FakeCapabilities();
 
@@ -79,6 +79,10 @@ export default class FakeIDE implements IDE {
   }
 
   get visibleTextEditors(): TextEditor[] {
+    throw Error("Not implemented");
+  }
+
+  get visibleNotebookEditors(): NotebookEditor[] {
     throw Error("Not implemented");
   }
 

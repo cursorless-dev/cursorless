@@ -1,14 +1,14 @@
 import assert from "assert";
 import { Grammar, Parser } from "nearley";
-import { KeyDescriptor } from "../TokenTypeHelpers";
+import type { KeyDescriptor } from "../TokenTypeHelpers";
 import grammar from "./generated/grammar";
+import type { AcceptableTokenType } from "./getAcceptableTokenTypes";
 import {
-  AcceptableTokenType,
   MISSING,
   NEXT,
   getAcceptableTokenTypes,
 } from "./getAcceptableTokenTypes";
-import { isEqual } from "lodash";
+import { isEqual } from "lodash-es";
 import { stringifyTokens } from "./stringifyTokens";
 
 interface TestCase {
@@ -61,6 +61,7 @@ const testCases: TestCase[] = [
             direction: "forward",
             scopeType: MISSING,
           },
+          mode: "replace",
         },
       },
       {
@@ -74,6 +75,7 @@ const testCases: TestCase[] = [
             direction: "forward",
             scopeType: MISSING,
           },
+          mode: "replace",
         },
       },
       {
@@ -87,6 +89,7 @@ const testCases: TestCase[] = [
             direction: "forward",
             scopeType: MISSING,
           },
+          mode: "replace",
         },
       },
     ],
@@ -107,6 +110,7 @@ const testCases: TestCase[] = [
               type: NEXT,
             },
           },
+          mode: "replace",
         },
       },
       {
@@ -120,6 +124,7 @@ const testCases: TestCase[] = [
             direction: "forward",
             scopeType: MISSING,
           },
+          mode: "replace",
         },
       },
     ],

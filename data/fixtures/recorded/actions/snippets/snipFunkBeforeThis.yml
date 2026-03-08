@@ -1,0 +1,41 @@
+languageId: typescript
+command:
+  version: 7
+  spokenForm: snippet funk before this
+  action:
+    name: insertSnippet
+    snippetDescription:
+      type: custom
+      body: "function $name($parameterList) {\n\t$body\n}"
+      scopeTypes:
+        - {type: statement}
+    destination:
+      type: primitive
+      insertionMode: before
+      target:
+        type: primitive
+        mark: {type: cursor}
+  usePrePhraseSnapshot: true
+spokenFormError: custom insertion snippet
+initialState:
+  documentContents: const foo = "bar";
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |-
+    function () {
+        
+    }
+    const foo = "bar";
+  selections:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 2, character: 1}
+      isReversed: false
+      hasExplicitRange: true

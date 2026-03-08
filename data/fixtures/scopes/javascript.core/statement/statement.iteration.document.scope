@@ -1,0 +1,18 @@
+
+function foo() { }
+
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-2:0
+  >
+0|
+1| function foo() { }
+2|
+   <
+
+
+[#2 Content] =
+[#2 Domain] = 1:16-1:17
+                  >-<
+1| function foo() { }

@@ -1,9 +1,9 @@
 import { showWarning } from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
-import { Target } from "../typings/target.types";
+import type { Target } from "../typings/target.types";
 import { ensureSingleTarget } from "../util/targetUtils";
-import { Actions } from "./Actions";
-import { ActionReturnValue, SimpleAction } from "./actions.types";
+import type { Actions } from "./Actions";
+import type { ActionReturnValue, SimpleAction } from "./actions.types";
 
 abstract class Find implements SimpleAction {
   constructor(private actions: Actions) {
@@ -20,7 +20,7 @@ abstract class Find implements SimpleAction {
     let query: string;
     if (text.length > 200) {
       query = text.substring(0, 200);
-      showWarning(
+      void showWarning(
         ide().messages,
         "truncatedSearchText",
         "Search text is longer than 200 characters; truncating",

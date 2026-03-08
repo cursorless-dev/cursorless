@@ -14,3 +14,5 @@ export * from "./TokenTarget";
 export * from "./UntypedTarget";
 export * from "./ImplicitTarget";
 export * from "./InteriorTarget";
+export * from "./HeadTailTarget";
+export * from "./BoundedParagraphTarget";

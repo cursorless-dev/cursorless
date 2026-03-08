@@ -1,17 +1,16 @@
-import { ActionType, ActionTypeV2 } from "@cursorless/common";
-import { CommandV2 } from "@cursorless/common";
-import {
+import type {
+  ActionType,
+  ActionTypeV2,
+  CommandV1,
+  CommandV2,
+  ModifierV0V1,
   ModifierV2,
   PartialPrimitiveTargetDescriptorV2,
+  PartialPrimitiveTargetV0V1,
   PartialRangeTargetDescriptorV2,
   PartialTargetDescriptorV2,
-  SimpleScopeTypeTypeV2,
-} from "@cursorless/common";
-import {
-  CommandV1,
-  ModifierV0V1,
-  PartialPrimitiveTargetV0V1,
   PartialTargetV0V1,
+  SimpleScopeTypeTypeV2,
 } from "@cursorless/common";
 import { upgradeStrictHere } from "./upgradeStrictHere";
 

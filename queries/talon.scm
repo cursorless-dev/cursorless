@@ -1,3 +1,5 @@
+;; https://github.com/pokey/tree-sitter-talon/blob/dev/src/grammar.json
+
 ;;!!  foo: "bar"
 ;;!   ^^^^^^^^^^
 ;;!!  edit.left()
@@ -25,64 +27,75 @@
   (parrot_declaration)
 ] @statement
 
-[
-  (matches)
-  (declarations)
-  (block)
-] @statement.iteration
+(block) @statement.iteration
 
 ;;!! not mode: command
-;;!  ----^^^^---------
+;;!      ^^^^
+;;!            ^^^^^^^
 ;;!! slap: key(enter)
-;;!  ^^^^------------
+;;!  ^^^^
+;;!        ^^^^^^^^^^
 ;;!! tag(): user.cursorless
-;;!  ^^^^^-----------------
-(_
-  left: _ @name
-) @_.domain
-
-;;!! not mode: command
-;;!  ^^^^^^^^---------
-;;!! slap: key(enter)
-;;!  ^^^^------------
-;;!! tag(): user.cursorless
-;;!  ^^^^^-----------------
-(_
-  modifiers: (_)? @collectionKey.start
-  left: _ @collectionKey.end
-) @_.domain
-
-;;!! not mode: command
-;;!  ----------^^^^^^^
-;;!! slap: key(enter)
-;;!  ------^^^^^^^^^^
-(_
-  right: (_) @value
-) @_.domain
-
-;;!!   mode: command
-;;!   <*************
-;;!!   tag: user.foo
-;;!    *************>
-;;!!   -
-;;!!   settings():
-;;!!       speech.debug = 1
-;;!       <****************
-;;!!       user.foo = "bar"
-;;!        ****************>
-;;!!
-;;!!   hello: "world"
-;;!1  <**************
-;;!!   foo:
-;;!1   ****
-;;!!       bar = 5
-;;!1       *******>
-;;!2      <*******>
-(_
+;;!  ^^^^^
+;;!         ^^^^^^^^^^^^^^^
+(
   (_
-    right: (_)
-  )
-) @name.iteration @collectionKey.iteration @value.iteration
+    left: _ @name @value.leading.endOf
+    right: (_) @value
+  ) @_.domain
+  (#not-type? @_.domain binary_operator assignment_statement)
+)
+
+;;!! not mode: command
+;;!  ^^^^^^^^
+;;!! slap: key(enter)
+;;!  ^^^^
+;;!! tag(): user.cursorless
+;;!  ^^^^^
+(
+  (_
+    modifiers: (_)? @collectionKey.start
+    left: _ @collectionKey.end
+    right: (_) @collectionKey.trailing.startOf
+  ) @_.domain
+  (#not-type? @_.domain binary_operator assignment_statement)
+)
+
+;;!! foo = 0
+;;!  ^^^
+;;!        ^
+(assignment_statement
+  left: (_) @name @value.leading.endOf
+  right: (_) @value @name.trailing.startOf
+) @_.domain
+
+;;!! mode: command
+;;!  ^^^^^^^^^^^^^
+(matches
+  (_) @name.iteration.end.endOf @collectionKey.iteration.end.endOf @value.iteration.end.endOf
+  .
+) @name.iteration.start.startOf @collectionKey.iteration.start.startOf @value.iteration.start.startOf
+
+;;!! hello: "world"
+;;!  ^^^^^^^^^^^^^^
+(declarations) @name.iteration @collectionKey.iteration @value.iteration
+
+;;!! hello: "world"
+;;!         ^^^^^^^
+;;!! settings():
+;;!!     speech.debug = 1
+;;!      ^^^^^^^^^^^^^^^^
+(block) @name.iteration @collectionKey.iteration @value.iteration
+
+(
+  (source_file) @command.iteration @statement.iteration
+  (#document-range! @command.iteration @statement.iteration)
+)
+
+(
+  (source_file) @name.iteration @collectionKey.iteration @value.iteration
+  (#document-range! @name.iteration @collectionKey.iteration @value.iteration)
+)
 
 ;;!!  tag: user.foo
 ;;!  {^^^^^^^^^^^^^
@@ -110,15 +123,18 @@
 ;;!! slap: key(enter)
 ;;!  ^^^^^^^^^^^^^^^^
 (
-  (command_declaration
-    right: (_) @_.interior
-  ) @command
+  (command_declaration) @command
   (#insertion-delimiter! @command "\n")
 )
 
-(source_file
-  (declarations) @command.iteration
-) @command.iteration.domain
+;;!! slap: key(enter)
+;;!       ^^^^^^^^^^^
+(
+  (command_declaration
+    ":" @interior.start.endOf
+    right: (_) @interior.end.endOf
+  )
+)
 
 ;;!! key(enter)
 ;;!  ^^^^^^^^^^
@@ -149,16 +165,19 @@
 ;;!! key(enter)
 ;;!      ^^^^^
 (key_action
-  arguments: (_) @argumentOrParameter
-)
+  (implicit_string) @argumentOrParameter @argumentOrParameter.iteration @argumentList
+) @argumentOrParameter.iteration.domain @argumentList.domain
+
+;;!! sleep(100ms)
+;;!        ^^^^^
 (sleep_action
-  arguments: (_) @argumentOrParameter
-)
+  (implicit_string) @argumentOrParameter @argumentOrParameter.iteration @argumentList
+) @argumentOrParameter.iteration.domain @argumentList.domain
 
 ;;!! print("hello", "world")
 ;;!        ^^^^^^^  ^^^^^^^
 (action
-  arguments: (_
+  arguments: (argument_list
     (_)? @_.leading.endOf
     .
     (_) @argumentOrParameter
@@ -168,10 +187,21 @@
   (#insertion-delimiter! @argumentOrParameter ", ")
 )
 
-;;!! key(enter)
-;;!      ^^^^^
-arguments: (_) @argumentOrParameter.iteration
+(_
+  (argument_list
+    "(" @argumentList.removal.start.endOf @argumentOrParameter.iteration.start.endOf
+    ")" @argumentList.removal.end.startOf @argumentOrParameter.iteration.end.startOf
+  ) @argumentList
+  (#empty-single-multi-delimiter! @argumentList @argumentList "" ", " ",\n")
+  (#child-range! @argumentList 1 -2)
+) @argumentList.domain @argumentOrParameter.iteration.domain
 
 ;;!! # foo
 ;;!  ^^^^^
-(comment) @comment
+(comment) @comment @textFragment
+
+;;!! "foo"
+;;!  ^^^^^
+(string
+  (string_content) @textFragment
+) @string

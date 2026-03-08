@@ -1,0 +1,39 @@
+if true then
+    a = 1
+else
+    a = 2
+end
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-1:9
+  >------------
+0| if true then
+1|     a = 1
+   ---------<
+
+[#1 Removal] = 0:0-2:0
+  >------------
+0| if true then
+1|     a = 1
+2| else
+   <
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 2:0-3:9
+  >----
+2| else
+3|     a = 2
+   ---------<
+
+[#2 Removal] = 2:0-4:0
+  >----
+2| else
+3|     a = 2
+4| end
+   <
+
+[#2 Insertion delimiter] = "\n"

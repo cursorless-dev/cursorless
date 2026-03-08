@@ -1,0 +1,11 @@
+[Foo]
+void Bar() {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:1-0:4
+   >---<
+0| [Foo]
+
+[Insertion delimiter] = " "

@@ -1,5 +1,4 @@
 // Generated using webpack-cli https://github.com/webpack/webpack-cli
-/*eslint-env node*/
 
 import {
   cheatsheetBodyClasses,

@@ -1,4 +1,4 @@
-import { pull } from "lodash";
+import { pull } from "lodash-es";
 import type { Disposable } from "../ide/types/ide.types";
 
 type Arr = readonly unknown[];
@@ -16,7 +16,9 @@ export class Notifier<T extends Arr = []> {
    * Notify all listeners that something has changed
    */
   notifyListeners = (...args: [...T]): void => {
-    this.listeners.forEach((listener) => listener(...args));
+    // Iterate over a snapshot so listener removal during notification doesn't
+    // affect which listeners are notified in this cycle.
+    this.listeners.slice().forEach((listener) => listener(...args));
   };
 
   /**

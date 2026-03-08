@@ -1,29 +1,23 @@
-const HAT_COLORS = [
-  "default",
-  "blue",
-  "green",
-  "red",
-  "pink",
-  "yellow",
-  "userColor1",
-  "userColor2",
-] as const;
-
-const HAT_NON_DEFAULT_SHAPES = [
-  "ex",
-  "fox",
-  "wing",
-  "hole",
-  "frame",
-  "curve",
-  "eye",
-  "play",
-  "bolt",
-  "crosshairs",
-] as const;
-
-type HatColor = (typeof HAT_COLORS)[number];
-type HatNonDefaultShape = (typeof HAT_NON_DEFAULT_SHAPES)[number];
+type HatColor =
+  | "default"
+  | "blue"
+  | "green"
+  | "red"
+  | "pink"
+  | "yellow"
+  | "userColor1"
+  | "userColor2";
+type HatNonDefaultShape =
+  | "ex"
+  | "fox"
+  | "wing"
+  | "hole"
+  | "frame"
+  | "curve"
+  | "eye"
+  | "play"
+  | "bolt"
+  | "crosshairs";
 type HatStyleName = HatColor | `${HatColor}-${HatNonDefaultShape}`;
 
 interface CursorMark {

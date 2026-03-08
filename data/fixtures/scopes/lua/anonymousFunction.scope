@@ -1,0 +1,17 @@
+f = function() end
+---
+
+[Content] =
+[Domain] = 0:4-0:18
+      >--------------<
+0| f = function() end
+
+[Removal] = 0:3-0:18
+     >---------------<
+0| f = function() end
+
+[Leading delimiter] = 0:3-0:4
+     >-<
+0| f = function() end
+
+[Insertion delimiter] = "\n"

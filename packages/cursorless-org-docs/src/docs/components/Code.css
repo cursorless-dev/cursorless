@@ -1,0 +1,73 @@
+.code-container {
+  position: relative;
+  width: 100%;
+  min-height: 50px;
+  counter-reset: line;
+  margin-bottom: 0.25rem;
+}
+
+.code-container .shiki {
+  line-height: 1rem;
+}
+
+.code-container .line {
+  position: relative;
+  margin-left: 1.5rem;
+}
+
+.code-container .line::before {
+  content: counter(line);
+  counter-increment: line;
+  position: absolute;
+  left: -40px;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  text-align: right;
+  height: 135%;
+  color: rgba(115, 138, 148, 0.4);
+  border-right: 1px solid rgba(115, 138, 148, 0.4);
+}
+
+.code-ws-symbol {
+  color: #666;
+}
+
+.code-copy-button,
+.code-container > .code-link {
+  display: none;
+  position: absolute;
+  top: 0.5em;
+  background-color: rgb(216, 222, 233);
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  height: 1.75rem;
+}
+
+.code-container:hover .code-copy-button,
+.code-container:hover .code-link {
+  display: block;
+}
+
+.code-copy-button {
+  right: 7.5em;
+}
+
+.code-container > .code-link {
+  right: 0.5em;
+}
+
+.code-container > .code-link:before {
+  display: inline-block;
+  width: 1.25rem;
+  height: 0.75rem;
+}
+
+[data-theme="dark"]:root {
+  .code-copy-button,
+  .code-container > .code-link {
+    background-color: #444;
+  }
+}

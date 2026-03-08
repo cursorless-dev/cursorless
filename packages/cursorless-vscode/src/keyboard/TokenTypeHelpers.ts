@@ -1,4 +1,4 @@
-import { SectionTypes, TokenTypeValueMap } from "./TokenTypes";
+import type { SectionTypes, TokenTypeValueMap } from "./TokenTypes";
 
 export type SectionName = keyof SectionTypes;
 

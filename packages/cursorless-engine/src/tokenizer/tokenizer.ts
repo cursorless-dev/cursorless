@@ -1,7 +1,7 @@
-import { escapeRegExp } from "lodash";
+import { matchAll } from "@cursorless/common";
+import { escapeRegExp } from "lodash-es";
 import { ide } from "../singletons/ide.singleton";
-import { matchAll } from "../util/regex";
-import { LanguageTokenizerComponents } from "./tokenizer.types";
+import type { LanguageTokenizerComponents } from "./tokenizer.types";
 
 const REPEATABLE_SYMBOLS = [
   "-",

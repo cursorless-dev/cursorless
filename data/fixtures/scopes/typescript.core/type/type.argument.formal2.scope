@@ -1,0 +1,20 @@
+function foo(...aaa: number[]) {}
+---
+
+[Content] = 0:21-0:29
+                       >--------<
+0| function foo(...aaa: number[]) {}
+
+[Removal] = 0:19-0:29
+                     >----------<
+0| function foo(...aaa: number[]) {}
+
+[Leading delimiter] = 0:19-0:21
+                     >--<
+0| function foo(...aaa: number[]) {}
+
+[Domain] = 0:13-0:29
+               >----------------<
+0| function foo(...aaa: number[]) {}
+
+[Insertion delimiter] = " "

@@ -1,0 +1,34 @@
+{
+  "name": "@cursorless/cursorless-vscode-tutorial-webview",
+  "version": "1.0.0",
+  "description": "Contains the VSCode webview frontend for the Cursorless tutorial",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "main": "./out/index.js",
+  "scripts": {
+    "compile:tsc": "tsc --build",
+    "compile": "pnpm compile:tsc",
+    "watch:tsc": "pnpm compile:tsc --watch",
+    "watch:esbuild": "pnpm build:esbuild --watch",
+    "watch:tailwind": "pnpm build:tailwind --watch",
+    "watch": "pnpm run --filter @cursorless/cursorless-vscode-tutorial-webview --parallel '/^watch:.*/'",
+    "build:esbuild": "esbuild ./src/index.tsx --sourcemap --format=cjs --bundle --outfile=./out/index.js",
+    "build:tailwind": "pnpx @tailwindcss/cli -i ./src/index.css -o ./out/index.css",
+    "build": "pnpm build:prod",
+    "build:prod": "pnpm build:esbuild --minify && pnpm build:tailwind --minify",
+    "build:dev": "pnpm build:esbuild && pnpm build:tailwind",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
+  },
+  "dependencies": {
+    "@cursorless/common": "workspace:*",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@types/vscode-webview": "^1.57.5",
+    "tailwindcss": "^4.2.1"
+  }
+}

@@ -1,0 +1,15 @@
+try {}
+catch(Exception ex) {}
+finally {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-2:10
+  >------
+0| try {}
+1| catch(Exception ex) {}
+2| finally {}
+   ----------<
+
+[Insertion delimiter] = "\n"

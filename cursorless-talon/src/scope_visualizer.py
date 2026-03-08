@@ -12,7 +12,8 @@ mod.list(
 @mod.action_class
 class Actions:
     def private_cursorless_show_scope_visualizer(
-        scope_type: dict, visualization_type: str
+        scope_type: dict,  # pyright: ignore [reportGeneralTypeIssues]
+        visualization_type: str,
     ):
         """Shows scope visualizer"""
         actions.user.private_cursorless_run_rpc_command_no_wait(

@@ -1,18 +1,17 @@
-import { pick, sortedUniq, toPairs } from "lodash";
+import { CompositeKeyMap } from "@cursorless/common";
+import type { VscodeApi } from "@cursorless/vscode-common";
+import { pick, sortedUniq, toPairs } from "lodash-es";
 import { Grammar, Parser } from "nearley";
 import * as vscode from "vscode";
+import { KeyboardCommandHandler } from "./KeyboardCommandHandler";
 import { KeyboardCommandsModalLayer } from "./KeyboardCommandsModalLayer";
-import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
-import { KeyDescriptor } from "./TokenTypeHelpers";
-import { TokenTypeKeyMapMap } from "./TokenTypeHelpers";
-import KeyboardHandler from "./KeyboardHandler";
+import type KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
+import { KeyboardConfig } from "./KeyboardConfig";
+import type KeyboardHandler from "./KeyboardHandler";
+import type { KeyDescriptor, TokenTypeKeyMapMap } from "./TokenTypeHelpers";
+import { getTokenTypeKeyMaps } from "./getTokenTypeKeyMaps";
 import grammar from "./grammar/generated/grammar";
 import { getAcceptableTokenTypes } from "./grammar/getAcceptableTokenTypes";
-import { KeyboardCommandHandler } from "./KeyboardCommandHandler";
-import { getTokenTypeKeyMaps } from "./getTokenTypeKeyMaps";
-import { VscodeApi } from "@cursorless/vscode-common";
-import { KeyboardConfig } from "./KeyboardConfig";
-import { CompositeKeyMap } from "@cursorless/common";
 
 /**
  * Defines a mode to use with a modal version of Cursorless keyboard.
@@ -56,15 +55,15 @@ export default class KeyboardCommandsModal {
 
   init() {
     this.extensionContext.subscriptions.push(
-      vscode.workspace.onDidChangeConfiguration((event) => {
+      vscode.workspace.onDidChangeConfiguration(async (event) => {
         if (
           event.affectsConfiguration(
             "cursorless.experimental.keyboard.modal.keybindings",
           )
         ) {
           if (this.isModeOn()) {
-            this.modeOff();
-            this.modeOn();
+            await this.modeOff();
+            await this.modeOn();
           }
           this.layerCache.clear();
           this.processKeyMap();
@@ -120,7 +119,7 @@ export default class KeyboardCommandsModal {
     this.inputDisposable = this.keyboardHandler.pushListener({
       handleInput: this.handleInput,
       displayOptions: {
-        cursorStyle: vscode.TextEditorCursorStyle.BlockOutline,
+        cursorStyle: this.keyboardConfig.getCursorStyle(),
         whenClauseContext: "cursorless.keyboard.modal.mode",
         statusBarText: "Listening...",
       },
@@ -184,10 +183,12 @@ export default class KeyboardCommandsModal {
       const [{ type, arg }] = this.parser.results;
 
       // Run the command
-      this.keyboardCommandHandler[type as keyof KeyboardCommandHandler](arg);
+      void this.keyboardCommandHandler[type as keyof KeyboardCommandHandler](
+        arg,
+      );
     } catch (err) {
       if (!(err instanceof KeySequenceCancelledError)) {
-        vscode.window.showErrorMessage((err as Error).message);
+        void vscode.window.showErrorMessage((err as Error).message);
         throw err;
       }
     } finally {
@@ -210,9 +211,9 @@ export default class KeyboardCommandsModal {
 
   modeToggle = () => {
     if (this.isModeOn()) {
-      this.modeOff();
+      return this.modeOff();
     } else {
-      this.modeOn();
+      return this.modeOn();
     }
   };
 

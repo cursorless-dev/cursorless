@@ -1,7 +1,8 @@
 import * as vscode from "vscode";
-import KeyboardHandler from "./KeyboardHandler";
-import TrieSearch from "trie-search";
-import { buildSuffixTrie, KeyValuePair } from "./buildSuffixTrie";
+import type KeyboardHandler from "./KeyboardHandler";
+import type TrieSearch from "trie-search";
+import type { KeyValuePair } from "./buildSuffixTrie";
+import { buildSuffixTrie } from "./buildSuffixTrie";
 
 /**
  * Defines a single keyboard layer to use with a modal version of Cursorless
@@ -24,7 +25,9 @@ export class KeyboardCommandsModalLayer<Param extends { type: any }> {
   ) {
     this.handleInput = this.handleInput.bind(this);
     if (entries.length === 0) {
-      vscode.window.showErrorMessage("No keybindings found for current layer");
+      void vscode.window.showErrorMessage(
+        "No keybindings found for current layer",
+      );
     }
     const { trie, conflicts } = buildSuffixTrie(entries);
 
@@ -32,7 +35,9 @@ export class KeyboardCommandsModalLayer<Param extends { type: any }> {
       const conflictStr = conflict
         .map(({ key, value: { type } }) => `\`${type}.${key}\``)
         .join(" and ");
-      vscode.window.showErrorMessage(`Conflicting keybindings: ${conflictStr}`);
+      void vscode.window.showErrorMessage(
+        `Conflicting keybindings: ${conflictStr}`,
+      );
     }
 
     this.trie = trie;
@@ -50,7 +55,7 @@ export class KeyboardCommandsModalLayer<Param extends { type: any }> {
         // If we haven't consumed any input yet, then it means the first
         // character was a false start so we should cancel the whole thing.
         const errorMessage = `Invalid key '${text}'`;
-        vscode.window.showErrorMessage(errorMessage);
+        void vscode.window.showErrorMessage(errorMessage);
         throw Error(errorMessage);
       }
     }
@@ -74,7 +79,7 @@ export class KeyboardCommandsModalLayer<Param extends { type: any }> {
       const possibleNextValues = this.trie.search(possibleNextSequence);
       if (possibleNextValues.length === 0) {
         const errorMessage = `Invalid key '${nextKey}'`;
-        vscode.window.showErrorMessage(errorMessage);
+        void vscode.window.showErrorMessage(errorMessage);
         continue;
       }
 

@@ -1,6 +1,6 @@
-import { VisibleModifier } from "@cursorless/common";
-import { Target } from "../../typings/target.types";
-import { ModifierStage } from "../PipelineStages.types";
+import type { VisibleModifier } from "@cursorless/common";
+import type { Target } from "../../typings/target.types";
+import type { ModifierStage } from "../PipelineStages.types";
 import { PlainTarget } from "../targets";
 
 export class VisibleStage implements ModifierStage {

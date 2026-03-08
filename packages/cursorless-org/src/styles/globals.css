@@ -1,6 +1,6 @@
-@tailwind components;
-@tailwind base;
-@tailwind utilities;
+@import "tailwindcss";
+
+@config "../../tailwind.config.js";
 
 :root {
   --safe-area-inset-top: env(safe-area-inset-top);

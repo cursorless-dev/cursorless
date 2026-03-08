@@ -1,0 +1,35 @@
+class Foo {
+    def bar(
+        aaa: Int,
+        bbb: Int
+    ) {}
+}
+---
+
+[Content] = 2:8-3:16
+          >---------
+2|         aaa: Int,
+3|         bbb: Int
+   ----------------<
+
+[Removal] = 1:12-4:4
+              >
+1|     def bar(
+2|         aaa: Int,
+3|         bbb: Int
+4|     ) {}
+   ----<
+
+[Leading delimiter] = 2:0-2:8
+  >--------<
+2|         aaa: Int,
+
+[Domain] = 1:4-4:8
+      >--------
+1|     def bar(
+2|         aaa: Int,
+3|         bbb: Int
+4|     ) {}
+   --------<
+
+[Insertion delimiter] = ",\n"

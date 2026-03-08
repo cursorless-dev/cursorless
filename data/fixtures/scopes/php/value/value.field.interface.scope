@@ -1,0 +1,23 @@
+<?php
+interface Foo {
+    public const bar = 0;
+}
+---
+
+[Content] = 2:23-2:24
+                         >-<
+2|     public const bar = 0;
+
+[Removal] = 2:20-2:24
+                      >----<
+2|     public const bar = 0;
+
+[Leading delimiter] = 2:20-2:23
+                      >---<
+2|     public const bar = 0;
+
+[Domain] = 2:4-2:25
+      >---------------------<
+2|     public const bar = 0;
+
+[Insertion delimiter] = " "

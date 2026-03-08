@@ -1,0 +1,10 @@
+foo(aaa, bbb, ccc)
+---
+
+[Content] = 0:4-0:17
+      >-------------<
+0| foo(aaa, bbb, ccc)
+
+[Domain] = 0:0-0:18
+  >------------------<
+0| foo(aaa, bbb, ccc)

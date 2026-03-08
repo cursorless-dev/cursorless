@@ -1,20 +1,19 @@
 ;;!! <foo>bar</foo>
 ;;!  ^^^^^^^^^^^^^^
-;;!       ###
-;;!       ***
-(
-  (jsx_element) @xmlElement @_.interior @_.iteration
-  (#child-range! @_.interior 0 -1 true true)
-  (#child-range! @_.iteration 0 -1 true true)
+(jsx_element) @xmlElement
+
+;;!! <foo>bar</foo>
+;;!       ^^^
+(jsx_element
+  (jsx_opening_element) @interior.start.endOf @xmlElement.iteration.start.endOf
+  (jsx_closing_element) @interior.end.startOf @xmlElement.iteration.end.startOf
 )
 
 ;;!! <foo>bar</foo>
-;;!       ***
-(
-  (jsx_element) @xmlStartTag.iteration @xmlEndTag.iteration @xmlBothTags.iteration
-  (#child-range! @xmlStartTag.iteration 0 -1 true true)
-  (#child-range! @xmlEndTag.iteration 0 -1 true true)
-  (#child-range! @xmlBothTags.iteration 0 -1 true true)
+;;!       ^^^
+(jsx_element
+  (jsx_opening_element) @xmlStartTag.iteration.start.endOf @xmlEndTag.iteration.start.endOf @xmlBothTags.iteration.start.endOf
+  (jsx_closing_element) @xmlStartTag.iteration.end.startOf @xmlEndTag.iteration.end.startOf @xmlBothTags.iteration.end.startOf
 )
 
 ;;!! <foo>bar</foo>
@@ -31,56 +30,28 @@
   (#allow-multiple! @xmlBothTags)
 ) @_.domain
 
+;; Defines `name` scope for JSX fragment opening element
+;;!! <></>
+;;!  {}
+;;!  --
+(jsx_opening_element
+  "<" @name.start.endOf
+  .
+  ">" @name.end.startOf
+) @_.domain
+
+;; Defines `name` scope for JSX fragment closing element
+;;!! <></>
+;;!     {}
+;;!    ---
+(jsx_closing_element
+  "</" @name.start.endOf
+  .
+  ">" @name.end.startOf
+) @_.domain
+
 ;;!! <foo/>
 (jsx_self_closing_element) @xmlElement
-
-;; ======== JSX fragments, eg <>foo</>  ==========
-
-;;!! <>foo</>
-;;!  ^^^^^^^^
-;;!    ###
-;;!    ***
-(
-  (jsx_fragment) @xmlElement @_.interior @_.iteration
-  (#child-range! @_.interior 1 -3 true true)
-  (#child-range! @_.iteration 1 -3 true true)
-)
-
-;;!! <>foo</>
-;;!    ***
-(
-  (jsx_fragment) @xmlStartTag.iteration @xmlEndTag.iteration @xmlBothTags.iteration
-  (#child-range! @xmlStartTag.iteration 1 -3 true true)
-  (#child-range! @xmlEndTag.iteration 1 -3 true true)
-  (#child-range! @xmlBothTags.iteration 1 -3 true true)
-)
-
-;;!! <>foo</>
-;;!  ^^------
-(
-  (jsx_fragment) @xmlStartTag @xmlBothTags @_.domain
-  (#child-range! @xmlStartTag 0 1)
-  (#child-range! @xmlBothTags 0 1)
-  (#allow-multiple! @xmlBothTags)
-)
-
-;;!! <>foo</>
-;;!  -----^^^
-(
-  (jsx_fragment) @xmlEndTag @xmlBothTags @_.domain
-  (#child-range! @xmlEndTag -3)
-  (#child-range! @xmlBothTags -3)
-  (#allow-multiple! @xmlBothTags)
-)
-
-;; Sets `name` to be empty range inside the fragment tag:
-;;!! <>foo</>
-;;!  {}    {}
-;;!  --   ---
-(jsx_fragment
-  "<" @_.domain.start
-  ">" @name.startOf @_.domain.end
-)
 
 ;;!! <aaa bbb="ccc" />
 ;;!       ^^^^^^^^^
@@ -106,7 +77,7 @@
 ;;!   ^^^^
 (jsx_self_closing_element
   "<" @attribute.iteration.start.endOf @collectionKey.iteration.start.endOf @value.iteration.start.endOf
-  "/" @attribute.iteration.end.startOf @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+  "/>" @attribute.iteration.end.startOf @collectionKey.iteration.end.startOf @value.iteration.end.startOf
 )
 
 ;;!! <aaa></aaa>
@@ -118,4 +89,9 @@
 
 ;;!! <div>text</div>
 ;;!       ^^^^
-(jsx_text) @textFragment
+;;!! <div>({})</div>
+;;!       ^^^^
+(
+  (jsx_element) @textFragment
+  (#child-range! @textFragment 0 -1 true true)
+)

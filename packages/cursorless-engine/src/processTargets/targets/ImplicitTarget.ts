@@ -1,4 +1,7 @@
-import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
+import type { EnforceUndefined } from "@cursorless/common";
+import type { TextualType } from "../../typings/target.types";
+import type { CommonTargetParameters } from "./BaseTarget";
+import { BaseTarget } from "./BaseTarget";
 
 /**
  * A target that was not explicitly spoken by the user. For example:
@@ -8,15 +11,16 @@ import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
  */
 export class ImplicitTarget extends BaseTarget<CommonTargetParameters> {
   type = "ImplicitTarget";
+  textualType: TextualType = "character";
   insertionDelimiter = "";
   isRaw = true;
   hasExplicitScopeType = false;
   isImplicit = true;
-  isToken = false;
 
   getLeadingDelimiterTarget = () => undefined;
   getTrailingDelimiterTarget = () => undefined;
   getRemovalRange = () => this.contentRange;
 
-  protected getCloneParameters = () => this.state;
+  protected getCloneParameters: () => EnforceUndefined<CommonTargetParameters> =
+    () => this.state;
 }

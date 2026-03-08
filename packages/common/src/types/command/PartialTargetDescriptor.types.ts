@@ -22,6 +22,13 @@ export interface LastCursorPositionMark {
   type: "lastCursorPosition";
 }
 
+export type SimplePartialMark =
+  | ThatMark
+  | KeyboardMark
+  | SourceMark
+  | NothingMark
+  | LastCursorPositionMark;
+
 export interface DecoratedSymbolMark {
   type: "decoratedSymbol";
   symbolColor: string;
@@ -39,13 +46,15 @@ export interface LineNumberMark {
 /**
  * Constructs a range between {@link anchor} and {@link active}
  */
-export interface RangeMark {
+export interface RangeMarkFor<T> {
   type: "range";
-  anchor: PartialMark;
-  active: PartialMark;
+  anchor: T;
+  active: T;
   excludeAnchor: boolean;
   excludeActive: boolean;
 }
+
+export type PartialRangeMark = RangeMarkFor<PartialMark>;
 
 interface SimplePosition {
   readonly line: number;
@@ -69,6 +78,22 @@ export interface ExplicitMark {
   range: SimpleRange;
 }
 
+/**
+ * Can be used when constructing a primitive target that applies modifiers to
+ * the output of some other complex target descriptor.  For example, we use this
+ * to apply the hoisted modifiers to the output of a range target when we hoist
+ * the "every funk" modifier on a command like "take every funk air until bat".
+ */
+export interface PartialTargetMark {
+  type: "target";
+
+  /**
+   * The target descriptor that will be used to generate the targets output by
+   * this mark.
+   */
+  target: PartialTargetDescriptor;
+}
+
 export type PartialMark =
   | CursorMark
   | ThatMark
@@ -77,8 +102,9 @@ export type PartialMark =
   | DecoratedSymbolMark
   | NothingMark
   | LineNumberMark
-  | RangeMark
-  | ExplicitMark;
+  | PartialRangeMark
+  | ExplicitMark
+  | PartialTargetMark;
 
 export const simpleSurroundingPairNames = [
   "angleBrackets",
@@ -87,11 +113,14 @@ export const simpleSurroundingPairNames = [
   "doubleQuotes",
   "escapedDoubleQuotes",
   "escapedParentheses",
-  "escapedSquareBrackets",
   "escapedSingleQuotes",
+  "escapedSquareBrackets",
   "parentheses",
   "singleQuotes",
   "squareBrackets",
+  "tripleBacktickQuotes",
+  "tripleDoubleQuotes",
+  "tripleSingleQuotes",
 ] as const;
 export const complexSurroundingPairNames = [
   "string",
@@ -112,6 +141,7 @@ export type SurroundingPairName =
 
 export const simpleScopeTypeTypes = [
   "argumentOrParameter",
+  "argumentList",
   "anonymousFunction",
   "attribute",
   "branch",
@@ -144,7 +174,6 @@ export const simpleScopeTypeTypes = [
   "sectionLevelFive",
   "sectionLevelSix",
   "selector",
-  "private.switchStatementSubject",
   "unit",
   "xmlBothTags",
   "xmlElement",
@@ -164,8 +193,10 @@ export const simpleScopeTypeTypes = [
   "token",
   "identifier",
   "line",
+  "fullLine",
   "sentence",
   "paragraph",
+  "boundedParagraph",
   "document",
   "nonWhitespaceSequence",
   "boundedNonWhitespaceSequence",
@@ -173,6 +204,11 @@ export const simpleScopeTypeTypes = [
   "notebookCell",
   // Talon
   "command",
+  // Private scope types
+  "textFragment",
+  "disqualifyDelimiter",
+  "pairDelimiter",
+  "interior",
 ] as const;
 
 export function isSimpleScopeType(
@@ -183,26 +219,45 @@ export function isSimpleScopeType(
 
 export type SimpleScopeTypeType = (typeof simpleScopeTypeTypes)[number];
 
+export const pseudoScopes = new Set<SimpleScopeTypeType>([
+  "instance",
+  "interior",
+  "className",
+  "functionName",
+]);
+
 export interface SimpleScopeType {
   type: SimpleScopeTypeType;
 }
 
+export type ScopeTypeType = ScopeType["type"];
+
 export interface CustomRegexScopeType {
   type: "customRegex";
   regex: string;
+  flags?: string;
 }
 
 export type SurroundingPairDirection = "left" | "right";
+
 export interface SurroundingPairScopeType {
   type: "surroundingPair";
   delimiter: SurroundingPairName;
-  forceDirection?: SurroundingPairDirection;
 
   /**
    * If `true`, then only accept pairs where the pair completely contains the
    * selection, ie without the edges touching.
    */
   requireStrongContainment?: boolean;
+}
+
+/**
+ * This differs from the normal @SurroundingPairScopeType that it always
+ * uses `requireStrongContainment` and the content range is the pair interior
+ * */
+export interface SurroundingPairInteriorScopeType {
+  type: "surroundingPairInterior";
+  delimiter: SurroundingPairName;
 }
 
 export interface OneOfScopeType {
@@ -218,12 +273,12 @@ export interface GlyphScopeType {
 export type ScopeType =
   | SimpleScopeType
   | SurroundingPairScopeType
+  | SurroundingPairInteriorScopeType
   | CustomRegexScopeType
   | OneOfScopeType
   | GlyphScopeType;
 
-export interface ContainingSurroundingPairModifier
-  extends ContainingScopeModifier {
+export interface ContainingSurroundingPairModifier extends ContainingScopeModifier {
   scopeType: SurroundingPairScopeType;
 }
 
@@ -253,6 +308,11 @@ export interface ContainingScopeModifier {
   ancestorIndex?: number;
 }
 
+export interface PreferredScopeModifier {
+  type: "preferredScope";
+  scopeType: ScopeType;
+}
+
 export interface EveryScopeModifier {
   type: "everyScope";
   scopeType: ScopeType;
@@ -272,6 +332,9 @@ export interface OrdinalScopeModifier {
 
   /** The number of scopes to include.  Will always be positive.  If greater than 1, will include scopes after {@link start} */
   length: number;
+
+  /** If true, yields individual targets instead of contiguous range. Defaults to `false` */
+  isEvery?: boolean;
 }
 
 export type Direction = "forward" | "backward";
@@ -297,6 +360,9 @@ export interface RelativeScopeModifier {
   /** Indicates which direction both {@link offset} and {@link length} go
    * relative to input target  */
   direction: Direction;
+
+  /** If true use individual targets instead of combined range */
+  isEvery?: boolean;
 }
 
 /**
@@ -364,8 +430,8 @@ export interface ModifyIfUntypedModifier {
  * doesn't throw an error, returning the output from the first modifier not
  * throwing an error.
  */
-export interface CascadingModifier {
-  type: "cascading";
+export interface FallbackModifier {
+  type: "fallback";
 
   /**
    * The modifiers to try in turn
@@ -392,6 +458,7 @@ export type Modifier =
   | ExcludeInteriorModifier
   | VisibleModifier
   | ContainingScopeModifier
+  | PreferredScopeModifier
   | EveryScopeModifier
   | OrdinalScopeModifier
   | RelativeScopeModifier
@@ -401,7 +468,7 @@ export type Modifier =
   | TrailingModifier
   | RawSelectionModifier
   | ModifyIfUntypedModifier
-  | CascadingModifier
+  | FallbackModifier
   | RangeModifier
   | KeepContentFilterModifier
   | KeepEmptyFilterModifier

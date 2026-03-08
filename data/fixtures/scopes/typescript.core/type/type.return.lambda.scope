@@ -1,0 +1,20 @@
+(): number => {}
+---
+
+[Content] = 0:4-0:10
+      >------<
+0| (): number => {}
+
+[Removal] = 0:2-0:10
+    >--------<
+0| (): number => {}
+
+[Leading delimiter] = 0:2-0:4
+    >--<
+0| (): number => {}
+
+[Domain] = 0:0-0:16
+  >----------------<
+0| (): number => {}
+
+[Insertion delimiter] = " "

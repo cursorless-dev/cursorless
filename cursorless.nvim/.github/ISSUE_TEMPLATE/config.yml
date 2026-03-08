@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Create issue on cursorless-dev/cursorless
+    url: https://github.com/cursorless-dev/cursorless/issues/new
+    about: Please file issues on the main Cursorless repository

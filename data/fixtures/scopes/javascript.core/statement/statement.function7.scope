@@ -1,0 +1,10 @@
+export function *foo() {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:25
+  >-------------------------<
+0| export function *foo() {}
+
+[Insertion delimiter] = "\n"

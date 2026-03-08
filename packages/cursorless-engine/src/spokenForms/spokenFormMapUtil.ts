@@ -1,4 +1,4 @@
-import { DefaultSpokenFormMapEntry } from "./defaultSpokenFormMap.types";
+import type { DefaultSpokenFormMapEntry } from "./defaultSpokenFormMap.types";
 
 /**
  * Used to construct entities that should not be speakable by default.

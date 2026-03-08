@@ -1,6 +1,6 @@
-import { Command, CommandLatest } from "..";
-import { TestCaseSnapshot } from "../testUtil/TestCaseSnapshot";
-import { PlainSpyIDERecordedValues } from "../testUtil/spyToPlainObject";
+import type { Command, CommandLatest, Fallback, FocusedElementType } from "..";
+import type { TestCaseSnapshot } from "../testUtil/TestCaseSnapshot";
+import type { PlainSpyIDERecordedValues } from "../testUtil/spyToPlainObject";
 
 export type ThrownError = {
   name: string;
@@ -11,6 +11,11 @@ interface TestCaseFixtureBase {
   postEditorOpenSleepTimeMs?: number;
   postCommandSleepTimeMs?: number;
   spokenFormError?: string;
+
+  /**
+   * The type of element that is focused before the command is executed. If undefined default to text editor.
+   */
+  focusedElementType?: FocusedElementType;
 
   /**
    * A list of marks to check in the case of navigation map test otherwise undefined
@@ -30,6 +35,11 @@ interface TestCaseFixtureBase {
    * error test case.
    */
   returnValue?: unknown;
+
+  /**
+   * The fallback of the command. Will be undefined if the command was executed by the extension.
+   */
+  fallback?: Fallback;
 }
 
 export interface TestCaseFixture extends TestCaseFixtureBase {

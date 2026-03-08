@@ -1,7 +1,7 @@
-minimum_pre_commit_version: "2.9.0"
+minimum_pre_commit_version: "3.2.0"
 ci:
   autoupdate_schedule: monthly
-exclude: /vendor/
+exclude: /vendor/|^data/playground/
 repos:
   - repo: meta
     hooks:
@@ -15,11 +15,11 @@ repos:
         language: fail
         types: [symlink]
   - repo: https://github.com/Lucas-C/pre-commit-hooks
-    rev: v1.5.1
+    rev: v1.5.6
     hooks:
       - id: forbid-crlf
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v6.0.0
     hooks:
       - id: check-added-large-files
       - id: check-case-conflict
@@ -39,8 +39,8 @@ repos:
         # with a line that has trailing white space. Many of our recorded
         # tests use strings with trailing white space to represent the final
         # document contents. For example
-        # packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/languages/ruby/changeCondition.yml
-        exclude: ^packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/.*/[^/]*\.yml$|\.scope$|/generated/|^patches/
+        # data/fixtures/recorded/languages/ruby/changeCondition.yml
+        exclude: ^data/fixtures/recorded/.*/[^/]*\.yml$|\.scope$|/generated/|^patches/
   - repo: local
     hooks:
       - id: eslint
@@ -61,26 +61,27 @@ repos:
     hooks:
       - id: format-recorded-tests
         name: format-recorded-tests
-        files: ^packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/.*/[^/]*\.yml$
+        files: ^data/fixtures/recorded/.*/[^/]*\.yml$
         language: system
         entry: pnpm exec ./packages/common/scripts/my-ts-node.js packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts
   - repo: local
     hooks:
       - id: check-recorded-test-marks
         name: check-recorded-test-marks
-        files: ^packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/.*/[^/]*\.yml$
+        files: ^data/fixtures/recorded/.*/[^/]*\.yml$
         language: system
         entry: pnpm exec ./packages/common/scripts/my-ts-node.js packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts --check-marks
-  - repo: https://github.com/ikamensh/flynt
-    rev: "1.0.1"
-    hooks:
-      - id: flynt
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.1.11
+    rev: v0.15.1
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
-  - repo: https://github.com/psf/black-pre-commit-mirror
-    rev: 24.1.1
+      - id: ruff-format
+  - repo: https://github.com/lunarmodules/luacheck
+    rev: v1.2.0
     hooks:
-      - id: black
+      - id: luacheck
+  - repo: https://github.com/JohnnyMorganz/StyLua
+    rev: v0.20.0
+    hooks:
+      - id: stylua

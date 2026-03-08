@@ -1,0 +1,24 @@
+enum class Foo {}
+---
+
+[Content] = 0:11-0:14
+             >---<
+0| enum class Foo {}
+
+[Removal] = 0:11-0:15
+             >----<
+0| enum class Foo {}
+
+[Leading delimiter] = 0:10-0:11
+            >-<
+0| enum class Foo {}
+
+[Trailing delimiter] = 0:14-0:15
+                >-<
+0| enum class Foo {}
+
+[Domain] = 0:0-0:17
+  >-----------------<
+0| enum class Foo {}
+
+[Insertion delimiter] = " "

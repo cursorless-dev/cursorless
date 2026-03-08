@@ -1,0 +1,10 @@
+@mixin foo() {}
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:15
+  >---------------<
+0| @mixin foo() {}
+
+[Insertion delimiter] = "\n\n"

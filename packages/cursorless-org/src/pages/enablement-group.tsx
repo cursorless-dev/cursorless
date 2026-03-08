@@ -4,7 +4,8 @@ import {
 } from "../content/enablement-group.mdx";
 import { Layout, bodyClasses } from "../components/Layout";
 import { env } from "process";
-import { parseEmailAddress, EmailAddress } from "../parseEmailAddress";
+import type { EmailAddress } from "../parseEmailAddress";
+import { parseEmailAddress } from "../parseEmailAddress";
 
 const RELATIVE_URL = "cursorless-enablement";
 

@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { FontMeasurements } from "./FontMeasurements";
+import type { FontMeasurements } from "./FontMeasurements";
 
 /**
  * Contains measurements for the user's font
@@ -20,24 +20,32 @@ export class FontMeasurementsImpl implements FontMeasurements {
 
   constructor(private extensionContext: vscode.ExtensionContext) {}
 
-  clearCache() {
-    this.extensionContext.globalState.update("fontRatios", undefined);
+  async clearCache() {
+    await this.extensionContext.globalState.update("fontRatios", undefined);
   }
 
   async calculate() {
     const fontFamily = getFontFamily();
+    const fontWeight = getFontWeight();
     let widthRatio, heightRatio;
+
     const fontRatiosCache = this.extensionContext.globalState.get<{
       widthRatio: number;
       heightRatio: number;
       fontFamily: string;
+      fontWeight: string;
     }>("fontRatios");
 
-    if (fontRatiosCache == null || fontRatiosCache.fontFamily !== fontFamily) {
+    if (
+      fontRatiosCache == null ||
+      fontRatiosCache.fontFamily !== fontFamily ||
+      fontRatiosCache.fontWeight !== fontWeight
+    ) {
       const fontRatios = await getFontRatios(this.extensionContext);
-      this.extensionContext.globalState.update("fontRatios", {
+      await this.extensionContext.globalState.update("fontRatios", {
         ...fontRatios,
         fontFamily,
+        fontWeight,
       });
       widthRatio = fontRatios.widthRatio;
       heightRatio = fontRatios.heightRatio;
@@ -70,14 +78,14 @@ function getFontRatios(extensionContext: vscode.ExtensionContext) {
     },
   );
 
-  const font_measurement_js = panel.webview.asWebviewUri(
+  const fontMeasurementJs = panel.webview.asWebviewUri(
     vscode.Uri.joinPath(
       extensionContext.extensionUri,
       "resources",
       "font_measurements.js",
     ),
   );
-  panel.webview.html = getWebviewContent(panel.webview, font_measurement_js);
+  panel.webview.html = getWebviewContent(panel.webview, fontMeasurementJs);
 
   interface FontRatios {
     /**
@@ -92,8 +100,13 @@ function getFontRatios(extensionContext: vscode.ExtensionContext) {
     heightRatio: number;
   }
 
-  return new Promise<FontRatios>((resolve) => {
+  return new Promise<FontRatios>((resolve, reject) => {
+    const timeout = setTimeout(() => {
+      reject(new Error("Timed out while measuring font"));
+    }, 5000);
+
     panel.webview.onDidReceiveMessage((message) => {
+      clearTimeout(timeout);
       panel.dispose();
       resolve(message);
     });
@@ -110,9 +123,14 @@ function getFontFamily() {
   return config.get<string>("fontFamily")!;
 }
 
+function getFontWeight() {
+  const config = vscode.workspace.getConfiguration("editor");
+  return config.get<string>("fontWeight")!;
+}
+
 function getWebviewContent(
   webview: vscode.Webview,
-  font_measurement_js: vscode.Uri,
+  fontMeasurementJs: vscode.Uri,
 ) {
   // baseline adjustment based on https://stackoverflow.com/a/27295528
   return `<!DOCTYPE html>
@@ -126,7 +144,7 @@ function getWebviewContent(
       <div id="container">
       <span id="letter" style="line-height: 0; visibility:hidden; font-size: 1000px; font-family: var(--vscode-editor-font-family);  font-weight: var(--vscode-editor-font-weight);">A</span>
       </div>
-      <script src="${font_measurement_js}"></script>
+      <script src="${fontMeasurementJs}"></script>
   </body>
   </html>`;
 }

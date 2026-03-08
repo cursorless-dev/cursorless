@@ -591,7 +591,7 @@ export class TextmateSnippet extends Marker {
 
 	clone(): TextmateSnippet {
 		let ret = new TextmateSnippet();
-		this._children = this.children.map(child => child.clone());
+		ret._children = this.children.map(child => child.clone());
 		return ret;
 	}
 

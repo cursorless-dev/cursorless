@@ -1,4 +1,4 @@
-import { Direction } from "@cursorless/common";
+import type { Direction } from "@cursorless/common";
 import { imap } from "itertools";
 import { NestedScopeHandler } from "./NestedScopeHandler";
 import { getMatcher } from "../../../tokenizer";

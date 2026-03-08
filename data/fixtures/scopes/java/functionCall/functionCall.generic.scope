@@ -1,0 +1,10 @@
+new foo<Bar>();
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:14
+  >--------------<
+0| new foo<Bar>();
+
+[Insertion delimiter] = " "

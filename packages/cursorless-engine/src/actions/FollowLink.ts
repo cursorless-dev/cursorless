@@ -1,16 +1,16 @@
+import type { OpenLinkOptions } from "@cursorless/common";
 import { FlashStyle } from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
-import { Target } from "../typings/target.types";
+import type { Target } from "../typings/target.types";
 import {
   createThatMark,
   ensureSingleTarget,
   flashTargets,
 } from "../util/targetUtils";
-import { Actions } from "./Actions";
-import { SimpleAction, ActionReturnValue } from "./actions.types";
+import type { ActionReturnValue, SimpleAction } from "./actions.types";
 
 export default class FollowLink implements SimpleAction {
-  constructor(private actions: Actions) {
+  constructor(private options: OpenLinkOptions) {
     this.run = this.run.bind(this);
   }
 
@@ -19,17 +19,9 @@ export default class FollowLink implements SimpleAction {
 
     await flashTargets(ide(), targets, FlashStyle.referenced);
 
-    const openedLink = await ide()
+    await ide()
       .getEditableTextEditor(target.editor)
-      .openLink(target.contentRange);
-
-    if (!openedLink) {
-      await this.actions.executeCommand.run(
-        targets,
-        "editor.action.revealDefinition",
-        { restoreSelection: false },
-      );
-    }
+      .openLink(target.contentRange, this.options);
 
     return {
       thatSelections: createThatMark(targets),

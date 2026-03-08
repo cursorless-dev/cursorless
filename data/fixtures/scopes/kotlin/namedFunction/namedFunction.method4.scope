@@ -1,0 +1,21 @@
+class Foo {
+    set(aaa: Int) {}
+}
+---
+
+[Content] =
+[Domain] = 1:4-1:20
+      >----------------<
+1|     set(aaa: Int) {}
+
+[Removal] = 1:0-2:0
+  >--------------------
+1|     set(aaa: Int) {}
+2| }
+   <
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     set(aaa: Int) {}
+
+[Insertion delimiter] = "\n\n"

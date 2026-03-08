@@ -1,0 +1,24 @@
+for i = 1, 3 do end
+---
+
+[Content] = 0:4-0:12
+      >--------<
+0| for i = 1, 3 do end
+
+[Removal] = 0:4-0:13
+      >---------<
+0| for i = 1, 3 do end
+
+[Leading delimiter] = 0:3-0:4
+     >-<
+0| for i = 1, 3 do end
+
+[Trailing delimiter] = 0:12-0:13
+              >-<
+0| for i = 1, 3 do end
+
+[Domain] = 0:0-0:19
+  >-------------------<
+0| for i = 1, 3 do end
+
+[Insertion delimiter] = " "

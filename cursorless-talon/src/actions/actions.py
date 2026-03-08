@@ -4,6 +4,7 @@ from talon import Module, actions
 
 from ..targets.target_types import (
     CursorlessDestination,
+    CursorlessExplicitTarget,
     CursorlessTarget,
     ImplicitDestination,
 )
@@ -48,13 +49,12 @@ ACTION_LIST_NAMES = [
     "custom_action",
 ]
 
-callback_actions: dict[str, Callable[[CursorlessTarget], None]] = {
+callback_actions: dict[str, Callable[[CursorlessExplicitTarget], None]] = {
     "nextHomophone": cursorless_homophones_action,
 }
 
 # Don't wait for these actions to finish, usually because they hang on some kind of user interaction
 no_wait_actions = [
-    "generateSnippet",
     "rename",
 ]
 
@@ -88,7 +88,7 @@ def cursorless_action_or_ide_command(m) -> dict[str, str]:
 
 @mod.action_class
 class Actions:
-    def cursorless_command(action_name: str, target: CursorlessTarget):
+    def cursorless_command(action_name: str, target: CursorlessExplicitTarget):  # pyright: ignore [reportGeneralTypeIssues]
         """Perform cursorless command on target"""
         if action_name in callback_actions:
             callback_actions[action_name](target)
@@ -98,6 +98,8 @@ class Actions:
             )
         elif action_name == "callAsFunction":
             actions.user.private_cursorless_call(target)
+        elif action_name == "generateSnippet":
+            actions.user.private_cursorless_generate_snippet_action(target)
         elif action_name in no_wait_actions:
             action = {"name": action_name, "target": target}
             actions.user.private_cursorless_command_no_wait(action)
@@ -107,7 +109,7 @@ class Actions:
             action = {"name": action_name, "target": target}
             actions.user.private_cursorless_command_and_wait(action)
 
-    def cursorless_vscode_command(command_id: str, target: CursorlessTarget):
+    def cursorless_vscode_command(command_id: str, target: CursorlessTarget):  # pyright: ignore [reportGeneralTypeIssues]
         """
         Perform vscode command on cursorless target
 
@@ -115,12 +117,13 @@ class Actions:
         """
         return actions.user.cursorless_ide_command(command_id, target)
 
-    def cursorless_ide_command(command_id: str, target: CursorlessTarget):
+    def cursorless_ide_command(command_id: str, target: CursorlessTarget):  # pyright: ignore [reportGeneralTypeIssues]
         """Perform ide command on cursorless target"""
         return cursorless_execute_command_action(command_id, target)
 
     def cursorless_insert(
-        destination: CursorlessDestination, text: Union[str, list[str]]
+        destination: CursorlessDestination,  # pyright: ignore [reportGeneralTypeIssues]
+        text: Union[str, list[str]],
     ):
         """Perform text insertion on Cursorless destination"""
         if isinstance(text, str):
@@ -128,7 +131,8 @@ class Actions:
         cursorless_replace_action(destination, text)
 
     def private_cursorless_action_or_ide_command(
-        instruction: dict[str, str], target: CursorlessTarget
+        instruction: dict[str, str],  # pyright: ignore [reportGeneralTypeIssues]
+        target: CursorlessTarget,
     ):
         """Perform cursorless action or ide command on target (internal use only)"""
         type = instruction["type"]

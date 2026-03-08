@@ -1,5 +1,5 @@
-import { Lexer } from "nearley";
-import { TokenTypeKeyMapMap } from "../TokenTypeHelpers";
+import type { Lexer } from "nearley";
+import type { TokenTypeKeyMapMap } from "../TokenTypeHelpers";
 
 interface LexerState {
   index: number;

@@ -1,0 +1,11 @@
+<?php
+function($aaa, $bbb) {};
+---
+
+[Content] = 1:9-1:19
+           >----------<
+1| function($aaa, $bbb) {};
+
+[Domain] = 1:0-1:23
+  >-----------------------<
+1| function($aaa, $bbb) {};

@@ -8,20 +8,15 @@ force-exclude = '''
 '''
 
 [tool.ruff]
-select = ["E", "F", "C4", "I001", "UP", "SIM"]
-ignore = ["E501", "SIM105", "UP007", "UP035"]
 target-version = "py311"
 extend-exclude = ["vendor", "data/playground/**/*.py"]
+
+[tool.ruff.lint]
+select = ["E", "F", "C4", "I001", "UP", "SIM", "FLY"]
+ignore = ["E501", "SIM105", "UP007", "UP035", "UP045"]
 
 [tool.pyright]
 # Talon classes don't use self so ignore the associated errors
 reportSelfClsParameterName = false
-
-# Ignore the type of parameter X must be a supertype of its class
-# reportGeneralTypeIssues = false
-
-# Imgui functions return an object that can't be statically resolved
-reportFunctionMemberAccess = false
-# Talon can't be installed in CI so ignore source errors
 reportMissingModuleSource = false
-reportMissingImports = false
+exclude = ["**/node_modules", "**/__pycache__", "**/.*", "**/vendor", "data/playground"]

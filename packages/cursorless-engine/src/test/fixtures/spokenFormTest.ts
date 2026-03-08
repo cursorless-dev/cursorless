@@ -1,4 +1,9 @@
-import { ActionDescriptor, CommandV6 } from "@cursorless/common";
+import {
+  LATEST_VERSION,
+  type ActionDescriptor,
+  type CommandLatest,
+  type CommandResponse,
+} from "@cursorless/common";
 
 export interface SpokenFormTest {
   /**
@@ -12,13 +17,13 @@ export interface SpokenFormTest {
    * `user.private_cursorless_run_rpc_command_get` action to return the given
    * value.
    */
-  mockedGetValue: unknown | undefined;
+  mockedGetValue: CommandResponse | undefined;
 
   /**
    * The sequence of Cursorless commands that should be executed when
    * {@link spokenForm} is spoken.
    */
-  commands: CommandV6[];
+  commands: CommandLatest[];
 }
 
 export function spokenFormTest(
@@ -28,7 +33,7 @@ export function spokenFormTest(
 ): SpokenFormTest {
   return {
     spokenForm,
-    mockedGetValue,
+    mockedGetValue: wrapMockedGetValue(mockedGetValue),
     commands: [command(spokenForm, action)],
   };
 }
@@ -40,14 +45,20 @@ export function multiActionSpokenFormTest(
 ): SpokenFormTest {
   return {
     spokenForm,
-    mockedGetValue,
+    mockedGetValue: wrapMockedGetValue(mockedGetValue),
     commands: actions.map((action) => command(spokenForm, action)),
   };
 }
 
-function command(spokenForm: string, action: ActionDescriptor): CommandV6 {
+function wrapMockedGetValue(
+  mockedGetValue: unknown,
+): CommandResponse | undefined {
+  return mockedGetValue == null ? undefined : { returnValue: mockedGetValue };
+}
+
+function command(spokenForm: string, action: ActionDescriptor): CommandLatest {
   return {
-    version: 6,
+    version: LATEST_VERSION,
     spokenForm,
     usePrePhraseSnapshot: true,
     action,

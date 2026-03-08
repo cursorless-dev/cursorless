@@ -1,6 +1,6 @@
-import { TextEditor } from "@cursorless/common";
-import * as vscode from "vscode";
-import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
+import type { TextEditor } from "@cursorless/common";
+import type * as vscode from "vscode";
+import type { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
 export function toVscodeEditor(editor: TextEditor): vscode.TextEditor {
   if ("vscodeEditor" in editor) {

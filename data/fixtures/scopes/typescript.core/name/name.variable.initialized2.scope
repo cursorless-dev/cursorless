@@ -1,0 +1,24 @@
+export type Foo = Bar
+---
+
+[Content] = 0:12-0:15
+              >---<
+0| export type Foo = Bar
+
+[Removal] = 0:0-0:18
+  >------------------<
+0| export type Foo = Bar
+
+[Leading delimiter] = 0:11-0:12
+             >-<
+0| export type Foo = Bar
+
+[Trailing delimiter] = 0:15-0:16
+                 >-<
+0| export type Foo = Bar
+
+[Domain] = 0:0-0:21
+  >---------------------<
+0| export type Foo = Bar
+
+[Insertion delimiter] = " "

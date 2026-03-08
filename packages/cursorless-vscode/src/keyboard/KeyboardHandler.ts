@@ -1,7 +1,7 @@
-import { pull } from "lodash";
+import { pull } from "lodash-es";
 import * as vscode from "vscode";
-import { Disposable } from "vscode";
-import { StatusBarItem } from "../StatusBarItem";
+import type { Disposable } from "vscode";
+import type { StatusBarItem } from "../StatusBarItem";
 
 /**
  * This when clause context is active if any Cursorless listener is in control
@@ -149,11 +149,13 @@ export default class KeyboardHandler {
         // Call handleCancelled on all listeners that were pushed after this
         // one. Eg if you're in the middle of typing a command and we turn off
         // the modal mode, we want to cancel the command
-        this.listeners
-          .slice(index + 1)
-          .reverse()
-          .forEach(({ listener }) => listener.handleCancelled());
-        this.listeners.splice(index);
+        if (index > -1) {
+          this.listeners
+            .slice(index + 1)
+            .reverse()
+            .forEach(({ listener }) => listener.handleCancelled());
+          this.listeners.splice(index);
+        }
         this.ensureState();
       },
     };
@@ -261,7 +263,11 @@ export default class KeyboardHandler {
     this.disposables.push(this.typeCommandDisposable);
 
     if (whenClauseContext != null) {
-      vscode.commands.executeCommand("setContext", whenClauseContext, true);
+      void vscode.commands.executeCommand(
+        "setContext",
+        whenClauseContext,
+        true,
+      );
     }
 
     this.activeListener = listenerEntry;
@@ -279,7 +285,11 @@ export default class KeyboardHandler {
     const { whenClauseContext } = this.activeListener.listener.displayOptions;
 
     if (whenClauseContext != null) {
-      vscode.commands.executeCommand("setContext", whenClauseContext, false);
+      void vscode.commands.executeCommand(
+        "setContext",
+        whenClauseContext,
+        false,
+      );
     }
 
     this.activeListener = undefined;
@@ -320,7 +330,7 @@ export default class KeyboardHandler {
   }
 
   private ensureGlobalWhenClauseContext() {
-    vscode.commands.executeCommand(
+    void vscode.commands.executeCommand(
       "setContext",
       GLOBAL_WHEN_CLAUSE_CONTEXT,
       this.activeListener != null,

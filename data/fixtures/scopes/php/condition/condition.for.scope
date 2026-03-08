@@ -1,0 +1,21 @@
+<?php
+for ($i = 0; $i < $size; $i++) {}
+---
+
+[Content] = 1:13-1:23
+               >----------<
+1| for ($i = 0; $i < $size; $i++) {}
+
+[Removal] = 1:12-1:23
+              >-----------<
+1| for ($i = 0; $i < $size; $i++) {}
+
+[Leading delimiter] = 1:12-1:13
+              >-<
+1| for ($i = 0; $i < $size; $i++) {}
+
+[Domain] = 1:0-1:33
+  >---------------------------------<
+1| for ($i = 0; $i < $size; $i++) {}
+
+[Insertion delimiter] = " "

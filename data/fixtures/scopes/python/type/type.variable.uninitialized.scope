@@ -1,0 +1,20 @@
+foo: int
+---
+
+[Content] = 0:5-0:8
+       >---<
+0| foo: int
+
+[Removal] = 0:3-0:8
+     >-----<
+0| foo: int
+
+[Leading delimiter] = 0:3-0:5
+     >--<
+0| foo: int
+
+[Domain] = 0:0-0:8
+  >--------<
+0| foo: int
+
+[Insertion delimiter] = " "

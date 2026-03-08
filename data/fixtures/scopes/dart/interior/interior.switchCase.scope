@@ -1,0 +1,100 @@
+void main() {
+    switch (foo) {
+        case 0:
+            bar;
+            break;
+        default:
+            bar;
+            break;
+    }
+}
+---
+
+[#1 Content] = 1:4-8:5
+      >--------------
+1|     switch (foo) {
+2|         case 0:
+3|             bar;
+4|             break;
+5|         default:
+6|             bar;
+7|             break;
+8|     }
+   -----<
+
+[#1 Removal] =
+[#1 Domain] = 0:13-9:0
+               >
+0| void main() {
+1|     switch (foo) {
+2|         case 0:
+3|             bar;
+4|             break;
+5|         default:
+6|             bar;
+7|             break;
+8|     }
+9| }
+   <
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 2:8-7:18
+          >-------
+2|         case 0:
+3|             bar;
+4|             break;
+5|         default:
+6|             bar;
+7|             break;
+   ------------------<
+
+[#2 Removal] =
+[#2 Domain] = 1:18-8:4
+                    >
+1|     switch (foo) {
+2|         case 0:
+3|             bar;
+4|             break;
+5|         default:
+6|             bar;
+7|             break;
+8|     }
+   ----<
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] = 3:12-4:18
+              >----
+3|             bar;
+4|             break;
+   ------------------<
+
+[#3 Removal] =
+[#3 Domain] = 2:15-4:18
+                 >
+2|         case 0:
+3|             bar;
+4|             break;
+   ------------------<
+
+[#3 Insertion delimiter] = " "
+
+
+[#4 Content] = 6:12-7:18
+              >----
+6|             bar;
+7|             break;
+   ------------------<
+
+[#4 Removal] =
+[#4 Domain] = 5:16-7:18
+                  >
+5|         default:
+6|             bar;
+7|             break;
+   ------------------<
+
+[#4 Insertion delimiter] = " "

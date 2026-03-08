@@ -1,0 +1,10 @@
+let foo: i32;
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:13
+  >-------------<
+0| let foo: i32;
+
+[Insertion delimiter] = "\n"

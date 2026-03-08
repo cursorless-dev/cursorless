@@ -1,0 +1,22 @@
+class Foo:
+    def bar(): pass
+---
+
+[#1 Content] =
+[#1 Domain] = 0:0-1:19
+  >----------
+0| class Foo:
+1|     def bar(): pass
+   -------------------<
+
+
+[#2 Content] =
+[#2 Domain] = 1:4-1:19
+      >---------------<
+1|     def bar(): pass
+
+
+[#3 Content] =
+[#3 Domain] = 1:15-1:19
+                 >----<
+1|     def bar(): pass

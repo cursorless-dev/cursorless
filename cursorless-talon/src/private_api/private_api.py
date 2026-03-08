@@ -25,14 +25,15 @@ class TargetBuilderActions:
     """Cursorless private api low-level target builder actions"""
 
     def cursorless_private_build_primitive_target(
-        modifiers: list[dict], mark: Optional[dict]
+        modifiers: list[dict],  # pyright: ignore [reportGeneralTypeIssues]
+        mark: Optional[dict],
     ) -> PrimitiveTarget:
         """Cursorless private api low-level target builder: Create a primitive target"""
         return PrimitiveTarget(mark, modifiers)
 
     def cursorless_private_build_list_target(
-        elements: list[Union[PrimitiveTarget, RangeTarget]]
-    ) -> Union[PrimitiveTarget, ListTarget]:
+        elements: list[Union[PrimitiveTarget, RangeTarget]],  # pyright: ignore [reportGeneralTypeIssues]
+    ) -> Union[PrimitiveTarget, RangeTarget, ListTarget]:
         """Cursorless private api low-level target builder: Create a list target"""
         if len(elements) == 1:
             return elements[0]
@@ -50,7 +51,8 @@ class TargetActions:
 @mod.action_class
 class ActionActions:
     def cursorless_private_action_highlight(
-        target: CursorlessTarget, highlightId: Optional[str] = None
+        target: CursorlessTarget,  # pyright: ignore [reportGeneralTypeIssues]
+        highlightId: Optional[str] = None,
     ) -> None:
         """Cursorless private api: Highlights a target"""
         payload = {

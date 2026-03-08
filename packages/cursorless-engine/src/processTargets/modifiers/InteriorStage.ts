@@ -1,11 +1,15 @@
 import {
-  ExcludeInteriorModifier,
-  InteriorOnlyModifier,
+  NoContainingScopeError,
+  UnsupportedScopeError,
+  type InteriorOnlyModifier,
+  type ScopeType,
 } from "@cursorless/common";
-import { Target } from "../../typings/target.types";
-import { ModifierStageFactory } from "../ModifierStageFactory";
-import { ModifierStage } from "../PipelineStages.types";
-import { containingSurroundingPairIfUntypedModifier } from "./commonContainingScopeIfUntypedModifiers";
+import type { Target } from "../../typings/target.types";
+import type { ModifierStageFactory } from "../ModifierStageFactory";
+import type {
+  ModifierStage,
+  ModifierStateOptions,
+} from "../PipelineStages.types";
 
 export class InteriorOnlyStage implements ModifierStage {
   constructor(
@@ -13,24 +17,68 @@ export class InteriorOnlyStage implements ModifierStage {
     private modifier: InteriorOnlyModifier,
   ) {}
 
-  run(target: Target): Target[] {
-    return this.modifierStageFactory
-      .create(containingSurroundingPairIfUntypedModifier)
-      .run(target)
-      .flatMap((target) => target.getInteriorStrict());
+  run(target: Target, options: ModifierStateOptions): Target[] {
+    const interior = target.getInterior();
+
+    // eg "inside pair"
+    if (interior != null) {
+      return interior;
+    }
+
+    // eg "inside funk"
+    // When you say "inside funk", in an ideal world, the function target would
+    // have a defined interior property that we could just use directly.
+    // However, it is painful to define interiors for every single scope in
+    // every single language, particularly scopes like "if", which could have
+    // multiple interiors and tends to be defined in a tricky nested way in the
+    // parse tree. Instead, we just define interior as a scope, and then call
+    // every interior on the input target here. This will work as expected in
+    // most cases, as long as the nearest interior is what we expect, which it
+    // usually is.
+    if (target.hasExplicitScopeType) {
+      const everyModifier = this.modifierStageFactory.create({
+        type: "everyScope",
+        scopeType: {
+          type: "interior",
+        },
+      });
+
+      try {
+        return everyModifier.run(target, options);
+      } catch (e) {
+        if (e instanceof UnsupportedScopeError) {
+          throw new NoContainingScopeError("interior");
+        }
+        throw e;
+      }
+    }
+
+    // eg "inside air"
+    try {
+      return this.modifierStageFactory
+        .create({
+          type: "containingScope",
+          scopeType: compoundInteriorScopeType,
+        })
+        .run(target, options);
+    } catch (e) {
+      if (e instanceof NoContainingScopeError) {
+        throw new NoContainingScopeError("interior");
+      }
+      throw e;
+    }
   }
 }
 
-export class ExcludeInteriorStage implements ModifierStage {
-  constructor(
-    private modifierStageFactory: ModifierStageFactory,
-    private modifier: ExcludeInteriorModifier,
-  ) {}
-
-  run(target: Target): Target[] {
-    return this.modifierStageFactory
-      .create(containingSurroundingPairIfUntypedModifier)
-      .run(target)
-      .flatMap((target) => target.getBoundaryStrict());
-  }
-}
+export const compoundInteriorScopeType: ScopeType = {
+  type: "oneOf",
+  scopeTypes: [
+    {
+      type: "interior",
+    },
+    {
+      type: "surroundingPairInterior",
+      delimiter: "any",
+    },
+  ],
+};

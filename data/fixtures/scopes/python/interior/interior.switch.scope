@@ -1,0 +1,16 @@
+match value:
+    pass
+---
+
+[Content] = 1:4-1:8
+      >----<
+1|     pass
+
+[Removal] =
+[Domain] = 0:12-1:8
+              >
+0| match value:
+1|     pass
+   --------<
+
+[Insertion delimiter] = " "

@@ -1,14 +1,11 @@
-import { EditableTextEditor, FlashStyle, TextEditor } from "@cursorless/common";
-import { flatten } from "lodash";
+import type { EditableTextEditor, TextEditor } from "@cursorless/common";
+import { FlashStyle } from "@cursorless/common";
+import { flatten } from "lodash-es";
 import { selectionToStoredTarget } from "../core/commandRunner/selectionToStoredTarget";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
-import { Target } from "../typings/target.types";
-import {
-  setSelectionsAndFocusEditor,
-  setSelectionsWithoutFocusingEditor,
-} from "../util/setSelectionsAndFocusEditor";
+import type { Target } from "../typings/target.types";
 import {
   ensureSingleEditor,
   ensureSingleTarget,
@@ -16,7 +13,7 @@ import {
   runOnTargetsForEachEditor,
   runOnTargetsForEachEditorSequentially,
 } from "../util/targetUtils";
-import { ActionReturnValue } from "./actions.types";
+import type { ActionReturnValue } from "./actions.types";
 
 interface CallbackOptions {
   callback: (editor: EditableTextEditor, targets: Target[]) => Promise<void>;
@@ -95,20 +92,25 @@ export class CallbackAction {
 
     // For this callback/command to the work we have to have the correct editor focused
     if (options.setSelection) {
-      await setSelectionsAndFocusEditor(
-        editableEditor,
-        targetSelections,
-        false,
-      );
+      await editableEditor.setSelections(targetSelections, {
+        focusEditor: true,
+        revealRange: false,
+      });
     }
 
-    const [updatedOriginalSelections, updatedTargetSelections] =
-      await callFunctionAndUpdateSelections(
-        this.rangeUpdater,
-        () => options.callback(editableEditor, targets),
-        editor.document,
-        [originalSelections, targetSelections],
-      );
+    const {
+      originalSelections: updatedOriginalSelections,
+      targetSelections: updatedTargetSelections,
+    } = await performEditsAndUpdateSelections({
+      rangeUpdater: this.rangeUpdater,
+      editor: editableEditor,
+      callback: () => options.callback(editableEditor, targets),
+      preserveCursorSelections: true,
+      selections: {
+        originalSelections,
+        targetSelections,
+      },
+    });
 
     // Reset original selections
     if (options.setSelection && options.restoreSelection) {
@@ -116,10 +118,7 @@ export class CallbackAction {
       // very end. This code can run on multiple editors in the course of
       // one command, so we want to avoid focusing the editor multiple
       // times.
-      setSelectionsWithoutFocusingEditor(
-        editableEditor,
-        updatedOriginalSelections,
-      );
+      await editableEditor.setSelections(updatedOriginalSelections);
     }
 
     // If the document hasn't changed then we just return the original targets

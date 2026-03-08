@@ -1,11 +1,11 @@
-import { PredicateOperand } from "web-tree-sitter";
-import { z } from "zod";
-import {
+import type { PredicateStep } from "web-tree-sitter";
+import type { z } from "zod";
+import type {
   AcceptFunctionArgs,
   HasSchema,
   InferSchemaType,
 } from "./PredicateOperatorSchemaTypes";
-import { MutableQueryMatch } from "./QueryCapture";
+import type { MutableQueryMatch } from "./QueryCapture";
 import { constructZodErrorMessages } from "./constructZodErrorMessages";
 
 /**
@@ -41,7 +41,7 @@ export abstract class QueryPredicateOperator<T extends HasSchema> {
    *
    * @param args The arguments to the operator, converted to the types specified
    * in the schema.  For example, if the schema is `z.tuple([q.node, q.string])`,
-   * then `args` will be `SyntaxNode, string`.
+   * then `args` will be `Node, string`.
    */
   protected abstract run(
     ...args: AcceptFunctionArgs<z.infer<InferSchemaType<T>>>
@@ -71,7 +71,7 @@ export abstract class QueryPredicateOperator<T extends HasSchema> {
    * @returns Either a predicate function, or a list of error messages if the operands
    * were invalid.
    */
-  createPredicate(inputOperands: PredicateOperand[]): PredicateResult {
+  createPredicate(inputOperands: PredicateStep[]): PredicateResult {
     const result = this.schema.safeParse(inputOperands);
 
     return result.success

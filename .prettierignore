@@ -1,8 +1,9 @@
 **/vendor
 **/generated
+**/.docusaurus
 
 # We use our own format for our recorded yaml tests to keep them compact
-/packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/**/*.yml
+/data/fixtures/recorded/**/*.yml
 
 pnpm-lock.yaml
 

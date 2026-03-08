@@ -1,0 +1,38 @@
+languageId: markdown
+command:
+  version: 7
+  spokenForm: change every section
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: section}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    # h1
+    Aaa
+
+    ## h2.1
+    Bbb
+
+    ## h2.2
+    Ccc
+  selections:
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
+  marks: {}
+finalState:
+  documentContents: |+
+    # h1
+    Aaa
+
+
+
+  selections:
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
+    - anchor: {line: 5, character: 0}
+      active: {line: 5, character: 0}

@@ -1,0 +1,20 @@
+if true
+    a
+elsif false
+    a
+else
+    a
+end
+---
+
+[Content] =
+[Domain] = 0:0-6:3
+  >-------
+0| if true
+1|     a
+2| elsif false
+3|     a
+4| else
+5|     a
+6| end
+   ---<

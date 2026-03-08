@@ -1,0 +1,19 @@
+class Foo {
+    constructor(): this()
+}
+---
+
+[Content] =
+[Removal] = 1:19-1:23
+                     >----<
+1|     constructor(): this()
+
+[Leading delimiter] = 1:18-1:19
+                    >-<
+1|     constructor(): this()
+
+[Domain] = 1:19-1:25
+                     >------<
+1|     constructor(): this()
+
+[Insertion delimiter] = " "
