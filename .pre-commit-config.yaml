@@ -7,6 +7,7 @@ repos:
     hooks:
       - id: check-hooks-apply
       - id: check-useless-excludes
+
   - repo: local
     hooks:
       - id: forbid-symlinks
@@ -14,10 +15,12 @@ repos:
         entry: Forbid symlinks
         language: fail
         types: [symlink]
+
   - repo: https://github.com/Lucas-C/pre-commit-hooks
     rev: v1.5.6
     hooks:
       - id: forbid-crlf
+
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:
@@ -41,6 +44,7 @@ repos:
         # document contents. For example
         # data/fixtures/recorded/languages/ruby/changeCondition.yml
         exclude: ^data/fixtures/recorded/.*/[^/]*\.yml$|\.scope$|/generated/|^patches/
+
   - repo: local
     hooks:
       - id: eslint
@@ -49,6 +53,7 @@ repos:
         language: system
         entry: pnpm exec eslint
         args: [--fix]
+
   - repo: local
     hooks:
       - id: prettier
@@ -57,6 +62,7 @@ repos:
         language: system
         entry: pnpm exec prettier
         args: [--write, --list-different, --ignore-unknown]
+
   - repo: local
     hooks:
       - id: format-recorded-tests
@@ -64,6 +70,7 @@ repos:
         files: ^data/fixtures/recorded/.*/[^/]*\.yml$
         language: system
         entry: pnpm exec ./packages/common/scripts/my-ts-node.js packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts
+
   - repo: local
     hooks:
       - id: check-recorded-test-marks
@@ -71,17 +78,26 @@ repos:
         files: ^data/fixtures/recorded/.*/[^/]*\.yml$
         language: system
         entry: pnpm exec ./packages/common/scripts/my-ts-node.js packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts --check-marks
+
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.1
+    rev: v0.15.5
     hooks:
-      - id: ruff
+      - id: ruff-check
         args: [--fix, --exit-non-zero-on-fix]
       - id: ruff-format
+
   - repo: https://github.com/lunarmodules/luacheck
     rev: v1.2.0
     hooks:
       - id: luacheck
+
   - repo: https://github.com/JohnnyMorganz/StyLua
     rev: v0.20.0
     hooks:
       - id: stylua
+
+  - repo: https://github.com/koalaman/shellcheck-precommit
+    rev: v0.11.0
+    hooks:
+      - id: shellcheck
+        name: ShellCheck
