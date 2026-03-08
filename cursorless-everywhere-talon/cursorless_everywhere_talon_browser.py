@@ -33,9 +33,8 @@ class Actions:
             return actions.next()
         return res
 
-    def cursorless_everywhere_set_selections(
-        selections: list[SelectionOffsets],  # pyright: ignore [reportGeneralTypeIssues]
-    ):
+    @staticmethod
+    def cursorless_everywhere_set_selections(selections: list[SelectionOffsets]):
         command = {
             "id": "setSelections",
             "selections": [
@@ -47,9 +46,8 @@ class Actions:
         if use_fallback(res):
             actions.next(selections)
 
-    def cursorless_everywhere_edit_text(
-        edit: EditorEdit,  # pyright: ignore [reportGeneralTypeIssues]
-    ):
+    @staticmethod
+    def cursorless_everywhere_edit_text(edit: EditorEdit):
         command = {
             "id": "editText",
             "text": edit["text"],
@@ -62,9 +60,8 @@ class Actions:
         if use_fallback(res):
             actions.next(edit)
 
-    def cursorless_everywhere_flash_ranges(
-        ranges: list[RangeOffsets],  # pyright: ignore [reportGeneralTypeIssues]
-    ):
+    @staticmethod
+    def cursorless_everywhere_flash_ranges(ranges: list[RangeOffsets]):
         command = {
             "id": "flashRanges",
             "ranges": [

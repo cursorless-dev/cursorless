@@ -16,8 +16,9 @@ mod = Module()
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def cursorless_create_destination(
-        target: ListTarget | RangeTarget | PrimitiveTarget,  # pyright: ignore [reportGeneralTypeIssues]
+        target: ListTarget | RangeTarget | PrimitiveTarget,
         insertion_mode: InsertionMode = "to",
     ) -> CursorlessDestination:
         """Cursorless: Create destination from target"""
@@ -26,8 +27,9 @@ class Actions:
 
 @mod.action_class
 class CommandActions:
+    @staticmethod
     def cursorless_x_custom_command(
-        content: str,  # pyright: ignore [reportGeneralTypeIssues]
+        content: str,
         arg1: Optional[Any] = None,
         arg2: Optional[Any] = None,
         arg3: Optional[Any] = None,
