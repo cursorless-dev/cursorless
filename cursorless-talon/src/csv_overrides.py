@@ -48,6 +48,12 @@ class SpokenFormEntry:
     spoken_forms: list[str]
 
 
+class ResultsListEntry(TypedDict):
+    spoken: str
+    id: str
+    list: str
+
+
 def csv_get_ctx():
     return ctx
 
@@ -196,10 +202,7 @@ def init_csv_and_watch_changes(
     return unsubscribe
 
 
-def check_for_duplicates(
-    filename: str,
-    default_values: dict[str, dict[str, str]],
-):
+def check_for_duplicates(filename: str, default_values: ListToSpokenForms):
     results_map = {}
     for list_name, values in default_values.items():
         for key, value in values.items():
@@ -217,7 +220,7 @@ def is_removed(value: str) -> bool:
 
 
 def create_default_vocabulary_dicts(
-    default_values: dict[str, dict[str, str]],
+    default_values: ListToSpokenForms,
     pluralize_lists: list[str],
 ):
     default_values_updated = {}
@@ -279,12 +282,6 @@ def update_dicts(
 
     if handle_new_values is not None:
         handle_new_values(spoken_form_entries)
-
-
-class ResultsListEntry(TypedDict):
-    spoken: str
-    id: str
-    list: str
 
 
 def generate_spoken_forms(results_list: Iterable[ResultsListEntry]):
