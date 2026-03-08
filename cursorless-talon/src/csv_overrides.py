@@ -132,7 +132,6 @@ def init_csv_and_watch_changes(
         return lambda: None
 
     super_default_values = get_super_values(default_values)
-    assert allow_unknown_values == (default_list_name is not None)
 
     file_path.parent.mkdir(parents=True, exist_ok=True)
 
