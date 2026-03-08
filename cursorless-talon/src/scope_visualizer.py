@@ -11,8 +11,9 @@ mod.list(
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def private_cursorless_show_scope_visualizer(
-        scope_type: dict,  # pyright: ignore [reportGeneralTypeIssues]
+        scope_type: dict,
         visualization_type: str,
     ):
         """Shows scope visualizer"""

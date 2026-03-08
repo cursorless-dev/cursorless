@@ -8,8 +8,9 @@ mod.list("cursorless_call_action", desc="Cursorless call action")
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def private_cursorless_call(
-        callee: CursorlessTarget,  # pyright: ignore [reportGeneralTypeIssues]
+        callee: CursorlessTarget,
         argument: CursorlessTarget = ImplicitTarget(),
     ):
         """Execute Cursorless call action"""

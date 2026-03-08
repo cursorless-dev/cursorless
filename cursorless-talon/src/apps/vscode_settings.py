@@ -29,7 +29,8 @@ class Actions:
         """Get path of vscode settings json file"""
         ...
 
-    def vscode_get_setting(key: str, default_value: Any = None):  # pyright: ignore [reportGeneralTypeIssues]
+    @staticmethod
+    def vscode_get_setting(key: str, default_value: Any = None):
         """Get the value of vscode setting at the given key"""
         path: Path = actions.user.vscode_settings_path()
         settings: dict = loads(path.read_text())
@@ -39,8 +40,9 @@ class Actions:
         else:
             return settings[key]
 
+    @staticmethod
     def vscode_get_setting_with_fallback(
-        key: str,  # pyright: ignore [reportGeneralTypeIssues]
+        key: str,
         default_value: Any,
         fallback_value: Any,
         fallback_message: str,

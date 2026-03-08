@@ -1,14 +1,5 @@
-[tool.black]
-target-version = ["py311"]
-force-exclude = '''
-(
-  ^/vendor/
-  | ^/data/playground/
-)
-'''
-
 [tool.ruff]
-target-version = "py311"
+target-version = "py313"
 extend-exclude = ["vendor", "data/playground/**/*.py"]
 
 [tool.ruff.lint]
@@ -18,4 +9,5 @@ ignore = ["E501", "SIM105", "UP007", "UP035", "UP045"]
 [tool.pyright]
 reportSelfClsParameterName = false
 reportMissingModuleSource = false
+reportMissingImports = false
 exclude = ["**/node_modules", "**/__pycache__", "**/.*", "**/vendor", "data/playground"]
