@@ -88,7 +88,8 @@ def cursorless_action_or_ide_command(m) -> dict[str, str]:
 
 @mod.action_class
 class Actions:
-    def cursorless_command(action_name: str, target: CursorlessExplicitTarget):  # pyright: ignore [reportGeneralTypeIssues]
+    @staticmethod
+    def cursorless_command(action_name: str, target: CursorlessExplicitTarget):
         """Perform cursorless command on target"""
         if action_name in callback_actions:
             callback_actions[action_name](target)
@@ -109,7 +110,8 @@ class Actions:
             action = {"name": action_name, "target": target}
             actions.user.private_cursorless_command_and_wait(action)
 
-    def cursorless_vscode_command(command_id: str, target: CursorlessTarget):  # pyright: ignore [reportGeneralTypeIssues]
+    @staticmethod
+    def cursorless_vscode_command(command_id: str, target: CursorlessTarget):
         """
         Perform vscode command on cursorless target
 
@@ -117,12 +119,14 @@ class Actions:
         """
         return actions.user.cursorless_ide_command(command_id, target)
 
-    def cursorless_ide_command(command_id: str, target: CursorlessTarget):  # pyright: ignore [reportGeneralTypeIssues]
+    @staticmethod
+    def cursorless_ide_command(command_id: str, target: CursorlessTarget):
         """Perform ide command on cursorless target"""
         return cursorless_execute_command_action(command_id, target)
 
+    @staticmethod
     def cursorless_insert(
-        destination: CursorlessDestination,  # pyright: ignore [reportGeneralTypeIssues]
+        destination: CursorlessDestination,
         text: Union[str, list[str]],
     ):
         """Perform text insertion on Cursorless destination"""
@@ -130,8 +134,9 @@ class Actions:
             text = [text]
         cursorless_replace_action(destination, text)
 
+    @staticmethod
     def private_cursorless_action_or_ide_command(
-        instruction: dict[str, str],  # pyright: ignore [reportGeneralTypeIssues]
+        instruction: dict[str, str],
         target: CursorlessTarget,
     ):
         """Perform cursorless action or ide command on target (internal use only)"""

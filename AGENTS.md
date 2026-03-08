@@ -36,6 +36,7 @@ When documenting actions or modifiers:
 - Many actions (`drop`, `float`, `puff`) work with both line and non-line targets
 - Always check test fixtures in `/data/fixtures/recorded/` to understand behavior
 - Implementation for many actions is in `/packages/cursorless-engine/src/actions/`
+- After running Python scripts or tests, delete any `__pycache__` directories and `.pyc` files created under the repository root.
 
 ## Scope test format
 

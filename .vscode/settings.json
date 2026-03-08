@@ -28,13 +28,9 @@
     ".busted": "lua"
   },
   "files.eol": "\n",
-  "github.copilot.chat.codeGeneration.instructions": [
-    {
-      "file": "./packages/cursorless-org-docs/src/docs/contributing/scope-test-format.md"
-    }
-  ],
-  "typescript.enablePromptUseWorkspaceTsdk": true,
-  "typescript.tsdk": "node_modules/typescript/lib",
+  "js/ts.tsdk.promptToUseWorkspaceVersion": true,
+  "js/ts.tsdk": "node_modules/typescript/lib",
+  "python.analysis.diagnosticMode": "workspace",
   // Turn off tsc task auto detection since we have the necessary tasks as npm scripts
-  "typescript.tsc.autoDetect": "off"
+  "js/ts.tsc.autoDetect": "off"
 }

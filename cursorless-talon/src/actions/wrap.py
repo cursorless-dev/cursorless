@@ -9,8 +9,9 @@ mod.list("cursorless_wrap_action", desc="Cursorless wrap action")
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def private_cursorless_wrap_with_paired_delimiter(
-        action_name: str,  # pyright: ignore [reportGeneralTypeIssues]
+        action_name: str,
         target: CursorlessTarget,
         paired_delimiter: list[str],
     ):
