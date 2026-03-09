@@ -7,6 +7,8 @@ export const HAT_COLORS = [
   "yellow",
   "userColor1",
   "userColor2",
+  "userColor3",
+  "userColor4",
 ] as const;
 
 export const HAT_NON_DEFAULT_SHAPES = [

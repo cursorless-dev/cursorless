@@ -427,6 +427,12 @@
             },
             "userColor2": {
               "type": "string"
+            },
+            "userColor3": {
+              "type": "string"
+            },
+            "userColor4": {
+              "type": "string"
             }
           },
           "default": {
@@ -437,7 +443,9 @@
             "pink": "#E06CAA",
             "yellow": "#E5C02C",
             "userColor1": "#6a00ff",
-            "userColor2": "#ffd8b1"
+            "userColor2": "#ffd8b1",
+            "userColor3": "#6b8e23",
+            "userColor4": "#e0e0e0"
           },
           "additionalProperties": false
         },
@@ -469,6 +477,12 @@
             },
             "userColor2": {
               "type": "string"
+            },
+            "userColor3": {
+              "type": "string"
+            },
+            "userColor4": {
+              "type": "string"
             }
           },
           "default": {
@@ -479,7 +493,9 @@
             "pink": "#e0679f",
             "yellow": "#edb62b",
             "userColor1": "#6a00ff",
-            "userColor2": "#ffd8b1"
+            "userColor2": "#ffd8b1",
+            "userColor3": "#6b8e23",
+            "userColor4": "#e0e0e0"
           },
           "additionalProperties": false
         },
@@ -700,6 +716,12 @@
             },
             "userColor2": {
               "type": "boolean"
+            },
+            "userColor3": {
+              "type": "boolean"
+            },
+            "userColor4": {
+              "type": "boolean"
             }
           },
           "default": {
@@ -709,7 +731,9 @@
             "pink": true,
             "yellow": true,
             "userColor1": false,
-            "userColor2": false
+            "userColor2": false,
+            "userColor3": false,
+            "userColor4": false
           },
           "additionalProperties": false
         },
@@ -792,6 +816,12 @@
             },
             "userColor2": {
               "type": "number"
+            },
+            "userColor3": {
+              "type": "number"
+            },
+            "userColor4": {
+              "type": "number"
             }
           },
           "default": {
@@ -801,7 +831,9 @@
             "pink": 1,
             "yellow": 1,
             "userColor1": 1,
-            "userColor2": 1
+            "userColor2": 1,
+            "userColor3": 1,
+            "userColor4": 1
           },
           "additionalProperties": false
         },
@@ -1106,7 +1138,9 @@
               "pink",
               "yellow",
               "userColor1",
-              "userColor2"
+              "userColor2",
+              "userColor3",
+              "userColor4"
             ]
           }
         },
