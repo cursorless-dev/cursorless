@@ -86,6 +86,12 @@ repos:
         args: [--fix, --exit-non-zero-on-fix]
       - id: ruff-format
 
+  - repo: https://github.com/cursorless-dev/talon-tools
+    rev: v0.1.9
+    hooks:
+      - id: talon-fmt
+      - id: tree-sitter-fmt
+
   - repo: https://github.com/lunarmodules/luacheck
     rev: v1.2.0
     hooks:

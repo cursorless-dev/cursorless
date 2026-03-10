@@ -23,7 +23,7 @@ test api insert <user.word> and <user.word> <user.cursorless_destination>:
 
 test api insert snippet:
     user.cursorless_insert_snippet("Hello, $foo!  My name is $bar!")
-test api insert snippet <user.cursorless_destination> :
+test api insert snippet <user.cursorless_destination>:
     user.cursorless_insert_snippet("Hello, $foo!  My name is $bar!", cursorless_destination, "statement")
 test api wrap with snippet <user.cursorless_target>:
     user.cursorless_wrap_with_snippet("Hello, $foo!  My name is $bar!", cursorless_target, "foo", "statement")
@@ -33,8 +33,10 @@ test api alternate highlight nothing:
     user.private_cursorless_test_alternate_highlight_nothing()
 
 test api parsed chuck block: user.cursorless_x_custom_command("chuck block")
-test api parsed take next token: user.cursorless_x_custom_command("take next token")
-test api parsed change next instance: user.cursorless_x_custom_command("change next instance")
+test api parsed take next token:
+    user.cursorless_x_custom_command("take next token")
+test api parsed change next instance:
+    user.cursorless_x_custom_command("change next instance")
 test api parsed <user.cursorless_target>:
     user.cursorless_x_custom_command("chuck block <target>", cursorless_target)
 test api parsed <user.cursorless_target> plus <user.cursorless_target>:
