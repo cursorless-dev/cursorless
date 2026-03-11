@@ -21,7 +21,7 @@ export async function run(plugin: NvimPlugin): Promise<void> {
   let code = 0;
   // NOTE: the parsing of the logs below is only done on CI in order to detect success/failure
   try {
-    await runAllTests(TestType.neovim, TestType.unit);
+    await runAllTests(TestType.neovim);
     console.log(`==== TESTS FINISHED: code: ${code}`);
   } catch (error) {
     console.log(`==== TESTS ERROR:`);

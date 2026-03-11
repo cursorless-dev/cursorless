@@ -8,5 +8,5 @@ import { TestType, runAllTests } from "../runAllTests";
  * @returns A promise that resolves when tests have finished running
  */
 export function run(): Promise<void> {
-  return runAllTests(TestType.vscode, TestType.unit);
+  return runAllTests(TestType.vscode);
 }
