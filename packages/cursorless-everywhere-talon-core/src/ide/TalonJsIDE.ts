@@ -59,15 +59,15 @@ export class TalonJsIDE implements IDE {
   }
 
   get assetsRoot(): string {
-    throw new Error("assetsRoot not implemented.");
+    throw new Error("assetsRoot: not implemented");
   }
 
   get cursorlessVersion(): string {
-    throw new Error("cursorlessVersion not implemented.");
+    throw new Error("cursorlessVersion: not implemented");
   }
 
   get workspaceFolders(): readonly WorkspaceFolder[] | undefined {
-    throw new Error("workspaceFolders not implemented.");
+    throw new Error("workspaceFolders: not implemented");
   }
 
   get activeTextEditor(): TextEditor | undefined {
@@ -110,34 +110,34 @@ export class TalonJsIDE implements IDE {
   }
 
   findInWorkspace(_query: string): Promise<void> {
-    throw new Error("findInWorkspace not implemented.");
+    throw new Error("findInWorkspace: not implemented");
   }
 
   openTextDocument(_path: string): Promise<TextEditor> {
-    throw new Error("openTextDocument not implemented.");
+    throw new Error("openTextDocument: not implemented");
   }
 
   openUntitledTextDocument(
     _options?: OpenUntitledTextDocumentOptions | undefined,
   ): Promise<TextEditor> {
-    throw new Error("openUntitledTextDocument not implemented.");
+    throw new Error("openUntitledTextDocument: not implemented");
   }
 
   showInputBox(
     _options?: InputBoxOptions | undefined,
   ): Promise<string | undefined> {
-    throw new Error("showInputBox not implemented.");
+    throw new Error("showInputBox: not implemented");
   }
 
   showQuickPick(
     _items: readonly string[],
     _options?: QuickPickOptions | undefined,
   ): Promise<string | undefined> {
-    throw new Error("showQuickPick not implemented.");
+    throw new Error("showQuickPick: not implemented");
   }
 
   executeCommand<T>(_command: string, ..._args: any[]): Promise<T | undefined> {
-    throw new Error("executeCommand not implemented.");
+    throw new Error("executeCommand: not implemented");
   }
 
   flashRanges(flashDescriptors: FlashDescriptor[]): Promise<void> {
@@ -149,7 +149,7 @@ export class TalonJsIDE implements IDE {
     _editor: TextEditor,
     _ranges: GeneralizedRange[],
   ): Promise<void> {
-    throw new Error("setHighlightRanges not implemented.");
+    throw new Error("setHighlightRanges: not implemented");
   }
 
   onDidChangeTextDocument(

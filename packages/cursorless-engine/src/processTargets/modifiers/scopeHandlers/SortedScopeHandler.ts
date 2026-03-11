@@ -59,7 +59,9 @@ export class SortedScopeHandler extends BaseScopeHandler {
           ),
         ),
         () => {
-          throw new Error("Not implemented");
+          throw new Error(
+            "SortedScopeHandler: Iteration scope is not implemented",
+          );
         },
       );
 

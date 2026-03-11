@@ -71,41 +71,41 @@ export class FakeIDE implements IDE {
   }
 
   get activeTextEditor(): TextEditor | undefined {
-    throw Error("Not implemented");
+    throw Error("activeTextEditor: not implemented");
   }
 
   get activeEditableTextEditor(): EditableTextEditor | undefined {
-    throw Error("Not implemented");
+    throw Error("activeEditableTextEditor: not implemented");
   }
 
   get visibleTextEditors(): TextEditor[] {
-    throw Error("Not implemented");
+    throw Error("visibleTextEditors: not implemented");
   }
 
   get visibleNotebookEditors(): NotebookEditor[] {
-    throw Error("Not implemented");
+    throw Error("visibleNotebookEditors: not implemented");
   }
 
   public getEditableTextEditor(_editor: TextEditor): EditableTextEditor {
-    throw Error("Not implemented");
+    throw Error("getEditableTextEditor: not implemented");
   }
 
   public findInDocument(_query: string, _editor: TextEditor): Promise<void> {
-    throw Error("Not implemented");
+    throw Error("findInDocument: not implemented");
   }
 
   public findInWorkspace(_query: string): Promise<void> {
-    throw Error("Not implemented");
+    throw Error("findInWorkspace: not implemented");
   }
 
   public openTextDocument(_path: string): Promise<TextEditor> {
-    throw Error("Not implemented");
+    throw Error("openTextDocument: not implemented");
   }
 
   public openUntitledTextDocument(
     _options: OpenUntitledTextDocumentOptions,
   ): Promise<TextEditor> {
-    throw Error("Not implemented");
+    throw Error("openUntitledTextDocument: not implemented");
   }
 
   public setQuickPickReturnValue(value: string | undefined) {
@@ -120,17 +120,17 @@ export class FakeIDE implements IDE {
   }
 
   public showInputBox(_options?: any): Promise<string | undefined> {
-    throw Error("Not implemented");
+    throw Error("showInputBox: not implemented");
   }
 
   executeCommand<T>(_command: string, ..._args: any[]): Promise<T | undefined> {
-    throw new Error("Method not implemented.");
+    throw new Error("executeCommand: not implemented");
   }
 
   public onDidChangeTextDocument(
     _listener: (event: TextDocumentChangeEvent) => void,
   ): Disposable {
-    throw Error("Not implemented");
+    throw Error("onDidChangeTextDocument: not implemented");
   }
 
   disposeOnExit(...disposables: Disposable[]): () => void {
