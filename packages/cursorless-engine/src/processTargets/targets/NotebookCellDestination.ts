@@ -42,10 +42,10 @@ export class NotebookCellDestination implements Destination {
   }
 
   getEditNewActionType(): EditNewActionType {
-    throw new Error("Method not implemented.");
+    throw new Error("getEditNewActionType: not implemented");
   }
 
   constructChangeEdit(_text: string): EditWithRangeUpdater {
-    throw new Error("Method not implemented.");
+    throw new Error("constructChangeEdit: not implemented");
   }
 }

@@ -20,7 +20,7 @@ export class TreeSitterIterationScopeHandler extends BaseTreeSitterScopeHandler 
   // Doesn't have any iteration scope type itself; that would correspond to
   // something like "every every"
   public get iterationScopeType(): ScopeType {
-    throw Error("Not implemented");
+    throw new Error("iterationScopeType: not implemented");
   }
 
   constructor(

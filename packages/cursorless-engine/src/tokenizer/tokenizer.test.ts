@@ -1,7 +1,7 @@
 import * as assert from "assert";
 import { flatten, range } from "lodash-es";
 import { tokenize } from ".";
-import { unitTestSetup } from "../test/unitTestSetup";
+import { unitTestSetup } from "../testUtil/unitTestSetup";
 
 type TestCase = [string, string[]];
 /**

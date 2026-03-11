@@ -32,7 +32,7 @@ const actions: TalonActions = {
   },
   edit: {
     find(_text?: string): void {
-      throw new Error("edit.find not implemented.");
+      throw new Error("edit.find: not implemented");
     },
   },
   user: {
@@ -62,7 +62,7 @@ const actions: TalonActions = {
 
 const settings: TalonSettings = {
   get(_name, _defaultValue) {
-    throw Error("settings.get not implemented.");
+    throw Error("settings.get: not implemented");
   },
 };
 

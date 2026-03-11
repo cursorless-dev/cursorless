@@ -29,28 +29,28 @@ export enum TestType {
   neovim,
 }
 
-export function runAllTests(...types: TestType[]): Promise<void> {
+export function runAllTests(type: TestType): Promise<void> {
   return runTestsInDir(
     path.join(getCursorlessRepoRoot(), "packages"),
     (files) =>
       files.filter((f) => {
         if (f.endsWith("neovim.test.cjs")) {
-          return types.includes(TestType.neovim);
+          return type === TestType.neovim;
         }
 
         if (f.endsWith("vscode.test.cjs")) {
-          return types.includes(TestType.vscode);
+          return type === TestType.vscode;
         }
 
         if (f.endsWith("talon.test.cjs")) {
-          return types.includes(TestType.talon);
+          return type === TestType.talon;
         }
 
         if (f.endsWith("talonjs.test.cjs")) {
-          return types.includes(TestType.talonJs);
+          return type === TestType.talonJs;
         }
 
-        return types.includes(TestType.unit);
+        return type === TestType.unit;
       }),
   );
 }

@@ -174,13 +174,13 @@ export default function entry(plugin: NvimPlugin) {
 
 export async function run(plugin: NvimPlugin): Promise<void> {
   ...
-    await runAllTests(TestType.neovim, TestType.unit);
+    await runAllTests(TestType.neovim);
     console.log(`==== TESTS FINISHED: code: ${code}`);
 ```
 
 This ends up calling `runAllTests()` which calls `runTestsInDir()` from `packages/test-harness/src/runAllTests.ts`.
 
-This ends up using the [Mocha API](https://mochajs.org/) to execute tests which names end with `neovim.test.cjs` (Cursorless tests for neovim) and `test.cjs` (Cursorless unit tests):
+This ends up using the [Mocha API](https://mochajs.org/) to execute tests whose names end with `neovim.test.cjs`:
 
 ```ts
 async function runTestsInDir(
@@ -222,8 +222,6 @@ This ends up calling the default function from `package/test-harness/src/scripts
 
 ```ts
 (async () => {
-  // Note that we run all extension tests, including unit tests, in neovim, even though
-  // unit tests could be run separately.
   await launchNeovimAndRunTests();
 })();
 ```

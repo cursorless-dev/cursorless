@@ -13,7 +13,7 @@ class TestScopeHandler extends BaseScopeHandler {
   public scopeType = undefined;
 
   public get iterationScopeType(): CustomScopeType {
-    throw new Error("Method not implemented.");
+    throw new Error("iterationScopeType: not implemented");
   }
 
   constructor(

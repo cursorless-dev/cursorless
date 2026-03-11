@@ -1,33 +1,39 @@
 import type {
-  ScopeSupportFacet,
-  ScopeType,
   PlaintextScopeSupportFacet,
   ScopeRangeConfig,
+  ScopeSupportFacet,
+  ScopeType,
 } from "@cursorless/common";
 import {
   asyncSafety,
   languageScopeSupport,
+  plaintextScopeSupportFacetInfos,
   scopeSupportFacetInfos,
   ScopeSupportFacetLevel,
   shouldUpdateFixtures,
-  plaintextScopeSupportFacetInfos,
 } from "@cursorless/common";
 import { getScopeTestPathsRecursively } from "@cursorless/node-common";
-import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
 import { assert } from "chai";
 import { groupBy, uniq } from "lodash-es";
 import { promises as fsp } from "node:fs";
-import { endToEndTestSetup } from "../endToEndTestSetup";
+import {
+  createTestEnvironment,
+  type TestEnvironment,
+} from "../testUtil/createTestEnvironment";
 import {
   serializeIterationScopeFixture,
   serializeScopeFixture,
-} from "./serializeScopeFixture";
-import { shouldSkipScopeTest } from "./shouldSkipTest";
+} from "../testUtil/serializeScopeFixture";
 
 suite("Scope test cases", async function () {
-  endToEndTestSetup(this);
-
   const testPaths = getScopeTestPathsRecursively();
+  let testEnvironment: TestEnvironment;
+
+  suiteSetup(
+    asyncSafety(async () => {
+      testEnvironment = await createTestEnvironment();
+    }),
+  );
 
   if (!shouldUpdateFixtures()) {
     const languages = groupBy(testPaths, (test) => test.languageId);
@@ -58,13 +64,7 @@ suite("Scope test cases", async function () {
   testPaths.forEach(({ path, name, languageId, facet }) =>
     test(
       name,
-      asyncSafety(() => {
-        if (shouldSkipScopeTest(languageId)) {
-          this.ctx.skip();
-        }
-
-        return runTest(path, languageId, facet);
-      }),
+      asyncSafety(() => runTest(testEnvironment, path, languageId, facet)),
     ),
   );
 });
@@ -115,8 +115,12 @@ async function testLanguageSupport(languageId: string, testedFacets: string[]) {
   }
 }
 
-async function runTest(file: string, languageId: string, facetId: string) {
-  const { ide, scopeProvider } = (await getCursorlessApi()).testHelpers!;
+async function runTest(
+  testEnvironment: TestEnvironment,
+  file: string,
+  languageId: string,
+  facetId: string,
+) {
   const { scopeType, isIteration } = getFacetInfo(languageId, facetId);
   const fixture = (await fsp.readFile(file, "utf8"))
     .toString()
@@ -130,9 +134,8 @@ async function runTest(file: string, languageId: string, facetId: string) {
 
   const code = fixture.slice(0, delimiterIndex! - 1);
 
-  await openNewEditor(code, { languageId });
+  const editor = await testEnvironment.openNewEditor(code, languageId);
 
-  const editor = ide.activeTextEditor!;
   const updateFixture = shouldUpdateFixtures();
 
   const [outputFixture, numScopes] = ((): [string, number] => {
@@ -142,13 +145,11 @@ async function runTest(file: string, languageId: string, facetId: string) {
     };
 
     if (isIteration) {
-      const iterationScopes = scopeProvider.provideIterationScopeRanges(
-        editor,
-        {
+      const iterationScopes =
+        testEnvironment.scopeProvider.provideIterationScopeRanges(editor, {
           ...config,
           includeNestedTargets: false,
-        },
-      );
+        });
 
       if (!updateFixture) {
         assert.isFalse(
@@ -165,7 +166,10 @@ async function runTest(file: string, languageId: string, facetId: string) {
       ];
     }
 
-    const scopes = scopeProvider.provideScopeRanges(editor, config);
+    const scopes = testEnvironment.scopeProvider.provideScopeRanges(
+      editor,
+      config,
+    );
 
     if (!updateFixture) {
       assert.isFalse(

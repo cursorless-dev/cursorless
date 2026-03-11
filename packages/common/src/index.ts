@@ -104,6 +104,7 @@ export * from "./util/DefaultMap";
 export * from "./util/disposableFrom";
 export * from "./util/ensureCommandShape";
 export * from "./util/getEnvironmentVariableStrict";
+export * from "./util/getErrorMessage";
 export * from "./util/itertools";
 export * from "./util/Notifier";
 export * from "./util/object";

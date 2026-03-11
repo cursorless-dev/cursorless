@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { unitTestSetup } from "../test/unitTestSetup";
+import { unitTestSetup } from "../testUtil/unitTestSetup";
 import type { NearleyLexer, NearleyToken } from "./CommandLexer";
 import { lexer } from "./lexer";
 

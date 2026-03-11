@@ -1,23 +1,18 @@
-import {
-  selectionsEqual,
-  type Edit,
-  type EditableTextEditor,
-  type GeneralizedRange,
-  type InMemoryTextDocument,
-  type OpenLinkOptions,
-  type Range,
-  type RevealLineAt,
-  type Selection,
-  type SetSelectionsOpts,
-  type TextEditor,
-  type TextEditorOptions,
+import type {
+  Edit,
+  EditableTextEditor,
+  GeneralizedRange,
+  InMemoryTextDocument,
+  OpenLinkOptions,
+  Range,
+  RevealLineAt,
+  Selection,
+  SetSelectionsOpts,
+  TextEditor,
+  TextEditorOptions,
 } from "@cursorless/common";
-import type { Talon } from "../types/talon.types";
-import { setSelections } from "./setSelections";
-import type { TalonJsIDE } from "./TalonJsIDE";
-import { talonJsPerformEdits } from "./talonJsPerformEdits";
 
-export class TalonJsEditor implements EditableTextEditor {
+export class TestEditor implements EditableTextEditor {
   options: TextEditorOptions = {
     tabSize: 4,
     insertSpaces: true,
@@ -26,8 +21,6 @@ export class TalonJsEditor implements EditableTextEditor {
   isActive = true;
 
   constructor(
-    private talon: Talon,
-    private ide: TalonJsIDE,
     public id: string,
     public document: InMemoryTextDocument,
     public visibleRanges: Range[],
@@ -39,18 +32,14 @@ export class TalonJsEditor implements EditableTextEditor {
   }
 
   async setSelections(
-    selections: Selection[],
+    _selections: Selection[],
     _opts?: SetSelectionsOpts,
   ): Promise<void> {
-    if (!selectionsEqual(this.selections, selections)) {
-      await setSelections(this.talon, this.document, selections);
-      this.selections = selections;
-    }
+    throw Error("setSelections: not implemented");
   }
 
-  edit(edits: Edit[]): Promise<boolean> {
-    talonJsPerformEdits(this.talon, this.ide, this.document, edits);
-    return Promise.resolve(true);
+  edit(_edits: Edit[]): Promise<boolean> {
+    throw Error("edit: not implemented");
   }
 
   async clipboardCopy(_ranges: Range[]): Promise<void> {

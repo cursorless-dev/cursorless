@@ -5,8 +5,7 @@ import type {
   RawTreeSitterQueryProvider,
   TreeSitter,
 } from "@cursorless/common";
-import { Notifier, showError } from "@cursorless/common";
-import { toString } from "lodash-es";
+import { getErrorMessage, Notifier, showError } from "@cursorless/common";
 import { LanguageDefinition } from "./LanguageDefinition";
 import { treeSitterQueryCache } from "./TreeSitterQuery/TreeSitterQueryCache";
 
@@ -16,7 +15,7 @@ import { treeSitterQueryCache } from "./TreeSitterQuery/TreeSitterQueryCache";
  */
 const LANGUAGE_UNDEFINED = Symbol("LANGUAGE_UNDEFINED");
 
-export interface LanguageDefinitions {
+export interface LanguageDefinitions extends Disposable {
   onDidChangeDefinition: (listener: Listener) => Disposable;
 
   loadLanguage(languageId: string): Promise<void>;
@@ -36,9 +35,7 @@ export interface LanguageDefinitions {
  * Keeps a map from language ids to  {@link LanguageDefinition} instances,
  * constructing them as necessary
  */
-export class LanguageDefinitionsImpl
-  implements LanguageDefinitions, Disposable
-{
+export class LanguageDefinitionsImpl implements LanguageDefinitions {
   private notifier: Notifier = new Notifier();
 
   /**
@@ -70,7 +67,13 @@ export class LanguageDefinitionsImpl
         if (isTesting) {
           treeSitterQueryCache.clear();
         }
-        void this.loadLanguage(document.languageId);
+        this.loadLanguage(document.languageId).catch((err) => {
+          void showError(
+            this.ide.messages,
+            `Failed to load language definition: ${document.languageId}`,
+            getErrorMessage(err),
+          );
+        });
       }),
 
       ide.onDidChangeVisibleTextEditors((editors) => {
@@ -83,7 +86,7 @@ export class LanguageDefinitionsImpl
     );
   }
 
-  public static async create(
+  static async create(
     ide: IDE,
     treeSitter: TreeSitter,
     treeSitterQueryProvider: RawTreeSitterQueryProvider,
@@ -112,7 +115,7 @@ export class LanguageDefinitionsImpl
       void showError(
         this.ide.messages,
         "Failed to load language definitions",
-        toString(err),
+        getErrorMessage(err),
       );
       if (this.ide.runMode === "test") {
         throw err;
@@ -120,7 +123,7 @@ export class LanguageDefinitionsImpl
     }
   }
 
-  public async loadLanguage(languageId: string): Promise<void> {
+  async loadLanguage(languageId: string): Promise<void> {
     if (this.languageDefinitions.has(languageId)) {
       return;
     }
