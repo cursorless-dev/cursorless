@@ -251,14 +251,24 @@ export interface EditableTextEditor extends TextEditor {
   gitRevert(range?: Range): Promise<void>;
 
   /**
+   * Git stage file
+   */
+  gitStageFile(): Promise<void>;
+
+  /**
+   * Git unstage file
+   */
+  gitUnstageFile(): Promise<void>;
+
+  /**
    * Git stage range
    * @param range A {@link Range range}
    */
-  gitStage(range?: Range): Promise<void>;
+  gitStageRange(range?: Range): Promise<void>;
 
   /**
    * Git unstage range
    * @param range A {@link Range range}
    */
-  gitUnstage(range?: Range): Promise<void>;
+  gitUnstageRange(range?: Range): Promise<void>;
 }

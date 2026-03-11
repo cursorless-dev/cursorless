@@ -163,11 +163,19 @@ export class TalonJsEditor implements EditableTextEditor {
     throw Error("gitRevert not implemented");
   }
 
-  public async gitStage(_range?: Range): Promise<void> {
-    throw Error("gitStage not implemented");
+  public async gitStageFile(): Promise<void> {
+    throw Error("gitStageFile not implemented");
   }
 
-  public async gitUnstage(_range?: Range): Promise<void> {
-    throw Error("gitUnstage not implemented");
+  public async gitUnstageFile(): Promise<void> {
+    throw Error("gitUnstageFile not implemented");
+  }
+
+  public async gitStageRange(_range?: Range): Promise<void> {
+    throw Error("gitStageRange not implemented");
+  }
+
+  public async gitUnstageRange(_range?: Range): Promise<void> {
+    throw Error("gitUnstageRange not implemented");
   }
 }
