@@ -28,7 +28,7 @@ export class TestFileSystem implements FileSystem {
   public async readBundledFile(path: string): Promise<string | undefined> {
     const absolutePath = join(getCursorlessRepoRoot(), path);
     try {
-      return fs.readFile(absolutePath, "utf-8");
+      return await fs.readFile(absolutePath, "utf-8");
     } catch (e) {
       if (e instanceof Error && "code" in e && e.code === "ENOENT") {
         return undefined;

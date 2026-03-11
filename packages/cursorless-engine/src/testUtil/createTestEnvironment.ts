@@ -6,6 +6,7 @@ import {
   type MessageId,
   type Messages,
   type MessageType,
+  type ScopeProvider,
 } from "@cursorless/common";
 import { FileSystemRawTreeSitterQueryProvider } from "@cursorless/node-common";
 import { URI } from "vscode-uri";
@@ -14,7 +15,15 @@ import { TestEditor } from "./TestEditor";
 import { TestFileSystem } from "./TestFileSystem";
 import { TestTreeSitter } from "./TestTreeSitter";
 
-export async function createTestEnvironment() {
+export interface TestEnvironment {
+  openNewEditor: (
+    content: string,
+    languageId: string,
+  ) => Promise<EditableTextEditor>;
+  scopeProvider: ScopeProvider;
+}
+
+export async function createTestEnvironment(): Promise<TestEnvironment> {
   const ide = new FakeIDE(new TestMessages());
   const fileSystem = new TestFileSystem(ide.runMode, "testCursorlessDir");
 

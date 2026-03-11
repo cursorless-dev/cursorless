@@ -122,7 +122,7 @@ async function readQueryFileAndImports(
   ide: IDE,
   provider: RawTreeSitterQueryProvider,
   languageQueryName: string,
-) {
+): Promise<string | undefined> {
   // Seed the map with the query file itself
   const rawQueryStrings: Record<string, string | null> = {
     [languageQueryName]: null,

@@ -16,7 +16,10 @@ import { getScopeTestPathsRecursively } from "@cursorless/node-common";
 import { assert } from "chai";
 import { groupBy, uniq } from "lodash-es";
 import { promises as fsp } from "node:fs";
-import { createTestEnvironment } from "../testUtil/createTestEnvironment";
+import {
+  createTestEnvironment,
+  type TestEnvironment,
+} from "../testUtil/createTestEnvironment";
 import {
   serializeIterationScopeFixture,
   serializeScopeFixture,
@@ -24,6 +27,13 @@ import {
 
 suite("Scope test cases", async function () {
   const testPaths = getScopeTestPathsRecursively();
+  let testEnvironment: TestEnvironment;
+
+  suiteSetup(
+    asyncSafety(async () => {
+      testEnvironment = await createTestEnvironment();
+    }),
+  );
 
   if (!shouldUpdateFixtures()) {
     const languages = groupBy(testPaths, (test) => test.languageId);
@@ -54,7 +64,7 @@ suite("Scope test cases", async function () {
   testPaths.forEach(({ path, name, languageId, facet }) =>
     test(
       name,
-      asyncSafety(() => runTest(path, languageId, facet)),
+      asyncSafety(() => runTest(testEnvironment, path, languageId, facet)),
     ),
   );
 });
@@ -105,7 +115,12 @@ async function testLanguageSupport(languageId: string, testedFacets: string[]) {
   }
 }
 
-async function runTest(file: string, languageId: string, facetId: string) {
+async function runTest(
+  testEnvironment: TestEnvironment,
+  file: string,
+  languageId: string,
+  facetId: string,
+) {
   const { scopeType, isIteration } = getFacetInfo(languageId, facetId);
   const fixture = (await fsp.readFile(file, "utf8"))
     .toString()
@@ -119,9 +134,7 @@ async function runTest(file: string, languageId: string, facetId: string) {
 
   const code = fixture.slice(0, delimiterIndex! - 1);
 
-  const { openNewEditor, scopeProvider } = await createTestEnvironment();
-
-  const editor = await openNewEditor(code, languageId);
+  const editor = await testEnvironment.openNewEditor(code, languageId);
 
   const updateFixture = shouldUpdateFixtures();
 
@@ -132,13 +145,11 @@ async function runTest(file: string, languageId: string, facetId: string) {
     };
 
     if (isIteration) {
-      const iterationScopes = scopeProvider.provideIterationScopeRanges(
-        editor,
-        {
+      const iterationScopes =
+        testEnvironment.scopeProvider.provideIterationScopeRanges(editor, {
           ...config,
           includeNestedTargets: false,
-        },
-      );
+        });
 
       if (!updateFixture) {
         assert.isFalse(
@@ -155,7 +166,10 @@ async function runTest(file: string, languageId: string, facetId: string) {
       ];
     }
 
-    const scopes = scopeProvider.provideScopeRanges(editor, config);
+    const scopes = testEnvironment.scopeProvider.provideScopeRanges(
+      editor,
+      config,
+    );
 
     if (!updateFixture) {
       assert.isFalse(

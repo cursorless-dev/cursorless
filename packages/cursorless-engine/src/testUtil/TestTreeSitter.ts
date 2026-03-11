@@ -61,9 +61,13 @@ export class TestTreeSitter implements TreeSitter {
   }
 
   async loadLanguage(languageId: string): Promise<boolean> {
+    if (idToParser[languageId] == null) {
+      return false;
+    }
+
     if (!languageCache.has(languageId)) {
       await initTreeSitter();
-      const parserName = idToParser[languageId] ?? languageId;
+      const parserName = idToParser[languageId];
       const wasmFilePath = getWasmFilePath(parserName);
       const language = await Language.load(wasmFilePath);
       const parser = new Parser();
