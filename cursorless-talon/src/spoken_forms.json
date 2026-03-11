@@ -90,7 +90,10 @@
       "content": "keepContentFilter",
       "empty": "keepEmptyFilter",
       "its": "inferPreviousMark",
-      "visible": "visible"
+      "visible": "visible",
+      "reference": "reference",
+      "file name": "filename",
+      "base": "filenameWithoutExtension"
     },
     "every_scope_modifier": { "every": "every" },
     "ancestor_scope_modifier": { "grand": "ancestor" },

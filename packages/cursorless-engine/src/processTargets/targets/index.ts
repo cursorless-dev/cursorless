@@ -16,3 +16,4 @@ export * from "./ImplicitTarget";
 export * from "./InteriorTarget";
 export * from "./HeadTailTarget";
 export * from "./BoundedParagraphTarget";
+export * from "./TextOnlyTarget";

@@ -1,0 +1,53 @@
+languageId: plaintext
+command:
+  version: 7
+  spokenForm: copy reference air and bat
+  action:
+    name: copyToClipboard
+    target:
+      type: list
+      elements:
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: a}
+          modifiers:
+            - {type: reference}
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: b}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    aaa
+    bbb
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 3}
+    default.b:
+      start: {line: 1, character: 0}
+      end: {line: 1, character: 3}
+finalState:
+  documentContents: |
+    aaa
+    bbb
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+  clipboard: |-
+    Untitled-1#L1
+    Untitled-1#L2
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 3}
+      isReversed: false
+      hasExplicitRange: false
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 1, character: 0}
+        end: {line: 1, character: 3}
+      isReversed: false
+      hasExplicitRange: false

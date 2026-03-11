@@ -1,0 +1,41 @@
+languageId: plaintext
+command:
+  version: 7
+  spokenForm: bring reference file
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
+      modifiers:
+        - type: reference
+          snippets:
+            - {body: '[`$name`]($relative)'}
+        - type: containingScope
+          scopeType: {type: document}
+    destination: {type: implicit}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: "[`Untitled-1`](Untitled-1)"
+  selections:
+    - anchor: {line: 0, character: 26}
+      active: {line: 0, character: 26}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 26}
+      isReversed: false
+      hasExplicitRange: true
+  sourceMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 26}
+        end: {line: 0, character: 26}
+      isReversed: false
+      hasExplicitRange: true

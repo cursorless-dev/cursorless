@@ -1,0 +1,51 @@
+languageId: plaintext
+command:
+  version: 7
+  spokenForm: bring reference token air
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      modifiers:
+        - type: reference
+          snippets:
+            - {body: ' $relative (`$content`) ', lineMode: singleLine}
+            - {body: "\n\n$relative:\n\n```$languageId\n$content\n```\n\n", lineMode: multiLine}
+        - type: containingScope
+          scopeType: {type: token}
+    destination: {type: implicit}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |+
+    aaa
+
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 3}
+finalState:
+  documentContents: |-
+    aaa
+
+     Untitled-1#L1C1-L1C4 (`aaa`) 
+  selections:
+    - anchor: {line: 2, character: 30}
+      active: {line: 2, character: 30}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 2, character: 0}
+        end: {line: 2, character: 30}
+      isReversed: false
+      hasExplicitRange: true
+  sourceMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 3}
+      isReversed: false
+      hasExplicitRange: true

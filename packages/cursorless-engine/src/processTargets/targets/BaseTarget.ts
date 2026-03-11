@@ -51,6 +51,7 @@ export abstract class BaseTarget<
   isRaw = false;
   isImplicit = false;
   isNotebookCell = false;
+  isTextOnly = false;
   textualType: TextualType = "token";
 
   constructor(parameters: TParameters & CommonTargetParameters) {

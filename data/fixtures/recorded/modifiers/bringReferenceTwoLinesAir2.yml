@@ -1,0 +1,49 @@
+languageId: plaintext
+command:
+  version: 7
+  spokenForm: bring reference two lines air
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      modifiers:
+        - {type: reference}
+        - type: relativeScope
+          scopeType: {type: line}
+          offset: 0
+          length: 2
+          direction: forward
+    destination: {type: implicit}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    aaa
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 3}
+finalState:
+  documentContents: |-
+    aaa
+    Untitled-1#L1-L2
+  selections:
+    - anchor: {line: 1, character: 16}
+      active: {line: 1, character: 16}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 1, character: 0}
+        end: {line: 1, character: 16}
+      isReversed: false
+      hasExplicitRange: true
+  sourceMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 1, character: 0}
+      isReversed: false
+      hasExplicitRange: true
