@@ -3,10 +3,4 @@
  */
 import { TestType, runAllTests } from "../runAllTests";
 
-runAllTests(TestType.unit).catch((error) => {
-  console.error(error);
-  if (error.stack) {
-    console.error(error.stack);
-  }
-  process.exit(1);
-});
+void runAllTests(TestType.unit);
