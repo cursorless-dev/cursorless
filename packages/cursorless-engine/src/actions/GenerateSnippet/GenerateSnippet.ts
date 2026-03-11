@@ -13,7 +13,7 @@ import {
   type SnippetFile,
   type SnippetHeader,
   type SnippetVariable,
-} from "talon-snippets";
+} from "@cursorless/talon-tools";
 import type { Snippets } from "../../core/Snippets";
 import { ide } from "../../singletons/ide.singleton";
 import type { Target } from "../../typings/target.types";
