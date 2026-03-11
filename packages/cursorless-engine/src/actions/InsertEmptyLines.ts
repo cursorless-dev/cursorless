@@ -1,6 +1,7 @@
 import {
   FlashStyle,
   RangeExpansionBehavior,
+  type IDE,
   toCharacterRange,
   toLineRange,
   zipStrict,
@@ -11,7 +12,6 @@ import { performEditsAndUpdateSelections } from "../core/updateSelections/update
 import { containingLineIfUntypedModifier } from "../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";
 import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import type { ModifierStage } from "../processTargets/PipelineStages.types";
-import { ide } from "../singletons/ide.singleton";
 import type { Target } from "../typings/target.types";
 import type { EditWithRangeUpdater as EditWithRangeType } from "../typings/Types";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
@@ -28,6 +28,7 @@ abstract class InsertEmptyLines implements SimpleAction {
   }
 
   constructor(
+    private ide: IDE,
     private rangeUpdater: RangeUpdater,
     private modifierStageFactory: ModifierStageFactory,
   ) {
@@ -48,7 +49,7 @@ abstract class InsertEmptyLines implements SimpleAction {
           editRanges: updatedEditRanges,
         } = await performEditsAndUpdateSelections({
           rangeUpdater: this.rangeUpdater,
-          editor: ide().getEditableTextEditor(editor),
+          editor: this.ide.getEditableTextEditor(editor),
           edits,
           selections: {
             contentSelections,
@@ -76,7 +77,7 @@ abstract class InsertEmptyLines implements SimpleAction {
       },
     );
 
-    await ide().flashRanges(
+    await this.ide.flashRanges(
       results.flatMap((result) =>
         result.flashRanges.map(({ editor, range, isLine }) => ({
           editor,
@@ -96,10 +97,11 @@ abstract class InsertEmptyLines implements SimpleAction {
 
 export class InsertEmptyLinesAround extends InsertEmptyLines {
   constructor(
+    ide: IDE,
     rangeUpdater: RangeUpdater,
     modifierStageFactory: ModifierStageFactory,
   ) {
-    super(rangeUpdater, modifierStageFactory);
+    super(ide, rangeUpdater, modifierStageFactory);
   }
 
   protected getEdits(targets: Target[]) {
@@ -112,10 +114,11 @@ export class InsertEmptyLinesAround extends InsertEmptyLines {
 
 export class InsertEmptyLineAbove extends InsertEmptyLines {
   constructor(
+    ide: IDE,
     rangeUpdater: RangeUpdater,
     modifierStageFactory: ModifierStageFactory,
   ) {
-    super(rangeUpdater, modifierStageFactory);
+    super(ide, rangeUpdater, modifierStageFactory);
   }
 
   protected getEdits(targets: Target[]) {
@@ -125,10 +128,11 @@ export class InsertEmptyLineAbove extends InsertEmptyLines {
 
 export class InsertEmptyLineBelow extends InsertEmptyLines {
   constructor(
+    ide: IDE,
     rangeUpdater: RangeUpdater,
     modifierStageFactory: ModifierStageFactory,
   ) {
-    super(rangeUpdater, modifierStageFactory);
+    super(ide, rangeUpdater, modifierStageFactory);
   }
 
   protected getEdits(targets: Target[]) {

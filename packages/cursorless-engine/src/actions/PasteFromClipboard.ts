@@ -18,8 +18,8 @@ export class PasteFromClipboard {
     this.run = this.run.bind(this);
     this.runner =
       ide.capabilities.commands.clipboardPaste != null
-        ? new PasteFromClipboardUsingCommand(rangeUpdater, actions)
-        : new PasteFromClipboardDirectly(rangeUpdater);
+        ? new PasteFromClipboardUsingCommand(ide, rangeUpdater, actions)
+        : new PasteFromClipboardDirectly(ide, rangeUpdater);
   }
 
   run(destinations: Destination[]): Promise<ActionReturnValue> {

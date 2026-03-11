@@ -1,17 +1,19 @@
-import type { TextEditor } from "@cursorless/common";
+import type { IDE, TextEditor } from "@cursorless/common";
 import { FlashStyle } from "@cursorless/common";
 import { flatten, zip } from "lodash-es";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { RawSelectionTarget } from "../processTargets/targets";
-import { ide } from "../singletons/ide.singleton";
 import type { Target } from "../typings/target.types";
 import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
 import { unifyRemovalTargets } from "../util/unifyRanges";
 import type { ActionReturnValue, SimpleAction } from "./actions.types";
 
 export default class Delete implements SimpleAction {
-  constructor(private rangeUpdater: RangeUpdater) {
+  constructor(
+    private ide: IDE,
+    private rangeUpdater: RangeUpdater,
+  ) {
     this.run = this.run.bind(this);
     this.runForEditor = this.runForEditor.bind(this);
   }
@@ -24,8 +26,11 @@ export default class Delete implements SimpleAction {
     targets = unifyRemovalTargets(targets);
 
     if (showDecorations) {
-      await flashTargets(ide(), targets, FlashStyle.pendingDelete, (target) =>
-        target.getRemovalHighlightRange(),
+      await flashTargets(
+        this.ide,
+        targets,
+        FlashStyle.pendingDelete,
+        (target) => target.getRemovalHighlightRange(),
       );
     }
 
@@ -38,7 +43,7 @@ export default class Delete implements SimpleAction {
 
   private async runForEditor(editor: TextEditor, targets: Target[]) {
     const edits = targets.map((target) => target.constructRemovalEdit());
-    const editableEditor = ide().getEditableTextEditor(editor);
+    const editableEditor = this.ide.getEditableTextEditor(editor);
 
     const { editRanges: updatedEditRanges } =
       await performEditsAndUpdateSelections({

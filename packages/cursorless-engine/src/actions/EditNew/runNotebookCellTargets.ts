@@ -1,17 +1,18 @@
-import { ide } from "../../singletons/ide.singleton";
+import type { IDE } from "@cursorless/common";
 import type { Destination } from "../../typings/target.types";
 import { createThatMark, ensureSingleTarget } from "../../util/targetUtils";
 import type { Actions } from "../Actions";
 import type { ActionReturnValue } from "../actions.types";
 
 export async function runEditNewNotebookCellTargets(
+  ide: IDE,
   actions: Actions,
   destinations: Destination[],
 ): Promise<ActionReturnValue> {
   // Can only run on one target because otherwise we'd end up with cursors in
   // multiple cells, which is unsupported in VSCode
   const destination = ensureSingleTarget(destinations);
-  const editor = ide().getEditableTextEditor(destination.editor);
+  const editor = ide.getEditableTextEditor(destination.editor);
   const isAbove = destination.insertionMode === "before";
 
   if (destination.insertionMode === "to") {

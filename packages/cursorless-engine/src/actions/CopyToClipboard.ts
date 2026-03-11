@@ -1,6 +1,6 @@
 import { FlashStyle, type IDE } from "@cursorless/common";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { CopyToClipboardSimple } from "../InjectedSimpleIdeCommandActions";
+import { CopyToClipboardSimple } from "./SimpleIdeCommandActions";
 import type { Target } from "../typings/target.types";
 import { flashTargets } from "../util/targetUtils";
 import type { Actions } from "./Actions";

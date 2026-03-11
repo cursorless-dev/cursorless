@@ -1,15 +1,18 @@
 import {
   FlashStyle,
+  type IDE,
   groupBy,
   RevealLineAt,
   toLineRange,
 } from "@cursorless/common";
-import { ide } from "../singletons/ide.singleton";
 import type { Target } from "../typings/target.types";
 import type { SimpleAction, ActionReturnValue } from "./actions.types";
 
 class Scroll implements SimpleAction {
-  constructor(private at: RevealLineAt) {
+  constructor(
+    private ide: IDE,
+    private at: RevealLineAt,
+  ) {
     this.run = this.run.bind(this);
   }
 
@@ -20,10 +23,10 @@ class Scroll implements SimpleAction {
       return { lineNumber: getLineNumber(targets, this.at), editor };
     });
 
-    const originalEditor = ide().activeEditableTextEditor;
+    const originalEditor = this.ide.activeEditableTextEditor;
 
     for (const lineWithEditor of lines) {
-      await ide()
+      await this.ide
         .getEditableTextEditor(lineWithEditor.editor)
         .revealLine(lineWithEditor.lineNumber, this.at);
     }
@@ -46,7 +49,7 @@ class Scroll implements SimpleAction {
       );
     });
 
-    await ide().flashRanges(
+    await this.ide.flashRanges(
       decorationTargets.map((target) => ({
         editor: target.editor,
         range: toLineRange(target.contentRange),
@@ -61,20 +64,20 @@ class Scroll implements SimpleAction {
 }
 
 export class ScrollToTop extends Scroll {
-  constructor() {
-    super(RevealLineAt.top);
+  constructor(ide: IDE) {
+    super(ide, RevealLineAt.top);
   }
 }
 
 export class ScrollToCenter extends Scroll {
-  constructor() {
-    super(RevealLineAt.center);
+  constructor(ide: IDE) {
+    super(ide, RevealLineAt.center);
   }
 }
 
 export class ScrollToBottom extends Scroll {
-  constructor() {
-    super(RevealLineAt.bottom);
+  constructor(ide: IDE) {
+    super(ide, RevealLineAt.bottom);
   }
 }
 

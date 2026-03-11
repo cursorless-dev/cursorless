@@ -126,6 +126,6 @@ function createCommandRunner(
     debug,
     storedTargets,
     targetPipelineRunner,
-    new Actions(treeSitter, snippets, rangeUpdater, modifierStageFactory),
+    new Actions(ide, treeSitter, snippets, rangeUpdater, modifierStageFactory),
   );
 }
