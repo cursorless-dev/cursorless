@@ -93,7 +93,7 @@ export class FakeIDE implements IDE {
   }
 
   get visibleNotebookEditors(): NotebookEditor[] {
-    throw Error("visibleNotebookEditors: not implemented");
+    return [];
   }
 
   public getEditableTextEditor(_editor: TextEditor): EditableTextEditor {
