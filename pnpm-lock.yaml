@@ -285,6 +285,9 @@ importers:
       '@cursorless/sentence-parser':
         specifier: workspace:*
         version: link:../sentence-parser
+      '@cursorless/talon-tools':
+        specifier: ^0.7.0
+        version: 0.7.0
       immer:
         specifier: ^11.1.4
         version: 11.1.4
@@ -303,9 +306,6 @@ importers:
       nearley:
         specifier: ^2.20.1
         version: 2.20.1(patch_hash=0db19a2c501b16f37fbd86a94190d4a790184cea1061bf2e07f24eb076d4f2cf)
-      talon-snippets:
-        specifier: ^1.3.0
-        version: 1.3.0
       uuid:
         specifier: ^13.0.0
         version: 13.0.0
@@ -689,9 +689,6 @@ importers:
       semver:
         specifier: ^7.7.4
         version: 7.7.4
-      talon-snippets:
-        specifier: ^1.3.0
-        version: 1.3.0
       trie-search:
         specifier: ^2.2.1
         version: 2.2.1
@@ -2060,6 +2057,10 @@ packages:
     peerDependencies:
       postcss: ^8.4
 
+  '@cursorless/talon-tools@0.7.0':
+    resolution: {integrity: sha512-P7sJyKC61UfhX2P+5KIV9pME7qx6M7L4tgDGOO7RNSrfoTXsP+SSjFDh/0zxyXinO9J3J6acCf/z+acIEIbVWA==}
+    hasBin: true
+
   '@cursorless/tree-sitter-wasms@0.7.0':
     resolution: {integrity: sha512-yGmyFb75nmicYyXqKm0TMEydA8QF76kr/+dvBcu9eSN093CKijLYYgsg3xGU44K3lUI2Vjfec5OJ4tyaYssahA==}
 
@@ -3103,6 +3104,9 @@ packages:
   '@npmcli/fs@4.0.0':
     resolution: {integrity: sha512-/xGlezI6xfGO9NwuJlnwz/K14qD1kCSAGtacBHnGzeAIuJGazcp45KP5NuyARXoKb7cwulAGWVsbeSxdG/cb0Q==}
     engines: {node: ^18.17.0 || >=20.5.0}
+
+  '@one-ini/wasm@0.2.1':
+    resolution: {integrity: sha512-TUqERXGNTifZ9y2g3wPxQrw3HpHv/02DsW3D90T9x0hhonrL1ZqpSmNrU2XkoIq0fP1N6gZfVQzy2Fw1ZvGBNg==}
 
   '@opentelemetry/api@1.9.0':
     resolution: {integrity: sha512-3giAOQvZiH5F9bMlMiv8+GSPMeqg0dbaeo58/0SlA9sxSqZhnUtxzX9/2FzyhS9sWQf5S0GJE0AKBrFqjpeYcg==}
@@ -5388,6 +5392,10 @@ packages:
     resolution: {integrity: sha512-Vw8qHK3bZM9y/P10u3Vib8o/DdkvA2OtPtZvD871QKjy74Wj1WSKFILMPRPSdUSx5RFK1arlJzEtA4PkFgnbuA==}
     engines: {node: '>=18'}
 
+  commander@14.0.3:
+    resolution: {integrity: sha512-H+y0Jo/T1RZ9qPP4Eh1pkcQcLRglraJaSLoyOtHxu6AapkjWVCy2Sit1QQ4x3Dng8qDlSsZEet7g5Pq06MvTgw==}
+    engines: {node: '>=20'}
+
   commander@2.20.3:
     resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
 
@@ -5926,6 +5934,11 @@ packages:
 
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
+
+  editorconfig@3.0.2:
+    resolution: {integrity: sha512-T0ix8GhtxyKVfUFEcvdNDt3YGqlwkFHbD4/5bgFUDgFmxhI/cSRAeJ87/Sz//Cq8Eam6JX/e23RkoFO71P7aAA==}
+    engines: {node: '>=20'}
+    hasBin: true
 
   ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
@@ -6574,6 +6587,10 @@ packages:
 
   get-source@2.0.12:
     resolution: {integrity: sha512-X5+4+iD+HoSeEED+uwrQ07BOQr0kEDFMVqqpBuI+RaZBpBpHCuXxo70bjar6f0b0u/DQJsJ7ssurpP0V60Az+w==}
+
+  get-stdin@10.0.0:
+    resolution: {integrity: sha512-eWSePJ4zXFdqz+/Lyfopob4rIcoF/U2XfE8nJc7iZV6lnebWc9k7DoQQpX+2a9jc0AOvBsXvbe5YkjXl/MHbpg==}
+    engines: {node: '>=20'}
 
   get-stream@6.0.1:
     resolution: {integrity: sha512-ts6Wi+2j3jQjqi70w5AlN8DFnkSwC+MqmxEzdEALB2qXZYV3X/b1CTfgPLGJNMeAWxdPfU8FO1ms3NUfaHCPYg==}
@@ -10261,10 +10278,6 @@ packages:
   tailwindcss@4.2.1:
     resolution: {integrity: sha512-/tBrSQ36vCleJkAOsy9kbNTgaxvGbyOamC30PRePTQe/o1MFwEKHQk4Cn7BNGaPtjp+PuUrByJehM1hgxfq4sw==}
 
-  talon-snippets@1.3.0:
-    resolution: {integrity: sha512-iFc1ePBQyaqZ73TL0lVgY+G8/DBfFTSiBRVdT2wT1CdPDips6usxSkBmXKGTDgHYJKstQx/NpXhIc0vXiAL4Kw==}
-    deprecated: 'Deprecated: use @cursorless/talon-tools instead.'
-
   tapable@2.3.0:
     resolution: {integrity: sha512-g9ljZiwki/LfxmQADO3dEY1CbpmXT5Hm2fJ+QaGKwSXUylMybePR7/67YW7jOrrvjEgL1Fmz5kzyAjWVWLlucg==}
     engines: {node: '>=6'}
@@ -12345,6 +12358,14 @@ snapshots:
     dependencies:
       postcss: 8.5.8
 
+  '@cursorless/talon-tools@0.7.0':
+    dependencies:
+      '@cursorless/tree-sitter-wasms': 0.7.0
+      editorconfig: 3.0.2
+      fast-glob: 3.3.3
+      get-stdin: 10.0.0
+      web-tree-sitter: 0.26.6
+
   '@cursorless/tree-sitter-wasms@0.7.0': {}
 
   '@dabh/diagnostics@2.0.8':
@@ -13956,6 +13977,8 @@ snapshots:
   '@npmcli/fs@4.0.0':
     dependencies:
       semver: 7.7.4
+
+  '@one-ini/wasm@0.2.1': {}
 
   '@opentelemetry/api@1.9.0':
     optional: true
@@ -16920,6 +16943,8 @@ snapshots:
 
   commander@12.1.0: {}
 
+  commander@14.0.3: {}
+
   commander@2.20.3: {}
 
   commander@5.1.0: {}
@@ -17469,6 +17494,13 @@ snapshots:
   duplexer@0.1.2: {}
 
   eastasianwidth@0.2.0: {}
+
+  editorconfig@3.0.2:
+    dependencies:
+      '@one-ini/wasm': 0.2.1
+      commander: 14.0.3
+      minimatch: 10.2.4
+      semver: 7.7.4
 
   ee-first@1.1.1: {}
 
@@ -18349,6 +18381,8 @@ snapshots:
     dependencies:
       data-uri-to-buffer: 2.0.2
       source-map: 0.6.1
+
+  get-stdin@10.0.0: {}
 
   get-stream@6.0.1: {}
 
@@ -22849,8 +22883,6 @@ snapshots:
   tail@2.2.6: {}
 
   tailwindcss@4.2.1: {}
-
-  talon-snippets@1.3.0: {}
 
   tapable@2.3.0: {}
 
