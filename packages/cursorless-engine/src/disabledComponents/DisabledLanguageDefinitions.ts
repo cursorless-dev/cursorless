@@ -7,6 +7,10 @@ export class DisabledLanguageDefinitions implements LanguageDefinitions {
     return { dispose: () => {} };
   }
 
+  loadLanguage(_languageId: string): Promise<void> {
+    return Promise.resolve();
+  }
+
   get(_languageId: string): LanguageDefinition | undefined {
     return undefined;
   }

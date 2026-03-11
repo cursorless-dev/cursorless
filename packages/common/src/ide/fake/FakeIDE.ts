@@ -5,7 +5,6 @@ import type {
   NotebookEditor,
   TextEditor,
 } from "../..";
-import { Notifier } from "../..";
 import type { GeneralizedRange } from "../../types/GeneralizedRange";
 import type { TextDocument } from "../../types/TextDocument";
 import type { TextDocumentChangeEvent } from "../types/Events";
@@ -42,8 +41,6 @@ export class FakeIDE implements IDE {
   private disposables: Disposable[] = [];
   private assetsRoot_: string | undefined;
   private quickPickReturnValue: string | undefined = undefined;
-  private visibleTextEditors_: TextEditor[] = [];
-  private onOpenTextDocumentNotifier = new Notifier<[TextDocument]>();
 
   constructor(messages: Messages = new FakeMessages()) {
     this.messages = messages;
@@ -61,7 +58,7 @@ export class FakeIDE implements IDE {
     // empty
   }
 
-  onDidOpenTextDocument = this.onOpenTextDocumentNotifier.registerListener;
+  onDidOpenTextDocument: Event<TextDocument> = dummyEvent;
   onDidCloseTextDocument: Event<TextDocument> = dummyEvent;
   onDidChangeActiveTextEditor: Event<TextEditor | undefined> = dummyEvent;
   onDidChangeVisibleTextEditors: Event<TextEditor[]> = dummyEvent;
@@ -70,10 +67,6 @@ export class FakeIDE implements IDE {
   onDidChangeTextEditorVisibleRanges: Event<TextEditorVisibleRangesChangeEvent> =
     dummyEvent;
   onDidChangeTextDocument: Event<TextDocumentChangeEvent> = dummyEvent;
-
-  triggerOpenTextDocument(document: TextDocument) {
-    this.onOpenTextDocumentNotifier.notifyListeners(document);
-  }
 
   mockAssetsRoot(_assetsRoot: string) {
     this.assetsRoot_ = _assetsRoot;
@@ -96,7 +89,7 @@ export class FakeIDE implements IDE {
   }
 
   get visibleTextEditors(): TextEditor[] {
-    return this.visibleTextEditors_;
+    return [];
   }
 
   get visibleNotebookEditors(): NotebookEditor[] {

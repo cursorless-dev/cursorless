@@ -121,7 +121,7 @@ async function runTest(file: string, languageId: string, facetId: string) {
 
   const { openNewEditor, scopeProvider } = await createTestEnvironment();
 
-  const editor = openNewEditor(code, languageId);
+  const editor = await openNewEditor(code, languageId);
 
   const updateFixture = shouldUpdateFixtures();
 

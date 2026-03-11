@@ -1,23 +1,39 @@
 import type { Range, TextDocument, TreeSitter } from "@cursorless/common";
+import { createRequire } from "node:module";
 import * as path from "node:path";
-import type { Node, Query, Tree } from "web-tree-sitter";
-import { Language, Parser } from "web-tree-sitter";
+import type {
+  Node,
+  Tree,
+  Parser as TreeSitterParser,
+  Language as TreeSitterLanguage,
+  Query as TreeSitterQuery,
+} from "web-tree-sitter";
 
-const languageCache = new Map<string, Promise<Language>>();
+// Force the CommonJS entrypoint because the ESM one crashes in this test
+// runtime before we get a chance to initialize tree-sitter.
+const moduleRequire = createRequire(__filename);
+
+const {
+  Language,
+  Parser,
+  Query,
+}: {
+  // eslint-disable-next-line @typescript-eslint/consistent-type-imports
+  Parser: typeof import("web-tree-sitter").Parser;
+  Language: typeof TreeSitterLanguage;
+  Query: typeof TreeSitterQuery;
+} = moduleRequire("web-tree-sitter");
+
+interface Language {
+  language: TreeSitterLanguage;
+  parser: TreeSitterParser;
+}
+
+const languageCache = new Map<string, Language>();
 let initPromise: Promise<void> | undefined;
-// const webTreeSitterWasmPath =
-//   require.resolve("web-tree-sitter/web-tree-sitter.wasm");
 
 function initTreeSitter() {
-  initPromise ??= Parser.init({
-    locateFile(scriptName: string) {
-      console.log(`locateFile called with ${scriptName}`); // Debug log
-      return scriptName;
-      //   return scriptName === "web-tree-sitter.wasm"
-      //     ? webTreeSitterWasmPath
-      //     : scriptName;
-    },
-  });
+  initPromise ??= Parser.init();
   return initPromise;
 }
 
@@ -26,29 +42,44 @@ export class TestTreeSitter implements TreeSitter {
     throw new Error("getNodeAtLocation: not implemented.");
   }
 
-  getTree(_document: TextDocument): Tree {
-    throw new Error("getTree: not implemented.");
+  getTree(document: TextDocument): Tree {
+    const language = languageCache.get(document.languageId);
+
+    if (language == null) {
+      throw new Error(`Language not loaded: ${document.languageId}`);
+    }
+
+    const tree = language.parser.parse(document.getText());
+
+    if (tree == null) {
+      throw new Error(
+        `Failed to parse document with language ${document.languageId}`,
+      );
+    }
+
+    return tree;
   }
 
   async loadLanguage(languageId: string): Promise<boolean> {
-    console.log(`loadLanguage called with languageId: ${languageId}`); // Debug log
     if (!languageCache.has(languageId)) {
-      console.log("before");
       await initTreeSitter();
-      console.log("after");
       const parserName = idToParser[languageId] ?? languageId;
       const wasmFilePath = getWasmFilePath(parserName);
-      const promise = Language.load(wasmFilePath);
-      languageCache.set(languageId, promise);
+      const language = await Language.load(wasmFilePath);
+      const parser = new Parser();
+      parser.setLanguage(language);
+      languageCache.set(languageId, { language, parser });
     }
-
-    await languageCache.get(languageId);
 
     return true;
   }
 
-  createQuery(_languageId: string, _source: string): Query | undefined {
-    throw new Error("createQuery: not implemented.");
+  createQuery(languageId: string, source: string): TreeSitterQuery | undefined {
+    const language = languageCache.get(languageId);
+    if (language == null) {
+      return undefined;
+    }
+    return new Query(language.language, source);
   }
 }
 

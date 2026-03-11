@@ -18,6 +18,8 @@ const LANGUAGE_UNDEFINED = Symbol("LANGUAGE_UNDEFINED");
 export interface LanguageDefinitions extends Disposable {
   onDidChangeDefinition: (listener: Listener) => Disposable;
 
+  loadLanguage(languageId: string): Promise<void>;
+
   /**
    * Get a language definition for the given language id, if the language
    * has a new-style query definition, or return undefined if the language doesn't
@@ -84,7 +86,7 @@ export class LanguageDefinitionsImpl implements LanguageDefinitions {
     );
   }
 
-  public static async create(
+  static async create(
     ide: IDE,
     treeSitter: TreeSitter,
     treeSitterQueryProvider: RawTreeSitterQueryProvider,
@@ -121,7 +123,7 @@ export class LanguageDefinitionsImpl implements LanguageDefinitions {
     }
   }
 
-  private async loadLanguage(languageId: string): Promise<void> {
+  async loadLanguage(languageId: string): Promise<void> {
     if (this.languageDefinitions.has(languageId)) {
       return;
     }

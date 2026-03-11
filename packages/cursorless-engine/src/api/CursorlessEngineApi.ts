@@ -13,9 +13,11 @@ import type {
 } from "@cursorless/common";
 import type { CommandRunner } from "../CommandRunner";
 import type { StoredTargetMap } from "../core/StoredTargets";
+import type { LanguageDefinitions } from "../languages/LanguageDefinitions";
 
 export interface CursorlessEngine {
   commandApi: CommandApi;
+  languageDefinitions: LanguageDefinitions;
   scopeProvider: ScopeProvider;
   customSpokenFormGenerator: CustomSpokenFormGenerator;
   storedTargets: StoredTargetMap;

@@ -114,6 +114,7 @@ export async function createCursorlessEngine({
   };
 
   return {
+    languageDefinitions,
     commandApi: {
       runCommand(command: Command) {
         return runCommandClosure(command);

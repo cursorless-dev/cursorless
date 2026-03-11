@@ -25,15 +25,15 @@ export async function createTestEnvironment() {
 
   const treeSitter = new TestTreeSitter();
 
-  const { scopeProvider } = await createCursorlessEngine({
+  const { languageDefinitions, scopeProvider } = await createCursorlessEngine({
     ide,
     treeSitterQueryProvider,
     treeSitter,
   });
 
-  const openNewEditor = (content: string, languageId: string) => {
+  const openNewEditor = async (content: string, languageId: string) => {
     const editor = createNewEditor(content, languageId);
-    ide.triggerOpenTextDocument(editor.document);
+    await languageDefinitions.loadLanguage(languageId);
     return editor;
   };
 
