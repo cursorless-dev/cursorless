@@ -1,26 +1,28 @@
-import type { Edit, TextEditor } from "@cursorless/common";
+import type { Edit, IDE, TextEditor } from "@cursorless/common";
 import { FlashStyle, Position, Range } from "@cursorless/common";
 import { flatten, zip } from "lodash-es";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import { ide } from "../singletons/ide.singleton";
 import type { Target } from "../typings/target.types";
 import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
 import type { ActionReturnValue } from "./actions.types";
 
 export class BreakLine {
-  constructor(private rangeUpdater: RangeUpdater) {
+  constructor(
+    private ide: IDE,
+    private rangeUpdater: RangeUpdater,
+  ) {
     this.run = this.run.bind(this);
   }
 
   async run(targets: Target[]): Promise<ActionReturnValue> {
-    await flashTargets(ide(), targets, FlashStyle.pendingModification0);
+    await flashTargets(this.ide, targets, FlashStyle.pendingModification0);
 
     const thatSelections = flatten(
       await runOnTargetsForEachEditor(targets, async (editor, targets) => {
         const contentRanges = targets.map(({ contentRange }) => contentRange);
         const edits = getEdits(editor, contentRanges);
-        const editableEditor = ide().getEditableTextEditor(editor);
+        const editableEditor = this.ide.getEditableTextEditor(editor);
 
         const { contentRanges: updatedRanges } =
           await performEditsAndUpdateSelections({

@@ -1,6 +1,5 @@
-import type { ExecuteCommandOptions } from "@cursorless/common";
+import type { ExecuteCommandOptions, IDE } from "@cursorless/common";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { ide } from "../singletons/ide.singleton";
 import type { Target } from "../typings/target.types";
 import { CallbackAction } from "./CallbackAction";
 import type { ActionReturnValue } from "./actions.types";
@@ -15,8 +14,11 @@ import type { ActionReturnValue } from "./actions.types";
 export default class ExecuteCommand {
   private callbackAction: CallbackAction;
 
-  constructor(rangeUpdater: RangeUpdater) {
-    this.callbackAction = new CallbackAction(rangeUpdater);
+  constructor(
+    private ide: IDE,
+    rangeUpdater: RangeUpdater,
+  ) {
+    this.callbackAction = new CallbackAction(ide, rangeUpdater);
     this.run = this.run.bind(this);
   }
 
@@ -34,7 +36,7 @@ export default class ExecuteCommand {
     const args = commandArgs ?? [];
 
     return this.callbackAction.run(targets, {
-      callback: () => ide().executeCommand(commandId, ...args),
+      callback: () => this.ide.executeCommand(commandId, ...args),
       setSelection: true,
       ensureSingleEditor: ensureSingleEditor ?? false,
       ensureSingleTarget: ensureSingleTarget ?? false,

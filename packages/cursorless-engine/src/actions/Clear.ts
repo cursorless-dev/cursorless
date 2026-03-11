@@ -1,12 +1,15 @@
+import type { IDE } from "@cursorless/common";
 import { PlainTarget } from "../processTargets/targets";
-import { ide } from "../singletons/ide.singleton";
 import type { Target } from "../typings/target.types";
 import { ensureSingleEditor } from "../util/targetUtils";
 import type { Actions } from "./Actions";
 import type { SimpleAction, ActionReturnValue } from "./actions.types";
 
 export default class Clear implements SimpleAction {
-  constructor(private actions: Actions) {
+  constructor(
+    private ide: IDE,
+    private actions: Actions,
+  ) {
     this.run = this.run.bind(this);
   }
 
@@ -26,7 +29,7 @@ export default class Clear implements SimpleAction {
     const { thatTargets } = await this.actions.remove.run(plainTargets);
 
     if (thatTargets != null) {
-      await ide()
+      await this.ide
         .getEditableTextEditor(editor)
         .setSelections(
           thatTargets.map(({ contentSelection }) => contentSelection),

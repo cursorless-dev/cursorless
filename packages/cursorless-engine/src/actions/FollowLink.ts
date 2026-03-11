@@ -1,6 +1,5 @@
-import type { OpenLinkOptions } from "@cursorless/common";
+import type { IDE, OpenLinkOptions } from "@cursorless/common";
 import { FlashStyle } from "@cursorless/common";
-import { ide } from "../singletons/ide.singleton";
 import type { Target } from "../typings/target.types";
 import {
   createThatMark,
@@ -10,16 +9,19 @@ import {
 import type { ActionReturnValue, SimpleAction } from "./actions.types";
 
 export default class FollowLink implements SimpleAction {
-  constructor(private options: OpenLinkOptions) {
+  constructor(
+    private ide: IDE,
+    private options: OpenLinkOptions,
+  ) {
     this.run = this.run.bind(this);
   }
 
   async run(targets: Target[]): Promise<ActionReturnValue> {
     const target = ensureSingleTarget(targets);
 
-    await flashTargets(ide(), targets, FlashStyle.referenced);
+    await flashTargets(this.ide, targets, FlashStyle.referenced);
 
-    await ide()
+    await this.ide
       .getEditableTextEditor(target.editor)
       .openLink(target.contentRange, this.options);
 

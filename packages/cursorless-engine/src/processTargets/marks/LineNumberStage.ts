@@ -1,18 +1,21 @@
 import type {
+  IDE,
   LineNumberMark,
   LineNumberType,
   TextEditor,
 } from "@cursorless/common";
-import { ide } from "../../singletons/ide.singleton";
 import type { MarkStage } from "../PipelineStages.types";
 import type { LineTarget } from "../targets";
 import { createLineTarget } from "../targets";
 
 export class LineNumberStage implements MarkStage {
-  constructor(private mark: LineNumberMark) {}
+  constructor(
+    private ide: IDE,
+    private mark: LineNumberMark,
+  ) {}
 
   run(): LineTarget[] {
-    const editor = ide().activeTextEditor;
+    const editor = this.ide.activeTextEditor;
     if (editor == null) {
       return [];
     }

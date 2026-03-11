@@ -1,17 +1,19 @@
-import type { CharacterRange, FlashDescriptor } from "@cursorless/common";
+import type { CharacterRange, FlashDescriptor, IDE } from "@cursorless/common";
 import { FlashStyle, Range, toCharacterRange } from "@cursorless/common";
-import { ide } from "../singletons/ide.singleton";
 import type { Target } from "../typings/target.types";
 import type { Actions } from "./Actions";
 import type { ActionReturnValue, SimpleAction } from "./actions.types";
 
 export class CutToClipboard implements SimpleAction {
-  constructor(private actions: Actions) {
+  constructor(
+    private ide: IDE,
+    private actions: Actions,
+  ) {
     this.run = this.run.bind(this);
   }
 
   async run(targets: Target[]): Promise<ActionReturnValue> {
-    await ide().flashRanges(targets.flatMap(getFlashDescriptors));
+    await this.ide.flashRanges(targets.flatMap(getFlashDescriptors));
 
     const options = { showDecorations: false };
 

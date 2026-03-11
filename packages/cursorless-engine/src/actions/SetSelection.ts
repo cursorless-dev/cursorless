@@ -1,11 +1,11 @@
-import { Selection } from "@cursorless/common";
-import { ide } from "../singletons/ide.singleton";
+import { Selection, type IDE } from "@cursorless/common";
 import type { Target } from "../typings/target.types";
 import { ensureSingleEditor } from "../util/targetUtils";
 import type { SimpleAction, ActionReturnValue } from "./actions.types";
 
 abstract class SetSelectionBase implements SimpleAction {
   constructor(
+    private ide: IDE,
     private selectionMode: "set" | "add",
     private rangeMode: "content" | "before" | "after",
   ) {
@@ -26,7 +26,7 @@ abstract class SetSelectionBase implements SimpleAction {
       selections.length === 1 &&
       selections[0].isEmpty;
 
-    await ide()
+    await this.ide
       .getEditableTextEditor(editor)
       .setSelections(selections, { focusEditor: true, highlightWord });
 
@@ -54,37 +54,37 @@ abstract class SetSelectionBase implements SimpleAction {
 }
 
 export class SetSelection extends SetSelectionBase {
-  constructor() {
-    super("set", "content");
+  constructor(ide: IDE) {
+    super(ide, "set", "content");
   }
 }
 
 export class SetSelectionBefore extends SetSelectionBase {
-  constructor() {
-    super("set", "before");
+  constructor(ide: IDE) {
+    super(ide, "set", "before");
   }
 }
 
 export class SetSelectionAfter extends SetSelectionBase {
-  constructor() {
-    super("set", "after");
+  constructor(ide: IDE) {
+    super(ide, "set", "after");
   }
 }
 
 export class AddSelection extends SetSelectionBase {
-  constructor() {
-    super("add", "content");
+  constructor(ide: IDE) {
+    super(ide, "add", "content");
   }
 }
 
 export class AddSelectionBefore extends SetSelectionBase {
-  constructor() {
-    super("add", "before");
+  constructor(ide: IDE) {
+    super(ide, "add", "before");
   }
 }
 
 export class AddSelectionAfter extends SetSelectionBase {
-  constructor() {
-    super("add", "after");
+  constructor(ide: IDE) {
+    super(ide, "add", "after");
   }
 }

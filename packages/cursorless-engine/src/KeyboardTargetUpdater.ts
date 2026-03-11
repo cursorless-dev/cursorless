@@ -52,7 +52,7 @@ export class KeyboardTargetUpdater {
       return;
     }
 
-    this.storedTargets.set("keyboard", new CursorStage().run());
+    this.storedTargets.set("keyboard", new CursorStage(this.ide).run());
   }
 
   dispose() {

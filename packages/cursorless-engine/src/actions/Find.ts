@@ -1,12 +1,14 @@
-import { showWarning } from "@cursorless/common";
-import { ide } from "../singletons/ide.singleton";
+import { showWarning, type IDE } from "@cursorless/common";
 import type { Target } from "../typings/target.types";
 import { ensureSingleTarget } from "../util/targetUtils";
 import type { Actions } from "./Actions";
 import type { ActionReturnValue, SimpleAction } from "./actions.types";
 
 abstract class Find implements SimpleAction {
-  constructor(private actions: Actions) {
+  constructor(
+    protected ide: IDE,
+    private actions: Actions,
+  ) {
     this.run = this.run.bind(this);
   }
 
@@ -21,7 +23,7 @@ abstract class Find implements SimpleAction {
     if (text.length > 200) {
       query = text.substring(0, 200);
       void showWarning(
-        ide().messages,
+        this.ide.messages,
         "truncatedSearchText",
         "Search text is longer than 200 characters; truncating",
       );
@@ -39,12 +41,12 @@ abstract class Find implements SimpleAction {
 
 export class FindInDocument extends Find {
   protected find(query: string): Promise<void> {
-    return ide().findInDocument(query);
+    return this.ide.findInDocument(query);
   }
 }
 
 export class FindInWorkspace extends Find {
   protected find(query: string): Promise<void> {
-    return ide().findInWorkspace(query);
+    return this.ide.findInWorkspace(query);
   }
 }
