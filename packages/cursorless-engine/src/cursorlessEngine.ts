@@ -8,7 +8,7 @@ import type {
   TalonSpokenForms,
   TreeSitter,
 } from "@cursorless/common";
-import { ensureCommandShape } from "@cursorless/common";
+import { ensureCommandShape, PassthroughIDE } from "@cursorless/common";
 import { KeyboardTargetUpdater } from "./KeyboardTargetUpdater";
 import type {
   CommandRunnerDecorator,
@@ -38,7 +38,6 @@ import { ScopeRangeProvider } from "./scopeProviders/ScopeRangeProvider";
 import { ScopeRangeWatcher } from "./scopeProviders/ScopeRangeWatcher";
 import { ScopeSupportChecker } from "./scopeProviders/ScopeSupportChecker";
 import { ScopeSupportWatcher } from "./scopeProviders/ScopeSupportWatcher";
-import { injectIde } from "./singletons/ide.singleton";
 
 export interface EngineProps {
   ide: IDE;
@@ -59,14 +58,18 @@ export async function createCursorlessEngine({
   talonSpokenForms = new DisabledTalonSpokenForms(),
   snippets = new DisabledSnippets(),
 }: EngineProps): Promise<CursorlessEngine> {
-  injectIde(ide);
+  const injectedIde = new PassthroughIDE(ide);
 
-  const debug = new Debug(ide);
-  const rangeUpdater = new RangeUpdater();
+  const debug = new Debug(injectedIde);
+  const rangeUpdater = new RangeUpdater(injectedIde);
 
   const storedTargets = new StoredTargetMap();
-  const keyboardTargetUpdater = new KeyboardTargetUpdater(ide, storedTargets);
+  const keyboardTargetUpdater = new KeyboardTargetUpdater(
+    injectedIde,
+    storedTargets,
+  );
   const customSpokenFormGenerator = new CustomSpokenFormGeneratorImpl(
+    injectedIde,
     talonSpokenForms,
   );
 
@@ -78,13 +81,13 @@ export async function createCursorlessEngine({
 
   const languageDefinitions = treeSitterQueryProvider
     ? await LanguageDefinitionsImpl.create(
-        ide,
+        injectedIde,
         treeSitter,
         treeSitterQueryProvider,
       )
     : new DisabledLanguageDefinitions();
 
-  ide.disposeOnExit(
+  injectedIde.disposeOnExit(
     rangeUpdater,
     languageDefinitions,
     hatTokenMap,
@@ -133,7 +136,7 @@ export async function createCursorlessEngine({
       },
     },
     scopeProvider: createScopeProvider(
-      ide,
+      injectedIde,
       languageDefinitions,
       storedTargets,
       customSpokenFormGenerator,
@@ -141,7 +144,7 @@ export async function createCursorlessEngine({
     customSpokenFormGenerator,
     storedTargets,
     hatTokenMap,
-    injectIde,
+    injectIde: (ide) => injectedIde.setIde(ide),
     addCommandRunnerDecorator: (decorator: CommandRunnerDecorator) => {
       commandRunnerDecorators.push(decorator);
     },

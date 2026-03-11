@@ -1,12 +1,12 @@
 import type {
   Disposable,
   Edit,
+  IDE,
   TextDocument,
   TextDocumentChangeEvent,
   TextDocumentContentChangeEvent,
 } from "@cursorless/common";
 import { pull } from "lodash-es";
-import { ide } from "../../singletons/ide.singleton";
 import type {
   ExtendedTextDocumentChangeEvent,
   FullRangeInfo,
@@ -23,7 +23,7 @@ export class RangeUpdater {
   private replaceEditLists: Map<string, Edit[][]> = new Map();
   private disposables: Disposable[] = [];
 
-  constructor() {
+  constructor(private ide: IDE) {
     this.listenForDocumentChanges();
   }
 
@@ -116,7 +116,7 @@ export class RangeUpdater {
 
   private listenForDocumentChanges() {
     this.disposables.push(
-      ide().onDidChangeTextDocument((event: TextDocumentChangeEvent) => {
+      this.ide.onDidChangeTextDocument((event: TextDocumentChangeEvent) => {
         const documentReplaceEditLists =
           this.replaceEditLists.get(event.document.uri.toString()) ?? [];
 
@@ -138,7 +138,7 @@ export class RangeUpdater {
         );
       }),
 
-      ide().onDidCloseTextDocument((document) => {
+      this.ide.onDidCloseTextDocument((document) => {
         const key = document.uri.toString();
         this.rangeInfoLists.delete(key);
         this.replaceEditLists.delete(key);

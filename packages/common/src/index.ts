@@ -8,6 +8,7 @@ export * from "./FakeCommandServerApi";
 export * from "./ide/fake/FakeIDE";
 export * from "./ide/inMemoryTextDocument/InMemoryTextDocument";
 export * from "./ide/normalized/NormalizedIDE";
+export * from "./ide/PassthroughIDE";
 export * from "./ide/spy/SpyIDE";
 export * from "./ide/spy/SpyMessages";
 export * from "./ide/types/Capabilities";

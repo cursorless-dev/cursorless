@@ -22,14 +22,23 @@ import type { KeyValueStore } from "./types/KeyValueStore";
 import type { Messages } from "./types/Messages";
 import type { QuickPickOptions } from "./types/QuickPickOptions";
 
-export default class PassthroughIDEBase implements IDE {
+export class PassthroughIDE implements IDE {
   configuration: Configuration;
   keyValueStore: KeyValueStore;
   clipboard: Clipboard;
   messages: Messages;
   capabilities: Capabilities;
 
-  constructor(private original: IDE) {
+  constructor(protected original: IDE) {
+    this.configuration = original.configuration;
+    this.keyValueStore = original.keyValueStore;
+    this.clipboard = original.clipboard;
+    this.messages = original.messages;
+    this.capabilities = original.capabilities;
+  }
+
+  setIde(original: IDE) {
+    this.original = original;
     this.configuration = original.configuration;
     this.keyValueStore = original.keyValueStore;
     this.clipboard = original.clipboard;

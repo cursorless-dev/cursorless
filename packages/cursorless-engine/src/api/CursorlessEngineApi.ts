@@ -22,7 +22,7 @@ export interface CursorlessEngine {
   customSpokenFormGenerator: CustomSpokenFormGenerator;
   storedTargets: StoredTargetMap;
   hatTokenMap: HatTokenMap;
-  injectIde: (ide: IDE | undefined) => void;
+  injectIde: (ide: IDE) => void;
   addCommandRunnerDecorator: (
     commandRunnerDecorator: CommandRunnerDecorator,
   ) => void;
