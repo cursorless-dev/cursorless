@@ -16,12 +16,11 @@ import { getScopeTestPathsRecursively } from "@cursorless/node-common";
 import { assert } from "chai";
 import { groupBy, uniq } from "lodash-es";
 import { promises as fsp } from "node:fs";
-import { createTestEngine } from "./utils/createTestEngine";
-import { openNewEditor } from "./utils/openNewEditor";
+import { createTestEnvironment } from "../testUtil/createTestEnvironment";
 import {
   serializeIterationScopeFixture,
   serializeScopeFixture,
-} from "./utils/serializeScopeFixture";
+} from "../testUtil/serializeScopeFixture";
 
 suite("Scope test cases", async function () {
   const testPaths = getScopeTestPathsRecursively();
@@ -120,9 +119,9 @@ async function runTest(file: string, languageId: string, facetId: string) {
 
   const code = fixture.slice(0, delimiterIndex! - 1);
 
-  const { scopeProvider } = await createTestEngine();
+  const { openNewEditor, scopeProvider } = await createTestEnvironment();
 
-  const editor = await openNewEditor(code, languageId);
+  const editor = openNewEditor(code, languageId);
 
   const updateFixture = shouldUpdateFixtures();
 

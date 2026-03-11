@@ -1,7 +1,7 @@
 import { FakeIDE, SpyIDE } from "@cursorless/common";
 import type { Context } from "mocha";
 import * as sinon from "sinon";
-import { injectIde } from "../../singletons/ide.singleton";
+import { injectIde } from "../singletons/ide.singleton";
 
 export function unitTestSetup(setupFake?: (fake: FakeIDE) => void) {
   let spy: SpyIDE | undefined;

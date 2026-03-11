@@ -1,5 +1,11 @@
 import { pull } from "lodash-es";
-import type { EditableTextEditor, NotebookEditor, TextEditor } from "../..";
+import type {
+  EditableTextEditor,
+  Messages,
+  NotebookEditor,
+  TextEditor,
+} from "../..";
+import { Notifier } from "../..";
 import type { GeneralizedRange } from "../../types/GeneralizedRange";
 import type { TextDocument } from "../../types/TextDocument";
 import type { TextDocumentChangeEvent } from "../types/Events";
@@ -24,11 +30,11 @@ import FakeKeyValueStore from "./FakeKeyValueStore";
 import FakeMessages from "./FakeMessages";
 
 export class FakeIDE implements IDE {
-  configuration: FakeConfiguration = new FakeConfiguration();
-  messages: FakeMessages = new FakeMessages();
-  keyValueStore: FakeKeyValueStore = new FakeKeyValueStore();
-  clipboard: FakeClipboard = new FakeClipboard();
-  capabilities: FakeCapabilities = new FakeCapabilities();
+  configuration = new FakeConfiguration();
+  keyValueStore = new FakeKeyValueStore();
+  clipboard = new FakeClipboard();
+  capabilities = new FakeCapabilities();
+  messages: Messages;
 
   runMode: RunMode = "test";
   cursorlessVersion: string = "0.0.0";
@@ -36,6 +42,12 @@ export class FakeIDE implements IDE {
   private disposables: Disposable[] = [];
   private assetsRoot_: string | undefined;
   private quickPickReturnValue: string | undefined = undefined;
+  private visibleTextEditors_: TextEditor[] = [];
+  private onOpenTextDocumentNotifier = new Notifier<[TextDocument]>();
+
+  constructor(messages: Messages = new FakeMessages()) {
+    this.messages = messages;
+  }
 
   async flashRanges(_flashDescriptors: FlashDescriptor[]): Promise<void> {
     // empty
@@ -49,7 +61,7 @@ export class FakeIDE implements IDE {
     // empty
   }
 
-  onDidOpenTextDocument: Event<TextDocument> = dummyEvent;
+  onDidOpenTextDocument = this.onOpenTextDocumentNotifier.registerListener;
   onDidCloseTextDocument: Event<TextDocument> = dummyEvent;
   onDidChangeActiveTextEditor: Event<TextEditor | undefined> = dummyEvent;
   onDidChangeVisibleTextEditors: Event<TextEditor[]> = dummyEvent;
@@ -57,8 +69,13 @@ export class FakeIDE implements IDE {
     dummyEvent;
   onDidChangeTextEditorVisibleRanges: Event<TextEditorVisibleRangesChangeEvent> =
     dummyEvent;
+  onDidChangeTextDocument: Event<TextDocumentChangeEvent> = dummyEvent;
 
-  public mockAssetsRoot(_assetsRoot: string) {
+  triggerOpenTextDocument(document: TextDocument) {
+    this.onOpenTextDocumentNotifier.notifyListeners(document);
+  }
+
+  mockAssetsRoot(_assetsRoot: string) {
     this.assetsRoot_ = _assetsRoot;
   }
 
@@ -79,7 +96,7 @@ export class FakeIDE implements IDE {
   }
 
   get visibleTextEditors(): TextEditor[] {
-    throw Error("visibleTextEditors: not implemented");
+    return this.visibleTextEditors_;
   }
 
   get visibleNotebookEditors(): NotebookEditor[] {
@@ -125,12 +142,6 @@ export class FakeIDE implements IDE {
 
   executeCommand<T>(_command: string, ..._args: any[]): Promise<T | undefined> {
     throw new Error("executeCommand: not implemented");
-  }
-
-  public onDidChangeTextDocument(
-    _listener: (event: TextDocumentChangeEvent) => void,
-  ): Disposable {
-    throw Error("onDidChangeTextDocument: not implemented");
   }
 
   disposeOnExit(...disposables: Disposable[]): () => void {

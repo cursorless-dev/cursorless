@@ -1,6 +1,6 @@
 import type { TokenHatSplittingMode } from "@cursorless/common";
 import * as assert from "assert";
-import { unitTestSetup } from "../test/utils/unitTestSetup";
+import { unitTestSetup } from "../testUtil/unitTestSetup";
 import { TokenGraphemeSplitter, UNKNOWN } from "./tokenGraphemeSplitter";
 
 /**

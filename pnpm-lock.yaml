@@ -346,6 +346,9 @@ importers:
       vscode-uri:
         specifier: ^3.1.0
         version: 3.1.0
+      web-tree-sitter:
+        specifier: ^0.26.6
+        version: 0.26.6
 
   packages/cursorless-everywhere-talon:
     dependencies:
@@ -979,6 +982,9 @@ importers:
         specifier: ^2.2.6
         version: 2.2.6
     devDependencies:
+      '@cursorless/tree-sitter-wasms':
+        specifier: ^0.7.0
+        version: 0.7.0
       '@types/cross-spawn':
         specifier: ^6.0.6
         version: 6.0.6
@@ -2047,6 +2053,9 @@ packages:
     engines: {node: '>=18'}
     peerDependencies:
       postcss: ^8.4
+
+  '@cursorless/tree-sitter-wasms@0.7.0':
+    resolution: {integrity: sha512-yGmyFb75nmicYyXqKm0TMEydA8QF76kr/+dvBcu9eSN093CKijLYYgsg3xGU44K3lUI2Vjfec5OJ4tyaYssahA==}
 
   '@dabh/diagnostics@2.0.8':
     resolution: {integrity: sha512-R4MSXTVnuMzGD7bzHdW2ZhhdPC/igELENcq5IjEverBvq5hn1SXCWcsi6eSsdWP0/Ur+SItRRjAktmdoX/8R/Q==}
@@ -10763,6 +10772,9 @@ packages:
   web-namespaces@2.0.1:
     resolution: {integrity: sha512-bKr1DkiNa2krS7qxNtdrtHAmzuYGFQLiQ13TsorsdT6ULTkPLKuu5+GsFpDlg6JFjUTwX2DyhMPG2be8uPrqsQ==}
 
+  web-tree-sitter@0.26.6:
+    resolution: {integrity: sha512-fSPR7VBW/fZQdUSp/bXTDLT+i/9dwtbnqgEBMzowrM4U3DzeCwDbY3MKo0584uQxID4m/1xpLflrlT/rLIRPew==}
+
   webidl-conversions@7.0.0:
     resolution: {integrity: sha512-VwddBukDzu71offAQR975unBIGqfKZpM+8ZX6ySk8nYhVoo5CYaZyzt3YBvYtRtO+aoGlqxPg/B87NGVZ/fu6g==}
     engines: {node: '>=12'}
@@ -12326,6 +12338,8 @@ snapshots:
   '@csstools/utilities@2.0.0(postcss@8.5.8)':
     dependencies:
       postcss: 8.5.8
+
+  '@cursorless/tree-sitter-wasms@0.7.0': {}
 
   '@dabh/diagnostics@2.0.8':
     dependencies:
@@ -23359,6 +23373,8 @@ snapshots:
   weakmap-polyfill@2.0.4: {}
 
   web-namespaces@2.0.1: {}
+
+  web-tree-sitter@0.26.6: {}
 
   webidl-conversions@7.0.0: {}
 

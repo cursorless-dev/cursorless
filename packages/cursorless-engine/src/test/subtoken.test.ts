@@ -1,7 +1,7 @@
 import * as assert from "assert";
 import { WordTokenizer } from "../processTargets/modifiers/scopeHandlers/WordScopeHandler/WordTokenizer";
 import { subtokenFixture } from "./fixtures/subtoken.fixture";
-import { unitTestSetup } from "./utils/unitTestSetup";
+import { unitTestSetup } from "../testUtil/unitTestSetup";
 
 suite("subtoken regex matcher", () => {
   unitTestSetup();
