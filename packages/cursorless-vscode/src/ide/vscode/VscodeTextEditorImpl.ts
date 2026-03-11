@@ -251,26 +251,19 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     await vscode.commands.executeCommand("git.revertSelectedRanges");
   }
 
-  public async gitStage(_range?: Range): Promise<void> {
-    if (this.selectionIsEntireDocument()) {
-      await vscode.commands.executeCommand("git.stage");
-    } else {
-      await vscode.commands.executeCommand("git.stageSelectedRanges");
-    }
+  public async gitStageFile(): Promise<void> {
+    await vscode.commands.executeCommand("git.stage");
   }
 
-  public async gitUnstage(_range?: Range): Promise<void> {
-    if (this.selectionIsEntireDocument()) {
-      await vscode.commands.executeCommand("git.unstage");
-    } else {
-      await vscode.commands.executeCommand("git.unstageSelectedRanges");
-    }
+  public async gitUnstageFile(): Promise<void> {
+    await vscode.commands.executeCommand("git.unstage");
   }
 
-  private selectionIsEntireDocument(): boolean {
-    return (
-      this.selections.length === 1 &&
-      this.selections[0].isRangeEqual(this.document.range)
-    );
+  public async gitStageRange(_range?: Range): Promise<void> {
+    await vscode.commands.executeCommand("git.stageSelectedRanges");
+  }
+
+  public async gitUnstageRange(_range?: Range): Promise<void> {
+    await vscode.commands.executeCommand("git.unstageSelectedRanges");
   }
 }
