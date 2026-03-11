@@ -252,10 +252,25 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
   }
 
   public async gitStage(_range?: Range): Promise<void> {
-    await vscode.commands.executeCommand("git.stageSelectedRanges");
+    if (this.selectionIsEntireFile()) {
+      await vscode.commands.executeCommand("git.stage");
+    } else {
+      await vscode.commands.executeCommand("git.stageSelectedRanges");
+    }
   }
 
   public async gitUnstage(_range?: Range): Promise<void> {
-    await vscode.commands.executeCommand("git.unstageSelectedRanges");
+    if (this.selectionIsEntireFile()) {
+      await vscode.commands.executeCommand("git.unstage");
+    } else {
+      await vscode.commands.executeCommand("git.unstageSelectedRanges");
+    }
+  }
+
+  private selectionIsEntireFile(): boolean {
+    return (
+      this.selections.length === 1 &&
+      this.selections[0].isRangeEqual(this.document.range)
+    );
   }
 }
