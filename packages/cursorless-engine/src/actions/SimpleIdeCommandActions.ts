@@ -46,8 +46,8 @@ abstract class SimpleIdeCommandAction {
       callback: (editor, targets) =>
         callback(
           editor,
-          targets.map((t) => t.contentRange),
-          acceptsLocation,
+          acceptsLocation ? targets.map((t) => t.contentRange) : undefined,
+          rangeIsEntireDocument(targets),
           this.command,
         ),
       setSelection: !acceptsLocation,
@@ -151,12 +151,10 @@ export class GitUnstage extends SimpleIdeCommandAction {
 
 function callback(
   editor: EditableTextEditor,
-  targetRanges: Range[],
-  acceptsLocation: boolean,
+  ranges: Range[] | undefined,
+  rangeIsEntireDocument: boolean,
   command: CommandId,
 ): Promise<void> {
-  const ranges = acceptsLocation ? targetRanges : undefined;
-
   switch (command) {
     // Multi target actions
     case "toggleLineComment":
@@ -196,12 +194,12 @@ function callback(
     case "gitRevert":
       return editor.gitRevert(ranges?.[0]);
     case "gitStage":
-      if (rangeIsEntireDocument(editor, targetRanges)) {
+      if (rangeIsEntireDocument) {
         return editor.gitStageFile();
       }
       return editor.gitStageRange(ranges?.[0]);
     case "gitUnstage":
-      if (rangeIsEntireDocument(editor, targetRanges)) {
+      if (rangeIsEntireDocument) {
         return editor.gitUnstageFile();
       }
       return editor.gitUnstageRange(ranges?.[0]);
@@ -212,9 +210,9 @@ function callback(
   }
 }
 
-function rangeIsEntireDocument(
-  editor: EditableTextEditor,
-  ranges: Range[],
-): boolean {
-  return ranges.length === 1 && ranges[0].isRangeEqual(editor.document.range);
+function rangeIsEntireDocument(targets: Target[]): boolean {
+  return (
+    targets.length === 1 &&
+    targets[0].contentRange.isRangeEqual(targets[0].editor.document.range)
+  );
 }
