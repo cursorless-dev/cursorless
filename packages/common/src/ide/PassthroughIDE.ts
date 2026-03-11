@@ -23,27 +23,10 @@ import type { Messages } from "./types/Messages";
 import type { QuickPickOptions } from "./types/QuickPickOptions";
 
 export class PassthroughIDE implements IDE {
-  configuration: Configuration;
-  keyValueStore: KeyValueStore;
-  clipboard: Clipboard;
-  messages: Messages;
-  capabilities: Capabilities;
-
-  constructor(protected original: IDE) {
-    this.configuration = original.configuration;
-    this.keyValueStore = original.keyValueStore;
-    this.clipboard = original.clipboard;
-    this.messages = original.messages;
-    this.capabilities = original.capabilities;
-  }
+  constructor(private original: IDE) {}
 
   setIde(original: IDE) {
     this.original = original;
-    this.configuration = original.configuration;
-    this.keyValueStore = original.keyValueStore;
-    this.clipboard = original.clipboard;
-    this.messages = original.messages;
-    this.capabilities = original.capabilities;
   }
 
   flashRanges(flashDescriptors: FlashDescriptor[]): Promise<void> {
@@ -121,68 +104,88 @@ export class PassthroughIDE implements IDE {
     );
   }
 
-  public get activeTextEditor(): TextEditor | undefined {
+  get configuration(): Configuration {
+    return this.original.configuration;
+  }
+
+  get keyValueStore(): KeyValueStore {
+    return this.original.keyValueStore;
+  }
+
+  get clipboard(): Clipboard {
+    return this.original.clipboard;
+  }
+
+  get messages(): Messages {
+    return this.original.messages;
+  }
+
+  get capabilities(): Capabilities {
+    return this.original.capabilities;
+  }
+
+  get activeTextEditor(): TextEditor | undefined {
     return this.original.activeTextEditor;
   }
 
-  public get activeEditableTextEditor(): EditableTextEditor | undefined {
+  get activeEditableTextEditor(): EditableTextEditor | undefined {
     return this.original.activeEditableTextEditor;
   }
 
-  public get visibleTextEditors(): TextEditor[] {
+  get visibleTextEditors(): TextEditor[] {
     return this.original.visibleTextEditors;
   }
 
-  public get visibleNotebookEditors(): NotebookEditor[] {
+  get visibleNotebookEditors(): NotebookEditor[] {
     return this.original.visibleNotebookEditors;
   }
 
-  public get cursorlessVersion(): string {
+  get cursorlessVersion(): string {
     return this.original.cursorlessVersion;
   }
 
-  public get assetsRoot(): string {
+  get assetsRoot(): string {
     return this.original.assetsRoot;
   }
 
-  public get runMode(): RunMode {
+  get runMode(): RunMode {
     return this.original.runMode;
   }
 
-  public get workspaceFolders(): readonly WorkspaceFolder[] | undefined {
+  get workspaceFolders(): readonly WorkspaceFolder[] | undefined {
     return this.original.workspaceFolders;
   }
 
-  public findInDocument(query: string, editor?: TextEditor): Promise<void> {
+  findInDocument(query: string, editor?: TextEditor): Promise<void> {
     return this.original.findInDocument(query, editor);
   }
 
-  public findInWorkspace(query: string): Promise<void> {
+  findInWorkspace(query: string): Promise<void> {
     return this.original.findInWorkspace(query);
   }
 
-  public openTextDocument(path: string): Promise<TextEditor> {
+  openTextDocument(path: string): Promise<TextEditor> {
     return this.original.openTextDocument(path);
   }
 
-  public openUntitledTextDocument(
+  openUntitledTextDocument(
     options?: OpenUntitledTextDocumentOptions,
   ): Promise<TextEditor> {
     return this.original.openUntitledTextDocument(options);
   }
 
-  public showQuickPick(
+  showQuickPick(
     items: readonly string[],
     options?: QuickPickOptions,
   ): Promise<string | undefined> {
     return this.original.showQuickPick(items, options);
   }
 
-  public showInputBox(options?: any): Promise<string | undefined> {
+  showInputBox(options?: any): Promise<string | undefined> {
     return this.original.showInputBox(options);
   }
 
-  public getEditableTextEditor(editor: TextEditor): EditableTextEditor {
+  getEditableTextEditor(editor: TextEditor): EditableTextEditor {
     return this.original.getEditableTextEditor(editor);
   }
 
@@ -190,7 +193,7 @@ export class PassthroughIDE implements IDE {
     return this.original.executeCommand(command, ...args);
   }
 
-  public onDidChangeTextDocument(
+  onDidChangeTextDocument(
     listener: (event: TextDocumentChangeEvent) => void,
   ): Disposable {
     return this.original.onDidChangeTextDocument(listener);

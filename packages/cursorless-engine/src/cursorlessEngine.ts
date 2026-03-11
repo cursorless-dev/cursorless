@@ -75,7 +75,13 @@ export async function createCursorlessEngine({
 
   const hatTokenMap =
     hats != null
-      ? new HatTokenMapImpl(rangeUpdater, debug, hats, commandServerApi)
+      ? new HatTokenMapImpl(
+          injectedIde,
+          rangeUpdater,
+          debug,
+          hats,
+          commandServerApi,
+        )
       : new DisabledHatTokenMap();
   void hatTokenMap.allocateHats();
 

@@ -1,7 +1,10 @@
-import type { Disposable, TokenHatSplittingMode } from "@cursorless/common";
+import type {
+  Disposable,
+  IDE,
+  TokenHatSplittingMode,
+} from "@cursorless/common";
 import { Notifier, matchAll } from "@cursorless/common";
 import { deburr, escapeRegExp } from "lodash-es";
-import { ide } from "../singletons/ide.singleton";
 
 /**
  * A list of all symbols that are speakable by default in community.
@@ -74,8 +77,8 @@ export class TokenGraphemeSplitter {
   private algorithmChangeNotifier = new Notifier();
   private tokenHatSplittingMode!: TokenHatSplittingMode;
 
-  constructor() {
-    ide().disposeOnExit(this);
+  constructor(private ide: IDE) {
+    ide.disposeOnExit(this);
 
     this.updateTokenHatSplittingMode =
       this.updateTokenHatSplittingMode.bind(this);
@@ -86,7 +89,7 @@ export class TokenGraphemeSplitter {
     this.disposables.push(
       // Notify listeners in case the user changed their token hat splitting
       // setting.
-      ide().configuration.onDidChangeConfiguration(
+      ide.configuration.onDidChangeConfiguration(
         this.updateTokenHatSplittingMode,
       ),
     );
@@ -94,7 +97,7 @@ export class TokenGraphemeSplitter {
 
   private updateTokenHatSplittingMode() {
     const { lettersToPreserve, symbolsToPreserve, ...rest } =
-      ide().configuration.getOwnConfiguration("tokenHatSplittingMode");
+      this.ide.configuration.getOwnConfiguration("tokenHatSplittingMode");
 
     this.tokenHatSplittingMode = {
       lettersToPreserve: lettersToPreserve.map((grapheme) =>

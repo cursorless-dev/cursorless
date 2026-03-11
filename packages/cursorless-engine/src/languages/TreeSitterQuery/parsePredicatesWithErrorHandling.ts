@@ -1,11 +1,12 @@
+import type { IDE } from "@cursorless/common";
 import { showError } from "@cursorless/common";
 import type { Query } from "web-tree-sitter";
-import { ide } from "../../singletons/ide.singleton";
 import { parsePredicates } from "./parsePredicates";
 import { predicateToString } from "./predicateToString";
 import type { PatternPredicate } from "./QueryCapture";
 
 export function parsePredicatesWithErrorHandling(
+  ide: IDE,
   languageId: string,
   query: Query,
 ): PatternPredicate[][] {
@@ -22,7 +23,7 @@ export function parsePredicatesWithErrorHandling(
       ].join(", ");
 
       void showError(
-        ide().messages,
+        ide.messages,
         "TreeSitterQuery.parsePredicates",
         `Error parsing predicate for ${context}: ${error.error}`,
       );
@@ -30,7 +31,7 @@ export function parsePredicatesWithErrorHandling(
 
     // We show errors to the user, but we don't want to crash the extension
     // unless we're in test mode
-    if (ide().runMode === "test") {
+    if (ide.runMode === "test") {
       throw new Error("Invalid predicates");
     }
   }

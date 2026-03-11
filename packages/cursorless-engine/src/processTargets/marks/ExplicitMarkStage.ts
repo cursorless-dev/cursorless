@@ -1,12 +1,14 @@
-import type { ExplicitMark } from "@cursorless/common";
+import type { ExplicitMark, IDE } from "@cursorless/common";
 import { Range } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import type { MarkStage } from "../PipelineStages.types";
 import { UntypedTarget } from "../targets";
-import { ide } from "../../singletons/ide.singleton";
 
 export class ExplicitMarkStage implements MarkStage {
-  constructor(private mark: ExplicitMark) {}
+  constructor(
+    private ide: IDE,
+    private mark: ExplicitMark,
+  ) {}
 
   run(): Target[] {
     const {
@@ -14,7 +16,7 @@ export class ExplicitMarkStage implements MarkStage {
       range: { start, end },
     } = this.mark;
 
-    const editor = ide().visibleTextEditors.find((e) => e.id === editorId);
+    const editor = this.ide.visibleTextEditors.find((e) => e.id === editorId);
 
     if (editor == null) {
       throw new Error(`Couldn't find editor '${editorId}'`);

@@ -1,18 +1,16 @@
 import type { TestCaseFixtureLegacy } from "@cursorless/common";
 import { FakeIDE } from "@cursorless/common";
-import { uniq } from "lodash-es";
-import { injectIde } from "../../singletons/ide.singleton";
-import tokenGraphemeSplitter from "../../singletons/tokenGraphemeSplitter.singleton";
-import { extractTargetKeys } from "../../testUtil/extractTargetKeys";
-import { getPartialTargetDescriptors } from "../../util/getPartialTargetDescriptors";
 import assert from "assert";
+import { uniq } from "lodash-es";
+import { extractTargetKeys } from "../../testUtil/extractTargetKeys";
+import { TokenGraphemeSplitter } from "../../tokenGraphemeSplitter/tokenGraphemeSplitter";
+import { getPartialTargetDescriptors } from "../../util/getPartialTargetDescriptors";
 import { canonicalize } from "./transformations/canonicalize";
 
 export function checkMarks(originalFixture: TestCaseFixtureLegacy): undefined {
   const command = canonicalize(originalFixture).command;
 
-  injectIde(new FakeIDE());
-  const graphemeSplitter = tokenGraphemeSplitter();
+  const graphemeSplitter = new TokenGraphemeSplitter(new FakeIDE());
 
   const targetedMarks = getPartialTargetDescriptors(command.action)
     .map(extractTargetKeys)

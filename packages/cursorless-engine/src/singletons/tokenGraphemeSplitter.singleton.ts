@@ -1,3 +1,4 @@
+import type { IDE } from "@cursorless/common";
 import { TokenGraphemeSplitter } from "../tokenGraphemeSplitter/tokenGraphemeSplitter";
 
 /**
@@ -5,9 +6,9 @@ import { TokenGraphemeSplitter } from "../tokenGraphemeSplitter/tokenGraphemeSpl
  * @returns The token grapheme splitter singleton
  */
 
-export default function tokenGraphemeSplitter(): TokenGraphemeSplitter {
+export default function tokenGraphemeSplitter(ide: IDE): TokenGraphemeSplitter {
   if (tokenGraphemeSplitter_ == null) {
-    tokenGraphemeSplitter_ = new TokenGraphemeSplitter();
+    tokenGraphemeSplitter_ = new TokenGraphemeSplitter(ide);
   }
 
   return tokenGraphemeSplitter_;

@@ -1,5 +1,4 @@
-import type { Disposable, Hats, TokenHat } from "@cursorless/common";
-import { ide } from "../singletons/ide.singleton";
+import type { Disposable, Hats, IDE, TokenHat } from "@cursorless/common";
 import tokenGraphemeSplitter from "../singletons/tokenGraphemeSplitter.singleton";
 import { allocateHats } from "../util/allocateHats";
 import type { IndividualHatMap } from "./IndividualHatMap";
@@ -13,12 +12,13 @@ export class HatAllocator {
   private disposables: Disposable[] = [];
 
   constructor(
+    private ide: IDE,
     private hats: Hats,
     private context: Context,
   ) {
-    ide().disposeOnExit(this);
+    ide.disposeOnExit(this);
 
-    const debouncer = new DecorationDebouncer(ide().configuration, () =>
+    const debouncer = new DecorationDebouncer(ide.configuration, () =>
       this.allocateHats(),
     );
 
@@ -27,22 +27,22 @@ export class HatAllocator {
       this.hats.onDidChangeIsEnabled(debouncer.run),
 
       // An event that fires when a text document opens
-      ide().onDidOpenTextDocument(debouncer.run),
+      ide.onDidOpenTextDocument(debouncer.run),
       // An event that fires when a text document closes
-      ide().onDidCloseTextDocument(debouncer.run),
+      ide.onDidCloseTextDocument(debouncer.run),
       // An Event which fires when the active editor has changed. Note that the event also fires when the active editor changes to undefined.
-      ide().onDidChangeActiveTextEditor(debouncer.run),
+      ide.onDidChangeActiveTextEditor(debouncer.run),
       // An Event which fires when the array of visible editors has changed.
-      ide().onDidChangeVisibleTextEditors(debouncer.run),
+      ide.onDidChangeVisibleTextEditors(debouncer.run),
       // An event that is emitted when a text document is changed. This usually happens when the contents changes but also when other things like the dirty-state changes.
-      ide().onDidChangeTextDocument(debouncer.run),
+      ide.onDidChangeTextDocument(debouncer.run),
       // An Event which fires when the selection in an editor has changed.
-      ide().onDidChangeTextEditorSelection(debouncer.run),
+      ide.onDidChangeTextEditorSelection(debouncer.run),
       // An Event which fires when the visible ranges of an editor has changed.
-      ide().onDidChangeTextEditorVisibleRanges(debouncer.run),
+      ide.onDidChangeTextEditorVisibleRanges(debouncer.run),
       // Re-draw hats on grapheme splitting algorithm change in case they
       // changed their token hat splitting setting.
-      tokenGraphemeSplitter().registerAlgorithmChangeListener(debouncer.run),
+      tokenGraphemeSplitter(ide).registerAlgorithmChangeListener(debouncer.run),
 
       debouncer,
     );
@@ -60,20 +60,22 @@ export class HatAllocator {
     // Forced graphemes won't have been normalized
     forceTokenHats = forceTokenHats?.map((tokenHat) => ({
       ...tokenHat,
-      grapheme: tokenGraphemeSplitter().normalizeGrapheme(tokenHat.grapheme),
+      grapheme: tokenGraphemeSplitter(this.ide).normalizeGrapheme(
+        tokenHat.grapheme,
+      ),
     }));
 
     const tokenHats = this.hats.isEnabled
       ? allocateHats({
-          tokenGraphemeSplitter: tokenGraphemeSplitter(),
+          tokenGraphemeSplitter: tokenGraphemeSplitter(this.ide),
           enabledHatStyles: this.hats.enabledHatStyles,
           forceTokenHats,
           oldTokenHats: activeMap.tokenHats,
-          hatStability: ide().configuration.getOwnConfiguration(
+          hatStability: this.ide.configuration.getOwnConfiguration(
             "experimental.hatStability",
           ),
-          activeTextEditor: ide().activeTextEditor,
-          visibleTextEditors: ide().visibleTextEditors,
+          activeTextEditor: this.ide.activeTextEditor,
+          visibleTextEditors: this.ide.visibleTextEditors,
         })
       : [];
 
