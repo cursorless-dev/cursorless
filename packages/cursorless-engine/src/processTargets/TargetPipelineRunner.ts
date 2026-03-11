@@ -32,6 +32,7 @@ interface TargetPipelineRunnerOpts {
 
 export class TargetPipelineRunner {
   constructor(
+    private ide: IDE,
     private modifierStageFactory: ModifierStageFactory,
     private markStageFactory: MarkStageFactory,
   ) {}
@@ -58,6 +59,7 @@ export class TargetPipelineRunner {
     }: TargetPipelineRunnerOpts = {},
   ): Target[] {
     return new TargetPipeline(
+      this.ide,
       this.modifierStageFactory,
       this.markStageFactory,
       target,
@@ -68,6 +70,7 @@ export class TargetPipelineRunner {
 
 class TargetPipeline {
   constructor(
+    private ide: IDE,
     private modifierStageFactory: ModifierStageFactory,
     private markStageFactory: MarkStageFactory,
     private target: TargetDescriptor,
@@ -218,7 +221,7 @@ class TargetPipeline {
     let automaticTokenExpansionBefore = false;
 
     if (targetDescriptor.type === "implicit") {
-      markStage = new ImplicitStage();
+      markStage = new ImplicitStage(this.ide);
       targetModifierStages = [];
     } else {
       markStage = this.markStageFactory.create(targetDescriptor.mark);

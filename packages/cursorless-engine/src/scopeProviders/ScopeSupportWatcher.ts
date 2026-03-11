@@ -1,14 +1,13 @@
 import type {
   Disposable,
+  IDE,
   ScopeSupportEventCallback,
   ScopeSupportInfo,
   ScopeType,
 } from "@cursorless/common";
 import { ScopeSupport, disposableFrom } from "@cursorless/common";
 import { pull } from "lodash-es";
-
 import type { LanguageDefinitions } from "../languages/LanguageDefinitions";
-import { ide } from "../singletons/ide.singleton";
 import { DecorationDebouncer } from "../util/DecorationDebouncer";
 import type { ScopeInfoProvider } from "./ScopeInfoProvider";
 import type { ScopeSupportChecker } from "./ScopeSupportChecker";
@@ -22,6 +21,7 @@ export class ScopeSupportWatcher {
   private listeners: ScopeSupportEventCallback[] = [];
 
   constructor(
+    private ide: IDE,
     languageDefinitions: LanguageDefinitions,
     private scopeSupportChecker: ScopeSupportChecker,
     private scopeInfoProvider: ScopeInfoProvider,
@@ -29,21 +29,21 @@ export class ScopeSupportWatcher {
     this.onChange = this.onChange.bind(this);
     this.onDidChangeScopeSupport = this.onDidChangeScopeSupport.bind(this);
 
-    const debouncer = new DecorationDebouncer(ide().configuration, () =>
+    const debouncer = new DecorationDebouncer(ide.configuration, () =>
       this.onChange(),
     );
 
     this.disposable = disposableFrom(
       // An event that fires when a text document opens
-      ide().onDidOpenTextDocument(debouncer.run),
+      ide.onDidOpenTextDocument(debouncer.run),
       // An Event that fires when a text document closes
-      ide().onDidCloseTextDocument(debouncer.run),
+      ide.onDidCloseTextDocument(debouncer.run),
       // An Event which fires when the active editor has changed. Note that the event also fires when the active editor changes to undefined.
-      ide().onDidChangeActiveTextEditor(debouncer.run),
+      ide.onDidChangeActiveTextEditor(debouncer.run),
       // An event that is emitted when a text document is changed. This usually
       // happens when the contents changes but also when other things like the
       // dirty-state changes.
-      ide().onDidChangeTextDocument(debouncer.run),
+      ide.onDidChangeTextDocument(debouncer.run),
       languageDefinitions.onDidChangeDefinition(debouncer.run),
       this.scopeInfoProvider.onDidChangeScopeInfo(this.onChange),
       debouncer,
@@ -86,7 +86,7 @@ export class ScopeSupportWatcher {
   }
 
   private getSupportLevels(): ScopeSupportInfo[] {
-    const activeTextEditor = ide().activeTextEditor;
+    const activeTextEditor = this.ide.activeTextEditor;
 
     const getScopeTypeSupport =
       activeTextEditor == null

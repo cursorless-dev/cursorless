@@ -3,12 +3,12 @@ import {
   RangeExpansionBehavior,
   toCharacterRange,
   zipStrict,
+  type IDE,
   type TextEditor,
 } from "@cursorless/common";
 import { flatten } from "lodash-es";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import { ide } from "../singletons/ide.singleton";
 import type { Destination } from "../typings/target.types";
 import { runForEachEditor } from "../util/targetUtils";
 import type { ActionReturnValue } from "./actions.types";
@@ -19,12 +19,15 @@ import type { DestinationWithText } from "./PasteFromClipboard";
  * by reading the clipboard and inserting the text directly into the editor.
  */
 export class PasteFromClipboardDirectly {
-  constructor(private rangeUpdater: RangeUpdater) {
+  constructor(
+    private ide: IDE,
+    private rangeUpdater: RangeUpdater,
+  ) {
     this.runForEditor = this.runForEditor.bind(this);
   }
 
   async run(destinations: Destination[]): Promise<ActionReturnValue> {
-    const text = await ide().clipboard.readText();
+    const text = await this.ide.clipboard.readText();
     const textLines = text.split(/\r?\n/g);
 
     // FIXME: We should really use the number of targets from the original copy
@@ -59,7 +62,7 @@ export class PasteFromClipboardDirectly {
     const { editSelections: updatedEditSelections } =
       await performEditsAndUpdateSelections({
         rangeUpdater: this.rangeUpdater,
-        editor: ide().getEditableTextEditor(editor),
+        editor: this.ide.getEditableTextEditor(editor),
         edits,
         selections: {
           editSelections: {
@@ -74,7 +77,7 @@ export class PasteFromClipboardDirectly {
         edit.updateRange(selection).toSelection(selection.isReversed),
     );
 
-    await ide().flashRanges(
+    await this.ide.flashRanges(
       thatTargetSelections.map((selection) => ({
         editor,
         range: toCharacterRange(selection),

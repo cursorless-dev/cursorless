@@ -111,6 +111,7 @@ export async function createCursorlessEngine({
     return runCommand(
       treeSitter,
       commandServerApi,
+      injectedIde,
       debug,
       hatTokenMap,
       snippets,
@@ -174,13 +175,13 @@ function createScopeProvider(
     ),
   );
 
-  const rangeWatcher = new ScopeRangeWatcher(
+    ide,
     languageDefinitions,
     rangeProvider,
   );
   const supportChecker = new ScopeSupportChecker(scopeHandlerFactory);
   const infoProvider = new ScopeInfoProvider(customSpokenFormGenerator);
-  const supportWatcher = new ScopeSupportWatcher(
+    ide,
     languageDefinitions,
     supportChecker,
     infoProvider,

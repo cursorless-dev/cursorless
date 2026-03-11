@@ -1,18 +1,20 @@
-import type { TreeSitter, TextDocument } from "@cursorless/common";
+import type { IDE, TextDocument, TreeSitter } from "@cursorless/common";
 import { FlashStyle, Range } from "@cursorless/common";
 import type { Tree, TreeCursor } from "web-tree-sitter";
-import { ide } from "../singletons/ide.singleton";
 import type { Target } from "../typings/target.types";
 import { flashTargets } from "../util/targetUtils";
 import type { ActionReturnValue } from "./actions.types";
 
-export default class ShowParseTree {
-  constructor(private treeSitter: TreeSitter) {
+export default class InjectedShowParseTree {
+  constructor(
+    private ide: IDE,
+    private treeSitter: TreeSitter,
+  ) {
     this.run = this.run.bind(this);
   }
 
   async run(targets: Target[]): Promise<ActionReturnValue> {
-    await flashTargets(ide(), targets, FlashStyle.referenced);
+    await flashTargets(this.ide, targets, FlashStyle.referenced);
 
     const results: string[] = ["# Cursorless parse tree"];
 
@@ -22,8 +24,7 @@ export default class ShowParseTree {
       results.push(parseTree(editor.document, tree, contentRange));
     }
 
-    // FIXME: If we await this our test break. We should probably find out when this actually resolves.
-    void ide().openUntitledTextDocument({
+    void this.ide.openUntitledTextDocument({
       language: "markdown",
       content: results.join("\n\n"),
     });

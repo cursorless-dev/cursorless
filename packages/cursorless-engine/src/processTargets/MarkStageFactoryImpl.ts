@@ -1,4 +1,4 @@
-import type { ReadOnlyHatMap } from "@cursorless/common";
+import type { IDE, ReadOnlyHatMap } from "@cursorless/common";
 import type { TargetPipelineRunner } from ".";
 import type { StoredTargetMap } from "..";
 import type { Mark } from "../typings/TargetDescriptor";
@@ -21,6 +21,7 @@ export class MarkStageFactoryImpl implements MarkStageFactory {
   }
 
   constructor(
+    private ide: IDE,
     private readableHatMap: ReadOnlyHatMap,
     private storedTargets: StoredTargetMap,
   ) {
@@ -30,7 +31,7 @@ export class MarkStageFactoryImpl implements MarkStageFactory {
   create(mark: Mark): MarkStage {
     switch (mark.type) {
       case "cursor":
-        return new CursorStage();
+        return new CursorStage(this.ide);
       case "that":
       case "source":
       case "keyboard":
@@ -38,7 +39,7 @@ export class MarkStageFactoryImpl implements MarkStageFactory {
       case "decoratedSymbol":
         return new DecoratedSymbolStage(this.readableHatMap, mark);
       case "lineNumber":
-        return new LineNumberStage(mark);
+        return new LineNumberStage(this.ide, mark);
       case "range":
         return new RangeMarkStage(this, mark);
       case "nothing":
@@ -46,7 +47,7 @@ export class MarkStageFactoryImpl implements MarkStageFactory {
       case "target":
         return new TargetMarkStage(this.targetPipelineRunner, mark);
       case "explicit":
-        return new ExplicitMarkStage(mark);
+        return new ExplicitMarkStage(this.ide, mark);
       default: {
         // Ensure we don't miss any new marks. Needed because we don't have input validation.
         // FIXME: remove once we have schema validation (#983)

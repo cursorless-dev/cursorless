@@ -1,5 +1,6 @@
 import type {
   Disposable,
+  IDE,
   IterationScopeChangeEventCallback,
   IterationScopeRangeConfig,
   ScopeChangeEventCallback,
@@ -10,9 +11,8 @@ import { showError } from "@cursorless/common";
 import { pull } from "lodash-es";
 
 import type { LanguageDefinitions } from "../languages/LanguageDefinitions";
-import { ide } from "../singletons/ide.singleton";
-import type { ScopeRangeProvider } from "./ScopeRangeProvider";
 import { DecorationDebouncer } from "../util/DecorationDebouncer";
+import type { ScopeRangeProvider } from "./ScopeRangeProvider";
 
 /**
  * Watches for changes to the scope ranges of visible editors and notifies
@@ -23,6 +23,7 @@ export class ScopeRangeWatcher {
   private listeners: (() => void)[] = [];
 
   constructor(
+    private ide: IDE,
     languageDefinitions: LanguageDefinitions,
     private scopeRangeProvider: ScopeRangeProvider,
   ) {
@@ -31,22 +32,22 @@ export class ScopeRangeWatcher {
     this.onDidChangeIterationScopeRanges =
       this.onDidChangeIterationScopeRanges.bind(this);
 
-    const debouncer = new DecorationDebouncer(ide().configuration, () =>
+    const debouncer = new DecorationDebouncer(ide.configuration, () =>
       this.onChange(),
     );
 
     this.disposables.push(
       // An Event which fires when the array of visible editors has changed.
-      ide().onDidChangeVisibleTextEditors(debouncer.run),
+      ide.onDidChangeVisibleTextEditors(debouncer.run),
       // An event that fires when a text document opens
-      ide().onDidOpenTextDocument(debouncer.run),
+      ide.onDidOpenTextDocument(debouncer.run),
       // An Event that fires when a text document closes
-      ide().onDidCloseTextDocument(debouncer.run),
+      ide.onDidCloseTextDocument(debouncer.run),
       // An event that is emitted when a text document is changed. This usually
       // happens when the contents changes but also when other things like the
       // dirty-state changes.
-      ide().onDidChangeTextDocument(debouncer.run),
-      ide().onDidChangeTextEditorVisibleRanges(debouncer.run),
+      ide.onDidChangeTextDocument(debouncer.run),
+      ide.onDidChangeTextEditorVisibleRanges(debouncer.run),
       languageDefinitions.onDidChangeDefinition(this.onChange),
       debouncer,
     );
@@ -65,7 +66,7 @@ export class ScopeRangeWatcher {
     config: ScopeRangeConfig,
   ): Disposable {
     const fn = () => {
-      ide().visibleTextEditors.forEach((editor) => {
+      this.ide.visibleTextEditors.forEach((editor) => {
         let scopeRanges: ScopeRanges[];
         try {
           scopeRanges = this.scopeRangeProvider.provideScopeRanges(
@@ -74,7 +75,7 @@ export class ScopeRangeWatcher {
           );
         } catch (err) {
           void showError(
-            ide().messages,
+            this.ide.messages,
             "ScopeRangeWatcher.provide",
             (err as Error).message,
           );
@@ -84,7 +85,7 @@ export class ScopeRangeWatcher {
           // robust thing to do generally.
           scopeRanges = [];
 
-          if (ide().runMode === "test") {
+          if (this.ide.runMode === "test") {
             // Fail hard if we're in test mode; otherwise recover
             throw err;
           }
@@ -118,7 +119,7 @@ export class ScopeRangeWatcher {
     config: IterationScopeRangeConfig,
   ): Disposable {
     const fn = () => {
-      ide().visibleTextEditors.forEach((editor) => {
+      this.ide.visibleTextEditors.forEach((editor) => {
         callback(
           editor,
           this.scopeRangeProvider.provideIterationScopeRanges(editor, config),
