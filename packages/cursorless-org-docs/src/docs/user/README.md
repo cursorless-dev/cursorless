@@ -53,18 +53,18 @@ Combining this with an action, we might say `"take blue air"` to select the toke
 
 The following colors are supported. Note that to target the default (gray) hat you don't need to specify a color.
 
-| Spoken form    | Color   | Internal ID  | Enabled by default? |
-| -------------- | ------- | ------------ | ------------------- |
-| N/A            | grey    | `default`    | ✅                  |
-| `"blue"`       | blue    | `blue`       | ✅                  |
-| `"green"`      | green   | `green`      | ✅                  |
-| `"red"`        | red     | `red`        | ✅                  |
-| `"pink"`       | pink    | `pink`       | ✅                  |
-| `"yellow"`     | yellow  | `yellow`     | ✅                  |
-| `"navy"`       | navy    | `userColor1` | ❌                  |
-| `"apricot"`    | apricot | `userColor2` | ❌                  |
-| `"userColor3"` | user 3  | `userColor3` | ❌                  |
-| `"userColor4"` | user 4  | `userColor4` | ❌                  |
+| Spoken form          | Color   | Internal ID  | Enabled by default? |
+| -------------------- | ------- | ------------ | ------------------- |
+| N/A                  | grey    | `default`    | ✅                  |
+| `"blue"`             | blue    | `blue`       | ✅                  |
+| `"green"`            | green   | `green`      | ✅                  |
+| `"red"`              | red     | `red`        | ✅                  |
+| `"pink"`             | pink    | `pink`       | ✅                  |
+| `"yellow"`           | yellow  | `yellow`     | ✅                  |
+| `"navy"`             | navy    | `userColor1` | ❌                  |
+| `"apricot"`          | apricot | `userColor2` | ❌                  |
+| `"user color three"` | user 3  | `userColor3` | ❌                  |
+| `"user color four"`  | user 4  | `userColor4` | ❌                  |
 
 You can enable or disable colors in your VSCode settings, by searching for [`cursorless.hatEnablement.colors`](vscode://settings/cursorless.hatEnablement.colors) and checking the box next to the internal ID for the given shape as listed above. To navigate to your VSCode settings, either say "show settings", or go to File --> Preferences --> Settings.
 

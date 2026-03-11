@@ -8,8 +8,8 @@ const hatColors: Record<string, string | null> = {
   yellow: "yellow",
   userColor1: "navy",
   userColor2: "apricot",
-  userColor3: "userColor3",
-  userColor4: "userColor4",
+  userColor3: "user color three",
+  userColor4: "user color four",
 
   default: null,
 };
