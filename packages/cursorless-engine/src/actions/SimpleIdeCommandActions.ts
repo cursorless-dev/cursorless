@@ -47,6 +47,7 @@ abstract class SimpleIdeCommandAction {
         callback(
           editor,
           acceptsLocation ? targets.map((t) => t.contentRange) : undefined,
+          rangeIsEntireDocument(targets),
           this.command,
         ),
       setSelection: !acceptsLocation,
@@ -151,6 +152,7 @@ export class GitUnstage extends SimpleIdeCommandAction {
 function callback(
   editor: EditableTextEditor,
   ranges: Range[] | undefined,
+  rangeIsEntireDocument: boolean,
   command: CommandId,
 ): Promise<void> {
   switch (command) {
@@ -192,12 +194,25 @@ function callback(
     case "gitRevert":
       return editor.gitRevert(ranges?.[0]);
     case "gitStage":
-      return editor.gitStage(ranges?.[0]);
+      if (rangeIsEntireDocument) {
+        return editor.gitStageFile();
+      }
+      return editor.gitStageRange(ranges?.[0]);
     case "gitUnstage":
-      return editor.gitUnstage(ranges?.[0]);
+      if (rangeIsEntireDocument) {
+        return editor.gitUnstageFile();
+      }
+      return editor.gitUnstageRange(ranges?.[0]);
 
     // Unsupported as simple action
     case "highlight":
       throw Error("Highlight command not supported as simple action");
   }
+}
+
+function rangeIsEntireDocument(targets: Target[]): boolean {
+  return (
+    targets.length === 1 &&
+    targets[0].contentRange.isRangeEqual(targets[0].editor.document.range)
+  );
 }
