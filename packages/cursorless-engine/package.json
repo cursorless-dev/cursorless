@@ -30,7 +30,7 @@
     "@cursorless/common": "workspace:*",
     "@cursorless/node-common": "workspace:*",
     "@cursorless/sentence-parser": "workspace:*",
-    "@cursorless/talon-tools": "^0.6.0",
+    "@cursorless/talon-tools": "^0.7.0",
     "immer": "^11.1.4",
     "immutability-helper": "^3.1.1",
     "itertools": "^2.6.0",
