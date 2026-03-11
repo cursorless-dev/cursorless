@@ -13,7 +13,9 @@
     }
   },
   "scripts": {
-    "test": "env CURSORLESS_MODE=test my-ts-node src/scripts/runVscodeTestsCI.ts",
+    "test": "env CURSORLESS_MODE=test my-ts-node src/scripts/runUnitTestsOnly.ts",
+    "test:subset": "env CURSORLESS_MODE=test env CURSORLESS_RUN_TEST_SUBSET=true my-ts-node src/scripts/runUnitTestsOnly.ts",
+    "test:vscode": "env CURSORLESS_MODE=test my-ts-node src/scripts/runVscodeTestsCI.ts",
     "test:neovim": "env CURSORLESS_MODE=test my-ts-node src/scripts/runNeovimTestsCI.ts",
     "test:talonJs": "env CURSORLESS_MODE=test my-ts-node src/scripts/runTalonJsTests.ts",
     "build:base": "esbuild --sourcemap --conditions=cursorless:bundler --bundle --external:vscode --external:./reporters/parallel-buffered --external:./worker.js --external:talon --format=cjs --platform=node",
@@ -40,11 +42,13 @@
     "tail": "^2.2.6"
   },
   "devDependencies": {
+    "@cursorless/tree-sitter-wasms": "^0.7.0",
     "@types/cross-spawn": "^6.0.6",
     "@types/mocha": "^10.0.10",
     "@types/tail": "^2.2.3",
     "@vscode/test-electron": "^2.5.2",
     "cross-spawn": "^7.0.6",
-    "mocha": "^11.7.5"
+    "mocha": "^11.7.5",
+    "web-tree-sitter": "^0.26.6"
   }
 }

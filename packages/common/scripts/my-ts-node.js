@@ -88,6 +88,7 @@ async function main() {
     bundle: true,
     format: "cjs",
     outfile: outFile,
+    external: ["./reporters/parallel-buffered", "./worker.js"],
   });
 
   const nodeProcess = runCommand(

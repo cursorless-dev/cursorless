@@ -89,7 +89,7 @@ export class NeovimIDE implements IDE {
     _items: readonly string[],
     _options?: QuickPickOptions,
   ): Promise<string | undefined> {
-    throw Error("showQuickPick Not implemented");
+    throw Error("showQuickPick: not implemented");
   }
 
   async setHighlightRanges(
@@ -97,7 +97,7 @@ export class NeovimIDE implements IDE {
     _editor: TextEditor,
     _ranges: GeneralizedRange[],
   ): Promise<void> {
-    throw Error("setHighlightRanges Not implemented");
+    throw Error("setHighlightRanges: not implemented");
   }
 
   async flashRanges(_flashDescriptors: FlashDescriptor[]): Promise<void> {
@@ -118,12 +118,10 @@ export class NeovimIDE implements IDE {
   }
 
   get activeTextEditor(): TextEditor | undefined {
-    // throw Error("activeTextEditor Not implemented");
     return this.getActiveTextEditor();
   }
 
   get activeEditableTextEditor(): EditableTextEditor | undefined {
-    // throw Error("activeEditableTextEditor Not implemented");
     return this.getActiveTextEditor();
   }
 
@@ -157,7 +155,6 @@ export class NeovimIDE implements IDE {
 
   get visibleTextEditors(): NeovimTextEditorImpl[] {
     return Array.from(this.editorMap.values());
-    // throw Error("visibleTextEditors Not implemented");
   }
 
   get visibleNotebookEditors(): NotebookEditor[] {
@@ -166,39 +163,38 @@ export class NeovimIDE implements IDE {
 
   public getEditableTextEditor(editor: TextEditor): EditableTextEditor {
     return editor as EditableTextEditor;
-    // throw Error("getEditableTextEditor Not implemented");
   }
 
   public async findInDocument(
     _query: string,
     _editor: TextEditor,
   ): Promise<void> {
-    throw Error("findInDocument Not implemented");
+    throw Error("findInDocument: not implemented");
   }
 
   public async findInWorkspace(_query: string): Promise<void> {
-    throw Error("findInWorkspace Not implemented");
+    throw Error("findInWorkspace: not implemented");
   }
 
   public async openTextDocument(_path: string): Promise<TextEditor> {
-    throw Error("openTextDocument Not implemented");
+    throw Error("openTextDocument: not implemented");
   }
 
   public async openUntitledTextDocument(
     _options: OpenUntitledTextDocumentOptions,
   ): Promise<TextEditor> {
-    throw Error("openUntitledTextDocument Not implemented");
+    throw Error("openUntitledTextDocument: not implemented");
   }
 
   public async showInputBox(_options?: any): Promise<string | undefined> {
-    throw Error("TextDocumentChangeEvent Not implemented");
+    throw Error("showInputBox: not implemented");
   }
 
   public async executeCommand<T>(
     _command: string,
     ..._args: any[]
   ): Promise<T | undefined> {
-    throw new Error("executeCommand Method not implemented.");
+    throw new Error("executeCommand: not implemented");
   }
 
   public onDidChangeTextDocument(

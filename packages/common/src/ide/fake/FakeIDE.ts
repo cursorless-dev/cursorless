@@ -1,5 +1,10 @@
 import { pull } from "lodash-es";
-import type { EditableTextEditor, NotebookEditor, TextEditor } from "../..";
+import type {
+  EditableTextEditor,
+  Messages,
+  NotebookEditor,
+  TextEditor,
+} from "../..";
 import type { GeneralizedRange } from "../../types/GeneralizedRange";
 import type { TextDocument } from "../../types/TextDocument";
 import type { TextDocumentChangeEvent } from "../types/Events";
@@ -24,11 +29,11 @@ import FakeKeyValueStore from "./FakeKeyValueStore";
 import FakeMessages from "./FakeMessages";
 
 export class FakeIDE implements IDE {
-  configuration: FakeConfiguration = new FakeConfiguration();
-  messages: FakeMessages = new FakeMessages();
-  keyValueStore: FakeKeyValueStore = new FakeKeyValueStore();
-  clipboard: FakeClipboard = new FakeClipboard();
-  capabilities: FakeCapabilities = new FakeCapabilities();
+  configuration = new FakeConfiguration();
+  keyValueStore = new FakeKeyValueStore();
+  clipboard = new FakeClipboard();
+  capabilities = new FakeCapabilities();
+  messages: Messages;
 
   runMode: RunMode = "test";
   cursorlessVersion: string = "0.0.0";
@@ -36,6 +41,10 @@ export class FakeIDE implements IDE {
   private disposables: Disposable[] = [];
   private assetsRoot_: string | undefined;
   private quickPickReturnValue: string | undefined = undefined;
+
+  constructor(messages: Messages = new FakeMessages()) {
+    this.messages = messages;
+  }
 
   async flashRanges(_flashDescriptors: FlashDescriptor[]): Promise<void> {
     // empty
@@ -57,8 +66,9 @@ export class FakeIDE implements IDE {
     dummyEvent;
   onDidChangeTextEditorVisibleRanges: Event<TextEditorVisibleRangesChangeEvent> =
     dummyEvent;
+  onDidChangeTextDocument: Event<TextDocumentChangeEvent> = dummyEvent;
 
-  public mockAssetsRoot(_assetsRoot: string) {
+  mockAssetsRoot(_assetsRoot: string) {
     this.assetsRoot_ = _assetsRoot;
   }
 
@@ -71,41 +81,41 @@ export class FakeIDE implements IDE {
   }
 
   get activeTextEditor(): TextEditor | undefined {
-    throw Error("Not implemented");
+    throw Error("activeTextEditor: not implemented");
   }
 
   get activeEditableTextEditor(): EditableTextEditor | undefined {
-    throw Error("Not implemented");
+    throw Error("activeEditableTextEditor: not implemented");
   }
 
   get visibleTextEditors(): TextEditor[] {
-    throw Error("Not implemented");
+    return [];
   }
 
   get visibleNotebookEditors(): NotebookEditor[] {
-    throw Error("Not implemented");
+    return [];
   }
 
   public getEditableTextEditor(_editor: TextEditor): EditableTextEditor {
-    throw Error("Not implemented");
+    throw Error("getEditableTextEditor: not implemented");
   }
 
   public findInDocument(_query: string, _editor: TextEditor): Promise<void> {
-    throw Error("Not implemented");
+    throw Error("findInDocument: not implemented");
   }
 
   public findInWorkspace(_query: string): Promise<void> {
-    throw Error("Not implemented");
+    throw Error("findInWorkspace: not implemented");
   }
 
   public openTextDocument(_path: string): Promise<TextEditor> {
-    throw Error("Not implemented");
+    throw Error("openTextDocument: not implemented");
   }
 
   public openUntitledTextDocument(
     _options: OpenUntitledTextDocumentOptions,
   ): Promise<TextEditor> {
-    throw Error("Not implemented");
+    throw Error("openUntitledTextDocument: not implemented");
   }
 
   public setQuickPickReturnValue(value: string | undefined) {
@@ -120,17 +130,11 @@ export class FakeIDE implements IDE {
   }
 
   public showInputBox(_options?: any): Promise<string | undefined> {
-    throw Error("Not implemented");
+    throw Error("showInputBox: not implemented");
   }
 
   executeCommand<T>(_command: string, ..._args: any[]): Promise<T | undefined> {
-    throw new Error("Method not implemented.");
-  }
-
-  public onDidChangeTextDocument(
-    _listener: (event: TextDocumentChangeEvent) => void,
-  ): Disposable {
-    throw Error("Not implemented");
+    throw new Error("executeCommand: not implemented");
   }
 
   disposeOnExit(...disposables: Disposable[]): () => void {

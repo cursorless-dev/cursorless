@@ -248,6 +248,9 @@ importers:
       mocha:
         specifier: ^11.7.5
         version: 11.7.5
+      web-tree-sitter:
+        specifier: ^0.26.6
+        version: 0.26.6
 
   packages/cursorless-cheatsheet:
     dependencies:
@@ -310,6 +313,9 @@ importers:
         specifier: ^4.3.6
         version: 4.3.6
     devDependencies:
+      '@types/chai':
+        specifier: ^5.2.3
+        version: 5.2.3
       '@types/js-yaml':
         specifier: ^4.0.9
         version: 4.0.9
@@ -328,6 +334,9 @@ importers:
       '@types/sinon':
         specifier: ^21.0.0
         version: 21.0.0
+      chai:
+        specifier: ^6.2.2
+        version: 6.2.2
       js-yaml:
         specifier: ^4.1.1
         version: 4.1.1
@@ -337,6 +346,12 @@ importers:
       sinon:
         specifier: ^21.0.2
         version: 21.0.2
+      vscode-uri:
+        specifier: ^3.1.0
+        version: 3.1.0
+      web-tree-sitter:
+        specifier: ^0.26.6
+        version: 0.26.6
 
   packages/cursorless-everywhere-talon:
     dependencies:
@@ -970,6 +985,9 @@ importers:
         specifier: ^2.2.6
         version: 2.2.6
     devDependencies:
+      '@cursorless/tree-sitter-wasms':
+        specifier: ^0.7.0
+        version: 0.7.0
       '@types/cross-spawn':
         specifier: ^6.0.6
         version: 6.0.6
@@ -988,6 +1006,9 @@ importers:
       mocha:
         specifier: ^11.7.5
         version: 11.7.5
+      web-tree-sitter:
+        specifier: ^0.26.6
+        version: 0.26.6
 
   packages/vscode-common:
     dependencies:
@@ -2038,6 +2059,9 @@ packages:
     engines: {node: '>=18'}
     peerDependencies:
       postcss: ^8.4
+
+  '@cursorless/tree-sitter-wasms@0.7.0':
+    resolution: {integrity: sha512-yGmyFb75nmicYyXqKm0TMEydA8QF76kr/+dvBcu9eSN093CKijLYYgsg3xGU44K3lUI2Vjfec5OJ4tyaYssahA==}
 
   '@dabh/diagnostics@2.0.8':
     resolution: {integrity: sha512-R4MSXTVnuMzGD7bzHdW2ZhhdPC/igELENcq5IjEverBvq5hn1SXCWcsi6eSsdWP0/Ur+SItRRjAktmdoX/8R/Q==}
@@ -10239,6 +10263,7 @@ packages:
 
   talon-snippets@1.3.0:
     resolution: {integrity: sha512-iFc1ePBQyaqZ73TL0lVgY+G8/DBfFTSiBRVdT2wT1CdPDips6usxSkBmXKGTDgHYJKstQx/NpXhIc0vXiAL4Kw==}
+    deprecated: 'Deprecated: use @cursorless/talon-tools instead.'
 
   tapable@2.3.0:
     resolution: {integrity: sha512-g9ljZiwki/LfxmQADO3dEY1CbpmXT5Hm2fJ+QaGKwSXUylMybePR7/67YW7jOrrvjEgL1Fmz5kzyAjWVWLlucg==}
@@ -10752,6 +10777,9 @@ packages:
 
   web-namespaces@2.0.1:
     resolution: {integrity: sha512-bKr1DkiNa2krS7qxNtdrtHAmzuYGFQLiQ13TsorsdT6ULTkPLKuu5+GsFpDlg6JFjUTwX2DyhMPG2be8uPrqsQ==}
+
+  web-tree-sitter@0.26.6:
+    resolution: {integrity: sha512-fSPR7VBW/fZQdUSp/bXTDLT+i/9dwtbnqgEBMzowrM4U3DzeCwDbY3MKo0584uQxID4m/1xpLflrlT/rLIRPew==}
 
   webidl-conversions@7.0.0:
     resolution: {integrity: sha512-VwddBukDzu71offAQR975unBIGqfKZpM+8ZX6ySk8nYhVoo5CYaZyzt3YBvYtRtO+aoGlqxPg/B87NGVZ/fu6g==}
@@ -12316,6 +12344,8 @@ snapshots:
   '@csstools/utilities@2.0.0(postcss@8.5.8)':
     dependencies:
       postcss: 8.5.8
+
+  '@cursorless/tree-sitter-wasms@0.7.0': {}
 
   '@dabh/diagnostics@2.0.8':
     dependencies:
@@ -23349,6 +23379,8 @@ snapshots:
   weakmap-polyfill@2.0.4: {}
 
   web-namespaces@2.0.1: {}
+
+  web-tree-sitter@0.26.6: {}
 
   webidl-conversions@7.0.0: {}
 

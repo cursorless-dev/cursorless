@@ -62,12 +62,23 @@ jobs:
       - name: Build
         run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build
 
-      - name: Run tests (Linux)
+      - name: Lint
+        run: pnpm --color lint
+
+      - name: Run unit tests (Linux)
         run: xvfb-run -a pnpm --color test
         if: runner.os == 'Linux'
 
-      - name: Run tests (Win,Mac)
+      - name: Run unit tests (Win,Mac)
         run: pnpm --color test
+        if: runner.os != 'Linux'
+
+      - name: Run VSCode tests (Linux)
+        run: xvfb-run -a pnpm -F @cursorless/test-harness test:vscode
+        if: runner.os == 'Linux'
+
+      - name: Run VSCode tests (Win,Mac)
+        run: pnpm -F @cursorless/test-harness test:vscode
         if: runner.os != 'Linux'
 
       - name: Run Talon-JS tests (Linux)
