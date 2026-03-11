@@ -4,8 +4,8 @@ import type {
   ScopeRanges,
   TargetRanges,
 } from "@cursorless/common";
-import { serializeHeader } from "./serializeHeader";
-import { serializeTargetRange } from "./serializeTargetRange";
+import { serializeHeader } from "../../../../cursorless-vscode-e2e/src/suite/serializeHeader";
+import { serializeTargetRange } from "../../../../cursorless-vscode-e2e/src/suite/serializeTargetRange";
 
 /**
  * These are special facets that are really only used as scopes for debugging.

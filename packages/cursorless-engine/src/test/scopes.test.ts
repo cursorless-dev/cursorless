@@ -1,32 +1,29 @@
 import type {
-  ScopeSupportFacet,
-  ScopeType,
   PlaintextScopeSupportFacet,
   ScopeRangeConfig,
+  ScopeSupportFacet,
+  ScopeType,
 } from "@cursorless/common";
 import {
   asyncSafety,
   languageScopeSupport,
+  plaintextScopeSupportFacetInfos,
   scopeSupportFacetInfos,
   ScopeSupportFacetLevel,
   shouldUpdateFixtures,
-  plaintextScopeSupportFacetInfos,
 } from "@cursorless/common";
 import { getScopeTestPathsRecursively } from "@cursorless/node-common";
-import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
 import { assert } from "chai";
 import { groupBy, uniq } from "lodash-es";
 import { promises as fsp } from "node:fs";
-import { endToEndTestSetup } from "../endToEndTestSetup";
+import { createTestEngine } from "./utils/createTestEngine";
+import { openNewEditor } from "./utils/openNewEditor";
 import {
   serializeIterationScopeFixture,
   serializeScopeFixture,
-} from "./serializeScopeFixture";
-import { shouldSkipScopeTest } from "./shouldSkipTest";
+} from "./utils/serializeScopeFixture";
 
 suite("Scope test cases", async function () {
-  endToEndTestSetup(this);
-
   const testPaths = getScopeTestPathsRecursively();
 
   if (!shouldUpdateFixtures()) {
@@ -58,13 +55,7 @@ suite("Scope test cases", async function () {
   testPaths.forEach(({ path, name, languageId, facet }) =>
     test(
       name,
-      asyncSafety(() => {
-        if (shouldSkipScopeTest(languageId)) {
-          this.ctx.skip();
-        }
-
-        return runTest(path, languageId, facet);
-      }),
+      asyncSafety(() => runTest(path, languageId, facet)),
     ),
   );
 });
@@ -116,7 +107,6 @@ async function testLanguageSupport(languageId: string, testedFacets: string[]) {
 }
 
 async function runTest(file: string, languageId: string, facetId: string) {
-  const { ide, scopeProvider } = (await getCursorlessApi()).testHelpers!;
   const { scopeType, isIteration } = getFacetInfo(languageId, facetId);
   const fixture = (await fsp.readFile(file, "utf8"))
     .toString()
@@ -130,9 +120,10 @@ async function runTest(file: string, languageId: string, facetId: string) {
 
   const code = fixture.slice(0, delimiterIndex! - 1);
 
-  await openNewEditor(code, { languageId });
+  const { scopeProvider } = await createTestEngine();
 
-  const editor = ide.activeTextEditor!;
+  const editor = await openNewEditor(code, languageId);
+
   const updateFixture = shouldUpdateFixtures();
 
   const [outputFixture, numScopes] = ((): [string, number] => {

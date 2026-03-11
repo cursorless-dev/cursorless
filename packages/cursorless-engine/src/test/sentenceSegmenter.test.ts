@@ -1,7 +1,7 @@
 import * as assert from "assert";
 import { SentenceSegmenter } from "../processTargets/modifiers/scopeHandlers/SentenceScopeHandler/SentenceSegmenter";
 import { sentenceSegmenterFixture } from "./fixtures/sentenceSegmeter.fixture";
-import { unitTestSetup } from "./unitTestSetup";
+import { unitTestSetup } from "./utils/unitTestSetup";
 
 suite("Sentence segmenter", () => {
   unitTestSetup();
