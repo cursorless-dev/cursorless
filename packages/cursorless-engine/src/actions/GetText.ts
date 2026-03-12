@@ -1,12 +1,11 @@
-import type { GetTextActionOptions } from "@cursorless/common";
+import type { GetTextActionOptions, IDE } from "@cursorless/common";
 import { FlashStyle } from "@cursorless/common";
-import { ide } from "../singletons/ide.singleton";
 import type { Target } from "../typings/target.types";
 import { ensureSingleTarget, flashTargets } from "../util/targetUtils";
 import type { ActionReturnValue } from "./actions.types";
 
 export default class GetText {
-  constructor() {
+  constructor(private ide: IDE) {
     this.run = this.run.bind(this);
   }
 
@@ -18,7 +17,7 @@ export default class GetText {
     }: GetTextActionOptions = {},
   ): Promise<ActionReturnValue> {
     if (showDecorations) {
-      await flashTargets(ide(), targets, FlashStyle.referenced);
+      await flashTargets(this.ide, targets, FlashStyle.referenced);
     }
 
     if (doEnsureSingleTarget) {

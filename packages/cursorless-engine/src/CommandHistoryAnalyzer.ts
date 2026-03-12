@@ -1,6 +1,7 @@
 import type {
   CommandHistoryEntry,
   CommandHistoryStorage,
+  IDE,
   Modifier,
   PartialPrimitiveTargetDescriptor,
   ScopeType,
@@ -8,7 +9,6 @@ import type {
 import { showWarning } from "@cursorless/common";
 import { groupBy, map, sum } from "lodash-es";
 import { canonicalizeAndValidateCommand } from "./core/commandVersionUpgrades/canonicalizeAndValidateCommand";
-import { ide } from "./singletons/ide.singleton";
 import { getPartialTargetDescriptors } from "./util/getPartialTargetDescriptors";
 import { getPartialPrimitiveTargets } from "./util/getPrimitiveTargets";
 import { getScopeType } from "./util/getScopeType";
@@ -116,6 +116,7 @@ function getMonth(entry: CommandHistoryEntry): string {
 }
 
 export async function analyzeCommandHistory(
+  ide: IDE,
   commandHistoryStorage: CommandHistoryStorage,
 ) {
   const entries = await commandHistoryStorage.getEntries();
@@ -123,7 +124,7 @@ export async function analyzeCommandHistory(
   if (entries.length === 0) {
     const TAKE_ME_THERE = "Show me";
     const result = await showWarning(
-      ide().messages,
+      ide.messages,
       "noHistory",
       "No command history entries found. Please enable the command history in the settings.",
       TAKE_ME_THERE,
@@ -131,7 +132,7 @@ export async function analyzeCommandHistory(
 
     if (result === TAKE_ME_THERE) {
       // FIXME: This is VSCode-specific
-      await ide().executeCommand(
+      await ide.executeCommand(
         "workbench.action.openSettings",
         "cursorless.commandHistory",
       );
@@ -148,7 +149,7 @@ export async function analyzeCommandHistory(
     ),
   ].join("\n\n\n");
 
-  await ide().openUntitledTextDocument({ content });
+  await ide.openUntitledTextDocument({ content });
 }
 
 function toPercent(value: number) {

@@ -1,10 +1,7 @@
 import { readFileSync } from "node:fs";
 import { groupBy } from "lodash-es";
-import {
-  getScopeTestConfigPaths,
-  getScopeTestPaths,
-  type ScopeTestPath,
-} from "./getFixturePaths";
+import type { ScopeTestPath } from "./getFixturePaths";
+import { getScopeTestConfigPaths, getScopeTestPaths } from "./getFixturePaths";
 
 export interface ScopeTestConfig {
   imports?: string[];

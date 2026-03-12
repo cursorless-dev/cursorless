@@ -1,15 +1,15 @@
 import type {
+  IDE,
   Mutable,
   Position,
   TextDocument,
   TreeSitter,
 } from "@cursorless/common";
 import type * as treeSitter from "web-tree-sitter";
-import { ide } from "../../singletons/ide.singleton";
+import type { ScopeCaptureName } from "./captureNames";
 import {
   getNormalizedCaptureIndex,
   getNormalizedCaptureName,
-  type ScopeCaptureName,
 } from "./captureNames";
 import { checkCaptureStartEnd } from "./checkCaptureStartEnd";
 import { getNodeRange } from "./getNodeRange";
@@ -38,6 +38,7 @@ export class TreeSitterQuery {
   private shouldCheckCaptures: boolean;
 
   private constructor(
+    private ide: IDE,
     private treeSitter: TreeSitter,
 
     /**
@@ -52,17 +53,18 @@ export class TreeSitterQuery {
      */
     private patternPredicates: PatternPredicate[][],
   ) {
-    this.shouldCheckCaptures = ide().runMode !== "production";
+    this.shouldCheckCaptures = ide.runMode !== "production";
   }
 
   static create(
+    ide: IDE,
     languageId: string,
     treeSitter: TreeSitter,
     query: treeSitter.Query,
   ) {
-    const predicates = parsePredicatesWithErrorHandling(languageId, query);
+    const predicates = parsePredicatesWithErrorHandling(ide, languageId, query);
 
-    return new TreeSitterQuery(treeSitter, query, predicates);
+    return new TreeSitterQuery(ide, treeSitter, query, predicates);
   }
 
   hasCapture(name: string): boolean {
@@ -239,7 +241,7 @@ export class TreeSitterQuery {
     }
 
     if (this.shouldCheckCaptures) {
-      checkCaptures(Array.from(map.values()));
+      checkCaptures(this.ide, Array.from(map.values()));
     }
 
     return result;
@@ -289,6 +291,7 @@ export class TreeSitterQuery {
 
     if (this.shouldCheckCaptures) {
       checkCaptures(
+        this.ide,
         Array.from(map.values(), (v) => ({
           captures: v.captures.map((c) =>
             createTestQueryCapture(c.name, getNodeRange(c.node)),
@@ -301,13 +304,13 @@ export class TreeSitterQuery {
   }
 }
 
-function checkCaptures(matches: { captures: QueryCapture[] }[]) {
+function checkCaptures(ide: IDE, matches: { captures: QueryCapture[] }[]) {
   for (const match of matches) {
     const capturesAreValid = checkCaptureStartEnd(
       rewriteStartOfEndOf(match.captures),
-      ide().messages,
+      ide.messages,
     );
-    if (!capturesAreValid && ide().runMode === "test") {
+    if (!capturesAreValid && ide.runMode === "test") {
       throw new Error("Invalid captures");
     }
   }

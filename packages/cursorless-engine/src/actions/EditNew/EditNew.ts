@@ -1,5 +1,5 @@
+import type { IDE } from "@cursorless/common";
 import type { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
-import { ide } from "../../singletons/ide.singleton";
 import type { Destination } from "../../typings/target.types";
 import { createThatMark, ensureSingleEditor } from "../../util/targetUtils";
 import type { Actions } from "../Actions";
@@ -11,6 +11,7 @@ import { runEditNewNotebookCellTargets } from "./runNotebookCellTargets";
 
 export class EditNew {
   constructor(
+    private ide: IDE,
     private rangeUpdater: RangeUpdater,
     private actions: Actions,
   ) {
@@ -22,10 +23,14 @@ export class EditNew {
       // It is not possible to "pour" a notebook cell and something else,
       // because each notebook cell is its own editor, and you can't have
       // cursors in multiple editors.
-      return runEditNewNotebookCellTargets(this.actions, destinations);
+      return runEditNewNotebookCellTargets(
+        this.ide,
+        this.actions,
+        destinations,
+      );
     }
 
-    const editableEditor = ide().getEditableTextEditor(
+    const editableEditor = this.ide.getEditableTextEditor(
       ensureSingleEditor(destinations),
     );
 
@@ -45,7 +50,7 @@ export class EditNew {
     };
 
     const insertLineAfterCapability =
-      ide().capabilities.commands.insertLineAfter;
+      this.ide.capabilities.commands.insertLineAfter;
     const useInsertLineAfter = insertLineAfterCapability != null;
 
     if (useInsertLineAfter) {

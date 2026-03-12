@@ -1,6 +1,10 @@
-import type { CommandId, EditableTextEditor, Range } from "@cursorless/common";
+import type {
+  CommandId,
+  EditableTextEditor,
+  IDE,
+  Range,
+} from "@cursorless/common";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { ide } from "../singletons/ide.singleton";
 import type { Target } from "../typings/target.types";
 import { CallbackAction } from "./CallbackAction";
 import type { ActionReturnValue } from "./actions.types";
@@ -25,8 +29,11 @@ abstract class SimpleIdeCommandAction {
   restoreSelection: boolean = true;
   showDecorations: boolean = true;
 
-  constructor(rangeUpdater: RangeUpdater) {
-    this.callbackAction = new CallbackAction(rangeUpdater);
+  constructor(
+    protected ide: IDE,
+    rangeUpdater: RangeUpdater,
+  ) {
+    this.callbackAction = new CallbackAction(ide, rangeUpdater);
     this.run = this.run.bind(this);
   }
 
@@ -34,7 +41,7 @@ abstract class SimpleIdeCommandAction {
     targets: Target[],
     { showDecorations }: Options = {},
   ): Promise<ActionReturnValue> {
-    const capabilities = ide().capabilities.commands[this.command];
+    const capabilities = this.ide.capabilities.commands[this.command];
 
     if (capabilities == null) {
       throw Error(`Action ${this.command} is not supported by your ide`);

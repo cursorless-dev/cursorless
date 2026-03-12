@@ -3,6 +3,7 @@ import type {
   CommandResponse,
   CommandServerApi,
   HatTokenMap,
+  IDE,
   ReadOnlyHatMap,
   TreeSitter,
 } from "@cursorless/common";
@@ -35,6 +36,7 @@ import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandler
  * 5. Call {@link CommandRunnerImpl.run} to run the actual command.
  */
 export async function runCommand(
+  ide: IDE,
   treeSitter: TreeSitter,
   commandServerApi: CommandServerApi,
   debug: Debug,
@@ -58,6 +60,7 @@ export async function runCommand(
   );
 
   let commandRunner = createCommandRunner(
+    ide,
     treeSitter,
     commandServerApi,
     languageDefinitions,
@@ -91,6 +94,7 @@ async function unwrapLegacyCommandResponse(
 }
 
 function createCommandRunner(
+  ide: IDE,
   treeSitter: TreeSitter,
   commandServerApi: CommandServerApi,
   languageDefinitions: LanguageDefinitions,
@@ -103,14 +107,16 @@ function createCommandRunner(
   const modifierStageFactory = new ModifierStageFactoryImpl(
     languageDefinitions,
     storedTargets,
-    new ScopeHandlerFactoryImpl(languageDefinitions),
+    new ScopeHandlerFactoryImpl(ide, languageDefinitions),
   );
 
   const markStageFactory = new MarkStageFactoryImpl(
+    ide,
     readableHatMap,
     storedTargets,
   );
   const targetPipelineRunner = new TargetPipelineRunner(
+    ide,
     modifierStageFactory,
     markStageFactory,
   );
@@ -120,6 +126,6 @@ function createCommandRunner(
     debug,
     storedTargets,
     targetPipelineRunner,
-    new Actions(treeSitter, snippets, rangeUpdater, modifierStageFactory),
+    new Actions(ide, treeSitter, snippets, rangeUpdater, modifierStageFactory),
   );
 }

@@ -1,4 +1,4 @@
-import type { TextEditor } from "@cursorless/common";
+import type { IDE, TextEditor } from "@cursorless/common";
 import {
   FlashStyle,
   RangeExpansionBehavior,
@@ -9,7 +9,6 @@ import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { containingLineIfUntypedModifier } from "../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";
-import { ide } from "../singletons/ide.singleton";
 import type { Target } from "../typings/target.types";
 import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
 import type { ActionReturnValue, SimpleAction } from "./actions.types";
@@ -20,6 +19,7 @@ class InsertCopy implements SimpleAction {
   ];
 
   constructor(
+    private ide: IDE,
     private rangeUpdater: RangeUpdater,
     private modifierStageFactory: ModifierStageFactory,
     private isBefore: boolean,
@@ -33,7 +33,7 @@ class InsertCopy implements SimpleAction {
       await runOnTargetsForEachEditor(targets, this.runForEditor),
     );
 
-    await ide().flashRanges(
+    await this.ide.flashRanges(
       results.flatMap((result) =>
         result.thatMark.map((that) => ({
           editor: that.editor,
@@ -59,7 +59,7 @@ class InsertCopy implements SimpleAction {
       ({ contentSelection }) => contentSelection,
     );
     const editRanges = edits.map(({ range }) => range);
-    const editableEditor = ide().getEditableTextEditor(editor);
+    const editableEditor = this.ide.getEditableTextEditor(editor);
 
     const {
       contentSelections: updatedContentSelections,
@@ -101,18 +101,20 @@ class InsertCopy implements SimpleAction {
 
 export class CopyContentBefore extends InsertCopy {
   constructor(
+    ide: IDE,
     rangeUpdater: RangeUpdater,
     modifierStageFactory: ModifierStageFactory,
   ) {
-    super(rangeUpdater, modifierStageFactory, true);
+    super(ide, rangeUpdater, modifierStageFactory, true);
   }
 }
 
 export class CopyContentAfter extends InsertCopy {
   constructor(
+    ide: IDE,
     rangeUpdater: RangeUpdater,
     modifierStageFactory: ModifierStageFactory,
   ) {
-    super(rangeUpdater, modifierStageFactory, false);
+    super(ide, rangeUpdater, modifierStageFactory, false);
   }
 }

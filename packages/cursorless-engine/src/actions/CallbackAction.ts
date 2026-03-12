@@ -1,10 +1,9 @@
-import type { EditableTextEditor, TextEditor } from "@cursorless/common";
+import type { EditableTextEditor, IDE, TextEditor } from "@cursorless/common";
 import { FlashStyle } from "@cursorless/common";
 import { flatten } from "lodash-es";
 import { selectionToStoredTarget } from "../core/commandRunner/selectionToStoredTarget";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import { ide } from "../singletons/ide.singleton";
 import type { Target } from "../typings/target.types";
 import {
   ensureSingleEditor,
@@ -30,7 +29,10 @@ interface CallbackOptions {
  * each editor, receiving all the targets that are in the given editor.
  */
 export class CallbackAction {
-  constructor(private rangeUpdater: RangeUpdater) {
+  constructor(
+    private ide: IDE,
+    private rangeUpdater: RangeUpdater,
+  ) {
     this.run = this.run.bind(this);
   }
 
@@ -39,7 +41,7 @@ export class CallbackAction {
     options: CallbackOptions,
   ): Promise<ActionReturnValue> {
     if (options.showDecorations) {
-      await flashTargets(ide(), targets, FlashStyle.referenced);
+      await flashTargets(this.ide, targets, FlashStyle.referenced);
     }
 
     if (options.ensureSingleEditor) {
@@ -50,7 +52,7 @@ export class CallbackAction {
       ensureSingleTarget(targets);
     }
 
-    const originalEditor = ide().activeEditableTextEditor;
+    const originalEditor = this.ide.activeEditableTextEditor;
 
     // If we are relying on selections we have to wait for one editor to finish
     // before moving the selection to the next
@@ -85,7 +87,7 @@ export class CallbackAction {
     editor: TextEditor,
     targets: Target[],
   ): Promise<Target[]> {
-    const editableEditor = ide().getEditableTextEditor(editor);
+    const editableEditor = this.ide.getEditableTextEditor(editor);
     const originalSelections = editor.selections;
     const originalEditorVersion = editor.document.version;
     const targetSelections = targets.map((target) => target.contentSelection);

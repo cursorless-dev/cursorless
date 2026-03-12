@@ -1,8 +1,5 @@
-import {
-  InMemoryTextDocument,
-  Selection,
-  type TextDocument,
-} from "@cursorless/common";
+import type { TextDocument } from "@cursorless/common";
+import { InMemoryTextDocument, Selection } from "@cursorless/common";
 import { URI } from "vscode-uri";
 import type { Talon } from "../types/talon.types";
 import type { EditorState, SelectionOffsets } from "../types/types";

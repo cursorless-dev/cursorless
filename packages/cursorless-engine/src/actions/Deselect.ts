@@ -1,10 +1,10 @@
-import { ide } from "../singletons/ide.singleton";
+import type { IDE } from "@cursorless/common";
 import type { Target } from "../typings/target.types";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import type { SimpleAction, ActionReturnValue } from "./actions.types";
 
 export default class Deselect implements SimpleAction {
-  constructor() {
+  constructor(private ide: IDE) {
     this.run = this.run.bind(this);
   }
 
@@ -23,7 +23,7 @@ export default class Deselect implements SimpleAction {
         throw new SelectionRequiredError();
       }
 
-      await ide().getEditableTextEditor(editor).setSelections(newSelections);
+      await this.ide.getEditableTextEditor(editor).setSelections(newSelections);
     });
 
     return {

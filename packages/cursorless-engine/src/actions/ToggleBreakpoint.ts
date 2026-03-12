@@ -1,7 +1,6 @@
-import { FlashStyle } from "@cursorless/common";
+import { FlashStyle, type IDE } from "@cursorless/common";
 import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { containingLineIfUntypedModifier } from "../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";
-import { ide } from "../singletons/ide.singleton";
 import type { Target } from "../typings/target.types";
 import {
   flashTargets,
@@ -15,21 +14,24 @@ export default class ToggleBreakpoint implements SimpleAction {
     this.modifierStageFactory.create(containingLineIfUntypedModifier),
   ];
 
-  constructor(private modifierStageFactory: ModifierStageFactory) {
+  constructor(
+    private ide: IDE,
+    private modifierStageFactory: ModifierStageFactory,
+  ) {
     this.run = this.run.bind(this);
   }
 
   async run(targets: Target[]): Promise<ActionReturnValue> {
     const thatTargets = targets.map(({ thatTarget }) => thatTarget);
 
-    await flashTargets(ide(), thatTargets, FlashStyle.referenced);
+    await flashTargets(this.ide, thatTargets, FlashStyle.referenced);
 
     await runOnTargetsForEachEditor(targets, async (editor, targets) => {
       const generalizedRanges = targets.map((target) =>
         toGeneralizedRange(target, target.contentRange),
       );
 
-      await ide()
+      await this.ide
         .getEditableTextEditor(editor)
         .toggleBreakpoint(generalizedRanges);
     });

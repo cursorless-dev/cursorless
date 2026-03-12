@@ -1,10 +1,5 @@
-import {
-  type DecorationStyle,
-  type Position,
-  blendMultipleColors,
-  BorderStyle,
-  Range,
-} from "@cursorless/common";
+import type { DecorationStyle, Position } from "@cursorless/common";
+import { blendMultipleColors, BorderStyle, Range } from "@cursorless/common";
 import type { BorderRadius, Highlight, Style } from "./types";
 
 export function flattenHighlights(highlights: Highlight[]): Highlight[] {

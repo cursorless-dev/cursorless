@@ -1,8 +1,8 @@
+import type { DecorationStyle } from "@cursorless/common";
 import {
   generateDecorationsForCharacterRange,
   Range,
   useSingleCornerBorderRadius,
-  type DecorationStyle,
 } from "@cursorless/common";
 import type { DecorationItem } from "shiki";
 import { flattenHighlights } from "./flattenHighlights";

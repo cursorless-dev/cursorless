@@ -1,5 +1,6 @@
 import type {
   GeneralizedRange,
+  IDE,
   Range,
   Selection,
   TextEditor,
@@ -8,7 +9,6 @@ import { FlashStyle, RangeExpansionBehavior } from "@cursorless/common";
 import { flatten } from "lodash-es";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import { ide } from "../singletons/ide.singleton";
 import type { EditWithRangeUpdater } from "../typings/Types";
 import type { Destination, Target } from "../typings/target.types";
 import {
@@ -43,6 +43,7 @@ abstract class BringMoveSwap {
   };
 
   constructor(
+    private ide: IDE,
     private rangeUpdater: RangeUpdater,
     private type: ActionType,
   ) {}
@@ -50,12 +51,12 @@ abstract class BringMoveSwap {
   protected async decorateTargets(sources: Target[], destinations: Target[]) {
     await Promise.all([
       flashTargets(
-        ide(),
+        this.ide,
         sources,
         this.decoration.sourceStyle,
         this.decoration.getSourceRangeCallback,
       ),
-      flashTargets(ide(), destinations, this.decoration.destinationStyle),
+      flashTargets(this.ide, destinations, this.decoration.destinationStyle),
     ]);
   }
 
@@ -172,7 +173,7 @@ abstract class BringMoveSwap {
           const destinationEditRanges = destinationEdits.map(
             ({ edit }) => edit.range,
           );
-          const editableEditor = ide().getEditableTextEditor(editor);
+          const editableEditor = this.ide.getEditableTextEditor(editor);
 
           const {
             sourceEditRanges: updatedSourceEditRanges,
@@ -235,13 +236,13 @@ abstract class BringMoveSwap {
     };
     return Promise.all([
       flashTargets(
-        ide(),
+        this.ide,
         thatMark.filter(({ isSource }) => isSource).map(({ target }) => target),
         this.decoration.sourceStyle,
         getRange,
       ),
       flashTargets(
-        ide(),
+        this.ide,
         thatMark
           .filter(({ isSource }) => !isSource)
           .map(({ target }) => target),
@@ -274,8 +275,8 @@ export class Bring extends BringMoveSwap {
     destinationStyle: FlashStyle.pendingModification0,
   };
 
-  constructor(rangeUpdater: RangeUpdater) {
-    super(rangeUpdater, "bring");
+  constructor(ide: IDE, rangeUpdater: RangeUpdater) {
+    super(ide, rangeUpdater, "bring");
     this.run = this.run.bind(this);
   }
 
@@ -309,8 +310,8 @@ export class Move extends BringMoveSwap {
     getSourceRangeCallback: getRemovalHighlightRange,
   };
 
-  constructor(rangeUpdater: RangeUpdater) {
-    super(rangeUpdater, "move");
+  constructor(ide: IDE, rangeUpdater: RangeUpdater) {
+    super(ide, rangeUpdater, "move");
     this.run = this.run.bind(this);
   }
 
@@ -343,8 +344,8 @@ export class Swap extends BringMoveSwap {
     destinationStyle: FlashStyle.pendingModification0,
   };
 
-  constructor(rangeUpdater: RangeUpdater) {
-    super(rangeUpdater, "swap");
+  constructor(ide: IDE, rangeUpdater: RangeUpdater) {
+    super(ide, rangeUpdater, "swap");
     this.run = this.run.bind(this);
   }
 

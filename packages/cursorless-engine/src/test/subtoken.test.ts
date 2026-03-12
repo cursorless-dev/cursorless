@@ -1,15 +1,15 @@
+import { FakeIDE } from "@cursorless/common";
 import * as assert from "assert";
 import { WordTokenizer } from "../processTargets/modifiers/scopeHandlers/WordScopeHandler/WordTokenizer";
 import { subtokenFixture } from "./fixtures/subtoken.fixture";
-import { unitTestSetup } from "../testUtil/unitTestSetup";
 
 suite("subtoken regex matcher", () => {
-  unitTestSetup();
+  const ide = new FakeIDE();
 
   subtokenFixture.forEach(({ input, expectedOutput }) => {
     test(input, () => {
       assert.deepStrictEqual(
-        new WordTokenizer("anyLang")
+        new WordTokenizer(ide, "anyLang")
           .splitIdentifier(input)
           .map(({ text }) => text),
         expectedOutput,

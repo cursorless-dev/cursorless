@@ -1,5 +1,6 @@
 import type {
   CompositeKeyMap,
+  IDE,
   TextEditor,
   Token,
   TokenHat,
@@ -15,6 +16,7 @@ import { getTokensInRange } from "./getTokensInRange";
  * @returns A list of tokens along with their ranks, sorted by decreasing rank
  */
 export function getRankedTokens(
+  ide: IDE,
   activeTextEditor: TextEditor | undefined,
   visibleTextEditors: readonly TextEditor[],
   forcedHatMap: CompositeKeyMap<Token, TokenHat> | undefined,
@@ -35,7 +37,7 @@ export function getRankedTokens(
     const displayLineMap = getDisplayLineMap(editor, [referencePosition.line]);
     const tokens = flatten(
       editor.visibleRanges.map((range) =>
-        getTokensInRange(editor, range).map((partialToken) => ({
+        getTokensInRange(ide, editor, range).map((partialToken) => ({
           ...partialToken,
           displayLine: displayLineMap.get(partialToken.range.start.line)!,
         })),

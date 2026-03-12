@@ -1,5 +1,4 @@
 import * as assert from "assert";
-import { unitTestSetup } from "../testUtil/unitTestSetup";
 import type { NearleyLexer, NearleyToken } from "./CommandLexer";
 import { lexer } from "./lexer";
 
@@ -87,8 +86,6 @@ const fixtures: Fixture[] = [
 ];
 
 suite("custom grammar: lexer", () => {
-  unitTestSetup();
-
   fixtures.forEach(({ input, expectedOutput }) => {
     test(input, () => {
       assert.deepStrictEqual(

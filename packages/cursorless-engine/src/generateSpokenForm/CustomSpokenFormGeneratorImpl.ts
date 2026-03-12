@@ -2,6 +2,7 @@ import type {
   ActionType,
   CommandComplete,
   Disposable,
+  IDE,
   Listener,
   ScopeType,
   TalonSpokenForms,
@@ -25,8 +26,8 @@ export class CustomSpokenFormGeneratorImpl implements CustomSpokenFormGenerator 
    */
   public readonly customSpokenFormsInitialized: Promise<void>;
 
-  constructor(talonSpokenForms: TalonSpokenForms) {
-    this.customSpokenForms = new CustomSpokenForms(talonSpokenForms);
+  constructor(ide: IDE, talonSpokenForms: TalonSpokenForms) {
+    this.customSpokenForms = new CustomSpokenForms(ide, talonSpokenForms);
     this.customSpokenFormsInitialized =
       this.customSpokenForms.customSpokenFormsInitialized;
     this.spokenFormGenerator = new SpokenFormGenerator(

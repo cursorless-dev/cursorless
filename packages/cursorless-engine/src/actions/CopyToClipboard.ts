@@ -1,10 +1,10 @@
+import type { IDE } from "@cursorless/common";
 import { FlashStyle } from "@cursorless/common";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { ide } from "../singletons/ide.singleton";
+import { CopyToClipboardSimple } from "./SimpleIdeCommandActions";
 import type { Target } from "../typings/target.types";
 import { flashTargets } from "../util/targetUtils";
 import type { Actions } from "./Actions";
-import { CopyToClipboardSimple } from "./SimpleIdeCommandActions";
 import type { ActionReturnValue, SimpleAction } from "./actions.types";
 
 interface Options {
@@ -13,6 +13,7 @@ interface Options {
 
 export class CopyToClipboard implements SimpleAction {
   constructor(
+    private ide: IDE,
     private actions: Actions,
     private rangeUpdater: RangeUpdater,
   ) {
@@ -23,20 +24,23 @@ export class CopyToClipboard implements SimpleAction {
     targets: Target[],
     options: Options = { showDecorations: true },
   ): Promise<ActionReturnValue> {
-    if (ide().capabilities.commands.clipboardCopy != null) {
-      const simpleAction = new CopyToClipboardSimple(this.rangeUpdater);
+    if (this.ide.capabilities.commands.clipboardCopy != null) {
+      const simpleAction = new CopyToClipboardSimple(
+        this.ide,
+        this.rangeUpdater,
+      );
       return simpleAction.run(targets, options);
     }
 
     if (options.showDecorations) {
-      await flashTargets(ide(), targets, FlashStyle.referenced);
+      await flashTargets(this.ide, targets, FlashStyle.referenced);
     }
 
     // FIXME: We should really keep track of the number of targets from the
     // original copy, as is done in VSCode.
     const text = targets.map((t) => t.contentText).join("\n");
 
-    await ide().clipboard.writeText(text);
+    await this.ide.clipboard.writeText(text);
 
     return { thatTargets: targets };
   }

@@ -1,5 +1,4 @@
-import type { HighlightId } from "@cursorless/common";
-import { ide } from "../singletons/ide.singleton";
+import type { HighlightId, IDE } from "@cursorless/common";
 import type { Target } from "../typings/target.types";
 import {
   runOnTargetsForEachEditor,
@@ -8,7 +7,7 @@ import {
 import type { ActionReturnValue } from "./actions.types";
 
 export default class Highlight {
-  constructor() {
+  constructor(private ide: IDE) {
     this.run = this.run.bind(this);
   }
 
@@ -16,7 +15,7 @@ export default class Highlight {
     targets: Target[],
     highlightId?: HighlightId,
   ): Promise<ActionReturnValue> {
-    if (ide().capabilities.commands["highlight"] == null) {
+    if (this.ide.capabilities.commands["highlight"] == null) {
       throw Error(`The highlight action is not supported by your ide`);
     }
 
@@ -24,13 +23,13 @@ export default class Highlight {
       // Special case to clear highlights for all editors when user says
       // "highlight nothing"
       await Promise.all(
-        ide().visibleTextEditors.map((editor) =>
-          ide().setHighlightRanges(highlightId, editor, []),
+        this.ide.visibleTextEditors.map((editor) =>
+          this.ide.setHighlightRanges(highlightId, editor, []),
         ),
       );
     } else {
       await runOnTargetsForEachEditor(targets, (editor, targets) =>
-        ide().setHighlightRanges(
+        this.ide.setHighlightRanges(
           highlightId,
           editor,
           targets.map((target) =>

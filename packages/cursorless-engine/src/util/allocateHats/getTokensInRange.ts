@@ -1,13 +1,17 @@
-import type { TextEditor, Token } from "@cursorless/common";
+import type { IDE, TextEditor, Token } from "@cursorless/common";
 import { Range } from "@cursorless/common";
 import { tokenize } from "../../tokenizer";
 
-export function getTokensInRange(editor: TextEditor, range: Range): Token[] {
+export function getTokensInRange(
+  ide: IDE,
+  editor: TextEditor,
+  range: Range,
+): Token[] {
   const languageId = editor.document.languageId;
   const text = editor.document.getText(range);
   const rangeOffset = editor.document.offsetAt(range.start);
 
-  return tokenize(text, languageId, (match) => {
+  return tokenize(ide, text, languageId, (match) => {
     const startOffset = rangeOffset + match.index!;
     const endOffset = rangeOffset + match.index! + match[0].length;
     const range = new Range(

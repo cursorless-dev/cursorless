@@ -1,6 +1,7 @@
 import type {
   CustomRegexScopeType,
   Disposable,
+  IDE,
   SpokenFormEntry,
   SpokenFormMapKeyTypes,
   SpokenFormType,
@@ -14,7 +15,6 @@ import {
   showError,
 } from "@cursorless/common";
 import { isEqual } from "lodash-es";
-import { ide } from "../singletons/ide.singleton";
 import type { SpokenFormMap, SpokenFormMapEntry } from "./SpokenFormMap";
 import {
   defaultSpokenFormInfoMap,
@@ -57,7 +57,10 @@ export class CustomSpokenForms {
     return this.needsInitialTalonUpdate_;
   }
 
-  constructor(private talonSpokenForms: TalonSpokenForms) {
+  constructor(
+    private ide: IDE,
+    private talonSpokenForms: TalonSpokenForms,
+  ) {
     this.disposable = talonSpokenForms.onDidChange(() =>
       this.updateSpokenFormMaps(),
     );
@@ -94,7 +97,7 @@ export class CustomSpokenForms {
         console.error("Error loading custom spoken forms", err);
         const msg = (err as Error).message.replace(/\.$/, "");
         void showError(
-          ide().messages,
+          this.ide.messages,
           "CustomSpokenForms.updateSpokenFormMaps",
           `Error loading custom spoken forms: ${msg}. Falling back to default spoken forms.`,
         );

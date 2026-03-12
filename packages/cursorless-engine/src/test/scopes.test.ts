@@ -16,10 +16,8 @@ import { getScopeTestPathsRecursively } from "@cursorless/node-common";
 import { assert } from "chai";
 import { groupBy, uniq } from "lodash-es";
 import { promises as fsp } from "node:fs";
-import {
-  createTestEnvironment,
-  type TestEnvironment,
-} from "../testUtil/createTestEnvironment";
+import type { TestEnvironment } from "../testUtil/createTestEnvironment";
+import { createTestEnvironment } from "../testUtil/createTestEnvironment";
 import {
   serializeIterationScopeFixture,
   serializeScopeFixture,

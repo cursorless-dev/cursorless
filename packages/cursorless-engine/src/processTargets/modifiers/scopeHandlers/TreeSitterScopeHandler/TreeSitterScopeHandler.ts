@@ -1,4 +1,4 @@
-import type { SimpleScopeType, TextEditor } from "@cursorless/common";
+import type { IDE, SimpleScopeType, TextEditor } from "@cursorless/common";
 import type { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
 import type { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
 import { ScopeTypeTarget } from "../../../targets/ScopeTypeTarget";
@@ -16,10 +16,11 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
   protected isHierarchical = true;
 
   constructor(
+    ide: IDE,
     query: TreeSitterQuery,
     public scopeType: SimpleScopeType,
   ) {
-    super(query);
+    super(ide, query);
   }
 
   // We just create a custom scope handler that doesn't necessarily correspond
@@ -28,6 +29,7 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
     return {
       type: "custom",
       scopeHandler: new TreeSitterIterationScopeHandler(
+        this.ide,
         this.query,
         this.scopeType,
       ),

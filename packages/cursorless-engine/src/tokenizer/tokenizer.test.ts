@@ -1,7 +1,7 @@
 import * as assert from "assert";
 import { flatten, range } from "lodash-es";
 import { tokenize } from ".";
-import { unitTestSetup } from "../testUtil/unitTestSetup";
+import { FakeIDE } from "@cursorless/common";
 
 type TestCase = [string, string[]];
 /**
@@ -116,24 +116,24 @@ const languageTokenizerTests: Record<string, LanguageTokenizerTests> = {
 };
 
 suite("tokenizer", () => {
-  unitTestSetup((fake) => {
-    Object.entries(languageTokenizerTests).forEach(
-      ([languageId, { wordSeparators }]) => {
-        fake.configuration.mockConfigurationScope(
-          {
-            languageId,
-          },
-          {
-            wordSeparators,
-          },
-        );
-      },
-    );
-  });
+  const ide = new FakeIDE();
+
+  Object.entries(languageTokenizerTests).forEach(
+    ([languageId, { wordSeparators }]) => {
+      ide.configuration.mockConfigurationScope(
+        {
+          languageId,
+        },
+        {
+          wordSeparators,
+        },
+      );
+    },
+  );
 
   globalTests.forEach(([input, expectedOutput]) => {
     test(`tokenizer test, input: "${input}"`, () => {
-      const output = tokenize(input, "anyLang", (match) => match[0]);
+      const output = tokenize(ide, input, "anyLang", (match) => match[0]);
       assert.deepStrictEqual(output, expectedOutput);
     });
   });
@@ -155,7 +155,7 @@ suite("tokenizer", () => {
 
       tests.forEach(([input, expectedOutput]) => {
         test(`${language} custom tokenizer, input: "${input}"`, () => {
-          const output = tokenize(input, language, (match) => match[0]);
+          const output = tokenize(ide, input, language, (match) => match[0]);
           assert.deepStrictEqual(output, expectedOutput);
         });
       });

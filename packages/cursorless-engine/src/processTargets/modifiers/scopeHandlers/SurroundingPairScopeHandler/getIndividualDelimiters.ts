@@ -6,7 +6,8 @@ import type {
 import { isString } from "@cursorless/common";
 import { concat, uniq } from "lodash-es";
 import { complexDelimiterMap, getSimpleDelimiterMap } from "./delimiterMaps";
-import { DelimiterSide, type IndividualDelimiter } from "./types";
+import type { IndividualDelimiter } from "./types";
+import { DelimiterSide } from "./types";
 
 /**
  * Given a list of delimiters, returns a list where each element corresponds to

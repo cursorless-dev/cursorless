@@ -1,4 +1,4 @@
-import type { Edit } from "@cursorless/common";
+import type { Edit, IDE } from "@cursorless/common";
 import {
   FlashStyle,
   RangeExpansionBehavior,
@@ -7,13 +7,15 @@ import {
 } from "@cursorless/common";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import { ide } from "../singletons/ide.singleton";
 import type { Target } from "../typings/target.types";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import type { ActionReturnValue } from "./actions.types";
 
 export default class Wrap {
-  constructor(private rangeUpdater: RangeUpdater) {
+  constructor(
+    private ide: IDE,
+    private rangeUpdater: RangeUpdater,
+  ) {
     this.run = this.run.bind(this);
   }
 
@@ -56,7 +58,7 @@ export default class Wrap {
           thatSelections: thatMarkSelections,
         } = await performEditsAndUpdateSelections({
           rangeUpdater: this.rangeUpdater,
-          editor: ide().getEditableTextEditor(editor),
+          editor: this.ide.getEditableTextEditor(editor),
           edits,
           selections: {
             boundariesStartSelections: {
@@ -83,7 +85,7 @@ export default class Wrap {
           ...delimiterEndSelections,
         ];
 
-        await ide().flashRanges(
+        await this.ide.flashRanges(
           delimiterSelections.map((selection) => ({
             editor,
             range: toCharacterRange(selection),

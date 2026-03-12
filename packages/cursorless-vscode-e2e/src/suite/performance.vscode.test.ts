@@ -1,10 +1,10 @@
-import {
-  asyncSafety,
-  type ActionDescriptor,
-  type Modifier,
-  type ScopeType,
-  type SimpleScopeTypeType,
+import type {
+  ActionDescriptor,
+  Modifier,
+  ScopeType,
+  SimpleScopeTypeType,
 } from "@cursorless/common";
+import { asyncSafety } from "@cursorless/common";
 import { openNewEditor, runCursorlessAction } from "@cursorless/vscode-common";
 import assert from "assert";
 import * as vscode from "vscode";

@@ -1,6 +1,5 @@
-import { matchAll } from "@cursorless/common";
+import { matchAll, type IDE } from "@cursorless/common";
 import { escapeRegExp } from "lodash-es";
-import { ide } from "../singletons/ide.singleton";
 import type { LanguageTokenizerComponents } from "./tokenizer.types";
 
 const REPEATABLE_SYMBOLS = [
@@ -96,10 +95,10 @@ function generateMatcher(
 
 const matchers = new Map<string, Matcher>();
 
-export function getMatcher(languageId: string): Matcher {
+export function getMatcher(ide: IDE, languageId: string): Matcher {
   // FIXME: The reason this code will auto-reload on settings change is that we don't use fine-grained settings listener in `Decorations`:
   // https://github.com/cursorless-dev/cursorless/blob/c914d477c9624c498a47c964088b34e484eac494/src/core/Decorations.ts#L58
-  const wordSeparators = ide().configuration.getOwnConfiguration(
+  const wordSeparators = ide.configuration.getOwnConfiguration(
     "wordSeparators",
     {
       languageId,
@@ -124,9 +123,11 @@ export function getMatcher(languageId: string): Matcher {
 }
 
 export function tokenize<T>(
+  ide: IDE,
   text: string,
   languageId: string,
   mapfn: (v: RegExpMatchArray, k: number) => T,
 ) {
-  return matchAll(text, getMatcher(languageId).tokenMatcher, mapfn);
+  const matcher = getMatcher(ide, languageId);
+  return matchAll(text, matcher.tokenMatcher, mapfn);
 }

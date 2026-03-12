@@ -3,12 +3,12 @@ import type { TextEditor } from "../../types/TextEditor";
 import type FakeConfiguration from "../fake/FakeConfiguration";
 import type FakeKeyValueStore from "../fake/FakeKeyValueStore";
 import type { FakeIDE } from "../fake/FakeIDE";
-import PassthroughIDEBase from "../PassthroughIDEBase";
+import { PassthroughIDE } from "../PassthroughIDE";
 import type { FlashDescriptor } from "../types/FlashDescriptor";
 import type { IDE } from "../types/ide.types";
 import type { QuickPickOptions } from "../types/QuickPickOptions";
 
-export class NormalizedIDE extends PassthroughIDEBase {
+export class NormalizedIDE extends PassthroughIDE {
   configuration: FakeConfiguration;
   keyValueStore: FakeKeyValueStore;
 

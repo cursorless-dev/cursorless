@@ -1,5 +1,4 @@
-import { showError } from "@cursorless/common";
-import { ide } from "../../singletons/ide.singleton";
+import { showError, type IDE } from "@cursorless/common";
 import { isCaptureAllowed } from "./captureNames";
 
 // Not a comment. ie line is not starting with `;;`
@@ -7,7 +6,11 @@ import { isCaptureAllowed } from "./captureNames";
 // Capture starts with `@` and is followed by words and/or dots
 const capturePattern = /^(?!;;).*(?<!"\w*)@([\w.]*)/gm;
 
-export function validateQueryCaptures(file: string, rawQuery: string): void {
+export function validateQueryCaptures(
+  ide: IDE,
+  file: string,
+  rawQuery: string,
+): void {
   const matches = rawQuery.matchAll(capturePattern);
 
   const errors: string[] = [];
@@ -37,12 +40,12 @@ export function validateQueryCaptures(file: string, rawQuery: string): void {
   const message = errors.join("\n");
 
   void showError(
-    ide().messages,
+    ide.messages,
     "validateQueryCaptures.invalidCaptureName",
     message,
   );
 
-  if (ide().runMode === "test") {
+  if (ide.runMode === "test") {
     throw new Error(message);
   }
 }

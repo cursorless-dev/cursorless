@@ -1,6 +1,5 @@
 import { FakeIDE } from "@cursorless/common";
 import assert from "assert";
-import { injectIde } from "../../singletons/ide.singleton";
 import { validateQueryCaptures } from "./validateQueryCaptures";
 
 const testCases: { name: string; isOk: boolean; content: string }[] = [
@@ -89,16 +88,14 @@ const testCases: { name: string; isOk: boolean; content: string }[] = [
 ];
 
 suite("validateQueryCaptures", function () {
-  suiteSetup(() => {
-    injectIde(new FakeIDE());
-  });
+  const ide = new FakeIDE();
 
   for (const testCase of testCases) {
     const name = [testCase.isOk ? "OK" : "Error", testCase.name].join(": ");
 
     test(name, () => {
       const runTest = () =>
-        validateQueryCaptures(testCase.name, testCase.content);
+        validateQueryCaptures(ide, testCase.name, testCase.content);
 
       if (testCase.isOk) {
         assert.doesNotThrow(runTest);

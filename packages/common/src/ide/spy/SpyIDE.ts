@@ -1,7 +1,7 @@
 import { pickBy, values } from "lodash-es";
 import type { GeneralizedRange } from "../../types/GeneralizedRange";
 import type { TextEditor } from "../../types/TextEditor";
-import PassthroughIDEBase from "../PassthroughIDEBase";
+import { PassthroughIDE } from "../PassthroughIDE";
 import type { FlashDescriptor } from "../types/FlashDescriptor";
 import type { HighlightId, IDE } from "../types/ide.types";
 import type { Message } from "./SpyMessages";
@@ -18,7 +18,7 @@ export interface SpyIDERecordedValues {
   highlights?: Highlight[];
 }
 
-export class SpyIDE extends PassthroughIDEBase {
+export class SpyIDE extends PassthroughIDE {
   messages: SpyMessages;
   private flashes: FlashDescriptor[] = [];
   private highlights: Highlight[] = [];

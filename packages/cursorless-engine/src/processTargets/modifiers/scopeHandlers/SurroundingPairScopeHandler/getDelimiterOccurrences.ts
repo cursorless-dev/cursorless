@@ -1,4 +1,5 @@
-import { matchAllIterator, Range, type TextDocument } from "@cursorless/common";
+import type { TextDocument } from "@cursorless/common";
+import { matchAllIterator, Range } from "@cursorless/common";
 import type { LanguageDefinition } from "../../../../languages/LanguageDefinition";
 import type { QueryCapture } from "../../../../languages/TreeSitterQuery/QueryCapture";
 import { OneWayNestedRangeFinder } from "../util/OneWayNestedRangeFinder";

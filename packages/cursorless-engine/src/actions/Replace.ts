@@ -1,16 +1,18 @@
-import type { ReplaceWith } from "@cursorless/common";
+import type { IDE, ReplaceWith } from "@cursorless/common";
 import { FlashStyle, RangeExpansionBehavior } from "@cursorless/common";
 import { zip } from "lodash-es";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import { ide } from "../singletons/ide.singleton";
 import type { SelectionWithEditor } from "../typings/Types";
 import type { Destination, Target } from "../typings/target.types";
 import { flashTargets, runForEachEditor } from "../util/targetUtils";
 import type { ActionReturnValue } from "./actions.types";
 
 export default class Replace {
-  constructor(private rangeUpdater: RangeUpdater) {
+  constructor(
+    private ide: IDE,
+    private rangeUpdater: RangeUpdater,
+  ) {
     this.run = this.run.bind(this);
   }
 
@@ -37,7 +39,7 @@ export default class Replace {
     replaceWith: ReplaceWith,
   ): Promise<ActionReturnValue> {
     await flashTargets(
-      ide(),
+      this.ide,
       destinations.map((d) => d.target),
       FlashStyle.pendingModification0,
     );
@@ -68,7 +70,7 @@ export default class Replace {
           editRanges: updatedEditRanges,
         } = await performEditsAndUpdateSelections({
           rangeUpdater: this.rangeUpdater,
-          editor: ide().getEditableTextEditor(editor),
+          editor: this.ide.getEditableTextEditor(editor),
           edits,
           selections: {
             contentSelections: editWrappers.map(

@@ -1,12 +1,12 @@
 import assert from "node:assert";
 import { CustomSpokenFormGeneratorImpl } from "./CustomSpokenFormGeneratorImpl";
-import { LATEST_VERSION, asyncSafety } from "@cursorless/common";
+import { FakeIDE, LATEST_VERSION, asyncSafety } from "@cursorless/common";
 
 suite("CustomSpokenFormGeneratorImpl", async function () {
   test(
     "basic",
     asyncSafety(async () => {
-      const generator = new CustomSpokenFormGeneratorImpl({
+      const generator = new CustomSpokenFormGeneratorImpl(new FakeIDE(), {
         async getSpokenFormEntries() {
           return [
             {

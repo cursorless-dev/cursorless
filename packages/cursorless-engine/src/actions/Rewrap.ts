@@ -1,9 +1,9 @@
+import type { IDE } from "@cursorless/common";
 import { FlashStyle } from "@cursorless/common";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { getContainingSurroundingPairIfNoBoundaryStage } from "../processTargets/modifiers/BoundaryStage";
 import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
-import { ide } from "../singletons/ide.singleton";
 import type { Target } from "../typings/target.types";
 import {
   createThatMark,
@@ -18,6 +18,7 @@ export default class Rewrap {
   ];
 
   constructor(
+    private ide: IDE,
     private rangeUpdater: RangeUpdater,
     private modifierStageFactory: ModifierStageFactory,
   ) {
@@ -39,7 +40,11 @@ export default class Rewrap {
       return boundary;
     });
 
-    await flashTargets(ide(), boundaryTargets, FlashStyle.pendingModification0);
+    await flashTargets(
+      this.ide,
+      boundaryTargets,
+      FlashStyle.pendingModification0,
+    );
 
     const results = await runOnTargetsForEachEditor(
       boundaryTargets,
@@ -55,7 +60,7 @@ export default class Rewrap {
           thatRanges: updatedThatRanges,
         } = await performEditsAndUpdateSelections({
           rangeUpdater: this.rangeUpdater,
-          editor: ide().getEditableTextEditor(editor),
+          editor: this.ide.getEditableTextEditor(editor),
           edits,
           selections: {
             sourceRanges: targets.map(

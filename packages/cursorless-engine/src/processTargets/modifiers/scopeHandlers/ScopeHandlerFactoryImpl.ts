@@ -1,6 +1,7 @@
 import {
   pseudoScopes,
   UnsupportedScopeError,
+  type IDE,
   type ScopeType,
 } from "@cursorless/common";
 import type { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
@@ -46,7 +47,10 @@ import { WordScopeHandler } from "./WordScopeHandler/WordScopeHandler";
  * undefined if the given scope type / language id combination is not supported.
  */
 export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
-  constructor(private languageDefinitions: LanguageDefinitions) {
+  constructor(
+    private ide: IDE,
+    private languageDefinitions: LanguageDefinitions,
+  ) {
     this.maybeCreate = this.maybeCreate.bind(this);
     this.create = this.create.bind(this);
   }
@@ -57,13 +61,18 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
   ): ScopeHandler | undefined {
     switch (scopeType.type) {
       case "character":
-        return new CharacterScopeHandler(this, scopeType, languageId);
+        return new CharacterScopeHandler(this.ide, this, scopeType, languageId);
       case "word":
-        return new WordScopeHandler(this, scopeType, languageId);
+        return new WordScopeHandler(this.ide, this, scopeType, languageId);
       case "token":
-        return new TokenScopeHandler(this, scopeType, languageId);
+        return new TokenScopeHandler(this.ide, this, scopeType, languageId);
       case "identifier":
-        return new IdentifierScopeHandler(this, scopeType, languageId);
+        return new IdentifierScopeHandler(
+          this.ide,
+          this,
+          scopeType,
+          languageId,
+        );
       case "line":
       case "fullLine":
         return new LineScopeHandler({ type: scopeType.type }, languageId);
@@ -113,6 +122,7 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
         );
       case "notebookCell":
         return new NotebookCellScopeHandler(
+          this.ide,
           this,
           this.languageDefinitions,
           scopeType,

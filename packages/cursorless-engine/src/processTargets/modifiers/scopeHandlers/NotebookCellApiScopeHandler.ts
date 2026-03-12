@@ -1,11 +1,11 @@
-import {
-  Range,
-  type Direction,
-  type NotebookCell,
-  type Position,
-  type TextEditor,
+import type {
+  IDE,
+  Direction,
+  NotebookCell,
+  Position,
+  TextEditor,
 } from "@cursorless/common";
-import { ide } from "../../../singletons/ide.singleton";
+import { Range } from "@cursorless/common";
 import { NotebookCellTarget } from "../../targets";
 import { BaseScopeHandler } from "./BaseScopeHandler";
 import type { TargetScope } from "./scope.types";
@@ -19,7 +19,7 @@ export class NotebookCellApiScopeHandler extends BaseScopeHandler {
   public readonly iterationScopeType = { type: "document" } as const;
   protected isHierarchical = false;
 
-  constructor() {
+  constructor(private ide: IDE) {
     super();
   }
 
@@ -29,21 +29,28 @@ export class NotebookCellApiScopeHandler extends BaseScopeHandler {
     direction: Direction,
     hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
-    const cells = getNotebookCells(editor, position, direction, hints);
+    const cells = getNotebookCells(
+      this.ide,
+      editor,
+      position,
+      direction,
+      hints,
+    );
 
     for (const cell of cells) {
-      yield createTargetScope(cell);
+      yield createTargetScope(this.ide, cell);
     }
   }
 }
 
 function getNotebookCells(
+  ide: IDE,
   editor: TextEditor,
   position: Position,
   direction: Direction,
   hints: ScopeIteratorRequirements,
 ) {
-  const nb = getNotebook(editor);
+  const nb = getNotebook(ide, editor);
 
   if (nb == null) {
     return [];
@@ -77,9 +84,9 @@ function getNotebookCells(
     : notebook.cells.slice(0, cell.index + 1).reverse();
 }
 
-function getNotebook(editor: TextEditor) {
+function getNotebook(ide: IDE, editor: TextEditor) {
   const uri = editor.document.uri.toString();
-  for (const notebook of ide().visibleNotebookEditors) {
+  for (const notebook of ide.visibleNotebookEditors) {
     for (const cell of notebook.cells) {
       if (cell.document.uri.toString() === uri) {
         return { notebook, cell };
@@ -89,8 +96,8 @@ function getNotebook(editor: TextEditor) {
   return undefined;
 }
 
-function createTargetScope(cell: NotebookCell): TargetScope {
-  const editor = getEditor(cell);
+function createTargetScope(ide: IDE, cell: NotebookCell): TargetScope {
+  const editor = getEditor(ide, cell);
   const contentRange = editor.document.range;
   return {
     editor,
@@ -105,9 +112,9 @@ function createTargetScope(cell: NotebookCell): TargetScope {
   };
 }
 
-function getEditor(cell: NotebookCell) {
+function getEditor(ide: IDE, cell: NotebookCell) {
   const uri = cell.document.uri.toString();
-  for (const editor of ide().visibleTextEditors) {
+  for (const editor of ide.visibleTextEditors) {
     if (editor.document.uri.toString() === uri) {
       return editor;
     }

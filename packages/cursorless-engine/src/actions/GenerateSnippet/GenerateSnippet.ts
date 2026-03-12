@@ -1,21 +1,21 @@
-import {
-  FlashStyle,
-  Range,
-  matchAll,
-  type EditableTextEditor,
-  type Selection,
-  type TextEditor,
+import type {
+  EditableTextEditor,
+  IDE,
+  Selection,
+  TextEditor,
 } from "@cursorless/common";
+import { FlashStyle, Range, matchAll } from "@cursorless/common";
+import type {
+  Snippet,
+  SnippetFile,
+  SnippetHeader,
+  SnippetVariable,
+} from "@cursorless/talon-tools";
 import {
   parseSnippetFile,
   serializeSnippetFile,
-  type Snippet,
-  type SnippetFile,
-  type SnippetHeader,
-  type SnippetVariable,
 } from "@cursorless/talon-tools";
 import type { Snippets } from "../../core/Snippets";
-import { ide } from "../../singletons/ide.singleton";
 import type { Target } from "../../typings/target.types";
 import { ensureSingleTarget, flashTargets } from "../../util/targetUtils";
 import type { ActionReturnValue } from "../actions.types";
@@ -53,7 +53,10 @@ import type { Offsets } from "./Offsets";
  * 9. Insert the meta snippet so that the user can construct their snippet.
  */
 export default class GenerateSnippet {
-  constructor(private snippets: Snippets) {
+  constructor(
+    private ide: IDE,
+    private snippets: Snippets,
+  ) {
     this.run = this.run.bind(this);
   }
 
@@ -75,10 +78,10 @@ export default class GenerateSnippet {
     // immediately starts saying the name of the snippet (eg command chain
     // "snippet make funk camel my function"), we're more likely to
     // win the race and have the input box ready for them
-    void flashTargets(ide(), targets, FlashStyle.referenced);
+    void flashTargets(this.ide, targets, FlashStyle.referenced);
 
     if (snippetName == null) {
-      snippetName = await ide().showInputBox({
+      snippetName = await this.ide.showInputBox({
         prompt: "Name of snippet",
         placeHolder: "helloWorld",
       });
@@ -138,12 +141,12 @@ export default class GenerateSnippet {
     let editableEditor: EditableTextEditor;
     let snippetFile: SnippetFile = { snippets: [] };
 
-    if (ide().runMode === "test") {
+    if (this.ide.runMode === "test") {
       // If we're testing, we just overwrite the current document
-      editableEditor = ide().getEditableTextEditor(editor);
+      editableEditor = this.ide.getEditableTextEditor(editor);
     } else {
       // Otherwise, we create and open a new document for the snippet
-      editableEditor = ide().getEditableTextEditor(
+      editableEditor = this.ide.getEditableTextEditor(
         await this.snippets.openNewSnippetFile(snippetName, directory),
       );
       snippetFile = parseSnippetFile(editableEditor.document.getText());

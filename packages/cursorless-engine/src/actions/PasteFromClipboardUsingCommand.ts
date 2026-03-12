@@ -2,10 +2,10 @@ import {
   FlashStyle,
   RangeExpansionBehavior,
   toCharacterRange,
+  type IDE,
 } from "@cursorless/common";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import { ide } from "../singletons/ide.singleton";
 import type { Destination } from "../typings/target.types";
 import { ensureSingleEditor } from "../util/targetUtils";
 import type { Actions } from "./Actions";
@@ -17,6 +17,7 @@ import type { ActionReturnValue } from "./actions.types";
  */
 export class PasteFromClipboardUsingCommand {
   constructor(
+    private ide: IDE,
     private rangeUpdater: RangeUpdater,
     private actions: Actions,
   ) {
@@ -24,10 +25,10 @@ export class PasteFromClipboardUsingCommand {
   }
 
   async run(destinations: Destination[]): Promise<ActionReturnValue> {
-    const editor = ide().getEditableTextEditor(
+    const editor = this.ide.getEditableTextEditor(
       ensureSingleEditor(destinations),
     );
-    const originalEditor = ide().activeEditableTextEditor;
+    const originalEditor = this.ide.activeEditableTextEditor;
 
     // First call editNew in order to insert delimiters if necessary and leave
     // the cursor in the right position. Note that this action will focus the
@@ -78,7 +79,7 @@ export class PasteFromClipboardUsingCommand {
       await originalEditor.focus();
     }
 
-    await ide().flashRanges(
+    await this.ide.flashRanges(
       updatedTargetSelections.map((selection) => ({
         editor,
         range: toCharacterRange(selection),

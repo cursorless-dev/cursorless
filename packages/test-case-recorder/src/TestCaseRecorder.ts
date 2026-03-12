@@ -30,8 +30,6 @@ import type {
 } from "@cursorless/cursorless-engine";
 import {
   defaultSpokenFormMap,
-  ide,
-  injectIde,
   SpokenFormGenerator,
 } from "@cursorless/cursorless-engine";
 import { getRecordedTestsDirPath, walkDirsSync } from "@cursorless/node-common";
@@ -72,11 +70,13 @@ export class TestCaseRecorder {
   private spokenFormGenerator = new SpokenFormGenerator(defaultSpokenFormMap);
 
   constructor(
+    private ide: IDE,
     private commandServerApi: CommandServerApi | undefined,
     private hatTokenMap: HatTokenMap,
     private storedTargets: StoredTargetMap,
+    private injectIde: (ide: IDE) => void,
   ) {
-    const { runMode } = ide();
+    const { runMode } = ide;
 
     this.fixtureRoot =
       runMode === "development" || runMode === "test"
@@ -93,7 +93,7 @@ export class TestCaseRecorder {
   async toggle(options?: RecordTestCaseCommandOptions) {
     if (this.active) {
       void showInfo(
-        ide().messages,
+        this.ide.messages,
         "recordStop",
         "Stopped recording test cases",
       );
@@ -149,8 +149,8 @@ export class TestCaseRecorder {
       undefined,
       ["clipboard"],
       this.active ? this.extraSnapshotFields : undefined,
-      ide().activeTextEditor!,
-      ide(),
+      this.ide.activeTextEditor!,
+      this.ide,
       marks,
       this.active ? { startTimestamp: this.startTimestamp } : undefined,
       metadata,
@@ -230,7 +230,7 @@ export class TestCaseRecorder {
     this.paused = false;
 
     void showInfo(
-      ide().messages,
+      this.ide.messages,
       "recordStart",
       `Recording test cases for following commands in:\n${this.targetDirectory}`,
     );
@@ -241,8 +241,8 @@ export class TestCaseRecorder {
   private async recordStartTime(showCalibrationDisplay: boolean) {
     if (showCalibrationDisplay) {
       await Promise.all(
-        ide().visibleTextEditors.map((editor) =>
-          ide().setHighlightRanges(TIMING_CALIBRATION_HIGHLIGHT_ID, editor, [
+        this.ide.visibleTextEditors.map((editor) =>
+          this.ide.setHighlightRanges(TIMING_CALIBRATION_HIGHLIGHT_ID, editor, [
             toLineRange(editor.document.range),
           ]),
         ),
@@ -258,8 +258,12 @@ export class TestCaseRecorder {
 
     if (showCalibrationDisplay) {
       await Promise.all(
-        ide().visibleTextEditors.map((editor) =>
-          ide().setHighlightRanges(TIMING_CALIBRATION_HIGHLIGHT_ID, editor, []),
+        this.ide.visibleTextEditors.map((editor) =>
+          this.ide.setHighlightRanges(
+            TIMING_CALIBRATION_HIGHLIGHT_ID,
+            editor,
+            [],
+          ),
         ),
       );
     }
@@ -286,9 +290,9 @@ export class TestCaseRecorder {
       await this.finishTestCase();
     } else {
       // Otherwise, we are starting a new test case
-      this.originalIde = ide();
+      this.originalIde = this.ide;
       this.spyIde = new SpyIDE(this.originalIde);
-      injectIde(this.spyIde);
+      this.injectIde(this.spyIde);
 
       const spokenForm = this.spokenFormGenerator.processCommand(command);
 
@@ -320,7 +324,7 @@ export class TestCaseRecorder {
 
       await this.testCase.recordInitialState();
 
-      const editor = ide().activeTextEditor!;
+      const editor = this.ide.activeTextEditor!;
 
       if (editor.document.getText().includes("\r\n")) {
         throw Error(
@@ -331,7 +335,7 @@ export class TestCaseRecorder {
       // NB: We need to copy the editor options rather than storing a reference
       // because its properties are lazy
       this.originalTextEditorOptions = { ...editor.options };
-      ide().getEditableTextEditor(editor).options =
+      this.ide.getEditableTextEditor(editor).options =
         DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST;
     }
   }
@@ -370,14 +374,14 @@ export class TestCaseRecorder {
       }
 
       void showInfo(
-        ide().messages,
+        this.ide.messages,
         "testCaseSaved",
         message,
         "View",
         "Delete",
       ).then(async (action) => {
         if (action === "View") {
-          await ide().openTextDocument(outPath);
+          await this.ide.openTextDocument(outPath);
         }
         if (action === "Delete") {
           try {
@@ -410,11 +414,15 @@ export class TestCaseRecorder {
     } catch (e) {
       const errorMessage =
         '"Cursorless record" must be run from within cursorless directory';
-      void showError(ide().messages, "promptSubdirectoryError", errorMessage);
+      void showError(
+        this.ide.messages,
+        "promptSubdirectoryError",
+        errorMessage,
+      );
       throw new Error(errorMessage, { cause: e });
     }
 
-    const subdirectorySelection = await ide().showQuickPick(
+    const subdirectorySelection = await this.ide.showQuickPick(
       walkDirsSync(this.fixtureRoot).concat("/"),
       {
         title: "Select directory for new test cases",
@@ -460,13 +468,13 @@ export class TestCaseRecorder {
 
   finallyHook() {
     if (this.originalIde != null) {
-      injectIde(this.originalIde);
+      this.injectIde(this.originalIde);
     }
     this.spyIde = undefined;
     this.originalIde = undefined;
 
-    const editor = ide().activeTextEditor!;
-    ide().getEditableTextEditor(editor).options =
+    const editor = this.ide.activeTextEditor!;
+    this.ide.getEditableTextEditor(editor).options =
       this.originalTextEditorOptions;
   }
 

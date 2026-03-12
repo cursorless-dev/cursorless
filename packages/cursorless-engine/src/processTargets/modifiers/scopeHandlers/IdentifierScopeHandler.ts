@@ -1,16 +1,26 @@
+import type { Direction, IDE, ScopeType } from "@cursorless/common";
 import { imap } from "itertools";
-import { NestedScopeHandler } from "./NestedScopeHandler";
 import { getMatcher } from "../../../tokenizer";
-import type { Direction } from "@cursorless/common";
 import { generateMatchesInRange } from "../../../util/getMatchesInRange";
 import { TokenTarget } from "../../targets";
+import { NestedScopeHandler } from "./NestedScopeHandler";
 import type { TargetScope } from "./scope.types";
+import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 
 export class IdentifierScopeHandler extends NestedScopeHandler {
   public readonly scopeType = { type: "identifier" } as const;
   public readonly iterationScopeType = { type: "line" } as const;
+  private regex: RegExp;
 
-  private regex: RegExp = getMatcher(this.languageId).identifierMatcher;
+  constructor(
+    private ide: IDE,
+    scopeHandlerFactory: ScopeHandlerFactory,
+    scopeType: ScopeType,
+    languageId: string,
+  ) {
+    super(scopeHandlerFactory, scopeType, languageId);
+    this.regex = getMatcher(ide, this.languageId).identifierMatcher;
+  }
 
   protected generateScopesInSearchScope(
     direction: Direction,

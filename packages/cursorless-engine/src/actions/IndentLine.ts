@@ -1,8 +1,8 @@
-import { FlashStyle, Range, type TextEditor } from "@cursorless/common";
+import type { IDE, TextEditor } from "@cursorless/common";
+import { FlashStyle, Range } from "@cursorless/common";
 import { flatten, zip } from "lodash-es";
 import { selectionToStoredTarget } from "../core/commandRunner/selectionToStoredTarget";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { ide } from "../singletons/ide.singleton";
 import type { Target } from "../typings/target.types";
 import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
 import {
@@ -14,6 +14,7 @@ import { performEditsAndUpdateSelections } from "../core/updateSelections/update
 
 abstract class IndentLineBase {
   constructor(
+    private ide: IDE,
     private rangeUpdater: RangeUpdater,
     private isIndent: boolean,
   ) {
@@ -26,7 +27,7 @@ abstract class IndentLineBase {
       return this.runSimpleCommandAction(targets);
     }
 
-    await flashTargets(ide(), targets, FlashStyle.pendingModification0);
+    await flashTargets(this.ide, targets, FlashStyle.pendingModification0);
 
     const thatTargets = flatten(
       await runOnTargetsForEachEditor(targets, this.runForEditor),
@@ -37,16 +38,16 @@ abstract class IndentLineBase {
 
   private hasCapability() {
     return this.isIndent
-      ? ide().capabilities.commands.indentLine != null
-      : ide().capabilities.commands.outdentLine != null;
+      ? this.ide.capabilities.commands.indentLine != null
+      : this.ide.capabilities.commands.outdentLine != null;
   }
 
   private runSimpleCommandAction(
     targets: Target[],
   ): Promise<ActionReturnValue> {
     const action = this.isIndent
-      ? new IndentLineSimpleAction(this.rangeUpdater)
-      : new OutdentLineSimpleAction(this.rangeUpdater);
+      ? new IndentLineSimpleAction(this.ide, this.rangeUpdater)
+      : new OutdentLineSimpleAction(this.ide, this.rangeUpdater);
     return action.run(targets);
   }
 
@@ -58,7 +59,7 @@ abstract class IndentLineBase {
     const { targetSelections: updatedTargetSelections } =
       await performEditsAndUpdateSelections({
         rangeUpdater: this.rangeUpdater,
-        editor: ide().getEditableTextEditor(editor),
+        editor: this.ide.getEditableTextEditor(editor),
         edits,
         selections: {
           targetSelections: targets.map(
@@ -77,14 +78,14 @@ abstract class IndentLineBase {
 }
 
 export class IndentLine extends IndentLineBase {
-  constructor(rangeUpdater: RangeUpdater) {
-    super(rangeUpdater, true);
+  constructor(ide: IDE, rangeUpdater: RangeUpdater) {
+    super(ide, rangeUpdater, true);
   }
 }
 
 export class OutdentLine extends IndentLineBase {
-  constructor(rangeUpdater: RangeUpdater) {
-    super(rangeUpdater, false);
+  constructor(ide: IDE, rangeUpdater: RangeUpdater) {
+    super(ide, rangeUpdater, false);
   }
 }
 
