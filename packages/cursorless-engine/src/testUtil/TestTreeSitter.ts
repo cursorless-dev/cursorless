@@ -1,11 +1,10 @@
-import type { Range, TextDocument, TreeSitter } from "@cursorless/common";
+import type { TextDocument, TreeSitter } from "@cursorless/common";
 import { createRequire } from "node:module";
 import * as path from "node:path";
 import type {
-  Node,
   Tree,
-  Parser as TreeSitterParser,
   Language as TreeSitterLanguage,
+  Parser as TreeSitterParser,
   Query as TreeSitterQuery,
 } from "web-tree-sitter";
 
@@ -38,10 +37,6 @@ function initTreeSitter() {
 }
 
 export class TestTreeSitter implements TreeSitter {
-  getNodeAtLocation(_document: TextDocument, _range: Range): Node {
-    throw new Error("getNodeAtLocation: not implemented.");
-  }
-
   getTree(document: TextDocument): Tree {
     const language = languageCache.get(document.languageId);
 
