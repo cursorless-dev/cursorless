@@ -1,9 +1,12 @@
+import { LATEST_VERSION } from "@cursorless/common";
 import { getFixturePath, isWindows } from "@cursorless/node-common";
-import { getReusableEditor, runCursorlessCommand } from "@cursorless/vscode-common";
+import {
+  getReusableEditor,
+  runCursorlessCommand,
+} from "@cursorless/vscode-common";
 import * as assert from "assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-import { LATEST_VERSION } from "@cursorless/common";
 
 suite("followLink", async function () {
   endToEndTestSetup(this);

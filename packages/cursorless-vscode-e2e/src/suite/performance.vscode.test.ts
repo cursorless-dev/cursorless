@@ -5,7 +5,10 @@ import type {
   SimpleScopeTypeType,
 } from "@cursorless/common";
 import { asyncSafety } from "@cursorless/common";
-import { getReusableEditor, runCursorlessAction } from "@cursorless/vscode-common";
+import {
+  getReusableEditor,
+  runCursorlessAction,
+} from "@cursorless/vscode-common";
 import assert from "assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";

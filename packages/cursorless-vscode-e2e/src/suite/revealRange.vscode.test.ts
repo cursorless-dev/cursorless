@@ -1,5 +1,8 @@
 import { LATEST_VERSION } from "@cursorless/common";
-import { getReusableEditor, runCursorlessCommand } from "@cursorless/vscode-common";
+import {
+  getReusableEditor,
+  runCursorlessCommand,
+} from "@cursorless/vscode-common";
 import assert from "node:assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
