@@ -51,6 +51,8 @@ DEFAULT_COLOR_ENABLEMENT = {
     "yellow": True,
     "userColor1": False,
     "userColor2": False,
+    "userColor3": False,
+    "userColor4": False,
 }
 
 DEFAULT_SHAPE_ENABLEMENT = {
