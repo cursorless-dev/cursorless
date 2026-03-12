@@ -212,7 +212,7 @@ async function testPerformanceCallback(
   callback: () => Promise<unknown>,
   beforeCallback?: (editor: vscode.TextEditor) => Promise<unknown>,
 ) {
-  const editor = await openNewEditor(testData, { languageId: "json" });
+  const editor = await openNewEditor(testData, "json");
   // This is the position of the last json key in the document
   const position = new vscode.Position(editor.document.lineCount - 3, 5);
   const selection = new vscode.Selection(position, position);

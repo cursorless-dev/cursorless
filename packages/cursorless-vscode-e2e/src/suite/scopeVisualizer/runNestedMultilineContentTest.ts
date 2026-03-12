@@ -10,9 +10,7 @@ import type { ExpectedArgs } from "./scopeVisualizerTest.types";
  * `./runNestedMultilineContentTest.png`.
  */
 export async function runNestedMultilineContentTest() {
-  await openNewEditor(contents, {
-    languageId: "typescript",
-  });
+  await openNewEditor(contents, "typescript");
 
   const fakes = await injectFakes();
 

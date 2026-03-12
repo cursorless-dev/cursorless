@@ -103,9 +103,7 @@ async function runTest(
   /** The editor containing the "instance" */
   const instanceEditor = spyIde.activeTextEditor!;
   /** The editor in which "from" is run */
-  const fromEditor = await openNewEditor(" aaa bbb aaa aaa", {
-    openBeside: true,
-  });
+  const fromEditor = await openNewEditor(" aaa bbb aaa aaa", "plaintext", true);
   const { document: fromDocument } = fromEditor;
   fromEditor.selections = [new Selection(0, 0, 0, 0)];
 

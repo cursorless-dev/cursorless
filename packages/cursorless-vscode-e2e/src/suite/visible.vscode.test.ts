@@ -35,9 +35,7 @@ function myFunk() {
 `;
 
 function openEditor() {
-  return openNewEditor(content, {
-    languageId: "typescript",
-  });
+  return openNewEditor(content, "typescript");
 }
 
 function foldRegion() {

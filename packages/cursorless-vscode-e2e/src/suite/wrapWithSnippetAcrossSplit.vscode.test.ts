@@ -23,7 +23,7 @@ async function runTest() {
   const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
 
   const { document: document1 } = await openNewEditor("hello world");
-  const { document: document2 } = await openNewEditor("", { openBeside: true });
+  const { document: document2 } = await openNewEditor("", undefined, true);
 
   await hatTokenMap.allocateHats();
 

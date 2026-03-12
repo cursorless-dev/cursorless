@@ -21,9 +21,7 @@ export async function runBasicScopeInfoTest() {
   try {
     await assertCalledWithScopeInfo(fake, unsupported);
 
-    const editor = await openNewEditor("", {
-      languageId: "typescript",
-    });
+    const editor = await openNewEditor("", "typescript");
     await assertCalledWithScopeInfo(fake, supported);
 
     await editor.edit((editBuilder) => {

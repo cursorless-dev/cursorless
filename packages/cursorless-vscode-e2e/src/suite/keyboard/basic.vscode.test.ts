@@ -202,9 +202,7 @@ async function checkKeyboardStartup() {
 async function basic() {
   const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
 
-  const editor = await openNewEditor("function foo() {}\n", {
-    languageId: "typescript",
-  });
+  const editor = await openNewEditor("function foo() {}\n", "typescript");
   await hatTokenMap.allocateHats();
 
   editor.selection = new vscode.Selection(1, 0, 1, 0);
@@ -251,9 +249,7 @@ async function noAutomaticTokenExpansion() {
 async function sequence(t: TestCase) {
   const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
 
-  const editor = await openNewEditor(t.initialContent, {
-    languageId: "typescript",
-  });
+  const editor = await openNewEditor(t.initialContent, "typescript");
   await hatTokenMap.allocateHats();
   editor.selection = new vscode.Selection(1, 0, 1, 0);
   await vscode.commands.executeCommand("cursorless.keyboard.modal.modeOn");
@@ -264,9 +260,7 @@ async function sequence(t: TestCase) {
 async function vscodeCommand() {
   const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
 
-  const editor = await openNewEditor("aaa;\nbbb;\nccc;\n", {
-    languageId: "typescript",
-  });
+  const editor = await openNewEditor("aaa;\nbbb;\nccc;\n", "typescript");
   await hatTokenMap.allocateHats();
 
   editor.selection = new vscode.Selection(0, 0, 0, 0);

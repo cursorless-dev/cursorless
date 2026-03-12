@@ -8,8 +8,7 @@ import { getRecordedTestPaths, runRecordedTest } from "@cursorless/node-common";
 import type { VscodeTestHelpers } from "@cursorless/vscode-common";
 import {
   getCursorlessApi,
-  openNewEditor,
-  reuseEditor,
+  getReusableEditor,
   runCursorlessCommand,
 } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
@@ -48,23 +47,16 @@ suite("recorded test cases", async function () {
   );
 });
 
-let testHelpers: VscodeTestHelpers | undefined;
-let vsTextEditor: vscode.TextEditor | undefined;
-
 async function openNewTestEditor(
   content: string,
   languageId: string,
 ): Promise<TextEditor> {
-  if (vsTextEditor == null) {
-    vsTextEditor = await openNewEditor(content, { languageId });
-  } else {
-    vsTextEditor = await reuseEditor(vsTextEditor, content, languageId);
-  }
+  const editor = await getReusableEditor(content, languageId);
 
   // Override any user settings and make sure tests run with default tabs.
-  vsTextEditor.options = DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST;
+  editor.options = DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST;
 
-  testHelpers ??= (await getCursorlessApi()).testHelpers!;
+  const testHelpers = (await getCursorlessApi()).testHelpers!;
 
-  return testHelpers.fromVscodeEditor(vsTextEditor);
+  return testHelpers.fromVscodeEditor(editor);
 }
