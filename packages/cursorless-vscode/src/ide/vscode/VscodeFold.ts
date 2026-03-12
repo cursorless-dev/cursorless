@@ -1,11 +1,11 @@
 import type { Range } from "@cursorless/common";
 import * as vscode from "vscode";
 import type { VscodeIDE } from "./VscodeIDE";
-import type { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
+import type { VscodeTextEditor } from "./VscodeTextEditor";
 
 export async function vscodeFold(
   ide: VscodeIDE,
-  editor: VscodeTextEditorImpl,
+  editor: VscodeTextEditor,
   ranges: Range[] | undefined,
 ): Promise<void> {
   return foldOrUnfold(ide, editor, ranges, "editor.fold");
@@ -13,7 +13,7 @@ export async function vscodeFold(
 
 export function vscodeUnfold(
   ide: VscodeIDE,
-  editor: VscodeTextEditorImpl,
+  editor: VscodeTextEditor,
   ranges: Range[] | undefined,
 ): Promise<void> {
   return foldOrUnfold(ide, editor, ranges, "editor.unfold");
@@ -21,7 +21,7 @@ export function vscodeUnfold(
 
 async function foldOrUnfold(
   ide: VscodeIDE,
-  editor: VscodeTextEditorImpl,
+  editor: VscodeTextEditor,
   ranges: Range[] | undefined,
   command: "editor.fold" | "editor.unfold",
 ): Promise<void> {

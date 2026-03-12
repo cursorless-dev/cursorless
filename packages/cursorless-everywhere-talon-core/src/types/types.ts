@@ -3,21 +3,11 @@ import type {
   CommandResponse,
   IDE,
   NormalizedIDE,
+  SelectionOffsets,
   TestHelpers,
 } from "@cursorless/common";
 import type { StoredTargetMap } from "@cursorless/cursorless-engine";
 import type { TalonJsIDE } from "../ide/TalonJsIDE";
-
-export interface SelectionOffsets {
-  // Document offsets
-  anchor: number;
-  active: number;
-}
-
-export interface RangeOffsets {
-  start: number;
-  end: number;
-}
 
 export interface EditorState {
   text: string;

@@ -1,5 +1,5 @@
-import type { NeovimTextEditorImpl } from "..";
-import type { NeovimTextDocumentImpl } from "../ide/neovim/NeovimTextDocumentImpl";
+import type { NeovimTextEditor } from "..";
+import type { NeovimTextDocument } from "../ide/neovim/NeovimTextDocument";
 
 export interface NewEditorOptions {
   languageId?: string;
@@ -9,12 +9,12 @@ export interface NewEditorOptions {
 export async function openNewEditor(
   content: string,
   _NewEditorOptions = {},
-): Promise<NeovimTextEditorImpl> {
+): Promise<NeovimTextEditor> {
   throw new Error("openNewEditor() Not implemented");
 }
 
 export async function reuseEditor(
-  editor: NeovimTextDocumentImpl, // vscode.TextEditor,
+  editor: NeovimTextDocument, // vscode.TextEditor,
   content: string,
   _language: string = "plaintext",
 ) {

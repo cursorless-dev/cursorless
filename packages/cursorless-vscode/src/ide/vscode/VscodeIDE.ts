@@ -33,8 +33,8 @@ import { VscodeNotebookEditorImpl } from "./VscodeIdeNotebook";
 import VscodeKeyValueStore from "./VscodeKeyValueStore";
 import VscodeMessages from "./VscodeMessages";
 import { vscodeRunMode } from "./VscodeRunMode";
-import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
-import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
+import { VscodeTextDocument } from "./VscodeTextDocument";
+import { VscodeTextEditor } from "./VscodeTextEditor";
 import { vscodeShowQuickPick } from "./vscodeShowQuickPick";
 
 export class VscodeIDE implements IDE {
@@ -55,7 +55,7 @@ export class VscodeIDE implements IDE {
     this.highlights = new VscodeHighlights(extensionContext);
     this.flashHandler = new VscodeFlashHandler(this, this.highlights);
     this.capabilities = new VscodeCapabilities();
-    this.editorMap = new WeakMap<vscode.TextEditor, VscodeTextEditorImpl>();
+    this.editorMap = new WeakMap<vscode.TextEditor, VscodeTextEditor>();
   }
 
   showQuickPick(
@@ -76,7 +76,7 @@ export class VscodeIDE implements IDE {
         : HighlightStyle[highlightId as keyof typeof HighlightStyle];
     return this.highlights.setHighlightRanges(
       vscodeHighlightId,
-      editor as VscodeTextEditorImpl,
+      editor as VscodeTextEditor,
       ranges,
     );
   }
@@ -101,11 +101,11 @@ export class VscodeIDE implements IDE {
     return workspace.workspaceFolders;
   }
 
-  get activeTextEditor(): VscodeTextEditorImpl | undefined {
+  get activeTextEditor(): VscodeTextEditor | undefined {
     return this.getActiveTextEditor();
   }
 
-  get activeEditableTextEditor(): VscodeTextEditorImpl | undefined {
+  get activeEditableTextEditor(): VscodeTextEditor | undefined {
     return this.getActiveTextEditor();
   }
 
@@ -115,7 +115,7 @@ export class VscodeIDE implements IDE {
       : undefined;
   }
 
-  get visibleTextEditors(): VscodeTextEditorImpl[] {
+  get visibleTextEditors(): VscodeTextEditor[] {
     return window.visibleTextEditors.map((e) => this.fromVscodeEditor(e));
   }
 
@@ -180,11 +180,11 @@ export class VscodeIDE implements IDE {
 
   onDidOpenTextDocument = forwardEvent(
     workspace.onDidOpenTextDocument,
-    (document) => new VscodeTextDocumentImpl(document),
+    (document) => new VscodeTextDocument(document),
   );
   onDidCloseTextDocument = forwardEvent(
     workspace.onDidCloseTextDocument,
-    (document) => new VscodeTextDocumentImpl(document),
+    (document) => new VscodeTextDocument(document),
   );
   onDidChangeActiveTextEditor = forwardEvent(
     window.onDidChangeActiveTextEditor,
@@ -209,12 +209,9 @@ export class VscodeIDE implements IDE {
     }),
   );
 
-  public fromVscodeEditor(editor: vscode.TextEditor): VscodeTextEditorImpl {
+  public fromVscodeEditor(editor: vscode.TextEditor): VscodeTextEditor {
     if (!this.editorMap.has(editor)) {
-      this.editorMap.set(
-        editor,
-        new VscodeTextEditorImpl(uuid(), this, editor),
-      );
+      this.editorMap.set(editor, new VscodeTextEditor(uuid(), this, editor));
     }
     return this.editorMap.get(editor)!;
   }

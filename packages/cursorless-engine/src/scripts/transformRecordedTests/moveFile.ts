@@ -22,6 +22,5 @@ export default async function moveFile(file: string) {
   const childDir = path.join(parent, childDirName);
   await mkdir(childDir, { recursive: true });
   const outputPath = path.join(childDir, path.basename(file));
-  // console.log(`${file} => ${outputPath}`);
   await rename(file, outputPath);
 }

@@ -11,13 +11,14 @@ import type { TextDocumentChangeEvent } from "../types/Events";
 import type { FlashDescriptor } from "../types/FlashDescriptor";
 import type { QuickPickOptions } from "../types/QuickPickOptions";
 import type {
+  Emit,
   Event,
   TextEditorSelectionChangeEvent,
   TextEditorVisibleRangesChangeEvent,
 } from "../types/events.types";
 import type {
   Disposable,
-  IDE,
+  EmittableIDE,
   OpenUntitledTextDocumentOptions,
   RunMode,
   WorkspaceFolder,
@@ -28,7 +29,7 @@ import FakeConfiguration from "./FakeConfiguration";
 import FakeKeyValueStore from "./FakeKeyValueStore";
 import FakeMessages from "./FakeMessages";
 
-export class FakeIDE implements IDE {
+export class FakeIDE implements EmittableIDE {
   configuration = new FakeConfiguration();
   keyValueStore = new FakeKeyValueStore();
   clipboard = new FakeClipboard();
@@ -47,7 +48,7 @@ export class FakeIDE implements IDE {
   }
 
   async flashRanges(_flashDescriptors: FlashDescriptor[]): Promise<void> {
-    // empty
+    // Empty
   }
 
   async setHighlightRanges(
@@ -55,7 +56,7 @@ export class FakeIDE implements IDE {
     _editor: TextEditor,
     _ranges: GeneralizedRange[],
   ): Promise<void> {
-    // empty
+    // Empty
   }
 
   onDidOpenTextDocument: Event<TextDocument> = dummyEvent;
@@ -67,6 +68,10 @@ export class FakeIDE implements IDE {
   onDidChangeTextEditorVisibleRanges: Event<TextEditorVisibleRangesChangeEvent> =
     dummyEvent;
   onDidChangeTextDocument: Event<TextDocumentChangeEvent> = dummyEvent;
+
+  emitDidChangeTextDocument: Emit<TextDocumentChangeEvent> = dummyEmit;
+  emitDidChangeTextEditorSelection: Emit<TextEditorSelectionChangeEvent> =
+    dummyEmit;
 
   mockAssetsRoot(_assetsRoot: string) {
     this.assetsRoot_ = _assetsRoot;
@@ -151,7 +156,11 @@ export class FakeIDE implements IDE {
 function dummyEvent() {
   return {
     dispose() {
-      // empty
+      // Empty
     },
   };
+}
+
+function dummyEmit() {
+  // Empty
 }

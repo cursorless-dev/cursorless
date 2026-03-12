@@ -14,10 +14,10 @@ import { bufferSetSelections } from "../../neovimApi";
 import { neovimClipboardCopy, neovimClipboardPaste } from "../../neovimHelpers";
 import neovimEdit from "./NeovimEdit";
 import type { NeovimIDE } from "./NeovimIDE";
-import type { NeovimTextDocumentImpl } from "./NeovimTextDocumentImpl";
+import type { NeovimTextDocument } from "./NeovimTextDocument";
 
-export class NeovimTextEditorImpl implements EditableTextEditor {
-  private _document: NeovimTextDocumentImpl;
+export class NeovimTextEditor implements EditableTextEditor {
+  private _document: NeovimTextDocument;
   private _selections: Selection[];
   private _visibleRanges: Range[];
 
@@ -26,7 +26,7 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
     private client: NeovimClient,
     private neovimIDE: NeovimIDE,
     private window: Window,
-    doc: NeovimTextDocumentImpl,
+    doc: NeovimTextDocument,
     visibleRanges: Range[],
     selections: Selection[],
   ) {
@@ -35,16 +35,16 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
     this._visibleRanges = visibleRanges;
   }
 
-  get document(): NeovimTextDocumentImpl {
+  get document(): NeovimTextDocument {
     return this._document;
   }
 
   public updateDocument(
     visibleRanges: Range[],
     selections: Selection[],
-    doc?: NeovimTextDocumentImpl,
+    doc?: NeovimTextDocument,
     lines?: string[],
-  ): NeovimTextDocumentImpl {
+  ): NeovimTextDocument {
     if (doc) {
       this._document = doc;
     } else if (lines) {

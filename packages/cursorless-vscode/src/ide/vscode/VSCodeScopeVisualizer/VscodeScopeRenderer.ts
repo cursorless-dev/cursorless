@@ -1,6 +1,6 @@
 import type { Disposable, GeneralizedRange } from "@cursorless/common";
 import { isGeneralizedRangeEqual } from "@cursorless/common";
-import type { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
+import type { VscodeTextEditor } from "../VscodeTextEditor";
 import type { RangeTypeColors } from "./RangeTypeColors";
 import { VscodeFancyRangeHighlighter } from "./VscodeFancyRangeHighlighter";
 import { blendRangeTypeColors } from "./blendRangeTypeColors";
@@ -38,7 +38,7 @@ export class VscodeScopeRenderer implements Disposable {
     );
   }
 
-  setScopes(editor: VscodeTextEditorImpl, scopes: RendererScope[]) {
+  setScopes(editor: VscodeTextEditor, scopes: RendererScope[]) {
     const domainRanges: GeneralizedRange[] = [];
     const allNestedRanges: GeneralizedRange[] = [];
     const domainEqualsNestedRanges: GeneralizedRange[] = [];

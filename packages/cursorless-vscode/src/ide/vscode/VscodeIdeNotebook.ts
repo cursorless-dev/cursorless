@@ -6,7 +6,7 @@ import type {
 } from "@cursorless/common";
 import type * as vscode from "vscode";
 import type { URI } from "vscode-uri";
-import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
+import { VscodeTextDocument } from "./VscodeTextDocument";
 
 export class VscodeNotebookEditorImpl implements NotebookEditor {
   private notebook: vscode.NotebookDocument;
@@ -46,6 +46,6 @@ export class VscodeNotebookCellImpl implements NotebookCell {
   }
 
   get document(): TextDocument {
-    return new VscodeTextDocumentImpl(this.cell.document);
+    return new VscodeTextDocument(this.cell.document);
   }
 }

@@ -182,3 +182,11 @@ export class Range {
     return `${this.start.concise()}-${this.end.concise()}`;
   }
 }
+
+/**
+ * Represents the offsets of a range, where `start` and `end` are zero-based offsets from the start of the document.
+ */
+export interface RangeOffsets {
+  start: number;
+  end: number;
+}

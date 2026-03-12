@@ -26,11 +26,11 @@ import type { VscodeIDE } from "./VscodeIDE";
 import { vscodeInsertSnippet } from "./VscodeInsertSnippets";
 import vscodeOpenLink from "./VscodeOpenLink";
 import { vscodeRevealLine } from "./VscodeRevealLine";
-import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
+import { VscodeTextDocument } from "./VscodeTextDocument";
 import { vscodeToggleBreakpoint } from "./VscodeToggleBreakpoint";
 import { isDiffEditorOriginal } from "./isDiffEditorOriginal";
 
-export class VscodeTextEditorImpl implements EditableTextEditor {
+export class VscodeTextEditor implements EditableTextEditor {
   readonly document: TextDocument;
 
   constructor(
@@ -38,7 +38,7 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     private ide: VscodeIDE,
     private editor: vscode.TextEditor,
   ) {
-    this.document = new VscodeTextDocumentImpl(editor.document);
+    this.document = new VscodeTextDocument(editor.document);
   }
 
   get vscodeEditor(): vscode.TextEditor {

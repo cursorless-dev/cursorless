@@ -7,7 +7,7 @@ import type {
 } from "@cursorless/common";
 import { toCharacterRange } from "@cursorless/common";
 import { VscodeScopeVisualizer } from "./VscodeScopeVisualizer";
-import type { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
+import type { VscodeTextEditor } from "../VscodeTextEditor";
 
 abstract class VscodeScopeTargetVisualizer extends VscodeScopeVisualizer {
   protected abstract getTargetRange(
@@ -22,7 +22,7 @@ abstract class VscodeScopeTargetVisualizer extends VscodeScopeVisualizer {
     return this.scopeProvider.onDidChangeScopeRanges(
       (editor, scopeRanges) => {
         this.renderer.setScopes(
-          editor as VscodeTextEditorImpl,
+          editor as VscodeTextEditor,
           scopeRanges.map(({ domain, targets }) => ({
             domain: toCharacterRange(domain),
             nestedRanges: targets.map((target) => this.getTargetRange(target)),

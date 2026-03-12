@@ -1,45 +1,107 @@
 import type {
   Edit,
   EditableTextEditor,
+  EmittableIDE,
   GeneralizedRange,
-  InMemoryTextDocument,
   OpenLinkOptions,
   Range,
   RevealLineAt,
-  Selection,
+  SelectionOffsets,
   SetSelectionsOpts,
+  TextDocument,
   TextEditor,
   TextEditorOptions,
 } from "@cursorless/common";
+import { Selection, selectionsEqual } from "@cursorless/common";
+import { URI } from "vscode-uri";
+import { InMemoryTextDocument } from "./InMemoryTextDocument";
 
-export class TestEditor implements EditableTextEditor {
-  options: TextEditorOptions = {
-    tabSize: 4,
-    insertSpaces: true,
-  };
+interface Params {
+  ide: EmittableIDE;
+  languageId?: string;
+  content?: string;
+  options?: TextEditorOptions;
+  visibleRanges?: Range[];
+  selections?: Selection[] | SelectionOffsets[];
+}
 
-  isActive = true;
+export class InMemoryTextEditor implements EditableTextEditor {
+  private static nextId = 0;
 
-  constructor(
-    public id: string,
-    public document: InMemoryTextDocument,
-    public visibleRanges: Range[],
-    public selections: Selection[],
-  ) {}
+  private readonly ide: EmittableIDE;
+  readonly id: string;
+  readonly isActive = true;
+  readonly document: InMemoryTextDocument;
+  readonly options: TextEditorOptions;
+  readonly visibleRanges: Range[];
+  selections: Selection[];
+
+  constructor({
+    ide,
+    languageId = "plaintext",
+    content = "",
+    visibleRanges,
+    selections,
+    options,
+  }: Params) {
+    this.ide = ide;
+    this.id = String(InMemoryTextEditor.nextId++);
+    const uri = URI.parse(`InMemoryTextEditor://${this.id}`);
+    this.document = new InMemoryTextDocument(uri, languageId, content);
+
+    if (visibleRanges != null) {
+      if (visibleRanges.length === 0) {
+        throw new Error("Visible ranges must be non-empty");
+      }
+      this.visibleRanges = visibleRanges;
+    } else {
+      this.visibleRanges = [this.document.range];
+    }
+
+    if (selections != null) {
+      if (selections.length === 0) {
+        throw new Error("Selections must be non-empty");
+      }
+      this.selections = selections.map((s) => {
+        return s instanceof Selection ? s : createSelection(this.document, s);
+      });
+    } else {
+      this.selections = [new Selection(0, 0, 0, 0)];
+    }
+
+    this.options = options ?? {
+      insertSpaces: true,
+      tabSize: 4,
+    };
+  }
 
   isEqual(other: TextEditor): boolean {
     return this.id === other.id;
   }
 
   async setSelections(
-    _selections: Selection[],
+    selections: Selection[],
     _opts?: SetSelectionsOpts,
   ): Promise<void> {
-    throw Error("setSelections: not implemented");
+    if (selections.length === 0) {
+      throw new Error("Selections must be non-empty");
+    }
+    if (!selectionsEqual(this.selections, selections)) {
+      this.selections = selections;
+      this.ide.emitDidChangeTextEditorSelection({
+        textEditor: this,
+        selections: selections,
+      });
+    }
   }
 
-  edit(_edits: Edit[]): Promise<boolean> {
-    throw Error("edit: not implemented");
+  edit(edits: Edit[]): Promise<boolean> {
+    const changes = this.document.edit(edits);
+    this.ide.emitDidChangeTextDocument({
+      document: this.document,
+      contentChanges: changes,
+    });
+    return Promise.resolve(true);
   }
 
   async clipboardCopy(_ranges: Range[]): Promise<void> {
@@ -167,4 +229,11 @@ export class TestEditor implements EditableTextEditor {
   public async gitUnstageRange(_range?: Range): Promise<void> {
     throw Error("gitUnstageRange: not implemented");
   }
+}
+
+function createSelection(document: TextDocument, selection: SelectionOffsets) {
+  return new Selection(
+    document.positionAt(selection.anchor),
+    document.positionAt(selection.active),
+  );
 }

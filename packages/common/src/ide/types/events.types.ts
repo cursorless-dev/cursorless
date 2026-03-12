@@ -30,6 +30,13 @@ export interface Event<T> {
 }
 
 /**
+ * Represents a function that emits an event of type T.
+ */
+export interface Emit<T> {
+  (event: T): void;
+}
+
+/**
  * Represents an event describing the change in a {@link TextEditor.selections text editor's selections}.
  */
 export interface TextEditorSelectionChangeEvent {

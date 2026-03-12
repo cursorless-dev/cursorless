@@ -14,9 +14,9 @@ import {
 import * as path from "node:path";
 import type * as vscode from "vscode";
 import type { URI } from "vscode-uri";
-import VscodeTextLineImpl from "./VscodeTextLineImpl";
+import VscodeTextLine from "./VscodeTextLine";
 
-export class VscodeTextDocumentImpl implements TextDocument {
+export class VscodeTextDocument implements TextDocument {
   get uri(): URI {
     return this.document.uri;
   }
@@ -49,7 +49,7 @@ export class VscodeTextDocumentImpl implements TextDocument {
   constructor(private document: vscode.TextDocument) {}
 
   public lineAt(lineOrPosition: number | Position): TextLine {
-    return new VscodeTextLineImpl(
+    return new VscodeTextLine(
       this.document.lineAt(
         typeof lineOrPosition === "number"
           ? lineOrPosition

@@ -3,7 +3,7 @@ import { Position, Range } from "@cursorless/common";
 import { fromVscodeRange } from "@cursorless/vscode-common";
 import type * as vscode from "vscode";
 
-export default class VscodeTextLineImpl implements TextLine {
+export default class VscodeTextLine implements TextLine {
   constructor(private line: vscode.TextLine) {}
 
   get lineNumber(): number {

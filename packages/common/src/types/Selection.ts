@@ -93,3 +93,11 @@ export class Selection extends Range {
     return this.concise();
   }
 }
+
+/**
+ * Represents the offsets of a selection, where `anchor` and `active` are zero-based offsets from the start of the document.
+ */
+export interface SelectionOffsets {
+  anchor: number;
+  active: number;
+}

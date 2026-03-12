@@ -1,8 +1,7 @@
 /**
  * A token within a text editor
  */
-import type { Range } from "./Range";
-import type { RangeOffsets } from "./RangeOffsets";
+import type { Range, RangeOffsets } from "./Range";
 import type { TextEditor } from "./TextEditor";
 
 /**

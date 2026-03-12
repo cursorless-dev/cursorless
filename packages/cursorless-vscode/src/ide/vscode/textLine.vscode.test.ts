@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import { openNewEditor } from "@cursorless/vscode-common";
-import VscodeTextLineImpl from "./VscodeTextLineImpl";
+import VscodeTextLine from "./VscodeTextLine";
 
 /**
  * Each test is of the form:
@@ -19,7 +19,7 @@ suite("TextLine", function () {
   whiteSpaceTests.forEach(([text, trimmedStart, trimmedEnd]) => {
     test(`whitespace '${text}'`, async () => {
       const editor = await openNewEditor(text);
-      const line = new VscodeTextLineImpl(editor.document.lineAt(0));
+      const line = new VscodeTextLine(editor.document.lineAt(0));
 
       assert.equal(line.rangeTrimmed?.start?.character, trimmedStart);
       assert.equal(line.rangeTrimmed?.end?.character, trimmedEnd);

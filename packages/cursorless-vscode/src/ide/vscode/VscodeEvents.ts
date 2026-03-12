@@ -7,14 +7,14 @@ import type {
 } from "@cursorless/common";
 import { fromVscodeRange } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
-import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
+import { VscodeTextDocument } from "./VscodeTextDocument";
 
 export function vscodeOnDidChangeTextDocument(
   listener: (event: TextDocumentChangeEvent) => void,
 ): Disposable {
   return vscode.workspace.onDidChangeTextDocument((e) => {
     listener({
-      document: new VscodeTextDocumentImpl(e.document),
+      document: new VscodeTextDocument(e.document),
       contentChanges: e.contentChanges.map(fromVscodeContentChange),
       reason: fromVscodeReason(e.reason),
     });

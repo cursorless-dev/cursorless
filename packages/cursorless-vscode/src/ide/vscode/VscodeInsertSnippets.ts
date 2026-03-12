@@ -1,9 +1,9 @@
 import * as vscode from "vscode";
 import type { Range } from "@cursorless/common";
-import type { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
+import type { VscodeTextEditor } from "./VscodeTextEditor";
 
 export async function vscodeInsertSnippet(
-  editor: VscodeTextEditorImpl,
+  editor: VscodeTextEditor,
   snippet: string,
   ranges: Range[] | undefined,
 ): Promise<void> {
