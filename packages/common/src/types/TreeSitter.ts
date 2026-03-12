@@ -1,17 +1,7 @@
-import type { Range, TextDocument } from "@cursorless/common";
-import type { Node, Query, Tree } from "web-tree-sitter";
+import type { TextDocument } from "@cursorless/common";
+import type { Query, Tree } from "web-tree-sitter";
 
 export interface TreeSitter {
-  /**
-   * Function to access nodes in the tree sitter.
-   */
-  getNodeAtLocation(document: TextDocument, range: Range): Node;
-
-  /**
-   * Function to access the tree sitter tree.
-   */
-  getTree(document: TextDocument): Tree;
-
   /**
    * Loads a language, returning true if it was successfully loaded
    *
@@ -19,6 +9,11 @@ export interface TreeSitter {
    * @returns `true` if the language was successfully loaded
    */
   loadLanguage(languageId: string): Promise<boolean>;
+
+  /**
+   * Function to access the tree sitter tree.
+   */
+  getTree(document: TextDocument): Tree;
 
   /**
    * Create a query if the language is loaded.
