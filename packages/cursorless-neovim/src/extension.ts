@@ -23,21 +23,18 @@ export async function activate(plugin: NvimPlugin) {
   const neovimIDE = new NeovimIDE(client);
   await neovimIDE.init();
 
+  const isTesting = neovimIDE.runMode === "test";
+
   const normalizedIde =
     neovimIDE.runMode === "production"
       ? neovimIDE
-      : new NormalizedIDE(
-          neovimIDE,
-          new FakeIDE(),
-          neovimIDE.runMode === "test",
-        );
+      : new NormalizedIDE(neovimIDE, new FakeIDE(), isTesting);
 
   const fakeCommandServerApi = new FakeCommandServerApi();
   const neovimCommandServerApi = new NeovimCommandServerApi(client);
-  const commandServerApi =
-    neovimIDE.runMode === "test"
-      ? fakeCommandServerApi
-      : neovimCommandServerApi;
+  const commandServerApi = isTesting
+    ? fakeCommandServerApi
+    : neovimCommandServerApi;
 
   const { commandApi, storedTargets, hatTokenMap, scopeProvider, injectIde } =
     await createCursorlessEngine({ ide: normalizedIde, commandServerApi });
@@ -45,18 +42,17 @@ export async function activate(plugin: NvimPlugin) {
   await registerCommands(client, neovimIDE, commandApi, commandServerApi);
 
   const cursorlessApi = {
-    testHelpers:
-      neovimIDE.runMode === "test"
-        ? constructTestHelpers(
-            fakeCommandServerApi,
-            storedTargets,
-            hatTokenMap,
-            neovimIDE,
-            normalizedIde as NormalizedIDE,
-            scopeProvider,
-            injectIde,
-          )
-        : undefined,
+    testHelpers: isTesting
+      ? constructTestHelpers(
+          fakeCommandServerApi,
+          storedTargets,
+          hatTokenMap,
+          neovimIDE,
+          normalizedIde as NormalizedIDE,
+          scopeProvider,
+          injectIde,
+        )
+      : undefined,
   };
   getNeovimRegistry().registerExtensionApi(EXTENSION_ID, cursorlessApi);
 

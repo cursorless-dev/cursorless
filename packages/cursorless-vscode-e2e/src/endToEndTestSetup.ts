@@ -29,32 +29,33 @@ export function endToEndTestSetup(
   suite.timeout(timeout);
   suite.retries(retries);
 
-  let ide: IDE;
+  let originalIde: IDE;
   let injectIde: (ide: IDE) => void;
-  let spy: SpyIDE | undefined;
+  let spyIde: SpyIDE | undefined;
 
   setup(async function (this: Context) {
     const title = this.test!.fullTitle();
     retryCount = title === previousTestTitle ? retryCount + 1 : 0;
     previousTestTitle = title;
     const testHelpers = (await getCursorlessApi()).testHelpers!;
-    ({ ide, injectIde } = testHelpers);
+    originalIde = testHelpers.ide;
+    injectIde = testHelpers.injectIde;
     testHelpers.commandServerApi.setFocusedElementType(undefined);
-    spy = new SpyIDE(ide);
-    injectIde(spy);
+    spyIde = new SpyIDE(originalIde);
+    injectIde(spyIde);
   });
 
   teardown(() => {
     sinon.restore();
-    injectIde(ide);
+    injectIde(originalIde);
   });
 
   return {
     getSpy() {
-      if (spy == null) {
-        throw Error("spy is undefined");
+      if (spyIde == null) {
+        throw Error("Spy is undefined");
       }
-      return spy;
+      return spyIde;
     },
   };
 }

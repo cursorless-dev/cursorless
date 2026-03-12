@@ -35,8 +35,8 @@ export function constructTestHelpers(
   normalizedIde: NormalizedIDE,
   fileSystem: VscodeFileSystem,
   scopeProvider: ScopeProvider,
-  injectIde: (ide: IDE) => void,
   vscodeTutorial: VscodeTutorial,
+  injectIde: (ide: IDE) => void,
 ): VscodeTestHelpers | undefined {
   return {
     commandServerApi: commandServerApi!,

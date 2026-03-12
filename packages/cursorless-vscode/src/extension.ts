@@ -77,21 +77,17 @@ export async function activate(
   const parseTreeApi = await getParseTreeApi();
 
   const { vscodeIDE, hats, fileSystem } = await createVscodeIde(context);
+  const isTesting = vscodeIDE.runMode === "test";
 
   const normalizedIde =
     vscodeIDE.runMode === "production"
       ? vscodeIDE
-      : new NormalizedIDE(
-          vscodeIDE,
-          new FakeIDE(),
-          vscodeIDE.runMode === "test",
-        );
+      : new NormalizedIDE(vscodeIDE, new FakeIDE(), isTesting);
 
   const fakeCommandServerApi = new FakeCommandServerApi();
-  const commandServerApi =
-    normalizedIde.runMode === "test"
-      ? fakeCommandServerApi
-      : await getCommandServerApi();
+  const commandServerApi = isTesting
+    ? fakeCommandServerApi
+    : await getCommandServerApi();
 
   const treeSitter = createTreeSitter(parseTreeApi);
   const talonSpokenForms = new FileSystemTalonSpokenForms(fileSystem);
@@ -201,20 +197,19 @@ export async function activate(
   installationDependencies.maybeShow();
 
   return {
-    testHelpers:
-      normalizedIde.runMode === "test"
-        ? constructTestHelpers(
-            fakeCommandServerApi,
-            storedTargets,
-            hatTokenMap,
-            vscodeIDE,
-            normalizedIde as NormalizedIDE,
-            fileSystem,
-            scopeProvider,
-            injectIde,
-            vscodeTutorial,
-          )
-        : undefined,
+    testHelpers: isTesting
+      ? constructTestHelpers(
+          fakeCommandServerApi,
+          storedTargets,
+          hatTokenMap,
+          vscodeIDE,
+          normalizedIde as NormalizedIDE,
+          fileSystem,
+          scopeProvider,
+          vscodeTutorial,
+          injectIde,
+        )
+      : undefined,
   };
 }
 
