@@ -1,5 +1,6 @@
 import { Range } from "../types/Range";
-import { BorderStyle, type StyledRange } from "./decorationStyle.types";
+import type { StyledRange } from "./decorationStyle.types";
+import { BorderStyle } from "./decorationStyle.types";
 
 export function* generateDecorationsForLineRange(
   startLine: number,

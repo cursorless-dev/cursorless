@@ -1,10 +1,10 @@
+import type { ScopeSupportFacet } from "@cursorless/common";
 import {
   languageScopeSupport,
   scopeSupportFacetInfos,
   ScopeSupportFacetLevel,
   scopeSupportFacets,
   serializeScopeType,
-  type ScopeSupportFacet,
 } from "@cursorless/common";
 import React, { useState } from "react";
 

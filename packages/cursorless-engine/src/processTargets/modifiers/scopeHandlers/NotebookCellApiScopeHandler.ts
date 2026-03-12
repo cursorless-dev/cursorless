@@ -1,11 +1,11 @@
-import {
-  Range,
-  type IDE,
-  type Direction,
-  type NotebookCell,
-  type Position,
-  type TextEditor,
+import type {
+  IDE,
+  Direction,
+  NotebookCell,
+  Position,
+  TextEditor,
 } from "@cursorless/common";
+import { Range } from "@cursorless/common";
 import { NotebookCellTarget } from "../../targets";
 import { BaseScopeHandler } from "./BaseScopeHandler";
 import type { TargetScope } from "./scope.types";

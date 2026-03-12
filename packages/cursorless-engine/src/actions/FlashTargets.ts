@@ -1,4 +1,5 @@
-import { FlashStyle, type IDE } from "@cursorless/common";
+import type { IDE } from "@cursorless/common";
+import { FlashStyle } from "@cursorless/common";
 import type { Target } from "../typings/target.types";
 import { flashTargets } from "../util/targetUtils";
 import type { ActionReturnValue, SimpleAction } from "./actions.types";

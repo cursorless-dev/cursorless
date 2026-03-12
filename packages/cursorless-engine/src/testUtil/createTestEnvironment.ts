@@ -1,13 +1,11 @@
-import {
-  FakeIDE,
-  InMemoryTextDocument,
-  Selection,
-  type EditableTextEditor,
-  type MessageId,
-  type Messages,
-  type MessageType,
-  type ScopeProvider,
+import type {
+  EditableTextEditor,
+  MessageId,
+  Messages,
+  MessageType,
+  ScopeProvider,
 } from "@cursorless/common";
+import { FakeIDE, InMemoryTextDocument, Selection } from "@cursorless/common";
 import { FileSystemRawTreeSitterQueryProvider } from "@cursorless/node-common";
 import { URI } from "vscode-uri";
 import { createCursorlessEngine } from "..";

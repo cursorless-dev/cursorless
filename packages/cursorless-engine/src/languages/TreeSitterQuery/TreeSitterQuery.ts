@@ -6,10 +6,10 @@ import type {
   TreeSitter,
 } from "@cursorless/common";
 import type * as treeSitter from "web-tree-sitter";
+import type { ScopeCaptureName } from "./captureNames";
 import {
   getNormalizedCaptureIndex,
   getNormalizedCaptureName,
-  type ScopeCaptureName,
 } from "./captureNames";
 import { checkCaptureStartEnd } from "./checkCaptureStartEnd";
 import { getNodeRange } from "./getNodeRange";

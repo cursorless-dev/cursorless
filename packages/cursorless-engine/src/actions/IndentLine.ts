@@ -1,9 +1,5 @@
-import {
-  FlashStyle,
-  Range,
-  type IDE,
-  type TextEditor,
-} from "@cursorless/common";
+import type { IDE, TextEditor } from "@cursorless/common";
+import { FlashStyle, Range } from "@cursorless/common";
 import { flatten, zip } from "lodash-es";
 import { selectionToStoredTarget } from "../core/commandRunner/selectionToStoredTarget";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";

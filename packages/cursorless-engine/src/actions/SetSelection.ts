@@ -1,4 +1,5 @@
-import { Selection, type IDE } from "@cursorless/common";
+import type { IDE } from "@cursorless/common";
+import { Selection } from "@cursorless/common";
 import type { Target } from "../typings/target.types";
 import { ensureSingleEditor } from "../util/targetUtils";
 import type { SimpleAction, ActionReturnValue } from "./actions.types";

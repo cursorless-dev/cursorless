@@ -1,9 +1,8 @@
+import type { ScopeSupportFacetInfo, ScopeTypeType } from "@cursorless/common";
 import {
   prettifyLanguageName,
   prettifyScopeType,
   serializeScopeType,
-  type ScopeSupportFacetInfo,
-  type ScopeTypeType,
 } from "@cursorless/common";
 import { usePluginData } from "@docusaurus/useGlobalData";
 import React, { useState } from "react";

@@ -1,4 +1,5 @@
-import { type TextEditor, Range } from "@cursorless/common";
+import type { TextEditor } from "@cursorless/common";
+import { Range } from "@cursorless/common";
 import { ScopeTypeTarget } from "../../../targets";
 import type { TargetScope } from "../scope.types";
 import { getCollectionItemRemovalRange } from "../util/getCollectionItemRemovalRange";

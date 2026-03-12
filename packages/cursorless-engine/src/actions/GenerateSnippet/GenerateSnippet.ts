@@ -1,19 +1,19 @@
-import {
-  FlashStyle,
-  Range,
-  matchAll,
-  type IDE,
-  type EditableTextEditor,
-  type Selection,
-  type TextEditor,
+import type {
+  EditableTextEditor,
+  IDE,
+  Selection,
+  TextEditor,
 } from "@cursorless/common";
+import { FlashStyle, Range, matchAll } from "@cursorless/common";
+import type {
+  Snippet,
+  SnippetFile,
+  SnippetHeader,
+  SnippetVariable,
+} from "@cursorless/talon-tools";
 import {
   parseSnippetFile,
   serializeSnippetFile,
-  type Snippet,
-  type SnippetFile,
-  type SnippetHeader,
-  type SnippetVariable,
 } from "@cursorless/talon-tools";
 import type { Snippets } from "../../core/Snippets";
 import type { Target } from "../../typings/target.types";

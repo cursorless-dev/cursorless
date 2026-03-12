@@ -1,10 +1,10 @@
 import "./polyfill";
 
+import type { RunMode } from "@cursorless/common";
 import {
   FakeCommandServerApi,
   FakeIDE,
   NormalizedIDE,
-  type RunMode,
 } from "@cursorless/common";
 import { createCursorlessEngine } from "@cursorless/cursorless-engine";
 import { constructTestHelpers } from "./constructTestHelpers";

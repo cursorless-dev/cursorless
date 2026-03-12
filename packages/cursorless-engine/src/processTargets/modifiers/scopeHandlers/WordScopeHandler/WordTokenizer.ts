@@ -1,4 +1,5 @@
-import { matchText, type IDE } from "@cursorless/common";
+import type { IDE } from "@cursorless/common";
+import { matchText } from "@cursorless/common";
 import { getMatcher } from "../../../../tokenizer";
 
 const CAMEL_REGEX = /\p{Lu}?\p{Ll}+|\p{Lu}+(?!\p{Ll})|\p{N}+/gu;

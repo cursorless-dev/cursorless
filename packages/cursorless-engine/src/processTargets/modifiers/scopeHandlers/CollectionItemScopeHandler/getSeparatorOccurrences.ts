@@ -1,4 +1,5 @@
-import { matchAll, Range, type TextDocument } from "@cursorless/common";
+import type { TextDocument } from "@cursorless/common";
+import { matchAll, Range } from "@cursorless/common";
 
 const separator = ",";
 

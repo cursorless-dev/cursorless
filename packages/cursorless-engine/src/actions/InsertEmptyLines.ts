@@ -1,11 +1,10 @@
+import type { IDE, InsertionMode } from "@cursorless/common";
 import {
   FlashStyle,
   RangeExpansionBehavior,
-  type IDE,
   toCharacterRange,
   toLineRange,
   zipStrict,
-  type InsertionMode,
 } from "@cursorless/common";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";

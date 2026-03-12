@@ -1,12 +1,14 @@
+import type {
+  PlaintextScopeSupportFacet,
+  ScopeSupportFacet,
+  ScopeSupportFacetInfo,
+  ScopeTypeType,
+} from "@cursorless/common";
 import {
   camelCaseToAllDown,
   capitalize,
   plaintextScopeSupportFacetInfos,
   scopeSupportFacetInfos,
-  type PlaintextScopeSupportFacet,
-  type ScopeSupportFacet,
-  type ScopeSupportFacetInfo,
-  type ScopeTypeType,
 } from "@cursorless/common";
 
 export function prettifyFacet(

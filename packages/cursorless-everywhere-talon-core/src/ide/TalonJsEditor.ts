@@ -1,17 +1,17 @@
-import {
-  selectionsEqual,
-  type Edit,
-  type EditableTextEditor,
-  type GeneralizedRange,
-  type InMemoryTextDocument,
-  type OpenLinkOptions,
-  type Range,
-  type RevealLineAt,
-  type Selection,
-  type SetSelectionsOpts,
-  type TextEditor,
-  type TextEditorOptions,
+import type {
+  Edit,
+  EditableTextEditor,
+  GeneralizedRange,
+  InMemoryTextDocument,
+  OpenLinkOptions,
+  Range,
+  RevealLineAt,
+  Selection,
+  SetSelectionsOpts,
+  TextEditor,
+  TextEditorOptions,
 } from "@cursorless/common";
+import { selectionsEqual } from "@cursorless/common";
 import type { Talon } from "../types/talon.types";
 import { setSelections } from "./setSelections";
 import type { TalonJsIDE } from "./TalonJsIDE";

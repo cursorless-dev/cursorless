@@ -26,10 +26,8 @@ import { DisabledSnippets } from "./disabledComponents/DisabledSnippets";
 import { DisabledTalonSpokenForms } from "./disabledComponents/DisabledTalonSpokenForms";
 import { DisabledTreeSitter } from "./disabledComponents/DisabledTreeSitter";
 import { CustomSpokenFormGeneratorImpl } from "./generateSpokenForm/CustomSpokenFormGeneratorImpl";
-import {
-  LanguageDefinitionsImpl,
-  type LanguageDefinitions,
-} from "./languages/LanguageDefinitions";
+import type { LanguageDefinitions } from "./languages/LanguageDefinitions";
+import { LanguageDefinitionsImpl } from "./languages/LanguageDefinitions";
 import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
 import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
 import { runCommand } from "./runCommand";

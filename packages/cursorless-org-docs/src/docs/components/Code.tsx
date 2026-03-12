@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { codeToHtml, type DecorationItem } from "shiki";
+import type { DecorationItem } from "shiki";
+import { codeToHtml } from "shiki";
 import "./Code.css";
 
 interface Props {

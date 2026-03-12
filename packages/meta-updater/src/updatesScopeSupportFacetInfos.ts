@@ -1,9 +1,11 @@
+import type {
+  ScopeSupportFacet,
+  PlaintextScopeSupportFacet,
+} from "@cursorless/common";
 import {
   scopeSupportFacetInfos,
   serializeScopeType,
   plaintextScopeSupportFacetInfos,
-  type ScopeSupportFacet,
-  type PlaintextScopeSupportFacet,
 } from "@cursorless/common";
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 

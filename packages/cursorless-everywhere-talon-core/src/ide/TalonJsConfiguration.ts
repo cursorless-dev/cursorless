@@ -1,14 +1,14 @@
 import { get } from "lodash-es";
-import {
-  HatStability,
-  type Configuration,
-  type ConfigurationScope,
-  type CursorlessConfiguration,
-  type Disposable,
-  type GetFieldType,
-  type Listener,
-  type Paths,
+import type {
+  Configuration,
+  ConfigurationScope,
+  CursorlessConfiguration,
+  Disposable,
+  GetFieldType,
+  Listener,
+  Paths,
 } from "@cursorless/common";
+import { HatStability } from "@cursorless/common";
 
 const CONFIGURATION_DEFAULTS: CursorlessConfiguration = {
   tokenHatSplittingMode: {

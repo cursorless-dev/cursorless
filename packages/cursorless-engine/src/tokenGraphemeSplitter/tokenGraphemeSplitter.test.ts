@@ -1,4 +1,5 @@
-import { FakeIDE, type TokenHatSplittingMode } from "@cursorless/common";
+import type { TokenHatSplittingMode } from "@cursorless/common";
+import { FakeIDE } from "@cursorless/common";
 import * as assert from "assert";
 import { TokenGraphemeSplitter, UNKNOWN } from "./tokenGraphemeSplitter";
 

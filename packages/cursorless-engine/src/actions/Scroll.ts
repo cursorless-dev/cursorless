@@ -1,6 +1,6 @@
+import type { IDE } from "@cursorless/common";
 import {
   FlashStyle,
-  type IDE,
   groupBy,
   RevealLineAt,
   toLineRange,
