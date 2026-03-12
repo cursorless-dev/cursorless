@@ -49,7 +49,6 @@ export async function bufferGetSelections(
 }
 
 export async function bufferSetSelections(
-  // window: Window,
   client: NeovimClient,
   selections: Selection[],
 ) {
@@ -69,7 +68,6 @@ export async function bufferSetSelections(
     `bufferSetSelections() selections=(${selections[0].start.line},${selections[0].start.character}),(${selections[0].end.line},${selections[0].end.character}) luaCode="${luaCode}"`,
   );
   await client.executeLua(luaCode, []);
-  // console.debug(`bufferSetSelections() done`);
 }
 
 /**

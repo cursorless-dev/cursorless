@@ -15,7 +15,7 @@ import type { Disposable } from "vscode";
 import type { VscodeHatStyleName } from "../hatStyles.types";
 import VscodeEnabledHatStyleManager from "../VscodeEnabledHatStyleManager";
 import type { VscodeIDE } from "../VscodeIDE";
-import type { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
+import type { VscodeTextEditor } from "../VscodeTextEditor";
 import type { FontMeasurements } from "./FontMeasurements";
 import VscodeHatRenderer from "./VscodeHatRenderer";
 
@@ -113,7 +113,7 @@ export class VscodeHats implements Hats {
 
     decorationRanges.forEach((ranges, editor) => {
       hatStyleNames.forEach((hatStyleName) => {
-        (editor as VscodeTextEditorImpl).vscodeEditor.setDecorations(
+        (editor as VscodeTextEditor).vscodeEditor.setDecorations(
           this.hatRenderer.getDecorationType(
             hatStyleName as VscodeHatStyleName,
           )!,

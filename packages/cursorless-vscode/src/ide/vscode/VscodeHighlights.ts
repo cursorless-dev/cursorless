@@ -7,7 +7,7 @@ import { FlashStyle, isLineRange, partition } from "@cursorless/common";
 import type { ExtensionContext } from "vscode";
 import * as vscode from "vscode";
 import { VscodeHighlightDecorationTypes } from "./VscodeHighlightDecorationTypes";
-import type { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
+import type { VscodeTextEditor } from "./VscodeTextEditor";
 
 export enum HighlightStyle {
   highlight0 = "highlight0",
@@ -50,7 +50,7 @@ export default class VscodeHighlights {
 
   async setHighlightRanges(
     style: VscodeStyle,
-    editor: VscodeTextEditorImpl,
+    editor: VscodeTextEditor,
     ranges: GeneralizedRange[],
   ) {
     const [lineRanges, tokenRanges] = partition<LineRange, CharacterRange>(

@@ -1,10 +1,10 @@
 import type { EndOfLine, TextDocument, TextLine } from "@cursorless/common";
 import { Position, Range } from "@cursorless/common";
 import type { URI } from "vscode-uri";
-import NeovimTextLineImpl from "./NeovimTextLineImpl";
+import NeovimTextLine from "./NeovimTextLine";
 import path from "node:path";
 
-export class NeovimTextDocumentImpl implements TextDocument {
+export class NeovimTextDocument implements TextDocument {
   private _uri: URI;
   private _languageId: string;
   private _version: number;
@@ -32,16 +32,12 @@ export class NeovimTextDocumentImpl implements TextDocument {
   }
 
   get lineCount(): number {
-    // console.debug(`lineCount(): ${this._lineCount}`);
     return this._lineCount;
   }
 
   get range(): Range {
     const { end } = this.lineAt(this.lineCount - 1).range;
     const range = new Range(0, 0, end.line, end.character);
-    // console.debug(
-    //   `range(): (${range.start.line},${range.start.character}),(${range.end.line},${range.end.character})`,
-    // );
     return range;
   }
 
@@ -82,7 +78,6 @@ export class NeovimTextDocumentImpl implements TextDocument {
     } else if (typeof lineOrPosition === "number") {
       line = lineOrPosition;
     }
-    // console.debug(`lineAt() line=${line}`);
 
     if (typeof line !== "number" || line < 0 || Math.floor(line) !== line) {
       throw new Error("Illegal value for `line`");
@@ -90,7 +85,7 @@ export class NeovimTextDocumentImpl implements TextDocument {
     // The position is adjusted if it is outside range
     line = Math.min(line, this._lines.length - 1);
 
-    return new NeovimTextLineImpl(
+    return new NeovimTextLine(
       line,
       this._lines[line],
       line === this._lines.length - 1,
@@ -98,23 +93,14 @@ export class NeovimTextDocumentImpl implements TextDocument {
   }
 
   public offsetAt(position: Position): number {
-    // console.debug(
-    //   `offsetAt() position=(${position.line},${position.character})`,
-    // );
     position = this._validatePosition(position);
     this._ensureLineStarts();
-    // console.debug(
-    //   `offsetAt() returning ${
-    //     this._lineStarts!.getPrefixSum(position.line - 1) + position.character
-    //   }`,
-    // );
     return (
       this._lineStarts!.getPrefixSum(position.line - 1) + position.character
     );
   }
 
   public positionAt(offset: number): Position {
-    // console.debug(`positionAt() offset=${offset}`);
     offset = Math.floor(offset);
     offset = Math.max(0, offset);
 
@@ -129,39 +115,19 @@ export class NeovimTextDocumentImpl implements TextDocument {
 
   public getText(range?: Range): string {
     if (range === undefined) {
-      // console.debug(`getText(all)`);
       if (this._cachedTextValue == null) {
         this._cachedTextValue = this._lines.join(this._eol);
       }
-      // if (this._lines.length > 10) {
-      //   console.debug(
-      //     `getText() returning multiple lines: '${this._lines.slice(0, 10).join(this._eol)}' \n[stripped...]}`,
-      //   );
-      // } else {
-      //   console.debug(
-      //     `getText() returning multiple lines: '${this._cachedTextValue}'`,
-      //   );
-      // }
       return this._cachedTextValue;
-    } else {
-      // console.debug(
-      //   `getText(range=(${range?.start.line},${range?.start.character}),(${range?.end.line},${range?.end.character}))`,
-      // );
     }
 
     range = this._validateRange(range);
 
     if (range.isEmpty) {
-      // console.debug(`getText() returning empty`);
       return "";
     }
 
     if (range.isSingleLine) {
-      // console.debug(
-      //   `getText() returning single line '${this._lines[
-      //     range.start.line
-      //   ].substring(range.start.character, range.end.character)}'`,
-      // );
       return this._lines[range.start.line].substring(
         range.start.character,
         range.end.character,
@@ -182,15 +148,6 @@ export class NeovimTextDocumentImpl implements TextDocument {
     resultLines.push(
       this._lines[endLineIndex].substring(0, range.end.character),
     );
-    // if (resultLines.length > 10) {
-    //   console.debug(
-    //     `getText() returning multiple lines: '${resultLines.slice(0, 10).join(lineEnding)}' \n[stripped...]}`,
-    //   );
-    // } else {
-    //   console.debug(
-    //     `getText() returning multiple lines: '${resultLines.join(lineEnding)}'`,
-    //   );
-    // }
     return resultLines.join(lineEnding);
   }
 

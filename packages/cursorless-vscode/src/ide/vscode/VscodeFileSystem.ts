@@ -78,7 +78,6 @@ export class VscodeFileSystem implements FileSystem {
   }
 
   public watchDir(path: string, onDidChange: PathChangeListener): Disposable {
-    // return { dispose: () => {} };
     // FIXME: Support globs?
     const watcher = vscode.workspace.createFileSystemWatcher(
       new vscode.RelativePattern(path, "**"),

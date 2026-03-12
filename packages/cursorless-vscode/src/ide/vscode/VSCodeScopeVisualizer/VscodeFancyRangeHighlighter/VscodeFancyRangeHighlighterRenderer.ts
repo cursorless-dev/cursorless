@@ -10,7 +10,7 @@ import { toVscodeRange } from "@cursorless/vscode-common";
 import type { DecorationRenderOptions, TextEditorDecorationType } from "vscode";
 import { DecorationRangeBehavior } from "vscode";
 import { vscodeApi } from "../../../../vscodeApi";
-import type { VscodeTextEditorImpl } from "../../VscodeTextEditorImpl";
+import type { VscodeTextEditor } from "../../VscodeTextEditor";
 import type { RangeTypeColors } from "../RangeTypeColors";
 import type {
   DifferentiatedStyle,
@@ -47,7 +47,7 @@ export class VscodeFancyRangeHighlighterRenderer {
    * which looks bad.
    */
   setRanges(
-    editor: VscodeTextEditorImpl,
+    editor: VscodeTextEditor,
     decoratedRanges: DifferentiatedStyledRangeList[],
   ): void {
     /**

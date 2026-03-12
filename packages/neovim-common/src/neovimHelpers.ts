@@ -5,7 +5,7 @@ import {
   pasteFromClipboard,
   setClipboard,
 } from "@cursorless/neovim-common";
-import type { NeovimTextEditorImpl } from "./ide/neovim/NeovimTextEditorImpl";
+import type { NeovimTextEditor } from "./ide/neovim/NeovimTextEditor";
 import type { NeovimClient } from "neovim";
 import type { IDE } from "@cursorless/common";
 
@@ -13,7 +13,7 @@ export async function neovimClipboardCopy(
   client: NeovimClient,
   ide: IDE,
 ): Promise<void> {
-  const editor = ide.activeTextEditor as NeovimTextEditorImpl;
+  const editor = ide.activeTextEditor as NeovimTextEditor;
   const window = await client.window;
   const selections = await bufferGetSelections(window, client);
   const data = editor.document.getText(selections[0]);

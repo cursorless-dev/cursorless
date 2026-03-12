@@ -9,7 +9,7 @@ import { FakeIDE, InMemoryTextDocument, Selection } from "@cursorless/common";
 import { FileSystemRawTreeSitterQueryProvider } from "@cursorless/node-common";
 import { URI } from "vscode-uri";
 import { createCursorlessEngine } from "..";
-import { TestEditor } from "./TestEditor";
+import { TestTextEditor } from "./TestTextEditor";
 import { TestFileSystem } from "./TestFileSystem";
 import { TestTreeSitter } from "./TestTreeSitter";
 
@@ -58,7 +58,7 @@ function createNewEditor(
   const document = new InMemoryTextDocument(uri, languageId, content);
   const visibleRanges = [document.range];
   const selections = [new Selection(0, 0, 0, 0)];
-  const editor = new TestEditor(id, document, visibleRanges, selections);
+  const editor = new TestTextEditor(id, document, visibleRanges, selections);
   return editor;
 }
 

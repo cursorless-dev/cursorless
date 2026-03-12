@@ -3,7 +3,7 @@ import { InMemoryTextDocument, Selection } from "@cursorless/common";
 import { URI } from "vscode-uri";
 import type { Talon } from "../types/talon.types";
 import type { EditorState, SelectionOffsets } from "../types/types";
-import { TalonJsEditor } from "./TalonJsEditor";
+import { TalonJsTextEditor } from "./TalonJsTextEditor";
 import type { TalonJsIDE } from "./TalonJsIDE";
 
 let nextId = 0;
@@ -12,7 +12,7 @@ export function createTextEditor(
   talon: Talon,
   ide: TalonJsIDE,
   editorState: EditorState,
-): TalonJsEditor {
+): TalonJsTextEditor {
   const id = String(nextId++);
   const uri = URI.parse(`talon-js://${id}`);
   const languageId = editorState.languageId ?? "plaintext";
@@ -22,7 +22,14 @@ export function createTextEditor(
     createSelection(document, selection),
   );
 
-  return new TalonJsEditor(talon, ide, id, document, visibleRanges, selections);
+  return new TalonJsTextEditor(
+    talon,
+    ide,
+    id,
+    document,
+    visibleRanges,
+    selections,
+  );
 }
 
 export function createSelection(

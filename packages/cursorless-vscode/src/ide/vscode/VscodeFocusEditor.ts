@@ -2,7 +2,7 @@ import { getCellIndex } from "@cursorless/vscode-common";
 import type { NotebookDocument, TextEditor } from "vscode";
 import { commands, TabInputTextDiff, ViewColumn, window } from "vscode";
 import { getNotebookFromCellDocument } from "./notebook/notebook";
-import type { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
+import type { VscodeTextEditor } from "./VscodeTextEditor";
 
 const columnFocusCommands = {
   [ViewColumn.One]: "workbench.action.focusFirstEditorGroup",
@@ -22,7 +22,7 @@ const columnFocusCommands = {
  * Focus editor. Returns true if selection needs to be set again.
  */
 export default async function vscodeFocusEditor(
-  editor: VscodeTextEditorImpl,
+  editor: VscodeTextEditor,
 ): Promise<void> {
   const viewColumn = getViewColumn(editor.vscodeEditor);
   if (viewColumn != null) {
@@ -66,7 +66,7 @@ function getViewColumn(editor: TextEditor): ViewColumn | undefined {
   return tabGroup?.viewColumn;
 }
 
-async function focusNotebookCell(editor: VscodeTextEditorImpl) {
+async function focusNotebookCell(editor: VscodeTextEditor) {
   const desiredNotebookEditor = getNotebookFromCellDocument(
     editor.vscodeEditor.document,
   );

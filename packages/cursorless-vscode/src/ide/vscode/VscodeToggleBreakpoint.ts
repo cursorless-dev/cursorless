@@ -1,10 +1,10 @@
 import type { GeneralizedRange, Position } from "@cursorless/common";
 import { toVscodePosition } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
-import type { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
+import type { VscodeTextEditor } from "./VscodeTextEditor";
 
 export async function vscodeToggleBreakpoint(
-  editor: VscodeTextEditorImpl,
+  editor: VscodeTextEditor,
   ranges?: GeneralizedRange[] | undefined,
 ): Promise<void> {
   if (ranges == null) {

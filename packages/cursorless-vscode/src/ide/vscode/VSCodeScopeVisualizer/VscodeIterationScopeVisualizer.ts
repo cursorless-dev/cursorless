@@ -1,6 +1,6 @@
 import type { Disposable, ScopeSupport, TextEditor } from "@cursorless/common";
 import { toCharacterRange } from "@cursorless/common";
-import type { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
+import type { VscodeTextEditor } from "../VscodeTextEditor";
 import { VscodeScopeVisualizer } from "./VscodeScopeVisualizer";
 
 export class VscodeIterationScopeVisualizer extends VscodeScopeVisualizer {
@@ -12,7 +12,7 @@ export class VscodeIterationScopeVisualizer extends VscodeScopeVisualizer {
     return this.scopeProvider.onDidChangeIterationScopeRanges(
       (editor, iterationScopeRanges) => {
         this.renderer.setScopes(
-          editor as VscodeTextEditorImpl,
+          editor as VscodeTextEditor,
           iterationScopeRanges.map(({ domain, ranges }) => ({
             domain: toCharacterRange(domain),
             nestedRanges: ranges.map(({ range }) => toCharacterRange(range)),

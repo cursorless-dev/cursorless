@@ -1,10 +1,10 @@
 import * as vscode from "vscode";
-import type { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
+import type { VscodeTextEditor } from "./VscodeTextEditor";
 import type { OpenLinkOptions, Range } from "@cursorless/common";
 import { toVscodePositionOrRange } from "@cursorless/vscode-common";
 
 export default async function vscodeOpenLink(
-  editor: VscodeTextEditorImpl,
+  editor: VscodeTextEditor,
   range: Range,
   { openAside }: OpenLinkOptions,
 ): Promise<void> {
@@ -39,7 +39,7 @@ export default async function vscodeOpenLink(
 }
 
 async function runCommandAtRange(
-  editor: VscodeTextEditorImpl,
+  editor: VscodeTextEditor,
   command: string,
   range: Range,
 ) {

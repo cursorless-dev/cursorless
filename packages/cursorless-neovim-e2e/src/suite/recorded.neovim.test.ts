@@ -3,7 +3,7 @@ import { asyncSafety } from "@cursorless/common";
 import { getRecordedTestPaths, runRecordedTest } from "@cursorless/node-common";
 import type {
   NeovimIDE,
-  NeovimTextEditorImpl,
+  NeovimTextEditor,
   NewEditorOptions,
 } from "@cursorless/neovim-common";
 import {
@@ -64,7 +64,7 @@ async function openNewTestEditor(
   neovimIDE: NeovimIDE,
   content: string,
   { openBeside = false }: NewEditorOptions = {},
-): Promise<NeovimTextEditorImpl> {
+): Promise<NeovimTextEditor> {
   // open a new buffer
   // @see: https://vi.stackexchange.com/questions/8345/a-built-in-way-to-make-vim-open-a-new-buffer-with-file
   await client.command(":enew");

@@ -31,7 +31,7 @@ import { flashRanges } from "./flashRanges";
 import { TalonJsCapabilities } from "./TalonJsCapabilities";
 import { TalonJsClipboard } from "./TalonJsClipboard";
 import { TalonJsConfiguration } from "./TalonJsConfiguration";
-import { TalonJsEditor } from "./TalonJsEditor";
+import { TalonJsTextEditor } from "./TalonJsTextEditor";
 import { TalonJsKeyValueStore } from "./TalonJsKeyValueStore";
 import { TalonJsMessages } from "./TalonJsMessages";
 
@@ -87,7 +87,7 @@ export class TalonJsIDE implements IDE {
   }
 
   getEditableTextEditor(editor: TextEditor): EditableTextEditor {
-    if (editor instanceof TalonJsEditor) {
+    if (editor instanceof TalonJsTextEditor) {
       return editor;
     }
     throw Error(`Unsupported text editor type: ${editor}`);

@@ -12,7 +12,7 @@ import type {
   TextEditorOptions,
 } from "@cursorless/common";
 
-export class TestEditor implements EditableTextEditor {
+export class TestTextEditor implements EditableTextEditor {
   options: TextEditorOptions = {
     tabSize: 4,
     insertSpaces: true,

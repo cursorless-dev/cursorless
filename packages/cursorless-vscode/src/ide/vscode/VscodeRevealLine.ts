@@ -1,9 +1,9 @@
 import * as vscode from "vscode";
 import { RevealLineAt } from "@cursorless/common";
-import type { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
+import type { VscodeTextEditor } from "./VscodeTextEditor";
 
 export async function vscodeRevealLine(
-  editor: VscodeTextEditorImpl,
+  editor: VscodeTextEditor,
   lineNumber: number,
   at: RevealLineAt,
 ): Promise<void> {

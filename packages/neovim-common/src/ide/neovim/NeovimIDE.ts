@@ -29,7 +29,7 @@ import NeovimClipboard from "./NeovimClipboard";
 import NeovimConfiguration from "./NeovimConfiguration";
 import NeovimKeyValueStore from "./NeovimKeyValueStore";
 import NeovimMessages from "./NeovimMessages";
-import { NeovimTextEditorImpl } from "./NeovimTextEditorImpl";
+import { NeovimTextEditor } from "./NeovimTextEditor";
 
 import { getNeovimRegistry } from "@cursorless/neovim-registry";
 import {
@@ -42,7 +42,7 @@ import {
   neovimOnDidChangeTextDocument,
   neovimOnDidOpenTextDocument,
 } from "./NeovimEvents";
-import { NeovimTextDocumentImpl } from "./NeovimTextDocumentImpl";
+import { NeovimTextDocument } from "./NeovimTextDocument";
 
 export class NeovimIDE implements IDE {
   readonly configuration: NeovimConfiguration;
@@ -68,8 +68,8 @@ export class NeovimIDE implements IDE {
     this.messages = new NeovimMessages();
     this.clipboard = new NeovimClipboard(this.client);
     this.capabilities = new NeovimCapabilities();
-    this.editorMap = new Map<Window, NeovimTextEditorImpl>();
-    this.documentMap = new Map<Buffer, NeovimTextDocumentImpl>();
+    this.editorMap = new Map<Window, NeovimTextEditor>();
+    this.documentMap = new Map<Buffer, NeovimTextDocument>();
     this.activeWindow = undefined;
     this.activeBuffer = undefined;
   }
@@ -153,7 +153,7 @@ export class NeovimIDE implements IDE {
     return undefined;
   }
 
-  get visibleTextEditors(): NeovimTextEditorImpl[] {
+  get visibleTextEditors(): NeovimTextEditor[] {
     return Array.from(this.editorMap.values());
   }
 
@@ -227,9 +227,7 @@ export class NeovimIDE implements IDE {
    *
    * Atm, we only initialize one editor(current window) with one document(current buffer)
    */
-  async updateTextEditor(
-    minimal: boolean = false,
-  ): Promise<NeovimTextEditorImpl> {
+  async updateTextEditor(minimal: boolean = false): Promise<NeovimTextEditor> {
     const window = await this.client.window;
     const buffer = await window.buffer;
     const lines = await buffer.lines;
@@ -268,19 +266,18 @@ export class NeovimIDE implements IDE {
     lines: string[],
     visibleRanges: Range[],
     selections: Selection[],
-  ): NeovimTextEditorImpl {
+  ): NeovimTextEditor {
     let document = this.getTextDocument(buffer);
     let editor = this.getTextEditor(window);
     if (!document) {
       console.debug(
         `toNeovimEditor(): creating new document: buffer=${buffer.id}`,
       );
-      document = new NeovimTextDocumentImpl(
-        URI.parse(`neovim://${buffer.id}`), // URI.parse(`file://${buffer.id}`),
+      document = new NeovimTextDocument(
+        URI.parse(`neovim://${buffer.id}`),
         "plaintext",
         1,
         "\n",
-        // "\r\n",
         lines,
       );
       this.documentMap.set(buffer, document);
@@ -292,7 +289,7 @@ export class NeovimIDE implements IDE {
       console.debug(
         `toNeovimEditor(): creating new editor: window=${window.id}`,
       );
-      editor = new NeovimTextEditorImpl(
+      editor = new NeovimTextEditor(
         uuid(),
         this.client,
         this,
@@ -309,15 +306,11 @@ export class NeovimIDE implements IDE {
     this.activeBuffer = buffer;
     this.activeWindow = window;
 
-    return this.activeTextEditor as NeovimTextEditorImpl;
+    return this.activeTextEditor as NeovimTextEditor;
   }
 
   handleCommandError(err: Error) {
-    // if (err instanceof OutdatedExtensionError) {
-    //   this.showUpdateExtensionErrorMessage(err);
-    // } else {
     void showErrorMessage(this.client, err.message);
-    // }
   }
 
   disposeOnExit(...disposables: Disposable[]): () => void {

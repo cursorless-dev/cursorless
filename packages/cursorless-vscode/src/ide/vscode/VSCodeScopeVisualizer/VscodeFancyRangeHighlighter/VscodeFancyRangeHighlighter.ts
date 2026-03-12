@@ -6,7 +6,7 @@ import {
 } from "@cursorless/common";
 import { flatmap } from "itertools";
 import { range as lodashRange } from "lodash-es";
-import type { VscodeTextEditorImpl } from "../../VscodeTextEditorImpl";
+import type { VscodeTextEditor } from "../../VscodeTextEditor";
 import type { RangeTypeColors } from "../RangeTypeColors";
 import { VscodeFancyRangeHighlighterRenderer } from "./VscodeFancyRangeHighlighterRenderer";
 import type { DifferentiatedStyledRange } from "./decorationStyle.types";
@@ -31,7 +31,7 @@ export class VscodeFancyRangeHighlighter {
     this.renderer = new VscodeFancyRangeHighlighterRenderer(colors);
   }
 
-  setRanges(editor: VscodeTextEditorImpl, ranges: GeneralizedRange[]) {
+  setRanges(editor: VscodeTextEditor, ranges: GeneralizedRange[]) {
     const decoratedRanges: Iterable<DifferentiatedStyledRange> = flatmap(
       // We first generate a list of differentiated ranges, which are ranges
       // where any ranges that are touching have different differentiation

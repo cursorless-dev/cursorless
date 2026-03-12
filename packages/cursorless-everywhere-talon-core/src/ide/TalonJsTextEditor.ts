@@ -17,7 +17,7 @@ import { setSelections } from "./setSelections";
 import type { TalonJsIDE } from "./TalonJsIDE";
 import { talonJsPerformEdits } from "./talonJsPerformEdits";
 
-export class TalonJsEditor implements EditableTextEditor {
+export class TalonJsTextEditor implements EditableTextEditor {
   options: TextEditorOptions = {
     tabSize: 4,
     insertSpaces: true,
