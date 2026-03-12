@@ -120,7 +120,9 @@ type HatColor =
   | "pink"
   | "yellow"
   | "userColor1"
-  | "userColor2";
+  | "userColor2"
+  | "userColor3"
+  | "userColor4";
 type HatNonDefaultShape =
   | "ex"
   | "fox"

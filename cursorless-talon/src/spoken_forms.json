@@ -245,7 +245,9 @@
       "pink": "pink",
       "yellow": "yellow",
       "navy": "userColor1",
-      "apricot": "userColor2"
+      "apricot": "userColor2",
+      "user color three": "userColor3",
+      "user color four": "userColor4"
     },
     "hat_shape": {
       "ex": "ex",
