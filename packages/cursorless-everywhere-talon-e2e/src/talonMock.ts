@@ -1,8 +1,7 @@
+import type { RangeOffsets, SelectionOffsets } from "@cursorless/common";
 import type {
-  RangeOffsets,
   EditorEdit,
   EditorState,
-  SelectionOffsets,
   Talon,
   TalonActions,
   TalonContext,

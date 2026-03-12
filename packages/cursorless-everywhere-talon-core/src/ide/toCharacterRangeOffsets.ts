@@ -1,5 +1,8 @@
-import type { GeneralizedRange, TextEditor } from "@cursorless/common";
-import type { RangeOffsets } from "../types/types";
+import type {
+  GeneralizedRange,
+  RangeOffsets,
+  TextEditor,
+} from "@cursorless/common";
 
 export function toCharacterRangeOffsets(
   editor: TextEditor,

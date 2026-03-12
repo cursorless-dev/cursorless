@@ -248,6 +248,11 @@ export interface IDE {
   ): Promise<void>;
 }
 
+export interface EmittableIDE extends IDE {
+  emitDidChangeTextDocument(event: TextDocumentChangeEvent): void;
+  emitDidChangeTextEditorSelection(event: TextEditorSelectionChangeEvent): void;
+}
+
 export interface WorkspaceFolder {
   uri: URI;
   name: string;

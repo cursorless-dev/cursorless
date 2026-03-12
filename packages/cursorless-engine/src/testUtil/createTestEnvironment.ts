@@ -5,11 +5,9 @@ import type {
   MessageType,
   ScopeProvider,
 } from "@cursorless/common";
-import { FakeIDE, InMemoryTextDocument, Selection } from "@cursorless/common";
+import { FakeIDE, InMemoryTextEditor } from "@cursorless/common";
 import { FileSystemRawTreeSitterQueryProvider } from "@cursorless/node-common";
-import { URI } from "vscode-uri";
 import { createCursorlessEngine } from "..";
-import { TestTextEditor } from "./TestTextEditor";
 import { TestFileSystem } from "./TestFileSystem";
 import { TestTreeSitter } from "./TestTreeSitter";
 
@@ -39,27 +37,12 @@ export async function createTestEnvironment(): Promise<TestEnvironment> {
   });
 
   const openNewEditor = async (content: string, languageId: string) => {
-    const editor = createNewEditor(content, languageId);
+    const editor = new InMemoryTextEditor({ ide, languageId, content });
     await languageDefinitions.loadLanguage(languageId);
     return editor;
   };
 
   return { openNewEditor, scopeProvider };
-}
-
-let nextId = 0;
-
-function createNewEditor(
-  content: string,
-  languageId: string,
-): EditableTextEditor {
-  const id = String(nextId++);
-  const uri = URI.parse(`talon-js://${id}`);
-  const document = new InMemoryTextDocument(uri, languageId, content);
-  const visibleRanges = [document.range];
-  const selections = [new Selection(0, 0, 0, 0)];
-  const editor = new TestTextEditor(id, document, visibleRanges, selections);
-  return editor;
 }
 
 class TestMessages implements Messages {

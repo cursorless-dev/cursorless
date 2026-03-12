@@ -4,9 +4,9 @@ import type {
   Configuration,
   Disposable,
   EditableTextEditor,
+  EmittableIDE,
   FlashDescriptor,
   GeneralizedRange,
-  IDE,
   InputBoxOptions,
   KeyValueStore,
   Listener,
@@ -22,20 +22,18 @@ import type {
   TextEditorVisibleRangesChangeEvent,
   WorkspaceFolder,
 } from "@cursorless/common";
-import { Notifier } from "@cursorless/common";
+import { InMemoryTextEditor, Notifier } from "@cursorless/common";
 import { pull } from "lodash-es";
 import type { Talon } from "../types/talon.types";
-import type { EditorState } from "../types/types";
-import { createTextEditor } from "./createTextEditor";
+import type { EditorEdit, EditorState } from "../types/types";
 import { flashRanges } from "./flashRanges";
 import { TalonJsCapabilities } from "./TalonJsCapabilities";
 import { TalonJsClipboard } from "./TalonJsClipboard";
 import { TalonJsConfiguration } from "./TalonJsConfiguration";
-import { TalonJsTextEditor } from "./TalonJsTextEditor";
 import { TalonJsKeyValueStore } from "./TalonJsKeyValueStore";
 import { TalonJsMessages } from "./TalonJsMessages";
 
-export class TalonJsIDE implements IDE {
+export class TalonJsIDE implements EmittableIDE {
   configuration: Configuration;
   messages: Messages;
   keyValueStore: KeyValueStore;
@@ -46,6 +44,10 @@ export class TalonJsIDE implements IDE {
 
   private onDidChangeTextDocumentNotifier: Notifier<[TextDocumentChangeEvent]> =
     new Notifier();
+
+  private onDidChangeTextEditorSelectionNotifier: Notifier<
+    [TextEditorSelectionChangeEvent]
+  > = new Notifier();
 
   constructor(
     private talon: Talon,
@@ -87,14 +89,20 @@ export class TalonJsIDE implements IDE {
   }
 
   getEditableTextEditor(editor: TextEditor): EditableTextEditor {
-    if (editor instanceof TalonJsTextEditor) {
+    if (editor instanceof InMemoryTextEditor) {
       return editor;
     }
     throw Error(`Unsupported text editor type: ${editor}`);
   }
 
   updateTextEditors(editorState: EditorState) {
-    this.editors = [createTextEditor(this.talon, this, editorState)];
+    const editor = new InMemoryTextEditor({
+      ide: this,
+      languageId: editorState.languageId,
+      content: editorState.text,
+      selections: editorState.selections,
+    });
+    this.editors = [editor];
   }
 
   async findInDocument(
@@ -159,7 +167,45 @@ export class TalonJsIDE implements IDE {
   }
 
   emitDidChangeTextDocument(event: TextDocumentChangeEvent) {
+    const { document, contentChanges } = event;
+
+    const editorEdit: EditorEdit = {
+      text: document.getText(),
+      changes: contentChanges.map((change) => ({
+        rangeOffset: change.rangeOffset,
+        rangeLength: change.rangeLength,
+        text: change.text,
+      })),
+    };
+
+    this.talon.actions.user.cursorless_everywhere_edit_text(editorEdit);
+
     this.onDidChangeTextDocumentNotifier.notifyListeners(event);
+  }
+
+  onDidChangeTextEditorSelection(
+    listener: (event: TextEditorSelectionChangeEvent) => void,
+  ): Disposable {
+    return this.onDidChangeTextEditorSelectionNotifier.registerListener(
+      listener,
+    );
+  }
+
+  emitDidChangeTextEditorSelection(
+    event: TextEditorSelectionChangeEvent,
+  ): void {
+    const { document } = event.textEditor;
+
+    const selectionOffsets = event.selections.map((selection) => ({
+      anchor: document.offsetAt(selection.anchor),
+      active: document.offsetAt(selection.active),
+    }));
+
+    this.talon.actions.user.cursorless_everywhere_set_selections(
+      selectionOffsets,
+    );
+
+    this.onDidChangeTextEditorSelectionNotifier.notifyListeners(event);
   }
 
   onDidOpenTextDocument(
@@ -182,12 +228,6 @@ export class TalonJsIDE implements IDE {
 
   onDidChangeVisibleTextEditors(
     _listener: (editors: TextEditor[]) => void,
-  ): Disposable {
-    return { dispose: () => {} };
-  }
-
-  onDidChangeTextEditorSelection(
-    _listener: (event: TextEditorSelectionChangeEvent) => void,
   ): Disposable {
     return { dispose: () => {} };
   }
