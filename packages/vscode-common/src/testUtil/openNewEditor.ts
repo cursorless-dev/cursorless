@@ -10,6 +10,8 @@ export async function openNewEditor(
   content: string,
   { languageId = "plaintext", openBeside = false }: NewEditorOptions = {},
 ): Promise<vscode.TextEditor> {
+  await closeUiElements();
+
   if (!openBeside) {
     await vscode.commands.executeCommand("workbench.action.closeAllEditors");
   }
@@ -35,9 +37,6 @@ export async function openNewEditor(
     await editor.edit((editBuilder) => editBuilder.setEndOfLine(eol));
   }
 
-  // Many times running these tests opens the sidebar, which slows performance. Close it.
-  vscode.commands.executeCommand("workbench.action.closeSidebar");
-
   return editor;
 }
 
@@ -45,12 +44,27 @@ export async function reuseEditor(
   editor: vscode.TextEditor,
   content: string,
   language: string = "plaintext",
-) {
+): Promise<vscode.TextEditor> {
+  await closeUiElements();
+
+  // If the editor is not already active, make it active and close all other editors
+  if (editor !== vscode.window.activeTextEditor) {
+    editor = await vscode.window.showTextDocument(editor.document);
+    // Close other groups
+    await vscode.commands.executeCommand(
+      "workbench.action.closeEditorsInOtherGroups",
+    );
+    // Close other editors in the same group
+    await vscode.commands.executeCommand("workbench.action.closeOtherEditors");
+  }
+
+  // If the editor is not already the right language, change its language and reload the parse tree
   if (editor.document.languageId !== language) {
     await vscode.languages.setTextDocumentLanguage(editor.document, language);
     await (await getParseTreeApi()).loadLanguage(language);
   }
 
+  // Replace the entire contents of the editor with the new content
   await editor.edit((editBuilder) => {
     editBuilder.replace(
       new vscode.Range(
@@ -67,6 +81,8 @@ export async function reuseEditor(
       editBuilder.setEndOfLine(eol);
     }
   });
+
+  return editor;
 }
 
 /**
@@ -123,4 +139,11 @@ function waitForEditorToOpen(): Promise<void> {
       }
     }, 100);
   });
+}
+
+async function closeUiElements() {
+  // Many times running these tests opens the sidebar, which slows performance. Close it.
+  await vscode.commands.executeCommand("workbench.action.closeSidebar");
+  // Close the find widget as well, since it can also be open and cause performance issues.
+  await vscode.commands.executeCommand("closeFindWidget");
 }
