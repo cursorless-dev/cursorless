@@ -12,7 +12,7 @@
   "scripts": {
     "build": "pnpm -r build",
     "clean": "pnpm -r clean",
-    "compile": "tsc --build && pnpm -r --if-present compile:esbuild",
+    "compile": "tsc --build && pnpm -r compile:esbuild",
     "fix:meta": "pnpm run meta-updater:base && pnpm -r exec prettier --write tsconfig.json package.json",
     "fix:syncpack": "syncpack fix",
     "fix:eslint": "pnpm lint:ts --fix",
@@ -27,10 +27,13 @@
     "preinstall": "npx only-allow pnpm",
     "test-compile": "tsc --build",
     "test": "pnpm -r test",
+    "test:subset": "pnpm -r test:subset",
+    "test:update": "pnpm -r test:update",
+    "test:update:subset": "pnpm -r test:update:subset",
     "generate-grammar": "pnpm -r generate-grammar",
     "transform-recorded-tests": "./packages/common/scripts/my-ts-node.js packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts",
     "watch": "pnpm run -w --parallel '/^watch:.*/'",
-    "watch:esbuild": "pnpm run -r --parallel --if-present watch:esbuild",
+    "watch:esbuild": "pnpm run -r --parallel watch:esbuild",
     "watch:tsc": "tsc --build --watch"
   },
   "devDependencies": {

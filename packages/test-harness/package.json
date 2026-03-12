@@ -13,11 +13,13 @@
     }
   },
   "scripts": {
-    "test": "env CURSORLESS_MODE=test my-ts-node src/scripts/runUnitTestsOnly.ts",
-    "test:subset": "env CURSORLESS_MODE=test env CURSORLESS_RUN_TEST_SUBSET=true my-ts-node src/scripts/runUnitTestsOnly.ts",
-    "test:vscode": "env CURSORLESS_MODE=test my-ts-node src/scripts/runVscodeTestsCI.ts",
-    "test:neovim": "env CURSORLESS_MODE=test my-ts-node src/scripts/runNeovimTestsCI.ts",
-    "test:talonJs": "env CURSORLESS_MODE=test my-ts-node src/scripts/runTalonJsTests.ts",
+    "test": "my-ts-node src/scripts/runUnitTestsOnly.ts",
+    "test:subset": "my-ts-node src/scripts/runUnitTestsOnly.ts --subset",
+    "test:update": "my-ts-node src/scripts/runUnitTestsOnly.ts --update",
+    "test:update:subset": "my-ts-node src/scripts/runUnitTestsOnly.ts --update --subset",
+    "test:vscode": "my-ts-node src/scripts/runVscodeTestsCI.ts",
+    "test:neovim": "my-ts-node src/scripts/runNeovimTestsCI.ts",
+    "test:talonJs": "my-ts-node src/scripts/runTalonJsTests.ts",
     "build:base": "esbuild --sourcemap --conditions=cursorless:bundler --bundle --external:vscode --external:./reporters/parallel-buffered --external:./worker.js --external:talon --format=cjs --platform=node",
     "build": "pnpm run build:runner:vscode && pnpm run build:runner:neovim && pnpm run build:tests && pnpm run build:unit && pnpm run build:talon && pnpm run build:talonJs",
     "build:runner:vscode": "pnpm run build:base ./src/runners/extensionTestsVscode.ts --outfile=dist/extensionTestsVscode.cjs",
