@@ -29,12 +29,10 @@ export default class Clear implements SimpleAction {
     const { thatTargets } = await this.actions.remove.run(plainTargets);
 
     if (thatTargets != null) {
-      await this.ide
-        .getEditableTextEditor(editor)
-        .setSelections(
-          thatTargets.map(({ contentSelection }) => contentSelection),
-          { focusEditor: true },
-        );
+      await this.ide.getEditableTextEditor(editor).setSelections(
+        thatTargets.map(({ contentSelection }) => contentSelection),
+        { focusEditor: true },
+      );
     }
 
     return { thatTargets };
