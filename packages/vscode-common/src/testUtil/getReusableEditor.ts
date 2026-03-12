@@ -25,9 +25,10 @@ export async function getReusableEditor(
 
   if (editor == null) {
     editor = await openNewEditor(content, languageId);
-  } else {
-    (await getCursorlessApi()).testHelpers!.clearCache();
+    return editor;
   }
+
+  (await getCursorlessApi()).testHelpers!.clearCache();
 
   // If the editor is not already active, make it active and close all other editors
   if (editor !== window.activeTextEditor) {
