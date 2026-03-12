@@ -5,7 +5,6 @@ import {
   asyncSafety,
 } from "@cursorless/common";
 import { getRecordedTestPaths, runRecordedTest } from "@cursorless/node-common";
-import type { VscodeTestHelpers } from "@cursorless/vscode-common";
 import {
   getCursorlessApi,
   getReusableEditor,

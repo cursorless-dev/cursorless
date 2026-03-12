@@ -1,5 +1,5 @@
 import { getFixturePath, isWindows } from "@cursorless/node-common";
-import { openNewEditor, runCursorlessCommand } from "@cursorless/vscode-common";
+import { getReusableEditor, runCursorlessCommand } from "@cursorless/vscode-common";
 import * as assert from "assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
@@ -13,7 +13,7 @@ suite("followLink", async function () {
 });
 
 async function followDefinition() {
-  const editor = await openNewEditor(
+  const editor = await getReusableEditor(
     "const foo = 'hello';\nconst bar = foo;",
     "typescript",
   );
@@ -49,7 +49,7 @@ async function followLink() {
   const linkTextContent = isWindows()
     ? `file:///${filename}`
     : `file://${filename}`;
-  await openNewEditor(linkTextContent);
+  await getReusableEditor(linkTextContent);
 
   await runCursorlessCommand({
     version: LATEST_VERSION,

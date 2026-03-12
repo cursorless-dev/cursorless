@@ -1,5 +1,5 @@
 import { LATEST_VERSION } from "@cursorless/common";
-import { openNewEditor, runCursorlessCommand } from "@cursorless/vscode-common";
+import { getReusableEditor, runCursorlessCommand } from "@cursorless/vscode-common";
 import assert from "node:assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
@@ -14,7 +14,7 @@ suite("revealRange", async function () {
 const content = new Array(100).fill("line").join("\n");
 
 async function preFile() {
-  const editor = await openNewEditor(content);
+  const editor = await getReusableEditor(content);
   const startLine = editor.document.lineCount - 1;
   editor.selections = [new vscode.Selection(startLine, 0, startLine, 0)];
   editor.revealRange(new vscode.Range(startLine, 0, startLine, 0));
@@ -39,7 +39,7 @@ async function preFile() {
 }
 
 async function postFile() {
-  const editor = await openNewEditor(content);
+  const editor = await getReusableEditor(content);
   await vscode.commands.executeCommand("revealLine", {
     lineNumber: 1,
     at: "top",

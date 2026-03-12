@@ -5,7 +5,7 @@ import type {
   SimpleScopeTypeType,
 } from "@cursorless/common";
 import { asyncSafety } from "@cursorless/common";
-import { openNewEditor, runCursorlessAction } from "@cursorless/vscode-common";
+import { getReusableEditor, runCursorlessAction } from "@cursorless/vscode-common";
 import assert from "assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
@@ -212,7 +212,7 @@ async function testPerformanceCallback(
   callback: () => Promise<unknown>,
   beforeCallback?: (editor: vscode.TextEditor) => Promise<unknown>,
 ) {
-  const editor = await openNewEditor(testData, "json");
+  const editor = await getReusableEditor(testData, "json");
   // This is the position of the last json key in the document
   const position = new vscode.Position(editor.document.lineCount - 3, 5);
   const selection = new vscode.Selection(position, position);

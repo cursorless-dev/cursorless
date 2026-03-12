@@ -6,7 +6,7 @@ import {
 import {
   fromVscodeSelection,
   getCursorlessApi,
-  openNewEditor,
+  getReusableEditor,
   runCursorlessCommand,
 } from "@cursorless/vscode-common";
 import * as assert from "assert";
@@ -52,7 +52,7 @@ async function runTest(
   const { hatTokenMap, commandServerApi } = (await getCursorlessApi())
     .testHelpers!;
 
-  const editor = await openNewEditor("a\n");
+  const editor = await getReusableEditor("a\n");
 
   editor.selections = [new vscode.Selection(1, 0, 1, 0)];
 

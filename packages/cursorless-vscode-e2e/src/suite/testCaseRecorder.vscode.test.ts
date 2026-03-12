@@ -6,7 +6,7 @@ import {
 } from "@cursorless/node-common";
 import {
   getCursorlessApi,
-  openNewEditor,
+  getReusableEditor,
   runCursorlessCommand,
 } from "@cursorless/vscode-common";
 import { assert } from "chai";
@@ -114,7 +114,7 @@ async function runAndCheckTestCaseRecorder(
 }
 
 async function initalizeEditor(hatTokenMap: HatTokenMap) {
-  const editor = await openNewEditor("hello world");
+  const editor = await getReusableEditor("hello world");
 
   editor.selections = [new vscode.Selection(0, 11, 0, 11)];
 

@@ -14,9 +14,14 @@ let editor: TextEditor | undefined;
 
 export async function getReusableEditor(
   content: string,
-  languageId: string = "plaintext",
+  languageId = "plaintext",
+  openBeside = false,
 ): Promise<TextEditor> {
   await closeUiElements();
+
+  if (openBeside) {
+    return await openNewEditor(content, languageId, true);
+  }
 
   if (editor == null) {
     editor = await openNewEditor(content, languageId);

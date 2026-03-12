@@ -1,7 +1,7 @@
 import { LATEST_VERSION } from "@cursorless/common";
 import {
   getCursorlessApi,
-  openNewEditor,
+  getReusableEditor,
   runCursorlessCommand,
 } from "@cursorless/vscode-common";
 import * as assert from "assert";
@@ -16,7 +16,7 @@ suite("Explicit mark", async function () {
 
 async function explicitMark() {
   const { ide } = (await getCursorlessApi()).testHelpers!;
-  const editor = await openNewEditor("foo bar baz");
+  const editor = await getReusableEditor("foo bar baz");
   const editorId = ide.visibleTextEditors[0].id;
 
   await runCursorlessCommand({
