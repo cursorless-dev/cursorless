@@ -1,11 +1,12 @@
-import type { Direction, ScopeType } from "@cursorless/common";
+import type { Direction, IDE, ScopeType } from "@cursorless/common";
 import { imap } from "itertools";
-import { NestedScopeHandler } from "./NestedScopeHandler";
 import { getMatcher } from "../../../tokenizer";
 import { generateMatchesInRange } from "../../../util/getMatchesInRange";
 import { PlainTarget } from "../../targets";
 import { isPreferredOverHelper } from "./isPreferredOverHelper";
+import { NestedScopeHandler } from "./NestedScopeHandler";
 import type { TargetScope } from "./scope.types";
+import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 
 /**
  * The regex used to split a range into characters.  Combines letters with their
@@ -20,6 +21,15 @@ const NONWHITESPACE_REGEX = /\p{L}\p{M}*|[\p{N}\p{P}\p{S}]/gu;
 export class CharacterScopeHandler extends NestedScopeHandler {
   public readonly scopeType = { type: "character" } as const;
   public readonly iterationScopeType = { type: "token" } as const;
+
+  constructor(
+    private ide: IDE,
+    scopeHandlerFactory: ScopeHandlerFactory,
+    scopeType: ScopeType,
+    languageId: string,
+  ) {
+    super(scopeHandlerFactory, scopeType, languageId);
+  }
 
   protected get searchScopeType(): ScopeType {
     return { type: "line" };
@@ -50,7 +60,7 @@ export class CharacterScopeHandler extends NestedScopeHandler {
     scopeA: TargetScope,
     scopeB: TargetScope,
   ): boolean | undefined {
-    const { identifierMatcher } = getMatcher(this.languageId);
+    const { identifierMatcher } = getMatcher(this.ide, this.languageId);
     // Regexes indicating preferences. We prefer identifiers, preferred
     // symbols, then nonwhitespace.
     return isPreferredOverHelper(scopeA, scopeB, [

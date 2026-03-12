@@ -67,6 +67,7 @@ export class HatAllocator {
 
     const tokenHats = this.hats.isEnabled
       ? allocateHats({
+          ide: this.ide,
           tokenGraphemeSplitter: tokenGraphemeSplitter(this.ide),
           enabledHatStyles: this.hats.enabledHatStyles,
           forceTokenHats,

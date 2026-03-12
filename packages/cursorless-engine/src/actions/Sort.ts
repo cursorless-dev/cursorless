@@ -1,12 +1,14 @@
-import { showWarning } from "@cursorless/common";
+import { showWarning, type IDE } from "@cursorless/common";
 import { shuffle } from "lodash-es";
-import { ide } from "../singletons/ide.singleton";
 import type { Target } from "../typings/target.types";
 import type { Actions } from "./Actions";
 import type { ActionReturnValue, SimpleAction } from "./actions.types";
 
 abstract class SortBase implements SimpleAction {
-  constructor(private actions: Actions) {
+  constructor(
+    private ide: IDE,
+    private actions: Actions,
+  ) {
     this.run = this.run.bind(this);
   }
 
@@ -15,7 +17,7 @@ abstract class SortBase implements SimpleAction {
   async run(targets: Target[]): Promise<ActionReturnValue> {
     if (targets.length < 2) {
       void showWarning(
-        ide().messages,
+        this.ide.messages,
         "tooFewTargets",
         'This action works on multiple targets, e.g. "sort every line block" instead of "sort block".',
       );

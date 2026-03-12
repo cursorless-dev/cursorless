@@ -3,7 +3,7 @@ import type { StoredTargetMap } from "./core/StoredTargets";
 import { CursorStage } from "./processTargets/marks/CursorStage";
 import { DecorationDebouncer } from "./util/DecorationDebouncer";
 
-export class InjectedKeyboardTargetUpdater {
+export class KeyboardTargetUpdater {
   private disposables: Disposable[] = [];
   private selectionWatcherDisposable: Disposable | undefined;
   private debouncer: DecorationDebouncer;

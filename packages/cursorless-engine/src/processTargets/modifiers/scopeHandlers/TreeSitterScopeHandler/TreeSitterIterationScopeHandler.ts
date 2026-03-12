@@ -1,4 +1,5 @@
 import type {
+  IDE,
   ScopeType,
   SimpleScopeType,
   TextEditor,
@@ -24,11 +25,12 @@ export class TreeSitterIterationScopeHandler extends BaseTreeSitterScopeHandler 
   }
 
   constructor(
+    ide: IDE,
     query: TreeSitterQuery,
     /** The scope type for which we are the iteration scope */
     private iterateeScopeType: SimpleScopeType,
   ) {
-    super(query);
+    super(ide, query);
   }
 
   protected matchToScope(

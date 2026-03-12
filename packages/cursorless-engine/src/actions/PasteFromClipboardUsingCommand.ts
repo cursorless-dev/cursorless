@@ -6,7 +6,6 @@ import {
 } from "@cursorless/common";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import type { ide } from "../singletons/ide.singleton";
 import type { Destination } from "../typings/target.types";
 import { ensureSingleEditor } from "../util/targetUtils";
 import type { Actions } from "./Actions";

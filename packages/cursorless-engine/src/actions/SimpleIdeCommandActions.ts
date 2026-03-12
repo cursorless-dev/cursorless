@@ -5,7 +5,6 @@ import type {
   Range,
 } from "@cursorless/common";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { ide } from "../singletons/ide.singleton";
 import type { Target } from "../typings/target.types";
 import { CallbackAction } from "./CallbackAction";
 import type { ActionReturnValue } from "./actions.types";

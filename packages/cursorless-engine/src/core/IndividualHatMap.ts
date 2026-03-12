@@ -1,5 +1,6 @@
 import type {
   HatStyleName,
+  IDE,
   ReadOnlyHatMap,
   TextDocument,
   Token,
@@ -32,7 +33,10 @@ export class IndividualHatMap implements ReadOnlyHatMap {
     return this._tokenHats;
   }
 
-  constructor(private rangeUpdater: RangeUpdater) {}
+  constructor(
+    private ide: IDE,
+    private rangeUpdater: RangeUpdater,
+  ) {}
 
   private getDocumentTokenList(document: TextDocument) {
     const key = document.uri.toString();
@@ -50,7 +54,7 @@ export class IndividualHatMap implements ReadOnlyHatMap {
   }
 
   clone() {
-    const ret = new IndividualHatMap(this.rangeUpdater);
+    const ret = new IndividualHatMap(this.ide, this.rangeUpdater);
 
     ret.setTokenHats(this._tokenHats);
 
@@ -83,7 +87,10 @@ export class IndividualHatMap implements ReadOnlyHatMap {
   }
 
   private makeTokenLive(token: Token): LiveToken {
-    const { tokenMatcher } = getMatcher(token.editor.document.languageId);
+    const { tokenMatcher } = getMatcher(
+      this.ide,
+      token.editor.document.languageId,
+    );
 
     const liveToken: LiveToken = {
       ...token,
@@ -112,7 +119,10 @@ export class IndividualHatMap implements ReadOnlyHatMap {
   getToken(hatStyle: HatStyleName, character: string): Token | undefined {
     this.checkExpired();
     return this.map[
-      getKey(hatStyle, tokenGraphemeSplitter().normalizeGrapheme(character))
+      getKey(
+        hatStyle,
+        tokenGraphemeSplitter(this.ide).normalizeGrapheme(character),
+      )
     ];
   }
 

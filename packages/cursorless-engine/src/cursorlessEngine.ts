@@ -109,9 +109,9 @@ export async function createCursorlessEngine({
   const runCommandClosure = (command: Command) => {
     previousCommand = command;
     return runCommand(
+      injectedIde,
       treeSitter,
       commandServerApi,
-      injectedIde,
       debug,
       hatTokenMap,
       snippets,
@@ -164,7 +164,10 @@ function createScopeProvider(
   storedTargets: StoredTargetMap,
   customSpokenFormGenerator: CustomSpokenFormGeneratorImpl,
 ): ScopeProvider {
-  const scopeHandlerFactory = new ScopeHandlerFactoryImpl(languageDefinitions);
+  const scopeHandlerFactory = new ScopeHandlerFactoryImpl(
+    ide,
+    languageDefinitions,
+  );
 
   const rangeProvider = new ScopeRangeProvider(
     scopeHandlerFactory,
@@ -175,12 +178,14 @@ function createScopeProvider(
     ),
   );
 
+  const rangeWatcher = new ScopeRangeWatcher(
     ide,
     languageDefinitions,
     rangeProvider,
   );
   const supportChecker = new ScopeSupportChecker(scopeHandlerFactory);
   const infoProvider = new ScopeInfoProvider(customSpokenFormGenerator);
+  const supportWatcher = new ScopeSupportWatcher(
     ide,
     languageDefinitions,
     supportChecker,

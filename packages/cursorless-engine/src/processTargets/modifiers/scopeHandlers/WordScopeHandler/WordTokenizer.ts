@@ -1,4 +1,4 @@
-import { matchText } from "@cursorless/common";
+import { matchText, type IDE } from "@cursorless/common";
 import { getMatcher } from "../../../../tokenizer";
 
 const CAMEL_REGEX = /\p{Lu}?\p{Ll}+|\p{Lu}+(?!\p{Ll})|\p{N}+/gu;
@@ -10,8 +10,8 @@ const CAMEL_REGEX = /\p{Lu}?\p{Ll}+|\p{Lu}+(?!\p{Ll})|\p{N}+/gu;
 export class WordTokenizer {
   private wordRegex: RegExp;
 
-  constructor(languageId: string) {
-    this.wordRegex = getMatcher(languageId).wordMatcher;
+  constructor(ide: IDE, languageId: string) {
+    this.wordRegex = getMatcher(ide, languageId).wordMatcher;
   }
 
   public splitIdentifier(text: string) {

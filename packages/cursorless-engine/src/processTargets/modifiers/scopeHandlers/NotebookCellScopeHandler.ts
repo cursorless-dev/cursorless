@@ -1,5 +1,6 @@
 import {
   type Direction,
+  type IDE,
   type Position,
   type ScopeType,
   type TextEditor,
@@ -7,7 +8,6 @@ import {
 import type { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import { BaseScopeHandler } from "./BaseScopeHandler";
 import { NotebookCellApiScopeHandler } from "./NotebookCellApiScopeHandler";
-import { SortedScopeHandler } from "./SortedScopeHandler";
 import type { TargetScope } from "./scope.types";
 import type {
   ComplexScopeType,
@@ -15,6 +15,7 @@ import type {
   ScopeIteratorRequirements,
 } from "./scopeHandler.types";
 import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
+import { SortedScopeHandler } from "./SortedScopeHandler";
 
 export class NotebookCellScopeHandler extends BaseScopeHandler {
   public readonly scopeType = { type: "notebookCell" } as const;
@@ -26,6 +27,7 @@ export class NotebookCellScopeHandler extends BaseScopeHandler {
   }
 
   constructor(
+    ide: IDE,
     scopeHandlerFactory: ScopeHandlerFactory,
     languageDefinitions: LanguageDefinitions,
     _scopeType: ScopeType,
@@ -34,7 +36,7 @@ export class NotebookCellScopeHandler extends BaseScopeHandler {
     super();
 
     this.scopeHandler = (() => {
-      const apiScopeHandler = new NotebookCellApiScopeHandler();
+      const apiScopeHandler = new NotebookCellApiScopeHandler(ide);
 
       const languageScopeHandler = languageDefinitions
         .get(languageId)

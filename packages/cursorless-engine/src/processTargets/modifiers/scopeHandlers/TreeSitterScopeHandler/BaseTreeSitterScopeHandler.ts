@@ -1,9 +1,8 @@
-import type { Direction, Position, TextEditor } from "@cursorless/common";
+import type { Direction, IDE, Position, TextEditor } from "@cursorless/common";
 import { showError } from "@cursorless/common";
 import { uniqWith } from "lodash-es";
 import type { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
 import type { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
-import { ide } from "../../../../singletons/ide.singleton";
 import { BaseScopeHandler } from "../BaseScopeHandler";
 import { compareTargetScopes } from "../compareTargetScopes";
 import type { TargetScope } from "../scope.types";
@@ -14,7 +13,10 @@ import { mergeAdjacentBy } from "./mergeAdjacentBy";
 
 /** Base scope handler to use for both tree-sitter scopes and their iteration scopes */
 export abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
-  constructor(protected query: TreeSitterQuery) {
+  constructor(
+    protected ide: IDE,
+    protected query: TreeSitterQuery,
+  ) {
     super();
   }
 
@@ -51,6 +53,8 @@ export abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
           return equivalentScopes[0];
         }
 
+        const ide = this.ide;
+
         return {
           ...equivalentScopes[0],
 
@@ -68,12 +72,12 @@ export abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
                 "Please use #allow-multiple! predicate in your query to allow multiple matches for this scope type";
 
               void showError(
-                ide().messages,
+                ide.messages,
                 "BaseTreeSitterScopeHandler.allow-multiple",
                 message,
               );
 
-              if (ide().runMode === "test") {
+              if (ide.runMode === "test") {
                 throw Error(message);
               }
             }

@@ -1,4 +1,4 @@
-import type { Edit, TextEditor } from "@cursorless/common";
+import type { Edit, IDE, TextEditor } from "@cursorless/common";
 import { FlashStyle, Range, zipStrict } from "@cursorless/common";
 import { range as iterRange, map, pairwise } from "itertools";
 import { flatten } from "lodash-es";
@@ -7,7 +7,6 @@ import { performEditsAndUpdateSelections } from "../core/updateSelections/update
 import { containingLineIfUntypedModifier } from "../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";
 import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import type { ModifierStage } from "../processTargets/PipelineStages.types";
-import { ide } from "../singletons/ide.singleton";
 import { getMatcher } from "../tokenizer";
 import type { Target } from "../typings/target.types";
 import { generateMatchesInRange } from "../util/getMatchesInRange";
@@ -20,6 +19,7 @@ export default class JoinLines {
   }
 
   constructor(
+    private ide: IDE,
     private rangeUpdater: RangeUpdater,
     private modifierStageFactory: ModifierStageFactory,
   ) {
@@ -28,7 +28,7 @@ export default class JoinLines {
 
   async run(targets: Target[]): Promise<ActionReturnValue> {
     await flashTargets(
-      ide(),
+      this.ide,
       targets.map(({ thatTarget }) => thatTarget),
       FlashStyle.pendingModification0,
     );
@@ -38,8 +38,8 @@ export default class JoinLines {
         const { thatRanges: updatedThatRanges } =
           await performEditsAndUpdateSelections({
             rangeUpdater: this.rangeUpdater,
-            editor: ide().getEditableTextEditor(editor),
-            edits: getEdits(editor, targets),
+            editor: this.ide.getEditableTextEditor(editor),
+            edits: getEdits(this.ide, editor, targets),
             selections: {
               thatRanges: targets.map(({ contentRange }) => contentRange),
             },
@@ -56,13 +56,13 @@ export default class JoinLines {
   }
 }
 
-function getEdits(editor: TextEditor, targets: Target[]): Edit[] {
+function getEdits(ide: IDE, editor: TextEditor, targets: Target[]): Edit[] {
   const edits: Edit[] = [];
 
   for (const target of targets) {
     const targetsEdits =
       target.textualType === "token"
-        ? getTokenTargetEdits(target)
+        ? getTokenTargetEdits(ide, target)
         : getLineTargetEdits(target);
 
     edits.push(...targetsEdits);
@@ -71,9 +71,9 @@ function getEdits(editor: TextEditor, targets: Target[]): Edit[] {
   return edits;
 }
 
-function getTokenTargetEdits(target: Target): Edit[] {
+function getTokenTargetEdits(ide: IDE, target: Target): Edit[] {
   const { editor, contentRange } = target;
-  const regex = getMatcher(editor.document.languageId).tokenMatcher;
+  const regex = getMatcher(ide, editor.document.languageId).tokenMatcher;
   const matches = generateMatchesInRange(
     regex,
     editor,

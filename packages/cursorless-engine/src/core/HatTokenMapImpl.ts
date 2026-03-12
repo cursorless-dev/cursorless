@@ -45,7 +45,7 @@ export class HatTokenMapImpl implements HatTokenMap {
     private commandServerApi: CommandServerApi,
   ) {
     ide.disposeOnExit(this);
-    this.activeMap = new IndividualHatMap(rangeUpdater);
+    this.activeMap = new IndividualHatMap(ide, rangeUpdater);
 
     this.getActiveMap = this.getActiveMap.bind(this);
     this.allocateHats = this.allocateHats.bind(this);

@@ -23,10 +23,27 @@ import type { Messages } from "./types/Messages";
 import type { QuickPickOptions } from "./types/QuickPickOptions";
 
 export class PassthroughIDE implements IDE {
-  constructor(private original: IDE) {}
+  configuration: Configuration;
+  keyValueStore: KeyValueStore;
+  clipboard: Clipboard;
+  messages: Messages;
+  capabilities: Capabilities;
+
+  constructor(private original: IDE) {
+    this.configuration = original.configuration;
+    this.keyValueStore = original.keyValueStore;
+    this.clipboard = original.clipboard;
+    this.messages = original.messages;
+    this.capabilities = original.capabilities;
+  }
 
   setIde(original: IDE) {
     this.original = original;
+    this.configuration = original.configuration;
+    this.keyValueStore = original.keyValueStore;
+    this.clipboard = original.clipboard;
+    this.messages = original.messages;
+    this.capabilities = original.capabilities;
   }
 
   flashRanges(flashDescriptors: FlashDescriptor[]): Promise<void> {
@@ -102,26 +119,6 @@ export class PassthroughIDE implements IDE {
       thisArgs,
       disposables,
     );
-  }
-
-  get configuration(): Configuration {
-    return this.original.configuration;
-  }
-
-  get keyValueStore(): KeyValueStore {
-    return this.original.keyValueStore;
-  }
-
-  get clipboard(): Clipboard {
-    return this.original.clipboard;
-  }
-
-  get messages(): Messages {
-    return this.original.messages;
-  }
-
-  get capabilities(): Capabilities {
-    return this.original.capabilities;
   }
 
   get activeTextEditor(): TextEditor | undefined {

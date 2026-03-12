@@ -1,6 +1,5 @@
-import type { TokenHatSplittingMode } from "@cursorless/common";
+import { FakeIDE, type TokenHatSplittingMode } from "@cursorless/common";
 import * as assert from "assert";
-import { unitTestSetup } from "../testUtil/unitTestSetup";
 import { TokenGraphemeSplitter, UNKNOWN } from "./tokenGraphemeSplitter";
 
 /**
@@ -281,11 +280,11 @@ const tokenHatSplittingDefaults: TokenHatSplittingMode = {
 
 tests.forEach(({ tokenHatSplittingMode, extraTestCases }) => {
   suite(`getTokenGraphemes(${JSON.stringify(tokenHatSplittingMode)})`, () => {
-    unitTestSetup(({ configuration }) => {
-      configuration.mockConfiguration("tokenHatSplittingMode", {
-        ...tokenHatSplittingDefaults,
-        ...tokenHatSplittingMode,
-      });
+    const ide = new FakeIDE();
+
+    ide.configuration.mockConfiguration("tokenHatSplittingMode", {
+      ...tokenHatSplittingDefaults,
+      ...tokenHatSplittingMode,
     });
 
     const testCases = [...commonTestCases, ...extraTestCases];
@@ -302,7 +301,7 @@ tests.forEach(({ tokenHatSplittingMode, extraTestCases }) => {
       const displayOutput = expectedOutput.map(({ text }) => text).join(", ");
 
       test(`${input} -> ${displayOutput}`, () => {
-        const actualOutput = new TokenGraphemeSplitter().getTokenGraphemes(
+        const actualOutput = new TokenGraphemeSplitter(ide).getTokenGraphemes(
           input,
         );
         assert.deepStrictEqual(actualOutput, expectedOutput);

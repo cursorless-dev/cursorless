@@ -90,7 +90,7 @@ export class Actions implements ActionRecord {
     this.cutToClipboard = new CutToClipboard(ide, this);
     this.decrement = new Decrement(this);
     this.deselect = new Deselect(ide);
-    this.editNew = new EditNew(rangeUpdater, this);
+    this.editNew = new EditNew(ide, rangeUpdater, this);
     this.editNewLineAfter = new EditNewAfter(this, modifierStageFactory);
     this.editNewLineBefore = new EditNewBefore(this, modifierStageFactory);
     this.executeCommand = new ExecuteCommand(ide, rangeUpdater);
@@ -101,7 +101,7 @@ export class Actions implements ActionRecord {
     this.foldRegion = new Fold(ide, rangeUpdater);
     this.followLink = new FollowLink(ide, { openAside: false });
     this.followLinkAside = new FollowLink(ide, { openAside: true });
-    this.generateSnippet = new GenerateSnippet(snippets);
+    this.generateSnippet = new GenerateSnippet(ide, snippets);
     this.getText = new GetText(ide);
     this.gitAccept = new GitAccept(ide, rangeUpdater);
     this.gitRevert = new GitRevert(ide, rangeUpdater);
@@ -109,52 +109,59 @@ export class Actions implements ActionRecord {
     this.gitUnstage = new GitUnstage(ide, rangeUpdater);
     this.highlight = new Highlight(ide);
     this.increment = new Increment(this);
-    this.indentLine = new IndentLine(rangeUpdater);
+    this.indentLine = new IndentLine(ide, rangeUpdater);
     this.insertCopyAfter = new InsertCopyAfter(
+      ide,
       rangeUpdater,
       modifierStageFactory,
     );
     this.insertCopyBefore = new InsertCopyBefore(
+      ide,
       rangeUpdater,
       modifierStageFactory,
     );
     this.insertEmptyLineAfter = new InsertEmptyLineAfter(
+      ide,
       rangeUpdater,
       modifierStageFactory,
     );
     this.insertEmptyLineBefore = new InsertEmptyLineBefore(
+      ide,
       rangeUpdater,
       modifierStageFactory,
     );
     this.insertEmptyLinesAround = new InsertEmptyLinesAround(
+      ide,
       rangeUpdater,
       modifierStageFactory,
     );
     this.insertSnippet = new InsertSnippet(
+      ide,
       rangeUpdater,
       this,
       modifierStageFactory,
     );
-    this.joinLines = new JoinLines(rangeUpdater, modifierStageFactory);
+    this.joinLines = new JoinLines(ide, rangeUpdater, modifierStageFactory);
     this.breakLine = new BreakLine(ide, rangeUpdater);
-    this.moveToTarget = new Move(rangeUpdater);
-    this.outdentLine = new OutdentLine(rangeUpdater);
+    this.moveToTarget = new Move(ide, rangeUpdater);
+    this.outdentLine = new OutdentLine(ide, rangeUpdater);
     this.pasteFromClipboard = new PasteFromClipboard(ide, rangeUpdater, this);
-    this.randomizeTargets = new Random(this);
-    this.remove = new Remove(rangeUpdater);
+    this.randomizeTargets = new Random(ide, this);
+    this.remove = new Remove(ide, rangeUpdater);
     this.rename = new Rename(ide, rangeUpdater);
-    this.replace = new Replace(rangeUpdater);
-    this.replaceWithTarget = new Bring(rangeUpdater);
+    this.replace = new Replace(ide, rangeUpdater);
+    this.replaceWithTarget = new Bring(ide, rangeUpdater);
     this.revealDefinition = new RevealDefinition(ide, rangeUpdater);
     this.revealTypeDefinition = new RevealTypeDefinition(ide, rangeUpdater);
-    this.reverseTargets = new Reverse(this);
+    this.reverseTargets = new Reverse(ide, this);
     this.rewrapWithPairedDelimiter = new Rewrap(
+      ide,
       rangeUpdater,
       modifierStageFactory,
     );
-    this.scrollToBottom = new ScrollToBottom();
-    this.scrollToCenter = new ScrollToCenter();
-    this.scrollToTop = new ScrollToTop();
+    this.scrollToBottom = new ScrollToBottom(ide);
+    this.scrollToCenter = new ScrollToCenter(ide);
+    this.scrollToTop = new ScrollToTop(ide);
     this.setSelection = new SetSelection(ide);
     this.setSelectionAfter = new SetSelectionAfter(ide);
     this.setSelectionBefore = new SetSelectionBefore(ide);
@@ -162,13 +169,14 @@ export class Actions implements ActionRecord {
     this.showHover = new ShowHover(ide, rangeUpdater);
     this.showQuickFix = new ShowQuickFix(ide, rangeUpdater);
     this.showReferences = new ShowReferences(ide, rangeUpdater);
-    this.sortTargets = new Sort(this);
-    this.swapTargets = new Swap(rangeUpdater);
-    this.toggleLineBreakpoint = new ToggleBreakpoint(modifierStageFactory);
+    this.sortTargets = new Sort(ide, this);
+    this.swapTargets = new Swap(ide, rangeUpdater);
+    this.toggleLineBreakpoint = new ToggleBreakpoint(ide, modifierStageFactory);
     this.toggleLineComment = new ToggleLineComment(ide, rangeUpdater);
     this.unfoldRegion = new Unfold(ide, rangeUpdater);
-    this.wrapWithPairedDelimiter = new Wrap(rangeUpdater);
+    this.wrapWithPairedDelimiter = new Wrap(ide, rangeUpdater);
     this.wrapWithSnippet = new WrapWithSnippet(
+      ide,
       rangeUpdater,
       modifierStageFactory,
     );

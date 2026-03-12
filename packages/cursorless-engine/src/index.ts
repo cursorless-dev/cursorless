@@ -11,7 +11,6 @@ export * from "./generateSpokenForm/defaultSpokenForms/surroundingPairsDelimiter
 export * from "./generateSpokenForm/generateSpokenForm";
 export * from "./languages/TreeSitterQuery/TreeSitterQueryCache";
 export * from "./processTargets/modifiers/scopeHandlers/ScopeHandlerCache";
-export * from "./singletons/ide.singleton";
 export * from "./spokenForms/defaultSpokenFormMap";
 export * from "./testUtil/extractTargetKeys";
 export * from "./testUtil/plainObjectToTarget";

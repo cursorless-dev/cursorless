@@ -1,5 +1,6 @@
 import type {
   Direction,
+  IDE,
   ImplicitTargetDescriptor,
   Modifier,
   ScopeType,

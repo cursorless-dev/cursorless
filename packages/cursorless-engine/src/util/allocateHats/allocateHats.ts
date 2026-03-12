@@ -2,6 +2,7 @@ import type {
   HatStability,
   HatStyleMap,
   HatStyleName,
+  IDE,
   TextEditor,
   Token,
   TokenHat,
@@ -24,6 +25,7 @@ export interface HatCandidate {
 }
 
 interface AllocateHatsOptions {
+  ide: IDE;
   tokenGraphemeSplitter: TokenGraphemeSplitter;
   enabledHatStyles: HatStyleMap;
   forceTokenHats: readonly TokenHat[] | undefined;
@@ -53,6 +55,7 @@ interface AllocateHatsOptions {
  * and the hat that it will wear
  */
 export function allocateHats({
+  ide,
   tokenGraphemeSplitter,
   enabledHatStyles,
   forceTokenHats,
@@ -77,6 +80,7 @@ export function allocateHats({
    * be used.
    */
   const rankedTokens = getRankedTokens(
+    ide,
     activeTextEditor,
     visibleTextEditors,
     forcedHatMap,
@@ -116,6 +120,7 @@ export function allocateHats({
        * higher ranked token
        */
       const tokenRemainingHatCandidates = getTokenRemainingHatCandidates(
+        ide,
         tokenGraphemeSplitter,
         token,
         graphemeRemainingHatCandidates,
@@ -166,6 +171,7 @@ function getTokenOldHatMap(oldTokenHats: readonly TokenHat[]) {
 }
 
 function getTokenRemainingHatCandidates(
+  ide: IDE,
   tokenGraphemeSplitter: TokenGraphemeSplitter,
   token: Token,
   graphemeRemainingHatCandidates: DefaultMap<string, HatStyleName[]>,
@@ -174,7 +180,7 @@ function getTokenRemainingHatCandidates(
   const candidates: HatCandidate[] = [];
   const graphemes = tokenGraphemeSplitter.getTokenGraphemes(token.text);
   const firstLetterOffsets = new Set(
-    new WordTokenizer(token.editor.document.languageId)
+    new WordTokenizer(ide, token.editor.document.languageId)
       .splitIdentifier(token.text)
       .map((word) => word.index),
   );

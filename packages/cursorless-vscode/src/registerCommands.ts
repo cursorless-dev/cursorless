@@ -116,7 +116,7 @@ export function registerCommands(
 
     // Command history
     ["cursorless.analyzeCommandHistory"]: () =>
-      analyzeCommandHistory(commandHistoryStorage),
+      analyzeCommandHistory(vscodeIde, commandHistoryStorage),
 
     // General keyboard commands
     ["cursorless.keyboard.escape"]:

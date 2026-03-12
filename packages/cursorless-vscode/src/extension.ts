@@ -155,6 +155,7 @@ export async function activate(
   );
 
   new ScopeTreeProvider(
+    normalizedIde,
     vscodeApi,
     context,
     scopeProvider,

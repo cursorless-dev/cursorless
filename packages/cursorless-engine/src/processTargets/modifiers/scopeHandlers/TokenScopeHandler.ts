@@ -1,19 +1,29 @@
-import type { Direction } from "@cursorless/common";
+import type { Direction, IDE, ScopeType } from "@cursorless/common";
 import { imap } from "itertools";
-import { NestedScopeHandler } from "./NestedScopeHandler";
 import { getMatcher } from "../../../tokenizer";
 import { generateMatchesInRange } from "../../../util/getMatchesInRange";
 import { TokenTarget } from "../../targets";
 import { isPreferredOverHelper } from "./isPreferredOverHelper";
+import { NestedScopeHandler } from "./NestedScopeHandler";
 import type { TargetScope } from "./scope.types";
+import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 
 const PREFERRED_SYMBOLS_REGEX = /[$]/g;
 
 export class TokenScopeHandler extends NestedScopeHandler {
   public readonly scopeType = { type: "token" } as const;
   public readonly iterationScopeType = { type: "line" } as const;
+  private regex: RegExp;
 
-  private regex: RegExp = getMatcher(this.languageId).tokenMatcher;
+  constructor(
+    private ide: IDE,
+    scopeHandlerFactory: ScopeHandlerFactory,
+    scopeType: ScopeType,
+    languageId: string,
+  ) {
+    super(scopeHandlerFactory, scopeType, languageId);
+    this.regex = getMatcher(ide, this.languageId).tokenMatcher;
+  }
 
   protected generateScopesInSearchScope(
     direction: Direction,
@@ -39,7 +49,7 @@ export class TokenScopeHandler extends NestedScopeHandler {
     scopeA: TargetScope,
     scopeB: TargetScope,
   ): boolean | undefined {
-    const { identifierMatcher } = getMatcher(this.languageId);
+    const { identifierMatcher } = getMatcher(this.ide, this.languageId);
     // Regexes indicating preferences. We prefer identifiers then preferred
     // symbols.
     return isPreferredOverHelper(scopeA, scopeB, [

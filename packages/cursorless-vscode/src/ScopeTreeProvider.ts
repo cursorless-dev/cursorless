@@ -1,5 +1,6 @@
 import type {
   CursorlessCommandId,
+  IDE,
   ScopeProvider,
   ScopeSupportInfo,
   ScopeType,
@@ -15,10 +16,7 @@ import {
   serializeScopeType,
   uriEncodeHashId,
 } from "@cursorless/common";
-import {
-  ide,
-  type CustomSpokenFormGenerator,
-} from "@cursorless/cursorless-engine";
+import { type CustomSpokenFormGenerator } from "@cursorless/cursorless-engine";
 import { type VscodeApi } from "@cursorless/vscode-common";
 import { isEqual } from "lodash-es";
 import type {
@@ -60,6 +58,7 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
     this._onDidChangeTreeData.event;
 
   constructor(
+    private ide: IDE,
     private vscodeApi: VscodeApi,
     private context: ExtensionContext,
     private scopeProvider: ScopeProvider,
@@ -173,7 +172,7 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
       if (scopeSupport !== ScopeSupport.supportedAndPresentInEditor) {
         return null;
       }
-      const editor = ide().activeTextEditor;
+      const editor = this.ide.activeTextEditor;
       if (editor == null || editor.selections.length !== 1) {
         return null;
       }

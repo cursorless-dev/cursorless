@@ -19,6 +19,8 @@ import { validateQueryCaptures } from "./TreeSitterQuery/validateQueryCaptures";
  */
 export class LanguageDefinition {
   private constructor(
+    private ide: IDE,
+
     /**
      * The tree-sitter query used to extract scopes for the given language.
      * Note that this query contains patterns for all scope types that the
@@ -64,9 +66,9 @@ export class LanguageDefinition {
       );
     }
 
-    const query = TreeSitterQuery.create(languageId, treeSitter, rawQuery);
+    const query = TreeSitterQuery.create(ide, languageId, treeSitter, rawQuery);
 
-    return new LanguageDefinition(query);
+    return new LanguageDefinition(ide, query);
   }
 
   /**
@@ -79,7 +81,11 @@ export class LanguageDefinition {
       return undefined;
     }
 
-    return new TreeSitterScopeHandler(this.query, scopeType as SimpleScopeType);
+    return new TreeSitterScopeHandler(
+      this.ide,
+      this.query,
+      scopeType as SimpleScopeType,
+    );
   }
 
   /**
@@ -163,7 +169,7 @@ async function readQueryFileAndImports(
       }
 
       if (doValidation) {
-        validateQueryCaptures(queryName, rawQuery);
+        validateQueryCaptures(ide, queryName, rawQuery);
       }
 
       rawQueryStrings[queryName] = rawQuery;

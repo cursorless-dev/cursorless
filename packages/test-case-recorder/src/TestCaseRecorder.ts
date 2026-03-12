@@ -30,8 +30,6 @@ import type {
 } from "@cursorless/cursorless-engine";
 import {
   defaultSpokenFormMap,
-  ide,
-  injectIde,
   SpokenFormGenerator,
 } from "@cursorless/cursorless-engine";
 import { getRecordedTestsDirPath, walkDirsSync } from "@cursorless/node-common";
