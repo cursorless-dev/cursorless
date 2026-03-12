@@ -42,8 +42,6 @@ export async function getReusableEditor(
     await (await getParseTreeApi()).loadLanguage(languageId);
   }
 
-  (await getCursorlessApi()).testHelpers!.clearCache();
-
   // Replace the entire contents of the editor with the new content
   await editor.edit((editBuilder) => {
     editBuilder.replace(
@@ -59,6 +57,9 @@ export async function getReusableEditor(
       editBuilder.setEndOfLine(eol);
     }
   });
+
+  const { clearCache } = (await getCursorlessApi()).testHelpers!;
+  clearCache();
 
   return editor;
 }
