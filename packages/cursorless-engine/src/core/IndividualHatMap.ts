@@ -7,7 +7,7 @@ import type {
   TokenHat,
 } from "@cursorless/common";
 import { getKey } from "@cursorless/common";
-import tokenGraphemeSplitter from "../singletons/tokenGraphemeSplitter.singleton";
+import type { TokenGraphemeSplitter } from "../tokenGraphemeSplitter";
 import { getMatcher } from "../tokenizer";
 import type { FullRangeInfo } from "../typings/updateSelections";
 import type { RangeUpdater } from "./updateSelections/RangeUpdater";
@@ -35,6 +35,7 @@ export class IndividualHatMap implements ReadOnlyHatMap {
 
   constructor(
     private ide: IDE,
+    private tokenGraphemeSplitter: TokenGraphemeSplitter,
     private rangeUpdater: RangeUpdater,
   ) {}
 
@@ -54,7 +55,11 @@ export class IndividualHatMap implements ReadOnlyHatMap {
   }
 
   clone() {
-    const ret = new IndividualHatMap(this.ide, this.rangeUpdater);
+    const ret = new IndividualHatMap(
+      this.ide,
+      this.tokenGraphemeSplitter,
+      this.rangeUpdater,
+    );
 
     ret.setTokenHats(this._tokenHats);
 
@@ -119,10 +124,7 @@ export class IndividualHatMap implements ReadOnlyHatMap {
   getToken(hatStyle: HatStyleName, character: string): Token | undefined {
     this.checkExpired();
     return this.map[
-      getKey(
-        hatStyle,
-        tokenGraphemeSplitter(this.ide).normalizeGrapheme(character),
-      )
+      getKey(hatStyle, this.tokenGraphemeSplitter.normalizeGrapheme(character))
     ];
   }
 

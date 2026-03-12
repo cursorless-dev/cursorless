@@ -38,6 +38,7 @@ import { ScopeRangeProvider } from "./scopeProviders/ScopeRangeProvider";
 import { ScopeRangeWatcher } from "./scopeProviders/ScopeRangeWatcher";
 import { ScopeSupportChecker } from "./scopeProviders/ScopeSupportChecker";
 import { ScopeSupportWatcher } from "./scopeProviders/ScopeSupportWatcher";
+import { TokenGraphemeSplitter } from "./tokenGraphemeSplitter/tokenGraphemeSplitter";
 
 export interface EngineProps {
   ide: IDE;
@@ -62,6 +63,7 @@ export async function createCursorlessEngine({
 
   const debug = new Debug(injectedIde);
   const rangeUpdater = new RangeUpdater(injectedIde);
+  const tokenGraphemeSplitter = new TokenGraphemeSplitter(injectedIde);
 
   const storedTargets = new StoredTargetMap();
   const keyboardTargetUpdater = new KeyboardTargetUpdater(
@@ -77,6 +79,7 @@ export async function createCursorlessEngine({
     hats != null
       ? new HatTokenMapImpl(
           injectedIde,
+          tokenGraphemeSplitter,
           rangeUpdater,
           debug,
           hats,
@@ -95,6 +98,7 @@ export async function createCursorlessEngine({
 
   injectedIde.disposeOnExit(
     rangeUpdater,
+    tokenGraphemeSplitter,
     languageDefinitions,
     hatTokenMap,
     debug,

@@ -6,6 +6,7 @@ import type {
   ReadOnlyHatMap,
   TokenHat,
 } from "@cursorless/common";
+import type { TokenGraphemeSplitter } from "../tokenGraphemeSplitter";
 import type { Debug } from "./Debug";
 import { HatAllocator } from "./HatAllocator";
 import { IndividualHatMap } from "./IndividualHatMap";
@@ -39,20 +40,30 @@ export class HatTokenMapImpl implements HatTokenMap {
 
   constructor(
     private ide: IDE,
+    tokenGraphemeSplitter: TokenGraphemeSplitter,
     rangeUpdater: RangeUpdater,
     private debug: Debug,
     hats: Hats,
     private commandServerApi: CommandServerApi,
   ) {
     ide.disposeOnExit(this);
-    this.activeMap = new IndividualHatMap(ide, rangeUpdater);
+    this.activeMap = new IndividualHatMap(
+      ide,
+      tokenGraphemeSplitter,
+      rangeUpdater,
+    );
 
     this.getActiveMap = this.getActiveMap.bind(this);
     this.allocateHats = this.allocateHats.bind(this);
 
-    this.hatAllocator = new HatAllocator(ide, hats, {
-      getActiveMap: this.getActiveMap,
-    });
+    this.hatAllocator = new HatAllocator(
+      ide,
+      tokenGraphemeSplitter,
+      hats,
+      {
+        getActiveMap: this.getActiveMap,
+      },
+    );
   }
 
   /**

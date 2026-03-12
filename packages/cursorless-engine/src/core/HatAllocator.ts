@@ -1,5 +1,5 @@
 import type { Disposable, Hats, IDE, TokenHat } from "@cursorless/common";
-import tokenGraphemeSplitter from "../singletons/tokenGraphemeSplitter.singleton";
+import type { TokenGraphemeSplitter } from "../tokenGraphemeSplitter";
 import { allocateHats } from "../util/allocateHats";
 import type { IndividualHatMap } from "./IndividualHatMap";
 import { DecorationDebouncer } from "../util/DecorationDebouncer";
@@ -13,6 +13,7 @@ export class HatAllocator {
 
   constructor(
     private ide: IDE,
+    private tokenGraphemeSplitter: TokenGraphemeSplitter,
     private hats: Hats,
     private context: Context,
   ) {
@@ -42,7 +43,7 @@ export class HatAllocator {
       ide.onDidChangeTextEditorVisibleRanges(debouncer.run),
       // Re-draw hats on grapheme splitting algorithm change in case they
       // changed their token hat splitting setting.
-      tokenGraphemeSplitter(ide).registerAlgorithmChangeListener(debouncer.run),
+      tokenGraphemeSplitter.registerAlgorithmChangeListener(debouncer.run),
 
       debouncer,
     );
@@ -60,15 +61,13 @@ export class HatAllocator {
     // Forced graphemes won't have been normalized
     forceTokenHats = forceTokenHats?.map((tokenHat) => ({
       ...tokenHat,
-      grapheme: tokenGraphemeSplitter(this.ide).normalizeGrapheme(
-        tokenHat.grapheme,
-      ),
+      grapheme: this.tokenGraphemeSplitter.normalizeGrapheme(tokenHat.grapheme),
     }));
 
     const tokenHats = this.hats.isEnabled
       ? allocateHats({
           ide: this.ide,
-          tokenGraphemeSplitter: tokenGraphemeSplitter(this.ide),
+          tokenGraphemeSplitter: this.tokenGraphemeSplitter,
           enabledHatStyles: this.hats.enabledHatStyles,
           forceTokenHats,
           oldTokenHats: activeMap.tokenHats,
