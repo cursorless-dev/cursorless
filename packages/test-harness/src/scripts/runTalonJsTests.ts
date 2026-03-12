@@ -2,9 +2,9 @@
  * Runs all Talon everywhere/JS tests.
  */
 
-void (async () => {
-  process.env.CURSORLESS_MODE = "test";
+process.env.CURSORLESS_MODE = "test";
 
+void (async () => {
   const { TestType, runAllTests } = await import("../runAllTests");
 
   try {
