@@ -20,6 +20,8 @@ You can get an overview of the various test contexts that exist locally by looki
 ## Common commands
 
 - `pnpm test` runs the default `test` script for each workspace package. In practice, this is the fast unit-oriented test pass.
+- `pnpm test:update` runs the test suite in fixture-update mode across the workspace.
+- `pnpm test:update:subset` runs fixture updates only for the tests selected in `packages/test-harness/testSubsetGrep.properties`.
 - `pnpm -F @cursorless/test-harness test:vscode` runs the VSCode test harness.
 - `pnpm -F @cursorless/test-harness test:neovim` runs the Neovim test harness.
 - `pnpm -F @cursorless/test-harness test:talonJs` runs the Talon-JS test harness.

@@ -1,9 +1,12 @@
 /**
  * Runs all Talon everywhere/JS tests.
  */
-import { TestType, runAllTests } from "../runAllTests";
 
 void (async () => {
+  process.env.CURSORLESS_MODE = "test";
+
+  const { TestType, runAllTests } = await import("../runAllTests");
+
   try {
     await runAllTests(TestType.talonJs);
   } catch (_ex) {

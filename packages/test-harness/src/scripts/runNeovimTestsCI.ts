@@ -5,5 +5,7 @@
 import { launchNeovimAndRunTests } from "../launchNeovimAndRunTests";
 
 void (async () => {
+  process.env.CURSORLESS_MODE = "test";
+
   await launchNeovimAndRunTests();
 })();

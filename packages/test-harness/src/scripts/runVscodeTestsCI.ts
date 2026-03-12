@@ -7,6 +7,8 @@ import * as path from "node:path";
 import { launchVscodeAndRunTests } from "../launchVscodeAndRunTests";
 
 void (async () => {
+  process.env.CURSORLESS_MODE = "test";
+
   const extensionTestsPath = path.resolve(
     getCursorlessRepoRoot(),
     "packages/test-harness/dist/extensionTestsVscode.cjs",
