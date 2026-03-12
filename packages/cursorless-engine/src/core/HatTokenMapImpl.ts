@@ -56,14 +56,9 @@ export class HatTokenMapImpl implements HatTokenMap {
     this.getActiveMap = this.getActiveMap.bind(this);
     this.allocateHats = this.allocateHats.bind(this);
 
-    this.hatAllocator = new HatAllocator(
-      ide,
-      tokenGraphemeSplitter,
-      hats,
-      {
-        getActiveMap: this.getActiveMap,
-      },
-    );
+    this.hatAllocator = new HatAllocator(ide, tokenGraphemeSplitter, hats, {
+      getActiveMap: this.getActiveMap,
+    });
   }
 
   /**
