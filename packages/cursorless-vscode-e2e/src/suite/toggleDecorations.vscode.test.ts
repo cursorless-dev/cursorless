@@ -1,4 +1,4 @@
-import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
+import { getCursorlessApi, getReusableEditor } from "@cursorless/vscode-common";
 import assert from "assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
@@ -12,7 +12,7 @@ suite("toggle decorations", async function () {
 async function runTest() {
   const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
 
-  await openNewEditor("Hello world testing whatever");
+  await getReusableEditor("Hello world testing whatever");
 
   // Check that hats appear by default
   await hatTokenMap.allocateHats();

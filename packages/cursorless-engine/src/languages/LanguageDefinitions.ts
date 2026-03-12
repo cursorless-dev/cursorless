@@ -59,14 +59,8 @@ export class LanguageDefinitionsImpl implements LanguageDefinitions {
     private treeSitter: TreeSitter,
     private treeSitterQueryProvider: RawTreeSitterQueryProvider,
   ) {
-    const isTesting = ide.runMode === "test";
-
     this.disposables.push(
       ide.onDidOpenTextDocument((document) => {
-        // During testing we open untitled documents that all have the same uri and version which breaks our cache
-        if (isTesting) {
-          treeSitterQueryCache.clear();
-        }
         this.loadLanguage(document.languageId).catch((err) => {
           void showError(
             this.ide.messages,

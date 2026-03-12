@@ -1,9 +1,12 @@
+import { LATEST_VERSION } from "@cursorless/common";
 import { getFixturePath, isWindows } from "@cursorless/node-common";
-import { openNewEditor, runCursorlessCommand } from "@cursorless/vscode-common";
+import {
+  getReusableEditor,
+  runCursorlessCommand,
+} from "@cursorless/vscode-common";
 import * as assert from "assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-import { LATEST_VERSION } from "@cursorless/common";
 
 suite("followLink", async function () {
   endToEndTestSetup(this);
@@ -13,9 +16,10 @@ suite("followLink", async function () {
 });
 
 async function followDefinition() {
-  const editor = await openNewEditor("const foo = 'hello';\nconst bar = foo;", {
-    languageId: "typescript",
-  });
+  const editor = await getReusableEditor(
+    "const foo = 'hello';\nconst bar = foo;",
+    "typescript",
+  );
   await vscode.commands.executeCommand("revealLine", {
     lineNumber: 1,
     at: "top",
@@ -48,7 +52,7 @@ async function followLink() {
   const linkTextContent = isWindows()
     ? `file:///${filename}`
     : `file://${filename}`;
-  await openNewEditor(linkTextContent);
+  await getReusableEditor(linkTextContent);
 
   await runCursorlessCommand({
     version: LATEST_VERSION,

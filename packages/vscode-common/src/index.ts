@@ -4,6 +4,7 @@ export * from "./runCommand";
 export * from "./ScopeVisualizerColorConfig";
 export * from "./SpyWebViewEvent";
 export * from "./TestHelpers";
+export * from "./testUtil/getReusableEditor";
 export * from "./testUtil/openNewEditor";
 export * from "./VscodeApi";
 export * from "./vscodeUtil";

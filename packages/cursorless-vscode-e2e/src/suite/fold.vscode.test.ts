@@ -1,5 +1,8 @@
 import { LATEST_VERSION } from "@cursorless/common";
-import { openNewEditor, runCursorlessCommand } from "@cursorless/vscode-common";
+import {
+  getReusableEditor,
+  runCursorlessCommand,
+} from "@cursorless/vscode-common";
 import * as assert from "node:assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
@@ -12,9 +15,10 @@ suite("fold", async function () {
 });
 
 async function foldMade() {
-  const editor = await openNewEditor("function myFunk() {\n\n}", {
-    languageId: "typescript",
-  });
+  const editor = await getReusableEditor(
+    "function myFunk() {\n\n}",
+    "typescript",
+  );
 
   await runCursorlessCommand({
     version: LATEST_VERSION,
@@ -38,9 +42,10 @@ async function foldMade() {
 }
 
 async function unfoldMade() {
-  const editor = await openNewEditor("function myFunk() {\n\n}", {
-    languageId: "typescript",
-  });
+  const editor = await getReusableEditor(
+    "function myFunk() {\n\n}",
+    "typescript",
+  );
   await vscode.commands.executeCommand("editor.fold", {
     selectionLines: [0],
   });

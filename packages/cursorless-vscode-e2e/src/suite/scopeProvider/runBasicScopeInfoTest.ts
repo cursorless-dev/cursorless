@@ -1,6 +1,6 @@
 import type { ScopeSupportInfo } from "@cursorless/common";
 import { ScopeSupport } from "@cursorless/common";
-import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
+import { getCursorlessApi, getReusableEditor } from "@cursorless/vscode-common";
 import * as sinon from "sinon";
 import type { TextDocument } from "vscode";
 import { Position, Range, commands } from "vscode";
@@ -21,9 +21,7 @@ export async function runBasicScopeInfoTest() {
   try {
     await assertCalledWithScopeInfo(fake, unsupported);
 
-    const editor = await openNewEditor("", {
-      languageId: "typescript",
-    });
+    const editor = await getReusableEditor("", "typescript");
     await assertCalledWithScopeInfo(fake, supported);
 
     await editor.edit((editBuilder) => {

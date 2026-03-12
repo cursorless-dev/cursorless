@@ -1,4 +1,4 @@
-import { openNewEditor } from "@cursorless/vscode-common";
+import { getReusableEditor } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
 import { sleepWithBackoff } from "../../endToEndTestSetup";
 import { injectFakes } from "./injectFakes";
@@ -10,7 +10,7 @@ import type { ExpectedArgs } from "./scopeVisualizerTest.types";
  * edited.
  */
 export async function runUpdateTest() {
-  const editor = await openNewEditor("aaa");
+  const editor = await getReusableEditor("aaa");
 
   const fakes = await injectFakes();
 

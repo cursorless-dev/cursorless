@@ -1,7 +1,7 @@
 import { LATEST_VERSION } from "@cursorless/common";
 import {
   getCursorlessApi,
-  openNewEditor,
+  getReusableEditor,
   runCursorlessCommand,
 } from "@cursorless/vscode-common";
 import { assert } from "chai";
@@ -19,7 +19,7 @@ suite("Take token twice", async function () {
 
 async function runTest() {
   const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
-  const editor = await openNewEditor("a)");
+  const editor = await getReusableEditor("a)");
   await hatTokenMap.allocateHats();
 
   for (let i = 0; i < 2; ++i) {

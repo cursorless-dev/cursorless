@@ -1,4 +1,8 @@
-import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
+import {
+  getCursorlessApi,
+  getReusableEditor,
+  openNewEditor,
+} from "@cursorless/vscode-common";
 import { assert } from "chai";
 import * as vscode from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../../endToEndTestSetup";
@@ -191,7 +195,7 @@ suite("Basic keyboard test", async function () {
 
 async function checkKeyboardStartup() {
   await getCursorlessApi();
-  const editor = await openNewEditor("");
+  const editor = await getReusableEditor("");
 
   // Type the letter
   await typeText("a");
@@ -202,9 +206,7 @@ async function checkKeyboardStartup() {
 async function basic() {
   const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
 
-  const editor = await openNewEditor("function foo() {}\n", {
-    languageId: "typescript",
-  });
+  const editor = await getReusableEditor("function foo() {}\n", "typescript");
   await hatTokenMap.allocateHats();
 
   editor.selection = new vscode.Selection(1, 0, 1, 0);
@@ -232,7 +234,7 @@ async function basic() {
 async function noAutomaticTokenExpansion() {
   const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
 
-  const editor = await openNewEditor("aaa");
+  const editor = await getReusableEditor("aaa");
   await hatTokenMap.allocateHats();
 
   editor.selection = new vscode.Selection(0, 3, 0, 3);
@@ -251,9 +253,8 @@ async function noAutomaticTokenExpansion() {
 async function sequence(t: TestCase) {
   const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
 
-  const editor = await openNewEditor(t.initialContent, {
-    languageId: "typescript",
-  });
+  // This test fails if we use getReusableEditor()
+  const editor = await openNewEditor(t.initialContent, "typescript");
   await hatTokenMap.allocateHats();
   editor.selection = new vscode.Selection(1, 0, 1, 0);
   await vscode.commands.executeCommand("cursorless.keyboard.modal.modeOn");
@@ -264,9 +265,7 @@ async function sequence(t: TestCase) {
 async function vscodeCommand() {
   const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
 
-  const editor = await openNewEditor("aaa;\nbbb;\nccc;\n", {
-    languageId: "typescript",
-  });
+  const editor = await getReusableEditor("aaa;\nbbb;\nccc;\n", "typescript");
   await hatTokenMap.allocateHats();
 
   editor.selection = new vscode.Selection(0, 0, 0, 0);
@@ -293,7 +292,7 @@ async function vscodeCommand() {
 }
 
 async function enterAndLeaveIsNoOp() {
-  const editor = await openNewEditor("hello");
+  const editor = await getReusableEditor("hello");
 
   const originalSelection = new vscode.Selection(0, 0, 0, 0);
   editor.selection = originalSelection;

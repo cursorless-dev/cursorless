@@ -1,5 +1,8 @@
 import { LATEST_VERSION } from "@cursorless/common";
-import { openNewEditor, runCursorlessCommand } from "@cursorless/vscode-common";
+import {
+  getReusableEditor,
+  runCursorlessCommand,
+} from "@cursorless/vscode-common";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
@@ -11,7 +14,7 @@ suite("scroll", async function () {
 });
 
 async function topWhale() {
-  const editor = await openNewEditor("hello\nworld");
+  const editor = await getReusableEditor("hello\nworld");
   editor.selections = [new vscode.Selection(1, 0, 1, 0)];
 
   await runCursorlessCommand({
@@ -34,7 +37,7 @@ async function topWhale() {
 }
 
 async function bottomWhale() {
-  const editor = await openNewEditor("hello\nworld");
+  const editor = await getReusableEditor("hello\nworld");
   await vscode.commands.executeCommand("revealLine", {
     lineNumber: 1,
     at: "top",

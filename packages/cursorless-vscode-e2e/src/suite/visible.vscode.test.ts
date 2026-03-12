@@ -1,5 +1,8 @@
 import { LATEST_VERSION } from "@cursorless/common";
-import { openNewEditor, runCursorlessCommand } from "@cursorless/vscode-common";
+import {
+  getReusableEditor,
+  runCursorlessCommand,
+} from "@cursorless/vscode-common";
 import * as assert from "node:assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
@@ -11,7 +14,7 @@ suite("visible", async function () {
 });
 
 async function testMultipleRegions() {
-  const editor = await openEditor();
+  const editor = await getReusableEditor(content, "typescript");
 
   await foldRegion();
 
@@ -33,12 +36,6 @@ function myFunk() {
 
 // 3
 `;
-
-function openEditor() {
-  return openNewEditor(content, {
-    languageId: "typescript",
-  });
-}
 
 function foldRegion() {
   return vscode.commands.executeCommand("editor.fold", {
