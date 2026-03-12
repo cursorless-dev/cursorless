@@ -133,9 +133,11 @@ export async function activate(
   );
 
   const testCaseRecorder = new TestCaseRecorder(
+    normalizedIde,
     commandServerApi,
     hatTokenMap,
     storedTargets,
+    injectIde,
   );
   addCommandRunnerDecorator(testCaseRecorder);
 
