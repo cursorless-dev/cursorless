@@ -22,7 +22,6 @@
     "generate-grammar": "pnpm generate-grammar:base -o src/customCommandGrammar/generated/grammar.ts",
     "generate-railroad": "nearley-railroad src/customCommandGrammar/grammar.ne -o out/railroad.html",
     "test": "pnpm ensure-grammar-up-to-date",
-    "transform-recorded-tests": "my-ts-node ./src/scripts/transformRecordedTests/index.ts",
     "watch:tsc": "pnpm compile:tsc --watch",
     "watch:esbuild": "pnpm compile:esbuild --watch",
     "watch": "pnpm run --filter @cursorless/cursorless-engine --parallel '/^watch:.*/'"
