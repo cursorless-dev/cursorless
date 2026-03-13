@@ -13,8 +13,6 @@ on:
 
 env:
   CURSORLESS_REPO_ROOT: ${{ github.workspace }}
-  VSCODE_CRASH_DIR: ${{ github.workspace }}/artifacts/dumps
-  VSCODE_LOGS_DIR: ${{ github.workspace }}/artifacts/logs
   TEMP_DIR: ${{ github.workspace }}/temp
   NODE_OPTIONS: "--max-old-space-size=4096"
 
@@ -24,26 +22,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: .nvmrc
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm --color install
+      - uses: ./.github/actions/setup-repo
 
       - name: Lint
         run: pnpm --color lint
 
-  test:
-    name: Test
+  test-main:
+    name: Test main
     strategy:
       fail-fast: false
       matrix:
@@ -55,29 +40,15 @@ jobs:
     runs-on: ${{ matrix.os }}
     env:
       APP_VERSION: ${{ matrix.app_version }}
+      VSCODE_CRASH_DIR: ${{ github.workspace }}/artifacts/dumps
+      VSCODE_LOGS_DIR: ${{ github.workspace }}/artifacts/logs
 
     steps:
-      - name: Git config
-        run: git config --global core.autocrlf false
-
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: .nvmrc
-          cache: pnpm
+      - uses: ./.github/actions/setup-repo
 
       - name: Creating log directories
         run: mkdir -p "${{ env.VSCODE_CRASH_DIR }}" "${{ env.VSCODE_LOGS_DIR }}" "${{ env.TEMP_DIR }}"
         shell: bash
-
-      - name: Install dependencies
-        run: pnpm --color install
 
       - name: Compile
         run: pnpm --color compile
@@ -156,28 +127,10 @@ jobs:
 
   test-neovim:
     name: Test Neovim
-    strategy:
-      fail-fast: false
     runs-on: ubuntu-latest
 
     steps:
-      - name: Git config
-        run: git config --global core.autocrlf false
-
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: .nvmrc
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm --color install
+      - uses: ./.github/actions/setup-repo
 
       - name: Compile
         run: pnpm --color compile
