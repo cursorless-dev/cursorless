@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@config "../tailwind.config.js";
+@config "../tailwind.config.mjs";
 
 @theme {
   --text-2xs: 0.625rem;

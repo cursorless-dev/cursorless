@@ -87,6 +87,17 @@ const config: Config = {
   tagline: "Structural voice coding at the speed of thought",
   url: "https://www.cursorless.org",
   baseUrl: "/docs/",
+  onBrokenLinks: "throw",
+  onBrokenAnchors: "throw",
+  trailingSlash: true,
+
+  future: {
+    v4: {
+      removeLegacyPostBuildHeadAttribute: true,
+    },
+    experimental_faster: true,
+  },
+
   stylesheets: [
     // Icons generated with https://favicon.io/favicon-generator/
     {
@@ -119,9 +130,6 @@ const config: Config = {
     },
     { rel: "shortcut icon", href: "/favicon.ico?v=1" },
   ],
-  onBrokenLinks: "throw",
-  onBrokenAnchors: "throw",
-  trailingSlash: true,
 
   markdown: {
     hooks: {
@@ -151,6 +159,7 @@ const config: Config = {
       },
     ],
   ],
+
   plugins: [
     "./src/plugins/tailwind-plugin.ts",
     "./src/plugins/scope-tests-plugin.ts",
