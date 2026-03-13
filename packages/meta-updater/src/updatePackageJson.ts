@@ -1,9 +1,6 @@
 import { omitByDeep } from "@cursorless/common";
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
-import { readFile } from "fs/promises";
-import * as yaml from "js-yaml";
 import { isUndefined } from "lodash-es";
-import { join } from "path";
 import type { PackageJson } from "type-fest";
 import type { Context } from "./Context";
 import { getCursorlessVscodeFields } from "./getCursorlessVscodeFields";
@@ -91,16 +88,6 @@ export async function updatePackageJson(
   return omitByDeep(sortFields(output), isUndefined) as PackageJson;
 }
 
-interface PreCommitConfig {
-  repos: {
-    hooks: {
-      id: string;
-      name: string;
-      entry: string;
-    }[];
-  }[];
-}
-
 async function getScripts(
   inputScripts: PackageJson.Scripts | undefined,
   name: string | undefined,
@@ -123,11 +110,6 @@ async function getScripts(
   };
 
   if (isRoot) {
-    // Ensure that `pnpm transform-recorded-tests` mirrors what is in pre-commit
-    // config
-    scripts["transform-recorded-tests"] =
-      await getTransformRecordedTestsScript(packageDir);
-
     return scripts;
   }
 
@@ -143,38 +125,6 @@ async function getScripts(
   scripts.clean = cleanScripts.join(" && ");
 
   return scripts;
-}
-
-async function getTransformRecordedTestsScript(packageDir: string) {
-  const preCommitConfig = yaml.load(
-    await readFile(join(packageDir, ".pre-commit-config.yaml"), "utf8"),
-  ) as PreCommitConfig;
-
-  const formatRecordedTestsEntry = preCommitConfig.repos
-    .flatMap(({ hooks }) => hooks)
-    .find(({ id }) => id === "format-recorded-tests")?.entry;
-
-  if (!formatRecordedTestsEntry?.startsWith("pnpm exec ")) {
-    throw new Error(
-      'Expected pre-commit transform-recorded-tests entry to start with "pnpm exec "',
-    );
-  }
-
-  const checkRecordedTestMarksEntry = preCommitConfig.repos
-    .flatMap(({ hooks }) => hooks)
-    .find(({ id }) => id === "check-recorded-test-marks")?.entry;
-
-  if (!checkRecordedTestMarksEntry?.startsWith(formatRecordedTestsEntry)) {
-    throw new Error(
-      "Expected pre-commit check-recorded-test-marks entry to mirror format-recorded-test-marks",
-    );
-  }
-
-  const transformRecordedTestsScript = formatRecordedTestsEntry.slice(
-    "pnpm exec ".length,
-  );
-
-  return transformRecordedTestsScript;
 }
 
 function removeEmptyFields(obj: Record<string, any>) {

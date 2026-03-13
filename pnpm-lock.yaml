@@ -820,7 +820,7 @@ importers:
         version: 4.2.1
 
   packages/meta-updater:
-    dependencies:
+    devDependencies:
       '@cursorless/common':
         specifier: workspace:*
         version: link:../common
@@ -833,9 +833,18 @@ importers:
       '@pnpm/types':
         specifier: ^1001.3.0
         version: 1001.3.0
+      '@types/js-yaml':
+        specifier: ^4.0.9
+        version: 4.0.9
+      '@types/lodash-es':
+        specifier: ^4.17.12
+        version: 4.17.12
       '@types/normalize-path':
         specifier: ^3.0.2
         version: 3.0.2
+      esbuild:
+        specifier: ^0.27.3
+        version: 0.27.3
       js-yaml:
         specifier: ^4.1.1
         version: 4.1.1
@@ -851,16 +860,6 @@ importers:
       type-fest:
         specifier: ^5.4.4
         version: 5.4.4
-    devDependencies:
-      '@types/js-yaml':
-        specifier: ^4.0.9
-        version: 4.0.9
-      '@types/lodash-es':
-        specifier: ^4.17.12
-        version: 4.17.12
-      esbuild:
-        specifier: ^0.27.3
-        version: 0.27.3
 
   packages/neovim-common:
     dependencies:

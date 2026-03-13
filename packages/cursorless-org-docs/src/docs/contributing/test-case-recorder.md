@@ -72,11 +72,11 @@ Recorded tests will automatically be picked up and run with the normal tests.
 
 ### Autoformatting
 
-To clean up the formatting of all of the yaml test cases, run `pnpm transform-recorded-tests`
+To clean up the formatting of all of the yaml test cases, run `pnpm -F=@cursorless/cursorless-engine transform-recorded-tests`
 
 ### Canonicalizing fixtures
 
-To upgrade test fixtures to their canonical, latest form, run the command `pnpm transform-recorded-tests --canonicalize <paths>`. This command should be idempotent.
+To upgrade test fixtures to their canonical, latest form, run the command `pnpm -F=@cursorless/cursorless-engine transform-recorded-tests --canonicalize <paths>`. This command should be idempotent.
 
 ### Partially upgrading fixtures
 
@@ -85,7 +85,7 @@ We periodically upgrade test case fixtures to use the version of our command pay
 1. Look at the blame of the big switch statement in the `upgradeCommand` function in [`canonicalizeAndValidateCommand`](../../../../../packages/cursorless-engine/src/core/commandVersionUpgrades/canonicalizeAndValidateCommand.ts). You can do this on the web [here](https://github.com/cursorless-dev/cursorless/blame/main/packages/cursorless-engine/src/core/commandVersionUpgrades/canonicalizeAndValidateCommand.ts)
 1. Find the newest `case` branch that is at least one year old
 1. Look at the version number that is the guard of that case branch; the minimum number should be that + 1
-1. Run `pnpm transform-recorded-tests --upgrade --minimum-version 5`, where 5 is the minimum version number you found
+1. Run `pnpm -F=@cursorless/cursorless-engine transform-recorded-tests --upgrade --minimum-version 5`, where 5 is the minimum version number you found
 1. Open a PR with the changes
 
 ### Custom transformation
@@ -94,7 +94,7 @@ We periodically upgrade test case fixtures to use the version of our command pay
 1. Change the value at the `custom` key in `AVAILABLE_TRANSFORMATIONS` at the top of
    [`transformRecordedTests/index.ts`](../../../../../packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts) to
    point to your new transformation
-1. Run `pnpm transform-recorded-tests --custom`
+1. Run `pnpm -F=@cursorless/cursorless-engine transform-recorded-tests --custom`
 
 Example of a custom transformation
 

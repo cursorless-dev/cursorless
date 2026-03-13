@@ -19,7 +19,7 @@
     "fix:prettier": "prettier --write --list-different .",
     "lint:meta": "pnpm run meta-updater --test",
     "lint:syncpack": "syncpack lint",
-    "lint:ts": "eslint packages --ext ts,tsx,mts",
+    "lint:ts": "eslint packages",
     "lint:prettier": "prettier --check .",
     "lint": "pnpm run lint:meta && pnpm run lint:syncpack && pnpm run lint:ts",
     "init-vscode-sandbox": "pnpm -F=@cursorless/cursorless-vscode init-launch-sandbox",
@@ -31,7 +31,6 @@
     "test:update": "pnpm -r test:update",
     "test:update:subset": "pnpm -r test:update:subset",
     "generate-grammar": "pnpm -r generate-grammar",
-    "transform-recorded-tests": "./packages/common/scripts/my-ts-node.js packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts",
     "watch": "pnpm run -w --parallel '/^watch:.*/'",
     "watch:esbuild": "pnpm run -r --parallel watch:esbuild",
     "watch:tsc": "tsc --build --watch"
