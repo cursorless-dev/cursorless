@@ -5,13 +5,14 @@
     <title>Cursorless Cheatsheet</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="./src/favicon.ico" />
     <script id="cheatsheet-data">
       // Dummy data for use in debugging
-      document.cheatsheetInfo = <%= fakeCheatsheetInfo %>;
+      document.cheatsheetInfo = __FAKE_CHEATSHEET_INFO__;
     </script>
   </head>
-  <body class="<%= bodyClasses %>">
+  <body class="__BODY_CLASSES__">
     <div id="root"></div>
+    <script type="module" src="./src/index.tsx"></script>
   </body>
 </html>
