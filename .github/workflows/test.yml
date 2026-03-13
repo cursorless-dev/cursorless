@@ -11,7 +11,37 @@ on:
     branches: [main]
   workflow_dispatch:
 
+env:
+  CURSORLESS_REPO_ROOT: ${{ github.workspace }}
+  VSCODE_CRASH_DIR: ${{ github.workspace }}/artifacts/dumps
+  VSCODE_LOGS_DIR: ${{ github.workspace }}/artifacts/logs
+  TEMP_DIR: ${{ github.workspace }}/temp
+  NODE_OPTIONS: "--max-old-space-size=4096"
+
 jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm --color install
+
+      - name: Lint
+        run: pnpm --color lint
+
   test:
     name: Test
     strategy:
@@ -23,14 +53,8 @@ jobs:
           - os: ubuntu-latest
             app_version: legacy
     runs-on: ${{ matrix.os }}
-
     env:
       APP_VERSION: ${{ matrix.app_version }}
-      VSCODE_CRASH_DIR: ${{ github.workspace }}/artifacts/dumps
-      VSCODE_LOGS_DIR: ${{ github.workspace }}/artifacts/logs
-      CURSORLESS_REPO_ROOT: ${{ github.workspace }}
-      TEMP_DIR: ${{ github.workspace }}/temp
-      NODE_OPTIONS: "--max-old-space-size=4096"
 
     steps:
       - name: Git config
@@ -60,9 +84,6 @@ jobs:
 
       - name: Build
         run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build
-
-      - name: Lint
-        run: pnpm --color lint
 
       - name: Run unit tests (Linux)
         run: xvfb-run -a pnpm --color test
@@ -138,11 +159,6 @@ jobs:
     strategy:
       fail-fast: false
     runs-on: ubuntu-latest
-
-    env:
-      CURSORLESS_REPO_ROOT: ${{ github.workspace }}
-      TEMP_DIR: ${{ github.workspace }}/temp
-      NODE_OPTIONS: "--max-old-space-size=4096"
 
     steps:
       - name: Git config
