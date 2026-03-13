@@ -20,7 +20,7 @@
     "test:vscode": "my-ts-node src/scripts/runVscodeTestsCI.ts",
     "test:neovim": "my-ts-node src/scripts/runNeovimTestsCI.ts",
     "test:talonJs": "my-ts-node src/scripts/runTalonJsTests.ts",
-    "build:base": "esbuild --sourcemap --conditions=cursorless:bundler --bundle --external:vscode --external:./reporters/parallel-buffered --external:./worker.js --external:talon --format=cjs --platform=node",
+    "build:base": "bash ./scripts/compile-esbuild.sh",
     "build": "pnpm run build:runner:vscode && pnpm run build:runner:neovim && pnpm run build:tests && pnpm run build:unit && pnpm run build:talon && pnpm run build:talonJs",
     "build:runner:vscode": "pnpm run build:base ./src/runners/extensionTestsVscode.ts --outfile=dist/extensionTestsVscode.cjs",
     "build:runner:neovim": "pnpm run build:base ./src/runners/extensionTestsNeovim.ts --outfile=out/runners/extensionTestsNeovim.cjs",
