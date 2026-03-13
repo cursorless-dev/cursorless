@@ -1,7 +1,7 @@
 import { LATEST_VERSION } from "@cursorless/common";
 import {
   getCursorlessApi,
-  getReusableEditor,
+  openNewEditor,
   runCursorlessCommand,
 } from "@cursorless/vscode-common";
 import * as assert from "assert";
@@ -27,7 +27,8 @@ suite("breakpoints", async function () {
 
 async function breakpointAdd() {
   const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
-  await getReusableEditor("  hello");
+  // openNewEditor() gives more stable result compared to getReusableEditor()
+  await openNewEditor("  hello");
   await hatTokenMap.allocateHats();
   await toggleBreakpoint();
 
@@ -40,7 +41,7 @@ async function breakpointAdd() {
 
 async function breakpointTokenAdd() {
   const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
-  await getReusableEditor("  hello");
+  await openNewEditor("  hello");
   await hatTokenMap.allocateHats();
   await toggleTokenBreakpoint();
 
@@ -53,7 +54,7 @@ async function breakpointTokenAdd() {
 
 async function breakpointRemove() {
   const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
-  const editor = await getReusableEditor("  hello");
+  const editor = await openNewEditor("  hello");
   await hatTokenMap.allocateHats();
 
   vscode.debug.addBreakpoints([
@@ -71,7 +72,7 @@ async function breakpointRemove() {
 
 async function breakpointTokenRemove() {
   const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
-  const editor = await getReusableEditor("  hello");
+  const editor = await openNewEditor("  hello");
   await hatTokenMap.allocateHats();
 
   vscode.debug.addBreakpoints([

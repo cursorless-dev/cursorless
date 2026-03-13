@@ -11,8 +11,27 @@ on:
     branches: [main]
   workflow_dispatch:
 
+env:
+  CURSORLESS_REPO_ROOT: ${{ github.workspace }}
+  TEMP_DIR: ${{ github.workspace }}/temp
+  NODE_OPTIONS: "--max-old-space-size=4096"
+
 jobs:
-  test:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: ./.github/actions/setup-node
+
+      - name: Lint
+        run: pnpm --color lint
+
+  test-main:
     name: Test
     strategy:
       fail-fast: false
@@ -23,15 +42,10 @@ jobs:
           - os: ubuntu-latest
             app_version: legacy
     runs-on: ${{ matrix.os }}
-
     env:
       APP_VERSION: ${{ matrix.app_version }}
-      NEOVIM_VERSION: ${{ matrix.app_version == 'stable' && 'stable' || 'v0.10.0' }}
       VSCODE_CRASH_DIR: ${{ github.workspace }}/artifacts/dumps
       VSCODE_LOGS_DIR: ${{ github.workspace }}/artifacts/logs
-      CURSORLESS_REPO_ROOT: ${{ github.workspace }}
-      TEMP_DIR: ${{ github.workspace }}/temp
-      NODE_OPTIONS: "--max-old-space-size=4096"
 
     steps:
       - name: Git config
@@ -40,30 +54,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-
       - name: Set up Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: .nvmrc
-          cache: pnpm
+        uses: ./.github/actions/setup-node
 
       - name: Creating log directories
         run: mkdir -p "${{ env.VSCODE_CRASH_DIR }}" "${{ env.VSCODE_LOGS_DIR }}" "${{ env.TEMP_DIR }}"
         shell: bash
-
-      - name: Install dependencies
-        run: pnpm --color install
 
       - name: Compile
         run: pnpm --color compile
 
       - name: Build
         run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build
-
-      - name: Lint
-        run: pnpm --color lint
 
       - name: Run unit tests (Linux)
         run: xvfb-run -a pnpm --color test
@@ -87,7 +89,7 @@ jobs:
 
       - name: Run Talon-JS tests (Win,Mac)
         run: pnpm -F @cursorless/test-harness test:talonJs
-        if: runner.os != 'Linux' && matrix.app_version == 'stable'
+        if: runner.os != 'Linux'
 
       - name: Run Cursorless-everywhere-talon tests (Linux)
         run: xvfb-run -a pnpm -F @cursorless/cursorless-everywhere-talon-e2e test:quickjs
@@ -95,32 +97,7 @@ jobs:
 
       - name: Run Cursorless-everywhere-talon tests (Win,Mac)
         run: pnpm -F @cursorless/cursorless-everywhere-talon-e2e test:quickjs
-        if: runner.os != 'Linux' && matrix.app_version == 'stable'
-
-      - name: Install neovim dependencies
-        run: bash -x scripts/install-neovim-dependencies.sh
-
-      - name: Setup neovim (Linux)
-        uses: rhysd/action-setup-vim@v1
-        id: vim
-        if: runner.os == 'Linux' && matrix.app_version == 'stable'
-        with:
-          version: ${{ env.NEOVIM_VERSION }}
-          neovim: true
-
-      - name: Run neovim tests (Linux)
-        run: xvfb-run -a pnpm -F @cursorless/test-harness test:neovim
-        if: runner.os == 'Linux' && matrix.app_version == 'stable'
-        env:
-          NEOVIM_PATH: ${{ steps.vim.outputs.executable }}
-
-      - name: Run neovim lua tests (Linux)
-        uses: ./.github/actions/test-neovim-lua/
-        if: runner.os == 'Linux' && matrix.app_version == 'stable'
-
-      - name: Run neovim lua lint (Linux)
-        uses: ./.github/actions/lint-lua-ls/
-        if: runner.os == 'Linux' && matrix.app_version == 'stable'
+        if: runner.os != 'Linux'
 
       - name: Create vscode dist that can be installed locally
         run: pnpm -F @cursorless/cursorless-vscode populate-dist --local-install
@@ -158,3 +135,43 @@ jobs:
           name: dumps-${{ matrix.os }}-${{ matrix.app_version }}
           path: ${{ env.VSCODE_CRASH_DIR }}
         if: failure()
+
+  test-neovim:
+    name: Test Neovim
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Git config
+        run: git config --global core.autocrlf false
+
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: ./.github/actions/setup-node
+
+      - name: Compile
+        run: pnpm --color compile
+
+      - name: Build
+        run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build
+
+      - name: Install neovim dependencies
+        run: bash -x scripts/install-neovim-dependencies.sh
+
+      - name: Setup neovim
+        uses: rhysd/action-setup-vim@v1
+        id: vim
+        with:
+          neovim: true
+
+      - name: Run neovim tests
+        run: xvfb-run -a pnpm -F @cursorless/test-harness test:neovim
+        env:
+          NEOVIM_PATH: ${{ steps.vim.outputs.executable }}
+
+      - name: Run neovim lua tests
+        uses: ./.github/actions/test-neovim-lua/
+
+      - name: Run neovim lua lint
+        uses: ./.github/actions/lint-lua-ls/

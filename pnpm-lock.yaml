@@ -68,6 +68,9 @@ importers:
       syncpack:
         specifier: ^14.0.2
         version: 14.0.2
+      tsx:
+        specifier: ^4.21.0
+        version: 4.21.0
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -473,9 +476,15 @@ importers:
       '@types/sinon':
         specifier: ^21.0.0
         version: 21.0.0
+      js-yaml:
+        specifier: ^4.1.1
+        version: 4.1.1
       neovim:
         specifier: ^5.4.0
         version: 5.4.0
+      sinon:
+        specifier: ^21.0.2
+        version: 21.0.2
 
   packages/cursorless-org:
     dependencies:
@@ -817,7 +826,7 @@ importers:
         version: 4.2.1
 
   packages/meta-updater:
-    dependencies:
+    devDependencies:
       '@cursorless/common':
         specifier: workspace:*
         version: link:../common
@@ -830,9 +839,18 @@ importers:
       '@pnpm/types':
         specifier: ^1001.3.0
         version: 1001.3.0
+      '@types/js-yaml':
+        specifier: ^4.0.9
+        version: 4.0.9
+      '@types/lodash-es':
+        specifier: ^4.17.12
+        version: 4.17.12
       '@types/normalize-path':
         specifier: ^3.0.2
         version: 3.0.2
+      esbuild:
+        specifier: ^0.27.3
+        version: 0.27.3
       js-yaml:
         specifier: ^4.1.1
         version: 4.1.1
@@ -848,16 +866,6 @@ importers:
       type-fest:
         specifier: ^5.4.4
         version: 5.4.4
-    devDependencies:
-      '@types/js-yaml':
-        specifier: ^4.0.9
-        version: 4.0.9
-      '@types/lodash-es':
-        specifier: ^4.17.12
-        version: 4.17.12
-      esbuild:
-        specifier: ^0.27.3
-        version: 0.27.3
 
   packages/neovim-common:
     dependencies:
@@ -10483,6 +10491,11 @@ packages:
 
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
+
+  tsx@4.21.0:
+    resolution: {integrity: sha512-5C1sg4USs1lfG0GFb2RLXsdpXqBSEhAaA/0kPL01wxzpMqLILNxIxIOKiILz+cdg/pLnOUxFYOR5yhHU666wbw==}
+    engines: {node: '>=18.0.0'}
+    hasBin: true
 
   tsyringe@4.10.0:
     resolution: {integrity: sha512-axr3IdNuVIxnaK5XGEUFTu3YmAQ6lllgrvqfEoR16g/HGnYY/6We4oWENtAnzK6/LpJ2ur9PAb80RBt7/U4ugw==}
@@ -23078,6 +23091,13 @@ snapshots:
   tslib@1.14.1: {}
 
   tslib@2.8.1: {}
+
+  tsx@4.21.0:
+    dependencies:
+      esbuild: 0.27.3
+      get-tsconfig: 4.13.6
+    optionalDependencies:
+      fsevents: 2.3.3
 
   tsyringe@4.10.0:
     dependencies:

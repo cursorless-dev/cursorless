@@ -23,17 +23,8 @@ jobs:
           # Deploy the exact commit that passed the test workflow.
           ref: ${{ github.event.workflow_run.head_sha }}
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-
       - name: Set up Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: .nvmrc
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm --color install
+        uses: ./.github/actions/setup-node
 
       - name: Compile
         run: pnpm --color compile
@@ -73,17 +64,8 @@ jobs:
           # Deploy the exact commit that passed the test workflow.
           ref: ${{ github.event.workflow_run.head_sha }}
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-
       - name: Set up Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: .nvmrc
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm --color install
+        uses: ./.github/actions/setup-node
 
       - name: Compile
         run: pnpm --color compile

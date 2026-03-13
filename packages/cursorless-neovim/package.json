@@ -15,7 +15,7 @@
   "scripts": {
     "build": "pnpm run esbuild:prod && pnpm run populate-dist",
     "compile": "tsc --build",
-    "esbuild:base": "esbuild ./src/index.ts --format=cjs --conditions=cursorless:bundler --bundle --outfile=./out/index.cjs --platform=node",
+    "esbuild:base": "bash ./scripts/compile-esbuild.sh",
     "esbuild": "pnpm run esbuild:base --sourcemap",
     "esbuild:prod": "pnpm run esbuild:base --minify",
     "populate-dist": "bash ./scripts/populate-dist.sh",
