@@ -12,7 +12,7 @@
     "watch:tsc": "pnpm compile:tsc --watch",
     "watch:esbuild": "pnpm build:esbuild --watch",
     "watch:tailwind": "pnpm build:tailwind --watch",
-    "watch": "pnpm run --filter @cursorless/cursorless-vscode-tutorial-webview --parallel '/^watch:.*/'",
+    "watch": "pnpm run -F @cursorless/cursorless-vscode-tutorial-webview --parallel '/^watch:.*/'",
     "build:esbuild": "bash ./compile-esbuild.sh",
     "build:tailwind": "pnpx @tailwindcss/cli -i ./src/index.css -o ./out/index.css",
     "build": "pnpm build:prod",

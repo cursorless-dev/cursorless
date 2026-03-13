@@ -22,7 +22,7 @@
     "lint:ts": "eslint packages",
     "lint:prettier": "prettier --check .",
     "lint": "pnpm run lint:meta && pnpm run lint:syncpack && pnpm run lint:ts",
-    "init-vscode-sandbox": "pnpm -F=@cursorless/cursorless-vscode init-launch-sandbox",
+    "init-vscode-sandbox": "pnpm -F @cursorless/cursorless-vscode init-launch-sandbox",
     "meta-updater": "env NODE_OPTIONS='--import=tsx --conditions=cursorless:bundler' meta-updater",
     "preinstall": "npx only-allow pnpm",
     "test-compile": "tsc --build",
