@@ -1,16 +1,8 @@
-name: Setup repository
-description: Common CI setup
+name: Setup node
 
 runs:
   using: composite
   steps:
-    - name: Git config
-      shell: bash
-      run: git config --global core.autocrlf false
-
-    - name: Checkout repository
-      uses: actions/checkout@v6
-
     - name: Install pnpm
       uses: pnpm/action-setup@v4
 

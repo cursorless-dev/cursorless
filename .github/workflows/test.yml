@@ -22,7 +22,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: ./.github/actions/setup-repo
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - uses: ./.github/actions/setup-node
 
       - name: Lint
         run: pnpm --color lint
@@ -44,7 +47,13 @@ jobs:
       VSCODE_LOGS_DIR: ${{ github.workspace }}/artifacts/logs
 
     steps:
-      - uses: ./.github/actions/setup-repo
+      - name: Git config
+        run: git config --global core.autocrlf false
+
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - uses: ./.github/actions/setup-node
 
       - name: Creating log directories
         run: mkdir -p "${{ env.VSCODE_CRASH_DIR }}" "${{ env.VSCODE_LOGS_DIR }}" "${{ env.TEMP_DIR }}"
@@ -130,7 +139,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: ./.github/actions/setup-repo
+      - name: Git config
+        run: git config --global core.autocrlf false
+
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - uses: ./.github/actions/setup-node
 
       - name: Compile
         run: pnpm --color compile
