@@ -31,6 +31,7 @@
     "test:update": "pnpm -r test:update",
     "test:update:subset": "pnpm -r test:update:subset",
     "generate-grammar": "pnpm -r generate-grammar",
+    "transform-recorded-tests": "pnpm exec ./packages/common/scripts/my-ts-node.js ./packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts",
     "watch": "pnpm run -w --parallel '/^watch:.*/'",
     "watch:esbuild": "pnpm run -r --parallel watch:esbuild",
     "watch:tsc": "tsc --build --watch"
