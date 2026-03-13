@@ -1,8 +1,10 @@
+import {
+  cheatsheetBodyClasses,
+  fakeCheatsheetInfo,
+} from "@cursorless/cheatsheet";
 import react from "@vitejs/plugin-react";
 import { defineConfig, type PluginOption } from "vite";
 import { viteSingleFile } from "vite-plugin-singlefile";
-import { cheatsheetBodyClasses } from "../cheatsheet/src/lib/cheatsheetBodyClasses";
-import { fakeCheatsheetInfo } from "../cheatsheet/src/lib/fakeCheatsheetInfo";
 
 export default defineConfig(() => {
   return {
