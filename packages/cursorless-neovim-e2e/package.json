@@ -30,6 +30,8 @@
     "@types/js-yaml": "^4.0.9",
     "@types/lodash": "^4.17.24",
     "@types/sinon": "^21.0.0",
-    "neovim": "^5.4.0"
+    "js-yaml": "^4.1.1",
+    "neovim": "^5.4.0",
+    "sinon": "^21.0.2"
   }
 }

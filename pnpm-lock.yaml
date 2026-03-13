@@ -476,9 +476,15 @@ importers:
       '@types/sinon':
         specifier: ^21.0.0
         version: 21.0.0
+      js-yaml:
+        specifier: ^4.1.1
+        version: 4.1.1
       neovim:
         specifier: ^5.4.0
         version: 5.4.0
+      sinon:
+        specifier: ^21.0.2
+        version: 21.0.2
 
   packages/cursorless-org:
     dependencies:
