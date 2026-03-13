@@ -25,7 +25,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - uses: ./.github/actions/setup-node
+      - name: Set up Node.js
+        uses: ./.github/actions/setup-node
 
       - name: Lint
         run: pnpm --color lint
@@ -53,7 +54,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - uses: ./.github/actions/setup-node
+      - name: Set up Node.js
+        - name: Set up Node.js
+        uses: ./.github/actions/setup-node
 
       - name: Creating log directories
         run: mkdir -p "${{ env.VSCODE_CRASH_DIR }}" "${{ env.VSCODE_LOGS_DIR }}" "${{ env.TEMP_DIR }}"
@@ -145,7 +148,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - uses: ./.github/actions/setup-node
+      - name: Set up Node.js
+        uses: ./.github/actions/setup-node
 
       - name: Compile
         run: pnpm --color compile

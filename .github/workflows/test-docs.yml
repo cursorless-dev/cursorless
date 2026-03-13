@@ -16,14 +16,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-
       - name: Set up Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: .nvmrc
-          cache: pnpm
+        uses: ./.github/actions/setup-node
 
       - name: Build website
         run: bash -x scripts/build-and-assemble-website.sh
