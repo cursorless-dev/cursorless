@@ -5,12 +5,8 @@
   "[python]": {
     "editor.defaultFormatter": "charliermarsh.ruff"
   },
-  "[scm]": {
-    "editor.defaultFormatter": "AndreasArvidsson.andreas-talon",
-    "editor.tabSize": 2
-  },
-  "[talon]": {
-    "editor.defaultFormatter": "wenkokke.talonfmt-vscode"
+  "[talon][talon-list][scm]": {
+    "editor.defaultFormatter": "AndreasArvidsson.andreas-talon"
   },
   "cSpell.words": [
     "Autoformatting",
