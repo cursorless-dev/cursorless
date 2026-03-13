@@ -32,7 +32,7 @@ jobs:
         run: pnpm --color lint
 
   test-main:
-    name: Test main
+    name: Test
     strategy:
       fail-fast: false
       matrix:
