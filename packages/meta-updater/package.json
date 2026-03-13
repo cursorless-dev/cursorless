@@ -14,7 +14,6 @@
     }
   },
   "scripts": {
-    "build": "bash ./compile-esbuild.sh",
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"

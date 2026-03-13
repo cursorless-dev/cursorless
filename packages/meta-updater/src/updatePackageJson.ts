@@ -113,7 +113,7 @@ async function getScripts(
     ...(isLib
       ? {
           ["compile:tsc"]: "tsc --build",
-          ["compile:esbuild"]: `esbuild ${LIB_ENTRY_POINT} --sourcemap --format=esm --bundle --packages=external --outfile=${LIB_JS_OUTPUT}`,
+          ["compile:esbuild"]: `bash ../../scripts/compile-esbuild.sh`,
           compile: "pnpm compile:tsc && pnpm compile:esbuild",
           ["watch:tsc"]: "pnpm compile:tsc --watch",
           ["watch:esbuild"]: "pnpm compile:esbuild --watch",
