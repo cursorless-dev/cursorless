@@ -26,26 +26,13 @@ const references = JSON.parse(
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  webpack(config) {
-    config.module.rules.push({
-      test: /\.svg$/i,
-      issuer: /\.[jt]sx?$/,
-      use: ["@svgr/webpack"],
-    });
-
-    // Set our custom condition for the bundler so that we directly use
-    // typescript from packages in our monorepo, which makes hot-reloading
-    // smoother. Based on
-    // https://github.com/vercel/next.js/discussions/33813#discussioncomment-7457277
-    config.plugins.push({
-      apply(compiler) {
-        compiler.hooks.afterEnvironment.tap("NextEntryPlugin", () => {
-          compiler.options.resolve.conditionNames.push("cursorless:bundler");
-        });
+  turbopack: {
+    rules: {
+      "*.svg": {
+        loaders: ["@svgr/webpack"],
+        as: "*.js",
       },
-    });
-
-    return config;
+    },
   },
   experimental: {
     mdxRs: true,
