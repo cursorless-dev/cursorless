@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { getCursorlessApi, getParseTreeApi } from "../getExtensionApi";
+import { getCursorlessApi } from "../getExtensionApi";
 import { closeUiElements } from "./closeUiElements";
 
 export async function openNewEditor(
@@ -18,9 +18,8 @@ export async function openNewEditor(
     content,
   });
 
-  await (await getParseTreeApi()).loadLanguage(languageId);
-
   (await getCursorlessApi()).testHelpers!.clearCache();
+  await (await getCursorlessApi()).testHelpers!.loadLanguage(languageId);
 
   const editor = await vscode.window.showTextDocument(
     document,
@@ -41,12 +40,12 @@ export async function openNewEditor(
  * Open a new notebook editor with the given cells
  * @param cellContents A list of strings each of which will become the contents
  * of a cell in the notebook
- * @param language The language id to use for all the cells in the notebook
+ * @param languageId The language id to use for all the cells in the notebook
  * @returns notebook
  */
 export async function openNewNotebookEditor(
   cellContents: string[],
-  language: string = "plaintext",
+  languageId: string = "plaintext",
 ) {
   await vscode.commands.executeCommand("workbench.action.closeAllEditors");
 
@@ -58,15 +57,14 @@ export async function openNewNotebookEditor(
           new vscode.NotebookCellData(
             vscode.NotebookCellKind.Code,
             contents,
-            language,
+            languageId,
           ),
       ),
     ),
   );
 
-  await (await getParseTreeApi()).loadLanguage(language);
-
   (await getCursorlessApi()).testHelpers!.clearCache();
+  await (await getCursorlessApi()).testHelpers!.loadLanguage(languageId);
 
   // FIXME: There seems to be some timing issue when you create a notebook
   // editor

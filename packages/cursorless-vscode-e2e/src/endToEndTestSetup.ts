@@ -1,6 +1,9 @@
 import type { IDE } from "@cursorless/common";
 import { shouldUpdateFixtures, sleep, SpyIDE } from "@cursorless/common";
-import { getCursorlessApi } from "@cursorless/vscode-common";
+import {
+  getCursorlessApi,
+  resetReusableEditor,
+} from "@cursorless/vscode-common";
 import type { Context } from "mocha";
 import * as sinon from "sinon";
 
@@ -43,11 +46,13 @@ export function endToEndTestSetup(
     testHelpers.commandServerApi.setFocusedElementType(undefined);
     spyIde = new SpyIDE(originalIde);
     injectIde(spyIde);
+    resetReusableEditor();
   });
 
   teardown(() => {
     sinon.restore();
     injectIde(originalIde);
+    resetReusableEditor();
   });
 
   return {

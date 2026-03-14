@@ -122,15 +122,14 @@ export class LanguageDefinitionsImpl implements LanguageDefinitions {
       return;
     }
 
-    const definition =
-      (await LanguageDefinition.create(
-        this.ide,
-        this.treeSitterQueryProvider,
-        this.treeSitter,
-        languageId,
-      )) ?? LANGUAGE_UNDEFINED;
+    const definition = await LanguageDefinition.create(
+      this.ide,
+      this.treeSitterQueryProvider,
+      this.treeSitter,
+      languageId,
+    );
 
-    this.languageDefinitions.set(languageId, definition);
+    this.languageDefinitions.set(languageId, definition ?? LANGUAGE_UNDEFINED);
   }
 
   private async reloadLanguageDefinitions(): Promise<void> {

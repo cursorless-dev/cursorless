@@ -12,6 +12,7 @@ import type { SpyWebViewEvent } from "./SpyWebViewEvent";
 export interface VscodeTestHelpers extends TestHelpers {
   ide: NormalizedIDE;
   injectIde(ide: IDE): void;
+  loadLanguage(languageId: string): Promise<void>;
   clearCache(): void;
 
   scopeProvider: ScopeProvider;

@@ -154,6 +154,7 @@ export async function createCursorlessEngine({
     storedTargets,
     hatTokenMap,
     injectIde: (ide) => injectedIde.setIde(ide),
+    loadLanguage: (languageId) => languageDefinitions.loadLanguage(languageId),
     addCommandRunnerDecorator: (decorator: CommandRunnerDecorator) => {
       commandRunnerDecorators.push(decorator);
     },
