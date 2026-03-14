@@ -13,7 +13,9 @@ suite("scope visualizer", async function () {
   const { ide } = (await getCursorlessApi()).testHelpers!;
   ide.configuration.mockConfiguration("decorationDebounceDelayMs", 0);
 
-  teardown(() => commands.executeCommand("cursorless.hideScopeVisualizer"));
+  teardown(() => {
+    commands.executeCommand("cursorless.hideScopeVisualizer");
+  });
 
   test(
     "basic multiline content",

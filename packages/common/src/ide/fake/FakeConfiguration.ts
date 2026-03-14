@@ -63,6 +63,14 @@ export default class FakeConfiguration implements Configuration {
       this.notifier.notifyListeners();
     }
   }
+
+  clearMockConfiguration() {
+    this.mocks = {
+      ...CONFIGURATION_DEFAULTS,
+    };
+    this.scopes = [];
+    this.notifier.notifyListeners();
+  }
 }
 
 function scopeMatches(

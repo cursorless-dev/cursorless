@@ -1,4 +1,4 @@
-import type { IDE } from "@cursorless/common";
+import type { IDE, NormalizedIDE } from "@cursorless/common";
 import { shouldUpdateFixtures, sleep, SpyIDE } from "@cursorless/common";
 import {
   getCursorlessApi,
@@ -32,7 +32,7 @@ export function endToEndTestSetup(
   suite.timeout(timeout);
   suite.retries(retries);
 
-  let originalIde: IDE;
+  let originalIde: NormalizedIDE;
   let injectIde: (ide: IDE) => void;
   let spyIde: SpyIDE | undefined;
 
@@ -51,6 +51,7 @@ export function endToEndTestSetup(
 
   teardown(() => {
     sinon.restore();
+    originalIde.configuration.clearMockConfiguration();
     injectIde(originalIde);
     resetReusableEditor();
   });
