@@ -4,6 +4,7 @@ import {
 } from "@cursorless/cheatsheet";
 
 export function CheatsheetPage() {
+  // TODO:
   //   export const cheatsheetBodyClasses = "bg-stone-50 dark:bg-stone-800";
 
   return (

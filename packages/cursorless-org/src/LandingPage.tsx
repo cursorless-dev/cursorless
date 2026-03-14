@@ -2,19 +2,16 @@ import { EmbeddedVideo } from "./embedded-video";
 import Button from "./Button";
 import { TITLE, YOUTUBE_SLUG } from "./constants";
 import IndexSocial from "./IndexSocial";
-
-// const bodyClasses = "bg-salmon-100 dark:bg-salmon-900";
+import logo from "./logo.svg?no-inline";
 
 export function LandingPage() {
   const smallScaling = "sm:w-sm-base sm:h-sm-base sm:text-sm-base";
-  const stretchedScaling =
-    "sm:stretched:w-stretched-base sm:stretched:h-stretched-base sm:stretched:text-stretched-base";
 
   return (
     <>
       <title>{TITLE}</title>
       <IndexSocial />
-      <main className="text-salmon-900 dark:text-salmon-100 font-mono-wide fixed top-0 right-0 bottom-0 left-0 items-center justify-center overflow-auto p-2 font-bold tracking-[0.18em] sm:flex sm:p-0">
+      <main className="bg-salmon-100 dark:bg-salmon-900 text-salmon-900 dark:text-salmon-100 font-mono-wide fixed top-0 right-0 bottom-0 left-0 items-center justify-center overflow-auto p-2 font-bold tracking-[0.18em] sm:flex sm:p-0">
         {/*
         Note that the font scale gets applied to this element so that all nested elements can use
         `em` units and will automatically be scaled.
@@ -22,7 +19,7 @@ export function LandingPage() {
         units instead
         */}
         <div
-          className={`flex h-full flex-col text-[10px] sm:m-auto ${smallScaling} ${stretchedScaling}`}
+          className={`landing-page-scale flex h-full flex-col text-[10px] sm:m-auto ${smallScaling}`}
         >
           <div className="flex flex-1 flex-col">
             <header className="flex flex-row items-center">
@@ -30,7 +27,7 @@ export function LandingPage() {
                 Cursorless
               </div>
               <img
-                src="/logo.svg"
+                src={logo}
                 alt="Cursorless logo"
                 className="h-[30px] w-[30px] align-middle sm:h-[4em] sm:w-[4em]"
               />
