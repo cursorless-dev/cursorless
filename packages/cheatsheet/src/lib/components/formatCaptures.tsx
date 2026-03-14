@@ -1,20 +1,30 @@
-import reactStringReplace from "react-string-replace";
+import type { ComponentChildren } from "preact";
 import SmartLink from "./SmartLink";
 
 export function formatCaptures(input: string) {
-  return reactStringReplace(input, captureRegex, (match, i) => {
+  const parts: ComponentChildren[] = [];
+  let lastIndex = 0;
+
+  for (const match of input.matchAll(captureRegex)) {
+    const [fullMatch, capture] = match;
+    const index = match.index ?? 0;
+
+    if (index > lastIndex) {
+      parts.push(input.slice(lastIndex, index));
+    }
+
     const innerElement =
-      match === "ordinal" ? (
+      capture === "ordinal" ? (
         <span>
           n<sup>th</sup>
         </span>
       ) : (
-        match
+        capture
       );
 
-    return (
+    parts.push(
       <span
-        key={i}
+        key={index}
         className="inline-block rounded-md bg-[#8686864C] p-[2px] text-[#000000E3] dark:bg-[#FFFFFF33] dark:text-[#FFFFFFE3]"
       >
         <SmartLink to="#legend" noFormatting={true}>
@@ -22,8 +32,17 @@ export function formatCaptures(input: string) {
           {innerElement}
           {"]"}
         </SmartLink>
-      </span>
+      </span>,
     );
-  });
+
+    lastIndex = index + fullMatch.length;
+  }
+
+  if (lastIndex < input.length) {
+    parts.push(input.slice(lastIndex));
+  }
+
+  return parts;
 }
+
 const captureRegex = /<([^>]+)>/g;

@@ -1,4 +1,4 @@
-import * as React from "react";
+import type { ComponentChildren } from "preact";
 
 type SmartLinkProps = {
   /**
@@ -6,7 +6,7 @@ type SmartLinkProps = {
    */
   to: string;
 
-  children?: React.ReactNode;
+  children?: ComponentChildren;
   noFormatting?: boolean;
 };
 
@@ -15,11 +15,11 @@ type SmartLinkProps = {
  * internal
  * @returns SmartLink component
  */
-const SmartLink: React.FC<SmartLinkProps> = ({
+export default function SmartLink({
   to,
   children,
   noFormatting = false,
-}) => {
+}: SmartLinkProps) {
   const className = noFormatting
     ? ""
     : "text-blue-500 hover:text-violet-700 dark:text-cyan-400 dark:hover:text-violet-200";
@@ -35,6 +35,4 @@ const SmartLink: React.FC<SmartLinkProps> = ({
       )}
     </span>
   );
-};
-
-export default SmartLink;
+}

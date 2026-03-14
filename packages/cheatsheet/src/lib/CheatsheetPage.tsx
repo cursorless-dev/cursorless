@@ -1,4 +1,4 @@
-import * as React from "react";
+import type { ComponentChildren } from "preact";
 import CheatsheetListComponent from "./components/CheatsheetListComponent";
 import CheatsheetLegendComponent from "./components/CheatsheetLegendComponent";
 import cheatsheetLegend from "./cheatsheetLegend";
@@ -56,7 +56,7 @@ function Cheatsheet({ cheatsheetInfo }: Props) {
 }
 
 type CheatsheetSectionProps = {
-  children?: React.ReactNode;
+  children?: ComponentChildren;
 };
 
 function CheatsheetSection({ children }: CheatsheetSectionProps) {

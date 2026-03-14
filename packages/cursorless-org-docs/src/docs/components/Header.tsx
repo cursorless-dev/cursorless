@@ -26,10 +26,10 @@ export function H5(props: Props) {
 }
 
 function renderHeader(
-  level: number,
+  level: 2 | 3 | 4 | 5,
   { className, id, title, children }: Props,
 ): React.JSX.Element {
-  const Tag = `h${level}` as keyof React.JSX.IntrinsicElements;
+  const Tag = `h${level}` as "h2" | "h3" | "h4" | "h5";
   const encodedId = uriEncodeHashId(id ?? children);
   return (
     <Tag

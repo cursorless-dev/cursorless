@@ -1,6 +1,12 @@
-import { createRoot } from "react-dom/client";
+import { render } from "preact";
 import { App } from "./App";
 
-createRoot(document.getElementById("root")!).render(
-  <App vscode={acquireVsCodeApi()} />,
-);
+render(<App vscode={acquireVsCodeApi()} />, getRoot());
+
+function getRoot() {
+  const root = document.getElementById("root");
+  if (root == null) {
+    throw new Error("Missing root container");
+  }
+  return root;
+}

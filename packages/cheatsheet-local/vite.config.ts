@@ -1,6 +1,6 @@
 import { fakeCheatsheetInfo } from "@cursorless/cheatsheet";
 import { viteHtmlParams } from "@cursorless/common";
-import react from "@vitejs/plugin-react";
+import preact from "@preact/preset-vite";
 import { defineConfig } from "vite";
 import { viteSingleFile } from "vite-plugin-singlefile";
 
@@ -11,7 +11,7 @@ export default defineConfig(() => {
     },
 
     plugins: [
-      react(),
+      preact(),
       viteSingleFile(),
       viteHtmlParams({
         FAKE_CHEATSHEET_INFO: JSON.stringify(fakeCheatsheetInfo),

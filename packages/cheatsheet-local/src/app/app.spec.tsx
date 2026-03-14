@@ -1,16 +1,31 @@
-import { render } from "@testing-library/react";
+import { render } from "preact";
+import { act } from "preact/test-utils";
 import { App } from "./app";
 
 describe("App", () => {
-  it("should render successfully", () => {
-    const { baseElement } = render(<App />);
-
-    expect(baseElement).toBeTruthy();
+  afterEach(() => {
+    document.body.innerHTML = "";
   });
 
-  it("should have a greeting as the title", () => {
-    const { getByText } = render(<App />);
+  it("should render successfully", async () => {
+    const container = document.createElement("div");
+    document.body.append(container);
 
-    expect(getByText(/Welcome cheatsheet-local/gi)).toBeTruthy();
+    await act(() => {
+      render(<App />, container);
+    });
+
+    expect(container).toBeTruthy();
+  });
+
+  it("should have a greeting as the title", async () => {
+    const container = document.createElement("div");
+    document.body.append(container);
+
+    await act(() => {
+      render(<App />, container);
+    });
+
+    expect(container.textContent).toMatch(/Welcome cheatsheet-local/gi);
   });
 });

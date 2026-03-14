@@ -1,5 +1,5 @@
 import type { ActiveTutorialNoErrorsState } from "@cursorless/common";
-import { type FunctionComponent } from "react";
+import type { FunctionComponent } from "preact";
 import type { WebviewApi } from "vscode-webview";
 import { ArrowLeftIcon } from "./ArrowLeftIcon";
 import { ArrowRightIcon } from "./ArrowRightIcon";
