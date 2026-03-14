@@ -2,7 +2,7 @@ import { EmbeddedVideo } from "./embedded-video";
 import Button from "./Button";
 import { TITLE, YOUTUBE_SLUG } from "./constants";
 import IndexSocial from "./IndexSocial";
-import logo from "./logo.svg?no-inline";
+import Logo from "./logo.svg?react";
 
 export function LandingPage() {
   const smallScaling = "sm:w-sm-base sm:h-sm-base sm:text-sm-base";
@@ -26,9 +26,9 @@ export function LandingPage() {
               <div className="mr-auto align-middle text-2xl uppercase">
                 Cursorless
               </div>
-              <img
-                src={logo}
-                alt="Cursorless logo"
+              <Logo
+                aria-label="Cursorless logo"
+                role="img"
                 className="h-[30px] w-[30px] align-middle sm:h-[4em] sm:w-[4em]"
               />
             </header>

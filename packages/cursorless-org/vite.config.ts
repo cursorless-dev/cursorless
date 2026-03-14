@@ -4,6 +4,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import type { UserConfig } from "vite";
 import { defineConfig } from "vite";
+import svgr from "vite-plugin-svgr";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -17,7 +18,7 @@ export default defineConfig((): UserConfig => {
       conditions: ["cursorless:bundler"],
     },
 
-    plugins: [react()],
+    plugins: [react(), svgr()],
 
     server: {
       fs: {
