@@ -1,7 +1,7 @@
-import * as React from "react";
+import type { JSX } from "preact";
 import SmartLink from "./SmartLink";
 
-export default function CheatsheetNotesComponent(): React.JSX.Element {
+export default function CheatsheetNotesComponent(): JSX.Element {
   return (
     <div
       id="notes"

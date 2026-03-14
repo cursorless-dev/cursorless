@@ -1,12 +1,21 @@
-import { render } from "@testing-library/react";
+import { render } from "preact";
+import { act } from "preact/test-utils";
 import { CheatsheetPage } from "./CheatsheetPage";
 import { fakeCheatsheetInfo } from "./fakeCheatsheetInfo";
 
 describe("Cheatsheet", () => {
-  it("should render successfully", () => {
-    const { baseElement } = render(
-      <CheatsheetPage cheatsheetInfo={fakeCheatsheetInfo} />,
-    );
-    expect(baseElement).toBeTruthy();
+  afterEach(() => {
+    document.body.innerHTML = "";
+  });
+
+  it("should render successfully", async () => {
+    const container = document.createElement("div");
+    document.body.append(container);
+
+    await act(() => {
+      render(<CheatsheetPage cheatsheetInfo={fakeCheatsheetInfo} />, container);
+    });
+
+    expect(container).toBeTruthy();
   });
 });

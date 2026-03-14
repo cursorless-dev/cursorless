@@ -1,4 +1,4 @@
-import type { JSX } from "react";
+import type { JSX } from "preact";
 import type { CheatsheetSection, Variation } from "../CheatsheetInfo";
 import useIsHighlighted from "../hooks/useIsHighlighted";
 import { formatCaptures } from "./formatCaptures";

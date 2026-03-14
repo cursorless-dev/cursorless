@@ -76,7 +76,7 @@ export function ScopeVisualizer({ languageId, scopeTypeType }: Props) {
       <div className="mb-4">
         <select
           value={rangeType}
-          onChange={(e) => setRangeType(e.target.value as RangeType)}
+          onChange={(e) => setRangeType(e.currentTarget.value as RangeType)}
         >
           <option value="content">Content range</option>
           <option value="removal">Removal range</option>
@@ -88,7 +88,7 @@ export function ScopeVisualizer({ languageId, scopeTypeType }: Props) {
             type="checkbox"
             className="mr-1"
             checked={renderWhitespace}
-            onChange={(e) => setRenderWhitespace(e.target.checked)}
+            onChange={(e) => setRenderWhitespace(e.currentTarget.checked)}
           />
           Render whitespace
         </label>

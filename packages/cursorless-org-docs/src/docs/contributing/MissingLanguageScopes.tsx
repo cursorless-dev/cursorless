@@ -19,7 +19,7 @@ export function MissingLanguageScopes(): React.JSX.Element {
           type="checkbox"
           className="mr-1"
           checked={showPrivate}
-          onChange={(e) => setShowPrivate(e.target.checked)}
+          onChange={(e) => setShowPrivate(e.currentTarget.checked)}
         />
         Show private scopes
       </label>
@@ -72,16 +72,19 @@ function Language({
         </small>
       </h3>
 
-      {renderFacets("Unsupported", unsupportedFacets)}
-      {renderFacets("Unspecified", unspecifiedFacets)}
+      <RenderFacets title="Unsupported" facets={unsupportedFacets} />
+      <RenderFacets title="Unspecified" facets={unspecifiedFacets} />
     </>
   );
 }
 
-function renderFacets(
-  title: string,
-  facets: string[],
-): React.JSX.Element | null {
+function RenderFacets({
+  title,
+  facets,
+}: {
+  title: string;
+  facets: string[];
+}): React.JSX.Element | null {
   const [open, setOpen] = useState(facets.length < 10);
 
   if (facets.length === 0) {

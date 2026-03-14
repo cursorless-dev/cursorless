@@ -1,4 +1,4 @@
-import * as React from "react";
+import type { JSX } from "preact";
 import type { CheatsheetLegend } from "../cheatsheetLegend";
 import useIsHighlighted from "../hooks/useIsHighlighted";
 import { formatCaptures } from "./formatCaptures";
@@ -10,7 +10,7 @@ type Props = {
 
 export default function CheatsheetLegendComponent({
   data,
-}: Props): React.JSX.Element {
+}: Props): JSX.Element {
   const isHighlighted = useIsHighlighted("legend");
 
   const borderClassName = isHighlighted

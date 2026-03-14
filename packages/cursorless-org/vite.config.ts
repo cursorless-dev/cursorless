@@ -1,5 +1,5 @@
 import { CURSORLESS_ORG_URL, viteHtmlParams } from "@cursorless/common";
-import react from "@vitejs/plugin-react";
+import preact from "@preact/preset-vite";
 import type { UserConfig } from "vite";
 import { defineConfig } from "vite";
 import svgr from "vite-plugin-svgr";
@@ -32,7 +32,7 @@ export default defineConfig((): UserConfig => {
     },
 
     plugins: [
-      react(),
+      preact(),
       svgr(),
       viteHtmlParams({
         CURSORLESS_ORG_URL,

@@ -1,4 +1,5 @@
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense } from "preact/compat";
+import { useState } from "preact/hooks";
 
 interface Props {
   youtubeSlug: string;

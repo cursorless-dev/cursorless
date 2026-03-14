@@ -1,14 +1,13 @@
-import React from "react";
-import { createRoot } from "react-dom/client";
+import { render } from "preact";
+import { StrictMode } from "preact/compat";
 import { App } from "./App";
 import "./styles.css";
 
-const root = createRoot(getRoot());
-
-root.render(
-  <React.StrictMode>
+render(
+  <StrictMode>
     <App />
-  </React.StrictMode>,
+  </StrictMode>,
+  getRoot(),
 );
 
 function getRoot() {

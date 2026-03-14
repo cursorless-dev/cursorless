@@ -1,4 +1,4 @@
-import { Redirect, Route, Router, Switch } from "wouter";
+import { Redirect, Route, Router, Switch } from "wouter-preact";
 import { CheatsheetPage } from "./CheatsheetPage";
 import { LandingPage } from "./LandingPage";
 

@@ -1,12 +1,18 @@
-import { StrictMode } from "react";
-import * as ReactDOM from "react-dom/client";
+import { render } from "preact";
+import { StrictMode } from "preact/compat";
 import { App } from "./app/app";
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement,
-);
-root.render(
+render(
   <StrictMode>
     <App />
   </StrictMode>,
+  getRoot(),
 );
+
+function getRoot() {
+  const root = document.getElementById("root");
+  if (root == null) {
+    throw new Error("Missing root container");
+  }
+  return root;
+}
