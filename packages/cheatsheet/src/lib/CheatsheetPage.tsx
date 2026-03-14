@@ -14,8 +14,8 @@ type Props = {
 
 export function CheatsheetPage({ cheatsheetInfo }: Props) {
   return (
-    <main className="bg-stone-50 pt-2 dark:bg-stone-800 dark:text-stone-100">
-      <h1 className="mb-1 text-center text-2xl md:text-3xl xl:mt-4">
+    <main className="min-h-screen bg-stone-50 pt-2 xl:pt-4 dark:bg-stone-800 dark:text-stone-100">
+      <h1 className="mb-1 text-center text-2xl md:text-3xl">
         Cursorless Cheatsheet{" "}
         <span className="inline-block align-middle text-sm">
           <SmartLink to="#legend">
