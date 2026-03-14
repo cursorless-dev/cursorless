@@ -1,7 +1,6 @@
 import { EmbeddedVideo } from "./embedded-video";
 import { Button } from "./Button";
 import { TITLE, YOUTUBE_SLUG } from "./constants";
-import { IndexSocial } from "./IndexSocial";
 import Logo from "./logo.svg?react";
 
 export function LandingPage() {
@@ -10,14 +9,7 @@ export function LandingPage() {
   return (
     <>
       <title>{TITLE}</title>
-      <IndexSocial />
       <main className="bg-salmon-100 dark:bg-salmon-900 text-salmon-900 dark:text-salmon-100 font-mono-wide fixed top-0 right-0 bottom-0 left-0 items-center justify-center overflow-auto p-2 font-bold tracking-[0.18em] sm:flex sm:p-0">
-        {/*
-        Note that the font scale gets applied to this element so that all nested elements can use
-        `em` units and will automatically be scaled.
-        FIXME: We should probably add the font size to the root element so that we can use `rem`
-        units instead
-        */}
         <div
           className={`landing-page-scale flex h-full flex-col text-[10px] sm:m-auto ${smallScaling}`}
         >

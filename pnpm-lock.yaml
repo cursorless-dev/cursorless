@@ -138,6 +138,9 @@ importers:
       '@cursorless/cheatsheet':
         specifier: workspace:*
         version: link:../cheatsheet
+      '@cursorless/common':
+        specifier: workspace:*
+        version: link:../common
       react:
         specifier: ^19.2.4
         version: 19.2.4

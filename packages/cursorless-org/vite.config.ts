@@ -1,7 +1,16 @@
+import { CURSORLESS_ORG_URL, viteHtmlParams } from "@cursorless/common";
 import react from "@vitejs/plugin-react";
 import type { UserConfig } from "vite";
 import { defineConfig } from "vite";
 import svgr from "vite-plugin-svgr";
+import {
+  DESCRIPTION,
+  TITLE,
+  VIDEO_SHARE_THUMBNAIL_HEIGHT,
+  VIDEO_SHARE_THUMBNAIL_URL,
+  VIDEO_SHARE_THUMBNAIL_WIDTH,
+  YOUTUBE_SLUG,
+} from "./src/constants";
 
 export default defineConfig((): UserConfig => {
   return {
@@ -22,7 +31,19 @@ export default defineConfig((): UserConfig => {
       conditions: ["cursorless:bundler"],
     },
 
-    plugins: [react(), svgr()],
+    plugins: [
+      react(),
+      svgr(),
+      viteHtmlParams({
+        CURSORLESS_ORG_URL,
+        TITLE,
+        DESCRIPTION,
+        YOUTUBE_SLUG,
+        VIDEO_SHARE_THUMBNAIL_URL,
+        VIDEO_SHARE_THUMBNAIL_WIDTH,
+        VIDEO_SHARE_THUMBNAIL_HEIGHT,
+      }),
+    ],
   };
 });
 

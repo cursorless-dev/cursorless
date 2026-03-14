@@ -15,6 +15,9 @@
   "references": [
     {
       "path": "../cheatsheet"
+    },
+    {
+      "path": "../common"
     }
   ],
   "include": [

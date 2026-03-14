@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@cursorless/cheatsheet": "workspace:*",
+    "@cursorless/common": "workspace:*",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "tslib": "^2.8.1"
