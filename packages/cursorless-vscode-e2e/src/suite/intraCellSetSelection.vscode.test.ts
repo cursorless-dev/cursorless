@@ -1,5 +1,6 @@
-import { LATEST_VERSION, type HatTokenMap } from "@cursorless/common";
+import { LATEST_VERSION, splitKey } from "@cursorless/common";
 import {
+  getCellIndex,
   getCursorlessApi,
   openNewNotebookEditor,
   runCursorlessCommand,
@@ -7,7 +8,6 @@ import {
 import assert from "assert";
 import { window } from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-import { waitFor } from "./waitFor";
 
 // Check that setSelection is able to focus the correct cell
 suite("Within cell set selection", async function () {
@@ -17,12 +17,22 @@ suite("Within cell set selection", async function () {
 });
 
 async function runTest() {
-  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
+  const { hatTokenMap, toVscodeEditor } = (await getCursorlessApi())
+    .testHelpers!;
 
-  await openNewNotebookEditor(['"hello world"']);
+  const notebook = await openNewNotebookEditor(['"hello world"']);
 
   await hatTokenMap.allocateHats();
-  await waitForHat(hatTokenMap, "default", "r");
+  const hatMap = await hatTokenMap.getReadableMap(false);
+  const targetHat = hatMap.getEntries().find(([, token]) => {
+    const editor = toVscodeEditor(token.editor);
+    return (
+      getCellIndex(notebook, editor.document) === 0 && token.text === "world"
+    );
+  });
+
+  assert(targetHat != null, 'Expected a default hat for "world" in the cell');
+  const { hatStyle, character } = splitKey(targetHat[0]);
 
   await runCursorlessCommand({
     version: LATEST_VERSION,
@@ -33,8 +43,8 @@ async function runTest() {
         type: "primitive",
         mark: {
           type: "decoratedSymbol",
-          symbolColor: "default",
-          character: "r",
+          symbolColor: hatStyle,
+          character,
         },
       },
     },
@@ -47,18 +57,4 @@ async function runTest() {
   }
 
   assert.deepStrictEqual(editor.document.getText(editor.selection), "world");
-}
-
-async function waitForHat(
-  hatTokenMap: HatTokenMap,
-  hatStyle: "default",
-  character: string,
-) {
-  const success = await waitFor(async () => {
-    const readableHatMap = await hatTokenMap.getReadableMap(false);
-    return readableHatMap.getToken(hatStyle, character) != null;
-  });
-  if (!success) {
-    assert.fail(`Timed out waiting for mark ${hatStyle} '${character}'`);
-  }
 }
