@@ -4,3 +4,8 @@
 [build]
   command = "./scripts/build-and-assemble-website.sh"
   publish = "dist/cursorless-org"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
