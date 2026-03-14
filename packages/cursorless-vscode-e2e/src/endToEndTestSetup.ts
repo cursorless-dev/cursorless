@@ -51,8 +51,11 @@ export function endToEndTestSetup(
 
   teardown(() => {
     sinon.restore();
-    originalIde.configuration.clearMockConfiguration();
     injectIde(originalIde);
+  });
+
+  suiteTeardown(() => {
+    originalIde.configuration.clearMockConfiguration();
     resetReusableEditor();
   });
 

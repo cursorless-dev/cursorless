@@ -10,7 +10,7 @@ import { runUpdateTest } from "./runUpdateTest";
 suite("scope visualizer", function () {
   endToEndTestSetup(this);
 
-  setup(async () => {
+  suiteSetup(async () => {
     const { ide } = (await getCursorlessApi()).testHelpers!;
     ide.configuration.mockConfiguration("decorationDebounceDelayMs", 0);
   });
