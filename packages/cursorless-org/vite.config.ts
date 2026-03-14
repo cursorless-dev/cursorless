@@ -8,20 +8,20 @@ export default defineConfig((): UserConfig => {
     build: {
       outDir: "out",
 
-    //   rolldownOptions: {
-    //     onLog(level, log, defaultHandler) {
-    //         console.log(log.code);
-    //       if (
-    //         level === "warn" &&
-    //         log.code === "COMMONJS_VARIABLE_IN_ESM" &&
-    //         typeof log.message === "string" &&
-    //         log.message.includes("dash.all.min.js")
-    //       ) {
-    //         return;
-    //       }
-    //       defaultHandler(level, log);
-    //     },
-    //   },
+      //   rolldownOptions: {
+      //     onLog(level, log, defaultHandler) {
+      //         console.log(log.code);
+      //       if (
+      //         level === "warn" &&
+      //         log.code === "COMMONJS_VARIABLE_IN_ESM" &&
+      //         typeof log.message === "string" &&
+      //         log.message.includes("dash.all.min.js")
+      //       ) {
+      //         return;
+      //       }
+      //       defaultHandler(level, log);
+      //     },
+      //   },
     },
 
     resolve: {

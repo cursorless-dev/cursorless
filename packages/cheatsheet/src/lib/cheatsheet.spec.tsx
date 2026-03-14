@@ -1,6 +1,5 @@
 import { render } from "@testing-library/react";
-
-import { CheatsheetPage } from "./cheatsheet";
+import { CheatsheetPage } from "./CheatsheetPage";
 import { fakeCheatsheetInfo } from "./fakeCheatsheetInfo";
 
 describe("Cheatsheet", () => {

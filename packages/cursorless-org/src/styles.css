@@ -105,7 +105,8 @@
   font-stretch: 1% 500%; /* Required by Chrome */
   src:
     local(""),
-    /* Modern Browsers */ url("./fonts/Inconsolata-Light.ttf") format("truetype");
+    /* Modern Browsers */ url("./fonts/Inconsolata-Light.ttf")
+      format("truetype");
 }
 
 @font-face {

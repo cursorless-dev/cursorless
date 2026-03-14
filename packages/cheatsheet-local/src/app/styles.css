@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+@config "../../tailwind.config.mjs";
+
+html,
+body,
+#root {
+  min-height: 100%;
+}

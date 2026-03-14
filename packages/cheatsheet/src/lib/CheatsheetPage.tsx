@@ -8,16 +8,14 @@ import CheatsheetNotesComponent from "./components/CheatsheetNotesComponent";
 import SmartLink from "./components/SmartLink";
 import type { CheatsheetInfo } from "./CheatsheetInfo";
 
-type CheatsheetPageProps = {
+type Props = {
   cheatsheetInfo: CheatsheetInfo;
 };
 
-export const CheatsheetPage: React.FC<CheatsheetPageProps> = ({
-  cheatsheetInfo,
-}) => {
+export function CheatsheetPage({ cheatsheetInfo }: Props) {
   return (
-    <main className="dark:text-stone-100">
-      <h1 className="mt-2 mb-1 text-center text-2xl md:text-3xl xl:mt-4">
+    <main className="bg-stone-50 pt-2 dark:bg-stone-800 dark:text-stone-100">
+      <h1 className="mb-1 text-center text-2xl md:text-3xl xl:mt-4">
         Cursorless Cheatsheet{" "}
         <span className="inline-block align-middle text-sm">
           <SmartLink to="#legend">
@@ -35,36 +33,36 @@ export const CheatsheetPage: React.FC<CheatsheetPageProps> = ({
       <Cheatsheet cheatsheetInfo={cheatsheetInfo} />
     </main>
   );
-};
+}
 
-type CheatsheetProps = {
-  cheatsheetInfo: CheatsheetInfo;
-};
-
-const Cheatsheet: React.FC<CheatsheetProps> = ({ cheatsheetInfo }) => (
-  <div className="columns-1 gap-2 p-2 md:columns-2 md:gap-3 md:p-3 xl:mx-auto xl:max-w-[1600px] xl:columns-3 xl:gap-4 xl:p-4">
-    {cheatsheetInfo.sections
-      .filter((section) => section.items.length > 0)
-      .map((section) => (
-        <CheatsheetSection key={section.id}>
-          <CheatsheetListComponent section={section} />
-        </CheatsheetSection>
-      ))}
-    <CheatsheetSection>
-      <CheatsheetLegendComponent data={cheatsheetLegend} />
-    </CheatsheetSection>
-    <CheatsheetSection>
-      <CheatsheetNotesComponent />
-    </CheatsheetSection>
-  </div>
-);
+function Cheatsheet({ cheatsheetInfo }: Props) {
+  return (
+    <div className="columns-1 gap-2 p-2 md:columns-2 md:gap-3 md:p-3 xl:mx-auto xl:max-w-[1600px] xl:columns-3 xl:gap-4 xl:p-4">
+      {cheatsheetInfo.sections
+        .filter((section) => section.items.length > 0)
+        .map((section) => (
+          <CheatsheetSection key={section.id}>
+            <CheatsheetListComponent section={section} />
+          </CheatsheetSection>
+        ))}
+      <CheatsheetSection>
+        <CheatsheetLegendComponent data={cheatsheetLegend} />
+      </CheatsheetSection>
+      <CheatsheetSection>
+        <CheatsheetNotesComponent />
+      </CheatsheetSection>
+    </div>
+  );
+}
 
 type CheatsheetSectionProps = {
   children?: React.ReactNode;
 };
 
-const CheatsheetSection: React.FC<CheatsheetSectionProps> = ({ children }) => (
-  <section className="mb-5 break-inside-avoid last:mb-0 md:mb-3 xl:mb-4">
-    {children}
-  </section>
-);
+function CheatsheetSection({ children }: CheatsheetSectionProps) {
+  return (
+    <section className="mb-5 break-inside-avoid last:mb-0 md:mb-3 xl:mb-4">
+      {children}
+    </section>
+  );
+}
