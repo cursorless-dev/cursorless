@@ -37,6 +37,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
+      - name: Set up Node.js
+        uses: ./.github/actions/setup-node
+
       - name: Build website
         run: bash -x scripts/build-and-assemble-website.sh
 

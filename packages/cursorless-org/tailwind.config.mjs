@@ -1,5 +1,3 @@
-/* eslint-disable import/no-anonymous-default-export */
-
 import defaultTheme from "tailwindcss/defaultTheme";
 import { readFileSync } from "node:fs";
 
