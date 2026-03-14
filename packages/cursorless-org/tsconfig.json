@@ -4,7 +4,6 @@
     "target": "es2022",
     "lib": ["dom", "es2022"],
     "jsx": "react-jsx",
-    "allowJs": true,
     "skipLibCheck": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -16,7 +15,6 @@
     "src/**/*.ts",
     "src/**/*.json",
     "src/**/*.tsx",
-    "vite.config.ts",
     "../../typings/**/*.d.ts"
   ],
   "references": [

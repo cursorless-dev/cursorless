@@ -30,6 +30,13 @@ jobs:
       - name: Lint
         run: pnpm --color lint
 
+  build-website:
+    name: Build Website
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
       - name: Build website
         run: bash -x scripts/build-and-assemble-website.sh
 

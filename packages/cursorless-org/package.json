@@ -21,31 +21,26 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "start": "vite preview --host 127.0.0.1 --port 8085",
+    "preview": "vite preview",
     "lint": "eslint .",
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
-    "@mdx-js/mdx": "^3.1.1",
     "@cursorless/cheatsheet": "workspace:*",
     "@cursorless/common": "workspace:*",
-    "@mdx-js/react": "^3.1.1",
-    "@slorber/react-helmet-async": "^1.3.0",
-    "react": "^19.2.4",
     "react-dom": "^19.2.4",
-    "react-router-dom": "^5.3.4",
-    "react-player": "^3.4.0"
+    "react-player": "^3.4.0",
+    "react": "^19.2.4",
+    "wouter": "^3.9.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^6.0.1",
     "@tailwindcss/postcss": "^4.2.1",
-    "@types/mdx": "^2.0.13",
     "@types/node": "^24.12.0",
-    "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@types/react-router-dom": "^5.3.3",
+    "@types/react": "^19.2.14",
+    "@vitejs/plugin-react": "^6.0.1",
     "eslint": "^10.0.3",
     "http-server": "^14.1.1",
     "postcss": "^8.5.8",

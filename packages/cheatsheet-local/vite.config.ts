@@ -10,12 +10,6 @@ export default defineConfig(() => {
   return {
     build: {
       outDir: "dist",
-
-      rollupOptions: {
-        input: {
-          index: "./index.html",
-        },
-      },
     },
 
     plugins: [react(), viteSingleFile(), injectCheatsheetTemplateData()],
