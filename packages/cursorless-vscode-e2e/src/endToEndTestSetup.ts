@@ -46,7 +46,6 @@ export function endToEndTestSetup(
     testHelpers.commandServerApi.setFocusedElementType(undefined);
     spyIde = new SpyIDE(originalIde);
     injectIde(spyIde);
-    resetReusableEditor();
   });
 
   teardown(() => {
