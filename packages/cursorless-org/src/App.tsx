@@ -10,7 +10,9 @@ export function App() {
 
         <Route path="/cheatsheet" component={CheatsheetPage} />
 
-        <Redirect to="/" />
+        <Route path="*">
+          <Redirect to="/" />
+        </Route>
       </Switch>
     </Router>
   );
