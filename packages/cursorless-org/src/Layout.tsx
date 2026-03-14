@@ -1,10 +1,10 @@
 import { MDXProvider } from "@mdx-js/react";
 import type { MDXComponents } from "mdx/types.js";
-import Head from "next/head";
-import Logo from "../pages/logo.svg";
+import { Helmet } from "@slorber/react-helmet-async";
+import { Link } from "react-router-dom";
 import BaseSocial from "./BaseSocial";
 import { SpamProofEmailLink } from "./SpamProofEmailLink";
-import Link from "next/link";
+import { useBodyClasses } from "./useBodyClasses";
 
 const components: MDXComponents = {
   h1: ({ children }) => (
@@ -32,8 +32,6 @@ const components: MDXComponents = {
   ol: ({ children }) => <ol className="ml-8 list-decimal">{children}</ol>,
   li: ({ children }) => <li className="my-2">{children}</li>,
   img: ({ src, alt }) => (
-    // FIXME: Figure out how to use next/image with MDX
-    // eslint-disable-next-line @next/next/no-img-element
     <img
       className="mx-auto my-12 rounded-[4px] border-[1.5px] border-teal-400"
       src={src}
@@ -42,8 +40,6 @@ const components: MDXComponents = {
     />
   ),
   CursorlessScreenshot: ({ src, alt }) => (
-    // FIXME: Figure out how to use next/image with MDX
-    // eslint-disable-next-line @next/next/no-img-element
     <img
       className="mx-auto my-12 rounded-xs border border-teal-400 p-3 sm:p-6"
       src={src}
@@ -65,7 +61,6 @@ const components: MDXComponents = {
         {children}
       </blockquote>
       <div className="flex items-center gap-4">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           className="h-[4.5em] w-[4.5em] rounded-full border border-teal-400 dark:border-[0.5px]"
           src={src}
@@ -107,22 +102,25 @@ export interface Props extends React.PropsWithChildren {
 }
 
 export function Layout({ title, description, relativeUrl, children }: Props) {
+  useBodyClasses(bodyClasses);
+
   return (
     <>
-      <Head>
+      <Helmet>
         <title>{title}</title>
         <BaseSocial
           title={title}
           description={description}
           relativeUrl={relativeUrl}
         />
-      </Head>
+      </Helmet>
       <MDXProvider components={components}>
         <main className="text-salmon-900 dark:text-salmon-100 px-4 pt-8 pb-8 font-mono leading-6 font-normal tracking-[0.08em] sm:pt-16 lg:pt-20 sm:dark:font-light">
           <div className="mx-auto max-w-prose">
-            <Link href="/">
-              <Logo
-                title="Logo"
+            <Link to="/">
+              <img
+                src="/logo.svg"
+                alt="Cursorless logo"
                 className="mx-auto h-[6.284em] w-[6.284em] align-middle"
               />
             </Link>

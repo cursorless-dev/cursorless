@@ -3,19 +3,17 @@ import {
   CheatsheetPage,
   defaultCheatsheetInfo,
 } from "@cursorless/cheatsheet";
-import Head from "next/head";
-
-// See https://github.com/vercel/next.js/discussions/12325#discussioncomment-1116108
-export async function getStaticProps() {
-  return { props: { bodyClasses: cheatsheetBodyClasses } };
-}
+import { Helmet } from "@slorber/react-helmet-async";
+import { useBodyClasses } from "../components/useBodyClasses";
 
 export function App() {
+  useBodyClasses(cheatsheetBodyClasses);
+
   return (
     <>
-      <Head>
+      <Helmet>
         <title>Cursorless cheatsheet</title>
-      </Head>
+      </Helmet>
       <CheatsheetPage cheatsheetInfo={defaultCheatsheetInfo} />
     </>
   );

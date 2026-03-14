@@ -3,7 +3,7 @@
   "compilerOptions": {
     "target": "es2022",
     "lib": ["dom", "es2022"],
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "allowJs": true,
     "skipLibCheck": true,
     "noEmit": true,
@@ -16,7 +16,7 @@
     "src/**/*.ts",
     "src/**/*.json",
     "src/**/*.tsx",
-    "next-env.d.ts",
+    "vite.config.ts",
     "../../typings/**/*.d.ts"
   ],
   "references": [

@@ -1,14 +1,10 @@
-import { EmbeddedVideo } from "../components/embedded-video";
-import Head from "next/head";
-import Button from "../components/Button";
-import { TITLE, YOUTUBE_SLUG } from "../components/constants";
-import IndexSocial from "../components/IndexSocial";
-import Logo from "./logo.svg";
+import { EmbeddedVideo } from "./embedded-video";
+import { Helmet } from "@slorber/react-helmet-async";
+import Button from "./Button";
+import { TITLE, YOUTUBE_SLUG } from "./constants";
+import IndexSocial from "./IndexSocial";
 
-// See https://github.com/vercel/next.js/discussions/12325#discussioncomment-1116108
-export async function getStaticProps() {
-  return { props: { bodyClasses: "bg-salmon-100 dark:bg-salmon-900" } };
-}
+// const bodyClasses = "bg-salmon-100 dark:bg-salmon-900";
 
 export default function LandingPage() {
   const smallScaling = "sm:w-sm-base sm:h-sm-base sm:text-sm-base";
@@ -17,10 +13,10 @@ export default function LandingPage() {
 
   return (
     <>
-      <Head>
+      <Helmet>
         <title>{TITLE}</title>
         <IndexSocial />
-      </Head>
+      </Helmet>
       <main className="text-salmon-900 dark:text-salmon-100 font-mono-wide fixed top-0 right-0 bottom-0 left-0 items-center justify-center overflow-auto p-2 font-bold tracking-[0.18em] sm:flex sm:p-0">
         {/*
         Note that the font scale gets applied to this element so that all nested elements can use
@@ -36,8 +32,9 @@ export default function LandingPage() {
               <div className="mr-auto align-middle text-2xl uppercase">
                 Cursorless
               </div>
-              <Logo
-                title="Logo"
+              <img
+                src="/logo.svg"
+                alt="Cursorless logo"
                 className="h-[30px] w-[30px] align-middle sm:h-[4em] sm:w-[4em]"
               />
             </header>
@@ -55,7 +52,6 @@ export default function LandingPage() {
                 isExternal={true}
               />
             </div>
-            <NetlifyFooter />
           </div>
         </div>
       </main>
@@ -69,24 +65,5 @@ function Slogan() {
       <span className="inline-block">Voice coding</span>{" "}
       <span className="inline-block">at the speed of thought</span>
     </h1>
-  );
-}
-
-function NetlifyFooter() {
-  return (
-    <footer className="text-center text-xs font-light tracking-widest">
-      <span className="uppercase dark:opacity-50">
-        This site is powered by{" "}
-      </span>
-      <a
-        href="https://www.netlify.com/"
-        target="_blank"
-        className="text-salmon-400 hover:text-salmon-300"
-        rel="noreferrer"
-      >
-        Netlify
-      </a>
-      .
-    </footer>
   );
 }
