@@ -1,4 +1,4 @@
-import { LATEST_VERSION } from "@cursorless/common";
+import { LATEST_VERSION, waitFor, type HatTokenMap } from "@cursorless/common";
 import {
   getCursorlessApi,
   openNewNotebookEditor,
@@ -21,6 +21,7 @@ async function runTest() {
   await openNewNotebookEditor(['"hello world"']);
 
   await hatTokenMap.allocateHats();
+  await waitForHat(hatTokenMap, "default", "r");
 
   await runCursorlessCommand({
     version: LATEST_VERSION,
@@ -45,4 +46,18 @@ async function runTest() {
   }
 
   assert.deepStrictEqual(editor.document.getText(editor.selection), "world");
+}
+
+async function waitForHat(
+  hatTokenMap: HatTokenMap,
+  hatStyle: "default",
+  character: string,
+) {
+  const success = await waitFor(async () => {
+    const readableHatMap = await hatTokenMap.getReadableMap(false);
+    return readableHatMap.getToken(hatStyle, character) != null;
+  });
+  if (!success) {
+    assert.fail(`Timed out waiting for mark ${hatStyle} '${character}'`);
+  }
 }

@@ -25,7 +25,7 @@ export const CONFIGURATION_DEFAULTS: CursorlessConfiguration = {
     symbolsToPreserve: [],
   },
   wordSeparators: ["_"],
-  decorationDebounceDelayMs: 50,
+  decorationDebounceDelayMs: 0,
   experimental: {
     hatStability: HatStability.balanced,
     keyboardTargetFollowsSelection: false,

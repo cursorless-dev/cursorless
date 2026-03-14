@@ -53,6 +53,7 @@ export * from "./testUtil/spyToPlainObject";
 export * from "./testUtil/TestCaseSnapshot";
 export * from "./testUtil/testConstants";
 export * from "./testUtil/viteHtmlParamsPlugin";
+export * from "./testUtil/waitFor";
 export * from "./types/command/ActionDescriptor";
 export * from "./types/command/command.types";
 export * from "./types/command/CommandV6.types";
