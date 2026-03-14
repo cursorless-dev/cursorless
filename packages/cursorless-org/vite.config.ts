@@ -8,20 +8,14 @@ export default defineConfig((): UserConfig => {
     build: {
       outDir: "out",
 
-      //   rolldownOptions: {
-      //     onLog(level, log, defaultHandler) {
-      //         console.log(log.code);
-      //       if (
-      //         level === "warn" &&
-      //         log.code === "COMMONJS_VARIABLE_IN_ESM" &&
-      //         typeof log.message === "string" &&
-      //         log.message.includes("dash.all.min.js")
-      //       ) {
-      //         return;
-      //       }
-      //       defaultHandler(level, log);
-      //     },
-      //   },
+      rolldownOptions: {
+        onLog(level, log, defaultHandler) {
+          if (level === "warn") {
+            log.message = formatMessage(log.message);
+          }
+          defaultHandler(level, log);
+        },
+      },
     },
 
     resolve: {
@@ -31,3 +25,12 @@ export default defineConfig((): UserConfig => {
     plugins: [react(), svgr()],
   };
 });
+
+function formatMessage(message: string): string {
+  const maxLength = 1000;
+  const lines = message
+    .split("\r?\n")
+    .map((l) => l.trimEnd())
+    .map((l) => (l.length > maxLength ? l.slice(0, maxLength) + "..." : l));
+  return lines.join("\n");
+}
