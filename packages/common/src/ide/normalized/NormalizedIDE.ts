@@ -41,6 +41,7 @@ export class NormalizedIDE extends PassthroughIDE {
       { wordSeparators: ["_", "-"] },
       true,
     );
+    this.configuration.mockConfiguration("decorationDebounceDelayMs", 0);
     this.configuration.mockConfiguration("experimental", {
       hatStability: this.configuration.getOwnConfiguration(
         "experimental.hatStability",

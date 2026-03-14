@@ -54,7 +54,6 @@ export function endToEndTestSetup(
   });
 
   suiteTeardown(() => {
-    originalIde.configuration.clearMockConfiguration();
     resetReusableEditor();
   });
 
