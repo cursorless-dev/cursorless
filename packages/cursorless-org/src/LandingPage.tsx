@@ -27,8 +27,7 @@ export function LandingPage() {
                 Cursorless
               </div>
               <Logo
-                aria-label="Cursorless logo"
-                role="img"
+                title="Cursorless logo"
                 className="h-[30px] w-[30px] align-middle sm:h-[4em] sm:w-[4em]"
               />
             </header>
