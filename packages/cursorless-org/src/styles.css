@@ -1,12 +1,24 @@
 @import "tailwindcss";
 
-@config "../../tailwind.config.mjs";
+@config "../tailwind.config.mjs";
 
 :root {
   --safe-area-inset-top: env(safe-area-inset-top);
   --safe-area-inset-bottom: env(safe-area-inset-bottom);
   --safe-area-inset-left: env(safe-area-inset-left);
   --safe-area-inset-right: env(safe-area-inset-right);
+}
+
+@media (min-width: 640px) and (min-aspect-ratio: 2/1) {
+  .landing-page-scale {
+    @apply w-stretched-base h-stretched-base text-stretched-base;
+  }
+}
+
+@media (min-width: 640px) and (max-aspect-ratio: 1/1) {
+  .landing-page-scale {
+    @apply w-stretched-base h-stretched-base text-stretched-base;
+  }
 }
 
 @font-face {

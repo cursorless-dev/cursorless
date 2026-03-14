@@ -1,6 +1,6 @@
 import type { CheatsheetInfo } from "@cursorless/cheatsheet";
 import { CheatsheetPage } from "@cursorless/cheatsheet";
-import "../styles.css";
+import "./styles.css";
 
 declare global {
   interface Document {
@@ -18,5 +18,3 @@ declare global {
 export function App() {
   return <CheatsheetPage cheatsheetInfo={document.cheatsheetInfo} />;
 }
-
-export default App;

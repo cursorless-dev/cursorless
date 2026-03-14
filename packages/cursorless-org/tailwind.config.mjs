@@ -1,5 +1,3 @@
-/* eslint-disable import/no-anonymous-default-export */
-
 import defaultTheme from "tailwindcss/defaultTheme";
 import { readFileSync } from "node:fs";
 
@@ -53,9 +51,6 @@ export default {
   content: [".", ...references].map((pkg) => `${pkg}/src/**/*.{js,ts,jsx,tsx}`),
   theme: {
     extend: {
-      screens: {
-        stretched: { raw: "(min-aspect-ratio: 2/1), (max-aspect-ratio: 1/1)" },
-      },
       fontFamily: {
         mono: ["Inconsolata", ...defaultTheme.fontFamily.mono],
         "mono-wide": [

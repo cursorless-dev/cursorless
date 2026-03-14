@@ -3,8 +3,7 @@
   "compilerOptions": {
     "target": "es2022",
     "lib": ["dom", "es2022"],
-    "jsx": "preserve",
-    "allowJs": true,
+    "jsx": "react-jsx",
     "skipLibCheck": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -16,7 +15,6 @@
     "src/**/*.ts",
     "src/**/*.json",
     "src/**/*.tsx",
-    "next-env.d.ts",
     "../../typings/**/*.d.ts"
   ],
   "references": [

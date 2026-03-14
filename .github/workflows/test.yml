@@ -20,7 +20,6 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -30,6 +29,22 @@ jobs:
 
       - name: Lint
         run: pnpm --color lint
+
+      - name: Forbid TODO
+        run: ./scripts/forbid-todo.sh
+
+  build-website:
+    name: Build Website
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: ./.github/actions/setup-node
+
+      - name: Build website
+        run: bash -x scripts/build-and-assemble-website.sh
 
   test-main:
     name: Test
@@ -46,7 +61,6 @@ jobs:
       APP_VERSION: ${{ matrix.app_version }}
       VSCODE_CRASH_DIR: ${{ github.workspace }}/artifacts/dumps
       VSCODE_LOGS_DIR: ${{ github.workspace }}/artifacts/logs
-
     steps:
       - name: Git config
         run: git config --global core.autocrlf false
@@ -139,7 +153,6 @@ jobs:
   test-neovim:
     name: Test Neovim
     runs-on: ubuntu-latest
-
     steps:
       - name: Git config
         run: git config --global core.autocrlf false
