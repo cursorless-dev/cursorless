@@ -1,7 +1,7 @@
 import { EmbeddedVideo } from "./embedded-video";
-import Button from "./Button";
+import { Button } from "./Button";
 import { TITLE, YOUTUBE_SLUG } from "./constants";
-import IndexSocial from "./IndexSocial";
+import { IndexSocial } from "./IndexSocial";
 import Logo from "./logo.svg?react";
 
 export function LandingPage() {

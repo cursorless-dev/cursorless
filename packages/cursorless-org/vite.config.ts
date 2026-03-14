@@ -1,17 +1,27 @@
 import react from "@vitejs/plugin-react";
-import { readFileSync } from "node:fs";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
 import type { UserConfig } from "vite";
 import { defineConfig } from "vite";
 import svgr from "vite-plugin-svgr";
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig((): UserConfig => {
   return {
     build: {
       outDir: "out",
+
+    //   rolldownOptions: {
+    //     onLog(level, log, defaultHandler) {
+    //         console.log(log.code);
+    //       if (
+    //         level === "warn" &&
+    //         log.code === "COMMONJS_VARIABLE_IN_ESM" &&
+    //         typeof log.message === "string" &&
+    //         log.message.includes("dash.all.min.js")
+    //       ) {
+    //         return;
+    //       }
+    //       defaultHandler(level, log);
+    //     },
+    //   },
     },
 
     resolve: {
@@ -19,15 +29,5 @@ export default defineConfig((): UserConfig => {
     },
 
     plugins: [react(), svgr()],
-
-    server: {
-      fs: {
-        allow: [__dirname, ...references],
-      },
-    },
   };
 });
-
-const references = JSON.parse(
-  readFileSync(join(__dirname, "tsconfig.json"), "utf-8"),
-).references.map(({ path }: { path: string }) => join(__dirname, path));

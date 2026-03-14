@@ -4,7 +4,7 @@ interface Props {
   isExternal: boolean;
 }
 
-export default function Button({ text, href, isExternal }: Props) {
+export function Button({ text, href, isExternal }: Props) {
   const extraProps = isExternal
     ? {
         target: "_blank",

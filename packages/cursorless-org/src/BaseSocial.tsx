@@ -15,7 +15,7 @@ export interface Props {
   thumbnailHeight?: string;
 }
 
-export default function BaseSocial({
+export function BaseSocial({
   title,
   description,
   relativeUrl,

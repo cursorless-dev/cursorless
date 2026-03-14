@@ -1,7 +1,7 @@
-import BaseSocial from "./BaseSocial";
+import { BaseSocial } from "./BaseSocial";
 import { DESCRIPTION, TITLE, VIDEO_SHARE_THUMBNAIL_URL } from "./constants";
 
-export default function IndexSocial() {
+export function IndexSocial() {
   return (
     <BaseSocial
       title={TITLE}
