@@ -37,11 +37,13 @@ export function constructTestHelpers(
   scopeProvider: ScopeProvider,
   vscodeTutorial: VscodeTutorial,
   injectIde: (ide: IDE) => void,
+  loadLanguage: (languageId: string) => Promise<void>,
 ): VscodeTestHelpers | undefined {
   return {
     commandServerApi: commandServerApi!,
     ide: normalizedIde,
     injectIde,
+    loadLanguage,
     scopeProvider,
 
     toVscodeEditor,

@@ -3,19 +3,20 @@ import {
   LATEST_VERSION,
   asyncSafety,
   getSnapshotForComparison,
-  sleep,
 } from "@cursorless/common";
 import { getRecordedTestsDirPath, loadFixture } from "@cursorless/node-common";
 import {
   getCursorlessApi,
   runCursorlessCommand,
+  type SpyWebViewEvent,
 } from "@cursorless/vscode-common";
+import { isEqual } from "lodash-es";
 import assert from "node:assert";
 import path from "path";
 import sinon from "sinon";
 import { commands } from "vscode";
-import { endToEndTestSetup, sleepWithBackoff } from "../../endToEndTestSetup";
-import { isEqual } from "lodash-es";
+import { endToEndTestSetup } from "../../endToEndTestSetup";
+import { waitFor } from "../waitFor";
 
 suite("tutorial", async function () {
   const { getSpy } = endToEndTestSetup(this);
@@ -73,56 +74,42 @@ async function runBasicTutorialTest(spyIde: SpyIDE) {
   );
   await checkStepSetup(fixtures[0]);
 
-  // Allow for debounce
-  await sleep(100);
-
-  // Another sleep just in case
-  await sleepWithBackoff(50);
-
   // We allow duplicate messages because they're idempotent. Not sure why some
   // platforms get the init message twice but it doesn't matter.
-  const result = getTutorialWebviewEventLog();
+
   // This is the initial message that the webview sends to the extension.
   // Seeing this means that the javascript in the webview successfully loaded.
-  assert(
-    result.some((e) =>
-      isEqual(e, {
-        type: "messageReceived",
-        data: {
-          type: "getInitialState",
-        },
-      }),
-    ),
+  await waitForEvent(
+    getTutorialWebviewEventLog,
+    (e) => e.type === "messageReceived" && e.data.type === "getInitialState",
   );
 
   // This is the response from the extension to the webview's initial message.
-  assert(
-    result.some((e) =>
-      isEqual(e, {
-        type: "messageSent",
-        data: {
-          type: "doingTutorial",
-          hasErrors: false,
-          id: "tutorial-1-basics",
-          stepNumber: 0,
-          stepContent: [
-            [
-              {
-                type: "string",
-                value: "Say ",
-              },
-              {
-                type: "command",
-                value: "take cap",
-              },
-            ],
+  await waitForEvent(getTutorialWebviewEventLog, (e) =>
+    isEqual(e, {
+      type: "messageSent",
+      data: {
+        type: "doingTutorial",
+        hasErrors: false,
+        id: "tutorial-1-basics",
+        stepNumber: 0,
+        stepContent: [
+          [
+            {
+              type: "string",
+              value: "Say ",
+            },
+            {
+              type: "command",
+              value: "take cap",
+            },
           ],
-          stepCount: 11,
-          title: "Introduction",
-          preConditionsMet: true,
-        },
-      }),
-    ),
+        ],
+        stepCount: 11,
+        title: "Introduction",
+        preConditionsMet: true,
+      },
+    }),
   );
 
   // Check that we focus the tutorial webview when the user starts the tutorial
@@ -149,18 +136,10 @@ async function runBasicTutorialTest(spyIde: SpyIDE) {
     usePrePhraseSnapshot: false,
   });
 
-  // Allow for debounce
-  await sleep(100);
-
-  // Another sleep just in case
-  await sleepWithBackoff(50);
-
-  assert(
-    getTutorialWebviewEventLog().some(
-      (message) =>
-        message.type === "messageSent" &&
-        message.data.preConditionsMet === false,
-    ),
+  await waitForEvent(
+    getTutorialWebviewEventLog,
+    (event) =>
+      event.type === "messageSent" && event.data.preConditionsMet === false,
   );
 
   // Test resuming tutorial
@@ -234,3 +213,15 @@ const runNoOpCursorlessCommand = () =>
     },
     usePrePhraseSnapshot: false,
   });
+
+async function waitForEvent(
+  getTutorialWebviewEventLog: () => SpyWebViewEvent[],
+  predicate: (event: SpyWebViewEvent) => boolean,
+) {
+  const success = await waitFor(() =>
+    getTutorialWebviewEventLog().some(predicate),
+  );
+  if (!success) {
+    assert.fail("Timed out waiting for tutorial event log");
+  }
+}

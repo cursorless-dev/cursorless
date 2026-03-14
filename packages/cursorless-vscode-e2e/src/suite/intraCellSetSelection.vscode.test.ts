@@ -1,5 +1,6 @@
-import { LATEST_VERSION } from "@cursorless/common";
+import { LATEST_VERSION, splitKey } from "@cursorless/common";
 import {
+  getCellIndex,
   getCursorlessApi,
   openNewNotebookEditor,
   runCursorlessCommand,
@@ -16,11 +17,22 @@ suite("Within cell set selection", async function () {
 });
 
 async function runTest() {
-  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
+  const { hatTokenMap, toVscodeEditor } = (await getCursorlessApi())
+    .testHelpers!;
 
-  await openNewNotebookEditor(['"hello world"']);
+  const notebook = await openNewNotebookEditor(['"hello world"']);
 
   await hatTokenMap.allocateHats();
+  const hatMap = await hatTokenMap.getReadableMap(false);
+  const targetHat = hatMap.getEntries().find(([, token]) => {
+    const editor = toVscodeEditor(token.editor);
+    return (
+      getCellIndex(notebook, editor.document) === 0 && token.text === "world"
+    );
+  });
+
+  assert(targetHat != null, 'Expected a default hat for "world" in the cell');
+  const { hatStyle, character } = splitKey(targetHat[0]);
 
   await runCursorlessCommand({
     version: LATEST_VERSION,
@@ -31,8 +43,8 @@ async function runTest() {
         type: "primitive",
         mark: {
           type: "decoratedSymbol",
-          symbolColor: "default",
-          character: "r",
+          symbolColor: hatStyle,
+          character,
         },
       },
     },

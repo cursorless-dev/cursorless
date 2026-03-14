@@ -23,6 +23,7 @@ export interface CursorlessEngine {
   storedTargets: StoredTargetMap;
   hatTokenMap: HatTokenMap;
   injectIde: (ide: IDE) => void;
+  loadLanguage(languageId: string): Promise<void>;
   addCommandRunnerDecorator: (
     commandRunnerDecorator: CommandRunnerDecorator,
   ) => void;
