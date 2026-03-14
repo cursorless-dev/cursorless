@@ -1,11 +1,8 @@
-import {
-  waitFor,
-  type ScopeType,
-  type ScopeTypeInfo,
-} from "@cursorless/common";
+import { type ScopeType, type ScopeTypeInfo } from "@cursorless/common";
 import { assert } from "chai";
 import { isEqual } from "lodash-es";
 import type { SinonSpy } from "sinon";
+import { waitFor } from "../waitFor";
 
 export async function assertCalledWithScopeInfo<T extends ScopeTypeInfo>(
   fake: SinonSpy<[scopeInfos: T[]], void>,

@@ -3,7 +3,6 @@ import {
   LATEST_VERSION,
   asyncSafety,
   getSnapshotForComparison,
-  waitFor,
 } from "@cursorless/common";
 import { getRecordedTestsDirPath, loadFixture } from "@cursorless/node-common";
 import {
@@ -17,6 +16,7 @@ import path from "path";
 import sinon from "sinon";
 import { commands } from "vscode";
 import { endToEndTestSetup } from "../../endToEndTestSetup";
+import { waitFor } from "../waitFor";
 
 suite("tutorial", async function () {
   const { getSpy } = endToEndTestSetup(this);

@@ -1,4 +1,4 @@
-import { LATEST_VERSION, waitFor, type HatTokenMap } from "@cursorless/common";
+import { LATEST_VERSION, type HatTokenMap } from "@cursorless/common";
 import {
   getCursorlessApi,
   openNewNotebookEditor,
@@ -7,6 +7,7 @@ import {
 import assert from "assert";
 import { window } from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
+import { waitFor } from "./waitFor";
 
 // Check that setSelection is able to focus the correct cell
 suite("Within cell set selection", async function () {
