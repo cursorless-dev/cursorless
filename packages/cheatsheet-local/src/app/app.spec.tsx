@@ -1,8 +1,13 @@
+import { fakeCheatsheetInfo } from "@cursorless/cheatsheet";
 import { render } from "preact";
 import { act } from "preact/test-utils";
 import { App } from "./app";
 
 describe("App", () => {
+  beforeEach(() => {
+    document.cheatsheetInfo = fakeCheatsheetInfo;
+  });
+
   afterEach(() => {
     document.body.innerHTML = "";
   });
@@ -26,6 +31,6 @@ describe("App", () => {
       render(<App />, container);
     });
 
-    expect(container.textContent).toMatch(/Welcome cheatsheet-local/gi);
+    expect(container.textContent).toMatch(/Cursorless Cheatsheet/gi);
   });
 });

@@ -80,6 +80,9 @@ importers:
 
   packages/cheatsheet:
     dependencies:
+      '@cursorless/common':
+        specifier: workspace:*
+        version: link:../common
       '@fortawesome/fontawesome-svg-core':
         specifier: ^7.2.0
         version: 7.2.0
