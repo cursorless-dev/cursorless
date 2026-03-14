@@ -7,11 +7,13 @@ import { runBasicRemovalTest } from "./runBasicRemovalTest";
 import { runNestedMultilineContentTest } from "./runNestedMultilineContentTest";
 import { runUpdateTest } from "./runUpdateTest";
 
-suite("scope visualizer", async function () {
+suite("scope visualizer", function () {
   endToEndTestSetup(this);
 
-  const { ide } = (await getCursorlessApi()).testHelpers!;
-  ide.configuration.mockConfiguration("decorationDebounceDelayMs", 0);
+  setup(async () => {
+    const { ide } = (await getCursorlessApi()).testHelpers!;
+    ide.configuration.mockConfiguration("decorationDebounceDelayMs", 0);
+  });
 
   teardown(() => commands.executeCommand("cursorless.hideScopeVisualizer"));
 
