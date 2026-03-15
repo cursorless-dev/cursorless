@@ -1,5 +1,4 @@
 export function applyBootstrapTheme() {
-  console.log("hello");
   const media = window.matchMedia("(prefers-color-scheme: dark)");
 
   function applyTheme() {
@@ -12,4 +11,8 @@ export function applyBootstrapTheme() {
   applyTheme();
 
   media.addEventListener("change", applyTheme);
+
+  return () => {
+    media.removeEventListener("change", applyTheme);
+  };
 }
