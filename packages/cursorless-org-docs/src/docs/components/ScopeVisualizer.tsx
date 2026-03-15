@@ -75,6 +75,7 @@ export function ScopeVisualizer({ languageId, scopeTypeType }: Props) {
     return (
       <div className="mb-4">
         <select
+          className="form-select form-select-sm d-inline-block w-auto"
           value={rangeType}
           onChange={(e) => setRangeType(e.currentTarget.value as RangeType)}
         >

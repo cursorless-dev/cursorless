@@ -1,5 +1,3 @@
-import "./Button.css";
-
 interface Props {
   text: string;
   href: string;

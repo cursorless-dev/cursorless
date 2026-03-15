@@ -1,37 +1,36 @@
-import { EmbeddedVideo } from "./embedded-video";
 import { Button } from "./Button";
 import { EmbeddedVideo } from "./EmbeddedVideo";
-import { TITLE, YOUTUBE_SLUG } from "./constants";
+import { DESCRIPTION, NAME, TITLE, YOUTUBE_SLUG } from "./constants";
 import Logo from "./logo.svg?react";
 
 export function LandingPage() {
-  const smallScaling = "sm:w-sm-base sm:h-sm-base sm:text-sm-base";
-
   return (
     <>
       <title>{TITLE}</title>
-          <div className="d-flex flex-grow-1 flex-column">
-            <header className="d-flex align-items-center">
-                Cursorless
+
+      <main className="landing-page min-vh-100">
+        <div className="container-sm">
+          <div className="row min-vh-100 align-items-center">
+            <div className="col-12">
+              <div className="row ">
+                <div className="col-12">
+                  <Header />
+                </div>
+
+                <div className="col-12">
+                  <Slogan />
+                </div>
+
+                <div className="col-12">
+                  <div className="landing-page-video-frame">
+                    <EmbeddedVideo youtubeSlug={YOUTUBE_SLUG} />
+                  </div>
+                </div>
+
+                <div className="col-12 ">
+                  <Buttons />
+                </div>
               </div>
-              <Logo
-                title="Cursorless logo"
-                className="h-[30px] w-[30px] align-middle sm:h-[4em] sm:w-[4em]"
-              />
-            </header>
-            <Slogan />
-          </div>
-          <div className="border-salmon-100 border-[0.5px] p-px">
-            <EmbeddedVideo youtubeSlug={YOUTUBE_SLUG} />
-          </div>
-          <div className="flex flex-1 flex-col">
-            <div className="my-auto flex w-full flex-row justify-around sm:justify-center sm:gap-[12.8em]">
-              <Button text="Docs" href="/docs" isExternal={false} />{" "}
-              <Button
-                text="Donate"
-                href="https://github.com/sponsors/cursorless-dev"
-                isExternal={true}
-              />
             </div>
           </div>
         </div>
@@ -40,11 +39,34 @@ export function LandingPage() {
   );
 }
 
-function Slogan() {
+function Header() {
   return (
-    <h1 className="my-auto text-center text-lg leading-[1.048888] uppercase">
-      <span className="d-inline-block">Voice coding</span>{" "}
-      <span className="d-inline-block">at the speed of thought</span>
-    </h1>
+    <header className="row align-items-center mb-4">
+      <div className="col text-uppercase">{NAME}</div>
+      <div className="col-auto">
+        <Logo title={`${NAME} logo`} className="landing-page-logo" />
+      </div>
+    </header>
+  );
+}
+
+function Slogan() {
+  return <h1 className="text-center text-uppercase mb-5">{DESCRIPTION}</h1>;
+}
+
+function Buttons() {
+  return (
+    <div className="row justify-content-center mt-5">
+      <div className="col-3 text-center">
+        <Button text="Docs" href="/docs" isExternal={false} />
+      </div>
+      <div className="col-3 text-center">
+        <Button
+          text="Donate"
+          href="https://github.com/sponsors/cursorless-dev"
+          isExternal={true}
+        />
+      </div>
+    </div>
   );
 }
