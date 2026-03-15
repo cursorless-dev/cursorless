@@ -1,5 +1,5 @@
-export * from "./build/viteHtmlParamsPlugin";
-export * from "./build/vitePreactAlias";
+export * from "./buildUtil/viteHtmlParamsPlugin";
+export * from "./buildUtil/vitePreactAlias";
 export * from "./constants";
 export * from "./cursorlessCommandIds";
 export * from "./cursorlessSideBarIds";
