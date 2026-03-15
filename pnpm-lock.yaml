@@ -618,6 +618,12 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0
     devDependencies:
+      '@cursorless/cheatsheet-local':
+        specifier: workspace:*
+        version: link:../cheatsheet-local
+      '@cursorless/cursorless-vscode-tutorial-webview':
+        specifier: workspace:*
+        version: link:../cursorless-vscode-tutorial-webview
       '@types/fs-extra':
         specifier: ^11.0.4
         version: 11.0.4
