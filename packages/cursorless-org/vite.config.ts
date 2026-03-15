@@ -1,7 +1,7 @@
 import { CURSORLESS_ORG_URL, viteHtmlParams } from "@cursorless/common";
-import preact from "@preact/preset-vite";
 import type { UserConfig } from "vite";
 import { defineConfig } from "vite";
+import purgeCss from "vite-plugin-purgecss";
 import svgr from "vite-plugin-svgr";
 import {
   DESCRIPTION,
@@ -29,10 +29,17 @@ export default defineConfig((): UserConfig => {
 
     resolve: {
       conditions: ["cursorless:bundler"],
+
+      alias: {
+        "react-dom/test-utils": "preact/test-utils",
+        "react-dom": "preact/compat",
+        "react/jsx-runtime": "preact/jsx-runtime",
+        react: "preact/compat",
+      },
     },
 
     plugins: [
-      preact(),
+      purgeCss({}),
       svgr(),
       viteHtmlParams({
         CURSORLESS_ORG_URL,

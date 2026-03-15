@@ -1,5 +1,5 @@
-import preact from "@preact/preset-vite";
 import { defineConfig, type UserConfig } from "vite";
+import purgeCss from "vite-plugin-purgecss";
 
 export default defineConfig((): UserConfig => {
   return {
@@ -24,6 +24,6 @@ export default defineConfig((): UserConfig => {
       conditions: ["cursorless:bundler"],
     },
 
-    plugins: [preact()],
+    plugins: [purgeCss({})],
   };
 });
