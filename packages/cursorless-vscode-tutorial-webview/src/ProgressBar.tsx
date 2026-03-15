@@ -1,26 +1,16 @@
-import type { FunctionComponent } from "preact";
-
-interface ProgressBarProps {
+interface Props {
   currentStep: number;
   stepCount: number;
 }
 
 /**
  * A progress bar that shows the current step in a tutorial.
- *
- * From https://flowbite.com/docs/components/progress/
  */
-export const ProgressBar: FunctionComponent<ProgressBarProps> = ({
-  currentStep,
-  stepCount,
-}) => {
+export function ProgressBar({ currentStep, stepCount }: Props) {
   const progress = ((currentStep + 1) / stepCount) * 100;
   return (
-    <div className="h-2.5 w-full rounded-full bg-(--vscode-welcomePage-progress\.background)">
-      <div
-        className="h-2.5 rounded-full bg-(--vscode-welcomePage-progress\.foreground)"
-        style={{ width: `${progress}%` }}
-      ></div>
+    <div className="tutorial-progress progress w-100 rounded-pill">
+      <div className="progress-bar" style={{ width: `${progress}%` }}></div>
     </div>
   );
-};
+}
