@@ -1,0 +1,10 @@
+.landing-page-btn {
+  color: inherit;
+  font-size: 2.4em;
+  letter-spacing: 0.18em;
+  text-decoration: none;
+}
+
+.landing-page-btn:hover {
+  color: var(--salmon-400);
+}

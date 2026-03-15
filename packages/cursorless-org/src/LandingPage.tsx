@@ -1,5 +1,6 @@
 import { EmbeddedVideo } from "./embedded-video";
 import { Button } from "./Button";
+import { EmbeddedVideo } from "./EmbeddedVideo";
 import { TITLE, YOUTUBE_SLUG } from "./constants";
 import Logo from "./logo.svg?react";
 
@@ -9,13 +10,8 @@ export function LandingPage() {
   return (
     <>
       <title>{TITLE}</title>
-      <main className="bg-salmon-100 dark:bg-salmon-900 text-salmon-900 dark:text-salmon-100 font-mono-wide fixed top-0 right-0 bottom-0 left-0 items-center justify-center overflow-auto p-2 font-bold tracking-[0.18em] sm:flex sm:p-0">
-        <div
-          className={`landing-page-scale flex h-full flex-col text-[10px] sm:m-auto ${smallScaling}`}
-        >
-          <div className="flex flex-1 flex-col">
-            <header className="flex flex-row items-center">
-              <div className="mr-auto align-middle text-2xl uppercase">
+          <div className="d-flex flex-grow-1 flex-column">
+            <header className="d-flex align-items-center">
                 Cursorless
               </div>
               <Logo
@@ -47,8 +43,8 @@ export function LandingPage() {
 function Slogan() {
   return (
     <h1 className="my-auto text-center text-lg leading-[1.048888] uppercase">
-      <span className="inline-block">Voice coding</span>{" "}
-      <span className="inline-block">at the speed of thought</span>
+      <span className="d-inline-block">Voice coding</span>{" "}
+      <span className="d-inline-block">at the speed of thought</span>
     </h1>
   );
 }

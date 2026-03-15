@@ -160,10 +160,7 @@ const config: Config = {
     ],
   ],
 
-  plugins: [
-    "./src/plugins/tailwind-plugin.ts",
-    "./src/plugins/scope-tests-plugin.ts",
-  ],
+  plugins: ["./src/plugins/scope-tests-plugin.ts"],
 
   themeConfig: {
     navbar: {

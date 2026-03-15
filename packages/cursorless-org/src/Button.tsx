@@ -1,3 +1,5 @@
+import "./Button.css";
+
 interface Props {
   text: string;
   href: string;
@@ -15,7 +17,7 @@ export function Button({ text, href, isExternal }: Props) {
   return (
     <a
       href={href}
-      className="hover:text-salmon-400 text-center text-2xl tracking-[0.18em] uppercase sm:text-[2.4em]"
+      className="landing-page-btn text-center text-uppercase"
       {...extraProps}
     >
       {text}
