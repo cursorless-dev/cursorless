@@ -1,10 +1,16 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 
 /* Undo some of the global bootstrap styles */
-body {
-  background-color: var(--ifm-background-color);
-  color: var(--ifm-text-color);
-  line-height: inherit;
+
+:root {
+  --bs-body-color: var(--ifm-text-color);
+  --bs-body-bg: var(--ifm-background-color);
+  --bs-body-line-height: var(--ifm-line-height-base);
+}
+
+.navbar {
+  --bs-navbar-padding-x: var(--ifm-navbar-padding-horizontal);
+  --bs-navbar-padding-y: var(--ifm-navbar-padding-vertical);
 }
 
 a {
@@ -22,11 +28,6 @@ h4,
 h5,
 h6 {
   font-weight: var(--ifm-heading-font-weight);
-}
-
-.navbar {
-  padding: var(--ifm-navbar-padding-vertical)
-    var(--ifm-navbar-padding-horizontal);
 }
 
 /* From https://github.com/facebook/docusaurus/blob/cc0bceab9c1678303f6237f5526753edc1b12fc3/website/src/css/custom.css#L70-L86 */
