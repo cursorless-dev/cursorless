@@ -1,3 +1,5 @@
+export * from "./build/viteHtmlParamsPlugin";
+export * from "./build/vitePreactAlias";
 export * from "./constants";
 export * from "./cursorlessCommandIds";
 export * from "./cursorlessSideBarIds";
@@ -52,7 +54,6 @@ export * from "./testUtil/shouldUpdateFixtures";
 export * from "./testUtil/spyToPlainObject";
 export * from "./testUtil/TestCaseSnapshot";
 export * from "./testUtil/testConstants";
-export * from "./testUtil/viteHtmlParamsPlugin";
 export * from "./types/command/ActionDescriptor";
 export * from "./types/command/command.types";
 export * from "./types/command/CommandV6.types";

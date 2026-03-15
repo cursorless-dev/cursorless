@@ -1,3 +1,4 @@
+import { vitePreactAlias } from "@cursorless/common";
 import { defineConfig, type UserConfig } from "vite";
 import purgeCss from "vite-plugin-purgecss";
 
@@ -22,6 +23,7 @@ export default defineConfig((): UserConfig => {
 
     resolve: {
       conditions: ["cursorless:bundler"],
+      alias: vitePreactAlias,
     },
 
     plugins: [purgeCss({})],

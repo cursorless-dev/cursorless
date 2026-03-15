@@ -15,7 +15,7 @@ In either case, to get your changes to appear on the website, you need to update
 To verify that your changes will work on the web cheatsheet, or if you need to make changes to the cheatsheet itself, such as updating the legend, you can run the cheatsheet locally using by running the following command:
 
 ```
-pnpm -F cursorless-org dev
+pnpm -F cursorless-org serve
 ```
 
 and then adding `/cheatsheet` to the preview URL. Changes should show up in realtime as you develop.
