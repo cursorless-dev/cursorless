@@ -18,6 +18,7 @@ pnpm -r generate-railroad
 root_dir=dist/cursorless-org
 docs_dir="$root_dir/docs"
 
+rm -rf "$root_dir"
 mkdir -p "$root_dir"
 mkdir -p "$docs_dir"
 
