@@ -1,6 +1,33 @@
-@import "tailwindcss";
+@import "bootstrap/dist/css/bootstrap.min.css";
 
-@config "../../tailwind.config.mjs";
+/* Undo some of the global bootstrap styles */
+body {
+  background-color: var(--ifm-background-color);
+  color: var(--ifm-text-color);
+  line-height: inherit;
+}
+
+a {
+  text-decoration: var(--ifm-link-decoration);
+}
+
+code {
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: var(--ifm-heading-font-weight);
+}
+
+.navbar {
+  padding: var(--ifm-navbar-padding-vertical)
+    var(--ifm-navbar-padding-horizontal);
+}
 
 /* From https://github.com/facebook/docusaurus/blob/cc0bceab9c1678303f6237f5526753edc1b12fc3/website/src/css/custom.css#L70-L86 */
 .header-github-link:hover {
@@ -27,11 +54,6 @@
 
 [data-theme="light"] .light-mode-invert {
   filter: invert(90%) hue-rotate(180deg);
-}
-
-/* Necessary to make dropdown options work in dark mode */
-select {
-  background-color: var(--ifm-background-color);
 }
 
 .hidden {

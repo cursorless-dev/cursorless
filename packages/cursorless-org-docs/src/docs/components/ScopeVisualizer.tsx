@@ -83,10 +83,10 @@ export function ScopeVisualizer({ languageId, scopeTypeType }: Props) {
           <option value="blend">Blended ranges</option>
         </select>
 
-        <label className="ml-2">
+        <label className="ms-2">
           <input
             type="checkbox"
-            className="mr-1"
+            className="me-1"
             checked={renderWhitespace}
             onChange={(e) => setRenderWhitespace(e.currentTarget.checked)}
           />

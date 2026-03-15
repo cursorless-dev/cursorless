@@ -14,10 +14,10 @@ export function MissingLanguageScopes(): React.JSX.Element {
 
   return (
     <>
-      <label className="ml-1">
+      <label className="ms-1">
         <input
           type="checkbox"
-          className="mr-1"
+          className="me-1"
           checked={showPrivate}
           onChange={(e) => setShowPrivate(e.currentTarget.checked)}
         />
@@ -67,7 +67,7 @@ function Language({
       <h3>
         {languageId}
 
-        <small className="ml-2 text-sm">
+        <small className="ms-2">
           <a href={`../../user/languages/${languageId}`}>link</a>
         </small>
       </h3>
