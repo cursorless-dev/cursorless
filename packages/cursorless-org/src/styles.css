@@ -22,7 +22,7 @@
   background: var(--salmon-100);
   font-family: "Inconsolata-SemiExpanded", monospace;
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.375em;
 }
 
 .landing-page > div {
@@ -30,8 +30,8 @@
 }
 
 .landing-page-logo {
-  width: 2em;
-  height: 2em;
+  width: 1.75em;
+  height: 1.75em;
 }
 
 .landing-page-btn {

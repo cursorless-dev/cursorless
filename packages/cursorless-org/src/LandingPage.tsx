@@ -51,7 +51,7 @@ function Header() {
 }
 
 function Slogan() {
-  return <h1 className="text-center text-uppercase mb-5">{DESCRIPTION}</h1>;
+  return <h1 className="text-center text-uppercase mb-4">{DESCRIPTION}</h1>;
 }
 
 function Buttons() {
