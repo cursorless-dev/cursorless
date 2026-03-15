@@ -9,9 +9,8 @@
   "scripts": {
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
-    "build": "pnpm build:prod",
+    "build": "vite build",
     "build:dev": "vite build --mode development",
-    "build:prod": "vite build",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {

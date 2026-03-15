@@ -14,12 +14,11 @@
     }
   },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "lint": "eslint .",
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
+    "serve": "vite serve",
+    "build": "vite build",
+    "preview": "vite preview",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {

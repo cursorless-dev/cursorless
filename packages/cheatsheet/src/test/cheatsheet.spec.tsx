@@ -1,7 +1,7 @@
 import { render } from "preact";
 import { act } from "preact/test-utils";
-import { CheatsheetPage } from "./CheatsheetPage";
-import { fakeCheatsheetInfo } from "./fakeCheatsheetInfo";
+import { CheatsheetPage } from "../lib/CheatsheetPage";
+import { fakeCheatsheetInfo } from "../lib/fakeCheatsheetInfo";
 
 describe("Cheatsheet", () => {
   afterEach(() => {

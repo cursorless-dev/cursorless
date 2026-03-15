@@ -1,7 +1,7 @@
 import { fakeCheatsheetInfo } from "@cursorless/cheatsheet";
 import { render } from "preact";
 import { act } from "preact/test-utils";
-import { App } from "./app";
+import { App } from "../app/app";
 
 describe("App", () => {
   beforeEach(() => {

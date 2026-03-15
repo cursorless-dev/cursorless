@@ -120,6 +120,9 @@ importers:
       '@cursorless/common':
         specifier: workspace:*
         version: link:../common
+      bootstrap:
+        specifier: ^5.3.8
+        version: 5.3.8(@popperjs/core@2.11.8)
       preact:
         specifier: ^10.29.0
         version: 10.29.0
