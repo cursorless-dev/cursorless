@@ -134,7 +134,7 @@
     {
       "label": "VSCode: Watch tutorial",
       "type": "npm",
-      "script": "watch:tailwind",
+      "script": "watch",
       "isBackground": true,
       "presentation": {
         "reveal": "never"

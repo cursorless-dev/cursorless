@@ -13,36 +13,29 @@
       "default": "./out/index.js"
     }
   },
-  "postcss": {
-    "plugins": {
-      "@tailwindcss/postcss": {}
-    }
-  },
   "scripts": {
     "test": "jest",
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
-    "build": "pnpm build:prod",
+    "serve": "vite serve",
+    "preview": "vite preview",
+    "build": "vite build",
     "build:dev": "vite build --mode development",
-    "build:prod": "vite build --mode production",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
     "@cursorless/cheatsheet": "workspace:*",
     "@cursorless/common": "workspace:*",
-    "preact": "^10.29.0",
-    "tslib": "^2.8.1"
+    "bootstrap": "^5.3.8",
+    "preact": "^10.29.0"
   },
   "devDependencies": {
-    "@preact/preset-vite": "^2.10.3",
-    "@tailwindcss/postcss": "^4.2.1",
     "@types/jest": "^30.0.0",
     "@types/node": "^24.12.0",
     "jest": "^30.3.0",
-    "postcss": "^8.5.8",
-    "tailwindcss": "^4.2.1",
     "typescript": "^5.9.3",
     "vite": "^8.0.0",
+    "vite-plugin-purgecss": "^0.2.13",
     "vite-plugin-singlefile": "^2.3.0"
   }
 }

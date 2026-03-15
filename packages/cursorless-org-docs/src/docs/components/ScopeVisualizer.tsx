@@ -75,6 +75,7 @@ export function ScopeVisualizer({ languageId, scopeTypeType }: Props) {
     return (
       <div className="mb-4">
         <select
+          className="form-select form-select-sm d-inline-block w-auto"
           value={rangeType}
           onChange={(e) => setRangeType(e.currentTarget.value as RangeType)}
         >
@@ -83,10 +84,10 @@ export function ScopeVisualizer({ languageId, scopeTypeType }: Props) {
           <option value="blend">Blended ranges</option>
         </select>
 
-        <label className="ml-2">
+        <label className="ms-2">
           <input
             type="checkbox"
-            className="mr-1"
+            className="me-1"
             checked={renderWhitespace}
             onChange={(e) => setRenderWhitespace(e.currentTarget.checked)}
           />

@@ -17,7 +17,7 @@ fi
 
 # 1. Build local cursorless, using special extension id to break update chain
 pnpm esbuild:prod
-pnpm -F cheatsheet-local build:prod
+pnpm -F cheatsheet-local build
 pnpm -F cursorless-vscode-tutorial-webview build
 pnpm populate-dist --local-install
 

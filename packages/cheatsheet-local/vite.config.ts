@@ -1,20 +1,25 @@
-import { fakeCheatsheetInfo } from "@cursorless/cheatsheet";
-import { viteHtmlParams } from "@cursorless/common";
-import preact from "@preact/preset-vite";
-import { defineConfig } from "vite";
+import { defaultCheatsheetInfo } from "@cursorless/cheatsheet";
+import { viteHtmlParams, vitePreactAlias } from "@cursorless/common";
+import { defineConfig, type UserConfig } from "vite";
+import purgeCss from "vite-plugin-purgecss";
 import { viteSingleFile } from "vite-plugin-singlefile";
 
-export default defineConfig(() => {
+export default defineConfig((): UserConfig => {
   return {
     build: {
       outDir: "dist",
     },
 
+    resolve: {
+      conditions: ["cursorless:bundler"],
+      alias: vitePreactAlias,
+    },
+
     plugins: [
-      preact(),
+      purgeCss({}),
       viteSingleFile(),
       viteHtmlParams({
-        FAKE_CHEATSHEET_INFO: JSON.stringify(fakeCheatsheetInfo),
+        FAKE_CHEATSHEET_INFO: JSON.stringify(defaultCheatsheetInfo),
       }),
     ],
   };

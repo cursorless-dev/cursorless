@@ -1,7 +1,11 @@
-import { CURSORLESS_ORG_URL, viteHtmlParams } from "@cursorless/common";
-import preact from "@preact/preset-vite";
+import {
+  CURSORLESS_ORG_URL,
+  viteHtmlParams,
+  vitePreactAlias,
+} from "@cursorless/common";
 import type { UserConfig } from "vite";
 import { defineConfig } from "vite";
+import purgeCss from "vite-plugin-purgecss";
 import svgr from "vite-plugin-svgr";
 import {
   DESCRIPTION,
@@ -29,10 +33,11 @@ export default defineConfig((): UserConfig => {
 
     resolve: {
       conditions: ["cursorless:bundler"],
+      alias: vitePreactAlias,
     },
 
     plugins: [
-      preact(),
+      purgeCss({}),
       svgr(),
       viteHtmlParams({
         CURSORLESS_ORG_URL,
@@ -50,7 +55,7 @@ export default defineConfig((): UserConfig => {
 function formatMessage(message: string): string {
   const maxLength = 1000;
   const lines = message
-    .split("\r?\n")
+    .split(/\r?\n/)
     .map((l) => l.trimEnd())
     .map((l) => (l.length > maxLength ? l.slice(0, maxLength) + "..." : l));
   return lines.join("\n");

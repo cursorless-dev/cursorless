@@ -14,7 +14,7 @@ export function EmbeddedVideo({ youtubeSlug }: Props) {
     <div style={{ position: "relative", paddingTop: "56.25%" }}>
       {isError ? (
         <div
-          className={`flex h-full w-full border border-black text-center text-red-600`}
+          className="d-flex h-100 w-100 border border-dark text-center text-danger"
           style={{ position: "absolute", top: 0, left: 0 }}
         >
           <div className="m-auto">Error loading YouTube video</div>

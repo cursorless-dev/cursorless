@@ -1,7 +1,7 @@
 import { render } from "preact";
 import { act } from "preact/test-utils";
-import { CheatsheetPage } from "./CheatsheetPage";
-import { fakeCheatsheetInfo } from "./fakeCheatsheetInfo";
+import { Cheatsheet } from "../lib/Cheatsheet";
+import { fakeCheatsheetInfo } from "../lib/utils/fakeCheatsheetInfo";
 
 describe("Cheatsheet", () => {
   afterEach(() => {
@@ -13,7 +13,7 @@ describe("Cheatsheet", () => {
     document.body.append(container);
 
     await act(() => {
-      render(<CheatsheetPage cheatsheetInfo={fakeCheatsheetInfo} />, container);
+      render(<Cheatsheet cheatsheetInfo={fakeCheatsheetInfo} />, container);
     });
 
     expect(container).toBeTruthy();

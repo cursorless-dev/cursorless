@@ -12,11 +12,6 @@
       "default": "./out/index.js"
     }
   },
-  "postcss": {
-    "plugins": {
-      "@tailwindcss/postcss": {}
-    }
-  },
   "browserslist": {
     "production": [
       ">0.5%",
@@ -54,7 +49,9 @@
     "@docusaurus/theme-common": "^3.9.2",
     "@docusaurus/theme-search-algolia": "^3.9.2",
     "@mdx-js/react": "^3.1.1",
+    "bootstrap": "^5.3.8",
     "clsx": "^2.1.1",
+    "docusaurus-plugin-sass": "^0.2.6",
     "mdast-util-find-and-replace": "^3.0.2",
     "prism-react-renderer": "^2.4.1",
     "react": "^19.2.4",
@@ -66,12 +63,10 @@
     "@cursorless/node-common": "workspace:*",
     "@docusaurus/module-type-aliases": "^3.9.2",
     "@docusaurus/types": "^3.9.2",
-    "@tailwindcss/postcss": "^4.2.1",
     "@tsconfig/docusaurus": "^2.0.9",
     "@types/mdast": "^4.0.4",
     "@types/react": "^19.2.14",
-    "postcss": "^8.5.8",
-    "tailwindcss": "^4.2.1",
+    "sass": "^1.93.2",
     "typescript": "^5.9.3",
     "unified": "^11.0.5"
   }

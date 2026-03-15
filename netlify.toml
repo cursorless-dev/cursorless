@@ -1,5 +1,6 @@
 # Netlify configuration file for building and deploying the Cursorless website.
 # Read by Netlify GitHub app.
+# https://app.netlify.com/projects/cursorless/deploys
 
 [build]
   command = "./scripts/build-and-assemble-website.sh"

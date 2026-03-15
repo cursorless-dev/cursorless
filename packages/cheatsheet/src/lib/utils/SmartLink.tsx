@@ -20,9 +20,7 @@ export default function SmartLink({
   children,
   noFormatting = false,
 }: SmartLinkProps) {
-  const className = noFormatting
-    ? ""
-    : "text-blue-500 hover:text-violet-700 dark:text-cyan-400 dark:hover:text-violet-200";
+  const className = noFormatting ? undefined : "cheatsheet-link";
 
   return (
     <span className={className}>

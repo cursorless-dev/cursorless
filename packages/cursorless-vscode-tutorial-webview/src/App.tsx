@@ -1,15 +1,14 @@
 import type { TutorialState } from "@cursorless/common";
-import type { FunctionComponent } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import type { WebviewApi } from "vscode-webview";
-import { TutorialStep } from "./TutorialStep";
 import { Command } from "./Command";
+import { TutorialStep } from "./TutorialStep";
 
 interface Props {
   vscode: WebviewApi<undefined>;
 }
 
-export const App: FunctionComponent<Props> = ({ vscode }) => {
+export function App({ vscode }: Props) {
   const [state, setState] = useState<TutorialState>();
 
   useEffect(() => {
@@ -26,7 +25,7 @@ export const App: FunctionComponent<Props> = ({ vscode }) => {
 
   if (state == null) {
     // Just show nothing while we're waiting for initial state
-    return <></>;
+    return null;
   }
 
   switch (state.type) {
@@ -37,10 +36,11 @@ export const App: FunctionComponent<Props> = ({ vscode }) => {
             To start a tutorial, say <Command spokenForm="tutorial <number>" />,
             or click one of the following tutorials:
           </p>
-          <ol className="mt-2 list-decimal">
+          <ol className="mt-2">
             {state.tutorials.map((tutorial) => (
               <li key={tutorial.id} className="mb-1">
                 <button
+                  className="btn btn-link p-0 text-decoration-none"
                   onClick={() =>
                     vscode.postMessage({
                       type: "start",
@@ -61,42 +61,40 @@ export const App: FunctionComponent<Props> = ({ vscode }) => {
       );
 
     case "doingTutorial":
-      return state.hasErrors ? (
-        <div>
-          <h1 className="text-(--vscode-walkthrough-stepTitle\.foreground)">
-            Error
-          </h1>
-          <p>
-            {state.requiresTalonUpdate ? (
-              <>
+      if (state.hasErrors) {
+        return (
+          <div>
+            <h1 className="has-error">Error</h1>
+            {state.requiresTalonUpdate && (
+              <p>
                 Please{" "}
                 <a
                   href="https://www.cursorless.org/docs/user/updating/#updating-the-talon-side"
-                  className="text-blue-400"
+                  className="link-primary"
                 >
                   update cursorless-talon
                 </a>
-              </>
-            ) : (
-              ""
+              </p>
             )}
-          </p>
-        </div>
-      ) : (
-        <TutorialStep state={state} vscode={vscode} />
-      );
+          </div>
+        );
+      }
+      return <TutorialStep state={state} vscode={vscode} />;
   }
-};
+}
 
-const TutorialProgressIndicator: FunctionComponent<{
+function TutorialProgressIndicator({
+  currentStep,
+  stepCount,
+}: {
   currentStep: number;
   stepCount: number;
-}> = ({ currentStep, stepCount }) => {
+}) {
   if (currentStep === 0) {
     return null;
   }
   if (currentStep === stepCount - 1) {
-    return <span className="mr-1">✅</span>;
+    return <span className="me-1">✅</span>;
   }
-  return <span className="mr-1">🕗</span>;
-};
+  return <span className="me-1">🕗</span>;
+}

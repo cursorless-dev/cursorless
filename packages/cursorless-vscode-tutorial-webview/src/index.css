@@ -1,7 +1,37 @@
-@import "tailwindcss";
+@import "bootstrap/dist/css/bootstrap.min.css";
 
-@config "../tailwind.config.mjs";
+:root {
+  --bs-body-color: var(--vscode-foreground);
+  --bs-body-bg: var(--vscode-sideBar-background);
+}
 
-@theme {
-  --text-2xs: 0.625rem;
+body {
+  padding: 0 0.5rem;
+}
+
+code,
+.btn-link {
+  color: inherit;
+}
+
+.btn-link:hover,
+.btn-link:focus-visible {
+  color: var(--vscode-textLink-activeForeground);
+}
+
+.tutorial-progress {
+  height: 0.625rem;
+  background-color: var(--vscode-welcomePage-progress\.background);
+}
+
+.tutorial-progress > .progress-bar {
+  background-color: var(--vscode-welcomePage-progress\.foreground);
+}
+
+.tutorial-step-counter {
+  font-size: 0.625rem;
+}
+
+h1.has-error {
+  color: var(--vscode-walkthrough-stepTitle\.foreground);
 }

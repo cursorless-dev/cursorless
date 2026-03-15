@@ -154,16 +154,13 @@ const config: Config = {
           ],
         },
         theme: {
-          customCss: [require.resolve("./src/css/custom.css")],
+          customCss: [require.resolve("./src/css/custom.scss")],
         },
       },
     ],
   ],
 
-  plugins: [
-    "./src/plugins/tailwind-plugin.ts",
-    "./src/plugins/scope-tests-plugin.ts",
-  ],
+  plugins: ["docusaurus-plugin-sass", "./src/plugins/scope-tests-plugin.ts"],
 
   themeConfig: {
     navbar: {
