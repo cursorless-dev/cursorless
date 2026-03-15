@@ -97,7 +97,7 @@ function RenderFacets({
     }
 
     return (
-      <div className="card__body">
+      <div className="card-body">
         <ul>
           {facets.map((scope) => {
             return <li key={scope}>{scope}</li>;
@@ -109,7 +109,7 @@ function RenderFacets({
 
   return (
     <div className={"card" + (open ? " open" : "")}>
-      <div className="card__header pointer" onClick={() => setOpen(!open)}>
+      <div className="card-header pointer" onClick={() => setOpen(!open)}>
         {title} ({facets.length})
       </div>
 

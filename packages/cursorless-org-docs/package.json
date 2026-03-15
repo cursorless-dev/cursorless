@@ -51,6 +51,7 @@
     "@mdx-js/react": "^3.1.1",
     "bootstrap": "^5.3.8",
     "clsx": "^2.1.1",
+    "docusaurus-plugin-sass": "^0.2.6",
     "mdast-util-find-and-replace": "^3.0.2",
     "prism-react-renderer": "^2.4.1",
     "react": "^19.2.4",
@@ -65,6 +66,7 @@
     "@tsconfig/docusaurus": "^2.0.9",
     "@types/mdast": "^4.0.4",
     "@types/react": "^19.2.14",
+    "sass": "^1.93.2",
     "typescript": "^5.9.3",
     "unified": "^11.0.5"
   }
