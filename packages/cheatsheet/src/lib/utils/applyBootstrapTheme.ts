@@ -1,4 +1,11 @@
 export function applyBootstrapTheme() {
+  if (
+    typeof window === "undefined" ||
+    typeof window.matchMedia === "undefined"
+  ) {
+    return () => {};
+  }
+
   const media = window.matchMedia("(prefers-color-scheme: dark)");
 
   function applyTheme() {
