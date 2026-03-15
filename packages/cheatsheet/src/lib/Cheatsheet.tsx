@@ -55,7 +55,7 @@ function CheatsheetSections({ cheatsheetInfo }: Props) {
       {cheatsheetInfo.sections
         .filter((section) => section.items.length > 0)
         .map((section) => (
-          <CheatsheetListSection section={section} />
+          <CheatsheetListSection key={section.id} section={section} />
         ))}
       <CheatsheetLegendSection data={cheatsheetLegendData} />
       <CheatsheetNotesSection />
