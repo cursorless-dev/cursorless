@@ -1,6 +1,6 @@
 import { render } from "preact";
 import { act } from "preact/test-utils";
-import { formatCaptures } from "./formatCaptures";
+import { formatCaptures } from "../lib/utils/formatCaptures";
 
 describe("formatCaptures", () => {
   afterEach(() => {

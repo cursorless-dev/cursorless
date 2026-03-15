@@ -1,5 +1,5 @@
 import { Redirect, Route, Router, Switch } from "wouter-preact";
-import { CheatsheetPage } from "./CheatsheetPage";
+import { Cheatsheet } from "./Cheatsheet";
 import { LandingPage } from "./LandingPage";
 
 export function App() {
@@ -8,7 +8,7 @@ export function App() {
       <Switch>
         <Route path="/" component={LandingPage} />
 
-        <Route path="/cheatsheet" component={CheatsheetPage} />
+        <Route path="/cheatsheet" component={Cheatsheet} />
 
         <Redirect to="/" />
       </Switch>

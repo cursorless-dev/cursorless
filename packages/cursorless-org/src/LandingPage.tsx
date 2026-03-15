@@ -8,8 +8,8 @@ export function LandingPage() {
     <>
       <title>{TITLE}</title>
 
-      <main className="landing-page min-vh-100">
-        <div className="container-sm">
+      <main className="landing-page">
+        <div className="container">
           <div className="row min-vh-100 align-items-center">
             <div className="col-12">
               <div className="row ">

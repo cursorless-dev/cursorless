@@ -1,14 +1,6 @@
-interface CheatsheetLegendEntry {
-  term: string;
-  definition: string;
-  link?: string;
-  linkName?: string;
-  id: string;
-}
+import type { CheatsheetLegend } from "../cheatsheet.types";
 
-export type CheatsheetLegend = CheatsheetLegendEntry[];
-
-const cheatsheetLegend: CheatsheetLegend = [
+export const cheatsheetLegendData: CheatsheetLegend = [
   {
     term: "formatter",
     definition:
@@ -63,5 +55,3 @@ const cheatsheetLegend: CheatsheetLegend = [
     id: "ordinal",
   },
 ];
-
-export default cheatsheetLegend;

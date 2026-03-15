@@ -1,7 +1,7 @@
 import type { ComponentChildren } from "preact";
 import SmartLink from "./SmartLink";
 
-export function formatCaptures(input: string) {
+export function formatCaptures(input: string): ComponentChildren[] {
   const parts: ComponentChildren[] = [];
   let lastIndex = 0;
 
@@ -23,10 +23,7 @@ export function formatCaptures(input: string) {
       );
 
     parts.push(
-      <span
-        key={index}
-        className="inline-block rounded-md bg-[#8686864C] p-[2px] text-[#000000E3] dark:bg-[#FFFFFF33] dark:text-[#FFFFFFE3]"
-      >
+      <span key={index} className="cheatsheet-capture">
         <SmartLink to="#legend" noFormatting={true}>
           {"["}
           {innerElement}

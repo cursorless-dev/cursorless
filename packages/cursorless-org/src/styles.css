@@ -16,6 +16,7 @@
 }
 
 .landing-page {
+  min-height: 100vh;
   overflow: auto;
   color: var(--salmon-900);
   background: var(--salmon-100);

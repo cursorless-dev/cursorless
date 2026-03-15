@@ -1,5 +1,5 @@
 import type { CheatsheetInfo } from "@cursorless/cheatsheet";
-import { CheatsheetPage } from "@cursorless/cheatsheet";
+import { Cheatsheet } from "@cursorless/cheatsheet";
 import "./styles.css";
 
 declare global {
@@ -16,5 +16,5 @@ declare global {
 }
 
 export function App() {
-  return <CheatsheetPage cheatsheetInfo={document.cheatsheetInfo} />;
+  return <Cheatsheet cheatsheetInfo={document.cheatsheetInfo} />;
 }
