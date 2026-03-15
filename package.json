@@ -51,7 +51,6 @@
     "eslint-plugin-unicorn": "^63.0.0",
     "eslint-plugin-unused-imports": "^4.4.1",
     "prettier": "^3.8.1",
-    "prettier-plugin-tailwindcss": "^0.7.2",
     "syncpack": "^14.2.0",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",

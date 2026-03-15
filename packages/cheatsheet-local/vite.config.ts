@@ -1,13 +1,17 @@
 import { fakeCheatsheetInfo } from "@cursorless/cheatsheet";
 import { viteHtmlParams } from "@cursorless/common";
 import preact from "@preact/preset-vite";
-import { defineConfig } from "vite";
+import { defineConfig, type UserConfig } from "vite";
 import { viteSingleFile } from "vite-plugin-singlefile";
 
-export default defineConfig(() => {
+export default defineConfig((): UserConfig => {
   return {
     build: {
       outDir: "dist",
+    },
+
+    resolve: {
+      conditions: ["cursorless:bundler"],
     },
 
     plugins: [

@@ -13,11 +13,6 @@
       "default": "./out/index.js"
     }
   },
-  "postcss": {
-    "plugins": {
-      "@tailwindcss/postcss": {}
-    }
-  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -30,18 +25,16 @@
   "dependencies": {
     "@cursorless/cheatsheet": "workspace:*",
     "@cursorless/common": "workspace:*",
+    "bootstrap": "^5.3.8",
     "preact": "^10.29.0",
     "react-player": "^3.4.0",
     "wouter-preact": "^3.9.0"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.10.3",
-    "@tailwindcss/postcss": "^4.2.1",
     "@types/node": "^24.12.0",
     "eslint": "^10.0.3",
     "http-server": "^14.1.1",
-    "postcss": "^8.5.8",
-    "tailwindcss": "^4.2.1",
     "typescript": "^5.9.3",
     "vite": "^8.0.0",
     "vite-plugin-svgr": "^4.5.0"

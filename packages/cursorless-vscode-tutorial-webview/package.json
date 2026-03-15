@@ -7,25 +7,21 @@
   "type": "module",
   "main": "./out/index.js",
   "scripts": {
-    "compile:tsc": "tsc --build",
-    "compile": "pnpm compile:tsc",
-    "watch:tsc": "pnpm compile:tsc --watch",
-    "watch:esbuild": "pnpm build:esbuild --watch",
-    "watch:tailwind": "pnpm build:tailwind --watch",
-    "watch": "pnpm run -F @cursorless/cursorless-vscode-tutorial-webview --parallel '/^watch:.*/'",
-    "build:esbuild": "bash ./compile-esbuild.sh",
-    "build:tailwind": "pnpx @tailwindcss/cli -i ./src/index.css -o ./out/index.css",
+    "compile": "tsc --build",
+    "watch": "tsc --build --watch",
     "build": "pnpm build:prod",
-    "build:prod": "pnpm build:esbuild --minify && pnpm build:tailwind --minify",
-    "build:dev": "pnpm build:esbuild && pnpm build:tailwind",
+    "build:dev": "vite build --mode development",
+    "build:prod": "vite build",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",
+    "bootstrap": "^5.3.8",
     "preact": "^10.29.0"
   },
   "devDependencies": {
+    "@preact/preset-vite": "^2.10.3",
     "@types/vscode-webview": "^1.57.5",
-    "tailwindcss": "^4.2.1"
+    "vite": "^8.0.0"
   }
 }
