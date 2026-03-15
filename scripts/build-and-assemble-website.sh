@@ -6,8 +6,8 @@ pnpm compile
 
 NODE_OPTIONS="--max-old-space-size=6144" \
   pnpm \
-  --filter 'cursorless-org' \
-  --filter 'cursorless-org-*' \
+  -F 'cursorless-org' \
+  -F 'cursorless-org-docs' \
   build
 
 pnpm -r generate-railroad

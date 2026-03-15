@@ -126,9 +126,6 @@ importers:
       preact:
         specifier: ^10.29.0
         version: 10.29.0
-      tslib:
-        specifier: ^2.8.1
-        version: 2.8.1
     devDependencies:
       '@types/jest':
         specifier: ^30.0.0

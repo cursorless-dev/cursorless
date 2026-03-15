@@ -1,6 +1,6 @@
 import { render } from "preact";
 import { StrictMode } from "preact/compat";
-import { App } from "./app/app";
+import { App } from "./app";
 
 render(
   <StrictMode>
