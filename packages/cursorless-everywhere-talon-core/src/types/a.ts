@@ -10,3 +10,10 @@ declare namespace console {
   function warn(...objs: any): void;
   function error(...objs: any): void;
 }
+
+declare namespace performance {
+  function now(): number;
+}
+
+declare function setTimeout(callback: () => void, ms: number): void;
+declare function clearTimeout(timeoutId: unknown): void;

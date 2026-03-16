@@ -7,6 +7,12 @@ if (global.process == null) {
   };
 }
 
+if (global.performance == null) {
+  global.performance = {
+    now: () => Date.now(),
+  };
+}
+
 // Allows us to use `console.*` with quickjs
 if (typeof print !== "undefined") {
   global.console = {
@@ -22,4 +28,8 @@ if (typeof print !== "undefined") {
 // https://github.com/cursorless-dev/cursorless/issues/2596
 global.setTimeout = (callback: () => void, _delay: number) => {
   callback();
+};
+
+global.clearTimeout = (_timeoutId: unknown) => {
+  // no-op
 };

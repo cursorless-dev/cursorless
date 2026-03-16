@@ -1,8 +1,11 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "noEmit": true,
-    "typeRoots": ["src/types", "node_modules/@types"]
+    "skipLibCheck": true
   },
-  "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "../cursorless-everywhere-talon-core/src/types/**/*.d.ts"
+  ]
 }
