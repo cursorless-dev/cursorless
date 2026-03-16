@@ -1,13 +1,11 @@
+import { getLockfileImporterId } from "@pnpm/lockfile-file";
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
+import { cloneDeep, isEqual, uniq } from "lodash-es";
 import normalizePath from "normalize-path";
 import * as path from "path";
-import { pathExists } from "path-exists";
-import type { PackageJson, TsConfigJson } from "type-fest";
-import { toPosixPath } from "./toPosixPath";
+import type { TsConfigJson } from "type-fest";
 import type { Context } from "./Context";
-import { cloneDeep, isEqual, uniq } from "lodash-es";
-import { readFile } from "fs/promises";
-import { getLockfileImporterId } from "@pnpm/lockfile-file";
+import { toPosixPath } from "./toPosixPath";
 
 /**
  * Given a tsconfig.json, update it to match our conventions.  This function is
@@ -56,43 +54,14 @@ export async function updateTSConfig(
     throw new Error(`No importer found for ${pathFromRootToPackage}`);
   }
 
-  const deps = {
-    ...lockFilePackageInfo.dependencies,
-    ...lockFilePackageInfo.devDependencies,
-  };
-
-  /** Computed tsconfig.json references based on dependencies. */
-  const references = [] as Array<{ path: string }>;
-  for (const spec of Object.values(deps)) {
-    if (!spec.startsWith("link:") || spec.length === 5) {
-      // Only consider references to other packages in monorepo.
-      continue;
-    }
-    const relativePath = spec.slice(5);
-    if (
-      !(await pathExists(path.join(packageDir, relativePath, "tsconfig.json")))
-    ) {
-      throw new Error(`No tsconfig found for ${relativePath}`);
-    }
-    if (
-      (
-        JSON.parse(
-          await readFile(path.join(packageDir, relativePath, "package.json"), {
-            encoding: "utf-8",
-          }),
-        ) as PackageJson
-      ).private
-    ) {
-      throw new Error(`Dependency ${relativePath} is private`);
-    }
-    references.push({ path: relativePath });
-  }
-
   const compilerOptions = {
     ...(cloneDeep(input.compilerOptions) ?? {}),
   };
   delete compilerOptions.outDir;
   delete compilerOptions.rootDir;
+
+  const packageIncludes =
+    input.include?.filter((i) => i.startsWith("../cursorless")) ?? [];
 
   return {
     ...input,
@@ -100,18 +69,12 @@ export async function updateTSConfig(
 
     ...(isEqual(compilerOptions, {}) ? {} : { compilerOptions }),
 
-    references: references.sort((r1, r2) => r1.path.localeCompare(r2.path)),
     include: [
       "src/**/*.ts",
-      "src/**/*.json",
-
       ...(input.compilerOptions?.jsx == null ? [] : ["src/**/*.tsx"]),
-
-      ...((await pathExists(path.join(packageDir, "next.config.js")))
-        ? ["next-env.d.ts"]
-        : []),
-
+      "src/**/*.json",
       toPosixPath(path.join(pathFromPackageToRoot, "typings", "**/*.d.ts")),
+      ...packageIncludes,
     ],
   };
 }

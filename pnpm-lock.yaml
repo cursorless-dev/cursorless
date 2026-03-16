@@ -770,9 +770,6 @@ importers:
       normalize-path:
         specifier: ^3.0.0
         version: 3.0.0
-      path-exists:
-        specifier: ^5.0.0
-        version: 5.0.0
       type-fest:
         specifier: ^5.4.4
         version: 5.4.4
