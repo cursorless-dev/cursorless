@@ -25,7 +25,7 @@
     "lint:style": "stylelint '**/*.{css,scss}'",
     "lint": "pnpm run lint:meta && pnpm run lint:syncpack && pnpm run lint:ts && pnpm run lint:style",
     "init-vscode-sandbox": "pnpm -F @cursorless/cursorless-vscode init-launch-sandbox",
-    "meta-updater": "env NODE_OPTIONS='--import=tsx' meta-updater",
+    "meta-updater": "env NODE_OPTIONS=--import=tsx meta-updater",
     "preinstall": "npx only-allow pnpm",
     "test": "pnpm -r test",
     "test:subset": "pnpm -r test:subset",

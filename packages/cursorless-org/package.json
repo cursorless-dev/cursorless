@@ -12,9 +12,8 @@
   },
   "scripts": {
     "typecheck": "tsc",
-    "dev": "vite serve",
-    "build": "vite build",
-    "preview": "vite preview",
+    "dev": "env NODE_OPTIONS=--import=tsx vite serve",
+    "build": "env NODE_OPTIONS=--import=tsx vite build",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
