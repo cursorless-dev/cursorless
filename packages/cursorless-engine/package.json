@@ -13,7 +13,7 @@
     "generate-grammar:base": "nearleyc src/customCommandGrammar/grammar.ne",
     "ensure-grammar-up-to-date": "pnpm -s generate-grammar:base | diff -u src/customCommandGrammar/generated/grammar.ts -",
     "generate-grammar": "pnpm generate-grammar:base -o src/customCommandGrammar/generated/grammar.ts",
-    "generate-railroad": "nearley-railroad src/customCommandGrammar/grammar.ne -o out/railroad.html"
+    "generate-railroad": "mkdir -p out && nearley-railroad src/customCommandGrammar/grammar.ne -o out/railroad.html"
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",
