@@ -67,8 +67,16 @@
       "nearley@2.20.1": "patches/nearley@2.20.1.patch"
     },
     "overrides": {
-      "@docusaurus/core>webpack-dev-server": "5.2.2",
+      "@swc/helpers": "^0.5.17",
       "@yarnpkg/shell>cross-spawn": "7.0.6"
+    },
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "eslint-plugin-import>eslint": "^10.0.0",
+        "@pnpm/lockfile-file>@pnpm/logger": "^1001.0.1",
+        "@pnpm/fetch>@pnpm/logger": "^1001.0.1",
+        "@pnpm/core-loggers>@pnpm/logger": "^1001.0.1"
+      }
     }
   }
 }
