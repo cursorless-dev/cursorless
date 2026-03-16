@@ -82,7 +82,6 @@ async function main() {
   await build({
     entryPoints: [fileToRun],
     sourcemap: true,
-    conditions: ["cursorless:bundler"],
     logLevel: "warning",
     platform: "node",
     bundle: true,

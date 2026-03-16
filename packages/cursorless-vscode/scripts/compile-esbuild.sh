@@ -9,5 +9,4 @@ esbuild \
     --bundle \
     --external:vscode \
     --platform=node \
-    --conditions=cursorless:bundler \
     "$@"

@@ -1,18 +1,4 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"],
-  "references": [
-    {
-      "path": "../common"
-    },
-    {
-      "path": "../cursorless-everywhere-talon-core"
-    },
-    {
-      "path": "../node-common"
-    },
-    {
-      "path": "../test-case-recorder"
-    }
-  ]
+  "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"]
 }

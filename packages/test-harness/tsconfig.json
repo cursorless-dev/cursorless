@@ -1,18 +1,4 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"],
-  "references": [
-    {
-      "path": "../common"
-    },
-    {
-      "path": "../neovim-common"
-    },
-    {
-      "path": "../neovim-registry"
-    },
-    {
-      "path": "../node-common"
-    }
-  ]
+  "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"]
 }

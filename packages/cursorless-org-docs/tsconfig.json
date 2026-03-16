@@ -3,8 +3,6 @@
   "compilerOptions": {
     "target": "es2022",
     "lib": ["dom", "es2022"],
-    "moduleResolution": "nodenext",
-    "module": "nodenext",
     "jsx": "react",
     "esModuleInterop": true
   },
@@ -14,13 +12,5 @@
     "src/**/*.tsx",
     "../../typings/**/*.d.ts"
   ],
-  "exclude": ["node_modules"],
-  "references": [
-    {
-      "path": "../common"
-    },
-    {
-      "path": "../node-common"
-    }
-  ]
+  "exclude": ["node_modules"]
 }

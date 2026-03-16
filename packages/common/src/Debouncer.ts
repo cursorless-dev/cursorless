@@ -3,7 +3,7 @@
  * value to determine the debounce delay.
  */
 export class Debouncer {
-  private timeoutHandle: NodeJS.Timeout | null = null;
+  private timeoutHandle: ReturnType<typeof setTimeout> | null = null;
 
   constructor(
     /** The callback to debounce */

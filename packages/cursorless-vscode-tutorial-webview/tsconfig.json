@@ -5,11 +5,6 @@
     "jsx": "react-jsx",
     "jsxImportSource": "preact"
   },
-  "references": [
-    {
-      "path": "../common"
-    }
-  ],
   "include": [
     "src/**/*.ts",
     "src/**/*.json",

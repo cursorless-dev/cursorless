@@ -5,19 +5,9 @@
   "tasks": [
     // Generic build tasks
     {
-      "label": "TSBuild",
-      "type": "npm",
-      "script": "compile",
-      "problemMatcher": "$tsc",
-      "presentation": {
-        "reveal": "silent"
-      },
-      "group": "build"
-    },
-    {
       "label": "Build test harness",
       "type": "npm",
-      "script": "build",
+      "script": "bundle",
       "path": "packages/test-harness",
       "presentation": {
         "reveal": "silent"
@@ -30,34 +20,6 @@
       "script": "generate-grammar",
       "presentation": {
         "reveal": "silent"
-      },
-      "group": "build"
-    },
-
-    // Generic watch tasks
-    {
-      "label": "watch",
-      "dependsOn": ["Watch esbuild", "Watch typescript"],
-      "group": "build"
-    },
-    {
-      "type": "npm",
-      "script": "watch:esbuild",
-      "label": "Watch esbuild",
-      "isBackground": true,
-      "presentation": {
-        "reveal": "never"
-      },
-      "group": "build"
-    },
-    {
-      "type": "npm",
-      "script": "watch:tsc",
-      "label": "Watch typescript",
-      "problemMatcher": "$tsc-watch",
-      "isBackground": true,
-      "presentation": {
-        "reveal": "never"
       },
       "group": "build"
     },
@@ -102,7 +64,7 @@
     {
       "label": "VSCode: ESBuild",
       "type": "npm",
-      "script": "esbuild",
+      "script": "bundle:dev",
       "path": "packages/cursorless-vscode",
       "dependsOn": ["Generate grammar"],
       "presentation": {
@@ -124,7 +86,7 @@
     {
       "label": "VSCode: Build tutorial webview",
       "type": "npm",
-      "script": "build:dev",
+      "script": "bundle:dev",
       "path": "packages/cursorless-vscode-tutorial-webview",
       "presentation": {
         "reveal": "silent"
@@ -134,7 +96,7 @@
     {
       "label": "VSCode: Watch tutorial",
       "type": "npm",
-      "script": "watch",
+      "script": "bundle:watch",
       "isBackground": true,
       "presentation": {
         "reveal": "never"
@@ -176,7 +138,7 @@
     {
       "label": "Neovim: ESBuild",
       "type": "npm",
-      "script": "esbuild",
+      "script": "bundle:dev",
       "path": "packages/cursorless-neovim",
       "dependsOn": ["Generate grammar"],
       "presentation": {

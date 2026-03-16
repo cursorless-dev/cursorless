@@ -7,13 +7,14 @@
   "type": "module",
   "main": "./out/index.js",
   "scripts": {
-    "esbuild:dev": "pnpm run esbuild:base src/mainDevelopment.ts",
-    "esbuild:prod": "pnpm run esbuild:base --minify src/mainProduction.ts",
-    "esbuild:watch": "pnpm run esbuild:base --watch src/mainDevelopment.ts",
-    "esbuild:profile": "pnpm run esbuild:base --metafile=meta.json src/mainDevelopment.ts",
-    "esbuild:base": "bash scripts/esbuild.sh",
-    "compile": "tsc --build",
-    "compile:esbuild": "pnpm run esbuild:prod",
+    "bundle:dev": "pnpm run bundle:base src/mainDevelopment.ts",
+    "bundle": "pnpm run bundle:base --minify src/mainProduction.ts",
+    "bundle:watch": "pnpm run bundle:base --watch src/mainDevelopment.ts",
+    "bundle:profile": "pnpm run bundle:base --metafile=meta.json src/mainDevelopment.ts",
+    "bundle:base": "bash scripts/esbuild.sh",
+    "dev": "pnpm run bundle:watch",
+    "build": "pnpm run bundle",
+    "typecheck": "tsc",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {

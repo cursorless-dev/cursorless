@@ -12,7 +12,7 @@
   "scripts": {
     "build": "pnpm -r build",
     "clean": "pnpm -r clean",
-    "compile": "tsc --build && pnpm -r compile:esbuild",
+    "typecheck": "pnpm -r typecheck",
     "fix:meta": "pnpm run meta-updater && pnpm -r exec prettier --write tsconfig.json package.json",
     "fix:syncpack": "syncpack fix",
     "fix:eslint": "pnpm lint:ts --fix",
@@ -25,18 +25,14 @@
     "lint:style": "stylelint '**/*.{css,scss}'",
     "lint": "pnpm run lint:meta && pnpm run lint:syncpack && pnpm run lint:ts && pnpm run lint:style",
     "init-vscode-sandbox": "pnpm -F @cursorless/cursorless-vscode init-launch-sandbox",
-    "meta-updater": "env NODE_OPTIONS='--import=tsx --conditions=cursorless:bundler' meta-updater",
+    "meta-updater": "env NODE_OPTIONS='--import=tsx' meta-updater",
     "preinstall": "npx only-allow pnpm",
-    "test-compile": "tsc --build",
     "test": "pnpm -r test",
     "test:subset": "pnpm -r test:subset",
     "test:update": "pnpm -r test:update",
     "test:update:subset": "pnpm -r test:update:subset",
     "generate-grammar": "pnpm -r generate-grammar",
-    "transform-recorded-tests": "pnpm exec ./packages/common/scripts/my-ts-node.js ./packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts",
-    "watch": "pnpm run -w --parallel '/^watch:.*/'",
-    "watch:esbuild": "pnpm run -r --parallel watch:esbuild",
-    "watch:tsc": "tsc --build --watch"
+    "transform-recorded-tests": "pnpm exec ./packages/common/scripts/my-ts-node.js ./packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts"
   },
   "devDependencies": {
     "@eslint/config-helpers": "^0.5.3",

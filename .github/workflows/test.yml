@@ -27,6 +27,9 @@ jobs:
       - name: Set up Node.js
         uses: ./.github/actions/setup-node
 
+      - name: Typecheck
+        run: pnpm --color typecheck
+
       - name: Lint
         run: pnpm --color lint
 
@@ -74,9 +77,6 @@ jobs:
       - name: Creating log directories
         run: mkdir -p "${{ env.VSCODE_CRASH_DIR }}" "${{ env.VSCODE_LOGS_DIR }}" "${{ env.TEMP_DIR }}"
         shell: bash
-
-      - name: Compile
-        run: pnpm --color compile
 
       - name: Build
         run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build
@@ -162,9 +162,6 @@ jobs:
 
       - name: Set up Node.js
         uses: ./.github/actions/setup-node
-
-      - name: Compile
-        run: pnpm --color compile
 
       - name: Build
         run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build

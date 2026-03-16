@@ -8,19 +8,16 @@
   "main": "./out/index.js",
   "types": "./out/index.d.ts",
   "exports": {
-    ".": {
-      "cursorless:bundler": "./src/index.ts",
-      "default": "./out/index.js"
-    }
+    ".": "./out/index.js"
   },
   "scripts": {
     "test": "jest",
-    "compile": "tsc --build",
-    "watch": "tsc --build --watch",
+    "typecheck": "tsc",
     "serve": "vite serve",
     "preview": "vite preview",
-    "build": "vite build",
-    "build:dev": "vite build --mode development",
+    "bundle": "vite build",
+    "bundle:dev": "vite build --mode development",
+    "bundle:watch": "vite build --mode development --watch",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {

@@ -4,27 +4,16 @@
   "description": "The core Cursorless engine, which is responsible for parsing and executing commands, allocating hats, etc",
   "license": "MIT",
   "type": "module",
-  "main": "./out/index.js",
-  "types": "./out/index.d.ts",
   "exports": {
-    ".": {
-      "cursorless:bundler": "./src/index.ts",
-      "default": "./out/index.js"
-    }
+    ".": "./src/index.ts"
   },
   "scripts": {
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
-    "compile:tsc": "tsc --build",
-    "compile:esbuild": "bash ../../scripts/compile-esbuild.sh",
-    "compile": "pnpm compile:tsc && pnpm compile:esbuild",
+    "typecheck": "tsc",
+    "test": "pnpm ensure-grammar-up-to-date",
     "generate-grammar:base": "nearleyc src/customCommandGrammar/grammar.ne",
     "ensure-grammar-up-to-date": "pnpm -s generate-grammar:base | diff -u src/customCommandGrammar/generated/grammar.ts -",
     "generate-grammar": "pnpm generate-grammar:base -o src/customCommandGrammar/generated/grammar.ts",
-    "generate-railroad": "nearley-railroad src/customCommandGrammar/grammar.ne -o out/railroad.html",
-    "test": "pnpm ensure-grammar-up-to-date",
-    "watch:tsc": "pnpm compile:tsc --watch",
-    "watch:esbuild": "pnpm compile:esbuild --watch",
-    "watch": "pnpm run --filter @cursorless/cursorless-engine --parallel '/^watch:.*/'"
+    "generate-railroad": "nearley-railroad src/customCommandGrammar/grammar.ne -o out/railroad.html"
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",

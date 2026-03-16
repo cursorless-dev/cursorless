@@ -1,15 +1,4 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"],
-  "references": [
-    {
-      "path": "../common"
-    },
-    {
-      "path": "../node-common"
-    },
-    {
-      "path": "../sentence-parser"
-    }
-  ]
+  "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"]
 }

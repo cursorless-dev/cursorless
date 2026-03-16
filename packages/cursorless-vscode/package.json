@@ -1281,16 +1281,16 @@
     ]
   },
   "scripts": {
-    "build": "pnpm run esbuild:prod && pnpm run populate-dist",
-    "build:dev": "pnpm generate-grammar && pnpm run esbuild && pnpm run populate-dist",
-    "esbuild:base": "bash ./scripts/compile-esbuild.sh",
+    "build": "pnpm generate-grammar && pnpm -F @cursorless/cheatsheet-local bundle && pnpm -F @cursorless/cursorless-vscode-tutorial-webview bundle && pnpm run bundle && pnpm run populate-dist",
+    "dev": "pnpm generate-grammar && pnpm -F @cursorless/cursorless-vscode-tutorial-webview bundle:dev && pnpm run bundle:dev && pnpm run populate-dist",
+    "bundle:base": "bash ./scripts/compile-esbuild.sh",
     "install-local": "bash ./scripts/install-local.sh",
     "install-from-pr": "bash ./scripts/install-from-pr.sh",
     "uninstall-local": "bash ./scripts/uninstall-local.sh",
-    "esbuild": "pnpm run esbuild:base --sourcemap",
-    "esbuild:watch": "pnpm run esbuild:base --sourcemap --watch",
-    "esbuild:prod": "pnpm run esbuild:base --minify",
-    "esbuild:meta": "pnpm run esbuild:base --metafile=meta.json",
+    "bundle:dev": "pnpm run bundle:base --sourcemap",
+    "bundle:watch": "pnpm run bundle:base --sourcemap --watch",
+    "bundle": "pnpm run bundle:base --minify",
+    "bundle:meta": "pnpm run bundle:base --metafile=meta.json",
     "populate-dist": "my-ts-node ./src/scripts/populateDist/index.ts",
     "init-launch-sandbox": "my-ts-node src/scripts/initLaunchSandbox.ts",
     "preprocess-svg-hats": "my-ts-node src/scripts/preprocessSvgHats.ts",
@@ -1301,8 +1301,7 @@
     "generate-grammar": "pnpm generate-grammar:base -o src/keyboard/grammar/generated/grammar.ts",
     "generate-railroad": "nearley-railroad src/keyboard/grammar/grammar.ne -o out/railroad.html",
     "test": "pnpm ensure-grammar-up-to-date",
-    "compile": "tsc --build",
-    "watch": "tsc --build --watch",
+    "typecheck": "tsc",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "extensionDependencies": [

@@ -8,5 +8,4 @@ esbuild \
     --format=cjs \
     --bundle \
     --platform=node \
-    --conditions=cursorless:bundler \
     "$@"

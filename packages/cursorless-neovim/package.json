@@ -7,22 +7,18 @@
   "main": "./out/index.cjs",
   "types": "./out/index.d.ts",
   "exports": {
-    ".": {
-      "cursorless:bundler": "./src/index.ts",
-      "default": "./out/index.cjs"
-    }
+    ".": "./out/index.cjs"
   },
   "scripts": {
-    "build": "pnpm run esbuild:prod && pnpm run populate-dist",
-    "compile": "tsc --build",
-    "esbuild:base": "bash ./scripts/compile-esbuild.sh",
-    "esbuild": "pnpm run esbuild:base --sourcemap",
-    "esbuild:prod": "pnpm run esbuild:base --minify",
+    "build": "pnpm -F @cursorless/test-harness bundle:runner:neovim && pnpm run bundle && pnpm run populate-dist",
+    "dev": "pnpm run bundle:dev && pnpm run populate-dist",
+    "typecheck": "tsc",
+    "bundle:base": "bash ./scripts/compile-esbuild.sh",
+    "bundle:dev": "pnpm run bundle:base --sourcemap",
+    "bundle:watch": "pnpm run bundle:base --sourcemap --watch",
+    "bundle": "pnpm run bundle:base --minify",
     "populate-dist": "bash ./scripts/populate-dist.sh",
     "populate-dist:prod": "bash ./scripts/populate-dist.sh",
-    "watch:tsc": "pnpm compile --watch",
-    "watch:esbuild": "pnpm esbuild --watch",
-    "watch": "pnpm run --filter @cursorless/cursorless-neovim --parallel '/^watch:.*/'",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {

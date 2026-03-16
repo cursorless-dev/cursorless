@@ -8,11 +8,6 @@
     "esModuleInterop": true,
     "skipLibCheck": true
   },
-  "references": [
-    {
-      "path": "../common"
-    }
-  ],
   "include": [
     "src/**/*.ts",
     "src/**/*.json",

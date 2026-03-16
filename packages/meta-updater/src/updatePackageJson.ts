@@ -6,8 +6,6 @@ import type { Context } from "./Context";
 import { getCursorlessVscodeFields } from "./getCursorlessVscodeFields";
 
 const LIB_ENTRY_POINT = "./src/index.ts";
-const LIB_JS_OUTPUT = "./out/index.js";
-const LIB_TS_DECL_OUTPUT = "./out/index.d.ts";
 
 /**
  * Given a package.json, update it to match our conventions.  This function is
@@ -46,20 +44,8 @@ export async function updatePackageJson(
   const exportFields: Partial<PackageJson> = !isLib
     ? {}
     : {
-        main: LIB_JS_OUTPUT,
-        types: LIB_TS_DECL_OUTPUT,
         exports: {
-          ["."]: {
-            // We add a custom condition called `cursorless:bundler` for use with esbuild to
-            // ensure that it uses source .ts files when importing from another
-            // package in our monorepo.  We use this both for esbuild and for tsx.
-            // See
-            // https://github.com/evanw/esbuild/issues/1250#issuecomment-1463826174
-            // and
-            // https://github.com/esbuild-kit/tsx/issues/96#issuecomment-1463825643
-            ["cursorless:bundler"]: LIB_ENTRY_POINT,
-            default: LIB_JS_OUTPUT,
-          },
+          ["."]: LIB_ENTRY_POINT,
         },
       };
 
@@ -97,32 +83,26 @@ async function getScripts(
 ) {
   const scripts: PackageJson.Scripts = {
     ...(inputScripts ?? {}),
-    ...(isLib
-      ? {
-          ["compile:tsc"]: "tsc --build",
-          ["compile:esbuild"]: `bash ../../scripts/compile-esbuild.sh`,
-          compile: "pnpm compile:tsc && pnpm compile:esbuild",
-          ["watch:tsc"]: "pnpm compile:tsc --watch",
-          ["watch:esbuild"]: "pnpm compile:esbuild --watch",
-          watch: `pnpm run --filter ${name} --parallel '/^watch:.*/'`,
-        }
-      : {}),
   };
 
   if (isRoot) {
     return scripts;
   }
 
-  const cleanDirs = ["./out", "tsconfig.tsbuildinfo", "./dist", "./build"];
+  scripts.typecheck = "tsc";
 
-  const clean = `rm -rf ${cleanDirs.join(" ")}`;
+  if (!isLib) {
+    const cleanDirs = ["./out", "tsconfig.tsbuildinfo", "./dist", "./build"];
+    const clean = `rm -rf ${cleanDirs.join(" ")}`;
+    const cleanScripts =
+      name === "@cursorless/cursorless-org-docs"
+        ? ["pnpm clear", clean]
+        : [clean];
 
-  const cleanScripts =
-    name === "@cursorless/cursorless-org-docs"
-      ? ["pnpm clear", clean]
-      : [clean];
-
-  scripts.clean = cleanScripts.join(" && ");
+    scripts.clean = cleanScripts.join(" && ");
+  } else {
+    delete scripts.clean;
+  }
 
   return scripts;
 }

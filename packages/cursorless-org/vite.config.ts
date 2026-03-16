@@ -32,7 +32,6 @@ export default defineConfig((): UserConfig => {
     },
 
     resolve: {
-      conditions: ["cursorless:bundler"],
       alias: vitePreactAlias,
     },
 

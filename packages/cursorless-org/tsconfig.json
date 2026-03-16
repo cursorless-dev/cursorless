@@ -18,13 +18,5 @@
     "src/**/*.tsx",
     "../../typings/**/*.d.ts"
   ],
-  "references": [
-    {
-      "path": "../cheatsheet"
-    },
-    {
-      "path": "../common"
-    }
-  ],
   "exclude": ["node_modules"]
 }

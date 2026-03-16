@@ -26,9 +26,6 @@ jobs:
       - name: Set up Node.js
         uses: ./.github/actions/setup-node
 
-      - name: Compile
-        run: pnpm --color compile
-
       - name: Build
         run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build
         env:
@@ -66,9 +63,6 @@ jobs:
 
       - name: Set up Node.js
         uses: ./.github/actions/setup-node
-
-      - name: Compile
-        run: pnpm --color compile
 
       - name: Build
         run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build

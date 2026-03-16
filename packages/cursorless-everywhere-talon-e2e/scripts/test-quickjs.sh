@@ -10,7 +10,6 @@ esbuild \
     --platform=neutral \
     --format=esm \
     --main-fields=main,module \
-    --conditions=cursorless:bundler \
     --bundle \
     --external:std \
     --external:node:crypto \
