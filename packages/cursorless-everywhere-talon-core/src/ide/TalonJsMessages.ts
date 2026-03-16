@@ -1,6 +1,6 @@
 import type { Messages } from "@cursorless/common";
 import { MessageType } from "@cursorless/common";
-import type { Talon } from "../types/talon.types";
+import type { Talon } from "../types/talon";
 
 export class TalonJsMessages implements Messages {
   constructor(private talon: Talon) {}

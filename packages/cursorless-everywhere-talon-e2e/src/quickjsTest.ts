@@ -5,7 +5,7 @@ import {
 } from "@cursorless/common";
 import { activate } from "@cursorless/cursorless-everywhere-talon-core";
 import * as std from "std";
-import talonMock from "./talonMock";
+import { talonMock } from "./talonMock";
 
 let hasFailed = false;
 

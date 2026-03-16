@@ -15,7 +15,7 @@ import {
 } from "@cursorless/node-common";
 import { constructTestHelpers } from "./constructTestHelpers";
 import { endToEndTestSetup } from "./endToEndTestSetUp";
-import talonMock from "./talonMock";
+import { talonMock } from "./talonMock";
 
 suite("TalonJS: Recorded test cases", async function () {
   const ide = await activate(talonMock, "test");

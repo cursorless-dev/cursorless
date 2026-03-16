@@ -1,5 +1,5 @@
 import type { Clipboard } from "@cursorless/common";
-import type { Talon } from "../types/talon.types";
+import type { Talon } from "../types/talon";
 
 export class TalonJsClipboard implements Clipboard {
   constructor(private talon: Talon) {}

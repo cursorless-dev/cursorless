@@ -24,7 +24,7 @@ import type {
 } from "@cursorless/common";
 import { InMemoryTextEditor, Notifier } from "@cursorless/common";
 import { pull } from "lodash-es";
-import type { Talon } from "../types/talon.types";
+import type { Talon } from "../types/talon";
 import type { EditorEdit, EditorState } from "../types/types";
 import { flashRanges } from "./flashRanges";
 import { TalonJsCapabilities } from "./TalonJsCapabilities";
