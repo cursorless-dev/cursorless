@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from typing import Callable, Concatenate, Sequence
+from typing import Callable, Concatenate, ParamSpec, Sequence, TypeVar
 
 from talon import app, cron, fs, registry
 
@@ -24,7 +24,11 @@ JSON_FILE = Path(__file__).parent / "spoken_forms.json"
 disposables: list[Callable] = []
 
 
-def auto_construct_defaults[**P, R](
+P = ParamSpec("P")
+R = TypeVar("R")
+
+
+def auto_construct_defaults(
     spoken_forms: dict[str, ListToSpokenForms],
     handle_new_values: Callable[[str, Sequence[SpokenFormEntry]], None],
     f: Callable[
