@@ -1,4 +1,4 @@
-import type { Listener } from "../..";
+import type { Listener } from "../../util/Notifier";
 import { HatStability } from "./HatStability";
 import type { Disposable } from "./ide.types";
 import type { GetFieldType, Paths } from "./Paths";

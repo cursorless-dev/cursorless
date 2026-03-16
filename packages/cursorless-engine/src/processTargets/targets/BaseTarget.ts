@@ -3,11 +3,10 @@ import type {
   GeneralizedRange,
   InsertionMode,
   Range,
-  Selection,
   TargetPlainObject,
   TextEditor,
 } from "@cursorless/common";
-import { rangeToPlainObject } from "@cursorless/common";
+import { rangeToPlainObject, Selection } from "@cursorless/common";
 import { isEqual } from "lodash-es";
 import type { EditWithRangeUpdater } from "../../typings/Types";
 import type {
@@ -81,7 +80,7 @@ export abstract class BaseTarget<
   }
 
   get contentSelection(): Selection {
-    return this.contentRange.toSelection(this.isReversed);
+    return Selection.fromRange(this.contentRange, this.isReversed);
   }
 
   get contentRange(): Range {

@@ -1,5 +1,5 @@
-import type { InsertionMode, Selection, TextEditor } from "@cursorless/common";
-import { Range } from "@cursorless/common";
+import type { InsertionMode, TextEditor } from "@cursorless/common";
+import { Range, Selection } from "@cursorless/common";
 import type { EditWithRangeUpdater } from "../../typings/Types";
 import type {
   Destination,
@@ -34,7 +34,7 @@ export class DestinationImpl implements Destination {
   }
 
   get contentSelection(): Selection {
-    return this.contentRange.toSelection(this.target.isReversed);
+    return Selection.fromRange(this.contentRange, this.target.isReversed);
   }
 
   get editor(): TextEditor {

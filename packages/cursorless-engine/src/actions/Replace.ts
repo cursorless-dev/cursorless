@@ -1,5 +1,5 @@
 import type { IDE, ReplaceWith } from "@cursorless/common";
-import { FlashStyle, RangeExpansionBehavior } from "@cursorless/common";
+import { FlashStyle, RangeExpansionBehavior, Selection } from "@cursorless/common";
 import { zip } from "lodash-es";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
@@ -93,7 +93,7 @@ export default class Replace {
         for (const [wrapper, range] of zip(editWrappers, updatedEditRanges)) {
           thatSelections.push({
             editor,
-            selection: wrapper!.edit.updateRange(range!).toSelection(false),
+            selection: Selection.fromRange(wrapper!.edit.updateRange(range!)),
           });
         }
       },

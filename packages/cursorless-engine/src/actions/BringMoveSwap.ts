@@ -2,10 +2,13 @@ import type {
   GeneralizedRange,
   IDE,
   Range,
-  Selection,
   TextEditor,
 } from "@cursorless/common";
-import { FlashStyle, RangeExpansionBehavior } from "@cursorless/common";
+import {
+  FlashStyle,
+  RangeExpansionBehavior,
+  Selection,
+} from "@cursorless/common";
 import { flatten } from "lodash-es";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
@@ -220,7 +223,7 @@ abstract class BringMoveSwap {
       const target = edit.originalTarget;
       return {
         editor: edit.editor,
-        selection: range.toSelection(target.isReversed),
+        selection: Selection.fromRange(range, target.isReversed),
         isSource: edit.isSource,
         target,
       };

@@ -1,6 +1,7 @@
 import assert from "assert";
-import type { GeneralizedRange } from "..";
-import { generalizedRangeTouches, Position } from "..";
+import type { GeneralizedRange } from "./GeneralizedRange";
+import { generalizedRangeTouches } from "./GeneralizedRange";
+import { Position } from "./Position";
 
 suite("generalizedRangeTouches", () => {
   test("character", () => {

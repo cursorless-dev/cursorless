@@ -1,4 +1,4 @@
-import type { Range } from "..";
+import type { Range } from "./Range";
 
 /**
  * Represents a line of text, such as a line of source code.

@@ -1,12 +1,10 @@
-import type {
-  Edit,
-  GeneralizedRange,
-  Range,
-  RevealLineAt,
-  Selection,
-  TextDocument,
-  TextEditorOptions,
-} from "..";
+import type { Edit } from "./Edit";
+import type { GeneralizedRange } from "./GeneralizedRange";
+import type { Range } from "./Range";
+import type { RevealLineAt } from "./RevealLineAt";
+import type { Selection } from "./Selection";
+import type { TextDocument } from "./TextDocument";
+import type { TextEditorOptions } from "./TextEditorOptions";
 
 /**
  * Represents a read-only reference to a text editor.  If you need to modify the

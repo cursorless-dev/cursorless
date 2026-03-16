@@ -1,5 +1,5 @@
 import * as assert from "node:assert";
-import { Range } from "../../..";
+import { Range } from "../../../types/Range";
 import { createTestDocument } from "./createTestDocument";
 
 const text = "hello\nworld";

@@ -1,5 +1,7 @@
 import * as assert from "assert";
-import { Position, Range } from "..";
+import { Position } from "./Position";
+import { Range } from "./Range";
+import { Selection } from "./Selection";
 
 suite("Range", () => {
   test("constructor", () => {
@@ -110,8 +112,8 @@ suite("Range", () => {
   });
 
   test("toSelection", () => {
-    assert.ok(new Range(1, 2, 3, 4).toSelection(true).isReversed);
-    assert.ok(!new Range(1, 2, 3, 4).toSelection(false).isReversed);
+    assert.ok(Selection.fromRange(new Range(1, 2, 3, 4), true).isReversed);
+    assert.ok(!Selection.fromRange(new Range(1, 2, 3, 4), false).isReversed);
   });
 
   test("concise", () => {

@@ -1,5 +1,5 @@
 import type { IDE, TextEditor } from "@cursorless/common";
-import { FlashStyle, Range } from "@cursorless/common";
+import { FlashStyle, Range, Selection } from "@cursorless/common";
 import { flatten, zip } from "lodash-es";
 import { selectionToStoredTarget } from "../core/commandRunner/selectionToStoredTarget";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
@@ -71,7 +71,7 @@ abstract class IndentLineBase {
     return zip(targets, updatedTargetSelections).map(([target, range]) =>
       selectionToStoredTarget({
         editor,
-        selection: range!.toSelection(target!.isReversed),
+        selection: Selection.fromRange(range!, target!.isReversed),
       }),
     );
   }

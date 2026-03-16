@@ -2,6 +2,7 @@ import type { IDE, TextEditor } from "@cursorless/common";
 import {
   FlashStyle,
   RangeExpansionBehavior,
+  Selection,
   toCharacterRange,
   zipStrict,
 } from "@cursorless/common";
@@ -73,7 +74,7 @@ export class PasteFromClipboardDirectly {
 
     const thatTargetSelections = zipStrict(edits, updatedEditSelections).map(
       ([edit, selection]) =>
-        edit.updateRange(selection).toSelection(selection.isReversed),
+        Selection.fromRange(edit.updateRange(selection), selection.isReversed),
     );
 
     await this.ide.flashRanges(

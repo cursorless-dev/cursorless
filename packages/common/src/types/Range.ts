@@ -1,4 +1,4 @@
-import { Position, Selection } from "..";
+import { Position } from "./Position";
 
 export class Range {
   /**
@@ -149,17 +149,6 @@ export class Range {
    */
   public with(start?: Position, end?: Position): Range {
     return new Range(start ?? this.start, end ?? this.end);
-  }
-
-  /**
-   * Construct a new selection from this range
-   * @param isReversed If true active is before anchor
-   * @returns A new selection
-   */
-  public toSelection(isReversed: boolean): Selection {
-    return isReversed
-      ? new Selection(this.end, this.start)
-      : new Selection(this.start, this.end);
   }
 
   /**

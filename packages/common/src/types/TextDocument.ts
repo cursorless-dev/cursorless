@@ -1,5 +1,8 @@
 import type { URI } from "vscode-uri";
-import type { EndOfLine, Position, Range, TextLine } from "..";
+import type { EndOfLine } from "../ide/types/ide.types";
+import type { Position } from "./Position";
+import type { Range } from "./Range";
+import type { TextLine } from "./TextLine";
 
 export interface TextDocument {
   /**

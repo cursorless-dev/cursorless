@@ -1,4 +1,4 @@
-import { defaultCheatsheetInfo } from "@cursorless/cheatsheet";
+import defaultCheatsheetInfo from "@cursorless/cheatsheet/defaultSpokenForms";
 import { viteHtmlParams, vitePreactAlias } from "@cursorless/common";
 import { defineConfig, type UserConfig } from "vite";
 import purgeCss from "vite-plugin-purgecss";

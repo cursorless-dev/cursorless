@@ -1,5 +1,5 @@
 import type { Edit, IDE, TextEditor } from "@cursorless/common";
-import { FlashStyle, Range, zipStrict } from "@cursorless/common";
+import { FlashStyle, Range, Selection, zipStrict } from "@cursorless/common";
 import { range as iterRange, map, pairwise } from "itertools";
 import { flatten } from "lodash-es";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
@@ -47,7 +47,7 @@ export default class JoinLines {
 
         return zipStrict(targets, updatedThatRanges).map(([target, range]) => ({
           editor,
-          selection: range.toSelection(target.isReversed),
+          selection: Selection.fromRange(range, target.isReversed),
         }));
       }),
     );

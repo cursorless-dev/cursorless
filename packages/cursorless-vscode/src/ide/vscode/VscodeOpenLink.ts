@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import type { VscodeTextEditor } from "./VscodeTextEditor";
 import type { OpenLinkOptions, Range } from "@cursorless/common";
+import { Selection } from "@cursorless/common";
 import { toVscodePositionOrRange } from "@cursorless/vscode-common";
 
 export default async function vscodeOpenLink(
@@ -43,7 +44,7 @@ async function runCommandAtRange(
   command: string,
   range: Range,
 ) {
-  await editor.setSelections([range.toSelection(false)], {
+  await editor.setSelections([Selection.fromRange(range)], {
     focusEditor: true,
   });
   await vscode.commands.executeCommand(command);

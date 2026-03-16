@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
 import type { Range } from "@cursorless/common";
+import { Selection } from "@cursorless/common";
 import type { VscodeTextEditor } from "./VscodeTextEditor";
 
 export async function vscodeInsertSnippet(
@@ -8,7 +9,9 @@ export async function vscodeInsertSnippet(
   ranges: Range[] | undefined,
 ): Promise<void> {
   if (ranges != null) {
-    await editor.setSelections(ranges.map((range) => range.toSelection(false)));
+    await editor.setSelections(
+      ranges.map((range) => Selection.fromRange(range)),
+    );
   }
 
   await editor.focus();

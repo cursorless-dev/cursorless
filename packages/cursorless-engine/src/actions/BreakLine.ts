@@ -1,5 +1,5 @@
 import type { Edit, IDE, TextEditor } from "@cursorless/common";
-import { FlashStyle, Position, Range } from "@cursorless/common";
+import { FlashStyle, Position, Range, Selection } from "@cursorless/common";
 import { flatten, zip } from "lodash-es";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
@@ -36,7 +36,7 @@ export class BreakLine {
 
         return zip(targets, updatedRanges).map(([target, range]) => ({
           editor: target!.editor,
-          selection: range!.toSelection(target!.isReversed),
+          selection: Selection.fromRange(range!, target!.isReversed),
         }));
       }),
     );
