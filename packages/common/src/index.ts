@@ -1,5 +1,3 @@
-export * from "./buildUtil/viteHtmlParamsPlugin";
-export * from "./buildUtil/vitePreactAlias";
 export * from "./constants";
 export * from "./cursorlessCommandIds";
 export * from "./cursorlessSideBarIds";
@@ -47,7 +45,6 @@ export * from "./testUtil/asyncSafety";
 export * from "./testUtil/extractTargetedMarks";
 export * from "./testUtil/fromPlainObject";
 export * from "./testUtil/getSnapshotForComparison";
-export * from "./testUtil/preactModuleNameMapper";
 export * from "./testUtil/serialize";
 export * from "./testUtil/serializeTestFixture";
 export * from "./testUtil/shouldUpdateFixtures";

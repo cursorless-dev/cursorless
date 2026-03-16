@@ -8,7 +8,9 @@
     "my-ts-node": "./scripts/my-ts-node.js"
   },
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./jest": "./src/tooling/jest.ts",
+    "./vite": "./src/tooling/vite.ts"
   },
   "scripts": {
     "typecheck": "tsc"

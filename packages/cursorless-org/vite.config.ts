@@ -1,8 +1,5 @@
-import {
-  CURSORLESS_ORG_URL,
-  viteHtmlParams,
-  vitePreactAlias,
-} from "@cursorless/common";
+import { CURSORLESS_ORG_URL } from "@cursorless/common";
+import { viteHtmlParams, vitePreactAlias } from "@cursorless/common/vite";
 import type { UserConfig } from "vite";
 import { defineConfig } from "vite";
 import purgeCss from "vite-plugin-purgecss";
