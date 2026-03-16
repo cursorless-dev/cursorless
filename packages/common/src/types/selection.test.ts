@@ -1,6 +1,5 @@
 import * as assert from "assert";
 import { Position } from "./Position";
-import { Range } from "./Range";
 import { Selection } from "./Selection";
 
 suite("Selection", () => {
