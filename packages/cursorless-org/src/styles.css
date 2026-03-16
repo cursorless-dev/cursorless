@@ -20,7 +20,7 @@
   overflow: auto;
   color: var(--salmon-900);
   background: var(--salmon-100);
-  font-family: "Inconsolata-SemiExpanded", monospace;
+  font-family: Inconsolata-SemiExpanded, monospace;
   font-weight: 700;
   letter-spacing: 0.375em;
 }
@@ -43,6 +43,7 @@
   color: var(--salmon-400);
 }
 
+/* stylelint-disable scss/operator-no-newline-after */
 @layer utilities {
   .landing-page {
     font-size: min(
@@ -65,12 +66,14 @@
     );
   }
 }
+/* stylelint-enable scss/operator-no-newline-after */
 
 @media (prefers-color-scheme: dark) {
   .landing-page {
     color: var(--salmon-100);
     background: var(--salmon-900);
   }
+
   .landing-page-video-frame {
     border-color: var(--salmon-100);
   }
@@ -82,7 +85,7 @@
 }
 
 @font-face {
-  font-family: "Inconsolata-SemiExpanded";
+  font-family: Inconsolata-SemiExpanded;
   font-style: normal;
   font-weight: 300;
   font-stretch: 1% 500%; /* Required by Chrome */
@@ -93,7 +96,7 @@
 }
 
 @font-face {
-  font-family: "Inconsolata-SemiExpanded";
+  font-family: Inconsolata-SemiExpanded;
   font-style: normal;
   font-weight: 400;
   font-stretch: 1% 500%; /* Required by Chrome */
@@ -104,7 +107,7 @@
 }
 
 @font-face {
-  font-family: "Inconsolata-SemiExpanded";
+  font-family: Inconsolata-SemiExpanded;
   font-style: normal;
   font-weight: 500;
   font-stretch: 1% 500%; /* Required by Chrome */
@@ -115,7 +118,7 @@
 }
 
 @font-face {
-  font-family: "Inconsolata-SemiExpanded";
+  font-family: Inconsolata-SemiExpanded;
   font-style: normal;
   font-weight: 600;
   font-stretch: 1% 500%; /* Required by Chrome */
@@ -126,7 +129,7 @@
 }
 
 @font-face {
-  font-family: "Inconsolata-SemiExpanded";
+  font-family: Inconsolata-SemiExpanded;
   font-style: normal;
   font-weight: 700;
   font-stretch: 1% 500%; /* Required by Chrome */
@@ -137,7 +140,7 @@
 }
 
 @font-face {
-  font-family: "Inconsolata-SemiExpanded";
+  font-family: Inconsolata-SemiExpanded;
   font-style: normal;
   font-weight: 800;
   font-stretch: 1% 500%; /* Required by Chrome */
@@ -148,7 +151,7 @@
 }
 
 @font-face {
-  font-family: "Inconsolata";
+  font-family: Inconsolata;
   font-style: normal;
   font-weight: 200;
   font-stretch: 1% 500%; /* Required by Chrome */
@@ -159,7 +162,7 @@
 }
 
 @font-face {
-  font-family: "Inconsolata";
+  font-family: Inconsolata;
   font-style: normal;
   font-weight: 300;
   font-stretch: 1% 500%; /* Required by Chrome */
@@ -169,7 +172,7 @@
 }
 
 @font-face {
-  font-family: "Inconsolata";
+  font-family: Inconsolata;
   font-style: normal;
   font-weight: 400;
   font-stretch: 1% 500%; /* Required by Chrome */
@@ -180,7 +183,7 @@
 }
 
 @font-face {
-  font-family: "Inconsolata";
+  font-family: Inconsolata;
   font-style: normal;
   font-weight: 500;
   font-stretch: 1% 500%; /* Required by Chrome */
@@ -191,7 +194,7 @@
 }
 
 @font-face {
-  font-family: "Inconsolata";
+  font-family: Inconsolata;
   font-style: normal;
   font-weight: 600;
   font-stretch: 1% 500%; /* Required by Chrome */
@@ -202,7 +205,7 @@
 }
 
 @font-face {
-  font-family: "Inconsolata";
+  font-family: Inconsolata;
   font-style: normal;
   font-weight: 700;
   font-stretch: 1% 500%; /* Required by Chrome */

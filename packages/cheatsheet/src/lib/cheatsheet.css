@@ -9,6 +9,7 @@
   --table-th-bg: #c4b4ff;
   --capture-bg: #cecbda;
 }
+
 .cheatsheet #legend .table {
   --bs-table-striped-bg: #ddd6ff;
   --bs-table-bg: #ede9fe;
@@ -19,23 +20,28 @@
     --bs-body-bg: #292524;
     --bs-border-color: #79716b;
   }
+
   .cheatsheet {
     --table-th-bg: #79716b;
     --capture-bg: #696662;
   }
+
   .cheatsheet .table {
     --bs-table-striped-bg: #57534d;
     --bs-table-bg: #44403b;
   }
+
   .cheatsheet .card {
     --bs-card-cap-bg: #44403b;
   }
+
   .cheatsheet #legend {
     --bs-border-color: #4d179a;
     --bs-card-cap-bg: #4d179a;
     --table-th-bg: #8e51ff;
     --capture-bg: #984efe;
   }
+
   .cheatsheet #legend .table {
     --bs-table-striped-bg: #7f22fe;
     --bs-table-bg: #5d0ec0;
@@ -136,7 +142,7 @@
 }
 
 @layer utilities {
-  @media (min-width: 48rem) {
+  @media (width >= 48rem) {
     .cheatsheet-sections {
       columns: 2 !important;
     }
@@ -144,7 +150,7 @@
 }
 
 @layer utilities {
-  @media (min-width: 80rem) {
+  @media (width >= 80rem) {
     .cheatsheet-sections {
       columns: 3 !important;
     }

@@ -24,8 +24,8 @@
   padding-right: 0.5em;
   text-align: right;
   height: 135%;
-  color: rgba(115, 138, 148, 0.4);
-  border-right: 1px solid rgba(115, 138, 148, 0.4);
+  color: rgb(115 138 148 0.4);
+  border-right: 1px solid rgb(115 138 148 0.4);
 }
 
 .code-ws-symbol {
@@ -37,7 +37,7 @@
   display: none;
   position: absolute;
   top: 0.5em;
-  background-color: rgb(216, 222, 233);
+  background-color: rgb(216 222 233);
   border: none;
   padding: 4px 8px;
   border-radius: 4px;
@@ -59,7 +59,7 @@
   right: 0.5em;
 }
 
-.code-container > .code-link:before {
+.code-container > .code-link::before {
   display: inline-block;
   width: 1.25rem;
   height: 0.75rem;
