@@ -107,7 +107,7 @@ export async function launchNeovimAndRunTests() {
     // read log file live and print to console
     // https://stackoverflow.com/questions/26788504/using-node-js-to-read-a-live-file-line-by-line
     let done = false;
-    let tailTest;
+    let tailTest: Tail | undefined;
     try {
       tailTest = new Tail(logName, {
         fromBeginning: true,

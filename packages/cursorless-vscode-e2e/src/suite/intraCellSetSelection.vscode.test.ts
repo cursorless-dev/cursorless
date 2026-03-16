@@ -31,7 +31,9 @@ async function runTest() {
     );
   });
 
-  assert(targetHat != null, 'Expected a default hat for "world" in the cell');
+  if (targetHat == null) {
+    assert.fail('Expected a default hat for "world" in the cell');
+  }
   const { hatStyle, character } = splitKey(targetHat[0]);
 
   await runCursorlessCommand({
@@ -53,7 +55,7 @@ async function runTest() {
   const editor = window.activeTextEditor;
 
   if (editor == null) {
-    assert(false, "No editor was focused");
+    assert.fail("No editor was focused");
   }
 
   assert.deepStrictEqual(editor.document.getText(editor.selection), "world");

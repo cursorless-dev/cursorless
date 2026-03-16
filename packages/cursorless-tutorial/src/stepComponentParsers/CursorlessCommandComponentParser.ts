@@ -115,8 +115,9 @@ function substituteMissingHats(
 
   // Update the hats in the initial state snapshot
   if (initialState.marks != null) {
+    const { marks } = initialState;
     initialState = produce(initialState, (draft) => {
-      draft.marks = mapKeys(draft.marks, (_value, key) => {
+      draft.marks = mapKeys(marks, (_value, key) => {
         const { hatStyle, character } = splitKey(key);
         if (enabledHatStyles[hatStyle] === undefined) {
           return getKey(Object.keys(enabledHatStyles)[0], character);

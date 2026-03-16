@@ -210,12 +210,12 @@ export class TestCase {
     const keys = this.targetKeys.concat(marksToCheck);
 
     this.initialState!.marks = pick(
-      this.initialState!.marks,
+      this.initialState!.marks!,
       keys,
     ) as SerializedMarks;
 
     this.finalState!.marks = pick(
-      this.finalState!.marks,
+      this.finalState!.marks!,
       keys,
     ) as SerializedMarks;
 

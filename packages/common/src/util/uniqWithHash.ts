@@ -51,7 +51,7 @@ export function uniqWithHash<T>(
   // For hash collisions, uniq the items,
   // letting uniqWith provide correct semantics.
   needsUniq.forEach((key) => {
-    hashToItems.set(key, uniqWith(hashToItems.get(key), isEqual));
+    hashToItems.set(key, uniqWith(hashToItems.get(key) ?? [], isEqual));
   });
 
   // To preserve order, step through the original items

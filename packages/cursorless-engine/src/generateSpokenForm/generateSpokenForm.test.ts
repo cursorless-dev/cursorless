@@ -50,7 +50,9 @@ suite("Generate spoken forms", () => {
       regex: "foo",
     });
 
-    assert(spokenForm.type === "success");
+    if (spokenForm.type !== "success") {
+      assert.fail("Expected spoken form generation to succeed");
+    }
     assert.equal(spokenForm.spokenForms, "bar");
   });
 });
@@ -75,7 +77,9 @@ async function runTest(file: string) {
     const hatMapSpokenForm = generator.processCommand(
       getHatMapCommand(fixture.marksToCheck),
     );
-    assert(hatMapSpokenForm.type === "success");
+    if (hatMapSpokenForm.type !== "success") {
+      assert.fail("Expected hat map spoken form generation to succeed");
+    }
     assert(hatMapSpokenForm.spokenForms.length === 1);
     generatedSpokenForm.spokenForms[0] += " " + hatMapSpokenForm.spokenForms[0];
   }
