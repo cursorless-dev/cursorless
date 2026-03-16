@@ -41,13 +41,19 @@ export async function updatePackageJson(
 
   const isLib = !isRoot && !input.private;
 
-  const exportFields: Partial<PackageJson> = !isLib
-    ? {}
-    : {
-        exports: {
-          ["."]: LIB_ENTRY_POINT,
-        },
-      };
+  const exportFields: Partial<PackageJson> = (() => {
+    if (!isLib) {
+      return {};
+    }
+    const exports =
+      input.exports != null &&
+      typeof input.exports === "object" &&
+      !Array.isArray(input.exports)
+        ? input.exports
+        : {};
+    exports["."] = LIB_ENTRY_POINT;
+    return { exports };
+  })();
 
   const isCursorlessVscode = input.name === "@cursorless/cursorless-vscode";
 
