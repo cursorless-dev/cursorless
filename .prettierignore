@@ -1,6 +1,13 @@
-**/vendor
-**/generated
-**/.docusaurus
+.git
+node_modules
+.vscode-test
+packages/*/out
+packages/*/dist
+packages/*/build
+packages/*/.docusaurus
+packages/cursorless-vscode/src/keyboard/grammar/generated
+packages/cursorless-engine/src/customCommandGrammar/generated
+packages/cursorless-engine/src/snippets/vendor
 
 # We use our own format for our recorded yaml tests to keep them compact
 /data/fixtures/recorded/**/*.yml

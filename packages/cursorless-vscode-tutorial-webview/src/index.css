@@ -1,5 +1,7 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 
+/* stylelint-disable custom-property-pattern */
+
 :root {
   --bs-body-color: var(--vscode-foreground);
   --bs-body-bg: var(--vscode-sideBar-background);

@@ -7,7 +7,7 @@ runs:
       with:
         nix_path: nixpkgs=channel:nixos-unstable
     - uses: DeterminateSystems/magic-nix-cache-action@v2
-    - run: nix profile install --accept-flake-config .#lua-language-server
+    - run: nix profile add --accept-flake-config .#lua-language-server
       shell: bash
     - run: scripts/lint-lua-ls.sh
       shell: bash
