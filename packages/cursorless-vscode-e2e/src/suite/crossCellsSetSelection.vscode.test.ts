@@ -47,9 +47,6 @@ async function runTest() {
 
   const editor = window.activeTextEditor;
 
-  if (editor == null) {
-    assert(false, "No editor was focused");
-  }
-
+  assert.ok(editor != null, "No editor was focused");
   assert.deepStrictEqual(editor.document.getText(editor.selection), "world");
 }

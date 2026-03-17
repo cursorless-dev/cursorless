@@ -1,4 +1,5 @@
 import type { IDE } from "@cursorless/common";
+import { Selection } from "@cursorless/common";
 import type { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
 import type { Destination } from "../../typings/target.types";
 import { createThatMark, ensureSingleEditor } from "../../util/targetUtils";
@@ -74,7 +75,7 @@ export class EditNew {
       if (cursorRange == null) {
         throw Error("Cursor range is undefined for destination");
       }
-      return cursorRange.toSelection(destination.target.isReversed);
+      return Selection.fromRange(cursorRange, destination.target.isReversed);
     });
 
     await editableEditor.setSelections(newSelections, { focusEditor: true });

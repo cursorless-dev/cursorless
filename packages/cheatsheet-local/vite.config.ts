@@ -1,5 +1,5 @@
-import { defaultCheatsheetInfo } from "@cursorless/cheatsheet";
-import { viteHtmlParams, vitePreactAlias } from "@cursorless/common";
+import defaultCheatsheetInfo from "@cursorless/cheatsheet/defaultSpokenForms";
+import { viteHtmlParams, vitePreactAlias } from "@cursorless/common/vite";
 import { defineConfig, type UserConfig } from "vite";
 import purgeCss from "vite-plugin-purgecss";
 import { viteSingleFile } from "vite-plugin-singlefile";
@@ -7,11 +7,10 @@ import { viteSingleFile } from "vite-plugin-singlefile";
 export default defineConfig((): UserConfig => {
   return {
     build: {
-      outDir: "dist",
+      outDir: "out",
     },
 
     resolve: {
-      conditions: ["cursorless:bundler"],
       alias: vitePreactAlias,
     },
 

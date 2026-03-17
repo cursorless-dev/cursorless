@@ -8,14 +8,10 @@
   "main": "./out/index.js",
   "types": "./out/index.d.ts",
   "exports": {
-    ".": {
-      "cursorless:bundler": "./src/index.ts",
-      "default": "./out/index.js"
-    }
+    ".": "./out/index.js"
   },
   "scripts": {
-    "compile": "tsc --build",
-    "watch": "tsc --build --watch",
+    "typecheck": "tsc",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
@@ -32,6 +28,6 @@
     "@types/sinon": "^21.0.0",
     "js-yaml": "^4.1.1",
     "neovim": "^5.4.0",
-    "sinon": "^21.0.2"
+    "sinon": "^21.0.3"
   }
 }

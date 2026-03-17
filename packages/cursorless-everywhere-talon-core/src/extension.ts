@@ -11,7 +11,7 @@ import { constructTestHelpers } from "./constructTestHelpers";
 import { TalonJsIDE } from "./ide/TalonJsIDE";
 import { TalonJsTestHats } from "./ide/TalonJsTestHats";
 import { registerCommands } from "./registerCommands";
-import type { Talon } from "./types/talon.types";
+import type { Talon } from "./types/talon";
 import type { ActivateReturnValue } from "./types/types";
 
 export async function activate(

@@ -1,30 +1,25 @@
 #!/usr/bin/env bash
-set -euo pipefail
-set -euo pipefail
+set -euox pipefail
 
 QUICKJS_VERSION=2024-01-13
 
-echo $ esbuild ... src/quickjsTest.ts
 esbuild \
-    --outfile=testOut/quickjsTest.mjs \
+    src/quickjsTest.ts \
+    --outfile=out/quickjsTest.mjs \
     --platform=neutral \
     --format=esm \
     --main-fields=main,module \
-    --conditions=cursorless:bundler \
     --bundle \
     --external:std \
-    --external:node:crypto \
-    src/quickjsTest.ts
+    --external:node:crypto
 
-echo $ cd testOut
-cd testOut
+cd out
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
     brew install quickjs
     # Brew doesn't actually publish different versions of the quickjs binary
     # brew install quickjs@$QUICKJS_VERSION
 
-    echo $ qjs -I quickjsTest.mjs
     qjs -I quickjsTest.mjs
 
     exit 0
@@ -47,11 +42,8 @@ else
     exit 1
 fi
 
-echo $ curl -o $QUICKJS_FILE $QUICKJS_URL
 curl -o $QUICKJS_FILE $QUICKJS_URL
 
-echo $ unzip $QUICKJS_FILE
 unzip $QUICKJS_FILE
 
-echo $ ./qjs -I quickjsTest.mjs
 ./qjs -I quickjsTest.mjs

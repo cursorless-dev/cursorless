@@ -1,4 +1,5 @@
-import type { TextDocument, Range } from "../..";
+import type { Range } from "../../types/Range";
+import type { TextDocument } from "../../types/TextDocument";
 
 /**
  * An event describing a transactional {@link TextDocument document} change.

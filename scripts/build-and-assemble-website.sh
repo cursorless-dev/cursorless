@@ -2,7 +2,6 @@
 set -euox pipefail
 
 pnpm install
-pnpm compile
 
 NODE_OPTIONS="--max-old-space-size=6144" \
   pnpm \

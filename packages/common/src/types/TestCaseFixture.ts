@@ -1,4 +1,5 @@
-import type { Command, CommandLatest, Fallback, FocusedElementType } from "..";
+import type { FocusedElementType } from "./CommandServerApi";
+import type { Command, CommandLatest, Fallback } from "./command/command.types";
 import type { TestCaseSnapshot } from "../testUtil/TestCaseSnapshot";
 import type { PlainSpyIDERecordedValues } from "../testUtil/spyToPlainObject";
 

@@ -1,4 +1,6 @@
-import type { EndOfLine, Position, Range } from "..";
+import type { EndOfLine } from "../ide/types/ide.types";
+import type { Position } from "./Position";
+import type { Range } from "./Range";
 
 /**
  * A complex edit that will be applied in one transaction on a TextEditor.

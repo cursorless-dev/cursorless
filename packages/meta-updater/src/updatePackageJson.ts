@@ -6,8 +6,6 @@ import type { Context } from "./Context";
 import { getCursorlessVscodeFields } from "./getCursorlessVscodeFields";
 
 const LIB_ENTRY_POINT = "./src/index.ts";
-const LIB_JS_OUTPUT = "./out/index.js";
-const LIB_TS_DECL_OUTPUT = "./out/index.d.ts";
 
 /**
  * Given a package.json, update it to match our conventions.  This function is
@@ -43,25 +41,19 @@ export async function updatePackageJson(
 
   const isLib = !isRoot && !input.private;
 
-  const exportFields: Partial<PackageJson> = !isLib
-    ? {}
-    : {
-        main: LIB_JS_OUTPUT,
-        types: LIB_TS_DECL_OUTPUT,
-        exports: {
-          ["."]: {
-            // We add a custom condition called `cursorless:bundler` for use with esbuild to
-            // ensure that it uses source .ts files when importing from another
-            // package in our monorepo.  We use this both for esbuild and for tsx.
-            // See
-            // https://github.com/evanw/esbuild/issues/1250#issuecomment-1463826174
-            // and
-            // https://github.com/esbuild-kit/tsx/issues/96#issuecomment-1463825643
-            ["cursorless:bundler"]: LIB_ENTRY_POINT,
-            default: LIB_JS_OUTPUT,
-          },
-        },
-      };
+  const exportFields: Partial<PackageJson> = (() => {
+    if (!isLib) {
+      return {};
+    }
+    const exports =
+      input.exports != null &&
+      typeof input.exports === "object" &&
+      !Array.isArray(input.exports)
+        ? input.exports
+        : {};
+    exports["."] = LIB_ENTRY_POINT;
+    return { exports };
+  })();
 
   const isCursorlessVscode = input.name === "@cursorless/cursorless-vscode";
 
@@ -93,38 +85,46 @@ async function getScripts(
   name: string | undefined,
   packageDir: string,
   isRoot: boolean,
-  isLib: boolean,
+  _isLib: boolean,
 ) {
   const scripts: PackageJson.Scripts = {
     ...(inputScripts ?? {}),
-    ...(isLib
-      ? {
-          ["compile:tsc"]: "tsc --build",
-          ["compile:esbuild"]: `bash ../../scripts/compile-esbuild.sh`,
-          compile: "pnpm compile:tsc && pnpm compile:esbuild",
-          ["watch:tsc"]: "pnpm compile:tsc --watch",
-          ["watch:esbuild"]: "pnpm compile:esbuild --watch",
-          watch: `pnpm run --filter ${name} --parallel '/^watch:.*/'`,
-        }
-      : {}),
   };
 
   if (isRoot) {
     return scripts;
   }
 
+  scripts.typecheck = "tsc";
+
   const cleanDirs = ["./out", "tsconfig.tsbuildinfo", "./dist", "./build"];
-
   const clean = `rm -rf ${cleanDirs.join(" ")}`;
-
   const cleanScripts =
     name === "@cursorless/cursorless-org-docs"
-      ? ["pnpm clear", clean]
+      ? ["docusaurus clear", clean]
       : [clean];
 
   scripts.clean = cleanScripts.join(" && ");
 
-  return scripts;
+  const orderedKeys = [
+    "typecheck",
+    "clean",
+    "test",
+    "pretest",
+    "dev",
+    "build",
+    "bundle",
+  ];
+  const getOrder = (key: string) => {
+    const index = orderedKeys.findIndex((k) => key.startsWith(k));
+    return index === -1 ? Number.POSITIVE_INFINITY : index;
+  };
+
+  return Object.fromEntries(
+    Object.entries(scripts).sort(
+      ([keyA], [keyB]) => getOrder(keyA) - getOrder(keyB),
+    ),
+  );
 }
 
 function removeEmptyFields(obj: Record<string, any>) {

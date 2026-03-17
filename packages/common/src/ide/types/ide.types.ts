@@ -1,12 +1,9 @@
 import type { URI } from "vscode-uri";
-import type {
-  EditableTextEditor,
-  InputBoxOptions,
-  NotebookEditor,
-  TextDocument,
-  TextEditor,
-} from "../..";
 import type { GeneralizedRange } from "../../types/GeneralizedRange";
+import type { InputBoxOptions } from "../../types/InputBoxOptions";
+import type { NotebookEditor } from "../../types/NotebookEditor";
+import type { TextDocument } from "../../types/TextDocument";
+import type { EditableTextEditor, TextEditor } from "../../types/TextEditor";
 import type { Capabilities } from "./Capabilities";
 import type { Clipboard } from "./Clipboard";
 import type { Configuration } from "./Configuration";

@@ -5,8 +5,8 @@ the user opens any tutorial in VSCode. It is rendered in the sidebar.
 
 ## Development
 
-To enable hot reloading, run the following command:
+To rebuild the bundle on every change, run the following command:
 
 ```bash
-pnpm watch
+pnpm bundle:watch
 ```

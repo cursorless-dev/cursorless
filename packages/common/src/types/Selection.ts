@@ -1,4 +1,5 @@
-import { Position, Range } from "..";
+import { Position } from "./Position";
+import { Range } from "./Range";
 
 export class Selection extends Range {
   /**
@@ -58,6 +59,22 @@ export class Selection extends Range {
 
     this.anchor = anchor;
     this.active = active;
+  }
+
+  /**
+   * Create a selection from a range. By default, the selection will not be reversed, but you can set `isReversed` to `true` to create a reversed selection.
+   *
+   * @param range A range.
+   * @param isReversed Whether the selection should be reversed. Defaults to `false`.
+   * @returns A selection created from the given range.
+   */
+  public static fromRange(
+    range: Range,
+    isReversed: boolean = false,
+  ): Selection {
+    return isReversed
+      ? new Selection(range.end, range.start)
+      : new Selection(range.start, range.end);
   }
 
   /**

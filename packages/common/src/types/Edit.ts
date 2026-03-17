@@ -1,4 +1,4 @@
-import type { Range } from "..";
+import type { Range } from "./Range";
 
 /** Represent a single edit/change in the document */
 export interface Edit {

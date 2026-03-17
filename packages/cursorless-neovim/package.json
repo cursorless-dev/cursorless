@@ -7,23 +7,18 @@
   "main": "./out/index.cjs",
   "types": "./out/index.d.ts",
   "exports": {
-    ".": {
-      "cursorless:bundler": "./src/index.ts",
-      "default": "./out/index.cjs"
-    }
+    ".": "./out/index.cjs"
   },
   "scripts": {
-    "build": "pnpm run esbuild:prod && pnpm run populate-dist",
-    "compile": "tsc --build",
-    "esbuild:base": "bash ./scripts/compile-esbuild.sh",
-    "esbuild": "pnpm run esbuild:base --sourcemap",
-    "esbuild:prod": "pnpm run esbuild:base --minify",
-    "populate-dist": "bash ./scripts/populate-dist.sh",
-    "populate-dist:prod": "bash ./scripts/populate-dist.sh",
-    "watch:tsc": "pnpm compile --watch",
-    "watch:esbuild": "pnpm esbuild --watch",
-    "watch": "pnpm run --filter @cursorless/cursorless-neovim --parallel '/^watch:.*/'",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
+    "typecheck": "tsc",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
+    "dev": "pnpm run compile:dev && pnpm run populate-dist",
+    "build": "pnpm run compile:prod && pnpm run populate-dist",
+    "compile:prod": "pnpm run compile:base --minify",
+    "compile:dev": "pnpm run compile:base --sourcemap",
+    "compile:watch": "pnpm run compile:base --sourcemap --watch",
+    "compile:base": "bash ./scripts/compile-esbuild.sh",
+    "populate-dist": "bash ./scripts/populate-dist.sh"
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",

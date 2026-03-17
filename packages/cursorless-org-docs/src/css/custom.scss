@@ -1,5 +1,7 @@
-@use "sass:map";
+@use "./github-link";
 
+// Bootstrap 5.3 still composes these partials via legacy `@import`.
+// Keep that chain intact until the upstream Sass entrypoints are modernized.
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
 @import "bootstrap/scss/variables-dark";
@@ -11,8 +13,6 @@
 
 @import "bootstrap/scss/forms/form-select";
 @import "bootstrap/scss/card";
-
-@import "./github-link";
 
 [data-theme="dark"] .dark-mode-invert {
   filter: invert(90%) hue-rotate(180deg);

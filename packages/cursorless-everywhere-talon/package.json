@@ -7,14 +7,15 @@
   "type": "module",
   "main": "./out/index.js",
   "scripts": {
-    "esbuild:dev": "pnpm run esbuild:base src/mainDevelopment.ts",
-    "esbuild:prod": "pnpm run esbuild:base --minify src/mainProduction.ts",
-    "esbuild:watch": "pnpm run esbuild:base --watch src/mainDevelopment.ts",
-    "esbuild:profile": "pnpm run esbuild:base --metafile=meta.json src/mainDevelopment.ts",
-    "esbuild:base": "bash scripts/esbuild.sh",
-    "compile": "tsc --build",
-    "compile:esbuild": "pnpm run esbuild:prod",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
+    "typecheck": "tsc",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
+    "dev": "pnpm run compile:watch",
+    "build": "pnpm run compile:prod",
+    "compile:prod": "pnpm run compile:base --minify src/mainProduction.ts",
+    "compile:dev": "pnpm run compile:base src/mainDevelopment.ts",
+    "compile:watch": "pnpm run compile:base --watch src/mainDevelopment.ts",
+    "compile:profile": "pnpm run compile:base --metafile=meta.json src/mainDevelopment.ts",
+    "compile:base": "bash scripts/esbuild.sh"
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",

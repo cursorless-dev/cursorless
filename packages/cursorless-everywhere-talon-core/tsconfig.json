@@ -1,15 +1,4 @@
 {
   "extends": "../../tsconfig.base.json",
-  "compilerOptions": {
-    "typeRoots": ["src/types", "node_modules/@types"]
-  },
-  "references": [
-    {
-      "path": "../common"
-    },
-    {
-      "path": "../cursorless-engine"
-    }
-  ],
   "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"]
 }

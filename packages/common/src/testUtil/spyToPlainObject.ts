@@ -1,4 +1,5 @@
-import type { Message, SpyIDERecordedValues } from "..";
+import type { SpyIDERecordedValues } from "../ide/spy/SpyIDE";
+import type { Message } from "../ide/spy/SpyMessages";
 import type {
   PlainFlashDescriptor,
   PlainHighlight,

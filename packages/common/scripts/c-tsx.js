@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-// @ts-check
 /* global process, console */
 
 // This script runs a TypeScript file using Node.js by first bundling it with
@@ -36,7 +35,7 @@ function createTempDirectory(baseDir) {
   const tempDir = join(
     baseDir,
     "out",
-    "my-ts-node-tmp",
+    "c-tsx-tmp",
     randomBytes(16).toString("hex"),
   );
 
@@ -62,7 +61,7 @@ async function main() {
   // Check if the input file is specified
   if (args.length === 0) {
     console.error("Error: No input file specified.");
-    console.error("Usage: my-ts-node <file.ts> [script args...]");
+    console.error("Usage: c-tsx <file.ts> [script args...]");
     process.exit(1);
   }
 
@@ -91,19 +90,24 @@ async function main() {
     external: ["./reporters/parallel-buffered", "./worker.js"],
   });
 
+  const scriptDirectory = dirname(fileURLToPath(import.meta.url));
+  const repoRoot = join(scriptDirectory, "..", "..", "..");
+
   const nodeProcess = runCommand(
     process.execPath,
     ["--enable-source-maps", outFile, ...childArgs],
     {
-      ["CURSORLESS_REPO_ROOT"]: join(
-        dirname(fileURLToPath(import.meta.url)),
-        "..",
-        "..",
-        "..",
-      ),
+      ["CURSORLESS_REPO_ROOT"]: repoRoot,
     },
   );
+  nodeProcess.on("error", (error) => {
+    console.error(error);
+    process.exit(1);
+  });
   nodeProcess.on("close", (code) => process.exit(code ?? undefined));
 }
 
-main();
+main().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});

@@ -1,26 +1,14 @@
 {
-  "extends": ["@tsconfig/docusaurus/tsconfig.json", "../../tsconfig.base.json"],
+  "extends": ["@tsconfig/docusaurus/tsconfig.json", "../../tsconfig.web.json"],
   "compilerOptions": {
-    "target": "es2022",
-    "lib": ["dom", "es2022"],
-    "moduleResolution": "nodenext",
-    "module": "nodenext",
-    "jsx": "react",
-    "esModuleInterop": true
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
   },
   "include": [
     "src/**/*.ts",
-    "src/**/*.json",
     "src/**/*.tsx",
+    "src/**/*.json",
     "../../typings/**/*.d.ts"
   ],
-  "exclude": ["node_modules"],
-  "references": [
-    {
-      "path": "../common"
-    },
-    {
-      "path": "../node-common"
-    }
-  ]
+  "exclude": ["node_modules"]
 }

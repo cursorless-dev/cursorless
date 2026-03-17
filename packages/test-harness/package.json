@@ -5,31 +5,27 @@
   "license": "MIT",
   "private": true,
   "type": "module",
-  "main": "./out/runners/extensionTestsNeovim.cjs",
-  "types": "./out/runners/extensionTestsNeovim.d.ts",
+  "main": "./out/extensionTestsNeovim.cjs",
+  "types": "./out/extensionTestsNeovim.d.ts",
   "exports": {
     ".": {
-      "default": "./out/runners/extensionTestsNeovim.cjs"
+      "default": "./out/extensionTestsNeovim.cjs"
     }
   },
   "scripts": {
-    "test": "my-ts-node src/scripts/runUnitTestsOnly.ts",
-    "test:subset": "my-ts-node src/scripts/runUnitTestsOnly.ts --subset",
-    "test:update": "my-ts-node src/scripts/runUnitTestsOnly.ts --update",
-    "test:update:subset": "my-ts-node src/scripts/runUnitTestsOnly.ts --update --subset",
-    "test:vscode": "my-ts-node src/scripts/runVscodeTestsCI.ts",
-    "test:neovim": "my-ts-node src/scripts/runNeovimTestsCI.ts",
-    "test:talonJs": "my-ts-node src/scripts/runTalonJsTests.ts",
-    "build:base": "bash ./scripts/compile-esbuild.sh",
-    "build": "pnpm run build:runner:vscode && pnpm run build:runner:neovim && pnpm run build:tests",
-    "build:runner:vscode": "pnpm run build:base ./src/runners/extensionTestsVscode.ts --outfile=dist/extensionTestsVscode.cjs",
-    "build:runner:neovim": "pnpm run build:base ./src/runners/extensionTestsNeovim.ts --outfile=out/runners/extensionTestsNeovim.cjs",
-    "build:tests": "bash ./scripts/build-tests.sh",
-    "compile": "tsc --build",
-    "watch": "tsc --build --watch",
+    "typecheck": "tsc",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
-    "generate-test-subset-file": "my-ts-node ./src/scripts/generateTestSubsetFile.ts --always-open",
-    "generate-test-subset-file-strict": "my-ts-node ./src/scripts/generateTestSubsetFile.ts --fail-if-not-exists"
+    "test": "c-tsx ./src/scripts/runUnitTests.ts",
+    "test:subset": "c-tsx ./src/scripts/runUnitTests.ts --subset",
+    "test:update": "c-tsx ./src/scripts/runUnitTests.ts --update",
+    "test:update:subset": "c-tsx ./src/scripts/runUnitTests.ts --update --subset",
+    "test:vscode": "c-tsx ./src/scripts/runVscodeTestsCI.ts",
+    "test:neovim": "c-tsx ./src/scripts/runNeovimTestsCI.ts",
+    "test:talon": "c-tsx ./src/scripts/runTalonTests.ts",
+    "test:talonJs": "c-tsx ./src/scripts/runTalonJsTests.ts",
+    "build": "bash ./scripts/compile-esbuild.sh",
+    "generate-test-subset-file": "c-tsx ./src/scripts/generateTestSubsetFile.ts --always-open",
+    "generate-test-subset-file-strict": "c-tsx ./src/scripts/generateTestSubsetFile.ts --fail-if-not-exists"
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",
@@ -48,6 +44,7 @@
     "@vscode/test-electron": "^2.5.2",
     "cross-spawn": "^7.0.6",
     "mocha": "^11.7.5",
+    "tsx": "^4.21.0",
     "web-tree-sitter": "^0.26.7"
   }
 }

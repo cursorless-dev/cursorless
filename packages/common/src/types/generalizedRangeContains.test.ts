@@ -1,5 +1,6 @@
 import assert from "assert";
-import { generalizedRangeContains, Position } from "..";
+import { generalizedRangeContains } from "./GeneralizedRange";
+import { Position } from "./Position";
 
 suite("generalizedRangeContains", () => {
   test("character", () => {

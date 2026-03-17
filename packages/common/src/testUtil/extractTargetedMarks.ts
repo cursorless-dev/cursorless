@@ -1,4 +1,4 @@
-import { splitKey } from "..";
+import { splitKey } from "../util/splitKey";
 import type { ReadOnlyHatMap } from "../types/HatTokenMap";
 import type { Token } from "../types/Token";
 

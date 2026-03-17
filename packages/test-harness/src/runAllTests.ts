@@ -30,6 +30,8 @@ export enum TestType {
 }
 
 export function runAllTests(type: TestType): Promise<void> {
+  parseArgumentsAndUpdateEnv();
+
   return runTestsInDir(
     path.join(getCursorlessRepoRoot(), "packages"),
     (files) =>
@@ -68,6 +70,12 @@ async function runTestsInDir(
 
   const files = filterFiles(await glob("**/**.test.cjs", { cwd: testRoot }));
 
+  if (files.length === 0) {
+    throw new Error(
+      `No test files found. Do you need to run "pnpm run build" first?`,
+    );
+  }
+
   // Add files to the test suite
   files.forEach((f) => mocha.addFile(path.resolve(testRoot, f)));
 
@@ -95,5 +103,19 @@ async function runTestsInDir(
   } catch (err) {
     console.error(err);
     throw err;
+  }
+}
+
+function parseArgumentsAndUpdateEnv() {
+  const args = new Set(process.argv.slice(2));
+
+  process.env.CURSORLESS_MODE = "test";
+
+  if (args.has("--subset")) {
+    process.env.CURSORLESS_RUN_TEST_SUBSET = "true";
+  }
+
+  if (args.has("--update")) {
+    process.env.CURSORLESS_TEST_UPDATE_FIXTURES = "true";
   }
 }

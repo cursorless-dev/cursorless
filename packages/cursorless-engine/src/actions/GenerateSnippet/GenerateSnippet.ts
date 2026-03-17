@@ -1,10 +1,5 @@
-import type {
-  EditableTextEditor,
-  IDE,
-  Selection,
-  TextEditor,
-} from "@cursorless/common";
-import { FlashStyle, Range, matchAll } from "@cursorless/common";
+import type { EditableTextEditor, IDE, TextEditor } from "@cursorless/common";
+import { FlashStyle, Range, matchAll, Selection } from "@cursorless/common";
 import type {
   Snippet,
   SnippetFile,
@@ -153,7 +148,7 @@ export default class GenerateSnippet {
     }
 
     await editableEditor.setSelections([
-      editableEditor.document.range.toSelection(false),
+      Selection.fromRange(editableEditor.document.range),
     ]);
 
     /** The next placeholder index to use for the meta snippet */

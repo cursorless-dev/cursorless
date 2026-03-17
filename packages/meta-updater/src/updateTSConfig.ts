@@ -1,13 +1,14 @@
+import { getLockfileImporterId } from "@pnpm/lockfile-file";
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
+import { cloneDeep, isEqual } from "lodash-es";
 import normalizePath from "normalize-path";
 import * as path from "path";
-import { pathExists } from "path-exists";
-import type { PackageJson, TsConfigJson } from "type-fest";
-import { toPosixPath } from "./toPosixPath";
+import type { TsConfigJson } from "type-fest";
 import type { Context } from "./Context";
-import { cloneDeep, isEqual, uniq } from "lodash-es";
-import { readFile } from "fs/promises";
-import { getLockfileImporterId } from "@pnpm/lockfile-file";
+import { toPosixPath } from "./toPosixPath";
+
+const baseName = "tsconfig.base.json";
+const webJsonName = "tsconfig.web.json";
 
 /**
  * Given a tsconfig.json, update it to match our conventions.  This function is
@@ -56,61 +57,27 @@ export async function updateTSConfig(
     throw new Error(`No importer found for ${pathFromRootToPackage}`);
   }
 
-  const deps = {
-    ...lockFilePackageInfo.dependencies,
-    ...lockFilePackageInfo.devDependencies,
-  };
-
-  /** Computed tsconfig.json references based on dependencies. */
-  const references = [] as Array<{ path: string }>;
-  for (const spec of Object.values(deps)) {
-    if (!spec.startsWith("link:") || spec.length === 5) {
-      // Only consider references to other packages in monorepo.
-      continue;
-    }
-    const relativePath = spec.slice(5);
-    if (
-      !(await pathExists(path.join(packageDir, relativePath, "tsconfig.json")))
-    ) {
-      throw new Error(`No tsconfig found for ${relativePath}`);
-    }
-    if (
-      (
-        JSON.parse(
-          await readFile(path.join(packageDir, relativePath, "package.json"), {
-            encoding: "utf-8",
-          }),
-        ) as PackageJson
-      ).private
-    ) {
-      throw new Error(`Dependency ${relativePath} is private`);
-    }
-    references.push({ path: relativePath });
-  }
-
   const compilerOptions = {
     ...(cloneDeep(input.compilerOptions) ?? {}),
   };
   delete compilerOptions.outDir;
   delete compilerOptions.rootDir;
 
+  const extendsList = getExtends(pathFromPackageToRoot, input.extends);
+  const isWeb =
+    input.compilerOptions?.jsx != null ||
+    extendsList.some((e) => e.endsWith(webJsonName));
+
   return {
     ...input,
-    extends: getExtends(pathFromPackageToRoot, input.extends),
+    extends: extendsList.length === 1 ? extendsList[0] : extendsList,
 
     ...(isEqual(compilerOptions, {}) ? {} : { compilerOptions }),
 
-    references: references.sort((r1, r2) => r1.path.localeCompare(r2.path)),
     include: [
       "src/**/*.ts",
+      ...(isWeb ? ["src/**/*.tsx"] : []),
       "src/**/*.json",
-
-      ...(input.compilerOptions?.jsx == null ? [] : ["src/**/*.tsx"]),
-
-      ...((await pathExists(path.join(packageDir, "next.config.js")))
-        ? ["next-env.d.ts"]
-        : []),
-
       toPosixPath(path.join(pathFromPackageToRoot, "typings", "**/*.d.ts")),
     ],
   };
@@ -120,18 +87,19 @@ function getExtends(
   pathFromPackageToRoot: string,
   inputExtends: string | string[] | undefined,
 ) {
-  let extendsList =
+  const extendsList =
     inputExtends == null
       ? []
       : Array.isArray(inputExtends)
         ? [...inputExtends]
         : [inputExtends];
 
-  extendsList.push(
-    toPosixPath(path.join(pathFromPackageToRoot, "tsconfig.base.json")),
-  );
+  const basePath = toPosixPath(path.join(pathFromPackageToRoot, baseName));
+  const webPath = toPosixPath(path.join(pathFromPackageToRoot, webJsonName));
 
-  extendsList = uniq(extendsList);
+  if (!extendsList.includes(basePath) && !extendsList.includes(webPath)) {
+    extendsList.push(basePath);
+  }
 
-  return extendsList.length === 1 ? extendsList[0] : extendsList;
+  return extendsList;
 }

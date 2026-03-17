@@ -75,7 +75,7 @@ export interface TalonSettings {
   ): T | null;
 }
 
-interface TalonContextConstructor {
+export interface TalonContextConstructor {
   new (): TalonContext;
 }
 

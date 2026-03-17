@@ -2,6 +2,7 @@ import type {
   CommandCapabilities,
   EditableTextEditor,
 } from "@cursorless/common";
+import { Selection } from "@cursorless/common";
 import type { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../../core/updateSelections/updateSelections";
 import type { EditDestination, State } from "./EditNew.types";
@@ -51,7 +52,7 @@ export async function runInsertLineAfterTargets(
       await editor.insertLineAfter(contentRanges);
     } else {
       await editor.setSelections(
-        contentRanges.map((range) => range.toSelection(false)),
+        contentRanges.map((range) => Selection.fromRange(range)),
       );
       await editor.focus();
       await editor.insertLineAfter();

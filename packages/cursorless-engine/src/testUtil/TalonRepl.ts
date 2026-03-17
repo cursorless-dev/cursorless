@@ -19,7 +19,7 @@ export class TalonRepl {
       const path = getReplPath();
       this.child = childProcess.spawn(path, { shell: true });
 
-      if (!this.child.stdin) {
+      if (this.child?.stdin == null) {
         reject("stdin is null");
         return;
       }

@@ -6,8 +6,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "compile": "tsc --build",
-    "watch": "tsc --build --watch",
+    "typecheck": "tsc",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "devDependencies": {
@@ -21,7 +20,6 @@
     "js-yaml": "^4.1.1",
     "lodash-es": "^4.17.23",
     "normalize-path": "^3.0.0",
-    "path-exists": "^5.0.0",
     "type-fest": "^5.4.4"
   }
 }

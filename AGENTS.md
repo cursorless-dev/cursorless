@@ -15,9 +15,8 @@
 
 ## Build and Test
 
-- Always run lint and compile when making changes:
+- Always run lint when making changes:
   - `pnpm run lint`
-  - `pnpm run compile`
 - Tests can be run with:
   - `pnpm test`
 

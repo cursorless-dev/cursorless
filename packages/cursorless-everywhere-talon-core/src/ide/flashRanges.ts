@@ -1,5 +1,5 @@
 import type { FlashDescriptor, RangeOffsets } from "@cursorless/common";
-import type { Talon } from "../types/talon.types";
+import type { Talon } from "../types/talon";
 import { toCharacterRangeOffsets } from "./toCharacterRangeOffsets";
 
 export function flashRanges(

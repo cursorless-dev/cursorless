@@ -1,5 +1,5 @@
 import type { TextEditor } from "@cursorless/common";
-import { concat, flatten, flow, range, uniq } from "lodash-es";
+import { range, uniq } from "lodash-es";
 
 /**
  * Returns a map from line numbers in the file to display lines, which skip
@@ -12,19 +12,12 @@ export function getDisplayLineMap(
   editor: TextEditor,
   extraLines: number[] = [],
 ): Map<number, number> {
-  return new Map(
-    flow(
-      flatten,
-      uniq,
-    )(
-      concat(
-        [extraLines],
-        editor.visibleRanges.map((visibleRange) =>
-          range(visibleRange.start.line, visibleRange.end.line + 1),
-        ),
-      ),
-    )
-      .sort((a, b) => a - b)
-      .map((value, index) => [value, index]),
-  );
+  const lines = uniq([
+    ...extraLines,
+    ...editor.visibleRanges.flatMap((visibleRange) =>
+      range(visibleRange.start.line, visibleRange.end.line + 1),
+    ),
+  ]).sort((a, b) => a - b);
+
+  return new Map(lines.map((value, index) => [value, index]));
 }

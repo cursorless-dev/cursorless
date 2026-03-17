@@ -4,26 +4,17 @@
   "description": "Core cheatsheet Preact component",
   "license": "MIT",
   "type": "module",
-  "main": "./out/index.js",
-  "types": "./out/index.d.ts",
   "exports": {
-    ".": {
-      "cursorless:bundler": "./src/index.ts",
-      "default": "./out/index.js"
-    }
+    ".": "./src/index.ts",
+    "./defaultSpokenForms": "./src/lib/sampleSpokenFormInfos/defaults.json"
   },
   "sideEffects": [
     "*.css"
   ],
   "scripts": {
-    "test": "jest",
+    "typecheck": "tsc",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
-    "compile:tsc": "tsc --build",
-    "compile:esbuild": "bash ../../scripts/compile-esbuild.sh",
-    "compile": "pnpm compile:tsc && pnpm compile:esbuild",
-    "watch:tsc": "pnpm compile:tsc --watch",
-    "watch:esbuild": "pnpm compile:esbuild --watch",
-    "watch": "pnpm run --filter @cursorless/cheatsheet --parallel '/^watch:.*/'"
+    "test": "jest"
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",

@@ -8,18 +8,13 @@
   "main": "./out/index.js",
   "types": "./out/index.d.ts",
   "exports": {
-    ".": {
-      "cursorless:bundler": "./src/index.ts",
-      "default": "./out/index.js"
-    }
+    ".": "./out/index.js"
   },
   "scripts": {
-    "compile": "tsc --build",
-    "watch": "tsc --build --watch",
-    "serve": "vite serve",
-    "build": "vite build",
-    "preview": "vite preview",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
+    "typecheck": "tsc",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
+    "dev": "env NODE_OPTIONS=--import=tsx vite serve",
+    "build": "env NODE_OPTIONS=--import=tsx vite build"
   },
   "dependencies": {
     "@cursorless/cheatsheet": "workspace:*",

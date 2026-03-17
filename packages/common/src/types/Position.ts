@@ -1,5 +1,6 @@
-import type { TextDocument } from "..";
-import { Range, stringToInteger } from "..";
+import { stringToInteger } from "../util/stringUtils";
+import type { TextDocument } from "./TextDocument";
+import { Range } from "./Range";
 
 export class Position {
   /**

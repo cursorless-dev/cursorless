@@ -1,5 +1,6 @@
 import * as assert from "assert";
-import { Position, Selection } from "..";
+import { Position } from "./Position";
+import { Selection } from "./Selection";
 
 suite("Selection", () => {
   test("constructor", () => {
@@ -15,6 +16,13 @@ suite("Selection", () => {
       new Selection(new Position(1, 2), new Position(3, 4)).isEqual(
         new Selection(1, 2, 3, 4),
       ),
+    );
+  });
+
+  test("fromRange", () => {
+    assert.ok(Selection.fromRange(new Selection(1, 2, 3, 4), true).isReversed);
+    assert.ok(
+      !Selection.fromRange(new Selection(1, 2, 3, 4), false).isReversed,
     );
   });
 
@@ -43,11 +51,6 @@ suite("Selection", () => {
     assert.ok(
       new Selection(0, 0, 0, 1).isRangeEqual(new Selection(0, 1, 0, 0)),
     );
-  });
-
-  test("toSelection", () => {
-    assert.ok(new Selection(1, 2, 3, 4).toSelection(true).isReversed);
-    assert.ok(!new Selection(1, 2, 3, 4).toSelection(false).isReversed);
   });
 
   test("concise", () => {
