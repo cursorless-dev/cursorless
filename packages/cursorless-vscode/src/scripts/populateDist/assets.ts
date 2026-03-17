@@ -8,7 +8,7 @@ export const assets: Asset[] = [
   { source: "../../NOTICE.md", destination: "NOTICE.md" },
   { source: "../../README.md", destination: "README.md" },
   {
-    source: "../cheatsheet-local/dist/index.html",
+    source: "../cheatsheet-local/out/index.html",
     destination: "cheatsheet.html",
     // We allow this to be optional in dev mode because it is expensive to
     // build, and is only used when they say "cursorless cheatsheet".

@@ -7,7 +7,7 @@ import { viteSingleFile } from "vite-plugin-singlefile";
 export default defineConfig((): UserConfig => {
   return {
     build: {
-      outDir: "dist",
+      outDir: "out",
     },
 
     resolve: {
