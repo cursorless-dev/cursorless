@@ -1,5 +1,15 @@
 const global = globalThis as any;
 
+// Allows us to use `console.*` with quickjs
+if (typeof global.print === "function") {
+  global.console = {
+    log: global.print,
+    error: global.print,
+    warn: global.print,
+    debug: global.print,
+  };
+}
+
 // process.env is used by `immer`
 if (global.process == null) {
   global.process = {
