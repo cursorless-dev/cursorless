@@ -9,11 +9,11 @@ const isBrowser = typeof window !== "undefined";
  * @returns Boolean indicating whether the hash matches the given id
  */
 export default function useIsHighlighted(id: string): boolean {
-  if (!isBrowser) {
-    return false;
+  if (isBrowser) {
+    const hash = useHash();
+    return hash === `#${id}`;
   }
-  const hash = useHash();
-  return hash === `#${id}`;
+  return false;
 }
 
 const useHash = () => {
