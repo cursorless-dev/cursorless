@@ -63,9 +63,7 @@ async function runRecordedFixture(repl: TalonRepl, file: string) {
     commands.push(getHatMapCommand(fixture.marksToCheck));
   }
 
-  if (fixture.command.spokenForm == null) {
-    assert.fail("Expected spoken form to be defined");
-  }
+  assert(fixture.command.spokenForm != null);
 
   await runTest(repl, fixture.command.spokenForm, commands);
 }

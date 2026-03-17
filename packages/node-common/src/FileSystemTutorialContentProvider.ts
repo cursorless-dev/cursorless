@@ -3,7 +3,6 @@ import type {
   TutorialContentProvider,
   TutorialId,
 } from "@cursorless/common";
-import type { Dirent } from "node:fs";
 import { readFile, readdir } from "node:fs/promises";
 import path from "path";
 import { loadFixture } from "./loadFixture";
@@ -22,10 +21,8 @@ export class FileSystemTutorialContentProvider implements TutorialContentProvide
 
     return await Promise.all(
       tutorialDirs
-        .filter((dirent: Dirent) => dirent.isDirectory())
-        .map((dirent: Dirent) =>
-          this.loadTutorialScript(dirent.name as TutorialId),
-        ),
+        .filter((dirent) => dirent.isDirectory())
+        .map((dirent) => this.loadTutorialScript(dirent.name as TutorialId)),
     );
   }
 

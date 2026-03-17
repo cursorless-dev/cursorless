@@ -34,10 +34,8 @@ async function breakpointAdd() {
 
   const breakpoints = vscode.debug.breakpoints;
   assert.deepStrictEqual(breakpoints.length, 1);
+  assert.ok(breakpoints[0] instanceof vscode.SourceBreakpoint);
   const breakpoint = breakpoints[0];
-  if (!(breakpoint instanceof vscode.SourceBreakpoint)) {
-    assert.fail("Expected breakpoint to be a SourceBreakpoint");
-  }
   assert.ok(breakpoint.location.range.isEqual(new vscode.Range(0, 0, 0, 0)));
 }
 
@@ -49,10 +47,8 @@ async function breakpointTokenAdd() {
 
   const breakpoints = vscode.debug.breakpoints;
   assert.deepStrictEqual(breakpoints.length, 1);
+  assert.ok(breakpoints[0] instanceof vscode.SourceBreakpoint);
   const breakpoint = breakpoints[0];
-  if (!(breakpoint instanceof vscode.SourceBreakpoint)) {
-    assert.fail("Expected breakpoint to be a SourceBreakpoint");
-  }
   assert.ok(breakpoint.location.range.isEqual(new vscode.Range(0, 2, 0, 7)));
 }
 
@@ -94,10 +90,8 @@ async function breakpointTokenRemove() {
 
   const breakpoints = vscode.debug.breakpoints;
   assert.deepStrictEqual(breakpoints.length, 1);
+  assert.ok(breakpoints[0] instanceof vscode.SourceBreakpoint);
   const breakpoint = breakpoints[0];
-  if (!(breakpoint instanceof vscode.SourceBreakpoint)) {
-    assert.fail("Expected breakpoint to be a SourceBreakpoint");
-  }
   assert.ok(breakpoint.location.range.isEqual(new vscode.Range(0, 0, 0, 0)));
 }
 

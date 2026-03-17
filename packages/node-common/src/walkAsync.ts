@@ -1,4 +1,3 @@
-import type { Dirent } from "node:fs";
 import * as path from "path";
 import { readdir } from "fs/promises";
 import { flatten } from "lodash-es";
@@ -18,7 +17,7 @@ export const walkFiles = async (
 
   const files = flatten(
     await Promise.all(
-      dirEntries.map(async (dirent: Dirent) => {
+      dirEntries.map(async (dirent) => {
         const filePath = path.join(dir, dirent.name);
         return dirent.isDirectory() ? await walkFiles(filePath) : [filePath];
       }),
