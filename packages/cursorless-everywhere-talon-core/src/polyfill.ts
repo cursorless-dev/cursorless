@@ -13,16 +13,6 @@ if (global.performance == null) {
   };
 }
 
-// Allows us to use `console.*` with quickjs
-if (typeof print === "function") {
-  global.console = {
-    log: print,
-    error: print,
-    warn: print,
-    debug: print,
-  };
-}
-
 // In quickjs `setTimeout` is not available.
 // FIXME: Remove dependency on `setTimeout` in the future.
 // https://github.com/cursorless-dev/cursorless/issues/2596

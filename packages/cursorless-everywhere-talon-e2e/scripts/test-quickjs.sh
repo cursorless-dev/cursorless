@@ -6,7 +6,7 @@ QUICKJS_VERSION=2024-01-13
 
 echo $ esbuild ... src/quickjsTest.ts
 esbuild \
-    --outfile=testOut/quickjsTest.mjs \
+    --outfile=out/quickjsTest.mjs \
     --platform=neutral \
     --format=esm \
     --main-fields=main,module \
@@ -15,8 +15,8 @@ esbuild \
     --external:node:crypto \
     src/quickjsTest.ts
 
-echo $ cd testOut
-cd testOut
+echo $ cd out
+cd out
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
     brew install quickjs

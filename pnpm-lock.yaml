@@ -342,6 +342,9 @@ importers:
       '@types/mocha':
         specifier: ^10.0.10
         version: 10.0.10
+      esbuild:
+        specifier: ^0.27.0
+        version: 0.27.4
       mocha:
         specifier: ^11.7.5
         version: 11.7.5

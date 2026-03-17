@@ -60,9 +60,6 @@ export async function updateTSConfig(
   delete compilerOptions.outDir;
   delete compilerOptions.rootDir;
 
-  const packageIncludes =
-    input.include?.filter((i) => i.startsWith("../cursorless")) ?? [];
-
   return {
     ...input,
     extends: getExtends(pathFromPackageToRoot, input.extends),
@@ -74,7 +71,6 @@ export async function updateTSConfig(
       ...(input.compilerOptions?.jsx == null ? [] : ["src/**/*.tsx"]),
       "src/**/*.json",
       toPosixPath(path.join(pathFromPackageToRoot, "typings", "**/*.d.ts")),
-      ...packageIncludes,
     ],
   };
 }

@@ -1,9 +1,4 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.json",
-    "../../typings/**/*.d.ts",
-    "../cursorless-everywhere-talon-core/src/types/**/*.d.ts"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"]
 }

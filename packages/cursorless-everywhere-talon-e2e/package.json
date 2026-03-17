@@ -9,7 +9,7 @@
   "scripts": {
     "typecheck": "tsc",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
-    "test:quickjs": "bash scripts/test-quickjs.sh"
+    "test:quickjs": "bash ./scripts/test-quickjs.sh"
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",
@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",
+    "esbuild": "^0.27.0",
     "mocha": "^11.7.5"
   }
 }
