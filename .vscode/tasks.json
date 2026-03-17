@@ -1,9 +1,33 @@
-// See https://go.microsoft.com/fwlink/?LinkId=733558
-// for the documentation about the tasks.json format
 {
   "version": "2.0.0",
   "tasks": [
-    // Generic build tasks
+    // Launch tasks
+    {
+      "label": "Build extension",
+      "type": "npm",
+      "script": "dev",
+      "path": "packages/cursorless-vscode",
+      "group": "build",
+      "presentation": {
+        "reveal": "silent"
+      }
+    },
+    {
+      "label": "Build extension and tests",
+      "dependsOn": ["Build extension", "Build test harness"],
+      "group": "build"
+    },
+    {
+      "label": "Build extension and tests (subset)",
+      "group": "test",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Ensure test subset file exists",
+        "Build extension and tests"
+      ]
+    },
+
+    // Helper tasks
     {
       "label": "Build test harness",
       "type": "npm",
@@ -14,17 +38,6 @@
       },
       "group": "build"
     },
-    {
-      "label": "Generate grammar",
-      "type": "npm",
-      "script": "generate-grammar",
-      "group": "build",
-      "presentation": {
-        "reveal": "silent"
-      }
-    },
-
-    // Generic test tasks
     {
       "label": "Ensure test subset file exists",
       "type": "npm",
@@ -44,185 +57,6 @@
       "presentation": {
         "reveal": "silent"
       }
-    },
-
-    // VSCode tasks
-    {
-      "label": "VSCode: Build extension",
-      "type": "npm",
-      "script": "dev",
-      "path": "packages/cursorless-vscode",
-      "group": "build",
-      "presentation": {
-        "reveal": "silent"
-      }
-    },
-    {
-      "label": "VSCode: Build extension and tests",
-      "dependsOn": ["VSCode: Build extension", "Build test harness"],
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
-    },
-    {
-      "label": "VSCode: Prepare test subset",
-      "group": "test",
-      "dependsOrder": "sequence",
-      "dependsOn": [
-        "Ensure test subset file exists",
-        "VSCode: Build extension and tests"
-      ]
-    },
-
-    // Neovim tasks
-    {
-      "label": "Neovim: Build extension",
-      "group": "build",
-      "dependsOn": ["Neovim: Launch neovim", "Neovim: ESBuild"]
-    },
-    {
-      "label": "Neovim: Build extension and tests",
-      "group": "build",
-      "dependsOn": [
-        "Neovim: Launch neovim (test)",
-        "Neovim: ESBuild",
-        "Build test harness"
-      ]
-    },
-    {
-      "label": "Neovim: ESBuild",
-      "type": "npm",
-      "script": "dev",
-      "path": "packages/cursorless-neovim",
-      "dependsOn": ["Generate grammar"],
-      "group": "build",
-      "presentation": {
-        "reveal": "silent"
-      }
-    },
-    {
-      "label": "Neovim: Launch neovim",
-      "type": "process",
-      "command": "packages/cursorless-neovim/scripts/linux-terminal.sh",
-      "args": [
-        "${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.sh ${workspaceFolder} development"
-      ],
-      "osx": {
-        "command": "osascript",
-        "args": [
-          "-e",
-          "tell app \"Terminal\" to do script \"${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.sh ${workspaceFolder} development\" activate"
-        ]
-      },
-      "windows": {
-        "command": "powershell",
-        "args": [
-          "(New-Object -ComObject WScript.Shell).Run(\"\"\"${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.bat\"\"\", 1, $false)"
-        ]
-      },
-      "group": "build",
-      "presentation": {
-        "reveal": "silent"
-      },
-      "options": {
-        "env": {
-          "CURSORLESS_REPO_ROOT": "${workspaceFolder}",
-          "NVIM_NODE_HOST_DEBUG": "1",
-          "NVIM_NODE_LOG_FILE": "${workspaceFolder}/packages/cursorless-neovim/out/nvim_node.log",
-          "NVIM_NODE_LOG_LEVEL": "info",
-          "CURSORLESS_MODE": "development"
-        }
-      }
-    },
-    {
-      "label": "Neovim: Launch neovim (test)",
-      "type": "process",
-      "command": "packages/cursorless-neovim/scripts/linux-terminal.sh",
-      "args": [
-        "${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.sh ${workspaceFolder} test"
-      ],
-      "osx": {
-        "command": "osascript",
-        "args": [
-          "-e",
-          "tell app \"Terminal\" to do script \"${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.sh ${workspaceFolder} test\" activate"
-        ]
-      },
-      "windows": {
-        "command": "powershell",
-        "args": [
-          "(New-Object -ComObject WScript.Shell).Run(\"\"\"${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.bat\"\"\", 1, $false)"
-        ]
-      },
-      "group": "build",
-      "presentation": {
-        "reveal": "silent"
-      },
-      "options": {
-        "env": {
-          "CURSORLESS_REPO_ROOT": "${workspaceFolder}",
-          "NVIM_NODE_HOST_DEBUG": "1",
-          "NVIM_NODE_LOG_FILE": "${workspaceFolder}/packages/cursorless-neovim/out/nvim_node.log",
-          "NVIM_NODE_LOG_LEVEL": "info",
-          "CURSORLESS_MODE": "test"
-        }
-      }
-    },
-    {
-      "label": "Neovim: Show logs",
-      "type": "shell",
-      "command": "packages/cursorless-neovim/scripts/show-logs.sh",
-      "problemMatcher": [],
-      "isBackground": true,
-      "presentation": {
-        "echo": false,
-        "reveal": "always",
-        "focus": false,
-        "panel": "dedicated",
-        "showReuseMessage": false,
-        "clear": true
-      },
-      "options": {
-        "env": {
-          "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
-        }
-      }
-      // NOTE: We don't have a way on Windows atm due to command with argument inside Run() not working
-      // so we need to show logs outside of vscode (see #2454)
-    },
-    {
-      "label": "Neovim: Launch neovim (lua test)",
-      "type": "shell",
-      "command": "busted --run unit",
-      "options": {
-        "cwd": "cursorless.nvim"
-      }
-    },
-
-    // cursorless.org
-    {
-      "label": "Serve cursorless.org",
-      "type": "npm",
-      "script": "dev",
-      "path": "packages/cursorless-org"
-    },
-    {
-      "label": "Install local",
-      "type": "npm",
-      "script": "install-local",
-      "path": "packages/cursorless-vscode"
-    },
-    {
-      "label": "Uninstall local",
-      "type": "npm",
-      "script": "uninstall-local",
-      "path": "packages/cursorless-vscode"
-    },
-    {
-      "label": "Run pre commit",
-      "type": "shell",
-      "command": "pre-commit run"
     }
   ]
 }

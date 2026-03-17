@@ -178,7 +178,7 @@ jobs:
           NEOVIM_PATH: ${{ steps.vim.outputs.executable }}
 
       - name: Run neovim lua tests
-        uses: ./.github/actions/test-neovim-lua/
+        uses: ./.github/actions/test-neovim-lua
 
       - name: Run neovim lua lint
-        uses: ./.github/actions/lint-lua-ls/
+        uses: ./.github/actions/lint-lua-ls
