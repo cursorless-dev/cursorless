@@ -14,7 +14,9 @@
   "dependencies": {
     "@cursorless/common": "workspace:*",
     "glob": "^13.0.6",
-    "lodash-es": "^4.17.23"
+    "immer": "^11.1.4",
+    "lodash-es": "^4.17.23",
+    "node-html-parser": "^7.1.0"
   },
   "devDependencies": {
     "@types/chai": "^5.2.3",

@@ -192,28 +192,6 @@ importers:
         specifier: ^0.26.7
         version: 0.26.7
 
-  packages/cursorless-cheatsheet:
-    dependencies:
-      '@cursorless/common':
-        specifier: workspace:*
-        version: link:../common
-      '@cursorless/node-common':
-        specifier: workspace:*
-        version: link:../node-common
-      immer:
-        specifier: ^11.1.4
-        version: 11.1.4
-      lodash-es:
-        specifier: ^4.17.23
-        version: 4.17.23
-      node-html-parser:
-        specifier: ^7.1.0
-        version: 7.1.0
-    devDependencies:
-      '@types/lodash-es':
-        specifier: ^4.17.12
-        version: 4.17.12
-
   packages/cursorless-engine:
     dependencies:
       '@cursorless/common':
@@ -581,9 +559,6 @@ importers:
       '@cursorless/common':
         specifier: workspace:*
         version: link:../common
-      '@cursorless/cursorless-cheatsheet':
-        specifier: workspace:*
-        version: link:../cursorless-cheatsheet
       '@cursorless/cursorless-engine':
         specifier: workspace:*
         version: link:../cursorless-engine
@@ -819,9 +794,15 @@ importers:
       glob:
         specifier: ^13.0.6
         version: 13.0.6
+      immer:
+        specifier: ^11.1.4
+        version: 11.1.4
       lodash-es:
         specifier: ^4.17.23
         version: 4.17.23
+      node-html-parser:
+        specifier: ^7.1.0
+        version: 7.1.0
     devDependencies:
       '@types/chai':
         specifier: ^5.2.3

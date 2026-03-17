@@ -1309,7 +1309,6 @@
   ],
   "dependencies": {
     "@cursorless/common": "workspace:*",
-    "@cursorless/cursorless-cheatsheet": "workspace:*",
     "@cursorless/cursorless-engine": "workspace:*",
     "@cursorless/cursorless-tutorial": "workspace:*",
     "@cursorless/node-common": "workspace:*",

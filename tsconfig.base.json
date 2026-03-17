@@ -14,9 +14,6 @@
     "paths": {
       "@cursorless/cheatsheet": ["./packages/cheatsheet/src/index.ts"],
       "@cursorless/common": ["./packages/common/src/index.ts"],
-      "@cursorless/cursorless-cheatsheet": [
-        "./packages/cursorless-cheatsheet/src/index.ts"
-      ],
       "@cursorless/cursorless-engine": [
         "./packages/cursorless-engine/src/index.ts"
       ],
