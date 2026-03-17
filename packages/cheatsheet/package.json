@@ -19,8 +19,7 @@
   "dependencies": {
     "@cursorless/common": "workspace:*",
     "preact": "^10.29.0",
-    "react-bootstrap-icons": "^1.11.6",
-    "react-use": "^17.6.0"
+    "react-bootstrap-icons": "^1.11.6"
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
