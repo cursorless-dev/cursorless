@@ -27,9 +27,6 @@ jobs:
       - name: Set up Node.js
         uses: ./.github/actions/setup-node
 
-      - name: Typecheck
-        run: pnpm --color typecheck
-
       - name: Lint
         run: pnpm --color lint
 

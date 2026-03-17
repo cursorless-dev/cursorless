@@ -14,7 +14,7 @@ if (global.performance == null) {
 }
 
 // Allows us to use `console.*` with quickjs
-if (typeof print !== "undefined") {
+if (global.console == null && typeof print === "function") {
   global.console = {
     log: print,
     error: print,
@@ -26,10 +26,11 @@ if (typeof print !== "undefined") {
 // In quickjs `setTimeout` is not available.
 // FIXME: Remove dependency on `setTimeout` in the future.
 // https://github.com/cursorless-dev/cursorless/issues/2596
-global.setTimeout = (callback: () => void, _delay: number) => {
-  callback();
-};
-
-global.clearTimeout = (_timeoutId: unknown) => {
-  // no-op
-};
+if (global.setTimeout == null) {
+  global.setTimeout = (callback: () => void, _delay: number) => {
+    callback();
+  };
+  global.clearTimeout = (_timeoutId: unknown) => {
+    // no-op
+  };
+}
