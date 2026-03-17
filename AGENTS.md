@@ -15,9 +15,8 @@
 
 ## Build and Test
 
-- Always run lint and typecheck when making changes:
+- Always run lint when making changes:
   - `pnpm run lint`
-  - `pnpm run typecheck`
 - Tests can be run with:
   - `pnpm test`
 
