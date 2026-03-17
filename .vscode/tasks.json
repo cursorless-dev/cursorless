@@ -31,7 +31,7 @@
     {
       "label": "Build test harness",
       "type": "npm",
-      "script": "bundle",
+      "script": "build",
       "path": "packages/test-harness",
       "presentation": {
         "reveal": "silent"

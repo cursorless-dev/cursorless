@@ -1,6 +1,9 @@
 /**
  * Runs all Talon tests.
  */
-import { TestType, runAllTests } from "../runAllTests";
 
-void runAllTests(TestType.talon);
+void (async () => {
+  const { TestType, runAllTests } = await import("../runAllTests");
+
+  await runAllTests(TestType.talon);
+})();
