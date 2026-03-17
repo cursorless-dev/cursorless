@@ -4,11 +4,6 @@
   "description": "Cursorless documentation website",
   "license": "MIT",
   "private": true,
-  "main": "./out/index.js",
-  "types": "./out/index.d.ts",
-  "exports": {
-    ".": "./out/index.js"
-  },
   "browserslist": {
     "production": [
       ">0.5%",

@@ -7,7 +7,8 @@ on:
     branches: [main]
 
 jobs:
-  publish-extension:
+  publish-vscode-extension:
+    name: Publish VSCode extension
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     environment: production
@@ -47,6 +48,7 @@ jobs:
           extensionFile: ${{ steps.publishToOpenVSX.outputs.vsixPath }}
 
   publish-neovim-extension:
+    name: Publish Neovim extension
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     environment: production

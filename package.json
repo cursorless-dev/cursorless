@@ -5,7 +5,6 @@
   "license": "MIT",
   "packageManager": "pnpm@10.30.3",
   "type": "module",
-  "main": "index.js",
   "engines": {
     "node": ">=24.14.0"
   },
