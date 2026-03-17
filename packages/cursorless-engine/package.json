@@ -20,7 +20,7 @@
     "@cursorless/common": "workspace:*",
     "@cursorless/node-common": "workspace:*",
     "@cursorless/sentence-parser": "workspace:*",
-    "@cursorless/talon-tools": "^0.7.0",
+    "@cursorless/talon-tools": "^0.8.0",
     "immer": "^11.1.4",
     "immutability-helper": "^3.1.1",
     "itertools": "^2.6.0",
@@ -41,7 +41,7 @@
     "chai": "^6.2.2",
     "js-yaml": "^4.1.1",
     "mocha": "^11.7.5",
-    "sinon": "^21.0.2",
+    "sinon": "^21.0.3",
     "vscode-uri": "^3.1.0",
     "web-tree-sitter": "^0.26.7"
   }
