@@ -1299,8 +1299,8 @@
     "preprocess-svg-hats": "c-tsx ./src/scripts/preprocessSvgHats.ts",
     "hat-adjustment-add": "c-tsx ./src/scripts/hatAdjustments/add.ts",
     "hat-adjustment-average": "c-tsx ./src/scripts/hatAdjustments/average.ts",
-    "generate-grammar:base": "nearleyc ./src/keyboard/grammar/grammar.ne",
     "ensure-grammar-up-to-date": "pnpm -s generate-grammar:base | diff -u ./src/keyboard/grammar/generated/grammar.ts -",
+    "generate-grammar:base": "nearleyc ./src/keyboard/grammar/grammar.ne",
     "generate-grammar": "pnpm generate-grammar:base -o ./src/keyboard/grammar/generated/grammar.ts",
     "generate-railroad": "mkdir out && nearley-railroad ./src/keyboard/grammar/grammar.ne -o out/railroad.html"
   },
