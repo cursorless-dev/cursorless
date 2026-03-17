@@ -5,11 +5,11 @@
   "license": "MIT",
   "private": true,
   "type": "module",
-  "main": "./out/runners/extensionTestsNeovim.cjs",
-  "types": "./out/runners/extensionTestsNeovim.d.ts",
+  "main": "./out/extensionTestsNeovim.cjs",
+  "types": "./out/extensionTestsNeovim.d.ts",
   "exports": {
     ".": {
-      "default": "./out/runners/extensionTestsNeovim.cjs"
+      "default": "./out/extensionTestsNeovim.cjs"
     }
   },
   "scripts": {
@@ -22,14 +22,10 @@
     "test:vscode": "c-tsx ./src/scripts/runVscodeTestsCI.ts",
     "test:neovim": "c-tsx ./src/scripts/runNeovimTestsCI.ts",
     "test:talonJs": "c-tsx ./src/scripts/runTalonJsTests.ts",
-    "pretest:vscode": "pnpm run bundle:runner:vscode && pnpm run bundle:tests",
-    "pretest:neovim": "pnpm run bundle:runner:neovim && pnpm run bundle:tests",
-    "pretest:talonJs": "pnpm run bundle:tests",
-    "bundle:base": "bash ./scripts/compile-esbuild.sh",
-    "bundle": "pnpm run bundle:runner:vscode && pnpm run bundle:runner:neovim && pnpm run bundle:tests",
-    "bundle:runner:vscode": "pnpm run bundle:base ./src/runners/extensionTestsVscode.ts --outfile=dist/extensionTestsVscode.cjs",
-    "bundle:runner:neovim": "pnpm run bundle:base ./src/runners/extensionTestsNeovim.ts --outfile=out/runners/extensionTestsNeovim.cjs",
-    "bundle:tests": "bash ./scripts/build-tests.sh",
+    "pretest:vscode": "pnpm run bundle",
+    "pretest:neovim": "pnpm run bundle",
+    "pretest:talonJs": "pnpm run bundle",
+    "bundle": "bash ./scripts/compile-esbuild.sh",
     "generate-test-subset-file": "c-tsx ./src/scripts/generateTestSubsetFile.ts --always-open",
     "generate-test-subset-file-strict": "c-tsx ./src/scripts/generateTestSubsetFile.ts --fail-if-not-exists"
   },

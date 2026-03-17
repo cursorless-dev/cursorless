@@ -28,8 +28,7 @@ if [[ "${CI:-x}" == "true" ]]; then
   test_harness_node_out_dir="$cursorless_nvim_dist_dir/node/test-harness"
   mkdir -p "$test_harness_node_out_dir/out"
   cp "$test_harness_node_in_dir/package.json" "$test_harness_node_out_dir"
-  mkdir -p "$test_harness_node_out_dir/out/runners"
-  cp "$test_harness_node_in_dir/out/runners/extensionTestsNeovim.cjs" "$test_harness_node_out_dir/out/runners"
+  cp "$test_harness_node_in_dir/out/extensionTestsNeovim.cjs" "$test_harness_node_out_dir/out"
 else
   # Symlink so we inherit the .map files as well, but only if uname doesn't
   # start with "MINGW" (Windows Git Bash)

@@ -9,13 +9,13 @@
   "scripts": {
     "typecheck": "tsc",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
-    "dev": "pnpm run bundle:watch",
-    "build": "pnpm run bundle",
-    "bundle": "pnpm run bundle:base --minify src/mainProduction.ts",
-    "bundle:dev": "pnpm run bundle:base src/mainDevelopment.ts",
-    "bundle:watch": "pnpm run bundle:base --watch src/mainDevelopment.ts",
-    "bundle:profile": "pnpm run bundle:base --metafile=meta.json src/mainDevelopment.ts",
-    "bundle:base": "bash scripts/esbuild.sh"
+    "dev": "pnpm run compile:watch",
+    "build": "pnpm run compile:prod",
+    "compile:prod": "pnpm run compile:base --minify src/mainProduction.ts",
+    "compile:dev": "pnpm run compile:base src/mainDevelopment.ts",
+    "compile:watch": "pnpm run compile:base --watch src/mainDevelopment.ts",
+    "compile:profile": "pnpm run compile:base --metafile=meta.json src/mainDevelopment.ts",
+    "compile:base": "bash scripts/esbuild.sh"
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",

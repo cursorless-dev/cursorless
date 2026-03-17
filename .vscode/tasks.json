@@ -18,10 +18,10 @@
       "label": "Generate grammar",
       "type": "npm",
       "script": "generate-grammar",
+      "group": "build",
       "presentation": {
         "reveal": "silent"
-      },
-      "group": "build"
+      }
     },
 
     // Generic test tasks
@@ -30,136 +30,76 @@
       "type": "npm",
       "script": "generate-test-subset-file-strict",
       "path": "packages/test-harness",
+      "group": "test",
       "presentation": {
         "reveal": "silent"
-      },
-      "group": "test"
+      }
     },
     {
       "label": "Generate test subset file",
       "type": "npm",
       "script": "generate-test-subset-file",
       "path": "packages/test-harness",
+      "group": "none",
       "presentation": {
         "reveal": "silent"
-      },
-      "group": "none",
-      "problemMatcher": []
+      }
     },
 
     // VSCode tasks
     {
       "label": "VSCode: Build extension",
-      "dependsOn": ["VSCode: Populate dist", "VSCode: ESBuild"],
-      "group": "build"
+      "type": "npm",
+      "script": "dev",
+      "path": "packages/cursorless-vscode",
+      "group": "build",
+      "presentation": {
+        "reveal": "silent"
+      }
     },
     {
       "label": "VSCode: Build extension and tests",
-      "dependsOn": ["VSCode: Build extension", "TSBuild", "Build test harness"],
+      "dependsOn": ["VSCode: Build extension", "Build test harness"],
       "group": {
         "kind": "build",
         "isDefault": true
       }
     },
     {
-      "label": "VSCode: ESBuild",
-      "type": "npm",
-      "script": "bundle:dev",
-      "path": "packages/cursorless-vscode",
-      "dependsOn": ["Generate grammar"],
-      "presentation": {
-        "reveal": "silent"
-      },
-      "group": "build"
-    },
-    {
-      "label": "VSCode: Populate dist",
-      "type": "npm",
-      "script": "populate-dist",
-      "path": "packages/cursorless-vscode",
-      "dependsOn": ["VSCode: Build tutorial webview"],
-      "presentation": {
-        "reveal": "silent"
-      },
-      "group": "build"
-    },
-    {
-      "label": "VSCode: Build tutorial webview",
-      "type": "npm",
-      "script": "bundle:dev",
-      "path": "packages/cursorless-vscode-tutorial-webview",
-      "presentation": {
-        "reveal": "silent"
-      },
-      "group": "build"
-    },
-    {
-      "label": "VSCode: Watch tutorial",
-      "type": "npm",
-      "script": "bundle:watch",
-      "isBackground": true,
-      "presentation": {
-        "reveal": "never"
-      },
-      "path": "packages/cursorless-vscode-tutorial-webview",
-      "group": "build"
-    },
-    {
       "label": "VSCode: Prepare test subset",
+      "group": "test",
+      "dependsOrder": "sequence",
       "dependsOn": [
         "Ensure test subset file exists",
         "VSCode: Build extension and tests"
-      ],
-      "dependsOrder": "sequence",
-      "group": "test"
+      ]
     },
 
     // Neovim tasks
     {
       "label": "Neovim: Build extension",
-      "dependsOn": [
-        "Neovim: Launch neovim",
-        "Neovim: ESBuild",
-        "Neovim: Populate dist"
-      ],
-      "group": "build"
+      "group": "build",
+      "dependsOn": ["Neovim: Launch neovim", "Neovim: ESBuild"]
     },
     {
       "label": "Neovim: Build extension and tests",
+      "group": "build",
       "dependsOn": [
         "Neovim: Launch neovim (test)",
         "Neovim: ESBuild",
-        "Neovim: Populate dist",
-        "TSBuild",
         "Build test harness"
-      ],
-      "group": "build"
+      ]
     },
     {
       "label": "Neovim: ESBuild",
       "type": "npm",
-      "script": "bundle:dev",
+      "script": "dev",
       "path": "packages/cursorless-neovim",
       "dependsOn": ["Generate grammar"],
+      "group": "build",
       "presentation": {
         "reveal": "silent"
-      },
-      "group": "build"
-    },
-    {
-      "label": "Neovim: Populate dist",
-      "type": "npm",
-      "script": "populate-dist",
-      "path": "packages/cursorless-neovim",
-      "presentation": {
-        "reveal": "silent"
-      },
-      "options": {
-        "env": {
-          "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
-        }
-      },
-      "group": "build"
+      }
     },
     {
       "label": "Neovim: Launch neovim",
@@ -263,32 +203,26 @@
     // cursorless.org
     {
       "label": "Serve cursorless.org",
-      "type": "shell",
-      "command": "nx serve cursorless-org",
-      "options": {
-        "cwd": "cursorless-nx"
-      },
-      "problemMatcher": []
+      "type": "npm",
+      "script": "dev",
+      "path": "packages/cursorless-org"
     },
     {
       "label": "Install local",
       "type": "npm",
-      "path": "packages/cursorless-vscode",
       "script": "install-local",
-      "problemMatcher": []
+      "path": "packages/cursorless-vscode"
     },
     {
       "label": "Uninstall local",
       "type": "npm",
-      "path": "packages/cursorless-vscode",
       "script": "uninstall-local",
-      "problemMatcher": []
+      "path": "packages/cursorless-vscode"
     },
     {
       "label": "Run pre commit",
       "type": "shell",
-      "command": "pre-commit run",
-      "presentation": {}
+      "command": "pre-commit run"
     }
   ]
 }

@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
-
 set -euo pipefail
 
-esbuild \
-    --format=cjs \
-    --bundle \
-    --external:vscode \
-    --external:./reporters/parallel-buffered \
-    --external:./worker.js \
-    --external:talon \
-    --platform=node \
-    --sourcemap \
-    "$@"
+# Compile vscode test runner
+./scripts/run-esbuild.sh \
+    ./src/runners/extensionTestsVscode.ts \
+    --outfile=out/extensionTestsVscode.cjs
+
+# Compile neovim test runner
+./scripts/run-esbuild.sh \
+    ./src/runners/extensionTestsNeovim.ts \
+    --outfile=out/extensionTestsNeovim.cjs
+
+# Compiled test cases
+find .. -name '*.test.ts' -print0 |
+    xargs -0 -n 50 ./scripts/run-esbuild.sh --outdir=out --out-extension:.js=.cjs

@@ -11,7 +11,7 @@ process.env.CURSORLESS_MODE = "test";
 void (async () => {
   const extensionTestsPath = path.resolve(
     getCursorlessRepoRoot(),
-    "packages/test-harness/dist/extensionTestsVscode.cjs",
+    "packages/test-harness/out/extensionTestsVscode.cjs",
   );
 
   await launchVscodeAndRunTests(extensionTestsPath);

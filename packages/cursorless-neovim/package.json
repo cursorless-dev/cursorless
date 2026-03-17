@@ -12,12 +12,12 @@
   "scripts": {
     "typecheck": "tsc",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
-    "dev": "pnpm run bundle:dev && pnpm run populate-dist",
-    "build": "pnpm -F @cursorless/test-harness bundle:runner:neovim && pnpm run bundle && pnpm run populate-dist",
-    "bundle": "pnpm run bundle:base --minify",
-    "bundle:dev": "pnpm run bundle:base --sourcemap",
-    "bundle:watch": "pnpm run bundle:base --sourcemap --watch",
-    "bundle:base": "bash ./scripts/compile-esbuild.sh",
+    "dev": "pnpm run compile:dev && pnpm run populate-dist",
+    "build": "pnpm run compile:prod && pnpm run populate-dist",
+    "compile:prod": "pnpm run compile:base --minify",
+    "compile:dev": "pnpm run compile:base --sourcemap",
+    "compile:watch": "pnpm run compile:base --sourcemap --watch",
+    "compile:base": "bash ./scripts/compile-esbuild.sh",
     "populate-dist": "bash ./scripts/populate-dist.sh"
   },
   "dependencies": {
