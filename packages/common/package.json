@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "bin": {
-    "my-ts-node": "./scripts/my-ts-node.js"
+    "c-tsx": "./scripts/c-tsx.js"
   },
   "exports": {
     ".": "./src/index.ts",

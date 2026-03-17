@@ -6,7 +6,6 @@ const config: Config = {
   testEnvironment: "jsdom",
   moduleNameMapper: {
     ...preactModuleNameMapper,
-    "^@cursorless/cheatsheet$": "<rootDir>/../cheatsheet/src/index.ts",
     "\\.(css|scss)$": "<rootDir>/src/test/styleMock.ts",
   },
 };

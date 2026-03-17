@@ -13,16 +13,16 @@
     }
   },
   "scripts": {
-    "test": "my-ts-node src/scripts/runUnitTestsOnly.ts",
-    "test:subset": "my-ts-node src/scripts/runUnitTestsOnly.ts --subset",
-    "test:update": "my-ts-node src/scripts/runUnitTestsOnly.ts --update",
-    "test:update:subset": "my-ts-node src/scripts/runUnitTestsOnly.ts --update --subset",
+    "test": "c-tsx ./src/scripts/runUnitTestsOnly.ts",
+    "test:subset": "c-tsx ./src/scripts/runUnitTestsOnly.ts --subset",
+    "test:update": "c-tsx ./src/scripts/runUnitTestsOnly.ts --update",
+    "test:update:subset": "c-tsx ./src/scripts/runUnitTestsOnly.ts --update --subset",
     "pretest:vscode": "pnpm run bundle:runner:vscode && pnpm run bundle:tests",
-    "test:vscode": "my-ts-node src/scripts/runVscodeTestsCI.ts",
+    "test:vscode": "c-tsx ./src/scripts/runVscodeTestsCI.ts",
     "pretest:neovim": "pnpm run bundle:runner:neovim && pnpm run bundle:tests",
-    "test:neovim": "my-ts-node src/scripts/runNeovimTestsCI.ts",
+    "test:neovim": "c-tsx ./src/scripts/runNeovimTestsCI.ts",
     "pretest:talonJs": "pnpm run bundle:tests",
-    "test:talonJs": "my-ts-node src/scripts/runTalonJsTests.ts",
+    "test:talonJs": "c-tsx ./src/scripts/runTalonJsTests.ts",
     "bundle:base": "bash ./scripts/compile-esbuild.sh",
     "bundle": "pnpm run bundle:runner:vscode && pnpm run bundle:runner:neovim && pnpm run bundle:tests",
     "bundle:runner:vscode": "pnpm run bundle:base ./src/runners/extensionTestsVscode.ts --outfile=dist/extensionTestsVscode.cjs",
@@ -30,8 +30,8 @@
     "bundle:tests": "bash ./scripts/build-tests.sh",
     "typecheck": "tsc",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
-    "generate-test-subset-file": "my-ts-node ./src/scripts/generateTestSubsetFile.ts --always-open",
-    "generate-test-subset-file-strict": "my-ts-node ./src/scripts/generateTestSubsetFile.ts --fail-if-not-exists"
+    "generate-test-subset-file": "c-tsx ./src/scripts/generateTestSubsetFile.ts --always-open",
+    "generate-test-subset-file-strict": "c-tsx ./src/scripts/generateTestSubsetFile.ts --fail-if-not-exists"
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",
@@ -50,6 +50,7 @@
     "@vscode/test-electron": "^2.5.2",
     "cross-spawn": "^7.0.6",
     "mocha": "^11.7.5",
+    "tsx": "^4.21.0",
     "web-tree-sitter": "^0.26.7"
   }
 }

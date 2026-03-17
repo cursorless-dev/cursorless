@@ -32,7 +32,7 @@
     "test:update": "pnpm -r test:update",
     "test:update:subset": "pnpm -r test:update:subset",
     "generate-grammar": "pnpm -r generate-grammar",
-    "transform-recorded-tests": "pnpm exec ./packages/common/scripts/my-ts-node.js ./packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts"
+    "transform-recorded-tests": "c-tsx ./packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts"
   },
   "devDependencies": {
     "@eslint/config-helpers": "^0.5.3",

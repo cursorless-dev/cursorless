@@ -17,7 +17,7 @@ init.lua
 And here is the call path when running Neovim tests on CI:
 
 ```
-.github/workflows/test.yml -> packages/test-harness/package.json -> my-ts-node src/scripts/runNeovimTestsCI.ts -> packages/test-harness/src/launchNeovimAndRunTests.ts
+.github/workflows/test.yml -> packages/test-harness/package.json -> c-tsx src/scripts/runNeovimTestsCI.ts -> packages/test-harness/src/launchNeovimAndRunTests.ts
 
 launchNeovimAndRunTests.ts
   -> copies packages/test-harness/src/config/init.lua to default nvim config folder
@@ -215,7 +215,7 @@ if: runner.os == 'Linux' && matrix.app_version == 'stable'
 This triggers the script in `packages/test-harness/package.json`:
 
 ```json
-"test:neovim": "env CURSORLESS_MODE=test my-ts-node src/scripts/runNeovimTestsCI.ts",
+"test:neovim": "c-tsx src/scripts/runNeovimTestsCI.ts",
 ```
 
 This ends up calling the default function from `package/test-harness/src/scripts/runNeovimTestsCI.ts` which calls `launchNeovimAndRunTests()` from `packages/test-harness/src/launchNeovimAndRunTests.ts`:
