@@ -4,6 +4,4 @@
 
 import { launchNeovimAndRunTests } from "../launchNeovimAndRunTests";
 
-void (async () => {
-  await launchNeovimAndRunTests();
-})();
+void launchNeovimAndRunTests();
