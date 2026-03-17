@@ -85,7 +85,7 @@ async function getScripts(
   name: string | undefined,
   packageDir: string,
   isRoot: boolean,
-  isLib: boolean,
+  _isLib: boolean,
 ) {
   const scripts: PackageJson.Scripts = {
     ...(inputScripts ?? {}),
@@ -97,20 +97,34 @@ async function getScripts(
 
   scripts.typecheck = "tsc";
 
-  if (!isLib) {
-    const cleanDirs = ["./out", "tsconfig.tsbuildinfo", "./dist", "./build"];
-    const clean = `rm -rf ${cleanDirs.join(" ")}`;
-    const cleanScripts =
-      name === "@cursorless/cursorless-org-docs"
-        ? ["pnpm clear", clean]
-        : [clean];
+  const cleanDirs = ["./out", "tsconfig.tsbuildinfo", "./dist", "./build"];
+  const clean = `rm -rf ${cleanDirs.join(" ")}`;
+  const cleanScripts =
+    name === "@cursorless/cursorless-org-docs"
+      ? ["docusaurus clear", clean]
+      : [clean];
 
-    scripts.clean = cleanScripts.join(" && ");
-  } else {
-    delete scripts.clean;
-  }
+  scripts.clean = cleanScripts.join(" && ");
 
-  return scripts;
+  const orderedKeys = [
+    "typecheck",
+    "clean",
+    "test",
+    "pretest",
+    "dev",
+    "build",
+    "bundle",
+  ];
+  const getOrder = (key: string) => {
+    const index = orderedKeys.findIndex((k) => key.startsWith(k));
+    return index === -1 ? Number.POSITIVE_INFINITY : index;
+  };
+
+  return Object.fromEntries(
+    Object.entries(scripts).sort(
+      ([keyA], [keyB]) => getOrder(keyA) - getOrder(keyB),
+    ),
+  );
 }
 
 function removeEmptyFields(obj: Record<string, any>) {

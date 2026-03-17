@@ -13,7 +13,8 @@
     "./vite": "./src/tooling/vite.ts"
   },
   "scripts": {
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
     "itertools": "^2.6.0",

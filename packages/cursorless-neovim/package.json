@@ -10,16 +10,15 @@
     ".": "./out/index.cjs"
   },
   "scripts": {
-    "build": "pnpm -F @cursorless/test-harness bundle:runner:neovim && pnpm run bundle && pnpm run populate-dist",
-    "dev": "pnpm run bundle:dev && pnpm run populate-dist",
     "typecheck": "tsc",
-    "bundle:base": "bash ./scripts/compile-esbuild.sh",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
+    "dev": "pnpm run bundle:dev && pnpm run populate-dist",
+    "build": "pnpm -F @cursorless/test-harness bundle:runner:neovim && pnpm run bundle && pnpm run populate-dist",
+    "bundle": "pnpm run bundle:base --minify",
     "bundle:dev": "pnpm run bundle:base --sourcemap",
     "bundle:watch": "pnpm run bundle:base --sourcemap --watch",
-    "bundle": "pnpm run bundle:base --minify",
-    "populate-dist": "bash ./scripts/populate-dist.sh",
-    "populate-dist:prod": "bash ./scripts/populate-dist.sh",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
+    "bundle:base": "bash ./scripts/compile-esbuild.sh",
+    "populate-dist": "bash ./scripts/populate-dist.sh"
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",

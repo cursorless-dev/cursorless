@@ -8,11 +8,11 @@
   "main": "./out/index.js",
   "scripts": {
     "typecheck": "tsc",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
     "dev": "env NODE_OPTIONS=--import=tsx vite serve",
     "bundle": "env NODE_OPTIONS=--import=tsx vite build",
     "bundle:dev": "env NODE_OPTIONS=--import=tsx vite build --mode development",
-    "bundle:watch": "env NODE_OPTIONS=--import=tsx vite build --mode development --watch",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
+    "bundle:watch": "env NODE_OPTIONS=--import=tsx vite build --mode development --watch"
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",

@@ -12,8 +12,9 @@
     "*.css"
   ],
   "scripts": {
-    "test": "jest",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
+    "test": "jest"
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",
