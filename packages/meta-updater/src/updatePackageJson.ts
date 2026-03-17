@@ -5,7 +5,7 @@ import type { PackageJson } from "type-fest";
 import type { Context } from "./Context";
 import { getCursorlessVscodeFields } from "./getCursorlessVscodeFields";
 
-const LIB_ENTRY_POINT = "./src/index.ts";
+export const LIB_ENTRY_POINT = "src/index.ts";
 
 /**
  * Given a package.json, update it to match our conventions.  This function is
@@ -26,9 +26,14 @@ export async function updatePackageJson(
   const input: PackageJson = (rawInput ?? {}) as PackageJson;
   /** Directory of the package whose package.json we are updating */
   const packageDir = options.dir;
-
   /** Whether we are updating the top-level package.json */
   const isRoot = packageDir === workspaceDir;
+
+  const isLib = !isRoot && !input.private;
+  const isCursorlessVscode = input.name === "@cursorless/cursorless-vscode";
+  const isCursorlessNeovim = input.name === "@cursorless/cursorless-neovim";
+  const isCursorlessOrgDocs = input.name === "@cursorless/cursorless-org-docs";
+  const isCursorlessTestHarness = input.name === "@cursorless/test-harness";
 
   if (input.description == null || input.description === "") {
     throw new Error(`No description found in ${packageDir}/package.json`);
@@ -39,23 +44,29 @@ export async function updatePackageJson(
       ? input.name
       : `@cursorless/${input.name}`;
 
-  const isLib = !isRoot && !input.private;
-
-  const exportFields: Partial<PackageJson> = (() => {
-    if (!isLib) {
-      return {};
-    }
+  if (isLib) {
     const exports =
       input.exports != null &&
       typeof input.exports === "object" &&
       !Array.isArray(input.exports)
         ? input.exports
         : {};
-    exports["."] = LIB_ENTRY_POINT;
-    return { exports };
-  })();
-
-  const isCursorlessVscode = input.name === "@cursorless/cursorless-vscode";
+    exports["."] = `./${LIB_ENTRY_POINT}`;
+    input.exports = exports;
+  } else {
+    delete input.types;
+    delete input.exports;
+    // Extensions need a main field, but other non-lib packages shouldn't have
+    // one. The test harness is a special case since it's technically not a
+    // library but still requires main for the neovim tests.
+    if (
+      !isCursorlessVscode &&
+      !isCursorlessNeovim &&
+      !isCursorlessTestHarness
+    ) {
+      delete input.main;
+    }
+  }
 
   const extraFields = isCursorlessVscode
     ? getCursorlessVscodeFields(input)
@@ -65,13 +76,8 @@ export async function updatePackageJson(
     ...input,
     name,
     license: "MIT",
-    type:
-      name === "@cursorless/cursorless-org-docs" ||
-      name === "@cursorless/cursorless-neovim"
-        ? undefined
-        : "module",
+    type: isCursorlessOrgDocs || isCursorlessNeovim ? undefined : "module",
     scripts: await getScripts(input.scripts, name, packageDir, isRoot, isLib),
-    ...exportFields,
     ...extraFields,
   };
 

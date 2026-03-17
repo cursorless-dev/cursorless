@@ -6,12 +6,6 @@
   "private": true,
   "type": "module",
   "main": "./out/extensionTestsNeovim.cjs",
-  "types": "./out/extensionTestsNeovim.d.ts",
-  "exports": {
-    ".": {
-      "default": "./out/extensionTestsNeovim.cjs"
-    }
-  },
   "scripts": {
     "typecheck": "tsc",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",

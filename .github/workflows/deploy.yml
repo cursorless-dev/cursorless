@@ -7,7 +7,8 @@ on:
     branches: [main]
 
 jobs:
-  publish-extension:
+  publish-vscode-extension:
+    name: Publish VSCode extension
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     environment: production
@@ -47,6 +48,7 @@ jobs:
           extensionFile: ${{ steps.publishToOpenVSX.outputs.vsixPath }}
 
   publish-neovim-extension:
+    name: Publish Neovim extension
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     environment: production
@@ -97,7 +99,7 @@ jobs:
   push-cursorless-talon:
     name: Push cursorless-talon subrepo
     runs-on: ubuntu-latest
-    needs: publish-extension
+    needs: publish-vscode-extension
     environment: production
     env:
       DEPLOY_SHA: ${{ github.event.workflow_run.head_sha }}

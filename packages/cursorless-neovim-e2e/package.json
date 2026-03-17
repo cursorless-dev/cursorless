@@ -5,11 +5,6 @@
   "license": "MIT",
   "private": true,
   "type": "module",
-  "main": "./out/index.js",
-  "types": "./out/index.d.ts",
-  "exports": {
-    ".": "./out/index.js"
-  },
   "scripts": {
     "typecheck": "tsc",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"

@@ -10,8 +10,9 @@ import { textFormat } from "./textFormat";
 import { updateLanguageMdx } from "./updateLanguageMdx";
 import { updatePackageJson } from "./updatePackageJson";
 import { getScopeTypeTypes, updateScopeMdx } from "./updateScopeMdx";
-import { updateTSConfig } from "./updateTSConfig";
 import { updatesScopeSupportFacetInfos } from "./updatesScopeSupportFacetInfos";
+import { updateTSConfig } from "./updateTSConfig";
+import { updateTSConfigBase } from "./updateTSConfigBase";
 
 export const updater = async (workspaceDir: string) => {
   const pnpmLockfile = await readWantedLockfile(workspaceDir, {
@@ -31,6 +32,7 @@ export const updater = async (workspaceDir: string) => {
     files: {
       ["package.json"]: updatePackageJson.bind(null, context),
       ["tsconfig.json"]: updateTSConfig.bind(null, context),
+      ["tsconfig.base.json"]: updateTSConfigBase.bind(null, context),
       ["data/scopeSupportFacetInfos.md"]: updatesScopeSupportFacetInfos,
       ...Object.fromEntries(
         Object.keys(languageScopeSupport).map((languageId) => [

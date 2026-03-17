@@ -5,10 +5,6 @@
   "license": "MIT",
   "private": true,
   "main": "./out/index.cjs",
-  "types": "./out/index.d.ts",
-  "exports": {
-    ".": "./out/index.cjs"
-  },
   "scripts": {
     "typecheck": "tsc",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
