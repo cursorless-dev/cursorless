@@ -1,10 +1,7 @@
 {
-  "extends": ["@tsconfig/docusaurus/tsconfig.json", "../../tsconfig.base.json"],
+  "extends": ["@tsconfig/docusaurus/tsconfig.json", "../../tsconfig.web.json"],
   "compilerOptions": {
-    "target": "es2022",
-    "lib": ["dom", "es2022"],
-    "jsx": "react",
-    "esModuleInterop": true
+    "jsx": "react-jsx"
   },
   "include": [
     "src/**/*.ts",

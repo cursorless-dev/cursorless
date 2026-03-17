@@ -1,10 +1,6 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "../../tsconfig.web.json",
   "compilerOptions": {
-    "target": "es2022",
-    "lib": ["dom", "es2022"],
-    "jsx": "react-jsx",
-    "jsxImportSource": "preact",
     "skipLibCheck": true
   },
   "include": [

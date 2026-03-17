@@ -1,10 +1,5 @@
 {
-  "extends": "../../tsconfig.base.json",
-  "compilerOptions": {
-    "lib": ["dom", "es2022"],
-    "jsx": "react-jsx",
-    "jsxImportSource": "preact"
-  },
+  "extends": "../../tsconfig.web.json",
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
