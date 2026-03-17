@@ -1,11 +1,14 @@
 import { getLockfileImporterId } from "@pnpm/lockfile-file";
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
-import { cloneDeep, isEqual, uniq } from "lodash-es";
+import { cloneDeep, isEqual } from "lodash-es";
 import normalizePath from "normalize-path";
 import * as path from "path";
 import type { TsConfigJson } from "type-fest";
 import type { Context } from "./Context";
 import { toPosixPath } from "./toPosixPath";
+
+const baseName = "tsconfig.base.json";
+const webJsonName = "tsconfig.web.json";
 
 /**
  * Given a tsconfig.json, update it to match our conventions.  This function is
@@ -60,15 +63,20 @@ export async function updateTSConfig(
   delete compilerOptions.outDir;
   delete compilerOptions.rootDir;
 
+  const extendsList = getExtends(pathFromPackageToRoot, input.extends);
+  const isWeb =
+    input.compilerOptions?.jsx != null ||
+    extendsList.some((e) => e.endsWith(webJsonName));
+
   return {
     ...input,
-    extends: getExtends(pathFromPackageToRoot, input.extends),
+    extends: extendsList.length === 1 ? extendsList[0] : extendsList,
 
     ...(isEqual(compilerOptions, {}) ? {} : { compilerOptions }),
 
     include: [
       "src/**/*.ts",
-      ...(input.compilerOptions?.jsx == null ? [] : ["src/**/*.tsx"]),
+      ...(isWeb ? ["src/**/*.tsx"] : []),
       "src/**/*.json",
       toPosixPath(path.join(pathFromPackageToRoot, "typings", "**/*.d.ts")),
     ],
@@ -79,18 +87,19 @@ function getExtends(
   pathFromPackageToRoot: string,
   inputExtends: string | string[] | undefined,
 ) {
-  let extendsList =
+  const extendsList =
     inputExtends == null
       ? []
       : Array.isArray(inputExtends)
         ? [...inputExtends]
         : [inputExtends];
 
-  extendsList.push(
-    toPosixPath(path.join(pathFromPackageToRoot, "tsconfig.base.json")),
-  );
+  const basePath = toPosixPath(path.join(pathFromPackageToRoot, baseName));
+  const webPath = toPosixPath(path.join(pathFromPackageToRoot, webJsonName));
 
-  extendsList = uniq(extendsList);
+  if (!extendsList.includes(basePath) && !extendsList.includes(webPath)) {
+    extendsList.push(basePath);
+  }
 
-  return extendsList.length === 1 ? extendsList[0] : extendsList;
+  return extendsList;
 }
