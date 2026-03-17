@@ -16,9 +16,8 @@ fi
 # Cursorless first and using a special extension id to break update chain
 
 # 1. Build local cursorless, using special extension id to break update chain
-pnpm bundle
-pnpm -F @cursorless/cheatsheet-local bundle
-pnpm -F @cursorless/cursorless-vscode-tutorial-webview bundle
+pnpm -F @cursorless/cheatsheet-local bundle:prod
+pnpm -F @cursorless/cursorless-vscode-tutorial-webview bundle:prod
 pnpm build --local-install
 
 # 2. Bundle the extension
