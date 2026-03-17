@@ -14,7 +14,7 @@ if (global.performance == null) {
 }
 
 // Allows us to use `console.*` with quickjs
-if (global.console == null && typeof print === "function") {
+if (typeof print === "function") {
   global.console = {
     log: print,
     error: print,
