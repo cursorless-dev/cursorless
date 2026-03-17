@@ -5,13 +5,7 @@
     "lib": ["dom", "es2022"],
     "jsx": "react-jsx",
     "jsxImportSource": "preact",
-    "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowJs": true
-  },
-  "ts-node": {
-    "esm": true
+    "skipLibCheck": true
   },
   "include": [
     "src/**/*.ts",

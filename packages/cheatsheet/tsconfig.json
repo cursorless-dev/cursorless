@@ -5,7 +5,6 @@
     "lib": ["dom", "es2022"],
     "jsx": "react-jsx",
     "jsxImportSource": "preact",
-    "esModuleInterop": true,
     "skipLibCheck": true
   },
   "include": [
