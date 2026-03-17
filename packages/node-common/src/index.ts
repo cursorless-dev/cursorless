@@ -1,3 +1,4 @@
+export * from "./Cheatsheet";
 export * from "./FileSystemCommandHistoryStorage";
 export * from "./FileSystemRawTreeSitterQueryProvider";
 export * from "./FileSystemTalonSpokenForms";

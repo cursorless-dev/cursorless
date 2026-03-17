@@ -4,15 +4,12 @@ import type {
   ScopeType,
 } from "@cursorless/common";
 import { CURSORLESS_COMMAND_ID } from "@cursorless/common";
-import {
-  showCheatsheet,
-  updateDefaults,
-} from "@cursorless/cursorless-cheatsheet";
 import type {
   CommandApi,
   StoredTargetMap,
 } from "@cursorless/cursorless-engine";
 import { analyzeCommandHistory } from "@cursorless/cursorless-engine";
+import { showCheatsheet, updateDefaults } from "@cursorless/node-common";
 import type {
   ScopeTestRecorder,
   TestCaseRecorder,
