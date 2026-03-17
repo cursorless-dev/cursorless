@@ -1,13 +1,9 @@
 {
   "extends": "../../tsconfig.web.json",
-  "compilerOptions": {
-    "skipLibCheck": true
-  },
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.json",
     "../../typings/**/*.d.ts"
-  ],
-  "exclude": ["node_modules"]
+  ]
 }
