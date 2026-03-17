@@ -4,7 +4,6 @@
     "src/**/*.ts",
     "src/**/*.json",
     "../../typings/**/*.d.ts",
-    "../cursorless-everywhere-talon-core/src/types/talon.d.ts",
-    "../cursorless-everywhere-talon-core/src/types/quickjs.d.ts"
+    "../cursorless-everywhere-talon-core/src/types/**/*.d.ts"
   ]
 }
