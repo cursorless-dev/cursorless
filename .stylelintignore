@@ -1,7 +1,0 @@
-.git
-node_modules
-.vscode-test
-packages/*/out
-packages/*/dist
-packages/*/build
-packages/*/.docusaurus
