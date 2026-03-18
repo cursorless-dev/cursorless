@@ -5,7 +5,7 @@ import type { PackageJson } from "type-fest";
 import type { Context } from "./Context";
 import { getCursorlessVscodeFields } from "./getCursorlessVscodeFields";
 
-export const LIB_ENTRY_POINT = "src/index.ts";
+const LIB_ENTRY_POINT = "./src/index.ts";
 
 /**
  * Given a package.json, update it to match our conventions.  This function is
@@ -51,7 +51,7 @@ export async function updatePackageJson(
       !Array.isArray(input.exports)
         ? input.exports
         : {};
-    exports["."] = `./${LIB_ENTRY_POINT}`;
+    exports["."] = LIB_ENTRY_POINT;
     input.exports = exports;
   } else {
     delete input.types;

@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Run",
+      "name": "Run extension",
       "type": "extensionHost",
       "request": "launch",
       "env": {
@@ -21,7 +21,7 @@
       ]
     },
     {
-      "name": "Test",
+      "name": "Extension tests",
       "type": "extensionHost",
       "request": "launch",
       "env": {
@@ -42,7 +42,7 @@
       ]
     },
     {
-      "name": "Test (subset)",
+      "name": "Extension tests (subset)",
       "type": "extensionHost",
       "request": "launch",
       "env": {
