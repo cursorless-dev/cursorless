@@ -2,7 +2,6 @@ import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import * as fs from "fs/promises";
 import type { PackageJson, TsConfigJson } from "type-fest";
 import type { Context } from "./Context";
-import { LIB_ENTRY_POINT } from "./updatePackageJson";
 
 export async function updateTSConfigBase(
   { workspaceDir, pnpmLockfile }: Context,
@@ -33,7 +32,7 @@ export async function updateTSConfigBase(
     ) as PackageJson;
 
     if (!packageJson.private) {
-      paths[packageName] = [`./${packagePath}/${LIB_ENTRY_POINT}`];
+      paths[packageName] = [`./${packagePath}`];
     }
   }
 
