@@ -1,6 +1,5 @@
 /**
- * Debounces a callback.  Uses the `decorationDebounceDelayMs` configuration
- * value to determine the debounce delay.
+ * Debounces a callback.
  */
 export class Debouncer {
   private timeoutHandle: ReturnType<typeof setTimeout> | null = null;
