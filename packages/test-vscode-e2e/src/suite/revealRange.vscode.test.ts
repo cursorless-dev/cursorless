@@ -2,7 +2,7 @@ import { LATEST_VERSION } from "@cursorless/lib-common";
 import {
   getReusableEditor,
   runCursorlessCommand,
-} from "@cursorless/vscode-common";
+} from "@cursorless/lib-vscode-common";
 import assert from "node:assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";

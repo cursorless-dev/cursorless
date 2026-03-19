@@ -2,7 +2,7 @@ import {
   getCursorlessApi,
   getReusableEditor,
   openNewEditor,
-} from "@cursorless/vscode-common";
+} from "@cursorless/lib-vscode-common";
 import { assert } from "chai";
 import * as vscode from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../../endToEndTestSetup";

@@ -9,7 +9,7 @@ import { DOCS_URL, ScopeSupport, showError } from "@cursorless/lib-common";
 import type {
   ScopeRangeType,
   ScopeVisualizerColorConfig,
-} from "@cursorless/vscode-common";
+} from "@cursorless/lib-vscode-common";
 import { vscodeApi } from "../../../vscodeApi";
 import { VscodeScopeRenderer } from "./VscodeScopeRenderer";
 import { getColorsFromConfig } from "./getColorsFromConfig";

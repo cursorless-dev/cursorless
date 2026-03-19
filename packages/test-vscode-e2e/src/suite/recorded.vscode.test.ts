@@ -12,7 +12,7 @@ import {
   getCursorlessApi,
   getReusableEditor,
   runCursorlessCommand,
-} from "@cursorless/vscode-common";
+} from "@cursorless/lib-vscode-common";
 import * as vscode from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import { setupFake } from "./setupFake";

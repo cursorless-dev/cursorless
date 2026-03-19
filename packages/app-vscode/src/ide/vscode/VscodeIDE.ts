@@ -17,7 +17,7 @@ import { OutdatedExtensionError } from "@cursorless/lib-common";
 import {
   fromVscodeRange,
   fromVscodeSelection,
-} from "@cursorless/vscode-common";
+} from "@cursorless/lib-vscode-common";
 import { pull } from "lodash-es";
 import { v4 as uuid } from "uuid";
 import type { ExtensionContext, WorkspaceFolder } from "vscode";

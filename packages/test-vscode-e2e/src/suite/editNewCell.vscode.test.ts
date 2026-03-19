@@ -3,7 +3,7 @@ import {
   getCursorlessApi,
   openNewNotebookEditor,
   runCursorlessCommand,
-} from "@cursorless/vscode-common";
+} from "@cursorless/lib-vscode-common";
 import * as assert from "assert";
 import { window } from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";

@@ -5,7 +5,7 @@ import type {
   TextDocumentChangeReason,
   TextDocumentContentChangeEvent,
 } from "@cursorless/lib-common";
-import { fromVscodeRange } from "@cursorless/vscode-common";
+import { fromVscodeRange } from "@cursorless/lib-vscode-common";
 import * as vscode from "vscode";
 import { VscodeTextDocument } from "./VscodeTextDocument";
 

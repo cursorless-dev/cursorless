@@ -15,11 +15,11 @@ import {
   ScopeTestRecorder,
   TestCaseRecorder,
 } from "@cursorless/lib-test-case-recorder";
-import type { CursorlessApi } from "@cursorless/vscode-common";
+import type { CursorlessApi } from "@cursorless/lib-vscode-common";
 import {
   getCommandServerApi,
   getParseTreeApi,
-} from "@cursorless/vscode-common";
+} from "@cursorless/lib-vscode-common";
 import type { ExtensionContext } from "vscode";
 import { InstallationDependencies } from "./InstallationDependencies";
 import { ReleaseNotes } from "./ReleaseNotes";

@@ -4,7 +4,7 @@ import type {
   TutorialState,
 } from "@cursorless/lib-common";
 import { getCursorlessRepoRoot } from "@cursorless/lib-node-common";
-import type { SpyWebViewEvent, VscodeApi } from "@cursorless/vscode-common";
+import type { SpyWebViewEvent, VscodeApi } from "@cursorless/lib-vscode-common";
 import path from "node:path";
 import type {
   CancellationToken,

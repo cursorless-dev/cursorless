@@ -1314,7 +1314,7 @@
     "@cursorless/lib-tutorial": "workspace:*",
     "@cursorless/lib-node-common": "workspace:*",
     "@cursorless/lib-test-case-recorder": "workspace:*",
-    "@cursorless/vscode-common": "workspace:*",
+    "@cursorless/lib-vscode-common": "workspace:*",
     "glob": "^13.0.6",
     "itertools": "^2.6.0",
     "lodash-es": "^4.17.23",

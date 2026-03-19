@@ -6,7 +6,7 @@ import {
   getBorderRadius,
   getBorderStyle,
 } from "@cursorless/lib-common";
-import { toVscodeRange } from "@cursorless/vscode-common";
+import { toVscodeRange } from "@cursorless/lib-vscode-common";
 import type { DecorationRenderOptions, TextEditorDecorationType } from "vscode";
 import { DecorationRangeBehavior } from "vscode";
 import { vscodeApi } from "../../../../vscodeApi";

@@ -8,7 +8,7 @@ import {
   getCursorlessApi,
   getReusableEditor,
   runCursorlessCommand,
-} from "@cursorless/vscode-common";
+} from "@cursorless/lib-vscode-common";
 import { assert } from "chai";
 import * as crypto from "crypto";
 import { mkdir, readFile, readdir, rm } from "node:fs/promises";

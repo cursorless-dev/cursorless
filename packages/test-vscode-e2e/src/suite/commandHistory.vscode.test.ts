@@ -8,7 +8,7 @@ import {
   getCursorlessApi,
   openNewEditor,
   runCursorlessCommand,
-} from "@cursorless/vscode-common";
+} from "@cursorless/lib-vscode-common";
 import { assert } from "chai";
 import { existsSync } from "node:fs";
 import { readFile, readdir, rm } from "node:fs/promises";

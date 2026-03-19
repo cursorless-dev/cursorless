@@ -1,5 +1,5 @@
 {
-  "name": "@cursorless/vscode-common",
+  "name": "@cursorless/lib-vscode-common",
   "version": "0.1.0",
   "description": "Common utility functions usable anywhere that VSCode api is available",
   "license": "MIT",

@@ -3,7 +3,7 @@ import KeyboardCommandsModal from "./KeyboardCommandsModal";
 import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
 import KeyboardHandler from "./KeyboardHandler";
 import type { StatusBarItem } from "../StatusBarItem";
-import type { VscodeApi } from "@cursorless/vscode-common";
+import type { VscodeApi } from "@cursorless/lib-vscode-common";
 
 export class KeyboardCommands {
   targeted: KeyboardCommandsTargeted;

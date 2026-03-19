@@ -12,7 +12,7 @@ import {
   getCursorlessApi,
   runCursorlessCommand,
   type SpyWebViewEvent,
-} from "@cursorless/vscode-common";
+} from "@cursorless/lib-vscode-common";
 import { isEqual } from "lodash-es";
 import assert from "node:assert";
 import path from "path";

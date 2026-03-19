@@ -8,7 +8,7 @@ import { asyncSafety } from "@cursorless/lib-common";
 import {
   getReusableEditor,
   runCursorlessAction,
-} from "@cursorless/vscode-common";
+} from "@cursorless/lib-vscode-common";
 import assert from "assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";

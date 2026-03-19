@@ -12,7 +12,7 @@
   "dependencies": {
     "@cursorless/lib-common": "workspace:*",
     "@cursorless/lib-node-common": "workspace:*",
-    "@cursorless/vscode-common": "workspace:*",
+    "@cursorless/lib-vscode-common": "workspace:*",
     "immer": "^11.1.4",
     "lodash-es": "^4.17.23"
   },

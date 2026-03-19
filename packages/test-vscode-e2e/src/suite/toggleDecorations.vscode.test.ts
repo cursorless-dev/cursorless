@@ -1,4 +1,7 @@
-import { getCursorlessApi, getReusableEditor } from "@cursorless/vscode-common";
+import {
+  getCursorlessApi,
+  getReusableEditor,
+} from "@cursorless/lib-vscode-common";
 import assert from "assert";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";

@@ -4,7 +4,7 @@ import type { StoredTargetMap } from "@cursorless/lib-engine";
 import type {
   ScopeRangeType,
   ScopeVisualizerColorConfig,
-} from "@cursorless/vscode-common";
+} from "@cursorless/lib-vscode-common";
 import type { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { VscodeFancyRangeHighlighter } from "./ide/vscode/VSCodeScopeVisualizer/VscodeFancyRangeHighlighter";
 import { getColorsFromConfig } from "./ide/vscode/VSCodeScopeVisualizer/getColorsFromConfig";

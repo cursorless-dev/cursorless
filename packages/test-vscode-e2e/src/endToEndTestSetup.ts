@@ -3,7 +3,7 @@ import { shouldUpdateFixtures, sleep, SpyIDE } from "@cursorless/lib-common";
 import {
   getCursorlessApi,
   resetReusableEditor,
-} from "@cursorless/vscode-common";
+} from "@cursorless/lib-vscode-common";
 import type { Context } from "mocha";
 import * as sinon from "sinon";
 

@@ -1,5 +1,5 @@
 import type { RangePlainObject } from "@cursorless/lib-common";
-import type { VscodeApi } from "@cursorless/vscode-common";
+import type { VscodeApi } from "@cursorless/lib-vscode-common";
 import type * as sinon from "sinon";
 import type * as vscode from "vscode";
 

@@ -1,5 +1,5 @@
 import { CompositeKeyMap } from "@cursorless/lib-common";
-import type { VscodeApi } from "@cursorless/vscode-common";
+import type { VscodeApi } from "@cursorless/lib-vscode-common";
 import { pick, sortedUniq, toPairs } from "lodash-es";
 import { Grammar, Parser } from "nearley";
 import * as vscode from "vscode";

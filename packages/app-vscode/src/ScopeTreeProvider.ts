@@ -17,7 +17,7 @@ import {
   uriEncodeHashId,
 } from "@cursorless/lib-common";
 import { type CustomSpokenFormGenerator } from "@cursorless/lib-engine";
-import { type VscodeApi } from "@cursorless/vscode-common";
+import { type VscodeApi } from "@cursorless/lib-vscode-common";
 import { isEqual } from "lodash-es";
 import type {
   Disposable,

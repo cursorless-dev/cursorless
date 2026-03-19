@@ -3,7 +3,7 @@ import {
   getCursorlessApi,
   getReusableEditor,
   runCursorlessCommand,
-} from "@cursorless/vscode-common";
+} from "@cursorless/lib-vscode-common";
 import { assert } from "chai";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";

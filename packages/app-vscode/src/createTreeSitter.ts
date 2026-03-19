@@ -1,5 +1,5 @@
 import type { TreeSitter } from "@cursorless/lib-common";
-import type { ParseTreeApi } from "@cursorless/vscode-common";
+import type { ParseTreeApi } from "@cursorless/lib-vscode-common";
 
 export function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {
   return {

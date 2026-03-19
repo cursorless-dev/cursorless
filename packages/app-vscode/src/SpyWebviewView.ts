@@ -1,7 +1,7 @@
 import type { Disposable } from "@cursorless/lib-common";
 import { cloneDeep } from "lodash-es";
 import type { Uri, Webview, WebviewView } from "vscode";
-import type { SpyWebViewEvent } from "@cursorless/vscode-common";
+import type { SpyWebViewEvent } from "@cursorless/lib-vscode-common";
 
 /**
  * Wraps a {@link WebviewView} and provides a way to spy on its events for

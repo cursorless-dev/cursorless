@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { getReusableEditor } from "@cursorless/vscode-common";
+import { getReusableEditor } from "@cursorless/lib-vscode-common";
 import VscodeTextLine from "./VscodeTextLine";
 
 /**

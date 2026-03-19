@@ -1,4 +1,4 @@
-import { getCellIndex } from "@cursorless/vscode-common";
+import { getCellIndex } from "@cursorless/lib-vscode-common";
 import type { NotebookDocument, TextEditor } from "vscode";
 import { commands, TabInputTextDiff, ViewColumn, window } from "vscode";
 import { getNotebookFromCellDocument } from "./notebook/notebook";

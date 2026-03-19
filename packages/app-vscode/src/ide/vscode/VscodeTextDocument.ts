@@ -10,7 +10,7 @@ import {
   fromVscodePosition,
   toVscodePosition,
   toVscodeRange,
-} from "@cursorless/vscode-common";
+} from "@cursorless/lib-vscode-common";
 import * as path from "node:path";
 import type * as vscode from "vscode";
 import type { URI } from "vscode-uri";

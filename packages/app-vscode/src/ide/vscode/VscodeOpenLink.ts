@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 import type { VscodeTextEditor } from "./VscodeTextEditor";
 import type { OpenLinkOptions, Range } from "@cursorless/lib-common";
 import { Selection } from "@cursorless/lib-common";
-import { toVscodePositionOrRange } from "@cursorless/vscode-common";
+import { toVscodePositionOrRange } from "@cursorless/lib-vscode-common";
 
 export default async function vscodeOpenLink(
   editor: VscodeTextEditor,

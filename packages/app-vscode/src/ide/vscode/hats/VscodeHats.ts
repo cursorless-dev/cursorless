@@ -8,8 +8,8 @@ import type {
   TextEditor,
 } from "@cursorless/lib-common";
 import { Notifier } from "@cursorless/lib-common";
-import type { VscodeApi } from "@cursorless/vscode-common";
-import { toVscodeRange } from "@cursorless/vscode-common";
+import type { VscodeApi } from "@cursorless/lib-vscode-common";
+import { toVscodeRange } from "@cursorless/lib-vscode-common";
 import * as vscode from "vscode";
 import type { Disposable } from "vscode";
 import type { VscodeHatStyleName } from "../hatStyles.types";

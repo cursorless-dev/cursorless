@@ -1,5 +1,5 @@
 import type { Edit } from "@cursorless/lib-common";
-import { toVscodePosition, toVscodeRange } from "@cursorless/vscode-common";
+import { toVscodePosition, toVscodeRange } from "@cursorless/lib-vscode-common";
 import type * as vscode from "vscode";
 
 export default async function vscodeEdit(

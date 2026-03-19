@@ -1,7 +1,7 @@
 import type {
   ScopeRangeType,
   ScopeVisualizerColorConfig,
-} from "@cursorless/vscode-common";
+} from "@cursorless/lib-vscode-common";
 import type { RangeTypeColors } from "./RangeTypeColors";
 
 export function getColorsFromConfig(

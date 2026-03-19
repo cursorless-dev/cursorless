@@ -1,4 +1,4 @@
-import { openNewEditor } from "@cursorless/vscode-common";
+import { openNewEditor } from "@cursorless/lib-vscode-common";
 import * as vscode from "vscode";
 import { injectFakes } from "./injectFakes";
 import { checkAndResetFakes } from "./checkAndResetFakes";

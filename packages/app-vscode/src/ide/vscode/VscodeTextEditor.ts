@@ -17,7 +17,7 @@ import {
   fromVscodeSelection,
   toVscodeRange,
   toVscodeSelection,
-} from "@cursorless/vscode-common";
+} from "@cursorless/lib-vscode-common";
 import * as vscode from "vscode";
 import vscodeEdit from "./VscodeEdit";
 import vscodeFocusEditor from "./VscodeFocusEditor";
