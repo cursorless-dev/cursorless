@@ -1,4 +1,4 @@
-/* https://github.com/cursorless-dev/cursorless/blob/a9affbb83a0d81476760c5c4fdd5b67c8162ae25/packages/cursorless-vscode/package.json#L560-L581 */
+/* https://github.com/cursorless-dev/cursorless/blob/a3156f9492ec859fdee0c2ae70842ed147bc51c4/packages/app-vscode/package.json#L575-L596 */
 
 export const highlightColors = {
   domain: {
