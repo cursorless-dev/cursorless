@@ -28,7 +28,7 @@ jobs:
         uses: ./.github/actions/setup-node
 
       - name: Build
-        run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build
+        run: pnpm --color -F '!@cursorless/app-web' -F '!@cursorless/app-web-docs' build
         env:
           CURSORLESS_DEPLOY: true
 
@@ -67,7 +67,7 @@ jobs:
         uses: ./.github/actions/setup-node
 
       - name: Build
-        run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build
+        run: pnpm --color -F '!@cursorless/app-web' -F '!@cursorless/app-web-docs' build
         env:
           CURSORLESS_DEPLOY: true
 

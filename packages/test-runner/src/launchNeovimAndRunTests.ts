@@ -96,11 +96,11 @@ export async function launchNeovimAndRunTests() {
     await delay(5000);
 
     console.log("listing cursorless-neovim/out/:");
-    readdirSync(
-      `${getCursorlessRepoRoot()}/packages/app-neovim/out/`,
-    ).forEach((file) => {
-      console.log(`\t${file}`);
-    });
+    readdirSync(`${getCursorlessRepoRoot()}/packages/app-neovim/out/`).forEach(
+      (file) => {
+        console.log(`\t${file}`);
+      },
+    );
 
     await delay(10000);
 
@@ -163,7 +163,7 @@ export async function launchNeovimAndRunTests() {
     console.log(`killed: ${subprocess.killed}`);
 
     // XXX - code to replace above code, needs more testing
-    // code from packages\cursorless-vscode\src\scripts\initLaunchSandbox.ts
+    // code from packages/app-vscode/src/scripts/initLaunchSandbox.ts
     // await new Promise<void>((resolve, reject) => {
     //   subprocess.on("error", reject);
     //   subprocess.on("exit", (code) => {

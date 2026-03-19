@@ -15,7 +15,7 @@ import { registerCommands } from "./registerCommands";
 /**
  * This function is called from cursorless.nvim to initialize the Cursorless engine.
  * NOTE: this is not the cursorless-neovim extension entrypoint (which is called at Neovim startup)
- * We named it activate() in order to have the same structure as the extension entrypoint to match cursorless-vscode
+ * We named it activate() in order to have the same structure as the extension entrypoint to match app-vscode
  */
 export async function activate(plugin: NvimPlugin) {
   const client = plugin.nvim as NeovimClient;

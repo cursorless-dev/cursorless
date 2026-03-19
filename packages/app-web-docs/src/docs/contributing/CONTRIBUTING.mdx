@@ -192,7 +192,7 @@ Once you have your package then you can install it into the sandbox using the fo
 You can install a local build of the Cursorless extension by running the following command:
 
 ```bash
-pnpm -F cursorless-vscode install-local
+pnpm -F @cursorless/app-vscode install-local
 ```
 
 This will bundle and install a local version of Cursorless, uninstalling production Cursorless first and using a special extension id to break the update chain.
@@ -203,13 +203,13 @@ download and install the artifact from the PR build. This requires the [`gh`
 cli](https://cli.github.com/). For example:
 
 ```bash
-pnpm -F cursorless-vscode install-from-pr 1281
+pnpm -F @cursorless/app-vscode install-from-pr 1281
 ```
 
 To uninstall the local build and revert to production cursorless, run the following command:
 
 ```bash
-pnpm -F cursorless-vscode uninstall-local
+pnpm -F @cursorless/app-vscode uninstall-local
 ```
 
 ## Regular manual maintenance tasks

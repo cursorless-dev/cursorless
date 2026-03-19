@@ -46,7 +46,7 @@ export class VscodeTutorial implements WebviewViewProvider {
             path.join(
               getCursorlessRepoRoot(),
               "packages",
-              "cursorless-vscode-tutorial-webview",
+              "lib-vscode-tutorial-webview",
               "out",
             ),
           )

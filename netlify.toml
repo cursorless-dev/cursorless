@@ -4,4 +4,4 @@
 
 [build]
   command = "./scripts/build-and-assemble-website.sh"
-  publish = "dist/cursorless-org"
+  publish = "dist/app-web"

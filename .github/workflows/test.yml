@@ -76,7 +76,7 @@ jobs:
         shell: bash
 
       - name: Build
-        run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build
+        run: pnpm --color -F '!@cursorless/app-web' -F '!@cursorless/app-web-docs' build
 
       - name: Run unit tests (Linux)
         run: xvfb-run -a pnpm --color test
@@ -161,7 +161,7 @@ jobs:
         uses: ./.github/actions/setup-node
 
       - name: Build
-        run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build
+        run: pnpm --color -F '!@cursorless/app-web' -F '!@cursorless/app-web-docs' build
 
       - name: Install neovim dependencies
         run: bash -x scripts/install-neovim-dependencies.sh

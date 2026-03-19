@@ -8,7 +8,7 @@ export const assets: Asset[] = [
   { source: "../../NOTICE.md", destination: "NOTICE.md" },
   { source: "../../README.md", destination: "README.md" },
   {
-    source: "../cheatsheet-local/out/index.html",
+    source: "../lib-cheatsheet-local/out/index.html",
     destination: "cheatsheet.html",
     // We allow this to be optional in dev mode because it is expensive to
     // build, and is only used when they say "cursorless cheatsheet".
@@ -28,11 +28,11 @@ export const assets: Asset[] = [
     destination: "tutorial",
   },
   {
-    source: "../cursorless-vscode-tutorial-webview/out/index.js",
+    source: "../lib-vscode-tutorial-webview/out/index.js",
     destination: "media/tutorialWebview.js",
   },
   {
-    source: "../cursorless-vscode-tutorial-webview/out/index.css",
+    source: "../lib-vscode-tutorial-webview/out/index.css",
     destination: "media/tutorialWebview.css",
   },
   { source: "./images/logo.png", destination: "images/logo.png" },

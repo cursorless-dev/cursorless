@@ -20,9 +20,9 @@ within this repository.
 
 There are two important kinds of internal packages:
 
-- Source-only shared code packages, such as `common` or `cursorless-engine`
+- Source-only shared code packages, such as `lib-common` or `lib-engine`
 - Internal asset packages, such as `cheatsheet-local` or
-  `cursorless-vscode-tutorial-webview`
+  `lib-vscode-tutorial-webview`
 
 ### Source-only shared code packages
 
@@ -97,8 +97,8 @@ internal bundle-producing packages, its `build` script should invoke their
 
 For example:
 
-- `cursorless-vscode build` is responsible for building the assets it embeds
-- `cursorless-neovim build` is responsible for building the support artifacts it
+- `app-vscode build` is responsible for building the assets it embeds
+- `app-neovim build` is responsible for building the support artifacts it
   packages
 
 ### `dev`

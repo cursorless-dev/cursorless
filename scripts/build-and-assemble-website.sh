@@ -5,8 +5,8 @@ pnpm install
 
 NODE_OPTIONS="--max-old-space-size=6144" \
   pnpm \
-  -F 'cursorless-org' \
-  -F 'cursorless-org-docs' \
+  -F '@cursorless/app-web' \
+  -F '@cursorless/app-web-docs' \
   build
 
 pnpm -r generate-railroad
@@ -14,7 +14,7 @@ pnpm -r generate-railroad
 # Merge the root site and the documentation site, placing the documentation site
 # under docs/
 
-root_dir=dist/cursorless-org
+root_dir=dist/app-web
 docs_dir="$root_dir/docs"
 
 # Important to remove the root dir first! otherwise we might end up with old removed files from the root dir that are still present in the docs dir, which would be bad since we want to remove old files that are no longer present in the new build.
