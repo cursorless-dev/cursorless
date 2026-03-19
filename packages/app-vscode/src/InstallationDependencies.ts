@@ -130,6 +130,11 @@ function talonHomeExists() {
 
 function cursorlessTalonExists() {
   const talonUserPath = path.join(getTalonHomePath(), "user");
+
+  if (!fs.existsSync(talonUserPath)) {
+    return false;
+  }
+
   const files = glob.sync("**/*/src/cursorless.talon", {
     cwd: talonUserPath,
     deep: 3,
